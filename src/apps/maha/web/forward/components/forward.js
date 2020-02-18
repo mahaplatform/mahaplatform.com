@@ -35,7 +35,7 @@ class Forward extends React.Component {
   _getForm() {
     const { code, token } = this.props
     return {
-      endpoint: `/api/crm/forward/${code}`,
+      endpoint: `/api/forward/${code}`,
       method: 'POST',
       captcha: true,
       submitText: 'Forward Email',

@@ -1,11 +1,8 @@
 import { Router } from 'express'
-import uploads from './uploads'
 import forward from './forward'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/forward', forward)
-
-router.use('/uploads', uploads)
+router.use('/f:email_code([a-z0-9]{10})', forward)
 
 export default router

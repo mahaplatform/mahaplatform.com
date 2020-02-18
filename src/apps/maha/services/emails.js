@@ -46,9 +46,11 @@ const _findOrCreateLink = async (req, { link }) => {
 
 }
 
-export const encodeEmail = async(req, { code, html }) => {
+export const encodeEmail = async(req, { code, header, html }) => {
 
   const parsed = cheerio.load(html)
+
+  if(header) await parsed(header).prependTo('body')
 
   await parsed(`<img src="${process.env.WEB_HOST}/v${code}" />`).appendTo('body')
 

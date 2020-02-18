@@ -45,6 +45,7 @@ const processor = async (job, trx) => {
     pluralize,
     team,
     host: process.env.WEB_HOST,
+    maha: true,
     ...job.data.data || {}
   }
 

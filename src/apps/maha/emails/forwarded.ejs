@@ -1,0 +1,23 @@
+<table class="forwarded">
+  <tbody>
+    <tr>
+      <td class="float-center" align="center" valign="top">
+        <center>
+          <table class="container">
+            <tbody>
+              <tr>
+                <td>
+                  <p>Dear <%= recipient.first_name %> <%= recipient.last_name %>,</p>
+                  <p></p>
+                  <p><%= contact.full_name %> has forwarded this email to you with the following message:</p>
+                  <p></p>
+                  <p><%= message %></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </tbody>
+</table>

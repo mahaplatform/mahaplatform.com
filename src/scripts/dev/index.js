@@ -13,6 +13,8 @@ import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
 
+const protocol = /https/.test(process.env.WEB_HOST) ? 'https' : 'http'
+
 const appsDir = path.resolve('src','apps')
 
 const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
@@ -104,7 +106,7 @@ const webWatch = async () => {
     const publicPath = `/apps/${app}/${subapp}`
     const config = webpack(webpackConfig(app, subapp, dir, port))
     const devserver = new devServer(config, {
-      https: /https/.test(process.env.WEB_HOST),
+      https: protocol === 'https',
       hot: true,
       publicPath,
       quiet: true,
@@ -123,7 +125,7 @@ const webWatch = async () => {
 
 const adminWatch = async () => {
   const wildcard = {
-    target: `http://localhost:${process.env.SERVER_PORT}`,
+    target: `${protocol}://localhost:${process.env.SERVER_PORT}`,
     bypass: (req, res, proxyOptions) => {
       const root = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(2)
@@ -132,19 +134,19 @@ const adminWatch = async () => {
     }
   }
   const devserver = new devServer(webpack(adminConfig), {
-    https: /https/.test(process.env.WEB_HOST),
+    https: protocol === 'https',
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
     publicPath: '/admin',
     proxy: {
       '/socket': {
-        target: `http://localhost:${process.env.SERVER_PORT}`,
+        target: `${protocol}://localhost:${process.env.SERVER_PORT}`,
         ws: true
       },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
-          target: `https://localhost:${proxy.port}`,
+          target: `${protocol}://localhost:${proxy.port}`,
           secure: false
         }
       }), {}),

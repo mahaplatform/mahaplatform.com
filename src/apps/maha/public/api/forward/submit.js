@@ -1,6 +1,6 @@
-import ForwardEmailCampaignEmailQueue from '../../../queues/forward_email_campaign_email_queue'
-import Email from '../../../../maha/models/email'
-import { checkToken } from '../utils'
+import ForwardEmailQueue from '../../../queues/forward_email_queue'
+import Email from '../../..//models/email'
+import { checkToken } from './utils'
 
 const submitRoute = async (req, res) => {
 
@@ -15,7 +15,7 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await ForwardEmailCampaignEmailQueue.enqueue(req, {
+  await ForwardEmailQueue.enqueue(req, {
     email_id: email.get('id'),
     first_name: req.body.first_name,
     last_name: req.body.last_name,

@@ -167,6 +167,7 @@ class Table extends React.Component {
   }
 
   _handleClick(record, index) {
+    if(!this.props.onClick) return
     this.props.onClick(record, index)
   }
 

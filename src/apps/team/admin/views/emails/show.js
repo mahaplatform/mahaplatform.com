@@ -39,7 +39,7 @@ class EmailsShow extends React.Component {
                     { activity.type === 'open' && <i className="fa fa-fw fa-envelope-open"></i> }
                     { activity.type === 'complaint' && <i className="fa fa-fw fa-bullhorn"></i> }
                     { activity.type === 'webview' && <i className="fa fa-fw fa-globe"></i> }
-                    { activity.type === 'forward' && <i className="fa fa-fw fa-arrow-pointer"></i> }
+                    { activity.type === 'forward' && <i className="fa fa-fw fa-arrow-right"></i> }
                     { activity.type === 'unsubscribe' && <i className="fa fa-fw fa-times"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
                     { activity.type === 'share' && <i className={`fa fa-fw fa-${activity.service}`}></i> }
