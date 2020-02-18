@@ -24,13 +24,11 @@ class CardField extends React.PureComponent {
   number = null
 
   state = {
-    focused: null,
     cvv: '',
     expirationDate: '',
     number: ''
   }
 
-  _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing: true })
   _handleClear = this._handleClear.bind(this)
   _handleCVV = this._handleCVV.bind(this)
@@ -85,27 +83,25 @@ class CardField extends React.PureComponent {
     }
   }
 
-  _getIcon() {
-    const { number } = this.state
-    const type = creditcard.determineCardType(number, { allowPartial: true })
-    if(type === 'VISA') return 'visa'
-    if(type === 'MASTERCARD') return 'mastercard'
-    if(type === 'AMERICANEXPRESS') return 'amex'
-    if(type === 'DISCOVER') return 'discover'
-    if(type === 'JCB') return 'jcb'
-    return null
-  }
-
-  _getNumber() {
-    const { focused, number } = this.state
+  _getCVV() {
+    const { cvv } = this.state
     return {
-      autoComplete: 'cc-number',
-      ref: node => this.number = node,
-      placeholder: focused === 'number' ? '' : 'Card Number',
-      onBlur: this._handleBlur,
-      onChange: this._handleNumber,
-      onFocus: this._handleFocus.bind(this, 'number'),
-      value: card.format(number)
+      autoComplete: 'cc-cvv',
+      ref: node => this.cvv = node,
+      placeholder: 'CVV',
+      onChange: this._handleCVV,
+      value: cvv
+    }
+  }
+  
+  _getExpiration() {
+    const { expirationDate } = this.state
+    return {
+      autoComplete: 'cc-exp',
+      ref: node => this.expirationDate = node,
+      placeholder: 'MM/YY',
+      onChange: this._handleExpiration,
+      value: this._getFormattedExpiration(expirationDate)
     }
   }
 
@@ -118,29 +114,25 @@ class CardField extends React.PureComponent {
     return month
   }
 
-  _getExpiration() {
-    const { expirationDate, focused } = this.state
-    return {
-      autoComplete: 'cc-exp',
-      ref: node => this.expirationDate = node,
-      placeholder: focused === 'expirationDate' ? '' : 'MM/YY',
-      onBlur: this._handleBlur,
-      onChange: this._handleExpiration,
-      onFocus: this._handleFocus.bind(this, 'expirationDate'),
-      value: this._getFormattedExpiration(expirationDate)
-    }
+  _getIcon() {
+    const { number } = this.state
+    const type = creditcard.determineCardType(number, { allowPartial: true })
+    if(type === 'VISA') return 'visa'
+    if(type === 'MASTERCARD') return 'mastercard'
+    if(type === 'AMERICANEXPRESS') return 'amex'
+    if(type === 'DISCOVER') return 'discover'
+    if(type === 'JCB') return 'jcb'
+    return null
   }
 
-  _getCVV() {
-    const { cvv, focused } = this.state
+  _getNumber() {
+    const { number } = this.state
     return {
-      autoComplete: 'cc-cvv',
-      ref: node => this.cvv = node,
-      placeholder: focused === 'cvv' ? '' : 'CVV',
-      onBlur: this._handleBlur,
-      onChange: this._handleCVV,
-      onFocus: this._handleFocus.bind(this, 'cvv'),
-      value: cvv
+      autoComplete: 'cc-number',
+      ref: node => this.number = node,
+      placeholder: 'Card Number',
+      onChange: this._handleNumber,
+      value: card.format(number)
     }
   }
 
@@ -178,16 +170,6 @@ class CardField extends React.PureComponent {
       focused: null,
       number: ''
     })
-  }
-
-  _handleBlur() {
-    this.setState({
-      focused: null
-    })
-  }
-
-  _handleFocus(focused) {
-    this.setState({ focused })
   }
 
   _handleValidate() {
