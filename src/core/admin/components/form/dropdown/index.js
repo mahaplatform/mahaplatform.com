@@ -29,7 +29,7 @@ class Dropdown extends React.Component {
     onReady: () => {}
   }
 
-  dropdown = null
+  control = null
 
   state = {
     animating: false,
@@ -38,14 +38,14 @@ class Dropdown extends React.Component {
     value: null
   }
 
+  _handleClickOutside = this._handleClickOutside.bind(this)
   _handleOpen = this._handleOpen.bind(this)
-  _handleClose = this._handleClose.bind(this)
 
   render() {
     const { format, text } = this.props
     const options = this._getOptions()
     return (
-      <div className="maha-dropdown" ref={ node => this.dropdown = node }>
+      <div className="maha-dropdown" ref={ node => this.control = node }>
         <div className={ this._getDropdownClass() } onClick={ this._handleOpen }>
           <div className="text" onClick={ this._handleOpen }>
             { this._getLabel() }
@@ -64,15 +64,9 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    const { options, value } = this.props
-    document.addEventListener('mousedown', this._handleClose)
     const { defaultValue, onReady } = this.props
-    if(!_.isNil(defaultValue)) {
-      const option = options.find(option => {
-        return _.get(option, value) === defaultValue
-      })
-      this.setValue(option ? _.get(option, value) : null)
-    }
+    document.addEventListener('mousedown', this._handleClickOutside)
+    if(!_.isNil(defaultValue)) this._handleSetDefault()
     onReady()
   }
 
@@ -92,7 +86,7 @@ class Dropdown extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this._handleClose)
+    document.removeEventListener('mousedown', this._handleClickOutside)
   }
 
   _getDropdownClass() {
@@ -131,6 +125,19 @@ class Dropdown extends React.Component {
     })
   }
 
+  _handleChoose(option) {
+    const value = _.get(option, this.props.value)
+    this.setValue(value)
+  }
+
+  _handleClickOutside(e) {
+    const { active } = this.state
+    if(!active || this.control.contains(e.target)) return
+    this.setState({
+      active: false
+    })
+  }
+
   _handleOpen(e) {
     const percent = (e.clientY / window.innerHeight) * 100
     const { active } = this.state
@@ -141,18 +148,12 @@ class Dropdown extends React.Component {
     })
   }
 
-  _handleClose(e) {
-    const { active } = this.state
-    const reserved = ['item','text','dropdown icon','ui selection dropdown active visible','token']
-    if(!active || _.includes(reserved, e.target.className)) return
-    this.setState({
-      active: false
+  _handleSetDefault() {
+    const { defaultValue, options, value } = this.props
+    const option = options.find(option => {
+      return _.get(option, value) === defaultValue
     })
-  }
-
-  _handleChoose(option) {
-    const value = _.get(option, this.props.value)
-    this.setValue(value)
+    this.setValue(option ? _.get(option, value) : null)
   }
 
   setValue(value) {

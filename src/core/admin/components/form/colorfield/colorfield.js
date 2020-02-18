@@ -55,13 +55,13 @@ class ColorField extends React.Component {
     onSet: (value) => {}
   }
 
-  input = null
+  control = null
 
   state = {
     direction: 'down'
   }
 
-  _handleClose = this._handleClose.bind(this)
+  _handleClickOutside = this._handleClickOutside.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleOpen = this._handleOpen.bind(this)
@@ -70,7 +70,7 @@ class ColorField extends React.Component {
   render() {
     const { color, open, tabIndex } = this.props
     return (
-      <div className="colorfield" ref={ node => this.input = node } tabIndex={ tabIndex }>
+      <div className="colorfield" ref={ node => this.control = node } tabIndex={ tabIndex }>
         <div className="colorfield-input" onClick={ this._handleOpen }>
           <div className="colorfield-selected" onClick={ this._handleOpen }>
             { color ?
@@ -103,7 +103,7 @@ class ColorField extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this._handleClose)
+    document.addEventListener('mousedown', this._handleClickOutside)
     const { defaultValue, onReady, onChoose } = this.props
     if(defaultValue) onChoose(defaultValue)
     onReady()
@@ -115,7 +115,7 @@ class ColorField extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this._handleClose)
+    document.removeEventListener('mousedown', this._handleClickOutside)
   }
 
   _getClass() {
@@ -138,7 +138,6 @@ class ColorField extends React.Component {
   _getInput() {
     const { value } = this.props
     return {
-      ref: node => this.input = node,
       type: 'text',
       value: value,
       onChange: this._handleUpdate,
@@ -146,28 +145,20 @@ class ColorField extends React.Component {
     }
   }
 
-  _getParent(el, selector) {
-    const matches = (el.matches || el.matchesSelector)
-    while ((el = el.parentElement) && !(matches.call(el, selector))) { null }
-    return el
-  }
-
   _handleClear(e) {
     e.stopPropagation()
     this.props.onClear()
   }
 
-  _handleClose(e) {
+  _handleClickOutside(e) {
     const { open } = this.props
-    const parent = this._getParent(e.target, '.colorfield')
-    if(!open || parent === this.input) return
+    if(!open || this.control.contains(e.target)) return
     this.props.onClose()
   }
 
   _handleOpen(e) {
     e.stopPropagation()
     const percent = (e.clientY / window.innerHeight) * 100
-    console.log(e.clientY, window.innerHeight, percent)
     this.props.onOpen()
     this.setState({
       direction: percent > 75 ? 'up' : 'down'

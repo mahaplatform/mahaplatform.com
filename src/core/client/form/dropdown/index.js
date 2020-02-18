@@ -35,7 +35,7 @@ class Dropdown extends React.Component {
   }
 
   _handleOpen = this._handleOpen.bind(this)
-  _handleClose = this._handleClose.bind(this)
+  _handleClickOutside = this._handleClickOutside.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
 
   render() {
@@ -62,7 +62,7 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this._handleClose)
+    document.addEventListener('mousedown', this._handleClickOutside)
     const { onReady } = this.props
     onReady()
   }
@@ -87,7 +87,7 @@ class Dropdown extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this._handleClose)
+    document.removeEventListener('mousedown', this._handleClickOutside)
   }
 
   _getClass() {
@@ -152,10 +152,9 @@ class Dropdown extends React.Component {
     })
   }
 
-  _handleClose(e) {
+  _handleClickOutside(e) {
     const { active } = this.state
-    const reserved = ['item','text','dropdown icon','ui selection dropdown active visible']
-    if(!active || _.includes(reserved, e.target.className)) return
+    if(!active || this.control.contains(e.target)) return
     this.setState({
       active: false
     })
