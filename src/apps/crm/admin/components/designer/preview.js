@@ -8,9 +8,10 @@ class Preview extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
-    user: PropTypes.object,
     onBack: PropTypes.func
   }
+
+  form = null
 
   _handleBack = this._handleBack.bind(this)
   _handleSend = this._handleSend.bind(this)
@@ -20,9 +21,12 @@ class Preview extends React.Component {
   }
 
   _getForm() {
-    const { config, user } = this.props
+    const { config } = this.props
     return {
+      reference: node => this.form = node,
       title: 'Send Preview',
+      method: 'post',
+      action: '/api/admin/crm/emails/preview',
       onCancel: this._handleBack,
       cancelIcon: 'chevron-left',
       saveText: null,
@@ -33,7 +37,9 @@ class Preview extends React.Component {
         {
           fields: [
             { type: 'hidden', name: 'config', defaultValue: config },
-            { label: 'To', type: 'emailfield', name: 'to', required: true, defaultValue: user.email }
+            { label: 'First Name', type: 'textfield', name: 'first_name', required: true },
+            { label: 'Last Name', type: 'textfield', name: 'last_name', required: true},
+            { label: 'Email', type: 'emailfield', name: 'email', required: true }
           ]
         }
       ]
@@ -45,14 +51,13 @@ class Preview extends React.Component {
   }
 
   _handleSend() {
-
+    this.form.submit()
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer[props.cid].config,
-  user: state.maha.admin.user
+  config: state.crm.designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Preview)

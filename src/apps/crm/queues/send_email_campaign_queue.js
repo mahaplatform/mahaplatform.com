@@ -26,10 +26,7 @@ const processor = async (job, trx) => {
   }).then(result => result.toArray())
 
   const html = renderEmail(req, {
-    config: campaign.get('config'),
-    data: {
-      forwarded: false
-    }
+    config: campaign.get('config')
   })
 
   await campaign.save({

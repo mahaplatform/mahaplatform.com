@@ -58,10 +58,7 @@ const processor = async (job, trx) => {
   })
 
   const html = renderEmail(req, {
-    config,
-    data: {
-      forwarded: false
-    }
+    config
   })
 
   const rendered = personalizeEmail(req, {
