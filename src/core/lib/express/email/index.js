@@ -5,6 +5,7 @@ import { Router } from 'express'
 import webview from './webview'
 import signout from './signout'
 import logger from '../logger'
+import social from './social'
 import link from './link'
 import open from './open'
 import seen from './seen'
@@ -23,6 +24,8 @@ router.get('/v:email_code([a-z0-9]{10})', open)
 router.get('/c:email_code([a-z0-9]{10}):link_code([a-z0-9]{10})', link)
 
 router.get('/w:email_code([a-z0-9]{10})', webview)
+
+router.use('/s:service([a-z]{1}):email_code([a-z0-9]{10})', social)
 
 router.get('/ns:codes', seen)
 

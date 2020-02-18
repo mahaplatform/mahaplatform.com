@@ -11,6 +11,31 @@
         <%= config.settings.preview_text %>
       </span>
     <% } %>
+    <% if(forwarded) { %>
+      <table class="forwarded">
+        <tbody>
+          <tr>
+            <td class="float-center" align="center" valign="top">
+              <center>
+                <table class="container">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>Dear <%= forwarded.recipient.first_name %> <%= forwarded.recipient.last_name %>,</p>
+                        <p></p>
+                        <p><%= forwarded.contact.full_name %> has forwarded this email to you with the following message:</p>
+                        <p></p>
+                        <p><%= forwarded.message %></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% } %>
     <table class="body" id="body">
       <tbody>
         <tr>

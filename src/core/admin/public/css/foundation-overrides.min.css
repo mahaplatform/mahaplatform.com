@@ -25,6 +25,11 @@ html,
 table.body {
   background-color: #FFFFFF;
 }
+table.forwarded {
+  background-color: #FFFFFF;
+  padding: 15px;
+  width: 100%;
+}
 table.container {
   background: none;
   margin: 0 0 auto;

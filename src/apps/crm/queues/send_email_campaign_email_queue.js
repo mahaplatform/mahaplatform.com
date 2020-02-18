@@ -59,11 +59,11 @@ const processor = async (job, trx) => {
       email: contact.get('email')
     },
     email: {
-      facebook_link: `${process.env.WEB_HOST}/crm/sf${code}`,
-      twitter_link: `${process.env.WEB_HOST}/crm/st${code}`,
+      facebook_link: `${process.env.WEB_HOST}/sf${code}`,
+      twitter_link: `${process.env.WEB_HOST}/st${code}`,
       forward_link: `${process.env.WEB_HOST}/crm/f${code}`,
-      linkedin_link: `${process.env.WEB_HOST}/crm/sl${code}`,
-      pinterest_link: `${process.env.WEB_HOST}/crm/sp${code}`,
+      linkedin_link: `${process.env.WEB_HOST}/sl${code}`,
+      pinterest_link: `${process.env.WEB_HOST}/sp${code}`,
       web_link: `${process.env.WEB_HOST}/w${code}`,
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     }
@@ -82,8 +82,6 @@ const processor = async (job, trx) => {
     from: sender.get('rfc822'),
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),
-    // subject: rendered.subject,
-    // html: rendered.html,
     code,
     data
   }).save(null, {

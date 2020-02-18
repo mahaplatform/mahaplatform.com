@@ -1,5 +1,5 @@
-import EmailActivities from '../../../maha/models/email_activity'
-import Email from '../../../maha/models/email'
+import EmailActivities from '../../../../apps/maha/models/email_activity'
+import Email from '../../../../apps/maha/models/email'
 
 const services = {
   f: { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php?u=' },
@@ -13,7 +13,6 @@ const socialRoute = async (req, res) => {
   const email = await Email.query(qb => {
     qb.where('code', req.params.email_code)
   }).fetch({
-    withRelated: ['email_campaign'],
     transacting: req.trx
   })
 

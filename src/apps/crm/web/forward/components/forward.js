@@ -6,24 +6,21 @@ class Forward extends React.Component {
 
   static propTypes = {
     program: PropTypes.object,
+    code: PropTypes.string,
     token: PropTypes.string
   }
 
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { program } = this.props
     return (
       <div className="overlay">
         <div className="preferences">
           <div className="maha-form">
             <div className="maha-form-header">
-              <div className="maha-form-header-logo">
-                <img src={`/imagecache/fit=cover&w=80&h=80${program.logo}`} />
-              </div>
               <div className="maha-form-header-details">
-                <h1>{ program.title }</h1>
-                <p>Forward to a Friend</p>
+                <h1>Forward to a Friend</h1>
+                <p>Fill in the form below to send a personalized copy of this email to your friend.</p>
               </div>
             </div>
             <div className="maha-form-body">
@@ -36,8 +33,7 @@ class Forward extends React.Component {
   }
 
   _getForm() {
-    const { token } = this.props
-    const code = 'abcde'
+    const { code, token } = this.props
     return {
       endpoint: `/api/crm/forward/${code}`,
       method: 'POST',
@@ -45,7 +41,8 @@ class Forward extends React.Component {
       submitText: 'Forward Email',
       token,
       fields: [
-        { label: 'Name', name: 'name', type: 'textfield', required: true },
+        { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
+        { label: 'Last Name', name: 'last_name', type: 'textfield', required: true },
         { label: 'Email', name: 'email', type: 'emailfield', required: true },
         { label: 'Message', name: 'message', type: 'textarea', rows: 5 }
       ],
