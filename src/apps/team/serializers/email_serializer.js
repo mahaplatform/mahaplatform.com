@@ -18,13 +18,15 @@ const activity = (activity) => ({
   id: activity.get('id'),
   type: activity.get('type'),
   description: activity.get('description'),
+  icon: activity.get('icon'),
   service: activity.get('service'),
   link: link(activity.related('link')),
+  forwarded_to: link(activity.related('forwarded_to')),
   created_at: activity.get('created_at')
 })
 
 const link = (link) => {
-  if(!link.id) return null
+  if(!link) return null
   return {
     id: link.get('id'),
     text: link.get('text'),

@@ -84,7 +84,8 @@ const processor = async (job, trx) => {
   await EmailActivity.forge({
     team_id: forwarding.get('team_id'),
     email_id: forwarding.get('id'),
-    type: 'forward'
+    type: 'forward',
+    forwarded_to: forward.get('to')
   }).save(null, {
     transacting: req.trx
   })

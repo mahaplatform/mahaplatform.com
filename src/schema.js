@@ -1283,6 +1283,7 @@ const schema = {
       table.timestamp('updated_at')
       table.USER-DEFINED('type')
       table.USER-DEFINED('service')
+      table.string('forwarded_to', 255)
     })
 
     await knex.schema.createTable('maha_email_links', (table) => {

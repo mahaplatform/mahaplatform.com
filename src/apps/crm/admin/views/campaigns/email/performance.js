@@ -149,7 +149,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Unsubscribed</td>
                         <td className="right aligned">
-                          { this._getButton(unsubscribed, 'was_unsubscribed') }
+                          { this._getActivity(unsubscribed, 'unsubscribe') }
                         </td>
                       </tr>
                       <tr>

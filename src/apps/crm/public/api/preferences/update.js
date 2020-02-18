@@ -1,3 +1,4 @@
+import EmailActivity from '../../../../maha/models/email_activity'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import { updateConsent } from '../../../services/consents'
@@ -6,7 +7,7 @@ import { checkToken } from '../utils'
 
 const updateRoute = async (req, res) => {
 
-  if(!checkToken(req.headers.authorization, req.params.code)) {
+  if(!checkToken(req.headers.authorization, req.params.channel_code)) {
     return res.status(401).send('Unauthorized')
   }
 
@@ -37,6 +38,22 @@ const updateRoute = async (req, res) => {
     transacting: req.trx,
     patch: true
   })
+
+  if(req.body.optout === true) {
+    await email.save({
+      was_unsubscribed: true
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+    await EmailActivity.forge({
+      team_id: email.get('team_id'),
+      email_id: email.get('id'),
+      type: 'unsubscribe'
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
 
   await contactActivity(req, {
     contact,

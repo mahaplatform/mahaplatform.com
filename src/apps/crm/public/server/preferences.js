@@ -78,6 +78,7 @@ const preferencesRoute = async (req, res) => {
   const content = ejs.render(template, {
     form: {
       type: models[type].type,
+      email_code: req.params.email_code,
       email_address: type === 'e' ? {
         code: channel.get('code'),
         address: channel.get('address')

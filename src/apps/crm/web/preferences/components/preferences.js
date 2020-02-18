@@ -7,6 +7,7 @@ class Preferences extends React.Component {
   static propTypes = {
     contact: PropTypes.object,
     email_address: PropTypes.object,
+    email_code: PropTypes.string,
     mailing_address: PropTypes.object,
     phone_number: PropTypes.object,
     program: PropTypes.object,
@@ -72,11 +73,12 @@ class Preferences extends React.Component {
   }
 
   _getEndpoint() {
-    const { program, email_address, phone_number, mailing_address, type } = this.props
-    if(type === 'email') return `/api/crm/preferences/email/${program.code}/${email_address.code}`
-    if(type === 'sms') return `/api/crm/preferences/sms/${program.code}/${phone_number.code}`
-    if(type === 'voice') return `/api/crm/preferences/voice/${program.code}/${phone_number.code}`
-    if(type === 'mail') return `/api/crm/preferences/mail/${program.code}/${mailing_address.code}`
+    const { program, email_code, email_address, phone_number, mailing_address, type } = this.props
+    const code = email_code || program.code
+    if(type === 'email') return `/api/crm/preferences/email/${code}${email_address.code}`
+    if(type === 'sms') return `/api/crm/preferences/sms/${code}${phone_number.code}`
+    if(type === 'voice') return `/api/crm/preferences/voice/${code}${phone_number.code}`
+    if(type === 'mail') return `/api/crm/preferences/mail/${code}${mailing_address.code}`
   }
 
   _getForm() {

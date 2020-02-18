@@ -3,6 +3,8 @@ const EmailActivitySerializer = (req, result) => ({
   email_id: result.get('email_id'),
   contact: contact(result.related('email').related('contact')),
   description: result.get('description'),
+  icon: result.get('icon'),
+  forwarded_to: result.get('forwarded_to'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

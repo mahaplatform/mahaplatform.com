@@ -3,6 +3,6 @@ import update from './update'
 
 const router = new Router({ mergeParams: true })
 
-router.patch('/:type/:email_code/:email_address_code', update)
+router.patch('/:type/:email_code([a-z0-9]{10}):channel_code([a-z0-9]{10})', update)
 
 export default router
