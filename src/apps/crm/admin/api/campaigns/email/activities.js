@@ -10,7 +10,7 @@ const activitiesRoute = async (req, res) => {
     qb.where('maha_emails.email_campaign_id', req.params.id)
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['program_id','type']
+    filterParams: ['program_id','type','is_mobile']
   }).sort({
     defaultSort:  '-created_at',
     sortParams: ['created_at']

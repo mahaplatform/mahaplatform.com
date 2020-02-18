@@ -155,13 +155,13 @@ class Performance extends React.Component {
                       <tr>
                         <td>Desktop</td>
                         <td className="right aligned">
-                          { this._getPercent(desktop, opened, 'is_desktop') }
+                          { this._getDevice(desktop, total_opened, false) }
                         </td>
                       </tr>
                       <tr>
                         <td>Mobile</td>
                         <td className="right aligned">
-                          { this._getPercent(mobile, opened, 'is_mobile') }
+                          { this._getDevice(mobile, total_opened, true) }
                         </td>
                       </tr>
                       <tr>
@@ -181,19 +181,16 @@ class Performance extends React.Component {
     }
   }
 
-  _getPercent(quantity, total, report) {
-    const percent = quantity / total
-    return this._getButton(numeral(percent).format('0.0%'), report)
-  }
+  _getDevice(quantity, total, is_mobile) {
+    const { campaign } = this.props
+    const percent = total > 0 ? numeral(quantity / total).format('0.0%') : '0%'
+    const button = {
+      label: percent,
+      className: 'link',
+      route: `/admin/crm/campaigns/email/${campaign.id}/activities?$filter[$and][0][type][$eq]=open&$filter[$and][1][is_mobile][$eq]=${is_mobile}`
+    }
+    return <Button { ...button } />
 
-  _getStat(quantity, total, report) {
-    const percent = this._getPercent(quantity, total, report)
-    const portion = `[${quantity} / ${total}]`
-    return (
-      <div>
-        { percent } { portion }
-      </div>
-    )
   }
 
   _getActivity(value, type) {

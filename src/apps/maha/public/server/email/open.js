@@ -1,5 +1,6 @@
 import EmailActivity from '../../../models/email_activity'
 import Email from '../../../models/email'
+import UAParser from 'ua-parser-js'
 import moment from 'moment'
 import path from 'path'
 
@@ -7,7 +8,7 @@ const getRoot = () => {
   if(process.env.NODE_ENV === 'production') {
     return path.resolve(__dirname,'..','..','..','..','public','admin')
   }
-  return path.resolve(__dirname,'..','..','..','admin','public')
+  return path.resolve(__dirname,'..','..','..','..','..','core','admin','public')
 }
 
 const root = getRoot()
@@ -15,6 +16,8 @@ const root = getRoot()
 const trackerFile = path.join(root,'images','tracker.png')
 
 const openRoute = async (req, res) => {
+
+  const ua = UAParser(req.headers['user-agent'])
 
   const email = await Email.where({
     code: req.params.email_code
@@ -37,7 +40,8 @@ const openRoute = async (req, res) => {
   await EmailActivity.forge({
     team_id: email.get('team_id'),
     email_id: email.get('id'),
-    type: 'open'
+    type: 'open',
+    is_mobile: ua.device.type === 'mobile'
   }).save(null, {
     transacting: req.trx
   })

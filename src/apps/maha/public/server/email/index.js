@@ -1,4 +1,3 @@
-import feedback from './feedback'
 import { Router } from 'express'
 import forward from './forward'
 import webview from './webview'
@@ -26,7 +25,5 @@ router.get('/ns:codes', seen)
 router.get('/nv:code', view)
 
 router.get('/so:code', signout)
-
-router.post('/aws/feedback', feedback)
 
 export default router

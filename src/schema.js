@@ -1284,6 +1284,7 @@ const schema = {
       table.USER-DEFINED('type')
       table.USER-DEFINED('service')
       table.string('forwarded_to', 255)
+      table.boolean('is_mobile')
     })
 
     await knex.schema.createTable('maha_email_links', (table) => {
@@ -3137,15 +3138,17 @@ union
       limit 1
       ), mobile as (
       select maha_emails.email_campaign_id,
-      count(*) as count
-      from maha_emails
-      where ((maha_emails.is_mobile = true) and (maha_emails.email_campaign_id is not null))
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      left join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type) and (maha_email_activities.is_mobile = true))))
+      where (maha_emails.email_campaign_id is not null)
       group by maha_emails.email_campaign_id
       ), desktop as (
       select maha_emails.email_campaign_id,
-      count(*) as count
-      from maha_emails
-      where ((maha_emails.is_mobile = false) and (maha_emails.email_campaign_id is not null))
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      left join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type) and (maha_email_activities.is_mobile = false))))
+      where (maha_emails.email_campaign_id is not null)
       group by maha_emails.email_campaign_id
       ), clicked as (
       select maha_emails.email_campaign_id,
