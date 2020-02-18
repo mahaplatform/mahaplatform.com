@@ -64,7 +64,7 @@ export const afterCommit = async (trx, result) => {
 const digestCron = cron({
   name: 'notification',
   schedule: '0 0 2 * * *',
-  processor: processor,
+  processor,
   afterCommit
 })
 

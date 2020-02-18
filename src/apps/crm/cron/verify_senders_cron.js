@@ -31,17 +31,15 @@ export const processor = async (trx) => {
 }
 
 export const afterCommit = async (trx, result) => {
-
   await socket.refresh({ trx }, [
     '/admin/crm/senders'
   ])
-
 }
 
 const verifySendersCron = cron({
   name: 'verify_senders',
   schedule: '0 * * * * *',
-  processor: processor,
+  processor,
   afterCommit
 })
 
