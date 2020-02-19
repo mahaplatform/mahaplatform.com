@@ -21,7 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await filter.save({
-    criteria: req.body.criteria
+    config: req.body.config
   }, {
     transacting: req.trx
   })

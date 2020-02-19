@@ -118,7 +118,7 @@ class Button extends React.Component {
       if(request) this._handleRequest(request)
       if(modal) this._handleModal(modal)
       if(drawer) this._handleDrawer(drawer, location)
-      if(handler) this._handleFunction(handler)
+      if(handler) this._handleFunction(handler, e)
     }
     onDone()
     if(confirm) return this.context.confirm.open(confirm, yesHandler)
@@ -146,8 +146,8 @@ class Button extends React.Component {
     this.context.drawer.open(component, location)
   }
 
-  _handleFunction(handler) {
-    handler(() => {})
+  _handleFunction(handler, e) {
+    handler(e)
   }
 
   _handleRequest(itemRequest) {

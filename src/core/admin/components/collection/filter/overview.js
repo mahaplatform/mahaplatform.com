@@ -3,28 +3,35 @@ import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Button from '../../button'
+import Criteria from './criteria'
 import React from 'react'
 import _ from 'lodash'
 
 class Overview extends React.Component {
 
   static contextTypes = {
+    flash: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
     code: PropTypes.string,
     entity: PropTypes.string,
+    fields: PropTypes.array,
     filters: PropTypes.array,
     onChange: PropTypes.func,
     onEdit: PropTypes.func,
-    onNew: PropTypes.func
+    onNew: PropTypes.func,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   state = {
     active: null
   }
 
+  _handleCancel = this._handleCancel.bind(this)
+  _handleDelete = this._handleDelete.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -81,6 +88,17 @@ class Overview extends React.Component {
     return classes.join(' ')
   }
 
+  _getCriteria(filter = null) {
+    const { code, fields, onChange } = this.props
+    return {
+      code,
+      filter,
+      fields,
+      onChange,
+      onCancel: this._handleCancel
+    }
+  }
+
   _getDelete(filter) {
     return {
       label: <i className="fa fa-trash-o" />,
@@ -89,9 +107,7 @@ class Overview extends React.Component {
       request: {
         method: 'DELETE',
         endpoint: `/api/admin/${filter.code}/filters/${filter.id}`,
-        onSuccess: () => {
-          this.context.flash.set('success', 'The filter was successfully deleted')
-        }
+        onSuccess: this._handleDelete
       }
     }
   }
@@ -111,18 +127,33 @@ class Overview extends React.Component {
     }
   }
 
+  _handleCancel(reset) {
+    if(reset) this._handleReset()
+    this.props.onPop()
+  }
+
+  _handleDelete() {
+    this._handleReset()
+  }
+
   _handleChoose(active) {
     this.setState({ active })
   }
 
   _handleNew() {
-    this._handleChoose(null)
-    this.props.onNew()
+    this._handleReset()
+    this.props.onPush(Criteria, this._getCriteria.bind(this))
   }
 
-  _handleEdit(filter, e) {
-    this.props.onEdit(filter)
-    e.stopPropagation()
+  _handleEdit(filter) {
+    this._handleChoose(filter.id)
+    this.props.onPush(Criteria, this._getCriteria.bind(this, filter))
+  }
+
+  _handleReset() {
+    const active = null
+    this.props.onChange(active)
+    this.setState({ active })
   }
 
 }

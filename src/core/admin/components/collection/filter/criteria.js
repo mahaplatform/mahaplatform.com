@@ -17,8 +17,8 @@ class CriteriaPanel extends React.Component {
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
     filter: PropTypes.object,
-    onChange: PropTypes.func,
-    onPop: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -38,7 +38,7 @@ class CriteriaPanel extends React.Component {
     if(!filter) return
     this.setState({
       filter,
-      criteria: filter.criteria
+      criteria: filter.config.criteria
     })
   }
 
@@ -62,7 +62,7 @@ class CriteriaPanel extends React.Component {
   }
 
   _getDelete(filter) {
-    const { onPop } = this.props
+    const { onCancel } = this.props
     return {
       label: 'Delete',
       color: 'red',
@@ -70,10 +70,7 @@ class CriteriaPanel extends React.Component {
       request: {
         method: 'DELETE',
         endpoint: `/api/admin/${filter.code}/filters/${filter.id}`,
-        onSuccess: () => {
-          this.context.flash.set('success', 'The filter was successfully deleted')
-          onPop()
-        }
+        onSuccess: onCancel
       }
     }
   }
@@ -118,15 +115,16 @@ class CriteriaPanel extends React.Component {
     const { criteria } = this.state
     const { code } = this.props
     const id = filter ? filter.id : null
+    const original = filter ? filter.config.criteria : null
     return {
       label: 'Save',
       color: 'blue',
-      disabled: !(criteria !== null && criteria.length > 0),
+      disabled: _.isEqual(criteria, original),
       modal: !id ? <New { ...this._getNew() } /> : null,
       request: id ? {
         endpoint: `/api/admin/${code}/filters/${id}`,
         method: 'PATCH',
-        body: { criteria },
+        body: { config: { criteria } },
         onSuccess: () => {
           this.context.flash.set('success', 'This filter was successfully saved')
         }
@@ -135,7 +133,9 @@ class CriteriaPanel extends React.Component {
   }
 
   _handleCancel() {
-    this.props.onPop()
+    const { filter } = this.state
+    const reset = filter === null
+    this.props.onCancel(reset)
   }
 
   _handleChange(criteria) {
