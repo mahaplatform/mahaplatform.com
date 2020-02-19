@@ -391,11 +391,8 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.string('title', 255)
-      table.text('description')
-      table.jsonb('criteria')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('crm_mailing_addresses', (table) => {
@@ -1393,9 +1390,9 @@ const schema = {
       table.string('code', 255)
       table.string('title', 255)
       table.text('description')
-      table.jsonb('criteria')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('maha_groupings', (table) => {
@@ -3248,6 +3245,15 @@ union
     `)
 
     await knex.raw(`
+      create view crm_list_totals AS
+      select crm_lists.id as list_id,
+      count(crm_subscriptions.*) as contacts_count
+      from (crm_lists
+      left join crm_subscriptions on ((crm_subscriptions.list_id = crm_lists.id)))
+      group by crm_lists.id;
+    `)
+
+    await knex.raw(`
       create view crm_program_user_access AS
       select distinct on (accesses.program_id, accesses.user_id) accesses.program_id,
       accesses.user_id,
@@ -3396,6 +3402,15 @@ union
       from (crm_lists
       left join crm_subscriptions on ((crm_subscriptions.list_id = crm_lists.id)))
       group by crm_lists.id;
+    `)
+
+    await knex.raw(`
+      create view crm_topic_totals AS
+      select crm_topics.id as topic_id,
+      count(crm_interests.*) as contacts_count
+      from (crm_topics
+      left join crm_interests on ((crm_interests.topic_id = crm_topics.id)))
+      group by crm_topics.id;
     `)
 
     await knex.raw(`

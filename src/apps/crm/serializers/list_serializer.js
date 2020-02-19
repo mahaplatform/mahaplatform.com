@@ -2,9 +2,7 @@ const ListSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   program: program(result.related('program')),
-  type: result.get('type'),
-  criteria: result.get('criteria'),
-  contacts_count: 203,
+  contacts_count: result.get('contacts_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

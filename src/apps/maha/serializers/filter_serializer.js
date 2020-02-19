@@ -4,7 +4,7 @@ const filterSerializer = (req, result) => ({
   title: result.get('title'),
   description: result.get('description'),
   code: result.get('code'),
-  criteria: result.get('criteria'),
+  config: result.get('config'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

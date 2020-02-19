@@ -14,6 +14,7 @@ const listRoute = async (req, res) => {
     qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_contacts.id')
+    qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_contacts.id')
     qb.where('crm_contacts.team_id', req.team.get('id'))
   }).filter({
     aliases: {
@@ -27,10 +28,11 @@ const listRoute = async (req, res) => {
       county: 'crm_mailing_addresses.address->>\'county\'',
       tag_id: 'crm_taggings.tag_id',
       list_id: 'crm_subscriptions.list_id',
-      topic_id: 'crm_interests.topic_id'
+      topic_id: 'crm_interests.topic_id',
+      form_id: 'crm_responses.form_id'
     },
     filter: req.query.$filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id'],
+    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id'],
     searchParams: ['first_name','last_name','email']
   }).sort({
     aliases: {

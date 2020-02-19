@@ -2,7 +2,6 @@ import { Container } from '../container'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Loader from '../loader'
 import Button from '../button'
 import React from 'react'
 import _ from 'lodash'
@@ -62,7 +61,7 @@ class Overview extends React.Component {
     const { filters, onChange } = this.props
     if(active !== prevState.active) {
       const filter = filters.find(filter => filter.id === active)
-      const criteria = filter ? filter.criteria : { $and: [] }
+      const criteria = filter ? filter.config.criteria : null
       onChange(criteria)
     }
   }

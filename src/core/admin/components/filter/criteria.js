@@ -114,11 +114,6 @@ class CriteriaPanel extends React.Component {
     }
   }
 
-  _handleCreate(filter) {
-    console.log(filter)
-    this.setState({ filter })
-  }
-
   _getSave(filter) {
     const { criteria } = this.state
     const { code } = this.props
@@ -126,7 +121,7 @@ class CriteriaPanel extends React.Component {
     return {
       label: 'Save',
       color: 'blue',
-      disabled: !(criteria !== null && criteria.$and.length > 0),
+      disabled: !(criteria !== null && criteria.length > 0),
       modal: !id ? <New { ...this._getNew() } /> : null,
       request: id ? {
         endpoint: `/api/admin/${code}/filters/${id}`,
@@ -145,6 +140,10 @@ class CriteriaPanel extends React.Component {
 
   _handleChange(criteria) {
     this.setState({ criteria })
+  }
+
+  _handleCreate(filter) {
+    this.setState({ filter })
   }
 
 }

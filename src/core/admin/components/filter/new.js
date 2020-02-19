@@ -37,7 +37,7 @@ class New extends React.Component {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: code },
-            { name: 'criteria', type: 'hidden', defaultValue: criteria },
+            { name: 'config', type: 'hidden', defaultValue: { criteria } },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true },
             { label: 'Share With', name: 'accesses', type: 'assignmentfield', prompt: 'Share filter with others' }
           ]

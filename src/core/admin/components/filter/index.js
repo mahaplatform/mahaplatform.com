@@ -1,3 +1,4 @@
+import { toFilter } from '../criteria/utils'
 import PropTypes from 'prop-types'
 import Overview from './overview'
 import Criteria from './criteria'
@@ -19,6 +20,7 @@ class Filter extends React.PureComponent {
     cards: []
   }
 
+  _handleChange = this._handleChange.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handlePop = this._handlePop.bind(this)
@@ -37,24 +39,24 @@ class Filter extends React.PureComponent {
   }
 
   _getCriteria(filter = null) {
-    const { code, fields, onChange } = this.props
+    const { code, fields } = this.props
     return {
       code,
       filter,
       fields,
-      onChange,
+      onChange: this._handleChange,
       onPop: this._handlePop
     }
   }
 
   _getOverview() {
-    const { code, entity, onChange } = this.props
+    const { code, entity } = this.props
     return {
       code,
       entity,
       onEdit: this._handleEdit,
       onNew: this._handleNew,
-      onChange
+      onChange: this._handleChange
     }
   }
 
@@ -64,6 +66,11 @@ class Filter extends React.PureComponent {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleChange(criteria) {
+    const filter = criteria ? toFilter(criteria) : { $and: [] }
+    this.props.onChange(filter)
   }
 
   _handleEdit(filter) {
