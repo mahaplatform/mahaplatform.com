@@ -1,22 +1,16 @@
 import { notifications } from '../../../../../core/services/routes/notifications'
 import { audit } from '../../../../../core/services/routes/audit'
-import ItemSerializer from '../../../serializers/item_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Item from '../../../models/item'
 
-const types = ['advance','check','expense','reimbursement','trip']
-
 const submitAllRoute = async (req, res) => {
 
-  const items = await Item.query(qb => {
-    types.map(type => {
-      if(!req.body[`${type}_ids`]) return
-      qb.orWhere(qb2 => {
-        qb2.whereIn('item_id', req.body[`${type}_ids`]).andWhere('type', type)
-      })
-    })
-    qb.whereNot('status', 'submitted')
+  const items = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('status', 'pending')
     qb.orderBy('user_id', 'asc')
+  }).filter({
+    filter: req.body.filter
   }).fetchAll({
     withRelated: ['project.members','expense_type'],
     transacting: req.trx
@@ -61,7 +55,7 @@ const submitAllRoute = async (req, res) => {
     '/admin/finance/items'
   ])
 
-  res.status(200).respond(items, ItemSerializer)
+  res.status(200).respond(true)
 
 }
 

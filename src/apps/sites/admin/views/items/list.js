@@ -69,48 +69,46 @@ const mapPropsToPage = (props, context, resources, page) => ({
     new: () => <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />,
     defaultSort: { key: 'title', order: 'asc' },
     selectable: true,
-    buttons: ({ selected }) => selected.length > 0 ? [{
+    buttons: (selected) => [{
       color: 'red',
       text: 'Delete Selected',
-      handler: () => {
-        const ids = selected.map(record => record.id)
-        context.confirm.open(`Are you sure you want to delete these ${pluralize('item', ids.length, true)}?`, () => {
-          context.network.request({
-            method: 'PATCH',
-            endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/delete`,
-            body: { ids },
-            onFailure: (result) => context.flash.set('error', `Unable to delete these ${pluralize('item', ids.length, true)}`),
-            onSuccess: (result) => context.flash.set('success', `You successfully deleted ${pluralize('item', ids.length, true)}`)
-          })
-        })
+      confirm: `Are you sure you want to delete these ${pluralize('item', selected.total, true)}?`,
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/delete`,
+        body: {
+          filter: selected.filter
+        },
+        onFailure: (result) => context.flash.set('error', `Unable to delete these ${pluralize('item', selected.total, true)}`),
+        onSuccess: (result) => context.flash.set('success', `You successfully deleted ${pluralize('item', selected.total, true)}`)
       }
     },{
       color: 'red',
       text: 'Publish Selected',
-      handler: () => {
-        const ids = selected.map(record => record.id)
-        context.network.request({
-          method: 'PATCH',
-          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
-          body: { ids, is_published: true },
-          onFailure: (result) => context.flash.set('error', `Unable to publish these ${pluralize('item', ids.length, true)}`),
-          onSuccess: (result) => context.flash.set('success', `You successfully published ${pluralize('item', ids.length, true)}`)
-        })
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
+        body: {
+          filter: selected.filter,
+          is_published: true
+        },
+        onFailure: (result) => context.flash.set('error', `Unable to publish these ${pluralize('item', selected.total, true)}`),
+        onSuccess: (result) => context.flash.set('success', `You successfully published ${pluralize('item', selected.total, true)}`)
       }
     },{
       color: 'red',
       text: 'Unpublish Selected',
-      handler: () => {
-        const ids = selected.map(record => record.id)
-        context.network.request({
-          method: 'PATCH',
-          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
-          body: { ids, is_published: false },
-          onFailure: (result) => context.flash.set('error', `Unable to unpublish these ${pluralize('item', ids.length, true)}`),
-          onSuccess: (result) => context.flash.set('success', `You successfully unpublished ${pluralize('item', ids.length, true)}`)
-        })
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
+        body: {
+          filter: selected.filter,
+          is_published: false
+        },
+        onFailure: (result) => context.flash.set('error', `Unable to unpublish these ${pluralize('item', selected.total, true)}`),
+        onSuccess: (result) => context.flash.set('success', `You successfully unpublished ${pluralize('item', selected.total, true)}`)
       }
-    }] : null
+    }]
   },
   tasks: {
     icon: 'plus',

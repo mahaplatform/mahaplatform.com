@@ -65,10 +65,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet created any items'
     },
     selectable: true,
+    selectValue: 'code',
     entity: 'items',
-    buttons: (props) => props.selected.length > 0 ? [
-      batchTask(context, props, 'blue', 'submit', 'submitted', 'pending', '/api/admin/finance/items/submit_all')
-    ] : null,
+    buttons: (selected) => [
+      batchTask(context, selected, 'blue', 'submit', 'submitted', 'pending', '/api/admin/finance/items/submit_all')
+    ],
     onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)
   },
   tasks: {

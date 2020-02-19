@@ -21,8 +21,9 @@ class Table extends React.Component {
     recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
     selectable: PropTypes.bool,
-    selected: PropTypes.array,
+    selected: PropTypes.object,
     selectAll: PropTypes.bool,
+    selectValue: PropTypes.string,
     sort: PropTypes.object,
     status: PropTypes.string,
     onClick: PropTypes.func,
@@ -42,7 +43,7 @@ class Table extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { records, recordTasks, selectable, selected, selectAll, sort, status, onClick } = this.props
+    const { records, recordTasks, selectable, selectAll, sort, status, onClick } = this.props
     const columns = this.props.display
     return (
       <div className="maha-table">
@@ -76,8 +77,8 @@ class Table extends React.Component {
               { records.map((record, rowIndex) => (
                 <tr key={ `record_${rowIndex}` } className={ this._getBodyRowClass(record) }>
                   { selectable &&
-                    <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record.id) }>
-                      { _.includes(selected, record.id) ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
+                    <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record) }>
+                      <i className={`fa fa-${ this._getChecked(record) }`} />
                     </td>
                   }
                   { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
@@ -120,6 +121,14 @@ class Table extends React.Component {
       record,
       items: recordTasks(record)
     }
+  }
+
+  _getChecked(record) {
+    const { selected, selectValue } = this.props
+    const value = _.get(record, selectValue)
+    const included = _.includes(selected.values, value)
+    if(selected.mode === '$in') return included ? 'check-circle' : 'circle-o'
+    return included ? 'circle-o' : 'check-circle'
   }
 
   _getHeaderClass(column) {
@@ -171,8 +180,10 @@ class Table extends React.Component {
     this.props.onClick(record, index)
   }
 
-  _handleSelect(id) {
-    this.props.onSelect(id)
+  _handleSelect(record) {
+    const { selectValue } = this.props
+    const value = _.get(record, selectValue)
+    this.props.onSelect(value)
   }
 
   _handleSelectAll() {

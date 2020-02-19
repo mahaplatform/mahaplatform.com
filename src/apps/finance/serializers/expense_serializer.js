@@ -1,5 +1,6 @@
 const expenseSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   date: result.get('date'),
   receipt_id: result.get('asset_id'),
   receipts: result.related('receipts').map(receipt),

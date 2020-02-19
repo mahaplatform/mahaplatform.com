@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   records: [],
   request_id: null,
   selectAll: false,
-  selected: [],
+  selectMode: '$in',
+  selectedValues: [],
   status: 'pending'
 }
 
@@ -61,8 +62,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       selectAll: false,
-      selected: [
-        ..._.xor(state.selected, [action.id])
+      selectedValues: [
+        ..._.xor(state.selectedValues, [action.id])
       ]
     }
 
@@ -70,7 +71,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       selectAll: !state.selectAll,
-      selected: !state.selectAll ? state.records.map(record => record.id) : []
+      selectMode: state.selectAll ? '$in' : '$nin',
+      selectedValues: []
     }
 
   default:

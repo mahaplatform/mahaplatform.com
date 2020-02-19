@@ -12,7 +12,7 @@ class Export extends React.Component {
   }
 
   static propTypes = {
-    ids: PropTypes.object,
+    filter: PropTypes.object,
     token: PropTypes.string
   }
 
@@ -24,7 +24,7 @@ class Export extends React.Component {
   }
 
   _getForm() {
-    const { ids } = this.props
+    const { filter } = this.props
     return {
       title: 'Create Batch',
       method: 'post',
@@ -35,9 +35,7 @@ class Export extends React.Component {
       sections: [
         {
           fields: [
-            ...Object.keys(ids).map(name => (
-              { name, type: 'hidden', defaultValue: ids[name] }
-            )),
+            { name: 'filter', type: 'hidden', defaultValue: filter },
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') }
           ]
         }

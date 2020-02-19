@@ -13,7 +13,8 @@ class Results extends React.Component {
     rowClass: PropTypes.func,
     selectable: PropTypes.bool,
     selectAll: PropTypes.bool,
-    selected: PropTypes.array,
+    selectValue: PropTypes.string,
+    selected: PropTypes.object,
     sort: PropTypes.object,
     status: PropTypes.string,
     table: PropTypes.array,
@@ -31,7 +32,7 @@ class Results extends React.Component {
   }
 
   _getTable() {
-    const { code, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onClick, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const { code, records, recordTasks, rowClass, table, selectAll, selectValue, selectable, selected, sort, status, onClick, onLoadMore, onSelect, onSelectAll, onSort } = this.props
     const columns = table
     return {
       code,
@@ -40,6 +41,7 @@ class Results extends React.Component {
       recordTasks,
       rowClass,
       selectAll,
+      selectValue,
       selectable,
       selected,
       sort,

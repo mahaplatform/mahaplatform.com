@@ -6,7 +6,7 @@ import socket from '../../../../../core/services/routes/emitter'
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
-    table: 'finance_reimbursements'
+    table: 'finance_items'
   })
 
   const allocations = req.body.allocations || [[]]

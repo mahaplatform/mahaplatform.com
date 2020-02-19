@@ -1,5 +1,6 @@
 const checkSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   date_needed: result.get('date_needed'),
   delivery_method: result.get('delivery_method'),
   description: result.get('description'),

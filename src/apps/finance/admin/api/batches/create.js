@@ -8,18 +8,12 @@ import moment from 'moment'
 
 const createRoute = async (req, res) => {
 
-  const query = qb => {
-    const types = ['advance','check','expense','reimbursement','trip']
-    types.map(type => {
-      if(!req.body[`${type}_ids`]) return
-      qb.orWhere(qb2 => {
-        qb2.where({ type }).andWhere('item_id', 'in', req.body[`${type}_ids`] )
-      })
-    })
-    qb.orderBy('user_id', 'asc')
-  }
-
-  const batchItems = await Item.query(query).fetchAll({
+  const batchItems = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('status', 'reviewed')
+  }).filter({
+    filter: req.body.filter
+  }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
 
@@ -35,10 +29,6 @@ const createRoute = async (req, res) => {
     total: total.toFixed(2),
     date: req.body.date || moment().format('YYYY-MM-DD')
   }).save(null, {
-    transacting: req.trx
-  })
-
-  await batch.load(['user.photo'], {
     transacting: req.trx
   })
 
@@ -59,10 +49,11 @@ const createRoute = async (req, res) => {
       })
   })
 
-  const items = await Item.query(query).fetchAll({
-    withRelated: ['expense_type','project','user','vendor','account'],
+  await batch.load(['items','user.photo'], {
     transacting: req.trx
-  }).then(result => result.toArray())
+  })
+
+  const items = batch.related('items').toArray()
 
   await audit(req, items.map(item => ({
     story: 'processed',
@@ -73,7 +64,7 @@ const createRoute = async (req, res) => {
   })))
 
   await socket.refresh(req, [
-    ...items.map(item => `/admin/finance/${item.get('type')}s/${item.get('id')}`),
+    ...items.map(item => `/admin/finance/${item.get('type')}s/${item.get('item_id')}`),
     '/admin/finance/approvals',
     '/admin/finance/reports',
     '/admin/finance/items'

@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import AdvanceSerializer from '../../../serializers/advance_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import generateCode from '../../../../../core/utils/generate_code'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { completeItem } from '../../../services/items'
@@ -8,9 +9,14 @@ import Advance from '../../../models/advance'
 
 const createRoute = async (req, res) => {
 
+  const code = await generateCode(req, {
+    table: 'finance_items'
+  })
+
   const advance = await Advance.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
+    code,
     status: 'incomplete',
     ...whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description'])
   }).save(null, {

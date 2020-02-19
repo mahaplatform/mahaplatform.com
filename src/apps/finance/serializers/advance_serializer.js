@@ -1,5 +1,6 @@
 const advanceSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   date_needed: result.get('date_needed'),
   description: result.get('description'),
   expense_type: expense_type(result.related('expense_type')),

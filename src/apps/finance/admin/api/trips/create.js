@@ -1,5 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import generateCode from '../../../../../core/utils/generate_code'
 import { audit } from '../../../../../core/services/routes/audit'
 import TripSerializer from '../../../serializers/trip_serializer'
 import socket from '../../../../../core/services/routes/emitter'
@@ -20,6 +21,10 @@ const _getMileageRate = async (req, date) => {
 
 const createRoute = async (req, res) => {
 
+  const code = await generateCode(req, {
+    table: 'finance_items'
+  })
+
   const mileage_rate = await _getMileageRate(req, req.body.date)
 
   const amount = mileage_rate ? req.body.total_miles * mileage_rate : null
@@ -27,6 +32,7 @@ const createRoute = async (req, res) => {
   const trip = await Trip.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
+    code,
     status: 'incomplete',
     expense_type_id: req.apps.finance.settings.trip_expense_type_id,
     mileage_rate,

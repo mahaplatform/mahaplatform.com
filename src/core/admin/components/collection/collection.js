@@ -44,8 +44,9 @@ class Collection extends React.Component {
     route: PropTypes.object,
     rowClass: PropTypes.func,
     search: PropTypes.bool,
-    selected: PropTypes.array,
+    selected: PropTypes.object,
     selectable: PropTypes.bool,
+    selectValue: PropTypes.string,
     sort: PropTypes.object,
     table: PropTypes.array,
     tasks: PropTypes.array,
@@ -72,7 +73,8 @@ class Collection extends React.Component {
     footer: true,
     layout: Results,
     search: true,
-    selectable: false
+    selectable: false,
+    selectValue: 'id'
   }
 
   code = window.location.pathname.substr(1).replace(/\//g,'-')
@@ -101,12 +103,12 @@ class Collection extends React.Component {
           }
         </div>
         { buttons &&
-          <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition in={ selected.total > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="maha-collection-footer">
               <div className="maha-collection-footer-count">
                 <i className="fa fa-fw fa-chevron-up" />
                 <div className="count">
-                  { selected.length }
+                  { selected.total }
                 </div>
               </div>
               <div className="maha-collection-footer-buttons">
@@ -141,7 +143,7 @@ class Collection extends React.Component {
   _getButtons() {
     if(!this.props.buttons) return { buttons: null }
     return {
-      buttons: this.props.buttons(this.props)
+      buttons: this.props.buttons(this.props.selected)
     }
   }
 
@@ -189,7 +191,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, sort, table, onSetSelected, onClick, onSort } = this.props
+    const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -203,6 +205,7 @@ class Collection extends React.Component {
       failure,
       footer: ({ all, total }) => `Showing ${total} of ${pluralize(entity, all, true)}`,
       layout,
+      selectValue,
       props: {
         code: this.code,
         layout,

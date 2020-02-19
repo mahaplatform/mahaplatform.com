@@ -2,60 +2,31 @@ import pluralize from 'pluralize'
 import Export from './batches/new'
 import React from 'react'
 
-export const getIntegrationTasks = (integration, context, props) => {
+export const getIntegrationTasks = (integration, context, selected) => {
 
   if(integration === 'accpac') {
-
     return {
-      text: `Export ${pluralize('item', props.selected.length, true)}`,
+      text: `Export ${pluralize('item', selected.total, true)}`,
       color: 'violet',
       rights: ['finance:manage_configuration'],
-      handler: () => {
-        if(props.selected.length === 0) return context.alert.open('Please select one or more items')
-        const valid = props.selected.reduce((valid, record) => {
-          return !valid ? false : record.status === 'reviewed'
-        }, true)
-        if(!valid) return context.alert.open('You can only export reviewed items')
-        const ids = props.selected.reduce((ids, record) => ({
-          ...ids,
-          [`${record.type}_ids`]: [
-            ...ids[`${record.type}_ids`] || [],
-            record.item_id
-          ]
-        }), { })
-        context.confirm.open(`Are you sure you want to export these ${props.selected.length} items?`, () => {
-          context.modal.open(<Export ids={ ids } />)
-        })
-
-      }
+      confirm: `Are you sure you want to export these ${selected.total} items?`,
+      modal: <Export filter={ selected.filter } />
     }
-
   }
 
   return null
 
 }
 
-export const getIntegrationTask = (integration, team, context, type, id) => {
+export const getIntegrationTask = (integration, team, context, type, code) => {
 
   if(integration === 'accpac') {
-
-    const ids = {
-      [`${type}_ids`]: [id]
-    }
-
-    return [
-      {
-        color: 'violet',
-        text: 'Export',
-        handler: () => {
-          context.confirm.open(`Are you sure you want to export this ${type}?`, () => {
-            context.modal.open(<Export ids={ ids } />)
-          })
-        }
-      }
-    ]
-
+    return [{
+      color: 'violet',
+      text: 'Export',
+      confirm: `Are you sure you want to export this ${type}?`,
+      modal: <Export filter={{ $and: [{code: { $eq: code }}] }} />
+    }]
   }
 
   return null

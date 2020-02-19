@@ -379,7 +379,6 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.text('referer')
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -772,6 +771,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
       table.USER-DEFINED('status')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('finance_batches', (table) => {
@@ -1109,6 +1109,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
       table.USER-DEFINED('status')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('finance_vendors', (table) => {
@@ -3725,7 +3726,7 @@ union
       items.status,
       items.batch_id,
       items.created_at
-      from ( select null::character varying as code,
+      from ( select finance_advances.code,
       finance_advances.id as item_id,
       finance_advances.team_id,
       maha_imports_import_items.import_id,
@@ -3777,7 +3778,7 @@ union
       left join finance_projects on ((finance_projects.id = finance_expenses.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_expenses.id) and ((maha_imports_import_items.object_type)::text = 'finance_expenses'::text))))
       union
-      select null::character varying as code,
+      select finance_trips.code,
       finance_trips.id as item_id,
       finance_trips.team_id,
       maha_imports_import_items.import_id,

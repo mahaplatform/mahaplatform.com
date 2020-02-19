@@ -5,7 +5,12 @@ const INITIAL_STATE = {
   panel: null,
   q: '',
   records: null,
-  selected: [],
+  selected: {
+    filters: {},
+    values: [],
+    mode: '$in',
+    total: 0
+  },
   sort: {
     key: null,
     order: null

@@ -10,7 +10,7 @@ class Header extends React.Component {
   }
 
   static propTypes = {
-    criteria: PropTypes.object,
+    criteria: PropTypes.array,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
     export: PropTypes.array,

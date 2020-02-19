@@ -24,8 +24,11 @@ class Infinite extends React.Component {
     notFound: PropTypes.any,
     props: PropTypes.object,
     records: PropTypes.array,
+    selected: PropTypes.object,
     selectAll: PropTypes.bool,
-    selected: PropTypes.array,
+    selectMode: PropTypes.string,
+    selectValue: PropTypes.string,
+    selectedValues: PropTypes.array,
     skip: PropTypes.number,
     sort: PropTypes.object,
     status: PropTypes.string,
@@ -57,6 +60,7 @@ class Infinite extends React.Component {
       text: 'No records matched your query'
     },
     props: {},
+    selectValue: 'id',
     sort: {
       key: null,
       order: null
@@ -105,13 +109,12 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, exclude_ids, filter, records, selected, sort, onUpdateSelected } = this.props
+    const { cacheKey, exclude_ids, filter, records, selectedValues, sort, onUpdateSelected } = this.props
     if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids)  || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
-    if(selected !== prevProps.selected && selected && records) {
-      const selectedRecords = records.filter(record => _.includes(selected, record.id))
-      if(onUpdateSelected) onUpdateSelected(selectedRecords)
+    if(selectedValues !== prevProps.selectedValues && selectedValues && records) {
+      if(onUpdateSelected) this._handleUpdateSelected()
     }
   }
 
@@ -120,12 +123,13 @@ class Infinite extends React.Component {
   }
 
   _getLayout() {
-    const { all, records, selected, selectAll, total, onSelect, onSelectAll } = this.props
+    const { all, records, selected, selectAll, selectValue, total, onSelect, onSelectAll } = this.props
     return {
       all,
       records,
       selected,
       selectAll,
+      selectValue,
       total,
       onSelect,
       onSelectAll,
@@ -170,6 +174,11 @@ class Infinite extends React.Component {
     const loaded = records ? records.length : 0
     if(next) return { next }
     return { skip: skip !== null ? skip : loaded }
+  }
+
+  _handleUpdateSelected() {
+    const { selected } = this.props
+    this.props.onUpdateSelected(selected)
   }
 
 }

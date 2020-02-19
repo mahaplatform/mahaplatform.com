@@ -1,7 +1,18 @@
 import socket from '../../../../../core/services/routes/emitter'
+import Item from '../../../models/item'
 import _ from 'lodash'
 
 const deleteAllRoute = async (req, res) => {
+
+  const ids = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).filter({
+    filter: req.body.filter
+  }).fetchAll({
+    transacting: req.trx
+  }).then(results => results.map(result => {
+    return result.get('id')
+  }))
 
   const fields = await req.trx('maha_fields')
     .where('type', 'lookup')
@@ -13,7 +24,7 @@ const deleteAllRoute = async (req, res) => {
 
     const items = await req.trx('sites_items')
       .where('type_id', field.parent_id)
-      .whereRaw(contains, req.body.ids)
+      .whereRaw(contains, ids)
 
     await Promise.mapSeries(items, async (item) => {
       await req.trx('sites_items').where('id', item.id).update({
@@ -26,7 +37,7 @@ const deleteAllRoute = async (req, res) => {
 
   })
 
-  await req.trx('sites_items').whereIn('id', req.body.ids).del()
+  await req.trx('sites_items').whereIn('id', ids).del()
 
   await socket.refresh(req, [
     `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items`

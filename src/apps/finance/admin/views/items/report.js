@@ -72,10 +72,11 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Status', key: 'status' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    buttons: (props) => props.selected.length > 0 ? [
-      getIntegrationTasks(resources.app.settings.integration, context, props)
-    ] : null,
     selectable: true,
+    selectValue: 'code',
+    buttons: (selected) => [
+      getIntegrationTasks(resources.app.settings.integration, context, selected)
+    ],
     onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)
   }
 })

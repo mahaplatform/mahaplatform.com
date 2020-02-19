@@ -1,5 +1,6 @@
 const tripSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   expense_type: expense_type(result.related('expense_type')),
   project: project(result.related('project')),
   approver_ids: result.get('approver_ids'),
