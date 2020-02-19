@@ -24,6 +24,8 @@ class Overview extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleCreate = this._handleCreate.bind(this)
+  _handleTest = this._handleTest.bind(this)
 
   render() {
     const { criteria } = this.props
@@ -67,8 +69,8 @@ class Overview extends React.Component {
       parent,
       types: fields,
       onCancel: this._handleCancel,
-      onChange: this._handleTest.bind(this),
-      onDone: this._handleCreate.bind(this),
+      onChange: this._handleTest,
+      onDone: this._handleCreate,
       onPop,
       onPush
     }

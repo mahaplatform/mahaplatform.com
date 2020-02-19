@@ -1,21 +1,26 @@
+import { getFilterFields } from '../../../../../core/services/routes/filters'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
 const listRoute = async (req, res) => {
 
+  const fields = getFilterFields(req.query.$filter)
+
+  const { street_1, city, state_province, postal_code, county, organization_id, tag_id, list_id, topic_id, form_id, import_id } = fields
+
   const contacts = await Contact.scope(qb => {
     qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
     qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_contacts_organizations', 'crm_contacts_organizations.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_contacts.id')
-    qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_contacts.id')
-    qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_contacts.id')
+    if(street_1 || city || state_province || postal_code || county) {
+      qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
+    }
+    if(organization_id) qb.leftJoin('crm_contacts_organizations', 'crm_contacts_organizations.contact_id', 'crm_contacts.id')
+    if(tag_id) qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
+    if(list_id) qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
+    if(topic_id) qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_contacts.id')
+    if(form_id) qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_contacts.id')
+    if(import_id) qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_contacts.id')
     qb.where('crm_contacts.team_id', req.team.get('id'))
   }).filter({
     aliases: {
@@ -46,7 +51,7 @@ const listRoute = async (req, res) => {
     sortParams: ['id','first_name','last_name','email','phone']
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['photo','tags'],
+    withRelated: ['photo'],
     transacting: req.trx
   })
 

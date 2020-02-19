@@ -74,7 +74,7 @@ class CriteriaField extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     const { criteria, endpoint } = this.props
-    if(!_.isEqual(criteria, prevProps.criteria)) {
+    if(!_.isEqual(criteria, prevProps.criteria) && criteria) {
       this.props.onFetch(endpoint, toFilter(criteria, null))
       this.props.onChange({ criteria })
     }

@@ -59,7 +59,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
           { value: '$eq', text: 'filled out' },
           { value: '$neq', text: 'did not fill out' }
         ] },
-        { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
+        { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
           { value: '$eq', text: 'was included in import' },
           { value: '$neq', text: 'was not included in import' }
         ] }

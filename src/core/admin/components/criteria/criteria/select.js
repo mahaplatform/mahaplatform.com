@@ -104,6 +104,7 @@ class Select extends React.Component {
     return {
       defaultValue: value,
       endpoint: field.endpoint,
+      filter: field.filter,
       format: field.format,
       label: field.name,
       multiple: _.includes(['$in','$nin'], operator),

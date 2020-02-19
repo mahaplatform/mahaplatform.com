@@ -1,6 +1,10 @@
 import { createSelector } from 'reselect'
 
-const filter = (state, props) => props.filter
+const filter = (state, props) => {
+  if(!props.filter) return { $and: [] }
+  if(!props.filter.$and) return { $and: [ props.filter ]}
+  return props.filter
+}
 
 const selectMode = (state, props) => state.selectMode
 
@@ -18,9 +22,9 @@ export const selected = createSelector(
   total,
   (filter, mode, value, values, total) => ({
     filter: {
-      ...filter || {},
+      ...filter,
       $and: [
-        ...filter.$and || [],
+        ...filter.$and,
         { [value]: {
           [mode]: values
         }}

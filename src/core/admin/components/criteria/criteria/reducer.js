@@ -41,7 +41,9 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       test: [
-        ...state.items,
+        ...state.items.filter(item => {
+          return item.code !== action.item.code
+        }),
         action.item
       ]
     }
