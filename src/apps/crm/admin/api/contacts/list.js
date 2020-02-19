@@ -6,15 +6,14 @@ import Contact from '../../../models/contact'
 const listRoute = async (req, res) => {
 
   const fields = getFilterFields(req.query.$filter)
-
-  const { street_1, city, state_province, postal_code, county, organization_id, tag_id, list_id, topic_id, form_id, import_id } = fields
+  const { street_1, city, state_province, postal_code, county } = fields
+  const { organization_id, tag_id, list_id, topic_id, form_id, import_id } = fields
+  const address = street_1 || city || state_province || postal_code || county
 
   const contacts = await Contact.scope(qb => {
     qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
     qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
-    if(street_1 || city || state_province || postal_code || county) {
-      qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
-    }
+    if(address) qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
     if(organization_id) qb.leftJoin('crm_contacts_organizations', 'crm_contacts_organizations.contact_id', 'crm_contacts.id')
     if(tag_id) qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
     if(list_id) qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
