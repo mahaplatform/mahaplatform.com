@@ -10,7 +10,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: ({ contact }) => <ContactToken { ...contact } /> },
-      { label: 'IP Address', key: 'ipaddress', primary: true },
       { label: 'Created At', key: 'created_at', primary: true, format: 'datetime' }
     ],
     empty: {

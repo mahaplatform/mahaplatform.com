@@ -16,6 +16,7 @@ import Contact from '../../../models/contact'
 import Form from '../../../models/form'
 import { checkToken } from '../utils'
 import moment from 'moment'
+import _ from 'lodash'
 
 const getContact = async (req, { form, fields, data }) => {
 
@@ -114,7 +115,7 @@ const submitRoute = async (req, res) => {
   })
 
   const fields = form.get('config').fields.filter(field => {
-    return field.type !== 'text'
+    return !_.includes(['text','hidden'], field.type)
   })
 
   const contactdata = fields.filter(field => {
@@ -180,14 +181,13 @@ const submitRoute = async (req, res) => {
     })
   }
 
-  const ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
-    ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
+    referer: req.body.referer,
+    ipaddress: req.body.ipaddress,
     data: {
       ...req.body,
       ...req.body.payment ? {

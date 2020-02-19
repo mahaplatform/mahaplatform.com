@@ -2,6 +2,7 @@ const ResponseSerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
   data: result.get('data'),
+  referer: result.get('referer'),
   ipaddress: result.get('ipaddress'),
   invoice_id: result.get('invoice_id'),
   created_at: result.get('created_at'),

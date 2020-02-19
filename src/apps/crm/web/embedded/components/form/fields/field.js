@@ -12,6 +12,7 @@ import {
   TextArea,
   DropDown,
   Checkbox,
+  Hidden,
   Text
 } from 'maha-client'
 import ProductField from './productfield'
@@ -42,6 +43,7 @@ class Field extends React.Component {
     const { instructions, label } = field
     const { htmlFor } = this.state
     const Component = this._getComponent(field)
+    if(field.type === 'hidden') return <Component { ...this._getField() } />
     return (
       <div className={ this._getClass() }>
         { label && <label htmlFor={ htmlFor }>{ label }</label> }
@@ -88,6 +90,7 @@ class Field extends React.Component {
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
     if(field.type === 'emailfield') return EmailField
+    if(field.type === 'hidden') return Hidden
     return TextField
   }
 

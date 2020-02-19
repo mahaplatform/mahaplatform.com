@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import DropDown from './dropdown'
 import Checkbox from './checkbox'
+import Hidden from './hidden'
 import React from 'react'
 import Text from './text'
 import _ from 'lodash'
@@ -83,6 +84,7 @@ class Field extends React.Component {
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
     if(field.type === 'emailfield') return EmailField
+    if(field.type === 'hidden') return Hidden
     return TextField
   }
 

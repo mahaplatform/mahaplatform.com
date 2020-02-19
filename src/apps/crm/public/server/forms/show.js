@@ -29,11 +29,13 @@ const showRoute = async (req, res) => {
   if(!form.get('is_open') && strategy === 'redirect') {
     return res.redirect(301, redirect)
   }
-
+  const ipaddress = req.header('x-forwarded-for') || req.connection.remoteAddress
   const program = form.related('program')
   const team = form.related('team')
   const content = ejs.render(template, {
     form: {
+      referer: req.header('referer'),
+      ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
       isOpen: form.get('is_open'),
       settings: settings.get('values'),
       title: form.get('config').seo.title || form.get('title'),

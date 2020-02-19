@@ -51,8 +51,8 @@ class App extends React.Component {
 
   _getForm() {
     const { form, token } = window
-    const { code, config, settings, isOpen } = form
-    return { code, config, settings, isOpen, token }
+    const { code, config, ipaddress, referer, settings, isOpen } = form
+    return { code, config, ipaddress, referer, settings, isOpen, token }
   }
 
   _getStyle() {

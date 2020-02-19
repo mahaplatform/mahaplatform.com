@@ -38,6 +38,7 @@ const Details = ({ form, response }) => {
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'IP Address', content: response.ipaddress },
+        { label: 'Referer', content: response.referer },
         { label: 'Submitted', content: response.created_at, format: 'datetime' }
       ]
     }, {

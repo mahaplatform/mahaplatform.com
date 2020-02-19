@@ -379,6 +379,7 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.text('referer')
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -476,6 +477,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('invoice_id').unsigned()
+      table.text('referer')
     })
 
     await knex.schema.createTable('crm_senders', (table) => {
@@ -3247,7 +3249,7 @@ union
     await knex.raw(`
       create view crm_list_totals AS
       select crm_lists.id as list_id,
-      count(crm_subscriptions.*) as contacts_count
+      (count(crm_subscriptions.*))::integer as contacts_count
       from (crm_lists
       left join crm_subscriptions on ((crm_subscriptions.list_id = crm_lists.id)))
       group by crm_lists.id;
@@ -3407,7 +3409,7 @@ union
     await knex.raw(`
       create view crm_topic_totals AS
       select crm_topics.id as topic_id,
-      count(crm_interests.*) as contacts_count
+      (count(crm_interests.*))::integer as contacts_count
       from (crm_topics
       left join crm_interests on ((crm_interests.topic_id = crm_topics.id)))
       group by crm_topics.id;

@@ -12,10 +12,12 @@ class Fields extends React.Component {
     errors: PropTypes.object,
     fields: PropTypes.array,
     human: PropTypes.bool,
+    ipaddress: PropTypes.string,
     isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     ready: PropTypes.array,
+    referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
     status: PropTypes.string,
     token: PropTypes.string,
@@ -34,7 +36,8 @@ class Fields extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { config, fields } = this.props
+    const fields = this._getFields()
+    const { config } = this.props
     const { security } = config
     return (
       <div className="maha-form-body">
@@ -74,6 +77,15 @@ class Fields extends React.Component {
       tabIndex: fields.length + (captcha ? 2 : 1),
       onClick: human && !processing ? this._handleValidate : () => {}
     }
+  }
+
+  _getFields() {
+    const { fields, ipaddress, referer } = this.props
+    return [
+      { type: 'hidden', code: 'referer', value: referer },
+      { type: 'hidden', code: 'ipaddress', value: ipaddress },
+      ...fields
+    ]
   }
 
   _getField(field,index) {
