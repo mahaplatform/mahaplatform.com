@@ -34,6 +34,7 @@ export const getRecipients = async (req, params) => {
     qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_recipients.contact_id')
     qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_recipients.contact_id')
     qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_recipients.contact_id')
+    qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_recipients.contact_id')
     qb.where('crm_contacts.team_id', req.team.get('id'))
     if(!filter || filter.$and.length === 0) qb.whereRaw('false')
     qb.where('type', type)
@@ -60,10 +61,11 @@ export const getRecipients = async (req, params) => {
       tag_id: 'crm_taggings.tag_id',
       list_id: 'crm_subscriptions.list_id',
       topic_id: 'crm_interests.topic_id',
-      form_id: 'crm_responses.form_id'
+      form_id: 'crm_responses.form_id',
+      import_id: 'maha_imports_import_items.import_id'
     },
     filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id']
+    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id']
   })
 
   if(page) {

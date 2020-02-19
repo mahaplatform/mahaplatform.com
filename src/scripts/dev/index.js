@@ -106,7 +106,6 @@ const webWatch = async () => {
     const publicPath = `/apps/${app}/${subapp}`
     const config = webpack(webpackConfig(app, subapp, dir, port))
     const devserver = new devServer(config, {
-      https: protocol === 'https',
       hot: true,
       publicPath,
       quiet: true,
@@ -125,11 +124,12 @@ const webWatch = async () => {
 
 const adminWatch = async () => {
   const wildcard = {
-    target: `${protocol}://localhost:${process.env.SERVER_PORT}`,
+    target: `http://localhost:${process.env.SERVER_PORT}`,
     bypass: (req, res, proxyOptions) => {
       const root = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(2)
       if(fs.existsSync(path.join(root,...parts))) return null
+      if(/^\/admin\/[\w]*\/(authorize|token|preview)/.test(req.url)) return null
       if(/^\/admin/.test(req.url)) return req.url
     }
   }
@@ -140,13 +140,13 @@ const adminWatch = async () => {
     publicPath: '/admin',
     proxy: {
       '/socket': {
-        target: `${protocol}://localhost:${process.env.SERVER_PORT}`,
+        target: `http://localhost:${process.env.SERVER_PORT}`,
         ws: true
       },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
-          target: `${protocol}://localhost:${proxy.port}`,
+          target: `http://localhost:${proxy.port}`,
           secure: false
         }
       }), {}),

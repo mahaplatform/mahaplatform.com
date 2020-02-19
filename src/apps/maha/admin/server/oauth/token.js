@@ -67,6 +67,12 @@ const token = async (req, res) => {
 
   const { user } = await loadUserFromToken('user_id', state.token)
 
+  await user.load(['team'], {
+    transacting: req.trx
+  })
+
+  req.team = user.related('team')
+
   req.user = user
 
   const profileCreator = getProfileCreator(req.params.source)
@@ -102,7 +108,7 @@ const token = async (req, res) => {
     })
 
     await Profile.forge({
-      team_id: req.user.get('team_id'),
+      team_id: req.team.get('id'),
       user_id: req.user.get('id'),
       source_id: source.get('id'),
       photo_id,

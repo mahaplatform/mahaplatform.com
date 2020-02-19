@@ -1,6 +1,7 @@
 const importSerializer = (req, result) => ({
   id: result.get('id'),
   asset: asset(result.related('asset')),
+  description: result.get('description'),
   stage: result.get('stage'),
   delimiter: result.get('delimiter'),
   headers: result.get('headers'),

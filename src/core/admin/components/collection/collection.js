@@ -2,6 +2,7 @@ import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Buttons from '../buttons'
 import Results from './results'
 import Filters from './filters'
@@ -187,7 +188,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { empty, endpoint, failure, layout, loading, q, recordTasks, selectable, sort, table, onSetSelected, onClick, onSort } = this.props
+    const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, sort, table, onSetSelected, onClick, onSort } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -199,6 +200,7 @@ class Collection extends React.Component {
       loading,
       empty,
       failure,
+      footer: ({ all, total }) => `Showing ${total} of ${pluralize(entity, all, true)}`,
       layout,
       props: {
         code: this.code,

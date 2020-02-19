@@ -13,9 +13,7 @@ const Import = new Model({
   virtuals: {
 
     description: function() {
-      if(this.get('name')) return this.get('name')
-      if(this.get('asset_id')) return this.related('asset').get('original_file_name')
-      return `Import on ${moment(this.get('created_at')).format('MM/DD/YYYY')}`
+      return `by ${this.related('user').get('full_name')} on ${moment(this.get('created_at')).format('MM/DD/YY [@] h:mmA')}`
     }
 
   },

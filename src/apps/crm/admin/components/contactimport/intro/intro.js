@@ -1,3 +1,4 @@
+import ImportToken from '../../../../../maha/admin/tokens/import'
 import { List, Loader, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -68,18 +69,7 @@ class Intro extends React.Component {
     return {
       items: [
         ...imports.map((item, index) => ({
-          component: () => (
-            <div className="import-item">
-              <div className="import-item-icon">
-                <img src={ `/admin/images/services/${item.service}.png` } />
-              </div>
-              <div className="import-item-label">
-                <strong>{item.name || item.asset.original_file_name}</strong> ({ pluralize('record', item.item_count, true) })<br />
-                { moment(item.created_at).format('MMM DD, YYYY @ h:mm a') }<br />
-                <div className="import-item-remove" onClick={ this._handleRemove.bind(this, item) }>Delete Import</div>
-              </div>
-            </div>
-          ),
+          component: () => <ImportToken { ...item } />,
           handler: this._handleResume.bind(this, item)
         }))
       ]
