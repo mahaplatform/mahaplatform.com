@@ -1,8 +1,8 @@
-import { toFilter } from '../criteria/utils'
+import { toFilter } from '../../criteria/utils'
 import PropTypes from 'prop-types'
 import Overview from './overview'
 import Criteria from './criteria'
-import Stack from '../stack'
+import Stack from '../../stack'
 import React from 'react'
 
 class Filter extends React.PureComponent {

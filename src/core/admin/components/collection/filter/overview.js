@@ -1,8 +1,8 @@
-import { Container } from '../container'
-import ModalPanel from '../modal_panel'
+import { Container } from '../../container'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Button from '../button'
+import Button from '../../button'
 import React from 'react'
 import _ from 'lodash'
 
@@ -116,6 +116,7 @@ class Overview extends React.Component {
   }
 
   _handleNew() {
+    this._handleChoose(null)
     this.props.onNew()
   }
 

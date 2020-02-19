@@ -1,4 +1,4 @@
-import Criteria from '../criteria'
+import Criteria from '../../criteria'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
