@@ -63,7 +63,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
           { value: '$eq', text: 'was included in import' },
           { value: '$neq', text: 'was not included in import' }
         ] }
-
       ] }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },

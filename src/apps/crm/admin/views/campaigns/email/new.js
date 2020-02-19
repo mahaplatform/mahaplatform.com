@@ -1,3 +1,4 @@
+import ImportToken from '../../../../../maha/admin/tokens/import'
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
 import { connect } from 'react-redux'
@@ -116,6 +117,10 @@ class Email extends React.PureComponent {
           { name: 'Form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
             { value: '$eq', text: 'filled out' },
             { value: '$neq', text: 'did not fill out' }
+          ] },
+          { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
+            { value: '$eq', text: 'was included in import' },
+            { value: '$neq', text: 'was not included in import' }
           ] }
         ] }
       ],
