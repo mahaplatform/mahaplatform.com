@@ -3092,11 +3092,9 @@ union
     await knex.raw(`
       create view crm_email_campaign_results AS
       with emailables as (
-      select maha_emails.team_id,
-      maha_emails.email_campaign_id
-      from maha_emails
-      where (maha_emails.email_campaign_id is not null)
-      group by maha_emails.team_id, maha_emails.email_campaign_id
+      select crm_email_campaigns.team_id,
+      crm_email_campaigns.id as email_campaign_id
+      from crm_email_campaigns
       ), sent as (
       select maha_emails.email_campaign_id,
       count(*) as count

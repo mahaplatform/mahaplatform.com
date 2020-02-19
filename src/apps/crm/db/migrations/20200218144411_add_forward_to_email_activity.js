@@ -9,10 +9,8 @@ const AddForwardToEmailActivity = {
     await knex.raw(`
       create view crm_email_campaign_results as
       with emailables as (
-      select team_id, email_campaign_id
-      from maha_emails
-      where email_campaign_id is not null
-      group by team_id, email_campaign_id
+      select team_id, id as email_campaign_id
+      from crm_email_campaigns
       ),
       sent as (
       select email_campaign_id, count(*) as count

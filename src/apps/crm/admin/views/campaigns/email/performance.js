@@ -167,7 +167,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Last Opened</td>
                         <td className="right aligned">
-                          { moment(last_opened_at).format('MM/DD/YY hh:mmA') }
+                          { last_opened_at ? moment(last_opened_at).format('MM/DD/YY hh:mmA') : 'N/A' }
                         </td>
                       </tr>
                     </tbody>
