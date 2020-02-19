@@ -3,19 +3,13 @@ import Queue from '../../../core/objects/queue'
 import { encodeEmail } from '../services/emails'
 import Email from '../models/email'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const email = await Email.where({
     id: job.data.id
   }).fetch({
-    withRelated: ['team'],
-    transacting: trx
+    transacting: req.trx
   })
-
-  const req = {
-    trx,
-    team: email.related('team')
-  }
 
   const encoded = await encodeEmail(req, {
     html: email.get('html'),
@@ -37,10 +31,8 @@ const processor = async (job, trx) => {
 
 }
 
-
 const MailerQueue = new Queue({
   name: 'send_email',
-  enqueue: async (req, job) => job,
   processor
 })
 

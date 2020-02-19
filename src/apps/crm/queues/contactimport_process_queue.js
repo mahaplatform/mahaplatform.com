@@ -259,13 +259,13 @@ const updateChannels = async (req, params) => {
   })
 }
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const imp = await Import.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    withRelated: ['asset','team','user'],
-    transacting: trx
+    withRelated: ['asset','user'],
+    transacting: req.trx
   })
 
   const items = await ImportItem.query(qb => {
@@ -273,13 +273,8 @@ const processor = async (job, trx) => {
     qb.where('is_valid', true)
     qb.where('is_nonunique', false)
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(results => results.toArray())
-
-  const req = {
-    trx,
-    team: imp.related('team')
-  }
 
   const addresses = []
   const photos = []
@@ -309,7 +304,7 @@ const processor = async (job, trx) => {
         birthday: getValue(strategy, contact.get('birthday'), birthday),
         spouse: getValue(strategy, contact.get('spouse'), spouse)
       }, {
-        transacting: trx
+        transacting: req.trx
       })
 
       if(photo && (_.isNil(contact.get('photo_id')) || strategy === 'overwrite')) {
@@ -411,8 +406,8 @@ const processor = async (job, trx) => {
       is_merged,
       is_ignored
     }, {
-      patch: true,
-      transacting: trx
+      transacting: req.trx,
+      patch: true
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -429,8 +424,8 @@ const processor = async (job, trx) => {
   await imp.save({
     stage: 'complete'
   }, {
-    patch: true,
-    transacting: trx
+    transacting: req.trx,
+    patch: true
   })
 
   await Promise.map(addresses, async(job) => {
@@ -447,7 +442,7 @@ const processor = async (job, trx) => {
     qb.where('maha_imports.id', imp.get('id'))
   }).fetch({
     withRelated: ['asset','user.photo'],
-    transacting: trx
+    transacting: req.trx
   })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -472,7 +467,6 @@ const failed = async (job, err) => {
 
 const ContactImportProcessQueue = new Queue({
   name: 'contactimport_process',
-  enqueue: async (req, job) => job,
   processor,
   failed
 })

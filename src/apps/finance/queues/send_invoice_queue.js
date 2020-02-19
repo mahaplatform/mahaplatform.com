@@ -4,7 +4,7 @@ import Queue from '../../../core/objects/queue'
 import Sender from '../../crm/models/sender'
 import Invoice from '../models/invoice'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const { invoice_id, sender_id, reply_to, to, subject, message } = job.data
 
@@ -13,14 +13,9 @@ const processor = async (job, trx) => {
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('finance_invoices.id', invoice_id)
   }).fetch({
-    withRelated: ['customer','coupon','invoice_line_items','payments.payment_method','program.logo','team'],
-    transacting: trx
+    withRelated: ['customer','coupon','invoice_line_items','payments.payment_method','program.logo'],
+    transacting: req.trx
   })
-
-  const req = {
-    team: invoice.related('team'),
-    trx
-  }
 
   const sender = await Sender.query(qb => {
     qb.where('program_id', invoice.get('program_id'))
@@ -46,13 +41,9 @@ const processor = async (job, trx) => {
 
 }
 
-const failed = async (job, err) => {}
-
 const SendInvoiceQueue = new Queue({
   name: 'send_invoice',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default SendInvoiceQueue

@@ -24,7 +24,7 @@ const templates = emails.reduce((emails, email) => ({
   }
 }), {})
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const { user_id, code } = job.data
 
@@ -33,17 +33,14 @@ const processor = async (job, trx) => {
   const user = await User.where({
     id: user_id
   }).fetch({
-    withRelated: ['team.logo'],
-    transacting: trx
+    transacting: req.trx
   })
-
-  const team = user.related('team').toJSON()
 
   const data = {
     moment,
     numeral,
     pluralize,
-    team,
+    team: req.team.toJSON(),
     host: process.env.WEB_HOST,
     maha: true,
     ...job.data.data || {}
@@ -70,7 +67,6 @@ const processor = async (job, trx) => {
 
 const SendAlertQueue = new Queue({
   name: 'send_alert',
-  enqueue: async (req, job) => job,
   processor
 })
 

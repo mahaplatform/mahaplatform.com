@@ -85,18 +85,18 @@ const mergeRecords = (item, duplicate, strategy) => {
   }
 }
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const imp = await Import.where({
     id: job.data.id
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
   const items = await ImportItem.where({
     import_id: imp.id
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(results => results.toArray())
 
   const table = imp.get('object_type')
@@ -111,12 +111,12 @@ const processor = async (job, trx) => {
 
     const values = await Promise.reduce(Object.keys(src_values), async (values, key) => ({
       ...values,
-      [key]: await processValue(trx, imp, key, src_values[key])
+      [key]: await processValue(req.trx, imp, key, src_values[key])
     }), {}).then(values => unflatten(values))
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(table).transacting(trx).where({
+    const duplicate = (primary_key) ? await knex(table).transacting(req.trx).where({
       [primary_key]: values[primary_key]
     }) : []
 
@@ -128,7 +128,7 @@ const processor = async (job, trx) => {
 
     if(duplicate.length === 0 || strategy == 'create') {
 
-      object_id = await knex(table).transacting(trx).insert({
+      object_id = await knex(table).transacting(req.trx).insert({
         team_id: imp.get('team_id'),
         created_at: moment(),
         updated_at: moment(),
@@ -166,8 +166,8 @@ const processor = async (job, trx) => {
       is_merged,
       is_ignored
     }, {
-      patch: true,
-      transacting: trx
+      transacting: req.trx,
+      patch: true
     })
 
     const _import = await Import.query(qb => {
@@ -176,7 +176,7 @@ const processor = async (job, trx) => {
       qb.where('maha_imports.id', imp.get('id'))
     }).fetch({
       withRelated: ['asset','user.photo'],
-      transacting: trx
+      transacting: req.trx
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -190,8 +190,8 @@ const processor = async (job, trx) => {
   await imp.save({
     stage: 'complete'
   }, {
-    patch: true,
-    transacting: trx
+    transacting: req.trx,
+    patch: true
   })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -212,7 +212,6 @@ const failed = async (job, err) => {
 
 const ImportProcessQueue = new Queue({
   name: 'import_process',
-  enqueue: async (req, job) => job,
   processor,
   failed
 })

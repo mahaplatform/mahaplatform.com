@@ -1,19 +1,15 @@
 import Queue from '../../../core/objects/queue'
 import { queueSMS } from '../services/smses'
 
-const processor = async (job, trx) => {
-  await queueSMS({ trx }, {
+const processor = async (req, job) => {
+  await queueSMS(req, {
     id: job.data.id
   })
 }
 
-const failed = async (job, err, trx) => {}
-
 const SendSMSQueue = new Queue({
   name: 'send_sms',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default SendSMSQueue

@@ -3,17 +3,15 @@ import s3 from '../../../core/services/s3'
 import User from '../models/user'
 import path from 'path'
 
-const enqueue = async (req, message) => message
-
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const { filepath, meta, code, user_id } = job.data
 
-  const user = await User.query(qb => {
+  req.user = await User.query(qb => {
     qb.where('id', user_id)
   }).fetch({
     withRelated: ['team'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const file = await s3.getObject({
@@ -27,11 +25,7 @@ const processor = async (job, trx) => {
 
   const mailbox = require(mailboxPath).default
 
-  await mailbox.processor({
-    user: user,
-    team: user.related('team'),
-    trx
-  }, {
+  await mailbox.processor(req, {
     meta,
     message: JSON.parse(file.Body)
   })
@@ -51,7 +45,6 @@ const processor = async (job, trx) => {
 
 const MailboxQueue = new Queue({
   name: 'mailbox',
-  enqueue,
   processor
 })
 

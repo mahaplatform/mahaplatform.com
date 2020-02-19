@@ -9,20 +9,15 @@ import Email from '../../maha/models/email'
 import Contact from '../models/contact'
 import Sender from '../models/sender'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const { email_campaign_id, email_address_id } = job.data
-
-  const req = { trx }
 
   const email_address = await EmailAddress.query(qb => {
     qb.where('id', email_address_id)
   }).fetch({
-    withRelated: ['team'],
     transacting: req.trx
   })
-
-  req.team = email_address.related('team')
 
   const contact = await Contact.scope(qb => {
     qb.select('crm_contacts.*','crm_contact_primaries.*')
@@ -108,13 +103,9 @@ const processor = async (job, trx) => {
 
 }
 
-const failed = async (job, err) => {}
-
 const SendEmailCampaignEmailQueue = new Queue({
   name: 'send_email_campaign_email',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default SendEmailCampaignEmailQueue

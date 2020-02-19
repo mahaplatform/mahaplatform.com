@@ -11,20 +11,16 @@ import fs from 'fs'
 
 const template = fs.readFileSync(path.join(__dirname, '..','emails','forwarded.ejs'), 'utf8')
 
-const processor = async (job, trx) => {
-
-  const req = { trx }
+const processor = async (req, job) => {
 
   const { email_id, first_name, last_name, email, message } = job.data
 
   const forwarding = await Email.query(qb => {
     qb.where('id', email_id)
   }).fetch({
-    withRelated: ['email_campaign','contact','team'],
+    withRelated: ['email_campaign','contact'],
     transacting: req.trx
   })
-
-  req.team = forwarding.related('team')
 
   if(forwarding.get('email_campaign_id')) {
     const campaign = forwarding.related('email_campaign')
@@ -92,13 +88,9 @@ const processor = async (job, trx) => {
 
 }
 
-const failed = async (job, err) => {}
-
 const ForwardEmailQueue = new Queue({
   name: 'forward_email',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default ForwardEmailQueue

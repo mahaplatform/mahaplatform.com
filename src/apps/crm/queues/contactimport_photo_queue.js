@@ -3,26 +3,19 @@ import Queue from '../../../core/objects/queue'
 import User from '../../maha/models/user'
 import Contact from '../models/contact'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const contact = await Contact.query(qb => {
     qb.where('id', job.data.contact_id)
   }).fetch({
-    withRelated: ['team'],
-    transacting: trx
+    transacting: req.trx
   })
 
-  const user = await User.query(qb => {
+  req.user = await User.query(qb => {
     qb.where('id', job.data.user_id)
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
-
-  const req = {
-    team: contact.related('team'),
-    user,
-    trx
-  }
 
   const asset = await createAssetFromUrl(req, {
     url: job.data.url
@@ -32,18 +25,14 @@ const processor = async (job, trx) => {
     photo_id: asset.get('id')
   },{
     patch: true,
-    transacting: trx
+    transacting: req.trx
   })
 
 }
 
-const failed = async (job, err) => {}
-
 const ContactImportPhotoQueue = new Queue({
   name: 'contactimport_photo',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default ContactImportPhotoQueue

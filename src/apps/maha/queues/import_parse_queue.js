@@ -8,13 +8,13 @@ import parse from '../../../core/utils/parse'
 import Import from '../models/import'
 import _ from 'lodash'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const imp = await Import.where({
     id: job.data.id
   }).fetch({
     withRelated: ['asset'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const parsed = await parse({
@@ -36,7 +36,7 @@ const processor = async (job, trx) => {
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({
+    const duplicate = (primary_key) ? await knex(job.data.table).transacting(req.trx).where({
       [primary_key]: values[primary_key]
     }) : 0
 
@@ -53,7 +53,7 @@ const processor = async (job, trx) => {
       is_duplicate,
       is_nonunique
     }).save(null, {
-      transacting: trx
+      transacting: req.trx
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -76,8 +76,8 @@ const processor = async (job, trx) => {
   await imp.save({
     stage: 'validating'
   }, {
-    patch: true,
-    transacting: trx
+    transacting: req.trx,
+    patch: true
   })
 
   const _import = await Import.query(qb => {
@@ -86,7 +86,7 @@ const processor = async (job, trx) => {
     qb.where('maha_imports.id', imp.get('id'))
   }).fetch({
     withRelated: ['asset','user.photo'],
-    transacting: trx
+    transacting: req.trx
   })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -107,7 +107,6 @@ const failed = async (job, err) => {
 
 const ImportParseQueue = new Queue({
   name: 'import_parse',
-  enqueue: async (req, job) => job,
   processor,
   failed
 })

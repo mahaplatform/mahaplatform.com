@@ -84,26 +84,22 @@ const getContacts = async (req, profile) => {
 
 }
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const imp = await Import.query(qb => {
     qb.where('id', job.data.import_id)
   }).fetch({
     withRelated: ['asset','team'],
-    transacting: trx
+    transacting: req.trx
   })
 
-  const req = {
-    trx,
-    team: imp.related('team'),
-    body: job.data
-  }
+  req.body = job.data
 
   const profile = await Profile.query(qb => {
     qb.where('id', job.data.profile_id )
   }).fetch({
     withRelated: ['source'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const contacts = await getContacts(req, profile)
@@ -121,8 +117,8 @@ const processor = async (job, trx) => {
       field: key,
       type: _getType(key)
     }))
-  },{
-    transacting: trx
+  }, {
+    transacting: req.trx
   })
 
   await Promise.mapSeries(contacts, async (values, index) => {
@@ -130,7 +126,7 @@ const processor = async (job, trx) => {
     const email = values.email_1 ? await EmailAddress.query(qb => {
       if(values.email_1) qb.where('address', values.email_1)
     }).fetch({
-      transacting: trx
+      transacting: req.trx
     }) : null
 
     await ImportItem.forge({
@@ -144,7 +140,7 @@ const processor = async (job, trx) => {
       is_ignored: false,
       is_complete: false
     }).save(null, {
-      transacting: trx
+      transacting: req.trx
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -164,7 +160,7 @@ const processor = async (job, trx) => {
     qb.where('maha_imports.id', imp.get('id'))
   }).fetch({
     withRelated: ['asset','user.photo'],
-    transacting: trx
+    transacting: req.trx
   })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -185,7 +181,6 @@ const failed = async (job, err) => {
 
 const ContactImportImportQueue = new Queue({
   name: 'contactimport_import',
-  enqueue: async (req, job) => job,
   processor,
   failed
 })

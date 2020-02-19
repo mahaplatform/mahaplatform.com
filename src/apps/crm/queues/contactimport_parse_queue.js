@@ -14,13 +14,13 @@ const PHONE_REGEX = /(?:(?:\+?([1-9]|[0-9][0-9]|[0-9][0-9][0-9])\s*(?:[.-]\s*)?)
 
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const imp = await Import.where({
     id: job.data.id
   }).fetch({
     withRelated: ['asset'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const parsed = await parse({
@@ -99,13 +99,11 @@ const processor = async (job, trx) => {
       return values[key]
     })
 
-    const duplicate = values.email_1 ? await knex('crm_email_addresses').transacting(trx).whereIn('address', addresses) : []
+    const duplicate = values.email_1 ? await knex('crm_email_addresses').transacting(req.trx).whereIn('address', addresses) : []
 
-    const rules = {
+    const is_valid = await isValid({
       email_1: ['email']
-    }
-
-    const is_valid = await isValid(rules, values)
+    }, values)
 
     const is_nonunique = values.email_1 !== undefined && _.includes(primarykeys, values.email_1)
 
@@ -118,7 +116,7 @@ const processor = async (job, trx) => {
       is_duplicate,
       is_nonunique
     }).save(null, {
-      transacting: trx
+      transacting: req.trx
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -141,7 +139,7 @@ const processor = async (job, trx) => {
     stage: 'validating'
   }, {
     patch: true,
-    transacting: trx
+    transacting: req.trx
   })
 
   const _import = await Import.query(qb => {
@@ -150,7 +148,7 @@ const processor = async (job, trx) => {
     qb.where('maha_imports.id', imp.get('id'))
   }).fetch({
     withRelated: ['asset','user.photo'],
-    transacting: trx
+    transacting: req.trx
   })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
@@ -171,7 +169,6 @@ const failed = async (job, err) => {
 
 const ContactImportParseQueue = new Queue({
   name: 'contactimport_parse',
-  enqueue: async (req, job) => job,
   processor,
   failed
 })

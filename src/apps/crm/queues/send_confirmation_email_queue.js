@@ -14,19 +14,14 @@ import fs from 'fs'
 
 const summary  = fs.readFileSync(path.join(__dirname,'..','emails','summary.ejs'), 'utf8')
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const response = await Response.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    withRelated: ['form.program','form.email','team','invoice.payments'],
-    transacting: trx
+    withRelated: ['form.program','form.email','invoice.payments'],
+    transacting: req.trx
   })
-
-  const req = {
-    team: response.related('team'),
-    trx
-  }
 
   const form = response.related('form')
 
@@ -138,13 +133,9 @@ const processor = async (job, trx) => {
 
 }
 
-const failed = async (job, err) => {}
-
 const SendConfirmationEmailQueue = new Queue({
   name: 'send_confirmation_email',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default SendConfirmationEmailQueue

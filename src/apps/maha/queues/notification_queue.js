@@ -5,13 +5,13 @@ import Queue from '../../../core/objects/queue'
 
 const enqueue = async (req, id) => ({ id })
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const notification = await Notification.where({
     id: job.data.id
   }).fetch({
     withRelated: ['app','notification_type','object_owner','subject.photo','story','team','user','user.photo'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const serialized = NotificationSerializer(null, notification)
@@ -24,7 +24,7 @@ const processor = async (job, trx) => {
     route: serialized.url,
     user: serialized.subject,
     created_at: serialized.created_at
-  }, trx)
+  }, req.trx)
 
   return job.data.id
 

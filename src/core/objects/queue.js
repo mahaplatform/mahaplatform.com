@@ -1,17 +1,23 @@
 import { beginLogger, endLogger, printQueueLogger } from '../utils/logger'
+import Team from '../../apps/maha/models/team'
 import knex from '../services/knex'
 import redis from 'ioredis'
 import moment from 'moment'
 import Bull from 'bull'
 import _ from 'lodash'
 
+const defaults = {
+  enqueue: async (req, job) => job,
+  failed: async (job, err) => {}
+}
+
 class Queue {
 
   constructor(options) {
-    this._enqueue = options.enqueue
+    this._enqueue = options.enqueue || defaults.enqueue
     this.name = options.name
     this.processor = options.processor
-    this.failed = options.failed
+    this.failed = options.failed || defaults.failed
     this.completed = options.completed
     this.queue = new Bull(this.name, { createClient })
   }
@@ -23,12 +29,18 @@ class Queue {
   }
 
   async enqueue(req, data, options = {}) {
-    const delay = options.until ? options.until.diff(moment()) : 2000
     const job = await this._enqueue(req, data)
     if(process.env.NODE_ENV === 'test') return
     return await new Promise(async (resolve, reject) => {
       setTimeout(async () => {
-        const result = await this.queue.add(job, { delay, attempts: 3, backoff: 5000 })
+        const result = await this.queue.add({
+          ...job,
+          team_id: req.team.get('id')
+        }, {
+          delay: options.until ? options.until.diff(moment()) : 2000,
+          attempts: 3,
+          backoff: 5000
+        })
         resolve(result)
       }, 500)
     })
@@ -76,7 +88,13 @@ const withLogger = (name, processor, job) => async () => {
 const withTransaction = (processor, job) => async () => {
   await knex.transaction(async trx => {
     try {
-      await processor(job, trx)
+      const team = await Team.query(qb => {
+        qb.where('id', job.data.team_id)
+      }).fetch({
+        withRelated: ['logo'],
+        transacting: trx
+      })
+      await processor({ team, trx }, job)
       await trx.commit()
     } catch(err) {
       await trx.rollback(err)
@@ -85,8 +103,8 @@ const withTransaction = (processor, job) => async () => {
 }
 
 const redisUrl = process.env.REDIS_URL.replace('redis://','')
-const redisDb = redisUrl.substring(redisUrl.indexOf('/')+1, redisUrl.length)
-const redisPort = redisUrl.substring(redisUrl.indexOf(':')+1, redisUrl.indexOf('/'))
+const redisDb = redisUrl.substring(redisUrl.indexOf('/') + 1, redisUrl.length)
+const redisPort = redisUrl.substring(redisUrl.indexOf(':') + 1, redisUrl.indexOf('/'))
 const redisHost = redisUrl.substring(0, redisUrl.indexOf(':'))
 
 const client = new redis({

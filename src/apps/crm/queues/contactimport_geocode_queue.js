@@ -2,34 +2,30 @@ import MailingAddresses from '../models/mailing_address'
 import Queue from '../../../core/objects/queue'
 import geocode from '../../maha/services/geocode'
 
-const processor = async (job, trx) => {
+const processor = async (req, job) => {
 
   const mailing_address = await MailingAddresses.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
   const address = await geocode(mailing_address.get('address'))
 
-  if(!address) return 
+  if(!address) return
 
   await mailing_address.save({
     address
   },{
     patch: true,
-    transacting: trx
+    transacting: req.trx
   })
 
 }
 
-const failed = async (job, err) => {}
-
 const ContactImportGeocodeQueue = new Queue({
   name: 'contactimport_geocode',
-  enqueue: async (req, job) => job,
-  processor,
-  failed
+  processor
 })
 
 export default ContactImportGeocodeQueue
