@@ -12,11 +12,13 @@ const processor = async (req, job) => {
   const campaign = await EmailCampaign.query(qb => {
     qb.where('id', id)
   }).fetch({
+    withRelated: ['program'],
     transacting: req.trx
   })
 
   const contacts = await getRecipients(req, {
     type: 'email',
+    program_id: campaign.related('program').get('id'),
     purpose: campaign.get('purpose'),
     criteria: campaign.get('to').criteria
   }).then(result => result.toArray())

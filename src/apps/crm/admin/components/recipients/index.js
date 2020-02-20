@@ -42,11 +42,11 @@ class Recipients extends React.PureComponent {
 
   _getCriteriaDesigner() {
     const { campaign, type } = this.props
-    const { program_id, purpose } = campaign
+    const { program, purpose } = campaign
     const { criteria } = this.state
     return {
       defaultValue: criteria,
-      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/${type}/recipients`,
+      endpoint: `/api/admin/crm/programs/${program.id}/${purpose}/${type}/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel={ type } />,
       fields: [

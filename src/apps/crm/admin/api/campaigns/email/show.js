@@ -18,8 +18,9 @@ const showRoute = async (req, res) => {
   })
 
   const contacts = await getRecipients(req, {
-    type: 'email',
     purpose: campaign.get('purpose'),
+    type: 'email',
+    program_id: campaign.related('program').get('id'),
     criteria: campaign.get('to').criteria
   })
 

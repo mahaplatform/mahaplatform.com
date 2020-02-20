@@ -9,7 +9,7 @@ const filterPlugin = function(bookshelf) {
 
   const filterFetch = async function(options) {
 
-    options.tableName = this.tableName
+    options.tableName = this.extend().__super__.tableName
 
     const filter = options.filter || {}
 
@@ -353,6 +353,7 @@ const filterPlugin = function(bookshelf) {
   const castColumn = function($column, options) {
     const column = getAliased($column, options)
     const { tableName } = options
+    console.log($column, $column, tableName)
     const matches = column.match(/(.*)\.(.*)/)
     return !matches && tableName !== undefined ? `${tableName}.${column}` : column
   }
