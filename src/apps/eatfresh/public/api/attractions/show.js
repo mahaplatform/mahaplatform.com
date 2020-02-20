@@ -3,9 +3,8 @@ import Attraction from '../../../models/attraction'
 
 const showRoute = async (req, res) => {
 
-  const attraction = await Attraction.scope(qb => {
+  const attraction = await Attraction.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('is_approved', true)
     qb.where('id', req.params.id)
   }).fetch({

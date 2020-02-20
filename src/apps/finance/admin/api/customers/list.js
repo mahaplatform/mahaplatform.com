@@ -3,12 +3,12 @@ import Customer from '../../../models/customer'
 
 const listRoute = async (req, res) => {
 
-  const customers = await Customer.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const customers = await Customer.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['code']
-  }).sort({
+    searchParams: ['code'],
     sort: req.query.$sort,
     defaultSort: ['last_name'],
     sortParams: ['id','last_name','created_at']

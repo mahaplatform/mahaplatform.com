@@ -4,9 +4,8 @@ import Invoice from '../../../models/invoice'
 
 const invoicesRoute = async (req, res) => {
 
-  const customer = await Customer.scope(qb => {
+  const customer = await Customer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
     transacting: req.trx
@@ -17,10 +16,12 @@ const invoicesRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const invoices = await Invoice.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('customer_id', customer.get('id'))
-    qb.orderByRaw('date desc, created_at desc')
+  const invoices = await Invoice.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('customer_id', customer.get('id'))
+      qb.orderByRaw('date desc, created_at desc')
+    }
   }).fetchPage({
     withRelated: ['coupon','line_items'],
     page: req.query.$page,

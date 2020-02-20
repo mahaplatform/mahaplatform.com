@@ -3,9 +3,10 @@ import SMS from '../../../../maha/models/sms'
 
 const listRoute = async (req, res) => {
 
-  const smses = await SMS.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).sort({
+  const smses = await SMS.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['created_at']

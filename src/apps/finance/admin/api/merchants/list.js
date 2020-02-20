@@ -3,13 +3,13 @@ import Merchant from '../../../models/merchant'
 
 const listRoute = async (req, res) => {
 
-  const merchants = await Merchant.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
-    sortParams: ['status'],
+  const merchants = await Merchant.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['title']
-  }).sort({
+    filterParams: ['status'],
+    searchParams: ['title'],
     sort: req.query.$sort,
     defaultSort: ['-created_at'],
     sortParams: ['id','title','created_at']

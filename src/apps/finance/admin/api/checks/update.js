@@ -13,9 +13,8 @@ const getAllocations = (item, allocations) => {
 
 const updateRoute = async (req, res) => {
 
-  const check = await Check.scope(qb => {
+  const check = await Check.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -26,9 +25,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  const allocations = await Check.scope(qb => {
+  const allocations = await Check.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('code', check.get('code'))
   }).fetchAll({
     transacting: req.trx

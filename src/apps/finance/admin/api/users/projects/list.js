@@ -3,15 +3,15 @@ import Project from '../../../../models/project'
 
 const listRoute = async (req, res) => {
 
-  const projects = await Project.scope(qb => {
-    qb.select('finance_projects.*', 'finance_members.type as member_type')
-    qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.params.user_id])
-    qb.where('finance_projects.is_active', true)
-    qb.where('finance_projects.team_id', req.team.get('id'))
-  }).filter({
+  const projects = await Project.filter({
+    scope: (qb) => {
+      qb.select('finance_projects.*', 'finance_members.type as member_type')
+      qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.params.user_id])
+      qb.where('finance_projects.is_active', true)
+      qb.where('finance_projects.team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['finance_projects.title','integration->>\'project_code\'']
-  }).sort({
+    searchParams: ['finance_projects.title','integration->>\'project_code\''],
     sort: req.query.$sort,
     defaultSort: ['finance_projects.integration->>\'project_code\'', 'finance_projects.title']
   }).fetchPage({

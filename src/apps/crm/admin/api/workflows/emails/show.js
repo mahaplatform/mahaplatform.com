@@ -4,9 +4,8 @@ import Email from '../../../../models/email'
 
 const showRoute = async (req, res) => {
 
-  const workflow = await Workflow.scope(qb => {
+  const workflow = await Workflow.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.workflow_id)
   }).fetch({
     transacting: req.trx

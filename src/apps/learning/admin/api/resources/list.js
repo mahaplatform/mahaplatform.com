@@ -3,17 +3,17 @@ import Resource from '../../../models/resource'
 
 const listRoute = async (req, res) => {
 
-  const resources = await Resource.scope(qb => {
-    qb.select(req.trx.raw('distinct on (competencies_resources.id, competencies_resources.title) competencies_resources.*'))
-    qb.innerJoin('competencies_competencies_resources', 'competencies_competencies_resources.resource_id', 'competencies_resources.id')
-    qb.innerJoin('competencies_competencies', 'competencies_competencies.id', 'competencies_competencies_resources.competency_id')
-    qb.innerJoin('competencies_expectations', 'competencies_expectations.competency_id', 'competencies_competencies.id')
-    qb.where('competencies_resources.team_id', req.team.get('id'))
-  }).filter({
+  const resources = await Resource.filter({
+    scope: (qb) => {
+      qb.select(req.trx.raw('distinct on (competencies_resources.id, competencies_resources.title) competencies_resources.*'))
+      qb.innerJoin('competencies_competencies_resources', 'competencies_competencies_resources.resource_id', 'competencies_resources.id')
+      qb.innerJoin('competencies_competencies', 'competencies_competencies.id', 'competencies_competencies_resources.competency_id')
+      qb.innerJoin('competencies_expectations', 'competencies_expectations.competency_id', 'competencies_competencies.id')
+      qb.where('competencies_resources.team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['competencies_competencies.id','competencies_expectations.classification_id','competencies_competencies.level'],
-    searchParams: ['competencies_resources.title','competencies_resources.description','competencies_resources.url']
-  }).sort({
+    searchParams: ['competencies_resources.title','competencies_resources.description','competencies_resources.url'],
     sort: req.query.$sort,
     defaultSort: 'title'
   }).fetchPage({

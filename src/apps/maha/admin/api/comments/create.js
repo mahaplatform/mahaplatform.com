@@ -29,9 +29,8 @@ const createRoute = async (req, res) => {
 
   const model = registry.lookup(req.params.commentable_type)
 
-  const commentable = await model.scope(qb => {
+  const commentable = await model.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.commentable_id)
   }).fetch({
     transacting: req.trx

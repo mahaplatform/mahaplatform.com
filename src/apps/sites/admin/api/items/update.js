@@ -6,9 +6,8 @@ import Item from '../../../models/item'
 
 const updateRoute = async (req, res) => {
 
-  const item = await Item.scope(qb => {
+  const item = await Item.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('id', req.params.id)
@@ -32,9 +31,8 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.where('parent_id', req.params.type_id)
     qb.orderBy('delta', 'asc')
@@ -42,9 +40,8 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const map = await Field.scope(qb => {
+  const map = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({

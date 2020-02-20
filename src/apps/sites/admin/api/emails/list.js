@@ -3,12 +3,12 @@ import Email from '../../../models/email'
 
 const listRoute = async (req, res) => {
 
-  const emails = await Email.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('site_id', req.params.site_id)
-  }).filter({
-    filter: req.query.$filter
-  }).sort({
+  const emails = await Email.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('site_id', req.params.site_id)
+    },
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: 'id',
     sortParams: ['id']

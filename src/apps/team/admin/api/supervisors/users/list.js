@@ -4,9 +4,8 @@ import User from '../../../../../maha/models/user'
 
 const listRoute = async (req, res) => {
 
-  const supervisor = await Supervisor.scope(qb => {
+  const supervisor = await Supervisor.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -17,14 +16,14 @@ const listRoute = async (req, res) => {
     message: 'Unable to load supervisor'
   })
 
-  const users = await User.scope(qb => {
-    qb.innerJoin('maha_supervisions', 'maha_supervisions.employee_id', 'maha_users.id')
-    qb.where('maha_supervisions.supervisor_id', supervisor.get('user_id'))
-    qb.where('maha_users.team_id', req.team.get('id'))
-  }).filter({
+  const users = await User.filter({
+    scope: (qb) => {
+      qb.innerJoin('maha_supervisions', 'maha_supervisions.employee_id', 'maha_users.id')
+      qb.where('maha_supervisions.supervisor_id', supervisor.get('user_id'))
+      qb.where('maha_users.team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email']
-  }).sort({
+    searchParams: ['first_name','last_name','email'],
     sort: req.query.$sort,
     defaultSort: 'last_name'
   }).fetchPage({

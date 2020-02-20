@@ -3,9 +3,8 @@ import VoiceCampaign from '../../../../models/voice_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await VoiceCampaign.scope(qb => {
+  const campaign = await VoiceCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['phone_number','program'],

@@ -14,37 +14,37 @@ export const getRecipients = async (req, params) => {
 
   const filter = getFilter(params)
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'crm_programs')
     qb.orderBy('delta', 'asc')
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const recipient = Recipient.scope(qb => {
-    qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
-    qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
-    qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_recipients.email_address_id')
-    qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_recipients.phone_number_id')
-    qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_recipients.mailing_address_id')
-    qb.leftJoin('crm_contacts_organizations', 'crm_contacts_organizations.contact_id', 'crm_recipients.contact_id')
-    qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_recipients.contact_id')
-    qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_recipients.contact_id')
-    qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_recipients.contact_id')
-    qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_recipients.contact_id')
-    qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_recipients.contact_id')
-    qb.where('crm_contacts.team_id', req.team.get('id'))
-    if(!filter || filter.$and.length === 0) qb.whereRaw('false')
-    qb.where('type', type)
-    qb.where('purpose', purpose)
-    if(purpose === 'marketing') {
-      qb.where('program_id', program_id)
-    }
-    qb.where('crm_recipients.team_id', req.team.get('id'))
-    qb.orderBy('crm_contacts.last_name','asc')
-  }).filter({
+  const recipient = Recipient.filter({
+    scope: (qb) => {
+      qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
+      qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
+      qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_recipients.email_address_id')
+      qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_recipients.phone_number_id')
+      qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_recipients.mailing_address_id')
+      qb.leftJoin('crm_contacts_organizations', 'crm_contacts_organizations.contact_id', 'crm_recipients.contact_id')
+      qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_recipients.contact_id')
+      qb.leftJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_recipients.contact_id')
+      qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_recipients.contact_id')
+      qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_recipients.contact_id')
+      qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_recipients.contact_id')
+      qb.where('crm_contacts.team_id', req.team.get('id'))
+      if(!filter || filter.$and.length === 0) qb.whereRaw('false')
+      qb.where('type', type)
+      qb.where('purpose', purpose)
+      if(purpose === 'marketing') {
+        qb.where('program_id', program_id)
+      }
+      qb.where('crm_recipients.team_id', req.team.get('id'))
+      qb.orderBy('crm_contacts.last_name','asc')
+    },
     aliases: {
       first_name: 'crm_contacts.first_name',
       last_name: 'crm_contacts.last_name',

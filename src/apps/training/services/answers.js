@@ -5,9 +5,8 @@ const createOrUpdateAnswer = async (req, question, data) => {
 
   if(data.id) {
 
-    const answer = await Answer.scope(qb => {
+    const answer = await Answer.query(qb => {
       qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
       qb.where('id', data.id)
     }).fetch({
       transacting: req.trx

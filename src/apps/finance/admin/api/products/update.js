@@ -6,9 +6,8 @@ import Product from '../../../models/product'
 
 const updateRoute = async (req, res) => {
 
-  const product = await Product.scope(qb => {
+  const product = await Product.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

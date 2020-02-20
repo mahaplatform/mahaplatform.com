@@ -3,14 +3,14 @@ import User from '../../../../../maha/models/user'
 
 const listRoute = async (req, res) => {
 
-  const users = await User.scope(qb => {
-    qb.innerJoin('maha_users_groups', 'maha_users_groups.user_id', 'maha_users.id')
-    qb.where('maha_users_groups.group_id', req.params.id)
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const users = await User.filter({
+    scope: (qb) => {
+      qb.innerJoin('maha_users_groups', 'maha_users_groups.user_id', 'maha_users.id')
+      qb.where('maha_users_groups.group_id', req.params.id)
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email']
-  }).sort({
+    searchParams: ['first_name','last_name','email'],
     sort: req.query.$sort,
     defaultSort: 'last_name'
   }).fetchPage({

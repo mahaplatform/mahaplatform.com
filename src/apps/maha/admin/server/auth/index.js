@@ -92,9 +92,8 @@ const ldap = (req, res, next) => {
 
 const loadUserByEmail = async (req, email, done) => {
 
-  const user = await User.scope(qb => {
+  const user = await User.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('email', email)
   }).fetch({
     withRelated: ['photo','team.logo'],

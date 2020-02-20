@@ -3,11 +3,10 @@ import Form from '../../../models/form'
 
 const showRoute = async (req, res) => {
 
-  const form = await Form.scope(qb => {
+  const form = await Form.query(qb => {
     qb.select('crm_forms.*','crm_form_responses.num_responses')
     qb.innerJoin('crm_form_responses','crm_form_responses.form_id','crm_forms.id')
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['email','workflow','program.merchant'],

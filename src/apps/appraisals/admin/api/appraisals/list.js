@@ -3,10 +3,11 @@ import Appraisal from '../../../models/appraisal'
 
 const listRoute = async (req, res) => {
 
-  const appraisals = await Appraisal.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('employee_id', req.user.get('id'))
-  }).filter({
+  const appraisals = await Appraisal.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('employee_id', req.user.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['employee_id']
   }).fetchPage({

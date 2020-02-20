@@ -4,9 +4,18 @@ import _ from 'lodash'
 const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
+
+    if(options.scope) {
+      this.scopeQuery = options.scope
+      this.__super__.scopeQuery = options.scope
+    }
+
     options.tableName = this.tableName
+    
     return this.query(qb => {
+      if(options.scope) options.scope(qb)
       if(options.filter) applyFilters(qb, options.filter, options)
+      if(options.sort) applySorts(qb, options.sort, options)
     })
   }
 
@@ -250,9 +259,34 @@ const filterPlugin = function(bookshelf) {
     qb.whereRaw(`${column} <= ?`, end.format('YYYY-MM-DD'))
   }
 
-  const getAliased = (column, options)  => {
-    if(!options.aliases) return column
-    return options.aliases[column] || column
+  const applySorts = (qb, $sorts, options) => {
+    const sorts = normalizeSort($sorts, options)
+    if(sorts.length === 0) return
+    sorts.map(sort => {
+      const { column, order } = applySort(sort, options)
+      qb.orderByRaw(`${column} ${order}`)
+    })
+  }
+
+  const normalizeSort = ($sorts, options) => {
+    const sorts = $sorts || options.defaultSort || 'id'
+    return _.castArray(sorts).map(sort => {
+      if(!_.isString(sort)) return sort
+      return {
+        column: sort.replace(/^-/, ''),
+        order: sort[0] === '-' ? 'desc' : 'asc'
+      }
+    }).filter(sort => !_.isNil(sort.column))
+  }
+
+  const applySort = (sort, options) => {
+    if(options.sortParams && !_.includes(options.sortParams, sort.column)) {
+      throw new Error(`cannot sort on ${sort.column}`)
+    }
+    return {
+      column: castColumn(sort.column, options),
+      order: sort.order || 'asc'
+    }
   }
 
   const castColumn = function($column, options) {
@@ -260,6 +294,11 @@ const filterPlugin = function(bookshelf) {
     const { tableName } = options
     const matches = column.match(/(.*)\.(.*)/)
     return !matches && tableName !== undefined ? `${tableName}.${column}` : column
+  }
+
+  const getAliased = (column, options)  => {
+    if(!options.aliases) return column
+    return options.aliases[column] || column
   }
 
   bookshelf.Collection.prototype.filter = filter

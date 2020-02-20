@@ -4,9 +4,8 @@ import EmailCampaign from '../../../../models/email_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await EmailCampaign.scope(qb => {
+  const campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['program'],

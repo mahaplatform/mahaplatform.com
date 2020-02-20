@@ -7,9 +7,8 @@ const getPreview= (service) => {
 
 const listRoute = async (req, res) => {
 
-  const profile = await Profile.scope(qb => {
+  const profile = await Profile.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.profile_id )
   }).fetch({
     withRelated: ['source'],

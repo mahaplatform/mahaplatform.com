@@ -5,9 +5,8 @@ import Goal from '../../../../models/goal'
 
 const updateRoute = async (req, res) => {
 
-  const plan = await Plan.scope(qb => {
+  const plan = await Plan.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.plan_id)
   }).fetch({
     transacting: req.trx
@@ -21,8 +20,6 @@ const updateRoute = async (req, res) => {
   await req.trx('competencies_goals')
     .where('plan_id', req.params.plan_id)
     .delete()
-
-  console.log(req.body.goals)
 
   await Promise.map(req.body.goals, async goal => {
     await Goal.forge({

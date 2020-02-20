@@ -3,9 +3,8 @@ import Fulfillment from '../../../models/fulfillment'
 
 const showRoute = async (req, res) => {
 
-  const fulfillment = await Fulfillment.scope(qb => {
+  const fulfillment = await Fulfillment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['offering','training','user'],

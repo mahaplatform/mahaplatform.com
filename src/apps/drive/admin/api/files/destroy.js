@@ -3,9 +3,8 @@ import { destroyFile } from '../../../services/files'
 
 const destroyRoute = async (req, res) => {
 
-  const file = await File.scope(qb => {
+  const file = await File.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
     transacting: req.trx

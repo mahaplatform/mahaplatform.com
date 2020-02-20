@@ -6,7 +6,7 @@ import Field from '../../../models/field'
 
 const createRoute = async (req, res) => {
 
-  const delta = await Field.scope(qb => {
+  const delta = await Field.query(qb => {
     qb.where('maha_fields.parent_type', req.params.parent_type)
     if(req.params.parent_id) {
       qb.where('maha_fields.parent_id', req.params.parent_id)

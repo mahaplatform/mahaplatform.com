@@ -3,9 +3,8 @@ import Asset from '../../../models/asset'
 
 const printRoute = async (req, res) => {
 
-  const asset = await Asset.scope(qb => {
+  const asset = await Asset.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

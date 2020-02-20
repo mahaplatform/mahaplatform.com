@@ -9,7 +9,7 @@ export const processValues = async (req, { parent_type, parent_id, values }) => 
 
   if(!values) return {}
 
-  const fields = await Field.scope(qb => {
+  const fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('parent_type', parent_type)
     if(parent_id) {
@@ -131,7 +131,7 @@ const transformValue = async (req, field, value) => {
 
 export const expandValues = async (req, parent_type, parent_id, data) => {
 
-  const fields = await Field.scope(qb => {
+  const fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('parent_type', parent_type)
     qb.where('parent_id', parent_id)

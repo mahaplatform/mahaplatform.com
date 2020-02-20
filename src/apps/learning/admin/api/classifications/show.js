@@ -3,9 +3,8 @@ import Classification from '../../../models/classification'
 
 const showRoute = async (req, res) => {
 
-  const classification = await Classification.scope(qb => {
+  const classification = await Classification.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

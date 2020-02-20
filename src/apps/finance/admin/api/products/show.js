@@ -3,9 +3,8 @@ import Product from '../../../models/product'
 
 const showRoute = async (req, res) => {
 
-  const product = await Product.scope(qb => {
+  const product = await Product.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['project','revenue_type','donation_revenue_type'],

@@ -20,9 +20,8 @@ const _getMileageRate = async (req, date) => {
 
 const updateRoute = async (req, res) => {
 
-  const trip = await Trip.scope(qb => {
+  const trip = await Trip.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['user','project.members','expense_type'],

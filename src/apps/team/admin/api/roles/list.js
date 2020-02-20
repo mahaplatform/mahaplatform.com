@@ -3,13 +3,13 @@ import Role from '../../../../maha/models/role'
 
 const listRoute = async (req, res) => {
 
-  const roles = await Role.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const roles = await Role.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['title'],
-    searchParams: ['title']
-  }).sort({
+    searchParams: ['title'],
     sort: req.query.$sort,
     defaultSort: 'title',
     sortParams: ['id','title']

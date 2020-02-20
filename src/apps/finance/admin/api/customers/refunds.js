@@ -4,9 +4,8 @@ import Refund from '../../../models/refund'
 
 const refundsRoute = async (req, res) => {
 
-  const customer = await Customer.scope(qb => {
+  const customer = await Customer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
     transacting: req.trx
@@ -17,11 +16,13 @@ const refundsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const refunds = await Refund.query(qb => {
-    qb.innerJoin('finance_payments','finance_payments.id', 'finance_refunds.payment_id')
-    qb.innerJoin('finance_invoices','finance_invoices.id', 'finance_payments.invoice_id')
-    qb.where('finance_refunds.team_id', req.team.get('id'))
-    qb.where('finance_invoices.customer_id', customer.get('id'))
+  const refunds = await Refund.filter({
+    scope: (qb) => {
+      qb.innerJoin('finance_payments','finance_payments.id', 'finance_refunds.payment_id')
+      qb.innerJoin('finance_invoices','finance_invoices.id', 'finance_payments.invoice_id')
+      qb.where('finance_refunds.team_id', req.team.get('id'))
+      qb.where('finance_invoices.customer_id', customer.get('id'))
+    }
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

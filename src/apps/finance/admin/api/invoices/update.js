@@ -10,9 +10,8 @@ import Coupon from '../../../models/coupon'
 
 const updateRoute = async (req, res) => {
 
-  const invoice = await Invoice.scope(qb => {
+  const invoice = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.select('finance_invoices.*','finance_invoice_details.*')
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('id', req.params.id)
@@ -56,9 +55,8 @@ const updateRoute = async (req, res) => {
 
     if(item) {
 
-      const product = await Product.scope(qb => {
+      const product = await Product.query(qb => {
         qb.where('team_id', req.team.get('id'))
-      }).query(qb => {
         qb.where('id', line_item.get('product_id'))
       }).fetch({
         transacting: req.trx
@@ -102,9 +100,8 @@ const updateRoute = async (req, res) => {
 
     if(line_item.id) return
 
-    const product = await Product.scope(qb => {
+    const product = await Product.query(qb => {
       qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
       qb.where('id', line_item.product_id)
     }).fetch({
       transacting: req.trx

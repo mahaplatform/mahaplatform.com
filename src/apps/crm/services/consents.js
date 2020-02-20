@@ -23,9 +23,8 @@ const _getModel = (type) => {
 
 const _getChannel = async (req, { type, code, id }) => {
   const model = _getModel(type)
-  return await model.scope(qb => {
+  return await model.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     if(id) qb.where('id', id)
     if(code) qb.where('code', code)
   }).fetch({
@@ -42,9 +41,8 @@ const _getDescription = (req, { type, channel }) => {
 
 const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => {
 
-  const consent = await Consent.scope(qb => {
+  const consent = await Consent.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('program_id', program_id)
     qb.where('type', type)
     qb.where(key, id)
@@ -73,9 +71,8 @@ const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => 
 
 const updateInterests = async (req, { contact, program, topic_ids }) => {
 
-  const topics = await Topic.scope(qb => {
+  const topics = await Topic.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.select(req.trx.raw('crm_topics.*,crm_interests.topic_id is not null as is_interested'))
     qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', contact.get('id'))
     qb.where('program_id', program.get('id'))

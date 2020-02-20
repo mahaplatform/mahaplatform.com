@@ -3,9 +3,8 @@ import Refund from '../../../models/refund'
 
 const showRoute = async (req, res) => {
 
-  const refund = await Refund.scope(qb => {
+  const refund = await Refund.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['credit','payment.invoice.customer'],

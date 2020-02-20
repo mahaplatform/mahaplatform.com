@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const lookupRoute = async (req, res) => {
 
-  const merchants = await await Merchant.scope(qb => {
+  const merchants = await await Merchant.query(qb => {
     qb.where('team_id', req.params.team_id)
   }).fetchAll({
     transacting: req.trx

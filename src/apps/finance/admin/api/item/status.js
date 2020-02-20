@@ -28,9 +28,8 @@ const statusRoute = async (req, res) => {
     message: `Unable to find type ${req.params.type}`
   })
 
-  const item = await type.model.scope(qb => {
+  const item = await type.model.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['project.members'],

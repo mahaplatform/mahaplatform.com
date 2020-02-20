@@ -3,9 +3,8 @@ import List from '../../../models/list'
 
 const showRoute = async (req, res) => {
 
-  const list = await List.scope(qb => {
+  const list = await List.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

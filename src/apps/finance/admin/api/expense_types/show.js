@@ -3,9 +3,8 @@ import ExpenseType from '../../../models/expense_type'
 
 const showRoute = async (req, res) => {
 
-  const expense_type = await ExpenseType.scope(qb => {
+  const expense_type = await ExpenseType.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

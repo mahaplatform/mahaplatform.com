@@ -4,9 +4,8 @@ import Payment from '../../../models/payment'
 
 const paymentsRoute = async (req, res) => {
 
-  const invoice = await Invoice.scope(qb => {
+  const invoice = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.invoice_id)
   }).fetch({
     transacting: req.trx

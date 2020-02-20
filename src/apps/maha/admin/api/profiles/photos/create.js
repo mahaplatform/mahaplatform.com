@@ -13,9 +13,8 @@ const getCreate = (service) => {
 
 const filesRoute = async (req, res) => {
 
-  const profile = await Profile.scope(qb => {
+  const profile = await Profile.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.profile_id )
   }).fetch({
     withRelated: ['source'],
@@ -27,9 +26,8 @@ const filesRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  const asset = await Asset.scope(qb => {
+  const asset = await Asset.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('source_id', profile.get('source_id'))
     qb.where('source_identifier', req.body.id)
   }).fetch({

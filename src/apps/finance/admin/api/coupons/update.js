@@ -6,9 +6,8 @@ import Coupon from '../../../models/coupon'
 
 const updateRoute = async (req, res) => {
 
-  const coupon = await Coupon.scope(qb => {
+  const coupon = await Coupon.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

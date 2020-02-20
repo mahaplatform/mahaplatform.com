@@ -3,9 +3,8 @@ import Fulfillment from '../../../../models/fulfillment'
 
 const fulfillmentsRoute = async (req, res) => {
 
-  const fulfillments = await Fulfillment.scope(qb => {
+  const fulfillments = await Fulfillment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('offering_id', req.params.offering_id)
   }).fetchAll({
     withRelated: ['user.photo'],

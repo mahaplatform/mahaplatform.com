@@ -3,12 +3,12 @@ import ImportItem from '../../../../models/import_item'
 
 const listRoute = async (req, res) => {
 
-  const items = await ImportItem.scope().query(qb => {
-    qb.where('import_id', req.params.import_id)
-  }).filter({
+  const items = await ImportItem.filter({
+    scope: qb => {
+      qb.where('import_id', req.params.import_id)
+    },
     filter: req.query.$filter,
-    filterParams:['is_valid','is_omitted','is_nonunique','is_duplicate']
-  }).sort({
+    filterParams:['is_valid','is_omitted','is_nonunique','is_duplicate'],
     sort: req.query.$sort,
     defaultSort: 'id',
     sortParams: ['id']

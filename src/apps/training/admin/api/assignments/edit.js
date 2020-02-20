@@ -2,9 +2,8 @@ import Assignment from '../../../models/assignment'
 
 const showRoute = async (req, res) => {
 
-  const assignment = await Assignment.scope(qb => {
+  const assignment = await Assignment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

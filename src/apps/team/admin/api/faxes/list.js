@@ -3,9 +3,10 @@ import Fax from '../../../../maha/models/fax'
 
 const listRoute = async (req, res) => {
 
-  const faxes = await Fax.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).sort({
+  const faxes = await Fax.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['created_at']

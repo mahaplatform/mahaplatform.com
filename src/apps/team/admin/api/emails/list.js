@@ -3,12 +3,12 @@ import Email from '../../../../maha/models/email'
 
 const listRoute = async (req, res) => {
 
-  const emails = await Email.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const emails = await Email.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    filterParams: ['user_id','sent_at']
-  }).sort({
+    filterParams: ['user_id','sent_at'],
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['id','to','subject','status','sent_at','created_at']

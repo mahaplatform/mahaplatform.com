@@ -4,9 +4,8 @@ import Email from '../../../../../maha/models/email'
 
 const deliveriesRoute = async (req, res) => {
 
-  const campaign = await EmailCampaign.scope(qb => {
+  const campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -17,10 +16,11 @@ const deliveriesRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const emails = await Email.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('email_campaign_id', campaign.get('id'))
-  }).filter({
+  const emails = await Email.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('email_campaign_id', campaign.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']
   }).fetchPage({

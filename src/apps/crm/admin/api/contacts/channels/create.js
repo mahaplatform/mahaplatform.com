@@ -6,9 +6,8 @@ import Contact from '../../../../models/contact'
 
 const createRoute = async (req, res) => {
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -19,9 +18,8 @@ const createRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const program = await Program.scope(qb => {
+  const program = await Program.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.body.program_id)
   }).fetch({
     transacting: req.trx

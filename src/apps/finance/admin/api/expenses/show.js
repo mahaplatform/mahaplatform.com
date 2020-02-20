@@ -3,9 +3,8 @@ import Expense from '../../../models/expense'
 
 const showRoute = async (req, res) => {
 
-  const expense = await Expense.scope(qb => {
+  const expense = await Expense.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','allocations.project','allocations.expense_type','vendor','account','audit.story','audit.user.photo'],

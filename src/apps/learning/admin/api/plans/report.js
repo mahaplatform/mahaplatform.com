@@ -3,12 +3,12 @@ import Plan from '../../../models/plan'
 
 const reportRoute = async (req, res) => {
 
-  const plans = await Plan.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const plans = await Plan.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['id','title']
-  }).sort({
+    searchParams: ['id','title'],
     sort: req.query.$sort,
     defaultSort: 'created_at',
     sortParams: ['created_at']

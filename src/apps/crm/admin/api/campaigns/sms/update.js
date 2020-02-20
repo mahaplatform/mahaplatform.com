@@ -4,9 +4,8 @@ import SMSCampaign from '../../../../models/sms_campaign'
 
 const updateRoute = async (req, res) => {
 
-  const campaign = await SMSCampaign.scope(qb => {
+  const campaign = await SMSCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

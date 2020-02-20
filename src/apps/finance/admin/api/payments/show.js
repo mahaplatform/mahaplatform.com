@@ -3,9 +3,8 @@ import Payment from '../../../models/payment'
 
 const showRoute = async (req, res) => {
 
-  const payment = await Payment.scope(qb => {
+  const payment = await Payment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.select('finance_payments.*','finance_payment_details.*')
     qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
     qb.where('id', req.params.id)

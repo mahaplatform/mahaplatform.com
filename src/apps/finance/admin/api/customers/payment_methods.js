@@ -4,9 +4,8 @@ import Customer from '../../../models/customer'
 
 const paymentMethodsRoute = async (req, res) => {
 
-  const customer = await Customer.scope(qb => {
+  const customer = await Customer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
     transacting: req.trx
@@ -17,9 +16,11 @@ const paymentMethodsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const paymentMethods = await PaymentMethod.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('customer_id', customer.get('id'))
+  const paymentMethods = await PaymentMethod.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('customer_id', customer.get('id'))
+    }
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

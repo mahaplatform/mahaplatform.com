@@ -7,9 +7,8 @@ import Invoice from '../../../models/invoice'
 
 const voidRoute = async (req, res) => {
 
-  const invoice = await Invoice.scope(qb => {
+  const invoice = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['payments'],

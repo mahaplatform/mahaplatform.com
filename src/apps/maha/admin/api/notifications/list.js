@@ -4,13 +4,12 @@ import Notification from '../../../models/notification'
 
 const listRoute = async (req, res) => {
 
-  const notifications = await Notification.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
-    qb.where('user_id', req.user.get('id'))
-  }).filter({
-    filter: req.query.$filter
-  }).sort({
+  const notifications = await Notification.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('user_id', req.user.get('id'))
+    },
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: 'created_at',
     sortParams: ['created_at']

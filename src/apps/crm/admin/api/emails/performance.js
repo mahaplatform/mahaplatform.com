@@ -3,9 +3,8 @@ import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
-  const email = await Email.scope(qb => {
+  const email = await Email.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['email'],

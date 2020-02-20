@@ -3,7 +3,7 @@ import App from '../../../../maha/models/app'
 
 const listRoute = async (req, res) => {
 
-  const apps = await App.scope().sort({
+  const apps = await App.filter({
     sort: req.query.$sort,
     defaultSort: 'code'
   }).fetchPage({

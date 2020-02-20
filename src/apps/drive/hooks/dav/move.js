@@ -19,9 +19,8 @@ const moveRoute = async (req, res) => {
   const parent_path = fullpath.slice(0,-1).join('/')
   const is_metafile = _.includes(['._','~$','~%'], label.substr(0,2)) || _.includes(['.DS_Store'], label) || path.extname(label) === '.tmp'
 
-  const parent = await Folder.scope(qb => {
+  const parent = await Folder.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).where(qb => {
     qb.where('fullpath', parent_path)
     qb.whereNull('deleted_at')
   }).fetch({
@@ -65,9 +64,8 @@ const moveRoute = async (req, res) => {
 
     if(!is_metafile) {
 
-      const file = await File.scope(qb => {
+      const file = await File.query(qb => {
         qb.where('team_id', req.team.get('id'))
-      }).query(qb => {
         qb.where('fullpath', destination)
         qb.whereNull('deleted_at')
       }).fetch({

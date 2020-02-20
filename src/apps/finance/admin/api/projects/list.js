@@ -4,16 +4,17 @@ import _ from 'lodash'
 
 const listRoute = async (req, res) => {
 
-  const projects = await Project.scope(qb => {
-    qb.select(req.trx.raw('distinct on (finance_projects.id,finance_projects.integration->>\'project_code\',finance_projects.title) finance_projects.*'))
-    if(_.includes(req.rights, 'finance:manage_configuration')) {
-      qb.leftJoin('finance_members', 'finance_members.project_id', 'finance_projects.id')
-    } else  {
-      qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.user.get('id')])
-      qb.where('finance_projects.is_active', true)
-    }
-    qb.where('finance_projects.team_id', req.team.get('id'))
-  }).filter({
+  const projects = await Project.filter({
+    scope: (qb) => {
+      qb.select(req.trx.raw('distinct on (finance_projects.id,finance_projects.integration->>\'project_code\',finance_projects.title) finance_projects.*'))
+      if(_.includes(req.rights, 'finance:manage_configuration')) {
+        qb.leftJoin('finance_members', 'finance_members.project_id', 'finance_projects.id')
+      } else  {
+        qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.user.get('id')])
+        qb.where('finance_projects.is_active', true)
+      }
+      qb.where('finance_projects.team_id', req.team.get('id'))
+    },
     aliases: {
       project_code: 'integration->>\'project_code\''
     },
@@ -25,10 +26,6 @@ const listRoute = async (req, res) => {
         if(!filter.$eq) return
         qb.where('finance_members.user_id', filter.$eq)
       }
-    }
-  }).sort({
-    aliases: {
-      project_code: 'integration->>\'project_code\''
     },
     sort: req.query.$sort,
     defaultSort: ['project_code', 'title'],

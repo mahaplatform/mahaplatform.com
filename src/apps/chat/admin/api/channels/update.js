@@ -6,12 +6,11 @@ import Channel from '../../../models/channel'
 
 const updateRoute = async (req, res) => {
 
-  const channel = await Channel.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
+  const channel = await Channel.query(qb => {
     qb.innerJoin('chat_subscriptions', 'chat_subscriptions.channel_id', 'chat_channels.id')
     qb.where('chat_subscriptions.user_id', req.user.get('id'))
     qb.where('chat_channels.id', req.params.id)
+    qb.where('chat_channels.team_id', req.team.get('id'))
   }).fetch({
     withRelated: ['owner.photo','subscriptions.user.photo','last_message','stars'],
     transacting: req.trx

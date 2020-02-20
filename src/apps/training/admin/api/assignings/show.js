@@ -3,9 +3,8 @@ import Assigning from '../../../models/assigning'
 
 const showRoute = async (req, res) => {
 
-  const assigning = await Assigning.scope(qb => {
+  const assigning = await Assigning.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['assigned_by','assignments'],

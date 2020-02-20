@@ -6,9 +6,8 @@ import Credit from '../../../../models/credit'
 
 const createRoute = async (req, res) => {
 
-  const customer = await Customer.scope(qb => {
+  const customer = await Customer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
     transacting: req.trx

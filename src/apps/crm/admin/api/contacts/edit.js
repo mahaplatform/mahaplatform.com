@@ -2,9 +2,8 @@ import Contact from '../../../models/contact'
 
 const editRoute = async (req, res) => {
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','tags','topics','lists'],

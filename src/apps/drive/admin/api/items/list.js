@@ -33,14 +33,15 @@ const listRoute = async (req, res) => {
 
   }
 
-  const items = await Item.scope(qb => {
-    qb.select('drive_items.*','drive_access_types.text as access_type')
-    qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
-    qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
-    qb.where('drive_items.team_id', req.team.get('id'))
-    qb.whereRaw('drive_items.type != ?', ['metafile'])
-    qb.whereNull('drive_items.deleted_at')
-  }).filter({
+  const items = await Item.filter({
+    scope: (qb) => {
+      qb.select('drive_items.*','drive_access_types.text as access_type')
+      qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
+      qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
+      qb.where('drive_items.team_id', req.team.get('id'))
+      qb.whereRaw('drive_items.type != ?', ['metafile'])
+      qb.whereNull('drive_items.deleted_at')
+    },
     filter: req.query.$filter,
     filterParams: ['code','folder_id','type','access_type'],
     searchParams: ['label'],
@@ -49,8 +50,7 @@ const listRoute = async (req, res) => {
         if(!filter.$in) return
         qb.whereIn('drive_access_types.text', filter.$in)
       }
-    }
-  }).sort({
+    },
     sort: req.query.$sort,
     defaultSort: 'label'
   }).fetchPage({

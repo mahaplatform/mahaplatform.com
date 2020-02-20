@@ -4,9 +4,8 @@ import Asset from '../../../models/asset'
 
 const previewRoute = async (req, res) => {
 
-  const _import = await Import.scope(qb => {
+  const _import = await Import.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

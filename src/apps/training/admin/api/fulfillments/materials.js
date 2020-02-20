@@ -3,9 +3,8 @@ import Material from '../../../models/material'
 
 const listRoute = async (req, res) => {
 
-  const materials = await Material.scope(qb => {
+  const materials = await Material.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.innerJoin('training_fulfillments', 'training_fulfillments.training_id', 'training_materials.training_id')
     qb.where('training_fulfillments.id', req.params.id)
   }).fetchAll({

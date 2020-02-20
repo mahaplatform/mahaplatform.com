@@ -3,19 +3,19 @@ import Starred from '../../../models/starred'
 
 const starredRoute = async (req, res) => {
 
-  const items = await Starred.scope(qb => {
-    qb.select('drive_starred.*','drive_access_types.text as access_type')
-    qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_starred.code')
-    qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
-    qb.where('drive_items_access.user_id', req.user.get('id'))
-    qb.where('starrer_id', req.user.get('id'))
-    qb.whereNull('drive_starred.deleted_at')
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const items = await Starred.filter({
+    scope: (qb) => {
+      qb.select('drive_starred.*','drive_access_types.text as access_type')
+      qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_starred.code')
+      qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
+      qb.where('drive_items_access.user_id', req.user.get('id'))
+      qb.where('starrer_id', req.user.get('id'))
+      qb.whereNull('drive_starred.deleted_at')
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['code','folder_id','type'],
-    searchParams: ['label']
-  }).sort({
+    searchParams: ['label'],
     sort: req.query.$sort,
     defaultSort: 'label'
   }).fetchPage({

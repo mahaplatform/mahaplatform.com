@@ -3,9 +3,8 @@ import Disbursement from '../../../models/disbursement'
 
 const showRoute = async (req, res) => {
 
-  const disbursement = await Disbursement.scope(qb => {
+  const disbursement = await Disbursement.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['merchant','payments'],

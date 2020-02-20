@@ -3,9 +3,8 @@ import Material from '../../../../models/material'
 
 const listRoute = async (req, res) => {
 
-  const materials = await Material.scope(qb => {
+  const materials = await Material.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('training_id', req.params.training_id)
   }).fetchAll({
     withRelated: ['asset.source'],

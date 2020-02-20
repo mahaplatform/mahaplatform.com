@@ -4,9 +4,8 @@ import Folder from '../../models/folder'
 
 const mkcolRoute = async (req, res) => {
 
-  const parent = await Folder.scope(qb => {
+  const parent = await Folder.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).where(qb => {
     qb.where('fullpath', req.parent_path)
     qb.whereNull('deleted_at')
   }).fetch({

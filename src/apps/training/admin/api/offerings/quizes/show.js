@@ -3,9 +3,8 @@ import Quiz from '../../../../models/quiz'
 
 const showRoute = async (req, res) => {
 
-  const quiz = await Quiz.scope(qb => {
+  const quiz = await Quiz.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['training'],

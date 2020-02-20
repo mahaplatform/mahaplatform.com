@@ -4,9 +4,8 @@ import _ from 'lodash'
 
 const editRoute = async (req, res) => {
 
-  const expense = await Expense.scope(qb => {
+  const expense = await Expense.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['receipts','allocations.project.members'],

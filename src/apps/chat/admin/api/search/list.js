@@ -3,13 +3,13 @@ import Result from '../../../models/result'
 
 const listRoute = async (req, res) => {
 
-  const results = await Result.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('user_id', req.user.get('id'))
-  }).filter({
+  const results = await Result.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('user_id', req.user.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['text']
-  }).sort({
+    searchParams: ['text'],
     sort: req.query.$sort,
     defaultSort: '-date',
     sortParams: ['id','first_name','last_name','email','date']

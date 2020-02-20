@@ -5,9 +5,8 @@ import PhoneNumber from '../../../../maha/models/phone_number'
 
 const destroyRoute = async (req, res) => {
 
-  const phone_number = await PhoneNumber.scope(qb => {
+  const phone_number = await PhoneNumber.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

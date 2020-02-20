@@ -13,9 +13,8 @@ const getAllocations = (item, allocations) => {
 
 const updateRoute = async (req, res) => {
 
-  const expense = await Expense.scope(qb => {
+  const expense = await Expense.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -26,9 +25,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  const allocations = await Expense.scope(qb => {
+  const allocations = await Expense.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('code', expense.get('code'))
   }).fetchAll({
     transacting: req.trx

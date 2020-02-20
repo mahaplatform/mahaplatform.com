@@ -89,9 +89,8 @@ const token = async (req, res) => {
 
   await Promise.mapSeries(profiles, async (data) => {
 
-    const profile = await Profile.scope(qb => {
+    const profile = await Profile.query(qb => {
       qb.where('team_id', req.user.get('team_id'))
-    }).query(qb => {
       qb.where('source_id', source.get('id'))
       qb.where('profile_id', data.profile_id)
       qb.where('type', state.type)

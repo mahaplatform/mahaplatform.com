@@ -6,9 +6,8 @@ import Category from '../../../models/category'
 
 const updateRoute = async (req, res) => {
 
-  const category = await Category.scope(qb => {
+  const category = await Category.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

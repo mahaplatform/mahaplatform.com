@@ -4,9 +4,8 @@ import Form from '../../../../models/form'
 
 const listRoute = async (req, res) => {
 
-  const form = await Form.scope(qb => {
+  const form = await Form.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.form_id)
   }).fetch({
     transacting: req.trx
@@ -17,13 +16,13 @@ const listRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  const responses = await Response.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('form_id', form.get('id'))
-  }).filter({
+  const responses = await Response.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('form_id', form.get('id'))
+    },
     filter: req.query.$filter,
-    filterParams: []
-  }).sort({
+    filterParams: [],
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['created_at']

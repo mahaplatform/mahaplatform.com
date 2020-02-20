@@ -6,9 +6,8 @@ import Account from '../../../models/account'
 
 const updateRoute = async (req, res) => {
 
-  const account = await Account.scope(qb => {
+  const account = await Account.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     patch: true,

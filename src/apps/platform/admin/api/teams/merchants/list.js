@@ -3,7 +3,7 @@ import Merchant from '../../../../../finance/models/merchant'
 
 const listRoute = async (req, res) => {
 
-  const merchants = await Merchant.scope(qb => {
+  const merchants = await Merchant.query(qb => {
     qb.where('team_id', req.params.team_id)
   }).fetchAll({
     transacting: req.trx

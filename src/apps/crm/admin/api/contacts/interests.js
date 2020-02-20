@@ -4,9 +4,8 @@ import Topic from '../../../models/topic'
 
 const interestsRoute = async (req, res) => {
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -25,7 +24,7 @@ const interestsRoute = async (req, res) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
-  const programs = await Program.scope(qb => {
+  const programs = await Program.query(qb => {
     qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
     qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
     qb.where('team_id', req.team.get('id'))

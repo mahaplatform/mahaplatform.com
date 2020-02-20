@@ -4,9 +4,8 @@ import Trip from '../../../models/trip'
 
 const destroyRoute = async (req, res) => {
 
-  const trip = await Trip.scope(qb => {
+  const trip = await Trip.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

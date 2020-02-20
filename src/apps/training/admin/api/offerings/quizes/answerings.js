@@ -4,18 +4,16 @@ import Question from '../../../../models/question'
 
 const answeringsRoute = async (req, res) => {
 
-  const fulfillments = await Fulfillment.scope(qb => {
+  const fulfillments = await Fulfillment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('offering_id', req.params.offering_id)
   }).fetchAll({
     withRelated: ['user.photo'],
     transacting: req.trx
   })
 
-  const questions = await Question.scope(qb => {
+  const questions = await Question.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('quiz_id', req.params.id)
     qb.orderBy('delta', 'asc')
   }).fetchAll({
@@ -23,9 +21,8 @@ const answeringsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const answerings = await Answering.scope(qb => {
+  const answerings = await Answering.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.innerJoin('training_administrations','training_administrations.id','training_answerings.administration_id')
     qb.innerJoin('training_fulfillments','training_fulfillments.user_id','training_administrations.user_id')
     qb.where('training_fulfillments.offering_id', req.params.offering_id)

@@ -3,9 +3,10 @@ import Call from '../../../../maha/models/call'
 
 const listRoute = async (req, res) => {
 
-  const calls = await Call.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).sort({
+  const calls = await Call.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['created_at']

@@ -4,9 +4,8 @@ import Reimbursement from '../../../models/reimbursement'
 
 const destroyRoute = async (req, res) => {
 
-  const reimbursement = await Reimbursement.scope(qb => {
+  const reimbursement = await Reimbursement.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

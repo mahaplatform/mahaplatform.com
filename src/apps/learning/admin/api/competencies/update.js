@@ -6,9 +6,8 @@ import Competency from '../../../models/competency'
 
 const updateRoute = async (req, res) => {
 
-  const competency = await Competency.scope(qb => {
+  const competency = await Competency.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

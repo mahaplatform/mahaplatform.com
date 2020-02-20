@@ -3,9 +3,10 @@ import Subscription from '../../../models/subscription'
 
 const listRoute = async (req, res) => {
 
-  const subscriptions = await Subscription.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).sort({
+  const subscriptions = await Subscription.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     sort: req.query.$sort
   }).fetchPage({
     page: req.query.$page,

@@ -3,10 +3,11 @@ import Type from '../../../models/type'
 
 const listRoute = async (req, res) => {
 
-  const types = await Type.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('site_id', req.params.site_id)
-  }).sort({
+  const types = await Type.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('site_id', req.params.site_id)
+    },
     sort: req.query.$sort,
     defaultSort: 'title',
     sortParams: ['title']

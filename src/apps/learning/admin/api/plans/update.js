@@ -7,9 +7,8 @@ import Plan from '../../../models/plan'
 
 const updateRoute = async (req, res) => {
 
-  const plan = await Plan.scope(qb => {
+  const plan = await Plan.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

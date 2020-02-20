@@ -63,9 +63,8 @@ const createInvoice = async (req, { form, contact, data }) => {
 
   await Promise.map(data.products, async(line_item) => {
 
-    const product = await Product.scope(qb => {
+    const product = await Product.query(qb => {
       qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
       qb.where('id', line_item.product_id)
     }).fetch({
       transacting: req.trx

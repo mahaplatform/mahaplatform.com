@@ -4,13 +4,13 @@ import pluralize from 'pluralize'
 
 const listRoute = async (req, res) => {
 
-  const values = await DeviceValue.query(qb => {
-    qb.where('type', pluralize.singular(req.params.type))
-  }).filter({
+  const values = await DeviceValue.filter({
+    scope: (qb) => {
+      qb.where('type', pluralize.singular(req.params.type))
+    },
     filter: req.query.$filter,
     filterParams: ['text'],
-    searchParams: ['text']
-  }).sort({
+    searchParams: ['text'],
     sort: req.query.$sort,
     defaultSort: 'text',
     sortParams: ['text']

@@ -3,12 +3,12 @@ import Asset from '../../../models/asset'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const assets = await Asset.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email']
-  }).sort({
+    searchParams: ['first_name','last_name','email'],
     sort: req.query.$sort
   }).fetchPage({
     page: req.query.$page,

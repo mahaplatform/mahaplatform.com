@@ -3,9 +3,8 @@ import Material from '../../../../models/material'
 
 const showRoute = async (req, res) => {
 
-  const material = await Material.scope(qb => {
+  const material = await Material.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('training_id', req.params.training_id)
     qb.where('id', req.params.id)
   }).fetch({

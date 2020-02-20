@@ -4,14 +4,14 @@ import Field from '../../../../maha/models/field'
 
 const listRoute = async (req, res) => {
 
-  const organizations = await Organization.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.leftJoin('crm_taggings', 'crm_taggings.organization_id', 'crm_organizations.id')
-  }).filter({
+  const organizations = await Organization.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.leftJoin('crm_taggings', 'crm_taggings.organization_id', 'crm_organizations.id')
+    },
     filter: req.query.$filter,
     filterParams: ['crm_taggings.tag_id'],
-    searchParams: ['name']
-  }).sort({
+    searchParams: ['name'],
     sort: req.query.$sort,
     defaultSort: 'name',
     sortParams: ['name']
@@ -21,9 +21,8 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'crm_organizations')
     qb.orderBy('delta', 'asc')
   }).fetchAll({

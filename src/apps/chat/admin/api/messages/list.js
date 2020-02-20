@@ -8,13 +8,13 @@ import moment from 'moment'
 
 const listRoute = async (req, res) => {
 
-  const messages = await Message.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('channel_id', req.params.channel_id)
-  }).filter({
+  const messages = await Message.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('channel_id', req.params.channel_id)
+    },
     filter: req.query.$filter,
-    searchParams: ['text']
-  }).sort({
+    searchParams: ['text'],
     sort: req.query.$sort,
     defaultSort: '-created_at',
     sortParams: ['id','first_name','last_name','email','created_at']

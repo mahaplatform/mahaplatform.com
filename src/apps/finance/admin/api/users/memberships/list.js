@@ -3,12 +3,13 @@ import Member from '../../../../models/member'
 
 const listRoute = async (req, res) => {
 
-  const members = await Member.scope(qb => {
-    qb.innerJoin('maha_users','maha_users.id','finance_members.user_id')
-    qb.innerJoin('finance_projects','finance_projects.id','finance_members.project_id')
-    qb.where('finance_members.user_id', req.params.user_id)
-    qb.where('finance_members.team_id', req.team.get('id'))
-  }).sort({
+  const members = await Member.filter({
+    scope: (qb) => {
+      qb.innerJoin('maha_users','maha_users.id','finance_members.user_id')
+      qb.innerJoin('finance_projects','finance_projects.id','finance_members.project_id')
+      qb.where('finance_members.user_id', req.params.user_id)
+      qb.where('finance_members.team_id', req.team.get('id'))
+    },
     sort: req.query.$sort,
     defaultSort: ['finance_projects.integration->>\'project_code\'', 'finance_projects.title']
   }).fetchPage({

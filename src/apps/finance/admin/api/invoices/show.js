@@ -3,9 +3,8 @@ import Invoice from '../../../models/invoice'
 
 const showRoute = async (req, res) => {
 
-  const invoice = await Invoice.scope(qb => {
+  const invoice = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.select('finance_invoices.*','finance_invoice_details.*')
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('id', req.params.id)

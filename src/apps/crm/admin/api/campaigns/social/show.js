@@ -3,9 +3,8 @@ import SocialCampaign from '../../../../models/social_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await SocialCampaign.scope(qb => {
+  const campaign = await SocialCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['profile','program'],

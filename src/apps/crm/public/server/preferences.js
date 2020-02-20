@@ -63,7 +63,7 @@ const preferencesRoute = async (req, res) => {
     type
   })
 
-  const consent = await Consent.scope(qb => {
+  const consent = await Consent.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('program_id', program.get('id'))
     qb.where(models[type].key, channel.get('id'))

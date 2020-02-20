@@ -3,13 +3,12 @@ import Item from '../../../models/item'
 
 const trashRoute = async (req, res) => {
 
-  const items = await Item.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
+  const items = await Item.query(qb => {
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.whereRaw('drive_items.type != ?', 'metafile')
     qb.whereNull('drive_items.deleted_at')
     qb.whereIn('drive_items.code', req.body.codes)
+    qb.where('team_id', req.team.get('id'))
   }).fetchAll({
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx

@@ -4,9 +4,8 @@ import EmailCampaign from '../../../../models/email_campaign'
 
 const performanceRoute = async (req, res) => {
 
-  const campaign = await EmailCampaign.scope(qb => {
+  const campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -17,9 +16,8 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const result = await EmailCampaignResult.scope(qb => {
+  const result = await EmailCampaignResult.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('email_campaign_id', campaign.get('id'))
   }).fetch({
     transacting: req.trx

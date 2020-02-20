@@ -3,9 +3,8 @@ import Item from '../../../models/item'
 
 const publishRoute = async (req, res) => {
 
-  const item = await Item.scope(qb => {
+  const item = await Item.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('id', req.params.id)

@@ -9,9 +9,8 @@ import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
-  const form = await Form.scope(qb => {
+  const form = await Form.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

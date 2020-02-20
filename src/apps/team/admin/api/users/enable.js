@@ -6,9 +6,8 @@ import User from '../../../../maha/models/user'
 
 const enableRoute = async (req, res) => {
 
-  const user = await User.scope(qb => {
+  const user = await User.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

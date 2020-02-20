@@ -3,12 +3,12 @@ import Assigning from '../../../models/assigning'
 
 const listRoute = async (req, res) => {
 
-  const assignings = await Assigning.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const assignings = await Assigning.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filterParams: ['assigning_id','user_id'],
-    filter: req.query.$filter
-  }).sort({
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: '-created_at'
   }).fetchPage({

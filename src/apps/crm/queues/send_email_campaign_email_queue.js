@@ -19,7 +19,7 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.select('crm_contacts.*','crm_contact_primaries.*')
     qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('id', email_address.get('contact_id'))

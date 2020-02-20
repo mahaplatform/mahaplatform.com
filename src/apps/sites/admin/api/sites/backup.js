@@ -21,9 +21,8 @@ const backupRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const map = await Field.scope(qb => {
+  const map = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({

@@ -13,9 +13,8 @@ const getAllocations = (item, allocations) => {
 
 const updateRoute = async (req, res) => {
 
-  const reimbursement = await Reimbursement.scope(qb => {
+  const reimbursement = await Reimbursement.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['allocations'],
@@ -27,9 +26,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  const allocations = await Reimbursement.scope(qb => {
+  const allocations = await Reimbursement.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('code', reimbursement.get('code'))
   }).fetchAll({
     transacting: req.trx

@@ -2,9 +2,8 @@ import Type from '../../../models/type'
 
 const editRoute = async (req, res) => {
 
-  const type = await Type.scope(qb => {
+  const type = await Type.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

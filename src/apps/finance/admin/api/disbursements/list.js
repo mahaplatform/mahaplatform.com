@@ -3,13 +3,13 @@ import Disbursement from '../../../models/disbursement'
 
 const listRoute = async (req, res) => {
 
-  const disbursements = await Disbursement.scope(qb => {
-    qb.innerJoin('finance_merchants', 'finance_merchants.id', 'finance_disbursements.merchant_id')
-    qb.where('finance_disbursements.team_id', req.team.get('id'))
-  }).filter({
+  const disbursements = await Disbursement.filter({
+    scope: (qb) => {
+      qb.innerJoin('finance_merchants', 'finance_merchants.id', 'finance_disbursements.merchant_id')
+      qb.where('finance_disbursements.team_id', req.team.get('id'))
+    },
     filterParams: ['merchant_id','date'],
-    filter: req.query.$filter
-  }).sort({
+    filter: req.query.$filter,
     aliases: {
       merchant: 'finance_merchants.title'
     },

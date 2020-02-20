@@ -4,9 +4,8 @@ import Contact from '../../../models/contact'
 
 const showRoute = async (req, res) => {
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo','tags'],
@@ -18,9 +17,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'crm_programs')
     qb.orderBy('delta', 'asc')
   }).fetchAll({

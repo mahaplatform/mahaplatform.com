@@ -3,19 +3,19 @@ import Item from '../../../models/item'
 
 const listRoute = async (req, res) => {
 
-  const items = await Item.scope(qb => {
-    qb.leftJoin('maha_users', 'maha_users.id', 'finance_items.user_id')
-    qb.leftJoin('finance_projects', 'finance_projects.id', 'finance_items.project_id')
-    qb.leftJoin('finance_expense_types', 'finance_expense_types.id', 'finance_items.expense_type_id')
-    qb.leftJoin('finance_vendors', 'finance_vendors.id', 'finance_items.vendor_id')
-    qb.leftJoin('finance_accounts', 'finance_accounts.id', 'finance_items.account_id')
-    qb.where('finance_items.user_id', req.user.get('id'))
-    qb.where('finance_items.team_id', req.team.get('id'))
-  }).filter({
+  const items = await Item.filter({
+    scope: (qb) => {
+      qb.leftJoin('maha_users', 'maha_users.id', 'finance_items.user_id')
+      qb.leftJoin('finance_projects', 'finance_projects.id', 'finance_items.project_id')
+      qb.leftJoin('finance_expense_types', 'finance_expense_types.id', 'finance_items.expense_type_id')
+      qb.leftJoin('finance_vendors', 'finance_vendors.id', 'finance_items.vendor_id')
+      qb.leftJoin('finance_accounts', 'finance_accounts.id', 'finance_items.account_id')
+      qb.where('finance_items.user_id', req.user.get('id'))
+      qb.where('finance_items.team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
     filterParams: ['type','user_id','expense_type_id','project_id','vendor_id','date','account_id','status','batch_id','import_id'],
-    searchParams: ['maha_users.first_name','maha_users.last_name','finance_projects.title','finance_expense_types.title','finance_vendors.name','finance_accounts.name','description']
-  }).sort({
+    searchParams: ['maha_users.first_name','maha_users.last_name','finance_projects.title','finance_expense_types.title','finance_vendors.name','finance_accounts.name','description'],
     sort: req.query.$sort,
     defaultSort: ['-created_at'],
     sortParams: ['id','type','date','maha_users.last_name','finance_projects.title','finance_expense_types.title','finance_vendors.name','finance_accounts.name','description','amount','account_id','status','created_at']

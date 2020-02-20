@@ -3,9 +3,8 @@ import Template from '../../../models/template'
 
 const updateRoute = async (req, res) => {
 
-  const template = await Template.scope(qb => {
+  const template = await Template.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

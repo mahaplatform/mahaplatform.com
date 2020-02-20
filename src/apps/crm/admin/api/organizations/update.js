@@ -8,9 +8,8 @@ import Field from '../../../../maha/models/field'
 
 const updateRoute = async (req, res) => {
 
-  const organization = await Organization.scope(qb => {
+  const organization = await Organization.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -33,9 +32,8 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'crm_contacts')
     qb.orderBy('delta', 'asc')
   }).fetchAll({

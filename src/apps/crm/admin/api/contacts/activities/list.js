@@ -4,9 +4,8 @@ import Contact from '../../../../models/contact'
 
 const listRoute = async (req, res) => {
 
-  const contact = await Contact.scope(qb => {
+  const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -17,12 +16,11 @@ const listRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const activities = await Activity.scope(qb => {
+  const activities = await Activity.query(qb => {
     qb.joinRaw('left join crm_program_user_access on crm_program_user_access.program_id=crm_activities.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
     qb.whereRaw('(crm_activities.program_id is null or crm_program_user_access.program_id is not null)')
     qb.where('crm_activities.team_id', req.team.get('id'))
     qb.where('crm_activities.contact_id', contact.get('id'))
-  }).query(qb => {
     qb.orderBy('created_at', 'desc')
   }).fetchPage({
     page: req.query.$page,

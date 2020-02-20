@@ -3,9 +3,10 @@ import Item from '../../../models/item'
 
 const publishAllRoute = async (req, res) => {
 
-  const ids = await Item.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const ids = await Item.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filter: req.body.filter
   }).fetchAll({
     transacting: req.trx

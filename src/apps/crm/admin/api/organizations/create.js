@@ -9,9 +9,8 @@ import Field from '../../../../maha/models/field'
 
 const createRoute = async (req, res) => {
 
-  req.fields = await Field.scope(qb => {
+  req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'crm_contacts')
     qb.orderBy('delta', 'asc')
   }).fetchAll({

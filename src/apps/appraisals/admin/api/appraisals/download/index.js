@@ -11,9 +11,8 @@ const templatePath  = path.join(__dirname, 'report.html.ejs')
 
 const downloadRoute = async (req, res) => {
 
-  const appraisal = await Appraisal.scope(qb => {
+  const appraisal = await Appraisal.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['supervisor','employee','responsibilities.responsibility_type'],

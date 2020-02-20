@@ -18,9 +18,9 @@ bookshelf.plugin('virtuals')
 
 bookshelf.plugin(filter)
 
-bookshelf.plugin(scope)
+// bookshelf.plugin(scope)
 
-bookshelf.plugin(sort)
+// bookshelf.plugin(sort)
 
 bookshelf.plugin(fetchPage)
 

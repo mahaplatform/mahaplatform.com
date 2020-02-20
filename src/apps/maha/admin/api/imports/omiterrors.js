@@ -5,9 +5,8 @@ import Import from '../../../models/import'
 
 const omiterrorsRoute = async (req, res) => {
 
-  const imp = await Import.scope(qb => {
+  const imp = await Import.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

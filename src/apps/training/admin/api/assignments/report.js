@@ -3,12 +3,12 @@ import Assignment from '../../../models/assignment'
 
 const reportRoute = async (req, res) => {
 
-  const assignments = await Assignment.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const assignments = await Assignment.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filterParams: ['assigning_id','user_id'],
-    filter: req.query.$filter
-  }).sort({
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: '-training_assignments.created_at'
   }).fetchPage({

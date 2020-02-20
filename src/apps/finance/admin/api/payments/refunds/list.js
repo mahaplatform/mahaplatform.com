@@ -4,9 +4,8 @@ import Refund from '../../../../models/refund'
 
 const listRoute = async (req, res) => {
 
-  const payment = await Payment.scope(qb => {
+  const payment = await Payment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.payment_id)
   }).fetch({
     transacting: req.trx

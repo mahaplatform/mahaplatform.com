@@ -3,9 +3,8 @@ import Folder from '../../../models/folder'
 
 const showRoute = async (req, res) => {
 
-  const folder = await Folder.scope(qb => {
+  const folder = await Folder.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
     withRelated: ['accesses.user.photo','accesses.group','accesses.access_type'],

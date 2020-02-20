@@ -3,9 +3,8 @@ import Filter from '../../../models/filter'
 
 const destroyRoute = async (req, res) => {
 
-  const filter = await Filter.scope(qb => {
+  const filter = await Filter.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('owner_id', req.user.get('id'))
     qb.where('code', req.params.code)
     qb.where('id', req.params.id)

@@ -4,9 +4,8 @@ import SMSCampaign from '../../../../models/sms_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await SMSCampaign.scope(qb => {
+  const campaign = await SMSCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['phone_number','program'],

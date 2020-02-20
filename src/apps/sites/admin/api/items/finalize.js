@@ -20,9 +20,8 @@ const finalizeRoute = async (req, res) => {
     message: 'Unable to load import'
   })
 
-  const fields = await Field.scope(qb => {
+  const fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({

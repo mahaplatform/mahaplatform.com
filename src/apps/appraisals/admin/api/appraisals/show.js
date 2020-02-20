@@ -3,9 +3,8 @@ import Appraisal from '../../../models/appraisal'
 
 const showRoute = async (req, res) => {
 
-  const appraisal = await Appraisal.scope(qb => {
+  const appraisal = await Appraisal.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['supervisor','employee','audit.story','audit.user.photo','responsibilities.responsibility_type'],

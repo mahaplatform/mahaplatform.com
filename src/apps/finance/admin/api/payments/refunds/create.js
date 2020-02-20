@@ -10,9 +10,8 @@ import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
-  const payment = await Payment.scope(qb => {
+  const payment = await Payment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.payment_id)
   }).fetch({
     withRelated: ['invoice','refunds'],

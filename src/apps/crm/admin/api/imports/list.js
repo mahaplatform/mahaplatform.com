@@ -3,13 +3,14 @@ import Import from '../../../../maha/models/import'
 
 const listRoute = async (req, res) => {
 
-  const imports = await Import.scope(qb => {
-    qb.select('maha_imports.*','maha_import_counts.*')
-    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
-    qb.innerJoin('maha_users', 'maha_users.id', 'maha_imports.user_id')
-    qb.where('maha_imports.object_type', 'crm_contacts')
-    qb.where('maha_imports.team_id', req.team.get('id'))
-  }).filter({
+  const imports = await Import.filter({
+    scope: (qb) => {
+      qb.select('maha_imports.*','maha_import_counts.*')
+      qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+      qb.innerJoin('maha_users', 'maha_users.id', 'maha_imports.user_id')
+      qb.where('maha_imports.object_type', 'crm_contacts')
+      qb.where('maha_imports.team_id', req.team.get('id'))
+    },
     filter: req.query.$filter,
     searchParams: ['maha_users.first_name','maha_users.last_name','maha_imports.service']
   }).fetchPage({

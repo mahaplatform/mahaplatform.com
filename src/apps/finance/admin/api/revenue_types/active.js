@@ -3,13 +3,13 @@ import RevenueType from '../../../models/revenue_type'
 
 const listRoute = async (req, res) => {
 
-  const revenue_types = await RevenueType.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('is_active', true)
-  }).filter({
+  const revenue_types = await RevenueType.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('is_active', true)
+    },
     filter: req.query.$filter,
-    searchParams: ['title','description','integration->>\'revenue_code\'']
-  }).sort({
+    searchParams: ['title','description','integration->>\'revenue_code\''],
     sort: req.query.$sort,
     defaultSort: ['title'],
     sortParams: ['id','title','created_at']

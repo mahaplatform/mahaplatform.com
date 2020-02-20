@@ -3,7 +3,7 @@ import Attachment from '../../../models/attachment'
 
 const listRoute = async (req, res) => {
 
-  const attachments = await Attachment.scope(qb => {
+  const attachments = await Attachment.query(qb => {
     qb.where('attachable_type', req.params.attachable_type)
     qb.where('attachable_id', req.params.attachable_id)
     qb.where('team_id', req.team.get('id'))

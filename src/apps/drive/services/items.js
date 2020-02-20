@@ -204,9 +204,8 @@ export const propagateAccess = async (req, folder) => {
 
 const _getDotFile = async (req, item) => {
 
-  return await Item.scope(qb => {
+  return await Item.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('folder_id', item.get('folder_id'))
     qb.where('label', `._${item.get('label')}`)
   }).fetch({

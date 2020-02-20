@@ -3,12 +3,12 @@ import Offering from '../../../models/offering'
 
 const listRoute = async (req, res) => {
 
-  const offerings = await Offering.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const offerings = await Offering.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filterParams: ['training_id'],
-    filter: req.query.$filter
-  }).sort({
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: '-date'
   }).fetchPage({

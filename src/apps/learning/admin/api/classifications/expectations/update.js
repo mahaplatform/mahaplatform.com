@@ -4,9 +4,8 @@ import Expectation from '../../../../models/expectation'
 
 const updateRoute = async (req, res) => {
 
-  const classification = await Classification.scope(qb => {
+  const classification = await Classification.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.classification_id)
   }).fetch({
     transacting: req.trx

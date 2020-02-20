@@ -3,20 +3,21 @@ import Fulfillment from '../../../../models/fulfillment'
 
 const administrationsRoute = async (req, res) => {
 
-  const fulfillments = await Fulfillment.scope(qb => {
+  const fulfillments = await Fulfillment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('offering_id', req.params.offering_id)
   }).fetchAll({
     withRelated: ['user.photo'],
     transacting: req.trx
   })
 
-  const administrations = await Administration.scope(qb => {
-    qb.innerJoin('training_fulfillments','training_fulfillments.user_id','training_administrations.user_id')
-    qb.where('training_fulfillments.offering_id', req.params.offering_id)
-    qb.where('training_administrations.quiz_id', req.params.id)
-    qb.where('training_administrations.team_id', req.team.get('id'))
+  const administrations = await Administration.filter({
+    scope: qb => {
+      qb.innerJoin('training_fulfillments','training_fulfillments.user_id','training_administrations.user_id')
+      qb.where('training_fulfillments.offering_id', req.params.offering_id)
+      qb.where('training_administrations.quiz_id', req.params.id)
+      qb.where('training_administrations.team_id', req.team.get('id'))
+    }
   }).fetchPage({
     withRelated: ['quiz.questions','answerings'],
     page: req.query.$page,

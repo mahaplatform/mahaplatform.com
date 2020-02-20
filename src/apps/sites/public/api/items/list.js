@@ -37,12 +37,11 @@ const listRoute = async (req, res) => {
     }, [])
   }
 
-  const items = await Item.scope(qb => {
+  const items = await Item.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('is_published', true)
-  }).query(qb => {
     if(req.query.$filters) {
       req.query.$filters.$and.map(filter => {
         const name = Object.keys(filter)[0]

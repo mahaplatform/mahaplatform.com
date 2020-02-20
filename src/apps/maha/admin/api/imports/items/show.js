@@ -3,9 +3,8 @@ import ImportItem from '../../../../models/import_item'
 
 const showRoute = async (req, res) => {
 
-  const item = await ImportItem.scope(qb => {
+  const item = await ImportItem.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

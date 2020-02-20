@@ -3,12 +3,12 @@ import Receipt from '../../../models/receipt'
 
 const listRoute = async (req, res) => {
 
-  const receipts = await Receipt.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).filter({
+  const receipts = await Receipt.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+    },
     filterParams: ['id'],
-    filter: req.query.$filter
-  }).sort({
+    filter: req.query.$filter,
     sort: req.query.$sort,
     defaultSort: ['id']
   }).fetchPage({

@@ -4,9 +4,8 @@ import Workflow from '../../../models/workflow'
 
 const updateRoute = async (req, res) => {
 
-  const workflow = await Workflow.scope(qb => {
+  const workflow = await Workflow.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['program'],

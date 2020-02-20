@@ -4,9 +4,8 @@ import Workflow from '../../../../models/workflow'
 
 const listRoute = async (req, res) => {
 
-  const workflow = await Workflow.scope(qb => {
+  const workflow = await Workflow.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.workflow_id)
   }).fetch({
     transacting: req.trx
@@ -17,13 +16,13 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const workflows = await Enrollment.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('workflow_id', workflow.get('id'))
-  }).filter({
+  const workflows = await Enrollment.filter({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('workflow_id', workflow.get('id'))
+    },
     filter: req.query.$filter,
-    filterParams: ['was_converted']
-  }).sort({
+    filterParams: ['was_converted'],
     defaultSort:  '-created_at',
     sortParams: ['created_at']
   }).fetchPage({

@@ -7,9 +7,8 @@ import Role from '../../../../maha/models/role'
 
 const updateRoute = async (req, res) => {
 
-  const role = await Role.scope(qb => {
+  const role = await Role.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['apps','rights','users.photo'],

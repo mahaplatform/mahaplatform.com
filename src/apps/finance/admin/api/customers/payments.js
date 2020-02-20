@@ -4,9 +4,8 @@ import Payment from '../../../models/payment'
 
 const paymentsRoute = async (req, res) => {
 
-  const customer = await Customer.scope(qb => {
+  const customer = await Customer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
     transacting: req.trx
@@ -17,13 +16,15 @@ const paymentsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const payments = await Payment.query(qb => {
-    qb.select('finance_payments.*','finance_payment_details.*')
-    qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
-    qb.innerJoin('finance_invoices','finance_invoices.id', 'finance_payments.invoice_id')
-    qb.where('finance_payments.team_id', req.team.get('id'))
-    qb.where('finance_invoices.customer_id', customer.get('id'))
-    qb.orderByRaw('finance_payments.date desc, finance_payments.created_at desc')
+  const payments = await Payment.filter({
+    scope: (qb) => {
+      qb.select('finance_payments.*','finance_payment_details.*')
+      qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
+      qb.innerJoin('finance_invoices','finance_invoices.id', 'finance_payments.invoice_id')
+      qb.where('finance_payments.team_id', req.team.get('id'))
+      qb.where('finance_invoices.customer_id', customer.get('id'))
+      qb.orderByRaw('finance_payments.date desc, finance_payments.created_at desc')
+    }
   }).fetchPage({
     withRelated: ['payment_method'],
     page: req.query.$page,

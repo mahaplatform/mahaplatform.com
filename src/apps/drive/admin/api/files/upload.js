@@ -5,9 +5,8 @@ import Folder from '../../../models/folder'
 
 const _createFolder = async (req, { parent, path }) => {
 
-  const folder = await Folder.scope(qb => {
+  const folder = await Folder.query(qb => {
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('parent_id', parent ? parent.get('id') : null)
     qb.where('label', path[0])
     qb.whereNull('deleted_at')
@@ -29,9 +28,8 @@ const uploadRoute = async (req, res) => {
 
   const files = await Promise.mapSeries(req.body.files, async(item) => {
 
-    const parent = item.folder_code ? await Folder.scope(qb => {
+    const parent = item.folder_code ? await Folder.query(qb => {
       qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
       qb.where('code', item.folder_code)
     }).fetch({
       transacting: req.trx

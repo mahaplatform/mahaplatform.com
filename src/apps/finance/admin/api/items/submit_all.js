@@ -5,11 +5,12 @@ import Item from '../../../models/item'
 
 const submitAllRoute = async (req, res) => {
 
-  const items = await Item.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('status', 'pending')
-    qb.orderBy('user_id', 'asc')
-  }).filter({
+  const items = await Item.filter({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('status', 'pending')
+      qb.orderBy('user_id', 'asc')
+    },
     filter: req.body.filter
   }).fetchAll({
     withRelated: ['project.members','expense_type'],
