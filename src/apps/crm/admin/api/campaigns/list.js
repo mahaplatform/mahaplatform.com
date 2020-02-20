@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
     qb.where('crm_campaigns.team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['program_id']
+    filterParams: ['program_id','status','type']
   }).sort({
     defaultSort:  '-created_at',
     sortParams: ['created_at']

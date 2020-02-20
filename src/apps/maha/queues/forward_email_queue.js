@@ -46,7 +46,13 @@ const processor = async (req, job) => {
     to: `${first_name} ${last_name} <${email}>`,
     subject: `FW: ${forwarding.get('subject')}`,
     html: forwarding.get('html'),
-    code
+    code,
+    was_bounced: false,
+    was_complained: false,
+    was_delivered: false,
+    was_opened: false,
+    was_unsubscribed: false,
+    was_webviewed: false
   }).save(null, {
     transacting: req.trx
   })

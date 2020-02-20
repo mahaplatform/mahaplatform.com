@@ -62,7 +62,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
           { value: '$eq', text: 'was included in import' },
           { value: '$neq', text: 'was not included in import' }
-        ] }
+        ] },
+        // { name: 'Email Open', key: 'open_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
+        //   { value: '$eq', text: 'opened the email' },
+        //   { value: '$neq', text: 'did not open the email' }
+        // ] },
+        // { name: 'Email Click', key: 'click_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
+        //   { value: '$eq', text: 'clicked link in the email' },
+        //   { value: '$neq', text: 'did not click link in the email' }
+        // ] }
       ] }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },

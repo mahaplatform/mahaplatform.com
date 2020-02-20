@@ -78,7 +78,13 @@ const processor = async (req, job) => {
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),
     code,
-    data
+    data,
+    was_bounced: false,
+    was_complained: false,
+    was_delivered: false,
+    was_opened: false,
+    was_unsubscribed: false,
+    was_webviewed: false
   }).save(null, {
     transacting: req.trx
   })

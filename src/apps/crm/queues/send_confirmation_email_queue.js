@@ -108,7 +108,13 @@ const processor = async (req, job) => {
     to: contact.get('rfc822'),
     subject: rendered.subject,
     html: rendered.html,
-    code
+    code,
+    was_bounced: false,
+    was_complained: false,
+    was_delivered: false,
+    was_opened: false,
+    was_unsubscribed: false,
+    was_webviewed: false
   }).save(null, {
     transacting: req.trx
   })

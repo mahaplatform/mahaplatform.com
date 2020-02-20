@@ -3,6 +3,7 @@ import { getRecipients } from '../services/recipients'
 import EmailCampaign from '../models/email_campaign'
 import Queue from '../../../core/objects/queue'
 import { renderEmail } from '../services/email'
+import moment from 'moment'
 
 const processor = async (req, job) => {
 
@@ -25,6 +26,7 @@ const processor = async (req, job) => {
   })
 
   await campaign.save({
+    sent_at: moment(),
     status: 'sending',
     html
   }, {

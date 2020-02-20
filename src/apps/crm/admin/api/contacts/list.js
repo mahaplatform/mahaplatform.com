@@ -7,7 +7,8 @@ const listRoute = async (req, res) => {
 
   const fields = getFilterFields(req.query.$filter)
   const { street_1, city, state_province, postal_code, county } = fields
-  const { organization_id, tag_id, list_id, topic_id, form_id, import_id } = fields
+  const { organization_id, tag_id, list_id, topic_id, form_id } = fields
+  const { import_id, open_id, click_id } = fields
   const address = street_1 || city || state_province || postal_code || county
 
   const contacts = await Contact.scope(qb => {
@@ -20,6 +21,8 @@ const listRoute = async (req, res) => {
     if(topic_id) qb.leftJoin('crm_interests', 'crm_interests.contact_id', 'crm_contacts.id')
     if(form_id) qb.leftJoin('crm_responses', 'crm_responses.contact_id', 'crm_contacts.id')
     if(import_id) qb.joinRaw('left join maha_imports_import_items on object_type=\'crm_contacts\' and object_id=crm_contacts.id')
+    // if(open_id) qb.joinRaw('inner join maha_emails maha_email_opens on maha_email_opens.contact_id=crm_contacts.id and maha_email_opens.email_campaign_id=?')
+    // if(click_id) qb.joinRaw('inner join maha_emails maha_email_clicks on maha_email_clicks.contact_id=crm_contacts.id and maha_email_clicks.email_campaign_id=?')
     qb.where('crm_contacts.team_id', req.team.get('id'))
   }).filter({
     aliases: {
@@ -35,10 +38,12 @@ const listRoute = async (req, res) => {
       list_id: 'crm_subscriptions.list_id',
       topic_id: 'crm_interests.topic_id',
       form_id: 'crm_responses.form_id',
-      import_id: 'maha_imports_import_items.import_id'
+      import_id: 'maha_imports_import_items.import_id',
+      // open_id: 'maha_email_opens.email_campaign_id',
+      // click_id: 'maha_email_clicks.email_campaign_id'
     },
     filter: req.query.$filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id'],
+    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
     searchParams: ['first_name','last_name','email']
   }).sort({
     aliases: {

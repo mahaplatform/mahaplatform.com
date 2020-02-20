@@ -114,7 +114,13 @@ export const send_email = async(req, options) => {
     to: options.to || options.user.get('rfc822'),
     subject: ejs.render(subject, options.data),
     html,
-    code
+    code,
+    was_bounced: false,
+    was_complained: false,
+    was_delivered: false,
+    was_opened: false,
+    was_unsubscribed: false,
+    was_webviewed: false
   }).save(null, {
     transacting: req.trx
   })
