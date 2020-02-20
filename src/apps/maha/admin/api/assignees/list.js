@@ -3,13 +3,14 @@ import Assignee from '../../../models/assignee'
 
 const listRoute = async (req, res) => {
 
-  const assignees = await Assignee.filter({
+  const assignees = await Assignee.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['name']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['name']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

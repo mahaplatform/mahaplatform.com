@@ -3,16 +3,19 @@ import Email from '../../../../maha/models/email'
 
 const listRoute = async (req, res) => {
 
-  const emails = await Email.filter({
+  const emails = await Email.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['user_id','sent_at'],
-    sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['id','to','subject','status','sent_at','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      alowed: ['user_id','sent_at']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['id','to','subject','status','sent_at','created_at']
+    },
     page: req.query.$page,
     withRelated: ['user.photo'],
     transacting: req.trx

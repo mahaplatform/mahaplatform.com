@@ -8,13 +8,12 @@ import moment from 'moment'
 
 const createRoute = async (req, res) => {
 
-  const batchItems = await Item.filter({
+  const batchItems = await Item.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('status', 'reviewed')
     },
-    filter: req.body.filter
-  }).fetchAll({
+    filter: req.body.filter,
     transacting: req.trx
   }).then(result => result.toArray())
 

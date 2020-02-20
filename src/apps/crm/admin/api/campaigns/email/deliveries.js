@@ -16,14 +16,15 @@ const deliveriesRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const emails = await Email.filter({
+  const emails = await Email.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('email_campaign_id', campaign.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']
+    },
     page: req.query.$page,
     withRelated: ['contact.photo'],
     transacting: req.trx

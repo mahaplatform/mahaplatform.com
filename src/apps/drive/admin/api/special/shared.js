@@ -3,7 +3,7 @@ import Item from '../../../models/item'
 
 const sharedRoute = async (req, res) => {
 
-  const items = await Item.filter({
+  const items = await Item.filterFetch({
     scope: (qb) => {
       qb.select('drive_items.*','drive_access_types.text as access_type')
       qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
@@ -13,12 +13,15 @@ const sharedRoute = async (req, res) => {
       qb.whereNull('drive_items.deleted_at')
       qb.where('type', 'file')
     },
-    filter: req.query.$filter,
-    filterParams: ['code','folder_id','type'],
-    searchParams: ['label'],
-    sort: req.query.$sort,
-    defaultSort: 'label'
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['code','folder_id','type'],
+      search: ['label']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'label'
+    },
     page: req.query.$page,
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx

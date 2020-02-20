@@ -3,7 +3,7 @@ import Starred from '../../../models/starred'
 
 const starredRoute = async (req, res) => {
 
-  const items = await Starred.filter({
+  const items = await Starred.filterFetch({
     scope: (qb) => {
       qb.select('drive_starred.*','drive_access_types.text as access_type')
       qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_starred.code')
@@ -13,12 +13,15 @@ const starredRoute = async (req, res) => {
       qb.whereNull('drive_starred.deleted_at')
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['code','folder_id','type'],
-    searchParams: ['label'],
-    sort: req.query.$sort,
-    defaultSort: 'label'
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['code','folder_id','type'],
+      search: ['label']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'label'
+    },
     page: req.query.$page,
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx

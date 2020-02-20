@@ -3,15 +3,18 @@ import Receipt from '../../../models/receipt'
 
 const listRoute = async (req, res) => {
 
-  const receipts = await Receipt.filter({
+  const receipts = await Receipt.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filterParams: ['id'],
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: ['id']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
+    sort: {
+      params: req.query.$sort,
+      allowed: ['id']
+    },
     page: req.query.$page,
     withRelated: ['asset.source','asset.user'],
     transacting: req.trx

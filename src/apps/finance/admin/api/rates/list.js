@@ -3,11 +3,12 @@ import Rate from '../../../models/rate'
 
 const listRoute = async (req, res) => {
 
-  const rates = await Rate.filter({
-    sort: req.query.$sort,
-    defaultSort: ['year'],
-    sortParams: ['year','value']
-  }).fetchPage({
+  const rates = await Rate.filterFetch({
+    sort: {
+      params: req.query.$sort,
+      defaults: ['year'],
+      allowed: ['year','value']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

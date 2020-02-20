@@ -3,15 +3,18 @@ import Site from '../../../models/site'
 
 const listRoute = async (req, res) => {
 
-  const sites = await Site.filter({
+  const sites = await Site.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: 'title',
-    sortParams: ['title']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'title',
+      allowed: ['title']
+    },
     page: req.query.$page,
     withRelated: ['origins'],
     transacting: req.trx

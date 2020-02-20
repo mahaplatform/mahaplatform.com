@@ -3,16 +3,19 @@ import Member from '../../../models/member'
 
 const listRoute = async (req, res) => {
 
-  const members = await Member.filter({
+  const members = await Member.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('site_id', req.params.site_id)
     },
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: 'last_name',
-    sortParams: ['last_name','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'last_name',
+      allowed: ['last_name','created_at']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

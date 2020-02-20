@@ -16,15 +16,16 @@ const paymentsRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  const payments = await Payment.query(qb => {
-    qb.select('finance_payments.*','finance_payment_details.*')
-    qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
-    qb.where('team_id', req.team.get('id'))
-    qb.where('invoice_id', invoice.get('id'))
-    qb.orderByRaw('date desc, created_at desc')
-  }).fetchPage({
-    withRelated: ['payment_method'],
+  const payments = await Payment.filterFetch({
+    scope: (qb) => {
+      qb.select('finance_payments.*','finance_payment_details.*')
+      qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
+      qb.where('team_id', req.team.get('id'))
+      qb.where('invoice_id', invoice.get('id'))
+      qb.orderByRaw('date desc, created_at desc')
+    },
     page: req.query.$page,
+    withRelated: ['payment_method'],
     transacting: req.trx
   })
 

@@ -14,13 +14,12 @@ const listRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const templates = await Template.filter({
+  const templates = await Template.filterFetch({
     scope: (qb) => {
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_templates.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_templates.team_id', req.team.get('id'))
       qb.where('crm_templates.program_id', req.params.program_id)
-    }
-  }).fetchPage({
+    },
     page: req.query.$page,
     transacting: req.trx
   })

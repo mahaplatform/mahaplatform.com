@@ -16,18 +16,22 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const workflows = await Enrollment.filter({
+  const workflows = await Enrollment.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('workflow_id', workflow.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['was_converted'],
-    defaultSort:  '-created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
-    withRelated: ['contact.photo'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['was_converted']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults:  '-created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
+    withRelated: ['contact.photo'],
     transacting: req.trx
   })
 

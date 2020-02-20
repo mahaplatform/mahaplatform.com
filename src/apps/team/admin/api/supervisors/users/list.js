@@ -16,17 +16,20 @@ const listRoute = async (req, res) => {
     message: 'Unable to load supervisor'
   })
 
-  const users = await User.filter({
+  const users = await User.filterFetch({
     scope: (qb) => {
       qb.innerJoin('maha_supervisions', 'maha_supervisions.employee_id', 'maha_users.id')
       qb.where('maha_supervisions.supervisor_id', supervisor.get('user_id'))
       qb.where('maha_users.team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email'],
-    sort: req.query.$sort,
-    defaultSort: 'last_name'
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['first_name','last_name','email']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'last_name'
+    },
     page: req.query.$page,
     withRelated: ['photo'],
     transacting: req.trx

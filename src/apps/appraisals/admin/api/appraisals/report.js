@@ -3,15 +3,16 @@ import Appraisal from '../../../models/appraisal'
 
 const reportRoute = async (req, res) => {
 
-  const appraisals = await Appraisal.filter({
+  const appraisals = await Appraisal.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['supervisor_id','employee_id']
-  }).fetchPage({
-    withRelated: ['supervisor','employee'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['supervisor_id','employee_id']
+    },
     page: req.query.$page,
+    withRelated: ['supervisor','employee'],
     transacting: req.trx
   })
 

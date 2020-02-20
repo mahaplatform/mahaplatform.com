@@ -3,16 +3,19 @@ import Account from '../../../models/account'
 
 const listRoute = async (req, res) => {
 
-  const accounts = await Account.filter({
+  const accounts = await Account.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['name'],
-    sort: req.query.$sort,
-    defaultSort: ['name'],
-    sortParams: ['id','name','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['name']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['name'],
+      allowed: ['id','name','created_at']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

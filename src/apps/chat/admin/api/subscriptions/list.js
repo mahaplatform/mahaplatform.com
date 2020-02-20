@@ -3,12 +3,13 @@ import Subscription from '../../../models/subscription'
 
 const listRoute = async (req, res) => {
 
-  const subscriptions = await Subscription.filter({
+  const subscriptions = await Subscription.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    sort: req.query.$sort
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort
+    },
     page: req.query.$page,
     withRelated: ['user.photo'],
     transacting: req.trx

@@ -13,7 +13,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const items = await Item.filter({
+  const items = await Item.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('site_id', req.params.site_id)
@@ -26,11 +26,14 @@ const listRoute = async (req, res) => {
     aliases: {
       title: `values->>'${req.fields[0].get('code')}'`
     },
-    filter: req.query.$filter,
-    defaultSort: ['title'],
-    sort: req.query.$sort,
-    sortParams: ['id','title','created_at','is_published','updated_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      allowed: ['id','title','created_at','is_published','updated_at'],
+      defaults: ['title']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

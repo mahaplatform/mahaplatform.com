@@ -33,7 +33,7 @@ const listRoute = async (req, res) => {
 
   }
 
-  const items = await Item.filter({
+  const items = await Item.filterFetch({
     scope: (qb) => {
       qb.select('drive_items.*','drive_access_types.text as access_type')
       qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
@@ -42,18 +42,21 @@ const listRoute = async (req, res) => {
       qb.whereRaw('drive_items.type != ?', ['metafile'])
       qb.whereNull('drive_items.deleted_at')
     },
-    filter: req.query.$filter,
-    filterParams: ['code','folder_id','type','access_type'],
-    searchParams: ['label'],
-    virtualFilters: {
-      access_type: (qb, filter) => {
-        if(!filter.$in) return
-        qb.whereIn('drive_access_types.text', filter.$in)
+    filter: {
+      params: req.query.$filter,
+      allowed: ['code','folder_id','type','access_type'],
+      search: ['label'],
+      virtuals: {
+        access_type: (qb, filter) => {
+          if(!filter.$in) return
+          qb.whereIn('drive_access_types.text', filter.$in)
+        }
       }
     },
-    sort: req.query.$sort,
-    defaultSort: 'label'
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort,
+      defaults: 'label'
+    },
     page: req.query.$page,
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','accesses.grouping','folder'],
     transacting: req.trx

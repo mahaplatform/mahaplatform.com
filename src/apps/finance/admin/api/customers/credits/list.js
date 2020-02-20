@@ -16,12 +16,13 @@ const listRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const credits = await Credit.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('customer_id', customer.get('id'))
-  }).fetchPage({
-    withRelated: ['program'],
+  const credits = await Credit.filterFecth({
+    scope: (qb) => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('customer_id', customer.get('id'))
+    },
     page: req.query.$page,
+    withRelated: ['program'],
     transacting: req.trx
   })
 

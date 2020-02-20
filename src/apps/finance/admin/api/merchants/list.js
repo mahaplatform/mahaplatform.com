@@ -3,17 +3,20 @@ import Merchant from '../../../models/merchant'
 
 const listRoute = async (req, res) => {
 
-  const merchants = await Merchant.filter({
+  const merchants = await Merchant.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['status'],
-    searchParams: ['title'],
-    sort: req.query.$sort,
-    defaultSort: ['-created_at'],
-    sortParams: ['id','title','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['status'],
+      search: ['title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['-created_at'],
+      allowed: ['id','title','created_at']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

@@ -17,13 +17,14 @@ const paymentsRoute = async (req, res) => {
     message: 'Unable to load disbursement'
   })
 
-  const payments = await Payment.query(qb => {
-    qb.select('finance_payments.*','finance_payment_details.*')
-    qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
-    qb.where('team_id', req.team.get('id'))
-    qb.where('disbursement_id', disbursement.get('id'))
-    qb.orderByRaw('date desc, created_at desc')
-  }).fetchPage({
+  const payments = await Payment.filterFetch({
+    scope: (qb) => {
+      qb.select('finance_payments.*','finance_payment_details.*')
+      qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
+      qb.where('team_id', req.team.get('id'))
+      qb.where('disbursement_id', disbursement.get('id'))
+      qb.orderByRaw('date desc, created_at desc')
+    },
     page: req.query.$page,
     transacting: req.trx
   })

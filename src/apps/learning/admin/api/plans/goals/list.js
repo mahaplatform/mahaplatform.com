@@ -3,14 +3,13 @@ import Goal from '../../../../models/goal'
 
 const listRoute = async (req, res) => {
 
-  const goals = await Goal.filter({
+  const goals = await Goal.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('plan_id', req.params.plan_id)
-    }
-  }).fetchPage({
-    withRelated: ['competency'],
+    },
     page: req.query.$page,
+    withRelated: ['competency'],
     transacting: req.trx
   })
 

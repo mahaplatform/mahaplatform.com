@@ -16,15 +16,14 @@ const invoicesRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const invoices = await Invoice.filter({
+  const invoices = await Invoice.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('customer_id', customer.get('id'))
       qb.orderByRaw('date desc, created_at desc')
-    }
-  }).fetchPage({
-    withRelated: ['coupon','line_items'],
+    },
     page: req.query.$page,
+    withRelated: ['coupon','line_items'],
     transacting: req.trx
   })
 

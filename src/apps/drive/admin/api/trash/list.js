@@ -3,7 +3,7 @@ import Item from '../../../models/item'
 
 const listRoute = async (req, res) => {
 
-  const items = await Item.filter({
+  const items = await Item.filterFetch({
     scope: (qb) => {
       qb.select('drive_items.*','drive_access_types.text as access_type')
       qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
@@ -13,9 +13,10 @@ const listRoute = async (req, res) => {
       qb.whereRaw('drive_items.type != ?', 'metafile')
       qb.where('team_id', req.team.get('id'))
     },
-    sort: req.query.$sort,
-    defaultSort: 'label'
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort,
+      allowed: 'label'
+    },
     page: req.query.$page,
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx

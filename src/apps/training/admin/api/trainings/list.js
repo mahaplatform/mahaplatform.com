@@ -3,16 +3,19 @@ import Training from '../../../models/training'
 
 const listRoute = async (req, res) => {
 
-  const trainings = await Training.filter({
+  const trainings = await Training.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['type'],
-    searchParams: ['id','title'],
-    sort: req.query.$sort,
-    defaultSort: 'title'
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['type'],
+      search: ['id','title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'title'
+    },
     page: req.query.$page,
     transacting: req.trx
   })

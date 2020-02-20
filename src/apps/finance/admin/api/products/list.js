@@ -3,17 +3,20 @@ import Product from '../../../models/product'
 
 const listRoute = async (req, res) => {
 
-  const products = await Product.filter({
+  const products = await Product.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filterParams: ['project_id','revenue_type_id','is_tax_deductible'],
-    filter: req.query.$filter,
-    searchParams: ['title'],
-    sort: req.query.$sort,
-    defaultSort: ['title'],
-    sortParams: ['id','title','tax_rate','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['project_id','revenue_type_id','is_tax_deductible'],
+      search: ['title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['title'],
+      allowed: ['id','title','tax_rate','created_at']
+    },
     page: req.query.$page,
     withRelated: ['project','revenue_type'],
     transacting: req.trx

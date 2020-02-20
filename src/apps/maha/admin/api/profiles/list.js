@@ -3,15 +3,16 @@ import Profile from '../../../models/profile'
 
 const listRoute = async (req, res) => {
 
-  const profiles = await Profile.filter({
+  const profiles = await Profile.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('user_id', req.user.get('id'))
       qb.orderByRaw('created_at asc')
     },
-    filter: req.query.$filter,
-    filterParams: ['type']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['type']
+    },
     page: req.query.$page,
     withRelated: ['source','photo'],
     transacting: req.trx

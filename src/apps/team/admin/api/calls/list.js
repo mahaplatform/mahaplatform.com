@@ -3,14 +3,15 @@ import Call from '../../../../maha/models/call'
 
 const listRoute = async (req, res) => {
 
-  const calls = await Call.filter({
+  const calls = await Call.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
     withRelated: ['to','from'],
     transacting: req.trx

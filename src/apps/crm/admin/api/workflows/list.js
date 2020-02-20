@@ -3,18 +3,22 @@ import Workflow from '../../../models/workflow'
 
 const listRoute = async (req, res) => {
 
-  const workflows = await Workflow.filter({
+  const workflows = await Workflow.filterFetch({
     scope: (qb) => {
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_workflows.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_workflows.team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['program_id'],
-    defaultSort:  '-created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
-    withRelated: ['program'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['program_id']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults:  '-created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
+    withRelated: ['program'],
     transacting: req.trx
   })
 

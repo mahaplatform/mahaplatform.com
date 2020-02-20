@@ -3,7 +3,7 @@ import Payment from '../../../models/payment'
 
 const listRoute = async (req, res) => {
 
-  const payments = await Payment.filter({
+  const payments = await Payment.filterFetch({
     scope: qb => {
       qb.select('finance_payments.*','finance_payment_details.*')
       qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
@@ -14,15 +14,18 @@ const listRoute = async (req, res) => {
     aliases: {
       customer_id: 'finance_invoices.customer_id'
     },
-    filter: req.query.$filter,
-    filterParams: ['date','method','card_type','merchant_id','customer_id','status'],
-    searchParams: ['code'],
-    sort: req.query.$sort,
-    defaultSort: ['-created_at'],
-    sortParams: ['id','amount','customer','date','method','status','created_at']
-  }).fetchPage({
-    withRelated: ['payment_method','invoice.customer'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['date','method','card_type','merchant_id','customer_id','status'],
+      search: ['code']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['-created_at'],
+      allowed: ['id','amount','customer','date','method','status','created_at']
+    },
     page: req.query.$page,
+    withRelated: ['payment_method','invoice.customer'],
     transacting: req.trx
   })
 

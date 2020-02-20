@@ -13,16 +13,19 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const managers = await Manager.filter({
+  const managers = await Manager.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('site_id', req.params.site_id)
     },
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: 'created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      allowed: ['created_at'],
+      defaults: 'created_at'
+    },
     page: req.query.$page,
     withRelated: ['user.photo'],
     transacting: req.trx

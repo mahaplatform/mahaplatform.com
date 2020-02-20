@@ -3,17 +3,20 @@ import Group from '../../../../maha/models/group'
 
 const listRoute = async (req, res) => {
 
-  const groups = await Group.filter({
+  const groups = await Group.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['title'],
-    searchParams: ['title'],
-    sort: req.query.$sort,
-    defaultSort: 'title',
-    sortParams: ['id','title']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['title'],
+      search: ['title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'title',
+      allowed: ['id','title']
+    },
     page: req.query.$page,
     withRelated: ['leader.photo'],
     transacting: req.trx

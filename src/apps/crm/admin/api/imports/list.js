@@ -3,7 +3,7 @@ import Import from '../../../../maha/models/import'
 
 const listRoute = async (req, res) => {
 
-  const imports = await Import.filter({
+  const imports = await Import.filterFetch({
     scope: (qb) => {
       qb.select('maha_imports.*','maha_import_counts.*')
       qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
@@ -11,9 +11,10 @@ const listRoute = async (req, res) => {
       qb.where('maha_imports.object_type', 'crm_contacts')
       qb.where('maha_imports.team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['maha_users.first_name','maha_users.last_name','maha_imports.service']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['maha_users.first_name','maha_users.last_name','maha_imports.service']
+    },
     page: req.query.$page,
     withRelated: ['asset','user.photo'],
     transacting: req.trx

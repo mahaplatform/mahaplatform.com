@@ -22,7 +22,7 @@ export const getRecipients = async (req, params) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const recipient = Recipient.filter({
+  return await Recipient.filterFetch({
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
       qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
@@ -64,19 +64,11 @@ export const getRecipients = async (req, params) => {
       form_id: 'crm_responses.form_id',
       import_id: 'maha_imports_import_items.import_id'
     },
-    filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id']
-  })
-
-  if(page) {
-    return await recipient.fetchPage({
-      page,
-      withRelated: ['contact.photo','email_address','mailing_address','phone_number'],
-      transacting: req.trx
-    })
-  }
-
-  return await recipient.fetchAll({
+    filter: {
+      params: filter,
+      allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id']
+    },
+    page,
     withRelated: ['contact.photo','email_address','mailing_address','phone_number'],
     transacting: req.trx
   })

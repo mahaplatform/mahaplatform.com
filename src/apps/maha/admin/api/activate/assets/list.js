@@ -3,14 +3,17 @@ import Asset from '../../../../models/asset'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.filter({
+  const assets = await Asset.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email'],
-    sort: req.query.$sort
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['first_name','last_name','email']
+    },
+    sort: {
+      params: req.query.$sort
+    },
     page: req.query.$page,
     withRelated: ['source','user.photo'],
     transacting: req.trx

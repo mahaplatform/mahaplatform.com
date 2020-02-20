@@ -3,14 +3,13 @@ import Commitment from '../../../../models/commitment'
 
 const listRoute = async (req, res) => {
 
-  const commitments = await Commitment.filter({
+  const commitments = await Commitment.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('plan_id', req.params.plan_id)
-    }
-  }).fetchPage({
-    withRelated: ['resource'],
+    },
     page: req.query.$page,
+    withRelated: ['resource'],
     transacting: req.trx
   })
 

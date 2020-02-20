@@ -16,12 +16,11 @@ const paymentMethodsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const paymentMethods = await PaymentMethod.filter({
+  const paymentMethods = await PaymentMethod.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('customer_id', customer.get('id'))
-    }
-  }).fetchPage({
+    },
     page: req.query.$page,
     transacting: req.trx
   })

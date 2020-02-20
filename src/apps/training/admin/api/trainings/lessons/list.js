@@ -3,14 +3,15 @@ import Lesson from '../../../../models/lesson'
 
 const listRoute = async (req, res) => {
 
-  const lessons = await Lesson.filter({
+  const lessons = await Lesson.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('training_id', req.params.training_id)
     },
-    sort: req.params.$sort,
-    defaultSort: ['delta']
-  }).fetchAll({
+    sort: {
+      params: req.params.$sort,
+      allowed: ['delta']
+    },
     transacting: req.trx
   })
 

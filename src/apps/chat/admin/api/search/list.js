@@ -3,17 +3,20 @@ import Result from '../../../models/result'
 
 const listRoute = async (req, res) => {
 
-  const results = await Result.filter({
+  const results = await Result.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('user_id', req.user.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['text'],
-    sort: req.query.$sort,
-    defaultSort: '-date',
-    sortParams: ['id','first_name','last_name','email','date']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['text']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-date',
+      allowed: ['id','first_name','last_name','email','date']
+    },
     page: req.query.$page,
     withRelated: ['channel.owner.photo','channel.subscriptions.user.photo','channel.last_message','message.attachments.asset.source','message.attachments.service','message.message_type','message.user.photo'],
     transacting: req.trx

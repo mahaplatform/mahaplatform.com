@@ -8,17 +8,20 @@ import moment from 'moment'
 
 const listRoute = async (req, res) => {
 
-  const messages = await Message.filter({
+  const messages = await Message.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('channel_id', req.params.channel_id)
     },
-    filter: req.query.$filter,
-    searchParams: ['text'],
-    sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['id','first_name','last_name','email','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['text']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['id','first_name','last_name','email','created_at']
+    },
     page: req.query.$page,
     withRelated: ['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service'],
     transacting: req.trx

@@ -3,16 +3,19 @@ import County from '../../../models/county'
 
 const listRoute = async (req, res) => {
 
-  const counties = await County.filter({
+  const counties = await County.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['name'],
-    sort: req.query.$sort,
-    defaultSort: 'name',
-    sortParams: ['id','name']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['name']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'name',
+      allowed: ['id','name']
+    },
     page: req.query.$page,
     withRelated: ['photo'],
     transacting: req.trx

@@ -14,13 +14,12 @@ const listRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const accesses = await ProgramAccess.filter({
+  const accesses = await ProgramAccess.filterFetch({
     scope: (qb) => {
       qb.joinRaw('inner join crm_program_user_access a2 on a2.program_id=crm_program_accesses.program_id and a2.user_id=?', req.user.get('id'))
       qb.where('crm_program_accesses.team_id', req.team.get('id'))
       qb.where('crm_program_accesses.program_id', req.params.program_id)
-    }
-  }).fetchPage({
+    },
     page: req.query.$page,
     withRelated: ['user.photo','group','grouping'],
     transacting: req.trx

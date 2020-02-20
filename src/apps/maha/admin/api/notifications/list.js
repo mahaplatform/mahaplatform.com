@@ -4,16 +4,19 @@ import Notification from '../../../models/notification'
 
 const listRoute = async (req, res) => {
 
-  const notifications = await Notification.filter({
+  const notifications = await Notification.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('user_id', req.user.get('id'))
     },
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: 'created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
     withRelated: ['subject.photo','app','story','object_owner','user'],
     transacting: req.trx

@@ -3,7 +3,7 @@ import User from '../../../models/user'
 
 const listRoute = async (req, res) => {
 
-  const users = await User.filter({
+  const users = await User.filterFetch({
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
       qb.leftJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
@@ -12,22 +12,25 @@ const listRoute = async (req, res) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('is_active', true)
     },
-    filter: req.query.$filter,
-    searchParams: ['first_name','last_name','email'],
-    virtualFilters: {
-      app_id: (qb, filter) => {
-        if(!filter.$in) return
-        qb.whereIn('maha_roles_apps.app_id', filter.$in)
-      },
-      right_id: (qb, filter) => {
-        if(!filter.$in) return
-        qb.whereIn('maha_roles_rights.right_id', filter.$in)
+    filter: {
+      params: req.query.$filter,
+      search: ['first_name','last_name','email'],
+      virtuals: {
+        app_id: (qb, filter) => {
+          if(!filter.$in) return
+          qb.whereIn('maha_roles_apps.app_id', filter.$in)
+        },
+        right_id: (qb, filter) => {
+          if(!filter.$in) return
+          qb.whereIn('maha_roles_rights.right_id', filter.$in)
+        }
       }
     },
-    sort: req.query.$sort,
-    defaultSort: 'last_name',
-    sortParams: ['id','first_name','last_name','email']
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort,
+      defaults: 'last_name',
+      allowed: ['id','first_name','last_name','email']
+    },
     page: req.query.$page,
     withRelated: ['photo'],
     transacting: req.trx

@@ -3,7 +3,7 @@ import Filter from '../../../models/filter'
 
 const listRoute = async (req, res) => {
 
-  const filters = await Filter.filter({
+  const filters = await Filter.filterFetch({
     scope: (qb) => {
       qb.leftJoin('maha_filter_accesses','maha_filter_accesses.filter_id','maha_filters.id')
       qb.leftJoin('maha_users_groups','maha_users_groups.group_id','maha_filter_accesses.group_id')
@@ -12,10 +12,9 @@ const listRoute = async (req, res) => {
       qb.whereRaw('(maha_groupings_users.user_id=? or maha_filters.owner_id=? or maha_filter_accesses.user_id=? or maha_users_groups.user_id=?)', [req.user.get('id'),req.user.get('id'),req.user.get('id'),req.user.get('id')])
       qb.where('code', req.params.code)
       qb.orderByRaw('lower(maha_filters.title)')
-    }
-  }).fetchPage({
-    withRelated: ['owner'],
+    },
     page: req.query.$page,
+    withRelated: ['owner'],
     transacting: req.trx
   })
 

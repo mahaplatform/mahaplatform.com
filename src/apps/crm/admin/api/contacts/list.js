@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
   const { import_id, open_id, click_id } = fields
   const address = street_1 || city || state_province || postal_code || county
 
-  const contacts = await Contact.filter({
+  const contacts = await Contact.filterFetch({
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
       qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
@@ -43,13 +43,16 @@ const listRoute = async (req, res) => {
       // open_id: 'maha_email_opens.email_campaign_id',
       // click_id: 'maha_email_clicks.email_campaign_id'
     },
-    filter: req.query.$filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
-    searchParams: ['first_name','last_name','email'],
-    sort: req.query.$sort,
-    defaultSort: 'last_name',
-    sortParams: ['id','first_name','last_name','email','phone']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
+      search: ['first_name','last_name','email']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'last_name',
+      allowed: ['id','first_name','last_name','email','phone']
+    },
     page: req.query.$page,
     withRelated: ['photo'],
     transacting: req.trx

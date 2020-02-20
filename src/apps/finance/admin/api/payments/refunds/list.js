@@ -16,11 +16,12 @@ const listRoute = async (req, res) => {
     message: 'Unable to load payment'
   })
 
-  const refunds = await Refund.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('payment_id', payment.get('id'))
-    qb.orderBy('created_at', 'desc')
-  }).fetchPage({
+  const refunds = await Refund.filterFetch({
+    scope: qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('payment_id', payment.get('id'))
+      qb.orderBy('created_at', 'desc')
+    },
     page: req.query.$page,
     transacting: req.trx
   })

@@ -3,7 +3,7 @@ import Invoice from '../../../models/invoice'
 
 const listRoute = async (req, res) => {
 
-  const invoices = await Invoice.filter({
+  const invoices = await Invoice.filterFetch({
     scope: (qb) => {
       qb.select('finance_invoices.*','finance_invoice_details.*')
       qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
@@ -17,15 +17,18 @@ const listRoute = async (req, res) => {
       status: 'finance_invoice_details.status',
       total: 'finance_invoice_details.total'
     },
-    filter: req.query.$filter,
-    filterParams: ['customer_id','program_id','status'],
-    searchParams: ['code'],
-    sort: req.query.$sort,
-    defaultSort: ['-created_at'],
-    sortParams: ['id','code','customer','date','program','status','total','created_at']
-  }).fetchPage({
-    withRelated: ['customer','program'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['customer_id','program_id','status'],
+      search: ['code']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['-created_at'],
+      allowed: ['id','code','customer','date','program','status','total','created_at']
+    },
     page: req.query.$page,
+    withRelated: ['customer','program'],
     transacting: req.trx
   })
 

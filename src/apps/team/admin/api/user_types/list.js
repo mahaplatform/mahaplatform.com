@@ -3,17 +3,20 @@ import UserType from '../../../../maha/models/user_type'
 
 const listRoute = async (req, res) => {
 
-  const user_types = await UserType.filter({
+  const user_types = await UserType.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['text'],
-    searchParams: ['text'],
-    sort: req.query.$sort,
-    defaultSort: 'text',
-    sortParams: ['id','text']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['text'],
+      search: ['text']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'text',
+      allowed: ['id','text']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

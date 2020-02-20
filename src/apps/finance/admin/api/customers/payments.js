@@ -16,7 +16,7 @@ const paymentsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const payments = await Payment.filter({
+  const payments = await Payment.filterFetch({
     scope: (qb) => {
       qb.select('finance_payments.*','finance_payment_details.*')
       qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
@@ -24,10 +24,9 @@ const paymentsRoute = async (req, res) => {
       qb.where('finance_payments.team_id', req.team.get('id'))
       qb.where('finance_invoices.customer_id', customer.get('id'))
       qb.orderByRaw('finance_payments.date desc, finance_payments.created_at desc')
-    }
-  }).fetchPage({
-    withRelated: ['payment_method'],
+    },
     page: req.query.$page,
+    withRelated: ['payment_method'],
     transacting: req.trx
   })
 

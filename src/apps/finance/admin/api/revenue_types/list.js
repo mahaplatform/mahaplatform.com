@@ -3,19 +3,22 @@ import RevenueType from '../../../models/revenue_type'
 
 const listRoute = async (req, res) => {
 
-  const revenue_types = await RevenueType.filter({
+  const revenue_types = await RevenueType.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
     aliases: {
       revenue_code: 'integration->>\'revenue_code\''
     },
-    filter: req.query.$filter,
-    searchParams: ['title','description','integration->>\'revenue_code\''],
-    sort: req.query.$sort,
-    defaultSort: ['revenue_code'],
-    sortParams: ['id','title','revenue_code','is_active','created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['title','description','integration->>\'revenue_code\'']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: ['revenue_code'],
+      allowed: ['id','title','revenue_code','is_active','created_at']
+    },
     page: req.query.$page,
     transacting: req.trx
   })

@@ -3,14 +3,15 @@ import Fax from '../../../../maha/models/fax'
 
 const listRoute = async (req, res) => {
 
-  const faxes = await Fax.filter({
+  const faxes = await Fax.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
     },
-    sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
     withRelated: ['from','to'],
     transacting: req.trx

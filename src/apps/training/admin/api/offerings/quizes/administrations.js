@@ -11,16 +11,15 @@ const administrationsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const administrations = await Administration.filter({
+  const administrations = await Administration.filterFetch({
     scope: qb => {
       qb.innerJoin('training_fulfillments','training_fulfillments.user_id','training_administrations.user_id')
       qb.where('training_fulfillments.offering_id', req.params.offering_id)
       qb.where('training_administrations.quiz_id', req.params.id)
       qb.where('training_administrations.team_id', req.team.get('id'))
-    }
-  }).fetchPage({
-    withRelated: ['quiz.questions','answerings'],
+    },
     page: req.query.$page,
+    withRelated: ['quiz.questions','answerings'],
     transacting: req.trx
   })
 

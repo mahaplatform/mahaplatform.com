@@ -3,7 +3,7 @@ import Revenue from '../../../models/revenue'
 
 const revenueRoute = async (req, res) => {
 
-  const revenues = await Revenue.filter({
+  const revenues = await Revenue.filterFetch({
     scope: (qb) => {
       qb.innerJoin('finance_customers','finance_customers.id','finance_revenues.customer_id')
       qb.innerJoin('crm_programs','crm_programs.id','finance_revenues.program_id')
@@ -17,15 +17,18 @@ const revenueRoute = async (req, res) => {
       project: 'finance_projects.integration->>\'project_code\'',
       revenue_type: 'finance_revenue_types.integration->>\'revenue_code\''
     },
-    filter: req.query.$filter,
-    filterParams: ['customer_id','date','program_id','project_id','revenue_type_id'],
-    searchParams: ['title'],
-    sort: req.query.$sort,
-    sortParams: ['customer','created_at','date','description','program','project','revenue_type','amount'],
-    defaultSort: ['-created_at']
-  }).fetchPage({
-    withRelated: ['customer','program','project','revenue_type'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['customer_id','date','program_id','project_id','revenue_type_id'],
+      search: ['title']
+    },
+    sort: {
+      params: req.query.$sort,
+      allowed: ['customer','created_at','date','description','program','project','revenue_type','amount'],
+      defaults: ['-created_at']
+    },
     page: req.query.$page,
+    withRelated: ['customer','program','project','revenue_type'],
     transacting: req.trx
   })
 

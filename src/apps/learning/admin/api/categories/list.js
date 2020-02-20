@@ -3,15 +3,18 @@ import Category from '../../../models/category'
 
 const listRoute = async (req, res) => {
 
-  const categories = await Category.filter({
+  const categories = await Category.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['id','title'],
-    sort: req.query.$sort,
-    defaultSort: 'title'
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['id','title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'title'
+    },
     page: req.query.$page,
     transacting: req.trx
   })

@@ -16,19 +16,21 @@ const listRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  const responses = await Response.filter({
+  const responses = await Response.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('form_id', form.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: [],
-    sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
-    withRelated: ['contact.photo'],
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
+    withRelated: ['contact.photo'],
     transacting: req.trx
   })
 

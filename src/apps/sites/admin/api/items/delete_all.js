@@ -4,12 +4,11 @@ import _ from 'lodash'
 
 const deleteAllRoute = async (req, res) => {
 
-  const ids = await Item.filter({
+  const ids = await Item.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.body.filter
-  }).fetchAll({
+    filter: req.body.filter,
     transacting: req.trx
   }).then(results => results.map(result => {
     return result.get('id')

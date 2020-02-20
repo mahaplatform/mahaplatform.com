@@ -3,18 +3,21 @@ import Assignment from '../../../models/assignment'
 
 const listRoute = async (req, res) => {
 
-  const assignments = await Assignment.filter({
+  const assignments = await Assignment.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('user_id', req.user.get('id'))
     },
-    filterParams: ['user_id'],
-    filter: req.query.$filter,
-    sort: req.query.$sort,
-    defaultSort: '-training_assignments.created_at'
-  }).fetchPage({
-    withRelated: ['assigning.assigned_by','user'],
+    filter: {
+      params: req.query.$filter,
+      allowed: ['user_id']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-training_assignments.created_at'
+    },
     page: req.query.$page,
+    withRelated: ['assigning.assigned_by','user'],
     transacting: req.trx
   })
 

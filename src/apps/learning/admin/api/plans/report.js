@@ -3,16 +3,19 @@ import Plan from '../../../models/plan'
 
 const reportRoute = async (req, res) => {
 
-  const plans = await Plan.filter({
+  const plans = await Plan.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    searchParams: ['id','title'],
-    sort: req.query.$sort,
-    defaultSort: 'created_at',
-    sortParams: ['created_at']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      search: ['id','title'],
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: 'created_at',
+      allowed: ['created_at']
+    },
     page: req.query.$page,
     withRelated: ['employee.photo','supervisor.photo','goals','commitments'],
     transacting: req.trx

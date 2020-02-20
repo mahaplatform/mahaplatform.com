@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const lists = await List.filter({
+  const lists = await List.filterFetch({
     scope: (qb) => {
       qb.select('crm_lists.*','crm_list_totals.*')
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_lists.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
@@ -22,9 +22,10 @@ const listRoute = async (req, res) => {
       qb.where('crm_lists.program_id', req.params.program_id)
       qb.where('crm_lists.team_id', req.team.get('id'))
     },
-    filter: req.query.$filter,
-    filterParams: ['type']
-  }).fetchPage({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['type']
+    },
     page: req.query.$page,
     transacting: req.trx
   })
