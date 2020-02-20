@@ -6,21 +6,20 @@ import './validations/time_validation'
 import './validations/unique_validation'
 import fetchOrCreate from './fetch_or_create'
 import knex from '../../services/knex'
-import fetchPage from './fetch_page'
 import Bookshelf from 'bookshelf'
-import filter from './filter'
+import filterFetch from './filter_fetch'
 
 const bookshelf = Bookshelf(knex)
 
 bookshelf.plugin('virtuals')
 
-bookshelf.plugin(filter)
+bookshelf.plugin(filterFetch)
 
 // bookshelf.plugin(scope)
 
 // bookshelf.plugin(sort)
 
-bookshelf.plugin(fetchPage)
+// bookshelf.plugin(fetchPage)
 
 bookshelf.plugin(fetchOrCreate)
 

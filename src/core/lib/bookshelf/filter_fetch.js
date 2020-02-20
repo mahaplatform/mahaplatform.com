@@ -1,39 +1,89 @@
 import moment from 'moment'
 import _ from 'lodash'
 
+const DEFAULT_LIMIT = 100
+
+const DEFAULT_SKIP = 0
+
 const filterPlugin = function(bookshelf) {
 
-  const filter = function(options) {
-
-    if(options.scope) {
-      this.scopeQuery = options.scope
-      this.__super__.scopeQuery = options.scope
-    }
+  const filterFetch = async function(options) {
 
     options.tableName = this.tableName
 
-    return this.query(qb => {
+    const filter = options.filter || {}
+
+    const sort = options.sort || {}
+
+    const query = (qb) => {
       if(options.scope) options.scope(qb)
-      if(options.filter) applyFilters(qb, options.filter, options)
-      if(options.sort) applySorts(qb, options.sort, options)
+      if(filter.params) applyFilters(qb, options)
+      if(sort.params) applySorts(qb, options)
+    }
+
+    if(options.page) return await fetchPage.bind(this.query(query))(options)
+
+    return await this.query(query).fetchAll({
+      withRelated: options.withRelated,
+      transacting: options.transacting
     })
-    
+
   }
 
-  const applyFilters = (qb, $filters, options) => {
-    const filters = normalizeFilters($filters)
+  const fetchPage = async function(options) {
+
+    const { page } = options
+
+    const trx = options.transacting
+
+    const limit = page && page.limit ? parseInt(page.limit) : DEFAULT_LIMIT
+
+    const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
+
+    const allsql = await new Promise((resolve, reject) => {
+      this.clone().resetQuery().query(options.scope).query(qb => {
+        resolve(`select count(*) from (${qb.toString()}) total`)
+      })
+    })
+
+    const all = await bookshelf.knex.raw(allsql).transacting(trx).then(result => {
+      return parseInt(result.rows[0].count)
+    })
+
+    const totalsql = await new Promise((resolve, reject) => {
+      this.clone().query(qb => {
+        resolve(`select count(*) from (${qb.toString()}) total`)
+      })
+    })
+
+    const total = await bookshelf.knex.raw(totalsql).transacting(trx).then(result => {
+      return parseInt(result.rows[0].count)
+    })
+
+    const result = await this.query(qb => {
+      if(limit === 0) return
+      qb.limit(limit)
+      qb.offset(skip)
+    }).fetchAll({
+      withRelated: options.withRelated,
+      transacting: trx
+    })
+
+    result.pagination = {
+      all,
+      total,
+      limit,
+      skip
+    }
+
+    return result
+
+  }
+
+  const applyFilters = (qb, options) => {
+    const filters = normalizeFilters(options.filter.params)
     if(filters.$and) return applyAnd(qb, filters.$and, options)
     if(filters.$or) return applyOr(qb, filters.$or, options)
-  }
-
-  const andFilters = (filters) => {
-    if(_.isPlainObject(filters) && !filters.$and && !filters.$or) return {
-      $and: Object.keys(filters).map(key => ({
-        [key]: filters[key]
-      }))
-    }
-    if(_.isArray(filters)) return { $and: filters }
-    return filters
   }
 
   const normalizeFilters = (filters) => {
@@ -44,6 +94,16 @@ const filterPlugin = function(bookshelf) {
         ...filters.q ? [{ q: filters.q }] : []
       ]
     }
+  }
+
+  const andFilters = (filters) => {
+    if(_.isPlainObject(filters) && !filters.$and && !filters.$or) return {
+      $and: Object.keys(filters).map(key => ({
+        [key]: filters[key]
+      }))
+    }
+    if(_.isArray(filters)) return { $and: filters }
+    return filters
   }
 
   const applyAnd = (qb, filters, options) => {
@@ -69,11 +129,11 @@ const filterPlugin = function(bookshelf) {
   const applyFilter = (qb, name, filter, options) => {
     if(name === '$and') return applyAnd(qb, filter, options)
     if(name === '$or') return applyOr(qb, filter, options)
-    if(options.filterParams && !_.includes(['id','q',...options.filterParams], name)) {
+    if(options.filter.allowed && !_.includes(['id','q',...options.filter.allowed], name)) {
       throw new Error(`cannot filter on ${name}`)
     }
-    if(options.virtualFilters && options.virtualFilters[name]) {
-      return options.virtualFilters[name](qb, filter)
+    if(options.filter.virtuals && options.filter.virtuals[name]) {
+      return options.filter.virtuals[name](qb, filter)
     }
     _filterColumn(qb, name, filter, options)
   }
@@ -118,9 +178,9 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterSearch = (qb, filter, options) => {
-    if(!options.searchParams) return
+    if(!options.filter.search) return
     if(filter.length === 0) return
-    const columns = options.searchParams.map(column => castColumn(column, options))
+    const columns = options.filter.search.map(column => castColumn(column, options))
     const phrase = `lower(concat(${columns.join(',\' \',')}))`
     const term = `%${filter.toLowerCase()}%`
     qb.whereRaw(`${phrase} like ?`, term)
@@ -260,8 +320,8 @@ const filterPlugin = function(bookshelf) {
     qb.whereRaw(`${column} <= ?`, end.format('YYYY-MM-DD'))
   }
 
-  const applySorts = (qb, $sorts, options) => {
-    const sorts = normalizeSort($sorts, options)
+  const applySorts = (qb, options) => {
+    const sorts = normalizeSort(options.sort.params, options)
     if(sorts.length === 0) return
     sorts.map(sort => {
       const { column, order } = applySort(sort, options)
@@ -270,7 +330,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const normalizeSort = ($sorts, options) => {
-    const sorts = $sorts || options.defaultSort || 'id'
+    const sorts = $sorts || options.sort.defaults || 'id'
     return _.castArray(sorts).map(sort => {
       if(!_.isString(sort)) return sort
       return {
@@ -281,7 +341,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const applySort = (sort, options) => {
-    if(options.sortParams && !_.includes(options.sortParams, sort.column)) {
+    if(options.sort.allowed && !_.includes(options.sort.allowed, sort.column)) {
       throw new Error(`cannot sort on ${sort.column}`)
     }
     return {
@@ -302,11 +362,11 @@ const filterPlugin = function(bookshelf) {
     return options.aliases[column] || column
   }
 
-  bookshelf.Collection.prototype.filter = filter
+  bookshelf.Collection.prototype.filterFetch = filterFetch
 
-  bookshelf.Model.prototype.filter = filter
+  bookshelf.Model.prototype.filterFetch = filterFetch
 
-  bookshelf.Model.filter = filter
+  bookshelf.Model.filterFetch = filterFetch
 
 }
 
