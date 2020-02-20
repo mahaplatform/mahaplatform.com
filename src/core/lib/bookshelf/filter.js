@@ -11,12 +11,13 @@ const filterPlugin = function(bookshelf) {
     }
 
     options.tableName = this.tableName
-    
+
     return this.query(qb => {
       if(options.scope) options.scope(qb)
       if(options.filter) applyFilters(qb, options.filter, options)
       if(options.sort) applySorts(qb, options.sort, options)
     })
+    
   }
 
   const applyFilters = (qb, $filters, options) => {

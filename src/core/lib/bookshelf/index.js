@@ -9,8 +9,6 @@ import knex from '../../services/knex'
 import fetchPage from './fetch_page'
 import Bookshelf from 'bookshelf'
 import filter from './filter'
-import scope from './scope'
-import sort from './sort'
 
 const bookshelf = Bookshelf(knex)
 
