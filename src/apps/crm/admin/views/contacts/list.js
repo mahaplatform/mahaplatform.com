@@ -63,14 +63,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
           { value: '$eq', text: 'was included in import' },
           { value: '$neq', text: 'was not included in import' }
         ] },
-        // { name: 'Email Open', key: 'open_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-        //   { value: '$eq', text: 'opened the email' },
-        //   { value: '$neq', text: 'did not open the email' }
-        // ] },
-        // { name: 'Email Click', key: 'click_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-        //   { value: '$eq', text: 'clicked link in the email' },
-        //   { value: '$neq', text: 'did not click link in the email' }
-        // ] }
+        { name: 'Email Delivery', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$de', text: 'received the email' },
+          { value: '$nde', text: 'did not receive the email' }
+        ] },
+        { name: 'Email Open', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$op', text: 'opened the email' },
+          { value: '$nop', text: 'did not open the email' }
+        ] },
+        { name: 'Email Click', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$cl', text: 'clicked link in the email' },
+          { value: '$ncl', text: 'did not click link in the email' }
+        ] }
       ] }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },
