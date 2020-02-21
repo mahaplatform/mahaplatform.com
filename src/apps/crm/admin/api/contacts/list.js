@@ -10,55 +10,62 @@ const listRoute = async (req, res) => {
       qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
       qb.where('crm_contacts.team_id', req.team.get('id'))
     },
-    filter: {
-      aliases: {
-        email: 'crm_contact_primaries.email',
-        phone: 'crm_contact_primaries.phone',
-        street_1: {
-          column: 'crm_mailing_addresses.address->>\'street_1\'',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        city: {
-          column: 'crm_mailing_addresses.address->>\'city\'',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        state_province: {
-          column: 'crm_mailing_addresses.address->>\'state_province\'',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        postal_code: {
-          column: 'crm_mailing_addresses.address->>\'postal_code\'',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        county: {
-          column: 'crm_mailing_addresses.address->>\'county\'',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        organization_id: {
-          column: 'crm_contacts_organizations.organization_id',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        tag_id: {
-          column: 'crm_taggings.tag_id',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        list_id: {
-          column: 'crm_subscriptions.list_id',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        topic_id: {
-          column: 'crm_interests.topic_id',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        form_id: {
-          column: 'crm_responses.form_id',
-          leftJoin: [['contact_id','crm_contacts.id']]
-        },
-        email_campaign_id: {
-          column: 'maha_emails.id',
-          leftJoin: [['contact_id', 'crm_contacts.id']]
-        }
+    aliases: {
+      email: 'crm_contact_primaries.email',
+      phone: 'crm_contact_primaries.phone',
+      street_1: {
+        column: 'crm_mailing_addresses.address->>\'street_1\'',
+        leftJoin: [['contact_id','crm_contacts.id']]
       },
+      city: {
+        column: 'crm_mailing_addresses.address->>\'city\'',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      state_province: {
+        column: 'crm_mailing_addresses.address->>\'state_province\'',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      postal_code: {
+        column: 'crm_mailing_addresses.address->>\'postal_code\'',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      county: {
+        column: 'crm_mailing_addresses.address->>\'county\'',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      organization_id: {
+        column: 'crm_contacts_organizations.organization_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      tag_id: {
+        column: 'crm_taggings.tag_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      list_id: {
+        column: 'crm_subscriptions.list_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      topic_id: {
+        column: 'crm_interests.topic_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      form_id: {
+        column: 'crm_responses.form_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      import_id: {
+        column: 'maha_imports_import_items.import_id',
+        leftJoin: [
+          ['object_type','\'crm_contacts\''],
+          ['object_id','crm_contacts.id']
+        ]
+      },
+      email_campaign_id: {
+        column: 'maha_emails.id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      }
+    },
+    filter: {
       operations: {
         $de: (table, alias, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=${value} and ${alias}.was_delivered = ?`, value, true]

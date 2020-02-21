@@ -8,15 +8,15 @@ const listRoute = async (req, res) => {
       qb.innerJoin('finance_merchants', 'finance_merchants.id', 'finance_disbursements.merchant_id')
       qb.where('finance_disbursements.team_id', req.team.get('id'))
     },
-    aliases: {
-      merchant: 'finance_merchants.title'
-    },
     filter: {
       params: req.query.$filter,
       allowed: ['merchant_id','date']
     },
+    aliases: {
+      merchant: 'finance_merchants.title'
+    },
     sort: {
-      soparamsrt: req.query.$sort,
+      sort: req.query.$sort,
       defaults: ['-created_at'],
       allowed: ['id','date','merchant','created_at']
     },

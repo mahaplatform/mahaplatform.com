@@ -1,3 +1,4 @@
+import { castColumn, getAlias } from './utils'
 import _ from 'lodash'
 
 export const parseSort = (options) => {
@@ -21,6 +22,7 @@ export const applySort = (sorts, options) => {
   if(sorts.length === 0) return []
   return sorts.map(sort => {
     const { column, order } = sort
-    return `${column} ${order}`
+    const alias = getAlias(column, options.aliases, options)
+    return `${castColumn(alias)} ${order}`
   })
 }

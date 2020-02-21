@@ -10,14 +10,14 @@ const listRoute = async (req, res) => {
       qb.innerJoin('finance_products','finance_products.id','finance_coupons.product_id')
       qb.where('finance_coupons.team_id', req.team.get('id'))
     },
-    aliases: {
-      product: 'finance_products.title',
-      is_active: 'finance_coupon_statuses.is_active'
-    },
     filter: {
       params: req.query.$filter,
       allowed: ['product_id'],
       search: ['code']
+    },
+    aliases: {
+      product: 'finance_products.title',
+      is_active: 'finance_coupon_statuses.is_active'
     },
     sort: {
       params: req.query.$sort,

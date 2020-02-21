@@ -1,5 +1,12 @@
 import _ from 'lodash'
 
+export const castColumn = ({ table, alias, column, join }) => {
+  const matches = column.match(/(.*)(->{1,2})(.*)/)
+  const castTable = `"${alias || table}"`
+  const castColumn = matches ? `"${matches[1]}"${matches[2]}${matches[3]}` : `"${column}"`
+  return `${castTable}.${castColumn}`
+}
+
 export const getAlias = (column, aliases, options)  => {
   const alias = (aliases && aliases[column]) ? aliases[column] : column
   return normalizeAlias(alias, options)
@@ -31,7 +38,6 @@ const generateAlias = () => {
 }
 
 const normalizeColumn = (column, options) => {
-  console.log(column)
   const parts = column.match(/^(.+)\.(.+)$/)
   return {
     table: parts ? parts[1] : options.tableName,

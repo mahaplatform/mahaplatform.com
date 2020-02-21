@@ -1,19 +1,24 @@
-import { getAlias } from './utils'
+import { castColumn, getAlias } from './utils'
 import moment from 'moment'
 import _ from 'lodash'
 
 export const parseFilter = (options) => {
   if(!options.filter || !options.filter.params) return null
-  const filter = normalizeFilter(options.filter.params, options)
+  const filter = normalizeFilter(options.filter.params)
   return applyFilter(filter, options)
 }
 
-const normalizeFilter = (filters, options) => {
-  const $filters = andFilters(filters)
+const normalizeFilter = ($filters) => {
+  const filters = andFilters($filters)
+  const q = filters.$and.find(filter => {
+    return Object.keys(filter)[0] === 'q'
+  })
   return {
     $and: [
-      ...$filters.$and,
-      ...filters.q ? [{ q: filters.q }] : []
+      ...filters.$and.filter(filter => {
+        return Object.keys(filter)[0] !== 'q'
+      }),
+      ...q ? [{ q: { $sq: q.q } }] : []
     ]
   }
 }
@@ -44,7 +49,7 @@ const applyConjunction = (conjunction, conditions, options) => {
     return {
       joins: [
         ...segments.joins,
-        ...filtered.joins
+        ...filtered.joins || []
       ],
       query: [
         ...segments.query,
@@ -52,7 +57,7 @@ const applyConjunction = (conjunction, conditions, options) => {
       ],
       bindings: [
         ...segments.bindings,
-        ...filtered.bindings
+        ...filtered.bindings || []
       ]
     }
   }, { joins: [], query: [], bindings: [] })
@@ -69,11 +74,11 @@ const applyConjunction = (conjunction, conditions, options) => {
 const applyCriteria = (column, condition, options) => {
   const operation = Object.keys(condition)[0]
   const value = condition[operation]
-  const alias = getAlias(column, options.filter.aliases, options)
+  const alias = getAlias(column, options.aliases, options)
   if(options.filter.operations && options.filter.operations[operation]) {
     return applyOperation(alias, operation, value, options)
   }
-  const { query, bindings } = getFilter(alias, operation, value)
+  const { query, bindings } = getFilter(alias, operation, value, options)
   const joins = getJoin(alias)
   return { joins, query, bindings }
 }
@@ -83,7 +88,7 @@ const applyOperation = (alias, operation, value, options)=> {
   return {
     joins: [criteria.join],
     query: criteria.query,
-    bindings: criteria.bindings || []
+    bindings: criteria.bindings
   }
 }
 
@@ -95,16 +100,9 @@ const getJoin = ({ table, alias, column, join }) => {
   return [`${join.type} join "${table}" "${alias}" on ${conditions}`]
 }
 
-const castColumn = ({ table, alias, column, join }) => {
-  const matches = column.match(/(.*)(->{1,2})(.*)/)
-  const castTable = `"${alias || table}"`
-  const castColumn = matches ? `"${matches[1]}"${matches[2]}${matches[3]}` : `"${column}"`
-  return `${castTable}.${castColumn}`
-}
-
-const getFilter = (alias, operation, value) => {
-  if(alias.column === 'q') return getFilterSearch(alias.column, value)
+const getFilter = (alias, operation, value, options) => {
   const column = castColumn(alias)
+  if(operation === '$sq') return getFilterSearch(alias, value, options)
   if(operation === '$nl') return getFilterNull(column, value)
   if(operation === '$nnl') return getFilterNotNull(column, value)
   if(operation === '$kn') return getFilterKnown(column, value)
@@ -123,10 +121,18 @@ const getFilter = (alias, operation, value) => {
   if(operation === '$dr') return getFilterDateRange(column, value)
 }
 
-const getFilterSearch = (column, value) => ({
-  query: '1=1',
-  bindings: []
-})
+const getFilterSearch = (column, value, options) => {
+  if(!options.filter.search || value.length === 0) return { query: null }
+  const columns = options.filter.search.map(searchColumn => {
+    const alias = getAlias(searchColumn, options.aliases, options)
+    return castColumn(alias)
+  })
+  return {
+    query: `lower(concat(${columns.join(',\' \',')})) like ?`,
+    bindings: [`%${value.toLowerCase()}%`]
+  }
+
+}
 
 const getFilterNull = (column, value) => ({
   query: `${column} is null`,

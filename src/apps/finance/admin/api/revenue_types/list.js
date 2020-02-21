@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      search: ['title','description','integration->>\'revenue_code\'']
+      search: ['title','description','revenue_code']
     },
     sort: {
       params: req.query.$sort,
