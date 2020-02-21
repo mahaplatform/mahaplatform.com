@@ -20,14 +20,19 @@ const normalizeAlias = (alias, options) => {
   const join = normalizeJoin(alias, options)
   return {
     table: alias.table,
-    alias: join ? _.random(100000000, 999999999).toString(36) : null,
+    alias: join ? generateAlias() : null,
     column: alias.column,
     join
   }
 }
 
+const generateAlias = () => {
+  return 'w'+_.random(100000000, 999999999).toString(36).replace(/\d/g, '')
+}
+
 const normalizeColumn = (column, options) => {
-  const parts = column.match(/^(\w+)\.(\w+)$/)
+  console.log(column)
+  const parts = column.match(/^(.+)\.(.+)$/)
   return {
     table: parts ? parts[1] : options.tableName,
     column: parts ? parts[2] : column

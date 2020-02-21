@@ -56,9 +56,12 @@ const applyConjunction = (conjunction, conditions, options) => {
       ]
     }
   }, { joins: [], query: [], bindings: [] })
+  const query = output.query.filter(segment => {
+    return segment !== undefined
+  }).join(` ${conjunction.replace('$', '')} `)
   return {
     joins: output.joins,
-    query: `(${output.query.join(` ${conjunction.replace('$', '')} `)})`,
+    query: query.length > 0 ? `(${query})` : null,
     bindings: output.bindings
   }
 }
@@ -68,11 +71,20 @@ const applyCriteria = (column, condition, options) => {
   const value = condition[operation]
   const alias = getAlias(column, options.filter.aliases, options)
   if(options.filter.operations && options.filter.operations[operation]) {
-    return options.filter.operations[operation](alias.table, alias.alias, value)
+    return applyOperation(alias, operation, value, options)
   }
   const { query, bindings } = getFilter(alias, operation, value)
   const joins = getJoin(alias)
   return { joins, query, bindings }
+}
+
+const applyOperation = (alias, operation, value, options)=> {
+  const criteria = options.filter.operations[operation](alias.table, alias.alias, value)
+  return {
+    joins: [criteria.join],
+    query: criteria.query,
+    bindings: criteria.bindings || []
+  }
 }
 
 const getJoin = ({ table, alias, column, join }) => {
@@ -84,7 +96,10 @@ const getJoin = ({ table, alias, column, join }) => {
 }
 
 const castColumn = ({ table, alias, column, join }) => {
-  return `"${alias || table}"."${column}"`
+  const matches = column.match(/(.*)(->{1,2})(.*)/)
+  const castTable = `"${alias || table}"`
+  const castColumn = matches ? `"${matches[1]}"${matches[2]}${matches[3]}` : `"${column}"`
+  return `${castTable}.${castColumn}`
 }
 
 const getFilter = (alias, operation, value) => {

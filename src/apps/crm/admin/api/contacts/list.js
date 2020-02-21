@@ -14,11 +14,26 @@ const listRoute = async (req, res) => {
       aliases: {
         email: 'crm_contact_primaries.email',
         phone: 'crm_contact_primaries.phone',
-        street_1: 'crm_mailing_addresses.address->>\'street_1\'',
-        city: 'crm_mailing_addresses.address->>\'city\'',
-        state_province: 'crm_mailing_addresses.address->>\'state_province\'',
-        postal_code: 'crm_mailing_addresses.address->>\'postal_code\'',
-        county: 'crm_mailing_addresses.address->>\'county\'',
+        street_1: {
+          column: 'crm_mailing_addresses.address->>\'street_1\'',
+          leftJoin: [['contact_id','crm_contacts.id']]
+        },
+        city: {
+          column: 'crm_mailing_addresses.address->>\'city\'',
+          leftJoin: [['contact_id','crm_contacts.id']]
+        },
+        state_province: {
+          column: 'crm_mailing_addresses.address->>\'state_province\'',
+          leftJoin: [['contact_id','crm_contacts.id']]
+        },
+        postal_code: {
+          column: 'crm_mailing_addresses.address->>\'postal_code\'',
+          leftJoin: [['contact_id','crm_contacts.id']]
+        },
+        county: {
+          column: 'crm_mailing_addresses.address->>\'county\'',
+          leftJoin: [['contact_id','crm_contacts.id']]
+        },
         organization_id: {
           column: 'crm_contacts_organizations.organization_id',
           leftJoin: [['contact_id','crm_contacts.id']]
@@ -46,34 +61,22 @@ const listRoute = async (req, res) => {
       },
       operations: {
         $de: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=${value} and ${alias}.was_delivered = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=${value} and ${alias}.was_delivered = ?`, value, true]
         }),
         $nde: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=? and ${alias}.was_delivered = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_delivered = ?`, value, false]
         }),
         $op: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=? and ${alias}.was_opened = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, true]
         }),
         $nop: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=? and ${alias}.was_opened = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, false]
         }),
         $cl: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=? and ${alias}.was_clicked = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_clicked = ?`, value, true]
         }),
         $ncl: (table, alias, value) => ({
-          joins: [`left join ${table} ${alias} ${alias}.contact_id=crm_contacts.id and ${alias}.campaign_id=? and was_clicked = ?`],
-          query: 'where was delivered is null',
-          bindings: [value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and was_clicked = ?`, value, false]
         })
       },
       params: req.query.$filter,

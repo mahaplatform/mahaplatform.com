@@ -1,6 +1,7 @@
 import { parseFilter } from './filter'
 import { parseSort } from './sort'
 import { fetchPage } from './page'
+import _ from 'lodash'
 
 const filterPlugin = function(bookshelf) {
 
@@ -9,20 +10,23 @@ const filterPlugin = function(bookshelf) {
     options.tableName = this.extend().__super__.tableName
 
     const filter = parseFilter(options)
-
-    console.log(filter)
+    const sort = parseSort(options)
 
     const query = (qb) => {
+      if(options.scope) options.scope(qb)
       if(filter) {
         filter.joins.map(join => {
-          qb.joinRaw(join)
+          const arr = _.castArray(join)
+          qb.joinRaw(arr[0], arr.slice(1))
         })
-        qb.whereRaw(filter.query, filter.bindings)
+        if(filter.query) {
+          qb.whereRaw(filter.query, filter.bindings)
+        }
+      }
+      if(sort) {
+        qb.orderByRaw(sort.join(','))
       }
     }
-
-    // const sort = parseSort(options)
-    // console.log(sort)
 
     if(options.page) return await fetchPage.bind(this.query(query))(bookshelf, options)
 

@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
 export const parseSort = (options) => {
-  const { params } = options.sort
-  const filter = normalizeFilter(params, options)
+  if(!options.sort || !options.sort.params) return null
+  const sort = normalizeSort(options.sort.params, options)
   return applySort(sort, options)
 }
 
@@ -17,10 +17,10 @@ const normalizeSort = ($sorts, options) => {
   }).filter(sort => !_.isNil(sort.column))
 }
 
-export const applySort = (sort, options) => {
-  if(sorts.length === 0) return
-  sorts.map(sort => {
-    const { column, order } = applySort(sort, options)
-    qb.orderByRaw(`${column} ${order}`)
+export const applySort = (sorts, options) => {
+  if(sorts.length === 0) return []
+  return sorts.map(sort => {
+    const { column, order } = sort
+    return `${column} ${order}`
   })
 }
