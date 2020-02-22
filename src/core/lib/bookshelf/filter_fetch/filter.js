@@ -5,7 +5,6 @@ import _ from 'lodash'
 export const parseFilter = (options) => {
   if(!options.filter || !options.filter.params) return null
   const filter = normalizeFilter(options.filter.params)
-  console.log(filter)
   return applyFilter(filter, options)
 }
 
@@ -156,12 +155,12 @@ const getFilterFalse = (column, value) => ({
 })
 
 const getFilterKnown = (column, value) => ({
-  query: `(${column} is null or column != ?)`,
+  query: `(${column} is not null and ${column} != ?)`,
   bindings: ['']
 })
 
 const getFilterNotKnown = (column, value) => ({
-  query: `(${column} is null or column = ?)`,
+  query: `(${column} is null or ${column} = ?)`,
   bindings: ['']
 })
 
