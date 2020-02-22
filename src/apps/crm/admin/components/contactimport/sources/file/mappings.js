@@ -120,10 +120,6 @@ class Mappings extends React.PureComponent {
   }
 
   _getPanel() {
-    const { mappings } = this.state
-    const mapped = mappings.find(mapping => {
-      return mapping.field === null
-    }) === undefined
     return {
       title: 'Map Columns',
       instructions: `In order to translate your data into valid contact
@@ -134,9 +130,9 @@ class Mappings extends React.PureComponent {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
-      rightItems: mapped ? [
+      rightItems: [
         { label: 'Next', handler: this._handleDone }
-      ] : null
+      ]
     }
   }
 
