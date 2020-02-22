@@ -20,6 +20,7 @@ class Results extends React.Component {
     table: PropTypes.array,
     onClick: PropTypes.func,
     onLoadMore: PropTypes.func,
+    onReachBottom: PropTypes.func,
     onSelect: PropTypes.func,
     onSelectAll: PropTypes.func,
     onSort: PropTypes.func
@@ -32,7 +33,7 @@ class Results extends React.Component {
   }
 
   _getTable() {
-    const { code, records, recordTasks, rowClass, table, selectAll, selectValue, selectable, selected, sort, status, onClick, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const { code, records, recordTasks, rowClass, table, selectAll, selectValue, selectable, selected, sort, status, onClick, onLoadMore, onReachBottom, onSelect, onSelectAll, onSort } = this.props
     const columns = table
     return {
       code,
@@ -48,6 +49,7 @@ class Results extends React.Component {
       status,
       onClick,
       onLoadMore,
+      onReachBottom,
       onSelect,
       onSelectAll,
       onSort

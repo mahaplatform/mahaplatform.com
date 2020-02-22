@@ -1,0 +1,193 @@
+@table_header_background_color: @white;
+@table_body_background_color: @white;
+@table_border_color: #DDDDDD;
+@table_body_font_color: #888888;
+.maha-table-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+.maha-table {
+  background-color: @white;
+  table {
+    width: 100%;
+  }
+  .fa-caret-down,
+  .fa-caret-up,
+  .fa-chevron,
+  .fa-circle-o,
+  .fa-check-circle {
+    font-size: 1.2em;
+    line-height: 1em;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 90);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+  .maha-table-check-cell {
+    padding: 0.8em;
+    text-align: center;
+    width: 1px;
+  }
+  .maha-table-body .circle {
+    font-size: .7em !important;
+  }
+  thead {
+    background-color: @white;
+    tr {
+      background-color: lighten(@black, 90);
+    }
+    tr td {
+      .hover(background-color, fadeout(@black, 95));
+      font-weight: bold;
+      position: relative;
+      cursor: pointer;
+      color: fadeout(@black, 50);
+      border-right: 1px solid fadeout(@black, 90);
+      border-bottom: 1px solid fadeout(@black, 90);
+      line-height: 1.8em;
+      &:last-child {
+        border-right: none;
+      }
+      &.padded {
+        padding: ~"0.8em calc(0.8em + 22px) 0.8em 0.8em";
+      }
+      &.next {
+        min-width: 2.8em !important;
+      }
+      &.config {
+        padding: 0.8em;
+      }
+      i {
+        margin: 0;
+      }
+      .fa-ellipsis-v,
+      .fa-caret-up,
+      .fa-caret-down {
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+        color: fadeout(@black, 50);
+      }
+    }
+  }
+  tbody {
+    .maha-table-link {
+      .hover(background-color, fadeout(@black, 95));
+      cursor: pointer;
+    }
+    td {
+      line-height: 20px;
+      vertical-align: middle;
+      color: @table_body_font_color !important;
+      border-bottom: 1px solid fadeout(@black, 95);
+      strong {
+        color: @black;
+      }
+      &.centered {
+        text-align: center;
+      }
+      &.right {
+        text-align: right;
+      }
+      &.fa {
+        padding: 0.8em;
+      }
+      &.padded {
+        padding: 0.8em;
+      }
+      .fa {
+        margin: 0;
+      }
+      .fa-chevron-right, .fa-ellipsis {
+        color: fadeout(@black, 80) !important;
+      }
+      .fa-ellipsis {
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+    }
+  }
+  td {
+    &.collapsing {
+      width: 1px;
+    }
+    @media only screen and (max-width: 768px) {
+      &:not(.mobile),
+      &:not(.mobile) {
+        display: none;
+      }
+    }
+  }
+}
+.maha-table-columns-chooser {
+  position: absolute;
+  right: 0;
+  min-width: 200px;
+  border-radius: 0.3em;
+  background-color: @white;
+  border: 1px solid fadeout(@black, 95);
+  z-index: 2;
+  font-weight: normal;
+  box-shadow: 0 3px 8px fadeout(@black, 70);
+  top: ~"calc(100% + 10px)";
+  &:after {
+    bottom: 100%;
+    border-bottom-color: @white !important;
+  }
+  &:before {
+    bottom: 100%;
+    border-bottom-color: fadeout(@black, 85) !important;
+  }
+  &:after,
+  &:before {
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-width: 9px;
+    margin-left: -9px;
+    right: 10px;
+  }
+  &:before {
+    border-width: 10px;
+    margin-left: -10px;
+    right: 9px;
+  }
+}
+.maha-table-column {
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-table-column-label {
+  padding: 0.4em 0.8em;
+  flex: 1;
+}
+.maha-table-column-icon {
+  padding: 0.4em 0.8em 0.4em 0;
+  .fa-check {
+    color: @green;
+  }
+  .fa-lock {
+    color: fadeout(@black, 40);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .maha-table-columns {
+    display: none;
+  }
+}

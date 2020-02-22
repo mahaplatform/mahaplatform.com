@@ -78,23 +78,23 @@ class Infinite extends React.Component {
             { React.createElement(header, this.props) }
           </div>
         }
-        { status === 'loading' && records && records.length > 0 && <Appending/> }
-        { status === 'failed' && this._getComponent(failure) }
-        { status === 'loading' && records.length === 0 && <Loader /> }
-        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
-          <Message { ...notFound } />
-        }
-        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
-          <Message { ...empty } />
-        }
-        { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
-          <Message { ...failure } />
-        }
-        { status !== 'failed' && records && records.length > 0 && Layout &&
-          <Scrollpane { ...this._getScrollpane() }>
+        <div className="maha-infinite-body">
+          { status === 'loading' && records && records.length > 0 && <Appending/> }
+          { status === 'failed' && this._getComponent(failure) }
+          { status === 'loading' && records.length === 0 && <Loader /> }
+          { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
+            <Message { ...notFound } />
+          }
+          { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
+            <Message { ...empty } />
+          }
+          { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
+            <Message { ...failure } />
+          }
+          { status !== 'failed' && records && records.length > 0 && Layout &&
             <Layout { ...this._getLayout() } />
-          </Scrollpane>
-        }
+          }
+        </div>
         { status !== 'failed' && records && records.length > 0 && footer &&
           <div className="maha-infinite-footer">
             { React.createElement(footer, this.props) }
@@ -131,6 +131,7 @@ class Infinite extends React.Component {
       selectAll,
       selectValue,
       total,
+      onReachBottom: this._handleFetch.bind(this),
       onSelect,
       onSelectAll,
       ...this._getProps()
@@ -142,12 +143,6 @@ class Infinite extends React.Component {
     if(_.isFunction(props)) return props()
     if(_.isPlainObject(props)) return props
     return {}
-  }
-
-  _getScrollpane() {
-    return {
-      onReachBottom: this._handleFetch.bind(this)
-    }
   }
 
   _handleFetch(skip = null, reload = false) {

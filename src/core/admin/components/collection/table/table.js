@@ -1,204 +1,245 @@
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { VariableSizeList as List } from 'react-window'
 import PropTypes from 'prop-types'
-import Columns from './columns'
-import Loader from '../../loader'
-import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
-class Table extends React.Component {
-
-  static contextTypes = {
-    tasks: PropTypes.object
-  }
+class Row extends React.Component {
 
   static propTypes = {
-    code: PropTypes.string,
-    columns: PropTypes.array,
-    defaults: PropTypes.array,
-    display: PropTypes.array,
-    hidden: PropTypes.array,
-    records: PropTypes.array,
-    recordTasks: PropTypes.func,
-    rowClass: PropTypes.func,
-    selectable: PropTypes.bool,
-    selected: PropTypes.object,
-    selectAll: PropTypes.bool,
-    selectValue: PropTypes.string,
-    sort: PropTypes.object,
-    status: PropTypes.string,
-    onClick: PropTypes.func,
-    onLoadHidden: PropTypes.func,
-    onSaveHidden: PropTypes.func,
-    onSelect: PropTypes.func,
-    onSelectAll: PropTypes.func,
-    onSort: PropTypes.func,
-    onToggleHidden: PropTypes.func
+    data: PropTypes.object,
+    index: PropTypes.number,
+    style: PropTypes.object
   }
 
-  static defaultProps = {
-    onSelect: (id) => {},
-    onSelectAll: () => {}
+  row = null
+
+  state = {
+    height: null
   }
 
-  _handleSelectAll = this._handleSelectAll.bind(this)
+  _handleSetHeight = this._handleSetHeight.bind(this)
 
   render() {
-    const { records, recordTasks, selectable, selectAll, sort, status, onClick } = this.props
-    const columns = this.props.display
+    const { data, index } = this.props
+    const { columns, records } = data
     return (
-      <div className="maha-table">
-        { status !== 'success' ?
-          <div className="maha-table-loader">
-            <Loader />
-          </div> :
-          <table className="maha-table-data">
-            <thead>
-              <tr>
-                { selectable &&
-                  <td className="maha-table-check-cell" onClick={ this._handleSelectAll }>
-                    { selectAll ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
-                  </td>
-                }
-                { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
-                  <td key={`header-${columnIndex}`} className={ this._getHeaderClass(column) } onClick={ this._handleSort.bind(this, column) }>
-                    { column.label }
-                    { sort && (column.key === sort.key || column.sort === sort.key) &&
-                      (sort.order === 'asc' ? <i className="fa fa-caret-up" /> : <i className="fa fa-caret-down" />)
-                    }
-                  </td>
-                ))}
-                { recordTasks &&
-                  <td className="maha-table-head-cell mobile collapsing next" />
-                }
-                <Columns { ...this._getColumns() } />
-              </tr>
-            </thead>
-            <tbody>
-              { records.map((record, rowIndex) => (
-                <tr key={ `record_${rowIndex}` } className={ this._getBodyRowClass(record) }>
-                  { selectable &&
-                    <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record) }>
-                      <i className={`fa fa-${ this._getChecked(record) }`} />
-                    </td>
-                  }
-                  { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
-                    <td key={ `cell_${rowIndex}_${columnIndex}` } className={ this._getBodyClass(column) } onClick={ this._handleClick.bind(this, record, rowIndex) }>
-                      <Format { ...record } format={ column.format } value={ this._getValue(record, column.key) } />
-                    </td>
-                  )) }
-                  { recordTasks &&
-                    <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record) }>
-                      <i className="fa fa-ellipsis-v" />
-                    </td>
-                  }
-                  <td className="maha-table-body-cell icon mobile collapsing centered">
-                    { onClick && <i className="fa fa-chevron-right" /> }
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        }
+      <div className="table-row" style={ this._getRowStyle() } ref={ node => this.row = node }>
+        { columns.map((column, i) => (
+          <div className="table-cell" key={`column_${i}`} style={ this._getStyle(i) }>
+            { _.get(records[index], column.key) }
+          </div>
+        ))}
       </div>
     )
   }
 
   componentDidMount() {
-    const { defaults, code, onLoadHidden } = this.props
-    onLoadHidden(code, defaults)
+    setTimeout(this._handleSetHeight, 50)
   }
 
   componentDidUpdate(prevProps) {
-    const { code, hidden, onSaveHidden } = this.props
-    if(!_.isEqual(hidden, prevProps.hidden)) {
-      onSaveHidden(code, hidden)
+    const { data } = this.props
+    if(!_.isEqual(data.width, prevProps.data.width)) {
+      this._handleSetHeight()
     }
   }
 
-  _getActions(record) {
-    const { recordTasks } = this.props
+  _getRowStyle() {
+    const { height } = this.state
+    const { style } = this.props
     return {
-      record,
-      items: recordTasks(record)
+      position: style.position,
+      left: style.left,
+      top: style.top,
+      width: style.width,
+      ...height ? { height } : {}
     }
   }
 
-  _getChecked(record) {
-    const { selected, selectValue } = this.props
-    const value = _.get(record, selectValue)
-    const included = _.includes(selected.values, value)
-    if(selected.mode === '$in') return included ? 'check-circle' : 'circle-o'
-    return included ? 'circle-o' : 'check-circle'
+  _getStyle(index) {
+    const { data } = this.props
+    return data.widths[index]
   }
 
-  _getHeaderClass(column) {
-    let classes = ['padded']
-    if(column.primary === true) classes.push('mobile')
-    if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
-    return classes.join(' ')
+  _handleSetHeight() {
+    if(!this.row) return
+    const { index } = this.props
+    this.setState({
+      height: null
+    }, () => {
+      let height = 0
+      this.row.childNodes.forEach((node, index) => {
+        height = Math.max(height, node.getBoundingClientRect().height)
+      })
+      this.setState({ height })
+      this.props.data.onSetHeight(index, height)
+    })
   }
 
-  _getBodyClass(column) {
-    let classes = []
-    if(column.primary === true) classes.push('mobile')
-    if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
-    if(column.format === 'check' || column.centered === true) classes.push('centered')
-    if(column.format === 'currency') classes.push('right')
-    if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')
-    return classes.join(' ')
+}
+
+class Body extends React.Component {
+
+  static propTypes = {
+    columns: PropTypes.array,
+    records: PropTypes.array,
+    size: PropTypes.object,
+    widths: PropTypes.array,
+    onReachBottom: PropTypes.func
   }
 
-  _getBodyRowClass(record) {
-    const { rowClass, onClick } = this.props
-    let classes = []
-    if(onClick) classes.push('maha-table-link')
-    if(rowClass && _.isString(rowClass)) classes.push(rowClass)
-    if(rowClass && _.isFunction(rowClass)) classes.push(rowClass(record))
-    return classes.join(' ')
+  heights = {}
+  notified = false
+
+  list = React.createRef()
+
+  _handleItemSize = this._handleItemSize.bind(this)
+  _handleScroll = this._handleScroll.bind(this)
+  _handleSetHeight = this._handleSetHeight.bind(this)
+
+  render() {
+    return (
+      <List { ...this._getList() }>
+        { Row }
+      </List>
+    )
   }
 
-  _getColumns() {
-    const { onToggleHidden } = this.props
+  componentDidUpdate(prevProps) {
+    const { records } = this.props
+    if(!_.isEqual(records, prevProps.records)) {
+      this.notified = false
+    }
+  }
+
+  _getList() {
+    const { columns, records, size, widths } = this.props
+    const { height, width } = size
     return {
-      columns: this.props.display,
-      onToggleHidden
+      innerRef: node => this.inner = node,
+      ref: this.list,
+      className: 'table-scrollable',
+      overscanCount: 15,
+      height,
+      itemCount: records.length,
+      itemData: {
+        columns,
+        records,
+        widths,
+        onSetHeight: this._handleSetHeight
+      },
+      itemSize: this._handleItemSize,
+      width,
+      onScroll: this._handleScroll
     }
   }
 
-  _getValue(record, key) {
-    if(typeof key === 'function') {
-      return key(record)
-    } else if(typeof key === 'string') {
-      return _.get(record, key)
-    } else {
-      return ''
+  _handleItemSize(index) {
+    return this.heights[index] || 35
+  }
+
+  _handleScroll({ scrollOffset }) {
+    const { offsetHeight } = this.inner
+    const percent = (scrollOffset / offsetHeight) * 100
+    if(!this.notified && percent > 60) {
+      this.props.onReachBottom()
+      this.notified = true
     }
   }
 
-  _handleClick(record, index) {
-    if(!this.props.onClick) return
-    this.props.onClick(record, index)
+  _handleSetHeight(index, height) {
+    this.heights = {
+      ...this.heights,
+      [index]: height
+    }
+    this.list.current.resetAfterIndex(index)
   }
 
-  _handleSelect(record) {
-    const { selectValue } = this.props
-    const value = _.get(record, selectValue)
-    this.props.onSelect(value)
+}
+
+class Table extends React.Component {
+
+  static propTypes = {
+    columns: PropTypes.array,
+    records: PropTypes.array,
+    onReachBottom: PropTypes.func
   }
 
-  _handleSelectAll() {
-    this.props.onSelectAll()
+  state = {
+    width: null
   }
 
-  _handleSort(column) {
-    const key = column.sort || column.key
-    this.props.onSort(key)
+  _handleResize = this._handleResize.bind(this)
+
+  render() {
+    const { columns } = this.props
+    const widths = this._getWidths()
+    return (
+      <div className="table">
+        <div className="table-head">
+          <div className="table-row">
+            { columns.map((column, index) => (
+              <div className="table-cell" key={`column_${index}`} style={ widths[index] }>
+                { column.label }
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="table-body">
+          <AutoSizer { ...this._getAutoSizer() }>
+            {(size) => (
+              <Body { ...this._getBody(size) } />
+            )}
+          </AutoSizer>
+        </div>
+      </div>
+    )
   }
 
-  _handleTasks(record) {
-    const { recordTasks } = this.props
-    this.context.tasks.open({
-      items: recordTasks(record)
+  _getAutoSizer() {
+    return {
+      onResize: this._handleResize
+    }
+  }
+
+  _getBody(size) {
+    const { columns, records, onReachBottom } = this.props
+    const { width } = this.state
+    size.width = width || size.width
+    return {
+      columns,
+      records,
+      size,
+      widths: this._getWidths(),
+      onReachBottom
+    }
+  }
+
+  _getWidths() {
+    const { columns } = this.props
+    const { width } = this.state
+    const fixed = columns.filter(column => {
+      return column.width !== undefined
+    })
+    const used = fixed.reduce((used, column) => {
+      return used + (column.width || 0)
+    }, 0)
+    const available = width - used - 8
+    const widths = columns.map(column => {
+      return column.width || available / (columns.length - fixed.length)
+    })
+    return columns.map((column, index) => {
+      const grow = column.width === undefined ? 1 : 0
+      return {
+        flex: `${grow} 1 ${widths[index]}px`
+      }
+    })
+  }
+
+  _handleResize(size) {
+    this.setState({
+      width: size.width
     })
   }
 
