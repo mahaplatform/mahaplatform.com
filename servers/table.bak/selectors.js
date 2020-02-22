@@ -18,10 +18,3 @@ export const display = createSelector(
     ...column,
     visible: column.primary === true || !_.includes(hidden, column.key)
   })))
-
-export const visible = createSelector(
-  columns,
-  (columns) => columns.filter(column => {
-    return column.visible !== false
-  })
-)
