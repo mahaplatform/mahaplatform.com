@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
       qb.innerJoin('maha_users', 'maha_users.id', 'maha_imports.user_id')
       qb.where('maha_imports.object_type', 'crm_contacts')
       qb.where('maha_imports.team_id', req.team.get('id'))
+      qb.orderBy('created_at','desc')
     },
     filter: {
       params: req.query.$filter,

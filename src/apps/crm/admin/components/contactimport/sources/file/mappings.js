@@ -67,7 +67,9 @@ class Mappings extends React.PureComponent {
                 <td>
                   { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
                 </td>
-                <td>{ this._getFieldLabel(mapping.field) }</td>
+                <td>
+                  { mapping.field && this._getFieldLabel(mapping.field) }
+                </td>
                 <td>
                   <Button { ...this._getButton(mapping) } />
                 </td>
@@ -160,8 +162,8 @@ class Mappings extends React.PureComponent {
       const field = fieldmap.find(item => {
         return _.includes(item.matches, text)
       })
-      return this._getDefaultMapping(header, field.name)
-
+      const name = field ? field.name : null
+      return this._getDefaultMapping(header, name)
     })
     this.setState({ mappings })
   }

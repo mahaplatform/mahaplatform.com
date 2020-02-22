@@ -5,6 +5,7 @@ import _ from 'lodash'
 export const parseFilter = (options) => {
   if(!options.filter || !options.filter.params) return null
   const filter = normalizeFilter(options.filter.params)
+  console.log(filter)
   return applyFilter(filter, options)
 }
 
@@ -62,7 +63,7 @@ const applyConjunction = (conjunction, conditions, options) => {
     }
   }, { joins: [], query: [], bindings: [] })
   const query = output.query.filter(segment => {
-    return segment !== undefined
+    return !_.isNil(segment)
   }).join(` ${conjunction.replace('$', '')} `)
   return {
     joins: output.joins,

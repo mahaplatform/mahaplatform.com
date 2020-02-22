@@ -38,7 +38,8 @@ const processor = async (req, job) => {
         first_name: parts[0],
         last_name: parts.slice(1).join(' ')
       }
-    } else if(mapping.field.match(/^address/)) {
+    } else if(mapping.field.match(/^address_\d{1}$/)) {
+      console.log(mapping.field, value)
       const { number, prefix, street, type, sec_unit_type, sec_unit_num, city, state, zip, plus4 } = parseLocation(value)
       return {
         [`${mapping.field}_street_1`]: [number,prefix,street,type].filter(val => val !== undefined).join(' '),
