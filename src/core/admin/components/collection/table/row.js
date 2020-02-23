@@ -13,12 +13,16 @@ class Row extends React.Component {
 
   row = null
 
-  state = {
-    height: null
-  }
-
   _handleClick= this._handleClick.bind(this)
   _handleSetHeight = this._handleSetHeight.bind(this)
+
+  constructor(props) {
+    super(props)
+    const { data, index } = props
+    this.state = {
+      height: data.heights[index]
+    }
+  }
 
   render() {
     const { data, index } = this.props
@@ -44,9 +48,8 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
-    const { widths, heights } = this.props.data
-    console.log('in item', { widths, heights })
-    setTimeout(this._handleSetHeight, 50)
+    if(this.state.height) return
+    setTimeout(this._handleSetHeight, 25)
   }
 
   componentDidUpdate(prevProps) {

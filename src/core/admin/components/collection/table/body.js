@@ -21,10 +21,13 @@ class Body extends React.Component {
     onSelect: PropTypes.func
   }
 
-  heights = {}
   notified = false
 
-  list = React.createRef()
+  list = null
+
+  state = {
+    heights: {}
+  }
 
   _handleItemSize = this._handleItemSize.bind(this)
   _handleScroll = this._handleScroll.bind(this)
@@ -47,10 +50,11 @@ class Body extends React.Component {
 
   _getList() {
     const { columns, records, rowClass, selectable, selected, selectAll, selectValue, size, widths, onClick, onSelect } = this.props
+    const { heights } = this.state
     const { height, width } = size
     return {
       innerRef: node => this.inner = node,
-      ref: this.list,
+      ref: node => this.list = node,
       className: 'maha-table-scrollable',
       overscanCount: 10,
       height,
@@ -64,7 +68,7 @@ class Body extends React.Component {
         selectAll,
         selectValue,
         widths,
-        heights: this.heights,
+        heights,
         onClick,
         onSelect,
         onSetHeight: this._handleSetHeight
@@ -76,7 +80,7 @@ class Body extends React.Component {
   }
 
   _handleItemSize(index) {
-    return this.heights[index] || 42
+    return this.state.heights[index] || 42
   }
 
   _handleScroll({ scrollOffset }) {
@@ -89,11 +93,13 @@ class Body extends React.Component {
   }
 
   _handleSetHeight(index, height) {
-    this.heights = {
-      ...this.heights,
-      [index]: height
-    }
-    this.list.current.resetAfterIndex(index)
+    this.setState({
+      heights: {
+        ...this.state.heights,
+        [index]: height
+      }
+    })
+    this.list.resetAfterIndex(index)
   }
 
 }
