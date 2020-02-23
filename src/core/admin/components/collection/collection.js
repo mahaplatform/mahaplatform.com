@@ -205,6 +205,7 @@ class Collection extends React.Component {
       failure,
       footer: ({ all, total }) => `Showing ${total} of ${pluralize(entity, all, true)}`,
       layout,
+      scrollpane: false,
       selectValue,
       props: {
         code: this.code,

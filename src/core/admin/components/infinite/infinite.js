@@ -24,6 +24,7 @@ class Infinite extends React.Component {
     notFound: PropTypes.any,
     props: PropTypes.object,
     records: PropTypes.array,
+    scrollpane: PropTypes.bool,
     selected: PropTypes.object,
     selectAll: PropTypes.bool,
     selectMode: PropTypes.string,
@@ -60,6 +61,7 @@ class Infinite extends React.Component {
       text: 'No records matched your query'
     },
     props: {},
+    scrollpane: true,
     selectValue: 'id',
     sort: {
       key: null,
@@ -69,7 +71,7 @@ class Infinite extends React.Component {
   }
 
   render() {
-    const { all, empty, failure, footer, header, next, notFound, records, skip, status, total } = this.props
+    const { all, empty, failure, footer, header, next, notFound, records, scrollpane, skip, status, total } = this.props
     const Layout = this.props.layout
     return (
       <div className="maha-infinite">
@@ -91,7 +93,12 @@ class Infinite extends React.Component {
           { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
             <Message { ...failure } />
           }
-          { status !== 'failed' && records && records.length > 0 && Layout &&
+          { status !== 'failed' && records && records.length > 0 && scrollpane && Layout &&
+            <Scrollpane { ...this._getScrollpane() }>
+              <Layout { ...this._getLayout() } />
+            </Scrollpane>
+          }
+          { status !== 'failed' && records && records.length > 0 && !scrollpane && Layout &&
             <Layout { ...this._getLayout() } />
           }
         </div>
@@ -169,6 +176,12 @@ class Infinite extends React.Component {
     const loaded = records ? records.length : 0
     if(next) return { next }
     return { skip: skip !== null ? skip : loaded }
+  }
+
+  _getScrollpane() {
+    return {
+      onReachBottom: this._handleFetch.bind(this)
+    }
   }
 
   _handleUpdateSelected() {

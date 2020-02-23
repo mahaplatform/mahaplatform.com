@@ -125,7 +125,7 @@ class Row extends React.Component {
       left: style.left,
       top: style.top,
       width: style.width,
-      ...height ? { height } : {}
+      // height: height || 42
     }
   }
 

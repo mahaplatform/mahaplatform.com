@@ -23,6 +23,7 @@ class Body extends React.Component {
     selectAll: PropTypes.bool,
     selectValue: PropTypes.string,
     size: PropTypes.object,
+    total: PropTypes.number,
     widths: PropTypes.array,
     onClick: PropTypes.func,
     onReachBottom: PropTypes.func,
@@ -71,7 +72,7 @@ class Body extends React.Component {
       innerRef: node => this.inner = node,
       ref: node => this.list = node,
       className: `maha-table-scrollable ${!ready ? 'hidden' : ''}`,
-      overscanCount: 15,
+      overscanCount: 10,
       height,
       itemCount: records.length,
       itemData: {
@@ -109,7 +110,7 @@ class Body extends React.Component {
   _handleScroll({ scrollOffset }) {
     const { offsetHeight } = this.inner
     const percent = (scrollOffset / offsetHeight) * 100
-    if(!this.notified && percent > 60) {
+    if(!this.notified && percent > 80) {
       this.props.onReachBottom()
       this.notified = true
     }
