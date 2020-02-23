@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/emails',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'To', key: 'to', visible: false },
       { label: 'Subject', key: 'subject', primary: true, format: EmailToken },
       { label: 'Status', key: 'status', visible: false },

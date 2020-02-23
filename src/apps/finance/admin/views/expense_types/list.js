@@ -34,7 +34,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/expense_types',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', sort: 'expense_ code', primary: true, format: ExpenseTypeToken },
       { label: 'Active', key: 'is_active', primary: true, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)

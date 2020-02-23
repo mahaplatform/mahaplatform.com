@@ -15,7 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/contacts',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Name', key: 'display_name', sort: 'last_name', primary: true, format: ContactToken },
       { label: 'Email', key: 'email' },
       { label: 'Phone', key: 'phone', format: 'phone' },

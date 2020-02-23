@@ -5,7 +5,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/disbursements',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
       { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true }

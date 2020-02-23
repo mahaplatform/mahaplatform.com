@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments`,
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true }
     ],
     empty: {

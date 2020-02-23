@@ -5,7 +5,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/platform/apps',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'App', key: 'code', primary: true, format: AppToken }
     ],
     entity: 'asset',

@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/sessions',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'User', key: 'user', format: SessionToken, primary: true },
       { label: 'Device', key: 'device.device_type', sort: 'device_types.text' },
       { label: 'OS', key: 'device.os_name', sort: 'os_names.text' },

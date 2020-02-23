@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/learning/competencies',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Level', key: 'level', visible: true, collapsing: true },
       { label: 'Category', key: 'category', sort: 'competencies_categories.title', visible: false }

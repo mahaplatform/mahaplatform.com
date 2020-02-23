@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/platform/assets',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Filename', key: 'original_file_name', primary: true, format: FilenameToken },
       { label: 'Uploaded By', key: 'user.full_name', primary: true },
       { label: 'Status', key: 'status', primary: true },

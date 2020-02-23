@@ -40,7 +40,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/projects',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'project_code', sort: 'project_code', primary: true, format: ProjectToken },
       { label: 'Active', key: 'is_active', primary: false, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)

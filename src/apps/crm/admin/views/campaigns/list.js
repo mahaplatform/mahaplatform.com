@@ -9,12 +9,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/campaigns',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { key: 'type', collapsing: true, format: CampaignTypeToken },
+      { label: 'ID', key: 'id', width: 80, visible: false },
+      { key: 'type', width: 60, format: CampaignTypeToken },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Direction', key: 'direction', primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken }
+      { label: 'Direction', key: 'direction', width: 160, primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
+      { label: 'Status', key: 'status', width: 140, primary: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

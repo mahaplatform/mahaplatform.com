@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/fax/faxes/outgoing',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Sent', key: 'created_at', primary: true, format: 'datetime' },
       { label: 'To', key: (fax) => fax.to.name || fax.to.formatted },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: TwilioStatusToken }

@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/learning/resources',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Description', key: 'description', visible: false },
       { label: 'URL', key: 'url', visible: false }

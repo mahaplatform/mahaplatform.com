@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/training/offerings',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Training', key: 'training.title', primary: true },
       { label: 'Date', key: 'date', primary: true, format: 'date' },
       { label: 'Time', key: 'starts_at', primary: false, format: TimeCell },

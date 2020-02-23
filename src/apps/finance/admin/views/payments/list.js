@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/payments',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { primary: true, format: PaymentTypeToken, collapsing: true },
       { label: 'Customer', key: 'invoice.customer.display_name', sort: 'customer', primary: true },
       { label: 'Method', key: 'method', primary: true, collapsing: true },

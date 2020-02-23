@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/vendors',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Name', key: 'name', primary: true, format: VendorToken },
       { label: 'Items', key: 'items_count', primary: true, collapsing: true  }
     ],

@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources) => ({
   collection: {
     endpoint: '/api/admin/finance/items/report',
     table: [
-      { label: 'ID', key: 'item_id', visible: false, width: 60 },
+      { label: 'ID', key: 'item_id', width: 80, visible: false },
       { label: 'Type', key: 'type', width: 80, format: CompactTypeToken },
       { label: 'Date', key: 'date', width: 90, format: 'date' },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },

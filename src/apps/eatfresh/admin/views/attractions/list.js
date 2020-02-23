@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/eatfresh/attractions',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true, format: AttractionToken },
       { label: 'County', key: 'county', sort: 'eatfresh_counties.name', visible: false },
       { label: 'Approved', key: 'is_approved', visible: true, format: 'check_times' }

@@ -5,7 +5,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/calls',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Sent/Received', key: 'created_at', primary: true, format: 'datetime' },
       { label: 'Direction', key: 'direction', primary: true },
       { label: 'From', key: 'from.formatted', primary: true },

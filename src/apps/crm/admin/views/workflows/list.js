@@ -9,7 +9,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/workflows',
     table: [
-      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', primary: true },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken }
