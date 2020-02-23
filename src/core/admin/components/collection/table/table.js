@@ -1,5 +1,6 @@
 import AutoSizer from 'react-virtualized-auto-sizer'
 import PropTypes from 'prop-types'
+import Loader from '../../loader'
 import Columns from './columns'
 import React from 'react'
 import Body from './body'
@@ -20,6 +21,7 @@ class Table extends React.Component {
     selectAll: PropTypes.bool,
     selectValue: PropTypes.string,
     sort: PropTypes.object,
+    status: PropTypes.string,
     visible: PropTypes.array,
     width: PropTypes.number,
     widths: PropTypes.array,
@@ -47,7 +49,8 @@ class Table extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { selectable, selectAll, sort, visible } = this.props
+    const { selectable, selectAll, sort, status, visible } = this.props
+    if(status !== 'success') return <Loader />
     return (
       <div className="maha-table">
         <div className="maha-table-head">

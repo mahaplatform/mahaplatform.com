@@ -53,8 +53,8 @@ class Row extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { data } = this.props
-    if(!_.isEqual(data.width, prevProps.data.width)) {
+    const { data, index } = this.props
+    if(!_.isEqual(data.widths[index], prevProps.data.widths[index])) {
       this._handleSetHeight()
     }
   }

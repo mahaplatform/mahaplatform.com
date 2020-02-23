@@ -57,10 +57,20 @@
   padding: 0.8em;
   flex: 0 1 40px;
   display: flex;
+  .fa {
+    margin: auto;
+  }
 }
 .maha-table-body {
   flex: 1;
   display: flex;
+  .maha-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
   .maha-table-row {
     background-color: @white;
     overflow: hidden;
@@ -106,6 +116,9 @@
 }
 .maha-table-scrollable {
   flex: 1;
+  &.hidden {
+    visibility: hidden;
+  }
   &::-webkit-scrollbar-track {
     background: fadeout(@black, 92) !important;
   }

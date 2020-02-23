@@ -1,8 +1,16 @@
 import { VariableSizeList as List } from 'react-window'
 import PropTypes from 'prop-types'
+import memoize from 'memoize-one'
+import Loader from '../../loader'
 import React from 'react'
 import Row from './row'
 import _ from 'lodash'
+
+const average = memoize(
+  (heights) => Object.values(heights).length > 0 ? (Object.values(heights).reduce((total, height) => {
+    return total + height
+  }, 0) / Object.values(heights).length) : 42
+)
 
 class Body extends React.Component {
 
@@ -21,24 +29,31 @@ class Body extends React.Component {
     onSelect: PropTypes.func
   }
 
+  list = null
   notified = false
 
-  list = null
-
   state = {
-    heights: {}
+    heights: {},
+    ready: false
   }
 
   _handleItemSize = this._handleItemSize.bind(this)
+  _handleReady = this._handleReady.bind(this)
   _handleScroll = this._handleScroll.bind(this)
   _handleSetHeight = this._handleSetHeight.bind(this)
 
   render() {
-    return (
-      <List { ...this._getList() }>
+    const { ready } = this.state
+    return [
+      ...!ready ? [<Loader key="loader" />] : [],
+      <List key="list" { ...this._getList() }>
         { Row }
       </List>
-    )
+    ]
+  }
+
+  componentDidMount() {
+    setTimeout(this._handleReady, 10)
   }
 
   componentDidUpdate(prevProps) {
@@ -50,13 +65,13 @@ class Body extends React.Component {
 
   _getList() {
     const { columns, records, rowClass, selectable, selected, selectAll, selectValue, size, widths, onClick, onSelect } = this.props
-    const { heights } = this.state
+    const { heights, ready } = this.state
     const { height, width } = size
     return {
       innerRef: node => this.inner = node,
       ref: node => this.list = node,
-      className: 'maha-table-scrollable',
-      overscanCount: 10,
+      className: `maha-table-scrollable ${!ready ? 'hidden' : ''}`,
+      overscanCount: 15,
       height,
       itemCount: records.length,
       itemData: {
@@ -73,6 +88,7 @@ class Body extends React.Component {
         onSelect,
         onSetHeight: this._handleSetHeight
       },
+      estimatedItemSize: average(heights),
       itemSize: this._handleItemSize,
       width,
       onScroll: this._handleScroll
@@ -80,7 +96,14 @@ class Body extends React.Component {
   }
 
   _handleItemSize(index) {
-    return this.state.heights[index] || 42
+    const { heights } = this.state
+    return heights[index] || average(heights)
+  }
+
+  _handleReady() {
+    this.setState({
+      ready: true
+    })
   }
 
   _handleScroll({ scrollOffset }) {
