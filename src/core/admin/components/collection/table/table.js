@@ -53,9 +53,9 @@ class Table extends React.Component {
         <div className="maha-table-head">
           <div className="maha-table-row">
             { selectable &&
-              <td className="maha-table-check-cell" onClick={ this._handleSelectAll }>
+              <div className="maha-table-check-cell" onClick={ this._handleSelectAll }>
                 { selectAll ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
-              </td>
+              </div>
             }
             { visible.map((column, index) => (
               <div key={`header_${index}`} { ...this._getHeader(column, index) }>

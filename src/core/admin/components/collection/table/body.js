@@ -64,6 +64,7 @@ class Body extends React.Component {
         selectAll,
         selectValue,
         widths,
+        heights: this.heights,
         onClick,
         onSelect,
         onSetHeight: this._handleSetHeight

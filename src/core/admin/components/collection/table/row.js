@@ -27,9 +27,9 @@ class Row extends React.Component {
     return (
       <div { ...this._getRow(record, index) }>
         { selectable &&
-          <td key={`cell_${index}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record) }>
+          <div key={`cell_${index}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record) }>
             <i className={`fa fa-${ this._getChecked(record) }`} />
-          </td>
+          </div>
         }
         { columns.map((column, cindex) => (
           <div key={`column_${cindex}`} { ...this._getCell(column, cindex) }>
@@ -44,6 +44,8 @@ class Row extends React.Component {
   }
 
   componentDidMount() {
+    const { widths, heights } = this.props.data
+    console.log('in item', { widths, heights })
     setTimeout(this._handleSetHeight, 50)
   }
 
