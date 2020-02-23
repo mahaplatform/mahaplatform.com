@@ -121,8 +121,9 @@ class Body extends React.Component {
         ...this.state.heights,
         [index]: height
       }
+    }, () => {
+      this.list.resetAfterIndex(index)
     })
-    this.list.resetAfterIndex(index)
   }
 
 }

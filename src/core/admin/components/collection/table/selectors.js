@@ -52,5 +52,4 @@ export const widths = createSelector(
       }
     })
   }
-
 )

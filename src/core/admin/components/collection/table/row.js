@@ -54,7 +54,7 @@ class Row extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { data, index } = this.props
-    if(!_.isEqual(data.widths[index], prevProps.data.widths[index])) {
+    if(data.widths[index] !== prevProps.data.widths[index]) {
       this._handleSetHeight()
     }
   }
@@ -62,7 +62,7 @@ class Row extends React.Component {
   _getCell(column, cindex) {
     return {
       className: this._getCellClass(column),
-      style: this._getStyle(cindex)
+      style: this._getCellStyle(cindex)
     }
   }
 
@@ -75,6 +75,11 @@ class Row extends React.Component {
     if(column.align) classes.push(column.align)
     if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')
     return classes.join(' ')
+  }
+
+  _getCellStyle(index) {
+    const { data } = this.props
+    return data.widths[index]
   }
 
   _getChecked(record) {
@@ -123,11 +128,6 @@ class Row extends React.Component {
       width: style.width,
       ...height ? { height } : {}
     }
-  }
-
-  _getStyle(index) {
-    const { data } = this.props
-    return data.widths[index]
   }
 
   _getValue(record, key) {
