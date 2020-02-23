@@ -10,7 +10,10 @@ class Table extends React.Component {
     records: PropTypes.array,
     sort: PropTypes.object,
     visible: PropTypes.array,
+    width: PropTypes.number,
+    widths: PropTypes.array,
     onReachBottom: PropTypes.func,
+    onSetWidth: PropTypes.func,
     onSort: PropTypes.func
   }
 
@@ -54,21 +57,20 @@ class Table extends React.Component {
   }
 
   _getBody(size) {
-    const { records, visible, onReachBottom } = this.props
-    const { width } = this.state
+    const { records, visible, width, widths, onReachBottom } = this.props
     size.width = width || size.width
     return {
       columns: visible,
       records,
       size,
       visible,
-      widths: this._getWidths(),
+      widths,
       onReachBottom
     }
   }
 
   _getHeader(column, index) {
-    const widths = this._getWidths()
+    const { widths } = this.props
     return {
       style: widths[index],
       className: this._getHeaderClass(column),
@@ -83,31 +85,8 @@ class Table extends React.Component {
     return classes.join(' ')
   }
 
-  _getWidths() {
-    const { columns } = this.props
-    const { width } = this.state
-    const fixed = columns.filter(column => {
-      return column.width !== undefined
-    })
-    const used = fixed.reduce((used, column) => {
-      return used + (column.width || 0)
-    }, 0)
-    const available = width - used - 8
-    const widths = columns.map(column => {
-      return column.width || available / (columns.length - fixed.length)
-    })
-    return columns.map((column, index) => {
-      const grow = column.width === undefined ? 1 : 0
-      return {
-        flex: `${grow} 1 ${widths[index]}px`
-      }
-    })
-  }
-
   _handleResize(size) {
-    this.setState({
-      width: size.width
-    })
+    this.props.onSetWidth(size.width)
   }
 
   _handleSort(column) {

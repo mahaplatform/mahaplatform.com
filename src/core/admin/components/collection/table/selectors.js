@@ -5,6 +5,8 @@ const columns = (state, props) => props.columns
 
 const hidden = (state, props) => state.hidden
 
+const width = (state, props) => state.width
+
 export const defaults = createSelector(
   columns,
   (columns) => columns.filter(column => {
@@ -24,4 +26,28 @@ export const visible = createSelector(
   (columns) => columns.filter(column => {
     return column.visible !== false
   })
+)
+
+export const widths = createSelector(
+  visible,
+  width,
+  (columns, width) => {
+    const fixed = columns.filter(column => {
+      return column.width !== undefined
+    })
+    const used = fixed.reduce((used, column) => {
+      return used + (column.width || 0)
+    }, 0)
+    const available = width - used - 8
+    const widths = columns.map(column => {
+      return column.width || available / (columns.length - fixed.length)
+    })
+    return columns.map((column, index) => {
+      const grow = column.width === undefined ? 1 : 0
+      return {
+        flex: `${grow} 1 ${widths[index]}px`
+      }
+    })
+  }
+
 )

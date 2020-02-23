@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
@@ -7,7 +8,9 @@ class Row extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number,
-    style: PropTypes.object
+    rowClass: PropTypes.func,
+    style: PropTypes.object,
+    onClick: PropTypes.func
   }
 
   row = null
@@ -21,11 +24,12 @@ class Row extends React.Component {
   render() {
     const { data, index } = this.props
     const { columns, records } = data
+    const record = records[index]
     return (
-      <div className="maha-table-row" style={ this._getRowStyle() } ref={ node => this.row = node }>
-        { columns.map((column, i) => (
-          <div className="maha-table-cell" key={`column_${i}`} style={ this._getStyle(i) }>
-            { _.get(records[index], column.key) }
+      <div { ...this._getRow() }>
+        { columns.map((column, cindex) => (
+          <div key={`column_${cindex}`} { ...this._getCell(column, cindex) }>
+            <Format { ...this._getFormat(record, column) } />
           </div>
         ))}
       </div>
@@ -43,6 +47,48 @@ class Row extends React.Component {
     }
   }
 
+  _getCell(column, cindex) {
+    return {
+      className: this._getCellClass(column),
+      style: this._getStyle(cindex)
+    }
+  }
+
+  _getCellClass(column) {
+    let classes = ['maha-table-cell']
+    if(column.primary === true) classes.push('mobile')
+    if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
+    if(column.format === 'check' || column.centered === true) classes.push('centered')
+    if(column.format === 'currency') classes.push('right')
+    if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')
+    return classes.join(' ')
+  }
+
+  _getFormat(record, column) {
+    return {
+      ...record,
+      format: column.format,
+      value: this._getValue(record, column.key)
+    }
+  }
+
+  _getRow(record) {
+    return {
+      className: this._getRowClass(record),
+      ref: node => this.row = node,
+      style: this._getRowStyle()
+    }
+  }
+
+  _getRowClass(record) {
+    const { rowClass, onClick } = this.props
+    let classes = ['maha-table-row']
+    if(onClick) classes.push('maha-table-link')
+    if(rowClass && _.isString(rowClass)) classes.push(rowClass)
+    if(rowClass && _.isFunction(rowClass)) classes.push(rowClass(record))
+    return classes.join(' ')
+  }
+
   _getRowStyle() {
     const { height } = this.state
     const { style } = this.props
@@ -58,6 +104,16 @@ class Row extends React.Component {
   _getStyle(index) {
     const { data } = this.props
     return data.widths[index]
+  }
+
+  _getValue(record, key) {
+    if(typeof key === 'function') {
+      return key(record)
+    } else if(typeof key === 'string') {
+      return _.get(record, key)
+    } else {
+      return ''
+    }
   }
 
   _handleSetHeight() {

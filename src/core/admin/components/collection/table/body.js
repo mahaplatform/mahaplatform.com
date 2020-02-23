@@ -61,7 +61,7 @@ class Body extends React.Component {
   }
 
   _handleItemSize(index) {
-    return this.heights[index] || 35
+    return this.heights[index] || 42
   }
 
   _handleScroll({ scrollOffset }) {

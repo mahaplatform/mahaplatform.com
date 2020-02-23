@@ -2,7 +2,8 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   hidden: [],
-  status: 'pending'
+  status: 'pending',
+  width: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +35,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       hidden: [
         ..._.xor(state.hidden, [action.key])
       ]
+    }
+
+  case 'SET_WIDTH':
+    return {
+      ...state,
+      width: action.width
     }
 
   default:
