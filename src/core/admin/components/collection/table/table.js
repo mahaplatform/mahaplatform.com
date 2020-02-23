@@ -3,23 +3,40 @@ import PropTypes from 'prop-types'
 import Columns from './columns'
 import React from 'react'
 import Body from './body'
+import _ from 'lodash'
 
 class Table extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     columns: PropTypes.array,
+    defaults: PropTypes.array,
     display: PropTypes.array,
+    hidden: PropTypes.array,
     records: PropTypes.array,
     rowClass: PropTypes.func,
+    selectable: PropTypes.bool,
+    selected: PropTypes.object,
+    selectAll: PropTypes.bool,
+    selectValue: PropTypes.string,
     sort: PropTypes.object,
     visible: PropTypes.array,
     width: PropTypes.number,
     widths: PropTypes.array,
     onClick: PropTypes.func,
+    onLoadHidden: PropTypes.func,
     onReachBottom: PropTypes.func,
+    onSaveHidden: PropTypes.func,
+    onSelect: PropTypes.func,
+    onSelectAll: PropTypes.func,
     onSetWidth: PropTypes.func,
     onSort: PropTypes.func,
     onToggleHidden: PropTypes.func
+  }
+
+  static defaultProps = {
+    onSelect: (id) => {},
+    onSelectAll: () => {}
   }
 
   state = {
@@ -27,13 +44,19 @@ class Table extends React.Component {
   }
 
   _handleResize = this._handleResize.bind(this)
+  _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { sort, visible } = this.props
+    const { selectable, selectAll, sort, visible } = this.props
     return (
       <div className="maha-table">
         <div className="maha-table-head">
           <div className="maha-table-row">
+            { selectable &&
+              <td className="maha-table-check-cell" onClick={ this._handleSelectAll }>
+                { selectAll ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
+              </td>
+            }
             { visible.map((column, index) => (
               <div key={`header_${index}`} { ...this._getHeader(column, index) }>
                 { column.label }
@@ -56,6 +79,18 @@ class Table extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { defaults, code, onLoadHidden } = this.props
+    onLoadHidden(code, defaults)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { code, hidden, onSaveHidden } = this.props
+    if(!_.isEqual(hidden, prevProps.hidden)) {
+      onSaveHidden(code, hidden)
+    }
+  }
+
   _getAutoSizer() {
     return {
       onResize: this._handleResize
@@ -63,19 +98,23 @@ class Table extends React.Component {
   }
 
   _getBody(size) {
-    const { records, rowClass, visible, width, widths, onClick, onReachBottom } = this.props
+    const { records, rowClass, selected, selectable, selectAll, selectValue, visible, width, widths, onClick, onReachBottom, onSelect } = this.props
     return {
       columns: visible,
       records,
       rowClass,
+      selected,
+      selectable,
+      selectAll,
+      selectValue,
       size: {
         width: width || size.width,
         height: size.height
       },
-      visible,
       widths,
       onClick,
-      onReachBottom
+      onReachBottom,
+      onSelect
     }
   }
 
@@ -105,6 +144,10 @@ class Table extends React.Component {
 
   _handleResize(size) {
     this.props.onSetWidth(size.width)
+  }
+
+  _handleSelectAll() {
+    this.props.onSelectAll()
   }
 
   _handleSort(column) {

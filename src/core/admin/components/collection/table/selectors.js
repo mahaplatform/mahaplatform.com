@@ -5,6 +5,8 @@ const columns = (state, props) => props.columns
 
 const hidden = (state, props) => state.hidden
 
+const selectable = (state, props) => props.selectable
+
 const width = (state, props) => state.width
 
 export const defaults = createSelector(
@@ -22,23 +24,24 @@ export const display = createSelector(
   })))
 
 export const visible = createSelector(
-  columns,
+  display,
   (columns) => columns.filter(column => {
     return column.visible !== false
   })
 )
 
 export const widths = createSelector(
+  selectable,
   visible,
   width,
-  (columns, width) => {
+  (selectable, columns, width) => {
     const fixed = columns.filter(column => {
       return column.width !== undefined
     })
     const used = fixed.reduce((used, column) => {
       return used + (column.width || 0)
     }, 0)
-    const available = width - used - 40 - 8
+    const available = width - used - 40 - 8 - (selectable ? 40 : 0)
     const widths = columns.map(column => {
       return column.width || available / (columns.length - fixed.length)
     })

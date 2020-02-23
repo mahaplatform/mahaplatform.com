@@ -22,10 +22,15 @@ class Row extends React.Component {
 
   render() {
     const { data, index } = this.props
-    const { columns, records, onClick } = data
+    const { columns, records, selectable, onClick } = data
     const record = records[index]
     return (
       <div { ...this._getRow(record, index) }>
+        { selectable &&
+          <td key={`cell_${index}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record) }>
+            <i className={`fa fa-${ this._getChecked(record) }`} />
+          </td>
+        }
         { columns.map((column, cindex) => (
           <div key={`column_${cindex}`} { ...this._getCell(column, cindex) }>
             <Format { ...this._getFormat(record, column) } />
@@ -62,8 +67,18 @@ class Row extends React.Component {
     if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
     if(column.format === 'check' || column.centered === true) classes.push('centered')
     if(column.format === 'currency') classes.push('right')
+    if(column.align) classes.push(column.align)
     if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')
     return classes.join(' ')
+  }
+
+  _getChecked(record) {
+    const { data } = this.props
+    const { selected, selectValue } = data
+    const value = _.get(record, selectValue)
+    const included = _.includes(selected.values, value)
+    if(selected.mode === '$in') return included ? 'check-circle' : 'circle-o'
+    return included ? 'circle-o' : 'check-circle'
   }
 
   _getFormat(record, column) {
@@ -124,6 +139,14 @@ class Row extends React.Component {
     const { data } = this.props
     if(!data.onClick) return
     data.onClick(record, index)
+  }
+
+  _handleSelect(record, e) {
+    e.stopPropagation()
+    const { data } = this.props
+    const { selectValue, onSelect } = data
+    const value = _.get(record, selectValue)
+    onSelect(value)
   }
 
   _handleSetHeight() {

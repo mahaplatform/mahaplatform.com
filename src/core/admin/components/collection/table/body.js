@@ -10,10 +10,15 @@ class Body extends React.Component {
     columns: PropTypes.array,
     records: PropTypes.array,
     rowClass: PropTypes.func,
+    selectable: PropTypes.bool,
+    selected: PropTypes.object,
+    selectAll: PropTypes.bool,
+    selectValue: PropTypes.string,
     size: PropTypes.object,
     widths: PropTypes.array,
     onClick: PropTypes.func,
-    onReachBottom: PropTypes.func
+    onReachBottom: PropTypes.func,
+    onSelect: PropTypes.func
   }
 
   heights = {}
@@ -41,7 +46,7 @@ class Body extends React.Component {
   }
 
   _getList() {
-    const { columns, records, rowClass, size, widths, onClick } = this.props
+    const { columns, records, rowClass, selectable, selected, selectAll, selectValue, size, widths, onClick, onSelect } = this.props
     const { height, width } = size
     return {
       innerRef: node => this.inner = node,
@@ -54,8 +59,13 @@ class Body extends React.Component {
         columns,
         records,
         rowClass,
+        selectable,
+        selected,
+        selectAll,
+        selectValue,
         widths,
         onClick,
+        onSelect,
         onSetHeight: this._handleSetHeight
       },
       itemSize: this._handleItemSize,

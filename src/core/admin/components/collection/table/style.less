@@ -51,6 +51,13 @@
     }
   }
 }
+.maha-table-check-cell {
+  border-right: 1px solid fadeout(@black, 90);
+  text-align: center;
+  padding: 0.8em;
+  flex: 0 1 40px;
+  display: flex;
+}
 .maha-table-body {
   flex: 1;
   display: flex;
@@ -66,14 +73,15 @@
   }
   .maha-table-cell {
     border-right-color: transparent;
+    overflow: hidden;
     & > div {
       flex: 1;
     }
-    &.centered {
-      text-align: center;
+    &.center {
+      justify-content: center;
     }
     &.right {
-      text-align: right;
+      justify-content: flex-end;
     }
     &.fa {
       padding: 0.8em;

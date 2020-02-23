@@ -31,7 +31,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name'},
       { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', width: 100, primary: true, format: Status }
+      { label: 'Status', key: 'status', width: 100, primary: true, align: 'center', format: Status }
     ],
     // criteria: [
     //   { label: 'item', fields: [
