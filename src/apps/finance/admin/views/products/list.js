@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Price', key: 'price', primary: true  },
-      { label: 'Tax Rate', key: 'tax_rate', visible: false, collapsing: true  }
+      { label: 'Tax Rate', key: 'tax_rate', width: 100, visible: false }
     ],
     filters: [
       { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },

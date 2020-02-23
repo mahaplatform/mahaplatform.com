@@ -19,7 +19,7 @@ class TripImport extends React.Component {
     return {
       table: 'finance_trips',
       fields: [
-        { label: 'ID', key: 'item_id', visible: false, collapsing: true },
+        { label: 'ID', key: 'item_id', width: 80, visible: false },
         { label: 'Date', name: 'date', type: 'datefield', required: true, format: 'YYYY-MM-DD' },
         { label: 'Description', name: 'description', type: 'textfield', required: true },
         { label: 'Project Code', name: 'project_code', type: 'textfield' },

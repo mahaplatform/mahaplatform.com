@@ -9,12 +9,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/finance/payments',
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
-      { primary: true, format: PaymentTypeToken, collapsing: true },
+      { width: 50, primary: true, format: PaymentTypeToken},
       { label: 'Customer', key: 'invoice.customer.display_name', sort: 'customer', primary: true },
-      { label: 'Method', key: 'method', primary: true, collapsing: true },
-      { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
-      { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true  },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: Status  }
+      { label: 'Method', key: 'method', width: 140, primary: true },
+      { label: 'Date', key: 'date', width: 100, primary: true, format: 'date' },
+      { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' },
+      { label: 'Status', key: 'status', width: 100, primary: true, format: Status  }
     ],
     filters: [
       { label: 'Merchant Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },

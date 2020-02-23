@@ -8,11 +8,11 @@ import New from './new'
 const _getIntegrationColumns = (integration) => {
   if(integration === 'accpac') {
     return [
-      { label: 'Main Project Code', key: 'integration.main_project_code', visible: false, collapsing: true  },
-      { label: 'Project Code', key: 'integration.project_code', visible: false, collapsing: true  },
-      { label: 'Program Code', key: 'integration.program_code', visible: false, collapsing: true  },
-      { label: 'Source Code', key: 'integration.source_code', visible: false, collapsing: true  },
-      { label: 'Match', key: 'integration.match', visible: false, collapsing: true  }
+      { label: 'Main Project Code', key: 'integration.main_project_code', width: 100, visible: false  },
+      { label: 'Project Code', key: 'integration.project_code', width: 100, visible: false  },
+      { label: 'Program Code', key: 'integration.program_code', width: 100, visible: false  },
+      { label: 'Source Code', key: 'integration.source_code', width: 100, visible: false },
+      { label: 'Match', key: 'integration.match', width: 100, visible: false  }
     ]
   }
   return []
@@ -42,7 +42,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'project_code', sort: 'project_code', primary: true, format: ProjectToken },
-      { label: 'Active', key: 'is_active', primary: false, format: 'check' },
+      { label: 'Active', key: 'is_active', width: 100, primary: false, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
     filters: [

@@ -20,7 +20,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Received', key: 'created_at', primary: true, format: 'datetime' },
       { label: 'From', key: (fax) => fax.from.name || fax.from.formatted },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: TwilioStatusToken }
+      { label: 'Status', key: 'status', width: 100, primary: true, format: TwilioStatusToken }
     ],
     empty: {
       icon: 'fax',

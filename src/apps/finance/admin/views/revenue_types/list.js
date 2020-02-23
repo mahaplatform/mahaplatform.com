@@ -7,8 +7,8 @@ import New from './new'
 const _getIntegrationColumns = (integration) => {
   if(integration === 'accpac') {
     return [
-      { label: 'Revenue Code', key: 'integration.revenue_code', visible: false, collapsing: true },
-      { label: 'Source Code', key: 'integration.source_code', visible: false, collapsing: true }
+      { label: 'Revenue Code', key: 'integration.revenue_code', width: 100, visible: false },
+      { label: 'Source Code', key: 'integration.source_code', width: 100, visible: false }
     ]
   }
   return []

@@ -5,11 +5,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/batches',
     table: [
-      { label: 'ID', key: 'id', primary: true, collapsing: true },
+      { label: 'ID', key: 'id', width: 80, primary: true },
       { label: 'Exported By', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
-      { label: 'Items', key: 'items_count', primary: true, collapsing: true },
-      { label: 'Total', key: 'total', primary: true, collapsing: true, format: 'currency' },
-      { label: 'Date', key: 'date', primary: true, collapsing: true, format: 'date' }
+      { label: 'Items', key: 'items_count', width: 80, primary: true },
+      { label: 'Total', key: 'total', width: 100, primary: true, format: 'currency' },
+      { label: 'Date', key: 'date', width: 100, primary: true, format: 'date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

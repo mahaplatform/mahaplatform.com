@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Name', key: 'name', primary: true, format: VendorToken },
-      { label: 'Items', key: 'items_count', primary: true, collapsing: true  }
+      { label: 'Items', key: 'items_count', width: 100, primary: true  }
     ],
     export: [
       { label: 'ID', key: 'id' },

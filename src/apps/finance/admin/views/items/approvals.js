@@ -16,17 +16,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/approvals',
     table: [
-      { label: 'ID', key: 'item_id', visible: false, collapsing: true },
-      { label: 'Type', key: 'type', collapsing: true, format: CompactTypeToken },
-      { label: 'Date', key: 'date', format: 'date', collapsing: true },
+      { label: 'ID', key: 'item_id', width: 80, visible: false },
+      { label: 'Type', key: 'type', width: 80, format: CompactTypeToken },
+      { label: 'Date', key: 'date', width: 90, format: 'date' },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'finance_projects.title', format: CompactProjectToken },
       { label: 'Description', key: 'description' },
       { label: 'Expense Type', key: 'expense_type.title', sort: 'finance_expense_types.title', format: CompactExpenseTypeToken },
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name' },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name' },
-      { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
-      { label: 'Status', key: 'status', sort: 'status', primary: true, format: Status, collapsing: true }
+      { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' },
+      { label: 'Status', key: 'status', width: 100, primary: true, align: 'center', format: Status }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },

@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken }
+      { label: 'Status', key: 'status', width: 100, primary: true, format: StatusToken }
     ],
     empty: {
       icon: 'cogs',

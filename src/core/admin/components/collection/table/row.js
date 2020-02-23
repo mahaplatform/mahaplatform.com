@@ -69,8 +69,7 @@ class Row extends React.Component {
   _getCellClass(column) {
     let classes = ['maha-table-cell']
     if(column.primary === true) classes.push('mobile')
-    if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
-    if(column.format === 'check' || column.centered === true) classes.push('centered')
+    if(_.includes(['check','check_times'], column.format) || column.centered === true) classes.push('center')
     if(column.format === 'currency') classes.push('right')
     if(column.align) classes.push(column.align)
     if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')

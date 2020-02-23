@@ -4,16 +4,6 @@ import React from 'react'
 import Edit from './edit'
 import New from './new'
 
-const _getIntegrationColumns = (integration) => {
-  if(integration === 'accpac') {
-    return [
-      { label: 'Expense Code', key: 'integration.expense_code', visible: false, collapsing: true },
-      { label: 'Source Code', key: 'integration.source_code', visible: false, collapsing: true }
-    ]
-  }
-  return []
-}
-
 const _getIntegrationExports = (integration) => {
   if(integration === 'accpac') {
     return [
@@ -36,8 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
       { label: 'Title', key: 'title', sort: 'expense_ code', primary: true, format: ExpenseTypeToken },
-      { label: 'Active', key: 'is_active', primary: true, format: 'check' },
-      ..._getIntegrationColumns(resources.app.settings.integration)
+      { label: 'Active', key: 'is_active', width: 80, primary: true, format: 'check' }
     ],
     export: [
       { label: 'ID', key: 'id' },
