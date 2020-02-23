@@ -9,8 +9,10 @@ class Body extends React.Component {
   static propTypes = {
     columns: PropTypes.array,
     records: PropTypes.array,
+    rowClass: PropTypes.func,
     size: PropTypes.object,
     widths: PropTypes.array,
+    onClick: PropTypes.func,
     onReachBottom: PropTypes.func
   }
 
@@ -39,19 +41,21 @@ class Body extends React.Component {
   }
 
   _getList() {
-    const { columns, records, size, widths } = this.props
+    const { columns, records, rowClass, size, widths, onClick } = this.props
     const { height, width } = size
     return {
       innerRef: node => this.inner = node,
       ref: this.list,
       className: 'maha-table-scrollable',
-      overscanCount: 15,
+      overscanCount: 10,
       height,
       itemCount: records.length,
       itemData: {
         columns,
         records,
+        rowClass,
         widths,
+        onClick,
         onSetHeight: this._handleSetHeight
       },
       itemSize: this._handleItemSize,

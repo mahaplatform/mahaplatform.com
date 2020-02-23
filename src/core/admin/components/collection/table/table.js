@@ -1,5 +1,6 @@
 import AutoSizer from 'react-virtualized-auto-sizer'
 import PropTypes from 'prop-types'
+import Columns from './columns'
 import React from 'react'
 import Body from './body'
 
@@ -7,14 +8,18 @@ class Table extends React.Component {
 
   static propTypes = {
     columns: PropTypes.array,
+    display: PropTypes.array,
     records: PropTypes.array,
+    rowClass: PropTypes.func,
     sort: PropTypes.object,
     visible: PropTypes.array,
     width: PropTypes.number,
     widths: PropTypes.array,
+    onClick: PropTypes.func,
     onReachBottom: PropTypes.func,
     onSetWidth: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    onToggleHidden: PropTypes.func
   }
 
   state = {
@@ -37,6 +42,7 @@ class Table extends React.Component {
                 }
               </div>
             ))}
+            <Columns { ...this._getColumns() } />
           </div>
         </div>
         <div className="maha-table-body">
@@ -57,15 +63,27 @@ class Table extends React.Component {
   }
 
   _getBody(size) {
-    const { records, visible, width, widths, onReachBottom } = this.props
-    size.width = width || size.width
+    const { records, rowClass, visible, width, widths, onClick, onReachBottom } = this.props
     return {
       columns: visible,
       records,
-      size,
+      rowClass,
+      size: {
+        width: width || size.width,
+        height: size.height
+      },
       visible,
       widths,
+      onClick,
       onReachBottom
+    }
+  }
+
+  _getColumns() {
+    const { onToggleHidden } = this.props
+    return {
+      columns: this.props.display,
+      onToggleHidden
     }
   }
 

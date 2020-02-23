@@ -38,7 +38,7 @@ export const widths = createSelector(
     const used = fixed.reduce((used, column) => {
       return used + (column.width || 0)
     }, 0)
-    const available = width - used - 8
+    const available = width - used - 40 - 8
     const widths = columns.map(column => {
       return column.width || available / (columns.length - fixed.length)
     })

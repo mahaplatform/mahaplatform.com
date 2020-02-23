@@ -20,6 +20,9 @@
 .maha-table-head {
   background: fadeout(@black, 90);
   padding-right: 8px;
+  .maha-table-row {
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
   .maha-table-cell {
     &:hover {
       background-color: fadeout(@black, 95);
@@ -28,8 +31,8 @@
     position: relative;
     cursor: pointer;
     color: fadeout(@black, 50);
-    &.padded {
-      padding-right: ~"calc(0.8em + 22px)";
+    &.config {
+      padding: 0.8em;
     }
     &.next {
       min-width: 2.8em !important;
@@ -53,29 +56,41 @@
   display: flex;
   .maha-table-row {
     background-color: @white;
+    overflow: hidden;
+    &:first-child {
+      border-top: none;
+    }
+    &:last-child {
+      border-bottom: 1px solid fadeout(@black, 90);
+    }
   }
   .maha-table-cell {
     border-right-color: transparent;
-    display: flex;
-    align-items: center;
     & > div {
       flex: 1;
     }
-  }
-}
-.maha-table-row {
-  flex: 1;
-  display: flex;
-  border-top: 1px solid fadeout(@black, 90);
-  .maha-table-cell:last-child {
-    border-right-color: transparent;
-  }
-}
-.maha-table-cell {
-  border-right: 1px solid fadeout(@black, 90);
-  overflow: hidden;
-  &.padded {
-    padding: 0.8em;
+    &.centered {
+      text-align: center;
+    }
+    &.right {
+      text-align: right;
+    }
+    &.fa {
+      padding: 0.8em;
+    }
+    &.padded {
+      padding: 0.8em;
+    }
+    .fa {
+      margin: 0;
+    }
+    .fa-chevron-right, .fa-ellipsis {
+      color: fadeout(@black, 80) !important;
+    }
+    .fa-ellipsis {
+      font-size: 1.2em;
+      cursor: pointer;
+    }
   }
 }
 .maha-table-scrollable {
@@ -90,6 +105,34 @@
     width: 8px !important;
     height: 8px !important;
   }
+}
+.maha-table-row {
+  flex: 1;
+  display: flex;
+  border-top: 1px solid fadeout(@black, 90);
+  .maha-table-cell {
+    &:last-child {
+      flex: 0 1 40px;
+      display: flex;
+      .fa {
+        margin: auto;
+      }
+    }
+  }
+}
+.maha-table-cell {
+  border-right: 1px solid fadeout(@black, 90);
+  display: flex;
+  align-items: center;
+  &.padded {
+    padding: 0.8em;
+  }
+}
+.maha-table-link {
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+  cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
   .maha-table-cell {

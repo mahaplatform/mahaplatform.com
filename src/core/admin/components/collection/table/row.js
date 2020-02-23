@@ -8,9 +8,7 @@ class Row extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number,
-    rowClass: PropTypes.func,
-    style: PropTypes.object,
-    onClick: PropTypes.func
+    style: PropTypes.object
   }
 
   row = null
@@ -19,19 +17,23 @@ class Row extends React.Component {
     height: null
   }
 
+  _handleClick= this._handleClick.bind(this)
   _handleSetHeight = this._handleSetHeight.bind(this)
 
   render() {
     const { data, index } = this.props
-    const { columns, records } = data
+    const { columns, records, onClick } = data
     const record = records[index]
     return (
-      <div { ...this._getRow() }>
+      <div { ...this._getRow(record, index) }>
         { columns.map((column, cindex) => (
           <div key={`column_${cindex}`} { ...this._getCell(column, cindex) }>
             <Format { ...this._getFormat(record, column) } />
           </div>
         ))}
+        <div className="maha-table-cell icon mobile collapsing centered">
+          { onClick && <i className="fa fa-chevron-right" /> }
+        </div>
       </div>
     )
   }
@@ -72,16 +74,18 @@ class Row extends React.Component {
     }
   }
 
-  _getRow(record) {
+  _getRow(record, index) {
     return {
       className: this._getRowClass(record),
       ref: node => this.row = node,
-      style: this._getRowStyle()
+      style: this._getRowStyle(),
+      onClick: this._handleClick.bind(this, record, index)
     }
   }
 
   _getRowClass(record) {
-    const { rowClass, onClick } = this.props
+    const { data } = this.props
+    const { rowClass, onClick } = data
     let classes = ['maha-table-row']
     if(onClick) classes.push('maha-table-link')
     if(rowClass && _.isString(rowClass)) classes.push(rowClass)
@@ -114,6 +118,12 @@ class Row extends React.Component {
     } else {
       return ''
     }
+  }
+
+  _handleClick(record, index) {
+    const { data } = this.props
+    if(!data.onClick) return
+    data.onClick(record, index)
   }
 
   _handleSetHeight() {

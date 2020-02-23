@@ -22,8 +22,8 @@ const mapPropsToPage = (props, context, resources) => ({
     endpoint: '/api/admin/finance/items/report',
     table: [
       { label: 'ID', key: 'item_id', visible: false, width: 60 },
-      { label: 'Type', key: 'type', width: 60, format: CompactTypeToken },
-      { label: 'Date', key: 'date', width: 80, format: 'date' },
+      { label: 'Type', key: 'type', width: 80, format: CompactTypeToken },
+      { label: 'Date', key: 'date', width: 90, format: 'date' },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'finance_projects.title', format: CompactProjectToken },
       { label: 'Description', key: 'description' },
@@ -31,7 +31,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name'},
       { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', width: 80, primary: true, format: Status }
+      { label: 'Status', key: 'status', width: 100, primary: true, format: Status }
     ],
     // criteria: [
     //   { label: 'item', fields: [
