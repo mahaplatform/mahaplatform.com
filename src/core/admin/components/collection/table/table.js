@@ -49,8 +49,9 @@ class Table extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { selectable, selectAll, sort, status, visible } = this.props
+    const { records, selectable, selectAll, sort, status, visible } = this.props
     if(status !== 'success') return <Loader />
+    const first = records.length > 0 ? records[0].id : 0
     return (
       <div className="maha-table">
         <div className="maha-table-head">
@@ -74,7 +75,7 @@ class Table extends React.Component {
         <div className="maha-table-body">
           <AutoSizer { ...this._getAutoSizer() }>
             {(size) => (
-              <Body { ...this._getBody(size) } />
+              <Body key={`body_${first}`} { ...this._getBody(size) } />
             )}
           </AutoSizer>
         </div>
