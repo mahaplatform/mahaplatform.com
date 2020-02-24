@@ -24,6 +24,7 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
+
   if(subscriptions.length === 0) return true
 
   const serialized = MessageSerializer(null, message)
@@ -31,7 +32,7 @@ const processor = async (req, job) => {
   await Promise.map(subscriptions.toArray(), async (subscription) => {
     await _sendMessage(req, {
       user: subscription.related('user'),
-      serialized
+      message: serialized
     })
   })
 
