@@ -35,6 +35,10 @@ export const remove = (index) => ({
   index
 })
 
+export const toggleView = () => ({
+  type: 'TOGGLE_VIEW'
+})
+
 export const update = (index, data) => ({
   type: 'UPDATE',
   index,

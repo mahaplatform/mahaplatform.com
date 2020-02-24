@@ -19,7 +19,8 @@ class Sources extends React.Component {
     onCancel: PropTypes.func,
     onNext: PropTypes.func,
     onPush: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onToggleView: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -112,7 +113,7 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, multiple, onAdd, onBack, onNext, onRemove } = this.props
+    const { allow, multiple, onAdd, onBack, onNext, onRemove, onToggleView } = this.props
     return {
       allow,
       multiple,
@@ -120,7 +121,8 @@ class Sources extends React.Component {
       onAdd,
       onBack,
       onNext,
-      onRemove
+      onRemove,
+      onToggleView
     }
   }
 

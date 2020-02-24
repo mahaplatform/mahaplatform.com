@@ -37,9 +37,19 @@
   max-width: 500px;
   min-width: 350px;
   display: flex;
-  .maha-attachments-drive-search,
+  .maha-attachments-drive-head,
   .maha-modal-panel-header {
     background-color: @grey !important;
+  }
+  .maha-attachments-drive-search {
+    border-right: 1px solid @grey !important;
+  }
+  .maha-attachments-drive-grid-item {
+    width: ~"calc(100% / 3 - 0.4em)" !important;
+  }
+  .maha-attachments-photo-item {
+    width: ~"calc(100% / 3 - 0.4em)" !important;
+    padding-bottom: ~"calc(100% / 3 - 0.4em)";
   }
   .maha-menus-header {
     padding-top: 0 !important;

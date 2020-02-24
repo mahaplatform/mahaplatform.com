@@ -1,8 +1,10 @@
+import { connect } from 'react-redux'
 import Infinite from '../../infinite'
 import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Items from './items'
+import Grid from './grid'
+import List from './list'
 
 class Folder extends React.Component {
 
@@ -12,6 +14,7 @@ class Folder extends React.Component {
     files: PropTypes.array,
     records: PropTypes.array,
     source: PropTypes.object,
+    view: PropTypes.string,
     onAddAsset: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onAdd: PropTypes.func,
@@ -46,7 +49,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, folder, source, onAddAsset, onChangeFolder, onAdd, onRemove } = this.props
+    const { allow, folder, source, view, onAddAsset, onChangeFolder, onAdd, onRemove } = this.props
     const $eq = folder.id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
@@ -59,7 +62,7 @@ class Folder extends React.Component {
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: {
         allow,
         source,
@@ -79,4 +82,9 @@ class Folder extends React.Component {
 
 }
 
-export default Folder
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files,
+  view: state.maha.attachments.view
+})
+
+export default connect(mapStateToProps)(Folder)

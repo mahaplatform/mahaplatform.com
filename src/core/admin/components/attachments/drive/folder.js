@@ -1,8 +1,10 @@
+import { connect } from 'react-redux'
 import Infinite from '../../infinite'
 import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Items from './items'
+import Grid from './grid'
+import List from './list'
 
 class Folder extends React.Component {
 
@@ -11,6 +13,7 @@ class Folder extends React.Component {
     folder: PropTypes.object,
     files: PropTypes.array,
     records: PropTypes.array,
+    view: PropTypes.string,
     onAdd: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onRemove: PropTypes.func,
@@ -44,20 +47,20 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, files, folder, onAdd, onChangeFolder, onRemove } = this.props
+    const { allow, files, folder, view, onAdd, onChangeFolder, onRemove } = this.props
     const $eq = folder.item_id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
       icon: 'folder-open-o',
       title: 'Empty Folder',
-      text: 'There are no items in this folder'
+      text: 'There are no list in this folder'
     }
     return {
       endpoint: '/api/admin/drive/items',
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: {
         allow,
         files,
@@ -76,4 +79,8 @@ class Folder extends React.Component {
 
 }
 
-export default Folder
+const mapStateToProps = (state, props) => ({
+  view: state.maha.attachments.view
+})
+
+export default connect(mapStateToProps)(Folder)

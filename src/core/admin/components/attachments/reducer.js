@@ -1,7 +1,8 @@
 export const INITIAL_STATE = {
   files: [],
   sources: [],
-  status: 'pending'
+  status: 'pending',
+  view: 'list'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -95,6 +96,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           return index !== action.index
         })
       ]
+    }
+
+  case 'TOGGLE_VIEW':
+    return {
+      ...state,
+      view: state.view === 'list' ? 'grid' : 'list'
     }
 
   default:

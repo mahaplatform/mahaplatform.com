@@ -35,6 +35,7 @@ class Attachments extends React.Component {
     onFetch: PropTypes.func,
     onDone: PropTypes.func,
     onRemove: PropTypes.func,
+    onToggleView: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -87,7 +88,7 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { allow, cancelText, multiple } = this.props
+    const { allow, cancelText, multiple, onToggleView } = this.props
     return {
       allow,
       cancelText,
@@ -95,7 +96,8 @@ class Attachments extends React.Component {
       onAdd: this._handleAdd,
       onCancel: this._handleCancel,
       onNext: this._handleImporting,
-      onRemove: this._handleRemove
+      onRemove: this._handleRemove,
+      onToggleView
     }
   }
 

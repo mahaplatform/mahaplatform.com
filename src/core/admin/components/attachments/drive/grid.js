@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Items extends React.Component {
+class Grid extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
@@ -20,22 +20,21 @@ class Items extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-attachments-drive-items">
+      <div className="maha-attachments-drive-grid">
         { records.map((item, index) => (
           <div className={ this._getClass(item) } key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
-            <div className="maha-attachments-drive-item-icon">
-              { item.type === 'folder' ?
-                <div className="maha-asset-icon">
-                  <i className="fa fa-fw fa-folder" />
-                </div> :
-                <AssetThumbnail { ...item.asset } />
-              }
+            <div className="maha-attachments-drive-grid-item-preview">
+              <div className="maha-attachments-drive-grid-item-icon">
+                { item.type === 'folder' ?
+                  <div className="maha-asset-icon">
+                    <i className="fa fa-fw fa-folder" />
+                  </div> :
+                  <AssetThumbnail width={ 190 } { ...item.asset } />
+                }
+              </div>
             </div>
-            <div className="maha-attachments-drive-item-name">
+            <div className="maha-attachments-drive-grid-item-name">
               { item.label }
-            </div>
-            <div className="maha-attachments-drive-item-action">
-              <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
             </div>
           </div>
         ))}
@@ -44,7 +43,7 @@ class Items extends React.Component {
   }
 
   _getClass(item) {
-    const classes = ['maha-attachments-drive-item']
+    const classes = ['maha-attachments-drive-grid-item']
     if(this._getDisabled(item)) classes.push('disabled')
     return classes.join(' ')
   }
@@ -57,13 +56,6 @@ class Items extends React.Component {
     const content_type = item.asset.content_type
     const content_type_allowed = !allow.content_types || _.includes(allow.content_types, content_type)
     return !extension_allowed && !content_type_allowed
-  }
-
-  _getIcon(item) {
-    const { files } = this.props
-    if(item.type === 'folder') return 'chevron-right'
-    const file = _.find(files, { id: item.asset.id, service: 'maha' })
-    return file ? 'check' : null
   }
 
   _handleClick(item) {
@@ -89,4 +81,4 @@ const mapStateToProps = (state, props) => ({
   files: state.maha.attachments.files
 })
 
-export default connect(mapStateToProps)(Items)
+export default connect(mapStateToProps)(Grid)

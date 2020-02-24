@@ -6,7 +6,8 @@ import Message from '../../message'
 import PropTypes from 'prop-types'
 import Stack from '../../stack'
 import Folder from './folder'
-import Items from './items'
+import Grid from './grid'
+import List from './list'
 import React from 'react'
 
 class Files extends React.Component {
@@ -17,6 +18,7 @@ class Files extends React.Component {
     folders: PropTypes.array,
     q: PropTypes.string,
     source: PropTypes.object,
+    view: PropTypes.string,
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onAdd: PropTypes.func,
@@ -24,19 +26,28 @@ class Files extends React.Component {
     onRemove: PropTypes.func,
     onProcessing: PropTypes.func,
     onSetQuery: PropTypes.func,
+    onToggleView: PropTypes.func,
     onUp: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
+  _handleToggleView = this._handleToggleView.bind(this)
 
   render() {
     const { q } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-drive">
-          <div className="maha-attachments-drive-search">
-            <Searchbox { ...this._getSearchbox() } />
+          <div className="maha-attachments-drive-head">
+            <div className="maha-attachments-drive-head-bar">
+              <div className="maha-attachments-drive-search">
+                <Searchbox { ...this._getSearchbox() } />
+              </div>
+              <div className="maha-attachments-drive-view" onClick={ this._handleToggleView }>
+                <i className={`fa fa-${ this._getView() }`} />
+              </div>
+            </div>
           </div>
           { q.length === 0 && <Stack { ...this._getStack() } /> }
           { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
@@ -83,7 +94,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, q, source, onAdd, onRemove } = this.props
+    const { allow, q, source, view, onAdd, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -95,7 +106,7 @@ class Files extends React.Component {
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: {
         allow,
         source,
@@ -118,6 +129,11 @@ class Files extends React.Component {
     }
   }
 
+  _getView() {
+    const { view } = this.props
+    return view === 'list' ? 'list' : 'th'
+  }
+
   _handleBack() {
     this.props.onBack()
   }
@@ -126,10 +142,15 @@ class Files extends React.Component {
     this.props.onNext()
   }
 
+  _handleToggleView() {
+    this.props.onToggleView()
+  }
+
 }
 
 const mapStateToProps = (state, props) => ({
-  files: state.maha.attachments.files
+  files: state.maha.attachments.files,
+  view: state.maha.attachments.view
 })
 
 export default connect(mapStateToProps)(Files)

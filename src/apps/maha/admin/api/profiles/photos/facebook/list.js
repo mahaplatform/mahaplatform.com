@@ -14,12 +14,12 @@ const list = async (req, profile) => {
     limit: 100
   })
 
-  const records = result.data.map(result => ({
+  const records = result.data.map((result, index) => ({
     id: result.id,
     name: result.name,
     image: result.images.reduce((found, image) => {
       if(found) return found
-      return image.height === 225 ? image.source : null
+      return image.height < 300 ? image.source : null
     }, null)
   }))
 

@@ -16,14 +16,27 @@
   display: flex;
   overflow: hidden;
 }
-.maha-attachments-drive-search {
+.maha-attachments-drive-head {
   background-color: @red;
+  padding: 0 0.5em 0.5em;
+  display: flex;
+}
+.maha-attachments-drive-head-bar {
+  background-color: fadeout(@white, 50);
+  border-radius: 0.5em;
+  display: flex;
+  flex: 1;
+  .maha-searchbox {
+    padding: 0;
+  }
+}
+.maha-attachments-drive-search {
+  border-right: 1px solid @red;
+  flex: 1;
   .maha-searchbox {
     padding-top: 0;
   }
   .maha-searchbox-input {
-    background-color: fadeout(@white, 50);
-    border-radius: 0.5em;
     margin: 0 !important;
     .maha-searchbox-icon {
       color: @white !important;
@@ -50,6 +63,21 @@
         color: fadeout(@white, 20);
       }
     }
+  }
+}
+.maha-attachments-drive-view {
+  cursor: pointer;
+  display: flex;
+  padding: 0.5em;
+  flex: 0 0 2.5em;
+  .fa {
+    color: @white;
+    margin: auto;
+    font-size: 1.2em;
+    line-height: 1em;
+  }
+  &:hover {
+    background-color: fadeout(@white, 80);
   }
 }
 .maha-attachments-drive-folder {
@@ -187,4 +215,65 @@
   .fa-chevron-right {
     color: fadeout(@black, 80);
   }
+}
+
+
+
+.maha-attachments-drive-grid-items {
+  padding: 0.2em;
+  overflow: hidden;
+}
+.maha-attachments-drive-grid-item {
+  position: relative;
+  float: left;
+  cursor: pointer;
+  overflow: hidden;
+  margin: 0.2em;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: ~"calc(100% / 3 - 0.4em)";
+  }
+  @media (min-width: 769px) {
+    width: ~"calc(100% / 5 - 0.4em)";
+  }
+}
+.maha-attachments-drive-grid-item-preview {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+}
+.maha-attachments-drive-grid-item-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  .maha-asset-thumbnail {
+    margin: auto;
+    .maha-image {
+      border-radius: 0;
+    }
+  }
+  .maha-asset-icon {
+    margin: auto;
+    .fa {
+      font-size: 4em;
+    }
+    .fa-folder {
+      color: @yellow;
+    }
+  }
+}
+.maha-attachments-drive-grid-item-name {
+  background-color: fadeout(@black, 90);
+  text-align: center;
+  padding: 0.4em 0.8em;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

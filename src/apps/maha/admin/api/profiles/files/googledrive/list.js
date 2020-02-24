@@ -21,12 +21,13 @@ const listRoute = async (req, profile) => {
     orderBy: q ? null : 'folder,name',
     q: q ? `fullText contains '${q}'` : `'${folder}' in parents`,
     spaces: 'drive',
-    fields: 'nextPageToken, files(id, name, mimeType, thumbnailLink)'
+    fields: 'nextPageToken, files(id, name, mimeType, thumbnailLink, size)'
   })
 
   const records = result.data.files.map(entry => ({
     id: entry.id,
     name: entry.name,
+    file_size: parseInt(entry.size),
     type: entry.mimeType.match(/folder/) ? 'folder' : 'file',
     thumbnail: entry.mimeType.match(/(jpeg|jpg|gif|png)/) ? entry.thumbnailLink : null,
     content_type: entry.mimeType

@@ -28,7 +28,8 @@ class Explorer extends React.Component {
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onNext: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onToggleView: PropTypes.func
   }
 
   state = {
@@ -108,7 +109,7 @@ class Explorer extends React.Component {
   }
 
   _getSources() {
-    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onRemove } = this.props
+    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onRemove, onToggleView } = this.props
     return {
       allow,
       counts,
@@ -121,7 +122,8 @@ class Explorer extends React.Component {
       onCancel,
       onNext: this._handleNext,
       onPush: this._handlePush,
-      onRemove
+      onRemove,
+      onToggleView
     }
   }
 

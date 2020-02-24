@@ -1,12 +1,13 @@
 import ModalPanel from '../../modal_panel'
 import Searchbox from '../../searchbox'
 import { connect } from 'react-redux'
-import Stack from '../../stack'
 import Infinite from '../../infinite'
 import Message from '../../message'
 import PropTypes from 'prop-types'
+import Stack from '../../stack'
 import Folder from './folder'
-import Items from './items'
+import List from './list'
+import Grid from './grid'
 import React from 'react'
 import _ from 'lodash'
 
@@ -18,6 +19,7 @@ class Drive extends React.Component {
     folders: PropTypes.array,
     multiple: PropTypes.bool,
     q: PropTypes.string,
+    view: PropTypes.string,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
@@ -26,6 +28,7 @@ class Drive extends React.Component {
     onNext: PropTypes.func,
     onRemove: PropTypes.func,
     onSetQuery: PropTypes.func,
+    onToggleView: PropTypes.func,
     onUp: PropTypes.func
   }
 
@@ -33,14 +36,22 @@ class Drive extends React.Component {
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handleRemove = this._handleRemove.bind(this)
+  _handleToggleView = this._handleToggleView.bind(this)
 
   render() {
     const { q } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-drive">
-          <div className="maha-attachments-drive-search">
-            <Searchbox { ...this._getSearchBox() } />
+          <div className="maha-attachments-drive-head">
+            <div className="maha-attachments-drive-head-bar">
+              <div className="maha-attachments-drive-search">
+                <Searchbox { ...this._getSearchbox() } />
+              </div>
+              <div className="maha-attachments-drive-view" onClick={ this._handleToggleView }>
+                <i className={`fa fa-${ this._getView() }`} />
+              </div>
+            </div>
           </div>
           { q.length === 0 && <Stack { ...this._getStack() } /> }
           { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
@@ -62,7 +73,7 @@ class Drive extends React.Component {
     }
   }
 
-  _getSearchBox() {
+  _getSearchbox() {
     const { onSetQuery } = this.props
     return {
       prompt: 'Find a file...',
@@ -88,7 +99,7 @@ class Drive extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, q, onChangeFolder } = this.props
+    const { allow, q, view, onChangeFolder } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -99,7 +110,7 @@ class Drive extends React.Component {
       filter: { q, type: { $eq: 'file' } },
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: {
         allow,
         onAdd: this._handleAdd,
@@ -119,6 +130,11 @@ class Drive extends React.Component {
       onRemove: this._handleRemove,
       onUp
     }
+  }
+
+  _getView() {
+    const { view } = this.props
+    return view === 'list' ? 'list' : 'th'
   }
 
   _handleAdd(asset) {
@@ -149,10 +165,15 @@ class Drive extends React.Component {
     onRemove(index)
   }
 
+  _handleToggleView() {
+    this.props.onToggleView()
+  }
+
 }
 
 const mapStateToProps = (state, props) => ({
-  files: state.maha.attachments.files
+  files: state.maha.attachments.files,
+  view: state.maha.attachments.view
 })
 
 export default connect(mapStateToProps)(Drive)

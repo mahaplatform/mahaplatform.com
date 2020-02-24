@@ -34,7 +34,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
+            { label: 'Logo', name: 'logo_id', type: 'attachmentfield', prompt: 'Choose Logo', multiple: false, allow: { extensions: ['jpg','jpeg','png','gif'] } },
             { label: 'Managers', name: 'manager_ids', type: 'lookup2', placeholder: 'Assign admin privileges', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
             { label: 'Visibility', name: 'visibility', type: 'radiogroup', options: ['public','private'], format: VisibilityToken, defaultValue: 'public' }
           ]

@@ -1,10 +1,10 @@
-import AssetIcon from '../../asset/icon'
+import AssetThumbnail from '../../asset/thumbnail'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Items extends React.Component {
+class List extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
@@ -31,7 +31,7 @@ class Items extends React.Component {
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
                 </div> :
-                <AssetIcon content_type={ item.content_type } />
+                <AssetThumbnail { ...item } />
               }
             </div>
             <div className="maha-attachments-drive-item-name">
@@ -55,10 +55,11 @@ class Items extends React.Component {
   _getDisabled(item) {
     const { allow } = this.props
     if(item.type === 'folder') return false
-    const extension = item.name.split('.').pop()
-    const extension_allowed = !allow.extensions || _.includes(allow.extensions, extension)
+    if(!allow) return false
+    const extension = item.name.split('.').pop().toLowerCase()
+    const extension_allowed = _.includes(allow.extensions, extension)
     const content_type = item.content_type
-    const content_type_allowed = !allow.content_types || _.includes(allow.content_types, content_type)
+    const content_type_allowed = _.includes(allow.content_types, content_type)
     return !(extension_allowed || content_type_allowed)
   }
 
@@ -101,4 +102,4 @@ const mapStateToProps = (state, props) => ({
   files: state.maha.attachments.files
 })
 
-export default connect(mapStateToProps)(Items)
+export default connect(mapStateToProps)(List)

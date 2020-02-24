@@ -66,12 +66,14 @@ const createRoute = async (req, profile) => {
   }
 
   const _get = async (fileId) => {
-    return await client.files.get({
+    const result = await client.files.get({
       fileId,
       alt: 'media'
     }, {
-      responseType: 'buffer'
+      responseType: 'arraybuffer'
     })
+    result.data = toBuffer(result.data)
+    return result
   }
 
   const file = meta.data.mimeType.match(/google/) ? await _export(req.body.id, meta.data.mimeType) : await _get(req.body.id)
