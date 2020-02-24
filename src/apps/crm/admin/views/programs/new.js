@@ -41,8 +41,8 @@ class New extends React.Component {
         },  {
           label: 'Finance',
           fields: [
-            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', required: true, format: MerchantToken },
-            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, required: true, defaultValue: team.address }
+            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', format: MerchantToken },
+            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, defaultValue: team.address }
           ]
         }
       ]

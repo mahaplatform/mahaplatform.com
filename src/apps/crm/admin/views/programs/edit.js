@@ -33,13 +33,13 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
+            { label: 'Logo', name: 'logo_id', type: 'attachmentfield', prompt: 'Choose Logo', multiple: false, allow: { extensions: ['jpg','jpeg','png','gif'] } }
           ]
         },  {
           label: 'Finance',
           fields: [
-            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', required: true, format: MerchantToken },
-            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, required: true }
+            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', format: MerchantToken },
+            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2 }
           ]
         }
       ]
