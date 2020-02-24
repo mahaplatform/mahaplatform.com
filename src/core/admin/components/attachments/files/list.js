@@ -9,6 +9,7 @@ class List extends React.Component {
   static propTypes = {
     allow: PropTypes.object,
     files: PropTypes.array,
+    multiple: PropTypes.bool,
     records: PropTypes.array,
     source: PropTypes.object,
     onChangeFolder: PropTypes.func,
@@ -57,7 +58,8 @@ class List extends React.Component {
     const { content_types, extensions } = allow
     if(item.type === 'folder') return false
     if(!content_types && !extensions) return false
-    const extension = item.name.split('.').pop().toLowerCase()
+    const name = item.label || item.name
+    const extension = name.split('.').pop().toLowerCase()
     const extension_allowed = _.includes(extensions, extension)
     const content_type = item.content_type
     const content_type_allowed = _.includes(content_types, content_type)

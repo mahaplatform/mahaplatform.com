@@ -15,6 +15,7 @@ class Drive extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
     multiple: PropTypes.bool,
@@ -61,14 +62,14 @@ class Drive extends React.Component {
   }
 
   _getPanel() {
-    const { files, multiple } = this.props
+    const { doneText, files, multiple } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
       rightItems: multiple && files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }
@@ -99,7 +100,7 @@ class Drive extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, q, view, onChangeFolder } = this.props
+    const { allow, multiple, q, view, onChangeFolder } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -113,6 +114,7 @@ class Drive extends React.Component {
       layout: view === 'list' ? List : Grid,
       props: {
         allow,
+        multiple,
         onAdd: this._handleAdd,
         onChangeFolder,
         onRemove: this._handleRemove

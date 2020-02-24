@@ -11,6 +11,7 @@ class Sources extends React.Component {
     allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
@@ -113,9 +114,10 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, multiple, onAdd, onBack, onNext, onRemove, onToggleView } = this.props
+    const { allow, doneText, multiple, onAdd, onBack, onNext, onRemove, onToggleView } = this.props
     return {
       allow,
+      doneText,
       multiple,
       source,
       onAdd,

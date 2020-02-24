@@ -9,7 +9,9 @@ import React from 'react'
 class Photos extends React.Component {
 
   static propTypes = {
+    doneText: PropTypes.any,
     files: PropTypes.array,
+    multiple: PropTypes.bool,
     source: PropTypes.object,
     onBack: PropTypes.func,
     onAdd: PropTypes.func,
@@ -43,20 +45,20 @@ class Photos extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }
 
   _getInfinite() {
-    const { source, onAdd, onRemove } = this.props
+    const { multiple, source, onAdd, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -68,6 +70,7 @@ class Photos extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
+        multiple,
         source,
         onAdd,
         onRemove

@@ -14,8 +14,10 @@ class Files extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
+    multiple: PropTypes.bool,
     q: PropTypes.string,
     source: PropTypes.object,
     view: PropTypes.string,
@@ -57,14 +59,14 @@ class Files extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }
@@ -94,7 +96,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, q, source, view, onAdd, onRemove } = this.props
+    const { allow, multiple, q, source, view, onAdd, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -109,6 +111,7 @@ class Files extends React.Component {
       layout: view === 'list' ? List : Grid,
       props: {
         allow,
+        multiple,
         source,
         onAdd,
         onRemove
