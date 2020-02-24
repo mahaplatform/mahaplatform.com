@@ -3585,6 +3585,14 @@ union
     `)
 
     await knex.raw(`
+      create view finance_customer_products AS
+      select finance_invoices.customer_id,
+      finance_line_items.product_id
+      from (finance_line_items
+      join finance_invoices on ((finance_invoices.id = finance_line_items.invoice_id)));
+    `)
+
+    await knex.raw(`
       create view finance_customers AS
       select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,

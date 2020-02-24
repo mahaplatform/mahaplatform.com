@@ -63,6 +63,10 @@ const listRoute = async (req, res) => {
       email_campaign_id: {
         column: 'maha_emails.id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
+      product_id: {
+        column: 'finance_customer_products.product_id',
+        leftJoin: [['customer_id', 'crm_contacts.id']]
       }
     },
     filter: {
@@ -84,6 +88,13 @@ const listRoute = async (req, res) => {
         }),
         $ncl: (table, alias, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and was_clicked = ?`, value, false]
+        }),
+        $pr: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value]
+        }),
+        $npr: (table, alias, value) => ({
+          join: [`left join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value],
+          query: `${alias}.product_id is null`
         })
       },
       params: req.query.$filter,

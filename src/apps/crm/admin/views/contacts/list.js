@@ -74,6 +74,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'Email Click', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$cl', text: 'clicked link in the email' },
           { value: '$ncl', text: 'did not click link in the email' }
+        ] },
+        { name: 'Purchase', key: 'product_id', type: 'select', endpoint: '/api/admin/finance/products', text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$pr', text: 'purchased' },
+          { value: '$npr', text: 'did not purchase' }
         ] }
       ] }
     ],
