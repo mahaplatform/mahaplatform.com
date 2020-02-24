@@ -3,6 +3,7 @@ import constantcontact from '../../maha/admin/api/profiles/lists/constantcontact
 import mailchimp from '../../maha/admin/api/profiles/lists/mailchimp/members'
 import outlook from '../../maha/admin/api/profiles/contacts/outlook/list'
 import ImportSerializer from '../../maha/serializers/import_serializer'
+import { createUserToken } from '../../../core/utils/user_tokens'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
 import EmailAddress from '../models/email_address'
@@ -49,6 +50,7 @@ const loadMembers = async(req, list, profile) => {
 const getContacts = async (req, profile) => {
   const service = profile.related('source').get('text')
   const list = getList(service)
+  req.token = createUserToken(profile.related('user'), 'user_id')
   if(_.includes(['constantcontact', 'mailchimp'], service)) {
     req.params = { id: req.body.list_id }
     const members = await loadMembers(req, list, profile)
@@ -98,7 +100,7 @@ const processor = async (req, job) => {
   const profile = await Profile.query(qb => {
     qb.where('id', job.data.profile_id )
   }).fetch({
-    withRelated: ['source'],
+    withRelated: ['source','user'],
     transacting: req.trx
   })
 

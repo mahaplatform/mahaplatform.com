@@ -33,7 +33,7 @@ class Configure extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Optional name for this import', defaultValue: params.strategy },
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Optional name for this import' },
             { label: 'Duplicate Strategy', instructions, name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
           ]
         }
@@ -49,7 +49,8 @@ class Configure extends React.PureComponent {
     const { params } = this.props
     this.props.onDone({
       ...params,
-      ...result
+      ...result,
+      name: result.name || params.name
     })
   }
 

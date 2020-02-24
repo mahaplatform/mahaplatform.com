@@ -42,7 +42,7 @@ davFiles.map(davfile => {
 })
 
 const dav = async (req, res, next) => {
-  const agent = req.headers['user-agent'].toLowerCase()
+  const agent = req.headers['user-agent'] ? req.headers['user-agent'].toLowerCase() : ''
   if(agent.match(/dav/) === null) return next()
   await router(req, res, next)
 }
