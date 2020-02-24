@@ -2,6 +2,11 @@ import { Form, ImportStrategyToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const instructions = `Your data may include contacts that already exit in
+  the CRM. Using the contact's email address, we can detect these
+  duplicates and handle them according to your desired duplicate
+  strategy. Choose a duplicate strategy from the list below: `
+
 class Configure extends React.PureComponent {
 
   static propTypes = {
@@ -20,11 +25,7 @@ class Configure extends React.PureComponent {
   _getForm() {
     const { params } = this.props
     return {
-      title: 'Choose Strategy',
-      instructions: `Your data may include contacts that already exit in
-        the CRM. Using the contact's email address, we can detect these
-        duplicates and handle them according to your desired duplicate
-        strategy. Choose a duplicate strategy from the list below: `,
+      title: 'Configure Import',
       cancelIcon: 'chevron-left',
       saveText: 'Next',
       onCancel: this._handleCancel,
@@ -32,7 +33,8 @@ class Configure extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Optional name for this import', defaultValue: params.strategy },
+            { label: 'Duplicate Strategy', instructions, name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
           ]
         }
       ]

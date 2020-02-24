@@ -30,10 +30,19 @@ const filterPlugin = function(bookshelf) {
 
     if(options.page) return await fetchPage.bind(this.query(query))(bookshelf, options)
 
-    return await this.query(query).fetchAll({
+    const result = await this.query(query).fetchAll({
       withRelated: options.withRelated,
       transacting: options.transacting
     })
+
+    result.pagination = {
+      all: result.length,
+      total: result.length,
+      limit: result.length,
+      skip: 0
+    }
+
+    return result
 
   }
 

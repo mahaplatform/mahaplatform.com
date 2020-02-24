@@ -163,6 +163,7 @@ class Review extends React.PureComponent {
   }
 
   _handleSuccess(result) {
+    console.log(result)
     this.setState({
       items: result.data,
       total: result.pagination.total

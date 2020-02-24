@@ -164,17 +164,12 @@ const getFilterNotKnown = (column, value) => ({
   bindings: ['']
 })
 
-const getFilterCaseInsensitive = (column, value) => ({
-  query: `lower(${column}::varchar) = ?`,
-  bindings: [value.toLowerCase()]
-})
-
 const getFilterEqual = (column, value) => {
   if(value === 'null') return getFilterNull(column, value)
   if(value === 'not_null') return getFilterNotNull(column, value)
   if(`${value}` === 'true') return getFilterTrue(column, value)
   if(`${value}` === 'false') return getFilterFalse(column, value)
-  if(!/^\d+$/.test(value)) return getFilterCaseInsensitive(column, value)
+  if(!/^\d+$/.test(value)) column = `lower(${column}::varchar)`
   return {
     query: `${column} = ?`,
     bindings: [value]
@@ -186,7 +181,7 @@ const getFilterNotEqual = (column, value) => {
   if(value === 'not_null') return getFilterNull(column, value)
   if(`${value}` === 'true') return getFilterFalse(column, value)
   if(`${value}` === 'false') return getFilterTrue(column, value)
-  if(!/^\d+$/.test(value)) return getFilterCaseInsensitive(column, value)
+  if(!/^\d+$/.test(value)) column = `lower(${column}::varchar)`
   return {
     query: `${column} != ?`,
     bindings: [value]
