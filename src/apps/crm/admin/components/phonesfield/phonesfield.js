@@ -47,9 +47,7 @@ class Phonesfield extends React.PureComponent {
   }
 
   componentDidMount() {
-    const defaultValue = this.props.defaultValue || [
-      { number: null, is_primary: true }
-    ]
+    const defaultValue = this._getDefaultValue()
     this.props.onSet(defaultValue)
     this.props.onReady()
   }
@@ -69,6 +67,13 @@ class Phonesfield extends React.PureComponent {
     }
   }
 
+  _getDefaultValue() {
+    const { defaultValue } = this.props
+    return defaultValue && defaultValue.length > 0 ? defaultValue: [
+      { number: null, is_primary: true }
+    ]
+  }
+  
   _getPhoneField(number, index) {
     return {
       defaultValue: number.number,

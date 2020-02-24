@@ -47,9 +47,7 @@ class EmailsField extends React.PureComponent {
   }
 
   componentDidMount() {
-    const defaultValue = this.props.defaultValue || [
-      { address: null, is_primary: true }
-    ]
+    const defaultValue = this._getDefaultValue()
     this.props.onSet(defaultValue)
     this.props.onReady()
   }
@@ -67,6 +65,13 @@ class EmailsField extends React.PureComponent {
       className: 'link',
       handler: this._handleAdd
     }
+  }
+
+  _getDefaultValue() {
+    const { defaultValue } = this.props
+    return defaultValue && defaultValue.length > 0 ? defaultValue: [
+      { address: null, is_primary: true }
+    ]
   }
 
   _getEmailField(email, index) {

@@ -47,9 +47,7 @@ class AddressesField extends React.PureComponent {
   }
 
   componentDidMount() {
-    const defaultValue = this.props.defaultValue || [
-      { address: null, is_primary: true }
-    ]
+    const defaultValue = this._getDefaultValue()
     this.props.onSet(defaultValue)
     this.props.onReady()
   }
@@ -74,6 +72,13 @@ class AddressesField extends React.PureComponent {
       defaultValue: address.address,
       onChange: this._handleUpdate.bind(this, address, index)
     }
+  }
+
+  _getDefaultValue() {
+    const { defaultValue } = this.props
+    return defaultValue && defaultValue.length > 0 ? defaultValue: [
+      { address: null, is_primary: true }
+    ]
   }
 
   _getPrimaryButton(address, index) {
