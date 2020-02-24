@@ -18,6 +18,7 @@ class Overview extends React.Component {
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onRemove: PropTypes.func,
+    onReset: PropTypes.func,
     onSet: PropTypes.func,
     onTest: PropTypes.func
   }
@@ -81,6 +82,7 @@ class Overview extends React.Component {
   }
 
   _handleCancel() {
+    this.props.onReset()
     this.props.onPop()
   }
 

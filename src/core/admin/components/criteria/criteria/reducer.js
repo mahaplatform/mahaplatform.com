@@ -31,6 +31,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'RESET':
+    return {
+      ...state,
+      test: null
+    }
+
   case 'SET':
     return {
       ...state,

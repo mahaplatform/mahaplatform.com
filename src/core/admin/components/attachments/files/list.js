@@ -54,12 +54,13 @@ class List extends React.Component {
 
   _getDisabled(item) {
     const { allow } = this.props
+    const { content_types, extensions } = allow
     if(item.type === 'folder') return false
-    if(!allow) return false
+    if(!content_types && !extensions) return false
     const extension = item.name.split('.').pop().toLowerCase()
-    const extension_allowed = _.includes(allow.extensions, extension)
+    const extension_allowed = _.includes(extensions, extension)
     const content_type = item.content_type
-    const content_type_allowed = _.includes(allow.content_types, content_type)
+    const content_type_allowed = _.includes(content_types, content_type)
     return !(extension_allowed || content_type_allowed)
   }
 

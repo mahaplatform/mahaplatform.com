@@ -1,16 +1,28 @@
 .chatbar {
   flex: 1;
   display: flex;
+  .maha-attachments-drive-head,
   .chat-channels-header,
-  .maha-modal-panel-header,
-  .maha-searchbox {
+  .maha-modal-panel-header {
     background-color: @blue !important;
+  }
+  .maha-attachments-drive-search {
+    border-right: 1px solid @blue !important;
+  }
+  .maha-attachments-drive-grid-item {
+    width: ~"calc(100% / 3 - 0.4em)" !important;
+  }
+  .maha-attachments-photo-item {
+    width: ~"calc(100% / 3 - 0.4em)" !important;
+    padding-bottom: ~"calc(100% / 3 - 0.4em)";
   }
   .chat-channel-header-info {
     display: none;
   }
-  .maha-searchbox {
-    padding: 0 0.8em 0.8em;
+  .chat-channels-header-search {
+    .maha-searchbox {
+      padding: 0 0.8em 0.8em;
+    }  
   }
 }
 .chatbar-panel {

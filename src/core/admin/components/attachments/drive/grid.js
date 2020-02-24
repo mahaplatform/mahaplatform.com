@@ -32,6 +32,9 @@ class Grid extends React.Component {
                   <AssetThumbnail width={ 190 } { ...item.asset } />
                 }
               </div>
+              <div className="maha-attachments-drive-grid-item-action">
+                <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
+              </div>
             </div>
             <div className="maha-attachments-drive-grid-item-name">
               { item.label }
@@ -56,6 +59,13 @@ class Grid extends React.Component {
     const content_type = item.asset.content_type
     const content_type_allowed = !allow.content_types || _.includes(allow.content_types, content_type)
     return !extension_allowed && !content_type_allowed
+  }
+
+  _getIcon(item) {
+    const { files } = this.props
+    if(item.type === 'folder') return null
+    const file = _.find(files, { id: item.asset.id, service: 'maha' })
+    return file ? 'check' : null
   }
 
   _handleClick(item) {

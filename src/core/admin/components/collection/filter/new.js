@@ -10,7 +10,7 @@ class New extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    criteria: PropTypes.object,
+    criteria: PropTypes.array,
     onSuccess: PropTypes.func
   }
 

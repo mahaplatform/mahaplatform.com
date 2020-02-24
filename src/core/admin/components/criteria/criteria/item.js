@@ -7,14 +7,14 @@ const comparisons = {
   $nlk: 'does not contain',
   $kn: 'is known',
   $nkn: 'is not known',
-  $eq: 'equals',
-  $neq: 'does not equal',
+  $eq: 'is',
+  $neq: 'is not',
   $gt: 'is greater than',
   $lt: 'is less than',
   $gte: 'is greater than or equal to',
   $lte: 'is less than or equal to',
-  $in: 'is one of',
-  $nin: 'is not one of'
+  $in: 'is',
+  $nin: 'is not'
 }
 
 class Item extends React.Component {
@@ -88,6 +88,7 @@ class Item extends React.Component {
   }
 
   _getOxford(arr, conjunction) {
+    if(arr.length === 2) return arr.join(' or ')
     return [
       arr.slice(0, -1).join(', '),
       arr.slice(-1)[0]

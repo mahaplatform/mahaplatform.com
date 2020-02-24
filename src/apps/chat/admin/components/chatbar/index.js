@@ -12,6 +12,10 @@ import _ from 'lodash'
 
 class ChatBar extends React.Component {
 
+  static childContextTypes = {
+    modal: PropTypes.object
+  }
+
   static contextTypes = {
     modal: PropTypes.object,
     portal: PropTypes.object
@@ -37,6 +41,7 @@ class ChatBar extends React.Component {
   _handleMessage = this._handleMessage.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
   _handleSubscriptions = this._handleSubscriptions.bind(this)
 
   render() {
@@ -49,6 +54,15 @@ class ChatBar extends React.Component {
 
   componentDidMount() {
     this._handlePush(Channels, this._getChannels())
+  }
+
+  getChildContext() {
+    return {
+      modal: {
+        open: this._handlePush,
+        pop: this._handlePop
+      }
+    }
   }
 
   _getChannels() {

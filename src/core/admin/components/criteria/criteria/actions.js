@@ -8,6 +8,10 @@ export const remove = (index) => ({
   index
 })
 
+export const reset = () => ({
+  type: 'RESET'
+})
+
 export const set = (items) => ({
   type: 'SET',
   items

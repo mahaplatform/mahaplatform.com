@@ -19,6 +19,7 @@ class Criteria extends React.Component {
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
+    onReset: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
     onTest: PropTypes.func
@@ -51,14 +52,14 @@ class Criteria extends React.Component {
     if(!_.isEqual(items, prevProps.items)) {
       this.props.onChange(items)
     }
-    if(!_.isEqual(test, prevProps.test) && test) {
-      this.props.onChange(test)
+    if(!_.isEqual(test, prevProps.test)) {
+      this.props.onChange(test || items)
     }
   }
 
   _getOverview() {
     const { cid, code, display, fields, panel, test } = this.props
-    const { onChange, onCreate, onRemove, onSet, onTest } = this.props
+    const { onChange, onCreate, onRemove, onReset, onSet, onTest } = this.props
     return {
       cid,
       code,
@@ -71,6 +72,7 @@ class Criteria extends React.Component {
       onPop: this._handlePop,
       onPush: this._handlePush,
       onRemove,
+      onReset,
       onSet,
       onTest
     }

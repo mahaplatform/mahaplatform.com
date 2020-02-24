@@ -55,7 +55,7 @@ class Select extends React.Component {
     if(operator !== prevState.operator) {
       this._handleChange()
     }
-    if(!_.isEqual(value !== prevState.value)) {
+    if(!_.isEqual(value, prevState.value)) {
       this._handleChange()
     }
   }
@@ -68,6 +68,14 @@ class Select extends React.Component {
       { value: '$in', text: 'is one of' },
       { value: '$nin', text: 'is not one of' }
     ]
+  }
+
+  _getOptions() {
+    const { field } = this.props
+    if(!field.options) return null
+    return field.options.map(option => {
+      return _.isString(option) ? { value: option, text: option } : option
+    })
   }
 
   _getPanel() {
@@ -108,8 +116,10 @@ class Select extends React.Component {
       format: field.format,
       label: field.name,
       multiple: _.includes(['$in','$nin'], operator),
-      options: field.options,
-      text: field.text,
+      options: this._getOptions(),
+      search: field.search,
+      text: field.text || 'text',
+      value: !field.endpoint ? (field.value || 'value') : null,
       onChange: this._handleUpdate
     }
   }
@@ -160,13 +170,13 @@ class Select extends React.Component {
     const { operator } = this.state
     const multiple = _.includes(['$in','$nin'], operator)
     const records = _.castArray(selected)
-    const values = records.map(record => {
+    const values = field.endpoint ? records.map(record => {
       return _.get(record, field.value)
-    })
-    const data = records.map(record => ({
+    }) : records
+    const data = field.endpoint ? records.map(record => ({
       value: _.get(record, field.value),
       text: _.get(record, field.text)
-    }))
+    })) : []
     this.setState({
       data: multiple ? data : data[0],
       value: multiple ? values : values[0]

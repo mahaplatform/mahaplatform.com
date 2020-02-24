@@ -188,7 +188,7 @@ const getFilterNotEqual = (column, value) => {
   if(`${value}` === 'false') return getFilterTrue(column, value)
   if(!/^\d+$/.test(value)) return getFilterCaseInsensitive(column, value)
   return {
-    query: `${column} = ?`,
+    query: `${column} != ?`,
     bindings: [value]
   }
 }
@@ -247,20 +247,24 @@ const getFilterGreaterThanEqualTo = (column, value) => ({
 })
 
 const getFilterDateRange = (column, value) => {
-  ['week','month','quarter','year'].map(period => {
-    ['this','last','next'].map((article, index) => {
-      if(value === `${article}_${period}`) {
-        return getFilterRange(column, index - 1, period)
-      }
-    })
-  })
-  ['30','60','90'].map(duration => {
-    ['last','next'].map((article, index) => {
-      if(value === `${article}_${duration}`) {
-        return getFilterDuration(column, 30 - (60 * index), 'days')
-      }
-    })
-  })
+  if(value === 'last_week') return getFilterRange(column, -1, 'week')
+  if(value === 'last_month') return getFilterRange(column, -1, 'month')
+  if(value === 'last_quarter') return getFilterRange(column, -1, 'quarter')
+  if(value === 'last_year') return getFilterRange(column, -1, 'year')
+  if(value === 'this_week') return getFilterRange(column, 0, 'week')
+  if(value === 'this_month') return getFilterRange(column, 0, 'month')
+  if(value === 'this_quarter') return getFilterRange(column, 0, 'quarter')
+  if(value === 'this_year') return getFilterRange(column, 0, 'year')
+  if(value === 'next_week') return getFilterRange(column, 1, 'week')
+  if(value === 'next_month') return getFilterRange(column, 1, 'month')
+  if(value === 'next_quarter') return getFilterRange(column, 1, 'quarter')
+  if(value === 'next_year') return getFilterRange(column, 1, 'year')
+  if(value === 'last_30') return getFilterDuration(column, -30, 'days')
+  if(value === 'last_60') return getFilterDuration(column, -60, 'days')
+  if(value === 'last_90') return getFilterDuration(column, -90, 'days')
+  if(value === 'next_30') return getFilterDuration(column, 30, 'days')
+  if(value === 'next_60') return getFilterDuration(column, 60, 'days')
+  if(value === 'next_90') return getFilterDuration(column, 90, 'days')
   if(value === 'ytd') return getFilterBetween(column, moment().startOf('year'), moment())
   if(value === 'ltd') return getFilterBetween(column, moment('2000-01-01'), moment())
 }

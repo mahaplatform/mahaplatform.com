@@ -8,8 +8,10 @@ import _ from 'lodash'
 class DateRange extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     defaultValue: PropTypes.object,
     field: PropTypes.object,
+    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -106,8 +108,8 @@ class DateRange extends React.Component {
       label: field.name,
       multiple: false,
       options: this._getOptions(field.include),
-      text: field.text,
-      value: field.value,
+      text: field.text || 'text',
+      value: field.value || 'value',
       onChange: this._handleUpdate
     }
   }
@@ -117,13 +119,31 @@ class DateRange extends React.Component {
   }
 
   _handleChange() {
-    const { value } = this.state
-    this.props.onChange({ $dr: value })
+    const { data, value } = this.state
+    const { code, field, parent } = this.props
+    if(!value) return
+    this.props.onChange({
+      code,
+      parent,
+      field: field.key,
+      operator: '$dr',
+      value,
+      data
+    })
   }
 
   _handleDone() {
-    const { value } = this.state
-    this.props.onDone({ $dr: value })
+    const { data, value } = this.state
+    const { code, field, parent } = this.props
+    if(!value) return
+    this.props.onDone({
+      code,
+      parent,
+      field: field.key,
+      operator: '$dr',
+      value,
+      data
+    })
   }
 
   _handleSet(defaultValue) {
@@ -132,6 +152,7 @@ class DateRange extends React.Component {
   }
 
   _handleUpdate(value) {
+    console.log('here')
     this.setState({ value })
   }
 
