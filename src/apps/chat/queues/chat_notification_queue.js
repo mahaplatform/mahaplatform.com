@@ -4,8 +4,6 @@ import Queue from '../../../core/objects/queue'
 import Subscription from '../models/subscription'
 import Message from '../models/message'
 
-const enqueue = async (req, message_id) => ({ message_id })
-
 const processor = async (req, job) => {
 
   const message = await Message.where({
@@ -51,7 +49,6 @@ const _sendMessage = async (req, { user, message }) => {
 
 const ChatNotificationQueue = new Queue({
   name: 'chat_notification',
-  enqueue,
   processor
 })
 

@@ -17,6 +17,7 @@
     "eslint": "babel-node ./src/scripts/eslint.js",
     "g": "babel-node ./src/scripts/generate/index.js",
     "help": "babel-node ./src/scripts/help/index.js",
+    "import": "babel-node ./src/scripts/import.js",
     "knex": "babel-node ./src/scripts/knex.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node ./src/scripts/test.js",

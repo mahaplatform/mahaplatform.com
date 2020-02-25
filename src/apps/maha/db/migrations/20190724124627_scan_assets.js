@@ -7,7 +7,7 @@ const ScanAssets = {
     const assets = await knex('maha_assets').whereNull('is_infected')
 
     await Promise.map(assets, async asset => {
-      await ScanAssetQueue.enqueue({ knex }, asset.id)
+      await ScanAssetQueue.enqueue({ knex }, { id: asset.id })
     })
 
   },

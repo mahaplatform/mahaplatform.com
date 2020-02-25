@@ -109,7 +109,9 @@ export const assembleAsset = async (req, asset) => {
   if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, {
     id: asset.get('id')
   })
-  await ScanAssetQueue.enqueue(req, asset.id)
+  await ScanAssetQueue.enqueue(req, {
+    id: asset.get('id')
+  })
 }
 
 export const processAsset = async (req, id) => {
@@ -225,8 +227,12 @@ const _saveAsset = async (req, asset, params) => {
 const _saveFiledata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  await ProcessAssetQueue.enqueue(req, asset.id)
-  await ScanAssetQueue.enqueue(req, asset.id)
+  await ProcessAssetQueue.enqueue(req, {
+    id: asset.get('id')
+  })
+  await ScanAssetQueue.enqueue(req, {
+    id: asset.get('id')
+  })
 }
 
 const _processAsset = async (req, data, asset) => {

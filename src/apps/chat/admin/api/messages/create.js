@@ -50,7 +50,9 @@ const createRoute = async (req, res) => {
     })
   })
 
-  await ChatNotificationQueue.enqueue(req, message.get('id'))
+  await ChatNotificationQueue.enqueue(req, {
+    message_id: message.get('id')
+  })
 
   await message.load(['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service'], {
     transacting: req.trx

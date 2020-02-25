@@ -1,10 +1,10 @@
 import '../core/services/environment'
-import { createFolder } from '../web/apps/drive/services/folders'
-import { createFile } from '../web/apps/drive/services/files'
-import { createAsset } from '../web/apps/maha/services/asset'
-import Folder from '../web/apps/drive/models/folder'
-import File from '../web/apps/drive/models/file'
-import User from '../web/apps/maha/models/user'
+import { createFolder } from '../apps/drive/services/folders'
+import { createAsset } from '../apps/maha/services/assets'
+import { createFile } from '../apps/drive/services/files'
+import Folder from '../apps/drive/models/folder'
+import File from '../apps/drive/models/file'
+import User from '../apps/maha/models/user'
 import knex from '../core/services/knex'
 import chalk from 'chalk'
 import path from 'path'
@@ -32,7 +32,13 @@ const read = (pathname, root = '') => {
   ]
 }
 
-const processor = async (root, mapped) => {
+const processor = async () => {
+
+  const argv = process.argv.slice(2)
+
+  const root = argv[0]
+
+  const mapped = argv[1]
 
   const user = await User.query(qb => {
     qb.where('id', 79)
@@ -43,8 +49,8 @@ const processor = async (root, mapped) => {
   const items = read(root)
 
   await Promise.mapSeries(items, async (item) => {
-    const fullpath = item.fullpath.replace(root, mapped)
 
+    const fullpath = item.fullpath.replace(root, mapped)
     const parts = fullpath.split('/')
     const label = parts.slice(-1).join('/')
     const parentPath = parts.slice(0,-1).join('/')
@@ -127,6 +133,4 @@ const processor = async (root, mapped) => {
 
 }
 
-const root = path.join('src','web','core')
-
-processor(root, 'core').then(process.exit)
+processor().then(process.exit)
