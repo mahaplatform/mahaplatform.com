@@ -8,7 +8,9 @@ const deleteAllRoute = async (req, res) => {
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
-    filter: req.body.filter,
+    filter: {
+      params: req.body.filter
+    },
     transacting: req.trx
   }).then(results => results.map(result => {
     return result.get('id')

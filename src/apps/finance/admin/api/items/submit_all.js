@@ -8,10 +8,13 @@ const submitAllRoute = async (req, res) => {
   const items = await Item.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
+      qb.where('user_id', req.user.get('id'))
       qb.where('status', 'pending')
       qb.orderBy('user_id', 'asc')
     },
-    filter: req.body.filter,
+    filter: {
+      params: req.body.filter
+    },
     withRelated: ['project.members','expense_type'],
     transacting: req.trx
   }).then(result => result.toArray())

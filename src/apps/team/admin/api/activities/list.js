@@ -5,7 +5,9 @@ const listRoute = async (req, res) => {
 
   const activities = await Activity.filterFetch({
     scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
+      qb.innerJoin('maha_users', 'maha_users.id', 'maha_activities.user_id')
+      qb.innerJoin('maha_stories', 'maha_stories.id', 'maha_activities.story_id')
+      qb.where('maha_activities.team_id', req.team.get('id'))
     },
     filter: {
       params: req.query.$filter,

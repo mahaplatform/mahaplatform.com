@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
       qb.where('team_id', req.team.get('id'))
     },
     filter: {
-      filter: req.query.$filter,
+      params: req.query.$filter,
       search: ['title']
     },
     sort: {

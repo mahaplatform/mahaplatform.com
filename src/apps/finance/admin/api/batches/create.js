@@ -13,7 +13,9 @@ const createRoute = async (req, res) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('status', 'reviewed')
     },
-    filter: req.body.filter,
+    filter: {
+      params: req.body.filter
+    },
     transacting: req.trx
   }).then(result => result.toArray())
 
