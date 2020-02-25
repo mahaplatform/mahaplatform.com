@@ -25,9 +25,11 @@ export const selected = createSelector(
       ...filter,
       $and: [
         ...filter.$and,
-        { [value]: {
-          [mode]: values
-        }}
+        ...values.length > 0 ? [{
+          [value]: {
+            [mode]: values
+          }
+        }] : []
       ]
     },
     values,
