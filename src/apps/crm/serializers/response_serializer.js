@@ -4,6 +4,9 @@ const ResponseSerializer = (req, result) => ({
   data: result.get('data'),
   referer: result.get('referer'),
   ipaddress: result.get('ipaddress'),
+  duration: result.get('duration'),
+  is_known: result.get('is_known'),
+  revenue: result.get('revenue'),
   invoice_id: result.get('invoice_id'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

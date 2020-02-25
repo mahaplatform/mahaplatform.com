@@ -92,13 +92,13 @@ class Performance extends React.Component {
               <tr>
                 <td>Unknown Respondants</td>
                 <td className="right aligned">
-                  { this._getStat(unknown_respondants) }
+                  { unknown_respondants }
                 </td>
               </tr>
               <tr>
                 <td>Known Respondants</td>
                 <td className="right aligned">
-                  { this._getStat(known_respondants) }
+                  { known_respondants }
                 </td>
               </tr>
               <tr>

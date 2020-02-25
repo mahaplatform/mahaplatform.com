@@ -27,6 +27,7 @@ class Form extends React.Component {
     referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
     settings: PropTypes.object,
+    starttime: PropTypes.number,
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,

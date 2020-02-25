@@ -19,6 +19,7 @@ class Fields extends React.Component {
     ready: PropTypes.array,
     referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
+    starttime: PropTypes.number,
     status: PropTypes.string,
     token: PropTypes.string,
     validated: PropTypes.array,
@@ -80,9 +81,10 @@ class Fields extends React.Component {
   }
 
   _getFields() {
-    const { fields, ipaddress, referer } = this.props
+    const { fields, ipaddress, referer, starttime } = this.props
     return [
       { type: 'hidden', code: 'referer', value: referer },
+      { type: 'hidden', code: 'starttime', value: starttime },
       { type: 'hidden', code: 'ipaddress', value: ipaddress },
       ...fields
     ]

@@ -6,7 +6,9 @@ const FormSerializer = (req, result) => ({
   program: program(result.related('program')),
   email: email(result.related('email')),
   workflow: workflow(result.related('workflow')),
-  num_responses: result.get('num_responses'),
+  respondants_count: result.get('respondants_count'),
+  responses_count: result.get('responses_count'),
+  revenue: result.get('revenue'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -2,6 +2,7 @@ import { encode } from '../../../../../core/services/jwt'
 import Setting from '../../../../platform/models/setting'
 import Form from '../../../models/form'
 import { readFile } from '../utils'
+import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 
@@ -34,6 +35,7 @@ const showRoute = async (req, res) => {
   const team = form.related('team')
   const content = ejs.render(template, {
     form: {
+      starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
       referer: req.header('referer'),
       ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
       isOpen: form.get('is_open'),

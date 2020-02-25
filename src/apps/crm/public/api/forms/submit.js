@@ -28,19 +28,26 @@ const getContact = async (req, { form, fields, data }) => {
     transacting: req.trx
   })
 
-  if(email) return email.related('contact')
+  if(email) {
+    email.related('contact').is_known = true
+    return email.related('contact')
+  }
 
   const code = await generateCode(req, {
     table: 'crm_contacts'
   })
 
-  return await Contact.forge({
+  const contact = await Contact.forge({
     team_id: req.team.get('id'),
     code,
     ...whitelist(data, ['first_name','last_name','photo_id','birthday','spouse'])
   }).save(null, {
     transacting: req.trx
   })
+
+  contact.is_known = false
+
+  return contact
 
 }
 
@@ -130,6 +137,8 @@ const submitRoute = async (req, res) => {
     data: contactdata
   })
 
+  console.log(contact)
+
   if(contactdata.email) {
     await updateEmailAddresses(req, {
       contact,
@@ -187,6 +196,8 @@ const submitRoute = async (req, res) => {
     invoice_id: invoice ? invoice.get('id') : null,
     referer: req.body.referer,
     ipaddress: req.body.ipaddress,
+    duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
+    is_known: contact.is_known,
     data: {
       ...req.body,
       ...req.body.payment ? {

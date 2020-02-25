@@ -6,6 +6,8 @@ export const fetchPage = async function(bookshelf, options) {
 
   const { page } = options
 
+  if(!options.scope) options.scope = qb => {}
+
   const trx = options.transacting
 
   const limit = page && page.limit ? parseInt(page.limit) : DEFAULT_LIMIT

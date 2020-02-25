@@ -1,6 +1,7 @@
 import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
+import numeral from 'numeral'
 import React from 'react'
 
 const Details = ({ form, response }) => {
@@ -17,7 +18,10 @@ const Details = ({ form, response }) => {
         { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'IP Address', content: response.ipaddress },
         { label: 'Referer', content: response.referer },
-        { label: 'Submitted', content: response.created_at, format: 'datetime' }
+        { label: 'Duration', content: `${response.duration} seconds` },
+        { label: 'Contact Status', content: response.is_known ? 'KNOWN' : 'UNKNOWN' },
+        { label: 'Submitted', content: response.created_at, format: 'datetime' },
+        { label: 'Revenue', content: numeral(response.revenue).format('$0.00') }
       ]
     }, {
       title: 'Response Data',

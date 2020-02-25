@@ -17,6 +17,8 @@ const showRoute = async (req, res) => {
   })
 
   const response = await Response.query(qb => {
+    qb.select('crm_responses.*','crm_response_totals.*')
+    qb.innerJoin('crm_response_totals','crm_response_totals.response_id','crm_responses.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('form_id', form.get('id'))
     qb.where('id', req.params.id)
