@@ -15,6 +15,7 @@ class Table extends React.Component {
     display: PropTypes.array,
     hidden: PropTypes.array,
     records: PropTypes.array,
+    recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
     selectable: PropTypes.bool,
     selected: PropTypes.object,
@@ -49,7 +50,7 @@ class Table extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { records, selectable, selectAll, sort, status, visible } = this.props
+    const { records, recordTasks, selectable, selectAll, sort, status, visible } = this.props
     if(status !== 'success') return <Loader />
     const first = records.length > 0 ? records[0].id : 0
     return (
@@ -69,6 +70,9 @@ class Table extends React.Component {
                 }
               </div>
             ))}
+            { recordTasks &&
+               <div className="maha-table-cell icon mobile config" />
+            }
             <Columns { ...this._getColumns() } />
           </div>
         </div>
@@ -102,10 +106,11 @@ class Table extends React.Component {
   }
 
   _getBody(size) {
-    const { records, rowClass, selected, selectable, selectAll, selectValue, visible, width, widths, onClick, onReachBottom, onSelect } = this.props
+    const { records, recordTasks, rowClass, selected, selectable, selectAll, selectValue, visible, width, widths, onClick, onReachBottom, onSelect } = this.props
     return {
       columns: visible,
       records,
+      recordTasks,
       rowClass,
       selected,
       selectable,

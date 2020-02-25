@@ -17,6 +17,7 @@ class Body extends React.Component {
   static propTypes = {
     columns: PropTypes.array,
     records: PropTypes.array,
+    recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
     selectable: PropTypes.bool,
     selected: PropTypes.object,
@@ -65,7 +66,7 @@ class Body extends React.Component {
   }
 
   _getList() {
-    const { columns, records, rowClass, selectable, selected, selectAll, selectValue, size, widths, onClick, onSelect } = this.props
+    const { columns, records, recordTasks, rowClass, selectable, selected, selectAll, selectValue, size, widths, onClick, onSelect } = this.props
     const { heights, ready } = this.state
     const { height, width } = size
     return {
@@ -78,6 +79,7 @@ class Body extends React.Component {
       itemData: {
         columns,
         records,
+        recordTasks,
         rowClass,
         selectable,
         selected,

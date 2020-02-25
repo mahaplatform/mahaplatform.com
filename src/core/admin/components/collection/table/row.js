@@ -5,6 +5,10 @@ import _ from 'lodash'
 
 class Row extends React.Component {
 
+  static contextTypes = {
+    tasks: PropTypes.object
+  }
+
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number,
@@ -26,7 +30,7 @@ class Row extends React.Component {
 
   render() {
     const { data, index } = this.props
-    const { columns, records, selectable, onClick } = data
+    const { columns, records, recordTasks, selectable, onClick } = data
     const record = records[index]
     return (
       <div { ...this._getRow(record, index) }>
@@ -40,7 +44,12 @@ class Row extends React.Component {
             <Format { ...this._getFormat(record, column) } />
           </div>
         ))}
-        <div className="maha-table-cell icon mobile collapsing centered">
+        { recordTasks &&
+           <div className="maha-table-cell icon mobile centered" onClick={ this._handleTasks.bind(this, record) }>
+             <i className="fa fa-ellipsis-v" />
+           </div>
+        }
+        <div className="maha-table-cell icon mobile centered">
           { onClick && <i className="fa fa-chevron-right" /> }
         </div>
       </div>
@@ -125,7 +134,7 @@ class Row extends React.Component {
       left: style.left,
       top: style.top,
       width: style.width,
-      // height: height || 42
+      height: height
     }
   }
 
@@ -165,6 +174,15 @@ class Row extends React.Component {
       })
       this.setState({ height })
       this.props.data.onSetHeight(index, height)
+    })
+  }
+
+  _handleTasks(record, e) {
+    e.stopPropagation()
+    const { data } = this.props
+    const { recordTasks } = data
+    this.context.tasks.open({
+      items: recordTasks(record)
     })
   }
 
