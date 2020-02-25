@@ -1,4 +1,4 @@
-import AssetIcon from '../../asset/icon'
+import AssetThumbnail from '../../asset/thumbnail'
 import { connect } from 'react-redux'
 import Message from '../../message'
 import PropTypes from 'prop-types'
@@ -17,32 +17,21 @@ class Multiple extends React.Component {
     return (
       <div className="maha-attachments-multiple">
         { files.length > 0 ?
-          <div className="maha-attachments-items">
+          <div className="maha-attachments-list-items">
             { files.map((file, index) => (
-              <div className="maha-attachments-item" key={`plain_${index}`}>
-                <div className="maha-attachments-item-preview">
-                  { file.thumbnail ?
-                    <div className="maha-attachments-item-image">
-                      <div style={{backgroundImage:`url('${file.thumbnail}')`}}>
-                        <img src={ `/admin/images/services/${file.service}.png` } />
-                      </div>
-                    </div> :
-                    <div className="maha-attachments-item-icon">
-                      <AssetIcon content_type={ file.content_type } source={ file.service } />
-                    </div>
-                  }
+              <div className="maha-attachments-list-item" key={`plain_${index}`}>
+                <div className="maha-attachments-list-item-icon">
+                  <AssetThumbnail { ...file } />
                 </div>
-                <div className="maha-attachments-item-label">
-                  <div className="maha-attachments-item-name">
-                    { file.name }<br />
-                    <span className={ file.status }>
-                      <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
-                      { _.capitalize(file.status) }
-                      { file.status === 'uploading' &&
-                        <span>({ numeral(file.progress).format('0%') })</span>
-                      }
-                    </span>
-                  </div>
+                <div className="maha-attachments-list-item-name">
+                  { file.name }<br />
+                  <span className={ file.status }>
+                    <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
+                    { _.capitalize(file.status) }
+                    { file.status === 'uploading' &&
+                      <span>({ numeral(file.progress).format('0%') })</span>
+                    }
+                  </span>
                 </div>
               </div>
             )) }

@@ -30,9 +30,7 @@ class AssetThumbnail extends React.Component {
     if(thumbnail) {
       return (
         <div className="maha-asset-thumbnail">
-          <div className="maha-image">
-            <img src={ thumbnail } />
-          </div>
+          <div className="maha-image" style={{ backgroundImage: `url(${thumbnail})` }} />
         </div>
       )
     }
