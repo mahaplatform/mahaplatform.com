@@ -69,7 +69,7 @@ class Performance extends React.Component {
           </div>
         </div>
         <div className="crm-report-chart">
-          <canvas ref={ node => this.node = node } className="monitor-chart" />
+          <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
         </div>
         <div className="crm-report-metrics">
           { metrics.map((metric, index) => (
@@ -235,6 +235,9 @@ class Performance extends React.Component {
             ticks: {
               min: 0,
               stepSize: 1
+            },
+            gridLines: {
+              display: false
             }
           }]
         }
@@ -254,10 +257,10 @@ class Performance extends React.Component {
       data: performance.data[total.name],
       borderColor: total.color,
       pointBackgroundColor: '#FFFFFF',
-      pointRadius: 3,
+      pointRadius: 4,
       pointHoverBackgroundColor: total.color,
-      pointHoverRadius: 3,
-      borderWidth: 2,
+      pointHoverRadius: 4,
+      borderWidth: 3,
       fill: false
     }))
     this.chart.update()

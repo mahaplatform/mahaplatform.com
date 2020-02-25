@@ -58,7 +58,7 @@ class Performance extends React.Component {
           </div>
         </div>
         <div className="crm-report-chart">
-          <canvas ref={ node => this.node = node } className="monitor-chart" />
+          <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
         </div>
         <div className="crm-report-metrics">
           <div className="crm-report-metric">
@@ -82,7 +82,7 @@ class Performance extends React.Component {
               Revenue
             </div>
             <div className="crm-report-metric-value">
-              { numeral(revenue).format('0.00') }
+              { numeral(revenue).format('$0.00') }
             </div>
           </div>
         </div>
@@ -249,6 +249,9 @@ class Performance extends React.Component {
             ticks: {
               min: 0,
               stepSize: 1
+            },
+            gridLines: {
+              display: false
             }
           }]
         }
@@ -266,10 +269,10 @@ class Performance extends React.Component {
       data: performance.data.responses,
       borderColor: '#DB2828',
       pointBackgroundColor: '#FFFFFF',
-      pointRadius: 3,
+      pointRadius: 4,
       pointHoverBackgroundColor: '#DB2828',
-      pointHoverRadius: 3,
-      borderWidth: 2,
+      pointHoverRadius: 4,
+      borderWidth: 3,
       fill: false
     }]
     this.chart.update()

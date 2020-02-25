@@ -67,7 +67,7 @@ class SalesReport extends React.Component {
           </div>
         </div>
         <div className="crm-report-chart">
-          <canvas ref={ node => this.node = node } className="monitor-chart" />
+          <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
         </div>
         <div className="crm-report-metrics">
           { metrics.map((metric, index) => (
@@ -321,7 +321,7 @@ class SalesReport extends React.Component {
       pointBackgroundColor: '#FFFFFF',
       pointRadius: 4,
       pointHoverBackgroundColor: total.color,
-      pointHoverRadius: 5,
+      pointHoverRadius: 4,
       borderWidth: 3,
       fill: false
     }))

@@ -4,8 +4,8 @@ import Form from '../../../models/form'
 const showRoute = async (req, res) => {
 
   const form = await Form.query(qb => {
-    qb.select('crm_forms.*','crm_form_responses.num_responses')
-    qb.innerJoin('crm_form_responses','crm_form_responses.form_id','crm_forms.id')
+    qb.select('crm_forms.*','crm_form_totals.*')
+    qb.innerJoin('crm_form_totals','crm_form_totals.form_id','crm_forms.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({

@@ -1,12 +1,12 @@
 import ImportToken from '../../../../maha/admin/tokens/import'
 import ContactImport from '../../components/contactimport'
 import ContactToken from '../../tokens/contact'
+import Interests from './interests'
 import { Page } from 'maha-admin'
+import Lists from './lists'
+import Tags from './tags'
 import React from 'react'
 import New from './new'
-
-import Interests from './interests'
-import Lists from './lists'
 
 const mapResourcesToPage = (props, context) => ({
   fields: '/api/admin/crm/fields'
@@ -103,6 +103,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
     onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`),
     selectable: true,
     buttons: (selected) => [{
+      label: 'Tag Contacts',
+      color: 'red',
+      modal: <Tags filter={ selected.filter } />
+    },{
       label: 'Add to List',
       color: 'red',
       modal: <Lists filter={ selected.filter } />

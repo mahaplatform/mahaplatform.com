@@ -12,7 +12,7 @@ const Details = ({ audits, form }) => {
   }
 
   const responses = {
-    label: pluralize('response', form.num_responses, true),
+    label: pluralize('response', form.responses_count, true),
     className: 'link',
     route: `/admin/crm/forms/${form.id}/responses`
   }
