@@ -1,5 +1,6 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import Chart from 'chart.js'
 import moment from 'moment'
 import React from 'react'
@@ -39,6 +40,9 @@ class Performance extends React.Component {
   render() {
     const { performance } = this.state
     if(!performance) return null
+    const { respondants, responses, unknown_respondants } = performance.metrics
+    const { known_respondants, revenue, average_duration } = performance.metrics
+    const { first_response, last_response } = performance.metrics
     return (
       <div className="crm-report">
         <div className="crm-report-title">
@@ -56,13 +60,63 @@ class Performance extends React.Component {
         <div className="crm-report-chart">
           <canvas ref={ node => this.node = node } className="monitor-chart" />
         </div>
+        <div className="crm-report-metrics">
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Respondants
+            </div>
+            <div className="crm-report-metric-value">
+              { respondants }
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Responses
+            </div>
+            <div className="crm-report-metric-value">
+              { responses }
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Revenue
+            </div>
+            <div className="crm-report-metric-value">
+              { numeral(revenue).format('0.00') }
+            </div>
+          </div>
+        </div>
         <div className="crm-report-table">
           <table className="ui unstackable table">
             <tbody>
               <tr>
-                <td>Responses</td>
+                <td>Unknown Respondants</td>
                 <td className="right aligned">
-                  { this._getStat(performance.metrics.responses) }
+                  { this._getStat(unknown_respondants) }
+                </td>
+              </tr>
+              <tr>
+                <td>Known Respondants</td>
+                <td className="right aligned">
+                  { this._getStat(known_respondants) }
+                </td>
+              </tr>
+              <tr>
+                <td>Average Duration</td>
+                <td className="right aligned">
+                  { average_duration } seconds
+                </td>
+              </tr>
+              <tr>
+                <td>First Response</td>
+                <td className="right aligned">
+                  { first_response ? moment(first_response).format('MM/DD/YY hh:mmA') : 'N/A' }
+                </td>
+              </tr>
+              <tr>
+                <td>Last Response</td>
+                <td className="right aligned">
+                  { last_response ? moment(last_response).format('MM/DD/YY hh:mmA') : 'N/A' }
                 </td>
               </tr>
             </tbody>

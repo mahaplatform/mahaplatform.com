@@ -4,6 +4,8 @@ import moment from 'moment'
 const performanceRoute = async (req, res) => {
 
   const form = await Form.query(qb => {
+    qb.select('crm_forms.*','crm_form_totals.*')
+    qb.innerJoin('crm_form_totals', 'crm_form_totals.form_id', 'crm_forms.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -42,11 +44,16 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  const total = responses.reduce((total, segment) => total + segment.count, 0)
-
   res.status(200).respond({
     metrics: {
-      responses: total
+      respondants: form.get('respondants_count'),
+      known_respondants: form.get('known_respondants_count'),
+      unknown_respondants: form.get('unknown_respondants_count'),
+      responses: form.get('responses_count'),
+      revenue: form.get('revenue'),
+      average_duration: form.get('average_duration'),
+      first_response: form.get('first_response'),
+      last_response: form.get('last_response')
     },
     data: {
       responses: responses.map(segment => ({

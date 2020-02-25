@@ -477,6 +477,8 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('invoice_id').unsigned()
       table.text('referer')
+      table.integer('duration')
+      table.boolean('is_known')
     })
 
     await knex.schema.createTable('crm_senders', (table) => {
@@ -3092,9 +3094,11 @@ union
     await knex.raw(`
       create view crm_email_campaign_results AS
       with emailables as (
-      select crm_email_campaigns.team_id,
-      crm_email_campaigns.id as email_campaign_id
-      from crm_email_campaigns
+      select maha_emails.team_id,
+      maha_emails.email_campaign_id
+      from maha_emails
+      where (maha_emails.email_campaign_id is not null)
+      group by maha_emails.team_id, maha_emails.email_campaign_id
       ), sent as (
       select maha_emails.email_campaign_id,
       count(*) as count
@@ -3128,25 +3132,22 @@ union
       group by maha_emails.email_campaign_id
       ), last_opened as (
       select maha_emails.email_campaign_id,
-      maha_email_activities.created_at as last_opened_at
+      max(maha_email_activities.created_at) as last_opened_at
       from (maha_emails
       join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type))))
       where (maha_emails.email_campaign_id is not null)
-      order by maha_email_activities.created_at desc
-      limit 1
+      group by maha_emails.email_campaign_id
       ), mobile as (
       select maha_emails.email_campaign_id,
-      count(maha_email_activities.*) as count
-      from (maha_emails
-      left join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type) and (maha_email_activities.is_mobile = true))))
-      where (maha_emails.email_campaign_id is not null)
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.is_mobile = true) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), desktop as (
       select maha_emails.email_campaign_id,
-      count(maha_email_activities.*) as count
-      from (maha_emails
-      left join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type) and (maha_email_activities.is_mobile = false))))
-      where (maha_emails.email_campaign_id is not null)
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.is_mobile = false) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), clicked as (
       select maha_emails.email_campaign_id,
@@ -3236,6 +3237,86 @@ union
       from (crm_forms
       left join crm_responses on ((crm_responses.form_id = crm_forms.id)))
       group by crm_forms.id;
+    `)
+
+    await knex.raw(`
+      create view crm_form_totals AS
+      with respondants as (
+      select crm_forms_1.id as form_id,
+      count(distinct crm_responses.contact_id) as total
+      from (crm_forms crm_forms_1
+      left join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
+      group by crm_forms_1.id
+      ), respondant_status as (
+      select distinct on (responses_1.contact_id) responses_1.form_id,
+      responses_1.contact_id,
+      responses_1.is_known
+      from ( select crm_forms_1.id as form_id,
+      crm_responses.contact_id,
+      crm_responses.is_known
+      from (crm_forms crm_forms_1
+      join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
+      order by crm_responses.created_at) responses_1
+      ), known_respondants as (
+      select respondant_status.form_id,
+      count(respondant_status.*) as total
+      from respondant_status
+      where (respondant_status.is_known = true)
+      group by respondant_status.form_id
+      ), unknown_respondants as (
+      select respondant_status.form_id,
+      count(respondant_status.*) as total
+      from respondant_status
+      where (respondant_status.is_known = false)
+      group by respondant_status.form_id
+      ), responses as (
+      select crm_forms_1.id as form_id,
+      count(crm_responses.*) as total
+      from (crm_forms crm_forms_1
+      left join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
+      group by crm_forms_1.id
+      ), revenue as (
+      select crm_responses.form_id,
+      sum(crm_response_totals.revenue) as total
+      from (crm_responses
+      join crm_response_totals on ((crm_response_totals.response_id = crm_responses.id)))
+      group by crm_responses.form_id
+      ), average_duration as (
+      select crm_responses.form_id,
+      (avg(crm_responses.duration))::integer as average
+      from crm_responses
+      group by crm_responses.form_id
+      ), first_response as (
+      select crm_responses.form_id,
+      min(crm_responses.created_at) as created_at
+      from (crm_forms crm_forms_1
+      join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
+      group by crm_responses.form_id
+      ), last_response as (
+      select crm_responses.form_id,
+      max(crm_responses.created_at) as created_at
+      from (crm_forms crm_forms_1
+      join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
+      group by crm_responses.form_id
+      )
+      select crm_forms.id as form_id,
+      coalesce(respondants.total, (0)::bigint) as respondants_count,
+      coalesce(known_respondants.total, (0)::bigint) as known_respondants_count,
+      coalesce(unknown_respondants.total, (0)::bigint) as unknown_respondants_count,
+      coalesce(responses.total, (0)::bigint) as responses_count,
+      coalesce(revenue.total, 0.00) as revenue,
+      coalesce(average_duration.average, 0) as average_duration,
+      first_response.created_at as first_response,
+      last_response.created_at as last_response
+      from ((((((((crm_forms
+      left join respondants on ((respondants.form_id = crm_forms.id)))
+      left join known_respondants on ((known_respondants.form_id = crm_forms.id)))
+      left join unknown_respondants on ((unknown_respondants.form_id = crm_forms.id)))
+      left join responses on ((responses.form_id = crm_forms.id)))
+      left join revenue on ((revenue.form_id = crm_forms.id)))
+      left join average_duration on ((average_duration.form_id = crm_forms.id)))
+      left join first_response on ((first_response.form_id = crm_forms.id)))
+      left join last_response on ((last_response.form_id = crm_forms.id)));
     `)
 
     await knex.raw(`
@@ -3396,6 +3477,18 @@ union
       from (crm_mailing_addresses
       join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
       where crm_mailing_addresses.is_primary;
+    `)
+
+    await knex.raw(`
+      create view crm_response_totals AS
+      select crm_responses.id as response_id,
+      case
+      when (crm_responses.referer is not null) then split_part(crm_responses.referer, '/'::text, 3)
+      else null::text
+      end as referer_domain,
+      finance_invoice_payments.paid as revenue
+      from (crm_responses
+      join finance_invoice_payments on ((finance_invoice_payments.invoice_id = crm_responses.invoice_id)));
     `)
 
     await knex.raw(`
