@@ -21,10 +21,10 @@ class List extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-attachments-drive-items">
+      <div className="maha-attachments-list-items">
         { records.map((item, index) => (
           <div className={ this._getClass(item) } key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
-            <div className="maha-attachments-drive-item-icon">
+            <div className="maha-attachments-list-item-icon">
               { item.type === 'folder' ?
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
@@ -32,10 +32,10 @@ class List extends React.Component {
                 <AssetThumbnail { ...item.asset } />
               }
             </div>
-            <div className="maha-attachments-drive-item-name">
+            <div className="maha-attachments-list-item-name">
               { item.label }
             </div>
-            <div className="maha-attachments-drive-item-action">
+            <div className="maha-attachments-list-item-action">
               <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
             </div>
           </div>
@@ -45,7 +45,7 @@ class List extends React.Component {
   }
 
   _getClass(item) {
-    const classes = ['maha-attachments-drive-item']
+    const classes = ['maha-attachments-list-item']
     if(this._getDisabled(item)) classes.push('disabled')
     return classes.join(' ')
   }
@@ -80,11 +80,11 @@ class List extends React.Component {
   _handleChooseAsset(asset) {
     const { files, onAdd, onRemove } = this.props
     const index = _.findIndex(files, { id: asset.id, service: 'maha' })
-    if(index < 0) return onAdd({
+    if(index >= 0) onRemove(asset)
+    return onAdd({
       ...asset,
       status: 'imported'
     })
-    onRemove(asset)
   }
 
 }

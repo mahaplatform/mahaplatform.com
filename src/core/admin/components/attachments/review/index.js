@@ -1,4 +1,4 @@
-import AssetIcon from '../../asset/icon'
+import AssetThumbnail from '../../asset/thumbnail'
 import Message from '../../message'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -22,37 +22,24 @@ class Review extends React.Component {
           Close
         </div>
         <div className="maha-attachments-review-body">
-          <div className="maha-attachments-review">
-            { files.length > 0 ?
-              <div className="maha-attachments-items">
-                { files.map((file, index) => (
-                  <div className="maha-attachments-item" key={`plain_${index}`}>
-                    <div className="maha-attachments-item-preview">
-                      { file.thumbnail ?
-                        <div className="maha-attachments-item-image">
-                          <div style={{backgroundImage:`url('${file.thumbnail}')`}}>
-                            <img src={ `/admin/images/services/${file.service}.png` } />
-                          </div>
-                        </div> :
-                        <div className="maha-attachments-item-icon">
-                          <AssetIcon content_type={ file.content_type } source={ file.service } />
-                        </div>
-                      }
-                    </div>
-                    <div className="maha-attachments-item-label">
-                      <div className="maha-attachments-item-name">
-                        { file.name }
-                      </div>
-                    </div>
-                    <div className="maha-attachments-item-remove">
-                      <i className="fa fa-times" onClick={ this._handleRemove.bind(this, index) } />
-                    </div>
+          { files.length > 0 ?
+            <div className="maha-attachments-list-items">
+              { files.map((file, index) => (
+                <div className="maha-attachments-list-item" key={`file_${index}`}>
+                  <div className="maha-attachments-list-item-icon">
+                    <AssetThumbnail { ...file } />
                   </div>
-                )) }
-              </div> :
-              <Message { ...this._getEmpty() } />
-            }
-          </div>
+                  <div className="maha-attachments-list-item-name">
+                    { file.name }
+                  </div>
+                  <div className="maha-attachments-list-item-remove">
+                    <i className="fa fa-times" onClick={ this._handleRemove.bind(this, index) } />
+                  </div>
+                </div>
+              )) }
+            </div> :
+            <Message { ...this._getEmpty() } />
+          }
         </div>
       </div>
     )

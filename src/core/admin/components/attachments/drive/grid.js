@@ -21,11 +21,11 @@ class Grid extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-attachments-drive-grid">
+      <div className="maha-attachments-grid-items">
         { records.map((item, index) => (
           <div className={ this._getClass(item) } key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
-            <div className="maha-attachments-drive-grid-item-preview">
-              <div className="maha-attachments-drive-grid-item-icon">
+            <div className="maha-attachments-grid-item-preview">
+              <div className="maha-attachments-grid-item-icon">
                 { item.type === 'folder' ?
                   <div className="maha-asset-icon">
                     <i className="fa fa-fw fa-folder" />
@@ -33,11 +33,11 @@ class Grid extends React.Component {
                   <AssetThumbnail width={ 190 } { ...item.asset } />
                 }
               </div>
-              <div className="maha-attachments-drive-grid-item-action">
+              <div className="maha-attachments-grid-item-action">
                 <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
               </div>
             </div>
-            <div className="maha-attachments-drive-grid-item-name">
+            <div className="maha-attachments-grid-item-name">
               { item.label }
             </div>
           </div>
@@ -47,7 +47,7 @@ class Grid extends React.Component {
   }
 
   _getClass(item) {
-    const classes = ['maha-attachments-drive-grid-item']
+    const classes = ['maha-attachments-grid-item']
     if(this._getDisabled(item)) classes.push('disabled')
     return classes.join(' ')
   }
