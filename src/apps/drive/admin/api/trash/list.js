@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
       qb.leftJoin('drive_folders', 'drive_folders.id', 'drive_items.folder_id')
       qb.whereRaw('drive_items.deleted_at is not null and (drive_items.folder_id is null or drive_folders.deleted_at is null)')
       qb.whereRaw('drive_items.type != ?', 'metafile')
-      qb.where('team_id', req.team.get('id'))
+      qb.where('drive_items.team_id', req.team.get('id'))
     },
     sort: {
       params: req.query.$sort,
