@@ -7,7 +7,8 @@ export const INITIAL_STATE = {
   q: '',
   preview: specials.root,
   selected: [],
-  view: 'list'
+  view: 'list',
+  info: false
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -82,12 +83,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       details: action.show
     }
 
+  case 'TOGGLE_INFO':
+    return {
+      ...state,
+      info: !state.info
+    }
+
   case 'TOGGLE_VIEW':
     return {
       ...state,
       view: state.view === 'list' ? 'grid' : 'list'
     }
-    
+
   default:
     return state
 

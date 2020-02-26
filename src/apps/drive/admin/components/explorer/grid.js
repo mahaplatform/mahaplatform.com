@@ -9,6 +9,7 @@ class Grid extends React.Component {
 
   static propTypes = {
     folder: PropTypes.object,
+    info: PropTypes.bool,
     preview: PropTypes.object,
     records: PropTypes.array,
     selected: PropTypes.array,
@@ -29,13 +30,20 @@ class Grid extends React.Component {
     const { records } = this.props
     return (
       <DnD { ...this._getDnD() }>
-        <div className="drive-grid-items">
+        <div className={ this._getClass() }>
           { records.map((item, index) => (
             <Item key={`item_${item.code}`} { ...this._getItem(item) } />
           )) }
         </div>
       </DnD>
     )
+  }
+
+  _getClass() {
+    const { info } = this.props
+    const classes = ['drive-grid-items']
+    if(info) classes.push('info')
+    return classes.join(' ')
   }
 
   _getDnD() {
@@ -49,9 +57,10 @@ class Grid extends React.Component {
   }
 
   _getItem(item) {
-    const { folder, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onTasks, onUpdateFile } = this.props
+    const { folder, info, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder,
+      info,
       items: records,
       item,
       preview,
@@ -89,10 +98,9 @@ class Grid extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  info: state.drive.explorer.info,
   preview: state.drive.explorer.preview,
   selected: state.drive.explorer.selected
 })
 
-Grid = connect(mapStateToProps)(Grid)
-
-export default Grid
+export default connect(mapStateToProps)(Grid)

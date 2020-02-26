@@ -20,6 +20,7 @@ class Explorer extends React.Component {
     code: PropTypes.string,
     details: PropTypes.bool,
     folders: PropTypes.array,
+    info: PropTypes.bool,
     preview: PropTypes.object,
     q: PropTypes.string,
     selected: PropTypes.array,
@@ -35,6 +36,7 @@ class Explorer extends React.Component {
     onSetQuery: PropTypes.func,
     onShowDetails: PropTypes.func,
     onTasks: PropTypes.func,
+    onToggleInfo: PropTypes.func,
     onToggleView: PropTypes.func,
     onUp: PropTypes.func,
     onUpdateFile: PropTypes.func
@@ -46,11 +48,12 @@ class Explorer extends React.Component {
   _handleShared = this._handleShared.bind(this)
   _handleStarred = this._handleStarred.bind(this)
   _handleTasks = this._handleTasks.bind(this)
+  _handleToggleInfo = this._handleToggleInfo.bind(this)
   _handleToggleView = this._handleToggleView.bind(this)
   _handleTrash = this._handleTrash.bind(this)
 
   render() {
-    const { q } = this.props
+    const { info, q } = this.props
     return (
       <div className={ this._getClass() }>
         <div className="drive-heading">
@@ -61,8 +64,8 @@ class Explorer extends React.Component {
             <div className="drive-heading-action" onClick={ this._handleToggleView }>
               <i className={`fa fa-${ this._getView() }`} />
             </div>
-            <div className="drive-heading-action">
-              <i className="fa fa-info" />
+            <div className="drive-heading-action" onClick={ this._handleToggleInfo }>
+              <i className={`fa fa-${ this._getInfo() }`} />
             </div>
           </div>
         </div>
@@ -74,7 +77,9 @@ class Explorer extends React.Component {
             </Uploader>
           </div>
           <div className="drive-overlay" onClick={ this._handleShowDetails.bind(this, false) } />
-          <Details { ...this._getDetails() } />
+          { info &&
+            <Details { ...this._getDetails() } />
+          }
         </div>
       </div>
     )
@@ -202,6 +207,11 @@ class Explorer extends React.Component {
     }
   }
 
+  _getInfo() {
+    const { info } = this.props
+    return info ? 'info-circle' : 'info'
+  }
+
   _getView() {
     const { view } = this.props
     return view === 'list' ? 'list' : 'th'
@@ -252,6 +262,10 @@ class Explorer extends React.Component {
         { component: <Tasks { ...this._getTasks(items) } /> }
       ]
     })
+  }
+
+  _handleToggleInfo() {
+    this.props.onToggleInfo()
   }
 
   _handleToggleView() {

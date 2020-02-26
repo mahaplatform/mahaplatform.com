@@ -9,6 +9,7 @@ class List extends React.Component {
 
   static propTypes = {
     folder: PropTypes.object,
+    info: PropTypes.bool,
     preview: PropTypes.object,
     records: PropTypes.array,
     selected: PropTypes.array,
@@ -49,9 +50,10 @@ class List extends React.Component {
   }
 
   _getItem(item) {
-    const { folder, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onTasks, onUpdateFile } = this.props
+    const { folder, info, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder,
+      info,
       items: records,
       item,
       preview,
@@ -89,6 +91,7 @@ class List extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  info: state.drive.explorer.info,
   preview: state.drive.explorer.preview,
   selected: state.drive.explorer.selected
 })

@@ -107,6 +107,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       color: 'red',
       modal: <Tags filter={ selected.filter } />
     },{
+      label: 'Add Consent',
+      color: 'red',
+      modal: <Tags filter={ selected.filter } />
+    },{
       label: 'Add to List',
       color: 'red',
       modal: <Lists filter={ selected.filter } />

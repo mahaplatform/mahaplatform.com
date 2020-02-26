@@ -15,6 +15,7 @@ class GridItem extends React.Component {
   static propTypes = {
     canDrop: PropTypes.bool,
     dragging: PropTypes.bool,
+    info: PropTypes.bool,
     isDragging: PropTypes.bool,
     isOver: PropTypes.bool,
     items: PropTypes.array,
@@ -103,8 +104,9 @@ class GridItem extends React.Component {
   }
 
   _handleClick(e) {
-    const { item, preview } = this.props
+    const { info, item, preview } = this.props
     e.stopPropagation()
+    if(!info) return this._handleDoubleClick(e)
     if(preview.code === item.code) return this._handleDoubleClick(e)
     if(document.body.clientWidth > 768) return this._handlePreview(item)
     this._handleDoubleClick(e)
