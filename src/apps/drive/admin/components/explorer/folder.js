@@ -1,7 +1,8 @@
 import { Attachments, Infinite, Message } from 'maha-admin'
 import * as selectors from './selectors'
 import PropTypes from 'prop-types'
-import Items from './items'
+import Grid from './grid'
+import List from './list'
 import React from 'react'
 import Root from './root'
 import _ from 'lodash'
@@ -18,6 +19,7 @@ class Folder extends React.Component {
     active: PropTypes.bool,
     folder: PropTypes.object,
     records: PropTypes.array,
+    view: PropTypes.array,
     onAddSelected: PropTypes.func,
     onClearSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
@@ -31,6 +33,7 @@ class Folder extends React.Component {
     onStarred: PropTypes.func,
     onTasks: PropTypes.func,
     onTrash: PropTypes.func,
+    onToggleView: PropTypes.func,
     onUp: PropTypes.func,
     onUpdateFile: PropTypes.func
   }
@@ -44,15 +47,16 @@ class Folder extends React.Component {
   _handleRefreshFolder = this._handleRefreshFolder.bind(this)
   _handleShowDetails = this._handleShowDetails.bind(this)
   _handleTasks = this._handleTasks.bind(this)
+  _handleToggleView = this._handleToggleView.bind(this)
   _handleUp = this._handleUp.bind(this)
 
   render() {
-    const { folder } = this.props
+    const { folder, view } = this.props
     return (
       <div { ...this._getContainer() }>
         <div className="drive-header">
-          <div className="drive-header-breadcrumb" onClick={ this._handleUp }>
-            <div className="drive-header-back">
+          <div className="drive-header-breadcrumb">
+            <div className="drive-header-back" onClick={ this._handleUp }>
               { folder.code === 'root' ?
                 <i className="fa fa-fw fa-home" /> :
                 <i className="fa fa-fw fa-chevron-left" />
@@ -63,20 +67,27 @@ class Folder extends React.Component {
             </div>
           </div>
           { folder.code !== 'root' ?
+            <div className="drive-header-icon" onClick={ this._handleToggleView }>
+              <i className={`fa fa-${ this._getView() }`} />
+            </div> : <div className="drive-header-icon" />
+          }
+          { folder.code !== 'root' ?
             <div className="drive-header-icon" onClick={ this._handleTasks }>
               <i className="fa fa-fw fa-ellipsis-v" />
             </div> : <div className="drive-header-icon" />
           }
         </div>
         <div className="drive-results" { ...this._getResults() }>
-          <div className="drive-results-header">
-            <div className="drive-results-header-item drive-name">Name</div>
-            <div className="drive-results-header-item drive-owner">Owner</div>
-            <div className="drive-results-header-item drive-updated">Updated</div>
-            <div className="drive-results-header-item drive-size">Size</div>
-            <div className="drive-results-header-item drive-action" />
-            <div className="drive-results-header-item drive-action" />
-          </div>
+          { view === 'list' && folder.code !== 'root' &&
+            <div className="drive-results-header">
+              <div className="drive-results-header-item drive-name">Name</div>
+              <div className="drive-results-header-item drive-owner">Owner</div>
+              <div className="drive-results-header-item drive-updated">Updated</div>
+              <div className="drive-results-header-item drive-size">Size</div>
+              <div className="drive-results-header-item drive-action" />
+              <div className="drive-results-header-item drive-action" />
+            </div>
+          }
           <div className="drive-results-body">
             { folder.code === 'root' ?
               <Root { ...this._getRoot() } /> :
@@ -202,21 +213,23 @@ class Folder extends React.Component {
   }
 
   _getShared() {
+    const { view } = this.props
     return {
       endpoint: '/api/admin/drive/shared',
       empty: <Message { ...this._getEmptyShared() } />,
       notFound: <Message { ...this._getEmptyShared() } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: this._getItems()
     }
   }
 
   _getStarred() {
+    const { view } = this.props
     return {
       endpoint: '/api/admin/drive/starred',
       empty: <Message { ...this._getEmptyStarred() } />,
       notFound: <Message { ...this._getEmptyStarred() } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: this._getItems(),
       selectors
     }
@@ -224,12 +237,13 @@ class Folder extends React.Component {
 
   _getTrash() {
     const { cacheKey } = this.state
+    const { view } = this.props
     return {
       cacheKey,
       endpoint: '/api/admin/drive/trash',
       empty: <Message { ...this._getEmptyTrash() } />,
       notFound: <Message { ...this._getEmptyTrash() } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: this._getItems(),
       selectors
     }
@@ -237,13 +251,14 @@ class Folder extends React.Component {
 
   _getFolder(folder) {
     const { cacheKey } = this.state
+    const { view } = this.props
     return {
       cacheKey,
       endpoint: '/api/admin/drive/items',
       ...this._getFilter(folder.code),
       empty: <Message { ...this._getEmptyFolder() } />,
       notFound: <Message { ...this._getEmptyFolder() } />,
-      layout: Items,
+      layout: view === 'list' ? List : Grid,
       props: this._getItems()
     }
   }
@@ -271,6 +286,11 @@ class Folder extends React.Component {
     if(code === 'starred') return '/admin/drive/starred'
     if(code === 'trash') return '/admin/drive/trash'
     return `/admin/drive/folders/${code}`
+  }
+
+  _getView() {
+    const { view } = this.props
+    return view === 'list' ? 'list' : 'th'
   }
 
   _handleFocus() {
@@ -314,6 +334,10 @@ class Folder extends React.Component {
   _handleShowDetails(e) {
     e.stopPropagation()
     this.props.onShowDetails()
+  }
+
+  _handleToggleView() {
+    this.props.onToggleView()
   }
 
 }

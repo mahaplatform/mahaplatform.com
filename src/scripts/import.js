@@ -96,32 +96,40 @@ const processor = async () => {
 
       } else if(item.type === 'file') {
 
-        const file = await File.query(qb => {
-          qb.where('fullpath', fullpath)
-        }).fetch({
-          transacting: req.trx
-        })
+        try {
 
-        if(file) {
-
-          log(fullpath, 'SKIPPED')
-
-        } else {
-
-          const asset = await createAsset(req, {
-            team_id: req.team.get('id'),
-            user_id: req.user.get('id'),
-            source_id: 1,
-            file_name: label,
-            file_data: fs.readFileSync(item.fullpath)
-          }, req.trx)
-
-          await createFile(req, {
-            asset_id: asset.get('id'),
-            folder_id: parent ? parent.get('id') : null
+          const file = await File.query(qb => {
+            qb.where('fullpath', fullpath)
+          }).fetch({
+            transacting: req.trx
           })
 
-          log(fullpath, 'CREATED')
+          if(file) {
+
+            log(fullpath, 'SKIPPED')
+
+          } else {
+
+            const asset = await createAsset(req, {
+              team_id: req.team.get('id'),
+              user_id: req.user.get('id'),
+              source_id: 1,
+              file_name: label,
+              file_data: fs.readFileSync(item.fullpath)
+            }, req.trx)
+
+            await createFile(req, {
+              asset_id: asset.get('id'),
+              folder_id: parent ? parent.get('id') : null
+            })
+
+            log(fullpath, 'CREATED')
+
+          }
+
+        } catch(e) {
+
+          log(fullpath, 'FAILED')
 
         }
 

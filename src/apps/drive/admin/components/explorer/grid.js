@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Item from './item'
+import Item from './grid_item'
 import React from 'react'
 import DnD from './dnd'
 import _ from 'lodash'
 
-class Items extends React.Component {
+class Grid extends React.Component {
 
   static propTypes = {
     folder: PropTypes.object,
@@ -29,7 +29,7 @@ class Items extends React.Component {
     const { records } = this.props
     return (
       <DnD { ...this._getDnD() }>
-        <div className="drive-items">
+        <div className="drive-grid-items">
           { records.map((item, index) => (
             <Item key={`item_${item.code}`} { ...this._getItem(item) } />
           )) }
@@ -93,6 +93,6 @@ const mapStateToProps = (state, props) => ({
   selected: state.drive.explorer.selected
 })
 
-Items = connect(mapStateToProps)(Items)
+Grid = connect(mapStateToProps)(Grid)
 
-export default Items
+export default Grid

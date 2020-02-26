@@ -6,7 +6,8 @@ export const INITIAL_STATE = {
   folders: [ specials.root ],
   q: '',
   preview: specials.root,
-  selected: []
+  selected: [],
+  view: 'list'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -81,6 +82,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       details: action.show
     }
 
+  case 'TOGGLE_VIEW':
+    return {
+      ...state,
+      view: state.view === 'list' ? 'grid' : 'list'
+    }
+    
   default:
     return state
 

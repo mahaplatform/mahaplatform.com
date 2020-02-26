@@ -78,3 +78,7 @@ export const showDetails = (show) => ({
   type: 'SHOW_DETAILS',
   show
 })
+
+export const toggleView = () => ({
+  type: 'TOGGLE_VIEW'
+})

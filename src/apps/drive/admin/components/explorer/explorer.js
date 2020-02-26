@@ -5,7 +5,7 @@ import Uploader from '../uploader'
 import Details from '../details'
 import Folder from './folder'
 import Tasks from '../tasks'
-import Items from './items'
+import List from './list'
 import React from 'react'
 
 class Explorer extends React.Component {
@@ -23,6 +23,7 @@ class Explorer extends React.Component {
     preview: PropTypes.object,
     q: PropTypes.string,
     selected: PropTypes.array,
+    view: PropTypes.string,
     onAddSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onClearSelected: PropTypes.func,
@@ -34,6 +35,7 @@ class Explorer extends React.Component {
     onSetQuery: PropTypes.func,
     onShowDetails: PropTypes.func,
     onTasks: PropTypes.func,
+    onToggleView: PropTypes.func,
     onUp: PropTypes.func,
     onUpdateFile: PropTypes.func
   }
@@ -84,38 +86,13 @@ class Explorer extends React.Component {
     return classes.join(' ')
   }
 
-  _getSearchBox() {
-    const { onSetQuery } = this.props
+  _getDetails() {
+    const { preview, onCreateFile, onShowDetails } = this.props
     return {
-      prompt: 'Find a file...',
-      onChange: onSetQuery
-    }
-  }
-
-  _getStack() {
-    const { folders } = this.props
-    return {
-      cards: [
-        ...folders.map((folder, index) => (
-          { component: Folder, props: this._getFolder(folder) }
-        ))
-      ]
-    }
-  }
-
-  _getPreview() {
-    return this.props.preview
-  }
-
-  _getInfinite() {
-    const { q } = this.props
-    return {
-      endpoint: '/api/admin/drive/items',
-      filter: { q, type: { $eq: 'file' } },
-      empty: <Message { ...this._getEmpty() } />,
-      notFound: <Message { ...this._getEmpty() } />,
-      layout: Items,
-      props: this._getItems()
+      item: preview,
+      onCreateFile,
+      onShowDetails,
+      onChangeFolder: this._handleChangeFolder
     }
   }
 
@@ -127,7 +104,43 @@ class Explorer extends React.Component {
     }
   }
 
-  _getItems() {
+  _getFolder(folder) {
+    const { view, onAddSelected, onClearSelected, onCreateFile, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails, onToggleView } = this.props
+    return {
+      folder,
+      view,
+      onAddSelected,
+      onClearSelected,
+      onCreateFile,
+      onPreview,
+      onReplaceSelected,
+      onUpdateFile,
+      onUp,
+      onShowDetails,
+      onToggleView,
+      onChangeFolder: this._handleChangeFolder,
+      onDrive: this._handleDrive,
+      onMove: this._handleMove,
+      onShared: this._handleShared,
+      onStarred: this._handleStarred,
+      onTasks: this._handleTasks,
+      onTrash: this._handleTrash
+    }
+  }
+
+  _getInfinite() {
+    const { q } = this.props
+    return {
+      endpoint: '/api/admin/drive/items',
+      filter: { q, type: { $eq: 'file' } },
+      empty: <Message { ...this._getEmpty() } />,
+      notFound: <Message { ...this._getEmpty() } />,
+      layout: List,
+      props: this._getList()
+    }
+  }
+
+  _getList() {
     const { onAddSelected, onClearSelected, onCreateFile, onMove, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder: {
@@ -145,35 +158,26 @@ class Explorer extends React.Component {
     }
   }
 
-  _getDetails() {
-    const { preview, onCreateFile, onShowDetails } = this.props
+  _getPreview() {
+    return this.props.preview
+  }
+
+  _getSearchBox() {
+    const { onSetQuery } = this.props
     return {
-      item: preview,
-      onCreateFile,
-      onShowDetails,
-      onChangeFolder: this._handleChangeFolder
+      prompt: 'Find a file...',
+      onChange: onSetQuery
     }
   }
 
-  _getFolder(folder) {
-    const { onAddSelected, onClearSelected, onCreateFile, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails } = this.props
+  _getStack() {
+    const { folders } = this.props
     return {
-      folder,
-      onAddSelected,
-      onClearSelected,
-      onCreateFile,
-      onPreview,
-      onReplaceSelected,
-      onUpdateFile,
-      onUp,
-      onShowDetails,
-      onChangeFolder: this._handleChangeFolder,
-      onDrive: this._handleDrive,
-      onMove: this._handleMove,
-      onShared: this._handleShared,
-      onStarred: this._handleStarred,
-      onTasks: this._handleTasks,
-      onTrash: this._handleTrash
+      cards: [
+        ...folders.map((folder, index) => (
+          { component: Folder, props: this._getFolder(folder) }
+        ))
+      ]
     }
   }
 
@@ -194,28 +198,9 @@ class Explorer extends React.Component {
     this.props.onChangeFolder(folder)
   }
 
-  _handleShowDetails(show) {
-    this.props.onShowDetails(show)
-  }
-
   _handleDrive() {
     this.props.onChangeFolder(specials.drive)
     this.props.onPreview(specials.drive)
-  }
-
-  _handleShared() {
-    this.props.onChangeFolder(specials.shared)
-    this.props.onPreview(specials.shared)
-  }
-
-  _handleStarred() {
-    this.props.onChangeFolder(specials.starred)
-    this.props.onPreview(specials.starred)
-  }
-
-  _handleTrash() {
-    this.props.onChangeFolder(specials.trash)
-    this.props.onPreview(specials.trash)
   }
 
   _handleFetchFolder(code) {
@@ -232,12 +217,31 @@ class Explorer extends React.Component {
     this.props.onMove(codes, target.item_id)
   }
 
+  _handleShared() {
+    this.props.onChangeFolder(specials.shared)
+    this.props.onPreview(specials.shared)
+  }
+
+  _handleShowDetails(show) {
+    this.props.onShowDetails(show)
+  }
+
+  _handleStarred() {
+    this.props.onChangeFolder(specials.starred)
+    this.props.onPreview(specials.starred)
+  }
+
   _handleTasks(items) {
     this.context.tasks.open({
       items: [
         { component: <Tasks { ...this._getTasks(items) } /> }
       ]
     })
+  }
+
+  _handleTrash() {
+    this.props.onChangeFolder(specials.trash)
+    this.props.onPreview(specials.trash)
   }
 
 }

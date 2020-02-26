@@ -5,7 +5,7 @@ import React from 'react'
 import bytes from 'bytes'
 import _ from 'lodash'
 
-class Item extends React.Component {
+class GridItem extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -41,35 +41,25 @@ class Item extends React.Component {
     const { item } = this.props
     return (
       <div { ...this._getItem(item) }>
-        <div className="drive-item-meta drive-name">
-          <div className="drive-item-token">
-            <div className="drive-item-token-icon">
-              { item.type === 'folder' ?
-                <div className="maha-asset-icon">
-                  <i className="fa fa-fw fa-folder" />
-                </div> :
-                <AssetThumbnail { ...item.asset } />
-              }
-            </div>
-            <div className="drive-item-token-label">
-              { item.label }
-            </div>
+        <div className="drive-grid-item-preview">
+          <div className="drive-grid-item-icon">
+            { item.type === 'folder' ?
+              <div className="maha-asset-icon">
+                <i className="fa fa-fw fa-folder" />
+              </div> :
+              <AssetThumbnail { ...item.asset } width={ 200 } />
+            }
           </div>
         </div>
-        <div className="drive-item-meta drive-owner">
-          { item.owned_by }
+        <div className="drive-grid-item-label">
+          <strong>{ item.label }</strong><br />
+          { item.file_size && bytes(item.file_size, { decimalPlaces: 0, unitSeparator: ' ' }) }
         </div>
-        <div className="drive-item-meta drive-updated">
-          { moment(item.updated_at).format('MMM DD, YYYY') }
-        </div>
-        <div className="drive-item-meta drive-size">
-          { item.file_size ? bytes(item.file_size, { decimalPlaces: 0, unitSeparator: ' ' }) : '--' }
-        </div>
-        <div className="drive-item-meta drive-action">
+        <div className="drive-grid-item-actions">
           <Star { ...this._getStar(item) } />
-        </div>
-        <div className="drive-item-meta drive-action" onClick={ this._handleTasks }>
-          <i className="fa fa-fw fa-ellipsis-v" />
+          <div className="drive-grid-item-action" onClick={ this._handleTasks }>
+            <i className="fa fa-fw fa-ellipsis-v" />
+          </div>
         </div>
       </div>
     )
@@ -78,7 +68,7 @@ class Item extends React.Component {
   _getClass() {
     const { dragging, item, selected, isOver } = this.props
     const isSelected = _.find(selected, { code: item.code }) !== undefined
-    const classes = ['drive-item']
+    const classes = ['drive-grid-item']
     if(isSelected) classes.push('selected')
     if(isOver) classes.push('over')
     if(isSelected && dragging) classes.push('dragging')
@@ -153,4 +143,4 @@ class Item extends React.Component {
 
 }
 
-export default Item
+export default GridItem

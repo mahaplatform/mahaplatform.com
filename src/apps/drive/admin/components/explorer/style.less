@@ -327,7 +327,10 @@
   }
 }
 @media (max-width: 768px) {
-  .drive-head,
+  .drive-item {
+    width: 100vw;
+  }
+  .drive-results-header,
   .drive-items {
     .drive-owner,
     .drive-updated,
@@ -355,4 +358,75 @@
       }
     }
   }
+}
+
+
+.drive-grid-items {
+  padding: 0.2em;
+  overflow: hidden;
+}
+.drive-grid-item {
+  background-color: fadeout(@black, 90);
+  position: relative;
+  float: left;
+  cursor: pointer;
+  overflow: hidden;
+  margin: 0.2em;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: ~"calc(100% / 3 - 0.4em)";
+  }
+  @media (min-width: 769px) {
+    width: ~"calc(100% / 7 - 0.4em)";
+  }
+}
+.drive-grid-item-preview {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+}
+.drive-grid-item-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  .maha-asset-image {
+    flex: 1;
+  }
+  .maha-image {
+    border-radius: 0;
+  }
+  .maha-asset-icon {
+    margin: auto;
+    .fa {
+      font-size: 4em;
+    }
+    .fa-folder {
+      color: @yellow;
+    }
+  }
+}
+.drive-grid-item-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+.drive-grid-item-action {
+  flex: 1;
+  text-shadow: 0 0 2px fadeout(@black, 90);
+  padding: 0.4em;
+  color: @white;
+}
+.drive-grid-item-label {
+  padding: 0.4em 0.8em;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
