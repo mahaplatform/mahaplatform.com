@@ -18,7 +18,7 @@ const performanceRoute = async (req, res) => {
 
   const result = await EmailCampaignResult.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('email_campaign_id', campaign.get('id'))
+    qb.where('id', campaign.get('id'))
   }).fetch({
     transacting: req.trx
   })

@@ -3093,13 +3093,7 @@ union
 
     await knex.raw(`
       create view crm_email_campaign_results AS
-      with emailables as (
-      select maha_emails.team_id,
-      maha_emails.email_campaign_id
-      from maha_emails
-      where (maha_emails.email_campaign_id is not null)
-      group by maha_emails.team_id, maha_emails.email_campaign_id
-      ), sent as (
+      with sent as (
       select maha_emails.email_campaign_id,
       count(*) as count
       from maha_emails
@@ -3195,8 +3189,8 @@ union
       where (maha_emails.was_unsubscribed = true)
       group by maha_emails.email_campaign_id
       )
-      select emailables.team_id,
-      emailables.email_campaign_id,
+      select crm_email_campaigns.team_id,
+      crm_email_campaigns.id,
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
@@ -3212,22 +3206,22 @@ union
       coalesce(webviewed.count, (0)::bigint) as webviewed,
       coalesce(complained.count, (0)::bigint) as complained,
       coalesce(unsubscribed.count, (0)::bigint) as unsubscribed
-      from (((((((((((((((emailables
-      left join sent on ((sent.email_campaign_id = emailables.email_campaign_id)))
-      left join delivered on ((delivered.email_campaign_id = emailables.email_campaign_id)))
-      left join bounced on ((bounced.email_campaign_id = emailables.email_campaign_id)))
-      left join opened on ((opened.email_campaign_id = emailables.email_campaign_id)))
-      left join total_opened on ((total_opened.email_campaign_id = emailables.email_campaign_id)))
-      left join last_opened on ((last_opened.email_campaign_id = emailables.email_campaign_id)))
-      left join mobile on ((mobile.email_campaign_id = emailables.email_campaign_id)))
-      left join desktop on ((desktop.email_campaign_id = emailables.email_campaign_id)))
-      left join clicked on ((clicked.email_campaign_id = emailables.email_campaign_id)))
-      left join total_clicked on ((total_clicked.email_campaign_id = emailables.email_campaign_id)))
-      left join forwarded on ((forwarded.email_campaign_id = emailables.email_campaign_id)))
-      left join shared on ((shared.email_campaign_id = emailables.email_campaign_id)))
-      left join webviewed on ((webviewed.email_campaign_id = emailables.email_campaign_id)))
-      left join complained on ((complained.email_campaign_id = emailables.email_campaign_id)))
-      left join unsubscribed on ((unsubscribed.email_campaign_id = emailables.email_campaign_id)));
+      from (((((((((((((((crm_email_campaigns
+      left join sent on ((sent.email_campaign_id = crm_email_campaigns.id)))
+      left join delivered on ((delivered.email_campaign_id = crm_email_campaigns.id)))
+      left join bounced on ((bounced.email_campaign_id = crm_email_campaigns.id)))
+      left join opened on ((opened.email_campaign_id = crm_email_campaigns.id)))
+      left join total_opened on ((total_opened.email_campaign_id = crm_email_campaigns.id)))
+      left join last_opened on ((last_opened.email_campaign_id = crm_email_campaigns.id)))
+      left join mobile on ((mobile.email_campaign_id = crm_email_campaigns.id)))
+      left join desktop on ((desktop.email_campaign_id = crm_email_campaigns.id)))
+      left join clicked on ((clicked.email_campaign_id = crm_email_campaigns.id)))
+      left join total_clicked on ((total_clicked.email_campaign_id = crm_email_campaigns.id)))
+      left join forwarded on ((forwarded.email_campaign_id = crm_email_campaigns.id)))
+      left join shared on ((shared.email_campaign_id = crm_email_campaigns.id)))
+      left join webviewed on ((webviewed.email_campaign_id = crm_email_campaigns.id)))
+      left join complained on ((complained.email_campaign_id = crm_email_campaigns.id)))
+      left join unsubscribed on ((unsubscribed.email_campaign_id = crm_email_campaigns.id)));
     `)
 
     await knex.raw(`

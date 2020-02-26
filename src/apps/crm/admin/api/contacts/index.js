@@ -6,6 +6,7 @@ import channels from './channels'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import batch from './batch'
 import calls from './calls'
 import notes from './notes'
 import edit from './edit'
@@ -19,6 +20,8 @@ const router = new Router({ mergeParams: true })
 router.get('/', list)
 
 router.post('/', create)
+
+router.post('/batch', batch)
 
 router.get('/:id', show)
 

@@ -115,7 +115,7 @@ export const getRecipients = async (req, params) => {
       search: ['first_name','last_name','email']
     },
     sort: {
-      params: req.query.$sort,
+      params: req.query ? req.query.$sort : null,
       defaults: 'last_name',
       allowed: ['id','first_name','last_name','email','phone']
     },
