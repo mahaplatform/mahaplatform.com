@@ -53,8 +53,8 @@ class Folder extends React.Component {
     return (
       <div { ...this._getContainer() }>
         <div className="drive-header">
-          <div className="drive-header-breadcrumb">
-            <div className="drive-header-back" onClick={ this._handleUp }>
+          <div className="drive-header-breadcrumb" onClick={ this._handleUp }>
+            <div className="drive-header-back">
               { folder.code === 'root' ?
                 <i className="fa fa-fw fa-home" /> :
                 <i className="fa fa-fw fa-chevron-left" />

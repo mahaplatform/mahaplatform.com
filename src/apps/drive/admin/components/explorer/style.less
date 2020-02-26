@@ -382,11 +382,10 @@
     }
   }
 }
-
-
 .drive-grid-items {
-  padding: 0.2em;
   overflow: hidden;
+  padding: 0.2em;
+  flex: 1;
 }
 .drive-grid-item {
   background-color: fadeout(@black, 90);
@@ -419,9 +418,11 @@
   bottom: 0;
   display: flex;
   .maha-asset-thumbnail {
+    display: flex;
     flex: 1;
   }
   .maha-image {
+    flex: 1;
     border-radius: 0;
   }
   .maha-asset-icon {
@@ -454,6 +455,7 @@
 }
 .drive-grid-item-label {
   padding: 0.4em 0.8em;
+  font-size: 0.8em;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
