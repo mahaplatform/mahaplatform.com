@@ -1,6 +1,5 @@
 import { Star, AssetThumbnail } from 'maha-admin'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import React from 'react'
 import bytes from 'bytes'
 import _ from 'lodash'
@@ -53,10 +52,12 @@ class GridItem extends React.Component {
         </div>
         <div className="drive-grid-item-label">
           <strong>{ item.label }</strong><br />
-          { item.file_size && bytes(item.file_size, { decimalPlaces: 0, unitSeparator: ' ' }) }
+          { item.file_size && bytes(item.file_size, { decimalPlaces: 0, unitSeparator: ' ' }) }<br/>
         </div>
         <div className="drive-grid-item-actions">
-          <Star { ...this._getStar(item) } />
+          <div className="drive-grid-item-action">
+            <Star { ...this._getStar(item) } />
+          </div>
           <div className="drive-grid-item-action" onClick={ this._handleTasks }>
             <i className="fa fa-fw fa-ellipsis-v" />
           </div>

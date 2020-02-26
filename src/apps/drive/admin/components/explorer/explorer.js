@@ -46,14 +46,25 @@ class Explorer extends React.Component {
   _handleShared = this._handleShared.bind(this)
   _handleStarred = this._handleStarred.bind(this)
   _handleTasks = this._handleTasks.bind(this)
+  _handleToggleView = this._handleToggleView.bind(this)
   _handleTrash = this._handleTrash.bind(this)
 
   render() {
     const { q } = this.props
     return (
       <div className={ this._getClass() }>
-        <div className="drive-search">
-          <Searchbox { ...this._getSearchBox() } />
+        <div className="drive-heading">
+          <div className="drive-heading-box">
+            <div className="drive-heading-search">
+              <Searchbox { ...this._getSearchbox() } />
+            </div>
+            <div className="drive-heading-action" onClick={ this._handleToggleView }>
+              <i className={`fa fa-${ this._getView() }`} />
+            </div>
+            <div className="drive-heading-action">
+              <i className="fa fa-info" />
+            </div>
+          </div>
         </div>
         <div className="drive-main">
           <div className="drive-list">
@@ -105,7 +116,7 @@ class Explorer extends React.Component {
   }
 
   _getFolder(folder) {
-    const { view, onAddSelected, onClearSelected, onCreateFile, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails, onToggleView } = this.props
+    const { view, onAddSelected, onClearSelected, onCreateFile, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails } = this.props
     return {
       folder,
       view,
@@ -117,7 +128,6 @@ class Explorer extends React.Component {
       onUpdateFile,
       onUp,
       onShowDetails,
-      onToggleView,
       onChangeFolder: this._handleChangeFolder,
       onDrive: this._handleDrive,
       onMove: this._handleMove,
@@ -162,7 +172,7 @@ class Explorer extends React.Component {
     return this.props.preview
   }
 
-  _getSearchBox() {
+  _getSearchbox() {
     const { onSetQuery } = this.props
     return {
       prompt: 'Find a file...',
@@ -190,6 +200,11 @@ class Explorer extends React.Component {
       onPreview,
       onShowDetails
     }
+  }
+
+  _getView() {
+    const { view } = this.props
+    return view === 'list' ? 'list' : 'th'
   }
 
   _handleChangeFolder(folder) {
@@ -237,6 +252,10 @@ class Explorer extends React.Component {
         { component: <Tasks { ...this._getTasks(items) } /> }
       ]
     })
+  }
+
+  _handleToggleView() {
+    this.props.onToggleView()
   }
 
   _handleTrash() {

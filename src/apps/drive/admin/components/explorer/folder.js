@@ -33,7 +33,6 @@ class Folder extends React.Component {
     onStarred: PropTypes.func,
     onTasks: PropTypes.func,
     onTrash: PropTypes.func,
-    onToggleView: PropTypes.func,
     onUp: PropTypes.func,
     onUpdateFile: PropTypes.func
   }
@@ -47,7 +46,6 @@ class Folder extends React.Component {
   _handleRefreshFolder = this._handleRefreshFolder.bind(this)
   _handleShowDetails = this._handleShowDetails.bind(this)
   _handleTasks = this._handleTasks.bind(this)
-  _handleToggleView = this._handleToggleView.bind(this)
   _handleUp = this._handleUp.bind(this)
 
   render() {
@@ -66,11 +64,6 @@ class Folder extends React.Component {
               { folder.label }
             </div>
           </div>
-          { folder.code !== 'root' ?
-            <div className="drive-header-icon" onClick={ this._handleToggleView }>
-              <i className={`fa fa-${ this._getView() }`} />
-            </div> : <div className="drive-header-icon" />
-          }
           { folder.code !== 'root' ?
             <div className="drive-header-icon" onClick={ this._handleTasks }>
               <i className="fa fa-fw fa-ellipsis-v" />
@@ -334,10 +327,6 @@ class Folder extends React.Component {
   _handleShowDetails(e) {
     e.stopPropagation()
     this.props.onShowDetails()
-  }
-
-  _handleToggleView() {
-    this.props.onToggleView()
   }
 
 }
