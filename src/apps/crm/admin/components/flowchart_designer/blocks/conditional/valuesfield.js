@@ -101,10 +101,7 @@ class Values extends React.Component {
 
   _handleChange() {
     const { options } = this.state
-    this.props.onChange([
-      ...options,
-      { value: 'else', text: 'Else'}
-    ])
+    this.props.onChange(options)
   }
 
   _handleKeyPress(e) {

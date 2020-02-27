@@ -45,7 +45,7 @@ const parseExcel = async (asset, quote, delimiter, headers) => {
   worksheet.eachRow((row, i) => {
     row.eachCell((cell, j) => {
       if(i === 1) {
-        parsed.headers[j - 1] = headers ? cell.value : j - 1
+        parsed.headers[j - 1] = headers ? sanitizeData(null, cell.value) : j - 1
       }
       if(!headers || i > 1) {
         const index = headers ? i - 2 : i - 1

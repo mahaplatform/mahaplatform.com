@@ -21,6 +21,8 @@ export const getChanges = (req, { contact }) => {
 
 export const getContacts = async (req, params) => {
 
+  console.log(params)
+
   const { filter, sort, page } = params
 
   return await Contact.filterFetch({

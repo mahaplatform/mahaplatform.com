@@ -7,10 +7,7 @@ export default {
   type: 'conditional',
   action: 'ifelse',
   config: {
-    options: [
-      { code: 'abc', text: 'is checked' },
-      { code: 'def', text: 'is not checked' }
-    ]
+    options: []
   },
   form: Form,
   token: Token

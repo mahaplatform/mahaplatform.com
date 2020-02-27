@@ -1,6 +1,7 @@
-import { Container, Form } from 'maha-admin'
+import CheckboxesField from '../../../checkboxesfield'
 import { actions } from './variables'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -22,7 +23,7 @@ class AddToList extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, lists } = this.props
+    const { config } = this.props
     return {
       title: 'Add to List',
       onChange: this._handleChange,
@@ -36,7 +37,7 @@ class AddToList extends React.PureComponent {
         {
           fields: [
             { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: 'add' },
-            { label: 'List', name: 'list_id', type: 'lookup', options: lists, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'list.id'), form: this._getListForm()}
+            { name: 'list_id', type: CheckboxesField, endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', required: true, form: this._getListForm(), defaultValue: _.get(config, 'list.id') }
           ]
         }
       ]
@@ -78,11 +79,4 @@ class AddToList extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  lists: {
-    endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/lists`,
-    filter: { type: { $eq: 'static' } }
-  }
-})
-
-export default Container(mapResources)(AddToList)
+export default AddToList

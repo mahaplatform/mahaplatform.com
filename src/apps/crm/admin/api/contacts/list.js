@@ -5,9 +5,9 @@ import Field from '../../../../maha/models/field'
 const listRoute = async (req, res) => {
 
   const contacts = await getContacts(req, {
-    filter: req.params.$filter,
-    sort: req.params.$sort,
-    page: req.params.$page
+    filter: req.query.$filter,
+    sort: req.query.$sort,
+    page: req.query.$page
   })
 
   req.fields = await Field.query(qb => {

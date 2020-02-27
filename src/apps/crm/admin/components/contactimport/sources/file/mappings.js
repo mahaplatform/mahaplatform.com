@@ -156,6 +156,7 @@ class Mappings extends React.PureComponent {
   _handleInitialMappings() {
     const { headers } = this.props
     const mappings = headers.map(header => {
+      if(_.isInteger(header)) return { header, field: null, type: null }
       const text = header.replace(/[\s-_']/g, '').toLowerCase()
       const field = fieldmap.find(item => {
         return _.includes(item.matches, text)

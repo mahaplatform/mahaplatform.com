@@ -1,5 +1,6 @@
+import { Button, ModalPanel, RadioGroup } from 'maha-admin'
+import CheckboxesField from '../../../checkboxesfield'
 import { actions } from './variables'
-import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -14,32 +15,67 @@ class AddInterest extends React.PureComponent {
     onDone: PropTypes.func
   }
 
-  _handleChange = this._handleChange.bind(this)
-  _handleDone = this._handleDone.bind(this)
-
-  render() {
-    return <Form { ...this._getForm() } />
+  state = {
+    operator: null,
+    value: null,
+    data: null
   }
 
-  _getForm() {
-    const { config, topics } = this.props
+  _handleChange = this._handleChange.bind(this)
+  _handleDone = this._handleDone.bind(this)
+  _handleOperator = this._handleOperator.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
+
+  render() {
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <div className="flowchart-designer-form">
+          <div className="flowchart-designer-form-header">
+            <RadioGroup { ...this._getRadioGroup() } />
+          </div>
+          <div className="flowchart-designer-form-body">
+            <CheckboxesField { ...this._getCheckboxesField() } />
+          </div>
+          <div className="flowchart-designer-form-footer">
+            <Button { ...this._getButton() } />
+          </div>
+        </div>
+      </ModalPanel>
+    )
+  }
+
+  _getButton() {
+    return {
+      label: 'New Topic',
+      color: 'red'
+    }
+  }
+
+  _getCheckboxesField() {
+    return {
+      endpoint: '/api/admin/crm/topics',
+      value: 'id',
+      text: 'title',
+      defaultValue: [],
+      onChange: this._handleUpdate
+    }
+  }
+
+  _getPanel() {
     return {
       title: 'Add Interest',
-      onChange: this._handleChange,
-      onCancel: this._handleDone,
-      cancelIcon: 'chevron-left',
-      saveText: null,
-      buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
-      ],
-      sections: [
-        {
-          fields: [
-            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: 'add' },
-            { label: 'Topic', name: 'topic_id', type: 'lookup', options: topics, value: 'id', text: 'title', required: true, form: this._getTopicForm(), defaultValue: _.get(config, 'topic.id') }
-          ]
-        }
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleCancel }
       ]
+    }
+  }
+
+  _getRadioGroup() {
+    const { operator } = this.state
+    return {
+      defaultValue: operator || actions[0].value,
+      options: actions,
+      onChange: this._handleOperator
     }
   }
 
@@ -75,10 +111,14 @@ class AddInterest extends React.PureComponent {
     this.props.onDone()
   }
 
+  _handleOperator(operator) {
+    this.setState({ operator })
+  }
+
+  _handleUpdate(topics) {
+    console.log(topics)
+  }
+
 }
 
-const mapResources = (props, context) => ({
-  topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
-})
-
-export default Container(mapResources)(AddInterest)
+export default AddInterest

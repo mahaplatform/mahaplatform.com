@@ -2,6 +2,10 @@
   flex: 1;
   display: flex;
   background-color: @white;
+  .checkboxesfield {
+    flex: 1;
+    margin: 0;
+  }
 }
 .flowchart-designer-main {
   flex-direction: column;
@@ -79,4 +83,22 @@
 }
 &.flowchart-designer-icon-ending {
   background-color: @red;
+}
+.flowchart-designer-form {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.flowchart-designer-form-header {
+  border-bottom: 1px solid fadeout(@black, 95);
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}
+.flowchart-designer-form-body {
+  .scrollable();
+  flex: 1;
+}
+.flowchart-designer-form-footer {
+  border-top: 1px solid fadeout(@black, 85);
+  padding: 0.8em;
 }

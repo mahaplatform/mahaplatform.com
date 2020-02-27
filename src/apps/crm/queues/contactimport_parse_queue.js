@@ -86,6 +86,8 @@ const processor = async (req, job) => {
 
   await Promise.reduce(parsed.rows, async (primarykeys, row, i) => {
 
+    if(!row) return primarykeys
+
     const mapped = getMapped(imp, row)
 
     const values = {

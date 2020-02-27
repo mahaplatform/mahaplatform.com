@@ -9,10 +9,6 @@ const listRoute = async (req, res) => {
       qb.innerJoin('crm_list_totals', 'crm_list_totals.list_id', 'crm_lists.id')
       qb.where('crm_lists.team_id', req.team.get('id'))
     },
-    filter: {
-      params: req.query.$filter,
-      allowed: ['type']
-    },
     page: req.query.$page,
     withRelated: ['program.logo'],
     transacting: req.trx
