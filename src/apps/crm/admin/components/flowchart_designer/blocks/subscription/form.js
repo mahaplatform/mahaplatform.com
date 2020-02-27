@@ -1,11 +1,10 @@
-import CheckboxesField from '../../../checkboxesfield'
+import { Container, ModalPanel, RadioGroup, Search } from 'maha-admin'
 import { actions } from './variables'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class AddToList extends React.PureComponent {
+class Lists extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -15,68 +14,110 @@ class AddToList extends React.PureComponent {
     onDone: PropTypes.func
   }
 
+  _handleAction = this._handleAction.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    return <Form { ...this._getForm() } />
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <div className="flowchart-designer-form">
+          <div className="flowchart-designer-form-header">
+            <RadioGroup { ...this._getRadioGroup() } />
+          </div>
+          <div className="flowchart-designer-form-body">
+            <Search { ...this._getSearch() } />
+          </div>
+        </div>
+      </ModalPanel>
+    )
   }
 
-  _getForm() {
-    const { config } = this.props
+  constructor(props) {
+    super(props)
+    const { config } = props
+    this.state = {
+      action: config ? config.action : null,
+      list: config ? config.list : null
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { action, list } = this.state
+    if(action !== prevState.action) {
+      this._handleChange()
+    }
+    if(!_.isEqual(list, prevState.list)) {
+      this._handleChange()
+    }
+  }
+
+  _getPanel() {
     return {
-      title: 'Add to List',
-      onChange: this._handleChange,
-      onCancel: this._handleDone,
-      cancelIcon: 'chevron-left',
-      saveText: null,
+      title: 'Update Lists',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleDone }
+      ],
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
-      ],
-      sections: [
-        {
-          fields: [
-            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: 'add' },
-            { name: 'list_id', type: CheckboxesField, endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', required: true, form: this._getListForm(), defaultValue: _.get(config, 'list.id') }
-          ]
-        }
       ]
     }
   }
 
-  _getListForm() {
-    const { workflow } = this.props
+  _getRadioGroup() {
+    const { action } = this.state
     return {
-      title: 'New List',
-      method: 'post',
-      action: `/api/admin/crm/programs/${workflow.program.id}/lists`,
-      sections: [
-        {
-          fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true },
-            { name: 'type', type: 'hidden', defaultValue: 'static' }
-          ]
-        }
-      ]
+      defaultValue: action || actions[0].value,
+      options: actions,
+      onChange: this._handleAction
+    }
+  }
+
+  _getSearch() {
+    const { lists } = this.props
+    const { list } = this.state
+    return {
+      options: lists,
+      multiple: false,
+      text: 'title',
+      search: false,
+      value: 'id',
+      defaultValue: list ? list.id : null,
+      onChange: this._handleUpdate
     }
   }
 
   _handleChange(config) {
-    const { lists } = this.props
-    const list = _.find(lists, { id: config.list_id })
-    this.props.onChange({
-      action: config.action,
-      list: list ? {
-        id: list.id,
-        title: list.title
-      } : null
-    })
+    const { action, list } = this.state
+    const value = list ? { action, list } : {}
+    this.props.onChange(value)
   }
 
   _handleDone() {
     this.props.onDone()
   }
 
+  _handleAction(action) {
+    this.setState({ action })
+  }
+
+  _handleUpdate(id) {
+    const { lists } = this.props
+    if(!id) return this.setState({ list: null })
+    const list = _.find(lists, { id })
+    this.setState({
+      list: {
+        id: list.id,
+        title: list.title
+      }
+    })
+  }
+
 }
 
-export default AddToList
+const mapResources = (props, context) => ({
+  lists: `/api/admin/crm/programs/${props.workflow.program.id}/lists`
+})
+
+export default Container(mapResources)(Lists)

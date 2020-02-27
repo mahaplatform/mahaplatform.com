@@ -40,13 +40,14 @@ class Options extends React.Component{
     const { selected, value } = this.props
     if(!selected) return false
     return selected.find(item => {
-      if(value) return _.get(item, value) === _.get(option, value)
+      if(value) return item === _.get(option, value)
       return _.isEqual(item, option)
     }) !== undefined
   }
 
-  _handleChoose(chosen) {
-    const { multiple } = this.props
+  _handleChoose(option) {
+    const { multiple, value } = this.props
+    const chosen = value ? _.get(option, value) : option
     this.props.onToggle(multiple, chosen)
   }
 

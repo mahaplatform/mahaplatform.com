@@ -1,11 +1,10 @@
-import { Button, ModalPanel, RadioGroup } from 'maha-admin'
-import CheckboxesField from '../../../checkboxesfield'
+import { Container, ModalPanel, RadioGroup, Search } from 'maha-admin'
 import { actions } from './variables'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class AddInterest extends React.PureComponent {
+class Interests extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -15,15 +14,9 @@ class AddInterest extends React.PureComponent {
     onDone: PropTypes.func
   }
 
-  state = {
-    operator: null,
-    value: null,
-    data: null
-  }
-
+  _handleAction = this._handleAction.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleOperator = this._handleOperator.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -34,48 +27,64 @@ class AddInterest extends React.PureComponent {
             <RadioGroup { ...this._getRadioGroup() } />
           </div>
           <div className="flowchart-designer-form-body">
-            <CheckboxesField { ...this._getCheckboxesField() } />
-          </div>
-          <div className="flowchart-designer-form-footer">
-            <Button { ...this._getButton() } />
+            <Search { ...this._getSearch() } />
           </div>
         </div>
       </ModalPanel>
     )
   }
 
-  _getButton() {
-    return {
-      label: 'New Topic',
-      color: 'red'
+  constructor(props) {
+    super(props)
+    const { config } = props
+    this.state = {
+      action: config ? config.action : null,
+      topic: config ? config.topic : null
     }
   }
 
-  _getCheckboxesField() {
-    return {
-      endpoint: '/api/admin/crm/topics',
-      value: 'id',
-      text: 'title',
-      defaultValue: [],
-      onChange: this._handleUpdate
+  componentDidUpdate(prevProps, prevState) {
+    const { action, topic } = this.state
+    if(action !== prevState.action) {
+      this._handleChange()
+    }
+    if(!_.isEqual(topic, prevState.topic)) {
+      this._handleChange()
     }
   }
 
   _getPanel() {
     return {
-      title: 'Add Interest',
+      title: 'Update Interests',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleDone }
+      ],
+      buttons: [
+        { label: 'Done', color: 'red', handler: this._handleDone }
       ]
     }
   }
 
   _getRadioGroup() {
-    const { operator } = this.state
+    const { action } = this.state
     return {
-      defaultValue: operator || actions[0].value,
+      defaultValue: action || actions[0].value,
       options: actions,
-      onChange: this._handleOperator
+      onChange: this._handleAction
+    }
+  }
+
+  _getSearch() {
+    const { topics } = this.props
+    const { topic } = this.state
+    return {
+      options: topics,
+      multiple: false,
+      text: 'title',
+      search: false,
+      value: 'id',
+      defaultValue: topic ? topic.id : null,
+      onChange: this._handleUpdate
     }
   }
 
@@ -96,29 +105,35 @@ class AddInterest extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { topics } = this.props
-    const topic = _.find(topics, { id: config.topic_id })
-    this.props.onChange({
-      action: config.action,
-      topic: topic ? {
-        id: topic.id,
-        title: topic.title
-      } : null
-    })
+    const { action, topic } = this.state
+    const value = topic ? { action, topic } : {}
+    this.props.onChange(value)
   }
 
   _handleDone() {
     this.props.onDone()
   }
 
-  _handleOperator(operator) {
-    this.setState({ operator })
+  _handleAction(action) {
+    this.setState({ action })
   }
 
-  _handleUpdate(topics) {
-    console.log(topics)
+  _handleUpdate(id) {
+    const { topics } = this.props
+    if(!id) return this.setState({ topic: null })
+    const topic = _.find(topics, { id })
+    this.setState({
+      topic: {
+        id: topic.id,
+        title: topic.title
+      }
+    })
   }
 
 }
 
-export default AddInterest
+const mapResources = (props, context) => ({
+  topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
+})
+
+export default Container(mapResources)(Interests)

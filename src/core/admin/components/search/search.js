@@ -63,17 +63,17 @@ class Search extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(_.castArray(defaultValue))
+    if(defaultValue) return onSet(_.castArray(defaultValue))
     onSet([])
   }
 
   componentDidUpdate(prevProps) {
     const { multiple, selected } = this.props
     if(!_.isEqual(multiple, prevProps.multiple)) {
-      this._handleChange(selected)
+      this._handleChange()
     }
     if(!_.isEqual(selected, prevProps.selected) && prevProps.selected) {
-      this._handleChange(selected)
+      this._handleChange()
     }
   }
 
@@ -128,10 +128,7 @@ class Search extends React.Component {
   }
 
   _handleChange() {
-    const { multiple, value, onChange } = this.props
-    const selected = value ? this.props.selected.map(option => {
-      return _.get(option, value)
-    }) : this.props.selected
+    const { multiple, selected, onChange } = this.props
     onChange(multiple ? selected : selected[0])
   }
 

@@ -4,13 +4,12 @@ import React from 'react'
 import _ from 'lodash'
 
 const Token = ({ action, topic }) => {
+  if(!action || !topic) return null
   const description = _.find(actions, { value: action })
   return (
     <div>
-      { topic &&
-        <div>
-          { _.capitalize(description.value) } { topic.title }
-        </div>
+      { _.capitalize(description.value) } { topic &&
+        <span>{ topic.title }</span>
       }
     </div>
   )

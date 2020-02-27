@@ -3,7 +3,7 @@ import Form from './form'
 
 export default {
   icon: 'users',
-  label: 'Update Membership',
+  label: 'Update Lists',
   type: 'action',
   action: 'subscription',
   form: Form,

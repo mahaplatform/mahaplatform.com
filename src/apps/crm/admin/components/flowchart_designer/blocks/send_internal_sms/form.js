@@ -34,7 +34,7 @@ class SendSMS extends React.PureComponent {
         {
           fields: [
             { label: 'User', name: 'user_id', type: 'lookup', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user.id'), required: true },
-            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, required: true }
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, rows: 4, required: true, maxLength: 160 }
           ]
         }
       ]
