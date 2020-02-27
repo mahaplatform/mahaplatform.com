@@ -5,6 +5,7 @@ import Uploader from '../uploader'
 import Details from '../details'
 import Folder from './folder'
 import Tasks from '../tasks'
+import Grid from './grid'
 import List from './list'
 import React from 'react'
 
@@ -144,13 +145,13 @@ class Explorer extends React.Component {
   }
 
   _getInfinite() {
-    const { q } = this.props
+    const { q, view } = this.props
     return {
       endpoint: '/api/admin/drive/items',
       filter: { q, type: { $eq: 'file' } },
       empty: <Message { ...this._getEmpty() } />,
       notFound: <Message { ...this._getEmpty() } />,
-      layout: List,
+      layout: view === 'list' ? List : Grid,
       props: this._getList()
     }
   }
