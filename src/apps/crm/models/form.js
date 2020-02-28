@@ -29,7 +29,7 @@ const Form = new Model({
   },
 
   email() {
-    return this.hasOne(Email, 'form_id')
+    return this.belongsTo(Email, 'email_id')
   },
 
   program() {
@@ -42,7 +42,12 @@ const Form = new Model({
 
   workflows() {
     return this.hasMany(Workflow, 'form_id')
+  },
+
+  workflow() {
+    return this.belongsTo(Workflow, 'workflow_id')
   }
+
 
 })
 

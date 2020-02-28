@@ -2,10 +2,10 @@ import Token from './token'
 import Form from './form'
 
 export default {
-  icon: 'users',
-  label: 'Update Lists',
+  icon: 'book',
+  label: 'Update Interests',
   type: 'action',
-  action: 'subscription',
+  action: 'interests',
   form: Form,
   token: Token
 }

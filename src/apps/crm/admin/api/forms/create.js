@@ -161,14 +161,28 @@ const createRoute = async (req, res) => {
     config: {
       steps: [
         {
-          action: 'email',
-          email: {
-            id: email.get('id'),
-            title: 'Confirmation'
+          code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+          type: 'verb',
+          delta: 0,
+          action: 'send_email',
+          parent: null,
+          answer: null,
+          config: {
+            email: {
+              id: email.get('id'),
+              title: 'Confirmation'
+            }
           }
         }
       ]
     }
+  }, {
+    transacting: req.trx
+  })
+
+  await form.save({
+    workflow_id: workflow.get('id'),
+    email_id: email.get('id')
   }, {
     transacting: req.trx
   })

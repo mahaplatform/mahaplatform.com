@@ -1,7 +1,7 @@
 import { updateRelated } from '../../../../core/services/routes/relations'
 import _ from 'lodash'
 
-export const updateInterest = async (req, params) => {
+export const updateInterests = async (req, params) => {
 
   const { contact, topic_id } = params
 

@@ -1,6 +1,5 @@
 import EmailSerializer from '../../../../serializers/email_serializer'
 import Workflow from '../../../../models/workflow'
-import Email from '../../../../models/email'
 
 const listRoute = async (req, res) => {
 
@@ -8,6 +7,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.workflow_id)
   }).fetch({
+    withRelated: ['emails.results'],
     transacting: req.trx
   })
 
@@ -16,15 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const emails = await Email.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('workflow_id', workflow.get('id'))
-  }).fetchAll({
-    withRelated: ['results'],
-    transacting: req.trx
-  })
-
-  res.status(200).respond(emails, EmailSerializer)
+  res.status(200).respond(workflow.related('emails'), EmailSerializer)
 
 }
 

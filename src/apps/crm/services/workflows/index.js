@@ -1,6 +1,8 @@
-import { updateInterest } from './update_interest'
-import { updateList } from './update_list'
+import { updateInterests } from './update_interests'
+import { updateConsent } from './update_consent'
+import { updateLists } from './update_lists'
 import { sendEmail } from './send_email'
+import { wait } from './wait'
 
 export const executeWorkflow = async (req, params) => {
 
@@ -21,21 +23,35 @@ export const executeWorkflow = async (req, params) => {
     if(step.action === 'email') {
       return await sendEmail(req, {
         response: enrollment.related('response'),
-        email_id: step.email.id
+        email_id: step.config.email.id
       })
     }
 
-    if(step.action === 'inerest') {
-      return await updateInterest(req, {
+    if(step.action === 'consent') {
+      return await updateConsent(req, {
         contact,
-        topic_id: step.topic.id
+        channel: step.config.channel
       })
     }
 
-    if(step.action === 'list') {
-      return await updateList(req, {
+    if(step.action === 'interests') {
+      return await updateInterests(req, {
         contact,
-        list_id: step.list.id
+        topic_id: step.config.topic.id
+      })
+    }
+
+    if(step.action === 'lists') {
+      return await updateLists(req, {
+        contact,
+        list_id: step.config.list.id
+      })
+    }
+
+    if(step.action === 'wait') {
+      return await wait(req, {
+        contact,
+        ...step.config
       })
     }
 

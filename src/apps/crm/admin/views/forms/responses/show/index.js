@@ -8,20 +8,7 @@ const getTabs = ({ form, response }) => ({
   ]
 })
 
-const getTasks = ({ form, response }, { flash }) => ({
-  items: [
-    {
-      label: 'Resend Confirmation',
-      request: {
-        method: 'PATCH',
-        endpoint: `/api/admin/crm/forms/${form.id}/responses/${response.id}/confirmation`,
-        onFailure: (result) => flash.set('error', 'Unable to resend confirmation'),
-        onSuccess: (result) => flash.set('success', `An confirmation email has been resent to ${response.contact.email}`)
-      }
-    }
-  ]
-})
-
+const getTasks = ({ form, response }, { flash }) => ({})
 
 const mapResourcesToPage = (props, context) => ({
   form: `/api/admin/crm/forms/${props.params.form_id}`,

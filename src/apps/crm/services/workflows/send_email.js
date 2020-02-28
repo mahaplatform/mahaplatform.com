@@ -58,41 +58,43 @@ export const sendEmail = async (req, params) => {
     config
   })
 
+  const email_data = {
+    email: {
+      code,
+      facebook_link: `${process.env.WEB_HOST}/sf${code}`,
+      twitter_link: `${process.env.WEB_HOST}/st${code}`,
+      forward_link: `${process.env.WEB_HOST}/f${code}`,
+      linkedin_link: `${process.env.WEB_HOST}/sl${code}`,
+      pinterest_link: `${process.env.WEB_HOST}/sp${code}`,
+      web_link: `${process.env.WEB_HOST}/w${code}`,
+      preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
+    },
+    contact: {
+      full_name: contact.get('full_name'),
+      first_name: contact.get('first_name'),
+      last_name: contact.get('last_name'),
+      email: contact.get('email')
+    },
+    response: fields.reduce((response, field) => ({
+      ...response,
+      [field.name.token]: data[field.code],
+      ...field.type === 'productfield' ? {
+        [`${field.name.token}_summary`]: ejs.render(summary, {
+          summary: data[field.code],
+          numeral,
+          payment: {
+            amount: payment.get('amount'),
+            activity: payment.get('activity')
+          }
+        })
+      } : {}
+    }), {})
+  }
+
   const rendered = personalizeEmail(req, {
     subject: config.settings.subject,
     html,
-    data: {
-      email: {
-        code,
-        facebook_link: `${process.env.WEB_HOST}/sf${code}`,
-        twitter_link: `${process.env.WEB_HOST}/st${code}`,
-        forward_link: `${process.env.WEB_HOST}/f${code}`,
-        linkedin_link: `${process.env.WEB_HOST}/sl${code}`,
-        pinterest_link: `${process.env.WEB_HOST}/sp${code}`,
-        web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
-      },
-      contact: {
-        full_name: contact.get('full_name'),
-        first_name: contact.get('first_name'),
-        last_name: contact.get('last_name'),
-        email: contact.get('email')
-      },
-      response: fields.reduce((response, field) => ({
-        ...response,
-        [field.name.token]: data[field.code],
-        ...field.type === 'productfield' ? {
-          [`${field.name.token}_summary`]: ejs.render(summary, {
-            summary: data[field.code],
-            numeral,
-            payment: {
-              amount: payment.get('amount'),
-              activity: payment.get('activity')
-            }
-          })
-        } : {}
-      }), {})
-    }
+    data: email_data
   })
 
   const sender = await Sender.query(qb => {
@@ -108,9 +110,8 @@ export const sendEmail = async (req, params) => {
     from: sender.get('rfc822'),
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),
-    subject: rendered.subject,
-    html: rendered.html,
     code,
+    data,
     was_bounced: false,
     was_complained: false,
     was_delivered: false,
