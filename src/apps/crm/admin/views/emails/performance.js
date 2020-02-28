@@ -1,285 +1,217 @@
-import moment from 'moment-timezone'
-import { Button } from 'maha-admin'
+import { Button, List, ProgressBar } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Chart from 'chart.js'
+import numeral from 'numeral'
+import moment from 'moment'
 import React from 'react'
-import _ from 'lodash'
-
-const ranges = [
-  { value: '30_days', text: 'Last 30 days' },
-  { value: '60_days', text: 'Last 60 days' },
-  { value: 'ytd', text: 'Year to Date' },
-  { value: 'ltd', text: 'Life to Date' }
-]
-
-const totals = [
-  { label: 'Delivered', name: 'delivered', color: '#DB2828' },
-  { label: 'Opened', name: 'opened', color: '#F2711C' },
-  { label: 'Complained', name: 'complained', color: '#FBBD08' },
-  { label: 'Clicked', name: 'clicked', color: '#B5CC18' }
-]
-
-const metrics = [
-  { label: 'Sent', name: 'sent' },
-  { label: 'Open Rate', name: 'open_rate' },
-  { label: 'Click Rate', name: 'click_rate' }
-]
 
 class Performance extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
-    email: PropTypes.object
+    email: PropTypes.object,
+    performance: PropTypes.object
   }
-
-  static defaultProps = {}
-
-  chart = null
-  node = null
-
-  state = {
-    hidden: [],
-    performance: null,
-    range: '30_days'
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
-  _handlePlot = this._handlePlot.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { performance } = this.state
-    if(!performance) return null
     return (
-      <div className="crm-report">
-        <div className="crm-report-title">
-          Enrollments
-        </div>
-        <div className="crm-report-header">
-          <div className="crm-report-filter">
-            { ranges.map((range, index) => (
-              <div className="crm-report-filter-item" key={`range_${index}`}>
-                <Button { ...this._getRange(range) } />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="crm-report-chart">
-          <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
-        </div>
-        <div className="crm-report-metrics">
-          { metrics.map((metric, index) => (
-            <div className="crm-report-metric" key={`metric_${index}`}>
-              <div className="crm-report-metric-title">
-                { metric.label }
-              </div>
-              <div className="crm-report-metric-value">
-                { performance.metrics[metric.name] }
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="crm-report-table">
-          <table className="ui unstackable table">
-            <tbody>
-              { totals.map((total, index) => (
-                <tr key={`total_${index}`} onClick={ this._handleToggle.bind(this, index) }>
-                  <td>
-                    <i className={`fa fa-${this._getIcon(index)}`} />
-                    { total.label }
-                  </td>
-                  <td className="right aligned">
-                    <Button { ...this._getButton(total.name) } />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className="crm-email-campaign-results">
+        <List { ...this._getList() } />
       </div>
     )
   }
 
-  componentDidMount() {
-    this._handleFetch()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { hidden, performance, range } = this.state
-    if(range !== prevState.range) {
-      this._handleFetch()
-    }
-    if(hidden !== prevState.hidden) {
-      this._handlePlot()
-    }
-    if(!_.isEqual(performance, prevState.performance)) {
-      this._handlePlot()
-    }
-  }
-
-  _getButton(name, report) {
-    const { performance } = this.state
-    const { email } = this.props
+  _getList() {
+    const { performance } = this.props
+    const { sent, delivered, bounced, opened, total_opened, desktop } = performance
+    const { mobile, webviewed, shared, forwarded, complained } = performance
+    const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
     return {
-      label: performance.metrics[name],
-      className: 'link',
-      route: `/admin/crm/emails/${email.id}/deliveries?report=${report}`
-    }
-  }
-
-  _getIcon(index) {
-    const { hidden } = this.state
-    return _.includes(hidden, index) ? 'square': 'check-square'
-  }
-
-  _getQuery() {
-    const { range } = this.state
-    const { email } = this.props
-    const tz = moment().tz(moment.tz.guess()).format('z')
-    if(range === 'ltd') {
-      const start = moment(email.created_at)
-      const end = moment()
-      const step = this._getStep(start, end)
-      return {
-        start: start.startOf(step).format('YYYY-MM-DD'),
-        end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step,
-        tz
-      }
-    } else if(range === 'ytd') {
-      const start = moment().startOf('year')
-      const end = moment()
-      const step = this._getStep(start, end)
-      return {
-        start: start.startOf(step).format('YYYY-MM-DD'),
-        end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step,
-        tz
-      }
-    } else if(range === '60_days') {
-      return {
-        start: moment().subtract(60, 'days').format('YYYY-MM-DD'),
-        end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day',
-        tz
-      }
-    } else if(range === '30_days') {
-      return {
-        start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
-        end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day',
-        tz
-      }
-    }
-  }
-
-  _getRange(range) {
-    return {
-      label: range.text,
-      className: this.state.range !== range.value ? 'link' : 'text',
-      handler: this._handleRange.bind(this, range.value)
-    }
-  }
-
-  _getStep(start, end) {
-    const diff = end.diff(start, 'days')
-    if(diff <= 60) return 'day'
-    return 'month'
-  }
-
-  _handleFetch() {
-    const { email } = this.props
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/emails/${email.id}/performance`,
-      query: this._getQuery(),
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleInit() {
-    const { step } = this._getQuery()
-    this.chart = new Chart(this.node.getContext('2d'), {
-      type: 'line',
-      options: {
-        animation: {
-          duration: 0
-        },
-        elements: {
-          line: {
-            tension: 0
-          }
-        },
-        legend: false,
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              unit: step,
-              tooltipFormat: 'MM/DD/YYYY',
-              displayFormats: {
-                day: 'MM/DD/YY',
-                week: 'MM/YY'
-              }
-            },
-            display: true,
-            gridLines: {
-              display: false
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              min: 0,
-              stepSize: 1
-            },
-            gridLines: {
-              display: false
-            }
-          }]
+      sections: [
+        {
+          items: [
+            { component: (
+              <div className="crm-report">
+                <div className="crm-report-title">Delivery</div>
+                <div className="crm-report-table">
+                  <div className="crm-email-campaign-results-header">
+                    <div className="crm-email-campaign-results-header-item">
+                      <div className="crm-email-campaign-results-stat">
+                        <div className="crm-email-campaign-results-stat-title">
+                          Open Rate
+                        </div>
+                        <div className="crm-email-campaign-results-stat-percent">
+                          { numeral(opened / delivered).format('0.0%') }
+                        </div>
+                      </div>
+                      <ProgressBar labeled={ false } color="blue" percent={ delivered > 0 ? (opened / delivered) : 0 } />
+                    </div>
+                    <div className="crm-email-campaign-results-header-item">
+                      <div className="crm-email-campaign-results-stat">
+                        <div className="crm-email-campaign-results-stat-title">
+                          Click Rate
+                        </div>
+                        <div className="crm-email-campaign-results-stat-percent">
+                          { numeral(clicked / delivered).format('0.0%') }
+                        </div>
+                      </div>
+                      <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
+                    </div>
+                  </div>
+                </div>
+                <div className="crm-report-metrics">
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Opens</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(opened, 'was_opened') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Clicks</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(clicked, 'was_clicked') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Bounces</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(bounced, 'was_bounced') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Unsubscribes</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(unsubscribed, 'was_unsubscribed') }
+                    </div>
+                  </div>
+                </div>
+                <div className="crm-report-table">
+                  <table className="ui table">
+                    <tbody>
+                      <tr>
+                        <td>Sent</td>
+                        <td className="right aligned">
+                          { this._getButton(sent) }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Deliveried</td>
+                        <td className="right aligned">
+                          { this._getButton(delivered, 'was_delivered') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Bounced</td>
+                        <td className="right aligned">
+                          { this._getButton(bounced, 'was_bounced') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Total Opened</td>
+                        <td className="right aligned">
+                          { this._getActivity(total_opened, 'open') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Clicked</td>
+                        <td className="right aligned">
+                          { this._getButton(clicked, 'was_clicked') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Total Clicked</td>
+                        <td className="right aligned">
+                          { this._getActivity(total_clicked, 'click') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Viewed Online</td>
+                        <td className="right aligned">
+                          { this._getActivity(webviewed, 'webview') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Forwarded</td>
+                        <td className="right aligned">
+                          { this._getActivity(forwarded, 'forward') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Shared</td>
+                        <td className="right aligned">
+                          { this._getActivity(shared, 'share') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Complained</td>
+                        <td className="right aligned">
+                          { this._getButton(complained, 'was_complained') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Unsubscribed</td>
+                        <td className="right aligned">
+                          { this._getActivity(unsubscribed, 'unsubscribe') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Desktop</td>
+                        <td className="right aligned">
+                          { this._getDevice(desktop, total_opened, false) }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mobile</td>
+                        <td className="right aligned">
+                          { this._getDevice(mobile, total_opened, true) }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Last Opened</td>
+                        <td className="right aligned">
+                          { last_opened_at ? moment(last_opened_at).format('MM/DD/YY hh:mmA') : 'N/A' }
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ) }
+          ]
         }
-      }
-    })
+      ]
+    }
   }
 
-  _handlePlot() {
-    const { step } = this._getQuery()
-    const { hidden, performance } = this.state
-    if(!this.chart) this._handleInit()
-    this.chart.options.scales.xAxes[0].time.unit = step
-    this.chart.data.datasets = totals.filter((total, index) => {
-      return !_.includes(hidden, index)
-    }).map((total, index) => ({
-      label: total.label,
-      data: performance.data[total.name],
-      borderColor: total.color,
-      pointBackgroundColor: '#FFFFFF',
-      pointRadius: 4,
-      pointHoverBackgroundColor: total.color,
-      pointHoverRadius: 4,
-      borderWidth: 3,
-      fill: false
-    }))
-    this.chart.update()
+  _getDevice(quantity, total, is_mobile) {
+    const { email } = this.props
+    const percent = total > 0 ? numeral(quantity / total).format('0.0%') : '0%'
+    const button = {
+      label: percent,
+      className: 'link',
+      route: `/admin/crm/emails/${email.id}/activities?$filter[$and][0][type][$eq]=open&$filter[$and][1][is_mobile][$eq]=${is_mobile}`
+    }
+    return <Button { ...button } />
+
   }
 
-  _handleRange(range) {
-    this.setState({ range })
+  _getActivity(value, type) {
+    const { email } = this.props
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/emails/${email.id}/activities?$filter[$and][0][type][$eq]=${type}`
+    }
+    return <Button { ...button } />
   }
 
-  _handleSuccess(result) {
-    this.setState({
-      performance: result.data
-    })
-  }
-
-  _handleToggle(index) {
-    const { hidden } = this.state
-    this.setState({
-      hidden: _.xor(hidden, [index])
-    })
+  _getButton(value, report) {
+    const { email } = this.props
+    const query = report ? `?$filter[${report}][$eq]=true` : ''
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/emails/${email.id}/deliveries${query}`
+    }
+    return <Button { ...button } />
   }
 
 }

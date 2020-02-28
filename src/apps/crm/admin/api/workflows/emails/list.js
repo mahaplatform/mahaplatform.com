@@ -20,6 +20,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('workflow_id', workflow.get('id'))
   }).fetchAll({
+    withRelated: ['results'],
     transacting: req.trx
   })
 

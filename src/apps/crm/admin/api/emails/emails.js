@@ -26,10 +26,10 @@ class Emails extends React.Component {
             <thead>
               <tr>
                 <th>Name</th>
+                <th className="center aligned">Delivered</th>
                 <th className="center aligned">Opened</th>
+                <th className="center aligned">Complained</th>
                 <th className="center aligned">Clicked</th>
-                <th className="center aligned">Bounced</th>
-                <th className="center aligned">Unsubscribed</th>
               </tr>
             </thead>
             <tbody>
@@ -45,21 +45,21 @@ class Emails extends React.Component {
                   <td>
                     <Button { ...this._getEmail(email) } />
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'was_opened')}>
-                    <strong>{ this._getRate(email.results.opened, email.results.delivered) }</strong>
-                    <span>{ email.results.opened } / { email.results.delivered }</span>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'delivered')}>
+                    <strong>{ this._getRate(email.delivered, email.sent) }</strong>
+                    <span>{ email.delivered } / { email.sent }</span>
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'was_clicked')}>
-                    <strong>{ this._getRate(email.results.clicked, email.results.delivered) }</strong>
-                    <span>{ email.results.clicked } / { email.results.delivered }</span>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'opened')}>
+                    <strong>{ this._getRate(email.opened, email.delivered) }</strong>
+                    <span>{ email.opened } / { email.delivered }</span>
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'was_bounced')}>
-                    <strong>{ this._getRate(email.results.bounced, email.results.delivered) }</strong>
-                    <span>{ email.results.bounced } / { email.results.delivered }</span>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'complained')}>
+                    <strong>{ this._getRate(email.complained, email.delivered) }</strong>
+                    <span>{ email.complained } / { email.delivered }</span>
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'was_unsubscribed')}>
-                    <strong>{ this._getRate(email.results.unsubscribed, email.results.delivered) }</strong>
-                    <span>{ email.results.unsubscribed } / { email.results.delivered }</span>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'clicked')}>
+                    <strong>{ this._getRate(email.clicked, email.delivered) }</strong>
+                    <span>{ email.clicked } / { email.delivered }</span>
                   </td>
                 </tr>
               )) }
@@ -85,8 +85,7 @@ class Emails extends React.Component {
 
   _handleClick(email, report) {
     const { router } = this.context
-    const query = report ? `?$filter[${report}][$eq]=true` : ''
-    router.history.push(`/admin/crm/emails/${email.id}/deliveries${query}`)
+    router.history.push(`/admin/crm/emails/${email.id}/deliveries?report=${report}`)
   }
 
 }

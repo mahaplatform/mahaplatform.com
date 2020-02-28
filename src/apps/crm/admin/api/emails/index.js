@@ -1,4 +1,6 @@
+import deliveries from './deliveries/list'
 import performance from './performance'
+import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'
 import preview from './preview'
@@ -13,6 +15,10 @@ router.post('/preview', preview)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/activities', activities)
+
+router.use('/:email_id/deliveries', deliveries)
 
 router.get('/:id/performance', performance)
 

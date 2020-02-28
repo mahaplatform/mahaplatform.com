@@ -1,4 +1,5 @@
 import Performance from './performance'
+import Workflows from './workflows'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Edit from '../edit'
@@ -7,6 +8,7 @@ import React from 'react'
 const getTabs = ({ audits, form, workflows }) => ({
   items: [
     { label: 'Details', component: <Details form={ form } audits={ audits } /> },
+    { label: 'Workflows', component: <Workflows workflows={ workflows } /> },
     { label: 'Performance', component: <Performance form={ form } /> }
   ]
 })
@@ -20,7 +22,8 @@ const getTasks = ({ form }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_forms/${props.params.id}/audits`,
-  form: `/api/admin/crm/forms/${props.params.id}`
+  form: `/api/admin/crm/forms/${props.params.id}`,
+  workflows: `/api/admin/crm/forms/${props.params.id}/workflows`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

@@ -137,8 +137,6 @@ const submitRoute = async (req, res) => {
     data: contactdata
   })
 
-  console.log(contact)
-
   if(contactdata.email) {
     await updateEmailAddresses(req, {
       contact,

@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'
+import EmailResult from './email_result'
 import Workflow from './workflow'
 import Program from './program'
 import Form from './form'
@@ -12,7 +13,7 @@ const Email = new Model({
 
   virtuals: {},
 
-  email() {
+  emails() {
     return this.hasMany(MahaEmail, 'email_id')
   },
 
@@ -26,6 +27,10 @@ const Email = new Model({
 
   workflow() {
     return this.belongsTo(Workflow, 'workflow_id')
+  },
+
+  results() {
+    return this.hasOne(EmailResult, 'email_id')
   }
 
 })

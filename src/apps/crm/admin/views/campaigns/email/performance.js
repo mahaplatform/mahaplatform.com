@@ -39,7 +39,7 @@ class Performance extends React.Component {
                           Open Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(opened / delivered).format('0.00%') }
+                          { numeral(opened / delivered).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ delivered > 0 ? (opened / delivered) : 0 } />
@@ -50,7 +50,7 @@ class Performance extends React.Component {
                           Click Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(clicked / delivered).format('0.00%') }
+                          { numeral(clicked / delivered).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
@@ -113,7 +113,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Clicked</td>
                         <td className="right aligned">
-                          { this._getButton(clicked, 'clicked') }
+                          { this._getButton(clicked, 'was_clicked') }
                         </td>
                       </tr>
                       <tr>

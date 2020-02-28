@@ -2,12 +2,14 @@ import Performance from './performance'
 import Email from '../emails/new'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Emails from './emails'
 import Edit from '../edit'
 import React from 'react'
 
 const getTabs = ({ audits, emails, performance, workflow }) => ({
   items: [
     { label: 'Details', component: <Details workflow={ workflow } audits={ audits } /> },
+    { label: 'Emails', component: <Emails emails={ emails } /> },
     { label: 'Performance', component: <Performance workflow={ workflow } /> }
   ]
 })

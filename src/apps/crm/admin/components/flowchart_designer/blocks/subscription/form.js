@@ -19,6 +19,15 @@ class Lists extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
+  constructor(props) {
+    super(props)
+    const { config } = props
+    this.state = {
+      action: config ? config.action : null,
+      list: config ? config.list : null
+    }
+  }
+
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
@@ -32,15 +41,6 @@ class Lists extends React.PureComponent {
         </div>
       </ModalPanel>
     )
-  }
-
-  constructor(props) {
-    super(props)
-    const { config } = props
-    this.state = {
-      action: config ? config.action : null,
-      list: config ? config.list : null
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {

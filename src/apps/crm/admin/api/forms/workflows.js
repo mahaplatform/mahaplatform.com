@@ -1,13 +1,13 @@
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
 import Form from '../../../models/form'
 
-const workflowRoute = async (req, res) => {
+const workflowsRoute = async (req, res) => {
 
   const form = await Form.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['workflow.program'],
+    withRelated: ['workflows.program'],
     transacting: req.trx
   })
 
@@ -16,8 +16,8 @@ const workflowRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  res.status(200).respond(form.related('workflow'), WorkflowSerializer)
+  res.status(200).respond(form.related('workflows'), WorkflowSerializer)
 
 }
 
-export default workflowRoute
+export default workflowsRoute

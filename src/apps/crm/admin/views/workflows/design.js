@@ -24,12 +24,27 @@ class Designer extends React.Component {
   _getWorkflowDesigner() {
     const { workflow } = this.props
     return {
-      fields: [
-        { code: 'abs648', name: 'First Name', type: 'textfield' },
-        { code: 'zac6f4', name: 'Last Name', type: 'textfield' }
-      ],
+      endpoint: `/api/admin/crm/workflows/${workflow.id}`,
+      fields: this._getFields(),
+      trigger: this._getTrigger(),
       workflow,
       onSave: this._handleSave
+    }
+  }
+
+  _getFields() {
+    const { workflow } = this.props
+    if(workflow.form) return workflow.form.config.fields
+    return []
+  }
+
+  _getTrigger() {
+    const { workflow } = this.props
+    if(workflow.form) {
+      return {
+        icon: 'check-square-o',
+        text: 'Form is submitted'
+      }
     }
   }
 

@@ -34,12 +34,6 @@ class FormDesigner extends React.PureComponent {
     return (
       <div className={ this._getClass() }>
         <div className="designer-main">
-          <div className="designer-toggle" onClick={ this._handleToggle }>
-            { sidebar ?
-              <i className="fa fa-times" /> :
-              <i className="fa fa-chevron-left" />
-            }
-          </div>
           <Preview>
             <Canvas { ...this._getCanvas() } />
           </Preview>

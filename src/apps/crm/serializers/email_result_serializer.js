@@ -1,4 +1,4 @@
-const EmailCampaignResultSerializer = (req, result) => ({
+const EmailResultSerializer = (req, result) => ({
   sent: result.get('sent'),
   delivered: result.get('delivered'),
   bounced: result.get('bounced'),
@@ -16,4 +16,4 @@ const EmailCampaignResultSerializer = (req, result) => ({
   unsubscribed: result.get('unsubscribed')
 })
 
-export default EmailCampaignResultSerializer
+export default EmailResultSerializer

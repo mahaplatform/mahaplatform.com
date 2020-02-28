@@ -40,8 +40,8 @@ const Form = new Model({
     return this.hasMany(Response, 'form_id')
   },
 
-  workflow() {
-    return this.hasOne(Workflow, 'form_id')
+  workflows() {
+    return this.hasMany(Workflow, 'form_id')
   }
 
 })

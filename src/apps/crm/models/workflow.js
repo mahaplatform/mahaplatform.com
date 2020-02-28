@@ -2,6 +2,7 @@ import Model from '../../../core/objects/model'
 import Enrollment from './enrollment'
 import Program from './program'
 import Email from './email'
+import Form from './form'
 
 const Workflow = new Model({
 
@@ -13,6 +14,10 @@ const Workflow = new Model({
 
   emails() {
     return this.hasMany(Email, 'workflow_id')
+  },
+
+  form() {
+    return this.belongsTo(Form, 'form_id')
   },
 
   enrollments() {

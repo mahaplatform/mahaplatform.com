@@ -4,8 +4,7 @@ const navigation = async (req, trx) => ({
     { label: 'Campaigns', route: '/campaigns' },
     { label: 'Forms', route: '/forms' },
     { label: 'Organizations', route: '/organizations' },
-    { label: 'Programs', route: '/programs' },
-    { label: 'Workflows', route: '/workflows' }
+    { label: 'Programs', route: '/programs' }
   ]
 })
 

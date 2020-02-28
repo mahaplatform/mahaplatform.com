@@ -23,12 +23,6 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/email`
   }
 
-  const workflow = {
-    label: 'Design Workflow',
-    className: 'link',
-    route: `/admin/crm/forms/${form.id}/workflow`
-  }
-
   const list = {}
 
   list.items = [
@@ -36,7 +30,6 @@ const Details = ({ audits, form }) => {
     { label: 'Program', content: form.program.title },
     { label: 'Design', content: <Button { ...design } /> },
     { label: 'Confirmation', content: <Button { ...confirmation } /> },
-    { label: 'Workflow', content: <Button { ...workflow } /> },
     { label: 'Responses', content: <Button { ...responses } /> },
     { component: <Audit entries={ audits } /> }
   ]

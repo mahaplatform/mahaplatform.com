@@ -82,13 +82,34 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   }) : null
 
+  const workflowCode = await generateCode(req, {
+    table: 'crm_workflows'
+  })
+
+  const workflow = await Workflow.forge({
+    team_id: req.team.get('id'),
+    form_id: form.get('id'),
+    program_id: program.get('id'),
+    title: 'Confirmation',
+    code: workflowCode,
+    status: 'active',
+    config: {}
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: workflow
+  })
+
   const emailCode = await generateCode(req, {
     table: 'crm_emails'
   })
 
   const email = await Email.forge({
     team_id: req.team.get('id'),
-    form_id: form.get('id'),
+    workflow_id: workflow.get('id'),
     program_id: program.get('id'),
     title: 'Confirmation',
     code: emailCode,
@@ -130,27 +151,18 @@ const createRoute = async (req, res) => {
     auditable: email
   })
 
-  const workflowCode = await generateCode(req, {
-    table: 'crm_workflows'
-  })
-
-  const workflow = await Workflow.forge({
-    team_id: req.team.get('id'),
-    form_id: form.get('id'),
-    program_id: program.get('id'),
-    title: 'Confirmation',
-    code: workflowCode,
-    status: 'active',
+  await workflow.save({
     config: {
-      steps: []
+      steps: [
+        {
+          action: 'email',
+          email: {
+            id: email.get('id'),
+            title: 'Confirmation'
+          }
+        }
+      ]
     }
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await audit(req, {
-    story: 'created',
-    auditable: workflow
   })
 
   await activity(req, {

@@ -14,9 +14,11 @@ import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
-import EmailsShow from './emails/show'
-import EmailsDeliveries from './emails/deliveries'
+import EmailsActivities from './emails/activities'
+import EmailsDeliveriesList from './emails/deliveries/list'
+import EmailsDeliveriesShow from './emails/deliveries/show'
 import EmailsDesign from './emails/design'
+import EmailsShow from './emails/show'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
@@ -55,9 +57,11 @@ const routes = [
   { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
-  { path: '/emails/:id', component: EmailsShow },
-  { path: '/emails/:id/deliveries', component: EmailsDeliveries },
+  { path: '/emails/:email_id/activities', component: EmailsActivities },
+  { path: '/emails/:email_id/deliveries', component: EmailsDeliveriesList },
+  { path: '/emails/:email_id/deliveries/:id', component: EmailsDeliveriesShow },
   { path: '/emails/:id/design', component: EmailsDesign },
+  { path: '/emails/:id', component: EmailsShow },
   { path: '/forms', component: FormsList },
   { path: '/forms/:id', component: FormsShow },
   { path: '/forms/:id/design', component: FormsDesign },
