@@ -2,6 +2,7 @@ import Model from '../../../core/objects/model'
 import VoiceCampaign from './voice_campaign'
 import SMSCampaign from './sms_campaign'
 import Workflow from './workflow'
+import Response from './response'
 import Contact from './contact'
 
 const Enrollment = new Model({
@@ -14,6 +15,10 @@ const Enrollment = new Model({
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')
+  },
+
+  response() {
+    return this.belongsTo(Response, 'response_id')
   },
 
   sms_campaign() {

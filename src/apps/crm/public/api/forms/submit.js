@@ -1,5 +1,5 @@
-import SendConfirmationEmailQueue from '../../../queues/send_confirmation_email_queue'
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
+import ExecuteWorkflowQueue from '../../../queues/execute_workflow_queue'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
@@ -11,6 +11,7 @@ import LineItem from '../../../../finance/models/line_item'
 import Invoice from '../../../../finance/models/invoice'
 import Product from '../../../../finance/models/product'
 import EmailAddress from '../../../models/email_address'
+import Enrollment from '../../../models/enrollment'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Form from '../../../models/form'
@@ -109,7 +110,7 @@ const submitRoute = async (req, res) => {
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['email','program','team'],
+    withRelated: ['program','team','workflows'],
     transacting: req.trx
   })
 
@@ -226,8 +227,26 @@ const submitRoute = async (req, res) => {
     }
   })
 
-  await SendConfirmationEmailQueue.enqueue(req, {
-    id: response.get('id')
+  await Promise.mapSeries(form.related('workflows'), async(workflow) => {
+
+    const code = await generateCode(req, {
+      table: 'crm_enrollments'
+    })
+
+    const enrollment = await Enrollment.forge({
+      team_id: req.team.get('id'),
+      workflow_id: workflow.get('id'),
+      response_id: response.get('id'),
+      contact_id: contact.get('id'),
+      code
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    await ExecuteWorkflowQueue.enqueue(req, {
+      enrollment_id: enrollment.get('id')
+    })
+
   })
 
   await socket.refresh(req, [

@@ -368,6 +368,7 @@ const schema = {
       table.boolean('was_converted')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('response_id').unsigned()
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -2168,6 +2169,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('response_id').references('crm_responses.id')
     })
 
     await knex.schema.table('crm_forms', table => {
@@ -3189,8 +3191,8 @@ union
       where (maha_emails.was_unsubscribed = true)
       group by maha_emails.email_campaign_id
       )
-      select crm_email_campaigns.team_id,
-      crm_email_campaigns.id,
+      select crm_email_campaigns.id as email_campaign_id,
+      crm_email_campaigns.team_id,
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
@@ -3322,8 +3324,8 @@ union
       where (maha_emails.was_unsubscribed = true)
       group by maha_emails.email_id
       )
-      select crm_emails.team_id,
-      crm_emails.id,
+      select crm_emails.id as email_id,
+      crm_emails.team_id,
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
@@ -3613,9 +3615,9 @@ union
       when (crm_responses.referer is not null) then split_part(crm_responses.referer, '/'::text, 3)
       else null::text
       end as referer_domain,
-      finance_invoice_payments.paid as revenue
+      coalesce(finance_invoice_payments.paid, 0.00) as revenue
       from (crm_responses
-      join finance_invoice_payments on ((finance_invoice_payments.invoice_id = crm_responses.invoice_id)));
+      left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = crm_responses.invoice_id)));
     `)
 
     await knex.raw(`
