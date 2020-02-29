@@ -4,7 +4,7 @@ import Enrollment from '../models/enrollment'
 
 const processor = async (req, job) => {
 
-  const { enrollment_id } = job.data
+  const { enrollment_id, step } = job.data
 
   const enrollment = await Enrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -13,7 +13,7 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
-  await executeWorkflow(req, { enrollment })
+  await executeWorkflow(req, { enrollment, step })
 
 }
 

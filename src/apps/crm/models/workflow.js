@@ -1,5 +1,7 @@
+import WorkflowEnrollment from './workflow_enrollment'
 import Model from '../../../core/objects/model'
-import Enrollment from './enrollment'
+import WorkflowResult from './workflow_result'
+import WorkflowStep from './workflow_step'
 import Program from './program'
 import Email from './email'
 import Form from './form'
@@ -21,11 +23,19 @@ const Workflow = new Model({
   },
 
   enrollments() {
-    return this.hasMany(Enrollment, 'workflow_id')
+    return this.hasMany(WorkflowEnrollment, 'workflow_id')
   },
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  steps() {
+    return this.hasMany(WorkflowStep, 'workflow_id')
+  },
+
+  results() {
+    return this.hasOne(WorkflowResult, 'email_id')
   }
 
 })

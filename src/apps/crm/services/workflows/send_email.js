@@ -131,7 +131,7 @@ export const sendEmail = async (req, params) => {
     from: email.get('from'),
     to: email.get('to'),
     reply_to: email.get('reply_to') || 'no-reply@mahaplatform.com',
-    subject: email.get('subject'),
+    subject: rendered.subject,
     html: encoded
   })
 

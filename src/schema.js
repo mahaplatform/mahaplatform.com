@@ -2,16 +2,6 @@ const schema = {
 
   load: async (knex) => {
 
-    await knex.schema.createTable('actions', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('enrollment_id').unsigned()
-      table.integer('story_id').unsigned()
-      table.jsonb('data')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('appraisals_appraisals', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -356,21 +346,6 @@ const schema = {
       table.integer('program_id').unsigned()
     })
 
-    await knex.schema.createTable('crm_enrollments', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('workflow_id').unsigned()
-      table.integer('sms_campaign_id').unsigned()
-      table.integer('voice_campaign_id').unsigned()
-      table.integer('contact_id').unsigned()
-      table.string('code', 255)
-      table.specificType('actions', 'jsonb[]')
-      table.boolean('was_converted')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.integer('response_id').unsigned()
-    })
-
     await knex.schema.createTable('crm_forms', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -583,6 +558,39 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_workflow_actions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('enrollment_id').unsigned()
+      table.integer('step_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_workflow_enrollments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.string('code', 255)
+      table.jsonb('data')
+      table.boolean('was_completed')
+      table.boolean('was_converted')
+      table.timestamp('unenrolled_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_workflow_steps', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.string('code', 255)
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_workflows', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -595,10 +603,7 @@ const schema = {
       table.timestamp('updated_at')
       table.USER-DEFINED('trigger_type')
       table.integer('form_id').unsigned()
-      table.integer('topic_id').unsigned()
-      table.integer('list_id').unsigned()
       table.integer('email_id').unsigned()
-      table.jsonb('config')
       table.integer('email_campaign_id').unsigned()
     })
 
@@ -2012,12 +2017,6 @@ const schema = {
     })
 
 
-    await knex.schema.table('actions', table => {
-      table.foreign('enrollment_id').references('crm_enrollments.id')
-      table.foreign('story_id').references('maha_stories.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('appraisals_appraisals', table => {
       table.foreign('employee_id').references('maha_users.id')
       table.foreign('supervisor_id').references('maha_users.id')
@@ -2165,15 +2164,6 @@ const schema = {
       table.foreign('workflow_id').references('crm_workflows.id')
     })
 
-    await knex.schema.table('crm_enrollments', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('response_id').references('crm_responses.id')
-    })
-
     await knex.schema.table('crm_forms', table => {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2286,10 +2276,8 @@ const schema = {
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('form_id').references('crm_forms.id')
-      table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('topic_id').references('crm_topics.id')
     })
 
     await knex.schema.table('drive_access', table => {
@@ -2887,6 +2875,23 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_workflow_enrollments', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_workflow_steps', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+    })
+
+    await knex.schema.table('crm_workflow_actions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('enrollment_id').references('crm_workflow_enrollments.id')
+      table.foreign('step_id').references('crm_workflow_steps.id')
     })
 
 
@@ -3640,6 +3645,52 @@ union
       from (crm_topics
       left join crm_interests on ((crm_interests.topic_id = crm_topics.id)))
       group by crm_topics.id;
+    `)
+
+    await knex.raw(`
+      create view crm_workflow_results AS
+      with enrolled as (
+      select crm_workflow_enrollments.workflow_id,
+      count(*) as total
+      from crm_workflow_enrollments
+      group by crm_workflow_enrollments.workflow_id
+      ), active as (
+      select crm_workflow_enrollments.workflow_id,
+      count(*) as total
+      from crm_workflow_enrollments
+      where ((crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is null))
+      group by crm_workflow_enrollments.workflow_id
+      ), lost as (
+      select crm_workflow_enrollments.workflow_id,
+      count(*) as total
+      from crm_workflow_enrollments
+      where ((crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is not null))
+      group by crm_workflow_enrollments.workflow_id
+      ), converted as (
+      select crm_workflow_enrollments.workflow_id,
+      count(*) as total
+      from crm_workflow_enrollments
+      where (crm_workflow_enrollments.was_converted = true)
+      group by crm_workflow_enrollments.workflow_id
+      ), completed as (
+      select crm_workflow_enrollments.workflow_id,
+      count(*) as total
+      from crm_workflow_enrollments
+      where (crm_workflow_enrollments.was_completed = true)
+      group by crm_workflow_enrollments.workflow_id
+      )
+      select crm_workflows.id as workflow_id,
+      coalesce(enrolled.total, (0)::bigint) as enrolled_count,
+      coalesce(active.total, (0)::bigint) as active_count,
+      coalesce(lost.total, (0)::bigint) as lost_count,
+      coalesce(converted.total, (0)::bigint) as converted_count,
+      coalesce(completed.total, (0)::bigint) as completed_count
+      from (((((crm_workflows
+      left join enrolled on ((enrolled.workflow_id = crm_workflows.id)))
+      left join active on ((active.workflow_id = crm_workflows.id)))
+      left join lost on ((lost.workflow_id = crm_workflows.id)))
+      left join converted on ((converted.workflow_id = crm_workflows.id)))
+      left join completed on ((completed.workflow_id = crm_workflows.id)));
     `)
 
     await knex.raw(`

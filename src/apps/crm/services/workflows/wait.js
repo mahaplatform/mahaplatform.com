@@ -1,4 +1,3 @@
-import executeWorkflowQueue from '../../queues/execute_workflow_queue'
 import moment from 'moment'
 
 const getDuration = (params) => {
@@ -22,14 +21,6 @@ const getUntil = (params) => {
 
 export const wait = async (req, params) => {
 
-  const { enrollment } = params
-
-  const until = getUntil(params)
-
-  await executeWorkflowQueue(req, {
-    enrollment_id: enrollment.get('id')
-  }, {
-    until
-  })
+  return getUntil(params)
 
 }

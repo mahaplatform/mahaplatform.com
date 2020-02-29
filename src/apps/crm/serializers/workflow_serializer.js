@@ -4,8 +4,8 @@ const WorkflowSerializer = (req, result) => ({
   code: result.get('code'),
   program: program(result.related('program')),
   form: form(result.related('form')),
-  config: result.get('config'),
   status: result.get('status'),
+  steps: result.related('steps').map(step),
   enrolled: 123,
   active: 234,
   lost: 345,
@@ -29,6 +29,14 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title')
+  }
+}
+
+const step = (step) => {
+  if(!step.id) return
+  return {
+    id: step.get('id'),
+    config: step.get('config')
   }
 }
 

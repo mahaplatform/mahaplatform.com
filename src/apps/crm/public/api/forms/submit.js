@@ -238,7 +238,9 @@ const submitRoute = async (req, res) => {
       workflow_id: workflow.get('id'),
       response_id: response.get('id'),
       contact_id: contact.get('id'),
-      code
+      code,
+      was_completed: false,
+      was_converted: false
     }).save(null, {
       transacting: req.trx
     })
