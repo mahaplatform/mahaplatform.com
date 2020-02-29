@@ -1,5 +1,6 @@
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updateSteps } from '../../../services/workflows'
 import Workflow from '../../../models/workflow'
 
 const updateRoute = async (req, res) => {
@@ -8,7 +9,7 @@ const updateRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program'],
+    withRelated: ['program','steps'],
     transacting: req.trx
   })
 
@@ -17,12 +18,21 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  await workflow.save({
-    ...whitelist(req.body, ['title','config'])
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
+  if(req.body.title) {
+    await workflow.save({
+      ...whitelist(req.body, ['title'])
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+  }
+
+  if(req.body.steps) {
+    await updateSteps(req, {
+      workflow,
+      steps: req.body.steps
+    })
+  }
 
   res.status(200).respond(workflow, WorkflowSerializer)
 

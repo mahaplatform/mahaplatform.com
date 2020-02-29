@@ -36,6 +36,12 @@ const step = (step) => {
   if(!step.id) return
   return {
     id: step.get('id'),
+    type: step.get('type'),
+    action: step.get('action'),
+    code: step.get('code'),
+    delta: step.get('delta'),
+    parent: step.get('parent'),
+    answer: step.get('answer'),
     config: step.get('config')
   }
 }

@@ -54,7 +54,7 @@ class Designer extends React.Component {
     this.context.network.request({
       method: 'patch',
       endpoint: `/api/admin/crm/workflows/${id}`,
-      body: { config: { steps } }
+      body: { steps }
     })
   }
 

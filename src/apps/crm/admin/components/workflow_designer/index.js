@@ -19,7 +19,7 @@ class WorkflowDesigner extends React.PureComponent {
 
   _getFlowchartDesigner() {
     const { endpoint, fields, workflow, tokens, trigger, onSave } = this.props
-    const { config, status } = workflow
+    const { steps, status } = workflow
     return {
       endpoint,
       fields,
@@ -52,7 +52,7 @@ class WorkflowDesigner extends React.PureComponent {
           token: () => 'Workflow is complete'
         }
       ],
-      defaultValue: config.steps,
+      defaultValue:steps,
       status,
       onSave
     }

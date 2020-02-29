@@ -141,7 +141,7 @@ class FlowchartDesigner extends React.PureComponent {
 
   _handleSave() {
     const { endpoint, steps, onSave } = this.props
-    onSave(endpoint, { steps })
+    onSave(endpoint, steps)
   }
 
 }

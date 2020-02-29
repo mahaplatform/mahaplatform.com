@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'clock-o',
   label: 'Wait',
-  type: 'verb',
+  type: 'action',
   action: 'wait',
   config: {
     strategy: 'datetime'

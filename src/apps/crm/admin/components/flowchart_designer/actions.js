@@ -1,8 +1,8 @@
-export const save = (endpoint, config) => ({
+export const save = (endpoint, steps) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
   endpoint,
-  body: { config },
+  body: { steps },
   request: 'SAVE_REQUEST',
   success: 'SAVE_SUCCESS',
   failure: 'SAVE_FAILURE'

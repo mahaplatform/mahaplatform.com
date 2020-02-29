@@ -3,6 +3,7 @@ import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import WorkflowStep from '../../../models/workflow_step'
 import Workflow from '../../../models/workflow'
 import Template from '../../../models/template'
 import Program from '../../../models/program'
@@ -92,8 +93,7 @@ const createRoute = async (req, res) => {
     program_id: program.get('id'),
     title: 'Confirmation',
     code: workflowCode,
-    status: 'active',
-    config: {}
+    status: 'active'
   }).save(null, {
     transacting: req.trx
   })
@@ -157,26 +157,22 @@ const createRoute = async (req, res) => {
     auditable: email
   })
 
-  await workflow.save({
+  await WorkflowStep.forge({
+    team_id: req.team.get('id'),
+    workflow_id: workflow.get('id'),
+    type: 'action',
+    action: 'send_email',
+    code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+    delta: 0,
+    parent: null,
+    answer: null,
     config: {
-      steps: [
-        {
-          code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-          type: 'verb',
-          delta: 0,
-          action: 'send_email',
-          parent: null,
-          answer: null,
-          config: {
-            email: {
-              id: email.get('id'),
-              title: 'Confirmation'
-            }
-          }
-        }
-      ]
+      email: {
+        id: email.get('id'),
+        title: 'Confirmation'
+      }
     }
-  }, {
+  }).save(null, {
     transacting: req.trx
   })
 
