@@ -1,6 +1,6 @@
 export const conditional = async (req, params) => {
 
-  const { contact, enrollment, response, step } = params
+  const { contact, enrollment, step } = params
 
   return {
     condition: {

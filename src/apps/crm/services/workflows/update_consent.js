@@ -4,4 +4,6 @@ export const updateConsent = async (req, params) => {
 
   console.log('updateConsent', channel)
 
+  return {}
+
 }

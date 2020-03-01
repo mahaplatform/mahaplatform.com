@@ -23,4 +23,6 @@ export const updateLists = async (req, params) => {
     related_foreign_key: 'list_id'
   })
 
+  return {}
+
 }

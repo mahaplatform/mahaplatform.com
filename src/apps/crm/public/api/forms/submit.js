@@ -236,11 +236,9 @@ const submitRoute = async (req, res) => {
     const enrollment = await WorkflowEnrollment.forge({
       team_id: req.team.get('id'),
       workflow_id: workflow.get('id'),
+      response_id: response.get('id'),
       contact_id: contact.get('id'),
       code,
-      data: {
-        response: response.get('data')
-      },
       was_completed: false,
       was_converted: false
     }).save(null, {

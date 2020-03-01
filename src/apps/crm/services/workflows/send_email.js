@@ -140,4 +140,6 @@ export const sendEmail = async (req, params) => {
     transacting: req.trx
   })
 
+  return {}
+
 }

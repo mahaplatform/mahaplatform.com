@@ -23,4 +23,6 @@ export const updateInterests = async (req, params) => {
     related_foreign_key: 'topic_id'
   })
 
+  return {}
+
 }

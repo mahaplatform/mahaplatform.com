@@ -9,4 +9,6 @@ export const goal = async (req, params) => {
     patch: true
   })
 
+  return {}
+
 }
