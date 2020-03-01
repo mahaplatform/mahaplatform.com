@@ -1,4 +1,4 @@
-import WorkflowStep from '../models/workflow_step'
+import WorkflowStep from '../../models/workflow_step'
 
 export const updateSteps = async (req, { workflow, steps }) => {
 

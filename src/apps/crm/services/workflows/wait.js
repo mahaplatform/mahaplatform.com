@@ -10,17 +10,6 @@ const getDatetime = (params) => {
   return moment(`${until_date} ${until_time}`)
 }
 
-const getUntil = (params) => {
-  const { strategy } = params
-  if(strategy === 'duration') {
-    return getDuration(params)
-  } else if(strategy === 'datetime') {
-    return getDatetime(params)
-  }
-}
-
-export const wait = async (req, params) => {
-
-  return getUntil(params)
-
-}
+export const wait = async (req, params) => ({
+  until: (params.strategy === 'duration') ? getDuration(params) : getDatetime(params)
+})

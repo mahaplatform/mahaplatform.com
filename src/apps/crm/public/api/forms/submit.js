@@ -2,6 +2,7 @@ import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import ExecuteWorkflowQueue from '../../../queues/execute_workflow_queue'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
+import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { makePayment } from '../../../../finance/services/payments'
 import generateCode from '../../../../../core/utils/generate_code'
@@ -11,7 +12,6 @@ import LineItem from '../../../../finance/models/line_item'
 import Invoice from '../../../../finance/models/invoice'
 import Product from '../../../../finance/models/product'
 import EmailAddress from '../../../models/email_address'
-import Enrollment from '../../../models/enrollment'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Form from '../../../models/form'
@@ -230,10 +230,10 @@ const submitRoute = async (req, res) => {
   await Promise.mapSeries(form.related('workflows'), async(workflow) => {
 
     const code = await generateCode(req, {
-      table: 'crm_enrollments'
+      table: 'crm_workflow_enrollments'
     })
 
-    const enrollment = await Enrollment.forge({
+    const enrollment = await WorkflowEnrollment.forge({
       team_id: req.team.get('id'),
       workflow_id: workflow.get('id'),
       response_id: response.get('id'),

@@ -66,10 +66,11 @@ class Fields extends React.Component {
   }
 
   _getButton() {
-    const { config, fields, human, requiresPayment, status } = this.props
+    const { config, human, requiresPayment, status } = this.props
     const { captcha } = config.security
     const { button_text } = config.body
     const processing = status === 'submitting'
+    const fields = this._getFields()
     return {
       color: 'blue',
       disabled: !human,
@@ -90,7 +91,7 @@ class Fields extends React.Component {
     ]
   }
 
-  _getField(field,index) {
+  _getField(field, index) {
     const { code, errors, status, token } = this.props
     return {
       code,
@@ -106,7 +107,8 @@ class Fields extends React.Component {
   }
 
   _getRecaptcha() {
-    const { fields, onSetHuman } = this.props
+    const { onSetHuman } = this.props
+    const fields = this._getFields()
     return {
       tabIndex: fields.length + 1,
       onSuccess: onSetHuman

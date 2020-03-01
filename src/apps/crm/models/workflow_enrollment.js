@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import WorkflowAction from './workflow_action'
 import Workflow from './workflow'
+import Response from './response'
 import Contact from './contact'
 
 const WorkflowEnrollment = new Model({
@@ -17,6 +18,10 @@ const WorkflowEnrollment = new Model({
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')
+  },
+
+  response() {
+    return this.belongsTo(Response, 'response_id')
   },
 
   workflow() {

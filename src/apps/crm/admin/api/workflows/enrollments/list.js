@@ -1,5 +1,5 @@
 import EnrollmentSerializer from '../../../../serializers/enrollment_serializer'
-import Enrollment from '../../../../models/enrollment'
+import WorkflowEnrollment from '../../../../models/workflow_enrollment'
 import Workflow from '../../../../models/workflow'
 
 const listRoute = async (req, res) => {
@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const workflows = await Enrollment.filterFetch({
+  const workflows = await WorkflowEnrollment.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('workflow_id', workflow.get('id'))
