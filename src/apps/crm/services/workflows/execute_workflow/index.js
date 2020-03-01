@@ -1,6 +1,6 @@
-import executeWorkflowQueue from '../../queues/execute_workflow_queue'
-import WorkflowAction from '../../models/workflow_action'
-import WorkflowStep from '../../models/workflow_step'
+import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
+import WorkflowAction from '../../../models/workflow_action'
+import WorkflowStep from '../../../models/workflow_step'
 import { updateInterests } from './update_interests'
 import { updateConsent } from './update_consent'
 import { updateLists } from './update_lists'
@@ -15,6 +15,7 @@ const executeStep = async (req, { contact, enrollment, step }) => {
 
   if(step.get('action') === 'send_email') {
     return await sendEmail(req, {
+      enrollment,
       response: enrollment.related('response'),
       email_id: config.email.id
     })

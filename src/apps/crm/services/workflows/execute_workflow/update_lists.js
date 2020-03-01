@@ -1,4 +1,4 @@
-import { updateRelated } from '../../../../core/services/routes/relations'
+import { updateRelated } from '../../../../../core/services/routes/relations'
 import _ from 'lodash'
 
 export const updateLists = async (req, params) => {
