@@ -5,7 +5,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class IfElse extends React.PureComponent {
+class Conditional extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -45,10 +45,10 @@ class IfElse extends React.PureComponent {
   }
 
   _getForm() {
-    const fields = this._getFields()
+    const { fields } = this.props
     const { config } = this.state
     return {
-      title: 'If / Then',
+      title: 'Conditional',
       onChange: this._handleUpdate,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -70,7 +70,7 @@ class IfElse extends React.PureComponent {
   }
 
   _getComparison() {
-    const fields = this._getFields()
+    const { fields } = this.props
     const { config } = this.state
     const { code, comparison } = config
     if(!code) return []
@@ -107,20 +107,8 @@ class IfElse extends React.PureComponent {
     }
   }
 
-  _getFields() {
-    const { fields } = this.props
-    return fields.filter(field => {
-      return field.type !== 'text' && field.name
-    }).map(field => ({
-      code: field.code,
-      name: field.name.value,
-      type: _.get(field, 'contactfield.type') || field.type,
-      options: field.options
-    }))
-  }
-
   _getOptions(config) {
-    const fields = this._getFields()
+    const { fields } = this.props
     const { code, comparison } = config
     const field = _.find(fields, { code })
     if(field.type === 'checkbox') return [
@@ -163,4 +151,4 @@ class IfElse extends React.PureComponent {
 
 }
 
-export default IfElse
+export default Conditional

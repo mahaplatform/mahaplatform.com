@@ -70,7 +70,7 @@ class Rules extends React.Component {
       code: field.code,
       name: field.name.value,
       type: _.get(field, 'contactfield.type') || field.type,
-      options: field.options
+      options: _.get(field, 'contactfield.options') || field.options
     }))
   }
 

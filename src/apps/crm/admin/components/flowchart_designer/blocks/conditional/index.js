@@ -5,7 +5,7 @@ export default {
   icon: 'random',
   label: 'Conditional',
   type: 'conditional',
-  action: 'ifelse',
+  action: 'conditional',
   config: {
     options: []
   },

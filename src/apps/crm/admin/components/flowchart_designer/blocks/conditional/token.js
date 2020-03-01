@@ -32,7 +32,7 @@ class Token extends React.Component {
     const field = _.find(fields, { code })
     const comp = this._getComparison(field, { comparison })
     const parts = ['If']
-    if(code) parts.push(field.name.value)
+    if(code) parts.push(field.name)
     if(comp) parts.push(comp.text)
     return parts.join(' ')
   }

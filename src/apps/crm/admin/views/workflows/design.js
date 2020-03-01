@@ -2,6 +2,7 @@ import WorkflowDesigner from '../../components/workflow_designer'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Designer extends React.Component {
 
@@ -34,8 +35,15 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    if(workflow.form) return workflow.form.config.fields
-    return []
+    if(!workflow.form) return []
+    return workflow.form.config.fields.filter(field => {
+      return field.type !== 'text' && field.name
+    }).map(field => ({
+      code: field.code,
+      name: `response.${field.name.token}`,
+      type: _.get(field, 'contactfield.type') || field.type,
+      options: _.get(field, 'contactfield.options') || field.options
+    }))
   }
 
   _getTrigger() {

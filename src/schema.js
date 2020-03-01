@@ -572,8 +572,8 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('workflow_id').unsigned()
       table.integer('contact_id').unsigned()
-      table.integer('response_id').unsigned()
       table.string('code', 255)
+      table.jsonb('data')
       table.boolean('was_completed')
       table.boolean('was_converted')
       table.timestamp('unenrolled_at')
@@ -2886,7 +2886,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
       table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('response_id').references('crm_responses.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {
