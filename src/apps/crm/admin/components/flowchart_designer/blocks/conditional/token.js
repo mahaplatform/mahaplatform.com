@@ -6,7 +6,7 @@ import _ from 'lodash'
 class Token extends React.Component {
 
   static propTypes = {
-    code: PropTypes.string,
+    token: PropTypes.string,
     comparison: PropTypes.string,
     fields: PropTypes.array,
     value: PropTypes.string
@@ -28,11 +28,11 @@ class Token extends React.Component {
   }
 
   _getDescription(rule) {
-    const { code, comparison, fields } = this.props
-    const field = _.find(fields, { code })
+    const { token, comparison, fields } = this.props
+    const field = _.find(fields, { token })
     const comp = this._getComparison(field, { comparison })
     const parts = ['If']
-    if(code) parts.push(field.name)
+    if(token) parts.push(field.name)
     if(comp) parts.push(comp.text)
     return parts.join(' ')
   }

@@ -5,6 +5,8 @@ export const updateLists = async (req, params) => {
 
   const { contact, list_id } = params
 
+  if(!list_id) return {}
+
   await contact.load(['lists'], {
     transacting: req.trx
   })

@@ -40,6 +40,7 @@ class Designer extends React.Component {
       return field.type !== 'text' && field.name
     }).map(field => ({
       code: field.code,
+      token: `response.${field.code}`,
       name: `response.${field.name.token}`,
       type: _.get(field, 'contactfield.type') || field.type,
       options: _.get(field, 'contactfield.options') || field.options

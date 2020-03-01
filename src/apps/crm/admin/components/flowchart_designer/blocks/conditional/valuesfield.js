@@ -60,7 +60,13 @@ class Values extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { defaultValue } = this.props
     const { options } = this.state
+    if(!_.isEqual(defaultValue, prevProps.defaultValue) && !_.isEqual(defaultValue, options)) {
+      this.setState({
+        options: defaultValue
+      })
+    }
     if(!_.isEqual(options, prevState.options)) {
       this._handleChange()
     }

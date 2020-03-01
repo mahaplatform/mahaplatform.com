@@ -35,9 +35,9 @@ const performanceRoute = async (req, res) => {
 
   data.enrolled = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -47,9 +47,9 @@ const performanceRoute = async (req, res) => {
 
   data.active = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_completed=false and unenrolled_at is null
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -59,9 +59,9 @@ const performanceRoute = async (req, res) => {
 
   data.lost = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and unenrolled_at is not null
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -71,9 +71,9 @@ const performanceRoute = async (req, res) => {
 
   data.completed = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_completed=true
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -83,9 +83,9 @@ const performanceRoute = async (req, res) => {
 
   data.converted = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_converted=true
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({

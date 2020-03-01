@@ -25,6 +25,11 @@ const listRoute = async (req, res) => {
       params: req.query.$filter,
       allowed: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']
     },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['-created_at']
+    },
     page: req.query.$page,
     withRelated: ['contact.photo'],
     transacting: req.trx

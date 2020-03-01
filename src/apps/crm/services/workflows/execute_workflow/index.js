@@ -15,9 +15,9 @@ const executeStep = async (req, { contact, enrollment, step }) => {
 
   if(step.get('action') === 'send_email') {
     return await sendEmail(req, {
+      email_id: config.email.id,
       enrollment,
-      response: enrollment.related('response'),
-      email_id: config.email.id
+      response: enrollment.related('response')
     })
   }
 
@@ -57,11 +57,9 @@ const executeStep = async (req, { contact, enrollment, step }) => {
 
   if(step.get('action') === 'conditional') {
     return await conditional(req, {
-      contact,
       enrollment,
       response: enrollment.related('response'),
-      step,
-      ...config
+      step
     })
   }
 
@@ -120,7 +118,7 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
 
   const contact = enrollment.related('contact')
 
-  const { conditon, until } = await executeStep(req, {
+  const { condition, until } = await executeStep(req, {
     contact,
     step,
     enrollment
@@ -136,9 +134,9 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
 
   const next = await getNextStep(req, {
     workflow_id: enrollment.get('workflow_id'),
-    parent: conditon ? conditon.parent : step.get('parent'),
-    answer: conditon ? conditon.answer : step.get('parent'),
-    delta: conditon ? conditon.delta : step.get('delta')
+    parent: condition ? condition.parent : step.get('parent'),
+    answer: condition ? condition.answer : step.get('parent'),
+    delta: condition ? condition.delta : step.get('delta')
   })
 
   if(next) {

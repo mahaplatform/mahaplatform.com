@@ -9,7 +9,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/emails/${props.params.email_id}/deliveries`,
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
-      { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> }
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> },
+      { label: 'Sent', key: 'sent_at', width: 180, primary: true, format: 'datetime' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

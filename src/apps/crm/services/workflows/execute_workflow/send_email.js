@@ -48,6 +48,8 @@ export const sendEmail = async (req, params) => {
 
   const { email_id, enrollment, response } = params
 
+  if(!email_id) return {}
+
   const contact = await Contact.query(qb => {
     qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')

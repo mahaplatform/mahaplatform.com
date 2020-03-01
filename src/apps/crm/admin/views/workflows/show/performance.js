@@ -13,11 +13,11 @@ const ranges = [
 ]
 
 const totals = [
-  { label: 'Enrolled', name: 'enrolled', color: '#DB2828' },
-  { label: 'Active', name: 'active', color: '#F2711C' },
-  { label: 'Lost', name: 'lost', color: '#FBBD08' },
-  { label: 'Completed', name: 'completed', color: '#B5CC18' },
-  { label: 'Converted', name: 'converted', color: '#21BA45' }
+  { label: 'Enrolled', name: 'enrolled', color: '#DB2828', query: '' },
+  { label: 'Active', name: 'active', color: '#F2711C', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' },
+  { label: 'Lost', name: 'lost', color: '#FBBD08', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nnl]' },
+  { label: 'Completed', name: 'completed', color: '#B5CC18', query: '?$filter[was_completed][$eq]=true' },
+  { label: 'Converted', name: 'converted', color: '#21BA45', query: '?$filter[was_converted][$eq]=true' }
 ]
 
 const metrics = [
@@ -93,7 +93,7 @@ class Performance extends React.Component {
                     { total.label }
                   </td>
                   <td className="right aligned">
-                    <Button { ...this._getButton(total.name) } />
+                    <Button { ...this._getButton(total.name, total.query) } />
                   </td>
                 </tr>
               ))}
@@ -121,13 +121,13 @@ class Performance extends React.Component {
     }
   }
 
-  _getButton(name, report) {
+  _getButton(name, query) {
     const { performance } = this.state
     const { workflow } = this.props
     return {
       label: performance.metrics[name],
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}/enrollments?report=${report}`
+      route: `/admin/crm/workflows/${workflow.id}/enrollments${query}`
     }
   }
 

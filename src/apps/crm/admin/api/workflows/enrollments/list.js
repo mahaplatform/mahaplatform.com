@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const workflows = await WorkflowEnrollment.filterFetch({
+  const enrollments = await WorkflowEnrollment.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('workflow_id', workflow.get('id'))
@@ -35,7 +35,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(workflows, EnrollmentSerializer)
+  res.status(200).respond(enrollments, EnrollmentSerializer)
 
 }
 

@@ -5,6 +5,8 @@ export const updateInterests = async (req, params) => {
 
   const { contact, topic_id } = params
 
+  if(!topic_id) return {}
+
   await contact.load(['topics'], {
     transacting: req.trx
   })
