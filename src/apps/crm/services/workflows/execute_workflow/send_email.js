@@ -46,7 +46,13 @@ const getResponseData = async (req, { response }) => {
 
 export const sendEmail = async (req, params) => {
 
-  const { email_id, enrollment, response } = params
+  const { email_id, enrollment } = params
+
+  await enrollment.load(['response'], {
+    transacting: req.trx
+  })
+
+  const response = enrollment.related('response')
 
   if(!email_id) return {}
 

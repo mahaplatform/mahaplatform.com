@@ -9,7 +9,6 @@ const processor = async (req, job) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['contact','response.form','workflow'],
     transacting: req.trx
   })
 

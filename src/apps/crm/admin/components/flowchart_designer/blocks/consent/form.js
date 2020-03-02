@@ -1,21 +1,13 @@
-import OptInToken from '../../../../tokens/optin'
+import { actions, channel_types } from './variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
-
-const channels = [
-  { value: 'email', text: 'Email' },
-  { value: 'voice', text: 'Voice' },
-  { value: 'sms', text: 'SMS' },
-  { value: 'postal', text: 'Postal' }
-]
 
 class Consent extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    topics: PropTypes.array,
+    fields: PropTypes.array,
     workflow: PropTypes.object,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -29,7 +21,7 @@ class Consent extends React.PureComponent {
   }
 
   _getForm() {
-    const { config } = this.props
+    const { config, fields } = this.props
     return {
       title: 'Update Consent',
       onChange: this._handleChange,
@@ -42,7 +34,9 @@ class Consent extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Channel', name: 'channel', type: 'radiogroup', options: channels, required: true, defaultValue: config.channel }
+            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: config.action },
+            { label: 'Channel', name: 'channel_type', type: 'radiogroup', options: channel_types, required: true, defaultValue: config.channel_type },
+            { label: 'Field', name: 'token', type: 'dropdown', options: fields, required: true, value: 'token', text: 'name', defaultValue: config.token }
           ]
         }
       ]

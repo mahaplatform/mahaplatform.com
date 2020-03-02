@@ -161,10 +161,10 @@ export const updateConsent = async (req, { program, channel_type, channel_id, ch
 
   const contact = channel.related('contact')
 
-  const interest_actions = req.body.topic_ids ? await updateInterests(req, {
+  const interest_actions = topic_ids ? await updateInterests(req, {
     contact,
     program,
-    topic_ids: req.body.topic_ids
+    topic_ids
   }) : []
 
   return {

@@ -1,28 +1,6 @@
 import Contact from '../../../models/contact'
 import _ from 'lodash'
 
-const getResponseData = async (req, { response }) => {
-
-  await response.load(['form'])
-
-  const form = response.related('form')
-
-  const fields = form.get('config').fields.filter(field => {
-    return field.type !== 'text'
-  })
-
-  const data = response.get('data')
-
-  return {
-    ...fields.reduce((response, field) => ({
-      ...response,
-      [field.name.token]: data[field.code]
-    }), {}),
-    payment: data.payment
-  }
-
-}
-
 const getContactData = async (req, { enrollment }) => {
 
   const contact = await Contact.query(qb => {
@@ -50,7 +28,13 @@ const evaluate = async (left, comparison, right) => {
 
 export const conditional = async (req, params) => {
 
-  const { enrollment, response, step } = params
+  const { enrollment, step } = params
+
+  await enrollment.load(['response'], {
+    transacting: req.trx
+  })
+
+  const response = enrollment.related('response')
 
   const data = {
     contact: await getContactData(req, { enrollment }),

@@ -9,42 +9,40 @@ import { sendEmail } from './send_email'
 import { wait } from './wait'
 import { goal } from './goal'
 
-const executeStep = async (req, { contact, enrollment, step }) => {
+const executeStep = async (req, { enrollment, step }) => {
 
   const config = step.get('config')
 
   if(step.get('action') === 'send_email') {
     return await sendEmail(req, {
       email_id: config.email.id,
-      enrollment,
-      response: enrollment.related('response')
+      enrollment
     })
   }
 
   if(step.get('action') === 'consent') {
     return await updateConsent(req, {
-      contact,
-      channel: config.channel
+      ...config,
+      enrollment
     })
   }
 
   if(step.get('action') === 'interests') {
     return await updateInterests(req, {
-      contact,
+      enrollment,
       topic_id: config.topic.id
     })
   }
 
   if(step.get('action') === 'lists') {
     return await updateLists(req, {
-      contact,
+      enrollment,
       list_id: config.list.id
     })
   }
 
   if(step.get('action') === 'wait') {
     return await wait(req, {
-      contact,
       ...config
     })
   }
@@ -58,7 +56,6 @@ const executeStep = async (req, { contact, enrollment, step }) => {
   if(step.get('action') === 'conditional') {
     return await conditional(req, {
       enrollment,
-      response: enrollment.related('response'),
       step
     })
   }
@@ -112,14 +109,8 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
     code
   })
 
-  await enrollment.load(['contact','response'], {
-    transacting: req.trx
-  })
-
-  const contact = enrollment.related('contact')
 
   const { condition, until } = await executeStep(req, {
-    contact,
     step,
     enrollment
   })

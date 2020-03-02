@@ -3,13 +3,15 @@ import _ from 'lodash'
 
 export const updateLists = async (req, params) => {
 
-  const { contact, list_id } = params
+  const { enrollment, list_id } = params
 
   if(!list_id) return {}
 
-  await contact.load(['lists'], {
+  await enrollment.load(['contact.lists'], {
     transacting: req.trx
   })
+
+  const contact = enrollment.related('contact')
 
   const ids = _.uniq([
     ...contact.related('lists').map(list => list.get('id')),
