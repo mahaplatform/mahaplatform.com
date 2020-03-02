@@ -606,10 +606,10 @@ const schema = {
       table.string('description', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.USER-DEFINED('trigger_type')
       table.integer('form_id').unsigned()
       table.integer('email_id').unsigned()
       table.integer('email_campaign_id').unsigned()
+      table.USER-DEFINED('trigger_type')
     })
 
     await knex.schema.createTable('drive_access', (table) => {

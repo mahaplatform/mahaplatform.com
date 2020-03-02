@@ -82,7 +82,6 @@ import crmflowchartDesigner from '../../apps/crm/admin/components/flowchart_desi
 import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
-import crmnewcampaign from '../../apps/crm/admin/components/newcampaign'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmproductfield from '../../apps/crm/admin/components/productfield'
 import crmrecordingfield from '../../apps/crm/admin/components/recordingfield'
@@ -333,7 +332,6 @@ class App extends React.Component {
       crmfollowsfield,
       crmformDesigner,
       crmimagesfield,
-      crmnewcampaign,
       crmphonesfield,
       crmproductfield,
       crmrecordingfield,

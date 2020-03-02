@@ -6,11 +6,12 @@ const WorkflowSerializer = (req, result) => ({
   form: form(result.related('form')),
   status: result.get('status'),
   steps: result.related('steps').map(step),
-  enrolled: 123,
-  active: 234,
-  lost: 345,
-  converted: 456,
-  completed: 567,
+  trigger_type: result.get('trigger_type'),
+  enrolled: result.get('enrolled_count'),
+  active: result.get('active_count'),
+  lost: result.get('lost_count'),
+  converted: result.get('converted_count'),
+  completed: result.get('completed_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

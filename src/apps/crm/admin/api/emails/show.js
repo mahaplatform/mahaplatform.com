@@ -4,8 +4,10 @@ import Email from '../../../models/email'
 const showRoute = async (req, res) => {
 
   const email = await Email.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.id)
+    qb.select('crm_emails.*','crm_email_results.*')
+    qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
+    qb.where('crm_emails.team_id', req.team.get('id'))
+    qb.where('crm_emails.id', req.params.id)
   }).fetch({
     withRelated: ['program'],
     transacting: req.trx

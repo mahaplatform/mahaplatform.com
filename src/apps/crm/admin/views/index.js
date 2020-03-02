@@ -19,6 +19,7 @@ import EmailsDeliveriesList from './emails/deliveries/list'
 import EmailsDeliveriesShow from './emails/deliveries/show'
 import EmailsDesign from './emails/design'
 import EmailsShow from './emails/show'
+import EmailsList from './emails/list'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
@@ -60,6 +61,7 @@ const routes = [
   { path: '/emails/:email_id/deliveries/:id', component: EmailsDeliveriesShow },
   { path: '/emails/:id/design', component: EmailsDesign },
   { path: '/emails/:id', component: EmailsShow },
+  { path: '/emails', component: EmailsList },
   { path: '/forms', component: FormsList },
   { path: '/forms/:id', component: FormsShow },
   { path: '/forms/:id/design', component: FormsDesign },

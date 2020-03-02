@@ -7,8 +7,7 @@ import React from 'react'
 class Performance extends React.Component {
 
   static propTypes = {
-    email: PropTypes.object,
-    performance: PropTypes.object
+    email: PropTypes.object
   }
 
   render() {
@@ -20,10 +19,10 @@ class Performance extends React.Component {
   }
 
   _getList() {
-    const { performance } = this.props
-    const { sent, delivered, bounced, opened, total_opened, desktop } = performance
-    const { mobile, webviewed, shared, forwarded, complained } = performance
-    const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
+    const { email } = this.props
+    const { sent, delivered, bounced, opened, total_opened, desktop } = email
+    const { mobile, webviewed, shared, forwarded, complained } = email
+    const { clicked, total_clicked, unsubscribed, last_opened_at } = email
     return {
       sections: [
         {

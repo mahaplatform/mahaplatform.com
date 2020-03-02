@@ -12,6 +12,10 @@ const UpdateDuckRace = {
       email_id: 1
     })
 
+    await knex('crm_workflows').where('id', 1).update({
+      trigger_type: 'form_submission'
+    })
+
     await knex('crm_emails').where('id', 1).update({
       workflow_id: 1
     })

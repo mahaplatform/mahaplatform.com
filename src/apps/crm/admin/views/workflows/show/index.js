@@ -2,14 +2,12 @@ import Performance from './performance'
 import Email from '../emails/new'
 import { Page } from 'maha-admin'
 import Details from './details'
-import Emails from './emails'
 import Edit from '../edit'
 import React from 'react'
 
 const getTabs = ({ audits, emails, performance, workflow }) => ({
   items: [
     { label: 'Details', component: <Details workflow={ workflow } audits={ audits } /> },
-    { label: 'Emails', component: <Emails emails={ emails } /> },
     { label: 'Performance', component: <Performance workflow={ workflow } /> }
   ]
 })
@@ -44,7 +42,6 @@ const getTasks = ({ workflow, list }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_workflows/${props.params.id}/audits`,
-  emails: `/api/admin/crm/workflows/${props.params.id}/emails`,
   workflow: `/api/admin/crm/workflows/${props.params.id}`
 })
 

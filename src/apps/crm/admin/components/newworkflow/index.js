@@ -1,8 +1,3 @@
-import Postal from '../../views/campaigns/postal/new'
-import Social from '../../views/campaigns/social/new'
-import Voice from '../../views/campaigns/voice/new'
-import Email from '../../views/campaigns/email/new'
-import SMS from '../../views/campaigns/sms/new'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
@@ -10,46 +5,25 @@ import Types from './types'
 import React from 'react'
 import _ from 'lodash'
 
+const New = () => <div>foo</div>
+
 const types = [
   {
-    value: 'inbound_voice',
-    component: Voice,
-    direction: 'inbound',
-    medium: 'voice'
+    component: New,
+    value: 'form_submission'
   },{
-    value: 'outbound_voice',
-    component: Voice,
-    direction: 'outbound',
-    medium: 'voice'
+    component: New,
+    value: 'email_open'
   },{
-    value: 'inbound_sms',
-    component: SMS,
-    direction: 'inbound',
-    medium: 'sms'
+    component: New,
+    value: 'email_click'
   },{
-    value: 'outbound_sms',
-    component: SMS,
-    direction: 'outbound',
-    medium: 'sms'
-  },{
-    value: 'email',
-    component: Email,
-    direction: 'outbound',
-    medium: 'email'
-  },{
-    value: 'social',
-    component: Social,
-    direction: 'outbound',
-    medium: 'social'
-  },{
-    value: 'postal',
-    component: Postal,
-    direction: 'outbound',
-    medium: 'postal'
+    component: New,
+    value: 'manual_enrollment'
   }
 ]
 
-class NewCampaign extends React.PureComponent {
+class NewWorkflow extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -62,6 +36,7 @@ class NewCampaign extends React.PureComponent {
   }
 
   state = {
+    program_id: null,
     cards: []
   }
 
@@ -77,7 +52,7 @@ class NewCampaign extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Types, this._getTypes())
+    this._handlePush(Programs, this._getPrograms())
   }
 
   _getStack() {
@@ -90,7 +65,7 @@ class NewCampaign extends React.PureComponent {
 
   _getPrograms() {
     return {
-      onBack: this._handlePop,
+      onCancel: this._handleCancel,
       onChoose: this._handleProgram
     }
   }
@@ -98,7 +73,7 @@ class NewCampaign extends React.PureComponent {
   _getTypes() {
     return {
       types,
-      onCancel: this._handleCancel,
+      onBack: this._handlePop,
       onChoose: this._handleType
     }
   }
@@ -128,9 +103,9 @@ class NewCampaign extends React.PureComponent {
     })
   }
 
-  _handleProgram(program) {
-    const type = _.find(types, { value: this.props.type })
-    this._handlePush(type.component, this._getType(type.direction, program.id))
+  _handleProgram(program_id) {
+    this.setState({ program_id })
+    this._handlePush(Types, this._getTypes())
   }
 
   _handlePush(component, props) {
@@ -143,10 +118,10 @@ class NewCampaign extends React.PureComponent {
   }
 
   _handleType(type) {
-    this.props.onSet('type', type.value)
+    this.setState({ type })
     this._handlePush(Programs, this._getPrograms())
   }
 
 }
 
-export default NewCampaign
+export default NewWorkflow

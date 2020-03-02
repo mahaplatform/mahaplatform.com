@@ -1,4 +1,4 @@
-import CampaignToken from '../../tokens/campaign'
+import TriggerToken from '../../tokens/trigger'
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import List from '../list'
@@ -8,11 +8,11 @@ class Types extends React.PureComponent {
 
   static propTypes = {
     types: PropTypes.array,
-    onCancel: PropTypes.func,
+    onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
 
-  _handleCancel = this._handleCancel.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
@@ -30,20 +30,8 @@ class Types extends React.PureComponent {
   _getList() {
     const { types } = this.props
     return {
-      format: CampaignToken,
-      sections: [
-        {
-          title: 'Inbound Campaigns',
-          items: types.filter(type => {
-            return type.direction === 'inbound'
-          })
-        }, {
-          title: 'Outbound Campaigns',
-          items: types.filter(type => {
-            return type.direction === 'outbound'
-          })
-        }
-      ],
+      format: TriggerToken,
+      items: types,
       handler: this._handleChoose
     }
   }
@@ -51,23 +39,23 @@ class Types extends React.PureComponent {
   _getOverview() {
     return {
       backgroundColor: 'red',
-      icon: 'bullhorn',
-      title: 'Choose a campaign type',
-      text: 'Choose the type best suited to help you reach your audience'
+      icon: 'cogs',
+      title: 'Choose a trigger type',
+      text: 'Choose what action will trigger this workflow'
     }
   }
 
   _getPanel() {
     return {
-      title: 'Choose Campaign Type',
+      title: 'Choose Trigger Type',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel}
+        { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
   }
 
-  _handleCancel() {
-    this.props.onCancel()
+  _handleBack() {
+    this.props.onBack()
   }
 
   _handleChoose(type) {

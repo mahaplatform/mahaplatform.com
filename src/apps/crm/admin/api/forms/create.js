@@ -93,7 +93,8 @@ const createRoute = async (req, res) => {
     program_id: program.get('id'),
     title: 'Confirmation',
     code: workflowCode,
-    status: 'active'
+    status: 'active',
+    trigger_type: 'form_submission'
   }).save(null, {
     transacting: req.trx
   })

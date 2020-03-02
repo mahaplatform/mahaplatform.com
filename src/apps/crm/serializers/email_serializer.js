@@ -4,7 +4,21 @@ const EmailSerializer = (req, result) => ({
   title: result.get('title'),
   config: result.get('config'),
   program: program(result.related('program')),
-  results: results(result.related('results')),
+  sent: result.get('sent'),
+  delivered: result.get('delivered'),
+  bounced: result.get('bounced'),
+  opened: result.get('opened'),
+  total_opened: result.get('total_opened'),
+  last_opened_at: result.get('last_opened_at'),
+  mobile: result.get('mobile'),
+  desktop: result.get('desktop'),
+  clicked: result.get('clicked'),
+  total_clicked: result.get('total_clicked'),
+  forwarded: result.get('forwarded'),
+  shared: result.get('shared'),
+  webviewed: result.get('webviewed'),
+  complained: result.get('complained'),
+  unsubscribed: result.get('unsubscribed'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -14,27 +28,6 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title')
-  }
-}
-
-const results = (results) => {
-  if(!results) return null
-  return {
-    sent: results.get('sent'),
-    delivered: results.get('delivered'),
-    bounced: results.get('bounced'),
-    opened: results.get('opened'),
-    total_opened: results.get('total_opened'),
-    last_opened_at: results.get('last_opened_at'),
-    mobile: results.get('mobile'),
-    desktop: results.get('desktop'),
-    clicked: results.get('clicked'),
-    total_clicked: results.get('total_clicked'),
-    forwarded: results.get('forwarded'),
-    shared: results.get('shared'),
-    webviewed: results.get('webviewed'),
-    complained: results.get('complained'),
-    unsubscribed: results.get('unsubscribed')
   }
 }
 
