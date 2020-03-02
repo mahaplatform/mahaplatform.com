@@ -83,41 +83,6 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const workflowCode = await generateCode(req, {
-    table: 'crm_workflows'
-  })
-
-  await Workflow.forge({
-    team_id: req.team.get('id'),
-    email_campaign_id: campaign.get('id'),
-    program_id: program.get('id'),
-    title: 'Email Workflow',
-    code: workflowCode,
-    status: 'active',
-    config: {
-      steps: [
-        {
-          code: 'v6k3twzy02',
-          type: 'verb',
-          delta: 0,
-          action: 'wait',
-          answer: null,
-          config: {
-            strategy: 'duration',
-            until_date: null,
-            until_time: null,
-            duration_days: 1,
-            duration_mins: 0,
-            duration_hours: 0
-          },
-          parent: null
-        }
-      ]
-    }
-  }).save(null, {
-    transacting: req.trx
-  })
-
   await activity(req, {
     story: 'created {object}',
     object: campaign

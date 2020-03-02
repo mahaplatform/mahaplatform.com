@@ -23,7 +23,7 @@ class Fields extends React.Component {
     return (
       <div className={`${numbers[fields.length]} fields`}>
         { fields.map((field, index) => (
-          <Field key={`field_${index}`} { ...this._getField(field) } />
+          <Field key={`field_${index}_${field.name}`} { ...this._getField(field) } />
         )) }
       </div>
     )

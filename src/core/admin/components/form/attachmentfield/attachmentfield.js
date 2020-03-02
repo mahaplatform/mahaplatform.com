@@ -19,6 +19,7 @@ class AttachmentField extends React.Component {
     multiple: PropTypes.bool,
     plains: PropTypes.array,
     prompt: PropTypes.string,
+    status: PropTypes.string,
     onChange: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
@@ -70,14 +71,17 @@ class AttachmentField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onFetch, onReady } = this.props
-    if(defaultValue) onFetch(defaultValue)
+    if(defaultValue) return onFetch(defaultValue)
     onReady()
   }
 
   componentDidUpdate(prevProps) {
-    const { assets } = this.props
+    const { assets, status } = this.props
     if(!_.isEqual(assets, prevProps.assets)) {
       this._handleChange()
+    }
+    if(status !== prevProps.status && status === 'success') {
+      this.props.onReady()
     }
   }
 

@@ -180,7 +180,6 @@ class Form extends React.Component {
     const { data, onUpdateData } = this.props
     current.map(field => {
       if(data[field.name] === undefined) {
-        console.log('new field', field)
         return onUpdateData(field.name, field.defaultValue)
       }
     })

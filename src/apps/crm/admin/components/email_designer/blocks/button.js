@@ -173,13 +173,13 @@ class Button extends React.Component {
       ]
     } else if(config.link_strategy === 'email') {
       return [
-        { label: 'Email Address', name: 'email_address', type: 'textfield' },
-        { label: 'Message Subject', name: 'email_subject', type: 'textfield' },
-        { label: 'Message Body', name: 'email_body', type: 'textfield' }
+        { label: 'Email Address', name: 'email_address', type: 'textfield', defaultValue: config.email_address },
+        { label: 'Message Subject', name: 'email_subject', type: 'textfield', defaultValue: config.email_subject },
+        { label: 'Message Body', name: 'email_body', type: 'textfield', defaultValue: config.email_body }
       ]
     } else if(config.link_strategy === 'asset') {
       return [
-        { label: 'File', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose File' }
+        { label: 'File', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose File', defaultValue: config.asset_id}
       ]
     }
   }

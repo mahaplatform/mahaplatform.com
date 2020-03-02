@@ -23,7 +23,7 @@ const members = async (req, profile) => {
   }).map(contact => ({
     first_name: contact.merge_fields.FNAME,
     last_name: contact.merge_fields.LNAME,
-    mailing_addresses: contact.merge_fields.ADDRESS.addr1 ? [
+    mailing_addresses: contact.merge_fields.ADDRESS && contact.merge_fields.ADDRESS.addr1 ? [
       {
         street_1: contact.merge_fields.ADDRESS.addr1,
         street_2: contact.merge_fields.ADDRESS.addr2,

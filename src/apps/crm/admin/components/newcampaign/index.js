@@ -130,7 +130,7 @@ class NewCampaign extends React.PureComponent {
   }
 
   _handleProgram(program) {
-    const type = _.find(types, { value: this.state.type })
+    const { type } = this.state
     this._handlePush(type.component, this._getType(type.direction, program.id))
   }
 
