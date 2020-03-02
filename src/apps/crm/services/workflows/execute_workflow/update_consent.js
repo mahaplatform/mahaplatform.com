@@ -53,7 +53,9 @@ const getChannel = async(req, { contact, channel_type, value }) => {
 
 export const updateConsent = async (req, params) => {
 
-  const { action, channel_type, enrollment, token } = params
+  const { config, enrollment } = params
+
+  const { action, channel_type, token } = config
 
   await enrollment.load(['contact','response','workflow.program'], {
     transacting: req.trx

@@ -9,57 +9,23 @@ import { sendEmail } from './send_email'
 import { wait } from './wait'
 import { goal } from './goal'
 
+const getExecutor = (action) => {
+  if(action === 'send_email') return sendEmail
+  if(action === 'consent') return updateConsent
+  if(action === 'interests') return updateInterests
+  if(action === 'lists') return updateLists
+  if(action === 'conditional') return conditional
+  if(action === 'wait') return wait
+  if(action === 'goal') return goal
+}
+
 const executeStep = async (req, { enrollment, step }) => {
-
-  const config = step.get('config')
-
-  if(step.get('action') === 'send_email') {
-    return await sendEmail(req, {
-      email_id: config.email.id,
-      enrollment
-    })
-  }
-
-  if(step.get('action') === 'consent') {
-    return await updateConsent(req, {
-      ...config,
-      enrollment
-    })
-  }
-
-  if(step.get('action') === 'interests') {
-    return await updateInterests(req, {
-      enrollment,
-      topic_id: config.topic.id
-    })
-  }
-
-  if(step.get('action') === 'lists') {
-    return await updateLists(req, {
-      enrollment,
-      list_id: config.list.id
-    })
-  }
-
-  if(step.get('action') === 'wait') {
-    return await wait(req, {
-      ...config
-    })
-  }
-
-  if(step.get('action') === 'goal') {
-    return await goal(req, {
-      enrollment
-    })
-  }
-
-  if(step.get('action') === 'conditional') {
-    return await conditional(req, {
-      enrollment,
-      step
-    })
-  }
-
+  const executor = getExecutor(step.get('action'))
+  return await executor(req, {
+    config: step.get('config'),
+    enrollment,
+    step
+  })
 }
 
 const getCurrentStep = async (req, { workflow_id, code }) => {
@@ -109,7 +75,6 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
     code
   })
 
-
   const { condition, until } = await executeStep(req, {
     step,
     enrollment
@@ -131,19 +96,19 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
   })
 
   if(next) {
-    await executeWorkflowQueue.enqueue(req, {
+    return await executeWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       code: next.get('code')
     }, {
       until
     })
-  } else {
-    await enrollment.save({
-      was_completed: true
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
   }
+
+  await enrollment.save({
+    was_completed: true
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
 }

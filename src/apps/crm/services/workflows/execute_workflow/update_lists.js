@@ -3,7 +3,9 @@ import _ from 'lodash'
 
 export const updateLists = async (req, params) => {
 
-  const { enrollment, list_id } = params
+  const { config, enrollment } = params
+
+  const { list_id } = config
 
   if(!list_id) return {}
 

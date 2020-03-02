@@ -3,7 +3,9 @@ import _ from 'lodash'
 
 export const updateInterests = async (req, params) => {
 
-  const { enrollment, topic_id } = params
+  const { config, enrollment } = params
+
+  const { topic_id } = config
 
   if(!topic_id) return {}
 

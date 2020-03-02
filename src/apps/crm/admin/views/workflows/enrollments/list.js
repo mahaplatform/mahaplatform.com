@@ -1,4 +1,6 @@
+import ContactToken from '../../../tokens/contact'
 import { Page } from 'maha-admin'
+import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -8,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments`,
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
-      { label: 'Contact', key: 'contact.display_name', primary: true }
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> }
     ],
     empty: {
       icon: 'user',

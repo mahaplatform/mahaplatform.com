@@ -46,15 +46,17 @@ const getResponseData = async (req, { response }) => {
 
 export const sendEmail = async (req, params) => {
 
-  const { email_id, enrollment } = params
+  const { config, enrollment } = params
+
+  if(!config.email.id) return {}
+
+  const email_id = config.email.id
 
   await enrollment.load(['response'], {
     transacting: req.trx
   })
 
   const response = enrollment.related('response')
-
-  if(!email_id) return {}
 
   const contact = await Contact.query(qb => {
     qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
@@ -75,14 +77,12 @@ export const sendEmail = async (req, params) => {
     transacting: req.trx
   })
 
-  const config = crm_email.get('config')
-
   const code = await generateCode(req, {
     table: 'maha_emails'
   })
 
   const html = renderEmail(req, {
-    config
+    config: crm_email.get('config')
   })
 
   const email_data = {
@@ -105,14 +105,16 @@ export const sendEmail = async (req, params) => {
     response: response ? await getResponseData(req, { response }) : null
   }
 
+  const { reply_to, sender_id, subject } = crm_email.get('config').settings
+
   const rendered = personalizeEmail(req, {
-    subject: config.settings.subject,
+    subject,
     html,
     data: email_data
   })
 
   const sender = await Sender.query(qb => {
-    qb.where('id', config.settings.sender_id)
+    qb.where('id', sender_id)
   }).fetch({
     transacting: req.trx
   })
@@ -122,7 +124,7 @@ export const sendEmail = async (req, params) => {
     contact_id: contact.get('id'),
     email_id,
     from: sender.get('rfc822'),
-    reply_to: config.settings.reply_to,
+    reply_to,
     to: contact.get('rfc822'),
     subject: rendered.subject,
     html: rendered.html,

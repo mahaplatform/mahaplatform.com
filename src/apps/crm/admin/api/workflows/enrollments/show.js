@@ -21,6 +21,7 @@ const showRoute = async (req, res) => {
     qb.where('workflow_id', workflow.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['contact.photo','actions.step'],
     transacting: req.trx
   })
 
