@@ -10,7 +10,6 @@ const listRoute = async (req, res) => {
       qb.leftJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
       qb.leftJoin('maha_roles_rights', 'maha_roles_rights.role_id', 'maha_users_roles.role_id')
       qb.where('team_id', req.team.get('id'))
-      qb.where('is_active', true)
     },
     filter: {
       params: req.query.$filter,
