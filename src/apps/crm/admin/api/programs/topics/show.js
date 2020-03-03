@@ -1,6 +1,4 @@
-import { activity } from '../../../../../../core/services/routes/activities'
 import TopicSerializer from '../../../../serializers/topic_serializer'
-import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Topic from '../../../../models/topic'
 
@@ -23,21 +21,6 @@ const updateRoute = async (req, res) => {
     withRelated: ['program'],
     transacting: req.trx
   })
-
-  await topic.save({
-    title: req.body.title
-  }, {
-    transacting: req.trx
-  })
-
-  await activity(req, {
-    story: 'updated {object}',
-    object: topic
-  })
-
-  await socket.refresh(req, [
-    `/admin/crm/programs/${topic.get('program_id')}`
-  ])
 
   res.status(200).respond(topic, TopicSerializer)
 

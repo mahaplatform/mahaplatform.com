@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
+import Edit from './edit'
 import New from './new'
 
 const Lists = ({ lists, program }) => {
 
   const list = {
     items: lists.map((list, index) => ({
+      tasks: [
+        { label: 'Edit List', modal: <Edit list={ list } /> }
+      ],
       component: (props) => (
         <div className="token">
           { list.title }

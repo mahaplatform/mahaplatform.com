@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
+import Edit from './edit'
 import New from './new'
 
 const Senders = ({ program, senders }) => {
 
   const list = {
     items: senders.map((sender, index) => ({
+      tasks: [
+        { label: 'Edit Sender', modal: <Edit sender={ sender } /> }
+      ],
       component: (props) => (
         <div className="token">
           { sender.rfc822 }

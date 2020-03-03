@@ -9,7 +9,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
-    list: PropTypes.object
+    topic: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -20,12 +20,12 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { list } = this.props
+    const { topic } = this.props
     return {
-      title: 'Edit List',
+      title: 'Edit Topic',
       method: 'patch',
-      endpoint: `/api/admin/crm/programs/${list.program.id}/lists/${list.id}`,
-      action: `/api/admin/crm/programs/${list.program.id}/lists/${list.id}`,
+      endpoint: `/api/admin/crm/programs/${topic.program.id}/topics/${topic.id}`,
+      action: `/api/admin/crm/programs/${topic.program.id}/topics/${topic.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

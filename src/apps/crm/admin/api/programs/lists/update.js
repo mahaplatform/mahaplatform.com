@@ -1,8 +1,8 @@
 import { activity } from '../../../../../../core/services/routes/activities'
-import TopicSerializer from '../../../../serializers/topic_serializer'
+import ListSerializer from '../../../../serializers/list_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
-import Topic from '../../../../models/topic'
+import List from '../../../../models/list'
 
 const updateRoute = async (req, res) => {
 
@@ -16,7 +16,7 @@ const updateRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const topic = await Topic.query(qb => {
+  const list = await List.query(qb => {
     qb.where('program_id', req.params.program_id)
     qb.where('id', req.params.id)
   }).fetch({
@@ -24,7 +24,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await topic.save({
+  await list.save({
     title: req.body.title
   }, {
     transacting: req.trx
@@ -32,14 +32,14 @@ const updateRoute = async (req, res) => {
 
   await activity(req, {
     story: 'updated {object}',
-    object: topic
+    object: list
   })
 
   await socket.refresh(req, [
-    `/admin/crm/programs/${topic.get('program_id')}`
+    `/admin/crm/programs/${list.get('program_id')}`
   ])
 
-  res.status(200).respond(topic, TopicSerializer)
+  res.status(200).respond(list, ListSerializer)
 
 }
 

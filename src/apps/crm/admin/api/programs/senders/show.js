@@ -1,6 +1,4 @@
-import { activity } from '../../../../../../core/services/routes/activities'
 import SenderSerializer from '../../../../serializers/sender_serializer'
-import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Sender from '../../../../models/sender'
 
@@ -23,21 +21,6 @@ const updateRoute = async (req, res) => {
     withRelated: ['program'],
     transacting: req.trx
   })
-
-  await sender.save({
-    name: req.body.name
-  }, {
-    transacting: req.trx
-  })
-
-  await activity(req, {
-    story: 'updated {object}',
-    object: sender
-  })
-
-  await socket.refresh(req, [
-    `/admin/crm/programs/${sender.get('program_id')}`
-  ])
 
   res.status(200).respond(sender, SenderSerializer)
 
