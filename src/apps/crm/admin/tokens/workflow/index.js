@@ -2,10 +2,10 @@ import TriggerTypeToken from '../trigger_type'
 import React from 'react'
 
 const triggers = {
-  form_submission: 'Triggered when a contact submits a form reponse',
-  email_open: 'Triggered when a contact opens en email',
-  email_click: 'Triggered when a contact clicks a link in an email',
-  manual_enrollment: 'Triggered when a contact is manually enrolled'
+  response: 'Triggered when a contact submits a form reponse',
+  open: 'Triggered when a contact opens en email',
+  click: 'Triggered when a contact clicks a link in an email',
+  manual: 'Triggered when a contact is manually enrolled'
 }
 
 const WorkflowToken = (workflow) => (

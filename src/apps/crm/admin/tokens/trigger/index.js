@@ -3,22 +3,22 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const triggers = {
-  form_submission: {
+  response: {
     icon: 'check-square',
     title: 'Form Submission',
     description: 'Enroll contacts when they submit a form reponse'
   },
-  email_open: {
+  open: {
     icon: 'envelope-open',
     title: 'Email Open',
     description: 'Enroll contacts when they open en email'
   },
-  email_click: {
+  click: {
     icon: 'mouse-pointer',
     title: 'Email Click',
     description: 'Enroll contacts when they click a link in an email'
   },
-  manual_enrollment: {
+  manual: {
     icon: 'user',
     title: 'Manual Enrollment',
     description: 'Enroll contacts manually on an ongoing basis'

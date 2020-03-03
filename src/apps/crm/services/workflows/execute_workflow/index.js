@@ -1,7 +1,11 @@
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowAction from '../../../models/workflow_action'
+import { sendInternalEmail } from './send_internal_email'
 import WorkflowStep from '../../../models/workflow_step'
+import { enrollInWorkflow } from './enroll_in_workflow'
+import { sendInternalSms } from './send_internal_sms'
 import { updateInterests } from './update_interests'
+import { updateProperty } from './update_property'
 import { updateConsent } from './update_consent'
 import { updateLists } from './update_lists'
 import { conditional } from './conditional'
@@ -10,11 +14,15 @@ import { wait } from './wait'
 import { goal } from './goal'
 
 const getExecutor = (action) => {
-  if(action === 'send_email') return sendEmail
-  if(action === 'consent') return updateConsent
+  if(action === 'send_internal_email') return sendInternalEmail
+  if(action === 'enroll_in_workflow') return enrollInWorkflow
+  if(action === 'send_internal_sms') return sendInternalSms
+  if(action === 'update_property') return updateProperty
   if(action === 'interests') return updateInterests
-  if(action === 'lists') return updateLists
   if(action === 'conditional') return conditional
+  if(action === 'consent') return updateConsent
+  if(action === 'send_email') return sendEmail
+  if(action === 'lists') return updateLists
   if(action === 'wait') return wait
   if(action === 'goal') return goal
 }

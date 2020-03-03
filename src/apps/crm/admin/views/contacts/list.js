@@ -9,7 +9,6 @@ import React from 'react'
 import New from './new'
 
 import ListCriteria from './listcriteria'
-import InterestCriteria from './listcriteria'
 
 const mapResourcesToPage = (props, context) => ({
   fields: '/api/admin/crm/fields'
@@ -43,7 +42,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'Spouse', key: 'spouse', type: 'text' }
       ] },
       { label: 'Classifications', fields: [
-        { name: 'Interest', key: 'topic_id', type: InterestCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'Interest', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$in', text: 'is interested in' },
           { value: '$nin', text: 'is not interested in' }
         ] },
@@ -61,7 +60,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         ] }
       ] },
       { label: 'Activities', fields: [
-        { name: 'Form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$eq', text: 'filled out' },
           { value: '$neq', text: 'did not fill out' }
         ] },
@@ -80,6 +79,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'Email Click', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$cl', text: 'clicked link in the email' },
           { value: '$ncl', text: 'did not click link in the email' }
+        ] },
+        { name: 'Workflow Enrollment', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$wen', text: 'enrolled in workflow' },
+          { value: '$nwen', text: 'not enrolled in workflow' }
+        ] },
+        { name: 'Workflow Conversion', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$wcv', text: 'enrolled and coverted in workflow' },
+          { value: '$nwcv', text: 'enrolled, but did not covert in workflow' }
+        ] },
+        { name: 'Workflow Completion', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', subject: false, comparisons: [
+          { value: '$wcm', text: 'enrolled and complete workflow' },
+          { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
         ] },
         { name: 'Purchase', key: 'product_id', type: 'select', endpoint: '/api/admin/finance/products', text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$pr', text: 'purchased' },

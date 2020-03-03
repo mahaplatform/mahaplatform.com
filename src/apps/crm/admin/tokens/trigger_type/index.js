@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const types = {
-  form_submission: 'check-square',
-  email_open: 'envelope-open',
-  email_click: 'mouse-pointer',
-  manual_enrollment: 'user'
+  response: 'check-square',
+  open: 'envelope-open',
+  click: 'mouse-pointer',
+  manual: 'user'
 }
 
 const TriggerTypeToken = ({ value }) => (

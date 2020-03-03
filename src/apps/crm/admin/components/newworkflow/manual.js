@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class EmailOpen extends React.PureComponent {
+class Manual extends React.PureComponent {
 
   static propTypes = {
     program_id: PropTypes.number,
@@ -32,8 +32,7 @@ class EmailOpen extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
-            { label: 'Tile', name: 'title', type: 'textfield', placeholder: 'Enter a title' },
-            { label: 'Email', name: 'email_id', type: 'lookup', endpoint: '/api/admin/crm/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
+            { label: 'Tile', name: 'title', type: 'textfield', placeholder: 'Enter a title' }
           ]
         }
       ]
@@ -50,4 +49,4 @@ class EmailOpen extends React.PureComponent {
 
 }
 
-export default EmailOpen
+export default Manual

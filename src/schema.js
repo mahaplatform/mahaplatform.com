@@ -2170,10 +2170,10 @@ const schema = {
     })
 
     await knex.schema.table('crm_forms', table => {
+      table.foreign('email_id').references('crm_emails.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('crm_interests', table => {
@@ -2275,6 +2275,24 @@ const schema = {
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_workflow_actions', table => {
+      table.foreign('enrollment_id').references('crm_workflow_enrollments.id')
+      table.foreign('step_id').references('crm_workflow_steps.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_workflow_enrollments', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('response_id').references('crm_responses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+    })
+
+    await knex.schema.table('crm_workflow_steps', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflows', table => {
@@ -2880,24 +2898,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_workflow_enrollments', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('response_id').references('crm_responses.id')
-    })
-
-    await knex.schema.table('crm_workflow_steps', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-    })
-
-    await knex.schema.table('crm_workflow_actions', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('enrollment_id').references('crm_workflow_enrollments.id')
-      table.foreign('step_id').references('crm_workflow_steps.id')
     })
 
 

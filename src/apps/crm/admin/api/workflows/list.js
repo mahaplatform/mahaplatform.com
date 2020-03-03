@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['program_id']
+      allowed: ['trigger_type','program_id','id']
     },
     sort: {
       params: req.query.$sort,
@@ -20,7 +20,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['program'],
+    withRelated: ['program.logo'],
     transacting: req.trx
   })
 

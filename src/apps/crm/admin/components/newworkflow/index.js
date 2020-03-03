@@ -1,25 +1,25 @@
-import ManualEnrollment from './manual_enrollment'
-import FormSubmission from './form_submission'
-import EmailOpen from './email_open'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
+import Response from './response'
+import Manual from './manual'
 import Types from './types'
 import React from 'react'
+import Open from './open'
 
 const types = [
   {
-    component: FormSubmission,
-    value: 'form_submission'
+    component: Response,
+    value: 'response'
   },{
-    component: EmailOpen,
-    value: 'email_open'
+    component: Open,
+    value: 'open'
   },{
-    component: FormSubmission,
-    value: 'email_click'
+    component: Open,
+    value: 'click'
   },{
-    component: ManualEnrollment,
-    value: 'manual_enrollment'
+    component: Manual,
+    value: 'manual'
   }
 ]
 

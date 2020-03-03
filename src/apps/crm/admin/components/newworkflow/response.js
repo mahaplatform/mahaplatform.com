@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class FormSubmission extends React.PureComponent {
+class Response extends React.PureComponent {
 
   static propTypes = {
     program_id: PropTypes.number,
@@ -50,4 +50,4 @@ class FormSubmission extends React.PureComponent {
 
 }
 
-export default FormSubmission
+export default Response

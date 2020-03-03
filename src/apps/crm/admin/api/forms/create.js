@@ -94,7 +94,7 @@ const createRoute = async (req, res) => {
     title: 'Confirmation',
     code: workflowCode,
     status: 'active',
-    trigger_type: 'form_submission'
+    trigger_type: 'response'
   }).save(null, {
     transacting: req.trx
   })

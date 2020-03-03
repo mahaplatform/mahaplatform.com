@@ -21,8 +21,6 @@ export const getChanges = (req, { contact }) => {
 
 export const getContacts = async (req, params) => {
 
-  console.log(params)
-
   const { filter, sort, page } = params
 
   return await Contact.filterFetch({
@@ -85,6 +83,10 @@ export const getContacts = async (req, params) => {
         column: 'maha_emails.id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
       },
+      enrollment_id: {
+        column: 'crm_workflow_enrollments.id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
       product_id: {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_contacts.id']]
@@ -116,6 +118,29 @@ export const getContacts = async (req, params) => {
         $npr: (table, alias, value) => ({
           join: [`left join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value],
           query: `${alias}.product_id is null`
+        }),
+        $wen: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value]
+        }),
+        $nwen: (table, alias, value) => ({
+          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
+          query: `${alias}.id is null`
+        }),
+        $wcm: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
+          query: `${alias}.was_completed = true`
+        }),
+        $nwcm: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
+          query: `${alias}.was_completed = false`
+        }),
+        $wcv: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
+          query: `${alias}.was_converted = true`
+        }),
+        $nwcv: (table, alias, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
+          query: `${alias}.was_converted = false`
         })
       },
       params: filter,
