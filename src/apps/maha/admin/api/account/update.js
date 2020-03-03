@@ -1,13 +1,11 @@
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 
 const updateRoute = async (req, res) => {
 
   req.user = await req.user.save({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    secondary_email: req.body.secondary_email
+    ...whitelist(req.body, ['first_name','last_name','email','secondary_email','cell_phone'])
   }, {
     patch: true,
     transacting: req.trx
@@ -27,7 +25,7 @@ const updateRoute = async (req, res) => {
   })
 
   res.status(200).respond(req.user, {
-    fields: ['first_name','last_name','email','secondary_email']
+    fields: ['first_name','last_name','email','secondary_email','cell_phone']
   })
 
 }

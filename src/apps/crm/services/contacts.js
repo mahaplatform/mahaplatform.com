@@ -21,13 +21,14 @@ export const getChanges = (req, { contact }) => {
 
 export const getContacts = async (req, params) => {
 
-  const { filter, sort, page } = params
+  const { filter, sort, page, empty } = params
 
   return await Contact.filterFetch({
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
       qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
       qb.where('crm_contacts.team_id', req.team.get('id'))
+      if(empty === true && (!filter || filter.$and.length === 0)) qb.whereRaw('false')
     },
     aliases: {
       email: 'crm_contact_primaries.email',

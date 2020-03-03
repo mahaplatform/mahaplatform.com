@@ -169,7 +169,10 @@ const getFilterEqual = (column, value) => {
   if(value === 'not_null') return getFilterNotNull(column, value)
   if(`${value}` === 'true') return getFilterTrue(column, value)
   if(`${value}` === 'false') return getFilterFalse(column, value)
-  if(!/^\d+$/.test(value)) column = `lower(${column}::varchar)`
+  if(!/^\d+$/.test(value)) {
+    column = `lower(${column}::varchar)`,
+    value = value.toLowerCase()
+  }
   return {
     query: `${column} = ?`,
     bindings: [value]

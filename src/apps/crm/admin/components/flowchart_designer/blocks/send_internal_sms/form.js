@@ -1,7 +1,6 @@
-import { Container, Form, UserToken } from 'maha-admin'
+import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class SendSMS extends React.PureComponent {
 
@@ -20,7 +19,7 @@ class SendSMS extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, users } = this.props
+    const { config } = this.props
     return {
       title: 'Send SMS',
       onChange: this._handleChange,
@@ -33,7 +32,7 @@ class SendSMS extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'User', name: 'user_id', type: 'lookup', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user.id'), required: true },
+            { label: 'Number', name: 'number', type: 'phonefield' },
             { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, rows: 4, required: true, maxLength: 160 }
           ]
         }
@@ -42,15 +41,7 @@ class SendSMS extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { users } = this.props
-    const user = _.find(users, { id: config.user_id })
-    this.props.onChange({
-      user: user ? {
-        id: user.id,
-        full_name: user.full_name
-      } : null,
-      message: config.message
-    })
+    this.props.onChange(config)
   }
 
   _handleDone() {
@@ -59,11 +50,4 @@ class SendSMS extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  users: {
-    endpoint: '/api/admin/users',
-    filter: { cell_phone: { $neq: 'null' } }
-  }
-})
-
-export default Container(mapResources)(SendSMS)
+export default SendSMS

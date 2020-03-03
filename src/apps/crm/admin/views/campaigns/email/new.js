@@ -1,6 +1,7 @@
 import ImportToken from '../../../../../maha/admin/tokens/import'
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
+import criteria from '../../contacts/criteria'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -82,60 +83,7 @@ class Email extends React.PureComponent {
       endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/email/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel="email" />,
-      fields: [
-        { label: 'Contact', fields: [
-          { name: 'First Name', key: 'first_name', type: 'text' },
-          { name: 'Last Name', key: 'last_name', type: 'text' },
-          { name: 'Email', key: 'email', type: 'text' },
-          { name: 'Phone', key: 'phone', type: 'text' },
-          { name: 'Street', key: 'street_1', type: 'text' },
-          { name: 'City', key: 'city', type: 'text' },
-          { name: 'State/Province', key: 'state_province', type: 'text' },
-          { name: 'Postal Code', key: 'postal_code', type: 'text' },
-          { name: 'Birthday', key: 'birthday', type: 'text' },
-          { name: 'Spouse', key: 'spouse', type: 'text' }
-        ] },
-        { label: 'Classifications', fields: [
-          { name: 'Interest', key: 'topic_id', type: 'select', endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$in', text: 'is interested in' },
-            { value: '$nin', text: 'is not interested in' }
-          ] },
-          { name: 'List', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$in', text: 'is subscribed to' },
-            { value: '$nin', text: 'is not subscribed to' }
-          ] },
-          { name: 'Organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', subject: false, text: 'name', value: 'id', comparisons: [
-            { value: '$in', text: 'belongs to' },
-            { value: '$nin', text: 'does not belong to' }
-          ] },
-          { name: 'Tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id', subject: false, comparisons: [
-            { value: '$in', text: 'is tagged with' },
-            { value: '$nin', text: 'id not tagged with' }
-          ] }
-        ] },
-        { label: 'Activities', fields: [
-          { name: 'Form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$eq', text: 'filled out' },
-            { value: '$neq', text: 'did not fill out' }
-          ] },
-          { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
-            { value: '$eq', text: 'was included in import' },
-            { value: '$neq', text: 'was not included in import' }
-          ] },
-          { name: 'Email Delivery', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$de', text: 'received the email' },
-            { value: '$nde', text: 'did not receive the email' }
-          ] },
-          { name: 'Email Open', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$op', text: 'opened the email' },
-            { value: '$nop', text: 'did not open the email' }
-          ] },
-          { name: 'Email Click', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-            { value: '$cl', text: 'clicked link in the email' },
-            { value: '$ncl', text: 'did not click link in the email' }
-          ] }
-        ] }
-      ],
+      fields: criteria,
       title: 'Select Contacts'
     }
   }

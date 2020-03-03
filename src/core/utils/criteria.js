@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export const toFilter = (items, parent) => {
+export const toFilter = (items, parent = null) => {
   const result = items.filter(item => {
     return item.parent === parent
   }).map(item => ({

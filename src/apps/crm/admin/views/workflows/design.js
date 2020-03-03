@@ -49,10 +49,25 @@ class Designer extends React.Component {
 
   _getTrigger() {
     const { workflow } = this.props
-    if(workflow.form) {
+    if(workflow.trigger_type === 'response') {
       return {
         icon: 'check-square-o',
         text: 'Form is submitted'
+      }
+    } else if(workflow.trigger_type === 'open') {
+      return {
+        icon: 'envelope-open',
+        text: 'Email is opened'
+      }
+    } else if(workflow.trigger_type === 'click') {
+      return {
+        icon: 'mouse-pointer',
+        text: 'Email is clicked'
+      }
+    } else if(workflow.trigger_type === 'manual') {
+      return {
+        icon: 'plus',
+        text: 'Contact is enrolled'
       }
     }
   }

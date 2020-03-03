@@ -6,6 +6,7 @@ const showRoute = (req, res) => {
       'last_name',
       'email',
       'secondary_email',
+      'cell_phone',
       'photo_id',
       'notification_method',
       'security_question_id',
