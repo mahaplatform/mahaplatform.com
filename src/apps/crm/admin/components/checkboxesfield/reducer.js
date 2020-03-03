@@ -33,7 +33,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       selected: [
-        ..._.xor(state.selected, [action.id])
+        ..._.xorWith(state.selected, [action.item], _.isEqual)
       ]
     }
 

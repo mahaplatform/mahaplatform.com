@@ -26,7 +26,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       selected: [
         ...action.multiple ?
-          _.xor(state.selected, [action.value]) :
+          _.xorWith(state.selected, [action.value], _.isEqual) :
           !_.includes(state.selected, action.value) ? [action.value] : []
       ]
     }

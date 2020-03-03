@@ -37,6 +37,7 @@ class Field extends React.PureComponent {
   }
 
   _getComponent(type) {
+    if(!_.isString(type)) return type
     if(type === 'daterange') return DateRange
     if(type === 'select') return Select
     if(type === 'text') return Text

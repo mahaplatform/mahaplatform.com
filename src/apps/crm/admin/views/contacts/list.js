@@ -8,6 +8,9 @@ import Tags from './tags'
 import React from 'react'
 import New from './new'
 
+import ListCriteria from './listcriteria'
+import InterestCriteria from './listcriteria'
+
 const mapResourcesToPage = (props, context) => ({
   fields: '/api/admin/crm/fields'
 })
@@ -40,11 +43,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'Spouse', key: 'spouse', type: 'text' }
       ] },
       { label: 'Classifications', fields: [
-        { name: 'Interest', key: 'topic_id', type: 'select', endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'Interest', key: 'topic_id', type: InterestCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$in', text: 'is interested in' },
           { value: '$nin', text: 'is not interested in' }
         ] },
-        { name: 'List', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', subject: false, comparisons: [
           { value: '$in', text: 'is subscribed to' },
           { value: '$nin', text: 'is not subscribed to' }
         ] },

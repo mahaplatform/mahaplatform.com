@@ -59,7 +59,7 @@ class New extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics' }
+                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics', value: 'id' }
               ]
             }
           ]
@@ -68,7 +68,7 @@ class New extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists', filters: { type: { $eq: 'static' } } }
+                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists', value: 'id' }
               ]
             }
           ]

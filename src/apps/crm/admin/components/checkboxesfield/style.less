@@ -1,18 +1,18 @@
-.checkboxesfield {
-  margin: -0.8em;
-}
-.checkboxesfield-header {
-  border-bottom: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 95);
-  padding: 0.8em;
-  .maha-image {
-    display: inline-block;
-    width: 1.6em;
-    margin: 0 0.8em -0.5em 0;
-    border-radius: 0.3em;
+.maha-criterion-form {
+  .crm-checkboxesfield {
+    flex: 1;
+    margin: 0 !important;
+    .scrollable();
   }
 }
-.checkboxesfield-item {
+.crm-checkboxesfield {
+  margin: -0.8em;
+}
+.crm-checkboxesfield-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+}
+.crm-checkboxesfield-item {
   border-bottom: 1px solid fadeout(@black, 90);
   cursor: pointer;
   display: flex;
@@ -20,7 +20,7 @@
     background-color: fadeout(@black, 97);
   }
 }
-.checkboxesfield-item-icon {
+.crm-checkboxesfield-item-icon {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
@@ -33,6 +33,6 @@
     color: fadeout(@black, 80);
   }
 }
-.checkboxesfield-item-label {
+.crm-checkboxesfield-item-label {
   padding: 0.8em;
 }

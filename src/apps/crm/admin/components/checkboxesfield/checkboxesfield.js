@@ -1,20 +1,19 @@
-import { Image } from 'maha-admin'
+import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
 class CheckboxesField extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     defaultValue: PropTypes.array,
     endpoint: PropTypes.string,
-    filters: PropTypes.object,
+    filter: PropTypes.object,
     items: PropTypes.array,
     sections: PropTypes.object,
     selected: PropTypes.array,
     status: PropTypes.string,
+    value: PropTypes.string,
     onChange: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
@@ -30,23 +29,22 @@ class CheckboxesField extends React.PureComponent {
   render() {
     const { sections } = this.props
     return (
-      <div className="checkboxesfield">
+      <div className="crm-checkboxesfield">
         { Object.keys(sections).map((id, index) => (
-          <div className="checkboxesfield-section" key={`section_${index}`}>
-            <div className="checkboxesfield-header">
-              <Image src={ sections[id].logo } title={ sections[id].title } transforms={{ w: 24, h: 24 }} />
-              { sections[id].title }
+          <div className="crm-checkboxesfield-section" key={`section_${index}`}>
+            <div className="crm-checkboxesfield-header">
+              <ProgramToken { ...sections[id] } />
             </div>
-            <div className="checkboxesfield-items">
+            <div className="crm-checkboxesfield-items">
               { sections[id].items.map((item, index) => (
-                <div className="checkboxesfield-item" key={`item_${index}`} onClick={ this._handleToggle.bind(this, item)}>
-                  <div className="checkboxesfield-item-icon">
-                    { item.checked ?
+                <div className="crm-checkboxesfield-item" key={`item_${index}`} onClick={ this._handleToggle.bind(this, item)}>
+                  <div className="crm-checkboxesfield-item-icon">
+                    { this._getChecked(item) ?
                       <i className="fa fa-check-circle" /> :
                       <i className="fa fa-circle-o" />
                     }
                   </div>
-                  <div className="checkboxesfield-item-label">
+                  <div className="crm-checkboxesfield-item-label">
                     { item.title }
                   </div>
                 </div>
@@ -59,24 +57,39 @@ class CheckboxesField extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { defaultValue, endpoint, filters, onFetch, onSet } = this.props
-    const query = filters ? { filters } : null
+    const { defaultValue, endpoint, filter, onFetch, onSet } = this.props
+    const query = filter ? { $filter: filter } : null
     if(defaultValue) onSet(defaultValue)
     onFetch(endpoint, query)
   }
 
   componentDidUpdate(prevProps) {
-    const { selected, status, onChange, onReady } = this.props
+    const { selected, status, onReady } = this.props
     if(status !== prevProps.status && status === 'ready') {
       onReady()
     }
     if(!_.isEqual(selected, prevProps.selected)) {
-      onChange(selected)
+      this._handleChange()
     }
   }
 
+  _getChecked(option) {
+    const { selected, value } = this.props
+    if(!selected) return false
+    return selected.find(item => {
+      return value ? option === _.get(item, value) : _.isEqual(item, option)
+    }) !== undefined
+  }
+
   _handleToggle(item) {
-    this.props.onToggle(item.id)
+    const { value } = this.props
+    const chosen = value ? _.get(item, value) : item
+    this.props.onToggle(chosen)
+  }
+
+  _handleChange() {
+    const { selected } = this.props
+    this.props.onChange(selected)
   }
 
 }

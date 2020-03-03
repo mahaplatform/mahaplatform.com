@@ -13,7 +13,7 @@ export const set = (selected) => ({
   selected
 })
 
-export const toggle = (id) => ({
+export const toggle = (item) => ({
   type: 'TOGGLE',
-  id
+  item
 })

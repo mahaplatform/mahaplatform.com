@@ -36,7 +36,8 @@ class Interests extends React.Component {
   _getCheckboxesField() {
     return {
       endpoint: '/api/admin/crm/lists',
-      onChange: this._handleChange
+      onChange: this._handleChange,
+      value: 'id'
     }
   }
 

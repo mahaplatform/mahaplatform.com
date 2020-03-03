@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import _ from 'lodash'
 
 const items = (state, props) => state.items || []
 
@@ -15,7 +14,7 @@ export const sections = createSelector(
         ...item.program,
         items: [
           ...sections[item.program.id] ? sections[item.program.id].items : [],
-          { id: item.id, title: item.title, checked: _.includes(selected, item.id) }
+          { id: item.id, title: item.title }
         ]
       }
     }

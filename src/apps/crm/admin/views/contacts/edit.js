@@ -60,7 +60,7 @@ class Edit extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics' }
+                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics', value: 'id' }
               ]
             }
           ]
@@ -69,7 +69,7 @@ class Edit extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists' }
+                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists', value: 'id' }
               ]
             }
           ]
