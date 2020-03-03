@@ -35,11 +35,11 @@ class Items extends React.PureComponent {
 class Programs extends React.PureComponent {
 
   static propTypes = {
-    onCancel: PropTypes.func,
+    onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
 
-  _handleCancel = this._handleCancel.bind(this)
+  _handleBack = this._handleBack.bind(this)
 
   render() {
     return (
@@ -69,13 +69,13 @@ class Programs extends React.PureComponent {
     return {
       title: 'Choose a Progam',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
   }
 
-  _handleCancel() {
-    this.props.onCancel()
+  _handleBack() {
+    this.props.onBack()
   }
 
 }

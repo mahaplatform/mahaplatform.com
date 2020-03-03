@@ -1,24 +1,24 @@
+import ManualEnrollment from './manual_enrollment'
+import FormSubmission from './form_submission'
+import EmailOpen from './email_open'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
 import Types from './types'
 import React from 'react'
-import _ from 'lodash'
-
-const New = () => <div>foo</div>
 
 const types = [
   {
-    component: New,
+    component: FormSubmission,
     value: 'form_submission'
   },{
-    component: New,
+    component: EmailOpen,
     value: 'email_open'
   },{
-    component: New,
+    component: FormSubmission,
     value: 'email_click'
   },{
-    component: New,
+    component: ManualEnrollment,
     value: 'manual_enrollment'
   }
 ]
@@ -36,7 +36,7 @@ class NewWorkflow extends React.PureComponent {
   }
 
   state = {
-    program_id: null,
+    type: null,
     cards: []
   }
 
@@ -45,14 +45,14 @@ class NewWorkflow extends React.PureComponent {
   _handlePop = this._handlePop.bind(this)
   _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
-  _handleType = this._handleType.bind(this)
+  _handleTypes = this._handleTypes.bind(this)
 
   render() {
     return <Stack { ...this._getStack()} />
   }
 
   componentDidMount() {
-    this._handlePush(Programs, this._getPrograms())
+    this._handlePush(Types, this._getTypes())
   }
 
   _getStack() {
@@ -65,7 +65,7 @@ class NewWorkflow extends React.PureComponent {
 
   _getPrograms() {
     return {
-      onCancel: this._handleCancel,
+      onBack: this._handlePop,
       onChoose: this._handleProgram
     }
   }
@@ -73,15 +73,15 @@ class NewWorkflow extends React.PureComponent {
   _getTypes() {
     return {
       types,
-      onBack: this._handlePop,
-      onChoose: this._handleType
+      onCancel: this._handleCancel,
+      onChoose: this._handleTypes
     }
   }
 
-  _getType(direction, program_id) {
+  _getType(program_id, trigger_type) {
     return {
-      direction,
       program_id,
+      trigger_type,
       onBack: this._handlePop,
       onDone: this._handleDone
     }
@@ -92,8 +92,7 @@ class NewWorkflow extends React.PureComponent {
   }
 
   _handleDone(result) {
-    const type = _.find(types, { value: this.props.type })
-    this.context.router.history.push(`/admin/crm/campaigns/${type.medium}/${result.code}`)
+    this.context.router.history.push(`/admin/crm/workflows/${result.id}`)
     this.context.modal.close()
   }
 
@@ -104,8 +103,8 @@ class NewWorkflow extends React.PureComponent {
   }
 
   _handleProgram(program_id) {
-    this.setState({ program_id })
-    this._handlePush(Types, this._getTypes())
+    const { type } = this.state
+    this._handlePush(type.component, this._getType(program_id, type.value))
   }
 
   _handlePush(component, props) {
@@ -117,7 +116,7 @@ class NewWorkflow extends React.PureComponent {
     })
   }
 
-  _handleType(type) {
+  _handleTypes(type) {
     this.setState({ type })
     this._handlePush(Programs, this._getPrograms())
   }

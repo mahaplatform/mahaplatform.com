@@ -1,7 +1,5 @@
-import TriggerTypeToken from '../../tokens/trigger_type'
 import NewWorkflow from '../../components/newworkflow'
 import WorkflowToken from '../../tokens/workflow'
-import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -11,7 +9,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', width: 80, visible: false },
-      { key: 'trigger_type', width: 60, format: TriggerTypeToken },
       { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', primary: true },
       { label: 'Enrolled', key: 'enrolled', width: 100, align: 'right' },

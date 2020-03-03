@@ -1,0 +1,29 @@
+.crm-trigger-type-token {
+  padding: 0.8em;
+  display: flex;
+}
+.crm-trigger-type-token-icon {
+  &.form_submission {
+    background-color: @blue;
+  }
+  &.email_open {
+    background-color: @red;
+  }
+  &.email_click {
+    background-color: @green;
+  }
+  &.manual_enrollment {
+    background-color: @teal;
+  }
+  margin: auto;
+  display: flex;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  border: 2px solid fadeout(@black, 80);
+  .fa {
+    margin: auto !important;
+    color: @white;
+    font-size: 0.8em;
+  }
+}

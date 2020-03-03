@@ -8,11 +8,11 @@ class Types extends React.PureComponent {
 
   static propTypes = {
     types: PropTypes.array,
-    onBack: PropTypes.func,
+    onCancel: PropTypes.func,
     onChoose: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
@@ -49,13 +49,13 @@ class Types extends React.PureComponent {
     return {
       title: 'Choose Trigger Type',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
+        { label: 'Cancel', handler: this._handleCancel }
       ]
     }
   }
 
-  _handleBack() {
-    this.props.onBack()
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChoose(type) {
