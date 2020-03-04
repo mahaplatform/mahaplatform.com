@@ -34,10 +34,14 @@ class Conditional extends React.PureComponent {
   }
 
   componentDidMount() {
+    const config = this.props.config || {}
     this.setState({
       config: {
         ...this._getDefault(),
-        ...this.props.config
+        ...config,
+        options: config.options ? config.options.filter(option => {
+          return option.code !== 'else'
+        }) : []
       }
     })
   }
@@ -47,7 +51,7 @@ class Conditional extends React.PureComponent {
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Conditional',
+      title: 'If / Else',
       onChange: this._handleChange,
       onChangeField: this._handleChangeField,
       onCancel: this._handleCancel,
@@ -95,12 +99,7 @@ class Conditional extends React.PureComponent {
         items.push({ name: 'option', type: 'radiogroup', options: field.options, required: true, defaultValue: config.option })
       }
     } else if(_.includes(['textfield','emailfield'], field.type)) {
-      if(_.includes(['$eq','$neq','$ct','$nct'], comparison)) {
-        items.push({ name: 'option', type: 'textfield', placeholder: 'Enter Value', defaultValue: config.option })
-      } else if(_.includes(['$in','$nin'], comparison)) {
-        console.log(config.options)
-        items.push({ name: 'options', type: ValuesFields, defaultValue: config.options })
-      }
+      items.push({ name: 'options', type: ValuesFields, defaultValue: config.options })
     }
     return items
   }
@@ -124,9 +123,7 @@ class Conditional extends React.PureComponent {
       { code: this._getCode(), value: 'uploaded', text: 'was uploaded '},
       { code: this._getCode(), value: 'notuploaded', text: 'was not uploaded '}
     ]
-    return [
-      { code: this._getCode(), value: '', text: '' }
-    ]
+    return []
   }
 
   _handleChangeField(key, value) {

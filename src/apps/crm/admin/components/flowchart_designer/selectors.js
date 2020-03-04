@@ -11,7 +11,7 @@ const segment = (steps, parent, answer) => {
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   }).map(step => {
-    if(step.action === 'conditional') {
+    if(step.action === 'ifthen') {
       return {
         ...step,
         options: step.config.options.map(option => ({

@@ -2,10 +2,10 @@ import Token from './token'
 import Form from './form'
 
 export default {
-  icon: 'random',
-  label: 'Conditional',
+  icon: 'sitemap',
+  label: 'If / Then',
   type: 'control',
-  action: 'conditional',
+  action: 'ifthen',
   form: Form,
   token: Token
 }

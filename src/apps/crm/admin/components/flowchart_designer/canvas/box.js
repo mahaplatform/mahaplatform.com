@@ -61,7 +61,7 @@ class Box extends React.PureComponent {
               </div>
             }
           </div>
-          { action === 'conditional' && options.length > 0 &&
+          { action === 'ifthen' && options.length > 0 &&
             <div className="flowchart-branches">
               { options.map((option, index) => (
                 <div className="flowchart-branch" key={`options_${index}`}>

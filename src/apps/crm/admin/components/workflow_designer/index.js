@@ -33,7 +33,7 @@ class WorkflowDesigner extends React.PureComponent {
           action: 'trigger',
           token: () => trigger.text
         },
-        { action: 'conditional' },
+        { action: 'ifthen' },
         { action: 'wait' },
         { action: 'email' },
         { action: 'sms' },

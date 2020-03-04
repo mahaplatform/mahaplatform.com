@@ -1,9 +1,9 @@
 import internal_email from './internal_email'
 import internal_sms from './internal_sms'
-import conditional from './conditional'
 import workflow from './workflow'
 import property from './property'
 import consent from './consent'
+import ifthen from './ifthen'
 import email from './email'
 import topic from './topic'
 import list from './list'
@@ -15,7 +15,7 @@ const blocks = {
   topic,
   list,
   consent,
-  conditional,
+  ifthen,
   wait,
   email,
   sms,

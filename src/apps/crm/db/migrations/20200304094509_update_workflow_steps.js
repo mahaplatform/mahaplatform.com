@@ -11,7 +11,7 @@ const UpdateWorkflowSteps = {
 
     await knex.schema.table('crm_workflow_steps', (table) => {
       table.enum('type', ['administrative','control','contact','communication'], { useNative: true, enumName: 'crm_workflow_step_types' })
-      table.enum('action', ['conditional','wait','goal','list','topic','consent','workflow','property','email','sms','internal_email','internal_sms','question','listen','message'], { useNative: true, enumName: 'crm_workflow_step_actions' })
+      table.enum('action', ['ifthen','wait','goal','list','topic','consent','workflow','property','email','sms','internal_email','internal_sms','question','listen','message'], { useNative: true, enumName: 'crm_workflow_step_actions' })
     })
 
     await knex('crm_workflow_steps').where('id', 1).update({
@@ -21,7 +21,7 @@ const UpdateWorkflowSteps = {
 
     await knex('crm_workflow_steps').where('id', 4).update({
       type: 'control',
-      action: 'conditional'
+      action: 'ifthen'
     })
 
     await knex('crm_workflow_steps').where('id', 5).update({
