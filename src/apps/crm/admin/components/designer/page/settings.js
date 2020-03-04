@@ -46,7 +46,7 @@ class Settings extends React.Component {
     const { program_id, onTokens } = this.props
     const { config } = this.state
     const tokens = {
-      label: 'You can the these tokens',
+      label: 'You can use the these tokens',
       className: 'link',
       handler: onTokens
     }

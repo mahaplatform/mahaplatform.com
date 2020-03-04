@@ -5,7 +5,10 @@ const types = {
   response: 'check-square',
   open: 'envelope-open',
   click: 'mouse-pointer',
-  manual: 'user'
+  list: 'users',
+  topic: 'book',
+  property: 'id-card',
+  manual: 'plus'
 }
 
 const TriggerTypeToken = ({ value }) => (

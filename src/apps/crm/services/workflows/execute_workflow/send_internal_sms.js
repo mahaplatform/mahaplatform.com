@@ -1,19 +1,28 @@
 import client from '../../../../../core/services/twilio'
+import ejs from 'ejs'
 
 export const sendInternalSms = async (req, params) => {
 
   const { config, enrollment } = params
 
-  const { number, message } = config
-
-  await enrollment.load(['workflow.program.phone_number'], {
+  await enrollment.load(['contact','workflow.program.phone_number'], {
     transacting: req.trx
+  })
+
+  const contact = enrollment.related('contact')
+
+  const message = ejs.render(config.message, {
+    contact: {
+      full_name: contact.get('full_name'),
+      first_name: contact.get('full_name'),
+      last_name: contact.get('full_name')
+    }
   })
 
   await client.messages.create({
     body: message,
     from: enrollment.related('workflow').related('program').related('phone_number').get('number'),
-    to: number
+    to: config.number
   })
 
   return {}

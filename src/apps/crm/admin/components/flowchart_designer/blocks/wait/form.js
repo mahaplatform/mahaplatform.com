@@ -8,7 +8,8 @@ class Wait extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   state = {

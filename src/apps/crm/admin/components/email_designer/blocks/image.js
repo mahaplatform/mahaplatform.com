@@ -192,7 +192,7 @@ class Image extends React.Component {
   _getTokens() {
     const { onTokens } = this.props
     return {
-      label: 'You can the these tokens',
+      label: 'You can use the these tokens',
       className: 'link',
       handler: onTokens
     }

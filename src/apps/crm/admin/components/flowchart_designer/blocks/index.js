@@ -3,6 +3,7 @@ import enroll_in_workflow from './enroll_in_workflow'
 import send_internal_sms from './send_internal_sms'
 import conditional from './conditional'
 import send_email from './send_email'
+import send_sms from './send_sms'
 import interests from './interests'
 import property from './property'
 import consent from './consent'
@@ -18,6 +19,7 @@ const blocks = {
   conditional,
   wait,
   send_email,
+  send_sms,
   enroll_in_workflow,
   property,
   send_internal_email,

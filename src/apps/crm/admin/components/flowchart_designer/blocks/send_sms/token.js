@@ -1,13 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ number, message }) => (
+const Token = ({ message }) => (
   <div>
-    { number &&
-      <div>
-        To { number }
-      </div>
-    }
     { message &&
       <div>
         &quot;{ message }&quot;
@@ -17,7 +12,6 @@ const Token = ({ number, message }) => (
 )
 
 Token.propTypes = {
-  number: PropTypes.string,
   message: PropTypes.string
 }
 

@@ -9,7 +9,8 @@ class EnrollInWorkflow extends React.PureComponent {
     config: PropTypes.object,
     workflows: PropTypes.array,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   state = {

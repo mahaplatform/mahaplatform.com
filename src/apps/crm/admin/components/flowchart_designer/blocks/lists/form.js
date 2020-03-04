@@ -11,7 +11,8 @@ class Lists extends React.PureComponent {
     lists: PropTypes.array,
     workflow: PropTypes.object,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   _handleAction = this._handleAction.bind(this)

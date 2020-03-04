@@ -1,6 +1,7 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
+import Tokens from './tokens'
 import React from 'react'
 import _ from 'lodash'
 
@@ -14,6 +15,7 @@ class Sidebar extends React.PureComponent {
     fields: PropTypes.array,
     status: PropTypes.string,
     steps: PropTypes.array,
+    tokens: PropTypes.array,
     workflow: PropTypes.object,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
@@ -26,6 +28,9 @@ class Sidebar extends React.PureComponent {
 
   _handleDone = this._handleDone.bind(this)
   _handleEdit = this._handleEdit.bind(this)
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
+  _handleTokens = this._handleTokens.bind(this)
 
   render() {
     return <Stack { ...this._getStack() } />
@@ -68,6 +73,7 @@ class Sidebar extends React.PureComponent {
       fields,
       workflow,
       onChange: this._handleUpdate.bind(this, code),
+      onTokens: this._handleTokens,
       onDone: this._handleDone
     }
   }
@@ -77,6 +83,14 @@ class Sidebar extends React.PureComponent {
     return {
       cards,
       slideFirst: false
+    }
+  }
+
+  _getTokens() {
+    const { tokens } = this.props
+    return {
+      tokens,
+      onPop: this._handlePop
     }
   }
 
@@ -107,6 +121,10 @@ class Sidebar extends React.PureComponent {
         { component, props }
       ]
     })
+  }
+
+  _handleTokens() {
+    this._handlePush(Tokens, this._getTokens())
   }
 
   _handleUpdate(code, config) {

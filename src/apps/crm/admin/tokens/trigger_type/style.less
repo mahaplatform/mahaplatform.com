@@ -12,18 +12,37 @@
   &.click {
     background-color: @green;
   }
-  &.manual {
+  &.list {
     background-color: @teal;
+  }
+  &.topic {
+    background-color: @orange;
+  }
+  &.property {
+    background-color: @violet;
+  }
+  &.manual {
+    background-color: @pink;
   }
   margin: auto;
   display: flex;
-  width: 1.8em;
-  height: 1.8em;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 2px solid fadeout(@black, 80);
   .fa {
     margin: auto !important;
     color: @white;
     font-size: 0.8em;
+  }
+  .fa-check-square {
+    transform: translate(0,0.1em);
+  }
+  .fa-mouse-pointer {
+    transform: translate(.15em,0.1em);
+  }
+  .fa-book,
+  .fa-plus {
+    font-size: 1em;
   }
 }

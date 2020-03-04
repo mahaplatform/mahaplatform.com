@@ -10,8 +10,10 @@ import { updateConsent } from './update_consent'
 import { updateLists } from './update_lists'
 import { conditional } from './conditional'
 import { sendEmail } from './send_email'
+import { sendSms } from './send_sms'
 import { wait } from './wait'
 import { goal } from './goal'
+import moment from 'moment'
 
 const getExecutor = (action) => {
   if(action === 'send_internal_email') return sendInternalEmail
@@ -23,6 +25,7 @@ const getExecutor = (action) => {
   if(action === 'consent') return updateConsent
   if(action === 'send_email') return sendEmail
   if(action === 'lists') return updateLists
+  if(action === 'send_sms') return sendSms
   if(action === 'wait') return wait
   if(action === 'goal') return goal
 }
@@ -83,7 +86,7 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
     code
   })
 
-  const { condition, until } = await executeStep(req, {
+  const { condition, until, unenroll } = await executeStep(req, {
     step,
     enrollment
   })
@@ -95,6 +98,14 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(unenroll) {
+    return await enrollment.save({
+      unenrolled_at: moment()
+    }, {
+      transacting: req.trx
+    })
+  }
 
   const next = await getNextStep(req, {
     workflow_id: enrollment.get('workflow_id'),

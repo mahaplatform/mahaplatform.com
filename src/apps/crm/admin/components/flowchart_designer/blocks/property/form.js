@@ -9,7 +9,8 @@ class Property extends React.PureComponent {
     config: PropTypes.object,
     properties: PropTypes.array,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   state = {

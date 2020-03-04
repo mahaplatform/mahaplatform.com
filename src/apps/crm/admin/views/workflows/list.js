@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Create New Campaign', modal: NewWorkflow }
       ] : null
     },
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'workflow',
     onClick: (record) => context.router.history.push(`/admin/crm/workflows/${record.id}`)
   },

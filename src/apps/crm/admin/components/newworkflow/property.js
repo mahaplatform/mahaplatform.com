@@ -1,9 +1,8 @@
-import PurposeToken from './purpose'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Manual extends React.PureComponent {
+class Property extends React.PureComponent {
 
   static propTypes = {
     program_id: PropTypes.number,
@@ -20,7 +19,7 @@ class Manual extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id , trigger_type } = this.props
+    const { program_id , trigger_type} = this.props
     return {
       title: 'Create Workflow',
       method: 'post',
@@ -34,7 +33,7 @@ class Manual extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
             { label: 'Tile', name: 'title', type: 'textfield', placeholder: 'Enter a title' },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' }
+            { label: 'Property', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }
       ]
@@ -51,4 +50,4 @@ class Manual extends React.PureComponent {
 
 }
 
-export default Manual
+export default Property

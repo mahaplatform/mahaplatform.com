@@ -28,6 +28,7 @@ class Designer extends React.Component {
       endpoint: `/api/admin/crm/workflows/${workflow.id}`,
       fields: this._getFields(),
       trigger: this._getTrigger(),
+      tokens: this._getTokens(),
       workflow,
       onSave: this._handleSave
     }
@@ -64,12 +65,42 @@ class Designer extends React.Component {
         icon: 'mouse-pointer',
         text: 'Email is clicked'
       }
+    } else if(workflow.trigger_type === 'list') {
+      return {
+        icon: 'users',
+        text: 'Contact is added to list'
+      }
+    } else if(workflow.trigger_type === 'topic') {
+      return {
+        icon: 'book',
+        text: 'Contact is added to topic'
+      }
+    } else if(workflow.trigger_type === 'property') {
+      return {
+        icon: 'id-card',
+        text: 'Contact property is updated'
+      }
     } else if(workflow.trigger_type === 'manual') {
       return {
         icon: 'plus',
         text: 'Contact is enrolled'
       }
     }
+  }
+
+  _getTokens() {
+    return [
+      { title: 'Response Variables', tokens: [
+        { name: 'First Name', token: 'response.first_name' },
+        { name: 'Last Name', token: 'response.last_name' },
+        { name: 'Email', token: 'response.email' }
+      ] },
+      { title: 'Contact Variables', tokens: [
+        { name: 'First Name', token: 'contact.first_name' },
+        { name: 'Last Name', token: 'contact.last_name' },
+        { name: 'Email', token: 'contact.email' }
+      ] }
+    ]
   }
 
   _handleSave(steps) {

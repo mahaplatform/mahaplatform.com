@@ -19,6 +19,7 @@ class FlowchartDesigner extends React.PureComponent {
     hovering: PropTypes.object,
     status: PropTypes.string,
     steps: PropTypes.array,
+    tokens: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
@@ -78,7 +79,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, changes, cid, fields, status, steps, workflow, onEdit, onUpdate } = this.props
+    const { active, changes, cid, fields, status, steps, tokens, workflow, onEdit, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
@@ -87,6 +88,7 @@ class FlowchartDesigner extends React.PureComponent {
       fields,
       status,
       steps,
+      tokens,
       workflow,
       onEdit,
       onSave: this._handleSave,

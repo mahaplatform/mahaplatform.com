@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['trigger_type','title','form_id','email_id'])
+    ...whitelist(req.body, ['trigger_type','title','form_id','email_id','list_id','topic_id','purpose'])
   }).save(null, {
     transacting: req.trx
   })

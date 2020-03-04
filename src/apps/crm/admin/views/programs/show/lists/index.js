@@ -18,7 +18,7 @@ const Lists = ({ lists, program }) => {
       )
     })),
     empty: {
-      icon: 'users',
+      icon: 'th-list',
       title: 'No Lists',
       text: 'There are no lists for this program',
       button: program.access_type === 'manage' ? {

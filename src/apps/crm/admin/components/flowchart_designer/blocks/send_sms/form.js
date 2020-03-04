@@ -1,14 +1,12 @@
-import { actions, channel_types } from './variables'
+import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
-class Consent extends React.PureComponent {
+class SendSMS extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    fields: PropTypes.array,
-    workflow: PropTypes.object,
+    users: PropTypes.array,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
@@ -22,25 +20,33 @@ class Consent extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, fields } = this.props
+    const { config } = this.props
     return {
-      title: 'Update Consent',
+      title: 'Send SMS',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
+      instructions: 'If the contact does not have a phone number, they will be unenrolled from the workflow and labeled as lost',
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [
         {
           fields: [
-            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: config.action },
-            { label: 'Channel', name: 'channel_type', type: 'radiogroup', options: channel_types, required: true, defaultValue: config.channel_type },
-            { label: 'Field', name: 'token', type: 'dropdown', options: fields, required: true, value: 'token', text: 'name', defaultValue: config.token }
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, rows: 4, required: true, after: <Button { ...this._getTokens() } /> }
           ]
         }
       ]
+    }
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can use the these tokens',
+      className: 'link',
+      handler: onTokens
     }
   }
 
@@ -54,4 +60,4 @@ class Consent extends React.PureComponent {
 
 }
 
-export default Consent
+export default SendSMS

@@ -7,7 +7,7 @@ class WorkflowDesigner extends React.PureComponent {
   static propTypes = {
     endpoint: PropTypes.string,
     fields: PropTypes.array,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     trigger: PropTypes.object,
     workflow: PropTypes.object,
     onSave: PropTypes.func
@@ -36,6 +36,7 @@ class WorkflowDesigner extends React.PureComponent {
         { action: 'conditional' },
         { action: 'wait' },
         { action: 'send_email' },
+        { action: 'send_sms' },
         { action: 'lists' },
         { action: 'interests' },
         { action: 'consent' },

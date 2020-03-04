@@ -22,6 +22,21 @@ const triggers = {
     icon: 'user',
     title: 'Manual Enrollment',
     description: 'Enroll contacts manually on an ongoing basis'
+  },
+  list: {
+    icon: 'th-list',
+    title: 'List Update',
+    description: 'Enroll contact when they are added to a list'
+  },
+  topic: {
+    icon: 'book',
+    title: 'Topic Update',
+    description: 'Enroll contact when they are added to a topic'
+  },
+  property: {
+    icon: 'id-card',
+    title: 'Property Update',
+    description: 'Enroll contact when a property is changed'
   }
 }
 

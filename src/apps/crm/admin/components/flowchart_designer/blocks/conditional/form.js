@@ -12,7 +12,8 @@ class Conditional extends React.PureComponent {
     fields: PropTypes.array,
     workflow: PropTypes.object,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   state = {

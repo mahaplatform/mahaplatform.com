@@ -98,7 +98,7 @@ class Email extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  emails: `/api/admin/crm/workflows/${props.workflow.id}/emails`
+  emails: '/api/admin/crm/emails'
 })
 
 export default Container(mapResources)(Email)
