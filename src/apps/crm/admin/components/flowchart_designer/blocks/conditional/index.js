@@ -6,9 +6,6 @@ export default {
   label: 'Conditional',
   type: 'control',
   action: 'conditional',
-  config: {
-    options: []
-  },
   form: Form,
   token: Token
 }

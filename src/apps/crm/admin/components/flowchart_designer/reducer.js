@@ -86,6 +86,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'UPDATE':
     return {
       ...state,
+      active: null,
       changes: state.changes + 1,
       steps: [
         ...state.steps.map(step => {

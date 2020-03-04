@@ -30,7 +30,7 @@ const UpdateWorkflowSteps = {
     })
 
     await knex('crm_workflow_steps').where('id', 6).update({
-      type: 'communication',
+      type: 'contact',
       action: 'topic'
     })
 

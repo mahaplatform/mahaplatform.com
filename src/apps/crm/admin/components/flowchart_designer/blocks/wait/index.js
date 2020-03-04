@@ -6,9 +6,6 @@ export default {
   label: 'Wait',
   type: 'control',
   action: 'wait',
-  config: {
-    strategy: 'datetime'
-  },
   form: Form,
   token: Token
 }

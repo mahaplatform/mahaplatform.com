@@ -17,18 +17,19 @@ class Conditional extends React.PureComponent {
     onTokens: PropTypes.func
   }
 
+  form = null
+
   state = {
-    config: null
+    config: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -41,25 +42,20 @@ class Conditional extends React.PureComponent {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { config } = this.state
-    if(!_.isEqual(config, prevState.config)) {
-      this._handleChange()
-    }
-  }
-
   _getForm() {
     const { fields } = this.props
     const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Conditional',
-      onChange: this._handleUpdate,
+      onChange: this._handleChange,
       onChangeField: this._handleChangeField,
       onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
@@ -102,6 +98,7 @@ class Conditional extends React.PureComponent {
       if(_.includes(['$eq','$neq','$ct','$nct'], comparison)) {
         items.push({ name: 'option', type: 'textfield', placeholder: 'Enter Value', defaultValue: config.option })
       } else if(_.includes(['$in','$nin'], comparison)) {
+        console.log(config.options)
         items.push({ name: 'options', type: ValuesFields, defaultValue: config.options })
       }
     }
@@ -130,26 +127,6 @@ class Conditional extends React.PureComponent {
     return [
       { code: this._getCode(), value: '', text: '' }
     ]
-  }
-
-  _handleChange() {
-    const { config } = this.state
-    const { fields } = this.props
-    const { token } = config
-    const field = _.find(fields, { token })
-    if(!token) return
-    this.props.onChange({
-      token: config.token,
-      comparison: config.comparison,
-      options: [
-        ...config.options.filter(option => {
-          return option.code !== 'else'
-        }),
-        ...!_.includes(['checkbox','filefield'], field.type) ? [
-          { code: 'else', value: 'else', text: 'else' }
-        ] : []
-      ]
-    })
   }
 
   _handleChangeField(key, value) {
@@ -181,11 +158,7 @@ class Conditional extends React.PureComponent {
     this.props.onCancel()
   }
 
-  _handleDone() {
-    this.props.onDone()
-  }
-
-  _handleUpdate(config) {
+  _handleChange(config) {
     this.setState({
       config: {
         ...this.state.config,
@@ -193,6 +166,31 @@ class Conditional extends React.PureComponent {
       }
     })
   }
+
+  _handleDone() {
+    const { config } = this.state
+    const { fields } = this.props
+    const { token } = config
+    const field = _.find(fields, { token })
+    if(!token) return
+    this.props.onDone({
+      token: config.token,
+      comparison: config.comparison,
+      options: [
+        ...config.options.filter(option => {
+          return option.code !== 'else'
+        }),
+        ...!_.includes(['checkbox','filefield'], field.type) ? [
+          { code: 'else', value: 'else', text: 'else' }
+        ] : []
+      ]
+    })
+  }
+
+  _handleSubmit() {
+    this.form.submit()
+  }
+
 
 }
 
