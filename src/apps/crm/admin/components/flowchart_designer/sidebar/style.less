@@ -1,12 +1,17 @@
 .flowchart-designer-blocks {
   flex: 1;
-  padding: 0.8em;
   .scrollable();
+  padding: 0.8em;
+}
+.flowchart-designer-blocks-section-title {
+  font-weight: bold;
+  margin-bottom: 0.8em;
+}
+.flowchart-designer-blocks-section-items {
 }
 .flowchart-designer-block {
   display: flex;
   background-color: @white;
-  border-radius: 0.5em;
   margin-bottom: 0.8em;
   cursor: pointer;
   &:hover {
@@ -24,7 +29,6 @@
 }
 .flowchart-designer-block-label {
   border: 1px solid fadeout(@black, 90);
-  border-radius: 0 0.5em 0.5em 0;
   border-left: none;
   color: fadeout(@black, 40);
   text-transform: uppercase;

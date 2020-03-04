@@ -10,12 +10,14 @@ class Lists extends React.PureComponent {
     config: PropTypes.object,
     lists: PropTypes.array,
     workflow: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
   _handleAction = this._handleAction.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -58,7 +60,7 @@ class Lists extends React.PureComponent {
     return {
       title: 'Update Lists',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleDone }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
@@ -79,6 +81,15 @@ class Lists extends React.PureComponent {
     const { lists } = this.props
     const { list } = this.state
     return {
+      empty: {
+        icon: 'users',
+        title: 'No Lists',
+        text: 'There are no lists for this program',
+        button: {
+          label: 'Create List',
+          handler: () => {}
+        }
+      },
       options: lists,
       multiple: false,
       text: 'title',
@@ -89,6 +100,14 @@ class Lists extends React.PureComponent {
     }
   }
 
+  _handleAction(action) {
+    this.setState({ action })
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
+  }
+
   _handleChange(config) {
     const { action, list } = this.state
     const value = list ? { action, list } : {}
@@ -97,10 +116,6 @@ class Lists extends React.PureComponent {
 
   _handleDone() {
     this.props.onDone()
-  }
-
-  _handleAction(action) {
-    this.setState({ action })
   }
 
   _handleUpdate(id) {

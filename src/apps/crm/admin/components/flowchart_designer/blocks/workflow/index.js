@@ -2,10 +2,10 @@ import Token from './token'
 import Form from './form'
 
 export default {
-  icon: 'comment',
-  label: 'Send SMS',
-  type: 'action',
-  action: 'send_sms',
+  icon: 'gears',
+  label: 'Enroll in Workflow',
+  type: 'contact',
+  action: 'workflow',
   form: Form,
   token: Token
 }

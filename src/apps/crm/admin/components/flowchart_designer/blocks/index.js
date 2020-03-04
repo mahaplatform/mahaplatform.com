@@ -1,29 +1,28 @@
-import send_internal_email from './send_internal_email'
-import enroll_in_workflow from './enroll_in_workflow'
-import send_internal_sms from './send_internal_sms'
+import internal_email from './send_internal_email'
+import internal_sms from './send_internal_sms'
+import workflow from './enroll_in_workflow'
 import conditional from './conditional'
-import send_email from './send_email'
-import send_sms from './send_sms'
-import interests from './interests'
 import property from './property'
+import email from './send_email'
 import consent from './consent'
-import lists from './lists'
+import sms from './send_sms'
+import topic from './topic'
+import list from './list'
 import wait from './wait'
 import goal from './goal'
 
-
 const blocks = {
-  interests,
-  lists,
+  topic,
+  list,
   consent,
   conditional,
   wait,
-  send_email,
-  send_sms,
-  enroll_in_workflow,
+  email,
+  sms,
+  workflow,
   property,
-  send_internal_email,
-  send_internal_sms,
+  internal_email,
+  internal_sms,
   goal
 }
 

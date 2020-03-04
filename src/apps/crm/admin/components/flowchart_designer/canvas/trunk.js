@@ -16,7 +16,7 @@ class Trunk extends React.PureComponent {
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onHover: PropTypes.func,
-    onMove: PropTypes.func,
+    onNew: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -35,7 +35,7 @@ class Trunk extends React.PureComponent {
   }
 
   _getBox(box, delta) {
-    const { active, answer, blocks, fields, hovering, parent, onAdd, onEdit, onHover, onMove, onRemove } = this.props
+    const { active, answer, blocks, fields, hovering, parent, onAdd, onEdit, onHover, onNew, onRemove } = this.props
     return {
       answer,
       box,
@@ -48,19 +48,20 @@ class Trunk extends React.PureComponent {
       onAdd,
       onEdit,
       onHover,
-      onMove,
+      onNew,
       onRemove
     }
   }
 
   _getPlaceholder(delta) {
-    const { answer, hovering, parent, onAdd, onHover } = this.props
+    const { answer, hovering, parent, onAdd, onNew, onHover } = this.props
     return {
       answer,
       delta,
       hovering,
       parent,
       onAdd,
+      onNew,
       onHover
     }
   }

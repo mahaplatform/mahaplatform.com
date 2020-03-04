@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'random',
   label: 'Conditional',
-  type: 'conditional',
+  type: 'control',
   action: 'conditional',
   config: {
     options: []

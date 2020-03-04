@@ -1,5 +1,6 @@
 import Token from '../../tokens/token'
 import Searchbox from '../searchbox'
+import Message from '../message'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
 import Dynamic from './dynamic'
@@ -12,6 +13,7 @@ class Search extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     defaultValue: PropTypes.any,
+    empty: PropTypes.string,
     endpoint: PropTypes.string,
     filter: PropTypes.object,
     format: PropTypes.any,
@@ -32,6 +34,10 @@ class Search extends React.Component {
   }
 
   static defaultProps = {
+    empty: {
+      icon: 'times',
+      text: 'No Records Found'
+    },
     filter: {},
     format: Token,
     label: 'Item',
@@ -41,7 +47,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { endpoint, search } = this.props
+    const { empty, endpoint, options, search } = this.props
     return (
       <div className="maha-search">
         { search &&
@@ -49,12 +55,19 @@ class Search extends React.Component {
             <Searchbox { ...this._getSearchbox() } />
           </div>
         }
-        { endpoint ?
+        { endpoint &&
           <div className="maha-search-body">
             <Infinite {...this._getInfinite()} />
-          </div> :
+          </div>
+        }
+        { options && options.length > 0 &&
           <div className="maha-search-options">
             <Options { ...this._getOptions() }  />
+          </div>
+        }
+        { options && options.length === 0 &&
+          <div className="maha-search-body">
+            <Message { ...empty } />
           </div>
         }
       </div>

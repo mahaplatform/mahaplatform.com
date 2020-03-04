@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'thumbs-up',
   label: 'Update Consent',
-  type: 'action',
+  type: 'contact',
   action: 'consent',
   form: Form,
   token: Token

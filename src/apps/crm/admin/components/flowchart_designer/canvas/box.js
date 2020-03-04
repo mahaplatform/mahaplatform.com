@@ -1,8 +1,7 @@
-import { DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
-import Target from './target'
 import Trunk from './trunk'
 import React from 'react'
+import Add from './add'
 import _ from 'lodash'
 
 class Box extends React.PureComponent {
@@ -12,7 +11,6 @@ class Box extends React.PureComponent {
     answer: PropTypes.string,
     box: PropTypes.object,
     blocks: PropTypes.array,
-    connectDropTarget: PropTypes.func,
     delta: PropTypes.number,
     fields: PropTypes.array,
     hovering: PropTypes.object,
@@ -20,7 +18,7 @@ class Box extends React.PureComponent {
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onHover: PropTypes.func,
-    onMove: PropTypes.func,
+    onNew: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -28,16 +26,13 @@ class Box extends React.PureComponent {
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { active, box, connectDropTarget } = this.props
-    const { answer, delta, hovering, parent } = this.props
+    const { active, box } = this.props
     const block = this._getBlock()
     const { icon, label } = block
     const { code, type, config, options } = box
-    return connectDropTarget(
+    return (
       <div className={ this._getClass(box) }>
-        { hovering && parent === hovering.parent  && answer === hovering.answer && hovering.delta === delta &&
-          <Target />
-        }
+        <Add { ...this._getAdd() } />
         <div className="flowchart-box-padding">
           <div className={ this._getBoxClass() }>
             { (code === active || !_.includes(['trigger','ending'], type)) &&
@@ -85,6 +80,16 @@ class Box extends React.PureComponent {
     )
   }
 
+  _getAdd() {
+    const { parent, answer, delta, onNew } = this.props
+    return {
+      parent,
+      answer,
+      delta,
+      onNew
+    }
+  }
+
   _getBlock() {
     const { blocks, box } = this.props
     const { action, type } = box
@@ -114,7 +119,7 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, box, fields, hovering, onAdd, onEdit, onHover, onMove, onRemove } = this.props
+    const { active, blocks, box, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: option.code,
@@ -126,7 +131,7 @@ class Box extends React.PureComponent {
       onAdd,
       onEdit,
       onHover,
-      onMove,
+      onNew,
       onRemove
     }
   }
@@ -142,29 +147,5 @@ class Box extends React.PureComponent {
   }
 
 }
-
-const target = {
-  hover(props, monitor, component) {
-    if(monitor.isOver()) return
-    const { answer, box, delta, parent } = props
-    const hovering = box.type !== 'trigger' ? { answer, delta, parent } : null
-    props.onHover(hovering)
-  },
-  drop(props, monitor, component) {
-    if(monitor.didDrop()) return
-    const block = monitor.getItem()
-    const { answer, delta, parent } = props
-    const { type, action } = block
-    props.onAdd(type, action, parent, answer, delta)
-  }
-}
-
-const targetCollector = (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
-})
-
-Box = DropTarget('ITEM', target, targetCollector)(Box)
 
 export default Box

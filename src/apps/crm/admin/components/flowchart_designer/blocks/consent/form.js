@@ -9,11 +9,13 @@ class Consent extends React.PureComponent {
     config: PropTypes.object,
     fields: PropTypes.array,
     workflow: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
@@ -26,7 +28,7 @@ class Consent extends React.PureComponent {
     return {
       title: 'Update Consent',
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onCancel: this._handleCancel,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -42,6 +44,10 @@ class Consent extends React.PureComponent {
         }
       ]
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(config) {

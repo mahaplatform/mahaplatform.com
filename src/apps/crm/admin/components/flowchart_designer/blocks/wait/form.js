@@ -7,17 +7,18 @@ class Wait extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
   state = {
-    strategy: null
+    config: {}
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -25,20 +26,28 @@ class Wait extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { config } = this.props
     this.setState({
-      strategy: config.strategy
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
     })
   }
 
+  _getDefault() {
+    return {
+      strategy: 'datetime'
+    }
+  }
+
   _getForm() {
-    const { strategy } = this.state
+    const { config } = this.state
     return {
       title: 'Wait',
       compact: true,
       onChange: this._handleChange,
       onChangeField: this._handleChangeField,
-      onCancel: this._handleDone,
+      onCancel: this._handleCancel,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -47,7 +56,7 @@ class Wait extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: [{ value: 'datetime', text: 'Until a specific date and time' },{ value: 'duration', text: 'For a specific duration of time'}], defaultValue: strategy },
+            { name: 'strategy', type: 'radiogroup', options: [{ value: 'datetime', text: 'Until a specific date and time' },{ value: 'duration', text: 'For a specific duration of time'}], defaultValue: config.strategy },
             ...this._getStrategyFields()
           ]
         }
@@ -56,9 +65,8 @@ class Wait extends React.PureComponent {
   }
 
   _getStrategyFields() {
-    const { strategy } = this.state
-    const { config } = this.props
-    if(strategy === 'duration') {
+    const { config } = this.state
+    if(config.strategy === 'duration') {
       return [
         { label: 'Duration', type: 'fields', fields: [
           { name: 'duration_days', type: 'numberfield', units: 'days', placeholder: 'Days', defaultValue: config.duration_days || 0 },
@@ -76,20 +84,17 @@ class Wait extends React.PureComponent {
     }
   }
 
-  _handleChange(config) {
-    this.props.onChange(config)
+  _handleCancel() {
+    this.props.onCancel()
   }
 
-  _handleChangeField(key, value) {
-    if(key === 'strategy') {
-      this.setState({
-        [key]: value
-      })
-    }
+  _handleChange(config) {
+    this.setState({ config })
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { config } = this.state
+    this.props.onDone(config)
   }
 
 }

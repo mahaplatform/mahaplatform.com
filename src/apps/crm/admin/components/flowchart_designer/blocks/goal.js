@@ -1,6 +1,6 @@
 export default {
   icon: 'flag',
   label: 'Goal',
-  type: 'goal',
+  type: 'control',
   action: 'goal'
 }

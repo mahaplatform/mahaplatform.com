@@ -11,20 +11,34 @@
   overflow: hidden;
   transform: translateX(-50%);
 }
+.flowchart-box-add {
+  border: 2px solid fadeout(@black, 80);
+  border-radius: 50%;
+  background-color: @white;
+  display: flex;
+  width: 18px;
+  height: 18px;
+  line-height: 1.5em;
+  position: absolute;
+  left: 50%;
+  top: 1.5em;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  &:hover {
+    background-color: darken(@white, 5);
+  }
+  .fa {
+    color: fadeout(@black, 60);
+    font-size: 0.6em;
+    margin: auto;
+  }
+}
 .flowchart-box-padding {
   padding: 0 0.4em;
   margin: 0 auto;
   position: relative;
-  &:after {
-    content: " ";
-    border: 6px solid transparent;
-    border-top-color: #bfbfbf;
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 5.6em;
-    left: ~"calc(50% - 5px)";
-  }
 }
 .flowchart-box-highlight {
   display: none;
@@ -145,28 +159,6 @@
   font-size: 0.8em;
   line-height: 3.2em;
 }
-.flowchart-target {
-  position: relative;
-  margin: 0 auto 3em;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    height: 3em;
-    border-left: 2px solid #bfbfbf;
-    left: 50%;
-  }
-  &:after {
-    content: " ";
-    border: 6px solid transparent;
-    border-top-color: #bfbfbf;
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 5.6em;
-    left: ~"calc(50% - 5px)";
-  }
-}
 .flowchart-branches {
   background-color: lighten(@black, 97);
   padding-top: 2.6em;
@@ -178,7 +170,7 @@
     top: 0;
     height: 2.6em;
     border-left: 2px solid #bfbfbf;
-    left: 50%;
+    left: ~"calc(50% - 0.5px)";
   }
   &:after {
     content: " ";
@@ -249,16 +241,6 @@
   top: 2.4em;
   left: 50%;
   transform: translate(-50%, -50%);
-  &:after {
-    content: " ";
-    border: 6px solid transparent;
-    border-top-color: #bfbfbf;
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 2.4em;
-    left: ~"calc(50% - 5px)";
-  }
 }
 .flowchart-branch-label-box {
   display: block;
@@ -279,7 +261,7 @@
   min-height: 2.2em;
 }
 .flowchart-segment {
-  padding-top: 3em;
+  padding-top: 3.8em;
   position: relative;
   min-height: 40px;
   display: flex;
@@ -303,7 +285,7 @@
     top: 0;
     bottom: 0;
     border-left: 2px solid #bfbfbf;
-    left: 50%;
+    left: ~"calc(50% - 0.5px)";
   }
 }
 .flowchart-placeholder {
@@ -311,6 +293,7 @@
   overflow: hidden;
   z-index: 2;
   min-height: 3em;
+  position: relative;
 }
 .flowchart-drag-layer {
   position: absolute;

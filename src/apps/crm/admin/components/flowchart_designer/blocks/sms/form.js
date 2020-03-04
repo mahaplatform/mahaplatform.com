@@ -7,11 +7,13 @@ class SendSMS extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     users: PropTypes.array,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
@@ -24,7 +26,7 @@ class SendSMS extends React.PureComponent {
     return {
       title: 'Send SMS',
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onCancel: this._handleCancel,
       cancelIcon: 'chevron-left',
       saveText: null,
       instructions: 'If the contact does not have a phone number, they will be unenrolled from the workflow and labeled as lost',
@@ -48,6 +50,10 @@ class SendSMS extends React.PureComponent {
       className: 'link',
       handler: onTokens
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(config) {

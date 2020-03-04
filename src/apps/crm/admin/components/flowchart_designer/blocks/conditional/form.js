@@ -11,6 +11,7 @@ class Conditional extends React.PureComponent {
     config: PropTypes.object,
     fields: PropTypes.array,
     workflow: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
@@ -20,6 +21,7 @@ class Conditional extends React.PureComponent {
     config: null
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
@@ -53,7 +55,7 @@ class Conditional extends React.PureComponent {
       title: 'Conditional',
       onChange: this._handleUpdate,
       onChangeField: this._handleChangeField,
-      onCancel: this._handleDone,
+      onCancel: this._handleCancel,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -173,6 +175,10 @@ class Conditional extends React.PureComponent {
         }
       })
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleDone() {

@@ -19,12 +19,13 @@ class FlowchartDesigner extends React.PureComponent {
     hovering: PropTypes.object,
     status: PropTypes.string,
     steps: PropTypes.array,
+    step: PropTypes.object,
     tokens: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onHover: PropTypes.func,
-    onMove: PropTypes.func,
+    onNewStep: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
@@ -33,7 +34,7 @@ class FlowchartDesigner extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleHover = _.throttle(this._handleHover.bind(this), 100)
-  _handleMove = this._handleMove.bind(this)
+  _handleNew = this._handleNew.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
@@ -73,13 +74,13 @@ class FlowchartDesigner extends React.PureComponent {
       onAdd: this._handleAdd,
       onEdit,
       onHover: this._handleHover,
-      onMove: this._handleMove,
+      onNew: this._handleNew,
       onRemove
     }
   }
 
   _getSidebar() {
-    const { active, changes, cid, fields, status, steps, tokens, workflow, onEdit, onUpdate } = this.props
+    const { active, changes, cid, fields, status, steps, step, tokens, workflow, onEdit, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
@@ -88,8 +89,10 @@ class FlowchartDesigner extends React.PureComponent {
       fields,
       status,
       steps,
+      step,
       tokens,
       workflow,
+      onAdd: this._handleAdd,
       onEdit,
       onSave: this._handleSave,
       onUpdate
@@ -111,7 +114,11 @@ class FlowchartDesigner extends React.PureComponent {
     }
   }
 
-  _handleAdd(type, action, parent, answer, delta) {
+  _handleNew(parent, answer, delta) {
+    this.props.onNewStep(parent, answer, delta)
+  }
+
+  _handleAdd(type, action, parent, answer, delta, config) {
     const { onAdd } = this.props
     const search = action ? { type, action } : { type }
     const blocks = this._getBlocks()
@@ -123,22 +130,12 @@ class FlowchartDesigner extends React.PureComponent {
       delta: parent ? delta : delta - 1,
       parent,
       answer,
-      config: block.config || {}
+      config
     })
   }
 
   _handleHover(hovering) {
     this.props.onHover(hovering)
-  }
-
-  _handleMove(code, parent, answer, delta) {
-    const { onMove } = this.props
-    onMove(
-      code,
-      parent,
-      answer,
-      parent ? delta : delta - 1
-    )
   }
 
   _handleSave() {

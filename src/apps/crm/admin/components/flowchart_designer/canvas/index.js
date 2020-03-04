@@ -1,4 +1,3 @@
-import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import Trunk from './trunk'
 import React from 'react'
@@ -14,14 +13,13 @@ class Canvas extends React.PureComponent {
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onHover: PropTypes.func,
-    onMove: PropTypes.func,
+    onNew: PropTypes.func,
     onRemove: PropTypes.func
   }
 
   render() {
     return (
       <div className="flowchart-canvas">
-        <DragLayer />
         <div className="flowchart">
           <Trunk { ...this._getTrunk() } />
         </div>
@@ -30,7 +28,7 @@ class Canvas extends React.PureComponent {
   }
 
   _getTrunk() {
-    const { active, blocks, boxes, fields, hovering, onAdd, onEdit, onHover, onMove, onRemove } = this.props
+    const { active, blocks, boxes, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: null,
@@ -45,7 +43,7 @@ class Canvas extends React.PureComponent {
       onAdd,
       onEdit,
       onHover,
-      onMove,
+      onNew,
       onRemove
     }
   }

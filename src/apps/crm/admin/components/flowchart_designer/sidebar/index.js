@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Content from './content'
 import Tokens from './tokens'
 import React from 'react'
+import New from './new'
 import _ from 'lodash'
 
 class Sidebar extends React.PureComponent {
@@ -15,8 +16,10 @@ class Sidebar extends React.PureComponent {
     fields: PropTypes.array,
     status: PropTypes.string,
     steps: PropTypes.array,
+    step: PropTypes.object,
     tokens: PropTypes.array,
     workflow: PropTypes.object,
+    onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
     onUpdate: PropTypes.func
@@ -26,6 +29,8 @@ class Sidebar extends React.PureComponent {
     cards: []
   }
 
+  _handleAdd = this._handleAdd.bind(this)
+  _handleNew = this._handleNew.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handlePop = this._handlePop.bind(this)
@@ -41,7 +46,7 @@ class Sidebar extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { active } = this.props
+    const { active, step } = this.props
     if(active !== prevProps.active) {
       if(active === null) {
         this._handlePop()
@@ -51,6 +56,9 @@ class Sidebar extends React.PureComponent {
       } else if(active) {
         this._handleEdit()
       }
+    }
+    if(!_.isEqual(step, prevProps.step) && step) {
+      this._handleNew()
     }
   }
 
@@ -78,6 +86,20 @@ class Sidebar extends React.PureComponent {
     }
   }
 
+  _getNew() {
+    const { blocks, cid, step, workflow } = this.props
+    return {
+      blocks,
+      cid,
+      step,
+      workflow,
+      onAdd: this._handleAdd,
+      onCancel: this._handlePop,
+      onTokens: this._handleTokens,
+      onDone: this._handleAdd
+    }
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -94,6 +116,11 @@ class Sidebar extends React.PureComponent {
     }
   }
 
+  _handleAdd(type, action, parent, answer, delta, config) {
+    this.props.onAdd(type, action, parent, answer, delta, config)
+    this._handlePop()
+  }
+
   _handleDone() {
     this.props.onEdit(null)
   }
@@ -106,6 +133,10 @@ class Sidebar extends React.PureComponent {
     const block = _.find(blocks, search)
     if(!block.form) return
     this._handlePush(block.form, this._getForm(step))
+  }
+
+  _handleNew() {
+    this._handlePush(New, this._getNew())
   }
 
   _handlePop(index = -1) {

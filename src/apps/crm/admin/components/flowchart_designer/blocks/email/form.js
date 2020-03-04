@@ -3,20 +3,21 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class EnrollInWorkflow extends React.PureComponent {
+class Email extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    workflows: PropTypes.array,
+    emails: PropTypes.array,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func,
-    onTokens: PropTypes.func
+    onDone: PropTypes.func
   }
 
   state = {
-    workflow: null
+    email: null
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -25,7 +26,7 @@ class EnrollInWorkflow extends React.PureComponent {
     super(props)
     const { config } = props
     this.state = {
-      workflow: config ? config.workflow : null
+      email: config ? config.email : null
     }
   }
 
@@ -42,17 +43,17 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { workflow } = this.state
-    if(!_.isEqual(workflow, prevState.workflow)) {
+    const { email } = this.state
+    if(!_.isEqual(email, prevState.email)) {
       this._handleChange()
     }
   }
 
   _getPanel() {
     return {
-      title: 'Enroll in Manual Workflow',
+      title: 'Send Email',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleDone }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
@@ -61,22 +62,26 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   _getSearch() {
-    const { workflows } = this.props
-    const { workflow } = this.state
+    const { emails } = this.props
+    const { email } = this.state
     return {
-      options: workflows,
+      options: emails,
       multiple: false,
       text: 'title',
       search: false,
       value: 'id',
-      defaultValue: workflow ? workflow.id : null,
+      defaultValue: email ? email.id : null,
       onChange: this._handleUpdate
     }
   }
 
+  _handleCancel() {
+    this.props.onCancel()
+  }
+
   _handleChange(config) {
-    const { workflow } = this.state
-    const value = workflow ? { workflow } : {}
+    const { email } = this.state
+    const value = email ? { email } : {}
     this.props.onChange(value)
   }
 
@@ -85,13 +90,13 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   _handleUpdate(id) {
-    const { workflows } = this.props
-    if(!id) return this.setState({ workflow: null })
-    const workflow = _.find(workflows, { id })
+    const { emails } = this.props
+    if(!id) return this.setState({ email: null })
+    const email = _.find(emails, { id })
     this.setState({
-      workflow: {
-        id: workflow.id,
-        title: workflow.title
+      email: {
+        id: email.id,
+        title: email.title
       }
     })
   }
@@ -99,16 +104,7 @@ class EnrollInWorkflow extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  workflows: {
-    endpoint: '/api/admin/crm/workflows',
-    filter: {
-      $and: [
-        { program_id: { $eq: props.workflow.program.id } },
-        { trigger_type: { $eq: 'manual' } },
-        { id: { $neq: props.workflow.id } }
-      ]
-    }
-  }
+  emails: '/api/admin/crm/emails'
 })
 
-export default Container(mapResources)(EnrollInWorkflow)
+export default Container(mapResources)(Email)

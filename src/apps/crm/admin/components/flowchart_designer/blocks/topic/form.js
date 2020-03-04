@@ -10,12 +10,14 @@ class Interests extends React.PureComponent {
     config: PropTypes.object,
     topics: PropTypes.array,
     workflow: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
   _handleAction = this._handleAction.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -58,7 +60,7 @@ class Interests extends React.PureComponent {
     return {
       title: 'Update Interests',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleDone }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
@@ -79,6 +81,15 @@ class Interests extends React.PureComponent {
     const { topics } = this.props
     const { topic } = this.state
     return {
+      empty: {
+        icon: 'book',
+        title: 'No Topics',
+        text: 'There are no topics for this program',
+        button: {
+          label: 'Create Topic',
+          handler: () => {}
+        }
+      },
       options: topics,
       multiple: false,
       text: 'title',
@@ -103,6 +114,10 @@ class Interests extends React.PureComponent {
         }
       ]
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(config) {

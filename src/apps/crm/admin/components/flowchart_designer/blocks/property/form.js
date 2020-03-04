@@ -8,6 +8,7 @@ class Property extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     properties: PropTypes.array,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
@@ -20,6 +21,7 @@ class Property extends React.PureComponent {
     ready: false
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
@@ -45,7 +47,7 @@ class Property extends React.PureComponent {
     return {
       title: 'Update Property',
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onCancel: this._handleCancel,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -77,6 +79,10 @@ class Property extends React.PureComponent {
         { value: 'no', text: 'Do nothing' }
       ], defaultValue: overwrite || 'yes', required: true }
     ] : []
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(config) {

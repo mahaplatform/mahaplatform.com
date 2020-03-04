@@ -4,8 +4,9 @@ import Form from './form'
 export default {
   icon: 'comment',
   label: 'Send Internal SMS',
-  type: 'action',
-  action: 'send_internal_sms',
+  type: 'administrative',
+  action: 'internal_sms',
+  section: 'internal_communication',
   form: Form,
   token: Token
 }

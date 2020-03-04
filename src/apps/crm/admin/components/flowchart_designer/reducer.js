@@ -3,18 +3,27 @@ const INITIAL_STATE = {
   changes: 0,
   hovering: null,
   status: 'ready',
-  steps: []
+  steps: [],
+  step: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'NEW_STEP':
+    return {
+      ...state,
+      step: {
+        answer: action.answer,
+        delta: action.delta,
+        parent: action.parent
+      }
+    }
 
   case 'ADD':
     return {
       ...state,
-      active: action.step.code,
       changes: state.changes + 1,
       hovering: null,
       steps: [
@@ -23,7 +32,8 @@ const reducer = (state = INITIAL_STATE, action) => {
           delta: step.delta + (step.parent === action.step.parent && step.answer === action.step.answer && step.delta >= action.step.delta ? 1 : 0)
         })),
         action.step
-      ]
+      ],
+      step: null
     }
 
   case 'EDIT':
@@ -37,31 +47,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       hovering: action.hovering
-    }
-
-  case 'MOVE':
-    return {
-      ...state,
-      changes: state.changes + 1,
-      steps: [
-        ...state.steps.map(step => {
-          if(step.code === action.code) {
-            return {
-              ...step,
-              parent: action.parent,
-              answer: action.answer,
-              delta: action.delta
-            }
-          } else if(step.parent === action.parent && step.parent === action.parent) {
-            return {
-              ...step,
-              delta: step.delta + 1
-            }
-          } else {
-            return step
-          }
-        })
-      ]
     }
 
   case 'REMOVE':
