@@ -38,6 +38,7 @@ class FlowchartDesigner extends React.PureComponent {
   _handleSave = this._handleSave.bind(this)
 
   render() {
+    console.log(this.props.config)
     return (
       <div className="flowchart-designer">
         <div className="flowchart-designer-main">

@@ -13,6 +13,8 @@ class Wait extends React.PureComponent {
     onTokens: PropTypes.func
   }
 
+  form = null
+
   state = {
     config: {}
   }
@@ -20,6 +22,7 @@ class Wait extends React.PureComponent {
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -43,15 +46,16 @@ class Wait extends React.PureComponent {
   _getForm() {
     const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Wait',
       compact: true,
       onChange: this._handleChange,
-      onChangeField: this._handleChangeField,
       onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
@@ -92,9 +96,12 @@ class Wait extends React.PureComponent {
     this.setState({ config })
   }
 
-  _handleDone() {
-    const { config } = this.state
+  _handleDone(config) {
     this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

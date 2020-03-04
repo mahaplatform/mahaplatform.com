@@ -11,12 +11,12 @@ const segment = (steps, parent, answer) => {
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   }).map(step => {
-    if(step.type === 'conditional') {
+    if(step.action === 'conditional') {
       return {
         ...step,
         options: step.config.options.map(option => ({
           ...option,
-          then: segment(steps, step.code , option.code)
+          then: segment(steps, step.code, option.code)
         }))
       }
     } else {

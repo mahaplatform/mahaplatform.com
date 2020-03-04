@@ -1,15 +1,15 @@
-import internal_email from './send_internal_email'
-import internal_sms from './send_internal_sms'
-import workflow from './enroll_in_workflow'
+import internal_email from './internal_email'
+import internal_sms from './internal_sms'
 import conditional from './conditional'
+import workflow from './workflow'
 import property from './property'
-import email from './send_email'
 import consent from './consent'
-import sms from './send_sms'
+import email from './email'
 import topic from './topic'
 import list from './list'
 import wait from './wait'
 import goal from './goal'
+import sms from './sms'
 
 const blocks = {
   topic,
