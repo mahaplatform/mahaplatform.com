@@ -14,10 +14,17 @@ const segment = (steps, parent, answer) => {
     if(step.action === 'ifthen') {
       return {
         ...step,
-        options: step.config.options.map(option => ({
-          ...option,
-          then: segment(steps, step.code, option.code)
-        }))
+        branches: [
+          ...step.config.branches.map(branch => ({
+            ...branch,
+            then: segment(steps, step.code, branch.code)
+          })),
+          {
+            code: 'else',
+            name: 'else',
+            then: segment(steps, step.code, 'else')
+          }
+        ]
       }
     } else {
       return step

@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ number, message }) => (
+const Token = ({ message, number, user }) => (
   <div>
+    { user &&
+      <div>
+        To { user.full_name }
+      </div>
+    }
     { number &&
       <div>
         To { number }
@@ -17,8 +22,9 @@ const Token = ({ number, message }) => (
 )
 
 Token.propTypes = {
+  message: PropTypes.string,
   number: PropTypes.string,
-  message: PropTypes.string
+  user: PropTypes.object
 }
 
 export default Token

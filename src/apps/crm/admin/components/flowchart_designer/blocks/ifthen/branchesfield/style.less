@@ -1,0 +1,48 @@
+.crm-workflow-branchesfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  .crm-workflow-branchesfield-branch:last-child {
+    border-bottom: none;
+  }
+}
+.crm-workflow-branchesfield-branch {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.crm-workflow-branchesfield-branch-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.crm-workflow-branchesfield-branch-add {
+  flex: 1;
+  padding: 0.4em 0.8em;
+  background-color: fadeout(@black, 98);
+  .link {
+    font-size: 0.8em;
+  }
+}
+.crm-workflow-branchesfield-branch-action {
+  cursor: pointer;
+  .fa {
+    color: fadeout(@black, 80);
+  }
+  &:hover {
+    .fa {
+      color: fadeout(@black, 40);
+    }
+  }
+}
+
+.crm-workflow-branchesfield-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.crm-workflow-branchesfield-form-header {
+  padding: 0.8em;
+  background-color: fadeout(@black, 97);
+}
+.crm-workflow-branchesfield-form-body {
+  flex: 1;
+  display: flex;
+}

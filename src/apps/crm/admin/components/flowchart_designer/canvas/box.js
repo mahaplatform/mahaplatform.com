@@ -6,6 +6,10 @@ import _ from 'lodash'
 
 class Box extends React.PureComponent {
 
+  static contextTypes = {
+    confirm: PropTypes.object
+  }
+
   static propTypes = {
     active: PropTypes.string,
     answer: PropTypes.string,
@@ -29,7 +33,7 @@ class Box extends React.PureComponent {
     const { active, box } = this.props
     const block = this._getBlock()
     const { icon, label } = block
-    const { action, code, config, options, type } = box
+    const { action, code, config, branches, type } = box
     return (
       <div className={ this._getClass(box) }>
         <Add { ...this._getAdd() } />
@@ -61,16 +65,16 @@ class Box extends React.PureComponent {
               </div>
             }
           </div>
-          { action === 'ifthen' && options.length > 0 &&
+          { action === 'ifthen' && branches.length > 0 &&
             <div className="flowchart-branches">
-              { options.map((option, index) => (
+              { branches.map((branch, index) => (
                 <div className="flowchart-branch" key={`options_${index}`}>
                   <div className="flowchart-branch-label">
-                    <div className="flowchart-branch-label-box" title={ option.text }>
-                      { option.text }
+                    <div className="flowchart-branch-label-box" title={ branch.name }>
+                      { branch.name }
                     </div>
                   </div>
-                  <Trunk { ...this._getTrunk(option) } />
+                  <Trunk { ...this._getTrunk(branch) } />
                 </div>
               )) }
             </div>
@@ -110,6 +114,22 @@ class Box extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getEditButton() {
+    return {
+      icon: 'pencil',
+      className: 'flowchart-box-action',
+      handler: this._handleEdit
+    }
+  }
+
+  _getRemoveButton() {
+    return {
+      icon: 'trash',
+      className: 'flowchart-box-action',
+      handler: this._handleRemove
+    }
+  }
+
   _getToken(config) {
     const { fields } = this.props
     return {
@@ -143,7 +163,9 @@ class Box extends React.PureComponent {
 
   _handleRemove() {
     const { box } = this.props
-    this.props.onRemove(box)
+    this.context.confirm.open('Are you sure you want to delete this step?', () => {
+      this.props.onRemove(box)
+    })
   }
 
 }

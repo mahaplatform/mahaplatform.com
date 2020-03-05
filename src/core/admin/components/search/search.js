@@ -13,7 +13,7 @@ class Search extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     defaultValue: PropTypes.any,
-    empty: PropTypes.string,
+    empty: PropTypes.object,
     endpoint: PropTypes.string,
     filter: PropTypes.object,
     format: PropTypes.any,

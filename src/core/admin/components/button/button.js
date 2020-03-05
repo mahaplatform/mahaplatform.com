@@ -61,7 +61,7 @@ class Button extends React.Component {
     const { icon, link } = this.props
     return (
       <div { ...this._getButton() }>
-        { icon && <i className={`fa fa-fw fa-${icon}`} /> }
+        { icon && <i className={`fa fa-${icon}`} /> }
         { this._getLabel() }
         { link && <a target="_blank" ref={ node => this.link = node} /> }
       </div>
@@ -88,8 +88,9 @@ class Button extends React.Component {
   }
 
   _getClass() {
-    const { component, basic, className, color, disabled, mobile, status } = this.props
+    const { component, basic, className, color, disabled, icon, mobile, status } = this.props
     if(component) return ''
+    if(icon) return 'icon'
     const classes = className ? className.split(' ') : ['ui', color, 'fluid', 'button']
     classes.push('maha-button')
     if(mobile !== false) classes.push('mobile')

@@ -21,7 +21,20 @@ const UpdateWorkflowSteps = {
 
     await knex('crm_workflow_steps').where('id', 4).update({
       type: 'control',
-      action: 'ifthen'
+      action: 'ifthen',
+      config: {
+        branches: [{
+          code: '7gz9vp08nd',
+          name: 'Is Checked',
+          criteria: {
+            $and: [{
+              'response.3tjrwr': {
+                $eq: true
+              }
+            }]
+          }
+        }]
+      }
     })
 
     await knex('crm_workflow_steps').where('id', 5).update({

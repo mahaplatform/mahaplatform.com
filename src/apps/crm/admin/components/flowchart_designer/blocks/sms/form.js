@@ -13,25 +13,49 @@ class SendSMS extends React.PureComponent {
     onTokens: PropTypes.func
   }
 
+  form = null
+
+  state = {
+    config: {}
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
   }
 
-  _getForm() {
-    const { config } = this.props
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
+    })
+  }
+
+  _getDefault() {
     return {
+      message: null
+    }
+  }
+
+  _getForm() {
+    const { config } = this.state
+    return {
+      reference: node => this.form = node,
       title: 'Send SMS',
       onChange: this._handleChange,
       onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       instructions: 'If the contact does not have a phone number, they will be unenrolled from the workflow and labeled as lost',
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
@@ -57,11 +81,15 @@ class SendSMS extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    this.setState({ config })
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleDone(config) {
+    this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ user, email }) => (
+const Token = ({ email, subject, user }) => (
   <div>
     { user &&
       <div>
@@ -10,15 +10,22 @@ const Token = ({ user, email }) => (
     }
     { email &&
       <div>
-        { email.title }
+        To { email }
+      </div>
+    }
+    { subject &&
+      <div>
+        &quot;{ subject }&quot;
       </div>
     }
   </div>
 )
 
 Token.propTypes = {
-  user: PropTypes.object,
-  email: PropTypes.object
+  body: PropTypes.string,
+  email: PropTypes.string,
+  subject: PropTypes.string,
+  user: PropTypes.object
 }
 
 export default Token
