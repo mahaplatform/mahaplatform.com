@@ -115,6 +115,7 @@
     "flat": "^4.1.0",
     "get-urls": "^7.0.0",
     "googleapis": "^43.0.0",
+    "heic-convert": "^1.2.2",
     "html-email-to-text": "^1.0.4",
     "http-auth": "^3.2.3",
     "immutable": "^3.7.6",
