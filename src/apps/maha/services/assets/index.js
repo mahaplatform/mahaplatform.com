@@ -7,6 +7,7 @@ import socket from '../../../../core/services/emitter'
 import { simpleParser } from 'mailparser'
 import Source from '../../models/source'
 import Asset from '../../models/asset'
+import convertHeic from 'heic-convert'
 import request from 'request-promise'
 import { exec } from 'child_process'
 import fileType from 'file-type'
@@ -96,20 +97,15 @@ export const createAssetFromUrl = async (req, params) => {
 }
 
 export const assembleAsset = async (req, asset) => {
-  const fileData = await _getAssembledData(asset)
+  let fileData = await _getAssembledData(asset)
   const normalizedData = await _getNormalizedData(asset, fileData)
-  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
+  await _saveFile(normalizedData, asset.get('key'), asset.get('content_type'))
   await _deleteChunks(asset)
-  const metadata = await _getMetadata(asset.get('content_type'), normalizedData)
   await _saveAsset(req, asset, {
     fingerprint: _getFingerprint(normalizedData),
-    status: asset.get('has_preview') ? 'assembled' : 'processed',
-    ...metadata
+    status: asset.get('has_preview') ? 'assembled' : 'processed'
   })
-  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, {
-    id: asset.get('id')
-  })
-  await ScanAssetQueue.enqueue(req, {
+  await ProcessAssetQueue.enqueue(req, {
     id: asset.get('id')
   })
 }
@@ -121,7 +117,7 @@ export const processAsset = async (req, id) => {
 }
 
 export const createAsset = async (req, params) => {
-  const data = {
+  const asset = await Asset.forge({
     team_id: params.team_id,
     user_id: params.user_id,
     source_id: params.source_id,
@@ -134,11 +130,6 @@ export const createAsset = async (req, params) => {
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'
-  }
-  const metadata = await _getMetadata(data.content_type, params.file_data)
-  const asset = await Asset.forge({
-    ...data,
-    ...metadata
   }).save(null, {
     transacting: req.trx
   })
@@ -226,16 +217,34 @@ const _saveAsset = async (req, asset, params) => {
 
 const _saveFiledata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
-  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
+  await _saveFile(normalizedData, asset.get('key'), asset.get('content_type'))
   await ProcessAssetQueue.enqueue(req, {
-    id: asset.get('id')
-  })
-  await ScanAssetQueue.enqueue(req, {
     id: asset.get('id')
   })
 }
 
 const _processAsset = async (req, data, asset) => {
+  if(asset.get('extension') === 'heic') {
+    data = await convertHeic({
+      buffer: data,
+      format: 'JPEG',
+      quality: 1
+    })
+    await asset.save({
+      original_file_name: asset.get('original_file_name').replace(/\.heic$/i, '.jpg'),
+      file_name: asset.get('file_name').replace(/\.heic$/i, '.jpg'),
+      content_type: asset.get('content_type').replace('heic', 'jpg')
+    }, {
+      transacting: req.trx
+    })
+    await _saveFile(data, asset.get('key'), asset.get('content_type'))
+  }
+  if(asset.get('content_type').match(/image/)) {
+    const metadata = await _getMetadata(asset.get('content_type'), data)
+    await _saveAsset(req, asset, {
+      ...metadata
+    })
+  }
   if(asset.get('file_name').substr(0,2) !== '._' && asset.get('extension').match(/(pdf|xls|xlsx|doc|docx|ppt|pptx|eml|htm|html|rtf|txt)$/) !== null) {
     const previewData = await _getPreviewData(asset, data, 'jpg')
     await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
@@ -244,6 +253,9 @@ const _processAsset = async (req, data, asset) => {
     status: 'processed'
   })
   await _refreshAsset(req, asset)
+  await ScanAssetQueue.enqueue(req, {
+    id: asset.get('id')
+  })
 }
 
 const _getMetadata = async (content_type, data) => {
