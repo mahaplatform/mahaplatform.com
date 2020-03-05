@@ -1,78 +1,79 @@
-import { Container, ModalPanel, Search } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class EnrollInWorkflow extends React.PureComponent {
+class Workflow extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
     workflows: PropTypes.array,
+    workflow: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
+  form = null
+
   state = {
-    workflow: null
+    config: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
-
-  constructor(props) {
-    super(props)
-    const { config } = props
-    this.state = {
-      workflow: config ? config.workflow : null
-    }
-  }
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="flowchart-designer-form">
-          <div className="flowchart-designer-form-body">
-            <Search { ...this._getSearch() } />
-          </div>
-        </div>
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { workflow } = this.state
-    if(!_.isEqual(workflow, prevState.workflow)) {
-      this._handleChange()
-    }
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this.props.config || {}
+      }
+    })
   }
 
-  _getPanel() {
+  _getForm() {
+    const { workflow } = this.props
+    const { config } = this.state
     return {
-      title: 'Enroll in Manual Workflow',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ],
+      reference: node => this.form = node,
+      title: 'Update Workflows',
+      onChange: this._handleChange,
+      onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
+      cancelIcon: 'chevron-left',
+      saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
+      ],
+      sections: [
+        {
+          fields: [
+            { label: 'Workflow', name: 'workflow_id', type: 'lookup', prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm() }
+          ]
+        }
       ]
     }
   }
 
-  _getSearch() {
-    const { workflows } = this.props
-    const { workflow } = this.state
+  _getWorkflowForm() {
     return {
-      options: workflows,
-      multiple: false,
-      text: 'title',
-      search: false,
-      value: 'id',
-      defaultValue: workflow ? workflow.id : null,
-      onChange: this._handleUpdate
+      title: 'New Workflow',
+      method: 'post',
+      action: '/api/admin/crm/workflows',
+      sections: [
+        {
+          fields: [
+            { label: 'Title', name: 'title', type: 'textfield' }
+          ]
+        }
+      ]
     }
   }
 
@@ -81,40 +82,28 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { workflow } = this.state
-    const value = workflow ? { workflow } : {}
-    this.props.onChange(value)
+    this.setState({ config })
   }
 
-  _handleDone() {
-    this.props.onDone()
-  }
-
-  _handleUpdate(id) {
+  _handleDone(config) {
     const { workflows } = this.props
-    if(!id) return this.setState({ workflow: null })
-    const workflow = _.find(workflows, { id })
-    this.setState({
-      workflow: {
+    const workflow = _.find(workflows, { id: config.workflow_id })
+    this.props.onDone({
+      ...config,
+      workflow: workflow ? {
         id: workflow.id,
         title: workflow.title
-      }
+      } : null
     })
   }
 
-}
-
-const mapResources = (props, context) => ({
-  workflows: {
-    endpoint: '/api/admin/crm/workflows',
-    filter: {
-      $and: [
-        { program_id: { $eq: props.workflow.program.id } },
-        { trigger_type: { $eq: 'manual' } },
-        { id: { $neq: props.workflow.id } }
-      ]
-    }
+  _handleSubmit() {
+    this.form.submit()
   }
+
+}
+const mapResources = (props, context) => ({
+  workflows: '/api/admin/crm/workflows'
 })
 
-export default Container(mapResources)(EnrollInWorkflow)
+export default Container(mapResources)(Workflow)

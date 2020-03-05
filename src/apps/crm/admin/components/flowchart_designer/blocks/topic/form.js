@@ -1,10 +1,9 @@
-import { Container, ModalPanel, RadioGroup, Search } from 'maha-admin'
-import { actions } from './variables'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Interests extends React.PureComponent {
+class Topics extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -16,87 +15,58 @@ class Interests extends React.PureComponent {
     onTokens: PropTypes.func
   }
 
-  _handleAction = this._handleAction.bind(this)
+  form = null
+
+  state = {
+    config: {}
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="flowchart-designer-form">
-          <div className="flowchart-designer-form-header">
-            <RadioGroup { ...this._getRadioGroup() } />
-          </div>
-          <div className="flowchart-designer-form-body">
-            <Search { ...this._getSearch() } />
-          </div>
-        </div>
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  constructor(props) {
-    super(props)
-    const { config } = props
-    this.state = {
-      action: config ? config.action : null,
-      topic: config ? config.topic : null
-    }
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
+    })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { action, topic } = this.state
-    if(action !== prevState.action) {
-      this._handleChange()
-    }
-    if(!_.isEqual(topic, prevState.topic)) {
-      this._handleChange()
-    }
-  }
-
-  _getPanel() {
+  _getDefault() {
     return {
+      action: 'add'
+    }
+  }
+
+  _getForm() {
+    const { workflow } = this.props
+    const { config } = this.state
+    return {
+      reference: node => this.form = node,
       title: 'Update Interests',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ],
+      onChange: this._handleChange,
+      onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
+      cancelIcon: 'chevron-left',
+      saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
-      ]
-    }
-  }
-
-  _getRadioGroup() {
-    const { action } = this.state
-    return {
-      defaultValue: action || actions[0].value,
-      options: actions,
-      onChange: this._handleAction
-    }
-  }
-
-  _getSearch() {
-    const { topics } = this.props
-    const { topic } = this.state
-    return {
-      empty: {
-        icon: 'book',
-        title: 'No Topics',
-        text: 'There are no topics for this program',
-        button: {
-          label: 'Create Topic',
-          handler: () => {}
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
+      ],
+      sections: [
+        {
+          fields: [
+            { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to topic' },{ value: 'remove', text: 'Remove from topic'}], defaultValue: config.action },
+            { label: 'Topic', name: 'topic_id', type: 'lookup', prompt: 'Choose a topic', endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`, value: 'id', text: 'title', form: this._getTopicForm() }
+          ]
         }
-      },
-      options: topics,
-      multiple: false,
-      text: 'title',
-      search: false,
-      value: 'id',
-      defaultValue: topic ? topic.id : null,
-      onChange: this._handleUpdate
+      ]
     }
   }
 
@@ -109,7 +79,7 @@ class Interests extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true }
+            { label: 'Title', name: 'title', type: 'textfield' }
           ]
         }
       ]
@@ -121,35 +91,28 @@ class Interests extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { action, topic } = this.state
-    const value = topic ? { action, topic } : {}
-    this.props.onChange(value)
+    this.setState({ config })
   }
 
-  _handleDone() {
-    this.props.onDone()
-  }
-
-  _handleAction(action) {
-    this.setState({ action })
-  }
-
-  _handleUpdate(id) {
+  _handleDone(config) {
     const { topics } = this.props
-    if(!id) return this.setState({ topic: null })
-    const topic = _.find(topics, { id })
-    this.setState({
-      topic: {
+    const topic = _.find(topics, { id: config.topic_id })
+    this.props.onDone({
+      ...config,
+      topic: topic ? {
         id: topic.id,
         title: topic.title
-      }
+      } : null
     })
   }
 
-}
+  _handleSubmit() {
+    this.form.submit()
+  }
 
+}
 const mapResources = (props, context) => ({
   topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
 })
 
-export default Container(mapResources)(Interests)
+export default Container(mapResources)(Topics)

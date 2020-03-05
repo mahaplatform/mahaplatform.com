@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ channel }) => (
+const Token = ({ channel_type }) => (
   <div>
-    { channel }
+    { channel_type }
   </div>
 )
 
 Token.propTypes = {
-  channel: PropTypes.string
+  channel_type: PropTypes.string
 }
 
 export default Token

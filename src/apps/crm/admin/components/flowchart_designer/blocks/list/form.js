@@ -1,5 +1,4 @@
-import { Container, ModalPanel, RadioGroup, Search } from 'maha-admin'
-import { actions } from './variables'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -16,92 +15,75 @@ class Lists extends React.PureComponent {
     onTokens: PropTypes.func
   }
 
-  _handleAction = this._handleAction.bind(this)
+  form = null
+
+  state = {
+    config: {}
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
-
-  constructor(props) {
-    super(props)
-    const { config } = props
-    this.state = {
-      action: config ? config.action : null,
-      list: config ? config.list : null
-    }
-  }
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="flowchart-designer-form">
-          <div className="flowchart-designer-form-header">
-            <RadioGroup { ...this._getRadioGroup() } />
-          </div>
-          <div className="flowchart-designer-form-body">
-            <Search { ...this._getSearch() } />
-          </div>
-        </div>
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { action, list } = this.state
-    if(action !== prevState.action) {
-      this._handleChange()
-    }
-    if(!_.isEqual(list, prevState.list)) {
-      this._handleChange()
-    }
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
+    })
   }
 
-  _getPanel() {
+  _getDefault() {
     return {
+      action: 'add'
+    }
+  }
+
+  _getForm() {
+    const { workflow } = this.props
+    const { config } = this.state
+    return {
+      reference: node => this.form = node,
       title: 'Update Lists',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ],
+      onChange: this._handleChange,
+      onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
+      cancelIcon: 'chevron-left',
+      saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
+      ],
+      sections: [
+        {
+          fields: [
+            { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to list' },{ value: 'remove', text: 'Remove from list'}], defaultValue: config.action },
+            { label: 'List', name: 'list_id', type: 'lookup', prompt: 'Choose a list', endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`, value: 'id', text: 'title', form: this._getListForm() }
+          ]
+        }
       ]
     }
   }
 
-  _getRadioGroup() {
-    const { action } = this.state
+  _getListForm() {
+    const { workflow } = this.props
     return {
-      defaultValue: action || actions[0].value,
-      options: actions,
-      onChange: this._handleAction
-    }
-  }
-
-  _getSearch() {
-    const { lists } = this.props
-    const { list } = this.state
-    return {
-      empty: {
-        icon: 'users',
-        title: 'No Lists',
-        text: 'There are no lists for this program',
-        button: {
-          label: 'Create List',
-          handler: () => {}
+      title: 'New List',
+      method: 'post',
+      action: `/api/admin/crm/programs/${workflow.program.id}/lists`,
+      sections: [
+        {
+          fields: [
+            { label: 'Title', name: 'title', type: 'textfield' }
+          ]
         }
-      },
-      options: lists,
-      multiple: false,
-      text: 'title',
-      search: false,
-      value: 'id',
-      defaultValue: list ? list.id : null,
-      onChange: this._handleUpdate
+      ]
     }
-  }
-
-  _handleAction(action) {
-    this.setState({ action })
   }
 
   _handleCancel() {
@@ -109,29 +91,26 @@ class Lists extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { action, list } = this.state
-    const value = list ? { action, list } : {}
-    this.props.onChange(value)
+    this.setState({ config })
   }
 
-  _handleDone() {
-    this.props.onDone()
-  }
-
-  _handleUpdate(id) {
+  _handleDone(config) {
     const { lists } = this.props
-    if(!id) return this.setState({ list: null })
-    const list = _.find(lists, { id })
-    this.setState({
-      list: {
+    const list = _.find(lists, { id: config.list_id })
+    this.props.onDone({
+      ...config,
+      list: list ? {
         id: list.id,
         title: list.title
-      }
+      } : null
     })
   }
 
-}
+  _handleSubmit() {
+    this.form.submit()
+  }
 
+}
 const mapResources = (props, context) => ({
   lists: `/api/admin/crm/programs/${props.workflow.program.id}/lists`
 })

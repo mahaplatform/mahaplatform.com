@@ -13,11 +13,7 @@ class Token extends React.Component {
   }
 
   render() {
-    return (
-      <div className="">
-        { this._getDescription() }
-      </div>
-    )
+    return <div />
   }
 
 
