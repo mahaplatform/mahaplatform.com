@@ -9,6 +9,7 @@ class New extends React.PureComponent {
     blocks: PropTypes.array,
     cid: PropTypes.string,
     fields: PropTypes.array,
+    properties: PropTypes.array,
     step: PropTypes.object,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
@@ -51,11 +52,12 @@ class New extends React.PureComponent {
   }
 
   _getType(block) {
-    const { cid, fields, workflow, onTokens } = this.props
+    const { cid, fields, properties, workflow, onTokens } = this.props
     return {
       cid,
       config: block.config,
       fields,
+      properties,
       workflow,
       onCancel: this._handlePop,
       onChange: () => {},

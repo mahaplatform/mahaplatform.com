@@ -27,6 +27,7 @@ class Designer extends React.Component {
     return {
       endpoint: `/api/admin/crm/workflows/${workflow.id}`,
       fields: this._getFields(),
+      properties: this._getProperties(),
       trigger: this._getTrigger(),
       tokens: this._getTokens(),
       workflow,
@@ -46,6 +47,14 @@ class Designer extends React.Component {
       type: _.get(field, 'contactfield.type') || field.type,
       options: _.get(field, 'contactfield.options') || field.options
     }))
+  }
+
+  _getProperties() {
+    return [
+      { label: 'First Name', name: 'first_name', type: 'textfield' },
+      { label: 'Last Name', name: 'last_name', type: 'textfield' },
+      { label: 'Email', name: 'email', type: 'emailfield' }
+    ]
   }
 
   _getTrigger() {

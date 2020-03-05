@@ -1,84 +1,93 @@
-import { Container, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Property extends React.PureComponent {
+class Properties extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    fields: PropTypes.array,
     properties: PropTypes.array,
+    workflow: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
     onTokens: PropTypes.func
   }
 
+  form = null
+
   state = {
-    property_id: null,
-    overwrite: null,
-    value: null,
-    ready: false
+    config: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    if(!this.state.ready) return null
     return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
-    const { config, properties } = this.props
-    if(!config.property) return this.setState({ ready: true })
-    const property = _.find(properties, { id: config.property.id })
+    console.log({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
+    })
     this.setState({
-      property,
-      overwrite: config.overwrite || 'yes',
-      value: config.value,
-      ready: true
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
     })
   }
 
-  _getForm() {
-    const { config, properties } = this.props
+  _getDefault() {
     return {
-      title: 'Update Property',
+      overwrite: true
+    }
+  }
+
+  _getForm() {
+    const { properties } = this.props
+    const { config } = this.state
+    return {
+      reference: node => this.form = node,
+      title: 'Update Properties',
       onChange: this._handleChange,
       onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
-            { label: 'Property', name: 'property_id', type: 'lookup', options: properties, value: 'id', text: 'label', defaultValue: _.get(config, 'property.id'), required: true },
-            ...this._getProperty()
+            { label: 'Property', name: 'name', type: 'lookup', prompt: 'Choose a property', options: properties, value: 'name', text: 'label', defaultValue: config.name },
+            ...this._getValue()
           ]
         }
       ]
     }
   }
 
-  _getProperty() {
-    const { property, overwrite, value } = this.state
+  _getValue() {
+    const { config } = this.state
+    const { properties } = this.props
+    if(!config.name) return []
+    const property = _.find(properties, { name: config.name })
     return property ? [
-      {
-        ...property.config,
-        label: 'Value',
-        name: 'value',
-        required: true,
-        defaultValue: value
-      },
+      { ...property, label: 'Value', name: 'value', required: true, defaultValue: config.value },
       { label: 'If contact property is already set', name: 'overwrite', type: 'radiogroup', options: [
-        { value: 'yes', text: 'Overwrite existing value' },
-        { value: 'no', text: 'Do nothing' }
-      ], defaultValue: overwrite || 'yes', required: true }
-    ] : []
+        { value: true, text: 'Overwrite existing value' },
+        { value: false, text: 'Do nothing' }
+      ], defaultValue: config.overwrite, required: true }] : []
   }
 
   _handleCancel() {
@@ -86,31 +95,22 @@ class Property extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { properties } = this.props
-    const property = _.find(properties, { id: config.property_id })
-    const overwrite = property ? config.overwrite : 'yes'
-    const value = property ? config.value : undefined
-    this.setState({ property, overwrite, value })
-    this.props.onChange({
-      property: property ? {
-        id: property.id,
-        label: property.label
-      } : null,
-      overwrite,
-      value
+    this.setState({
+      config: {
+        ...this.state.config,
+        ...config
+      }
     })
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleDone(config) {
+    this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }
 
-const mapResources = (props, context) => ({
-  properties: {
-    endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/fields`
-  }
-})
-
-export default Container(mapResources)(Property)
+export default Properties

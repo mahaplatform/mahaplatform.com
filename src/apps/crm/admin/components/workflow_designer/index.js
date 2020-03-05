@@ -7,6 +7,7 @@ class WorkflowDesigner extends React.PureComponent {
   static propTypes = {
     endpoint: PropTypes.string,
     fields: PropTypes.array,
+    properties: PropTypes.array,
     tokens: PropTypes.array,
     trigger: PropTypes.object,
     workflow: PropTypes.object,
@@ -18,13 +19,14 @@ class WorkflowDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { endpoint, fields, workflow, tokens, trigger, onSave } = this.props
+    const { endpoint, fields, properties, tokens, trigger, workflow, onSave } = this.props
     const { steps, status } = workflow
     return {
       endpoint,
       fields,
-      workflow,
+      properties,
       tokens,
+      workflow,
       blocks: [
         {
           icon: trigger.icon,
@@ -35,16 +37,16 @@ class WorkflowDesigner extends React.PureComponent {
         },
         { action: 'ifthen' },
         { action: 'wait' },
-        { action: 'email' },
-        { action: 'sms' },
+        { action: 'goal' },
+        { action: 'property' },
+        { action: 'consent' },
         { action: 'list' },
         { action: 'topic' },
-        { action: 'consent' },
         { action: 'workflow' },
-        { action: 'property' },
+        { action: 'email' },
+        { action: 'sms' },
         { action: 'internal_email' },
         { action: 'internal_sms' },
-        { action: 'goal' },
         {
           icon: 'check',
           label: 'Complete',
