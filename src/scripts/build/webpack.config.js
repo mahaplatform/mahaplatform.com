@@ -62,7 +62,7 @@ const webpackConfig = (app, name, root, port) => ({
     } : {
       filename: path.join('js', '[name].js')
     },
-    publicPath: `/apps/${app}/${name}/`
+    publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`
   },
   plugins: [
     ...fs.existsSync(path.resolve(root,'index.less')) ? [

@@ -2,13 +2,13 @@ import { castColumn, getAlias } from './utils'
 import _ from 'lodash'
 
 export const parseSort = (options) => {
-  if(!options.sort || !options.sort.params) return null
+  if(!options.sort) return null
   const sort = normalizeSort(options.sort.params, options)
   return applySort(sort, options)
 }
 
-const normalizeSort = ($sorts, options) => {
-  const sorts = $sorts || options.sort.defaults || 'id'
+const normalizeSort = (params, options) => {
+  const sorts = params || options.sort.defaults || 'id'
   return _.castArray(sorts).map(sort => {
     if(!_.isString(sort)) return sort
     return {
