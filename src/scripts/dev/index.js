@@ -106,6 +106,7 @@ const webWatch = async () => {
     const publicPath = `/apps/${app}/${subapp}`
     const config = webpack(webpackConfig(app, subapp, dir, port))
     const devserver = new devServer(config, {
+      disableHostCheck: true,
       hot: true,
       publicPath,
       quiet: true,

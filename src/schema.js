@@ -585,8 +585,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('workflow_id').unsigned()
-      table.USER-DEFINED('type')
-      table.string('action', 255)
       table.string('code', 255)
       table.string('parent', 255)
       table.string('answer', 255)
@@ -594,6 +592,8 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
+      table.USER-DEFINED('action')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {

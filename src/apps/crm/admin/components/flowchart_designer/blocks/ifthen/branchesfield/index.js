@@ -41,12 +41,8 @@ class BranchesField extends React.PureComponent {
             <div className="crm-workflow-branchesfield-branch-label">
               { branch.name }
             </div>
-            <div className="crm-workflow-branchesfield-branch-action">
-              <Button { ...this._getEditButton(branch) } />
-            </div>
-            <div className="crm-workflow-branchesfield-branch-action">
-              <Button { ...this._getRemoveButton(branch.code) } />
-            </div>
+            <Button { ...this._getEditButton(branch) } />
+            <Button { ...this._getRemoveButton(branch.code) } />
           </div>
         )) }
         <div className="crm-workflow-branchesfield-branch-add">
@@ -94,6 +90,7 @@ class BranchesField extends React.PureComponent {
   _getEditButton(branch) {
     return {
       icon: 'pencil',
+      className: 'crm-workflow-branchesfield-branch-action',
       handler: this._handleEdit.bind(this, branch)
     }
   }
@@ -101,6 +98,7 @@ class BranchesField extends React.PureComponent {
   _getRemoveButton(code) {
     return {
       icon: 'times',
+      className: 'crm-workflow-branchesfield-branch-action',
       confirm: 'Are you sure you want to delete this branch? All steps within this branch will be deleted as well.',
       handler: this._handleRemove.bind(this, code)
     }
