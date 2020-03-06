@@ -35,7 +35,7 @@ class Queue {
       setTimeout(async () => {
         const result = await this.queue.add({
           ...job,
-          team_id: req.team.get('id')
+          team_id: req.team ? req.team.get('id') : null
         }, {
           delay: options.until ? options.until.diff(moment()) : 2000,
           attempts: 3,
@@ -88,12 +88,12 @@ const withLogger = (name, processor, job) => async () => {
 const withTransaction = (processor, job) => async () => {
   await knex.transaction(async trx => {
     try {
-      const team = await Team.query(qb => {
+      const team = job.data.team_id ? await Team.query(qb => {
         qb.where('id', job.data.team_id)
       }).fetch({
         withRelated: ['logo'],
         transacting: trx
-      })
+      }) : null
       await processor({ team, trx }, job)
       await trx.commit()
     } catch(err) {

@@ -3,7 +3,6 @@ import './responder'
 import multiparty from 'connect-multiparty'
 import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
-import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
 import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
@@ -54,8 +53,6 @@ server.use('/.well-known', deeplinkMiddleware)
 server.use(staticMiddleware)
 
 server.use(serverMiddleware)
-
-server.use('/mailbox_mime', mailboxMiddleware)
 
 server.use('/admin*', homeMiddleware)
 

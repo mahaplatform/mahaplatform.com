@@ -71,7 +71,7 @@ const webpackConfig = (warning) => ({
   output: {
     path: path.resolve('dist.staged','public','admin'),
     filename: 'js/[name]-[chunkhash].min.js',
-    publicPath: '/admin'
+    publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin`
   },
   plugins: [
     new MahaPlugin(),

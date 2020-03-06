@@ -124,7 +124,7 @@ const webWatch = async () => {
 
 const adminWatch = async () => {
   const wildcard = {
-    target: `http://localhost:${process.env.SERVER_PORT}`,
+    target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
     bypass: (req, res, proxyOptions) => {
       const root = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(2)
@@ -134,19 +134,23 @@ const adminWatch = async () => {
     }
   }
   const devserver = new devServer(webpack(adminConfig), {
-    https: protocol === 'https',
+    https: protocol === 'https' ? {
+      key: fs.readFileSync('dev.mahaplatform.com.key'),
+      cert: fs.readFileSync('dev.mahaplatform.com.crt')
+    } : false,
+    disableHostCheck: true,
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
     publicPath: '/admin',
     proxy: {
       '/socket': {
-        target: `http://localhost:${process.env.SERVER_PORT}`,
+        target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
         ws: true
       },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
-          target: `http://localhost:${proxy.port}`,
+          target: `http://${process.env.DOMAIN}:${proxy.port}`,
           secure: false
         }
       }), {}),
