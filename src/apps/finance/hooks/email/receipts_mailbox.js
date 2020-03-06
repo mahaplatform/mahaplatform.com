@@ -1,5 +1,6 @@
 import generateCode from '../../../../core/utils/generate_code'
 import { createAsset } from '../../../maha/services/assets'
+import { sendMail } from '../../../../core/services/email'
 import socket from '../../../../core/services/emitter'
 import Reimbursement from '../../models/reimbursement'
 import Source from '../../../maha/models/source'
@@ -11,36 +12,60 @@ import Check from '../../models/check'
 import pluralize from 'pluralize'
 import moment from 'moment'
 
-const EMAIL_REGEX = /^(expenses|reimbursements|checks)@mahaplatform.com$/
+const ADDRESS_REGEX = /^(expenses|reimbursements|checks)/
 
-const receiver = async (req, { to, message }) => ({
-  type: to.match(EMAIL_REGEX)[1]
-})
+const models = {
+  expenses: Expense,
+  reimbursements: Reimbursement,
+  checks: Check
+}
 
-const processor = async (req, { meta, message }) => {
+const _findOrCreateStoryId = async (text, trx) => {
+  if(!text) return null
+  const findStory = await Story.query(qb => {
+    qb.where('text', text)
+  }).fetch({
+    transacting: trx
+  })
+  const story = findStory || await Story.query(qb => {
+    qb.where('text', text)
+  }).save(null, {
+    transacting: trx
+  })
+  return story.id
+}
 
-  const model = _getModel(meta.type)
+const _processEmail = async (req, { type, incoming_email }) => {
 
-  const foreign_key = `${pluralize.singular(meta.type)}_id`
+  const foreign_key = `${pluralize.singular(type)}_id`
 
-  const date = meta.type === 'checks' ? 'date_needed' : 'date'
+  const date = type === 'checks' ? 'date_needed' : 'date'
+
+  if(!req.user) {
+    return await sendMail({
+      from: 'Maha <mailer@mahaplatform.com>',
+      to: incoming_email.get('from'),
+      subject: 'Invalid User',
+      html: 'Invalid User'
+    })
+  }
 
   const code = await generateCode(req, {
-    table: `finance_${meta.type}`
+    table: `finance_${type}`
   })
 
-  const item = await model.forge({
+  const item = await models[type].forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     status: 'incomplete',
     [date]: moment(),
     code,
-    description: message.subject
+    description: incoming_email.get('subject')
   }).save(null, {
     transacting: req.trx
   })
 
-  const file_name = message.subject.replace(/[^0-9a-zA-Z-.]/img, '-').replace(/-{2,}/g, '-').toLowerCase()
+  const file_name = incoming_email.get('subject').replace(/[^0-9a-zA-Z-.]/img, '-').replace(/-{2,}/g, '-').toLowerCase()
 
   const source = await Source.where({
     text: 'email'
@@ -54,7 +79,7 @@ const processor = async (req, { meta, message }) => {
     source_id: source.get('id'),
     file_name: `${file_name}.html`,
     content_type: 'text/html',
-    file_data: message.html || message.textAsHtml
+    file_data: incoming_email.get('html')
   })
 
   await Receipt.forge({
@@ -66,23 +91,13 @@ const processor = async (req, { meta, message }) => {
     transacting: req.trx
   })
 
-  await Promise.mapSeries(message.attachments, async (attachment, index) => {
-
-    const asset = await createAsset(req, {
-      team_id: req.team.get('id'),
-      user_id: req.user.get('id'),
-      source_id: source.get('id'),
-      file_name: attachment.filename,
-      content_type: attachment.contentType,
-      file_size: attachment.size,
-      file_data: new Buffer(attachment.content.data)
-    })
+  await Promise.mapSeries(incoming_email.related('attachments').toArray(), async (attachment, index) => {
 
     await Receipt.forge({
       team_id: req.team.get('id'),
       [foreign_key]: item.get('id'),
       delta: index + 1,
-      asset_id: asset.get('id')
+      asset_id: attachment.get('id')
     }).save(null, {
       transacting: req.trx
     })
@@ -94,7 +109,7 @@ const processor = async (req, { meta, message }) => {
   await Audit.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    auditable_type: `finance_${meta.type}`,
+    auditable_type: `finance_${type}`,
     auditable_id: item.get('id'),
     story_id
   }).save(null, {
@@ -109,22 +124,43 @@ const processor = async (req, { meta, message }) => {
 
 }
 
-const _getModel = (type) => {
-  if(type === 'expenses') return Expense
-  if(type === 'reimbursements') return Reimbursement
-  if(type === 'checks') return Check
-}
+const processor = async (req, { incoming_email }) => {
 
-const _findOrCreateStoryId = async (text, trx) => {
-  if(!text) return null
-  const findStory = await Story.where({ text }).fetch({ transacting: trx })
-  const story = findStory || await Story.forge({ text }).save(null, { transacting: trx })
-  return story.id
+  const matches = incoming_email.get('to').match(ADDRESS_REGEX)
+
+  const type = matches[1]
+
+  const singular = pluralize.singular(type)
+
+  try {
+
+    await _processEmail(req, {
+      incoming_email,
+      type
+    })
+
+    return await sendMail({
+      from: 'Maha <mailer@mahaplatform.com>',
+      to: incoming_email.get('from'),
+      subject: `Successfully processed your ${singular}`,
+      html: `We successfully processed your ${singular}`
+    })
+
+  } catch(err) {
+
+    return await sendMail({
+      from: 'Maha <mailer@mahaplatform.com>',
+      to: incoming_email.get('from'),
+      subject: `Unable to process your ${singular}`,
+      html: `Unable to process your ${singular}`
+    })
+
+  }
+
 }
 
 const receiptMailbox = {
-  pattern: EMAIL_REGEX,
-  receiver,
+  pattern: ADDRESS_REGEX,
   processor
 }
 
