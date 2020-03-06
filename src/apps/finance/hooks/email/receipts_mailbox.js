@@ -92,7 +92,6 @@ const _processEmail = async (req, { type, incoming_email }) => {
   })
 
   await Promise.mapSeries(incoming_email.related('attachments').toArray(), async (attachment, index) => {
-
     await Receipt.forge({
       team_id: req.team.get('id'),
       [foreign_key]: item.get('id'),
@@ -101,7 +100,6 @@ const _processEmail = async (req, { type, incoming_email }) => {
     }).save(null, {
       transacting: req.trx
     })
-
   })
 
   const story_id = await _findOrCreateStoryId('imported', req.trx)

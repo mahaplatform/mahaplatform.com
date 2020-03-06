@@ -104,6 +104,10 @@ const process_email = async(req, { email }) => {
 
   }
 
+  await incoming_email.load(['attachments','user'], {
+    transacting: req.trx
+  })
+
   const mailbox = mailboxes.find(mailbox => {
     return mailbox.default.pattern.test(matches[1])
   })
