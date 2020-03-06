@@ -46,7 +46,7 @@ const process_email = async(req, { email }) => {
     return await sendResponse({
       to: from.value[0].address,
       subject: 'Invalid mailbox',
-      message: 'Invalid mailbox'
+      message: `${recipient.address} is not a valid mailbox`
     })
   }
 
@@ -116,7 +116,7 @@ const process_email = async(req, { email }) => {
     return await sendResponse({
       to: from.value[0].address,
       subject: 'Invalid mailbox',
-      message: 'Invalid mailbox'
+      message: `${recipient.address} is not a valid mailbox`
     })
   }
 

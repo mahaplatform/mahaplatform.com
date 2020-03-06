@@ -73,29 +73,30 @@ const _processEmail = async (req, { type, incoming_email }) => {
     transacting: req.trx
   })
 
-  const asset = await createAsset(req, {
-    team_id: req.team.get('id'),
-    user_id: req.user.get('id'),
-    source_id: source.get('id'),
-    file_name: `${file_name}.html`,
-    content_type: 'text/html',
-    file_data: incoming_email.get('html')
-  })
-
-  await Receipt.forge({
-    team_id: req.team.get('id'),
-    [foreign_key]: item.get('id'),
-    delta: 0,
-    asset_id: asset.get('id')
-  }).save(null, {
-    transacting: req.trx
-  })
+  if(incoming_email.get('html')) {
+    const asset = await createAsset(req, {
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      source_id: source.get('id'),
+      file_name: `${file_name}.html`,
+      content_type: 'text/html',
+      file_data: incoming_email.get('html')
+    })
+    await Receipt.forge({
+      team_id: req.team.get('id'),
+      [foreign_key]: item.get('id'),
+      delta: 0,
+      asset_id: asset.get('id')
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
 
   await Promise.mapSeries(incoming_email.related('attachments').toArray(), async (attachment, index) => {
     await Receipt.forge({
       team_id: req.team.get('id'),
       [foreign_key]: item.get('id'),
-      delta: index + 1,
+      delta: index + (incoming_email.get('html') ? 1 : 0),
       asset_id: attachment.get('id')
     }).save(null, {
       transacting: req.trx
