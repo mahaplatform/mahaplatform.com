@@ -19,7 +19,7 @@ class Columns extends React.Component {
     const { columns } = this.props
     const { show } = this.state
     return (
-      <div className="maha-table-cell mobile config" onClick={ this._handleToggle }>
+      <td className="mobile config" onClick={ this._handleToggle }>
         <div className="maha-table-columns" onClick={ this._handleToggle }>
           <i className="fa fa-chevron-down" />
           { show &&
@@ -38,7 +38,7 @@ class Columns extends React.Component {
             </div>
           }
         </div>
-      </div>
+      </td>
     )
   }
 

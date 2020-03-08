@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/team/supervisors',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Name', key: 'maha_users.last_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'maha_users.last_name', order: 'asc' },

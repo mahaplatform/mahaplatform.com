@@ -6,7 +6,7 @@ import React from 'react'
 const _getImport = () => ({
   table: 'maha_users',
   fields: [
-    { label: 'ID', key: 'id', width: 80, visible: false },
+    { label: 'ID', key: 'id', collapsing: true, visible: false },
     { label: 'First Name', name: 'first_name', type: 'textfield' },
     { label: 'Last Name', name: 'last_name', type: 'textfield' },
     { label: 'Email', name: 'email', type: 'textfield', required: true },
@@ -52,7 +52,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/users',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Name', key: 'last_name', primary: true, format: UserToken },
       { label: 'Email', key: 'email' }
     ],

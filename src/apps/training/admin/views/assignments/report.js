@@ -6,11 +6,11 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/training/assignments/report',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'User', key: 'user.full_name', primary: true },
       { label: 'Title', key: 'assigning.title', primary: true },
-      { label: 'Configured', key: 'is_configured', width: 80, primary: false, align: 'center', format: 'check_times' },
-      { label: 'Completed', key: 'is_completed', width: 80, primary: false, align: 'center', format: 'check_times' }
+      { label: 'Configured', key: 'is_configured', collapsing: true, primary: false, align: 'center', format: 'check_times' },
+      { label: 'Completed', key: 'is_completed', collapsing: true, primary: false, align: 'center', format: 'check_times' }
     ],
     filters: [
       { label: 'Assignings', name: 'assigning_id', type: 'select', endpoint: '/api/admin/training/assignings', value: 'id', text: 'title', format: AssigningToken },

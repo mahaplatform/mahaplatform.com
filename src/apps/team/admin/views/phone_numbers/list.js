@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/phone_numbers',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Number', key: 'number', primary: true, format: NumberToken },
       { label: 'Type', key: 'type' }
     ],

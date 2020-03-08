@@ -16,15 +16,15 @@ const mapPropsToPage = (props, context, resources) => ({
   collection: {
     endpoint: '/api/admin/finance/items/tax',
     table: [
-      { label: 'ID', key: 'item_id', width: 80, visible: false },
-      { label: 'Type', key: 'type', width: 80, format: CompactTypeToken },
-      { label: 'Date', key: 'date', width: 100, format: 'date' },
+      { label: 'ID', key: 'item_id', collapsing: true, visible: false },
+      { label: 'Type', key: 'type', collapsing: true, format: CompactTypeToken },
+      { label: 'Date', key: 'date', collapsing: true, format: 'date' },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'finance_projects.title', format: CompactProjectToken },
       { label: 'Tax Account', key: 'tax_project.title', sort: 'finance_projects.title', format: (item) => <CompactProjectToken project={item.tax_project} /> },
       { label: 'Description', key: 'description' },
-      { label: 'Tax', key: 'tax', width: 100, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', width: 100, primary: true, format: Status }
+      { label: 'Tax', key: 'tax', collapsing: true, primary: true, format: 'currency' },
+      { label: 'Status', key: 'status', collapsing: true, primary: true, format: Status }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'check', text: 'Check Request' } ], format: TypeToken },

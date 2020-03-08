@@ -20,8 +20,3 @@ export const toggleHidden = (key) => ({
   type: 'TOGGLE_HIDDEN',
   key
 })
-
-export const setWidth = (width) => ({
-  type: 'SET_WIDTH',
-  width
-})

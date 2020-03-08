@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/fax/numbers',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Number', key: 'formatted', primary: true }
     ],
     recordTasks: (program) => [

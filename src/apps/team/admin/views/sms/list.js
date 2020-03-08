@@ -5,14 +5,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/team/smses',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Sent/Received', key: 'created_at', primary: true, format: 'datetime' },
       { label: 'Direction', key: 'direction' },
       { label: 'From', key: 'from.formatted', primary: true },
       { label: 'To', key: 'to.formatted', primary: true },
       { label: 'Media', key: 'num_media' },
       { label: 'Price', key: 'price' },
-      { label: 'Status', key: 'status', width: 100, primary: true, format: TwilioStatusToken }
+      { label: 'Status', key: 'status', collpasing: true, primary: true, format: TwilioStatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

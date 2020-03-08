@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/appraisals/appraisals/employees',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Employee', key: 'employee.full_name', primary: true },
       { label: 'Created', key: 'created_at', format: 'date' }
     ],

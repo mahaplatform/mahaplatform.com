@@ -13,7 +13,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/organizations',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Name', key: 'name', primary: true, format: OrganizationToken }
     ],
     filters: [

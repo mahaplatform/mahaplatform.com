@@ -24,9 +24,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/expense_types',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', sort: 'expense_ code', primary: true, format: ExpenseTypeToken },
-      { label: 'Active', key: 'is_active', width: 80, primary: true, format: 'check' }
+      { label: 'Active', key: 'is_active', collapsing: true, primary: true, format: 'check' }
     ],
     export: [
       { label: 'ID', key: 'id' },

@@ -11,6 +11,7 @@ import BatchToken from '../../tokens/batch'
 import { Page, UserToken } from 'maha-admin'
 import TypeToken from '../../tokens/type'
 import Status from '../../tokens/status'
+import React from 'react'
 
 const mapResourcesToPage = (props, context) => ({
   app: '/api/admin/apps/finance/settings'
@@ -21,17 +22,17 @@ const mapPropsToPage = (props, context, resources) => ({
   collection: {
     endpoint: '/api/admin/finance/items/report',
     table: [
-      { label: 'ID', key: 'item_id', width: 80, visible: false },
-      { label: 'Type', key: 'type', width: 80, format: CompactTypeToken },
-      { label: 'Date', key: 'date', width: 90, format: 'date' },
+      { label: 'ID', key: 'item_id', collapsing: true, visible: false },
+      { label: 'Type', key: 'type', collapsing: true, format: CompactTypeToken },
+      { label: 'Date', key: 'date', collapsing: true, format: 'date' },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'finance_projects.title', format: CompactProjectToken },
       { label: 'Description', key: 'description' },
       { label: 'Expense Type', key: 'expense_type.title', sort: 'finance_expense_types.title', format: CompactExpenseTypeToken },
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name'},
-      { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', width: 100, primary: true, align: 'center', format: Status }
+      { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' },
+      { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', format: (item) => <div className="token"><Status { ...item } /></div> }
     ],
     criteria: [
       { label: 'item', fields: [

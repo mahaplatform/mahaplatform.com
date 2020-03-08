@@ -8,10 +8,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/products',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Price', key: 'price', primary: true  },
-      { label: 'Tax Rate', key: 'tax_rate', width: 100, visible: false }
+      { label: 'Tax Rate', key: 'tax_rate', collapsing: true, visible: false }
     ],
     filters: [
       { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },

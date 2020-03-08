@@ -5,6 +5,7 @@ import React from 'react'
 class Results extends React.Component {
 
   static propTypes = {
+    all: PropTypes.number,
     code: PropTypes.string,
     columns: PropTypes.array,
     layout: PropTypes.any,
@@ -16,6 +17,7 @@ class Results extends React.Component {
     selectValue: PropTypes.string,
     selected: PropTypes.object,
     sort: PropTypes.object,
+    total: PropTypes.number,
     status: PropTypes.string,
     table: PropTypes.array,
     onClick: PropTypes.func,
@@ -33,11 +35,13 @@ class Results extends React.Component {
   }
 
   _getTable() {
-    const { code, records, recordTasks, rowClass, table, selectAll, selectValue, selectable, selected, sort, status, onClick, onLoadMore, onReachBottom, onSelect, onSelectAll, onSort } = this.props
-    const columns = table
+    const { all, code, records, recordTasks, rowClass, table, selectAll } = this.props
+    const { selectValue, selectable, selected, sort, status, total } = this.props
+    const { onClick, onLoadMore, onReachBottom, onSelect, onSelectAll, onSort } = this.props
     return {
+      all,
       code,
-      columns,
+      columns: table,
       records,
       recordTasks,
       rowClass,
@@ -47,6 +51,7 @@ class Results extends React.Component {
       selected,
       sort,
       status,
+      total,
       onClick,
       onLoadMore,
       onReachBottom,

@@ -7,12 +7,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/forms',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title' },
-      { label: 'Respondants', key: 'respondants_count', width: 100, align: 'right' },
-      { label: 'Responses', key: 'responses_count', width: 100, align: 'right' },
-      { label: 'Revenue', key: 'revenue', width: 100, align: 'right', format: 'currency' }
+      { label: 'Respondants', key: 'respondants_count', collapsing: true, align: 'right' },
+      { label: 'Responses', key: 'responses_count', collapsing: true, align: 'right' },
+      { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right', format: 'currency' }
     ],
     defaultSort: { key: 'title', order: 'asc' },
     empty: {

@@ -8,11 +8,11 @@ import New from './new'
 const _getIntegrationColumns = (integration) => {
   if(integration === 'accpac') {
     return [
-      { label: 'Main Project Code', key: 'integration.main_project_code', width: 100, visible: false  },
-      { label: 'Project Code', key: 'integration.project_code', width: 100, visible: false  },
-      { label: 'Program Code', key: 'integration.program_code', width: 100, visible: false  },
-      { label: 'Source Code', key: 'integration.source_code', width: 100, visible: false },
-      { label: 'Match', key: 'integration.match', width: 100, visible: false  }
+      { label: 'Main Project Code', key: 'integration.main_project_code', collapsing: true, visible: false  },
+      { label: 'Project Code', key: 'integration.project_code', collapsing: true, visible: false  },
+      { label: 'Program Code', key: 'integration.program_code', collapsing: true, visible: false  },
+      { label: 'Source Code', key: 'integration.source_code', collapsing: true, visible: false },
+      { label: 'Match', key: 'integration.match', collapsing: true, visible: false  }
     ]
   }
   return []
@@ -40,9 +40,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/projects',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'project_code', sort: 'project_code', primary: true, format: ProjectToken },
-      { label: 'Active', key: 'is_active', width: 100, primary: false, format: 'check' },
+      { label: 'Active', key: 'is_active', collapsing: true, primary: false, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
     filters: [

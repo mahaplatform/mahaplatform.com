@@ -7,8 +7,8 @@ import New from './new'
 const _getIntegrationColumns = (integration) => {
   if(integration === 'accpac') {
     return [
-      { label: 'Revenue Code', key: 'integration.revenue_code', width: 100, visible: false },
-      { label: 'Source Code', key: 'integration.source_code', width: 100, visible: false }
+      { label: 'Revenue Code', key: 'integration.revenue_code', collapsing: true, visible: false },
+      { label: 'Source Code', key: 'integration.source_code', collapsing: true, visible: false }
     ]
   }
   return []
@@ -34,7 +34,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/revenue_types',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', sort: 'revenue_code', primary: true, format: RevenueTypeToken },
       { label: 'Active', key: 'is_active', primary: true, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)

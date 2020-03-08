@@ -8,13 +8,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/invoices',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
-      { label: 'Code', key: 'code', width: 120, primary: true },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
+      { label: 'Code', key: 'code', collapsing: true, primary: true },
       { label: 'Customer', key: 'customer.display_name', sort: 'customer', primary: true },
       { label: 'Program', key: 'program.title', sort: 'program', primary: true },
-      { label: 'Date', key: 'date', width: 100, primary: true, format: 'date' },
-      { label: 'Total', key: 'total', width: 100, primary: true, format: 'currency'  },
-      { label: 'Status', key: 'status', width: 100, primary: true, format: Status  }
+      { label: 'Date', key: 'date', collpasing: true, primary: true, format: 'date' },
+      { label: 'Total', key: 'total', collapsing: true, primary: true, format: 'currency'  },
+      { label: 'Status', key: 'status', collpasing: true, primary: true, format: Status  }
     ],
     filters: [
       { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },

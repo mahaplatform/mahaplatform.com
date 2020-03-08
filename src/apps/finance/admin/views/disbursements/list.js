@@ -5,10 +5,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/disbursements',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
-      { label: 'Date', key: 'date', width: 100, primary: true, format: 'date' },
-      { label: 'Amount', key: 'amount', width: 100, primary: true, format: 'currency' }
+      { label: 'Date', key: 'date', collpasing: true, primary: true, format: 'date' },
+      { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' }
     ],
     filters: [
       { label: 'Merchant Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },

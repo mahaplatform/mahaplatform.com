@@ -6,13 +6,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/emails',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Opened', key: 'opened', width: 100, align: 'right' },
-      { label: 'Clicked', key: 'clicked', width: 100, align: 'right' },
-      { label: 'Bounced', key: 'bounced', width: 100, align: 'right' },
-      { label: 'Unsubscribed', key: 'unsubscribed', width: 100, align: 'right' }
+      { label: 'Opened', key: 'opened', collapsing: true, align: 'right' },
+      { label: 'Clicked', key: 'clicked', collapsing: true, align: 'right' },
+      { label: 'Bounced', key: 'bounced', collapsing: true, align: 'right' },
+      { label: 'Unsubscribed', key: 'unsubscribed', collapsing: true, align: 'right' }
     ],
     empty: {
       icon: 'envelope-o',

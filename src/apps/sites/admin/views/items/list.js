@@ -15,10 +15,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.type.title,
   collection: {
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Published', key: 'is_published', width: 100, primary: true, format: 'check_times' },
-      { label: 'Updated', key: 'updated_at', width: 100, visible: false, format: 'date' }
+      { label: 'Published', key: 'is_published', collapsing: true, primary: true, format: 'check_times' },
+      { label: 'Updated', key: 'updated_at', collapsing: true, visible: false, format: 'date' }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items`,
     empty: {

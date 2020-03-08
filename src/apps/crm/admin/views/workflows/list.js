@@ -8,14 +8,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/workflows',
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Enrolled', key: 'enrolled', width: 100, align: 'right' },
-      { label: 'Active', key: 'active', width: 100, align: 'right' },
-      { label: 'Lost', key: 'lost', width: 100, align: 'right' },
-      { label: 'Converted', key: 'converted', width: 100, align: 'right' },
-      { label: 'Completed', key: 'completed', width: 100, align: 'right' }
+      { label: 'Enrolled', key: 'enrolled', collapsing: true, align: 'right' },
+      { label: 'Active', key: 'active', collapsing: true, align: 'right' },
+      { label: 'Lost', key: 'lost', collapsing: true, align: 'right' },
+      { label: 'Converted', key: 'converted', collapsing: true, align: 'right' },
+      { label: 'Completed', key: 'completed', collapsing: true, align: 'right' }
     ],
     empty: {
       icon: 'cogs',

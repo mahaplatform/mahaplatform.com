@@ -40,3 +40,94 @@
     }
   }
 }
+
+.maha-productfield-products {
+  border: 1px solid fadeout(@teal, 40);
+  margin-bottom: 0.8em;
+  .maha-productfield-product:last-child {
+    border-bottom: none;
+  }
+}
+.maha-productfield-product-header {
+  display: flex;
+  background-color: fadeout(@teal, 70);
+  border-bottom: 1px solid fadeout(@teal, 40);
+}
+.maha-productfield-product-header-item {
+  flex: 1;
+  padding: 0.8em;
+  font-weight: bold;
+}
+.maha-productfield-product-header-qty  {
+  flex: 0 0 5em;
+  padding: 0.8em;
+  font-weight: bold;
+}
+.maha-productfield-product-header-price,
+.maha-productfield-product-header-total {
+  flex: 0 0 5em;
+  padding: 0.8em;
+  font-weight: bold;
+}
+.maha-productfield-product-header-action {
+  flex: 0 0 2.5em;
+}
+.maha-productfield-product {
+  border-bottom: 1px solid fadeout(@teal, 40);
+  background-color: fadeout(@teal, 90);
+  display: flex;
+}
+.maha-productfield-product-item {
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-productfield-product-item-title {
+  font-weight: bold;
+}
+.maha-productfield-product-item-variation {
+  color: fadeout(@black, 40);
+  line-height: 1.6em;
+  font-size: 0.8em;
+}
+.maha-productfield-product-qty {
+  flex: 0 0 5em;
+  padding: 0.4em;
+  input {
+    padding: 0.4em !important;
+    text-align: right;
+  }
+}
+.maha-productfield-product-price,
+.maha-productfield-product-total {
+  flex: 0 0 5em;
+  text-align: right;
+  padding: 0.8em;
+}
+.maha-productfield-product-action {
+  flex: 0 0 2.5em;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    margin: 1em 0.8em auto;
+    color: fadeout(@black, 80);
+  }
+}
+.maha-productfield-products-add {
+  border: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+}
+.maha-productfield-products-add-body {
+  .fields {
+    margin: 0 0 1em !important;
+  }
+}
+.maha-productfield-products-add-footer {
+  padding: 0 0.8em 0.8em;
+  overflow: hidden;
+  .button {
+    float: right;
+  }
+}

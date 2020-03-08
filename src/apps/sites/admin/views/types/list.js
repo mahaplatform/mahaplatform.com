@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Types',
   collection: {
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types`,

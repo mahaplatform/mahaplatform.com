@@ -2,6 +2,17 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  td {
+    border-bottom: 1px solid fadeout(@black, 90);
+    border-right: 1px solid fadeout(@black, 90);
+    &.collapsing {
+      width: 0.8em;
+    }
+  }
   .fa-caret-down,
   .fa-caret-up,
   .fa-chevron,
@@ -17,21 +28,22 @@
     color: @blue;
   }
 }
-.maha-table-head {
+.maha-table-header {
   background: fadeout(@black, 90);
-  padding-right: 8px;
-  .maha-table-row {
-    border-bottom: 1px solid fadeout(@black, 90);
-  }
-  .maha-table-cell {
+  padding-right: 6px;
+  td {
+    font-weight: bold;
+    cursor: pointer;
+    color: fadeout(@black, 50);
+    position: relative;
     &:hover {
       background-color: lighten(@black, 95);
     }
-    font-weight: bold;
-    position: relative;
-    cursor: pointer;
-    color: fadeout(@black, 50);
+    &.padded {
+      padding: 0.8em 2.4em 0.8em 0.8em;
+    }
     &.config {
+      width: 3em;
       padding: 0.8em;
     }
     &.next {
@@ -44,63 +56,36 @@
     .fa-caret-up,
     .fa-caret-down {
       position: absolute;
-      right: 1em;
+      right: 0.8em;
       top: 50%;
       transform: translateY(-50%);
       color: fadeout(@black, 50);
     }
   }
 }
-.maha-table-check-cell {
-  border-right: 1px solid fadeout(@black, 90);
-  text-align: center;
-  padding: 0.8em;
-  flex: 0 1 40px;
-  display: flex;
-  .fa {
-    margin: auto;
-  }
-}
 .maha-table-body {
   flex: 1;
-  display: flex;
-  .maha-loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .maha-table-row {
-    background-color: @white;
-    overflow: hidden;
-    &:first-child {
-      border-top: none;
-    }
-    &:last-child {
-      border-bottom: 1px solid fadeout(@black, 90);
+  .scrollable();
+  table {
+    width: 100%;
+    tr:last-child td {
+      border-bottom-color: transparent;
     }
   }
-  .maha-table-check-cell {
+  td {
     border-right-color: transparent;
-  }
-  .maha-table-cell {
-    border-right-color: transparent;
-    overflow: hidden;
-    & > div {
-      flex: 1;
-    }
-    &.center {
-      justify-content: center;
-    }
-    &.right {
-      justify-content: flex-end;
-    }
-    &.fa {
-      padding: 0.8em;
-    }
     &.padded {
       padding: 0.8em;
+    }
+    &.center {
+      text-align: center;
+    }
+    &.right {
+      text-align: right;
+    }
+    &.icon {
+      width: 3em;
+      text-align: center;
     }
     .fa {
       margin: 0;
@@ -114,44 +99,11 @@
     }
   }
 }
-.maha-table-scrollable {
-  overflow-y: scroll !important;
-  flex: 1;
-  &.hidden {
-    visibility: hidden;
-  }
-  &::-webkit-scrollbar-track {
-    background: fadeout(@black, 92) !important;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: fadeout(@black, 80) !important;
-  }
-  &::-webkit-scrollbar {
-    width: 8px !important;
-    height: 8px !important;
-  }
-}
-.maha-table-row {
-  flex: 1;
-  display: flex;
-  border-top: 1px solid fadeout(@black, 90);
-  min-height: 42px;
-  .maha-table-cell {
-    &.icon {
-      flex: 0 1 40px;
-      display: flex;
-      .fa {
-        margin: auto;
-      }
-    }
-  }
-}
-.maha-table-cell {
-  border-right: 1px solid fadeout(@black, 90);
-  display: flex;
-  align-items: center;
-  &.padded {
-    padding: 0.8em;
+.maha-table-check-cell {
+  padding: 0.8em;
+  width: 0.8em;
+  .fa {
+    margin: auto;
   }
 }
 .maha-table-link {
@@ -161,7 +113,7 @@
   cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
-  .maha-table-cell {
+  .maha-table td {
     &:not(.mobile),
     &:not(.mobile) {
       display: none;

@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: `/api/admin/crm/campaigns/email/${props.params.email_id}/activities`,
     table: [
-      { label: 'ID', key: 'id', width: 80, visible: false },
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> },
       { label: 'Description', key: 'description' },
       { label: 'Created At', key: 'created_at', format: 'datetime' }
