@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'To', key: 'to.formatted', primary: true },
       { label: 'Duration', key: 'duration', primary: true },
       { label: 'Price', key: 'price', primary: true },
-      { label: 'Status', key: 'status', collpasing: true, primary: true, format: TwilioStatusToken }
+      { label: 'Status', key: 'status', collpasing: true, primary: true, padded: true, format: TwilioStatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

@@ -163,7 +163,7 @@ class Table extends React.Component {
     if(column.collapsing) classes.push('collapsing')
     if(column.format === 'currency') classes.push('right')
     if(column.align) classes.push(column.align)
-    if(!_.isFunction(column.format) && !_.isElement(column.format)) classes.push('padded')
+    if(column.padded || (!_.isFunction(column.format) && !_.isElement(column.format))) classes.push('padded')
     return classes.join(' ')
   }
 

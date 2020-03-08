@@ -11,7 +11,6 @@ import BatchToken from '../../tokens/batch'
 import { Page, UserToken } from 'maha-admin'
 import TypeToken from '../../tokens/type'
 import Status from '../../tokens/status'
-import React from 'react'
 
 const mapResourcesToPage = (props, context) => ({
   app: '/api/admin/apps/finance/settings'
@@ -32,7 +31,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name'},
       { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', format: (item) => <div className="token"><Status { ...item } /></div> }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', padded: true, format: Status }
     ],
     criteria: [
       { label: 'item', fields: [

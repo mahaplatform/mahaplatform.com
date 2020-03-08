@@ -24,7 +24,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Tax Account', key: 'tax_project.title', sort: 'finance_projects.title', format: (item) => <CompactProjectToken project={item.tax_project} /> },
       { label: 'Description', key: 'description' },
       { label: 'Tax', key: 'tax', collapsing: true, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', collapsing: true, primary: true, format: Status }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: Status }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'check', text: 'Check Request' } ], format: TypeToken },

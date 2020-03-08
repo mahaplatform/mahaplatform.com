@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
       { label: 'Direction', key: 'direction', collapsing: true, primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
-      { label: 'Status', key: 'status', collapsing: true, primary: true, format: StatusToken }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

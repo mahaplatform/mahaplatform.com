@@ -9,7 +9,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Status', key: 'status', collpasing: true, primary: true, format: StatusToken  }
+      { label: 'Status', key: 'status', collpasing: true, primary: true, padded: true, format: StatusToken  }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     onClick: (record) => context.router.history.push(`/admin/finance/merchants/${record.id}`),

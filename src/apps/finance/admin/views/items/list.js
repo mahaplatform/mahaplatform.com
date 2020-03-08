@@ -17,7 +17,6 @@ import TripNew from '../trips/new'
 import { Page } from 'maha-admin'
 import TripImport from './import'
 import batchTask from '../batch'
-import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Items',
@@ -33,7 +32,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name' },
       { label: 'Account', key: 'account.name', sort: 'finance_accounts.name' },
       { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', format: (item) => <div className="token"><Status { ...item } /></div> }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', padded: true, format: Status }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },
