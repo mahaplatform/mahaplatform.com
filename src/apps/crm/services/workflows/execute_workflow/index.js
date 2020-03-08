@@ -15,23 +15,23 @@ import { wait } from './wait'
 import { goal } from './goal'
 import moment from 'moment'
 
-const getExecutor = (action) => {
-  if(action === 'send_internal_email') return sendInternalEmail
-  if(action === 'enroll_in_workflow') return enrollInWorkflow
-  if(action === 'send_internal_sms') return sendInternalSms
-  if(action === 'update_property') return updateProperty
-  if(action === 'interests') return updateInterests
-  if(action === 'conditional') return conditional
-  if(action === 'consent') return updateConsent
-  if(action === 'send_email') return sendEmail
-  if(action === 'lists') return updateLists
-  if(action === 'send_sms') return sendSms
-  if(action === 'wait') return wait
-  if(action === 'goal') return goal
+const getExecutor = (type, action) => {
+  if(type === 'administrative' && action === 'email') return sendInternalEmail
+  if(type === 'administrative' && action === 'sms') return sendInternalSms
+  if(type === 'communication' && action === 'email') return sendEmail
+  if(type === 'communication' && action === 'sms') return sendSms
+  if(type === 'control' && action === 'conditional') return conditional
+  if(type === 'control' && action === 'wait') return wait
+  if(type === 'control' && action === 'goal') return goal
+  if(type === 'contact' && action === 'workflow') return enrollInWorkflow
+  if(type === 'contact' && action === 'property') return updateProperty
+  if(type === 'contact' && action === 'topic') return updateInterests
+  if(type === 'contact' && action === 'consent') return updateConsent
+  if(type === 'contact' && action === 'lists') return updateLists
 }
 
 const executeStep = async (req, { enrollment, step }) => {
-  const executor = getExecutor(step.get('action'))
+  const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     config: step.get('config'),
     enrollment,

@@ -9,6 +9,8 @@ import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import { getChanges } from '../../../services/contacts'
+import { updateTopics } from '../../../services/topics'
+import { updateLists } from '../../../services/lists'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
@@ -83,22 +85,14 @@ const updateRoute = async (req, res) => {
     related_foreign_key: 'organization_id'
   })
 
-  await updateRelated(req, {
-    object: contact,
-    related: 'topics',
-    table: 'crm_interests',
-    ids: req.body.topic_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'topic_id'
+  await updateLists(req, {
+    contact,
+    list_ids: req.body.list_ids
   })
 
-  await updateRelated(req, {
-    object: contact,
-    related: 'lists',
-    table: 'crm_subscriptions',
-    ids: req.body.list_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'list_id'
+  await updateTopics(req, {
+    contact,
+    topic_ids: req.body.topic_ids
   })
 
   const changes = getChanges(req, { contact })

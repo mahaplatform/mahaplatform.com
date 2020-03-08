@@ -615,6 +615,8 @@ const schema = {
       table.integer('topic_id').unsigned()
       table.integer('field_id').unsigned()
       table.jsonb('field_config')
+      table.USER-DEFINED('action')
+      table.boolean('is_unique')
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -2676,6 +2678,16 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_incoming_email_attachments', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('incoming_email_id').references('maha_incoming_emails.id')
+    })
+
+    await knex.schema.table('maha_incoming_emails', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('maha_installations', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2925,16 +2937,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_incoming_emails', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('maha_incoming_email_attachments', table => {
-      table.foreign('incoming_email_id').references('maha_incoming_emails.id')
-      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

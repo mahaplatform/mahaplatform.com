@@ -91,7 +91,6 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     form_id: form.get('id'),
     program_id: program.get('id'),
-    title: 'Confirmation',
     code: workflowCode,
     status: 'active',
     trigger_type: 'response'
@@ -158,12 +157,16 @@ const createRoute = async (req, res) => {
     auditable: email
   })
 
+  const stepCode = await generateCode(req, {
+    table: 'crm_workflow_steps'
+  })
+
   await WorkflowStep.forge({
     team_id: req.team.get('id'),
     workflow_id: workflow.get('id'),
-    type: 'action',
-    action: 'send_email',
-    code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+    type: 'communication',
+    action: 'email',
+    code: stepCode,
     delta: 0,
     parent: null,
     answer: null,

@@ -2,6 +2,31 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
+const actions = {
+  add: {
+    title: 'Added to List',
+    description: 'Trigger workflow when contact is added to list'
+  },
+  remove: {
+    title: 'Removed from List',
+    description: 'Trigger workflow when contact is removed from list'
+  }
+}
+
+const WorkflowActionToken = ({ value }) => {
+  const action = actions[value]
+  return (
+    <div className="token">
+      <strong>{ action.title }</strong><br />
+      { action.description }
+    </div>
+  )
+}
+
+WorkflowActionToken.propTypes = {
+  value: PropTypes.string
+}
+
 class List extends React.PureComponent {
 
   static propTypes = {
@@ -32,8 +57,11 @@ class List extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
-            { label: 'Tile', name: 'title', type: 'textfield', placeholder: 'Enter a title' },
-            { label: 'List', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
+            { label: 'Action', name: 'action', type: 'radiogroup', options: ['add','remove'], required: true, format: WorkflowActionToken, defaultValue: 'add' },
+            { label: 'List', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } },
+            { label: 'Configuration', type: 'segment', fields: [
+              { name: 'is_unique', type: 'checkbox', prompt: 'contacts can only be enrolled once' }
+            ] }
           ]
         }
       ]

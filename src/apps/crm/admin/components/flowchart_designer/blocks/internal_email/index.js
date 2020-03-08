@@ -5,7 +5,7 @@ export default {
   icon: 'envelope',
   label: 'Send Internal Email',
   type: 'administrative',
-  action: 'internal_email',
+  action: 'email',
   form: Form,
   token: Token
 }
