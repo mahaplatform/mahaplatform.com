@@ -1,7 +1,8 @@
 import EmailCampaign from '../../crm/models/email_campaign'
-import Contact from '../../crm/models/contact'
-import EmailActivity from './email_activity'
 import Model from '../../../core/objects/model'
+import Contact from '../../crm/models/contact'
+import CrmEmail from '../../crm/models/email'
+import EmailActivity from './email_activity'
 import User from './user'
 
 const Email = new Model({
@@ -32,6 +33,10 @@ const Email = new Model({
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')
+  },
+
+  email() {
+    return this.belongsTo(CrmEmail, 'email_id')
   },
 
   email_campaign() {

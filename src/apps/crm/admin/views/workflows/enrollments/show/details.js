@@ -1,3 +1,4 @@
+import WorkflowActions from '../../../../components/workflow_actions'
 import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -13,13 +14,10 @@ const Details = ({ enrollment }) => {
   const list = {
     sections: [{
       items: [
-        { label: 'Contact', content: <Button { ...contact } /> }
+        { label: 'Contact', content: <Button { ...contact } /> },
+        { label: 'Enrolled', content: enrollment.created_at, format: 'datetime' },
+        { component: <WorkflowActions actions={ enrollment.actions } />}
       ]
-    }, {
-      title: 'Steps',
-      items: enrollment.actions.map(action => ({
-        content: action.step.action
-      }))
     }]
   }
 

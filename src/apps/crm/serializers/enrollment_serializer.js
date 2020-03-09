@@ -31,6 +31,7 @@ const step = (step) => {
   if(!step.id) return null
   return {
     id: step.get('id'),
+    type: step.get('type'),
     action: step.get('action'),
     config: step.get('config')
   }

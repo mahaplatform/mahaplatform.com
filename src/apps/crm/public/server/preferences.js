@@ -36,7 +36,21 @@ const getProgram = async (req, { email_code, program_code }) => {
       withRelated: ['email_campaign.program.team','email_campaign.program.logo','email_campaign.program.topics'],
       transacting: req.trx
     })
-    return email.related('email_campaign').related('program')
+
+    if(email.get('email_campaign_id')) {
+      await email.load(['email_campaign.program.team','email_campaign.program.logo','email_campaign.program.topics'], {
+        transacting: req.trx
+      })
+      return email.related('email_campaign').related('program')
+    }
+
+    if(email.get('email_id')) {
+      await email.load(['email.program.team','email.program.logo','email.program.topics'], {
+        transacting: req.trx
+      })
+      return email.related('email').related('program')
+    }
+
   }
 
   return await Program.query(qb => {
@@ -52,9 +66,7 @@ const preferencesRoute = async (req, res) => {
 
   const program = await getProgram(req, req.params)
 
-  const team = program.related('team')
-
-  req.team = team
+  req.team = program.related('team')
 
   const type = req.params.type || 'e'
 
@@ -114,8 +126,8 @@ const preferencesRoute = async (req, res) => {
       logo: program.related('logo') ? program.related('logo').get('path') : null
     },
     team: {
-      title: team.get('title'),
-      logo: team.related('logo') ? team.related('logo').get('path') : null
+      title: req.team.get('title'),
+      logo: req.team.related('logo') ? req.team.related('logo').get('path') : null
     },
     token: encode({ code: channel.get('code') }, 60 * 30)
   })
