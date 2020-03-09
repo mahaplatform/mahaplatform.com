@@ -51,7 +51,7 @@ class Table extends React.Component {
     firstIndex: 0,
     headerDimensions: [],
     panelHeight: 0,
-    rows: 0,
+    rows: 30,
     windowHeight: 0
   }
 
@@ -127,16 +127,15 @@ class Table extends React.Component {
 
   componentDidMount() {
     const { defaults, code } = this.props
-    setTimeout(this._handleInit, 10)
     elementResizeEvent(this.body, this._handleResize)
-    this.setState({
-      rows: 30
-    })
     this.props.onLoadHidden(code, defaults)
   }
 
   componentDidUpdate(prevProps) {
-    const { code, hidden, records, visible } = this.props
+    const { code, hidden, records, status, visible } = this.props
+    if(status !== prevProps.status && status === 'success') {
+      this._handleInit()
+    }
     if(!_.isEqual(hidden, prevProps.hidden)) {
       this.props.onSaveHidden(code, hidden)
     }
