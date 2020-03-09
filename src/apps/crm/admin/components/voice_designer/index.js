@@ -1,15 +1,17 @@
 import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
 import question from './question'
-import Record from './record'
+import record from './record'
 import React from 'react'
-import Play from './play'
-import Say from './say'
+import play from './play'
+import say from './say'
 
 class VoiceDesigner extends React.PureComponent {
 
   static propTypes = {
     campaign: PropTypes.object,
+    properties: PropTypes.array,
+    tokens: PropTypes.array,
     onSave: PropTypes.func
   }
 
@@ -18,49 +20,29 @@ class VoiceDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { campaign, onSave } = this.props
+    const { campaign, properties, tokens, onSave } = this.props
     const { steps, status } = campaign
     return {
+      properties,
+      tokens,
       blocks: [
         this._getTrigger(),
-        {
-          icon: 'play',
-          label: 'Play Recording',
-          type: 'verb',
-          action: 'play',
-          form: Play,
-          config: {
-            loop: 1
-          }
-        }, {
-          icon: 'volume-control-phone',
-          label: 'Speak Text',
-          type: 'verb',
-          action: 'say',
-          form: Say,
-          config: {
-            voice: 'woman',
-            message: 'Hello! How are you?'
-          },
-          token: ({ message }) => message
-        }, {
-          icon: 'microphone',
-          label: 'Record',
-          type: 'verb',
-          action: 'record',
-          form: Record
-        },
+        play,
         question,
-        { action: 'ifelse' },
-        { action: 'add_to_list' },
-        { action: 'remove_from_list' },
-        { action: 'add_interest' },
-        { action: 'remove_interest' },
-        { action: 'enroll_in_workflow' },
-        { action: 'update_property' },
-        { action: 'send_internal_email' },
-        { action: 'send_internal_sms' },
+        say,
+        record,
+        { action: 'ifthen' },
+        { action: 'wait' },
         { action: 'goal' },
+        { action: 'property' },
+        { action: 'consent' },
+        { action: 'list' },
+        { action: 'topic' },
+        { action: 'workflow' },
+        { action: 'email' },
+        { action: 'sms' },
+        { action: 'internal_email' },
+        { action: 'internal_sms' },
         {
           icon: 'phone',
           label: 'Hangup',

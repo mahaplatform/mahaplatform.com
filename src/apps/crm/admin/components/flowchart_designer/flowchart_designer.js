@@ -33,6 +33,10 @@ class FlowchartDesigner extends React.PureComponent {
     onUpdate: PropTypes.func
   }
 
+  static defaultProps = {
+    fields: []
+  }
+
   _handleAdd = this._handleAdd.bind(this)
   _handleHover = _.throttle(this._handleHover.bind(this), 100)
   _handleNew = this._handleNew.bind(this)

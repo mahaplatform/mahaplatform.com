@@ -1,4 +1,4 @@
-import CampaignTypeToken from '../../tokens/campaign_type'
+import CompactCampaignToken from '../../tokens/campaign/compact'
 import NewCampaign from '../../components/newcampaign'
 import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
@@ -10,10 +10,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/campaigns',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { key: 'type', collapsing: true, format: CampaignTypeToken },
-      { label: 'Title', key: 'title', primary: true },
-      { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Direction', key: 'direction', collapsing: true, primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
+      { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
+      { label: 'Program', key: 'program.title', sort: 'program', primary: true },
+      { label: 'Direction', key: 'direction', primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
       { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

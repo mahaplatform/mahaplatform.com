@@ -7,7 +7,7 @@ const Details = ({ campaign }) => {
   const design = {
     label: 'Design Workflow',
     className: 'link',
-    route: `/admin/crm/campaigns/voice/${campaign.code}/design`
+    route: `/admin/crm/campaigns/voice/${campaign.id}/design`
   }
 
   const list = {}

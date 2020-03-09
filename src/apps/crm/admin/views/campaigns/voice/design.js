@@ -10,43 +10,43 @@ class Designer extends React.Component {
   }
 
   static propTypes = {
+    campaign: PropTypes.object,
     page: PropTypes.object,
     template: PropTypes.object
   }
 
-  state = {
-    campaign: null
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
   _handleSave = this._handleSave.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.campaign) return null
     return <VoiceDesigner { ...this._getVoiceDesigner() } />
   }
 
-  componentDidMount() {
-    this._handleFetch()
-  }
-
   _getVoiceDesigner() {
-    const { campaign } = this.state
+    const { campaign } = this.props
     return {
       campaign,
+      properties: this._getProperties(),
+      tokens: this._getTokens(),
       onSave: this._handleSave
     }
   }
 
-  _handleFetch() {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/campaigns/voice/${id}`,
-      onSuccess: this._handleSuccess
-    })
+  _getProperties() {
+    return [
+      { label: 'First Name', name: 'first_name', type: 'textfield' },
+      { label: 'Last Name', name: 'last_name', type: 'textfield' },
+      { label: 'Email', name: 'email', type: 'emailfield' }
+    ]
+  }
+
+  _getTokens() {
+    return [
+      { title: 'Contact Variables', tokens: [
+        { name: 'First Name', token: 'contact.first_name' },
+        { name: 'Last Name', token: 'contact.last_name' },
+        { name: 'Email', token: 'contact.email' }
+      ] }
+    ]
   }
 
   _handleSave(steps) {
@@ -55,22 +55,20 @@ class Designer extends React.Component {
     this.context.network.request({
       method: 'patch',
       endpoint: `/api/admin/crm/campaigns/voice/${id}`,
-      body: { steps },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess(result) {
-    this.setState({
-      campaign: result.data
+      body: { steps }
     })
   }
 
 }
+
+
+const mapResourcesToPage = (props, context) => ({
+  campaign: `/api/admin/crm/campaigns/voice/${props.params.id}`
+})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Voice Campaign',
   component: Designer
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

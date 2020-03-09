@@ -1,4 +1,4 @@
-import RecordingField from '../recordingfield'
+import RecordingField from '../../recordingfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

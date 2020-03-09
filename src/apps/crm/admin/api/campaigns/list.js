@@ -5,8 +5,12 @@ const listRoute = async (req, res) => {
 
   const campaigns = await Campaign.filterFetch({
     scope: (qb) => {
+      qb.joinRaw('inner join crm_programs on crm_programs.id=crm_campaigns.program_id')
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_campaigns.team_id', req.team.get('id'))
+    },
+    aliases: {
+      program: 'program.title'
     },
     filter: {
       params: req.query.$filter,
@@ -15,7 +19,7 @@ const listRoute = async (req, res) => {
     sort: {
       params: req.query.sort,
       defaults:  '-created_at',
-      allowed: ['created_at']
+      allowed: ['id','title','program','direction','status','created_at']
     },
     page: req.query.$page,
     withRelated: ['program'],
