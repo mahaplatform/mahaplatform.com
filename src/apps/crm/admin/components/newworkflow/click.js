@@ -32,7 +32,6 @@ class Click extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
-            { label: 'Tile', name: 'title', type: 'textfield', placeholder: 'Enter a title' },
             { label: 'Email', name: 'email_id', type: 'lookup', endpoint: '/api/admin/crm/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }

@@ -21,6 +21,10 @@ const Workflow = new Model({
     return this.hasMany(Email, 'workflow_id')
   },
 
+  email() {
+    return this.belongsTo(Email, 'email_id')
+  },
+
   field() {
     return this.belongsTo(Field, 'field_id')
   },
