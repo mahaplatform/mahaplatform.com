@@ -10,12 +10,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
-      { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Enrolled', key: 'enrolled', collapsing: true, align: 'right' },
-      { label: 'Active', key: 'active', collapsing: true, align: 'right' },
-      { label: 'Lost', key: 'lost', collapsing: true, align: 'right' },
-      { label: 'Converted', key: 'converted', collapsing: true, align: 'right' },
-      { label: 'Completed', key: 'completed', collapsing: true, align: 'right' }
+      { label: 'Program', key: 'program.title', sort: 'program', primary: true },
+      { label: 'Enrolled', key: 'enrolled_count', collapsing: true, align: 'right' },
+      { label: 'Active', key: 'active_count', collapsing: true, align: 'right' },
+      { label: 'Lost', key: 'lost_count', collapsing: true, align: 'right' },
+      { label: 'Converted', key: 'converted_count', collapsing: true, align: 'right' },
+      { label: 'Completed', key: 'completed_count', collapsing: true, align: 'right' }
     ],
     empty: {
       icon: 'cogs',

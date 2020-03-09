@@ -16,6 +16,10 @@ const listRoute = async (req, res) => {
       params: req.query.$filter,
       allowed: ['access_type','merchant_id']
     },
+    sort: {
+      params: req.query.$sort,
+      allowed: ['id','title']
+    },
     page: req.query.$page,
     withRelated: ['logo'],
     transacting: req.trx

@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
     sort: {
       params: req.query.$sort,
       defaults: 'name',
-      allowed: ['name']
+      allowed: ['id','name']
     },
     page: req.query.$page,
     withRelated: ['logo'],
