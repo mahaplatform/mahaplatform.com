@@ -1,3 +1,4 @@
+import enrollments from './enrollments'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -16,5 +17,7 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.use('/:campaign_id/enrollments', enrollments)
 
 export default router

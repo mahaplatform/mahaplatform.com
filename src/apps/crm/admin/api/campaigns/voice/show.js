@@ -5,6 +5,8 @@ import VoiceCampaign from '../../../../models/voice_campaign'
 const showRoute = async (req, res) => {
 
   const campaign = await VoiceCampaign.query(qb => {
+    qb.select('crm_voice_campaigns.*','crm_voice_campaign_results.*')
+    qb.innerJoin('crm_voice_campaign_results','crm_voice_campaign_results.voice_campaign_id','crm_voice_campaigns.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -18,7 +20,7 @@ const showRoute = async (req, res) => {
   })
 
   const contacts = await getRecipients(req, {
-    type: 'sms',
+    type: 'voice',
     purpose: campaign.get('purpose'),
     criteria: campaign.get('to').criteria
   })

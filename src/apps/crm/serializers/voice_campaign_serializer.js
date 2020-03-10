@@ -10,6 +10,13 @@ const VoiceCampaignSerializer = (req, result) => ({
   direction: result.get('direction'),
   status: result.get('status'),
   steps: result.related('steps').map(step),
+  calls_count: result.get('calls_count'),
+  active_count: result.get('active_count'),
+  lost_count: result.get('lost_count'),
+  hangups_count: result.get('hangups_count'),
+  answering_machines_count: result.get('answering_machines_count'),
+  converted_count: result.get('converted_count'),
+  completed_count: result.get('completed_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

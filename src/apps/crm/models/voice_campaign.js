@@ -1,3 +1,4 @@
+import VoiceCampaignResult from './voice_campaign_result'
 import PhoneNumber from '../../maha/models/phone_number'
 import WorkflowEnrollment from './workflow_enrollment'
 import Model from '../../../core/objects/model'
@@ -22,6 +23,10 @@ const VoiceCampaign = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  results() {
+    return this.hasOne(VoiceCampaignResult, 'voice_campaign_id')
   },
 
   steps() {

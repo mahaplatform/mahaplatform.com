@@ -5,13 +5,17 @@ import CampaignsSocial from './campaigns/social/show'
 import CampaignsSocialDesign from './campaigns/social/design'
 import CampaignsVoice from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
+import CampaignsVoiceEnrollmentsList from './campaigns/voice/enrollments/list'
+import CampaignsVoiceEnrollmentsShow from './campaigns/voice/enrollments/show'
 import CampaignsEmail from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
 import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
 import CampaignsEmailDeliveriesShow from './campaigns/email/deliveries/show'
 import CampaignsEmailDesign from './campaigns/email/design'
-import CampaignsSMS from './campaigns/sms/show'
-import CampaignsSMSDesign from './campaigns/sms/design'
+import CampaignsSms from './campaigns/sms/show'
+import CampaignsSmsDesign from './campaigns/sms/design'
+import CampaignsSmsEnrollmentsList from './campaigns/sms/enrollments/list'
+import CampaignsSmsEnrollmentsShow from './campaigns/sms/enrollments/show'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import EmailsActivities from './emails/activities'
@@ -41,19 +45,23 @@ import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
-  { path: '/campaigns/postal/:id', component: CampaignsPostal },
-  { path: '/campaigns/postal/:id/design', component: CampaignsPostalDesign },
-  { path: '/campaigns/social/:id', component: CampaignsSocial },
-  { path: '/campaigns/social/:id/design', component: CampaignsSocialDesign },
-  { path: '/campaigns/voice/:id', component: CampaignsVoice },
-  { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
   { path: '/campaigns/email/:id', component: CampaignsEmail },
   { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
   { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
   { path: '/campaigns/email/:email_id/deliveries/:id', component: CampaignsEmailDeliveriesShow },
   { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
-  { path: '/campaigns/sms/:id', component: CampaignsSMS },
-  { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
+  { path: '/campaigns/postal/:id', component: CampaignsPostal },
+  { path: '/campaigns/postal/:id/design', component: CampaignsPostalDesign },
+  { path: '/campaigns/sms/:id', component: CampaignsSms },
+  { path: '/campaigns/sms/:id/design', component: CampaignsSmsDesign },
+  { path: '/campaigns/sms/:campaign_id/enrollments', component: CampaignsSmsEnrollmentsList },
+  { path: '/campaigns/sms/:campaign_id/enrollments/:id', component: CampaignsSmsEnrollmentsShow },
+  { path: '/campaigns/social/:id', component: CampaignsSocial },
+  { path: '/campaigns/social/:id/design', component: CampaignsSocialDesign },
+  { path: '/campaigns/voice/:id', component: CampaignsVoice },
+  { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
+  { path: '/campaigns/voice/:campaign_id/enrollments', component: CampaignsVoiceEnrollmentsList },
+  { path: '/campaigns/voice/:campaign_id/enrollments/:id', component: CampaignsVoiceEnrollmentsShow },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/emails/:email_id/activities', component: EmailsActivities },

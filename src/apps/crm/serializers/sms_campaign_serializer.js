@@ -11,6 +11,11 @@ const SMSCampaignSerializer = (req, result) => ({
   status: result.get('status'),
   steps: result.related('steps').map(step),
   term: result.get('term'),
+  sessions_count: result.get('sessions_count'),
+  active_count: result.get('active_count'),
+  lost_count: result.get('lost_count'),
+  converted_count: result.get('converted_count'),
+  completed_count: result.get('completed_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
