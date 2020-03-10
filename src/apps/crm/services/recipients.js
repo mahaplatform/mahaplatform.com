@@ -26,17 +26,24 @@ export const getRecipients = async (req, params) => {
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
       qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
-      qb.where('crm_contacts.team_id', req.team.get('id'))
+      qb.where('crm_recipients.team_id', req.team.get('id'))
       if(!filter || filter.$and.length === 0) qb.whereRaw('false')
       qb.where('type', type)
       qb.where('purpose', purpose)
       if(purpose === 'marketing') qb.where('program_id', program_id)
-      qb.where('crm_recipients.team_id', req.team.get('id'))
       qb.orderBy('crm_contacts.last_name','asc')
     },
     aliases: {
-      email: 'crm_contact_primaries.email',
-      phone: 'crm_contact_primaries.phone',
+      first_name: 'crm_contacts.first_name',
+      last_name: 'crm_contacts.last_name',
+      email: {
+        column: 'crm_email_addresses.address',
+        leftJoin: [['id','crm_recipients.email_address_id']]
+      },
+      phone: {
+        column: 'crm_phone_numbers.number',
+        leftJoin: [['id','crm_recipients.phone_number_id']]
+      },
       street_1: {
         column: 'crm_mailing_addresses.address->>\'street_1\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]

@@ -6,11 +6,10 @@ const SMSCampaignSerializer = (req, result) => ({
   to: result.get('to'),
   recipients: result.get('recipients'),
   code: result.get('code'),
-  type: result.get('type'),
   purpose: result.get('purpose'),
   direction: result.get('direction'),
-  steps: result.get('steps'),
   status: result.get('status'),
+  steps: result.related('steps').map(step),
   term: result.get('term'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -32,6 +31,20 @@ const phone_number = (phone_number) => {
     formatted: phone_number.get('formatted'),
     locality: phone_number.get('locality'),
     region: phone_number.get('region')
+  }
+}
+
+const step = (step) => {
+  if(!step.id) return
+  return {
+    id: step.get('id'),
+    type: step.get('type'),
+    action: step.get('action'),
+    code: step.get('code'),
+    delta: step.get('delta'),
+    parent: step.get('parent'),
+    answer: step.get('answer'),
+    config: step.get('config')
   }
 }
 

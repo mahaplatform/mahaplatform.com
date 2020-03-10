@@ -5,72 +5,52 @@ import React from 'react'
 
 class Designer extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
-    page: PropTypes.object,
-    template: PropTypes.object
+    campaign: PropTypes.object
   }
-
-  state = {
-    campaign: null
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
-  _handleSave = this._handleSave.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.campaign) return null
     return <SMSDesigner { ...this._getSMSDesigner() } />
-  }
-
-  componentDidMount() {
-    this._handleFetch()
   }
 
   _getSMSDesigner() {
     const { campaign } = this.state
     return {
       campaign,
+      endpoint: `/api/admin/crm/campaigns/sms/${campaign.id}`,
+      properties: this._getProperties(),
+      tokens: this._getTokens(),
       onSave: this._handleSave
     }
   }
 
-  _handleFetch() {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/campaigns/sms/${id}`,
-      onSuccess: this._handleSuccess
-    })
+  _getProperties() {
+    return [
+      { label: 'First Name', name: 'first_name', type: 'textfield' },
+      { label: 'Last Name', name: 'last_name', type: 'textfield' },
+      { label: 'Email', name: 'email', type: 'emailfield' }
+    ]
   }
 
-  _handleSave(steps) {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/campaigns/sms/${id}`,
-      body: { steps },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess(result) {
-    this.setState({
-      campaign: result.data
-    })
+  _getTokens() {
+    return [
+      { title: 'Contact Variables', tokens: [
+        { name: 'First Name', token: 'contact.first_name' },
+        { name: 'Last Name', token: 'contact.last_name' },
+        { name: 'Email', token: 'contact.email' }
+      ] }
+    ]
   }
 
 }
+
+const mapResourcesToPage = (props, context) => ({
+  campaign: `/api/admin/crm/campaigns/sms/${props.params.id}`
+})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'SMS Campaign',
   component: Designer
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

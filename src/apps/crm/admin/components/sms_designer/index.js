@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import question from './question'
 import message from './message'
 import listen from './listen'
-import ending from './ending'
 import React from 'react'
 
 class SMSDesigner extends React.PureComponent {
 
   static propTypes = {
     campaign: PropTypes.object,
+    endpoint: PropTypes.string,
+    properties: PropTypes.array,
+    tokens: PropTypes.array,
     onSave: PropTypes.func
   }
 
@@ -18,26 +20,35 @@ class SMSDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { campaign, onSave } = this.props
+    const { campaign, endpoint, properties, tokens, onSave } = this.props
     const { steps, status } = campaign
     return {
+      endpoint,
+      properties,
+      tokens,
       blocks: [
         this._getTrigger(),
         message,
         listen,
-        { action: 'wait' },
         question,
-        { action: 'ifelse' },
-        { action: 'add_to_list' },
-        { action: 'remove_from_list' },
-        { action: 'add_interest' },
-        { action: 'remove_interest' },
-        { action: 'enroll_in_workflow' },
-        { action: 'update_property' },
-        { action: 'send_internal_email' },
-        { action: 'send_internal_sms' },
+        { action: 'ifthen' },
+        { action: 'wait' },
         { action: 'goal' },
-        ending
+        { action: 'property' },
+        { action: 'consent' },
+        { action: 'list' },
+        { action: 'topic' },
+        { action: 'workflow' },
+        { action: 'email' },
+        { action: 'sms' },
+        { action: 'internal_email' },
+        { action: 'internal_sms' },
+        {
+          icon: 'phone',
+          label: 'End Conversation',
+          type: 'ending',
+          action: 'ending'
+        }
       ],
       defaultValue: steps,
       status,

@@ -487,6 +487,8 @@ const schema = {
       table.timestamp('updated_at')
       table.jsonb('to')
       table.jsonb('config')
+      table.jsonb('data')
+      table.string('job_id', 255)
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -551,11 +553,13 @@ const schema = {
       table.string('title', 255)
       table.string('code', 255)
       table.jsonb('config')
-      table.specificType('steps', 'jsonb[]')
       table.timestamp('send_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('to')
+      table.jsonb('data')
+      table.string('job_id', 255)
     })
 
     await knex.schema.createTable('crm_workflow_actions', (table) => {
@@ -579,6 +583,8 @@ const schema = {
       table.timestamp('unenrolled_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('voice_campaign_id').unsigned()
+      table.integer('sms_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_steps', (table) => {
@@ -594,6 +600,8 @@ const schema = {
       table.timestamp('updated_at')
       table.USER-DEFINED('type')
       table.USER-DEFINED('action')
+      table.integer('voice_campaign_id').unsigned()
+      table.integer('sms_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {
@@ -2314,11 +2322,15 @@ const schema = {
       table.foreign('response_id').references('crm_responses.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
     })
 
     await knex.schema.table('crm_workflows', table => {

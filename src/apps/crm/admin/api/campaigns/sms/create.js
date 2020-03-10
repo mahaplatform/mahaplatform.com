@@ -32,9 +32,6 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     term: req.body.term ? req.body.term.toLowerCase() : null,
-    config: {
-      steps: []
-    },
     program_id: program.get('id'),
     phone_number_id: program.get('phone_number_id'),
     ...whitelist(req.body, ['to','title','direction','purpose'])

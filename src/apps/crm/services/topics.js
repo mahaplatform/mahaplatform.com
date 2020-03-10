@@ -38,7 +38,7 @@ export const removeFromtopics = async (req, { contact, topic_ids }) => {
   })
 }
 
-export const updatetopics = async (req, params) => {
+export const updateTopics = async (req, params) => {
 
   const { contact, topic_ids } = params
 

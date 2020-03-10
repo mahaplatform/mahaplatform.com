@@ -1,4 +1,5 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
+import { getRecipients } from '../../../../services/recipients'
 import VoiceCampaign from '../../../../models/voice_campaign'
 
 const showRoute = async (req, res) => {
@@ -7,7 +8,7 @@ const showRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['phone_number','program'],
+    withRelated: ['phone_number','program','steps'],
     transacting: req.trx
   })
 
@@ -15,6 +16,14 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load campaign'
   })
+
+  const contacts = await getRecipients(req, {
+    type: 'sms',
+    purpose: campaign.get('purpose'),
+    criteria: campaign.get('to').criteria
+  })
+
+  campaign.set('recipients', contacts.length)
 
   res.status(200).respond(campaign, VoiceCampaignSerializer)
 

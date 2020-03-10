@@ -1,10 +1,11 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import VoiceCampaign from '../../../../models/voice_campaign'
+import { updateSteps } from '../../../../services/workflows'
 
 const updateRoute = async (req, res) => {
 
-  const campaign = await VoiceCampaign.query(qb => {
+  const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -12,19 +13,28 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!campaign) return res.status(404).respond({
+  if(!voice_campaign) return res.status(404).respond({
     code: 404,
     message: 'Unable to load campaign'
   })
 
-  await campaign.save({
-    ...whitelist(req.body, ['title','steps'])
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
+  if(req.body.title) {
+    await voice_campaign.save({
+      ...whitelist(req.body, ['to','title'])
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+  }
 
-  res.status(200).respond(campaign, VoiceCampaignSerializer)
+  if(req.body.steps) {
+    await updateSteps(req, {
+      voice_campaign,
+      steps: req.body.steps
+    })
+  }
+
+  res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
 
 }
 

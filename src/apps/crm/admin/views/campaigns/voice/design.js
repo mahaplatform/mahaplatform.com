@@ -5,17 +5,9 @@ import React from 'react'
 
 class Designer extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
-    campaign: PropTypes.object,
-    page: PropTypes.object,
-    template: PropTypes.object
+    campaign: PropTypes.object
   }
-
-  _handleSave = this._handleSave.bind(this)
 
   render() {
     return <VoiceDesigner { ...this._getVoiceDesigner() } />
@@ -25,9 +17,9 @@ class Designer extends React.Component {
     const { campaign } = this.props
     return {
       campaign,
+      endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}`,
       properties: this._getProperties(),
-      tokens: this._getTokens(),
-      onSave: this._handleSave
+      tokens: this._getTokens()
     }
   }
 
@@ -49,18 +41,7 @@ class Designer extends React.Component {
     ]
   }
 
-  _handleSave(steps) {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/campaigns/voice/${id}`,
-      body: { steps }
-    })
-  }
-
 }
-
 
 const mapResourcesToPage = (props, context) => ({
   campaign: `/api/admin/crm/campaigns/voice/${props.params.id}`

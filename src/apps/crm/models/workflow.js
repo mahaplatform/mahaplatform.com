@@ -25,16 +25,16 @@ const Workflow = new Model({
     return this.belongsTo(Email, 'email_id')
   },
 
+  enrollments() {
+    return this.hasMany(WorkflowEnrollment, 'workflow_id')
+  },
+
   field() {
     return this.belongsTo(Field, 'field_id')
   },
 
   form() {
     return this.belongsTo(Form, 'form_id')
-  },
-
-  enrollments() {
-    return this.hasMany(WorkflowEnrollment, 'workflow_id')
   },
 
   list() {

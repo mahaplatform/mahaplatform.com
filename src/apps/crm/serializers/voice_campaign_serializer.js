@@ -3,10 +3,13 @@ const VoiceCampaignSerializer = (req, result) => ({
   title: result.get('title'),
   program: program(result.related('program')),
   phone_number: phone_number(result.related('phone_number')),
+  to: result.get('to'),
+  recipients: result.get('recipients'),
   code: result.get('code'),
-  steps: result.get('steps'),
+  purpose: result.get('purpose'),
   direction: result.get('direction'),
   status: result.get('status'),
+  steps: result.related('steps').map(step),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -27,6 +30,20 @@ const phone_number = (phone_number) => {
     formatted: phone_number.get('formatted'),
     locality: phone_number.get('locality'),
     region: phone_number.get('region')
+  }
+}
+
+const step = (step) => {
+  if(!step.id) return
+  return {
+    id: step.get('id'),
+    type: step.get('type'),
+    action: step.get('action'),
+    code: step.get('code'),
+    delta: step.get('delta'),
+    parent: step.get('parent'),
+    answer: step.get('answer'),
+    config: step.get('config')
   }
 }
 

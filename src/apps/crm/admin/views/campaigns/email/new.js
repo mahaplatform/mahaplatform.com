@@ -1,4 +1,3 @@
-import ImportToken from '../../../../../maha/admin/tokens/import'
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
 import criteria from '../../contacts/criteria'
