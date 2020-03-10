@@ -6,6 +6,7 @@ import assets from './assets'
 import verify from './verify'
 import avatar from './avatar'
 import token from './token'
+import cell from './cell'
 
 const router = new Router({ mergeParams: true })
 
@@ -22,5 +23,7 @@ router.use('/assets', assets)
 router.post('/verify', verify)
 
 router.post('/avatar', avatar)
+
+router.use('/cell', cell)
 
 export default router

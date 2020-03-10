@@ -16,8 +16,8 @@ class Avatar extends React.Component {
     onChangeMode: PropTypes.func
   }
 
-  _handleClick = this._handleClick.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleSkip = this._handleSkip.bind(this)
 
   render() {
     const { photo_id } = this.props
@@ -30,7 +30,7 @@ class Avatar extends React.Component {
               your content across the platform</p>
             <FileField { ...this._getFilefield() } />
             <div className="field button-field">
-              <button className="ui fluid large button" onClick={ this._handleClick }>
+              <button className="ui fluid large button" onClick={ this._handleSkip }>
                 { photo_id ? 'Continue' : 'Skip' } <i className="right chevron icon" />
               </button>
             </div>
@@ -62,7 +62,7 @@ class Avatar extends React.Component {
     this.props.onSetPhotoId(id)
   }
 
-  _handleClick() {
+  _handleSkip() {
     const { photo_id, token, onAvatar, onChangeMode } = this.props
     if(!photo_id) return onChangeMode('notifications')
     onAvatar(token, photo_id)

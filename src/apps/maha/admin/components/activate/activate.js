@@ -10,6 +10,7 @@ import Answer from './answer'
 import Avatar from './avatar'
 import Verify from './verify'
 import React from 'react'
+import Cell from './cell'
 import _ from 'lodash'
 
 class Activate extends React.Component {
@@ -33,6 +34,7 @@ class Activate extends React.Component {
     question_id: PropTypes.number,
     user: PropTypes.object,
     onAvatar: PropTypes.func,
+    onAuthorizeCell: PropTypes.func,
     onChangeMode: PropTypes.func,
     onChooseQuestion: PropTypes.func,
     onNotifications: PropTypes.func,
@@ -40,7 +42,8 @@ class Activate extends React.Component {
     onSetPhotoId: PropTypes.func,
     onPassword: PropTypes.func,
     onTogglePassword: PropTypes.func,
-    onVerify: PropTypes.func
+    onVerify: PropTypes.func,
+    onVerifyCell: PropTypes.func
   }
 
   direction = 'forward'
@@ -76,7 +79,7 @@ class Activate extends React.Component {
   componentWillUpdate(nextProps) {
     const { mode } = this.props
     if(nextProps.mode === mode) return
-    const modes = ['verify','invalid','welcome','question','answer','password','avatar','notifications','complete']
+    const modes = ['verify','invalid','welcome','question','answer','password','cell','avatar','notifications','complete']
     const oldIndex = _.indexOf(modes, mode)
     const newIndex = _.indexOf(modes, nextProps.mode)
     this.direction = (newIndex > oldIndex) ? 'forward' : 'backward'
@@ -89,6 +92,7 @@ class Activate extends React.Component {
     if(mode === 'question') return <Question { ...this._getQuestion() } />
     if(mode === 'answer') return <Answer { ...this._getAnswer() } />
     if(mode === 'password') return <Password { ...this._getPassword() } />
+    if(mode === 'cell') return <Cell { ...this._getCell() } />
     if(mode === 'avatar') return <Avatar { ...this._getAvatar() } />
     if(mode === 'notifications') return <Notifications { ...this._getNotifications() } />
     if(mode === 'complete') return <Complete { ...this._getComplete() } />
@@ -112,6 +116,10 @@ class Activate extends React.Component {
 
   _getPassword() {
     return _.pick(this.props, ['show','status','token','onChangeMode','onPassword','onTogglePassword'])
+  }
+
+  _getCell() {
+    return _.pick(this.props, ['token','onChangeMode','onAuthorizeCell', 'onVerifyCell'])
   }
 
   _getAvatar() {

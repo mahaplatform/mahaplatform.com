@@ -42,7 +42,7 @@ class Team extends React.Component {
             <div className="maha-avatar">
               <div className="maha-avatar-badge">
                 <div className="maha-avatar-wrapper">
-                  <img src="/admin/images/maha.png" width="130" height="130" />
+                  <Image host={ process.env.WEB_ASSET_CDN_HOST } src="/admin/images/maha.png" title="The Maha Platform" transforms={{ fit: 'cover', w: 150, h: 150 }} />
                 </div>
               </div>
             </div>

@@ -45,7 +45,7 @@ class Answer extends React.Component {
               </div>
               <div className="field">
                 <button className={`ui fluid large ${(status === 'submitting') ? 'loading' : ''} button`}>
-                  Continue <i className="right chevron icon" />
+                  Continue
                 </button>
               </div>
             </form>

@@ -48,6 +48,26 @@ export const notifications = (token, email_notifications_method) => ({
   failure: 'NOTIFICATIONS_FAILURE'
 })
 
+export const authorizeCell = (token, cell_phone) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint: '/api/admin/activate/cell/authorize',
+  body: { token, cell_phone },
+  request: 'AUTHORIZE_CELL_REQUEST',
+  success: 'AUTHORIZE_CELL_SUCCESS',
+  failure: 'AUTHORIZE_CELL_FAILURE'
+})
+
+export const verifyCell = (token, code) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint: '/api/admin/activate/cell/verify',
+  body: { token, code },
+  request: 'VERIFY_CELL_REQUEST',
+  success: 'VERIFY_CELL_SUCCESS',
+  failure: 'VERIFY_CELL_FAILURE'
+})
+
 export const changeMode = (mode) => ({
   type: 'CHANGE_MODE',
   mode

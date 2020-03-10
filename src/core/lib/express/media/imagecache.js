@@ -4,6 +4,15 @@ import sharp from 'sharp'
 import path from 'path'
 import url from 'url'
 import qs from 'qs'
+import fs from 'fs'
+
+const getRoot = (env) => {
+  const root = path.resolve(__dirname,'..','..','..')
+  if(env === 'production') return path.join(root,'..','public','admin')
+  return path.join(root,'admin','public')
+}
+
+const root = getRoot(process.env.NODE_ENV)
 
 const router = new Router({ mergeParams: true })
 
@@ -34,10 +43,14 @@ const parseUrl = (originalUrl) => {
   return { transforms, path }
 }
 
-const getData = async (path) => {
+const getData = async (key) => {
+  const filepath = path.join(root, key.replace('admin/', ''))
+  if(fs.existsSync(filepath)) {
+    return fs.readFileSync(filepath)
+  }
   return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
-    Key: path
+    Key: key
   }).promise().then(file => file.Body)
 }
 

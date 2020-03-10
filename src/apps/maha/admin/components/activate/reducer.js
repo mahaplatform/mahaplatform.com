@@ -47,6 +47,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'SECURITY_REQUEST':
   case 'AVATAR_REQUEST':
   case 'NOTIFICATIONS_REQUEST':
+  case 'AUTHORIZE_CELL_REQUEST':
+  case 'VERIFY_CELL_REQUEST':
     return {
       ...state,
       error: null,
@@ -57,6 +59,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'SECURITY_FAILURE':
   case 'AVATAR_FAILURE':
   case 'NOTIFICATIONS_FAILURE':
+  case 'AUTHORIZE_CELL_FAILURE':
+  case 'VERIFY_CELL_FAILURE':
     return {
       ...state,
       status: 'failure',
@@ -75,6 +79,12 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       photo_id: action.result.data.photo_id,
       status: 'success',
+      mode: 'cell'
+    }
+
+  case 'VERIFY_CELL_SUCCESS':
+    return {
+      ...state,
       mode: 'avatar'
     }
 
