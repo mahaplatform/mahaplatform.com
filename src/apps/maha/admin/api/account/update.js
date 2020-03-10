@@ -5,7 +5,7 @@ import socket from '../../../../../core/services/routes/emitter'
 const updateRoute = async (req, res) => {
 
   req.user = await req.user.save({
-    ...whitelist(req.body, ['first_name','last_name','email','secondary_email','cell_phone'])
+    ...whitelist(req.body, ['first_name','last_name','email','secondary_email'])
   }, {
     patch: true,
     transacting: req.trx

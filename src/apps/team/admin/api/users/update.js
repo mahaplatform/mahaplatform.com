@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
-  await user.save(whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','cell_phone','email_notifications_method','photo_id','values']), {
+  await user.save(whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','email_notifications_method','photo_id','values']), {
     patch: true,
     transacting: req.trx
   })

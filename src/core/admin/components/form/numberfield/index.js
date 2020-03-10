@@ -17,6 +17,7 @@ class NumberField extends React.Component {
     tabIndex: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
+    maxLength: PropTypes.number,
     number_type: PropTypes.string,
     required: PropTypes.bool,
     units: PropTypes.string,
@@ -120,8 +121,9 @@ class NumberField extends React.Component {
   }
 
   _handleUpdate(e) {
-    const { number_type } = this.props
+    const { number_type, maxLength } = this.props
     const value = e.target.value
+    if(maxLength && value.length > maxLength) return
     const regex = number_type === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
     if(!value.match(regex)) return
     this.setState({ value })

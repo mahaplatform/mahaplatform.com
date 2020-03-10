@@ -5,6 +5,7 @@ class Responder {
 
   req = null
   res = null
+  errors = null
   pagination = null
   serializer = null
   data = null
@@ -13,6 +14,7 @@ class Responder {
     this.res = res
     this.req = res.req
     this.pagination = data.pagination
+    this.errors = data.errors
     this.data = data
     this.serializer = serializer
     this.filename = this._getFilename()
@@ -29,7 +31,12 @@ class Responder {
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
-    this.res.type(this.type).send(data)
+    this.res.type(this.type).send({
+      ...data,
+      ...this.errors ? {
+        errors: this.errors
+      } : {}
+    })
   }
 
   _getHeaders() {

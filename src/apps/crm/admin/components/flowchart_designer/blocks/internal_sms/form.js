@@ -115,7 +115,14 @@ class InternalSMS extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  users: '/api/admin/users'
+  users: {
+    endpoint: '/api/admin/users',
+    filter: {
+      cell_phone: {
+        $nnl: true
+      }
+    }
+  }
 })
 
 export default Container(mapResources)(InternalSMS)

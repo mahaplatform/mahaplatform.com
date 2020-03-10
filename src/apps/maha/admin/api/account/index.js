@@ -4,6 +4,7 @@ import { Router } from 'express'
 import update from './update'
 import photo from './photo'
 import show from './show'
+import cell from './cell'
 
 const router = new Router({ mergeParams: true })
 
@@ -16,5 +17,7 @@ router.patch('/photo', photo)
 router.use('/notifications', notifications)
 
 router.use('/security', security)
+
+router.use('/cell', cell)
 
 export default router

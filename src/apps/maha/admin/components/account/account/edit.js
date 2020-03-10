@@ -31,8 +31,7 @@ class Edit extends React.Component {
             { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter First Name', required: true },
             { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter Last Name', required: true },
             { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter Email', required: true },
-            { label: 'Secondary Email', name: 'secondary_email', type: 'textfield', placeholder: 'Enter Secondary Email' },
-            { label: 'Cell Phone', name: 'cell_phone', type: 'phonefield', placeholder: 'Enter Cell Phone' }
+            { label: 'Secondary Email', name: 'secondary_email', type: 'textfield', placeholder: 'Enter Secondary Email' }
           ]
         }
       ]

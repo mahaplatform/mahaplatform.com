@@ -1,9 +1,10 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Profiles from './profiles'
-import Edit from './edit'
 import Photo from './photo'
 import React from 'react'
+import Edit from './edit'
+import Cell from './cell'
 
 class Account extends React.Component {
 
@@ -15,6 +16,7 @@ class Account extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleCell = this._handleCell.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handlePhoto = this._handlePhoto.bind(this)
   _handleProfiles = this._handleProfiles.bind(this)
@@ -32,6 +34,15 @@ class Account extends React.Component {
               <div className="maha-security-item-label">
                 <strong>Edit Account</strong><br />
                 Edit your personal information
+              </div>
+              <div className="maha-security-item-proceed">
+                <i className="fa fa-fw fa-chevron-right" />
+              </div>
+            </div>
+            <div className="maha-security-item" onClick={ this._handleCell }>
+              <div className="maha-security-item-label">
+                <strong>Manage Cell Phone</strong><br />
+                Manage your cell phone number
               </div>
               <div className="maha-security-item-proceed">
                 <i className="fa fa-fw fa-chevron-right" />
@@ -73,6 +84,10 @@ class Account extends React.Component {
 
   _handleCancel() {
     this.context.modal.pop()
+  }
+
+  _handleCell() {
+    this.context.modal.push(<Cell />)
   }
 
   _handleEdit() {
