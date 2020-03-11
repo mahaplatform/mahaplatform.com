@@ -1,6 +1,7 @@
 import collectObjects from '../../../core/utils/collect_objects'
 import generateCode from '../../../core/utils/generate_code'
 import SendEmailQueue from '../queues/send_email_queue'
+import { AllHtmlEntities } from 'html-entities'
 import EmailLink from '../models/email_link'
 import Email from '../models/email'
 import pluralize from 'pluralize'
@@ -59,6 +60,10 @@ export const encodeEmail = async(req, { code, header, html }) => {
     url: parsed(elem).attr('href').trim()
   })).get()
 
+  const encoded = parsed.html()
+
+  const decoded = AllHtmlEntities.decode(encoded)
+
   return await Promise.reduce(links, async (rendered, link) => {
 
     if(link.url.search(code) >= 0) return rendered
@@ -69,7 +74,7 @@ export const encodeEmail = async(req, { code, header, html }) => {
 
     return rendered.replace(link.url, `${process.env.WEB_HOST}/c${code}${emailLink.get('code')}`)
 
-  }, parsed.html())
+  }, decoded)
 
 }
 

@@ -117,6 +117,7 @@
     "get-urls": "^7.0.0",
     "googleapis": "^43.0.0",
     "html-email-to-text": "^1.0.4",
+    "html-entities": "^1.2.1",
     "http-auth": "^3.2.3",
     "immutable": "^3.7.6",
     "imports-loader": "^0.8.0",
