@@ -50,7 +50,7 @@ class Performance extends React.Component {
                           Click Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(clicked / delivered).format('0.0%') }
+                          { numeral(clicked / opened).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
@@ -99,25 +99,13 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Bounced</td>
-                        <td className="right aligned">
-                          { this._getButton(bounced, 'was_bounced') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Total Opened</td>
+                        <td>Total Opens</td>
                         <td className="right aligned">
                           { this._getActivity(total_opened, 'open') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Clicked</td>
-                        <td className="right aligned">
-                          { this._getButton(clicked, 'was_clicked') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Total Clicked</td>
+                        <td>Total Clicks</td>
                         <td className="right aligned">
                           { this._getActivity(total_clicked, 'click') }
                         </td>
@@ -129,27 +117,21 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Forwarded</td>
+                        <td>Forwards</td>
                         <td className="right aligned">
                           { this._getActivity(forwarded, 'forward') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Shared</td>
+                        <td>Shares</td>
                         <td className="right aligned">
                           { this._getActivity(shared, 'share') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Complained</td>
+                        <td>Complaints</td>
                         <td className="right aligned">
                           { this._getButton(complained, 'was_complained') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Unsubscribed</td>
-                        <td className="right aligned">
-                          { this._getActivity(unsubscribed, 'unsubscribe') }
                         </td>
                       </tr>
                       <tr>

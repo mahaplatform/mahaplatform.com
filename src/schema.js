@@ -2322,17 +2322,17 @@ const schema = {
     await knex.schema.table('crm_workflow_enrollments', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('response_id').references('crm_responses.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflows', table => {
@@ -3204,14 +3204,16 @@ union
       ), mobile as (
       select maha_emails.email_campaign_id,
       count(*) as count
-      from maha_emails
-      where ((maha_emails.is_mobile = true) and (maha_emails.email_campaign_id is not null))
+      from (maha_email_activities
+      join maha_emails on ((maha_emails.id = maha_email_activities.email_id)))
+      where ((maha_email_activities.is_mobile = true) and (maha_emails.email_campaign_id is not null) and (maha_email_activities.type = 'open'::maha_email_activities_type))
       group by maha_emails.email_campaign_id
       ), desktop as (
       select maha_emails.email_campaign_id,
       count(*) as count
-      from maha_emails
-      where ((maha_emails.is_mobile = false) and (maha_emails.email_campaign_id is not null))
+      from (maha_email_activities
+      join maha_emails on ((maha_emails.id = maha_email_activities.email_id)))
+      where ((maha_email_activities.is_mobile = false) and (maha_emails.email_campaign_id is not null) and (maha_email_activities.type = 'open'::maha_email_activities_type))
       group by maha_emails.email_campaign_id
       ), clicked as (
       select maha_emails.email_campaign_id,

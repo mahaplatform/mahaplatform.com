@@ -8,7 +8,7 @@ const activitiesRoute = async (req, res) => {
       qb.innerJoin('maha_emails','maha_emails.id','maha_email_activities.email_id')
       qb.where('maha_email_activities.team_id', req.team.get('id'))
       qb.whereNot('maha_email_activities.type', 'delivery')
-      qb.where('maha_emails.email_id', req.params.id)
+      qb.where('maha_emails.email_campaign_id', req.params.id)
     },
     filter: {
       params: req.query.$filter,

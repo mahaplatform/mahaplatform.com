@@ -25,10 +25,20 @@ const Details = ({ campaign }) => {
     { label: 'Program', content: campaign.program.title },
     { label: 'Purpose', content: campaign.purpose },
     { label: 'To', content: <Button { ...to } /> },
-    { label: 'Status', content: campaign.status },
-    { label: 'Send At', content: campaign.send_at, format: 'datetime' },
-    { label: 'Content', content: <Button { ...design } /> }
+    { label: 'Status', content: campaign.status }
   ]
+
+  if(campaign.status === 'draft') {
+    config.items.push({ label: 'Content', content: <Button { ...design } /> })
+  }
+
+  if(campaign.status === 'scheduled') {
+    config.items.push({ label: 'Send At', content: campaign.send_at, format: 'datetime' })
+  }
+
+  if(campaign.status === 'sent') {
+    config.items.push({ label: 'Sent At', content: campaign.sent_at, format: 'datetime' })
+  }
 
   return <List { ...config } />
 
