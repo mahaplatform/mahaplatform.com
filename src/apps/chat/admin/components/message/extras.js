@@ -24,7 +24,7 @@ class Extras extends React.Component {
         { media.length > 0 &&
           <div className="maha-medias">
             { media.map((video, index) => (
-              <div className="maha-media" key={`video_${index}`} onClick={ this._handleClick.bind(this, video.asset) }>
+              <div className="maha-media" key={`video_${index}`}>
                 <AssetViewer asset={ video.asset } />
                 <AssetToken { ...video.asset } />
               </div>

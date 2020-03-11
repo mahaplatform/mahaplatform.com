@@ -1,10 +1,13 @@
 import { Router } from 'express'
+import review from './review'
 import create from './create'
-import show from './show'
+import record from './record'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/:code', show)
+router.get('/:code', record)
+
+router.post('/:code/review', review)
 
 router.post('/:code', create)
 

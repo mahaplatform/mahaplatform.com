@@ -8,6 +8,20 @@ export const call = (code, number) => ({
   failure: 'CALL_FAILURE'
 })
 
+export const fetch = (id) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: `/api/admin/assets/${id}`,
+  request: 'FETCH_REQUEST',
+  success: 'FETCH_SUCCESS',
+  failure: 'FETCH_FAILURE'
+})
+
+export const setStatus = (status) => ({
+  type: 'SET_STATUS',
+  status
+})
+
 export const set = (asset) => ({
   type: 'SET',
   asset

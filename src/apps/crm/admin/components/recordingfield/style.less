@@ -1,32 +1,39 @@
-.crm-recordingfield {
-  display: flex;
-}
 .crm-recordingfield-field {
+  display: flex;
+  &:focus {
+    outline: none !important;
+  }
+}
+.crm-recordingfield-field-phone {
   flex: 1;
   .maha-input {
     border-radius: 0.5em 0 0 0.5em;
     border-right: none;
   }
 }
-.crm-recordingfield-button {
+.crm-recordingfield-field-button {
   .ui.button {
     padding: 0.95em 1.5em;
     border-radius: 0 0.5em 0.5em 0;
   }
 }
-.crm-recordingfield-token {
-  margin-bottom: 0.8em;
-  width: 100%;
-  border: 1px solid fadeout(@black, 90);
-  background-color: @white;
+.crm-recordingfield-status {
   border-radius: 0.5em;
-  overflow: hidden;
-  display: flex;
-  .maha-asset {
-    display: flex;
+  padding: 0.6em 0.8em;
+  &.calling {
+    border: 1px solid fadeout(@blue, 70);
+    background-color: fadeout(@blue, 90);
   }
-  img {
-    width: 3em;
-    height: 3em;
+  &.recording {
+    border: 1px solid fadeout(@green, 70);
+    background-color: fadeout(@green, 90);
+  }
+  &.reviewing {
+    border: 1px solid fadeout(@yellow, 70);
+    background-color: fadeout(@yellow, 90);
+  }
+  &.processing {
+    border: 1px solid fadeout(@green, 70);
+    background-color: fadeout(@green, 90);
   }
 }

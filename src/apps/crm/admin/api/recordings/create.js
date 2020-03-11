@@ -2,32 +2,48 @@ import AssetSerializer from '../../../../maha/serializers/asset_serializer'
 import { createAssetFromUrl } from '../../../../maha/services/assets'
 import socket from '../../../../../core/services/emitter'
 import redis from '../../../../../core/services/redis'
+import { twiml } from 'twilio'
 
 const createRoute = async (req, res) => {
 
-  const data = await redis.getAsync(`recording:${req.params.code}`)
+  const response = new twiml.VoiceResponse()
 
-  const { team_id, user_id } = JSON.parse(data)
+  if(req.body.Digits === '2') {
 
-  const asset = await createAssetFromUrl(req, {
-    team_id,
-    user_id,
-    url: req.body.RecordingUrl
-  })
+    response.redirect({
+      action: `${process.env.TWIML_HOST}/api/admin/crm/recordings/${req.params.code}`,
+      method: 'GET'
+    })
 
-  await asset.load(['user.photo','source'], {
-    transacting: req.trx
-  })
+  } else if(req.body.Digits === '1') {
 
-  await socket.in(`/admin/crm/recordings/${req.params.code}`).emit('message', {
-    target: `/admin/crm/recordings/${req.params.code}`,
-    action: 'created',
-    data: {
-      asset: AssetSerializer(req, asset)
-    }
-  })
+    response.hangup()
 
-  res.status(200).respond(true)
+    const data = await redis.getAsync(`recording:${req.params.code}`)
+
+    const { team_id, user_id, url } = JSON.parse(data)
+
+    const asset = await createAssetFromUrl(req, {
+      team_id,
+      user_id,
+      url
+    })
+
+    await asset.load(['user.photo','source'], {
+      transacting: req.trx
+    })
+
+    await socket.in(`/admin/crm/recordings/${req.params.code}`).emit('message', {
+      target: `/admin/crm/recordings/${req.params.code}`,
+      action: 'created',
+      data: AssetSerializer(req, asset)
+    })
+
+  }
+
+  console.log(response.toString())
+
+  return res.status(200).type('text/xml').send(response.toString())
 
 }
 
