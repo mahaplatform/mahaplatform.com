@@ -2,7 +2,7 @@ import pluralize from 'pluralize'
 import Export from './batches/new'
 import React from 'react'
 
-export const getIntegrationTasks = (integration, context, selected) => {
+export const getIntegrationTasks = (integration, context, selected, onSuccess) => {
 
   if(integration === 'accpac') {
     return {
@@ -10,7 +10,7 @@ export const getIntegrationTasks = (integration, context, selected) => {
       color: 'violet',
       rights: ['finance:manage_configuration'],
       confirm: `Are you sure you want to export these ${selected.total} items?`,
-      modal: <Export filter={ selected.filter } />
+      modal: <Export filter={ selected.filter } onSuccess={ onSuccess } />
     }
   }
 

@@ -75,6 +75,14 @@ const reducer = (state = INITIAL_STATE, action) => {
       selectedValues: []
     }
 
+  case 'CLEAR_SELECTION':
+    return {
+      ...state,
+      selectAll: false,
+      selectMode: '$in',
+      selectedValues: []
+    }
+
   default:
     return state
   }

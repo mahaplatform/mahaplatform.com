@@ -8,6 +8,10 @@ export const fetch = (endpoint, query) => ({
   failure: 'FETCH_FAILURE'
 })
 
+export const clearSelection = () => ({
+  type: 'CLEAR_SELECTION'
+})
+
 export const select = (id) => ({
   type: 'SELECT',
   id

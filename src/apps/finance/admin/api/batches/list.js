@@ -12,8 +12,8 @@ const listRoute = async (req, res) => {
     },
     sort: {
       params: req.query.$sort,
-      defaults: ['-created_at'],
-      allowed: ['maha_users.last_name','items_count','total','created_at']
+      defaults: ['-date'],
+      allowed: ['maha_users.last_name','items_count','total','date','created_at']
     },
     page: req.query.$page,
     withRelated: ['user.photo'],

@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Total', key: 'total', collapsing: true, primary: true, format: 'currency' },
       { label: 'Date', key: 'date', collapsing: true, primary: true, format: 'date' }
     ],
-    defaultSort: { key: 'created_at', order: 'desc' },
+    defaultSort: { key: 'date', order: 'desc' },
     empty: {
       icon: 'copy',
       title: 'No Batches',

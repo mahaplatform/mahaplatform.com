@@ -24,6 +24,7 @@ class Infinite extends React.Component {
     notFound: PropTypes.any,
     props: PropTypes.object,
     records: PropTypes.array,
+    reference: PropTypes.func,
     scrollpane: PropTypes.bool,
     selected: PropTypes.object,
     selectAll: PropTypes.bool,
@@ -34,6 +35,7 @@ class Infinite extends React.Component {
     sort: PropTypes.object,
     status: PropTypes.string,
     total: PropTypes.number,
+    onClearSelection: PropTypes.func,
     onFetch: PropTypes.func,
     onSelect: PropTypes.func,
     onSelectAll: PropTypes.func,
@@ -69,6 +71,8 @@ class Infinite extends React.Component {
     },
     onUpdateSelected: (ids) => {}
   }
+
+  _handleClearSelection = this._handleClearSelection.bind(this)
 
   render() {
     const { all, empty, failure, footer, header, next, notFound, records, scrollpane, skip, status, total } = this.props
@@ -112,6 +116,11 @@ class Infinite extends React.Component {
   }
 
   componentDidMount() {
+    const { reference } = this.props
+    if(reference) reference({
+      clearSelection: this._handleClearSelection
+    })
+
     this._handleFetch(0, true)
   }
 
@@ -182,6 +191,10 @@ class Infinite extends React.Component {
     return {
       onReachBottom: this._handleFetch.bind(this)
     }
+  }
+
+  _handleClearSelection() {
+    this.props.onClearSelection()
   }
 
   _handleUpdateSelected() {

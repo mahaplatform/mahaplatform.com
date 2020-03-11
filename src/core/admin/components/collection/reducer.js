@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   q: '',
   records: null,
   selected: {
-    filters: {},
+    filter: {},
     values: [],
     mode: '$in',
     total: 0

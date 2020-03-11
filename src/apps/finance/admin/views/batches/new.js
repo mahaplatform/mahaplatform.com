@@ -13,7 +13,8 @@ class Export extends React.Component {
 
   static propTypes = {
     filter: PropTypes.object,
-    token: PropTypes.string
+    token: PropTypes.string,
+    onSuccess: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -51,6 +52,7 @@ class Export extends React.Component {
     setTimeout(() => {
       window.location.href = `/api/admin/finance/batches/${batch.id}.csv?$page[limit]=0&download=true&enclosure="&token=${this.props.token}`
     }, 500)
+    this.props.onSuccess()
     this.context.modal.close()
   }
 

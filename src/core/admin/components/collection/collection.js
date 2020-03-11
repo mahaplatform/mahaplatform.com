@@ -77,12 +77,15 @@ class Collection extends React.Component {
     selectValue: 'id'
   }
 
+  infinite = null
+
   code = window.location.pathname.substr(1).replace(/\//g,'-')
 
   state = {
     cacheKey: _.random(100000, 999999).toString(36)
   }
 
+  _handleBatchSuccess = this._handleBatchSuccess.bind(this)
   _handleRefresh = this._handleRefresh.bind(this)
 
   render() {
@@ -143,7 +146,7 @@ class Collection extends React.Component {
   _getButtons() {
     if(!this.props.buttons) return { buttons: null }
     return {
-      buttons: this.props.buttons(this.props.selected)
+      buttons: this.props.buttons(this.props.selected, this._handleBatchSuccess)
     }
   }
 
@@ -194,6 +197,7 @@ class Collection extends React.Component {
     const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
     const { cacheKey } = this.state
     return {
+      reference: node => this.infinite = node,
       cacheKey,
       endpoint,
       filter: {
@@ -233,6 +237,10 @@ class Collection extends React.Component {
       key: sort.replace(/^-/, ''),
       order: sort[0] === '-' ? 'desc' : 'asc'
     }
+  }
+
+  _handleBatchSuccess() {
+    this.infinite.clearSelection()
   }
 
   _handleChangeUrl() {
