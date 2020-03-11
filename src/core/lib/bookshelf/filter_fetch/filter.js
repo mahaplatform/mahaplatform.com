@@ -10,15 +10,13 @@ export const parseFilter = (options) => {
 
 const normalizeFilter = ($filters) => {
   const filters = andFilters($filters)
-  const q = filters.$and.find(filter => {
-    return Object.keys(filter)[0] === 'q'
-  })
+  const q = $filters.q
   return {
     $and: [
       ...filters.$and.filter(filter => {
         return Object.keys(filter)[0] !== 'q'
       }),
-      ...q ? [{ q: { $sq: q.q } }] : []
+      ...q ? [{ q: { $sq: q } }] : []
     ]
   }
 }
