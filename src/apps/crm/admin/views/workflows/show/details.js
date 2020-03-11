@@ -32,6 +32,7 @@ const Details = ({ audits, workflow }) => {
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   workflow: PropTypes.object
 }
 

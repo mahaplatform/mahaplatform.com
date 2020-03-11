@@ -73,3 +73,17 @@
   height: 1em;
   margin-right: 0.5em;
 }
+@media (max-width: 769px) {
+  .crm-report-metrics {
+    flex-wrap: wrap;
+    .crm-report-metric {
+      &:nth-child(1),
+      &:nth-child(2) {
+        border-bottom: 1px solid fadeout(@black, 90);
+      }
+    }
+  }
+  .crm-report-metric {
+    flex: 0 50%;
+  }
+}

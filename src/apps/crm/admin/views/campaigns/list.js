@@ -11,8 +11,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
-      { label: 'Program', key: 'program.title', sort: 'program', primary: true },
-      { label: 'Direction', key: 'direction', primary: true, format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
+      { label: 'Program', key: 'program.title', sort: 'program' },
+      { label: 'Direction', key: 'direction', format:  ({ type, direction }) => `${direction} ${type}`.toUpperCase() },
       { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

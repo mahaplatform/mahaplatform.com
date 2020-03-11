@@ -58,32 +58,32 @@ class Performance extends React.Component {
                 </div>
                 <div className="crm-report-metrics">
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Opens</div>
+                    <div className="crm-report-metric-title">Opened</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(opened, 'was_opened') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Clicks</div>
+                    <div className="crm-report-metric-title">Clicked</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(clicked, 'was_clicked') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Bounces</div>
+                    <div className="crm-report-metric-title">Bounced</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(bounced, 'was_bounced') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Unsubscribes</div>
+                    <div className="crm-report-metric-title">Unsubscribed</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(unsubscribed, 'was_unsubscribed') }
                     </div>
                   </div>
                 </div>
                 <div className="crm-report-table">
-                  <table className="ui table">
+                  <table className="ui unstackable table">
                     <tbody>
                       <tr>
                         <td>Sent</td>
@@ -92,27 +92,15 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Deliveried</td>
+                        <td>Delivered</td>
                         <td className="right aligned">
                           { this._getButton(delivered, 'was_delivered') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Bounced</td>
-                        <td className="right aligned">
-                          { this._getButton(bounced, 'was_bounced') }
                         </td>
                       </tr>
                       <tr>
                         <td>Total Opened</td>
                         <td className="right aligned">
                           { this._getActivity(total_opened, 'open') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Clicked</td>
-                        <td className="right aligned">
-                          { this._getButton(clicked, 'was_clicked') }
                         </td>
                       </tr>
                       <tr>

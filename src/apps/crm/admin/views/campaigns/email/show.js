@@ -4,22 +4,20 @@ import Details from './details'
 import React from 'react'
 import Send from './send'
 
-const getTabs = ({ audits, campaign, performance, workflows }) => {
-
-  const items = [
+const getTabs = ({ audits, campaign, performance, workflows }) => ({
+  items: [
     { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
     { label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> }
   ]
-
-  return { items }
-
-}
-
-const getTasks = ({ campaign }) =>  ({
-  items: [
-    { label: 'Send Campaign', modal: <Send campaign={ campaign } /> }
-  ]
 })
+
+const getTasks = ({ campaign }) => {
+  const items = []
+  if(campaign.status === 'draft') {
+    items.push({ label: 'Send Campaign', modal: <Send campaign={ campaign } /> })
+  }
+  return { items }
+}
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_email_campaigns/${props.params.id}/audits`,
