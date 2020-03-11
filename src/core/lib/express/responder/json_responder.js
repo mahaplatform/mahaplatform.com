@@ -17,7 +17,10 @@ class JsonResponder extends Responder {
   _getData() {
     return {
       data: this.data,
-      pagination: this.pagination
+      pagination: this.pagination,
+      ...this.errors ? {
+        errors: this.errors
+      } : {}
     }
   }
 

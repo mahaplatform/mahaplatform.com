@@ -31,12 +31,7 @@ class Responder {
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
-    this.res.type(this.type).send({
-      ...data,
-      ...this.errors ? {
-        errors: this.errors
-      } : {}
-    })
+    this.res.type(this.type).send(data)
   }
 
   _getHeaders() {
