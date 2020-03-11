@@ -1370,6 +1370,7 @@ const schema = {
       table.timestamp('clicked_at')
       table.boolean('was_webviewed')
       table.jsonb('data')
+      table.integer('email_address_id').unsigned()
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -2650,6 +2651,7 @@ const schema = {
       table.foreign('email_id').references('crm_emails.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('email_address_id').references('crm_email_addresses.id')
     })
 
     await knex.schema.table('maha_faxes', table => {
@@ -3159,6 +3161,28 @@ union
       left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))))
       left join crm_contacts_organizations on ((crm_contacts_organizations.contact_id = crm_contacts.id)))
       left join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)));
+    `)
+
+    await knex.raw(`
+      create view crm_email_address_bounces AS
+      with hard_bounces as (
+      select crm_email_addresses_1.id as email_address_id
+      from (crm_email_addresses crm_email_addresses_1
+      join maha_emails on (((maha_emails.email_address_id = crm_email_addresses_1.id) and (maha_emails.bounce_type = 'permanent'::maha_emails_bounce_type))))
+      ), soft_bounces as (
+      select crm_email_addresses_1.id as email_address_id,
+      count(maha_emails.*) as count
+      from (maha_emails
+      join crm_email_addresses crm_email_addresses_1 on ((crm_email_addresses_1.id = maha_emails.email_address_id)))
+      where (maha_emails.bounce_type = 'transient'::maha_emails_bounce_type)
+      group by crm_email_addresses_1.id
+      )
+      select crm_email_addresses.id as email_address_id,
+      (hard_bounces.email_address_id is not null) as hard_bounce,
+      coalesce(soft_bounces.count, (0)::bigint) as soft_bounces
+      from ((crm_email_addresses
+      left join hard_bounces on ((hard_bounces.email_address_id = crm_email_addresses.id)))
+      left join soft_bounces on ((hard_bounces.email_address_id = crm_email_addresses.id)));
     `)
 
     await knex.raw(`

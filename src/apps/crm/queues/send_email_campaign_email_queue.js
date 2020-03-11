@@ -74,6 +74,7 @@ const processor = async (req, job) => {
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
     email_campaign_id: campaign.get('id'),
+    email_address_id: email_address.get('id'),
     from: sender.get('rfc822'),
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),

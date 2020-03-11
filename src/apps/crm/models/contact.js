@@ -28,7 +28,7 @@ const Contact = new Model({
     },
 
     rfc822: function() {
-      return `${this.get('full_name')} <${this.get('email')}>`
+      return this.get('full_name') ? `${this.get('full_name')} <${this.get('email')}>` : this.get('email')
     },
 
     first_initial: function() {
