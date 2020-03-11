@@ -1,10 +1,10 @@
 import Recipients from '../../../components/recipients'
-import { Button, List } from 'maha-admin'
+import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
 
-const Details = ({ campaign }) => {
+const Details = ({ audits, campaign }) => {
 
   const config = {}
 
@@ -40,11 +40,14 @@ const Details = ({ campaign }) => {
     config.items.push({ label: 'Sent At', content: campaign.sent_at, format: 'datetime' })
   }
 
+  config.items.push({ component: <Audit entries={ audits } /> })
+
   return <List { ...config } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.object,
   campaign: PropTypes.object
 }
 

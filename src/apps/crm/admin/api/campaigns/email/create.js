@@ -2,9 +2,9 @@ import EmailCampaignSerializer from '../../../../serializers/email_campaign_seri
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
-import Workflow from '../../../../models/workflow'
 import Program from '../../../../models/program'
 
 const createRoute = async (req, res) => {
@@ -81,6 +81,11 @@ const createRoute = async (req, res) => {
     }
   }).save(null, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: campaign
   })
 
   await activity(req, {

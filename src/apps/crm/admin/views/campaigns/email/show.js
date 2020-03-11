@@ -4,10 +4,10 @@ import Details from './details'
 import React from 'react'
 import Send from './send'
 
-const getTabs = ({ campaign, performance, workflows }) => {
+const getTabs = ({ audits, campaign, performance, workflows }) => {
 
   const items = [
-    { label: 'Details', component: <Details campaign={ campaign } /> },
+    { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
     { label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> }
   ]
 
@@ -22,6 +22,7 @@ const getTasks = ({ campaign }) =>  ({
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/crm_email_campaigns/${props.params.id}/audits`,
   campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,
   performance: `/api/admin/crm/campaigns/email/${props.params.id}/performance`
 })
