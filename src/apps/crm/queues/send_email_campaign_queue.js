@@ -29,7 +29,7 @@ const processor = async (req, job) => {
 
   await campaign.save({
     sent_at: moment(),
-    status: 'sending',
+    status: 'sent',
     html
   }, {
     transacting: req.trx,
