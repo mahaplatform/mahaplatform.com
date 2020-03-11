@@ -4,6 +4,7 @@ import deliveries from './deliveries'
 import workflows from './workflows'
 import { Router } from 'express'
 import destroy from './destroy'
+import bounces from './bounces'
 import create from './create'
 import update from './update'
 import edit from './edit'
@@ -17,6 +18,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/activities', activities)
+
+router.get('/:id/bounces', bounces)
 
 router.get('/:id/deliveries', deliveries)
 

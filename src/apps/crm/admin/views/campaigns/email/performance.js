@@ -24,6 +24,7 @@ class Performance extends React.Component {
     const { sent, delivered, bounced, opened, total_opened, desktop } = performance
     const { mobile, webviewed, shared, forwarded, complained } = performance
     const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
+    const { hard_bounced, soft_bounced } = performance
     return {
       sections: [
         {
@@ -55,29 +56,40 @@ class Performance extends React.Component {
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
                     </div>
+                    <div className="crm-email-campaign-results-header-item">
+                      <div className="crm-email-campaign-results-stat">
+                        <div className="crm-email-campaign-results-stat-title">
+                          Bounce Rate
+                        </div>
+                        <div className="crm-email-campaign-results-stat-percent">
+                          { numeral(bounced / sent).format('0.0%') }
+                        </div>
+                      </div>
+                      <ProgressBar labeled={ false } color="blue" percent={ bounced > 0 ? (bounced / sent) : 0 } />
+                    </div>
                   </div>
                 </div>
                 <div className="crm-report-metrics">
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Opened</div>
+                    <div className="crm-report-metric-title">Opens</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(opened, 'was_opened') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Clicked</div>
+                    <div className="crm-report-metric-title">Clicks</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(clicked, 'was_clicked') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Bounced</div>
+                    <div className="crm-report-metric-title">Bounces</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(bounced, 'was_bounced') }
+                      { this._getBounces(bounced) }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Unsubscribed</div>
+                    <div className="crm-report-metric-title">Unsubscribes</div>
                     <div className="crm-report-metric-value">
                       { this._getButton(unsubscribed, 'was_unsubscribed') }
                     </div>
@@ -99,37 +111,49 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Total Opened</td>
+                        <td>Total Opens</td>
                         <td className="right aligned">
                           { this._getActivity(total_opened, 'open') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Total Clicked</td>
+                        <td>Total Clicks</td>
                         <td className="right aligned">
                           { this._getActivity(total_clicked, 'click') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Viewed Online</td>
+                        <td>Views Online</td>
                         <td className="right aligned">
                           { this._getActivity(webviewed, 'webview') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Forwarded</td>
+                        <td>Forwards</td>
                         <td className="right aligned">
                           { this._getActivity(forwarded, 'forward') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Shared</td>
+                        <td>Shares</td>
                         <td className="right aligned">
                           { this._getActivity(shared, 'share') }
                         </td>
                       </tr>
                       <tr>
-                        <td>Complained</td>
+                        <td>Hard Bounces</td>
+                        <td className="right aligned">
+                          { this._getBounces(bounced, 'Permanent') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Soft Bounces</td>
+                        <td className="right aligned">
+                          { this._getBounces(bounced, 'Transient') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Complaints</td>
                         <td className="right aligned">
                           { this._getButton(complained, 'was_complained') }
                         </td>
@@ -147,7 +171,7 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Last Opened</td>
+                        <td>Last Open</td>
                         <td className="right aligned">
                           { last_opened_at ? moment(last_opened_at).format('MM/DD/YY hh:mmA') : 'N/A' }
                         </td>
@@ -192,6 +216,17 @@ class Performance extends React.Component {
       label: value,
       className: 'link',
       route: `/admin/crm/campaigns/email/${campaign.id}/deliveries${query}`
+    }
+    return <Button { ...button } />
+  }
+
+  _getBounces(value, type) {
+    const { campaign } = this.props
+    const query = type ? `?$filter[bounce_type][$eq]=${type}` : ''
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/campaigns/email/${campaign.id}/bounces${query}`
     }
     return <Button { ...button } />
   }

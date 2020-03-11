@@ -3177,12 +3177,12 @@ union
       where (maha_emails.bounce_type = 'transient'::maha_emails_bounce_type)
       group by crm_email_addresses_1.id
       )
-      select crm_email_addresses.id as email_address_id,
-      (hard_bounces.email_address_id is not null) as hard_bounce,
+      select distinct on (crm_email_addresses.id) crm_email_addresses.id as email_address_id,
+      (hard_bounces.email_address_id is not null) as hard_bounced,
       coalesce(soft_bounces.count, (0)::bigint) as soft_bounces
       from ((crm_email_addresses
       left join hard_bounces on ((hard_bounces.email_address_id = crm_email_addresses.id)))
-      left join soft_bounces on ((hard_bounces.email_address_id = crm_email_addresses.id)));
+      left join soft_bounces on ((soft_bounces.email_address_id = crm_email_addresses.id)));
     `)
 
     await knex.raw(`
@@ -3204,6 +3204,18 @@ union
       count(*) as count
       from maha_emails
       where ((maha_emails.was_bounced = true) and (maha_emails.email_campaign_id is not null))
+      group by maha_emails.email_campaign_id
+      ), hard_bounced as (
+      select maha_emails.email_campaign_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.email_campaign_id is not null) and (maha_emails.bounce_type = 'permanent'::maha_emails_bounce_type))
+      group by maha_emails.email_campaign_id
+      ), soft_bounced as (
+      select maha_emails.email_campaign_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.email_campaign_id is not null) and (maha_emails.bounce_type = 'transient'::maha_emails_bounce_type))
       group by maha_emails.email_campaign_id
       ), opened as (
       select maha_emails.email_campaign_id,
@@ -3290,6 +3302,8 @@ union
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
+      coalesce(hard_bounced.count, (0)::bigint) as hard_bounced,
+      coalesce(soft_bounced.count, (0)::bigint) as soft_bounced,
       coalesce(opened.count, (0)::bigint) as opened,
       coalesce(total_opened.count, (0)::bigint) as total_opened,
       last_opened.last_opened_at,
@@ -3302,10 +3316,12 @@ union
       coalesce(webviewed.count, (0)::bigint) as webviewed,
       coalesce(complained.count, (0)::bigint) as complained,
       coalesce(unsubscribed.count, (0)::bigint) as unsubscribed
-      from (((((((((((((((crm_email_campaigns
+      from (((((((((((((((((crm_email_campaigns
       left join sent on ((sent.email_campaign_id = crm_email_campaigns.id)))
       left join delivered on ((delivered.email_campaign_id = crm_email_campaigns.id)))
       left join bounced on ((bounced.email_campaign_id = crm_email_campaigns.id)))
+      left join hard_bounced on ((hard_bounced.email_campaign_id = crm_email_campaigns.id)))
+      left join soft_bounced on ((soft_bounced.email_campaign_id = crm_email_campaigns.id)))
       left join opened on ((opened.email_campaign_id = crm_email_campaigns.id)))
       left join total_opened on ((total_opened.email_campaign_id = crm_email_campaigns.id)))
       left join last_opened on ((last_opened.email_campaign_id = crm_email_campaigns.id)))

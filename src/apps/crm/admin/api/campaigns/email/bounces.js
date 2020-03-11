@@ -2,7 +2,7 @@ import EmailDeliverySerializer from '../../../../serializers/email_delivery_seri
 import EmailCampaign from '../../../../models/email_campaign'
 import Email from '../../../../../maha/models/email'
 
-const deliveriesRoute = async (req, res) => {
+const bouncesRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -20,10 +20,11 @@ const deliveriesRoute = async (req, res) => {
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('email_campaign_id', campaign.get('id'))
+      qb.where('was_bounced', true)
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']
+      allowed: ['bounce_type']
     },
     sort: {
       params: req.params.$sort,
@@ -39,4 +40,4 @@ const deliveriesRoute = async (req, res) => {
 
 }
 
-export default deliveriesRoute
+export default bouncesRoute

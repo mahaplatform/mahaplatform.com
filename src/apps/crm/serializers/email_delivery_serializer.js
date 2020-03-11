@@ -1,6 +1,8 @@
 const EmailDeliverySerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
+  bounce_type: result.get('bounce_type'),
+  bounce_subtype: result.get('bounce_subtype'),
   sent_at: result.get('sent_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

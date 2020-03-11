@@ -9,6 +9,7 @@ import CampaignsVoiceEnrollmentsList from './campaigns/voice/enrollments/list'
 import CampaignsVoiceEnrollmentsShow from './campaigns/voice/enrollments/show'
 import CampaignsEmail from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
+import CampaignsEmailBouncesList from './campaigns/email/deliveries/bounces'
 import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
 import CampaignsEmailDeliveriesShow from './campaigns/email/deliveries/show'
 import CampaignsEmailDesign from './campaigns/email/design'
@@ -47,6 +48,7 @@ const routes = [
   { path: '/campaigns', component: CampaignsList },
   { path: '/campaigns/email/:id', component: CampaignsEmail },
   { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
+  { path: '/campaigns/email/:email_id/bounces', component: CampaignsEmailBouncesList },
   { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
   { path: '/campaigns/email/:email_id/deliveries/:id', component: CampaignsEmailDeliveriesShow },
   { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
