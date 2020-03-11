@@ -67,8 +67,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     selectable: true,
     selectValue: 'code',
     entity: 'items',
-    buttons: (selected) => [
-      batchTask(context, selected, 'blue', 'submit', 'submitted', 'pending', '/api/admin/finance/items/submit_all')
+    buttons: (selected, onSuccess) => [
+      batchTask(context, selected, onSuccess, 'blue', 'submit', 'submitted', 'pending', '/api/admin/finance/items/submit_all')
     ],
     onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)
   },

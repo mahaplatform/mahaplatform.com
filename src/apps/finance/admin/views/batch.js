@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import pluralize from 'pluralize'
 
-const batchTask = (context, selected, color, action, pastTense, allowed, endpoint) => ({
+const batchTask = (context, selected, onSuccess, color, action, pastTense, allowed, endpoint) => ({
   text: `${_.upperFirst(action)} ${pluralize('item', selected.total, true)}`,
   color,
   confirm: `Are you sure you want to ${action} these ${pluralize('item', selected.total, true)}?`,
@@ -12,7 +12,10 @@ const batchTask = (context, selected, color, action, pastTense, allowed, endpoin
       filter: selected.filter
     },
     onFailure: (result) => context.flash.set('error', `Unable to ${action} these ${pluralize('item', selected.total, true)}`),
-    onSuccess: (result) => context.flash.set('success', `You successfully ${pastTense} ${pluralize('item', selected.total, true)}`)
+    onSuccess: (result) => {
+      onSuccess()
+      context.flash.set('success', `You successfully ${pastTense} ${pluralize('item', selected.total, true)}`)
+    }
   }
 })
 

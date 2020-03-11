@@ -45,7 +45,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'contact',
     onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`),
     selectable: true,
-    buttons: (selected) => [{
+    buttons: (selected, onSuccess) => [{
       label: 'Tag Contacts',
       color: 'red',
       modal: <Tags filter={ selected.filter } />

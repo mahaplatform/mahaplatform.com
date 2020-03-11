@@ -69,7 +69,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     new: () => <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />,
     defaultSort: { key: 'title', order: 'asc' },
     selectable: true,
-    buttons: (selected) => [{
+    buttons: (selected, onSuccess) => [{
       color: 'red',
       text: 'Delete Selected',
       confirm: `Are you sure you want to delete these ${pluralize('item', selected.total, true)}?`,
