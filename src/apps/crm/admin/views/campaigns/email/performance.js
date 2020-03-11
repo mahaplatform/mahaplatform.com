@@ -143,13 +143,13 @@ class Performance extends React.Component {
                       <tr>
                         <td>Hard Bounces</td>
                         <td className="right aligned">
-                          { this._getBounces(bounced, 'Permanent') }
+                          { this._getBounces(hard_bounced, 'Permanent') }
                         </td>
                       </tr>
                       <tr>
                         <td>Soft Bounces</td>
                         <td className="right aligned">
-                          { this._getBounces(bounced, 'Transient') }
+                          { this._getBounces(soft_bounced, 'Transient') }
                         </td>
                       </tr>
                       <tr>

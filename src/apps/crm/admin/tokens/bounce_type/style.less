@@ -1,0 +1,17 @@
+.bounce-type-token {
+  flex: none !important;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+  color: @white;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 4px;
+  text-transform: uppercase;
+  width: 11em;
+  &.undetermined { background-color: fadeout(@yellow, 60); }
+  &.permanent { background-color: @red; }
+  &.transient { background-color: fadeout(@black, 60); }
+}

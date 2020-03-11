@@ -1,3 +1,4 @@
+import BounceTypeToken from '../../../../tokens/bounce_type'
 import ContactToken from '../../../../tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'
@@ -9,8 +10,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/campaigns/email/${props.params.email_id}/bounces`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> },
-      { label: 'Bounce Type', key: 'bounce_type', primary: true }
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } value="rfc822" /> },
+      { label: 'Bounce Type', key: 'bounce_type', primary: true, padded: true, collapsing: true, format: BounceTypeToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

@@ -8,13 +8,13 @@ const ContactToken = (contact) => (
       <ContactAvatar { ...contact } />
     </div>
     <div className="contact-token-label">
-      { contact.display_name }
+      { contact[contact.value || 'display_name'] }
     </div>
   </div>
 )
 
 ContactToken.propTypes = {
-  value: PropTypes.string
+  contact: PropTypes.object
 }
 
 export default ContactToken

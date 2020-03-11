@@ -32,7 +32,10 @@ const Email = new Model({
   },
 
   contact() {
-    return this.belongsTo(Contact, 'contact_id')
+    return this.belongsTo(Contact, 'contact_id').query(qb => {
+      qb.select('crm_contacts.*','crm_contact_primaries.*')
+      qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+    })
   },
 
   email() {

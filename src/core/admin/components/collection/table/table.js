@@ -103,7 +103,7 @@ class Table extends React.Component {
                       }
                       { visible.map((column, cindex) => (
                         <td key={`row_${rindex}_column_${cindex}`} { ...this._getCell(column, rindex, cindex) }>
-                          <Format { ...this._getFormat(record, column) } />
+                          { record ? <Format { ...this._getFormat(record, column) } /> : null }
                         </td>
                       ))}
                       { recordTasks &&
