@@ -6,6 +6,7 @@ const VoiceCampaignSerializer = (req, result) => ({
   to: result.get('to'),
   recipients: result.get('recipients'),
   code: result.get('code'),
+  type: 'voice',
   purpose: result.get('purpose'),
   direction: result.get('direction'),
   status: result.get('status'),

@@ -2647,11 +2647,11 @@ const schema = {
 
     await knex.schema.table('maha_emails', table => {
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('email_address_id').references('crm_email_addresses.id')
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
       table.foreign('email_id').references('crm_emails.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('email_address_id').references('crm_email_addresses.id')
     })
 
     await knex.schema.table('maha_faxes', table => {
@@ -3178,7 +3178,7 @@ union
       group by crm_email_addresses_1.id
       )
       select distinct on (crm_email_addresses.id) crm_email_addresses.id as email_address_id,
-      (hard_bounces.email_address_id is not null) as hard_bounced,
+      (hard_bounces.email_address_id is not null) as hard_bounce,
       coalesce(soft_bounces.count, (0)::bigint) as soft_bounces
       from ((crm_email_addresses
       left join hard_bounces on ((hard_bounces.email_address_id = crm_email_addresses.id)))

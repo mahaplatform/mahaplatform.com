@@ -1,22 +1,25 @@
 import CampaignsList from './campaigns/list'
-import CampaignsPostal from './campaigns/postal/show'
-import CampaignsPostalDesign from './campaigns/postal/design'
-import CampaignsSocial from './campaigns/social/show'
-import CampaignsSocialDesign from './campaigns/social/design'
-import CampaignsVoice from './campaigns/voice/show'
-import CampaignsVoiceDesign from './campaigns/voice/design'
-import CampaignsVoiceEnrollmentsList from './campaigns/voice/enrollments/list'
-import CampaignsVoiceEnrollmentsShow from './campaigns/voice/enrollments/show'
-import CampaignsEmail from './campaigns/email/show'
+import CampaignsEmailList from './campaigns/email/list'
+import CampaignsEmailShow from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
 import CampaignsEmailBouncesList from './campaigns/email/deliveries/bounces'
 import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
 import CampaignsEmailDeliveriesShow from './campaigns/email/deliveries/show'
 import CampaignsEmailDesign from './campaigns/email/design'
-import CampaignsSms from './campaigns/sms/show'
+import CampaignsPostal from './campaigns/postal/show'
+import CampaignsPostalDesign from './campaigns/postal/design'
+import CampaignsSocial from './campaigns/social/show'
+import CampaignsSocialDesign from './campaigns/social/design'
+import CampaignsSmsList from './campaigns/sms/list'
+import CampaignsSmsShow from './campaigns/sms/show'
 import CampaignsSmsDesign from './campaigns/sms/design'
 import CampaignsSmsEnrollmentsList from './campaigns/sms/enrollments/list'
 import CampaignsSmsEnrollmentsShow from './campaigns/sms/enrollments/show'
+import CampaignsVoiceList from './campaigns/voice/list'
+import CampaignsVoiceShow from './campaigns/voice/show'
+import CampaignsVoiceDesign from './campaigns/voice/design'
+import CampaignsVoiceEnrollmentsList from './campaigns/voice/enrollments/list'
+import CampaignsVoiceEnrollmentsShow from './campaigns/voice/enrollments/show'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import EmailsActivities from './emails/activities'
@@ -46,7 +49,8 @@ import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
-  { path: '/campaigns/email/:id', component: CampaignsEmail },
+  { path: '/campaigns/email', component: CampaignsEmailList },
+  { path: '/campaigns/email/:id', component: CampaignsEmailShow },
   { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
   { path: '/campaigns/email/:email_id/bounces', component: CampaignsEmailBouncesList },
   { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
@@ -54,13 +58,15 @@ const routes = [
   { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
   { path: '/campaigns/postal/:id', component: CampaignsPostal },
   { path: '/campaigns/postal/:id/design', component: CampaignsPostalDesign },
-  { path: '/campaigns/sms/:id', component: CampaignsSms },
+  { path: '/campaigns/sms', component: CampaignsSmsList },
+  { path: '/campaigns/sms/:id', component: CampaignsSmsShow },
   { path: '/campaigns/sms/:id/design', component: CampaignsSmsDesign },
   { path: '/campaigns/sms/:campaign_id/enrollments', component: CampaignsSmsEnrollmentsList },
   { path: '/campaigns/sms/:campaign_id/enrollments/:id', component: CampaignsSmsEnrollmentsShow },
   { path: '/campaigns/social/:id', component: CampaignsSocial },
   { path: '/campaigns/social/:id/design', component: CampaignsSocialDesign },
-  { path: '/campaigns/voice/:id', component: CampaignsVoice },
+  { path: '/campaigns/voice', component: CampaignsVoiceList },
+  { path: '/campaigns/voice/:id', component: CampaignsVoiceShow },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
   { path: '/campaigns/voice/:campaign_id/enrollments', component: CampaignsVoiceEnrollmentsList },
   { path: '/campaigns/voice/:campaign_id/enrollments/:id', component: CampaignsVoiceEnrollmentsShow },

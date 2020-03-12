@@ -7,6 +7,7 @@ const SMSCampaignSerializer = (req, result) => ({
   recipients: result.get('recipients'),
   code: result.get('code'),
   purpose: result.get('purpose'),
+  type: 'sms',
   direction: result.get('direction'),
   status: result.get('status'),
   steps: result.related('steps').map(step),

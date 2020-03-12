@@ -3,11 +3,7 @@
     border: none;
   }
 }
-.crm-email-campaign-results-header {
-  display: flex;
-}
 .crm-email-campaign-results-header-item {
-  flex: 1;
   padding: 0.8em;
   overflow: hidden;
   .maha-progress-bar {
@@ -37,4 +33,22 @@
 }
 .crm-email-campaign-results-stat-percent {
   text-align: right;
+}
+@media (max-width: 768px) {
+  .crm-email-campaign-results-header {
+    .crm-email-campaign-results-header-item:last-child {
+      border-bottom: none;
+    }
+  }
+  .crm-email-campaign-results-header-item {
+    border-bottom: 1px solid fadeout(@black, 90%);
+  }
+}
+@media (min-width: 769px) {
+  .crm-email-campaign-results-header {
+    display: flex;
+  }
+  .crm-email-campaign-results-header-item {
+    flex: 1;
+  }
 }

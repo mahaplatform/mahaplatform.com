@@ -10,8 +10,11 @@ import update from './update'
 import edit from './edit'
 import show from './show'
 import send from './send'
+import list from './list'
 
 const router = new Router({ mergeParams: true })
+
+router.get('/', list)
 
 router.post('/', create)
 
