@@ -5,6 +5,7 @@ import create from './create'
 import update from './update'
 import edit from './edit'
 import show from './show'
+import send from './send'
 import list from './list'
 
 const router = new Router({ mergeParams: true })
@@ -16,6 +17,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.patch('/:id/send', send)
 
 router.patch('/:id', update)
 

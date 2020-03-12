@@ -8,7 +8,7 @@ const ContactToken = (contact) => (
       <ContactAvatar { ...contact } />
     </div>
     <div className="contact-token-label">
-      { contact[contact.value || 'display_name'] }
+      { contact[contact.property || 'display_name'] }
     </div>
   </div>
 )

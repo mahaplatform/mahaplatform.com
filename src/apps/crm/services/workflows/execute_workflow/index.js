@@ -1,4 +1,5 @@
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
+import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import WorkflowAction from '../../../models/workflow_action'
 import { sendInternalEmail } from './send_internal_email'
 import WorkflowStep from '../../../models/workflow_step'
@@ -13,6 +14,7 @@ import { sendEmail } from './send_email'
 import { sendSms } from './send_sms'
 import { wait } from './wait'
 import { goal } from './goal'
+import { play } from './play'
 import moment from 'moment'
 
 const getExecutor = (type, action) => {
@@ -23,6 +25,7 @@ const getExecutor = (type, action) => {
   if(type === 'control' && action === 'conditional') return conditional
   if(type === 'control' && action === 'wait') return wait
   if(type === 'control' && action === 'goal') return goal
+  if(type === 'control' && action === 'play') return play
   if(type === 'contact' && action === 'workflow') return enrollInWorkflow
   if(type === 'contact' && action === 'property') return updateProperty
   if(type === 'contact' && action === 'topic') return updateInterests
@@ -39,9 +42,14 @@ const executeStep = async (req, { enrollment, step }) => {
   })
 }
 
-const getCurrentStep = async (req, { workflow_id, code }) => {
+const getCurrentStep = async (req, params) => {
+
+  const { voice_campaign_id, sms_campaign_id, workflow_id, code } = params
+
   return await WorkflowStep.query(qb => {
-    qb.where('workflow_id', workflow_id)
+    if(voice_campaign_id) qb.where({ voice_campaign_id })
+    if(sms_campaign_id) qb.where({ sms_campaign_id })
+    if(workflow_id) qb.where({ workflow_id })
     if(code) {
       qb.where('code', code)
     } else {
@@ -52,11 +60,15 @@ const getCurrentStep = async (req, { workflow_id, code }) => {
   }).fetch({
     transacting: req.trx
   })
+
 }
 
-const getNextStep = async (req, { workflow_id, parent, answer, delta }) => {
+const getNextStep = async (req, params) => {
+  const { voice_campaign_id, sms_campaign_id, workflow_id, parent, answer, delta } = params
   const nextStep = await WorkflowStep.query(qb => {
-    qb.where('workflow_id', workflow_id)
+    if(voice_campaign_id) qb.where({ voice_campaign_id })
+    if(sms_campaign_id) qb.where({ sms_campaign_id })
+    if(workflow_id) qb.where({ workflow_id })
     qb.where('parent', parent)
     qb.where('answer', answer)
     qb.where('delta', delta + 1)
@@ -65,13 +77,17 @@ const getNextStep = async (req, { workflow_id, parent, answer, delta }) => {
   })
   if(nextStep) return nextStep
   const parentStep = await WorkflowStep.query(qb => {
-    qb.where('workflow_id', workflow_id)
+    if(voice_campaign_id) qb.where({ voice_campaign_id })
+    if(sms_campaign_id) qb.where({ sms_campaign_id })
+    if(workflow_id) qb.where({ workflow_id })
     qb.where('code', parent)
   }).fetch({
     transacting: req.trx
   })
   if(!parentStep) return null
   return await getNextStep(req, {
+    voice_campaign_id,
+    sms_campaign_id,
     workflow_id,
     parent: parentStep.get('parent'),
     answer: parentStep.get('answer'),
@@ -79,17 +95,27 @@ const getNextStep = async (req, { workflow_id, parent, answer, delta }) => {
   })
 }
 
-export const executeWorkflow = async (req, { enrollment, code }) => {
+export const executeWorkflow = async (req, { enrollment_id, code }) => {
+
+  const enrollment = await WorkflowEnrollment.query(qb => {
+    qb.where('id', enrollment_id)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const step = await getCurrentStep(req, {
+    voice_campaign_id: enrollment.get('voice_campaign_id'),
+    sms_campaign_id: enrollment.get('sms_campaign_id'),
     workflow_id: enrollment.get('workflow_id'),
     code
   })
 
-  const { condition, until, unenroll } = await executeStep(req, {
+  const result = await executeStep(req, {
     step,
     enrollment
   })
+
+  const { condition, until, unenroll } = result
 
   await WorkflowAction.forge({
     team_id: req.team.get('id'),
@@ -98,6 +124,8 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(result.twiml) return result
 
   if(unenroll) {
     return await enrollment.save({
@@ -108,6 +136,8 @@ export const executeWorkflow = async (req, { enrollment, code }) => {
   }
 
   const next = await getNextStep(req, {
+    voice_campaign_id: enrollment.get('voice_campaign_id'),
+    sms_campaign_id: enrollment.get('sms_campaign_id'),
     workflow_id: enrollment.get('workflow_id'),
     parent: condition ? condition.parent : step.get('parent'),
     answer: condition ? condition.answer : step.get('parent'),

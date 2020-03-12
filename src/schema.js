@@ -587,6 +587,7 @@ const schema = {
       table.integer('sms_campaign_id').unsigned()
       table.boolean('was_answering_machine')
       table.boolean('was_hungup')
+      table.integer('phone_number_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_steps', (table) => {
@@ -2327,6 +2328,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {

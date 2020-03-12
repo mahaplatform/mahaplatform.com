@@ -2,6 +2,29 @@ import EmailCampaignSerializer from '../../../../serializers/email_campaign_seri
 import { getRecipients } from '../../../../services/recipients'
 import EmailCampaign from '../../../../models/email_campaign'
 
+const getRecipientCount = async (req, { campaign }) => {
+
+  if(campaign.get('status') === 'sent') {
+
+    await campaign.load(['emails'], {
+      transacting: req.trx
+    })
+
+    return campaign.related('emails').length
+
+  }
+
+  const contacts = await getRecipients(req, {
+    type: 'email',
+    purpose: campaign.get('purpose'),
+    program_id: campaign.get('program_id'),
+    criteria: campaign.get('to').criteria
+  })
+
+  return contacts.length
+
+}
+
 const showRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.query(qb => {
@@ -17,14 +40,11 @@ const showRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const contacts = await getRecipients(req, {
-    purpose: campaign.get('purpose'),
-    type: 'email',
-    program_id: campaign.related('program').get('id'),
-    criteria: campaign.get('to').criteria
+  const recipient_count = await getRecipientCount(req, {
+    campaign
   })
 
-  campaign.set('recipients', contacts.length)
+  campaign.set('recipients', recipient_count)
 
   res.status(200).respond(campaign, EmailCampaignSerializer)
 

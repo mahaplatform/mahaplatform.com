@@ -1,7 +1,7 @@
-import SendEmailCampaignQueue from '../../../../queues/send_email_campaign_queue'
+import SendVoiceCampaignQueue from '../../../../queues/send_voice_campaign_queue'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
-import EmailCampaign from '../../../../models/email_campaign'
+import VoiceCampaign from '../../../../models/voice_campaign'
 import moment from 'moment'
 
 const getSendAt = ({ strategy, date, time }) => {
@@ -11,7 +11,7 @@ const getSendAt = ({ strategy, date, time }) => {
 
 const sendRoute = async (req, res) => {
 
-  const campaign = await EmailCampaign.query(qb => {
+  const campaign = await VoiceCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -25,8 +25,8 @@ const sendRoute = async (req, res) => {
 
   const send_at = getSendAt(req.body)
 
-  const job = await SendEmailCampaignQueue.enqueue(req, {
-    id: campaign.get('id')
+  const job = await SendVoiceCampaignQueue.enqueue(req, {
+    campaign_id: campaign.get('id')
   }, {
     until: moment(send_at)
   })
@@ -47,7 +47,7 @@ const sendRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/crm/campaigns',
-    `/admin/crm/campaigns/email/${campaign.id}`
+    `/admin/crm/campaigns/voice/${campaign.id}`
   ])
 
   res.status(200).respond(true)
