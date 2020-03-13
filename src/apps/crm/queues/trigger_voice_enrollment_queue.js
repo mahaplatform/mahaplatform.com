@@ -11,9 +11,9 @@ const processor = async (req, job) => {
 
 }
 
-const SendVoiceCampaignCallQueue = new Queue({
-  name: 'send_voice_campaign_call',
+const TriggerVoiceEnrollmentQueue = new Queue({
+  name: 'trigger_voice_enrollment',
   processor
 })
 
-export default SendVoiceCampaignCallQueue
+export default TriggerVoiceEnrollmentQueue

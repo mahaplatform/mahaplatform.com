@@ -26,7 +26,7 @@ const sendRoute = async (req, res) => {
   const send_at = getSendAt(req.body)
 
   const job = await SendVoiceCampaignQueue.enqueue(req, {
-    campaign_id: campaign.get('id')
+    voice_campaign_id: campaign.get('id')
   }, {
     until: moment(send_at)
   })

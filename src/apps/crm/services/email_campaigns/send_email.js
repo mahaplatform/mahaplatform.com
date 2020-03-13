@@ -1,17 +1,16 @@
-import generateCode from '../../../core/utils/generate_code'
-import { encodeEmail } from '../../maha/services/emails'
-import { sendMail } from '../../../core/services/email'
-import { personalizeEmail } from '../services/email'
-import EmailCampaign from '../models/email_campaign'
-import EmailAddress from '../models/email_address'
-import Queue from '../../../core/objects/queue'
-import Email from '../../maha/models/email'
-import Contact from '../models/contact'
-import Sender from '../models/sender'
+import generateCode from '../../../../core/utils/generate_code'
+import { encodeEmail } from '../../../maha/services/emails'
+import { sendMail } from '../../../../core/services/email'
+import { personalizeEmail } from '../../services/email'
+import EmailCampaign from '../../models/email_campaign'
+import EmailAddress from '../../models/email_address'
+import Email from '../../../maha/models/email'
+import Contact from '../../models/contact'
+import Sender from '../../models/sender'
 
-const processor = async (req, job) => {
+const sendEmail = async (req, params) => {
 
-  const { email_campaign_id, email_address_id } = job.data
+  const { email_campaign_id, email_address_id } = params
 
   const email_address = await EmailAddress.query(qb => {
     qb.where('id', email_address_id)
@@ -110,9 +109,4 @@ const processor = async (req, job) => {
 
 }
 
-const SendEmailCampaignEmailQueue = new Queue({
-  name: 'send_email_campaign_email',
-  processor
-})
-
-export default SendEmailCampaignEmailQueue
+export default sendEmail
