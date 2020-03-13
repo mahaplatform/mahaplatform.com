@@ -13,13 +13,7 @@ class Types extends React.Component {
   _handleCancel = this._handleCancel.bind(this)
 
   render() {
-    const { blocks } = this.props
-    const sections = [
-      { title: 'Control', type: 'control' },
-      { title: 'Contact', type: 'contact' },
-      { title: 'Communication', type: 'communication' },
-      { title: 'Administrative', type: 'administrative' }
-    ]
+    const sections = this._getSections()
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="flowchart-designer-blocks">
@@ -29,11 +23,9 @@ class Types extends React.Component {
                 { section.title }
               </div>
               <div className="flowchart-designer-blocks-section-items">
-                { blocks.filter(block => {
-                  return block.type === section.type
-                }).map((block, index) => (
+                { section.blocks.map((block, index) => (
                   <div className="flowchart-designer-block" key={`type_${index}`} onClick={ this._handleChoose.bind(this, block) }>
-                    <div className={`flowchart-designer-block-icon flowchart-designer-icon-${block.type}`}>
+                    <div className={`flowchart-designer-block-icon ${block.type}`}>
                       <i className={`fa fa-fw fa-${ block.icon }`} />
                     </div>
                     <div className="flowchart-designer-block-label">
@@ -47,6 +39,26 @@ class Types extends React.Component {
         </div>
       </ModalPanel>
     )
+  }
+
+  _getSections() {
+    const { blocks } = this.props
+    const sections = [
+      { title: 'Voice', type: 'voice' },
+      { title: 'SMS', type: 'sms' },
+      { title: 'Control', type: 'control' },
+      { title: 'Contact', type: 'contact' },
+      { title: 'Communication', type: 'communication' },
+      { title: 'Administrative', type: 'administrative' }
+    ]
+    return sections.map(section => ({
+      ...section,
+      blocks: blocks.filter(block => {
+        return block.type === section.type
+      })
+    })).filter(section => {
+      return section.blocks.length > 0
+    })
   }
 
   _getPanel() {

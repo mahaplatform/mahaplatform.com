@@ -1,7 +1,7 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
+import { createCall } from '../../../maha/services/calls'
 import VoiceCampaign from '../../models/voice_campaign'
-import client from '../../../../core/services/twilio'
 import PhoneNumber from '../../models/phone_number'
 
 const makeCall = async (req, params) => {
@@ -37,7 +37,7 @@ const makeCall = async (req, params) => {
     transacting: req.trx
   })
 
-  await client.calls.create({
+  await createCall(req, {
     method: 'GET',
     url: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}`,
     from: campaign.related('program').related('phone_number').get('number'),

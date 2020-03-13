@@ -25,6 +25,7 @@ class VoiceDesigner extends React.PureComponent {
     const { steps, status } = campaign
     return {
       endpoint,
+      program: campaign.program,
       properties,
       tokens,
       blocks: [

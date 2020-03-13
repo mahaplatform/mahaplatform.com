@@ -26,7 +26,7 @@ const evaluate = async (left, comparison, right) => {
   }
 }
 
-export const conditional = async (req, params) => {
+const ifthen = async (req, params) => {
 
   const { enrollment, step } = params
 
@@ -58,3 +58,5 @@ export const conditional = async (req, params) => {
   }
 
 }
+
+export default ifthen

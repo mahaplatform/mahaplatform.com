@@ -9,7 +9,8 @@ const triggers = {
   list: { icon: 'users', text: 'Contact is added to list' },
   topic: { icon: 'book', text: 'Contact is added to topic' },
   property: { icon: 'id-card', text: 'Contact property is updated' },
-  manual: { icon: 'plus', text: 'Contact is enrolled' }
+  manual: { icon: 'plus', text: 'Contact is enrolled' },
+  sms: { icon: 'phone', text: 'Outbound SMS' }
 }
 
 const blocks = {

@@ -3,7 +3,7 @@ import Form from './form'
 
 export default {
   icon: 'book',
-  label: 'Update Interests',
+  label: 'Update Topics',
   type: 'contact',
   action: 'topic',
   form: Form,

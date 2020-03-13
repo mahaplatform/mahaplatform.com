@@ -1,14 +1,12 @@
-import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
 class Lists extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    lists: PropTypes.array,
-    workflow: PropTypes.object,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -46,7 +44,7 @@ class Lists extends React.PureComponent {
   }
 
   _getForm() {
-    const { workflow } = this.props
+    const { program } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -63,7 +61,7 @@ class Lists extends React.PureComponent {
         {
           fields: [
             { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to list' },{ value: 'remove', text: 'Remove from list'}], defaultValue: config.action },
-            { label: 'List', name: 'list_id', type: 'lookup', prompt: 'Choose a list', endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`, value: 'id', text: 'title', form: this._getListForm() }
+            { label: 'List', name: 'list_id', type: 'lookup', prompt: 'Choose a list', endpoint: `/api/admin/crm/programs/${program.id}/lists`, value: 'id', text: 'title', form: this._getListForm(), defaultValue: config.list_id }
           ]
         }
       ]
@@ -71,11 +69,11 @@ class Lists extends React.PureComponent {
   }
 
   _getListForm() {
-    const { workflow } = this.props
+    const { program } = this.props
     return {
       title: 'New List',
       method: 'post',
-      action: `/api/admin/crm/programs/${workflow.program.id}/lists`,
+      action: `/api/admin/crm/programs/${program.id}/lists`,
       sections: [
         {
           fields: [
@@ -95,15 +93,7 @@ class Lists extends React.PureComponent {
   }
 
   _handleDone(config) {
-    const { lists } = this.props
-    const list = _.find(lists, { id: config.list_id })
-    this.props.onDone({
-      ...config,
-      list: list ? {
-        id: list.id,
-        title: list.title
-      } : null
-    })
+    this.props.onDone(config)
   }
 
   _handleSubmit() {
@@ -111,8 +101,5 @@ class Lists extends React.PureComponent {
   }
 
 }
-const mapResources = (props, context) => ({
-  lists: `/api/admin/crm/programs/${props.workflow.program.id}/lists`
-})
 
-export default Container(mapResources)(Lists)
+export default Lists

@@ -3,7 +3,7 @@ import Form from './form'
 export default {
   icon: 'volume-control-phone',
   label: 'Speak Text',
-  type: 'control',
+  type: 'voice',
   action: 'say',
   form: Form,
   config: {

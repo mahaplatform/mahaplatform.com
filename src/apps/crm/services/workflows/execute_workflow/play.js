@@ -2,7 +2,7 @@ import Asset from '../../../../maha/models/asset'
 
 import { twiml } from 'twilio'
 
-export const play = async (req, { step }) => {
+const play = async (req, { step }) => {
 
   const { loop, recording_id } = step.get('config')
 
@@ -23,3 +23,5 @@ export const play = async (req, { step }) => {
   }
 
 }
+
+export default play

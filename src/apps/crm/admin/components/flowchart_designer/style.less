@@ -60,33 +60,39 @@
     flex: 1;
   }
 }
-&.flowchart-designer-icon {
+.flowchart-designer-icon {
   flex: 0 0 3em;
   .fa-phone {
     font-size: 1.4em;
   }
 }
-
-&.flowchart-designer-icon-trigger {
-  background-color: @green;
-}
-&.flowchart-designer-icon-administrative {
-  background-color: @pink;
-}
-&.flowchart-designer-icon-control {
-  background-color: @blue;
-}
-&.flowchart-designer-icon-communication {
-  background-color: @purple;
-}
-&.flowchart-designer-icon-contact {
-  background-color: @teal;
-}
-&.flowchart-designer-icon-ending {
-  background-color: @red;
-}
-&.flowchart-designer-icon-action {
-  background-color: @blue;
+.flowchart-designer-block-icon,
+.flowchart-box-icon {
+  &.trigger {
+    background-color: @green;
+  }
+  &.voice,
+  &.sms {
+    background-color: @violet;
+  }
+  &.administrative {
+    background-color: @pink;
+  }
+  &.control {
+    background-color: @blue;
+  }
+  &.communication {
+    background-color: @purple;
+  }
+  &.contact {
+    background-color: @teal;
+  }
+  &.ending {
+    background-color: @red;
+  }
+  &.action {
+    background-color: @blue;
+  }
 }
 .flowchart-designer-form {
   flex-direction: column;

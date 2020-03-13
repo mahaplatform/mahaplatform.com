@@ -8,6 +8,7 @@ class Email extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     emails: PropTypes.array,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func

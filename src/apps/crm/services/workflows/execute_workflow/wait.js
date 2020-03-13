@@ -8,6 +8,8 @@ const getDatetime = ({ until_date, until_time }) => {
   return moment(`${until_date} ${until_time}`)
 }
 
-export const wait = async (req, { config }) => ({
+const wait = async (req, { config }) => ({
   until: (config.strategy === 'duration') ? getDuration(config) : getDatetime(config)
 })
+
+export default wait

@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'volume-up',
   label: 'Listen',
-  type: 'verb',
+  type: 'sms',
   action: 'listen',
   config: {},
   form: Form,

@@ -14,13 +14,12 @@ class Designer extends React.Component {
   }
 
   _getSMSDesigner() {
-    const { campaign } = this.state
+    const { campaign } = this.props
     return {
       campaign,
       endpoint: `/api/admin/crm/campaigns/sms/${campaign.id}`,
       properties: this._getProperties(),
-      tokens: this._getTokens(),
-      onSave: this._handleSave
+      tokens: this._getTokens()
     }
   }
 

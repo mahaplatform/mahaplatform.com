@@ -24,6 +24,7 @@ class SMSDesigner extends React.PureComponent {
     const { steps, status } = campaign
     return {
       endpoint,
+      program: campaign.program,
       properties,
       tokens,
       blocks: [
@@ -58,17 +59,31 @@ class SMSDesigner extends React.PureComponent {
 
   _getTrigger() {
     const { campaign } = this.props
-    return {
-      icon: 'comment',
-      label: 'Incoming SMS',
-      type: 'trigger',
-      action: 'trigger',
-      token: () => (
-        <div>
-          <div>{ campaign.phone_number.formatted}</div>
-          <div>&quot;{ campaign.term }&quot;</div>
-        </div>
-      )
+    if(campaign.direction === 'inbound') {
+      return {
+        icon: 'comment',
+        label: 'Incoming SMS',
+        type: 'trigger',
+        action: 'trigger',
+        token: () => (
+          <div>
+            <div>{ campaign.phone_number.formatted}</div>
+            <div>&quot;{ campaign.term }&quot;</div>
+          </div>
+        )
+      }
+    } else {
+      return {
+        icon: 'comment',
+        label: 'Outbound SMS',
+        type: 'trigger',
+        action: 'trigger',
+        token: () => (
+          <div>
+            <div>{ campaign.phone_number.formatted}</div>
+          </div>
+        )
+      }
     }
   }
 

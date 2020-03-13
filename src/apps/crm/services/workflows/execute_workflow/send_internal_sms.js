@@ -1,7 +1,7 @@
 import client from '../../../../../core/services/twilio'
 import ejs from 'ejs'
 
-export const sendInternalSms = async (req, params) => {
+const sendInternalSms = async (req, params) => {
 
   const { config, enrollment } = params
 
@@ -28,3 +28,5 @@ export const sendInternalSms = async (req, params) => {
   return {}
 
 }
+
+export default sendInternalSms

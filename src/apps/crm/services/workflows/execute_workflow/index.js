@@ -1,36 +1,38 @@
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import WorkflowAction from '../../../models/workflow_action'
-import { sendInternalEmail } from './send_internal_email'
 import WorkflowStep from '../../../models/workflow_step'
-import { enrollInWorkflow } from './enroll_in_workflow'
-import { sendInternalSms } from './send_internal_sms'
-import { updateInterests } from './update_interests'
-import { updateProperty } from './update_property'
-import { updateConsent } from './update_consent'
-import { updateLists } from './update_lists'
-import { conditional } from './conditional'
-import { sendEmail } from './send_email'
-import { sendSms } from './send_sms'
-import { wait } from './wait'
-import { goal } from './goal'
-import { play } from './play'
+import sendInternalEmail from './send_internal_email'
+import enrollInWorkflow from './enroll_in_workflow'
+import sendInternalSms from './send_internal_sms'
+import updateInterests from './update_interests'
+import updateProperty from './update_property'
+import updateConsent from './update_consent'
+import updateLists from './update_lists'
+import sendEmail from './send_email'
+import sendSms from './send_sms'
+import message from './message'
+import ifthen from './ifthen'
 import moment from 'moment'
+import wait from './wait'
+import goal from './goal'
+import play from './play'
 
 const getExecutor = (type, action) => {
   if(type === 'administrative' && action === 'email') return sendInternalEmail
   if(type === 'administrative' && action === 'sms') return sendInternalSms
   if(type === 'communication' && action === 'email') return sendEmail
   if(type === 'communication' && action === 'sms') return sendSms
-  if(type === 'control' && action === 'conditional') return conditional
+  if(type === 'control' && action === 'ifthen') return ifthen
   if(type === 'control' && action === 'wait') return wait
   if(type === 'control' && action === 'goal') return goal
-  if(type === 'control' && action === 'play') return play
   if(type === 'contact' && action === 'workflow') return enrollInWorkflow
   if(type === 'contact' && action === 'property') return updateProperty
   if(type === 'contact' && action === 'topic') return updateInterests
   if(type === 'contact' && action === 'consent') return updateConsent
   if(type === 'contact' && action === 'lists') return updateLists
+  if(type === 'voice' && action === 'play') return play
+  if(type === 'sms' && action === 'message') return message
 }
 
 const executeStep = async (req, { enrollment, step }) => {

@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'question',
   label: 'Question',
-  type: 'conditional',
+  type: 'sms',
   action: 'question',
   config: {
     question: 'Would you like to buy a vowel?',

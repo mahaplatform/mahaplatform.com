@@ -7,6 +7,7 @@ class Wait extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,

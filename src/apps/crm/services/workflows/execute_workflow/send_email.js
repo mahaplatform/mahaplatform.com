@@ -44,7 +44,7 @@ const getResponseData = async (req, { response }) => {
 
 }
 
-export const sendEmail = async (req, params) => {
+const sendEmail = async (req, params) => {
 
   const { config, enrollment } = params
 
@@ -160,3 +160,5 @@ export const sendEmail = async (req, params) => {
   return {}
 
 }
+
+export default sendEmail

@@ -1,7 +1,7 @@
 import Workflow from '../../../models/workflow'
 import * as enrollments from '../enrollment'
 
-export const enrollInWorkflow = async (req, params) => {
+const enrollInWorkflow = async (req, params) => {
 
   const { config, enrollment } = params
 
@@ -19,3 +19,5 @@ export const enrollInWorkflow = async (req, params) => {
   return {}
 
 }
+
+export default enrollInWorkflow

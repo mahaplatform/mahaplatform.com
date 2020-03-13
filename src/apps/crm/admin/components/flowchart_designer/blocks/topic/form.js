@@ -1,14 +1,12 @@
-import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
 class Topics extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    topics: PropTypes.array,
-    workflow: PropTypes.object,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -46,11 +44,11 @@ class Topics extends React.PureComponent {
   }
 
   _getForm() {
-    const { workflow } = this.props
+    const { program } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Update Interests',
+      title: 'Update Topics',
       onChange: this._handleChange,
       onCancel: this._handleCancel,
       onSubmit: this._handleDone,
@@ -63,7 +61,7 @@ class Topics extends React.PureComponent {
         {
           fields: [
             { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to topic' },{ value: 'remove', text: 'Remove from topic'}], defaultValue: config.action },
-            { label: 'Topic', name: 'topic_id', type: 'lookup', prompt: 'Choose a topic', endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`, value: 'id', text: 'title', form: this._getTopicForm() }
+            { label: 'Topic', name: 'topic_id', type: 'lookup', prompt: 'Choose a topic', endpoint: `/api/admin/crm/programs/${program.id}/topics`, value: 'id', text: 'title', form: this._getTopicForm(), defaultValue: config.topic_id }
           ]
         }
       ]
@@ -71,11 +69,11 @@ class Topics extends React.PureComponent {
   }
 
   _getTopicForm() {
-    const { workflow } = this.props
+    const { program } = this.props
     return {
       title: 'New Topic',
       method: 'post',
-      action: `/api/admin/crm/programs/${workflow.program.id}/topics`,
+      action: `/api/admin/crm/programs/${program.id}/topics`,
       sections: [
         {
           fields: [
@@ -95,15 +93,7 @@ class Topics extends React.PureComponent {
   }
 
   _handleDone(config) {
-    const { topics } = this.props
-    const topic = _.find(topics, { id: config.topic_id })
-    this.props.onDone({
-      ...config,
-      topic: topic ? {
-        id: topic.id,
-        title: topic.title
-      } : null
-    })
+    this.props.onDone(config)
   }
 
   _handleSubmit() {
@@ -111,8 +101,5 @@ class Topics extends React.PureComponent {
   }
 
 }
-const mapResources = (props, context) => ({
-  topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
-})
 
-export default Container(mapResources)(Topics)
+export default Topics

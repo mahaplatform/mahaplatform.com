@@ -1,12 +1,11 @@
 import client from '../../../../../core/services/twilio'
+import Asset from '../../../../maha/models/asset'
 import Contact from '../../../models/contact'
 import ejs from 'ejs'
 
-const sendSms = async (req, params) => {
+const message = async (req, { config, enrollment }) => {
 
-  const { config, enrollment } = params
-
-  await enrollment.load(['workflow.program.phone_number'], {
+  await enrollment.load(['sms_campaign.program.phone_number'], {
     transacting: req.trx
   })
 
@@ -26,18 +25,23 @@ const sendSms = async (req, params) => {
     }
   })
 
-  if(!contact.get('phone')) {
-    return { unenroll: true }
-  }
+  const mediaUrl = config.asset_ids ? await Asset.where(qb => {
+    qb.whereIn('id', config.asset_ids)
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray().map(asset => {
+    return asset.get('signed_url')
+  })) : null
 
   await client.messages.create({
     body: message,
-    from: enrollment.related('workflow').related('program').related('phone_number').get('number'),
-    to: contact.get('phone')
+    from: enrollment.related('sms_campaign').related('program').related('phone_number').get('number'),
+    to: contact.get('phone'),
+    ...mediaUrl ? { mediaUrl } : {}
   })
 
   return {}
 
 }
 
-export default sendSms
+export default message

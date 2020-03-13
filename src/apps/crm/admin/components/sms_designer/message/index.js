@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'comment',
   label: 'Send Message',
-  type: 'verb',
+  type: 'sms',
   action: 'message',
   config: {},
   form: Form,

@@ -18,6 +18,8 @@ const sendCampaign = async (req, { sms_campaign_id }) => {
     criteria: campaign.get('to').criteria
   }).then(result => result.toArray())
 
+  console.log(recipients.length)
+
   await campaign.save({
     sent_at: moment(),
     status: 'sent'

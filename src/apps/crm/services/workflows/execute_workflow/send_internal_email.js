@@ -1,5 +1,7 @@
-export const sendInternalEmail = async (req, params) => {
+const sendInternalEmail = async (req, params) => {
 
   return {}
 
 }
+
+export default sendInternalEmail

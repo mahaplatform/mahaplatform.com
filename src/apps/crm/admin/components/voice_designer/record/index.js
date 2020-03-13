@@ -3,7 +3,7 @@ import Form from './form'
 export default {
   icon: 'microphone',
   label: 'Record',
-  type: 'control',
+  type: 'voice',
   action: 'record',
   form: Form
 }

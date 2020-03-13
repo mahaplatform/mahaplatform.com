@@ -6,6 +6,7 @@ class SendSMS extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    program: PropTypes.object,
     users: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,

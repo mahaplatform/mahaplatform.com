@@ -1,5 +1,7 @@
-export const updateProperty = async (req, params) => {
+const updateProperty = async (req, params) => {
 
   return {}
 
 }
+
+export default updateProperty

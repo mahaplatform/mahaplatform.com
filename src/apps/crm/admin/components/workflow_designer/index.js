@@ -24,6 +24,7 @@ class WorkflowDesigner extends React.PureComponent {
     return {
       endpoint,
       fields,
+      program: workflow.program,
       properties,
       tokens,
       workflow,

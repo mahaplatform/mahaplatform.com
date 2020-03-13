@@ -53,7 +53,7 @@ class Box extends React.PureComponent {
                 </div>
               </div>
             }
-            <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
+            <div className={`flowchart-box-icon ${type}`}>
               <i className={`fa fa-${icon}`} />
             </div>
             <div className="flowchart-box-label">

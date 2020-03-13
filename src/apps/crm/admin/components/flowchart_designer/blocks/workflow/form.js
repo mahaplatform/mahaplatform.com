@@ -8,7 +8,7 @@ class Workflow extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     workflows: PropTypes.array,
-    workflow: PropTypes.object,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -39,7 +39,6 @@ class Workflow extends React.PureComponent {
   }
 
   _getForm() {
-    const { workflow } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -55,7 +54,7 @@ class Workflow extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Workflow', name: 'workflow_id', type: 'lookup', prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm() }
+            { label: 'Workflow', name: 'workflow_id', type: 'lookup', prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm(), defaultValue: config.workflow_id }
           ]
         }
       ]

@@ -10,6 +10,11 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!enrollment) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load enrollment'
+  })
+
   req.team = enrollment.related('team')
 
   const result = await executeWorkflow(req, {

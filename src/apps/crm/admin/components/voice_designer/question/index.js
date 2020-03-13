@@ -4,7 +4,7 @@ import Form from './form'
 export default {
   icon: 'question',
   label: 'Question',
-  type: 'control',
+  type: 'voice',
   action: 'question',
   config: {
     question: 'Press 1 for Greg, 2 for Suli',

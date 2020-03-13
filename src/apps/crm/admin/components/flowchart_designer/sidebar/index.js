@@ -14,12 +14,12 @@ class Sidebar extends React.PureComponent {
     changes: PropTypes.number,
     cid: PropTypes.string,
     fields: PropTypes.array,
+    program: PropTypes.object,
     properties: PropTypes.array,
     status: PropTypes.string,
     steps: PropTypes.array,
     step: PropTypes.object,
     tokens: PropTypes.array,
-    workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
@@ -74,13 +74,13 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
-    const { fields, properties, workflow } = this.props
+    const { fields, program, properties } = this.props
     const { code, config } = step
     return {
       config,
       fields,
       properties,
-      workflow,
+      program,
       onCancel: this._handlePop,
       onTokens: this._handleTokens,
       onDone: this._handleUpdate.bind(this, code)
@@ -88,14 +88,14 @@ class Sidebar extends React.PureComponent {
   }
 
   _getNew() {
-    const { blocks, cid, fields, properties, step, workflow } = this.props
+    const { blocks, cid, fields, program, properties, step } = this.props
     return {
       blocks,
       cid,
       fields,
+      program,
       properties,
       step,
-      workflow,
       onAdd: this._handleAdd,
       onCancel: this._handlePop,
       onTokens: this._handleTokens,

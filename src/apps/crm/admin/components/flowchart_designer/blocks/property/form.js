@@ -9,7 +9,7 @@ class Properties extends React.PureComponent {
     config: PropTypes.object,
     fields: PropTypes.array,
     properties: PropTypes.array,
-    workflow: PropTypes.object,
+    program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -32,12 +32,6 @@ class Properties extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log({
-      config: {
-        ...this._getDefault(),
-        ...this.props.config || {}
-      }
-    })
     this.setState({
       config: {
         ...this._getDefault(),

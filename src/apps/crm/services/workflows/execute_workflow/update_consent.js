@@ -51,7 +51,7 @@ const getChannel = async(req, { contact, channel_type, value }) => {
 
 }
 
-export const updateConsent = async (req, params) => {
+const updateConsent = async (req, params) => {
 
   const { config, enrollment } = params
 
@@ -95,3 +95,5 @@ export const updateConsent = async (req, params) => {
   return {}
 
 }
+
+export default updateConsent

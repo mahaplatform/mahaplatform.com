@@ -1,7 +1,7 @@
 import { updateRelated } from '../../../../../core/services/routes/relations'
 import _ from 'lodash'
 
-export const updateLists = async (req, params) => {
+const updateLists = async (req, params) => {
 
   const { config, enrollment } = params
 
@@ -32,3 +32,5 @@ export const updateLists = async (req, params) => {
   return {}
 
 }
+
+export default updateLists

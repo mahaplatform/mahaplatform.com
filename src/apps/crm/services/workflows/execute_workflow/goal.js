@@ -1,4 +1,4 @@
-export const goal = async (req, params) => {
+const goal = async (req, params) => {
 
   const { enrollment } = params
 
@@ -12,3 +12,5 @@ export const goal = async (req, params) => {
   return {}
 
 }
+
+export default goal
