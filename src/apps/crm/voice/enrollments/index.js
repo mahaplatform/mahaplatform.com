@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import step from './step'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/:enrollment_id/steps/:step_id', step)
+router.get('/:enrollment_code', show)
 
-router.post('/:enrollment_id/steps/:step_id', step)
+router.get('/:enrollment_code/:code', show)
 
 export default router

@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/emitter'
+import socket from '../../../../core/services/emitter'
 import { twiml } from 'twilio'
 
 const recordRoute = async (req, res) => {
@@ -16,7 +16,7 @@ const recordRoute = async (req, res) => {
   response.say('Please record your message after the beep. Press the pound key when finished')
 
   response.record({
-    action: `${process.env.TWIML_HOST}/api/admin/crm/recordings/${req.params.code}/review`,
+    action: `${process.env.TWIML_HOST}/voice/crm/recordings/${req.params.code}/review`,
     finishOnKey: '#',
     trim: 'trim-silence'
   })

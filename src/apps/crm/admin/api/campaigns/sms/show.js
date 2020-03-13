@@ -2,6 +2,29 @@ import SMSCampaignSerializer from '../../../../serializers/sms_campaign_serializ
 import { getRecipients } from '../../../../services/recipients'
 import SMSCampaign from '../../../../models/sms_campaign'
 
+const getRecipientCount = async (req, { campaign }) => {
+
+  if(campaign.get('status') === 'sent') {
+
+    await campaign.load(['enrollments'], {
+      transacting: req.trx
+    })
+
+    return campaign.related('enrollments').length
+
+  }
+
+  const recipients = await getRecipients(req, {
+    type: 'email',
+    purpose: campaign.get('purpose'),
+    program_id: campaign.get('program_id'),
+    criteria: campaign.get('to').criteria
+  })
+
+  return recipients.length
+
+}
+
 const showRoute = async (req, res) => {
 
   const campaign = await SMSCampaign.query(qb => {
@@ -19,14 +42,11 @@ const showRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const contacts = await getRecipients(req, {
-    type: 'sms',
-    purpose: campaign.get('purpose'),
-    program_id: campaign.get('program_id'),
-    criteria: campaign.get('to').criteria
+  const recipient_count = await getRecipientCount(req, {
+    campaign
   })
 
-  campaign.set('recipients', contacts.length)
+  campaign.set('recipients', recipient_count)
 
   res.status(200).respond(campaign, SMSCampaignSerializer)
 

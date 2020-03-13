@@ -20,7 +20,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Enroll Contact', modal: New }
       ]
     },
-    defaultSort: { key: 'created_at', order: 'asc' },
+    defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
     onClick: (record) => context.router.history.push(`/admin/crm/workflows/${props.params.workflow_id}/enrollments/${record.id}`)
   },

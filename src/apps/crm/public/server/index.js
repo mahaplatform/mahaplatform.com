@@ -1,11 +1,8 @@
 import preferences from './preferences'
-import enrollments from './enrollments'
 import { Router } from 'express'
 import forms from './forms'
 
 const router = new Router({ mergeParams: true })
-
-router.use('/enrollments', enrollments)
 
 router.use('/forms', forms)
 

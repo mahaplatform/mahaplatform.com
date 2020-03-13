@@ -1,5 +1,5 @@
-import socket from '../../../../../core/services/emitter'
-import redis from '../../../../../core/services/redis'
+import socket from '../../../../core/services/emitter'
+import redis from '../../../../core/services/redis'
 import { twiml } from 'twilio'
 
 const reviewRoute = async (req, res) => {
@@ -29,7 +29,7 @@ const reviewRoute = async (req, res) => {
 
   const gather = response.gather({
     input: 'dtmf',
-    action: `${process.env.TWIML_HOST}/api/admin/crm/recordings/${req.params.code}`,
+    action: `${process.env.TWIML_HOST}/voice/crm/recordings/${req.params.code}`,
     method: 'POST',
     numDigits: 1,
     timeout: 5

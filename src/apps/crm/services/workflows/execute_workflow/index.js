@@ -50,6 +50,7 @@ const getCurrentStep = async (req, params) => {
     if(voice_campaign_id) qb.where({ voice_campaign_id })
     if(sms_campaign_id) qb.where({ sms_campaign_id })
     if(workflow_id) qb.where({ workflow_id })
+    qb.where('is_active', true)
     if(code) {
       qb.where('code', code)
     } else {
@@ -69,6 +70,7 @@ const getNextStep = async (req, params) => {
     if(voice_campaign_id) qb.where({ voice_campaign_id })
     if(sms_campaign_id) qb.where({ sms_campaign_id })
     if(workflow_id) qb.where({ workflow_id })
+    qb.where('is_active', true)
     qb.where('parent', parent)
     qb.where('answer', answer)
     qb.where('delta', delta + 1)
@@ -80,6 +82,7 @@ const getNextStep = async (req, params) => {
     if(voice_campaign_id) qb.where({ voice_campaign_id })
     if(sms_campaign_id) qb.where({ sms_campaign_id })
     if(workflow_id) qb.where({ workflow_id })
+    qb.where('is_active', true)
     qb.where('code', parent)
   }).fetch({
     transacting: req.trx

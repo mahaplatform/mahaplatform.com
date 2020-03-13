@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Enrollments',
       text: 'There are no contacts enrolled in this campaign'
     },
-    defaultSort: { key: 'created_at', order: 'asc' },
+    defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
     onClick: (record) => context.router.history.push(`/admin/crm/campaigns/voice/${props.params.campaign_id}/enrollments/${record.id}`)
   }

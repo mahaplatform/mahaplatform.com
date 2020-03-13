@@ -14,14 +14,14 @@ const getRecipientCount = async (req, { campaign }) => {
 
   }
 
-  const contacts = await getRecipients(req, {
+  const recipients = await getRecipients(req, {
     type: 'email',
     purpose: campaign.get('purpose'),
     program_id: campaign.get('program_id'),
     criteria: campaign.get('to').criteria
   })
 
-  return contacts.length
+  return recipients.length
 
 }
 

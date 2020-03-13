@@ -130,7 +130,7 @@ export const createAsset = async (req, params) => {
     original_file_name: params.file_name,
     file_name: _getNormalizedFileName(params.file_name),
     fingerprint: _getFingerprint(params.file_data),
-    content_type: _getFileType(params.file_data, params.file_name),
+    content_type: params.content_type || _getFileType(params.file_data, params.file_name),
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'

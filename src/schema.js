@@ -605,6 +605,7 @@ const schema = {
       table.USER-DEFINED('action')
       table.integer('voice_campaign_id').unsigned()
       table.integer('sms_campaign_id').unsigned()
+      table.boolean('is_active')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {

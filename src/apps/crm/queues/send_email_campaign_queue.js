@@ -16,7 +16,7 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
-  const contacts = await getRecipients(req, {
+  const recipients = await getRecipients(req, {
     type: 'email',
     program_id: campaign.related('program').get('id'),
     purpose: campaign.get('purpose'),
@@ -36,10 +36,10 @@ const processor = async (req, job) => {
     patch: true
   })
 
-  await Promise.map(contacts, async (contact) => {
+  await Promise.map(recipients, async (recipient) => {
     await SendEmailCampaignEmailQueue.enqueue(req, {
       email_campaign_id: campaign.get('id'),
-      email_address_id: contact.related('email_address').get('id')
+      email_address_id: recipient.get('email_address_id')
     })
   })
 

@@ -15,7 +15,7 @@ const callRoute = async (req, res) => {
 
   await client.calls.create({
     method: 'get',
-    url: `${process.env.TWIML_HOST}/api/admin/crm/recordings/${code}`,
+    url: `${process.env.TWIML_HOST}/voice/crm/recordings/${code}`,
     from: process.env.TWILIO_NUMBER,
     to: req.body.number
   })

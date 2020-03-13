@@ -16,13 +16,19 @@ export const updateSteps = async (req, params) => {
     transacting: req.trx
   })
 
-  const delete_ids = workflow.related('steps').filter(existing => {
+  const deleteSteps = workflow.related('steps').filter(existing => {
     return steps.find(step => {
       return step.id === existing.id
     }) === undefined
-  }).map(step => step.get('id'))
+  })
 
-  await req.trx('crm_workflow_steps').whereIn('id', delete_ids).del()
+  await Promise.map(deleteSteps, async (step) => {
+    await step.save({
+      is_active: false
+    }, {
+      transacting: req.trx
+    })
+  })
 
   await Promise.map(steps, async (step) => {
 
@@ -32,6 +38,7 @@ export const updateSteps = async (req, params) => {
         voice_campaign_id: params.voice_campaign ? params.voice_campaign.get('id') : null,
         sms_campaign_id: params.sms_campaign ? params.sms_campaign.get('id') : null,
         workflow_id: params.workflow ? params.workflow.get('id') : null,
+        is_active: true,
         ...step
       }).save(null, {
         transacting: req.trx

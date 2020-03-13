@@ -4,6 +4,16 @@ import { Page } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
+const triggers = {
+  response: { icon: 'check-square-o', text: 'Form is submitted' },
+  open: { icon: 'envelope-open', text: 'Email is opened' },
+  click: { icon: 'mouse-pointer', text: 'Email is clicked' },
+  list: { icon: 'users', text: 'Contact is added to list' },
+  topic: { icon: 'book', text: 'Contact is added to topic' },
+  property: { icon: 'id-card', text: 'Contact property is updated' },
+  manual: { icon: 'plus', text: 'Contact is enrolled' }
+}
+
 class Designer extends React.Component {
 
   static contextTypes = {
@@ -59,42 +69,7 @@ class Designer extends React.Component {
 
   _getTrigger() {
     const { workflow } = this.props
-    if(workflow.trigger_type === 'response') {
-      return {
-        icon: 'check-square-o',
-        text: 'Form is submitted'
-      }
-    } else if(workflow.trigger_type === 'open') {
-      return {
-        icon: 'envelope-open',
-        text: 'Email is opened'
-      }
-    } else if(workflow.trigger_type === 'click') {
-      return {
-        icon: 'mouse-pointer',
-        text: 'Email is clicked'
-      }
-    } else if(workflow.trigger_type === 'list') {
-      return {
-        icon: 'users',
-        text: 'Contact is added to list'
-      }
-    } else if(workflow.trigger_type === 'topic') {
-      return {
-        icon: 'book',
-        text: 'Contact is added to topic'
-      }
-    } else if(workflow.trigger_type === 'property') {
-      return {
-        icon: 'id-card',
-        text: 'Contact property is updated'
-      }
-    } else if(workflow.trigger_type === 'manual') {
-      return {
-        icon: 'plus',
-        text: 'Contact is enrolled'
-      }
-    }
+    return triggers[workflow.trigger_type]
   }
 
   _getTokens() {

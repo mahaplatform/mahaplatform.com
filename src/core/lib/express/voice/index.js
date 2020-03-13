@@ -6,7 +6,7 @@ import receive from './receive'
 import logger from '../logger'
 import status from './status'
 
-const voiceFiles = collectObjects('voice/*')
+const voiceFiles = collectObjects('voice/index.js')
 
 const router = new Router({ mergeParams: true })
 

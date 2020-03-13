@@ -1,7 +1,7 @@
-import AssetSerializer from '../../../../maha/serializers/asset_serializer'
-import { createAssetFromUrl } from '../../../../maha/services/assets'
-import socket from '../../../../../core/services/emitter'
-import redis from '../../../../../core/services/redis'
+import AssetSerializer from '../../../maha/serializers/asset_serializer'
+import { createAssetFromUrl } from '../../../maha/services/assets'
+import socket from '../../../../core/services/emitter'
+import redis from '../../../../core/services/redis'
 import { twiml } from 'twilio'
 
 const createRoute = async (req, res) => {
@@ -11,7 +11,7 @@ const createRoute = async (req, res) => {
   if(req.body.Digits === '2') {
 
     response.redirect({
-      action: `${process.env.TWIML_HOST}/api/admin/crm/recordings/${req.params.code}`,
+      action: `${process.env.TWIML_HOST}/voice/crm/recordings/${req.params.code}`,
       method: 'GET'
     })
 
@@ -40,8 +40,6 @@ const createRoute = async (req, res) => {
     })
 
   }
-
-  console.log(response.toString())
 
   return res.status(200).type('text/xml').send(response.toString())
 

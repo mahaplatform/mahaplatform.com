@@ -30,7 +30,9 @@ const VoiceCampaign = new Model({
   },
 
   steps() {
-    return this.hasMany(WorkflowStep, 'voice_campaign_id')
+    return this.hasMany(WorkflowStep, 'voice_campaign_id').query(qb => {
+      qb.where('is_active', true)
+    })
   }
 
 })

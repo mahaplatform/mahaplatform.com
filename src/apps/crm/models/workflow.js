@@ -46,7 +46,9 @@ const Workflow = new Model({
   },
 
   steps() {
-    return this.hasMany(WorkflowStep, 'workflow_id')
+    return this.hasMany(WorkflowStep, 'workflow_id').query(qb => {
+      qb.where('is_active', true)
+    })
   },
 
   results() {

@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('campaign_id', campaign.get('id'))
+    qb.where('voice_campaign_id', campaign.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['contact.photo','actions.step'],
