@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const triggers = {
-  pickup: { icon: 'phone', text: 'Contact picked up phone' },
-  response: { icon: 'check-square-o', text: 'Form is submitted' },
-  open: { icon: 'envelope-open', text: 'Email is opened' },
-  click: { icon: 'mouse-pointer', text: 'Email is clicked' },
-  list: { icon: 'users', text: 'Contact is added to list' },
-  topic: { icon: 'book', text: 'Contact is added to topic' },
-  property: { icon: 'id-card', text: 'Contact property is updated' },
-  manual: { icon: 'plus', text: 'Contact is enrolled' },
-  sms: { icon: 'phone', text: 'Outbound SMS' }
+const types = {
+  pickup: { icon: 'phone', name: 'call', trigger: 'Contact picked up phone' },
+  response: { icon: 'check-square-o', name: 'workflow', trigger: 'Form is submitted' },
+  open: { icon: 'envelope-open', name: 'workflow', trigger: 'Email is opened' },
+  click: { icon: 'mouse-pointer', name: 'workflow', trigger: 'Email is clicked' },
+  list: { icon: 'users', name: 'workflow', trigger: 'Contact is added to list' },
+  topic: { icon: 'book', name: 'Workflow', trigger: 'Contact is added to topic' },
+  property: { icon: 'id-card', name: 'workflow', trigger: 'Contact property is updated' },
+  manual: { icon: 'plus', name: 'workflow', trigger: 'Contact is enrolled' },
+  sms: { icon: 'phone', name: 'workflow', trigger: 'Outbound SMS' }
 }
 
 const blocks = {
@@ -33,10 +33,10 @@ class WorkflowActions extends React.PureComponent {
       <div className="crm-workflow-actions">
         <div className="crm-workflow-action">
           <div className="crm-workflow-action-icon trigger">
-            <i className={`fa fa-${triggers[trigger_type].icon}`} />
+            <i className={`fa fa-${types[trigger_type].icon}`} />
           </div>
           <div className="crm-workflow-action-label">
-            { triggers[trigger_type].text }
+            { types[trigger_type].trigger }
           </div>
         </div>
         <div className="crm-workflow-action-connector" />
@@ -56,7 +56,7 @@ class WorkflowActions extends React.PureComponent {
             <i className="fa fa-check" />
           </div>
           <div className="crm-workflow-action-label">
-            Workflow is complete
+            { types[trigger_type].name } is complete
           </div>
         </div>
       </div>

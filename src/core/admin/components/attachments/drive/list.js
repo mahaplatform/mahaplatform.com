@@ -58,7 +58,7 @@ class List extends React.Component {
     const name = item.label || item.name
     const extension = name.split('.').pop().toLowerCase()
     const extension_allowed = _.includes(extensions, extension)
-    const content_type = item.content_type
+    const content_type = item.content_type || item.asset.content_type
     const content_type_allowed = _.includes(content_types, content_type)
     return !(extension_allowed || content_type_allowed)
   }
