@@ -1,6 +1,6 @@
+import categories from './categories'
 import PropTypes from 'prop-types'
 import React from 'react'
-import categories from './categories'
 
 class Emojis extends React.Component {
 

@@ -28,7 +28,7 @@ class RichText extends React.Component {
       { regex: /</g, replacement: '&lt;' },
       { regex: />/g, replacement: '&gt;' },
       { regex: /"/g, replacement: '&quot;' },
-      { regex: EMAIL_REGEX, replacement: '<a href="mailto:$&">$&</a>' },
+      { regex: /\n/g, replacement: '<br />' },
       { regex: URL_REGEX, replacement: '<a href="$&">$&</a>' },
       { regex: /```\n?([^`]*)```/mg, replacement: '<div class="maha-richtext-code">$1</div>' },
       { regex: /`([^`]+)`/g, replacement: '<span class="maha-richtext-snippet">$1</span>' },
@@ -45,7 +45,7 @@ class RichText extends React.Component {
     const transform = (node, index) => {
       if (node.type === 'tag' && node.name === 'a') {
         const href = node.attribs.href
-        if(!href.startsWith('https://mahaplatform.com') && !href.startsWith('http://localhost')) {
+        if(!href.startsWith(process.env.WEB_HOST)) {
           return <a key={`node_${index}`} href={ href } rel="noopener noreferrer" target="_blank">{ href }</a>
         } else {
           return (

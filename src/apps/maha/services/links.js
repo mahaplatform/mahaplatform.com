@@ -40,7 +40,6 @@ const processOpenGraphUrl = async (req, uri, url, response) => {
 
   if(Object.keys(meta).length > 0) {
     return {
-      service_name: service.get('name'),
       service_id: service.get('id'),
       text: meta.description ? meta.description.substr(0, 255) : '',
       title: meta.title,
@@ -51,7 +50,6 @@ const processOpenGraphUrl = async (req, uri, url, response) => {
   }
 
   return {
-    service_name: service.get('name'),
     service_id: service.get('id'),
     text: $('meta[name=description]').attr('content') || $('meta[name=Description]').attr('content') || '',
     title: $('title').eq(0).text(),
@@ -149,9 +147,7 @@ export const findOrCreateByUrl = async (req, url) => {
 
   const meta = await getMetaData(req, url)
 
-  if(!meta) return null
-
-  if(!meta.title || !meta.text) return null
+  if(!meta || !meta.title) return null
 
   const newlink = await Link.forge({
     url,

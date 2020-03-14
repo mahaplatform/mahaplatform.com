@@ -379,7 +379,7 @@ class Channel extends React.Component {
     }))
     if(urls.length === 0) return
     const url = urls[0]
-    if(url.startsWith('https://mahaplatform.com') || url.startsWith('http://localhost')) return
+    if(url.startsWith(process.env.WEB_HOST)) return
     this._handleFetchLink(url)
   }
 

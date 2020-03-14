@@ -11,7 +11,7 @@ const root = getRoot(process.env.NODE_ENV)
 
 const router = new express.Router({ mergeParams: true })
 
-router.use('/admin/favicon.ico', (req, res) => {
+router.use('/favicon.ico', (req, res) => {
   res.sendFile(path.join(root,'images','maha.png'))
 })
 
