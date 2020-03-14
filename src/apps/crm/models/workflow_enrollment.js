@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import WorkflowAction from './workflow_action'
 import VoiceCampaign from './voice_campaign'
+import Call from '../../maha/models/call'
 import SmsCampaign from './sms_campaign'
 import Workflow from './workflow'
 import Response from './response'
@@ -16,6 +17,10 @@ const WorkflowEnrollment = new Model({
 
   actions() {
     return this.hasMany(WorkflowAction, 'enrollment_id')
+  },
+
+  call() {
+    return this.belongsTo(Call, 'call_id')
   },
 
   contact() {

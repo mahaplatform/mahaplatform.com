@@ -2,9 +2,9 @@ const navigation = async (req, trx) => ({
   items: [
     { label: 'Contacts', route: '/contacts' },
     { label: 'Campaigns', items: [
-      { label: 'Email Campaigns', route: '/campaigns/email' },
-      { label: 'SMS Campaigns', route: '/campaigns/sms' },
-      { label: 'Voice Campaigns', route: '/campaigns/voice' }
+      { label: 'Email', route: '/campaigns/email' },
+      { label: 'Outbound SMS', route: '/campaigns/sms' },
+      { label: 'Outbound Voice', route: '/campaigns/voice' }
     ] },
     { label: 'Emails', route: '/emails' },
     { label: 'Forms', route: '/forms' },

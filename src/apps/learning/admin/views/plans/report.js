@@ -10,7 +10,7 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Employee', key: 'employee.full_name', primary: true },
       { label: 'Supervisor', key: 'supervisor.full_name', primary: true },
       { label: 'Due', key: 'due', format: 'date' },
-      { label: 'Status', key: 'status', collpasing: true, padded: true, format: Status }
+      { label: 'Status', key: 'status', collapsing: true, padded: true, format: Status }
     ],
     filters: [
       { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },

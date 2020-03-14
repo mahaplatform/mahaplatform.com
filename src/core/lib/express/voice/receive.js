@@ -4,7 +4,7 @@ import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
 
-const voiceHooks = collectObjects('hooks/voice/*')
+const hooks = collectObjects('hooks/voice/receive.js')
 
 const receiveRoute = async (req, res) => {
 
@@ -30,7 +30,7 @@ const receiveRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const response = await Promise.reduce(voiceHooks, async (response, hook) => {
+  const response = await Promise.reduce(hooks, async (response, hook) => {
     return await hook.default(req, {
       call,
       phone_number

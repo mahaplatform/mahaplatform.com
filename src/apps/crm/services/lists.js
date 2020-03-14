@@ -40,7 +40,9 @@ export const removeFromLists = async (req, { contact, list_ids }) => {
 
 export const updateLists = async (req, params) => {
 
-  const { contact, list_ids } = params
+  const { contact } = params
+
+  const list_ids = params.list_ids || []
 
   await contact.load('lists', {
     transacting: req.trx

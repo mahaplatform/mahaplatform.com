@@ -3,12 +3,9 @@ import social from './social'
 import postal from './postal'
 import voice from './voice'
 import email from './email'
-import list from './list'
 import sms from './sms'
 
 const router = new Router({ mergeParams: true })
-
-router.get('/', list)
 
 router.use('/email', email)
 

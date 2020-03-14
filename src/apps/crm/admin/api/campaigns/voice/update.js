@@ -1,5 +1,6 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
+import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
 import { updateSteps } from '../../../../services/workflows'
 
@@ -33,6 +34,11 @@ const updateRoute = async (req, res) => {
       steps: req.body.steps
     })
   }
+
+  await socket.refresh(req, [
+    '/admin/crm/campaigns/voice',
+    `/admin/crm/campaigns/voice/${voice_campaign.id}`
+  ])
 
   res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
 

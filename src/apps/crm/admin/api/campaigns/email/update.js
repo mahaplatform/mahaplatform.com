@@ -6,7 +6,7 @@ import EmailCampaign from '../../../../models/email_campaign'
 
 const updateRoute  = async (req, res) => {
 
-  const campaign = await EmailCampaign.query(qb => {
+  const email_campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -14,12 +14,12 @@ const updateRoute  = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!campaign) return res.status(404).respond({
+  if(!email_campaign) return res.status(404).respond({
     code: 404,
     message: 'Unable to load campaign'
   })
 
-  await campaign.save({
+  await email_campaign.save({
     ...whitelist(req.body, ['config','to'])
   }, {
     transacting: req.trx,
@@ -28,15 +28,15 @@ const updateRoute  = async (req, res) => {
 
   await audit(req, {
     story: 'updated',
-    auditable: campaign
+    auditable: email_campaign
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns',
-    `/admin/crm/campaigns/email/${campaign.id}`
+    '/admin/crm/campaigns/email',
+    `/admin/crm/campaigns/email/${email_campaign.id}`
   ])
 
-  res.status(200).respond(campaign, EmailCampaignSerializer)
+  res.status(200).respond(email_campaign, EmailCampaignSerializer)
 
 }
 

@@ -18,8 +18,8 @@ import CampaignsSmsEnrollmentsShow from './campaigns/sms/enrollments/show'
 import CampaignsVoiceList from './campaigns/voice/list'
 import CampaignsVoiceShow from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
-import CampaignsVoiceEnrollmentsList from './campaigns/voice/enrollments/list'
-import CampaignsVoiceEnrollmentsShow from './campaigns/voice/enrollments/show'
+import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
+import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import EmailsActivities from './emails/activities'
@@ -68,8 +68,8 @@ const routes = [
   { path: '/campaigns/voice', component: CampaignsVoiceList },
   { path: '/campaigns/voice/:id', component: CampaignsVoiceShow },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
-  { path: '/campaigns/voice/:campaign_id/enrollments', component: CampaignsVoiceEnrollmentsList },
-  { path: '/campaigns/voice/:campaign_id/enrollments/:id', component: CampaignsVoiceEnrollmentsShow },
+  { path: '/campaigns/voice/:campaign_id/calls', component: CampaignsVoiceCallsList },
+  { path: '/campaigns/voice/:campaign_id/calls/:id', component: CampaignsVoiceCallsShow },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/emails/:email_id/activities', component: EmailsActivities },

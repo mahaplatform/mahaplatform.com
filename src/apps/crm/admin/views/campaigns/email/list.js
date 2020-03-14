@@ -2,6 +2,8 @@ import CompactCampaignToken from '../../../tokens/campaign/compact'
 import NewCampaign from '../../../components/newcampaign'
 import StatusToken from '../../../tokens/status'
 import { Page } from 'maha-admin'
+import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email Campaigns',
@@ -24,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Email Campaigns',
       text: 'You have not yet created any email campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: NewCampaign }
+        { label: 'Create Campaign', modal: <NewCampaign type="email" form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -32,7 +34,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: NewCampaign
+    modal: <NewCampaign type="email" form={ New } />
   } : null
 })
 

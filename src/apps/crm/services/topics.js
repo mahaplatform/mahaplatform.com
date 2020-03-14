@@ -40,7 +40,9 @@ export const removeFromtopics = async (req, { contact, topic_ids }) => {
 
 export const updateTopics = async (req, params) => {
 
-  const { contact, topic_ids } = params
+  const { contact } = params
+
+  const topic_ids = params.topic_ids || []
 
   await contact.load('topics', {
     transacting: req.trx

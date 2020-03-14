@@ -2,9 +2,11 @@ import CompactCampaignToken from '../../../tokens/campaign/compact'
 import NewCampaign from '../../../components/newcampaign'
 import StatusToken from '../../../tokens/status'
 import { Page } from 'maha-admin'
+import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'SMS Campaigns',
+  title: 'Outbound SMS Campaigns',
   rights: [],
   collection: {
     endpoint: '/api/admin/crm/campaigns/sms',
@@ -25,7 +27,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No SMS Campaigns',
       text: 'You have not yet created any SMS campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: NewCampaign }
+        { label: 'Create Campaign', modal: <NewCampaign type="sms" form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -33,7 +35,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: NewCampaign
+    modal: <NewCampaign type="sms" form={ New } />
   } : null
 })
 

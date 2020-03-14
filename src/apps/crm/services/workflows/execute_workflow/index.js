@@ -1,5 +1,6 @@
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
+import socket from '../../../../../core/services/routes/emitter'
 import WorkflowAction from '../../../models/workflow_action'
 import WorkflowStep from '../../../models/workflow_step'
 import sendInternalEmail from './send_internal_email'
@@ -100,6 +101,25 @@ const getNextStep = async (req, params) => {
   })
 }
 
+const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id }) => {
+  if(voice_campaign_id) {
+    await socket.refresh(req, [
+      '/admin/crm/campaigns/voice',
+      `/admin/crm/campaigns/voice/${voice_campaign_id}`
+    ])
+  } else if(sms_campaign_id) {
+    await socket.refresh(req, [
+      '/admin/crm/campaigns/sms',
+      `/admin/crm/campaigns/sms/${sms_campaign_id}`
+    ])
+  } else if(sms_campaign_id) {
+    await socket.refresh(req, [
+      '/admin/crm/workflows',
+      `/admin/crm/workflows/${workflow_id}`
+    ])
+  }
+}
+
 export const executeWorkflow = async (req, { enrollment_id, code }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
@@ -147,6 +167,12 @@ export const executeWorkflow = async (req, { enrollment_id, code }) => {
     parent: condition ? condition.parent : step.get('parent'),
     answer: condition ? condition.answer : step.get('parent'),
     delta: condition ? condition.delta : step.get('delta')
+  })
+
+  await refresh(req, {
+    voice_campaign_id: enrollment.get('voice_campaign_id'),
+    sms_campaign_id: enrollment.get('sms_campaign_id'),
+    workflow_id: enrollment.get('workflow_id')
   })
 
   if(next) {

@@ -44,7 +44,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns'
+    '/admin/crm/campaigns/voice'
   ])
 
   res.status(200).respond(campaign, VoiceCampaignSerializer)

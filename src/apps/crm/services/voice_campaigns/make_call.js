@@ -37,11 +37,17 @@ const makeCall = async (req, params) => {
     transacting: req.trx
   })
 
-  await createCall(req, {
+  const call = await createCall(req, {
     method: 'GET',
     url: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}`,
     from: campaign.related('program').related('phone_number').get('number'),
     to: phone_number.get('number')
+  })
+
+  await enrollment.save({
+    call_id: call.get('id')
+  }, {
+    transacting: req.trx
   })
 
 }

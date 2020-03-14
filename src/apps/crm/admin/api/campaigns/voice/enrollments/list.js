@@ -1,4 +1,4 @@
-import EnrollmentSerializer from '../../../../../serializers/enrollment_serializer'
+import VoiceEnrollmentSerializer from '../../../../../serializers/voice_enrollment_serializer'
 import WorkflowEnrollment from '../../../../../models/workflow_enrollment'
 import VoiceCampaign from '../../../../../models/voice_campaign'
 
@@ -31,11 +31,11 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['contact.photo'],
+    withRelated: ['contact.photo','call'],
     transacting: req.trx
   })
 
-  res.status(200).respond(enrollments, EnrollmentSerializer)
+  res.status(200).respond(enrollments, VoiceEnrollmentSerializer)
 
 }
 

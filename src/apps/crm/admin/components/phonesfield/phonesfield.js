@@ -73,7 +73,7 @@ class Phonesfield extends React.PureComponent {
       { number: null, is_primary: true }
     ]
   }
-  
+
   _getPhoneField(number, index) {
     return {
       defaultValue: number.number,
@@ -105,7 +105,6 @@ class Phonesfield extends React.PureComponent {
     const numbers = this.props.numbers.filter(number => {
       return number.number !== null
     })
-    console.log(numbers)
     this.props.onChange(numbers)
   }
 

@@ -1,7 +1,8 @@
 import SmsCampaignSerializer from '../../../../serializers/sms_campaign_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
-import SmsCampaign from '../../../../models/sms_campaign'
+import socket from '../../../../../../core/services/routes/emitter'
 import { updateSteps } from '../../../../services/workflows'
+import SmsCampaign from '../../../../models/sms_campaign'
 
 const updateRoute = async (req, res) => {
 
@@ -33,6 +34,11 @@ const updateRoute = async (req, res) => {
       steps: req.body.steps
     })
   }
+
+  await socket.refresh(req, [
+    '/admin/crm/campaigns/sms',
+    `/admin/crm/campaigns/sms/${sms_campaign.id}`
+  ])
 
   res.status(200).respond(sms_campaign, SmsCampaignSerializer)
 

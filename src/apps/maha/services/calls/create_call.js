@@ -23,8 +23,8 @@ const createCall = async (req, { from, to, method, url }) => {
 
   await InitiateCallQueue.enqueue(req, {
     call_id: call.get('id'),
-    method: method || 'POST',
-    url: url || `${process.env.TWIML_HOST}/voice`
+    method,
+    url
   })
 
   return call

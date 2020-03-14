@@ -13,7 +13,6 @@ class SMS extends React.PureComponent {
   }
 
   static propTypes = {
-    direction: PropTypes.string,
     program_id: PropTypes.number,
     onBack: PropTypes.func
   }
@@ -31,7 +30,8 @@ class SMS extends React.PureComponent {
   }
 
   _getForm() {
-    const { direction, program_id } = this.props
+    const { program_id } = this.props
+    const { purpose } = this.state
     return {
       title: 'New Interactive SMS',
       method: 'post',
@@ -44,29 +44,24 @@ class SMS extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
-            { name: 'direction', type: 'hidden', defaultValue: direction },
+            { name: 'direction', type: 'hidden', defaultValue: 'outbound' },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            ...this._getDirection()
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
+            { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
           ]
         }
       ]
     }
   }
 
-  _getDirection() {
-    const { direction } = this.props
-    const { purpose } = this.state
-    if(direction === 'inbound') {
-      return [
-        { label: 'Trigger Term', name: 'term', type: 'textfield', placeholder: 'Incoming text message' }
-      ]
-    } else if(direction === 'outbound') {
-      return [
-        { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
-        { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
-      ]
-    }
-  }
+  // _getDirection() {
+  //   const { purpose } = this.state
+  //   if(direction === 'inbound') {
+  //     return [
+  //       { label: 'Trigger Term', name: 'term', type: 'textfield', placeholder: 'Incoming text message' }
+  //     ]
+  //   }
+  // }
 
   _getComment(purpose) {
     if(purpose === 'marketing') {

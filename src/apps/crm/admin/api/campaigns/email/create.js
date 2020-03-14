@@ -27,7 +27,7 @@ const createRoute = async (req, res) => {
     table: 'crm_email_campaigns'
   })
 
-  const campaign = await EmailCampaign.forge({
+  const email_campaign = await EmailCampaign.forge({
     team_id: req.team.get('id'),
     code,
     status: 'draft',
@@ -85,19 +85,19 @@ const createRoute = async (req, res) => {
 
   await audit(req, {
     story: 'created',
-    auditable: campaign
+    auditable: email_campaign
   })
 
   await activity(req, {
     story: 'created {object}',
-    object: campaign
+    object: email_campaign
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns'
+    '/admin/crm/campaigns/email'
   ])
 
-  res.status(200).respond(campaign, EmailCampaignSerializer)
+  res.status(200).respond(email_campaign, EmailCampaignSerializer)
 
 }
 

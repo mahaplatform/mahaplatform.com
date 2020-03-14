@@ -1,4 +1,4 @@
-import client from '../../../../../core/services/twilio'
+import sendSMS from '../../../../maha/services/smses'
 import Contact from '../../../models/contact'
 import ejs from 'ejs'
 
@@ -30,10 +30,10 @@ const sendSms = async (req, params) => {
     return { unenroll: true }
   }
 
-  await client.messages.create({
-    body: message,
+  await sendSMS(req, {
     from: enrollment.related('workflow').related('program').related('phone_number').get('number'),
-    to: contact.get('phone')
+    to: contact.get('phone'),
+    body: message
   })
 
   return {}

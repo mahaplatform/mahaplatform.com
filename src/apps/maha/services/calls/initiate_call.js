@@ -14,14 +14,14 @@ const initiateCall = async (req, { call_id, method, url }) => {
   try {
 
     const result = await twilio.calls.create({
-      statusCallback: `${process.env.TWIML_HOST}/voice/feedback`,
-      statusCallbackEvent: ['initiated','answered','completed'],
+      statusCallback: `${process.env.TWIML_HOST}/voice/status`,
+      statusCallbackEvent: ['initiated','ringing','answered','completed'],
       statusCallbackMethod: 'POST',
       machineDetection: 'DetectMessageEnd',
       from: call.related('from').get('number'),
       to: call.related('to').get('number'),
-      method,
-      url
+      method: method || 'POST',
+      url: url || `${process.env.TWIML_HOST}/voice`
     })
 
     await call.save({
