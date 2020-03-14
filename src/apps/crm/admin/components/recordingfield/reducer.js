@@ -34,6 +34,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       asset: action.result.data
     }
 
+  case 'REMOVE':
+    return {
+      ...state,
+      status: 'pending',
+      asset: null
+    }
+
   case 'SET':
     return {
       ...state,

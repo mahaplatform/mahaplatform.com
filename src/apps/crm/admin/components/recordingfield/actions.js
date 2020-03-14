@@ -17,6 +17,10 @@ export const fetch = (id) => ({
   failure: 'FETCH_FAILURE'
 })
 
+export const remove = () => ({
+  type: 'REMOVE'
+})
+
 export const setStatus = (status) => ({
   type: 'SET_STATUS',
   status
