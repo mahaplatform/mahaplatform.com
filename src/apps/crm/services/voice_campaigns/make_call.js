@@ -31,6 +31,8 @@ const makeCall = async (req, params) => {
     phone_number_id,
     contact_id,
     code,
+    was_answering_machine: false,
+    was_hungup: false,
     was_completed: false,
     was_converted: false
   }).save(null, {

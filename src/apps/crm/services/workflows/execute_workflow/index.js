@@ -14,6 +14,7 @@ import sendEmail from './send_email'
 import sendSms from './send_sms'
 import message from './message'
 import ifthen from './ifthen'
+import hangup from './hangup'
 import moment from 'moment'
 import wait from './wait'
 import goal from './goal'
@@ -120,7 +121,7 @@ const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id })
   }
 }
 
-export const executeWorkflow = async (req, { enrollment_id, code }) => {
+export const executeWorkflow = async (req, { enrollment_id, code, execute }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -135,10 +136,12 @@ export const executeWorkflow = async (req, { enrollment_id, code }) => {
     code
   })
 
-  const result = await executeStep(req, {
+  const result = (execute !== false) ? await executeStep(req, {
     step,
     enrollment
-  })
+  }) : {}
+
+  if(result.twiml) return result
 
   const { condition, until, unenroll } = result
 
@@ -149,8 +152,6 @@ export const executeWorkflow = async (req, { enrollment_id, code }) => {
   }).save(null, {
     transacting: req.trx
   })
-
-  if(result.twiml) return result
 
   if(unenroll) {
     return await enrollment.save({
@@ -175,6 +176,13 @@ export const executeWorkflow = async (req, { enrollment_id, code }) => {
     workflow_id: enrollment.get('workflow_id')
   })
 
+  if(next && enrollment.get('voice_campaign_id')) {
+    return executeWorkflow(req, {
+      enrollment_id: enrollment.get('id'),
+      code: next.get('code')
+    })
+  }
+
   if(next) {
     return await executeWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
@@ -190,5 +198,9 @@ export const executeWorkflow = async (req, { enrollment_id, code }) => {
     transacting: req.trx,
     patch: true
   })
+
+  if(enrollment.get('voice_campaign_id')) {
+    return hangup()
+  }
 
 }
