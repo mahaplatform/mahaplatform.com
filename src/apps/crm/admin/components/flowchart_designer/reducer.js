@@ -14,11 +14,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'NEW_STEP':
     return {
       ...state,
-      step: {
-        answer: action.answer,
-        delta: action.delta,
-        parent: action.parent
-      }
+      step: action.step
     }
 
   case 'ADD':

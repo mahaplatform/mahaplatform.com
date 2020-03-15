@@ -11,29 +11,6 @@
   overflow: hidden;
   transform: translateX(-50%);
 }
-.flowchart-box-add {
-  border-radius: 50%;
-  background-color: lighten(@black, 70);
-  display: flex;
-  width: 15px;
-  height: 15px;
-  line-height: 15px;
-  position: absolute;
-  left: 50%;
-  top: 1.5em;
-  transform: translate(~"calc(-50% + 1px)", -50%);
-  text-align: center;
-  cursor: pointer;
-  z-index: 2;
-  &:hover {
-    background-color: lighten(@black, 60);
-  }
-  .fa {
-    color: @white;
-    font-size: 8px;
-    margin: auto;
-  }
-}
 .flowchart-box-padding {
   padding: 0 0.4em;
   margin: 0 auto;
@@ -250,7 +227,6 @@
   min-height: 2.2em;
 }
 .flowchart-segment {
-  padding-top: 3.8em;
   position: relative;
   min-height: 40px;
   display: flex;
@@ -290,4 +266,35 @@
   z-index: 100;
   left: 0;
   top: 0;
+}
+.flowchart-box-add-target {
+  margin: auto;
+  padding: 1em 0 2em;
+  width: 175px;
+  height: 4em;
+  z-index: 2;
+  &.hovering {
+    .flowchart-box-add {
+      display: block;
+    }
+  }
+}
+.flowchart-box-add {
+  display: none;
+  cursor: pointer;
+  top: 1.9em;
+  border-radius: 0.3em;
+  border: 2px solid transparent;
+  font-weight: bold;
+  color: fadeout(@black, 40);
+  padding: 0 0.2em;
+  text-align: center;
+  width: 175px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  background-color: lighten(@black, 95);
+  border-color: fadeout(@black, 80);
+  &:after {
+    content: 'DROP HERE';
+  }
 }

@@ -28,11 +28,9 @@ export const hover = (hovering) => ({
   hovering
 })
 
-export const newStep = (answer, delta, parent) => ({
+export const newStep = (step) => ({
   type: 'NEW_STEP',
-  answer,
-  delta,
-  parent
+  step
 })
 
 export const remove = (step) => ({

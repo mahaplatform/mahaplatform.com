@@ -22,6 +22,7 @@ class Sidebar extends React.PureComponent {
     tokens: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onNew: PropTypes.func,
     onSave: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -31,6 +32,7 @@ class Sidebar extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handlePop = this._handlePop.bind(this)
@@ -88,16 +90,18 @@ class Sidebar extends React.PureComponent {
   }
 
   _getNew() {
-    const { blocks, cid, fields, program, properties, step } = this.props
+    const { cid, blocks, fields, program, properties, step } = this.props
+    const { type, action } = step
+    const block = _.find(blocks, { type, action })
     return {
-      blocks,
+      block,
       cid,
       fields,
       program,
       properties,
       step,
       onAdd: this._handleAdd,
-      onCancel: this._handlePop,
+      onCancel: this._handleCancel,
       onTokens: this._handleTokens,
       onDone: this._handleAdd
     }
@@ -121,6 +125,11 @@ class Sidebar extends React.PureComponent {
 
   _handleAdd(type, action, parent, answer, delta, config) {
     this.props.onAdd(type, action, parent, answer, delta, config)
+    this._handlePop()
+  }
+
+  _handleCancel() {
+    this.props.onNew(null)
     this._handlePop()
   }
 

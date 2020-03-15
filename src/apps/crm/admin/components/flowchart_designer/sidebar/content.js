@@ -1,6 +1,7 @@
 import { ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Types from './types'
 import React from 'react'
 
 class Content extends React.Component {
@@ -19,8 +20,7 @@ class Content extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel()}>
-        <div className="flowchart-designer-blocks">
-        </div>
+        <Types { ...this._getTypes() } />
       </ModalPanel>
     )
   }
@@ -37,6 +37,15 @@ class Content extends React.Component {
           handler: this._handleSave
         }
       ]
+    }
+  }
+
+  _getTypes() {
+    const { blocks } = this.props
+    return {
+      blocks,
+      onCancel: () => {},
+      onChoose: () => {}
     }
   }
 

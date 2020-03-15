@@ -100,6 +100,7 @@ class FlowchartDesigner extends React.PureComponent {
       tokens,
       onAdd: this._handleAdd,
       onEdit,
+      onNew: this._handleNew,
       onSave: this._handleSave,
       onUpdate
     }

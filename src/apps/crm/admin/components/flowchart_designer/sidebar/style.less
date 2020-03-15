@@ -37,3 +37,32 @@
   font-size: 0.8em;
   font-weight: bold;
 }
+.flowchart-designer-block-draglayer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border: 2px solid fadeout(@black, 80);
+  border-radius: 50%;
+  color: @white;
+  display: flex;
+  width: 2em;
+  height: 2em;
+  z-index: -1;
+  border-radius: 50%;
+  text-align: center;
+  .fa {
+    margin: auto;
+  }
+  .fa-phone {
+    transform: rotate(135deg);
+  }
+  .fa-volume-control-phone {
+    transform: rotate(-45deg);
+  }
+  .fa-comment {
+    font-size: 0.8em;
+  }
+  .fa-clock-o {
+    font-size: 1.2em;
+  }
+}
