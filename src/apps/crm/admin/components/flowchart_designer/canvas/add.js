@@ -72,7 +72,7 @@ class Add extends React.Component {
       this.setState({
         hovering: false
       })
-    }, 500)
+    }, 300)
   }
 
   _handleDragOver(e) {

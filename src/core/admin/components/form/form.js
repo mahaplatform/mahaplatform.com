@@ -208,7 +208,7 @@ class Form extends React.Component {
     const { action, filtered, method, onSetStatus, onSubmit, onSubmitForm } = this.props
     if(action) return onSubmitForm(method, action, filtered)
     if(onSubmit) {
-      if(onSubmit(filtered)) return onSetStatus('success')
+      if(onSubmit(filtered) !== false) return onSetStatus('success')
       return onSetStatus('failure')
     }
     return onSetStatus('success')

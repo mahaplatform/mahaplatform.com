@@ -65,13 +65,13 @@ class Box extends React.PureComponent {
               </div>
             }
           </div>
-          { action === 'ifthen' && branches.length > 0 &&
+          { branches && branches.length > 0 &&
             <div className="flowchart-branches">
               { branches.map((branch, index) => (
                 <div className="flowchart-branch" key={`options_${index}`}>
                   <div className="flowchart-branch-label">
-                    <div className="flowchart-branch-label-box" title={ branch.name }>
-                      { branch.name }
+                    <div className="flowchart-branch-label-box" title={ branch.label }>
+                      { branch.label }
                     </div>
                   </div>
                   <Trunk { ...this._getTrunk(branch) } />

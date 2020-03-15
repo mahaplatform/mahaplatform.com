@@ -1,0 +1,38 @@
+.crm-valuesfield-options {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  .crm-valuesfield-option:last-child {
+    border-bottom: none;
+  }
+}
+.crm-valuesfield-option {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.crm-valuesfield-option-label {
+  border-right: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  flex: 1;
+}
+.crm-valuesfield-option-input {
+  border-right: 1px solid fadeout(@black, 90);
+  flex: 1;
+  input {
+    line-height: 1;
+    padding: 0.8em;
+    border: none !important;
+    outline: none !important;
+  }
+}
+.crm-valuesfield-option-icon {
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Values extends React.Component {
+class ValuesField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
@@ -28,22 +28,22 @@ class Values extends React.Component {
   render() {
     const { options } = this.state
     return (
-      <div className="conditional-options">
+      <div className="crm-valuesfield-options">
         { options.map((option, index) => (
-          <div className="conditional-option" key={`option_${index}`}>
-            <div className="conditional-option-input">
+          <div className="crm-valuesfield-option" key={`option_${index}`}>
+            <div className="crm-valuesfield-option-input">
               <input { ...this._getOption(option, index) } />
             </div>
-            <div className="conditional-option-icon" onClick={ this._handleRemove.bind(this, index) }>
+            <div className="crm-valuesfield-option-icon" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-remove" />
             </div>
           </div>
         ))}
-        <div className="conditional-option">
-          <div className="conditional-option-input">
+        <div className="crm-valuesfield-option">
+          <div className="crm-valuesfield-option-input">
             <input { ...this._getInput() } />
           </div>
-          <div className="conditional-option-icon" onClick={ this._handleAdd }>
+          <div className="crm-valuesfield-option-icon" onClick={ this._handleAdd }>
             <i className="fa fa-plus" />
           </div>
         </div>
@@ -147,4 +147,4 @@ class Values extends React.Component {
 
 }
 
-export default Values
+export default ValuesField

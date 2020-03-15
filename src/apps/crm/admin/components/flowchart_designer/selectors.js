@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import _ from 'lodash'
 
 const steps = (state, props) => [
   { parent: null, answer: null, type: 'trigger', action: null },
@@ -11,19 +12,20 @@ const segment = (steps, parent, answer) => {
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   }).map(step => {
-    if(step.action === 'ifthen') {
+    if(_.includes(['ifthen','question'], step.action)) {
       return {
         ...step,
         branches: [
           ...step.config.branches.map(branch => ({
             ...branch,
+            label: branch.name || branch.text,
             then: segment(steps, step.code, branch.code)
           })),
-          {
+          ...step.action === 'ifthen' ? [{
             code: 'else',
-            name: 'else',
+            label: 'else',
             then: segment(steps, step.code, 'else')
-          }
+          }] : []
         ]
       }
     } else {
