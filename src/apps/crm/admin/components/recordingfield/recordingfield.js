@@ -1,7 +1,8 @@
-import { AssetViewer, Button } from 'maha-admin'
+import { AssetViewer, Attachments, Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Chooser from './chooser'
+import Record from './record'
 import React from 'react'
+import _ from 'lodash'
 
 class Recordingfield extends React.PureComponent {
 
@@ -66,30 +67,46 @@ class Recordingfield extends React.PureComponent {
 
   _getChooseButton() {
     return {
-      label: 'Choose file',
+      label: 'Choose recording',
       className: 'ui button',
       handler: this._handleChoose
     }
   }
 
   _getRemoveButton() {
-    const { onRemove } = this.props
     return {
-      label: 'choose another file',
+      label: 'Choose another recording',
       className: 'link',
-      handler: onRemove
+      handler: this._handleChoose
     }
   }
 
-  _getChooser() {
+  _getAttachments() {
+    return {
+      allow: {
+        types: ['files'],
+        content_types: ['mpeg','mp3','wav','wave','x-wav','aiff','x-aifc','x-aiff','x-gsm','gsm','ulaw'].map(type => {
+          return `audio/${type}`
+        })
+      },
+      cancelText: <i className="fa fa-chevron-left" />,
+      custom: [
+        { icon: 'phone', service: 'phone', label: 'Phone Call', component: Record, props: this._getRecord() }
+      ],
+      multiple: false,
+      title: 'Choose Audio Source',
+      onCancel: this._handleCancel,
+      onDone: this._handleDone
+    }
+  }
+
+  _getRecord() {
     const { cid, onCall, onRecord, onSetStatus, onUpdateNumber } = this.props
     return {
       cid,
       onCall,
-      onCancel: this._handleCancel,
       onRecord,
       onSetStatus,
-      onDone: this._handleDone,
       onUpdateNumber
     }
   }
@@ -104,10 +121,11 @@ class Recordingfield extends React.PureComponent {
   }
 
   _handleChoose() {
-    this.context.form.push(<Chooser { ...this._getChooser() } />)
+    this.context.form.push(<Attachments { ...this._getAttachments() } />)
   }
 
-  _handleDone(asset) {
+  _handleDone(assets) {
+    const asset = _.castArray(assets)[0]
     this.context.form.pop()
     this.props.onSet(asset)
   }

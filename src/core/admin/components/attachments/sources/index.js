@@ -15,6 +15,7 @@ class Sources extends React.Component {
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
+    title: PropTypes.string,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onCancel: PropTypes.func,
@@ -38,11 +39,14 @@ class Sources extends React.Component {
             <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
               <div className="maha-attachments-source-logo">
                 <div className={`maha-attachments-source-favicon ${source.service}`}>
-                  <img src={ `/admin/images/services/${source.service}.png` } />
+                  { source.icon ?
+                    <i className={`fa fa-${source.icon}`} /> :
+                    <img src={ `/admin/images/services/${source.service}.png` } />
+                  }
                 </div>
               </div>
               <div className="maha-attachments-source-text">
-                { source.username || source.service }
+                { source.label || source.username || source.service }
               </div>
               { counts[source.id] &&
                 <div className="maha-attachments-source-count">
@@ -84,9 +88,9 @@ class Sources extends React.Component {
   }
 
   _getPanel() {
-    const { cancelText, files } = this.props
+    const { cancelText, files, title } = this.props
     return {
-      title: 'Choose File Source',
+      title: title || 'Choose File Source',
       leftItems: [
         { label: cancelText, handler: this._handleCancel }
       ],
@@ -120,6 +124,7 @@ class Sources extends React.Component {
       doneText,
       multiple,
       source,
+      ...source.props || {},
       onAdd,
       onBack,
       onNext,

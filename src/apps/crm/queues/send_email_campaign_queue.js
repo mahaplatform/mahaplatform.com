@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const SendEmailCampaignQueue = new Queue({
+  attempts: 1,
   name: 'send_email_campaign',
   processor
 })

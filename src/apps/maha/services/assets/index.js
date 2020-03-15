@@ -227,16 +227,22 @@ const _saveAsset = async (req, asset, params) => {
 const _saveFiledata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  await ProcessAssetQueue.enqueue(req, {
-    id: asset.get('id')
-  })
+  if(asset.get('has_preview')) {
+    await ProcessAssetQueue.enqueue(req, {
+      id: asset.get('id')
+    })
+  } else {
+    await _saveAsset(req, asset, {
+      status: 'processed'
+    })
+  }
   await ScanAssetQueue.enqueue(req, {
     id: asset.get('id')
   })
 }
 
 const _processAsset = async (req, data, asset) => {
-  if(asset.get('file_name').substr(0,2) !== '._' && asset.get('extension').match(/(pdf|xls|xlsx|doc|docx|ppt|pptx|eml|htm|html|rtf|txt)$/) !== null) {
+  if(asset.get('file_name').substr(0,2) !== '._' && asset.get('has_preview')) {
     const previewData = await _getPreviewData(asset, data, 'jpg')
     await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
   }

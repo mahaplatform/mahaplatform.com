@@ -11,9 +11,15 @@ const processor = async (req, job) => {
 
 }
 
+const refresh = async (req, job) => [
+  '/admin/crm/campaigns/sms',
+  `/admin/crm/campaigns/sms/${job.data.sms_campaign_id}`
+]
+
 const TriggerSMSEnrollmentQueue = new Queue({
   name: 'trigger_sms_enrollment',
-  processor
+  processor,
+  refresh
 })
 
 export default TriggerSMSEnrollmentQueue

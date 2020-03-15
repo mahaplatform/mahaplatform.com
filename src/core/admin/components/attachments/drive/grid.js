@@ -82,10 +82,7 @@ class Grid extends React.Component {
   _handleChooseAsset(asset) {
     const { files, onAdd, onRemove } = this.props
     const index = _.findIndex(files, { id: asset.id, service: 'maha' })
-    if(index < 0) return onAdd({
-      ...asset,
-      status: 'imported'
-    })
+    if(index < 0) return onAdd(asset)
     onRemove(asset)
   }
 

@@ -21,6 +21,7 @@ class Attachments extends React.Component {
     assets: PropTypes.array,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
+    custom: PropTypes.array,
     doneText: PropTypes.any,
     files: PropTypes.array,
     multiple: PropTypes.bool,
@@ -29,6 +30,7 @@ class Attachments extends React.Component {
     retry: PropTypes.bool,
     sources: PropTypes.array,
     status: PropTypes.string,
+    title: PropTypes.string,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onChooseAssets: PropTypes.func,
@@ -90,12 +92,14 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { allow, cancelText, doneText, multiple, onToggleView } = this.props
+    const { allow, cancelText, custom, doneText, multiple, title, onToggleView } = this.props
     return {
       allow,
       cancelText,
+      custom,
       doneText,
       multiple,
+      title,
       onAdd: this._handleAdd,
       onCancel: this._handleCancel,
       onNext: this._handleImporting,

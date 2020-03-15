@@ -21,10 +21,12 @@ class Explorer extends React.Component {
     allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
+    custom: PropTypes.array,
     doneText: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
+    title: PropTypes.string,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onNext: PropTypes.func,
@@ -92,11 +94,12 @@ class Explorer extends React.Component {
   }
 
   _getServices() {
-    const { allow, sources } = this.props
+    const { allow, custom, sources } = this.props
     return [
       { service: 'device', username: 'Your Device', component: Device, id: 'device' },
       { service: 'web', username: 'The Web', component: Web, id: 'web' },
       { service: 'maha', username: 'Maha Drive', component: Drive, id: 'maha' },
+      ...custom ? custom : [],
       ...sources.map(source => ({
         ...source,
         component: this._getSourceComponent(source.service)
@@ -109,7 +112,7 @@ class Explorer extends React.Component {
   }
 
   _getSources() {
-    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onRemove, onToggleView } = this.props
+    const { allow, counts, cancelText, doneText, multiple, title, onAdd, onCancel, onRemove, onToggleView } = this.props
     return {
       allow,
       counts,
@@ -117,6 +120,7 @@ class Explorer extends React.Component {
       doneText,
       multiple,
       sources: this._getServices(),
+      title,
       onAdd,
       onBack: this._handlePop,
       onCancel,

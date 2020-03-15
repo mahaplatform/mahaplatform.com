@@ -1,4 +1,5 @@
 import { beginLogger, endLogger, printQueueLogger } from '../utils/logger'
+import socket from '..//services/routes/emitter'
 import Team from '../../apps/maha/models/team'
 import knex from '../services/knex'
 import redis from 'ioredis'
@@ -7,6 +8,7 @@ import Bull from 'bull'
 import _ from 'lodash'
 
 const defaults = {
+  attempts: 3,
   enqueue: async (req, job) => job,
   failed: async (job, err) => {}
 }
@@ -15,15 +17,17 @@ class Queue {
 
   constructor(options) {
     this._enqueue = options.enqueue || defaults.enqueue
+    this.attempts = options.attempts || defaults.attempts
     this.name = options.name
     this.processor = options.processor
+    this.refresh = options.refresh
     this.failed = options.failed || defaults.failed
     this.completed = options.completed
     this.queue = new Bull(this.name, { createClient })
   }
 
   async start(options) {
-    if(this.processor) this.queue.process(wrapped(this.name, this.processor))
+    if(this.processor) this.queue.process(wrapped(this.name, this.processor, this.refresh))
     if(this.failed) this.fail(this.queue.on('failed', this.failed))
     if(this.completed) this.queue.on('completed', this.completed)
   }
@@ -38,7 +42,7 @@ class Queue {
           team_id: req.team ? req.team.get('id') : null
         }, {
           delay: options.until ? options.until.diff(moment()) : 2000,
-          attempts: 3,
+          attempts: this.attempts,
           backoff: 5000
         })
         resolve(result)
@@ -63,8 +67,8 @@ class Queue {
 
 }
 
-const wrapped = (name, processor) => async (job, done) => {
-  const processorWithTransaction = withTransaction(processor, job)
+const wrapped = (name, processor, refresh) => async (job, done) => {
+  const processorWithTransaction = withTransaction(processor, refresh, job)
   const processorWithLogger = withLogger(name, processorWithTransaction, job)
   const is_prod = process.env.NODE_ENV === 'production'
   const envProcessor = !is_prod ? processorWithLogger : processorWithTransaction
@@ -85,7 +89,7 @@ const withLogger = (name, processor, job) => async () => {
   endLogger(requestId)
 }
 
-const withTransaction = (processor, job) => async () => {
+const withTransaction = (processor, refresh, job) => async () => {
   await knex.transaction(async trx => {
     try {
       const team = job.data.team_id ? await Team.query(qb => {
@@ -94,8 +98,13 @@ const withTransaction = (processor, job) => async () => {
         withRelated: ['logo'],
         transacting: trx
       }) : null
-      await processor({ team, trx }, job)
+      const req = { team, trx }
+      await processor(req, job)
       await trx.commit()
+      if(refresh) {
+        const channels = await refresh(req, job)
+        await socket.refresh(req, channels)
+      }
     } catch(err) {
       await trx.rollback(err)
     }

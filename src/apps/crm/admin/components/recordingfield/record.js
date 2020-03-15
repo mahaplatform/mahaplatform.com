@@ -15,9 +15,9 @@ class Record extends React.PureComponent {
     number: PropTypes.string,
     status: PropTypes.string,
     user: PropTypes.object,
+    onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onCall: PropTypes.func,
-    onDone: PropTypes.func,
     onRecord: PropTypes.func,
     onSetStatus: PropTypes.func,
     onUpdateNumber: PropTypes.func
@@ -35,6 +35,8 @@ class Record extends React.PureComponent {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="crm-recordingfield-panel">
+          <p>We can call you and record your message over the phone. Just
+          enter your number below to initiate the call.</p>
           { status === 'pending' &&
             <div className="crm-recordingfield-field">
               <div className="crm-recordingfield-field-phone">
@@ -106,7 +108,16 @@ class Record extends React.PureComponent {
 
   _handleAsset(asset) {
     this._handleLeaveAsset(asset)
-    this.props.onDone(asset)
+    this.props.onAdd({
+      id: asset.id,
+      name: asset.original_file_name,
+      service: 'record',
+      content_type: asset.content_type,
+      asset,
+      thumbnail: asset.signed_url,
+      status: 'imported'
+    })
+    this.props.onSetStatus('pending')
   }
 
   _handleBack() {

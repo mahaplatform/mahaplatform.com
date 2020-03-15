@@ -30,21 +30,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_SUCCESS':
     return {
       ...state,
-      status: 'success',
-      asset: action.result.data
-    }
-
-  case 'REMOVE':
-    return {
-      ...state,
       status: 'pending',
-      asset: null
+      asset: action.result.data
     }
 
   case 'SET':
     return {
       ...state,
-      status: 'success',
+      status: 'pending',
       asset: action.asset
     }
 

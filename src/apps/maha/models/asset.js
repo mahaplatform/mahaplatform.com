@@ -28,7 +28,9 @@ const Assets = new Model({
       const is_openoffice = this.get('content_type').match(/officedocument/) !== null
       const is_email = this.get('content_type').match(/rfc822/) !== null
       const is_html = this.get('content_type').match(/html/) !== null
-      return is_pdf || is_doc || is_xls || is_email || is_openoffice || is_html
+      const is_rtf = this.get('content_type').match(/rtf/) !== null
+      const is_txt = this.get('content_type').match(/text/) !== null
+      return is_pdf || is_doc || is_xls || is_email || is_openoffice || is_html || is_rtf || is_txt
     },
 
     key: function() {

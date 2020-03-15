@@ -1,5 +1,4 @@
 import TriggerVoiceEnrollmentQueue from '../../queues/trigger_voice_enrollment_queue'
-import socket from '../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../models/voice_campaign'
 import { getRecipients } from '../recipients'
 import moment from 'moment'
@@ -35,9 +34,6 @@ const scheduleCalls = async (req, { voice_campaign_id }) => {
     })
   })
 
-  await socket.refresh(req, [
-    `/admin/crm/campaigns/voice/${voice_campaign.get('id')}`
-  ])
 }
 
 export default scheduleCalls

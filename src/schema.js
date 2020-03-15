@@ -2324,14 +2324,14 @@ const schema = {
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
+      table.foreign('call_id').references('maha_calls.id')
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('response_id').references('crm_responses.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
-      table.foreign('call_id').references('maha_calls.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {
