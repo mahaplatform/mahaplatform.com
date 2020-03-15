@@ -22,6 +22,7 @@ export const saveFile = async (filedata, filepath, content_type) => {
     Body: filedata,
     Bucket: process.env.AWS_BUCKET,
     ContentType: content_type,
+    CacheControl: 'max-age=86400',
     Key: filepath
   }).promise()
 }

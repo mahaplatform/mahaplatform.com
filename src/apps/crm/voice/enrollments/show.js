@@ -15,6 +15,14 @@ const showRoute = async (req, res) => {
     message: 'Unable to load enrollment'
   })
 
+  if(req.query.AnsweredBy === 'machine_end_beep') {
+    await enrollment.save({
+      was_answering_machine: true
+    },{
+      transacting: req.trx
+    })
+  }
+
   req.team = enrollment.related('team')
 
   const result = await executeWorkflow(req, {

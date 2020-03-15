@@ -23,7 +23,6 @@ class Record extends React.PureComponent {
     onUpdateNumber: PropTypes.func
   }
 
-  _handleAsset = this._handleAsset.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleCall = this._handleCall.bind(this)
   _handleCreated = this._handleCreated.bind(this)
@@ -62,11 +61,6 @@ class Record extends React.PureComponent {
               Reviewing...
             </div>
           }
-          { status === 'processing' &&
-            <div className="crm-recordingfield-status processing">
-              Processing...
-            </div>
-          }
         </div>
       </ModalPanel>
     )
@@ -75,7 +69,7 @@ class Record extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { code } = this.props
     if(code !== prevProps.code && code) {
-      this._handleJoinRecording()
+      this._handleJoin()
     }
   }
 
@@ -106,8 +100,18 @@ class Record extends React.PureComponent {
     }
   }
 
-  _handleAsset(asset) {
-    this._handleLeaveAsset(asset)
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleCall() {
+    const { number } = this.props
+    const code = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
+    this.props.onCall(code, number)
+  }
+
+  _handleCreated(asset) {
+    this._handleLeave()
     this.props.onAdd({
       id: asset.id,
       name: asset.original_file_name,
@@ -120,32 +124,7 @@ class Record extends React.PureComponent {
     this.props.onSetStatus('pending')
   }
 
-  _handleBack() {
-    this.props.onBack()
-  }
-
-  _handleCall() {
-    const { number } = this.props
-    const code = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
-    this.props.onCall(code, number)
-  }
-
-  _handleCreated(asset) {
-    this.props.onSetStatus('processing')
-    this._handleLeaveRecording()
-    this._handleJoinAsset(asset)
-  }
-
-  _handleJoinAsset(asset) {
-    const { network } = this.context
-    const channel = `/admin/assets/${asset.id}`
-    network.join(channel)
-    network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleAsset }
-    ])
-  }
-
-  _handleJoinRecording() {
+  _handleJoin() {
     const { network } = this.context
     const { code } = this.props
     const channel = `/admin/crm/recordings/${code}`
@@ -156,16 +135,7 @@ class Record extends React.PureComponent {
     ])
   }
 
-  _handleLeaveAsset(asset) {
-    const { network } = this.context
-    const channel = `/admin/assets/${asset.id}`
-    network.join(channel)
-    network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleAsset }
-    ])
-  }
-
-  _handleLeaveRecording() {
+  _handleLeave() {
     const { network } = this.context
     const { code } = this.props
     const channel = `/admin/crm/recordings/${code}`
