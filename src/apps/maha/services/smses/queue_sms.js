@@ -2,10 +2,10 @@ import twilio from '../../../../core/services/twilio'
 import SMS from '../../models/sms'
 import moment from 'moment'
 
-const queueSMS = async (req, { id }) => {
+const queueSMS = async (req, { sms_id }) => {
 
   const sms = await SMS.query(qb => {
-    qb.where('id', id)
+    qb.where('id', sms_id)
   }).fetch({
     withRelated: ['to','from','attachments.asset'],
     transacting: req.trx
@@ -21,7 +21,7 @@ const queueSMS = async (req, { id }) => {
         return attachment.related('asset').get('signed_url')
       }),
       StatusCallbackMethod: 'POST',
-      statusCallback: `${process.env.TWIML_HOST}/sms/feedback`
+      statusCallback: `${process.env.TWIML_HOST}/sms/status?sms_campaign_id=1`
     })
 
     await sms.save({

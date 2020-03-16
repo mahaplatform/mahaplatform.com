@@ -12,24 +12,20 @@ const segment = (steps, parent, answer) => {
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   }).map(step => {
-    if(_.includes(['ifthen','question'], step.action)) {
-      return {
-        ...step,
-        branches: [
-          ...step.config.branches.map(branch => ({
-            ...branch,
-            label: branch.name || branch.text,
-            then: segment(steps, step.code, branch.code)
-          })),
-          ...step.action === 'ifthen' ? [{
-            code: 'else',
-            label: 'else',
-            then: segment(steps, step.code, 'else')
-          }] : []
-        ]
-      }
-    } else {
-      return step
+    return {
+      ...step,
+      branches: step.config && step.config.branches ? [
+        ...step.config.branches.map(branch => ({
+          ...branch,
+          label: branch.name || branch.text,
+          then: segment(steps, step.code, branch.code)
+        })),
+        {
+          code: 'else',
+          label: 'else',
+          then: segment(steps, step.code, 'else')
+        }
+      ] : null
     }
   })
   return result

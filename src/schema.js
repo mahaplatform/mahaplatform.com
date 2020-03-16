@@ -569,6 +569,7 @@ const schema = {
       table.integer('step_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {

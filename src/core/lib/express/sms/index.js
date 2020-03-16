@@ -6,6 +6,7 @@ import feedback from './feedback'
 import { Router } from 'express'
 import receive from './receive'
 import logger from '../logger'
+import status from './status'
 
 const smsFiles = collectObjects('sms/*')
 
@@ -28,6 +29,8 @@ smsFiles.map(middleware => {
 router.post('/feedback', feedback)
 
 router.post('/delivered', delivered)
+
+router.post('/status', status)
 
 router.post('/', receive)
 

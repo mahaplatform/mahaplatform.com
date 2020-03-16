@@ -74,7 +74,7 @@ class Question extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'say') {
       return [
-        { label: 'Voice', name: 'voice', type: 'lookup', required: true, options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
+        { label: 'Voice', name: 'voice', type: 'dropdown', required: true, options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
         { label: 'Message', name: 'message', type: 'textarea', required: true, defaultValue: config.message }
       ]
     }

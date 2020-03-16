@@ -2,9 +2,11 @@ import Queue from '../../../core/objects/queue'
 import { queueSMS } from '../services/smses'
 
 const processor = async (req, job) => {
+
   await queueSMS(req, {
-    id: job.data.id
+    sms_id: job.data.sms_id
   })
+
 }
 
 const SendSMSQueue = new Queue({

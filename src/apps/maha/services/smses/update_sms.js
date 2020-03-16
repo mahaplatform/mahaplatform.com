@@ -1,6 +1,6 @@
 import SMS from '../../models/sms'
 
-export const updateSMS = async (req, { num_media, price, sid, status }) => {
+const updateSMS = async (req, { num_media, price, sid, status }) => {
 
   const sms = await SMS.query(qb => {
     qb.where('sid', sid)
@@ -18,3 +18,5 @@ export const updateSMS = async (req, { num_media, price, sid, status }) => {
   })
 
 }
+
+export default updateSMS

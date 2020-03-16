@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import next from './next'
+import status from './status'
 
-describe('src/apps/crm/voice/enrollments/next.js', () => {
+describe('src/core/lib/express/sms/status.js', () => {
 
 })

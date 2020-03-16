@@ -8,7 +8,9 @@ import enrollInWorkflow from './enroll_in_workflow'
 import sendInternalSms from './send_internal_sms'
 import updateInterests from './update_interests'
 import updateProperty from './update_property'
+import voiceQuestion from './voice_question'
 import updateConsent from './update_consent'
+import smsQuestion from './sms_question'
 import updateLists from './update_lists'
 import sendEmail from './send_email'
 import sendSms from './send_sms'
@@ -19,6 +21,7 @@ import moment from 'moment'
 import wait from './wait'
 import goal from './goal'
 import play from './play'
+import say from './say'
 
 const getExecutor = (type, action) => {
   if(type === 'administrative' && action === 'email') return sendInternalEmail
@@ -34,16 +37,23 @@ const getExecutor = (type, action) => {
   if(type === 'contact' && action === 'consent') return updateConsent
   if(type === 'contact' && action === 'lists') return updateLists
   if(type === 'voice' && action === 'play') return play
+  if(type === 'voice' && action === 'say') return say
+  if(type === 'voice' && action === 'question') return voiceQuestion
   if(type === 'sms' && action === 'message') return message
+  if(type === 'sms' && action === 'question') return smsQuestion
 }
 
-const executeStep = async (req, { enrollment, step }) => {
+const executeStep = async (req, { enrollment, step, digits }) => {
+
   const executor = getExecutor(step.get('type'), step.get('action'))
+
   return await executor(req, {
     config: step.get('config'),
     enrollment,
-    step
+    step,
+    digits
   })
+
 }
 
 const getCurrentStep = async (req, params) => {
@@ -69,7 +79,9 @@ const getCurrentStep = async (req, params) => {
 }
 
 const getNextStep = async (req, params) => {
+
   const { voice_campaign_id, sms_campaign_id, workflow_id, parent, answer, delta } = params
+
   const nextStep = await WorkflowStep.query(qb => {
     if(voice_campaign_id) qb.where({ voice_campaign_id })
     if(sms_campaign_id) qb.where({ sms_campaign_id })
@@ -81,7 +93,9 @@ const getNextStep = async (req, params) => {
   }).fetch({
     transacting: req.trx
   })
+
   if(nextStep) return nextStep
+
   const parentStep = await WorkflowStep.query(qb => {
     if(voice_campaign_id) qb.where({ voice_campaign_id })
     if(sms_campaign_id) qb.where({ sms_campaign_id })
@@ -91,7 +105,9 @@ const getNextStep = async (req, params) => {
   }).fetch({
     transacting: req.trx
   })
+
   if(!parentStep) return null
+
   return await getNextStep(req, {
     voice_campaign_id,
     sms_campaign_id,
@@ -100,6 +116,7 @@ const getNextStep = async (req, params) => {
     answer: parentStep.get('answer'),
     delta: parentStep.get('delta')
   })
+
 }
 
 const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id }) => {
@@ -121,7 +138,7 @@ const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id })
   }
 }
 
-export const executeWorkflow = async (req, { enrollment_id, code, execute }) => {
+export const executeWorkflow = async (req, { enrollment_id, code, digits, execute }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -138,17 +155,19 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute }) => 
 
   const result = (execute !== false) ? await executeStep(req, {
     step,
-    enrollment
+    enrollment,
+    digits
   }) : {}
 
   if(result.twiml) return result
 
-  const { condition, until, unenroll } = result
+  const { condition, until, unenroll, data } = result
 
   await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
-    step_id: step.get('id')
+    step_id: step.get('id'),
+    data
   }).save(null, {
     transacting: req.trx
   })
@@ -184,23 +203,25 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute }) => 
   }
 
   if(next) {
-    return await executeWorkflowQueue.enqueue(req, {
+    await executeWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       code: next.get('code')
     }, {
       until
     })
+  } else {
+    await enrollment.save({
+      was_completed: true
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
   }
-
-  await enrollment.save({
-    was_completed: true
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
 
   if(enrollment.get('voice_campaign_id')) {
     return hangup()
   }
+
+  return {}
 
 }

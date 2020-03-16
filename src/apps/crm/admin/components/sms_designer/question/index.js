@@ -6,10 +6,6 @@ export default {
   label: 'Question',
   type: 'sms',
   action: 'question',
-  config: {
-    question: 'Would you like to buy a vowel?',
-    options: [{ value: 'yes', text: 'YES' }, { value: 'no', text: 'NO' }]
-  },
   form: Form,
   token: Token
 }

@@ -16,8 +16,13 @@ const types = {
 const blocks = {
   consent: { icon: 'thumbs-up' },
   email: { icon: 'envelope-open' },
+  question: { icon: 'question' },
   ifthen: { icon: 'sitemap' },
-  play: { icon: 'play' }
+  play: { icon: 'play' },
+  say: { icon: 'volume-control-phone' },
+  message: { icon: 'comment' },
+  sms: { icon: 'comment' },
+  internal_sms: { icon: 'comment' }
 }
 
 class WorkflowActions extends React.PureComponent {

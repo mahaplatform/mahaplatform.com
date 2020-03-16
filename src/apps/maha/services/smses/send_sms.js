@@ -3,7 +3,7 @@ import SendSMSQueue from '../../queues/send_sms_queue'
 import { findOrCreateNumber } from '../numbers'
 import SMS from '../../models/sms'
 
-export const sendSMS = async (req, { team_id, from, to, body, asset_ids, sid }) => {
+const sendSMS = async (req, { team_id, from, to, body, asset_ids, sid }) => {
 
   const from_number = await findOrCreateNumber(req, {
     number: from
@@ -37,11 +37,13 @@ export const sendSMS = async (req, { team_id, from, to, body, asset_ids, sid }) 
       })
     })
   }
-  
+
   await SendSMSQueue.enqueue(req, {
-    id: sms.get('id')
+    sms_id: sms.get('id')
   })
 
   return sms
 
 }
+
+export default sendSMS

@@ -1,5 +1,4 @@
-import client from '../../../../../core/services/twilio'
-import Asset from '../../../../maha/models/asset'
+import { sendSMS } from '../../../../maha/services/smses'
 import Contact from '../../../models/contact'
 import ejs from 'ejs'
 
@@ -25,19 +24,11 @@ const message = async (req, { config, enrollment }) => {
     }
   })
 
-  const mediaUrl = config.asset_ids ? await Asset.where(qb => {
-    qb.whereIn('id', config.asset_ids)
-  }).fetchAll({
-    transacting: req.trx
-  }).then(result => result.toArray().map(asset => {
-    return asset.get('signed_url')
-  })) : null
-
-  await client.messages.create({
-    body: message,
+  await sendSMS(req, {
     from: enrollment.related('sms_campaign').related('program').related('phone_number').get('number'),
     to: contact.get('phone'),
-    ...mediaUrl ? { mediaUrl } : {}
+    body: message,
+    asset_ids: config.asset_ids
   })
 
   return {}

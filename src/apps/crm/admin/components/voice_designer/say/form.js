@@ -6,19 +6,43 @@ class Say extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
+  form = null
+
+  state = {
+    config: {}
+  }
+
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefaults(),
+        ...this.props.config || {}
+      }
+    })
+  }
+
+  _getDefaults() {
+    return {
+      voice: 'woman'
+    }
+  }
+
   _getForm() {
-    const { config } = this.props
+    const { config } = this.state
     return {
       title: 'Speak Text',
       onChange: this._handleChange,
@@ -31,20 +55,29 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Voice', name: 'voice', type: 'lookup', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
-            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message }
+            { label: 'Voice', name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
+            { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Enter a message', defaultValue: config.message }
           ]
         }
       ]
     }
   }
 
+  _handleCancel() {
+    this.props.onCancel()
+  }
+
   _handleChange(config) {
-    this.props.onChange(config)
+    this.setState({ config })
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { config } = this.state
+    this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

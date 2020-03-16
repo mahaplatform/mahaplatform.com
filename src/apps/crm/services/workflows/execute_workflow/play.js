@@ -1,5 +1,4 @@
 import Asset from '../../../../maha/models/asset'
-
 import { twiml } from 'twilio'
 
 const play = async (req, { enrollment, step }) => {
@@ -19,8 +18,9 @@ const play = async (req, { enrollment, step }) => {
   }, asset.get('signed_url'))
 
   response.redirect({
-    method: 'GET'
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
+    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`,
+    method: 'POST'
+  })
 
   return {
     twiml: response.toString()

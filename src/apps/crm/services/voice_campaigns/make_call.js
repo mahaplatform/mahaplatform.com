@@ -40,7 +40,7 @@ const makeCall = async (req, params) => {
   })
 
   const call = await createCall(req, {
-    method: 'GET',
+    method: 'POST',
     url: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}`,
     from: campaign.related('program').related('phone_number').get('number'),
     to: phone_number.get('number')

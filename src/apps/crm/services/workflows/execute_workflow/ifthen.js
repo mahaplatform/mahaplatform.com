@@ -50,6 +50,9 @@ const ifthen = async (req, params) => {
   })
 
   return {
+    data: {
+      option: option.code
+    },
     condition: {
       parent: step.get('code'),
       answer: option.code,

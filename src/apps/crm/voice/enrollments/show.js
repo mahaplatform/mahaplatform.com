@@ -6,7 +6,7 @@ const showRoute = async (req, res) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('code', req.params.enrollment_code)
   }).fetch({
-    withRelated: ['team','workflow.steps'],
+    withRelated: ['team'],
     transacting: req.trx
   })
 
@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load enrollment'
   })
 
-  if(req.query.AnsweredBy === 'machine_end_beep') {
+  if(req.body.AnsweredBy === 'machine_end_beep') {
     await enrollment.save({
       was_answering_machine: true
     },{
@@ -27,7 +27,9 @@ const showRoute = async (req, res) => {
 
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
-    code: req.params.code
+    code: req.params.code,
+    execute: req.params.verb !== 'next',
+    digits: req.params.verb === 'gather' ? req.body.Digits : null
   }) || {}
 
   if(result.twiml) {

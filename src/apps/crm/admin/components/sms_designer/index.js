@@ -2,7 +2,6 @@ import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
 import question from './question'
 import message from './message'
-import listen from './listen'
 import React from 'react'
 
 class SMSDesigner extends React.PureComponent {
@@ -30,7 +29,6 @@ class SMSDesigner extends React.PureComponent {
       blocks: [
         this._getTrigger(),
         message,
-        listen,
         question,
         { action: 'ifthen' },
         { action: 'wait' },
