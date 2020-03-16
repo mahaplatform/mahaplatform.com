@@ -6,6 +6,7 @@ class Add extends React.Component {
   static propTypes = {
     answer: PropTypes.string,
     delta: PropTypes.number,
+    editable: PropTypes.bool,
     parent: PropTypes.string,
     onNew: PropTypes.func
   }
@@ -37,12 +38,13 @@ class Add extends React.Component {
   }
 
   _getTarget() {
+    const { editable } = this.props
     return {
       className: this._getClassName(),
-      onDragEnter: this._handleDragEnter.bind(this),
-      onDragLeave: this._handleDragLeave.bind(this),
-      onDragOver: this._handleDragOver.bind(this),
-      onDrop: this._handleDrop
+      onDragEnter: editable ? this._handleDragEnter.bind(this) : null,
+      onDragLeave: editable ? this._handleDragLeave.bind(this) : null,
+      onDragOver: editable ? this._handleDragOver.bind(this) : null,
+      onDrop: editable ? this._handleDrop : null
     }
   }
 

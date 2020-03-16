@@ -1,5 +1,5 @@
 import Recipients from '../../../components/recipients'
-import { Audit, Button, List } from 'maha-admin'
+import { Audit, Comments, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -10,7 +10,7 @@ const Details = ({ audits, campaign }) => {
   const config = {}
 
   const design = {
-    label: 'Design Workflow',
+    label: _.includes(['draft','inactive'], campaign.status) ? 'Design Workflow' : 'View Workflow',
     className: 'link',
     route: `/admin/crm/campaigns/voice/${campaign.id}/design`
   }
@@ -53,9 +53,7 @@ const Details = ({ audits, campaign }) => {
     config.items.push({ label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients })
   }
 
-  if(_.includes(['draft','inactive'], campaign.status)) {
-    config.items.push({ label: 'Content', content: <Button { ...design } /> })
-  }
+  config.items.push({ label: 'Content', content: <Button { ...design } /> })
 
   if(campaign.status === 'scheduled') {
     config.items.push({ label: 'Send At', content: campaign.send_at, format: 'datetime' })
@@ -66,6 +64,8 @@ const Details = ({ audits, campaign }) => {
   }
 
   config.items.push({ component: <Audit entries={ audits } /> })
+
+  config.footer = <Comments entity={`crm_voice_campaigns/${campaign.id}`} />
 
   return <List { ...config } />
 

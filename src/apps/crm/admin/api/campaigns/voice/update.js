@@ -1,5 +1,6 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
 import { updateSteps } from '../../../../services/workflows'
@@ -34,6 +35,11 @@ const updateRoute = async (req, res) => {
       steps: req.body.steps
     })
   }
+
+  await audit(req, {
+    story: 'updated',
+    auditable: voice_campaign
+  })
 
   await socket.refresh(req, [
     `/admin/crm/campaigns/voice/${voice_campaign.get('direction')}`,

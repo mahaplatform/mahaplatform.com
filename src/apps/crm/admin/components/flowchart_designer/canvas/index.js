@@ -8,6 +8,7 @@ class Canvas extends React.PureComponent {
     active: PropTypes.string,
     blocks: PropTypes.array,
     boxes: PropTypes.array,
+    editable: PropTypes.bool,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     onAdd: PropTypes.func,
@@ -28,7 +29,7 @@ class Canvas extends React.PureComponent {
   }
 
   _getTrunk() {
-    const { active, blocks, boxes, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
+    const { active, blocks, boxes, editable, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: null,
@@ -37,6 +38,7 @@ class Canvas extends React.PureComponent {
         { parent: null, answer: null, type: 'ending', action: null }
       ],
       blocks,
+      editable,
       fields,
       parent: null,
       hovering,

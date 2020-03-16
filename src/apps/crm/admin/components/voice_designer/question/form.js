@@ -1,5 +1,5 @@
 import RecordingField from '../../recordingfield'
-import ValuesField from '../../valuesfield'
+import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -62,8 +62,8 @@ class Question extends React.PureComponent {
         {
           fields: [
             { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play a recording'}], defaultValue: config.strategy },
-            ...this._getStrategy(),
-            { label: 'Answers', name: 'branches', type: ValuesField, required: true, defaultValue: config.branches }
+            this._getStrategy(),
+            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
           ]
         }
       ]
@@ -73,14 +73,12 @@ class Question extends React.PureComponent {
   _getStrategy() {
     const { config } = this.state
     if(config.strategy === 'say') {
-      return [
-        { label: 'Voice', name: 'voice', type: 'dropdown', required: true, options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
-        { label: 'Message', name: 'message', type: 'textarea', required: true, defaultValue: config.message }
-      ]
+      return { label: 'Message', type: 'segment', required: true, fields: [
+        { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
+        { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
+      ] }
     }
-    return [
-      { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
-    ]
+    return { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
   }
 
   _handleCancel() {

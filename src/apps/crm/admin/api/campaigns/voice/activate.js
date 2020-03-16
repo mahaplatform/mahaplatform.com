@@ -1,4 +1,5 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
 
@@ -22,6 +23,11 @@ const activateRoute = async (req, res) => {
   }, {
     patch: true,
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: req.body.status === 'active' ? 'activated' : 'deactivated',
+    auditable: voice_campaign
   })
 
   await socket.refresh(req, [

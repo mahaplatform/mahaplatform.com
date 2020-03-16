@@ -14,7 +14,6 @@ class FormDesigner extends React.PureComponent {
     defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     form: PropTypes.object,
-    sidebar: PropTypes.bool,
     status: PropTypes.string,
     onAdd: PropTypes.func,
     onClone: PropTypes.func,
@@ -22,27 +21,22 @@ class FormDesigner extends React.PureComponent {
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
-    onToggle: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { sidebar } = this.props
     return (
-      <div className={ this._getClass() }>
+      <div className="designer">
         <div className="designer-main">
           <Preview>
             <Canvas { ...this._getCanvas() } />
           </Preview>
         </div>
-        { sidebar &&
-          <div className="designer-sidebar">
-            <Sidebar { ...this._getSidebar() } />
-          </div>
-        }
+        <div className="designer-sidebar">
+          <Sidebar { ...this._getSidebar() } />
+        </div>
       </div>
     )
   }
@@ -62,13 +56,6 @@ class FormDesigner extends React.PureComponent {
       onEdit,
       onRemove
     }
-  }
-
-  _getClass() {
-    const { sidebar } = this.props
-    const classes = ['designer']
-    if(sidebar) classes.push('expanded')
-    return classes.join(' ')
   }
 
   _getDefault() {
@@ -100,10 +87,6 @@ class FormDesigner extends React.PureComponent {
 
   _handleAdd(index, type) {
     this.props.onAdd(index, { type })
-  }
-
-  _handleToggle() {
-    this.props.onToggle()
   }
 
 }

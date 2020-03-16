@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import question from './question'
 import message from './message'
 import React from 'react'
+import _ from 'lodash'
 
 class SMSDesigner extends React.PureComponent {
 
@@ -22,6 +23,7 @@ class SMSDesigner extends React.PureComponent {
     const { campaign, endpoint, properties, tokens, onSave } = this.props
     const { steps, status } = campaign
     return {
+      editable: _.includes(['draft','inactive'], campaign.status),
       endpoint,
       program: campaign.program,
       properties,

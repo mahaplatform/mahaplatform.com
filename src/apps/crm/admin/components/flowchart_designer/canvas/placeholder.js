@@ -7,6 +7,7 @@ class Placeholder extends React.PureComponent {
   static propTypes = {
     answer: PropTypes.string,
     delta: PropTypes.number,
+    editable: PropTypes.bool,
     hovering: PropTypes.object,
     parent: PropTypes.string,
     onAdd: PropTypes.func,
@@ -23,11 +24,12 @@ class Placeholder extends React.PureComponent {
   }
 
   _getAdd() {
-    const { parent, answer, delta, onNew } = this.props
+    const { parent, answer, delta, editable, onNew } = this.props
     return {
       parent,
       answer,
       delta,
+      editable,
       onNew
     }
   }

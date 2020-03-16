@@ -2,6 +2,7 @@ import SMSCampaignSerializer from '../../../../serializers/sms_campaign_serializ
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import SMSCampaign from '../../../../models/sms_campaign'
 import Program from '../../../../models/program'
@@ -37,6 +38,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['to','title','direction','purpose'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: sms_campaign
   })
 
   await activity(req, {

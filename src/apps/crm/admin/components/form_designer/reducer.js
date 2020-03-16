@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   active: null,
   changes: 0,
   config: null,
-  sidebar: true,
   status: 'ready'
 }
 
@@ -86,12 +85,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       status: 'ready',
       changes: 0
-    }
-
-  case 'TOGGLE':
-    return {
-      ...state,
-      sidebar: !state.sidebar
     }
 
   case 'UPDATE':

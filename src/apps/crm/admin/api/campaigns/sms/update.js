@@ -1,5 +1,6 @@
 import SmsCampaignSerializer from '../../../../serializers/sms_campaign_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { updateSteps } from '../../../../services/workflows'
 import SmsCampaign from '../../../../models/sms_campaign'
@@ -34,6 +35,11 @@ const updateRoute = async (req, res) => {
       steps: req.body.steps
     })
   }
+
+  await audit(req, {
+    story: 'updated',
+    auditable: sms_campaign
+  })
 
   await socket.refresh(req, [
     `/admin/crm/campaigns/sms/${sms_campaign.get('direction')}`,

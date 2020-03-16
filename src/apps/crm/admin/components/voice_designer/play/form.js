@@ -7,16 +7,21 @@ class Play extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
+
+  form = null
 
   state = {
     config: {}
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -40,13 +45,15 @@ class Play extends React.PureComponent {
   _getForm() {
     const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Play Recording',
+      onCancel: this._handleCancel,
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
@@ -59,6 +66,10 @@ class Play extends React.PureComponent {
     }
   }
 
+  _handleCancel() {
+    this.props.onCancel()
+  }
+
   _handleChange(config) {
     this.setState({ config })
   }
@@ -66,6 +77,10 @@ class Play extends React.PureComponent {
   _handleDone() {
     const { config } = this.state
     this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

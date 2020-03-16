@@ -16,6 +16,7 @@ class Box extends React.PureComponent {
     box: PropTypes.object,
     blocks: PropTypes.array,
     delta: PropTypes.number,
+    editable: PropTypes.bool,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     parent: PropTypes.string,
@@ -30,10 +31,10 @@ class Box extends React.PureComponent {
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { active, box } = this.props
+    const { active, box, editable } = this.props
     const block = this._getBlock()
     const { icon, label } = block
-    const { action, code, config, branches, type } = box
+    const { code, config, branches, type } = box
     return (
       <div className={ this._getClass(box) }>
         <Add { ...this._getAdd() } />
@@ -42,7 +43,7 @@ class Box extends React.PureComponent {
             { (code === active || !_.includes(['trigger','ending'], type)) &&
               <div className="flowchart-box-highlight" />
             }
-            { !_.includes(['trigger','ending'], type) &&
+            { editable && !_.includes(['trigger','ending'], type) &&
               <div className="flowchart-box-actions">
                 <div className="flowchart-box-spacer"></div>
                 <div className="flowchart-box-action" onClick={ this._handleEdit }>
@@ -139,12 +140,13 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, box, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
+    const { active, blocks, box, editable, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: option.code,
       boxes: option.then,
       blocks,
+      editable,
       fields,
       parent: box.code,
       hovering,

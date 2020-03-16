@@ -14,6 +14,7 @@ class FlowchartDesigner extends React.PureComponent {
     cid: PropTypes.string,
     config: PropTypes.array,
     defaultValue: PropTypes.array,
+    editable: PropTypes.bool,
     endpoint: PropTypes.string,
     fields: PropTypes.array,
     hovering: PropTypes.object,
@@ -34,6 +35,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   static defaultProps = {
+    editable: true,
     fields: []
   }
 
@@ -43,6 +45,7 @@ class FlowchartDesigner extends React.PureComponent {
   _handleSave = this._handleSave.bind(this)
 
   render() {
+    const { editable } = this.props
     return (
       <div className="flowchart-designer">
         <div className="flowchart-designer-main">
@@ -50,9 +53,11 @@ class FlowchartDesigner extends React.PureComponent {
             <Canvas { ...this._getCanvas() } />
           </div>
         </div>
-        <div className="flowchart-designer-sidebar">
-          <Sidebar { ...this._getSidebar() } />
-        </div>
+        { editable &&
+          <div className="flowchart-designer-sidebar">
+            <Sidebar { ...this._getSidebar() } />
+          </div>
+        }
       </div>
     )
   }
@@ -69,11 +74,12 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, fields, hovering, onEdit, onRemove } = this.props
+    const { active, config, editable, fields, hovering, onEdit, onRemove } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       boxes: config,
+      editable,
       fields,
       hovering,
       onAdd: this._handleAdd,

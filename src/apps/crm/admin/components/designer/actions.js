@@ -38,10 +38,6 @@ export const set = (config) => ({
   config
 })
 
-export const toggle = () => ({
-  type: 'TOGGLE'
-})
-
 export const update = (key, value) => ({
   type: 'UPDATE',
   key,

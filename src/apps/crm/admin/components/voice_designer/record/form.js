@@ -6,27 +6,38 @@ class Record extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
+  form = null
+
+  state = {
+    config: {}
+  }
+
+  _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
   }
 
   _getForm() {
-    const { config } = this.props
+    const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Record',
+      onCancel: this._handleCancel,
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
@@ -37,12 +48,21 @@ class Record extends React.PureComponent {
     }
   }
 
+  _handleCancel() {
+    this.props.onCancel()
+  }
+
   _handleChange(config) {
-    this.props.onChange(config)
+    this.setState({ config })
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { config } = this.state
+    this.props.onDone(config)
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

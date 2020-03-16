@@ -5,6 +5,7 @@ import record from './record'
 import React from 'react'
 import play from './play'
 import say from './say'
+import _ from 'lodash'
 
 class VoiceDesigner extends React.PureComponent {
 
@@ -24,6 +25,7 @@ class VoiceDesigner extends React.PureComponent {
     const { campaign, endpoint, properties, tokens, onSave } = this.props
     const { steps, status } = campaign
     return {
+      editable: _.includes(['draft','inactive'], campaign.status),
       endpoint,
       program: campaign.program,
       properties,

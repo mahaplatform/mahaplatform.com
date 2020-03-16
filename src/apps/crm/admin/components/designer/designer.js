@@ -19,7 +19,6 @@ class Designer extends React.Component {
     endpoint: PropTypes.string,
     preview: PropTypes.bool,
     program_id: PropTypes.number,
-    sidebar: PropTypes.bool,
     status: PropTypes.string,
     title: PropTypes.string,
     tokens: PropTypes.array,
@@ -30,20 +29,16 @@ class Designer extends React.Component {
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
-    onToggle: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
   static defaultProps = {
     preview: false
   }
-
-  _handleToggle = this._handleToggle.bind(this)
-
   render() {
-    const { preview, sidebar } = this.props
+    const { preview } = this.props
     return (
-      <div className={ this._getClass() }>
+      <div className="designer">
         <div className="designer-main">
           { preview ?
             <Preview>
@@ -52,11 +47,9 @@ class Designer extends React.Component {
             <Canvas { ...this._getCanvas() } />
           }
         </div>
-        { sidebar &&
-          <div className="designer-sidebar">
-            <Sidebar { ...this._getSidebar() } />
-          </div>
-        }
+        <div className="designer-sidebar">
+          <Sidebar { ...this._getSidebar() } />
+        </div>
       </div>
     )
   }
@@ -77,13 +70,6 @@ class Designer extends React.Component {
       onEdit,
       onRemove
     }
-  }
-
-  _getClass() {
-    const { sidebar } = this.props
-    const classes = ['designer']
-    if(sidebar) classes.push('expanded')
-    return classes.join(' ')
   }
 
   _getDefault() {
@@ -110,10 +96,6 @@ class Designer extends React.Component {
       onUpdate,
       onSave
     }
-  }
-
-  _handleToggle() {
-    this.props.onToggle()
   }
 
 }

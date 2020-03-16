@@ -6,11 +6,13 @@ class TokenField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    placeholder: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
 
   static defaultProps = {
+    placeholder: 'Enter a name',
     onChange: () => {},
     onReady: () => {}
   }
@@ -64,10 +66,12 @@ class TokenField extends React.Component {
   }
 
   _getInput() {
+    const { placeholder } = this.props
     const { value } = this.state
     return {
       type: 'text',
       value,
+      placeholder,
       onChange: this._handleUpdate
     }
   }

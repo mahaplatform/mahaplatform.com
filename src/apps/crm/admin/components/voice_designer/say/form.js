@@ -44,19 +44,23 @@ class Say extends React.PureComponent {
   _getForm() {
     const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Speak Text',
+      onCancel: this._handleCancel,
       onChange: this._handleChange,
-      onCancel: this._handleDone,
+      onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
-            { label: 'Voice', name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
-            { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Enter a message', defaultValue: config.message }
+            { label: 'Message', type: 'segment', required: true, fields: [
+              { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
+              { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
+            ] }
           ]
         }
       ]
