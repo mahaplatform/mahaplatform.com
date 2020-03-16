@@ -28,12 +28,12 @@ class Actions extends React.Component {
     return (
       <div className="maha-message-actions">
         <div className="maha-message-action">
-          <Reaction { ...this._getReaction() } />
-        </div>
-        <div className="maha-message-action">
           <div className="maha-message-reply" title="Reply to this message" onClick={ this._handleQuoteMessage }>
             <i className="fa fa-fw fa-arrow-circle-left" />
           </div>
+        </div>
+        <div className="maha-message-action">
+          <Reaction { ...this._getReaction() } />
         </div>
       </div>
     )

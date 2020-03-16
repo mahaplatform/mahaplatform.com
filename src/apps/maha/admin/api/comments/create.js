@@ -38,7 +38,7 @@ const createRoute = async (req, res) => {
 
   await extractAttachments(req, comment, req.body.text)
 
-  await comment.load(['user.photo','attachments.asset.source'], {
+  await comment.load(['user.photo','attachments.asset.source','quoted_comment.user.photo'], {
     transacting: req.trx
   })
 

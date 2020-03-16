@@ -1,13 +1,13 @@
-import AssetViewer from '../../asset/viewer'
-import AssetToken from '../../../tokens/asset'
-import Attachment from '../../attachment'
-import Gallery from '../../gallery'
 import { files, images, media } from './selectors'
 import Reactions from '../../reactions/reactions'
 import Reaction from '../../reactions/reaction'
+import AssetToken from '../../../tokens/asset'
+import AssetViewer from '../../asset/viewer'
 import QuotedComment from './quoted_comment'
+import Attachment from '../../attachment'
 import RichText from '../../richtext'
 import { connect } from 'react-redux'
+import Gallery from '../../gallery'
 import PropTypes from 'prop-types'
 import Avatar from '../../avatar'
 import moment from 'moment'
@@ -25,7 +25,10 @@ class Comment extends React.Component {
     attachments: PropTypes.array,
     created_at: PropTypes.string,
     entity: PropTypes.string,
+    files: PropTypes.array,
     id: PropTypes.number,
+    images: PropTypes.array,
+    media: PropTypes.array,
     quoted_comment: PropTypes.object,
     reactions: PropTypes.array,
     text: PropTypes.string,
@@ -96,11 +99,6 @@ class Comment extends React.Component {
             </div>
             <div className="maha-message-action">
               <Reaction { ...this._getReaction() } />
-            </div>
-            <div className="maha-message-action">
-              <div className="maha-message-delete" title="Delete this comment" onClick={ this._handleDestroyComment }>
-                <i className="fa fa-fw fa-trash" />
-              </div>
             </div>
           </div>
         }

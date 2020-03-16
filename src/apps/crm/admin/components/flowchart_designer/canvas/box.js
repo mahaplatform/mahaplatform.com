@@ -86,11 +86,12 @@ class Box extends React.PureComponent {
   }
 
   _getAdd() {
-    const { parent, answer, delta, onNew } = this.props
+    const { parent, answer, delta, editable, onNew } = this.props
     return {
       parent,
       answer,
       delta,
+      editable,
       onNew
     }
   }

@@ -104,12 +104,14 @@ class Comments extends React.Component {
             </div>
           }
           { quoted_comment &&
-            <div className="chat-channel-quote">
-              <div className="chat-channel-quote-preview">
-                <QuotedComment comment={ quoted_comment } />
-              </div>
-              <div className="chat-channel-quote-remove">
-                <i className="fa fa-fw fa-times-circle-o" onClick={ this._handleQuoteComment.bind(this, null) } />
+            <div className="chat-channel-extra">
+              <div className="chat-channel-quote">
+                <div className="chat-channel-quote-preview">
+                  <QuotedComment comment={ quoted_comment } />
+                </div>
+                <div className="chat-channel-extra-remove">
+                  <i className="fa fa-fw fa-times" onClick={ this._handleQuoteComment.bind(this, null) } />
+                </div>
               </div>
             </div>
           }
