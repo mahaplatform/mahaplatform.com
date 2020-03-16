@@ -14,7 +14,7 @@ const getTabs = ({ audits, campaign, performance, workflows }) => ({
 const getTasks = ({ campaign }) => {
   const items = []
   if(campaign.status === 'draft') {
-    items.push({ label: 'Send Campaign', modal: <Send campaign={ campaign } /> })
+    items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
   }
   return { items }
 }
