@@ -1,23 +1,23 @@
 import Asset from '../../../../maha/models/asset'
 import { twiml } from 'twilio'
 
-const voiceQuestion = async (req, { enrollment, step, digits }) => {
+const voiceQuestion = async (req, { config, enrollment, step, answer }) => {
 
-  const { strategy, voice, message, recording_id } = step.get('config')
+  const { strategy, voice, message, recording_id } = config
 
-  if(digits) {
+  if(response) {
 
-    const answer = step.get('config').branches.find(branch => {
-      return branch.value === digits
+    const branch = step.get('config').branches.find(branch => {
+      return branch.value === answer
     })
 
     return {
       data: {
-        answer: answer.code
+        answer: branch ? branch.code : 'else'
       },
       condition: {
         parent: step.get('code'),
-        answer: answer.code,
+        answer: branch ? branch.code : 'else',
         delta: -1
       }
     }

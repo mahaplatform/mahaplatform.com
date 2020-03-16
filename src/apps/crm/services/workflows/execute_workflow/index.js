@@ -43,7 +43,9 @@ const getExecutor = (type, action) => {
   if(type === 'sms' && action === 'question') return smsQuestion
 }
 
-const executeStep = async (req, { enrollment, step, digits }) => {
+const executeStep = async (req, { digits, enrollment, execute, step }) => {
+
+  if(execute === false) return {}
 
   const executor = getExecutor(step.get('type'), step.get('action'))
 
@@ -138,7 +140,7 @@ const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id })
   }
 }
 
-export const executeWorkflow = async (req, { enrollment_id, code, digits, execute }) => {
+export const executeWorkflow = async (req, { enrollment_id, code, execute, answer }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -146,6 +148,7 @@ export const executeWorkflow = async (req, { enrollment_id, code, digits, execut
     transacting: req.trx
   })
 
+  // todo: if no code, also find place
   const step = await getCurrentStep(req, {
     voice_campaign_id: enrollment.get('voice_campaign_id'),
     sms_campaign_id: enrollment.get('sms_campaign_id'),
@@ -153,26 +156,29 @@ export const executeWorkflow = async (req, { enrollment_id, code, digits, execut
     code
   })
 
-  const result = (execute !== false) ? await executeStep(req, {
+  const { condition, data, save, twiml, until, unenroll } = await executeStep(req, {
     step,
     enrollment,
-    digits
-  }) : {}
-
-  if(result.twiml) return result
-
-  const { condition, until, unenroll, data } = result
-
-  await WorkflowAction.forge({
-    team_id: req.team.get('id'),
-    enrollment_id: enrollment.get('id'),
-    step_id: step.get('id'),
-    data
-  }).save(null, {
-    transacting: req.trx
+    execute,
+    answer
   })
 
-  if(unenroll) {
+  if(twiml) {
+    return { twiml }
+  }
+
+  if(save === false) {
+    await WorkflowAction.forge({
+      team_id: req.team.get('id'),
+      enrollment_id: enrollment.get('id'),
+      step_id: step.get('id'),
+      data
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
+
+  if(unenroll === true) {
     return await enrollment.save({
       unenrolled_at: moment()
     }, {

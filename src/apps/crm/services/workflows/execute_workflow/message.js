@@ -1,6 +1,5 @@
 import { sendSMS } from '../../../../maha/services/smses'
 import Contact from '../../../models/contact'
-import ejs from 'ejs'
 
 const message = async (req, { config, enrollment }) => {
 
@@ -16,19 +15,18 @@ const message = async (req, { config, enrollment }) => {
     transacting: req.trx
   })
 
-  const message = ejs.render(config.message, {
-    contact: {
-      full_name: contact.get('full_name'),
-      first_name: contact.get('full_name'),
-      last_name: contact.get('full_name')
-    }
-  })
-
   await sendSMS(req, {
     from: enrollment.related('sms_campaign').related('program').related('phone_number').get('number'),
     to: contact.get('phone'),
-    body: message,
-    asset_ids: config.asset_ids
+    body: config.message,
+    asset_ids: config.asset_ids,
+    data: {
+      contact: {
+        full_name: contact.get('full_name'),
+        first_name: contact.get('full_name'),
+        last_name: contact.get('full_name')
+      }
+    }
   })
 
   return {}

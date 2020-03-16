@@ -1,6 +1,5 @@
 import collectObjects from '../../../utils/collect_objects'
 import transaction from '../transaction'
-import feedback from './feedback'
 import { Router } from 'express'
 import receive from './receive'
 import logger from '../logger'
@@ -17,8 +16,6 @@ router.use(logger)
 voiceFiles.map(middleware => {
   router.use(middleware.config.path, middleware.default)
 })
-
-router.post('/feedback', feedback)
 
 router.post('/status', status)
 

@@ -61,7 +61,8 @@ class SendSMS extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, rows: 4, required: true, after: <Button { ...this._getTokens() } /> }
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, rows: 4, required: true, after: <Button { ...this._getTokens() } /> },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
           ]
         }
       ]

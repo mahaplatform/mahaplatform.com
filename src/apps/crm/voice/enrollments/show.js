@@ -29,7 +29,7 @@ const showRoute = async (req, res) => {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
     execute: req.params.verb !== 'next',
-    digits: req.params.verb === 'gather' ? req.body.Digits : null
+    response: req.params.verb === 'gather' ? req.body.Digits : null
   }) || {}
 
   if(result.twiml) {

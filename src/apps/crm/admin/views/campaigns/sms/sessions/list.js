@@ -3,7 +3,7 @@ import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Enrollments',
+  title: 'Sessions',
   rights: [],
   collection: {
     endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/enrollments`,
@@ -18,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: 'created_at', order: 'asc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/sms/${props.params.campaign_id}/enrollments/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${record.id}`)
   }
 })
 

@@ -15,11 +15,13 @@ const receiveRoute = async (req, res) => {
   const phone_number = await PhoneNumber.where({
     number: to
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
 
+  req.team = phone_number.related('team')
+
   const sms = await receiveSMS(req, {
-    team_id: phone_number.get('team_id'),
     from,
     to,
     body,

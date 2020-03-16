@@ -108,7 +108,6 @@
     "express": "^4.15.2",
     "express-async-errors": "^3.1.1",
     "express-csp-header": "^2.3.2",
-    "express-session": "^1.17.0",
     "fb": "^2.0.0",
     "file-type": "^12.0.1",
     "firebase": "^5.5.9",

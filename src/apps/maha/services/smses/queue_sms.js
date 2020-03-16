@@ -21,7 +21,7 @@ const queueSMS = async (req, { sms_id }) => {
         return attachment.related('asset').get('signed_url')
       }),
       StatusCallbackMethod: 'POST',
-      statusCallback: `${process.env.TWIML_HOST}/sms/status?sms_campaign_id=1`
+      statusCallback: `${process.env.TWIML_HOST}/sms/status`
     })
 
     await sms.save({

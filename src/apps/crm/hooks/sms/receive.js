@@ -1,76 +1,87 @@
+import WorkflowEnrollment from '../../models/workflow_enrollment'
+import { enrollInCampaign } from '../../services/sms_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
-import { contactActivity } from '../../services/activities'
+import { executeWorkflow } from '../../services/workflows'
 import SMSCampaign from '../../models/sms_campaign'
-import Enrollment from '../../models/enrollment'
+import PhoneNumber from '../../models/phone_number'
+import Contact from '../../models/contact'
 import { getContact } from '../utils'
-import { twiml } from 'twilio'
+import moment from 'moment'
+
+const getPhoneNumber = async (req, { number }) => {
+
+  const phone_number = await PhoneNumber.query(qb => {
+    qb.where('number', number)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(phone_number) return phone_number
+
+  const code = await generateCode(req, {
+    table: 'crm_contacts'
+  })
+
+  const contact = await Contact.forge({
+    team_id: req.team.get('id'),
+    code
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  return await PhoneNumber.forge({
+    team_id: req.team.get('id'),
+    contact_id: contact.get('id'),
+    number,
+    is_primary: true,
+    is_valid: true
+  }).save(null, {
+    transacting: req.trx
+  })
+
+}
 
 const receive = async (req, { sms, phone_number }) => {
 
-  const response = new twiml.MessagingResponse()
+  const from = await getPhoneNumber(req, {
+    number: sms.related('from').get('number')
+  })
 
-  if(!req.session.code) {
+  const enrollment = await WorkflowEnrollment.query(qb => {
+    qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
+    qb.where('crm_workflow_enrollments.phone_number_id', phone_number.get('id'))
+    qb.where('crm_workflow_enrollments.contact_id', from.get('contact_id'))
+    qb.where('crm_workflow_enrollments.was_completed', false)
+    qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
+  }).fetch({
+    transacting: req.trx
+  })
 
-    const campaign = await SMSCampaign.query(qb => {
-      qb.where('phone_number_id', phone_number.get('id'))
-      qb.where('term', sms.get('body').toLowerCase())
-    }).fetch({
-      transacting: req.trx
+  if(enrollment) {
+    return await executeWorkflow(req, {
+      enrollment_id: enrollment.get('id'),
+      answer: sms.get('body')
     })
-
-    if(!campaign) return null
-
-    const contact = await getContact(req, {
-      team_id: campaign.get('team_id'),
-      number: sms.related('from').get('number')
-    })
-
-    await contactActivity(req, {
-      team_id: campaign.get('team_id'),
-      contact,
-      program_id: campaign.get('program_id'),
-      type: 'workflow',
-      story: 'triggered an incoming sms workflow',
-      // object: sms
-    })
-
-    const code = await generateCode(req, {
-      table: 'crm_enrollments'
-    })
-
-    const enrollment = await Enrollment.forge({
-      team_id: campaign.get('team_id'),
-      sms_campaign_id: campaign.get('id'),
-      contact_id: contact.get('id'),
-      code,
-      actions: [],
-      was_converted: false
-    }).save(null, {
-      transacting: req.trx
-    })
-
-    req.session.code = code
-
-    response.redirect({
-      method: 'POST'
-    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}`)
-
-  } else {
-
-    const enrollment = await Enrollment.query(qb => {
-      qb.where('code', req.session.code)
-    }).fetch({
-      withRelated: ['sms_campaign'],
-      transacting: req.trx
-    })
-
-    response.redirect({
-      method: 'POST'
-    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}`)
-
   }
 
-  return response.toString()
+  const sms_campaign = await SMSCampaign.query(qb => {
+    qb.where('phone_number_id', phone_number.get('id'))
+    qb.where('direction', 'inbound')
+    qb.where('term', sms.get('body'))
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!sms_campaign) return
+
+  const contact = await getContact(req, {
+    number: sms.related('from').get('number')
+  })
+
+  await enrollInCampaign(req, {
+    sms_campaign,
+    contact
+  })
 
 }
 

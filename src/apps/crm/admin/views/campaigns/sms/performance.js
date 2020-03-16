@@ -43,7 +43,7 @@ class Performance extends React.Component {
     return {
       label: campaign[name],
       className: 'link',
-      route: `/admin/crm/campaigns/sms/${campaign.id}/enrollments${query}`
+      route: `/admin/crm/campaigns/sms/${campaign.id}/sessions{query}`
     }
   }
 
