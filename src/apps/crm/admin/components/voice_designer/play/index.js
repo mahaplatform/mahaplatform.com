@@ -5,8 +5,5 @@ export default {
   label: 'Play Recording',
   type: 'voice',
   action: 'play',
-  form: Form,
-  config: {
-    loop: 1
-  }
+  form: Form
 }

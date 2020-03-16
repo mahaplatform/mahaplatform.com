@@ -1,9 +1,9 @@
+import { enrollInCampaign } from '../../services/voice_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
+import { executeWorkflow } from '../../services/workflows'
 import VoiceCampaign from '../../models/voice_campaign'
 import PhoneNumber from '../../models/phone_number'
-import Enrollment from '../../models/enrollment'
 import Contact from '../../models/contact'
-import { twiml } from 'twilio'
 
 const getPhoneNumber = async (req, { number }) => {
 
@@ -47,43 +47,33 @@ const getPhoneNumber = async (req, { number }) => {
 
 const receive = async (req, { call, phone_number }) => {
 
-  const campaign = await VoiceCampaign.query(qb => {
+  const from = await getPhoneNumber(req, {
+    number: call.related('from').get('number')
+  })
+
+  const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('phone_number_id', phone_number.get('id'))
+    qb.where('direction', 'inbound')
+    qb.where('status', 'active')
   }).fetch({
     transacting: req.trx
   })
 
-  const from = await getPhoneNumber(req, {
-    campaign,
-    number: call.related('from').get('number')
+  if(!voice_campaign) return
+
+  const enrollment = await enrollInCampaign(req, {
+    voice_campaign,
+    contact: from.related('contact')
   })
 
-  const response = new twiml.VoiceResponse()
-
-  const code = await generateCode(req, {
-    table: 'crm_enrollments'
+  const result = await executeWorkflow(req, {
+    enrollment_id: enrollment.get('id'),
+    code: req.params.code,
+    execute: req.params.verb !== 'next',
+    response: req.params.verb === 'gather' ? req.body.Digits : null
   })
 
-  const enrollment = await Enrollment.forge({
-    team_id: campaign.get('team_id'),
-    voice_campaign_id: campaign.get('id'),
-    contact_id: from.get('contact_id'),
-    code,
-    actions: [],
-    was_converted: false
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  const step = campaign.get('steps').find(step => {
-    return step.parent === null && step.delta === 0
-  })
-
-  response.redirect({
-    method: 'GET'
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
-
-  return response.toString()
+  return result.twiml
 
 }
 

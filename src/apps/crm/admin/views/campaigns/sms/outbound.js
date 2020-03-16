@@ -2,14 +2,14 @@ import CompactCampaignToken from '../../../tokens/campaign/compact'
 import NewCampaign from '../../../components/newcampaign'
 import StatusToken from '../../../tokens/status'
 import { Page } from 'maha-admin'
+import New from './new_outbound'
 import React from 'react'
-import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Outbound SMS Campaigns',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/campaigns/sms',
+    endpoint: '/api/admin/crm/campaigns/sms/outbound',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
@@ -24,8 +24,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'comment',
-      title: 'No SMS Campaigns',
-      text: 'You have not yet created any SMS campaigns',
+      title: 'No Outbound SMS Campaigns',
+      text: 'You have not yet created any outbound SMS campaigns',
       buttons: resources.programs.length > 0 ? [
         { label: 'Create Campaign', modal: <NewCampaign type="sms" form={ New } /> }
       ] : null

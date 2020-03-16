@@ -12,11 +12,41 @@ const getTabs = ({ audits, campaign }) => ({
 })
 
 const getTasks = ({ campaign }) => {
+
+  const { direction, status } = campaign
+
   const items = []
-  if(campaign.status === 'draft') {
+
+  if(direction === 'outbound' && status === 'draft') {
     items.push({ label: 'Send Campaign', modal: <Send campaign={ campaign } /> })
+  } else if(direction === 'inbound' && status === 'active') {
+    items.push({
+      label: 'Deactivate Campaign',
+      request: {
+        endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}/activate`,
+        method: 'PATCH',
+        confirm: 'Are you sure you want to deactivate this campaign?',
+        body: {
+          status: 'inactive'
+        }
+      }
+    })
+  } else if(direction === 'inbound') {
+    items.push({
+      label: 'Activate Campaign',
+      request: {
+        endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}/activate`,
+        method: 'PATCH',
+        confirm: 'Are you sure you want to activate this campaign?',
+        body: {
+          status: 'active'
+        }
+      }
+    })
   }
+
   return { items }
+
 }
 
 const mapResourcesToPage = (props, context) => ({

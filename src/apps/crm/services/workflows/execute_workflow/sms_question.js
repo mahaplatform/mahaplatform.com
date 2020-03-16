@@ -6,7 +6,7 @@ const smsQuestion = async (req, { config, enrollment, step, answer }) => {
   if(answer) {
 
     const branch = step.get('config').branches.find(branch => {
-      return branch.value === answer
+      return branch.value.toLowerCase() === answer.toLowerCase()
     })
 
     return {

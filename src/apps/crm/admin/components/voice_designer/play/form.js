@@ -24,8 +24,17 @@ class Play extends React.PureComponent {
 
   componentDidMount() {
     this.setState({
-      config: this.props.config || {}
+      config: {
+        ...this._getDefaults(),
+        ...this.props.config || {}
+      }
     })
+  }
+
+  _getDefaults() {
+    return {
+      loop: 1
+    }
   }
 
   _getForm() {

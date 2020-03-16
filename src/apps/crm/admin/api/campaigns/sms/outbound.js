@@ -1,7 +1,7 @@
 import SmsCampaignSerializer from '../../../../serializers/sms_campaign_serializer'
 import SmsCampaign from '../../../../models/sms_campaign'
 
-const listRoute = async (req, res) => {
+const outboundRoute = async (req, res) => {
 
   const sms_campaigns = await SmsCampaign.filterFetch({
     scope: (qb) => {
@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
       qb.joinRaw('inner join crm_programs on crm_programs.id=crm_sms_campaigns.program_id')
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_sms_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_sms_campaigns.team_id', req.team.get('id'))
+      qb.where('crm_sms_campaigns.direction', 'outbound')
     },
     aliases: {
       program: 'program.title'
@@ -32,4 +33,4 @@ const listRoute = async (req, res) => {
 
 }
 
-export default listRoute
+export default outboundRoute

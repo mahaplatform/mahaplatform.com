@@ -32,7 +32,7 @@ class Voice extends React.PureComponent {
   _getForm() {
     const { program_id } = this.props
     return {
-      title: 'New Interactive Voice',
+      title: 'New Inbound Voice Campaign',
       method: 'post',
       action: '/api/admin/crm/campaigns/voice',
       cancelIcon: 'chevron-left',
@@ -43,10 +43,7 @@ class Voice extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
-            { name: 'direction', type: 'hidden', defaultValue: 'outbound' },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
-            { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
+            { name: 'direction', type: 'hidden', defaultValue: 'inbound' }
           ]
         }
       ]

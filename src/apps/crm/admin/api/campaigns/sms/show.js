@@ -42,11 +42,15 @@ const showRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const recipient_count = await getRecipientCount(req, {
-    campaign
-  })
+  if(campaign.get('direction') === 'outbound') {
 
-  campaign.set('recipients', recipient_count)
+    const recipient_count = await getRecipientCount(req, {
+      campaign
+    })
+
+    campaign.set('recipients', recipient_count)
+
+  }
 
   res.status(200).respond(campaign, SMSCampaignSerializer)
 

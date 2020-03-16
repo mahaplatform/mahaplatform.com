@@ -67,7 +67,8 @@ const receive = async (req, { sms, phone_number }) => {
   const sms_campaign = await SMSCampaign.query(qb => {
     qb.where('phone_number_id', phone_number.get('id'))
     qb.where('direction', 'inbound')
-    qb.where('term', sms.get('body'))
+    qb.whereRaw('lower(term) = ?', sms.get('body').toLowerCase())
+    qb.where('status', 'active')
   }).fetch({
     transacting: req.trx
   })

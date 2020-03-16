@@ -27,7 +27,7 @@ const createRoute = async (req, res) => {
     table: 'crm_voice_campaigns'
   })
 
-  const campaign = await VoiceCampaign.forge({
+  const voice_campaign = await VoiceCampaign.forge({
     team_id: req.team.get('id'),
     code,
     status: 'draft',
@@ -40,14 +40,14 @@ const createRoute = async (req, res) => {
 
   await activity(req, {
     story: 'created {object}',
-    object: campaign
+    object: voice_campaign
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns/voice'
+    `/admin/crm/campaigns/voice/${voice_campaign.get('direction')}`
   ])
 
-  res.status(200).respond(campaign, VoiceCampaignSerializer)
+  res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
 
 }
 

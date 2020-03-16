@@ -10,12 +10,14 @@ import CampaignsPostal from './campaigns/postal/show'
 import CampaignsPostalDesign from './campaigns/postal/design'
 import CampaignsSocial from './campaigns/social/show'
 import CampaignsSocialDesign from './campaigns/social/design'
-import CampaignsSmsList from './campaigns/sms/list'
+import CampaignsSmsInbound from './campaigns/sms/inbound'
+import CampaignsSmsOutbound from './campaigns/sms/outbound'
 import CampaignsSmsShow from './campaigns/sms/show'
 import CampaignsSmsDesign from './campaigns/sms/design'
 import CampaignsSmsSessionsList from './campaigns/sms/sessions/list'
 import CampaignsSmsSessionsShow from './campaigns/sms/sessions/show'
-import CampaignsVoiceList from './campaigns/voice/list'
+import CampaignsVoiceInbound from './campaigns/voice/inbound'
+import CampaignsVoiceOutbound from './campaigns/voice/outbound'
 import CampaignsVoiceShow from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
 import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
@@ -58,14 +60,16 @@ const routes = [
   { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
   { path: '/campaigns/postal/:id', component: CampaignsPostal },
   { path: '/campaigns/postal/:id/design', component: CampaignsPostalDesign },
-  { path: '/campaigns/sms', component: CampaignsSmsList },
+  { path: '/campaigns/sms/outbound', component: CampaignsSmsOutbound },
+  { path: '/campaigns/sms/inbound', component: CampaignsSmsInbound },
   { path: '/campaigns/sms/:id', component: CampaignsSmsShow },
   { path: '/campaigns/sms/:id/design', component: CampaignsSmsDesign },
   { path: '/campaigns/sms/:campaign_id/sessions', component: CampaignsSmsSessionsList },
   { path: '/campaigns/sms/:campaign_id/sessions/:id', component: CampaignsSmsSessionsShow },
   { path: '/campaigns/social/:id', component: CampaignsSocial },
   { path: '/campaigns/social/:id/design', component: CampaignsSocialDesign },
-  { path: '/campaigns/voice', component: CampaignsVoiceList },
+  { path: '/campaigns/voice/outbound', component: CampaignsVoiceOutbound },
+  { path: '/campaigns/voice/inbound', component: CampaignsVoiceInbound },
   { path: '/campaigns/voice/:id', component: CampaignsVoiceShow },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
   { path: '/campaigns/voice/:campaign_id/calls', component: CampaignsVoiceCallsList },

@@ -11,14 +11,14 @@ const getSendAt = ({ strategy, date, time }) => {
 
 const sendRoute = async (req, res) => {
 
-  const campaign = await SmsCampaign.query(qb => {
+  const sms_campaign = await SmsCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })
 
-  if(!campaign) return res.status(404).respond({
+  if(!sms_campaign) return res.status(404).respond({
     code: 404,
     message: 'Unable to load campaign'
   })
@@ -26,12 +26,12 @@ const sendRoute = async (req, res) => {
   const send_at = getSendAt(req.body)
 
   const job = await SendSmsCampaignQueue.enqueue(req, {
-    sms_campaign_id: campaign.get('id')
+    sms_campaign_id: sms_campaign.get('id')
   }, {
     until: moment(send_at)
   })
 
-  await campaign.save({
+  await sms_campaign.save({
     send_at,
     status: 'scheduled',
     job_id: job.id
@@ -42,12 +42,12 @@ const sendRoute = async (req, res) => {
 
   await audit(req, {
     story: 'scheduled',
-    auditable: campaign
+    auditable: sms_campaign
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns',
-    `/admin/crm/campaigns/sms/${campaign.id}`
+    `/admin/crm/campaigns/sms/${sms_campaign.get('direction')}`,
+    `/admin/crm/campaigns/sms/${sms_campaign.get('id')}`
   ])
 
   res.status(200).respond(true)

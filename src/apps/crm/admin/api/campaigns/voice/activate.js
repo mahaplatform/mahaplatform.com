@@ -1,10 +1,8 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
-import { whitelist } from '../../../../../../core/services/routes/params'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
-import { updateSteps } from '../../../../services/workflows'
 
-const updateRoute = async (req, res) => {
+const activateRoute = async (req, res) => {
 
   const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -19,21 +17,12 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  if(req.body.title) {
-    await voice_campaign.save({
-      ...whitelist(req.body, ['to','title'])
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-  }
-
-  if(req.body.steps) {
-    await updateSteps(req, {
-      voice_campaign,
-      steps: req.body.steps
-    })
-  }
+  await voice_campaign.save({
+    status: req.body.status
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
   await socket.refresh(req, [
     `/admin/crm/campaigns/voice/${voice_campaign.get('direction')}`,
@@ -44,4 +33,4 @@ const updateRoute = async (req, res) => {
 
 }
 
-export default updateRoute
+export default activateRoute

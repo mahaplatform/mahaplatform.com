@@ -11,14 +11,14 @@ const getSendAt = ({ strategy, date, time }) => {
 
 const sendRoute = async (req, res) => {
 
-  const campaign = await VoiceCampaign.query(qb => {
+  const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })
 
-  if(!campaign) return res.status(404).respond({
+  if(!voice_campaign) return res.status(404).respond({
     code: 404,
     message: 'Unable to load campaign'
   })
@@ -26,12 +26,12 @@ const sendRoute = async (req, res) => {
   const send_at = getSendAt(req.body)
 
   const job = await SendVoiceCampaignQueue.enqueue(req, {
-    voice_campaign_id: campaign.get('id')
+    voice_campaign_id: voice_campaign.get('id')
   }, {
     until: moment(send_at)
   })
 
-  await campaign.save({
+  await voice_campaign.save({
     send_at,
     status: 'scheduled',
     job_id: job.id
@@ -42,12 +42,12 @@ const sendRoute = async (req, res) => {
 
   await audit(req, {
     story: 'scheduled',
-    auditable: campaign
+    auditable: voice_campaign
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns',
-    `/admin/crm/campaigns/voice/${campaign.id}`
+    `/admin/crm/campaigns/voice/${voice_campaign.get('direction')}`,
+    `/admin/crm/campaigns/voice/${voice_campaign.get('id')}`
   ])
 
   res.status(200).respond(true)

@@ -6,9 +6,5 @@ export default {
   type: 'voice',
   action: 'say',
   form: Form,
-  config: {
-    voice: 'woman',
-    message: 'Hello! How are you?'
-  },
   token: ({ message }) => message
 }

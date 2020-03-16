@@ -3,6 +3,7 @@ import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
+import _ from 'lodash'
 
 const Details = ({ audits, campaign }) => {
 
@@ -24,21 +25,37 @@ const Details = ({ audits, campaign }) => {
 
   if(campaign.status === 'draft') {
     config.alert = { color: 'grey', message: 'This campaign is in draft mode' }
+  } else if(campaign.status === 'active') {
+    config.alert = { color: 'green', message: 'This campaign is active' }
+  } else if(campaign.status === 'inactive') {
+    config.alert = { color: 'red', message: 'This campaign is inactive' }
   } else if(campaign.status === 'scheduled') {
     config.alert = { color: 'teal', message: 'This campaign is scheduled' }
   } else if(campaign.status === 'sent') {
     config.alert = { color: 'green', message: 'This campaign was sent' }
   }
 
-  config.items = [
-    { label: 'Title', content: campaign.title },
-    { label: 'Program', content: campaign.program.title },
-    { label: 'Purpose', content: campaign.purpose },
-    { label: 'Phone Number', content: campaign.phone_number.formatted },
-    { label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients }
-  ]
+  config.items = []
 
-  if(campaign.status === 'draft') {
+  if(campaign.direction === 'outbound') {
+    config.items.push({ label: 'Title', content: campaign.title })
+  } else  {
+    config.items.push({ label: 'Trigger Term', content: campaign.term })
+  }
+
+  config.items.push({ label: 'Program', content: campaign.program.title })
+
+  if(campaign.direction === 'outbound') {
+    config.items.push({ label: 'Purpose', content: campaign.purpose })
+  }
+
+  config.items.push({ label: 'Phone Number', content: campaign.phone_number.formatted })
+
+  if(campaign.direction === 'outbound') {
+    config.items.push({ label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients })
+  }
+
+  if(_.includes(['draft','inactive'], campaign.status)) {
     config.items.push({ label: 'Content', content: <Button { ...design } /> })
   }
 
