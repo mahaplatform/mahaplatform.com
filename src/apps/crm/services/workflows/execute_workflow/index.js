@@ -178,8 +178,6 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     steps
   })
 
-  console.log(tokens)
-
   const { condition, data, twiml, until, unenroll, wait } = await executeStep(req, {
     answer,
     contact,

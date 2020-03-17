@@ -23,7 +23,7 @@ class Token extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { email, subject } = this.props
+    const { email } = this.props
     const { user } = this.state
     return (
       <div>
@@ -35,11 +35,6 @@ class Token extends React.Component {
         { email &&
           <div>
             To { email }
-          </div>
-        }
-        { subject &&
-          <div>
-            &quot;{ subject }&quot;
           </div>
         }
       </div>
