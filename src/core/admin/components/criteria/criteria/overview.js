@@ -6,6 +6,10 @@ import React from 'react'
 
 class Overview extends React.Component {
 
+  static contextTypes = {
+    form: PropTypes.object
+  }
+
   static propTypes = {
     code: PropTypes.string,
     criteria: PropTypes.array,
@@ -26,6 +30,8 @@ class Overview extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleCreate = this._handleCreate.bind(this)
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
   _handleTest = this._handleTest.bind(this)
 
   render() {
@@ -65,34 +71,46 @@ class Overview extends React.Component {
   }
 
   _getTypes(parent) {
-    const { fields, onPop, onPush } = this.props
+    const { fields } = this.props
     return {
       parent,
       types: fields,
       onCancel: this._handleCancel,
       onChange: this._handleTest,
       onDone: this._handleCreate,
-      onPop,
-      onPush
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 
   _handleAdd(parent) {
-    this.props.onPush(Types, this._getTypes(parent))
+    this._handlePush(Types, this._getTypes(parent))
   }
 
   _handleCancel() {
     this.props.onReset()
-    this.props.onPop()
+    this._handlePop()
   }
 
   _handleCreate(value) {
     this.props.onCreate(value)
-    this.props.onPop(-2)
+    this._handlePop(-2)
   }
 
   _handleTest(value) {
     this.props.onTest(value)
+  }
+
+  _handlePop(index = -1) {
+    const { form } = this.context
+    if(form) return form.pop(index)
+    this.props.onPop(index)
+  }
+
+  _handlePush(component, props) {
+    const { form } = this.context
+    if(form) return form.push(component, props)
+    this.props.onPush(component, props)
   }
 
 }
