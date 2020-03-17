@@ -1,6 +1,10 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
+const inputFields = (state, props) => props.fields
+
+const inputTokens = (state, props) => props.tokens
+
 const steps = (state, props) => [
   { parent: null, answer: null, type: 'trigger', action: null },
   ...state.steps || []
@@ -34,4 +38,49 @@ const segment = (steps, parent, answer) => {
 export const config = createSelector(
   steps,
   (steps) => segment(steps, null, null)
+)
+
+export const stepTokens = createSelector(
+  steps,
+  (steps) => steps.length > 1 ? [{
+    title: 'Workflow Variables', tokens: steps.filter((step) => {
+      return _.includes(['question','record'], step.action)
+    }).map(step => {
+      return step.config.name
+    })
+  }] : []
+)
+
+
+export const stepFields = createSelector(
+  steps,
+  (steps) => steps.length > 1 ? [{
+    label: 'Workflow Fields', fields: steps.filter((step) => {
+      return _.includes(['question','record'], step.action)
+    }).map(step => {
+      return {
+        name: step.config.name.value,
+        key: step.config.name.token,
+        type: 'text'
+      }
+    })
+  }] : []
+)
+
+export const fields = createSelector(
+  inputFields,
+  stepFields,
+  (inputFields, stepFields) => [
+    ...inputFields,
+    ...stepFields
+  ]
+)
+
+export const tokens = createSelector(
+  inputTokens,
+  stepTokens,
+  (inputTokens, stepTokens) => [
+    ...inputTokens,
+    ...stepTokens
+  ]
 )

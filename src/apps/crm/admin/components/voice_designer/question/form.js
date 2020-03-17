@@ -55,6 +55,11 @@ class Question extends React.PureComponent {
       onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
+      instructions: `
+        You can ask a question and receive user input. Once the user replies,
+        the value will be saved as a variable which you can use later in an
+        If/Then step.
+      `,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
@@ -63,7 +68,7 @@ class Question extends React.PureComponent {
           fields: [
             { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play a recording'}], defaultValue: config.strategy },
             this._getStrategy(),
-            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
+            { label: 'Variable Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
           ]
         }
       ]

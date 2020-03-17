@@ -22,6 +22,7 @@ class FlowchartDesigner extends React.PureComponent {
     status: PropTypes.string,
     steps: PropTypes.array,
     step: PropTypes.object,
+    stepTokens: PropTypes.array,
     tokens: PropTypes.array,
     program: PropTypes.object,
     onAdd: PropTypes.func,

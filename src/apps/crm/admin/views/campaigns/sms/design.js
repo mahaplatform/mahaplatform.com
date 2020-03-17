@@ -18,6 +18,7 @@ class Designer extends React.Component {
     return {
       campaign,
       endpoint: `/api/admin/crm/campaigns/sms/${campaign.id}`,
+      fields: this._getFields(),
       properties: this._getProperties(),
       tokens: this._getTokens()
     }
@@ -28,6 +29,23 @@ class Designer extends React.Component {
       { label: 'First Name', name: 'first_name', type: 'textfield' },
       { label: 'Last Name', name: 'last_name', type: 'textfield' },
       { label: 'Email', name: 'email', type: 'emailfield' }
+    ]
+  }
+
+  _getFields() {
+    return [
+      { label: 'Contact', fields: [
+        { name: 'First Name', key: 'first_name', type: 'text' },
+        { name: 'Last Name', key: 'last_name', type: 'text' },
+        { name: 'Email', key: 'email', type: 'text' },
+        { name: 'Phone', key: 'phone', type: 'text' },
+        { name: 'Street', key: 'street_1', type: 'text' },
+        { name: 'City', key: 'city', type: 'text' },
+        { name: 'State/Province', key: 'state_province', type: 'text' },
+        { name: 'Postal Code', key: 'postal_code', type: 'text' },
+        { name: 'Birthday', key: 'birthday', type: 'text' },
+        { name: 'Spouse', key: 'spouse', type: 'text' }
+      ] }
     ]
   }
 

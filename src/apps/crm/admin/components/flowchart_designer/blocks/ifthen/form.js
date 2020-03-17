@@ -41,6 +41,7 @@ class IfThen extends React.PureComponent {
 
   _getForm() {
     const { config } = this.state
+    const { fields } = this.props
     return {
       reference: node => this.form = node,
       title: 'If / Then',
@@ -54,7 +55,7 @@ class IfThen extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Branches', name: 'branches', type: BranchesField, defaultValue: config.branches }
+            { label: 'Branches', name: 'branches', type: BranchesField, branchfields: fields, defaultValue: config.branches }
           ]
         }
       ]

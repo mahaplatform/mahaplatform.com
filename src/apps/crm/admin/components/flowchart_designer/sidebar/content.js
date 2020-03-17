@@ -28,7 +28,7 @@ class Content extends React.Component {
   _getPanel() {
     const { changes, status } = this.props
     return {
-      title: 'Workflow',
+      title: 'Steps',
       buttons: [
         {
           label: status === 'ready' ? 'Save' : <i className="fa fa-circle-o-notch fa-spin" />,
