@@ -1,4 +1,4 @@
-import { Button, Container, Form, UserToken } from 'maha-admin'
+import { Button, Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -63,7 +63,7 @@ class InternalEmail extends React.PureComponent {
           fields: [
             { name: 'strategy', type: 'radiogroup', options: [{ value: 'email', text: 'Enter an email address' },{ value: 'user', text: 'Choose a specific user'}], defaultValue: config.strategy },
             this._getStrategy(),
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: config.subject },
+            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: config.subject, after: <Button { ...this._getTokens() } /> },
             { label: 'Body', name: 'body', type: 'textarea', placeholder: 'Enter a body', defaultValue: config.body, rows: 8, required: true, after: <Button { ...this._getTokens() } /> }
           ]
         }
@@ -73,11 +73,10 @@ class InternalEmail extends React.PureComponent {
 
   _getStrategy() {
     const { config } = this.state
-    const { users } = this.props
     if(config.strategy === 'email') {
       return { label: 'Email', name: 'email', type: 'emailfield', required: true, placeholder: 'Enter an email', defaultValue: config.email }
     } else {
-      return { label: 'User', name: 'user_id', type: 'lookup', prompt: 'Choose a User', options: users, value: 'id', text: 'full_name', format: UserToken, required: true, defaultValue: _.get(config, 'user.id') }
+      return { label: 'User', name: 'user_id', type: 'lookup', prompt: 'Choose a User', endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken, required: true, defaultValue: config.user_id }
     }
   }
 
@@ -99,15 +98,7 @@ class InternalEmail extends React.PureComponent {
   }
 
   _handleDone(config) {
-    const { users } = this.props
-    const user = _.find(users, { id: config.user_id })
-    this.props.onDone({
-      ...config,
-      user: user ? {
-        id: user.id,
-        full_name: user.full_name
-      } : null
-    })
+    this.props.onDone(config)
   }
 
   _handleSubmit() {
@@ -116,8 +107,4 @@ class InternalEmail extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  users: '/api/admin/users'
-})
-
-export default Container(mapResources)(InternalEmail)
+export default InternalEmail

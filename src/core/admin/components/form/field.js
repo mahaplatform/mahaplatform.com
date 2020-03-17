@@ -46,12 +46,12 @@ class Field extends React.Component {
           { type === 'fields' && <Fields { ...this._getFields() } /> }
           { type === 'segment' && <Segment { ...this._getFields() } /> }
           { !_.includes(['fields','segment'], type) && <Control { ...this._getControl() } /> }
-          { after }
           { error &&
             <div className="error-message">
               { error }
             </div>
           }
+          { after }
         </div>
       </div>
     )
