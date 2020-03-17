@@ -49,7 +49,7 @@ class Message extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Message', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a message', defaultValue: config.message, rows: 8, after: <Button { ...this._getTokens() } /> },
+            { label: 'Message', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a message', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
             { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
           ]
         }

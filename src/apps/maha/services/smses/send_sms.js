@@ -2,9 +2,12 @@ import SMSAttachment from '../../models/sms_attachment'
 import SendSMSQueue from '../../queues/send_sms_queue'
 import { findOrCreateNumber } from '../numbers'
 import SMS from '../../models/sms'
+import queueSMS from './queue_sms'
 import ejs from 'ejs'
 
-const sendSMS = async (req, { team_id, from, to, body, asset_ids, sid, data }) => {
+const sendSMS = async (req, params) => {
+
+  const { team_id, from, to, body, asset_ids, sid, data, queue } = params
 
   const from_number = await findOrCreateNumber(req, {
     number: from
@@ -39,9 +42,15 @@ const sendSMS = async (req, { team_id, from, to, body, asset_ids, sid, data }) =
     })
   }
 
-  await SendSMSQueue.enqueue(req, {
-    sms_id: sms.get('id')
-  })
+  if(queue === false) {
+    await queueSMS(req, {
+      sms_id: sms.get('id')
+    })
+  } else {
+    await SendSMSQueue.enqueue(req, {
+      sms_id: sms.get('id')
+    })
+  }
 
   return sms
 

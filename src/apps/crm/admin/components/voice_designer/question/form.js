@@ -68,9 +68,9 @@ class Question extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
             { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
-            this._getStrategy(),
-            { label: 'Variable Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
+            this._getStrategy()
           ]
         }
       ]

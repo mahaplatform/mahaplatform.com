@@ -1,4 +1,4 @@
-import client from '../../../../../core/services/twilio'
+import sendSMS from '../../../../maha/services/smses'
 
 const sendInternalSms = async (req, { config, enrollment, tokens }) => {
 
@@ -6,7 +6,7 @@ const sendInternalSms = async (req, { config, enrollment, tokens }) => {
     transacting: req.trx
   })
 
-  await client.messages.create({
+  await sendSMS(req, {
     from: enrollment.related('workflow').related('program').related('phone_number').get('number'),
     to: config.number,
     body: config.message,

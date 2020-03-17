@@ -67,9 +67,9 @@ class Listen extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Question', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 4, after: <Button { ...this._getTokens() } /> },
-            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids },
-            { label: 'Variable Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
+            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
+            { label: 'Message', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
           ]
         }
       ]
@@ -91,8 +91,10 @@ class Listen extends React.PureComponent {
 
   _handleChange(config) {
     this.setState({
-      ...this.state.config,
-      ...config
+      config: {
+        ...this.state.config,
+        ...config
+      }
     })
   }
 

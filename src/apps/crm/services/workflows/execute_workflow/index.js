@@ -44,13 +44,15 @@ const getExecutor = (type, action) => {
   if(type === 'sms' && action === 'question') return smsQuestion
 }
 
-const executeStep = async (req, { answer, contact, enrollment, execute, step, tokens }) => {
+const executeStep = async (req, params) => {
+  const { answer, contact, data, enrollment, execute, step, tokens } = params
   if(execute === false) return {}
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
     config: step.get('config'),
     contact,
+    data,
     enrollment,
     step,
     tokens
@@ -58,6 +60,11 @@ const executeStep = async (req, { answer, contact, enrollment, execute, step, to
 }
 
 const getCurrentStep = async (req, { enrollment, code, steps }) => {
+  if(code) {
+    return steps.find(step => {
+      return step.get('code') === code
+    })
+  }
   const last_completed_action = await WorkflowAction.query(qb => {
     qb.where('enrollment_id', enrollment.get('id'))
     qb.orderBy('created_at', 'desc')
@@ -76,7 +83,6 @@ const getCurrentStep = async (req, { enrollment, code, steps }) => {
     })
   }
   return steps.find(step => {
-    if(code) return step.get('code') === code
     return step.get('parent') === null && step.get('answer') === null && step.get('delta') === 0
   })
 }
@@ -104,24 +110,41 @@ const getWorkflow = async (req, { enrollment }) => {
   if(enrollment.get('workflow_id')) return enrollment.related('workflow')
 }
 
-const refresh = async (req, { voice_campaign_id, sms_campaign_id, workflow_id }) => {
-  if(voice_campaign_id) {
+const getSteps = async (req, { enrollment }) => {
+  const workflow = await getWorkflow(req, {
+    enrollment
+  })
+  return workflow.related('steps').toArray()
+}
+
+const refresh = async (req, { enrollment }) => {
+  if(enrollment.get('voice_campaign_id')) {
     await socket.refresh(req, [
       '/admin/crm/campaigns/voice',
-      `/admin/crm/campaigns/voice/${voice_campaign_id}`
+      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}`
     ])
-  } else if(sms_campaign_id) {
+  } else if(enrollment.get('sms_campaign_id')) {
     await socket.refresh(req, [
       '/admin/crm/campaigns/sms',
-      `/admin/crm/campaigns/sms/${sms_campaign_id}`
+      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}`
     ])
-  } else if(sms_campaign_id) {
+  } else if(enrollment.get('workflow_id')) {
     await socket.refresh(req, [
       '/admin/crm/workflows',
-      `/admin/crm/workflows/${workflow_id}`
+      `/admin/crm/workflows/${enrollment.get('workflow_id')}`
     ])
   }
 }
+
+const getData = async(req, { contact, enrollment, steps }) => ({
+  full_name: contact.get('full_name'),
+  first_name: contact.get('full_name'),
+  last_name: contact.get('full_name'),
+  email: contact.get('email'),
+  phone: contact.get('phone'),
+  address: contact.get('address'),
+  ...enrollment.get('data')
+})
 
 const getTokens = async(req, { contact, enrollment, steps }) => {
   const data = enrollment.get('data')
@@ -143,6 +166,28 @@ const getTokens = async(req, { contact, enrollment, steps }) => {
   }
 }
 
+const saveResults = async (req, { enrollment, step, data, unenroll }) => {
+  await WorkflowAction.forge({
+    team_id: req.team.get('id'),
+    enrollment_id: enrollment.get('id'),
+    step_id: step.get('id'),
+    data: data || {}
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await enrollment.save({
+    data: {
+      ...enrollment.get('data') || {},
+      ...data || {}
+    },
+    unenrolled_at: unenroll ? moment() : enrollment.get('unenrolled_at')
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
+
+}
 export const executeWorkflow = async (req, { enrollment_id, code, execute, answer }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
@@ -160,11 +205,9 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     transacting: req.trx
   })
 
-  const workflow = await getWorkflow(req, {
+  const steps = await getSteps(req, {
     enrollment
   })
-
-  const steps = workflow.related('steps').toArray()
 
   const step = await getCurrentStep(req, {
     enrollment,
@@ -178,60 +221,44 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     steps
   })
 
-  const { condition, data, twiml, until, unenroll, wait } = await executeStep(req, {
+  const data = await getData(req, {
+    contact,
+    enrollment,
+    steps
+  })
+
+  const result = await executeStep(req, {
     answer,
     contact,
+    data,
     enrollment,
     execute,
     step,
     tokens
   })
 
+  const { condition, twiml, until, wait } = result
+
   if(twiml) return { twiml }
 
   if(wait === true) return
 
-  await WorkflowAction.forge({
-    team_id: req.team.get('id'),
-    enrollment_id: enrollment.get('id'),
-    step_id: step.get('id'),
-    data: data || {}
-  }).save(null, {
-    transacting: req.trx
+  await saveResults(req, {
+    enrollment,
+    step,
+    data: result.data,
+    unenroll: result.unenroll
   })
-
-  if(data) {
-    await enrollment.save({
-      data: {
-        ...enrollment.get('data'),
-        ...data
-      }
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
-
-  if(unenroll === true) {
-    return await enrollment.save({
-      unenrolled_at: moment()
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
 
   const next = await getNextStep(req, {
     steps,
     parent: condition ? condition.parent : step.get('parent'),
-    answer: condition ? condition.answer : step.get('parent'),
+    answer: condition ? condition.answer : step.get('answer'),
     delta: condition ? condition.delta : step.get('delta')
   })
 
   await refresh(req, {
-    voice_campaign_id: enrollment.get('voice_campaign_id'),
-    sms_campaign_id: enrollment.get('sms_campaign_id'),
-    workflow_id: enrollment.get('workflow_id')
+    enrollment
   })
 
   if(next && enrollment.get('voice_campaign_id')) {

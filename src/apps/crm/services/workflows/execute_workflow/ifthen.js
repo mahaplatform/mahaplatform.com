@@ -1,15 +1,47 @@
-import _ from 'lodash'
+import { toFilter } from '../../../../../core/utils/criteria'
 
-const evaluate = async (left, comparison, right) => {
-  if(right === 'else') return true
-  if(comparison === '$eq') {
-    return left === right
-  }
+const equals = (left, right) => {
+  return left.toLowerCase() === right.toLowerCase()
 }
 
-const ifthen = async (req, { config, enrollment, step, tokens }) => {
+const notEquals = (left, right) => {
+  return left.toLowerCase() !== right.toLowerCase()
+}
 
-  const { comparison, options, token } = config
+const evaluate = async (filter, data) => {
+
+  if(filter.$and) {
+    return await Promise.reduce(filter.$and, async (found, condition) => {
+      return found === false ? found : await evaluate(condition, data)
+    }, null)
+  }
+
+  if(filter.$or) {
+    return await Promise.reduce(filter.$or, async (found, condition) => {
+      return found === true ? found : await evaluate(condition, data)
+    }, null)
+  }
+
+  const key = Object.keys(filter)[0]
+
+  const left = data[key]
+
+  const comparison = Object.keys(filter[key])[0]
+
+  const right = Object.values(filter[key])[0]
+
+  if(comparison === '$eq') return equals(left, right)
+  if(comparison === '$neq') return notEquals(left, right)
+
+  return false
+
+}
+
+const ifthen = async (req, params) => {
+
+  const { config, enrollment, step } = params
+
+  const { branches } = config
 
   await enrollment.load(['response'], {
     transacting: req.trx
@@ -18,23 +50,22 @@ const ifthen = async (req, { config, enrollment, step, tokens }) => {
   const response = enrollment.related('response')
 
   const data = {
-    ...tokens,
-    response: response.get('data')
+    ...params.data,
+    ...response.get('data')
   }
 
-  const value = _.get(data, token)
-
-  const option = options.find(option => {
-    return evaluate(value, comparison, option.value)
-  })
-
+  const branch = await Promise.reduce(branches, async (found, branch) => {
+    const filter = toFilter(branch.criteria)
+    return found || await evaluate(filter, data) ? branch : null
+  }, null)
+  
   return {
     data: {
-      option: option.code
+      branch: branch.name
     },
     condition: {
       parent: step.get('code'),
-      answer: option.code,
+      answer: branch.code,
       delta: -1
     }
   }
