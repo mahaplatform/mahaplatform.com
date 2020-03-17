@@ -1,5 +1,3 @@
-import ValuesField from '../../../valuesfield'
-import VariableField from './variablefield'
 import BranchesField from './branchesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -33,30 +31,23 @@ class IfThen extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { config } = this.props
     this.setState({
       config: {
         ...this._getDefault(),
-        ...config ? {
-          ...config,
-          branches: config.strategy === 'criteria' ? config.branches : [],
-          values: config.strategy === 'variable' ? config.branches : []
-        } : {}
+        ...this.props.config || {}
       }
     })
   }
 
   _getDefault() {
     return {
-      strategy: 'variable',
-      branches: [],
-      values: [],
-      variable: null
+      branches: []
     }
   }
 
   _getForm() {
     const { config } = this.state
+    const { fields } = this.props
     return {
       reference: node => this.form = node,
       title: 'If / Then',
@@ -71,26 +62,11 @@ class IfThen extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'variable', text: 'Evaluate a varibale' },{ value: 'criteria', text: 'Evaluate set of criteria' }], defaultValue: config.strategy },
-            ...this._getStrategy()
+            { label: 'Branches', name: 'branches', type: BranchesField, fields, defaultValue: config.branches }
           ]
         }
       ]
     }
-  }
-
-  _getStrategy() {
-    const { fields } = this.props
-    const { config } = this.state
-    if(config.strategy === 'variable') {
-      return [
-        { label: 'Variable', name: 'variable', type: VariableField, fields, defaultValue: config.variable },
-        { label: 'Values', name: 'values', type: ValuesField, defaultValue: config.values }
-      ]
-    }
-    return [
-      { label: 'Branches', name: 'branches', type: BranchesField, fields, defaultValue: config.branches }
-    ]
   }
 
   _handleCancel() {
@@ -103,12 +79,7 @@ class IfThen extends React.PureComponent {
 
   _handleDone() {
     const { config } = this.state
-    const { strategy, variable, branches, values } = config
-    this.props.onDone({
-      strategy,
-      variable,
-      branches: strategy === 'criteria' ? branches : values
-    })
+    this.props.onDone(config)
   }
 
   _handleSubmit() {

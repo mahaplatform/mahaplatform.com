@@ -59,8 +59,7 @@ class Question extends React.PureComponent {
         <span>
           You can ask a question and receive user input. Once the user replies,
           the value will be saved as a variable which you can be referenced
-          later in an <strong>Evaluate Variable</strong> or <strong>If/Then</strong>
-          step.
+          later in an <strong>If/Then</strong> step
         </span>
       ),
       buttons: [

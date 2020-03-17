@@ -16,6 +16,7 @@ const sendMessage = async (req, params) => {
     phone_number_id,
     contact_id,
     code,
+    data: {},
     was_completed: false,
     was_converted: false
   }).save(null, {

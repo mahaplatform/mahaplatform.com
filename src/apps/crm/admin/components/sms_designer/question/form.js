@@ -2,6 +2,7 @@ import TokenField from '../../tokenfield'
 import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Listen extends React.PureComponent {
 
@@ -30,8 +31,17 @@ class Listen extends React.PureComponent {
 
   componentDidMount() {
     this.setState({
-      config: this.props.config || {}
+      config: {
+        ...this.props.config || {},
+        ...this._getDefault()
+      }
     })
+  }
+
+  _getDefault() {
+    return {
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
+    }
   }
 
   _getForm() {
@@ -48,8 +58,7 @@ class Listen extends React.PureComponent {
         <span>
           You can ask a question and receive user input. Once the user replies,
           the value will be saved as a variable which you can be referenced
-          later in an <strong>Evaluate Variable</strong> or <strong>If/Then</strong>
-          step.
+          later in an <strong>If/Then</strong> step
         </span>
       ),
       buttons: [
@@ -81,7 +90,10 @@ class Listen extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.setState({ config })
+    this.setState({
+      ...this.state.config,
+      ...config
+    })
   }
 
   _handleDone() {

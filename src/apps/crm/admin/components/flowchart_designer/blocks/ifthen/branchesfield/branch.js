@@ -1,20 +1,19 @@
 import { Criteria, ModalPanel, TextField } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Branch extends React.PureComponent {
 
   static propTypes = {
-    criteria: PropTypes.array,
+    branch: PropTypes.object,
     fields: PropTypes.array,
-    name: PropTypes.string,
     onCancel: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    name: null,
-    criteria: []
+    branch: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -37,15 +36,27 @@ class Branch extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { name, criteria } = this.props
-    this.setState({ name, criteria })
+    this.setState({
+      branch: {
+        ...this._getDefault(),
+        ...this.props.branch || {}
+      }
+    })
+  }
+
+  _getDefault() {
+    return {
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      name: '',
+      criteria: null
+    }
   }
 
   _getCriteria() {
-    const { criteria } = this.state
+    const { branch } = this.state
     const { fields } = this.props
     return {
-      defaultValue: criteria,
+      defaultValue: branch.criteria,
       fields,
       onChange: this._handleChange.bind(this, 'criteria')
     }
@@ -64,9 +75,9 @@ class Branch extends React.PureComponent {
   }
 
   _getTextField() {
-    const { name } = this.state
+    const { branch } = this.state
     return {
-      defaultValue: name,
+      defaultValue: branch.name,
       placeholder: 'Enter a name for this branch',
       onChange: this._handleChange.bind(this, 'name')
     }
@@ -77,13 +88,18 @@ class Branch extends React.PureComponent {
   }
 
   _handleChange(key, value) {
+    const { branch } = this.state
     this.setState({
-      [key]: value
+      branch: {
+        ...branch,
+        [key]: value
+      }
     })
   }
 
   _handleDone() {
-    this.props.onDone(this.state)
+    const { branch } = this.state
+    this.props.onDone(branch)
   }
 
 }

@@ -51,6 +51,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, response }) => 
     contact_id: contact.get('id'),
     response_id: response ? response.get('id') : null,
     code,
+    data: {},
     was_completed: false,
     was_converted: false
   }).save(null, {

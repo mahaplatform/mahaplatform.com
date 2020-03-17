@@ -2,6 +2,7 @@ import TokenField from '../../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Set extends React.PureComponent {
 
@@ -40,7 +41,9 @@ class Set extends React.PureComponent {
 
   _getDefault() {
     return {
-      strategy: 'datetime'
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      name: null,
+      value: ''
     }
   }
 

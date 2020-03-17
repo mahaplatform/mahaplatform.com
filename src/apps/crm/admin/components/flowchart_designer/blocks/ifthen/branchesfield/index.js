@@ -33,6 +33,7 @@ class BranchesField extends React.PureComponent {
   _handleCreate = this._handleCreate.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleRemove = this._handleRemove.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { branches } = this.state
@@ -80,15 +81,11 @@ class BranchesField extends React.PureComponent {
   _getBranch(branch) {
     const { fields } = this.props
     return {
-      ...branch || {},
+      branch: branch || {},
       fields,
       onCancel: this._handleCancel,
-      onDone: this._handleCreate
+      onDone: branch ? this._handleUpdate : this._handleCreate
     }
-  }
-
-  _getCode() {
-    return _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
   }
 
   _getEditButton(branch) {
@@ -117,10 +114,19 @@ class BranchesField extends React.PureComponent {
     this.setState({
       branches: [
         ...branches,
-        {
-          code: this._getCode(),
-          ...branch
-        }
+        branch
+      ]
+    })
+    this.context.form.pop()
+  }
+
+  _handleUpdate(config) {
+    const { branches } = this.state
+    this.setState({
+      branches: [
+        ...branches.map(branch => {
+          return (branch.code === config.code) ? config : branch
+        })
       ]
     })
     this.context.form.pop()

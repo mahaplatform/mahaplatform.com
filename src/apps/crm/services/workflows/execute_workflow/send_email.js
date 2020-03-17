@@ -3,7 +3,6 @@ import generateCode from '../../../../../core/utils/generate_code'
 import { encodeEmail } from '../../../../maha/services/emails'
 import { sendMail } from '../../../../../core/services/email'
 import Email from '../../../../maha/models/email'
-import Contact from '../../../models/contact'
 import CRMEmail from '../../../models/email'
 import Sender from '../../../models/sender'
 import numeral from 'numeral'
@@ -44,9 +43,7 @@ const getResponseData = async (req, { response }) => {
 
 }
 
-const sendEmail = async (req, params) => {
-
-  const { config, enrollment } = params
+const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!config.email.id) return {}
 
@@ -58,12 +55,7 @@ const sendEmail = async (req, params) => {
 
   const response = enrollment.related('response')
 
-  const contact = await Contact.query(qb => {
-    qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
-    qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
-    qb.where('crm_contacts.id', enrollment.get('contact_id'))
-  }).fetch({
-    withRelated: ['email_addresses'],
+  await contact.load(['email_addresses'], {
     transacting: req.trx
   })
 
@@ -96,12 +88,7 @@ const sendEmail = async (req, params) => {
       web_link: `${process.env.WEB_HOST}/w${code}`,
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     },
-    contact: {
-      full_name: contact.get('full_name'),
-      first_name: contact.get('first_name'),
-      last_name: contact.get('last_name'),
-      email: contact.get('email')
-    },
+    ...tokens,
     response: response ? await getResponseData(req, { response }) : null
   }
 

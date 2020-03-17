@@ -12,6 +12,7 @@ export const enrollInCampaign = async (req, { contact, voice_campaign }) => {
     voice_campaign_id: voice_campaign.get('id'),
     contact_id: contact.get('id'),
     code,
+    data: {},
     was_hungup: false,
     was_answering_machine: false,
     was_completed: false,

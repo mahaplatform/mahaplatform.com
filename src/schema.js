@@ -590,6 +590,7 @@ const schema = {
       table.boolean('was_hungup')
       table.integer('phone_number_id').unsigned()
       table.integer('call_id').unsigned()
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('crm_workflow_steps', (table) => {

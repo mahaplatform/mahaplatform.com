@@ -49,7 +49,7 @@ const receive = async (req, { sms, phone_number }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
-    qb.where('crm_workflow_enrollments.phone_number_id', phone_number.get('id'))
+    qb.where('crm_sms_campaigns.phone_number_id', phone_number.get('id'))
     qb.where('crm_workflow_enrollments.contact_id', from.get('contact_id'))
     qb.where('crm_workflow_enrollments.was_completed', false)
     qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))

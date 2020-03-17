@@ -36,6 +36,7 @@ const enrollRoute = async (req, res) => {
       workflow_id: workflow.get('id'),
       contact_id: contact.get('id'),
       code,
+      data: {},
       was_completed: false,
       was_converted: false
     }).save(null, {

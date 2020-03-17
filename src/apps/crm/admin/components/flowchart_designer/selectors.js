@@ -47,7 +47,7 @@ export const stepTokens = createSelector(
       return _.includes(['question','record'], step.action)
     }).map(step => ({
       name: step.config.name.value,
-      token: step.config.name.token
+      token: `workflow.${step.config.name.token}`
     }))
   }] : []
 )
@@ -60,7 +60,7 @@ export const stepFields = createSelector(
       return _.includes(['question','record'], step.action)
     }).map(step => ({
       name: step.config.name.value,
-      key: step.config.name.token,
+      key: step.config.code,
       type: 'text'
     }))
   }] : []

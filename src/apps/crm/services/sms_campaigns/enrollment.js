@@ -24,6 +24,7 @@ export const enrollInCampaign = async (req, { contact, sms_campaign }) => {
     sms_campaign_id: sms_campaign.get('id'),
     contact_id: contact.get('id'),
     code,
+    data: {},
     was_completed: false,
     was_converted: false
   }).save(null, {
