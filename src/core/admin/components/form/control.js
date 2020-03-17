@@ -115,6 +115,7 @@ class Control extends React.Component {
     const { field, defaultValue, onBusy, onChange, onSubmit, onValid } = this.props
     return {
       ...field,
+      originalValue: field.defaultValue,
       defaultValue,
       onBusy,
       onChange,

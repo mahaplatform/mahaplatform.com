@@ -12,9 +12,10 @@ class BranchesField extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    branchfields: PropTypes.array,
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.array,
+    fields: PropTypes.array,
     lists: PropTypes.array,
+    originalValue: PropTypes.array,
     workflow: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
@@ -77,10 +78,10 @@ class BranchesField extends React.PureComponent {
   }
 
   _getBranch(branch) {
-    const { branchfields } = this.props
+    const { fields } = this.props
     return {
       ...branch || {},
-      fields: branchfields,
+      fields,
       onCancel: this._handleCancel,
       onDone: this._handleCreate
     }

@@ -1,4 +1,5 @@
 import ValuesField from '../../../valuesfield'
+import VariableField from './variablefield'
 import BranchesField from './branchesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -23,6 +24,7 @@ class IfThen extends React.PureComponent {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
@@ -31,11 +33,15 @@ class IfThen extends React.PureComponent {
   }
 
   componentDidMount() {
-    const config = this.props.config || {}
+    const { config } = this.props
     this.setState({
       config: {
         ...this._getDefault(),
-        ...config
+        ...config ? {
+          ...config,
+          branches: config.strategy === 'criteria' ? config.branches : [],
+          values: config.strategy === 'variable' ? config.branches : []
+        } : {}
       }
     })
   }
@@ -43,7 +49,9 @@ class IfThen extends React.PureComponent {
   _getDefault() {
     return {
       strategy: 'variable',
-      branches: []
+      branches: [],
+      values: [],
+      variable: null
     }
   }
 
@@ -53,7 +61,8 @@ class IfThen extends React.PureComponent {
       reference: node => this.form = node,
       title: 'If / Then',
       onCancel: this._handleCancel,
-      onSubmit: this._handleDone,
+      onChange: this._handleChange,
+      onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -75,11 +84,12 @@ class IfThen extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'variable') {
       return [
-        { label: 'Values', name: 'branches', type: ValuesField, defaultValue: config.values }
+        { label: 'Variable', name: 'variable', type: VariableField, fields, defaultValue: config.variable },
+        { label: 'Values', name: 'values', type: ValuesField, defaultValue: config.values }
       ]
     }
     return [
-      { label: 'Branches', name: 'branches', type: BranchesField, branchfields: fields, defaultValue: config.branches }
+      { label: 'Branches', name: 'branches', type: BranchesField, fields, defaultValue: config.branches }
     ]
   }
 
@@ -87,8 +97,18 @@ class IfThen extends React.PureComponent {
     this.props.onCancel()
   }
 
-  _handleDone(config) {
-    this.props.onDone(config)
+  _handleChange(config) {
+    this.setState({ config })
+  }
+
+  _handleDone() {
+    const { config } = this.state
+    const { strategy, variable, branches, values } = config
+    this.props.onDone({
+      strategy,
+      variable,
+      branches: strategy === 'criteria' ? branches : values
+    })
   }
 
   _handleSubmit() {

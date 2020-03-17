@@ -30,7 +30,9 @@ const SmsCampaign = new Model({
   },
 
   steps() {
-    return this.hasMany(WorkflowStep, 'sms_campaign_id')
+    return this.hasMany(WorkflowStep, 'sms_campaign_id').query(qb => {
+      qb.where('is_active', true)
+    })
   }
 
 })

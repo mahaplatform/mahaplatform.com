@@ -5,7 +5,9 @@ import React from 'react'
 class Branch extends React.PureComponent {
 
   static propTypes = {
+    criteria: PropTypes.array,
     fields: PropTypes.array,
+    name: PropTypes.string,
     onCancel: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -17,7 +19,6 @@ class Branch extends React.PureComponent {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleSave = this._handleSave.bind(this)
 
   render() {
     return (
@@ -35,9 +36,16 @@ class Branch extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    const { name, criteria } = this.props
+    this.setState({ name, criteria })
+  }
+
   _getCriteria() {
+    const { criteria } = this.state
     const { fields } = this.props
     return {
+      defaultValue: criteria,
       fields,
       onChange: this._handleChange.bind(this, 'criteria')
     }
@@ -50,13 +58,15 @@ class Branch extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [
-        { label: 'Save', color: 'red', handler: this._handleSave }
+        { label: 'Save', color: 'red', handler: this._handleDone }
       ]
     }
   }
 
   _getTextField() {
+    const { name } = this.state
     return {
+      defaultValue: name,
       placeholder: 'Enter a name for this branch',
       onChange: this._handleChange.bind(this, 'name')
     }
@@ -66,15 +76,13 @@ class Branch extends React.PureComponent {
     this.props.onCancel()
   }
 
-  _handleDone() {}
-
   _handleChange(key, value) {
     this.setState({
       [key]: value
     })
   }
 
-  _handleSave() {
+  _handleDone() {
     this.props.onDone(this.state)
   }
 
