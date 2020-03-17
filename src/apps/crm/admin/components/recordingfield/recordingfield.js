@@ -67,7 +67,7 @@ class Recordingfield extends React.PureComponent {
 
   _getChooseButton() {
     return {
-      label: 'Choose recording',
+      label: 'Choose audio file',
       className: 'ui button',
       handler: this._handleChoose
     }
@@ -75,7 +75,7 @@ class Recordingfield extends React.PureComponent {
 
   _getRemoveButton() {
     return {
-      label: 'Choose another recording',
+      label: 'Choose another audio file',
       className: 'link',
       handler: this._handleChoose
     }

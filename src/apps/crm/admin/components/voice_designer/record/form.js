@@ -1,5 +1,6 @@
-import { Form } from 'maha-admin'
+import RecordingField from '../../recordingfield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Record extends React.PureComponent {
@@ -26,6 +27,22 @@ class Record extends React.PureComponent {
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefaults(),
+        ...this.props.config || {}
+      }
+    })
+  }
+
+  _getDefaults() {
+    return {
+      strategy: 'say',
+      voice: 'woman'
+    }
+  }
+
   _getForm() {
     const { config } = this.state
     return {
@@ -36,16 +53,33 @@ class Record extends React.PureComponent {
       onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
+      instructions: `
+        You can record an audio message from the call recipient. The recording
+        will end when the recipient presses the pound key.
+      `,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
+            { label: 'How to request', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
+            this._getStrategy()
           ]
         }
       ]
     }
+  }
+
+  _getStrategy() {
+    const { config } = this.state
+    if(config.strategy === 'say') {
+      return { label: 'Message', type: 'segment', required: true, fields: [
+        { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
+        { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
+      ] }
+    }
+    return { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
   }
 
   _handleCancel() {

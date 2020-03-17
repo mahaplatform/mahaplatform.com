@@ -57,7 +57,7 @@ class Branch extends React.PureComponent {
 
   _getTextField() {
     return {
-      placeholder: 'Enter a name',
+      placeholder: 'Enter a name for this branch',
       onChange: this._handleChange.bind(this, 'name')
     }
   }

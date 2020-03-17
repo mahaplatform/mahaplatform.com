@@ -34,8 +34,6 @@ class Record extends React.PureComponent {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="crm-recordingfield-panel">
-          <p>We can call you and record your message over the phone. Just
-          enter your number below to initiate the call.</p>
           { status === 'pending' &&
             <div className="crm-recordingfield-field">
               <div className="crm-recordingfield-field-phone">
@@ -78,7 +76,11 @@ class Record extends React.PureComponent {
       title: 'Record Message',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
-      ]
+      ],
+      instructions: `
+        We can call you to record a message over the phone. Just enter your
+        number below to initiate the call.
+      `
     }
   }
 

@@ -66,7 +66,7 @@ class Question extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play a recording'}], defaultValue: config.strategy },
+            { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
             this._getStrategy(),
             { label: 'Variable Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
           ]
