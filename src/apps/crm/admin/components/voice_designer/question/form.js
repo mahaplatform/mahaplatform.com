@@ -49,17 +49,20 @@ class Question extends React.PureComponent {
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Question',
+      title: 'Ask a Question',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
-      instructions: `
-        You can ask a question and receive user input. Once the user replies,
-        the value will be saved as a variable which you can use later in an
-        If/Then step.
-      `,
+      instructions: (
+        <span>
+          You can ask a question and receive user input. Once the user replies,
+          the value will be saved as a variable which you can be referenced
+          later in an <strong>Evaluate Variable</strong> or <strong>If/Then</strong>
+          step.
+        </span>
+      ),
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],

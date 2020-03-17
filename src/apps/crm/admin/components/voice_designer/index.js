@@ -41,6 +41,7 @@ class VoiceDesigner extends React.PureComponent {
         { action: 'ifthen' },
         { action: 'wait' },
         { action: 'goal' },
+        { action: 'set' },
         { action: 'property' },
         { action: 'consent' },
         { action: 'list' },

@@ -45,9 +45,10 @@ export const stepTokens = createSelector(
   (steps) => steps.length > 1 ? [{
     title: 'Workflow Variables', tokens: steps.filter((step) => {
       return _.includes(['question','record'], step.action)
-    }).map(step => {
-      return step.config.name
-    })
+    }).map(step => ({
+      name: step.config.name.value,
+      token: step.config.name.token
+    }))
   }] : []
 )
 
@@ -57,13 +58,11 @@ export const stepFields = createSelector(
   (steps) => steps.length > 1 ? [{
     label: 'Workflow Fields', fields: steps.filter((step) => {
       return _.includes(['question','record'], step.action)
-    }).map(step => {
-      return {
-        name: step.config.name.value,
-        key: step.config.name.token,
-        type: 'text'
-      }
-    })
+    }).map(step => ({
+      name: step.config.name.value,
+      key: step.config.name.token,
+      type: 'text'
+    }))
   }] : []
 )
 

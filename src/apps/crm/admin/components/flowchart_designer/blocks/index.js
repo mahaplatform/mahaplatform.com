@@ -10,6 +10,7 @@ import list from './list'
 import wait from './wait'
 import goal from './goal'
 import sms from './sms'
+import set from './set'
 
 const blocks = {
   topic,
@@ -23,6 +24,7 @@ const blocks = {
   property,
   internal_email,
   internal_sms,
+  set,
   goal
 }
 

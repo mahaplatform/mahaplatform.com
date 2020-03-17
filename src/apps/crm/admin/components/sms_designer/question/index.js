@@ -3,7 +3,7 @@ import Form from './form'
 
 export default {
   icon: 'question',
-  label: 'Question',
+  label: 'Ask Question',
   type: 'sms',
   action: 'question',
   form: Form,

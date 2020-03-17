@@ -1,4 +1,4 @@
-import ValuesField from '../../valuesfield'
+import TokenField from '../../tokenfield'
 import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -38,21 +38,29 @@ class Listen extends React.PureComponent {
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Listen',
+      title: 'Ask a Question',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
+      instructions: (
+        <span>
+          You can ask a question and receive user input. Once the user replies,
+          the value will be saved as a variable which you can be referenced
+          later in an <strong>Evaluate Variable</strong> or <strong>If/Then</strong>
+          step.
+        </span>
+      ),
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
-            { label: 'Message', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a message', defaultValue: config.message, rows: 8, after: <Button { ...this._getTokens() } /> },
+            { label: 'Question', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 4, after: <Button { ...this._getTokens() } /> },
             { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids },
-            { label: 'Responses', name: 'branches', type: ValuesField, required: true, defaultValue: config.branches }
+            { label: 'Variable Name', name: 'name', type: TokenField, required: true, defaultValue: config.name }
           ]
         }
       ]

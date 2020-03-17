@@ -55,7 +55,8 @@ class Record extends React.PureComponent {
       saveText: null,
       instructions: `
         You can record an audio message from the call recipient. The recording
-        will end when the recipient presses the pound key.
+        will begin when the recipient hears a beep and end when the
+        recipient presses the pound key.
       `,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
