@@ -63,18 +63,18 @@ class Performance extends React.Component {
         <div className="crm-report-metrics">
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Respondants
+              Responses
             </div>
             <div className="crm-report-metric-value">
-              { respondants }
+              { this._getButton(responses, '') }
             </div>
           </div>
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Responses
+              Respondants
             </div>
             <div className="crm-report-metric-value">
-              { responses }
+              { this._getButton(respondants, '') }
             </div>
           </div>
           <div className="crm-report-metric">
@@ -138,6 +138,17 @@ class Performance extends React.Component {
     if(!_.isEqual(performance, prevState.performance)) {
       this._handlePlot()
     }
+  }
+
+  _getButton(value, report) {
+    const { form } = this.props
+    const query = report ? `?$filter[${report}][$eq]=true` : ''
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/forms/${form.id}/responses${query}`
+    }
+    return <Button { ...button } />
   }
 
   _getRange(range) {

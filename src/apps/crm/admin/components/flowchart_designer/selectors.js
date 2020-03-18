@@ -10,6 +10,13 @@ const steps = (state, props) => [
   ...state.steps || []
 ]
 
+const dynamicSteps = createSelector(
+  steps,
+  (steps) => steps.filter((step) => {
+    return _.includes(['set','question','record'], step.action)
+  })
+)
+
 const segment = (steps, parent, answer) => {
   const result = steps.filter((step) => {
     return step.parent === parent && step.answer === answer
@@ -40,46 +47,31 @@ export const config = createSelector(
   (steps) => segment(steps, null, null)
 )
 
-export const stepTokens = createSelector(
-  steps,
-  (steps) => steps.length > 1 ? [{
-    title: 'Workflow Variables', tokens: steps.filter((step) => {
-      return _.includes(['set','question','record'], step.action)
-    }).map(step => ({
-      name: step.config.name.value,
-      token: `workflow.${step.config.name.token}`
-    }))
-  }] : []
-)
-
-
-export const stepFields = createSelector(
-  steps,
-  (steps) => steps.length > 1 ? [{
-    label: 'Workflow Fields', fields: steps.filter((step) => {
-      return _.includes(['set','question','record'], step.action)
-    }).map(step => ({
-      name: step.config.name.value,
-      key: step.config.code,
-      type: 'text'
-    }))
-  }] : []
-)
-
 export const fields = createSelector(
   inputFields,
-  stepFields,
-  (inputFields, stepFields) => [
+  dynamicSteps,
+  (inputFields, steps) => [
     ...inputFields,
-    ...stepFields
+    ...steps.length > 0 ? [{
+      label: 'Workflow Fields', fields: steps.map(step => ({
+        name: step.config.name.value,
+        key: step.config.code,
+        type: 'text'
+      }))
+    }] : []
   ]
 )
 
 export const tokens = createSelector(
   inputTokens,
-  stepTokens,
-  (inputTokens, stepTokens) => [
+  dynamicSteps,
+  (inputTokens, steps) => [
     ...inputTokens,
-    ...stepTokens
+    ...steps.length > 0 ? [{
+      title: 'Workflow Tokens', tokens: steps.map(step => ({
+        name: step.config.name.value,
+        token: `workflow.${step.config.name.token}`
+      }))
+    }] : []
   ]
 )

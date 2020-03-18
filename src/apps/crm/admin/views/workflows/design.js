@@ -47,16 +47,32 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    if(!workflow.form) return []
-    return workflow.form.config.fields.filter(field => {
-      return field.type !== 'text' && field.name
-    }).map(field => ({
-      code: field.code,
-      token: `response.${field.code}`,
-      name: `response.${field.name.token}`,
-      type: _.get(field, 'contactfield.type') || field.type,
-      options: _.get(field, 'contactfield.options') || field.options
-    }))
+    return [
+      { label: 'Contact Fields', fields: [
+        { name: 'First Name', key: 'first_name', type: 'text' },
+        { name: 'Last Name', key: 'last_name', type: 'text' },
+        { name: 'Email', key: 'email', type: 'text' },
+        { name: 'Phone', key: 'phone', type: 'text' },
+        { name: 'Street', key: 'street_1', type: 'text' },
+        { name: 'City', key: 'city', type: 'text' },
+        { name: 'State/Province', key: 'state_province', type: 'text' },
+        { name: 'Postal Code', key: 'postal_code', type: 'text' },
+        { name: 'Birthday', key: 'birthday', type: 'text' },
+        { name: 'Spouse', key: 'spouse', type: 'text' }
+      ] },
+      ...workflow.form ? [{
+        label: 'Response Fields',
+        fields: workflow.form.config.fields.filter(field => {
+          return field.type !== 'text' && field.name
+        }).map(field => ({
+          code: field.code,
+          token: `response.${field.code}`,
+          name: field.name.value,
+          type: _.get(field, 'contactfield.type') || field.type,
+          options: _.get(field, 'contactfield.options') || field.options
+        }))
+      }]: []
+    ]
   }
 
   _getProperties() {
@@ -73,17 +89,22 @@ class Designer extends React.Component {
   }
 
   _getTokens() {
+    const { workflow } = this.props
     return [
-      { title: 'Response Variables', tokens: [
-        { name: 'First Name', token: 'response.first_name' },
-        { name: 'Last Name', token: 'response.last_name' },
-        { name: 'Email', token: 'response.email' }
-      ] },
-      { title: 'Contact Variables', tokens: [
+      { title: 'Contact Tokens', tokens: [
         { name: 'First Name', token: 'contact.first_name' },
         { name: 'Last Name', token: 'contact.last_name' },
         { name: 'Email', token: 'contact.email' }
-      ] }
+      ] },
+      ...workflow.form ? [{
+        title: 'Response Tokens',
+        tokens: workflow.form.config.fields.filter(field => {
+          return field.type !== 'text' && field.name
+        }).map(field => ({
+          name: field.name.value,
+          token: `response.${field.name.token}`
+        }))
+      }]: []
     ]
   }
 

@@ -11,12 +11,6 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/design`
   }
 
-  const responses = {
-    label: pluralize('response', form.responses_count, true),
-    className: 'link',
-    route: `/admin/crm/forms/${form.id}/responses`
-  }
-
   const workflow = {
     label: 'Manage Workflow',
     className: 'link',
@@ -30,7 +24,6 @@ const Details = ({ audits, form }) => {
     { label: 'Program', content: form.program.title },
     { label: 'Design', content: <Button { ...design } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },
-    { label: 'Responses', content: <Button { ...responses } /> },
     { component: <Audit entries={ audits } /> }
   ]
 
