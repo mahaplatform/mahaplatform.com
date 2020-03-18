@@ -11,7 +11,7 @@ const status = async (req, { call, status }) => {
 
   if(!enrollment) return
 
-  if(status === 'completed' && !enrollment.get('was_completed')) {
+  if(status === 'completed' && enrollment.get('status') !== 'completed') {
     await enrollment.save({
       was_hungup: true
     }, {

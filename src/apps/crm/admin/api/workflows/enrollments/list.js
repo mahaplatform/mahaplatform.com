@@ -23,12 +23,12 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['was_converted']
+      allowed: ['status','was_converted']
     },
     sort: {
       params: req.query.$sort,
       defaults:  '-created_at',
-      allowed: ['created_at']
+      allowed: ['status','created_at']
     },
     page: req.query.$page,
     withRelated: ['contact.photo'],

@@ -13,9 +13,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', key: 'call.status', collapsing: true, primary: true, padded: true, format: TwilioStatusToken }
     ],
     empty: {
-      icon: 'user',
-      title: 'No Enrollments',
-      text: 'There are no contacts enrolled in this campaign'
+      icon: 'phone',
+      title: 'No Calls',
+      text: 'There are no contacts enrolled in this voice campaign'
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',

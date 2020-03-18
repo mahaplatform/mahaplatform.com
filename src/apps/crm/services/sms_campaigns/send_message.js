@@ -17,7 +17,7 @@ const sendMessage = async (req, params) => {
     contact_id,
     code,
     data: {},
-    was_completed: false,
+    status: 'active',
     was_converted: false
   }).save(null, {
     transacting: req.trx

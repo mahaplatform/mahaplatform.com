@@ -129,11 +129,11 @@ export const getContacts = async (req, params) => {
         }),
         $wcm: (table, alias, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_completed = true`
+          query: `${alias}.status = 'completed'`
         }),
         $nwcm: (table, alias, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_completed = false`
+          query: `${alias}.status = 'completed'`
         }),
         $wcv: (table, alias, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],

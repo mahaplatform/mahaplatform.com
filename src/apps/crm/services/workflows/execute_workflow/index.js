@@ -176,16 +176,23 @@ const saveResults = async (req, { enrollment, step, data, unenroll }) => {
     transacting: req.trx
   })
 
-  await enrollment.save({
-    data: {
-      ...enrollment.get('data') || {},
-      ...data || {}
-    },
-    unenrolled_at: unenroll ? moment() : enrollment.get('unenrolled_at')
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+  if(data || unenroll) {
+    await enrollment.save({
+      ...data ? {
+        data: {
+          ...enrollment.get('data') || {},
+          ...data || {}
+        }
+      } : {},
+      ...unenroll ? {
+        status: 'lost',
+        unenrolled_at: moment()
+      }: {}
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
 
 }
 
@@ -264,7 +271,7 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
 
   if(!next) {
     await enrollment.save({
-      was_completed: true
+      status: 'complete'
     }, {
       transacting: req.trx,
       patch: true

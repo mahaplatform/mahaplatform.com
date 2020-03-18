@@ -579,7 +579,6 @@ const schema = {
       table.integer('contact_id').unsigned()
       table.integer('response_id').unsigned()
       table.string('code', 255)
-      table.boolean('was_completed')
       table.boolean('was_converted')
       table.timestamp('unenrolled_at')
       table.timestamp('created_at')
@@ -591,6 +590,7 @@ const schema = {
       table.integer('phone_number_id').unsigned()
       table.integer('call_id').unsigned()
       table.jsonb('data')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('crm_workflow_steps', (table) => {
@@ -3749,13 +3749,13 @@ union
       select crm_workflow_enrollments.sms_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is null))
+      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.status = 'active'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.sms_campaign_id
       ), lost as (
       select crm_workflow_enrollments.sms_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is not null))
+      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.status = 'lost'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.sms_campaign_id
       ), converted as (
       select crm_workflow_enrollments.sms_campaign_id,
@@ -3767,7 +3767,7 @@ union
       select crm_workflow_enrollments.sms_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.was_completed = true))
+      where ((crm_workflow_enrollments.sms_campaign_id is not null) and (crm_workflow_enrollments.status = 'completed'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.sms_campaign_id
       )
       select crm_sms_campaigns.id as sms_campaign_id,
@@ -3814,13 +3814,13 @@ union
       select crm_workflow_enrollments.voice_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is null))
+      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.status = 'active'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.voice_campaign_id
       ), lost as (
       select crm_workflow_enrollments.voice_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is not null))
+      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.status = 'lost'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.voice_campaign_id
       ), hangups as (
       select crm_workflow_enrollments.voice_campaign_id,
@@ -3844,7 +3844,7 @@ union
       select crm_workflow_enrollments.voice_campaign_id,
       count(*) as count
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.was_completed = true))
+      where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.status = 'completed'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.voice_campaign_id
       )
       select crm_voice_campaigns.id as voice_campaign_id,
@@ -3877,13 +3877,13 @@ union
       select crm_workflow_enrollments.workflow_id,
       count(*) as total
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is null))
+      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.status = 'active'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.workflow_id
       ), lost as (
       select crm_workflow_enrollments.workflow_id,
       count(*) as total
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.was_completed = false) and (crm_workflow_enrollments.unenrolled_at is not null))
+      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.status = 'lost'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.workflow_id
       ), converted as (
       select crm_workflow_enrollments.workflow_id,
@@ -3895,7 +3895,7 @@ union
       select crm_workflow_enrollments.workflow_id,
       count(*) as total
       from crm_workflow_enrollments
-      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.was_completed = true))
+      where ((crm_workflow_enrollments.workflow_id is not null) and (crm_workflow_enrollments.status = 'completed'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.workflow_id
       )
       select crm_workflows.id as workflow_id,

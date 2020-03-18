@@ -52,7 +52,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, response }) => 
     response_id: response ? response.get('id') : null,
     code,
     data: {},
-    was_completed: false,
+    status: 'active',
     was_converted: false
   }).save(null, {
     transacting: req.trx

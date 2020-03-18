@@ -15,7 +15,7 @@ export const enrollInCampaign = async (req, { contact, voice_campaign }) => {
     data: {},
     was_hungup: false,
     was_answering_machine: false,
-    was_completed: false,
+    status: 'active',
     was_converted: false
   }).save(null, {
     transacting: req.trx

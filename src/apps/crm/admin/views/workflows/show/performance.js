@@ -1,6 +1,7 @@
 import moment from 'moment-timezone'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import Chart from 'chart.js'
 import React from 'react'
 import _ from 'lodash'
@@ -39,6 +40,7 @@ class Performance extends React.Component {
 
   render() {
     const { performance } = this.state
+    const { workflow } = this.props
     if(!performance) return null
     return (
       <div className="crm-report">
@@ -63,7 +65,7 @@ class Performance extends React.Component {
               Enrollments
             </div>
             <div className="crm-report-metric-value">
-              <Button { ...this._getButton('enrolled', '') } />
+              <Button { ...this._getButton(workflow.enrolled_count, '') } />
             </div>
           </div>
           <div className="crm-report-metric">
@@ -71,7 +73,7 @@ class Performance extends React.Component {
               Active
             </div>
             <div className="crm-report-metric-value">
-              <Button { ...this._getButton('active', '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]') } />
+              <Button { ...this._getButton(workflow.active_count, '?$filter[status][$eq]=active') } />
             </div>
           </div>
           <div className="crm-report-metric">
@@ -79,7 +81,7 @@ class Performance extends React.Component {
               Converted
             </div>
             <div className="crm-report-metric-value">
-              <Button { ...this._getButton('converted', '?$filter[was_converted][$eq]=true') } />
+              <Button { ...this._getButton(workflow.converted_count, '?$filter[was_converted][$eq]=true') } />
             </div>
           </div>
           <div className="crm-report-metric">
@@ -87,7 +89,7 @@ class Performance extends React.Component {
               Conversion Rate
             </div>
             <div className="crm-report-metric-value">
-              { performance.metrics.conversion_rate }
+              { numeral(workflow.converted_count / workflow.enrolled_count).format('0.0%') }
             </div>
           </div>
         </div>
@@ -99,7 +101,7 @@ class Performance extends React.Component {
                   Lost
                 </td>
                 <td className="right aligned">
-                  <Button { ...this._getButton('lost', '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nnl]') } />
+                  <Button { ...this._getButton(workflow.lost_count, '?$filter[status][$eq]=lost') } />
                 </td>
               </tr>
               <tr>
@@ -107,7 +109,7 @@ class Performance extends React.Component {
                   Completed
                 </td>
                 <td className="right aligned">
-                  <Button { ...this._getButton('completed', '?$filter[was_completed][$eq]=true') } />
+                  <Button { ...this._getButton(workflow.completed_count, '?$filter[status][$eq]=completed') } />
                 </td>
               </tr>
             </tbody>
@@ -134,11 +136,10 @@ class Performance extends React.Component {
     }
   }
 
-  _getButton(name, query) {
-    const { performance } = this.state
+  _getButton(value, query) {
     const { workflow } = this.props
     return {
-      label: performance.metrics[name],
+      label: value,
       className: 'link',
       route: `/admin/crm/workflows/${workflow.id}/enrollments${query}`
     }

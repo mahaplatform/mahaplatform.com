@@ -4,10 +4,10 @@ import React from 'react'
 
 const totals = [
   { label: 'Sessions', name: 'sessions_count', query: '' },
-  { label: 'Active', name: 'active_count', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' },
-  { label: 'Lost', name: 'lost_count', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' },
-  { label: 'Converted', name: 'converted_count', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' },
-  { label: 'Completed', name: 'completed_count', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' }
+  { label: 'Active', name: 'active_count', query: '?$filter[status][$eq]=active' },
+  { label: 'Lost', name: 'lost_count', query: '?$filter[status][$eq]=lost' },
+  { label: 'Converted', name: 'converted_count', query: '?$filter[was_converted][$eq]=false' },
+  { label: 'Completed', name: 'completed_count', query: '?$filter[status][$eq]=completed' }
 ]
 
 class Performance extends React.Component {

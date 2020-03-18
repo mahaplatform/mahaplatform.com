@@ -45,54 +45,6 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  data.active = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
-    from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_completed=false and unenrolled_at is null
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
-    date: moment(segment.date),
-    count: parseInt(segment.count)
-  })))
-
-  data.lost = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
-    from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and unenrolled_at is not null
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
-    date: moment(segment.date),
-    count: parseInt(segment.count)
-  })))
-
-  data.completed = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
-    from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_completed=true
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
-    date: moment(segment.date),
-    count: parseInt(segment.count)
-  })))
-
-  data.converted = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
-    from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=? and was_converted=true
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
-    date: moment(segment.date),
-    count: parseInt(segment.count)
-  })))
-
   const results = {
     metrics: Object.keys(data).reduce((all, key) => ({
       ...all,

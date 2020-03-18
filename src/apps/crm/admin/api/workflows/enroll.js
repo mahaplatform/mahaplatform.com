@@ -37,7 +37,7 @@ const enrollRoute = async (req, res) => {
       contact_id: contact.get('id'),
       code,
       data: {},
-      was_completed: false,
+      status: 'active',
       was_converted: false
     }).save(null, {
       transacting: req.trx

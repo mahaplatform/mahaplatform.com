@@ -1,4 +1,5 @@
 import ContactToken from '../../../../tokens/contact'
+import StatusToken from '../../../../tokens/status'
 import { Page } from 'maha-admin'
 import React from 'react'
 
@@ -12,11 +13,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken property="phone_name" { ...enrollment.contact } /> },
       { label: 'Created', key: 'created_at', format: 'datetime' },
       { label: 'Converted', key: 'was_converted', collapsing: true, format: 'check' },
-      { label: 'Completed', key: 'was_completed', collapsing: true, format: 'check' }
+      { label: 'Status', key: 'status', collapsing: true, format: StatusToken }
 
     ],
     empty: {
-      icon: 'user',
+      icon: 'comments',
       title: 'No Sessions',
       text: 'There are not yet any sessions for this sms campaign'
     },

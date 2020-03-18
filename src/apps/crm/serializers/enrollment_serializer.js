@@ -3,8 +3,7 @@ const EnrollmentSerializer = (req, result) => ({
   contact: contact(result.related('contact')),
   actions: result.related('actions').map(action),
   was_converted: result.get('was_converted'),
-  was_completed: result.get('was_completed'),
-  status: 'active',
+  status: result.get('status'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

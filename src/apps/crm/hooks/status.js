@@ -29,7 +29,7 @@ const status = async (req, { sms, status }) => {
     qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
     qb.where('crm_workflow_enrollments.phone_number_id', maha_phone_number.get('id'))
     qb.where('crm_workflow_enrollments.contact_id', phone_number.get('contact_id'))
-    qb.where('crm_workflow_enrollments.was_completed', false)
+    qb.whereNot('crm_workflow_enrollments.status', 'completed')
     qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
   }).fetch({
     transacting: req.trx

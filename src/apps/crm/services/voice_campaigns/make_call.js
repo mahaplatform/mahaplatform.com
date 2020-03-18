@@ -34,7 +34,7 @@ const makeCall = async (req, params) => {
     data: {},
     was_answering_machine: false,
     was_hungup: false,
-    was_completed: false,
+    status: 'active',
     was_converted: false
   }).save(null, {
     transacting: req.trx
