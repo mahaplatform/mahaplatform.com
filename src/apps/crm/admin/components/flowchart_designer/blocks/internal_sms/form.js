@@ -41,7 +41,7 @@ class InternalSMS extends React.PureComponent {
 
   _getDefault() {
     return {
-      strategy: 'number'
+      strategy: 'user'
     }
   }
 
@@ -61,10 +61,14 @@ class InternalSMS extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: [{ value: 'number', text: 'Enter a phone number' },{ value: 'user', text: 'Choose a specific user'}], defaultValue: config.strategy },
-            this._getStrategy(),
-            { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true, after: <Button { ...this._getTokens() } /> },
-            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
+            { label: 'Recipient', type: 'segment', fields: [
+              { name: 'strategy', type: 'radiogroup', options: [{ value: 'user', text: 'Choose a specific user'},{ value: 'number', text: 'Enter a phone number' }], defaultValue: config.strategy },
+              this._getStrategy()
+            ] },
+            { label: 'Message', type: 'segment', fields: [
+              { name: 'message', type: 'textarea', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true },
+              { name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
+            ], after: <Button { ...this._getTokens() } /> }
           ]
         }
       ]
@@ -75,9 +79,9 @@ class InternalSMS extends React.PureComponent {
     const { config } = this.state
     const { users } = this.props
     if(config.strategy === 'number') {
-      return { label: 'Number', name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
+      return { name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
     } else {
-      return { label: 'User', name: 'user_id', type: 'lookup', prompt: 'Choose a User', options: users, value: 'id', text: 'full_name', format: UserToken, required: true, defaultValue: _.get(config, 'user.id') }
+      return { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user.id') }
     }
   }
 

@@ -11,7 +11,14 @@ const Email = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    display_name() {
+      const form = this.related('form')
+      return form ? `${form.get('title')}: ${this.get('title')}` : this.get('title')
+    }
+
+  },
 
   emails() {
     return this.hasMany(MahaEmail, 'email_id')

@@ -13,7 +13,7 @@ const Details = ({ email }) => {
   }
 
   list.items = [
-    { label: 'Title', content: email.title },
+    { label: 'Title', content: email.display_name },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 

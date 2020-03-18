@@ -12,20 +12,6 @@ const ranges = [
   { value: 'ltd', text: 'Life to Date' }
 ]
 
-const totals = [
-  { label: 'Enrolled', name: 'enrolled', color: '#DB2828', query: '' },
-  { label: 'Active', name: 'active', color: '#F2711C', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]' },
-  { label: 'Lost', name: 'lost', color: '#FBBD08', query: '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nnl]' },
-  { label: 'Completed', name: 'completed', color: '#B5CC18', query: '?$filter[was_completed][$eq]=true' },
-  { label: 'Converted', name: 'converted', color: '#21BA45', query: '?$filter[was_converted][$eq]=true' }
-]
-
-const metrics = [
-  { label: 'Total Enrollments', name: 'enrolled' },
-  { label: 'Active Contacts', name: 'active' },
-  { label: 'Conversion Rate', name: 'conversion_rate' }
-]
-
 class Performance extends React.Component {
 
   static contextTypes = {
@@ -72,31 +58,58 @@ class Performance extends React.Component {
           <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
         </div>
         <div className="crm-report-metrics">
-          { metrics.map((metric, index) => (
-            <div className="crm-report-metric" key={`metric_${index}`}>
-              <div className="crm-report-metric-title">
-                { metric.label }
-              </div>
-              <div className="crm-report-metric-value">
-                { performance.metrics[metric.name] }
-              </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Enrollments
             </div>
-          ))}
+            <div className="crm-report-metric-value">
+              <Button { ...this._getButton('enrolled', '') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Active
+            </div>
+            <div className="crm-report-metric-value">
+              <Button { ...this._getButton('active', '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nl]') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Converted
+            </div>
+            <div className="crm-report-metric-value">
+              <Button { ...this._getButton('converted', '?$filter[was_converted][$eq]=true') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Conversion Rate
+            </div>
+            <div className="crm-report-metric-value">
+              { performance.metrics.conversion_rate }
+            </div>
+          </div>
         </div>
         <div className="crm-report-table">
           <table className="ui unstackable table">
             <tbody>
-              { totals.map((total, index) => (
-                <tr key={`total_${index}`} onClick={ this._handleToggle.bind(this, index) }>
-                  <td>
-                    <i className={`fa fa-${this._getIcon(index)}`} />
-                    { total.label }
-                  </td>
-                  <td className="right aligned">
-                    <Button { ...this._getButton(total.name, total.query) } />
-                  </td>
-                </tr>
-              ))}
+              <tr>
+                <td>
+                  Lost
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getButton('lost', '?$filter[was_completed][$eq]=false&$filter[unenrolled_at][$nnl]') } />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Completed
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getButton('completed', '?$filter[was_completed][$eq]=true') } />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -247,22 +260,20 @@ class Performance extends React.Component {
 
   _handlePlot() {
     const { step } = this._getQuery()
-    const { hidden, performance } = this.state
+    const { performance } = this.state
     if(!this.chart) this._handleInit()
     this.chart.options.scales.xAxes[0].time.unit = step
-    this.chart.data.datasets = totals.filter((total, index) => {
-      return !_.includes(hidden, index)
-    }).map((total, index) => ({
-      label: total.label,
-      data: performance.data[total.name],
-      borderColor: total.color,
+    this.chart.data.datasets = [{
+      label: 'Enrolled',
+      data: performance.data.enrolled,
+      borderColor: '#DB2828',
       pointBackgroundColor: '#FFFFFF',
       pointRadius: 4,
-      pointHoverBackgroundColor: total.color,
+      pointHoverBackgroundColor: '#DB2828',
       pointHoverRadius: 4,
       borderWidth: 3,
       fill: false
-    }))
+    }]
     this.chart.update()
   }
 
@@ -273,13 +284,6 @@ class Performance extends React.Component {
   _handleSuccess(result) {
     this.setState({
       performance: result.data
-    })
-  }
-
-  _handleToggle(index) {
-    const { hidden } = this.state
-    this.setState({
-      hidden: _.xor(hidden, [index])
     })
   }
 

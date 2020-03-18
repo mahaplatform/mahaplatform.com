@@ -82,14 +82,14 @@ class TextArea extends React.Component {
   }
 
   _getTextArea() {
-    const { placeholder, disabled, rows, tabIndex } = this.props
+    const { placeholder, disabled, tabIndex } = this.props
     const { value } = this.state
     return {
-      placeholder,
       disabled,
-      value,
-      rows,
+      placeholder,
+      rows: 3,
       tabIndex,
+      value,
       onChange: this._handleUpdate,
       onKeyUp: this._handleKeyUp
     }

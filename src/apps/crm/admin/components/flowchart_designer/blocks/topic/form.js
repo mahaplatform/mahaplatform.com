@@ -61,7 +61,7 @@ class Topics extends React.PureComponent {
         {
           fields: [
             { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to topic' },{ value: 'remove', text: 'Remove from topic'}], defaultValue: config.action },
-            { label: 'Topic', name: 'topic_id', type: 'lookup', prompt: 'Choose a topic', endpoint: `/api/admin/crm/programs/${program.id}/topics`, value: 'id', text: 'title', form: this._getTopicForm(), defaultValue: config.topic_id }
+            { label: 'Topic', name: 'topic_id', type: 'lookup', required: true, prompt: 'Choose a topic', endpoint: `/api/admin/crm/programs/${program.id}/topics`, value: 'id', text: 'title', form: this._getTopicForm(), defaultValue: config.topic_id }
           ]
         }
       ]

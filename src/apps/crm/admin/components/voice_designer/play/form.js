@@ -58,7 +58,7 @@ class Play extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Recording', name: 'recording_id', type: RecordingField, defaultValue: config.recording_id },
+            { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id },
             { label: 'Play', name: 'loop', type: 'dropdown', search: false, options: [{ value: 0, text: 'Loop Infinitely' },{ value: 1, text: 'Once' },{ value: 2, text: 'Twice' }], defaultValue: config.loop }
           ]
         }

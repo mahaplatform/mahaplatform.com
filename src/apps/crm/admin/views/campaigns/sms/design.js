@@ -51,7 +51,7 @@ class Designer extends React.Component {
 
   _getTokens() {
     return [
-      { title: 'Contact Variables', tokens: [
+      { title: 'Contact Tokens', tokens: [
         { name: 'First Name', token: 'contact.first_name' },
         { name: 'Last Name', token: 'contact.last_name' },
         { name: 'Email', token: 'contact.email' }

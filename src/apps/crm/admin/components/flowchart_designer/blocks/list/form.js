@@ -61,7 +61,7 @@ class Lists extends React.PureComponent {
         {
           fields: [
             { name: 'action', type: 'radiogroup', options: [{ value: 'add', text: 'Add to list' },{ value: 'remove', text: 'Remove from list'}], defaultValue: config.action },
-            { label: 'List', name: 'list_id', type: 'lookup', prompt: 'Choose a list', endpoint: `/api/admin/crm/programs/${program.id}/lists`, value: 'id', text: 'title', form: this._getListForm(), defaultValue: config.list_id }
+            { label: 'List', name: 'list_id', type: 'lookup', required: true, prompt: 'Choose a list', endpoint: `/api/admin/crm/programs/${program.id}/lists`, value: 'id', text: 'title', form: this._getListForm(), defaultValue: config.list_id }
           ]
         }
       ]

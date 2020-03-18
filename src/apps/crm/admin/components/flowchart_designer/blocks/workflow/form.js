@@ -54,7 +54,7 @@ class Workflow extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Workflow', name: 'workflow_id', type: 'lookup', prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm(), defaultValue: config.workflow_id }
+            { label: 'Workflow', name: 'workflow_id', type: 'lookup', required: true, prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm(), defaultValue: config.workflow_id }
           ]
         }
       ]

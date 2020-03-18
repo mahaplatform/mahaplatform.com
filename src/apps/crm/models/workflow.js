@@ -15,7 +15,17 @@ const Workflow = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    display_name() {
+      if(this.related('form')) return `${this.related('form').get('title')}: ${this.get('title')}`
+      if(this.related('email')) return `${this.related('email').get('title')}: ${this.get('title')}`
+      if(this.related('list')) return `${this.related('list').get('title')}: ${this.get('title')}`
+      if(this.related('topic')) return `${this.related('topic').get('title')}: ${this.get('title')}`
+      return this.get('title')
+    }
+
+  },
 
   emails() {
     return this.hasMany(Email, 'workflow_id')

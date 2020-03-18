@@ -1,78 +1,76 @@
-import { Container, ModalPanel, Search } from 'maha-admin'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
 class Email extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    emails: PropTypes.array,
     program: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
+  form = null
+
   state = {
-    email: null
+    config: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
-
-  constructor(props) {
-    super(props)
-    const { config } = props
-    this.state = {
-      email: config ? config.email : null
-    }
-  }
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="flowchart-designer-form">
-          <div className="flowchart-designer-form-body">
-            <Search { ...this._getSearch() } />
-          </div>
-        </div>
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { email } = this.state
-    if(!_.isEqual(email, prevState.email)) {
-      this._handleChange()
-    }
+  componentDidMount() {
+    this.setState({
+      config: this.props.config || {}
+    })
   }
 
-  _getPanel() {
+  _getForm() {
+    const { config } = this.state
     return {
+      reference: node => this.form = node,
       title: 'Send Email',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ],
+      onChange: this._handleChange,
+      onCancel: this._handleCancel,
+      onSubmit: this._handleDone,
+      cancelIcon: 'chevron-left',
+      saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
+      ],
+      sections: [
+        {
+          fields: [
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: '/api/admin/crm/emails', value: 'id', text: 'display_name', form: this._getEmailForm(), defaultValue: config.email_id }
+          ]
+        }
       ]
     }
   }
 
-  _getSearch() {
-    const { emails } = this.props
-    const { email } = this.state
+  _getEmailForm() {
+    const { program } = this.props
     return {
-      options: emails,
-      multiple: false,
-      text: 'title',
-      search: false,
-      value: 'id',
-      defaultValue: email ? email.id : null,
-      onChange: this._handleUpdate
+      title: 'New Email',
+      method: 'post',
+      action: '/api/admin/crm/emails',
+      sections: [
+        {
+          fields: [
+            { name: 'program_id', type: 'hidden', defaultValue: program.id },
+            { label: 'Title', name: 'title', type: 'textfield' }
+          ]
+        }
+      ]
     }
   }
 
@@ -81,31 +79,17 @@ class Email extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { email } = this.state
-    const value = email ? { email } : {}
-    this.props.onChange(value)
+    this.setState({ config })
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleDone(config) {
+    this.props.onDone(config)
   }
 
-  _handleUpdate(id) {
-    const { emails } = this.props
-    if(!id) return this.setState({ email: null })
-    const email = _.find(emails, { id })
-    this.setState({
-      email: {
-        id: email.id,
-        title: email.title
-      }
-    })
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }
 
-const mapResources = (props, context) => ({
-  emails: '/api/admin/crm/emails'
-})
-
-export default Container(mapResources)(Email)
+export default Email
