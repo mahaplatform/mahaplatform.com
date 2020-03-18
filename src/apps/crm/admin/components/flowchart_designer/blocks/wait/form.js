@@ -61,7 +61,7 @@ class Wait extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: [{ value: 'datetime', text: 'Until a specific date and time' },{ value: 'duration', text: 'For a specific duration of time'}], defaultValue: config.strategy },
+            { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'datetime', text: 'Until a specific date and time' },{ value: 'duration', text: 'For a specific duration of time'}], defaultValue: config.strategy },
             ...this._getStrategyFields()
           ]
         }
@@ -74,16 +74,16 @@ class Wait extends React.PureComponent {
     if(config.strategy === 'duration') {
       return [
         { label: 'Duration', type: 'fields', fields: [
-          { name: 'duration_days', type: 'numberfield', units: 'days', placeholder: 'Days', defaultValue: config.duration_days || 0 },
-          { name: 'duration_hours', type: 'numberfield', units: 'hrs', placeholder: 'Hours', defaultValue: config.duration_hours || 0 },
-          { name: 'duration_mins', type: 'numberfield', units: 'mins', placeholder: 'Mins', defaultValue: config.duration_mins || 0 }
+          { name: 'duration_days', type: 'numberfield', units: 'days', required: true, placeholder: 'Days', defaultValue: config.duration_days || 0 },
+          { name: 'duration_hours', type: 'numberfield', units: 'hrs', required: true, placeholder: 'Hours', defaultValue: config.duration_hours || 0 },
+          { name: 'duration_mins', type: 'numberfield', units: 'mins', required: true, placeholder: 'Mins', defaultValue: config.duration_mins || 0 }
         ] }
       ]
     } else {
       return [
         { label: 'Until', type: 'fields', fields: [
-          { name: 'until_date', type: 'datefield', placeholder: 'Date', defaultValue: config.until_date || moment().add(1,'day').format('MM/DD/YYYY') },
-          { name: 'until_time', type: 'timefield', placeholder: 'Time', defaultValue: config.until_time || '12:00 PM' }
+          { name: 'until_date', type: 'datefield', required: true, placeholder: 'Date', defaultValue: config.until_date || moment().add(1,'day').format('MM/DD/YYYY') },
+          { name: 'until_time', type: 'timefield', required: true, placeholder: 'Time', defaultValue: config.until_time || '12:00 PM' }
         ] }
       ]
     }

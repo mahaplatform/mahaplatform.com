@@ -44,7 +44,7 @@ export const stepTokens = createSelector(
   steps,
   (steps) => steps.length > 1 ? [{
     title: 'Workflow Variables', tokens: steps.filter((step) => {
-      return _.includes(['question','record'], step.action)
+      return _.includes(['set','question','record'], step.action)
     }).map(step => ({
       name: step.config.name.value,
       token: `workflow.${step.config.name.token}`
@@ -57,7 +57,7 @@ export const stepFields = createSelector(
   steps,
   (steps) => steps.length > 1 ? [{
     label: 'Workflow Fields', fields: steps.filter((step) => {
-      return _.includes(['question','record'], step.action)
+      return _.includes(['set','question','record'], step.action)
     }).map(step => ({
       name: step.config.name.value,
       key: step.config.code,

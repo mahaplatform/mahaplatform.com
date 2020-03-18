@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Add extends React.Component {
 
   static propTypes = {
     answer: PropTypes.string,
+    blocks: PropTypes.array,
     delta: PropTypes.number,
     editable: PropTypes.bool,
     parent: PropTypes.string,
+    onAdd: PropTypes.func,
     onNew: PropTypes.func
   }
 
@@ -51,10 +54,12 @@ class Add extends React.Component {
   _handleDrop(e) {
     e.preventDefault()
     e.stopPropagation()
-    const { parent, answer, delta } = this.props
+    const { answer, blocks, delta, parent, onAdd, onNew } = this.props
     const type = e.dataTransfer.getData('type')
     const action = e.dataTransfer.getData('action')
-    this.props.onNew({ type, action, parent, answer, delta })
+    const block = _.find(blocks, { type, action })
+    if(block.form) onNew({ type, action, parent, answer, delta })
+    if(!block.form) onAdd(type, action, parent, answer, delta, {})
     this.setState({
       hovering: false
     })

@@ -40,7 +40,7 @@ class Box extends React.PureComponent {
         <Add { ...this._getAdd() } />
         <div className="flowchart-box-padding">
           <div className={ this._getBoxClass() }>
-            { (code === active || !_.includes(['trigger','ending'], type)) &&
+            { editable && (code === active || !_.includes(['trigger','ending'], type)) &&
               <div className="flowchart-box-highlight" />
             }
             { editable && !_.includes(['trigger','ending'], type) &&
@@ -86,12 +86,14 @@ class Box extends React.PureComponent {
   }
 
   _getAdd() {
-    const { parent, answer, delta, editable, onNew } = this.props
+    const { answer, blocks, delta, editable, parent, onAdd, onNew } = this.props
     return {
-      parent,
       answer,
+      blocks,
       delta,
       editable,
+      parent,
+      onAdd,
       onNew
     }
   }
@@ -166,7 +168,8 @@ class Box extends React.PureComponent {
 
   _handleRemove() {
     const { box } = this.props
-    this.context.confirm.open('Are you sure you want to delete this step?', () => {
+    const message = 'Are you sure you want to delete this step?'
+    this.context.confirm.open(message, () => {
       this.props.onRemove(box)
     })
   }

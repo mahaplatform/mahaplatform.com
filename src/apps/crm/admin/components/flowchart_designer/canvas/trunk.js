@@ -57,9 +57,10 @@ class Trunk extends React.PureComponent {
   }
 
   _getPlaceholder(delta) {
-    const { answer, editable, hovering, parent, onAdd, onNew, onHover } = this.props
+    const { answer, blocks, editable, hovering, parent, onAdd, onNew, onHover } = this.props
     return {
       answer,
+      blocks,
       delta,
       editable,
       hovering,
