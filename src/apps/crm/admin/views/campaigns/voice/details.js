@@ -10,7 +10,7 @@ const Details = ({ audits, campaign }) => {
   const config = {}
 
   const design = {
-    label: _.includes(['draft','inactive'], campaign.status) ? 'Design Workflow' : 'View Workflow',
+    label: _.includes(['active','draft','inactive'], campaign.status) ? 'Design Workflow' : 'View Workflow',
     className: 'link',
     route: `/admin/crm/campaigns/voice/${campaign.id}/design`
   }

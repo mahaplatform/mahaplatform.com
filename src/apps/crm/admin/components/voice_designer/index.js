@@ -26,7 +26,7 @@ class VoiceDesigner extends React.PureComponent {
     const { campaign, endpoint, fields, properties, tokens, onSave } = this.props
     const { steps, status } = campaign
     return {
-      editable: _.includes(['draft','inactive'], campaign.status),
+      editable: _.includes(['active','draft','inactive'], campaign.status),
       endpoint,
       fields,
       program: campaign.program,

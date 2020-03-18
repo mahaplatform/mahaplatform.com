@@ -46,7 +46,7 @@ class Consent extends React.PureComponent {
   }
 
   _getForm() {
-    const { fields } = this.props
+    const fields = this._getFields()
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -64,11 +64,19 @@ class Consent extends React.PureComponent {
           fields: [
             { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: config.action },
             { label: 'Channel', name: 'channel_type', type: 'radiogroup', options: channel_types, required: true, defaultValue: config.channel_type },
-            { label: 'Field', name: 'token', type: 'dropdown', options: fields, required: true, value: 'token', text: 'name', defaultValue: config.token }
+            { label: 'Field', name: 'token', type: 'dropdown', options: fields, required: true, value: 'key', text: 'name', defaultValue: config.token }
           ]
         }
       ]
     }
+  }
+
+  _getFields() {
+    const { fields } = this.props
+    return fields.reduce((fields, field) => [
+      ...fields,
+      ...field.fields
+    ], [])
   }
 
   _handleCancel() {

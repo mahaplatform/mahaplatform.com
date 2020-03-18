@@ -16,7 +16,7 @@ const Details = ({ enrollment, workflow }) => {
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'Enrolled', content: enrollment.created_at, format: 'datetime' },
-        { component: <WorkflowActions trigger_type={ workflow.trigger_type } actions={ enrollment.actions } />}
+        { component: <WorkflowActions enrollment={ enrollment } trigger_type={ workflow.trigger_type } /> }
       ]
     }]
   }

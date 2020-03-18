@@ -12,6 +12,7 @@ import Contact from '../../../models/contact'
 import voiceQuestion from './voice_question'
 import smsQuestion from './sms_question'
 import contactList from './update_lists'
+import voiceRecord from './voice_record'
 import sendEmail from './send_email'
 import controlIfThen from './ifthen'
 import smsMessage from './message'
@@ -40,6 +41,7 @@ const getExecutor = (type, action) => {
   if(type === 'voice' && action === 'play') return voicePlay
   if(type === 'voice' && action === 'say') return voiceSay
   if(type === 'voice' && action === 'question') return voiceQuestion
+  if(type === 'voice' && action === 'record') return voiceRecord
   if(type === 'sms' && action === 'message') return smsMessage
   if(type === 'sms' && action === 'question') return smsQuestion
 }

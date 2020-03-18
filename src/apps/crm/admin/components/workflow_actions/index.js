@@ -28,12 +28,12 @@ const blocks = {
 class WorkflowActions extends React.PureComponent {
 
   static propTypes = {
-    actions: PropTypes.array,
+    enrollment: PropTypes.object,
     trigger_type: PropTypes.string
   }
 
   render() {
-    const { actions, trigger_type } = this.props
+    const { enrollment, trigger_type } = this.props
     return (
       <div className="crm-workflow-actions">
         <div className="crm-workflow-action">
@@ -44,8 +44,8 @@ class WorkflowActions extends React.PureComponent {
             { types[trigger_type].trigger }
           </div>
         </div>
-        <div className="crm-workflow-action-connector" />
-        { actions.map((action, index) => [
+        { enrollment.actions.map((action, index) => [
+          <div className="crm-workflow-action-connector" key={`connector_${index}`} />,
           <div className="crm-workflow-action" key={`action_${index}`}>
             <div className={`crm-workflow-action-icon ${action.step.type}`}>
               <i className={`fa fa-${blocks[action.step.action].icon}`} />
@@ -53,17 +53,31 @@ class WorkflowActions extends React.PureComponent {
             <div className="crm-workflow-action-label">
               { action.step.action }
             </div>
-          </div>,
-          <div className="crm-workflow-action-connector" key={`connector_${index}`} />
+          </div>
         ]) }
-        <div className="crm-workflow-action">
-          <div className="crm-workflow-action-icon ending">
-            <i className="fa fa-check" />
+        { enrollment.status !== 'active' &&
+          <div className="crm-workflow-action-connector"/>
+        }
+        { enrollment.status === 'lost' &&
+          <div className="crm-workflow-action">
+            <div className="crm-workflow-action-icon ending">
+              <i className="fa fa-check" />
+            </div>
+            <div className="crm-workflow-action-label">
+              Contact was lost in workflow
+            </div>
           </div>
-          <div className="crm-workflow-action-label">
-            { types[trigger_type].name } is complete
+        }
+        { enrollment.status === 'complete' &&
+          <div className="crm-workflow-action">
+            <div className="crm-workflow-action-icon ending">
+              <i className="fa fa-check" />
+            </div>
+            <div className="crm-workflow-action-label">
+              { types[trigger_type].name } is complete
+            </div>
           </div>
-        </div>
+        }
       </div>
     )
   }
