@@ -126,7 +126,8 @@ const processor = async () => {
     'sync:backup',
     'sync:download',
     'sync:restore',
-    'sync:passwords'
+    'sync:passwords',
+    'sync:merchants'
   ])
 
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
@@ -310,6 +311,11 @@ const processor = async () => {
     var password_salt = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WO'
     var password_hash = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WOR6KzZnF8hKHBDgmC69gz5SaQVNmhhGa'
     var sql = `UPDATE maha_users SET password_salt='${password_salt}', password_hash='${password_hash}'`
+    return shipit.local(`echo "${sql}" | psql maha`)
+  })
+
+  utils.registerTask(shipit, 'sync:merchants', () => {
+    var sql = 'UPDATE finance_merchants SET braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 

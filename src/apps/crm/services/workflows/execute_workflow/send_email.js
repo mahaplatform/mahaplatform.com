@@ -47,8 +47,6 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!config.email.id) return {}
 
-  const email_id = config.email.id
-
   await enrollment.load(['response'], {
     transacting: req.trx
   })
@@ -64,7 +62,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
   })
 
   const crm_email = await CRMEmail.query(qb => {
-    qb.where('id', email_id)
+    qb.where('id', config.email.id)
   }).fetch({
     transacting: req.trx
   })
@@ -109,7 +107,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
-    email_id,
+    email_id: config.email.id,
     from: sender.get('rfc822'),
     reply_to,
     to: contact.get('rfc822'),

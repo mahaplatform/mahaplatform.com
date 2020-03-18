@@ -1,7 +1,6 @@
 import { toFilter } from '../../../../../core/utils/criteria'
 
 const equals = (left, right) => {
-  console.log(left,right)
   return left.toLowerCase() === right.toLowerCase()
 }
 

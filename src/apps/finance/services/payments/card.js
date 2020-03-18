@@ -34,8 +34,6 @@ const getPaymentMethod = async(req, { customer, payment }) => {
     })
   }
 
-  const { token } = result.creditCard
-
   return await PaymentMethod.forge({
     team_id: req.team.get('id'),
     customer_id: customer.get('id'),
@@ -44,7 +42,7 @@ const getPaymentMethod = async(req, { customer, payment }) => {
     last_four,
     expiration_month,
     expiration_year,
-    braintree_id: token
+    braintree_id: result.creditCard.token
   }).save(null, {
     transacting: req.trx
   })
