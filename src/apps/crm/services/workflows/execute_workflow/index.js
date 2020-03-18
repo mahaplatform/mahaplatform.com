@@ -188,6 +188,7 @@ const saveResults = async (req, { enrollment, step, data, unenroll }) => {
   })
 
 }
+
 export const executeWorkflow = async (req, { enrollment_id, code, execute, answer }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
@@ -261,33 +262,28 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     enrollment
   })
 
-  if(next && enrollment.get('voice_campaign_id')) {
-    return executeWorkflow(req, {
-      enrollment_id: enrollment.get('id'),
-      code: next.get('code')
-    })
-  }
-
-  if(next) {
-    await executeWorkflowQueue.enqueue(req, {
-      enrollment_id: enrollment.get('id'),
-      code: next.get('code')
-    }, {
-      until
-    })
-  } else {
+  if(!next) {
     await enrollment.save({
       was_completed: true
     }, {
       transacting: req.trx,
       patch: true
     })
+    return enrollment.get('voice_campaign_id') ? hangup() : {}
   }
 
-  if(enrollment.get('voice_campaign_id')) {
-    return hangup()
+  if(enrollment.get('workflow_id')) {
+    return await executeWorkflowQueue.enqueue(req, {
+      enrollment_id: enrollment.get('id'),
+      code: next.get('code')
+    }, {
+      until
+    })
   }
 
-  return {}
+  return await executeWorkflow(req, {
+    enrollment_id: enrollment.get('id'),
+    code: next.get('code')
+  })
 
 }

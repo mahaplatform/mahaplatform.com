@@ -1,3 +1,4 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import Model from '../../../core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
@@ -45,6 +46,13 @@ const Contact = new Model({
 
     display_name: function() {
       return this.get('full_name') ? this.get('full_name') : 'Unknown'
+    },
+
+    phone_name: function() {
+      if(!this.get('phone')) return null
+      const phoneNumber = parsePhoneNumberFromString(this.get('phone'), 'US')
+      const phone = phoneNumber.formatNational()
+      return this.get('full_name') ? `${this.get('full_name')} - ${phone}` : phone
     },
 
     organization_ids: function() {

@@ -9,14 +9,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/enrollments`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> }
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken property="phone_name" { ...enrollment.contact } /> },
+      { label: 'Created', key: 'created_at', format: 'datetime' },
+      { label: 'Converted', key: 'was_converted', collapsing: true, format: 'check' },
+      { label: 'Completed', key: 'was_completed', collapsing: true, format: 'check' }
+
     ],
     empty: {
       icon: 'user',
-      title: 'No Enrollments',
-      text: 'There are no contacts enrolled in this campaign'
+      title: 'No Sessions',
+      text: 'There are not yet any sessions for this sms campaign'
     },
-    defaultSort: { key: 'created_at', order: 'asc' },
+    defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'enrollment',
     onClick: (record) => context.router.history.push(`/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${record.id}`)
   }

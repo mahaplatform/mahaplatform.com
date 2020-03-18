@@ -1,6 +1,7 @@
 import { toFilter } from '../../../../../core/utils/criteria'
 
 const equals = (left, right) => {
+  console.log(left,right)
   return left.toLowerCase() === right.toLowerCase()
 }
 
@@ -31,6 +32,7 @@ const evaluate = async (filter, data) => {
   const right = Object.values(filter[key])[0]
 
   if(comparison === '$eq') return equals(left, right)
+
   if(comparison === '$neq') return notEquals(left, right)
 
   return false
@@ -57,8 +59,8 @@ const ifthen = async (req, params) => {
   const branch = await Promise.reduce(branches, async (found, branch) => {
     const filter = toFilter(branch.criteria)
     return found || await evaluate(filter, data) ? branch : null
-  }, null)
-  
+  }, null) || { code: 'else', name: 'else' }
+
   return {
     data: {
       branch: branch.name
