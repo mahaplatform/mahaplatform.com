@@ -10,7 +10,10 @@ const types = {
   topic: { icon: 'book', name: 'Workflow', trigger: 'Contact is added to topic' },
   property: { icon: 'id-card', name: 'workflow', trigger: 'Contact property is updated' },
   manual: { icon: 'plus', name: 'workflow', trigger: 'Contact is enrolled' },
-  sms: { icon: 'phone', name: 'workflow', trigger: 'Outbound SMS' }
+  outbound_sms: { icon: 'phone', name: 'workflow', trigger: 'Outbound SMS' },
+  inbound_sms: { icon: 'phone', name: 'workflow', trigger: 'Incoming SMS' },
+  outbound_voice: { icon: 'phone', name: 'workflow', trigger: 'Contact picked up phone' },
+  inbound_voice: { icon: 'phone', name: 'workflow', trigger: 'Contact called' }
 }
 
 const blocks = {
@@ -68,7 +71,7 @@ class WorkflowActions extends React.PureComponent {
             </div>
           </div>
         }
-        { enrollment.status === 'complete' &&
+        { enrollment.status === 'completed' &&
           <div className="crm-workflow-action">
             <div className="crm-workflow-action-icon ending">
               <i className="fa fa-check" />

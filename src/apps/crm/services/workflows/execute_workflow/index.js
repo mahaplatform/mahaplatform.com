@@ -273,7 +273,7 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
 
   if(!next) {
     await enrollment.save({
-      status: 'complete'
+      status: 'completed'
     }, {
       transacting: req.trx,
       patch: true

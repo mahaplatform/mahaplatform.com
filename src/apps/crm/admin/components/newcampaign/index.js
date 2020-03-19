@@ -12,6 +12,7 @@ class NewCampaign extends React.PureComponent {
 
   static propTypes = {
     form: PropTypes.any,
+    type: PropTypes.string,
     onSet: PropTypes.func
   }
 
@@ -34,7 +35,9 @@ class NewCampaign extends React.PureComponent {
   }
 
   _getPrograms() {
+    const { type } = this.props
     return {
+      type,
       onCancel: this._handleCancel,
       onChoose: this._handleProgram
     }

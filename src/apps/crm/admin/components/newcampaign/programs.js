@@ -1,8 +1,9 @@
 import { Infinite, ModalPanel } from 'maha-admin'
 import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
-import React from 'react'
 import List from '../list'
+import React from 'react'
+import _ from 'lodash'
 
 class Items extends React.PureComponent {
 
@@ -35,6 +36,7 @@ class Items extends React.PureComponent {
 class Programs extends React.PureComponent {
 
   static propTypes = {
+    type: PropTypes.string,
     onCancel: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -50,10 +52,15 @@ class Programs extends React.PureComponent {
   }
 
   _getInfinite() {
-    const { onChoose } = this.props
+    const { type, onChoose } = this.props
     return {
       endpoint: '/api/admin/crm/programs',
       filter: {
+        ..._.includes(['sms','voice'], type) ? {
+          phone_number_id: {
+            $nnl: true
+          }
+        }: {},
         access_type: {
           $in: ['manage','edit']
         }

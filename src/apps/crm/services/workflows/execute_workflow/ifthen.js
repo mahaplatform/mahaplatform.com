@@ -8,6 +8,30 @@ const notEquals = (left, right) => {
   return left.toLowerCase() !== right.toLowerCase()
 }
 
+const known = (left) => {
+  return left !== null && left.length > 0
+}
+
+const notKnown = (left) => {
+  return left === null || left.length === 0
+}
+
+const like = (left, right) => {
+  return left !== null && left.search(right) >= 0
+}
+
+const notLike = (left, right) => {
+  return left !== null && left.search(right) < 0
+}
+
+const getEvaluator = (comparison) => {
+  if(comparison === '$eq') return equals
+  if(comparison === '$neq') return notEquals
+  if(comparison === '$kn') return known
+  if(comparison === '$nkn') return notKnown
+  if(comparison === '$lk') return like
+  if(comparison === '$nlk') return notLike
+}
 const evaluate = async (filter, data) => {
 
   if(filter.$and) {
@@ -23,18 +47,11 @@ const evaluate = async (filter, data) => {
   }
 
   const key = Object.keys(filter)[0]
-
   const left = data[key]
-
   const comparison = Object.keys(filter[key])[0]
-
   const right = Object.values(filter[key])[0]
-
-  if(comparison === '$eq') return equals(left, right)
-
-  if(comparison === '$neq') return notEquals(left, right)
-
-  return false
+  const evaluator = getEvaluator(comparison)
+  return evaluator(left, right)
 
 }
 
@@ -56,8 +73,9 @@ const ifthen = async (req, params) => {
   }
 
   const branch = await Promise.reduce(branches, async (found, branch) => {
+    if(found !== null) return found
     const filter = toFilter(branch.criteria)
-    return found || await evaluate(filter, data) ? branch : null
+    return await evaluate(filter, data) ? branch : null
   }, null) || { code: 'else', name: 'else' }
 
   return {
