@@ -11,7 +11,6 @@ class DateRange extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.object,
     field: PropTypes.object,
-    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -120,12 +119,10 @@ class DateRange extends React.Component {
 
   _handleChange() {
     const { data, value } = this.state
-    const { code, field, parent } = this.props
+    const { code } = this.props
     if(!value) return
     this.props.onChange({
       code,
-      parent,
-      field: field.key,
       operator: '$dr',
       value,
       data
@@ -134,12 +131,10 @@ class DateRange extends React.Component {
 
   _handleDone() {
     const { data, value } = this.state
-    const { code, field, parent } = this.props
+    const { code } = this.props
     if(!value) return
     this.props.onDone({
       code,
-      parent,
-      field: field.key,
       operator: '$dr',
       value,
       data

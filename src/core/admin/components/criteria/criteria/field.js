@@ -1,5 +1,6 @@
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
+import Checkbox from './Checkbox'
 import Select from './select'
 import React from 'react'
 import Text from './text'
@@ -14,7 +15,6 @@ class Field extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.any,
     field: PropTypes.object,
-    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -38,19 +38,19 @@ class Field extends React.PureComponent {
 
   _getComponent(type) {
     if(!_.isString(type)) return type
+    if(type === 'checkbox') return Checkbox
     if(type === 'daterange') return DateRange
     if(type === 'select') return Select
-    if(type === 'text') return Text
+    return Text
   }
 
   _getProps() {
-    const { defaultValue, field, parent, onCancel, onChange, onDone } = this.props
+    const { defaultValue, field, onCancel, onChange, onDone } = this.props
     const { code } = this.state
     return {
       code,
       defaultValue,
       field,
-      parent,
       onCancel,
       onChange,
       onDone

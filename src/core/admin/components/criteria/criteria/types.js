@@ -49,13 +49,12 @@ class Types extends React.PureComponent {
   }
 
   _getField(field) {
-    const { parent, onCancel, onChange, onDone } = this.props
+    const { parent, onCancel } = this.props
     return {
       field,
-      parent,
       onCancel,
-      onChange,
-      onDone
+      onChange: this._handleChange.bind(this, field, parent),
+      onDone: this._handleDone.bind(this, field, parent)
     }
   }
 
@@ -73,6 +72,14 @@ class Types extends React.PureComponent {
     this.props.onPop()
   }
 
+  _handleChange(field, parent, value) {
+    this.props.onChange({
+      field: field.key,
+      parent,
+      ...value
+    })
+  }
+
   _handleConditional(operator) {
     const { parent } = this.props
     this.props.onDone({
@@ -84,6 +91,14 @@ class Types extends React.PureComponent {
       data: null
     })
     this.props.onPop(-1)
+  }
+
+  _handleDone(field, parent, value) {
+    this.props.onDone({
+      field: field.key,
+      parent,
+      ...value
+    })
   }
 
   _handleField(field) {

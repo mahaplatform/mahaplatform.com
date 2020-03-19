@@ -11,7 +11,6 @@ class Text extends React.Component {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
     field: PropTypes.object,
-    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -119,10 +118,9 @@ class Text extends React.Component {
 
   _handleChange() {
     const { operator, value } = this.state
-    const { code, field, parent } = this.props
+    const { code, field } = this.props
     this.props.onChange({
       code,
-      parent,
       field: field.key,
       operator,
       value,
@@ -132,10 +130,9 @@ class Text extends React.Component {
 
   _handleDone() {
     const { operator, value } = this.state
-    const { code, field, parent } = this.props
+    const { code, field } = this.props
     this.props.onDone({
       code,
-      parent,
       field: field.key,
       operator,
       value,

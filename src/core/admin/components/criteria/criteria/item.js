@@ -14,7 +14,9 @@ const comparisons = {
   $gte: 'is greater than or equal to',
   $lte: 'is less than or equal to',
   $in: 'is',
-  $nin: 'is not'
+  $nin: 'is not',
+  $ck: 'is checked',
+  $nck: 'is not checked'
 }
 
 class Item extends React.Component {
@@ -82,8 +84,10 @@ class Item extends React.Component {
     const field = _.find(fields, { key: item.field })
     const phrase = []
     if(field.subject !== false) phrase.push(`<strong>${field.name}</strong>`)
-    phrase.push(this._getOperator(field, item.operator))
-    phrase.push(this._getObject(item))
+    const operator = this._getOperator(field, item.operator)
+    const value = this._getValue(item)
+    if(operator) phrase.push(operator)
+    if(value) phrase.push(value)
     return phrase.join(' ')
   }
 
@@ -95,20 +99,20 @@ class Item extends React.Component {
     ].join(', or ')
   }
 
-  _getObject(item) {
-    if(item.data) {
-      const items = _.castArray(item.data).map(record => `<strong>${record.text}</strong>`)
-      return items.length > 1 ? `either ${this._getOxford(items)}` : items[0]
-    }
-    return item.value
-  }
-
   _getOperator(field, operator) {
     if(field.comparisons) {
       const comparison = _.find(field.comparisons, { value: operator })
       if(comparison) return comparison.text
     }
     return comparisons[operator]
+  }
+
+  _getValue(item) {
+    if(item.data) {
+      const items = _.castArray(item.data).map(record => `<strong>${record.text}</strong>`)
+      return items.length > 1 ? `either ${this._getOxford(items)}` : items[0]
+    }
+    return item.value
   }
 
   _handleNew(criteria) {
