@@ -37,7 +37,7 @@ class Designer extends React.Component {
     return {
       endpoint: `/api/admin/crm/workflows/${workflow.id}`,
       fields: this._getFields(),
-      properties: this._getProperties(),
+      program: workflow.program,
       trigger: this._getTrigger(),
       tokens: this._getTokens(),
       workflow,
@@ -47,45 +47,18 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    return [
-      { label: 'Contact Fields', fields: [
-        { name: 'First Name', key: 'first_name', type: 'text' },
-        { name: 'Last Name', key: 'last_name', type: 'text' },
-        { name: 'Email', key: 'email', type: 'text' },
-        { name: 'Phone', key: 'phone', type: 'text' },
-        { name: 'Street', key: 'street_1', type: 'text' },
-        { name: 'City', key: 'city', type: 'text' },
-        { name: 'State/Province', key: 'state_province', type: 'text' },
-        { name: 'Postal Code', key: 'postal_code', type: 'text' },
-        { name: 'Birthday', key: 'birthday', type: 'text' },
-        { name: 'Spouse', key: 'spouse', type: 'text' }
-      ] },
-      ...workflow.form ? [{
-        label: 'Response Fields',
-        fields: workflow.form.config.fields.filter(field => {
-          return field.type !== 'text' && field.name
-        }).map(field => ({
-          name: field.name.value,
-          key: field.code,
-          type: _.get(field, 'contactfield.type') || field.type,
-          options: _.get(field, 'contactfield.options') || field.options
-        }))
-      }]: []
-    ]
-  }
-
-  _getProperties() {
-    return [
-      { label: 'Core Properties', fields: [
-        { label: 'First Name', name: 'first_name', type: 'textfield' },
-        { label: 'Last Name', name: 'last_name', type: 'textfield' },
-        { label: 'Email', name: 'email', type: 'emailfield' }
-      ] },
-      { label: 'Primitive Pursuits', fields: [
-        { label: 'One', name: 'one', type: 'textfield' },
-        { label: 'Two', name: 'two', type: 'textfield' }
-      ]}
-    ]
+    if(!workflow.form) return {}
+    return {
+      label: 'Response Fields',
+      fields: workflow.form.config.fields.filter(field => {
+        return field.type !== 'text' && field.name
+      }).map(field => ({
+        name: field.name.value,
+        key: field.code,
+        type: _.get(field, 'contactfield.type') || field.type,
+        options: _.get(field, 'contactfield.options') || field.options
+      }))
+    }
   }
 
   _getTrigger() {
@@ -95,22 +68,16 @@ class Designer extends React.Component {
 
   _getTokens() {
     const { workflow } = this.props
-    return [
-      { title: 'Contact Tokens', tokens: [
-        { name: 'First Name', token: 'contact.first_name' },
-        { name: 'Last Name', token: 'contact.last_name' },
-        { name: 'Email', token: 'contact.email' }
-      ] },
-      ...workflow.form ? [{
-        title: 'Response Tokens',
-        tokens: workflow.form.config.fields.filter(field => {
-          return field.type !== 'text' && field.name
-        }).map(field => ({
-          name: field.name.value,
-          token: `response.${field.name.token}`
-        }))
-      }]: []
-    ]
+    if(!workflow.form) return {}
+    return {
+      title: 'Response Tokens',
+      tokens: workflow.form.config.fields.filter(field => {
+        return field.type !== 'text' && field.name
+      }).map(field => ({
+        name: field.name.value,
+        token: `response.${field.name.token}`
+      }))
+    }
   }
 
   _handleSave(steps) {

@@ -84,7 +84,6 @@ const Creator = (mapResourcesToPage, Component) => {
     _getComponent() {
       const { cacheKey } = this.state
       const { data } = this.props
-
       return {
         key: cacheKey,
         ...data,
