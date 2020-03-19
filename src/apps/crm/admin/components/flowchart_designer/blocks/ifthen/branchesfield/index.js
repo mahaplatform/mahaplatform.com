@@ -42,7 +42,7 @@ class BranchesField extends React.PureComponent {
         { branches.map((branch, index) => (
           <div className="crm-workflow-branchesfield-branch" key={`branch_${index}`}>
             <div className="crm-workflow-branchesfield-branch-label">
-              { branch.name }
+              <input { ...this._getInput(branch, index) } />
             </div>
             <Button { ...this._getEditButton(branch) } />
             <Button { ...this._getRemoveButton(branch.code) } />
@@ -54,6 +54,28 @@ class BranchesField extends React.PureComponent {
       </div>
     )
   }
+
+  _getInput(branch, index) {
+    return {
+      type: 'textfield',
+      value: branch.name,
+      onChange: this._handleUpdateName.bind(this, index)
+    }
+  }
+
+  _handleUpdateName(index, e) {
+    const { branches } = this.state
+    this.setState({
+      branches: branches.map((branch, i) => {
+        if(i !== index) return branch
+        return {
+          ...branch,
+          name: e.target.value
+        }
+      })
+    })
+  }
+
 
   componentDidMount() {
     const { defaultValue } = this.props

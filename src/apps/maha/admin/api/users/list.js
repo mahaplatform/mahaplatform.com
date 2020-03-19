@@ -11,19 +11,14 @@ const listRoute = async (req, res) => {
       qb.leftJoin('maha_roles_rights', 'maha_roles_rights.role_id', 'maha_users_roles.role_id')
       qb.where('team_id', req.team.get('id'))
     },
+    aliases: {
+      app_id: 'maha_roles_apps.app_id',
+      right_id: 'maha_roles_rights.right_id'
+    },
     filter: {
       params: req.query.$filter,
       search: ['first_name','last_name','email'],
-      virtuals: {
-        app_id: (qb, filter) => {
-          if(!filter.$in) return
-          qb.whereIn('maha_roles_apps.app_id', filter.$in)
-        },
-        right_id: (qb, filter) => {
-          if(!filter.$in) return
-          qb.whereIn('maha_roles_rights.right_id', filter.$in)
-        }
-      }
+      allowed: ['app_id,right_id,is_active']
     },
     sort: {
       params: req.query.$sort,

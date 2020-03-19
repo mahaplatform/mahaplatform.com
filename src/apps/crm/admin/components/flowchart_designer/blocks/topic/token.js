@@ -32,7 +32,7 @@ class Token extends React.Component {
     return (
       <div>
         { _.capitalize(description.text) } { topic &&
-          <span>{ topic.title }</span>
+          <span>{ topic.title  }</span>
         }
       </div>
     )

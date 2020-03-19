@@ -9,7 +9,7 @@ class Chooser extends React.Component {
   }
 
   static propTypes = {
-    fields: PropTypes.array,
+    properties: PropTypes.array,
     onChoose: PropTypes.func
   }
 
@@ -17,18 +17,18 @@ class Chooser extends React.Component {
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
-    const { fields } = this.props
+    const { properties } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-contactfield-options">
-          { fields.reduce((fields, field, typeIndex) => [
-            ...fields,
-            <div className="maha-criterion-type" key={`type_${typeIndex}`}>
-              { field.label }
+        <div className="maha-contactproperty-options">
+          { properties.reduce((groups, group, groupIndex) => [
+            ...groups,
+            <div className="maha-criterion-type" key={`type_${groupIndex}`}>
+              { group.label }
             </div>,
-            ...field.fields.map((field, fieldIndex) => (
-              <div className="maha-criterion-item" key={`type_${typeIndex}_field_${fieldIndex}`} onClick={ this._handleChoose.bind(this, field)}>
-                { field.name }
+            ...group.fields.map((property, propertyIndex) => (
+              <div className="maha-criterion-item" key={`type_${groupIndex}_property_${propertyIndex}`} onClick={ this._handleChoose.bind(this, property)}>
+                { property.label }
               </div>
             ))
           ], []) }
@@ -39,7 +39,7 @@ class Chooser extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Choose Field',
+      title: 'Choose property',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ]
@@ -50,8 +50,8 @@ class Chooser extends React.Component {
     this.context.form.pop()
   }
 
-  _handleChoose(field) {
-    this.props.onChoose(field)
+  _handleChoose(property) {
+    this.props.onChoose(property)
     this.context.form.pop()
   }
 

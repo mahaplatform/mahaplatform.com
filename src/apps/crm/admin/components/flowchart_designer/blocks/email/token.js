@@ -25,7 +25,7 @@ class Token extends React.Component {
     return (
       <div>
         { email &&
-          <span>{ email.display_name }</span>
+          <span>{ email.display_name  }</span>
         }
       </div>
     )
@@ -54,7 +54,7 @@ class Token extends React.Component {
 
   _handleSuccess({ data }) {
     this.setState({
-      list: data
+      email: data
     })
   }
 }

@@ -26,9 +26,15 @@ class Designer extends React.Component {
 
   _getProperties() {
     return [
-      { label: 'First Name', name: 'first_name', type: 'textfield' },
-      { label: 'Last Name', name: 'last_name', type: 'textfield' },
-      { label: 'Email', name: 'email', type: 'emailfield' }
+      { label: 'Core Properties', fields: [
+        { label: 'First Name', name: 'first_name', type: 'textfield' },
+        { label: 'Last Name', name: 'last_name', type: 'textfield' },
+        { label: 'Email', name: 'email', type: 'emailfield' }
+      ] },
+      { label: 'Primitive Pursuits', fields: [
+        { label: 'One', name: 'one', type: 'textfield' },
+        { label: 'Two', name: 'two', type: 'textfield' }
+      ]}
     ]
   }
 

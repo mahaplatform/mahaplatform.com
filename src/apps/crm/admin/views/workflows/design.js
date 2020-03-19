@@ -65,9 +65,8 @@ class Designer extends React.Component {
         fields: workflow.form.config.fields.filter(field => {
           return field.type !== 'text' && field.name
         }).map(field => ({
-          code: field.code,
-          token: `response.${field.code}`,
           name: field.name.value,
+          key: field.code,
           type: _.get(field, 'contactfield.type') || field.type,
           options: _.get(field, 'contactfield.options') || field.options
         }))
@@ -77,9 +76,15 @@ class Designer extends React.Component {
 
   _getProperties() {
     return [
-      { label: 'First Name', name: 'first_name', type: 'textfield' },
-      { label: 'Last Name', name: 'last_name', type: 'textfield' },
-      { label: 'Email', name: 'email', type: 'emailfield' }
+      { label: 'Core Properties', fields: [
+        { label: 'First Name', name: 'first_name', type: 'textfield' },
+        { label: 'Last Name', name: 'last_name', type: 'textfield' },
+        { label: 'Email', name: 'email', type: 'emailfield' }
+      ] },
+      { label: 'Primitive Pursuits', fields: [
+        { label: 'One', name: 'one', type: 'textfield' },
+        { label: 'Two', name: 'two', type: 'textfield' }
+      ]}
     ]
   }
 

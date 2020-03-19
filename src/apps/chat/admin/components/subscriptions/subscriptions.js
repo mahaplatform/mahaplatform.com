@@ -58,7 +58,7 @@ class Subscriptions extends React.Component {
     const exclude_ids = [ user_id]
     return {
       endpoint: '/api/admin/users',
-      defaultFilters: { app_id: { $eq: 6 } },
+      filter: { app_id: { $eq: 6 }, is_active: { $eq: true } },
       defaultValue: subscription_ids,
       exclude_ids,
       format: (props) => <UserToken { ...props } presence={ true} />,

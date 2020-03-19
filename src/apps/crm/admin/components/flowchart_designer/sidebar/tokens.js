@@ -13,7 +13,6 @@ class Tokens extends React.Component {
 
   render() {
     const { tokens } = this.props
-    console.log(tokens)
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="designer-tokens">

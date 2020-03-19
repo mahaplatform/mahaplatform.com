@@ -1,4 +1,5 @@
 import RecordingField from '../../recordingfield'
+import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -64,8 +65,12 @@ class Record extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'How to request', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
-            this._getStrategy()
+            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
+            { label: 'Message', type: 'segment', required: true, fields: [
+              { label: 'How to request', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
+              ...this._getStrategy()
+            ] },
+            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: true, text: 'Yes, require confirmation' },{ value: false, text: 'No, immediately save recording' }], defaultValue: config.strategy }
           ]
         }
       ]
@@ -75,12 +80,14 @@ class Record extends React.PureComponent {
   _getStrategy() {
     const { config } = this.state
     if(config.strategy === 'say') {
-      return { label: 'Message', type: 'segment', required: true, fields: [
+      return [
         { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
         { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
-      ] }
+      ]
     }
-    return { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+    return [
+      { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+    ]
   }
 
   _handleCancel() {

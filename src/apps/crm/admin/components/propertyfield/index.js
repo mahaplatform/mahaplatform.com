@@ -3,16 +3,15 @@ import Chooser from './chooser'
 import React from 'react'
 import _ from 'lodash'
 
-class VariableField extends React.PureComponent {
+class PropertyField extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
   }
 
   static propTypes = {
-    defaultValue: PropTypes.object,
-    fields: PropTypes.array,
-    originalValue: PropTypes.object,
+    defaultValue: PropTypes.string,
+    properties: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -23,7 +22,7 @@ class VariableField extends React.PureComponent {
   }
 
   state = {
-    field: null
+    property: null
   }
 
   _handleChoose = this._handleChoose.bind(this)
@@ -31,20 +30,20 @@ class VariableField extends React.PureComponent {
   _handleLookup = this._handleLookup.bind(this)
 
   render() {
-    const { field } = this.state
+    const { property } = this.state
     return (
       <div className="maha-input">
         <div className="maha-input-field" onClick={ this._handleLookup }>
-          { field ?
+          { property ?
             <div className="maha-input-token">
-              { field.name }
+              { property.label }
             </div> :
             <div className="maha-input-placeholder">
-              Choose a variable
+              Choose a property
             </div>
           }
         </div>
-        { field &&
+        { property &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>
@@ -56,34 +55,34 @@ class VariableField extends React.PureComponent {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) this.setState({
-      field: defaultValue
+      property: defaultValue
     })
     this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { field } = this.state
-    if(!_.isEqual(field, prevState.field)) {
-      this.props.onChange(field)
+    const { property } = this.state
+    if(!_.isEqual(property, prevState.property)) {
+      this.props.onChange(property ? property.name : null)
     }
   }
 
   _getChooser() {
-    const { fields } = this.props
+    const { properties } = this.props
     return {
-      fields,
+      properties,
       onChoose: this._handleChoose
     }
   }
 
-  _handleChoose(field) {
-    this.setState({ field })
+  _handleChoose(property) {
+    this.setState({ property })
   }
 
   _handleClear(e) {
     e.preventDefault()
     this.setState({
-      field: null
+      property: null
     })
   }
 
@@ -93,4 +92,4 @@ class VariableField extends React.PureComponent {
 
 }
 
-export default VariableField
+export default PropertyField

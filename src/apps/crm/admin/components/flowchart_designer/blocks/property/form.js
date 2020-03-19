@@ -1,15 +1,15 @@
-import { Form } from 'maha-admin'
+import PropertyField from '../../../propertyfield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
-class Properties extends React.PureComponent {
+class Property extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
     fields: PropTypes.array,
-    properties: PropTypes.array,
     program: PropTypes.object,
+    properties: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -63,7 +63,7 @@ class Properties extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Property', name: 'name', type: 'lookup', prompt: 'Choose a property', options: properties, value: 'name', text: 'label', defaultValue: config.name },
+            { label: 'Property', name: 'name', type: PropertyField, properties, defaultValue: config.name },
             ...this._getValue()
           ]
         }
@@ -73,15 +73,24 @@ class Properties extends React.PureComponent {
 
   _getValue() {
     const { config } = this.state
-    const { properties } = this.props
     if(!config.name) return []
-    const property = _.find(properties, { name: config.name })
+    const property = this._getField(config.name)
     return property ? [
       { ...property, label: 'Value', name: 'value', required: true, defaultValue: config.value },
       { label: 'If contact property is already set', name: 'overwrite', type: 'radiogroup', options: [
         { value: true, text: 'Overwrite existing value' },
         { value: false, text: 'Do nothing' }
       ], defaultValue: config.overwrite, required: true }] : []
+  }
+
+  _getField(name) {
+    const { properties } = this.props
+    return properties.reduce((fields, group) => [
+      ...fields,
+      ...group.fields
+    ], []).find(field => {
+      return field.name === name
+    })
   }
 
   _handleCancel() {
@@ -107,4 +116,4 @@ class Properties extends React.PureComponent {
 
 }
 
-export default Properties
+export default Property
