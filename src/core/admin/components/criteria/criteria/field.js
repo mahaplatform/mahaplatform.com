@@ -1,6 +1,6 @@
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
-import Checkbox from './Checkbox'
+import Checkbox from './checkbox'
 import Select from './select'
 import React from 'react'
 import Text from './text'
