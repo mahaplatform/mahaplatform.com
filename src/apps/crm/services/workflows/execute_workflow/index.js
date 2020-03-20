@@ -281,7 +281,7 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     return enrollment.get('voice_campaign_id') ? hangup() : {}
   }
 
-  if(enrollment.get('workflow_id')) {
+  if(until || enrollment.get('workflow_id')) {
     return await executeWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       code: next.get('code')

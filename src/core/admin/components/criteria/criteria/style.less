@@ -38,6 +38,12 @@
     border: none !important;
   }
 }
+.maha-criteria-item.and,
+.maha-criteria-item.or {
+  & > .maha-criteria-item-box {
+    background-color: @white;
+  }
+}
 .maha-criteria-item.and {
   & > .maha-criteria-item-box > .maha-criteria-item:after {
     content: 'and';
@@ -61,9 +67,9 @@
 }
 .maha-criteria-item-box {
   border: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
   padding: 0.6em 2em 0.6em 0.6em;
   border-radius: 0.2em;
-  background: @white;
   position: relative;
   margin-bottom: 0.4em;
   cursor: pointer;

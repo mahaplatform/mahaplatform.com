@@ -9,17 +9,15 @@ const INTEGER_REGEX = /^-?[0-9]*$/
 class NumberField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    placeholder: PropTypes.string,
-    tabIndex: PropTypes.number,
+    defaultValue: PropTypes.any,
     min: PropTypes.number,
     max: PropTypes.number,
     maxLength: PropTypes.number,
     number_type: PropTypes.string,
+    originalValue: PropTypes.any,
+    placeholder: PropTypes.string,
     required: PropTypes.bool,
+    tabIndex: PropTypes.number,
     units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -69,9 +67,9 @@ class NumberField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue
+    const { originalValue, onReady } = this.props
+    if(!_.isNil(originalValue)) this.setState({
+      value: originalValue
     })
     onReady(this._handleValidate)
   }

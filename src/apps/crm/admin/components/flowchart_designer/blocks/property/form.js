@@ -28,10 +28,17 @@ class Property extends React.PureComponent {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
+    console.log({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
+    })
     this.setState({
       config: {
         ...this._getDefault(),
@@ -42,6 +49,7 @@ class Property extends React.PureComponent {
 
   _getDefault() {
     return {
+      strategy: 'static',
       overwrite: true
     }
   }
@@ -75,12 +83,14 @@ class Property extends React.PureComponent {
     const { config } = this.state
     if(!config.name) return []
     const property = this._getField(config.name)
+    console.log(property)
     return property ? [
-      { ...property, label: 'Value', name: 'value', required: true, defaultValue: config.value },
-      { label: 'If contact property is already set', name: 'overwrite', type: 'radiogroup', options: [
-        { value: true, text: 'Overwrite existing value' },
-        { value: false, text: 'Do nothing' }
-      ], defaultValue: config.overwrite, required: true }] : []
+      { label: 'Value', type: 'segment', fields: [
+        { name: 'strategy', type: 'radiogroup', options: [{value:'static',text:'Static Value'}, {value:'dynamic',text:'Dynamic Value'}], defaultValue: config.strategy },
+        { ...property, label: null, placeholder: 'Enter value', name: 'value', required: true, defaultValue: config.value }
+      ] },
+      { prompt: 'Overwrite value if property is already set', name: 'overwrite', type: 'checkbox', defaultValue: config.overwrite }
+    ] : []
   }
 
   _getField(name) {

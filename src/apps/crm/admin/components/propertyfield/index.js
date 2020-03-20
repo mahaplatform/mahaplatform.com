@@ -54,9 +54,11 @@ class PropertyField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this.setState({
-      property: defaultValue
-    })
+    if(defaultValue) {
+      this.setState({
+        property: this._getProperty(defaultValue)
+      })
+    }
     this.props.onReady()
   }
 
@@ -73,6 +75,16 @@ class PropertyField extends React.PureComponent {
       properties,
       onChoose: this._handleChoose
     }
+  }
+
+  _getProperty(name) {
+    const { properties } = this.props
+    return properties.reduce((fields, group) => [
+      ...fields,
+      ...group.fields
+    ], []).find(field => {
+      return field.name === name
+    })
   }
 
   _handleChoose(property) {
