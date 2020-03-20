@@ -20,6 +20,7 @@ import sendSms from './send_sms'
 import controlWait from './wait'
 import controlGoal from './goal'
 import voicePlay from './play'
+import controlSet from './set'
 import hangup from './hangup'
 import voiceSay from './say'
 import moment from 'moment'
@@ -33,6 +34,7 @@ const getExecutor = (type, action) => {
   if(type === 'control' && action === 'ifthen') return controlIfThen
   if(type === 'control' && action === 'wait') return controlWait
   if(type === 'control' && action === 'goal') return controlGoal
+  if(type === 'control' && action === 'set') return controlSet
   if(type === 'contact' && action === 'workflow') return contactWorkflow
   if(type === 'contact' && action === 'property') return contactProperty
   if(type === 'contact' && action === 'topic') return contactTopic
@@ -148,27 +150,25 @@ const getData = async(req, { contact, enrollment, steps }) => ({
   ...enrollment.get('data')
 })
 
-const getTokens = async(req, { contact, enrollment, steps }) => {
-  const data = enrollment.get('data')
-  return {
-    contact: {
-      full_name: contact.get('full_name'),
-      first_name: contact.get('full_name'),
-      last_name: contact.get('full_name'),
-      email: contact.get('email'),
-      phone: contact.get('phone'),
-      address: contact.get('address')
-    },
-    workflow: steps.filter((step) => {
-      return _.includes(['set','question','record'], step.get('action'))
-    }).reduce((tokens, step) => ({
-      ...tokens,
-      [step.get('config').name.token]: data[step.get('config').code]
-    }), {})
-  }
-}
+const getTokens = async(req, { contact, data, steps }) => ({
+  contact: {
+    full_name: contact.get('full_name'),
+    first_name: contact.get('full_name'),
+    last_name: contact.get('full_name'),
+    email: contact.get('email'),
+    phone: contact.get('phone'),
+    address: contact.get('address')
+  },
+  workflow: steps.filter((step) => {
+    return _.includes(['set','question','record'], step.get('action'))
+  }).reduce((tokens, step) => ({
+    ...tokens,
+    [step.get('config').name.token]: data[step.get('config').code]
+  }), {})
+})
 
 const saveResults = async (req, { enrollment, step, data, unenroll }) => {
+
   await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
@@ -227,7 +227,7 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
 
   const tokens = await getTokens(req, {
     contact,
-    enrollment,
+    data: enrollment.get('data'),
     steps
   })
 

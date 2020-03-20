@@ -41,9 +41,7 @@ class Set extends React.PureComponent {
 
   _getDefault() {
     return {
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      name: null,
-      value: ''
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     }
   }
 
@@ -77,10 +75,16 @@ class Set extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.setState({ config })
+    this.setState({
+      config: {
+        ...this.state.config,
+        ...config
+      }
+    })
   }
 
-  _handleDone(config) {
+  _handleDone() {
+    const { config } = this.state
     this.props.onDone(config)
   }
 
