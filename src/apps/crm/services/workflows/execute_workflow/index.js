@@ -1,3 +1,4 @@
+import saveWorkflowRecordingQueue from '../../../queues/save_workflow_recording_queue'
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import socket from '../../../../../core/services/routes/emitter'
@@ -49,7 +50,7 @@ const getExecutor = (type, action) => {
 }
 
 const executeStep = async (req, params) => {
-  const { answer, contact, data, enrollment, execute, step, tokens } = params
+  const { answer, contact, data, enrollment, execute, step, recording, tokens } = params
   if(execute === false) return {}
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
@@ -58,6 +59,7 @@ const executeStep = async (req, params) => {
     contact,
     data,
     enrollment,
+    recording,
     step,
     tokens
   })
@@ -170,9 +172,9 @@ const getTokens = async(req, { contact, data, steps }) => ({
   }), {})
 })
 
-const saveResults = async (req, { enrollment, step, data, unenroll }) => {
+const saveResults = async (req, { enrollment, step, data, recording_url, unenroll }) => {
 
-  await WorkflowAction.forge({
+  const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
     step_id: step.get('id'),
@@ -180,6 +182,13 @@ const saveResults = async (req, { enrollment, step, data, unenroll }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(recording_url) {
+    await saveWorkflowRecordingQueue.enqueue(req, {
+      action_id: action.get('id'),
+      url: recording_url
+    })
+  }
 
   if(data || unenroll) {
     await enrollment.save({
@@ -201,7 +210,9 @@ const saveResults = async (req, { enrollment, step, data, unenroll }) => {
 
 }
 
-export const executeWorkflow = async (req, { enrollment_id, code, execute, answer }) => {
+const executeWorkflow = async (req, params) => {
+
+  const { enrollment_id, code, execute, answer, recording } = params
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -247,10 +258,11 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
     enrollment,
     execute,
     step,
+    recording,
     tokens
   })
 
-  const { condition, twiml, until, wait } = result
+  const { condition, recording_url, twiml, unenroll, until, wait } = result
 
   if(twiml) return { twiml }
 
@@ -258,9 +270,10 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
 
   await saveResults(req, {
     enrollment,
-    step,
     data: result.data,
-    unenroll: result.unenroll
+    recording_url,
+    step,
+    unenroll
   })
 
   const next = await getNextStep(req, {
@@ -299,3 +312,5 @@ export const executeWorkflow = async (req, { enrollment_id, code, execute, answe
   })
 
 }
+
+export default executeWorkflow

@@ -6,7 +6,7 @@ const getWorkflow = ({ voice_campaign, sms_campaign, workflow }) => {
   if(workflow) return workflow
 }
 
-export const updateSteps = async (req, params) => {
+const updateSteps = async (req, params) => {
 
   const { steps } = params
 
@@ -59,3 +59,5 @@ export const updateSteps = async (req, params) => {
   })
 
 }
+
+export default updateSteps

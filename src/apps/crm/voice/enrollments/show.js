@@ -10,6 +10,8 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  req.team = enrollment.related('team')
+
   if(!enrollment) return res.status(404).respond({
     code: 404,
     message: 'Unable to load enrollment'
@@ -23,13 +25,12 @@ const showRoute = async (req, res) => {
     })
   }
 
-  req.team = enrollment.related('team')
-
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
     execute: req.params.verb !== 'next',
-    answer: req.params.verb === 'gather' ? req.body.Digits : null
+    answer: req.params.verb === 'gather' ? req.body.Digits : null,
+    recording: req.params.verb === 'record' ? req.body.RecordingUrl : null
   }) || {}
 
   if(result.twiml) {

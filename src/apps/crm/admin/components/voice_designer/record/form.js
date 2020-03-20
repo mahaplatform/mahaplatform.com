@@ -40,7 +40,8 @@ class Record extends React.PureComponent {
   _getDefaults() {
     return {
       strategy: 'say',
-      voice: 'woman'
+      voice: 'woman',
+      confirm: true
     }
   }
 
@@ -66,11 +67,11 @@ class Record extends React.PureComponent {
         {
           fields: [
             { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
-            { label: 'Message', type: 'segment', required: true, fields: [
-              { label: 'How to request', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
+            { label: 'How to request', type: 'segment', required: true, fields: [
+              { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: true, text: 'Yes, require confirmation' },{ value: false, text: 'No, immediately save recording' }], defaultValue: config.strategy }
+            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: 'yes', text: 'Yes, require confirmation' },{ value: 'no', text: 'No, immediately save recording' }], defaultValue: config.confirm }
           ]
         }
       ]

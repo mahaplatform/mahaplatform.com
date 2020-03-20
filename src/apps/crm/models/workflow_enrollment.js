@@ -7,6 +7,7 @@ import SmsCampaign from './sms_campaign'
 import Workflow from './workflow'
 import Response from './response'
 import Contact from './contact'
+
 const WorkflowEnrollment = new Model({
 
   tableName: 'crm_workflow_enrollments',

@@ -23,10 +23,6 @@ const reviewRoute = async (req, res) => {
 
   const response = new twiml.VoiceResponse()
 
-  response.say('You said')
-
-  response.play(req.body.RecordingUrl)
-
   const gather = response.gather({
     input: 'dtmf',
     action: `${process.env.TWIML_HOST}/voice/crm/recordings/${req.params.code}`,
@@ -34,6 +30,10 @@ const reviewRoute = async (req, res) => {
     numDigits: 1,
     timeout: 5
   })
+
+  gather.say('You said')
+
+  gather.play(req.body.RecordingUrl)
 
   gather.say('Press 1 to keep this recording, 2 to record again')
 

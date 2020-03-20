@@ -593,6 +593,15 @@ const schema = {
       table.USER-DEFINED('status')
     })
 
+    await knex.schema.createTable('crm_workflow_recordings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('action_id').unsigned()
+      table.integer('asset_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_workflow_steps', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2960,6 +2969,12 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_workflow_recordings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('action_id').references('crm_workflow_actions.id')
+      table.foreign('asset_id').references('maha_assets.id')
     })
 
 
