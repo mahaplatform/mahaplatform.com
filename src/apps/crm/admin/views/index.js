@@ -20,6 +20,7 @@ import CampaignsVoiceInbound from './campaigns/voice/inbound'
 import CampaignsVoiceOutbound from './campaigns/voice/outbound'
 import CampaignsVoiceShow from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
+import CampaignsVoiceRecordings from './campaigns/voice/recordings'
 import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
 import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
 import ContactsList from './contacts/list'
@@ -72,6 +73,7 @@ const routes = [
   { path: '/campaigns/voice/inbound', component: CampaignsVoiceInbound },
   { path: '/campaigns/voice/:id', component: CampaignsVoiceShow },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
+  { path: '/campaigns/voice/:campaign_id/recordings', component: CampaignsVoiceRecordings },
   { path: '/campaigns/voice/:campaign_id/calls', component: CampaignsVoiceCallsList },
   { path: '/campaigns/voice/:campaign_id/calls/:id', component: CampaignsVoiceCallsShow },
   { path: '/contacts', component: ContactsList },

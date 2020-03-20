@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Calls',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/enrollments`,
+    endpoint: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/calls`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> },
@@ -19,7 +19,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/${record.id}`),
+    selectable: true,
+    selectValue: 'id',
+    buttons: (selected, onSuccess) => [{
+      color: 'red',
+      text: 'Delete Selected',
+      confirm: 'Are you sure you want to delete these calls?',
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/delete`,
+        body: {
+          filter: selected.filter
+        }
+      }
+    }]
   }
 })
 

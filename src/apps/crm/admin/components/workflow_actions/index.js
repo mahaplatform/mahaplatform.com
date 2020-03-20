@@ -25,7 +25,8 @@ const blocks = {
   say: { icon: 'volume-control-phone' },
   message: { icon: 'comment' },
   sms: { icon: 'comment' },
-  internal_sms: { icon: 'comment' }
+  internal_sms: { icon: 'comment' },
+  record: { icon: 'microphone' }
 }
 
 class WorkflowActions extends React.PureComponent {

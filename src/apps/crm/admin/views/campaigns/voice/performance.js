@@ -1,38 +1,90 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
-
-const totals = [
-  { label: 'Calls', name: 'calls_count', query: '' },
-  { label: 'Active', name: 'active_count', query: '?$filter[status][$eq]=active' },
-  { label: 'Lost', name: 'lost_count', query: '?$filter[status][$eq]=lost' },
-  { label: 'Hangups', name: 'hangups_count', query: '' },
-  { label: 'Answering Machines', name: 'answering_machines_count', query: '' },
-  { label: 'Converted', name: 'converted_count', query: '?$filter[was_converted][$eq]=false' },
-  { label: 'Completed', name: 'completed_count', query: '?$filter[status][$eq]=completed' }
-]
 
 class Performance extends React.Component {
 
+  static propTypes = {
+    campaign: PropTypes.object
+  }
+
   render() {
+    const { campaign } = this.props
     return (
       <div className="crm-report">
         <div className="crm-report-title">
-          Enrollments
+          Calls
+        </div>
+        <div className="crm-report-metrics">
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Calls
+            </div>
+            <div className="crm-report-metric-value">
+              <Button { ...this._getCallsButton(campaign.calls_count, '') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Active
+            </div>
+            <div className="crm-report-metric-value">
+              <Button { ...this._getCallsButton(campaign.active_count, '?$filter[status][$eq]=active') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Converted
+            </div>
+            <div className="crm-report-metric-value">
+              <Button { ...this._getCallsButton(campaign.converted_count, '?$filter[was_converted][$eq]=true') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Conversion Rate
+            </div>
+            <div className="crm-report-metric-value">
+              { numeral(campaign.converted_count / campaign.calls_count).format('0.0%') }
+            </div>
+          </div>
         </div>
         <div className="crm-report-table">
           <table className="ui table">
             <tbody>
-              { totals.map((total, index) => (
-                <tr key={`total_${index}`}>
-                  <td>
-                    { total.label }
-                  </td>
-                  <td className="right aligned">
-                    <Button { ...this._getButton(total.name, total.query) } />
-                  </td>
-                </tr>
-              ))}
+              <tr>
+                <td>
+                  Lost
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getCallsButton(campaign.lost_count, '?$filter[status][$eq]=lost') } />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Hangups
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getCallsButton(campaign.hangups_count, '?$filter[status][$eq]=lost') } />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Answering Machines
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getCallsButton(campaign.answering_machines_count, '') } />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Recordings
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getRecordingsButton(campaign.recordings_count) } />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -40,12 +92,21 @@ class Performance extends React.Component {
     )
   }
 
-  _getButton(name, query) {
+  _getCallsButton(label, query) {
     const { campaign } = this.props
     return {
-      label: campaign[name],
+      label,
       className: 'link',
       route: `/admin/crm/campaigns/voice/${campaign.id}/calls${query}`
+    }
+  }
+
+  _getRecordingsButton(label) {
+    const { campaign } = this.props
+    return {
+      label,
+      className: 'link',
+      route: `/admin/crm/campaigns/voice/${campaign.id}/recordings`
     }
   }
 

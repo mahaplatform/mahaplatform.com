@@ -63,6 +63,7 @@ const receive = async (req, { call, phone_number }) => {
 
   const enrollment = await enrollInCampaign(req, {
     voice_campaign,
+    call,
     contact: from.related('contact')
   })
 

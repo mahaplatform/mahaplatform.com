@@ -3861,6 +3861,13 @@ union
       from crm_workflow_enrollments
       where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.status = 'completed'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.voice_campaign_id
+      ), recordings as (
+      select crm_workflow_enrollments.voice_campaign_id,
+      count(*) as count
+      from ((crm_workflow_recordings
+      join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
+      join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
+      group by crm_workflow_enrollments.voice_campaign_id
       )
       select crm_voice_campaigns.id as voice_campaign_id,
       coalesce(calls.count, (0)::bigint) as calls_count,
@@ -3869,15 +3876,17 @@ union
       coalesce(hangups.count, (0)::bigint) as hangups_count,
       coalesce(answering_machines.count, (0)::bigint) as answering_machines_count,
       coalesce(converted.count, (0)::bigint) as converted_count,
-      coalesce(completed.count, (0)::bigint) as completed_count
-      from (((((((crm_voice_campaigns
+      coalesce(completed.count, (0)::bigint) as completed_count,
+      coalesce(recordings.count, (0)::bigint) as recordings_count
+      from ((((((((crm_voice_campaigns
       left join calls on ((calls.voice_campaign_id = crm_voice_campaigns.id)))
       left join active on ((active.voice_campaign_id = crm_voice_campaigns.id)))
       left join lost on ((lost.voice_campaign_id = crm_voice_campaigns.id)))
       left join hangups on ((hangups.voice_campaign_id = crm_voice_campaigns.id)))
       left join answering_machines on ((answering_machines.voice_campaign_id = crm_voice_campaigns.id)))
       left join converted on ((converted.voice_campaign_id = crm_voice_campaigns.id)))
-      left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)));
+      left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)))
+      left join recordings on ((recordings.voice_campaign_id = crm_voice_campaigns.id)));
     `)
 
     await knex.raw(`
