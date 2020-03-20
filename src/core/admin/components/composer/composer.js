@@ -80,13 +80,13 @@ class Composer extends React.Component {
     return (
       <div className="maha-composer">
         <div className="maha-composer-component">
-          { attachments &&
-            <div className="maha-composer-attachment" onClick={ this._handleAttachments }>
-              <i className="fa fa-fw fa-plus" />
-            </div>
-          }
           <div className="maha-composer-input">
             <div className="maha-composer-text">
+              { attachments &&
+                <div className="maha-composer-attachment" onClick={ this._handleAttachments }>
+                  <i className="fa fa-plus" />
+                </div>
+              }
               <div className="maha-composer-editor">
                 <textarea { ...this._getTextarea() } ref={ node => this.composer = node } />
               </div>
@@ -97,9 +97,6 @@ class Composer extends React.Component {
                 <i className="fa fa-smile-o" />
               </div>
             </div>
-          </div>
-          <div className="maha-composer-send" onClick={ this._handleSave }>
-            <i className="fa fa-fw fa-paper-plane" />
           </div>
         </div>
         { emojis && <Emojis { ...this._getEmojis() } /> }
