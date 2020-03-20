@@ -11,9 +11,8 @@ const play = async (req, { enrollment, step }) => {
   }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${step.get('code')}/recording`)
 
   response.redirect({
-    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`,
     method: 'POST'
-  })
+  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
 
   return {
     twiml: response.toString()

@@ -15,14 +15,14 @@ import contactList from './update_lists'
 import voiceRecord from './voice_record'
 import sendEmail from './send_email'
 import controlIfThen from './ifthen'
+import voicePlay from './voice_play'
+import voiceSay from './voice_say'
 import smsMessage from './message'
 import sendSms from './send_sms'
 import controlWait from './wait'
 import controlGoal from './goal'
-import voicePlay from './play'
 import controlSet from './set'
 import hangup from './hangup'
-import voiceSay from './say'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -142,8 +142,8 @@ const refresh = async (req, { enrollment }) => {
 
 const getData = async(req, { contact, enrollment, steps }) => ({
   full_name: contact.get('full_name'),
-  first_name: contact.get('full_name'),
-  last_name: contact.get('full_name'),
+  first_name: contact.get('first_name'),
+  last_name: contact.get('last_name'),
   email: contact.get('email'),
   phone: contact.get('phone'),
   address: contact.get('address'),
@@ -153,8 +153,8 @@ const getData = async(req, { contact, enrollment, steps }) => ({
 const getTokens = async(req, { contact, data, steps }) => ({
   contact: {
     full_name: contact.get('full_name'),
-    first_name: contact.get('full_name'),
-    last_name: contact.get('full_name'),
+    first_name: contact.get('first_name'),
+    last_name: contact.get('last_name'),
     email: contact.get('email'),
     phone: contact.get('phone'),
     address: contact.get('address')
