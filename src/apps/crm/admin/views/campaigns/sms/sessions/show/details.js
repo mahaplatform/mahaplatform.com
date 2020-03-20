@@ -3,20 +3,20 @@ import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ campaign, enrollment }) => {
+const Details = ({ campaign, session }) => {
 
   const contact = {
-    label: enrollment.contact.display_name,
+    label: session.contact.display_name,
     className: 'link',
-    route: `/admin/crm/contacts/${enrollment.contact.id}`
+    route: `/admin/crm/contacts/${session.contact.id}`
   }
 
   const list = {
     sections: [{
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
-        { label: 'Enrolled', content: enrollment.created_at, format: 'datetime' },
-        { component: <WorkflowActions enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
+        { label: 'Enrolled', content: session.created_at, format: 'datetime' },
+        { component: <WorkflowActions enrollment={ session } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
     }]
   }
@@ -27,7 +27,7 @@ const Details = ({ campaign, enrollment }) => {
 
 Details.propTypes = {
   campaign: PropTypes.object,
-  enrollment: PropTypes.object
+  session: PropTypes.object
 }
 
 export default Details

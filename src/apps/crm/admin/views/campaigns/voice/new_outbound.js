@@ -74,7 +74,7 @@ class Voice extends React.PureComponent {
     const { purpose } = this.state
     return {
       comment: <p>{ this._getComment(purpose) }</p>,
-      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/email/recipients`,
+      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/voice/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel="voice" />,
       fields: criteria,

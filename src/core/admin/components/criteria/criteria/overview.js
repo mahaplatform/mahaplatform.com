@@ -16,6 +16,7 @@ class Overview extends React.Component {
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
     panel: PropTypes.object,
+    standalone: PropTypes.bool,
     test: PropTypes.array,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
@@ -102,15 +103,17 @@ class Overview extends React.Component {
   }
 
   _handlePop(index = -1) {
+    const { standalone, onPop } = this.props
     const { form } = this.context
-    if(form) return form.pop(index)
-    this.props.onPop(index)
+    if(standalone) return onPop(index)
+    form.pop(index)
   }
 
   _handlePush(component, props) {
+    const { standalone, onPush } = this.props
     const { form } = this.context
-    if(form) return form.push(component, props)
-    this.props.onPush(component, props)
+    if(standalone) return onPush(component, props)
+    form.push(component, props)
   }
 
 }

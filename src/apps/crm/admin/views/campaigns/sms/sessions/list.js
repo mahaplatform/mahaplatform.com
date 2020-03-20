@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Sessions',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/enrollments`,
+    endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken property="phone_name" { ...enrollment.contact } /> },
@@ -23,7 +23,31 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${record.id}`)
+    selectable: true,
+    selectValue: 'code',
+    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${record.id}`),
+    recordTasks: (record) => [
+      {
+        label: 'Delete Session',
+        request: {
+          endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${record.id}`,
+          method: 'DELETE',
+          confirm: 'Are you sure you want to delete this session?'
+        }
+      }
+    ],
+    buttons: (selected, onSuccess) => [{
+      color: 'red',
+      text: 'Delete Selected',
+      confirm: 'Are you sure you want to delete these sessions?',
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/delete`,
+        body: {
+          filter: selected.filter
+        }
+      }
+    }]
   }
 })
 

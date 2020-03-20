@@ -2,9 +2,9 @@ import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
 
-const getTabs = ({ campaign, enrollment }) => ({
+const getTabs = ({ campaign, sessions }) => ({
   items: [
-    { label: 'Details', component: <Details campaign={ campaign } enrollment={ enrollment } /> }
+    { label: 'Details', component: <Details campaign={ campaign } sessions={ sessions } /> }
   ]
 })
 
@@ -12,7 +12,7 @@ const getTasks = ({ list }) => ({})
 
 const mapResourcesToPage = (props, context) => ({
   campaign: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}`,
-  enrollment: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/enrollments/${props.params.id}`
+  sessions: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}/sessions/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -8,7 +8,8 @@ class Say extends React.PureComponent {
     config: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   form = null
@@ -60,10 +61,19 @@ class Say extends React.PureComponent {
             { label: 'Message', type: 'segment', required: true, fields: [
               { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
               { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
-            ] }
+            ], after: <Button { ...this._getTokens() } /> }
           ]
         }
       ]
+    }
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can use the these tokens',
+      className: 'link',
+      handler: onTokens
     }
   }
 

@@ -15,6 +15,7 @@ class Criteria extends React.Component {
     fields: PropTypes.array,
     items: PropTypes.array,
     panel: PropTypes.object,
+    standalone: PropTypes.bool,
     test: PropTypes.array,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
@@ -27,6 +28,7 @@ class Criteria extends React.Component {
 
   static defaultProps = {
     fields: [],
+    standalone: true,
     onChange: () => {}
   }
 
@@ -58,7 +60,7 @@ class Criteria extends React.Component {
   }
 
   _getOverview() {
-    const { cid, code, display, fields, panel, test } = this.props
+    const { cid, code, display, fields, panel, standalone, test } = this.props
     const { onChange, onCreate, onRemove, onReset, onSet, onTest } = this.props
     return {
       cid,
@@ -66,6 +68,7 @@ class Criteria extends React.Component {
       criteria: display,
       fields,
       panel,
+      standalone,
       test,
       onChange,
       onCreate,

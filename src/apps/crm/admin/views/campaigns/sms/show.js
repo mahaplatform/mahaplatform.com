@@ -7,7 +7,7 @@ import Send from './send'
 const getTabs = ({ audits, campaign }) => ({
   items: [
     { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
-    { label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> }
+    { label: 'Performance', component: <Performance campaign={ campaign } /> }
   ]
 })
 

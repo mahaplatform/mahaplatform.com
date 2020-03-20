@@ -125,17 +125,20 @@ const refresh = async (req, { enrollment }) => {
   if(enrollment.get('voice_campaign_id')) {
     await socket.refresh(req, [
       '/admin/crm/campaigns/voice',
-      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}`
+      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}`,
+      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}/calls`
     ])
   } else if(enrollment.get('sms_campaign_id')) {
     await socket.refresh(req, [
       '/admin/crm/campaigns/sms',
-      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}`
+      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}`,
+      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}/sessions`
     ])
   } else if(enrollment.get('workflow_id')) {
     await socket.refresh(req, [
       '/admin/crm/workflows',
-      `/admin/crm/workflows/${enrollment.get('workflow_id')}`
+      `/admin/crm/workflows/${enrollment.get('workflow_id')}`,
+      `/admin/crm/workflows/${enrollment.get('voice_campaign_id')}/enrollments`
     ])
   }
 }

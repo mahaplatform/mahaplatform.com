@@ -1,4 +1,4 @@
-import enrollments from './enrollments'
+import sessions from './sessions'
 import outbound from './outbound'
 import activate from './activate'
 import { Router } from 'express'
@@ -30,6 +30,6 @@ router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
-router.use('/:campaign_id/enrollments', enrollments)
+router.use('/:campaign_id/sessions', sessions)
 
 export default router

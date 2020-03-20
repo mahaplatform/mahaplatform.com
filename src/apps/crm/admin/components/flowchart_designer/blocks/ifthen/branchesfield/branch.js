@@ -58,6 +58,7 @@ class Branch extends React.PureComponent {
     return {
       defaultValue: branch.criteria,
       fields,
+      standalone: false,
       onChange: this._handleChange.bind(this, 'criteria')
     }
   }

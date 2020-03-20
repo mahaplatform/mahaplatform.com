@@ -1,8 +1,10 @@
 import RecordingField from '../../recordingfield'
 import TokenField from '../../tokenfield'
+import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
+
 
 class Question extends React.PureComponent {
 
@@ -10,7 +12,8 @@ class Question extends React.PureComponent {
     config: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   form = null
@@ -39,6 +42,7 @@ class Question extends React.PureComponent {
 
   _getDefaults() {
     return {
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
       voice: 'woman',
       loop: 1
@@ -84,9 +88,18 @@ class Question extends React.PureComponent {
       return { label: 'Message', type: 'segment', required: true, fields: [
         { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], defaultValue: config.voice },
         { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
-      ] }
+      ], after: <Button { ...this._getTokens() } /> }
     }
     return { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can use the these tokens',
+      className: 'link',
+      handler: onTokens
+    }
   }
 
   _handleCancel() {
