@@ -1,5 +1,5 @@
 .maha-composer {
-  background-color: fadeout(@black, 95);
+  background-color: @white;
 }
 .maha-composer-component {
   display: flex;
@@ -12,6 +12,10 @@
 }
 .maha-composer-attachment {
   border-right: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 92);
+  }
   .fa {
     font-size: 1.2em;
   }
@@ -19,6 +23,9 @@
 .maha-composer-emojis {
   .fa {
     font-size: 1.4em;
+    &:hover {
+      color: fadeout(@black, 40);
+    }
   }
 }
 .maha-composer-attachment,
@@ -32,19 +39,14 @@
     line-height: 1em;
     margin: auto;
     color: fadeout(@black, 60);
-    cursor: pointer;
-    &:hover {
-      color: fadeout(@black, 40);
-    }
   }
 }
 .maha-composer-input {
   flex: 1;
-  padding: 0.4em;
+  padding: 0 0.4em 0.4em 0.4em;
 }
 .maha-composer-text {
   border: 1px solid fadeout(@black, 90);
-  background-color: @white;
   border-radius: 0.5em;
   display: flex;
   overflow: hidden;
@@ -64,6 +66,7 @@
   word-break: break-word;
   padding: 0.6em 0.8em;
   textarea {
+    background-color: transparent;
     resize: none;
     width: 100%;
     border: 0;
