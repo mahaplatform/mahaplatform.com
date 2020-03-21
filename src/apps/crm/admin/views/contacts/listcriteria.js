@@ -11,7 +11,6 @@ class ListCriteria extends React.Component {
     code: PropTypes.string,
     comparisons: PropTypes.array,
     field: PropTypes.object,
-    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -124,12 +123,10 @@ class ListCriteria extends React.Component {
 
   _handleChange() {
     const { data, operator, value } = this.state
-    const { code, field, parent } = this.props
+    const { code} = this.props
     if(!value) return
     this.props.onChange({
       code,
-      parent,
-      field: field.key,
       operator,
       value,
       data
@@ -138,11 +135,9 @@ class ListCriteria extends React.Component {
 
   _handleDone() {
     const { data, operator, value } = this.state
-    const { code, field, parent } = this.props
+    const { code } = this.props
     this.props.onDone({
       code,
-      parent,
-      field: field.key,
       operator,
       value,
       data

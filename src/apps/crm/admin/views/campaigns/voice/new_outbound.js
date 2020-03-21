@@ -56,14 +56,14 @@ class Voice extends React.PureComponent {
   _getComment(purpose) {
     if(purpose === 'marketing') {
       return `
-        Marketing emails can only be sent to contacts who have given their
+        Marketing calls can only be sent to contacts who have given their
         explicit consent. You will only see contacts who match your criteria
-        and have opted in to receive email from this program
+        and have opted in to receive call from this program
       `
     }
     if(purpose === 'transactional') {
       return `
-        Transactional emails will be sent to the primary email address of each
+        Transactional calls will be sent to the primary phone number of each
         contact that matches your criteria.
       `
     }

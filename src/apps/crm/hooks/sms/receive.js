@@ -1,3 +1,4 @@
+import { lookupNumber } from '../../../maha/services/phone_numbers'
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { enrollInCampaign } from '../../services/sms_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
@@ -18,13 +19,19 @@ const getPhoneNumber = async (req, { number }) => {
 
   if(phone_number) return phone_number
 
+  const caller = await lookupNumber(req, {
+    number
+  })
+
   const code = await generateCode(req, {
     table: 'crm_contacts'
   })
 
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
-    code
+    code,
+    first_name: caller.first_name,
+    last_name: caller.last_name
   }).save(null, {
     transacting: req.trx
   })
