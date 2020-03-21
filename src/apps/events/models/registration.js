@@ -1,6 +1,6 @@
+import Invoice from '../../finance/models/invoice'
 import Model from '../../../core/objects/model'
-import Invoice from '../../finance/invoice'
-import Contact from '../../crm/contact'
+import Contact from '../../crm/models/contact'
 import Ticket from './ticket'
 import Event from './event'
 

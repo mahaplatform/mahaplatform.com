@@ -1890,6 +1890,28 @@ const schema = {
       table.integer('role_id').unsigned()
     })
 
+    await knex.schema.createTable('news_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('post_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.string('code', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('news_posts', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.text('text')
+      table.jsonb('config')
+      table.USER-DEFINED('type')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('platform_settings', (table) => {
       table.increments('id').primary()
       table.jsonb('values')
@@ -3072,6 +3094,18 @@ const schema = {
     await knex.schema.table('events_waitings', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('news_posts', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('news_accesses', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('post_id').references('news_posts.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
 

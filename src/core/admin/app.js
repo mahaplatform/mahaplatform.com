@@ -147,6 +147,7 @@ import faxRoutes from '../../apps/fax/admin/views/index.js'
 import financeRoutes from '../../apps/finance/admin/views/index.js'
 import competenciesRoutes from '../../apps/learning/admin/views/index.js'
 import mahaRoutes from '../../apps/maha/admin/views/index.js'
+import newsRoutes from '../../apps/news/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
@@ -417,6 +418,7 @@ class App extends React.Component {
       { path: '/admin/expenses', children: financeRoutes },
       { path: '/admin/learning', children: competenciesRoutes },
       { path: '/admin', children: mahaRoutes },
+      { path: '/admin/news', children: newsRoutes },
       { path: '/admin/platform', children: platformRoutes },
       { path: '/admin/sites', children: sitesRoutes },
       { path: '/admin/team', children: teamRoutes },

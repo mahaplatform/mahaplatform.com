@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Program from '../../crm/modals/program'
+import Program from '../../crm/models/program'
 import Registration from './registration'
 import Session from './session'
 import Waiting from './waiting'
