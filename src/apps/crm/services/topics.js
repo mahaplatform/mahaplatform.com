@@ -58,8 +58,8 @@ export const updateTopics = async (req, params) => {
 
   if(add_ids.length > 0) {
     await addTotopics(req, {
-      contact,
-      add_ids
+      topic_ids: add_ids,
+      contact
     })
   }
 
@@ -69,8 +69,8 @@ export const updateTopics = async (req, params) => {
 
   if(remove_ids.length > 0) {
     await removeFromtopics(req, {
-      contact,
-      remove_ids
+      topic_ids: remove_ids,
+      contact
     })
   }
 

@@ -58,8 +58,8 @@ export const updateLists = async (req, params) => {
 
   if(add_ids.length > 0) {
     await addToLists(req, {
-      contact,
-      add_ids
+      list_ids: add_ids,
+      contact
     })
   }
 
@@ -69,8 +69,8 @@ export const updateLists = async (req, params) => {
 
   if(remove_ids.length > 0) {
     await removeFromLists(req, {
-      contact,
-      remove_ids
+      list_ids: remove_ids,
+      contact
     })
   }
 

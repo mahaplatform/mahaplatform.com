@@ -26,7 +26,9 @@ const blocks = {
   message: { icon: 'comment' },
   sms: { icon: 'comment' },
   internal_sms: { icon: 'comment' },
-  record: { icon: 'microphone' }
+  record: { icon: 'microphone' },
+  topic: { icon: 'book' },
+  list: { icon: 'users' }
 }
 
 class WorkflowActions extends React.PureComponent {
