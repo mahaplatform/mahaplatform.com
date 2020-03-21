@@ -5,6 +5,7 @@ import question from './question'
 import record from './record'
 import React from 'react'
 import play from './play'
+import dial from './dial'
 import say from './say'
 import _ from 'lodash'
 
@@ -41,6 +42,7 @@ class VoiceDesigner extends React.PureComponent {
         question,
         say,
         record,
+        dial,
         { action: 'ifthen' },
         { action: 'wait' },
         { action: 'goal' },

@@ -1,14 +1,12 @@
 import { twiml } from 'twilio'
 
-const play = async (req, { config, enrollment, step }) => {
+const dial = async (req, { config, enrollment, step }) => {
 
-  const { loop } = config
+  const { number } = config
 
   const response = new twiml.VoiceResponse()
 
-  response.play({
-    loop
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${step.get('code')}/recording`)
+  response.dial(number)
 
   response.redirect({
     method: 'POST'
@@ -20,4 +18,4 @@ const play = async (req, { config, enrollment, step }) => {
 
 }
 
-export default play
+export default dial
