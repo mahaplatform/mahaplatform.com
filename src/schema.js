@@ -794,6 +794,70 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('events_attendings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('ticket_id').unsigned()
+      table.integer('session_id').unsigned()
+      table.USER-DEFINED('method')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_events', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.string('title', 255)
+      table.text('description')
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_registrations', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('event_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.integer('invoice_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_sessions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('event_id').unsigned()
+      table.date('date')
+      table.time('start_time')
+      table.time('end_time')
+      table.jsonb('location')
+      table.string('title', 255)
+      table.text('description')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_tickets', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('registration_id').unsigned()
+      table.string('code', 255)
+      table.jsonb('values')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_waitings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.integer('num_tickets')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('finance_accounts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2345,6 +2409,12 @@ const schema = {
       table.foreign('workflow_id').references('crm_workflows.id')
     })
 
+    await knex.schema.table('crm_workflow_recordings', table => {
+      table.foreign('action_id').references('crm_workflow_actions.id')
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('crm_workflow_steps', table => {
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2971,10 +3041,37 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_workflow_recordings', table => {
+    await knex.schema.table('events_events', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('action_id').references('crm_workflow_actions.id')
-      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('program_id').references('crm_programs.id')
+    })
+
+    await knex.schema.table('events_sessions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('event_id').references('events_events.id')
+    })
+
+    await knex.schema.table('events_registrations', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+    })
+
+    await knex.schema.table('events_tickets', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('registration_id').references('events_registrations.id')
+    })
+
+    await knex.schema.table('events_attendings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('ticket_id').references('events_tickets.id')
+      table.foreign('session_id').references('events_sessions.id')
+    })
+
+    await knex.schema.table('events_waitings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('contact_id').references('crm_contacts.id')
     })
 
 

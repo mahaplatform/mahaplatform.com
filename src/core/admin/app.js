@@ -142,6 +142,7 @@ import chatRoutes from '../../apps/chat/admin/views/index.js'
 import crmRoutes from '../../apps/crm/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
+import eventsRoutes from '../../apps/events/admin/views/index.js'
 import faxRoutes from '../../apps/fax/admin/views/index.js'
 import financeRoutes from '../../apps/finance/admin/views/index.js'
 import competenciesRoutes from '../../apps/learning/admin/views/index.js'
@@ -410,6 +411,7 @@ class App extends React.Component {
       { path: '/admin/crm', children: crmRoutes },
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },
+      { path: '/admin/events', children: eventsRoutes },
       { path: '/admin/fax', children: faxRoutes },
       { path: '/admin/finance', children: financeRoutes },
       { path: '/admin/expenses', children: financeRoutes },
