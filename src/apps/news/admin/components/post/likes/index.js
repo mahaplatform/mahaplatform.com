@@ -31,7 +31,7 @@ class Likes extends React.PureComponent {
       <div className="news-post-likes">
         <i className={`fa fa-${this._getLikeIcon()}`} onClick={ this._handleClick } />
         { liker_ids.length > 0 ?
-          <span onClick={ this._handleLikers }>
+          <span className="news-post-likers" onClick={ this._handleLikers }>
             { pluralize('like', liker_ids.length, true) }
           </span> :
           <span>Like</span>

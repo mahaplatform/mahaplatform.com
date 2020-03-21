@@ -27,7 +27,7 @@ class Form extends React.Component {
         </div>
         <div className="news-form-trigger-label">
           <div className="news-form-trigger-placeholder">
-            Post an announcement...
+            Whats on your mind?
           </div>
         </div>
       </div>

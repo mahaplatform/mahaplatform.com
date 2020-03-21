@@ -48,9 +48,7 @@ class Post extends React.PureComponent {
         </div>
         <div className="news-post-body" dangerouslySetInnerHTML={{ __html: text }} />
         <div className="news-post-footer">
-          <div className="news-post-actions">
-            <Likes { ...this._getLikes() } />
-          </div>
+          <Likes { ...this._getLikes() } />
           <Comments entity={ `news_posts/${id}` } defaultValue={ comments }  />
         </div>
       </div>
