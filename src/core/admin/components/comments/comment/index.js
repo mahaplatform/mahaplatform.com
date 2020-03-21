@@ -100,6 +100,11 @@ class Comment extends React.Component {
             <div className="maha-message-action">
               <Reaction { ...this._getReaction() } />
             </div>
+            <div className="maha-message-action">
+              <div className="maha-message-reply" title="Reply to this comment" onClick={ this._handleDestroyComment }>
+                <i className="fa fa-fw fa-times" />
+              </div>
+            </div>
           </div>
         }
       </div>

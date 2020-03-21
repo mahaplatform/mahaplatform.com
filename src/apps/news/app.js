@@ -3,8 +3,8 @@ const app = {
   title: 'News',
   path: '/news',
   description: 'Organizational Newsfeed',
-  color: 'purple',
-  icon: 'newspaper-o'
+  color: 'pink',
+  icon: 'bullhorn'
 }
 
 export default app

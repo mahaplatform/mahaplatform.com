@@ -1,0 +1,130 @@
+.news-form {
+  margin: 0 auto;
+  max-width: 500px;
+  margin-bottom: 1.2em;
+  background-color: @white;
+  border-radius: .5em;
+  overflow: hidden;
+}
+.news-form-body {
+  display: flex;
+}
+.news-form-avatar {
+  flex: 0 0 4.5em;
+  padding: 0.8em;
+  .maha-avatar {
+    width: 100%;
+  }
+}
+.news-form-input {
+  .maha-composer-editor {
+    padding: 0.8em 0.8em 0.8em 0;
+  }
+  flex: 1;
+  color: fadeout(@black, 50);
+}
+.news-form-attachments {
+  display: flex;
+  padding: .25em;
+  flex-wrap: wrap;
+}
+.news-form-attachment {
+  @media (max-width: 768px) {
+    flex: ~"0 0 calc(100% / 3)";
+  }
+  @media (min-width: 769px) {
+    flex: ~"0 0 calc(100% / 5)";
+  }
+  position: relative;
+  padding: .25em;
+  &:hover {
+    .news-form-attachment-remove {
+      display: block;
+    }
+  }
+}
+.news-form-attachment-item {
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: 0;
+  position: relative;
+  & > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+}
+.news-form-attachment-image {
+  .maha-image {
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+.news-form-attachment-file {
+  flex: 1;
+  background-color: fadeout(@black, 97);
+  color: fadeout(@black, 50);
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    color: fadeout(@black, 40);
+  }
+}
+.news-form-attachment-file-detail {
+  margin: auto 0.25em;
+  text-align: center;
+  overflow: hidden;
+  .maha-asset-icon {
+    margin-bottom: 0.4em;
+  }
+  .fa {
+    font-size: 2.5em;
+    display: block;
+    width: auto !important;
+  }
+}
+.news-form-attachment-file-name {
+  font-size: 0.8em;
+  line-height: 1.6em;
+  height: 3.2em;
+  width: 100%;
+}
+.news-form-attachment-remove {
+  position: absolute;
+  display: none;
+  top: 0.25em;
+  right: 0.25em;
+  color: @white;
+  cursor: pointer;
+}
+.news-form-attachment-add {
+  border: 2px dashed fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  color: fadeout(@black, 90);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    border-color: fadeout(@black, 85);
+    background-color: fadeout(@black, 92);
+    color: fadeout(@black, 85);
+  }
+  .fa {
+    margin: auto;
+    font-size: 2em;
+  }
+}
+
+.news-form-footer {
+  padding: 0.4em;
+  border-top: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  text-align: right;
+}

@@ -3,7 +3,7 @@ const app = {
   title: 'Fax',
   path: '/fax',
   description: '',
-  color: 'brown',
+  color: 'yellow',
   icon: 'fax'
 }
 

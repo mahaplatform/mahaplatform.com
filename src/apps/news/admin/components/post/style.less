@@ -1,0 +1,127 @@
+.news-post {
+  transition: background-color 0.5s ease;
+  &.expanded-enter {
+    background-color: fadeout(@yellow, 90);
+  }
+  &.expanded-enter.expanded-enter-active {
+    background-color: @white;
+  }
+}
+.news-post-wrapper {
+  padding: 0.8em;
+  flex: 1;
+  .scrollable;
+  .news-post {
+    margin-bottom: 0;
+  }
+}
+.news-post {
+  border-radius: 0.5em;
+  margin: 0 auto;
+  max-width: 500px;
+  overflow: hidden;
+  background: @white;
+  margin-bottom: 1.2em;
+}
+.news-post-header {
+  display: flex;
+  background-color: fadeout(@black, 98);
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.news-post-header-avatar {
+  padding: 0.8em;
+  flex: 0 0 4.5em;
+  .news-avatar {
+    width: 100%;
+  }
+}
+.news-post-header-details {
+  flex: 1;
+  padding: 0.8em 0.8em 0.8em 0;
+}
+.news-post-header-timestamp {
+  .hover(color, fadeout(@black, 50));
+  cursor: pointer;
+}
+.news-post-header-tasks {
+  padding: 0.8em 0.8em 0.8em 0;
+  flex: 0 0 2em;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 1.3em;
+    cursor: pointer;
+    color: fadeout(@black, 60);
+    &:hover {
+      color: fadeout(@black, 40);
+    }
+  }
+}
+.news-post-header-name {
+  color: #000;
+  font-weight: bold;
+}
+.news-post-header-timestamp {
+  font-size: 0.9em;
+  color: fadeout(@black, 60);
+  display: inline;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.news-post-photo {
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+.news-post-link {
+  padding: 0 0.8em 0.8em;
+  .news-attachment-link {
+    margin: 0;
+    max-width: 100%;
+  }
+}
+.news-post-files {
+  padding: 0.4em;
+}
+.news-post-file {
+  padding: 0.4em;
+  .news-attachment-asset {
+    margin: 0
+  }
+}
+.news-post-body {
+  padding: 0.8em;
+  color: fadeout(@black, 40);
+  line-height: 1.8em;
+}
+.news-post-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  .news-composer {
+    background-color: @white;
+  }
+}
+.news-post-actions {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 98);
+  padding: 0.8em;
+}
+.news-posts-likes {
+  .fa {
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  .fa-heart-o {
+    color: fadeout(@black, 40);
+    &:hover {
+      color: @black;
+    }
+  }
+  .fa-heart {
+    color: fadeout(@red, 20);
+    &:hover {
+      color: @red;
+    }
+  }
+}

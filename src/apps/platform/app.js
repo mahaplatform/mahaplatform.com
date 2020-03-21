@@ -3,7 +3,7 @@ const app = {
   title: 'Platform',
   path: '/platform',
   description: 'Platform Management Tools',
-  color: 'pink',
+  color: 'brown',
   icon: 'cog'
 }
 

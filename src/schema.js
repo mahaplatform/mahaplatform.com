@@ -1901,6 +1901,15 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('news_likes', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.integer('post_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('news_posts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2526,6 +2535,39 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('events_attendings', table => {
+      table.foreign('session_id').references('events_sessions.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('ticket_id').references('events_tickets.id')
+    })
+
+    await knex.schema.table('events_events', table => {
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_registrations', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_sessions', table => {
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_tickets', table => {
+      table.foreign('registration_id').references('events_registrations.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_waitings', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('finance_accounts', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2947,6 +2989,18 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('news_accesses', table => {
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('post_id').references('news_posts.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('news_posts', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('sites_emails', table => {
       table.foreign('site_id').references('sites_sites.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -3063,49 +3117,10 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('events_events', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
-    })
-
-    await knex.schema.table('events_sessions', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('event_id').references('events_events.id')
-    })
-
-    await knex.schema.table('events_registrations', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('event_id').references('events_events.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('invoice_id').references('finance_invoices.id')
-    })
-
-    await knex.schema.table('events_tickets', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('registration_id').references('events_registrations.id')
-    })
-
-    await knex.schema.table('events_attendings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('ticket_id').references('events_tickets.id')
-      table.foreign('session_id').references('events_sessions.id')
-    })
-
-    await knex.schema.table('events_waitings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-    })
-
-    await knex.schema.table('news_posts', table => {
+    await knex.schema.table('news_likes', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('news_accesses', table => {
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('post_id').references('news_posts.id')
-      table.foreign('group_id').references('maha_groups.id')
-      table.foreign('user_id').references('maha_users.id')
     })
 
 
