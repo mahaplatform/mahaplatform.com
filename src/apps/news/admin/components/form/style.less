@@ -1,3 +1,32 @@
+.news-form-trigger {
+  background-color: @white;
+  border-radius: 0.5em;
+  margin: 0 auto;
+  max-width: 500px;
+  margin-bottom: 1.4em;
+  display: flex;
+}
+.news-form-trigger-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  .maha-avatar {
+    width: 2.8em;
+  }
+}
+.news-form-trigger-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.news-form-trigger-placeholder {
+  background-color: fadeout(@black, 95);
+  color: fadeout(@black, 40);
+  border-radius: 0.5em;
+  padding: 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 92);
+  }
+}
+
 .news-form {
   margin: 0 auto;
   max-width: 500px;
