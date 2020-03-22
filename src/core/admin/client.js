@@ -99,6 +99,7 @@ export Reaction from './components/reactions/reaction'
 export Reactions from './components/reactions/reactions'
 export Star from './components/stars/star'
 export Starred from './components/stars/starred'
+export Timestamp from './components/timestamp'
 export Tooltip from './components/tooltip'
 export emojify from './components/emojis/emojify'
 

@@ -1,7 +1,6 @@
 import { Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Posts from './posts'
-import New from '../new'
 import React from 'react'
 import _ from 'lodash'
 
@@ -21,9 +20,7 @@ class Feed extends React.PureComponent {
     component: null,
     cacheKey: ''
   }
-
-  _handleCancel = this._handleCancel.bind(this)
-  _handleNew = this._handleNew.bind(this)
+  
   _handleReload = this._handleReload.bind(this)
 
   render() {
@@ -51,12 +48,6 @@ class Feed extends React.PureComponent {
     this._handleLeave()
   }
 
-  _getNew() {
-    return {
-      onCancel: this._handleCancel
-    }
-  }
-
   _getInfinte() {
     const { cacheKey } = this.state
     const { group } = this.props
@@ -70,18 +61,8 @@ class Feed extends React.PureComponent {
           }
         }
       } : {},
-      layout: Posts,
-      props: {
-        onCancel: this._handleCancel,
-        onNew: this._handleNew
-      }
+      layout: Posts
     }
-  }
-
-  _handleCancel() {
-    this.setState({
-      component: null
-    })
   }
 
   _handleJoin() {
@@ -100,12 +81,6 @@ class Feed extends React.PureComponent {
     network.unsubscribe([
       { target, action: 'refresh', handler: this._handleReload }
     ])
-  }
-
-  _handleNew() {
-    this.setState({
-      component: <New { ...this._getNew() } />
-    })
   }
 
   _handleReload() {

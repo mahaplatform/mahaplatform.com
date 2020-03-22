@@ -1,4 +1,4 @@
-import { Avatar, Comments } from 'maha-admin'
+import { Avatar, Comments, Timestamp } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Likes from './likes'
 import moment from 'moment'
@@ -47,7 +47,7 @@ class Post extends React.PureComponent {
               }
             </div>
             <div className="news-post-header-timestamp" onClick={ this._handleClick.bind(this, id) }>
-              { moment(created_at).format('MMM DD, YYYY @ h:mm A') }
+              <Timestamp time={ created_at } />
             </div>
           </div>
           { user.id === admin.user.id &&
@@ -70,6 +70,32 @@ class Post extends React.PureComponent {
     return {
       post_id: id,
       liker_ids
+    }
+  }
+
+  _getTimestamp(created_at) {
+    const now = moment()
+    const created = moment(created_at)
+    const dates = {
+      now: now.format('MM-DD-YY-HH-MM').split('-'),
+      created: created.format('MM-DD-YY-HH-MM').split('-')
+    }
+    const sameMonth = dates.created[0] === dates.now[0]
+    const sameDay = dates.created[1] === dates.now[1]
+    const sameYear = dates.created[2] === dates.now[2]
+    const sameHour = dates.created[3] === dates.now[3]
+    const sameMinute = dates.created[4] === dates.now[4]
+    if(sameMonth && sameDay && sameYear && sameHour && sameMinute) {
+    } else if(sameMonth && sameDay && sameYear && sameHour) {
+      return created.diff(now, 'minutes')+' mins'
+    } else if(sameMonth && sameDay && sameYear) {
+      return created.diff(now, 'hours')+' hr'
+    } else if(sameMonth && sameYear) {
+      return moment(created_at).format('MMM DD [at] h:mm A')
+    } else if(sameYear) {
+      return moment(created_at).format('MMM DD')
+    } else {
+      return moment(created_at).format('MMM DD, YYYY')
     }
   }
 

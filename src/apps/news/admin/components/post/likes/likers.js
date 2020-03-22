@@ -37,9 +37,9 @@ class Likes extends React.Component {
       endpoint: `/api/admin/news/posts/${post_id}/likes`,
       empty: 'There are no likes',
       layout: ({ records }) => (
-        <div className="news-post-likes">
+        <div className="news-post-likers-panel">
           { records.map((like, index) => (
-            <div className="news-post-like" key={ `like_${index}` }>
+            <div className="news-post-liker" key={ `like_${index}` }>
               <UserToken { ...like.user} />
             </div>
           )) }

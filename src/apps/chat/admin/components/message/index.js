@@ -1,4 +1,4 @@
-import { Avatar, RichText, Reactions } from 'maha-admin'
+import { Avatar, RichText, Reactions, Timestamp } from 'maha-admin'
 import { files, images, media } from './selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -64,7 +64,7 @@ class Message extends React.Component {
             <div className="maha-message-author">
               <div className="maha-message-name">{ user.full_name }</div>
               <div className="maha-message-timestamp" title={ moment(created_at).format('MM/DD/YYYY h:mm A') } onClick={ this._handleShow }>
-                { moment(created_at).format('h:mm A') }
+                <Timestamp time={ created_at } />
               </div>
             </div>
           }

@@ -15,7 +15,9 @@ class Modal extends React.Component {
   }
 
   state = {
-    cards: []
+    cards: [],
+    height: null,
+    width: null
   }
 
   _handleClose = this._handleClose.bind(this)
@@ -32,13 +34,21 @@ class Modal extends React.Component {
         <div className="maha-modal-overlay" onClick={this._handleClose.bind(this)} />
       </CSSTransition>,
       <CSSTransition key="maha-modal-window" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-modal-window">
+        <div className="maha-modal-window" style={ this._getStyle() }>
           <Error { ...this._getError() }>
             <Stack { ...this._getStack() } />
           </Error>
         </div>
       </CSSTransition>
     ])
+  }
+
+  _getStyle() {
+    const { width, height } = this.state
+    return {
+      maxWidth: width,
+      maxHeight: height
+    }
   }
 
   getChildContext() {
@@ -70,7 +80,10 @@ class Modal extends React.Component {
     this._handlePop()
   }
 
-  _handleOpen(component) {
+  _handleOpen(component, options = {}) {
+    const width = options.width || 996
+    const height = options.height || 740
+    this.setState({ width, height })
     this._handlePush(component)
   }
 

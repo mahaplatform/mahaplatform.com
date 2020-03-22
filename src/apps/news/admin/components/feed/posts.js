@@ -2,11 +2,13 @@ import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Post from '../post'
 import React from 'react'
+import New from '../new'
 
 class Posts extends React.PureComponent {
 
   static contextTypes = {
-    admin: PropTypes.object
+    admin: PropTypes.object,
+    modal: PropTypes.object
   }
 
   static propTypes = {
@@ -45,7 +47,10 @@ class Posts extends React.PureComponent {
   }
 
   _handleNew() {
-    this.props.onNew()
+    this.context.modal.open(<New />, {
+      width: 500,
+      height: 500
+    })
   }
 
 }

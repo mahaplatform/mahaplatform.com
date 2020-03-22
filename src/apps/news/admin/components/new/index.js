@@ -9,7 +9,7 @@ const Form = Factory({
   component: New,
   reducer,
   actions,
-  selectors
+  // selectors
 })
 
 export default Form

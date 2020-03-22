@@ -6,14 +6,14 @@ import Privacy from './privacy'
 class New extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object
+    admin: PropTypes.object,
+    modal: PropTypes.object
   }
 
   static propTypes = {
     attachments: PropTypes.array,
     text: PropTypes.string,
     onAddAttachments: PropTypes.func,
-    onCancel: PropTypes.func,
     onRemoveAttachment: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -28,7 +28,6 @@ class New extends React.Component {
   _handleAddAttachments = this._handleAddAttachments.bind(this)
   _handleAssets = this._handleAssets.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleChange = this._handleChange.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
@@ -40,6 +39,17 @@ class New extends React.Component {
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="news-form">
+          <div className="news-form-privacy" onClick={ this._handlePrivacy }>
+            <div className="news-form-privacy-icon">
+              <i className={`fa fa-${group.icon}`} />
+            </div>
+            <div className="news-form-privacy-label">
+              Share with { group.title }
+            </div>
+            <div className="news-form-privacy-proceed">
+              <i className="fa fa-chevron-right" />
+            </div>
+          </div>
           <div className="news-form-header">
             <div className="news-form-header-avatar">
               <Avatar user={ admin.user } />
@@ -51,7 +61,7 @@ class New extends React.Component {
           <div className="news-form-body">
             <textarea { ...this._getTextarea() }></textarea>
           </div>
-          { attachments.length > 0 &&
+          { false && attachments.length > 0 &&
             <div className="news-form-attachments">
               { attachments.map((asset, index) => (
                 <div className="news-form-attachment" key={ `attachment_${index}` }>
@@ -91,17 +101,6 @@ class New extends React.Component {
             </div>
             <div className="news-form-footer-item">
               <i className="fa fa-smile-o" />
-            </div>
-          </div>
-          <div className="news-form-privacy" onClick={ this._handlePrivacy }>
-            <div className="news-form-privacy-icon">
-              <i className={`fa fa-${group.icon}`} />
-            </div>
-            <div className="news-form-privacy-label">
-              Share with { group.title }
-            </div>
-            <div className="news-form-privacy-proceed">
-              <i className="fa fa-chevron-right" />
             </div>
           </div>
         </div>
@@ -165,6 +164,10 @@ class New extends React.Component {
     }
   }
 
+  _handleAddAttachments(index) {
+    this.context.modal.open(<Attachments { ...this._getAttachments() } />)
+  }
+
   _handleAssets(assets) {
     this.props.onAddAttachments(assets)
   }
@@ -174,7 +177,7 @@ class New extends React.Component {
   }
 
   _handleCancel() {
-    this.props.onCancel()
+    this.context.modal.close()
   }
 
   _handlePrivacy() {
@@ -187,10 +190,6 @@ class New extends React.Component {
     // const asset_ids = attachments.map(attachment => attachment.id)
     const group_id = group ? group.id : null
     this.props.onSave({ text, group_id })
-  }
-
-  _handleAddAttachments(index) {
-    this.context.modal.open(<Attachments { ...this._getAttachments() } />)
   }
 
   _handleRemoveAttachment(index) {

@@ -5,12 +5,12 @@ import AssetToken from '../../../tokens/asset'
 import AssetViewer from '../../asset/viewer'
 import QuotedComment from './quoted_comment'
 import Attachment from '../../attachment'
+import Timestamp from '../../timestamp'
 import RichText from '../../richtext'
 import { connect } from 'react-redux'
 import Gallery from '../../gallery'
 import PropTypes from 'prop-types'
 import Avatar from '../../avatar'
-import moment from 'moment'
 import React from 'react'
 
 class Comment extends React.Component {
@@ -59,7 +59,7 @@ class Comment extends React.Component {
           <div className="maha-message-author">
             <div className="maha-message-name">{ user.full_name }</div>
             <div className="maha-message-timestamp">
-              { moment(created_at).format('MMM D @ hh:mm A') }
+              <Timestamp time={ created_at } />
             </div>
           </div>
           <div className="maha-message-extras">

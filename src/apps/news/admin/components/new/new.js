@@ -6,13 +6,14 @@ import Form from './form'
 class New extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object
+    admin: PropTypes.object,
+    modal: PropTypes.object
   }
 
   static propTypes = {
     attachments: PropTypes.array,
+    status: PropTypes.string,
     text: PropTypes.string,
-    onCancel: PropTypes.func,
     onSave: PropTypes.func
   }
 
@@ -29,6 +30,15 @@ class New extends React.Component {
 
   componentDidMount() {
     this._handlePush(Form, this._getForm())
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'success') {
+        this.context.modal.close()
+      }
+    }
   }
 
   _getForm() {

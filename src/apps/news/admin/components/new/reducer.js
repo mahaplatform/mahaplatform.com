@@ -21,7 +21,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SAVE_SUCCESS':
     return {
       ...state,
-      status: 'pending',
+      status: 'success',
       text: ''
     }
 
