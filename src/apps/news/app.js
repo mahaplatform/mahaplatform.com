@@ -4,7 +4,7 @@ const app = {
   path: '/news',
   description: 'Organizational Newsfeed',
   color: 'pink',
-  icon: 'bullhorn'
+  icon: 'newspaper-o'
 }
 
 export default app
