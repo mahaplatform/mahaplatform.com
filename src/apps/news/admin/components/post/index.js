@@ -32,7 +32,7 @@ class Post extends React.PureComponent {
       <div className="news-post">
         <div className="news-post-header">
           <div className="news-post-header-avatar">
-            <Avatar user={ user } />
+            <Avatar user={ user } width="75" />
           </div>
           <div className="news-post-header-details">
             <div className="news-post-header-name">

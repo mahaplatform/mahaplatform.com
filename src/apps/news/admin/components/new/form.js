@@ -31,6 +31,7 @@ class New extends React.Component {
   _handleChange = this._handleChange.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
+  _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {
     const { admin } = this.context
@@ -39,17 +40,6 @@ class New extends React.Component {
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="news-form">
-          <div className="news-form-privacy" onClick={ this._handlePrivacy }>
-            <div className="news-form-privacy-icon">
-              <i className={`fa fa-${group.icon}`} />
-            </div>
-            <div className="news-form-privacy-label">
-              Share with { group.title }
-            </div>
-            <div className="news-form-privacy-proceed">
-              <i className="fa fa-chevron-right" />
-            </div>
-          </div>
           <div className="news-form-header">
             <div className="news-form-header-avatar">
               <Avatar user={ admin.user } />
@@ -59,7 +49,7 @@ class New extends React.Component {
             </div>
           </div>
           <div className="news-form-body">
-            <textarea placeholder="Whats on your mind?"></textarea>
+            <textarea { ...this._getTextarea() }></textarea>
           </div>
           { attachments.length > 0 &&
             <div className="news-form-attachments">
@@ -103,9 +93,30 @@ class New extends React.Component {
               <i className="fa fa-smile-o" />
             </div>
           </div>
+          <div className="news-form-privacy" onClick={ this._handlePrivacy }>
+            <div className="news-form-privacy-icon">
+              <i className={`fa fa-${group.icon}`} />
+            </div>
+            <div className="news-form-privacy-label">
+              Share with { group.title }
+            </div>
+            <div className="news-form-privacy-proceed">
+              <i className="fa fa-chevron-right" />
+            </div>
+          </div>
         </div>
       </ModalPanel>
     )
+  }
+
+  _getAttachments() {
+    const { onPop } = this.props
+    return {
+      cancelText: <i className="fa fa-chevron-left" />,
+      prompt: 'Upload File(s)',
+      onCancel: onPop,
+      onChooseAssets: this._handleAssets
+    }
   }
 
   _getComposer() {
@@ -118,14 +129,11 @@ class New extends React.Component {
     }
   }
 
-  _getAttachments() {
-    const { onPop } = this.props
-    return {
-      cancelText: <i className="fa fa-chevron-left" />,
-      prompt: 'Upload File(s)',
-      onCancel: onPop,
-      onChooseAssets: this._handleAssets
-    }
+  _getGroup() {
+    const { config } = this.state
+    const { group } = config
+    if(!group) return { id: null, icon: 'globe', title: 'Everyone' }
+    return group
   }
 
   _getPanel() {
@@ -140,18 +148,20 @@ class New extends React.Component {
     }
   }
 
-  _getGroup() {
-    const { config } = this.state
-    const { group } = config
-    if(!group) return { id: null, icon: 'globe', title: 'Everyone' }
-    return group
-  }
-
   _getPrivacy() {
     const { onPop } = this.props
     return {
       onBack: onPop,
       onChoose: this._handleUpdate.bind(this, 'group')
+    }
+  }
+
+  _getTextarea() {
+    const { text } = this.state
+    return {
+      placeholder: 'Whats on your mind?',
+      value: text,
+      onChange: this._handleUpdateText
     }
   }
 
@@ -163,10 +173,6 @@ class New extends React.Component {
     this.props.onPush(Attachments, this._getAttachments())
   }
 
-  _handleChange(text) {
-    this.props.onSet(text)
-  }
-
   _handleCancel() {
     this.props.onCancel()
   }
@@ -176,9 +182,11 @@ class New extends React.Component {
   }
 
   _handleSubmit() {
-    const { attachments, text, onSave } = this.props
-    const asset_ids = attachments.map(attachment => attachment.id)
-    onSave({ text, asset_ids })
+    const { config } = this.state
+    const { text, group } = config
+    // const asset_ids = attachments.map(attachment => attachment.id)
+    const group_id = group ? group.id : null
+    this.props.onSave({ text, group_id })
   }
 
   _handleAddAttachments(index) {
@@ -195,6 +203,16 @@ class New extends React.Component {
       config: {
         ...config,
         [key]: value
+      }
+    })
+  }
+
+  _handleUpdateText(e) {
+    const { config } = this.state
+    this.setState({
+      config: {
+        ...config,
+        text: e.target.value
       }
     })
   }

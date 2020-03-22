@@ -12,11 +12,8 @@ class New extends React.Component {
   static propTypes = {
     attachments: PropTypes.array,
     text: PropTypes.string,
-    onAddAttachments: PropTypes.func,
     onCancel: PropTypes.func,
-    onRemoveAttachment: PropTypes.func,
-    onSave: PropTypes.func,
-    onSet: PropTypes.func
+    onSave: PropTypes.func
   }
 
   state = {

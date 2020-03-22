@@ -5,7 +5,7 @@
 }
 .news-form-privacy {
   display: flex;
-  border-bottom: 1px solid fadeout(@black, 90);
+  border-top: 1px solid fadeout(@black, 90);
   cursor: pointer;
   &:hover {
     background-color: fadeout(@black, 97);
@@ -15,11 +15,13 @@
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
+    color: fadeout(@black, 40);
     font-size: 1.2em;
     margin: auto;
   }
 }
 .news-form-privacy-label {
+  color: fadeout(@black, 40);
   padding: 0.8em;
   flex: 1;
 }
@@ -181,7 +183,7 @@
 }
 .news-form-footer-item {
   flex: 1;
-  padding: 0.6em 0.8em;
+  padding: 0.8em;
   text-align: center;
   border-right: 1px solid fadeout(@black, 90);
   cursor: pointer;
@@ -194,9 +196,6 @@
   }
 }
 
-.news-form-groups {
-
-}
 .news-form-group {
   border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
@@ -206,14 +205,19 @@
   }
 }
 .news-form-group-icon {
+  flex: 0 0 2.4em;
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
+    color: fadeout(@black, 40);
     margin: auto;
+  }
+  .fa-globe {
     font-size: 1.2em;
   }
 }
 .news-form-group-label {
+  color: fadeout(@black, 40);
   padding: 0.8em;
   flex: 1;
 }

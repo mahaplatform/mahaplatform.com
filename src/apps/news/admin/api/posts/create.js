@@ -8,7 +8,7 @@ const createRoute = async (req, res) => {
   const post = await Post.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    ...whitelist(req.body, ['text'])
+    ...whitelist(req.body, ['group_id','text'])
   }).save(null, {
     transacting: req.trx
   })

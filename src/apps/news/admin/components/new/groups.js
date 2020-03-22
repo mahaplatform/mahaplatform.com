@@ -27,7 +27,7 @@ class Groups extends React.PureComponent {
         { records.map((group, index) => (
           <div className="news-form-group" key={`group_${index}`} onClick={ this._handleChoose.bind(this, group) }>
             <div className="news-form-group-icon">
-              <i className="fa fa-globe" />
+              <i className="fa fa-users" />
             </div>
             <div className="news-form-group-label">
               { group.title }
