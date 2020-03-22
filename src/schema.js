@@ -1929,6 +1929,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('group_id').unsigned()
+      table.boolean('is_active')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('platform_settings', (table) => {
@@ -4783,6 +4785,28 @@ union
 
     await knex.raw(`
       create view news_group_user_access AS
+      select distinct on (members.news_group_id, members.user_id) members.news_group_id,
+      members.user_id
+      from ( select news_members.news_group_id,
+      maha_users.id as user_id
+      from ((news_members
+      join maha_groupings_users on ((maha_groupings_users.grouping_id = news_members.grouping_id)))
+      join maha_users on ((maha_users.id = maha_groupings_users.user_id)))
+      union
+      select news_members.news_group_id,
+      maha_users_groups.user_id
+      from (news_members
+      join maha_users_groups on ((maha_users_groups.group_id = news_members.group_id)))
+      union
+      select news_members.news_group_id,
+      maha_users.id as user_id
+      from (news_members
+      join maha_users on ((maha_users.id = news_members.user_id)))) members
+      order by members.news_group_id, members.user_id;
+    `)
+
+    await knex.raw(`
+      create view news_groups_users AS
       select distinct on (members.news_group_id, members.user_id) members.news_group_id,
       members.user_id
       from ( select news_members.news_group_id,

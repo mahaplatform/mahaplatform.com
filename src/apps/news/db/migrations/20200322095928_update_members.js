@@ -40,6 +40,11 @@ const UpdateMembers = {
       ) members
       order by members.news_group_id, members.user_id
     `)
+
+    await knex('maha_attachments').where({
+      attachable_type: 'news_posts'
+    }).delete()
+
   },
 
   down: async (knex) => {

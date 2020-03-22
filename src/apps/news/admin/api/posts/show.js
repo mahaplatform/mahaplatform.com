@@ -5,6 +5,7 @@ const showRoute = async (req, res) => {
 
   const post = await Post.query(qb => {
     qb.where('team_id', req.team.get('id'))
+    qb.whereNull('deleted_at')
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['attachments.asset.source','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.reactions.user.photo','comments.quoted_comment.user.photo'],

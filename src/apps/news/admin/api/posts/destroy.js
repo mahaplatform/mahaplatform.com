@@ -1,10 +1,12 @@
 import socket from '../../../../../core/services/routes/emitter'
 import Post from '../../../models/post'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
   const post = await Post.query(qb => {
     qb.where('team_id', req.team.get('id'))
+    qb.whereNull('deleted_at')
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -15,7 +17,9 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load post'
   })
 
-  await post.destroy({
+  await post.save({
+    deleted_at: moment()
+  }, {
     transacting: req.trx
   })
 

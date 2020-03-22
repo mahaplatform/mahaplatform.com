@@ -97,7 +97,10 @@ class Likes extends React.PureComponent {
 
   _handleLikers() {
     const { post_id } = this.props
-    this.context.modal.push(<Likers post_id={ post_id } />)
+    this.context.modal.open(<Likers post_id={ post_id } />, {
+      width: 550,
+      height: 450
+    })
   }
 
   _handleUnlike() {

@@ -20,7 +20,7 @@ class Feed extends React.PureComponent {
     component: null,
     cacheKey: ''
   }
-  
+
   _handleReload = this._handleReload.bind(this)
 
   render() {
