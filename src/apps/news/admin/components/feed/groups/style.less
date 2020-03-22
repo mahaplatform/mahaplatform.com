@@ -1,0 +1,31 @@
+.news-feed-groups {
+  background-color: @white;
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.news-feed-groups-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.news-feed-groups-body {
+  flex: 1;
+  display: flex;
+}
+.news-feed-group {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 90);
+  &.selected {
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.news-feed-group-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+}
+.news-feed-group-label {
+  padding: 0.8em;
+  flex: 1;
+}

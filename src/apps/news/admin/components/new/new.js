@@ -34,7 +34,6 @@ class New extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { status } = this.props
-    console.log(prevProps.status, status)
     if(status !== prevProps.status) {
       if(status === 'success') {
         this.context.modal.close()

@@ -4,7 +4,7 @@ import { Page } from 'maha-admin'
 import React from 'react'
 
 const WrappedFeed = ({ group }) => (
-  <Feed group={ group } />
+  <Feed group_id={ group.id } />
 )
 
 WrappedFeed.propTypes = {

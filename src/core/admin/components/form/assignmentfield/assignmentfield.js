@@ -15,6 +15,7 @@ class AssignmentField extends React.Component {
     cid: PropTypes.string,
     defaultValue: PropTypes.array,
     placeholder: PropTypes.string,
+    prompt: PropTypes.string,
     q: PropTypes.string,
     status: PropTypes.string,
     unassigned: PropTypes.array,
@@ -29,14 +30,14 @@ class AssignmentField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: 'Assign Access'
+    prompt: 'Assign Access'
   }
 
   _handleAssign = this._handleAssign.bind(this)
   _handleClear = this._handleClear.bind(this)
 
   render() {
-    const { assigned, placeholder, status } = this.props
+    const { assigned, placeholder, prompt, status } = this.props
     if(status !== 'ready') return null
     return (
       <div className="assignmentfield" onClick={ this._handleAssign }>
@@ -48,7 +49,7 @@ class AssignmentField extends React.Component {
           )) }
           { assigned.length === 0 &&
             <div className="assignmentfield-prompt">
-              { placeholder }
+              { placeholder || prompt }
             </div>
           }
         </div>

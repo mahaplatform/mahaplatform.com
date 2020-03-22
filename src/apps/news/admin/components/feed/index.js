@@ -1,6 +1,8 @@
+import { connect } from 'react-redux'
 import { Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Trigger from './trigger'
+import Groups from './groups'
 import Posts from './posts'
 import React from 'react'
 import _ from 'lodash'
@@ -8,75 +10,92 @@ import _ from 'lodash'
 class Feed extends React.PureComponent {
 
   static contextTypes = {
-    network: PropTypes.object
+    router: PropTypes.object
   }
 
   static propTypes = {
-    group: PropTypes.object
+    group_id: PropTypes.number,
+    pathname: PropTypes.string,
+    onChoose: PropTypes.func
   }
 
-  static defaultProps = {}
-
   state = {
+    group_id: null,
     cacheKey: ''
   }
 
+  _handleChoose = this._handleChoose.bind(this)
   _handleReload = this._handleReload.bind(this)
 
   render() {
     return (
       <div className="news-feed">
-        <Infinite { ...this._getInfinte() } />
+        <div className="news-feed-sidebar">
+          <Groups { ...this._getGroups() } />
+        </div>
+        <div className="news-feed-main">
+          <Infinite { ...this._getInfinte() } />
+        </div>
       </div>
     )
   }
 
   componentDidMount() {
-    this._handleJoin()
+    const { group_id } = this.props
+    if(group_id) this.setState({ group_id })
   }
 
-  componentWillUnmount() {
-    this._handleLeave()
-  }
-
-  _getInfinte() {
-    const { cacheKey } = this.state
-    const { group } = this.props
-    return {
-      cacheKey,
-      empty: (
-        <div className="news-posts">
-          <Trigger />
-        </div>
-      ),
-      endpoint: '/api/admin/news/posts',
-      ...group ? {
-        filter: {
-          group_id: {
-            $eq: group.id
-          }
-        }
-      } : {},
-      layout: Posts
+  componentDidUpdate(prevProps) {
+    const { pathname } = this.props
+    if(pathname !== prevProps.pathname) {
+      this._handleChangeUrl()
     }
   }
 
-  _handleJoin() {
-    const { network } = this.context
-    const target = '/admin/news/posts'
-    network.join(target)
-    network.subscribe([
-      { target, action: 'refresh', handler: this._handleReload }
-    ])
+  _getGroups() {
+    const { group_id } = this.state
+    return {
+      group_id,
+      onChoose: this._handleChoose
+    }
   }
 
-  _handleLeave() {
-    const { network } = this.context
-    const target = '/admin/news/posts'
-    network.leave(target)
-    network.unsubscribe([
-      { target, action: 'refresh', handler: this._handleReload }
-    ])
+  _getInfinte() {
+    const { cacheKey, group_id } = this.state
+    const empty = (
+      <div className="news-posts">
+        <Trigger />
+      </div>
+    )
+    return {
+      cacheKey,
+      empty,
+      notFound: empty,
+      endpoint: '/api/admin/news/posts',
+      ...group_id ? {
+        filter: {
+          group_id: {
+            $eq: group_id
+          }
+        }
+      } : {},
+      layout: Posts,
+      refresh: '/admin/news/posts'
+    }
+  }
+
+  _handleChangeUrl() {
+    const { pathname } = this.props
+    const matches = pathname.match(/groups\/(.*)/)
+    this.setState({
+      group_id: matches ? parseInt(matches[1]) : null,
+      cacheKey: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
+    })
+  }
+
+  _handleChoose(group_id) {
+    const pathname = group_id ? `/admin/news/groups/${group_id}` : '/admin/news'
+    this.context.router.history.replace(pathname)
   }
 
   _handleReload() {
@@ -87,4 +106,8 @@ class Feed extends React.PureComponent {
 
 }
 
-export default Feed
+const mapStateToProps = (state, props) => ({
+  pathname: state.maha.router.history.slice(-1)[0].pathname
+})
+
+export default connect(mapStateToProps)(Feed)

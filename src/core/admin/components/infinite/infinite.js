@@ -9,6 +9,10 @@ import _ from 'lodash'
 
 class Infinite extends React.Component {
 
+  static contextTypes = {
+    network: PropTypes.object
+  }
+
   static propTypes = {
     all: PropTypes.number,
     cacheKey: PropTypes.string,
@@ -25,6 +29,7 @@ class Infinite extends React.Component {
     props: PropTypes.object,
     records: PropTypes.array,
     reference: PropTypes.func,
+    refresh: PropTypes.string,
     scrollpane: PropTypes.bool,
     selected: PropTypes.object,
     selectAll: PropTypes.bool,
@@ -73,6 +78,7 @@ class Infinite extends React.Component {
   }
 
   _handleClearSelection = this._handleClearSelection.bind(this)
+  _handleReload = this._handleReload.bind(this)
 
   render() {
     const { all, empty, failure, footer, header, next, notFound, records, scrollpane, skip, status, total } = this.props
@@ -116,11 +122,11 @@ class Infinite extends React.Component {
   }
 
   componentDidMount() {
-    const { reference } = this.props
+    const { reference, refresh } = this.props
+    if(refresh) this._handleJoin()
     if(reference) reference({
       clearSelection: this._handleClearSelection
     })
-
     this._handleFetch(0, true)
   }
 
@@ -132,6 +138,11 @@ class Infinite extends React.Component {
     if(selectedValues !== prevProps.selectedValues && selectedValues && records) {
       if(onUpdateSelected) this._handleUpdateSelected()
     }
+  }
+
+  componentWillUnmount() {
+    const { refresh } = this.props
+    if(refresh) this._handleLeave()
   }
 
   _getComponent(component) {
@@ -174,6 +185,24 @@ class Infinite extends React.Component {
     })
   }
 
+  _handleJoin() {
+    const { network } = this.context
+    const { refresh } = this.props
+    network.join(refresh)
+    network.subscribe([
+      { target: refresh, action: 'refresh', handler: this._handleReload }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const { refresh } = this.props
+    network.join(refresh)
+    network.unsubscribe([
+      { target: refresh, action: 'refresh', handler: this._handleReload }
+    ])
+  }
+
   _getMore(next, skip, reload, loaded, total) {
     if(reload) return true
     if(next !== undefined) return next !== null
@@ -196,6 +225,11 @@ class Infinite extends React.Component {
 
   _handleClearSelection() {
     this.props.onClearSelection()
+  }
+
+  _handleReload() {
+    console.log('reload')
+    this._handleFetch(0, true)
   }
 
   _handleUpdateSelected() {
