@@ -17,6 +17,8 @@ class Form extends React.Component {
     onSave: PropTypes.func
   }
 
+  text = null
+
   state = {
     attachments: [],
     group: null,
@@ -107,6 +109,10 @@ class Form extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.text.focus()
+  }
+
   _getAttachments() {
     const { onPop } = this.props
     return {
@@ -147,6 +153,7 @@ class Form extends React.Component {
   _getTextarea() {
     const { text } = this.state
     return {
+      ref: node => this.text = node,
       placeholder: 'Whats on your mind?',
       value: text,
       onChange: this._handleUpdateText

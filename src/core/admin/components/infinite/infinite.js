@@ -89,13 +89,13 @@ class Infinite extends React.Component {
           { status === 'failed' && this._getComponent(failure) }
           { status === 'loading' && records.length === 0 && <Loader /> }
           { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
-            <Message { ...notFound } />
+            this._getComponent(notFound)
           }
           { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
-            <Message { ...empty } />
+            this._getComponent(empty)
           }
           { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
-            <Message { ...failure } />
+            this._getComponent(failure)
           }
           { status !== 'failed' && records && records.length > 0 && scrollpane && Layout &&
             <Scrollpane { ...this._getScrollpane() }>
@@ -135,6 +135,7 @@ class Infinite extends React.Component {
   }
 
   _getComponent(component) {
+    if(component.text) return <Message { ...component } />
     return _.isFunction(component) ? React.createElement(component, this.props) : component
   }
 

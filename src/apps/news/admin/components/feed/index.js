@@ -1,5 +1,6 @@
 import { Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Trigger from './trigger'
 import Posts from './posts'
 import React from 'react'
 import _ from 'lodash'
@@ -17,25 +18,15 @@ class Feed extends React.PureComponent {
   static defaultProps = {}
 
   state = {
-    component: null,
     cacheKey: ''
   }
 
   _handleReload = this._handleReload.bind(this)
 
   render() {
-    const { component } = this.state
     return (
       <div className="news-feed">
         <Infinite { ...this._getInfinte() } />
-        { component &&
-          <div className="news-feed-form-panel-canvas" />
-        }
-        { component &&
-          <div className="news-feed-form-panel">
-            { component }
-          </div>
-        }
       </div>
     )
   }
@@ -53,6 +44,11 @@ class Feed extends React.PureComponent {
     const { group } = this.props
     return {
       cacheKey,
+      empty: (
+        <div className="news-posts">
+          <Trigger />
+        </div>
+      ),
       endpoint: '/api/admin/news/posts',
       ...group ? {
         filter: {
