@@ -28,7 +28,7 @@ class Form extends React.Component {
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleUpdateAttachments = this._handleUpdateAttachments.bind(this)
-  _handleUpdateGroup = this._handleUpdateText.bind(this)
+  _handleUpdateGroup = this._handleUpdateGroup.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {

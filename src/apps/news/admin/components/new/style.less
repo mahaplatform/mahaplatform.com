@@ -132,8 +132,10 @@
   margin: auto 0.25em;
   text-align: center;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   .maha-asset-icon {
-    margin-bottom: 0.4em;
+    margin: 0 auto 0.25em;
   }
   .fa {
     font-size: 2.5em;
@@ -154,6 +156,7 @@
   right: 0.25em;
   color: @white;
   cursor: pointer;
+  text-shadow: 0 0 1px fadeout(@black, 25);
 }
 .news-form-attachment-add {
   border: 2px dashed fadeout(@black, 90);

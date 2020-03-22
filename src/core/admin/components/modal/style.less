@@ -14,12 +14,6 @@
   background: @white;
   display: flex;
 }
-@media only screen and (min-width: 1025px) {
-  .maha-portal-main > .maha-modal-window  {
-    max-width: ~"calc(1024px - 2em)";
-    max-height: ~"calc(768px - 2em)";
-  }
-}
 @media only screen and (min-width: 769px) {
   .maha-portal-main > .maha-modal-overlay {
     .opacity-transition(0, 0.5, .5s);
@@ -38,6 +32,8 @@
 @media only screen and (max-width: 768px) {
   .maha-portal-main > .maha-modal-window {
     .translate-y-transition(100%, 0, .5s);
+    max-width: 100% !important;
+    max-height: 100% !important;
     top: 0;
     right: 0;
     bottom: 0;

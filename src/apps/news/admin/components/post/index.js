@@ -58,21 +58,21 @@ class Post extends React.PureComponent {
             </div>
           }
         </div>
-        <div className="news-post-body">
-          <div dangerouslySetInnerHTML={{ __html: text }} />
-          { images.length > 0 &&
-            <Gallery { ...this._getGallery(images) } />
-          }
-          { files.length > 0 &&
-            <div className="news-post-files">
-              { files.map((file, index) => (
-                <div className="news-post-file" key={ `file_${index}` }>
-                  <Attachment { ...file } />
-                </div>
-              ))}
-            </div>
-          }
-        </div>
+        { text.length > 0 &&
+          <div className="news-post-body" dangerouslySetInnerHTML={{ __html: text }} />
+        }
+        { images.length > 0 &&
+          <Gallery { ...this._getGallery(images) } />
+        }
+        { files.length > 0 &&
+          <div className="news-post-files">
+            { files.map((file, index) => (
+              <div className="news-post-file" key={ `file_${index}` }>
+                <Attachment { ...file } />
+              </div>
+            ))}
+          </div>
+        }
         <div className="news-post-footer">
           <Likes { ...this._getLikes() } />
           <Comments entity={ `news_posts/${id}` } defaultValue={ comments }  />
