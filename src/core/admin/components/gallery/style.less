@@ -1,12 +1,8 @@
 .maha-gallery {
-  margin-top: 0.4em;
   overflow: hidden;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   width: 100%;
-  background-color: fadeout(@black, 90);
-  border-radius: 0.5em;
-  padding: 0.2em;
 }
 .maha-gallery-photo {
   cursor: pointer;
@@ -29,7 +25,6 @@
 }
 .maha-gallery-photo-more {
   background-color: fadeout(@black, 50);
-  border-radius: 0 0 0.5em 0;
   position: absolute;
   display: flex;
   top: 0.2em;
@@ -56,33 +51,15 @@
 .maha-gallery-1 {
   .maha-gallery-photo {
     width: 100%;
-    .maha-image {
-      border-radius: 0.5em;
-    }
   }
 }
 .maha-gallery-2 {
   .maha-gallery-photo {
     width: ~"calc(100% / 2)";
-    &:nth-child(1) .maha-image {
-      border-radius: 0.5em 0 0 0.5em;
-    }
-    &:nth-child(2) .maha-image {
-      border-radius: 0 0.5em 0.5em 0;
-    }
   }
 }
 .maha-gallery-3 {
   .maha-gallery-photo {
-    &:nth-child(1) .maha-image {
-      border-radius: 0.5em 0 0 0.5em;
-    }
-    &:nth-child(2) .maha-image {
-      border-radius: 0 0.5em 0 0;
-    }
-    &:nth-child(3) .maha-image {
-      border-radius: 0 0 0.5em 0;
-    }
     &:nth-child(3n + 1) {
       width: ~"calc(100% / 3 * 2)";
     }
@@ -95,17 +72,5 @@
 .maha-gallery-4 {
   .maha-gallery-photo {
     width: ~"calc(100% / 2)";
-    &:nth-child(1) .maha-image {
-      border-radius: 0.5em 0 0 0;
-    }
-    &:nth-child(2) .maha-image {
-      border-radius: 0 0.5em 0 0;
-    }
-    &:nth-child(4) .maha-image {
-      border-radius: 0 0 0.5em 0;
-    }
-    &:nth-child(3) .maha-image {
-      border-radius: 0 0 0 0.5em;
-    }
   }
 }

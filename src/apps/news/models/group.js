@@ -17,7 +17,7 @@ const Group = new Model({
   },
 
   members() {
-    return this.hasMany(Member, 'group_id')
+    return this.hasMany(Member, 'news_group_id')
   },
 
   owner() {

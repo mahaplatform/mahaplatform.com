@@ -1912,8 +1912,10 @@ const schema = {
     await knex.schema.createTable('news_members', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('group_id').unsigned()
+      table.integer('news_group_id').unsigned()
       table.integer('user_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('grouping_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -3133,8 +3135,10 @@ const schema = {
 
     await knex.schema.table('news_members', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('group_id').references('news_groups.id')
+      table.foreign('news_group_id').references('news_groups.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
     })
 
 
@@ -4775,6 +4779,28 @@ union
       maha_imports.object_type
       from (maha_import_items
       join maha_imports on ((maha_imports.id = maha_import_items.import_id)));
+    `)
+
+    await knex.raw(`
+      create view news_group_user_access AS
+      select distinct on (members.news_group_id, members.user_id) members.news_group_id,
+      members.user_id
+      from ( select news_members.news_group_id,
+      maha_users.id as user_id
+      from ((news_members
+      join maha_groupings_users on ((maha_groupings_users.grouping_id = news_members.grouping_id)))
+      join maha_users on ((maha_users.id = maha_groupings_users.user_id)))
+      union
+      select news_members.news_group_id,
+      maha_users_groups.user_id
+      from (news_members
+      join maha_users_groups on ((maha_users_groups.group_id = news_members.group_id)))
+      union
+      select news_members.news_group_id,
+      maha_users.id as user_id
+      from (news_members
+      join maha_users on ((maha_users.id = news_members.user_id)))) members
+      order by members.news_group_id, members.user_id;
     `)
   }
 

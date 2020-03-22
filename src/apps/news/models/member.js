@@ -11,7 +11,7 @@ const Member = new Model({
   virtuals: {},
 
   group() {
-    return this.belongsTo(Group, 'group_id')
+    return this.belongsTo(Group, 'news_group_id')
   },
 
   user() {

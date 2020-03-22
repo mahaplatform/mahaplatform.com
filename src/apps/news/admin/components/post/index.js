@@ -1,7 +1,6 @@
-import { Avatar, Comments, Timestamp } from 'maha-admin'
+import { Attachment, Avatar, Comments, Gallery, Timestamp } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Likes from './likes'
-import moment from 'moment'
 import React from 'react'
 
 class Post extends React.PureComponent {
@@ -13,6 +12,7 @@ class Post extends React.PureComponent {
   }
 
   static propTypes = {
+    attachments: PropTypes.array,
     comments: PropTypes.array,
     created_at: PropTypes.string,
     group: PropTypes.object,
@@ -26,8 +26,10 @@ class Post extends React.PureComponent {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { comments, created_at, group, id, text, user } = this.props
+    const { attachments, comments, created_at, group, id, text, user } = this.props
     const { admin } = this.context
+    const images = attachments.filter(attachment => attachment.asset.content_type.match(/image/))
+    const files = attachments.filter(attachment => !attachment.asset.content_type.match(/image/))
     return (
       <div className="news-post">
         <div className="news-post-header">
@@ -56,7 +58,21 @@ class Post extends React.PureComponent {
             </div>
           }
         </div>
-        <div className="news-post-body" dangerouslySetInnerHTML={{ __html: text }} />
+        <div className="news-post-body">
+          <div dangerouslySetInnerHTML={{ __html: text }} />
+          { images.length > 0 &&
+            <Gallery { ...this._getGallery(images) } />
+          }
+          { files.length > 0 &&
+            <div className="news-post-files">
+              { files.map((file, index) => (
+                <div className="news-post-file" key={ `file_${index}` }>
+                  <Attachment { ...file } />
+                </div>
+              ))}
+            </div>
+          }
+        </div>
         <div className="news-post-footer">
           <Likes { ...this._getLikes() } />
           <Comments entity={ `news_posts/${id}` } defaultValue={ comments }  />
@@ -65,37 +81,20 @@ class Post extends React.PureComponent {
     )
   }
 
+  _getGallery(images) {
+    const { id } = this.props
+    return {
+      images,
+      attachable_type: 'news_posts',
+      attachable_id: id
+    }
+  }
+
   _getLikes() {
     const { liker_ids, id } = this.props
     return {
       post_id: id,
       liker_ids
-    }
-  }
-
-  _getTimestamp(created_at) {
-    const now = moment()
-    const created = moment(created_at)
-    const dates = {
-      now: now.format('MM-DD-YY-HH-MM').split('-'),
-      created: created.format('MM-DD-YY-HH-MM').split('-')
-    }
-    const sameMonth = dates.created[0] === dates.now[0]
-    const sameDay = dates.created[1] === dates.now[1]
-    const sameYear = dates.created[2] === dates.now[2]
-    const sameHour = dates.created[3] === dates.now[3]
-    const sameMinute = dates.created[4] === dates.now[4]
-    if(sameMonth && sameDay && sameYear && sameHour && sameMinute) {
-    } else if(sameMonth && sameDay && sameYear && sameHour) {
-      return created.diff(now, 'minutes')+' mins'
-    } else if(sameMonth && sameDay && sameYear) {
-      return created.diff(now, 'hours')+' hr'
-    } else if(sameMonth && sameYear) {
-      return moment(created_at).format('MMM DD [at] h:mm A')
-    } else if(sameYear) {
-      return moment(created_at).format('MMM DD')
-    } else {
-      return moment(created_at).format('MMM DD, YYYY')
     }
   }
 

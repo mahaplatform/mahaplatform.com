@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Privacy from './privacy'
 
-class New extends React.Component {
+class Form extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -11,30 +11,29 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    attachments: PropTypes.array,
     text: PropTypes.string,
-    onAddAttachments: PropTypes.func,
-    onRemoveAttachment: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
-    onSave: PropTypes.func,
-    onSet: PropTypes.func
+    onSave: PropTypes.func
   }
 
   state = {
-    config: {}
+    attachments: [],
+    group: null,
+    text: ''
   }
 
-  _handleAddAttachments = this._handleAddAttachments.bind(this)
-  _handleAssets = this._handleAssets.bind(this)
+  _handleAttachments = this._handleAttachments.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
+  _handleUpdateAttachments = this._handleUpdateAttachments.bind(this)
+  _handleUpdateGroup = this._handleUpdateText.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {
     const { admin } = this.context
-    const { attachments } = this.props
+    const { attachments } = this.state
     const group = this._getGroup()
     return (
       <ModalPanel { ...this._getPanel()}>
@@ -61,7 +60,7 @@ class New extends React.Component {
           <div className="news-form-body">
             <textarea { ...this._getTextarea() }></textarea>
           </div>
-          { false && attachments.length > 0 &&
+          { attachments.length > 0 &&
             <div className="news-form-attachments">
               { attachments.map((asset, index) => (
                 <div className="news-form-attachment" key={ `attachment_${index}` }>
@@ -86,14 +85,14 @@ class New extends React.Component {
                 </div>
               ))}
               <div className="news-form-attachment">
-                <div className="news-form-attachment-add" onClick={ this._handleAddAttachments }>
+                <div className="news-form-attachment-add" onClick={ this._handleAttachments }>
                   <i className="fa fa-fw fa-plus" />
                 </div>
               </div>
             </div>
           }
           <div className="news-form-footer">
-            <div className="news-form-footer-item" onClick={ this._handleAttachments.bind(this) }>
+            <div className="news-form-footer-item" onClick={ this._handleAttachments }>
               <i className="fa fa-plus" />
             </div>
             <div className="news-form-footer-item">
@@ -112,25 +111,15 @@ class New extends React.Component {
     const { onPop } = this.props
     return {
       cancelText: <i className="fa fa-chevron-left" />,
+      multiple: true,
       prompt: 'Upload File(s)',
       onCancel: onPop,
-      onChooseAssets: this._handleAssets
-    }
-  }
-
-  _getComposer() {
-    return {
-      icon: null,
-      placeholder: 'Post an announcement...',
-      onSubmit: this._handleSubmit,
-      onChooseAssets: this._handleAssets,
-      onChange: this._handleChange
+      onDone: this._handleUpdateAttachments
     }
   }
 
   _getGroup() {
-    const { config } = this.state
-    const { group } = config
+    const { group } = this.state
     if(!group) return { id: null, icon: 'globe', title: 'Everyone' }
     return group
   }
@@ -151,7 +140,7 @@ class New extends React.Component {
     const { onPop } = this.props
     return {
       onBack: onPop,
-      onChoose: this._handleUpdate.bind(this, 'group')
+      onChoose: this._handleUpdateGroup
     }
   }
 
@@ -162,14 +151,6 @@ class New extends React.Component {
       value: text,
       onChange: this._handleUpdateText
     }
-  }
-
-  _handleAddAttachments(index) {
-    this.context.modal.open(<Attachments { ...this._getAttachments() } />)
-  }
-
-  _handleAssets(assets) {
-    this.props.onAddAttachments(assets)
   }
 
   _handleAttachments() {
@@ -185,37 +166,43 @@ class New extends React.Component {
   }
 
   _handleSubmit() {
-    const { config } = this.state
-    const { text, group } = config
-    // const asset_ids = attachments.map(attachment => attachment.id)
+    const { attachments, group, text } = this.state
+    const asset_ids = attachments.map(attachment => attachment.id)
     const group_id = group ? group.id : null
-    this.props.onSave({ text, group_id })
+    this.props.onSave({ asset_ids, group_id, text })
   }
 
   _handleRemoveAttachment(index) {
-    this.props.onRemoveAttachment(index)
-  }
-
-  _handleUpdate(key, value) {
-    const { config } = this.state
+    const { attachments } = this.state
     this.setState({
-      config: {
-        ...config,
-        [key]: value
-      }
+      attachments: [
+        ...attachments.filter((attachment, i) => {
+          return i !== index
+        })
+      ]
     })
   }
 
-  _handleUpdateText(e) {
-    const { config } = this.state
+  _handleUpdateAttachments(assets) {
     this.setState({
-      config: {
-        ...config,
-        text: e.target.value
-      }
+      attachments: [
+        ...this.state.attachments,
+        ...assets
+      ]
+    })
+    this.props.onPop()
+  }
+
+  _handleUpdateGroup(group) {
+    this.setState({ group })
+  }
+
+  _handleUpdateText(e) {
+    this.setState({
+      text: e.target.value
     })
   }
 
 }
 
-export default New
+export default Form

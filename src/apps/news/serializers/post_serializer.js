@@ -1,5 +1,6 @@
 const PostSerializer = (req, result) => ({
   id: result.get('id'),
+  attachments: result.related('attachments').map(attachment),
   comments: result.related('comments').map(comment),
   liker_ids: result.related('likes').map(like => like.get('user_id')),
   text: result.get('text'),
