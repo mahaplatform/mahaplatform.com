@@ -1,7 +1,64 @@
 .news-feed {
+  position: relative;
   display: flex;
   flex: 1;
 }
 .news-posts {
   padding: 0.8em;
+}
+
+.news-form-trigger {
+  background-color: @white;
+  border-radius: 0.5em;
+  margin: 0 auto;
+  max-width: 500px;
+  margin-bottom: 1em;
+  display: flex;
+}
+.news-form-trigger-avatar {
+  padding: 0.4em 0 0.4em 0.4em;
+  .maha-avatar {
+    width: 2.8em;
+  }
+}
+.news-form-trigger-label {
+  flex: 1;
+  padding: 0.4em;
+}
+.news-form-trigger-placeholder {
+  background-color: fadeout(@black, 95);
+  color: fadeout(@black, 60);
+  border-radius: 0.5em;
+  padding: 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 92);
+  }
+}
+
+.news-feed-form-panel{
+  display: flex;
+}
+
+
+
+.news-feed-form-panel-canvas {
+  background-color: @black;
+  position: absolute;
+  .opacity(0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.news-feed-form-panel {
+  transform: translate(-50%, -50%);
+  background-color: @white;
+  position: absolute;
+  width: 100%;
+  max-width: 500px;
+  min-height: 500px;
+  max-height: 785px;
+  top: 50%;
+  left: 50%;
 }

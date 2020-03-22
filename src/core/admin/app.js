@@ -128,7 +128,7 @@ import maharouter from '../../apps/maha/admin/components/router'
 import mahasignin from '../../apps/maha/admin/components/signin'
 import mahareactions from '../../apps/maha/admin/roots/reactions'
 import mahastars from '../../apps/maha/admin/roots/stars'
-import newsform from '../../apps/news/admin/components/form'
+import newsnew from '../../apps/news/admin/components/new'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
@@ -381,7 +381,7 @@ class App extends React.Component {
       mahasignin,
       mahareactions,
       mahastars,
-      newsform,
+      newsnew,
       platformapps,
       sitessitesImportFinalize,
       teamaccess,

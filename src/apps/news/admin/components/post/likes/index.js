@@ -13,7 +13,7 @@ class Likes extends React.PureComponent {
   }
 
   static propTypes = {
-    post_id: PropTypes.array,
+    post_id: PropTypes.number,
     liker_ids: PropTypes.array
   }
 

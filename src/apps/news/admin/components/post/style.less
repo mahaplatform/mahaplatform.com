@@ -21,7 +21,7 @@
   max-width: 500px;
   overflow: hidden;
   background: @white;
-  margin-bottom: 1.4em;
+  margin-bottom: 1em;
 }
 .news-post-header {
   display: flex;
@@ -60,6 +60,15 @@
 .news-post-header-name {
   color: #000;
   font-weight: bold;
+  .fa {
+    margin: 0 0.5em;
+  }
+}
+.news-post-header-group {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .news-post-header-timestamp {
   font-size: 0.9em;

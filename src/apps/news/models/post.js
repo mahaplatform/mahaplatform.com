@@ -1,7 +1,7 @@
 import Attachment from '../../maha/models/attachment'
 import Model from '../../../core/objects/model'
 import User from '../../maha/models/user'
-import Access from './access'
+import Group from './group'
 import Like from './like'
 
 const Post = new Model({
@@ -12,12 +12,12 @@ const Post = new Model({
 
   virtuals: {},
 
-  accesses() {
-    return this.hasMany(Access, 'post_id')
-  },
-
   attachments() {
     return this.morphMany(Attachment, 'attachable')
+  },
+
+  group() {
+    return this.belongsTo(Group, 'group_id')
   },
 
   likes() {

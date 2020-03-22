@@ -1890,13 +1890,12 @@ const schema = {
       table.integer('role_id').unsigned()
     })
 
-    await knex.schema.createTable('news_accesses', (table) => {
+    await knex.schema.createTable('news_groups', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('post_id').unsigned()
-      table.integer('group_id').unsigned()
-      table.integer('user_id').unsigned()
-      table.string('code', 255)
+      table.integer('owner_id').unsigned()
+      table.integer('logo_id').unsigned()
+      table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1910,15 +1909,24 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('news_members', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('news_posts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.text('text')
       table.jsonb('config')
-      table.USER-DEFINED('type')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('group_id').unsigned()
     })
 
     await knex.schema.createTable('platform_settings', (table) => {
@@ -2989,8 +2997,7 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('news_accesses', table => {
-      table.foreign('group_id').references('maha_groups.id')
+    await knex.schema.table('news_likes', table => {
       table.foreign('post_id').references('news_posts.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
@@ -2999,6 +3006,7 @@ const schema = {
     await knex.schema.table('news_posts', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('group_id').references('news_groups.id')
     })
 
     await knex.schema.table('sites_emails', table => {
@@ -3117,10 +3125,16 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('news_likes', table => {
+    await knex.schema.table('news_groups', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('logo_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('news_members', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('group_id').references('news_groups.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('post_id').references('news_posts.id')
     })
 
 

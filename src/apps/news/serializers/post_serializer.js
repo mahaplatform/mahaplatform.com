@@ -1,20 +1,29 @@
-const postSerializer = (req, result) => ({
+const PostSerializer = (req, result) => ({
   id: result.get('id'),
   comments: result.related('comments').map(comment),
   liker_ids: result.related('likes').map(like => like.get('user_id')),
   text: result.get('text'),
+  group: group(result.related('group')),
   user: user(result.related('user')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
 
 const user = (user) => {
-  if(!user) return null
+  if(!user.id) return
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
     photo: user.related('photo') ? user.related('photo').get('path') : null
+  }
+}
+
+const group = (group) => {
+  if(!group.id) return
+  return {
+    id: group.get('id'),
+    title: group.get('title')
   }
 }
 
@@ -36,7 +45,7 @@ const reaction = (reaction) => ({
 })
 
 const quoted_comment = (comment) => {
-  if(!comment.id) return null
+  if(!comment.id) return
   return {
     id: comment.get('id'),
     code: comment.get('code'),
@@ -47,7 +56,7 @@ const quoted_comment = (comment) => {
 }
 
 const attachment = (attachment) => {
-  if(!attachment.id) return null
+  if(!attachment.id) return
   return {
     id: attachment.get('id'),
     type: attachment.get('type'),
@@ -59,7 +68,7 @@ const attachment = (attachment) => {
 }
 
 const asset = (asset) => {
-  if(!asset.id) return null
+  if(!asset.id) return
   return {
     id: asset.get('id'),
     content_type: asset.get('content_type'),
@@ -73,4 +82,4 @@ const asset = (asset) => {
   }
 }
 
-export default postSerializer
+export default PostSerializer

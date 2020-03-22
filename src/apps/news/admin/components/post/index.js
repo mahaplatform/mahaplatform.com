@@ -15,16 +15,18 @@ class Post extends React.PureComponent {
   static propTypes = {
     comments: PropTypes.array,
     created_at: PropTypes.string,
+    group: PropTypes.object,
     id: PropTypes.number,
     liker_ids: PropTypes.array,
     text: PropTypes.string,
     user: PropTypes.object
   }
 
+  _handleGroup = this._handleGroup.bind(this)
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { comments, created_at, id, text, user } = this.props
+    const { comments, created_at, group, id, text, user } = this.props
     const { admin } = this.context
     return (
       <div className="news-post">
@@ -35,6 +37,14 @@ class Post extends React.PureComponent {
           <div className="news-post-header-details">
             <div className="news-post-header-name">
               { user.full_name }
+              { group &&
+                <span>
+                  <i className="fa fa-caret-right" />
+                  <span className="news-post-header-group" onClick={ this._handleGroup }>
+                    { group.title }
+                  </span>
+                </span>
+              }
             </div>
             <div className="news-post-header-timestamp" onClick={ this._handleClick.bind(this, id) }>
               { moment(created_at).format('MMM DD, YYYY @ h:mm A') }
@@ -65,6 +75,11 @@ class Post extends React.PureComponent {
 
   _handleClick(id) {
     this.context.router.history.push(`/admin/news/posts/${id}`)
+  }
+
+  _handleGroup() {
+    const { group } = this.props
+    this.context.router.history.push(`/admin/news/groups/${group.id}`)
   }
 
   _handleTasks() {

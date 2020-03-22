@@ -8,8 +8,12 @@ const listRoute = async (req, res) => {
       qb.where('team_id', req.team.get('id'))
       qb.orderBy('created_at', 'desc')
     },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['group_id']
+    },
     page: req.query.$page,
-    withRelated: ['attachments.asset.source','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
+    withRelated: ['group','attachments.asset.source','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
     transacting: req.trx
   })
 
