@@ -18,7 +18,7 @@ class Results extends React.PureComponent {
             <i className="fa fa-fw fa-globe" />
           </div>
           <div className="news-feed-group-label">
-            Newsfeed
+            News Feed
           </div>
         </div>
         { records.map((group, index) => (

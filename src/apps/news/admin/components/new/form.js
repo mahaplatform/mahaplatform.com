@@ -1,7 +1,8 @@
-import { AssetIcon, Attachments, Avatar, Image, ModalPanel } from 'maha-admin'
+import { AssetIcon, Attachments, Avatar, Camera, Image, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import React from 'react'
 import Privacy from './privacy'
+import React from 'react'
+import _ from 'lodash'
 
 class Form extends React.Component {
 
@@ -26,6 +27,7 @@ class Form extends React.Component {
   }
 
   _handleAttachments = this._handleAttachments.bind(this)
+  _handleCamera = this._handleCamera.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
@@ -98,7 +100,7 @@ class Form extends React.Component {
               <i className="fa fa-plus" />
             </div>
             <div className="news-form-footer-item">
-              <i className="fa fa-camera" />
+              <Camera { ...this._getCamera() } />
             </div>
             <div className="news-form-footer-item">
               <i className="fa fa-smile-o" />
@@ -121,6 +123,13 @@ class Form extends React.Component {
       prompt: 'Upload File(s)',
       onCancel: onPop,
       onDone: this._handleUpdateAttachments
+    }
+  }
+
+  _getCamera() {
+    return {
+      icon: 'camera',
+      onDone: this._handleCamera
     }
   }
 
@@ -162,6 +171,15 @@ class Form extends React.Component {
 
   _handleAttachments() {
     this.props.onPush(Attachments, this._getAttachments())
+  }
+
+  _handleCamera(asset) {
+    this.setState({
+      attachments: [
+        ...this.state.attachments,
+        asset
+      ]
+    })
   }
 
   _handleCancel() {

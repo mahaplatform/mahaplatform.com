@@ -87,6 +87,7 @@ class Camera extends React.Component {
     const asset = response.data
     this.resumable.removeFile(file)
     this.files[asset.id] = file
+    if(asset.status === 'processed') return this.props.onDone(asset)
     network.join(`/admin/assets/${asset.id}`)
     network.subscribe([
       { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
