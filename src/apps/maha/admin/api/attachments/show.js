@@ -13,6 +13,11 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!attachment) return res.status(404).json({
+    code: 404,
+    message: 'Unable to find attachment'
+  })
+
   res.status(200).respond(attachment, AttachmentSerializer)
 
 }

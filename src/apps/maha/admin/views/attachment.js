@@ -15,7 +15,7 @@ const mapResourcesToPage = (props, context) => ({
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Asset Viewer',
+  title: 'Attachment',
   component: Asset,
   task: {
     icon: 'info-circle',

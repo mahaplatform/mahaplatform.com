@@ -8,7 +8,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources) => ({
   title: 'Gallery',
-  component: () => <GalleryList attachments={ resources.attachments } />
+  component: () => <GalleryList attachable_type={ props.params.attachable_type } attachable_id={ props.params.attachable_id } attachments={ resources.attachments } />
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -9,6 +9,8 @@ class GalleryList extends React.Component {
   }
 
   static propTypes = {
+    attachable_type: PropTypes.string,
+    attachable_id: PropTypes.string,
     attachments: PropTypes.array
   }
 
@@ -19,7 +21,7 @@ class GalleryList extends React.Component {
         { attachments.filter(attachment => {
           return attachment.asset.content_type.match(/(jpeg|jpg|gif|png)/) !== null
         }).map(attachment => (
-          <div className="maha-gallery-list-item" key={`gallery_list_item_${attachment.id}`} onClick={ this._handleClick.bind(this, attachment.asset) }>
+          <div className="maha-gallery-list-item" key={`gallery_list_item_${attachment.id}`} onClick={ this._handleClick.bind(this, attachment.id) }>
             <div className="maha-gallery-list-item-photo">
               <Image src={ attachment.asset.path } transforms={{ w: 500 }} />
             </div>
@@ -34,9 +36,10 @@ class GalleryList extends React.Component {
     )
   }
 
-  _handleClick(asset) {
-    this.context.router.history.push(`/admin/assets/${asset.id}`)
-
+  _handleClick(attachment_id) {
+    const { attachable_type, attachable_id } = this.props
+    const { history } = this.context.router
+    history.push(`/admin/${attachable_type}/${attachable_id}/attachments/${attachment_id}`)
   }
 
 }
