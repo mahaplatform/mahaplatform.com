@@ -12,6 +12,7 @@ class TextArea extends React.Component {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onAddAsset: PropTypes.func,
+    onUpdateAsset: PropTypes.func,
     onChange: PropTypes.func
   }
 
@@ -84,13 +85,14 @@ class TextArea extends React.Component {
 
   _handleFileAdded(file) {
     this.resumable.upload()
+    this.props.onAddAsset({ file })
   }
 
   _handleFileSuccess(file, message) {
     const response = JSON.parse(message)
     const asset = response.data
     this.resumable.removeFile(file)
-    this.props.onAddAsset(asset)
+    this.props.onUpdateAsset(file.uniqueIdentifier, asset)
   }
 
   _handleUpdate(e) {

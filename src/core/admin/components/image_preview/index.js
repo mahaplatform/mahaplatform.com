@@ -4,7 +4,12 @@ import React from 'react'
 class ImagePreview extends React.Component {
 
   static propTypes = {
-    image: PropTypes.object
+    image: PropTypes.object,
+    cover: PropTypes.bool
+  }
+
+  static defaultProps = {
+    cover: false
   }
 
   state = {
@@ -40,7 +45,8 @@ class ImagePreview extends React.Component {
 
   _getPreview() {
     const { dataurl, exif, width, height } = this.state
-    const paddingBottom = width === 0 ? 0 : (height / width) * 100
+    const { cover } = this.props
+    const paddingBottom = cover ? 100 : (width === 0 ? 0 : (height / width) * 100)
     return {
       className: `maha-image-preview-image exif-${ exif }`,
       style: {

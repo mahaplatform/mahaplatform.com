@@ -12,12 +12,12 @@ class Camera extends React.Component {
   static propTypes = {
     icon: PropTypes.string,
     team: PropTypes.object,
-    onDone: PropTypes.func
+    onAddAsset: PropTypes.func,
+    onUpdateAsset: PropTypes.func
   }
 
   static defaultProps = {
-    icon: 'camera',
-    onDone: () => {}
+    icon: 'camera'
   }
 
   button = null
@@ -27,7 +27,6 @@ class Camera extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleClick = this._handleClick.bind(this)
-  _handleFinish = this._handleFinish.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -61,6 +60,7 @@ class Camera extends React.Component {
 
   _handleAdd(file) {
     this.resumable.upload()
+    this.props.onAddAsset({ file })
   }
 
   _handleClick() {
@@ -70,28 +70,12 @@ class Camera extends React.Component {
     this.input.style.display = 'none'
   }
 
-  _handleFinish(asset) {
-    const { network } = this.context
-    if(asset.status !== 'processed') return
-    network.leave(`/admin/assets/${asset.id}`)
-    network.unsubscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
-    ])
-    delete this.files[asset.id]
-    this.props.onDone(asset)
-  }
-
   _handleSuccess(file, message) {
-    const { network } = this.context
     const response = JSON.parse(message)
     const asset = response.data
     this.resumable.removeFile(file)
     this.files[asset.id] = file
-    if(asset.status === 'processed') return this.props.onDone(asset)
-    network.join(`/admin/assets/${asset.id}`)
-    network.subscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
-    ])
+    this.props.onUpdateAsset(file.uniqueIdentifier, asset)
   }
 
 }

@@ -1,4 +1,4 @@
-import { AssetIcon, Attachments, Avatar, Camera, Image, ModalPanel } from 'maha-admin'
+import { AssetIcon, Attachments, Avatar, Camera, Image, ImagePreview, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import Privacy from './privacy'
@@ -26,11 +26,12 @@ class Form extends React.Component {
   }
 
   _handleAddAsset = this._handleAddAsset.bind(this)
+  _handleAddAttachments = this._handleAddAttachments.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
-  _handleUpdateAttachments = this._handleUpdateAttachments.bind(this)
+  _handleUpdateAsset = this._handleUpdateAsset.bind(this)
   _handleUpdateGroup = this._handleUpdateGroup.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
 
@@ -70,21 +71,27 @@ class Form extends React.Component {
             <div className="news-form-attachments">
               { attachments.map((asset, index) => (
                 <div className="news-form-attachment" key={ `attachment_${index}` }>
-                  <div className="news-form-attachment-item">
-                    { asset.content_type.match(/image/) !== null ?
-                      <div className="news-form-attachment-image">
-                        <Image src={ asset.path } transforms={{ fit: 'cover', w: 100, h: 100 }} />
-                      </div> :
-                      <div className="news-form-attachment-file">
-                        <div className="news-form-attachment-file-detail">
-                          <AssetIcon { ...asset } />
-                          <div className="news-form-attachment-file-name">
-                            { asset.file_name}
+                  { asset.file ?
+                    <div className="news-form-attachment-item">
+                      <ImagePreview image={ asset.file } cover={ true } />
+                      <div><i className="fa fa-fw fa-circle-o-notch fa-spin" /></div>
+                    </div> :
+                    <div className="news-form-attachment-item">
+                      { asset.content_type.match(/image/) !== null ?
+                        <div className="news-form-attachment-image">
+                          <Image src={ asset.path } transforms={{ fit: 'cover', w: 100, h: 100 }} />
+                        </div> :
+                        <div className="news-form-attachment-file">
+                          <div className="news-form-attachment-file-detail">
+                            <AssetIcon { ...asset } />
+                            <div className="news-form-attachment-file-name">
+                              { asset.file_name}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    }
-                  </div>
+                      }
+                    </div>
+                  }
                   <div className="news-form-attachment-remove" onClick={ this._handleRemoveAttachment.bind(this, index) }>
                     <i className="fa fa-fw fa-times" />
                   </div>
@@ -117,14 +124,15 @@ class Form extends React.Component {
       multiple: true,
       prompt: 'Upload File(s)',
       onCancel: onPop,
-      onDone: this._handleUpdateAttachments
+      onDone: this._handleAddAttachments
     }
   }
 
   _getCamera() {
     return {
       icon: 'camera',
-      onDone: this._handleAddAsset
+      onAddAsset: this._handleAddAsset,
+      onUpdateAsset: this._handleUpdateAsset
     }
   }
 
@@ -166,17 +174,28 @@ class Form extends React.Component {
       placeholder: 'What\'s on your mind?',
       value: text,
       onChange: this._handleUpdateText,
-      onAddAsset: this._handleAddAsset
+      onAddAsset: this._handleAddAsset,
+      onUpdateAsset: this._handleUpdateAsset
     }
   }
 
-  _handleAddAsset(asset) {
+  _handleAddAsset(file) {
     this.setState({
       attachments: [
         ...this.state.attachments,
-        asset
+        file
       ]
     })
+  }
+
+  _handleAddAttachments(assets) {
+    this.setState({
+      attachments: [
+        ...this.state.attachments,
+        ...assets
+      ]
+    })
+    this.props.onPop()
   }
 
   _handleAttachments() {
@@ -209,14 +228,15 @@ class Form extends React.Component {
     })
   }
 
-  _handleUpdateAttachments(assets) {
+  _handleUpdateAsset(uniqueIdentifier, asset) {
     this.setState({
       attachments: [
-        ...this.state.attachments,
-        ...assets
+        ...this.state.attachments.map(attachment => {
+          const { file } = attachment
+          return (file && file.uniqueIdentifier === uniqueIdentifier) ? asset : attachment
+        })
       ]
     })
-    this.props.onPop()
   }
 
   _handleUpdateGroup(group) {

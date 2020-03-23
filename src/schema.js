@@ -813,6 +813,7 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('events_registrations', (table) => {
