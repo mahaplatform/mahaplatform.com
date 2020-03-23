@@ -12,11 +12,6 @@ export const removeLink = () => ({
   type: 'REMOVE_LINK'
 })
 
-export const toggleEmojis = (editorState) => ({
-  type: 'TOGGLE_EMOJIS'
-})
-
-
 export const addAttachments = (attachments) => ({
   type: 'ADD_ATTACHMENTS',
   attachments

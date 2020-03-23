@@ -31,7 +31,6 @@ class Composer extends React.Component {
     onPaste: PropTypes.func,
     onSetState: PropTypes.func,
     onSubmit: PropTypes.func,
-    onToggleEmojis: PropTypes.func,
     onUpArrow: PropTypes.func,
     onUpdateAsset: PropTypes.func
   }
@@ -73,10 +72,9 @@ class Composer extends React.Component {
   _handlePhoto = this._handlePhoto.bind(this)
   _handleReset = this._handleReset.bind(this)
   _handleSave = this._handleSave.bind(this)
-  _handleToggleEmojis = this._handleToggleEmojis.bind(this)
 
   render() {
-    const { attachments, emojis } = this.props
+    const { attachments } = this.props
     return (
       <div className="maha-composer">
         <div className="maha-composer-component">
@@ -93,13 +91,10 @@ class Composer extends React.Component {
               <div className="maha-composer-photo">
                 <Camera { ...this._getCamera() } />
               </div>
-              <div className="maha-composer-emojis" onClick={ this._handleToggleEmojis }>
-                <i className="fa fa-smile-o" />
-              </div>
+              <Emojis { ...this._getEmojis() } />
             </div>
           </div>
         </div>
-        { emojis && <Emojis { ...this._getEmojis() } /> }
       </div>
     )
   }
@@ -282,10 +277,6 @@ class Composer extends React.Component {
     const value = this.composer.value
     onSubmit(value)
     this._handleReset()
-  }
-
-  _handleToggleEmojis() {
-    this.props.onToggleEmojis()
   }
 
 }

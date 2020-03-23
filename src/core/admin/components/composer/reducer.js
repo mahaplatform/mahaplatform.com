@@ -6,12 +6,6 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'TOGGLE_EMOJIS':
-    return {
-      ...state,
-      emojis: !state.emojis
-    }
-
   default:
     return state
 

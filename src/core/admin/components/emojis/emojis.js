@@ -1,5 +1,5 @@
-import categories from './categories'
 import PropTypes from 'prop-types'
+import Panel from './panel'
 import React from 'react'
 
 class Emojis extends React.Component {
@@ -21,63 +21,30 @@ class Emojis extends React.Component {
     onClose: () => {}
   }
 
+  emojis = null
+
+  state = {
+    position: 'above',
+    show: false
+  }
+
   _handleClickOutside = this._handleClickOutside.bind(this)
-  _handleChangeSkinTone = this._handleChangeSkinTone.bind(this)
-  _handleSaveSkinTone = this._handleSaveSkinTone.bind(this)
+  _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { changing, skinTone, status } = this.props
-    if(status !== 'loaded') return null
+    const { position, show } = this.state
     return (
-      <div className="maha-emojis" ref={ node => this.emojis = node}>
-        <div className="maha-emojis-body">
-          { categories.map((category, i) => (
-            <div className="maha-emojis-category" key={`category_${i}`}>
-              <div className="maha-emojis-category-title">{ category.title }</div>
-              <div className="maha-emojis-category-emojis">
-                { category.emojis.map((emoji, j) => (
-                  <div className="maha-emojis-category-emoji" key={`emoji_${j}`} onClick={ this._handleChoose.bind(this, emoji) }>
-                    <span className={`emoji emoji-${this._getWithSkinTone(emoji)}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+      <div className="maha-emojis" ref={ node => this.emojis = node }>
+        <div className="maha-emojis-icon" onClick={ this._handleToggle }>
+          <i className="fa fa-smile-o" />
         </div>
-        { changing ?
-          <div className="maha-emojis-footer">
-            <div className="maha-emojis-footer-label">
-              Skin Tone:
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, null) }>
-              <span className="emoji emoji-1f91a" />
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, 0) }>
-              <span className="emoji emoji-1f91a-1f3fb" />
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, 1) }>
-              <span className="emoji emoji-1f91a-1f3fc" />
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, 2) }>
-              <span className="emoji emoji-1f91a-1f3fd" />
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, 3) }>
-              <span className="emoji emoji-1f91a-1f3fe" />
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleSaveSkinTone.bind(this, 4) }>
-              <span className="emoji emoji-1f91a-1f3ff" />
-            </div>
-          </div> :
-          <div className="maha-emojis-footer">
-            <div className="maha-emojis-footer-label">
-              Skin Tone:
-            </div>
-            <div className="maha-emojis-footer-emoji" onClick={ this._handleChangeSkinTone }>
-              <span className={`emoji emoji-1f91a${skinTone ? `-${skinTone}` : ''}`} />
+        { show &&
+          <div className={`maha-emojis-chooser ${position}`}>
+            <div className="maha-emojis-chooser-inner">
+              <Panel { ...this._getPanel() } />
             </div>
           </div>
         }
-
       </div>
     )
   }
@@ -91,36 +58,25 @@ class Emojis extends React.Component {
     document.removeEventListener('mousedown', this._handleClickOutside)
   }
 
-  _getWithSkinTone(emoji) {
-    if(!emoji.skin)return emoji.code
-    const { skinTone } = this.props
-    if(skinTone === null) return emoji.code
-    const parts = emoji.code.split('-')
-    if(parts.length === 1) return `${emoji.code}-${skinTone}`
-    if(parts.length === 2) return `${parts[0]}-${skinTone}`
-    if(parts.length === 5) return `${parts[0]}-${skinTone}-${parts.slice(2).join('-')}`
-    if(parts.length < 6) return `${parts[0]}-${skinTone}-${parts.slice(1).join('-')}`
-    return `${parts.slice(0, -1)}-${skinTone}`
+  _getPanel() {
+    return this.props
   }
 
   _handleClickOutside(e) {
     if(e.target.className === 'fa fa-fw fa-smile-o') return
     if(this.emojis && this.emojis.contains(e.target)) return
-    this.props.onClose()
+    this.setState({
+      show: false
+    })
   }
 
-  _handleChangeSkinTone() {
-    this.props.onChangeSkinTone()
-  }
-
-  _handleSaveSkinTone(index) {
-    this.props.onSaveSkinTone(index)
-  }
-
-  _handleChoose(emoji) {
-    const code = this._getWithSkinTone(emoji)
-    const unicode = code.split('-').map(code => String.fromCodePoint(`0x${code}`)).join('')
-    this.props.onChoose(unicode)
+  _handleToggle(e) {
+    const { show } = this.state
+    const percent = (e.clientY / window.innerHeight) * 100
+    this.setState({
+      position: percent < 75 ? 'below' : 'above',
+      show: !show
+    })
   }
 
 }

@@ -1,6 +1,82 @@
 @import "./emojis.less";
 
 .maha-emojis {
+  position: relative;
+  display: flex;
+}
+.maha-emojis-icon {
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  &:hover {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    font-size: 1.4em;
+    line-height: 1em;
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+.maha-emojis-chooser {
+  box-shadow: 0 0 0 1px fadeout(@black, 90), 0 1px 5px fadeout(@black, 85);
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  position: absolute;
+  right: 0;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  z-index: 10;
+  &.below {
+    top: 2.4em;
+    .maha-emojis-chooser-inner {
+      &:before {
+        border-bottom-color: fadeout(@black, 90);
+        top: -12px;
+      }
+      &:after {
+        border-bottom-color: @white;
+        top: -10px;
+      }
+    }
+  }
+  &.above {
+    bottom: 2.4em;
+    .maha-emojis-chooser-inner {
+      &:before {
+        border-top-color: fadeout(@black, 90);
+        bottom: -12px;
+      }
+      &:after {
+        border-top-color: @white;
+        bottom: -10px;
+      }
+    }
+  }
+}
+.maha-emojis-chooser-inner {
+  display: flex;
+  flex: 1;
+  &:before,
+  &:after {
+    position: absolute;
+    content: ' ';
+    width: 0;
+    height: 0;
+  }
+  &:before {
+    right: ~"calc(0.93em - 1px)";
+    border: 6px solid transparent;
+  }
+  &:after {
+    border: 5px solid transparent;
+    right: ~"calc(0.93em)";
+  }
+}
+.maha-emojis-panel {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -9,14 +85,15 @@
   padding: 0.2em;
 }
 .maha-emojis-body {
-  flex: 0 0 15em;
+  flex: 1;
   .scrollable();
 }
 .maha-emojis-category-title {
-  padding: 0.4em;
-  text-align: center;
-  background-color: fadeout(@black, 90);
-  line-height: 2.2em;
+  padding: 0.4em 0.8em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: fadeout(@black, 40);
+  font-weight: bold;
 }
 .maha-emojis-category-emojis {
   overflow: hidden;
@@ -24,17 +101,16 @@
 }
 .maha-emojis-footer-label {
   float: left;
-  line-height: 2.8em;
-  padding: 0 0.6em;
+  padding: 0.4em 0.6em;
   font-weight: bold;
 }
 .maha-emojis-footer-emoji,
 .maha-emojis-category-emoji {
   float: left;
-  font-size: 1.5em;
-  line-height: 2em;
   width: 2em;
   height: 2em;
+  font-size: 1.2em;
+  line-height: 2em;
   text-align: center;
   cursor: pointer;
   border-radius: 5px;

@@ -39,7 +39,6 @@ class TextArea extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
-  _handlePaste = this._handlePaste.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
