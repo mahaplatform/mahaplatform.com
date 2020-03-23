@@ -59,6 +59,7 @@
   cursor: pointer;
   color: fadeout(@black, 60);
   .hover(color, @red);
+  padding: 0.6em 0.8em 0.6em 0;
 }
 .maha-composer-editor {
   flex: 1;
@@ -94,4 +95,11 @@
 }
 .maha-composer-mention {
   color: @blue;
+}
+@media (max-width: 768px) {
+  .maha-composer {
+    .maha-emojis {
+      display: none;
+    }
+  }
 }

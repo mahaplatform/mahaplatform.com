@@ -104,7 +104,7 @@ class Post extends React.PureComponent {
 
   _handleGroup() {
     const { group } = this.props
-    this.context.router.history.push(`/admin/news/groups/${group.id}`)
+    this.context.router.history.replace(`/admin/news/groups/${group.id}`)
   }
 
   _handleTasks() {

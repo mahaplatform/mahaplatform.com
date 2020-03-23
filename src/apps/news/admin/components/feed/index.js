@@ -1,5 +1,5 @@
+import { Button, Infinite } from 'maha-admin'
 import { connect } from 'react-redux'
-import { Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Trigger from './trigger'
 import Groups from './groups'
@@ -20,21 +20,28 @@ class Feed extends React.PureComponent {
   }
 
   state = {
+    cacheKey: '',
     group_id: null,
-    cacheKey: ''
+    open: false
   }
 
   _handleChoose = this._handleChoose.bind(this)
   _handleReload = this._handleReload.bind(this)
+  _handleToggleGroups = this._handleToggleGroups.bind(this)
 
   render() {
     return (
-      <div className="news-feed">
+      <div className={ this._getClass() }>
+        <div className="news-feed-main">
+          <div className="news-feed-main-header">
+            <Button { ...this._getButton() } />
+          </div>
+          <div className="news-feed-main-body">
+            <Infinite { ...this._getInfinte() } />
+          </div>
+        </div>
         <div className="news-feed-sidebar">
           <Groups { ...this._getGroups() } />
-        </div>
-        <div className="news-feed-main">
-          <Infinite { ...this._getInfinte() } />
         </div>
       </div>
     )
@@ -50,6 +57,21 @@ class Feed extends React.PureComponent {
     if(pathname !== prevProps.pathname) {
       this._handleChangeUrl()
     }
+  }
+
+  _getButton() {
+    return {
+      label: 'change group',
+      className: 'link',
+      handler: this._handleToggleGroups
+    }
+  }
+
+  _getClass() {
+    const { open } = this.state
+    const classes = ['news-feed']
+    if(open) classes.push('open')
+    return classes.join(' ')
   }
 
   _getGroups() {
@@ -99,11 +121,21 @@ class Feed extends React.PureComponent {
   _handleChoose(group_id) {
     const pathname = group_id ? `/admin/news/groups/${group_id}` : '/admin/news'
     this.context.router.history.replace(pathname)
+    this.setState({
+      open: false
+    })
   }
 
   _handleReload() {
     this.setState({
       cacheKey: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
+    })
+  }
+
+  _handleToggleGroups() {
+    const { open } = this.state
+    this.setState({
+      open: !open
     })
   }
 

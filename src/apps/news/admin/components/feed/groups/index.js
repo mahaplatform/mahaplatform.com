@@ -30,7 +30,7 @@ class Groups extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Group',
+      title: 'Groups',
       color: 'blue',
       rightItems: [
         { icon: 'plus', handler: this._handleAdd }
