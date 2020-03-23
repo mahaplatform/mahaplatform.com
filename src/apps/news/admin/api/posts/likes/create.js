@@ -16,9 +16,10 @@ const createRoute = async (req, res) => {
   })
 
   await socket.message(req, {
-    channel:`/admin/news/posts/${req.params.post_id}/likes`,
-    action: 'update',
+    channel: '/admin/news',
+    action: 'update_liker_ids',
     data: {
+      post_id: req.params.post_id,
       liker_ids: likes.map(like => like.user_id)
     }
   })

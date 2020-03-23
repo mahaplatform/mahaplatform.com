@@ -1,3 +1,5 @@
+import * as selectors from './selectors'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Likers from './likers'
@@ -21,12 +23,11 @@ class Likes extends React.PureComponent {
     liker_ids: 0
   }
 
-  _handleClick = this._handleClick.bind(this)
+  _handleClick = _.throttle(this._handleClick.bind(this), 250)
   _handleLikers = this._handleLikers.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { liker_ids } = this.state
+    const { liker_ids } = this.props
     return (
       <div className="news-post-likes">
         <i className={`fa fa-${this._getLikeIcon()}`} onClick={ this._handleClick } />
@@ -40,23 +41,13 @@ class Likes extends React.PureComponent {
     )
   }
 
-  componentDidMount() {
-    const { liker_ids } = this.props
-    this.setState({ liker_ids })
-    this._handleJoin()
-  }
-
-  componentWillUnmount() {
-    this._handleLeave()
-  }
-
   _getLikeIcon() {
     return this._getUserLikes() ? 'heart' : 'heart-o'
   }
 
   _getUserLikes() {
-    const { liker_ids } = this.state
     const { user } = this.context.admin
+    const { liker_ids } = this.props
     return _.includes(liker_ids, user.id)
   }
 
@@ -65,26 +56,6 @@ class Likes extends React.PureComponent {
       return this._handleUnlike()
     }
     this._handleLike()
-  }
-
-  _handleJoin() {
-    const { network } = this.context
-    const { post_id } = this.props
-    const target = `/admin/news/posts/${post_id}/likes`
-    network.join(target)
-    network.subscribe([
-      { target, action: 'update', handler: this._handleUpdate }
-    ])
-  }
-
-  _handleLeave() {
-    const { network } = this.context
-    const { post_id } = this.props
-    const target = `/admin/news/posts/${post_id}/likes`
-    network.leave(target)
-    network.unsubscribe([
-      { target, action: 'update', handler: this._handleUpdate }
-    ])
   }
 
   _handleLike() {
@@ -111,10 +82,10 @@ class Likes extends React.PureComponent {
     })
   }
 
-  _handleUpdate({ liker_ids }) {
-    this.setState({ liker_ids })
-  }
-
 }
 
-export default Likes
+const mapStateToProps = (state, props) => ({
+  liker_ids: selectors.liker_ids(state, props)
+})
+
+export default connect(mapStateToProps)(Likes)

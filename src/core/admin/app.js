@@ -129,6 +129,7 @@ import mahasignin from '../../apps/maha/admin/components/signin'
 import mahareactions from '../../apps/maha/admin/roots/reactions'
 import mahastars from '../../apps/maha/admin/roots/stars'
 import newsnew from '../../apps/news/admin/components/new'
+import newsnews from '../../apps/news/admin/roots/news'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
@@ -158,6 +159,7 @@ import driveBadges from '../../apps/drive/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
 import chatRoots from '../../apps/chat/admin/roots/index.js'
 import mahaRoots from '../../apps/maha/admin/roots/index.js'
+import newsRoots from '../../apps/news/admin/roots/index.js'
 import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
 import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
@@ -382,6 +384,7 @@ class App extends React.Component {
       mahareactions,
       mahastars,
       newsnew,
+      newsnews,
       platformapps,
       sitessitesImportFinalize,
       teamaccess,
@@ -402,6 +405,10 @@ class App extends React.Component {
       })),
       ...mahaRoots.map(root => ({
         app: 'maha',
+        component: root
+      })),
+      ...newsRoots.map(root => ({
+        app: 'news',
         component: root
       })),
     ]
