@@ -141,8 +141,7 @@ class Composer extends React.Component {
 
   _getEmojis() {
     return {
-      onChoose: this._handleInsertEmoji,
-      onClose: this._handleToggleEmojis
+      onChoose: this._handleInsertEmoji
     }
   }
 

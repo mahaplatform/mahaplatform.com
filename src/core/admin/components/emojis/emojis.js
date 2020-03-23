@@ -11,14 +11,12 @@ class Emojis extends React.Component {
     status: PropTypes.string,
     onChangeSkinTone: PropTypes.func,
     onChoose: PropTypes.func,
-    onClose: PropTypes.func,
     onLoadSkinTone: PropTypes.func,
     onSaveSkinTone: PropTypes.func
   }
 
   static defaultProps = {
-    onChoose: () => {},
-    onClose: () => {}
+    onChoose: () => {}
   }
 
   emojis = null
