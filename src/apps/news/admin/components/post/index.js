@@ -2,6 +2,7 @@ import { Attachment, Avatar, Comments, Gallery, Timestamp } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Likes from './likes'
 import React from 'react'
+import Text from './text'
 
 class Post extends React.PureComponent {
 
@@ -59,7 +60,7 @@ class Post extends React.PureComponent {
           }
         </div>
         { text.length > 0 &&
-          <div className="news-post-body" dangerouslySetInnerHTML={{ __html: text }} />
+          <Text text={ text }/>
         }
         { images.length > 0 &&
           <Gallery { ...this._getGallery(images) } />
