@@ -3856,13 +3856,13 @@ union
 
     await knex.raw(`
       create view crm_form_totals AS
-      with respondants as (
+      with respondents as (
       select crm_forms_1.id as form_id,
       count(distinct crm_responses.contact_id) as total
       from (crm_forms crm_forms_1
       left join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
       group by crm_forms_1.id
-      ), respondant_status as (
+      ), respondent_status as (
       select distinct on (responses_1.contact_id) responses_1.form_id,
       responses_1.contact_id,
       responses_1.is_known
@@ -3872,18 +3872,18 @@ union
       from (crm_forms crm_forms_1
       join crm_responses on ((crm_responses.form_id = crm_forms_1.id)))
       order by crm_responses.created_at) responses_1
-      ), known_respondants as (
-      select respondant_status.form_id,
-      count(respondant_status.*) as total
-      from respondant_status
-      where (respondant_status.is_known = true)
-      group by respondant_status.form_id
-      ), unknown_respondants as (
-      select respondant_status.form_id,
-      count(respondant_status.*) as total
-      from respondant_status
-      where (respondant_status.is_known = false)
-      group by respondant_status.form_id
+      ), known_respondents as (
+      select respondent_status.form_id,
+      count(respondent_status.*) as total
+      from respondent_status
+      where (respondent_status.is_known = true)
+      group by respondent_status.form_id
+      ), unknown_respondents as (
+      select respondent_status.form_id,
+      count(respondent_status.*) as total
+      from respondent_status
+      where (respondent_status.is_known = false)
+      group by respondent_status.form_id
       ), responses as (
       select crm_forms_1.id as form_id,
       count(crm_responses.*) as total
@@ -3915,18 +3915,18 @@ union
       group by crm_responses.form_id
       )
       select crm_forms.id as form_id,
-      coalesce(respondants.total, (0)::bigint) as respondants_count,
-      coalesce(known_respondants.total, (0)::bigint) as known_respondants_count,
-      coalesce(unknown_respondants.total, (0)::bigint) as unknown_respondants_count,
+      coalesce(respondents.total, (0)::bigint) as respondents_count,
+      coalesce(known_respondents.total, (0)::bigint) as known_respondents_count,
+      coalesce(unknown_respondents.total, (0)::bigint) as unknown_respondents_count,
       coalesce(responses.total, (0)::bigint) as responses_count,
       coalesce(revenue.total, 0.00) as revenue,
       coalesce(average_duration.average, 0) as average_duration,
       first_response.created_at as first_response,
       last_response.created_at as last_response
       from ((((((((crm_forms
-      left join respondants on ((respondants.form_id = crm_forms.id)))
-      left join known_respondants on ((known_respondants.form_id = crm_forms.id)))
-      left join unknown_respondants on ((unknown_respondants.form_id = crm_forms.id)))
+      left join respondents on ((respondents.form_id = crm_forms.id)))
+      left join known_respondents on ((known_respondents.form_id = crm_forms.id)))
+      left join unknown_respondents on ((unknown_respondents.form_id = crm_forms.id)))
       left join responses on ((responses.form_id = crm_forms.id)))
       left join revenue on ((revenue.form_id = crm_forms.id)))
       left join average_duration on ((average_duration.form_id = crm_forms.id)))

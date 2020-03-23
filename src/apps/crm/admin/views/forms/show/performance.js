@@ -12,8 +12,8 @@ class Performance extends React.Component {
 
   render() {
     const { form } = this.props
-    const { respondants_count, responses_count, unknown_respondants_count } = form
-    const { known_respondants_count, revenue, average_duration } = form
+    const { respondents_count, responses_count, unknown_respondents_count } = form
+    const { known_respondents_count, revenue, average_duration } = form
     const { first_response, last_response } = form
     return (
       <div className="crm-report">
@@ -34,10 +34,10 @@ class Performance extends React.Component {
           </div>
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Respondants
+              Respondents
             </div>
             <div className="crm-report-metric-value">
-              { this._getButton(respondants_count, '') }
+              { this._getButton(respondents_count, '') }
             </div>
           </div>
           <div className="crm-report-metric">
@@ -53,15 +53,15 @@ class Performance extends React.Component {
           <table className="ui unstackable table">
             <tbody>
               <tr>
-                <td>Unknown Respondants</td>
+                <td>Unknown Respondents</td>
                 <td className="right aligned">
-                  { unknown_respondants_count }
+                  { unknown_respondents_count }
                 </td>
               </tr>
               <tr>
-                <td>Known Respondants</td>
+                <td>Known Respondents</td>
                 <td className="right aligned">
-                  { known_respondants_count }
+                  { known_respondents_count }
                 </td>
               </tr>
               <tr>

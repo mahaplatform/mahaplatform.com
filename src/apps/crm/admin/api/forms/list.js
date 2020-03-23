@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
     },
     aliases: {
       program: 'crm_programs.title',
-      respondants_count: 'crm_form_totals.respondants_count',
+      respondents_count: 'crm_form_totals.respondents_count',
       responses_count: 'crm_form_totals.responses_count',
       revenue: 'crm_form_totals.revenue'
     },
@@ -24,7 +24,7 @@ const listRoute = async (req, res) => {
     },
     sort: {
       params: req.query.$sort,
-      allowed: ['id','title','program','title','respondants_count','responses_count','revenue']
+      allowed: ['id','title','program','title','respondents_count','responses_count','revenue']
     },
     page: req.query.$page,
     withRelated: ['program.logo'],
