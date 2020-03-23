@@ -10,7 +10,6 @@ class TextArea extends React.Component {
 
   static propTypes = {
     placeholder: PropTypes.string,
-    reference: PropTypes.func,
     value: PropTypes.string,
     onAddAsset: PropTypes.func,
     onChange: PropTypes.func
@@ -36,7 +35,6 @@ class TextArea extends React.Component {
   }
 
   componentDidMount() {
-    this.props.reference(this.input)
     const { token } = this.context.admin.team
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
