@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types'
+import { Logo } from 'maha-admin'
 import React from 'react'
+import Edit from './edit'
 
 class Results extends React.PureComponent {
+
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     group_id: PropTypes.number,
@@ -24,10 +30,16 @@ class Results extends React.PureComponent {
         { records.map((group, index) => (
           <div className={ this._getClass(group.id) } key={`group_${index}`} onClick={ this._handleChoose.bind(this, group.id) }>
             <div className="news-feed-group-icon">
-              <i className="fa fa-fw fa-users" />
+              <Logo team={ group } width="28" />
             </div>
             <div className="news-feed-group-label">
               { group.title }
+            </div>
+            <div className="news-feed-group-action" onClick={ this._handleEdit.bind(this, group.id) }>
+              <i className="fa fa-pencil" />
+            </div>
+            <div className="news-feed-group-action" onClick={ this._handleDelete.bind(this, group.id) }>
+              <i className="fa fa-times" />
             </div>
           </div>
         ))}
@@ -44,6 +56,16 @@ class Results extends React.PureComponent {
 
   _handleChoose(group_id) {
     this.props.onChoose(group_id)
+  }
+
+  _handleDelete(group_id, e) {
+    e.stopPropagation()
+    this.props.onChoose(group_id)
+  }
+
+  _handleEdit(group_id, e) {
+    e.stopPropagation()
+    this.context.modal.open(<Edit group_id={ group_id } />)
   }
 
 }

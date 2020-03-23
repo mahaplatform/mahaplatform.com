@@ -10,7 +10,9 @@ class Posts extends React.PureComponent {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    group_id: PropTypes.number
+  }
 
   _handleNew = this._handleNew.bind(this)
 
@@ -31,7 +33,8 @@ class Posts extends React.PureComponent {
   }
 
   _handleNew() {
-    this.context.modal.open(<New />, {
+    const { group_id } = this.props
+    this.context.modal.open(<New group_id={ group_id }/>, {
       width: 500,
       height: 500
     })

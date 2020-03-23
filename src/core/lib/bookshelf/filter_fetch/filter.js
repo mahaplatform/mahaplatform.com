@@ -205,6 +205,7 @@ const getFilterContains = (column, value) => ({
 })
 
 const getFilterIn = (column, value) => {
+  console.log(column, value)
   const bindings = _.without(value, 'null')
   const markers = Array(bindings.length).fill(0).map(i => '?').join(',')
   return {

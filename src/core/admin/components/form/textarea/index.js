@@ -5,6 +5,7 @@ import _ from 'lodash'
 class TextArea extends React.Component {
 
   static propTypes = {
+    autogrow: PropTypes.bool,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
     maxLength: PropTypes.number,
@@ -17,6 +18,7 @@ class TextArea extends React.Component {
   }
 
   static defaultProps = {
+    autogrow: true,
     defaultValue: '',
     disabled: false,
     maxLength: null,
@@ -37,6 +39,7 @@ class TextArea extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
+  _handlePaste = this._handlePaste.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -82,12 +85,12 @@ class TextArea extends React.Component {
   }
 
   _getTextArea() {
-    const { placeholder, disabled, tabIndex } = this.props
+    const { autogrow, placeholder, disabled, rows, tabIndex } = this.props
     const { value } = this.state
     return {
       disabled,
       placeholder,
-      rows: 3,
+      rows: autogrow ? 3 : rows,
       tabIndex,
       value,
       onChange: this._handleUpdate,
@@ -100,6 +103,7 @@ class TextArea extends React.Component {
   }
 
   _handleKeyUp(e) {
+    if(!this.props.autogrow) return
     this.input.style.height = 'auto'
     this.input.style.height = this.input.scrollHeight + this.offset + 'px'
   }

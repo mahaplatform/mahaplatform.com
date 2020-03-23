@@ -12,6 +12,7 @@ class New extends React.Component {
 
   static propTypes = {
     attachments: PropTypes.array,
+    group_id: PropTypes.number,
     status: PropTypes.string,
     text: PropTypes.string,
     onSave: PropTypes.func

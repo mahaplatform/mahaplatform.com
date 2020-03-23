@@ -41,8 +41,8 @@ class Logo extends React.Component {
 
   _getInitials() {
     const { team } = this.props
-    const parts = team.title.split(' ')
-    if(parts.length === 1) return parts[0][0]
+    const parts = team.title.toUpperCase().split(' ')
+    if(parts.length === 1) return parts[0].substr(0, 2)
     return parts[0][0] + parts[parts.length - 1][0]
   }
 

@@ -6,15 +6,16 @@ import React from 'react'
 class Posts extends React.PureComponent {
 
   static propTypes = {
+    group_id: PropTypes.number,
     records: PropTypes.array,
     onNew: PropTypes.array
   }
 
   render() {
-    const { records } = this.props
+    const { group_id, records } = this.props
     return (
       <div className="news-posts">
-        <Trigger />
+        <Trigger group_id={ group_id } />
         { records.map((post, index) => (
           <Post { ...this._getPost(post) } key={`post_${post.id}`} />
         )) }

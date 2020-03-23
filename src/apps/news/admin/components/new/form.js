@@ -1,8 +1,8 @@
 import { AssetIcon, Attachments, Avatar, Camera, Image, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import TextArea from './textarea'
 import Privacy from './privacy'
 import React from 'react'
-import _ from 'lodash'
 
 class Form extends React.Component {
 
@@ -12,6 +12,7 @@ class Form extends React.Component {
   }
 
   static propTypes = {
+    group_id: PropTypes.number,
     text: PropTypes.string,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -26,8 +27,8 @@ class Form extends React.Component {
     text: ''
   }
 
+  _handleAddAsset = this._handleAddAsset.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
-  _handleCamera = this._handleCamera.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
@@ -36,23 +37,26 @@ class Form extends React.Component {
   _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {
-    const { admin } = this.context
     const { attachments } = this.state
+    const { group_id } = this.props
+    const { admin } = this.context
     const group = this._getGroup()
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="news-form">
-          <div className="news-form-privacy" onClick={ this._handlePrivacy }>
-            <div className="news-form-privacy-icon">
-              <i className={`fa fa-${group.icon}`} />
+          { !group_id &&
+            <div className="news-form-privacy" onClick={ this._handlePrivacy }>
+              <div className="news-form-privacy-icon">
+                <i className={`fa fa-${group.icon}`} />
+              </div>
+              <div className="news-form-privacy-label">
+                Share with { group.title }
+              </div>
+              <div className="news-form-privacy-proceed">
+                <i className="fa fa-chevron-right" />
+              </div>
             </div>
-            <div className="news-form-privacy-label">
-              Share with { group.title }
-            </div>
-            <div className="news-form-privacy-proceed">
-              <i className="fa fa-chevron-right" />
-            </div>
-          </div>
+          }
           <div className="news-form-header">
             <div className="news-form-header-avatar">
               <Avatar user={ admin.user } />
@@ -62,7 +66,7 @@ class Form extends React.Component {
             </div>
           </div>
           <div className="news-form-body">
-            <textarea { ...this._getTextarea() }></textarea>
+            <TextArea { ...this._getTextarea() } />
           </div>
           { attachments.length > 0 &&
             <div className="news-form-attachments">
@@ -111,10 +115,6 @@ class Form extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.text.focus()
-  }
-
   _getAttachments() {
     const { onPop } = this.props
     return {
@@ -129,7 +129,7 @@ class Form extends React.Component {
   _getCamera() {
     return {
       icon: 'camera',
-      onDone: this._handleCamera
+      onDone: this._handleAddAsset
     }
   }
 
@@ -160,26 +160,24 @@ class Form extends React.Component {
   }
 
   _getTextarea() {
-    const { text } = this.state
     return {
-      ref: node => this.text = node,
-      placeholder: 'Whats on your mind?',
-      value: text,
-      onChange: this._handleUpdateText
+      placeholder: 'What\'s on your mind?',
+      onChange: this._handleUpdateText,
+      onAddAsset: this._handleAddAsset
     }
   }
 
-  _handleAttachments() {
-    this.props.onPush(Attachments, this._getAttachments())
-  }
-
-  _handleCamera(asset) {
+  _handleAddAsset(asset) {
     this.setState({
       attachments: [
         ...this.state.attachments,
         asset
       ]
     })
+  }
+
+  _handleAttachments() {
+    this.props.onPush(Attachments, this._getAttachments())
   }
 
   _handleCancel() {
@@ -193,7 +191,7 @@ class Form extends React.Component {
   _handleSubmit() {
     const { attachments, group, text } = this.state
     const asset_ids = attachments.map(attachment => attachment.id)
-    const group_id = group ? group.id : null
+    const group_id = this.props.group_id || (group ? group.id : null)
     this.props.onSave({ asset_ids, group_id, text })
   }
 
@@ -222,10 +220,8 @@ class Form extends React.Component {
     this.setState({ group })
   }
 
-  _handleUpdateText(e) {
-    this.setState({
-      text: e.target.value
-    })
+  _handleUpdateText(text) {
+    this.setState({ text })
   }
 
 }

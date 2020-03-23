@@ -71,8 +71,9 @@ class AttachmentField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onFetch, onReady } = this.props
-    if(defaultValue) return onFetch(defaultValue)
-    onReady()
+    if(!defaultValue) return onReady()
+    const ids = _.castArray(defaultValue)
+    onFetch(ids)
   }
 
   componentDidUpdate(prevProps) {

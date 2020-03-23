@@ -1,4 +1,4 @@
-import { Infinite, ModalPanel, Searchbox } from 'maha-admin'
+import { Infinite, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
@@ -16,23 +16,13 @@ class Groups extends React.PureComponent {
     onChoose: PropTypes.func
   }
 
-  state = {
-    q: ''
-  }
-
   _handleAdd = this._handleAdd.bind(this)
-  _handleQuery = this._handleQuery.bind(this)
 
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="news-feed-groups">
-          <div className="news-feed-groups-header">
-            <Searchbox { ...this._getSearchbox() } />
-          </div>
-          <div className="news-feed-groups-body">
-            <Infinite { ...this._getInfinite() } />
-          </div>
+          <Infinite { ...this._getInfinite() } />
         </div>
       </ModalPanel>
     )
@@ -48,21 +38,10 @@ class Groups extends React.PureComponent {
     }
   }
 
-  _getSearchbox() {
-    return {
-      prompt: 'Find a group',
-      onChange: this._handleQuery
-    }
-  }
-
   _getInfinite() {
     const { group_id, onChoose } = this.props
-    const { q } = this.state
     return {
       endpoint: '/api/admin/news/groups',
-      filter: {
-        q
-      },
       layout: Results,
       refresh: '/admin/news/groups',
       props: {
@@ -75,11 +54,6 @@ class Groups extends React.PureComponent {
   _handleAdd() {
     this.context.modal.open(<New />)
   }
-
-  _handleQuery(q) {
-    this.setState({ q })
-  }
-
 
 }
 

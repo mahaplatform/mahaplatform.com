@@ -1,4 +1,4 @@
-export const fetch = (endpoint) => ({
+export const fetch = () => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/assignees',

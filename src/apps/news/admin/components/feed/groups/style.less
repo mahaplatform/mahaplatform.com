@@ -20,12 +20,42 @@
   }
   &:hover {
     background-color: fadeout(@black, 97);
+    .news-feed-group-action {
+      display: flex;
+    }
   }
 }
 .news-feed-group-icon {
   padding: 0.8em 0 0.8em 0.8em;
+  .maha-logo {
+    width: 2em;
+  }
+  .fa {
+    background-color: fadeout(@black, 40);
+    color: @white;
+    border-radius: 0.5em;
+    line-height: 2em;
+    font-size: 1em;
+    width: 2em;
+    height: 2em;
+    display: block;
+  }
 }
 .news-feed-group-label {
   padding: 0.8em;
+  line-height: 2em;
   flex: 1;
+}
+.news-feed-group-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  display: none;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
 }

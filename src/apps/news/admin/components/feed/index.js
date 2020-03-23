@@ -64,7 +64,7 @@ class Feed extends React.PureComponent {
     const { cacheKey, group_id } = this.state
     const empty = (
       <div className="news-posts">
-        <Trigger />
+        <Trigger group_id={ group_id } />
       </div>
     )
     return {
@@ -80,7 +80,10 @@ class Feed extends React.PureComponent {
         }
       } : {},
       layout: Posts,
-      refresh: '/admin/news/posts'
+      refresh: '/admin/news/posts',
+      props: {
+        group_id
+      }
     }
   }
 

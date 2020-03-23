@@ -2,14 +2,16 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    group_id: PropTypes.number
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -19,10 +21,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { group_id } = this.props
     return {
       title: 'New Group',
-      method: 'post',
-      action: '/api/admin/news/groups',
+      endpoint: `/api/admin/news/groups/${group_id}/edit`,
+      action: `/api/admin/news/groups/${group_id}`,
+      method: 'PATCH',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -47,4 +51,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit
