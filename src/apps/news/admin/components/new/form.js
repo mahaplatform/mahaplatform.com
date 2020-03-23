@@ -1,4 +1,4 @@
-import { AssetIcon, Attachments, Avatar, Camera, Emojis, Image, ModalPanel } from 'maha-admin'
+import { AssetIcon, Attachments, Avatar, Camera, Image, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import Privacy from './privacy'
@@ -30,7 +30,6 @@ class Form extends React.Component {
   _handleAddAsset = this._handleAddAsset.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handlePrivacy = this._handlePrivacy.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleUpdateAttachments = this._handleUpdateAttachments.bind(this)
@@ -106,9 +105,6 @@ class Form extends React.Component {
             </div>
             <div className="news-form-footer-item">
               <Camera { ...this._getCamera() } />
-            </div>
-            <div className="news-form-footer-item">
-              <Emojis { ...this._getEmojis() } />
             </div>
           </div>
         </div>
@@ -192,25 +188,6 @@ class Form extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
-  }
-
-  _handleInsertEmoji(emoji) {
-    const { text } = this.state
-    if(document.selection) {
-      this.text.focus()
-      const selection = document.selection.createRange()
-      selection.text = emoji
-    } else if (this.text.selectionStart || this.text.selectionStart === '0') {
-      const beginning = text.substring(0, this.text.selectionStart)
-      const ending = text.substring(this.text.selectionEnd, text.length)
-      this.setState({
-        text: beginning + emoji + ending
-      })
-    } else {
-      this.setState({
-        text: text + emoji
-      })
-    }
   }
 
   _handlePrivacy() {
