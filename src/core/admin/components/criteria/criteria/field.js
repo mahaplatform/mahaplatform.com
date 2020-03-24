@@ -32,7 +32,7 @@ class Field extends React.PureComponent {
 
   componentDidMount() {
     this.setState({
-      code: _.random(100000, 999999).toString(36)
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     })
   }
 

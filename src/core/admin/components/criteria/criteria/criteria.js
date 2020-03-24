@@ -45,8 +45,20 @@ class Criteria extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this.props.onSet(defaultValue)
+    if(defaultValue) this._handleDefault(defaultValue)
     this._handlePush(Overview, this._getOverview.bind(this))
+  }
+
+  _handleDefault(defaultValue) {
+    const value = defaultValue.length === 0 ? [{
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      data: null,
+      field: null,
+      value: null,
+      parent: null,
+      operator: '$and'
+    }] : defaultValue
+    this.props.onSet(value)
   }
 
   componentDidUpdate(prevProps) {

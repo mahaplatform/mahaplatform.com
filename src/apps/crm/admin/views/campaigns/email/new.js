@@ -1,6 +1,6 @@
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
-import criteria from '../../contacts/criteria'
+import fields from '../../contacts/criteria'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -82,8 +82,9 @@ class Email extends React.PureComponent {
       endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/email/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel="email" />,
-      fields: criteria,
-      title: 'Select Contacts'
+      fields,
+      title: 'Select Contacts',
+      defaultValue: []
     }
   }
 

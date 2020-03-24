@@ -1,20 +1,25 @@
 import PropTypes from 'prop-types'
 import Camera from '../../camera'
 import Emojis from '../../emojis'
+import getUrls from 'get-urls'
 import React from 'react'
 
 class TextArea extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object
+    admin: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
+    attachments: PropTypes.array,
+    link: PropTypes.object,
     placeholder: PropTypes.string,
     reference: PropTypes.func,
     value: PropTypes.string,
     onAddAsset: PropTypes.func,
     onAddFile: PropTypes.func,
+    onAddLink: PropTypes.func,
     onUpdateAsset: PropTypes.func,
     onChange: PropTypes.func,
     onEnter: PropTypes.func,
@@ -28,7 +33,9 @@ class TextArea extends React.Component {
   input = null
   offset = 0
 
+  _handleAddLink = this._handleAddLink.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleFetchLink = this._handleFetchLink.bind(this)
   _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
@@ -100,8 +107,24 @@ class TextArea extends React.Component {
     }
   }
 
+  _handleAddLink({ data }) {
+    this.props.onAddLink(data)
+  }
+
   _handleChange() {
     this.props.onChange(this.state.value )
+  }
+
+  _handleFetchLink(url) {
+    console.log('fetch', url)
+    this.context.network.request({
+      endpoint: '/api/admin/links',
+      method: 'post',
+      body: {
+        url
+      },
+      onSuccess: this._handleAddLink
+    })
   }
 
   _handleInsertEmoji(emoji) {
@@ -158,6 +181,7 @@ class TextArea extends React.Component {
     }))
     if(urls.length === 0) return
     const url = urls[0]
+    console.log(url)
     if(url.startsWith(process.env.WEB_HOST)) return
     this._handleFetchLink(url)
   }

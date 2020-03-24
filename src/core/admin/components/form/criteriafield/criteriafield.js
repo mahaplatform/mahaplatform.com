@@ -46,7 +46,7 @@ class CriteriaField extends React.PureComponent {
     return (
       <div className="maha-input" tabIndex={ tabIndex } onClick={ this._handleBegin }>
         <div className="maha-input-field">
-          { criteria ?
+          { criteria && criteria.length > 0 ?
             <div className="maha-input-tokens">
               <div className="maha-input-token">
                 { pluralize(entity, total, true) }
@@ -57,7 +57,7 @@ class CriteriaField extends React.PureComponent {
             </div>
           }
         </div>
-        { criteria &&
+        { criteria && criteria.length > 0 &&
           <div className="maha-input-clear">
             <i className="fa fa-times" onClick={ this._handleClear } />
           </div>
@@ -76,7 +76,7 @@ class CriteriaField extends React.PureComponent {
     const { criteria, endpoint } = this.props
     if(!_.isEqual(criteria, prevProps.criteria) && criteria) {
       this.props.onFetch(endpoint, toFilter(criteria, null))
-      this.props.onChange({ criteria })
+      this.props.onChange(criteria)
     }
   }
 

@@ -1,5 +1,4 @@
 import RecipientToken from '../../../tokens/recipient'
-import PurposeToken from '../../../tokens/purpose'
 import criteria from '../../contacts/criteria'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'

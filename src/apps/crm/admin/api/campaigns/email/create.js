@@ -32,7 +32,10 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['to','title','purpose']),
+    to: {
+      criteria: req.body.to
+    },
+    ...whitelist(req.body, ['title','purpose']),
     config: {
       settings: {
         sender_id: req.body.sender_id,

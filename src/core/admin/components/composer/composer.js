@@ -22,7 +22,6 @@ class Composer extends React.Component {
     uploads: PropTypes.array,
     onAddAssets: PropTypes.func,
     onChange: PropTypes.func,
-    onFetchLink: PropTypes.func,
     onFocus: PropTypes.func,
     onKeyUp: PropTypes.func,
     onPaste: PropTypes.func,
@@ -34,6 +33,7 @@ class Composer extends React.Component {
   }
 
   static defaultProps = {
+    link: null,
     attachments: true,
     placeholder: 'Enter text'
   }
@@ -49,9 +49,10 @@ class Composer extends React.Component {
   }
 
   _handleAddAsset = this._handleAddAsset.bind(this)
-  _handleAddFile = this._handleAddFile.bind(this)
   _handleAddAssets = this._handleAddAssets.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
+  _handleAddFile = this._handleAddFile.bind(this)
+  _handleAddLink = this._handleAddLink.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleFileAdded = this._handleFileAdded.bind(this)
   _handleFileSuccess = this._handleFileSuccess.bind(this)
@@ -119,13 +120,16 @@ class Composer extends React.Component {
   }
 
   _getComposerTextArea() {
-    const { placeholder, onFetchLink } = this.props
+    const { placeholder } = this.props
+    const { attachments, link } = this.state
     return {
+      attachments,
       reference: node => this.textarea = node,
+      link,
       placeholder,
       onAddAsset: this._handleAddAsset,
       onAddFile: this._handleAddFile,
-      onFetchLink,
+      onAddLink: this._handleAddLink,
       onUpdateAsset: this._handleUpdateAsset,
       onChange: this._handleChange,
       onEnter: this._handleSave
@@ -141,10 +145,6 @@ class Composer extends React.Component {
     })
   }
 
-  _handleAddFile(file) {
-    this.resumable.addFile(file)
-  }
-
   _handleAddAssets(assets) {
     this.setState({
       attachments: [
@@ -152,6 +152,14 @@ class Composer extends React.Component {
         ...assets
       ]
     })
+  }
+
+  _handleAddFile(file) {
+    this.resumable.addFile(file)
+  }
+
+  _handleAddLink(link) {
+    this.setState({ link })
   }
 
   _handleAttachments() {

@@ -1,5 +1,5 @@
 export const INITIAL_STATE = {
-  emojis: false,
+  attachments: [],
   link: null
 }
 

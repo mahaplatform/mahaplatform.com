@@ -1,6 +1,6 @@
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
-import criteria from '../../contacts/criteria'
+import fields from '../../contacts/criteria'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -77,8 +77,9 @@ class Voice extends React.PureComponent {
       endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/voice/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel="voice" />,
-      fields: criteria,
-      title: 'Select Contacts'
+      fields,
+      title: 'Select Contacts',
+      defaultValue: []
     }
   }
 

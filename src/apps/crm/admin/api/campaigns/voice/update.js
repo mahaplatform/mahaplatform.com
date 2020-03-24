@@ -22,7 +22,10 @@ const updateRoute = async (req, res) => {
 
   if(req.body.title) {
     await voice_campaign.save({
-      ...whitelist(req.body, ['to','title'])
+      to: req.body.to ? {
+        criteria : req.body.to
+      } : voice_campaign.get('to'),
+      ...whitelist(req.body, ['title'])
     }, {
       patch: true,
       transacting: req.trx

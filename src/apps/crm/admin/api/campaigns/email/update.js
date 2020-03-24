@@ -20,7 +20,10 @@ const updateRoute  = async (req, res) => {
   })
 
   await email_campaign.save({
-    ...whitelist(req.body, ['config','to'])
+    to: req.body.to ? {
+      criteria : req.body.to
+    } : email_campaign.get('to'),
+    ...whitelist(req.body, ['config'])
   }, {
     transacting: req.trx,
     patch: true

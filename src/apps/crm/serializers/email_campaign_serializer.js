@@ -4,7 +4,7 @@ const EmailCampaignSerializer = (req, result) => ({
   program: program(result.related('program')),
   subject: result.get('subject'),
   reply_to: result.get('reply_to'),
-  to: result.get('to'),
+  to: result.get('to').criteria,
   recipients: result.get('recipients'),
   code: result.get('code'),
   type: 'email',
