@@ -1,0 +1,229 @@
+
+
+
+.maha-composer-attachments {
+  display: flex;
+}
+.maha-composer-attachment {
+  @media (max-width: 768px) {
+    flex: ~"0 0 calc(100% / 3)";
+  }
+  @media (min-width: 769px) {
+    flex: ~"0 0 calc(100% / 5)";
+  }
+  position: relative;
+  padding: 0.2em;
+  &:hover {
+    .maha-composer-attachment-remove {
+      display: block;
+    }
+  }
+}
+.maha-composer-attachment-item {
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: 0;
+  position: relative;
+  .fa-circle-o-notch {
+    margin: auto;
+    color: @white;
+    text-shadow: 0 0 1px fadeout(@black, 25);
+  }
+  & > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+}
+.maha-composer-attachment-image {
+  .maha-image {
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+.maha-composer-attachment-remove {
+  position: absolute;
+  display: none;
+  top: 0.25em;
+  right: 0.25em;
+  color: @white;
+  cursor: pointer;
+  text-shadow: 0 0 1px fadeout(@black, 25);
+}
+.maha-composer-attachment-add {
+  border: 2px dashed fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  color: fadeout(@black, 90);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    border-color: fadeout(@black, 85);
+    background-color: fadeout(@black, 92);
+    color: fadeout(@black, 85);
+  }
+  .fa {
+    margin: auto;
+    font-size: 2em;
+  }
+}
+
+
+
+.maha-composer-items {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0.4em 0.4em;
+  overflow: hidden;
+}
+.maha-composer-item {
+  @media (max-width: 768px) {
+    flex: ~"0 0 calc(100% / 3)";
+  }
+  @media (min-width: 769px) {
+    flex: ~"0 0 calc(100% / 5)";
+  }
+  position: relative;
+  padding: 0.2em;
+}
+
+
+
+.maha-composer-gallery {
+  overflow: hidden;
+  max-width: 370px;
+  width: 100%;
+}
+.maha-composer-gallery-1 {
+  .maha-composer-gallery-item {
+    width: 100%;
+  }
+}
+.maha-composer-gallery-2 {
+  .maha-composer-gallery-item {
+    width: ~"calc(100% / 2)";
+  }
+}
+.maha-composer-gallery-3 {
+  .maha-composer-gallery-item {
+    &:nth-child(1) {
+      width: ~"calc(100% / 3 * 2)";
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      width: ~"calc(100% / 3)";
+    }
+  }
+}
+.maha-composer-gallery-4 {
+  .maha-composer-gallery-item {
+    width: ~"calc(100% / 2)";
+  }
+}
+.maha-composer-gallery-item {
+  position: relative;
+  cursor: pointer;
+  float: left;
+  padding: 0.2em;
+}
+.maha-composer-gallery-more {
+  background-color: fadeout(@black, 50);
+  position: absolute;
+  display: flex;
+  top: 0.2em;
+  right: 0.2em;
+  bottom: 0.2em;
+  left: 0.2em;
+  &:after {
+    content: "+" attr(data-count);
+    text-align: center;
+    margin: auto;
+    color: @white;
+    font-size: 2em;
+  }
+}
+
+.maha-composer-image {
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: 0;
+  position: relative;
+  & > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.maha-composer-file {
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: 0;
+  position: relative;
+}
+.maha-composer-file-detail {
+  background-color: fadeout(@black, 90);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.maha-composer-file-icon {
+  flex: 1;
+  display: flex;
+  .maha-asset-icon {
+    margin: auto;
+    .fa {
+      font-size: 2.4em;
+      display: block;
+    }
+  }
+}
+.maha-composer-file-name {
+  flex: 0 0 3em;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding: 0 0.4em;
+  overflow: hidden;
+}
+
+.maha-composer-file,
+.maha-composer-image {
+  .fa-circle-o-notch {
+    text-shadow: 0 0 1px fadeout(@black, 25);
+    font-size: 1.6em;
+    position: absolute;
+    color: @white;
+    margin: auto;
+    left: 35%;
+    top: 35%;
+
+  }
+  .fa-times {
+    text-shadow: 0 0 1px fadeout(@black, 25);
+    position: absolute;
+    color: darken(@white, 5);
+    right: 0.4em;
+    top: 0.4em;
+    cursor: pointer;
+    &:hover {
+      color: @white;
+    }
+  }
+}

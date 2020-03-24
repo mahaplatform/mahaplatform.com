@@ -1,5 +1,6 @@
 export const INITIAL_STATE = {
-  emojis: false
+  emojis: false,
+  link: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

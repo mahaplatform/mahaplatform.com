@@ -1,0 +1,36 @@
+.maha-composer-textarea {
+  display: flex;
+  flex: 1;
+}
+.maha-composer-textarea-field {
+  flex: 1;
+  word-break: break-word;
+  padding: 0.6em 0.8em;
+  textarea {
+    background-color: transparent;
+    resize: none;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0 0.2em 0 0;
+    outline: none;
+    display: block;
+    overflow: hidden;
+    &::-webkit-input-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &:-moz-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &::-moz-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &:-ms-input-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+  }
+}

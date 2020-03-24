@@ -56,11 +56,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       q: '',
       q_saved: state.q,
-      quoted_comment_id: null,
-      comments: [
-        ...state.comments,
-        action.comment
-      ]
+      quoted_comment_id: null
     }
 
   case 'CREATE_FAILURE':

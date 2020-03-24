@@ -11,23 +11,3 @@ export const fetchLink = (url) => ({
 export const removeLink = () => ({
   type: 'REMOVE_LINK'
 })
-
-export const addAttachments = (attachments) => ({
-  type: 'ADD_ATTACHMENTS',
-  attachments
-})
-
-export const removeAttachment = (index) => ({
-  type: 'REMOVE_ATTACHMENT',
-  index
-})
-
-export const removeAttachments = () => ({
-  type: 'REMOVE_ATTACHMENTS'
-})
-
-export const updateAttachment = (identifier, attachment) => ({
-  type: 'UPDATE_ATTACHMENT',
-  identifier,
-  attachment
-})

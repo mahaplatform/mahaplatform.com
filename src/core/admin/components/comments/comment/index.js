@@ -64,6 +64,9 @@ class Comment extends React.Component {
           </div>
           <div className="maha-message-extras">
             { quoted_comment && <QuotedComment comment={ quoted_comment } /> }
+            <div className="maha-message-text">
+              <RichText { ...this._getRichtext() } />
+            </div>
             { images.length > 0 && <Gallery { ...this._getGallery() } /> }
             { media.length > 0 &&
               <div className="maha-medias">
@@ -84,9 +87,6 @@ class Comment extends React.Component {
                 ))}
               </div>
             }
-          </div>
-          <div className="maha-message-text">
-            <RichText { ...this._getRichtext() } />
           </div>
           <Reactions { ...this._getReactions() } />
         </div>

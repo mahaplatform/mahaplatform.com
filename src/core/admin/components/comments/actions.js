@@ -26,17 +26,11 @@ export const fetch = (endpoint) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const create = (endpoint, comment) => ({
+export const create = (endpoint, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint,
-  body: {
-    asset_ids: comment.asset_ids,
-    text: comment.text,
-    uid: comment.uid,
-    quoted_comment_id: comment.quoted_comment_id
-  },
-  meta: { comment },
+  body,
   request: 'CREATE_REQUEST',
   success: 'CREATE_SUCCESS',
   failure: 'CREATE_FAILURE'

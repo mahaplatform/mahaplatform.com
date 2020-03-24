@@ -63,7 +63,9 @@ class Post extends React.PureComponent {
           <Text text={ text }/>
         }
         { images.length > 0 &&
-          <Gallery { ...this._getGallery(images) } />
+          <div className="news-post-body">
+            <Gallery { ...this._getGallery(images) } />
+          </div>
         }
         { files.length > 0 &&
           <div className="news-post-files">

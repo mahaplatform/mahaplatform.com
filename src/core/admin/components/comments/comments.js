@@ -223,19 +223,26 @@ class Comments extends React.Component {
     this.props.onType(text)
   }
 
-  _handleCreate(text) {
-    if(_.isEmpty(text)) return
-    const { quoted_comment, quoted_comment_id, entity, user, onCreate } = this.props
-    onCreate(`/api/admin/${entity}/comments`, {
-      attachments: [],
-      user,
+  _handleCreate({ text, attachments }) {
+    const { quoted_comment, quoted_comment_id, entity, user, onAdd, onCreate } = this.props
+    if(text.length === 0 && attachments.length === 0) return
+    const comment = {
       uid: _.random(100000000, 999999999).toString(36),
-      reactions: [],
-      quoted_comment,
       quoted_comment_id,
-      text,
+      text
+    }
+    onAdd({
+      ...comment,
+      quoted_comment,
+      attachments,
+      reactions: [],
+      user,
       created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
       updated_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
+    })
+    onCreate(`/api/admin/${entity}/comments`, {
+      ...comment,
+      asset_ids: attachments.map(asset => asset.id)
     })
   }
 
