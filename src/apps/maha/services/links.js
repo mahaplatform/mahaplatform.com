@@ -30,6 +30,12 @@ const processImageUrl = (url, response) => ({
   image_url: url
 })
 
+const getDescription = (description) => {
+  if(!description) return ''
+  if(_.isArray(description)) return description.join().substr(0, 255)
+  return description.substr(0, 255)
+}
+
 const processOpenGraphUrl = async (req, uri, url, response) => {
 
   const meta = og.parse(response.body)
@@ -41,7 +47,7 @@ const processOpenGraphUrl = async (req, uri, url, response) => {
   if(Object.keys(meta).length > 0) {
     return {
       service_id: service.get('id'),
-      text: meta.description ? meta.description.substr(0, 255) : '',
+      text: getDescription(meta.description),
       title: meta.title,
       link: meta.url,
       ...getImage(uri, meta.image),

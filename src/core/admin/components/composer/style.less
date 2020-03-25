@@ -1,32 +1,35 @@
-.maha-comment-composer {
-  background-color: @white;
-  padding: 0 0.4em 0.4em 0.4em;
-  display: flex;
-}
-.maha-comment-composer-component {
+.maha-composer {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.5em;
   display: flex;
   padding: 0;
   flex: 1;
 }
-.maha-comment-composer-attachment {
-  padding: 0.8em 0 0.8em 0.6em;
-}
-.maha-comment-composer-send {
-  padding: 0.8em 0.8em 0.6em 0;
-}
-.maha-comment-composer-attachment {
+.maha-composer-attachments-icon {
+  padding: 0.8em;
   border-right: 1px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
+  display: flex;
+  cursor: pointer;
   &:hover {
     background-color: fadeout(@black, 92);
   }
   .fa {
+    color: fadeout(@black, 60);
+    margin: 0 auto;
     font-size: 1.2em;
   }
 }
-.maha-comment-composer-emojis {
+.maha-composer-input {
+  flex: 1;
+}
+.maha-composer-editor {
+  background-color: @white;
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.maha-composer-emojis {
   .fa {
     font-size: 1.4em;
     &:hover {
@@ -34,8 +37,7 @@
     }
   }
 }
-.maha-comment-composer-attachment,
-.maha-comment-composer-emojis {
+.maha-composer-emojis {
   border-right: 1px solid fadeout(@black, 90);
   padding: 0.8em;
   display: flex;
@@ -47,27 +49,63 @@
     color: fadeout(@black, 60);
   }
 }
-
-.maha-comment-composer-photo {
-  flex: 0 0 1em;
-  font-size: 1.3em;
-  display: flex;
-  cursor: pointer;
-  color: fadeout(@black, 60);
-  .hover(color, @red);
-  padding: 0;
+.maha-composer-link {
+  width: 100%;
+  max-width: 370px;
+  position: relative;
+  .fa-times {
+    text-shadow: 0 0 1px fadeout(@black, 25);
+    position: absolute;
+    color: darken(@white, 5);
+    right: 0.4em;
+    top: 0.4em;
+    cursor: pointer;
+    &:hover {
+      color: @white;
+    }
+  }
 }
-.maha-comment-composer-editor {
+
+.maha-composer-textarea {
   display: flex;
   flex: 1;
-  flex-direction: column;
+}
+.maha-composer-textarea-field {
+  flex: 1;
+  word-break: break-word;
+  padding: 0.6em 0.8em;
+  textarea {
+    background-color: transparent;
+    resize: none;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0 0.2em 0 0;
+    outline: none;
+    display: block;
+    overflow: hidden;
+    &::-webkit-input-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &:-moz-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &::-moz-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+    &:-ms-input-placeholder {
+      opacity: 0.5;
+      font-style: italic;
+    }
+  }
 }
 
-.maha-comment-composer-mention {
-  color: @blue;
-}
+
 @media (max-width: 768px) {
-  .maha-comment-composer {
+  .maha-composer {
     .maha-emojis {
       display: none;
     }

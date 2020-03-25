@@ -3,36 +3,6 @@
   display: flex;
   flex-direction: column;
 }
-.news-form-privacy {
-  display: flex;
-  border-bottom: 1px solid fadeout(@black, 90);
-  cursor: pointer;
-  &:hover {
-    background-color: fadeout(@black, 97);
-  }
-}
-.news-form-privacy-icon {
-  padding: 0.8em 0 0.8em 0.8em;
-  display: flex;
-  .fa {
-    color: fadeout(@black, 40);
-    font-size: 1.2em;
-    margin: auto;
-  }
-}
-.news-form-privacy-label {
-  color: fadeout(@black, 40);
-  padding: 0.8em;
-  flex: 1;
-}
-.news-form-privacy-proceed {
-  padding: 0.8em;
-  display: flex;
-  .fa {
-    margin: auto;
-    color: fadeout(@black, 60);
-  }
-}
 .news-form-header {
   display: flex;
 }
@@ -191,7 +161,6 @@
 }
 .news-form-footer-item {
   flex: 1;
-  padding: 0.8em;
   border-right: 1px solid fadeout(@black, 90);
   cursor: pointer;
   display: flex;
@@ -208,7 +177,7 @@
   }
 }
 
-.news-form-group {
+.news-form-list-item {
   border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
   cursor: pointer;
@@ -216,10 +185,13 @@
     background-color: fadeout(@black, 97);
   }
 }
-.news-form-group-icon {
+.news-form-list-item-icon {
   flex: 0 0 2.4em;
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
+  .maha-logo {
+    width: 100%;
+  }
   .fa {
     color: fadeout(@black, 40);
     margin: auto;
@@ -228,8 +200,32 @@
     font-size: 1.2em;
   }
 }
-.news-form-group-label {
+.news-form-list-item-label {
   color: fadeout(@black, 40);
   padding: 0.8em;
+  flex: 1;
+}
+.news-form-list-item-token {
+  flex: 1;
+}
+.news-form-list-item-proceed {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+
+.news-form-scope {
+  display: flex;
+  flex-direction: column;
+}
+.news-form-scope-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.news-form-scope-body {
+  position: relative;
+  display: flex;
   flex: 1;
 }

@@ -15,7 +15,7 @@ const createRoute = async (req, res) => {
     user_id: req.user.get('id'),
     commentable_type: req.params.commentable_type,
     commentable_id: req.params.commentable_id,
-    ...whitelist(req.body, ['uid','text','quoted_comment_id'])
+    ...whitelist(req.body, ['uid','text','link_id','quoted_comment_id'])
   }).save(null, {
     transacting: req.trx
   })

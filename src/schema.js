@@ -1931,6 +1931,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('group_id').unsigned()
       table.timestamp('deleted_at')
+      table.integer('target_user_id').unsigned()
     })
 
     await knex.schema.createTable('platform_settings', (table) => {
@@ -3025,6 +3026,7 @@ const schema = {
       table.foreign('group_id').references('news_groups.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('target_user_id').references('maha_users.id')
     })
 
     await knex.schema.table('sites_emails', table => {

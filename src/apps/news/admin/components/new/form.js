@@ -1,7 +1,7 @@
-import { AssetIcon, Attachments, Avatar, Camera, Image, ImagePreview, ModalPanel } from 'maha-admin'
+import { AssetIcon, Attachments, Avatar, Camera, Image, ImagePreview, Logo, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import TextArea from './textarea'
-import Privacy from './privacy'
+import Scope from './scope'
 import React from 'react'
 
 class Form extends React.Component {
@@ -14,6 +14,7 @@ class Form extends React.Component {
   static propTypes = {
     group_id: PropTypes.number,
     text: PropTypes.string,
+    user_id: PropTypes.number,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func
@@ -22,36 +23,53 @@ class Form extends React.Component {
   state = {
     attachments: [],
     group: null,
-    text: ''
+    scope: 'newsfeed',
+    text: '',
+    user: null
   }
 
   _handleAddAsset = this._handleAddAsset.bind(this)
   _handleAddAttachments = this._handleAddAttachments.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handlePrivacy = this._handlePrivacy.bind(this)
+  _handleScope = this._handleScope.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleUpdateAsset = this._handleUpdateAsset.bind(this)
-  _handleUpdateGroup = this._handleUpdateGroup.bind(this)
+  _handleUpdateScope = this._handleUpdateScope.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {
-    const { attachments } = this.state
-    const { group_id } = this.props
+    const { attachments, group, scope, user } = this.state
+    const { group_id, user_id } = this.props
     const { admin } = this.context
-    const group = this._getGroup()
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="news-form">
-          { !group_id &&
-            <div className="news-form-privacy" onClick={ this._handlePrivacy }>
-              <div className="news-form-privacy-icon">
-                <i className={`fa fa-${group.icon}`} />
+          { (!group_id && !user_id) &&
+            <div className="news-form-list-item" onClick={ this._handleScope }>
+              <div className="news-form-list-item-icon">
+                { scope === 'group' &&
+                  <Logo team={ group } width="28" />
+                }
+                { scope === 'user' &&
+                  <Avatar user={ user } width="24" />
+                }
+                { scope === 'newsfeed' &&
+                  <i className="fa fa-globe" />
+                }
               </div>
-              <div className="news-form-privacy-label">
-                Share with { group.title }
+              <div className="news-form-list-item-label">
+                { scope === 'group' &&
+                  <span>Share to { group.title }</span>
+                }
+                { scope === 'user' &&
+                  <span>Share to { user.full_name }&apos;s timeline</span>
+                }
+                { scope === 'newsfeed' &&
+                  <span>Share to News Feed</span>
+                }
               </div>
-              <div className="news-form-privacy-proceed">
+              <div className="news-form-list-item-proceed">
                 <i className="fa fa-chevron-right" />
               </div>
             </div>
@@ -142,12 +160,6 @@ class Form extends React.Component {
     }
   }
 
-  _getGroup() {
-    const { group } = this.state
-    if(!group) return { id: null, icon: 'globe', title: 'Everyone' }
-    return group
-  }
-
   _getPanel() {
     return {
       title: 'New Post',
@@ -160,11 +172,12 @@ class Form extends React.Component {
     }
   }
 
-  _getPrivacy() {
-    const { onPop } = this.props
+  _getScope() {
+    const { onPop, onPush } = this.props
     return {
+      onPush: onPush,
       onBack: onPop,
-      onChoose: this._handleUpdateGroup
+      onChoose: this._handleUpdateScope
     }
   }
 
@@ -206,15 +219,16 @@ class Form extends React.Component {
     this.context.modal.close()
   }
 
-  _handlePrivacy() {
-    this.props.onPush(Privacy, this._getPrivacy())
+  _handleScope() {
+    this.props.onPush(Scope, this._getScope())
   }
 
   _handleSubmit() {
-    const { attachments, group, text } = this.state
+    const { attachments, group, text, user } = this.state
     const asset_ids = attachments.map(attachment => attachment.id)
     const group_id = this.props.group_id || (group ? group.id : null)
-    this.props.onSave({ asset_ids, group_id, text })
+    const target_user_id = this.props.user_id || (user ? user.id : null)
+    this.props.onSave({ asset_ids, group_id, target_user_id, text })
   }
 
   _handleRemoveAttachment(index) {
@@ -239,8 +253,10 @@ class Form extends React.Component {
     })
   }
 
-  _handleUpdateGroup(group) {
-    this.setState({ group })
+  _handleUpdateScope({ group, user }) {
+    if(group) return this.setState({ scope: 'group', group })
+    if(user) return this.setState({ scope: 'user', user })
+    this.setState({ scope: 'newsfeed' })
   }
 
   _handleUpdateText(text) {

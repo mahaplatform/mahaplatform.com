@@ -1,5 +1,4 @@
-import { AssetViewer, AssetToken, Attachment, Link, Gallery } from 'maha-admin'
-import QuotedMessage from '../quoted_message'
+import { AssetViewer, AssetToken, Attachment, Gallery } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,17 +8,13 @@ class Extras extends React.Component {
     files: PropTypes.array,
     id: PropTypes.number,
     images: PropTypes.array,
-    link: PropTypes.object,
-    media: PropTypes.array,
-    quoted_message: PropTypes.object
+    media: PropTypes.array
   }
 
   render() {
-    const { files, images, link, media, quoted_message } = this.props
+    const { files, images, media } = this.props
     return (
       <div className="maha-message-extras">
-        { quoted_message && <QuotedMessage message={ quoted_message } /> }
-        { link && <Link link={ link } /> }
         { images.length > 0 && <Gallery { ...this._getGallery() } /> }
         { media.length > 0 &&
           <div className="maha-medias">

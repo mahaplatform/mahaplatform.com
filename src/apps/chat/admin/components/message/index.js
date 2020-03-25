@@ -1,5 +1,6 @@
-import { Avatar, RichText, Reactions, Timestamp } from 'maha-admin'
+import { Avatar, Link, RichText, Reactions, Timestamp } from 'maha-admin'
 import { files, images, media } from './selectors'
+import QuotedMessage from '../quoted_message'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Actions from './actions'
@@ -53,7 +54,7 @@ class Message extends React.Component {
 
   render() {
     const { show } = this.state
-    const { actions, created_at, full, receipts, text, type, user, user_id } = this.props
+    const { actions, created_at, full, link, quoted_message, receipts, text, type, user, user_id } = this.props
     return (
       <div { ...this._getMessage() }>
         <div className="maha-message-avatar">
@@ -68,10 +69,12 @@ class Message extends React.Component {
               </div>
             </div>
           }
-          <Extras { ...this._getExtras() } />
+          { quoted_message && <QuotedMessage message={ quoted_message } /> }
           <div className="maha-message-text">
             <RichText text={ text } />
           </div>
+          { link && <Link link={ link } /> }
+          <Extras { ...this._getExtras() } />
           <Reactions { ...this._getReactions() } />
         </div>
         { actions && show && type === 'message' && <Actions { ...this._getActions() } /> }
@@ -105,12 +108,11 @@ class Message extends React.Component {
   }
 
   _getExtras() {
-    const { files, id, images, link, media, quoted_message } = this.props
+    const { files, id, images, media, quoted_message } = this.props
     return {
       files,
       id,
       images,
-      link,
       media,
       quoted_message
     }

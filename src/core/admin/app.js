@@ -11,7 +11,6 @@ import admincollectionFilters from './components/collection/filters'
 import admincollection from './components/collection'
 import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
-import admincomposer from './components/composer'
 import admincontainer from './components/container'
 import admincriteriaCriteria from './components/criteria/criteria'
 import admindrawer from './components/drawer'
@@ -266,7 +265,6 @@ class App extends React.Component {
       admincollection,
       admincollectionTable,
       admincomments,
-      admincomposer,
       admincontainer,
       admincriteriaCriteria,
       admindrawer,

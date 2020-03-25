@@ -1,11 +1,12 @@
+import { Avatar, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
 import React from 'react'
 import Edit from './edit'
 
 class Results extends React.PureComponent {
 
   static contextTypes = {
+    admin: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -16,10 +17,11 @@ class Results extends React.PureComponent {
   }
 
   render() {
+    const { admin } = this.context
     const { records } = this.props
     return (
       <div className="news-feed-groups-results">
-        <div className={ this._getClass(null) } onClick={ this._handleChoose.bind(this, null) }>
+        <div className={ this._getClass(null) } onClick={ this._handleGroup.bind(this, null) }>
           <div className="news-feed-group-icon">
             <i className="fa fa-fw fa-globe" />
           </div>
@@ -27,8 +29,16 @@ class Results extends React.PureComponent {
             News Feed
           </div>
         </div>
+        <div className={ this._getClass(null) } onClick={ this._handleUser.bind(this, admin.user.id) }>
+          <div className="news-feed-group-icon">
+            <Avatar user={ admin.user } presence={ false } />
+          </div>
+          <div className="news-feed-group-label">
+            Your Timeline
+          </div>
+        </div>
         { records.map((group, index) => (
-          <div className={ this._getClass(group.id) } key={`group_${index}`} onClick={ this._handleChoose.bind(this, group.id) }>
+          <div className={ this._getClass(group.id) } key={`group_${index}`} onClick={ this._handleGroup.bind(this, group.id) }>
             <div className="news-feed-group-icon">
               <Logo team={ group } width="28" />
             </div>
@@ -53,19 +63,22 @@ class Results extends React.PureComponent {
     return classes.join(' ')
   }
 
-
-  _handleChoose(group_id) {
-    this.props.onChoose(group_id)
+  _handleGroup(group_id) {
+    this.props.onChoose({ group_id })
   }
 
   _handleDelete(group_id, e) {
     e.stopPropagation()
-    this.props.onChoose(group_id)
+    this.props.onChoose({})
   }
 
   _handleEdit(group_id, e) {
     e.stopPropagation()
     this.context.modal.open(<Edit group_id={ group_id } />)
+  }
+
+  _handleUser(user_id) {
+    this.props.onChoose({ user_id })
   }
 
 }

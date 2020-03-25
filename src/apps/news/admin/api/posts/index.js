@@ -9,6 +9,10 @@ import show from './show'
 
 const router = new Router({ mergeParams: true })
 
+router.get('/groups/:group_id', list)
+
+router.get('/users/:user_id', list)
+
 router.get('/', list)
 
 router.post('/', create)

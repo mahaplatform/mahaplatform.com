@@ -1,10 +1,9 @@
-import { Link, Composer, DropZone, Loader } from 'maha-admin'
 import { CSSTransition } from 'react-transition-group'
-import QuotedMessage from '../quoted_message'
 import { connect } from 'react-redux'
+import { Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Composer from './composer'
 import Message from '../message'
-import getUrls from 'get-urls'
 import moment from 'moment'
 import Date from './date'
 import React from 'react'
@@ -20,8 +19,6 @@ class Channel extends React.Component {
   static propTypes = {
     attachments: PropTypes.array,
     channel: PropTypes.object,
-    link: PropTypes.object,
-    link_status: PropTypes.string,
     messages: PropTypes.object,
     quoted_message: PropTypes.object,
     quoted_message_id: PropTypes.number,
@@ -37,11 +34,9 @@ class Channel extends React.Component {
     onCreate: PropTypes.func,
     onEdit: PropTypes.func,
     onFetchAll: PropTypes.func,
-    onFetchLink: PropTypes.func,
     onFetch: PropTypes.func,
     onRemoveAttachments: PropTypes.func,
     onRemoveAttachment: PropTypes.func,
-    onRemoveLink: PropTypes.func,
     onRemoveMessage: PropTypes.func,
     onRemoveQuotedMessage: PropTypes.func,
     onSetTyping: PropTypes.func,
@@ -54,20 +49,14 @@ class Channel extends React.Component {
   body = null
   channel = null
 
-  _handleAddAssets = this._handleAddAssets.bind(this)
   _handleAddAttachments = this._handleAddAttachments.bind(this)
   _handleAddMessage = this._handleAddMessage.bind(this)
   _handleAddQuotedMessage = this._handleAddQuotedMessage.bind(this)
   _handleCreate = this._handleCreate.bind(this)
-  _handleFetchLink = this._handleFetchLink.bind(this)
   _handleGrow = this._handleGrow.bind(this)
   _handleHello = this._handleHello.bind(this)
-  _handleKeyUp = this._handleKeyUp.bind(this)
-  _handlePaste = this._handlePaste.bind(this)
-  _handleParse = this._handleParse.bind(this)
   _handleRemoveAttachment = this._handleRemoveAttachment.bind(this)
   _handleRemoveAttachments = this._handleRemoveAttachments.bind(this)
-  _handleRemoveLink = this._handleRemoveLink.bind(this)
   _handleRemoveMessage = this._handleRemoveMessage.bind(this)
   _handleRemoveQuotedMessage = this._handleRemoveQuotedMessage.bind(this)
   _handleScroll = _.throttle(this._handleScroll.bind(this), 100)
@@ -82,73 +71,45 @@ class Channel extends React.Component {
 
   render() {
     const { user } = this.props
-    const { channel, link, link_status, messages, quoted_message, signpost, status } = this.props
+    const { channel, messages, signpost, status } = this.props
     if(status === 'loading') return <Loader />
     return (
-      <DropZone { ...this._getDropZone() }>
-        <div className="chat-channel" ref={ node => this.channel = node }>
-          <div className="chat-channel-messages">
-            <div className="chat-channel-thread" onScroll={ this._handleScroll } ref={ node => this.body = node }>
-              <div className="chat-channel-thread-panel" ref={ node => this.thread = node }>
-                { status === 'appending' &&
-                  <div className="chat-channel-more">
-                    Loading more...
+      <div className="chat-channel" ref={ node => this.channel = node }>
+        <div className="chat-channel-messages">
+          <div className="chat-channel-thread" onScroll={ this._handleScroll } ref={ node => this.body = node }>
+            <div className="chat-channel-thread-panel" ref={ node => this.thread = node }>
+              { status === 'appending' &&
+                <div className="chat-channel-more">
+                  Loading more...
+                </div>
+              }
+              { Object.values(messages).map((day, index) => (
+                <div className="chat-channel-day" key={`date_${index}`}>
+                  <Date date={ day.date } />
+                  <div className="chat-channel-day-messages">
+                    { day.messages.map((message, index) => (
+                      <Message { ...this._getMessage(message) } key={`message_${message.id}`} />
+                    ))}
                   </div>
-                }
-                { Object.values(messages).map((day, index) => (
-                  <div className="chat-channel-day" key={`date_${index}`}>
-                    <Date date={ day.date } />
-                    <div className="chat-channel-day-messages">
-                      { day.messages.map((message, index) => (
-                        <Message { ...this._getMessage(message) } key={`message_${message.id}`} />
-                      ))}
-                    </div>
-                  </div>
-                )) }
-              </div>
+                </div>
+              )) }
             </div>
-            <CSSTransition in={ signpost } classNames="popin" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-              <div className="chat-signpost-bottom" onClick={ this._handleScrollToBottom }>
-                <i className="fa fa-chevron-down" />
-              </div>
-            </CSSTransition>
           </div>
-          <div className="chat-channel-footer">
-            { channel.typing && channel.typing.user_id !== user.id &&
-              <div className="chat-channel-typing">
-                { this._getTyping() }
-              </div>
-            }
-            { quoted_message &&
-              <div className="chat-channel-extra">
-                <div className="chat-channel-extra-preview">
-                  <QuotedMessage message={ quoted_message } />
-                </div>
-                <div className="chat-channel-extra-remove">
-                  <i className="fa fa-fw fa-times" onClick={ this._handleRemoveQuotedMessage } />
-                </div>
-              </div>
-            }
-            { link_status &&
-              <div className="chat-channel-typing">
-                { link_status === 'loading' && <span>Fetching link preview</span> }
-                { link_status === 'failed' && <span>Unable to fetch link preview</span> }
-              </div>
-            }
-            { link &&
-              <div className="chat-channel-extra">
-                <div className="chat-channel-extra-preview">
-                  <Link link={ link } />
-                </div>
-                <div className="chat-channel-extra-remove">
-                  <i className="fa fa-fw fa-times" onClick={ this._handleRemoveLink } />
-                </div>
-              </div>
-            }
-            <Composer { ...this._getComposer() } />
-          </div>
+          <CSSTransition in={ signpost } classNames="popin" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="chat-signpost-bottom" onClick={ this._handleScrollToBottom }>
+              <i className="fa fa-chevron-down" />
+            </div>
+          </CSSTransition>
         </div>
-      </DropZone>
+        <div className="chat-channel-footer">
+          { channel.typing && channel.typing.user_id !== user.id &&
+            <div className="chat-channel-typing">
+              { this._getTyping() }
+            </div>
+          }
+          <Composer { ...this._getComposer() } />
+        </div>
+      </div>
     )
   }
 
@@ -160,11 +121,8 @@ class Channel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { channel, link, quoted_message_id, text, unsorted } = this.props
+    const { channel, quoted_message_id, text, unsorted } = this.props
     if(unsorted.length > prevProps.unsorted.length && prevProps.status !== 'appending') {
-      setTimeout(this._handleScrollToBottom, 250)
-    }
-    if(link !== prevProps.link) {
       setTimeout(this._handleScrollToBottom, 250)
     }
     if(text.length !== prevProps.text.length) {
@@ -185,13 +143,6 @@ class Channel extends React.Component {
     this._handleLeave()
   }
 
-  _getDropZone() {
-    return {
-      onAdd: this._handleAddAssets,
-      onUpdate: this._handleUpdateAsset
-    }
-  }
-
   _getTyping() {
     const { channel } = this.props
     const who = channel.subscriptions.length > 2 ? 'Someone' : channel.typing.full_name
@@ -199,15 +150,11 @@ class Channel extends React.Component {
   }
 
   _getComposer() {
+    const { quoted_message } = this.props
     return {
-      onAddAssets: this._handleAddAssets,
-      onChange: this._handleType,
-      onKeyUp: this._handleKeyUp,
-      onGrow: this._handleGrow,
-      onPaste: this._handlePaste,
-      onSubmit: this._handleCreate,
-      onUpArrow: this._handleUpArrow,
-      onUpdateAsset: this._handleUpdateAsset
+      placeholder: 'Type a message',
+      quoted: quoted_message,
+      onSubmit: this._handleCreate
     }
   }
 
@@ -257,10 +204,6 @@ class Channel extends React.Component {
     })
   }
 
-  _handleFetchLink(url) {
-    this.props.onFetchLink(url)
-  }
-
   _handleGrow() {
     this._handleScrollToBottom()
   }
@@ -282,30 +225,6 @@ class Channel extends React.Component {
         }
       }
     })
-  }
-
-  _handleAddAssets(assets) {
-    const { attachments, channel, link, quoted_message, quoted_message_id, user, onCreate } = this.props
-    const message = {
-      attachments: assets.map((asset, index) => ({
-        asset_id: asset.id
-      })),
-      link_id: null,
-      code: _.random(Math.pow(36,9).toString(36), Math.pow(36, 10) - 1).toString(36),
-      quoted_message_id,
-      text: ''
-    }
-    this.props.onAddMessage({
-      ...message,
-      attachments,
-      link,
-      quoted_message,
-      reactions: [],
-      user,
-      created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
-      updated_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
-    })
-    onCreate(channel.id, message)
   }
 
   _handleAddAttachments(attachments) {
@@ -332,55 +251,30 @@ class Channel extends React.Component {
     })
   }
 
-  _handleCreate(text) {
-    const { attachments, channel, link, link_status, quoted_message, quoted_message_id, user, onCreate } = this.props
-    if(text.length === 0 && link === null && link_status !== 'loading' && attachments.length === 0) return
+  _handleCreate({ attachments, link, quoted, text }) {
+    const { user, onAddMessage, onCreate } = this.props
+    const { channel } = this.props
+    if(text.length === 0 && attachments.length === 0) return
     const message = {
-      attachments: attachments.map(attachment => ({
-        asset_id: attachment.asset.id,
-        caption: attachment.caption
-      })),
-      link_id: link ? link.id : null,
-      code: _.random(Math.pow(36,9).toString(36), Math.pow(36, 10) - 1).toString(36),
-      quoted_message_id,
+      uid: _.random(100000000, 999999999).toString(36),
       text
     }
-    this.props.onAddMessage({
+    onAddMessage({
       ...message,
+      quoted_message: quoted,
       attachments,
       link,
-      quoted_message,
       reactions: [],
       user,
       created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
       updated_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
     })
-    onCreate(channel.id, message)
-  }
-
-  _handleKeyUp(e) {
-    if(e.keyCode !== 32) return
-    this._handleParse(this.props.text)
-  }
-
-  _handlePaste(text) {
-    this._handleParse(text)
-  }
-
-  _handleParse(text) {
-    const { link } = this.props
-    if(link) return
-    const urls = Array.from(getUrls(text, {
-      sortQueryParameters: false,
-      removeTrailingSlash: true,
-      stripWWW: false,
-      stripFragment: false,
-      normalizeProtocol: false
-    }))
-    if(urls.length === 0) return
-    const url = urls[0]
-    if(url.startsWith(process.env.WEB_HOST)) return
-    this._handleFetchLink(url)
+    onCreate(channel.id, {
+      ...message,
+      asset_ids: attachments.map(asset => asset.id),
+      link_id: link ? link.id : null,
+      quoted_message_id: quoted ? quoted.id : null
+    })
   }
 
   _handleType(text) {
@@ -435,10 +329,6 @@ class Channel extends React.Component {
 
   _handleRemoveAttachments() {
     this.props.onRemoveAttachments()
-  }
-
-  _handleRemoveLink() {
-    this.props.onRemoveLink()
   }
 
   _handleRemoveMessage({ channel_id, code }) {

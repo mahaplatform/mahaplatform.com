@@ -8,17 +8,15 @@ const listRoute = async (req, res) => {
       qb.select(req.trx.raw('distinct on (news_posts.id, news_posts.created_at) news_posts.*'))
       qb.joinRaw('left join news_groups_users on news_groups_users.news_group_id=news_posts.group_id')
       qb.joinRaw('left join news_groups on news_groups.id=news_groups_users.news_group_id')
-      qb.whereRaw('(news_groups_users.news_group_id is null or news_groups_users.user_id=? or news_groups.owner_id=?)', [req.user.get('id'), req.user.get('id')])
-      qb.whereNull('news_posts.deleted_at')
+      if(req.params.group_id) qb.where('news_posts.group_id', req.params.group_id)
+      if(req.params.user_id) qb.whereRaw('(news_posts.user_id=? or news_posts.target_user_id=?)', [req.params.user_id, req.params.user_id])
+      qb.whereRaw('(news_posts.user_id=? or target_user_id=? or (news_groups_users.user_id=? or owner_id=?) or (target_user_id is null and news_group_id is null))', [req.user.get('id'), req.user.get('id'), req.user.get('id'), req.user.get('id')])
+      qb.whereNull('deleted_at')
       qb.where('news_posts.team_id', req.team.get('id'))
       qb.orderBy('news_posts.created_at', 'desc')
     },
-    filter: {
-      params: req.query.$filter,
-      allowed: ['group_id']
-    },
     page: req.query.$page,
-    withRelated: ['group','attachments.asset.source','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
+    withRelated: ['group','target_user.photo','attachments.asset.source','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.link.service','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
     transacting: req.trx
   })
 

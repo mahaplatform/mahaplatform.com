@@ -3,8 +3,6 @@ import _ from 'lodash'
 export const INITIAL_STATE = {
   saving: null,
   attachments: [],
-  link_status: null,
-  link: null,
   messages: [],
   quoted_message_id: null,
   signpost: false,
@@ -144,31 +142,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       attachments: []
-    }
-
-  case 'FETCH_LINK_REQUEST':
-    return {
-      ...state,
-      link_status: 'loading'
-    }
-
-  case 'FETCH_LINK_FAILURE':
-    return {
-      ...state,
-      link_status: 'failed'
-    }
-
-  case 'FETCH_LINK_SUCCESS':
-    return {
-      ...state,
-      link: action.result.data,
-      link_status: null
-    }
-
-  case 'REMOVE_LINK':
-    return {
-      ...state,
-      link: null
     }
 
   case 'SHOW_SIGNPOST':

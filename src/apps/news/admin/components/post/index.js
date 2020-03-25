@@ -19,6 +19,7 @@ class Post extends React.PureComponent {
     group: PropTypes.object,
     id: PropTypes.number,
     liker_ids: PropTypes.array,
+    target_user: PropTypes.object,
     text: PropTypes.string,
     user: PropTypes.object
   }
@@ -27,7 +28,7 @@ class Post extends React.PureComponent {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { attachments, comments, created_at, group, id, text, user } = this.props
+    const { attachments, comments, created_at, group, id, target_user, text, user } = this.props
     const { admin } = this.context
     const images = attachments.filter(attachment => attachment.asset.content_type.match(/image/))
     const files = attachments.filter(attachment => !attachment.asset.content_type.match(/image/))
@@ -45,6 +46,14 @@ class Post extends React.PureComponent {
                   <i className="fa fa-caret-right" />
                   <span className="news-post-header-group" onClick={ this._handleGroup }>
                     { group.title }
+                  </span>
+                </span>
+              }
+              { target_user &&
+                <span>
+                  <i className="fa fa-caret-right" />
+                  <span className="news-post-header-group" onClick={ this._handleGroup }>
+                    { target_user.full_name }
                   </span>
                 </span>
               }

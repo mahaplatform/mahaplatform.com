@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import Gallery from '../../gallery'
 import PropTypes from 'prop-types'
 import Avatar from '../../avatar'
+import Link from '../../link'
 import React from 'react'
 
 class Comment extends React.Component {
@@ -28,6 +29,7 @@ class Comment extends React.Component {
     files: PropTypes.array,
     id: PropTypes.number,
     images: PropTypes.array,
+    link: PropTypes.object,
     media: PropTypes.array,
     quoted_comment: PropTypes.object,
     reactions: PropTypes.array,
@@ -48,7 +50,7 @@ class Comment extends React.Component {
   _handleShowActions = this._handleShowActions.bind(this)
 
   render() {
-    const { created_at, files, images, media, quoted_comment, user } = this.props
+    const { created_at, files, images, link, media, quoted_comment, user } = this.props
     const { show } = this.state
     return (
       <div { ...this._getMessage() }>
@@ -67,6 +69,7 @@ class Comment extends React.Component {
             <div className="maha-message-text">
               <RichText { ...this._getRichtext() } />
             </div>
+            { link && <Link link={ link } /> }
             { images.length > 0 && <Gallery { ...this._getGallery() } /> }
             { media.length > 0 &&
               <div className="maha-medias">

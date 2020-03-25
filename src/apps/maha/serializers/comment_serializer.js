@@ -5,10 +5,31 @@ const commentSerializer = (req, result) => ({
   attachments: result.related('attachments').map(attachment),
   reactions: result.related('reactions').map(reaction),
   text: result.get('text'),
+  link: link(result.related('link')),
   quoted_comment: quoted_comment(result.related('quoted_comment')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const link = (link) => {
+  if(!link.id) return null
+  return {
+    id: link.get('id'),
+    url: link.get('url'),
+    image_height: link.get('image_height'),
+    image_url: link.get('image_url'),
+    image_width: link.get('image_width'),
+    video_height: link.get('video_height'),
+    video_url: link.get('video_url'),
+    video_width: link.get('video_width'),
+    service_icon: link.related('service').get('icon'),
+    service_name: link.related('service').get('name'),
+    service_url: link.related('service').get('url'),
+    text: link.get('text'),
+    title: link.get('title'),
+    link: link.get('link')
+  }
+}
 
 const quoted_comment = (comment) => {
   if(!comment.id) return null

@@ -14,9 +14,7 @@ const MessageSerializer = (req, result) => ({
 })
 
 const quoted_message = (message) => {
-
   if(!message.id) return null
-
   return {
     id: message.get('id'),
     code: message.get('code'),
@@ -24,7 +22,6 @@ const quoted_message = (message) => {
     text: message.get('text'),
     created_at: message.get('created_at')
   }
-
 }
 
 const reaction = (reaction) => ({
@@ -36,9 +33,7 @@ const reaction = (reaction) => ({
 })
 
 const user = (user) => {
-
   if(!user) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
@@ -46,13 +41,10 @@ const user = (user) => {
     photo: user.related('photo') ? user.related('photo').get('path') : null,
     last_online_at: user.get('last_online_at')
   }
-
 }
 
 const link = (link) => {
-
   if(!link.id) return null
-
   return {
     id: link.get('id'),
     url: link.get('url'),
@@ -69,13 +61,10 @@ const link = (link) => {
     title: link.get('title'),
     link: link.get('link')
   }
-
 }
 
 const attachment = (attachment) => {
-
   if(!attachment.id) return null
-
   return {
     id: attachment.get('id'),
     type: attachment.get('type'),
@@ -84,13 +73,10 @@ const attachment = (attachment) => {
     title_link: attachment.get('title_link'),
     asset: asset(attachment.related('asset'))
   }
-
 }
 
 const asset = (asset) => {
-
   if(!asset.id) return null
-
   return {
     id: asset.get('id'),
     content_type: asset.get('content_type'),
@@ -105,7 +91,6 @@ const asset = (asset) => {
     signed_url: asset.get('signed_url'),
     is_infected: asset.get('is_infected')
   }
-
 }
 
 export default MessageSerializer

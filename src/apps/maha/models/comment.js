@@ -1,5 +1,6 @@
-import Attachment from './attachment'
 import Model from '../../../core/objects/model'
+import Link from '../../maha/models/link'
+import Attachment from './attachment'
 import User from './user'
 
 const Comment = new Model({
@@ -10,6 +11,10 @@ const Comment = new Model({
 
   attachments() {
     return this.morphMany(Attachment, 'attachable')
+  },
+
+  link() {
+    return this.belongsTo(Link, 'link_id')
   },
 
   quoted_comment() {

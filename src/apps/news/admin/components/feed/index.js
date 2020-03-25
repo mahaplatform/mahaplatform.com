@@ -15,6 +15,7 @@ class Feed extends React.PureComponent {
 
   static propTypes = {
     group_id: PropTypes.number,
+    user_id: PropTypes.number,
     pathname: PropTypes.string,
     onChoose: PropTypes.func
   }
@@ -22,7 +23,8 @@ class Feed extends React.PureComponent {
   state = {
     cacheKey: '',
     group_id: null,
-    open: false
+    open: false,
+    user_id: null
   }
 
   _handleChoose = this._handleChoose.bind(this)
@@ -48,8 +50,8 @@ class Feed extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { group_id } = this.props
-    if(group_id) this.setState({ group_id })
+    const { group_id, user_id } = this.props
+    this.setState({ group_id, user_id })
   }
 
   componentDidUpdate(prevProps) {
@@ -74,6 +76,13 @@ class Feed extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getEndpoint() {
+    const { group_id, user_id } = this.state
+    if(user_id) return `/api/admin/news/posts/users/${user_id}`
+    if(group_id) return `/api/admin/news/posts/groups/${group_id}`
+    return '/api/admin/news/posts'
+  }
+
   _getGroups() {
     const { group_id } = this.state
     return {
@@ -83,7 +92,8 @@ class Feed extends React.PureComponent {
   }
 
   _getInfinte() {
-    const { cacheKey, group_id } = this.state
+    const { cacheKey, group_id, user_id } = this.state
+    console.log('endpoint', group_id, user_id, this._getEndpoint())
     const empty = (
       <div className="news-posts">
         <Trigger group_id={ group_id } />
@@ -93,33 +103,34 @@ class Feed extends React.PureComponent {
       cacheKey,
       empty,
       notFound: empty,
-      endpoint: '/api/admin/news/posts',
-      ...group_id ? {
-        filter: {
-          group_id: {
-            $eq: group_id
-          }
-        }
-      } : {},
+      endpoint: this._getEndpoint(),
       layout: Posts,
       refresh: '/admin/news/posts',
       props: {
+        user_id,
         group_id
       }
     }
   }
 
+  _getPathname(group_id, user_id) {
+    if(group_id) return `/admin/news/groups/${group_id}`
+    if(user_id) return `/admin/news/users/${user_id}`
+    return '/admin/news'
+  }
+
   _handleChangeUrl() {
     const { pathname } = this.props
-    const matches = pathname.match(/groups\/(.*)/)
+    const matches = pathname.match(/(groups|users)\/(.*)/)
     this.setState({
-      group_id: matches ? parseInt(matches[1]) : null,
+      group_id: matches && matches[1] === 'groups' ? parseInt(matches[2]) : null,
+      user_id: matches && matches[1] === 'users' ? parseInt(matches[2]) : null,
       cacheKey: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     })
   }
 
-  _handleChoose(group_id) {
-    const pathname = group_id ? `/admin/news/groups/${group_id}` : '/admin/news'
+  _handleChoose({ group_id, user_id }) {
+    const pathname = this._getPathname(group_id, user_id)
     this.context.router.history.replace(pathname)
     this.setState({
       open: false

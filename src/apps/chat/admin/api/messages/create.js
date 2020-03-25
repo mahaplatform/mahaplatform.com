@@ -36,15 +36,14 @@ const createRoute = async (req, res) => {
     last_message_at: moment()
   })
 
-  await Promise.mapSeries(req.body.attachments, async (attachment, index) => {
+  await Promise.mapSeries(req.body.asset_ids, async (asset_id, index) => {
     await Attachment.forge({
       team_id: req.team.get('id'),
       type: 'asset',
       attachable_type: 'chat_messages',
       attachable_id: message.get('id'),
       delta: index,
-      caption: attachment.caption,
-      asset_id: attachment.asset_id
+      asset_id
     }).save(null, {
       transacting: req.trx
     })

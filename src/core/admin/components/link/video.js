@@ -3,11 +3,8 @@ import PropTypes from 'prop-types'
 
 class Video extends React.Component {
 
-  state = {
-    active: false
-  }
-
   static propTypes = {
+    active: PropTypes.bool,
     video_url: PropTypes.string,
     image_url: PropTypes.string,
     title: PropTypes.string,
@@ -16,14 +13,18 @@ class Video extends React.Component {
     service_name: PropTypes.string
   }
 
+  state = {
+    playable: false
+  }
+
   _handleClick = this._handleClick.bind(this)
 
   render() {
     const { image_url, title, text, service_name, service_icon } = this.props
-    const { active } = this.state
+    const { playable } = this.state
     return (
       <div className="maha-link-video">
-        { active ?
+        { playable ?
           <div className="maha-link-video-player">
             <iframe src={ this._getAutoplayUrl() } frameBorder="0" gesture="media" allowFullScreen></iframe>
           </div> :
@@ -61,7 +62,9 @@ class Video extends React.Component {
   }
 
   _handleClick() {
-    this.setState({ active: true })
+    const { active } = this.props
+    if(!active) return true
+    this.setState({ playable: true })
   }
 
 }

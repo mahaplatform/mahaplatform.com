@@ -1,6 +1,5 @@
-import QuotedComment from './comment/quoted_comment'
 import { connect } from 'react-redux'
-import Composer from '../composer'
+import Composer from './composer'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Comment from './comment'
@@ -49,7 +48,6 @@ class Comments extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleAddAssets = this._handleAddAssets.bind(this)
   _handleCreate = this._handleCreate.bind(this)
   _handleBeginType = this._handleBeginType.bind(this)
   _handleEndType = this._handleEndType.bind(this)
@@ -59,7 +57,7 @@ class Comments extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { active, comments, editing, hidden, quoted_comment, status, typing } = this.props
+    const { active, comments, editing, hidden, status, typing } = this.props
     if(status === 'loading') {
       return (
         <div className="maha-comments message">
@@ -103,20 +101,8 @@ class Comments extends React.Component {
               </div>
             </div>
           }
-          { quoted_comment &&
-            <div className="chat-channel-extra">
-              <div className="chat-channel-quote">
-                <div className="chat-channel-quote-preview">
-                  <QuotedComment comment={ quoted_comment } />
-                </div>
-                <div className="chat-channel-extra-remove">
-                  <i className="fa fa-fw fa-times" onClick={ this._handleQuoteComment.bind(this, null) } />
-                </div>
-              </div>
-            </div>
-          }
           { !editing && active &&
-            <Composer { ...this._getCreateComposer() } />
+            <Composer { ...this._getComposer() } />
           }
         </div>
       </div>
@@ -173,15 +159,11 @@ class Comments extends React.Component {
     }
   }
 
-  _getCreateComposer() {
+  _getComposer() {
+    const { quoted_comment } = this.props
     return {
-      icon: null,
-      autofocus: true,
-      defaultValue: this.props.q,
       placeholder: this.props.placeholder,
-      onAddAssets: this._handleAddAssets,
-      onUpdateAsset: () => {},
-      onChange: this._handleType,
+      quoted: quoted_comment,
       onSubmit: this._handleCreate
     }
   }
@@ -191,22 +173,6 @@ class Comments extends React.Component {
       text: comment.text,
       attachments: comment.attachments
     }
-  }
-
-  _handleAddAssets(assets) {
-    const { quoted_comment, quoted_comment_id, entity, user, onCreate } = this.props
-    onCreate(`/api/admin/${entity}/comments`, {
-      attachments: [],
-      asset_ids: assets.map(asset => asset.id),
-      user,
-      uid: _.random(100000000, 999999999).toString(36),
-      reactions: [],
-      quoted_comment,
-      quoted_comment_id,
-      text: '',
-      created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
-      updated_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
-    })
   }
 
   _handleShowMore() {
@@ -223,18 +189,18 @@ class Comments extends React.Component {
     this.props.onType(text)
   }
 
-  _handleCreate({ text, attachments }) {
-    const { quoted_comment, quoted_comment_id, entity, user, onAdd, onCreate } = this.props
+  _handleCreate({ attachments, link, quoted, text }) {
+    const { entity, user, onAdd, onCreate } = this.props
     if(text.length === 0 && attachments.length === 0) return
     const comment = {
       uid: _.random(100000000, 999999999).toString(36),
-      quoted_comment_id,
       text
     }
     onAdd({
       ...comment,
-      quoted_comment,
+      quoted_comment: quoted,
       attachments,
+      link,
       reactions: [],
       user,
       created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
@@ -242,7 +208,9 @@ class Comments extends React.Component {
     })
     onCreate(`/api/admin/${entity}/comments`, {
       ...comment,
-      asset_ids: attachments.map(asset => asset.id)
+      asset_ids: attachments.map(asset => asset.id),
+      link_id: link ? link.id : null,
+      quoted_comment_id: quoted ? quoted.id : null
     })
   }
 

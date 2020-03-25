@@ -1,7 +1,9 @@
+import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
-import Camera from '../../camera'
-import Emojis from '../../emojis'
+import Emojis from '../emojis'
 import getUrls from 'get-urls'
+import Quoted from './quoted'
+import Link from './link'
 import React from 'react'
 
 class TextArea extends React.Component {
@@ -15,15 +17,16 @@ class TextArea extends React.Component {
     attachments: PropTypes.array,
     link: PropTypes.object,
     placeholder: PropTypes.string,
+    quoted: PropTypes.object,
     reference: PropTypes.func,
     value: PropTypes.string,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
+    onAddAttachments: PropTypes.func,
     onAddLink: PropTypes.func,
-    onUpdateAsset: PropTypes.func,
     onChange: PropTypes.func,
     onEnter: PropTypes.func,
-    onFetchLink: PropTypes.func
+    onFetchLink: PropTypes.func,
+    onRemoveLink: PropTypes.func,
+    onUpdateAttachment: PropTypes.func
   }
 
   state = {
@@ -36,6 +39,8 @@ class TextArea extends React.Component {
   _handleAddLink = this._handleAddLink.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleFetchLink = this._handleFetchLink.bind(this)
+  _handleFileAdded = this._handleFileAdded.bind(this)
+  _handleFileSuccess = this._handleFileSuccess.bind(this)
   _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
@@ -44,28 +49,41 @@ class TextArea extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
+    const { link, quoted } = this.props
     return (
       <div className="maha-composer-textarea">
         <div className="maha-composer-textarea-field">
+          { quoted &&
+            <Quoted { ...this._getQuoted() }/>
+          }
           <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
+          { link &&
+            <Link { ...this._getLink() } />
+          }
         </div>
         <div className="maha-composer-textarea-emojis">
           <Emojis { ...this._getEmojis() } />
-        </div>
-        <div className="maha-composer-textarea-camera">
-          <Camera { ...this._getCamera() } />
         </div>
       </div>
     )
   }
 
   componentDidMount() {
+    const { token } = this.context.admin.team
     const { reference } = this.props
-    reference({
-      reset: this._handleReset
+    this.resumable = new Resumable({
+      target: '/api/admin/assets/upload',
+      chunkSize: 1024 * 128,
+      permanentErrors: [204, 400, 404, 409, 415, 500, 501],
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
+    this.resumable.on('fileAdded', this._handleFileAdded)
+    this.resumable.on('fileSuccess', this._handleFileSuccess)
     this.input.style.boxSizing = 'border-box'
     this.offset = this.input.offsetHeight - this.input.clientHeight
+    reference({ reset: this._handleReset })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -78,18 +96,24 @@ class TextArea extends React.Component {
     }
   }
 
-  _getCamera() {
-    const { onAddAsset, onUpdateAsset } = this.props
-    return {
-      icon: 'camera',
-      onAddAsset,
-      onUpdateAsset
-    }
-  }
-
   _getEmojis() {
     return {
       onChoose: this._handleInsertEmoji
+    }
+  }
+
+  _getLink() {
+    const { link, onRemoveLink } = this.props
+    return {
+      link,
+      onRemove: onRemoveLink
+    }
+  }
+
+  _getQuoted() {
+    const { quoted } = this.props
+    return {
+      quoted
     }
   }
 
@@ -116,7 +140,6 @@ class TextArea extends React.Component {
   }
 
   _handleFetchLink(url) {
-    console.log('fetch', url)
     this.context.network.request({
       endpoint: '/api/admin/links',
       method: 'post',
@@ -125,6 +148,18 @@ class TextArea extends React.Component {
       },
       onSuccess: this._handleAddLink
     })
+  }
+
+  _handleFileAdded(file) {
+    this.resumable.upload()
+    this.props.onAddAttachments({ file })
+  }
+
+  _handleFileSuccess(file, message) {
+    const response = JSON.parse(message)
+    const asset = response.data
+    this.resumable.removeFile(file)
+    this.props.onUpdateAttachment(file.uniqueIdentifier, asset)
   }
 
   _handleInsertEmoji(emoji) {
@@ -160,12 +195,12 @@ class TextArea extends React.Component {
   _handlePaste(e) {
     const item = e.clipboardData.items[0]
     if(item.kind === 'string') {
-      this._handleParse(e.clipboardData.getData('Text'))
-      const value = this.input.value + e.clipboardData.getData('Text')
+      const text = e.clipboardData.getData('Text')
+      this._handleParse(text)
     }
     if(item.kind === 'file') {
       const file = e.clipboardData.items[0].getAsFile()
-      this.props.onAddFile(file)
+      this.resumable.addFile(file)
     }
   }
 
@@ -181,7 +216,6 @@ class TextArea extends React.Component {
     }))
     if(urls.length === 0) return
     const url = urls[0]
-    console.log(url)
     if(url.startsWith(process.env.WEB_HOST)) return
     this._handleFetchLink(url)
   }

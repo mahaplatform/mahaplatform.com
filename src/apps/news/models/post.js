@@ -24,6 +24,10 @@ const Post = new Model({
     return this.hasMany(Like, 'post_id')
   },
 
+  target_user() {
+    return this.belongsTo(User, 'target_user_id')
+  },
+
   user() {
     return this.belongsTo(User, 'user_id')
   }

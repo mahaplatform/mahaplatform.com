@@ -21,7 +21,6 @@ class Camera extends React.Component {
   }
 
   button = null
-  files = {}
   input = null
   resumable = null
 
@@ -74,7 +73,6 @@ class Camera extends React.Component {
     const response = JSON.parse(message)
     const asset = response.data
     this.resumable.removeFile(file)
-    this.files[asset.id] = file
     this.props.onUpdateAsset(file.uniqueIdentifier, asset)
   }
 
