@@ -8,6 +8,7 @@ const listRoute = async (req, res) => {
       qb.where('commentable_type', req.params.commentable_type)
       qb.where('commentable_id', req.params.commentable_id)
       qb.where('team_id', req.team.get('id'))
+      qb.whereNull('deleted_at')
       qb.orderBy('created_at', 'asc')
     },
     page: req.query.$page,

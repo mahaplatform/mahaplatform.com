@@ -1,5 +1,6 @@
 import socket from '../../../../../core/services/routes/emitter'
 import Comment from '../../../models/comment'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -9,7 +10,9 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await comment.destroy({
+  await comment.save({
+    deleted_at: moment()
+  }, {
     transacting: req.trx
   })
 

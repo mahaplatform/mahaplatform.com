@@ -1351,6 +1351,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('quoted_comment_id').unsigned()
       table.integer('link_id').unsigned()
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('maha_device_values', (table) => {
@@ -1932,6 +1933,7 @@ const schema = {
       table.integer('group_id').unsigned()
       table.timestamp('deleted_at')
       table.integer('target_user_id').unsigned()
+      table.integer('link_id').unsigned()
     })
 
     await knex.schema.createTable('platform_settings', (table) => {
@@ -3027,6 +3029,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
       table.foreign('target_user_id').references('maha_users.id')
+      table.foreign('link_id').references('maha_links.id')
     })
 
     await knex.schema.table('sites_emails', table => {

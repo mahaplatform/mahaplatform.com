@@ -22,7 +22,7 @@ class Article extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { image_url, title, text, service_icon, service_name, url } = this.props
+    const { image_url, title, text, service_name, url } = this.props
     return (
       <div { ...this._getLink() }>
         { image_url &&
@@ -31,15 +31,14 @@ class Article extends React.Component {
           </div>
         }
         <div className="maha-link-details">
+          <div className="maha-link-service">
+            { service_name }
+          </div>
           <div className="maha-link-title">
             { title }
           </div>
           <div className="maha-link-text">
             { text }
-          </div>
-          <div className="maha-link-service">
-            { service_icon && <img src={ service_icon } />}
-            { service_name }
           </div>
         </div>
         <a href={ url } rel="noopener noreferrer" target="_blank" ref={ node => this.link = node } />
@@ -48,8 +47,9 @@ class Article extends React.Component {
   }
 
   _getLink() {
+    const { active } = this.props
     return {
-      className: 'maha-link-article',
+      className: active ? 'maha-link-article active' : 'maha-link-article',
       onClick: this._handleClick
     }
   }

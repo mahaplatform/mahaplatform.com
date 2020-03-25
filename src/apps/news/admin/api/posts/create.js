@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
   const post = await Post.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    ...whitelist(req.body, ['group_id','target_user_id','text'])
+    ...whitelist(req.body, ['group_id','target_user_id','link_id','text'])
   }).save(null, {
     transacting: req.trx
   })
@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
       })
     })
 
-    await post.load(['attachments.asset.source'], {
+    await post.load(['attachments.asset.source','link.service'], {
       transacting: req.trx
     })
 

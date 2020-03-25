@@ -1,8 +1,8 @@
-import { AssetIcon, Attachments, Avatar, Camera, Image, ImagePreview, Logo, ModalPanel } from 'maha-admin'
+import { Attachments, Avatar, Camera, ComposerEditor, Logo, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import TextArea from './textarea'
 import Scope from './scope'
 import React from 'react'
+import _ from 'lodash'
 
 class Form extends React.Component {
 
@@ -23,23 +23,27 @@ class Form extends React.Component {
   state = {
     attachments: [],
     group: null,
+    link: null,
     scope: 'newsfeed',
     text: '',
     user: null
   }
 
-  _handleAddAsset = this._handleAddAsset.bind(this)
   _handleAddAttachments = this._handleAddAttachments.bind(this)
+  _handleAddLink = this._handleAddLink.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
+  _handleAttachmentsDone = this._handleAttachmentsDone.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleRemoveAttachment = this._handleRemoveAttachment.bind(this)
+  _handleRemoveLink = this._handleRemoveLink.bind(this)
   _handleScope = this._handleScope.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
-  _handleUpdateAsset = this._handleUpdateAsset.bind(this)
+  _handleUpdateAttachment = this._handleUpdateAttachment.bind(this)
   _handleUpdateScope = this._handleUpdateScope.bind(this)
   _handleUpdateText = this._handleUpdateText.bind(this)
 
   render() {
-    const { attachments, group, scope, user } = this.state
+    const { group, scope, user } = this.state
     const { group_id, user_id } = this.props
     const { admin } = this.context
     return (
@@ -76,52 +80,15 @@ class Form extends React.Component {
           }
           <div className="news-form-header">
             <div className="news-form-header-avatar">
-              <Avatar user={ admin.user } />
+              <Avatar user={ admin.user } presence={ false } />
             </div>
             <div className="news-form-header-label">
               { admin.user.full_name }
             </div>
           </div>
           <div className="news-form-body">
-            <TextArea { ...this._getTextarea() } />
+            <ComposerEditor { ...this._getComposerEditor() } />
           </div>
-          { attachments.length > 0 &&
-            <div className="news-form-attachments">
-              { attachments.map((asset, index) => (
-                <div className="news-form-attachment" key={ `attachment_${index}` }>
-                  { asset.file ?
-                    <div className="news-form-attachment-item">
-                      <ImagePreview image={ asset.file } cover={ true } />
-                      <div><i className="fa fa-fw fa-circle-o-notch fa-spin" /></div>
-                    </div> :
-                    <div className="news-form-attachment-item">
-                      { asset.content_type.match(/image/) !== null ?
-                        <div className="news-form-attachment-image">
-                          <Image src={ asset.path } transforms={{ fit: 'cover', w: 100, h: 100 }} />
-                        </div> :
-                        <div className="news-form-attachment-file">
-                          <div className="news-form-attachment-file-detail">
-                            <AssetIcon { ...asset } />
-                            <div className="news-form-attachment-file-name">
-                              { asset.file_name}
-                            </div>
-                          </div>
-                        </div>
-                      }
-                    </div>
-                  }
-                  <div className="news-form-attachment-remove" onClick={ this._handleRemoveAttachment.bind(this, index) }>
-                    <i className="fa fa-fw fa-times" />
-                  </div>
-                </div>
-              ))}
-              <div className="news-form-attachment">
-                <div className="news-form-attachment-add" onClick={ this._handleAttachments }>
-                  <i className="fa fa-fw fa-plus" />
-                </div>
-              </div>
-            </div>
-          }
           <div className="news-form-footer">
             <div className="news-form-footer-item" onClick={ this._handleAttachments }>
               <i className="fa fa-plus" />
@@ -142,21 +109,33 @@ class Form extends React.Component {
       multiple: true,
       prompt: 'Upload File(s)',
       onCancel: onPop,
-      onDone: this._handleAddAttachments
+      onDone: this._handleAttachmentsDone
+    }
+  }
+
+  _getComposerEditor() {
+    const { attachments, link, text } = this.state
+    return {
+      attachments,
+      link,
+      placeholder: 'What\'s on your mind?',
+      submitOnEnter: false,
+      text,
+      onAddAttachments: this._handleAddAttachments,
+      onAddLink: this._handleAddLink,
+      onRemoveAttachment: this._handleRemoveAttachment,
+      onRemoveLink: this._handleRemoveLink,
+      onSubmit: this._handleSubmit,
+      onUpdateAttachment: this._handleUpdateAttachment,
+      onUpdateText: this._handleUpdateText
     }
   }
 
   _getCamera() {
     return {
       icon: 'camera',
-      onAddAsset: this._handleAddAsset,
-      onUpdateAsset: this._handleUpdateAsset
-    }
-  }
-
-  _getEmojis() {
-    return {
-      onChoose: this._handleInsertEmoji
+      onAddAsset: this._handleAddAttachments,
+      onUpdateAsset: this._handleUpdateAttachment
     }
   }
 
@@ -181,42 +160,46 @@ class Form extends React.Component {
     }
   }
 
-  _getTextarea() {
-    const { text } = this.state
-    return {
-      placeholder: 'What\'s on your mind?',
-      value: text,
-      onChange: this._handleUpdateText,
-      onAddAsset: this._handleAddAsset,
-      onUpdateAsset: this._handleUpdateAsset
-    }
-  }
-
-  _handleAddAsset(file) {
+  _handleAddAttachments(attachments) {
     this.setState({
       attachments: [
         ...this.state.attachments,
-        file
+        ..._.castArray(attachments)
       ]
     })
   }
 
-  _handleAddAttachments(assets) {
-    this.setState({
-      attachments: [
-        ...this.state.attachments,
-        ...assets
-      ]
-    })
-    this.props.onPop()
+  _handleAddLink(link) {
+    this.setState({ link })
   }
 
   _handleAttachments() {
     this.props.onPush(Attachments, this._getAttachments())
   }
 
+  _handleAttachmentsDone(attachments) {
+    this._handleAddAttachments(attachments)
+    this.props.onPop()
+  }
+
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleRemoveAttachment(index) {
+    this.setState({
+      attachments: [
+        ...this.state.attachments.filter((attachment, i) => {
+          return i !== index
+        })
+      ]
+    })
+  }
+
+  _handleRemoveLink() {
+    this.setState({
+      link: null
+    })
   }
 
   _handleScope() {
@@ -224,30 +207,23 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { attachments, group, text, user } = this.state
+    const { attachments, group, link, text, user } = this.state
     const asset_ids = attachments.map(attachment => attachment.id)
+    const link_id = link ? link.id : null
     const group_id = this.props.group_id || (group ? group.id : null)
     const target_user_id = this.props.user_id || (user ? user.id : null)
-    this.props.onSave({ asset_ids, group_id, target_user_id, text })
+    this.props.onSave({ asset_ids, link_id, group_id, target_user_id, text })
   }
 
-  _handleRemoveAttachment(index) {
-    const { attachments } = this.state
-    this.setState({
-      attachments: [
-        ...attachments.filter((attachment, i) => {
-          return i !== index
-        })
-      ]
-    })
-  }
-
-  _handleUpdateAsset(uniqueIdentifier, asset) {
+  _handleUpdateAttachment(uniqueIdentifier, asset) {
     this.setState({
       attachments: [
         ...this.state.attachments.map(attachment => {
           const { file } = attachment
-          return (file && file.uniqueIdentifier === uniqueIdentifier) ? asset : attachment
+          return (file && file.uniqueIdentifier === uniqueIdentifier) ? {
+            file: attachment.file,
+            ...asset
+          } : attachment
         })
       ]
     })

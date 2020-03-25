@@ -1,4 +1,4 @@
-import { Attachment, Avatar, Comments, Gallery, Timestamp } from 'maha-admin'
+import { Attachment, Avatar, Comments, Link, Gallery, Timestamp } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Likes from './likes'
 import React from 'react'
@@ -19,6 +19,7 @@ class Post extends React.PureComponent {
     group: PropTypes.object,
     id: PropTypes.number,
     liker_ids: PropTypes.array,
+    link: PropTypes.object,
     target_user: PropTypes.object,
     text: PropTypes.string,
     user: PropTypes.object
@@ -28,7 +29,7 @@ class Post extends React.PureComponent {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { attachments, comments, created_at, group, id, target_user, text, user } = this.props
+    const { attachments, comments, created_at, group, id, link, target_user, text, user } = this.props
     const { admin } = this.context
     const images = attachments.filter(attachment => attachment.asset.content_type.match(/image/))
     const files = attachments.filter(attachment => !attachment.asset.content_type.match(/image/))
@@ -71,10 +72,13 @@ class Post extends React.PureComponent {
         { text.length > 0 &&
           <Text text={ text }/>
         }
-        { images.length > 0 &&
-          <div className="news-post-body">
-            <Gallery { ...this._getGallery(images) } />
+        { link &&
+          <div className="news-post-link">
+            <Link link={ link } />
           </div>
+        }
+        { images.length > 0 &&
+          <Gallery { ...this._getGallery(images) } />
         }
         { files.length > 0 &&
           <div className="news-post-files">

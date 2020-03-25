@@ -16,6 +16,7 @@ class Editor extends React.Component {
     link: PropTypes.object,
     placeholder: PropTypes.string,
     quoted: PropTypes.object,
+    submitOnEnter: PropTypes.bool,
     text: PropTypes.string,
     onAddAttachments: PropTypes.func,
     onAddLink: PropTypes.func,
@@ -30,7 +31,8 @@ class Editor extends React.Component {
     attachments: [],
     link: null,
     placeholder: 'Enter text',
-    quoted: null
+    quoted: null,
+    submitOnEnter: true
   }
 
   _handleFileAdded = this._handleFileAdded.bind(this)
@@ -69,7 +71,7 @@ class Editor extends React.Component {
   }
 
   _getComposerTextArea() {
-    const { attachments, link, placeholder, quoted, onAddAttachments } = this.props
+    const { attachments, link, placeholder, quoted, submitOnEnter, onAddAttachments } = this.props
     const { onAddLink, onRemoveLink, onSubmit, onUpdateAttachment, onUpdateText } = this.props
     return {
       attachments,
@@ -77,6 +79,7 @@ class Editor extends React.Component {
       quoted,
       placeholder,
       reference: node => this.textarea = node,
+      submitOnEnter,
       onAddAttachments,
       onAddLink,
       onChange: onUpdateText,

@@ -93,7 +93,6 @@ class Feed extends React.PureComponent {
 
   _getInfinte() {
     const { cacheKey, group_id, user_id } = this.state
-    console.log('endpoint', group_id, user_id, this._getEndpoint())
     const empty = (
       <div className="news-posts">
         <Trigger group_id={ group_id } />

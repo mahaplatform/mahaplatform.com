@@ -1,6 +1,7 @@
 import Attachment from '../../maha/models/attachment'
 import Model from '../../../core/objects/model'
 import User from '../../maha/models/user'
+import Link from '../../maha/models/link'
 import Group from './group'
 import Like from './like'
 
@@ -22,6 +23,10 @@ const Post = new Model({
 
   likes() {
     return this.hasMany(Like, 'post_id')
+  },
+
+  link() {
+    return this.belongsTo(Link, 'link_id')
   },
 
   target_user() {

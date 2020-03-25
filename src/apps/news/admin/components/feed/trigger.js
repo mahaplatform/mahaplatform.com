@@ -21,7 +21,7 @@ class Posts extends React.PureComponent {
     return (
       <div className="news-form-trigger">
         <div className="news-form-trigger-avatar">
-          <Avatar user={ admin.user } />
+          <Avatar user={ admin.user } presence={ false } />
         </div>
         <div className="news-form-trigger-label">
           <div className="news-form-trigger-placeholder" onClick={ this._handleNew }>

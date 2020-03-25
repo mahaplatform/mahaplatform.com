@@ -19,6 +19,7 @@ class TextArea extends React.Component {
     placeholder: PropTypes.string,
     quoted: PropTypes.object,
     reference: PropTypes.func,
+    submitOnEnter: PropTypes.bool,
     value: PropTypes.string,
     onAddAttachments: PropTypes.func,
     onAddLink: PropTypes.func,
@@ -182,7 +183,8 @@ class TextArea extends React.Component {
   }
 
   _handleKeyDown(e) {
-    if(!(e.keyCode === 13 && e.shiftKey === false)) return
+    const { submitOnEnter } = this.props
+    if(!submitOnEnter || !(e.keyCode === 13 && e.shiftKey === false)) return
     e.preventDefault()
     this.props.onEnter()
   }

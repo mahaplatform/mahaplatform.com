@@ -18,18 +18,8 @@
 }
 
 .news-form-body {
-  display: flex;
   flex: 1;
-  textarea {
-    flex: 1;
-    border: none;
-    color: fadeout(@black, 40);
-    padding: 0.8em;
-    line-height: 1.6em;
-    &:focus {
-      outline: none;
-    }
-  }
+  .scrollable();
 }
 .news-form-avatar {
   flex: 0 0 4.5em;

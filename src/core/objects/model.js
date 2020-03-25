@@ -52,7 +52,9 @@ class Model {
 
       comments: function() {
         const Comment = require('../../apps/maha/models/comment').default
-        return this.morphMany(Comment, 'commentable')
+        return this.morphMany(Comment, 'commentable').query(qb => {
+          qb.whereNull('deleted_at')
+        })
       },
 
       reactions: function() {
