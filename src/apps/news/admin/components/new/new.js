@@ -15,6 +15,7 @@ class New extends React.Component {
     group_id: PropTypes.number,
     status: PropTypes.string,
     text: PropTypes.string,
+    user_id: PropTypes.number,
     onSave: PropTypes.func
   }
 

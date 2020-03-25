@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import New from '../new'
 
-class Posts extends React.PureComponent {
+class Trigger extends React.PureComponent {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -11,7 +11,8 @@ class Posts extends React.PureComponent {
   }
 
   static propTypes = {
-    group_id: PropTypes.number
+    group_id: PropTypes.number,
+    user_id: PropTypes.number
   }
 
   _handleNew = this._handleNew.bind(this)
@@ -34,7 +35,8 @@ class Posts extends React.PureComponent {
 
   _handleNew() {
     const { group_id } = this.props
-    this.context.modal.open(<New group_id={ group_id }/>, {
+    const { user_id } = this.props
+    this.context.modal.open(<New group_id={ group_id } user_id={ user_id } />, {
       width: 500,
       height: 500
     })
@@ -42,4 +44,5 @@ class Posts extends React.PureComponent {
 
 }
 
-export default Posts
+
+export default Trigger

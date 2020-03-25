@@ -27,6 +27,7 @@ class Post extends React.PureComponent {
 
   _handleGroup = this._handleGroup.bind(this)
   _handleTasks = this._handleTasks.bind(this)
+  _handleUser = this._handleUser.bind(this)
 
   render() {
     const { attachments, comments, created_at, group, id, link, target_user, text, user } = this.props
@@ -53,7 +54,7 @@ class Post extends React.PureComponent {
               { target_user &&
                 <span>
                   <i className="fa fa-caret-right" />
-                  <span className="news-post-header-group" onClick={ this._handleGroup }>
+                  <span className="news-post-header-group" onClick={ this._handleUser }>
                     { target_user.full_name }
                   </span>
                 </span>
@@ -121,6 +122,11 @@ class Post extends React.PureComponent {
   _handleGroup() {
     const { group } = this.props
     this.context.router.history.replace(`/admin/news/groups/${group.id}`)
+  }
+
+  _handleUser() {
+    const { target_user } = this.props
+    this.context.router.history.replace(`/admin/news/users/${target_user.id}`)
   }
 
   _handleTasks() {

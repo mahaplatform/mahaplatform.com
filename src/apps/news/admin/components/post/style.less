@@ -1,19 +1,7 @@
-.news-post {
-  transition: background-color 0.5s ease;
-  &.expanded-enter {
-    background-color: fadeout(@yellow, 90);
-  }
-  &.expanded-enter.expanded-enter-active {
-    background-color: @white;
-  }
-  .maha-gallery {
-    padding-bottom: 0;
-  }
-}
 .news-post-wrapper {
   padding: 0.8em;
   flex: 1;
-  .scrollable;
+  .scrollable();
   .news-post {
     margin-bottom: 0;
   }

@@ -4,7 +4,7 @@ import Results from './results'
 import React from 'react'
 import New from './new'
 
-class Groups extends React.PureComponent {
+class Feeds extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object
@@ -13,6 +13,7 @@ class Groups extends React.PureComponent {
   static propTypes = {
     group_id: PropTypes.number,
     records: PropTypes.array,
+    user_id: PropTypes.number,
     onChoose: PropTypes.func
   }
 
@@ -30,7 +31,7 @@ class Groups extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Groups',
+      title: 'Feeds',
       color: 'blue',
       rightItems: [
         { icon: 'plus', handler: this._handleAdd }
@@ -39,13 +40,14 @@ class Groups extends React.PureComponent {
   }
 
   _getInfinite() {
-    const { group_id, onChoose } = this.props
+    const { group_id, user_id, onChoose } = this.props
     return {
       endpoint: '/api/admin/news/groups',
       layout: Results,
       refresh: '/admin/news/groups',
       props: {
         group_id,
+        user_id,
         onChoose
       }
     }
@@ -57,4 +59,4 @@ class Groups extends React.PureComponent {
 
 }
 
-export default Groups
+export default Feeds

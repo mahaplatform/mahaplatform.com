@@ -12,6 +12,7 @@ class Results extends React.PureComponent {
 
   static propTypes = {
     group_id: PropTypes.number,
+    user_id: PropTypes.number,
     records: PropTypes.array,
     onChoose: PropTypes.func
   }
@@ -21,7 +22,7 @@ class Results extends React.PureComponent {
     const { records } = this.props
     return (
       <div className="news-feed-groups-results">
-        <div className={ this._getClass(null) } onClick={ this._handleGroup.bind(this, null) }>
+        <div className={ this._getClass({}) } onClick={ this._handleGroup.bind(this, null) }>
           <div className="news-feed-group-icon">
             <i className="fa fa-fw fa-globe" />
           </div>
@@ -29,7 +30,7 @@ class Results extends React.PureComponent {
             News Feed
           </div>
         </div>
-        <div className={ this._getClass(null) } onClick={ this._handleUser.bind(this, admin.user.id) }>
+        <div className={ this._getClass({ user_id: admin.user.id }) } onClick={ this._handleUser.bind(this, admin.user.id) }>
           <div className="news-feed-group-icon">
             <Avatar user={ admin.user } presence={ false } />
           </div>
@@ -38,7 +39,7 @@ class Results extends React.PureComponent {
           </div>
         </div>
         { records.map((group, index) => (
-          <div className={ this._getClass(group.id) } key={`group_${index}`} onClick={ this._handleGroup.bind(this, group.id) }>
+          <div className={ this._getClass({ group_id: group.id }) } key={`group_${index}`} onClick={ this._handleGroup.bind(this, group.id) }>
             <div className="news-feed-group-icon">
               <Logo team={ group } width="28" />
             </div>
@@ -57,9 +58,11 @@ class Results extends React.PureComponent {
     )
   }
 
-  _getClass(group_id) {
+  _getClass({ group_id, user_id }) {
     const classes = ['news-feed-group']
-    if(group_id === this.props.group_id) classes.push('selected')
+    if(this.props.group_id && group_id === this.props.group_id) classes.push('selected')
+    if(this.props.user_id && user_id === this.props.user_id) classes.push('selected')
+    if(!this.props.user_id && !this.props.group_id && !user_id && !group_id) classes.push('selected')
     return classes.join(' ')
   }
 

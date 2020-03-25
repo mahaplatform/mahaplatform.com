@@ -2,7 +2,7 @@ import { Button, Infinite } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Trigger from './trigger'
-import Groups from './groups'
+import Feeds from './feeds'
 import Posts from './posts'
 import React from 'react'
 import _ from 'lodash'
@@ -29,7 +29,7 @@ class Feed extends React.PureComponent {
 
   _handleChoose = this._handleChoose.bind(this)
   _handleReload = this._handleReload.bind(this)
-  _handleToggleGroups = this._handleToggleGroups.bind(this)
+  _handleToggleFeeds = this._handleToggleFeeds.bind(this)
 
   render() {
     return (
@@ -43,7 +43,7 @@ class Feed extends React.PureComponent {
           </div>
         </div>
         <div className="news-feed-sidebar">
-          <Groups { ...this._getGroups() } />
+          <Feeds { ...this._getFeeds() } />
         </div>
       </div>
     )
@@ -63,9 +63,9 @@ class Feed extends React.PureComponent {
 
   _getButton() {
     return {
-      label: 'change group',
+      label: 'change feed',
       className: 'link',
-      handler: this._handleToggleGroups
+      handler: this._handleToggleFeeds
     }
   }
 
@@ -83,10 +83,11 @@ class Feed extends React.PureComponent {
     return '/api/admin/news/posts'
   }
 
-  _getGroups() {
-    const { group_id } = this.state
+  _getFeeds() {
+    const { group_id, user_id } = this.state
     return {
       group_id,
+      user_id,
       onChoose: this._handleChoose
     }
   }
@@ -95,7 +96,7 @@ class Feed extends React.PureComponent {
     const { cacheKey, group_id, user_id } = this.state
     const empty = (
       <div className="news-posts">
-        <Trigger group_id={ group_id } />
+        <Trigger group_id={ group_id } user_id={ user_id } />
       </div>
     )
     return {
@@ -142,7 +143,7 @@ class Feed extends React.PureComponent {
     })
   }
 
-  _handleToggleGroups() {
+  _handleToggleFeeds() {
     const { open } = this.state
     this.setState({
       open: !open
