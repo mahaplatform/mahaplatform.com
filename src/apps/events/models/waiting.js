@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Contact from '../../crm/models/contact'
 import Event from './event'
 
 const Waiting = new Model({
@@ -8,6 +9,10 @@ const Waiting = new Model({
   rules: {},
 
   virtuals: {},
+
+  contact() {
+    return this.belongsTo(Contact, 'contact_id')
+  },
 
   event() {
     return this.belongsTo(Event, 'event_id')

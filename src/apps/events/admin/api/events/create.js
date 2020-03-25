@@ -2,6 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import EventSerializer from '../../../serializers/event_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Event from '../../../models/event'
 
@@ -17,6 +18,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: event
   })
 
   await activity(req, {

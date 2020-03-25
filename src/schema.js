@@ -857,6 +857,7 @@ const schema = {
       table.integer('num_tickets')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('event_id').unsigned()
     })
 
     await knex.schema.createTable('finance_accounts', (table) => {
@@ -2577,6 +2578,7 @@ const schema = {
     await knex.schema.table('events_waitings', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('event_id').references('events_events.id')
     })
 
     await knex.schema.table('finance_accounts', table => {

@@ -9,13 +9,15 @@
   cursor: pointer;
   display: flex;
   flex: 1;
-  &:hover {
-    color: fadeout(@black, 40);
+  &:hover .fa {
+    background-color: fadeout(@yellow, 40);
+    color: fadeout(@black, 30);
   }
   .fa {
     font-size: 1.4em;
     line-height: 1em;
     margin: 0 auto;
+    border-radius: 50%;
     color: fadeout(@black, 60);
   }
 }

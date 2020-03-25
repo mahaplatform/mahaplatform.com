@@ -9,14 +9,18 @@
   flex: 1;
   display: flex;
   cursor: pointer;
-  .fa {
-    margin: auto;
+  &:hover .fa {
+    background-color: fadeout(@yellow, 40);
+    color: fadeout(@black, 30);
   }
-  &:hover {
-    color: @blue;
-    .fa {
-      color: @blue;
-    }
+  .fa {
+    font-size: 1em;
+    line-height: 1em;
+    width: 1em;
+    height: 1em;
+    margin: 0 auto;
+    border-radius: 50%;
+    color: fadeout(@black, 60);
   }
 }
 .maha-reaction-add-items {

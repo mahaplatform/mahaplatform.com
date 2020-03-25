@@ -1,5 +1,6 @@
 .maha-composer {
   border: 1px solid fadeout(@black, 90);
+  background-color: @white;
   border-radius: 0.5em;
   display: flex;
   padding: 0;
@@ -22,6 +23,11 @@
 }
 .maha-composer-input {
   flex: 1;
+}
+.maha-composer-camera {
+  &:hover .fa {
+    color: @red;
+  }
 }
 .maha-composer-editor {
   background-color: @white;

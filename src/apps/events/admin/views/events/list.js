@@ -19,7 +19,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Create Event', modal: New }
       ]
     },
-    entity: 'event'
+    entity: 'event',
+    onClick: (record) => context.router.history.push(`/admin/events/events/${record.id}`)
   },
   task: {
     icon: 'plus',
