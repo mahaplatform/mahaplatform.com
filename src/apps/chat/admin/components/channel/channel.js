@@ -1,5 +1,4 @@
 import { CSSTransition } from 'react-transition-group'
-import { connect } from 'react-redux'
 import { Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Composer from './composer'
@@ -12,65 +11,50 @@ import _ from 'lodash'
 class Channel extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
+    admin: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
-    attachments: PropTypes.array,
     channel: PropTypes.object,
     messages: PropTypes.object,
     quoted_message: PropTypes.object,
     quoted_message_id: PropTypes.number,
     signpost: PropTypes.bool,
     status: PropTypes.string,
-    text: PropTypes.string,
     total: PropTypes.number,
     unsorted: PropTypes.array,
-    user: PropTypes.object,
-    onAddAttachments: PropTypes.func,
     onAddMessage: PropTypes.func,
     onAddQuotedMessage: PropTypes.func,
     onCreate: PropTypes.func,
     onEdit: PropTypes.func,
     onFetchAll: PropTypes.func,
     onFetch: PropTypes.func,
-    onRemoveAttachments: PropTypes.func,
-    onRemoveAttachment: PropTypes.func,
     onRemoveMessage: PropTypes.func,
     onRemoveQuotedMessage: PropTypes.func,
     onSetTyping: PropTypes.func,
     onShowMessage: PropTypes.func,
-    onShowSignpost: PropTypes.func,
-    onType: PropTypes.func,
-    onUpdateAttachment: PropTypes.func
+    onShowSignpost: PropTypes.func
   }
 
   body = null
   channel = null
 
-  _handleAddAttachments = this._handleAddAttachments.bind(this)
   _handleAddMessage = this._handleAddMessage.bind(this)
   _handleAddQuotedMessage = this._handleAddQuotedMessage.bind(this)
   _handleCreate = this._handleCreate.bind(this)
-  _handleGrow = this._handleGrow.bind(this)
   _handleHello = this._handleHello.bind(this)
-  _handleRemoveAttachment = this._handleRemoveAttachment.bind(this)
-  _handleRemoveAttachments = this._handleRemoveAttachments.bind(this)
   _handleRemoveMessage = this._handleRemoveMessage.bind(this)
   _handleRemoveQuotedMessage = this._handleRemoveQuotedMessage.bind(this)
   _handleScroll = _.throttle(this._handleScroll.bind(this), 100)
   _handleShowMessage = this._handleShowMessage.bind(this)
   _handleScrollToBottom = this._handleScrollToBottom.bind(this)
-  _handleType = _.debounce(this._handleType.bind(this), 250, { trailing: true })
   _handleTyping = _.debounce(this._handleTyping.bind(this), 250, { leading: true })
   _handleTypingMessage = this._handleTypingMessage.bind(this)
   _handleUpArrow = this._handleUpArrow.bind(this)
-  _handleUpdateAsset = this._handleUpdateAsset.bind(this)
-  _handleUpdateAttachment = this._handleUpdateAttachment.bind(this)
 
   render() {
-    const { user } = this.props
+    const { user } = this.context.admin
     const { channel, messages, signpost, status } = this.props
     if(status === 'loading') return <Loader />
     return (
@@ -121,12 +105,9 @@ class Channel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { channel, quoted_message_id, text, unsorted } = this.props
+    const { channel, quoted_message_id, unsorted } = this.props
     if(unsorted.length > prevProps.unsorted.length && prevProps.status !== 'appending') {
       setTimeout(this._handleScrollToBottom, 250)
-    }
-    if(text.length !== prevProps.text.length) {
-      this._handleTyping()
     }
     if(quoted_message_id !== prevProps.quoted_message_id) {
       this._handleScrollToBottom()
@@ -137,8 +118,7 @@ class Channel extends React.Component {
   }
 
   componentWillUnmount() {
-    const { text } = this.props
-    if(text.length > 0) this._handleTypingMessage('end_type_message')
+    this._handleTypingMessage('end_type_message')
     this._handleDisappear()
     this._handleLeave()
   }
@@ -191,21 +171,17 @@ class Channel extends React.Component {
 
   _handleHello({ channel_id, user }) {
     if(channel_id !== this.props.channel.id) return
-    if(user.id === this.props.user.id ) return
+    if(user.id === this.context.admin.user.id ) return
     this.context.network.emit('chat', {
       action: 'hello',
-      exclude: [this.props.user.id],
+      exclude: [this.context.admin.user.id],
       data: {
         channel_id: this.props.channel.id,
         user: {
-          id: this.props.user.id
+          id: this.context.admin.user.id
         }
       }
     })
-  }
-
-  _handleGrow() {
-    this._handleScrollToBottom()
   }
 
   _handleAddMessage(message) {
@@ -221,22 +197,10 @@ class Channel extends React.Component {
       data: {
         channel_id: this.props.channel.id,
         user: {
-          id: this.props.user.id
+          id: this.context.admin.user.id
         }
       }
     })
-  }
-
-  _handleAddAttachments(attachments) {
-    this.props.onAddAttachments(attachments)
-  }
-
-  _handleUpdateAsset(identifier, asset) {
-    this._handleUpdateAttachment(identifier, { asset })
-  }
-
-  _handleUpdateAttachment(identifier, attachment) {
-    this.props.onUpdateAttachment(identifier, attachment)
   }
 
   _handleDisappear() {
@@ -245,18 +209,18 @@ class Channel extends React.Component {
       data: {
         channel_id: this.props.channel.id,
         user: {
-          id: this.props.user.id
+          id: this.context.admin.user.id
         }
       }
     })
   }
 
   _handleCreate({ attachments, link, quoted, text }) {
-    const { user, onAddMessage, onCreate } = this.props
+    const { onAddMessage, onCreate } = this.props
+    const { user } = this.context.admin
     const { channel } = this.props
-    if(text.length === 0 && attachments.length === 0) return
     const message = {
-      uid: _.random(100000000, 999999999).toString(36),
+      code: _.random(100000000, 999999999).toString(36),
       text
     }
     onAddMessage({
@@ -277,19 +241,16 @@ class Channel extends React.Component {
     })
   }
 
-  _handleType(text) {
-    this.props.onType(text)
-  }
-
   _handleTyping() {
-    const { text } = this.props
-    const action = text.length > 0 ? 'begin_type_message' : 'end_type_message'
-    this._handleTypingMessage(action)
+    // const { text } = this.props
+    // const action = text.length > 0 ? 'begin_type_message' : 'end_type_message'
+    // this._handleTypingMessage(action)
   }
 
   _handleTypingMessage(action) {
+    const { user } = this.context.admin
     const { network } = this.context
-    const { channel, user } = this.props
+    const { channel } = this.props
     network.emit('chat', {
       action,
       data: {
@@ -323,14 +284,6 @@ class Channel extends React.Component {
     this.props.onRemoveQuotedMessage()
   }
 
-  _handleRemoveAttachment(index) {
-    this.props.onRemoveAttachment(index)
-  }
-
-  _handleRemoveAttachments() {
-    this.props.onRemoveAttachments()
-  }
-
   _handleRemoveMessage({ channel_id, code }) {
     const { channel } = this.props
     if(channel_id !== channel.id) return
@@ -348,8 +301,4 @@ class Channel extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  user: state.maha.admin.user
-})
-
-export default connect(mapStateToProps)(Channel)
+export default Channel

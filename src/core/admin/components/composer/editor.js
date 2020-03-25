@@ -71,7 +71,7 @@ class Editor extends React.Component {
   }
 
   _getComposerTextArea() {
-    const { attachments, link, placeholder, quoted, submitOnEnter, onAddAttachments } = this.props
+    const { attachments, link, placeholder, quoted, submitOnEnter, text, onAddAttachments } = this.props
     const { onAddLink, onRemoveLink, onSubmit, onUpdateAttachment, onUpdateText } = this.props
     return {
       attachments,
@@ -80,6 +80,7 @@ class Editor extends React.Component {
       placeholder,
       reference: node => this.textarea = node,
       submitOnEnter,
+      value: text,
       onAddAttachments,
       onAddLink,
       onChange: onUpdateText,

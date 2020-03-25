@@ -29,7 +29,8 @@ class Composer extends React.Component {
     attachments: [],
     link: null,
     placeholder: 'Enter text',
-    quoted: null
+    quoted: null,
+    text: ''
   }
 
   _handleAttachments = this._handleAttachments.bind(this)

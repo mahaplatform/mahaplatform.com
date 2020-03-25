@@ -13,6 +13,10 @@ class Video extends React.Component {
     service_name: PropTypes.string
   }
 
+  static defaultProps = {
+    active: true
+  }
+
   state = {
     playable: false
   }
@@ -20,7 +24,7 @@ class Video extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { image_url, title, text, service_name, service_icon } = this.props
+    const { active, image_url, title, text, service_name, service_icon } = this.props
     const { playable } = this.state
     return (
       <div className="maha-link-video">
@@ -30,7 +34,7 @@ class Video extends React.Component {
           </div> :
           <div className="maha-link-video-image" onClick={ this._handleClick }>
             <img src={ image_url} />
-            { service_name === 'www.youtube.com' && <div className="maha-link-video-play" /> }
+            { active && service_name === 'www.youtube.com' && <div className="maha-link-video-play" /> }
           </div>
         }
         <div className="maha-link-details">

@@ -191,7 +191,6 @@ class Comments extends React.Component {
 
   _handleCreate({ attachments, link, quoted, text }) {
     const { entity, user, onAdd, onCreate } = this.props
-    if(text.length === 0 && attachments.length === 0) return
     const comment = {
       uid: _.random(100000000, 999999999).toString(36),
       text

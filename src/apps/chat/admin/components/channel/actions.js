@@ -28,31 +28,6 @@ export const create = (channel_id, message) => ({
   failure: 'CREATE_FAILURE'
 })
 
-export const type = (text) => ({
-  type: 'TYPE',
-  text
-})
-
-export const addAttachments = (attachments) => ({
-  type: 'ADD_ATTACHMENTS',
-  attachments
-})
-
-export const removeAttachment = (index) => ({
-  type: 'REMOVE_ATTACHMENT',
-  index
-})
-
-export const removeAttachments = () => ({
-  type: 'REMOVE_ATTACHMENTS'
-})
-
-export const updateAttachment = (identifier, attachment) => ({
-  type: 'UPDATE_ATTACHMENT',
-  identifier,
-  attachment
-})
-
 export const addMessage = (message) => ({
   type: 'ADD_MESSAGE',
   message

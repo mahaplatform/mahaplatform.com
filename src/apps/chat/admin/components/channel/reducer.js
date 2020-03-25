@@ -2,12 +2,10 @@ import _ from 'lodash'
 
 export const INITIAL_STATE = {
   saving: null,
-  attachments: [],
   messages: [],
   quoted_message_id: null,
   signpost: false,
   status: 'pending',
-  text: '',
   total: 0
 }
 
@@ -76,12 +74,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       saving: null
     }
 
-  case 'TYPE':
-    return {
-      ...state,
-      text: action.text
-    }
-
   case 'ADD_MESSAGE':
     return {
       ...state,
@@ -101,47 +93,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       messages: [
         ...state.messages.filter(message => message.code !== action.code)
       ]
-    }
-
-  case 'ADD_ATTACHMENTS':
-    return {
-      ...state,
-      attachments: [
-        ...state.attachments,
-        ...action.attachments
-      ]
-    }
-
-  case 'UPDATE_ATTACHMENT':
-    return {
-      ...state,
-      attachments: [
-        ...state.attachments.map(attachment => {
-          if(attachment.asset.identifier !== action.identifier) return attachment
-          return {
-            ...attachment,
-            ...action.attachment,
-            asset: {
-              ...attachment.asset,
-              ...action.attachment.asset || {}
-            }
-          }
-        })
-      ]
-    }
-
-  case 'REMOVE_ATTACHMENT':
-    return {
-      ...state,
-      attachments: [
-        ...state.attachments.filter((attachment, index) => index !== action.index)
-      ]
-    }
-
-  case 'REMOVE_ATTACHMENTS':
-    return {
-      ...state,
-      attachments: []
     }
 
   case 'SHOW_SIGNPOST':

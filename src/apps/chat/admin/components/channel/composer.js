@@ -85,10 +85,20 @@ class MessageComposer extends React.Component {
     })
   }
 
+  _handleReset() {
+    this.setState({
+      attachments: [],
+      link: null,
+      text: ''
+    })
+  }
+
   _handleSubmit() {
     const { attachments, link, text } = this.state
     const { quoted } = this.props
+    if(!link && text.length === 0 && attachments.length === 0) return
     this.props.onSubmit({ attachments, link, quoted, text })
+    this._handleReset()
   }
 
   _handleUpdateAttachment(uniqueIdentifier, asset) {
