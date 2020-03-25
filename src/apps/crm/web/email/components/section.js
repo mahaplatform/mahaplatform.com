@@ -7,6 +7,7 @@ class Section extends React.Component {
 
   static propTypes = {
     active: PropTypes.object,
+    editable: PropTypes.bool,
     section: PropTypes.string,
     config: PropTypes.object,
     onAction: PropTypes.func
@@ -24,11 +25,11 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { section, config } = this.props
+    const { editable, config, section } = this.props
     const { blocks } = config
     return (
       <div { ...this._getDropZone() }>
-        { hovering &&
+        { editable && hovering &&
           <div className="dropzone-highlight" data-label={section} />
         }
         <table className={`section-${ section } section`}>
@@ -55,17 +56,20 @@ class Section extends React.Component {
   }
 
   _getBlock(config, blockIndex) {
-    const { section, active, onAction } = this.props
+    const { active, editable, section, onAction } = this.props
     return {
-      section,
       active,
       blockIndex,
       config,
+      section,
+      editable,
       onAction
     }
   }
 
   _getDropZone() {
+    const { editable } = this.props
+    if(!editable) return {}
     return {
       className: 'dropzone',
       onDragEnter: this._handleDrag.bind(this, 'enter'),

@@ -16,6 +16,7 @@ class Designer extends React.Component {
     components: PropTypes.object,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
+    editable: PropTypes.bool,
     endpoint: PropTypes.string,
     preview: PropTypes.bool,
     program_id: PropTypes.number,
@@ -33,10 +34,11 @@ class Designer extends React.Component {
   }
 
   static defaultProps = {
+    editable: true,
     preview: false
   }
   render() {
-    const { preview } = this.props
+    const { editable, preview } = this.props
     return (
       <div className="designer">
         <div className="designer-main">
@@ -47,9 +49,11 @@ class Designer extends React.Component {
             <Canvas { ...this._getCanvas() } />
           }
         </div>
-        <div className="designer-sidebar">
-          <Sidebar { ...this._getSidebar() } />
-        </div>
+        { editable &&
+          <div className="designer-sidebar">
+            <Sidebar { ...this._getSidebar() } />
+          </div>
+        }
       </div>
     )
   }
@@ -60,11 +64,12 @@ class Designer extends React.Component {
   }
 
   _getCanvas() {
-    const { active, canvas, config, onAdd, onClone, onEdit, onRemove } = this.props
+    const { active, canvas, config, editable, onAdd, onClone, onEdit, onRemove } = this.props
     return {
       active,
       canvas,
       config,
+      editable,
       onAdd,
       onClone,
       onEdit,

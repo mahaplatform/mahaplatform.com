@@ -11,6 +11,9 @@
   position: relative;
 }
 .maha-logo-wrapper {
+  &.background {
+    background-color: fadeout(@black, 40);
+  }
   border-radius: 0.5em;
   position: absolute;
   width: 100%;
@@ -19,7 +22,6 @@
   bottom: 0;
   left: 0;
   text-align: center;
-  background-color: fadeout(@black, 40);
   color: @white;
   font-family: monospace;
   display: flex;

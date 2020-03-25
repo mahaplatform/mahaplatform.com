@@ -2,12 +2,12 @@ import EmailDesigner from '../../../components/email_designer'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Designer extends React.Component {
 
   static propTypes = {
-    campaign: PropTypes.object,
-    fields: PropTypes.array
+    campaign: PropTypes.object
   }
 
   render() {
@@ -15,31 +15,19 @@ class Designer extends React.Component {
   }
 
   _getEmailDesigner() {
-    const { campaign, fields } = this.props
+    const { campaign } = this.props
     return {
       defaultValue: campaign.config,
+      editable: _.includes(['active','draft','inactive'], campaign.status),
       endpoint: `/api/admin/crm/campaigns/email/${campaign.id}`,
-      program_id: campaign.program.id,
-      tokens: [
-        { title: 'Contact Tokens', tokens: [
-          { name: 'Full Name', token: 'contact.full_name' },
-          { name: 'First Name', token: 'contact.first_name' },
-          { name: 'Last Name', token: 'contact.last_name' },
-          { name: 'Email', token: 'contact.email' }
-        ] },
-        { title: 'Email Tokens', tokens: [
-          { name: 'Preferences Link', token: 'email.preferences_link' },
-          { name: 'Web Link', token: 'email.web_link' }
-        ] }
-      ]
+      program: campaign.program
     }
   }
 
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/crm/campaigns/email/${props.params.email_id}`,
-  fields: '/api/admin/crm/fields'
+  campaign: `/api/admin/crm/campaigns/email/${props.params.email_id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

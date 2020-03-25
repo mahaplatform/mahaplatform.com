@@ -1,4 +1,5 @@
 import Preferences from './blocks/preferences'
+import { Container } from 'maha-admin'
 import Divider from './blocks/divider'
 import Button from './blocks/button'
 import Images from './blocks/images'
@@ -18,8 +19,11 @@ class EmailDesigner extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    editable: PropTypes.bool,
     endpoint: PropTypes.string,
-    program_id: PropTypes.number,
+    fields: PropTypes.array,
+    program: PropTypes.object,
+    programfields: PropTypes.array,
     tokens: PropTypes.array
   }
 
@@ -28,18 +32,19 @@ class EmailDesigner extends React.Component {
   }
 
   _getDesigner() {
-    const { defaultValue, endpoint, program_id, tokens } = this.props
+    const { defaultValue, editable, endpoint, program } = this.props
     return {
       title: 'Email',
       canvas: '/apps/crm/email/index.html',
+      editable,
       endpoint,
       preview: true,
       components: {
         page: Page,
         section: Section
       },
-      program_id,
-      tokens,
+      program_id: program.id,
+      tokens: this._getTokens(),
       blocks: [
         { label: 'Text', type: 'text', icon: 'align-justify', component: Text },
         { label: 'Divider', type: 'divider', icon: 'minus', component: Divider },
@@ -56,6 +61,31 @@ class EmailDesigner extends React.Component {
     }
   }
 
+  _getTokens() {
+    const { program, programfields, tokens } = this.props
+    return [
+      { title: 'Contact Tokens', tokens: [
+        { name: 'Full Name', token: 'contact.full_name' },
+        { name: 'First Name', token: 'contact.first_name' },
+        { name: 'Last Name', token: 'contact.last_name' },
+        { name: 'Email', token: 'contact.email' }
+      ] },
+      { title: 'Email Tokens', tokens: [
+        { name: 'Preferences Link', token: 'email.preferences_link' },
+        { name: 'Web Link', token: 'email.web_link' }
+      ] },
+      ...programfields.length > 0 ? [{ title: `${program.title} Tokens`, tokens: programfields.map(field => ({
+        name:   field.label,
+        token: `program.${field.name}`
+      }))}] : [],
+      ...tokens ? [tokens] : []
+    ]
+  }
+
 }
 
-export default EmailDesigner
+const mapResources = (props, context) => ({
+  programfields: `/api/admin/crm/programs/${props.program.id}/fields`
+})
+
+export default Container(mapResources)(EmailDesigner)

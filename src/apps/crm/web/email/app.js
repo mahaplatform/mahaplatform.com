@@ -18,7 +18,8 @@ class App extends React.Component {
       section: null,
       index: null
     },
-    config: null
+    config: null,
+    editable: true
   }
 
   _handleAction = this._handleAction.bind(this)
@@ -54,10 +55,11 @@ class App extends React.Component {
   }
 
   _getEmail() {
-    const { active, config } = this.state
+    const { active, config, editable } = this.state
     return {
       active,
       config,
+      editable,
       onAction: this._handleAction
     }
   }
@@ -75,8 +77,8 @@ class App extends React.Component {
     this.setState({ active })
   }
 
-  _handleUpdate({ config }) {
-    this.setState({ config })
+  _handleUpdate({ config, editable }) {
+    this.setState({ config, editable })
   }
 
 }

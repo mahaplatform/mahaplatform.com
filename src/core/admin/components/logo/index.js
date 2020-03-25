@@ -20,13 +20,20 @@ class Logo extends React.Component {
     return (
       <div className="maha-logo">
         <div className="maha-logo-badge">
-          <div className="maha-logo-wrapper">
+          <div className={this._getClass()}>
             { team.logo && <Image { ...this._getImage() } /> }
             { !team.logo && <div className="maha-logo-text">{ this._getInitials() }</div> }
           </div>
         </div>
       </div>
     )
+  }
+
+  _getClass() {
+    const { team } = this.props
+    const classes = ['maha-logo-wrapper']
+    if(!team.logo) classes.push('background')
+    return classes.join(' ')
   }
 
   _getImage() {

@@ -3022,10 +3022,10 @@ const schema = {
 
     await knex.schema.table('news_posts', table => {
       table.foreign('group_id').references('news_groups.id')
+      table.foreign('link_id').references('maha_links.id')
+      table.foreign('target_user_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('target_user_id').references('maha_users.id')
-      table.foreign('link_id').references('maha_links.id')
     })
 
     await knex.schema.table('sites_emails', table => {

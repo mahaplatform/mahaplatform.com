@@ -13,6 +13,7 @@ class Canvas extends React.Component {
     active: PropTypes.object,
     canvas: PropTypes.string,
     config: PropTypes.object,
+    editable: PropTypes.bool,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onClone: PropTypes.func,
@@ -75,8 +76,8 @@ class Canvas extends React.Component {
   }
 
   _handleRender() {
-    const { config } = this.props
-    this.pasteur.send('designer', 'update', { config })
+    const { config, editable } = this.props
+    this.pasteur.send('designer', 'update', { config, editable })
   }
 
   _handleAdd({ section, type, index }) {

@@ -7,6 +7,7 @@ class Email extends React.Component {
   static propTypes = {
     active: PropTypes.object,
     config: PropTypes.object,
+    editable: PropTypes.bool,
     children: PropTypes.any,
     onAction: PropTypes.func
   }
@@ -38,13 +39,14 @@ class Email extends React.Component {
   }
 
   _getSection(section) {
-    const { active, config, onAction } = this.props
+    const { active, config, editable, onAction } = this.props
     return {
       active,
       section,
       config: {
         blocks: config[section].blocks
       },
+      editable,
       onAction
     }
   }

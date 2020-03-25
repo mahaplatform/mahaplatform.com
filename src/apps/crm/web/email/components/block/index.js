@@ -17,12 +17,13 @@ class Block extends React.Component {
     active: PropTypes.object,
     blockIndex: PropTypes.number,
     config: PropTypes.object,
+    editable: PropTypes.bool,
     section: PropTypes.string,
     onAction: PropTypes.func
   }
 
   render() {
-    const { config, blockIndex } = this.props
+    const { blockIndex, config, editable } = this.props
     const Component  = this._getComponent()
     return (
       <div className={ this._getClass() }>
@@ -43,19 +44,23 @@ class Block extends React.Component {
             </tr>
           </tbody>
         </table>
-        <div className="block-highlight" />
-        <div className="block-actions">
-          <div className="block-spacer"></div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
-            <i className="fa fa-pencil"></i>
+        { editable &&
+          <div className="block-highlight" />
+        }
+        { editable &&
+          <div className="block-actions">
+            <div className="block-spacer"></div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
+              <i className="fa fa-pencil"></i>
+            </div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'clone') }>
+              <i className="fa fa-copy"></i>
+            </div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'remove') }>
+              <i className="fa fa-trash"></i>
+            </div>
           </div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'clone') }>
-            <i className="fa fa-copy"></i>
-          </div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'remove') }>
-            <i className="fa fa-trash"></i>
-          </div>
-        </div>
+        }
       </div>
     )
   }
