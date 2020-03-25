@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
   const vendor = await Vendor.forge({
     team_id: req.team.get('id'),
     integration: {},
-    ...whitelist(req.body, ['name','address_1','address_2','city','state','zip','integration'])
+    ...whitelist(req.body, ['name','address','integration'])
   }).save(null, {
     transacting: req.trx
   })

@@ -1227,14 +1227,10 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('name', 255)
-      table.string('address_1', 255)
-      table.string('address_2', 255)
-      table.string('city', 255)
-      table.string('state', 255)
-      table.string('zip', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('integration')
+      table.jsonb('address')
     })
 
     await knex.schema.createTable('maha_activities', (table) => {

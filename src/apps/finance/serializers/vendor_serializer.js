@@ -1,12 +1,7 @@
 const vendorSerializer = (req, result) => ({
   id: result.get('id'),
   name: result.get('name'),
-  full_address: result.get('full_address'),
-  address_1: result.get('address_1'),
-  address_2: result.get('address_2'),
-  city: result.get('city'),
-  state: result.get('state'),
-  zip: result.get('zip'),
+  address: result.get('address'),
   integration: result.get('integration'),
   items_count: result.get('items_count'),
   created_at: result.get('created_at'),

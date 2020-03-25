@@ -29,12 +29,8 @@ class VendorsNew extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield' },
-            { label: 'Address 1', name: 'address_1', type: 'textfield' },
-            { label: 'Address 2', name: 'address_2', type: 'textfield' },
-            { label: 'City', name: 'city', type: 'textfield' },
-            { label: 'State', name: 'state', type: 'textfield' },
-            { label: 'Zip', name: 'zip', type: 'textfield' }
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name' },
+            { label: 'Address', name: 'address', type: 'addressfield' }
           ]
         },
         ...this._getIntegration()
@@ -48,7 +44,7 @@ class VendorsNew extends React.Component {
         {
           label: 'ACCPAC Details',
           fields: [
-            { label: 'Vendor ID', name: 'integration.vendor_id', type: 'textfield', required: true }
+            { label: 'Vendor ID', name: 'integration.vendor_id', type: 'textfield', required: true, placeholder: 'Enter a vendor ID' }
           ]
         }
       ]

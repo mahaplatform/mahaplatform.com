@@ -18,7 +18,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load vendor'
   })
 
-  await vendor.save(whitelist(req.body, ['name','address_1','address_2','city','state','zip','integration']), {
+  await vendor.save(whitelist(req.body, ['name','address','integration']), {
     patch: true,
     transacting: req.trx
   })

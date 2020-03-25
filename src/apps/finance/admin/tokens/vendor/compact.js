@@ -9,8 +9,8 @@ const CompactVendorToken = ({ vendor }) => {
     <div className="compact-vendor-token">
       { vendor.integration && vendor.integration.vendor_id && `${ vendor.integration.vendor_id } - ` }
       { vendor.name }
-      { vendor.full_address &&
-        <span><br />{ vendor.full_address}</span>
+      { vendor.address &&
+        <span><br />{ vendor.address.description }</span>
       }
     </div>
   )
