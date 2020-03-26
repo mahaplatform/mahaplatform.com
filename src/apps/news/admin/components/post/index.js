@@ -92,10 +92,19 @@ class Post extends React.PureComponent {
         }
         <div className="news-post-footer">
           <Likes { ...this._getLikes() } />
-          <Comments entity={ `news_posts/${id}` } defaultValue={ comments }  />
+          <Comments { ...this._getComments() } />
         </div>
       </div>
     )
+  }
+
+  _getComments() {
+    const { comments, id } = this.props
+    return {
+      entity: `news_posts/${id}`,
+      defaultMode: 'collapsed',
+      defaultValue: comments
+    }
   }
 
   _getGallery(images) {

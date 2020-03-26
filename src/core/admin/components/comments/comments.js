@@ -20,6 +20,7 @@ class Comments extends React.Component {
     active: PropTypes.bool,
     comments: PropTypes.array,
     defaultValue: PropTypes.array,
+    defaultMode: PropTypes.string,
     editing: PropTypes.bool,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
@@ -47,17 +48,23 @@ class Comments extends React.Component {
     placeholder: 'Write a comment...'
   }
 
+  state = {
+    mode: 'expanded'
+  }
+
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
   _handleBeginType = this._handleBeginType.bind(this)
   _handleEndType = this._handleEndType.bind(this)
   _handleQuoteComment = this._handleQuoteComment.bind(this)
   _handleRemove = this._handleRemove.bind(this)
+  _handleShow = this._handleShow.bind(this)
   _handleShowMore = this._handleShowMore.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
     const { active, comments, editing, hidden, status, typing } = this.props
+    const { mode } = this.state
     if(status === 'loading') {
       return (
         <div className="maha-comments message">
@@ -83,11 +90,20 @@ class Comments extends React.Component {
             </div>
           </div>
         }
-        <div className="maha-comments-body">
-          { comments.map((comment, index) => (
-            <Comment { ...this._getComment(comment) } key={`comment_${comment.id}`} />
-          ))}
-        </div>
+        { mode === 'collapsed' && comments.length > 0 &&
+          <div className="maha-comments-show">
+            <span onClick={ this._handleShow }>
+              View { pluralize('comment', comments.length, true) }
+            </span>
+          </div>
+        }
+        { mode === 'expanded' && comments.length > 0 &&
+          <div className="maha-comments-body">
+            { comments.map((comment, index) => (
+              <Comment { ...this._getComment(comment) } key={`comment_${comment.id}`} />
+            ))}
+          </div>
+        }
         <div className="maha-comments-footer">
           { typing &&
             <div className="maha-comment">
@@ -110,19 +126,11 @@ class Comments extends React.Component {
   }
 
   componentDidMount() {
-    const { network } = this.context
-    const { defaultValue, entity, onFetch, onSet } = this.props
-    const target = `/admin/${entity}/comments`
-    network.join(target)
-    network.subscribe([
-      { target, action: 'add_comment', handler: this._handleAdd },
-      { target, action: 'begin_type_comment', handler: this._handleBeginType },
-      { target, action: 'end_type_comment', handler: this._handleEndType },
-      { target, action: 'remove_comment', handler: this._handleRemove }
-    ])
+    const { defaultValue, defaultMode, onSet } = this.props
+    this._handleJoin()
+    if(defaultMode) this.setState({ mode: defaultMode })
     if(defaultValue) return onSet(defaultValue)
-    const endpoint = `/api/admin/${entity}/comments`
-    onFetch(endpoint)
+    this._handleFetch()
   }
 
   componentDidUpdate(prevProps) {
@@ -137,17 +145,7 @@ class Comments extends React.Component {
   }
 
   componentWillUnmount() {
-    const { entity } = this.props
-    const { network } = this.context
-    const target = `/admin/${entity}/comments`
-    network.leave(target)
-    network.unsubscribe([
-      { target, action: 'add_comment', handler: this._handleAdd },
-      { target, action: 'begin_type_comment', handler: this._handleBeginType },
-      { target, action: 'end_type_comment', handler: this._handleEndType },
-      { target, action: 'remove_comment', handler: this._handleRemove }
-
-    ])
+    this._handleLeave()
   }
 
   _getComment(comment) {
@@ -175,18 +173,20 @@ class Comments extends React.Component {
     }
   }
 
-  _handleShowMore() {
-    this.props.onShowMore()
+  _handleAdd(data) {
+    const { onAdd } = this.props
+    onAdd(data.comment)
+  }
+
+  _handleBeginType(data) {
+    const { user, onSetTyping } = this.props
+    if(user.id !== data.user.id) onSetTyping(data.user)
   }
 
   _handleClick() {
     const { editing } = this.props
     if(editing) return this._handleUpdate(this.props.q)
     this._handleCreate(this.props.q)
-  }
-
-  _handleType(text) {
-    this.props.onType(text)
   }
 
   _handleCreate({ attachments, link, quoted, text }) {
@@ -211,28 +211,65 @@ class Comments extends React.Component {
       link_id: link ? link.id : null,
       quoted_comment_id: quoted ? quoted.id : null
     })
-  }
-
-  _handleAdd(data) {
-    const { onAdd } = this.props
-    onAdd(data.comment)
-  }
-
-  _handleBeginType(data) {
-    const { user, onSetTyping } = this.props
-    if(user.id !== data.user.id) onSetTyping(data.user)
+    this._handleShow()
   }
 
   _handleEndType(data) {
     this.props.onSetTyping(null)
   }
 
-  _handleRemove({ uid }) {
-    this.props.onRemove(uid)
+  _handleFetch() {
+    const { entity, onFetch } = this.props
+    const endpoint = `/api/admin/${entity}/comments`
+    onFetch(endpoint)
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const { entity } = this.props
+    const target = `/admin/${entity}/comments`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'add_comment', handler: this._handleAdd },
+      { target, action: 'begin_type_comment', handler: this._handleBeginType },
+      { target, action: 'end_type_comment', handler: this._handleEndType },
+      { target, action: 'remove_comment', handler: this._handleRemove }
+    ])
+  }
+
+  _handleLeave() {
+    const { entity } = this.props
+    const { network } = this.context
+    const target = `/admin/${entity}/comments`
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'add_comment', handler: this._handleAdd },
+      { target, action: 'begin_type_comment', handler: this._handleBeginType },
+      { target, action: 'end_type_comment', handler: this._handleEndType },
+      { target, action: 'remove_comment', handler: this._handleRemove }
+    ])
   }
 
   _handleQuoteComment(id) {
     this.props.onQuoteComment(id)
+  }
+
+  _handleRemove({ uid }) {
+    this.props.onRemove(uid)
+  }
+
+  _handleShow() {
+    this.setState({
+      mode: 'expanded'
+    })
+  }
+
+  _handleShowMore() {
+    this.props.onShowMore()
+  }
+
+  _handleType(text) {
+    this.props.onType(text)
   }
 
 }
