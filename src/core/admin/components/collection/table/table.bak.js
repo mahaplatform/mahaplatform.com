@@ -62,6 +62,7 @@ class Table extends React.Component {
 
   render() {
     const { records, recordTasks, selectable, selectAll, visible, onClick } = this.props
+    const { firstIndex } = this.state
     return (
       <div className="maha-table">
         <div className="maha-table-header">
@@ -91,28 +92,31 @@ class Table extends React.Component {
           <div { ...this._getPanel() }>
             <table ref={ node => this.body = node }>
               <tbody>
-                { records.map((record, rindex) => (
-                  <tr key={`row_${rindex}`} { ...this._getRow(record, rindex) }>
-                    { selectable &&
-                      <td key={`row_${rindex}_select`} { ...this._getSelect(record) }>
-                        <i className={`fa fa-${ this._getChecked(record) }`} />
+                { this._getFrame().map((row, rindex) => {
+                  const record = records[rindex + firstIndex]
+                  return (
+                    <tr key={`row_${rindex}`} { ...this._getRow(record, rindex) }>
+                      { selectable &&
+                        <td key={`row_${rindex}_select`} { ...this._getSelect(record) }>
+                          <i className={`fa fa-${ this._getChecked(record) }`} />
+                        </td>
+                      }
+                      { visible.map((column, cindex) => (
+                        <td key={`row_${rindex}_column_${cindex}`} { ...this._getCell(column, rindex, cindex) }>
+                          { record ? <Format { ...this._getFormat(record, column) } /> : null }
+                        </td>
+                      ))}
+                      { recordTasks &&
+                        <td className="icon mobile centered" onClick={ this._handleTasks.bind(this, record) }>
+                          <i className="fa fa-ellipsis-v" />
+                        </td>
+                      }
+                      <td className="padded icon mobile centered">
+                        { onClick && <i className="fa fa-chevron-right" /> }
                       </td>
-                    }
-                    { visible.map((column, cindex) => (
-                      <td key={`row_${rindex}_column_${cindex}`} { ...this._getCell(column, rindex, cindex) }>
-                        { record ? <Format { ...this._getFormat(record, column) } /> : null }
-                      </td>
-                    ))}
-                    { recordTasks &&
-                      <td className="icon mobile centered" onClick={ this._handleTasks.bind(this, record) }>
-                        <i className="fa fa-ellipsis-v" />
-                      </td>
-                    }
-                    <td className="padded icon mobile centered">
-                      { onClick && <i className="fa fa-chevron-right" /> }
-                    </td>
-                  </tr>
-                )) }
+                    </tr>
+                  )
+                }) }
               </tbody>
             </table>
           </div>
@@ -196,6 +200,13 @@ class Table extends React.Component {
     }
   }
 
+  _getFrame() {
+    const { rows, firstIndex } = this.state
+    const { total } = this.props
+    const numRows = Math.min(rows, total - firstIndex)
+    return Array(numRows).fill(true)
+  }
+
   _getHeader(column, cindex) {
     return {
       className: this._getHeaderClass(column),
@@ -221,8 +232,14 @@ class Table extends React.Component {
   }
 
   _getPanel() {
+    const { averageHeight, firstIndex } = this.state
+    const { total } = this.props
     return {
-      ref: node => this.panel = node
+      ref: node => this.panel = node,
+      style: {
+        paddingTop: firstIndex * averageHeight,
+        height: (total * averageHeight) - (firstIndex * averageHeight)
+      }
     }
   }
 
@@ -278,9 +295,11 @@ class Table extends React.Component {
   }
 
   _handleInit() {
+    const panelHeight = window.getComputedStyle(this.panel).height
     const windowHeight = window.getComputedStyle(this.window).height
     this.setState({
       headerDimensions: this._handleMeasure(this.header),
+      panelHeight: parseInt(panelHeight.replace('px', '')),
       windowHeight: parseInt(windowHeight.replace('px', ''))
     })
     this._handleResize()
@@ -306,11 +325,20 @@ class Table extends React.Component {
   }
 
   _handleScroll() {
-    const panelHeight = parseInt(window.getComputedStyle(this.panel).height.replace('px', ''))
     const { windowHeight } = this.state
+    const { records, total } = this.props
     const { scrollTop } = this.window
-    const percentScrolled = (scrollTop / (panelHeight - windowHeight)) * 100
-    if(!this.notified && percentScrolled > 60) {
+    const bodyDimensions = this._handleMeasure(this.body)
+    const averageHeight = bodyDimensions.reduce((total, cell) => {
+      return total + cell.h
+    }, 0) / bodyDimensions.length
+    const percentScrolled = (scrollTop / ((records.length * averageHeight) - windowHeight)) * 100
+    this.setState({
+      averageHeight,
+      firstIndex: Math.max(0, Math.floor(scrollTop / averageHeight) - 9),
+      panelHeight: total * averageHeight
+    })
+    if(!this.notified && percentScrolled > 80) {
       this.props.onReachBottom()
       this.notified = true
     }
