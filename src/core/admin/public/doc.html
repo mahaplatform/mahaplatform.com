@@ -27,11 +27,23 @@
       return results[2].replace(/\+/g, " ");
     }
 
-    var url = getParameterByName('file');
+    const url = getParameterByName('file');
 
     var src = 'https://docs.google.com/gview?embedded=true&url=' + url;
 
-    document.write('<iframe src="'+src+'"></iframe>');
+    document.write('<iframe id="viewer" src="'+src+'"></iframe>');
+
+    const iframe = document.getElementById('viewer');
+
+    function reloadIFrame() {
+      iframe.src = src;
+    }
+
+    let timerId = setInterval("reloadIFrame();", 2000);
+
+    iframe.onload = function() {
+      clearInterval(timerId);
+    }
 
   </script>
 
