@@ -42,11 +42,11 @@ class TextArea extends React.Component {
   _handleFetchLink = this._handleFetchLink.bind(this)
   _handleFileAdded = this._handleFileAdded.bind(this)
   _handleFileSuccess = this._handleFileSuccess.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
   _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handlePaste = this._handlePaste.bind(this)
-  _handleReset = this._handleReset.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -84,7 +84,9 @@ class TextArea extends React.Component {
     this.resumable.on('fileSuccess', this._handleFileSuccess)
     this.input.style.boxSizing = 'border-box'
     this.offset = this.input.offsetHeight - this.input.clientHeight
-    reference({ reset: this._handleReset })
+    reference({
+      focus: this._handleFocus
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -163,6 +165,10 @@ class TextArea extends React.Component {
     this.props.onUpdateAttachment(file.uniqueIdentifier, asset)
   }
 
+  _handleFocus() {
+    this.input.focus()
+  }
+
   _handleInsertEmoji(emoji) {
     const { value } = this.input
     if(document.selection) {
@@ -220,12 +226,6 @@ class TextArea extends React.Component {
     const url = urls[0]
     if(url.startsWith(process.env.WEB_HOST)) return
     this._handleFetchLink(url)
-  }
-
-  _handleReset() {
-    this.setState({
-      value: ''
-    })
   }
 
   _handleUpdate(e) {

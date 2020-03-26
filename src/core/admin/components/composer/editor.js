@@ -35,12 +35,15 @@ class Editor extends React.Component {
     submitOnEnter: true
   }
 
+  textarea = null
+
+  _handleClick = this._handleClick.bind(this)
   _handleFileAdded = this._handleFileAdded.bind(this)
   _handleFileSuccess = this._handleFileSuccess.bind(this)
 
   render() {
     return (
-      <div className="maha-composer-editor" ref={ node => this.editor = node }>
+      <div className="maha-composer-editor" ref={ node => this.editor = node } onClick={ this._handleClick }>
         <ComposerTextArea { ...this._getComposerTextArea() } />
         <ComposerAttachments { ...this._getComposerAttachments() } />
       </div>
@@ -88,6 +91,10 @@ class Editor extends React.Component {
       onRemoveLink,
       onUpdateAttachment
     }
+  }
+
+  _handleClick() {
+    this.textarea.focus()
   }
 
   _handleFileAdded(file) {
