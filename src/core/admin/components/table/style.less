@@ -1,0 +1,25 @@
+.maha-table {
+  td {
+    padding: 0.8em;
+  }
+  thead {
+    td {
+      background-color: fadeout(@black, 30);
+      color: @white;
+    }
+  }
+  tbody {
+    tr {
+      cursor: pointer;
+      &:hover {
+        background-color: fadeout(@black, 97);
+      }
+    }
+    td.proceed {
+      padding: 0.8em 0.8em 0.8em 0;
+      .fa-chevron-right {
+        color: fadeout(@black, 80);
+      }
+    }
+  }
+}

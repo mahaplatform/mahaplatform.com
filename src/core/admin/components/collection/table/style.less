@@ -1,4 +1,4 @@
-.maha-table {
+.maha-collection-table {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
     color: @blue;
   }
 }
-.maha-table-header {
+.maha-collection-table-header {
   background: fadeout(@black, 90);
   padding-right: 6px;
   td {
@@ -63,7 +63,7 @@
     }
   }
 }
-.maha-table-body {
+.maha-collection-table-body {
   flex: 1;
   .scrollable();
   table {
@@ -96,21 +96,21 @@
     }
   }
 }
-.maha-table-check-cell {
+.maha-collection-table-check-cell {
   padding: 0.8em;
   width: 0.8em;
   .fa {
     margin: auto;
   }
 }
-.maha-table-link {
+.maha-collection-table-link {
   &:hover {
     background-color: fadeout(@black, 95);
   }
   cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
-  .maha-table td {
+  .maha-collection-table td {
     &:not(.mobile),
     &:not(.mobile) {
       display: none;

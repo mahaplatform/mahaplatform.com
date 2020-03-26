@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Attending from './attending'
+import Location from './location'
 import Event from './event'
 
 const Session = new Model({
@@ -16,6 +17,10 @@ const Session = new Model({
 
   event() {
     return this.belongsTo(Event, 'event_id')
+  },
+
+  location() {
+    return this.hasMany(Location, 'location_id')
   }
 
 })

@@ -63,8 +63,8 @@ class Table extends React.Component {
   render() {
     const { records, recordTasks, selectable, selectAll, visible, onClick } = this.props
     return (
-      <div className="maha-table">
-        <div className="maha-table-header">
+      <div className="maha-collection-table">
+        <div className="maha-collection-table-header">
           <table ref={ node => this.header = node }>
             <tbody>
               <tr>
@@ -152,7 +152,7 @@ class Table extends React.Component {
   }
 
   _getCellClass(column) {
-    const classes = ['maha-table-cell']
+    const classes = ['maha-collection-table-cell']
     if(column.primary === true) classes.push('mobile')
     if(_.includes(['check','check_times'], column.format) || column.centered === true) classes.push('center')
     if(column.collapsing) classes.push('collapsing')
@@ -205,7 +205,7 @@ class Table extends React.Component {
   }
 
   _getHeaderClass(column) {
-    let classes = ['maha-table-cell','padded']
+    let classes = ['maha-collection-table-cell','padded']
     if(column.primary === true) classes.push('mobile')
     if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
     return classes.join(' ')
@@ -236,7 +236,7 @@ class Table extends React.Component {
   _getRowClass(record) {
     const { rowClass, onClick  } = this.props
     let classes = []
-    if(onClick) classes.push('maha-table-link')
+    if(onClick) classes.push('maha-collection-table-link')
     if(rowClass && _.isString(rowClass)) classes.push(rowClass)
     if(rowClass && _.isFunction(rowClass)) classes.push(rowClass(record))
     return classes.join(' ')
@@ -244,14 +244,14 @@ class Table extends React.Component {
 
   _getSelect(record) {
     return {
-      className: 'maha-table-check-cell',
+      className: 'maha-collection-table-check-cell',
       onClick: this._handleSelect.bind(this, record)
     }
   }
 
   _getSelectAll() {
     return {
-      className: 'maha-table-check-cell',
+      className: 'maha-collection-table-check-cell',
       style: this._getHeaderStyle(-1),
       onClick: this._handleSelectAll
     }
@@ -271,7 +271,7 @@ class Table extends React.Component {
 
   _getWindow() {
     return {
-      className:'maha-table-body',
+      className:'maha-collection-table-body',
       ref: node => this.window = node,
       onScroll: this._handleScroll
     }

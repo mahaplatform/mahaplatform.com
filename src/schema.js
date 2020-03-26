@@ -816,6 +816,15 @@ const schema = {
       table.string('code', 255)
     })
 
+    await knex.schema.createTable('events_locations', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('name', 255)
+      table.jsonb('address')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('events_registrations', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -838,6 +847,7 @@ const schema = {
       table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('location_id').unsigned()
     })
 
     await knex.schema.createTable('events_tickets', (table) => {
@@ -2568,6 +2578,7 @@ const schema = {
     await knex.schema.table('events_sessions', table => {
       table.foreign('event_id').references('events_events.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('location_id').references('events_locations.id')
     })
 
     await knex.schema.table('events_tickets', table => {
@@ -2577,8 +2588,8 @@ const schema = {
 
     await knex.schema.table('events_waitings', table => {
       table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('event_id').references('events_events.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_accounts', table => {
@@ -3143,6 +3154,10 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_locations', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
