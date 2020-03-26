@@ -238,7 +238,7 @@ class Table extends React.Component {
       ref: node => this.panel = node,
       style: {
         paddingTop: firstIndex * averageHeight,
-        height: total * averageHeight
+        height: (total * averageHeight) - (firstIndex * averageHeight)
       }
     }
   }
