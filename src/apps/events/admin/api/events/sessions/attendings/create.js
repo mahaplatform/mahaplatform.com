@@ -41,7 +41,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/events/events'
+    `/admin/events/events/${req.params.event_id}/sessions/${req.params.session_id}`
   ])
 
   res.status(200).respond(ticket, TicketSerializer)

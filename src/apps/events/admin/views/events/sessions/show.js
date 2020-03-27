@@ -4,10 +4,10 @@ import Details from './details'
 import React from 'react'
 import Scan from './scan'
 
-const getTabs = ({ event, session }) => ({
+const getTabs = ({ attendings, event, session }) => ({
   items: [
     { label: 'Details', component: <Details session={ session } /> },
-    { label: 'Attendance', component: <Attendance session={ session } /> }
+    { label: 'Attendance', component: <Attendance event={ event } session={ session } attendings={ attendings } /> }
   ]
 })
 
@@ -22,7 +22,8 @@ const getTasks = ({ event, session }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   event: `/api/admin/events/events/${props.params.event_id}`,
-  session: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}`
+  session: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}`,
+  attendings: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}/attendings`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

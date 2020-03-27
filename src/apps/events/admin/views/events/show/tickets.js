@@ -12,7 +12,7 @@ const Tickets = ({ event, tickets }) => {
 
   return (
     <div className="maha-table">
-      <table className="ui unstackable table">
+      <table>
         <thead>
           <tr>
             <td>Attendee</td>

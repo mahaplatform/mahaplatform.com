@@ -6,7 +6,8 @@ const Details = ({ audits, event }) => {
 
   const config = {
     items: [
-      { label: 'Title', content: event.title }
+      { label: 'Title', content: event.title },
+      { label: 'Program', content: event.program.title }
     ]
   }
 

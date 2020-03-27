@@ -1,21 +1,68 @@
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
 import React from 'react'
 
-const Details = ({ session }) => {
+class Attendance extends React.Component {
 
-  const config = {
-    items: [
-      { label: 'Title', content: session.title }
-    ]
+  static contextTypes = {
+    network: PropTypes.object
   }
 
-  return <List { ...config } />
+  static propTypes = {
+    attendings: PropTypes.array,
+    event: PropTypes.object,
+    session: PropTypes.object
+  }
+
+  render() {
+    const { attendings } = this.props
+    return (
+      <div className="maha-table">
+        <table>
+          <thead>
+            <tr>
+              <td>Ticket</td>
+              <td className="button" />
+            </tr>
+          </thead>
+          <tbody>
+            { attendings.map((attending, index) => (
+              <tr key={`attending_${index}`}>
+                <td>
+                  { attending.full_name }
+                </td>
+                <td className="button" >
+                  <Button { ...this._getButton(attending) } />
+                </td>
+              </tr>
+            )) }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
+  _getButton(ticket) {
+    return {
+      label: ticket.is_checked ? 'Checked In' : 'Check In',
+      className: ticket.is_checked ? 'ui fluid tiny green button' : 'ui fluid tiny button',
+      handler: this._handleClick.bind(this, ticket)
+    }
+  }
+
+  _handleClick(ticket) {
+    const { event, session } = this.props
+    if(ticket.is_checked) return
+    this.context.network.request({
+      endpoint: `/api/admin/events/events/${event.id}/sessions/${session.id}/attendings`,
+      method: 'post',
+      body: {
+        code: ticket.code
+      },
+      onFailure: () => this.context.flash.set('error', 'Unable to check in')
+    })
+  }
 
 }
 
-Details.propTypes = {
-  session: PropTypes.object
-}
-
-export default Details
+export default Attendance

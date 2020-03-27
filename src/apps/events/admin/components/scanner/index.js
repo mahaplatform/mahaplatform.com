@@ -20,6 +20,7 @@ class Scanner extends React.Component {
 
   canvas = null
   canvasElement = null
+  stream = null
   video = null
 
   _handleCheck = this._handleCheck.bind(this)
@@ -68,6 +69,13 @@ class Scanner extends React.Component {
     if(ready !== prevState.ready && ready) {
       this._handleInitVideo()
     }
+  }
+
+  componentWillUnmount() {
+    const tracks = this.stream.getTracks()
+    Array.prototype.forEach.call(tracks, (track) => {
+      track.stop()
+    })
   }
 
   _getButton() {
@@ -124,6 +132,7 @@ class Scanner extends React.Component {
   }
 
   _handleInitStream(stream) {
+    this.stream = stream
     this.video.srcObject = stream
     this.video.setAttribute('playsinline', true)
     this.video.play()
