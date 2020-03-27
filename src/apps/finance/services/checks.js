@@ -23,7 +23,8 @@ export const createCheck = async (req, params) => {
 
   await completeItem(req, {
     item: check,
-    required: ['date_needed','vendor_id','delivery_method','receipt_ids','total','tax_total','project_id','expense_type_id','description','amount','tax']
+    required: ['date_needed','vendor_id','delivery_method','receipt_ids','total','tax_total','project_id','expense_type_id','description','amount','tax'],
+    status: check.get('status') === 'rejected' ? 'pending' : check.get('status')
   })
 
   await activity(req, {

@@ -43,7 +43,8 @@ export const createExpense = async (req, params) => {
 export const updateExpense = async (req, expense, params) => {
 
   await expense.save({
-    ...whitelist(params, ['date','account_id','vendor_id','total','tax_total','project_id','expense_type_id','description','amount','tax'])
+    ...whitelist(params, ['date','account_id','vendor_id','total','tax_total','project_id','expense_type_id','description','amount','tax']),
+    status: expense.get('status') === 'rejected' ? 'pending' : expense.get('status')
   }, {
     patch: true,
     transacting: req.trx

@@ -57,7 +57,8 @@ export const updateReimbursement = async (req, reimbursement, params) => {
 
   await completeItem(req, {
     item: reimbursement,
-    required: ['date','vendor_id','receipt_ids','total','project_id','expense_type_id','description','amount']
+    required: ['date','vendor_id','receipt_ids','total','project_id','expense_type_id','description','amount'],
+    status: reimbursement.get('status') === 'rejected' ? 'pending' : reimbursement.get('status')
   })
 
   await activity(req, {

@@ -21,7 +21,10 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load advance'
   })
 
-  await advance.save(whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description']), {
+  await advance.save({
+    ...whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description']),
+    status: advance.get('status') === 'rejected' ? 'pending' : advance.get('status')    
+  }, {
     patch: true,
     transacting: req.trx
   })

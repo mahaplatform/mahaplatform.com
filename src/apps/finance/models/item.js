@@ -24,7 +24,15 @@ const Item = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/${this.get('type')}s/${this.get('id')}`
+      return `/admin/finance/${this.get('type')}s/${this.get('item_id')}`
+    },
+
+    object_table: function() {
+      return `finance_${this.get('type')}s`
+    },
+
+    object_id: function() {
+      return this.get('item_id')
     }
 
   },
