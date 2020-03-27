@@ -1,4 +1,4 @@
-import RegistrationSerializer from '../../../../serializers/Registration_serializer'
+import RegistrationSerializer from '../../../../serializers/registration_serializer'
 import Event from '../../../../models/event'
 
 const listRoute = async (req, res) => {
