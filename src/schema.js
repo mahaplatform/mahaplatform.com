@@ -896,6 +896,7 @@ const schema = {
       table.integer('batch_id').unsigned()
       table.USER-DEFINED('status')
       table.string('code', 255)
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('finance_batches', (table) => {
@@ -932,6 +933,7 @@ const schema = {
       table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
       table.USER-DEFINED('status')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('finance_coupons', (table) => {
@@ -1000,6 +1002,7 @@ const schema = {
       table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
       table.USER-DEFINED('status')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('finance_invoices', (table) => {
@@ -1190,6 +1193,7 @@ const schema = {
       table.string('delta', 255)
       table.decimal('total', 9, 2)
       table.USER-DEFINED('status')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('finance_revenue_types', (table) => {
@@ -1234,6 +1238,7 @@ const schema = {
       table.integer('batch_id').unsigned()
       table.USER-DEFINED('status')
       table.string('code', 255)
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('finance_vendors', (table) => {
@@ -4439,7 +4444,8 @@ union
       items.account_id,
       items.status,
       items.batch_id,
-      items.created_at
+      items.created_at,
+      items.deleted_at
       from ( select finance_advances.code,
       finance_advances.id as item_id,
       finance_advances.team_id,
@@ -4461,7 +4467,8 @@ union
       null::integer as account_id,
       (finance_advances.status)::character varying as status,
       finance_advances.batch_id,
-      finance_advances.created_at
+      finance_advances.created_at,
+      finance_advances.deleted_at
       from ((finance_advances
       left join finance_projects on ((finance_projects.id = finance_advances.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_advances.id) and ((maha_imports_import_items.object_type)::text = 'finance_advances'::text))))
@@ -4487,7 +4494,8 @@ union
       finance_expenses.account_id,
       (finance_expenses.status)::character varying as status,
       finance_expenses.batch_id,
-      finance_expenses.created_at
+      finance_expenses.created_at,
+      finance_expenses.deleted_at
       from ((finance_expenses
       left join finance_projects on ((finance_projects.id = finance_expenses.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_expenses.id) and ((maha_imports_import_items.object_type)::text = 'finance_expenses'::text))))
@@ -4513,7 +4521,8 @@ union
       null::integer as account_id,
       (finance_trips.status)::character varying as status,
       finance_trips.batch_id,
-      finance_trips.created_at
+      finance_trips.created_at,
+      finance_trips.deleted_at
       from ((finance_trips
       left join finance_projects on ((finance_projects.id = finance_trips.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_trips.id) and ((maha_imports_import_items.object_type)::text = 'finance_trips'::text))))
@@ -4539,7 +4548,8 @@ union
       null::integer as account_id,
       (finance_checks.status)::character varying as status,
       finance_checks.batch_id,
-      finance_checks.created_at
+      finance_checks.created_at,
+      finance_checks.deleted_at
       from ((finance_checks
       left join finance_projects on ((finance_projects.id = finance_checks.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_checks.id) and ((maha_imports_import_items.object_type)::text = 'finance_checks'::text))))
@@ -4565,7 +4575,8 @@ union
       null::integer as account_id,
       (finance_reimbursements.status)::character varying as status,
       finance_reimbursements.batch_id,
-      finance_reimbursements.created_at
+      finance_reimbursements.created_at,
+      finance_reimbursements.deleted_at
       from ((finance_reimbursements
       left join finance_projects on ((finance_projects.id = finance_reimbursements.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_reimbursements.id) and ((maha_imports_import_items.object_type)::text = 'finance_reimbursements'::text))))) items;

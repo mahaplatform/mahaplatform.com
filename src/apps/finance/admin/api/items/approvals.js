@@ -20,6 +20,7 @@ const approvalRoute = async (req, res) => {
       qb.whereNot('finance_items.user_id', req.user.get('id'))
       qb.where('finance_items.team_id', req.team.get('id'))
       qb.whereNotIn('finance_items.status', ['reviewed','processed'])
+      qb.whereNull('finance_items.deleted_at')
     },
     filter: {
       params: req.query.$filter,

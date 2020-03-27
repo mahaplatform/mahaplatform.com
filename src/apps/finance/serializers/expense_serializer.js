@@ -18,6 +18,7 @@ const expenseSerializer = (req, result) => ({
   tax: result.get('tax'),
   allocations: result.related('allocations').map(allocations),
   audit: result.related('audit').map(audit),
+  deleted_at: result.get('created_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

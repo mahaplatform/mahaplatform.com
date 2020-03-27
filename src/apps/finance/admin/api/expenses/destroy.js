@@ -1,6 +1,6 @@
 import socket from '../../../../../core/services/routes/emitter'
-import { destroyExpense } from '../../../services/expenses'
 import Expense from '../../../models/expense'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,7 +16,13 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  const channels = [
+  await expense.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, [
     `/admin/finance/expenses/${expense.get('id')}`,
     '/admin/finance/approvals',
     '/admin/finance/reports',
@@ -24,11 +30,7 @@ const destroyRoute = async (req, res) => {
       channel: 'user',
       target: '/admin/finance/items'
     }
-  ]
-
-  await destroyExpense(req, expense)
-
-  await socket.refresh(req, channels)
+  ])
 
   res.status(200).respond(true)
 

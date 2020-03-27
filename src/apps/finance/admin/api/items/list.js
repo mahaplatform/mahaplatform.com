@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
       qb.leftJoin('finance_expense_types', 'finance_expense_types.id', 'finance_items.expense_type_id')
       qb.leftJoin('finance_vendors', 'finance_vendors.id', 'finance_items.vendor_id')
       qb.leftJoin('finance_accounts', 'finance_accounts.id', 'finance_items.account_id')
+      qb.whereNull('finance_items.deleted_at')
       qb.where('finance_items.user_id', req.user.get('id'))
       qb.where('finance_items.team_id', req.team.get('id'))
     },

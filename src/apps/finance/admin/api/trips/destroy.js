@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
 import Trip from '../../../models/trip'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,15 +17,11 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load trip'
   })
 
-  await req.trx('maha_audits')
-    .where('auditable_type', 'maha_expenses')
-    .where('auditable_id', req.params.id)
-    .delete()
-
-  await req.trx('maha_comments')
-    .where('commentable_type', 'maha_expenses')
-    .where('commentable_id', req.params.id)
-    .delete()
+  await trip.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'deleted {object}',
@@ -40,10 +37,6 @@ const destroyRoute = async (req, res) => {
       target: '/admin/finance/items'
     }
   ])
-
-  await trip.destroy({
-    transacting: req.trx
-  })
 
   res.status(200).respond(true)
 

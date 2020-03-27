@@ -1,6 +1,6 @@
-import { destroyReimbursement } from '../../../services/reimbursements'
 import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,7 +16,13 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  const channels = [
+  await reimbursement.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, [
     `/admin/finance/reimbursements/${reimbursement.get('id')}`,
     '/admin/finance/approvals',
     '/admin/finance/reports',
@@ -24,11 +30,7 @@ const destroyRoute = async (req, res) => {
       channel: 'user',
       target: '/admin/finance/items'
     }
-  ]
-
-  await destroyReimbursement(req, reimbursement)
-
-  await socket.refresh(req, channels)
+  ])
 
   res.status(200).respond(true)
 

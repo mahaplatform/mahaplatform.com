@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
 import Advance from '../../../models/advance'
+import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,15 +17,11 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load advance'
   })
 
-  await req.trx('maha_audits')
-    .where('auditable_type', 'maha_expenses')
-    .where('auditable_id', req.params.id)
-    .delete()
-
-  await req.trx('maha_comments')
-    .where('commentable_type', 'maha_expenses')
-    .where('commentable_id', req.params.id)
-    .delete()
+  await advance.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'deleted {object}',

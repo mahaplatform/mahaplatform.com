@@ -16,6 +16,7 @@ const tripSerializer = (req, result) => ({
   amount: result.get('amount'),
   status: result.get('status'),
   audit: result.related('audit').map(audit),
+  deleted_at: result.get('created_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
