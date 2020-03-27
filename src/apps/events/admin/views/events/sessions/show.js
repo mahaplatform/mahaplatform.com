@@ -4,24 +4,24 @@ import Details from './details'
 import React from 'react'
 import Scan from './scan'
 
-const getTabs = ({ session }) => ({
+const getTabs = ({ event, session }) => ({
   items: [
     { label: 'Details', component: <Details session={ session } /> },
     { label: 'Attendance', component: <Attendance session={ session } /> }
   ]
 })
 
-const getTasks = ({ campaign }) => {
-  const items = [
+const getTasks = ({ event, session }) => ({
+  items: [
     {
       label: 'Scan Tickets',
-      modal: <Scan  />
+      modal: <Scan event={ event } session={ session } />
     }
   ]
-  return { items }
-}
+})
 
 const mapResourcesToPage = (props, context) => ({
+  event: `/api/admin/events/events/${props.params.event_id}`,
   session: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}`
 })
 

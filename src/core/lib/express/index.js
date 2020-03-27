@@ -9,6 +9,7 @@ import serverMiddleware from './server'
 import staticMiddleware from './static'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
+import qrcode from './media/qrcode'
 import apiMiddleware from './api'
 //import caman from './media/caman'
 import express from 'express'
@@ -45,6 +46,8 @@ server.use('/sms', sms)
 server.use('/ping', ping)
 
 server.use('/imagecache', imagecache)
+
+server.use('/qr', qrcode)
 
 //server.use('/caman', caman)
 

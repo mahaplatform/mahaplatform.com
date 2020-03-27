@@ -18,7 +18,7 @@ const Waitings = ({ event }) => {
 
   return (
     <div className="maha-table">
-      <table className="ui unstackable table">
+      <table>
         <thead>
           <tr>
             <td>Contact</td>

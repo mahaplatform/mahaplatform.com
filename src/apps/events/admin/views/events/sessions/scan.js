@@ -10,6 +10,8 @@ class Scan extends React.Component {
   }
 
   static propTypes = {
+    event: PropTypes.object,
+    session: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -32,7 +34,10 @@ class Scan extends React.Component {
   }
 
   _getScanner() {
-    return {}
+    const { event, session } = this.props
+    return {
+      endpoint: `/api/admin/events/events/${event.id}/sessions/${session.id}/attendings`
+    }
   }
 
   _handleCancel() {

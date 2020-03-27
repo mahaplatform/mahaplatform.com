@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-const Registrations = ({ event }) => {
+const Tickets = ({ event }) => {
 
   const registrations = [
     { id: 1, contact: { id: 1, full_name: 'Greg Kops' }, tickets: [{}], revenue: 60.00 },
@@ -19,7 +19,7 @@ const Registrations = ({ event }) => {
 
   return (
     <div className="maha-table">
-      <table className="ui unstackable table">
+      <table>
         <thead>
           <tr>
             <td>Contact</td>
@@ -42,9 +42,9 @@ const Registrations = ({ event }) => {
 
 }
 
-Registrations.propTypes = {
+Tickets.propTypes = {
   event: PropTypes.object,
   registrations: PropTypes.array
 }
 
-export default Registrations
+export default Tickets

@@ -1,6 +1,49 @@
 .event-scanner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: @black;
+}
+.event-scanner-header {
   padding: 0.8em;
+  text-align: center;
+  color: @white;
+}
+.event-scanner-canvas {
+  display: flex;
+  padding: 0 0.8em;
   canvas {
+    margin: auto;
     width: 100%;
+    max-width: 350px;
   }
+}
+.event-scanner-body {
+  padding: 0.8em;
+  display: flex;
+  flex: 1;
+}
+.event-scanner-message {
+  margin: auto;
+  text-align: center;
+  .fa {
+    background-color: @white;
+    font-size: 5em;
+    border-radius: 50%;
+    padding: 0 5px;
+  }
+  .fa-check-circle {
+    color: @green;
+  }
+  .fa-times-circle {
+    color: @red;
+  }
+}
+.event-scanner-message-text {
+  text-align: center;
+  color: @white;
+  padding: 0.8em 0;
+}
+.event-scanner-footer {
+  padding: 0.8em;
 }

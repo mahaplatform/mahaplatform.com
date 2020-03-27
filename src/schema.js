@@ -842,7 +842,6 @@ const schema = {
       table.date('date')
       table.time('start_time')
       table.time('end_time')
-      table.jsonb('location')
       table.string('title', 255)
       table.text('description')
       table.timestamp('created_at')
@@ -858,6 +857,9 @@ const schema = {
       table.jsonb('values')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('first_name', 255)
+      table.string('last_name', 255)
+      table.string('email', 255)
     })
 
     await knex.schema.createTable('events_waitings', (table) => {
