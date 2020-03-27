@@ -215,7 +215,9 @@ class Form extends React.Component {
   }
 
   _handleSuccess() {
-    this.props.onSuccess(this.props.entity)
+    const { entity, filtered } = this.props
+    const result = entity || filtered
+    this.props.onSuccess(result)
   }
 
   _handleValidate() {

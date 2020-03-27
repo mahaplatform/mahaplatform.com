@@ -19,6 +19,7 @@ class Chooser extends React.Component {
     label: PropTypes.string,
     multiple: PropTypes.bool,
     options: PropTypes.array,
+    prompt: PropTypes.string,
     text: PropTypes.string,
     search: PropTypes.bool,
     value: PropTypes.string,
@@ -75,7 +76,7 @@ class Chooser extends React.Component {
   }
 
   _getSearch() {
-    const { chosen, endpoint, format, label, multiple, options, search, text } = this.props
+    const { chosen, endpoint, format, label, multiple, options, prompt, search, text } = this.props
     return {
       defaultValue: chosen,
       endpoint,
@@ -83,6 +84,7 @@ class Chooser extends React.Component {
       label,
       multiple,
       options,
+      prompt,
       search,
       text,
       onChange: this._handleChoose

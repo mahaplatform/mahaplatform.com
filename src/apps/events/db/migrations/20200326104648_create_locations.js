@@ -12,6 +12,7 @@ const CreateLocation = {
     })
 
     await knex.schema.table('events_sessions', (table) => {
+      table.dropColumn('location')
       table.integer('location_id').unsigned()
       table.foreign('location_id').references('events_locations.id')
     })

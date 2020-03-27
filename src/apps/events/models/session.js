@@ -20,7 +20,7 @@ const Session = new Model({
   },
 
   location() {
-    return this.hasMany(Location, 'location_id')
+    return this.belongsTo(Location, 'location_id')
   }
 
 })

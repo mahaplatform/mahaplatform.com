@@ -1,4 +1,3 @@
-import SessionsField from '../../components/sessionsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -23,19 +22,16 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id } = this.props
     return {
-      title: 'New Event',
+      title: 'New Session',
       method: 'post',
       action: '/api/admin/events/events',
       onCancel: this._handleCancel,
+      onSubmit: this._handleSubmit,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'program_id', type: 'hidden', defaultValue: program_id },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
-            { label: 'Sessions', name: 'sessions', type: SessionsField, required: true }
           ]
         }
       ]
@@ -46,8 +42,7 @@ class New extends React.PureComponent {
     this.context.modal.close()
   }
 
-  _handleSuccess(event) {
-    this.context.router.history.push(`/admin/events/events/${event.id}`)
+  _handleSuccess(session) {
     this.context.modal.close()
   }
 

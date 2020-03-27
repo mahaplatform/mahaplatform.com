@@ -46,8 +46,6 @@ class Lookup extends React.Component {
     prompt: 'Choose an item',
     search: true,
     tabIndex: 0,
-    text: 'text',
-    value: 'value',
     onBusy: () => {},
     onChange: () => {},
     onReady: () => {}
@@ -104,7 +102,7 @@ class Lookup extends React.Component {
   }
 
   _getChooser() {
-    const { chosen, endpoint, form, format, label, options, search, text, value, onChoose } = this.props
+    const { chosen, endpoint, form, format, label, options, prompt, search, text, value, onChoose } = this.props
     return {
       chosen,
       endpoint,
@@ -112,6 +110,7 @@ class Lookup extends React.Component {
       format,
       label,
       options,
+      prompt,
       search,
       text,
       value,
@@ -135,7 +134,8 @@ class Lookup extends React.Component {
 
   _handleChange() {
     const { chosen, value, onChange } = this.props
-    onChange(_.get(chosen, value))
+    const item = value ? _.get(chosen, value) : chosen
+    onChange(item)
   }
 
   _handleClear() {

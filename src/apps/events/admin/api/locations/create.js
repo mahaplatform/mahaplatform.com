@@ -1,29 +1,28 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import VendorSerializer from '../../../serializers/vendor_serializer'
+import LocationSerializer from '../../../serializers/location_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import { whitelist } from '../../../../../core/services/routes/params'
-import Vendor from '../../../models/vendor'
+import Location from '../../../models/location'
 
 const createRoute = async (req, res) => {
 
-  const vendor = await Vendor.forge({
+  const location = await Location.forge({
     team_id: req.team.get('id'),
-    integration: {},
-    ...whitelist(req.body, ['name','address','integration'])
+    ...whitelist(req.body, ['name','address'])
   }).save(null, {
     transacting: req.trx
   })
 
   await activity(req, {
     story: 'created {object}',
-    object: vendor
+    object: location
   })
 
   await socket.refresh(req, [
-    '/admin/finance/vendors'
+    '/admin/events/locations'
   ])
 
-  res.status(200).respond(vendor, VendorSerializer)
+  res.status(200).respond(location, LocationSerializer)
 
 }
 

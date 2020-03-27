@@ -1,6 +1,12 @@
 .maha-table {
+  background-color: @white;
+  width: 100%;
+  table {
+    width: 100%;
+  }
   td {
     padding: 0.8em;
+    border-bottom: 1px solid fadeout(@black, 90);
   }
   thead {
     td {
@@ -15,7 +21,11 @@
         background-color: fadeout(@black, 97);
       }
     }
+    td.unpadded {
+      padding: 0 !important;
+    }
     td.proceed {
+      width: 1px;
       padding: 0.8em 0.8em 0.8em 0;
       .fa-chevron-right {
         color: fadeout(@black, 80);

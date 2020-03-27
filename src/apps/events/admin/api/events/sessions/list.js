@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.event_id)
   }).fetch({
-    withRelated: ['sessions'],
+    withRelated: ['sessions.location'],
     transacting: req.trx
   })
 

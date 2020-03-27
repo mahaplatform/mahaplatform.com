@@ -3,7 +3,7 @@ import _ from 'lodash'
 const INITIAL_STATE = {
   busy: [],
   data: {},
-  entity: {},
+  entity: null,
   errors: {},
   ready: [],
   status: 'pending',

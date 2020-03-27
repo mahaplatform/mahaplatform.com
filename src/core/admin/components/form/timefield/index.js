@@ -59,6 +59,8 @@ class TimeField extends React.Component {
       ...this.props,
       defaultValue: this._getStandardized(this.props.defaultValue),
       label: 'time',
+      value: 'value',
+      text: 'text',
       options: this._getOptions(),
       format: (props) => <TimeFieldToken { ...props } withDuration={ duration } />
     }

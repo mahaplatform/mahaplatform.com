@@ -6,10 +6,6 @@ import React from 'react'
 
 class New extends React.Component {
 
-  state = {
-    time_leaving: '0:00'
-  }
-
   static contextTypes = {
     admin: PropTypes.object,
     modal: PropTypes.object
@@ -19,6 +15,10 @@ class New extends React.Component {
     parent: PropTypes.object
   }
 
+  state = {
+    time_leaving: '0:00'
+  }
+  
   _handleCancel = this._handleCancel.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)

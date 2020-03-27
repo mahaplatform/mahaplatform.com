@@ -14,5 +14,4 @@ const program = (program) => {
   }
 }
 
-
 export default EventSerializer
