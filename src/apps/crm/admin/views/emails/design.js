@@ -1,4 +1,4 @@
-import EmailDesigner from '../../components/email_designer'
+import EmailDesigner from '../../components/email_designer/wrapper'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
@@ -35,17 +35,12 @@ class Designer extends React.Component {
     const { campaign } = this.state
     return {
       defaultValue: campaign.config,
-      program_id: campaign.program.id,
+      program: campaign.program,
       tokens: [
-        { title: 'Response Variables', tokens: [
+        { title: 'Response Tokens', tokens: [
           { name: 'First Name', token: 'response.first_name' },
           { name: 'Last Name', token: 'response.last_name' },
           { name: 'Email', token: 'response.email' }
-        ] },
-        { title: 'Contact Variables', tokens: [
-          { name: 'First Name', token: 'contact.first_name' },
-          { name: 'Last Name', token: 'contact.last_name' },
-          { name: 'Email', token: 'contact.email' }
         ] }
       ],
       onSave: this._handleSave

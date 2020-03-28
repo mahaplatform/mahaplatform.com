@@ -116,20 +116,24 @@ const createRoute = async (req, res) => {
     title: 'Confirmation Email',
     code: emailCode,
     config: template ? template.get('config') : {
+      page: {
+        background_color: '#DFDFDF'
+      },
       header: {
         blocks: [{
           type: 'web',
           text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
           padding: 8,
-          font_size: 12,
-          text_align: 'center',
-          line_height: 1.5
+          p_font_size: 12,
+          p_text_align: 'center',
+          p_line_height: 1.5
         }]
       },
       body: {
+        background_color: '#FFFFFF',
         blocks: [{
           type: 'text',
-          content_0: '<p>&lt;%- contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
+          content_0: '<p>&lt;%- contact.first_name %&gt;,</p><p></p><p>Thank you for filling out our form</p>',
           padding: 16
         }]
       },
@@ -138,9 +142,9 @@ const createRoute = async (req, res) => {
           type: 'preferences',
           text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
           padding: 8,
-          font_size: 12,
-          text_align: 'center',
-          line_height: 1.5
+          p_font_size: 12,
+          p_text_align: 'center',
+          p_line_height: 1.5
         }]
       },
       settings: {
@@ -172,11 +176,9 @@ const createRoute = async (req, res) => {
     delta: 0,
     parent: null,
     answer: null,
+    is_active: true,
     config: {
-      email: {
-        id: email.get('id'),
-        title: 'Confirmation'
-      }
+      email_id: email.get('id')
     }
   }).save(null, {
     transacting: req.trx

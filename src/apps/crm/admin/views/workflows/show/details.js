@@ -21,7 +21,7 @@ const Details = ({ audits, workflow }) => {
   }
 
   list.items = [
-    { label: 'Title', content: workflow.title },
+    { label: 'Title', content: workflow.display_name },
     { label: 'Program', content: workflow.program.title },
     { label: 'Content', content: <Button { ...design } /> },
     { component: <Audit entries={ audits } /> }

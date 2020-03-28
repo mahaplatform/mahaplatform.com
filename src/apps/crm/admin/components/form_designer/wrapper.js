@@ -31,7 +31,7 @@ class FormDesignerWrapper extends React.Component {
         { label: 'Last Name', name: 'last_name', type: 'textfield' },
         { label: 'Email', name: 'email', type: 'emailfield' },
         { label: 'Phone', name: 'phone', type: 'phonefield' },
-        { label: 'Address', name: 'street_1', type: 'addressfield' },
+        { label: 'Address', name: 'address', type: 'addressfield' },
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
         { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ] },
