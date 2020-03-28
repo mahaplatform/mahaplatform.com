@@ -49,6 +49,7 @@ const Reimbursement = new Model({
   allocations() {
     return this.hasMany(Reimbursement, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
+      qb.whereNull('deleted_at')
       qb.orderBy('delta', 'asc')
     })
   },

@@ -15,7 +15,7 @@ const reimbursementSerializer = (req, result) => ({
   amount: result.get('amount'),
   allocations: result.related('allocations').map(allocations),
   audit: result.related('audit').map(audit),
-  deleted_at: result.get('created_at'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

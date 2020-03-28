@@ -4,6 +4,7 @@ import { audit } from '../../../core/services/routes/audit'
 import { createReceipts } from '../services/receipts'
 import Reimbursement from '../models/reimbursement'
 import { completeItem } from '../services/items'
+import moment from 'moment'
 
 export const createReimbursement = async (req, params) => {
 
@@ -77,19 +78,15 @@ export const updateReimbursement = async (req, reimbursement, params) => {
 
 export const destroyReimbursement = async (req, reimbursement) => {
 
-  await req.trx('finance_receipts').where('reimbursement_id', reimbursement.get('id')).delete()
-
-  await req.trx('maha_audits').where('auditable_type', 'finance_reimbursements').where('auditable_id', reimbursement.get('id')).delete()
-
-  await req.trx('maha_comments').where('commentable_type', 'finance_reimbursements').where('commentable_id', reimbursement.get('id')).delete()
+  await reimbursement.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'deleted {object}',
     object: reimbursement
-  })
-
-  await reimbursement.destroy({
-    transacting: req.trx
   })
 
 }

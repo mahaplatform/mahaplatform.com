@@ -1,6 +1,6 @@
 import socket from '../../../../../core/services/routes/emitter'
+import { destroyCheck } from '../../../services/checks'
 import Check from '../../../models/check'
-import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,11 +16,7 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  await check.save({
-    deleted_at: moment()
-  }, {
-    transacting: req.trx
-  })
+  await destroyCheck(req, check)
 
   await socket.refresh(req, [
     `/admin/finance/checks/${check.get('id')}`,

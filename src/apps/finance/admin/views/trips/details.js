@@ -13,27 +13,23 @@ const requiredField = (label, item, path, extra) => {
   }
 }
 
-const Details = ({ trip, commentUrl }) => {
+const Details = ({ trip }) => {
   const list = {}
-  if(trip.status === 'incomplete') {
+  if(trip.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This trip was deleted' }
+  } else if(trip.status === 'incomplete') {
     list.alert = { color: 'grey', message: 'This trip is missing required information' }
-  }
-  if(trip.status === 'pending') {
+  } else if(trip.status === 'pending') {
     list.alert = { color: 'teal', message: 'This trip has not yet been submitted' }
-  }
-  if(trip.status === 'submitted') {
+  } else if(trip.status === 'submitted') {
     list.alert = { color: 'blue', message: 'This trip has been submitted for review' }
-  }
-  if(trip.status === 'approved') {
+  } else if(trip.status === 'approved') {
     list.alert = { color: 'green', message: 'This trip has been approved' }
-  }
-  if(trip.status === 'rejected') {
+  } else if(trip.status === 'rejected') {
     list.alert = { color: 'red', message: 'This trip has been rejected' }
-  }
-  if(trip.status === 'reviewed') {
+  } else if(trip.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This trip has been reviewed' }
-  }
-  if(trip.status === 'processed') {
+  } else if(trip.status === 'processed') {
     list.alert = { color: 'violet', message: 'This trip was processed' }
   }
   list.items = [
@@ -52,14 +48,13 @@ const Details = ({ trip, commentUrl }) => {
   ]
   list.items.push({ component: <Audit entries={ trip.audit } /> })
 
-  list.footer = <Comments entity={`finance_trips/${trip.id}`} />
+  list.footer = <Comments entity={`finance_trips/${trip.id}`} active={ trip.deleted_at === null } />
 
   return <List { ...list } />
 }
 
 Details.propTypes = {
-  trip: PropTypes.object,
-  commentUrl: PropTypes.string
+  trip: PropTypes.object
 }
 
 export default Details

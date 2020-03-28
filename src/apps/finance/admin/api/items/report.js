@@ -12,10 +12,10 @@ const reportRoute = async (req, res) => {
       qb.leftJoin('finance_vendors', 'finance_vendors.id', 'finance_items.vendor_id')
       qb.leftJoin('finance_accounts', 'finance_accounts.id', 'finance_items.account_id')
       qb.where('finance_items.team_id', req.team.get('id'))
+      qb.whereNull('finance_items.deleted_at')
       if(_.includes(req.rights, 'finance:access_reports')) return
       qb.leftJoin('finance_members', 'finance_members.project_id', 'finance_items.project_id')
       qb.whereRaw('finance_members.user_id=? and finance_members.type != ?', [req.user.get('id'), 'member'])
-      qb.whereNull('finance_items.deleted_at')
     },
     filter: {
       params: req.query.$filter,

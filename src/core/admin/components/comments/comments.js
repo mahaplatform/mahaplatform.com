@@ -104,23 +104,23 @@ class Comments extends React.Component {
             ))}
           </div>
         }
-        <div className="maha-comments-footer">
-          { typing &&
-            <div className="maha-comment">
-              <div className="maha-comment-user">
-                <Avatar user={ typing } />
-              </div>
-              <div className="maha-comment-bubble">
-                <div className="maha-comment-typing">
-                  { typing.full_name } is typing
+        { !editing && active &&
+          <div className="maha-comments-footer">
+            { typing &&
+              <div className="maha-comment">
+                <div className="maha-comment-user">
+                  <Avatar user={ typing } />
+                </div>
+                <div className="maha-comment-bubble">
+                  <div className="maha-comment-typing">
+                    { typing.full_name } is typing
+                  </div>
                 </div>
               </div>
-            </div>
-          }
-          { !editing && active &&
+            }
             <Composer { ...this._getComposer() } />
-          }
-        </div>
+          </div>
+        }
       </div>
     )
   }

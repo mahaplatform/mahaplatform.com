@@ -16,27 +16,23 @@ const requiredField = (label, item, path, extra) => {
   }
 }
 
-const Details = ({ check, commentUrl }) => {
+const Details = ({ check }) => {
   const list = {}
-  if(check.status === 'incomplete') {
+  if(check.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This check was deleted' }
+  } else if(check.status === 'incomplete') {
     list.alert = { color: 'grey', message: 'This check is missing required information' }
-  }
-  if(check.status === 'pending') {
+  } else if(check.status === 'pending') {
     list.alert = { color: 'teal', message: 'This check has not yet been submitted' }
-  }
-  if(check.status === 'submitted') {
+  } else if(check.status === 'submitted') {
     list.alert = { color: 'blue', message: 'This check has been submitted for review' }
-  }
-  if(check.status === 'approved') {
+  } else if(check.status === 'approved') {
     list.alert = { color: 'green', message: 'This check has been approved' }
-  }
-  if(check.status === 'rejected') {
+  } else if(check.status === 'rejected') {
     list.alert = { color: 'red', message: 'This check has been rejected' }
-  }
-  if(check.status === 'reviewed') {
+  } else if(check.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This check has been reviewed' }
-  }
-  if(check.status === 'processed') {
+  } else if(check.status === 'processed') {
     list.alert = { color: 'violet', message: 'This check was processed' }
   }
   list.items = [
@@ -68,7 +64,7 @@ const Details = ({ check, commentUrl }) => {
   }
   list.items.push({ component: <Audit entries={ check.audit } /> })
 
-  list.footer = <Comments entity={`finance_checks/${check.id}`} />
+  list.footer = <Comments entity={`finance_checks/${check.id}`} active={ check.deleted_at === null } />
 
   return <List { ...list } />
 }

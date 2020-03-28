@@ -54,6 +54,7 @@ const Expense = new Model({
   allocations() {
     return this.hasMany(Expense, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
+      qb.whereNull('deleted_at')
       qb.orderBy('delta', 'asc')
     })
   },

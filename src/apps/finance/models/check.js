@@ -49,6 +49,7 @@ const Check = new Model({
   allocations() {
     return this.hasMany(Check, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
+      qb.whereNull('deleted_at')
       qb.orderBy('delta', 'asc')
     })
   },

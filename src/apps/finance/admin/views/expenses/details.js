@@ -16,27 +16,23 @@ const requiredField = (label, item, path, extra) => {
   }
 }
 
-const Details = ({ expense, commentUrl }) => {
+const Details = ({ expense }) => {
   const list = {}
-  if(expense.status === 'incomplete') {
+  if(expense.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This expense was deleted' }
+  } else if(expense.status === 'incomplete') {
     list.alert = { color: 'grey', message: 'This expense is missing required information' }
-  }
-  if(expense.status === 'pending') {
+  } else if(expense.status === 'pending') {
     list.alert = { color: 'teal', message: 'This expense has not yet been submitted' }
-  }
-  if(expense.status === 'submitted') {
+  } else if(expense.status === 'submitted') {
     list.alert = { color: 'blue', message: 'This expense has been submitted for review' }
-  }
-  if(expense.status === 'approved') {
+  } else if(expense.status === 'approved') {
     list.alert = { color: 'green', message: 'This expense has been approved' }
-  }
-  if(expense.status === 'rejected') {
+  } else if(expense.status === 'rejected') {
     list.alert = { color: 'red', message: 'This expense has been rejected' }
-  }
-  if(expense.status === 'reviewed') {
+  } else if(expense.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This expense has been reviewed' }
-  }
-  if(expense.status === 'processed') {
+  } else if(expense.status === 'processed') {
     list.alert = { color: 'violet', message: 'This expense was processed' }
   }
   list.items = [
@@ -66,7 +62,7 @@ const Details = ({ expense, commentUrl }) => {
   }
   list.items.push({ component: <Audit entries={ expense.audit } /> })
 
-  list.footer = <Comments entity={`finance_expenses/${expense.id}`} />
+  list.footer = <Comments entity={`finance_expenses/${expense.id}`} active={ expense.deleted_at === null } />
 
   return <List { ...list } />
 }

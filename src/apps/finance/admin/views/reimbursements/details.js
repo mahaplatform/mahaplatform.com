@@ -16,27 +16,23 @@ const requiredField = (label, item, path, extra) => {
   }
 }
 
-const Details = ({ reimbursement, commentUrl }) => {
+const Details = ({ reimbursement }) => {
   const list = {}
-  if(reimbursement.status === 'incomplete') {
+  if(reimbursement.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This reimbursement was deleted' }
+  } else if(reimbursement.status === 'incomplete') {
     list.alert = { color: 'grey', message: 'This reimbursement is missing required information' }
-  }
-  if(reimbursement.status === 'pending') {
+  } else if(reimbursement.status === 'pending') {
     list.alert = { color: 'teal', message: 'This reimbursement has not yet been submitted' }
-  }
-  if(reimbursement.status === 'submitted') {
+  } else if(reimbursement.status === 'submitted') {
     list.alert = { color: 'blue', message: 'This reimbursement has been submitted for review' }
-  }
-  if(reimbursement.status === 'approved') {
+  } else if(reimbursement.status === 'approved') {
     list.alert = { color: 'green', message: 'This reimbursement has been approved' }
-  }
-  if(reimbursement.status === 'rejected') {
+  } else if(reimbursement.status === 'rejected') {
     list.alert = { color: 'red', message: 'This reimbursement has been rejected' }
-  }
-  if(reimbursement.status === 'reviewed') {
+  } else if(reimbursement.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This reimbursement has been reviewed' }
-  }
-  if(reimbursement.status === 'processed') {
+  } else if(reimbursement.status === 'processed') {
     list.alert = { color: 'violet', message: 'This reimbursement was processed' }
   }
   list.items = [
@@ -63,7 +59,7 @@ const Details = ({ reimbursement, commentUrl }) => {
   }
   list.items.push({ component: <Audit entries={ reimbursement.audit } /> })
 
-  list.footer = <Comments entity={`finance_reimbursements/${reimbursement.id}`} />
+  list.footer = <Comments entity={`finance_reimbursements/${reimbursement.id}`} active={ reimbursement.deleted_at === null } />
 
   return <List { ...list } />
 }

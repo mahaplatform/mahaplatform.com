@@ -13,27 +13,23 @@ const requiredField = (label, item, path, extra) => {
   }
 }
 
-const Details = ({ advance, commentUrl }) => {
+const Details = ({ advance }) => {
   const list = {}
-  if(advance.status === 'incomplete') {
+  if(advance.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This advance was deleted' }
+  } else if(advance.status === 'incomplete') {
     list.alert = { color: 'grey', message: 'This advance is missing required information' }
-  }
-  if(advance.status === 'pending') {
+  } else if(advance.status === 'pending') {
     list.alert = { color: 'teal', message: 'This advance has not yet been submitted' }
-  }
-  if(advance.status === 'submitted') {
+  } else if(advance.status === 'submitted') {
     list.alert = { color: 'blue', message: 'This advance has been submitted for review' }
-  }
-  if(advance.status === 'approved') {
+  } else if(advance.status === 'approved') {
     list.alert = { color: 'green', message: 'This advance has been approved' }
-  }
-  if(advance.status === 'rejected') {
+  } else if(advance.status === 'rejected') {
     list.alert = { color: 'red', message: 'This advance has been rejected' }
-  }
-  if(advance.status === 'reviewed') {
+  } else if(advance.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This advance has been reviewed' }
-  }
-  if(advance.status === 'processed') {
+  } else if(advance.status === 'processed') {
     list.alert = { color: 'violet', message: 'This advance was processed' }
   }
   list.items = [
@@ -46,14 +42,13 @@ const Details = ({ advance, commentUrl }) => {
   ]
   list.items.push({ component: <Audit entries={ advance.audit } /> })
 
-  list.footer = <Comments entity={`finance_advances/${advance.id}`} />
+  list.footer = <Comments entity={`finance_advances/${advance.id}`} active={ advance.deleted_at === null } />
 
   return <List { ...list } />
 }
 
 Details.propTypes = {
-  advance: PropTypes.object,
-  commentUrl: PropTypes.string
+  advance: PropTypes.object
 }
 
 export default Details

@@ -4,6 +4,7 @@ import { audit } from '../../../core/services/routes/audit'
 import { createReceipts } from '../services/receipts'
 import { completeItem } from '../services/items'
 import Expense from '../models/expense'
+import moment from 'moment'
 
 export const createExpense = async (req, params) => {
 
@@ -77,19 +78,15 @@ export const updateExpense = async (req, expense, params) => {
 
 export const destroyExpense = async (req, expense) => {
 
-  await req.trx('finance_receipts').where('expense_id', expense.get('id')).delete()
-
-  await req.trx('maha_audits').where('auditable_type', 'finance_expenses').where('auditable_id', expense.get('id')).delete()
-
-  await req.trx('maha_comments').where('commentable_type', 'finance_expenses').where('commentable_id', expense.get('id')).delete()
+  await expense.save({
+    deleted_at: moment()
+  }, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'deleted {object}',
     object: expense
-  })
-
-  await expense.destroy({
-    transacting: req.trx
   })
 
 }
