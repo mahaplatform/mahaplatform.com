@@ -42,9 +42,9 @@ const createRoute = async (req, res) => {
     title: req.body.title,
     config: {
       fields: [
-        { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
-        { label: 'Last Name', name: { value: 'Last Name', token: 'last_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
-        { label: 'Email', name: { value: 'Email', token: 'email' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
+        { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield' }, overwrite: true },
+        { label: 'Last Name', name: { value: 'Last Name', token: 'last_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield' }, overwrite: true },
+        { label: 'Email', name: { value: 'Email', token: 'email' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'emailfield' }, overwrite: true }
       ],
       body: {
         background_color: '#FFFFFF',
@@ -93,6 +93,7 @@ const createRoute = async (req, res) => {
     program_id: program.get('id'),
     code: workflowCode,
     status: 'active',
+    title: 'Confirmation Workflow',
     trigger_type: 'response'
   }).save(null, {
     transacting: req.trx
@@ -110,8 +111,9 @@ const createRoute = async (req, res) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     workflow_id: workflow.get('id'),
+    form_id: workflow.get('id'),
     program_id: program.get('id'),
-    title: 'Confirmation',
+    title: 'Confirmation Email',
     code: emailCode,
     config: template ? template.get('config') : {
       header: {

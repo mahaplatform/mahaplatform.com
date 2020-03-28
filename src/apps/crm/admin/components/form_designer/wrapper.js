@@ -29,12 +29,9 @@ class FormDesignerWrapper extends React.Component {
       { label: 'Contact Fields', fields: [
         { label: 'First Name', name: 'first_name', type: 'textfield' },
         { label: 'Last Name', name: 'last_name', type: 'textfield' },
-        { label: 'Email', name: 'email', type: 'textfield' },
-        { label: 'Phone', name: 'phone', type: 'textfield' },
-        { label: 'Street', name: 'street_1', type: 'textfield' },
-        { label: 'City', name: 'city', type: 'textfield' },
-        { label: 'State/Province', name: 'state_province', type: 'textfield' },
-        { label: 'Postal Code', name: 'postal_code', type: 'textfield' },
+        { label: 'Email', name: 'email', type: 'emailfield' },
+        { label: 'Phone', name: 'phone', type: 'phonefield' },
+        { label: 'Address', name: 'street_1', type: 'addressfield' },
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
         { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ] },

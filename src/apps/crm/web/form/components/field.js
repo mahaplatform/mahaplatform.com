@@ -31,7 +31,6 @@ class Field extends React.Component {
     const { label, instructions } = field
     if(Object.keys(field).length === 1) return null
     const Component  = this._getComponent(field)
-    console.log(this._getField())
     return (
       <div className={ this._getClass() }>
         <div className={ this._getFieldClass() }>

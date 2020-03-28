@@ -46,7 +46,6 @@ class Style extends React.Component {
   _getStyle() {
     const { config } = this.props
     const { sections } = config
-    console.log(config.sections)
     const styles = [
       { selector: '.document', styles: [
         ...this._getProp('background-color', 'page.background_color'),
@@ -77,7 +76,6 @@ class Style extends React.Component {
         ] }
       ], [])
     ]
-    console.log(styles)
     return styles.map(item => item.styles.length === 0 ? '' : `
       ${item.selector} {
         ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }

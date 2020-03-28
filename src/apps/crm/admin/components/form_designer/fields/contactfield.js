@@ -51,7 +51,6 @@ class ContactFieldForm extends React.Component {
       title: 'Contact Field',
       reference: node => this.form = node,
       onChange: this._handleChange,
-      onChangeField: this._handleChangeField,
       onSubmit: this._handleDone,
       cancelText: null,
       saveText: null,
@@ -61,34 +60,26 @@ class ContactFieldForm extends React.Component {
       sections: [
         {
           fields: [
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
+            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
             { label: 'Contact Field', name: 'contactfield', type: ContactField, fields, defaultValue: config.contactfield },
-            ...this._getField()
+            { prompt: 'Overwrite value if property is already set', name: 'overwrite', type: 'checkbox', defaultValue: config.overwrite }
           ]
         }
       ]
     }
   }
 
-  _getField() {
-    const { config } = this.state
-    if(!config.contactfield) return []
-    return [
-      { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
-      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-      { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
-      { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-      { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
-    ]
-  }
-
   _getDefault() {
     return {
-      contactfield: null,
       name: null,
       label: '',
       instructions: '',
-      placeholder: '',
-      required: false
+      required: false,
+      contactfield: null,
+      overwrite: true
     }
   }
 

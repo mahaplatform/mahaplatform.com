@@ -47,15 +47,9 @@ export default store => next => action => {
     const session = new window.ApplePaySession(3, paymentRequest)
 
     session.onpaymentauthorized = (e) => {
-      console.log('Your shipping address is:', e.payment.shippingContact)
-
       this.applePayInstance.tokenize({
         token: e.payment.token
       }).then(payload => {
-        console.log('nonce:', payload.nonce)
-
-        console.log('billingPostalCode:', e.payment.billingContact.postalCode)
-
         session.completePayment(window.ApplePaySession.STATUS_SUCCESS)
       }).catch(err => {
         console.error('Error tokenizing Apple Pay:', err)

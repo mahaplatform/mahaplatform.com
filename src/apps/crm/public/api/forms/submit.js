@@ -39,8 +39,7 @@ const getContact = async (req, { form, fields, data }) => {
 
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
-    code,
-    ...whitelist(data, ['first_name','last_name','photo_id','birthday','spouse'])
+    code
   }).save(null, {
     transacting: req.trx
   })
@@ -48,6 +47,43 @@ const getContact = async (req, { form, fields, data }) => {
   contact.is_known = false
 
   return contact
+
+}
+
+const updateContact = async (req, { contact, fields, data }) => {
+
+  const contactfields = fields.filter(field => {
+    return field.type === 'contactfield'
+  })
+
+  const core = contactfields.filter(field => {
+    return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
+  }).reduce((values, field) => {
+    if(!_.isNil(values[field.contactfield.name]) && field.overwrite === false) return values
+    return {
+      ...values,
+      [field.contactfield.name]: data[field.contactfield.name]
+    }
+  }, {})
+
+  const values = contactfields.filter(field => {
+    return field.contactfield.name.match(/^values./)
+  }).reduce((values, field) => {
+    const [,code] = field.contactfield.name.match(/^values.(.*)/)
+    if(!_.isNil(values[code]) && field.overwrite === false) return values
+    return {
+      ...values,
+      [code]: _.castArray(data[field.contactfield.name])
+    }
+  }, contact.get('values') || {})
+
+  await contact.save({
+    ...core,
+    values
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
 }
 
@@ -133,6 +169,12 @@ const submitRoute = async (req, res) => {
 
   const contact = await getContact(req, {
     form,
+    fields,
+    data: contactdata
+  })
+
+  await updateContact(req, {
+    contact,
     fields,
     data: contactdata
   })
