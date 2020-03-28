@@ -31,14 +31,9 @@ class Field extends React.Component {
         <div className="maha-field-handle">
           <i className="fa fa-fw fa-bars" />
         </div>
-        { field.type === 'section' ?
-          <div className="maha-field-label">
-            <strong>{ field.label }</strong>
-          </div> :
-          <div className="maha-field-label">
-            <strong>{ field.label }</strong> <span>({ field.type })</span>
-          </div>
-        }
+        <div className="maha-field-label">
+          <strong>{ field.name.value }</strong> <span>({ field.type })</span>
+        </div>
         { field.is_mutable &&
           <div className="maha-field-extra" onClick={ this._handleTasks.bind(this, field.id) }>
             <i className="fa fa-fw fa-ellipsis-v" />

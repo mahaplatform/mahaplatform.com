@@ -41,7 +41,7 @@ const getRules = async (fields) => {
 
     if(config.is_required) fieldRules.push({
       rule: 'required',
-      label: field.get('name')
+      label: field.get('name').token
     })
 
     comparisons.map(comparison => {
@@ -50,7 +50,7 @@ const getRules = async (fields) => {
 
       fieldRules.push({
         rule: `${comparison}:${config.min}`,
-        label: field.get('name')
+        label: field.get('name').token
       })
 
     })
@@ -61,7 +61,7 @@ const getRules = async (fields) => {
 
       fieldRules.push({
         rule: type,
-        label: field.get('name')
+        label: field.get('name').token
       })
 
     })
@@ -210,7 +210,7 @@ export const expandValues = async (req, parent_type, parent_id, data) => {
 
     return {
       ...values,
-      [fieldMap[code].get('name')]: await getValue(code)
+      [fieldMap[code].get('name').token]: await getValue(code)
     }
 
   }, {})

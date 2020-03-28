@@ -1,4 +1,3 @@
-import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -58,7 +57,7 @@ class RadioGroupForm extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },

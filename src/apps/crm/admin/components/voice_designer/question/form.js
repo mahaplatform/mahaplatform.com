@@ -1,5 +1,4 @@
 import RecordingField from '../../recordingfield'
-import TokenField from '../../tokenfield'
 import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -72,7 +71,7 @@ class Question extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
             this._getStrategy(),
             { label: 'Digits', name: 'digits', type: 'numberfield', required: true, defaultValue: config.digits, placeholder: 'Enter number of digits to collect' }

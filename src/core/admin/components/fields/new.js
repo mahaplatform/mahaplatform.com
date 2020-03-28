@@ -38,7 +38,11 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Input Type', name: 'type', type: 'lookup', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
+            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
+            { label: 'Instructions', name: 'instructions', type: 'textarea', placeholder: 'Enter a name', rows: 2 },
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
+            { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
             ...this._getTypeFields()
           ]
         }
@@ -62,7 +66,6 @@ class New extends React.Component {
       { value: 'numberfield', text: 'Number Field' },
       { value: 'phonefield', text: 'Phone Field' },
       { value: 'radiogroup', text: 'Radio Group' },
-      { value: 'section', text: 'Section' },
       { value: 'textfield', text: 'Text Field' },
       { value: 'textarea', text: 'Text Area' },
       { value: 'timefield', text: 'Time Field' },
@@ -74,16 +77,8 @@ class New extends React.Component {
   _getTypeFields() {
     const { data_type, type } = this.state
     const { datasources } = this.props
+    if(!type) return []
     const fields = []
-    if(!type) return fields
-    fields.push({ label: 'Label', name: 'label', type: 'textfield', required: true })
-    if(type !== 'section') {
-      fields.push({ label: 'Name', name: 'name', type: 'textfield', required: true })
-    }
-    fields.push({ label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2 })
-    if(type !== 'section') {
-      fields.push({ label: 'Required', name: 'required', type: 'checkbox' })
-    }
     if(type === 'textfield' || type === 'textarea') {
       fields.push({ type: 'fields', fields: [
         { label: 'Min Length', name: 'config.min_length', type: 'textfield' },

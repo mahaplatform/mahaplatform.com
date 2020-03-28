@@ -1,5 +1,4 @@
 import RecordingField from '../../recordingfield'
-import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -66,7 +65,6 @@ class Record extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name, placeholder: 'Enter a variable name' },
             { label: 'How to request', type: 'segment', required: true, fields: [
               { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
               ...this._getStrategy()

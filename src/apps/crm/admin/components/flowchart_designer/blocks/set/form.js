@@ -1,4 +1,3 @@
-import TokenField from '../../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -62,7 +61,7 @@ class Set extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: TokenField, required: true, defaultValue: config.name },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'Value', name: 'value', type: 'textfield', required: true, defaultValue: config.value }
           ]
         }

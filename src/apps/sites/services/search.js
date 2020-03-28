@@ -28,7 +28,7 @@ export const addIndex = async (req, { item, map }) => {
       })
 
       const title = map[config.datasource.type_id].find(field => {
-        return field.get('name') === config.datasource.text
+        return field.get('name').token === config.datasource.text
       })
 
       return related.map(item => item.get('values')[title.get('code')]).join(' ')

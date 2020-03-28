@@ -1,4 +1,5 @@
 import ItemSerializer from '../../../serializers/item_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import { processValues } from '../../../../maha/services/values'
 import { addIndex } from '../../../services/search'
 import Field from '../../../../maha/models/field'
@@ -58,6 +59,11 @@ const updateRoute = async (req, res) => {
     item,
     map
   })
+
+  await socket.refresh(req, [
+    `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items`,
+    `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items/${item.get('id')}`
+  ])
 
   res.status(200).respond(item, ItemSerializer)
 

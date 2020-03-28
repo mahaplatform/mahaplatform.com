@@ -51,7 +51,9 @@ const applyFilter = (qb, name, fields, filter) => {
 
   if(name === 'q') return _filterSearch(qb, filter)
 
-  const field = _.find(fields, { name })
+  const field = fields.find(field => {
+    return field.name === name
+  })
 
   if(!field) throw new Error({
     code: '500',
@@ -68,6 +70,8 @@ const _filterSearch = (qb, filter) => {
 }
 
 const _filterColumn = (qb, column, filter) => {
+
+  console.log(column, filter)
 
   if(filter.$eq) {
 

@@ -30,6 +30,7 @@ import TextArea from './textarea'
 import TextField from './textfield'
 import TimeField from './timefield'
 import ToggleList from './toggle_list'
+import TokenField from './tokenfield'
 import VideoField from './videofield'
 import PropTypes from 'prop-types'
 import Checkit from 'checkit'
@@ -107,6 +108,7 @@ class Control extends React.Component {
     if(type === 'textfield') return TextField
     if(type === 'timefield') return TimeField
     if(type === 'togglelist') return ToggleList
+    if(type === 'tokenfield') return TokenField
     if(type === 'videofield') return VideoField
     return TextField
   }

@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
   }).fetchAll({
     transacting: req.trx
   }).then(fields => fields.toArray().map(field => ({
-    name: field.get('name'),
+    name: field.get('name').token,
     code: field.get('code')
   })))
 

@@ -1493,13 +1493,13 @@ const schema = {
       table.string('code', 255)
       table.integer('delta')
       table.string('label', 255)
-      table.string('name', 255)
       table.text('instructions')
       table.jsonb('config')
       table.boolean('is_mutable')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.USER-DEFINED('type')
+      table.jsonb('name')
     })
 
     await knex.schema.createTable('maha_filter_accesses', (table) => {
