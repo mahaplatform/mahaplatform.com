@@ -331,6 +331,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('job_id')
       table.text('html')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -344,6 +345,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('form_id').unsigned()
       table.integer('program_id').unsigned()
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -357,6 +359,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('workflow_id').unsigned()
       table.integer('email_id').unsigned()
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -417,6 +420,7 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_program_accesses', (table) => {
@@ -489,6 +493,7 @@ const schema = {
       table.jsonb('config')
       table.jsonb('data')
       table.string('job_id', 255)
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -502,6 +507,7 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_subscriptions', (table) => {
@@ -560,6 +566,7 @@ const schema = {
       table.jsonb('to')
       table.jsonb('data')
       table.string('job_id', 255)
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_workflow_actions', (table) => {
@@ -641,6 +648,7 @@ const schema = {
       table.jsonb('field_config')
       table.USER-DEFINED('action')
       table.boolean('is_unique')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('drive_access', (table) => {

@@ -17,6 +17,7 @@ const WorkflowSerializer = (req, result) => ({
   lost_count: result.get('lost_count'),
   converted_count: result.get('converted_count'),
   completed_count: result.get('completed_count'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

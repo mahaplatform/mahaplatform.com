@@ -12,6 +12,10 @@ const Details = ({ campaign }) => {
     route: `/admin/crm/campaigns/postal/${campaign.code}/design`
   }
 
+  if(campaign.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This campaign was deleted' }
+  }
+  
   config.items = [
     { label: 'Title', content: campaign.title },
     { label: 'Program', content: campaign.program.title },

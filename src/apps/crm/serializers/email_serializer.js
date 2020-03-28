@@ -20,6 +20,7 @@ const EmailSerializer = (req, result) => ({
   webviewed: result.get('webviewed'),
   complained: result.get('complained'),
   unsubscribed: result.get('unsubscribed'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

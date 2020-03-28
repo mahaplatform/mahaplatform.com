@@ -17,6 +17,18 @@ const Workflow = new Model({
 
   virtuals: {
 
+    object_text: function() {
+      return this.get('display_name')
+    },
+
+    object_type: function() {
+      return 'workflow'
+    },
+
+    object_url: function() {
+      return `/admin/crm/workflows/${this.get('id')}`
+    },
+
     display_name() {
       if(this.related('form')) return `${this.related('form').get('title')}: ${this.get('title')}`
       if(this.related('email')) return `${this.related('email').get('title')}: ${this.get('title')}`

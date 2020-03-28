@@ -44,6 +44,18 @@ const getTasks = ({ campaign }) => {
     })
   }
 
+  items.push({
+    label: 'Delete Campaign',
+    confirm: `
+      Are you sure you want to delete this campaign? You will also delete all of
+      the associated workflows and performance data
+    `,
+    request: {
+      endpoint: `/api/admin/crm/campaigns/sms/${campaign.id}`,
+      method: 'delete'
+    }
+  })
+
   return { items }
 
 }

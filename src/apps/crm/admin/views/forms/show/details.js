@@ -1,6 +1,5 @@
-import { Audit, Button, List } from 'maha-admin'
+import { Audit, Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
 import React from 'react'
 
 const Details = ({ audits, form }) => {
@@ -19,6 +18,10 @@ const Details = ({ audits, form }) => {
 
   const list = {}
 
+  if(form.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This form was deleted' }
+  }
+
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Program', content: form.program.title },
@@ -26,6 +29,8 @@ const Details = ({ audits, form }) => {
     { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]
+
+  list.footer = <Comments entity={`crm_forms/${form.id}`} active={ form.deleted_at === null } />
 
   return <List { ...list } />
 

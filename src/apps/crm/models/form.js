@@ -13,6 +13,18 @@ const Form = new Model({
 
   virtuals: {
 
+    object_text: function() {
+      return this.get('title')
+    },
+
+    object_type: function() {
+      return 'form'
+    },
+
+    object_url: function() {
+      return `/admin/crm/forms/${this.get('id')}`
+    },
+
     is_open() {
       const { limits } = this.get('config')
       const { start_date, end_date, max_responses } = limits
@@ -30,6 +42,10 @@ const Form = new Model({
 
   email() {
     return this.belongsTo(Email, 'email_id')
+  },
+
+  emails() {
+    return this.hasMany(Email, 'form_id')
   },
 
   program() {

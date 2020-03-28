@@ -23,7 +23,9 @@ const Details = ({ audits, campaign }) => {
     modal: <Recipients campaign={ campaign } type="email" />
   }
 
-  if(campaign.status === 'draft') {
+  if(campaign.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This campaign was deleted' }
+  } else if(campaign.status === 'draft') {
     config.alert = { color: 'grey', message: 'This campaign is in draft mode' }
   } else if(campaign.status === 'scheduled') {
     config.alert = { color: 'teal', message: 'This campaign is scheduled' }

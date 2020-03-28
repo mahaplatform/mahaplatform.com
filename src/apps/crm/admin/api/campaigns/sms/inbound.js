@@ -11,6 +11,7 @@ const inboundRoute = async (req, res) => {
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_sms_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_sms_campaigns.team_id', req.team.get('id'))
       qb.where('crm_sms_campaigns.direction', 'inbound')
+      qb.whereNull('crm_sms_campaigns.deleted_at')
     },
     aliases: {
       program: 'program.title'

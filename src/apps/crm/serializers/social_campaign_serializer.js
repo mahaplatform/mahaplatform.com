@@ -6,6 +6,7 @@ const SocialCampaignSerializer = (req, result) => ({
   code: result.get('code'),
   status: result.get('status'),
   config: result.get('config'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

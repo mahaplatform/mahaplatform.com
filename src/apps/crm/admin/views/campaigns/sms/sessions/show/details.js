@@ -11,17 +11,19 @@ const Details = ({ campaign, session }) => {
     route: `/admin/crm/contacts/${session.contact.id}`
   }
 
-  const list = {
-    sections: [{
-      items: [
-        { label: 'Contact', content: <Button { ...contact } /> },
-        { label: 'Enrolled', content: session.created_at, format: 'datetime' },
-        { component: <WorkflowActions enrollment={ session } trigger_type={`${campaign.direction}_${campaign.type}`} />}
-      ]
-    }]
+  const config = {}
+
+  if(campaign.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This campaign was deleted' }
   }
 
-  return <List { ...list } />
+  config.items = [
+    { label: 'Contact', content: <Button { ...contact } /> },
+    { label: 'Enrolled', content: session.created_at, format: 'datetime' },
+    { component: <WorkflowActions enrollment={ session } trigger_type={`${campaign.direction}_${campaign.type}`} />}
+  ]
+
+  return <List { ...config } />
 
 }
 

@@ -13,6 +13,18 @@ const Email = new Model({
 
   virtuals: {
 
+    object_text: function() {
+      return this.get('display_name')
+    },
+
+    object_type: function() {
+      return 'email'
+    },
+
+    object_url: function() {
+      return `/admin/crm/emails/${this.get('id')}`
+    },
+
     display_name() {
       const form = this.related('form')
       const workflow = this.related('workflow')

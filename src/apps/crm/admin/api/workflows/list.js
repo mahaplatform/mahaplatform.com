@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
       qb.joinRaw('inner join crm_programs on crm_programs.id=crm_workflows.program_id')
       qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_workflows.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
       qb.where('crm_workflows.team_id', req.team.get('id'))
+      qb.whereNull('deleted_at')
     },
     aliases: {
       active_count: 'crm_workflow_results.active_count',

@@ -14,7 +14,18 @@ const getTabs = ({ audits, form, workflows }) => ({
 const getTasks = ({ form }) => ({
   items: [
     { label: 'Edit Form', modal: <Edit form={ form } /> },
-    { label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` }
+    { label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` },
+    {
+      label: 'Delete Form',
+      confirm: `
+        Are you sure you want to delete this form? You will also delete all of
+        the associated workflows, emails, and performance data
+      `,
+      request: {
+        endpoint: `/api/admin/crm/forms/${form.id}`,
+        method: 'delete'
+      }
+    }
   ]
 })
 

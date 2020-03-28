@@ -36,6 +36,17 @@ const getTasks = ({ workflow, list }) => ({
         success: () => {},
         failure: () => {}
       }
+    },
+    {
+      label: 'Delete Workflow',
+      confirm: `
+        Are you sure you want to delete this form? You will also delete all of
+        the associated emails, and performance data
+      `,
+      request: {
+        endpoint: `/api/admin/crm/workflows/${workflow.id}`,
+        method: 'delete'
+      }
     }
   ]
 })

@@ -1,4 +1,4 @@
-import { Audit, Button, List } from 'maha-admin'
+import { Audit, Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -6,7 +6,9 @@ const Details = ({ audits, workflow }) => {
 
   const list = {}
 
-  if(workflow.status === 'draft') {
+  if(workflow.deleted_at !== null) {
+    list.alert = { color: 'red', message: 'This workflow was deleted' }
+  } else if(workflow.status === 'draft') {
     list.alert = { color: 'grey', message: 'This workflow is in draft mode' }
   } else if(workflow.status === 'active') {
     list.alert = { color: 'green', message: 'This workflow is active' }
@@ -26,6 +28,8 @@ const Details = ({ audits, workflow }) => {
     { label: 'Content', content: <Button { ...design } /> },
     { component: <Audit entries={ audits } /> }
   ]
+
+  list.footer = <Comments entity={`crm_workflows/${workflow.id}`} active={ workflow.deleted_at === null } />
 
   return <List { ...list } />
 

@@ -12,11 +12,27 @@ const getTabs = ({ audits, campaign, performance, workflows }) => ({
 })
 
 const getTasks = ({ campaign }) => {
+
   const items = []
+
   if(campaign.status === 'draft') {
     items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
   }
+
+  items.push({
+    label: 'Delete Campaign',
+    confirm: `
+      Are you sure you want to delete this campaign? You will also delete all of
+      the associated workflows and performance data
+    `,
+    request: {
+      endpoint: `/api/admin/crm/campaigns/email/${campaign.id}`,
+      method: 'delete'
+    }
+  })
+
   return { items }
+
 }
 
 const mapResourcesToPage = (props, context) => ({
