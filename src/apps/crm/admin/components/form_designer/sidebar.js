@@ -27,7 +27,9 @@ class Sidebar extends React.Component {
     changes: PropTypes.number,
     config: PropTypes.object,
     endpoint: PropTypes.string,
+    fields: PropTypes.array,
     form: PropTypes.object,
+    program: PropTypes.object,
     status: PropTypes.string,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
@@ -89,13 +91,14 @@ class Sidebar extends React.Component {
   }
 
   _getField() {
-    const { active, config } = this.props
+    const { active, config, fields } = this.props
     const key = `fields[${active}]`
     return {
       config: {
         code: _.random(100000000, 999999999).toString(36),
         ..._.get(config, key)
       },
+      fields,
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
     }

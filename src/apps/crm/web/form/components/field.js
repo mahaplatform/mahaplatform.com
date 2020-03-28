@@ -8,7 +8,7 @@ import {
   DateField,
   TimeField,
   TextArea,
-  Dropdown,
+  DropDown,
   Checkbox,
   Text
 } from 'maha-client'
@@ -31,6 +31,7 @@ class Field extends React.Component {
     const { label, instructions } = field
     if(Object.keys(field).length === 1) return null
     const Component  = this._getComponent(field)
+    console.log(this._getField())
     return (
       <div className={ this._getClass() }>
         <div className={ this._getFieldClass() }>
@@ -71,7 +72,7 @@ class Field extends React.Component {
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'dropdown') return Dropdown
+    if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
@@ -84,7 +85,10 @@ class Field extends React.Component {
 
   _getField() {
     const { field  } = this.props
-    return field
+    return {
+      ...field,
+      ...field.contactfield || {}
+    }
   }
 
   _getFieldClass() {

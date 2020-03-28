@@ -1,4 +1,3 @@
-import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
 import React from 'react'
@@ -12,7 +11,7 @@ class ContactField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
-    options: PropTypes.array,
+    fields: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -23,20 +22,19 @@ class ContactField extends React.Component {
   }
 
   state = {
-    value: null
+    field: null
   }
 
-  _handleBegin = this._handleBegin.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleLookup = this._handleLookup.bind(this)
 
   render() {
-    const { value } = this.state
-    const field = this._getField()
+    const { field } = this.state
     return (
-      <div className="maha-input" onClick={ this._handleBegin }>
+      <div className="maha-input" onClick={ this._handleLookup }>
         <div className="maha-input-field">
-          { value ?
+          { field ?
             <div className="maha-input-token">
               { field.label }
             </div> :
@@ -45,7 +43,7 @@ class ContactField extends React.Component {
             </div>
           }
         </div>
-        { value &&
+        { field &&
           <div className="maha-input-clear" onClick={ this._handleClear}>
             <i className="fa fa-times" />
           </div>
@@ -56,57 +54,44 @@ class ContactField extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this.setState({
-      value: defaultValue.name
-    })
+    if(defaultValue) {
+      this.setState({
+        field: defaultValue
+      })
+    }
     this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value } = this.state
-    if(value !== prevState.value) {
-      this._handleChange()
+    const { field } = this.state
+    if(!_.isEqual(field, prevState.field)) {
+      this.props.onChange(field)
     }
   }
 
-  _getField() {
-    const { options } = this.props
-    const { value } = this.state
-    return _.find(options, { name: value })
-  }
-
   _getChooser() {
-    const { options } = this.props
+    const { fields } = this.props
     return {
-      options,
+      fields,
       onChoose: this._handleChoose
     }
   }
 
-  _handleBegin() {
-    this.context.form.push(<Chooser { ...this._getChooser() } />)
-  }
-
-  _handleChange() {
-    const field = this._getField()
-    this.props.onChange(field)
-  }
-
-  _handleChoose(value) {
-    this.setState({ value })
+  _handleChoose(field) {
+    this.setState({ field })
   }
 
   _handleClear(e) {
     e.stopPropagation()
     this.setState({
-      value: null
+      field: null
     })
+  }
+
+  _handleLookup() {
+    this.context.form.push(<Chooser { ...this._getChooser() } />)
   }
 
 }
 
-const mapResources = (props, context) => ({
-  options: '/api/admin/crm/forms/fields'
-})
-
-export default Container(mapResources)(ContactField)
+export default ContactField

@@ -9,7 +9,7 @@ class Chooser extends React.Component {
   }
 
   static propTypes = {
-    options: PropTypes.array,
+    fields: PropTypes.array,
     onChoose: PropTypes.func
   }
 
@@ -17,15 +17,21 @@ class Chooser extends React.Component {
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
-    const { options } = this.props
+    const { fields } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-contactfield-options">
-          { options.map((option, index) => (
-            <div key={`option_${index}`} className="maha-contactfield-option" onClick={ this._handleChoose.bind(this, option)}>
-              { option.label }
-            </div>
-          )) }
+          { fields.reduce((groups, group, groupIndex) => [
+            ...groups,
+            <div className="maha-criterion-type" key={`type_${groupIndex}`}>
+              { group.label }
+            </div>,
+            ...group.fields.map((field, propertyIndex) => (
+              <div className="maha-criterion-item" key={`type_${groupIndex}_property_${propertyIndex}`} onClick={ this._handleChoose.bind(this, field)}>
+                { field.label }
+              </div>
+            ))
+          ], []) }
         </div>
       </ModalPanel>
     )
@@ -45,7 +51,7 @@ class Chooser extends React.Component {
   }
 
   _handleChoose(field) {
-    this.props.onChoose(field.name)
+    this.props.onChoose(field)
     this.context.form.pop()
   }
 

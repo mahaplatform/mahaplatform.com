@@ -20,7 +20,6 @@ class ContactFieldForm extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
@@ -47,6 +46,7 @@ class ContactFieldForm extends React.Component {
 
   _getForm() {
     const { config } = this.state
+    const { fields } = this.props
     return {
       title: 'Contact Field',
       reference: node => this.form = node,
@@ -61,7 +61,7 @@ class ContactFieldForm extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Contact Field', name: 'contactfield', type: ContactField, defaultValue: config.contactfield },
+            { label: 'Contact Field', name: 'contactfield', type: ContactField, fields, defaultValue: config.contactfield },
             ...this._getField()
           ]
         }
@@ -71,7 +71,7 @@ class ContactFieldForm extends React.Component {
 
   _getField() {
     const { config } = this.state
-    if(config.contactfield === null) return []
+    if(!config.contactfield) return []
     return [
       { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
       { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
@@ -84,8 +84,8 @@ class ContactFieldForm extends React.Component {
   _getDefault() {
     return {
       contactfield: null,
+      name: null,
       label: '',
-      token: '',
       instructions: '',
       placeholder: '',
       required: false
@@ -99,18 +99,6 @@ class ContactFieldForm extends React.Component {
         ...config
       }
     })
-  }
-
-  _handleChangeField(key, value) {
-    if(key === 'contactfield') {
-      this.setState({
-        config: {
-          ...this.state.config,
-          contactfield: value,
-          label: value.label
-        }
-      })
-    }
   }
 
   _handleDone() {

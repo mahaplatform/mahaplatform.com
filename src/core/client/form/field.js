@@ -75,7 +75,7 @@ class Field extends React.Component {
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'DropDown') return DropDown
+    if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField

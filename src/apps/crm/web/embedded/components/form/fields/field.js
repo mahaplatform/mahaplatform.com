@@ -95,12 +95,16 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, field, index, status, token, onChange, onReady, onValidate } = this.props
+    const { code, index, status, token, onChange, onReady, onValidate } = this.props
     const { htmlFor } = this.state
+    const field = {
+      ...this.props.field,
+      ...this.props.field.contactfield || {}
+    }
     return {
       code,
       htmlFor,
-      ..._.omit(field, ['code','name']),
+      ..._.omit(field, ['code','name','contactfield']),
       name: _.get(field, 'name.value'),
       status,
       tabIndex: index + 1,

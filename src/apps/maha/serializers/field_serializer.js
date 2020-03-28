@@ -24,6 +24,7 @@ const config = (req, result) => {
 
   const dataConfig = (type === 'checkboxgroup' || type === 'radiogroup' || type === 'lookup') ? {
     endpoint: config.datasource ? config.datasource.endpoint : null,
+    data_type: config.data_type,
     options: config.options,
     value: config.datasource ? (config.datasource.value || 'value') : 'value',
     text: config.datasource ? (config.datasource.text || 'text') : 'text',

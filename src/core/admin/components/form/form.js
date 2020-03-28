@@ -179,7 +179,8 @@ class Form extends React.Component {
   _handleNewFields(previous, current) {
     const { data, onUpdateData } = this.props
     current.map(field => {
-      if(data[field.name] === undefined) {
+      const value = _.get(data, field.name)
+      if(value === undefined) {
         return onUpdateData(field.name, field.defaultValue)
       }
     })

@@ -1,4 +1,4 @@
-import FormDesigner from '../../components/form_designer'
+import FormDesigner from '../../components/form_designer/wrapper'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
@@ -19,6 +19,7 @@ class Form extends React.Component {
       form,
       code: form.code,
       endpoint: `/api/admin/crm/forms/${form.id}`,
+      program: form.program,
       onSave: this._handleSave
     }
   }

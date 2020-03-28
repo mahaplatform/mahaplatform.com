@@ -67,10 +67,12 @@ class TableField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onSet, onReady } = this.props
-    if(defaultValue) onSet(defaultValue.map(row => ({
-      ...row,
-      code: _.random(100000000, 999999999).toString(36)
-    })))
+    if(defaultValue) {
+      onSet(defaultValue.map(row => ({
+        ...row,
+        code: _.random(100000000, 999999999).toString(36)
+      })))
+    }
     onReady()
   }
 
