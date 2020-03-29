@@ -61,7 +61,7 @@ class Network extends React.Component {
       <div className={ this._getClass() }>
         { reload &&
           <div className="maha-network-revision">
-            A new version of Maha is available! <Button { ...this._getReload() } />.
+            An updated version of Maha is available! <Button { ...this._getReload() } />.
           </div>
         }
         <div className="maha-network-body">
@@ -127,7 +127,7 @@ class Network extends React.Component {
 
   _getReload() {
     return {
-      label: 'Reload browser',
+      label: 'Click here to reload',
       className: 'link',
       handler: () => window.location.reload()
     }
