@@ -1,5 +1,5 @@
 import CompactCampaignToken from '../../../tokens/campaign/compact'
-import NewCampaign from '../../../components/newcampaign'
+import ProgramForm from '../../../components/programform'
 import StatusToken from '../../../tokens/status'
 import { Page } from 'maha-admin'
 import New from './new_inbound'
@@ -27,7 +27,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Inbound SMS Campaigns',
       text: 'You have not yet created any inbound SMS campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: <NewCampaign type="sms" form={ New } /> }
+        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } type="sms" form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -35,7 +35,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: <NewCampaign type="sms" form={ New } />
+    modal: <ProgramForm programs={ resources.programs } form={ New } />
   } : null
 })
 
@@ -43,11 +43,13 @@ const mapResourcesToPage = (props, context) => ({
   programs: {
     endpoint: '/api/admin/crm/programs',
     filter: {
+      phone_number_id: {
+        $nnl: true
+      },
       access_type: {
         $in: ['manage','edit']
       }
     }
   }
 })
-
 export default Page(mapResourcesToPage, mapPropsToPage)

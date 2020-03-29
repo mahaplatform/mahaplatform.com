@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Programs from './programs'
 import React from 'react'
 
-class NewCampaign extends React.PureComponent {
+class ProgramForm extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -12,7 +12,7 @@ class NewCampaign extends React.PureComponent {
 
   static propTypes = {
     form: PropTypes.any,
-    type: PropTypes.string,
+    programs: PropTypes.array,
     onSet: PropTypes.func
   }
 
@@ -21,7 +21,6 @@ class NewCampaign extends React.PureComponent {
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -35,9 +34,9 @@ class NewCampaign extends React.PureComponent {
   }
 
   _getPrograms() {
-    const { type } = this.props
+    const { programs } = this.props
     return {
-      type,
+      programs,
       onCancel: this._handleCancel,
       onChoose: this._handleProgram
     }
@@ -51,21 +50,14 @@ class NewCampaign extends React.PureComponent {
     }
   }
 
-  _getType(program_id) {
+  _getForm(program_id) {
     return {
       program_id,
-      onBack: this._handlePop,
-      onDone: this._handleDone
+      onBack: this._handlePop
     }
   }
 
   _handleCancel() {
-    this.context.modal.close()
-  }
-
-  _handleDone(result) {
-    const { type } = this.props
-    this.context.router.history.push(`/admin/crm/campaigns/${type}/${result.code}`)
     this.context.modal.close()
   }
 
@@ -77,7 +69,7 @@ class NewCampaign extends React.PureComponent {
 
   _handleProgram(program) {
     const { form } = this.props
-    this._handlePush(form, this._getType(program.id))
+    this._handlePush(form, this._getForm(program.id))
   }
 
   _handlePush(component, props) {
@@ -91,4 +83,4 @@ class NewCampaign extends React.PureComponent {
 
 }
 
-export default NewCampaign
+export default ProgramForm

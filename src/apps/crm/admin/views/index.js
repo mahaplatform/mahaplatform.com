@@ -1,4 +1,3 @@
-import CampaignsList from './campaigns/list'
 import CampaignsEmailList from './campaigns/email/list'
 import CampaignsEmailShow from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
@@ -51,7 +50,6 @@ import WorkflowEnrollmentsList from './workflows/enrollments/list'
 import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
-  { path: '/campaigns', component: CampaignsList },
   { path: '/campaigns/email', component: CampaignsEmailList },
   { path: '/campaigns/email/:id', component: CampaignsEmailShow },
   { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },

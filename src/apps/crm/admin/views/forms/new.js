@@ -1,4 +1,3 @@
-import ProgramToken from '../../tokens/program'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -12,15 +11,12 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    user: PropTypes.object
+    program_id: PropTypes.number,
+    user: PropTypes.object,
+    onBack: PropTypes.func
   }
 
-  state = {
-    program_id: null
-  }
-
-  _handleCancel = this._handleCancel.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -28,26 +24,25 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { program_id } = this.state
-    const { user } = this.props
+    const { program_id, user } = this.props
     return {
       title: 'New Form',
       method: 'post',
       action: '/api/admin/crm/forms',
+      cancelIcon: 'chevron-left',
+      onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
-      onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }, {
           label: 'Confirmation Email',
           fields: [
-            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
+            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for filling out our form' }
           ]
@@ -56,16 +51,8 @@ class New extends React.Component {
     }
   }
 
-  _handleCancel() {
-    this.context.modal.close()
-  }
-
-  _handleChangeField(name, value) {
-    if(name === 'program_id') {
-      this.setState({
-        program_id: value
-      })
-    }
+  _handleBack() {
+    this.props.onBack()
   }
 
   _handleSuccess(result) {
