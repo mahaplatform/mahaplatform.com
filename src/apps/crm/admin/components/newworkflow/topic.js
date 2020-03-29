@@ -57,8 +57,9 @@ class Topic extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
+            { label: 'Title', name: 'title', type: 'textfield', required: true, defaultValue: 'Update Topic Workflow' },
             { label: 'Action', name: 'action', type: 'radiogroup', options: ['add','remove'], required: true, format: WorkflowActionToken, defaultValue: 'add' },
-            { label: 'Topic', name: 'topic_id', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } },
+            { label: 'Topic', name: 'topic_id', type: 'lookup', required: true, endpoint: `/api/admin/crm/programs/${program_id}/topics`, value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } },
             { label: 'Configuration', type: 'segment', fields: [
               { name: 'is_unique', type: 'checkbox', prompt: 'contacts can only be enrolled once' }
             ] }

@@ -32,6 +32,7 @@ class Property extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
+            { label: 'Title', name: 'title', type: 'textfield', required: true, defaultValue: 'Update Property Workflow' },
             { label: 'Property', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }

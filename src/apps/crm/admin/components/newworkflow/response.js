@@ -32,7 +32,8 @@ class Response extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
-            { label: 'Form', name: 'form_id', type: 'lookup', endpoint: '/api/admin/crm/forms', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, defaultValue: 'Form Submission Workflow' },
+            { label: 'Form', name: 'form_id', type: 'lookup', required: true, endpoint: '/api/admin/crm/forms', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }
       ]

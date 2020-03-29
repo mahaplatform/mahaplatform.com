@@ -32,7 +32,8 @@ class Click extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
-            { label: 'Email', name: 'email_id', type: 'lookup', endpoint: '/api/admin/crm/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, defaultValue: 'Email Click Workflow' },
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, endpoint: '/api/admin/crm/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }
       ]
