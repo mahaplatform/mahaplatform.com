@@ -12,6 +12,9 @@ const env = async (root, environment) => {
     getValue: getValue(environment)
   })
   fs.writeFileSync(path.join(root,'.env'), data, 'utf8')
+  if(process.env.CIRCLE_SHA1) {
+    fs.writeFileSync(path.join(root,'REVISION'), process.env.CIRCLE_SHA1, 'utf8')
+  }
 }
 
 export default env
