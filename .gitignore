@@ -23,3 +23,4 @@ src/public/*
 !src/public/admin
 ngrok
 metadata.csv
+REVISION

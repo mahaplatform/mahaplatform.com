@@ -98,10 +98,14 @@ class New extends React.Component {
       ], defaultValue: false  })
     }
     if(type === 'checkboxgroup' || type === 'radiogroup' || type === 'lookup') {
-      fields.push({ label: 'Data Type', name: 'config.data_type', type: 'radiogroup', options: [
-        { value: 'static', text: 'Static' },
-        { value: 'dynamic', text: 'Dynamic' }
-      ], defaultValue: 'static' })
+      if(datasources && datasources.length > 0) {
+        fields.push({ label: 'Data Type', name: 'config.data_type', type: 'radiogroup', options: [
+          { value: 'static', text: 'Static' },
+          { value: 'dynamic', text: 'Dynamic' }
+        ], defaultValue: 'static' })
+      } else {
+        fields.push({ name: 'config.data_type', type: 'hidden', defaultValue: 'static' })
+      }
       if(data_type === 'static') {
         fields.push({ label: 'Options', name: 'config.options', type: 'tablefield', columns: [
           { label: 'Value', key: 'value' },

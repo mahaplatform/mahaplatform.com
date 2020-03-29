@@ -2,7 +2,10 @@ import collectObjects from '../../utils/collect_objects'
 import Redis from 'socket.io-redis'
 import presence from './presence'
 import socketio from 'socket.io'
+import revision from './revision'
 import server from './server'
+
+const sockets = collectObjects('admin/socket.js')
 
 const middleware = (http) => {
 
@@ -12,7 +15,7 @@ const middleware = (http) => {
 
   io.on('connection', async (socket) => {
 
-    const sockets = collectObjects('admin/socket.js')
+    await revision(io, socket)
 
     await server(io, socket)
 

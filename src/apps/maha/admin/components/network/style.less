@@ -2,11 +2,26 @@
   position: relative;
   flex: 1;
   display: flex;
+  flex-direction: column;
   &.error .maha-network-status {
     background-color: @yellow;
   }
   &.success .maha-network-status {
     background-color: @green;
+  }
+}
+.maha-network-body {
+  display: flex;
+  flex: 1;
+}
+.maha-network-revision {
+  background-color: @teal;
+  color: @white;
+  text-align: center;
+  padding: 0.8em;
+  .link {
+    color: @white;
+    text-decoration: underline;
   }
 }
 .maha-network-status {

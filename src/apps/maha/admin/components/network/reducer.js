@@ -5,6 +5,8 @@ export const INITIAL_STATE = {
   channels: {},
   handlers: [],
   listeners: {},
+  revision: null,
+  reload: false,
   status: null,
   text: null
 }
@@ -102,6 +104,13 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       status: action.status,
       text: action.text
+    }
+
+  case 'SET_REVISION':
+    return {
+      ...state,
+      revision: action.revision,
+      reload: action.reload
     }
 
   case 'CLEAR_ALERT':

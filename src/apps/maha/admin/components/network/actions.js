@@ -85,3 +85,9 @@ export const setAlert = (status, text) => ({
   status,
   text
 })
+
+export const setRevision = (revision, reload) => ({
+  type: 'SET_REVISION',
+  revision,
+  reload
+})
