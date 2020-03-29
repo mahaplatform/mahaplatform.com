@@ -30,10 +30,10 @@ const Workflow = new Model({
     },
 
     display_name() {
-      if(this.related('form')) return `${this.related('form').get('title')}: ${this.get('title')}`
-      if(this.related('email')) return `${this.related('email').get('title')}: ${this.get('title')}`
-      if(this.related('list')) return `${this.related('list').get('title')}: ${this.get('title')}`
-      if(this.related('topic')) return `${this.related('topic').get('title')}: ${this.get('title')}`
+      if(this.get('form_id')) return `${this.related('form').get('title')}: ${this.get('title')}`
+      if(this.get('email_id')) return `${this.related('email').get('title')}: ${this.get('title')}`
+      if(this.get('list_id')) return `${this.related('list').get('title')}: ${this.get('title')}`
+      if(this.get('topic_id')) return `${this.related('topic').get('title')}: ${this.get('title')}`
       return this.get('title')
     }
 

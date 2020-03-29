@@ -7,6 +7,17 @@ import socket from '../../../../../core/services/routes/emitter'
 import Workflow from '../../../models/workflow'
 import Program from '../../../models/program'
 
+const getTitle = ({ action, title, trigger_type }) => {
+  if(trigger_type === 'list' && action === 'add') return 'Add to List Workflow'
+  if(trigger_type === 'list' && action === 'remove') return 'Remove from List Workflow'
+  if(trigger_type === 'topic' && action === 'add') return 'Add to Topic Workflow'
+  if(trigger_type === 'topic' && action === 'remove') return 'Remove from Topic Workflow'
+  if(trigger_type === 'open') return 'Email Open Workflow'
+  if(trigger_type === 'click') return 'Email Click Workflow'
+  if(trigger_type === 'property') return 'Update Property Workflow'
+  return title
+}
+
 const createRoute = async (req, res) => {
 
   const program = await Program.query(qb => {
@@ -32,7 +43,8 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['trigger_type','action','title','form_id','email_id','list_id','topic_id','purpose','is_unique'])
+    title: getTitle(req.body),
+    ...whitelist(req.body, ['trigger_type','action','form_id','email_id','list_id','topic_id','purpose','is_unique'])
   }).save(null, {
     transacting: req.trx
   })
