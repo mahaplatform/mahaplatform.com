@@ -1,4 +1,8 @@
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import EmailSerializer from '../../../serializers/email_serializer'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import Email from '../../../models/email'
 
 const updateRoute = async (req, res) => {
@@ -17,10 +21,25 @@ const updateRoute = async (req, res) => {
   })
 
   await email.save({
-    config: req.body.config
+    ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx
   })
+
+  await audit(req, {
+    story: 'updated',
+    auditable: email
+  })
+
+  await activity(req, {
+    story: 'updated {object}',
+    object: email
+  })
+
+  await socket.refresh(req, [
+    '/admin/crm/emails',
+    `/admin/crm/emails/${email.id}`
+  ])
 
   res.status(200).respond(email, EmailSerializer)
 

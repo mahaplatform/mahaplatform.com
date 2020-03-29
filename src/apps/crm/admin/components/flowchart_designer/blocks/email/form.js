@@ -35,6 +35,7 @@ class Email extends React.PureComponent {
   }
 
   _getForm() {
+    const { program } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -50,7 +51,7 @@ class Email extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: '/api/admin/crm/emails', value: 'id', text: 'display_name', form: this._getEmailForm(), defaultValue: config.email_id }
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: '/api/admin/crm/emails', filter: { program_id: { $eq: program.id } }, value: 'id', text: 'display_name', form: this._getEmailForm(), defaultValue: config.email_id }
           ]
         }
       ]

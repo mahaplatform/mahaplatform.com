@@ -1,6 +1,7 @@
 import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Edit from './edit'
 import React from 'react'
 
 const getTabs = ({ email }) => ({
@@ -12,6 +13,7 @@ const getTabs = ({ email }) => ({
 
 const getTasks = ({ email }) => ({
   items: [
+    { label: 'Edit Email', modal: <Edit email={ email } /> },
     {
       label: 'Delete Email',
       confirm: `

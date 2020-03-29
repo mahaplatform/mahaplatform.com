@@ -4,6 +4,7 @@ import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'
 import preview from './preview'
+import create from './create'
 import update from './update'
 import edit from './edit'
 import list from './list'
@@ -14,6 +15,8 @@ const router = new Router({ mergeParams: true })
 router.get('/', list)
 
 router.post('/preview', preview)
+
+router.post('/', create)
 
 router.get('/:id', show)
 

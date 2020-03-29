@@ -18,6 +18,7 @@ const Details = ({ email }) => {
 
   list.items = [
     { label: 'Title', content: email.display_name },
+    { label: 'Program', content: email.program.title },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 

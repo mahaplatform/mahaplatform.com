@@ -26,10 +26,8 @@ const Email = new Model({
     },
 
     display_name() {
-      const form = this.related('form')
-      const workflow = this.related('workflow')
-      if(form) return `${form.get('title')}: ${this.get('title')}`
-      if(workflow) return `${workflow.get('title')}: ${this.get('title')}`
+      if(this.get('form_id')) return `${this.related('form').get('title')}: ${this.get('title')}`
+      if(this.get('workflow_id')) return `${this.related('workflow').get('title')}: ${this.get('title')}`
       return this.get('title')
     }
 

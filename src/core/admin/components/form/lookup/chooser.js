@@ -14,6 +14,7 @@ class Chooser extends React.Component {
   static propTypes = {
     chosen: PropTypes.any,
     endpoint: PropTypes.string,
+    filter: PropTypes.object,
     form: PropTypes.object,
     format: PropTypes.any,
     label: PropTypes.string,
@@ -76,10 +77,11 @@ class Chooser extends React.Component {
   }
 
   _getSearch() {
-    const { chosen, endpoint, format, label, multiple, options, prompt, search, text } = this.props
+    const { chosen, endpoint, filter, format, label, multiple, options, prompt, search, text } = this.props
     return {
       defaultValue: chosen,
       endpoint,
+      filter,
       format,
       label,
       multiple,

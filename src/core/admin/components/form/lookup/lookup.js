@@ -102,10 +102,11 @@ class Lookup extends React.Component {
   }
 
   _getChooser() {
-    const { chosen, endpoint, form, format, label, options, prompt, search, text, value, onChoose } = this.props
+    const { chosen, endpoint, filter, form, format, label, options, prompt, search, text, value, onChoose } = this.props
     return {
       chosen,
       endpoint,
+      filter,
       form,
       format,
       label,

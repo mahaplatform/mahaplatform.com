@@ -1,15 +1,11 @@
 import { activity } from '../../../../../core/services/routes/activities'
+import EmailSerializer from '../../../serializers/email_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
-import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import WorkflowStep from '../../../models/workflow_step'
-import Workflow from '../../../models/workflow'
 import Template from '../../../models/template'
 import Program from '../../../models/program'
 import Email from '../../../models/email'
-import Form from '../../../models/form'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -27,76 +23,6 @@ const createRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const code = await generateCode(req, {
-    table: 'crm_forms'
-  })
-
-  const generateFieldCode = () => {
-    return _.random(100000, 999999).toString(36)
-  }
-
-  const form = await Form.forge({
-    team_id: req.team.get('id'),
-    code,
-    program_id: program.get('id'),
-    title: req.body.title,
-    config: {
-      fields: [
-        { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield' }, overwrite: true },
-        { label: 'Last Name', name: { value: 'Last Name', token: 'last_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield' }, overwrite: true },
-        { label: 'Email', name: { value: 'Email', token: 'email' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'emailfield' }, overwrite: true }
-      ],
-      body: {
-        background_color: '#FFFFFF',
-        button_text: 'Submit'
-      },
-      confirmation: {
-        strategy: 'message',
-        message: 'Thank You!'
-      },
-      limits: {},
-      page: {
-        background_color: '#EEEEEE'
-      },
-      security: {
-        captcha: true
-      },
-      seo: {
-        title: req.body.title,
-        description: '',
-        permalink: ''
-      }
-    }
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await audit(req, {
-    story: 'created',
-    auditable: form
-  })
-
-  const workflowCode = await generateCode(req, {
-    table: 'crm_workflows'
-  })
-
-  const workflow = await Workflow.forge({
-    team_id: req.team.get('id'),
-    form_id: form.get('id'),
-    program_id: program.get('id'),
-    code: workflowCode,
-    status: 'active',
-    title: 'Confirmation Workflow',
-    trigger_type: 'response'
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await audit(req, {
-    story: 'created',
-    auditable: workflow
-  })
-
   const template = req.body.template_id ? await Template.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('program_id', program.get('id'))
@@ -111,10 +37,8 @@ const createRoute = async (req, res) => {
 
   const email = await Email.forge({
     team_id: req.team.get('id'),
-    workflow_id: workflow.get('id'),
-    form_id: form.get('id'),
     program_id: program.get('id'),
-    title: 'Confirmation Email',
+    title: req.body.title,
     code: emailCode,
     config: {
       ...template ? template.get('config') : {
@@ -166,44 +90,16 @@ const createRoute = async (req, res) => {
     auditable: email
   })
 
-  const stepCode = await generateCode(req, {
-    table: 'crm_workflow_steps'
-  })
-
-  await WorkflowStep.forge({
-    team_id: req.team.get('id'),
-    workflow_id: workflow.get('id'),
-    type: 'communication',
-    action: 'email',
-    code: stepCode,
-    delta: 0,
-    parent: null,
-    answer: null,
-    is_active: true,
-    config: {
-      email_id: email.get('id')
-    }
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await form.save({
-    workflow_id: workflow.get('id'),
-    email_id: email.get('id')
-  }, {
-    transacting: req.trx
-  })
-
   await activity(req, {
     story: 'created {object}',
-    object: form
+    object: email
   })
 
   await socket.refresh(req, [
-    '/admin/crm/forms'
+    '/admin/crm/emails'
   ])
 
-  res.status(200).respond(form, FormSerializer)
+  res.status(200).respond(email, EmailSerializer)
 
 }
 
