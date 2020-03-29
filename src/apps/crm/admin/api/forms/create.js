@@ -111,7 +111,7 @@ const createRoute = async (req, res) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     workflow_id: workflow.get('id'),
-    form_id: workflow.get('id'),
+    form_id: form.get('id'),
     program_id: program.get('id'),
     title: 'Confirmation Email',
     code: emailCode,
