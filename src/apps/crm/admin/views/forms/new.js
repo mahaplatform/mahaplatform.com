@@ -36,6 +36,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
+            { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }, {
