@@ -16,6 +16,9 @@ npm-debug.log
 .env*
 *.key
 *.crt
+*.csr
+*.cer
+*.p12
 src/public/*
 !src/public/admin
 ngrok
