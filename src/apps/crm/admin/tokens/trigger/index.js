@@ -29,7 +29,7 @@ const triggers = {
     description: 'Enroll contact when they are added to a list'
   },
   topic: {
-    icon: 'book',
+    icon: 'lightbulb-o',
     title: 'Topic Update',
     description: 'Enroll contact when they are added to a topic'
   },

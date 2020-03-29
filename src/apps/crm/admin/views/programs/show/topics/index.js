@@ -18,7 +18,7 @@ const Topics = ({ program, topics }) => {
       )
     })),
     empty: {
-      icon: 'book',
+      icon: 'lightbulb-o',
       title: 'No Topics',
       text: 'There are no topics for this program',
       button: program.access_type === 'manage' ? {

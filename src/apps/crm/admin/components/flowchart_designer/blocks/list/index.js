@@ -2,7 +2,7 @@ import Token from './token'
 import Form from './form'
 
 export default {
-  icon: 'users',
+  icon: 'th-list',
   label: 'Update Lists',
   type: 'contact',
   action: 'list',

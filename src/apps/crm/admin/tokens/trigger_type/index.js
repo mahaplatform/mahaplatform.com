@@ -5,8 +5,8 @@ const types = {
   response: 'check-square',
   open: 'envelope-open',
   click: 'mouse-pointer',
-  list: 'users',
-  topic: 'book',
+  list: 'th-list',
+  topic: 'lightbulb-o',
   property: 'id-card',
   manual: 'plus'
 }

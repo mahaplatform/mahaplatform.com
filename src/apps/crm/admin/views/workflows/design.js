@@ -8,8 +8,8 @@ const triggers = {
   response: { icon: 'check-square-o', text: 'Form is submitted' },
   open: { icon: 'envelope-open', text: 'Email is opened' },
   click: { icon: 'mouse-pointer', text: 'Email is clicked' },
-  list: { icon: 'users', text: 'Contact is added to list' },
-  topic: { icon: 'book', text: 'Contact is added to topic' },
+  list: { icon: 'th-list', text: 'Contact is added to list' },
+  topic: { icon: 'lightbulb-o', text: 'Contact is added to topic' },
   property: { icon: 'id-card', text: 'Contact property is updated' },
   manual: { icon: 'plus', text: 'Contact is enrolled' }
 }

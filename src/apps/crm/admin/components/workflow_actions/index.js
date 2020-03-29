@@ -6,8 +6,8 @@ const types = {
   response: { icon: 'check-square-o', name: 'workflow', trigger: 'Form is submitted' },
   open: { icon: 'envelope-open', name: 'workflow', trigger: 'Email is opened' },
   click: { icon: 'mouse-pointer', name: 'workflow', trigger: 'Email is clicked' },
-  list: { icon: 'users', name: 'workflow', trigger: 'Contact is added to list' },
-  topic: { icon: 'book', name: 'Workflow', trigger: 'Contact is added to topic' },
+  list: { icon: 'th-list', name: 'workflow', trigger: 'Contact is added to list' },
+  topic: { icon: 'lightbulb-o', name: 'Workflow', trigger: 'Contact is added to topic' },
   property: { icon: 'id-card', name: 'workflow', trigger: 'Contact property is updated' },
   manual: { icon: 'plus', name: 'workflow', trigger: 'Contact is enrolled' },
   outbound_sms: { icon: 'phone', name: 'workflow', trigger: 'Outbound SMS' },
@@ -27,8 +27,8 @@ const blocks = {
   sms: { icon: 'comment' },
   internal_sms: { icon: 'comment' },
   record: { icon: 'microphone' },
-  topic: { icon: 'book' },
-  list: { icon: 'users' }
+  topic: { icon: 'lightbulb-o' },
+  list: { icon: 'th-list' }
 }
 
 class WorkflowActions extends React.PureComponent {

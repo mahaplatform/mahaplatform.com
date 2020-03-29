@@ -143,7 +143,7 @@ class Summary extends React.PureComponent {
           <div className="import-summary-item">
             <div className="import-summary-item-icon">
               <div className="import-summary-item-icon-circle teal">
-                <i className="fa fa-fw fa-users" />
+                <i className="fa fa-fw fa-th-list" />
               </div>
             </div>
             { lists.length > 0 ?
@@ -168,7 +168,7 @@ class Summary extends React.PureComponent {
           <div className="import-summary-item">
             <div className="import-summary-item-icon">
               <div className="import-summary-item-icon-circle teal">
-                <i className="fa fa-fw fa-book" />
+                <i className="fa fa-fw fa-lightbulb-o" />
               </div>
             </div>
             { topics.length > 0 ?
