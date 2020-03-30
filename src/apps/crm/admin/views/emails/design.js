@@ -32,7 +32,7 @@ class Designer extends React.Component {
           return !_.includes(['text'], field.type)
         }).map(field => ({
           name: field.name.value,
-          token: field.name.token
+          token: `response.${field.name.token}`
         })) }
       ]
     }

@@ -36,6 +36,11 @@ class Edit extends React.Component {
             { label: 'Logo', name: 'logo_id', type: 'attachmentfield', prompt: 'Choose Logo', multiple: false, allow: { extensions: ['jpg','jpeg','png','gif'] } }
           ]
         },  {
+          label: 'Phone Number',
+          fields: [
+            { label: 'Number', name: 'phone_number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/phone_numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'formatted' }
+          ]
+        },  {
           label: 'Finance',
           fields: [
             { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', format: MerchantToken },

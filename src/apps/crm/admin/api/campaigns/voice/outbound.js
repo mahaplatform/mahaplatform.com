@@ -26,7 +26,7 @@ const outboundRoute = async (req, res) => {
       allowed: ['id','title','program','status','created_at']
     },
     page: req.query.$page,
-    withRelated: ['program'],
+    withRelated: ['program','program.phone_number'],
     transacting: req.trx
   })
 

@@ -68,10 +68,14 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getBlocks() {
+    const { program } = this.props
     return this.props.blocks.map(block => ({
       ...block,
       ...blocks[block.action]
-    }))
+    })).filter(({ action, type }) => {
+      if(type === 'communication' && action === 'sms') return program.phone_number !== null
+      return true
+    })
   }
 
   _getCanvas() {

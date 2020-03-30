@@ -1,4 +1,5 @@
 import security_questions from './security_questions'
+import phone_numbers from './phone_numbers'
 import notifications from './notifications'
 import attachments from './attachments'
 import assignees from './assignees'
@@ -42,6 +43,8 @@ router.use('/imports', imports)
 router.use('/links', links)
 
 router.use('/notifications', notifications)
+
+router.use('/phone_numbers', phone_numbers)
 
 router.use('/profiles', profiles)
 

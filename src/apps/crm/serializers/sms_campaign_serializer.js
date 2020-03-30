@@ -28,7 +28,8 @@ const program = (program) => {
   if(!program.id) return
   return {
     id: program.get('id'),
-    title: program.get('title')
+    title: program.get('title'),
+    phone_number: phone_number(program.related('phone_number'))
   }
 }
 

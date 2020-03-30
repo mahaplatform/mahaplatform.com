@@ -60,7 +60,19 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title'),
-    logo: program.related('logo') ? program.related('logo').get('path') : null
+    logo: program.related('logo') ? program.related('logo').get('path') : null,
+    phone_number: phone_number(program.related('phone_number'))
+  }
+}
+
+const phone_number = (phone_number) => {
+  if(!phone_number.id) return null
+  return {
+    id: phone_number.get('id'),
+    number: phone_number.get('number'),
+    formatted: phone_number.get('formatted'),
+    locality: phone_number.get('locality'),
+    region: phone_number.get('region')
   }
 }
 
