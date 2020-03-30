@@ -11,7 +11,21 @@ const VoiceCampaign = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('title')
+    },
+
+    object_type: function() {
+      return `${this.get('direction')} voice campaign `
+    },
+
+    object_url: function() {
+      return `/admin/crm/campaigns/voice/${this.get('id')}`
+    }
+
+  },
 
   enrollments() {
     return this.hasMany(WorkflowEnrollment, 'voice_campaign_id')

@@ -5,7 +5,7 @@ import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class SMS extends React.PureComponent {
+class New extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -53,15 +53,6 @@ class SMS extends React.PureComponent {
       ]
     }
   }
-
-  // _getDirection() {
-  //   const { purpose } = this.state
-  //   if(direction === 'inbound') {
-  //     return [
-  //       { label: 'Trigger Term', name: 'term', type: 'textfield', placeholder: 'Incoming text message' }
-  //     ]
-  //   }
-  // }
 
   _getComment(purpose) {
     if(purpose === 'marketing') {
@@ -112,4 +103,4 @@ class SMS extends React.PureComponent {
 
 }
 
-export default SMS
+export default New

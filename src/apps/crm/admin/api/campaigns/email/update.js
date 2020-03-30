@@ -1,4 +1,5 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
+import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
@@ -23,7 +24,7 @@ const updateRoute  = async (req, res) => {
     to: req.body.to ? {
       criteria : req.body.to
     } : email_campaign.get('to'),
-    ...whitelist(req.body, ['config'])
+    ...whitelist(req.body, ['title','purpose','config'])
   }, {
     transacting: req.trx,
     patch: true
@@ -32,6 +33,11 @@ const updateRoute  = async (req, res) => {
   await audit(req, {
     story: 'updated',
     auditable: email_campaign
+  })
+
+  await activity(req, {
+    story: 'updated {object}',
+    object: email_campaign
   })
 
   await socket.refresh(req, [

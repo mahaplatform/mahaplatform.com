@@ -6,24 +6,21 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    router: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
-    program_id: PropTypes.number,
-    user: PropTypes.object,
-    onBack: PropTypes.func
+    campaign: PropTypes.object
   }
 
   state = {
     purpose: 'marketing'
   }
 
-  _handleBack = this._handleBack.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -32,30 +29,36 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id, user } = this.props
-    const { purpose } = this.state
+    const { campaign } = this.props
     return {
-      title: 'New Email Campaign',
-      method: 'post',
-      action: '/api/admin/crm/campaigns/email',
+      title: 'Edit Voice Campaign',
+      method: 'patch',
+      endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}/edit`,
+      action: `/api/admin/crm/campaigns/voice/${campaign.id}`,
       cancelIcon: 'chevron-left',
-      onCancel: this._handleBack,
+      onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
-            { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() },
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            ...this._getCampaign()
           ]
         }
       ]
     }
+  }
+
+  _getCampaign() {
+    const { campaign } = this.props
+    if(campaign.direction === 'outbound') {
+      return [
+        { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken },
+        { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
+      ]
+    }
+    return []
   }
 
   _getComment(purpose) {
@@ -75,21 +78,21 @@ class New extends React.PureComponent {
   }
 
   _getCriteriaField() {
-    const { program_id } = this.props
+    const { campaign } = this.props
     const { purpose } = this.state
     return {
       comment: <p>{ this._getComment(purpose) }</p>,
-      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/email/recipients`,
+      endpoint: `/api/admin/crm/programs/${campaign.program_id}/${purpose}/voice/recipients`,
       entity: 'contact',
-      format: (recipient) => <RecipientToken recipient={recipient} channel="email" />,
+      format: (recipient) => <RecipientToken recipient={recipient} channel="voice" />,
       fields,
       title: 'Select Contacts',
       defaultValue: []
     }
   }
 
-  _handleBack() {
-    this.props.onBack()
+  _handleCancel() {
+    this.context.modal.close()
   }
 
   _handleChangeField(key, value) {
@@ -100,8 +103,7 @@ class New extends React.PureComponent {
     }
   }
 
-  _handleSuccess(campaign) {
-    this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.id}`)
+  _handleSuccess() {
     this.context.modal.close()
   }
 
@@ -111,4 +113,4 @@ const mapStateToProps = (state, props) => ({
   user: state.maha.admin.user
 })
 
-export default connect(mapStateToProps)(New)
+export default connect(mapStateToProps)(Edit)

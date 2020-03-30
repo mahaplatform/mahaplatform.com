@@ -40,9 +40,7 @@ const Details = ({ audits, campaign }) => {
 
   config.items = []
 
-  if(campaign.direction === 'outbound') {
-    config.items.push({ label: 'Title', content: campaign.title })
-  }
+  config.items.push({ label: 'Title', content: campaign.title })
 
   config.items.push({ label: 'Program', content: campaign.program.title })
 

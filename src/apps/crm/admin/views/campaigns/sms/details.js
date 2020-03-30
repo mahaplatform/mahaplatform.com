@@ -37,9 +37,9 @@ const Details = ({ audits, campaign }) => {
 
   config.items = []
 
-  if(campaign.direction === 'outbound') {
-    config.items.push({ label: 'Title', content: campaign.title })
-  } else  {
+  config.items.push({ label: 'Title', content: campaign.title })
+
+  if(campaign.direction === 'inbound') {
     config.items.push({ label: 'Trigger Term', content: campaign.term })
   }
 

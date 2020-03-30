@@ -93,7 +93,7 @@ class Item extends React.Component {
 
   _handleTasks(e) {
     const { tasks } = this.props
-    e.preventDefault()
+    e.stopPropagation()
     this.context.tasks.open({
       items: tasks
     })

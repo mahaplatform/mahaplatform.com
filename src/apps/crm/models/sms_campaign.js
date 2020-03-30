@@ -11,7 +11,21 @@ const SmsCampaign = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('title')
+    },
+
+    object_type: function() {
+      return `${this.get('direction')} sms campaign `
+    },
+
+    object_url: function() {
+      return `/admin/crm/campaigns/sms/${this.get('id')}`
+    }
+
+  },
 
   enrollments() {
     return this.hasMany(WorkflowEnrollment, 'sms_campaign_id')

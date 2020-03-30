@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/campaigns/sms/inbound',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Trigger Term', key: 'title', primary: true, format: CompactCampaignToken },
+      { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
       { label: 'Program', key: 'program.title', sort: 'program' },
       { label: 'Sessions', key: 'sessions_count', collapsing: true, align: 'right' },
       { label: 'Active', key: 'active_count', collapsing: true, align: 'right' },

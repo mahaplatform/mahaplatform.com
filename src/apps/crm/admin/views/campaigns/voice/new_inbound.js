@@ -42,7 +42,8 @@ class Voice extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
-            { name: 'direction', type: 'hidden', defaultValue: 'inbound' }
+            { name: 'direction', type: 'hidden', defaultValue: 'inbound' },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true }
           ]
         }
       ]

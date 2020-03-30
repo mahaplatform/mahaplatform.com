@@ -1,4 +1,5 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
+import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
@@ -25,7 +26,7 @@ const updateRoute = async (req, res) => {
       to: req.body.to ? {
         criteria : req.body.to
       } : voice_campaign.get('to'),
-      ...whitelist(req.body, ['title'])
+      ...whitelist(req.body, ['title','purpose'])
     }, {
       patch: true,
       transacting: req.trx
@@ -42,6 +43,11 @@ const updateRoute = async (req, res) => {
   await audit(req, {
     story: 'updated',
     auditable: voice_campaign
+  })
+
+  await activity(req, {
+    story: 'updated {object}',
+    object: voice_campaign
   })
 
   await socket.refresh(req, [

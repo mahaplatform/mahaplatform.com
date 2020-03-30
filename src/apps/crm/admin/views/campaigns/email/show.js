@@ -3,6 +3,7 @@ import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
 import Send from './send'
+import Edit from './edit'
 
 const getTabs = ({ audits, campaign, performance, workflows }) => ({
   items: [
@@ -16,6 +17,7 @@ const getTasks = ({ campaign }) => {
   const items = []
 
   if(campaign.status === 'draft') {
+    items.push({ label: 'Edit Campaign', modal: <Edit campaign={ campaign } /> })
     items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
   }
 

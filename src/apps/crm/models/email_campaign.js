@@ -10,7 +10,21 @@ const EmailCampaign = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('title')
+    },
+
+    object_type: function() {
+      return 'email campaign'
+    },
+
+    object_url: function() {
+      return `/admin/crm/campaigns/email/${this.get('id')}`
+    }
+
+  },
 
   emails() {
     return this.hasMany(MahaEmail, 'email_campaign_id')

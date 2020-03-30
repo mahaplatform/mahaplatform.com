@@ -12,7 +12,21 @@ const Program = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('title')
+    },
+
+    object_type: function() {
+      return 'program'
+    },
+
+    object_url: function() {
+      return `/admin/crm/programs/${this.get('id')}`
+    }
+
+  },
 
   logo() {
     return this.belongsTo(Asset, 'logo_id')

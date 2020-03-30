@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/campaigns/voice/inbound',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Phone Number', key: 'phone_number.number', primary: true, format: CompactCampaignToken },
+      { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
       { label: 'Program', key: 'program.title', sort: 'program' },
       { label: 'Calls', key: 'calls_count', collapsing: true, align: 'right' },
       { label: 'Hangups', key: 'hangups_count', collapsing: true, align: 'right' },
