@@ -41,6 +41,7 @@ class Assignment extends React.Component {
     typesFormat: PropTypes.any,
     unassigned: PropTypes.object,
     unassignedEndpoint: PropTypes.string,
+    unassignedFilter: PropTypes.object,
     unassignedFormat: PropTypes.any,
     value: PropTypes.string,
     valus: PropTypes.array,
@@ -136,9 +137,9 @@ class Assignment extends React.Component {
   }
 
   componentDidMount() {
-    const { assignedEndpoint, defaultValue, typesOptions, unassignedEndpoint, onFetchAssigned, onFetchUnassigned, onSetAssigned, onSetTypes } = this.props
+    const { assignedEndpoint, defaultValue, typesOptions, unassignedEndpoint, unassignedFilter, onFetchAssigned, onFetchUnassigned, onSetAssigned, onSetTypes } = this.props
     if(typesOptions) onSetTypes(typesOptions)
-    onFetchUnassigned(unassignedEndpoint)
+    onFetchUnassigned(unassignedEndpoint, unassignedFilter)
     if(defaultValue) onSetAssigned(defaultValue)
     if(!defaultValue) onFetchAssigned(assignedEndpoint)
   }

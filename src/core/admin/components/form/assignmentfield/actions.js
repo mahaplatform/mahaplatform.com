@@ -3,6 +3,11 @@ export const fetch = () => ({
   method: 'GET',
   endpoint: '/api/admin/assignees',
   query: {
+    $filter: {
+      is_active: {
+        $eq: true
+      }
+    },
     $page: {
       limit: 0
     }

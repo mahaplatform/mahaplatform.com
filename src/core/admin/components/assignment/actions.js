@@ -1,8 +1,9 @@
-export const fetchUnassigned = (endpoint) => ({
+export const fetchUnassigned = (endpoint, filter) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint,
   query: {
+    $filter: filter || null,
     $page: {
       limit: 0
     }
