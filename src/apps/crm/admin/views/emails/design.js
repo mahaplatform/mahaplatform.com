@@ -20,8 +20,7 @@ class Designer extends React.Component {
       defaultValue: email.config,
       endpoint: `/api/admin/crm/emails/${email.id}`,
       program: email.program,
-      tokens: this._getTokens(),
-      onSave: this._handleSave
+      tokens: this._getTokens()
     }
   }
 

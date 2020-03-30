@@ -39,7 +39,7 @@ const _getDescription = (req, { type, channel }) => {
   if(type === 'mail') return channel.get('address').description
 }
 
-const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => {
+const _getConsent = async (req, { program_id, key, type, id }) => {
 
   const consent = await Consent.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -61,8 +61,7 @@ const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => 
     program_id,
     [key]: id,
     type,
-    code,
-    optin_reason
+    code
   }).save(null, {
     transacting: req.trx
   })

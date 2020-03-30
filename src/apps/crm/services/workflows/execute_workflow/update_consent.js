@@ -72,12 +72,10 @@ const updateConsent = async (req, params) => {
     response: response.get('data')
   }
 
-  const value = _.get(data, token)
-
   const channel = await getChannel(req, {
     contact,
     channel_type,
-    value
+    value: _.get(data, token)
   })
 
   if(!channel) return {}
@@ -86,10 +84,14 @@ const updateConsent = async (req, params) => {
     program,
     channel_type,
     channel_id: channel.get('id'),
-    optout: false,
-    optin_reason: 'consent',
-    optout_reason: null,
-    optout_reason_other: null
+    ...action === 'remove' ? {
+      optout: true,
+      optout_reason: 'automated',
+      optout_reason_other: null
+    } : {
+      optout: false,
+      optin_reason: 'consent'
+    }
   })
 
   return {}
