@@ -1,3 +1,4 @@
+import contacts from './contacts'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -12,6 +13,8 @@ router.get('/', list)
 router.post('/', create)
 
 router.get('/:id', show)
+
+router.get('/:topic_id/contacts', contacts)
 
 router.patch('/:id', update)
 

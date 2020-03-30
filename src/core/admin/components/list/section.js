@@ -1,9 +1,18 @@
+import PropTypes from 'prop-types'
 import Message from '../message'
 import Item from './item'
 import React from 'react'
 import _ from 'lodash'
 
 class Section extends React.Component {
+
+  static propTypes = {
+    component: PropTypes.any,
+    content: PropTypes.any,
+    empty: PropTypes.object,
+    items: PropTypes.array,
+    title: PropTypes.string
+  }
 
   render() {
     const { component, content, empty, items, title } = this.props

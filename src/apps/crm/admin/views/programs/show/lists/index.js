@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
+import pluralize from 'pluralize'
 import React from 'react'
 import Edit from './edit'
 import New from './new'
@@ -11,9 +12,10 @@ const Lists = ({ lists, program }) => {
       tasks: [
         { label: 'Edit List', modal: <Edit list={ list } /> }
       ],
+      route: `/admin/crm/programs/${program.id}/lists/${list.id}`,
       component: (props) => (
         <div className="token">
-          { list.title }
+          { list.title } ({ pluralize('contact', list.contacts_count, true) })
         </div>
       )
     })),

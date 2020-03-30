@@ -33,12 +33,14 @@ import EmailsList from './emails/list'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
-import ListsShow from './lists/show'
-import ListsContacts from './lists/contacts'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
+import ProgramsListsShow from './programs/show/lists/show'
+import ProgramsListsContacts from './programs/show/lists/contacts'
+import ProgramsTopicsShow from './programs/show/topics/show'
+import ProgramsTopicsContacts from './programs/show/topics/contacts'
 import ResponsesList from './forms/responses/list'
 import ResponsesShow from './forms/responses/show'
 import ResponseUploadShow from './forms/responses/upload'
@@ -88,12 +90,14 @@ const routes = [
   { path: '/forms/:form_id/responses', component: ResponsesList },
   { path: '/forms/:form_id/responses/:id', component: ResponsesShow },
   { path: '/forms/:form_id/responses/:response_id/uploads/:id', component: ResponseUploadShow },
-  { path: '/lists/:id', component: ListsShow },
-  { path: '/lists/:id/contacts', component: ListsContacts },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
+  { path: '/programs/:program_id/lists/:id', component: ProgramsListsShow },
+  { path: '/programs/:program_id/lists/:id/contacts', component: ProgramsListsContacts },
+  { path: '/programs/:program_id/topics/:id', component: ProgramsTopicsShow },
+  { path: '/programs/:program_id/topics/:id/contacts', component: ProgramsTopicsContacts },
   { path: '/templates/:id/design', component: TemplatesDesign },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },

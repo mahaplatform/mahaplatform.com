@@ -62,14 +62,14 @@ class Item extends React.Component {
             { _.isFunction(extra) ? React.createElement(extra, content) : extra }
           </div>
         }
-        { (handler || link || route) &&
-          <div className="maha-list-item-proceed">
-            <i className="fa fa-fw fa-chevron-right" />
-          </div>
-        }
         { tasks &&
           <div className="maha-list-item-proceed" onClick={ this._handleTasks }>
             <i className="fa fa-fw fa-ellipsis-v" />
+          </div>
+        }
+        { (handler || link || route) &&
+          <div className="maha-list-item-proceed">
+            <i className="fa fa-fw fa-chevron-right" />
           </div>
         }
       </div>
@@ -91,8 +91,9 @@ class Item extends React.Component {
     return classes.join(' ')
   }
 
-  _handleTasks() {
+  _handleTasks(e) {
     const { tasks } = this.props
+    e.preventDefault()
     this.context.tasks.open({
       items: tasks
     })

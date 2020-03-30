@@ -1,9 +1,21 @@
+import PropTypes from 'prop-types'
 import Buttons from '../buttons'
 import Section from './section'
 import React from 'react'
 import _ from 'lodash'
 
 class List extends React.Component {
+
+  static propTypes = {
+    alert: PropTypes.object,
+    buttons: PropTypes.array,
+    className: PropTypes.string,
+    empty: PropTypes.object,
+    footer: PropTypes.any,
+    header: PropTypes.any,
+    items: PropTypes.array,
+    sections: PropTypes.array
+  }
 
   render() {
     const { alert, buttons, empty, footer, header, items, sections } = this.props
