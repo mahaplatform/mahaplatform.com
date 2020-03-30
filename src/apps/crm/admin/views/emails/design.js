@@ -2,83 +2,53 @@ import EmailDesigner from '../../components/email_designer/wrapper'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Designer extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
-    page: PropTypes.object,
-    template: PropTypes.object
+    email: PropTypes.object
   }
-
-  state = {
-    campaign: null
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
-  _handleSave = this._handleSave.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.campaign) return null
     return <EmailDesigner { ...this._getEmailDesigner() } />
   }
 
-  componentDidMount() {
-    this._handleFetch()
-  }
-
   _getEmailDesigner() {
-    const { campaign } = this.state
+    const { email } = this.props
     return {
-      defaultValue: campaign.config,
-      program: campaign.program,
-      tokens: [
-        { title: 'Response Tokens', tokens: [
-          { name: 'First Name', token: 'response.first_name' },
-          { name: 'Last Name', token: 'response.last_name' },
-          { name: 'Email', token: 'response.email' }
-        ] }
-      ],
+      defaultValue: email.config,
+      endpoint: `/api/admin/crm/emails/${email.id}`,
+      program: email.program,
+      tokens: this._getTokens(),
       onSave: this._handleSave
     }
   }
 
-  _handleFetch() {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/emails/${id}`,
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSave(config) {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/emails/${id}`,
-      body: { config },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess(result) {
-    this.setState({
-      campaign: result.data
-    })
+  _getTokens() {
+    const { email } = this.props
+    if(email.form) {
+      return [
+        { title: 'Response Tokens', tokens: email.form.config.fields.filter(field => {
+          return !_.includes(['text'], field.type)
+        }).map(field => ({
+          name: field.name.value,
+          token: field.name.token
+        })) }
+      ]
+    }
+    return []
   }
 
 }
+
+const mapResourcesToPage = (props, context) => ({
+  email: `/api/admin/crm/emails/${props.params.id}`
+})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email',
   component: Designer
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

@@ -1,5 +1,6 @@
+import { Button, Form } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
 class Email extends React.PureComponent {
@@ -7,6 +8,7 @@ class Email extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     program: PropTypes.object,
+    user: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -50,6 +52,11 @@ class Email extends React.PureComponent {
       ],
       sections: [
         {
+          after: config.email_id ? (
+            <div className="maha-form-section-after">
+              <Button { ...this._getButton() } />
+            </div>
+          ) : null,
           fields: [
             { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: '/api/admin/crm/emails', filter: { program_id: { $eq: program.id } }, value: 'id', text: 'display_name', form: this._getEmailForm(), defaultValue: config.email_id }
           ]
@@ -58,8 +65,17 @@ class Email extends React.PureComponent {
     }
   }
 
+  _getButton() {
+    const { config } = this.state
+    return {
+      label: 'Manage Email',
+      className: 'link',
+      route: `/admin/crm/emails/${config.email_id}`
+    }
+  }
+
   _getEmailForm() {
-    const { program } = this.props
+    const { program, user } = this.props
     return {
       title: 'New Email',
       method: 'post',
@@ -68,7 +84,12 @@ class Email extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program.id },
-            { label: 'Title', name: 'title', type: 'textfield' }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
+            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program.id}/templates`, value: 'id', text: 'title' },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, value: 'id', text: 'rfc822', required: true },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+
           ]
         }
       ]
@@ -93,4 +114,8 @@ class Email extends React.PureComponent {
 
 }
 
-export default Email
+const mapStateToProps = (state, props) => ({
+  user: state.maha.admin.user
+})
+
+export default connect(mapStateToProps)(Email)
