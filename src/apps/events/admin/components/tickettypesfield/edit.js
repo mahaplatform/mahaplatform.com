@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static propTypes = {
+    ticket_type: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -20,7 +21,13 @@ class New extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.ticket_type) return null
     return <Form { ...this._getForm() } />
+  }
+
+  componentDidMount() {
+    const { ticket_type } = this.props
+    this.setState({ ticket_type })
   }
 
   _getForm() {
@@ -34,19 +41,19 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name' },
+            { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: ticket_type.name },
             { label: 'Pricing', type: 'segment', fields: [
               { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true, defaultValue: ticket_type.price_type },
               ...this._getPriceType()
             ] },
             { label: 'Availability', type: 'segment', fields: [
               { type: 'fields', fields: [
-                { label: 'Total Tickets', name: 'total_tickets', type: 'numberfield', placeholder: 'Enter a quantity' },
-                { label: 'Maximum Per Order', name: 'max_per_order', type: 'numberfield', placeholder: 'Enter a quantity' }
+                { label: 'Total Tickets', name: 'total_tickets', type: 'numberfield', placeholder: 'Enter a quantity', defaultValue: ticket_type.total_tickets },
+                { label: 'Maximum Per Order', name: 'max_per_order', type: 'numberfield', placeholder: 'Enter a quantity', defaultValue: ticket_type.max_per_order }
               ] },
               { type: 'fields', fields: [
-                { label: 'Sales Open', name: 'sales_open_at', type: 'datetimefield' },
-                { label: 'Sales Close', name: 'sales_close_at', type: 'datetimefield' }
+                { label: 'Sales Open', name: 'sales_open_at', type: 'datetimefield', defaultValue: ticket_type.sales_open_at },
+                { label: 'Sales Close', name: 'sales_close_at', type: 'datetimefield', defaultValue: ticket_type.sales_close_at }
               ] }
             ] }
           ]
@@ -60,21 +67,21 @@ class New extends React.PureComponent {
     if(ticket_type.price_type === 'fixed') {
       return [
         { type: 'fields', fields: [
-          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
-          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken }
+          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: ticket_type.project_id },
+          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.revenue_type_id }
         ] },
-        { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Enter a fixed Price', required: true }
+        { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Enter a fixed Price', required: true, defaultValue: ticket_type.fixed_price }
       ]
     }
     if(ticket_type.price_type === 'sliding_scale') {
       return [
         { type: 'fields', fields: [
-          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
-          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken }
+          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: ticket_type.project_id },
+          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.revenue_type_id }
         ] },
         { type: 'fields', fields: [
-          { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true },
-          { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price', required: true }
+          { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true, defaultValue: ticket_type.low_price },
+          { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price', required: true, defaultValue: ticket_type.high_price }
         ] },
         { label: 'Overage Strategy', name: 'overage_strategy', type: 'dropdown', options: [
           { value: 'income', text: 'Treat any amount over the low price as additional income' },
@@ -105,11 +112,13 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(ticket_type) {
-    this.props.onDone(ticket_type)
+    this.props.onDone({
+      id: this.props.ticket_type.id,
+      ...ticket_type
+    })
   }
-
 
 }
 
 
-export default New
+export default Edit

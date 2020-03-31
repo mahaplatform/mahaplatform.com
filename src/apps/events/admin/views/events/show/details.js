@@ -40,14 +40,7 @@ const Details = ({ audits, event }) => {
 
   config.footer = <Comments entity={`events_events/${event.id}`} />
 
-  return (
-    <div>
-      <div>
-        You have a wait list of 10
-      </div>
-      <List { ...config } />
-    </div>
-  )
+  return <List { ...config } />
 
 }
 

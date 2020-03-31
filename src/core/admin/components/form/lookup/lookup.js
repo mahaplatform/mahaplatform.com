@@ -82,9 +82,9 @@ class Lookup extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, endpoint, onReady } = this.props
+    const { defaultValue, endpoint, value, onReady } = this.props
     if(!defaultValue) return onReady()
-    if(endpoint) return this._handleLoad()
+    if(endpoint && value) return this._handleLoad()
     this._handleSet()
   }
 
@@ -154,7 +154,7 @@ class Lookup extends React.Component {
 
   _handleSet() {
     const { defaultValue, options, value, onChoose, onReady } = this.props
-    const chosen = _.find(options, { [value]: defaultValue })
+    const chosen = value ? _.find(options, { [value]: defaultValue }) : defaultValue
     onChoose(chosen)
     onReady()
   }

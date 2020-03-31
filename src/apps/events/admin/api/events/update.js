@@ -1,8 +1,10 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import EventSerializer from '../../../serializers/event_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updateTicketTypes } from '../../../services/ticket_types'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateSessions } from '../../../services/sessions'
 import Event from '../../../models/event'
 
 const updateRoute = async (req, res) => {
@@ -24,6 +26,20 @@ const updateRoute = async (req, res) => {
   }, {
     transacting: req.trx
   })
+
+  if(req.body.sessions) {
+    await updateSessions(req, {
+      event,
+      sessions: req.body.sessions
+    })
+  }
+
+  if(req.body.ticket_types) {
+    await updateTicketTypes(req, {
+      event,
+      ticket_types: req.body.ticket_types
+    })
+  }
 
   await audit(req, {
     story: 'updated',

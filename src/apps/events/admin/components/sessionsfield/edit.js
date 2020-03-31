@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static propTypes = {
+    session: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    session: {}
+    session: null
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -19,12 +20,19 @@ class New extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.session) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    const { session } = this.props
+    this.setState({ session })
+  }
+
   _getForm() {
+    const { session } = this.state
     return {
-      title: 'New Session',
+      title: 'Edit Session',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
@@ -32,12 +40,12 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title' },
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title', defaultValue: session.title },
             this._getLocation(),
-            { name: 'is_online', type: 'checkbox', prompt: 'This is an online session' },
-            { label: 'Date', name: 'date', placeholder: 'Enter date', type: 'datefield', required: true },
-            { label: 'Start Time', name: 'start_time', placeholder: 'Enter start time', type: 'timefield', required: true },
-            { label: 'End Time', name: 'end_time', placeholder: 'Enter end time', type: 'timefield', required: true }
+            { name: 'is_online', type: 'checkbox', prompt: 'This is an online session', defaultValue: session.is_online },
+            { label: 'Date', name: 'date', placeholder: 'Enter date', type: 'datefield', required: true, defaultValue: session.date },
+            { label: 'Start Time', name: 'start_time', placeholder: 'Enter start time', type: 'timefield', required: true, defaultValue: session.start_time },
+            { label: 'End Time', name: 'end_time', placeholder: 'Enter end time', type: 'timefield', required: true, defaultValue: session.end_time }
           ]
         }
       ]
@@ -49,7 +57,7 @@ class New extends React.PureComponent {
     if(session.is_online) {
       return { label: 'Location', type: 'textfield', disabled: true, placeholder: 'This is an online event' }
     }
-    return { label: 'Location', name: 'location', type: 'lookup', required: true, prompt: 'Choose a location', endpoint: '/api/admin/events/locations', text: 'name', form: this._getLocationForm(), format: LocationToken }
+    return { label: 'Location', name: 'location', type: 'lookup', required: true, prompt: 'Choose a location', endpoint: '/api/admin/events/locations', text: 'name', form: this._getLocationForm(), format: LocationToken, defaultValue: session.location }
   }
 
   _getLocationForm() {
@@ -77,10 +85,13 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(session) {
-    this.props.onDone(session)
+    this.props.onDone({
+      id: this.props.session.id,
+      ...session
+    })
   }
 
 }
 
 
-export default New
+export default Edit

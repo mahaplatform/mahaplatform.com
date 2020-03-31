@@ -26,12 +26,14 @@ const createRoute = async (req, res) => {
 
   if(req.body.sessions) {
     await updateSessions(req, {
+      event,
       sessions: req.body.sessions
     })
   }
 
   if(req.body.ticket_types) {
     await updateTicketTypes(req, {
+      event,
       ticket_types: req.body.ticket_types
     })
   }
