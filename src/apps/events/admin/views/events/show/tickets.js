@@ -1,39 +1,51 @@
-import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Tickets = ({ event, tickets }) => {
+class Tickets extends React.Component {
 
-  const _getButton = (ticket) => ({
-    label: ticket.full_name,
-    className: 'link',
-    route: `/admin/events/events/${event.id}/tickets/${ticket.id}`
-  })
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
-  return (
-    <div className="maha-table">
-      <table>
-        <thead>
-          <tr>
-            <td>Attendee</td>
-          </tr>
-        </thead>
-        <tbody>
-          { tickets.map((ticket, index) => (
-            <tr key={`ticket_${index}`}>
-              <td><Button { ..._getButton(ticket) } /></td>
+  static propTypes = {
+    event: PropTypes.object,
+    tickets: PropTypes.array
+  }
+
+  render() {
+    const { tickets } = this.props
+    return (
+      <div className="maha-table">
+        <table>
+          <thead>
+            <tr>
+              <td>Attendee</td>
+              <td>Ticket Type</td>
+              <td />
             </tr>
-          )) }
-        </tbody>
-      </table>
-    </div>
-  )
+          </thead>
+          <tbody>
+            { tickets.map((ticket, index) => (
+              <tr key={`ticket_${index}`} onClick={ this._handleClick.bind(this, ticket) }>
+                <td>{ ticket.full_name }</td>
+                <td>{ ticket.ticket_type.name }</td>
+                <td className="proceed">
+                  <i className="fa fa-chevron-right" />
+                </td>
+              </tr>
+            )) }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 
-}
+  _handleClick(ticket) {
+    const { router } = this.context
+    const { event } = this.props
+    router.history.push(`/admin/events/events/${event.id}/tickets/${ticket.id}`)
+  }
 
-Tickets.propTypes = {
-  event: PropTypes.object,
-  tickets: PropTypes.array
 }
 
 export default Tickets

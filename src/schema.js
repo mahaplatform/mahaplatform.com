@@ -907,6 +907,7 @@ const schema = {
       table.string('first_name', 255)
       table.string('last_name', 255)
       table.string('email', 255)
+      table.integer('ticket_type_id').unsigned()
     })
 
     await knex.schema.createTable('events_waitings', (table) => {
@@ -2661,6 +2662,7 @@ const schema = {
     await knex.schema.table('events_tickets', table => {
       table.foreign('registration_id').references('events_registrations.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('ticket_type_id').references('events_ticket_types.id')
     })
 
     await knex.schema.table('events_waitings', table => {
