@@ -4,6 +4,7 @@ import Waitings from './waitings'
 import { Page } from 'maha-admin'
 import Tickets from './tickets'
 import Details from './details'
+import Edit from '../edit'
 import React from 'react'
 
 const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) => ({
@@ -16,8 +17,10 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
   ]
 })
 
-const getTasks = ({ campaign }) => {
-  const items = []
+const getTasks = ({ event }) => {
+  const items = [
+    { label: 'Edit Event', modal: <Edit event={ event } /> }
+  ]
   return { items }
 }
 

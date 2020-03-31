@@ -822,6 +822,12 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+      table.integer('image_id').unsigned()
+    })
+
+    await knex.schema.createTable('events_events_organizers', (table) => {
+      table.integer('event_id').unsigned()
+      table.integer('organizer_id').unsigned()
     })
 
     await knex.schema.createTable('events_locations', (table) => {
@@ -829,6 +835,17 @@ const schema = {
       table.integer('team_id').unsigned()
       table.string('name', 255)
       table.jsonb('address')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('events_organizers', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('photo_id').unsigned()
+      table.string('name', 255)
+      table.string('email', 255)
+      table.string('phone', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -855,6 +872,28 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('location_id').unsigned()
+      table.boolean('is_online')
+    })
+
+    await knex.schema.createTable('events_ticket_types', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('event_id').unsigned()
+      table.string('name', 255)
+      table.integer('project_id').unsigned()
+      table.integer('revenue_type_id').unsigned()
+      table.USER-DEFINED('price_type')
+      table.decimal('fixed_price', 6, 2)
+      table.decimal('low_price', 6, 2)
+      table.decimal('high_price', 6, 2)
+      table.USER-DEFINED('overage_strategy')
+      table.integer('donation_revenue_type_id').unsigned()
+      table.integer('total_tickets')
+      table.integer('max_per_order')
+      table.timestamp('sales_open_at')
+      table.timestamp('sales_close_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('events_tickets', (table) => {
@@ -2581,6 +2620,7 @@ const schema = {
     await knex.schema.table('events_events', table => {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('image_id').references('maha_assets.id')
     })
 
     await knex.schema.table('events_locations', table => {
@@ -3174,6 +3214,24 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_organizers', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('photo_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('events_events_organizers', table => {
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('organizer_id').references('events_organizers.id')
+    })
+
+    await knex.schema.table('events_ticket_types', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
 

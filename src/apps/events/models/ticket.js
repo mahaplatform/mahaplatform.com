@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Registration from './registration'
+import TicketType from './ticket_type'
 import Attending from './attending'
 
 const Ticket = new Model({
@@ -20,7 +21,7 @@ const Ticket = new Model({
     rfc822: function() {
       return this.get('full_name') ? `${this.get('full_name')} <${this.get('email')}>` : this.get('email')
     }
-    
+
   },
 
   attendings() {
@@ -29,6 +30,10 @@ const Ticket = new Model({
 
   registration() {
     return this.belongsTo(Registration, 'registration_id')
+  },
+
+  ticket_type() {
+    return this.belongsTo(TicketType, 'ticket_type_id')
   }
 
 })

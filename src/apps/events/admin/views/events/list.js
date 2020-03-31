@@ -1,4 +1,6 @@
+import ProgramForm from '../../../../crm/admin/components/programform'
 import { Page } from 'maha-admin'
+import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -16,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Events',
       text: 'You have not yet created any events',
       buttons: [
-        { label: 'Create Event', modal: New }
+        { label: 'Create Event', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
       ]
     },
     entity: 'event',
@@ -24,8 +26,19 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: {
     icon: 'plus',
-    modal: New
+    modal: <ProgramForm programs={ resources.programs } form={ New } />
   }
 })
 
-export default Page(null, mapPropsToPage)
+const mapResourcesToPage = (props, context) => ({
+  programs: {
+    endpoint: '/api/admin/crm/programs',
+    filter: {
+      access_type: {
+        $in: ['manage','edit']
+      }
+    }
+  }
+})
+
+export default Page(mapResourcesToPage, mapPropsToPage)

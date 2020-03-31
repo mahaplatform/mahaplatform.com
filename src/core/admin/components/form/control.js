@@ -6,6 +6,7 @@ import Checkboxes from './select/checkboxes'
 import ColorField from './colorfield'
 import CriteriaField from './criteriafield'
 import DateField from './datefield'
+import DateTimeField from './datetimefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
 import FileField from './filefield'
@@ -84,6 +85,7 @@ class Control extends React.Component {
     if(type === 'colorfield') return ColorField
     if(type === 'criteriafield') return CriteriaField
     if(type === 'datefield') return DateField
+    if(type === 'datetimefield') return DateTimeField
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
     if(type === 'filefield') return FileField

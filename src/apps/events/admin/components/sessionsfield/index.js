@@ -27,6 +27,7 @@ class SessionsField extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -42,7 +43,7 @@ class SessionsField extends React.PureComponent {
               <div className="sessionsfield-session-action">
                 <i className="fa fa-pencil" />
               </div>
-              <div className="sessionsfield-session-action">
+              <div className="sessionsfield-session-action" onClick={ this._handleRemove.bind(this, index )}>
                 <i className="fa fa-times" />
               </div>
             </div>
@@ -68,8 +69,21 @@ class SessionsField extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     const { sessions } = this.state
     if(!_.isEqual(sessions, prevState.sessions)) {
-      this.props.onChange(sessions)
+      this._handleChange()
     }
+  }
+
+  _handleChange() {
+    const { sessions } = this.state
+    const value = sessions.map(session => ({
+      title: session.title,
+      location_id: session.location ? session.location.id : null,
+      is_online: session.is_online,
+      date: session.date,
+      start_time: session.start_time,
+      end_time: session.end_time
+    }))
+    this.props.onChange(value)
   }
 
   _getAddButton() {
@@ -82,7 +96,7 @@ class SessionsField extends React.PureComponent {
 
   _getNew() {
     return {
-      onCancel: this._handleCancel,
+      onBack: this._handleBack,
       onDone: this._handleAdd
     }
   }
@@ -97,12 +111,22 @@ class SessionsField extends React.PureComponent {
     this.context.form.pop()
   }
 
-  _handleCancel() {
+  _handleBack() {
     this.context.form.pop()
   }
 
   _handleNew() {
     this.context.form.push(<New { ...this._getNew() } />)
+  }
+
+  _handleRemove(index) {
+    this.setState({
+      sessions: [
+        ...this.state.sessions.filter((session, i) => {
+          return i !== index
+        })
+      ]
+    })
   }
 
 }

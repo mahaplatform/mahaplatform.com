@@ -2,13 +2,7 @@ import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Waitings = ({ event }) => {
-
-  const waitings = [
-    { id: 1, contact: { id: 1, full_name: 'Greg Kops' }, num_tickets: 2 },
-    { id: 2, contact: { id: 1, full_name: 'Suli Kops' }, num_tickets: 5 },
-    { id: 3, contact: { id: 1, full_name: 'Richard Kops' }, num_tickets: 1 }
-  ]
+const Waitings = ({ event, waitings }) => {
 
   const _getButton = (waiting) => ({
     label: waiting.contact.full_name,

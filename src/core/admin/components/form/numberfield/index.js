@@ -103,7 +103,9 @@ class NumberField extends React.Component {
   }
 
   _handleChange() {
-    this.props.onChange(Number(this.state.value))
+    const { value } = this.state
+    const formatted = value.length > 0 ? Number(this.state.value) : null
+    this.props.onChange(formatted)
   }
 
   _handleClear() {
@@ -133,7 +135,7 @@ class NumberField extends React.Component {
     if(required === true && value === '') return onValid(value, ['This field is required'])
     if(min !== undefined && Number(value) < min) return onValid(value, [`This field must be greater than or equal to  ${min}`])
     if(max !== undefined && Number(value) > max) return onValid(value, [`This field must be less than or equal to ${max}`])
-    onValid(value)
+    onValid(value.length ? value : null)
   }
 
 }

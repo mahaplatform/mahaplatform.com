@@ -3,13 +3,7 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-const Tickets = ({ event }) => {
-
-  const registrations = [
-    { id: 1, contact: { id: 1, full_name: 'Greg Kops' }, tickets: [{}], revenue: 60.00 },
-    { id: 2, contact: { id: 1, full_name: 'Alice Kops' }, tickets: [{},{},{},{}], revenue: 240.00 },
-    { id: 3, contact: { id: 1, full_name: 'Kenneth Schalther' }, tickets: [{},{}], revenue: 120.00 }
-  ]
+const Tickets = ({ event, registrations }) => {
 
   const _getButton = (registration) => ({
     label: registration.contact.full_name,
