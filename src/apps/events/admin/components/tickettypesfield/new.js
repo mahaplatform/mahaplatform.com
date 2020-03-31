@@ -31,7 +31,7 @@ class New extends React.PureComponent {
     return {
       title: 'New Ticket Type',
       cancelIcon: 'chevron-left',
-      onCancel: this._handleCancel,
+      onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [

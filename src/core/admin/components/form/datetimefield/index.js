@@ -1,5 +1,5 @@
 import DateField from '../datefield'
-import TimeField from '../timeField'
+import TimeField from '../timefield'
 import PropTypes from 'prop-types'
 import React from 'react'
 
