@@ -1,3 +1,6 @@
+import TicketTypesField from '../../components/tickettypesfield'
+import OrganizersField from '../../components/organizersfield'
+import SessionsField from '../../components/sessionsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -31,7 +34,12 @@ class Edit extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Describe this event'},
+            { label: 'Image', name: 'image_id', type: 'attachmentfield', prompt: 'Choose an image' },
+            { label: 'Sessions', name: 'sessions', type: SessionsField, required: true },
+            { label: 'Ticket Types', name: 'ticket_types', type: TicketTypesField, required: true },
+            { label: 'Organizers', name: 'organizer_ids', type: OrganizersField }
           ]
         }
       ]

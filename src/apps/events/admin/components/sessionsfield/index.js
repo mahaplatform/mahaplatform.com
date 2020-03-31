@@ -76,12 +76,8 @@ class SessionsField extends React.PureComponent {
   _handleChange() {
     const { sessions } = this.state
     const value = sessions.map(session => ({
-      title: session.title,
-      location_id: session.location ? session.location.id : null,
-      is_online: session.is_online,
-      date: session.date,
-      start_time: session.start_time,
-      end_time: session.end_time
+      ..._.omit(session, ['location']),
+      location_id: session.location ? session.location.id : null
     }))
     this.props.onChange(value)
   }

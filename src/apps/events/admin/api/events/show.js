@@ -4,6 +4,8 @@ import Event from '../../../models/event'
 const showRoute = async (req, res) => {
 
   const event = await Event.query(qb => {
+    qb.select(req.trx.raw('events_events.*,events_event_totals.*'))
+    qb.innerJoin('events_event_totals','events_event_totals.event_id','events_events.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({

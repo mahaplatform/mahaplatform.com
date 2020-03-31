@@ -2618,12 +2618,22 @@ const schema = {
     })
 
     await knex.schema.table('events_events', table => {
+      table.foreign('image_id').references('maha_assets.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('image_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('events_events_organizers', table => {
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('organizer_id').references('events_organizers.id')
     })
 
     await knex.schema.table('events_locations', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_organizers', table => {
+      table.foreign('photo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2637,6 +2647,14 @@ const schema = {
     await knex.schema.table('events_sessions', table => {
       table.foreign('event_id').references('events_events.id')
       table.foreign('location_id').references('events_locations.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('events_ticket_types', table => {
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('event_id').references('events_events.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -3214,24 +3232,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('events_organizers', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('photo_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('events_events_organizers', table => {
-      table.foreign('event_id').references('events_events.id')
-      table.foreign('organizer_id').references('events_organizers.id')
-    })
-
-    await knex.schema.table('events_ticket_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('event_id').references('events_events.id')
-      table.foreign('project_id').references('finance_projects.id')
-      table.foreign('revenue_type_id').references('finance_revenue_types.id')
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
 
@@ -4338,6 +4338,64 @@ union
       maha_stars.user_id as starrer_id
       from (drive_items
       join maha_stars on ((((maha_stars.starrable_type)::text = concat('drive_', drive_items.type, 's')) and (maha_stars.starrable_id = drive_items.item_id))));
+    `)
+
+    await knex.raw(`
+      create view events_event_totals AS
+      with registrations as (
+      select events_registrations.event_id,
+      count(*) as total
+      from events_registrations
+      group by events_registrations.event_id
+      ), tickets as (
+      select events_registrations.event_id,
+      count(*) as total
+      from (events_tickets
+      join events_registrations on ((events_registrations.id = events_tickets.registration_id)))
+      group by events_registrations.event_id
+      ), waitings as (
+      select events_waitings.event_id,
+      count(*) as total
+      from events_waitings
+      group by events_waitings.event_id
+      ), revenue as (
+      select events_registration_totals.event_id,
+      sum(events_registration_totals.revenue) as revenue
+      from events_registration_totals
+      group by events_registration_totals.event_id
+      ), first_registration as (
+      select events_registrations.event_id,
+      min(events_registrations.created_at) as created_at
+      from events_registrations
+      group by events_registrations.event_id
+      ), last_registration as (
+      select events_registrations.event_id,
+      max(events_registrations.created_at) as created_at
+      from events_registrations
+      group by events_registrations.event_id
+      )
+      select events_events.id as event_id,
+      coalesce(registrations.total, (0)::bigint) as registrations_count,
+      coalesce(tickets.total, (0)::bigint) as tickets_count,
+      coalesce(waitings.total, (0)::bigint) as waitings_count,
+      coalesce(revenue.revenue, 0.00) as revenue,
+      first_registration.created_at as first_registration,
+      last_registration.created_at as last_registration
+      from ((((((events_events
+      left join registrations on ((registrations.event_id = events_events.id)))
+      left join tickets on ((tickets.event_id = events_events.id)))
+      left join waitings on ((waitings.event_id = events_events.id)))
+      left join revenue on ((waitings.event_id = events_events.id)))
+      left join first_registration on ((first_registration.event_id = events_events.id)))
+      left join last_registration on ((last_registration.event_id = events_events.id)));
+    `)
+
+    await knex.raw(`
+      create view events_registration_totals AS
+      select events_registrations.event_id,
+      coalesce(finance_invoice_payments.paid, 0.00) as revenue
+      from (events_registrations
+      left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = events_registrations.invoice_id)));
     `)
 
     await knex.raw(`

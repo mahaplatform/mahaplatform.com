@@ -11,6 +11,7 @@ const Details = ({ audits, event }) => {
       {
         items: [
           { label: 'Title', content: event.title },
+          { label: 'Description', content: event.description },
           { label: 'Program', content: event.program.title }
         ]
       }, {
@@ -18,20 +19,35 @@ const Details = ({ audits, event }) => {
         items: event.ticket_types.map((ticket_type, index) => ({
           component: <TicketTypeToken key={`ticket_type_${index}`} { ...ticket_type } />
         }))
-      }, {
-        title: 'Organizers',
-        items: event.organizers.map((organizer, index) => ({
-          component: <OrganizerToken key={`organizer_${index}`} { ...organizer } />
-        }))
       }
     ]
   }
 
-  config.sections.push({ items: { component: <Audit entries={ audits } /> } })
+  if(event.organizers.length > 0) {
+    config.sections.push({
+      title: 'Organizers',
+      items: event.organizers.map((organizer, index) => ({
+        component: <OrganizerToken key={`organizer_${index}`} { ...organizer } />
+      }))
+    })
+  }
+
+  config.sections.push({
+    items: [
+      { component: <Audit entries={ audits } /> }
+    ]
+  })
 
   config.footer = <Comments entity={`events_events/${event.id}`} />
 
-  return <List { ...config } />
+  return (
+    <div>
+      <div>
+        You have a wait list of 10
+      </div>
+      <List { ...config } />
+    </div>
+  )
 
 }
 

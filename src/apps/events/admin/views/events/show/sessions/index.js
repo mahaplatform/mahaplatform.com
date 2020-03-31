@@ -14,10 +14,7 @@ class Sessions extends React.Component {
   }
 
   render() {
-    const { event, sessions } = this.props
-
-    event.tickets_count = 6
-
+    const { sessions } = this.props
     return (
       <div className="maha-table">
         <table>

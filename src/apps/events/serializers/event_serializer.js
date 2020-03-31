@@ -1,9 +1,16 @@
 const EventSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
+  description: result.get('description'),
   organizers: result.related('organizers').map(organizer),
   program: program(result.related('program')),
   ticket_types: result.related('ticket_types').map(ticket_type),
+  registrations_count: result.get('registrations_count'),
+  tickets_count: result.get('tickets_count'),
+  waitings_count: result.get('waitings_count'),
+  revenue: result.get('revenue'),
+  first_registration: result.get('first_registration'),
+  last_registration: result.get('last_registration'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

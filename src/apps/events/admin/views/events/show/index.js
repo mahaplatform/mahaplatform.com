@@ -1,6 +1,5 @@
-import Registrations from './registrations'
+import Performance from './performance'
 import Sessions from './sessions'
-import Waitings from './waitings'
 import { Page } from 'maha-admin'
 import Tickets from './tickets'
 import Details from './details'
@@ -11,9 +10,8 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
   items: [
     { label: 'Details', component: <Details event={ event } audits={ audits } /> },
     { label: 'Sessions', component: <Sessions event={ event } sessions={ sessions } /> },
-    { label: 'Registrations', component: <Registrations event={ event } registrations={ registrations } /> },
     { label: 'Tickets', component: <Tickets event={ event } tickets={ tickets } /> },
-    { label: 'Waiting List', component: <Waitings event={ event } waitings={ waitings } /> }
+    { label: 'Performance', component: <Performance event={ event } /> }
   ]
 })
 

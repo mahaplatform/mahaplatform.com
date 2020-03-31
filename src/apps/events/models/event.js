@@ -25,6 +25,12 @@ const Event = new Model({
 
     object_url: function() {
       return `/admin/crm/events/events/${this.get('id')}`
+    },
+
+    organizer_ids: function() {
+      return this.related('organizers').map(organizer => {
+        return organizer.get('id')
+      })
     }
 
   },

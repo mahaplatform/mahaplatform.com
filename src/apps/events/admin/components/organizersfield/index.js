@@ -8,7 +8,8 @@ import _ from 'lodash'
 class OrganizersField extends React.PureComponent {
 
   static contextTypes = {
-    form: PropTypes.object
+    form: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -29,6 +30,7 @@ class OrganizersField extends React.PureComponent {
   _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleLookup = this._handleLookup.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { organizers } = this.state
@@ -55,11 +57,7 @@ class OrganizersField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) {
-      this.setState({
-        organizers: defaultValue
-      })
-    }
+    if(defaultValue) this._handleFetch()
     this.props.onReady()
   }
 
@@ -114,6 +112,21 @@ class OrganizersField extends React.PureComponent {
     this.props.onChange(organizer_ids)
   }
 
+  _handleFetch() {
+    const { defaultValue } = this.props
+    this.context.network.request({
+      endpoint: '/api/admin/events/organizers',
+      query: {
+        $filter: {
+          ids: {
+            $in: defaultValue
+          }
+        }
+      },
+      onSuccess: this._handleSuccess
+    })
+  }
+
   _handleLookup() {
     this.context.form.push(<Chooser { ...this._getChooser() } />)
   }
@@ -125,6 +138,12 @@ class OrganizersField extends React.PureComponent {
           return i !== index
         })
       ]
+    })
+  }
+
+  _handleSuccess({ data }) {
+    this.setState({
+      organizers: data
     })
   }
 
