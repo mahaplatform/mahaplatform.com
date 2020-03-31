@@ -1,6 +1,7 @@
 export Button from './components/button'
 export Buttons from './components/buttons'
 export Carousel from './components/carousel'
+export Chart from './components/chart'
 export Collection from './components/collection'
 export { Container } from './components/container'
 export Criteria from './components/criteria'

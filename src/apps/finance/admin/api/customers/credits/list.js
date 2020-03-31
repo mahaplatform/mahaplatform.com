@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const credits = await Credit.filterFecth({
+  const credits = await Credit.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
       qb.where('customer_id', customer.get('id'))

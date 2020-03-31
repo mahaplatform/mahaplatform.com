@@ -1,19 +1,18 @@
-import Workflow from '../../../models/workflow'
+import Event from '../../../models/event'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
-  const workflow = await Workflow.query(qb => {
+  const event = await Event.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program'],
     transacting: req.trx
   })
 
-  if(!workflow) return res.status(404).respond({
+  if(!event) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load workflow'
+    message: 'Unable to load event'
   })
 
   const filled = `
@@ -28,14 +27,14 @@ const performanceRoute = async (req, res) => {
     `1 ${req.query.step}`,
     req.query.step,
     req.query.tz,
-    workflow.get('id')
+    event.get('id')
   ]
 
-  const enrollments = await req.trx.raw(`
+  const registrations = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
+    select filled_dates.date, count(events_registrations.*) as count
     from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=?
+    left join events_registrations on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and events_registrations.event_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -43,7 +42,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  res.status(200).respond(enrollments.map(segment => ({
+  res.status(200).respond(registrations.map(segment => ({
     x: segment.date,
     y: segment.count
   })))

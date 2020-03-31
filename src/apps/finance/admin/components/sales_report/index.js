@@ -58,15 +58,15 @@ class SalesReport extends React.Component {
           Sales
         </div>
         <div className="crm-report-header">
-          <div className="crm-report-filter">
+          <div className="maha-chart-header">
             { ranges.map((range, index) => (
-              <div className="crm-report-filter-item" key={`range_${index}`}>
+              <div className="maha-chart-range" key={`range_${index}`}>
                 <Button { ...this._getRange(range) } />
               </div>
             ))}
           </div>
         </div>
-        <div className="crm-report-chart">
+        <div className="maha-chart-body">
           <canvas ref={ node => this.node = node } width="756" height="250" className="monitor-chart" />
         </div>
         <div className="crm-report-metrics">

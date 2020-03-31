@@ -1,4 +1,5 @@
 import registrations from './registrations'
+import performance from './performance'
 import sessions from './sessions'
 import waitings from './waitings'
 import { Router } from 'express'
@@ -19,6 +20,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/performance', performance)
 
 router.patch('/:id', update)
 

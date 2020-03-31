@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Button, Chart } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
@@ -17,7 +17,10 @@ class Performance extends React.Component {
     return (
       <div className="crm-report">
         <div className="crm-report-title">
-          Event
+          Registrations
+        </div>
+        <div className="crm-report-header">
+          <Chart { ...this._getChart() } />
         </div>
         <div className="crm-report-metrics">
           <div className="crm-report-metric">
@@ -88,10 +91,14 @@ class Performance extends React.Component {
     }
   }
 
-}
+  _getChart() {
+    const { event } = this.props
+    return {
+      endpoint: `/api/admin/events/events/${event.id}/performance`,
+      started_at: event.created_at
+    }
+  }
 
-Performance.propTypes = {
-  event: PropTypes.object
 }
 
 export default Performance

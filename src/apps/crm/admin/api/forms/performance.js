@@ -44,24 +44,10 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  res.status(200).respond({
-    metrics: {
-      respondants: form.get('respondants_count'),
-      known_respondants: form.get('known_respondants_count'),
-      unknown_respondants: form.get('unknown_respondants_count'),
-      responses: form.get('responses_count'),
-      revenue: form.get('revenue'),
-      average_duration: form.get('average_duration'),
-      first_response: form.get('first_response'),
-      last_response: form.get('last_response')
-    },
-    data: {
-      responses: responses.map(segment => ({
-        x: segment.date,
-        y: segment.count
-      }))
-    }
-  })
+  res.status(200).respond(responses.map(segment => ({
+    x: segment.date,
+    y: segment.count
+  })))
 
 }
 
