@@ -3,6 +3,7 @@ import performance from './performance'
 import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'
+import bounces from './bounces'
 import preview from './preview'
 import create from './create'
 import update from './update'
@@ -23,6 +24,8 @@ router.get('/:id', show)
 router.get('/:id/edit', edit)
 
 router.get('/:id/activities', activities)
+
+router.get('/:id/bounces', bounces)
 
 router.use('/:email_id/deliveries', deliveries)
 

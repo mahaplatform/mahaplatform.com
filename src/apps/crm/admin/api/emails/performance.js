@@ -4,11 +4,10 @@ import Email from '../../../models/email'
 const performanceRoute = async (req, res) => {
 
   const email = await Email.query(qb => {
-    qb.select('crm_emails.*','crm_email_results.*')
-    qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['results'],
     transacting: req.trx
   })
 
@@ -17,7 +16,7 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load email'
   })
 
-  res.status(200).respond(email, EmailResultSerializer)
+  res.status(200).respond(email.related('results'), EmailResultSerializer)
 
 }
 

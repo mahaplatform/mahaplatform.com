@@ -2392,11 +2392,11 @@ const schema = {
     })
 
     await knex.schema.table('crm_emails', table => {
+      table.foreign('event_id').references('events_events.id')
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('event_id').references('events_events.id')
     })
 
     await knex.schema.table('crm_forms', table => {
@@ -2517,12 +2517,12 @@ const schema = {
       table.foreign('call_id').references('maha_calls.id')
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('registration_id').references('events_registrations.id')
       table.foreign('response_id').references('crm_responses.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('registration_id').references('events_registrations.id')
     })
 
     await knex.schema.table('crm_workflow_recordings', table => {
@@ -2541,13 +2541,13 @@ const schema = {
     await knex.schema.table('crm_workflows', table => {
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
       table.foreign('email_id').references('maha_emails.id')
+      table.foreign('event_id').references('events_events.id')
       table.foreign('field_id').references('maha_fields.id')
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
-      table.foreign('event_id').references('events_events.id')
     })
 
     await knex.schema.table('drive_access', table => {
@@ -2628,11 +2628,11 @@ const schema = {
     })
 
     await knex.schema.table('events_events', table => {
+      table.foreign('email_id').references('crm_emails.id')
       table.foreign('image_id').references('maha_assets.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('events_events_organizers', table => {
@@ -3648,6 +3648,18 @@ union
       from maha_emails
       where ((maha_emails.was_bounced = true) and (maha_emails.email_id is not null))
       group by maha_emails.email_id
+      ), hard_bounced as (
+      select maha_emails.email_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.email_id is not null) and (maha_emails.bounce_type = 'permanent'::maha_emails_bounce_type))
+      group by maha_emails.email_id
+      ), soft_bounced as (
+      select maha_emails.email_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.email_id is not null) and (maha_emails.bounce_type = 'transient'::maha_emails_bounce_type))
+      group by maha_emails.email_id
       ), opened as (
       select maha_emails.email_id,
       count(*) as count
@@ -3731,6 +3743,8 @@ union
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
+      coalesce(hard_bounced.count, (0)::bigint) as hard_bounced,
+      coalesce(soft_bounced.count, (0)::bigint) as soft_bounced,
       coalesce(opened.count, (0)::bigint) as opened,
       coalesce(total_opened.count, (0)::bigint) as total_opened,
       last_opened.last_opened_at,
@@ -3743,10 +3757,12 @@ union
       coalesce(webviewed.count, (0)::bigint) as webviewed,
       coalesce(complained.count, (0)::bigint) as complained,
       coalesce(unsubscribed.count, (0)::bigint) as unsubscribed
-      from (((((((((((((((crm_emails
+      from (((((((((((((((((crm_emails
       left join sent on ((sent.email_id = crm_emails.id)))
       left join delivered on ((delivered.email_id = crm_emails.id)))
       left join bounced on ((bounced.email_id = crm_emails.id)))
+      left join hard_bounced on ((hard_bounced.email_id = crm_emails.id)))
+      left join soft_bounced on ((soft_bounced.email_id = crm_emails.id)))
       left join opened on ((opened.email_id = crm_emails.id)))
       left join total_opened on ((total_opened.email_id = crm_emails.id)))
       left join last_opened on ((last_opened.email_id = crm_emails.id)))
