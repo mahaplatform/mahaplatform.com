@@ -1,6 +1,5 @@
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
-import { whitelist } from '../../../../../core/services/routes/params'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { makePayment } from '../../../../finance/services/payments'
 import generateCode from '../../../../../core/utils/generate_code'

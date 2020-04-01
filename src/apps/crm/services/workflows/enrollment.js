@@ -9,6 +9,8 @@ export const enrollInWorkflows = async (req, params) => {
 
   const workflows = await Workflow.query(qb => {
     qb.where('trigger_type', trigger_type)
+    qb.whereNull('deleted_at')
+    qb.where('status', 'active')
     if(action) qb.where('action', action)
     if(topic_id) qb.where('topic_id', topic_id)
     if(list_id) qb.where('list_id', list_id)

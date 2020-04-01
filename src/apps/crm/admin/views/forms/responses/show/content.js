@@ -5,6 +5,7 @@ import React from 'react'
 const Content = ({ form, response, field }) => {
   const data = response.data[field.code]
   const type = field.type === 'contactfield' ? field.contactfield.type : field.type
+  if(!data) return null
   if(type === 'productfield') {
     return <span>products</span>
   } else if(type === 'addressfield') {
