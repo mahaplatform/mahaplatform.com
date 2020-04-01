@@ -1,3 +1,4 @@
+import Registration from '../../events/models/registration'
 import Model from '../../../core/objects/model'
 import knex from '../../../core/services/knex'
 import WorkflowAction from './workflow_action'
@@ -29,6 +30,10 @@ const WorkflowEnrollment = new Model({
       qb.select(knex.raw('crm_contacts.*,crm_contact_primaries.*'))
       qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     })
+  },
+
+  registration() {
+    return this.belongsTo(Registration, 'registration_id')
   },
 
   response() {

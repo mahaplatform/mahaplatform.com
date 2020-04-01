@@ -5,9 +5,9 @@ import React from 'react'
 import Edit from './edit'
 import Scan from './scan'
 
-const getTabs = ({ attendings, event, session }) => ({
+const getTabs = ({ audits, attendings, event, session }) => ({
   items: [
-    { label: 'Details', component: <Details session={ session } /> },
+    { label: 'Details', component: <Details audits={ audits } session={ session } /> },
     { label: 'Attendance', component: <Attendance event={ event } session={ session } attendings={ attendings } /> }
   ]
 })
@@ -25,6 +25,7 @@ const getTasks = ({ event, session }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/events_sessions/${props.params.id}/audits`,
   event: `/api/admin/events/events/${props.params.event_id}`,
   session: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}`,
   attendings: `/api/admin/events/events/${props.params.event_id}/sessions/${props.params.id}/attendings`

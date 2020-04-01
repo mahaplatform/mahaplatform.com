@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'
+import Event from '../../events/models/event'
 import EmailResult from './email_result'
 import Workflow from './workflow'
 import Program from './program'
@@ -26,6 +27,7 @@ const Email = new Model({
     },
 
     display_name() {
+      if(this.get('event_id')) return `${this.related('event').get('title')}: ${this.get('title')}`
       if(this.get('form_id')) return `${this.related('form').get('title')}: ${this.get('title')}`
       if(this.get('workflow_id')) return `${this.related('workflow').get('title')}: ${this.get('title')}`
       return this.get('title')
@@ -35,6 +37,10 @@ const Email = new Model({
 
   emails() {
     return this.hasMany(MahaEmail, 'email_id')
+  },
+
+  event() {
+    return this.belongsTo(Event, 'event_id')
   },
 
   form() {

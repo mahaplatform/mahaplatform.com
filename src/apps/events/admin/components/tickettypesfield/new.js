@@ -12,7 +12,7 @@ class New extends React.PureComponent {
   }
 
   state = {
-    ticket_type: null
+    ticket_type: {}
   }
 
   _handleBack = this._handleBack.bind(this)

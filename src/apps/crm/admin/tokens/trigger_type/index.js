@@ -8,7 +8,8 @@ const types = {
   list: 'th-list',
   topic: 'lightbulb-o',
   property: 'id-card',
-  manual: 'plus'
+  manual: 'plus',
+  event: 'calendar'
 }
 
 const TriggerTypeToken = ({ value }) => (

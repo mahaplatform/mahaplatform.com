@@ -346,6 +346,7 @@ const schema = {
       table.integer('form_id').unsigned()
       table.integer('program_id').unsigned()
       table.timestamp('deleted_at')
+      table.integer('event_id').unsigned()
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -598,6 +599,7 @@ const schema = {
       table.integer('call_id').unsigned()
       table.jsonb('data')
       table.USER-DEFINED('status')
+      table.integer('registration_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_recordings', (table) => {
@@ -649,6 +651,7 @@ const schema = {
       table.USER-DEFINED('action')
       table.boolean('is_unique')
       table.timestamp('deleted_at')
+      table.integer('event_id').unsigned()
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -823,6 +826,9 @@ const schema = {
       table.timestamp('updated_at')
       table.string('code', 255)
       table.integer('image_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('email_id').unsigned()
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('events_events_organizers', (table) => {
@@ -2390,6 +2396,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('event_id').references('events_events.id')
     })
 
     await knex.schema.table('crm_forms', table => {
@@ -2515,6 +2522,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('registration_id').references('events_registrations.id')
     })
 
     await knex.schema.table('crm_workflow_recordings', table => {
@@ -2539,6 +2547,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
+      table.foreign('event_id').references('events_events.id')
     })
 
     await knex.schema.table('drive_access', table => {
@@ -2622,6 +2631,8 @@ const schema = {
       table.foreign('image_id').references('maha_assets.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('events_events_organizers', table => {

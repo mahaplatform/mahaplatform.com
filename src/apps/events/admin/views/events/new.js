@@ -1,6 +1,7 @@
 import TicketTypesField from '../../components/tickettypesfield'
 import OrganizersField from '../../components/organizersfield'
 import SessionsField from '../../components/sessionsfield'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -26,7 +27,7 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id } = this.props
+    const { program_id, user } = this.props
     return {
       title: 'New Event',
       method: 'post',
@@ -42,7 +43,13 @@ class New extends React.PureComponent {
             { label: 'Image', name: 'image_id', type: 'attachmentfield', prompt: 'Choose an image' },
             { label: 'Sessions', name: 'sessions', type: SessionsField, required: true },
             { label: 'Ticket Types', name: 'ticket_types', type: TicketTypesField, required: true },
-            { label: 'Organizers', name: 'organizer_ids', type: OrganizersField }
+            { label: 'Organizers', name: 'organizer_ids', type: OrganizersField },
+            { label: 'Confirmation Email', type: 'segment', fields: [
+              { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+              { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for filling out our form' }
+            ] }
           ]
         }
       ]
@@ -60,5 +67,8 @@ class New extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state, props) => ({
+  user: state.maha.admin.user
+})
 
-export default New
+export default connect(mapStateToProps)(New)

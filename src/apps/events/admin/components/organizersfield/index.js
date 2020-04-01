@@ -57,7 +57,7 @@ class OrganizersField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this._handleFetch()
+    if(defaultValue && defaultValue.length > 0) this._handleFetch()
     this.props.onReady()
   }
 
@@ -108,9 +108,10 @@ class OrganizersField extends React.PureComponent {
     const { defaultValue } = this.props
     this.context.network.request({
       endpoint: '/api/admin/events/organizers',
+      method: 'get',
       query: {
         $filter: {
-          ids: {
+          id: {
             $in: defaultValue
           }
         }

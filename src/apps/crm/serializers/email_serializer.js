@@ -4,6 +4,7 @@ const EmailSerializer = (req, result) => ({
   title: result.get('title'),
   display_name: result.get('display_name'),
   config: result.get('config'),
+  event: event(result.related('event')),
   form: form(result.related('form')),
   program: program(result.related('program')),
   sent: result.get('sent'),
@@ -31,6 +32,14 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title')
+  }
+}
+
+const event = (event) => {
+  if(!event.id) return
+  return {
+    id: event.get('id'),
+    title: event.get('title')
   }
 }
 

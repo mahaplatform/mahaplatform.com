@@ -1,10 +1,22 @@
+import { Audit, Button, Comments, List } from 'maha-admin'
 import TicketTypeToken from '../../../tokens/ticket_type'
 import OrganizerToken from '../../../tokens/organizer'
-import { Audit, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const Details = ({ audits, event }) => {
+
+  const email = {
+    label: 'Manage Email',
+    className: 'link',
+    route: `/admin/crm/emails/${event.email.id}`
+  }
+
+  const workflow = {
+    label: 'Manage Workflow',
+    className: 'link',
+    route: `/admin/crm/workflows/${event.workflow.id}`
+  }
 
   const config = {
     sections: [
@@ -12,7 +24,9 @@ const Details = ({ audits, event }) => {
         items: [
           { label: 'Title', content: event.title },
           { label: 'Description', content: event.description },
-          { label: 'Program', content: event.program.title }
+          { label: 'Program', content: event.program.title },
+          { label: 'Confirmation', content: <Button { ...email } /> },
+          { label: 'Workflow', content: <Button { ...workflow } /> }
         ]
       }, {
         title: 'Ticket Types',

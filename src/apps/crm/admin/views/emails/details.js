@@ -17,10 +17,17 @@ const Details = ({ email }) => {
   }
 
   list.items = [
-    { label: 'Title', content: email.display_name },
-    { label: 'Program', content: email.program.title },
-    { label: 'Content', content: <Button { ...design } /> }
+    { label: 'Title', content: email.title },
+    { label: 'Program', content: email.program.title }
   ]
+
+  if(email.form) {
+    list.items.push({ label: 'Form', content: email.form.title })
+  } else if(email.event) {
+    list.items.push({ label: 'Event', content: email.event.title })
+  }
+
+  list.items.push({ label: 'Content', content: <Button { ...design } /> })
 
   list.footer = <Comments entity={`crm_emails/${email.id}`} active={ email.deleted_at === null } />
 

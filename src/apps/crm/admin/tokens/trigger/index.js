@@ -37,6 +37,11 @@ const triggers = {
     icon: 'id-card',
     title: 'Property Update',
     description: 'Enroll contact when a property is changed'
+  },
+  event: {
+    icon: 'calendar',
+    title: 'Event Registration',
+    description: 'Enroll contact when they register for an event'
   }
 }
 

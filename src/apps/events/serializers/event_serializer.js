@@ -4,6 +4,8 @@ const EventSerializer = (req, result) => ({
   description: result.get('description'),
   organizers: result.related('organizers').map(organizer),
   program: program(result.related('program')),
+  email: email(result.related('email')),
+  workflow: workflow(result.related('workflow')),
   ticket_types: result.related('ticket_types').map(ticket_type),
   registrations_count: result.get('registrations_count'),
   tickets_count: result.get('tickets_count'),
@@ -47,6 +49,22 @@ const ticket_type = (ticket_type) => {
     max_per_order: ticket_type.get('max_per_order'),
     sales_open_at: ticket_type.get('sales_open_at'),
     sales_close_at: ticket_type.get('sales_close_at')
+  }
+}
+
+const email = (email) => {
+  if(!email.id) return
+  return {
+    id: email.get('id'),
+    title: email.get('title')
+  }
+}
+
+const workflow = (workflow) => {
+  if(!workflow.id) return
+  return {
+    id: workflow.get('id'),
+    title: workflow.get('title')
   }
 }
 

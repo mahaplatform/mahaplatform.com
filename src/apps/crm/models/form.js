@@ -64,7 +64,6 @@ const Form = new Model({
     return this.belongsTo(Workflow, 'workflow_id')
   }
 
-
 })
 
 export default Form

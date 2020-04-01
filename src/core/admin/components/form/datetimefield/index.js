@@ -1,6 +1,7 @@
 import DateField from '../datefield'
 import TimeField from '../timefield'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 class DateTimeField extends React.Component {
@@ -11,9 +12,13 @@ class DateTimeField extends React.Component {
     onReady: PropTypes.func
   }
 
-  state = {
-    date: null,
-    time: null
+  constructor(props) {
+    super(props)
+    const { defaultValue } = props
+    this.state = {
+      date: defaultValue ? moment(defaultValue).format('YYYY-MM-DD') : null,
+      time: defaultValue ? moment(defaultValue).format('HH:mm:ss') : null
+    }
   }
 
   render() {
@@ -44,13 +49,17 @@ class DateTimeField extends React.Component {
   }
 
   _getDateField() {
+    const { date } = this.state
     return {
+      defaultValue: date,
       onChange: this._handleUpdate.bind(this, 'date')
     }
   }
 
   _getTimeField() {
+    const { time } = this.state
     return {
+      defaultValue: time,
       onChange: this._handleUpdate.bind(this, 'time')
     }
   }

@@ -6,6 +6,7 @@ import Property from './property'
 import Manual from './manual'
 import Topic from './topic'
 import Types from './types'
+import Event from './event'
 import React from 'react'
 import Open from './open'
 import List from './list'
@@ -29,6 +30,9 @@ const types = [
   },{
     component: Property,
     value: 'property'
+  },{
+    component: Event,
+    value: 'event'
   },{
     component: Manual,
     value: 'manual'

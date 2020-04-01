@@ -1,6 +1,8 @@
+import Workflow from '../../crm/models/workflow'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 import Asset from '../../maha/models/asset'
+import Email from '../../crm/models/email'
 import Registration from './registration'
 import TicketType from './ticket_type'
 import Organizer from './organizer'
@@ -35,6 +37,10 @@ const Event = new Model({
 
   },
 
+  email() {
+    return this.belongsTo(Email, 'email_id')
+  },
+
   image() {
     return this.belongsTo(Asset, 'image_id')
   },
@@ -61,6 +67,14 @@ const Event = new Model({
 
   waitings() {
     return this.hasMany(Waiting, 'event_id')
+  },
+
+  workflows() {
+    return this.hasMany(Workflow, 'event_id')
+  },
+
+  workflow() {
+    return this.belongsTo(Workflow, 'workflow_id')
   }
 
 })

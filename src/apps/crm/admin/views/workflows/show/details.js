@@ -41,6 +41,8 @@ const Details = ({ audits, workflow }) => {
     list.items.push({ label: 'Trigger', content: 'Email link is clicked' })
   } else if(workflow.trigger_type === 'response') {
     list.items.push({ label: 'Trigger', content: 'Form is submitted' })
+  } else if(workflow.trigger_type === 'event') {
+    list.items.push({ label: 'Trigger', content: 'Contact registers for event' })
   } else if(workflow.trigger_type === 'manual') {
     list.items.push({ label: 'Trigger', content: 'Contact is enrolled' })
   }
@@ -55,6 +57,8 @@ const Details = ({ audits, workflow }) => {
     list.items.push({ label: 'Email', content: workflow.email.title })
   } else if(workflow.trigger_type === 'click') {
     list.items.push({ label: 'Email', content: workflow.email.title })
+  } else if(workflow.trigger_type === 'event') {
+    list.items.push({ label: 'Event', content: workflow.event.title })
   }
 
   list.items.push({ label: 'Content', content: <Button { ...design } /> })
