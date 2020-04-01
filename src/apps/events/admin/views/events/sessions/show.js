@@ -2,6 +2,7 @@ import Attendance from './attendance'
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
+import Edit from './edit'
 import Scan from './scan'
 
 const getTabs = ({ attendings, event, session }) => ({
@@ -14,6 +15,9 @@ const getTabs = ({ attendings, event, session }) => ({
 const getTasks = ({ event, session }) => ({
   items: [
     {
+      label: 'Edit Session',
+      modal: <Edit event={ event } session={ session } />
+    }, {
       label: 'Scan Tickets',
       modal: <Scan event={ event } session={ session } />
     }

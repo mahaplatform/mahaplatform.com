@@ -2,17 +2,17 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static contextTypes = {
-    form: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
-    onDone: PropTypes.func
+    organizer: PropTypes.object
   }
 
-  _handleBack = this._handleBack.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -20,12 +20,13 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
+    const { organizer } = this.props
     return {
-      title: 'New Organizer',
-      action: '/api/admin/events/organizers',
-      method: 'post',
-      cancelIcon: 'chevron-left',
-      onCancel: this._handleBack,
+      title: 'Edit Organizer',
+      method: 'patch',
+      endpoint: `/api/admin/events/organizers/${organizer.id}/edit`,
+      action: `/api/admin/events/organizers/${organizer.id}`,
+      onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -40,15 +41,15 @@ class New extends React.PureComponent {
     }
   }
 
-  _handleBack() {
-    this.context.form.pop(-2)
+  _handleCancel() {
+    this.context.modal.close()
   }
 
-  _handleSuccess(organizer) {
-    this.props.onDone(organizer)
+  _handleSuccess(event) {
+    this.context.modal.close()
   }
 
 }
 
 
-export default New
+export default Edit

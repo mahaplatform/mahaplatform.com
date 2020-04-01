@@ -25,7 +25,7 @@ class Edit extends React.PureComponent {
   _getForm() {
     const { event } = this.props
     return {
-      title: 'New Event',
+      title: 'Edit Event',
       method: 'patch',
       endpoint: `/api/admin/events/events/${event.id}/edit`,
       action: `/api/admin/events/events/${event.id}`,

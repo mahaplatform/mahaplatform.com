@@ -5,6 +5,7 @@ import RegistrationsShow from './events/registrations/show'
 import SessionShow from './events/sessions/show'
 import TicketShow from './events/tickets/show'
 import OrganizerList from './organizers/list'
+import OrganizerShow from './organizers/show'
 import LocationList from './locations/list'
 
 const routes = [
@@ -15,7 +16,8 @@ const routes = [
   { path: '/events/:event_id/sessions/:id', component: SessionShow },
   { path: '/events/:event_id/tickets/:id', component: TicketShow },
   { path: '/locations', component: LocationList },
-  { path: '/organizers', component: OrganizerList }
+  { path: '/organizers', component: OrganizerList },
+  { path: '/organizers/:id', component: OrganizerShow }
 ]
 
 export default routes

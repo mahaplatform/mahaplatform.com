@@ -13,6 +13,10 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  await organizer.load(['photo'], {
+    transacting: req.trx
+  })
+
   await activity(req, {
     story: 'created {object}',
     object: organizer

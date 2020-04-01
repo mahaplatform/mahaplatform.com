@@ -2,6 +2,7 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import events from './events'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -19,5 +20,7 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.use('/:organizer_id/events', events)
 
 export default router

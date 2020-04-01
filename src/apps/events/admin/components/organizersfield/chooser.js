@@ -2,13 +2,15 @@ import OrganizerToken from '../../tokens/organizer'
 import { ModalPanel, Search } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import New from './new'
 
 class Chooser extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    form: PropTypes.object
+  }
 
   static propTypes = {
-    onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
 
@@ -22,6 +24,12 @@ class Chooser extends React.PureComponent {
         <Search { ...this._getSearch() } />
       </ModalPanel>
     )
+  }
+
+  _getNew() {
+    return {
+      onDone: this._handleChoose
+    }
   }
 
   _getPanel() {
@@ -46,7 +54,7 @@ class Chooser extends React.PureComponent {
   }
 
   _handleBack() {
-    this.props.onBack()
+    this.context.form.pop()
   }
 
   _handleChoose(organizer) {
@@ -54,7 +62,7 @@ class Chooser extends React.PureComponent {
   }
 
   _handleNew() {
-
+    this.context.form.push(New, this._getNew())
   }
 
 }

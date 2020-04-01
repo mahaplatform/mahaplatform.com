@@ -78,15 +78,7 @@ class OrganizersField extends React.PureComponent {
 
   _getChooser() {
     return {
-      onBack: this._handleBack,
       onChoose: this._handleAdd
-    }
-  }
-
-  _getNew() {
-    return {
-      onBack: this._handleBack,
-      onDone: this._handleAdd
     }
   }
 

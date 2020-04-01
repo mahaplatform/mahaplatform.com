@@ -17,7 +17,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet created any organizers',
       buttons: []
     },
-    entity: 'event'
+    entity: 'event',
+    onClick: (record) => context.router.history.push(`/admin/events/organizers/${record.id}`)
   }
 })
 

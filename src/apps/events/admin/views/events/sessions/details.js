@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
+import moment from 'moment'
 import React from 'react'
 
 const Details = ({ session }) => {
@@ -13,9 +14,11 @@ const Details = ({ session }) => {
           { session.location.address.description }
         </span>
       ) },
-      { label: 'Date', content: session.date, format: 'date' },
-      { label: 'Start', content: session.start_time, format: 'time' },
-      { label: 'End', content: session.end_time, format: 'time' }
+      { label: 'Date', content: (
+        <span>
+          { moment(session.date).format('MMM DD, YYYY') }, { moment(`2020-01-01 ${session.start_time}`).format('h:mm A') } - { moment(`2020-01-01 ${session.end_time}`).format('h:mm A') }
+        </span>
+      ) }
     ]
   }
 

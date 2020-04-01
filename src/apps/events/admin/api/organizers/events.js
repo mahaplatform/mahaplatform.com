@@ -1,13 +1,13 @@
-import OrganizerSerializer from '../../../serializers/organizer_serializer'
+import EventSerializer from '../../../serializers/event_serializer'
 import Organizer from '../../../models/organizer'
 
 const showRoute = async (req, res) => {
 
   const organizer = await Organizer.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.id)
+    qb.where('id', req.params.organizer_id)
   }).fetch({
-    withRelated: ['photo'],
+    withRelated: ['events'],
     transacting: req.trx
   })
 
@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load organizer'
   })
 
-  res.status(200).respond(organizer, OrganizerSerializer)
+  res.status(200).respond(organizer.related('events'), EventSerializer)
 
 }
 
