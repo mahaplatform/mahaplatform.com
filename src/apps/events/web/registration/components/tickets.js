@@ -17,19 +17,30 @@ class Tickets extends React.Component {
           <div className="registration-image">
             <img src="https://dev.mahaplatform.com:8080/imagecache/fit=cover&w=350&h=175/assets/8346/10156387003857338.jpg" />
           </div>
-          <h1>Test Event</h1>
-          <p>Im baby keffiyeh offal yuccie, jianbing meditation umami everyday carry plaid tofu hell of. Direct trade lomo heirloom, tofu vape hoodie sriracha. Polaroid butcher austin swag aesthetic. Skateboard waistcoat small batch man braid fingerstache brunch locavore selfies beard snackwave shabby chic williamsburg. Poke woke meggings chartreuse prism godard succulents organic sriracha chillwave narwhal 90s fixie wolf.</p>
-          <table>
-            <tr>
-              <td>
-                General Admission (23 left)<br />
-                $50.00
-              </td>
-              <td>
-                <Quantity />
-              </td>
-            </tr>
-          </table>
+          <div className="registration-tickets">
+            <h1>Test Event</h1>
+            <p>Im baby keffiyeh offal yuccie, jianbing meditation umami everyday carry plaid tofu hell of. Direct trade lomo heirloom, tofu vape hoodie sriracha. Polaroid butcher austin swag aesthetic. Skateboard waistcoat small batch man braid fingerstache brunch locavore selfies beard snackwave shabby chic williamsburg. Poke woke meggings chartreuse prism godard succulents organic sriracha chillwave narwhal 90s fixie wolf.</p>
+            <table>
+              <tr>
+                <td>
+                  Early Bird (23 left)<br />
+                  $30.00
+                </td>
+                <td>
+                  <Quantity />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  General Admission (23 left)<br />
+                  $50.00
+                </td>
+                <td>
+                  <Quantity />
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
         <div className="registration-panel-footer">
           <div className="ui red button">Next &raquo;</div>

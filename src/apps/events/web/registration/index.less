@@ -106,5 +106,23 @@ body {
   padding: 0.8em;
 }
 
+.registration-tickets {
+  table {
+    width: 100%;
+    border-top: 1px solid fadeout(@black, 90);
+    border-left: 1px solid fadeout(@black, 90);
+  }
+  td {
+    border-bottom: 1px solid fadeout(@black, 90);
+    border-right: 1px solid fadeout(@black, 90);
+    padding: 0.8em;
+  }
+  tr {
+    td:last-child {
+      width: 1px;
+    }
+  }
+}
+
 @import '../../../../core/client/style.less';
 @import './components/quantity/style.less';
