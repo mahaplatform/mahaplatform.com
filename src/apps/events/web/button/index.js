@@ -42,9 +42,8 @@ class MahaButton {
     this.body.className = 'maha-events-button open'
 
     this.iframe = document.createElement('iframe')
-    this.iframe.src = 'https://localhost:8080/admin'
+    this.iframe.src = 'https://localhost:8080/events/registration/abcdefg'
     this.iframe.frameBorder = 0
-    this.iframe.style.width = '100%'
 
     this.modal.appendChild(this.iframe)
 

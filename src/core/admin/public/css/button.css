@@ -16,4 +16,8 @@
   max-height: 768px;
   transform: translate(-50%,-50%);
   background: rgb(255,255,255);
+  display: flex;
+}
+.maha-events-button-modal iframe {
+  flex: 1;
 }
