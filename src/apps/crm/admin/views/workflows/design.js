@@ -11,7 +11,8 @@ const triggers = {
   list: { icon: 'th-list', text: 'Contact is added to list' },
   topic: { icon: 'lightbulb-o', text: 'Contact is added to topic' },
   property: { icon: 'id-card', text: 'Contact property is updated' },
-  manual: { icon: 'plus', text: 'Contact is enrolled' }
+  manual: { icon: 'plus', text: 'Contact is enrolled' },
+  event: { icon: 'calendar', text: 'Contact registers for event' }
 }
 
 class Designer extends React.Component {
@@ -47,10 +48,22 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    if(!workflow.form) return {}
+    if(workflow.event) return this._getEventFields(workflow.event)
+    if(workflow.form) return this._getFormFields(workflow.form)
+    return {}
+  }
+
+  _getEventFields(event) {
+    return {
+      label: 'Event Fields',
+      fields: []
+    }
+  }
+
+  _getFormFields(form) {
     return {
       label: 'Response Fields',
-      fields: workflow.form.config.fields.filter(field => {
+      fields: form.config.fields.filter(field => {
         return field.type !== 'text' && field.name
       }).map(field => ({
         name: field.name.value,
@@ -61,23 +74,37 @@ class Designer extends React.Component {
     }
   }
 
-  _getTrigger() {
-    const { workflow } = this.props
-    return triggers[workflow.trigger_type]
-  }
-
   _getTokens() {
     const { workflow } = this.props
-    if(!workflow.form) return {}
+    if(workflow.event) return this._getEventTokens(workflow.event)
+    if(workflow.form) return this._getFormTokens(workflow.form)
+    return {}
+  }
+
+  _getEventTokens(event) {
+    return {
+      title: 'Event Tokens',
+      tokens: [
+        { name: 'Num Tickets', token: 'regstration.num_tickets'}
+      ]
+    }
+  }
+
+  _getFormTokens(form) {
     return {
       title: 'Response Tokens',
-      tokens: workflow.form.config.fields.filter(field => {
+      tokens: form.config.fields.filter(field => {
         return field.type !== 'text' && field.name
       }).map(field => ({
         name: field.name.value,
         token: `response.${field.name.token}`
       }))
     }
+  }
+
+  _getTrigger() {
+    const { workflow } = this.props
+    return triggers[workflow.trigger_type]
   }
 
   _handleSave(steps) {
