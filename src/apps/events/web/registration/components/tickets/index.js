@@ -21,39 +21,41 @@ class Tickets extends React.Component {
     return (
       <div className="registration-panel">
         <div className="registration-panel-body">
-          <div className="registration-tickets">
-            <h1>{ event.title }</h1>
-            <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
-            <h2>Sessions</h2>
-            <div className="registration-tickets-sessions">
-              { event.sessions.map((session, index) => (
-                <div className="registration-tickets-session" key={`session_${index}`}>
-                  <SessionToken { ...session } />
-                </div>
-              ))}
-            </div>
-
-            <h2>Organizers</h2>
-            <div className="registration-tickets-organizers">
-              { event.organizers.map((organizer, index) => (
-                <div className="registration-tickets-organizer" key={`organizer_${index}`}>
-                  <OrganizerToken { ...organizer } />
-                </div>
-              ))}
-            </div>
-
-            <h2>Tickets</h2>
-            <div className="registration-tickets-tickettypes">
-              { event.ticket_types.map((ticket_type, index) => (
-                <div className="registration-tickets-tickettype" key={`ticket_type_${index}`}>
-                  <div className="registration-tickets-tickettype-label">
-                    <TicketTypeToken { ...ticket_type } />
+          <div className="registration-panel-content">
+            <div className="registration-tickets">
+              <h1>{ event.title }</h1>
+              <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
+              <h2>Sessions</h2>
+              <div className="registration-tickets-sessions">
+                { event.sessions.map((session, index) => (
+                  <div className="registration-tickets-session" key={`session_${index}`}>
+                    <SessionToken { ...session } />
                   </div>
-                  <div className="registration-tickets-tickettype-quantity">
-                    <Quantity { ...this._getQuantity(ticket_type) } />
+                ))}
+              </div>
+
+              <h2>Organizers</h2>
+              <div className="registration-tickets-organizers">
+                { event.organizers.map((organizer, index) => (
+                  <div className="registration-tickets-organizer" key={`organizer_${index}`}>
+                    <OrganizerToken { ...organizer } />
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <h2>Tickets</h2>
+              <div className="registration-tickets-tickettypes">
+                { event.ticket_types.map((ticket_type, index) => (
+                  <div className="registration-tickets-tickettype" key={`ticket_type_${index}`}>
+                    <div className="registration-tickets-tickettype-token">
+                      <TicketTypeToken { ...ticket_type } />
+                    </div>
+                    <div className="registration-tickets-tickettype-quantity">
+                      <Quantity { ...this._getQuantity(ticket_type) } />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
