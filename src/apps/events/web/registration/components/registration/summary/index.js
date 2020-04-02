@@ -25,6 +25,11 @@ class Summary extends React.Component {
             </tr>
           </thead>
           <tbody>
+            { items.length === 0 &&
+              <tr>
+                <td colSpan="2">No tickets</td>
+              </tr>
+            }
             { items.map((item, index) => (
               <tr key={`ticket_type_${index}`}>
                 <td>{ item.name } x { item.quantity }</td>

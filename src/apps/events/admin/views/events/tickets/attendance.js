@@ -15,12 +15,12 @@ class Attendance extends React.Component {
   render() {
     const { attendings } = this.props
     return (
-      <div className="maha-table">
+      <div className="maha-table attendance">
         <table>
           <thead>
             <tr>
               <td>Session</td>
-              <td>Attended</td>
+              <td className="collpasing">Attended</td>
             </tr>
           </thead>
           <tbody>
@@ -29,8 +29,10 @@ class Attendance extends React.Component {
                 <td className="unpadded">
                   <SessionToken { ...attending.session } />
                 </td>
-                <td>
-                  <i className="fa fa-check" />
+                <td className="center">
+                  { attending.is_checked &&
+                    <i className="fa fa-check-circle" />
+                  }
                 </td>
               </tr>
             )) }

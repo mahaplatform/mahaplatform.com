@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <link href="/admin/css/semantic.min.css" rel="stylesheet" />
+    <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background: rgba(0,0,0,0.3);
+      }
+      .event-ticket {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        max-width: 375px;
+        max-height: 667px;
+        background-color: #EEE;
+        display: flex;
+        flex-direction: column;
+      }
+      h2, h3 {
+        margin: 0 0 0.4em;
+      }
+      .event-ticket-header {
+        height: 0;
+        padding-bottom: 50%;
+        background-color: rgba(0,0,0,0.9);
+      }
+      .event-ticket-header img {
+        display: block;
+        width: 100%;
+      }
+      .event-ticket-body {
+        flex: 1;
+        padding: 0.8em;
+        text-align: center;
+      }
+      .event-ticket-qrcode {
+        text-align: center;
+        padding: 0.8em;
+      }
+      .event-ticket-qrcode img {
+        width: 50%;
+        max-width: 200px;
+      }
+      .event-ticket-footer a {
+        display: block;
+        text-align: center;
+        margin-bottom: 0.4em;
+      }
+      .event-ticket-footer img {
+        display: inline-block;
+      }
+      .event-ticket-footer .apple img {
+        width: 150px;
+      }
+      .event-ticket-footer .google img {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="event-ticket">
+      <div class="event-ticket-header">
+        <img src="/imagecache/fit=cover&w=375&h=187/<%= event.image %>" />
+      </div>
+      <div class="event-ticket-body">
+        <h2><%= event.title %></h2>
+        <h3><%= ticket.full_name %></h2>
+        <% sessions.map(session => { %>
+          <div>
+            <%= moment(session.date).format('MMM D, YYYY') %>,
+            <%= moment(`2020-01-01 ${session.start_time}`).format('h:mmA') %> -
+            <%= moment(`2020-01-01 ${session.end_time}`).format('h:mmA') %>
+          </div>
+        <% }) %>
+      </div>
+      <div class="event-ticket-qrcode">
+        <img src="/qr/<%= ticket.code %>" />
+      </div>
+      <div class="event-ticket-footer">
+        <a href="/events/tickets/<%= ticket.code %>/pass" class="apple">
+          <img src="/admin/images/applewallet.svg" />
+        </a>
+        <a href="/events/tickets/<%= ticket.code %>/pass" class="google">
+          <img src="/admin/images/gpaypass.svg" />
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

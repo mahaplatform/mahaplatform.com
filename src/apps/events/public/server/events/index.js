@@ -1,8 +1,8 @@
+import tickets from './tickets'
 import express from 'express'
-import show from './show'
 
 const server = express()
 
-server.get('/:code', show)
+server.use('/:event_code/tickets', tickets)
 
 export default server

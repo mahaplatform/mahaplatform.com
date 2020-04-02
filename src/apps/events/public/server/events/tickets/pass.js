@@ -1,4 +1,4 @@
-import Ticket from '../../../models/ticket'
+import Ticket from '../../../../models/ticket'
 import Passbook from 'passbook'
 import mkdirp from 'mkdirp'
 import path from 'path'
@@ -12,7 +12,7 @@ fs.writeFileSync(path.join(root,'wwdr.pem'), process.env.PASSBOOK_WWDR_PEM)
 
 fs.writeFileSync(path.join(root,`${process.env.PASSBOOK_TYPE_IDENTIFIER}.pem`), process.env.PASSBOOK_PEM)
 
-const showRoute = async (req, res) => {
+const passRoute = async (req, res) => {
 
   const ticket = await Ticket.query(qb => {
     qb.where('code', req.params.code)
@@ -48,7 +48,7 @@ const showRoute = async (req, res) => {
   template.icon('https://mahaplatform.com/admin/images/maha.png')
   template.strip('http://cdn.sitemandala.com/assets/110192/bearcamp2017e1.jpg')
 
-  const logo = program.related('logo') ? program.related('logo').get('signed_url') : 'https://mahaplatform.com/admin/images/maha.png'
+  const logo = program.get('logo_id') ? program.related('logo').get('signed_url') : 'https://mahaplatform.com/admin/images/maha.png'
   template.logo(logo)
 
   var pass = template.createPass({
@@ -93,4 +93,4 @@ const showRoute = async (req, res) => {
 
 }
 
-export default showRoute
+export default passRoute

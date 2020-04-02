@@ -7,7 +7,7 @@ const SessionToken = (session) => (
     <strong>{ session.title }</strong>
     <div>
       <i className="fa fa-fw fa-calendar" />
-      { moment(`${session.date}`).format('MMM DD, YYYY') }, { moment(`2020-01-01 ${session.start_time}`).format('h:mm A') } - { moment(`2020-01-01 ${session.end_time}`).format('h:mm A') }
+      { moment(`${session.date}`).format('MMM D, YYYY') }, { moment(`2020-01-01 ${session.start_time}`).format('h:mmA') } - { moment(`2020-01-01 ${session.end_time}`).format('h:mmA') }
     </div>
     { session.is_online ?
       <div>

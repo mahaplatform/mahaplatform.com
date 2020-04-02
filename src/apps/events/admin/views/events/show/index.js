@@ -17,6 +17,7 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
 
 const getTasks = ({ event }) => {
   const items = [
+    { label: 'View Registration', link: `/events/registration/${event.code}` },
     { label: 'Edit Event', modal: <Edit event={ event } /> }
   ]
   return { items }
