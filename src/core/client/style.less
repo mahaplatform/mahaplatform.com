@@ -1,8 +1,38 @@
+@red: #DB2828;
+@orange: #F2711C;
+@yellow: #FBBD08;
+@olive: #B5CC18;
+@green: #21BA45;
+@teal: #00B5AD;
+@blue: #2185D0;
+@violet: #6435C9;
+@purple: #A333C8;
+@pink: #E03997;
+@brown: #A5673F;
+@black: #000000;
+@white: #FFFFFF;
+@grey: #666666;
+
 .opacity(@opacity: 0.5) {
 	opacity: @opacity;
 }
 .translateX(@x) {
   transform: translateX(@x);
+}
+.colorizeItem(@item, @property) {
+	&.red .@{item} { @{property}: @red; }
+	&.orange .@{item} { @{property}: @orange; }
+	&.yellow .@{item} { @{property}: @yellow; }
+	&.olive .@{item} { @{property}: @olive; }
+	&.green .@{item} { @{property}: @green; }
+	&.teal .@{item} { @{property}: @teal; }
+	&.blue .@{item} { @{property}: @blue; }
+	&.purple .@{item} { @{property}: @purple; }
+	&.violet .@{item} { @{property}: @violet; }
+	&.pink .@{item} { @{property}: @pink; }
+	&.brown .@{item} { @{property}: @brown; }
+	&.grey .@{item} { @{property}: @grey; }
+	&.black .@{item} { @{property}: @black; }
 }
 
 .maha-form {
@@ -145,4 +175,7 @@
 @import './form/datefield/style.less';
 @import './form/dropdown/style.less';
 @import './form/filefield/style.less';
+@import './avatar/style.less';
+@import './button/style.less';
+@import './image/style.less';
 @import './stack/style.less';

@@ -1,7 +1,7 @@
 import Recaptcha from './recaptcha'
 import PropTypes from 'prop-types'
 import Fields from './fields'
-import Button from './button'
+import Submit from './submit'
 import React from 'react'
 
 class Form extends React.Component {
@@ -54,7 +54,7 @@ class Form extends React.Component {
           </div>
         }
         <div className="maha-form-submit">
-          <Button { ... this._getButton() } />
+          <Submit { ... this._getSubmit() } />
         </div>
       </div>
     )
@@ -76,7 +76,7 @@ class Form extends React.Component {
     }
   }
 
-  _getButton() {
+  _getSubmit() {
     const { captcha, fields, human, status, submitText } = this.props
     const processing = status === 'submitting'
     return {

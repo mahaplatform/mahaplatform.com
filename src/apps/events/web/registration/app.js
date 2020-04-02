@@ -14,9 +14,14 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Registration />
+        <Registration { ...this._getRegistration() } />
       </Root>
     )
+  }
+
+  _getRegistration() {
+    const { event, token } = window
+    return { event, token }
   }
 
 }

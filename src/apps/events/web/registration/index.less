@@ -1,16 +1,4 @@
-@red: #DB2828;
-@orange: #F2711C;
-@yellow: #FBBD08;
-@olive: #B5CC18;
-@green: #21BA45;
-@teal: #00B5AD;
-@blue: #2185D0;
-@violet: #6435C9;
-@purple: #A333C8;
-@pink: #E03997;
-@brown: #A5673F;
-@black: #000000;
-@white: #FFFFFF;
+@import '../../../../core/client/style.less';
 
 .scrollable() {
   -webkit-transform: translateZ(0);
@@ -53,41 +41,9 @@ body {
   background-color: fadeout(@blue, 90);
 }
 
-.registration-image {
+.registration-sidebar-image {
   img {
     width: 100%;
-  }
-}
-
-.registration-summary {
-  padding: 0.8em;
-  table {
-    background: @white;
-    width: 100%;
-    border-top: 1px solid fadeout(@black, 90);
-    border-left: 1px solid fadeout(@black, 90);
-  }
-  thead {
-    td {
-      background: fadeout(@black, 97);
-      font-weight: bold;
-    }
-  }
-  tr {
-    td:nth-child(2),
-    td:nth-child(3),
-    td:nth-child(4) {
-      text-align: right;
-    }
-  }
-  td, th {
-    padding: 0.8em;
-    border-bottom: 1px solid fadeout(@black, 90);
-    border-right: 1px solid fadeout(@black, 90);
-  }
-  .registration-summary-total {
-    background: fadeout(@black, 97);
-    font-weight: bold;
   }
 }
 
@@ -99,30 +55,27 @@ body {
 .registration-panel-body {
   flex: 1;
   padding: 0.8em;
+  .scrollable();
 }
 .registration-panel-footer {
   border-top: 1px solid fadeout(@black, 90);
   background: fadeout(@black, 97);
+  display: flex;
+  .registration-panel-footer-item:first-child {
+    text-align: left;
+  }
+  .registration-panel-footer-item:last-child {
+    text-align: right;
+  }
+}
+.registration-panel-footer-item {
+  flex: 1;
   padding: 0.8em;
 }
 
-.registration-tickets {
-  table {
-    width: 100%;
-    border-top: 1px solid fadeout(@black, 90);
-    border-left: 1px solid fadeout(@black, 90);
-  }
-  td {
-    border-bottom: 1px solid fadeout(@black, 90);
-    border-right: 1px solid fadeout(@black, 90);
-    padding: 0.8em;
-  }
-  tr {
-    td:last-child {
-      width: 1px;
-    }
-  }
-}
-
-@import '../../../../core/client/style.less';
 @import './components/quantity/style.less';
+@import './components/summary/style.less';
+@import './components/tickets/style.less';
+@import './tokens/organizer/style.less';
+@import './tokens/organizer_avatar/style.less';
+@import './tokens/session/style.less';

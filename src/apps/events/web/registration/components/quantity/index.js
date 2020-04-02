@@ -3,7 +3,9 @@ import React from 'react'
 
 class Quantity extends React.Component {
 
-  static propTypes = {}
+  static propTypes = {
+    max: PropTypes.number
+  }
 
   state = {
     value: 0
@@ -26,9 +28,15 @@ class Quantity extends React.Component {
     )
   }
 
+  _getAdjusted(value) {
+    const { max } = this.props
+    const adjusted = Math.max(0, value)
+    return max ? Math.min(max, adjusted) : adjusted
+  }
+
   _handleAdjust(increment) {
     this.setState({
-      value: this.state.value + increment
+      value: this._getAdjusted(this.state.value + increment)
     })
   }
 

@@ -1,4 +1,4 @@
-import { AddressField, FileField } from 'maha-client'
+import { AddressField, Button, FileField } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -23,6 +23,7 @@ class Root extends React.Component {
 
     const reducer = combineReducers([
       AddressField,
+      Button,
       FileField
     ])
 

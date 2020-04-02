@@ -2,6 +2,7 @@ const EventSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   description: result.get('description'),
+  image: result.related('image') ? result.related('image').get('path') : null,
   organizers: result.related('organizers').map(organizer),
   program: program(result.related('program')),
   email: email(result.related('email')),

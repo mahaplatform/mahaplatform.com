@@ -1,4 +1,4 @@
-import { Button, Recaptcha } from 'maha-client'
+import { Submit, Recaptcha } from 'maha-client'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
@@ -52,7 +52,7 @@ class Fields extends React.Component {
             </div>
           }
           <div className="maha-form-submit">
-            <Button { ... this._getButton() } />
+            <Submit { ... this._getSubmit() } />
           </div>
         </div>
       </div>
@@ -65,16 +65,16 @@ class Fields extends React.Component {
     if(!captcha) this.props.onSetHuman()
   }
 
-  _getButton() {
+  _getSubmit() {
     const { config, human, requiresPayment, status } = this.props
     const { captcha } = config.security
-    const { button_text } = config.body
+    const { Submit_text } = config.body
     const processing = status === 'submitting'
     const fields = this._getFields()
     return {
       color: 'blue',
       disabled: !human,
-      label: requiresPayment ? 'Proceed to Payment' : button_text,
+      label: requiresPayment ? 'Proceed to Payment' : Submit_text,
       processing,
       tabIndex: fields.length + (captcha ? 2 : 1),
       onClick: human && !processing ? this._handleValidate : () => {}

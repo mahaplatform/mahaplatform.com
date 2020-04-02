@@ -1,0 +1,56 @@
+.registration-tickets {
+  h1, h2 {
+    line-height: 1em;
+    margin-bottom: 0.4em;
+  }
+  h1 {
+    font-size: 1.6em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  p {
+    line-height: 1.6em;
+    color: fadeout(@black, 40);
+  }
+}
+.registration-tickets-sessions {
+  border: 1px solid fadeout(@black, 90);
+  margin-bottom: 1.4em;
+  .registration-tickets-session:last-child {
+    border-bottom: none;
+  }
+}
+.registration-tickets-session {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+
+.registration-tickets-organizers {
+  border: 1px solid fadeout(@black, 90);
+  margin-bottom: 1.4em;
+  .registration-tickets-organizer:last-child {
+    border-bottom: none;
+  }
+}
+.registration-tickets-organizer {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+
+.registration-tickets-tickettypes {
+  border: 1px solid fadeout(@black, 90);
+  margin-bottom: 0.8em;
+  .registration-tickets-tickettype:last-child {
+    border-bottom: none;
+  }
+}
+.registration-tickets-tickettype {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display:flex;
+}
+.registration-tickets-tickettype-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.registration-tickets-tickettype-quantity {
+  padding: 0.8em;
+}
