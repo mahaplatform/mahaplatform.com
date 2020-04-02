@@ -1,6 +1,7 @@
 import Workflow from '../../crm/models/workflow'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
+import knex from '../../../core/services/knex'
 import Asset from '../../maha/models/asset'
 import Email from '../../crm/models/email'
 import Registration from './registration'
@@ -62,7 +63,11 @@ const Event = new Model({
   },
 
   ticket_types() {
-    return this.hasMany(TicketType, 'event_id')
+    return this.hasMany(TicketType, 'event_id').query(qb => {
+      qb.select(knex.raw('events_ticket_types.*, coalesce(count(events_tickets.*), 0) as tickets_count'))
+      qb.leftJoin('events_tickets', 'events_tickets.ticket_type_id','events_ticket_types.id')
+      qb.groupBy('events_ticket_types.id')
+    })
   },
 
   waitings() {

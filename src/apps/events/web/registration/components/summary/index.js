@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Summary extends React.Component {
 
-  static propTypes = {}
+  static propTypes = {
+    event: PropTypes.object,
+    ticket_types: PropTypes.object
+  }
 
   render() {
+    const { event, ticket_types } = this.props
     return (
       <div className="registration-summary">
         <table>
@@ -16,10 +21,15 @@ class Summary extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>General Admission x 2</td>
-              <td>100.00</td>
-            </tr>
+            { Object.keys(ticket_types).map((id, index) => {
+              const ticket_type = _.find(event.ticket_types, { id: parseInt(id) })
+              return (
+                <tr key={`ticket_type_${index}`}>
+                  <td>{ ticket_type.name } x { ticket_types[id] }</td>
+                  <td>100.00</td>
+                </tr>
+              )
+            })}
             <tr>
               <td className="registration-summary-total">Subtotal</td>
               <td>100.00</td>

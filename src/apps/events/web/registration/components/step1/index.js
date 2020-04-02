@@ -5,16 +5,18 @@ import { Button } from 'maha-client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import React from 'react'
+import _ from 'lodash'
 
 class Step1 extends React.Component {
 
   static propTypes = {
     event: PropTypes.object,
+    onChange: PropTypes.func,
     onNext: PropTypes.func
   }
 
   state = {
-    items: []
+    ticket_types: {}
   }
 
   _handleNext = this._handleNext.bind(this)
@@ -36,7 +38,6 @@ class Step1 extends React.Component {
                   </div>
                 ))}
               </div>
-
               <h2>Organizers</h2>
               <div className="registration-step1-organizers">
                 { event.organizers.map((organizer, index) => (
@@ -45,7 +46,6 @@ class Step1 extends React.Component {
                   </div>
                 ))}
               </div>
-
               <h2>Tickets</h2>
               <div className="registration-step1-tickettypes">
                 { event.ticket_types.map((ticket_type, index) => (
@@ -72,6 +72,19 @@ class Step1 extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { ticket_types } = this.state
+    if(!_.isEqual(ticket_types, prevState.ticket_types)) {
+      this.props.onChange(ticket_types)
+    }
+  }
+
+  _getMax(ticket_type) {
+    const { max_per_order, remaining } = ticket_type
+    if(max_per_order && remaining) return Math.min(max_per_order, remaining)
+    return max_per_order || remaining || null
+  }
+
   _getNext() {
     return {
       label: 'Next &raquo;',
@@ -82,16 +95,26 @@ class Step1 extends React.Component {
 
   _getQuantity(ticket_type) {
     return {
-      max: 5,
+      max: this._getMax(ticket_type),
       onChange: this._handleUpdate.bind(this, ticket_type)
     }
   }
 
   _handleNext() {
-    this.props.onNext()
+    const { ticket_types } = this.state
+    this.props.onNext(ticket_types)
   }
 
-  _handleUpdate(ticket_type) {}
+  _handleUpdate(ticket_type, quantity) {
+    const { ticket_types } = this.state
+    const { id } = ticket_type
+    this.setState({
+      ticket_types: {
+        ...ticket_types,
+        [id]: quantity
+      }
+    })
+  }
 
 }
 

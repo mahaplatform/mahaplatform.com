@@ -4,7 +4,8 @@ import React from 'react'
 class Quantity extends React.Component {
 
   static propTypes = {
-    max: PropTypes.number
+    max: PropTypes.number,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -26,6 +27,13 @@ class Quantity extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this.props.onChange(value)
+    }
   }
 
   _getAdjusted(value) {

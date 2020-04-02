@@ -7,6 +7,7 @@ import React from 'react'
 class Form extends React.Component {
 
   static propTypes = {
+    button: PropTypes.bool,
     captcha: PropTypes.bool,
     data: PropTypes.object,
     endpoint: PropTypes.string,
@@ -35,6 +36,7 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
+    button: true,
     captcha: true,
     submitText: 'Submit',
     onFailure: () => {},
@@ -44,7 +46,7 @@ class Form extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { captcha } = this.props
+    const { button, captcha } = this.props
     return (
       <div className="ui form">
         <Fields { ...this._getFields() } />
@@ -53,9 +55,11 @@ class Form extends React.Component {
             <Recaptcha { ...this._getRecaptcha() } />
           </div>
         }
-        <div className="maha-form-submit">
-          <Submit { ... this._getSubmit() } />
-        </div>
+        { button &&
+          <div className="maha-form-submit">
+            <Submit { ... this._getSubmit() } />
+          </div>
+        }
       </div>
     )
   }

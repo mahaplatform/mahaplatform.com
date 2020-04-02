@@ -16,6 +16,7 @@ class Registration extends React.Component {
 
   state = {
     step: 0,
+    ticket_types: [],
     cards: []
   }
 
@@ -26,6 +27,7 @@ class Registration extends React.Component {
   _handleStep2 = this._handleStep2.bind(this)
   _handleStep3 = this._handleStep3.bind(this)
   _handleStep4 = this._handleStep4.bind(this)
+  _handleTicketTypes = this._handleTicketTypes.bind(this)
 
   render() {
     const { event } = this.props
@@ -74,14 +76,16 @@ class Registration extends React.Component {
     const { event } = this.props
     return {
       event,
+      onChange: this._handleTicketTypes,
       onNext: this._handleStep1
     }
   }
 
-  _getStep2() {
+  _getStep2(ticket_types) {
     const { event } = this.props
     return {
       event,
+      ticket_types,
       onBack: this._handleBack,
       onNext: this._handleStep2
     }
@@ -106,7 +110,12 @@ class Registration extends React.Component {
   }
 
   _getSummary() {
-    return {}
+    const { ticket_types } = this.state
+    const { event } = this.props
+    return {
+      event,
+      ticket_types
+    }
   }
 
   _handleBack() {
@@ -132,11 +141,17 @@ class Registration extends React.Component {
     })
   }
 
-  _handleStep1(tickets) {
+  _handleTicketTypes(ticket_types) {
+    this.setState({
+      ticket_types
+    })
+  }
+
+  _handleStep1(ticket_types) {
     this.setState({
       step: 1
     })
-    this._handlePush(Step2, this._getStep2())
+    this._handlePush(Step2, this._getStep2(ticket_types))
   }
 
   _handleStep2() {
