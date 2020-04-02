@@ -33,6 +33,7 @@ body {
   flex: 1;
 }
 .registration-main {
+  flex-direction: column;
   display: flex;
   flex: 1;
 }
@@ -40,6 +41,14 @@ body {
   flex: 0 0 40%;
   max-width: 400px;
   background-color: fadeout(@blue, 90);
+}
+
+.registration-main-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.registration-main-body {
+  display: flex;
+  flex: 1;
 }
 
 .registration-sidebar-image {
@@ -80,8 +89,10 @@ body {
 }
 
 @import './components/quantity/style.less';
+@import './components/step1/style.less';
+@import './components/step2/style.less';
+@import './components/steps/style.less';
 @import './components/summary/style.less';
-@import './components/tickets/style.less';
 @import './tokens/organizer/style.less';
 @import './tokens/organizer_avatar/style.less';
 @import './tokens/session/style.less';

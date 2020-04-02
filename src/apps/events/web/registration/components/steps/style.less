@@ -1,0 +1,56 @@
+.registration-steps {
+  display: flex;
+  .registration-step:first-child {
+    &:before {
+      content: none;
+    }
+  }
+  .registration-step:last-child {
+    &:after {
+      content: none;
+    }
+  }
+}
+.registration-step {
+  flex: 1;
+  padding: 0.8em;
+  text-align: center;
+  position: relative;
+  &:before, &:after {
+    background-color: lighten(@black, 90);
+    content: ' ';
+    position: absolute;
+    height: 2px;
+    top: 50%;
+  }
+  &:before {
+    width: ~"calc(50% - 0.8em)";
+    left: 0;
+  }
+  &:after {
+    width: ~"calc(50% - 0.8em)";
+    left: ~"calc(50% + 0.8em)";
+  }
+  &.completed {
+    .registration-step-marker,
+    &:before, &:after {
+      background-color: @green;
+    }
+  }
+  &.current {
+    .registration-step-marker,
+    &:before {
+      background-color: @green;
+    }
+  }
+}
+.registration-step-marker {
+  background-color: lighten(@black, 90);
+  color: @white;
+  border-radius: 50%;
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+}
