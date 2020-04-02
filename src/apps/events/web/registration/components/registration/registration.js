@@ -11,12 +11,18 @@ import React from 'react'
 class Registration extends React.Component {
 
   static propTypes = {
-    event: PropTypes.object
+    discount: PropTypes.number,
+    event: PropTypes.object,
+    items: PropTypes.array,
+    quantities: PropTypes.object,
+    subtotal: PropTypes.number,
+    tax: PropTypes.number,
+    total: PropTypes.number,
+    onUpdateQuantities: PropTypes.func
   }
 
   state = {
     step: 0,
-    ticket_types: [],
     cards: []
   }
 
@@ -27,7 +33,7 @@ class Registration extends React.Component {
   _handleStep2 = this._handleStep2.bind(this)
   _handleStep3 = this._handleStep3.bind(this)
   _handleStep4 = this._handleStep4.bind(this)
-  _handleTicketTypes = this._handleTicketTypes.bind(this)
+  _handleUpdateQuantities = this._handleUpdateQuantities.bind(this)
 
   render() {
     const { event } = this.props
@@ -76,16 +82,16 @@ class Registration extends React.Component {
     const { event } = this.props
     return {
       event,
-      onChange: this._handleTicketTypes,
+      onChange: this._handleUpdateQuantities,
       onNext: this._handleStep1
     }
   }
 
-  _getStep2(ticket_types) {
-    const { event } = this.props
+  _getStep2() {
+    const { event, items } = this.props
     return {
       event,
-      ticket_types,
+      items,
       onBack: this._handleBack,
       onNext: this._handleStep2
     }
@@ -110,11 +116,14 @@ class Registration extends React.Component {
   }
 
   _getSummary() {
-    const { ticket_types } = this.state
-    const { event } = this.props
+    const { discount, event, items, subtotal, tax, total } = this.props
     return {
+      discount,
       event,
-      ticket_types
+      items,
+      subtotal,
+      tax,
+      total
     }
   }
 
@@ -141,17 +150,11 @@ class Registration extends React.Component {
     })
   }
 
-  _handleTicketTypes(ticket_types) {
-    this.setState({
-      ticket_types
-    })
-  }
-
-  _handleStep1(ticket_types) {
+  _handleStep1() {
     this.setState({
       step: 1
     })
-    this._handlePush(Step2, this._getStep2(ticket_types))
+    this._handlePush(Step2, this._getStep2())
   }
 
   _handleStep2() {
@@ -172,6 +175,10 @@ class Registration extends React.Component {
     this.setState({
       step: 4
     })
+  }
+
+  _handleUpdateQuantities(quantities) {
+    this.props.onUpdateQuantities(quantities)
   }
 
 }

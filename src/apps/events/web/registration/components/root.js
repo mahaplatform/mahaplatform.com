@@ -4,6 +4,7 @@ import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
+import Registration from './registration'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -23,7 +24,8 @@ class Root extends React.Component {
     const reducer = combineReducers([
       AddressField,
       Button,
-      Form
+      Form,
+      Registration
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

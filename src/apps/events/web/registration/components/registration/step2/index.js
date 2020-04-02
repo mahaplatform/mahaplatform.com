@@ -6,7 +6,7 @@ class Step2 extends React.Component {
 
   static propTypes = {
     event: PropTypes.object,
-    ticket_types: PropTypes.array,
+    items: PropTypes.array,
     onBack: PropTypes.func,
     onNext: PropTypes.func
   }
@@ -49,16 +49,16 @@ class Step2 extends React.Component {
   }
 
   _getForm() {
-    const { event, ticket_types } = this.props
+    const { items } = this.props
     return {
       button: false,
       captcha: false,
       fields: [
-        ...event.ticket_types.reduce((fields, ticket_type) => [
+        ...items.reduce((fields, item) => [
           ...fields,
-          ...Array(ticket_types[ticket_type.id]).fill(0).reduce((fields, i, index) => [
+          ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
             ...fields,
-            { type: 'text', text: `${ticket_type.name} Ticket ${index + 1}` },
+            { type: 'text', text: `${item.name} Ticket ${index + 1}` },
             { label: 'Name', type: 'textfield', placeholder: 'Enter name', required: true },
             { label: 'Email', type: 'textfield', placeholder: 'Enter email', required: true }
           ], [])

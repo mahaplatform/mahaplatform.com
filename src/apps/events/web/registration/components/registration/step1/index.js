@@ -1,9 +1,9 @@
-import TicketTypeToken from '../../tokens/ticket_type'
-import OrganizerToken from '../../tokens/organizer'
-import SessionToken from '../../tokens/session'
+import TicketTypeToken from '../../../tokens/ticket_type'
+import OrganizerToken from '../../../tokens/organizer'
+import SessionToken from '../../../tokens/session'
 import { Button } from 'maha-client'
 import PropTypes from 'prop-types'
-import Quantity from '../quantity'
+import Quantity from '../../quantity'
 import React from 'react'
 import _ from 'lodash'
 
@@ -16,7 +16,7 @@ class Step1 extends React.Component {
   }
 
   state = {
-    ticket_types: {}
+    quantities: {}
   }
 
   _handleNext = this._handleNext.bind(this)
@@ -73,9 +73,9 @@ class Step1 extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { ticket_types } = this.state
-    if(!_.isEqual(ticket_types, prevState.ticket_types)) {
-      this.props.onChange(ticket_types)
+    const { quantities } = this.state
+    if(!_.isEqual(quantities, prevState.quantities)) {
+      this.props.onChange(quantities)
     }
   }
 
@@ -101,16 +101,15 @@ class Step1 extends React.Component {
   }
 
   _handleNext() {
-    const { ticket_types } = this.state
-    this.props.onNext(ticket_types)
+    this.props.onNext()
   }
 
   _handleUpdate(ticket_type, quantity) {
-    const { ticket_types } = this.state
+    const { quantities } = this.state
     const { id } = ticket_type
     this.setState({
-      ticket_types: {
-        ...ticket_types,
+      quantities: {
+        ...quantities,
         [id]: quantity
       }
     })
