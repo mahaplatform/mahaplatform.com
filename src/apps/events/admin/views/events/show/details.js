@@ -7,15 +7,15 @@ import React from 'react'
 const Details = ({ audits, event }) => {
 
   const email = {
-    label: 'Manage Email',
+    label: 'Design Email',
     className: 'link',
-    route: `/admin/crm/emails/${event.email.id}`
+    route: `/admin/crm/emails/${event.email.id}/design`
   }
 
   const workflow = {
-    label: 'Manage Workflow',
+    label: 'Design Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${event.workflow.id}`
+    route: `/admin/crm/workflows/${event.workflow.id}/design`
   }
 
   const config = {
@@ -24,6 +24,7 @@ const Details = ({ audits, event }) => {
         items: [
           { label: 'Title', content: event.title },
           { label: 'Description', content: event.description },
+          { label: 'Code', content: event.code },
           { label: 'Program', content: event.program.title },
           { label: 'Confirmation', content: <Button { ...email } /> },
           { label: 'Workflow', content: <Button { ...workflow } /> }

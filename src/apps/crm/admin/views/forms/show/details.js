@@ -10,10 +10,16 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/design`
   }
 
-  const workflow = {
-    label: 'Manage Workflow',
+  const email = {
+    label: 'Design Email',
     className: 'link',
-    route: `/admin/crm/workflows/${form.workflow.id}`
+    route: `/admin/crm/emails/${form.email.id}/design`
+  }
+
+  const workflow = {
+    label: 'Design Workflow',
+    className: 'link',
+    route: `/admin/crm/workflows/${form.workflow.id}/design`
   }
 
   const list = {}
@@ -26,6 +32,7 @@ const Details = ({ audits, form }) => {
     { label: 'Title', content: form.title },
     { label: 'Program', content: form.program.title },
     { label: 'Design', content: <Button { ...design } /> },
+    { label: 'Confirmation', content: <Button { ...email } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]

@@ -1,0 +1,46 @@
+.ticketfieldsfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+}
+.ticketfieldsfield-field {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.ticketfieldsfield-field-label {
+  padding: 0.8em;
+  flex: 1;
+  span {
+    text-transform: uppercase;
+    color: rgba(0,0,0,.4);
+    font-size: .9em;
+  }
+}
+.ticketfieldsfield-field-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    .fa-times,
+    .fa-toggle-off {
+      color: fadeout(@black, 40);
+    }
+  }
+  .fa {
+    margin: auto;
+  }
+  .fa-toggle-off,
+  .fa-toggle-on {
+    font-size: 1.4em;
+  }
+  .fa-times,
+  .fa-toggle-off {
+    color: fadeout(@black, 80);
+  }
+  .fa-toggle-on {
+    color: @green;
+  }
+}
+.ticketfieldsfield-add {
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}

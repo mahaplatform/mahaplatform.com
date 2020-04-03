@@ -29,7 +29,7 @@ class Attendance extends React.Component {
             { attendings.map((attending, index) => (
               <tr key={`attending_${index}`}>
                 <td>
-                  { attending.full_name }
+                  { attending.name }
                 </td>
                 <td className="button" >
                   <Button { ...this._getButton(attending) } />

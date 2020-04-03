@@ -1,3 +1,5 @@
+import ContactFieldsField from '../../components/contactfieldsfield'
+import TicketFieldsField from '../../components/ticketfieldsfield'
 import TicketTypesField from '../../components/tickettypesfield'
 import OrganizersField from '../../components/organizersfield'
 import SessionsField from '../../components/sessionsfield'
@@ -39,11 +41,14 @@ class New extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
+            { label: 'Permalink', name: 'permalink', type: 'textfield', placeholder: '/your/event/name' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Describe this event'},
             { label: 'Image', name: 'image_id', type: 'attachmentfield', prompt: 'Choose an image' },
+            { label: 'Organizers', name: 'organizer_ids', type: OrganizersField },
             { label: 'Sessions', name: 'sessions', type: SessionsField, required: true },
             { label: 'Ticket Types', name: 'ticket_types', type: TicketTypesField, required: true },
-            { label: 'Organizers', name: 'organizer_ids', type: OrganizersField },
+            { label: 'Contact Fields', name: 'contactfields', type: ContactFieldsField },
+            { label: 'Ticket Fields', name: 'ticketfields', type: TicketFieldsField },
             { label: 'Confirmation Email', type: 'segment', fields: [
               { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
               { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },

@@ -1,0 +1,37 @@
+.contactfieldsfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+}
+.contactfieldsfield-field {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.contactfieldsfield-field-label {
+  padding: 0.8em;
+  flex: 1;
+  span {
+    text-transform: uppercase;
+    color: rgba(0,0,0,.4);
+    font-size: .9em;
+  }
+}
+.contactfieldsfield-field-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    .fa-times {
+      color: fadeout(@black, 40);
+    }
+  }
+  .fa {
+    margin: auto;
+  }
+  .fa-times {
+    color: fadeout(@black, 80);
+  }
+}
+.contactfieldsfield-add {
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}

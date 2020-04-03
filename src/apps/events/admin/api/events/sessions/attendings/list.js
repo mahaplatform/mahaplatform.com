@@ -12,13 +12,13 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['last_name'],
-      search: ['first_name','last_name']
+      allowed: ['name'],
+      search: ['name']
     },
     sort: {
       params: req.query.$sort,
-      defaults: 'last_name',
-      allowed: ['last_name']
+      defaults: 'name',
+      allowed: ['name']
     },
     page: req.query.$page,
     transacting: req.trx
