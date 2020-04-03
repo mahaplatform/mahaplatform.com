@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
-const fields = (state, props) => props.fields
+const given = (state, props) => props.fields
 
 const errors = (state, props) => state.errors
 
@@ -10,6 +10,16 @@ const ready = (state, props) => state.ready
 const status = (state, props) => state.status
 
 const validated = (state, props) => state.validated
+
+const reduce = (fields) => fields.reduce((fields, field) => [
+  ...fields,
+  ...(field.type === 'segment') ? reduce(field.fields) : [field]
+], [])
+
+const fields = createSelector(
+  given,
+  (fields) => reduce(fields)
+)
 
 export const submittable = createSelector(
   fields,

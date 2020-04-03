@@ -18,10 +18,12 @@ class Registration extends React.Component {
     items: PropTypes.array,
     payment: PropTypes.object,
     quantities: PropTypes.object,
+    status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     tickets: PropTypes.array,
     total: PropTypes.number,
+    onSubmit: PropTypes.func,
     onUpdateContact: PropTypes.func,
     onUpdatePayment: PropTypes.func,
     onUpdateTickets: PropTypes.func,
@@ -34,12 +36,13 @@ class Registration extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleComplete = this._handleComplete.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleStep1 = this._handleStep1.bind(this)
   _handleStep2 = this._handleStep2.bind(this)
   _handleStep3 = this._handleStep3.bind(this)
-  _handleStep4 = this._handleStep4.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleUpdateQuantities = this._handleUpdateQuantities.bind(this)
 
   render() {
@@ -67,11 +70,14 @@ class Registration extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Step1, this._getStep1())
+    this._handlePush(Step1, this._getStep1.bind(this))
   }
 
-  _getComplete() {
-    return {}
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    if(status !== prevProps.status && status === 'success') {
+      this._handleComplete()
+    }
   }
 
   _getStack() {
@@ -118,10 +124,12 @@ class Registration extends React.Component {
   }
 
   _getStep4() {
-    const { event } = this.props
+    const { event, status } = this.props
     return {
       event,
+      status,
       onBack: this._handleBack,
+      onSubmit: this._handleSubmit,
       onNext: this._handleStep4
     }
   }
@@ -167,7 +175,7 @@ class Registration extends React.Component {
     this.setState({
       step: 1
     })
-    this._handlePush(Step2, this._getStep2())
+    this._handlePush(Step2, this._getStep2.bind(this))
   }
 
   _handleStep2(contact) {
@@ -175,7 +183,7 @@ class Registration extends React.Component {
     this.setState({
       step: 2
     })
-    this._handlePush(Step3, this._getStep3())
+    this._handlePush(Step3, this._getStep3.bind(this))
   }
 
   _handleStep3(tickets) {
@@ -183,15 +191,24 @@ class Registration extends React.Component {
     this.setState({
       step: 3
     })
-    this._handlePush(Step4, this._getStep4())
+    this._handlePush(Step4, this._getStep4.bind(this))
   }
 
-  _handleStep4(payment) {
-    this.props.onUpdatePayment(payment)
+  _handleComplete() {
     this.setState({
       step: 4
     })
-    this._handlePush(Complete, this._getComplete())
+    this._handlePush(Complete, {})
+  }
+
+  _handleSubmit() {
+    const { contact, event, items, payment, tickets } = this.props
+    this.props.onSubmit(event.code, {
+      contact,
+      items,
+      payment,
+      tickets
+    })
   }
 
   _handleUpdateQuantities(quantities) {

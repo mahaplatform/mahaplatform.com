@@ -11,10 +11,13 @@ export const items = createSelector(
     return quantities[ticket_type.id]
   }).map(ticket_type => {
     const quantity = quantities[ticket_type.id] || 0
+    const price = ticket_type.fixed_price
     return {
-      ...ticket_type,
+      ticket_type_id: ticket_type.id,
+      name: ticket_type.name,
       quantity,
-      total: quantity * Number(ticket_type.fixed_price)
+      price,
+      total: quantity * Number(price)
     }
   })
 )

@@ -79,6 +79,7 @@ class Form extends React.Component {
   componentDidUpdate(prevProps) {
     const { isValid, status } = this.props
     if(isValid !== prevProps.isValid && isValid) {
+      console.log('submit!')
       this._handleSubmit()
     }
     if(status !== prevProps.status) {

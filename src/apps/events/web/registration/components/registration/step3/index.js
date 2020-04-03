@@ -1,6 +1,7 @@
 import { Button, Form } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
+import flat from 'flat'
 
 class Step3 extends React.Component {
 
@@ -23,7 +24,12 @@ class Step3 extends React.Component {
         <div className="registration-panel-body">
           <div className="registration-panel-content">
             <div className="registration-step3">
-              <h2>Ticket Information</h2>
+              <h2>Ticket and Demographic Information</h2>
+              <p>
+                In order to better serve our community, we collect basic
+                demographic information to help measure our impact. Please
+                provide basic information for each ticket you are purchasing.
+              </p>
               <Form { ...this._getForm() } />
             </div>
           </div>
@@ -56,12 +62,32 @@ class Step3 extends React.Component {
       captcha: false,
       onSubmit: this._handleSubmit,
       fields: [
-        ...items.reduce((fields, item) => [
+        ...items.reduce((fields, item, i) => [
           ...fields,
           ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
             ...fields,
-            { type: 'text', text: `${item.name} Ticket ${index + 1}` },
-            { label: 'Name', name: `ticket_${index}_name`, type: 'textfield', placeholder: 'Enter name', required: true }
+            { label: `${item.name} Ticket ${index + 1}`, type: 'segment', fields: [
+              { name: `tickets.${index}.ticket_type_id`, type: 'hidden', value: item.ticket_type_id },
+
+              { label: 'Name', name: `tickets.${index}.name`, type: 'textfield', placeholder: 'Enter name', required: true },
+              { label: 'Gender', name: `tickets.${index}.gender`, type: 'radiogroup', placeholder: 'Choose gender', options: [
+                { value: 'female', text: 'Female' },
+                { value: 'male', text: 'Male' },
+                { value: 'other', text: 'Other' }
+              ] },
+              { label: 'Race', name: `tickets.${index}.race`, type: 'checkboxes', options: [
+                { value: 'caucasion', text: 'Caucasion' },
+                { value: 'african', text: 'African American' },
+                { value: 'american_indian', text: 'American Indian' },
+                { value: 'asian', text: 'Asian' },
+                { value: 'pacific_islander', text: 'Hawaiian / Pacific Islander' },
+                { value: 'other', text: 'Other' }
+              ] },
+              { label: 'Ethnicity', name: `tickets.${index}.ethnicity`, type: 'radiogroup', options: [
+                { value: 'hispanic', text: 'Hispanic' },
+                { value: 'non_hispanic', text: 'Non Hispanic' }
+              ] }
+            ] }
           ], [])
         ], [])
       ]
@@ -85,7 +111,11 @@ class Step3 extends React.Component {
   }
 
   _handleSubmit(tickets) {
-    this.props.onNext(tickets)
+    const result = flat.unflatten(tickets, {
+      safe: false,
+      maxDepth: 3
+    })
+    this.props.onNext(result.tickets)
   }
 
 

@@ -37,7 +37,7 @@ class Hidden extends React.Component {
     const { status } = this.props
     if(status !== prevProps.status) {
       if(status === 'validating') {
-        this.props.onChange(this.props.value)
+        this.props.onValidate(this.props.value)
       }
     }
   }

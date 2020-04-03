@@ -1,3 +1,13 @@
+export const submit = (code, body) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint: `/api/events/events/${code}/registrations`,
+  body,
+  request: 'SUBMIT_REQUEST',
+  success: 'SUBMIT_SUCCESS',
+  failure: 'SUBMIT_FAILURE'
+})
+
 export const updateContact = (contact) => ({
   type: 'UPDATE_CONTACT',
   contact

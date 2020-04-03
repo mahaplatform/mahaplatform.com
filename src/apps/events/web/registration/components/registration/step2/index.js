@@ -57,27 +57,7 @@ class Step2 extends React.Component {
       fields: [
         { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
-        { label: 'Email', name: 'email', type: 'emaidfield', placeholder: 'Enter email', required: true },
-        { label: 'Phone', name: 'phone', type: 'phonefield', placeholder: 'Enter phone number' },
-        { label: 'Address', name: 'address', type: 'addressfield', placeholder: 'Enter address' },
-        { type: 'text', text: 'Optional Demographic Information' },
-        { label: 'Gender', name: 'gender', type: 'radiogroup', placeholder: 'Choose gender', options: [
-          { value: 'female', text: 'Female' },
-          { value: 'male', text: 'Male' },
-          { value: 'other', text: 'Other' }
-        ] },
-        { label: 'Race', name: 'race', type: 'checkboxes', options: [
-          { value: 'caucasion', text: 'Caucasion' },
-          { value: 'african', text: 'African American' },
-          { value: 'american_indian', text: 'American Indian' },
-          { value: 'asian', text: 'Asian' },
-          { value: 'pacific_islander', text: 'Hawaiian / Pacific Islander' },
-          { value: 'other', text: 'Other' }
-        ] },
-        { label: 'Ethnicity', name: 'ethnicity', type: 'radiogroup', options: [
-          { value: 'hispanic', text: 'Hispanic' },
-          { value: 'non_hispanic', text: 'Non Hispanic' }
-        ] }
+        { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter email', required: true }
       ]
     }
   }

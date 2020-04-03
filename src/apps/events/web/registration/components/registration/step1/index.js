@@ -31,26 +31,30 @@ class Step1 extends React.Component {
               <h1>{ event.title }</h1>
               <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
               { event.sessions.length > 1 ?
-                <div className="registration-step1-sessions">
+                <div className="registration-step1-section">
                   <h2>Sessions</h2>
-                  { event.sessions.map((session, index) => (
-                    <div className="registration-step1-session" key={`session_${index}`}>
-                      <SessionToken { ...session } />
-                    </div>
-                  ))}
+                  <div className="registration-step1-sessions">
+                    { event.sessions.map((session, index) => (
+                      <div className="registration-step1-session" key={`session_${index}`}>
+                        <SessionToken { ...session } />
+                      </div>
+                    ))}
+                  </div>
                 </div> :
-                <div className="registration-step1-sessions">
+                <div className="registration-step1-section">
                   <SessionToken { ..._.omit(event.sessions[0], ['title']) } />
                 </div>
               }
               { event.organizers.length > 0 &&
-                <div className="registration-step1-organizers">
+                <div className="registration-step1-section">
                   <h2>Organizers</h2>
-                  { event.organizers.map((organizer, index) => (
-                    <div className="registration-step1-organizer" key={`organizer_${index}`}>
-                      <OrganizerToken { ...organizer } />
-                    </div>
-                  ))}
+                  <div className="registration-step1-organizers">
+                    { event.organizers.map((organizer, index) => (
+                      <div className="registration-step1-organizer" key={`organizer_${index}`}>
+                        <OrganizerToken { ...organizer } />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               }
               <h2>Tickets</h2>

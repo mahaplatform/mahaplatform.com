@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import DropDown from './dropdown'
 import Checkbox from './checkbox'
+import Segment from './segment'
 import Hidden from './hidden'
 import React from 'react'
 import Text from './text'
@@ -21,14 +22,14 @@ class Field extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    error: PropTypes.string,
+    errors: PropTypes.object,
     field: PropTypes.object,
     index: PropTypes.number,
     status: PropTypes.string,
     token: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onSetReady: PropTypes.func,
+    onSetValid: PropTypes.func
   }
 
   state = {
@@ -36,9 +37,10 @@ class Field extends React.Component {
   }
 
   render() {
-    const { error, field } = this.props
-    const { instructions, label } = field
+    const { errors, field } = this.props
+    const { instructions, label, type } = field
     const { htmlFor } = this.state
+    const error = errors[field.name]
     const Component = this._getComponent(field)
     return (
       <div className={ this._getClass() }>
@@ -46,7 +48,8 @@ class Field extends React.Component {
         { instructions &&
           <div className="field-instructions" dangerouslySetInnerHTML={{ __html: instructions }} />
         }
-        <Component { ...this._getField() } />
+        { type === 'segment' && <Segment { ...this._getSegment() } /> }
+        { type !== 'segment' && <Component { ...this._getField() } /> }
         { error &&
           <div className="field-error">
             { error }
@@ -63,7 +66,8 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { error, field, index } = this.props
+    const { errors, field, index } = this.props
+    const error = errors[field.name]
     const classes = ['field',`field-${index}`]
     if(error) classes.push('field-invalid')
     if(field.required) classes.push('required')
@@ -89,7 +93,7 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, field, index, status, token, onChange, onReady, onValidate } = this.props
+    const { code, field, index, status, token } = this.props
     const { htmlFor } = this.state
     return {
       code,
@@ -99,10 +103,41 @@ class Field extends React.Component {
       status,
       tabIndex: index + 1,
       token,
-      onChange,
-      onReady,
-      onValidate
+      onChange: this._handleChange.bind(this, field),
+      onReady: this._handleSetReady.bind(this, field),
+      onValidate: this._handleSetValid.bind(this, field)
     }
+  }
+
+  _getSegment() {
+    const { code, errors, index, status, token, onChange, onSetReady, onSetValid } = this.props
+    const { field } = this.props
+    return {
+      code,
+      errors,
+      fields: field.fields,
+      index,
+      status,
+      token,
+      onChange,
+      onSetReady,
+      onSetValid
+    }
+  }
+
+  _handleChange(field, value) {
+    if(field.disabled) return
+    this.props.onChange(field.name, value)
+  }
+
+  _handleSetReady(field) {
+    if(field.disabled) return
+    this.props.onSetReady(field.name)
+  }
+
+  _handleSetValid(field, value, error) {
+    if(field.disabled) return
+    this.props.onSetValid(field.name, value, error)
   }
 
 }

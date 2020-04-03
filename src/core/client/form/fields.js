@@ -30,8 +30,6 @@ class Fields extends React.Component {
     onSubmit: PropTypes.func
   }
 
-  _handleValidate = this._handleValidate.bind(this)
-
   render() {
     const { fields } = this.props
     return (
@@ -44,36 +42,18 @@ class Fields extends React.Component {
   }
 
   _getField(field,index) {
-    const { code, errors, status, token } = this.props
+    const { code, errors, status, token, onChange, onSetReady, onSetValid } = this.props
     return {
       code,
       field,
       index,
-      error: errors[field.name],
+      errors,
       status,
       token,
-      onChange: this._handleChange.bind(this, field),
-      onReady: this._handleSetReady.bind(this, field),
-      onValidate: this._handleSetValid.bind(this, field)
+      onChange,
+      onSetReady,
+      onSetValid
     }
-  }
-  _handleChange(field, value) {
-    if(field.disabled) return
-    this.props.onChange(field.name, value)
-  }
-
-  _handleSetReady(field) {
-    if(field.disabled) return
-    this.props.onSetReady(field.name)
-  }
-
-  _handleSetValid(field, value, error) {
-    if(field.disabled) return
-    this.props.onSetValid(field.name, value, error)
-  }
-
-  _handleValidate() {
-    this.props.onValidate()
   }
 
 }

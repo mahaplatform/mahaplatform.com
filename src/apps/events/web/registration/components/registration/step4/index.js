@@ -1,32 +1,37 @@
-import { Button } from 'maha-client'
+import { Button, Loader } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Step2 extends React.Component {
+class Step4 extends React.Component {
 
   static propTypes = {
     event: PropTypes.object,
+    status: PropTypes.string,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
-  }
-
-  state = {
-    items: []
+    onSubmit: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
 
   render() {
+    const { status } = this.props
     return (
       <div className="registration-panel">
-        <div className="registration-panel-body">
-          <div className="registration-panel-content">
-            <div className="registration-step4">
-              <h2>Payment Information</h2>
+        { status !== 'pending' &&
+          <div className="registration-panel-message">
+            <Loader label="Processing" />
+          </div>
+        }
+        { status === 'pending' &&
+          <div className="registration-panel-body">
+            <div className="registration-panel-content">
+              <div className="registration-step4">
+                <h2>Payment Information</h2>
+              </div>
             </div>
           </div>
-        </div>
+        }
         <div className="registration-panel-footer">
           <div className="registration-panel-footer-item">
             <Button { ...this._getBack() } />
@@ -40,17 +45,21 @@ class Step2 extends React.Component {
   }
 
   _getBack() {
+    const { status } = this.props
     return {
       label: '&laquo; Back',
       color: 'red',
+      disabled: status !== 'pending',
       handler: this._handleBack
     }
   }
 
   _getNext() {
+    const { status } = this.props
     return {
       label: 'Next &raquo;',
       color: 'red',
+      disabled: status !== 'pending',
       handler: this._handleNext
     }
   }
@@ -60,7 +69,7 @@ class Step2 extends React.Component {
   }
 
   _handleNext() {
-    this.props.onNext({
+    this.props.onSubmit({
       card_type: 'visa',
       last_four: 1234
     })
@@ -69,4 +78,4 @@ class Step2 extends React.Component {
 
 }
 
-export default Step2
+export default Step4

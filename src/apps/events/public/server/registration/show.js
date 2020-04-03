@@ -24,6 +24,7 @@ const showRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     event: {
+      code: event.get('code'),
       title: event.get('title'),
       description: event.get('description'),
       image: event.related('image') ? event.related('image').get('path') : null,
