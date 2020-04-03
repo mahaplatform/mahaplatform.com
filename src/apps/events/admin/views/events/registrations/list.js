@@ -1,3 +1,4 @@
+import ContactToken from '../../../../../crm/admin/tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'
 
@@ -7,9 +8,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/events/events/${page.params.event_id}/registrations`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.full_name', primary: true }
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
+      { label: 'Tickets', key: 'tickets_count', primary: true },
+      { label: 'Revenue', key: 'revenue', primary: true }
     ],
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'contact',
       title: 'No Registrations',

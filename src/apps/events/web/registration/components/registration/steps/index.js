@@ -17,6 +17,11 @@ class Steps extends React.Component {
             </div>
           </div>
         ))}
+        <div className={ this._getClass(4) }>
+          <div className="registration-step-marker">
+            <i className="fa fa-check" />
+          </div>
+        </div>
       </div>
     )
   }

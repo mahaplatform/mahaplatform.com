@@ -864,6 +864,10 @@ const schema = {
       table.integer('invoice_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('ipaddress', 255)
+      table.text('referer')
+      table.integer('duration')
+      table.boolean('is_known')
     })
 
     await knex.schema.createTable('events_sessions', (table) => {
@@ -4414,17 +4418,32 @@ union
       left join registrations on ((registrations.event_id = events_events.id)))
       left join tickets on ((tickets.event_id = events_events.id)))
       left join waitings on ((waitings.event_id = events_events.id)))
-      left join revenue on ((waitings.event_id = events_events.id)))
+      left join revenue on ((revenue.event_id = events_events.id)))
       left join first_registration on ((first_registration.event_id = events_events.id)))
       left join last_registration on ((last_registration.event_id = events_events.id)));
     `)
 
     await knex.raw(`
       create view events_registration_totals AS
-      select events_registrations.event_id,
+      with revenue as (
+      select events_registrations_1.id as registration_id,
       coalesce(finance_invoice_payments.paid, 0.00) as revenue
-      from (events_registrations
-      left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = events_registrations.invoice_id)));
+      from (events_registrations events_registrations_1
+      left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = events_registrations_1.invoice_id)))
+      ), tickets as (
+      select events_registrations_1.id as registration_id,
+      count(events_tickets.*) as total
+      from (events_registrations events_registrations_1
+      left join events_tickets on ((events_tickets.registration_id = events_registrations_1.id)))
+      group by events_registrations_1.id
+      )
+      select events_registrations.id as registration_id,
+      events_registrations.event_id,
+      tickets.total as tickets_count,
+      revenue.revenue
+      from ((events_registrations
+      join revenue on ((revenue.registration_id = events_registrations.id)))
+      join tickets on ((tickets.registration_id = events_registrations.id)));
     `)
 
     await knex.raw(`

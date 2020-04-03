@@ -1,22 +1,31 @@
 import RegistrationSerializer from '../../../../serializers/registration_serializer'
-import Event from '../../../../models/event'
+import Registration from '../../../../models/registration'
 
 const listRoute = async (req, res) => {
 
-  const event = await Event.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.event_id)
-  }).fetch({
-    withRelated: ['registrations'],
+  const registrations = await Registration.filterFetch({
+    scope: (qb) => {
+      qb.select(req.trx.raw('events_registrations.*,events_registration_totals.*'))
+      qb.innerJoin('events_registration_totals','events_registration_totals.registration_id','events_registrations.id')
+      qb.where('events_registrations.team_id', req.team.get('id'))
+      qb.where('events_registrations.event_id', req.params.event_id)
+    },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['title'],
+      search: ['title']
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at',
+      allowed: ['created_at']
+    },
+    page: req.query.$page,
+    withRelated: ['contact'],
     transacting: req.trx
   })
 
-  if(!event) return res.status(404).respond({
-    code: 404,
-    message: 'Unable to load event'
-  })
-
-  res.status(200).respond(event.related('registrations'), RegistrationSerializer)
+  res.status(200).respond(registrations, RegistrationSerializer)
 
 }
 

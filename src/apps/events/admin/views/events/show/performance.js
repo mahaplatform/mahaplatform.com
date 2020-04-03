@@ -87,7 +87,7 @@ class Performance extends React.Component {
     return {
       label,
       className: 'link',
-      route: `/admin/crm/events/events/${event.id}`
+      route: `/admin/events/events/${event.id}/registrations`
     }
   }
 

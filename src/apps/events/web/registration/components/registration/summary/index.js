@@ -5,6 +5,7 @@ import numeral from 'numeral'
 class Summary extends React.Component {
 
   static propTypes = {
+    contact: PropTypes.object,
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
@@ -14,52 +15,62 @@ class Summary extends React.Component {
   }
 
   render() {
-    const { discount, items, subtotal, tax, total } = this.props
+    const { contact, discount, items, subtotal, tax, total } = this.props
     return (
       <div className="registration-summary">
-        <table>
-          <thead>
-            <tr>
-              <td>ITEM</td>
-              <td>TOTAL</td>
-            </tr>
-          </thead>
-          <tbody>
-            { items.length === 0 &&
+        <div className="registration-summary-tickets">
+          <h2>Tickets</h2>
+          <table>
+            <thead>
               <tr>
-                <td colSpan="2">No tickets</td>
+                <td>ITEM</td>
+                <td>TOTAL</td>
               </tr>
-            }
-            { items.map((item, index) => (
-              <tr key={`ticket_type_${index}`}>
-                <td>{ item.name } x { item.quantity }</td>
-                <td>{ numeral(item.total).format('0.00') }</td>
-              </tr>
-            ))}
-            { (tax > 0 || discount > 0) &&
+            </thead>
+            <tbody>
+              { items.length === 0 &&
+                <tr>
+                  <td colSpan="2">No tickets</td>
+                </tr>
+              }
+              { items.map((item, index) => (
+                <tr key={`ticket_type_${index}`}>
+                  <td>{ item.name } x { item.quantity }</td>
+                  <td>{ numeral(item.total).format('0.00') }</td>
+                </tr>
+              ))}
+              { (tax > 0 || discount > 0) &&
+                <tr>
+                  <td className="registration-summary-total">Subtotal</td>
+                  <td>{ numeral(subtotal).format('0.00') }</td>
+                </tr>
+              }
+              { tax > 0 &&
+                <tr>
+                  <td>Tax</td>
+                  <td>0.00</td>
+                </tr>
+              }
+              { discount > 0 &&
+                <tr>
+                  <td>Discount (15%)</td>
+                  <td>-15.00</td>
+                </tr>
+              }
               <tr>
-                <td className="registration-summary-total">Subtotal</td>
-                <td>{ numeral(subtotal).format('0.00') }</td>
+                <td className="registration-summary-total">Total</td>
+                <td>{ numeral(total).format('0.00') }</td>
               </tr>
-            }
-            { tax > 0 &&
-              <tr>
-                <td>Tax</td>
-                <td>0.00</td>
-              </tr>
-            }
-            { discount > 0 &&
-              <tr>
-                <td>Discount (15%)</td>
-                <td>-15.00</td>
-              </tr>
-            }
-            <tr>
-              <td className="registration-summary-total">Total</td>
-              <td>{ numeral(total).format('0.00') }</td>
-            </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
+        { contact &&
+          <div className="registration-summary-customer">
+            <h2>Customer</h2>
+            { contact.first_name } { contact.last_name }<br />
+            { contact.email }
+          </div>
+        }
       </div>
     )
   }

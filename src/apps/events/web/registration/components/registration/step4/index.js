@@ -7,7 +7,7 @@ class Step2 extends React.Component {
   static propTypes = {
     event: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   state = {
@@ -15,15 +15,15 @@ class Step2 extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleDone = this._handleDone.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     return (
       <div className="registration-panel">
         <div className="registration-panel-body">
           <div className="registration-panel-content">
-            <div className="registration-step3">
-              step3
+            <div className="registration-step4">
+              <h2>Payment Information</h2>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@ class Step2 extends React.Component {
             <Button { ...this._getBack() } />
           </div>
           <div className="registration-panel-footer-item">
-            <Button { ...this._getDone() } />
+            <Button { ...this._getNext() } />
           </div>
         </div>
       </div>
@@ -47,11 +47,11 @@ class Step2 extends React.Component {
     }
   }
 
-  _getDone() {
+  _getNext() {
     return {
-      label: 'Done',
+      label: 'Next &raquo;',
       color: 'red',
-      handler: this._handleDone
+      handler: this._handleNext
     }
   }
 
@@ -59,8 +59,8 @@ class Step2 extends React.Component {
     this.props.onBack()
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleNext() {
+    this.props.onNext()
   }
 
 

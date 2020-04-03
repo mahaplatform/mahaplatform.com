@@ -1,16 +1,18 @@
 import { Stack } from 'maha-client'
 import PropTypes from 'prop-types'
+import Complete from './complete'
+import Summary from './summary'
 import Step1 from './step1'
 import Step2 from './step2'
 import Step3 from './step3'
 import Step4 from './step4'
-import Summary from './summary'
 import Steps from './steps'
 import React from 'react'
 
 class Registration extends React.Component {
 
   static propTypes = {
+    contact: PropTypes.object,
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
@@ -18,6 +20,7 @@ class Registration extends React.Component {
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
+    onUpdateContact: PropTypes.func,
     onUpdateQuantities: PropTypes.func
   }
 
@@ -63,6 +66,10 @@ class Registration extends React.Component {
     this._handlePush(Step1, this._getStep1())
   }
 
+  _getComplete() {
+    return {}
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -88,19 +95,19 @@ class Registration extends React.Component {
   }
 
   _getStep2() {
-    const { event, items } = this.props
+    const { event } = this.props
     return {
       event,
-      items,
       onBack: this._handleBack,
       onNext: this._handleStep2
     }
   }
 
   _getStep3() {
-    const { event } = this.props
+    const { event, items } = this.props
     return {
       event,
+      items,
       onBack: this._handleBack,
       onNext: this._handleStep3
     }
@@ -116,8 +123,9 @@ class Registration extends React.Component {
   }
 
   _getSummary() {
-    const { discount, event, items, subtotal, tax, total } = this.props
+    const { contact, discount, event, items, subtotal, tax, total } = this.props
     return {
+      contact,
       discount,
       event,
       items,
@@ -157,7 +165,8 @@ class Registration extends React.Component {
     this._handlePush(Step2, this._getStep2())
   }
 
-  _handleStep2() {
+  _handleStep2(contact) {
+    this.props.onUpdateContact(contact)
     this.setState({
       step: 2
     })
@@ -175,6 +184,7 @@ class Registration extends React.Component {
     this.setState({
       step: 4
     })
+    this._handlePush(Complete, this._getComplete())
   }
 
   _handleUpdateQuantities(quantities) {

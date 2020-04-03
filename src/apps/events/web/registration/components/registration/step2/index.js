@@ -11,12 +11,15 @@ class Step2 extends React.Component {
     onNext: PropTypes.func
   }
 
+  form = null
+
   state = {
     items: []
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -24,6 +27,7 @@ class Step2 extends React.Component {
         <div className="registration-panel-body">
           <div className="registration-panel-content">
             <div className="registration-step2">
+              <h2>Contact Information</h2>
               <Form { ...this._getForm() } />
             </div>
           </div>
@@ -49,20 +53,34 @@ class Step2 extends React.Component {
   }
 
   _getForm() {
-    const { items } = this.props
     return {
+      reference: node => this.form = node,
       button: false,
       captcha: false,
+      onSubmit: this._handleSubmit,
       fields: [
-        ...items.reduce((fields, item) => [
-          ...fields,
-          ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
-            ...fields,
-            { type: 'text', text: `${item.name} Ticket ${index + 1}` },
-            { label: 'Name', type: 'textfield', placeholder: 'Enter name', required: true },
-            { label: 'Email', type: 'textfield', placeholder: 'Enter email', required: true }
-          ], [])
-        ], [])
+        { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
+        { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
+        { label: 'Email', name: 'email', type: 'emaidfield', placeholder: 'Enter email', required: true },
+        { label: 'Phone', name: 'phone', type: 'phonefield', placeholder: 'Enter phone number' },
+        { label: 'Address', name: 'address', type: 'addressfield', placeholder: 'Enter address' },
+        { type: 'text', text: 'Optional Demographic Information' },
+        { label: 'Gender', name: 'gender', type: 'dropdown', placeholder: 'Choose gender', options: [
+          { value: 'female', text: 'Female' },
+          { value: 'male', text: 'Male' },
+          { value: 'other', text: 'Other' }
+        ] },
+        { label: 'Race', name: 'race', type: 'checkboxes', options: [
+          { value: 'caucasion', text: 'Caucasion' },
+          { value: 'african', text: 'African American' },
+          { value: 'asian', text: 'Asian' },
+          { value: 'hawaiian', text: 'Hawaiian / Pacific Islander' },
+          { value: 'other', text: 'Other' }
+        ] },
+        { label: 'Ethnicity', name: 'ethnicity', type: 'radiogroup', options: [
+          { value: 'hispanic', text: 'Hispanic' },
+          { value: 'non_hispanic', text: 'Non Hispanic' }
+        ] }
       ]
     }
   }
@@ -80,7 +98,11 @@ class Step2 extends React.Component {
   }
 
   _handleNext() {
-    this.props.onNext()
+    this.form.submit()
+  }
+
+  _handleSubmit(data) {
+    this.props.onNext(data)
   }
 
 

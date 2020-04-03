@@ -19,6 +19,21 @@
 .translateX(@x) {
   transform: translateX(@x);
 }
+.colorize(@property) {
+	&.red { @{property}: @red; }
+	&.orange { @{property}: @orange; }
+	&.yellow { @{property}: @yellow; }
+	&.olive { @{property}: @olive; }
+	&.green { @{property}: @green; }
+	&.teal { @{property}: @teal; }
+	&.blue { @{property}: @blue; }
+	&.purple { @{property}: @purple; }
+	&.violet { @{property}: @violet; }
+	&.pink { @{property}: @pink; }
+	&.brown { @{property}: @brown; }
+	&.grey { @{property}: @grey; }
+	&.black { @{property}: @black; }
+}
 .colorizeItem(@item, @property) {
 	&.red .@{item} { @{property}: @red; }
 	&.orange .@{item} { @{property}: @orange; }
@@ -178,4 +193,5 @@
 @import './avatar/style.less';
 @import './button/style.less';
 @import './image/style.less';
+@import './message/style.less';
 @import './stack/style.less';

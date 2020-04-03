@@ -41,7 +41,7 @@ class Payment extends React.Component {
         {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
-            { label: 'Method', name: 'method', type: 'lookup', placeholder: 'Choose a payment method', options:[{value:'card',text:'Credit Card'},{value:'check',text:'Check'},{value:'cash',text:'Cash'},{value:'credit',text:'Customer Credit'},{value:'scholarship',text:'Scholarship'}], required: true, defaultValue: method },
+            { label: 'Method', name: 'method', type: 'lookup', placeholder: 'Choose a payment method', options:[{value:'card',text:'Credit Card'},{value:'check',text:'Check'},{value:'cash',text:'Cash'},{value:'credit',text:'Customer Credit'},{value:'scholarship',text:'Scholarship'}], value: 'value', text: 'text', required: true, defaultValue: method },
             ...this._getMethodFields()
           ]
         }

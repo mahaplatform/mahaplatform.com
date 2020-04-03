@@ -1,12 +1,12 @@
-export const submit = (endpoint, method, token, body) => ({
+export const submitForm = (endpoint, method, token, body) => ({
   type: 'API_REQUEST',
   endpoint,
   method,
   token,
   body,
-  request: 'SUBMIT_REQUEST',
-  success: 'SUBMIT_SUCCESS',
-  failure: 'SUBMIT_FAILURE'
+  request: 'SUBMIT_FORM_REQUEST',
+  success: 'SUBMIT_FORM_SUCCESS',
+  failure: 'SUBMIT_FORM_FAILURE'
 })
 
 export const change = (name, value) => ({

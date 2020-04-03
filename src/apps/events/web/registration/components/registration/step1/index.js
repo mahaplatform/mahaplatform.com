@@ -30,22 +30,29 @@ class Step1 extends React.Component {
             <div className="registration-step1">
               <h1>{ event.title }</h1>
               <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
-              <h2>Sessions</h2>
-              <div className="registration-step1-sessions">
-                { event.sessions.map((session, index) => (
-                  <div className="registration-step1-session" key={`session_${index}`}>
-                    <SessionToken { ...session } />
-                  </div>
-                ))}
-              </div>
-              <h2>Organizers</h2>
-              <div className="registration-step1-organizers">
-                { event.organizers.map((organizer, index) => (
-                  <div className="registration-step1-organizer" key={`organizer_${index}`}>
-                    <OrganizerToken { ...organizer } />
-                  </div>
-                ))}
-              </div>
+              { event.sessions.length > 1 ?
+                <div className="registration-step1-sessions">
+                  <h2>Sessions</h2>
+                  { event.sessions.map((session, index) => (
+                    <div className="registration-step1-session" key={`session_${index}`}>
+                      <SessionToken { ...session } />
+                    </div>
+                  ))}
+                </div> :
+                <div className="registration-step1-sessions">
+                  <SessionToken { ..._.omit(event.sessions[0], ['title']) } />
+                </div>
+              }
+              { event.organizers.length > 0 &&
+                <div className="registration-step1-organizers">
+                  <h2>Organizers</h2>
+                  { event.organizers.map((organizer, index) => (
+                    <div className="registration-step1-organizer" key={`organizer_${index}`}>
+                      <OrganizerToken { ...organizer } />
+                    </div>
+                  ))}
+                </div>
+              }
               <h2>Tickets</h2>
               <div className="registration-step1-tickettypes">
                 { event.ticket_types.map((ticket_type, index) => (
@@ -86,9 +93,14 @@ class Step1 extends React.Component {
   }
 
   _getNext() {
+    const { quantities } = this.state
+    const total = Object.values(quantities).reduce((total, quantity) => {
+      return total + quantity
+    }, 0)
     return {
       label: 'Next &raquo;',
       color: 'red',
+      disabled: total === 0,
       handler: this._handleNext
     }
   }

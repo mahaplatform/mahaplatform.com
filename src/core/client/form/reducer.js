@@ -63,19 +63,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
-  case 'SUBMIT_REQUEST':
+  case 'SUBMIT_FORM_REQUEST':
     return {
       ...state,
       status: 'submitting'
     }
 
-  case 'SUBMIT_FAILURE':
+  case 'SUBMIT_FORM_FAILURE':
     return {
       ...state,
       status: 'failure'
     }
 
-  case 'SUBMIT_SUCCESS':
+  case 'SUBMIT_FORM_SUCCESS':
     return {
       ...state,
       status: 'success'

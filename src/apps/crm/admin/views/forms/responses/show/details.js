@@ -1,4 +1,4 @@
-import { Button, List } from 'maha-admin'
+import { Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
 import numeral from 'numeral'
@@ -44,6 +44,8 @@ const Details = ({ form, response }) => {
     list.sections[0].items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
 
   }
+
+  list.footer = <Comments entity={`crm_responses/${response.id}`} />
 
   return <List { ...list } />
 
