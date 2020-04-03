@@ -38,7 +38,7 @@ const showRoute = async (req, res) => {
     })),
     ticket: {
       code: ticket.get('code'),
-      full_name: ticket.get('full_name')
+      name: ticket.get('name')
     }
   })
 

@@ -67,7 +67,7 @@
       </div>
       <div class="event-ticket-body">
         <h2><%= event.title %></h2>
-        <h3><%= ticket.full_name %></h2>
+        <h3><%= ticket.name %></h2>
         <% sessions.map(session => { %>
           <div>
             <%= moment(session.date).format('MMM D, YYYY') %>,

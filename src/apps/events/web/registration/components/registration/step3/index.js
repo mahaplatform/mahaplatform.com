@@ -11,12 +11,11 @@ class Step3 extends React.Component {
     onNext: PropTypes.func
   }
 
-  state = {
-    items: []
-  }
+  form = null
 
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -52,15 +51,17 @@ class Step3 extends React.Component {
   _getForm() {
     const { items } = this.props
     return {
+      reference: node => this.form = node,
       button: false,
       captcha: false,
+      onSubmit: this._handleSubmit,
       fields: [
         ...items.reduce((fields, item) => [
           ...fields,
           ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
             ...fields,
             { type: 'text', text: `${item.name} Ticket ${index + 1}` },
-            { label: 'Name', type: 'textfield', placeholder: 'Enter name', required: true }
+            { label: 'Name', name: `ticket_${index}_name`, type: 'textfield', placeholder: 'Enter name', required: true }
           ], [])
         ], [])
       ]
@@ -80,7 +81,11 @@ class Step3 extends React.Component {
   }
 
   _handleNext() {
-    this.props.onNext()
+    this.form.submit()
+  }
+
+  _handleSubmit(tickets) {
+    this.props.onNext(tickets)
   }
 
 

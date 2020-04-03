@@ -6,10 +6,8 @@ const Details = ({ event, ticket }) => {
 
   const config = {
     items: [
-      { label: 'Full Name', content: ticket.full_name },
-      { label: 'Email', content: ticket.email },
-      { label: 'Code', content: ticket.code },
-      { label: 'Created', content: ticket.created_at, format: 'datetime' }
+      { label: 'Name', content: ticket.name },
+      { label: 'Code', content: ticket.code }
     ]
   }
 

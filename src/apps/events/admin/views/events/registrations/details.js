@@ -24,7 +24,7 @@ const Details = ({ registration }) => {
       { label: 'Referer', content: registration.referer },
       { label: 'Duration', content: `${registration.duration} seconds` },
       { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
-      { label: 'Registered', content: registration.created_at, format: 'datetime' },
+      { label: 'Submitted', content: registration.created_at, format: 'datetime' },
       { label: 'Invoice', content: <Button { ...invoice } /> },
       { label: 'Revenue', content: numeral(registration.revenue).format('$0.00') }
     ]

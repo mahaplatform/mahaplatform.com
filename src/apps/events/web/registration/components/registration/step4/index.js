@@ -60,7 +60,10 @@ class Step2 extends React.Component {
   }
 
   _handleNext() {
-    this.props.onNext()
+    this.props.onNext({
+      card_type: 'visa',
+      last_four: 1234
+    })
   }
 
 

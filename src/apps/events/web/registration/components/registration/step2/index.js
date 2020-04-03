@@ -13,10 +13,6 @@ class Step2 extends React.Component {
 
   form = null
 
-  state = {
-    items: []
-  }
-
   _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
@@ -65,7 +61,7 @@ class Step2 extends React.Component {
         { label: 'Phone', name: 'phone', type: 'phonefield', placeholder: 'Enter phone number' },
         { label: 'Address', name: 'address', type: 'addressfield', placeholder: 'Enter address' },
         { type: 'text', text: 'Optional Demographic Information' },
-        { label: 'Gender', name: 'gender', type: 'dropdown', placeholder: 'Choose gender', options: [
+        { label: 'Gender', name: 'gender', type: 'radiogroup', placeholder: 'Choose gender', options: [
           { value: 'female', text: 'Female' },
           { value: 'male', text: 'Male' },
           { value: 'other', text: 'Other' }
@@ -73,8 +69,9 @@ class Step2 extends React.Component {
         { label: 'Race', name: 'race', type: 'checkboxes', options: [
           { value: 'caucasion', text: 'Caucasion' },
           { value: 'african', text: 'African American' },
+          { value: 'american_indian', text: 'American Indian' },
           { value: 'asian', text: 'Asian' },
-          { value: 'hawaiian', text: 'Hawaiian / Pacific Islander' },
+          { value: 'pacific_islander', text: 'Hawaiian / Pacific Islander' },
           { value: 'other', text: 'Other' }
         ] },
         { label: 'Ethnicity', name: 'ethnicity', type: 'radiogroup', options: [

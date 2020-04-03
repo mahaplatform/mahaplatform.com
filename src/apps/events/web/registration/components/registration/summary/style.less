@@ -4,9 +4,6 @@
     font-size: 1.2em;
     margin: 0;
   }
-}
-.registration-summary-tickets {
-  margin: 0 0 1em;
   table {
     background: @white;
     width: 100%;
@@ -19,14 +16,16 @@
       font-weight: bold;
     }
   }
-  tr {
-    td:nth-child(2) {
-      width: 80px;
-      text-align: right;
+  tbody {
+    tr {
+      td:nth-child(2) {
+        width: 80px;
+        text-align: right;
+      }
     }
   }
   td, th {
-    padding: 0.8em;
+    padding: 0.6em;
     border-bottom: 1px solid fadeout(@black, 90);
     border-right: 1px solid fadeout(@black, 90);
   }
@@ -35,6 +34,13 @@
     font-weight: bold;
   }
 }
-.registration-summary-customer {
+.registration-summary-section {
   margin: 0 0 1em;
+}
+.registration-summary-payment {
+  img {
+    display: inline-block;
+    width: 32px;
+    margin: 0 6px -6px 0;
+  }
 }

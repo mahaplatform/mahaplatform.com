@@ -1,4 +1,4 @@
-import { Stack } from 'maha-client'
+import { Image, Stack } from 'maha-client'
 import PropTypes from 'prop-types'
 import Complete from './complete'
 import Summary from './summary'
@@ -16,11 +16,15 @@ class Registration extends React.Component {
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
+    payment: PropTypes.object,
     quantities: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
+    tickets: PropTypes.array,
     total: PropTypes.number,
     onUpdateContact: PropTypes.func,
+    onUpdatePayment: PropTypes.func,
+    onUpdateTickets: PropTypes.func,
     onUpdateQuantities: PropTypes.func
   }
 
@@ -53,7 +57,7 @@ class Registration extends React.Component {
         <div className="registration-sidebar">
           { event.image &&
             <div className="registration-sidebar-image">
-              <img src="https://dev.mahaplatform.com:8080/imagecache/fit=cover&w=350&h=175/assets/8346/10156387003857338.jpg" />
+              <Image src={ event.image } transforms={{ fit: 'cover', w: 400, h: 200 }} />
             </div>
           }
           <Summary { ...this._getSummary() }/>
@@ -123,12 +127,13 @@ class Registration extends React.Component {
   }
 
   _getSummary() {
-    const { contact, discount, event, items, subtotal, tax, total } = this.props
+    const { contact, discount, event, items, payment, subtotal, tax, total } = this.props
     return {
       contact,
       discount,
       event,
       items,
+      payment,
       subtotal,
       tax,
       total
@@ -173,14 +178,16 @@ class Registration extends React.Component {
     this._handlePush(Step3, this._getStep3())
   }
 
-  _handleStep3() {
+  _handleStep3(tickets) {
+    this.props.onUpdateTickets(tickets)
     this.setState({
       step: 3
     })
     this._handlePush(Step4, this._getStep4())
   }
 
-  _handleStep4() {
+  _handleStep4(payment) {
+    this.props.onUpdatePayment(payment)
     this.setState({
       step: 4
     })

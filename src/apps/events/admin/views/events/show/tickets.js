@@ -27,7 +27,7 @@ class Tickets extends React.Component {
           <tbody>
             { tickets.map((ticket, index) => (
               <tr key={`ticket_${index}`} onClick={ this._handleClick.bind(this, ticket) }>
-                <td>{ ticket.full_name }</td>
+                <td>{ ticket.name }</td>
                 <td>{ ticket.ticket_type.name }</td>
                 <td className="proceed">
                   <i className="fa fa-chevron-right" />

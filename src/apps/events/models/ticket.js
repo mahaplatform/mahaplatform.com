@@ -9,20 +9,7 @@ const Ticket = new Model({
 
   rules: {},
 
-  virtuals: {
-
-    full_name: function() {
-      const parts = []
-      if(this.get('first_name')) parts.push(this.get('first_name'))
-      if(this.get('last_name')) parts.push(this.get('last_name'))
-      return parts.length > 0 ? parts.join(' ') : null
-    },
-
-    rfc822: function() {
-      return this.get('full_name') ? `${this.get('full_name')} <${this.get('email')}>` : this.get('email')
-    }
-
-  },
+  virtuals: {},
 
   attendings() {
     return this.hasMany(Attending, 'session_id')

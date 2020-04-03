@@ -1,6 +1,8 @@
 export const INITIAL_STATE = {
   contact: null,
-  quantities: {}
+  payment: null,
+  quantities: {},
+  tickets: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +13,18 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       contact: action.contact
+    }
+
+  case 'UPDATE_PAYMENT':
+    return {
+      ...state,
+      payment: action.payment
+    }
+
+  case 'UPDATE_TICKETS':
+    return {
+      ...state,
+      tickets: action.tickets
     }
 
   case 'UPDATE_QUANTITIES':

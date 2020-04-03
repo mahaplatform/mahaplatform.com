@@ -33,18 +33,18 @@ class Performance extends React.Component {
           </div>
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Tickets
-            </div>
-            <div className="crm-report-metric-value">
-              <Button { ...this._getButton(tickets_count, '?$filter[status][$eq]=active') } />
-            </div>
-          </div>
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
               Waiting List
             </div>
             <div className="crm-report-metric-value">
               <Button { ...this._getButton(waitings_count, '?$filter[was_converted][$eq]=true') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Tickets
+            </div>
+            <div className="crm-report-metric-value">
+              { tickets_count }
             </div>
           </div>
           <div className="crm-report-metric">

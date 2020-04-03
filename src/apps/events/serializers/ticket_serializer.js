@@ -1,7 +1,6 @@
 const TicketSerializer = (req, result) => ({
   id: result.get('id'),
-  full_name: result.get('full_name'),
-  email: result.get('email'),
+  name: result.get('name'),
   code: result.get('code'),
   is_checked: result.get('is_checked'),
   ticket_type: ticket_type(result.related('ticket_type')),

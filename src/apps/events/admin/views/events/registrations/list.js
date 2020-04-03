@@ -9,8 +9,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
-      { label: 'Tickets', key: 'tickets_count', primary: true },
-      { label: 'Revenue', key: 'revenue', primary: true }
+      { label: 'Submitted', key: 'created_at', format: 'datetime' },
+      { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },
+      { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

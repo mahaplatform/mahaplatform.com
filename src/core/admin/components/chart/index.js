@@ -20,7 +20,7 @@ class ChartWrapper extends React.Component {
 
   static propTypes = {
     endpoint: PropTypes.string,
-    started_at: PropTypes.object
+    started_at: PropTypes.any
   }
 
   chart = null

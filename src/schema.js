@@ -279,6 +279,11 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_contact_races', (table) => {
+      table.integer('contact_id').unsigned()
+      table.USER-DEFINED('race')
+    })
+
     await knex.schema.createTable('crm_contacts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -293,6 +298,8 @@ const schema = {
       table.string('spouse', 255)
       table.string('birthday', 255)
       table.integer('birth_year')
+      table.USER-DEFINED('gender')
+      table.USER-DEFINED('ethnicity')
     })
 
     await knex.schema.createTable('crm_contacts_organizations', (table) => {
@@ -914,10 +921,8 @@ const schema = {
       table.jsonb('values')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.string('first_name', 255)
-      table.string('last_name', 255)
-      table.string('email', 255)
       table.integer('ticket_type_id').unsigned()
+      table.string('name', 255)
     })
 
     await knex.schema.createTable('events_waitings', (table) => {
@@ -3249,6 +3254,10 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_contact_races', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
     })
 
 
