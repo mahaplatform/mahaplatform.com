@@ -5,13 +5,16 @@
 .ticketfieldsfield-field {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
+  &.hidden, &.hidden span {
+    color: fadeout(@black, 80);
+  }
 }
 .ticketfieldsfield-field-label {
   padding: 0.8em;
   flex: 1;
   span {
     text-transform: uppercase;
-    color: rgba(0,0,0,.4);
+    color: fadeout(@black, 60);
     font-size: .9em;
   }
 }
@@ -22,7 +25,7 @@
   &:hover {
     .fa-times,
     .fa-toggle-off {
-      color: fadeout(@black, 40);
+      color: fadeout(@black, 60);
     }
   }
   .fa {

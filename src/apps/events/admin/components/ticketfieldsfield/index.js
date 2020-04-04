@@ -1,6 +1,7 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 const core = [
   { label: 'Gender', name: 'gender', type: 'radigroup' },
@@ -16,7 +17,7 @@ class TicketFieldsField extends React.PureComponent {
   }
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -26,19 +27,13 @@ class TicketFieldsField extends React.PureComponent {
     onReady: () => {}
   }
 
-  state = {
-    hidden: [],
-    custom: [
-      { label: 'Custom Field 1', name: 'field_1', type: 'textfield' },
-      { label: 'Custom Field 2', name: 'field_2', type: 'checkboxes' },
-      { label: 'Custom Field 3', name: 'field_3', type: 'dropdown' }
-    ]
-  }
+  state = {}
 
   _handleNew = this._handleNew.bind(this)
 
   render() {
-    const { custom } = this.state
+    const { fields } = this.state
+    if(!fields) return null
     return (
       <div className="ticketfieldsfield">
         <div className="ticketfieldsfield-field">
@@ -47,21 +42,21 @@ class TicketFieldsField extends React.PureComponent {
           </div>
         </div>
         { core.map((field, index) => (
+          <div className={ this._getClass(field.name) } key={`field_${index}`}>
+            <div className="ticketfieldsfield-field-label">
+              { field.label } <span>({ field.type })</span>
+            </div>
+            <div className="ticketfieldsfield-field-action" onClick={ this._handleToggle.bind(this, field.name)}>
+              <i className={`fa fa-toggle-${ this._getIcon(field.name) }`} />
+            </div>
+          </div>
+        ))}
+        { fields.map((field, index) => (
           <div className="ticketfieldsfield-field" key={`field_${index}`}>
             <div className="ticketfieldsfield-field-label">
               { field.label } <span>({ field.type })</span>
             </div>
-            <div className="ticketfieldsfield-field-action" onClick={ this._handleToggle.bind(this, field)}>
-              <i className="fa fa-toggle-on" />
-            </div>
-          </div>
-        ))}
-        { custom.map((field, index) => (
-          <div className="ticketfieldsfield-field" key={`field_${index}`}>
-            <div className="ticketfieldsfield-field-label" onClick={ this._handleRemove.bind(this, index)}>
-              { field.label } <span>({ field.type })</span>
-            </div>
-            <div className="ticketfieldsfield-field-action">
+            <div className="ticketfieldsfield-field-action" onClick={ this._handleRemove.bind(this, index)}>
               <i className="fa fa-times" />
             </div>
           </div>
@@ -74,7 +69,19 @@ class TicketFieldsField extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    this.setState(defaultValue || { hidden: [], fields: [] })
     this.props.onReady()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { fields, hidden } = this.state
+    if(!_.isEqual(fields, prevState.fields)) {
+      this._handleChange()
+    }
+    if(!_.isEqual(hidden, prevState.hidden)) {
+      this._handleChange()
+    }
   }
 
   _getButton() {
@@ -85,13 +92,41 @@ class TicketFieldsField extends React.PureComponent {
     }
   }
 
+  _getClass(name) {
+    const { hidden } = this.state
+    const classes = ['ticketfieldsfield-field']
+    if(_.includes(hidden, name)) classes.push('hidden')
+    return classes.join(' ')
+  }
+
+  _getIcon(name) {
+    const { hidden } = this.state
+    return _.includes(hidden, name) ? 'off' : 'on'
+  }
+
+  _handleChange() {
+    const { fields, hidden } = this.state
+    this.props.onChange({ fields, hidden })
+  }
+
   _handleNew() {}
 
-  _handleRemove() {}
+  _handleRemove(index) {
+    const { fields } = this.state
+    this.setState({
+      fields: fields.filter((field, i) => {
+        return i !== index
+      })
+    })
+  }
 
-  _handleToggle() {}
+  _handleToggle(name) {
+    const { hidden } = this.state
+    this.setState({
+      hidden: _.xor(hidden, [name])
+    })
+  }
 
 }
-
 
 export default TicketFieldsField

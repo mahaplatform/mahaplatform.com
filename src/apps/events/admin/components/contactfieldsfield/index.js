@@ -1,6 +1,8 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import New from './new'
+import _ from 'lodash'
 
 class ContactFieldsField extends React.PureComponent {
 
@@ -9,7 +11,7 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -19,19 +21,14 @@ class ContactFieldsField extends React.PureComponent {
     onReady: () => {}
   }
 
-  state = {
-    hidden: [],
-    custom: [
-      { label: 'Custom Field 1', name: 'field_1', type: 'textfield' },
-      { label: 'Custom Field 2', name: 'field_2', type: 'checkboxes' },
-      { label: 'Custom Field 3', name: 'field_3', type: 'dropdown' }
-    ]
-  }
+  state = {}
 
+  _handleBack = this._handleBack.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
-    const { custom } = this.state
+    const { fields } = this.state
+    if(!fields) return null
     return (
       <div className="contactfieldsfield">
         <div className="contactfieldsfield-field">
@@ -49,12 +46,12 @@ class ContactFieldsField extends React.PureComponent {
             Email <span>(emailfield)</span>
           </div>
         </div>
-        { custom.map((field, index) => (
+        { fields.map((field, index) => (
           <div className="contactfieldsfield-field" key={`field_${index}`}>
-            <div className="contactfieldsfield-field-label" onClick={ this._handleRemove.bind(this, index)}>
+            <div className="contactfieldsfield-field-label">
               { field.label } <span>({ field.type })</span>
             </div>
-            <div className="contactfieldsfield-field-action">
+            <div className="contactfieldsfield-field-action" onClick={ this._handleRemove.bind(this, index)}>
               <i className="fa fa-times" />
             </div>
           </div>
@@ -67,7 +64,16 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    this.setState(defaultValue || { fields: [] })
     this.props.onReady()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { fields } = this.state
+    if(!_.isEqual(fields, prevState.fields)) {
+      this._handleChange()
+    }
   }
 
   _getButton() {
@@ -78,13 +84,34 @@ class ContactFieldsField extends React.PureComponent {
     }
   }
 
-  _handleNew() {}
+  _getNew() {
+    return {
+      onBack: this._handleBack
+    }
+  }
 
-  _handleRemove() {}
+  _handleBack() {
+    this.context.form.pop()
+  }
 
-  _handleToggle() {}
+  _handleChange() {
+    const { fields } = this.state
+    this.props.onChange({ fields })
+  }
+
+  _handleNew() {
+    this.context.form.push(New, this._getNew())
+  }
+
+  _handleRemove(index) {
+    const { fields } = this.state
+    this.setState({
+      fields: fields.filter((field, i) => {
+        return i !== index
+      })
+    })
+  }
 
 }
-
 
 export default ContactFieldsField

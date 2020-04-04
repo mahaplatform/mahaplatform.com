@@ -24,11 +24,15 @@ const Details = ({ registration }) => {
       { label: 'Referer', content: registration.referer },
       { label: 'Duration', content: `${registration.duration} seconds` },
       { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
-      { label: 'Submitted', content: registration.created_at, format: 'datetime' },
-      { label: 'Invoice', content: <Button { ...invoice } /> },
-      { label: 'Revenue', content: numeral(registration.revenue).format('$0.00') }
+      { label: 'Submitted', content: registration.created_at, format: 'datetime' }
     ]
   }
+
+  if(registration.invoice_id) {
+    config.items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
+  }
+
+  config.items.push({ label: 'Revenue', content: numeral(registration.revenue).format('$0.00') })
 
   config.footer = <Comments entity={`events_registrations/${registration.id}`} />
 

@@ -7,6 +7,7 @@ import generateCode from '../../../../../core/utils/generate_code'
 import { updateTicketTypes } from '../../../services/ticket_types'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateAlias } from '../../../../maha/services/aliases'
 import { updateSessions } from '../../../services/sessions'
 import Program from '../../../../crm/models/program'
 import Event from '../../../models/event'
@@ -62,6 +63,13 @@ const createRoute = async (req, res) => {
       ids: req.body.organizer_ids,
       foreign_key: 'event_id',
       related_foreign_key: 'organizer_id'
+    })
+  }
+
+  if(req.body.permalink) {
+    await updateAlias(req, {
+      src: req.body.permalink,
+      destination: `/events/registrations/${event.get('code')}`
     })
   }
 

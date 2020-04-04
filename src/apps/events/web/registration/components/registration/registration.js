@@ -203,10 +203,14 @@ class Registration extends React.Component {
 
   _handleSubmit() {
     const { contact, event, items, payment, tickets } = this.props
+    const { referer, starttime, ipaddress } = event
     this.props.onSubmit(event.code, {
       contact,
       items,
+      ipaddress,
       payment,
+      referer,
+      starttime,
       tickets
     })
   }

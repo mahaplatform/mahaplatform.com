@@ -1,6 +1,7 @@
 import { encode } from '../../../../../core/services/jwt'
 import Event from '../../../models/event'
 import { readFile } from '../utils'
+import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 
@@ -22,8 +23,13 @@ const showRoute = async (req, res) => {
 
   const template = await readFile(path.join('events','registration','index.html'))
 
+  const ipaddress = req.header('x-forwarded-for') || req.connection.remoteAddress
+
   const content = ejs.render(template, {
     event: {
+      starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
+      referer: req.header('referer'),
+      ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
       code: event.get('code'),
       title: event.get('title'),
       description: event.get('description'),
@@ -57,7 +63,9 @@ const showRoute = async (req, res) => {
         max_per_order: ticket_type.get('max_per_order'),
         sales_open_at: ticket_type.get('sales_open_at'),
         sales_close_at: ticket_type.get('sales_close_at')
-      }))
+      })),
+      contact_config: event.get('contact_config'),
+      ticket_config: event.get('ticket_config')
     },
     token: encode({ code: event.get('code') }, 60 * 30)
   })

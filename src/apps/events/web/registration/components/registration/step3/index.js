@@ -2,6 +2,7 @@ import { Button, Form } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 import flat from 'flat'
+import _ from 'lodash'
 
 class Step3 extends React.Component {
 
@@ -67,31 +68,60 @@ class Step3 extends React.Component {
           ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
             ...fields,
             { label: `${item.name} Ticket ${index + 1}`, type: 'segment', fields: [
-              { name: `tickets.${index}.ticket_type_id`, type: 'hidden', value: item.ticket_type_id },
-
-              { label: 'Name', name: `tickets.${index}.name`, type: 'textfield', placeholder: 'Enter name', required: true },
-              { label: 'Gender', name: `tickets.${index}.gender`, type: 'radiogroup', placeholder: 'Choose gender', options: [
-                { value: 'female', text: 'Female' },
-                { value: 'male', text: 'Male' },
-                { value: 'other', text: 'Other' }
-              ] },
-              { label: 'Race', name: `tickets.${index}.race`, type: 'checkboxes', options: [
-                { value: 'caucasion', text: 'Caucasion' },
-                { value: 'african', text: 'African American' },
-                { value: 'american_indian', text: 'American Indian' },
-                { value: 'asian', text: 'Asian' },
-                { value: 'pacific_islander', text: 'Hawaiian / Pacific Islander' },
-                { value: 'other', text: 'Other' }
-              ] },
-              { label: 'Ethnicity', name: `tickets.${index}.ethnicity`, type: 'radiogroup', options: [
-                { value: 'hispanic', text: 'Hispanic' },
-                { value: 'non_hispanic', text: 'Non Hispanic' }
-              ] }
+              ...this._getFields(item, index)
             ] }
           ], [])
         ], [])
       ]
     }
+  }
+
+  _getFields(item, index) {
+    const { event } = this.props
+    const hidden = event.ticket_config ? event.ticket_config.hidden : []
+    const custom = event.ticket_config ? event.ticket_config.fields : []
+    const fields = [
+      { name: `tickets.${index}.ticket_type_id`, type: 'hidden', value: item.ticket_type_id },
+      { label: 'Name', name: `tickets.${index}.name`, type: 'textfield', placeholder: 'Enter name', required: true }
+    ]
+    if(!_.includes(hidden, 'gender')) {
+      fields.push({ label: 'Gender', name: `tickets.${index}.gender`, type: 'radiogroup', placeholder: 'Choose gender', options: [
+        { value: 'female', text: 'Female' },
+        { value: 'male', text: 'Male' },
+        { value: 'other', text: 'Other' }
+      ] })
+    }
+    if(!_.includes(hidden, 'age')) {
+      fields.push({ label: 'Age', name: `tickets.${index}.age`, type: 'radiogroup', placeholder: 'Choose age range', options: [
+        { value: '0_17', text: '0 - 17' },
+        { value: '18_20', text: '18 - 20' },
+        { value: '21_40', text: '21 - 40' },
+        { value: '41', text: '41+' }
+      ] })
+    }
+    if(!_.includes(hidden, 'race')) {
+      fields.push({ label: 'Race', name: `tickets.${index}.race`, type: 'checkboxes', options: [
+        { value: 'caucasion', text: 'Caucasion' },
+        { value: 'african', text: 'African American' },
+        { value: 'american_indian', text: 'American Indian' },
+        { value: 'asian', text: 'Asian' },
+        { value: 'pacific_islander', text: 'Hawaiian / Pacific Islander' },
+        { value: 'other', text: 'Other' }
+      ] })
+    }
+    if(!_.includes(hidden, 'ethnicity')) {
+      fields.push({ label: 'Ethnicity', name: `tickets.${index}.ethnicity`, type: 'radiogroup', options: [
+        { value: 'hispanic', text: 'Hispanic' },
+        { value: 'non_hispanic', text: 'Non Hispanic' }
+      ] })
+    }
+    return [
+      ...fields,
+      ...custom.map(field => ({
+        ...field,
+        name: `tickets.${index}.${field.name}`
+      }))
+    ]
   }
 
   _getNext() {

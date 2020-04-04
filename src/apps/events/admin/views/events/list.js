@@ -1,4 +1,3 @@
-import ProgramForm from '../../../../crm/admin/components/programform'
 import { Page } from 'maha-admin'
 import React from 'react'
 import New from './new'
@@ -22,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Events',
       text: 'You have not yet created any events',
       buttons: [
-        { label: 'Create Event', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
+        { label: 'Create Event', modal: <New programs={ resources.programs } /> }
       ]
     },
     entity: 'event',
@@ -30,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: {
     icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } form={ New } />
+    modal: <New programs={ resources.programs } />
   }
 })
 

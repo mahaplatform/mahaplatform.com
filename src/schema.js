@@ -836,6 +836,9 @@ const schema = {
       table.integer('workflow_id').unsigned()
       table.integer('email_id').unsigned()
       table.timestamp('deleted_at')
+      table.string('permalink', 255)
+      table.jsonb('contact_config')
+      table.jsonb('ticket_config')
     })
 
     await knex.schema.createTable('events_events_organizers', (table) => {

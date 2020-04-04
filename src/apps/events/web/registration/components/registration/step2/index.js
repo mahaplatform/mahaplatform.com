@@ -49,6 +49,7 @@ class Step2 extends React.Component {
   }
 
   _getForm() {
+    const { event } = this.props
     return {
       reference: node => this.form = node,
       button: false,
@@ -57,7 +58,8 @@ class Step2 extends React.Component {
       fields: [
         { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
-        { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter email', required: true }
+        { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter email', required: true },
+        ...event.contact_config ? event.contact_config.fields : []
       ]
     }
   }
