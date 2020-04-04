@@ -68,9 +68,9 @@ class Email extends React.PureComponent {
   _getButton() {
     const { config } = this.state
     return {
-      label: 'Manage Email',
+      label: 'Design Email',
       className: 'link',
-      route: `/admin/crm/emails/${config.email_id}`
+      route: `/admin/crm/emails/${config.email_id}/design`
     }
   }
 

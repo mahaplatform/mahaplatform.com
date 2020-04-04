@@ -26,17 +26,42 @@ class Designer extends React.Component {
 
   _getTokens() {
     const { email } = this.props
-    if(email.form) {
-      return [
-        { title: 'Response Tokens', tokens: email.form.config.fields.filter(field => {
+    if(email.event) return this._getEventTokens(email.event)
+    if(email.form) return this._getFormTokens(email.form)
+    return []
+  }
+
+  _getEventTokens(event) {
+    return [
+      {
+        title: 'Regstration Tokens',
+        tokens: [
+          { name: 'First Name', token: 'registration.first_name' },
+          { name: 'Last Name', token: 'registration.last_name' },
+          { name: 'Email', token: 'registration.email' },
+          ...event.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            token: `registration.${field.name.token}`
+          }))
+        ]
+      }
+    ]
+  }
+
+  _getFormTokens(form) {
+    return [
+      {
+        title: 'Response Tokens',
+        tokens: form.config.fields.filter(field => {
           return !_.includes(['text'], field.type)
         }).map(field => ({
           name: field.name.value,
           token: `response.${field.name.token}`
-        })) }
-      ]
-    }
-    return []
+        }))
+      }
+    ]
   }
 
 }

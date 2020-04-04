@@ -122,7 +122,7 @@ class VoiceDesigner extends React.PureComponent {
         name:   field.label,
         token: `program.${field.name}`
       }))}] : [],
-      ...tokens ? [tokens] : []
+      ...tokens ? tokens : []
     ]
   }
 

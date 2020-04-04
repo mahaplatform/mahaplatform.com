@@ -41,7 +41,8 @@ const event = (event) => {
   if(!event.id) return
   return {
     id: event.get('id'),
-    title: event.get('title')
+    title: event.get('title'),
+    contact_config: event.get('contact_config')
   }
 }
 

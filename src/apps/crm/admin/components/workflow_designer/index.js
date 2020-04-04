@@ -10,7 +10,7 @@ class WorkflowDesigner extends React.PureComponent {
     fields: PropTypes.object,
     program: PropTypes.object,
     programfields: PropTypes.array,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     trigger: PropTypes.object,
     workflow: PropTypes.object,
     onSave: PropTypes.func
@@ -121,10 +121,10 @@ class WorkflowDesigner extends React.PureComponent {
         { name: 'Email', token: 'contact.email' }
       ] },
       ...programfields.length > 0 ? [{ title: `${program.title} Tokens`, tokens: programfields.map(field => ({
-        name:   field.label,
-        token: `program.${field.name}`
+        name:   field.name.value,
+        token: `program.${field.name.token}`
       }))}] : [],
-      ...tokens ? [tokens] : []
+      ...tokens ? tokens : []
     ]
   }
 

@@ -38,7 +38,7 @@ class EmailDesignerWrapper extends React.Component {
         { name: 'Birthday', token: 'birthday' }
       ] },
       ...programfields.length > 0 ? [{ title: `${program.title} Tokens`, tokens: programfields.map(field => ({
-        name:   field.label,
+        name:  field.name.value,
         token: `program.${field.name.token}`
       }))}] : [],
       { title: 'Email Tokens', tokens: [

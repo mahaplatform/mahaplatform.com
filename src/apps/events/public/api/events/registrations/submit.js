@@ -1,3 +1,4 @@
+import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import generateCode from '../../../../../../core/utils/generate_code'
 import EmailAddress from '../../../../../crm/models/email_address'
 import Registration from '../../../../models/registration'
@@ -85,6 +86,13 @@ const submitRoute = async (req, res) => {
       transacting: req.trx
     })
 
+  })
+
+  await enrollInWorkflows(req, {
+    contact,
+    trigger_type: 'event',
+    event_id: event.get('id'),
+    registration
   })
 
   res.status(200).respond(true)

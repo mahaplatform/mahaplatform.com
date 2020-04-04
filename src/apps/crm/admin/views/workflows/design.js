@@ -54,52 +54,80 @@ class Designer extends React.Component {
   }
 
   _getEventFields(event) {
-    return {
-      label: 'Event Fields',
-      fields: []
-    }
+    return [
+      {
+        label: 'Regstration Fields',
+        fields: [
+          { name: 'First Name', key: 'first_name', type: 'textfield' },
+          { name: 'Last Name', key: 'last_name', type: 'textfield' },
+          { name: 'Email', key: 'email', type: 'emailfield' },
+          ...event.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            key: field.code,
+            type: _.get(field, 'contactfield.type') || field.type,
+            options: _.get(field, 'contactfield.options') || field.options
+          }))
+        ]
+      }
+    ]
   }
 
   _getFormFields(form) {
-    return {
-      label: 'Response Fields',
-      fields: form.config.fields.filter(field => {
-        return field.type !== 'text' && field.name
-      }).map(field => ({
-        name: field.name.value,
-        key: field.code,
-        type: _.get(field, 'contactfield.type') || field.type,
-        options: _.get(field, 'contactfield.options') || field.options
-      }))
-    }
+    return [
+      {
+        label: 'Response Fields',
+        fields: form.config.fields.filter(field => {
+          return field.type !== 'text' && field.name
+        }).map(field => ({
+          name: field.name.value,
+          key: field.code,
+          type: _.get(field, 'contactfield.type') || field.type,
+          options: _.get(field, 'contactfield.options') || field.options
+        }))
+      }
+    ]
   }
 
   _getTokens() {
     const { workflow } = this.props
     if(workflow.event) return this._getEventTokens(workflow.event)
     if(workflow.form) return this._getFormTokens(workflow.form)
-    return {}
-  }
-
-  _getEventTokens(event) {
-    return {
-      title: 'Event Tokens',
-      tokens: [
-        { name: 'Num Tickets', token: 'regstration.num_tickets'}
-      ]
-    }
+    return []
   }
 
   _getFormTokens(form) {
-    return {
-      title: 'Response Tokens',
-      tokens: form.config.fields.filter(field => {
-        return field.type !== 'text' && field.name
-      }).map(field => ({
-        name: field.name.value,
-        token: `response.${field.name.token}`
-      }))
-    }
+    return [
+      {
+        title: 'Response Tokens',
+        tokens: form.config.fields.filter(field => {
+          return field.type !== 'text' && field.name
+        }).map(field => ({
+          name: field.name.value,
+          token: `response.${field.name.token}`
+        }))
+      }
+    ]
+  }
+
+  _getEventTokens(event) {
+    return [
+      {
+        title: 'Regstration Tokens',
+        tokens: [
+          { name: 'First Name', token: 'registration.first_name' },
+          { name: 'Last Name', token: 'registration.last_name' },
+          { name: 'Email', token: 'registration.email' },
+          ...event.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            token: `registration.${field.name.token}`
+          }))
+        ]
+      }
+    ]
   }
 
   _getTrigger() {
