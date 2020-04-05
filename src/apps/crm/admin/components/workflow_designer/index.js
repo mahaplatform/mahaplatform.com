@@ -71,12 +71,9 @@ class WorkflowDesigner extends React.PureComponent {
       { label: 'Contact Fields', fields: [
         { name: 'First Name', key: 'first_name', type: 'textfield' },
         { name: 'Last Name', key: 'last_name', type: 'textfield' },
-        { name: 'Email', key: 'email', type: 'textfield' },
-        { name: 'Phone', key: 'phone', type: 'textfield' },
-        { name: 'Street', key: 'street_1', type: 'textfield' },
-        { name: 'City', key: 'city', type: 'textfield' },
-        { name: 'State/Province', key: 'state_province', type: 'textfield' },
-        { name: 'Postal Code', key: 'postal_code', type: 'textfield' },
+        { name: 'Email', key: 'email', type: 'emailfield' },
+        { name: 'Phone', key: 'phone', type: 'phonefield' },
+        { name: 'Address', key: 'address', type: 'addressfield' },
         { name: 'Birthday', key: 'birthday', type: 'textfield' },
         { name: 'Spouse', key: 'spouse', type: 'textfield' }
       ] },

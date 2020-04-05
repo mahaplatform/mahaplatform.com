@@ -1,6 +1,7 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Edit from './edit'
 import New from './new'
 import _ from 'lodash'
 
@@ -23,6 +24,7 @@ class ContactFieldsField extends React.PureComponent {
 
   state = {}
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleNew = this._handleNew.bind(this)
 
@@ -49,7 +51,10 @@ class ContactFieldsField extends React.PureComponent {
         { fields.map((field, index) => (
           <div className="contactfieldsfield-field" key={`field_${index}`}>
             <div className="contactfieldsfield-field-label">
-              { field.label } <span>({ field.type })</span>
+              { field.name.value } <span>({ field.type || field.contactfield.type })</span>
+            </div>
+            <div className="contactfieldsfield-field-action" onClick={ this._handleEdit.bind(this, field, index)}>
+              <i className="fa fa-pencil" />
             </div>
             <div className="contactfieldsfield-field-action" onClick={ this._handleRemove.bind(this, index)}>
               <i className="fa fa-times" />
@@ -84,10 +89,29 @@ class ContactFieldsField extends React.PureComponent {
     }
   }
 
+  _getEdit(field, index) {
+    return {
+      field,
+      onBack: this._handleBack,
+      onDone: this._handleUpdate.bind(this, index)
+    }
+  }
+
   _getNew() {
     return {
-      onBack: this._handleBack
+      onBack: this._handleBack,
+      onDone: this._handleAdd
     }
+  }
+
+  _handleAdd(field) {
+    this.setState({
+      fields: [
+        ...this.state.fields,
+        field
+      ]
+    })
+    this.context.form.pop()
   }
 
   _handleBack() {
@@ -99,17 +123,29 @@ class ContactFieldsField extends React.PureComponent {
     this.props.onChange({ fields })
   }
 
+  _handleEdit(field, index) {
+    this.context.form.push(Edit, this._getEdit(field, index))
+  }
+
   _handleNew() {
     this.context.form.push(New, this._getNew())
   }
 
   _handleRemove(index) {
-    const { fields } = this.state
     this.setState({
-      fields: fields.filter((field, i) => {
+      fields: this.state.fields.filter((field, i) => {
         return i !== index
       })
     })
+  }
+
+  _handleUpdate(index, newfield) {
+    this.setState({
+      fields: this.state.fields.map((field, i) => {
+        return i === index ? newfield : field
+      })
+    })
+    this.context.form.pop()
   }
 
 }

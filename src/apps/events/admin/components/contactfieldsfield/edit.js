@@ -2,19 +2,17 @@ import ContactField from '../../../../crm/admin/components/contactfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
 class New extends React.PureComponent {
 
   static propTypes = {
+    field: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    field: {
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
-    }
+    field: null
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -22,13 +20,19 @@ class New extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    const { field } = this.state
+    if(!field) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    const { field } = this.props
+    this.setState({ field })
+  }
+
   _getForm() {
-    const { field } = this.state
     return {
-      title: 'New Field',
+      title: 'Edit Field',
       method: 'post',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
@@ -38,11 +42,6 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'code', type: 'hidden', value: field.code },
-            { name: 'strategy', type: 'radiogroup', options: [
-              { value: 'contact', text: 'Choose an existing contact field' },
-              { value: 'custom', text: 'Create a custom field' }
-            ] },
             ...this._getStrategy()
           ]
         }
@@ -52,23 +51,22 @@ class New extends React.PureComponent {
 
   _getStrategy() {
     const { field } = this.state
-    if(field.strategy === 'contact') {
+    const { contactfield, name, label, instructions, required, type } = field
+    if(contactfield) {
       return [
-        { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields() },
+        { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields(), defaultValue: contactfield },
         ...this._getContactFields()
       ]
-    }
-    if(field.strategy === 'custom') {
+    } else  {
       return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
-        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label' },
-        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
-        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
-        { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
+        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: name },
+        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
+        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: instructions },
+        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: required },
+        { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true, defaultValue: type },
         ...this._getTypeFields()
       ]
     }
-    return []
   }
 
   _getFields() {
@@ -84,8 +82,8 @@ class New extends React.PureComponent {
 
   _getContactFields() {
     const { field } = this.state
+    const { label, instructions, required } = field
     if(field.contactfield) {
-      const { label, instructions, required } = field.contactfield
       return [
         { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
         { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: instructions },
@@ -167,9 +165,7 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(field) {
-    this.props.onDone({
-      ..._.omit(field, ['strategy'])
-    })
+    this.props.onDone(field)
   }
 
 }

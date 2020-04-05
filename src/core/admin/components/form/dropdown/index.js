@@ -138,8 +138,14 @@ class Dropdown extends React.Component {
     })
   }
 
+  _getScrollContainer(node) {
+    const parent = node.parentNode
+    return parent.className === 'maha-form-sections' ? parent : this._getScrollContainer(parent)
+  }
+
   _handleOpen(e) {
-    const percent = (e.clientY / window.innerHeight) * 100
+    const container = this._getScrollContainer(this.control)
+    const percent = (e.clientY / container.offsetHeight) * 100
     const { active } = this.state
     if(active || e.target.className === 'item') return
     this.setState({

@@ -1,6 +1,8 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Edit from './edit'
+import New from './new'
 import _ from 'lodash'
 
 const core = [
@@ -29,6 +31,8 @@ class TicketFieldsField extends React.PureComponent {
 
   state = {}
 
+  _handleAdd = this._handleAdd.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -55,6 +59,9 @@ class TicketFieldsField extends React.PureComponent {
           <div className="ticketfieldsfield-field" key={`field_${index}`}>
             <div className="ticketfieldsfield-field-label">
               { field.label } <span>({ field.type })</span>
+            </div>
+            <div className="ticketfieldsfield-field-action" onClick={ this._handleEdit.bind(this, field, index)}>
+              <i className="fa fa-pencil" />
             </div>
             <div className="ticketfieldsfield-field-action" onClick={ this._handleRemove.bind(this, index)}>
               <i className="fa fa-times" />
@@ -99,9 +106,38 @@ class TicketFieldsField extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getEdit(field, index) {
+    return {
+      field,
+      onBack: this._handleBack,
+      onDone: this._handleUpdate.bind(this, index)
+    }
+  }
+
   _getIcon(name) {
     const { hidden } = this.state
     return _.includes(hidden, name) ? 'off' : 'on'
+  }
+
+  _getNew() {
+    return {
+      onBack: this._handleBack,
+      onDone: this._handleAdd
+    }
+  }
+
+  _handleAdd(field) {
+    this.setState({
+      fields: [
+        ...this.state.fields,
+        field
+      ]
+    })
+    this.context.form.pop()
+  }
+
+  _handleBack() {
+    this.context.form.pop()
   }
 
   _handleChange() {
@@ -109,15 +145,29 @@ class TicketFieldsField extends React.PureComponent {
     this.props.onChange({ fields, hidden })
   }
 
-  _handleNew() {}
+  _handleEdit(field, index) {
+    this.context.form.push(Edit, this._getEdit(field, index))
+  }
+
+  _handleNew() {
+    this.context.form.push(New, this._getNew())
+  }
 
   _handleRemove(index) {
-    const { fields } = this.state
     this.setState({
-      fields: fields.filter((field, i) => {
+      fields: this.state.fields.filter((field, i) => {
         return i !== index
       })
     })
+  }
+
+  _handleUpdate(index, newfield) {
+    this.setState({
+      fields: this.state.fields.map((field, i) => {
+        return i === index ? newfield : field
+      })
+    })
+    this.context.form.pop()
   }
 
   _handleToggle(name) {

@@ -39,36 +39,16 @@ class New extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: field.code },
-            { name: 'strategy', type: 'radiogroup', options: [
-              { value: 'contact', text: 'Choose an existing contact field' },
-              { value: 'custom', text: 'Create a custom field' }
-            ] },
-            ...this._getStrategy()
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
+            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label' },
+            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
+            { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
+            ...this._getTypeFields()
           ]
         }
       ]
     }
-  }
-
-  _getStrategy() {
-    const { field } = this.state
-    if(field.strategy === 'contact') {
-      return [
-        { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields() },
-        ...this._getContactFields()
-      ]
-    }
-    if(field.strategy === 'custom') {
-      return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
-        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label' },
-        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
-        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
-        { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
-        ...this._getTypeFields()
-      ]
-    }
-    return []
   }
 
   _getFields() {

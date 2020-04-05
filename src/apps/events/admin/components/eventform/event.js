@@ -33,7 +33,6 @@ class Event extends React.PureComponent {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true, defaultValue: event.title },
-            { label: 'Permalink', name: 'permalink', type: 'textfield', placeholder: '/your/event/name', defaultValue: event.permalink },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Describe this event', defaultValue: event.description },
             { label: 'Image', name: 'image_id', type: 'attachmentfield', prompt: 'Choose an image', defaultValue: event.image_id },
             { label: 'Organizers', name: 'organizer_ids', type: OrganizersField, defaultValue: event.organizer_ids }

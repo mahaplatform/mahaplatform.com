@@ -60,10 +60,17 @@ class Table extends React.Component {
   _handleScroll = _.throttle(this._handleScroll.bind(this), 100)
   _handleSelectAll = this._handleSelectAll.bind(this)
 
+  _getTableClass() {
+    const { status } = this.props
+    const classes = ['maha-collection-table']
+    if(status === 'loading') classes.push('loading')
+    return classes.join(' ')
+  }
+
   render() {
     const { records, recordTasks, selectable, selectAll, visible, onClick } = this.props
     return (
-      <div className="maha-collection-table">
+      <div className={ this._getTableClass() }>
         <div className="maha-collection-table-header">
           <table ref={ node => this.header = node }>
             <tbody>

@@ -29,7 +29,9 @@ class Step1 extends React.Component {
           <div className="registration-panel-content">
             <div className="registration-step1">
               <h1>{ event.title }</h1>
-              <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
+              { event.description &&
+                <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
+              }
               <div className="registration-step1-section">
                 <h2>Sessions</h2>
                 <div className="registration-step1-sessions">
