@@ -1,4 +1,5 @@
 import ProgramForm from '../../components/programform'
+import EmailToken from '../../tokens/email'
 import { Page } from 'maha-admin'
 import React from 'react'
 import New from './new'
@@ -10,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/emails',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Title', key: 'display_name', sort: 'title', primary: true },
+      { label: 'Title', key: 'display_name', sort: 'title', primary: true, format: EmailToken },
       { label: 'Program', key: 'program.title', sort: 'program', primary: true },
       { label: 'Opened', key: 'opened', collapsing: true, align: 'right' },
       { label: 'Clicked', key: 'clicked', collapsing: true, align: 'right' },
@@ -25,8 +26,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Create New Email', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
       ] : null
     },
-    defaultSort: { key: 'title', order: 'asc' },
-    entity: 'workflow',
+    defaultSort: { key: 'created_at', order: 'desc' },
+    entity: 'email',
     onClick: (record) => context.router.history.push(`/admin/crm/emails/${record.id}`)
   },
   task: resources.programs.length > 0 ? {

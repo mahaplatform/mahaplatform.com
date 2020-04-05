@@ -5,7 +5,7 @@ import React from 'react'
 
 const getTabs = ({ audits, event, registration, tickets }) => ({
   items: [
-    { label: 'Details', component: <Details registration={ registration } audits={ audits } /> },
+    { label: 'Details', component: <Details event={ event } registration={ registration } audits={ audits } /> },
     { label: 'Tickets', component: <Tickets event={ event } registration={ registration } tickets={ tickets } /> }
   ]
 })

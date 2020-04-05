@@ -26,6 +26,13 @@ const Email = new Model({
       return `/admin/crm/emails/${this.get('id')}`
     },
 
+    type() {
+      if(this.get('event_id')) return 'event'
+      if(this.get('form_id')) return 'form'
+      if(this.get('workflow_id')) return 'workflow'
+      return 'basic'
+    },
+
     display_name() {
       if(this.get('event_id')) return `${this.related('event').get('title')}: ${this.get('title')}`
       if(this.get('form_id')) return `${this.related('form').get('title')}: ${this.get('title')}`

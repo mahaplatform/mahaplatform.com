@@ -25,6 +25,10 @@ const Form = new Model({
       return `/admin/crm/forms/${this.get('id')}`
     },
 
+    url() {
+      return `${process.env.WEB_HOST}/crm/forms/${this.get('code')}`
+    },
+
     is_open() {
       const { limits } = this.get('config')
       const { start_date, end_date, max_responses } = limits

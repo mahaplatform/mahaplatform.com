@@ -119,7 +119,7 @@ class Step3 extends React.Component {
       ...fields,
       ...custom.map(field => ({
         ...field,
-        name: `tickets.${index}.${field.name}`
+        name: `tickets.${index}.${field.code}`
       }))
     ]
   }

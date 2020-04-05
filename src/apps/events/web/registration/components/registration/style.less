@@ -1,0 +1,84 @@
+
+.registration {
+  display: flex;
+  flex: 1;
+}
+.registration-main {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.registration-sidebar {
+  flex: 0 0 40%;
+  max-width: 400px;
+  background-color: fadeout(@blue, 90);
+}
+.registration-main-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.registration-main-body {
+  display: flex;
+  flex: 1;
+}
+.registration-sidebar-image {
+  background-color: fadeout(@black, 30);
+  padding-bottom: 50%;
+  position: relative;
+  height: 0;
+  .maha-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.registration-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.registration-panel-message {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+.registration-panel-body {
+  padding: 0.8em;
+  .scrollable();
+  flex: 1;
+}
+.registration-panel-content {
+  max-width: 625px;
+  margin: 0 auto;
+  width: 100%;
+}
+.registration-panel-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  background: fadeout(@black, 97);
+  padding: 0.4em;
+  display: flex;
+  .registration-panel-footer-item:first-child {
+    text-align: left;
+  }
+  .registration-panel-footer-item:last-child {
+    text-align: right;
+  }
+}
+.registration-panel-footer-item {
+  flex: 1;
+  padding: 0.4em;
+}
+
+@media (min-width: 1025px) {
+  .registration-panel-body {
+    background-color: fadeout(@black, 90);
+  }
+  .registration-panel-content {
+    background-color: @white;
+    padding: 0.8em;
+  }
+}
+@media (max-width: 1024px) {
+}

@@ -42,6 +42,8 @@ export const fonts = [
 
 export const link_strategies = [
   { value: 'web', text: 'Web Address' },
+  { value: 'form', text: 'Form' },
+  { value: 'event', text: 'Event' },
   { value: 'email', text: 'Email Address' },
   { value: 'asset', text: 'File' }
 ]

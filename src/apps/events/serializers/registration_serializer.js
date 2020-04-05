@@ -8,6 +8,7 @@ const RegistrationSerializer = (req, result) => ({
   is_known: result.get('is_known'),
   tickets_count: result.get('tickets_count'),
   revenue: result.get('revenue'),
+  data: result.get('data'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -3,7 +3,7 @@ import { Button, Comments, List } from 'maha-admin'
 import numeral from 'numeral'
 import React from 'react'
 
-const Details = ({ registration }) => {
+const Details = ({ event, registration }) => {
 
   const contact = {
     label: registration.contact.display_name,
@@ -18,21 +18,36 @@ const Details = ({ registration }) => {
   }
 
   const config = {
-    items: [
-      { label: 'Contact', content: <Button { ...contact } /> },
-      { label: 'IP Address', content: registration.ipaddress },
-      { label: 'Referer', content: registration.referer },
-      { label: 'Duration', content: `${registration.duration} seconds` },
-      { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
-      { label: 'Submitted', content: registration.created_at, format: 'datetime' }
+    sections: [
+      {
+        items: [
+          { label: 'Contact', content: <Button { ...contact } /> },
+          { label: 'IP Address', content: registration.ipaddress },
+          { label: 'Referer', content: registration.referer },
+          { label: 'Duration', content: `${registration.duration} seconds` },
+          { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
+          { label: 'Submitted', content: registration.created_at, format: 'datetime' }
+        ]
+      }, {
+        title: 'Registration Data',
+        items: [
+          { label: 'First Name', content: registration.data.first_name },
+          { label: 'Last Name', content: registration.data.last_name },
+          { label: 'Email', content: registration.data.email }
+        ]
+      }
     ]
   }
 
   if(registration.invoice_id) {
-    config.items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
+    config.sections[0].items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
   }
 
-  config.items.push({ label: 'Revenue', content: numeral(registration.revenue).format('$0.00') })
+  config.sections[0].items.push({ label: 'Revenue', content: numeral(registration.revenue).format('$0.00') })
+
+  event.contact_config.fields.map(field => {
+    config.sections[1].items.push({ label: field.name.value, content: registration.data[field.code] })
+  })
 
   config.footer = <Comments entity={`events_registrations/${registration.id}`} />
 
@@ -42,6 +57,7 @@ const Details = ({ registration }) => {
 
 Details.propTypes = {
   audits: PropTypes.array,
+  event: PropTypes.object,
   registration: PropTypes.object
 }
 

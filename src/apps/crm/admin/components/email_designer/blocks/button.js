@@ -177,6 +177,14 @@ class Button extends React.Component {
         { label: 'Message Subject', name: 'email_subject', type: 'textfield', defaultValue: config.email_subject },
         { label: 'Message Body', name: 'email_body', type: 'textfield', defaultValue: config.email_body }
       ]
+    } else if(config.link_strategy === 'form') {
+      return [
+        { label: 'Form', name: 'form_id', type: 'lookup', endpoint: '/api/admin/crm/forms', value: 'id', text: 'title', defaultValue: config.form_id }
+      ]
+    } else if(config.link_strategy === 'event') {
+      return [
+        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
+      ]
     } else if(config.link_strategy === 'asset') {
       return [
         { label: 'File', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose File', defaultValue: config.asset_id}

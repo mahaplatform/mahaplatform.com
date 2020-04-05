@@ -34,6 +34,10 @@ const Event = new Model({
       return this.related('organizers').map(organizer => {
         return organizer.get('id')
       })
+    },
+
+    url() {
+      return `${process.env.WEB_HOST}/events/registration/${this.get('code')}`
     }
 
   },

@@ -6,7 +6,7 @@ import React from 'react'
 const getTabs = ({ attendings, event, ticket }) => ({
   header: <img className="events-ticket-qrcode" src={`/qr/${ticket.code}`} />,
   items: [
-    { label: 'Details', component: <Details ticket={ ticket } /> },
+    { label: 'Details', component: <Details event={ event } ticket={ ticket } /> },
     { label: 'Attendance', component: <Attendance attendings={ attendings } /> }
   ]
 })

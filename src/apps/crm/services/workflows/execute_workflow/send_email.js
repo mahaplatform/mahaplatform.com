@@ -16,9 +16,9 @@ const getResponseData = async (req, { response }) => {
 
   await response.load(['form.program','invoice.payments'])
 
-  const form = response.related('form')
+  const config = response.related('form').get('config')
 
-  const fields = form.get('config').fields.filter(field => {
+  const fields = config.fields.filter(field => {
     return field.type !== 'text'
   })
 
@@ -43,15 +43,32 @@ const getResponseData = async (req, { response }) => {
 
 }
 
+const getRegistrationData = async (req, { registration }) => {
+
+  await registration.load(['event.program','invoice.payments'])
+
+  const contact_config = registration.related('event').get('contact_config')
+
+  const fields = contact_config.fields.filter(field => {
+    return field.type !== 'text'
+  })
+
+  const data = registration.get('data')
+
+  return fields.reduce((registration, field) => ({
+    ...registration,
+    [field.name.token]: data[field.code]
+  }), {})
+
+}
+
 const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!config.email_id) return {}
 
-  await enrollment.load(['response'], {
+  await enrollment.load(['response','registration'], {
     transacting: req.trx
   })
-
-  const response = enrollment.related('response')
 
   await contact.load(['email_addresses'], {
     transacting: req.trx
@@ -87,7 +104,12 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     },
     ...tokens,
-    response: response ? await getResponseData(req, { response }) : null
+    response: enrollment.related('response') ? await getResponseData(req, {
+      response: enrollment.related('response')
+    }) : null,
+    registration: enrollment.related('registration') ? await getRegistrationData(req, {
+      registration: enrollment.related('registration')
+    }) : null
   }
 
   const { reply_to, sender_id, subject } = crm_email.get('config').settings

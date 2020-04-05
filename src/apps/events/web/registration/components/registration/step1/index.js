@@ -30,21 +30,16 @@ class Step1 extends React.Component {
             <div className="registration-step1">
               <h1>{ event.title }</h1>
               <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
-              { event.sessions.length > 1 ?
-                <div className="registration-step1-section">
-                  <h2>Sessions</h2>
-                  <div className="registration-step1-sessions">
-                    { event.sessions.map((session, index) => (
-                      <div className="registration-step1-session" key={`session_${index}`}>
-                        <SessionToken { ...session } />
-                      </div>
-                    ))}
-                  </div>
-                </div> :
-                <div className="registration-step1-section">
-                  <SessionToken { ..._.omit(event.sessions[0], ['title']) } />
+              <div className="registration-step1-section">
+                <h2>Sessions</h2>
+                <div className="registration-step1-sessions">
+                  { event.sessions.map((session, index) => (
+                    <div className="registration-step1-session" key={`session_${index}`}>
+                      <SessionToken { ...session } />
+                    </div>
+                  ))}
                 </div>
-              }
+              </div>
               { event.organizers.length > 0 &&
                 <div className="registration-step1-section">
                   <h2>Organizers</h2>

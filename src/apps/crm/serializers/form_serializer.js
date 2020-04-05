@@ -2,6 +2,7 @@ const FormSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   code: result.get('code'),
+  url: result.get('url'),
   config: result.get('config'),
   program: program(result.related('program')),
   email: email(result.related('email')),

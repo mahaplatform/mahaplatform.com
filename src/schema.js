@@ -878,6 +878,7 @@ const schema = {
       table.text('referer')
       table.integer('duration')
       table.boolean('is_known')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('events_sessions', (table) => {

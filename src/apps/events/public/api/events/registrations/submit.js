@@ -6,6 +6,7 @@ import Contact from '../../../../../crm/models/contact'
 import Ticket from '../../../../models/ticket'
 import Event from '../../../../models/event'
 import moment from 'moment'
+import _ from 'lodash'
 
 const getContact = async (req, { data }) => {
 
@@ -64,7 +65,8 @@ const submitRoute = async (req, res) => {
     referer: req.body.referer,
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
-    is_known: contact.is_known
+    is_known: contact.is_known,
+    data: req.body.contact
   }).save(null, {
     transacting: req.trx
   })
@@ -79,7 +81,7 @@ const submitRoute = async (req, res) => {
       team_id: req.team.get('id'),
       registration_id: registration.get('id'),
       code,
-      values: {},
+      values: _.omit(ticket, ['name','ticket_type_id']),
       ticket_type_id: ticket.ticket_type_id,
       name: ticket.name
     }).save(null, {

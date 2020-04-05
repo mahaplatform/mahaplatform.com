@@ -1,0 +1,45 @@
+.crm-email-token {
+  display: flex;
+}
+.crm-email-token-type {
+  padding: 0.4em 0 0.4em 0.8em;
+}
+.crm-email-token-icon {
+  &.form {
+    background-color: @blue;
+  }
+  &.event {
+    background-color: @orange;
+  }
+  &.basic {
+    background-color: @red;
+  }
+  &.workflow {
+    background-color: @pink;
+  }
+  margin: auto;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid fadeout(@black, 80);
+  .fa {
+    margin: auto !important;
+    color: @white;
+    font-size: 0.8em;
+  }
+  .fa-check-square {
+    transform: translate(0,0.1em);
+  }
+  .fa-mouse-pointer {
+    transform: translate(.15em,0.1em);
+  }
+  .fa-lightbulb-o,
+  .fa-plus {
+    font-size: 1em;
+  }
+}
+.crm-email-token-label {
+  flex: 1;
+  padding: 0.8em;
+}
