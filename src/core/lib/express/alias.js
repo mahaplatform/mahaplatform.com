@@ -15,6 +15,7 @@ const aliasMiddleware = async (req, res, next) => {
       return res.status(301).redirect(`${src}${query}`)
     }
     req.url = req.originalUrl = `${destination}${query}`
+    console.log(req.url)
   }
   next()
 }

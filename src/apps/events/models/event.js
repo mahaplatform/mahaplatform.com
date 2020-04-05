@@ -37,7 +37,8 @@ const Event = new Model({
     },
 
     url() {
-      return `${process.env.WEB_HOST}/events/registration/${this.get('code')}`
+      const path = this.get('permalink') ? `/events/${this.get('permalink')}` : `/events/registrations/${this.get('code')}`
+      return `${process.env.WEB_HOST}${path}`
     }
 
   },

@@ -15,7 +15,8 @@ const editRoute = async (req, res) => {
   })
 
   res.status(200).respond(form, (req, form) => ({
-    title: form.get('title')
+    title: form.get('title'),
+    permalink: form.get('permalink')
   }))
 
 }

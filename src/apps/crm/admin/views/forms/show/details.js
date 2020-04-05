@@ -4,6 +4,12 @@ import React from 'react'
 
 const Details = ({ audits, form }) => {
 
+  const url = {
+    label: form.url,
+    className: 'link',
+    link: form.url
+  }
+
   const design = {
     label: 'Design Form',
     className: 'link',
@@ -31,6 +37,7 @@ const Details = ({ audits, form }) => {
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Program', content: form.program.title },
+    { label: 'URL', content: <Button { ...url } /> },
     { label: 'Design', content: <Button { ...design } /> },
     { label: 'Confirmation', content: <Button { ...email } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },

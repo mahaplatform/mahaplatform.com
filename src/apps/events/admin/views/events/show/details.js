@@ -6,6 +6,12 @@ import React from 'react'
 
 const Details = ({ audits, event }) => {
 
+  const url = {
+    label: event.url,
+    className: 'link',
+    link: event.url
+  }
+
   const email = {
     label: 'Design Email',
     className: 'link',
@@ -24,6 +30,7 @@ const Details = ({ audits, event }) => {
         items: [
           { label: 'Title', content: event.title },
           { label: 'Description', content: event.description },
+          { label: 'URL', content: <Button { ...url } /> },
           { label: 'Code', content: event.code },
           { label: 'Program', content: event.program.title },
           { label: 'Confirmation', content: <Button { ...email } /> },

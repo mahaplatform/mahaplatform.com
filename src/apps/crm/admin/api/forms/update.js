@@ -5,7 +5,6 @@ import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { updateAlias } from '../../../../maha/services/aliases'
 import Form from '../../../models/form'
-import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
@@ -22,16 +21,18 @@ const updateRoute = async (req, res) => {
   })
 
   await form.save({
-    ...whitelist(req.body, ['title','config'])
+    ...whitelist(req.body, ['title','config','permalink'])
   }, {
     patch: true,
     transacting: req.trx
   })
 
-  await updateAlias(req, {
-    src: _.get(req.body, 'config.seo.permalink'),
-    destination: `/crm/forms/${form.get('code')}`
-  })
+  if(req.body.permalink) {
+    await updateAlias(req, {
+      src: `/forms/${req.body.permalink}`,
+      destination: `/crm/forms/${form.get('code')}`
+    })
+  }
 
   await audit(req, {
     story: 'updated',

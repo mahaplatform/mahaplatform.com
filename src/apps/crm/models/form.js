@@ -26,7 +26,8 @@ const Form = new Model({
     },
 
     url() {
-      return `${process.env.WEB_HOST}/crm/forms/${this.get('code')}`
+      const path = this.get('permalink') ? `/forms/${this.get('permalink')}` : `/crm/forms/${this.get('code')}`
+      return `${process.env.WEB_HOST}${path}`
     },
 
     is_open() {

@@ -368,6 +368,7 @@ const schema = {
       table.integer('workflow_id').unsigned()
       table.integer('email_id').unsigned()
       table.timestamp('deleted_at')
+      table.string('permalink', 255)
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -828,7 +829,6 @@ const schema = {
       table.integer('program_id').unsigned()
       table.string('title', 255)
       table.text('description')
-      table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)

@@ -17,6 +17,7 @@ const editRoute = async (req, res) => {
 
   res.status(200).respond({
     title: event.get('title'),
+    permalink: event.get('permalink'),
     description: event.get('description'),
     image_id: event.get('image_id'),
     ticket_types: event.related('ticket_types').map(ticket_type => ({

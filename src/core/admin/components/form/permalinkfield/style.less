@@ -1,0 +1,34 @@
+.crm-permalinkfield {
+  border: 1px solid rgba(34,36,38,.15);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  &:focus {
+    outline: none !important;
+    border-color: @lightblue;
+    box-shadow: none;
+  }
+  &.disabled {
+    background-color: fadeout(@black, 97);
+    color: fadeout(@black, 90);
+    * {
+      color: fadeout(@black, 40) !important;
+    }
+  }
+}
+.crm-permalinkfield-field {
+  .maha-input {
+    border: none;
+  }
+}
+.crm-permalinkfield-permalink {
+  background-color: fadeout(@black, 97);
+  border-top: 1px solid fadeout(@black, 90);
+  padding: 0.4em 0.8em;
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+}
+.crm-permalinkfield-permalink-text {
+  color: @blue;
+}

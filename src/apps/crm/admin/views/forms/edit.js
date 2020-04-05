@@ -1,4 +1,3 @@
-import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -32,7 +31,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
+            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/forms', placeholder: '/path/to/form' }
           ]
         }
       ]

@@ -18,6 +18,7 @@ import Lookup2 from './lookup2'
 import MoneyField from './moneyfield'
 import NumberField from './numberfield'
 import Password from './password'
+import PermalinkField from './Permalinkfield'
 import ProfileField from './profilefield'
 import PhoneField from './phonefield'
 import PhoneNumberField from './phonenumberfield'
@@ -97,6 +98,7 @@ class Control extends React.Component {
     if(type === 'moneyfield') return MoneyField
     if(type === 'numberfield') return NumberField
     if(type === 'password') return Password
+    if(type === 'permalinkfield') return PermalinkField
     if(type === 'phonefield') return PhoneField
     if(type === 'phonenumberfield') return PhoneNumberField
     if(type === 'profilefield') return ProfileField

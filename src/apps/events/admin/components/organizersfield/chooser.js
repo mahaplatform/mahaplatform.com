@@ -14,6 +14,7 @@ class Chooser extends React.PureComponent {
     onChoose: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleNew = this._handleNew.bind(this)
@@ -28,7 +29,7 @@ class Chooser extends React.PureComponent {
 
   _getNew() {
     return {
-      onDone: this._handleChoose
+      onDone: this._handleAdd
     }
   }
 
@@ -54,6 +55,11 @@ class Chooser extends React.PureComponent {
   }
 
   _handleBack() {
+    this.context.form.pop()
+  }
+
+  _handleAdd(organizer) {
+    this.props.onChoose(organizer)
     this.context.form.pop()
   }
 

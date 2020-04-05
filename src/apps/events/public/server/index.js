@@ -1,10 +1,10 @@
-import registration from './registration'
+import registrations from './registrations'
 import { Router } from 'express'
 import events from './events'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/registration', registration)
+router.use('/registrations', registrations)
 
 router.use('/events', events)
 

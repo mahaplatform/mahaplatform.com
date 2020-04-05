@@ -59,7 +59,6 @@ class SEO extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter title', defaultValue: config.title },
-            { label: 'Permalink', name: 'permalink', type: 'textfield', placeholder: '/your/form/name', defaultValue: config.permalink },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter description', maxLength: 55, rows: 1, defaultValue: config.description },
             { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image, ratio: 1.9 }
           ]

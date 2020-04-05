@@ -1,9 +1,11 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { createConfirmationWorkflow } from '../../../services/workflows'
+import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateAlias } from '../../../../maha/services/aliases'
 import Program from '../../../models/program'
 import Form from '../../../models/form'
 import _ from 'lodash'
@@ -36,7 +38,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     program_id: program.get('id'),
-    title: req.body.title,
+    ...whitelist(req.body, ['title','permalink']),
     config: {
       fields: [
         { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield' }, overwrite: true },
@@ -60,13 +62,19 @@ const createRoute = async (req, res) => {
       },
       seo: {
         title: req.body.title,
-        description: '',
-        permalink: ''
+        description: ''
       }
     }
   }).save(null, {
     transacting: req.trx
   })
+
+  if(req.body.permalink) {
+    await updateAlias(req, {
+      src: `/forms/${req.body.permalink}`,
+      destination: `/crm/forms/${form.get('code')}`
+    })
+  }
 
   await audit(req, {
     story: 'created',

@@ -68,7 +68,7 @@ const createRoute = async (req, res) => {
 
   if(req.body.permalink) {
     await updateAlias(req, {
-      src: req.body.permalink,
+      src: `/events/${req.body.permalink}`,
       destination: `/events/registrations/${event.get('code')}`
     })
   }
