@@ -2,6 +2,13 @@ import { Button, Loader } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const methods = [
+  { label: 'Google Pay', name: 'googlepay', component: <div>GooglePay</div> },
+  { label: 'PayPal', name: 'paypal', component: <div>PayPal</div> },
+  { label: 'Credit Card', name: 'card', component: <div>Card</div> },
+  { label: 'Bank Account', name: 'ach', component: <div>ACH</div> }
+]
+
 class Step4 extends React.Component {
 
   static propTypes = {
@@ -27,7 +34,18 @@ class Step4 extends React.Component {
           <div className="registration-panel-body">
             <div className="registration-panel-content">
               <div className="registration-step4">
-                <h2>Payment Information</h2>
+                <div className="registration-methods">
+                  { methods.map((method, index) => (
+                    <div className="registration-method" key={`method_${index}`} onClick={ this._handleMethod.bind(this, method.component) }>
+                      <div className="registration-method-mark">
+                        <img src={`/admin/images/payments/${method.name}-mark.png`} />
+                      </div>
+                      <div className="registration-method-label">
+                        { method.label }
+                      </div>
+                    </div>
+                  )) }
+                </div>
               </div>
             </div>
           </div>
@@ -67,6 +85,8 @@ class Step4 extends React.Component {
   _handleBack() {
     this.props.onBack()
   }
+
+  _handleMethod() {}
 
   _handleNext() {
     this.props.onSubmit({

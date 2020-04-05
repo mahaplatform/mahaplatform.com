@@ -21,7 +21,7 @@
     content: ' ';
     position: absolute;
     height: 2px;
-    top: 50%;
+    top: 30%;
   }
   &:before {
     width: ~"calc(50% - 0.8em)";
@@ -36,11 +36,17 @@
     &:before, &:after {
       background-color: @green;
     }
+    .registration-step-label {
+      color: @black;
+    }
   }
   &.current {
     .registration-step-marker,
     &:before {
       background-color: @green;
+    }
+    .registration-step-label {
+      color: @black;
     }
   }
 }
@@ -53,4 +59,10 @@
   height: 1.6em;
   line-height: 1.6em;
   text-align: center;
+}
+.registration-step-label {
+  color: fadeout(@black, 80);
+  margin-top: 0.4em;
+  font-size: 0.8em;
+  line-height: 1.2em;
 }

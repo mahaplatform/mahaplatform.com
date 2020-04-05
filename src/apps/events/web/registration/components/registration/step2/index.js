@@ -23,7 +23,6 @@ class Step2 extends React.Component {
         <div className="registration-panel-body">
           <div className="registration-panel-content">
             <div className="registration-step2">
-              <h2>Contact Information</h2>
               <Form { ...this._getForm() } />
             </div>
           </div>

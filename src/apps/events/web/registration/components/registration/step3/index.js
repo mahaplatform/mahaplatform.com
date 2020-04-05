@@ -25,7 +25,6 @@ class Step3 extends React.Component {
         <div className="registration-panel-body">
           <div className="registration-panel-content">
             <div className="registration-step3">
-              <h2>Ticket and Demographic Information</h2>
               <p>
                 In order to better serve our community, we collect basic
                 demographic information to help measure our impact. Please
@@ -82,7 +81,7 @@ class Step3 extends React.Component {
     const custom = event.ticket_config ? event.ticket_config.fields : []
     const fields = [
       { name: `tickets.${index}.ticket_type_id`, type: 'hidden', value: item.ticket_type_id },
-      { label: 'Name', name: `tickets.${index}.name`, type: 'textfield', placeholder: 'Enter name', required: true }
+      { label: 'Name on Ticket', name: `tickets.${index}.name`, type: 'textfield', placeholder: 'Enter name', required: true }
     ]
     if(!_.includes(hidden, 'gender')) {
       fields.push({ label: 'Gender', name: `tickets.${index}.gender`, type: 'radiogroup', placeholder: 'Choose gender', options: [
