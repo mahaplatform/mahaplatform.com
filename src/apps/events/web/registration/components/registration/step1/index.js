@@ -119,11 +119,16 @@ class Step1 extends React.Component {
 
   _handleUpdate(ticket_type, quantity) {
     const { quantities } = this.state
-    const { id } = ticket_type
+    const { id, fixed_price } = ticket_type
     this.setState({
       quantities: {
         ...quantities,
-        [id]: quantity
+        [id]: {
+          quantity,
+          base_price: fixed_price,
+          tax_rate: 0.00,
+          price: fixed_price
+        }
       }
     })
   }

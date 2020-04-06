@@ -1,6 +1,7 @@
 import Confirmation from './confirmation'
+import { Payment } from 'maha-client'
 import PropTypes from 'prop-types'
-import Payment from './payment'
+import Summary from './summary'
 import Layout from './layout'
 import Header from './header'
 import Footer from './footer'
@@ -60,7 +61,10 @@ class Form extends React.Component {
             <Fields { ...this._getFields() } />
           }
           { isActive && isOpen && mode === 'payment' &&
-            <Payment { ...this._getPayment() } />
+            <div className="maha-form-body">
+              <Summary { ...this._getSummary() } />
+              <Payment { ...this._getPayment() } />
+            </div>
           }
           { status === 'success' &&
             <Confirmation { ...this._getSection() } />
@@ -93,12 +97,12 @@ class Form extends React.Component {
   _getPayment() {
     const { code, config, data, settings, summary, token, onSetPaid } = this.props
     return {
-      amount: summary.total,
+      amount: Number(summary.total),
       data,
       endpoint: `/api/crm/forms/${code}`,
+      lineItems: summary.products,
       program: config.program,
       settings,
-      summary,
       token,
       onSuccess: onSetPaid
     }
@@ -107,6 +111,10 @@ class Form extends React.Component {
   _getSection() {
     const { config } = this.props
     return { config }
+  }
+
+  _getSummary() {
+    return this.props.summary
   }
 
   _handleProceed() {

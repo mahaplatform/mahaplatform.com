@@ -2,7 +2,6 @@ import GooglePay from './googlepay'
 import PropTypes from 'prop-types'
 import ApplePay from './applepay'
 import Methods from './methods'
-import Summary from './summary'
 import PayPal from './paypal'
 import Card from './card'
 import React from 'react'
@@ -12,13 +11,14 @@ import _ from 'lodash'
 class Payment extends React.Component {
 
   static propTypes = {
+    amount: PropTypes.number,
     data: PropTypes.object,
     endpoint: PropTypes.string,
+    lineItems: PropTypes.object,
     method: PropTypes.string,
     program: PropTypes.object,
     settings: PropTypes.object,
     status: PropTypes.string,
-    summary: PropTypes.object,
     paymentToken: PropTypes.string,
     token: PropTypes.string,
     onFetch: PropTypes.func,
@@ -32,25 +32,22 @@ class Payment extends React.Component {
     const { status, paymentToken } = this.props
     const methods = this._getAllowed()
     return (
-      <div className="maha-form-body">
-        <div className="maha-payment">
-          { status === 'loading' &&
-            <div className="ui active inverted dimmer">
-              <div className="ui large text loader">Loading</div>
-            </div>
-          }
-          <Summary { ...this._getSummary() } />
-          { methods.length > 1 &&
-            <Methods { ...this._getMethods() } />
-          }
-          { paymentToken &&
-            <div className={`maha-payment-method ${ this.props.method }`}>
-              { methods.map((method, index) => (
-                <method.component { ...this._getMethod() } key={`method_${index}`} />
-              ))}
-            </div>
-          }
-        </div>
+      <div className="maha-payment">
+        { status === 'loading' &&
+          <div className="ui active inverted dimmer">
+            <div className="ui large text loader">Loading</div>
+          </div>
+        }
+        { methods.length > 1 &&
+          <Methods { ...this._getMethods() } />
+        }
+        { paymentToken &&
+          <div className={`maha-payment-method ${ this.props.method }`}>
+            { methods.map((method, index) => (
+              <method.component { ...this._getMethod() } key={`method_${index}`} />
+            ))}
+          </div>
+        }
       </div>
     )
   }
@@ -100,21 +97,17 @@ class Payment extends React.Component {
   }
 
   _getMethod(method) {
-    const { endpoint, data, program, summary, token, paymentToken } = this.props
+    const { amount, endpoint, data, lineItems, program, token, paymentToken } = this.props
     return {
-      amount: summary.total,
+      amount,
       endpoint,
       data,
-      lineItems: summary.products,
+      lineItems,
       program,
       paymentToken,
       token,
       onSuccess: this._handleSuccess
     }
-  }
-
-  _getSummary() {
-    return this.props.summary
   }
 
   _handleSuccess() {

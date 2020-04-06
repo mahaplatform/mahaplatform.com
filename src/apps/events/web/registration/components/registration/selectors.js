@@ -4,14 +4,21 @@ const ticket_types = (state, props) => props.event.ticket_types
 
 const quantities = (state, props) => state.quantities
 
+const contact = (state, props) => state.contact
+
+const payment = (state, props) => state.payment
+
+const tickets = (state, props) => state.tickets
+
+const event = (state, props) => props.event
+
 export const items = createSelector(
   ticket_types,
   quantities,
   (ticket_types, quantities) => ticket_types.filter(ticket_type => {
     return quantities[ticket_type.id]
   }).map(ticket_type => {
-    const quantity = quantities[ticket_type.id] || 0
-    const price = ticket_type.fixed_price
+    const { quantity, price } = quantities[ticket_type.id]
     return {
       ticket_type_id: ticket_type.id,
       name: ticket_type.name,
@@ -42,4 +49,23 @@ export const discount = createSelector(
 export const total = createSelector(
   subtotal,
   (subtotal) => subtotal
+)
+
+export const data = createSelector(
+  contact,
+  event,
+  items,
+  payment,
+  quantities,
+  tickets,
+  (contact, event, items, payment, quantities, tickets) => ({
+    contact,
+    items,
+    ipaddress: event.ipaddress,
+    payment,
+    quantities,
+    referer: event.referer,
+    starttime: event.starttime,
+    tickets
+  })
 )

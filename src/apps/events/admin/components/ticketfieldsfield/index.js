@@ -42,7 +42,7 @@ class TicketFieldsField extends React.PureComponent {
       <div className="ticketfieldsfield">
         <div className="ticketfieldsfield-field">
           <div className="ticketfieldsfield-field-label">
-            Name <span>(textfield)</span>
+            Name on Ticket <span>(textfield)</span>
           </div>
         </div>
         { core.map((field, index) => (

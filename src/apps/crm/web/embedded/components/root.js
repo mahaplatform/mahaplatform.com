@@ -1,4 +1,4 @@
-import { AddressField, FileField } from 'maha-client'
+import { AddressField, FileField, Payment, ApplePay, GooglePay, PayPal, ACH, Card, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -8,17 +8,6 @@ import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
-
-import achMiddleware from './form/payment/ach/middleware'
-import cardMiddleware from './form/payment/card/middleware'
-import googlepayMiddleware from './form/payment/googlepay/middleware'
-
-import PaymentField from './form/payment'
-import ApplePay from './form/payment/applepay'
-import GooglePay from './form/payment/googlepay'
-import PayPal from './form/payment/paypal'
-import ACH from './form/payment/ach'
-import Card from './form/payment/card'
 
 import ProductField from './form/fields/productfield'
 import Form from './form'
@@ -37,8 +26,8 @@ class Root extends React.Component {
     const reducer = combineReducers([
       AddressField,
       FileField,
-      PaymentField,
       ProductField,
+      Payment,
       ApplePay,
       GooglePay,
       PayPal,
@@ -58,9 +47,7 @@ class Root extends React.Component {
     const middleware = [
       thunkMiddleware,
       apiRequestMiddleware,
-      achMiddleware,
-      cardMiddleware,
-      googlepayMiddleware,
+      ...paymentMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 

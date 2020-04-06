@@ -8,8 +8,9 @@ class MahaButton {
   _handleInit = this._handleInit.bind(this)
   _handleOpen = this._handleOpen.bind(this)
 
-  constructor({ id }) {
+  constructor({ id, code }) {
     this.id = id
+    this.code = code
     document.addEventListener('DOMContentLoaded', this._handleInit, false)
   }
 
@@ -20,7 +21,6 @@ class MahaButton {
     stylesheet.href = `${process.env.WEB_HOST}/admin/css/button.css`
     document.head.appendChild(stylesheet)
 
-    this.button = document.getElementById(this.id)
     this.button = document.getElementById(this.id)
     this.button.addEventListener('click', this._handleOpen, false)
 
@@ -38,15 +38,11 @@ class MahaButton {
   }
 
   _handleOpen() {
-
     this.body.className = 'maha-events-button open'
-
     this.iframe = document.createElement('iframe')
-    this.iframe.src = 'https://localhost:8080/events/registration/2a8trkr7bf'
+    this.iframe.src = `https://localhost:8080/events/registrations/${this.code}`
     this.iframe.frameBorder = 0
-
     this.modal.appendChild(this.iframe)
-
   }
 
   _handleResize(height) {

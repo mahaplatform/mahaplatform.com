@@ -13,6 +13,7 @@ class Registration extends React.Component {
 
   static propTypes = {
     contact: PropTypes.object,
+    data: PropTypes.object,
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
@@ -124,10 +125,12 @@ class Registration extends React.Component {
   }
 
   _getStep4() {
-    const { event, status } = this.props
+    const { data, event, status, total } = this.props
     return {
+      data,
       event,
       status,
+      total,
       onBack: this._handleBack,
       onSubmit: this._handleSubmit,
       onNext: this._handleStep4
@@ -202,17 +205,8 @@ class Registration extends React.Component {
   }
 
   _handleSubmit() {
-    const { contact, event, items, payment, tickets } = this.props
-    const { referer, starttime, ipaddress } = event
-    this.props.onSubmit(event.code, {
-      contact,
-      items,
-      ipaddress,
-      payment,
-      referer,
-      starttime,
-      tickets
-    })
+    const { data } = this.props
+    this.props.onSubmit(event.code, data)
   }
 
   _handleUpdateQuantities(quantities) {

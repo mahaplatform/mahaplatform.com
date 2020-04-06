@@ -1,4 +1,5 @@
 import { encode } from '../../../../../core/services/jwt'
+import Setting from '../../../../platform/models/setting'
 import Event from '../../../models/event'
 import { readFile } from '../utils'
 import moment from 'moment'
@@ -7,10 +8,16 @@ import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
 
+  const settings = await Setting.query(qb => {
+    qb.where('id', 1)
+  }).fetch({
+    transacting: req.trx
+  })
+
   const event = await Event.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['image','organizers.photo','sessions.location','ticket_types','team'],
+    withRelated: ['image','organizers.photo','program.logo','sessions.location','ticket_types','team'],
     transacting: req.trx
   })
 
@@ -25,6 +32,8 @@ const showRoute = async (req, res) => {
 
   const ipaddress = req.header('x-forwarded-for') || req.connection.remoteAddress
 
+  const program = event.related('program')
+
   const content = ejs.render(template, {
     event: {
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
@@ -34,6 +43,7 @@ const showRoute = async (req, res) => {
       title: event.get('title'),
       description: event.get('description'),
       image: event.related('image') ? event.related('image').get('path') : null,
+      settings: settings.get('values'),
       sessions: event.related('sessions').map(session => ({
         title: session.get('title'),
         location: session.related('location') ? {
@@ -51,6 +61,10 @@ const showRoute = async (req, res) => {
         phone: organizer.get('phone'),
         photo: organizer.related('photo') ? organizer.related('photo').get('path') : null
       })),
+      program: {
+        title: program.get('title'),
+        logo: program.related('logo') ? program.related('logo').get('path') : null
+      },
       ticket_types: event.related('ticket_types').map(ticket_type => ({
         id: ticket_type.get('id'),
         name: ticket_type.get('name'),
