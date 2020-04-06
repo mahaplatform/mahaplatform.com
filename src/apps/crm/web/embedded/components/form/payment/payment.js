@@ -12,12 +12,14 @@ import _ from 'lodash'
 class Payment extends React.Component {
 
   static propTypes = {
-    form: PropTypes.object,
+    data: PropTypes.object,
+    endpoint: PropTypes.string,
     method: PropTypes.string,
     program: PropTypes.object,
     settings: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
+    paymentToken: PropTypes.string,
     token: PropTypes.string,
     onFetch: PropTypes.func,
     onSetMethod: PropTypes.func,
@@ -27,7 +29,7 @@ class Payment extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { status, token } = this.props
+    const { status, paymentToken } = this.props
     const methods = this._getAllowed()
     return (
       <div className="maha-form-body">
@@ -41,7 +43,7 @@ class Payment extends React.Component {
           { methods.length > 1 &&
             <Methods { ...this._getMethods() } />
           }
-          { token &&
+          { paymentToken &&
             <div className={`maha-payment-method ${ this.props.method }`}>
               { methods.map((method, index) => (
                 <method.component { ...this._getMethod() } key={`method_${index}`} />
@@ -98,12 +100,14 @@ class Payment extends React.Component {
   }
 
   _getMethod(method) {
-    const { form, program, summary, token } = this.props
+    const { endpoint, data, program, summary, token, paymentToken } = this.props
     return {
       amount: summary.total,
-      form,
+      endpoint,
+      data,
       lineItems: summary.products,
       program,
+      paymentToken,
       token,
       onSuccess: this._handleSuccess
     }

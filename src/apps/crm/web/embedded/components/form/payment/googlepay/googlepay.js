@@ -5,11 +5,13 @@ class GooglePay extends React.Component {
 
   static propTypes = {
     amount: PropTypes.number,
+    data: PropTypes.object,
+    endpoint: PropTypes.string,
     error: PropTypes.string,
-    form: PropTypes.object,
     isProcessing: PropTypes.bool,
     lineItems: PropTypes.array,
     payment: PropTypes.object,
+    paymentToken: PropTypes.string,
     status: PropTypes.string,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
@@ -73,8 +75,8 @@ class GooglePay extends React.Component {
   }
 
   _handleAuthorize() {
-    const { amount, token } = this.props
-    this.props.onAuthorize(token, { amount })
+    const { amount, paymentToken } = this.props
+    this.props.onAuthorize(paymentToken, { amount })
   }
 
   _handleCheck() {
@@ -94,8 +96,7 @@ class GooglePay extends React.Component {
   }
 
   _handleSubmit() {
-    const { amount, form, payment } = this.props
-    const { token, code, data } = form
+    const { amount, data, endpoint, payment, token } = this.props
     const body = {
       ...data,
       payment: {
@@ -104,7 +105,7 @@ class GooglePay extends React.Component {
         payment
       }
     }
-    this.props.onSubmit(token, code, body)
+    this.props.onSubmit(endpoint, token, body)
   }
 
   _handleSuccess() {

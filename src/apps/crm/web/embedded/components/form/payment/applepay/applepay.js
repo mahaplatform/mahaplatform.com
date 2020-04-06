@@ -6,10 +6,12 @@ class ApplePay extends React.Component {
 
   static propTypes = {
     amount: PropTypes.number,
+    data: PropTypes.object,
+    endpoint: PropTypes.string,
     error: PropTypes.string,
-    form: PropTypes.object,
     isProcessing: PropTypes.bool,
     lineItems: PropTypes.array,
+    paymentToken: PropTypes.string,
     program: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
@@ -71,10 +73,10 @@ class ApplePay extends React.Component {
   }
 
   _handleInit() {
-    const { token } = this.props
+    const { paymentToken } = this.props
     const onFailure = this._handleFailure.bind(this)
     client.create({
-      authorization: token
+      authorization: paymentToken
     }).then(clientInstance => {
       return applePay.create({
         client: clientInstance
@@ -137,8 +139,7 @@ class ApplePay extends React.Component {
   }
 
   _handleSubmit(payment) {
-    const { amount, form } = this.props
-    const { token, code, data } = form
+    const { amount, data, endpoint, token } = this.props
     const body = {
       ...data,
       payment: {
@@ -147,7 +148,7 @@ class ApplePay extends React.Component {
         payment
       }
     }
-    this.props.onSubmit(token, code, body)
+    this.props.onSubmit(endpoint, token, body)
   }
 
   _handleSuccess() {

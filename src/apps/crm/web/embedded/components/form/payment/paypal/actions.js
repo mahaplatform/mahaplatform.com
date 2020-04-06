@@ -1,7 +1,7 @@
-export const submit = (token, code, body) => ({
+export const submit = (endpoint, token, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
-  endpoint: `/api/crm/forms/${code}`,
+  endpoint,
   body,
   token,
   request: 'SUBMIT_REQUEST',

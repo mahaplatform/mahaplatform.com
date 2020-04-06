@@ -7,11 +7,13 @@ class Card extends React.PureComponent {
 
   static propTypes = {
     amount: PropTypes.number,
+    data: PropTypes.object,
+    endpoint: PropTypes.string,
     error: PropTypes.string,
-    form: PropTypes.object,
     isProcessing: PropTypes.bool,
     lineItems: PropTypes.array,
     payment: PropTypes.object,
+    paymentToken: PropTypes.string,
     status: PropTypes.string,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
@@ -162,8 +164,8 @@ class Card extends React.PureComponent {
 
   _handleAuthorize() {
     const { number, expirationDate, cvv } = this.state
-    const { token } = this.props
-    this.props.onAuthorize(token, { number, expirationDate, cvv })
+    const { paymentToken } = this.props
+    this.props.onAuthorize(paymentToken, { number, expirationDate, cvv })
   }
 
   _handleClear() {
@@ -206,8 +208,7 @@ class Card extends React.PureComponent {
   }
 
   _handleSubmit() {
-    const { amount, form, payment } = this.props
-    const { token, code, data } = form
+    const { amount, data, endpoint, payment, token } = this.props
     const body = {
       ...data,
       payment: {
@@ -216,7 +217,7 @@ class Card extends React.PureComponent {
         payment
       }
     }
-    this.props.onSubmit(token, code, body)
+    this.props.onSubmit(endpoint, token, body)
   }
 
   _handleSuccess() {

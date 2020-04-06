@@ -94,14 +94,12 @@ class Form extends React.Component {
     const { code, config, data, settings, summary, token, onSetPaid } = this.props
     return {
       amount: summary.total,
-      form: {
-        code,
-        data,
-        token
-      },
-      settings,
+      data,
+      endpoint: `/api/crm/forms/${code}`,
       program: config.program,
+      settings,
       summary,
+      token,
       onSuccess: onSetPaid
     }
   }

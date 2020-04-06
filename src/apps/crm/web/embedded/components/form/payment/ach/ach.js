@@ -9,15 +9,17 @@ class ACH extends React.Component {
     accountType: PropTypes.string,
     amount: PropTypes.number,
     address: PropTypes.object,
+    data: PropTypes.object,
+    endpoint: PropTypes.string,
     error: PropTypes.string,
     firstName: PropTypes.string,
-    form: PropTypes.object,
     isProcessing: PropTypes.bool,
     lastName: PropTypes.string,
     lineItems: PropTypes.array,
     locality: PropTypes.string,
     ownershipType: PropTypes.string,
     payment: PropTypes.object,
+    paymentToken: PropTypes.string,
     postalCode: PropTypes.string,
     program: PropTypes.object,
     region: PropTypes.string,
@@ -161,7 +163,7 @@ class ACH extends React.Component {
   }
 
   _handleAuthorize() {
-    const { accountNumber, routingNumber, token, ownershipType, accountType, firstName, lastName, address } = this.props
+    const { accountNumber, routingNumber, ownershipType, paymentToken, accountType, firstName, lastName, address } = this.props
     const billingAddress = {
       streetAddress: address.street_1,
       locality: address.city,
@@ -170,12 +172,11 @@ class ACH extends React.Component {
     }
     const data = { accountNumber, routingNumber, ownershipType, accountType, firstName, lastName, billingAddress }
     const mandate = this._getMandate()
-    this.props.onAuthorize(token, data, mandate)
+    this.props.onAuthorize(paymentToken, data, mandate)
   }
 
   _handleSubmit() {
-    const { amount, form, payment } = this.props
-    const { token, code, data } = form
+    const { amount, data, endpoint, payment, token } = this.props
     const body = {
       ...data,
       payment: {
@@ -184,7 +185,7 @@ class ACH extends React.Component {
         payment
       }
     }
-    this.props.onSubmit(token, code, body)
+    this.props.onSubmit(endpoint, token, body)
   }
 
   _handleSuccess() {

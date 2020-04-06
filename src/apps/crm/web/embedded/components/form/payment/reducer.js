@@ -1,7 +1,7 @@
 export const INITIAL_STATE = {
   method: 'card',
   status: 'pending',
-  token: null
+  paymentToken: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -17,7 +17,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_SUCCESS':
     return {
       ...state,
-      token: action.result.data.token,
+      paymentToken: action.result.data.token,
       status: 'ready'
     }
 
