@@ -228,7 +228,6 @@ class Infinite extends React.Component {
   }
 
   _handleReload() {
-    console.log('reload')
     this._handleFetch(0, true)
   }
 

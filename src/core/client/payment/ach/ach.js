@@ -5,6 +5,7 @@ import React from 'react'
 class ACH extends React.Component {
 
   static propTypes = {
+    account: PropTypes.string,
     accountNumber: PropTypes.string,
     accountType: PropTypes.string,
     amount: PropTypes.number,
@@ -53,25 +54,13 @@ class ACH extends React.Component {
                 <TextField { ...this._getInput('accountNumber', 'Enter account number', 2) } />
               </div>
             </div>
-            <div className="two fields">
-              <div className="field">
-                <label>Account Type</label>
-                <DropDown { ...this._getAccountType() } />
-              </div>
-              <div className="field">
-                <label>Ownership Type</label>
-                <DropDown { ...this._getOwnershipType() } />
-              </div>
+            <div className="field">
+              <label>Account Type</label>
+              <DropDown { ...this._getAccount() } />
             </div>
-            <div className="two fields">
-              <div className="field">
-                <label>First Name</label>
-                <TextField { ...this._getInput('firstName', 'Enter first name', 5) } />
-              </div>
-              <div className="field">
-                <label>Last Name</label>
-                <TextField { ...this._getInput('lastName', 'Enter last name', 6) } />
-              </div>
+            <div className="field">
+              <label>Name</label>
+              <TextField { ...this._getInput('name', 'Enter name', 4) } />
             </div>
             <div className="field">
               <label>Address</label>
@@ -121,35 +110,26 @@ class ACH extends React.Component {
     `
   }
 
-  _getAccountType() {
+  _getAccount() {
     return {
       options: [
-        { value: 'checking', text: 'Checking' },
-        { value: 'savings', text: 'Savings' }
+        { value: 'personal_checking', text: 'Personal Checking' },
+        { value: 'personal_savings', text: 'Personal Savings' },
+        { value: 'business_checking', text: 'Business Checking' },
+        { value: 'business_savings', text: 'Business Savings' }
       ],
+      defaultValue: 'personal_checking',
       placeholder: 'Choose a type',
       tabIndex: 3,
-      onChange: this._handleUpdate.bind(this, 'accountType')
+      onChange: this._handleUpdate.bind(this, 'account')
     }
   }
 
   _getAddressField() {
     return {
       placeholder: 'Enter address',
-      tabIndex: 6,
+      tabIndex: 5,
       onChange: this._handleUpdate.bind(this, 'address')
-    }
-  }
-
-  _getOwnershipType() {
-    return {
-      options: [
-        { value: 'personal', text: 'Personal' },
-        { value: 'business', text: 'Business' }
-      ],
-      placeholder: 'Choose a type',
-      tabIndex: 4,
-      onChange: this._handleUpdate.bind(this, 'ownershipType')
     }
   }
 
@@ -176,13 +156,17 @@ class ACH extends React.Component {
   }
 
   _handleSubmit() {
-    const { amount, data, endpoint, payment, token } = this.props
+    const { accountType, amount, data, endpoint, ownershipType, payment, token } = this.props
     const body = {
       ...data,
       payment: {
         amount,
         method: 'ach',
-        payment
+        payment: {
+          ownership_type: ownershipType,
+          account_type: accountType,
+          ...payment
+        }
       }
     }
     this.props.onSubmit(endpoint, token, body)

@@ -1,6 +1,7 @@
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import { makePayment } from '../../../../../finance/services/payments'
 import generateCode from '../../../../../../core/utils/generate_code'
+import socket from '../../../../../../core/services/routes/emitter'
 import EmailAddress from '../../../../../crm/models/email_address'
 import LineItem from '../../../../../finance/models/line_item'
 import Invoice from '../../../../../finance/models/invoice'
@@ -162,6 +163,12 @@ const submitRoute = async (req, res) => {
     event_id: event.get('id'),
     registration
   })
+
+  await socket.refresh(req, [
+    '/admin/events/events',
+    `/admin/events/events/${event.get('id')}`,
+    `/admin/events/events/${event.get('id')}/registrations`
+  ])
 
   res.status(200).respond(true)
 

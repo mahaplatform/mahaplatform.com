@@ -10,10 +10,11 @@ class Step4 extends React.Component {
     status: PropTypes.string,
     total: PropTypes.number,
     onBack: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onDone: PropTypes.func,
+    onNext: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
 
   render() {
@@ -34,30 +35,32 @@ class Step4 extends React.Component {
             </div>
           </div>
         }
-        <div className="registration-panel-footer">
-          <div className="registration-panel-footer-item">
-            <Button { ...this._getBack() } />
+        { false &&
+          <div className="registration-panel-footer">
+            <div className="registration-panel-footer-item">
+              <Button { ...this._getBack() } />
+            </div>
+            <div className="registration-panel-footer-item">
+              <Button { ...this._getNext() } />
+            </div>
           </div>
-          <div className="registration-panel-footer-item">
-            <Button { ...this._getNext() } />
-          </div>
-        </div>
+        }
       </div>
     )
   }
 
   _getBack() {
-    const { status } = this.props
+    const { status, onBack } = this.props
     return {
       label: '&laquo; Back',
       color: 'red',
       disabled: status !== 'pending',
-      handler: this._handleBack
+      handler: onBack
     }
   }
 
   _getPayment() {
-    const { data, event, total } = this.props
+    const { data, event, total, onDone } = this.props
     return {
       amount: total,
       data,
@@ -65,31 +68,22 @@ class Step4 extends React.Component {
       program: event.program,
       settings: event.settings,
       token: '',
-      onSuccess: () => {}
+      onSuccess: onDone
     }
   }
 
   _getNext() {
-    const { status } = this.props
+    const { status, onSubmit } = this.props
     return {
       label: 'Next &raquo;',
       color: 'red',
       disabled: status !== 'pending',
-      handler: this._handleNext
+      handler: onSubmit
     }
   }
 
-  _handleBack() {
-    this.props.onBack()
-  }
-
-  _handleMethod() {}
-
   _handleNext() {
-    this.props.onSubmit({
-      card_type: 'visa',
-      last_four: 1234
-    })
+    this.props.onSubmit()
   }
 
 

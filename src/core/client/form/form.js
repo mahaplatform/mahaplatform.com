@@ -79,7 +79,6 @@ class Form extends React.Component {
   componentDidUpdate(prevProps) {
     const { isValid, status } = this.props
     if(isValid !== prevProps.isValid && isValid) {
-      console.log('submit!')
       this._handleSubmit()
     }
     if(status !== prevProps.status) {
@@ -129,6 +128,7 @@ class Form extends React.Component {
 
   _handleSuccess() {
     const { data } = this.props
+    this.props.onSetStatus('ready')
     this.props.onSuccess(data)
   }
 

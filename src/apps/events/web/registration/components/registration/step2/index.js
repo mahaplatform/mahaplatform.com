@@ -87,7 +87,6 @@ class Step2 extends React.Component {
     this.props.onNext(data)
   }
 
-
 }
 
 export default Step2

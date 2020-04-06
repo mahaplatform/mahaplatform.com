@@ -147,7 +147,6 @@ class DateRange extends React.Component {
   }
 
   _handleUpdate(value) {
-    console.log('here')
     this.setState({ value })
   }
 

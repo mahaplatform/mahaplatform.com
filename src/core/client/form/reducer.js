@@ -42,7 +42,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET_STATUS':
     return {
       ...state,
-      status: state.status
+      status: action.status
     }
 
   case 'SET_VALID':

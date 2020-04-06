@@ -62,8 +62,9 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
+    const { defaultValue, onReady } = this.props
     document.addEventListener('mousedown', this._handleClickOutside)
-    const { onReady } = this.props
+    if(defaultValue) this._handleDefault(defaultValue)
     onReady()
   }
 
@@ -158,6 +159,14 @@ class Dropdown extends React.Component {
     this.setState({
       active: false
     })
+  }
+
+  _handleDefault(value) {
+    const { options } = this.props
+    const selected = options.findIndex(option => {
+      return option.value === value
+    })
+    this.setState({ selected })
   }
 
   _handleKeyDown(e) {

@@ -2,9 +2,7 @@ export const INITIAL_STATE = {
   accountNumber: '',
   accountType: '',
   address: null,
-  firstName: '',
-  lastName: '',
-  ownershipType: '',
+  name: '',
   payment: null,
   routingNumber: '',
   status: 'pending'
@@ -35,8 +33,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       payment: {
         reference: action.result.description,
         nonce: action.result.nonce,
-        ownership_type: state.ownershipType,
-        account_type: state.accountType,
         last_four: action.result.description.substr(-4)
       }
     }

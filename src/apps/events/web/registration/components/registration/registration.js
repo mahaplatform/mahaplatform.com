@@ -133,7 +133,8 @@ class Registration extends React.Component {
       total,
       onBack: this._handleBack,
       onSubmit: this._handleSubmit,
-      onNext: this._handleStep4
+      onNext: this._handleStep4,
+      onDone: this._handleComplete
     }
   }
 
