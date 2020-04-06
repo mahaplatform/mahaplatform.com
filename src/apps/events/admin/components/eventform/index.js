@@ -1,11 +1,11 @@
 import ContactConfig from './contact_config'
 import TicketConfig from './ticket_config'
 import Confirmation from './confirmation'
-import TicketTypes from './ticket_types'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sessions from './sessions'
 import Programs from './programs'
+import Payment from './payment'
 import Event from './event'
 import React from 'react'
 
@@ -39,7 +39,7 @@ class EventForm extends React.PureComponent {
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleSessions = this._handleSessions.bind(this)
-  _handleTicketTypes = this._handleTicketTypes.bind(this)
+  _handlePayment = this._handlePayment.bind(this)
   _handleTicketConfig = this._handleTicketConfig.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -48,6 +48,7 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
+    // this._handlePush(Payment, this._getPayment())
     this._handlePush(Programs, this._getPrograms())
   }
 
@@ -78,6 +79,16 @@ class EventForm extends React.PureComponent {
       onBack: this._handlePop,
       onChange: this._handleUpdate,
       onDone: this._handleEvent
+    }
+  }
+
+  _getPayment() {
+    const { event } = this.state
+    return {
+      event,
+      onBack: this._handlePop,
+      onChange: this._handleUpdate,
+      onDone: this._handlePayment
     }
   }
 
@@ -118,16 +129,6 @@ class EventForm extends React.PureComponent {
     }
   }
 
-  _getTicketTypes() {
-    const { event } = this.state
-    return {
-      event,
-      onBack: this._handlePop,
-      onChange: this._handleUpdate,
-      onDone: this._handleTicketTypes
-    }
-  }
-
   _handleCancel() {
     this.context.modal.close()
   }
@@ -142,9 +143,19 @@ class EventForm extends React.PureComponent {
     this._handlePush(TicketConfig, this._getTicketConfig())
   }
 
+  _handleCreated({ data }) {
+    this.context.router.close()
+    this.context.modal.close()
+  }
+
   _handleEvent(event) {
     this._handleUpdate(event)
     this._handlePush(Sessions, this._getSessions())
+  }
+
+  _handlePayment({ payment_methods, ticket_types }) {
+    this._handleUpdate({ payment_methods, ticket_types })
+    this._handlePush(ContactConfig, this._getContactConfig())
   }
 
   _handlePrograms(program) {
@@ -180,24 +191,14 @@ class EventForm extends React.PureComponent {
     })
   }
 
-  _handleCreated({ data }) {
-    this.context.router.close()
-    this.context.modal.close()
-  }
-
   _handleSessions({ sessions }) {
     this._handleUpdate({ sessions })
-    this._handlePush(TicketTypes, this._getTicketTypes())
+    this._handlePush(Payment, this._getPayment())
   }
 
   _handleTicketConfig({ ticket_config }) {
     this._handleUpdate({ ticket_config })
     this._handlePush(Confirmation, this._getConfirmation())
-  }
-
-  _handleTicketTypes({ ticket_types }) {
-    this._handleUpdate({ ticket_types })
-    this._handlePush(ContactConfig, this._getContactConfig())
   }
 
   _handleUpdate(value) {

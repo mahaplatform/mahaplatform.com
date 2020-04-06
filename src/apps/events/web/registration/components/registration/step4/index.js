@@ -1,12 +1,15 @@
 import { Button, Loader } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 const methods = [
-  { label: 'Google Pay', name: 'googlepay', component: <div>GooglePay</div> },
-  { label: 'PayPal', name: 'paypal', component: <div>PayPal</div> },
   { label: 'Credit Card', name: 'card', component: <div>Card</div> },
-  { label: 'Bank Account', name: 'ach', component: <div>ACH</div> }
+  { label: 'Bank Account', name: 'ach', component: <div>ACH</div> },
+  { label: 'PayPal', name: 'paypal', component: <div>PayPal</div> },
+  { label: 'Google Pay', name: 'googlepay', component: <div>GooglePay</div> },
+  { label: 'ApplePay', name: 'applepay', component: <div>ApplePay</div> },
+  { label: 'Pay at the door', name: 'door', component: <div>Pay at the door</div> }
 ]
 
 class Step4 extends React.Component {
@@ -22,6 +25,7 @@ class Step4 extends React.Component {
   _handleNext = this._handleNext.bind(this)
 
   render() {
+    const methods = this._getMethods()
     const { status } = this.props
     return (
       <div className="registration-panel">
@@ -70,6 +74,14 @@ class Step4 extends React.Component {
       disabled: status !== 'pending',
       handler: this._handleBack
     }
+  }
+
+  _getMethods() {
+    const { event } = this.props
+    const { payment_methods } = event.payment_config
+    return payment_methods.map(name => {
+      return _.find(methods, { name })
+    })
   }
 
   _getNext() {

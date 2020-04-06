@@ -839,6 +839,7 @@ const schema = {
       table.string('permalink', 255)
       table.jsonb('contact_config')
       table.jsonb('ticket_config')
+      table.jsonb('payment_config')
     })
 
     await knex.schema.createTable('events_events_organizers', (table) => {

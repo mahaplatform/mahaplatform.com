@@ -65,7 +65,8 @@ const showRoute = async (req, res) => {
         sales_close_at: ticket_type.get('sales_close_at')
       })),
       contact_config: event.get('contact_config'),
-      ticket_config: event.get('ticket_config')
+      ticket_config: event.get('ticket_config'),
+      payment_config: event.get('payment_config')
     },
     token: encode({ code: event.get('code') }, 60 * 30)
   })

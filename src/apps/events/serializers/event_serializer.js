@@ -8,6 +8,7 @@ const EventSerializer = (req, result) => ({
   image: result.related('image') ? result.related('image').get('path') : null,
   contact_config: result.get('contact_config'),
   ticket_config: result.get('ticket_config'),
+  payment_config: result.get('payment_config'),
   organizers: result.related('organizers').map(organizer),
   program: program(result.related('program')),
   email: email(result.related('email')),

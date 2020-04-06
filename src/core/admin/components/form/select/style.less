@@ -15,7 +15,6 @@
   }
 }
 .maha-select-option {
-  border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
   cursor: pointer;
   &.selected {
@@ -32,7 +31,7 @@
 }
 .maha-select-option-icon {
   display: flex;
-  padding: 0.4em 0 0.4em 0.8em;
+  padding: 0.4em 0 0.4em 0.4em;
   i {
     color: fadeout(@black, 80);
     margin: auto;
@@ -40,7 +39,12 @@
   }
 }
 .maha-select-option-label {
+  display: flex;
   flex: 1;
   line-height: 1.6em;
   color: fadeout(@black, 40);
+  .token {
+    padding: 0.4em 0.8em;
+    flex: 1;
+  }
 }

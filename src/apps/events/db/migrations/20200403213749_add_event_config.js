@@ -6,6 +6,7 @@ const AddEventConfig = {
       table.string('permalink')
       table.jsonb('contact_config')
       table.jsonb('ticket_config')
+      table.jsonb('payment_config')
     })
   },
 
