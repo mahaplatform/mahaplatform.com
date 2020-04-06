@@ -1,38 +1,48 @@
 .maha-payment-methods {
   margin-bottom: 1.6em;
 }
-.maha-payment-methods-options {
-  display: inline-flex;
+.maha-payment-options {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.28em;
+  .maha-payment-option:last-child {
+    border-bottom: none;
+  }
 }
-.maha-payment-methods-option {
-  flex: 1;
-  margin-right: 0.4em;
-  border: 1px solid fadeout(@black, 80);
-  border-radius: 0.2em;
-  cursor: pointer;
+.maha-payment-option {
+  border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
-  width: 80px;
+  cursor: pointer;
   &:hover {
-    background-color: fadeout(@blue, 90);
-  }
-  img {
-    width: 100%;
-    display: block;
+    background-color: fadeout(@black, 97);
   }
 }
-.maha-payment-methods-option-icon {
-  padding: 0.3em;
+.maha-payment-option-icon {
+  padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
+    font-size: 1.2em;
     margin: auto;
   }
   .fa-circle-o {
-    color: fadeout(@black, 80);
-  }
-  .fa-check-circle {
-    color: @blue;
+     color: fadeout(@black, 80);
+   }
+   .fa-check-circle {
+     color: @blue;
+   }
+}
+.maha-payment-option-mark {
+  padding: 0.4em 0 0.4em 0.8em;
+  display: flex;
+  align-items: center;
+  img {
+    width: 40px;
+    height: 25px;
+    display: block;
   }
 }
-.maha-payment-methods-option-label {
-  padding: 0.3em;
+.maha-payment-option-label {
+  flex: 1;
+  padding: 0.8em;
+  display: flex;
+  align-items: center;
 }

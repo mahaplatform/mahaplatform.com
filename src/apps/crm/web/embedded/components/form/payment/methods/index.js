@@ -19,17 +19,20 @@ class Methods extends React.Component {
     return (
       <div className="maha-payment-methods">
         <div className="maha-payment-label">Method</div>
-        <div className="maha-payment-methods-options">
+        <div className="maha-payment-options">
           { methods.map((method, index) => (
-            <div className={ this._getClass(method) } key={`method_${index}`} onClick={ this._handleChoose.bind(this, method.value) }>
-              <div className="maha-payment-methods-option-icon">
+            <div className="maha-payment-option" key={`method_${index}`} onClick={ this._handleChoose.bind(this, method.value) }>
+              <div className="maha-payment-option-icon">
                 <i className={`fa fa-${ this._getIcon(method.value) }`} />
               </div>
-              <div className="maha-payment-methods-option-label">
-                <img src={`/admin/images/payments/${method.mark}`} />
+              <div className="maha-payment-option-mark">
+                <img src={`/admin/images/payments/${method.value}-mark.png`} />
+              </div>
+              <div className="maha-payment-option-label">
+                { method.label }
               </div>
             </div>
-          ))}
+          )) }
         </div>
       </div>
     )

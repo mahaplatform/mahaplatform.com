@@ -1,8 +1,8 @@
 import GooglePay from './googlepay'
 import PropTypes from 'prop-types'
 import ApplePay from './applepay'
-import Summary from './summary'
 import Methods from './methods'
+import Summary from './summary'
 import PayPal from './paypal'
 import Card from './card'
 import React from 'react'
@@ -60,19 +60,19 @@ class Payment extends React.Component {
   _getAllowed() {
     const { settings } = this.props
     const methods = [
-      { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card }
+      { label: 'Credit Card', value: 'card', component: Card }
     ]
     if(settings.ach_enabled) {
-      methods.push({ label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH })
+      methods.push({ label: 'Bank Account', value: 'ach', component: ACH })
     }
     if(settings.googlepay_enabled) {
-      methods.push({ label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay })
+      methods.push({ label: 'Google Pay', value: 'googlepay', component: GooglePay })
     }
     if(settings.paypal_enabled) {
-      methods.push({ label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal })
+      methods.push({ label: 'Pay Pal', value: 'paypal', component: PayPal })
     }
     if(settings.applepay_enabled && window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
-      methods.push({ label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay', component: ApplePay })
+      methods.push({ label: 'Apple Pay', value: 'applepay', component: ApplePay })
     }
     return methods
   }
