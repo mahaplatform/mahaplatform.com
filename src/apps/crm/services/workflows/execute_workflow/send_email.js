@@ -104,10 +104,10 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     },
     ...tokens,
-    response: enrollment.related('response') ? await getResponseData(req, {
+    response: enrollment.get('response_id') ? await getResponseData(req, {
       response: enrollment.related('response')
     }) : null,
-    registration: enrollment.related('registration') ? await getRegistrationData(req, {
+    registration: enrollment.get('registration_id') ? await getRegistrationData(req, {
       registration: enrollment.related('registration')
     }) : null
   }
