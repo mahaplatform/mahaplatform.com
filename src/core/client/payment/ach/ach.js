@@ -115,7 +115,7 @@ class ACH extends React.Component {
   _getMandate() {
     const { program } = this.props
     return `
-      By clicking "Pay", I authorize Braintree, a service of PayPal, on behalf
+      By clicking "Submit Payment", I authorize Braintree, a service of PayPal, on behalf
       of ${program.title} (i) to verify my bank account information using bank
       information and consumer reports and (ii) to debit my bank account.
     `
