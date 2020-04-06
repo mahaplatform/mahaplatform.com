@@ -5,12 +5,13 @@ import React from 'react'
 class ApplePay extends React.Component {
 
   static propTypes = {
+    amount: PropTypes.number,
     error: PropTypes.string,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
+    lineItems: PropTypes.array,
     program: PropTypes.object,
     status: PropTypes.string,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
@@ -91,13 +92,13 @@ class ApplePay extends React.Component {
   }
 
   _handleAuthorize() {
-    const { program, summary } = this.props
+    const { amount, program } = this.props
     const onFailure = this._handleFailure.bind(this)
     const onSuccess = this._handleSubmit.bind(this)
     const paymentRequest = this.applePayInstance.createPaymentRequest({
       total: {
         label: program.title,
-        amount: summary.total
+        amount
       }
     })
     const session = new window.ApplePaySession(3, paymentRequest)
@@ -136,12 +137,12 @@ class ApplePay extends React.Component {
   }
 
   _handleSubmit(payment) {
-    const { form, summary } = this.props
+    const { amount, form } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
       payment: {
-        amount: summary.total,
+        amount,
         method: 'applepay',
         payment
       }

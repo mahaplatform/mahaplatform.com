@@ -55,7 +55,7 @@ export default store => next => action => {
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
-        totalPrice: `${action.data.total}`
+        totalPrice: `${action.data.amount}`
       }
     })
     return paymentsClient.loadPaymentData(paymentDataRequest)

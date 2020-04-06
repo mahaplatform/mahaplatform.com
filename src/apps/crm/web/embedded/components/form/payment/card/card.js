@@ -6,12 +6,13 @@ import React from 'react'
 class Card extends React.PureComponent {
 
   static propTypes = {
+    amount: PropTypes.number,
     error: PropTypes.string,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
+    lineItems: PropTypes.array,
     payment: PropTypes.object,
     status: PropTypes.string,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
     onChange: PropTypes.func,
@@ -205,12 +206,12 @@ class Card extends React.PureComponent {
   }
 
   _handleSubmit() {
-    const { form, payment, summary } = this.props
+    const { amount, form, payment } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
       payment: {
-        amount: summary.total,
+        amount,
         method: 'card',
         payment
       }

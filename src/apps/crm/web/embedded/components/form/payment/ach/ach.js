@@ -7,12 +7,14 @@ class ACH extends React.Component {
   static propTypes = {
     accountNumber: PropTypes.string,
     accountType: PropTypes.string,
+    amount: PropTypes.number,
     address: PropTypes.object,
     error: PropTypes.string,
     firstName: PropTypes.string,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
     lastName: PropTypes.string,
+    lineItems: PropTypes.array,
     locality: PropTypes.string,
     ownershipType: PropTypes.string,
     payment: PropTypes.object,
@@ -22,7 +24,6 @@ class ACH extends React.Component {
     routingNumber: PropTypes.string,
     status: PropTypes.string,
     streetAddress: PropTypes.string,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -173,12 +174,12 @@ class ACH extends React.Component {
   }
 
   _handleSubmit() {
-    const { form, payment, summary } = this.props
+    const { amount, form, payment } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
       payment: {
-        amount: summary.total,
+        amount,
         method: 'ach',
         payment
       }

@@ -6,12 +6,13 @@ import React from 'react'
 class PayPal extends React.Component {
 
   static propTypes = {
+    amount: PropTypes.number,
     error: PropTypes.object,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
+    lineItems: PropTypes.array,
     program: PropTypes.object,
     status: PropTypes.string,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
@@ -65,7 +66,7 @@ class PayPal extends React.Component {
   }
 
   _handleInit() {
-    const { program, summary, token } = this.props
+    const { amount, lineItems, program, token } = this.props
     const onFailure = this._handleFailure.bind(this)
     const onSuccess = this._handleSubmit.bind(this)
     client.create({
@@ -86,14 +87,14 @@ class PayPal extends React.Component {
         payment: () => paypalCheckoutInstance.createPayment({
           flow: 'checkout',
           currency: 'USD',
-          amount: summary.total,
+          amount: amount,
           intent: 'capture',
           displayName: program.title,
-          lineItems: summary.products.map(product => ({
+          lineItems: lineItems ? lineItems.map(product => ({
             quantity: product.quantity,
             unitAmount: product.price,
             name: product.name
-          }))
+          })) : []
         }),
         onAuthorize: (data, actions) => paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
           const { nonce, details } = payload
@@ -114,12 +115,12 @@ class PayPal extends React.Component {
   }
 
   _handleSubmit(payment) {
-    const { form, summary } = this.props
+    const { amount, form } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
       payment: {
-        amount: summary.total,
+        amount,
         method: 'paypal',
         payment
       }

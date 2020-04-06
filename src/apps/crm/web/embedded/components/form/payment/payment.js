@@ -100,9 +100,10 @@ class Payment extends React.Component {
   _getMethod(method) {
     const { form, program, summary, token } = this.props
     return {
+      amount: summary.total,
       form,
+      lineItems: summary.products,
       program,
-      summary,
       token,
       onSuccess: this._handleSuccess
     }

@@ -4,12 +4,13 @@ import React from 'react'
 class GooglePay extends React.Component {
 
   static propTypes = {
+    amount: PropTypes.number,
     error: PropTypes.string,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
+    lineItems: PropTypes.array,
     payment: PropTypes.object,
     status: PropTypes.string,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -72,8 +73,8 @@ class GooglePay extends React.Component {
   }
 
   _handleAuthorize() {
-    const { summary, token } = this.props
-    this.props.onAuthorize(token, summary)
+    const { amount, token } = this.props
+    this.props.onAuthorize(token, { amount })
   }
 
   _handleCheck() {
@@ -93,12 +94,12 @@ class GooglePay extends React.Component {
   }
 
   _handleSubmit() {
-    const { form, payment, summary } = this.props
+    const { amount, form, payment } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
       payment: {
-        amount: summary.total,
+        amount,
         method: 'googlepay',
         payment
       }

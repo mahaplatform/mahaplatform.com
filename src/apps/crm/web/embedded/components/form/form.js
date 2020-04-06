@@ -93,6 +93,7 @@ class Form extends React.Component {
   _getPayment() {
     const { code, config, data, settings, summary, token, onSetPaid } = this.props
     return {
+      amount: summary.total,
       form: {
         code,
         data,

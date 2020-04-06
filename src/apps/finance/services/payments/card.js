@@ -67,6 +67,7 @@ export const chargeCard = async (req, { invoice, customer, merchant, payment, am
   })
 
   if(!result.success) {
+    console.log(result)
     throw new RouteError({
       status: 422,
       message: 'Unable to process payment',
