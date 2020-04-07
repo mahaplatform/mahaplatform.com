@@ -41,7 +41,7 @@ const getExecutor = (type, action) => {
   if(type === 'contact' && action === 'property') return contactProperty
   if(type === 'contact' && action === 'topic') return contactTopic
   if(type === 'contact' && action === 'consent') return contactConsent
-  if(type === 'contact' && action === 'lists') return contactList
+  if(type === 'contact' && action === 'list') return contactList
   if(type === 'voice' && action === 'play') return voicePlay
   if(type === 'voice' && action === 'say') return voiceSay
   if(type === 'voice' && action === 'question') return voiceQuestion
