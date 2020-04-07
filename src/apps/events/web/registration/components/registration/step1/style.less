@@ -45,11 +45,24 @@
 }
 .registration-step1-tickettype {
   border-bottom: 1px solid fadeout(@black, 90);
-  display:flex;
+  display: flex;
 }
 .registration-step1-tickettype-token {
   flex: 1;
+  display: flex;
+  & > div {
+    margin: auto 0;
+  }
 }
-.registration-step1-tickettype-quantity {
-  padding: 0.8em;
+.registration-step1-tickettype-config {
+  padding: 0.2em;
+  display: flex;
+  flex-direction: column;
+}
+.registration-step1-tickettype-config-item {
+  padding: 0.2em;
+  display: flex;
+  & > div {
+    margin-left: auto;
+  }
 }

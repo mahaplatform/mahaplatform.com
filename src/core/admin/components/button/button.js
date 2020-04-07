@@ -138,8 +138,12 @@ class Button extends React.Component {
     this.context.router.history.push(route)
   }
 
-  _handleModal(component) {
-    this.context.modal.open(component)
+  _handleModal(modal) {
+    if(modal.component) {
+      const options = modal.options || {}
+      return this.context.modal.open(modal.component, options)
+    }
+    this.context.modal.open(modal)
   }
 
   _handleDrawer(component, location) {

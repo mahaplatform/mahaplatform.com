@@ -1,0 +1,44 @@
+.maha-range {
+  input {
+    width: 100%;
+    display: block;
+    -webkit-appearance: none;
+    background: transparent;
+    &:focus {
+      outline: none !important;
+    }
+  }
+  input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: @white;
+    border: 1px solid fadeout(@black, 90);
+    height: 1em;
+    width: 1em;
+    margin-top: -0.5em;
+    border-radius: 50%;
+    cursor: grab;
+  }
+  input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+    background: #DDD;
+  }
+}
+.maha-range-legend {
+  display: flex;
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+}
+.maha-range-min {
+  flex: 1;
+  text-align: left;
+}
+.maha-range-value {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+.maha-range-max {
+  flex: 1;
+  text-align: right;
+}

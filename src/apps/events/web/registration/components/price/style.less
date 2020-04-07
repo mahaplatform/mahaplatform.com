@@ -1,0 +1,27 @@
+.registration-price-options {
+  display: flex;
+  border: 1px solid fadeout(@black, 90);
+  .registration-price-option:last-child {
+    border-right: none;
+  }
+}
+.registration-price-option,
+.registration-price-value {
+  padding: 0.4em;
+  font-size: 0.8em;
+}
+.registration-price-option {
+  border-right: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  color: fadeout(@black, 70);
+  flex: 1;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  &.selected {
+    color: @black;
+  }
+}
+.registration-price-value {
+  border: 1px solid fadeout(@black, 90);
+}

@@ -55,11 +55,11 @@ server.use('/.well-known', deeplinkMiddleware)
 
 server.use(staticMiddleware)
 
-server.use(serverMiddleware)
-
 server.use('/admin*', homeMiddleware)
 
 server.use('/api', apiMiddleware)
+
+server.use(serverMiddleware)
 
 server.use(legacyMiddleware)
 

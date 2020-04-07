@@ -2,6 +2,7 @@ import { Audit, Button, Comments, List } from 'maha-admin'
 import TicketTypeToken from '../../../tokens/ticket_type'
 import OrganizerToken from '../../../tokens/organizer'
 import PropTypes from 'prop-types'
+import Embed from './embed'
 import React from 'react'
 
 const Details = ({ audits, event }) => {
@@ -10,6 +11,18 @@ const Details = ({ audits, event }) => {
     label: event.url,
     className: 'link',
     link: event.url
+  }
+
+  const embed = {
+    label: 'button code',
+    className: 'link',
+    modal: {
+      component: <Embed event={ event } />,
+      options: {
+        width: 640,
+        height: 480
+      }
+    }
   }
 
   const email = {
@@ -31,7 +44,11 @@ const Details = ({ audits, event }) => {
           { label: 'Title', content: event.title },
           { label: 'Description', content: event.description },
           { label: 'URL', content: <Button { ...url } /> },
-          { label: 'Code', content: event.code },
+          { label: 'Code', content: (
+            <div>
+              { event.code } (<Button { ...embed } />)
+            </div>
+          ) },
           { label: 'Program', content: event.program.title },
           { label: 'Confirmation', content: <Button { ...email } /> },
           { label: 'Workflow', content: <Button { ...workflow } /> }

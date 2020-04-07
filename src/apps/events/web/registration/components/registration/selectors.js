@@ -16,7 +16,7 @@ export const items = createSelector(
   ticket_types,
   quantities,
   (ticket_types, quantities) => ticket_types.filter(ticket_type => {
-    return quantities[ticket_type.id]
+    return quantities[ticket_type.id] && quantities[ticket_type.id].quantity > 0
   }).map(ticket_type => {
     const { quantity, price } = quantities[ticket_type.id]
     return {

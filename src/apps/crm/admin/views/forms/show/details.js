@@ -1,5 +1,6 @@
 import { Audit, Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Embed from './embed'
 import React from 'react'
 
 const Details = ({ audits, form }) => {
@@ -8,6 +9,18 @@ const Details = ({ audits, form }) => {
     label: form.url,
     className: 'link',
     link: form.url
+  }
+
+  const embed = {
+    label: 'embed code',
+    className: 'link',
+    modal: {
+      component: <Embed form={ form } />,
+      options: {
+        width: 640,
+        height: 480
+      }
+    }
   }
 
   const design = {
@@ -38,6 +51,11 @@ const Details = ({ audits, form }) => {
     { label: 'Title', content: form.title },
     { label: 'Program', content: form.program.title },
     { label: 'URL', content: <Button { ...url } /> },
+    { label: 'Code', content: (
+      <div>
+        { form.code } (<Button { ...embed } />)
+      </div>
+    ) },
     { label: 'Design', content: <Button { ...design } /> },
     { label: 'Confirmation', content: <Button { ...email } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },

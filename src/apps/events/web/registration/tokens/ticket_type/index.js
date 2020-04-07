@@ -7,7 +7,9 @@ import React from 'react'
 const TicketTypeToken = (ticket_type) => (
   <div className="tickettype-token">
     <div>
-      <strong>{ ticket_type.name }</strong> (
+      <strong>{ ticket_type.name }</strong>
+    </div>
+    <div>
       { ticket_type.price_type === 'fixed' &&
         <span>
           { numeral(ticket_type.fixed_price).format('$0.00') }
@@ -22,7 +24,7 @@ const TicketTypeToken = (ticket_type) => (
         <span>
           FREE
         </span>
-      })
+      }
     </div>
     <div>
       { ticket_type.total_tickets ?

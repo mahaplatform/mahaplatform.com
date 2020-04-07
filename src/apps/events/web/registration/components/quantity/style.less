@@ -7,14 +7,20 @@
   .registration-quantity-action:last-child {
     border-left: 1px solid fadeout(@black, 90);
   }
+  & > div {
+    padding: 0.4em 0.6em;
+    font-size: 0.8em;
+  }
 }
 .registration-quantity-action {
   background-color: fadeout(@black, 97);
-  padding: 0.6em;
   cursor: pointer;
+  color: fadeout(@black, 60);
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
 }
 .registration-quantity-value {
-  padding: 0.6em;
   width: 2.4em;
   text-align: center;
 }

@@ -1,9 +1,10 @@
 import TicketTypeToken from '../../../tokens/ticket_type'
 import OrganizerToken from '../../../tokens/organizer'
 import SessionToken from '../../../tokens/session'
+import Quantity from '../../quantity'
 import { Button } from 'maha-client'
 import PropTypes from 'prop-types'
-import Quantity from '../../quantity'
+import Price from '../../price'
 import React from 'react'
 import _ from 'lodash'
 
@@ -61,8 +62,13 @@ class Step1 extends React.Component {
                     <div className="registration-step1-tickettype-token">
                       <TicketTypeToken { ...ticket_type } />
                     </div>
-                    <div className="registration-step1-tickettype-quantity">
-                      <Quantity { ...this._getQuantity(ticket_type) } />
+                    <div className="registration-step1-tickettype-config">
+                      <div className="registration-step1-tickettype-config-item">
+                        <Price { ...this._getPrice(ticket_type) } />
+                      </div>
+                      <div className="registration-step1-tickettype-config-item">
+                        <Quantity { ...this._getQuantity(ticket_type) } />
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -106,10 +112,21 @@ class Step1 extends React.Component {
     }
   }
 
+  _getPrice(ticket_type) {
+    const { fixed_price, low_price, high_price, price_type } = ticket_type
+    return {
+      defaultValue: low_price || fixed_price,
+      low_price,
+      high_price,
+      price_type,
+      onChange: this._handleUpdatePrice.bind(this, ticket_type)
+    }
+  }
+
   _getQuantity(ticket_type) {
     return {
       max: this._getMax(ticket_type),
-      onChange: this._handleUpdate.bind(this, ticket_type)
+      onChange: this._handleUpdateQuantity.bind(this, ticket_type)
     }
   }
 
@@ -117,17 +134,35 @@ class Step1 extends React.Component {
     this.props.onNext()
   }
 
-  _handleUpdate(ticket_type, quantity) {
+  _handleUpdatePrice(ticket_type, price) {
     const { quantities } = this.state
-    const { id, fixed_price } = ticket_type
+    const { id, fixed_price, low_price } = ticket_type
     this.setState({
       quantities: {
         ...quantities,
         [id]: {
-          quantity,
-          base_price: fixed_price,
+          base_price: fixed_price || low_price,
           tax_rate: 0.00,
-          price: fixed_price
+          quantity: 0,
+          ...quantities[id],
+          price
+        }
+      }
+    })
+  }
+
+  _handleUpdateQuantity(ticket_type, quantity) {
+    const { quantities } = this.state
+    const { id, fixed_price, low_price } = ticket_type
+    this.setState({
+      quantities: {
+        ...quantities,
+        [id]: {
+          base_price: fixed_price || low_price,
+          tax_rate: 0.00,
+          price: fixed_price || low_price,
+          ...quantities[id],
+          quantity
         }
       }
     })

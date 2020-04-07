@@ -14,6 +14,7 @@ import DropDown from './dropdown'
 import Checkbox from './checkbox'
 import Segment from './segment'
 import Hidden from './hidden'
+import Range from './range'
 import React from 'react'
 import Text from './text'
 import _ from 'lodash'
@@ -84,6 +85,7 @@ class Field extends React.Component {
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'radiogroup') return RadioGroup
+    if(field.type === 'range') return Range
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
