@@ -5,6 +5,7 @@ import Methods from './methods'
 import PayPal from './paypal'
 import Card from './card'
 import React from 'react'
+import Door from './door'
 import ACH from './ach'
 import _ from 'lodash'
 
@@ -72,6 +73,9 @@ class Payment extends React.Component {
     }
     if(settings.applepay_enabled && window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
       methods.push({ label: 'Apple Pay', value: 'applepay', component: ApplePay })
+    }
+    if(settings.door_enabled) {
+      methods.push({ label: 'Pay at Door', value: 'door', component: Door })
     }
     return methods
   }

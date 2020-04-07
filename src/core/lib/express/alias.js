@@ -9,6 +9,7 @@ const getAlias = async (req, { path }) => {
   }).fetch({
     transacting: req.trx
   })
+  if(!alias) return null
   if(!alias.get('next')) return alias
   return await getAlias(req, {
     path: alias.get('destination')

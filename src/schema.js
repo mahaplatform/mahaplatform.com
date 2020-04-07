@@ -2384,6 +2384,10 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('crm_contact_races', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
     await knex.schema.table('crm_contacts_organizations', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('organization_id').references('crm_organizations.id')
@@ -3259,10 +3263,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_contact_races', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
     })
 
 

@@ -4,6 +4,7 @@ import Event from '../../../models/event'
 import { readFile } from '../utils'
 import moment from 'moment'
 import path from 'path'
+import _ from 'lodash'
 import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
@@ -34,6 +35,8 @@ const showRoute = async (req, res) => {
 
   const program = event.related('program')
 
+  const payment_methods = event.get('payment_config').payment_methods
+
   const content = ejs.render(template, {
     event: {
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
@@ -43,7 +46,14 @@ const showRoute = async (req, res) => {
       title: event.get('title'),
       description: event.get('description'),
       image: event.related('image') ? event.related('image').get('path') : null,
-      settings: settings.get('values'),
+      settings: {
+        card_enabled: _.includes(payment_methods, 'card'),
+        ach_enabled: settings.get('values').ach_enabled && _.includes(payment_methods, 'ach'),
+        googlepay_enabled: settings.get('values').googlepay_enabled && _.includes(payment_methods, 'googlepay'),
+        paypal_enabled: settings.get('values').paypal_enabled && _.includes(payment_methods, 'paypal'),
+        applepay_enabled: settings.get('values').ach_enabled && _.includes(payment_methods, 'applepay'),
+        door_enabled: _.includes(payment_methods, 'door')
+      },
       sessions: event.related('sessions').map(session => ({
         title: session.get('title'),
         location: session.related('location') ? {
