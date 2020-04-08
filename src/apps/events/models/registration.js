@@ -21,7 +21,7 @@ const Registration = new Model({
   },
 
   invoice() {
-    return this.hasOne(Invoice, 'invoice_id')
+    return this.belongsTo(Invoice, 'invoice_id')
   },
 
   tickets() {

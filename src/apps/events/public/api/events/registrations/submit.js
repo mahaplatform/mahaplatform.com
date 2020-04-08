@@ -1,3 +1,6 @@
+import { updateMailingAddresses } from '../../../../../crm/services/mailing_addresses'
+import { updateEmailAddresses } from '../../../../../crm/services/email_addresses'
+import { updatePhoneNumbers } from '../../../../../crm/services/phone_numbers'
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import { makePayment } from '../../../../../finance/services/payments'
 import generateCode from '../../../../../../core/utils/generate_code'
@@ -42,6 +45,43 @@ const getContact = async (req, { data }) => {
   contact.is_known = false
 
   return contact
+
+}
+
+const updateContact = async (req, { contact, fields, data }) => {
+
+  const contactfields = fields.filter(field => {
+    return field.type === 'contactfield'
+  })
+
+  const core = contactfields.filter(field => {
+    return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
+  }).reduce((values, field) => {
+    if(!_.isNil(values[field.contactfield.name]) && field.overwrite === false) return values
+    return {
+      ...values,
+      [field.contactfield.name]: data[field.contactfield.name]
+    }
+  }, {})
+
+  const values = contactfields.filter(field => {
+    return field.contactfield.name.match(/^values./)
+  }).reduce((values, field) => {
+    const [,code] = field.contactfield.name.match(/^values.(.*)/)
+    if(!_.isNil(values[code]) && field.overwrite === false) return values
+    return {
+      ...values,
+      [code]: _.castArray(data[field.contactfield.name])
+    }
+  }, contact.get('values') || {})
+
+  await contact.save({
+    ...core,
+    values
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
 }
 
@@ -106,9 +146,59 @@ const submitRoute = async (req, res) => {
 
   req.team = event.related('team')
 
+  const fields = [
+    { code: 'first_name', type: 'contactfield', contactfield: { name: 'first_name' }, overwrite: true },
+    { code: 'last_name', type: 'contactfield', contactfield: { name: 'last_name' }, overwrite: true },
+    { code: 'email', type: 'contactfield', contactfield: { name: 'email' }, overwrite: true },
+    ...event.get('contact_config').fields
+  ]
+
+  const contactdata = fields.filter(field => {
+    return field.type === 'contactfield'
+  }).reduce((contactdata, field) => ({
+    ...contactdata,
+    [field.contactfield.name]: req.body.contact[field.code]
+  }), {})
+
   const contact = await getContact(req, {
     data: req.body.contact
   })
+
+  await updateContact(req, {
+    contact,
+    fields,
+    data: contactdata
+  })
+
+  if(contactdata.email) {
+    await updateEmailAddresses(req, {
+      contact,
+      email_addresses: [
+        { address: contactdata.email }
+      ],
+      removing: false
+    })
+  }
+
+  if(contactdata.phone) {
+    await updatePhoneNumbers(req, {
+      contact,
+      phone_numbers: [
+        { number: contactdata.phone }
+      ],
+      removing: false
+    })
+  }
+
+  if(contactdata.address) {
+    await updateMailingAddresses(req, {
+      contact,
+      mailing_addresses: [
+        { address: contactdata.address }
+      ],
+      removing: false
+    })
+  }
 
   const invoice = await createInvoice(req, {
     event,

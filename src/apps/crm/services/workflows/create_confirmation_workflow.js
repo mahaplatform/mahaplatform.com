@@ -12,7 +12,7 @@ const getTriggerType = ({ form, event }) => {
 
 const createConfirmationWorkflow = async(req, params) => {
 
-  const { form, event, program_id, template_id } = params
+  const { form, event, program_id, template_id, sender_id, subject, reply_to } = params
 
   const workflowCode = await generateCode(req, {
     table: 'crm_workflows'
@@ -91,10 +91,10 @@ const createConfirmationWorkflow = async(req, params) => {
         }
       },
       settings: {
-        sender_id: req.body.sender_id,
-        subject: req.body.subject,
-        reply_to: req.body.reply_to,
-        preview_text: req.body.subject
+        sender_id,
+        subject,
+        reply_to,
+        preview_text: subject
       }
     }
   }).save(null, {
