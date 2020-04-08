@@ -1,11 +1,14 @@
-import registrations from './registrations'
 import { Router } from 'express'
-import events from './events'
+import tickets from './tickets'
+import button from './button'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/registrations', registrations)
+router.get('/button.js', button)
 
-router.use('/events', events)
+router.get('/:code', show)
+
+router.use('/:event_code/tickets', tickets)
 
 export default router

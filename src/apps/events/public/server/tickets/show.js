@@ -1,4 +1,4 @@
-import Ticket from '../../../../models/ticket'
+import Ticket from '../../../models/ticket'
 import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'

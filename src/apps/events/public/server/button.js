@@ -1,4 +1,4 @@
-import { readFile } from '../utils'
+import { readFile } from './utils'
 import path from 'path'
 
 const embedRoute = async (req, res) => {

@@ -1,6 +1,8 @@
-class MahaButton {
+class MahaEventButton {
 
-  id = null
+  code =null
+  label =null
+  className =null
   button = null
   canvas = null
   iframe = null
@@ -8,9 +10,10 @@ class MahaButton {
   _handleInit = this._handleInit.bind(this)
   _handleOpen = this._handleOpen.bind(this)
 
-  constructor({ id, code }) {
-    this.id = id
-    this.code = code
+  constructor(options = {}) {
+    this.code = options.code
+    this.label = options.label || 'Buy Tickets'
+    this.className = options.className
     document.addEventListener('DOMContentLoaded', this._handleInit, false)
   }
 
@@ -21,7 +24,11 @@ class MahaButton {
     stylesheet.href = `${process.env.WEB_HOST}/admin/css/button.css`
     document.head.appendChild(stylesheet)
 
-    this.button = document.getElementById(this.id)
+    const buttons = document.querySelectorAll(`[data-event="${this.code}"]`)
+
+    this.button = buttons[0]
+    this.button.className = this.className
+    this.button.innerHTML = this.label
     this.button.addEventListener('click', this._handleOpen, false)
 
     this.body = document.createElement('div')
@@ -40,7 +47,7 @@ class MahaButton {
   _handleOpen() {
     this.body.className = 'maha-events-button open'
     this.iframe = document.createElement('iframe')
-    this.iframe.src = `${process.env.WEB_HOST}/events/registrations/${this.code}`
+    this.iframe.src = `${process.env.WEB_HOST}/events/${this.code}`
     this.iframe.frameBorder = 0
     this.modal.appendChild(this.iframe)
   }
@@ -51,4 +58,4 @@ class MahaButton {
 
 }
 
-window.MahaButton = MahaButton
+window.MahaEventButton = MahaEventButton

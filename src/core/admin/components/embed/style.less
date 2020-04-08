@@ -5,15 +5,21 @@
 }
 .maha-embed-header {
   padding: 0.8em;
+  .ui.button {
+    width: 140px;
+  }
 }
 .maha-embed-body {
   padding: 0 0.8em 0.8em;
   display: flex;
   flex: 1;
-  textarea {
-    flex: 1;
-    padding: 0.8em;
-    background: fadeout(@black, 30);
-    color: @white;
+}
+.maha-embed-code {
+  background-color: #282c34;
+  font-size: 0.9em;
+  width: 100%;
+  flex: 1;
+  pre {
+    margin: 0;
   }
 }

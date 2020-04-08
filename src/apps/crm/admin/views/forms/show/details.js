@@ -1,6 +1,5 @@
-import { Audit, Button, Comments, List } from 'maha-admin'
+import { Audit, Button, Comments, Embed, List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Embed from './embed'
 import React from 'react'
 
 const Details = ({ audits, form }) => {
@@ -12,10 +11,24 @@ const Details = ({ audits, form }) => {
   }
 
   const embed = {
+    header: (
+      <p>You can embed this form within your website by pasting this
+      code into your html.</p>
+    ),
+    code: `<div data-form="${form.code}" />
+<script src="${process.env.WEB_HOST}/crm/forms/embed.js"></script>
+<script>
+new MahaForm({
+  code: '${form.code}'
+})
+</script>`
+  }
+
+  const embedEvent = {
     label: 'embed code',
     className: 'link',
     modal: {
-      component: <Embed form={ form } />,
+      component: <Embed { ...embed } />,
       options: {
         width: 640,
         height: 480
@@ -53,7 +66,7 @@ const Details = ({ audits, form }) => {
     { label: 'URL', content: <Button { ...url } /> },
     { label: 'Code', content: (
       <div>
-        { form.code } (<Button { ...embed } />)
+        { form.code } (<Button { ...embedEvent } />)
       </div>
     ) },
     { label: 'Design', content: <Button { ...design } /> },

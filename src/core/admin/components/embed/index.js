@@ -1,4 +1,5 @@
 import { Button, ModalPanel } from 'maha-admin'
+import Highlight from 'react-highlight'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,26 +10,33 @@ class Embed extends React.PureComponent {
   }
 
   static propTypes = {
-    form: PropTypes.object
+    header: PropTypes.string,
+    code: PropTypes.string,
+    event: PropTypes.object
   }
 
-  textarea = null
+  state = {
+    label: 'Copy to Clipboard'
+  }
 
-  _handleBlur = this._handleBlur.bind(this)
   _handleCopy = this._handleCopy.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    const { code, header } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-embed">
           <div className="maha-embed-header">
-            <p>You can embed this form within your website by pasting this
-            code into your html.</p>
+            { header }
             <Button { ...this._getCopy() } />
           </div>
           <div className="maha-embed-body">
-            <textarea { ...this._getTextArea() } />
+            <div className="maha-embed-code">
+              <Highlight className="html">
+                { code }
+              </Highlight>
+            </div>
           </div>
         </div>
       </ModalPanel>
@@ -36,48 +44,39 @@ class Embed extends React.PureComponent {
   }
 
   _getCopy() {
+    const { label } = this.state
     return {
-      label: 'Copy to Clipboard',
+      label,
       className: 'ui tiny blue button',
       handler: this._handleCopy
     }
   }
 
-  _getTextArea() {
-    const { form } = this.props
-    return {
-      ref: node => this.textarea = node,
-      spellCheck: false,
-      onFocus: this._handleBlur,
-      value: `<div id="form-${form.code}" />
-<script src="${process.env.WEB_HOST}/crm/forms/embed.js"></script>
-<script>
-  new MahaForm({
-    id: 'form-${form.code}',
-    code: '${form.code}'
-  })
-</script>`
-    }
-  }
-
   _getPanel() {
     return {
-      title: 'Embed Code',
+      title: 'Button Code',
       rightItems: [
         { label: 'Done', handler: this._handleDone }
       ]
     }
   }
 
-  _handleBlur() {
-    this.textarea.blur()
-  }
-
   _handleCopy() {
-    this.textarea.select()
+    const { code } = this.props
+    const textarea = document.createElement('textarea')
+    textarea.value = code
+    document.body.appendChild(textarea)
+    textarea.select()
     document.execCommand('copy')
-    window.getSelection().removeAllRanges()
-    this.textarea.blur()
+    document.body.removeChild(textarea)
+    this.setState({
+      label: 'Copied!'
+    })
+    setTimeout(() => {
+      this.setState({
+        label: 'Copy to Clipboard'
+      })
+    }, 1500)
   }
 
   _handleDone() {
