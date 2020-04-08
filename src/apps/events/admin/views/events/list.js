@@ -9,7 +9,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Program', key: 'program.title', primary: true },
+      { label: 'Program', key: 'program.title', sort: 'program'},
       { label: 'Registrations', key: 'registrations_count', collapsing: true, align: 'right' },
       { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },
       { label: 'Waiting', key: 'waitings_count', collapsing: true, align: 'right' },

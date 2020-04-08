@@ -13,7 +13,7 @@ const listRoute = async (req, res) => {
       qb.whereNull('crm_postal_campaigns.deleted_at')
     },
     aliases: {
-      program: 'program.title'
+      program: 'crm_programs.title'
     },
     filter: {
       params: req.query.$filter,

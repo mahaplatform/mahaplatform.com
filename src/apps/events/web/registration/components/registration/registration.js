@@ -125,15 +125,12 @@ class Registration extends React.Component {
   }
 
   _getStep4() {
-    const { data, event, status, total } = this.props
+    const { data, event, total } = this.props
     return {
       data,
       event,
-      status,
       total,
-      onBack: this._handleBack,
       onSubmit: this._handleSubmit,
-      onNext: this._handleStep4,
       onDone: this._handleComplete
     }
   }

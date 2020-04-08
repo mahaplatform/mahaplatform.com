@@ -1,14 +1,13 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
-
-const queueFiles = collectObjects('queues/*')
+import { getQueueFiles } from './utils'
 
 const listRoute = async (req, res) => {
 
-  const queues = await Promise.map(queueFiles, async queueFile => {
-    const queueObject = queueFile.default
-    const jobs = await queueObject.queue.getJobCounts()
+  const queueFiles = getQueueFiles()
+
+  const queues = await Promise.map(Object.values(queueFiles), async queueFile => {
+    const jobs = await queueFile.queue.getJobCounts()
     return {
-      name: queueObject.name,
+      name: queueFile.name,
       ...jobs
     }
   })

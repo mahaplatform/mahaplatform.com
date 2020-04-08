@@ -1,4 +1,4 @@
-import { AddressField, Button, Form, Payment, ApplePay, GooglePay, PayPal, ACH, Card, paymentMiddleware } from 'maha-client'
+import { AddressField, Button, Form, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -31,7 +31,8 @@ class Root extends React.Component {
       GooglePay,
       PayPal,
       ACH,
-      Card
+      Card,
+      Door
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

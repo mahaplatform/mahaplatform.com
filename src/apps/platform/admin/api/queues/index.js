@@ -1,14 +1,17 @@
 import { Router } from 'express'
 import list from './list'
 import jobs from './jobs'
-import job from './job'
+import status from './status'
+import clean from './clean'
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.get('/:name/:status', jobs)
+router.use('/:name/jobs', jobs)
 
-router.get('/:name/jobs/:id', job)
+router.get('/:name/:status', status)
+
+router.patch('/:name/:status/clean', clean)
 
 export default router

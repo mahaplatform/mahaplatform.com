@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import job from './job'
+import status from './status'
 
-describe('src/apps/platform/admin/api/queues/job.js', () => {
+describe('src/apps/platform/admin/api/queues/status.js', () => {
 
 })

@@ -1,15 +1,11 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
+import { getQueueFiles } from './utils'
 import moment from 'moment'
 
-const queueFiles = collectObjects('queues/*')
+const statusRoute = async (req, res) => {
 
-const jobsRoute = async (req, res) => {
+  const queueFiles = getQueueFiles()
 
-  const queueFile = queueFiles.find(queueFile => {
-    return queueFile.default.name === req.params.name
-  })
-
-  const queue = queueFile.default.queue
+  const { queue } = queueFiles[req.params.name]
 
   const jobs = await queue.getJobs([req.params.status], 0, 100)
 
@@ -29,4 +25,4 @@ const jobsRoute = async (req, res) => {
 
 }
 
-export default jobsRoute
+export default statusRoute

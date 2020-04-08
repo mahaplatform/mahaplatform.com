@@ -116,13 +116,15 @@ const submitRoute = async (req, res) => {
     quantities: req.body.quantities
   })
 
-  await makePayment(req, {
-    invoice,
-    params: {
-      merchant_id: event.get('program_id'),
-      ...req.body.payment
-    }
-  })
+  if(req.body.payment) {
+    await makePayment(req, {
+      invoice,
+      params: {
+        merchant_id: event.get('program_id'),
+        ...req.body.payment
+      }
+    })
+  }
 
   const registration = await Registration.forge({
     team_id: req.team.get('id'),
