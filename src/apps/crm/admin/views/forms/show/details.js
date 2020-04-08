@@ -11,6 +11,7 @@ const Details = ({ audits, form }) => {
   }
 
   const embed = {
+    title: 'Embed Code',
     header: (
       <p>You can embed this form within your website by pasting this
       code into your html.</p>

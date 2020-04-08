@@ -13,6 +13,7 @@ const Details = ({ audits, event }) => {
   }
 
   const embed = {
+    title: 'Button Code',
     header: (
       <p>You can place a <strong>Buy Tickets</strong> button on your
       website by pasting this code into your html.</p>

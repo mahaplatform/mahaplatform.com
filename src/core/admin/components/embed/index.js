@@ -10,6 +10,7 @@ class Embed extends React.PureComponent {
   }
 
   static propTypes = {
+    title: PropTypes.string,
     header: PropTypes.string,
     code: PropTypes.string,
     event: PropTypes.object
@@ -53,8 +54,9 @@ class Embed extends React.PureComponent {
   }
 
   _getPanel() {
+    const { title } = this.props
     return {
-      title: 'Button Code',
+      title,
       rightItems: [
         { label: 'Done', handler: this._handleDone }
       ]
