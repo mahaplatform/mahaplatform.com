@@ -1,4 +1,9 @@
 const EmailCampaignResultSerializer = (req, result) => ({
+  open_rate: result.get('open_rate'),
+  bounce_rate: result.get('bounce_rate'),
+  click_rate: result.get('click_rate'),
+  complaint_rate: result.get('complaint_rate'),
+  unsubscribe_rate: result.get('unsubscribe_rate'),
   sent: result.get('sent'),
   delivered: result.get('delivered'),
   bounced: result.get('bounced'),

@@ -13,10 +13,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'display_name', sort: 'title', primary: true, format: EmailToken },
       { label: 'Program', key: 'program.title', sort: 'program', primary: true },
-      { label: 'Opened', key: 'opened', collapsing: true, align: 'right' },
-      { label: 'Clicked', key: 'clicked', collapsing: true, align: 'right' },
-      { label: 'Bounced', key: 'bounced', collapsing: true, align: 'right' },
-      { label: 'Unsubscribed', key: 'unsubscribed', collapsing: true, align: 'right' }
+      { label: 'Sent', key: 'sent', collapsing: true, align: 'right' },
+      { label: 'Open Rate', key: 'open_rate', collapsing: true, format: 'rate' },
+      { label: 'Click Rate', key: 'click_rate', collapsing: true, format: 'rate' },
+      { label: 'Bounce Rate', key: 'bounce_rate', collapsing: true, format: 'rate' }
     ],
     empty: {
       icon: 'envelope-o',

@@ -14,10 +14,10 @@ const listRoute = async (req, res) => {
     },
     aliases: {
       program: 'crm_programs.title',
-      opened: 'crm_email_results.opened',
-      clicked: 'crm_email_results.clicked',
-      bounced: 'crm_email_results.bounced',
-      unsubscribed: 'crm_email_results.unsubscribed'
+      bounce_rate: 'crm_email_results.bounce_rate',
+      click_rate: 'crm_email_results.click_rate',
+      open_rate: 'crm_email_results.open_rate',
+      sent: 'crm_email_results.sent'
     },
     filter: {
       params: req.query.$filter,

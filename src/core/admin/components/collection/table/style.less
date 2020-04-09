@@ -39,6 +39,7 @@
     cursor: pointer;
     color: fadeout(@black, 50);
     position: relative;
+    white-space: nowrap;
     &:hover {
       background-color: lighten(@black, 95);
     }
@@ -86,6 +87,9 @@
     &.icon {
       width: 3em;
       text-align: center;
+    }
+    &.datetime {
+      white-space: nowrap;      
     }
     .fa {
       margin: 0;

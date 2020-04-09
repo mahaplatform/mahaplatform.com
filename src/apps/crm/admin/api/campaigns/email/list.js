@@ -13,14 +13,18 @@ const listRoute = async (req, res) => {
       qb.whereNull('crm_email_campaigns.deleted_at')
     },
     aliases: {
-      program: 'crm_programs.title'
+      program: 'crm_programs.title',
+      bounce_rate: 'crm_email_campaign_results.bounce_rate',
+      click_rate: 'crm_email_campaign_results.click_rate',
+      open_rate: 'crm_email_campaign_results.open_rate',
+      sent: 'crm_email_campaign_results.sent'
     },
     filter: {
       params: req.query.$filter,
       allowed: ['program_id','status']
     },
     sort: {
-      params: req.query.sort,
+      params: req.query.$sort,
       defaults:  '-created_at',
       allowed: ['id','title','program','direction','status','created_at']
     },

@@ -163,7 +163,8 @@ class Table extends React.Component {
     if(column.primary === true) classes.push('mobile')
     if(_.includes(['check','check_times'], column.format) || column.centered === true) classes.push('center')
     if(column.collapsing) classes.push('collapsing')
-    if(column.format === 'currency') classes.push('right')
+    if(_.includes(['date','datetime'], column.format)) classes.push('collapsing datetime')
+    if(_.includes(['currency','percent','rate'], column.format)) classes.push('right')
     if(column.align) classes.push(column.align)
     if(column.padded || (!_.isFunction(column.format) && !_.isElement(column.format))) classes.push('padded')
     return classes.join(' ')
@@ -214,6 +215,7 @@ class Table extends React.Component {
   _getHeaderClass(column) {
     let classes = ['maha-collection-table-cell','padded']
     if(column.primary === true) classes.push('mobile')
+    if(_.includes(['date','datetime'], column.format)) classes.push('collapsing datetime')
     if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
     return classes.join(' ')
   }

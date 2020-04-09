@@ -3609,6 +3609,31 @@ union
       )
       select crm_email_campaigns.id as email_campaign_id,
       crm_email_campaigns.team_id,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      else ((opened.count)::real / (delivered.count)::real)
+      end as open_rate,
+      case
+      when (coalesce(sent.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(bounced.count, (0)::bigint) = 0) then (0)::real
+      else ((bounced.count)::real / (sent.count)::real)
+      end as bounce_rate,
+      case
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(clicked.count, (0)::bigint) = 0) then (0)::real
+      else ((clicked.count)::real / (opened.count)::real)
+      end as click_rate,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(complained.count, (0)::bigint) = 0) then (0)::real
+      else ((complained.count)::real / (delivered.count)::real)
+      end as complaint_rate,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(unsubscribed.count, (0)::bigint) = 0) then (0)::real
+      else ((unsubscribed.count)::real / (delivered.count)::real)
+      end as unsubscribe_rate,
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
@@ -3758,6 +3783,31 @@ union
       )
       select crm_emails.id as email_id,
       crm_emails.team_id,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      else ((opened.count)::real / (delivered.count)::real)
+      end as open_rate,
+      case
+      when (coalesce(sent.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(bounced.count, (0)::bigint) = 0) then (0)::real
+      else ((bounced.count)::real / (sent.count)::real)
+      end as bounce_rate,
+      case
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(clicked.count, (0)::bigint) = 0) then (0)::real
+      else ((clicked.count)::real / (opened.count)::real)
+      end as click_rate,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(complained.count, (0)::bigint) = 0) then (0)::real
+      else ((complained.count)::real / (delivered.count)::real)
+      end as complaint_rate,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(unsubscribed.count, (0)::bigint) = 0) then (0)::real
+      else ((unsubscribed.count)::real / (delivered.count)::real)
+      end as unsubscribe_rate,
       coalesce(sent.count, (0)::bigint) as sent,
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,

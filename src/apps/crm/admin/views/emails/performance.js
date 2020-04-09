@@ -24,6 +24,7 @@ class Performance extends React.Component {
     const { sent, delivered, bounced, opened, total_opened, desktop } = performance
     const { mobile, webviewed, shared, forwarded, complained } = performance
     const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
+    const { open_rate, click_rate, bounce_rate } = performance
     const { hard_bounced, soft_bounced } = performance
     return {
       sections: [
@@ -40,7 +41,7 @@ class Performance extends React.Component {
                           Open Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(opened / delivered).format('0.0%') }
+                          { numeral(open_rate).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ delivered > 0 ? (opened / delivered) : 0 } />
@@ -51,7 +52,7 @@ class Performance extends React.Component {
                           Click Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(clicked / opened).format('0.0%') }
+                          { numeral(click_rate).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
@@ -62,7 +63,7 @@ class Performance extends React.Component {
                           Bounce Rate
                         </div>
                         <div className="crm-email-campaign-results-stat-percent">
-                          { numeral(bounced / sent).format('0.0%') }
+                          { numeral(bounce_rate).format('0.0%') }
                         </div>
                       </div>
                       <ProgressBar labeled={ false } color="blue" percent={ bounced > 0 ? (bounced / sent) : 0 } />
