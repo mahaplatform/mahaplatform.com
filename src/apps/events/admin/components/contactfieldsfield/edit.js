@@ -2,6 +2,7 @@ import ContactField from '../../../../crm/admin/components/contactfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class New extends React.PureComponent {
 
@@ -51,20 +52,23 @@ class New extends React.PureComponent {
 
   _getStrategy() {
     const { field } = this.state
-    const { contactfield, name, label, instructions, required, type } = field
+    const { contactfield, type } = field
     if(contactfield) {
       return [
         { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields(), defaultValue: contactfield },
         ...this._getContactFields()
       ]
     } else  {
+      const typefields = this._getTypeFields()
       return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: name },
-        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
-        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: instructions },
-        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: required },
         { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true, defaultValue: type },
-        ...this._getTypeFields()
+        ...typefields ? [
+          { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: field.name },
+          { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: field.label },
+          { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: field.instructions },
+          { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: field.required },
+          ...typefields
+        ] : []
       ]
     }
   }
@@ -115,40 +119,38 @@ class New extends React.PureComponent {
   _getTypeFields() {
     const { field } = this.state
     const config = field.config || {}
-    if(!field.type) return []
-    if(field.type === 'textfield' || field.type === 'textarea') {
+    if(_.includes(['textfield','textarea'], field.type)) {
       return [
-        { type: 'segment', fields: [
-          { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-          { type: 'fields', fields: [
-            { label: 'Min Length', name: 'config.min_length', type: 'numberfield', placeholder: 'Enter maximium character length', defaultValue: config.min_length },
-            { label: 'Max Length', name: 'config.max_length', type: 'numberfield', placeholder: 'Enter minimum character length', defaultValue: config.max_length }
-          ] }
+        { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+        { type: 'fields', fields: [
+          { label: 'Min Length', name: 'config.min_length', type: 'numberfield', placeholder: 'Enter maximium character length', defaultValue: config.min_length },
+          { label: 'Max Length', name: 'config.max_length', type: 'numberfield', placeholder: 'Enter minimum character length', defaultValue: config.max_length }
         ] }
+      ]
+    }
+    if(_.includes(['datefield','timefield'], field.type)) {
+      return [
+        { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder }
       ]
     }
     if(field.type === 'numberfield') {
       return [
-        { type: 'segment', fields: [
-          { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-          { type: 'fields', fields: [
-            { label: 'Min', name: 'config.min', type: 'numberfield', placeholder: 'Enter maximium value', defaultValue: config.min },
-            { label: 'Max', name: 'config.max', type: 'numberfield', placeholder: 'Enter minimum value', defaultValue: config.max }
-          ] }
+        { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+        { type: 'fields', fields: [
+          { label: 'Min', name: 'config.min', type: 'numberfield', placeholder: 'Enter maximium value', defaultValue: config.min },
+          { label: 'Max', name: 'config.max', type: 'numberfield', placeholder: 'Enter minimum value', defaultValue: config.max }
         ] }
       ]
     }
-    if(field.type === 'checkboxgroup' || field.type === 'radiogroup' || field.type === 'dropdown') {
+    if(_.includes(['checkboxgroup','radiogroup','dropdown'], field.type)) {
       return [
-        { type: 'segment', fields: [
-          { label: 'Options', name: 'config.options', type: 'tablefield', columns: [
-            { label: 'Value', key: 'value' },
-            { label: 'Text', key: 'text' }
-          ], defaultValue: config.options }
-        ] }
+        { label: 'Options', name: 'config.options', type: 'tablefield', columns: [
+          { label: 'Value', key: 'value' },
+          { label: 'Text', key: 'text' }
+        ], defaultValue: config.options }
       ]
     }
-    return []
+    return null
   }
 
   _handleBack() {

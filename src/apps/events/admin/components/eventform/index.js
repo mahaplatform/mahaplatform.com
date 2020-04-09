@@ -48,7 +48,6 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    // this._handlePush(Payment, this._getPayment())
     this._handlePush(Programs, this._getPrograms())
   }
 

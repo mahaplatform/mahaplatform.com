@@ -4,6 +4,8 @@ import React from 'react'
 class Hidden extends React.Component {
 
   static propTypes = {
+    value: PropTypes.any,
+    onChange: PropTypes.func,
     onReady: PropTypes.func
   }
 
@@ -12,7 +14,9 @@ class Hidden extends React.Component {
   }
 
   componentDidMount() {
+    const { value } = this.props
     this.props.onReady()
+    this.props.onChange(value)
   }
 
 }
