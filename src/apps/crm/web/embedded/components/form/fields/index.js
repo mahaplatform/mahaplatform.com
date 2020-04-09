@@ -65,22 +65,6 @@ class Fields extends React.Component {
     if(!captcha) this.props.onSetHuman()
   }
 
-  _getSubmit() {
-    const { config, human, requiresPayment, status } = this.props
-    const { captcha } = config.security
-    const { Submit_text } = config.body
-    const processing = status === 'submitting'
-    const fields = this._getFields()
-    return {
-      color: 'blue',
-      disabled: !human,
-      label: requiresPayment ? 'Proceed to Payment' : Submit_text,
-      processing,
-      tabIndex: fields.length + (captcha ? 2 : 1),
-      onClick: human && !processing ? this._handleValidate : () => {}
-    }
-  }
-
   _getFields() {
     const { fields, ipaddress, referer, starttime } = this.props
     return [
@@ -112,6 +96,22 @@ class Fields extends React.Component {
     return {
       tabIndex: fields.length + 1,
       onSuccess: onSetHuman
+    }
+  }
+
+  _getSubmit() {
+    const { config, human, requiresPayment, status } = this.props
+    const { captcha } = config.security
+    const { button_text } = config.body
+    const processing = status === 'submitting'
+    const fields = this._getFields()
+    return {
+      color: 'blue',
+      disabled: !human,
+      label: requiresPayment ? 'Proceed to Payment' : button_text,
+      processing,
+      tabIndex: fields.length + (captcha ? 2 : 1),
+      onClick: human && !processing ? this._handleValidate : () => {}
     }
   }
 
