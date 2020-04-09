@@ -6,6 +6,7 @@ class TokenField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    originalValue: PropTypes.object,
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -53,8 +54,8 @@ class TokenField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    const { originalValue } = this.props
+    if(originalValue) this.setState(originalValue)
     this.props.onReady()
   }
 

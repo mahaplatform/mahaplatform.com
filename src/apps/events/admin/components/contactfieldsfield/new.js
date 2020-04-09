@@ -77,10 +77,10 @@ class New extends React.PureComponent {
   _getFields() {
     return [
       { label: 'Contact Fields', fields: [
-        { label: 'Phone', name: 'phone', type: 'phonefield' },
-        { label: 'Address', name: 'address', type: 'addressfield' },
-        { label: 'Birthday', name: 'birthday', type: 'textfield' },
-        { label: 'Spouse', name: 'spouse', type: 'textfield' }
+        { label: 'Phone', name: { value: 'Phone', token: 'phone' }, code: 'phone', type: 'phonefield' },
+        { label: 'Address', name: { value: 'Address', token: 'address' }, code: 'address', type: 'addressfield' },
+        { label: 'Birthday', name: { value: 'Birthday', token: 'birthday' }, code: 'birthday', type: 'textfield' },
+        { label: 'Spouse', name: { value: 'Spouse', token: 'spouse' }, code: 'spouse', type: 'textfield' }
       ] }
     ]
   }
@@ -88,8 +88,9 @@ class New extends React.PureComponent {
   _getContactFields() {
     const { field } = this.state
     if(field.contactfield) {
-      const { label, instructions, required } = field.contactfield
+      const { label, instructions, name, required } = field.contactfield
       return [
+        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: name  },
         { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
         { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: instructions },
         { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: required }

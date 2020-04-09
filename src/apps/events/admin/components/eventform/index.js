@@ -48,7 +48,8 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Programs, this._getPrograms())
+    this._handlePush(ContactConfig, this._getContactConfig())
+    // this._handlePush(Programs, this._getPrograms())
   }
 
   _getConfirmation() {
