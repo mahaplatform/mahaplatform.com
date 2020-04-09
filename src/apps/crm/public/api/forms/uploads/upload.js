@@ -1,6 +1,6 @@
+import { checkToken } from '../../../../../../core/services/routes/token'
 import { uploadChunk } from '../../../../../maha/services/assets'
 import Form from '../../../../models/form'
-import { checkToken } from '../../utils'
 
 const uploadRoute = async (req, res) => {
 

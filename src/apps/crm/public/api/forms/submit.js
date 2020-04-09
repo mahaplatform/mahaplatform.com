@@ -1,10 +1,10 @@
 import { createOrUpdateContact, handlePayment } from '../../../services/forms'
+import { checkToken } from '../../../../../core/services/routes/token'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'
 import Response from '../../../models/response'
 import Form from '../../../models/form'
-import { checkToken } from '../utils'
 import moment from 'moment'
 import _ from 'lodash'
 

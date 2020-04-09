@@ -1,5 +1,6 @@
 import { createOrUpdateContact, handlePayment } from '../../../../../crm/services/forms'
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
+import { checkToken } from '../../../../../core/services/routes/token'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import Registration from '../../../../models/registration'
@@ -56,6 +57,10 @@ const createTickets = async (req, { registration, tickets }) => {
 
 const submitRoute = async (req, res) => {
 
+  if(!checkToken(req.headers.authorization, req.params.code)) {
+    return res.status(401).send('Unauthorized')
+  }
+  
   const event = await Event.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
