@@ -1,25 +1,27 @@
-import AssetSerializer from '../../../serializers/asset_serializer'
-import Asset from '../../../models/asset'
+import Alias from '../../../models/alias'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.filterFetch({
+  const aliases = await Alias.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
     },
     filter: {
       params: req.query.$filter,
-      search: ['first_name','last_name','email']
+      allowed: ['src']
     },
     sort: {
       params: req.query.$sort
     },
     page: req.query.$page,
-    withRelated: ['source','user.photo'],
     transacting: req.trx
   })
 
-  res.status(200).respond(assets, AssetSerializer)
+  res.status(200).respond(aliases, (req, alias) => ({
+    id: alias.get('id'),
+    src: alias.get('src'),
+    destination: alias.get('destination')
+  }))
 
 }
 

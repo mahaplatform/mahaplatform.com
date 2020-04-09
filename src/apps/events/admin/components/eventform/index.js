@@ -40,6 +40,7 @@ class EventForm extends React.PureComponent {
   _handlePush = this._handlePush.bind(this)
   _handleSessions = this._handleSessions.bind(this)
   _handlePayment = this._handlePayment.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
   _handleTicketConfig = this._handleTicketConfig.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -48,8 +49,7 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(ContactConfig, this._getContactConfig())
-    // this._handlePush(Programs, this._getPrograms())
+    this._handlePush(Programs, this._getPrograms())
   }
 
   _getConfirmation() {
@@ -194,6 +194,11 @@ class EventForm extends React.PureComponent {
   _handleSessions({ sessions }) {
     this._handleUpdate({ sessions })
     this._handlePush(Payment, this._getPayment())
+  }
+
+  _handleSuccess(event) {
+    this.context.router.history.push(`/admin/events/events/${event.id}`)
+    this.context.modal.close()
   }
 
   _handleTicketConfig({ ticket_config }) {

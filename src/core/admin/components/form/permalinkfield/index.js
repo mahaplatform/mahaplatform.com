@@ -1,15 +1,21 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class PermalinkField extends React.Component {
+
+  static contextTypes = {
+    network: PropTypes.object
+  }
 
   static propTypes = {
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     prefix: PropTypes.string,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -19,13 +25,17 @@ class PermalinkField extends React.Component {
     onReady: () => {}
   }
 
+  input = null
+
   state = {
     value: ''
   }
 
   _handleChange = this._handleChange.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { value } = this.state
@@ -45,7 +55,7 @@ class PermalinkField extends React.Component {
         </div>
         <div className="crm-permalinkfield-permalink">
           <span className="crm-permalinkfield-permalink-text">
-            { this._getHost() }{ value.length > 0 ? value : '' }
+            { this._getHost() }{ this._getPermalink() }
           </span>
         </div>
       </div>
@@ -59,31 +69,36 @@ class PermalinkField extends React.Component {
         value: defaultValue
       })
     }
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { value } = this.state
-    if(!_.isEqual(value, prevState.value)) {
+    if(value !== prevState.value) {
       this._handleChange()
     }
   }
 
   _getHost() {
-    const { prefix } = this.props
-    const host = process.env.WEB_HOST.replace('mahaplatform', 'ccetompkins.mahaplatform')
-    return `${host}${prefix}/`
+    return process.env.WEB_HOST.replace('mahaplatform', 'ccetompkins.mahaplatform')
   }
 
   _getInput() {
     const { placeholder } = this.props
     const { value } = this.state
     return {
+      ref: node => this.input = node,
       type: 'text',
       value,
       placeholder,
       onChange: this._handleUpdate
     }
+  }
+
+  _getPermalink() {
+    const { prefix } = this.props
+    const { value } = this.state
+    return `${prefix}/${ value.length > 0 ? value : '' }`
   }
 
   _handleChange() {
@@ -97,11 +112,38 @@ class PermalinkField extends React.Component {
     })
   }
 
+  _handleSuccess({ data }) {
+    const { onValid } = this.props
+    const { value } = this.state
+    if(data.length > 0) {
+      return onValid(null, ['This url is already taken'])
+    }
+    onValid(value)
+  }
+
   _handleUpdate(e) {
     const value = e.target.value
     const regex = /^[a-z0-9-_]*$/
     if(!regex.test(value)) return
     this.setState({ value })
+  }
+
+  _handleValidate() {
+    const { required, onValid } = this.props
+    const { value } = this.state
+    if(!value && required) return onValid(null, ['This field is required'])
+    if(!value) return
+    this.context.network.request({
+      endpoint: '/api/admin/aliases',
+      query: {
+        $filter: {
+          src: {
+            $eq: this._getPermalink()
+          }
+        }
+      },
+      onSuccess: this._handleSuccess
+    })
   }
 
 }

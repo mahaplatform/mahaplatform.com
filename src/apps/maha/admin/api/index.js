@@ -14,6 +14,7 @@ import sources from './sources'
 import account from './account'
 import devices from './devices'
 import session from './session'
+import aliases from './aliases'
 import assets from './assets'
 import search from './search'
 import fields from './fields'
@@ -27,6 +28,8 @@ import help from './help'
 const router = new Router({ mergeParams: true })
 
 router.use('/account', account)
+
+router.use('/aliases', aliases)
 
 router.use('/apps', settings)
 
