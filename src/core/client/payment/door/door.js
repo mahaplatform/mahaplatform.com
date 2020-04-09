@@ -43,7 +43,7 @@ class Door extends React.Component {
 
   _getButton() {
     return {
-      label: 'Next',
+      label: 'Finish',
       color: 'blue',
       handler: this._handleSubmit
     }

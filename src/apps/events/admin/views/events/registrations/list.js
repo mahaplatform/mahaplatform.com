@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/events/events/${page.params.event_id}/registrations`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.display_name', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
+      { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
       { label: 'Submitted', key: 'created_at', format: 'datetime' },
       { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' }

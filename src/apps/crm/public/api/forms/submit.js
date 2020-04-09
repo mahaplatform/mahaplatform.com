@@ -1,139 +1,12 @@
-import { updateMailingAddresses } from '../../../services/mailing_addresses'
-import { updateEmailAddresses } from '../../../services/email_addresses'
-import { updatePhoneNumbers } from '../../../services/phone_numbers'
-import { makePayment } from '../../../../finance/services/payments'
-import generateCode from '../../../../../core/utils/generate_code'
+import { createOrUpdateContact, handlePayment } from '../../../services/forms'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'
-import LineItem from '../../../../finance/models/line_item'
-import Invoice from '../../../../finance/models/invoice'
-import Product from '../../../../finance/models/product'
-import EmailAddress from '../../../models/email_address'
 import Response from '../../../models/response'
-import Contact from '../../../models/contact'
 import Form from '../../../models/form'
 import { checkToken } from '../utils'
 import moment from 'moment'
 import _ from 'lodash'
-
-const getContact = async (req, { form, fields, data }) => {
-
-  const email = await EmailAddress.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('address', data.email)
-  }).fetch({
-    withRelated: ['contact'],
-    transacting: req.trx
-  })
-
-  if(email) {
-    email.related('contact').is_known = true
-    return email.related('contact')
-  }
-
-  const code = await generateCode(req, {
-    table: 'crm_contacts'
-  })
-
-  const contact = await Contact.forge({
-    team_id: req.team.get('id'),
-    code
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  contact.is_known = false
-
-  return contact
-
-}
-
-const updateContact = async (req, { contact, fields, data }) => {
-
-  const contactfields = fields.filter(field => {
-    return field.type === 'contactfield'
-  })
-
-  const core = contactfields.filter(field => {
-    return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
-  }).reduce((values, field) => {
-    if(!_.isNil(values[field.contactfield.name]) && field.overwrite === false) return values
-    return {
-      ...values,
-      [field.contactfield.name]: data[field.contactfield.name]
-    }
-  }, {})
-
-  const values = contactfields.filter(field => {
-    return field.contactfield.name.match(/^values./)
-  }).reduce((values, field) => {
-    const [,code] = field.contactfield.name.match(/^values.(.*)/)
-    if(!_.isNil(values[code]) && field.overwrite === false) return values
-    return {
-      ...values,
-      [code]: _.castArray(data[field.contactfield.name])
-    }
-  }, contact.get('values') || {})
-
-  await contact.save({
-    ...core,
-    values
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
-
-}
-
-const createInvoice = async (req, { form, contact, data }) => {
-
-  const code = await generateCode(req, {
-    table: 'finance_invoices'
-  })
-
-  const invoice = await Invoice.forge({
-    team_id: req.team.get('id'),
-    code,
-    program_id: form.get('program_id'),
-    customer_id: contact.get('id'),
-    date: moment(),
-    due: moment()
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await Promise.map(data.products, async(line_item) => {
-
-    const product = await Product.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('id', line_item.product_id)
-    }).fetch({
-      transacting: req.trx
-    })
-
-    await LineItem.forge({
-      team_id: req.team.get('id'),
-      invoice_id: invoice.get('id'),
-      product_id: product.get('id'),
-      project_id: product.get('project_id'),
-      revenue_type_id: product.get('revenue_type_id'),
-      is_tax_deductible: product.get('is_tax_deductible'),
-      description: product.get('title'),
-      quantity: line_item.quantity,
-      price: line_item.price,
-      tax_rate: line_item.tax_rate,
-      base_price: line_item.price,
-      donation: 0.00
-    }).save(null, {
-      transacting: req.trx
-    })
-
-  })
-
-  return invoice
-
-}
 
 const submitRoute = async (req, res) => {
 
@@ -159,74 +32,22 @@ const submitRoute = async (req, res) => {
     return !_.includes(['text','hidden'], field.type)
   })
 
-  const contactdata = fields.filter(field => {
-    return field.type === 'contactfield'
-  }).reduce((contactdata, field) => ({
-    ...contactdata,
-    [field.contactfield.name]: req.body[field.code]
-  }), {})
-
-  const contact = await getContact(req, {
+  const contact = await createOrUpdateContact(req, {
     form,
     fields,
-    data: contactdata
+    contactdata: req.body
   })
-
-  await updateContact(req, {
-    contact,
-    fields,
-    data: contactdata
-  })
-
-  if(contactdata.email) {
-    await updateEmailAddresses(req, {
-      contact,
-      email_addresses: [
-        { address: contactdata.email }
-      ],
-      removing: false
-    })
-  }
-
-  if(contactdata.phone) {
-    await updatePhoneNumbers(req, {
-      contact,
-      phone_numbers: [
-        { number: contactdata.phone }
-      ],
-      removing: false
-    })
-  }
-
-  if(contactdata.address) {
-    await updateMailingAddresses(req, {
-      contact,
-      mailing_addresses: [
-        { address: contactdata.address }
-      ],
-      removing: false
-    })
-  }
 
   const productfield = fields.find(field => {
     return field.type === 'productfield'
   })
 
-  const invoice = productfield ? await createInvoice(req, {
-    form,
+  const invoice = productfield ? await handlePayment(req, {
+    program: form.related('program'),
     contact,
-    data: req.body[productfield.code]
+    line_items: req.body[productfield.code].products,
+    payment: req.body.payment
   }) : null
-
-  if(invoice) {
-    await makePayment(req, {
-      invoice,
-      params: {
-        merchant_id: form.get('program_id'),
-        ...req.body.payment
-      }
-    })
-  }
 
   const response = await Response.forge({
     team_id: form.get('team_id'),

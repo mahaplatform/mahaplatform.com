@@ -18,8 +18,15 @@ const listRoute = async (req, res) => {
 
   const responses = await Response.filterFetch({
     scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('form_id', form.get('id'))
+      qb.select('crm_responses.*','crm_response_totals.*')
+      qb.innerJoin('crm_response_totals','crm_response_totals.response_id','crm_responses.id')
+      qb.innerJoin('crm_contacts','crm_contacts.id','crm_responses.contact_id')
+      qb.where('crm_responses.team_id', req.team.get('id'))
+      qb.where('crm_responses.form_id', form.get('id'))
+    },
+    aliases: {
+      contact: 'crm_contacts.last_name',
+      revenue: 'crm_response_totals.revenue'
     },
     filter: {
       params: req.query.$filter

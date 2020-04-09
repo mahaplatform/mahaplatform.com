@@ -7,8 +7,14 @@ const listRoute = async (req, res) => {
     scope: (qb) => {
       qb.select(req.trx.raw('events_registrations.*,events_registration_totals.*'))
       qb.innerJoin('events_registration_totals','events_registration_totals.registration_id','events_registrations.id')
+      qb.innerJoin('crm_contacts','crm_contacts.id','events_registrations.contact_id')
       qb.where('events_registrations.team_id', req.team.get('id'))
       qb.where('events_registrations.event_id', req.params.event_id)
+    },
+    aliases: {
+      contact: 'crm_contacts.last_name',
+      revenue: 'events_registration_totals.revenue',
+      tickets_count: 'events_registration_totals.tickets_count'
     },
     filter: {
       params: req.query.$filter,
