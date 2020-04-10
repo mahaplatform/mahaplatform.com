@@ -9,6 +9,7 @@ class PermalinkField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
+    destination: PropTypes.string,
     placeholder: PropTypes.string,
     prefix: PropTypes.string,
     required: PropTypes.bool,
@@ -129,7 +130,7 @@ class PermalinkField extends React.Component {
   }
 
   _handleValidate() {
-    const { required, onValid } = this.props
+    const { destination, required, onValid } = this.props
     const { value } = this.state
     if(!value && required) return onValid(null, ['This field is required'])
     if(!value) return
@@ -137,6 +138,11 @@ class PermalinkField extends React.Component {
       endpoint: '/api/admin/aliases',
       query: {
         $filter: {
+          ...destination ? {
+            destination: {
+              $neq: destination
+            }
+          } : {},
           src: {
             $eq: this._getPermalink()
           }

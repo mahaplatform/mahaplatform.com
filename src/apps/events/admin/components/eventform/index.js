@@ -18,6 +18,7 @@ class EventForm extends React.PureComponent {
   }
 
   static propTypes = {
+    endpoint: PropTypes.string,
     action: PropTypes.string,
     method: PropTypes.string,
     programs: PropTypes.array,
@@ -26,20 +27,23 @@ class EventForm extends React.PureComponent {
 
   state = {
     cards: [],
-    event: {
-      program_id: 1
-    }
+    event: {},
+    mode: 'new'
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleConfirmation = this._handleConfirmation.bind(this)
   _handleContactConfig = this._handleContactConfig.bind(this)
   _handleEvent = this._handleEvent.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
+  _handleFetchSuccess = this._handleFetchSuccess.bind(this)
+  _handleNew = this._handleNew.bind(this)
   _handlePrograms = this._handlePrograms.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleSessions = this._handleSessions.bind(this)
   _handlePayment = this._handlePayment.bind(this)
+  _handlePrograms = this._handlePrograms.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
   _handleTicketConfig = this._handleTicketConfig.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -49,7 +53,9 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Programs, this._getPrograms())
+    const { endpoint } = this.props
+    if(endpoint) return this._handleFetch()
+    this._handleNew()
   }
 
   _getConfirmation() {
@@ -73,10 +79,12 @@ class EventForm extends React.PureComponent {
   }
 
   _getEvent() {
-    const { event } = this.state
+    const { event, mode } = this.state
     return {
       event,
+      mode,
       onBack: this._handlePop,
+      onCancel: this._handleCancel,
       onChange: this._handleUpdate,
       onDone: this._handleEvent
     }
@@ -120,9 +128,10 @@ class EventForm extends React.PureComponent {
   }
 
   _getTicketConfig() {
-    const { event } = this.state
+    const { event, mode } = this.state
     return {
       event,
+      mode,
       onBack: this._handlePop,
       onChange: this._handleUpdate,
       onDone: this._handleTicketConfig
@@ -153,9 +162,30 @@ class EventForm extends React.PureComponent {
     this._handlePush(Sessions, this._getSessions())
   }
 
+  _handleFetch() {
+    const { endpoint } = this.props
+    this.context.network.request({
+      endpoint,
+      method: 'get',
+      onSuccess: this._handleFetchSuccess
+    })
+  }
+
+  _handleFetchSuccess({ data }) {
+    this.setState({
+      event: data,
+      mode: 'edit'
+    })
+    this._handlePush(Event, this._getEvent())
+  }
+
   _handlePayment({ payment_methods, ticket_types }) {
     this._handleUpdate({ payment_methods, ticket_types })
     this._handlePush(ContactConfig, this._getContactConfig())
+  }
+
+  _handleNew() {
+    this._handlePush(Programs, this._getPrograms())
   }
 
   _handlePrograms(program) {
@@ -202,7 +232,9 @@ class EventForm extends React.PureComponent {
   }
 
   _handleTicketConfig({ ticket_config }) {
+    const { mode } = this.state
     this._handleUpdate({ ticket_config })
+    if(mode === 'edit') return this._handleSave()
     this._handlePush(Confirmation, this._getConfirmation())
   }
 

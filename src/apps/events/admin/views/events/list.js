@@ -1,4 +1,5 @@
 import { Page } from 'maha-admin'
+import Clone from './clone'
 import React from 'react'
 import New from './new'
 
@@ -25,7 +26,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'event',
-    onClick: (record) => context.router.history.push(`/admin/events/events/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/events/events/${record.id}`),
+    recordTasks: (record) => [
+      {
+        label: 'Clone Event',
+        modal: <Clone event={ record } />
+      }
+    ]
   },
   task: {
     icon: 'plus',

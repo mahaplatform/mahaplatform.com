@@ -2,6 +2,7 @@ import TicketTypesField from '../tickettypesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class TicketTypes extends React.PureComponent {
 
@@ -33,7 +34,7 @@ class TicketTypes extends React.PureComponent {
         {
           fields: [
             { label: 'Ticket Types', name: 'ticket_types', type: TicketTypesField, required: true, defaultValue: event.ticket_types },
-            { prompt: 'Allow pay at door', name: 'pay_at_door', type: 'checkbox', required: true, defaultValue: event.pay_at_door }
+            { prompt: 'Allow pay at door', name: 'pay_at_door', type: 'checkbox', required: true, defaultValue: _.get(event, 'payment_config.pay_at_door') }
           ]
         }
       ]

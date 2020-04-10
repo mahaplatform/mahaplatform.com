@@ -7,6 +7,7 @@ class TicketFields extends React.PureComponent {
 
   static propTypes = {
     event: PropTypes.object,
+    mode: PropTypes.string,
     onBack: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -21,11 +22,11 @@ class TicketFields extends React.PureComponent {
   }
 
   _getForm() {
-    const { event } = this.props
+    const { event, mode } = this.props
     return {
       title: 'Ticket Fields',
       cancelIcon: 'chevron-left',
-      saveText: 'Next',
+      saveText: mode === 'new' ? 'Next' : 'Save',
       onCancel: this._handleBack,
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,

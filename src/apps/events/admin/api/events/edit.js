@@ -16,10 +16,14 @@ const editRoute = async (req, res) => {
   })
 
   res.status(200).respond({
+    code: event.get('code'),
     title: event.get('title'),
     permalink: event.get('permalink'),
     description: event.get('description'),
     image_id: event.get('image_id'),
+    contact_config: event.get('contact_config'),
+    ticket_config: event.get('ticket_config'),
+    payment_config: event.get('payment_config'),
     ticket_types: event.related('ticket_types').map(ticket_type => ({
       id: ticket_type.get('id'),
       name: ticket_type.get('name'),

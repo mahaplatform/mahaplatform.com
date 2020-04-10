@@ -9,7 +9,9 @@ class Edit extends React.PureComponent {
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    event: PropTypes.object
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -19,6 +21,7 @@ class Edit extends React.PureComponent {
   }
 
   _getEventForm() {
+    const { event } = this.props
     return {
       method: 'patch',
       endpoint: `/api/admin/events/events/${event.id}/edit`,
