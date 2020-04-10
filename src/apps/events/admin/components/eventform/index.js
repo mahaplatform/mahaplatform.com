@@ -196,8 +196,8 @@ class EventForm extends React.PureComponent {
     this._handlePush(Payment, this._getPayment())
   }
 
-  _handleSuccess(event) {
-    this.context.router.history.push(`/admin/events/events/${event.id}`)
+  _handleSuccess({ data }) {
+    this.context.router.history.push(`/admin/events/events/${data.id}`)
     this.context.modal.close()
   }
 

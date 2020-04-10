@@ -5,6 +5,7 @@ import Quantity from '../../quantity'
 import { Button } from 'maha-client'
 import PropTypes from 'prop-types'
 import Price from '../../price'
+import pluralize from 'pluralize'
 import React from 'react'
 import _ from 'lodash'
 
@@ -34,7 +35,7 @@ class Step1 extends React.Component {
                 <p dangerouslySetInnerHTML={{ __html: event.description.replace(/\n/g, '<br />') }} />
               }
               <div className="registration-step1-section">
-                <h2>Sessions</h2>
+                <h2>{ pluralize('Session', event.sessions.length) }</h2>
                 <div className="registration-step1-sessions">
                   { event.sessions.map((session, index) => (
                     <div className="registration-step1-session" key={`session_${index}`}>
@@ -45,7 +46,7 @@ class Step1 extends React.Component {
               </div>
               { event.organizers.length > 0 &&
                 <div className="registration-step1-section">
-                  <h2>Organizers</h2>
+                  <h2>{ pluralize('Organizer', event.organizers.length) }</h2>
                   <div className="registration-step1-organizers">
                     { event.organizers.map((organizer, index) => (
                       <div className="registration-step1-organizer" key={`organizer_${index}`}>
