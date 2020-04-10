@@ -1,4 +1,4 @@
-.maha-addressfield {
+.maha-addressfield-lookup {
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
   border-radius: 0.28em;
@@ -53,6 +53,14 @@
     color: @black;
   }
 }
+.maha-addressfield-result-add {
+  padding: 0.8em;
+  color: @blue;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+}
 .maha-addressfield-street2 {
   border-top: 1px solid fadeout(@black, 90);
   input {
@@ -64,4 +72,18 @@
   color: @blue;
   font-size: 0.8em;
   cursor: pointer;
+}
+.maha-addressfield-manual {
+  & > .ui.form > .maha-form-fields > .field-0 {
+    padding: 0;
+    & > .maha-form-segment {
+      padding: 0.6em 0;
+      & > .field-2 {
+        padding: 0 0.8em;
+      }
+    }
+    .three.fields {
+      margin: 0 -0.8em 0;
+    }
+  }
 }

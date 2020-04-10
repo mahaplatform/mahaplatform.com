@@ -12,6 +12,8 @@ const Content = ({ form, response, field }) => {
     return <span>{ data.description }</span>
   } else if(type === 'checkbox') {
     return <span>{ `${data}` }</span>
+  } else if(type === 'checkboxes') {
+    return <span>{ `${data.join(', ')}` }</span>
   } else if(type === 'filefield') {
     return (
       <div>

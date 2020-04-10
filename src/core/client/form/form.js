@@ -1,7 +1,7 @@
 import Recaptcha from './recaptcha'
 import PropTypes from 'prop-types'
-import Fields from './fields'
 import Submit from './submit'
+import Field from './field'
 import React from 'react'
 
 class Form extends React.Component {
@@ -9,6 +9,7 @@ class Form extends React.Component {
   static propTypes = {
     button: PropTypes.bool,
     captcha: PropTypes.bool,
+    code: PropTypes.string,
     data: PropTypes.object,
     endpoint: PropTypes.string,
     errors: PropTypes.object,
@@ -23,6 +24,7 @@ class Form extends React.Component {
     submittable: PropTypes.array,
     submitText: PropTypes.string,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
@@ -41,6 +43,7 @@ class Form extends React.Component {
     button: true,
     captcha: true,
     reference: () => {},
+    tabIndex: 0,
     submitText: 'Submit',
     onFailure: () => {},
     onSuccess: () => {}
@@ -49,10 +52,14 @@ class Form extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { button, captcha } = this.props
+    const { button, captcha, fields } = this.props
     return (
       <div className="ui form">
-        <Fields { ...this._getFields() } />
+        <div className="maha-form-fields">
+          { fields.map((field, index) => (
+            <Field key={`field_${index}`} { ...this._getField(field, index) } />
+          )) }
+        </div>
         { captcha &&
           <div className="maha-form-captcha">
             <Recaptcha { ...this._getRecaptcha() } />
@@ -73,7 +80,6 @@ class Form extends React.Component {
     if(reference) reference({
       submit: this._handleValidate
     })
-
   }
 
   componentDidUpdate(prevProps) {
@@ -104,8 +110,20 @@ class Form extends React.Component {
     this.props.onFailure()
   }
 
-  _getFields() {
-    return this.props
+  _getField(field, index) {
+    const { code, errors, status, tabIndex, token, onChange, onSetReady, onSetValid } = this.props
+    return {
+      code,
+      field,
+      index,
+      errors,
+      status,
+      tabIndex: tabIndex + index + 1,
+      token,
+      onChange,
+      onSetReady,
+      onSetValid
+    }
   }
 
   _getRecaptcha() {

@@ -13,7 +13,7 @@ const validated = (state, props) => state.validated
 
 const reduce = (fields) => fields.reduce((fields, field) => [
   ...fields,
-  ...(field.type === 'segment') ? reduce(field.fields) : [field]
+  ...(_.includes(['fields','segment'], field.type)) ? reduce(field.fields) : [field]
 ], [])
 
 const fields = createSelector(

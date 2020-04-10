@@ -1,4 +1,4 @@
-import { AddressField, FileField, Payment, ApplePay, GooglePay, PayPal, ACH, Card, paymentMiddleware } from 'maha-client'
+import { AddressField, FileField, Payment, ApplePay, Form, GooglePay, PayPal, ACH, Card, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -10,7 +10,7 @@ import React from 'react'
 import qs from 'qs'
 
 import ProductField from './form/fields/productfield'
-import Form from './form'
+import WebForm from './form'
 
 class Root extends React.Component {
 
@@ -33,7 +33,8 @@ class Root extends React.Component {
       PayPal,
       ACH,
       Card,
-      Form
+      Form,
+      WebForm
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

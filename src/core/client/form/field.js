@@ -13,6 +13,7 @@ import TextArea from './textarea'
 import DropDown from './dropdown'
 import Checkbox from './checkbox'
 import Segment from './segment'
+import Fields from './fields'
 import Hidden from './hidden'
 import Range from './range'
 import React from 'react'
@@ -27,6 +28,7 @@ class Field extends React.Component {
     field: PropTypes.object,
     index: PropTypes.number,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     token: PropTypes.string,
     onChange: PropTypes.func,
     onSetReady: PropTypes.func,
@@ -49,8 +51,9 @@ class Field extends React.Component {
         { instructions &&
           <div className="field-instructions" dangerouslySetInnerHTML={{ __html: instructions }} />
         }
+        { type === 'fields' && <Fields { ...this._getSegment() } /> }
         { type === 'segment' && <Segment { ...this._getSegment() } /> }
-        { type !== 'segment' && <Component { ...this._getField() } /> }
+        { !_.includes(['fields','segment'], type) && <Component { ...this._getField() } /> }
         { error &&
           <div className="field-error">
             { error }
@@ -95,7 +98,7 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, field, index, status, token } = this.props
+    const { code, field, status, tabIndex, token } = this.props
     const { htmlFor } = this.state
     return {
       code,
@@ -103,7 +106,7 @@ class Field extends React.Component {
       ..._.omit(field, ['code','name']),
       name: _.get(field, 'name.value'),
       status,
-      tabIndex: index + 1,
+      tabIndex,
       token,
       onChange: this._handleChange.bind(this, field),
       onReady: this._handleSetReady.bind(this, field),
@@ -112,7 +115,7 @@ class Field extends React.Component {
   }
 
   _getSegment() {
-    const { code, errors, index, status, token, onChange, onSetReady, onSetValid } = this.props
+    const { code, errors, index, status, tabIndex, token, onChange, onSetReady, onSetValid } = this.props
     const { field } = this.props
     return {
       code,
@@ -120,6 +123,7 @@ class Field extends React.Component {
       fields: field.fields,
       index,
       status,
+      tabIndex,
       token,
       onChange,
       onSetReady,

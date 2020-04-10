@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   q: '',
   value: null,
-  options: []
+  options: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -11,21 +11,21 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CANCEL':
     return {
       ...state,
-      options: []
+      options: null
     }
 
   case 'CHOOSE':
     return {
       ...state,
       q: '',
-      options: [],
+      options: null,
       value: action.value
     }
 
   case 'CLEAR':
     return {
       ...state,
-      options: [],
+      options: null,
       value: null
     }
 

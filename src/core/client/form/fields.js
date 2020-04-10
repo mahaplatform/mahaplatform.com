@@ -1,39 +1,27 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import Field from './field'
-import React from 'react'
 
 class Fields extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    config: PropTypes.object,
-    data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
-    human: PropTypes.bool,
-    isOpen: PropTypes.bool,
-    isReady: PropTypes.bool,
-    isValid: PropTypes.bool,
-    ready: PropTypes.array,
-    requiresPayment: PropTypes.bool,
+    index: PropTypes.number,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     token: PropTypes.string,
-    validated: PropTypes.array,
     onChange: PropTypes.func,
-    onPay: PropTypes.func,
-    onSave: PropTypes.func,
-    onSetHuman: PropTypes.func,
     onSetReady: PropTypes.func,
-    onSetStatus: PropTypes.func,
-    onSetValid: PropTypes.func,
-    onValidate: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSetValid: PropTypes.func
   }
 
   render() {
     const { fields } = this.props
+    const numbers = ['zero','one','two','three','four','five','six','seven','eight','nine','ten']
     return (
-      <div className="maha-form-fields">
+      <div className={`${numbers[fields.length]} fields`}>
         { fields.map((field, index) => (
           <Field key={`field_${index}`} { ...this._getField(field, index) } />
         )) }
@@ -41,14 +29,15 @@ class Fields extends React.Component {
     )
   }
 
-  _getField(field,index) {
-    const { code, errors, status, token, onChange, onSetReady, onSetValid } = this.props
+  _getField(field, index) {
+    const { code, errors, status, tabIndex, token, onChange, onSetReady, onSetValid } = this.props
     return {
       code,
+      errors,
       field,
       index,
-      errors,
       status,
+      tabIndex: parseFloat(tabIndex) + parseFloat((index + 1) / 10),
       token,
       onChange,
       onSetReady,
