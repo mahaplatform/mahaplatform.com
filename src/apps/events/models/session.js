@@ -2,6 +2,7 @@ import Model from '../../../core/objects/model'
 import Attending from './attending'
 import Location from './location'
 import Event from './event'
+import moment from 'moment'
 
 const Session = new Model({
 
@@ -9,7 +10,19 @@ const Session = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    starts_at() {
+      const date = moment(this.get('date')).format('YYYY-MM-DD')
+      return moment(`${date} ${this.get('start_time')}`).toDate()
+    },
+
+    ends_at() {
+      const date = moment(this.get('date')).format('YYYY-MM-DD')
+      return moment(`${date} ${this.get('end_time')}`).toDate()
+    }
+
+  },
 
   attendings() {
     return this.hasMany(Attending, 'session_id')

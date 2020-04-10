@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//<%= program.get('title') %>//NONSGML <%= program.get('title') %> Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+<% event.related('sessions').map(session => { -%>
+BEGIN:VEVENT
+DTSTART:<%= moment(`${session.get('starts_at')} `).format('YYYYMMDD[T]HHmmss[Z]') %>
+DTEND:<%= moment(`${session.get('ends_at')} `).format('YYYYMMDD[T]HHmmss[Z]') %>
+DTSTAMP:<%= moment(session.get('created_at')).format('YYYYMMDD[T]HHmmss[Z]') %>
+UID:<%= session.id %>
+CREATED:<%= moment(session.get('created_at')).format('YYYYMMDD[T]HHmmss[Z]') %>
+DESCRIPTION:<%= event.get('description') %>
+LAST-MODIFIED:<%= moment(session.get('updated_at')).format('YYYYMMDD[T]HHmmss[Z]') %>
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:<%= event.get('title') %>
+DESCRIPTION:<%= event.description %>
+TRANSP:TRANSPARENT
+END:VEVENT
+<% }) -%>
+END:VCALENDAR

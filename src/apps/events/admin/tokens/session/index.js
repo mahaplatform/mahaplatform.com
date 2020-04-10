@@ -6,7 +6,7 @@ const SessionToken = (session) => (
   <div className="session-token">
     <strong>{ session.title }</strong>
     <div>
-      { moment(`${session.date}`).format('MMM DD, YYYY') }, { moment(`2020-01-01 ${session.start_time}`).format('h:mm A') } - { moment(`2020-01-01 ${session.end_time}`).format('h:mm A') }
+      { moment(session.starts_at).format('MMM D, YYYY h:mmA') } - { moment(session.ends_at).format('h:mmA') }
     </div>
     { session.is_online ?
       <div>

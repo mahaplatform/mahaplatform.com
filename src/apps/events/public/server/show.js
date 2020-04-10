@@ -4,7 +4,6 @@ import Event from '../../models/event'
 import { readFile } from './utils'
 import moment from 'moment'
 import path from 'path'
-import _ from 'lodash'
 import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
@@ -60,9 +59,8 @@ const showRoute = async (req, res) => {
           address: session.related('location').get('address')
         } : null,
         is_online: session.get('is_online'),
-        date: session.get('date'),
-        start_time: session.get('start_time'),
-        end_time: session.get('end_time')
+        starts_at: session.get('starts_at'),
+        ends_at: session.get('ends_at')
       })),
       organizers: event.related('organizers').map(organizer => ({
         name: organizer.get('name'),

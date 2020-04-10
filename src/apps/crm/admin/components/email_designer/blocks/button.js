@@ -183,7 +183,7 @@ class Button extends React.Component {
       ]
     } else if(config.link_strategy === 'event') {
       return [
-        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
+        { label: 'Event Registration', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
       ]
     } else if(config.link_strategy === 'asset') {
       return [

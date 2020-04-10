@@ -3,9 +3,8 @@ const SessionSerializer = (req, result) => ({
   title: result.get('title'),
   location: location(result.related('location')),
   is_online: result.get('is_online'),
-  date: result.get('date'),
-  start_time: result.get('start_time'),
-  end_time: result.get('end_time'),
+  starts_at: result.get('starts_at'),
+  ends_at: result.get('ends_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

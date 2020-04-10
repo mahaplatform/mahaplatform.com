@@ -13,7 +13,7 @@
     <meta property="og:title" content="<%= t('event.title', true) %>" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="<%= t('event.url', true) %>" />
-    <%= t('if(event.description.length > 0) {') %>
+    <%= t('if(event.description && event.description.length > 0) {') %>
       <meta property="og:description" content="<%= t('event.description', true) %>" />
     <%= t('}') %>
     <%= t('if(event.image) {') %>
