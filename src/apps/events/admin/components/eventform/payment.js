@@ -33,14 +33,7 @@ class TicketTypes extends React.PureComponent {
         {
           fields: [
             { label: 'Ticket Types', name: 'ticket_types', type: TicketTypesField, required: true, defaultValue: event.ticket_types },
-            { label: 'Accepted Payment Methods', name: 'payment_methods', type: 'checkboxes', required: true, options: [
-              { value: 'card', text: 'Credit Card' },
-              { value: 'ach', text: 'ACH' },
-              { value: 'paypal', text: 'PayPal' },
-              { value: 'googlepay', text: 'GooglePay' },
-              { value: 'applepay', text: 'ApplePay' },
-              { value: 'door', text: 'Pay at door' }
-            ], defaultValue: event.payment_methods || ['card','ach','paypal','googlepay','applepay','door'] }
+            { prompt: 'Allow pay at door', name: 'pay_at_door', type: 'checkbox', required: true, defaultValue: event.pay_at_door }
           ]
         }
       ]
@@ -51,13 +44,13 @@ class TicketTypes extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleChange({ payment_methods, ticket_types }) {
-    const payment_config = { payment_methods }
+  _handleChange({ pay_at_door, ticket_types }) {
+    const payment_config = { pay_at_door }
     this.props.onChange({ payment_config, ticket_types })
   }
 
-  _handleSuccess({ payment_methods, ticket_types }) {
-    const payment_config = { payment_methods }
+  _handleSuccess({ pay_at_door, ticket_types }) {
+    const payment_config = { pay_at_door }
     this.props.onDone({ payment_config, ticket_types })
   }
 

@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
   const event = await Event.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['image','organizers.photo','program.logo','sessions.location','ticket_types','team'],
+    withRelated: ['image','organizers.photo','program.logo','sessions.location','ticket_types','team.logo'],
     transacting: req.trx
   })
 
@@ -35,8 +35,6 @@ const showRoute = async (req, res) => {
 
   const program = event.related('program')
 
-  const payment_methods = event.get('payment_config').payment_methods
-
   const content = ejs.render(template, {
     event: {
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
@@ -46,13 +44,14 @@ const showRoute = async (req, res) => {
       title: event.get('title'),
       description: event.get('description'),
       image: event.related('image') ? event.related('image').get('path') : null,
+      url: event.get('url'),
       settings: {
-        card_enabled: _.includes(payment_methods, 'card'),
-        ach_enabled: settings.get('values').ach_enabled && _.includes(payment_methods, 'ach'),
-        googlepay_enabled: settings.get('values').googlepay_enabled && _.includes(payment_methods, 'googlepay'),
-        paypal_enabled: settings.get('values').paypal_enabled && _.includes(payment_methods, 'paypal'),
-        applepay_enabled: settings.get('values').ach_enabled && _.includes(payment_methods, 'applepay'),
-        door_enabled: _.includes(payment_methods, 'door')
+        card_enabled: true,
+        ach_enabled: settings.get('values').ach_enabled,
+        googlepay_enabled: settings.get('values').googlepay_enabled,
+        paypal_enabled: settings.get('values').paypal_enabled,
+        applepay_enabled: settings.get('values').ach_enabled,
+        door_enabled: event.get('payment_config').pay_at_door
       },
       sessions: event.related('sessions').map(session => ({
         title: session.get('title'),
@@ -91,6 +90,14 @@ const showRoute = async (req, res) => {
       contact_config: event.get('contact_config'),
       ticket_config: event.get('ticket_config'),
       payment_config: event.get('payment_config')
+    },
+    program: {
+      title: program.get('title'),
+      logo: program.related('logo') ? program.related('logo').get('path') : null
+    },
+    team: {
+      title: req.team.get('title'),
+      logo: req.team.related('logo') ? req.team.related('logo').get('path') : null
     },
     token: encode({ code: event.get('code') }, 60 * 30)
   })
