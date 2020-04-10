@@ -1,3 +1,4 @@
+import PaymentToken from '../../../tokens/payment'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -21,6 +22,7 @@ class Tickets extends React.Component {
             <tr>
               <td>Attendee</td>
               <td>Ticket Type</td>
+              <td className="collapsing">Status</td>
               <td />
             </tr>
           </thead>
@@ -29,6 +31,7 @@ class Tickets extends React.Component {
               <tr key={`ticket_${index}`} onClick={ this._handleClick.bind(this, ticket) }>
                 <td>{ ticket.name }</td>
                 <td>{ ticket.ticket_type.name }</td>
+                <td><PaymentToken value={ ticket.is_paid } /></td>
                 <td className="proceed">
                   <i className="fa fa-chevron-right" />
                 </td>

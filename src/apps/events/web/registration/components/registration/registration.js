@@ -23,6 +23,7 @@ class Registration extends React.Component {
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     tickets: PropTypes.array,
+    token: PropTypes.string,
     total: PropTypes.number,
     onSubmit: PropTypes.func,
     onUpdateContact: PropTypes.func,
@@ -125,10 +126,11 @@ class Registration extends React.Component {
   }
 
   _getStep4() {
-    const { data, event, total } = this.props
+    const { data, event, token, total } = this.props
     return {
       data,
       event,
+      token,
       total,
       onSubmit: this._handleSubmit,
       onDone: this._handleComplete

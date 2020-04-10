@@ -1,4 +1,5 @@
 import ContactToken from '../../../../../crm/admin/tokens/contact'
+import PaymentToken from '../../../tokens/payment'
 import { Page } from 'maha-admin'
 import React from 'react'
 
@@ -11,7 +12,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
       { label: 'Submitted', key: 'created_at', format: 'datetime' },
       { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },
-      { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' }
+      { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' },
+      { label: 'Status', key: 'is_paid', collapsing: true, format: PaymentToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

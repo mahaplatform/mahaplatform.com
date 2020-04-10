@@ -1,3 +1,4 @@
+import PaymentToken from '../../../tokens/payment'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -22,15 +23,15 @@ class Attendance extends React.Component {
           <thead>
             <tr>
               <td>Ticket</td>
+              <td className="collapsing">Status</td>
               <td className="button" />
             </tr>
           </thead>
           <tbody>
             { attendings.map((attending, index) => (
               <tr key={`attending_${index}`}>
-                <td>
-                  { attending.name }
-                </td>
+                <td>{ attending.name }</td>
+                <td><PaymentToken value={ attending.is_paid } /></td>
                 <td className="button" >
                   <Button { ...this._getButton(attending) } />
                 </td>

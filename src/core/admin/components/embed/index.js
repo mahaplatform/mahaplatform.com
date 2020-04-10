@@ -11,7 +11,7 @@ class Embed extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,
-    header: PropTypes.string,
+    header: PropTypes.object,
     code: PropTypes.string,
     event: PropTypes.object
   }

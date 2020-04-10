@@ -1,4 +1,4 @@
-import { Button, Loader, Payment } from 'maha-client'
+import { Payment } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,6 +7,7 @@ class Step4 extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     event: PropTypes.object,
+    token: PropTypes.string,
     total: PropTypes.number,
     onSubmit: PropTypes.func,
     onDone: PropTypes.func
@@ -27,14 +28,14 @@ class Step4 extends React.Component {
   }
 
   _getPayment() {
-    const { data, event, total, onDone } = this.props
+    const { data, event, token, total, onDone } = this.props
     return {
       amount: total,
       data,
       endpoint: `/api/events/events/${event.code}/registrations`,
       program: event.program,
       settings: event.settings,
-      token: '',
+      token,
       onSuccess: onDone
     }
   }

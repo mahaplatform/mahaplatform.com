@@ -4494,6 +4494,11 @@ union
       coalesce(finance_invoice_payments.paid, 0.00) as revenue
       from (events_registrations events_registrations_1
       left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = events_registrations_1.invoice_id)))
+      ), invoice as (
+      select events_registrations_1.id as registration_id,
+      finance_invoice_totals.total
+      from (events_registrations events_registrations_1
+      left join finance_invoice_totals on ((finance_invoice_totals.invoice_id = events_registrations_1.invoice_id)))
       ), tickets as (
       select events_registrations_1.id as registration_id,
       count(events_tickets.*) as total
@@ -4504,9 +4509,12 @@ union
       select events_registrations.id as registration_id,
       events_registrations.event_id,
       tickets.total as tickets_count,
-      revenue.revenue
-      from ((events_registrations
+      invoice.total,
+      revenue.revenue,
+      (revenue.revenue = invoice.total) as is_paid
+      from (((events_registrations
       join revenue on ((revenue.registration_id = events_registrations.id)))
+      join invoice on ((invoice.registration_id = events_registrations.id)))
       join tickets on ((tickets.registration_id = events_registrations.id)));
     `)
 

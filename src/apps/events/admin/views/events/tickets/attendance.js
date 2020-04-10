@@ -20,7 +20,7 @@ class Attendance extends React.Component {
           <thead>
             <tr>
               <td>Session</td>
-              <td className="collpasing">Attended</td>
+              <td className="collapsing">Attended</td>
             </tr>
           </thead>
           <tbody>

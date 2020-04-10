@@ -7,6 +7,7 @@ const AttendingSerializer = (req, result) => ({
     date: result.get('date'),
     start_time: result.get('start_time'),
     end_time: result.get('end_time'),
+    is_paid: result.get('is_paid'),
     created_at: result.get('created_at'),
     updated_at: result.get('updated_at')
   },
