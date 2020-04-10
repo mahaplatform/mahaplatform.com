@@ -8,6 +8,7 @@ class Preview extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
+    user: PropTypes.object,
     onBack: PropTypes.func
   }
 
@@ -21,7 +22,7 @@ class Preview extends React.Component {
   }
 
   _getForm() {
-    const { config } = this.props
+    const { config, user } = this.props
     return {
       reference: node => this.form = node,
       title: 'Send Preview',
@@ -37,9 +38,9 @@ class Preview extends React.Component {
         {
           fields: [
             { type: 'hidden', name: 'config', defaultValue: config },
-            { label: 'First Name', type: 'textfield', name: 'first_name', required: true },
-            { label: 'Last Name', type: 'textfield', name: 'last_name', required: true},
-            { label: 'Email', type: 'emailfield', name: 'email', required: true }
+            { label: 'First Name', type: 'textfield', name: 'first_name', required: true, defaultValue: user.first_name },
+            { label: 'Last Name', type: 'textfield', name: 'last_name', required: true, defaultValue: user.last_name },
+            { label: 'Email', type: 'emailfield', name: 'email', required: true, defaultValue: user.email }
           ]
         }
       ]
@@ -57,7 +58,8 @@ class Preview extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer[props.cid].config
+  config: state.crm.designer[props.cid].config,
+  user: state.maha.admin.user
 })
 
 export default connect(mapStateToProps)(Preview)

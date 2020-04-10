@@ -16,7 +16,6 @@ class VideoField extends React.Component{
     preview: PropTypes.string,
     prompt: PropTypes.string,
     src: PropTypes.string,
-    onFetch: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
@@ -29,6 +28,7 @@ class VideoField extends React.Component{
     onReady: () => {}
   }
 
+  _handleDone = this._handleDone.bind(this)
   _handlePicker = this._handlePicker.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
@@ -60,23 +60,6 @@ class VideoField extends React.Component{
     }
   }
 
-  _getIframe() {
-    const { embed } = this.props
-    return {
-      src: embed,
-      frameBorder: 0,
-      allowFullScreen: true
-    }
-  }
-
-  _getPicker() {
-    const { cid, onFetch } = this.props
-    return {
-      cid,
-      onFetch
-    }
-  }
-
   _getEditButtons() {
     return {
       buttons: [
@@ -93,6 +76,15 @@ class VideoField extends React.Component{
     }
   }
 
+  _getIframe() {
+    const { embed } = this.props
+    return {
+      src: embed,
+      frameBorder: 0,
+      allowFullScreen: true
+    }
+  }
+
   _getNewButton() {
     const { prompt } = this.props
     return {
@@ -102,9 +94,22 @@ class VideoField extends React.Component{
     }
   }
 
+  _getPicker() {
+    const { cid } = this.props
+    return {
+      cid,
+      onDone: this._handleDone
+    }
+  }
+
   _handleChange() {
     const { embed, preview, src } = this.props
     this.props.onChange({ embed, preview, src })
+  }
+
+  _handleDone(video) {
+    this.props.onSet(video)
+    this.context.form.pop()
   }
 
   _handlePicker() {

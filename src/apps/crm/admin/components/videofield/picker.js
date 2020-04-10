@@ -1,27 +1,32 @@
 import { Loader, Message, ModalPanel } from 'maha-admin'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class Picker extends React.Component{
 
   static contextTypes = {
+    network: PropTypes.object,
     form: PropTypes.object
   }
 
   static propTypes = {
-    embed: PropTypes.string,
-    src: PropTypes.string,
-    status: PropTypes.string,
-    onFetch: PropTypes.func
+    onDone: PropTypes.func
   }
 
+  state = {
+    status: 'pending',
+    video: null
+  }
+
+  _handleProcess = this._handleProcess.bind(this)
   _handleBack = this._handleBack.bind(this)
-  _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleFailure = this._handleFailure.bind(this)
+  _handlePreview = this._handlePreview.bind(this)
+  _handlePreviewed = this._handlePreviewed.bind(this)
 
   render() {
-    const { status } = this.props
+    const { status } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-videofield-picker">
@@ -34,6 +39,9 @@ class Picker extends React.Component{
             }
             { status === 'loading' &&
               <Loader />
+            }
+            { status === 'processing' &&
+              <Loader label="Processing" />
             }
             { status === 'success' &&
               <div className="maha-videofield-player">
@@ -64,15 +72,15 @@ class Picker extends React.Component{
         { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: [
-        { label: 'Done', handler: this._handleDone }
+        { label: 'Done', handler: this._handleProcess }
       ]
     }
   }
 
   _getIframe() {
-    const { embed } = this.props
+    const { video } = this.state
     return {
-      src: embed,
+      src: video.video_url,
       frameBorder: 0,
       allowFullScreen: true
     }
@@ -82,7 +90,7 @@ class Picker extends React.Component{
     return {
       type: 'text',
       placeholder: 'Paste a YouTube or Vimeo URL',
-      onChange: this._handleChange
+      onChange: this._handlePreview
     }
   }
 
@@ -94,24 +102,63 @@ class Picker extends React.Component{
     }
   }
 
+  _handleProcess() {
+    const { video } = this.state
+    this.setState({
+      status: 'processing'
+    })
+    this.context.network.request({
+      endpoint: '/api/admin/assets/url',
+      method: 'POST',
+      body: {
+        url: video.image_url
+      },
+      onSuccess: this._handleDone,
+      onFailure: this._handleFailure
+    })
+  }
+
   _handleBack() {
     this.context.form.pop()
   }
 
-  _handleChange(e) {
-    this.props.onFetch(e.target.value)
+  _handleDone({ data }) {
+    const { video } = this.state
+    this.props.onDone({
+      src: video.link,
+      embed: video.video_url,
+      preview: data.path
+    })
   }
 
-  _handleDone() {
-    this.context.form.pop()
+  _handleFailure() {
+    this.setState({
+      status: 'failure'
+    })
+  }
+
+  _handlePreview(e) {
+    this.setState({
+      status: 'loading'
+    })
+    this.context.network.request({
+      endpoint: '/api/admin/links/preview',
+      method: 'GET',
+      query: {
+        url: e.target.value
+      },
+      onSuccess: this._handlePreviewed,
+      onFailure: this._handleFailure
+    })
+  }
+
+  _handlePreviewed({ data }) {
+    this.setState({
+      status: 'success',
+      video: data
+    })
   }
 
 }
 
-const mapStateToProps = (state, props) => ({
-  embed: state.crm.videofield[props.cid].embed,
-  src: state.crm.videofield[props.cid].src,
-  status: state.crm.videofield[props.cid].status
-})
-
-export default connect(mapStateToProps)(Picker)
+export default Picker

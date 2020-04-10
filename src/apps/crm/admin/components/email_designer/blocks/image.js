@@ -63,8 +63,8 @@ class Image extends React.Component {
             {
               fields: [
                 { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
-                { label: 'Caption', name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption },
-                { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption }
+                { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption },
+                { label: 'Caption', include: config.show_caption === true, name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption }
               ]
             }
           ]
@@ -142,9 +142,9 @@ class Image extends React.Component {
       border_width: null,
       border_style: null,
       border_color: null,
-      padding: 16,
+      padding: 0,
       caption_background_color: null,
-      caption_padding: 0,
+      caption_padding: 16,
       image_border_width: null,
       image_border_style: null,
       image_border_color: null,

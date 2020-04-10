@@ -1,8 +1,7 @@
 export const INITIAL_STATE = {
   embed: null,
   preview: null,
-  src: null,
-  status: 'pending'
+  src: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -21,29 +20,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       src: null,
-      status: 'pending'
-    }
-
-  case 'FETCH_REQUEST':
-    return {
-      ...state,
-      src: null,
-      status: 'loading'
-    }
-
-  case 'FETCH_SUCCESS':
-    return {
-      ...state,
-      src: action.result.data.link,
-      embed: action.result.data.video_url,
-      preview: action.result.data.image_url,
-      status: 'success'
-    }
-
-  case 'FETCH_FAILURE':
-    return {
-      ...state,
-      status: 'failure'
+      embed: null,
+      preview: null
     }
 
   default:

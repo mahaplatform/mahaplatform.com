@@ -162,13 +162,13 @@ const getInlineStyle = (config) => [
         ]
       }, {
         selector: `table.section-${section} table.block-${j} .block-container-cell`, styles: [
-          ...getProp(config, 'padding',`${section}.blocks[${j}].padding`, 'px')
+          ...getProp(config, 'padding', `${section}.blocks[${j}].padding`, 'px')
         ]
       },
       ...block.type === 'images' ? [
         {
           selector: `table.section-${section} table.section-${section} table.block-${j} td.image`, styles: [
-            ...getProp(config, 'padding',`${section}.blocks[${j}].image_padding`, 'px')
+            ...getProp(config, 'padding', `${section}.blocks[${j}].image_padding`, 'px')
           ]
         }, {
           selector: `table.section-${section} table.block-${j} img`, styles: [
@@ -179,7 +179,7 @@ const getInlineStyle = (config) => [
       ] : [],
       ..._.includes(['image','video'], block.type) ? [
         {
-          selector: `table.section-${section} table.block-${j} table.block-container .block-caption`, styles: [
+          selector: `table.section-${section} table.block-${j} table.block-container .block-caption div`, styles: [
             ...getProp(config, 'background-color',`${section}.blocks[${j}].caption_background_color`),
             ...getProp(config, 'padding',`${section}.blocks[${j}].caption_padding`, 'px')
           ]

@@ -54,12 +54,24 @@ const getData = async (key) => {
   }).promise().then(file => file.Body)
 }
 
+const getOverlay = async (w) => {
+  const data = fs.readFileSync(path.join(root,'images','play.png'))
+  const width = parseInt(w / 10)
+  return sharp(data).resize(width).png({ quality: 100 }).toBuffer()
+}
+
 const transform = async(data, transforms) => {
   const source = sharp(data)
   const dpi = transforms.dpi ? parseInt(transforms.dpi) : 1
   const fit = transforms.fit || 'inside'
   const w = transforms.w ? parseInt(transforms.w) * dpi : null
   const h = transforms.h ? parseInt(transforms.h) * dpi : null
+  const overlay = transforms.overlay
+  if(overlay && overlay === 'video') {
+    source.composite([{
+      input: await getOverlay(w)
+    }])
+  }
   if(w & h) return source.resize(w, h, { fit })
   if(w) return source.resize(w)
   if(h) return source.resize(h)

@@ -151,7 +151,7 @@ class Style extends React.Component {
           ] : [],
           ..._.includes(['image','video'], block.type) ? [
             {
-              selector: `table.section-${section} table.block-${j} table.block-container .block-caption`, styles: [
+              selector: `table.section-${section} table.block-${j} table.block-container .block-caption div`, styles: [
                 ...this._getProp('background-color',`${section}.blocks[${j}].caption_background_color`),
                 ...this._getProp('padding',`${section}.blocks[${j}].caption_padding`, 'px')
               ]

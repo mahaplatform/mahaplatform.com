@@ -1,7 +1,7 @@
 import { createAssetFromUrl } from '../../../../../maha/services/assets'
 import AssetSerializer from '../../../../serializers/asset_serializer'
 
-const avatarRoute = async (req, res) => {
+const createRoute = async (req, res) => {
 
   const asset = await createAssetFromUrl(req, {
     url: req.body.url
@@ -17,4 +17,4 @@ const avatarRoute = async (req, res) => {
 
 }
 
-export default avatarRoute
+export default createRoute
