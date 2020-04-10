@@ -1,5 +1,5 @@
-import EmailResultSerializer from '../../../serializers/email_result_serializer'
 import Email from '../../../models/email'
+import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
@@ -7,7 +7,6 @@ const performanceRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['results'],
     transacting: req.trx
   })
 
@@ -16,7 +15,37 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load email'
   })
 
-  res.status(200).respond(email.related('results'), EmailResultSerializer)
+  const filled = `
+    with filled_dates AS (
+    select date
+    from generate_series(?::timestamp, ?::timestamp, ?) AS date
+    )`
+
+  const params = [
+    req.query.start,
+    req.query.end,
+    `1 ${req.query.step}`,
+    req.query.step,
+    req.query.tz,
+    email.get('id')
+  ]
+
+  const segments = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(maha_emails.*) as count
+    from filled_dates
+    left join maha_emails on date_trunc(?, timezone(?, sent_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  res.status(200).respond(segments.map(segment => ({
+    x: segment.date,
+    y: segment.count
+  })))
 
 }
 

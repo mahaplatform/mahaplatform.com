@@ -7,7 +7,6 @@ const performanceRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program'],
     transacting: req.trx
   })
 
@@ -31,7 +30,7 @@ const performanceRoute = async (req, res) => {
     workflow.get('id')
   ]
 
-  const enrollments = await req.trx.raw(`
+  const segments = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_workflow_enrollments.*) as count
     from filled_dates
@@ -43,7 +42,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  res.status(200).respond(enrollments.map(segment => ({
+  res.status(200).respond(segments.map(segment => ({
     x: segment.date,
     y: segment.count
   })))

@@ -20,12 +20,12 @@ class Performance extends React.Component {
   }
 
   _getList() {
-    const { performance } = this.props
-    const { sent, delivered, bounced, opened, total_opened, desktop } = performance
-    const { mobile, webviewed, shared, forwarded, complained } = performance
-    const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
-    const { open_rate, click_rate, bounce_rate } = performance
-    const { hard_bounced, soft_bounced } = performance
+    const { email } = this.props
+    const { sent, delivered, bounced, opened, total_opened, desktop } = email
+    const { mobile, webviewed, shared, forwarded, complained } = email
+    const { clicked, total_clicked, unsubscribed, last_opened_at } = email
+    const { open_rate, click_rate, bounce_rate } = email
+    const { hard_bounced, soft_bounced } = email
     return {
       sections: [
         {
@@ -231,6 +231,14 @@ class Performance extends React.Component {
       route: `/admin/crm/emails/${email.id}/bounces${query}`
     }
     return <Button { ...button } />
+  }
+
+  _getChart() {
+    const { email } = this.props
+    return {
+      endpoint: `/api/admin/crm/emails/${email.id}/performance`,
+      started_at: email.created_at
+    }
   }
 
 }
