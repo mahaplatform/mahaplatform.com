@@ -37,6 +37,13 @@ class Tickets extends React.Component {
                 </td>
               </tr>
             )) }
+            { tickets.length === 0 &&
+              <tr>
+                <td colSpan="4" className="center">
+                  No tickets have been sold yet for this event
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>

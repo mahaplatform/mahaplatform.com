@@ -17,9 +17,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
-      icon: 'contact',
+      icon: 'user',
       title: 'No Registrations',
-      text: 'No one has registered for this events',
+      text: 'No one has registered for this event',
       buttons: []
     },
     entity: 'event',
