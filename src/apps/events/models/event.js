@@ -39,6 +39,10 @@ const Event = new Model({
     url() {
       const path = this.get('permalink') ? `/events/${this.get('permalink')}` : `/events/${this.get('code')}`
       return `${process.env.WEB_HOST}${path}`
+    },
+
+    ics() {
+      return `${process.env.WEB_HOST}/events/${this.get('code')}.ics`
     }
 
   },

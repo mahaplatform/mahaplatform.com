@@ -26,7 +26,11 @@ const icsRoute = async (req, res) => {
     program: event.related('program')
   })
 
-  res.status(200).type('text/html').send(content)
+  res.header('Content-Disposition', 'attachment; filename=event.ics')
+
+  res.header('Content-type', 'text/calendar; charset=utf-8')
+
+  res.status(200).type('text/calendar').send(content)
 
 }
 

@@ -1,24 +1,3 @@
-<%
-  const getUrl = (block, objects) => {
-    const { asset_id, event_id, form_id, link_strategy, url } = block
-    const { email_address, email_subject, email_body } = block
-    if(link_strategy === 'form') {
-      return objects.forms[form_id].get('url')
-    }
-    if(link_strategy === 'registration') {
-      return objects.events[event_id].get('url')
-    }
-    if(link_strategy === 'asset') {
-      return objects.assets[event_id].get('signed_url')
-    }
-    if(link_strategy === 'web') {
-      return url
-    }
-    if(link_strategy === 'email') {
-      return `mailto:${email_address}?subject=${email_subject}&body=${email_body}`
-    }
-  }
-%>
 <table class="row collapse">
   <tbody>
     <tr>
@@ -32,9 +11,31 @@
                     <tbody>
                       <tr>
                         <td>
-                          <a href="<%= getUrl(block, objects) %>" target="_blank">
-                            <%= block.content %>
-                          </a>
+                          <% if(block.link_strategy === 'calendar') { %>
+                            <a href="<%= objects.events[block.event_id].get('ics') %>" class="gmail-hide yahoo-hide owa-hide">
+                              <%= block.content %>
+                            </a>
+                            <a href="#" style="display: none;" class="gmail-show">
+                              <%= block.content %>
+                            </a>
+                            <a href="#" style="display: none;" class="yahoo-show">
+                              <%= block.content %>
+                            </a>
+                          <% } else { %>
+                            <% if(block.link_strategy === 'form') { %>
+                              <a href="<%= objects.forms[block.form_id].get('url') %>" target="_blank">
+                            <% } else if(block.link_strategy === 'registration') { %>
+                              <a href="<%= objects.events[block.event_id].get('url') %>" target="_blank">
+                            <% } else if(block.link_strategy === 'asset') { %>
+                              <a href="<%= objects.assets[block.asset_id].get('signed_url') %>" target="_blank">
+                            <% } else if(block.link_strategy === 'web') { %>
+                              <a href="<%= block.url %>" target="_blank">
+                            <% } else if(block.link_strategy === 'email') { %>
+                              <a href="<%= `mailto:${email_address}?subject=${email_subject}&body=${email_body}` %>">
+                            <% } %>
+                              <%= block.content %>
+                            </a>
+                          <% } %>
                         </td>
                       </tr>
                     </tbody>
