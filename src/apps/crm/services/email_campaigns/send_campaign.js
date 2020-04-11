@@ -20,7 +20,7 @@ const sendCampaign = async (req, { email_campaign_id }) => {
     criteria: campaign.get('to').criteria
   }).then(result => result.toArray())
 
-  const html = renderEmail(req, {
+  const html = await renderEmail(req, {
     config: campaign.get('config')
   })
 

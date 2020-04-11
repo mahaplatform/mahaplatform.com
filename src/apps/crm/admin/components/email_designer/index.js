@@ -49,10 +49,10 @@ class EmailDesigner extends React.Component {
         { label: 'Image Group', type: 'images', icon: 'th', component: Images },
         { label: 'Image', type: 'image', icon: 'picture-o', component: Image },
         { label: 'Button', type: 'button', icon: 'mouse-pointer', component: Button },
-        { label: 'Preferences', type: 'preferences', icon: 'check-square', component: Preferences },
+        { label: 'Preferences', type: 'preferences', icon: 'check', component: Preferences },
         { label: 'Social Share', type: 'share', icon: 'share', component: Share },
         { label: 'Social Follow', type: 'follow', icon: 'plus', component: Follow },
-        { label: 'Video', type: 'video', icon: 'play-circle', component: Video },
+        { label: 'Video', type: 'video', icon: 'play', component: Video },
         { label: 'Web Version', type: 'web', icon: 'globe', component: Web }
       ],
       defaultValue

@@ -1,3 +1,6 @@
+import Event from '../../../events/models/event'
+import Asset from '../../../maha/models/asset'
+import Form from '../../models/form'
 import numeral from 'numeral'
 import moment from 'moment'
 import path from 'path'
@@ -16,10 +19,58 @@ const template  = fs.readFileSync(path.join(__dirname, 'email.ejs'), 'utf8')
 const core = fs.readFileSync(path.join(root,'foundation-emails.min.css')).toString()
 const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')).toString()
 
-export const renderEmail = (req, params) => {
-  const { config, data } = params
+const getObjectsOfType = async (req, { model, ids }) => {
+  if(ids.length === 0) return {}
+  return await model.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.whereIn('id', ids)
+  }).fetchAll({
+    transacting: req.trx
+  }).then(results => results.reduce((mapped, result) => ({
+    ...mapped,
+    [result.get('id')]: result
+  }), {}))
+}
+
+const getObjects = async (req, { config }) => {
+  const ids = ['header','body','footer'].reduce((ids, section) => {
+    return config[section].blocks.reduce((local, block) => ({
+      asset: [
+        ...local.asset,
+        ...block.asset_id ? [block.asset_id] : []
+      ],
+      event: [
+        ...local.event,
+        ...block.event_id ? [block.event_id] : []
+      ],
+      form: [
+        ...local.form,
+        ...block.form_id ? [block.form_id] : []
+      ]
+    }), ids)
+  }, { asset: [], event: [], form: [] })
+  return {
+    assets: await getObjectsOfType(req, {
+      model: Asset,
+      ids: ids.form
+    }),
+    events: await getObjectsOfType(req, {
+      model: Event,
+      ids: ids.form
+    }),
+    forms: await getObjectsOfType(req, {
+      model: Form,
+      ids: ids.form
+    })
+  }
+}
+
+export const renderEmail = async (req, { config, data }) => {
+  const objects = await getObjects(req, { config })
   const rendered = ejs.render(template, {
     ...data,
+    includePath: path.resolve(__dirname),
+    objects,
     config,
     style: getStyle(config),
     host: process.env.WEB_HOST,

@@ -17,7 +17,7 @@ const previewRoute = async (req, res) => {
   })
   const email = form.related('email')
 
-  const rendered = renderEmail(req, {
+  const rendered = await renderEmail(req, {
     config: email.get('config')
   })
 

@@ -1,0 +1,70 @@
+<% if(block.show_caption) { %>
+  <table class="row collapse">
+    <% if(block.image_position === 'bottom') { %>
+      <tbody>
+        <tr>
+          <td class="small-12 large-12 columns first last block-caption">
+            <div><%- block.caption %></div>
+          </td>
+          <td class="expander"></td>
+        </tr>
+        <tr>
+          <td class="small-12 large-12 columns first last">
+            <img src="<%= `${host}/imagecache/w=580${block.image}` %>" />
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </tbody>
+    <% } else if(block.image_position === 'top') { %>
+      <tbody>
+        <tr>
+          <td class="small-12 large-12 columns first last">
+            <img src="<%= `${host}/imagecache/w=580${block.image}` %>" />
+          </td>
+          <td class="expander"></td>
+        </tr>
+        <tr>
+          <td class="small-12 large-12 columns first last block-caption">
+            <div><%- block.caption %></div>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </tbody>
+    <% } else if(block.image_position === 'left') { %>
+      <tbody>
+        <tr>
+          <td class="small-12 large-<%= block.image_width %> columns first">
+            <img src="<%= `${host}/imagecache/w=580${block.image}` %>" />
+          </td>
+          <td class="small-12 large-<%= 12 - block.image_width %> columns last">
+            <div><%- block.caption %></div>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </tbody>
+    <% } else if(block.image_position === 'right') { %>
+      <tbody>
+        <tr>
+          <td class="small-12 large-<%= 12 - block.image_width %> columns first">
+            <div><%- block.caption %></div>
+          </td>
+          <td class="small-12 large-<%= block.image_width %> columns last">
+            <img src="<%= `${host}/imagecache/w=580${block.image}` %>" />
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </tbody>
+    <% } %>
+  </table>
+<% } else { %>
+  <table class="row collapse">
+    <tbody>
+      <tr>
+        <td class="small-12 large-12 columns first last">
+          <img src="<%= `${host}/imagecache/w=580${block.image}` %>" />
+        </td>
+        <td class="expander"></td>
+      </tr>
+    </tbody>
+  </table>
+<% } %>

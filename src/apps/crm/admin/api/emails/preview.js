@@ -5,7 +5,7 @@ const previewRoute = async (req, res) => {
 
   const { config, first_name, last_name, email } = req.body
 
-  const html = renderEmail(req, { config })
+  const html = await renderEmail(req, { config })
 
   const rendered = personalizeEmail(req, {
     subject: `PREVIEW: ${config.settings.subject}`,

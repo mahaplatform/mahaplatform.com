@@ -1,0 +1,16 @@
+<% k = 0 %>
+<% block.layout.map((row, i) => { %>
+  <table class="row collapse">
+    <tbody>
+      <tr>
+        <% row.map((image, j) => { %>
+          <td class="image small-12 large-<%= 12 / row.length %> <%= j === 0 ? 'first' : '' %> <%= j === row.length - 1 ? 'last' : '' %>">
+            <img src="<%= host %>/imagecache/w=600<%= block.images[k].asset.path %>" />
+          </td>
+          <% k += 1 %>
+        <% }) %>
+        <td class="expander"></td>
+      </tr>
+    </tbody>
+  </table>
+<% }) %>

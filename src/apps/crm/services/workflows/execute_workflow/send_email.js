@@ -88,7 +88,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
     table: 'maha_emails'
   })
 
-  const html = renderEmail(req, {
+  const html = await renderEmail(req, {
     config: crm_email.get('config')
   })
 

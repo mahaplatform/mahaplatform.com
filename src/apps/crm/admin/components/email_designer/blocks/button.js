@@ -181,9 +181,9 @@ class Button extends React.Component {
       return [
         { label: 'Form', name: 'form_id', type: 'lookup', endpoint: '/api/admin/crm/forms', value: 'id', text: 'title', defaultValue: config.form_id }
       ]
-    } else if(config.link_strategy === 'event') {
+    } else if(_.includes(['registration','calendar'], config.link_strategy)) {
       return [
-        { label: 'Event Registration', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
+        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
       ]
     } else if(config.link_strategy === 'asset') {
       return [

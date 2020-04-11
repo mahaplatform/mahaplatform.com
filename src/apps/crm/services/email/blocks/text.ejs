@@ -1,0 +1,12 @@
+<table class="row collapse">
+  <tbody>
+    <tr>
+      <% Array(block.columns).fill(0).map((column, index) => { %>
+        <td class="small-12 large-<%= block.columns === 2 ? block.split[index] : 12 %> columns <%= index === 0 ? 'first' : '' %> <%= index === block.columns - 1 ? 'last' : ''%>">
+          <%- block[`content_${index}`] %>
+        </td>
+      <% }) %>
+      <td class="expander"></td>
+    </tr>
+  </tbody>
+</table>

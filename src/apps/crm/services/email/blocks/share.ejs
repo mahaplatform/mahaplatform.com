@@ -1,0 +1,30 @@
+<%- block.align === 'center' ? '<center>' : '' %>
+  <table align="<%= block.align %>" class="menu social float-<%= block.align %>">
+    <tbody>
+      <tr>
+        <% block.networks.map((network, index) => { %>
+          <% if(network.service === 'facebook') share_url = `&lt;%= email.facebook_link %&gt;` %>
+          <% if(network.service === 'twitter') share_url = `&lt;%= email.twitter_link %&gt;` %>
+          <% if(network.service === 'forwardtofriend') share_url = `&lt;%= email.forward_link %&gt;` %>
+          <% if(network.service === 'linkedin') share_url = `&lt;%= email.linkedin_link %&gt;` %>
+          <% if(network.service === 'pinterest') share_url = `&lt;%= email.pinterest_link %&gt;` %>
+          <td class="social-share-service">
+            <a href="<%- share_url %>">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img width="24" height="24" src="<%= host %>/admin/images/emails/<%= block.icon_style %>-<%= block.icon_color %>-<%= network.service %>-96.png" />
+                    </td>
+                    <td class="social-service-label"><%= network.text %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </a>
+          </td>
+        <% }) %>
+        <td class="expander"></td>
+      </tr>
+    </tbody>
+  </table>
+<%- block.align === 'center' ? '</center>' : '' %>

@@ -1,0 +1,51 @@
+<%
+  const getUrl = (block, objects) => {
+    const { asset_id, event_id, form_id, link_strategy, url } = block
+    const { email_address, email_subject, email_body } = block
+    if(link_strategy === 'form') {
+      return objects.forms[form_id].get('url')
+    }
+    if(link_strategy === 'registration') {
+      return objects.events[event_id].get('url')
+    }
+    if(link_strategy === 'asset') {
+      return objects.assets[event_id].get('signed_url')
+    }
+    if(link_strategy === 'web') {
+      return url
+    }
+    if(link_strategy === 'email') {
+      return `mailto:${email_address}?subject=${email_subject}&body=${email_body}`
+    }
+  }
+%>
+<table class="row collapse">
+  <tbody>
+    <tr>
+      <td class="large-12 first last columns">
+        <%- block.align === 'center' ? '<center>' : '' %>
+          <table align="<%= block.align %>" class="button<%= block.display === 'block' ? ' expanded' : '' %> float-<%= block.align %>">
+            <tbody>
+              <tr>
+                <td>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a href="<%= getUrl(block, objects) %>" target="_blank">
+                            <%= block.content %>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <%- block.align === 'center' ? '</center>' : '' %>
+      </td>
+      <td class="expander"></td>
+    </tr>
+  </tbody>
+</table>
