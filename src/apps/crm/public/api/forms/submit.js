@@ -35,7 +35,7 @@ const submitRoute = async (req, res) => {
   const contact = await createOrUpdateContact(req, {
     form,
     fields,
-    contactdata: req.body
+    data: req.body
   })
 
   const productfield = fields.find(field => {

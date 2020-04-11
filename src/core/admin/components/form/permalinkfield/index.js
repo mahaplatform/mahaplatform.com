@@ -133,7 +133,7 @@ class PermalinkField extends React.Component {
     const { destination, required, onValid } = this.props
     const { value } = this.state
     if(!value && required) return onValid(null, ['This field is required'])
-    if(!value) return
+    if(!value) return onValid(null)
     this.context.network.request({
       endpoint: '/api/admin/aliases',
       query: {

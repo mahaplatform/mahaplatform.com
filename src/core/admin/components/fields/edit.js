@@ -9,6 +9,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
+    datasources: PropTypes.array,
     endpoint: PropTypes.string,
     id: PropTypes.number
   }

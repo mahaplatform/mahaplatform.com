@@ -38,19 +38,15 @@ const getContact = async (req, { email }) => {
 
 }
 
-const updateContact = async (req, { contact, fields, data }) => {
-
-  const contactfields = fields.filter(field => {
-    return field.type === 'contactfield'
-  })
+const updateContact = async (req, { contact, contactfields, data }) => {
 
   const core = contactfields.filter(field => {
     return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
   }).reduce((values, field) => {
-    if(!_.isNil(values[field.contactfield.name]) && field.overwrite === false) return values
+    if(!_.isNil(contact.get(field.contactfield.name)) && field.overwrite === false) return values
     return {
       ...values,
-      [field.contactfield.name]: data[field.contactfield.name]
+      [field.contactfield.name]: data[field.code]
     }
   }, {})
 
@@ -61,7 +57,7 @@ const updateContact = async (req, { contact, fields, data }) => {
     if(!_.isNil(values[code]) && field.overwrite === false) return values
     return {
       ...values,
-      [code]: _.castArray(data[field.contactfield.name])
+      [code]: _.castArray(data[field.code])
     }
   }, contact.get('values') || {})
 
@@ -75,51 +71,67 @@ const updateContact = async (req, { contact, fields, data }) => {
 
 }
 
-export const createOrUpdateContact = async (req, { fields, contactdata }) => {
+export const createOrUpdateContact = async (req, { fields, data }) => {
 
-  const data = fields.filter(field => {
+  const contactfields = fields.filter(field => {
     return field.type === 'contactfield'
-  }).reduce((data, field) => ({
-    ...data,
-    [field.contactfield.name]: contactdata[field.code]
-  }), {})
+  })
+
+  const emailfield = contactfields.find(field => {
+    return field.contactfield.name === 'email'
+  })
 
   const contact = await getContact(req, {
-    email: data.email
+    email: data[emailfield.code]
   })
 
   await updateContact(req, {
     contact,
-    fields,
+    contactfields,
     data
   })
 
-  if(data.email) {
+  const email_addresses = contactfields.filter(field => {
+    return field.contactfield.name === 'email'
+  }).reduce((email_addresses, field) => [
+    ...email_addresses,
+    { address: data[field.code] }
+  ], [])
+
+  if(email_addresses.length > 0) {
     await updateEmailAddresses(req, {
       contact,
-      email_addresses: [
-        { address: data.email }
-      ],
+      email_addresses,
       removing: false
     })
   }
 
-  if(data.phone) {
+  const phone_numbers = contactfields.filter(field => {
+    return field.contactfield.name === 'phone'
+  }).reduce((phone_numbers, field) => [
+    ...phone_numbers,
+    { number: data[field.code] }
+  ], [])
+
+  if(phone_numbers.length > 0) {
     await updatePhoneNumbers(req, {
       contact,
-      phone_numbers: [
-        { number: data.phone }
-      ],
+      phone_numbers,
       removing: false
     })
   }
 
-  if(data.address) {
+  const mailing_addresses = contactfields.filter(field => {
+    return field.contactfield.name === 'address'
+  }).reduce((mailing_addresses, field) => [
+    ...mailing_addresses,
+    { address: data[field.code] }
+  ], [])
+
+  if(mailing_addresses.length > 0) {
     await updateMailingAddresses(req, {
       contact,
-      mailing_addresses: [
-        { address: data.address }
-      ],
+      mailing_addresses,
       removing: false
     })
   }

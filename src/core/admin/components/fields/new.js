@@ -38,16 +38,24 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
-            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
-            { label: 'Instructions', name: 'instructions', type: 'textarea', placeholder: 'Enter a name', rows: 2 },
-            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
             { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
-            ...this._getTypeFields()
+            ...this._getFields()
           ]
         }
       ]
     }
+  }
+
+  _getFields() {
+    const { type } = this.state
+    if(!type) return []
+    return [
+      { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
+      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
+      { label: 'Instructions', name: 'instructions', type: 'textarea', placeholder: 'Enter a name', rows: 2 },
+      { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
+      ...this._getTypeFields()
+    ]
   }
 
   _getTypes() {

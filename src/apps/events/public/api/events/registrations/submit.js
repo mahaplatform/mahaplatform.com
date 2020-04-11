@@ -79,7 +79,7 @@ const submitRoute = async (req, res) => {
 
   const contact = await createOrUpdateContact(req, {
     fields,
-    contactdata: req.body.contact
+    data: req.body.contact
   })
 
   const line_items = getLineItems(req, {
