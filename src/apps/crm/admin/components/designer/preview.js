@@ -16,6 +16,7 @@ class Preview extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleSend = this._handleSend.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -29,6 +30,7 @@ class Preview extends React.Component {
       method: 'post',
       action: '/api/admin/crm/emails/preview',
       onCancel: this._handleBack,
+      onSuccess: this._handleSuccess,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -53,6 +55,10 @@ class Preview extends React.Component {
 
   _handleSend() {
     this.form.submit()
+  }
+
+  _handleSuccess() {
+    this.props.onBack()
   }
 
 }

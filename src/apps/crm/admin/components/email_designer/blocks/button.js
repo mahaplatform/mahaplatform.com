@@ -5,6 +5,7 @@ import FormatField from '../../formatfield'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
@@ -184,7 +185,7 @@ class Button extends React.Component {
       ]
     } else if(_.includes(['registration','calendar'], config.link_strategy)) {
       return [
-        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id, format: EventToken }
+        { label: 'Upcoming Event', name: 'event_id', type: 'lookup', prompt: 'Choose Upcoming Event', search: false, endpoint: '/api/admin/events/events', filter: { end_date: { $gte: moment().format('YYYY-MM-DD') } }, value: 'id', text: 'title', defaultValue: config.event_id, format: EventToken }
       ]
     } else if(config.link_strategy === 'asset') {
       return [

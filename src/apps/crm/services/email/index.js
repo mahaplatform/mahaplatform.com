@@ -52,11 +52,11 @@ const getObjects = async (req, { config }) => {
   return {
     assets: await getObjectsOfType(req, {
       model: Asset,
-      ids: ids.form
+      ids: ids.asset
     }),
     events: await getObjectsOfType(req, {
       model: Event,
-      ids: ids.form
+      ids: ids.event
     }),
     forms: await getObjectsOfType(req, {
       model: Form,

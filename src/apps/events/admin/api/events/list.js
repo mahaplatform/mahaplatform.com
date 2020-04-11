@@ -16,7 +16,8 @@ const listRoute = async (req, res) => {
       registrations_count: 'events_event_totals.registrations_count',
       tickets_count: 'events_event_totals.tickets_count',
       waitings_count: 'events_event_totals.waitings_count',
-      revenue: 'events_event_totals.revenue'
+      revenue: 'events_event_totals.revenue',
+      end_date: 'events_event_totals.end_date'
     },
     filter: {
       params: req.query.$filter,

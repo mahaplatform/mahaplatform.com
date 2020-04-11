@@ -14,12 +14,12 @@ const Session = new Model({
 
     starts_at() {
       const date = moment(this.get('date')).format('YYYY-MM-DD')
-      return moment(`${date} ${this.get('start_time')}`).toDate()
+      return moment(`${date} ${this.get('start_time')}`)
     },
 
     ends_at() {
       const date = moment(this.get('date')).format('YYYY-MM-DD')
-      return moment(`${date} ${this.get('end_time')}`).toDate()
+      return moment(`${date} ${this.get('end_time')}`)
     }
 
   },
