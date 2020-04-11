@@ -1,3 +1,4 @@
+import EventToken from '../../tokens/event'
 import { Page } from 'maha-admin'
 import Clone from './clone'
 import React from 'react'
@@ -9,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/events/events',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Title', key: 'title', primary: true },
+      { label: 'Title', key: 'title', primary: true, format: EventToken },
       { label: 'Program', key: 'program.title', sort: 'program'},
       { label: 'Registrations', key: 'registrations_count', collapsing: true, align: 'right' },
       { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },

@@ -4444,6 +4444,46 @@ union
       count(*) as total
       from events_registrations
       group by events_registrations.event_id
+      ), first_session as (
+      select events_events_1.id as event_id,
+      events_sessions.date
+      from (events_events events_events_1
+      join ( select events_sessions_1.id,
+      events_sessions_1.team_id,
+      events_sessions_1.event_id,
+      events_sessions_1.date,
+      events_sessions_1.start_time,
+      events_sessions_1.end_time,
+      events_sessions_1.title,
+      events_sessions_1.description,
+      events_sessions_1.created_at,
+      events_sessions_1.updated_at,
+      events_sessions_1.location_id,
+      events_sessions_1.is_online
+      from events_sessions events_sessions_1
+      where (events_sessions_1.id in ( select min(events_sessions_2.id) as min
+      from events_sessions events_sessions_2
+      group by events_sessions_2.event_id))) events_sessions on ((events_sessions.event_id = events_events_1.id)))
+      ), last_session as (
+      select events_events_1.id as event_id,
+      events_sessions.date
+      from (events_events events_events_1
+      join ( select events_sessions_1.id,
+      events_sessions_1.team_id,
+      events_sessions_1.event_id,
+      events_sessions_1.date,
+      events_sessions_1.start_time,
+      events_sessions_1.end_time,
+      events_sessions_1.title,
+      events_sessions_1.description,
+      events_sessions_1.created_at,
+      events_sessions_1.updated_at,
+      events_sessions_1.location_id,
+      events_sessions_1.is_online
+      from events_sessions events_sessions_1
+      where (events_sessions_1.id in ( select max(events_sessions_2.id) as max
+      from events_sessions events_sessions_2
+      group by events_sessions_2.event_id))) events_sessions on ((events_sessions.event_id = events_events_1.id)))
       ), tickets as (
       select events_registrations.event_id,
       count(*) as total
@@ -4472,13 +4512,17 @@ union
       group by events_registrations.event_id
       )
       select events_events.id as event_id,
+      first_session.date as start_date,
+      last_session.date as end_date,
       coalesce(registrations.total, (0)::bigint) as registrations_count,
       coalesce(tickets.total, (0)::bigint) as tickets_count,
       coalesce(waitings.total, (0)::bigint) as waitings_count,
       coalesce(revenue.revenue, 0.00) as revenue,
       first_registration.created_at as first_registration,
       last_registration.created_at as last_registration
-      from ((((((events_events
+      from ((((((((events_events
+      left join first_session on ((first_session.event_id = events_events.id)))
+      left join last_session on ((last_session.event_id = events_events.id)))
       left join registrations on ((registrations.event_id = events_events.id)))
       left join tickets on ((tickets.event_id = events_events.id)))
       left join waitings on ((waitings.event_id = events_events.id)))

@@ -13,6 +13,8 @@ const EventSerializer = (req, result) => ({
   program: program(result.related('program')),
   email: email(result.related('email')),
   workflow: workflow(result.related('workflow')),
+  start_date: result.get('start_date'),
+  end_date: result.get('end_date'),
   ticket_types: result.related('ticket_types').map(ticket_type),
   registrations_count: result.get('registrations_count'),
   tickets_count: result.get('tickets_count'),

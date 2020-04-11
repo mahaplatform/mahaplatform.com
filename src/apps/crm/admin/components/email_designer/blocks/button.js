@@ -1,3 +1,4 @@
+import EventToken from '../../../../../events/admin/tokens/event'
 import FontFamilyToken from '../../../tokens/fontfamily'
 import AlignmentField from '../../alignmentfield'
 import FormatField from '../../formatfield'
@@ -183,7 +184,7 @@ class Button extends React.Component {
       ]
     } else if(_.includes(['registration','calendar'], config.link_strategy)) {
       return [
-        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id }
+        { label: 'Event', name: 'event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', defaultValue: config.event_id, format: EventToken }
       ]
     } else if(config.link_strategy === 'asset') {
       return [
