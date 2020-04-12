@@ -9,7 +9,7 @@ npm install -g pm2
 
 # INSTALL clamav
 yum -y install epel-release
-yum -y install clamav-server
+yum -y install clamav-server clamav
 sed -ie "s/^Example/#Example/" /etc/clamd.d/scan.conf
 sed -ie 's/^#TCPSocket/TCPSocket/g' /etc/clamd.d/scan.conf
 sed -ie 's/^#TCPAddr/TCPAddr/g' /etc/clamd.d/scan.conf
