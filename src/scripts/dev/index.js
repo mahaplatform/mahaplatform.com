@@ -172,15 +172,15 @@ const adminWatch = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','web','desktop','mobile','admin']
+  const services = argv.length > 0 ? argv : ['server','web','admin']
   await ngrok.connect({
     authtoken: process.env.NGROK_AUTHTOKEN,
     addr: process.env.SERVER_PORT,
     subdomain: process.env.NGROK_SUBDOMAIN
   })
   if(_.includes(services, 'server')) await serverWatch()
-  // if(_.includes(services, 'desktop')) await desktopWatch()
-  // if(_.includes(services, 'mobile')) await mobileWatch()
+  if(_.includes(services, 'desktop')) await desktopWatch()
+  if(_.includes(services, 'mobile')) await mobileWatch()
   if(_.includes(services, 'web')) await webWatch()
   if(_.includes(services, 'admin')) await adminWatch()
 }

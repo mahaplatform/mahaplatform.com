@@ -2,7 +2,7 @@ var electron = require('electron')
 var receiver = require ('electron-push-receiver/src/constants')
 var localforage = require('localforage')
 
-var host = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://mahaplatform.com'
+var host = process.env.NODE_ENV !== 'development' ? 'https://dev.mahaplatform.com:8080' : 'https://mahaplatform.com'
 var iframe, header, body, token, iframe = null
 
 var store = localforage.createInstance({
