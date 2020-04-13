@@ -31,7 +31,7 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Team Name', name: 'subdomain', type: 'textfield', required: true },
-            { label: 'Authentication', name: 'authentication_strategy', type: 'lookup', placeholder: 'Choose a strategy', options: [{value:'local',text:'Maha'},{value:'cornell',text:'Cornell'},{value:'google',text:'Google'},{value:'ldap',text:'LDAP'}], required: true, defaultValue: 'local', format: AuthenticationStrategyToken }
+            { label: 'Authentication', name: 'authentication_strategy', type: 'lookup', placeholder: 'Choose a strategy', options: [{value:'local',text:'Maha'},{value:'cornell',text:'Cornell'},{value:'google',text:'Google'},{value:'ldap',text:'LDAP'}], value: 'value', text: 'text', required: true, defaultValue: 'local', format: AuthenticationStrategyToken }
           ]
         }, {
           label: 'Administrative User',

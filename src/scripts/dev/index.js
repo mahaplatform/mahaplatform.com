@@ -130,7 +130,7 @@ const adminWatch = async () => {
       const root = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(2)
       if(fs.existsSync(path.join(root,...parts))) return null
-      if(/^\/admin\/[\w]*\/(authorize|token|preview)/.test(req.url)) return null
+      if(/^\/admin\/(oauth|auth)/.test(req.url)) return null
       if(/^\/admin/.test(req.url)) return req.url
     }
   }

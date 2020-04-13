@@ -8,7 +8,7 @@ class Apps extends React.Component {
   static propTypes = {
     apps: PropTypes.array,
     app_ids: PropTypes.array,
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.array,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onFetch: PropTypes.func,

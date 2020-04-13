@@ -1,7 +1,7 @@
 import React from 'react'
 
 const strategies = {
-  local: {
+  maha: {
     service: 'maha',
     title: 'Maha',
     description: 'Use local Maha authentication'
@@ -24,7 +24,7 @@ const strategies = {
 }
 
 const AuthenticationStrategyToken = ({ value }) => {
-  const strategy = strategies[value]
+  const strategy = strategies[value.toLowerCase()]
   return (
     <div className="authentication-strategy-token">
       <div className="authentication-strategy-token-icon">
