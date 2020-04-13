@@ -1,5 +1,5 @@
-import { getState, loadUserByEmail, result } from './utils'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import { getState, loadUserByEmail, result } from './utils'
 import passport from 'passport'
 
 const google = async (req, res, next) => {

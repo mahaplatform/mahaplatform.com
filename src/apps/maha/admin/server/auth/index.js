@@ -1,4 +1,4 @@
-import cornell from './cornell'
+import { cornell, metadata } from './cornell'
 import google from './google'
 import express from 'express'
 import ldap from './ldap'
@@ -11,9 +11,9 @@ server.set('views', path.join(__dirname))
 
 server.set('view engine', 'ejs')
 
-server.get('/cornell', team, cornell)
+server.get('/cornell/metadata', metadata)
 
-server.post('/cornell', team, cornell)
+server.use('/cornell', team, cornell)
 
 server.get('/google', team, google)
 
