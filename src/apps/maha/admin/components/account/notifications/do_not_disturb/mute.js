@@ -33,8 +33,8 @@ class Mute extends React.Component {
         <div className="maha-preference" onClick={ this._handleToggleMuteEvenings }>
           <div className="maha-preference-icon">
             { mute_evenings ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-fw fa-check-square" /> :
+              <i className="fa fa-fw fa-square-o" />
             }
           </div>
           <div className="maha-preference-label">
@@ -48,8 +48,8 @@ class Mute extends React.Component {
         <div className="maha-preference" onClick={ this._handleToggleMuteWeekends }>
           <div className="maha-preference-icon">
             { mute_weekends ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-fw fa-check-square" /> :
+              <i className="fa fa-fw fa-square-o" />
             }
           </div>
           <div className="maha-preference-label">

@@ -1,4 +1,5 @@
 import { sendNotification } from '../../../services/notifications'
+import _ from 'lodash'
 
 const testRoute = async (req, res) => {
 
@@ -7,7 +8,8 @@ const testRoute = async (req, res) => {
     notification: {
       title: 'New Notification',
       body: 'body',
-      route: '/admin'
+      route: '/admin',
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     }
   })
 
