@@ -18,6 +18,7 @@ const deliver = async (req, { user, instructions, notification }) => {
   if(instructions.firebase.length > 0) {
     await Promise.map(instructions.firebase, async (session) => {
       await sendViaFirebase(req, {
+        user,
         session,
         device: session.related('device'),
         notification
@@ -50,9 +51,9 @@ const sendViaSocket = async (req, { session, notification }) => {
   })
 }
 
-export const sendViaFirebase = async (req, { session, device, notification }) => {
+export const sendViaFirebase = async (req, { user, session, device, notification }) => {
   const { title, body, route, code } = notification
-  const sound = `${session.get('notification_sound')}.mp3`
+  const sound = `${user.get('notification_sound')}.mp3`
   try {
     await messaging.send({
       data: route ? { title, body, code, route } : { title, body, code },

@@ -107,7 +107,7 @@ class Push extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { push, status, token, user_id } = this.props
+    const { permission, push, status, token, user_id } = this.props
     if(status !== prevProps.status && status === 'worker_registered') {
       this._handleLoadPermission()
     }
@@ -118,6 +118,7 @@ class Push extends React.Component {
       this._handleLoaded()
     }
     if(status !== prevProps.status && status === 'push_loaded') {
+      if(permission === 'granted') return this._handleGetToken()
       this._handleAsk()
     }
     if(user_id !== prevProps.user_id) {

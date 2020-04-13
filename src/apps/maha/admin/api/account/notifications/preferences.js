@@ -5,7 +5,10 @@ import socket from '../../../../../../core/services/routes/emitter'
 const preferencesRoute = async (req, res) => {
 
   await req.user.save({
-    ...whitelist(req.body, ['in_app_notifications_enabled','notification_sound_enabled','notification_sound','push_notifications_enabled','email_notifications_method'])
+    ...whitelist({
+      ...req.body,
+      ...req.body.sounds
+    }, ['in_app_notifications_enabled','notification_sound_enabled','notification_sound','push_notifications_enabled','email_notifications_method'])
   }, {
     patch: true,
     transacting: req.trx
