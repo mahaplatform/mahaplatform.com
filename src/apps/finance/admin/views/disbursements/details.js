@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
-import numeral from 'numeral'
-import moment from 'moment'
 import React from 'react'
 
 const Details = ({ disbursement }) => {
 
   const list = {
     items: [
-      { label: 'Date', content: moment(disbursement.date).format('MM/DD/YYYY') },
+      { label: 'Date', content: disbursement.date, format: 'date' },
       { label: 'Merchant Account', content: disbursement.merchant.title },
-      { label: 'Total', content: numeral(disbursement.total).format('$0.00') },
-      { label: 'Fees', content: numeral(disbursement.fees).format('$0.00') },
-      { label: 'Amount', content: numeral(disbursement.amount).format('$0.00') }
+      { label: 'Total', content: disbursement.total, format: 'currency' },
+      { label: 'Fee', content: disbursement.fee, format: 'currency' },
+      { label: 'Amount', content: disbursement.amount, format: 'currency' }
     ]
   }
 

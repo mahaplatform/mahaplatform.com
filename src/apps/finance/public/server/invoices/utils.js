@@ -2,11 +2,11 @@ import request from 'request-promise'
 import path from 'path'
 import fs from 'fs'
 
-const root = path.resolve(__dirname,'..','..','..','..','..','public')
+const root = path.resolve(__dirname,'..','..','..','..','public','apps')
 
 export const readFile = async (filename) => {
   if(process.env.NODE_ENV === 'development') {
-    const response = await request.get(`${process.env.WEB_HOST}/${filename}`, {
+    const response = await request.get(`${process.env.WEB_HOST}/apps/${filename}`, {
       resolveWithFullResponse: true,
       encoding: null,
       rejectUnauthorized: false,

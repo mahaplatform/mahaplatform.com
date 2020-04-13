@@ -18,6 +18,8 @@ const invoicesRoute = async (req, res) => {
 
   const invoices = await Invoice.filterFetch({
     scope: qb => {
+      qb.select('finance_invoices.*','finance_invoice_details.*')
+      qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
       qb.where('team_id', req.team.get('id'))
       qb.where('customer_id', customer.get('id'))
       qb.orderByRaw('date desc, created_at desc')

@@ -4609,6 +4609,69 @@ union
     `)
 
     await knex.raw(`
+      create view finance_disbursement_totals AS
+      with payments as (
+      select finance_disbursements_1.id as disbursement_id,
+      count(distinct finance_payments.*) as count
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      ), totals as (
+      select finance_disbursements_1.id as disbursement_id,
+      sum(finance_payments.amount) as total
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      ), fees as (
+      select finance_disbursements_1.id as disbursement_id,
+      sum(finance_payment_details.fee) as total
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payment_details on ((finance_payment_details.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      )
+      select finance_disbursements.id as disbursement_id,
+      coalesce(payments.count, (0)::bigint) as payments_count,
+      coalesce(totals.total, 0.00) as total,
+      coalesce(fees.total, 0.00) as fee,
+      coalesce((totals.total - fees.total), 0.00) as amount
+      from (((finance_disbursements
+      left join payments on ((payments.disbursement_id = finance_disbursements.id)))
+      left join totals on ((totals.disbursement_id = finance_disbursements.id)))
+      left join fees on ((fees.disbursement_id = finance_disbursements.id)));
+    `)
+
+    await knex.raw(`
+      create view finance_disbursements_totals AS
+      with payments as (
+      select finance_disbursements_1.id as disbursement_id,
+      count(distinct finance_payments.*) as count
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      ), totals as (
+      select finance_disbursements_1.id as disbursement_id,
+      sum(finance_payments.amount) as total
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      ), fees as (
+      select finance_disbursements_1.id as disbursement_id,
+      sum(((finance_payments.rate * finance_payments.amount) + 0.30)) as total
+      from (finance_disbursements finance_disbursements_1
+      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
+      group by finance_disbursements_1.id
+      )
+      select finance_disbursements.id as disbursement_id,
+      coalesce(payments.count, (0)::bigint) as payments,
+      coalesce(totals.total, 0.00) as total,
+      coalesce(fees.total, 0.00) as fee
+      from (((finance_disbursements
+      left join payments on ((payments.disbursement_id = finance_disbursements.id)))
+      left join totals on ((totals.disbursement_id = finance_disbursements.id)))
+      left join fees on ((fees.disbursement_id = finance_disbursements.id)));
+    `)
+
+    await knex.raw(`
       create view finance_invoice_details AS
       select finance_invoices.id as invoice_id,
       finance_invoice_subtotals.subtotal,
@@ -4873,17 +4936,26 @@ union
     await knex.raw(`
       create view finance_payment_details AS
       select finance_payments.id as payment_id,
+      finance_payments.disbursement_id,
       case
       when (finance_payments.method = 'scholarship'::finance_payments_method) then null::text
       when (finance_payments.method = 'credit'::finance_payments_method) then null::text
       when (finance_payments.method = 'cash'::finance_payments_method) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
       when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
-      when (finance_payments.method = 'ach'::finance_payments_method) then concat(finance_payment_methods.bank_name, '-', finance_payment_methods.last_four)
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
-      end as description
+      end as description,
+      round((floor((((finance_payments.rate * finance_payments.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2) as fee
       from (finance_payments
       left join finance_payment_methods on ((finance_payment_methods.id = finance_payments.payment_method_id)));
+    `)
+
+    await knex.raw(`
+      create view finance_payment_fees AS
+      select finance_payments.id as payment_id,
+      finance_payments.disbursement_id,
+      round((floor((((finance_payments.rate * finance_payments.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2) as fee
+      from finance_payments;
     `)
 
     await knex.raw(`

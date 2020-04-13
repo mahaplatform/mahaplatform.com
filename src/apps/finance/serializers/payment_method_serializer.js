@@ -2,6 +2,7 @@ const PaymentMethodSerializer = (req, result) => ({
   id: result.get('id'),
   account_type: result.get('card_type'),
   card_type: result.get('card_type'),
+  description: result.get('description'),
   expiration_month: result.get('expiration_month'),
   expiration_year: result.get('expiration_year'),
   ownership_type: result.get('card_type'),

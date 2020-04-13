@@ -105,7 +105,7 @@ const YesNo = (props) => {
 }
 
 const Currency = (props) => {
-  return <span>{ numeral(props.value).format('$0,0.00') }</span>
+  return <span>{ numeral(props.value).format('0,0.00') }</span>
 }
 
 const Percent = (props) => {

@@ -7,8 +7,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
-      { label: 'Date', key: 'date', collapsing: true, primary: true, format: 'date' },
-      { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' }
+      { label: 'Date', key: 'date', collapsing: true, format: 'date' },
+      { label: 'Payments', key: 'payments_count', collapsing: true, align: 'right' },
+      { label: 'Total', key: 'total', collapsing: true, format: 'currency' },
+      { label: 'Fee', key: 'fee', collapsing: true, format: 'currency' },
+      { label: 'Amount', key: 'amount', collapsing: true, format: 'currency' }
     ],
     filters: [
       { label: 'Merchant Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },

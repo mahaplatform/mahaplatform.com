@@ -34,11 +34,6 @@ const Payment = new Model({
       if(this.get('method') === 'cash') return 'Received cash'
     },
 
-    fee() {
-      const fee = Math.floor((this.get('rate') * 10000) * (this.get('amount') * 10000)) / 100000000
-      return fee + 0.30
-    },
-
     refunded() {
       return this.related('refunds').reduce((refunded, refund) => {
         return refunded + Number(refund.get('amount'))

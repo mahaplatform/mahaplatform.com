@@ -8,7 +8,7 @@ const Details = ({ customer }) => {
     items: [
       { label: 'Name', content: customer.display_name },
       { label: 'Email', content: customer.email },
-      { label: 'Phone', content: customer.phone },
+      { label: 'Phone', content: customer.phone, format: 'phone' },
       { label: 'Address', content: customer.address }
     ]
   }

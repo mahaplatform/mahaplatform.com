@@ -5,6 +5,8 @@ const listRoute = async (req, res) => {
 
   const disbursements = await Disbursement.filterFetch({
     scope: (qb) => {
+      qb.select('finance_disbursements.*','finance_disbursement_totals.*')
+      qb.innerJoin('finance_disbursement_totals', 'finance_disbursement_totals.disbursement_id', 'finance_disbursements.id')
       qb.innerJoin('finance_merchants', 'finance_merchants.id', 'finance_disbursements.merchant_id')
       qb.where('finance_disbursements.team_id', req.team.get('id'))
     },

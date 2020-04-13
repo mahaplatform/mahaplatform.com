@@ -4,7 +4,8 @@ const MerchantSerializer = (req, result) => ({
   merchant: merchant(result.related('merchant')),
   amount: result.get('amount'),
   total: result.get('total'),
-  fees: result.get('fees'),
+  fee: result.get('fee'),
+  payments_count: result.get('payments_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

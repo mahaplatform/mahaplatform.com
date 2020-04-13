@@ -9,6 +9,7 @@ import qs from 'qs'
 
 const ranges = [
   { value: '30_days', text: 'Last 30 days' },
+  { value: '60_days', text: 'Last 60 days' },
   { value: 'ytd', text: 'Year to Date' },
   { value: 'ltd', text: 'Life to Date' }
 ]
@@ -155,6 +156,13 @@ class SalesReport extends React.Component {
         start: start.startOf(step).format('YYYY-MM-DD'),
         end: end.startOf(step).format('YYYY-MM-DD'),
         step,
+        tz
+      }
+    } else if(range === '60_days') {
+      return {
+        start: moment().subtract(59, 'days').format('YYYY-MM-DD'),
+        end: moment().format('YYYY-MM-DD'),
+        step: 'day',
         tz
       }
     } else if(range === '30_days') {

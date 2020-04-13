@@ -7,6 +7,7 @@ const PaymentSerializer = (req, result) => ({
   date: result.get('date'),
   description: result.get('description'),
   disbursement: disbursement(result.related('disbursement')),
+  disbursed: result.get('disbursed'),
   fee: result.get('fee'),
   invoice: invoice(result.related('invoice')),
   merchant: merchant(result.related('merchant')),

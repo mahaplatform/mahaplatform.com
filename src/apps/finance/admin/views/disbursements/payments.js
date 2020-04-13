@@ -16,8 +16,9 @@ const Payments = ({ disbursement, payments }) => {
       <thead>
         <tr>
           <th>Description</th>
-          <th className="collapsing">Amount</th>
+          <th className="collapsing">Total</th>
           <th className="collapsing">Fee</th>
+          <th className="collapsing">Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -26,12 +27,14 @@ const Payments = ({ disbursement, payments }) => {
             <td><Button { ...button(payment) } /></td>
             <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
             <td className="right aligned">{ numeral(payment.fee).format('0.00') }</td>
+            <td className="right aligned">{ numeral(payment.disbursed).format('0.00') }</td>
           </tr>
         )) }
         <tr>
           <td>Total</td>
           <td className="right aligned">{ numeral(disbursement.total).format('0.00') }</td>
-          <td className="right aligned">{ numeral(disbursement.fees).format('0.00') }</td>
+          <td className="right aligned">{ numeral(disbursement.fee).format('0.00') }</td>
+          <td className="right aligned">{ numeral(disbursement.amount).format('0.00') }</td>
         </tr>
       </tbody>
     </table>
