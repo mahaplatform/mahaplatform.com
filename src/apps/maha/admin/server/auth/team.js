@@ -2,19 +2,21 @@ import Team from '../../../models/team'
 
 const team = async (req, res, next) => {
 
-  if(!req.query.state) throw new Error({
+  const state = req.query.state || req.query.RelayState
+
+  if(!state) throw new Error({
     code: 500,
     message: 'unable to load state'
   })
 
-  const state = JSON.parse(Buffer.from(req.query.state, 'base64'))
+  const decoded = JSON.parse(Buffer.from(state, 'base64'))
 
-  req.signin_id = state.signin_id
+  req.signin_id = decoded.signin_id
 
-  req.team_id = state.team_id
+  req.team_id = decoded.team_id
 
   req.team = await Team.query(qb => {
-    qb.where('id', state.team_id)
+    qb.where('id', req.team_id)
   }).fetch({
     transacting: req.trx
   })

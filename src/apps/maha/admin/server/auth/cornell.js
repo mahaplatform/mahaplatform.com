@@ -10,7 +10,7 @@ export const cornell = async (req, res, next) => {
     cert: process.env.CORNELL_CERT,
     issuer: process.env.CORNELL_ISSUER,
     entryPoint: process.env.CORNELL_ENTRY_POINT,
-    callbackUrl: `${process.env.WEB_HOST}/admin/auth/cornell?state=${state}`,
+    callbackUrl: `${process.env.WEB_HOST}/admin/auth/cornell?RelayState=${state}`,
     acceptedClockSkewMs: 300000
   }, (profile, done) => {
     loadUserByEmail(req, profile.email, done)
