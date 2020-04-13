@@ -16,15 +16,18 @@ const processor = async (req, job) => {
 
   const serialized = NotificationSerializer(null, notification)
 
-  await sendNotification(notification.related('user'), {
-    id: serialized.id,
-    title: 'New Notification',
-    type: notification.get('type'),
-    body: serialized.description,
-    route: serialized.url,
-    user: serialized.subject,
-    created_at: serialized.created_at
-  }, req.trx)
+  await sendNotification(req, {
+    user: notification.related('user'),
+    notification: {
+      id: serialized.id,
+      title: 'New Notification',
+      type: notification.get('type'),
+      body: serialized.description,
+      route: serialized.url,
+      user: serialized.subject,
+      created_at: serialized.created_at
+    }
+  })
 
   return job.data.id
 

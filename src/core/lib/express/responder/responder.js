@@ -52,8 +52,8 @@ class Responder {
   async _serializeData(data, serializer) {
     delete data.pagination
     if(data.map === undefined) return await serializer(this.req, data)
-    return await Promise.mapSeries(data, async (item) => {
-      return await serializer(this.req, item)
+    return await Promise.mapSeries(data, async (item, index) => {
+      return await serializer(this.req, item, index)
     })
   }
 

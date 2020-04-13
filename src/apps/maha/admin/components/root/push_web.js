@@ -41,7 +41,8 @@ const pushBrowser = () => {
       }).catch(error => {
 
         store.dispatch({
-          type: withNamespace(namespace, 'PUSH_REGISTER_WORKER_FAILURE')
+          type: withNamespace(namespace, 'PUSH_REGISTER_WORKER_FAILURE'),
+          error
         })
 
       })

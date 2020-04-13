@@ -37,14 +37,17 @@ const processor = async (req, job) => {
 }
 
 const _sendMessage = async (req, { user, message }) => {
-  await sendNotification(user, {
-    title: `New Message from ${message.user.full_name}`,
-    type: 'chat:message_received',
-    body: message.text,
-    route: `/admin/chat/channels/${message.channel_id}`,
-    user: message.user,
-    created_at: message.created_at
-  }, req.trx)
+  await sendNotification(req, {
+    user,
+    notification: {
+      title: `New Message from ${message.user.full_name}`,
+      type: 'chat:message_received',
+      body: message.text,
+      route: `/admin/chat/channels/${message.channel_id}`,
+      user: message.user,
+      created_at: message.created_at
+    }
+  })
 }
 
 const ChatNotificationQueue = new Queue({

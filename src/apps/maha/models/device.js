@@ -11,8 +11,9 @@ const Device = new Model({
   virtuals: {
 
     push_enabled: function() {
-      return this.get('push_token') !== undefined
+      return this.get('push_token') !== null
     }
+
   },
 
   browser_name() {

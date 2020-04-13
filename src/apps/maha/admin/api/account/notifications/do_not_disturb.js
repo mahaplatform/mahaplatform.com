@@ -5,7 +5,10 @@ import socket from '../../../../../../core/services/routes/emitter'
 const doNotDisturbRoute = async (req, res) => {
 
   await req.user.save({
-    ...whitelist(req.body, ['notifications_enabled','mute_evenings','mute_evenings_end_time','mute_evenings_start_time','mute_weekends'])
+    ...whitelist({
+      ...req.body,
+      ...req.body.mute
+    }, ['notifications_enabled','mute_evenings','mute_evenings_end_time','mute_evenings_start_time','mute_weekends'])
   }, {
     patch: true,
     transacting: req.trx
