@@ -27,6 +27,8 @@ export const getState = (req) => {
 
 export const result = (req, res) => async (err, user, info) => {
 
+  console.err(err)
+
   if(!user) return await failure(req, res)
 
   req.user = user
