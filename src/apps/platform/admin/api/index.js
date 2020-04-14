@@ -1,3 +1,4 @@
+import articles from './articles'
 import settings from './settings'
 import { Router } from 'express'
 import queues from './queues'
@@ -8,6 +9,8 @@ import apps from './apps'
 const router = new Router({ mergeParams: true })
 
 router.use('/apps', apps)
+
+router.use('/articles', articles)
 
 router.use('/assets', assets)
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Multiple from './multiple'
 import Button from '../../button'
+import pluralize from 'pluralize'
 import Single from './single'
 import React from 'react'
 
@@ -60,8 +61,9 @@ class Importing extends React.Component {
   }
 
   _getPanel() {
+    const { files } = this.props
     return {
-      title: 'Importing Files'
+      title: `Importing ${pluralize('File', files.length)}`
     }
   }
 

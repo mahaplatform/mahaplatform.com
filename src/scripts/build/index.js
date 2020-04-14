@@ -5,7 +5,6 @@ import apps from '../../core/utils/apps'
 import log from '../../core/utils/log'
 import { transform } from 'babel-core'
 import move from 'move-concurrently'
-import help from '../help/help'
 import webpack from 'webpack'
 import env from '../env/env'
 import rimraf from 'rimraf'
@@ -66,7 +65,6 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   if(item.src.match(/\.git/)) return false
   if(item.src.match(/\.DS_Store/)) return false
   if(item.src.match(/_test.js$/)) return false
-  if(item.src.match(/apps\/[^/]*\/help/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/badges/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/components/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/roots/)) return false
@@ -138,12 +136,6 @@ const buildServer = async (environment) => {
   log('info', 'server', 'Compiled successfully.')
 }
 
-const buildHelp = async() => {
-  log('info', 'help', 'Compiling...')
-  await help(staged)
-  log('info', 'help', 'Compiled successfully.')
-}
-
 const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
   await env(staged, environment)
@@ -166,7 +158,6 @@ const build = async () => {
   await Promise.all([
     buildServer(environment),
     buildClients(environment),
-    buildHelp(),
     buildEnv(environment)
   ])
   rimraf.sync(dist)

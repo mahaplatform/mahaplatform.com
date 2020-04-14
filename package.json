@@ -16,13 +16,11 @@
     "env": "babel-node ./src/scripts/env/index.js",
     "eslint": "babel-node ./src/scripts/eslint.js",
     "g": "babel-node ./src/scripts/generate/index.js",
-    "help": "babel-node ./src/scripts/help/index.js",
     "import": "babel-node ./src/scripts/import.js",
     "knex": "babel-node ./src/scripts/knex.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node ./src/scripts/test.js",
-    "metadata": "babel-node ./src/scripts/metadata.js",
-    "ngrok": "./ngrok http --host-header=rewrite 8080"
+    "metadata": "babel-node ./src/scripts/metadata.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
@@ -184,7 +182,6 @@
     "reselect": "^3.0.1",
     "resumablejs": "^1.1.0",
     "rollbar": "^2.3.7",
-    "search-index": "^0.15.2",
     "sharp": "^0.22.1",
     "simple-oauth2": "^1.5.2",
     "socket.io": "^1.7.3",

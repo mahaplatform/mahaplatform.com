@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-admin'
+import { AssetViewer, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -17,6 +17,9 @@ class Help extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-help-article">
           <h1>{ article.title }</h1>
+          { article.video &&
+            <AssetViewer asset={ article.video } />
+          }
           <div dangerouslySetInnerHTML={{ __html: article.body }} />
         </div>
       </ModalPanel>

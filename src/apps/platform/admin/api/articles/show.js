@@ -1,12 +1,12 @@
-import HelpArticleSerializer from '../../../serializers/help_article_serializer'
-import HelpArticle from '../../../models/help_article'
+import HelpArticleSerializer from '../../../../maha/serializers/help_article_serializer'
+import HelpArticle from '../../../../maha/models/help_article'
 
 const showRoute = async (req, res) => {
 
   const article = await HelpArticle.query(qb => {
     qb.where('id', req.params.id )
   }).fetch({
-    withRelated: ['app','video'],
+    withRelated: ['app'],
     transacting: req.trx
   })
 

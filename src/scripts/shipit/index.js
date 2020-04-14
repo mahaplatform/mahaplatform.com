@@ -112,7 +112,6 @@ const processor = async () => {
     'deploy:unzip',
     'deploy:install',
     'deploy:link_shared',
-    'deploy:permissions',
     'deploy:bootstrap',
     'deploy:migrate',
     'deploy:symlink',
@@ -217,15 +216,6 @@ const processor = async () => {
       `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
       `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
       `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
-    ]
-    await shipit.remote(commands.join(' && '), {
-      roles: ['appserver','cron','worker']
-    })
-  })
-
-  utils.registerTask(shipit, 'deploy:permissions', async () => {
-    const commands = [
-      `chown -R centos.centos ${releaseDir}/help`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']

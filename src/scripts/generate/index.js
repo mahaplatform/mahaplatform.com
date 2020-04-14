@@ -38,7 +38,6 @@ const app = async (args) => {
   createFile(`${root}/db/fixtures/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/db/migrations/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/emails/.gitkeep`, 'app/gitkeep', data)
-  createFile(`${root}/help/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/models/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/public/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/queues/.gitkeep`, 'app/gitkeep', data)
@@ -86,7 +85,6 @@ const model = async (args) => {
     fixturesPath: path.join(root, 'db', 'fixtures', `${timestamp}_${tableName}.js`),
     migrationPath: path.join(root, 'db', 'migrations', `${timestamp}_create_${tableName}.js`),
     modelPath: path.join(root, 'models', `${modelName}.js`),
-    testPath: path.join(root, 'models', `${modelName}_test.js`),
     serializerPath: path.join(root, 'serializers', `${modelName}_serializer.js`)
   }
   createFile(data.modelPath, 'model/model.js', data)

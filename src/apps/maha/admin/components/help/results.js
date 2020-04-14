@@ -1,3 +1,4 @@
+import { HelpArticleToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,13 +15,8 @@ class Results extends React.Component {
       <div className="maha-help-search-results">
         { records.map((result, index) => (
           <div className="maha-help-search-result" key={ `result_${index}` } onClick={ this._handleClick.bind(this, result.id) }>
-            <div className="maha-help-search-result-icon">
-              <div className={ `maha-help-search-result-app-icon ${result.app.color}` }>
-                <i className={ `fa fa-${result.app.icon}` } />
-              </div>
-            </div>
-            <div className="maha-help-search-result-text">
-              { result.title }
+            <div className="maha-help-search-result-token">
+              <HelpArticleToken { ...result } />
             </div>
             <div className="maha-help-search-result-proceed">
               <i className="fa fa-fw fa-chevron-right" />
