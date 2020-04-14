@@ -8,7 +8,21 @@ const Organizer = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('name')
+    },
+
+    object_type: function() {
+      return 'organizer'
+    },
+
+    object_url: function() {
+      return `/admin/events/organizers/${this.get('id')}`
+    }
+
+  },
 
   events() {
     return this.belongsToMany(Event, 'events_events_organizers', 'organizer_id', 'event_id')

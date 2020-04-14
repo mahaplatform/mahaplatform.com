@@ -7,7 +7,21 @@ const Location = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('address').description
+    },
+
+    object_type: function() {
+      return 'location'
+    },
+
+    object_url: function() {
+      return `/admin/events/locations/${this.get('id')}`
+    }
+
+  },
 
   sessions() {
     return this.hasMany(Session, 'location_id')
