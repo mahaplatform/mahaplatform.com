@@ -21,7 +21,7 @@ export const updateSessions = async (req, { event, sessions }) => {
     await Session.forge({
       team_id: req.team.get('id'),
       event_id: event.get('id'),
-      ...whitelist(data, ['location_id','is_online','title','date','start_time','end_time'])
+      ...whitelist(data, ['location_id','is_online','title','description','date','start_time','end_time'])
     }).save(null, {
       transacting: req.trx
     })
@@ -34,7 +34,7 @@ export const updateSessions = async (req, { event, sessions }) => {
     })
 
     await session.save({
-      ...whitelist(data, ['location_id','is_online','title','date','start_time','end_time'])
+      ...whitelist(data, ['location_id','is_online','title','description','date','start_time','end_time'])
     }, {
       transacting: req.trx,
       patch: true

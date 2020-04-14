@@ -24,6 +24,11 @@ const TicketTypeToken = (ticket_type) => (
         </span>
       })
     </div>
+    { ticket_type.description &&
+      <div>
+        { ticket_type.description }
+      </div>
+    }
     <div>
       { ticket_type.total_tickets ?
         pluralize('ticket', ticket_type.total_tickets, true) :

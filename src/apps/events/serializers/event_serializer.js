@@ -50,6 +50,7 @@ const ticket_type = (ticket_type) => {
   return {
     id: ticket_type.get('id'),
     name: ticket_type.get('name'),
+    description: ticket_type.get('description'),
     price_type: ticket_type.get('price_type'),
     fixed_price: ticket_type.get('fixed_price'),
     low_price: ticket_type.get('low_price'),

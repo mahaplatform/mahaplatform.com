@@ -117,6 +117,7 @@ class Step1 extends React.Component {
     const { fixed_price, low_price, high_price, price_type } = ticket_type
     return {
       defaultValue: low_price || fixed_price,
+      fixed_price,
       low_price,
       high_price,
       price_type,

@@ -916,6 +916,7 @@ const schema = {
       table.timestamp('sales_close_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.text('description')
     })
 
     await knex.schema.createTable('events_tickets', (table) => {
@@ -928,6 +929,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('ticket_type_id').unsigned()
       table.string('name', 255)
+      table.text('description')
     })
 
     await knex.schema.createTable('events_waitings', (table) => {
@@ -2976,6 +2978,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_help_articles', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('video_id').references('maha_assets.id')
+    })
+
     await knex.schema.table('maha_import_items', table => {
       table.foreign('import_id').references('maha_imports.id')
     })
@@ -3273,11 +3280,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_help_articles', table => {
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('video_id').references('maha_assets.id')
     })
 
 

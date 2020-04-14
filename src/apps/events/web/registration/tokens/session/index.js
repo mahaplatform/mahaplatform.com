@@ -5,6 +5,11 @@ import React from 'react'
 const SessionToken = (session) => (
   <div className="session-token">
     <strong>{ session.title }</strong>
+    { session.description &&
+      <div>
+        { session.description }
+      </div>
+    }
     <div>
       <i className="fa fa-fw fa-calendar" />
       { moment(session.starts_at).format('MMM D, YYYY h:mmA') } - { moment(session.ends_at).format('h:mmA') }

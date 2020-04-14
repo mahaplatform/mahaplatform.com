@@ -31,7 +31,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     recordTasks: (record) => [
       {
         label: 'Clone Event',
-        modal: <Clone event={ record } />
+        modal: <Clone programs={ resources.programs } event_id={ record.id } />
       }
     ]
   },

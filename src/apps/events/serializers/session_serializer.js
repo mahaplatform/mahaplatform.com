@@ -1,6 +1,7 @@
 const SessionSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
+  description: result.get('description'),
   location: location(result.related('location')),
   is_online: result.get('is_online'),
   starts_at: result.get('starts_at'),

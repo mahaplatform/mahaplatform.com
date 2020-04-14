@@ -35,6 +35,7 @@ class New extends React.PureComponent {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name' },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description' },
             { label: 'Pricing', type: 'segment', fields: [
               { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true, defaultValue: ticket_type.price_type },
               ...this._getPriceType()

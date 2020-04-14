@@ -27,12 +27,15 @@ const editRoute = async (req, res) => {
     ticket_types: event.related('ticket_types').map(ticket_type => ({
       id: ticket_type.get('id'),
       name: ticket_type.get('name'),
+      description: ticket_type.get('description'),
       project_id: ticket_type.get('project_id'),
       revenue_type_id: ticket_type.get('revenue_type_id'),
       price_type: ticket_type.get('price_type'),
       fixed_price: ticket_type.get('fixed_price'),
       low_price: ticket_type.get('low_price'),
       high_price: ticket_type.get('high_price'),
+      overage_strategy: ticket_type.get('overage_strategy'),
+      donation_revenue_type_id: ticket_type.get('donation_revenue_type_id'),
       total_tickets: ticket_type.get('total_tickets'),
       max_per_order: ticket_type.get('max_per_order'),
       sales_open_at: ticket_type.get('sales_open_at'),
@@ -41,6 +44,7 @@ const editRoute = async (req, res) => {
     sessions: event.related('sessions').map(session => ({
       id: session.get('id'),
       title: session.get('title'),
+      description: session.get('description'),
       location: session.get('location_id') ? {
         id: session.related('location').get('id'),
         name: session.related('location').get('name'),

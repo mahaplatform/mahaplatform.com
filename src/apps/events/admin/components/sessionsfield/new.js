@@ -35,6 +35,7 @@ class New extends React.PureComponent {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title' },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description' },
             this._getLocation(),
             { name: 'is_online', type: 'checkbox', prompt: 'This is an online session' },
             { label: 'Date', name: 'date', placeholder: 'Enter date', type: 'datefield', required: true },

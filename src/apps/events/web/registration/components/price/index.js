@@ -6,9 +6,10 @@ import _ from 'lodash'
 class Price extends React.Component {
 
   static propTypes = {
-    price_type: PropTypes.string,
+    fixed_price: PropTypes.string,
     high_price: PropTypes.string,
     low_price: PropTypes.string,
+    price_type: PropTypes.string,
     onChange: PropTypes.func
   }
 
@@ -17,7 +18,7 @@ class Price extends React.Component {
   }
 
   render() {
-    const { price_type } = this.props
+    const { fixed_price, price_type } = this.props
     const values = this._getValues()
     return (
       <div className="registration-price">
@@ -28,7 +29,7 @@ class Price extends React.Component {
         }
         { price_type === 'fixed' &&
           <div className="registration-price-value">
-            45.00
+            { numeral(fixed_price).format('0.00') }
           </div>
         }
         { price_type === 'sliding_scale' &&

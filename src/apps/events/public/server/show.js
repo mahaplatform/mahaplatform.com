@@ -54,6 +54,7 @@ const showRoute = async (req, res) => {
       },
       sessions: event.related('sessions').map(session => ({
         title: session.get('title'),
+        description: session.get('description'),
         location: session.related('location') ? {
           name: session.related('location').get('name'),
           address: session.related('location').get('address')
@@ -75,6 +76,7 @@ const showRoute = async (req, res) => {
       ticket_types: event.related('ticket_types').map(ticket_type => ({
         id: ticket_type.get('id'),
         name: ticket_type.get('name'),
+        description: ticket_type.get('description'),
         price_type: ticket_type.get('price_type'),
         fixed_price: ticket_type.get('fixed_price'),
         low_price: ticket_type.get('low_price'),

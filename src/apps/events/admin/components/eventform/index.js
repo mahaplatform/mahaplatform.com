@@ -18,6 +18,7 @@ class EventForm extends React.PureComponent {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     action: PropTypes.string,
     method: PropTypes.string,
@@ -53,8 +54,9 @@ class EventForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { endpoint } = this.props
+    const { defaultValue, endpoint } = this.props
     if(endpoint) return this._handleFetch()
+    if(defaultValue) this.setState({ event: defaultValue })
     this._handleNew()
   }
 
@@ -185,6 +187,7 @@ class EventForm extends React.PureComponent {
   }
 
   _handleNew() {
+    console.log('new')
     this._handlePush(Programs, this._getPrograms())
   }
 

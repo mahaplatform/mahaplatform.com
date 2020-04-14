@@ -68,7 +68,9 @@ const Event = new Model({
   },
 
   sessions() {
-    return this.hasMany(Session, 'event_id')
+    return this.hasMany(Session, 'event_id').query(qb => {
+      qb.orderBy('date', 'asc')
+    })
   },
 
   ticket_types() {
@@ -76,6 +78,7 @@ const Event = new Model({
       qb.select(knex.raw('events_ticket_types.*, coalesce(count(events_tickets.*), 0) as tickets_count'))
       qb.leftJoin('events_tickets', 'events_tickets.ticket_type_id','events_ticket_types.id')
       qb.groupBy('events_ticket_types.id')
+      qb.orderBy('id', 'asc')
     })
   },
 
