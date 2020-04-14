@@ -27,7 +27,7 @@ export const getState = (req) => {
 
 export const result = (req, res) => async (err, user, info) => {
 
-  console.err(err)
+  console.log(err)
 
   if(!user) return await failure(req, res)
 
