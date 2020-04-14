@@ -1,6 +1,7 @@
 import LocationToken from '../../tokens/location'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import moment from 'moment'
 import React from 'react'
 
 class Edit extends React.PureComponent {
@@ -85,9 +86,12 @@ class Edit extends React.PureComponent {
   }
 
   _handleSuccess(session) {
+    const date = moment(session.date).format('YYYY-MM-DD')
     this.props.onDone({
       id: this.props.session.id,
-      ...session
+      ...session,
+      starts_at: moment(`${date} ${session.start_time}`),
+      ends_at: moment(`${date} ${session.end_time}`)
     })
   }
 

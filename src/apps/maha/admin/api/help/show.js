@@ -1,14 +1,21 @@
-import { getIndex } from './utils'
+import HelpArticleSerializer from '../../../serializers/help_article_serializer'
+import HelpArticle from '../../../models/help_article'
 
 const showRoute = async (req, res) => {
 
-  const index = await getIndex()
-
-  const content = await new Promise((resolve, reject) => {
-    index.get([req.params.id]).on('data', resolve)
+  const article = await HelpArticle.query(qb => {
+    qb.where('id', req.params.id )
+  }).fetch({
+    withRelated: ['app'],
+    transacting: req.trx
   })
 
-  res.status(200).respond(content)
+  if(!article) return res.status(404).json({
+    code: 404,
+    message: 'Unable to find article'
+  })
+
+  res.status(200).respond(article, HelpArticleSerializer)
 
 }
 

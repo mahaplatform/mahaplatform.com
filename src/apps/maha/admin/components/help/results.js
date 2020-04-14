@@ -31,11 +31,6 @@ class Results extends React.Component {
     )
   }
 
-  _getIcon(result) {
-    if(result.type === 'video') return 'file-video-o'
-    if(result.type === 'article') return 'file-text-o'
-  }
-
   _handleClick(id) {
     this.props.onClick(id)
   }

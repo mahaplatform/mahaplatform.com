@@ -17,7 +17,7 @@ class Help extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-help-article">
           <h1>{ article.title }</h1>
-          <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          <div dangerouslySetInnerHTML={{ __html: article.body }} />
         </div>
       </ModalPanel>
     )

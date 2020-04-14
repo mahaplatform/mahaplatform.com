@@ -49,7 +49,9 @@ const editRoute = async (req, res) => {
       is_online: session.get('is_online'),
       date: session.get('date'),
       start_time: session.get('start_time'),
-      end_time: session.get('end_time')
+      end_time: session.get('end_time'),
+      starts_at: session.get('starts_at'),
+      ends_at: session.get('ends_at')
     })),
     organizer_ids: event.get('organizer_ids')
   })
