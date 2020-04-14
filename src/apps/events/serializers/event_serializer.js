@@ -22,6 +22,7 @@ const EventSerializer = (req, result) => ({
   revenue: result.get('revenue'),
   first_registration: result.get('first_registration'),
   last_registration: result.get('last_registration'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

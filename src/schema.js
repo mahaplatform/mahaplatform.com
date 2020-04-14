@@ -929,7 +929,6 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('ticket_type_id').unsigned()
       table.string('name', 255)
-      table.text('description')
     })
 
     await knex.schema.createTable('events_waitings', (table) => {

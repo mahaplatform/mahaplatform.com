@@ -78,6 +78,10 @@ const Details = ({ audits, event }) => {
     ]
   }
 
+  if(event.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This event was deleted' }
+  }
+
   if(event.organizers.length > 0) {
     config.sections.push({
       title: 'Organizers',

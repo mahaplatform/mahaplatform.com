@@ -51,6 +51,10 @@ const Event = new Model({
     return this.belongsTo(Email, 'email_id')
   },
 
+  emails() {
+    return this.hasMany(Email, 'event_id')
+  },
+
   image() {
     return this.belongsTo(Asset, 'image_id')
   },

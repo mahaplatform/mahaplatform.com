@@ -16,6 +16,7 @@ const showRoute = async (req, res) => {
 
   const event = await Event.query(qb => {
     qb.where('code', req.params.code)
+    qb.whereNull('deleted_at')
   }).fetch({
     withRelated: ['image','organizers.photo','program.logo','sessions.location','ticket_types','team.logo'],
     transacting: req.trx

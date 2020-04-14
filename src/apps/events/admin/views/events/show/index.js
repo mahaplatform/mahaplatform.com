@@ -17,7 +17,18 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
 
 const getTasks = ({ event }) => {
   const items = [
-    { label: 'Edit Event', modal: <Edit event={ event } /> }
+    { label: 'Edit Event', modal: <Edit event={ event } /> },
+    {
+      label: 'Delete Event',
+      confirm: `
+        Are you sure you want to delete this event? You will also delete all of
+        the associated workflows, emails, and performance data
+      `,
+      request: {
+        endpoint: `/api/admin/events/events/${event.id}`,
+        method: 'delete'
+      }
+    }
   ]
   return { items }
 }

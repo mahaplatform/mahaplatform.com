@@ -8,6 +8,7 @@ const icsRoute = async (req, res) => {
 
   const event = await Event.query(qb => {
     qb.where('code', req.params.code)
+    qb.whereNull('deleted_at')
   }).fetch({
     withRelated: ['program','sessions.location'],
     transacting: req.trx
