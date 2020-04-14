@@ -4,10 +4,10 @@ import passport from 'passport'
 
 const config = {
   cert: process.env.CORNELL_CERT,
-  issuer: process.env.CORNELL_ISSUER,
+  issuer: 'saml.mahaplatform.com',
   entryPoint: process.env.CORNELL_ENTRY_POINT,
-  privateCert: process.env.CORNELL_PRIVATE_KEY || null,
-  decryptionPvk: process.env.CORNELL_PRIVATE_CERT || null,
+  privateCert: process.env.CORNELL_SIGNING_KEY || null,
+  decryptionPvk: process.env.CORNELL_DECRYPTION_KEY || null,
   callbackUrl: `${process.env.WEB_HOST}/admin/auth/cornell`,
   acceptedClockSkewMs: 300000
 }
@@ -35,7 +35,7 @@ export const metadata = async (req, res) => {
 
   const strategy = new SAMLStrategy(config, () => {})
 
-  const metadata = strategy.generateServiceProviderMetadata(process.env.CORNELL_PRIVATE_KEY, process.env.CORNELL_PRIVATE_CERT)
+  const metadata = strategy.generateServiceProviderMetadata(process.env.CORNELL_DECRYPTION_CERT, process.env.CORNELL_SIGNING_CERT)
 
   res.status(200).type('application/xml').send(metadata)
 

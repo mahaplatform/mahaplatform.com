@@ -286,6 +286,11 @@ class Table extends React.Component {
     }
   }
 
+  _handleClick(record, index) {
+    const { onClick } = this.props
+    if(onClick) onClick(record, index)
+  }
+
   _handleInit() {
     const windowHeight = window.getComputedStyle(this.window).height
     this.setState({
@@ -293,11 +298,6 @@ class Table extends React.Component {
       windowHeight: parseInt(windowHeight.replace('px', ''))
     })
     this._handleResize()
-  }
-
-  _handleClick(record, index) {
-    const { onClick } = this.props
-    if(onClick) onClick(record, index)
   }
 
   _handleMeasure(element) {
