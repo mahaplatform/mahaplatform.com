@@ -9,7 +9,7 @@ const config = {
   privateCert: process.env.CORNELL_SIGNING_KEY || null,
   decryptionPvk: process.env.CORNELL_DECRYPTION_KEY || null,
   callbackUrl: `${process.env.WEB_HOST}/admin/auth/cornell`,
-  signatureAlgorithm: 'sha512',
+  signatureAlgorithm: 'sha256',
   acceptedClockSkewMs: 300000
 }
 
