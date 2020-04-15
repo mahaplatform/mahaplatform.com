@@ -15,6 +15,7 @@ deploy.tgz
 npm-debug.log
 .env*
 *.key
+*.rsa
 *.crt
 *.csr
 *.cer
