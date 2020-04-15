@@ -29,6 +29,9 @@ input, textarea {
   -ms-user-select: text !important;
   user-select: text !important;
 }
+[contenteditable] {
+	.selectable();
+}
 .scrollable() {
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;

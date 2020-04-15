@@ -93,6 +93,8 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
 
   const email_addresses = contactfields.filter(field => {
     return field.contactfield.name === 'email'
+  }).filter(field => {
+    return !_.isNil(data[field.code]) && data[field.code].length > 0
   }).reduce((email_addresses, field) => [
     ...email_addresses,
     { address: data[field.code] }
@@ -108,6 +110,8 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
 
   const phone_numbers = contactfields.filter(field => {
     return field.contactfield.name === 'phone'
+  }).filter(field => {
+    return !_.isNil(data[field.code]) && data[field.code].length > 0
   }).reduce((phone_numbers, field) => [
     ...phone_numbers,
     { number: data[field.code] }
@@ -123,6 +127,8 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
 
   const mailing_addresses = contactfields.filter(field => {
     return field.contactfield.name === 'address'
+  }).filter(field => {
+    return !_.isNil(data[field.code]) && data[field.code].length > 0
   }).reduce((mailing_addresses, field) => [
     ...mailing_addresses,
     { address: data[field.code] }

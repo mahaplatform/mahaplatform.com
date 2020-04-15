@@ -113,9 +113,8 @@ class PhoneField extends React.Component {
 
   _handleUpdate(e) {
     const asyoutype = new AsYouType('US')
-    this.setState({
-      value: asyoutype.input(e.target.value)
-    })
+    const value = asyoutype.input(e.target.value)
+    this.setState({ value })
   }
 
   _handleValidate() {
