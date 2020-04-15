@@ -15,11 +15,8 @@ const config = {
 
 export const cornell = async (req, res, next) => {
 
-  const state = getState(req)
-
   const strategy = new SAMLStrategy({
-    ...config,
-    callbackUrl: `${process.env.WEB_HOST}/admin/auth/cornell?RelayState=${state}`
+    ...config
   }, (profile, done) => {
     loadUserByEmail(req, profile.email, done)
   })
@@ -27,7 +24,10 @@ export const cornell = async (req, res, next) => {
   passport.use(strategy)
 
   passport.authenticate('saml', {
-    session: false
+    session: false,
+    additionalParams: {
+      RelayState: getState(req)
+    }
   }, result(req, res))(req, res, next)
 
 }
