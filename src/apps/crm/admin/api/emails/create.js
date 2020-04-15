@@ -1,3 +1,4 @@
+import GenerateScreenshotQueue from '../../../queues/generate_screenshot_queue'
 import { activity } from '../../../../../core/services/routes/activities'
 import EmailSerializer from '../../../serializers/email_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
@@ -83,6 +84,10 @@ const createRoute = async (req, res) => {
     }
   }).save(null, {
     transacting: req.trx
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    email_id: email.get('id')
   })
 
   await audit(req, {

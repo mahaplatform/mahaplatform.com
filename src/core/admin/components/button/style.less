@@ -5,6 +5,18 @@
   &.basic {
     background: @white !important;
   }
+  &.icon {
+    flex: 1;
+    display: flex;
+    cursor: pointer;
+    &:hover .fa {
+      color: fadeout(@black, 60);
+    }
+    .fa {
+      margin: auto;
+      color: fadeout(@black, 80);
+    }
+  }
 }
 .links {
 	.link {

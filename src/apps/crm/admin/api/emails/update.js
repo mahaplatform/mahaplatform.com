@@ -1,3 +1,4 @@
+import GenerateScreenshotQueue from '../../../queues/generate_screenshot_queue'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import EmailSerializer from '../../../serializers/email_serializer'
@@ -24,6 +25,10 @@ const updateRoute = async (req, res) => {
     ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    email_id: email.get('id')
   })
 
   await audit(req, {

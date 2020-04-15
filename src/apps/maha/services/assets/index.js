@@ -1,4 +1,5 @@
 import formatObjectForTransport from '../../../../core/utils/format_object_for_transport'
+import { getScreenshot } from '../../../../core/services/screenshot'
 import AssetSerializer from '../../serializers/asset_serializer'
 import ProcessAssetQueue from '../../queues/process_asset_queue'
 import ScanAssetQueue from '../../queues/scan_asset_queue'
@@ -12,7 +13,6 @@ import { exec } from 'child_process'
 import fileType from 'file-type'
 import * as local from './local'
 import { Duplex } from 'stream'
-import webshot from 'webshot'
 import mime from 'mime-types'
 import * as aws from './aws'
 import crypto from 'crypto'
@@ -386,21 +386,7 @@ const _convertOfficeFormat = async (filedata, format) => {
 }
 
 const _convertHtml = async (html) => {
-  return await new Promise((resolve, reject) => {
-    const ws = webshot(html, {
-      siteType:'html',
-      streamType: 'jpg',
-      defaultWhiteBackground: true,
-      shotSize: {
-        width: 'window',
-        height: 'all'
-      }
-    })
-    const buffer = []
-    ws.on('data', data => buffer.push(data))
-    ws.on('error', err => reject(new Error(err)))
-    ws.on('end', () => resolve(Buffer.concat(buffer)))
-  })
+  return await getScreenshot({ html })
 }
 
 const _cleanIdentifier = identifier => {

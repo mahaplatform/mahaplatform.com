@@ -1,5 +1,6 @@
-import Recipients from '../../../components/recipients'
+import EmailPreview from '../../../components/email_preview'
 import { Audit, Comments, Button, List } from 'maha-admin'
+import Recipients from '../../../components/recipients'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -22,6 +23,8 @@ const Details = ({ audits, campaign }) => {
     className: 'link',
     modal: <Recipients campaign={ campaign } type="email" />
   }
+
+  config.header = <EmailPreview src={`/screenshots/email_campaigns/${campaign.id}.jpg`} />
 
   if(campaign.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This campaign was deleted' }

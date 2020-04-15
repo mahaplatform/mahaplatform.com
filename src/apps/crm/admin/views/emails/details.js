@@ -1,3 +1,4 @@
+import EmailPreview from '../../components/email_preview'
 import { Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,6 +16,8 @@ const Details = ({ email }) => {
   if(email.deleted_at !== null) {
     list.alert = { color: 'red', message: 'This email was deleted' }
   }
+
+  list.header = <EmailPreview src={`/screenshots/emails/${email.id}.jpg`} />
 
   list.items = [
     { label: 'Title', content: email.title },

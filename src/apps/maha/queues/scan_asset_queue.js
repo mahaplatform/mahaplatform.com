@@ -2,7 +2,6 @@ import { scanAsset } from '../services/assets'
 import Queue from '../../../core/objects/queue'
 
 const processor = async (req, job) => {
-  console.log(job.data)
   await scanAsset(req, job.data.id)
 }
 
