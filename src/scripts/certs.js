@@ -11,5 +11,6 @@ output.push(`CORNELL_DECRYPTION_CERT="${parse('saml-decryption.mahaplatform.com.
 output.push(`CORNELL_SIGNING_KEY="${parse('saml-signing.mahaplatform.com.key', '')}"`)
 output.push(`CORNELL_SIGNING_CERT="${parse('saml-signing.mahaplatform.com.crt', ' ')}"`)
 output.push(`CORNELL_CERT="${parse('saml-cornell.prod.crt', ' ')}"`)
+output.push('CORNELL_ENTRY_POINT=https://shibidp.cit.cornell.edu/idp/profile/SAML2/Redirect/SSO')
 
 fs.writeFileSync('certenv', output.join('\n'))

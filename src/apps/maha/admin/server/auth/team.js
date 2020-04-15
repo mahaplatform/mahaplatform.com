@@ -2,7 +2,7 @@ import Team from '../../../models/team'
 
 const team = async (req, res, next) => {
 
-  const state = req.query.state || req.query.RelayState
+  const state = req.query.state || req.body.RelayState
 
   if(!state) throw new Error({
     code: 500,
