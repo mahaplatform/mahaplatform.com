@@ -1,5 +1,5 @@
 import ContactToken from '../../../../tokens/contact'
-import { Searchbox } from 'maha-admin'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -18,18 +18,17 @@ class Contacts extends React.Component {
           <thead>
             <tr>
               <td>Contact</td>
+              <td />
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="unpadded">
-                <Searchbox { ...this._getSearchbox() } />
-              </td>
-            </tr>
             { contacts.map((contact, index) => (
               <tr key={`contact_${index}`}>
                 <td className="unpadded">
                   <ContactToken { ...contact } property="rfc822" />
+                </td>
+                <td className="unpadded">
+                  <Button { ...this._getRemove(contact) } />
                 </td>
               </tr>
             )) }
@@ -39,9 +38,16 @@ class Contacts extends React.Component {
     )
   }
 
-  _getSearchbox() {
+  _getRemove(contact) {
+    const { topic } = this.props
     return {
-      prompt: 'Find a Contact'
+      icon: 'times',
+      className: 'icon',
+      confirm: 'Are you sure you want to remove this contact?',
+      request: {
+        endpoint: `/api/admin/crm/programs/${topic.program.id}/topics/${topic.id}/interests/${contact.id}`,
+        method: 'delete'
+      }
     }
   }
 

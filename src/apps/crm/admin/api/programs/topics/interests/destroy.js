@@ -1,6 +1,6 @@
 import socket from '../../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../../services/programs'
-import List from '../../../../../models/list'
+import Topic from '../../../../../models/topic'
 
 const destroyRoute = async (req, res) => {
 
@@ -14,22 +14,22 @@ const destroyRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  const list = await List.query(qb => {
+  const topic = await Topic.query(qb => {
     qb.where('program_id', req.params.program_id)
     qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.list_id)
+    qb.where('id', req.params.topic_id)
   }).fetch({
     transacting: req.trx
   })
 
-  await req.trx('crm_subscriptions').where({
-    list_id: list.get('id'),
+  await req.trx('crm_interests').where({
+    topic_id: topic.get('id'),
     contact_id: req.params.id
   }).delete()
 
   await socket.refresh(req, [
     `/admin/crm/programs/${req.params.program_id}`,
-    `/admin/crm/programs/${req.params.program_id}/lists/${req.params.list_id}`
+    `/admin/crm/programs/${req.params.program_id}/topics/${req.params.topic_id}`
   ])
 
   res.status(200).respond(true)

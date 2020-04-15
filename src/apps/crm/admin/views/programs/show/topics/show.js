@@ -15,7 +15,7 @@ const getTasks = ({ topic }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  contacts: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}/contacts`,
+  contacts: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}/interests`,
   topic: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}`
 })
 

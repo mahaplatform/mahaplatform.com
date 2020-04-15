@@ -1,12 +1,12 @@
-import Subscriptions from './subscriptions'
+import Contacts from './contacts'
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
 
-const getTabs = ({ subscriptions, list }) => ({
+const getTabs = ({ contacts, list }) => ({
   items: [
     { label: 'Details', component: <Details list={ list } /> },
-    { label: 'Contacts', component: <Subscriptions list={ list } subscriptions={ subscriptions } /> }
+    { label: 'Contacts', component: <Contacts list={ list } contacts={ contacts } /> }
   ]
 })
 
@@ -15,7 +15,7 @@ const getTasks = ({ list }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  subscriptions: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}/subscriptions`,
+  contacts: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}/subscriptions`,
   list: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}`
 })
 

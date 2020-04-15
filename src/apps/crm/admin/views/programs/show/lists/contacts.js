@@ -1,17 +1,17 @@
 import ContactToken from '../../../../tokens/contact'
-import { Button, Searchbox } from 'maha-admin'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Subscriptions extends React.Component {
+class Contacts extends React.Component {
 
   static propTypes = {
-    subscriptions: PropTypes.array,
+    contacts: PropTypes.array,
     list: PropTypes.object
   }
 
   render() {
-    const { subscriptions } = this.props
+    const { contacts } = this.props
     return (
       <div className="maha-table">
         <table>
@@ -22,7 +22,7 @@ class Subscriptions extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { subscriptions.map((contact, index) => (
+            { contacts.map((contact, index) => (
               <tr key={`contact_${index}`}>
                 <td className="unpadded">
                   <ContactToken { ...contact } property="rfc822" />
@@ -51,12 +51,6 @@ class Subscriptions extends React.Component {
     }
   }
 
-  _getSearchbox() {
-    return {
-      prompt: 'Find a Contact'
-    }
-  }
-
 }
 
-export default Subscriptions
+export default Contacts
