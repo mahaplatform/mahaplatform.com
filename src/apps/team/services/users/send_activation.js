@@ -1,7 +1,7 @@
-import { createUserToken } from '../../../core/utils/user_tokens'
-import { send_email } from '../../maha/services/emails'
+import { createUserToken } from '../../../../core/utils/user_tokens'
+import { send_email } from '../../../maha/services/emails'
 
-export const sendUserActivation = async (req, user) => {
+const sendActivation = async (req, { user }) => {
 
   const token = createUserToken(user, 'activation_id')
 
@@ -16,3 +16,5 @@ export const sendUserActivation = async (req, user) => {
   })
 
 }
+
+export default sendActivation

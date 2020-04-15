@@ -1,5 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { sendUserActivation } from '../../../services/users'
+import { sendActivation } from '../../../services/users'
 import User from '../../../../maha/models/user'
 
 const activateRoute = async (req, res) => {
@@ -16,7 +16,9 @@ const activateRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
-  await sendUserActivation(req, user)
+  await sendActivation(req, {
+    user
+  })
 
   await activity(req, {
     story: 'resent an activation email to {object}',

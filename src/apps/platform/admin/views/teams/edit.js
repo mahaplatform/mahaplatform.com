@@ -32,8 +32,8 @@ class GroupsEdit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Team Name', name: 'subdomain', type: 'textfield', required: true },
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
+            { label: 'Team Name', name: 'subdomain', type: 'textfield', required: true, placeholder: 'Enter team name' },
             { label: 'Authentication', name: 'authentication_strategy', type: 'lookup', placeholder: 'Choose a strategy', options: [{value:'local',text:'Maha'},{value:'cornell',text:'Cornell'},{value:'google',text:'Google'},{value:'ldap',text:'LDAP'}], value: 'value', text: 'text', required: true, format: AuthenticationStrategyToken },
             { label: 'Apps', name: 'app_ids', type: Apps, required: true }
           ]

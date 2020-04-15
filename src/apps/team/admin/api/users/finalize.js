@@ -1,6 +1,6 @@
 import generateCode from '../../../../../core/utils/generate_code'
 import ImportItem from '../../../../maha/models/import_item'
-import { sendUserActivation } from '../../../services/users'
+import { sendActivation } from '../../../services/users'
 import User from '../../../../maha/models/user'
 
 const finalizeRoute = async (req, res) => {
@@ -60,7 +60,9 @@ const finalizeRoute = async (req, res) => {
     })
 
     if(!item.get('is_merged')) {
-      await sendUserActivation(req, user)
+      await sendActivation(req, {
+        user
+      })
     }
 
   })

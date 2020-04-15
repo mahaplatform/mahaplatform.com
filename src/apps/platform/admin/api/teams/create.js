@@ -1,23 +1,14 @@
 import { whitelist } from '../../../../../core/services/routes/params'
-import { sendUserActivation } from '../../../../team/services/users'
 import TeamSerializer from '../../../serializers/team_serializer'
+import socket from '../../../../../core/services/routes/emitter'
+import { createUser, sendActivation } from '../../../../team/services/users'
 import Role from '../../../../maha/models/role'
 import Team from '../../../../maha/models/team'
-import User from '../../../../maha/models/user'
 
 const createRoute = async (req, res) => {
 
   const team = await Team.forge({
     ...whitelist(req.body, ['title','subdomain','authentication_strategy'])
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  const user = await User.forge({
-    team_id: team.get('id'),
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email
   }).save(null, {
     transacting: req.trx
   })
@@ -32,10 +23,10 @@ const createRoute = async (req, res) => {
     app_id
   })))
 
-  await req.trx('maha_installations').insert({
+  await req.trx('maha_installations').insert(app_ids.map(app_id => ({
     team_id: team.get('id'),
-    app_id: 1
-  })
+    app_id
+  })))
 
   const role = await Role.forge({
     team_id: team.get('id'),
@@ -45,24 +36,32 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await req.trx('maha_users_roles').insert({
-    user_id: user.get('id'),
-    role_id: role.get('id')
-  })
-
   await req.trx('maha_roles_apps').insert(app_ids.map(app_id => ({
     role_id: role.get('id'),
     app_id
   })))
 
-  const rights = await req.trx('maha_rights').whereIn('id', app_ids)
+  const rights = await req.trx('maha_rights').whereIn('app_id', app_ids)
 
   await req.trx('maha_roles_rights').insert(rights.map(right => ({
     role_id: role.get('id'),
     right_id: right.id
   })))
 
-  await sendUserActivation(req, user)
+  const user = await createUser(req, {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    role_ids: [role.get('id')]
+  })
+
+  await sendActivation(req, {
+    user
+  })
+
+  await socket.refresh(req, [
+    '/admin/platform/teams'
+  ])
 
   res.status(200).respond(team, TeamSerializer)
 

@@ -27,7 +27,7 @@ export const getState = (req) => {
 
 export const result = (req, res) => async (err, user, info) => {
 
-  console.log(err)
+  console.log('error', err)
 
   if(!user) return await failure(req, res)
 
@@ -64,12 +64,12 @@ const success = async (req, res) => {
     }
   })
 
-  res.render('success')
+  res.status(200).render('success')
 
 }
 
 const failure = async (req, res) => {
 
-  res.send('failed')
+  res.status(500).send('failed')
 
 }

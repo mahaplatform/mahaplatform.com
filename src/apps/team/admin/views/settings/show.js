@@ -9,7 +9,7 @@ const Details = ({ team }) => {
     { label: 'Title ', content: team.title },
     { label: 'Team Name ', content: team.subdomain },
     { label: 'Authentication', content: team.authentication_strategy },
-    { label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: team.address.replace(/\n/g,'<br />') }} /> }
+    { label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: team.address ? team.address.replace(/\n/g,'<br />') : '' }} /> }
   ]
 
   return <List items={ items } />

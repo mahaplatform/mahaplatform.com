@@ -1,82 +1,19 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { whitelist } from '../../../../../core/services/routes/params'
-import generateCode from '../../../../../core/utils/generate_code'
+import { createUser, sendActivation } from '../../../services/users'
 import UserSerializer from '../../../serializers/user_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import { send_email } from '../../../../maha/services/emails'
-import User from '../../../../maha/models/user'
 
 const createRoute = async (req, res) => {
 
-  const key = await generateCode(req, {
-    table: 'maha_users',
-    key: 'key',
-    length: 32
-  })
+  const user = await createUser(req, req.body)
 
-  const user = await User.forge({
-    team_id: req.team.get('id'),
-    is_active: true,
-    notifications_enabled: true,
-    in_app_notifications_enabled: true,
-    notification_sound_enabled: true,
-    notification_sound: 'ding',
-    push_notifications_enabled: true,
-    mute_evenings: true,
-    mute_evenings_start_time: '18:00',
-    mute_evenings_end_time: '9:00',
-    mute_weekends: true,
-    values: {},
-    key,
-    ...whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','email_notifications_method','photo_id','values'])
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await updateRelated(req, {
-    object: user,
-    related: 'roles',
-    table: 'maha_users_roles',
-    ids: req.body.role_ids,
-    foreign_key: 'user_id',
-    related_foreign_key: 'role_id'
-  })
-
-  await updateRelated(req, {
-    object: user,
-    related: 'groups',
-    table: 'maha_users_groups',
-    ids: req.body.group_ids,
-    foreign_key: 'user_id',
-    related_foreign_key: 'group_id'
-  })
-
-  await updateRelated(req, {
-    object: user,
-    related: 'supervisors',
-    table: 'maha_supervisions',
-    ids: req.body.supervisor_ids,
-    foreign_key: 'employee_id',
-    related_foreign_key: 'supervisor_id'
+  await sendActivation(req, {
+    user
   })
 
   await activity(req, {
     story: 'created {object}',
     object: user
-  })
-
-  const token = createUserToken(user, 'activation_id')
-
-  await send_email(req, {
-    team_id: req.team.get('id'),
-    user,
-    template: 'team:activation',
-    data: {
-      first_name: user.get('first_name'),
-      activation_url: `${process.env.WEB_HOST}/admin/activate/${token}`
-    }
   })
 
   await socket.refresh(req, [
