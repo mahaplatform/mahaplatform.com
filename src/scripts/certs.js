@@ -10,5 +10,6 @@ output.push(`CORNELL_DECRYPTION_KEY="${parse('saml-decryption.mahaplatform.com.k
 output.push(`CORNELL_DECRYPTION_CERT="${parse('saml-decryption.mahaplatform.com.crt', ' ')}"`)
 output.push(`CORNELL_SIGNING_KEY="${parse('saml-signing.mahaplatform.com.key', '')}"`)
 output.push(`CORNELL_SIGNING_CERT="${parse('saml-signing.mahaplatform.com.crt', ' ')}"`)
+output.push(`CORNELL_CERT="${parse('saml-cornell.prod.crt', ' ')}"`)
 
 fs.writeFileSync('certenv', output.join('\n'))
