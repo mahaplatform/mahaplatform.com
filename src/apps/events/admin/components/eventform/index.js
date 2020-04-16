@@ -106,7 +106,7 @@ class EventForm extends React.PureComponent {
     const { programs } = this.props
     return {
       programs,
-      onBack: this._handleCancel,
+      onCancel: this._handleCancel,
       onChoose: this._handlePrograms
     }
   }

@@ -15,6 +15,7 @@ const getTasks = ({ form }) => {
   const items = []
   if(!form.deleted_at) {
     items.push({ label: 'Edit Form', modal: <Edit form={ form } /> })
+    items.push({ label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` })
     items.push({
       label: 'Delete Form',
       confirm: `

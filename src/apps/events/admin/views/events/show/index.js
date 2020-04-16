@@ -1,6 +1,6 @@
+import { Embed, Page } from 'maha-admin'
 import Performance from './performance'
 import Sessions from './sessions'
-import { Page } from 'maha-admin'
 import Tickets from './tickets'
 import Details from './details'
 import Edit from '../edit'
@@ -16,8 +16,37 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
 })
 
 const getTasks = ({ event }) => {
+
+  const embed = {
+    title: 'Button Code',
+    header: (
+      <p>You can place a <strong>Buy Tickets</strong> button on your
+      website by pasting this code into your html.</p>
+    ),
+    code: `<div data-event="${event.code}" />
+<script src="${process.env.WEB_HOST}/events/button.js"></script>
+<script>
+new MahaEventButton({
+  code: '${event.code}',
+  className: 'button',
+  label: 'Buy Tickets'
+})
+</script>`
+  }
+
   const items = [
     { label: 'Edit Event', modal: <Edit event={ event } /> },
+    {
+      label: 'Get Button Code',
+      modal: {
+        component: <Embed { ...embed } />,
+        options: {
+          width: 640,
+          height: 480
+        }
+      }
+    },
+    { label: 'View Public Registration', link: event.url },
     {
       label: 'Delete Event',
       confirm: `

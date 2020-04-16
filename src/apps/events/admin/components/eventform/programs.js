@@ -36,7 +36,7 @@ class Programs extends React.PureComponent {
     return {
       title: 'Choose a Progam',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel}
+        { label: 'Cancel', handler: this._handleCancel }
       ]
     }
   }
