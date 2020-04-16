@@ -25,7 +25,7 @@ const EmailCampaign = new Model({
     },
 
     preview() {
-      return `screenshots/email-campaign-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
+      return this.get('screenshoted_at') ? `screenshots/email-campaign${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     }
 
   },

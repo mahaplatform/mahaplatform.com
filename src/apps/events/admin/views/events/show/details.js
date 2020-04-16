@@ -41,12 +41,6 @@ const Details = ({ audits, event }) => {
     }
   }
 
-  const email = {
-    label: 'Design Email',
-    className: 'link',
-    route: `/admin/crm/emails/${event.email.id}/design`
-  }
-
   const workflow = {
     label: ' Manage Workflow',
     className: 'link',
@@ -66,7 +60,6 @@ const Details = ({ audits, event }) => {
             </div>
           ) },
           { label: 'Program', content: event.program.title },
-          { label: 'Confirmation', content: <Button { ...email } /> },
           { label: 'Workflow', content: <Button { ...workflow } /> }
         ]
       }, {

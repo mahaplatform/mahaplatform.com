@@ -4,9 +4,9 @@ import Details from './details'
 import Edit from './edit'
 import React from 'react'
 
-const getTabs = ({ email }) => ({
+const getTabs = ({ audits, email }) => ({
   items: [
-    { label: 'Details', component: <Details email={ email } /> },
+    { label: 'Details', component: <Details audits={ audits } email={ email } /> },
     { label: 'Performance', component: <Performance email={ email } /> }
   ]
 })
@@ -29,6 +29,7 @@ const getTasks = ({ email }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/crm_emails/${props.params.id}/audits`,
   email: `/api/admin/crm/emails/${props.params.id}`
 })
 

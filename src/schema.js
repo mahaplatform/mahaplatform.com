@@ -340,6 +340,7 @@ const schema = {
       table.text('html')
       table.timestamp('deleted_at')
       table.boolean('has_preview')
+      table.timestamp('screenshoted_at')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -356,6 +357,7 @@ const schema = {
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
       table.boolean('has_preview')
+      table.timestamp('screenshoted_at')
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -547,6 +549,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.boolean('has_preview')
+      table.timestamp('screenshoted_at')
       table.timestamp('deleted_at')
     })
 

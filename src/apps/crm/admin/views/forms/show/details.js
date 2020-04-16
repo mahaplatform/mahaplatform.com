@@ -43,12 +43,6 @@ new MahaForm({
     route: `/admin/crm/forms/${form.id}/design`
   }
 
-  const email = {
-    label: 'Design Email',
-    className: 'link',
-    route: `/admin/crm/emails/${form.email.id}/design`
-  }
-
   const workflow = {
     label: 'Manage Workflow',
     className: 'link',
@@ -71,7 +65,6 @@ new MahaForm({
       </div>
     ) },
     { label: 'Design', content: <Button { ...design } /> },
-    { label: 'Confirmation', content: <Button { ...email } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]

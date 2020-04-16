@@ -22,7 +22,7 @@ const Template = new Model({
     },
 
     preview() {
-      return `screenshots/template-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
+      return this.get('screenshoted_at') ? `screenshots/template-${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     }
 
   },

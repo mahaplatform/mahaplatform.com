@@ -8,18 +8,20 @@ const getTabs = ({ template }) => ({
   ]
 })
 
-const getTasks = ({ template }) => ({
-  items: [
-    {
+const getTasks = ({ template }) => {
+  const items = []
+  if(!template.deleted_at) {
+    items.push({
       label: 'Delete Template',
       confirm: 'Are you sure you want to delete this template?',
       request: {
         endpoint: `/api/admin/crm/programs/${template.program.id}/templates/${template.id}`,
         method: 'delete'
       }
-    }
-  ]
-})
+    })
+  }
+  return { items }
+}
 
 const mapResourcesToPage = (props, context) => ({
   template: `/api/admin/crm/programs/${props.params.program_id}/templates/${props.params.id}`

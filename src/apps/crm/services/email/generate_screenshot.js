@@ -5,6 +5,7 @@ import s3 from '../../../../core/services/s3'
 import Template from '../../models/template'
 import renderEmail from './render_email'
 import Email from '../../models/email'
+import moment from 'moment'
 
 const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
   if(email_id) {
@@ -77,6 +78,7 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
   })
 
   await object.save({
+    screenshoted_at: moment().toDate(),
     has_preview: true
   }, {
     patch: true,

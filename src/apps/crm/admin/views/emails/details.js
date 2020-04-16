@@ -1,9 +1,9 @@
 import EmailPreview from '../../components/email_preview'
-import { Button, Comments, List } from 'maha-admin'
+import { Audit, Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ email }) => {
+const Details = ({ audits, email }) => {
 
   const list = {}
 
@@ -32,6 +32,8 @@ const Details = ({ email }) => {
 
   list.items.push({ label: 'Content', content: <Button { ...design } /> })
 
+  list.items.push({ component: <Audit entries={ audits } /> })
+
   list.footer = <Comments entity={`crm_emails/${email.id}`} active={ email.deleted_at === null } />
 
   return <List { ...list } />
@@ -39,6 +41,7 @@ const Details = ({ email }) => {
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   email: PropTypes.object
 }
 

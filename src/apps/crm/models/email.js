@@ -27,7 +27,7 @@ const Email = new Model({
     },
 
     preview() {
-      return `screenshots/email-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
+      return this.get('screenshoted_at') ? `screenshots/email-${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     },
 
     type() {
