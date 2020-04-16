@@ -1,5 +1,6 @@
-import { Image, ModalPanel } from 'maha-admin'
+import { ModalPanel, Tabs } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Custom from './custom'
 import React from 'react'
 
 class Chooser extends React.PureComponent {
@@ -9,27 +10,16 @@ class Chooser extends React.PureComponent {
   }
 
   static propTypes = {
-    templates: PropTypes.array
+    templates: PropTypes.array,
+    onChoose: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    const { templates } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="templatefield-templates">
-          { templates.map((template, index) => (
-            <div className="templatefield-template" key={`template_${index}`}>
-              <div className="templatefield-template-preview">
-                <Image src={ template.preview } transforms={{ w: 250 }} />
-              </div>
-              <div className="templatefield-template-label">
-                { template.title }
-              </div>
-            </div>
-          ))}
-        </div>
+        <Tabs { ...this._getTabs() } />
       </ModalPanel>
     )
   }
@@ -40,6 +30,23 @@ class Chooser extends React.PureComponent {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
+    }
+  }
+
+  _getTabs() {
+    return {
+      items: [
+        { label: 'Layouts', component: <Custom { ...this._getTemplates() } /> },
+        { label: 'Custom', component: <Custom { ...this._getTemplates() } /> }
+      ]
+    }
+  }
+
+  _getTemplates() {
+    const { templates, onChoose } = this.props
+    return {
+      templates,
+      onChoose
     }
   }
 

@@ -1,3 +1,4 @@
+import GenerateScreenshotQueue from '../../queues/generate_screenshot_queue'
 import generateCode from '../../../../core/utils/generate_code'
 import { audit } from '../../../../core/services/routes/audit'
 import { getDefaultConfig } from '../../services/email'
@@ -102,6 +103,10 @@ const createConfirmationWorkflow = async(req, params) => {
     email_id: email.get('id')
   }, {
     transacting: req.trx
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    email_id: email.get('id')
   })
 
 }

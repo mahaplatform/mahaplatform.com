@@ -76,13 +76,16 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
     }
   })
 
+  await object.save({
+    has_preview: true
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
   await saveScreenshot(req, {
     data,
     key: object.get('preview')
-  })
-
-  await req.trx(object.tableName).update({
-    has_preview: true
   })
 
   await socket.refresh(req, [

@@ -1,7 +1,8 @@
-import TemplateSerializer from '../../../../serializers/template_serializer'
 import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
+import TemplateSerializer from '../../../../serializers/template_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
+import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Template from '../../../../models/template'
 
@@ -46,6 +47,10 @@ const updateRoute = async (req, res) => {
     story: 'updated {object}',
     object: template
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/programs/${req.params.program_id}`
+  ])
 
   res.status(200).respond(template, TemplateSerializer)
 

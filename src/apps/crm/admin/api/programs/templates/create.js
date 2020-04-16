@@ -1,3 +1,4 @@
+import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
 import TemplateSerializer from '../../../../serializers/template_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
@@ -26,6 +27,10 @@ const createRoute = async (req, res) => {
     config: getDefaultConfig()
   }).save(null, {
     transacting: req.trx
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    template_id: template.get('id')
   })
 
   await activity(req, {

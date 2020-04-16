@@ -49,7 +49,8 @@ const getDefaultConfig = () => ({
       p_text_align: 'center',
       p_line_height: 1.5
     }]
-  }
+  },
+  settings: {}
 })
 
 export default getDefaultConfig

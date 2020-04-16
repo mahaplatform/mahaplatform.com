@@ -1,7 +1,6 @@
 import webshot from 'webshot'
 
 export const getScreenshot = async({ config, html }) => {
-
   return await new Promise((resolve, reject) => {
     const ws = webshot(html, {
       siteType:'html',
