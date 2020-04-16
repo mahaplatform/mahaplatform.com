@@ -1,3 +1,4 @@
+import TemplateField from '../../components/templatefield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -37,10 +38,12 @@ class New extends React.Component {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
-            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            { type: 'segment', fields: [
+              { label: 'Template', name: 'template_id', type: TemplateField, program_id },
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+              { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            ] }
           ]
         }
       ]

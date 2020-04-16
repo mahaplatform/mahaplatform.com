@@ -183,7 +183,6 @@ class Access extends React.Component {
   _handleUpdate(index, assignment) {
     const types = ['manage','edit','view']
     const cur = types.findIndex(value => assignment.type === value)
-    console.log(types, assignment.type, cur)
     const type = types[(cur + 1) % 3]
     this.props.onUpdate(index, type)
   }

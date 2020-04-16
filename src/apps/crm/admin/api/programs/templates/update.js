@@ -1,4 +1,9 @@
+import TemplateSerializer from '../../../../serializers/template_serializer'
+import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
+import { activity } from '../../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import { checkProgramAccess } from '../../../../services/programs'
+import Template from '../../../../models/template'
 
 const updateRoute = async (req, res) => {
 
@@ -12,7 +17,37 @@ const updateRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  res.status(200).respond()
+  const template = await Template.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('program_id', req.params.program_id)
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['program'],
+    transacting: req.trx
+  })
+
+  if(!template) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load template'
+  })
+
+  await template.save({
+    has_preview: false,
+    ...whitelist(req.body, ['title','config'])
+  }, {
+    transacting: req.trx
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    template_id: template.get('id')
+  })
+
+  await activity(req, {
+    story: 'updated {object}',
+    object: template
+  })
+
+  res.status(200).respond(template, TemplateSerializer)
 
 }
 

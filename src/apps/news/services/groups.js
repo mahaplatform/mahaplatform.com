@@ -34,8 +34,6 @@ export const updateMembers = async (req, { group, members }) => {
       user_id: member.user_id
     })
 
-    console.log(members, member)
-
     if(existing) return
 
     await req.trx('news_members').where({

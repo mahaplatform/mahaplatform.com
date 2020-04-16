@@ -12,7 +12,6 @@ const TicketType = new Model({
     remaining() {
       const total_tickets = this.get('total_tickets')
       if(!total_tickets) return null
-      console.log(total_tickets, this.get('tickets_count'))
       return total_tickets - this.get('tickets_count')
     }
 

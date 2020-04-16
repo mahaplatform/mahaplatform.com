@@ -21,6 +21,7 @@ const updateRoute  = async (req, res) => {
   })
 
   await email_campaign.save({
+    has_preview: false,
     to: req.body.to ? {
       criteria : req.body.to
     } : email_campaign.get('to'),

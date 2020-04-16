@@ -1,10 +1,12 @@
 import { getScreenshot } from '../../../../core/services/screenshot'
+import socket from '../../../../core/services/routes/emitter'
 import EmailCampaign from '../../models/email_campaign'
 import s3 from '../../../../core/services/s3'
+import Template from '../../models/template'
 import renderEmail from './render_email'
 import Email from '../../models/email'
 
-const getObject = async (req, { email_id, email_campaign_id }) => {
+const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
   if(email_id) {
     return await Email.query(qb => {
       qb.where('team_id', req.team.get('id'))
@@ -21,31 +23,32 @@ const getObject = async (req, { email_id, email_campaign_id }) => {
       transacting: req.trx
     })
   }
+  if(template_id) {
+    return await Template.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('id', template_id)
+    }).fetch({
+      transacting: req.trx
+    })
+  }
 }
 
-const getKey = ({ email_id, email_campaign_id }) => {
-  if(email_id) return `screenshots/emails/${email_id}.jpg`
-  if(email_campaign_id) return `screenshots/email_campaigns/${email_campaign_id}.jpg`
-}
-
-const saveScreenshot = async (req, { data, email_id, email_campaign_id }) => {
+const saveScreenshot = async (req, { data, key }) => {
   await s3.upload({
     ACL: 'private',
     Body: data,
     Bucket: process.env.AWS_BUCKET,
     ContentType: 'image/jpeg',
-    Key: getKey({
-      email_campaign_id,
-      email_id
-    })
+    Key: key
   }).promise()
 }
 
-const generateScreenshot = async(req, { email_campaign_id, email_id }) => {
+const generateScreenshot = async(req, { email_campaign_id, email_id, template_id }) => {
 
   const object = await getObject(req, {
     email_campaign_id,
-    email_id
+    email_id,
+    template_id
   })
 
   const html = await renderEmail(req, {
@@ -75,9 +78,17 @@ const generateScreenshot = async(req, { email_campaign_id, email_id }) => {
 
   await saveScreenshot(req, {
     data,
-    email_campaign_id,
-    email_id
+    key: object.get('preview')
   })
+
+  await req.trx(object.tableName).update({
+    has_preview: true
+  })
+
+  await socket.refresh(req, [
+    ...email_id ? [`/admin/crm/emails/${email_id}`] : [],
+    ...email_campaign_id ? [`/admin/crm/campagins/emails/${email_campaign_id}`] : []
+  ])
 
 }
 

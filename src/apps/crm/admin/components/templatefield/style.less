@@ -1,0 +1,34 @@
+.templatefield-templates {
+  padding: 0.4em;
+}
+.templatefield-template {
+  border: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  text-align: center;
+  padding: 0.8em;
+  margin: 0.4em;
+  float: left;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+}
+.templatefield-template-preview {
+  margin-bottom: 0.4em;
+  img {
+    width: 100%;
+  }
+}
+.templatefield-template-label {
+  font-size: 0.8em;
+}
+@media (max-width: 768px) {
+  .templatefield-template {
+    width: ~"calc(100% / 3 - 0.8em)";
+  }
+}
+@media (min-width: 769px) {
+  .templatefield-template {
+    width: ~"calc(100% / 5 - 0.8em)";
+  }
+}

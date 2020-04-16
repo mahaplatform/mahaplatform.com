@@ -187,7 +187,6 @@ class EventForm extends React.PureComponent {
   }
 
   _handleNew() {
-    console.log('new')
     this._handlePush(Programs, this._getPrograms())
   }
 

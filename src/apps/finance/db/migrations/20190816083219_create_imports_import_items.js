@@ -158,8 +158,6 @@ const CreateImportsImportItems = {
 
     await Promise.mapSeries(items, async (item) => {
 
-      console.log(`expenses_${item.type}s #${item.item_id}`)
-
       const code = await generateCode({ trx: knex }, {
         table: `expenses_${item.type}s`
       })

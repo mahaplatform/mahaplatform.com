@@ -26,6 +26,10 @@ const Email = new Model({
       return `/admin/crm/emails/${this.get('id')}`
     },
 
+    preview() {
+      return `screenshots/email-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
+    },
+
     type() {
       if(this.get('event_id')) return 'event'
       if(this.get('form_id')) return 'form'

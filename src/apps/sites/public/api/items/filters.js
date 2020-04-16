@@ -71,8 +71,6 @@ const _filterSearch = (qb, filter) => {
 
 const _filterColumn = (qb, column, filter) => {
 
-  console.log(column, filter)
-
   if(filter.$eq) {
 
     _filterEqual(qb, column, filter.$eq)

@@ -22,7 +22,7 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { type, program_id } = this.props
+    const { program_id } = this.props
     return {
       title: 'New Template',
       method: 'post',
@@ -44,7 +44,8 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/crm/templates/${result.id}/design`)
+    const { program_id } = this.props
+    this.context.router.history.push(`/admin/crm/programs/${program_id}/templates/${result.id}/design`)
     this.context.modal.close()
   }
 

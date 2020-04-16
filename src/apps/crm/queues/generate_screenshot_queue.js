@@ -5,7 +5,8 @@ const processor = async (req, job) => {
 
   await generateScreenshot(req, {
     email_campaign_id: job.data.email_campaign_id,
-    email_id: job.data.email_id
+    email_id: job.data.email_id,
+    template_id: job.data.template_id
   })
 
 }

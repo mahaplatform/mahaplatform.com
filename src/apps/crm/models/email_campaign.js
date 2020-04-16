@@ -22,6 +22,10 @@ const EmailCampaign = new Model({
 
     object_url: function() {
       return `/admin/crm/campaigns/email/${this.get('id')}`
+    },
+
+    preview() {
+      return `screenshots/email-campaign-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
     }
 
   },

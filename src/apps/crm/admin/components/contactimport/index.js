@@ -144,7 +144,6 @@ class ContactImport extends React.PureComponent {
   }
 
   _handleSummary(_import) {
-    console.log(_import)
     this._handlePush(Summary, this._getSummary(_import))
   }
 

@@ -1,3 +1,4 @@
+import TemplateField from '../../../components/templatefield'
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
 import fields from '../../contacts/criteria'
@@ -48,10 +49,13 @@ class New extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
             { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() },
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            { type: 'segment', fields: [
+              { label: 'Template', name: 'template_id', type: TemplateField, program_id },
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+              { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            ] }
           ]
         }
       ]

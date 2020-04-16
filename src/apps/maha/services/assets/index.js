@@ -188,7 +188,6 @@ export const getPDFData = async (asset) => {
 }
 
 export const scanAsset = async (req, id) => {
-  console.log('id', id)
   const clamscan = await Clamscan
   const asset = await _fetchAsset(req, id)
   const filePath = _getTmpPath()

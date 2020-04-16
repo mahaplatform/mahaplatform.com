@@ -27,26 +27,6 @@ const Details = ({ audits, workflow }) => {
     { label: 'Program', content: workflow.program.title }
   ]
 
-  if(workflow.trigger_type === 'list' && workflow.action === 'add') {
-    list.items.push({ label: 'Trigger', content: 'Added to list' })
-  } else if(workflow.trigger_type === 'list' && workflow.action === 'remove') {
-    list.items.push({ label: 'Trigger', content: 'Removed from list' })
-  } else if(workflow.trigger_type === 'topic' && workflow.action === 'add') {
-    list.items.push({ label: 'Trigger', content: 'Added to topic' })
-  } else if(workflow.trigger_type === 'topic' && workflow.action === 'remove') {
-    list.items.push({ label: 'Trigger', content: 'Removed from topic' })
-  } else if(workflow.trigger_type === 'open') {
-    list.items.push({ label: 'Trigger', content: 'Email is opened' })
-  } else if(workflow.trigger_type === 'click') {
-    list.items.push({ label: 'Trigger', content: 'Email link is clicked' })
-  } else if(workflow.trigger_type === 'response') {
-    list.items.push({ label: 'Trigger', content: 'Form is submitted' })
-  } else if(workflow.trigger_type === 'event') {
-    list.items.push({ label: 'Trigger', content: 'Contact registers for event' })
-  } else if(workflow.trigger_type === 'manual') {
-    list.items.push({ label: 'Trigger', content: 'Contact is enrolled' })
-  }
-
   if(workflow.trigger_type === 'list') {
     list.items.push({ label: 'List', content: workflow.list.title })
   } else if(workflow.trigger_type === 'topic') {

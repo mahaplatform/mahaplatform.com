@@ -2,14 +2,16 @@ import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const EmailPreview = ({ src }) => (
+const EmailPreview = ({ email }) => (
   <div className="crm-email-preview">
-    <Image src={ src } transforms={{ h: 360 }} />
+    { email.has_preview &&
+      <Image src={ `/${email.preview}` } transforms={{ h: 360 }} />
+    }
   </div>
 )
 
 EmailPreview.propTypes = {
-  src: PropTypes.string
+  email: PropTypes.object
 }
 
 export default EmailPreview

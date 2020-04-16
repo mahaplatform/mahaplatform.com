@@ -7,7 +7,13 @@ const Template = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    preview() {
+      return `screenshots/template-${this.get('id')}-${this.get('updated_at').getTime()}.jpg`
+    }
+
+  },
 
   program() {
     return this.belongsTo(Program, 'program_id')

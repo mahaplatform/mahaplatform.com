@@ -8,6 +8,8 @@ const EmailSerializer = (req, result) => ({
   event: event(result.related('event')),
   form: form(result.related('form')),
   program: program(result.related('program')),
+  has_preview: result.get('has_preview'),
+  preview: result.get('preview'),
   open_rate: result.get('open_rate'),
   bounce_rate: result.get('bounce_rate'),
   click_rate: result.get('click_rate'),

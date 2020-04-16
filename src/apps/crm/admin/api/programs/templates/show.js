@@ -6,7 +6,7 @@ const showRoute = async (req, res) => {
 
   const access = await checkProgramAccess(req, {
     program_id: req.params.program_id,
-    types: ['view']
+    types: ['manage']
   })
 
   if(!access) return res.status(403).respond({
@@ -20,6 +20,7 @@ const showRoute = async (req, res) => {
     qb.where('crm_templates.program_id', req.params.program_id)
     qb.where('crm_templates.id', req.params.id)
   }).fetch({
+    withRelated: ['program'],
     transacting: req.trx
   })
 

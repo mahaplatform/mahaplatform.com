@@ -41,8 +41,6 @@ class Admin extends React.Component {
       ...extra
     }
     if(this.enabled) return ga.event(data)
-    console.log('Event', data)
-
   }
 
 }

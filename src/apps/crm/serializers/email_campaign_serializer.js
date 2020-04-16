@@ -9,6 +9,8 @@ const EmailCampaignSerializer = (req, result) => ({
   code: result.get('code'),
   type: 'email',
   direction: 'outbound',
+  has_preview: result.get('has_preview'),
+  preview: result.get('preview'),
   purpose: result.get('purpose'),
   status: result.get('status'),
   config: result.get('config'),

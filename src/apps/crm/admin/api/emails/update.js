@@ -22,6 +22,7 @@ const updateRoute = async (req, res) => {
   })
 
   await email.save({
+    has_preview: false,
     ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx

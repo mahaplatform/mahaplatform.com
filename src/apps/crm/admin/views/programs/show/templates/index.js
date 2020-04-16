@@ -7,7 +7,7 @@ const Templates = ({ program, templates }) => {
 
   const list = {
     items: templates.map((template, index) => ({
-      route: `/admin/crm/templates/${template.id}/design`,
+      route: `/admin/crm/programs/${program.id}/templates/${template.id}/design`,
       component: (props) => (
         <div className="token">
           { template.title }

@@ -24,7 +24,7 @@ const Details = ({ audits, campaign }) => {
     modal: <Recipients campaign={ campaign } type="email" />
   }
 
-  config.header = <EmailPreview src={`/screenshots/email_campaigns/${campaign.id}.jpg`} />
+  config.header = <EmailPreview email={ campaign } />
 
   if(campaign.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This campaign was deleted' }

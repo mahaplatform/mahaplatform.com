@@ -339,6 +339,7 @@ const schema = {
       table.integer('job_id')
       table.text('html')
       table.timestamp('deleted_at')
+      table.boolean('has_preview')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -354,6 +355,7 @@ const schema = {
       table.integer('program_id').unsigned()
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
+      table.boolean('has_preview')
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -540,12 +542,11 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
-      table.integer('parent_id').unsigned()
       table.string('title', 255)
-      table.USER-DEFINED('type')
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('has_preview')
     })
 
     await knex.schema.createTable('crm_topics', (table) => {
@@ -2520,7 +2521,6 @@ const schema = {
     })
 
     await knex.schema.table('crm_templates', table => {
-      table.foreign('parent_id').references('crm_templates.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })

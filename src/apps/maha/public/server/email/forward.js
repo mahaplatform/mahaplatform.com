@@ -17,8 +17,6 @@ const showRoute = async (req, res) => {
 
   const template = await readFile(path.join('maha','forward','index.html'))
 
-  console.log(content)
-
   const content = ejs.render(template, {
     form: {
       code: email.get('code')
