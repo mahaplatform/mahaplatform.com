@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.use('/auth', auth)
 
-router.use(oauth)
+router.use('/oauth', oauth)
 
 export default router

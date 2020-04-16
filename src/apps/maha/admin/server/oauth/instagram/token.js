@@ -9,7 +9,7 @@ ig.use({
 
 const authorize_user = Promise.promisify(ig.authorize_user)
 
-const redirect_uri = `${process.env.WEB_HOST}/admin/instagram/token`
+const redirect_uri = `${process.env.WEB_HOST}/admin/oauth/instagram/token`
 
 const token = async ({ code }, scope) => {
 

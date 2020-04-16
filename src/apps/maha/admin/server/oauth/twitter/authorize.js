@@ -8,7 +8,7 @@ const authorize = async (req, { scope, state }) => {
     process.env.TWITTER_API_KEY,
     process.env.TWITTER_API_SECRET_KEY,
     '1.0',
-    encodeURI(`${process.env.WEB_HOST}/admin/twitter/token?state=${state}`),
+    encodeURI(`${process.env.WEB_HOST}/admin/oauth/twitter/token?state=${state}`),
     'HMAC-SHA1'
   )
 

@@ -10,7 +10,8 @@ const google = async (req, res, next) => {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     authorizationURL: `https://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
-    callbackURL: `${process.env.WEB_HOST}/admin/auth/google`
+    callbackURL: `${process.env.WEB_HOST}/admin/auth/google`,
+    userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
   }, (accessToken, refreshToken, profile, done) => {
     loadUserByEmail(req, profile.emails[0].value, done)
   }))

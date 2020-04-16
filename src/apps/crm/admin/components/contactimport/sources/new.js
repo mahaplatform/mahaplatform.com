@@ -59,7 +59,7 @@ class New extends React.PureComponent {
   _handleChooseSource(source) {
     const { token } = this.props
     const timestamp = moment().format('x')
-    this.context.host.openWindow(`/admin/${source.service}/authorize?type=contacts&timestamp=${timestamp}&token=${token}`)
+    this.context.host.openWindow(`/admin/oauth/${source.service}/authorize?type=contacts&timestamp=${timestamp}&token=${token}`)
     this.props.onPop()
   }
 

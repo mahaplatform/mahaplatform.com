@@ -11,7 +11,7 @@ const token = async ({ code }, scope) => {
   const data = await fb.api('oauth/access_token', {
     client_id: process.env.FACEBOOK_APP_ID,
     client_secret: process.env.FACEBOOK_APP_SECRET,
-    redirect_uri: `${process.env.WEB_HOST}/admin/facebook/token`,
+    redirect_uri: `${process.env.WEB_HOST}/admin/oauth/facebook/token`,
     code
   })
 

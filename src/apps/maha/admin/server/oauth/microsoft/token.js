@@ -28,7 +28,7 @@ const getPhotoData = async (bearer) => {
 const token = async ({ code }, scope) => {
 
   let result = await oauth2.authorizationCode.getToken({
-    redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
+    redirect_uri: `${process.env.WEB_HOST}/admin/oauth/microsoft/token`,
     scope: scope.join(' '),
     code
   })

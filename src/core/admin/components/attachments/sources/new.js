@@ -66,7 +66,7 @@ class New extends React.PureComponent {
     const { token } = this.props
     const type = this._getType(service.name)
     const timestamp = moment().format('x')
-    host.openWindow(`/admin/${service.name}/authorize?type=${type}&timestamp=${timestamp}&token=${token}`)
+    host.openWindow(`/admin/oauth/${service.name}/authorize?type=${type}&timestamp=${timestamp}&token=${token}`)
     this.props.onBack()
   }
 

@@ -7,7 +7,7 @@ ig.use({
   client_secret: process.env.INSTAGRAM_CLIENT_SECRET
 })
 
-const redirect_uri = `${process.env.WEB_HOST}/admin/instagram/token`
+const redirect_uri = `${process.env.WEB_HOST}/admin/oauth/instagram/token`
 
 const authorize = async (req, { scope, state }) => {
 

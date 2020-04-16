@@ -10,7 +10,7 @@ const authorize = async (req, { scope, state }) => {
 
   return await fb.getLoginUrl({
     scope: scope.join(','),
-    redirect_uri: `${process.env.WEB_HOST}/admin/facebook/token`,
+    redirect_uri: `${process.env.WEB_HOST}/admin/oauth/facebook/token`,
     state
   })
 

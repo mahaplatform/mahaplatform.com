@@ -2,7 +2,9 @@ import request from 'request-promise'
 
 const token = async ({ code }, scope) => {
 
-  const redirect_uri = `${process.env.WEB_HOST}/admin/mailchimp/token`
+  const host = process.env.NODE_ENV === 'production' ? process.env.WEB_HOST : process.env.WEB_HOST.replace(process.env.DOMAIN, '127.0.0.1')
+
+  const redirect_uri = `${host}/admin/oauth/mailchimp/token`
 
   const data = await request({
     method: 'POST',
@@ -11,7 +13,7 @@ const token = async ({ code }, scope) => {
       grant_type: 'authorization_code',
       client_id: process.env.MAILCHIMP_CLIENT_ID,
       client_secret: process.env.MAILCHIMP_CLIENT_SECRET,
-      redirect_uri: redirect_uri.replace('localhost', '127.0.0.1'),
+      redirect_uri: redirect_uri,
       code
     }
   }).then(result => JSON.parse(result))
