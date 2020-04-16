@@ -18,6 +18,7 @@ class Page extends React.Component {
     config: PropTypes.object,
     endpoint: PropTypes.string,
     program_id: PropTypes.number,
+    settings: PropTypes.bool,
     status: PropTypes.string,
     title: PropTypes.string,
     onPop: PropTypes.func,
@@ -42,13 +43,15 @@ class Page extends React.Component {
   }
 
   _getMenu() {
-    return {
-      items: [
-        { label: 'Blocks', component: <Content { ...this._getContent() } /> },
-        { label: 'Design', component: <Design { ...this._getDesign() } /> },
-        { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
-      ]
+    const {settings} = this.props
+    const items = [
+      { label: 'Blocks', component: <Content { ...this._getContent() } /> },
+      { label: 'Design', component: <Design { ...this._getDesign() } /> }
+    ]
+    if(settings) {
+      items.push({ label: 'Settings', component: <Settings { ...this._getSettings() } /> })
     }
+    return { items }
   }
 
   _getContent() {

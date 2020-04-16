@@ -89,8 +89,9 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
   })
 
   await socket.refresh(req, [
-    ...email_id ? [`/admin/crm/emails/${email_id}`] : [],
-    ...email_campaign_id ? [`/admin/crm/campagins/emails/${email_campaign_id}`] : []
+    ...email_id ? [`/admin/crm/emails/${object.get('id')}`] : [],
+    ...email_campaign_id ? [`/admin/crm/campaigns/emails/${object.get('id')}`] : [],
+    ...template_id ? [`/admin/crm/programs/${object.get('program_id')}/templates/${object.get('id')}`] : []
   ])
 
 }

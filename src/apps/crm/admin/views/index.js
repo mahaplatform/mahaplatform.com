@@ -43,6 +43,7 @@ import ProgramsTopicsShow from './programs/show/topics/show'
 import ResponsesList from './forms/responses/list'
 import ResponsesShow from './forms/responses/show'
 import ResponseUploadShow from './forms/responses/upload'
+import TemplatesShow from './programs/show/templates/show'
 import TemplatesDesign from './programs/show/templates/design'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
@@ -96,6 +97,7 @@ const routes = [
   { path: '/programs/:id', component: ProgramsShow },
   { path: '/programs/:program_id/lists/:id', component: ProgramsListsShow },
   { path: '/programs/:program_id/topics/:id', component: ProgramsTopicsShow },
+  { path: '/programs/:program_id/templates/:id', component: TemplatesShow },
   { path: '/programs/:program_id/templates/:id/design', component: TemplatesDesign },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },

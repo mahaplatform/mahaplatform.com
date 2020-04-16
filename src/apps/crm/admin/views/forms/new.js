@@ -1,5 +1,4 @@
 import TemplateField from '../../components/templatefield'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -7,13 +6,13 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
   }
 
   static propTypes = {
     program_id: PropTypes.number,
-    user: PropTypes.object,
     onBack: PropTypes.func
   }
 
@@ -25,7 +24,8 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { program_id, user } = this.props
+    const { program_id } = this.props
+    const { admin } = this.context
     return {
       title: 'New Form',
       method: 'post',
@@ -45,7 +45,7 @@ class New extends React.Component {
           fields: [
             { label: 'Template', name: 'template_id', type: TemplateField, program_id },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for filling out our form' }
           ]
         }
@@ -63,9 +63,4 @@ class New extends React.Component {
   }
 
 }
-
-const mapStateToProps = (state, props) => ({
-  user: state.maha.admin.user
-})
-
-export default connect(mapStateToProps)(New)
+export default New

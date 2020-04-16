@@ -1,7 +1,6 @@
 import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
 import TemplateSerializer from '../../../../serializers/template_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import { getDefaultConfig } from '../../../../services/email'
@@ -19,12 +18,20 @@ const createRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
+  const starter = req.body.template_id ? await Template.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('program_id', req.params.program_id)
+    qb.where('id', req.body.template_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
   const template = await Template.forge({
     team_id: req.team.get('id'),
     program_id: req.params.program_id,
     has_preview: false,
-    ...whitelist(req.body, ['title']),
-    config: getDefaultConfig()
+    title: req.body.title,
+    config: starter ? starter.get('config') : getDefaultConfig()
   }).save(null, {
     transacting: req.trx
   })

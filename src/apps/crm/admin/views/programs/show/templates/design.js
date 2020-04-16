@@ -19,7 +19,8 @@ class Designer extends React.Component {
       defaultValue: template.config,
       endpoint: `/api/admin/crm/programs/${template.program.id}/templates/${template.id}`,
       program: template.program,
-      tokens: []
+      tokens: [],
+      settings: false
     }
   }
 

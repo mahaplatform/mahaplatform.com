@@ -22,7 +22,12 @@ class EmailDesigner extends React.Component {
     endpoint: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
+    settings: PropTypes.bool,
     tokens: PropTypes.array
+  }
+
+  static defaultProps = {
+    settings: true
   }
 
   render() {
@@ -30,7 +35,7 @@ class EmailDesigner extends React.Component {
   }
 
   _getDesigner() {
-    const { defaultValue, editable, endpoint, program, tokens } = this.props
+    const { defaultValue, editable, endpoint, program, settings, tokens } = this.props
     return {
       title: 'Email',
       canvas: '/apps/crm/email/index.html',
@@ -42,6 +47,7 @@ class EmailDesigner extends React.Component {
         section: Section
       },
       program_id: program.id,
+      settings,
       tokens,
       blocks: [
         { label: 'Text', type: 'text', icon: 'align-justify', component: Text },

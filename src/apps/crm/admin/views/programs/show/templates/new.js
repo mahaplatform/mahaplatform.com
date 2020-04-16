@@ -1,3 +1,4 @@
+import TemplateField from '../../../../components/templatefield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -32,7 +33,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
+            { label: 'Starter Template', name: 'template_id', type: TemplateField, program_id }
           ]
         }
       ]
@@ -45,7 +47,7 @@ class New extends React.Component {
 
   _handleSuccess(result) {
     const { program_id } = this.props
-    this.context.router.history.push(`/admin/crm/programs/${program_id}/templates/${result.id}/design`)
+    this.context.router.history.push(`/admin/crm/programs/${program_id}/templates/${result.id}`)
     this.context.modal.close()
   }
 

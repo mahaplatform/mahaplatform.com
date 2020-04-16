@@ -36,16 +36,28 @@ class Chooser extends React.PureComponent {
   _getTabs() {
     return {
       items: [
-        { label: 'Layouts', component: <Custom { ...this._getTemplates() } /> },
-        { label: 'Custom', component: <Custom { ...this._getTemplates() } /> }
+        { label: 'Layouts', component: <Custom { ...this._getLayouts() } /> },
+        { label: 'Custom', component: <Custom { ...this._getCustom() } /> }
       ]
     }
   }
 
-  _getTemplates() {
+  _getCustom() {
     const { templates, onChoose } = this.props
     return {
-      templates,
+      templates: templates.filter(template => {
+        return template.program !== undefined
+      }),
+      onChoose
+    }
+  }
+
+  _getLayouts() {
+    const { templates, onChoose } = this.props
+    return {
+      templates: templates.filter(template => {
+        return template.program === undefined
+      }),
       onChoose
     }
   }

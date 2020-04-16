@@ -105,7 +105,7 @@ class TemplateField extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  templates: `/api/admin/crm/programs/${props.program_id}/templates`
+  templates: '/api/admin/crm/templates'
 })
 
 export default Container(mapResources)(TemplateField)

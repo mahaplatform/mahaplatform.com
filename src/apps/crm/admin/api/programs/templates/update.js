@@ -22,6 +22,7 @@ const updateRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('program_id', req.params.program_id)
     qb.where('id', req.params.id)
+    qb.whereNull('crm_templates.deleted_at')
   }).fetch({
     withRelated: ['program'],
     transacting: req.trx

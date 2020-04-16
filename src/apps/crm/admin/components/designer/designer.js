@@ -20,6 +20,7 @@ class Designer extends React.Component {
     endpoint: PropTypes.string,
     preview: PropTypes.bool,
     program_id: PropTypes.number,
+    settings: PropTypes.bool,
     status: PropTypes.string,
     title: PropTypes.string,
     tokens: PropTypes.array,
@@ -85,7 +86,7 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, blocks, cid, components, config, endpoint, program_id, status, title, tokens, onEdit, onSave, onUpdate } = this.props
+    const { active, blocks, cid, components, config, endpoint, program_id, settings, status, title, tokens, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       blocks,
@@ -93,6 +94,7 @@ class Designer extends React.Component {
       components,
       config,
       endpoint,
+      settings,
       status,
       title,
       program_id,

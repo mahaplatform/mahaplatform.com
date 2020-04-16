@@ -547,6 +547,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.boolean('has_preview')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_topics', (table) => {
