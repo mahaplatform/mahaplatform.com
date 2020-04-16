@@ -18,7 +18,7 @@ const updateRoute = async (req, res) => {
     qb.where('program_id', req.params.program_id)
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program'],
+    withRelated: ['program','subscribe_workflow','unsubscribe_workflow'],
     transacting: req.trx
   })
 

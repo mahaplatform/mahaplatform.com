@@ -3,6 +3,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import ListSerializer from '../../../../serializers/list_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
+import { createWorkflow } from '../../../../services/workflows'
 import List from '../../../../models/list'
 
 const createRoute = async (req, res) => {
@@ -24,6 +25,24 @@ const createRoute = async (req, res) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(req.body.subscribe_workflow) {
+    await createWorkflow(req, {
+      list,
+      title: 'Subscribe Workflow',
+      action: 'add',
+      program_id: req.params.program_id
+    })
+  }
+
+  if(req.body.unsubscribe_workflow) {
+    await createWorkflow(req, {
+      list,
+      title: 'Unsubscribe Workflow',
+      action: 'remove',
+      program_id: req.params.program_id
+    })
+  }
 
   await activity(req, {
     story: 'created {object}',

@@ -1,5 +1,6 @@
 import generateCode from '../../../../core/utils/generate_code'
 import { audit } from '../../../../core/services/routes/audit'
+import { getDefaultConfig } from '../../services/email'
 import WorkflowStep from '../../models/workflow_step'
 import Workflow from '../../models/workflow'
 import Template from '../../models/template'
@@ -57,44 +58,11 @@ const createConfirmationWorkflow = async(req, params) => {
     title: 'Confirmation Email',
     code: emailCode,
     config: {
-      ...template ? template.get('config') : {
-        page: {
-          background_color: '#DFDFDF'
-        },
-        header: {
-          blocks: [{
-            type: 'web',
-            text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
-            padding: 8,
-            p_font_size: 12,
-            p_text_align: 'center',
-            p_line_height: 1.5
-          }]
-        },
-        body: {
-          background_color: '#FFFFFF',
-          blocks: [{
-            type: 'text',
-            content_0: '<p>&lt;%- contact.first_name %&gt;,</p><p></p><p>Thank you for filling out our form</p>',
-            padding: 16
-          }]
-        },
-        footer: {
-          blocks: [{
-            type: 'preferences',
-            text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
-            padding: 8,
-            p_font_size: 12,
-            p_text_align: 'center',
-            p_line_height: 1.5
-          }]
-        }
-      },
+      ...template ? template.get('config') : getDefaultConfig(),
       settings: {
         sender_id,
         subject,
-        reply_to,
-        preview_text: subject
+        reply_to
       }
     }
   }).save(null, {

@@ -1,5 +1,6 @@
 export createConfirmationWorkflow from './create_confirmation_workflow'
 export { enrollInWorkflows, enrollInWorkflow } from './enrollment'
 export executeWorkflow from './execute_workflow'
-export updateSteps from './update_steps'
+export createWorkflow from './create_workflow'
 export saveRecording from './save_recording'
+export updateSteps from './update_steps'

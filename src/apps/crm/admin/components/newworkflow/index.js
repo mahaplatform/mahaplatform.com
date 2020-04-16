@@ -1,38 +1,22 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
-import Response from './response'
 import Property from './property'
 import Manual from './manual'
-import Topic from './topic'
 import Types from './types'
-import Event from './event'
 import React from 'react'
 import Open from './open'
-import List from './list'
 
 const types = [
   {
-    component: Response,
-    value: 'response'
-  },{
     component: Open,
     value: 'open'
   },{
     component: Open,
     value: 'click'
   },{
-    component: List,
-    value: 'list'
-  },{
-    component: Topic,
-    value: 'topic'
-  },{
     component: Property,
     value: 'property'
-  },{
-    component: Event,
-    value: 'event'
   },{
     component: Manual,
     value: 'manual'

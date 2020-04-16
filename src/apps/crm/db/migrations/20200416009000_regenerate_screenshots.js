@@ -4,6 +4,15 @@ import Email from '../../models/email'
 
 const generate = async (knex, key, model) => {
 
+  await Promise.mapSeries(['template','email','email_campaign'], async(model) => {
+    await knex.schema.table(`crm_${model}s`, (table) => {
+      table.bool('has_preview')
+    })
+    await knex(`crm_${model}s`).update({
+      has_preview: true
+    })
+  })
+
   const items = await model.fetchAll({
     withRelated: ['team'],
     transacting: knex

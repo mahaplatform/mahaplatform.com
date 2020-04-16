@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Workflow from './workflow'
 import Program from './program'
 import Contact from './contact'
 
@@ -30,6 +31,18 @@ const List = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  subscribe_workflow() {
+    return this.hasOne(Workflow, 'list_id').query(qb => {
+      qb.where('action', 'add')
+    })
+  },
+
+  unsubscribe_workflow() {
+    return this.hasOne(Workflow, 'list_id').query(qb => {
+      qb.where('action', 'remove')
+    })
   }
 
 })

@@ -1,5 +1,7 @@
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import { updateSteps } from '../../../services/workflows'
 import Workflow from '../../../models/workflow'
 
@@ -33,6 +35,16 @@ const updateRoute = async (req, res) => {
       steps: req.body.steps
     })
   }
+
+  await audit(req, {
+    story: 'updated',
+    auditable: workflow
+  })
+
+  await socket.refresh(req, [
+    '/admin/crm/workflows',
+    '/admin/crm/workflows'
+  ])
 
   res.status(200).respond(workflow, WorkflowSerializer)
 

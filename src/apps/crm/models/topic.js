@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Workflow from './workflow'
 import Program from './program'
 
 const Topic = new Model({
@@ -25,6 +26,18 @@ const Topic = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  subscribe_workflow() {
+    return this.hasOne(Workflow, 'topic_id').query(qb => {
+      qb.where('action', 'add')
+    })
+  },
+
+  unsubscribe_workflow() {
+    return this.hasOne(Workflow, 'topic_id').query(qb => {
+      qb.where('action', 'remove')
+    })
   }
 
 })

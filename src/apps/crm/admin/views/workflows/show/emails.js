@@ -26,13 +26,13 @@ class Emails extends React.Component {
               <td className="collapsing">Open Rate</td>
               <td className="collapsing">Click Rate</td>
               <td className="collapsing">Bounce Rate</td>
-              <td />
+              <td className="collapsing" />
             </tr>
           </thead>
           <tbody>
             { emails.length === 0 &&
               <tr>
-                <td colSpan="5">
+                <td colSpan="6" className="center">
                   There are no emails for this workflow
                 </td>
               </tr>

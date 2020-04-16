@@ -11,6 +11,24 @@ const Details = ({ topic }) => {
     { label: 'Program', content: topic.program.title }
   ]
 
+  if(topic.subscribe_workflow) {
+    const subscribe = {
+      label: 'Manage Workflow',
+      className: 'link',
+      route: `/admin/crm/workflows/${topic.subscribe_workflow.id}`
+    }
+    config.items.push({ label: 'Subscribe', content: <Button { ...subscribe } /> })
+  }
+
+  if(topic.unsubscribe_workflow) {
+    const unsubscribe = {
+      label: 'Manage Workflow',
+      className: 'link',
+      route: `/admin/crm/workflows/${topic.unsubscribe_workflow.id}`
+    }
+    config.items.push({ label: 'Unsubscribe', content: <Button { ...unsubscribe } /> })
+  }
+
   return <List { ...config } />
 
 }

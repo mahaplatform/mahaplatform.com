@@ -50,9 +50,9 @@ new MahaForm({
   }
 
   const workflow = {
-    label: 'Design Workflow',
+    label: 'Manage Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${form.workflow.id}/design`
+    route: `/admin/crm/workflows/${form.workflow.id}`
   }
 
   const list = {}
