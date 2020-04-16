@@ -40,6 +40,7 @@ const createRoute = async (req, res) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     program_id: program.get('id'),
+    workflow_id: req.body.workflow_id,
     title: req.body.title,
     code: emailCode,
     has_preview: false,

@@ -9,6 +9,7 @@ class Email extends React.PureComponent {
     config: PropTypes.object,
     program: PropTypes.object,
     user: PropTypes.object,
+    workflow: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func,
@@ -37,7 +38,7 @@ class Email extends React.PureComponent {
   }
 
   _getForm() {
-    const { program } = this.props
+    const { program, workflow } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -58,7 +59,7 @@ class Email extends React.PureComponent {
             </div>
           ) : null,
           fields: [
-            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: '/api/admin/crm/emails', filter: { program_id: { $eq: program.id } }, value: 'id', text: 'display_name', form: this._getEmailForm(), defaultValue: config.email_id }
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`, value: 'id', text: 'title', form: this._getEmailForm(), defaultValue: config.email_id }
           ]
         }
       ]
@@ -75,7 +76,7 @@ class Email extends React.PureComponent {
   }
 
   _getEmailForm() {
-    const { program, user } = this.props
+    const { program, user, workflow } = this.props
     return {
       title: 'New Email',
       method: 'post',
@@ -84,6 +85,7 @@ class Email extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program.id },
+            { name: 'workflow_id', type: 'hidden', defaultValue: workflow.id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program.id}/templates`, value: 'id', text: 'title' },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, value: 'id', text: 'rfc822', required: true },

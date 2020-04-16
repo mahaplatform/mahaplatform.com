@@ -16,13 +16,14 @@ const listRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const emails = await Email.query((qb) => {
-    qb.select('crm_emails.*','crm_email_results.*')
-    qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
-    qb.where('crm_emails.workflow_id', workflow.get('id'))
-    qb.where('crm_emails.team_id', req.team.get('id'))
-    qb.whereNull('crm_emails.deleted_at')
-  }).fetchAll({
+  const emails = await Email.filterFetch({
+    scope: (qb) => {
+      qb.select('crm_emails.*','crm_email_results.*')
+      qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
+      qb.where('crm_emails.workflow_id', workflow.get('id'))
+      qb.where('crm_emails.team_id', req.team.get('id'))
+      qb.whereNull('crm_emails.deleted_at')
+    },
     withRelated: ['event','form','program','workflow'],
     transacting: req.trx
   })
