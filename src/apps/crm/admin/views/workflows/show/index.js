@@ -14,11 +14,12 @@ const getTabs = ({ audits, emails, performance, workflow }) => ({
   ]
 })
 
-const getTasks = ({ workflow, list }) => ({
-  items: [
-    { label: 'Edit Workflow', modal: <Edit workflow={ workflow } /> },
-    { label: 'Enroll Contacts', modal: <Enroll workflow={ workflow } /> },
-    {
+const getTasks = ({ workflow, list }) => {
+  const items = []
+  if(!workflow.deleted_at) {
+    items.push({ label: 'Edit Workflow', modal: <Edit workflow={ workflow } /> })
+    items.push({ label: 'Enroll Contacts', modal: <Enroll workflow={ workflow } /> })
+    items.push({
       label: 'Activate Workflow',
       show: workflow.status !== 'active',
       request: {
@@ -28,7 +29,8 @@ const getTasks = ({ workflow, list }) => ({
         success: () => {},
         failure: () => {}
       }
-    }, {
+    })
+    items.push({
       label: 'Dectivate Workflow',
       show: workflow.status === 'active',
       request: {
@@ -38,8 +40,8 @@ const getTasks = ({ workflow, list }) => ({
         success: () => {},
         failure: () => {}
       }
-    },
-    {
+    })
+    items.push({
       label: 'Delete Workflow',
       confirm: `
         Are you sure you want to delete this form? You will also delete all of
@@ -49,9 +51,10 @@ const getTasks = ({ workflow, list }) => ({
         endpoint: `/api/admin/crm/workflows/${workflow.id}`,
         method: 'delete'
       }
-    }
-  ]
-})
+    })
+  }
+  return { items }
+}
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_workflows/${props.params.id}/audits`,

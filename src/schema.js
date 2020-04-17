@@ -1619,11 +1619,12 @@ const schema = {
     await knex.schema.createTable('maha_help_articles', (table) => {
       table.increments('id').primary()
       table.integer('app_id').unsigned()
-      table.integer('video_id').unsigned()
       table.string('title', 255)
       table.text('body')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('desktop_id').unsigned()
+      table.integer('mobile_id').unsigned()
     })
 
     await knex.schema.createTable('maha_import_items', (table) => {
@@ -2983,7 +2984,8 @@ const schema = {
 
     await knex.schema.table('maha_help_articles', table => {
       table.foreign('app_id').references('maha_apps.id')
-      table.foreign('video_id').references('maha_assets.id')
+      table.foreign('desktop_id').references('maha_assets.id')
+      table.foreign('mobile_id').references('maha_assets.id')
     })
 
     await knex.schema.table('maha_import_items', table => {

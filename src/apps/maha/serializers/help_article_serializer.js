@@ -1,7 +1,8 @@
 const helpArticleSerializer = (req, result) => ({
   id: result.get('id'),
   app: app(result.related('app')),
-  video: video(result.related('video')),
+  desktop: video(result.related('desktop')),
+  mobile: video(result.related('mobile')),
   title: result.get('title'),
   body: result.get('body'),
   created_at: result.get('created_at'),

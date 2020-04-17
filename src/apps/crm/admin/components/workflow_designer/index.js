@@ -24,6 +24,7 @@ class WorkflowDesigner extends React.PureComponent {
     const { endpoint, program, trigger, workflow, onSave } = this.props
     const { steps, status } = workflow
     return {
+      editable: workflow.editable,
       endpoint,
       fields: this._getFields(),
       program,

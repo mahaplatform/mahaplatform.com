@@ -1,8 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { deleteForm } from '../../../services/forms'
 import Form from '../../../models/form'
-import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -10,7 +9,6 @@ const destroyRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['emails','workflows'],
     transacting: req.trx
   })
 
@@ -19,34 +17,8 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  await form.save({
-    deleted_at: moment()
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
-
-  await Promise.mapSeries(form.related('emails'), async (email) => {
-    await email.save({
-      deleted_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-  })
-
-  await Promise.mapSeries(form.related('workflows'), async (workflow) => {
-    await workflow.save({
-      deleted_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-  })
-
-  await audit(req, {
-    story: 'deleted',
-    auditable: form
+  await deleteForm(req, {
+    form
   })
 
   await activity(req, {

@@ -1,6 +1,7 @@
 const EmailSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
+  editable: result.get('editable'),
   title: result.get('title'),
   type: result.get('type'),
   display_name: result.get('display_name'),

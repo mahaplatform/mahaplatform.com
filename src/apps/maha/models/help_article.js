@@ -30,8 +30,12 @@ const HelpArticle = new Model({
     return this.belongsTo(App, 'app_id')
   },
 
-  video() {
-    return this.belongsTo(Asset, 'video_id')
+  desktop() {
+    return this.belongsTo(Asset, 'desktop_id')
+  },
+
+  mobile() {
+    return this.belongsTo(Asset, 'mobile_id')
   }
 
 })

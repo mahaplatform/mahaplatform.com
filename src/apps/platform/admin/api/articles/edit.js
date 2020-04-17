@@ -16,7 +16,8 @@ const editRoute = async (req, res) => {
 
   res.status(200).respond(article, (req, article) => ({
     app_id: article.get('app_id'),
-    video_id: article.get('video_id'),
+    desktop_id: article.get('desktop_id'),
+    mobile_id: article.get('mobile_id'),
     title: article.get('title'),
     body: article.get('body')
   }))

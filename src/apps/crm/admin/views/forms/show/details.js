@@ -10,32 +10,6 @@ const Details = ({ audits, form }) => {
     link: form.url
   }
 
-  const embed = {
-    title: 'Embed Code',
-    header: (
-      <p>You can embed this form within your website by pasting this
-      code into your html.</p>
-    ),
-    code: `<div data-form="${form.code}" />
-<script src="${process.env.WEB_HOST}/crm/forms/embed.js"></script>
-<script>
-new MahaForm({
-  code: '${form.code}'
-})
-</script>`
-  }
-
-  const embedEvent = {
-    label: 'embed code',
-    className: 'link',
-    modal: {
-      component: <Embed { ...embed } />,
-      options: {
-        width: 640,
-        height: 480
-      }
-    }
-  }
 
   const design = {
     label: 'Design Form',
@@ -58,13 +32,8 @@ new MahaForm({
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Program', content: form.program.title },
-    { label: 'URL', content: <Button { ...url } /> },
-    { label: 'Code', content: (
-      <div>
-        { form.code } (<Button { ...embedEvent } />)
-      </div>
-    ) },
-    { label: 'Design', content: <Button { ...design } /> },
+    { label: 'Code', content: form.code },
+    { label: 'Content', content: <Button { ...design } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]

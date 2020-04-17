@@ -1,5 +1,5 @@
 import Performance from './performance'
-import { Page } from 'maha-admin'
+import { Embed, Page } from 'maha-admin'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'
@@ -12,9 +12,35 @@ const getTabs = ({ audits, form, workflows }) => ({
 })
 
 const getTasks = ({ form }) => {
+
+  const embed = {
+    title: 'Embed Code',
+    header: (
+      <p>You can embed this form within your website by pasting this
+      code into your html.</p>
+    ),
+    code: `<div data-form="${form.code}" />
+<script src="${process.env.WEB_HOST}/crm/forms/embed.js"></script>
+<script>
+new MahaForm({
+  code: '${form.code}'
+})
+</script>`
+  }
+
   const items = []
   if(!form.deleted_at) {
     items.push({ label: 'Edit Form', modal: <Edit form={ form } /> })
+    items.push({
+      label: 'Get Embed Code',
+      modal: {
+        component: <Embed { ...embed } />,
+        options: {
+          width: 640,
+          height: 480
+        }
+      }
+    })
     items.push({ label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` })
     items.push({
       label: 'Delete Form',

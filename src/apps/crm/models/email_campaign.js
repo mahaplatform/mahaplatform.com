@@ -24,6 +24,10 @@ const EmailCampaign = new Model({
       return `/admin/crm/campaigns/email/${this.get('id')}`
     },
 
+    editable() {
+      return this.get('deleted_at') === null
+    },
+
     preview() {
       return this.get('screenshoted_at') ? `screenshots/email-campaign${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     }

@@ -1,8 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { deleteWorkflow } from '../../../services/workflows'
 import Workflow from '../../../models/workflow'
-import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -10,7 +9,6 @@ const destroyRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['emails'],
     transacting: req.trx
   })
 
@@ -19,25 +17,8 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  await workflow.save({
-    deleted_at: moment()
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
-
-  await Promise.mapSeries(workflow.related('emails'), async (email) => {
-    await email.save({
-      deleted_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-  })
-
-  await audit(req, {
-    story: 'deleted',
-    auditable: workflow
+  await deleteWorkflow(req, {
+    workflow
   })
 
   await activity(req, {

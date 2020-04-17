@@ -26,6 +26,10 @@ const Email = new Model({
       return `/admin/crm/emails/${this.get('id')}`
     },
 
+    editable() {
+      return this.get('deleted_at') === null
+    },
+
     preview() {
       return this.get('screenshoted_at') ? `screenshots/email-${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     },

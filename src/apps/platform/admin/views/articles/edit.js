@@ -33,7 +33,8 @@ class Edit extends React.PureComponent {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'App', name: 'app_id', type: 'lookup', prompt: 'Choose an app', endpoint: '/api/admin/platform/apps', value: 'id', text: 'title', required: true, format: AppToken },
-            { label: 'Video', name: 'video_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
+            { label: 'Desktop Video', name: 'desktop_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
+            { label: 'Mobile Video', name: 'mobile_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
             { label: 'Body', name: 'body', type: 'textarea', placeholder: 'Enter body', required: true }
           ]
         }

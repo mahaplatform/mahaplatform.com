@@ -37,6 +37,10 @@ const Workflow = new Model({
       if(this.get('topic_id')) return `${this.related('topic').get('title')}: ${this.get('title')}`
       if(this.get('event_id')) return `${this.related('event').get('title')}: ${this.get('title')}`
       return this.get('title')
+    },
+
+    editable() {
+      return this.get('deleted_at') === null
     }
 
   },

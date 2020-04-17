@@ -34,9 +34,11 @@ new MahaEventButton({
 </script>`
   }
 
-  const items = [
-    { label: 'Edit Event', modal: <Edit event={ event } /> },
-    {
+  const items = []
+
+  if(!event.deleted_at) {
+    items.push({ label: 'Edit Event', modal: <Edit event={ event } /> })
+    items.push({
       label: 'Get Button Code',
       modal: {
         component: <Embed { ...embed } />,
@@ -45,9 +47,9 @@ new MahaEventButton({
           height: 480
         }
       }
-    },
-    { label: 'View Public Registration', link: event.url },
-    {
+    })
+    items.push({ label: 'View Public Registration', link: event.url })
+    items.push({
       label: 'Delete Event',
       confirm: `
         Are you sure you want to delete this event? You will also delete all of
@@ -57,9 +59,11 @@ new MahaEventButton({
         endpoint: `/api/admin/events/events/${event.id}`,
         method: 'delete'
       }
-    }
-  ]
+    })
+  }
+
   return { items }
+
 }
 
 const mapResourcesToPage = (props, context) => ({

@@ -25,6 +25,10 @@ const Form = new Model({
       return `/admin/crm/forms/${this.get('id')}`
     },
 
+    editable() {
+      return this.get('deleted_at') === null
+    },
+
     url() {
       const path = this.get('permalink') ? `/forms/${this.get('permalink')}` : `/crm/forms/${this.get('code')}`
       return `${process.env.WEB_HOST}${path}`

@@ -1,8 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { deleteEmail } from '../../../services/email'
 import Email from '../../../models/email'
-import moment from 'moment'
 
 const destroyRoute = async (req, res) => {
 
@@ -18,16 +17,8 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load email'
   })
 
-  await email.save({
-    deleted_at: moment()
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
-
-  await audit(req, {
-    story: 'deleted',
-    auditable: email
+  await deleteEmail(req, {
+    email
   })
 
   await activity(req, {
