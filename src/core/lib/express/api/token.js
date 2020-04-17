@@ -29,6 +29,11 @@ const route = async (req, res, next) => {
     message: 'Expired token'
   })
 
+  if(err) return res.status(401).json({
+    status: 401,
+    message: 'Invalid token'
+  })
+
   req.user = await User.where({
     id: data.user_id
   }).fetch({
