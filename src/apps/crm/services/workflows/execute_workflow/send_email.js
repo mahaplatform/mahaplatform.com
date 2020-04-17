@@ -1,20 +1,44 @@
+import InvoiceSerializer from '../../../../finance/serializers/invoice_serializer'
 import { personalizeEmail, renderEmail } from '../../../services/email'
 import generateCode from '../../../../../core/utils/generate_code'
 import { encodeEmail } from '../../../../maha/services/emails'
 import { sendMail } from '../../../../../core/services/email'
+import Invoice from '../../../../finance/models/invoice'
 import Email from '../../../../maha/models/email'
 import CRMEmail from '../../../models/email'
 import Sender from '../../../models/sender'
 import numeral from 'numeral'
+import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
 
 const summary  = fs.readFileSync(path.join(__dirname,'..','..','..','emails','summary.ejs'), 'utf8')
 
+const getPaymentSummary = async (req, { invoice_id }) => {
+
+  const invoice = await Invoice.query(qb => {
+    qb.select('finance_invoices.*','finance_invoice_details.*')
+    qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
+    qb.where('id', invoice_id)
+  }).fetch({
+    withRelated: ['coupon','invoice_line_items','payments.payment_method'],
+    transacting: req.trx
+  })
+
+  return ejs.render(summary, {
+    invoice: InvoiceSerializer(req, invoice),
+    moment,
+    numeral
+  })
+
+}
+
 const getResponseData = async (req, { response }) => {
 
-  await response.load(['form.program','invoice.payments'])
+  await response.load(['form.program'], {
+    transacting: req.trx
+  })
 
   const config = response.related('form').get('config')
 
@@ -22,30 +46,26 @@ const getResponseData = async (req, { response }) => {
     return field.type !== 'text'
   })
 
-  const payment = response.related('invoice').related('payments').toArray()[0]
-
   const data = response.get('data')
+
+  const payment_summary = await getPaymentSummary(req, {
+    invoice_id: response.get('invoice_id')
+  })
 
   return fields.reduce((response, field) => ({
     ...response,
-    [field.name.token]: data[field.code],
-    ...field.type === 'productfield' ? {
-      [`${field.name.token}_summary`]: ejs.render(summary, {
-        summary: data[field.code],
-        numeral,
-        payment: {
-          amount: payment.get('amount'),
-          activity: payment.get('activity')
-        }
-      })
-    } : {}
-  }), {})
+    [field.name.token]: data[field.code]
+  }), {
+    payment_summary
+  })
 
 }
 
 const getRegistrationData = async (req, { registration }) => {
 
-  await registration.load(['event.program','invoice.payments'])
+  await registration.load(['event.program'], {
+    transacting: req.trx
+  })
 
   const contact_config = registration.related('event').get('contact_config')
 
@@ -55,10 +75,16 @@ const getRegistrationData = async (req, { registration }) => {
 
   const data = registration.get('data')
 
+  const payment_summary = await getPaymentSummary(req, {
+    invoice_id: registration.get('invoice_id')
+  })
+
   return fields.reduce((registration, field) => ({
     ...registration,
     [field.name.token]: data[field.code]
-  }), {})
+  }), {
+    payment_summary
+  })
 
 }
 

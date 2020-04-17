@@ -62,7 +62,7 @@ class Registration extends React.Component {
         <div className="registration-sidebar">
           { event.image &&
             <div className="registration-sidebar-image">
-              <Image src={ event.image } transforms={{ fit: 'cover', w: 400, h: 200 }} />
+              <Image src={ event.image } transforms={{ w: 400 }} />
             </div>
           }
           <Summary { ...this._getSummary() }/>

@@ -18,7 +18,8 @@ class Audit extends React.Component {
   _handleShowAll = this._handleShowAll.bind(this)
 
   render() {
-    const entries = this._getEntries()
+    const shown = this._getEntries()
+    const { entries } = this.props
     const { showall } = this.state
     return (
       <div className="maha-audit">
@@ -27,7 +28,7 @@ class Audit extends React.Component {
             <Button { ...this._getShowAll() } />
           </div>
         }
-        { entries.map((entry, index) => (
+        { shown.map((entry, index) => (
           <div className="maha-audit-entry" key={`entry_${entry.id}`}>
             <div className="maha-audit-entry-avatar">
               <Avatar user={ this._getSubject(entry) } width="16" height="16" presence={ false } />

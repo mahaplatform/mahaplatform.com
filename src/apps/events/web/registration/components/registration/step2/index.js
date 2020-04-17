@@ -1,6 +1,7 @@
 import { Button, Form } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Step2 extends React.Component {
 
@@ -48,8 +49,7 @@ class Step2 extends React.Component {
   }
 
   _getForm() {
-    const { event } = this.props
-    const custom = event.contact_config ? event.contact_config.fields : []
+    const fields = this._getFields()
     return {
       reference: node => this.form = node,
       button: false,
@@ -59,12 +59,19 @@ class Step2 extends React.Component {
         { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
         { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter email', required: true },
-        ...custom.map(field => ({
-          ...field,
+        ...fields.map(field => ({
+          type: field.contactfield ? field.contactfield.type : field.type,
+          ..._.omit(field, ['contactfield','code','type']),
+          ...field.config || {},
           name: field.code
         }))
       ]
     }
+  }
+
+  _getFields() {
+    const { event } = this.props
+    return event.contact_config ? event.contact_config.fields : []
   }
 
   _getNext() {

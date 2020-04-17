@@ -105,7 +105,16 @@ const submitRoute = async (req, res) => {
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
     is_known: contact.is_known,
-    data: req.body.contact
+    data: {
+      ...req.body.contact,
+      ...req.body.payment ? {
+        payment: {
+          amount: req.body.payment.amount,
+          method: req.body.payment.method,
+          reference: req.body.payment.payment.reference
+        }
+      } : {}
+    }
   }).save(null, {
     transacting: req.trx
   })

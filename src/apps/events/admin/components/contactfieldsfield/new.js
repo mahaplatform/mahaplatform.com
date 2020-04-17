@@ -55,6 +55,7 @@ class New extends React.PureComponent {
     if(field.strategy === 'contact') {
       return [
         { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields() },
+        { name: 'type', type: 'hidden', value: 'contactfield' },
         ...this._getContactFields()
       ]
     }
@@ -62,7 +63,7 @@ class New extends React.PureComponent {
       const typefields = this._getTypeFields()
       return [
         { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
-        ...typefields ? [
+        ...field.type ? [
           { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
           { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label' },
           { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
@@ -77,10 +78,10 @@ class New extends React.PureComponent {
   _getFields() {
     return [
       { label: 'Contact Fields', fields: [
-        { label: 'Phone', name: { value: 'Phone', token: 'phone' }, code: 'phone', type: 'phonefield' },
-        { label: 'Address', name: { value: 'Address', token: 'address' }, code: 'address', type: 'addressfield' },
-        { label: 'Birthday', name: { value: 'Birthday', token: 'birthday' }, code: 'birthday', type: 'textfield' },
-        { label: 'Spouse', name: { value: 'Spouse', token: 'spouse' }, code: 'spouse', type: 'textfield' }
+        { label: 'Phone', name: 'phone', type: 'phonefield' },
+        { label: 'Address', name: 'address', type: 'addressfield' },
+        { label: 'Birthday', name: 'birthday', type: 'textfield' },
+        { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ] }
     ]
   }
@@ -88,12 +89,12 @@ class New extends React.PureComponent {
   _getContactFields() {
     const { field } = this.state
     if(field.contactfield) {
-      const { label, instructions, name, required } = field.contactfield
+      const { label, name } = field.contactfield
       return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: name  },
+        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: { value: label, token: name } },
         { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
-        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: instructions },
-        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: required }
+        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
+        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' }
       ]
     }
     return []
@@ -130,7 +131,7 @@ class New extends React.PureComponent {
         ]}
       ]
     }
-    if(_.includes(['datefield','timefield'], field.type)) {
+    if(_.includes(['addressfield','datefield','phonefield','timefield'], field.type)) {
       return [
         { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder }
       ]
@@ -152,7 +153,7 @@ class New extends React.PureComponent {
         ], defaultValue: config.options }
       ]
     }
-    return null
+    return []
   }
 
   _handleBack() {

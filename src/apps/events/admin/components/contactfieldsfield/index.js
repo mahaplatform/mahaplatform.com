@@ -51,7 +51,7 @@ class ContactFieldsField extends React.PureComponent {
         { fields.map((field, index) => (
           <div className="contactfieldsfield-field" key={`field_${index}`}>
             <div className="contactfieldsfield-field-label">
-              { this._getName(field) } <span>({ this._getType(field) })</span>
+              { field.name.value } <span>({ this._getType(field) })</span>
             </div>
             <div className="contactfieldsfield-field-action" onClick={ this._handleEdit.bind(this, field, index)}>
               <i className="fa fa-pencil" />
@@ -95,10 +95,6 @@ class ContactFieldsField extends React.PureComponent {
       onBack: this._handleBack,
       onDone: this._handleUpdate.bind(this, index)
     }
-  }
-
-  _getName(field) {
-    return field.contactfield ? field.contactfield.name.value : field.name.value
   }
 
   _getNew() {

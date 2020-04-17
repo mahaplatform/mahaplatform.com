@@ -44,7 +44,8 @@ class Designer extends React.Component {
           }).map(field => ({
             name: field.name.value,
             token: `registration.${field.name.token}`
-          }))
+          })),
+          { name: 'Payment Summary', token: 'registration.payment_summary' }
         ]
       }
     ]
@@ -54,12 +55,15 @@ class Designer extends React.Component {
     return [
       {
         title: 'Response Tokens',
-        tokens: form.config.fields.filter(field => {
-          return !_.includes(['text'], field.type)
-        }).map(field => ({
-          name: field.name.value,
-          token: `response.${field.name.token}`
-        }))
+        tokens: [
+          form.config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            token: `response.${field.name.token}`
+          })),
+          { name: 'Payment Summary', token: 'response.payment_summary' }
+        ]
       }
     ]
   }
