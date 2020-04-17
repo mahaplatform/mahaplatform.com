@@ -1,6 +1,7 @@
 import { createOrUpdateContact, handlePayment } from '../../../../../crm/services/forms'
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import { checkToken } from '../../../../../../core/services/routes/token'
+import { contactActivity } from '../../../../../crm/services/activities'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import Registration from '../../../../models/registration'
@@ -129,6 +130,22 @@ const submitRoute = async (req, res) => {
     trigger_type: 'event',
     event_id: event.get('id'),
     registration
+  })
+
+  await contactActivity(req, {
+    contact,
+    type: 'event',
+    story: 'registered for an event',
+    program_id: event.get('program_id'),
+    data: {
+      event: {
+        id: event.get('id'),
+        title: event.get('title')
+      },
+      registration: {
+        id: registration.get('id')
+      }
+    }
   })
 
   await socket.refresh(req, [
