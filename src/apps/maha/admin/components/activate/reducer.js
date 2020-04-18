@@ -40,6 +40,7 @@ export default (state = INITIAL_STATE, action) => {
       questions: action.result.data.questions,
       notification_methods: action.result.data.notification_methods,
       status: 'success',
+      team: action.result.data.team,
       user: action.result.data.user
     }
 

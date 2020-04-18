@@ -4,6 +4,10 @@ import App from '../../../../maha/models/app'
 const listRoute = async (req, res) => {
 
   const apps = await App.filterFetch({
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
     sort: {
       params: req.query.$sort,
       defaults: 'code'

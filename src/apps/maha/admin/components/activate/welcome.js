@@ -5,6 +5,7 @@ import React from 'react'
 class Welcome extends React.Component {
 
   static propTypes = {
+    team: PropTypes.object,
     user: PropTypes.object,
     onChangeMode: PropTypes.func
   }
@@ -42,7 +43,9 @@ class Welcome extends React.Component {
   }
 
   _handleClick() {
-    this.props.onChangeMode('question')
+    const { team } = this.props
+    if(team.authentication_strategy === 'local') return this.props.onChangeMode('question')
+    this.props.onChangeMode('cell')
   }
 
 }

@@ -103,7 +103,7 @@ class Activate extends React.Component {
   }
 
   _getWelcome() {
-    return _.pick(this.props, ['user','onChangeMode'])
+    return _.pick(this.props, ['team','user','onChangeMode'])
   }
 
   _getQuestion() {

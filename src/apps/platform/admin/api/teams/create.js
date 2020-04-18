@@ -1,7 +1,7 @@
+import { createUser, sendActivation } from '../../../../team/services/users'
 import { whitelist } from '../../../../../core/services/routes/params'
 import TeamSerializer from '../../../serializers/team_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import { createUser, sendActivation } from '../../../../team/services/users'
 import Role from '../../../../maha/models/role'
 import Team from '../../../../maha/models/team'
 
@@ -49,6 +49,7 @@ const createRoute = async (req, res) => {
   })))
 
   const user = await createUser(req, {
+    team_id: team.get('id'),
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,

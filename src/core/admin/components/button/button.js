@@ -28,10 +28,7 @@ class Button extends React.Component {
     label: PropTypes.any,
     link: PropTypes.string,
     mobile: PropTypes.bool,
-    modal: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.func
-    ]),
+    modal: PropTypes.any,
     request: PropTypes.shape({
       method: PropTypes.string,
       endpoint: PropTypes.string,

@@ -4,6 +4,9 @@ import Team from '../../../../maha/models/team'
 const listRoute = async (req, res) => {
 
   const teams = await Team.filterFetch({
+    scope: (qb) => {
+      qb.whereNull('deleted_at')
+    },
     filter: {
       params: req.query.$filter
     },

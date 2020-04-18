@@ -5,7 +5,10 @@ import socket from '../../../../../core/services/routes/emitter'
 
 const createRoute = async (req, res) => {
 
-  const user = await createUser(req, req.body)
+  const user = await createUser(req, {
+    team_id: req.team.get('id'),
+    ...req.body
+  })
 
   await sendActivation(req, {
     user

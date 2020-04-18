@@ -48,6 +48,11 @@ const route = async (req, res, next) => {
 
   req.team = req.user.related('team')
 
+  if(req.team.get('deleted_at')) return res.status(401).json({
+    status: 401,
+    message: 'Invalid team'
+  })
+
   if(req.headers.fingerprint) {
 
     req.device = await Device.where({

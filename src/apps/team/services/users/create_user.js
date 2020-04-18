@@ -12,7 +12,7 @@ const createUser = async(req, params) => {
   })
 
   const user = await User.forge({
-    team_id: req.team.get('id'),
+    team_id: params.team_id,
     is_active: true,
     notifications_enabled: true,
     in_app_notifications_enabled: true,

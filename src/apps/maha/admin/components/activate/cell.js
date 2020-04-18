@@ -39,6 +39,7 @@ class Cell extends React.Component {
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-content">
+            <i className="fa fa-mobile" />
             <h2>Cell Phone</h2>
             <p>Maha can send you text messages when your attention is needed. Please enter your number so we can verify your phone.</p>
           </div>

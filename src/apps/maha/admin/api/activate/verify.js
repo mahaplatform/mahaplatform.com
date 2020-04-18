@@ -36,6 +36,11 @@ const verifyRoute = async (req, res) => {
       photo_id: req.user.get('photo_id'),
       photo: req.user.related('photo').get('path')
     },
+    team: {
+      id: req.team.get('id'),
+      authentication_strategy: req.team.get('authentication_strategy'),
+      title: req.team.get('title')
+    },
     questions: questions.map(question => ({
       id: question.get('id'),
       text: question.get('text')

@@ -1916,6 +1916,7 @@ const schema = {
       table.USER-DEFINED('authentication_strategy')
       table.jsonb('authentication_config')
       table.text('address')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('maha_teams_apps', (table) => {

@@ -29,11 +29,12 @@ class Avatar extends React.Component {
             <p>Please select a photo to help others identify you and
               your content across the platform</p>
             <FileField { ...this._getFilefield() } />
-            <div className="field button-field">
+            { photo_id ?
               <button className="ui fluid large button" onClick={ this._handleSkip }>
-                { photo_id ? 'Continue' : 'Skip' } <i className="right chevron icon" />
-              </button>
-            </div>
+                Continue <i className="right chevron icon" />
+              </button> :
+              <p><a onClick={ this._handleSkip }>Skip for now</a></p>
+            }
           </div>
         </div>
       </div>
@@ -44,7 +45,13 @@ class Avatar extends React.Component {
     const { photo_id, token } = this.props
     return {
       type: 'filefield',
-      button: <div className="maha-signin-avatar"><div className="maha-signin-avatar-placeholder"><i className="fa fa-user-circle" /></div></div>,
+      button: (
+        <div className="maha-signin-avatar">
+          <div className="maha-signin-avatar-placeholder">
+            <i className="fa fa-user-circle" />
+          </div>
+        </div>
+      ),
       action: '/api/admin/activate/assets/upload',
       endpoint: '/api/admin/activate/assets',
       token,

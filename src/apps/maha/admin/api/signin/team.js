@@ -7,8 +7,9 @@ const teamRoute = async (req, res) => {
     message: 'Please enter your team\'s domain'
   })
 
-  const team = await Team.where({
-    subdomain: req.body.subdomain
+  const team = await Team.query(qb => {
+    qb.where('subdomain', req.body.subdomain)
+    qb.whereNull('deleted_at')
   }).fetch({
     withRelated: ['logo'],
     transacting: req.trx
