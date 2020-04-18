@@ -1,6 +1,5 @@
 import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 
@@ -16,13 +15,6 @@ const enableRoute = async (req, res) => {
   if(!user) return res.status(404).respond({
     code: 404,
     message: 'Unable to load user'
-  })
-
-  await user.save({
-    is_active: true,
-    ...whitelist(req.body, ['user_type_id'])
-  }, {
-    transacting: req.trx
   })
 
   await updateRelated(req, {

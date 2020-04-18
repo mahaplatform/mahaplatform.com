@@ -25,7 +25,7 @@ const createUser = async(req, params) => {
     mute_weekends: true,
     values: {},
     key,
-    ...whitelist(params, ['first_name','last_name','email','secondary_email','user_type_id','email_notifications_method','photo_id','values'])
+    ...whitelist(params, ['first_name','last_name','email','secondary_email','email_notifications_method','photo_id','values'])
   }).save(null, {
     transacting: req.trx
   })

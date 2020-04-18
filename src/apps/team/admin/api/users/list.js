@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['app_id','group_id','is_active','right_id','role_id','user_type_id'],
+      allowed: ['app_id','group_id','is_active','right_id','role_id'],
       search: ['first_name','last_name','email'],
       virtuals: {
         app_id: (qb, filter) => {

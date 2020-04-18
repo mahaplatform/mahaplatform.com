@@ -38,7 +38,6 @@ class Edit extends React.Component {
             { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
             { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter email', required: true },
             { label: 'Secondary Email', name: 'secondary_email', placeholder: 'Enter secondary email', type: 'textfield' },
-            { label: 'Employee Type', name: 'user_type_id', type: 'lookup', required: true, placeholder: 'Choose a user type', endpoint: '/api/admin/team/user_types', value: 'id', text: 'text' },
             { label: 'Notification Method', name: 'email_notifications_method', type: 'lookup', placeholder: 'Choose a notification method', options: [{ value: 'none', text: 'None' }, { value: 'ondemand', text: 'On Demand' }, { value: 'digest', text: 'Daily Digest' }] },
             { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
             { label: 'Roles', name: 'role_ids', type: 'lookup2', placeholder: 'Assign roles', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title' },

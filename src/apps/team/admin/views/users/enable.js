@@ -33,7 +33,6 @@ class Enable extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Employee Type', name: 'user_type_id', type: 'lookup', required: true, placeholder: 'Choose a user type', endpoint: '/api/admin/team/user_types', value: 'id', text: 'text' },
             { label: 'Roles', name: 'role_ids', type: 'lookup2', placeholder: 'Assign roles', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title' },
             { label: 'Groups', name: 'group_ids', type: 'lookup2', placeholder: 'Assign groups', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title' },
             { label: 'Supervisors', name: 'supervisor_ids', type: 'lookup2', placeholder: 'Assign groups', multiple: true, endpoint: '/api/admin/team/supervisors', value: 'user_id', text: 'full_name', format: UserToken }

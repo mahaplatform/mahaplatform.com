@@ -39,13 +39,6 @@ const disableRoute = async (req, res) => {
 
   if(req.body.team_strategy === 'remove') {
 
-    await user.save({
-      user_type_id: null
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-
     await updateRelated(req, {
       object: user,
       related: 'roles',
