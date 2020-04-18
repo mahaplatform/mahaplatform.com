@@ -19,6 +19,10 @@ const Team = new Model({
 
     app_ids: function() {
       return this.related('apps').map(app => app.id)
+    },
+
+    rfc822: function() {
+      return `${this.get('title')} <${this.get('subdomain')}@mahaplatform.com>`
     }
 
   },
