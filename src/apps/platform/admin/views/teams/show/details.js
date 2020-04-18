@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
+import bytes from 'bytes'
 import React from 'react'
 
 const Details = ({ team }) => {
@@ -13,7 +14,13 @@ const Details = ({ team }) => {
   list.items = [
     { label: 'Title ', content: team.title },
     { label: 'Team Name ', content: team.subdomain },
-    { label: 'Authentication', content: team.authentication_strategy }
+    { label: 'Authentication', content: team.authentication_strategy },
+    { label: 'Storage ', content: bytes(parseInt(team.storage), { decimalPlaces: 2, unitSeparator: ' ' }) },
+    { label: 'Users ', content: team.users_count },
+    { label: 'Phone Numbers ', content: team.phone_numbers_count },
+    { label: 'Text Messages ', content: team.smses_count },
+    { label: 'Calls ', content: team.calls_count },
+    { label: 'Emails ', content: team.emails_count }
   ]
 
   return <List { ...list } />

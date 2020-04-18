@@ -17,7 +17,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load team'
   })
 
-  await team.save(whitelist(req.body, ['title','subdomain','authentication_strategy']), {
+  await team.save(whitelist(req.body, ['title','subdomain','authentication_strategy','logo_id']), {
     patch: true,
     transacting: req.trx
   })

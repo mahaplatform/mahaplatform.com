@@ -5166,6 +5166,55 @@ union
     `)
 
     await knex.raw(`
+      create view maha_team_totals AS
+      with storage as (
+      select maha_assets.team_id,
+      sum(maha_assets.file_size) as total
+      from maha_assets
+      group by maha_assets.team_id
+      ), users as (
+      select maha_users.team_id,
+      count(maha_users.*) as count
+      from maha_users
+      group by maha_users.team_id
+      ), phone_numbers as (
+      select maha_phone_numbers.team_id,
+      count(maha_phone_numbers.*) as count
+      from maha_phone_numbers
+      group by maha_phone_numbers.team_id
+      ), smses as (
+      select maha_smses.team_id,
+      count(maha_smses.*) as count
+      from maha_smses
+      group by maha_smses.team_id
+      ), calls as (
+      select maha_calls.team_id,
+      count(maha_calls.*) as count
+      from maha_calls
+      group by maha_calls.team_id
+      ), emails as (
+      select maha_emails.team_id,
+      count(maha_emails.*) as count
+      from maha_emails
+      group by maha_emails.team_id
+      )
+      select maha_teams.id as team_id,
+      coalesce(storage.total, (0)::bigint) as storage,
+      coalesce(users.count, (0)::bigint) as users_count,
+      coalesce(phone_numbers.count, (0)::bigint) as phone_numbers_count,
+      coalesce(smses.count, (0)::bigint) as smses_count,
+      coalesce(calls.count, (0)::bigint) as calls_count,
+      coalesce(emails.count, (0)::bigint) as emails_count
+      from ((((((maha_teams
+      left join storage on ((storage.team_id = maha_teams.id)))
+      left join users on ((users.team_id = maha_teams.id)))
+      left join phone_numbers on ((phone_numbers.team_id = maha_teams.id)))
+      left join smses on ((smses.team_id = maha_teams.id)))
+      left join calls on ((calls.team_id = maha_teams.id)))
+      left join emails on ((emails.team_id = maha_teams.id)));
+    `)
+
+    await knex.raw(`
       create view news_groups_users AS
       select distinct on (members.news_group_id, members.user_id) members.news_group_id,
       members.user_id

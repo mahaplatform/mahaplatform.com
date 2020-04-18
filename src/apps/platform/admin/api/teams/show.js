@@ -4,9 +4,11 @@ import Team from '../../../../maha/models/team'
 const showRoute = async (req, res) => {
 
   const team = await Team.query(qb => {
-    qb.where('id', req.params.id)
+    qb.select('maha_teams.*','maha_team_totals.*')
+    qb.innerJoin('maha_team_totals', 'maha_team_totals.team_id', 'maha_teams.id')
+    qb.where('maha_teams.id', req.params.id)
   }).fetch({
-    withRelated: ['apps'],
+    withRelated: ['apps','logo'],
     transacting: req.trx
   })
 

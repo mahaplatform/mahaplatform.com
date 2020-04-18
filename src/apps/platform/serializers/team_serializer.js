@@ -5,6 +5,12 @@ const teamSerializer = (req, result) => ({
   subdomain: result.get('subdomain'),
   logo: result.related('logo').get('path'),
   authentication_strategy: result.get('authentication_strategy'),
+  storage: result.get('storage'),
+  users_count: result.get('users_count'),
+  phone_numbers_count: result.get('phone_numbers_count'),
+  smses_count: result.get('smses_count'),
+  calls_count: result.get('calls_count'),
+  emails_count: result.get('emails_count'),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

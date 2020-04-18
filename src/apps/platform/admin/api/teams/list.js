@@ -5,6 +5,8 @@ const listRoute = async (req, res) => {
 
   const teams = await Team.filterFetch({
     scope: (qb) => {
+      qb.select('maha_teams.*','maha_team_totals.*')
+      qb.innerJoin('maha_team_totals', 'maha_team_totals.team_id', 'maha_teams.id')
       qb.whereNull('deleted_at')
     },
     filter: {

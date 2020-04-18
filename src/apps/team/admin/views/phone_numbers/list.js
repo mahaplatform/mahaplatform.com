@@ -1,6 +1,29 @@
-import NumberToken from '../../tokens/number'
 import { Page } from 'maha-admin'
 import New from './new'
+
+import PropTypes from 'prop-types'
+import React from 'react'
+
+const PhoneTypeToken = ({ type }) => (
+  <div className="token">
+    { type === 'fax' ? 'fax' : 'voice / sms' }
+  </div>
+)
+
+PhoneTypeToken.propTypes = {
+  type: PropTypes.string
+}
+
+const LocalityToken = ({ locality, region }) => (
+  <div className="token">
+    { locality }, { region }
+  </div>
+)
+
+LocalityToken.propTypes = {
+  locality: PropTypes.string,
+  region: PropTypes.string
+}
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Phone Numbers',
@@ -9,8 +32,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/phone_numbers',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Number', key: 'number', primary: true, format: NumberToken },
-      { label: 'Type', key: 'type' }
+      { label: 'Number', key: 'formatted', primary: true},
+      { label: 'Locality', key: 'locality', format: LocalityToken },
+      { label: 'Type', key: 'type', format: PhoneTypeToken }
     ],
     recordTasks: (program) => [
       {
