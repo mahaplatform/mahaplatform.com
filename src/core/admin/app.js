@@ -164,7 +164,6 @@ import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
 import crmCards from '../../apps/crm/admin/cards/index.js'
 import eventsCards from '../../apps/events/admin/cards/index.js'
-import financeUsage from '../../apps/finance/admin/usage.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -444,7 +443,6 @@ class App extends React.Component {
 
   _getUsage() {
     return {
-      finance: financeUsage,
     }
   }
 

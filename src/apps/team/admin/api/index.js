@@ -2,7 +2,6 @@ import phone_numbers from './phone_numbers'
 import device_values from './device_values'
 import supervisors from './supervisors'
 import activities from './activities'
-import user_types from './user_types'
 import sessions from './sessions'
 import settings from './settings'
 import { Router } from 'express'
@@ -45,8 +44,6 @@ router.use('/settings', settings)
 router.use('/smses', smses)
 
 router.use('/supervisors', supervisors)
-
-router.use('/user_types', user_types)
 
 router.use('/users', users)
 
