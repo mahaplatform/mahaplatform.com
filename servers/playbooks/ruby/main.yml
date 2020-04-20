@@ -3,6 +3,7 @@
 
 - name: install rvm
   shell: 'curl -sSL https://get.rvm.io | bash -s stable --ruby'
+  warn: false
 
 - name: install ruby
   shell: '/usr/local/rvm/bin/rvm install 2.5.3'
