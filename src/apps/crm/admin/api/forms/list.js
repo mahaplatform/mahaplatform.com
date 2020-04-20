@@ -24,6 +24,7 @@ const listRoute = async (req, res) => {
     },
     sort: {
       params: req.query.$sort,
+      defaults: '-created_at',
       allowed: ['id','title','program','title','respondents_count','responses_count','revenue']
     },
     page: req.query.$page,

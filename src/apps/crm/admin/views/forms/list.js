@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Responses', key: 'responses_count', collapsing: true, align: 'right' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right', format: 'currency' }
     ],
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'check-square-o',
       title: 'No Forms',
