@@ -8,7 +8,7 @@ const Details = ({ audits, article }) => {
   const config = {
     items: [
       { label: 'Title', content: article.title },
-      { label: 'Apps', content: article.app.title }
+      { label: 'App', content: article.app ? article.app.title : 'Maha' }
     ]
   }
 
