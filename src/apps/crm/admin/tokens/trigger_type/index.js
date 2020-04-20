@@ -3,13 +3,14 @@ import React from 'react'
 
 const types = {
   response: 'check-square',
+  delivery: 'envelope',
   open: 'envelope-open',
   click: 'mouse-pointer',
   list: 'th-list',
   topic: 'lightbulb-o',
   property: 'id-card',
   manual: 'plus',
-  event: 'calendar'
+  event: 'calendar-o'
 }
 
 const TriggerTypeToken = ({ value }) => (

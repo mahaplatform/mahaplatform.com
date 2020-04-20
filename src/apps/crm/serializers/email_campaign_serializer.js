@@ -2,6 +2,7 @@ const EmailCampaignSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   editable: result.get('editable'),
+  delivery_workflow: workflow(result.related('delivery_workflow')),
   program: program(result.related('program')),
   subject: result.get('subject'),
   reply_to: result.get('reply_to'),
@@ -47,6 +48,14 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title')
+  }
+}
+
+const workflow = (workflow) => {
+  if(!workflow.id) return
+  return {
+    id: workflow.get('id'),
+    title: workflow.get('title')
   }
 }
 

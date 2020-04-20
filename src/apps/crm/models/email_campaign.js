@@ -34,6 +34,12 @@ const EmailCampaign = new Model({
 
   },
 
+  delivery_workflow() {
+    return this.hasOne(Workflow, 'email_campaign_id').query(qb => {
+      qb.where('trigger_type', 'delivery')
+    })
+  },
+
   emails() {
     return this.hasMany(MahaEmail, 'email_campaign_id')
   },

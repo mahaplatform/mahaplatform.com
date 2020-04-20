@@ -6,6 +6,7 @@ import _ from 'lodash'
 
 const triggers = {
   response: { icon: 'check-square-o', text: 'Form is submitted' },
+  delivery: { icon: 'envelope', text: 'Email is delivered' },
   open: { icon: 'envelope-open', text: 'Email is opened' },
   click: { icon: 'mouse-pointer', text: 'Email is clicked' },
   list: { icon: 'th-list', text: 'Contact is added to list' },
@@ -48,9 +49,22 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
+    if(workflow.email) return this._getEmailFields()
+    if(workflow.email_campaign) return this._getEmailFields()
     if(workflow.event) return this._getEventFields(workflow.event)
     if(workflow.form) return this._getFormFields(workflow.form)
     return {}
+  }
+
+  _getEmailFields() {
+    return [
+      {
+        label: 'Email Fields',
+        fields: [
+          { name: 'Activity', key: 'activity', type: 'activity' }
+        ]
+      }
+    ]
   }
 
   _getEventFields(event) {

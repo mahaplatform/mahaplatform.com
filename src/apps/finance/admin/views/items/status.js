@@ -33,7 +33,7 @@ class Status extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Status', name: 'status', type: 'lookup', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
+            { label: 'Status', name: 'status', type: 'lookup', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], value: 'value', text: 'text', format: StatusToken }
           ]
         }
       ]

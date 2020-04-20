@@ -33,10 +33,18 @@ const Details = ({ audits, workflow }) => {
     list.items.push({ label: 'Topic', content: workflow.topic.title })
   } else if(workflow.trigger_type === 'response') {
     list.items.push({ label: 'Form', content: workflow.form.title })
-  } else if(workflow.trigger_type === 'open') {
+  } else if(workflow.trigger_type === 'delivery' && workflow.email) {
     list.items.push({ label: 'Email', content: workflow.email.title })
-  } else if(workflow.trigger_type === 'click') {
+  } else if(workflow.trigger_type === 'delivery' && workflow.email_campaign) {
+    list.items.push({ label: 'Email', content: workflow.email_campaign.title })
+  } else if(workflow.trigger_type === 'open' && workflow.email) {
     list.items.push({ label: 'Email', content: workflow.email.title })
+  } else if(workflow.trigger_type === 'open' && workflow.email_campaign) {
+    list.items.push({ label: 'Email', content: workflow.email_campaign.title })
+  } else if(workflow.trigger_type === 'click' && workflow.email) {
+    list.items.push({ label: 'Email', content: workflow.email.title })
+  } else if(workflow.trigger_type === 'click' && workflow.email_campaign) {
+    list.items.push({ label: 'Email', content: workflow.email_campaign.title })
   } else if(workflow.trigger_type === 'event') {
     list.items.push({ label: 'Event', content: workflow.event.title })
   }

@@ -2,6 +2,7 @@ import WorkflowEnrollment from './workflow_enrollment'
 import Model from '../../../core/objects/model'
 import WorkflowResult from './workflow_result'
 import Event from '../../events/models/event'
+import EmailCampaign from './email_campaign'
 import Field from '../../maha/models/field'
 import WorkflowStep from './workflow_step'
 import Program from './program'
@@ -32,6 +33,7 @@ const Workflow = new Model({
 
     display_name() {
       if(this.get('form_id')) return `${this.related('form').get('title')}: ${this.get('title')}`
+      if(this.get('email_campaign_id')) return `${this.related('email_campaign').get('title')}: ${this.get('title')}`
       if(this.get('email_id')) return `${this.related('email').get('title')}: ${this.get('title')}`
       if(this.get('list_id')) return `${this.related('list').get('title')}: ${this.get('title')}`
       if(this.get('topic_id')) return `${this.related('topic').get('title')}: ${this.get('title')}`
@@ -51,6 +53,10 @@ const Workflow = new Model({
 
   email() {
     return this.belongsTo(Email, 'email_id')
+  },
+
+  email_campaign() {
+    return this.belongsTo(EmailCampaign, 'email_campaign_id')
   },
 
   enrollments() {

@@ -5,6 +5,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
+import { createWorkflow } from '../../../../services/workflows'
 import EmailCampaign from '../../../../models/email_campaign'
 import { getDefaultConfig } from '../../../../services/email'
 import Template from '../../../../models/template'
@@ -58,6 +59,12 @@ const createRoute = async (req, res) => {
     }
   }).save(null, {
     transacting: req.trx
+  })
+
+  await createWorkflow(req, {
+    email_campaign,
+    title: 'Delivery Workflow',
+    program_id: req.body.program_id
   })
 
   await GenerateScreenshotQueue.enqueue(req, {

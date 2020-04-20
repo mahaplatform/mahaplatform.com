@@ -1,6 +1,8 @@
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
+import Activity from './activity'
 import Checkbox from './checkbox'
+import Boolean from './boolean'
 import Select from './select'
 import React from 'react'
 import Text from './text'
@@ -38,6 +40,8 @@ class Field extends React.PureComponent {
 
   _getComponent(type) {
     if(!_.isString(type)) return type
+    if(type === 'activity') return Activity
+    if(type === 'boolean') return Boolean
     if(type === 'checkbox') return Checkbox
     if(type === 'daterange') return DateRange
     if(type === 'select') return Select

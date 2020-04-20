@@ -6,6 +6,7 @@ const WorkflowSerializer = (req, result) => ({
   code: result.get('code'),
   program: program(result.related('program')),
   email: email(result.related('email')),
+  email_campaign: email_campaign(result.related('email_campaign')),
   event: event(result.related('event')),
   form: form(result.related('form')),
   list: list(result.related('list')),
@@ -29,6 +30,14 @@ const email = (email) => {
   return {
     id: email.get('id'),
     title: email.get('title')
+  }
+}
+
+const email_campaign = (email_campaign) => {
+  if(!email_campaign.id) return
+  return {
+    id: email_campaign.get('id'),
+    title: email_campaign.get('title')
   }
 }
 
