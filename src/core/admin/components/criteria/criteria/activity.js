@@ -56,7 +56,7 @@ class Activity extends React.Component {
       { text: 'was opened', value: 'was_opened' },
       { text: 'was clicked', value: 'was_clicked' },
       { text: 'was shared', value: 'was_shared' },
-      { text: 'was viewed online', value: 'was_viewed_online' },
+      { text: 'was viewed online', value: 'was_webviewed' },
       { text: 'was unsubscribed', value: 'was_unsubscribed' }
     ]
   }

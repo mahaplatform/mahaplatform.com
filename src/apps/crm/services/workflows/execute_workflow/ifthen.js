@@ -1,3 +1,4 @@
+import { toFilter } from '../../../../../core/utils/criteria'
 import _ from 'lodash'
 
 const castValue = (value) => {
@@ -109,6 +110,7 @@ const evaluateCondition = async (filter, data) => {
   const comparison = Object.keys(filter[key])[0]
   const right = Object.values(filter[key])[0]
   const evaluator = getEvaluator(comparison)
+  console.log(left, comparison, right, evaluator(left, right))
   return evaluator(left, right)
 }
 
@@ -121,7 +123,8 @@ const evaluate = async (filter, data) => {
 const getBranch = async (branches, data) => {
   return await Promise.reduce(branches, async (found, branch) => {
     if(found !== null) return found
-    return await evaluate(branch.criteria, data) ? branch : null
+    const filter = toFilter(branch.criteria)
+    return await evaluate(filter, data) ? branch : null
   }, null) || { code: 'else', name: 'else' }
 }
 
@@ -149,6 +152,25 @@ const getRegistrationData = async (req, { enrollment }) => {
 
 }
 
+const getEmailData = async (req, { enrollment }) => {
+
+  await enrollment.load(['email'], {
+    transacting: req.trx
+  })
+
+  const activities = ['was_opened','was_clicked','was_shared','was_webviewed','was_unsubscribed']
+
+  return {
+    email: {
+      activities: activities.reduce((activities, activity) => [
+        ...activities,
+        ...enrollment.related('email').get(activity) ? [activity] : []
+      ], [])
+    }
+  }
+
+}
+
 const getData = async (req, { enrollment }) => {
 
   if(enrollment.get('response_id')) {
@@ -159,6 +181,10 @@ const getData = async (req, { enrollment }) => {
     return await getRegistrationData(req, { enrollment })
   }
 
+  if(enrollment.get('email_id')) {
+    return await getEmailData(req, { enrollment })
+  }
+
   return {}
 
 }
@@ -166,10 +192,6 @@ const getData = async (req, { enrollment }) => {
 const ifthen = async (req, params) => {
 
   const { config, enrollment, step } = params
-
-  await enrollment.load(['response'], {
-    transacting: req.trx
-  })
 
   const data = await getData(req, {
     enrollment

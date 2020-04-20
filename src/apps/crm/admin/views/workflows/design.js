@@ -61,7 +61,7 @@ class Designer extends React.Component {
       {
         label: 'Email Fields',
         fields: [
-          { name: 'Activity', key: 'activity', type: 'activity' }
+          { name: 'Activity', key: 'email.activities', type: 'activity' }
         ]
       }
     ]

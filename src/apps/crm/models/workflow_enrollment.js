@@ -3,6 +3,7 @@ import Model from '../../../core/objects/model'
 import knex from '../../../core/services/knex'
 import WorkflowAction from './workflow_action'
 import VoiceCampaign from './voice_campaign'
+import Email from '../../maha/models/email'
 import Call from '../../maha/models/call'
 import SmsCampaign from './sms_campaign'
 import Workflow from './workflow'
@@ -30,6 +31,10 @@ const WorkflowEnrollment = new Model({
       qb.select(knex.raw('crm_contacts.*,crm_contact_primaries.*'))
       qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     })
+  },
+
+  email() {
+    return this.belongsTo(Email, 'email_id')
   },
 
   registration() {
