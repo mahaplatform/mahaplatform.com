@@ -1,0 +1,9 @@
+    # - name: Extract nodejs
+    #   unarchive:
+    #     src: https://nodejs.org/dist/v8.14.0/node-v8.14.0.tar.gz
+    #     dest: /home/centos
+    #     remote_src: yes
+    # - name: Build nodejs
+    #   shell: source scl_source enable devtoolset-7 && ./configure && make && make install
+    #   args:
+    #     chdir: /home/centos/node-v8.14.0

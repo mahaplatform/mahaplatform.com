@@ -136,8 +136,8 @@ const adminWatch = async () => {
   }
   const devserver = new devServer(webpack(adminConfig), {
     https: protocol === 'https' ? {
-      key: fs.readFileSync('dev.mahaplatform.com.key'),
-      cert: fs.readFileSync('dev.mahaplatform.com.crt')
+      key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
+      cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt'))
     } : false,
     disableHostCheck: true,
     contentBase: path.resolve('src','core','admin','public'),

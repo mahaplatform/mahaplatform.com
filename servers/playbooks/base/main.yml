@@ -1,0 +1,9 @@
+- name: add ssh keys
+  copy:
+    src: ./authorized_keys
+    dest: /home/centos/.ssh/authorized_keys
+
+- name: update yum
+  yum:
+    name: "*"
+    state: latest

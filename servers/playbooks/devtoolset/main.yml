@@ -1,0 +1,9 @@
+- name: Install centos-release-scl
+  yum:
+    name: centos-release-scl
+    state: present
+
+- name: Install devtoolset-7
+  yum:
+    name: devtoolset-7
+    state: present

@@ -20,6 +20,7 @@ make TARGET=linux2628 USE_OPENSSL=1
 make install
 mkdir -p /etc/haproxy
 mkdir -p /var/lib/haproxy
+
 touch /var/lib/haproxy/stats
 ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy
 cp examples/haproxy.init /etc/init.d/haproxy

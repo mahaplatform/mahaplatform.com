@@ -1,7 +1,8 @@
+const path = require('path')
 const fs = require('fs')
 
 const parse = (filepath, separator, slice) => {
-  const data = fs.readFileSync(filepath, 'utf8')
+  const data = fs.readFileSync(path.join('keys', filepath), 'utf8')
   const parts = data.split(/\n/)
   const sliced = slice ? parts.slice(1).slice(0, -2) : parts
   return sliced.join(separator)

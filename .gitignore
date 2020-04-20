@@ -20,6 +20,7 @@ npm-debug.log
 *.csr
 *.cer
 *.p12
+*.pem
 src/public/*
 !src/public/admin
 ngrok

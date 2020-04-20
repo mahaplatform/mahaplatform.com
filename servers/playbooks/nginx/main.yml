@@ -1,0 +1,38 @@
+- name: install dependencies
+  yum:
+    name:
+      - pcre-static
+      - pcre-devel
+      - openssl-devel
+      - epel-release
+    state: present
+
+- name: install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: copy nginx.conf
+  copy:
+    src: ./nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: copy index.html
+  copy:
+    src: ./index.html
+    dest: /usr/share/nginx/html/index.html
+
+- name: enable nginx
+  systemd:
+    name: nginx
+    daemon_reload: yes
+
+- name: enable nginx
+  systemd:
+    name: nginx
+    enabled: yes
+
+- name: start nginx
+  systemd:
+    name: nginx
+    state: started
