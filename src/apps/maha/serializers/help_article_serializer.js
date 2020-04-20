@@ -9,10 +9,13 @@ const helpArticleSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const app = (app) => ({
-  id: app.get('id'),
-  ...app.get('data')
-})
+const app = (app) => {
+  if(!app.id) return null
+  return {
+    id: app.get('id'),
+    ...app.get('data')
+  }
+}
 
 const video = (video) => {
   if(!video.id) return null
