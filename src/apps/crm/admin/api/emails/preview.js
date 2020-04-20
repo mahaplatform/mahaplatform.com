@@ -1,11 +1,19 @@
-import { sendMail } from '../../../../../core/services/email'
 import { renderEmail, personalizeEmail } from '../../../services/email'
+import { sendMail } from '../../../../../core/services/email'
+import Sender from '../../../models/sender'
 
 const previewRoute = async (req, res) => {
 
   const { config, first_name, last_name, email } = req.body
 
   const html = await renderEmail(req, { config })
+
+  const sender = await Sender.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', config.settings.sender_id)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const rendered = personalizeEmail(req, {
     subject: `PREVIEW: ${config.settings.subject}`,
@@ -29,8 +37,10 @@ const previewRoute = async (req, res) => {
     }
   })
 
+  console.log(sender.get('rfc822'))
+
   await sendMail({
-    from: 'Maha <mailer@mahaplatform.com>',
+    from: sender.get('rfc822'),
     to: req.body.email,
     subject: rendered.subject,
     html: rendered.html

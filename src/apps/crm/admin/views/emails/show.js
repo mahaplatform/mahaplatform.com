@@ -14,6 +14,7 @@ const getTabs = ({ audits, email }) => ({
 const getTasks = ({ email }) => ({
   items: [
     { label: 'Edit Email', modal: <Edit email={ email } /> },
+    { label: 'Design Email', route: `/admin/crm/emails/${email.id}/design` },
     {
       label: 'Delete Email',
       confirm: `

@@ -18,6 +18,7 @@ const getTasks = ({ campaign }) => {
 
   if(campaign.status === 'draft') {
     items.push({ label: 'Edit Campaign', modal: <Edit campaign={ campaign } /> })
+    items.push({ label: 'Design Email', route: `/admin/crm/campaigns/email/${campaign.id}/design` }),
     items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
   }
 
