@@ -1,14 +1,29 @@
-import sendSMS from '../../../../maha/services/smses'
+import { sendSMS } from '../../../../maha/services/smses'
+import User from '../../../../maha/models/user'
+
+const getToNumber = async (req, { config }) => {
+
+  if(config.number) return config.number
+
+  return await User.query(qb => {
+    qb.where('id', config.user_id)
+  }).fetch({
+    transacting: req.trx
+  }).then(user => {
+    return user.get('cell_phone')
+  })
+
+}
 
 const sendInternalSms = async (req, { config, enrollment, tokens }) => {
 
-  await enrollment.load(['workflow.program.phone_number'], {
-    transacting: req.trx
+  const to = await getToNumber(req, {
+    config
   })
 
   await sendSMS(req, {
-    from: enrollment.related('workflow').related('program').related('phone_number').get('number'),
-    to: config.number,
+    from: process.env.TWILIO_NUMBER,
+    to,
     body: config.message,
     asset_ids: config.asset_ids,
     data: tokens

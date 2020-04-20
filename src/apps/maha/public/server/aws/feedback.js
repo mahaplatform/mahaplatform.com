@@ -1,8 +1,11 @@
+import collectObjects from '../../../../../core/utils/collect_objects'
 import ReceiveEmailQueue from '../../../queues/receive_email_queue'
 import EmailActivity from '../../../models/email_activity'
 import Email from '../../../models/email'
 import request from 'request-promise'
 import moment from 'moment'
+
+const deliveryFiles = collectObjects('hooks/email/delivery.js')
 
 const feedbackRoute = async (req, res) => {
 
@@ -33,8 +36,11 @@ const feedbackRoute = async (req, res) => {
       const email = await Email.where({
         ses_id: message.mail.messageId
       }).fetch({
+        withRelated: ['team'],
         transacting: req.trx
       })
+
+      req.team = email.related('team')
 
       if(!email) return res.status(200).send(true)
 
@@ -55,6 +61,12 @@ const feedbackRoute = async (req, res) => {
         }).save(null, {
           transacting: req.trx
         })
+
+        await Promise.reduce(deliveryFiles, async (response, hook) => {
+          return await hook.default(req, {
+            email
+          })
+        }, null)
 
       } else if(message.notificationType === 'Bounce') {
 

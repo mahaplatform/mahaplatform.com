@@ -1,4 +1,4 @@
-import sendSMS from '../../../../maha/services/smses'
+import { sendSMS } from '../../../../maha/services/smses'
 
 const sendSms = async (req, { config, contact, enrollment, tokens }) => {
 
