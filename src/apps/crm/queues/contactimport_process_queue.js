@@ -13,9 +13,11 @@ import ImportItem from '../../maha/models/import_item'
 import MailingAddress from '../models/mailing_address'
 import socket from '../../../core/services/emitter'
 import EmailAddress from '../models/email_address'
+import { updateTopics } from '../services/topics'
 import Organization from '../models/organization'
 import PhoneNumber from '../models/phone_number'
 import Queue from '../../../core/objects/queue'
+import { updateLists } from '../services/lists'
 import Import from '../../maha/models/import'
 import Contact from '../models/contact'
 import Consent from '../models/consent'
@@ -369,24 +371,18 @@ const processor = async (req, job) => {
     }
 
     if(imp.get('config').list_ids) {
-      await updateRelated(req, {
-        object: contact,
-        related: 'lists',
-        table: 'crm_subscriptions',
-        ids: imp.get('config').list_ids,
-        foreign_key: 'contact_id',
-        related_foreign_key: 'list_id'
+      await updateLists(req, {
+        contact,
+        list_ids: imp.get('config').list_ids,
+        removing: false
       })
     }
 
     if(imp.get('config').topic_ids) {
-      await updateRelated(req, {
-        object: contact,
-        related: 'topics',
-        table: 'crm_interests',
-        ids: imp.get('config').topic_ids,
-        foreign_key: 'contact_id',
-        related_foreign_key: 'topic_id'
+      await updateTopics(req, {
+        contact,
+        topic_ids: imp.get('config').topic_ids,
+        removing: false
       })
     }
 

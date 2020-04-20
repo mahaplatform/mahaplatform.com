@@ -1,25 +1,6 @@
-import Contact from '../models/contact'
-import _ from 'lodash'
+import Contact from '../../models/contact'
 
-export const getChanges = (req, { contact }) => {
-
-  const { _previousAttributes, attributes } = contact
-
-  const changes = Object.keys(_previousAttributes).filter(key => {
-    return !_.includes(['updated_at','created_at','values'], key)
-  }).reduce((changes, key) => {
-    if(_.isEqual(attributes[key], _previousAttributes[key])) return changes
-    return [
-      ...changes,
-      { action: 'changed', field: key, was: _previousAttributes[key], value: attributes[key] }
-    ]
-  }, [])
-
-  return changes
-
-}
-
-export const getContacts = async (req, { empty, filter, page, scope, sort }) => {
+const getContacts = async (req, { empty, filter, page, scope, sort }) => {
 
   return await Contact.filterFetch({
     scope: (qb) => {
@@ -157,3 +138,5 @@ export const getContacts = async (req, { empty, filter, page, scope, sort }) => 
     transacting: req.trx
   })
 }
+
+export default getContacts

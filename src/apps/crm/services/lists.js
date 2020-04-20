@@ -40,7 +40,7 @@ export const removeFromLists = async (req, { contact, list_ids }) => {
 
 export const updateLists = async (req, params) => {
 
-  const { contact } = params
+  const { contact, removing } = params
 
   const list_ids = params.list_ids || []
 
@@ -63,9 +63,9 @@ export const updateLists = async (req, params) => {
     })
   }
 
-  const remove_ids = params.remove_ids || existing_ids.filter(id => {
+  const remove_ids = removing !== false ? params.remove_ids || existing_ids.filter(id => {
     return !_.includes(list_ids, id)
-  })
+  }) : []
 
   if(remove_ids.length > 0) {
     await removeFromLists(req, {

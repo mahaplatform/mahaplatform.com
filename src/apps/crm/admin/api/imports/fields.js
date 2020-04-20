@@ -29,7 +29,7 @@ const fieldsRoute = async (req, res) => {
 
   res.status(200).respond([
     {
-      label: 'General Fields',
+      label: 'Core Fields',
       fields: [
         { label: 'Full Name', name: 'full_name', type: 'textfield' },
         { label: 'First Name', name: 'first_name', type: 'textfield' },

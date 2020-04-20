@@ -20,7 +20,7 @@ export const addTotopics = async (req, { contact, topic_ids }) => {
 
 }
 
-export const removeFromtopics = async (req, { contact, topic_ids }) => {
+export const removeFromTopics = async (req, { contact, topic_ids }) => {
 
   await Promise.mapSeries(topic_ids, async(topic_id) => {
 
@@ -40,7 +40,7 @@ export const removeFromtopics = async (req, { contact, topic_ids }) => {
 
 export const updateTopics = async (req, params) => {
 
-  const { contact } = params
+  const { contact, removing } = params
 
   const topic_ids = params.topic_ids || []
 
@@ -63,12 +63,12 @@ export const updateTopics = async (req, params) => {
     })
   }
 
-  const remove_ids = params.remove_ids || existing_ids.filter(id => {
+  const remove_ids = removing !== false ? params.remove_ids || existing_ids.filter(id => {
     return !_.includes(topic_ids, id)
-  })
+  }) : []
 
   if(remove_ids.length > 0) {
-    await removeFromtopics(req, {
+    await removeFromTopics(req, {
       topic_ids: remove_ids,
       contact
     })

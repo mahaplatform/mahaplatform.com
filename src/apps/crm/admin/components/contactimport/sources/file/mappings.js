@@ -168,10 +168,7 @@ class Mappings extends React.PureComponent {
   }
 
   _getDefaultMapping(header, name) {
-    const fields = this.props.fields.reduce((fields, section) => ({
-      ...fields,
-      ...section.fields
-    }), [])
+    const fields = this._getFields()
     const field = _.find(fields, { name })
     if(!field) return { header, field: null, type: null }
     return {
