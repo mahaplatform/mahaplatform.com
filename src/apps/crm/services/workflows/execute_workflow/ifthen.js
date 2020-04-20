@@ -1,5 +1,12 @@
-import { toFilter } from '../../../../../core/utils/criteria'
 import _ from 'lodash'
+
+const castValue = (value) => {
+  if(_.isNil(value) === null) return null
+  if(`${value}` === 'true') return true
+  if(`${value}` === 'false') return false
+  if(/^[\d]+\.?[\d]*$/.test(value)) return Number(value)
+  return value.toLowerCase()
+}
 
 const testNull = (left, right) => {
   return test === null
@@ -10,11 +17,11 @@ const testNotNull = (left, right) => {
 }
 
 const testEquals = (left, right) => {
-  return left.toLowerCase() === right.toLowerCase()
+  return castValue(left) === castValue(right)
 }
 
 const testNotEquals = (left, right) => {
-  return left.toLowerCase() !== right.toLowerCase()
+  return castValue(left) !== castValue(right)
 }
 
 const testKnown = (left, right) => {
@@ -98,7 +105,7 @@ const evaluateOr = async (filter, data) => {
 
 const evaluateCondition = async (filter, data) => {
   const key = Object.keys(filter)[0]
-  const left = data[key]
+  const left = _.get(data, key)
   const comparison = Object.keys(filter[key])[0]
   const right = Object.values(filter[key])[0]
   const evaluator = getEvaluator(comparison)
@@ -114,8 +121,7 @@ const evaluate = async (filter, data) => {
 const getBranch = async (branches, data) => {
   return await Promise.reduce(branches, async (found, branch) => {
     if(found !== null) return found
-    const filter = toFilter(branch.criteria)
-    return await evaluate(filter, data) ? branch : null
+    return await evaluate(branch.criteria, data) ? branch : null
   }, null) || { code: 'else', name: 'else' }
 }
 
@@ -125,7 +131,9 @@ const getResponseData = async (req, { enrollment }) => {
     transacting: req.trx
   })
 
-  return enrollment.related('response').get('data')
+  return {
+    response: enrollment.related('response').get('data')
+  }
 
 }
 
@@ -135,7 +143,9 @@ const getRegistrationData = async (req, { enrollment }) => {
     transacting: req.trx
   })
 
-  return enrollment.related('registration').get('data')
+  return {
+    registration: enrollment.related('registration').get('data')
+  }
 
 }
 

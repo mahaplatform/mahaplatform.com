@@ -35,6 +35,7 @@ const Details = ({ form, response }) => {
   }
 
   if(response.invoice_id) {
+
     const invoice = {
       label: 'View Invoice',
       className: 'link',
@@ -42,6 +43,18 @@ const Details = ({ form, response }) => {
     }
 
     list.sections[0].items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
+
+  }
+
+  if(response.enrollment) {
+
+    const enrollment = {
+      label: 'View Enrollment',
+      className: 'link',
+      route: `/admin/crm/workflows/${response.enrollment.workflow_id}/enrollments/${response.enrollment.id}`
+    }
+
+    list.sections[0].items.push({ label: 'Workflow', content: <Button { ...enrollment } /> })
 
   }
 

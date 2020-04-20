@@ -2,6 +2,7 @@ const ResponseSerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
   data: result.get('data'),
+  enrollment: enrollment(result.related('enrollment')),
   referer: result.get('referer'),
   ipaddress: result.get('ipaddress'),
   duration: result.get('duration'),
@@ -20,6 +21,14 @@ const contact = (contact) => {
     initials: contact.get('initials'),
     email: contact.get('email'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
+
+const enrollment = (enrollment) => {
+  if(!enrollment) return null
+  return {
+    id: enrollment.get('id'),
+    workflow_id: enrollment.get('workflow_id')
   }
 }
 

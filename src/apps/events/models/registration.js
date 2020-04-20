@@ -1,3 +1,4 @@
+import WorkflowEnrollment from '../../crm/models/workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
 import Model from '../../../core/objects/model'
 import Contact from '../../crm/models/contact'
@@ -14,6 +15,10 @@ const Registration = new Model({
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')
+  },
+
+  enrollment() {
+    return this.hasOne(WorkflowEnrollment, 'registration_id')
   },
 
   event() {

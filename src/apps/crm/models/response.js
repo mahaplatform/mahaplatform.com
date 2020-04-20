@@ -1,3 +1,4 @@
+import WorkflowEnrollment from './workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
 import Model from '../../../core/objects/model'
 import Contact from './contact'
@@ -16,6 +17,10 @@ const Response = new Model({
       qb.select('crm_contacts.*','crm_contact_primaries.*')
       qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     })
+  },
+
+  enrollment() {
+    return this.hasOne(WorkflowEnrollment, 'response_id')
   },
 
   form() {

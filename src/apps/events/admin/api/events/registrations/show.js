@@ -10,7 +10,7 @@ const showRoute = async (req, res) => {
     qb.where('events_registrations.event_id', req.params.event_id)
     qb.where('events_registrations.id', req.params.id)
   }).fetch({
-    withRelated: ['contact'],
+    withRelated: ['contact','enrollment'],
     transacting: req.trx
   })
 

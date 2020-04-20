@@ -1,6 +1,7 @@
 const RegistrationSerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
+  enrollment: enrollment(result.related('enrollment')),
   invoice_id: result.get('invoice_id'),
   ipaddress: result.get('ipaddress'),
   referer: result.get('referer'),
@@ -21,6 +22,14 @@ const contact = (contact) => {
     display_name: contact.get('display_name'),
     initials: contact.get('initials'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
+
+const enrollment = (enrollment) => {
+  if(!enrollment) return null
+  return {
+    id: enrollment.get('id'),
+    workflow_id: enrollment.get('workflow_id')
   }
 }
 

@@ -11,12 +11,6 @@ const Details = ({ event, registration }) => {
     route: `/admin/crm/contacts/${registration.contact.id}`
   }
 
-  const invoice = {
-    label: 'View Invoice',
-    className: 'link',
-    route: `/admin/finance/invoices/${registration.invoice_id}`
-  }
-
   const config = {
     sections: [
       {
@@ -26,7 +20,8 @@ const Details = ({ event, registration }) => {
           { label: 'Referer', content: registration.referer },
           { label: 'Duration', content: `${registration.duration} seconds` },
           { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
-          { label: 'Submitted', content: registration.created_at, format: 'datetime' }
+          { label: 'Submitted', content: registration.created_at, format: 'datetime' },
+          { label: 'Revenue', content: numeral(registration.revenue).format('$0.00') }
         ]
       }, {
         title: 'Registration Data',
@@ -40,10 +35,28 @@ const Details = ({ event, registration }) => {
   }
 
   if(registration.invoice_id) {
+
+    const invoice = {
+      label: 'View Invoice',
+      className: 'link',
+      route: `/admin/finance/invoices/${registration.invoice_id}`
+    }
+
     config.sections[0].items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
+
   }
 
-  config.sections[0].items.push({ label: 'Revenue', content: numeral(registration.revenue).format('$0.00') })
+  if(registration.enrollment) {
+
+    const enrollment = {
+      label: 'View Enrollment',
+      className: 'link',
+      route: `/admin/crm/workflows/${registration.enrollment.workflow_id}/enrollments/${registration.enrollment.id}`
+    }
+
+    config.sections[0].items.push({ label: 'Workflow', content: <Button { ...enrollment } /> })
+
+  }
 
   event.contact_config.fields.map(field => {
     config.sections[1].items.push({ label: field.name.value, content: registration.data[field.code] })

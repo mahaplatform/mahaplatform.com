@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const types = {
+  event: { icon: 'calendar', name: 'event', trigger: 'Contact registers for event' },
   pickup: { icon: 'phone', name: 'call', trigger: 'Contact picked up phone' },
   response: { icon: 'check-square-o', name: 'workflow', trigger: 'Form is submitted' },
   open: { icon: 'envelope-open', name: 'workflow', trigger: 'Email is opened' },
@@ -28,7 +29,8 @@ const blocks = {
   internal_sms: { icon: 'comment' },
   record: { icon: 'microphone' },
   topic: { icon: 'lightbulb-o' },
-  list: { icon: 'th-list' }
+  list: { icon: 'th-list' },
+  wait: { icon: 'clock-o' }
 }
 
 class WorkflowActions extends React.PureComponent {
@@ -50,7 +52,7 @@ class WorkflowActions extends React.PureComponent {
             { types[trigger_type].trigger }
           </div>
         </div>
-        { enrollment.actions.map((action, index) => [
+        { enrollment.actions.map((action, index) => (
           <div className="crm-workflow-action-connector" key={`connector_${index}`} />,
           <div className="crm-workflow-action" key={`action_${index}`}>
             <div className={`crm-workflow-action-icon ${action.step.type}`}>
@@ -60,7 +62,8 @@ class WorkflowActions extends React.PureComponent {
               { action.step.action }
             </div>
           </div>
-        ]) }
+
+        )) }
         { enrollment.status !== 'active' &&
           <div className="crm-workflow-action-connector"/>
         }
