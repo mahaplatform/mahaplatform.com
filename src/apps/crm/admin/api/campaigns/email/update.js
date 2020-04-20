@@ -1,4 +1,5 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
+import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import { audit } from '../../../../../../core/services/routes/audit'
@@ -29,6 +30,10 @@ const updateRoute  = async (req, res) => {
   }, {
     transacting: req.trx,
     patch: true
+  })
+
+  await GenerateScreenshotQueue.enqueue(req, {
+    email_campaign_id: email_campaign.get('id')
   })
 
   await audit(req, {

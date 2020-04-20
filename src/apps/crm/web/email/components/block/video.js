@@ -86,7 +86,7 @@ class Image extends React.Component {
     return (
       <td className={`small-12 large-${vertical ? 12 : video_width} columns ${position}`}>
         { video ?
-          <img src={`/imagecache/w=580&overlay=video${video.preview}` } /> :
+          <img src={`/imagecache/w=580&dpi=2&q=100&overlay=video${video.preview}` } /> :
           <img src="https://dummyimage.com/1000x600/666666/ffffff&text=Choose+Video" />
         }
       </td>
