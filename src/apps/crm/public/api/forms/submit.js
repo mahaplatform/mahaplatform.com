@@ -3,10 +3,36 @@ import { checkToken } from '../../../../../core/services/routes/token'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'
+import Product from '../../../../finance/models/product'
 import Response from '../../../models/response'
 import Form from '../../../models/form'
 import moment from 'moment'
 import _ from 'lodash'
+
+const getLineItems = async (req, { products }) => {
+  return await Promise.mapSeries(products, async(line_item) => {
+    return await Product.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('id', line_item.product_id)
+    }).fetch({
+      transacting: req.trx
+    }).then(product => ({
+      product_id: product.get('id'),
+      project_id: product.get('project_id'),
+      donation_revenue_type_id: product.get('donation_revenue_type_id'),
+      revenue_type_id: product.get('revenue_type_id'),
+      price_type: product.get('price_type'),
+      fixed_price: product.get('fixed_price'),
+      low_price: product.get('low_price'),
+      high_price: product.get('high_price'),
+      tax_rate: product.get('tax_rate'),
+      is_tax_deductible: product.get('is_tax_deductible'),
+      description: product.get('title'),
+      quantity: line_item.quantity,
+      price: line_item.price
+    }))
+  })
+}
 
 const submitRoute = async (req, res) => {
 
@@ -42,10 +68,14 @@ const submitRoute = async (req, res) => {
     return field.type === 'productfield'
   })
 
+  const line_items = getLineItems(req, {
+    products: req.body[productfield.code].products
+  })
+
   const invoice = productfield ? await handlePayment(req, {
     program: form.related('program'),
     contact,
-    line_items: req.body[productfield.code].products,
+    line_items,
     payment: req.body.payment
   }) : null
 
@@ -58,16 +88,7 @@ const submitRoute = async (req, res) => {
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
     is_known: contact.is_known,
-    data: {
-      ...req.body,
-      ...req.body.payment ? {
-        payment: {
-          amount: req.body.payment.amount,
-          method: req.body.payment.method,
-          reference: req.body.payment.payment.reference
-        }
-      } : {}
-    }
+    data: req.body
   }).save(null, {
     transacting: req.trx
   })

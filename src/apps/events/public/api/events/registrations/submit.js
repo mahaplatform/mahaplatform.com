@@ -19,18 +19,21 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
     return quantities[ticket_type.get('id')].quantity > 0
   }).map(ticket_type => {
     const line_item = quantities[ticket_type.get('id')]
-    const base_price = ticket_type.get('low_price') || ticket_type.get('fixed_price')
     return {
       project_id: ticket_type.get('project_id'),
-      revenue_type_id: ticket_type.get('revenue_type_id'),
       donation_revenue_type_id: ticket_type.get('revenue_type_id'),
-      donation: ticket_type.get('donation_revenue_type_id') ? (line_item.price - base_price) : 0.00,
-      is_tax_deductible: false,
+      revenue_type_id: ticket_type.get('revenue_type_id'),
+      price_type: ticket_type.get('price_type'),
+      fixed_price: ticket_type.get('fixed_price'),
+      low_price: ticket_type.get('low_price'),
+      high_price: ticket_type.get('high_price'),
+      tax_rate: ticket_type.get('tax_rate'),
+      is_tax_deductible: ticket_type.get('is_tax_deductible'),
       description: `${event.get('title')}: ${ticket_type.get('name')}`,
-      ...line_item
+      quantity: line_item.quantity,
+      price: line_item.price
     }
   })
-
 }
 
 const createTickets = async (req, { registration, tickets }) => {
@@ -106,16 +109,7 @@ const submitRoute = async (req, res) => {
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
     is_known: contact.is_known,
-    data: {
-      ...req.body.contact,
-      ...req.body.payment ? {
-        payment: {
-          amount: req.body.payment.amount,
-          method: req.body.payment.method,
-          reference: req.body.payment.payment.reference
-        }
-      } : {}
-    }
+    data: req.body.contact
   }).save(null, {
     transacting: req.trx
   })

@@ -82,6 +82,7 @@ const showRoute = async (req, res) => {
         fixed_price: ticket_type.get('fixed_price'),
         low_price: ticket_type.get('low_price'),
         high_price: ticket_type.get('high_price'),
+        tax_rate: ticket_type.get('tax_rate'),
         remaining: ticket_type.get('remaining'),
         total_tickets: ticket_type.get('total_tickets'),
         max_per_order: ticket_type.get('max_per_order'),

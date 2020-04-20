@@ -21,7 +21,7 @@ export const updateTicketTypes = async(req, { event, ticket_types }) => {
     await TicketType.forge({
       team_id: req.team.get('id'),
       event_id: event.get('id'),
-      ...whitelist(data, ['name','description','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','overage_strategy','donation_revenue_type_id','total_tickets','max_per_order','sales_open_at','sales_close_at'])
+      ...whitelist(data, ['name','description','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate','is_tax_deductible','overage_strategy','donation_revenue_type_id','total_tickets','max_per_order','sales_open_at','sales_close_at'])
     }).save(null, {
       transacting: req.trx
     })
@@ -34,7 +34,7 @@ export const updateTicketTypes = async(req, { event, ticket_types }) => {
     })
 
     await ticket_type.save({
-      ...whitelist(data, ['name','description','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','overage_strategy','donation_revenue_type_id','total_tickets','max_per_order','sales_open_at','sales_close_at'])
+      ...whitelist(data, ['name','description','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate','is_tax_deductible','overage_strategy','donation_revenue_type_id','total_tickets','max_per_order','sales_open_at','sales_close_at'])
     }, {
       transacting: req.trx,
       patch: true

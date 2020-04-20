@@ -34,6 +34,7 @@ const editRoute = async (req, res) => {
       fixed_price: ticket_type.get('fixed_price'),
       low_price: ticket_type.get('low_price'),
       high_price: ticket_type.get('high_price'),
+      tax_rate: ticket_type.get('tax_rate'),
       overage_strategy: ticket_type.get('overage_strategy'),
       donation_revenue_type_id: ticket_type.get('donation_revenue_type_id'),
       total_tickets: ticket_type.get('total_tickets'),

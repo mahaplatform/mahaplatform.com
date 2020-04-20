@@ -119,6 +119,40 @@ const getBranch = async (branches, data) => {
   }, null) || { code: 'else', name: 'else' }
 }
 
+const getResponseData = async (req, { enrollment }) => {
+
+  await enrollment.load(['response'], {
+    transacting: req.trx
+  })
+
+  return enrollment.related('response').get('data')
+
+}
+
+const getRegistrationData = async (req, { enrollment }) => {
+
+  await enrollment.load(['registration'], {
+    transacting: req.trx
+  })
+
+  return enrollment.related('registration').get('data')
+
+}
+
+const getData = async (req, { enrollment }) => {
+
+  if(enrollment.get('response_id')) {
+    return await getResponseData(req, { enrollment })
+  }
+
+  if(enrollment.get('registration_id')) {
+    return await getRegistrationData(req, { enrollment })
+  }
+
+  return {}
+
+}
+
 const ifthen = async (req, params) => {
 
   const { config, enrollment, step } = params
@@ -127,9 +161,13 @@ const ifthen = async (req, params) => {
     transacting: req.trx
   })
 
+  const data = await getData(req, {
+    enrollment
+  })
+
   const branch = await getBranch(config.branches, {
     ...params.data,
-    ...enrollment.related('response') ? enrollment.related('response').get('data') : {}
+    ...data
   })
 
   return {

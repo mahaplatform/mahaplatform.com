@@ -922,6 +922,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.text('description')
+      table.boolean('is_tax_deductible')
+      table.decimal('tax_rate', 3, 2)
     })
 
     await knex.schema.createTable('events_tickets', (table) => {

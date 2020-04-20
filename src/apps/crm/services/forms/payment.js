@@ -2,31 +2,7 @@ import { makePayment } from '../../../finance/services/payments'
 import generateCode from '../../../../core/utils/generate_code'
 import LineItem from '../../../finance/models/line_item'
 import Invoice from '../../../finance/models/invoice'
-import Product from '../../../finance/models/product'
 import moment from 'moment'
-import _ from 'lodash'
-
-const getProductData = async(req, { product_id }) => {
-
-  if(!product_id) return {}
-
-  const product = await Product.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', product_id)
-  }).fetch({
-    transacting: req.trx
-  })
-
-  return {
-    product_id: product.get('id'),
-    project_id: product.get('project_id'),
-    donation_revenue_type_id: product.get('donation_revenue_type_id'),
-    revenue_type_id: product.get('revenue_type_id'),
-    is_tax_deductible: product.get('is_tax_deductible'),
-    description: product.get('title')
-  }
-
-}
 
 const createInvoice = async (req, { program_id, contact, line_items }) => {
 
@@ -46,20 +22,24 @@ const createInvoice = async (req, { program_id, contact, line_items }) => {
   })
 
   await Promise.mapSeries(line_items, async (line_item) => {
-
-    const productData = await getProductData(req, {
-      product_id: line_item.product_id
-    })
-
+    const base_price = line_item.low_price || line_item.fixed_price
     await LineItem.forge({
       team_id: req.team.get('id'),
       invoice_id: invoice.get('id'),
-      ...productData,
-      ..._.omit(line_item, ['title','total'])
+      product_id: line_item.product_id,
+      project_id: line_item.project_id,
+      donation_revenue_type_id: line_item.donation_revenue_type_id,
+      revenue_type_id: line_item.revenue_type_id,
+      is_tax_deductible: line_item.is_tax_deductible,
+      description: line_item.description,
+      tax_rate: line_item.tax_rate,
+      base_price,
+      donation: line_item.donation_revenue_type_id ? (line_item.price - base_price) : 0.00,
+      quantity: line_item.quantity,
+      price: line_item.price
     }).save(null, {
       transacting: req.trx
     })
-
   })
 
   return invoice
