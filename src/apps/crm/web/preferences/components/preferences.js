@@ -52,7 +52,7 @@ class Preferences extends React.Component {
               <div className="maha-form-footer">
                 <p>
                   <strong>Disclaimer</strong><br />
-                  You may still recieve non-marketing or transactional
+                  You may still receive non-marketing or transactional
                   communications if you have signed up for one or more of
                   our services
                 </p>
