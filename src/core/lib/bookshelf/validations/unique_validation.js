@@ -2,7 +2,7 @@ import knex from '../../../services/knex'
 import Checkit from 'checkit'
 import _ from 'lodash'
 
-Checkit.Validator.prototype.unique = function(val, params = {}, options = {}) {
+Checkit.Validator.prototype.unique = function(val, params = {}, options = {}, more) {
 
   const tableName = params.tableName || options.tableName
 
@@ -14,7 +14,7 @@ Checkit.Validator.prototype.unique = function(val, params = {}, options = {}) {
 
   if(_.isString(params)) {
     params.split(',').map(key => {
-      query = query.where(key, this._target[key])
+      query = query.whereRaw('lower(key) = ?', this._target[key].toLowerCase())
     })
   }
 

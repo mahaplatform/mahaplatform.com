@@ -35,7 +35,9 @@ class Model {
           ...(saveOptions.withRules || this.rules),
           ...(options.belongsToTeam !== false ? { team_id: 'required' } : {})
         } : {}
-        return new Checkit(rules).run(this.attributes, { tableName: this.tableName })
+        return new Checkit(rules).run(this.attributes, {
+          tableName: this.tableName
+        })
       },
 
       activities: function() {

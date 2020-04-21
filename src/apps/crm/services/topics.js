@@ -1,7 +1,7 @@
 import { enrollInWorkflows } from './workflows'
 import _ from 'lodash'
 
-export const addTotopics = async (req, { contact, topic_ids }) => {
+export const addToTopics = async (req, { contact, topic_ids }) => {
 
   await Promise.mapSeries(topic_ids, async (topic_id) => {
 
@@ -57,7 +57,7 @@ export const updateTopics = async (req, params) => {
   })
 
   if(add_ids.length > 0) {
-    await addTotopics(req, {
+    await addToTopics(req, {
       topic_ids: add_ids,
       contact
     })

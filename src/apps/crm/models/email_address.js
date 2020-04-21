@@ -6,7 +6,9 @@ const EmailAddress = new Model({
 
   tableName: 'crm_email_addresses',
 
-  rules: {},
+  rules: {
+    address: 'unique'
+  },
 
   virtuals: {},
 

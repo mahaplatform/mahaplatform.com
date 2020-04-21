@@ -4,6 +4,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updateOrganizations } from '../../../services/organizations'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
@@ -66,24 +67,26 @@ const createRoute = async (req, res) => {
     related_foreign_key: 'tag_id'
   })
 
-  await updateRelated(req, {
-    object: contact,
-    related: 'organizations',
-    table: 'crm_contacts_organizations',
-    ids: req.body.organization_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'organization_id'
-  })
+  if(req.body.organization_ids) {
+    await updateOrganizations(req, {
+      contact,
+      organization_ids: req.body.organization_ids
+    })
+  }
 
-  await updateLists(req, {
-    contact,
-    list_ids: req.body.list_ids
-  })
+  if(req.body.list_ids) {
+    await updateLists(req, {
+      contact,
+      list_ids: req.body.list_ids
+    })
+  }
 
-  await updateTopics(req, {
-    contact,
-    topic_ids: req.body.topic_ids
-  })
+  if(req.body.topic_ids) {
+    await updateTopics(req, {
+      contact,
+      topic_ids: req.body.topic_ids
+    })
+  }
 
   await contactActivity(req, {
     user: req.user,
