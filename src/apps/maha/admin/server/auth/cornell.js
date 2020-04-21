@@ -18,7 +18,7 @@ export const cornell = async (req, res, next) => {
   const strategy = new SAMLStrategy({
     ...config
   }, (profile, done) => {
-    loadUserByEmail(req, profile.email, done)
+    loadUserByEmail(req, profile.nameID, done)
   })
 
   passport.use(strategy)
