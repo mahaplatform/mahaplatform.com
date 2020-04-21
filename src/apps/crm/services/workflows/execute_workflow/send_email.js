@@ -34,6 +34,18 @@ const getPaymentSummary = async (req, { invoice_id }) => {
 
 }
 
+const getPaymentData = async (req, { invoice_id }) => {
+
+  if(!invoice_id) return {}
+
+  const payment_summary = await getPaymentSummary(req, {
+    invoice_id
+  })
+
+  return { payment_summary }
+
+}
+
 const getResponseData = async (req, { response }) => {
 
   await response.load(['form.program'], {
@@ -48,11 +60,9 @@ const getResponseData = async (req, { response }) => {
 
   const data = response.get('data')
 
-  const payment_summary = response.get('invoice_id') ? await getPaymentSummary(req, {
+  const basedata = await getPaymentData(req, {
     invoice_id: response.get('invoice_id')
-  }) : null
-
-  const basedata = payment_summary ? { payment_summary } : {}
+  })
 
   return fields.reduce((response, field) => ({
     ...response,
@@ -75,16 +85,14 @@ const getRegistrationData = async (req, { registration }) => {
 
   const data = registration.get('data')
 
-  const payment_summary = await getPaymentSummary(req, {
+  const basedata = await getPaymentData(req, {
     invoice_id: registration.get('invoice_id')
   })
 
   return fields.reduce((registration, field) => ({
     ...registration,
     [field.name.token]: data[field.code]
-  }), {
-    payment_summary
-  })
+  }), basedata)
 
 }
 

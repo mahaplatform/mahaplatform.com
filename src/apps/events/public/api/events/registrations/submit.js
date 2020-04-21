@@ -93,18 +93,18 @@ const submitRoute = async (req, res) => {
     ticket_types: event.related('ticket_types')
   })
 
-  const invoice = await handlePayment(req, {
+  const invoice = req.body.payment ? await handlePayment(req, {
     program: event.related('program'),
     contact,
     line_items,
     payment: req.body.payment
-  })
+  }) : null
 
   const registration = await Registration.forge({
     team_id: req.team.get('id'),
     event_id: event.get('id'),
     contact_id: contact.get('id'),
-    invoice_id: invoice.get('id'),
+    invoice_id: invoice ? invoice.get('id') : null,
     referer: req.body.referer,
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,

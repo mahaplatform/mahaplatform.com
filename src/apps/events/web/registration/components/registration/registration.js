@@ -205,8 +205,8 @@ class Registration extends React.Component {
   }
 
   _handleSubmit() {
-    const { data } = this.props
-    this.props.onSubmit(event.code, data)
+    const { data, token } = this.props
+    this.props.onSubmit(token, event.code, data)
   }
 
   _handleUpdateQuantities(quantities) {

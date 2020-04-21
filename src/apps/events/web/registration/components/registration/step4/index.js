@@ -1,4 +1,4 @@
-import { Payment } from 'maha-client'
+import { Loader, Payment } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,17 +14,27 @@ class Step4 extends React.Component {
   }
 
   render() {
+    const { total } = this.props
     return (
       <div className="registration-panel">
         <div className="registration-panel-body">
           <div className="registration-panel-content">
             <div className="registration-step4">
-              <Payment { ...this._getPayment() } />
+              { total > 0 ?
+                <Payment { ...this._getPayment() } /> :
+                <Loader label="Processing" />
+              }
             </div>
           </div>
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { total } = this.props
+    if(total > 0) return
+    this.props.onSubmit()
   }
 
   _getPayment() {
