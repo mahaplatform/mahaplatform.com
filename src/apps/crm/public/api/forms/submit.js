@@ -34,6 +34,26 @@ const getLineItems = async (req, { products }) => {
   })
 }
 
+const getInvoice = async (req, { contact, fields, form, payment }) => {
+  const productfield = fields.find(field => {
+    return field.type === 'productfield'
+  })
+
+  if(!productfield) return null
+
+  const line_items = getLineItems(req, {
+    products: req.body[productfield.code].products
+  })
+
+  return await handlePayment(req, {
+    program: form.related('program'),
+    contact,
+    line_items,
+    payment: req.body.payment
+  })
+
+}
+
 const submitRoute = async (req, res) => {
 
   if(!checkToken(req.headers.authorization, req.params.code)) {
@@ -64,20 +84,12 @@ const submitRoute = async (req, res) => {
     data: req.body
   })
 
-  const productfield = fields.find(field => {
-    return field.type === 'productfield'
-  })
-
-  const line_items = getLineItems(req, {
-    products: req.body[productfield.code].products
-  })
-
-  const invoice = productfield ? await handlePayment(req, {
-    program: form.related('program'),
+  const invoice = await getInvoice(req, {
     contact,
-    line_items,
+    fields,
+    form,
     payment: req.body.payment
-  }) : null
+  })
 
   const response = await Response.forge({
     team_id: form.get('team_id'),

@@ -148,13 +148,15 @@ const refresh = async (req, { enrollment }) => {
 }
 
 const getData = async(req, { contact, enrollment, steps }) => ({
-  full_name: contact.get('full_name'),
-  first_name: contact.get('first_name'),
-  last_name: contact.get('last_name'),
-  email: contact.get('email'),
-  phone: contact.get('phone'),
-  address: contact.get('address'),
-  ...enrollment.get('data')
+  contact: {
+    full_name: contact.get('full_name'),
+    first_name: contact.get('first_name'),
+    last_name: contact.get('last_name'),
+    email: contact.get('email'),
+    phone: contact.get('phone'),
+    address: contact.get('address'),
+    ...enrollment.get('data')
+  }
 })
 
 const getTokens = async(req, { contact, data, steps }) => ({

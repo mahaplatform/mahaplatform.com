@@ -70,16 +70,16 @@ class Designer extends React.Component {
   _getEventFields(event) {
     return [
       {
-        label: 'Regstration Fields',
+        label: 'Registration Fields',
         fields: [
-          { name: 'First Name', key: 'first_name', type: 'textfield' },
-          { name: 'Last Name', key: 'last_name', type: 'textfield' },
-          { name: 'Email', key: 'email', type: 'emailfield' },
+          { name: 'First Name', key: 'registration.first_name', type: 'textfield' },
+          { name: 'Last Name', key: 'registration.last_name', type: 'textfield' },
+          { name: 'Email', key: 'registration.email', type: 'emailfield' },
           ...event.contact_config.fields.filter(field => {
             return !_.includes(['text'], field.type)
           }).map(field => ({
             name: field.name.value,
-            key: field.code,
+            key: `registration.${field.code}`,
             type: _.get(field, 'contactfield.type') || field.type,
             options: _.get(field, 'contactfield.options') || field.options
           }))
@@ -96,7 +96,7 @@ class Designer extends React.Component {
           return field.type !== 'text' && field.name
         }).map(field => ({
           name: field.name.value,
-          key: field.code,
+          key: `response.${field.code}`,
           type: _.get(field, 'contactfield.type') || field.type,
           options: _.get(field, 'contactfield.options') || field.options
         }))

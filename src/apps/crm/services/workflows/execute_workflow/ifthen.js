@@ -2,7 +2,7 @@ import { toFilter } from '../../../../../core/utils/criteria'
 import _ from 'lodash'
 
 const castValue = (value) => {
-  if(_.isNil(value) === null) return null
+  if(_.isNil(value)) return null
   if(`${value}` === 'true') return true
   if(`${value}` === 'false') return false
   if(/^[\d]+\.?[\d]*$/.test(value)) return Number(value)
@@ -110,7 +110,6 @@ const evaluateCondition = async (filter, data) => {
   const comparison = Object.keys(filter[key])[0]
   const right = Object.values(filter[key])[0]
   const evaluator = getEvaluator(comparison)
-  console.log(left, comparison, right, evaluator(left, right))
   return evaluator(left, right)
 }
 

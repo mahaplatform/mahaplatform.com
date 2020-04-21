@@ -73,17 +73,17 @@ class VoiceDesigner extends React.PureComponent {
     const { program, programfields, fields } = this.props
     return [
       { label: 'Contact Fields', fields: [
-        { name: 'First Name', key: 'first_name', type: 'textfield' },
-        { name: 'Last Name', key: 'last_name', type: 'textfield' },
-        { name: 'Email', key: 'email', type: 'emailfield' },
-        { name: 'Phone', key: 'phone', type: 'phonefield' },
-        { name: 'Address', key: 'address', type: 'addressfield' },
-        { name: 'Birthday', key: 'birthday', type: 'textfield' },
-        { name: 'Spouse', key: 'spouse', type: 'textfield' }
+        { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
+        { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
+        { name: 'Email', key: 'contact.email', type: 'emailfield' },
+        { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
+        { name: 'Address', key: 'contact.address', type: 'addressfield' },
+        { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
+        { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
       ] },
       ...programfields.length > 0 ? [{ label: `${program.title} Fields`, fields: programfields.map(field => ({
         name: field.label,
-        key: field.name,
+        key: `contact.${field.name}`,
         type: 'textfield'
       }))}] : [],
       ...fields || []
@@ -94,17 +94,17 @@ class VoiceDesigner extends React.PureComponent {
     const { program, programfields } = this.props
     return [
       { label: 'Contact Properties', fields: [
-        { label: 'First Name', name: 'first_name', type: 'textfield' },
-        { label: 'Last Name', name: 'last_name', type: 'textfield' },
-        { label: 'Email', name: 'email', type: 'emailfield' },
-        { label: 'Phone', name: 'phone', type: 'phonefield' },
-        { label: 'Address', name: 'address', type: 'addressfield' },
-        { label: 'Birthday', name: 'birthday', type: 'textfield' },
-        { label: 'Spouse', name: 'spouse', type: 'textfield' }
+        { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
+        { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
+        { name: 'Email', key: 'contact.email', type: 'emailfield' },
+        { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
+        { name: 'Address', key: 'contact.address', type: 'addressfield' },
+        { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
+        { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
       ] },
       ...programfields.length > 0 ? [{ label: `${program.title} Properties`, fields: programfields.map(field => ({
-        label: field.label,
-        name: field.name,
+        name: field.label,
+        key: `contact.${field.name}`,
         type: 'textfield'
       }))}] : []
     ]

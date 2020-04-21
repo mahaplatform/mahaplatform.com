@@ -48,16 +48,16 @@ const getResponseData = async (req, { response }) => {
 
   const data = response.get('data')
 
-  const payment_summary = await getPaymentSummary(req, {
+  const payment_summary = response.get('invoice_id') ? await getPaymentSummary(req, {
     invoice_id: response.get('invoice_id')
-  })
+  }) : null
+
+  const basedata = payment_summary ? { payment_summary } : {}
 
   return fields.reduce((response, field) => ({
     ...response,
     [field.name.token]: data[field.code]
-  }), {
-    payment_summary
-  })
+  }), basedata)
 
 }
 
