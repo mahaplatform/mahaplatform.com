@@ -613,7 +613,6 @@ const schema = {
       table.jsonb('data')
       table.USER-DEFINED('status')
       table.integer('registration_id').unsigned()
-      table.integer('email_campaign_id').unsigned()
       table.integer('email_id').unsigned()
     })
 
@@ -2555,6 +2554,7 @@ const schema = {
     await knex.schema.table('crm_workflow_enrollments', table => {
       table.foreign('call_id').references('maha_calls.id')
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('email_id').references('maha_emails.id')
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('registration_id').references('events_registrations.id')
       table.foreign('response_id').references('crm_responses.id')
@@ -2562,8 +2562,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
-      table.foreign('email_id').references('maha_emails.id')
     })
 
     await knex.schema.table('crm_workflow_recordings', table => {

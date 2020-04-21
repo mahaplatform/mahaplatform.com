@@ -21,8 +21,7 @@ const processRoute = async (req, res) => {
   })
 
   ContactImportProcessQueue.enqueue(req, {
-    id: _import.get('id'),
-    primaryKey: 'email'
+    import_id: _import.get('id')
   })
 
   await socket.refresh(req, [

@@ -45,7 +45,7 @@ const createRoute = async (req, res) => {
     })
   } else {
     ContactImportParseQueue.enqueue(req, {
-      id: imp.get('id')
+      import_id: imp.get('id')
     })
   }
 

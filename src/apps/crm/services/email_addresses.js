@@ -48,7 +48,7 @@ export const updateEmailAddresses = async (req, { contact, email_addresses, remo
       team_id: req.team.get('id'),
       contact_id: contact.get('id'),
       code,
-      address: email_address.address,
+      address: email_address.address.toLowerCase(),
       is_primary: email_address.is_primary,
       is_valid: true
     }).save(null, {
