@@ -1,11 +1,11 @@
 import ContactImportGeocodeQueue from '../queues/contactimport_geocode_queue'
 import ContactImportPhotoQueue from '../queues/contactimport_photo_queue'
-import { updateRelated } from '../../../core/services/routes/relations'
 import ImportSerializer from '../../maha/serializers/import_serializer'
 import { updateMailingAddresses } from '../services/mailing_addresses'
 import { updateEmailAddresses } from '../services/email_addresses'
 import { updatePhoneNumbers } from '../services/phone_numbers'
 import { refresh } from '../../../core/services/routes/emitter'
+import { updateOrganizations } from '../services/organizations'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../core/utils/generate_code'
 import { contactActivity } from '../services/activities'
@@ -348,13 +348,10 @@ const processor = async (req, job) => {
 
       const organization_ids = await getOrganizationIds(req, values)
       if(organization_ids.length > 0) {
-        await updateRelated(req, {
-          object: contact,
-          related: 'organizations',
-          table: 'crm_contacts_organizations',
-          ids: organization_ids,
-          foreign_key: 'contact_id',
-          related_foreign_key: 'organization_id'
+        await updateOrganizations(req, {
+          contact,
+          organization_ids,
+          removing: false
         })
       }
 
