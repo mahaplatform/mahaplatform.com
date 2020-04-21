@@ -1,5 +1,5 @@
 import ImportToken from '../../../../maha/admin/tokens/import'
-import ListCriteria from './listcriteria'
+import ListCriteria from '../../components/listcriteria'
 
 const criteria = [
   { label: 'Contact', fields: [
@@ -15,10 +15,6 @@ const criteria = [
     { name: 'Spouse', key: 'spouse', type: 'text' }
   ] },
   { label: 'Classifications', fields: [
-    { name: 'Interest', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
-      { value: '$in', text: 'is interested in' },
-      { value: '$nin', text: 'is not interested in' }
-    ] },
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$in', text: 'is subscribed to' },
       { value: '$nin', text: 'is not subscribed to' }
@@ -30,6 +26,10 @@ const criteria = [
     { name: 'Tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id', subject: false, comparisons: [
       { value: '$in', text: 'is tagged with' },
       { value: '$nin', text: 'id not tagged with' }
+    ] },
+    { name: 'Topic', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$in', text: 'is interested in' },
+      { value: '$nin', text: 'is not interested in' }
     ] }
   ] },
   { label: 'Activities', fields: [

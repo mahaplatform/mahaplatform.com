@@ -1,5 +1,5 @@
-import CheckboxesField from '../../components/checkboxesfield'
 import { ModalPanel, RadioGroup } from 'maha-admin'
+import CheckboxesField from '../checkboxesfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

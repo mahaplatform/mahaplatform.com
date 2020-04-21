@@ -1,4 +1,6 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import Registration from '../../events/models/registration'
+import ImportItem from '../../maha/models/import_item'
 import Model from '../../../core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
@@ -6,6 +8,7 @@ import EmailAddress from './email_address'
 import Organization from './organization'
 import PhoneNumber from './phone_number'
 import Email from './contact_email'
+import Response from './response'
 import Activity from './activity'
 import Call from './contact_call'
 import Note from './contact_note'
@@ -83,7 +86,6 @@ const Contact = new Model({
     return this.hasMany(Call, 'contact_id')
   },
 
-
   emails() {
     return this.hasMany(Email, 'contact_id')
   },
@@ -91,6 +93,12 @@ const Contact = new Model({
   email_addresses() {
     return this.hasMany(EmailAddress, 'contact_id').query(qb => {
       qb.orderBy('is_primary', 'desc')
+    })
+  },
+
+  import_items() {
+    return this.hasMany(ImportItem, 'object_id').query(qb => {
+      qb.joinRaw('inner join maha_imports on maha_imports.id=maha_import_items.import_id and maha_imports.object_type=?', 'crm_contacts')
     })
   },
 
@@ -120,6 +128,14 @@ const Contact = new Model({
 
   photo() {
     return this.belongsTo(Asset, 'photo_id')
+  },
+
+  registrations() {
+    return this.hasMany(Registration, 'contact_id')
+  },
+
+  responses() {
+    return this.hasMany(Response, 'contact_id')
   },
 
   tags() {

@@ -170,7 +170,7 @@ const getEmailData = async (req, { enrollment }) => {
 
 }
 
-const getData = async (req, { enrollment }) => {
+const getEnrollmentData = async (req, { enrollment }) => {
 
   if(enrollment.get('response_id')) {
     return await getResponseData(req, { enrollment })
@@ -188,17 +188,41 @@ const getData = async (req, { enrollment }) => {
 
 }
 
-const ifthen = async (req, params) => {
+const getContactData = async (req, { contact }) => {
 
-  const { config, enrollment, step } = params
+  await contact.load(['lists','organizations','tags','topics','responses','registrations','import_items'], {
+    transacting: req.trx
+  })
 
-  const data = await getData(req, {
+  return {
+    list_ids: contact.related('lists').map(list => list.get('id')),
+    organization_ids: contact.related('organizations').map(organization => organization.get('id')),
+    tag_ids: contact.related('tags').map(tag => tag.get('id')),
+    topic_ids: contact.related('topics').map(topic => topic.get('id')),
+    event_ids: contact.related('registrations').map(registration => registration.get('event_id')),
+    form_ids: contact.related('responses').map(response => response.get('form_id')),
+    import_ids: contact.related('import_items').map(item => item.get('import_id'))
+  }
+
+}
+
+const ifthen = async (req, { config, contact, data, enrollment, step }) => {
+
+  const contactData = await getContactData(req, {
+    contact
+  })
+
+  const enrollmentData = await getEnrollmentData(req, {
     enrollment
   })
 
   const branch = await getBranch(config.branches, {
-    ...params.data,
-    ...data
+    ...data,
+    contact: {
+      ...data.contact,
+      ...contactData
+    },
+    ...enrollmentData
   })
 
   return {

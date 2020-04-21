@@ -58,6 +58,7 @@ class BranchesField extends React.PureComponent {
   _getInput(branch, index) {
     return {
       type: 'textfield',
+      placeholder: 'Enter a name for this branch',
       value: branch.name,
       onChange: this._handleUpdateName.bind(this, index)
     }
