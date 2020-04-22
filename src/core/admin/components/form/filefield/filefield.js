@@ -8,6 +8,7 @@ import _ from 'lodash'
 class FileField extends React.Component {
 
   static propTypes = {
+    action: PropTypes.string,
     defaultValue: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.array
@@ -44,6 +45,7 @@ class FileField extends React.Component {
   }
 
   static defaultProps = {
+    action: '/api/admin/assets/upload',
     defaultValue: null,
     disabled: false,
     endpoint: '/api/admin/assets',
@@ -112,10 +114,10 @@ class FileField extends React.Component {
   }
 
   _initializeResumable() {
-    const { files, multiple, status, token, types } = this.props
+    const { action, files, multiple, status, token, types } = this.props
     if(status !== 'ready') return
     this.resumable = new Resumable({
-      target: '/api/admin/assets/upload',
+      target: action,
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       maxFiles: multiple ? undefined : 1,
