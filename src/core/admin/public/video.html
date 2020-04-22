@@ -23,7 +23,6 @@ body {
 .maha-video {
   width: 100%;
   margin: auto;
-  max-width: 918px;
   display: block;
 }
 .maha-video video {
@@ -51,10 +50,18 @@ body {
 
   var url = getParameterByName('file')
 
+  var autoplay = getParameterByName('autoplay')
+
   var video = document.getElementById('maha-video-player')
 
+  console.log(autoplay)
+
+  if(autoplay) {
+    video.setAttribute("autoplay", true)
+  }
+
   video.onmouseenter = function() {
-    video.setAttribute("controls", "controls")
+    video.setAttribute("controls", true)
   }
 
   video.onmouseleave = function() {

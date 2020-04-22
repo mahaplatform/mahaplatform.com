@@ -1,5 +1,6 @@
 import { AssetViewer, Button, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Popup from './popup'
 import React from 'react'
 
 class Help extends React.Component {
@@ -50,7 +51,7 @@ class Help extends React.Component {
       ),
       className: 'link',
       modal: {
-        component: <AssetViewer asset={ article.desktop } />,
+        component: <Popup asset={ article.desktop } />,
         options: {
           width: 1024,
           height: 768
