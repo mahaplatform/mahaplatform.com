@@ -4,6 +4,10 @@ import { Form, Message } from 'maha-admin'
 
 class Authorize extends React.Component {
 
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   static propTypes = {
     onCancel: PropTypes.func,
     onNext: PropTypes.func
@@ -22,6 +26,7 @@ class Authorize extends React.Component {
       action: '/api/admin/account/cell/authorize',
       method: 'post',
       saveText: 'Next',
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       before: <Message { ...this._getMessage() } />,
@@ -45,7 +50,7 @@ class Authorize extends React.Component {
   }
 
   _handleCancel() {
-    this.props.onCancel()
+    this.context.modal.pop()
   }
 
   _handleSuccess() {
