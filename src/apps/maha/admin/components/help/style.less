@@ -40,6 +40,34 @@
     color: fadeout(@black, 80);
   }
 }
+.maha-help-article-video {
+  width: 322px;
+  height: 242px;
+  display: flex;
+}
+@media (max-width: 768px) {
+  .maha-help-article-video.desktop {
+    display: none;
+  }
+}
+@media (min-width: 769px) {
+  .maha-help-article-video.mobile {
+    display: none;
+  }
+}
+.maha-help-article-desktop {
+  background-color: @black;
+  display: flex;
+  width: 322px;
+  height: 242px;
+}
+.maha-help-article-mobile {
+  background-color: @black;
+  margin: auto;
+  display: flex;
+  width: 139px;
+  height: 242px;
+}
 .maha-help-article {
   flex: 1;
   padding: 0 0.8em;
@@ -96,15 +124,6 @@
   a {
     color: @green;
     text-decoration: underline;
-  }
-  iframe,
-  img {
-    width: 100%;
-    background-color: fadeout(@black, 90);
-    border-radius: 0.5em;
-    padding: 1em;
-    display: block;
-    margin-bottom: 1em;
   }
   .fa {
     background-color: fadeout(@black, 80);

@@ -15,6 +15,10 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
+  overflow: hidden;
+}
+*:focus {
+  outline: none !important;
 }
 .maha-video {
   width: 100%;
@@ -48,6 +52,14 @@ body {
   var url = getParameterByName('file')
 
   var video = document.getElementById('maha-video-player')
+
+  video.onmouseenter = function() {
+    video.setAttribute("controls", "controls")
+  }
+
+  video.onmouseleave = function() {
+    video.removeAttribute("controls")
+  }
 
   video.setAttribute('src', url)
 

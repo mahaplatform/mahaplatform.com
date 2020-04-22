@@ -1,4 +1,4 @@
-import { Audit, Comments, List } from 'maha-admin'
+import { AssetViewer, Audit, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -8,7 +8,17 @@ const Details = ({ audits, article }) => {
   const config = {
     items: [
       { label: 'Title', content: article.title },
-      { label: 'App', content: article.app ? article.app.title : 'Maha' }
+      { label: 'App', content: article.app ? article.app.title : 'Maha' },
+      { label: 'Desktop', content: article.desktop, format: (asset) => (
+        <div className="platform-desktop-video">
+          <AssetViewer asset={ asset } />
+        </div>
+      ) },
+      { label: 'Mobile', content: article.mobile, format: (asset) => (
+        <div className="platform-mobile-video">
+          <AssetViewer asset={ asset } />
+        </div>
+      ) }
     ]
   }
 
