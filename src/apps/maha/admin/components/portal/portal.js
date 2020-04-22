@@ -46,40 +46,42 @@ class Portal extends React.Component {
     const { active, badges, help, mode } = this.props
     return (
       <div className={ this._getClass() }>
-        <div className="maha-portal-main">
-          <Prompt>
-            <Modal>
-              <Tasks>
-                <div className="maha-portal-frame">
-                  <div className="maha-portal-ribbon">
-                    <Ribbon { ...this._getRibbon() } />
-                  </div>
-                  { active !== null && <Sidebar sidebar={ badges[active].sidebar } /> }
-                  <div className="maha-portal-body">
-                    <Dashboard />
-                    <RouterStack { ...this._getStack() } />
-                  </div>
-                  <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                    <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
-                  </CSSTransition>
-                  <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                    <div className="maha-portal-account">
-                      <Account { ...this._getAccount() } />
+        <Modal>
+          <div className="maha-portal-main">
+            <Prompt>
+              <Modal>
+                <Tasks>
+                  <div className="maha-portal-frame">
+                    <div className="maha-portal-ribbon">
+                      <Ribbon { ...this._getRibbon() } />
                     </div>
-                  </CSSTransition>
-                  <div className="maha-portal-navigation">
-                    <Navigation { ...this._getNavigation() } />
+                    { active !== null && <Sidebar sidebar={ badges[active].sidebar } /> }
+                    <div className="maha-portal-body">
+                      <Dashboard />
+                      <RouterStack { ...this._getStack() } />
+                    </div>
+                    <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+                      <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
+                    </CSSTransition>
+                    <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+                      <div className="maha-portal-account">
+                        <Account { ...this._getAccount() } />
+                      </div>
+                    </CSSTransition>
+                    <div className="maha-portal-navigation">
+                      <Navigation { ...this._getNavigation() } />
+                    </div>
                   </div>
-                </div>
-              </Tasks>
-            </Modal>
-          </Prompt>
-        </div>
-        { help &&
-          <div className="maha-portal-help">
-            <Help { ...this._getHelp() } />
+                </Tasks>
+              </Modal>
+            </Prompt>
           </div>
-        }
+          { help &&
+            <div className="maha-portal-help">
+              <Help { ...this._getHelp() } />
+            </div>
+          }
+        </Modal>
       </div>
     )
   }

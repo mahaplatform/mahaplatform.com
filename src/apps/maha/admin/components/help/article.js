@@ -1,4 +1,4 @@
-import { AssetViewer, ModalPanel } from 'maha-admin'
+import { AssetViewer, Button, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -22,6 +22,9 @@ class Help extends React.Component {
               <div className="maha-help-article-desktop">
                 <AssetViewer asset={ article.desktop } />
               </div>
+              <div className="maha-help-article-label">
+                <Button { ...this._getButton() }/>
+              </div>
             </div>
           }
           { article.mobile &&
@@ -31,10 +34,29 @@ class Help extends React.Component {
               </div>
             </div>
           }
-          <div dangerouslySetInnerHTML={{ __html: article.body }} />
+          <div className="maha-help-article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
         </div>
       </ModalPanel>
     )
+  }
+
+  _getButton() {
+    const { article } = this.props
+    return {
+      label: (
+        <span>
+          <i className="fa fa-external-link" />watch in popup window
+        </span>
+      ),
+      className: 'link',
+      modal: {
+        component: <AssetViewer asset={ article.desktop } />,
+        options: {
+          width: 1024,
+          height: 768
+        }
+      }
+    }
   }
 
   _getPanel() {
