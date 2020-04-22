@@ -137,9 +137,9 @@ const buildServer = async (environment) => {
 }
 
 const buildPublic = async() => {
-  log('info', 'environment', 'Compiling...')
+  log('info', 'public', 'Compiling...')
   await copy(path.join('src','core','public','public'), path.join(staged,'public'))
-  log('info', 'environment', 'Compiled successfully.')
+  log('info', 'public', 'Compiled successfully.')
 }
 
 const buildEnv = async(environment) => {
