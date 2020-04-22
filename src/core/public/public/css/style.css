@@ -1,0 +1,56 @@
+#platform {
+  background-color: #4d4d4d;
+  height: 100%;
+  width: 100%;
+}
+.maha-device {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+}
+.maha-device-form {
+  margin: auto;
+  max-width: 550px;
+  overflow: hidden;
+  padding: .8em;
+  text-align: center;
+  width: 100%;
+}
+.maha-avatar {
+  display: inline-block;
+  margin: 0 auto;
+  width: 130px;
+}
+h2 {
+  color: #fff;
+  font-size: 2em;
+  line-height: 2em;
+  margin: 0;
+  text-align: center;
+}
+p {
+  color: #fff;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  margin: 0 0 15px;
+  text-align: center;
+}
+a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+a img {
+  width: 180px;
+  margin-bottom: 0.5em;
+}
+img.mobile {
+  width: 200px;
+  margin-bottom: 1em;
+}
+img.desktop {
+  width: 100%;
+  margin-bottom: 1em;
+}

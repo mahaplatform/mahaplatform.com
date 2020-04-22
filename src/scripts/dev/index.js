@@ -127,9 +127,12 @@ const adminWatch = async () => {
   const wildcard = {
     target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
     bypass: (req, res, proxyOptions) => {
-      const root = path.join('src','core','admin','public')
+      const adminRoot = path.join('src','core','admin','public')
+      const publicRoot = path.join('src','core','public','public')
       const parts = req.url.split('?').shift().split('/').slice(2)
-      if(fs.existsSync(path.join(root,...parts))) return null
+      if(fs.existsSync(path.join(adminRoot,...parts))) return null
+      console.log(path.join(publicRoot,...parts))
+      if(fs.existsSync(path.join(publicRoot,...parts))) return null
       if(/^\/admin\/(oauth|auth)/.test(req.url)) return null
       if(/^\/admin/.test(req.url)) return req.url
     }
