@@ -20,7 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await article.save({
-    ...whitelist(req.body, ['app_id','desktop_id','mobile_id','title','body'])
+    ...whitelist(req.body, ['app_id','desktop_id','desktop_small_id','mobile_id','title','body'])
   }, {
     transacting: req.trx
   })

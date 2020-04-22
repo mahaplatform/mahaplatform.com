@@ -34,6 +34,10 @@ const HelpArticle = new Model({
     return this.belongsTo(Asset, 'desktop_id')
   },
 
+  desktop_small() {
+    return this.belongsTo(Asset, 'desktop_small_id')
+  },
+
   mobile() {
     return this.belongsTo(Asset, 'mobile_id')
   }

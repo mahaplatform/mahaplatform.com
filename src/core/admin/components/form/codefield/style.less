@@ -1,0 +1,25 @@
+.maha-form-field.error {
+  textarea {
+    border-radius: 5px 5px 0 0;
+  }
+  .error-message {
+    margin-top: 0;
+  }
+}
+.maha-textarea {
+  position: relative;
+  textarea {
+    border: none;
+    width: 100%;
+  }
+}
+.maha-textarea-length {
+  position: absolute;
+  right: 0;
+  top: -2em;
+  color: fadeout(@black, 50);
+  font-size: 0.8em;
+  &.max {
+    color: @red;
+  }
+}

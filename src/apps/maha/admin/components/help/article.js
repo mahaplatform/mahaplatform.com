@@ -18,14 +18,16 @@ class Help extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-help-article">
           <h1>{ article.title }</h1>
-          { article.desktop &&
+          { article.desktop_small &&
             <div className="maha-help-article-video desktop">
               <div className="maha-help-article-desktop">
-                <AssetViewer asset={ article.desktop } />
+                <AssetViewer asset={ article.desktop_small } />
               </div>
-              <div className="maha-help-article-label">
-                <Button { ...this._getButton() }/>
-              </div>
+              { article.desktop &&
+                <div className="maha-help-article-label">
+                  <Button { ...this._getButton() }/>
+                </div>
+              }
             </div>
           }
           { article.mobile &&

@@ -1628,6 +1628,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('desktop_id').unsigned()
       table.integer('mobile_id').unsigned()
+      table.integer('desktop_small_id').unsigned()
     })
 
     await knex.schema.createTable('maha_import_items', (table) => {
@@ -2991,6 +2992,7 @@ const schema = {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('desktop_id').references('maha_assets.id')
       table.foreign('mobile_id').references('maha_assets.id')
+      table.foreign('desktop_small_id').references('maha_assets.id')
     })
 
     await knex.schema.table('maha_import_items', table => {

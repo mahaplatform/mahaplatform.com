@@ -33,9 +33,12 @@ class Edit extends React.PureComponent {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'App', name: 'app_id', type: 'lookup', prompt: 'Choose an app', endpoint: '/api/admin/platform/apps', value: 'id', text: 'title', format: AppToken },
-            { label: 'Desktop Video', name: 'desktop_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
-            { label: 'Mobile Video', name: 'mobile_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
-            { label: 'Body', name: 'body', type: 'textarea', placeholder: 'Enter body', required: true }
+            { label: 'Videos', type: 'segment', fields: [
+              { label: 'Desktop (1024x768)', name: 'desktop_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
+              { label: 'Desktop (644x483)', name: 'desktop_small_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } },
+              { label: 'Mobile (279x483)', name: 'mobile_id', type: 'attachmentfield', prompt: 'Choose Video', multiple: false, allow: { extensions: ['mov','mp4'] } }
+            ] },
+            { label: 'Body', name: 'body', type: 'codefield', placeholder: 'Enter body', required: true }
           ]
         }
       ]

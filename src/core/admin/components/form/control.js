@@ -3,6 +3,7 @@ import AttachmentField from './attachmentfield'
 import AddressField from './addressfield'
 import Checkbox from './checkbox'
 import Checkboxes from './select/checkboxes'
+import CodeField from './codefield'
 import ColorField from './colorfield'
 import CriteriaField from './criteriafield'
 import DateField from './datefield'
@@ -83,6 +84,7 @@ class Control extends React.Component {
     if(type === 'addressfield') return AddressField
     if(type === 'checkbox') return Checkbox
     if(type === 'checkboxes') return Checkboxes
+    if(type === 'codefield') return CodeField
     if(type === 'colorfield') return ColorField
     if(type === 'criteriafield') return CriteriaField
     if(type === 'datefield') return DateField

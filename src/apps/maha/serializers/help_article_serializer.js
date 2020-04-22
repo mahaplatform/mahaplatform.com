@@ -2,6 +2,7 @@ const helpArticleSerializer = (req, result) => ({
   id: result.get('id'),
   app: app(result.related('app')),
   desktop: video(result.related('desktop')),
+  desktop_small: video(result.related('desktop_small')),
   mobile: video(result.related('mobile')),
   title: result.get('title'),
   body: result.get('body'),

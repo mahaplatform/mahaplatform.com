@@ -13,7 +13,7 @@ class AttachmentField extends React.Component {
   static propTypes = {
     allow: PropTypes.object,
     assets: PropTypes.array,
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.any,
     formatter: PropTypes.func,
     images: PropTypes.array,
     multiple: PropTypes.bool,

@@ -8,7 +8,7 @@ import HelpArticle from '../../../../maha/models/help_article'
 const createRoute = async (req, res) => {
 
   const article = await HelpArticle.forge({
-    ...whitelist(req.body, ['app_id','desktop_id','mobile_id','title','body'])
+    ...whitelist(req.body, ['app_id','desktop_id','desktop_small_id','mobile_id','title','body'])
   }).save(null, {
     transacting: req.trx
   })

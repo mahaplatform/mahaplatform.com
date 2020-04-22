@@ -6,7 +6,7 @@ const showRoute = async (req, res) => {
   const article = await HelpArticle.query(qb => {
     qb.where('id', req.params.id )
   }).fetch({
-    withRelated: ['app','mobile','desktop'],
+    withRelated: ['app','mobile','desktop','desktop_small'],
     transacting: req.trx
   })
 
