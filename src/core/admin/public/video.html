@@ -54,18 +54,21 @@ body {
 
   var video = document.getElementById('maha-video-player')
 
-  console.log(autoplay)
-
-  if(autoplay) {
-    video.setAttribute("autoplay", true)
-  }
-
-  video.onmouseenter = function() {
+  if(document.body.clientWidth <= 768) {
     video.setAttribute("controls", true)
   }
 
-  video.onmouseleave = function() {
-    video.removeAttribute("controls")
+  if(document.body.clientWidth > 769) {
+    video.onmouseenter = function() {
+      video.setAttribute("controls", true)
+    }
+    video.onmouseleave = function() {
+      video.removeAttribute("controls")
+    }
+  }
+
+  if(autoplay) {
+    video.setAttribute("autoplay", true)
   }
 
   video.setAttribute('src', url)
