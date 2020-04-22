@@ -1,5 +1,7 @@
-#platform {
+body {
   background-color: #4d4d4d;
+}
+#platform {
   height: 100%;
   width: 100%;
 }
@@ -39,12 +41,13 @@ p {
   text-align: center;
 }
 a {
-  color: #FFFFFF;
   text-decoration: underline;
+  display: inline-block;
+  color: #FFFFFF;
 }
 a img {
-  width: 180px;
-  margin-bottom: 0.5em;
+  width: 150px;
+  margin: 0 0.5em 0.5em;
 }
 img.mobile {
   width: 200px;
