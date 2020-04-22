@@ -136,6 +136,12 @@ const buildServer = async (environment) => {
   log('info', 'server', 'Compiled successfully.')
 }
 
+const buildPublic = async() => {
+  log('info', 'environment', 'Compiling...')
+  await copy(path.join('src','core','public','public'), path.join(staged,'public'))
+  log('info', 'environment', 'Compiled successfully.')
+}
+
 const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
   await env(staged, environment)
@@ -156,6 +162,7 @@ const build = async () => {
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
   await Promise.all([
+    buildPublic(),
     buildServer(environment),
     buildClients(environment),
     buildEnv(environment)
