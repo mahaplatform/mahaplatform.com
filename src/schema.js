@@ -1660,6 +1660,7 @@ const schema = {
       table.USER-DEFINED('strategy')
       table.json('config')
       table.USER-DEFINED('service')
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('maha_incoming_email_attachments', (table) => {
@@ -3000,6 +3001,7 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_incoming_email_attachments', table => {

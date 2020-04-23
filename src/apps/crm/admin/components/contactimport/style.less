@@ -52,6 +52,27 @@
   }
 }
 
+.contactimport-list {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.contactimport-list-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.contactimport-list-proceed {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+}
+
 .contactimport-contact {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 95);
@@ -77,6 +98,6 @@
   display: flex;
   .fa {
     margin: auto;
-    color: fadeout(@black, 60);
+    color: fadeout(@black, 80);
   }
 }

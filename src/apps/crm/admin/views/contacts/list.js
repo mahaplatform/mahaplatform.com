@@ -9,6 +9,14 @@ import React from 'react'
 import New from './new'
 
 const mapResourcesToPage = (props, context) => ({
+  programs: {
+    endpoint: '/api/admin/crm/programs',
+    filter: {
+      access_type: {
+        $in: ['manage','edit']
+      }
+    }
+  },
   fields: '/api/admin/crm/fields'
 })
 
@@ -39,7 +47,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet created any contacts',
       buttons: [
         { label: 'Create Contact', modal: <New fields={ resources.fields } /> },
-        { label: 'Import Contacts', modal: ContactImport }
+        { label: 'Import Contacts', modal: <ContactImport programs={ resources.programs } /> }
       ]
     },
     entity: 'contact',
@@ -71,7 +79,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: <New fields={ resources.fields } />
       }, {
         label: 'Import Contacts',
-        modal: ContactImport
+        modal: <ContactImport programs={ resources.programs } />
       }
     ]
   }

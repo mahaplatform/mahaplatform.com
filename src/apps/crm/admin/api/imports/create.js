@@ -25,6 +25,7 @@ const createRoute = async (req, res) => {
     object_type: 'crm_contacts',
     primary_key: 'email',
     service,
+    program_id: req.body.program_id,
     asset_id: req.body.asset_id,
     headers: req.body.headers,
     delimiter: req.body.delimiter,
@@ -55,7 +56,7 @@ const createRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', imp.get('id'))
   }).fetch({
-    withRelated: ['asset','user.photo'],
+    withRelated: ['asset','program','user.photo'],
     transacting: req.trx
   })
 

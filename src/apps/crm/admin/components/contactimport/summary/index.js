@@ -1,7 +1,5 @@
 import { Button, Container, Loader, ModalPanel } from 'maha-admin'
-import Channels from '../organize/channels'
-import Topics from '../organize/topics'
-import Lists from '../organize/lists'
+import Organize from '../organize'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Strategy from './strategy'
@@ -152,7 +150,7 @@ class Summary extends React.PureComponent {
                 <ul>
                   { lists.map((list, index) => (
                     <li key={`list_${index}`}>
-                      { list.program.title } - { list.title }
+                      { list.title }
                     </li>
                   )) }
                 </ul>
@@ -177,7 +175,7 @@ class Summary extends React.PureComponent {
                 <ul>
                   { topics.map((topic, index) => (
                     <li key={`topic_${index}`}>
-                      { topic.program.title } - { topic.title }
+                      { topic.title }
                     </li>
                   )) }
                 </ul>
@@ -202,7 +200,7 @@ class Summary extends React.PureComponent {
                 <ul>
                   { channels.map((channel, index) => (
                     <li key={`channel_${index}`}>
-                      { channel.program.title } - { channel.type }
+                      { channel }
                     </li>
                   )) }
                 </ul>
@@ -231,22 +229,14 @@ class Summary extends React.PureComponent {
 
   _getChannels() {
     const { _import } = this.state
-    const { programs } = this.props
-    const { channels } = _import.config
-    return channels ? channels.map(channel => {
-      const program = _.find(programs, { id: channel.program_id })
-      return {
-        program,
-        type: channel.type
-      }
-    }) : []
+    return _import.config.channels || []
   }
 
   _getChannelsButton() {
     return {
       label: 'Edit',
       className: 'ui mini fluid button',
-      handler: this._handleEdit.bind(this, Channels)
+      handler: this._handleEdit.bind(this, Organize)
     }
   }
 
@@ -270,7 +260,7 @@ class Summary extends React.PureComponent {
     return {
       label: 'Edit',
       className: 'ui mini fluid button',
-      handler: this._handleEdit.bind(this, Lists)
+      handler: this._handleEdit.bind(this, Organize)
     }
   }
 
@@ -327,7 +317,7 @@ class Summary extends React.PureComponent {
     return {
       label: 'Edit',
       className: 'ui mini fluid button',
-      handler: this._handleEdit.bind(this, Topics)
+      handler: this._handleEdit.bind(this, Organize)
     }
   }
 
@@ -357,7 +347,7 @@ class Summary extends React.PureComponent {
   _handleFetch() {
     const { _import } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/imports/${_import.id}`,
+      endpoint: `/api/admin/crm/imports/${_import.id}`,
       method: 'get',
       onSuccess: this._handleSuccess
     })

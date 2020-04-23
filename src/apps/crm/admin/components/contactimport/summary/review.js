@@ -103,10 +103,10 @@ class Review extends React.PureComponent {
   }
 
   _getType(name) {
-    const fields = this.props.fields.reduce((fields, section) => ({
+    const fields = this.props.fields.reduce((fields, section) => [
       ...fields,
       ...section.fields
-    }), [])
+    ], [])
     const field = _.find(fields, { name })
     return field.type
   }

@@ -1,7 +1,7 @@
 export const fetch = () => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/imports',
+  endpoint: '/api/admin/crm/imports',
   query: {
     $filter: {
       object_type: {

@@ -10,7 +10,7 @@ const createRoute = async (req, res) => {
 
   const access = await checkProgramAccess(req, {
     program_id: req.params.program_id,
-    types: ['manage']
+    types: ['manage','edit']
   })
 
   if(!access) return res.status(403).respond({

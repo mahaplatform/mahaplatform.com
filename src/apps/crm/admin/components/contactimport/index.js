@@ -2,6 +2,7 @@ import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Organize from './organize'
 import Complete from './complete'
+import Programs from './programs'
 import Summary from './summary'
 import Sources from './sources'
 import Process from './process'
@@ -15,6 +16,7 @@ class ContactImport extends React.PureComponent {
   }
 
   static propTypes = {
+    programs: PropTypes.array,
     imports: PropTypes.array
   }
 
@@ -28,6 +30,7 @@ class ContactImport extends React.PureComponent {
   _handleOrganize = this._handleOrganize.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleProcess = this._handleProcess.bind(this)
+  _handlePrograms = this._handlePrograms.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleResume = this._handleResume.bind(this)
   _handleSources = this._handleSources.bind(this)
@@ -43,7 +46,7 @@ class ContactImport extends React.PureComponent {
 
   componentDidMount() {
     const { imports } = this.props
-    if(imports.length === 0) return this._handleSources()
+    if(imports.length === 0) return this._handlePrograms()
     this._handleIntro()
   }
 
@@ -54,8 +57,10 @@ class ContactImport extends React.PureComponent {
   }
 
   _getIntro() {
+    const { imports } = this.props
     return {
-      onNew: this._handleSources,
+      imports,
+      onNew: this._handlePrograms,
       onResume: this._handleResume
     }
   }
@@ -63,7 +68,17 @@ class ContactImport extends React.PureComponent {
   _getOrganize(_import) {
     return {
       _import,
+      onBack: this._handlePop,
       onDone: this._handleSummary
+    }
+  }
+
+  _getPrograms() {
+    const { programs } = this.props
+    return {
+      programs,
+      onCancel: this._handlePop,
+      onChoose: this._handleSources
     }
   }
 
@@ -74,8 +89,9 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _getSources() {
+  _getSources(program) {
     return {
+      program,
       onPop: this._handlePop,
       onDone: this._handleOrganize,
       onPush: this._handlePush
@@ -120,6 +136,10 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Process, this._getProcess(_import))
   }
 
+  _handlePrograms() {
+    this._handlePush(Programs, this._getPrograms())
+  }
+
   _handlePop(index = -1) {
     this.setState({
       cards: this.state.cards.slice(0, index)
@@ -139,8 +159,8 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Summary, this._getSummary(_import))
   }
 
-  _handleSources() {
-    this._handlePush(Sources, this._getSources())
+  _handleSources(program) {
+    this._handlePush(Sources, this._getSources(program))
   }
 
   _handleSummary(_import) {
@@ -151,7 +171,7 @@ class ContactImport extends React.PureComponent {
 
 const mapResources = (props, context) => ({
   imports: {
-    endpoint: '/api/admin/imports',
+    endpoint: '/api/admin/crm/imports',
     query: {
       $filter: {
         object_type: {

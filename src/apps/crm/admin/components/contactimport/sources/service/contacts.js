@@ -1,6 +1,5 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import React from 'react'
 
 class Contacts extends React.PureComponent {

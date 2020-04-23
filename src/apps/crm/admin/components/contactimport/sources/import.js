@@ -10,6 +10,7 @@ class Import extends React.Component {
   }
 
   static propTypes = {
+    program: PropTypes.object,
     params: PropTypes.object,
     onDone: PropTypes.func
   }
@@ -55,11 +56,14 @@ class Import extends React.Component {
   }
 
   _handleCreate() {
-    const { params } = this.props
+    const { params, program } = this.props
     this.context.network.request({
       endpoint: '/api/admin/crm/imports',
       method: 'post',
-      body: params,
+      body: {
+        program_id: program.id,
+        ...params
+      },
       onSuccess: this._handleCreated
     })
   }

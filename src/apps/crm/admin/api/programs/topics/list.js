@@ -22,6 +22,10 @@ const listRoute = async (req, res) => {
       qb.where('crm_topics.team_id', req.team.get('id'))
       qb.where('crm_topics.program_id', req.params.program_id)
     },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
     page: req.query.$page,
     withRelated: ['program'],
     transacting: req.trx

@@ -1,6 +1,5 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import React from 'react'
 
 class Members extends React.PureComponent {
@@ -58,7 +57,7 @@ class Members extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Import', handler: this._handleDone }
+        { label: 'Next', handler: this._handleDone }
       ]
     }
   }

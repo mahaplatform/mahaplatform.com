@@ -1,5 +1,6 @@
 const importSerializer = (req, result) => ({
   id: result.get('id'),
+  program: program(result.related('program')),
   asset: asset(result.related('asset')),
   description: result.get('description'),
   stage: result.get('stage'),
@@ -25,6 +26,14 @@ const importSerializer = (req, result) => ({
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const program = (program) => {
+  if(!program.id) return null
+  return {
+    id: program.get('id'),
+    title: program.get('title')
+  }
+}
 
 const user = (user) => {
   if(!user.id) return null

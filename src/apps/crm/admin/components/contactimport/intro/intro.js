@@ -2,8 +2,6 @@ import ImportToken from '../../../../../maha/admin/tokens/import'
 import { List, Loader, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
-import moment from 'moment'
 import React from 'react'
 import qs from 'qs'
 
@@ -56,23 +54,16 @@ class Intro extends React.Component {
   }
 
   componentDidMount() {
-    const { onFetch } = this.props
-    onFetch()
-  }
-
-  _getService() {
-    return 'mailchimp'
+    this.props.onFetch()
   }
 
   _getList() {
     const { imports } = this.props
     return {
-      items: [
-        ...imports.map((item, index) => ({
-          component: () => <ImportToken { ...item } />,
-          handler: this._handleResume.bind(this, item)
-        }))
-      ]
+      items: imports.map((item, index) => ({
+        component: () => <ImportToken { ...item } />,
+        handler: this._handleResume.bind(this, item)
+      }))
     }
   }
 

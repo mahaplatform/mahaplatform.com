@@ -237,9 +237,8 @@ const updateChannel = async (req, params) => {
 }
 
 const updateChannels = async (req, params) => {
-  const { channels, contact, email_addresses, phone_numbers, mailing_addresses } = params
-  await Promise.mapSeries(channels, async(channel) => {
-    const { program_id, type } = channel
+  const { channels, contact, program_id, email_addresses, phone_numbers, mailing_addresses } = params
+  await Promise.mapSeries(channels, async(type) => {
     const objects = await getChannelObjects(req, {
       contact,
       type,
@@ -386,6 +385,7 @@ const processContactImport = async (req, { import_id }) => {
       await updateChannels(req, {
         channels: imp.get('config').channels,
         contact,
+        program_id: imp.get('program_id'),
         email_addresses,
         phone_numbers,
         mailing_addresses

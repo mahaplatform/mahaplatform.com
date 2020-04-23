@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
       search: ['maha_users.first_name','maha_users.last_name','maha_imports.service']
     },
     page: req.query.$page,
-    withRelated: ['asset','user.photo'],
+    withRelated: ['asset','program','user.photo'],
     transacting: req.trx
   })
 

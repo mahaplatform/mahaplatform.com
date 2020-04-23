@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
-import Asset from './asset'
+import Program from '../../crm/models/program'
 import ImportItem from './import_item'
+import Asset from './asset'
 import User from './user'
 import moment from 'moment'
 
@@ -24,6 +25,10 @@ const Import = new Model({
 
   items() {
     return this.hasMany(ImportItem, 'import_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   },
 
   user() {

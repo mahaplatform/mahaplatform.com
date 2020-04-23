@@ -83,15 +83,15 @@ class Results extends React.PureComponent {
   render() {
     const { records } = this.props
     return (
-      <div className="contactimport-contacts">
+      <div className="contactimport-lists">
         { records.map((list, index) => (
-          <div className="contactimport-contact" key={`contact_${index}`} onClick={ this._handleChoose.bind(this, list)}>
-            <div className="contactimport-contact-label">
+          <div className="contactimport-list" key={`list_${index}`} onClick={ this._handleChoose.bind(this, list)}>
+            <div className="contactimport-list-label">
               { list.name } (
               { list.contact_count } members
               )
             </div>
-            <div className="contactimport-contact-proceed">
+            <div className="contactimport-list-proceed">
               <i className="fa fa-chevron-right" />
             </div>
           </div>
