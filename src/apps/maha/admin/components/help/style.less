@@ -75,11 +75,18 @@
   width: 139px;
   height: 242px;
 }
+.maha-help-article-input {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 5px;
+  padding: 0.8em;
+}
 .maha-help-article {
   flex: 1;
   padding: 0.8em;
   .scrollable();
-  color: @green;
+  h1 { font-size: 1.6em; color: @green; }
+}
+.maha-help-article-body {
   h1 { font-size: 1.6em; color: @green; }
   h2 { font-size: 1.3em; color: @black; }
   h3 { font-size: 1.2em; color: @black; }
@@ -105,6 +112,7 @@
     text-decoration: underline;
   }
   ol {
+    margin: 0;
     padding: 0;
     counter-reset: list;
     li {
@@ -132,8 +140,6 @@
       }
     }
   }
-}
-.maha-help-article-body {
   .fa {
     background-color: fadeout(@black, 80);
     color: @white;

@@ -49,9 +49,9 @@ const Details = ({ audits, article }) => {
       { label: 'Desktop Small', content: article.desktop_small ? <Button { ...desktop_small } /> : '' },
       { label: 'Mobile', content: article.mobile ? <Button { ...mobile } /> : '' },
       { label: 'Body', content: (
-        <Highlight className="html">
-          { article.body }
-        </Highlight>
+        <div className="maha-help-article-input">
+          <div className="maha-help-article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
+        </div>
       ) }
     ]
   }

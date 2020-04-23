@@ -1,119 +1,109 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class CodeField extends React.Component {
 
   static propTypes = {
-    autogrow: PropTypes.bool,
     defaultValue: PropTypes.string,
-    disabled: PropTypes.bool,
-    maxLength: PropTypes.number,
-    placeholder: PropTypes.string,
-    rows: PropTypes.number,
+    lang: PropTypes.string,
     tabIndex: PropTypes.number,
-    onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
 
   static defaultProps = {
-    autogrow: true,
-    defaultValue: '',
-    disabled: false,
-    maxLength: null,
-    placeholder: '',
-    rows: 5,
-    tabIndex: 0,
-    onBusy: () => {},
+    lang: 'html',
     onChange: () => {},
     onReady: () => {}
   }
 
+  editor = null
+
   state = {
-    value: ''
+    value: '',
+    ready: false
   }
 
-  input = null
-  offset = 0
-
-  _handleChange = this._handleChange.bind(this)
-  _handleKeyUp = this._handleKeyUp.bind(this)
+  _handleCheck = this._handleCheck.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { value } = this.state
-    const { maxLength } = this.props
     return (
-      <div className="maha-textarea">
-        { maxLength &&
-          <div className={ this._getMaxClass() }>
-            { value.length } / { maxLength }
-          </div>
-        }
-        <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
+      <div className="maha-codefield">
+        <div { ...this._getEditor() } />
       </div>
     )
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({
-      value: _.toString(defaultValue)
-    })
-    this.input.style.boxSizing = 'border-box'
-    this.offset = this.input.offsetHeight - this.input.clientHeight
-    onReady()
+    this._handleLoad()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.defaultValue !== prevProps.defaultValue) {
-      this.props.onChange(this.state.value )
+    const { ready, value } = this.state
+    if(ready !== prevState.ready && ready) {
+      this._handleInit()
     }
-    if(this.state.value !== prevState.value) {
-      this._handleChange()
+    if(value !== prevState.value) {
+      this.props.onChange(value)
     }
   }
 
-  _getMaxClass() {
-    const { value } = this.state
-    const { maxLength } = this.props
-    const classes = ['maha-textarea-length']
-    if(value.length >= maxLength) classes.push('max')
-    return classes.join(' ')
-  }
-
-  _getTextArea() {
-    const { autogrow, placeholder, disabled, rows, tabIndex } = this.props
-    const { value } = this.state
+  _getEditor() {
     return {
-      disabled,
-      placeholder,
-      rows: autogrow ? 3 : rows,
-      tabIndex,
-      value,
-      onChange: this._handleUpdate,
-      onKeyUp: this._handleKeyUp
+      ref: node => this.div = node
     }
   }
 
-  _handleChange() {
-    this.props.onChange(this.state.value )
+  _handleAppend(file) {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `${process.env.WEB_HOST}/admin/js/${file}`
+    document.body.appendChild(script)
   }
 
-  _handleKeyUp(e) {
-    if(!this.props.autogrow) return
-    this.input.style.height = 'auto'
-    this.input.style.height = this.input.scrollHeight + this.offset + 'px'
+  _handleCheck() {
+    const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
+    this.setState({ ready })
+    if(!ready) setTimeout(this._handleCheck, 1000)
   }
 
-  _handleUpdate(e) {
-    this.setValue(e.target.value)
+  _handleInit() {
+    const { defaultValue } = this.props
+    this.editor = window.ace.edit(this.div)
+    this.editor.setTheme('ace/theme/chrome')
+    this.editor.setDisplayIndentGuides(false)
+    this.editor.setHighlightActiveLine(false)
+    this.editor.session.setUseSoftTabs(false)
+    this.editor.session.setTabSize(2)
+    this.editor.session.setFoldStyle('manual')
+    this.editor.session.setMode('ace/mode/html')
+    this.editor.container.style.fontSize = '12px'
+    this.editor.container.style.lineHeight = '20px'
+    this.editor.renderer.setShowGutter(false)
+    this.editor.renderer.setShowPrintMargin(false)
+    this.editor.renderer.updateFontSize()
+    if(defaultValue) {
+      this.editor.getSession().setValue(defaultValue)
+    }
+    this.editor.getSession().on('change', this._handleUpdate)
+    this.props.onReady()
   }
 
-  setValue(value) {
-    if(this.props.maxLength && value.length > this.props.maxLength) return
-    this.setState({ value })
+  _handleLoad() {
+    const { lang } = this.props
+    const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
+    if(ready) return this.setState({ ready })
+    this._handleAppend('ace.min.js')
+    this._handleAppend(`ace.${lang}.min.js`)
+    this._handleAppend('ace.chrome.min.js')
+    setTimeout(this._handleCheck, 1000)
+  }
+
+  _handleUpdate() {
+    this.setState({
+      value: this.editor.getSession().getValue()
+    })
   }
 
 }
