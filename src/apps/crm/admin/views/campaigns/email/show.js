@@ -1,6 +1,7 @@
 import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Resend from './resend'
 import React from 'react'
 import Send from './send'
 import Edit from './edit'
@@ -20,6 +21,10 @@ const getTasks = ({ campaign }) => {
     items.push({ label: 'Edit Campaign', modal: <Edit campaign={ campaign } /> })
     items.push({ label: 'Design Email', route: `/admin/crm/campaigns/email/${campaign.id}/design` }),
     items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
+  }
+
+  if(campaign.status === 'sent') {
+    items.push({ label: 'Resend Campaign', modal: <Resend campaign={ campaign } /> })
   }
 
   items.push({

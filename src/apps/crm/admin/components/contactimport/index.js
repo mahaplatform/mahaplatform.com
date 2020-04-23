@@ -24,6 +24,7 @@ class ContactImport extends React.PureComponent {
     cards: []
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleComplete = this._handleComplete.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleIntro = this._handleIntro.bind(this)
@@ -77,7 +78,7 @@ class ContactImport extends React.PureComponent {
     const { programs } = this.props
     return {
       programs,
-      onCancel: this._handlePop,
+      onCancel: this._handleCancel,
       onChoose: this._handleSources
     }
   }
@@ -114,6 +115,10 @@ class ContactImport extends React.PureComponent {
       onPop: this._handlePop,
       onPush: this._handlePush
     }
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
   }
 
   _handleComplete() {
