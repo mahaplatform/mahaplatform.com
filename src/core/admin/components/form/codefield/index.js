@@ -55,13 +55,6 @@ class CodeField extends React.Component {
     }
   }
 
-  _handleAppend(file) {
-    const script = document.createElement('script')
-    script.async = true
-    script.src = `${process.env.WEB_HOST}/admin/js/${file}`
-    document.body.appendChild(script)
-  }
-
   _handleCheck() {
     const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
     this.setState({ ready })
@@ -69,7 +62,8 @@ class CodeField extends React.Component {
   }
 
   _handleInit() {
-    const { defaultValue } = this.props
+    const { defaultValue, lang } = this.props
+    window.ace.config.set('basePath', '/admin/js/ace')
     this.editor = window.ace.edit(this.div)
     this.editor.setTheme('ace/theme/chrome')
     this.editor.setDisplayIndentGuides(false)
@@ -77,7 +71,7 @@ class CodeField extends React.Component {
     this.editor.session.setUseSoftTabs(false)
     this.editor.session.setTabSize(2)
     this.editor.session.setFoldStyle('manual')
-    this.editor.session.setMode('ace/mode/html')
+    this.editor.session.setMode(`ace/mode/${lang}`)
     this.editor.container.style.fontSize = '12px'
     this.editor.container.style.lineHeight = '20px'
     this.editor.renderer.setShowGutter(false)
@@ -91,12 +85,12 @@ class CodeField extends React.Component {
   }
 
   _handleLoad() {
-    const { lang } = this.props
     const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
     if(ready) return this.setState({ ready })
-    this._handleAppend('ace.min.js')
-    this._handleAppend(`ace.${lang}.min.js`)
-    this._handleAppend('ace.chrome.min.js')
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `${process.env.WEB_HOST}/admin/js/ace.min.js`
+    document.body.appendChild(script)
     setTimeout(this._handleCheck, 1000)
   }
 
