@@ -7,7 +7,7 @@ import _ from 'lodash'
 const fieldmap = [
   { name: 'full_name', matches: ['name','fullname'] },
   { name: 'first_name', matches: ['firstname','fname','givenname'] },
-  { name: 'last_name', matches: ['lastname','lname','surname'] },
+  { name: 'last_name', matches: ['lastname','lastnames','lname','surname'] },
   { name: 'photo', matches: ['photo','picture'] },
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },
@@ -21,7 +21,7 @@ const fieldmap = [
   { name: 'address_1_street_2', matches: ['street2'] },
   { name: 'address_1_city', matches: ['city'] },
   { name: 'address_1_state_province', matches: ['state','province','stateprovince'] },
-  { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode'] }
+  { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode','postal'] }
 ]
 
 class Mappings extends React.PureComponent {

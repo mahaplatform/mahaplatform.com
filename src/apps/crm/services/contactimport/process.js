@@ -433,7 +433,7 @@ const processContactImport = async (req, { import_id }) => {
     qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
     qb.where('maha_imports.id', imp.get('id'))
   }).fetch({
-    withRelated: ['asset','user.photo'],
+    withRelated: ['asset','program','user.photo'],
     transacting: req.trx
   })
 
