@@ -8,8 +8,8 @@ const showRoute = async (req, res) => {
     qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
     qb.joinRaw('inner join crm_programs on crm_programs.id=maha_imports.program_id')
     qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.id)
+    qb.where('maha_imports.team_id', req.team.get('id'))
+    qb.where('maha_imports.id', req.params.id)
   }).fetch({
     withRelated: ['asset','program','user.photo'],
     transacting: req.trx
