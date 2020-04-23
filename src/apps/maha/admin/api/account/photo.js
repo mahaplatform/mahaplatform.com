@@ -4,7 +4,7 @@ import socket from '../../../../../core/services/routes/emitter'
 const photoRoute = async (req, res) => {
 
   req.user = await req.user.save({
-    photo_id: req.body.photo_id
+    photo_id: req.body.photo_id || null
   }, {
     patch: true,
     transacting: req.trx
