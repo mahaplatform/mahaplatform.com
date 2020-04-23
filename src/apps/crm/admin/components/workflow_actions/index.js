@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const types = {
-  event: { icon: 'calendar', name: 'event', trigger: 'Contact registers for event' },
+  event: { icon: 'calendar', name: 'workflow', trigger: 'Contact registers for event' },
   pickup: { icon: 'phone', name: 'call', trigger: 'Contact picked up phone' },
   response: { icon: 'check-square-o', name: 'workflow', trigger: 'Form is submitted' },
-  delivery: { icon: 'envelope', name: 'delivery', trigger: 'Email is delivered' },
+  delivery: { icon: 'envelope', name: 'workflow', trigger: 'Email is delivered' },
   open: { icon: 'envelope-open', name: 'workflow', trigger: 'Email is opened' },
   click: { icon: 'mouse-pointer', name: 'workflow', trigger: 'Email is clicked' },
   list: { icon: 'th-list', name: 'workflow', trigger: 'Contact is added to list' },
@@ -62,7 +62,7 @@ class WorkflowActions extends React.PureComponent {
             <div className="crm-workflow-action-label">
               { action.step.action }
             </div>
-          </div>          
+          </div>
         ]) }
         { enrollment.status !== 'active' &&
           <div className="crm-workflow-action-connector"/>

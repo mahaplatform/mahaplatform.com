@@ -214,6 +214,19 @@ const saveResults = async (req, { enrollment, step, data, recording_url, unenrol
 
 }
 
+const completeEnrollment = async (req, { enrollment }) => {
+
+  await enrollment.save({
+    status: 'completed'
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
+
+  return enrollment.get('voice_campaign_id') ? hangup() : {}
+
+}
+
 const executeWorkflow = async (req, params) => {
 
   const { enrollment_id, code, execute, answer, recording } = params
@@ -242,6 +255,12 @@ const executeWorkflow = async (req, params) => {
     code,
     steps
   })
+
+  if(!step) {
+    return await completeEnrollment(req, {
+      enrollment
+    })
+  }
 
   const tokens = await getTokens(req, {
     contact,
@@ -280,6 +299,7 @@ const executeWorkflow = async (req, params) => {
     unenroll
   })
 
+
   const next = await getNextStep(req, {
     steps,
     parent: condition ? condition.parent : step.get('parent'),
@@ -292,13 +312,9 @@ const executeWorkflow = async (req, params) => {
   })
 
   if(!next) {
-    await enrollment.save({
-      status: 'completed'
-    }, {
-      transacting: req.trx,
-      patch: true
+    return await completeEnrollment(req, {
+      enrollment
     })
-    return enrollment.get('voice_campaign_id') ? hangup() : {}
   }
 
   if(until || enrollment.get('workflow_id')) {

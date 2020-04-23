@@ -46,7 +46,7 @@ const sendRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/campaigns',
+    '/admin/crm/campaigns/email',
     `/admin/crm/campaigns/email/${campaign.id}`
   ])
 
