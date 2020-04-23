@@ -47,7 +47,6 @@ const createRoute = async (req, res) => {
     to: {
       criteria: req.body.to
     },
-    has_preview: false,
     ...whitelist(req.body, ['title','purpose']),
     config: {
       ...template ? template.get('config') : getDefaultConfig(),

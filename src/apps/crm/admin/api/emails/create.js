@@ -43,7 +43,6 @@ const createRoute = async (req, res) => {
     workflow_id: req.body.workflow_id,
     title: req.body.title,
     code: emailCode,
-    has_preview: false,
     config: {
       ...template ? template.get('config') : getDefaultConfig(),
       settings: {

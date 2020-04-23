@@ -29,7 +29,7 @@ const EmailCampaign = new Model({
     },
 
     preview() {
-      return this.get('screenshoted_at') ? `screenshots/email-campaign${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
+      return this.get('screenshoted_at') ? `screenshots/email-campaign-${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     }
 
   },

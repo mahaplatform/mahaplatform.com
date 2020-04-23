@@ -339,7 +339,6 @@ const schema = {
       table.integer('job_id')
       table.text('html')
       table.timestamp('deleted_at')
-      table.boolean('has_preview')
       table.timestamp('screenshoted_at')
     })
 
@@ -356,7 +355,6 @@ const schema = {
       table.integer('program_id').unsigned()
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
-      table.boolean('has_preview')
       table.timestamp('screenshoted_at')
     })
 
@@ -548,7 +546,6 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.boolean('has_preview')
       table.timestamp('screenshoted_at')
       table.timestamp('deleted_at')
     })

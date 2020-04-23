@@ -78,8 +78,7 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
   })
 
   await object.save({
-    screenshoted_at: moment().toDate(),
-    has_preview: true
+    screenshoted_at: moment().toDate()
   }, {
     patch: true,
     transacting: req.trx
@@ -92,7 +91,7 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
 
   await socket.refresh(req, [
     ...email_id ? [`/admin/crm/emails/${object.get('id')}`] : [],
-    ...email_campaign_id ? [`/admin/crm/campaigns/emails/${object.get('id')}`] : [],
+    ...email_campaign_id ? [`/admin/crm/campaigns/email/${object.get('id')}`] : [],
     ...template_id ? [`/admin/crm/programs/${object.get('program_id')}/templates/${object.get('id')}`] : []
   ])
 

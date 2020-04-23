@@ -29,7 +29,6 @@ const createRoute = async (req, res) => {
   const template = await Template.forge({
     team_id: req.team.get('id'),
     program_id: req.params.program_id,
-    has_preview: false,
     title: req.body.title,
     config: starter ? starter.get('config') : getDefaultConfig()
   }).save(null, {

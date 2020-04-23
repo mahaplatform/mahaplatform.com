@@ -4,7 +4,7 @@ import React from 'react'
 
 const EmailPreview = ({ email }) => (
   <div className="crm-email-preview">
-    { email.has_preview &&
+    { email.preview &&
       <Image src={ `/${email.preview}` } transforms={{ h: 360 }} />
     }
   </div>

@@ -34,7 +34,6 @@ const updateRoute = async (req, res) => {
   })
 
   await template.save({
-    has_preview: false,
     ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx
