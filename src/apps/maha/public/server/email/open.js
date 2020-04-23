@@ -37,14 +37,25 @@ const openRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await EmailActivity.forge({
-    team_id: email.get('team_id'),
-    email_id: email.get('id'),
-    type: 'open',
-    is_mobile: ua.device.type === 'mobile'
-  }).save(null, {
+  const emailActivity = await EmailActivity.query(qb => {
+    qb.where('team_id', email.get('team_id'))
+    qb.where('email_id', email.get('id'))
+    qb.where('type', 'open')
+    qb.where('created_at', '>', moment().subtract(5, 'minutes'))
+  }).fetch({
     transacting: req.trx
   })
+
+  if(!emailActivity) {
+    await EmailActivity.forge({
+      team_id: email.get('team_id'),
+      email_id: email.get('id'),
+      type: 'open',
+      is_mobile: ua.device.type === 'mobile'
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
 
   res.sendFile(trackerFile)
 
