@@ -1,0 +1,12 @@
+- hosts: cacheservers
+  become: yes
+  tasks:
+
+    - name: install base
+      include: ../playbooks/base/main.yml
+
+    - name: install ntpd
+      include: ../playbooks/ntpd/main.yml
+
+    - name: install redis
+      include: ../playbooks/redis/main.yml
