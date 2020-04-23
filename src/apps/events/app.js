@@ -4,7 +4,7 @@ const app = {
   path: '/events',
   description: '',
   color: 'orange',
-  icon: 'calendar'
+  icon: 'calendar-o'
 }
 
 export default app

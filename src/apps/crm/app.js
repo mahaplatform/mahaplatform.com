@@ -4,7 +4,7 @@ const app = {
   path: '/crm',
   description: '',
   color: 'purple',
-  icon: 'id-card'
+  icon: 'user'
 }
 
 export default app
