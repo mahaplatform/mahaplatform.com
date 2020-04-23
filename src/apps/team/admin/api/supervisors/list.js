@@ -8,15 +8,19 @@ const listRoute = async (req, res) => {
       qb.innerJoin('maha_users', 'maha_users.id', 'maha_supervisors.user_id')
       qb.where('maha_supervisors.team_id', req.team.get('id'))
     },
+    aliases: {
+      first_name: 'maha_users.first_name',
+      last_name: 'maha_users.last_name'
+    },
     filter: {
       params: req.query.$filter,
       allowed: ['user_id'],
-      search: ['maha_users.last_name']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,
-      defaults: ['maha_users.last_name'],
-      allowed: ['maha_users.last_name']
+      defaults: ['last_name'],
+      allowed: ['last_name']
     },
     page: req.query.$page,
     withRelated: ['user.photo'],
