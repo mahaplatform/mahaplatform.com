@@ -24,6 +24,10 @@ const listRoute = async (req, res) => {
       qb.where('crm_emails.team_id', req.team.get('id'))
       qb.whereNull('crm_emails.deleted_at')
     },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
     withRelated: ['event','form','program','workflow'],
     transacting: req.trx
   })

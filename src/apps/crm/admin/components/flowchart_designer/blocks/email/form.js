@@ -32,13 +32,14 @@ class Email extends React.PureComponent {
   }
 
   componentDidMount() {
+    console.log(this.props.config)
     this.setState({
       config: this.props.config || {}
     })
   }
 
   _getForm() {
-    const { program, workflow } = this.props
+    const { workflow } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -68,6 +69,7 @@ class Email extends React.PureComponent {
 
   _getButton() {
     const { config } = this.state
+    console.log(config)
     return {
       label: 'Design Email',
       className: 'link',
