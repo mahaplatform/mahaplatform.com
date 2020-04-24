@@ -52,22 +52,19 @@ class EmailsShow extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  email: `/api/admin/team/emails/${props.params.id}`
+  email: `/api/admin/crm/emails/${props.params.email_id}/deliveries/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email',
-  rights: ['team:manage_team'],
   component: EmailsShow,
   tasks: {
     items: [
       {
         label: 'Resend Email',
-        rights: ['team:manage_team'],
-        show: resources.email.was_opened !== true,
         request: {
           method: 'PATCH',
-          endpoint: `/api/admin/team/emails/${resources.email.id}/resend`,
+          endpoint: `/api/admin/crm/emails/${props.params.email_id}/deliveries/${props.params.id}/resend`,
           onFailure: (result) => {
             context.flash.set('error', 'Unable to resend email')
           },
@@ -78,7 +75,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ]
   }
-
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -1,5 +1,5 @@
-import deliveries from './deliveries/list'
 import performance from './performance'
+import deliveries from './deliveries'
 import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'

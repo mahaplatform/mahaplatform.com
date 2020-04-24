@@ -25,7 +25,7 @@ router.get('/:id/activities', activities)
 
 router.get('/:id/bounces', bounces)
 
-router.get('/:id/deliveries', deliveries)
+router.use('/:id/deliveries', deliveries)
 
 router.get('/:id/edit', edit)
 
