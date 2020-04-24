@@ -3,6 +3,11 @@ import Form from '../../../../models/form'
 import _ from 'lodash'
 
 const getValue = (field, data) => {
+  if(_.isNil(data)) {
+    return {
+      [field.name.value]: null
+    }
+  }
   const type = _.get(field, 'contactfield.type') || field.type
   if(type === 'addressfield') {
     return {
