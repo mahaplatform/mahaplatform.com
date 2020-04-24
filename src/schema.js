@@ -2989,8 +2989,8 @@ const schema = {
     await knex.schema.table('maha_help_articles', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('desktop_id').references('maha_assets.id')
-      table.foreign('mobile_id').references('maha_assets.id')
       table.foreign('desktop_small_id').references('maha_assets.id')
+      table.foreign('mobile_id').references('maha_assets.id')
     })
 
     await knex.schema.table('maha_import_items', table => {
@@ -2999,9 +2999,9 @@ const schema = {
 
     await knex.schema.table('maha_imports', table => {
       table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_incoming_email_attachments', table => {
@@ -4568,7 +4568,7 @@ union
       left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = events_registrations_1.invoice_id)))
       ), invoice as (
       select events_registrations_1.id as registration_id,
-      finance_invoice_totals.total
+      coalesce(finance_invoice_totals.total, 0.00) as total
       from (events_registrations events_registrations_1
       left join finance_invoice_totals on ((finance_invoice_totals.invoice_id = events_registrations_1.invoice_id)))
       ), tickets as (

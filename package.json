@@ -7,6 +7,7 @@
   "repository": "mahaplatform/mahaplatform.com",
   "homepage": "https://github.com/mahaplatform/mahaplatform.com",
   "scripts": {
+    "margo": "babel-node ./src/scripts/margo/index.js",
     "assets": "babel-node ./src/scripts/assets.js",
     "bootstrap": "babel-node ./src/scripts/bootstrap.js",
     "build": "babel-node ./src/scripts/build/index.js",
