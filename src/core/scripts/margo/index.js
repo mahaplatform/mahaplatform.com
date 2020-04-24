@@ -7,10 +7,10 @@ import Ticket from '../../../apps/events/models/ticket'
 import Contact from '../../../apps/crm/models/contact'
 import generateCode from '../../utils/generate_code'
 import Team from '../../../apps/maha/models/team'
-import csvparse from '../csv-parse/lib/sync'
+import csvparse from 'csv-parse/lib/sync'
 import knex from '../../services/knex'
-import path from '../path'
-import fs from '../fs'
+import path from 'path'
+import fs from 'fs'
 
 const ticket_types = {
   4: 18,
