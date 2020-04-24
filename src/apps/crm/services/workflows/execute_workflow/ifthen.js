@@ -106,7 +106,7 @@ const evaluateOr = async (filter, data) => {
 
 const evaluateCondition = async (filter, data) => {
   const key = Object.keys(filter)[0]
-  const left = _.get(data, key)
+  const left = _.get(data, key) || null
   const comparison = Object.keys(filter[key])[0]
   const right = Object.values(filter[key])[0]
   const evaluator = getEvaluator(comparison)
