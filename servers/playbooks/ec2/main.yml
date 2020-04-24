@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+    - name: Provision instance(s)
+      ec2:
+        aws_access_key: "{{ec2_access_key}}"
+        aws_secret_key: "{{ec2_secret_key}}"
+        key_name: mahaplatform
+        id: appserver
+        group_id: sg-0589cb45cd2b71602
+        image: ami-02eac2c0129f6376b
+        instance_type: t3.small
+        region: us-east-1
+        wait: true
+        count: 1

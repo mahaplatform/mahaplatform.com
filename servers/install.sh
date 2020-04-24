@@ -2,7 +2,7 @@
 
 # on mac laptop
 sudo easy_install pip
-sudo -H pip install ansible
+sudo -H pip install boto boto3 ansible
 
 # reinstall xcode
 sudo rm -rf $(xcode-select -print-path)

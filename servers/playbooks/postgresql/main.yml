@@ -1,3 +1,20 @@
-- name: install libcurl
+- name: install pgdg
   yum:
-    name: libcurl-devel
+    name: https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-6.5-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+- name: install postgresql
+  yum:
+    name: postgresql121 postgresql121-server
+
+- name: initdb
+  shell: 'bash -lc "service postgresql-12.1 initdb"'
+
+- name: enable postgresql
+  systemd:
+    name: postgresql-12.1
+    enabled: yes
+
+- name: start postgresql
+  systemd:
+    name: postgresql-12.1
+    state: started
