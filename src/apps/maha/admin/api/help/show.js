@@ -4,6 +4,7 @@ import HelpArticle from '../../../models/help_article'
 const showRoute = async (req, res) => {
 
   const article = await HelpArticle.query(qb => {
+    qb.where('is_published', true)
     qb.where('id', req.params.id )
   }).fetch({
     withRelated: ['app','mobile','desktop','desktop_small'],

@@ -11,7 +11,27 @@ const getTabs = ({ audits, article }) => ({
 
 const getTasks = ({ article }) => {
   const items = [
-    { label: 'Edit Help Article', modal: <Edit article={ article } /> }
+    { label: 'Edit Help Article', modal: <Edit article={ article } /> },
+    {
+      label: 'Publish Article',
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/platform/articles/${article.id}/publish`,
+        body: {
+          is_published: true
+        }
+      }
+    },
+    {
+      label: 'Unpublish Article',
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/platform/articles/${article.id}/publish`,
+        body: {
+          is_published: false
+        }
+      }
+    }
   ]
   return { items }
 }

@@ -1626,6 +1626,7 @@ const schema = {
       table.integer('desktop_id').unsigned()
       table.integer('mobile_id').unsigned()
       table.integer('desktop_small_id').unsigned()
+      table.boolean('is_published')
     })
 
     await knex.schema.createTable('maha_import_items', (table) => {

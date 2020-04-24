@@ -6,6 +6,7 @@ const helpArticleSerializer = (req, result) => ({
   mobile: video(result.related('mobile')),
   title: result.get('title'),
   body: result.get('body'),
+  is_published: result.get('is_published'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

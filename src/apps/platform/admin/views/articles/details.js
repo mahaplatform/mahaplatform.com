@@ -41,20 +41,26 @@ const Details = ({ audits, article }) => {
     }
   }
 
-  const config = {
-    items: [
-      { label: 'Title', content: article.title },
-      { label: 'App', content: article.app ? article.app.title : 'Maha' },
-      { label: 'Desktop', content: article.desktop ? <Button { ...desktop } /> : '' },
-      { label: 'Desktop Small', content: article.desktop_small ? <Button { ...desktop_small } /> : '' },
-      { label: 'Mobile', content: article.mobile ? <Button { ...mobile } /> : '' },
-      { label: 'Body', content: (
-        <div className="maha-help-article-input">
-          <div className="maha-help-article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
-        </div>
-      ) }
-    ]
+  const config = {}
+
+  if(article.is_published) {
+    config.alert = { color: 'green', message: 'This article is published' }
+  } else {
+    config.alert = { color: 'red', message: 'This article is not published' }
   }
+
+  config.items =  [
+    { label: 'Title', content: article.title },
+    { label: 'App', content: article.app ? article.app.title : 'Maha' },
+    { label: 'Desktop', content: article.desktop ? <Button { ...desktop } /> : '' },
+    { label: 'Desktop Small', content: article.desktop_small ? <Button { ...desktop_small } /> : '' },
+    { label: 'Mobile', content: article.mobile ? <Button { ...mobile } /> : '' },
+    { label: 'Body', content: (
+      <div className="maha-help-article-input">
+        <div className="maha-help-article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
+      </div>
+    ) }
+  ]
 
   config.items.push({ component: <Audit entries={ audits } /> })
 

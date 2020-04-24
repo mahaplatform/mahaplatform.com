@@ -24,7 +24,22 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     entity: 'event',
     onClick: (record) => context.router.history.push(`/admin/events/events/${page.params.event_id}/registrations/${record.id}`)
+  },
+  tasks: {
+    items: [
+      {
+        label: 'Export Data',
+        handler: () => {
+          const { token } = context.admin.team
+          window.location.href = `/api/admin/events/events/${props.params.event_id}/registrations/download.xlsx?filename=event-${resources.event.code}-responses&download=true&token=${token}`
+        }
+      }
+    ]
   }
 })
 
-export default Page(null, mapPropsToPage)
+const mapResourcesToPage = (props, context) => ({
+  event: `/api/admin/events/events/${props.params.event_id}`
+})
+
+export default Page(mapResourcesToPage, mapPropsToPage)

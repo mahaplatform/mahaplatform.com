@@ -216,7 +216,8 @@ class Table extends React.Component {
     let classes = ['maha-collection-table-cell','padded']
     if(column.primary === true) classes.push('mobile')
     if(_.includes(['date','datetime'], column.format)) classes.push('collapsing datetime')
-    if(column.format === 'check' || column.collapsing === true) classes.push('collapsing')
+    if(_.includes(['check','check_times'], column.format)) classes.push('collapsing')
+    if(column.collapsing === true) classes.push('collapsing')
     return classes.join(' ')
   }
 

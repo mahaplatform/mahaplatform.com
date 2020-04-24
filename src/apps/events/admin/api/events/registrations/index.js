@@ -1,3 +1,4 @@
+import download from './download'
 import { Router } from 'express'
 import tickets from './tickets'
 import destroy from './destroy'
@@ -12,6 +13,8 @@ const router = new Router({ mergeParams: true })
 router.get('/', list)
 
 router.post('/', create)
+
+router.get('/download', download)
 
 router.get('/:id', show)
 
