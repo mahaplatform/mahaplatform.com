@@ -71,9 +71,9 @@ const downloadRoute = async (req, res) => {
   const { fields } = event.get('contact_config')
 
   res.status(200).respond(registrations, (req, registration) => ({
-    first_name: registration.get('data').first_name,
-    last_name:  registration.get('data').last_name,
-    email:  registration.get('data').email,
+    'First Name': registration.get('data').first_name,
+    'Last Name':  registration.get('data').last_name,
+    'Email':  registration.get('data').email,
     ...fields.filter(field => {
       return field.type !== 'text'
     }).reduce((row, field) => ({
