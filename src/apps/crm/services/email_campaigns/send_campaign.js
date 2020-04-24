@@ -4,7 +4,7 @@ import EmailCampaign from '../../models/email_campaign'
 import { renderEmail } from '../../services/email'
 import moment from 'moment'
 
-const sendCampaign = async (req, { email_campaign_id }) => {
+const sendCampaign = async (req, { email_campaign_id, resend_to }) => {
 
   const campaign = await EmailCampaign.query(qb => {
     qb.where('id', email_campaign_id)
@@ -17,21 +17,23 @@ const sendCampaign = async (req, { email_campaign_id }) => {
     type: 'email',
     program_id: campaign.related('program').get('id'),
     purpose: campaign.get('purpose'),
-    criteria: campaign.get('to').criteria
+    criteria: resend_to || campaign.get('to').criteria
   }).then(result => result.toArray())
 
-  const html = await renderEmail(req, {
-    config: campaign.get('config')
-  })
+  if(!resend_to) {
+    const html = await renderEmail(req, {
+      config: campaign.get('config')
+    })
 
-  await campaign.save({
-    sent_at: moment(),
-    status: 'sent',
-    html
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+    await campaign.save({
+      sent_at: moment(),
+      status: 'sent',
+      html
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
 
   await Promise.map(recipients, async (recipient) => {
     await TriggerEmailEnrollmentQueue.enqueue(req, {

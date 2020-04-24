@@ -27,7 +27,7 @@ const deliveriesRoute = async (req, res) => {
     },
     sort: {
       params: req.params.$sort,
-      defaultSort: '-created_at',
+      defaults: '-created_at',
       allowed: ['created_at']
     },
     page: req.query.$page,

@@ -44,7 +44,7 @@ class Resend extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() },
+            { label: 'To', name: 'to', type: 'criteriafield', required: true, ...this._getCriteriaField() },
             { label: 'Send At', name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
             ...strategy === 'schedule' ? [
               { label: 'Send At', type: 'segment', fields: [
