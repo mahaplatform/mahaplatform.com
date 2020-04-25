@@ -1,33 +1,37 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
+import { addToLists, removeFromLists } from '../../lists'
 import _ from 'lodash'
 
-const updateLists = async (req, params) => {
+const updateLists = async (req, { contact, config, enrollment }) => {
 
-  const { config, enrollment } = params
-
-  const { list_id } = config
+  const { action, list_id } = config
 
   if(!list_id) return {}
 
-  await enrollment.load(['contact.lists'], {
+  await contact.load(['lists'], {
     transacting: req.trx
   })
 
-  const contact = enrollment.related('contact')
-
-  const ids = _.uniq([
-    ...contact.related('lists').map(list => list.get('id')),
-    list_id
-  ])
-
-  await updateRelated(req, {
-    object: contact,
-    related: 'lists',
-    table: 'crm_subscriptions',
-    ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'list_id'
+  const existing_ids = contact.related('lists').map(list => {
+    return list.get('id')
   })
+
+  if(action === 'add' && _.includes(existing_ids, list_id)) return
+
+  if(action === 'remove' && !_.includes(existing_ids, list_id)) return
+
+  if(action === 'add') {
+    await addToLists(req, {
+      contact,
+      list_ids: [list_id]
+    })
+  }
+
+  if(action === 'remove') {
+    await removeFromLists(req, {
+      contact,
+      list_ids: [list_id]
+    })
+  }
 
   return {}
 

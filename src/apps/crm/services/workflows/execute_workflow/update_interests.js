@@ -1,36 +1,40 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
+import { addToTopics, removeFromTopics } from '../../topics'
 import _ from 'lodash'
 
-const updateInterests = async (req, params) => {
+const updateTopics = async (req, { contact, config, enrollment }) => {
 
-  const { config, enrollment } = params
-
-  const { topic_id } = config
+  const { action, topic_id } = config
 
   if(!topic_id) return {}
 
-  await enrollment.load(['contact.topics'], {
+  await enrollment.load(['topics'], {
     transacting: req.trx
   })
 
-  const contact = enrollment.related('contact')
-
-  const ids = _.uniq([
-    ...contact.related('topics').map(topic => topic.get('id')),
-    topic_id
-  ])
-
-  await updateRelated(req, {
-    object: contact,
-    related: 'topics',
-    table: 'crm_interests',
-    ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'topic_id'
+  const existing_ids = contact.related('topics').map(topic => {
+    return topic.get('id')
   })
+
+  if(action === 'add' && _.includes(existing_ids, topic_id)) return
+
+  if(action === 'remove' && !_.includes(existing_ids, topic_id)) return
+
+  if(action === 'add') {
+    await addToTopics(req, {
+      contact,
+      topic_ids: [topic_id]
+    })
+  }
+
+  if(action === 'remove') {
+    await removeFromTopics(req, {
+      contact,
+      topic_ids: [topic_id]
+    })
+  }
 
   return {}
 
 }
 
-export default updateInterests
+export default updateTopics

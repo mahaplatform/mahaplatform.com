@@ -51,17 +51,13 @@ const getChannel = async(req, { contact, channel_type, value }) => {
 
 }
 
-const updateConsent = async (req, params) => {
-
-  const { config, enrollment } = params
+const updateConsent = async (req, { contact, config, enrollment }) => {
 
   const { action, channel_type, token } = config
 
-  await enrollment.load(['contact','response','workflow.program'], {
+  await enrollment.load(['response','workflow.program'], {
     transacting: req.trx
   })
-
-  const contact = enrollment.related('contact')
 
   const program = enrollment.related('workflow').related('program')
 
