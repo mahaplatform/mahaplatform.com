@@ -43,7 +43,7 @@ class Interests extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Add to Interest',
+      title: 'Add to Topics',
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
       ],

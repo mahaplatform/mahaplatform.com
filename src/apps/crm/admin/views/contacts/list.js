@@ -1,8 +1,8 @@
 import ContactImport from '../../components/contactimport'
 import ContactToken from '../../tokens/contact'
-import Interests from './interests'
 import { Page } from 'maha-admin'
 import criteria from './criteria'
+import Topics from './topics'
 import Lists from './lists'
 import Tags from './tags'
 import React from 'react'
@@ -62,13 +62,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       color: 'red',
       modal: <Tags filter={ selected.filter } />
     },{
-      label: 'Add to List',
+      label: 'Add to Lists',
       color: 'red',
       modal: <Lists filter={ selected.filter } />
     },{
-      label: 'Add to Interest',
+      label: 'Add to Topics',
       color: 'red',
-      modal: <Interests filter={ selected.filter } />
+      modal: <Topics filter={ selected.filter } />
     }]
   },
   tasks: {

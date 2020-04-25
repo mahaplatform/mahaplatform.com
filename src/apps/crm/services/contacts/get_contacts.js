@@ -1,6 +1,6 @@
 import Contact from '../../models/contact'
 
-const getContacts = async (req, { empty, filter, page, scope, sort }) => {
+const getContacts = async (req, { empty, filter, page, scope, sort, withRelated }) => {
 
   return await Contact.filterFetch({
     scope: (qb) => {
@@ -134,7 +134,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort }) => {
       allowed: ['id','first_name','last_name','email','phone']
     },
     page: page,
-    withRelated: ['photo'],
+    withRelated: [
+      'photo',
+      ...withRelated || []
+    ],
     transacting: req.trx
   })
 }
