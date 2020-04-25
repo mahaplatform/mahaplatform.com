@@ -13,7 +13,8 @@ export const set = (selected) => ({
   selected
 })
 
-export const toggle = (item) => ({
+export const toggle = (multiple, item) => ({
   type: 'TOGGLE',
+  multiple,
   item
 })

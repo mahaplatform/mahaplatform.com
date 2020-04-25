@@ -10,10 +10,20 @@ class ListCriteria extends React.Component {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
     comparisons: PropTypes.array,
-    field: PropTypes.object,
+    endpoint: PropTypes.string,
+    filter: PropTypes.object,
+    options: PropTypes.array,
+    multiple: PropTypes.bool,
+    name: PropTypes.string,
+    text: PropTypes.string,
+    value: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    multiple: false
   }
 
   state = {
@@ -59,8 +69,8 @@ class ListCriteria extends React.Component {
   }
 
   _getOperators() {
-    const { field } = this.props
-    return field.comparisons || [
+    const { comparisons } = this.props
+    return comparisons || [
       { value: '$eq', text: 'is' },
       { value: '$neq', text: 'is not' },
       { value: '$in', text: 'is one of' },
@@ -69,18 +79,18 @@ class ListCriteria extends React.Component {
   }
 
   _getOptions() {
-    const { field } = this.props
-    if(!field.options) return null
-    return field.options.map(option => {
+    const { options } = this.props
+    if(!options) return null
+    return options.map(option => {
       return _.isString(option) ? { value: option, text: option } : option
     })
   }
 
   _getPanel() {
     const { value } = this.state
-    const { field } = this.props
+    const { name } = this.props
     return {
-      title: field.name,
+      title: name,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
@@ -105,14 +115,14 @@ class ListCriteria extends React.Component {
   }
 
   _getCheckboxesField() {
-    const { value } = this.state
-    const { field } = this.props
+    const { endpoint, filter, multiple, value } = this.props
     return {
-      defaultValue: value,
-      endpoint: field.endpoint,
-      filter: field.filter,
+      defaultValue: this.state.value ? _.castArray(this.state.value) : null,
+      endpoint,
+      filter,
+      multiple,
       options: this._getOptions(),
-      value: !field.endpoint ? (field.value || 'value') : null,
+      value: !endpoint ? (value || 'value') : null,
       onChange: this._handleUpdate
     }
   }
@@ -123,24 +133,24 @@ class ListCriteria extends React.Component {
 
   _handleChange() {
     const { data, operator, value } = this.state
-    const { code} = this.props
+    const { code, multiple } = this.props
     if(!value) return
     this.props.onChange({
       code,
       operator,
-      value,
-      data
+      value: multiple ? value : value[0],
+      data: multiple ? data : data[0]
     })
   }
 
   _handleDone() {
     const { data, operator, value } = this.state
-    const { code } = this.props
+    const { code, multiple } = this.props
     this.props.onDone({
       code,
       operator,
-      value,
-      data
+      value: multiple ? value : value[0],
+      data: multiple ? data : data[0]
     })
   }
 
@@ -155,20 +165,18 @@ class ListCriteria extends React.Component {
   }
 
   _handleUpdate(selected) {
-    const { field } = this.props
-    const { operator } = this.state
-    const multiple = _.includes(['$in','$nin'], operator)
+    const { endpoint, value, text } = this.props
     const records = _.castArray(selected)
-    const values = field.endpoint ? records.map(record => {
-      return _.get(record, field.value)
+    const values = endpoint ? records.map(record => {
+      return _.get(record, value)
     }) : records
-    const data = field.endpoint ? records.map(record => ({
-      value: _.get(record, field.value),
-      text: _.get(record, field.text)
+    const data = endpoint ? records.map(record => ({
+      value: _.get(record, value),
+      text: _.get(record, text)
     })) : []
     this.setState({
-      data: multiple ? data : data[0],
-      value: multiple ? values : values[0]
+      data: data,
+      value: values
     })
   }
 

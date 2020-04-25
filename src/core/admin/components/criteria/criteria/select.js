@@ -11,7 +11,14 @@ class Select extends React.Component {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
     comparisons: PropTypes.array,
-    field: PropTypes.object,
+    endpoint: PropTypes.string,
+    filter: PropTypes.object,
+    format: PropTypes.any,
+    name: PropTypes.string,
+    options: PropTypes.array,
+    search: PropTypes.bool,
+    text: PropTypes.string,
+    value: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -60,8 +67,8 @@ class Select extends React.Component {
   }
 
   _getOperators() {
-    const { field } = this.props
-    return field.comparisons || [
+    const { comparisons } = this.props
+    return comparisons || [
       { value: '$eq', text: 'is' },
       { value: '$neq', text: 'is not' },
       { value: '$in', text: 'is one of' },
@@ -70,18 +77,18 @@ class Select extends React.Component {
   }
 
   _getOptions() {
-    const { field } = this.props
-    if(!field.options) return null
-    return field.options.map(option => {
+    const { options } = this.props
+    if(!options) return null
+    return options.map(option => {
       return _.isString(option) ? { value: option, text: option } : option
     })
   }
 
   _getPanel() {
     const { value } = this.state
-    const { field } = this.props
+    const { name } = this.props
     return {
-      title: field.name,
+      title: name,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
@@ -106,19 +113,19 @@ class Select extends React.Component {
   }
 
   _getSearch() {
-    const { operator, value } = this.state
-    const { field } = this.props
+    const { operator } = this.state
+    const { endpoint, filter, format, name, search, text, value } = this.props
     return {
-      defaultValue: value,
-      endpoint: field.endpoint,
-      filter: field.filter,
-      format: field.format,
-      label: field.name,
+      defaultValue: this.state.value,
+      endpoint,
+      filter,
+      format,
+      label: name,
       multiple: _.includes(['$in','$nin'], operator),
       options: this._getOptions(),
-      search: field.search,
-      text: field.text || 'text',
-      value: !field.endpoint ? (field.value || 'value') : null,
+      search,
+      text: text || 'text',
+      value: !endpoint ? (value || 'value') : null,
       onChange: this._handleUpdate
     }
   }
@@ -161,16 +168,16 @@ class Select extends React.Component {
   }
 
   _handleUpdate(selected) {
-    const { field } = this.props
+    const { endpoint, value, text } = this.props
     const { operator } = this.state
     const multiple = _.includes(['$in','$nin'], operator)
     const records = _.castArray(selected)
-    const values = field.endpoint ? records.map(record => {
-      return _.get(record, field.value)
+    const values = endpoint ? records.map(record => {
+      return _.get(record, value)
     }) : records
-    const data = field.endpoint ? records.map(record => ({
-      value: _.get(record, field.value),
-      text: _.get(record, field.text)
+    const data = endpoint ? records.map(record => ({
+      value: _.get(record, value),
+      text: _.get(record, text)
     })) : []
     this.setState({
       data: multiple ? data : data[0],

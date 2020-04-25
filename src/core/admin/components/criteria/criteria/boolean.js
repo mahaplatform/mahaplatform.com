@@ -9,7 +9,7 @@ class Boolean extends React.Component {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
     comparisons: PropTypes.array,
-    field: PropTypes.object,
+    name: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -50,8 +50,8 @@ class Boolean extends React.Component {
   }
 
   _getOperators() {
-    const { field } = this.props
-    return field.comparisons || [
+    const { comparisons } = this.props
+    return comparisons || [
       { value: '$tr', text: 'is true' },
       { value: '$ntr', text: 'is false' }
     ]
@@ -59,9 +59,9 @@ class Boolean extends React.Component {
 
   _getPanel() {
     const { value } = this.state
-    const { field } = this.props
+    const { name } = this.props
     return {
-      title: field.name,
+      title: name,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],

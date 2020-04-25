@@ -82,7 +82,7 @@ const applyCriteria = (column, condition, options) => {
 }
 
 const applyOperation = (alias, operation, value, options)=> {
-  const criteria = options.filter.operations[operation](alias.table, alias.alias, value)
+  const criteria = options.filter.operations[operation](alias.table, alias.alias, alias.column, value)
   return {
     joins: [criteria.join],
     query: criteria.query,

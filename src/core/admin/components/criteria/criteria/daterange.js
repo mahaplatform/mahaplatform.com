@@ -10,7 +10,11 @@ class DateRange extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.object,
-    field: PropTypes.object,
+    name: PropTypes.string,
+    format: PropTypes.any,
+    include: PropTypes.array,
+    text: PropTypes.string,
+    value: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -83,9 +87,9 @@ class DateRange extends React.Component {
   }
 
   _getPanel() {
-    const { field } = this.props
+    const { name } = this.props
     return {
-      title: field.name,
+      title: name,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
@@ -99,16 +103,15 @@ class DateRange extends React.Component {
   }
 
   _getSearch() {
-    const { value } = this.state
-    const { field } = this.props
+    const { format, include, name, text, value } = this.props
     return {
-      defaultValue: value,
-      format: field.format,
-      label: field.name,
+      defaultValue: this.state.value,
+      format,
+      label: name,
       multiple: false,
-      options: this._getOptions(field.include),
-      text: field.text || 'text',
-      value: field.value || 'value',
+      options: this._getOptions(include),
+      text: text || 'text',
+      value: value || 'value',
       onChange: this._handleUpdate
     }
   }

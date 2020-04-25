@@ -9,6 +9,7 @@ class CheckboxesField extends React.PureComponent {
     defaultValue: PropTypes.array,
     endpoint: PropTypes.string,
     filter: PropTypes.object,
+    multiple: PropTypes.bool,
     items: PropTypes.array,
     sections: PropTypes.object,
     selected: PropTypes.array,
@@ -22,6 +23,7 @@ class CheckboxesField extends React.PureComponent {
   }
 
   static defaultProps = {
+    multiple: true,
     onChange: () => {},
     onReady: () => {}
   }
@@ -82,9 +84,9 @@ class CheckboxesField extends React.PureComponent {
   }
 
   _handleToggle(item) {
-    const { value } = this.props
+    const { multiple, value } = this.props
     const chosen = value ? _.get(item, value) : item
-    this.props.onToggle(chosen)
+    this.props.onToggle(multiple, chosen)
   }
 
   _handleChange() {

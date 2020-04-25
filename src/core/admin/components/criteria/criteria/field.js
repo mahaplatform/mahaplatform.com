@@ -52,9 +52,9 @@ class Field extends React.PureComponent {
     const { defaultValue, field, onCancel, onChange, onDone } = this.props
     const { code } = this.state
     return {
+      ...field,
       code,
       defaultValue,
-      field,
       onCancel,
       onChange,
       onDone

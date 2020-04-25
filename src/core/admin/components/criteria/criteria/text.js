@@ -10,7 +10,9 @@ class Text extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
+    comparisons: PropTypes.array,
     field: PropTypes.object,
+    name: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -63,8 +65,8 @@ class Text extends React.Component {
   }
 
   _getOperators() {
-    const { field } = this.props
-    return field.comparisons || [
+    const { comparisons } = this.props
+    return comparisons || [
       { value: '$eq', text: 'equals' },
       { value: '$neq', text: 'does not equal' },
       { value: '$lk', text: 'contains' },
@@ -76,9 +78,9 @@ class Text extends React.Component {
 
   _getPanel() {
     const { operator, value } = this.state
-    const { field } = this.props
+    const { name } = this.props
     return {
-      title: field.name,
+      title: name,
       color: 'grey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
@@ -118,10 +120,9 @@ class Text extends React.Component {
 
   _handleChange() {
     const { operator, value } = this.state
-    const { code, field } = this.props
+    const { code } = this.props
     this.props.onChange({
       code,
-      field: field.key,
       operator,
       value,
       data: null
@@ -130,10 +131,9 @@ class Text extends React.Component {
 
   _handleDone() {
     const { operator, value } = this.state
-    const { code, field } = this.props
+    const { code } = this.props
     this.props.onDone({
       code,
-      field: field.key,
       operator,
       value,
       data: null

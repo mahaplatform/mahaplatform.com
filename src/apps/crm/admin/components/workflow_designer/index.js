@@ -81,27 +81,27 @@ class WorkflowDesigner extends React.PureComponent {
         { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
       ] },
       { label: 'Classifications', fields: [
-        { name: 'List', key: 'contact.list_ids', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        { name: 'List', key: 'contact.list_ids', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is subscribed to' },
           { value: '$nct', text: 'is not subscribed to' }
         ] },
         { name: 'Oraganizations', key: 'oraganizations.oraganizations_ids', type: 'textfield' },
         { name: 'Tags', key: 'contact.tag_ids', type: 'textfield' },
-        { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is interested in' },
           { value: '$nct', text: 'is not interested in' }
         ] }
       ] },
       { label: 'Activities', fields: [
-        { name: 'Event', key: 'contact.event_ids', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'Event', key: 'contact.event_ids', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'registered for' },
           { value: '$nct', text: 'did not registered for' }
         ] },
-        { name: 'Form', key: 'contact.form_ids', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
+        { name: 'Form', key: 'contact.form_ids', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'filled out' },
           { value: '$nct', text: 'did not fill out' }
         ] },
-        { name: 'Import', key: 'contact.import_ids', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
+        { name: 'Import', key: 'contact.import_ids', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', multiple: true, subject: false, format: ImportToken, comparisons: [
           { value: '$ct', text: 'was included in import' },
           { value: '$nct', text: 'was not included in import' }
         ] }
