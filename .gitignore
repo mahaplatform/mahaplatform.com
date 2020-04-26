@@ -13,7 +13,7 @@ node_modules
 deploy.tgz
 *.compiled.js
 npm-debug.log
-.env*
+/.env*
 *.key
 *.rsa
 *.crt

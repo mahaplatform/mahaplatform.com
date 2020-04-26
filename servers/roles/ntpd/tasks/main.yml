@@ -4,9 +4,10 @@
     state: latest
 
 - name: configure nptd
-  command: ntpdate -s time.nist.gov
+  shell:
+    cmd: 'ntpdate -s time.nist.gov'
 
-- name: enable ntpd
+- name: reload ntpd
   systemd:
     name: ntpd
     daemon_reload: yes

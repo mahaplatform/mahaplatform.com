@@ -1,4 +1,4 @@
-- name: Install git
+- name: install git
   yum:
     name: git
 
@@ -12,12 +12,12 @@
     src: ../files/config
     dest: /home/centos/.ssh/config
 
-- name: Create releases
+- name: create releases directory
   file:
     path: /var/www/app/releases
     state: directory
 
-- name: Create shared directories
+- name: create shared directories
   file:
     path: "{{ item }}"
     state: directory
@@ -29,7 +29,7 @@
     - /var/www/app/shared/imagecache
     - /var/www/app/shared/logs
 
-- name: Checkout master
+- name: clone master
   git:
     repo: https://github.com/mahaplatform/mahaplatform.com.git
     dest: /var/www/app/repo
@@ -38,35 +38,76 @@
 
 - name: get new tags
   shell:
-    cmd: git fetch --tags
+    cmd: 'git fetch --tags'
   args:
     chdir: /var/www/app/repo
 
 - name: get lastest tag
   shell:
-    cmd: git describe --tags `git rev-list --tags --max-count=1`
+    cmd: 'git describe --tags `git rev-list --tags --max-count=1`'
   args:
     chdir: /var/www/app/repo
   register: latest_tag
 
-- name: install lastest tag
+- name: clone lastest tag
   git:
     repo: https://github.com/mahaplatform/mahaplatform.com.git
     dest: /var/www/app/repo
-    version: latest_tag.stdout
+    version: "{{ latest_tag.stdout }}"
 
-- name: npm install
+- name: write simple .env
+  template:
+    src: ../files/.env.j2
+    dest: /var/www/app/repo/.env
+
+- name: install node_modules
   shell:
-    cmd: npm install
+    cmd: 'npm install'
+  args:
+    chdir: /var/www/app/repo
+
+- name: write full .env
+  shell:
+    cmd: 'NODE_ENV=production npm run env'
   args:
     chdir: /var/www/app/repo
 
 - name: build src
   shell:
-    cmd: NODE_ENV=production npm run build
+    cmd: 'NODE_ENV=production npm run build'
   args:
     chdir: /var/www/app/repo
 
 - name: copy src
   shell:
-    cmd: mv /var/www/app/repo/dist /var/www/releases/20200101000000
+    cmd: 'cp -rp /var/www/app/repo/dist /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}'
+
+- name: install node_modules
+  shell:
+    cmd: 'npm install'
+  args:
+    chdir: "/var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}"
+
+- name: symlink logs
+  file:
+    src: /var/www/app/shared/logs
+    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/logs
+    state: link
+
+- name: symlink tmp
+  file:
+    src: /var/www/app/shared/tmp
+    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/tmp
+    state: link
+
+- name: symlink imagecache
+  file:
+    src: /var/www/app/shared/imagecache
+    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/public/imagecache
+    state: link
+
+- name: symlink current
+  file:
+    src: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}
+    dest: /var/www/app/current
+    state: link

@@ -2,7 +2,7 @@
 
 # on mac laptop
 sudo easy_install pip
-sudo -H pip install boto boto3 ansible
+sudo -H pip install nose tornado boto botocore boto3 ansible
 
 # reinstall xcode
 sudo rm -rf $(xcode-select -print-path)

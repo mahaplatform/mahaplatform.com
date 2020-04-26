@@ -20,32 +20,6 @@ const processor = async () => {
       key: `${process.env.SSH_KEY}`,
       strict: 'no'
     },
-    staging: {
-      deployTo: '/var/www/staging',
-      servers: [
-        {
-          user: 'root',
-          host: 'app1.mahaplatform.com',
-          port: 2244,
-          roles: ['appserver','controller']
-        }, {
-          user: 'root',
-          host: 'app2.mahaplatform.com',
-          port: 2244,
-          roles: 'appserver'
-        }, {
-          user: 'root',
-          host: 'worker1.mahaplatform.com',
-          port: 2244,
-          roles: ['worker','cron']
-        }, {
-          user: 'root',
-          host: 'db5.mahaplatform.com',
-          port: 22,
-          roles: ['database','cache']
-        }
-      ]
-    },
     production: {
       deployTo: '/var/www/app',
       servers: [

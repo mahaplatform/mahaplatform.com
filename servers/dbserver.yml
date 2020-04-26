@@ -3,6 +3,7 @@
   gather_facts: false
   vars:
     instance_type: t3.medium
+    region: us-east-1
     groups:
       - all
       - dbservers
