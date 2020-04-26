@@ -1,0 +1,34 @@
+- name: install pgdg
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-6.5-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+- name: install postgresql
+  yum:
+    name: postgresql121 postgresql121-server
+
+- name: initdb
+  shell:
+    cmd: bash -lc "service postgresql-12.1 initdb"
+    creates: /var/lib/pgsql/12.1/data/postgresql.conf
+
+- name: enable postgresql
+  systemd:
+    name: postgresql-12.1
+    enabled: yes
+
+- name: start postgresql
+  systemd:
+    name: postgresql-12.1
+    state: started
+
+- name: copy backup.daily.sh
+  copy:
+    src: ../files/backup.daily.sh
+    dest: /etc/cron.daily/backup.sh
+    mode: 0755
+
+- name: copy backup.hourly.sh
+  copy:
+    src: ../files/backup.hourly.sh
+    dest: /etc/cron.hourly/backup.sh
+    mode: 0755

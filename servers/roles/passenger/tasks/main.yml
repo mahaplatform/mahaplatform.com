@@ -1,0 +1,46 @@
+- name: install libcurl
+  yum:
+    name: libcurl-devel
+
+- name: install passenger
+  shell:
+    cmd: 'bash -lc "gem install passenger -v 6.0.4"'
+    creates: /usr/local/rvm/gems/ruby-2.5.3/bin/passenger-install-nginx-module
+
+- name: install nginx
+  shell:
+    cmd: 'bash -lc "passenger-install-nginx-module --auto --auto-download --languages nodejs"'
+    creates: /opt/nginx/conf/nginx.conf
+
+- name: copy nginx
+  copy:
+    src: ../files/nginx
+    dest: /etc/init.d/nginx
+    mode: 0755
+
+- name: copy nginx.conf
+  copy:
+    src: ../files/nginx.conf
+    dest: /opt/nginx/conf/nginx.conf
+    mode:
+    backup: yes
+
+- name: copy nginx.logrotate
+  copy:
+    src: ../files/nginx.logrotate
+    dest: /etc/logrotate.d/nginx
+
+- name: enable nginx
+  systemd:
+    name: nginx
+    daemon_reload: yes
+
+- name: enable nginx
+  systemd:
+    name: nginx
+    enabled: yes
+
+- name: start nginx
+  systemd:
+    name: nginx
+    state: started

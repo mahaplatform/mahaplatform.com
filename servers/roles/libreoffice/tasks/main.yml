@@ -1,0 +1,29 @@
+- name: Install openjdk
+  yum:
+    name: java-1.8.0-openjdk
+
+- name: Extract libreoffice
+  unarchive:
+    src: https://s3.amazonaws.com/ansible.mahaplatform.com/LibreOffice_6.4.3_Linux_x86-64_rpm.tar.gz
+    dest: /home/centos
+    remote_src: yes
+
+- name: Collect libreoffice_rpms
+  find:
+    paths: "/home/centos/LibreOffice_6.4.3.2_Linux_x86-64_rpm/RPMS/"
+    patterns: "*.rpm"
+  register: rpm_files
+
+- set_fact:
+    rpm_list: "{{ rpm_files.files | map(attribute='path') | list}}"
+
+- name: Install libreoffice
+  yum:
+    name: "{{ rpm_list }}"
+    state: present
+
+- name: Symlink soffice
+  file:
+    src: /opt/libreoffice6.4/program/soffice
+    dest: /usr/bin/soffice
+    state: link

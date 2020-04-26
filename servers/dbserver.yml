@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_type: t3.medium
+    groups:
+      - all
+      - dbservers
+  roles:
+  - ec2
+
+- hosts: dbservers
+  become: true
+  roles:
+  - base
+  - ntpd
+  - postgresql

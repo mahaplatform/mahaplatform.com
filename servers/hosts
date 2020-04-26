@@ -1,5 +1,7 @@
-appservers:
+local:
   hosts:
-    3.85.49.162:
-      ansible_user: centos
-      ansible_ssh_private_key_file: ~/.ssh/mahaplatform
+    localhost
+all:
+  vars:
+    ansible_user: centos
+    ansible_ssh_private_key_file: ~/.ssh/mahaplatform

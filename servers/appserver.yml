@@ -1,0 +1,22 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_type: t3.small
+    groups:
+      - all
+      - appservers
+  roles:
+  - ec2
+
+- hosts: appservers
+  become: true
+  roles:
+  - base
+  - ntpd
+  - devtoolset
+  - nodejs
+  - libreoffice
+  - app
+  - ruby
+  - passenger

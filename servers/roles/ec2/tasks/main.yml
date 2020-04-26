@@ -1,0 +1,25 @@
+- name: provision instance(s)
+  ec2:
+    aws_access_key: "{{ec2_access_key}}"
+    aws_secret_key: "{{ec2_secret_key}}"
+    key_name: mahaplatform
+    group_id: sg-0589cb45cd2b71602
+    image: ami-02eac2c0129f6376b
+    instance_type: "{{ instance_type }}"
+    region: us-east-1
+    wait: true
+    count: 1
+  register: ec2
+
+- name: add host to inventory
+  add_host:
+    name: "{{ item.public_ip }}"
+    groups: appservers
+  with_items: "{{ ec2.instances }}"
+
+- name: wait for instance
+  wait_for:
+    host: "{{ item.public_ip }}"
+    port: 22
+    state: started
+  with_items: "{{ ec2.instances }}"

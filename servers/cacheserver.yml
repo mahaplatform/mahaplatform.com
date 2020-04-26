@@ -1,0 +1,17 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_type: t3.small
+    groups:
+      - all
+      - cacheservers
+  roles:
+  - ec2
+
+- hosts: cacheservers
+  become: true
+  roles:
+  - base
+  - ntpd
+  - redis

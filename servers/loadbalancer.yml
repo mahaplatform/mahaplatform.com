@@ -1,0 +1,19 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_type: t3.small
+    groups:
+      - all
+      - dbservers
+  roles:
+  - ec2
+
+- hosts: loadbalancers
+  become: true
+  roles:
+  - base
+  - ntpd
+  - devtoolset
+  - nginx
+  - haproxy

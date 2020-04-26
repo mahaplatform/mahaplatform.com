@@ -1,0 +1,72 @@
+- name: Install git
+  yum:
+    name: git
+
+- name: copy deploy
+  copy:
+    src: ../files/deploy
+    dest: /home/centos/.ssh/deploy
+
+- name: copy config
+  copy:
+    src: ../files/config
+    dest: /home/centos/.ssh/config
+
+- name: Create releases
+  file:
+    path: /var/www/app/releases
+    state: directory
+
+- name: Create shared directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: centos
+    group: centos
+    mode: 0777
+  with_items:
+    - /var/www/app/shared/tmp
+    - /var/www/app/shared/imagecache
+    - /var/www/app/shared/logs
+
+- name: Checkout master
+  git:
+    repo: https://github.com/mahaplatform/mahaplatform.com.git
+    dest: /var/www/app/repo
+    update: yes
+    force: no
+
+- name: get new tags
+  shell:
+    cmd: git fetch --tags
+  args:
+    chdir: /var/www/app/repo
+
+- name: get lastest tag
+  shell:
+    cmd: git describe --tags `git rev-list --tags --max-count=1`
+  args:
+    chdir: /var/www/app/repo
+  register: latest_tag
+
+- name: install lastest tag
+  git:
+    repo: https://github.com/mahaplatform/mahaplatform.com.git
+    dest: /var/www/app/repo
+    version: latest_tag.stdout
+
+- name: npm install
+  shell:
+    cmd: npm install
+  args:
+    chdir: /var/www/app/repo
+
+- name: build src
+  shell:
+    cmd: NODE_ENV=production npm run build
+  args:
+    chdir: /var/www/app/repo
+
+- name: copy src
+  shell:
+    cmd: mv /var/www/app/repo/dist /var/www/releases/20200101000000

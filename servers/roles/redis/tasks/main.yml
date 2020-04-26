@@ -1,0 +1,12 @@
+- name: Extract redis
+  unarchive:
+    src: https://s3.amazonaws.com/ansible.mahaplatform.com/redis-4.0.0.tar.gz
+    dest: /home/centos
+    remote_src: yes
+
+- name: Build redis
+  shell:
+    cmd:
+    creates:
+  args:
+    chdir: /home/centos/redis-4.0.0
