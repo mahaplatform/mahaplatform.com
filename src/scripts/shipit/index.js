@@ -179,7 +179,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
-    await shipit.remote('npm install --production --silent --no-spin --unsafe-perm=true', {
+    await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
       roles: ['appserver','cron','worker'],
       cwd: releaseDir
     })
