@@ -27,7 +27,7 @@ const roles = (shipit) => {
 
     return new sshPool.ConnectionPool(servers, {
       ...this.options,
-      ..._.pick(this.config, 'key', 'strict')
+      ..._.pick(this.config, 'key', 'strict', 'asUser')
     })
 
   }
