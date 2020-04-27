@@ -166,7 +166,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
-    await shipit.remoteCopy('dist.tgz', `${releaseDir}/dist.tgz`, {
+    await shipit.copyToRemote('dist.tgz', `${releaseDir}/dist.tgz`, {
       roles: ['appserver','cron','worker']
     })
   })

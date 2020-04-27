@@ -48,12 +48,7 @@ const roles = (shipit) => {
 
   }
 
-  shipit.remoteCopy = function(src, dest, userOptions, callback) {
-
-    if(_.isFunction(userOptions)) {
-      callback = userOptions
-      userOptions = undefined
-    }
+  shipit.copyToRemote = function(src, dest, userOptions) {
 
     const options = {
       ignores: _.get(this, 'config.ignores') || [],
@@ -62,7 +57,7 @@ const roles = (shipit) => {
       ...userOptions || {}
     }
 
-    return this.getPool(options.roles).copy(src, dest, options, callback)
+    return this.getPool(options.roles).copyToRemote(src, dest, options)
 
   }
 

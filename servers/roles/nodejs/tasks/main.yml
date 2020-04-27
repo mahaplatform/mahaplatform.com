@@ -1,3 +1,7 @@
+- name: Install bzip2
+  yum:
+    name: bzip2
+
 - name: install packages
   yum:
     name: "{{ packages }}"
