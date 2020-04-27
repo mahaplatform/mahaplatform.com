@@ -30,6 +30,7 @@ class Cordova extends React.Component {
   _handlePushRoute = this._handlePushRoute.bind(this)
   _handleReceiveMessage = this._handleReceiveMessage.bind(this)
   _handleSetVersion = this._handleSetVersion.bind(this)
+  _handleSignin = this._handleSignin.bind(this)
   _handleUpdateUnseen = this._handleUpdateUnseen.bind(this)
 
   render() {
@@ -53,6 +54,7 @@ class Cordova extends React.Component {
         hasFocus: this._handleHasFocus,
         installUpdate: () => {},
         openWindow: this._handleOpenWindow,
+        signin: this._handleSignin,
         setTitle: () => {},
         updateUnseen: this._handleUpdateUnseen
       }
@@ -71,8 +73,7 @@ class Cordova extends React.Component {
     return this.state.hasFocus
   }
 
-  _handleOpenWindow(url) {
-  }
+  _handleOpenWindow(url) {}
 
   _handlePushRoute(route) {
     this.context.router.history.push(route)
@@ -98,6 +99,8 @@ class Cordova extends React.Component {
   _handleSetVersion(version) {
     this.props.onSetVersion(version)
   }
+
+  _handleSignin(url) {}
 
   _handleSendMessage(action, data = null) {
     window.parent.postMessage({

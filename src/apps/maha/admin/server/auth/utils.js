@@ -41,30 +41,31 @@ const success = async (req, res) => {
 
   const team = req.user.related('team')
 
+  const session = {
+    team: {
+      id: team.get('id'),
+      title: team.get('title'),
+      subdomain: team.get('subdomain'),
+      logo: team.related('logo') ? team.related('logo').get('url') : null,
+      authentication_strategy: team.get('authentication_strategy')
+    },
+    token: createUserToken(req.user, 'user_id'),
+    user: {
+      id: req.user.get('id'),
+      email: req.user.get('email'),
+      full_name: req.user.get('full_name'),
+      initials: req.user.get('initials'),
+      photo: req.user.related('photo') ? req.user.related('photo').get('url') : null
+    }
+  }
+
   await socket.message(req, {
     channel: `/admin/signin/${req.signin_id}`,
     action: 'signin',
-    data: {
-      team: {
-        id: team.get('id'),
-        title: team.get('title'),
-        subdomain: team.get('subdomain'),
-        logo: team.related('logo') ? team.related('logo').get('url') : null,
-        authentication_strategy: team.get('authentication_strategy')
-      },
-      token: createUserToken(req.user, 'user_id'),
-      user: {
-        id: req.user.get('id'),
-        email: req.user.get('email'),
-        full_name: req.user.get('full_name'),
-        initials: req.user.get('initials'),
-        photo: req.user.related('photo') ? req.user.related('photo').get('url') : null
-      }
-
-    }
+    data: session
   })
 
-  res.status(200).render('success')
+  res.status(200).type('text/html').render('success', { session })
 
 }
 

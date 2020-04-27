@@ -1,1 +1,43 @@
-<script>window.close();</script>
+<script src="/admin/js/localforage.min.js"></script>
+
+<script>
+  localforage.config({
+    name: 'local',
+    storeName: 'cache'
+  });
+  localforage.getItem('admin').then(function (admin) {
+    if(!admin) {
+      admin = {
+        teams: []
+      }
+    }
+    const index = admin.teams.reduce((found, team, index) => {
+      return found || team.user.id == <%= session.user.id %> ? index : null
+    }, null)
+    const team = {
+      id: <%= session.team.id %>,
+      title: '<%= session.team.title %>',
+      subdomain: '<%= session.team.subdomain %>',
+      logo: '<%= session.team.logo %>',
+      token: '<%= session.token %>',
+      authentication_strategy: '<%= session.team.authentication_strategy %>',
+      user: {
+        id: <%= session.user.id %>,
+        email: '<%= session.user.email %>',
+        full_name: '<%= session.user.full_name %>',
+        initials: '<%= session.user.initials %>',
+        photo: <%- session.user.photo ? `'${session.user.photo}'` : 'null' %>
+      }
+    }
+    if(index === null) {
+      admin.active = admin.teams.length
+      admin.teams.push(team)
+    } else {
+      admin.active = index
+      admin.teams[index] = team
+    }
+    localforage.setItem('admin', admin).then(function () {
+      window.location.href = "/admin";
+    });
+  });
+</script>

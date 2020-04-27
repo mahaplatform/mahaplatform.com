@@ -4,6 +4,8 @@ const team = async (req, res, next) => {
 
   const state = req.query.state || req.body.RelayState
 
+  console.log(req.body)
+
   if(!state) throw new Error({
     code: 500,
     message: 'unable to load state'

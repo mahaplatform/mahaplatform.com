@@ -37,6 +37,7 @@ class Electron extends React.Component {
   _handleSetUpdate = this._handleSetUpdate.bind(this)
   _handleSetUpdateReady = this._handleSetUpdateReady.bind(this)
   _handleSetVersion = this._handleSetVersion.bind(this)
+  _handleSignin = this._handleSignin.bind(this)
   _handleUpdateUnseen  = this._handleUpdateUnseen.bind(this)
 
   render() {
@@ -60,6 +61,7 @@ class Electron extends React.Component {
         hasFocus: this._handleHasFocus,
         installUpdate: this._handleInstallUpdate,
         openWindow: this._handleOpenWindow,
+        signin: this._handleSignin,
         setTitle: () => {},
         updateUnseen: this._handleUpdateUnseen
       }
@@ -133,6 +135,10 @@ class Electron extends React.Component {
 
   _handleSetUpdateReady() {
     this.props.onSetUpdateReady()
+  }
+
+  _handleSignin(url) {
+    this._handleSendMessage('openWindow', url)
   }
 
   _handleUpdateUnseen(count) {

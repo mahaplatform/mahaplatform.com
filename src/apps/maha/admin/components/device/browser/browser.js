@@ -32,8 +32,9 @@ class Browser extends React.Component {
   _handleMessage = this._handleMessage.bind(this)
   _handleOpenWindow = this._handleOpenWindow.bind(this)
   _handlePushRoute = this._handlePushRoute.bind(this)
-  _handleUpdateHead = this._handleUpdateHead.bind(this)
   _handleSetTitle = this._handleSetTitle.bind(this)
+  _handleSignin = this._handleSignin.bind(this)
+  _handleUpdateHead = this._handleUpdateHead.bind(this)
   _handleUpdateUnseen = this._handleUpdateUnseen.bind(this)
 
   render() {
@@ -79,6 +80,7 @@ class Browser extends React.Component {
         installUpdate: () => {},
         openWindow: this._handleOpenWindow,
         setTitle: this._handleSetTitle,
+        signin: this._handleSignin,
         updateUnseen: this._handleUpdateUnseen
       }
     }
@@ -106,6 +108,10 @@ class Browser extends React.Component {
 
   _handleSetTitle(title) {
     this.props.onSetTitle(title)
+  }
+
+  _handleSignin(url) {
+    window.location.href = url
   }
 
   _handleUpdateHead() {

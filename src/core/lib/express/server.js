@@ -3,6 +3,7 @@ import transaction from './transaction'
 import { Router } from 'express'
 import logger from './logger'
 import alias from './alias'
+import error from './api/error'
 
 const publics = collectObjects('public/server')
 
@@ -23,5 +24,7 @@ publics.map(file => {
 admins.map(file => {
   router.use(`${file.config.path}/admin`, file.default)
 })
+
+router.use(error)
 
 export default router

@@ -112,8 +112,8 @@ class Team extends React.Component {
         signin_id,
         team_id: team.id
       }))
-      this.context.host.openWindow(`/admin/auth/${team.authentication_strategy}?state=${state}`)
-      setTimeout(() => onChangeMode('wait'), 250)
+      this.context.host.signin(`/admin/auth/${team.authentication_strategy}?state=${state}`)
+      // setTimeout(() => onChangeMode('wait'), 250)
     }
   }
 
