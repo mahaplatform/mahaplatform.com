@@ -1,9 +1,11 @@
 import '../../core/services/environment'
+import aws from '../../core/services/aws'
 import Shipit from 'shipit-cli'
 import utils from 'shipit-utils'
 import roles from './roles'
 import moment from 'moment'
 import path from 'path'
+import _ from 'lodash'
 
 const processor = async () => {
 
@@ -15,6 +17,30 @@ const processor = async () => {
 
   const shipit = new Shipit({ environment })
 
+  const ec2 = new aws.EC2()
+
+  const instances = await ec2.describeInstances().promise()
+
+  const servers = instances.Reservations.reduce((servers, reservation) => [
+    ...servers,
+    ...reservation.Instances
+  ], []).filter(instance => {
+    return instance.State.Name === 'running'
+  }).map(instance => {
+    const tags = instance.Tags.reduce((tags, tag) => ({
+      ...tags,
+      [tag.Key]: tag.Value
+    }), {})
+    return {
+      user: 'centos',
+      host: tags.Name,
+      port: 22,
+      roles: (tags.Role || '').split(',')
+    }
+  }).filter(instance => {
+    return _.intersection(['appserver','worker','database','cache'], instance.roles).length > 0
+  })
+
   shipit.initConfig({
     default: {
       key: `${process.env.SSH_KEY}`,
@@ -22,34 +48,7 @@ const processor = async () => {
     },
     production: {
       deployTo: '/var/www/app',
-      servers: [
-        {
-          user: 'root',
-          host: 'lb3.mahaplatform.com',
-          port: 22,
-          roles: 'loadbalancer'
-        }, {
-          user: 'root',
-          host: 'app1.mahaplatform.com',
-          port: 2244,
-          roles: ['appserver','controller']
-        }, {
-          user: 'root',
-          host: 'app2.mahaplatform.com',
-          port: 2244,
-          roles: 'appserver'
-        }, {
-          user: 'root',
-          host: 'worker1.mahaplatform.com',
-          port: 2244,
-          roles: ['worker','cron']
-        }, {
-          user: 'root',
-          host: 'db5.mahaplatform.com',
-          port: 22,
-          roles: ['database','cache']
-        }
-      ]
+      servers
     }
   })
 

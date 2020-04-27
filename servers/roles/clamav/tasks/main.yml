@@ -1,15 +1,12 @@
-- name: install bzip2
+- name: install epel-release
   yum:
-    name: bzip2
+    name:
+    - epel-release
     state: present
-
-- name: install pm2
-  shell: 'bash -lc "npm install -g pm2"'
 
 - name: install clamav
   yum:
     name:
-    - epel-release
     - clamav-server
     - clamav
     state: present
@@ -32,22 +29,26 @@
     dest: /usr/lib/systemd/system/freshclam.service
     backup: yes
 
-- name: enable clamd@scan
+- name: enable freshclam
   systemd:
-    name: clamd@scan
+    name: freshclam
     enabled: yes
+
+- name: start freshclam
+  systemd:
+    name: freshclam
+    state: started
+
+- name: initialize database
+  shell:
+    cmd: 'freshclam'
 
 - name: enable clamd@scan
   systemd:
-    name: freshclam
+    name: clamd@scan
     enabled: yes
 
 - name: start clamd@scan
   systemd:
     name: clamd@scan
-    state: started
-
-- name: start freshclam
-  systemd:
-    name: freshclam
     state: started
