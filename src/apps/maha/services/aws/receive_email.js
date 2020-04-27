@@ -128,21 +128,14 @@ const process_email = async(req, { email }) => {
 
 const receive_email = async (req, { message_id }) => {
 
-  const Key = `emails/${message_id}`
-
   const email = await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
-    Key
+    Key: `emails/${message_id}`
   }).promise()
 
-  await process_email(req, { email })
-
-  await s3.deleteObjects({
-    Bucket: process.env.AWS_BUCKET,
-    Delete: {
-      Objects: [{ Key }]
-    }
-  }).promise()
+  await process_email(req, {
+    email
+  })
 
 }
 

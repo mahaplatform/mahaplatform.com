@@ -44,9 +44,11 @@ const processor = async () => {
   shipit.initConfig({
     default: {
       key: `${process.env.SSH_KEY}`,
-      strict: 'no'
+      strict: 'no',
+      asUser: 'root'
     },
     production: {
+      asUser: 'root',
       deployTo: '/var/www/app',
       servers
     }
