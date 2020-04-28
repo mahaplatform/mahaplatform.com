@@ -1,3 +1,4 @@
+import EmailCampaign from './email_campaign'
 import Response from './response'
 import Workflow from './workflow'
 import Consent from './consent'
@@ -10,6 +11,7 @@ const cards = {
   call: { component: Call, color: 'teal', icon: 'phone' },
   consent: { component: Consent, color: 'blue', icon: 'sliders' },
   edit: { component: Edit, color: 'olive', icon: 'pencil' },
+  email_campaign: { component: EmailCampaign, color: 'olive', icon: 'pencil' },
   import: { component: Import, color: 'olive', icon: 'pencil' },
   note: { component: Note, color: 'orange', icon: 'sticky-note' },
   response: { component: Response, color: 'green', icon: 'check-square' },

@@ -63,9 +63,11 @@ class Activities extends React.PureComponent {
                   { moment(activity.created_at).format('MMM DD, YYYY [at] h:mm A') }
                 </div>
               </div>
-              <div className="crm-timeline-item-card-header-tasks">
-                <i className="fa fa-ellipsis-h" />
-              </div>
+              { false &&
+                <div className="crm-timeline-item-card-header-tasks">
+                  <i className="fa fa-ellipsis-h" />
+                </div>
+              }
             </div>
             { show &&
               <div className="crm-timeline-item-card-section">
