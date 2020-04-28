@@ -1,6 +1,6 @@
 import { Button, Comments, List } from 'maha-admin'
+import Content from '../../../../tokens/content'
 import PropTypes from 'prop-types'
-import Content from './content'
 import numeral from 'numeral'
 import React from 'react'
 
@@ -29,7 +29,7 @@ const Details = ({ form, response }) => {
         return field.type !== 'text'
       }).map(field => ({
         label: field.name.value,
-        content: <Content form={ form } response={ response } field={ field } />
+        content: <Content data={ response.data } field={ field } />
       }))
     }]
   }

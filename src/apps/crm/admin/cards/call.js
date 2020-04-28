@@ -18,7 +18,6 @@ class Call extends React.PureComponent {
     const { description } = data
     return (
       <div className="crm-timeline-item-card-call">
-        <strong>Program:</strong> { program.title }<br />
         { description.split('\n').map((line, index) => (
           <span key={`line_${index}`}>{ line }<br /></span>
         )) }

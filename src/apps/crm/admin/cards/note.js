@@ -18,7 +18,6 @@ class Note extends React.PureComponent {
     const { text } = data
     return (
       <div className="crm-timeline-item-card-note">
-        <strong>Program:</strong> { program.title }<br />
         { text.split('\n').map((line, index) => (
           <span key={`line_${index}`}>{ line }<br /></span>
         )) }

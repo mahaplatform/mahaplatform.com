@@ -14,12 +14,9 @@ class Preferences extends React.PureComponent {
   render() {
     const { activity } = this.props
     if(!activity.data) return null
-    const { program, type, email_address, mailing_address, phone_number, actions } = activity.data
+    const { type, email_address, mailing_address, phone_number, actions } = activity.data
     return (
       <div className="crm-timeline-item-card-subscription">
-        <div className="crm-timeline-item-card-subscription-item">
-          <strong>Program:</strong> { program }<br />
-        </div>
         { phone_number &&
           <div className="crm-timeline-item-card-subscription-item">
             <strong>Phone Number:</strong> { phone_number }

@@ -1,7 +1,7 @@
-import Event from './event'
+import Registration from './registration'
 
 const cards = {
-  event: { component: Event, color: 'orange', icon: 'calendar' }
+  registration: { component: Registration, color: 'orange', icon: 'calendar-o' }
 }
 
 export default cards
