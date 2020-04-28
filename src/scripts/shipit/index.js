@@ -32,7 +32,7 @@ const processor = async () => {
       [tag.Key]: tag.Value
     }), {})
     return {
-      user: 'root',
+      user: 'centos',
       host: tags.Name,
       port: 22,
       roles: (tags.Role || '').split(',')
@@ -43,7 +43,7 @@ const processor = async () => {
 
   shipit.initConfig({
     default: {
-      // asUser: 'root',
+      asUser: 'root',
       key: process.env.SSH_KEY,
       strict: 'no'
     },
