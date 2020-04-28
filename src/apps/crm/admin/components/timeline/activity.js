@@ -7,6 +7,7 @@ import React from 'react'
 class Activities extends React.PureComponent {
 
   static contextTypes = {
+    admin: PropTypes.object,
     configuration: PropTypes.object
   }
 
@@ -25,6 +26,7 @@ class Activities extends React.PureComponent {
 
   render() {
     const { activity, contact } = this.props
+    const { admin } = this.context
     const { show } = this.state
     const type = this.context.configuration.cards[activity.type]
     return (
@@ -53,7 +55,7 @@ class Activities extends React.PureComponent {
                 </div>
                 { activity.program &&
                   <div className="crm-timeline-item-card-header-program">
-                    <Image src={ activity.program.logo } transforms={{ w: 16, h: 16 }}/>
+                    <Image src={ activity.program.logo || admin.team.logo } transforms={{ w: 16, h: 16 }}/>
                     { activity.program.title }
                   </div>
                 }

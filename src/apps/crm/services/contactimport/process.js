@@ -356,10 +356,12 @@ const processContactImport = async (req, { import_id }) => {
       await contactActivity(req, {
         user: imp.related('user'),
         contact,
-        type: 'edit',
+        type: 'import',
         story: is_merged ? 'merged data from an import' : 'imported the contact',
+        program_id: imp.get('program_id'),
         data: {
-          changes: []
+          import_id: imp.get('id'),
+          import_item_id: item.get('id')
         }
       })
 

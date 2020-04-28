@@ -52,6 +52,12 @@ class Registration extends React.PureComponent {
               <td>Registration</td>
               <td><Button { ...this._getRegistration() } /></td>
             </tr>
+            { registration.invoice_id &&
+              <tr>
+                <td>Invoice</td>
+                <td><Button { ...this._getInvoice() } /></td>
+              </tr>
+            }
             <tr>
               <td>Workflow</td>
               <td><Button { ...this._getEnrollment() } /></td>
@@ -85,6 +91,15 @@ class Registration extends React.PureComponent {
     return event.contact_config.fields.filter(field => {
       return field.type !== 'text'
     })
+  }
+
+  _getInvoice() {
+    const { registration } = this.props
+    return {
+      label: 'View Invoice',
+      className: 'link',
+      route: `/admin/finance/invoices/${registration.invoice_id}`
+    }
   }
 
   _getRegistration() {

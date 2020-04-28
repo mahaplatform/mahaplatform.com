@@ -40,10 +40,12 @@ class Response extends React.PureComponent {
               <td>Response</td>
               <td><Button { ...this._getResponse() } /></td>
             </tr>
-            <tr>
-              <td>Invoice</td>
-              <td><Button { ...this._getInvoice() } /></td>
-            </tr>
+            { response.invoice_id &&
+              <tr>
+                <td>Invoice</td>
+                <td><Button { ...this._getInvoice() } /></td>
+              </tr>
+            }
             <tr>
               <td>Workflow</td>
               <td><Button { ...this._getEnrollment() } /></td>

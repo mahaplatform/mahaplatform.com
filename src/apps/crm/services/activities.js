@@ -6,7 +6,7 @@ export const contactActivity = async (req, params) => {
 
   const { foreign_key, team_id, user, contact, program_id, type, story, object, data } = params
 
-  await Activity.forge({
+  const activity = await Activity.forge({
     team_id: team_id || req.team.get('id'),
     user_id: user ? user.get('id') : null,
     contact_id: contact.get('id'),
@@ -22,6 +22,8 @@ export const contactActivity = async (req, params) => {
   await socket.refresh(req, [
     `/admin/crm/contacts/${contact.get('id')}/activities`
   ])
+
+  return activity
 
 }
 

@@ -114,17 +114,12 @@ const submitRoute = async (req, res) => {
 
   await contactActivity(req, {
     contact,
-    type: 'form',
+    type: 'response',
     story: 'filled out a form',
     program_id: form.get('program_id'),
     data: {
-      form: {
-        id: form.get('id'),
-        title: form.get('title')
-      },
-      response: {
-        id: response.get('id')
-      }
+      form_id: form.get('id'),
+      response_id: response.get('id')
     }
   })
 

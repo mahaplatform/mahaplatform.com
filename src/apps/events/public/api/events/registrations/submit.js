@@ -128,17 +128,12 @@ const submitRoute = async (req, res) => {
 
   await contactActivity(req, {
     contact,
-    type: 'event',
+    type: 'registration',
     story: 'registered for an event',
     program_id: event.get('program_id'),
     data: {
-      event: {
-        id: event.get('id'),
-        title: event.get('title')
-      },
-      registration: {
-        id: registration.get('id')
-      }
+      event_id: event.get('id'),
+      registration_id: registration.get('id')
     }
   })
 
