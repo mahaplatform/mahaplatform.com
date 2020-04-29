@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
+import qs from 'qs'
 
 class Performance extends React.Component {
 
@@ -75,13 +76,13 @@ class Performance extends React.Component {
                   <div className="crm-report-metric">
                     <div className="crm-report-metric-title">Opens</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(opened, 'was_opened') }
+                      { this._getButton(opened, { was_opened: { $eq: true } }) }
                     </div>
                   </div>
                   <div className="crm-report-metric">
                     <div className="crm-report-metric-title">Clicks</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(clicked, 'was_clicked') }
+                      { this._getButton(clicked, { was_clicked: { $eq: true } }) }
                     </div>
                   </div>
                   <div className="crm-report-metric">
@@ -93,7 +94,7 @@ class Performance extends React.Component {
                   <div className="crm-report-metric">
                     <div className="crm-report-metric-title">Unsubscribes</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(unsubscribed, 'was_unsubscribed') }
+                      { this._getButton(unsubscribed, { was_unsubscribed: { $eq: true } }) }
                     </div>
                   </div>
                 </div>
@@ -109,7 +110,13 @@ class Performance extends React.Component {
                       <tr>
                         <td>Delivered</td>
                         <td className="right aligned">
-                          { this._getButton(delivered, 'was_delivered') }
+                          { this._getButton(delivered, { was_delivered: { $eq: true } }) }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Not Opened</td>
+                        <td className="right aligned">
+                          { this._getButton(delivered - opened, [{ was_delivered: { $eq: true } }, { was_opened: { $eq: false } }]) }
                         </td>
                       </tr>
                       <tr>
@@ -157,7 +164,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Complaints</td>
                         <td className="right aligned">
-                          { this._getButton(complained, 'was_complained') }
+                          { this._getButton(complained, { was_complained: { $eq: true } }) }
                         </td>
                       </tr>
                       <tr>
@@ -211,9 +218,9 @@ class Performance extends React.Component {
     return <Button { ...button } />
   }
 
-  _getButton(value, report) {
+  _getButton(value, $filter) {
     const { email } = this.props
-    const query = report ? `?$filter[${report}][$eq]=true` : ''
+    const query = $filter ? `?${qs.stringify({ $filter }, { encode: false })}` : ''
     const button = {
       label: value,
       className: 'link',
