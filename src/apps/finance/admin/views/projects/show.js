@@ -6,9 +6,9 @@ import React from 'react'
 import Edit from './edit'
 import _ from 'lodash'
 
-const getTabs = ({ app, memberships, project }, { rights, user }) => ({
+const getTabs = ({ audits, app, memberships, project }, { rights, user }) => ({
   items: [
-    { label: 'Details', component: <Details project={ project } integration={ app.settings.integration } /> },
+    { label: 'Details', component: <Details project={ project } audits={ audits } integration={ app.settings.integration } /> },
     { label: 'Members', component: <Members project={ project } memberships={ memberships } rights={ rights } user={ user } /> }
   ]
 })
@@ -54,6 +54,7 @@ const getTasks = ({ app, memberships, project }, { rights, user }, context) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/finance_projects/${props.params.id}/audits`,
   app: '/api/admin/apps/finance/settings',
   project: `/api/admin/finance/projects/${props.params.id}`,
   memberships: `/api/admin/finance/projects/${props.params.id}/memberships`

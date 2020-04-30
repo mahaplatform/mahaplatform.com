@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import VendorSerializer from '../../../serializers/vendor_serializer'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Vendor from '../../../models/vendor'
 
@@ -26,6 +27,11 @@ const updateRoute = async (req, res) => {
   await activity(req, {
     story: 'updated {object}',
     object: vendor
+  })
+
+  await audit(req, {
+    story: 'updated',
+    auditable: vendor
   })
 
   await socket.refresh(req, [

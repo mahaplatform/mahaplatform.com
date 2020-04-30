@@ -31,6 +31,7 @@ import RevenueReport from './reports/revenue'
 import TaxList from './items/tax'
 import TripShow from './trips/show'
 import VendorList from './vendors/list'
+import VendorShow from './vendors/show'
 
 const routes = [
   { path: '/accounts', component: AccountList },
@@ -65,7 +66,8 @@ const routes = [
   { path: '/revenue_types', component: RevenueTypeList },
   { path: '/reports/revenue', component: RevenueReport },
   { path: '/trips/:id', component: TripShow },
-  { path: '/vendors', component: VendorList }
+  { path: '/vendors', component: VendorList },
+  { path: '/vendors/:id', component: VendorShow }
 ]
 
 export default routes

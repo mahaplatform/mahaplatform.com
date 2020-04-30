@@ -11,6 +11,18 @@ const Sender = new Model({
 
   virtuals: {
 
+    object_text: function() {
+      return this.get('email')
+    },
+
+    object_type: function() {
+      return 'sender'
+    },
+
+    object_url: function() {
+      return `/admin/crm/programs/${this.get('program_id')}/senders/${this.get('id')}`
+    },
+
     rfc822: function() {
       return `${this.get('name')} <${this.get('email')}>`
     }

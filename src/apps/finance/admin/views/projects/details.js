@@ -1,9 +1,9 @@
 import CompactProjectToken from '../../tokens/project/compact'
-import { Audit, List } from 'maha-admin'
+import { Audit, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ project, integration }) => {
+const Details = ({ audits, project, integration }) => {
 
   const list = {
     title: 'Project Details',
@@ -25,21 +25,17 @@ const Details = ({ project, integration }) => {
   }
 
   list.items = list.items.concat([
-    { component: <Audit entries={ project.audit } /> }
+    { component: <Audit entries={ audits } /> }
   ])
 
-  if(!project.is_active) {
-    list.alert = {
-      color: 'red',
-      message: 'This project has been disabled'
-    }
-  }
+  list.footer = <Comments entity={`finance_projects/${project.id}`} active={ project.is_active } />
 
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   integration: PropTypes.string,
   project: PropTypes.object
 }

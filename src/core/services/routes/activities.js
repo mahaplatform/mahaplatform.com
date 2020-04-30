@@ -14,7 +14,9 @@ export const activity = async (req, activity) => {
     object_text: _getObjectProperty(activity, 'object_text'),
     object_type: _getObjectProperty(activity, 'object_type'),
     object_id: _getObjectProperty(activity, 'object_id', 'id'),
-    url: _getObjectProperty(activity, 'object_url')
+    url: _getObjectProperty(activity, 'object_url'),
+    ...activity.created_at ? { created_at: activity.created_at } : {},
+    ...activity.updated_at ? { updated_at: activity.updated_at } : {}
   }).save(null, {
     transacting: req.trx
   })

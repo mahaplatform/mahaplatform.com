@@ -29,11 +29,6 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await activity(req, {
-    story: 'updated {object}',
-    object: _import
-  })
-
   await socket.refresh(req, [
     `/admin/imports/${_import.get('id')}`
   ])

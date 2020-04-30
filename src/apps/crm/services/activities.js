@@ -4,7 +4,8 @@ import Activity from '../models/activity'
 
 export const contactActivity = async (req, params) => {
 
-  const { foreign_key, team_id, user, contact, program_id, type, story, object, data } = params
+  const { foreign_key, team_id, user, contact, program_id, type } = params
+  const { story, object, data, created_at, updated_at } = params
 
   const activity = await Activity.forge({
     team_id: team_id || req.team.get('id'),
@@ -14,7 +15,9 @@ export const contactActivity = async (req, params) => {
     program_id,
     story_id: await _findOrCreateStoryId(req, story),
     ...object && foreign_key ? { [foreign_key]: object.get('id') } : {},
-    ...data ? { data } : {}
+    ...data ? { data } : {},
+    ...created_at ? { created_at } : {},
+    ...updated_at ? { updated_at } : {}
   }).save(null, {
     transacting: req.trx
   })

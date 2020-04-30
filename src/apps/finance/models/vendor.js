@@ -10,7 +10,21 @@ const Vendor = new Model({
     name: ['required', 'unique']
   },
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return this.get('name')
+    },
+
+    object_type: function() {
+      return 'vendor'
+    },
+
+    object_url: function() {
+      return `/admin/finance/vendors/${this.get('id')}`
+    }
+
+  },
 
   advances() {
     return this.hasMany(Advance, 'vendor_id')

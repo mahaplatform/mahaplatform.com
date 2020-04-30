@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 export const audit = async (req, entries) => {
 
-  await Promise.map(_.castArray(entries), async entry => {
+  return await Promise.map(_.castArray(entries), async entry => {
 
     const auditable = await _getAuditable(entry)
 
@@ -12,11 +12,13 @@ export const audit = async (req, entries) => {
 
     const subject = _getSubject(req, entry)
 
-    await Audit.forge({
+    return await Audit.forge({
       ...subject,
       auditable_type: auditable.type,
       auditable_id: auditable.id,
-      story_id
+      story_id,
+      ...entry.created_at ? { created_at: entry.created_at } : {},
+      ...entry.updated_at ? { updated_at: entry.updated_at } : {}
     }).save(null, {
       transacting: req.trx
     })
