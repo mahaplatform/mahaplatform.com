@@ -5,12 +5,12 @@
 - name: copy deploy
   copy:
     src: ../files/deploy
-    dest: /home/centos/.ssh/deploy
+    dest: /root/.ssh/deploy
 
 - name: copy config
   copy:
     src: ../files/config
-    dest: /home/centos/.ssh/config
+    dest: /root/.ssh/config
 
 - name: create releases directory
   file:
