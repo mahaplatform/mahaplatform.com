@@ -41,6 +41,12 @@ const processor = async () => {
     return _.intersection(['appserver','worker','cron','database','cache'], instance.roles).length > 0
   })
 
+  const controller = servers.findIndex(server => server.roles[0] === 'appserver')
+  servers[controller].roles.push('controller')
+
+  const cron = servers.findIndex(server => server.roles[0] === 'worker')
+  servers[cron].roles.push('cron')
+
   shipit.initConfig({
     default: {
       asUser: 'root',
