@@ -3,7 +3,7 @@ import CheckboxesField from '../../components/checkboxesfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Interests extends React.Component {
+class Lists extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -82,4 +82,4 @@ class Interests extends React.Component {
 
 }
 
-export default Interests
+export default Lists

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Image } from 'maha-admin'
 import React from 'react'
 
-const Interests = ({ contact, interests }) => (
+const Topics = ({ contact, interests }) => (
   <div className="crm-contact-interests">
     <table className="ui unstackable compact table">
       <tbody>
@@ -35,9 +35,9 @@ const Interests = ({ contact, interests }) => (
   </div>
 )
 
-Interests.propTypes = {
+Topics.propTypes = {
   contact: PropTypes.object,
   interests: PropTypes.array
 }
 
-export default Interests
+export default Topics

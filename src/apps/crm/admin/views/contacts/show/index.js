@@ -1,11 +1,11 @@
 import Timeline from '../../../components/timeline'
 import Subscriptions from './subscriptions'
 import Properties from './properties'
-import Interests from './interests'
 import { Page } from 'maha-admin'
 import Channels from './channels'
 import Details from './details'
 import Header from './header'
+import Topics from './topics'
 import Edit from '../edit'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const getTabs = (user, { channels, contact, fields, interests, subscriptions }) 
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
     { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
-    { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> },
+    { label: 'Topics', component: <Topics contact={ contact } interests={ interests } /> },
     { label: 'Lists', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> },
     { label: 'Properties', component: <Properties contact={ contact } fields={ fields } /> }
   ]

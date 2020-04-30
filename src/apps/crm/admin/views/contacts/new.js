@@ -55,7 +55,7 @@ class New extends React.Component {
             }
           ]
         }, {
-          label: 'Interests',
+          label: 'Topics',
           sections: [
             {
               fields: [

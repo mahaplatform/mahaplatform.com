@@ -56,7 +56,7 @@ class Edit extends React.Component {
             }
           ]
         }, {
-          label: 'Interests',
+          label: 'Topics',
           sections: [
             {
               fields: [
