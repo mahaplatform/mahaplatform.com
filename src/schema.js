@@ -263,10 +263,9 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('contact_id').unsigned()
-      table.string('subject', 255)
-      table.text('html')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('crm_contact_notes', (table) => {

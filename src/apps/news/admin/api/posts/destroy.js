@@ -1,3 +1,4 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
 import Post from '../../../models/post'
 import moment from 'moment'
@@ -21,6 +22,11 @@ const destroyRoute = async (req, res) => {
     deleted_at: moment()
   }, {
     transacting: req.trx
+  })
+
+  await activity(req, {
+    story: 'deleted {object}',
+    object: post
   })
 
   await socket.refresh(req, [

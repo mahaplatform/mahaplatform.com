@@ -1,3 +1,4 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import PostSerializer from '../../../serializers/post_serializer'
 import socket from '../../../../../core/services/routes/emitter'
@@ -34,6 +35,11 @@ const createRoute = async (req, res) => {
     })
 
   }
+
+  await activity(req, {
+    story: 'created {object}',
+    object: post
+  })
 
   await socket.refresh(req, [
     '/admin/news/posts'

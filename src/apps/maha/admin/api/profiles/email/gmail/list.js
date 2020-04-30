@@ -17,6 +17,38 @@ const getValue = (name, value) => {
   return parseEmail(value)
 }
 
+const getBodyParts = (message) => {
+
+  const parts = message.data.payload.parts || [message.data.payload]
+
+  const bodyPart = parts.find(part => {
+    return part.mimeType === 'multipart/alternative'
+  })
+
+  return bodyPart ? bodyPart.parts : parts
+
+}
+
+const getAttachments = (message) => {
+  if(!message.data.payload.parts) return []
+  return message.data.payload.parts.filter(part => {
+    return part.filename.length > 0
+  }).map(part => ({
+    filename: part.filename,
+    body: part.body.attachmentId
+  }))
+}
+
+const getPart = (bodyParts, mimeType) => {
+
+  const part = bodyParts.find(part => {
+    return part.mimeType === mimeType
+  })
+
+  return part ? Buffer.from(part.body.data, 'base64').toString() : null
+
+}
+
 const list = (type) => async (req, profile) => {
 
   const client = await getClient(req, profile, 'gmail')
@@ -35,11 +67,12 @@ const list = (type) => async (req, profile) => {
     maxResults: 100
   })
 
+  const messages = result.data.messages || []
 
-  const records = await Promise.map(result.data.messages, async entry => {
+  const records = await Promise.map(messages, async (entry) => {
 
     const message = await client.users.messages.get({
-      format: 'metadata',
+      format: 'full',
       userId: 'me',
       id: entry.id
     })
@@ -53,9 +86,14 @@ const list = (type) => async (req, profile) => {
       }
     }, {})
 
+    const bodyParts = getBodyParts(message)
+
     return {
       id: entry.id,
-      ...details
+      ...details,
+      html: getPart(bodyParts, 'text/html'),
+      text: getPart(bodyParts, 'text/plain'),
+      attachments: getAttachments(message)
     }
 
   })

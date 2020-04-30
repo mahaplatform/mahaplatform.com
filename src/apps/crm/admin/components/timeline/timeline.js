@@ -1,6 +1,7 @@
 import Note from '../../views/contacts/notes/new'
 import Call from '../../views/contacts/calls/new'
 import { Button, Loader } from 'maha-admin'
+import EmailImport from '../emailimport'
 import PropTypes from 'prop-types'
 import Activity from './activity'
 import moment from 'moment'
@@ -80,7 +81,7 @@ class Timeline extends React.PureComponent {
     return {
       label: 'Import Email',
       className: 'ui button',
-      modal: <Note contact={ contact } />
+      modal: <EmailImport contact={ contact } />
     }
   }
 

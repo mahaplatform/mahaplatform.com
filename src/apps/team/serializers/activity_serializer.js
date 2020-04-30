@@ -50,7 +50,7 @@ const userData = (result) => ({
 })
 
 const objectData = (result) => {
-  if(!result.get('object_text')) return null
+//  if(!result.get('object_text')) return null
   return {
     id: result.get('object_id'),
     owner_id: result.get('object_owner_id'),
@@ -67,7 +67,9 @@ const subjectText = (subject, user) => {
 const articleText = (subject, object, user) => {
   if(!object) return ''
   const type = object.type ? ` ${object.type}` : ''
-  if(object.owner_id === null) {
+  if(!object.text) {
+    return `a${type} `
+  } else if(object.owner_id === null) {
     return `the${type} `
   } else if(object.owner_id === user.id) {
     return `your${type} `
@@ -84,6 +86,8 @@ const objectText = (subject, object, user) => {
     return 'yourself'
   } else if(object.type === 'user' && object.id === subject.id) {
     return 'themself'
+  } else if(!object.text) {
+    return ''
   }
   return object.text
 }

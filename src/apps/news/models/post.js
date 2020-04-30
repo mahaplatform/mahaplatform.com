@@ -11,7 +11,17 @@ const Post = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_type: function() {
+      return 'post'
+    },
+
+    object_url: function() {
+      return `/admin/news/posts/${this.get('id')}`
+    }
+
+  },
 
   attachments() {
     return this.morphMany(Attachment, 'attachable')

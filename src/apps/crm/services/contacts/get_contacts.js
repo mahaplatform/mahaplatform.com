@@ -49,6 +49,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         column: 'crm_interests.topic_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
+      event_id: {
+        column: 'events_registrations.event_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
       form_id: {
         column: 'crm_responses.form_id',
         leftJoin: [['contact_id','crm_contacts.id']]

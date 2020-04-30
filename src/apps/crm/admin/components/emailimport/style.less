@@ -1,0 +1,163 @@
+.emailimport {
+  display: flex;
+  flex: 1;
+}
+.emailimport-sources {
+  flex: 1;
+  .scrollable()
+}
+.emailimport-source {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.emailimport-source-service {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    border-radius: 0.3em;
+    overflow: hidden;
+    width: 1.6em;
+    height: 1.6em;
+    display: block;
+  }
+  .fa-plus-circle {
+    font-size: 1.85em;
+    color: @red;
+  }
+}
+.emailimport-source-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.emailimport-source-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+.emailimport-sources {
+  flex: 1;
+  .scrollable()
+}
+.emailimport-source {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.emailimport-source-service {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    border-radius: 0.3em;
+    overflow: hidden;
+    width: 1.6em;
+    height: 1.6em;
+    display: block;
+  }
+  .fa-plus-circle {
+    font-size: 1.85em;
+    color: @red;
+  }
+}
+.emailimport-source-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.emailimport-source-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+
+.emailimport-emails {
+  flex: 1;
+  .scrollable()
+}
+.emailimport-email {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &.selected {
+    background-color: fadeout(@yellow, 90) !important;
+  }
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.emailimport-email-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: 0.8em auto;
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.emailimport-email-details {
+  display: flex;
+  flex: 1;
+}
+.emailimport-email-token {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.emailimport-email-token-header {
+  display: flex;
+}
+.emailimport-email-token-header-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: 0.8em auto;
+    color: fadeout(@black, 80);
+  }
+}
+.emailimport-email-token-header-details {
+  padding: 0.8em;
+}
+.emailimport-email-token-timestamp {
+  color: fadeout(@black, 60);
+  font-size: 0.8em;
+}
+.emailimport-email-token-body {
+  display: flex;
+  flex: 1;
+  padding: 0 0.8em 0.8em;
+}
+.emailimport-email-token-preview {
+  border: 1px solid fadeout(@black, 90);
+  flex-direction: column;
+  display: flex;
+  color: fadeout(@black, 40);
+  line-height: 1.8em;
+  font-size: 0.9em;
+}
+.emailimport-email-token-preview-header {
+  background-color: lighten(@black, 90);
+  padding: 0.8em;
+}
+.emailimport-email-token-preview-body {
+  flex: 1;
+  background-color: @white;
+  padding: 0.8em;
+}
+.emailimport-email-token-preview-attachments {
+  margin-top: 0.8em;
+}

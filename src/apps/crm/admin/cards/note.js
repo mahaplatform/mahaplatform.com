@@ -14,7 +14,7 @@ class Note extends React.PureComponent {
 
   render() {
     const { activity } = this.props
-    const { data, program } = activity
+    const { data } = activity
     const { text } = data
     return (
       <div className="crm-timeline-item-card-note">

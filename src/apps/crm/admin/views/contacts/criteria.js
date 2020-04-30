@@ -33,6 +33,10 @@ const criteria = [
     ] }
   ] },
   { label: 'Activities', fields: [
+    { name: 'Event', key: 'event_id', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+      { value: '$act', text: 'registered for' },
+      { value: '$nact', text: 'did not register for' }
+    ] },
     { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$act', text: 'filled out' },
       { value: '$nact', text: 'did not fill out' }
