@@ -6,13 +6,18 @@
   yum:
     name: rh-python36
 
+- name: add to bashrc
+  lineinfile:
+    path: /root/.bashrc
+    line: 'source /opt/rh/rh-python36/enable'
+    insertbefore: EOF
+
+- name: install python-pip
+  yum:
+    pkg: python-pip
+    state: latest
+
 - name: install psycopg2-binary
   pip:
     name: psycopg2-binary
     state: present
-
-- name: add to bashrc
-  lineinfile:
-    path: /home/centos/.bashrc
-    line: 'source /opt/rh/rh-python36/enable'
-    insertbefore: EOF

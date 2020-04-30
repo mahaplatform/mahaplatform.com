@@ -1,8 +1,3 @@
-- name: install python-pip
-  yum:
-    pkg: python-pip
-    state: latest
-
 - name: install awscli
   pip:
     name: awscli
@@ -10,24 +5,24 @@
 
 - name: create .aws directory
   file:
-    path: /home/centos/.aws
+    path: /root/.aws
     state: directory
-    owner: centos
-    group: centos
+    owner: root
+    group: root
     mode: 0755
 
 - name: create config
   template:
     src: ../files/config
-    dest: /home/centos/.aws/config
-    owner: centos
-    group: centos
+    dest: /root/.aws/config
+    owner: root
+    group: root
     mode: 0600
 
 - name: create credentials
   template:
     src: ../files/credentials
-    dest: /home/centos/.aws/credentials
-    owner: centos
-    group: centos
+    dest: /root/.aws/credentials
+    owner: root
+    group: root
     mode: 0600

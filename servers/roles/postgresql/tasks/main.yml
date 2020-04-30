@@ -34,9 +34,9 @@
 - name: write .pgpass
   template:
     src: ../files/.pgpass
-    dest: /home/centos/.pgpass
-    owner: centos
-    group: centos
+    dest: /root/.pgpass
+    owner: root
+    group: root
     mode: 0600
 
 - name: Create database
@@ -61,14 +61,14 @@
   template:
     src: ../files/backup.daily.sh
     dest: /etc/cron.daily/backup.sh
-    owner: centos
-    group: centos
+    owner: root
+    group: root
     mode: 0755
 
 - name: create backup.hourly.sh
   template:
     src: ../files/backup.hourly.sh
     dest: /etc/cron.hourly/backup.sh
-    owner: centos
-    group: centos
+    owner: root
+    group: root
     mode: 0755
