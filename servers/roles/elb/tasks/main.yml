@@ -1,9 +1,9 @@
 - name: add appserver to elb target group
   elb_target:
-    aws_access_key: "{{ec2_access_key}}"
-    aws_secret_key: "{{ec2_secret_key}}"
+    aws_access_key: "{{aws_access_key}}"
+    aws_secret_key: "{{aws_secret_key}}"
     target_group_name: appservers
     target_id: "{{ item.id }}"
-    region: "{{ region }}"
+    region: "{{ aws_region }}"
     state: present
   with_items: "{{ hostvars['localhost']['ec2'].instances }}"

@@ -4,31 +4,71 @@
 
 - name: install postgresql
   yum:
-    name: postgresql121 postgresql121-server
+    name: postgresql12,postgresql12-server,postgis25_11
 
 - name: initdb
   shell:
-    cmd: bash -lc "service postgresql-12.1 initdb"
+    cmd: bash -lc "/usr/pgsql-12/bin/postgresql-12-setup initdb"
     creates: /var/lib/pgsql/12.1/data/postgresql.conf
+
+- name: copy pg_hba.conf
+  copy:
+    src: ../files/pg_hba.conf
+    dest: /var/lib/pgsql/12/data/pg_hba.conf
+
+- name: copy postgresql.conf
+  copy:
+    src: ../files/postgresql.conf
+    dest: /var/lib/pgsql/12/data/postgresql.conf
 
 - name: enable postgresql
   systemd:
-    name: postgresql-12.1
+    name: postgresql-12
     enabled: yes
 
 - name: start postgresql
   systemd:
-    name: postgresql-12.1
+    name: postgresql-12
     state: started
 
-- name: copy backup.daily.sh
-  copy:
+- name: write .pgpass
+  template:
+    src: ../files/.pgpass
+    dest: /home/centos/.pgpass
+    owner: centos
+    group: centos
+    mode: 0600
+
+- name: Create database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ db_name }}"
+    encoding: UTF-8
+    lc_collate: en_US.UTF-8
+    lc_ctype: en_US.UTF-8
+
+- name: Create user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    priv: "ALL"
+
+- name: create backup.daily.sh
+  template:
     src: ../files/backup.daily.sh
     dest: /etc/cron.daily/backup.sh
+    owner: centos
+    group: centos
     mode: 0755
 
-- name: copy backup.hourly.sh
-  copy:
+- name: create backup.hourly.sh
+  template:
     src: ../files/backup.hourly.sh
     dest: /etc/cron.hourly/backup.sh
+    owner: centos
+    group: centos
     mode: 0755

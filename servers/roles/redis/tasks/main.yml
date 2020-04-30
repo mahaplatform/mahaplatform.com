@@ -6,24 +6,24 @@
 
 - name: build redis dependencies
   shell:
-    cmd: 'make hiredis jemalloc linenoise lua geohash-int'
+    cmd: 'bash -lc "make hiredis jemalloc linenoise lua geohash-int"'
   args:
     chdir: /home/centos/redis-4.0.0/deps
 
 - name: build redis
   shell:
-    cmd: 'make && make install'
+    cmd: 'bash -lc "make && make install"'
   args:
     chdir: /home/centos/redis-4.0.0
 
 - name: copy redis-setup.sh
   copy:
     src: ../files/redis-setup.sh
-    dest: /home/centos/redis-4.0.0/utils
+    dest: /home/centos/redis-4.0.0/utils/redis-setup.sh
     mode: 0755
 
 - name: run redis setup
   shell:
-    cmd: './redis-setup.sh'
+    cmd: 'bash -lc "./redis-setup.sh"'
   args:
     chdir: /home/centos/redis-4.0.0/utils

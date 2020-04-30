@@ -8,6 +8,12 @@
     name: "*"
     state: latest
 
+- name: install epel-release
+  yum:
+    name:
+    - epel-release
+    state: present
+
 - name: install wget
   yum:
     name: wget

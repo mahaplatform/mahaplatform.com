@@ -1,0 +1,18 @@
+- name: install centos-release-scl
+  yum:
+    name: centos-release-scl
+
+- name: install rh-python36
+  yum:
+    name: rh-python36
+
+- name: install psycopg2-binary
+  pip:
+    name: psycopg2-binary
+    state: present
+
+- name: add to bashrc
+  lineinfile:
+    path: /home/centos/.bashrc
+    line: 'source /opt/rh/rh-python36/enable'
+    insertbefore: EOF
