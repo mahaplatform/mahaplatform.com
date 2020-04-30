@@ -6,11 +6,17 @@
   copy:
     src: ../files/deploy
     dest: /root/.ssh/deploy
+    owner: root
+    group: root
+    mode: 0600
 
 - name: copy config
   copy:
     src: ../files/config
     dest: /root/.ssh/config
+    owner: root
+    group: root
+    mode: 0600
 
 - name: create releases directory
   file:
