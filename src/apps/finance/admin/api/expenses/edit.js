@@ -30,7 +30,7 @@ const editRoute = async (req, res) => {
     total: expense.get('total'),
     tax_total: expense.get('tax_total'),
     allocations: expense.related('allocations').map(allocation => {
-      const is_owner_can_edit = allocation.get('owner_id') === req.user.get('id') && _.includes(['incomplete','pending','rejected'], allocation.get('status'))
+      const is_owner_can_edit = allocation.get('user_id') === req.user.get('id') && _.includes(['incomplete','pending','rejected'], allocation.get('status'))
       const is_approver_can_edit = _.includes(allocation.get('approver_ids'), req.user.get('id')) && _.includes(['incomplete','pending','submitted','approved','rejected'], allocation.get('status'))
       return {
         id: allocation.get('id'),

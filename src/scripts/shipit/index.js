@@ -105,6 +105,7 @@ const processor = async () => {
     'sync:backup',
     'sync:download',
     'sync:restore',
+    'sync:teams',
     'sync:passwords',
     'sync:merchants'
   ])
@@ -261,6 +262,11 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'sync:restore', () => {
     return shipit.local('dropdb maha && createdb maha && gunzip < tmp/backup.sql.gz | psql maha')
+  })
+
+  utils.registerTask(shipit, 'sync:teams', () => {
+    var sql = 'UPDATE maha_teams SET authentication_strategy=\'local\''
+    return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:passwords', () => {
