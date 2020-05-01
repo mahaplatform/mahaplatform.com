@@ -15,11 +15,13 @@
   copy:
     src: ../files/pg_hba.conf
     dest: /var/lib/pgsql/12/data/pg_hba.conf
+    backup: yes
 
 - name: copy postgresql.conf
   copy:
     src: ../files/postgresql.conf
     dest: /var/lib/pgsql/12/data/postgresql.conf
+    backup: yes
 
 - name: enable postgresql
   systemd:

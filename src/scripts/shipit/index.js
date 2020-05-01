@@ -38,7 +38,7 @@ const processor = async () => {
       roles: (tags.Role || '').split(',')
     }
   }).filter(instance => {
-    return _.intersection(['appserver','worker','cron','database','cache'], instance.roles).length > 0
+    return _.intersection(['appserver','worker','cron','dbserver'], instance.roles).length > 0
   })
 
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
@@ -244,19 +244,19 @@ const processor = async () => {
   utils.registerTask(shipit, 'sync:stage', () => {
     const commands = 'pg_dump -h localhost -U maha maha | psql -U maha staging'
     return shipit.remote(commands.join(' && '), {
-      roles: 'database'
+      roles: 'dbserver'
     })
   })
 
   utils.registerTask(shipit, 'sync:backup', () => {
     return shipit.remote('pg_dump -h localhost -U maha maha | gzip > backup.sql.gz', {
-      roles: 'database'
+      roles: 'dbserver'
     })
   })
 
   utils.registerTask(shipit, 'sync:download', () => {
     return shipit.copyFromRemote('backup.sql.gz', path.join('tmp','backup.sql.gz'), {
-      roles: 'database'
+      roles: 'dbserver'
     })
   })
 

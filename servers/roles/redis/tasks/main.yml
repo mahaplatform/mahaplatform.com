@@ -27,3 +27,9 @@
     cmd: './redis-setup.sh'
   args:
     chdir: /root/redis-4.0.0/utils
+
+- name: copy redis.conf
+  copy:
+    src: ../files/redis.conf
+    dest: /etc/redis/redis.conf
+    backup: yes
