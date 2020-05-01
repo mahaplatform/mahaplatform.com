@@ -4,7 +4,7 @@
 
 - name: install postgresql
   yum:
-    name: postgresql12,postgresql12-server,postgis25_11
+    name: postgresql12,postgresql12-server,postgis25_12
 
 - name: initdb
   shell:
@@ -56,6 +56,13 @@
     name: "{{ db_user }}"
     password: "{{ db_pass }}"
     priv: "ALL"
+
+- name: install postgis extension
+  become: true
+  become_user: postgres
+  postgresql_ext:
+    name: postgis
+    db: "{{ db_name }}"
 
 - name: create backup.daily.sh
   template:
