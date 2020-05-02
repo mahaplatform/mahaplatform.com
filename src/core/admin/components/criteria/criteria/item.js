@@ -16,7 +16,9 @@ const comparisons = {
   $in: 'is',
   $nin: 'is not',
   $ck: 'is checked',
-  $nck: 'is not checked'
+  $nck: 'is not checked',
+  $ply: 'is inside polygon',
+  $nply: 'is not inside polygon'
 }
 
 class Item extends React.Component {
@@ -109,6 +111,7 @@ class Item extends React.Component {
 
   _getValue(item) {
     if(item.data) {
+      if(item.data.text) return item.data.text
       const items = _.castArray(item.data).map(record => `<strong>${record.text}</strong>`)
       return items.length > 1 ? `either ${this._getOxford(items)}` : items[0]
     }

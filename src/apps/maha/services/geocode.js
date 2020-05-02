@@ -35,8 +35,8 @@ const geocode = async (address) => {
   const result = response.results[0]
   const street_number = getType(result, 'street_number')
   const route = getType(result, 'route')
-  if(!street_number || !route) return null
   return {
+    ...address,
     description: result.formatted_address,
     street_1: `${street_number} ${route}`,
     city: getType(result, 'locality'),

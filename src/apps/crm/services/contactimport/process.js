@@ -1,4 +1,4 @@
-import ContactImportGeocodeQueue from '../../queues/contactimport_geocode_queue'
+import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
 import ContactImportPhotoQueue from '../../queues/contactimport_photo_queue'
 import ImportSerializer from '../../../maha/serializers/import_serializer'
 import { updateMailingAddresses } from '../../services/mailing_addresses'
@@ -276,7 +276,6 @@ const processContactImport = async (req, { import_id }) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
-  const addresses = []
   const photos = []
 
   await Promise.mapSeries(items, async (item, index) => {
@@ -333,14 +332,9 @@ const processContactImport = async (req, { import_id }) => {
 
       mailing_addresses = await getMailingAddresses(contact, values)
       if(mailing_addresses.length > 0) {
-        const addresses = await updateMailingAddresses(req, {
+        await updateMailingAddresses(req, {
           contact,
           mailing_addresses
-        })
-        await Promise.map(addresses, async (address) => {
-          addresses.push({
-            id: address.get('id')
-          })
         })
       }
 
@@ -420,10 +414,6 @@ const processContactImport = async (req, { import_id }) => {
   }, {
     transacting: req.trx,
     patch: true
-  })
-
-  await Promise.map(addresses, async(job) => {
-    await ContactImportGeocodeQueue.enqueue(req, job)
   })
 
   await Promise.map(photos, async(job) => {

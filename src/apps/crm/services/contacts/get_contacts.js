@@ -13,6 +13,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
     aliases: {
       email: 'crm_contact_primaries.email',
       phone: 'crm_contact_primaries.phone',
+      address: {
+        column: 'crm_mailing_addresses.address',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
       street_1: {
         column: 'crm_mailing_addresses.address->>\'street_1\'',
         leftJoin: [['contact_id','crm_contacts.id']]
@@ -122,6 +126,18 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         $nact: (table, alias, column, value) => ({
           join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value],
           query: `${alias}.id is null`
+        }),
+        $addt: (table, alias, column, value) => ({
+          join: [
+            `inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
+            `point(${value.origin.split(',').reverse().join(' ')})`, value.distance * 1609.34
+          ]
+        }),
+        $adsh: (table, alias, column, value) => ({
+          join: [
+            `inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
+            `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
+          ]
         })
       },
       params: filter,

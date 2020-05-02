@@ -263,10 +263,9 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('contact_id').unsigned()
-      table.string('subject', 255)
-      table.text('html')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('crm_contact_notes', (table) => {
@@ -2124,6 +2123,14 @@ const schema = {
       table.boolean('has_public_submission')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('spatial_ref_sys', (table) => {
+      table.increments('srid').primary()
+      table.string('auth_name', 256)
+      table.integer('auth_srid')
+      table.string('srtext', 2048)
+      table.string('proj4text', 2048)
     })
 
     await knex.schema.createTable('training_administrations', (table) => {
@@ -4973,6 +4980,68 @@ union
       join finance_invoice_line_items on ((finance_invoice_line_items.invoice_id = finance_payments.invoice_id)))
       join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
       where (finance_payments.voided_date is null);
+    `)
+
+    await knex.raw(`
+      create view geography_columns AS
+      select current_database() as f_table_catalog,
+      n.nspname as f_table_schema,
+      c.relname as f_table_name,
+      a.attname as f_geography_column,
+      postgis_typmod_dims(a.atttypmod) as coord_dimension,
+      postgis_typmod_srid(a.atttypmod) as srid,
+      postgis_typmod_type(a.atttypmod) as type
+      from pg_class c,
+      pg_attribute a,
+      pg_type t,
+      pg_namespace n
+      where ((t.typname = 'geography'::name) and (a.attisdropped = false) and (a.atttypid = t.oid) and (a.attrelid = c.oid) and (c.relnamespace = n.oid) and (c.relkind = any (array['r'::"char", 'v'::"char", 'm'::"char", 'f'::"char", 'p'::"char"])) and (not pg_is_other_temp_schema(c.relnamespace)) and has_table_privilege(c.oid, 'select'::text));
+    `)
+
+    await knex.raw(`
+      create view geometry_columns AS
+      select (current_database())::character varying(256) as f_table_catalog,
+      n.nspname as f_table_schema,
+      c.relname as f_table_name,
+      a.attname as f_geometry_column,
+      coalesce(postgis_typmod_dims(a.atttypmod), sn.ndims, 2) as coord_dimension,
+      coalesce(nullif(postgis_typmod_srid(a.atttypmod), 0), sr.srid, 0) as srid,
+      (replace(replace(coalesce(nullif(upper(postgis_typmod_type(a.atttypmod)), 'geometry'::text), st.type, 'geometry'::text), 'zm'::text, ''::text), 'z'::text, ''::text))::character varying(30) as type
+      from ((((((pg_class c
+      join pg_attribute a on (((a.attrelid = c.oid) and (not a.attisdropped))))
+      join pg_namespace n on ((c.relnamespace = n.oid)))
+      join pg_type t on ((a.atttypid = t.oid)))
+      left join ( select s.connamespace,
+      s.conrelid,
+      s.conkey,
+      replace(split_part(s.consrc, ''''::text, 2), ')'::text, ''::text) as type
+      from ( select pg_constraint.connamespace,
+      pg_constraint.conrelid,
+      pg_constraint.conkey,
+      pg_get_constraintdef(pg_constraint.oid) as consrc
+      from pg_constraint) s
+      where (s.consrc ~~* '%geometrytype(% = %'::text)) st on (((st.connamespace = n.oid) and (st.conrelid = c.oid) and (a.attnum = any (st.conkey)))))
+      left join ( select s.connamespace,
+      s.conrelid,
+      s.conkey,
+      (replace(split_part(s.consrc, ' = '::text, 2), ')'::text, ''::text))::integer as ndims
+      from ( select pg_constraint.connamespace,
+      pg_constraint.conrelid,
+      pg_constraint.conkey,
+      pg_get_constraintdef(pg_constraint.oid) as consrc
+      from pg_constraint) s
+      where (s.consrc ~~* '%ndims(% = %'::text)) sn on (((sn.connamespace = n.oid) and (sn.conrelid = c.oid) and (a.attnum = any (sn.conkey)))))
+      left join ( select s.connamespace,
+      s.conrelid,
+      s.conkey,
+      (replace(replace(split_part(s.consrc, ' = '::text, 2), ')'::text, ''::text), '('::text, ''::text))::integer as srid
+      from ( select pg_constraint.connamespace,
+      pg_constraint.conrelid,
+      pg_constraint.conkey,
+      pg_get_constraintdef(pg_constraint.oid) as consrc
+      from pg_constraint) s
+      where (s.consrc ~~* '%srid(% = %'::text)) sr on (((sr.connamespace = n.oid) and (sr.conrelid = c.oid) and (a.attnum = any (sr.conkey)))))
+      where ((c.relkind = any (array['r'::"char", 'v'::"char", 'm'::"char", 'f'::"char", 'p'::"char"])) and (not (c.relname = 'raster_columns'::name)) and (t.typname = 'geometry'::name) and (not pg_is_other_temp_schema(c.relnamespace)) and has_table_privilege(c.oid, 'select'::text));
     `)
 
     await knex.raw(`

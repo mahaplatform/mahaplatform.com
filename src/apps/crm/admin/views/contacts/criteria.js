@@ -1,5 +1,6 @@
 import ImportToken from '../../../../maha/admin/tokens/import'
 import ListCriteria from '../../components/listcriteria'
+import AddressCriteria from '../../components/addresscriteria'
 
 const criteria = [
   { label: 'Contact', fields: [
@@ -7,12 +8,15 @@ const criteria = [
     { name: 'Last Name', key: 'last_name', type: 'text' },
     { name: 'Email', key: 'email', type: 'text' },
     { name: 'Phone', key: 'phone', type: 'text' },
-    { name: 'Street', key: 'street_1', type: 'text' },
-    { name: 'City', key: 'city', type: 'text' },
-    { name: 'State/Province', key: 'state_province', type: 'text' },
-    { name: 'Postal Code', key: 'postal_code', type: 'text' },
     { name: 'Birthday', key: 'birthday', type: 'text' },
     { name: 'Spouse', key: 'spouse', type: 'text' }
+  ] },
+  { label: 'Address', fields: [
+    { name: 'Location', key: 'address', type: AddressCriteria },
+    { name: 'City', key: 'city', type: AddressCriteria },
+    { name: 'County', key: 'county', type: AddressCriteria },
+    { name: 'State/Province', key: 'state_province', type: AddressCriteria },
+    { name: 'Postal Code', key: 'postal_code', type: AddressCriteria }
   ] },
   { label: 'Classifications', fields: [
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [

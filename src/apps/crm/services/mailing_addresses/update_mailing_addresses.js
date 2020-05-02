@@ -1,7 +1,8 @@
-import generateCode from '../../../core/utils/generate_code'
-import MailingAddress from '../models/mailing_address'
+import { GeocodeMailingAddressQueue } from '../../queues/geocode_mailing_address_queue'
+import generateCode from '../../../../core/utils/generate_code'
+import MailingAddress from '../../models/mailing_address'
 
-export const updateMailingAddresses = async (req, { contact, mailing_addresses, removing }) => {
+const updateMailingAddresses = async (req, { contact, mailing_addresses, removing }) => {
 
   await contact.load(['mailing_addresses'], {
     transacting: req.trx
@@ -41,10 +42,12 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses, 
   }) : []
 
   const added = await Promise.mapSeries(add, async (mailing_address) => {
+
     const code = await generateCode(req, {
       table: 'crm_mailing_addresses'
     })
-    return await MailingAddress.forge({
+
+    const address = await MailingAddress.forge({
       team_id: req.team.get('id'),
       contact_id: contact.get('id'),
       code,
@@ -53,18 +56,34 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses, 
     }).save(null, {
       transacting: req.trx
     })
+
+    if(mailing_address.address.latitude) return
+
+    await GeocodeMailingAddressQueue.enqueue(req, {
+      mailing_address_id: address.id
+    })
+
   })
 
   const updated = await Promise.mapSeries(update, async (mailing_address) => {
+
     const address = contact.related('mailing_addresses').find(item => {
       return item.get('id') === item.id
     })
-    return await address.save({
+
+    await address.save({
       address: mailing_address.address,
       is_primary: mailing_address.is_primary
     }, {
       transacting: req.trx
     })
+
+    if(mailing_address.address.latitude) return
+
+    await GeocodeMailingAddressQueue.enqueue(req, {
+      mailing_address_id: address.id
+    })
+
   })
 
   if(remove.length > 0) {
@@ -81,3 +100,5 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses, 
   ]
 
 }
+
+export default updateMailingAddresses
