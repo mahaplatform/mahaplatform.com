@@ -1,13 +1,14 @@
 import Origin from './models/origin'
 
-const origins = async () => {
+const origins = async (req) => {
 
-  const origins = await Origin.fetchAll()
+  const origins = await Origin.fetchAll({
+    transacting: req.trx
+  })
 
-  return origins.reduce((origins, origin) => [
-    ...origins,
-    origin.get('name')
-  ], [])
+  return origins.map(origin => {
+    return origin.get('name')
+  })
 
 }
 

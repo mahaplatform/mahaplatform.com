@@ -21,8 +21,16 @@ const Team = new Model({
       return this.related('apps').map(app => app.id)
     },
 
+    fqdn: function() {
+      return `${this.get('subdomain')}.${process.env.DOMAIN}`
+    },
+
+    origin: function() {
+      return `https://${this.get('fqdn')}`
+    },
+
     rfc822: function() {
-      return `${this.get('title')} <${this.get('subdomain')}@mahaplatform.com>`
+      return `${this.get('title')} <${this.get('subdomain')}@${this.get('fqdn')}>`
     }
 
   },

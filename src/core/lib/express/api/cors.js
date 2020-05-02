@@ -22,16 +22,14 @@ const corsMiddleware = async (req, res, next) => {
 
     if(!origin) return callback(null, true)
 
-    await Promise.reduce(originFiles, async(whitelist, originFile) => _.uniq([
+    const whitelist = await Promise.reduce(originFiles, async(whitelist, originFile) => _.uniq([
       ...whitelist,
-      ...await originFile.default()
-    ]), [...ips, process.env.WEB_HOST]).then(whitelist => {
+      ...await originFile.default(req)
+    ]), [...ips, process.env.WEB_HOST])
 
-      if(_.includes(whitelist, origin)) return callback(null, true)
+    if(_.includes(whitelist, origin)) return callback(null, true)
 
-      callback(new Error('Invalid origin'))
-
-    })
+    callback(new Error('Invalid origin'))
 
   }
 
