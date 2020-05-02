@@ -19,6 +19,7 @@ import assets from './assets'
 import search from './search'
 import fields from './fields'
 import audits from './audits'
+import states from './states'
 import users from './users'
 import react from './react'
 import links from './links'
@@ -58,6 +59,8 @@ router.use('/sessions', sessions)
 router.use('/session', session)
 
 router.use('/security_questions', security_questions)
+
+router.use('/states', states)
 
 router.use('/sources', sources)
 
