@@ -1,5 +1,6 @@
 {
-  "name": "MAHA",
+  "name": "Maha Platform",
+  "short_name": "Maha",
   "icons": [
     {
       "src": "/admin/images/icons/android-chrome-192x192.png",
@@ -7,13 +8,15 @@
       "type": "image/png"
     },
     {
-      "src": "/admin/images/icons/android-chrome-384x384.png",
-      "sizes": "384x384",
+      "src": "/admin/images/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "gcm_sender_id": "103953800507",
-  "theme_color": "#4d4d4d",
-  "background_color": "#4d4d4d",
-  "display": "standalone"
+  "theme_color": "#333333",
+  "background_color": "#333333",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/admin"
 }

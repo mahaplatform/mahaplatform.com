@@ -12,11 +12,11 @@ const criteria = [
     { name: 'Spouse', key: 'spouse', type: 'text' }
   ] },
   { label: 'Address', fields: [
-    { name: 'Location', key: 'address', type: AddressCriteria },
-    { name: 'City', key: 'city', type: AddressCriteria },
+    { name: 'Address', key: 'address', type: AddressCriteria },
+    { name: 'City', key: 'city', type: 'text' },
     { name: 'County', key: 'county', type: AddressCriteria },
-    { name: 'State/Province', key: 'state_province', type: AddressCriteria },
-    { name: 'Postal Code', key: 'postal_code', type: AddressCriteria }
+    { name: 'State/Province', key: 'state_province', type: 'select', endpoint: '/api/admin/states', multiple: true, text: 'full_name', value: 'short_name' },
+    { name: 'Postal Code', key: 'postal_code', type: 'text' }
   ] },
   { label: 'Classifications', fields: [
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [

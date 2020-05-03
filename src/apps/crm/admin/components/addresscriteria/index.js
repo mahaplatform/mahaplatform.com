@@ -82,7 +82,9 @@ class AddressCriteria extends React.Component {
       { value: '$adsh', text: 'is inside polygon' },
       { value: '$nadsh', text: 'is not inside polygon' },
       { value: '$addt', text: 'is within distance of' },
-      { value: '$naddt', text: 'is not within distance of' }
+      { value: '$naddt', text: 'is not within distance of' },
+      { value: '$kn', text: 'is known' },
+      { value: '$nkn', text: 'is unknown' }
     ]
   }
 
