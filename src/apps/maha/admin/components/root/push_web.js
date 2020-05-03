@@ -10,10 +10,11 @@ const pushBrowser = () => {
     apiKey: process.env.FIREBASE_API_KEY,
     projectId: process.env.FIREBASE_PROJECT_ID,
     messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID
+    appId: process.env.FIREBASE_APP_ID,
+    host: process.env.WEB_HOST
   }
 
-  const serviceWorkerFile = `/admin/notifications.js?${qs.stringify(firebaseConfig)}&host=${window.location.host}`
+  const serviceWorkerFile = `/admin/notifications.js?${qs.stringify(firebaseConfig)}`
 
   firebase.initializeApp(firebaseConfig)
 
