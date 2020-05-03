@@ -101,6 +101,7 @@ const webpackConfig = (warning) => ({
         'FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID),
         'FIREBASE_MESSAGE_SENDER_ID': JSON.stringify(process.env.FIREBASE_MESSAGE_SENDER_ID),
         'FIREBASE_PROJECT_ID': JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+        'FIREBASE_WEB_PUSH_PUBLIC_KEY': JSON.stringify(process.env.FIREBASE_WEB_PUSH_PUBLIC_KEY),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
         'GOOGLEPAY_ENVIRONMENT': JSON.stringify(process.env.GOOGLEPAY_ENVIRONMENT || ''),
@@ -108,7 +109,6 @@ const webpackConfig = (warning) => ({
         'PAYPAL_ENVIRONMENT': JSON.stringify(process.env.PAYPAL_ENVIRONMENT || ''),
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-        'VAPID_PUBLIC_KEY': JSON.stringify(process.env.VAPID_PUBLIC_KEY),
         'WEB_ASSET_CDN_HOST': JSON.stringify(process.env.WEB_ASSET_CDN_HOST),
         'WEB_ASSET_HOST': JSON.stringify(process.env.WEB_ASSET_HOST),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)

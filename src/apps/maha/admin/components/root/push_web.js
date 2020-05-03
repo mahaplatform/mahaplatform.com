@@ -20,7 +20,7 @@ const pushBrowser = () => {
 
   const messaging = firebase.messaging()
 
-  messaging.usePublicVapidKey(process.env.VAPID_PUBLIC_KEY)
+  messaging.usePublicVapidKey(process.env.FIREBASE_WEB_PUSH_PUBLIC_KEY)
 
   return store => next => action => {
 
