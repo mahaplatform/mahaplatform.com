@@ -8,37 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:457997349543:android:406eafe4ab9da77e",
-        "android_client_info": {
-          "package_name": "com.mahaplatform.android"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "457997349543-9vedf8o608hinib2tnf4r2gbnr6uqaec.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAxOYexd6ZJSidErjN2u1hWOCzjON7iza4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:457997349543:android:755d7cfc0d43820c",
         "android_client_info": {
           "package_name": "com.mahaplatform.app"
@@ -56,15 +25,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457997349543-6vamfr7lcdli3g7ups2bubcvg4bnr0ie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457997349543-rea7bon582eub4tbkdtf1b64kvn87gsk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mahaplatform.app"
+              }
+            }
+          ]
         }
       }
     }

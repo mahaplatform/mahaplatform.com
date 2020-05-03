@@ -7,11 +7,13 @@ const pushBrowser = () => {
   if(!firebase.messaging.isSupported()) return store => next => action => next(action)
 
   const firebaseConfig = {
-    apiKey: process.env.FCM_API_KEY,
-    messagingSenderId: process.env.FCM_MESSAGE_SENDER_ID
+    apiKey: process.env.FIREBASE_API_KEY,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID
   }
 
-  const serviceWorkerFile = `/admin/js/notifications.js?${qs.stringify(firebaseConfig)}&host=${window.location.host}`
+  const serviceWorkerFile = `/admin/notifications.js?${qs.stringify(firebaseConfig)}&host=${window.location.host}`
 
   firebase.initializeApp(firebaseConfig)
 

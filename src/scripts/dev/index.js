@@ -133,6 +133,7 @@ const adminWatch = async () => {
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
       if(fs.existsSync(path.join(publicRoot,...parts))) return null
       if(/^\/admin\/(oauth|auth)/.test(req.url)) return null
+      if(/^\/admin\/notifications.js/.test(req.url)) return null
       if(/^\/admin/.test(req.url)) return req.url
     }
   }

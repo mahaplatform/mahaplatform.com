@@ -1,15 +1,31 @@
-importScripts('https://www.gstatic.com/firebasejs/5.5.7/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js')
 
-importScripts('https://www.gstatic.com/firebasejs/5.5.7/firebase-messaging.js')
+importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js')
 
-const [, apiKey, messagingSenderId, host ] = location.search.slice(1).match(/^apiKey=(.*)&messagingSenderId=(\d*)&host=(.*)$/)
+function getParameterByName(key) {
+  var url = location.href
+  var regex = new RegExp('[?&]' + key + '(=([^&#]*)|&|#|$)')
+  var results = regex.exec(url)
+  if (!results) return null
+  if (!results[2]) return ''
+  return decodeURIComponent(results[2].replace(/\+/g, ' '))
+}
 
-firebase.initializeApp({
-  apiKey,
-  messagingSenderId
+const host = getParameterByName('host')
+
+const project_id = getParameterByName('projectId')
+
+self.firebase.initializeApp({
+  apiKey: getParameterByName('apiKey'),
+  authDomain: `${project_id}.firebaseapp.com`,
+  databaseURL: `https://${project_id}.firebaseio.com`,
+  projectId: getParameterByName('projectId'),
+  storageBucket: `${project_id}.appspot.com`,
+  messagingSenderId: getParameterByName('messagingSenderId'),
+  appId: getParameterByName('appId')
 })
 
-const messaging = firebase.messaging()
+const messaging = self.firebase.messaging()
 
 messaging.setBackgroundMessageHandler((notification) => {
 
@@ -28,7 +44,7 @@ self.addEventListener('notificationclick', event => {
 
   event.waitUntil(
 
-    clients.matchAll({
+    self.clients.matchAll({
       includeUncontrolled: true,
       type: 'window'
     }).then(clientList => {
@@ -38,7 +54,7 @@ self.addEventListener('notificationclick', event => {
         return url.host === host && 'focus' in client && 'postMessage' in client
       })
 
-      if(!client) return clients.openWindow(host + pathname)
+      if(!client) return self.clients.openWindow(host + pathname)
 
       client.focus()
 
@@ -52,7 +68,6 @@ self.addEventListener('notificationclick', event => {
           }
         }
       })
-
 
     })
 

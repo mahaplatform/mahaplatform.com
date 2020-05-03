@@ -34,7 +34,8 @@
     "process": true,
     "before": true,
     "after": true,
-    "__webpack_require__": true
+    "__webpack_require__": true,
+    "importScripts": true
    },
   "rules": {
     "strict": 0,

@@ -23,8 +23,8 @@ router.use('/favicon.ico', (req, res) => {
   res.sendFile(path.join(adminRoot,'images','maha.png'))
 })
 
-router.get('/admin/js/notifications.js', (req, res) => {
-  res.sendFile(path.join(adminRoot,'js','notifications.js'))
+router.get('/admin/notifications.js', (req, res) => {
+  res.type('text/javascript').sendFile(path.join(adminRoot,'js','notifications.js'))
 })
 
 router.use('/admin', express.static(adminRoot, { redirect: false }))
