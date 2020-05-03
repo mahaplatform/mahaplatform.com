@@ -73,7 +73,7 @@ export const sendViaFirebase = async (req, { user, session, device, notification
       } : {}
     })
   } catch(err) {
-    if(err.errorInfo.code !== 'messaging/registration-token-not-registered') return
+    if(err.errorInfo && err.errorInfo.code !== 'messaging/registration-token-not-registered') return
     await disablePush(req, {
       session,
       device
