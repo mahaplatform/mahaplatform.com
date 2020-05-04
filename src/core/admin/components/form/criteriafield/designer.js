@@ -29,6 +29,7 @@ class CriteriaFieldDesigner extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    if(!this.state.criteria) return null
     return (
       <ModalPanel { ...this._getPanel() }>
         <Designer { ...this._getDesigner() } />

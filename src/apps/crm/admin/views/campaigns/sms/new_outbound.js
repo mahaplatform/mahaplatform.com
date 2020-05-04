@@ -50,8 +50,8 @@ class New extends React.PureComponent {
               { name: 'strategy', type: 'dropdown', options: [
                 { value: 'contacts', text: 'Specific contacts' },
                 { value: 'list', text: 'Contacts in a list' },
-                { value: 'filter', text: 'Contacts in a filter' },
-                { value: 'criteria', text: 'Contacts in a custom filter' }
+                { value: 'filter', text: 'Contacts in a saved filter' },
+                { value: 'criteria', text: 'Contacts that meet specific criteria' }
               ], value: 'value', text: 'text' },
               ...this._getToField()
             ] }

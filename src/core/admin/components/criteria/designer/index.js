@@ -47,6 +47,7 @@ class Designer extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
+    console.log('designer', defaultValue)
     if(defaultValue) this.setState({
       filter: defaultValue
     })
