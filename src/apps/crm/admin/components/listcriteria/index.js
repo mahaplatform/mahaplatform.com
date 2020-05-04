@@ -115,7 +115,7 @@ class ListCriteria extends React.Component {
   }
 
   _getCheckboxesField() {
-    const { endpoint, filter, multiple, value } = this.props
+    const { endpoint, filter, multiple, text, value } = this.props
     return {
       defaultValue: this.state.value ? _.castArray(this.state.value) : null,
       endpoint,
@@ -123,6 +123,7 @@ class ListCriteria extends React.Component {
       multiple,
       options: this._getOptions(),
       value: !endpoint ? (value || 'value') : null,
+      text,
       onChange: this._handleUpdate
     }
   }

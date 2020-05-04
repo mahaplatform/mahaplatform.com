@@ -37,6 +37,14 @@ const criteria = [
     ] }
   ] },
   { label: 'Activities', fields: [
+    { name: 'Email Campaign', key: 'email_campaign_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$de', text: 'received the email' },
+      { value: '$nde', text: 'did not receive the email' },
+      { value: '$op', text: 'opened the email' },
+      { value: '$nop', text: 'did not open the email' },
+      { value: '$cl', text: 'clicked link in the email' },
+      { value: '$ncl', text: 'did not click link in the email' }
+    ] },
     { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$act', text: 'filled out' },
       { value: '$nact', text: 'did not fill out' }
@@ -45,33 +53,25 @@ const criteria = [
       { value: '$eq', text: 'was included in import' },
       { value: '$neq', text: 'was not included in import' }
     ] },
-    { name: 'Email Delivery', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-      { value: '$de', text: 'received the email' },
-      { value: '$nde', text: 'did not receive the email' }
-    ] },
-    { name: 'Email Open', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-      { value: '$op', text: 'opened the email' },
-      { value: '$nop', text: 'did not open the email' }
-    ] },
-    { name: 'Email Click', key: 'email_campaign_id', type: 'select', endpoint: '/api/admin/crm/campaigns', filter: { type: { $eq: 'email' }, status: { $eq: 'sent' } }, text: 'title', value: 'id', subject: false, comparisons: [
-      { value: '$cl', text: 'clicked link in the email' },
-      { value: '$ncl', text: 'did not click link in the email' }
-    ] },
-    { name: 'Workflow Enrollment', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$act', text: 'enrolled in workflow' },
-      { value: '$n$act', text: 'not enrolled in workflow' }
-    ] },
-    { name: 'Workflow Conversion', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$wcv', text: 'enrolled and coverted in workflow' },
-      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' }
-    ] },
-    { name: 'Workflow Completion', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$wcm', text: 'enrolled and complete workflow' },
-      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
-    ] },
     { name: 'Purchase', key: 'product_id', type: 'select', endpoint: '/api/admin/finance/products', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$pr', text: 'purchased' },
       { value: '$npr', text: 'did not purchase' }
+    ] },
+    { name: 'Workflow', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'display_name', value: 'id', multiple: false, subject: false, comparisons: [
+      { value: '$act', text: 'enrolled in workflow' },
+      { value: '$nact', text: 'not enrolled in workflow' },
+      { value: '$wcv', text: 'enrolled and coverted in workflow' },
+      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
+      { value: '$wcm', text: 'enrolled and complete workflow' },
+      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
+    ] },
+    { name: 'Workflow Email', key: 'email_id', type: ListCriteria, endpoint: '/api/admin/crm/emails', text: 'display_name', value: 'id', subject: false, comparisons: [
+      { value: '$de', text: 'received the email' },
+      { value: '$nde', text: 'did not receive the email' },
+      { value: '$op', text: 'opened the email' },
+      { value: '$nop', text: 'did not open the email' },
+      { value: '$cl', text: 'clicked link in the email' },
+      { value: '$ncl', text: 'did not click link in the email' }
     ] }
   ] }
 ]

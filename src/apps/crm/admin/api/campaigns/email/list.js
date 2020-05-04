@@ -29,7 +29,7 @@ const listRoute = async (req, res) => {
       allowed: ['id','title','program','direction','status','created_at']
     },
     page: req.query.$page,
-    withRelated: ['program'],
+    withRelated: ['program.logo'],
     transacting: req.trx
   })
 

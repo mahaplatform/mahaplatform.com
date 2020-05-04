@@ -14,6 +14,7 @@ class CheckboxesField extends React.PureComponent {
     sections: PropTypes.object,
     selected: PropTypes.array,
     status: PropTypes.string,
+    text: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onFetch: PropTypes.func,
@@ -24,21 +25,22 @@ class CheckboxesField extends React.PureComponent {
 
   static defaultProps = {
     multiple: true,
+    text: 'title',
     onChange: () => {},
     onReady: () => {}
   }
 
   render() {
-    const { sections } = this.props
+    const { sections, text } = this.props
     return (
       <div className="crm-checkboxesfield">
-        { Object.keys(sections).map((id, index) => (
+        { sections.map((section, index) => (
           <div className="crm-checkboxesfield-section" key={`section_${index}`}>
             <div className="crm-checkboxesfield-header">
-              <ProgramToken { ...sections[id] } />
+              <ProgramToken { ...section } />
             </div>
             <div className="crm-checkboxesfield-items">
-              { sections[id].items.map((item, index) => (
+              { section.items.map((item, index) => (
                 <div className="crm-checkboxesfield-item" key={`item_${index}`} onClick={ this._handleToggle.bind(this, item)}>
                   <div className="crm-checkboxesfield-item-icon">
                     { this._getChecked(item) ?
@@ -47,7 +49,7 @@ class CheckboxesField extends React.PureComponent {
                     }
                   </div>
                   <div className="crm-checkboxesfield-item-label">
-                    { item.title }
+                    { item[text] }
                   </div>
                 </div>
               )) }

@@ -65,7 +65,11 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         ]
       },
       email_campaign_id: {
-        column: 'maha_emails.id',
+        column: 'maha_emails.email_campaign_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
+      email_id: {
+        column: 'maha_emails.email_id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
       },
       enrollment_id: {
@@ -80,22 +84,22 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
     filter: {
       operations: {
         $de: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=${value} and ${alias}.was_delivered = ?`, value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, true]
         }),
         $nde: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_delivered = ?`, value, false]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, false]
         }),
         $op: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, true]
         }),
         $nop: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, false]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, false]
         }),
         $cl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and ${alias}.was_clicked = ?`, value, true]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, true]
         }),
         $ncl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.email_campaign_id=? and was_clicked = ?`, value, false]
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and was_clicked = ?`, value, false]
         }),
         $pr: (table, alias, column, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value]
@@ -110,7 +114,7 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         }),
         $nwcm: (table, alias, column, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.status = 'completed'`
+          query: `${alias}.status != 'completed'`
         }),
         $wcv: (table, alias, column, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
