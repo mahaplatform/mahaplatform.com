@@ -57,6 +57,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         column: 'crm_responses.form_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
+      event_id: {
+        column: 'events_registrations.event_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
       import_id: {
         column: 'maha_imports_import_items.import_id',
         leftJoin: [

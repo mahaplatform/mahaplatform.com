@@ -45,6 +45,10 @@ const criteria = [
       { value: '$cl', text: 'clicked link in the email' },
       { value: '$ncl', text: 'did not click link in the email' }
     ] },
+    { name: 'Event', key: 'event_id', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+      { value: '$act', text: 'registered for' },
+      { value: '$nact', text: 'did not registered for' }
+    ] },
     { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$act', text: 'filled out' },
       { value: '$nact', text: 'did not fill out' }

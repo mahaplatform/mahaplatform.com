@@ -11,8 +11,6 @@ const geocodeMailingAddress = async (req, { mailing_address_id }) => {
 
   const address = await geocode(mailing_address.get('address'))
 
-  console.log(address)
-
   if(!address) return
 
   await mailing_address.save({

@@ -1,8 +1,8 @@
-import { GeocodeMailingAddressQueue } from '../../queues/geocode_mailing_address_queue'
+import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
 import generateCode from '../../../../core/utils/generate_code'
 import MailingAddress from '../../models/mailing_address'
 
-const updateMailingAddresses = async (req, { contact, mailing_addresses, removing }) => {
+const updateMailingAddresses = async (req, { contact, mailing_addresses, removing, geocode }) => {
 
   await contact.load(['mailing_addresses'], {
     transacting: req.trx
@@ -57,11 +57,15 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
       transacting: req.trx
     })
 
-    if(mailing_address.address.latitude) return
+    if(mailing_address.address.latitude) return address
+
+    if(geocode === false) return address
 
     await GeocodeMailingAddressQueue.enqueue(req, {
       mailing_address_id: address.id
     })
+
+    return address
 
   })
 
@@ -78,11 +82,15 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
       transacting: req.trx
     })
 
-    if(mailing_address.address.latitude) return
+    if(mailing_address.address.latitude) return address
+
+    if(geocode === false) return address
 
     await GeocodeMailingAddressQueue.enqueue(req, {
       mailing_address_id: address.id
     })
+
+    return address
 
   })
 

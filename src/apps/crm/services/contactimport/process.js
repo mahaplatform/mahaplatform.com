@@ -276,6 +276,7 @@ const processContactImport = async (req, { import_id }) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
+  const addresses = []
   const photos = []
 
   await Promise.mapSeries(items, async (item, index) => {
@@ -332,10 +333,17 @@ const processContactImport = async (req, { import_id }) => {
 
       mailing_addresses = await getMailingAddresses(contact, values)
       if(mailing_addresses.length > 0) {
-        await updateMailingAddresses(req, {
+        const created = await updateMailingAddresses(req, {
           contact,
-          mailing_addresses
+          mailing_addresses,
+          geocode: false
         })
+        created.map(address => {
+          addresses.push({
+            mailing_address_id: address.get('id')
+          })
+        })
+
       }
 
       const organization_ids = await getOrganizationIds(req, values)
@@ -414,6 +422,10 @@ const processContactImport = async (req, { import_id }) => {
   }, {
     transacting: req.trx,
     patch: true
+  })
+
+  await Promise.map(addresses, async(job) => {
+    await GeocodeMailingAddressQueue.enqueue(req, job)
   })
 
   await Promise.map(photos, async(job) => {
