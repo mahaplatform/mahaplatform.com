@@ -1,6 +1,7 @@
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
 import fields from '../../contacts/criteria'
+import ListToken from '../../../tokens/list'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -67,7 +68,7 @@ class Edit extends React.PureComponent {
       ]
     } else if(config.strategy === 'list') {
       return [
-        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${campaign.program.id}/lists`, value: 'id', text: 'title', defaultValue: config.list_id }
+        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${campaign.program.id}/lists`, value: 'id', text: 'title', defaultValue: config.list_id, format: ListToken }
       ]
     } else if(config.strategy === 'filter') {
       return [

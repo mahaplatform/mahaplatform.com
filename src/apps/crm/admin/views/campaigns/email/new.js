@@ -1,6 +1,7 @@
 import TemplateField from '../../../components/templatefield'
 import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
+import ListToken from '../../../tokens/list'
 import fields from '../../contacts/criteria'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -78,7 +79,7 @@ class New extends React.PureComponent {
       ]
     } else if(config.strategy === 'list') {
       return [
-        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${program_id}/lists`, value: 'id', text: 'title' }
+        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${program_id}/lists`, value: 'id', text: 'title', format: ListToken }
       ]
     } else if(config.strategy === 'filter') {
       return [
