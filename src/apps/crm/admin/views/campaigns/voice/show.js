@@ -1,13 +1,15 @@
 import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Emails from './emails'
 import React from 'react'
 import Send from './send'
 import Edit from './edit'
 
-const getTabs = ({ audits, campaign }) => ({
+const getTabs = ({ audits, campaign, emails }) => ({
   items: [
     { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
+    { label: 'Emails', component: <Emails emails={ emails } /> },
     { label: 'Performance', component: <Performance campaign={ campaign } /> }
   ]
 })
@@ -68,6 +70,7 @@ const getTasks = ({ campaign }) => {
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_voice_campaigns/${props.params.id}/audits`,
+  emails: `/api/admin/crm/campaigns/voice/${props.params.id}/emails`,
   campaign: `/api/admin/crm/campaigns/voice/${props.params.id}`
 })
 

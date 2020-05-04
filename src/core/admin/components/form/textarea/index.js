@@ -39,6 +39,7 @@ class TextArea extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
+  _handleResize = this._handleResize.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -60,8 +61,7 @@ class TextArea extends React.Component {
     const { defaultValue, onReady } = this.props
     if(defaultValue) this.setState({
       value: _.toString(defaultValue)
-    })
-    this.input.style.boxSizing = 'border-box'
+    }, this._handleResize)
     this.offset = this.input.offsetHeight - this.input.clientHeight
     onReady()
   }
@@ -103,6 +103,10 @@ class TextArea extends React.Component {
 
   _handleKeyUp(e) {
     if(!this.props.autogrow) return
+    this._handleResize()
+  }
+
+  _handleResize() {
     this.input.style.height = 'auto'
     this.input.style.height = this.input.scrollHeight + this.offset + 'px'
   }

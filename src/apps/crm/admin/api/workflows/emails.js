@@ -1,12 +1,12 @@
-import EmailSerializer from '../../../../serializers/email_serializer'
-import Workflow from '../../../../models/workflow'
-import Email from '../../../../models/email'
+import EmailSerializer from '../../../serializers/email_serializer'
+import Workflow from '../../../models/workflow'
+import Email from '../../../models/email'
 
-const listRoute = async (req, res) => {
+const emailsRoute = async (req, res) => {
 
   const workflow = await Workflow.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.workflow_id)
+    qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })
@@ -36,4 +36,4 @@ const listRoute = async (req, res) => {
 
 }
 
-export default listRoute
+export default emailsRoute

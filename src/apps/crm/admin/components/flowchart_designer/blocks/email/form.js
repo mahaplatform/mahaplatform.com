@@ -7,6 +7,7 @@ class Email extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    campaign: PropTypes.object,
     program: PropTypes.object,
     user: PropTypes.object,
     workflow: PropTypes.object,
@@ -32,14 +33,18 @@ class Email extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.props.config)
     this.setState({
       config: this.props.config || {}
     })
   }
 
+  _getEndpoint() {
+    const { campaign, workflow } = this.props
+    if(campaign) return `/api/admin/crm/campaigns/${campaign.type}/${campaign.id}/emails`
+    if(workflow) return `/api/admin/crm/workflows/${workflow.id}/emails`
+  }
+
   _getForm() {
-    const { workflow } = this.props
     const { config } = this.state
     return {
       reference: node => this.form = node,
@@ -60,7 +65,7 @@ class Email extends React.PureComponent {
             </div>
           ) : null,
           fields: [
-            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`, value: 'id', text: 'title', form: this._getEmailForm(), defaultValue: config.email_id }
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, prompt: 'Choose an email', endpoint: this._getEndpoint(), value: 'id', text: 'title', form: this._getEmailForm(), defaultValue: config.email_id }
           ]
         }
       ]
@@ -69,7 +74,6 @@ class Email extends React.PureComponent {
 
   _getButton() {
     const { config } = this.state
-    console.log(config)
     return {
       label: 'Design Email',
       className: 'link',
@@ -78,7 +82,7 @@ class Email extends React.PureComponent {
   }
 
   _getEmailForm() {
-    const { program, user, workflow } = this.props
+    const { campaign, program, user, workflow } = this.props
     return {
       title: 'New Email',
       method: 'post',
@@ -87,7 +91,11 @@ class Email extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program.id },
-            { name: 'workflow_id', type: 'hidden', defaultValue: workflow.id },
+            ... workflow ? [
+              { name: 'workflow_id', type: 'hidden', defaultValue: workflow.id }
+            ] : [
+              { name: `${campaign.type}_campaign_id`, type: 'hidden', defaultValue: campaign.id }
+            ],
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program.id}/templates`, value: 'id', text: 'title' },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, value: 'id', text: 'rfc822', required: true },

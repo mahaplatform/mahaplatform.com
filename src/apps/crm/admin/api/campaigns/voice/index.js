@@ -6,6 +6,7 @@ import inbound from './inbound'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import emails from './emails'
 import calls from './calls'
 import edit from './edit'
 import show from './show'
@@ -22,6 +23,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/emails', emails)
 
 router.patch('/:id/activate', activate)
 

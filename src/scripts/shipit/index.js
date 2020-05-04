@@ -249,7 +249,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:backup', () => {
-    return shipit.remote('pg_dump -h localhost -U maha maha | gzip > backup.sql.gz', {
+    return shipit.remote('pg_dump -h 127.0.0.1 -U maha maha | gzip > backup.sql.gz', {
       roles: 'dbserver'
     })
   })

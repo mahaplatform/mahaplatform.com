@@ -1,7 +1,6 @@
 * {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-tap-highlight-color: transparent;
-	user-select: none;
 	min-height: 0;
 }
 body {
@@ -11,7 +10,6 @@ body {
 }
 input, textarea {
 	font-family: 'Open Sans', sans-serif !important;
-	.selectable()
 }
 #platform {
   width: 100%;
@@ -23,15 +21,6 @@ input, textarea {
 	display: none;
 }
 
-.selectable() {
-	-webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  -ms-user-select: text !important;
-  user-select: text !important;
-}
-[contenteditable] {
-	.selectable();
-}
 .scrollable() {
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -48,12 +37,6 @@ input, textarea {
 	  width: 6px !important;
 	  height: 6px !important;
 	}
-}
-.maha-table tbody *,
-.maha-list-item *,
-.maha-message-content *,
-.crm-timeline-item-card-section * {
-	.selectable()
 }
 .colorize(@property) {
 	&.red { @{property}: @red; }
@@ -145,12 +128,6 @@ input, textarea {
 }
 .scale(@x) {
   transform: scale(@x);
-}
-.unselectable() {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .scrollable-x {
 	overflow-x: scroll;

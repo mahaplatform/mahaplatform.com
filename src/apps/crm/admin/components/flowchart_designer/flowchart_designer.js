@@ -10,6 +10,7 @@ class FlowchartDesigner extends React.PureComponent {
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
+    campaign: PropTypes.object,
     changes: PropTypes.number,
     cid: PropTypes.string,
     config: PropTypes.array,
@@ -97,10 +98,12 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, changes, cid, fields, program, properties, status, steps, step, tokens, workflow, onEdit, onUpdate } = this.props
+    const { active, campaign, changes, cid, fields, program, properties } = this.props
+    const { status, steps, step, tokens, workflow, onEdit, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
+      campaign,
       changes,
       cid,
       fields,

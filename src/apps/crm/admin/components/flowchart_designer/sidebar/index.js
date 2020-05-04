@@ -11,6 +11,7 @@ class Sidebar extends React.PureComponent {
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
+    campaign: PropTypes.object,
     changes: PropTypes.number,
     cid: PropTypes.string,
     fields: PropTypes.array,
@@ -77,9 +78,10 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
-    const { fields, program, properties, workflow } = this.props
+    const { campaign, fields, program, properties, workflow } = this.props
     const { code, config } = step
     return {
+      campaign,
       config,
       fields,
       properties,
@@ -92,11 +94,12 @@ class Sidebar extends React.PureComponent {
   }
 
   _getNew() {
-    const { cid, blocks, fields, program, properties, step, workflow } = this.props
+    const { cid, campaign, blocks, fields, program, properties, step, workflow } = this.props
     const { type, action } = step
     const block = _.find(blocks, { type, action })
     return {
       block,
+      campaign,
       cid,
       fields,
       program,

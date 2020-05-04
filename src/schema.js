@@ -263,9 +263,10 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('contact_id').unsigned()
+      table.string('subject', 255)
+      table.text('html')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.jsonb('data')
     })
 
     await knex.schema.createTable('crm_contact_notes', (table) => {
@@ -355,6 +356,8 @@ const schema = {
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
       table.timestamp('screenshoted_at')
+      table.integer('voice_campaign_id').unsigned()
+      table.integer('sms_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -2443,6 +2446,8 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
     })
 
     await knex.schema.table('crm_forms', table => {

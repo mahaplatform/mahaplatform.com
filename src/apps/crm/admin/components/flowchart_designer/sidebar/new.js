@@ -5,6 +5,7 @@ class New extends React.PureComponent {
 
   static propTypes = {
     block: PropTypes.object,
+    campaign: PropTypes.object,
     cid: PropTypes.string,
     fields: PropTypes.array,
     properties: PropTypes.array,
@@ -30,9 +31,10 @@ class New extends React.PureComponent {
   }
 
   _getType(block) {
-    const { cid, fields, properties, program, workflow, onCancel, onTokens } = this.props
+    const { cid, campaign, fields, properties, program, workflow, onCancel, onTokens } = this.props
     return {
       cid,
+      campaign,
       config: block.config,
       fields,
       program,

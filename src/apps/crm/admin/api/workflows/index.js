@@ -24,6 +24,8 @@ router.get('/:id', show)
 
 router.get('/:id/edit', edit)
 
+router.get('/:id/emails', emails)
+
 router.get('/:id/performance', performance)
 
 router.patch('/:id/activate', activate)
@@ -33,8 +35,6 @@ router.patch('/:id/enroll', enroll)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
-
-router.use('/:workflow_id/emails', emails)
 
 router.use('/:workflow_id/enrollments', enrollments)
 

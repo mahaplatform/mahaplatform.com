@@ -1,7 +1,9 @@
 import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'
 import Event from '../../events/models/event'
+import VoiceCampaign from './voice_campaign'
 import EmailResult from './email_result'
+import SMSCampaign from './sms_campaign'
 import Workflow from './workflow'
 import Program from './program'
 import Form from './form'
@@ -66,12 +68,20 @@ const Email = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
+  results() {
+    return this.hasOne(EmailResult, 'email_id')
+  },
+
+  sms_campaign() {
+    return this.belongsTo(SMSCampaign, 'sms_campaign_id')
+  },
+
   workflow() {
     return this.belongsTo(Workflow, 'workflow_id')
   },
 
-  results() {
-    return this.hasOne(EmailResult, 'email_id')
+  voice_campaign() {
+    return this.belongsTo(VoiceCampaign, 'voice_campaign_id')
   }
 
 })
