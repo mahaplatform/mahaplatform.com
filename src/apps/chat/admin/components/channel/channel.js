@@ -86,12 +86,12 @@ class Channel extends React.Component {
           </CSSTransition>
         </div>
         <div className="chat-channel-footer">
+          <Composer { ...this._getComposer() } />
           { channel.typing && channel.typing.user_id !== user.id &&
             <div className="chat-channel-typing">
               { this._getTyping() }
             </div>
           }
-          <Composer { ...this._getComposer() } />
         </div>
       </div>
     )

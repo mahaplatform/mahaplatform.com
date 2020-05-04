@@ -63,7 +63,7 @@ class Comments extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { active, comments, editing, hidden, status, typing } = this.props
+    const { active, comments, editing, hidden, status, typing, user } = this.props
     const { mode } = this.state
     if(status === 'loading') {
       return (
@@ -106,19 +106,12 @@ class Comments extends React.Component {
         }
         { !editing && active &&
           <div className="maha-comments-footer">
-            { typing &&
-              <div className="maha-comment">
-                <div className="maha-comment-user">
-                  <Avatar user={ typing } />
-                </div>
-                <div className="maha-comment-bubble">
-                  <div className="maha-comment-typing">
-                    { typing.full_name } is typing
-                  </div>
-                </div>
+            <Composer { ...this._getComposer() } />
+            { typing && typing.user_id !== user.id &&
+              <div className="maha-comments-typing">
+                { this._getTyping() }
               </div>
             }
-            <Composer { ...this._getComposer() } />
           </div>
         }
       </div>
@@ -171,6 +164,12 @@ class Comments extends React.Component {
       text: comment.text,
       attachments: comment.attachments
     }
+  }
+
+  _getTyping() {
+    const { typing } = this.props
+    const who = typing.full_name
+    return `${who} is typing`
   }
 
   _handleAdd(data) {

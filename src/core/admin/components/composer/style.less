@@ -7,18 +7,16 @@
   flex: 1;
 }
 .maha-composer-attachments-icon {
-  padding: 0.8em;
-  border-right: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 95);
+  padding: 0.6em 0 0.6em 0.8em;
   display: flex;
   cursor: pointer;
-  &:hover {
-    background-color: fadeout(@black, 92);
+  &:hover .fa {
+    color: red;
   }
   .fa {
     color: fadeout(@black, 60);
-    margin: 0 auto;
-    font-size: 1.2em;
+    margin: auto;
+    font-size: 1.4em;
   }
 }
 .maha-composer-input {
@@ -80,7 +78,7 @@
 .maha-composer-textarea-field {
   flex: 1;
   word-break: break-word;
-  padding: 0.6em 0.8em;
+  padding: 0.6em 0.8em 0.6em 1.05em;
   textarea {
     background-color: transparent;
     resize: none;

@@ -19,9 +19,6 @@
     }
   }
 }
-.chat-channel-footer {
-  padding: 0.4em;
-}
 .chat-channel-loading {
   flex: 1;
   display: flex;
@@ -74,11 +71,17 @@
     background-color: fadeout(@black, 90);
   }
 }
+.chat-channel-footer {
+  padding: 0.8em 0.8em 1.4em;
+  position: relative;
+}
 .chat-channel-typing {
-  padding: 0.8em 0.8em 0 5em;
+  position: absolute;
+  bottom: 0.4em;
+  left: 1em;
   color: fadeout(@black, 50);
-  line-height: 2.4em;
   font-size: 0.8em;
+  line-height: 1em;
   &:after {
     overflow: hidden;
     display: inline-block;

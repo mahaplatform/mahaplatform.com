@@ -39,7 +39,7 @@ class Composer extends React.Component {
     return (
       <div className="maha-composer">
         <div className="maha-composer-attachments-icon" onClick={ this._handleAttachments }>
-          <i className="fa fa-plus" />
+          <i className="fa fa-plus-circle" />
         </div>
         <div className="maha-composer-input">
           <Editor { ...this._getEditor() } />
