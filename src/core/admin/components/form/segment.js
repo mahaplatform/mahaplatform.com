@@ -22,7 +22,7 @@ class Segment extends React.Component {
     return (
       <div className="maha-form-segment">
         { fields.map((field, index) => (
-          <Field key={`field_${index}`} { ...this._getField(field) } />
+          <Field key={`field_${index}_${field.name}`} { ...this._getField(field) } />
         )) }
       </div>
     )

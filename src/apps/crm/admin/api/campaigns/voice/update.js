@@ -6,6 +6,14 @@ import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
 import { updateSteps } from '../../../../services/workflows'
 
+const getTo = ({ strategy, contact_ids, list_id, filter_id, criteria }, to) => {
+  if(strategy === 'contacts') return { strategy, contact_ids }
+  if(strategy === 'list') return { strategy, list_id }
+  if(strategy === 'filter') return { strategy, filter_id }
+  if(strategy === 'criteria') return { strategy, criteria }
+  return to
+}
+
 const updateRoute = async (req, res) => {
 
   const voice_campaign = await VoiceCampaign.query(qb => {
@@ -23,9 +31,7 @@ const updateRoute = async (req, res) => {
 
   if(req.body.title) {
     await voice_campaign.save({
-      to: req.body.to ? {
-        criteria : req.body.to
-      } : voice_campaign.get('to'),
+      to: getTo(req.body, voice_campaign.get('to')),
       ...whitelist(req.body, ['title','purpose'])
     }, {
       patch: true,

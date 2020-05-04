@@ -219,7 +219,7 @@ class Addressfield extends React.Component {
   }
 
   _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
+    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.places !== 'undefined'
     if(ready) return this._handleInit()
     this.setState({ ready })
     setTimeout(this._handleCheck, 1000)
@@ -288,7 +288,7 @@ class Addressfield extends React.Component {
   }
 
   _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
+    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.places !== 'undefined'
     if(ready) return this._handleInit()
     const script = document.createElement('script')
     script.async = true

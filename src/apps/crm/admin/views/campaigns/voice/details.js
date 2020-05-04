@@ -1,4 +1,3 @@
-import Recipients from '../../../components/recipients'
 import { Audit, Comments, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
@@ -14,15 +13,6 @@ const Details = ({ audits, campaign }) => {
     className: 'link',
     route: `/admin/crm/campaigns/voice/${campaign.id}/design`
   }
-
-  const recipients = pluralize('contact', campaign.recipients, true)
-
-  const to = {
-    label: recipients,
-    className: 'link',
-    modal: <Recipients campaign={ campaign } type="voice" />
-  }
-
 
   if(campaign.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This campaign was deleted' }
@@ -51,7 +41,7 @@ const Details = ({ audits, campaign }) => {
   config.items.push({ label: 'Phone Number', content: campaign.phone_number.formatted })
 
   if(campaign.direction === 'outbound') {
-    config.items.push({ label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients })
+    config.items.push({ label: 'To', content: pluralize('contact', campaign.recipients, true) })
   }
 
   config.items.push({ label: 'Content', content: <Button { ...design } /> })

@@ -1,6 +1,14 @@
 import { toFilter } from '../../../core/utils/criteria'
+import Filter from '../../maha/models/filter'
 import Recipient from '../models/recipient'
 import Field from '../../maha/models/field'
+
+const getCreator = (strategy) => {
+  if(strategy === 'contacts') return getRecipientsById
+  if(strategy === 'list')  return getRecipientsByList
+  if(strategy === 'filter')  return getRecipientsByFilter
+  if(strategy === 'criteria')  return getRecipientsByCriteria
+}
 
 const getFilter = ({ filter, criteria }) => {
   if(filter) return filter
@@ -8,42 +16,43 @@ const getFilter = ({ filter, criteria }) => {
   return null
 }
 
-export const getRecipients = async (req, params) => {
+const getRecipientsById = async (req, { contact_ids }) => ({
+  scope: (qb) => {
+    qb.whereIn('crm_recipients.contact_id', contact_ids)
+  }
+})
 
-  const { type, purpose, program_id, page } = params
+const getRecipientsByList = async (req, { list_id }) => ({
+  scope: (qb) => {
+    qb.innerJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
+    qb.where('crm_subscriptions.list_id', list_id)
+  }
+})
 
-  const filter = getFilter(params)
+const getRecipientsByFilter = async (req, { filter_id }) => {
 
-  req.fields = await Field.query(qb => {
+  const filter = await Filter.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('parent_type', 'crm_programs')
-    qb.orderBy('delta', 'asc')
-  }).fetchAll({
+    qb.where('code', 'admin-crm-contacts')
+    qb.where('id', filter_id)
+  }).fetch({
     transacting: req.trx
-  }).then(result => result.toArray())
+  })
 
-  return await Recipient.filterFetch({
+  return await getRecipientsByCriteria(req, {
+    criteria: filter.get('config').criteria
+  })
+
+}
+
+const getRecipientsByCriteria = async (req, params) => {
+  const filter = getFilter(params)
+  return {
+    filter,
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
-      qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
-      qb.where('crm_recipients.team_id', req.team.get('id'))
       if(!filter || filter.$and.length === 0) qb.whereRaw('false')
-      qb.where('type', type)
-      qb.where('purpose', purpose)
-      if(purpose === 'marketing') qb.where('program_id', program_id)
-      qb.orderBy('crm_contacts.last_name','asc')
     },
     aliases: {
-      first_name: 'crm_contacts.first_name',
-      last_name: 'crm_contacts.last_name',
-      email: {
-        column: 'crm_email_addresses.address',
-        leftJoin: [['id','crm_recipients.email_address_id']]
-      },
-      phone: {
-        column: 'crm_phone_numbers.number',
-        leftJoin: [['id','crm_recipients.phone_number_id']]
-      },
       street_1: {
         column: 'crm_mailing_addresses.address->>\'street_1\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
@@ -104,60 +113,109 @@ export const getRecipients = async (req, params) => {
         leftJoin: [['customer_id', 'crm_recipients.contact_id']]
       }
     },
-    filter: {
-      operations: {
-        $de: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=${value} and ${alias}.was_delivered = ?`, value, true]
-        }),
-        $nde: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_delivered = ?`, value, false]
-        }),
-        $op: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, true]
-        }),
-        $nop: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, false]
-        }),
-        $cl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_clicked = ?`, value, true]
-        }),
-        $ncl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and was_clicked = ?`, value, false]
-        }),
-        $pr: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.customer_id=crm_recipients.contact_id and ${alias}.product_id=?`, value]
-        }),
-        $npr: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.customer_id=crm_recipients.contact_id and ${alias}.product_id=?`, value],
-          query: `${alias}.product_id is null`
-        }),
-        $wcm: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.status = 'completed'`
-        }),
-        $nwcm: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.status = 'completed'`
-        }),
-        $wcv: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_converted = true`
-        }),
-        $nwcv: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_converted = false`
-        }),
-        $act: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.${column}=?`, value],
-          query: `${alias}.id is not null`
-        }),
-        $nact: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.${column}=?`, value],
-          query: `${alias}.id is null`
-        })
+    allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
+    operations: {
+      $de: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=${value} and ${alias}.was_delivered = ?`, value, true]
+      }),
+      $nde: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_delivered = ?`, value, false]
+      }),
+      $op: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, true]
+      }),
+      $nop: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_opened = ?`, value, false]
+      }),
+      $cl: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and ${alias}.was_clicked = ?`, value, true]
+      }),
+      $ncl: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.email_campaign_id=? and was_clicked = ?`, value, false]
+      }),
+      $pr: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.customer_id=crm_recipients.contact_id and ${alias}.product_id=?`, value]
+      }),
+      $npr: (table, alias, column, value) => ({
+        join: [`left join ${table} ${alias} on ${alias}.customer_id=crm_recipients.contact_id and ${alias}.product_id=?`, value],
+        query: `${alias}.product_id is null`
+      }),
+      $wcm: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
+        query: `${alias}.status = 'completed'`
+      }),
+      $nwcm: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
+        query: `${alias}.status = 'completed'`
+      }),
+      $wcv: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
+        query: `${alias}.was_converted = true`
+      }),
+      $nwcv: (table, alias, column, value) => ({
+        join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.workflow_id=?`, value],
+        query: `${alias}.was_converted = false`
+      }),
+      $act: (table, alias, column, value) => ({
+        join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.${column}=?`, value],
+        query: `${alias}.id is not null`
+      }),
+      $nact: (table, alias, column, value) => ({
+        join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.${column}=?`, value],
+        query: `${alias}.id is null`
+      })
+    }
+  }
+
+}
+
+export const getRecipients = async (req, params) => {
+
+  const { type, purpose, program_id, page, strategy } = params
+
+  const creator = getCreator(strategy)
+
+  const args = await creator(req, params)
+
+  req.fields = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('parent_type', 'crm_programs')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
+
+  return await Recipient.filterFetch({
+    scope: (qb) => {
+      qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
+      qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
+      qb.where('crm_recipients.team_id', req.team.get('id'))
+      qb.where('type', type)
+      qb.where('purpose', purpose)
+      if(purpose === 'marketing') qb.where('program_id', program_id)
+      qb.orderBy('crm_contacts.last_name','asc')
+      args.scope(qb)
+    },
+    aliases: {
+      first_name: 'crm_contacts.first_name',
+      last_name: 'crm_contacts.last_name',
+      email: {
+        column: 'crm_email_addresses.address',
+        leftJoin: [['id','crm_recipients.email_address_id']]
       },
-      params: filter,
-      allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
+      phone: {
+        column: 'crm_phone_numbers.number',
+        leftJoin: [['id','crm_recipients.phone_number_id']]
+      },
+      ...args.aliases || {}
+    },
+    filter: {
+      params: args.filter || {},
+      operations: args.operations || {},
+      allowed: [
+        'first_name','last_name','email','phone',
+        ...args.allowed || []
+      ],
       search: ['first_name','last_name','email']
     },
     sort: {
@@ -169,5 +227,4 @@ export const getRecipients = async (req, params) => {
     withRelated: ['contact.photo','email_address','mailing_address','phone_number'],
     transacting: req.trx
   })
-
 }

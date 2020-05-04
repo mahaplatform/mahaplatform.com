@@ -13,6 +13,7 @@ class Search extends React.Component {
   static propTypes = {
     cacheKey: PropTypes.string,
     endpoint: PropTypes.string,
+    filter: PropTypes.object,
     form: PropTypes.object,
     format: PropTypes.oneOfType([
       PropTypes.element,
@@ -64,11 +65,12 @@ class Search extends React.Component {
   }
 
   _getToggleList() {
-    const { endpoint, format, multiple, options, selected, text, value } = this.props
+    const { endpoint, filter, format, multiple, options, selected, text, value } = this.props
     const defaultValue = selected.map(item => _.get(item, value))
     return {
       defaultValue,
       endpoint,
+      filter,
       options,
       format,
       full: true,

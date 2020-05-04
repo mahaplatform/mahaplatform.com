@@ -4,6 +4,7 @@ import { getRecipients } from '../../../../services/recipients'
 const listRoute = async (req, res) => {
 
   const recipients = await getRecipients(req, {
+    strategy: 'criteria',
     type: req.params.type,
     purpose: req.params.purpose,
     program_id: req.params.program_id,

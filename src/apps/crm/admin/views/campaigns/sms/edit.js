@@ -17,11 +17,11 @@ class Edit extends React.PureComponent {
   }
 
   state = {
-    purpose: 'marketing'
+    config: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -37,7 +37,7 @@ class Edit extends React.PureComponent {
       action: `/api/admin/crm/campaigns/sms/${campaign.id}`,
       cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
-      onChangeField: this._handleChangeField,
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -59,9 +59,41 @@ class Edit extends React.PureComponent {
     } else if(campaign.direction === 'outbound') {
       return [
         { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken },
-        { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
+        { label: 'To', type: 'segment', fields: [
+          { name: 'strategy', type: 'dropdown', options: [
+            { value: 'contacts', text: 'Specific contacts' },
+            { value: 'list', text: 'Contacts in a list' },
+            { value: 'filter', text: 'Contacts in a filter' },
+            { value: 'criteria', text: 'Contacts in a custom filter' }
+          ], value: 'value', text: 'text' },
+          ...this._getToField()
+        ] }
       ]
     }
+  }
+
+  _getToField() {
+    const { campaign } = this.props
+    const { config } = this.state
+    const { program } = campaign
+    if(config.strategy === 'contacts') {
+      return [
+        { name: 'contact_ids', type: 'lookup2', placeholder: 'Choose contacts', endpoint: '/api/admin/crm/contacts', filter: { phone: { $nnl: true } }, multiple: true, value: 'id', text: 'display_name', defaultValue: config.contact_ids, format: (contact) => <RecipientToken recipient={{ contact, phone_number: { number: contact.phone } } } /> }
+      ]
+    } else if(config.strategy === 'list') {
+      return [
+        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${program.id}/lists`, value: 'id', text: 'title', defaultValue: config.list_id }
+      ]
+    } else if(config.strategy === 'filter') {
+      return [
+        { name: 'filter_id', type: 'lookup', placeholder: 'Choose a filter', endpoint: '/api/admin/admin-crm-contacts/filters', value: 'id', text: 'title', defaultValue: config.filter_id }
+      ]
+    } else if(config.strategy === 'criteria') {
+      return [
+        { name: 'criteria', type: 'criteriafield', ...this._getCriteriaField(), defaultValue: config.criteria }
+      ]
+    }
+    return []
   }
 
   _getComment(purpose) {
@@ -82,12 +114,12 @@ class Edit extends React.PureComponent {
 
   _getCriteriaField() {
     const { campaign } = this.props
-    const { purpose } = this.state
+    const { config } = this.state
     return {
-      comment: <p>{ this._getComment(purpose) }</p>,
-      endpoint: `/api/admin/crm/programs/${campaign.program_id}/${purpose}/sms/recipients`,
+      comment: <p>{ this._getComment(config.purpose) }</p>,
+      endpoint: `/api/admin/crm/programs/${campaign.program.id}/${config.purpose}/sms/recipients`,
       entity: 'contact',
-      format: (recipient) => <RecipientToken recipient={recipient} channel="sms" />,
+      format: (recipient) => <RecipientToken recipient={recipient} channel="email" />,
       fields,
       title: 'Select Contacts',
       defaultValue: []
@@ -98,12 +130,8 @@ class Edit extends React.PureComponent {
     this.context.modal.close()
   }
 
-  _handleChangeField(key, value) {
-    if(key === 'purpose') {
-      this.setState({
-        purpose: value
-      })
-    }
+  _handleChange(config) {
+    this.setState({ config })
   }
 
   _handleSuccess() {

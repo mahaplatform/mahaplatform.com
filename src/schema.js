@@ -340,6 +340,7 @@ const schema = {
       table.text('html')
       table.timestamp('deleted_at')
       table.timestamp('screenshoted_at')
+      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -507,6 +508,7 @@ const schema = {
       table.jsonb('data')
       table.string('job_id', 255)
       table.timestamp('deleted_at')
+      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -580,6 +582,7 @@ const schema = {
       table.jsonb('data')
       table.string('job_id', 255)
       table.timestamp('deleted_at')
+      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_workflow_actions', (table) => {

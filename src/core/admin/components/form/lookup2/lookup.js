@@ -17,6 +17,7 @@ class Lookup extends React.Component {
     cid: PropTypes.string,
     defaultValue: PropTypes.any,
     endpoint: PropTypes.string,
+    filter: PropTypes.object,
     form: PropTypes.object,
     format: PropTypes.any,
     label: PropTypes.string,
@@ -24,6 +25,7 @@ class Lookup extends React.Component {
     options: PropTypes.array,
     placeholder: PropTypes.string,
     selected: PropTypes.array,
+    status: PropTypes.string,
     text: PropTypes.string,
     tabIndex: PropTypes.number,
     value: PropTypes.string,
@@ -78,13 +80,14 @@ class Lookup extends React.Component {
   componentDidMount() {
     const { defaultValue, endpoint, multiple, value, onFetch, onReady } = this.props
     const query = { $filter: { [value]: { $in: defaultValue } } }
-    if(defaultValue && (!multiple || defaultValue.length > 0)) onFetch(endpoint, query)
+    if(defaultValue && (!multiple || defaultValue.length > 0)) return onFetch(endpoint, query)
     onReady()
   }
 
   componentDidUpdate(prevProps) {
     const { form } = this.context
-    const { active, adding, selected } = this.props
+    const { active, adding, selected, status } = this.props
+    if(status !== prevProps.status && status === 'success') this.props.onReady()
     if(!prevProps.active && active) form.push(Search, this._getSearch.bind(this))
     if(!prevProps.adding && adding) form.push(Form, this._getForm.bind(this))
     if(prevProps.active && !active) form.pop()
@@ -119,11 +122,12 @@ class Lookup extends React.Component {
   }
 
   _getSearch() {
-    const { cacheKey, cid, endpoint, form, format, label, multiple, options, selected, text, value, onShowForm } = this.props
+    const { cacheKey, cid, endpoint, filter, form, format, label, multiple, options, selected, text, value, onShowForm } = this.props
     return {
       cacheKey,
       cid,
       endpoint,
+      filter,
       form,
       format,
       label,

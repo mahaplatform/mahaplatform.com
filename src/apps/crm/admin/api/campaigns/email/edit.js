@@ -17,7 +17,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond(email_campaign, (req, campaign) => ({
     title: campaign.get('title'),
     purpose: campaign.get('purpose'),
-    to: campaign.get('to').criteria
+    ...campaign.get('to')
   }))
 
 }

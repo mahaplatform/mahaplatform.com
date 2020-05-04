@@ -1,6 +1,5 @@
 import EmailPreview from '../../../components/email_preview'
 import { Audit, Comments, Button, List } from 'maha-admin'
-import Recipients from '../../../components/recipients'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -14,14 +13,6 @@ const Details = ({ audits, campaign }) => {
     label: _.includes(['active','draft','inactive'], campaign.status) ? 'Design Email' : 'View Email',
     className: 'link',
     route: `/admin/crm/campaigns/email/${campaign.id}/design`
-  }
-
-  const recipients = pluralize('contact', campaign.recipients, true)
-
-  const to = {
-    label: recipients,
-    className: 'link',
-    modal: <Recipients campaign={ campaign } type="email" />
   }
 
   config.header = <EmailPreview email={ campaign } />
@@ -40,7 +31,7 @@ const Details = ({ audits, campaign }) => {
     { label: 'Title', content: campaign.title },
     { label: 'Program', content: campaign.program.title },
     { label: 'Purpose', content: campaign.purpose },
-    { label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients }
+    { label: 'To', content: pluralize('contact', campaign.recipients, true) }
   ]
 
   config.items.push({ label: 'Content', content: <Button { ...design } /> })

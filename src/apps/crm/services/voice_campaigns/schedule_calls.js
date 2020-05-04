@@ -15,7 +15,7 @@ const scheduleCalls = async (req, { voice_campaign_id }) => {
     type: 'voice',
     program_id: voice_campaign.get('program_id'),
     purpose: voice_campaign.get('purpose'),
-    criteria: voice_campaign.get('to').criteria
+    ...voice_campaign.get('to')
   }).then(result => result.toArray())
 
   await voice_campaign.save({

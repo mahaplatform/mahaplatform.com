@@ -1,4 +1,3 @@
-import Recipients from '../../../components/recipients'
 import { Audit, Comments, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
@@ -13,14 +12,6 @@ const Details = ({ audits, campaign }) => {
     label: _.includes(['active','draft','inactive'], campaign.status) ? 'Design Workflow' : 'View Workflow',
     className: 'link',
     route: `/admin/crm/campaigns/sms/${campaign.id}/design`
-  }
-
-  const recipients = pluralize('contact', campaign.recipients, true)
-
-  const to = {
-    label: recipients,
-    className: 'link',
-    modal: <Recipients campaign={ campaign } type="sms" />
   }
 
   if(campaign.status === 'draft') {
@@ -52,7 +43,7 @@ const Details = ({ audits, campaign }) => {
   config.items.push({ label: 'Phone Number', content: campaign.phone_number.formatted })
 
   if(campaign.direction === 'outbound') {
-    config.items.push({ label: 'To', content: campaign.status === 'draft' ? <Button { ...to } /> : recipients })
+    config.items.push({ label: 'To', content: pluralize('contact', campaign.recipients, true) })
   }
 
   config.items.push({ label: 'Content', content: <Button { ...design } /> })

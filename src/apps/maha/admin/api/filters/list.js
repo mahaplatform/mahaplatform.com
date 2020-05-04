@@ -13,6 +13,10 @@ const listRoute = async (req, res) => {
       qb.where('code', req.params.code)
       qb.orderByRaw('lower(maha_filters.title)')
     },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
     page: req.query.$page,
     withRelated: ['owner'],
     transacting: req.trx

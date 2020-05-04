@@ -18,11 +18,11 @@ class New extends React.PureComponent {
   }
 
   state = {
-    purpose: 'marketing'
+    config: {}
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -31,14 +31,13 @@ class New extends React.PureComponent {
 
   _getForm() {
     const { program_id } = this.props
-    const { purpose } = this.state
     return {
       title: 'New Outbound SMS Campaign',
       method: 'post',
       action: '/api/admin/crm/campaigns/sms',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
-      onChangeField: this._handleChangeField,
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -46,12 +45,43 @@ class New extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'direction', type: 'hidden', defaultValue: 'outbound' },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
-            { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() }
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
+            { label: 'To', type: 'segment', fields: [
+              { name: 'strategy', type: 'dropdown', options: [
+                { value: 'contacts', text: 'Specific contacts' },
+                { value: 'list', text: 'Contacts in a list' },
+                { value: 'filter', text: 'Contacts in a filter' },
+                { value: 'criteria', text: 'Contacts in a custom filter' }
+              ], value: 'value', text: 'text' },
+              ...this._getToField()
+            ] }
           ]
         }
       ]
     }
+  }
+
+  _getToField() {
+    const { program_id } = this.props
+    const { config } = this.state
+    if(config.strategy === 'contacts') {
+      return [
+        { name: 'contact_ids', type: 'lookup2', placeholder: 'Choose contacts', endpoint: '/api/admin/crm/contacts', filter: { phone: { $nnl: true } }, multiple: true, value: 'id', text: 'display_name', defaultValue: config.contact_ids, format: (contact) => <RecipientToken recipient={{ contact, phone_number: { number: contact.phone } } } /> }
+      ]
+    } else if(config.strategy === 'list') {
+      return [
+        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${program_id}/lists`, value: 'id', text: 'title' }
+      ]
+    } else if(config.strategy === 'filter') {
+      return [
+        { name: 'filter_id', type: 'lookup', placeholder: 'Choose a filter', endpoint: '/api/admin/admin-crm-contacts/filters', value: 'id', text: 'title' }
+      ]
+    } else if(config.strategy === 'criteria') {
+      return [
+        { name: 'criteria', type: 'criteriafield', ...this._getCriteriaField() }
+      ]
+    }
+    return []
   }
 
   _getComment(purpose) {
@@ -72,10 +102,10 @@ class New extends React.PureComponent {
 
   _getCriteriaField() {
     const { program_id } = this.props
-    const { purpose } = this.state
+    const { config } = this.state
     return {
-      comment: <p>{ this._getComment(purpose) }</p>,
-      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/sms/recipients`,
+      comment: <p>{ this._getComment(config.purpose) }</p>,
+      endpoint: `/api/admin/crm/programs/${program_id}/${config.purpose}/sms/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel="sms" />,
       fields,
@@ -88,12 +118,8 @@ class New extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleChangeField(key, value) {
-    if(key === 'purpose') {
-      this.setState({
-        purpose: value
-      })
-    }
+  _handleChange(config) {
+    this.setState({ config })
   }
 
   _handleSuccess(campaign) {

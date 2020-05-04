@@ -6,6 +6,14 @@ import socket from '../../../../../../core/services/routes/emitter'
 import { updateSteps } from '../../../../services/workflows'
 import SmsCampaign from '../../../../models/sms_campaign'
 
+const getTo = ({ strategy, contact_ids, list_id, filter_id, criteria }, to) => {
+  if(strategy === 'contacts') return { strategy, contact_ids }
+  if(strategy === 'list') return { strategy, list_id }
+  if(strategy === 'filter') return { strategy, filter_id }
+  if(strategy === 'criteria') return { strategy, criteria }
+  return to
+}
+
 const updateRoute = async (req, res) => {
 
   const sms_campaign = await SmsCampaign.query(qb => {
@@ -23,10 +31,8 @@ const updateRoute = async (req, res) => {
 
   if(req.body.title) {
     await sms_campaign.save({
-      to: req.body.to ? {
-        criteria : req.body.to
-      } : sms_campaign.get('to'),
-      ...whitelist(req.body, ['title','purpose'])
+      to: getTo(req.body, sms_campaign.get('to')),
+      ...whitelist(req.body, ['title','purpose','term'])
     }, {
       patch: true,
       transacting: req.trx

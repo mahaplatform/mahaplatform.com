@@ -17,7 +17,7 @@ const sendCampaign = async (req, { email_campaign_id, resend_to }) => {
     type: 'email',
     program_id: campaign.related('program').get('id'),
     purpose: campaign.get('purpose'),
-    criteria: resend_to || campaign.get('to').criteria
+    ...resend_to || campaign.get('to') || {}
   }).then(result => result.toArray())
 
   if(!resend_to) {

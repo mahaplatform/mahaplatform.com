@@ -30,7 +30,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TOGGLE_RECORD':
     return {
       ...state,
-      chosen: _.xor(state.chosen, [action.record])
+      chosen: _.xorWith(state.chosen, [action.record], _.isEqual)
     }
 
   default:

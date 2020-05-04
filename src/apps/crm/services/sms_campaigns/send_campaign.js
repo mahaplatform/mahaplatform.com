@@ -15,7 +15,7 @@ const sendCampaign = async (req, { sms_campaign_id }) => {
     type: 'sms',
     program_id: campaign.get('program_id'),
     purpose: campaign.get('purpose'),
-    criteria: campaign.get('to').criteria
+    ...campaign.get('to')
   }).then(result => result.toArray())
 
   await campaign.save({
