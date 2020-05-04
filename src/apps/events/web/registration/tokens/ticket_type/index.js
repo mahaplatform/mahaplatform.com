@@ -30,11 +30,11 @@ const TicketTypeToken = (ticket_type) => (
       <div>
         { ticket_type.description }
       </div>
-    }    
+    }
     <div>
       { ticket_type.total_tickets ?
         <span>
-          { pluralize('ticket', ticket_type.remaining, true) } remaining
+          { pluralize('ticket', Math.max(0, ticket_type.remaining), true) } remaining
         </span> :
         'Unlimited tickets available'
       } { ticket_type.max_per_order &&

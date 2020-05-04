@@ -58,6 +58,7 @@
   padding: 0.2em;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .registration-step1-tickettype-config-item {
   padding: 0.2em;
@@ -65,4 +66,16 @@
   & > div {
     margin-left: auto;
   }
+}
+.registration-step1-tickettype-config-soldout {
+  background-color: @red;
+  position: absolute;
+  color: @white;
+  padding: 0.2em 0.4em;
+  right: 0.4em;
+  top: 50%;
+  font-size: 0.8em;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  border-radius: 0.3em;
 }

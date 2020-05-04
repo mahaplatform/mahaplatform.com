@@ -340,7 +340,6 @@ const schema = {
       table.text('html')
       table.timestamp('deleted_at')
       table.timestamp('screenshoted_at')
-      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -508,7 +507,6 @@ const schema = {
       table.jsonb('data')
       table.string('job_id', 255)
       table.timestamp('deleted_at')
-      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -582,7 +580,6 @@ const schema = {
       table.jsonb('data')
       table.string('job_id', 255)
       table.timestamp('deleted_at')
-      table.USER-DEFINED('to_strategy')
     })
 
     await knex.schema.createTable('crm_workflow_actions', (table) => {
@@ -1598,7 +1595,6 @@ const schema = {
       table.integer('owner_id').unsigned()
       table.string('code', 255)
       table.string('title', 255)
-      table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('config')
@@ -2447,10 +2443,10 @@ const schema = {
       table.foreign('event_id').references('events_events.id')
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('program_id').references('crm_programs.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_forms', table => {
