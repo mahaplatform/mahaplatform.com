@@ -5,6 +5,10 @@ import React from 'react'
 
 class Contacts extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     contacts: PropTypes.array,
     list: PropTypes.object
@@ -24,7 +28,7 @@ class Contacts extends React.Component {
           <tbody>
             { contacts.map((contact, index) => (
               <tr key={`contact_${index}`}>
-                <td className="unpadded">
+                <td className="unpadded" onClick={ this._handleClick.bind(this, contact) }>
                   <ContactToken { ...contact } property="rfc822" />
                 </td>
                 <td className="unpadded">
@@ -49,6 +53,10 @@ class Contacts extends React.Component {
         method: 'delete'
       }
     }
+  }
+
+  _handleClick(contact) {
+    this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
   }
 
 }
