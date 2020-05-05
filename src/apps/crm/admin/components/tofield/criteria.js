@@ -12,6 +12,7 @@ class CriteriaPicker extends React.PureComponent {
 
   static propTypes = {
     channel: PropTypes.string,
+    defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     instructions: PropTypes.string,
     program_id: PropTypes.number,
@@ -36,9 +37,9 @@ class CriteriaPicker extends React.PureComponent {
   }
 
   _getCriteriaDesigner() {
-    const { endpoint } = this.props
+    const { defaultValue, endpoint } = this.props
     return {
-      defaultValue: [],
+      defaultValue: defaultValue ? defaultValue.criteria : null,
       endpoint,
       entity: 'contact',
       fields,

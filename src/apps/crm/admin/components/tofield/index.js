@@ -1,4 +1,5 @@
 import { RadioGroup } from 'maha-admin'
+import { toFilter } from './utils'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Contacts from './contacts'
@@ -108,8 +109,10 @@ class ToField extends React.PureComponent {
 
   _getPicker() {
     const { channel, program_id, purpose } = this.props
+    const { config } = this.state
     return {
       channel,
+      defaultValue: config,
       endpoint: this._getEndpoint(),
       instructions: this._getInstructions(),
       program_id,
@@ -156,13 +159,20 @@ class ToField extends React.PureComponent {
   }
 
   _handleFetch() {
-    const { config } = this.state
     this.context.network.request({
       endpoint: this._getEndpoint(),
       method: 'get',
-      query: config,
+      query: this._getQuery(),
       onSuccess: this._handleSuccess
     })
+  }
+
+  _getQuery() {
+    const { strategy, config } = this.state
+    if(strategy !== 'criteria') return config
+    return {
+      $filter: toFilter(config.criteria)
+    }
   }
 
   _handlePicker() {

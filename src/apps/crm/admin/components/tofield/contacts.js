@@ -13,6 +13,7 @@ class Picker extends React.PureComponent {
 
   static propTypes = {
     channel: PropTypes.string,
+    defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     instructions: PropTypes.string,
     program_id: PropTypes.number,

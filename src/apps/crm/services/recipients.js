@@ -54,6 +54,10 @@ const getRecipientsByCriteria = async (req, params) => {
     },
     aliases: {
       contact_id: 'crm_recipients.contact_id',
+      address: {
+        column: 'crm_mailing_addresses.address',
+        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+      },
       street_1: {
         column: 'crm_mailing_addresses.address->>\'street_1\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
@@ -74,20 +78,16 @@ const getRecipientsByCriteria = async (req, params) => {
         column: 'crm_mailing_addresses.address->>\'county\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
-      organization_id: {
-        column: 'crm_contacts_organizations.organization_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
-      },
-      tag_id: {
-        column: 'crm_taggings.tag_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
-      },
       list_id: {
         column: 'crm_subscriptions.list_id',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
-      topic_id: {
-        column: 'crm_interests.topic_id',
+      organization_id: {
+        column: 'crm_contacts_organizations.organization_id',
+        leftJoin: [['contact_id','crm_recipients.contact_id']]
+      },
+      event_id: {
+        column: 'events_registrations.event_id',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       form_id: {
@@ -102,7 +102,11 @@ const getRecipientsByCriteria = async (req, params) => {
         ]
       },
       email_campaign_id: {
-        column: 'maha_emails.contact_id',
+        column: 'maha_emails.email_campaign_id',
+        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+      },
+      email_id: {
+        column: 'maha_emails.email_id',
         leftJoin: [['contact_id', 'crm_recipients.contact_id']]
       },
       enrollment_id: {
@@ -112,6 +116,14 @@ const getRecipientsByCriteria = async (req, params) => {
       product_id: {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_recipients.contact_id']]
+      },
+      tag_id: {
+        column: 'crm_taggings.tag_id',
+        leftJoin: [['contact_id','crm_recipients.contact_id']]
+      },
+      topic_id: {
+        column: 'crm_interests.topic_id',
+        leftJoin: [['contact_id','crm_recipients.contact_id']]
       }
     },
     allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
@@ -164,6 +176,18 @@ const getRecipientsByCriteria = async (req, params) => {
       $nact: (table, alias, column, value) => ({
         join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.${column}=?`, value],
         query: `${alias}.id is null`
+      }),
+      $addt: (table, alias, column, value) => ({
+        join: [
+          `inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
+          `point(${value.origin.split(',').reverse().join(' ')})`, value.distance * 1609.34
+        ]
+      }),
+      $adsh: (table, alias, column, value) => ({
+        join: [
+          `inner join ${table} ${alias} on ${alias}.contact_id=crm_recipients.contact_id and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
+          `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
+        ]
       })
     }
   }

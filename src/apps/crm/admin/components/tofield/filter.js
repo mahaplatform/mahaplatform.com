@@ -12,6 +12,7 @@ class Filter extends React.PureComponent {
 
   static propTypes = {
     channel: PropTypes.string,
+    defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     instructions: PropTypes.string,
     program_id: PropTypes.number,
@@ -42,8 +43,17 @@ class Filter extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue } = this.props
+    if(!defaultValue) return
+    const { filter_id } = defaultValue
+    this.setState({ filter_id })
+  }
+
   _getFilters() {
+    const { defaultValue } = this.props
     return {
+      defaultValue: defaultValue ? defaultValue.filter_id : null,
       endpoint: '/api/admin/admin-crm-contacts/filters',
       prompt: 'Find a filter',
       value: 'id',

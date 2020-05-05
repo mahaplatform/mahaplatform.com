@@ -12,6 +12,7 @@ class List extends React.PureComponent {
 
   static propTypes = {
     channel: PropTypes.string,
+    defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
     instructions: PropTypes.string,
     program_id: PropTypes.number,
@@ -42,6 +43,13 @@ class List extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue } = this.props
+    if(!defaultValue) return
+    const { list_id } = defaultValue
+    this.setState({ list_id })
+  }
+
   _getInfinite() {
     const { endpoint } = this.props
     const { list_id } = this.state
@@ -62,8 +70,9 @@ class List extends React.PureComponent {
 
 
   _getLists() {
-    const { program_id } = this.props
+    const { defaultValue, program_id } = this.props
     return {
+      defaultValue: defaultValue ? defaultValue.list_id : null,
       endpoint: `/api/admin/crm/programs/${program_id}/lists`,
       prompt: 'Find a list',
       value: 'id',

@@ -37,28 +37,20 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         column: 'crm_mailing_addresses.address->>\'county\'',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
-      organization_id: {
-        column: 'crm_contacts_organizations.organization_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
-      },
-      tag_id: {
-        column: 'crm_taggings.tag_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
-      },
       list_id: {
         column: 'crm_subscriptions.list_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
-      topic_id: {
-        column: 'crm_interests.topic_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
-      },
-      form_id: {
-        column: 'crm_responses.form_id',
+      organization_id: {
+        column: 'crm_contacts_organizations.organization_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
       event_id: {
         column: 'events_registrations.event_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      form_id: {
+        column: 'crm_responses.form_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
       import_id: {
@@ -83,6 +75,14 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
       product_id: {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_contacts.id']]
+      },
+      tag_id: {
+        column: 'crm_taggings.tag_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      topic_id: {
+        column: 'crm_interests.topic_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
       }
     },
     filter: {
