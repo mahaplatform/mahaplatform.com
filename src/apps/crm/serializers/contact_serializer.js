@@ -10,6 +10,8 @@ const ContactSerializer = (req, result) => ({
   organization: result.get('organization'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
   organizations: result.related('organizations').map(organization),
+  lists: result.related('lists').map(list),
+  topics: result.related('topics').map(topic),
   tags: result.related('tags').map(tag),
   values: values(req, result.get('values')),
   birthday: result.get('birthday'),
@@ -53,7 +55,25 @@ const organization = (organization) => {
   if(!organization.id) return null
   return {
     id: organization.get('id'),
-    name: organization.get('name')
+    title: organization.get('title')
+  }
+}
+
+const list = (list) => {
+  if(!list.id) return null
+  return {
+    id: list.get('id'),
+    program_id: list.get('program_id'),
+    title: list.get('title')
+  }
+}
+
+const topic = (topic) => {
+  if(!topic.id) return null
+  return {
+    id: topic.get('id'),
+    program_id: topic.get('program_id'),
+    name: topic.get('name')
   }
 }
 

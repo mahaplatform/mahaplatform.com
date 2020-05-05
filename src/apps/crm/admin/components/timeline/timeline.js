@@ -39,18 +39,15 @@ class Timeline extends React.PureComponent {
         { months.map((month, index) => [
           <div className="crm-timeline-month" key={ `date_${index}` }>
             { index > 0 &&
-              <div className="crm-timeline-item">
-                <div className="crm-timeline-item-rail" />
-                <div className="crm-timeline-item-content">
-                  <div className="crm-timeline-date" key={ `date_${index}` }>
-                    { moment(month.date).format('MMMM YYYY') }
-                  </div>
-                </div>
+              <div className="crm-timeline-date" key={ `date_${index}` }>
+                { moment(month.date).format('MMMM YYYY') }
               </div>
             }
-            { month.activities.map((activity, index) => (
-              <Activity contact={ contact } activity={ activity } key={ `event_${index}` } />
-            )) }
+            <div className="crm-timeline-cards">
+              { month.activities.map((activity, index) => (
+                <Activity contact={ contact } activity={ activity } key={ `event_${index}` } />
+              )) }
+            </div>
           </div>
         ]) }
       </div>

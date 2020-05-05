@@ -8,8 +8,7 @@ const PhoneNumberToken = ({ formatted, program }) => (
       <Logo team={ program } width="24" />
     </div>
     <div className="phone-number-token-label">
-      <strong>{ program.title }</strong><br />
-      { formatted }
+      { program.title } { formatted }
     </div>
   </div>
 )

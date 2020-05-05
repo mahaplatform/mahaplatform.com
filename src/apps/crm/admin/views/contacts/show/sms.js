@@ -1,4 +1,4 @@
-import { Form, Logo, PhoneNumberToken } from 'maha-admin'
+import { Form, PhoneNumberToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -30,7 +30,7 @@ class SMS extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'from_number_id', type: 'lookup', endpoint: '/api/admin/team/phone_numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'formatted', format: PhoneNumberToken },
+            { label: 'From', name: 'from_number_id', type: 'lookup', endpoint: '/api/admin/team/phone_numbers', prompt: 'Choose a phone number', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'formatted', format: PhoneNumberToken },
             { label: 'To', name: 'to_number_id', type: 'lookup', options: contact.phone_numbers, value: 'id', text: 'formatted' },
             { label: 'Message', name: 'body', type: 'textarea' },
             { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true }

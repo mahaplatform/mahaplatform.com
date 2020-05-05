@@ -1,11 +1,9 @@
 import Timeline from '../../../components/timeline'
-import Subscriptions from './subscriptions'
 import Properties from './properties'
 import { Page } from 'maha-admin'
-import Channels from './channels'
+import Consent from './consent'
 import Details from './details'
 import Header from './header'
-import Topics from './topics'
 import Edit from '../edit'
 import React from 'react'
 
@@ -21,14 +19,12 @@ const getSidebar = (user, { contact, fields }) => {
   )
 }
 
-const getTabs = (user, { channels, contact, fields, interests, subscriptions }) => {
+const getTabs = (user, { channels, contact, fields, programs }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
-    { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
-    { label: 'Topics', component: <Topics contact={ contact } interests={ interests } /> },
-    { label: 'Lists', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> },
-    { label: 'Properties', component: <Properties contact={ contact } fields={ fields } /> }
+    { label: 'Consent', component: <Consent contact={ contact } programs={ programs } channels={ channels } /> },
+    { label: 'Properties', component: <Properties contact={ contact } programs={ programs } fields={ fields } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -45,9 +41,8 @@ const getTasks = (user, { contact, fields }) => ({
 const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
   channels: `/api/admin/crm/contacts/${props.params.id}/channels`,
-  interests: `/api/admin/crm/contacts/${props.params.id}/interests`,
-  subscriptions: `/api/admin/crm/contacts/${props.params.id}/subscriptions`,
-  fields: '/api/admin/crm/fields'
+  fields: '/api/admin/crm/fields',
+  programs: '/api/admin/crm/programs'
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

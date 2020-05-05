@@ -36,6 +36,7 @@ const createRoute = async (req, res) => {
   })
 
   await contactActivity(req, {
+    program_id: program.get('id'),
     user: req.user,
     contact,
     type: 'consent',
