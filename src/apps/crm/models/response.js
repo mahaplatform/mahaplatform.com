@@ -1,5 +1,6 @@
 import WorkflowEnrollment from './workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
+import Payment from '../../finance/models/payment'
 import Model from '../../../core/objects/model'
 import Contact from './contact'
 import Form from './form'
@@ -29,6 +30,10 @@ const Response = new Model({
 
   invoice() {
     return this.belongsTo(Invoice, 'invoice_id')
+  },
+
+  payment() {
+    return this.belongsTo(Payment, 'payment_id')
   }
 
 })

@@ -1,4 +1,4 @@
-import { createOrUpdateContact, handlePayment } from '../../../../../crm/services/forms'
+import { createOrUpdateContact, createInvoice, handlePayment } from '../../../../../crm/services/forms'
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import { checkToken } from '../../../../../../core/services/routes/token'
 import { contactActivity } from '../../../../../crm/services/activities'
@@ -34,6 +34,22 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
       price: line_item.price
     }
   })
+}
+
+const getInvoice = async (req, { program_id, contact, event, quantities }) => {
+
+  const line_items = getLineItems(req, {
+    event,
+    quantities,
+    ticket_types: event.related('ticket_types')
+  })
+
+  return await createInvoice(req, {
+    program_id,
+    contact,
+    line_items
+  })
+
 }
 
 const createTickets = async (req, { registration, tickets }) => {
@@ -87,16 +103,16 @@ const submitRoute = async (req, res) => {
     data: req.body.contact
   })
 
-  const line_items = getLineItems(req, {
-    event,
-    quantities: req.body.quantities,
-    ticket_types: event.related('ticket_types')
-  })
-
-  const invoice = req.body.payment ? await handlePayment(req, {
-    program: event.related('program'),
+  const invoice = req.body.payment ? await getInvoice(req, {
+    program_id: event.get('program_id'),
     contact,
-    line_items,
+    event,
+    quantities: req.body.quantities
+  }) : null
+
+  const payment = req.body.payment ? await handlePayment(req, {
+    invoice,
+    program: event.related('program'),
     payment: req.body.payment
   }) : null
 
@@ -105,6 +121,7 @@ const submitRoute = async (req, res) => {
     event_id: event.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
+    payment_id: payment ? payment.get('id') : null,
     referer: req.body.referer,
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,

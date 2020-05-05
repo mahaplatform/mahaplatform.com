@@ -166,7 +166,8 @@ class ChartWrapper extends React.Component {
           yAxes: [{
             ticks: {
               min: 0,
-              stepSize: 1
+              stepSize: 1,
+              maxTicksLimit: 5
             },
             gridLines: {
               display: false

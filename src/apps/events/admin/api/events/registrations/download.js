@@ -53,6 +53,7 @@ const downloadRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.event_id)
   }).fetch({
+    withRelated: ['ticket_types'],
     transacting: req.trx
   })
 
@@ -65,22 +66,33 @@ const downloadRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('event_id', event.get('id'))
   }).fetchAll({
+    withRelated: ['tickets'],
     transacting: req.trx
   })
 
+
   const { fields } = event.get('contact_config')
 
-  res.status(200).respond(registrations, (req, registration) => ({
-    'First Name': registration.get('data').first_name,
-    'Last Name':  registration.get('data').last_name,
-    'Email':  registration.get('data').email,
-    ...fields.filter(field => {
-      return field.type !== 'text'
-    }).reduce((row, field) => ({
-      ...row,
-      ...getValue(field, registration.get('data')[field.code])
+  res.status(200).respond(registrations, (req, registration) => {
+    const tickets = registration.related('tickets').reduce((tickets, ticket) => ({
+      ...tickets,
+      [ticket.get('ticket_type_id')]: 1 + (tickets[ticket.get('ticket_type_id')] || 0)
     }), {})
-  }))
+    return {
+      'First Name': registration.get('data').first_name,
+      'Last Name':  registration.get('data').last_name,
+      'Email':  registration.get('data').email,
+      ...fields.filter(field => {
+        return field.type !== 'text'
+      }).reduce((row, field) => ({
+        ...row,
+        ...getValue(field, registration.get('data')[field.code])
+      }), {}),
+      ...event.related('ticket_types').map(ticket_type => ({
+        [ticket_type.get('name')]: tickets[ticket_type.get('id')]
+      }))
+    }
+  })
 
 }
 

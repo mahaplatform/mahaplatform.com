@@ -1,5 +1,6 @@
 import WorkflowEnrollment from '../../crm/models/workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
+import Payment from '../../finance/models/payment'
 import Model from '../../../core/objects/model'
 import Contact from '../../crm/models/contact'
 import Ticket from './ticket'
@@ -27,6 +28,10 @@ const Registration = new Model({
 
   invoice() {
     return this.belongsTo(Invoice, 'invoice_id')
+  },
+
+  payment() {
+    return this.belongsTo(Payment, 'payment_id')
   },
 
   tickets() {

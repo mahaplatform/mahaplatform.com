@@ -474,6 +474,7 @@ const schema = {
       table.text('referer')
       table.integer('duration')
       table.boolean('is_known')
+      table.integer('payment_id').unsigned()
     })
 
     await knex.schema.createTable('crm_senders', (table) => {
@@ -885,6 +886,7 @@ const schema = {
       table.integer('duration')
       table.boolean('is_known')
       table.jsonb('data')
+      table.integer('payment_id').unsigned()
     })
 
     await knex.schema.createTable('events_sessions', (table) => {
@@ -2506,6 +2508,7 @@ const schema = {
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_id').references('finance_payments.id')
     })
 
     await knex.schema.table('crm_senders', table => {
@@ -2704,6 +2707,7 @@ const schema = {
       table.foreign('event_id').references('events_events.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_id').references('finance_payments.id')
     })
 
     await knex.schema.table('events_sessions', table => {

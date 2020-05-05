@@ -1,4 +1,4 @@
-import { createOrUpdateContact, handlePayment } from '../../../services/forms'
+import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
 import { checkToken } from '../../../../../core/services/routes/token'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
@@ -34,7 +34,8 @@ const getLineItems = async (req, { products }) => {
   })
 }
 
-const getInvoice = async (req, { contact, fields, form, payment }) => {
+const getInvoice = async (req, { contact, fields, form }) => {
+
   const productfield = fields.find(field => {
     return field.type === 'productfield'
   })
@@ -45,11 +46,10 @@ const getInvoice = async (req, { contact, fields, form, payment }) => {
     products: req.body[productfield.code].products
   })
 
-  return await handlePayment(req, {
-    program: form.related('program'),
+  return await createInvoice(req, {
+    program_id: form.get('program_id'),
     contact,
-    line_items,
-    payment: req.body.payment
+    line_items
   })
 
 }
@@ -87,15 +87,21 @@ const submitRoute = async (req, res) => {
   const invoice = await getInvoice(req, {
     contact,
     fields,
-    form,
-    payment: req.body.payment
+    form
   })
+
+  const payment = (invoice && req.body.payment) ? await handlePayment(req, {
+    invoice,
+    program: form.related('program'),
+    payment: req.body.payment
+  }) : null
 
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
+    payment_id: payment ? payment.get('id') : null,
     referer: req.body.referer,
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,

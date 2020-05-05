@@ -4,7 +4,7 @@ import LineItem from '../../../finance/models/line_item'
 import Invoice from '../../../finance/models/invoice'
 import moment from 'moment'
 
-const createInvoice = async (req, { program_id, contact, line_items }) => {
+export const createInvoice = async (req, { program_id, contact, line_items }) => {
 
   const code = await generateCode(req, {
     table: 'finance_invoices'
@@ -46,24 +46,14 @@ const createInvoice = async (req, { program_id, contact, line_items }) => {
 
 }
 
-export const handlePayment = async (req, { program, contact, line_items, payment }) => {
+export const handlePayment = async (req, { invoice, program, payment }) => {
 
-  const invoice = await createInvoice(req, {
-    program_id: program.get('id'),
-    contact,
-    line_items
+  return await makePayment(req, {
+    invoice,
+    params: {
+      merchant_id: program.get('merchant_id'),
+      ...payment
+    }
   })
-
-  if(payment) {
-    await makePayment(req, {
-      invoice,
-      params: {
-        merchant_id: program.get('merchant_id'),
-        ...payment
-      }
-    })
-  }
-
-  return invoice
 
 }
