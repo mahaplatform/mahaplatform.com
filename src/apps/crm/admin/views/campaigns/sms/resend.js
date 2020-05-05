@@ -36,14 +36,14 @@ class Resend extends React.Component {
     return {
       title: 'Resend Campaign',
       method: 'patch',
-      action: `/api/admin/crm/campaigns/email/${campaign.id}/resend`,
+      action: `/api/admin/crm/campaigns/sms/${campaign.id}/resend`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'To', name: 'to', type: ToField, program_id: campaign.program_id, channel: 'email', purpose: campaign.purpose },
+            { label: 'To', name: 'to', type: ToField, program_id: campaign.program_id, channel: 'sms', purpose: campaign.purpose },
             { label: 'Send At', name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
             ...strategy === 'schedule' ? [
               { label: 'Send At', type: 'segment', fields: [

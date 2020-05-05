@@ -1,5 +1,6 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
+import { contactActivity } from '../activities'
 
 export const enrollInCampaign = async (req, { contact, call, voice_campaign }) => {
 
@@ -7,7 +8,7 @@ export const enrollInCampaign = async (req, { contact, call, voice_campaign }) =
     table: 'crm_workflow_enrollments'
   })
 
-  return await WorkflowEnrollment.forge({
+  const enrollment = await WorkflowEnrollment.forge({
     team_id: req.team.get('id'),
     voice_campaign_id: voice_campaign.get('id'),
     contact_id: contact.get('id'),
@@ -21,6 +22,19 @@ export const enrollInCampaign = async (req, { contact, call, voice_campaign }) =
   }).save(null, {
     transacting: req.trx
   })
+
+  await contactActivity(req, {
+    contact,
+    type: 'voice_campaign',
+    story: 'enrolled in inbound voice workflow',
+    program_id: voice_campaign.get('program_id'),
+    data: {
+      sms_campaign_id: voice_campaign.get('id')
+    }
+  })
+
+  return enrollment
+
 
 }
 

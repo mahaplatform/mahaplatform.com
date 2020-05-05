@@ -1,4 +1,5 @@
 import EmailCampaign from './email_campaign'
+import SMSCampaign from './sms_campaign'
 import Response from './response'
 import Workflow from './workflow'
 import Consent from './consent'
@@ -15,6 +16,7 @@ const cards = {
   import: { component: Import, color: 'olive', icon: 'pencil' },
   note: { component: Note, color: 'orange', icon: 'sticky-note' },
   response: { component: Response, color: 'green', icon: 'check-square' },
+  sms_campaign: { component: SMSCampaign, color: 'olive', icon: 'pencil' },
   workflow: { component: Workflow, color: 'pink', icon: 'gears' }
 }
 

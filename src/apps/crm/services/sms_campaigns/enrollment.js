@@ -1,6 +1,7 @@
 import ExecuteWorkflowQueue from '../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
+import { contactActivity } from '../activities'
 
 export const enrollInCampaign = async (req, { contact, sms_campaign }) => {
 
@@ -29,6 +30,17 @@ export const enrollInCampaign = async (req, { contact, sms_campaign }) => {
     was_converted: false
   }).save(null, {
     transacting: req.trx
+  })
+
+  await contactActivity(req, {
+    contact,
+    type: 'sms_campaign',
+    story: 'enrolled in inbound sms workflow',
+    program_id: sms_campaign.get('program_id'),
+    data: {
+      enrollment_id: enrollment.get('id'),
+      sms_campaign_id: sms_campaign.get('id')
+    }
   })
 
   await ExecuteWorkflowQueue.enqueue(req, {

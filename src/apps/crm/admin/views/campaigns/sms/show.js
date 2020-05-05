@@ -2,6 +2,7 @@ import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Emails from './emails'
+import Resend from './resend'
 import React from 'react'
 import Send from './send'
 import Edit from './edit'
@@ -22,6 +23,10 @@ const getTasks = ({ campaign }) => {
 
   if(status === 'draft') {
     items.push({ label: 'Edit Campaign', modal: <Edit campaign={ campaign } /> })
+  }
+
+  if(direction === 'outbound' && campaign.status === 'sent') {
+    items.push({ label: 'Resend Campaign', modal: <Resend campaign={ campaign } /> })
   }
 
   if(direction === 'outbound' && status === 'draft') {
