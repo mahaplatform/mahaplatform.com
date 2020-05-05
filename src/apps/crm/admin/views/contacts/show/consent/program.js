@@ -1,4 +1,4 @@
-import { Button, Image } from 'maha-admin'
+import { Button, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
 import OptOut from '../optout'
 import OptIn from '../optin'
@@ -30,7 +30,7 @@ class Program extends React.Component {
             <i className={`fa fa-fw fa-chevron-${this._getIcon()}`} />
           </div>
           <div className="crm-contact-properties-header-logo">
-            <Image src={ program.logo } transforms={{ fit: 'cover', w: 24, h: 24 }} />
+            <Logo team={ program } width="24" />
           </div>
           <div className="crm-contact-properties-header-title">
             { program.title }

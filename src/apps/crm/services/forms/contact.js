@@ -82,7 +82,7 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
   })
 
   const contact = await getContact(req, {
-    email: data[emailfield.code]
+    email: data[emailfield.code].toLowerCase()
   })
 
   await updateContact(req, {
@@ -97,7 +97,7 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
     return !_.isNil(data[field.code]) && data[field.code].length > 0
   }).reduce((email_addresses, field) => [
     ...email_addresses,
-    { address: data[field.code] }
+    { address: data[field.code].toLowerCase() }
   ], [])
 
   if(email_addresses.length > 0) {
