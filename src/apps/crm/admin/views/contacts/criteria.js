@@ -20,20 +20,20 @@ const criteria = [
   ] },
   { label: 'Classifications', fields: [
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
-      { value: '$in', text: 'is subscribed to' },
-      { value: '$nin', text: 'is not subscribed to' }
+      { value: '$jin', text: 'is subscribed to' },
+      { value: '$njin', text: 'is not subscribed to' }
     ] },
     { name: 'Organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', multiple: true, subject: false, text: 'name', value: 'id', comparisons: [
-      { value: '$in', text: 'belongs to' },
-      { value: '$nin', text: 'does not belong to' }
+      { value: '$jin', text: 'belongs to' },
+      { value: '$njin', text: 'does not belong to' }
     ] },
     { name: 'Tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id', multiple: true, subject: false, comparisons: [
-      { value: '$in', text: 'is tagged with' },
-      { value: '$nin', text: 'id not tagged with' }
+      { value: '$jin', text: 'is tagged with' },
+      { value: '$njin', text: 'id not tagged with' }
     ] },
     { name: 'Topic', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
-      { value: '$in', text: 'is interested in' },
-      { value: '$nin', text: 'is not interested in' }
+      { value: '$jin', text: 'is interested in' },
+      { value: '$njin', text: 'is not interested in' }
     ] }
   ] },
   { label: 'Activities', fields: [

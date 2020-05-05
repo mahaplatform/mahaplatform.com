@@ -128,12 +128,32 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
           query: `${alias}.was_converted = false`
         }),
+        $jin: (table, alias, column, value) => {
+          const markers = Array(value.length).fill(0).map(i => '?').join(',')
+          return {
+            join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column} in (${markers})`, ...value]
+          }
+        },
+        $njin: (table, alias, column, value) => {
+          const markers = Array(value.length).fill(0).map(i => '?').join(',')
+          return {
+            join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column} in (${markers})`, ...value],
+            query: `${alias}.${column} is null`
+          }
+        },
+        $jeq: (table, alias, column, value) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value]
+        }),
+        $njeq: (table, alias, column, value) => ({
+          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value],
+          query: `${alias}.${column} is null`
+        }),
         $act: (table, alias, column, value) => ({
           join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value]
         }),
         $nact: (table, alias, column, value) => ({
           join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value],
-          query: `${alias}.id is null`
+          query: `${alias}.${column} is null`
         }),
         $addt: (table, alias, column, value) => ({
           join: [
