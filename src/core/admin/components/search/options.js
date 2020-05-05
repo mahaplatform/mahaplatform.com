@@ -7,6 +7,7 @@ import _ from 'lodash'
 class Options extends React.Component{
 
   static propTypes = {
+    excludeIds: PropTypes.array,
     format: PropTypes.any,
     multiple: PropTypes.bool,
     options: PropTypes.any,
@@ -17,7 +18,8 @@ class Options extends React.Component{
   }
 
   render() {
-    const { format, options, text } = this.props
+    const { format, text } = this.props
+    const options = this._getOptions()
     return (
       <div className="maha-search-results">
         { options.map((option, index) => (
@@ -34,6 +36,14 @@ class Options extends React.Component{
         )) }
       </div>
     )
+  }
+
+  _getOptions() {
+    const { excludeIds, options } = this.props
+    if(!excludeIds) return options
+    return options.filter(option => {
+      return !_.includes(excludeIds, option.id)
+    })
   }
 
   _getChecked(option) {

@@ -1,9 +1,10 @@
 import { Infinite, ModalPanel, Search } from 'maha-admin'
-import RecipientToken from '../../tokens/recipient'
+import ContactToken from '../../tokens/contact'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Results from './results'
 import React from 'react'
+import _ from 'lodash'
 
 class Picker extends React.PureComponent {
 
@@ -28,6 +29,7 @@ class Picker extends React.PureComponent {
 
   _handleBack = this._handleBack.bind(this)
   _handleChoose = this._handleChoose.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -45,17 +47,28 @@ class Picker extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue } = this.props
+    if(!defaultValue) return
+    const { contact_ids } = defaultValue
+    this.setState({ contact_ids })
+  }
+
   _getContacts() {
+    const { contact_ids } = this.state
     const { endpoint } = this.props
     return {
       endpoint,
+      excludeIds: contact_ids,
       prompt: 'Find a contact',
-      format: (recipient) => <RecipientToken recipient={ recipient } />,
-      onChange: this._handleChange
+      value: 'id',
+      format: (recipient) => <ContactToken { ...recipient.contact } />,
+      onChange: this._handleChoose
     }
   }
 
   _getInfinite() {
+    const { contact_ids } = this.state
     const { endpoint } = this.props
     return {
       empty: {
@@ -64,20 +77,29 @@ class Picker extends React.PureComponent {
         text: 'Add criteria to find records that match'
       },
       endpoint,
-      filter: this._getFilter(),
+      query: {
+        contact_ids
+      },
       footer: ({ all, total }) => `Matching ${total} of ${pluralize('contact', all, true)}`,
-      layout: Results
+      layout: Results,
+      props: {
+        onRemove: this._handleRemove
+      }
     }
   }
 
   _getPanel() {
     const { instructions } = this.props
+    const { contact_ids } = this.state
     return {
       title: 'Choose Contacts',
       instructions,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
-      ]
+      ],
+      rightItems: contact_ids ? [
+        { label: 'Done', handler: this._handleDone }
+      ] : null
     }
   }
 
@@ -85,13 +107,25 @@ class Picker extends React.PureComponent {
     this.context.form.pop()
   }
 
-  _handleChange(contact_ids) {
-    this.setState({ contact_ids })
+  _handleChoose(contact_id) {
+    this.setState({
+      contact_ids: [
+        ...this.state.contact_ids || [],
+        contact_id
+      ]
+    })
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { contact_ids } = this.state
+    this.props.onDone({ contact_ids })
     this.context.form.pop()
+  }
+
+  _handleRemove(id) {
+    this.setState({
+      contact_ids: _.without(this.state.contact_ids, id)
+    })
   }
 
 }

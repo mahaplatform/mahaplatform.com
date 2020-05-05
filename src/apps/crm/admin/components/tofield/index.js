@@ -74,13 +74,14 @@ class ToField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    if(defaultValue) return this.setState(defaultValue)
     this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config) && config) {
+      this._handleChange()
       this._handleFetch()
     }
   }
@@ -148,6 +149,14 @@ class ToField extends React.PureComponent {
     }
   }
 
+  _handleChange() {
+    const { config, strategy } = this.state
+    this.props.onChange({
+      config,
+      strategy
+    })
+  }
+
   _handleClear() {
     this.setState({
       recipients: null
@@ -169,6 +178,7 @@ class ToField extends React.PureComponent {
 
   _getQuery() {
     const { strategy, config } = this.state
+    if(!config) return {}
     if(strategy !== 'criteria') return config
     return {
       $filter: toFilter(config.criteria)
@@ -181,6 +191,7 @@ class ToField extends React.PureComponent {
   }
 
   _handleStrategy(strategy) {
+    if(strategy === this.state.strategy) return
     this.setState({
       strategy,
       config: null,
@@ -189,6 +200,7 @@ class ToField extends React.PureComponent {
   }
 
   _handleSuccess({ data }) {
+    this.props.onReady()
     this.setState({
       recipients: data
     })

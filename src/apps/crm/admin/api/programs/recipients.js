@@ -2,6 +2,7 @@ import RecipientSerializer from '../../../serializers/recipient_serializer'
 import { getRecipients } from '../../../services/recipients'
 
 const getStrategy = ({ $filter, contact_ids, list_id, filter_id }) => {
+  if($filter && $filter.q !== undefined) return 'lookup'
   if(contact_ids) return 'contacts'
   if(list_id) return 'list'
   if(filter_id) return 'filter'

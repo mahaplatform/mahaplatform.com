@@ -1,4 +1,5 @@
 const RecipientSerializer = (req, result) => ({
+  id: result.related('contact').get('id'),
   contact: contact(result.related('contact')),
   email_address: email_address(result.related('email_address')),
   mailing_address: mailing_address(result.related('mailing_address')),
@@ -10,6 +11,7 @@ const contact = (contact) => {
   return {
     id: contact.get('id'),
     full_name: contact.get('full_name'),
+    display_name: contact.get('display_name'),
     initials: contact.get('initials'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
   }

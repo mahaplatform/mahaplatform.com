@@ -6,6 +6,7 @@ class Dynamic extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
+    excludeIds: PropTypes.array,
     format: PropTypes.any,
     multiple: PropTypes.bool,
     records: PropTypes.array,
@@ -20,9 +21,10 @@ class Dynamic extends React.Component {
   }
 
   _getOptions() {
-    const { cid, format, multiple, records, selected, text, value, onToggle } = this.props
+    const { cid, excludeIds, format, multiple, records, selected, text, value, onToggle } = this.props
     return {
       cid,
+      excludeIds,
       format,
       multiple,
       options: records,

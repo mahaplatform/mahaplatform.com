@@ -13,6 +13,7 @@ class Search extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     defaultValue: PropTypes.any,
+    excludeIds: PropTypes.array,
     empty: PropTypes.object,
     endpoint: PropTypes.string,
     filter: PropTypes.object,
@@ -91,9 +92,10 @@ class Search extends React.Component {
   }
 
   _getOptions() {
-    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
+    const { cid, excludeIds, format, multiple, options, selected, text, value, onToggle } = this.props
     return {
       cid,
+      excludeIds,
       format,
       multiple,
       options,
@@ -127,9 +129,10 @@ class Search extends React.Component {
   }
 
   _getProps() {
-    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
+    const { cid, excludeIds, format, multiple, options, selected, text, value, onToggle } = this.props
     return {
       cid,
+      excludeIds,
       format,
       multiple,
       options,

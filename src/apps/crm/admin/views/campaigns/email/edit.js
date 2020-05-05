@@ -24,6 +24,7 @@ class Edit extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -43,7 +44,7 @@ class Edit extends React.PureComponent {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
             { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken },
-            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'email', purpose: config.config }
+            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'email', purpose: config.purpose }
           ]
         }
       ]

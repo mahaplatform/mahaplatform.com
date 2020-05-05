@@ -6,20 +6,31 @@ class Results extends React.Component {
 
   static propTypes = {
     records: PropTypes.array,
-    onChoose: PropTypes.func
+    onRemove: PropTypes.func
   }
 
   render() {
-    const { records } = this.props
+    const { records, onRemove } = this.props
     return (
       <div className="tofield-picker-results">
         { records.map((record, index) => (
           <div className="tofield-picker-result" key={`result_${index}`}>
-            <RecipientToken recipient={ record } />
+            <div className="tofield-picker-result-token">
+              <RecipientToken recipient={ record } />
+            </div>
+            { onRemove &&
+              <div className="tofield-picker-result-remove" onClick={ this._handleRemove.bind(this, record) }>
+                <i className="fa fa-times" />
+              </div>
+            }
           </div>
         )) }
       </div>
     )
+  }
+
+  _handleRemove(record) {
+    this.props.onRemove(record.id)
   }
 
 }

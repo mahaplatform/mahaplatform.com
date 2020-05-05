@@ -7,6 +7,7 @@ const getCreator = (strategy) => {
   if(strategy === 'contacts') return getRecipientsById
   if(strategy === 'list')  return getRecipientsByList
   if(strategy === 'filter')  return getRecipientsByFilter
+  if(strategy === 'lookup')  return getRecipientsByLookup
   if(strategy === 'criteria')  return getRecipientsByCriteria
 }
 
@@ -44,6 +45,10 @@ const getRecipientsByFilter = async (req, { filter_id }) => {
   })
 
 }
+
+const getRecipientsByLookup = async (req, { filter }) => ({
+  filter
+})
 
 const getRecipientsByCriteria = async (req, params) => {
   const filter = getFilter(params)
@@ -217,9 +222,9 @@ export const getRecipients = async (req, params) => {
       qb.where('crm_recipients.team_id', req.team.get('id'))
       qb.where('type', type)
       qb.where('purpose', purpose)
-      if(purpose === 'marketing') qb.where('program_id', program_id)
       qb.orderBy('crm_contacts.last_name','asc')
-      args.scope(qb)
+      if(purpose === 'marketing') qb.where('program_id', program_id)
+      if(args.scope) args.scope(qb)
     },
     aliases: {
       first_name: 'crm_contacts.first_name',
@@ -241,7 +246,7 @@ export const getRecipients = async (req, params) => {
         'first_name','last_name','email','phone',
         ...args.allowed || []
       ],
-      search: ['first_name','last_name','email']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query ? req.query.$sort : null,

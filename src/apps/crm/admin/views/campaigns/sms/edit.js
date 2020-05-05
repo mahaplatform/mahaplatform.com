@@ -24,6 +24,7 @@ class Edit extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -59,7 +60,7 @@ class Edit extends React.PureComponent {
     } else if(campaign.direction === 'outbound') {
       return [
         { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken },
-        { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'sms', purpose: config.config }
+        { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'sms', purpose: config.purpose }
       ]
     }
   }
