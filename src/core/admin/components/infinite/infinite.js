@@ -27,6 +27,7 @@ class Infinite extends React.Component {
     next: PropTypes.string,
     notFound: PropTypes.any,
     props: PropTypes.object,
+    query: PropTypes.object,
     records: PropTypes.array,
     reference: PropTypes.func,
     refresh: PropTypes.string,
@@ -94,13 +95,13 @@ class Infinite extends React.Component {
           { status === 'loading' && records && records.length > 0 && <Appending/> }
           { status === 'failed' && this._getComponent(failure) }
           { status === 'loading' && records.length === 0 && <Loader /> }
-          { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
+          { !_.includes(['loading','failed'], status) && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
             this._getComponent(notFound)
           }
-          { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
+          { !_.includes(['loading','failed'], status) && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
             this._getComponent(empty)
           }
-          { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
+          { !_.includes(['loading','failed'], status) && records.length === 0 && all === undefined && skip === 0 && next === null &&
             this._getComponent(failure)
           }
           { status !== 'failed' && records && records.length > 0 && scrollpane && Layout &&
@@ -131,8 +132,8 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, exclude_ids, filter, records, selectedValues, sort, onUpdateSelected } = this.props
-    if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids)  || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
+    const { cacheKey, exclude_ids, filter, query, records, selectedValues, sort, onUpdateSelected } = this.props
+    if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids) || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.query, query) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
     if(selectedValues !== prevProps.selectedValues && selectedValues && records) {
@@ -174,11 +175,12 @@ class Infinite extends React.Component {
   }
 
   _handleFetch(skip = null, reload = false) {
-    const { endpoint, exclude_ids, filter, next, records, sort, total, onFetch } = this.props
+    const { endpoint, exclude_ids, filter, next, query, records, sort, total, onFetch } = this.props
     const loaded = records ? records.length : 0
     if(!onFetch || !this._getMore(next, skip, reload, loaded, total)) return
     onFetch(endpoint, {
       $page: this._getPagination(skip),
+      ...query || {},
       ...(filter ? { $filter: filter } : {}),
       ...(sort && sort.key ? { $sort: (sort.order === 'desc' ? '-' : '') + sort.key } : {}),
       ...(exclude_ids ? { $exclude_ids: exclude_ids } : {})

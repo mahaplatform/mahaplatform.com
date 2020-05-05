@@ -7,13 +7,6 @@ import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
 import Program from '../../../../models/program'
 
-const getTo = ({ strategy, contact_ids, list_id, filter_id, criteria }) => {
-  if(strategy === 'contacts') return { strategy, contact_ids }
-  if(strategy === 'list') return { strategy, list_id }
-  if(strategy === 'filter') return { strategy, filter_id }
-  if(strategy === 'criteria') return { strategy, criteria }
-}
-
 const createRoute = async (req, res) => {
 
   const program = await Program.query(qb => {
@@ -41,8 +34,7 @@ const createRoute = async (req, res) => {
     status: 'draft',
     program_id: program.get('id'),
     phone_number_id: program.get('phone_number_id'),
-    to: getTo(req.body),
-    ...whitelist(req.body, ['title','direction','purpose'])
+    ...whitelist(req.body, ['to', 'title','direction','purpose'])
   }).save(null, {
     transacting: req.trx
   })

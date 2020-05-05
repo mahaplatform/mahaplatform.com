@@ -6,14 +6,6 @@ import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
 
-const getTo = ({ strategy, contact_ids, list_id, filter_id, criteria }, to) => {
-  if(strategy === 'contacts') return { strategy, contact_ids }
-  if(strategy === 'list') return { strategy, list_id }
-  if(strategy === 'filter') return { strategy, filter_id }
-  if(strategy === 'criteria') return { strategy, criteria }
-  return to
-}
-
 const updateRoute  = async (req, res) => {
 
   const email_campaign = await EmailCampaign.query(qb => {
@@ -30,8 +22,7 @@ const updateRoute  = async (req, res) => {
   })
 
   await email_campaign.save({
-    to: getTo(req.body, email_campaign.get('to')),
-    ...whitelist(req.body, ['title','purpose','config'])
+    ...whitelist(req.body, ['to','title','purpose','config'])
   }, {
     transacting: req.trx,
     patch: true

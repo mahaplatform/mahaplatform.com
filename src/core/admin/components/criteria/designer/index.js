@@ -30,7 +30,7 @@ class Designer extends React.PureComponent {
     filter: null
   }
 
-  _handleChange = this._handleChange.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     return (
@@ -47,7 +47,6 @@ class Designer extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    console.log('designer', defaultValue)
     if(defaultValue) this.setState({
       filter: defaultValue
     })
@@ -70,7 +69,7 @@ class Designer extends React.PureComponent {
       panel: {
         title: 'Filter'
       },
-      onChange: this._handleChange
+      onChange: this._handleUpdate
     }
   }
 
@@ -100,7 +99,7 @@ class Designer extends React.PureComponent {
     }
   }
 
-  _handleChange(filter) {
+  _handleUpdate(filter) {
     this.setState({ filter })
   }
 

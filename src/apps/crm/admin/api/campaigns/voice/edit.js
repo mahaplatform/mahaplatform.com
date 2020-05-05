@@ -17,7 +17,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond(voice_campaign, (req, campaign) => ({
     title: campaign.get('title'),
     purpose: campaign.get('purpose'),
-    ...campaign.get('to')
+    to: campaign.get('to')
   }))
 
 }

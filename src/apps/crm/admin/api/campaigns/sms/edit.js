@@ -18,7 +18,7 @@ const editRoute = async (req, res) => {
     title: campaign.get('title'),
     term: campaign.get('term'),
     purpose: campaign.get('purpose'),
-    ...campaign.get('to')
+    to: campaign.get('to')
   }))
 
 }

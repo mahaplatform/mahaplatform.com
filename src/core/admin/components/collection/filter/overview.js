@@ -10,6 +10,7 @@ import _ from 'lodash'
 class Overview extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     flash: PropTypes.object,
     network: PropTypes.object
   }
@@ -36,6 +37,7 @@ class Overview extends React.Component {
 
   render() {
     const { entity, filters } = this.props
+    const { admin } = this.context
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criteria-list-overview">
@@ -50,8 +52,12 @@ class Overview extends React.Component {
                 <div className="maha-criteria-list-item-label">
                   { filter.title }
                 </div>
-                <Button { ...this._getEdit(filter) } />
-                <Button { ...this._getDelete(filter) } />
+                { filter.owner.id === admin.user.id &&
+                  <Button { ...this._getEdit(filter) } />
+                }
+                { filter.owner.id === admin.user.id &&
+                  <Button { ...this._getDelete(filter) } />
+                }
               </div>
             )) }
             <div className="maha-criteria-list-item">

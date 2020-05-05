@@ -1,6 +1,5 @@
-import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
-import fields from '../../contacts/criteria'
+import ToField from '../../../components/tofield'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -31,6 +30,7 @@ class New extends React.PureComponent {
 
   _getForm() {
     const { program_id } = this.props
+    const { config } = this.state
     return {
       title: 'New Outbound SMS Campaign',
       method: 'post',
@@ -46,71 +46,10 @@ class New extends React.PureComponent {
             { name: 'direction', type: 'hidden', defaultValue: 'outbound' },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
             { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
-            { label: 'To', type: 'segment', fields: [
-              { name: 'strategy', type: 'dropdown', options: [
-                { value: 'contacts', text: 'Specific contacts' },
-                { value: 'list', text: 'Contacts in a list' },
-                { value: 'filter', text: 'Contacts in a saved filter' },
-                { value: 'criteria', text: 'Contacts that meet specific criteria' }
-              ], value: 'value', text: 'text' },
-              ...this._getToField()
-            ] }
+            { label: 'To', name: 'to', type: ToField, program_id, channel: 'sms', purpose: config.purpose }
           ]
         }
       ]
-    }
-  }
-
-  _getToField() {
-    const { program_id } = this.props
-    const { config } = this.state
-    if(config.strategy === 'contacts') {
-      return [
-        { name: 'contact_ids', type: 'lookup2', placeholder: 'Choose contacts', endpoint: '/api/admin/crm/contacts', filter: { phone: { $nnl: true } }, multiple: true, value: 'id', text: 'display_name', defaultValue: config.contact_ids, format: (contact) => <RecipientToken recipient={{ contact, phone_number: { number: contact.phone } } } /> }
-      ]
-    } else if(config.strategy === 'list') {
-      return [
-        { name: 'list_id', type: 'lookup', placeholder: 'Choose a list', endpoint: `/api/admin/crm/programs/${program_id}/lists`, value: 'id', text: 'title' }
-      ]
-    } else if(config.strategy === 'filter') {
-      return [
-        { name: 'filter_id', type: 'lookup', placeholder: 'Choose a filter', endpoint: '/api/admin/admin-crm-contacts/filters', value: 'id', text: 'title' }
-      ]
-    } else if(config.strategy === 'criteria') {
-      return [
-        { name: 'criteria', type: 'criteriafield', ...this._getCriteriaField() }
-      ]
-    }
-    return []
-  }
-
-  _getComment(purpose) {
-    if(purpose === 'marketing') {
-      return `
-        Marketing text messages can only be sent to contacts who have given
-        their explicit consent. You will only see contacts who match your
-        criteria and have opted in to receive text messages from this program
-      `
-    }
-    if(purpose === 'transactional') {
-      return `
-        Transactional text messages will be sent to the primary phone number
-        of each contact that matches your criteria.
-      `
-    }
-  }
-
-  _getCriteriaField() {
-    const { program_id } = this.props
-    const { config } = this.state
-    return {
-      comment: <p>{ this._getComment(config.purpose) }</p>,
-      endpoint: `/api/admin/crm/programs/${program_id}/${config.purpose}/sms/recipients`,
-      entity: 'contact',
-      format: (recipient) => <RecipientToken recipient={recipient} channel="sms" />,
-      fields,
-      title: 'Select Contacts',
-      defaultValue: []
     }
   }
 

@@ -40,7 +40,7 @@ class Options extends React.Component{
     const { selected, value } = this.props
     if(!selected) return false
     return selected.find(item => {
-      return value ? option === _.get(item, value) : _.isEqual(item, option)
+      return value ? _.get(option, value) === item : _.isEqual(item, option)
     }) !== undefined
   }
 

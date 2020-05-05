@@ -53,6 +53,7 @@ const getRecipientsByCriteria = async (req, params) => {
       if(!filter || filter.$and.length === 0) qb.whereRaw('false')
     },
     aliases: {
+      contact_id: 'crm_recipients.contact_id',
       street_1: {
         column: 'crm_mailing_addresses.address->>\'street_1\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
@@ -171,11 +172,11 @@ const getRecipientsByCriteria = async (req, params) => {
 
 export const getRecipients = async (req, params) => {
 
-  const { type, purpose, program_id, page, strategy } = params
+  const { config, type, purpose, program_id, page, strategy } = params
 
   const creator = getCreator(strategy)
 
-  const args = await creator(req, params)
+  const args = await creator(req, config)
 
   req.fields = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))

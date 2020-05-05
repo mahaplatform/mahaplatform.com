@@ -49,18 +49,6 @@ class Criteria extends React.Component {
     this._handlePush(Overview, this._getOverview.bind(this))
   }
 
-  _handleDefault(defaultValue) {
-    const value = defaultValue.length === 0 ? [{
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      data: null,
-      field: null,
-      value: null,
-      parent: null,
-      operator: '$and'
-    }] : defaultValue
-    this.props.onSet(value)
-  }
-
   componentDidUpdate(prevProps) {
     const { items, test } = this.props
     if(!_.isEqual(items, prevProps.items)) {
@@ -101,6 +89,18 @@ class Criteria extends React.Component {
     }
   }
 
+  _handleDefault(defaultValue) {
+    const value = defaultValue.length === 0 ? [{
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      data: null,
+      field: null,
+      value: null,
+      parent: null,
+      operator: '$and'
+    }] : defaultValue
+    this.props.onSet(value)
+  }
+  
   _handlePop(index = -1) {
     this.setState({
       cards:this.state.cards.slice(0, index)

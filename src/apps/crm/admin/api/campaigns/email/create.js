@@ -11,13 +11,6 @@ import { getDefaultConfig } from '../../../../services/email'
 import Template from '../../../../models/template'
 import Program from '../../../../models/program'
 
-const getTo = ({ strategy, contact_ids, list_id, filter_id, criteria }) => {
-  if(strategy === 'contacts') return { strategy, contact_ids }
-  if(strategy === 'list') return { strategy, list_id }
-  if(strategy === 'filter') return { strategy, filter_id }
-  if(strategy === 'criteria') return { strategy, criteria }
-}
-
 const createRoute = async (req, res) => {
 
   const program = await Program.query(qb => {
@@ -51,8 +44,7 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    to: getTo(req.body),
-    ...whitelist(req.body, ['title','purpose']),
+    ...whitelist(req.body, ['to','title','purpose']),
     config: {
       ...template ? template.get('config') : getDefaultConfig(),
       settings: {

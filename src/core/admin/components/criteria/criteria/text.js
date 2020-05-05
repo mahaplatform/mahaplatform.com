@@ -110,7 +110,7 @@ class Text extends React.Component {
       defaultValue: value,
       disabled: _.includes(['$nkn','$kn'], operator),
       placeholder: 'Enter a value',
-      onChange: this._handleUpdate.bind(this, 'value')
+      onChange: _.debounce(this._handleUpdate.bind(this, 'value'), 250)
     }
   }
 
