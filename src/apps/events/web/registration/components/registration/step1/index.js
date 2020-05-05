@@ -63,7 +63,7 @@ class Step1 extends React.Component {
                     <div className="registration-step1-tickettype-token">
                       <TicketTypeToken { ...ticket_type } />
                     </div>
-                    { ticket_type.remaining > 0 ?
+                    { ticket_type.remaining === null || ticket_type.remaining > 0 ?
                       <div className="registration-step1-tickettype-config">
                         <div className="registration-step1-tickettype-config-item">
                           <Price { ...this._getPrice(ticket_type) } />
