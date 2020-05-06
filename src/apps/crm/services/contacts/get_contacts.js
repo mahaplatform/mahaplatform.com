@@ -37,13 +37,17 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         column: 'crm_mailing_addresses.address->>\'county\'',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
-      list_id: {
-        column: 'crm_subscriptions.list_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
+      email_campaign_id: {
+        column: 'maha_emails.email_campaign_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
       },
-      organization_id: {
-        column: 'crm_contacts_organizations.organization_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
+      email_id: {
+        column: 'maha_emails.email_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
+      enrollment_id: {
+        column: 'crm_workflow_enrollments.workflow_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
       },
       event_id: {
         column: 'events_registrations.event_id',
@@ -60,17 +64,13 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
           ['object_id','crm_contacts.id']
         ]
       },
-      email_campaign_id: {
-        column: 'maha_emails.email_campaign_id',
-        leftJoin: [['contact_id', 'crm_contacts.id']]
+      list_id: {
+        column: 'crm_subscriptions.list_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
       },
-      email_id: {
-        column: 'maha_emails.email_id',
-        leftJoin: [['contact_id', 'crm_contacts.id']]
-      },
-      enrollment_id: {
-        column: 'crm_workflow_enrollments.workflow_id',
-        leftJoin: [['contact_id', 'crm_contacts.id']]
+      organization_id: {
+        column: 'crm_contacts_organizations.organization_id',
+        leftJoin: [['contact_id','crm_contacts.id']]
       },
       product_id: {
         column: 'finance_customer_products.product_id',
@@ -87,83 +87,45 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
     },
     filter: {
       operations: {
-        $de: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, true]
+        $de: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, true]
         }),
-        $nde: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, false]
+        $nde: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, false]
         }),
-        $op: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, true]
+        $op: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, true]
         }),
-        $nop: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, false]
+        $nop: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, false]
         }),
-        $cl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, true]
+        $cl: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, true]
         }),
-        $ncl: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=? and was_clicked = ?`, value, false]
+        $ncl: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, false]
         }),
-        $pr: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value]
+        $wcm: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status=?`, value, 'completed']
         }),
-        $npr: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.customer_id=crm_contacts.id and ${alias}.product_id=?`, value],
-          query: `${alias}.product_id is null`
+        $nwcm: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status !=?`, value, 'completed']
         }),
-        $wcm: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.status = 'completed'`
+        $wcv: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, true]
         }),
-        $nwcm: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.status != 'completed'`
+        $nwcv: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, false]
         }),
-        $wcv: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_converted = true`
-        }),
-        $nwcv: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.workflow_id=?`, value],
-          query: `${alias}.was_converted = false`
-        }),
-        $jin: (table, alias, column, value) => {
-          const markers = Array(value.length).fill(0).map(i => '?').join(',')
-          return {
-            join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column} in (${markers})`, ...value]
-          }
-        },
-        $njin: (table, alias, column, value) => {
-          const markers = Array(value.length).fill(0).map(i => '?').join(',')
-          return {
-            join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column} in (${markers})`, ...value],
-            query: `${alias}.${column} is null`
-          }
-        },
-        $jeq: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value]
-        }),
-        $njeq: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value],
-          query: `${alias}.${column} is null`
-        }),
-        $act: (table, alias, column, value) => ({
-          join: [`inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value]
-        }),
-        $nact: (table, alias, column, value) => ({
-          join: [`left join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.${column}=?`, value],
-          query: `${alias}.${column} is null`
-        }),
-        $addt: (table, alias, column, value) => ({
+        $addt: (table, alias, column, value, foreign_key, primary_key) => ({
           join: [
-            `inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
+            `inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
             `point(${value.origin.split(',').reverse().join(' ')})`, value.distance * 1609.34
           ]
         }),
-        $adsh: (table, alias, column, value) => ({
+        $adsh: (table, alias, column, value, foreign_key, primary_key) => ({
           join: [
-            `inner join ${table} ${alias} on ${alias}.contact_id=crm_contacts.id and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
+            `inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
             `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
           ]
         })

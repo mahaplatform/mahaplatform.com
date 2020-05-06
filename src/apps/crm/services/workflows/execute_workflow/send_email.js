@@ -171,6 +171,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
     html: rendered.html,
     code,
     was_bounced: false,
+    was_clicked: false,
     was_complained: false,
     was_delivered: false,
     was_opened: false,

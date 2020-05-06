@@ -60,13 +60,6 @@ class Table extends React.Component {
   _handleScroll = _.throttle(this._handleScroll.bind(this), 100)
   _handleSelectAll = this._handleSelectAll.bind(this)
 
-  _getTableClass() {
-    const { status } = this.props
-    const classes = ['maha-collection-table']
-    if(status === 'loading') classes.push('loading')
-    return classes.join(' ')
-  }
-
   render() {
     const { records, recordTasks, selectable, selectAll, visible, onClick } = this.props
     return (
@@ -137,7 +130,7 @@ class Table extends React.Component {
   componentDidUpdate(prevProps) {
     const { code, hidden, records, status, visible } = this.props
     if(status !== prevProps.status && status === 'success') {
-      this._handleInit()
+      setTimeout(this._handleInit, 200)
     }
     if(!_.isEqual(hidden, prevProps.hidden)) {
       this.props.onSaveHidden(code, hidden)
@@ -271,6 +264,13 @@ class Table extends React.Component {
     const { sort } = this.props
     if(!sort || (column.key !== sort.key && column.sort !== sort.key)) return null
     return sort.order === 'asc' ? <i className="fa fa-caret-up" /> : <i className="fa fa-caret-down" />
+  }
+
+  _getTableClass() {
+    const { status } = this.props
+    const classes = ['maha-collection-table']
+    if(status === 'loading') classes.push('loading')
+    return classes.join(' ')
   }
 
   _getValue(record, key) {

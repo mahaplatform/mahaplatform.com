@@ -46,24 +46,24 @@ const criteria = [
       { value: '$ncl', text: 'did not click link in the email' }
     ] },
     { name: 'Event', key: 'event_id', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$act', text: 'registered for' },
-      { value: '$nact', text: 'did not registered for' }
+      { value: '$jeq', text: 'registered for' },
+      { value: '$njeq', text: 'did not registered for' }
     ] },
     { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$act', text: 'filled out' },
-      { value: '$nact', text: 'did not fill out' }
+      { value: '$jeq', text: 'filled out' },
+      { value: '$njeq', text: 'did not fill out' }
     ] },
     { name: 'Import', key: 'import_id', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', subject: false, format: ImportToken, comparisons: [
-      { value: '$eq', text: 'was included in import' },
-      { value: '$neq', text: 'was not included in import' }
+      { value: '$jeq', text: 'was included in import' },
+      { value: '$njeq', text: 'was not included in import' }
     ] },
     { name: 'Purchase', key: 'product_id', type: 'select', endpoint: '/api/admin/finance/products', text: 'title', value: 'id', subject: false, comparisons: [
-      { value: '$pr', text: 'purchased' },
-      { value: '$npr', text: 'did not purchase' }
+      { value: '$jeq', text: 'purchased' },
+      { value: '$njeq', text: 'did not purchase' }
     ] },
     { name: 'Workflow', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'display_name', value: 'id', multiple: false, subject: false, comparisons: [
-      { value: '$act', text: 'enrolled in workflow' },
-      { value: '$nact', text: 'not enrolled in workflow' },
+      { value: '$jeq', text: 'enrolled in workflow' },
+      { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },
       { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
       { value: '$wcm', text: 'enrolled and complete workflow' },

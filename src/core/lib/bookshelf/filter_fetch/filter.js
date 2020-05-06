@@ -73,20 +73,71 @@ const applyCriteria = (column, condition, options) => {
   const operation = Object.keys(condition)[0]
   const value = condition[operation]
   const alias = getAlias(column, options.aliases, options)
-  if(options.filter.operations && options.filter.operations[operation]) {
-    return applyOperation(alias, operation, value, options)
+  if(alias.join) {
+    const { conditions } = alias.join
+    if(operation === '$jeq') return applyJeq(alias.table, alias.alias, alias.column, value, conditions)
+    if(operation === '$njeq') return applyNjeq(alias.table, alias.alias, alias.column, value, conditions)
+    if(operation === '$jin') return applyJin(alias.table, alias.alias, alias.column, value, conditions)
+    if(operation === '$njin') return applyNjin(alias.table, alias.alias, alias.column, value, conditions)
+    if(options.filter.operations && options.filter.operations[operation]) {
+      return applyOperation(alias, operation, value, conditions, options)
+    }
   }
   const { query, bindings } = getFilter(alias, operation, value, options)
   const joins = getJoin(alias)
   return { joins, query, bindings }
 }
 
-const applyOperation = (alias, operation, value, options)=> {
-  const criteria = options.filter.operations[operation](alias.table, alias.alias, alias.column, value)
+const applyOperation = (alias, operation, value, conditions, options)=> {
+  const criteria = options.filter.operations[operation](alias.table, alias.alias, alias.column, value, ...conditions[0])
   return {
     joins: [criteria.join],
     query: criteria.query,
     bindings: criteria.bindings
+  }
+}
+
+const applyJeq = (table, alias, column, value, conditions) => {
+  const criteria = conditions.map((condition) => {
+    const [foreign_key, primary_key] = condition
+    return `${alias}.${foreign_key}=${primary_key}`
+  }).join(' and ')
+  return {
+    joins: [[`inner join ${table} ${alias} on ${criteria} and ${alias}.${column}=?`, value]]
+  }
+}
+
+const applyNjeq = (table, alias, column, value, conditions) => {
+  const criteria = conditions.map((condition) => {
+    const [foreign_key, primary_key] = condition
+    return `${alias}.${foreign_key}=${primary_key}`
+  }).join(' and ')
+  return {
+    joins: [[`left join ${table} ${alias} on ${criteria} and ${alias}.${column}=?`, value]],
+    query: `${alias}.${column} is null`
+  }
+}
+
+const applyJin = (table, alias, column, value, conditions) => {
+  const markers = Array(value.length).fill(0).map(i => '?').join(',')
+  const criteria = conditions.map((condition) => {
+    const [foreign_key, primary_key] = condition
+    return `${alias}.${foreign_key}=${primary_key}`
+  }).join(' and ')
+  return {
+    joins: [[`inner join ${table} ${alias} on ${criteria} and ${alias}.${column} in (${markers})`, ...value]]
+  }
+}
+
+const applyNjin = (table, alias, column, value, conditions) => {
+  const markers = Array(value.length).fill(0).map(i => '?').join(',')
+  const criteria = conditions.map((condition) => {
+    const [foreign_key, primary_key] = condition
+    return `${alias}.${foreign_key}=${primary_key}`
+  }).join(' and ')
+  return {
+    joins: [[`left join ${table} ${alias} on ${criteria} and ${alias}.${column} in (${markers})`, ...value]],
+    query: `${alias}.${column} is null`
   }
 }
 
@@ -129,7 +180,6 @@ const getFilterSearch = (column, value, options) => {
     query: `lower(concat(${columns.join(',\' \',')})) like ?`,
     bindings: [`%${value.toLowerCase()}%`]
   }
-
 }
 
 const getFilterNull = (column, value) => ({
