@@ -1,4 +1,4 @@
-import { Audit, Comments, List } from 'maha-admin'
+import { Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
@@ -16,10 +16,9 @@ const Details = ({ audits, session }) => {
       ) },
       { label: 'Date', content: (
         <span>
-          { moment(session.date).format('MMM DD, YYYY') }, { moment(`2020-01-01 ${session.start_time}`).format('h:mm A') } - { moment(`2020-01-01 ${session.end_time}`).format('h:mm A') }
+          { moment(session.starts_at).format('MMM DD, YYYY, h:mm A') } - { moment(session.ends_at).format('h:mm A') }
         </span>
-      ) },
-      { component: <Audit entries={ audits } /> }
+      ) }
     ]
   }
 

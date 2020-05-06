@@ -65,6 +65,7 @@ const downloadRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('form_id', form.get('id'))
   }).fetchAll({
+    withRelated: ['payment'],
     transacting: req.trx
   })
 
@@ -77,11 +78,9 @@ const downloadRoute = async (req, res) => {
       ...row,
       ...getValue(field, response.get('data')[field.code])
     }), {}),
-    ...response.get('data').payment ? {
-      'Payment (Method)': response.get('data').payment.method,
-      'Payment (Reference)': response.get('data').payment.reference,
-      'Payment (Amount)': response.get('data').payment.amount
-    } : {}
+    'Payment (Method)': response.related('payment') ? response.related('payment').get('method') : null,
+    'Payment (Reference)': response.related('payment') ? response.related('payment').get('reference') : null,
+    'Payment (Amount)': response.related('payment') ? response.related('payment').get('amount') : null
   }))
 
 }

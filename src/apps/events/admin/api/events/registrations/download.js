@@ -66,7 +66,7 @@ const downloadRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('event_id', event.get('id'))
   }).fetchAll({
-    withRelated: ['tickets'],
+    withRelated: ['payment','tickets'],
     transacting: req.trx
   })
 
@@ -78,6 +78,7 @@ const downloadRoute = async (req, res) => {
       ...tickets,
       [ticket.get('ticket_type_id')]: 1 + (tickets[ticket.get('ticket_type_id')] || 0)
     }), {})
+    const payment = registration.related('payment')
     return {
       'First Name': registration.get('data').first_name,
       'Last Name':  registration.get('data').last_name,
@@ -90,7 +91,10 @@ const downloadRoute = async (req, res) => {
       }), {}),
       ...event.related('ticket_types').map(ticket_type => ({
         [ticket_type.get('name')]: tickets[ticket_type.get('id')]
-      }))
+      })),
+      'Payment (Method)': payment ? payment.get('method') : null,
+      'Payment (Reference)': payment ? payment.get('reference') : null,
+      'Payment (Amount)': payment ? payment.get('amount') : null
     }
   })
 

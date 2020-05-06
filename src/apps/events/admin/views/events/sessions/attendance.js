@@ -51,24 +51,19 @@ class Attendance extends React.Component {
   }
 
   _getButton(ticket) {
+    const { event, session } = this.props
     return {
       label: ticket.is_checked ? 'Checked In' : 'Check In',
       className: ticket.is_checked ? 'ui fluid tiny green button' : 'ui fluid tiny button',
-      handler: this._handleClick.bind(this, ticket)
+      request: {
+        endpoint: `/api/admin/events/events/${event.id}/sessions/${session.id}/attendings`,
+        method: ticket.is_checked ? 'delete' : 'post',
+        body: {
+          code: ticket.code
+        },
+        onFailure: () => this.context.flash.set('error', 'Unable to check in/out')
+      }
     }
-  }
-
-  _handleClick(ticket) {
-    const { event, session } = this.props
-    if(ticket.is_checked) return
-    this.context.network.request({
-      endpoint: `/api/admin/events/events/${event.id}/sessions/${session.id}/attendings`,
-      method: 'post',
-      body: {
-        code: ticket.code
-      },
-      onFailure: () => this.context.flash.set('error', 'Unable to check in')
-    })
   }
 
 }
