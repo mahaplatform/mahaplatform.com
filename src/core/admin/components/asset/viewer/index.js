@@ -102,7 +102,7 @@ class AssetViewer extends React.Component {
     if(type === 'audio') return `/admin/audio.html?file=${file}`
     if(type === 'video') return `/admin/video.html?file=${file}`
     if(type === 'image') return `/admin/image.html?file=${file}`
-    if(type === 'html') return url
+    if(_.includes(['text','html'], type)) return url
     return null
   }
 
@@ -119,6 +119,7 @@ class AssetViewer extends React.Component {
     if(content_type.match(/powerpoint/)) return 'powerpoint'
     if(content_type.match(/presentationml/)) return 'powerpoint'
     if(content_type.match(/html/)) return 'html'
+    if(content_type.match(/plain/)) return 'text'
   }
 
 }
