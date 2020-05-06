@@ -29,7 +29,8 @@ export const enrollInCampaign = async (req, { contact, call, voice_campaign }) =
     story: 'enrolled in inbound voice workflow',
     program_id: voice_campaign.get('program_id'),
     data: {
-      sms_campaign_id: voice_campaign.get('id')
+      enrollment_id: enrollment.get('id'),
+      voice_campaign_id: voice_campaign.get('id')
     }
   })
 

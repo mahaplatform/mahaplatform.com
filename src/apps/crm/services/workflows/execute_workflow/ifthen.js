@@ -1,4 +1,5 @@
 import { toFilter } from '../../../../../core/utils/criteria'
+import moment from 'moment'
 import _ from 'lodash'
 
 const castValue = (value) => {
@@ -218,6 +219,9 @@ const ifthen = async (req, { config, contact, data, enrollment, step }) => {
 
   const branch = await getBranch(config.branches, {
     ...data,
+    environment: {
+      day: moment().day()
+    },
     contact: {
       ...data.contact,
       ...contactData

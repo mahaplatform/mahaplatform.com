@@ -19,6 +19,7 @@ const types = {
 }
 
 const blocks = {
+  dial: { icon: 'phone' },
   consent: { icon: 'thumbs-up' },
   email: { icon: 'envelope-open' },
   question: { icon: 'question' },

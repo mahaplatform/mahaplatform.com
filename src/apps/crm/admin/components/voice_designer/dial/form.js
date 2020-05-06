@@ -1,11 +1,13 @@
+import { Container, Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Dial extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    users: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -27,10 +29,18 @@ class Dial extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { config } = this.props
     this.setState({
-      config: config || {}
+      config: {
+        ...this._getDefault(),
+        ...this.props.config || {}
+      }
     })
+  }
+
+  _getDefault() {
+    return {
+      strategy: 'user'
+    }
   }
 
   _getForm() {
@@ -49,10 +59,23 @@ class Dial extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Number', name: 'number', type: 'phonefield', required: true, defaultValue: config.number, placeholder: 'Enter a phone number' }
+            { label: 'Recipient', type: 'segment', fields: [
+              { name: 'strategy', type: 'radiogroup', options: [{ value: 'user', text: 'Choose a specific user'},{ value: 'number', text: 'Enter a phone number' }], defaultValue: config.strategy },
+              this._getStrategy()
+            ] }
           ]
         }
       ]
+    }
+  }
+
+  _getStrategy() {
+    const { config } = this.state
+    const { users } = this.props
+    if(config.strategy === 'number') {
+      return { name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
+    } else {
+      return { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user_id') }
     }
   }
 
@@ -75,4 +98,15 @@ class Dial extends React.PureComponent {
 
 }
 
-export default Dial
+const mapResources = (props, context) => ({
+  users: {
+    endpoint: '/api/admin/users',
+    filter: {
+      cell_phone: {
+        $nnl: true
+      }
+    }
+  }
+})
+
+export default Container(mapResources)(Dial)

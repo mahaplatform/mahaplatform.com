@@ -234,7 +234,7 @@ const executeWorkflow = async (req, params) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['workflow.steps','sms_campaign.steps','voice_campaign.steps'],
+    withRelated: ['workflow.steps','sms_campaign.steps','voice_campaign.steps','voice_campaign.phone_number'],
     transacting: req.trx
   })
 

@@ -75,7 +75,7 @@ class VoiceDesigner extends React.PureComponent {
   _getFields() {
     const { program, programfields, fields } = this.props
     return [
-      { label: 'Contact Fields', fields: [
+      { label: 'Contact', fields: [
         { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
         { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
         { name: 'Email', key: 'contact.email', type: 'emailfield' },
@@ -110,12 +110,19 @@ class VoiceDesigner extends React.PureComponent {
           { value: '$nct', text: 'was not included in import' }
         ] }
       ] },
-      ...programfields.length > 0 ? [{ label: `${program.title} Fields`, fields: programfields.map(field => ({
-        name: field.label,
-        key: `contact.${field.name}`,
-        type: 'textfield'
-      }))}] : [],
-      ...fields || []
+      ...programfields.length > 0 ? [{
+        label: `${program.title} Fields`,
+        fields: programfields.map(field => ({
+          name: field.label,
+          key: `contact.${field.name}`,
+          type: 'textfield'
+        }))
+      }] : [],
+      ...fields || [],
+      { label: 'Environment', fields: [
+        { name: 'Day', key: 'environment.day', type: 'date' },
+        // { name: 'Time', key: 'environment.time', type: 'time' }
+      ] }
     ]
   }
 

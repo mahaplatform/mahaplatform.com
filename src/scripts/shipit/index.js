@@ -107,6 +107,7 @@ const processor = async () => {
     'sync:restore',
     'sync:teams',
     'sync:passwords',
+    'sync:phone_numbers',
     'sync:merchants'
   ])
 
@@ -276,11 +277,15 @@ const processor = async () => {
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
+  utils.registerTask(shipit, 'sync:phone_numbers', () => {
+    var sql = 'UPDATE maha_phone_numbers SET sidD=\'PN6ae4402401b09408ea52f386a85a2ffe\', number=\'+16072510393\''
+    return shipit.local(`echo "${sql}" | psql maha`)
+  })
+
   utils.registerTask(shipit, 'sync:merchants', () => {
     var sql = 'UPDATE finance_merchants SET braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
-
   shipit.initialize()
 
   shipit.on('err', () => process.exit(1))

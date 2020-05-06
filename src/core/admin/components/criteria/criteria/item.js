@@ -94,11 +94,11 @@ class Item extends React.Component {
   }
 
   _getOxford(arr, conjunction) {
-    if(arr.length === 2) return arr.join(' or ')
+    if(arr.length === 2) return arr.join(` ${conjunction} `)
     return [
       arr.slice(0, -1).join(', '),
       arr.slice(-1)[0]
-    ].join(', or ')
+    ].join(`, ${conjunction} `)
   }
 
   _getOperator(field, operator) {
@@ -113,7 +113,9 @@ class Item extends React.Component {
     if(item.data) {
       if(item.data.text) return item.data.text
       const items = _.castArray(item.data).map(record => `<strong>${record.text}</strong>`)
-      return items.length > 1 ? `either ${this._getOxford(items)}` : items[0]
+      const word = item.operator === '$nin' ? 'neither' : 'either'
+      const conjunction = item.operator === '$nin' ? 'nor' : 'or'
+      return items.length > 1 ? `${word} ${this._getOxford(items, conjunction)}` : items[0]
     }
     return item.value
   }
