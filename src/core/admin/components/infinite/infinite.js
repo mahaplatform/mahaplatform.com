@@ -132,8 +132,8 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, exclude_ids, filter, query, records, selectedValues, sort, onUpdateSelected } = this.props
-    if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids) || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.query, query) || !_.isEqual(prevProps.sort, sort)) {
+    const { cacheKey, endpoint, exclude_ids, filter, query, records, selectedValues, sort, onUpdateSelected } = this.props
+    if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids) || !_.isEqual(prevProps.endpoint, endpoint) || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.query, query) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
     if(selectedValues !== prevProps.selectedValues && selectedValues && records) {

@@ -20,7 +20,7 @@ const List = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/programs/${this.get('program_id')}/programs/${this.get('id')}`
+      return `/admin/crm/programs/${this.get('program_id')}/lists/${this.get('id')}`
     }
 
   },

@@ -1,11 +1,9 @@
-import { ModalPanel, RadioGroup } from 'maha-admin'
+import { Dropdown, ModalPanel, RadioGroup, Search } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Distance from './distance'
 import React from 'react'
-import Map from './map'
 import _ from 'lodash'
 
-class AddressCriteria extends React.Component {
+class CountyCriteria extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
@@ -18,19 +16,19 @@ class AddressCriteria extends React.Component {
   }
 
   state = {
+    state: null,
     operator: null,
-    value: null,
-    data: null
+    value: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleOperator = this._handleOperator.bind(this)
+  _handleState = this._handleState.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { operator } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criterion-form">
@@ -38,12 +36,10 @@ class AddressCriteria extends React.Component {
             <RadioGroup { ...this._getRadioGroup() } />
           </div>
           <div className="maha-criterion-form-body">
-            { _.includes(['$addt','$naddt'], operator) &&
-              <Distance { ...this._getDistance() } />
-            }
-            { _.includes(['$adsh','$nadsh'], operator) &&
-              <Map { ...this._getMap() } />
-            }
+            <div className="maha-criterion-form-chooser">
+              <Dropdown { ...this._getState() } />
+            </div>
+            <Search { ...this._getCounty() } />
           </div>
         </div>
       </ModalPanel>
@@ -65,26 +61,30 @@ class AddressCriteria extends React.Component {
     }
   }
 
-  _getDistance() {
+  _getState() {
     return {
-      onChange: this._handleUpdate
+      endpoint: '/api/admin/states',
+      value: 'short_name',
+      text: 'full_name',
+      onChange: this._handleState
     }
   }
 
-  _getMap() {
+  _getCounty() {
+    const { state } = this.state
     return {
+      ...state ? { endpoint: `/api/admin/states/${state.toLowerCase()}/counties` } : {},
+      search: false,
+      text: 'text',
+      value: 'value',
       onChange: this._handleUpdate
     }
   }
 
   _getOperators() {
     return [
-      { value: '$adsh', text: 'is inside polygon' },
-      { value: '$nadsh', text: 'is not inside polygon' },
-      { value: '$addt', text: 'is within distance of' },
-      { value: '$naddt', text: 'is not within distance of' },
-      { value: '$nnl', text: 'is known' },
-      { value: '$nl', text: 'is unknown' }
+      { value: '$eq', text: 'is in' },
+      { value: '$neq', text: 'is not in' }
     ]
   }
 
@@ -116,45 +116,32 @@ class AddressCriteria extends React.Component {
     }
   }
 
-  _getText(data) {
-    const { operator } = this.state
-    if(operator === '$addt') return `is within ${data.text}`
-    if(operator === '$naddt') return `is not within ${data.text}`
-    if(operator === '$adsh') return 'is inside polygon'
-    if(operator === '$nadsh') return 'is not inside polygon'
-    if(operator === '$nnl') return 'is known'
-    if(operator === '$nl') return 'is unknown'
-  }
-
   _handleCancel() {
     this.props.onCancel()
   }
 
   _handleChange() {
-    const { data, operator, value } = this.state
+    const { operator, value } = this.state
     const { code } = this.props
-    if(!value && !_.includes(['$nl','$nnl'], operator)) return
     this.props.onChange({
       code,
       operator,
-      value,
+      value: value ? value.toLowerCase() : null,
       data: {
-        ...data,
-        text: this._getText(data)
+        text: value
       }
     })
   }
 
   _handleDone() {
-    const { operator, data, value } = this.state
+    const { operator, value } = this.state
     const { code } = this.props
     this.props.onDone({
       code,
       operator,
-      value,
+      value: value ? value.toLowerCase() : null,
       data: {
-        ...data,
-        text: this._getText(data)
+        text: value
       }
     })
   }
@@ -169,10 +156,14 @@ class AddressCriteria extends React.Component {
     this.setState({ value })
   }
 
-  _handleUpdate(value, data) {
-    this.setState({ data, value })
+  _handleState(state) {
+    this.setState({ state })
+  }
+
+  _handleUpdate(value) {
+    this.setState({ value })
   }
 
 }
 
-export default AddressCriteria
+export default CountyCriteria

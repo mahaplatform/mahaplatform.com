@@ -1,6 +1,7 @@
-import ImportToken from '../../../../maha/admin/tokens/import'
-import ListCriteria from '../../components/listcriteria'
 import AddressCriteria from '../../components/addresscriteria'
+import ImportToken from '../../../../maha/admin/tokens/import'
+import CountyCriteria from '../../components/countycriteria'
+import ListCriteria from '../../components/listcriteria'
 
 const criteria = [
   { label: 'Contact', fields: [
@@ -14,7 +15,7 @@ const criteria = [
   { label: 'Address', fields: [
     { name: 'Address', key: 'address', type: AddressCriteria },
     { name: 'City', key: 'city', type: 'text' },
-    { name: 'County', key: 'county', type: AddressCriteria },
+    { name: 'County', key: 'county', type: CountyCriteria },
     { name: 'State/Province', key: 'state_province', type: 'select', endpoint: '/api/admin/states', multiple: true, text: 'full_name', value: 'short_name' },
     { name: 'Postal Code', key: 'postal_code', type: 'text' }
   ] },

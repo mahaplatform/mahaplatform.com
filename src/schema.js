@@ -2507,8 +2507,8 @@ const schema = {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('crm_senders', table => {
@@ -2706,8 +2706,8 @@ const schema = {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('event_id').references('events_events.id')
       table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('events_sessions', table => {

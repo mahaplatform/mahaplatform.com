@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Options from './options'
 import React from 'react'
+import _ from 'lodash'
 
 class Dynamic extends React.Component {
 
@@ -21,18 +22,25 @@ class Dynamic extends React.Component {
   }
 
   _getOptions() {
-    const { cid, excludeIds, format, multiple, records, selected, text, value, onToggle } = this.props
+    const { cid, excludeIds, format, multiple, selected, text, value, onToggle } = this.props
     return {
       cid,
       excludeIds,
       format,
       multiple,
-      options: records,
+      options: this._getRecords(),
       selected,
       text,
       value,
       onToggle
     }
+  }
+
+  _getRecords() {
+    const { records } = this.props
+    return records.map(record => {
+      return _.isString(record) ? { value: record, text: record } : record
+    })
   }
 
 }
