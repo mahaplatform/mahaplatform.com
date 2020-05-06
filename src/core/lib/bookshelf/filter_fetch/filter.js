@@ -103,7 +103,8 @@ const applyJeq = (table, alias, column, value, conditions) => {
     return `${alias}.${foreign_key}=${primary_key}`
   }).join(' and ')
   return {
-    joins: [[`inner join ${table} ${alias} on ${criteria} and ${alias}.${column}=?`, value]]
+    joins: [[`left join ${table} ${alias} on ${criteria} and ${alias}.${column}=?`, value]],
+    query: `${alias}.${column} is not null`
   }
 }
 
@@ -125,7 +126,8 @@ const applyJin = (table, alias, column, value, conditions) => {
     return `${alias}.${foreign_key}=${primary_key}`
   }).join(' and ')
   return {
-    joins: [[`inner join ${table} ${alias} on ${criteria} and ${alias}.${column} in (${markers})`, ...value]]
+    joins: [[`left join ${table} ${alias} on ${criteria} and ${alias}.${column} in (${markers})`, ...value]],
+    query: `${alias}.${column} is not null`
   }
 }
 
