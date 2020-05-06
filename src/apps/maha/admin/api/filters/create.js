@@ -10,7 +10,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
     code: req.params.code,
-    ...whitelist(req.body, ['title','description','config'])
+    ...whitelist(req.body, ['title','config'])
   }).save(null, {
     transacting: req.trx
   })

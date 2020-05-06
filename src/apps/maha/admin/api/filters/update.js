@@ -1,3 +1,4 @@
+import { whitelist } from '../../../../../core/services/routes/params'
 import FilterSerializer from '../../../serializers/filter_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Filter from '../../../models/filter'
@@ -20,7 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await filter.save({
-    config: req.body.config
+    ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx
   })
