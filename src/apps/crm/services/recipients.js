@@ -133,47 +133,67 @@ const getRecipientsByCriteria = async (req, params) => {
     },
     allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
     operations: {
+      $se: (table, alias, column, value, foreign_key, primary_key) => ({
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=?`, value],
+        query: `${alias}.${foreign_key} is not null`
+      }),
+      $nse: (table, alias, column, value, foreign_key, primary_key) => ({
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=?`, value],
+        query: `${alias}.${foreign_key} is null`
+      }),
       $de: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, true]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, true],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $nde: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, false]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_delivered = ?`, value, false],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $op: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, true]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, true],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $nop: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, false]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_opened = ?`, value, false],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $cl: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, true]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, true],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $ncl: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, false]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=? and ${alias}.was_clicked = ?`, value, false],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $wcm: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status=?`, value, 'completed']
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status=?`, value, 'completed'],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $nwcm: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status !=?`, value, 'completed']
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status !=?`, value, 'completed'],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $wcv: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, true]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, true],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $nwcv: (table, alias, column, value, foreign_key, primary_key) => ({
-        join: [`inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, false]
+        join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.was_converted=?`, value, false],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $addt: (table, alias, column, value, foreign_key, primary_key) => ({
         join: [
-          `inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
+          `left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
           `point(${value.origin.split(',').reverse().join(' ')})`, value.distance * 1609.34
-        ]
+        ],
+        query: `${alias}.${foreign_key} is not null`
       }),
       $adsh: (table, alias, column, value, foreign_key, primary_key) => ({
         join: [
-          `inner join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
+          `left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
           `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
-        ]
+        ],
+        query: `${alias}.${foreign_key} is not null`
       })
     }
   }
