@@ -16,7 +16,7 @@ class Dial extends React.PureComponent {
   form = null
 
   state = {
-    config: {}
+    config: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -25,6 +25,7 @@ class Dial extends React.PureComponent {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 

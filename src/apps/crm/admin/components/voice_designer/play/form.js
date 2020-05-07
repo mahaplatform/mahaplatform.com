@@ -15,7 +15,7 @@ class Play extends React.PureComponent {
   form = null
 
   state = {
-    config: {}
+    config: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -24,6 +24,7 @@ class Play extends React.PureComponent {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -59,7 +60,7 @@ class Play extends React.PureComponent {
         {
           fields: [
             { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id },
-            { label: 'Play', name: 'loop', type: 'dropdown', search: false, options: [{ value: 0, text: 'Loop Infinitely' },{ value: 1, text: 'Once' },{ value: 2, text: 'Twice' }], defaultValue: config.loop }
+            { label: 'Play', name: 'loop', type: 'dropdown', search: false, options: [{ value: 0, text: 'Loop Infinitely' },{ value: 1, text: 'Once' },{ value: 2, text: 'Twice' }], required: true, defaultValue: config.loop }
           ]
         }
       ]

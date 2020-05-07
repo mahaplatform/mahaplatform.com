@@ -21,6 +21,7 @@ class Microphone extends React.PureComponent {
 
   recorder = null
   resumable = null
+  sream = null
 
   _handleBack = this._handleBack.bind(this)
   _handleData = this._handleData.bind(this)
@@ -46,7 +47,6 @@ class Microphone extends React.PureComponent {
               Processing...
             </div>
           }
-
         </div>
       </ModalPanel>
     )
@@ -89,7 +89,7 @@ class Microphone extends React.PureComponent {
   _getStopButton() {
     return {
       label: 'Stop Recording',
-      color: 'black',
+      color: 'red',
       handler: this._handleStop
     }
   }
@@ -99,13 +99,14 @@ class Microphone extends React.PureComponent {
   }
 
   _handleData(e) {
-    const file = new File([e.data], 'recording.wav', {
-      type: 'audio/x-wav'
+    const file = new File([e.data], 'recording.webm', {
+      type: 'audio/webm'
     })
     this.resumable.addFile(file)
   }
 
   _handleRecord(stream) {
+    this.stream = stream
     this.setState({
       status: 'recording'
     })
@@ -125,10 +126,14 @@ class Microphone extends React.PureComponent {
   }
 
   _handleStop() {
+    const tracks = this.stream.getTracks()
+    tracks.map(track => {
+      track.stop()
+    })
+    this.recorder.stop()
     this.setState({
       status: 'processing'
     })
-    this.recorder.stop()
   }
 
   _handleSuccess(file, data) {

@@ -164,7 +164,7 @@ class Dropdown extends React.Component {
     const option = options.find(option => {
       return _.get(option, value) === defaultValue
     })
-    this.setValue(option ? _.get(option, value) : null)
+    this.setValue(option)
   }
 
   setValue(value) {
