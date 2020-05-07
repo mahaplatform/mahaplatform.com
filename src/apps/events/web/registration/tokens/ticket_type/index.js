@@ -17,7 +17,7 @@ const TicketTypeToken = (ticket_type) => (
       }
       { ticket_type.price_type === 'sliding_scale' &&
         <span>
-          { numeral(ticket_type.low_price).format('$0.00') } - { numeral(ticket_type.high_price).format('$0.00') }
+          SLIDING SCALE: { numeral(ticket_type.low_price).format('$0.00') } - { numeral(ticket_type.high_price).format('$0.00') }
         </span>
       }
       { ticket_type.price_type === 'free' &&

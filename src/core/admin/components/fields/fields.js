@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Field from './field'
 import React from 'react'
 import New from './new'
+import _ from 'lodash'
 
 class Fields extends React.Component {
 
@@ -16,12 +18,17 @@ class Fields extends React.Component {
     datasources: PropTypes.array,
     endpoint: PropTypes.string,
     fields: PropTypes.array,
+    label: PropTypes.string,
     parent_type: PropTypes.string,
     parent_id: PropTypes.number,
     status: PropTypes.string,
     onFetch: PropTypes.func,
     onMove: PropTypes.func,
     onReorder: PropTypes.func
+  }
+
+  static defaultProps = {
+    label: 'field'
   }
 
   _handleFetch = this._handleFetch.bind(this)
@@ -31,18 +38,18 @@ class Fields extends React.Component {
   _handleReorder = this._handleReorder.bind(this)
 
   render() {
-    const { fields } = this.props
+    const { fields, label } = this.props
     return (
       <div className="maha-fields">
         { fields.map((field, index) => (
           <Field { ...this._getField(field, index) } key={`field_${field.id}`} />
         ))}
         { fields.length === 0 &&
-          <div className="maha-fields-empty">No fields</div>
+          <div className="maha-fields-empty">No { pluralize(label, 2) }</div>
         }
         <div className="maha-fields-footer">
           <div className="ui blue fluid button" onClick={ this._handleNew }>
-            Add Field
+            Add { _.capitalize(label) }
           </div>
         </div>
       </div>

@@ -4,7 +4,9 @@ import React from 'react'
 class Quantity extends React.Component {
 
   static propTypes = {
+    disabled: PropTypes.bool,
     max: PropTypes.number,
+    quantity: PropTypes.number,
     onChange: PropTypes.func
   }
 
@@ -30,7 +32,11 @@ class Quantity extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { quantity } = this.props
     const { value } = this.state
+    if(quantity !== prevProps.quantity) {
+      this.setState({ value: quantity })
+    }
     if(value !== prevState.value) {
       this.props.onChange(value)
     }
@@ -43,6 +49,8 @@ class Quantity extends React.Component {
   }
 
   _handleAdjust(increment) {
+    const { disabled } = this.props
+    if(disabled) return true
     this.setState({
       value: this._getAdjusted(this.state.value + increment)
     })

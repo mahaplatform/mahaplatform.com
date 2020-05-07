@@ -133,8 +133,16 @@ class Step1 extends React.Component {
   }
 
   _getQuantity(ticket_type) {
+    const { low_price, high_price } = ticket_type
+    const { quantities } = this.state
+    const type = quantities[ticket_type.id]
+    const quantity = type ? type.quantity : undefined
+    const price = type ? type.price : undefined
+    const priceSet = price !== undefined && price.length > 0 && price >= low_price && price <= high_price
     return {
+      disabled: ticket_type.price_type === 'sliding_scale' && !priceSet,
       max: this._getMax(ticket_type),
+      quantity: priceSet ? quantity : 0,
       onChange: this._handleUpdateQuantity.bind(this, ticket_type)
     }
   }
@@ -153,7 +161,7 @@ class Step1 extends React.Component {
           base_price: fixed_price || low_price,
           tax_rate: 0.00,
           quantity: 0,
-          ...quantities[id],
+          ...price.length > 0 ? quantities[id] : {},
           price
         }
       }

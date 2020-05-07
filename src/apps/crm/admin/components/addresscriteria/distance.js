@@ -31,7 +31,7 @@ class Distance extends React.Component {
           <NumberField { ...this._getDistance() } />
         </div>
         <div className="maha-criterion-field">
-          Distance of
+          of
           <AddressField { ...this._getOrigin() } />
         </div>
       </div>

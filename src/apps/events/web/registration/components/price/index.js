@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
-import _ from 'lodash'
 
 class Price extends React.Component {
 
@@ -14,12 +13,16 @@ class Price extends React.Component {
   }
 
   state = {
-    selected: 0
+    focused: false,
+    sliding_scale: ''
   }
+
+  _handleBlur = this._handleBlur.bind(this)
+  _handleSlidingScale = this._handleSlidingScale.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
 
   render() {
     const { fixed_price, price_type } = this.props
-    const values = this._getValues()
     return (
       <div className="registration-price">
         { price_type === 'free' &&
@@ -34,11 +37,7 @@ class Price extends React.Component {
         }
         { price_type === 'sliding_scale' &&
           <div className="registration-price-options">
-            { values.map((value, index) => (
-              <div { ...this._getValue(index) } key={`value_${index}`}>
-                { numeral(value).format('0.00') }
-              </div>
-            ))}
+            <input { ...this._getSlidingScale() } />
           </div>
         }
       </div>
@@ -46,17 +45,10 @@ class Price extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { selected } = this.state
-    if(selected !== prevState.selected) {
+    const { sliding_scale } = this.state
+    if(sliding_scale !== prevState.sliding_scale) {
       this._handleChange()
     }
-  }
-
-  _handleChange() {
-    const values = this._getValues()
-    const { selected } = this.state
-    const value = values[selected]
-    this.props.onChange(value)
   }
 
   _getClass(index) {
@@ -66,30 +58,44 @@ class Price extends React.Component {
     return classes.join(' ')
   }
 
-  _getSteps(range) {
-    if(_.includes([0,0.5], (range / 3) % 1)) return 4
-    if(_.includes([0,0.5], (range / 2) % 1)) return 3
-    return 2
+  _getSlidingScale() {
+    const { sliding_scale } = this.state
+    return {
+      placeholder: 'Enter price',
+      value: sliding_scale,
+      onBlur: this._handleBlur,
+      onChange: this._handleSlidingScale,
+      onFocus: this._handleFocus
+    }
   }
 
-  _getValues() {
-    const { high_price, low_price} = this.props
-    const range = Number(high_price) - Number(low_price)
-    const steps = this._getSteps(range)
-    return new Array(steps).fill(0).map((i, j) => {
-      return Number(low_price) + ((range / (steps - 1)) * j)
+  _handleBlur() {
+    const { sliding_scale } = this.state
+    this.setState({
+      focused: false,
+      sliding_scale: sliding_scale.length > 0 ? numeral(sliding_scale).format('0.00') : sliding_scale
     })
   }
 
-  _getValue(index) {
-    return {
-      className: this._getClass(index),
-      onClick: this._handleChoose.bind(this, index)
-    }
+  _handleChange() {
+    const { sliding_scale } = this.state
+    this.props.onChange(sliding_scale)
   }
 
   _handleChoose(selected) {
     this.setState({ selected })
+  }
+
+  _handleFocus() {
+    this.setState({
+      focused: true
+    })
+  }
+
+  _handleSlidingScale(e) {
+    const sliding_scale = e.target.value
+    if(!sliding_scale.match(/^-?\d*\.?\d{0,2}$/)) return
+    this.setState({ sliding_scale })
   }
 
 }

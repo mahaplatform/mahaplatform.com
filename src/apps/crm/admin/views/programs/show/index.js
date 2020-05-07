@@ -16,7 +16,7 @@ const getTabs = (user, { accesses, lists, program, senders, templates, topics })
     { label: 'Lists', component: <Lists program={ program } lists={ lists } /> },
     { label: 'Topics', component: <Topics program={ program } topics={ topics } /> },
     { label: 'Templates', component: <Templates program={ program } templates={ templates } /> },
-    { label: 'Properties', component: <Fields parent_type="crm_programs" parent_id={ program.id } /> }
+    { label: 'Properties', component: <Fields label="property" parent_type="crm_programs" parent_id={ program.id } /> }
   ]
 })
 
