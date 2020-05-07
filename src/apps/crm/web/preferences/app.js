@@ -1,4 +1,5 @@
 import Preferences from './components/preferences'
+import { Error, Logger } from 'maha-client'
 import { hot } from 'react-hot-loader'
 import Root from './components/root'
 import PropTypes from 'prop-types'
@@ -11,7 +12,11 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Preferences { ...this._getForm() } />
+        <Logger environment="preferences">
+          <Error>
+            <Preferences { ...this._getForm() } />
+          </Error>
+        </Logger>
       </Root>
     )
   }

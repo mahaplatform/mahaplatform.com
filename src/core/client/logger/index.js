@@ -1,6 +1,6 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-// import Rollbar from 'rollbar'
+import Rollbar from 'rollbar'
+import React from 'react'
 
 class Logger extends React.Component {
 
@@ -9,18 +9,28 @@ class Logger extends React.Component {
   }
 
   static propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
+    environment: PropTypes.string
   }
 
+  state = {
+    ready: false
+  }
+
+  rollbar = null
+
   _handleError = this._handleError.bind(this)
-  _handleLogin = this._handleLogin.bind(this)
 
   render() {
+    if(!this.state.ready) return null
     return this.props.children
   }
 
   componentDidMount() {
     window.Rollbar = this.rollbar = this._getRollbar()
+    this.setState({
+      ready: true
+    })
   }
 
   getChildContext() {
@@ -33,33 +43,18 @@ class Logger extends React.Component {
   }
 
   _getRollbar() {
+    const { environment } = this.props
     if(process.env.NODE_ENV !== 'production') {
       return {
         configure: () => {},
         error: console.error
       }
     }
-    return {
-      configure: () => {},
-      error: () => {}
-    }
-    // return Rollbar.init({
-    //   accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
-    //   captureUncaught: true,
-    //   payload: {
-    //     environment: 'production'
-    //   }
-    // })
-  }
-
-  _handleLogin(user) {
-    this.rollbar.configure({
+    return Rollbar.init({
+      accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
+      captureUncaught: true,
       payload: {
-        person: {
-          id: user.id,
-          username: user.full_name,
-          email: user.email
-        }
+        environment
       }
     })
   }

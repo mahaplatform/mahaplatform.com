@@ -1,19 +1,17 @@
 import Rollbar from 'rollbar'
 
-const rollbarCreator = (env) => {
+const rollbarCreator = () => {
 
-  // if(env === 'production') {
-  //
-  //   return new Rollbar({
-  //     accessToken: process.env.ROLLBAR_SERVER_TOKEN,
-  //     captureUncaught: true,
-  //     captureUnhandledRejections: true,
-  //     payload: {
-  //       environment: 'server'
-  //     }
-  //   })
-  //
-  // }
+  if(process.env.NODE_ENV === 'development') {
+    return new Rollbar({
+      accessToken: process.env.ROLLBAR_SERVER_TOKEN,
+      captureUncaught: true,
+      captureUnhandledRejections: true,
+      payload: {
+        environment: 'server'
+      }
+    })
+  }
 
   return {
     configure: (config) => {},
@@ -24,6 +22,6 @@ const rollbarCreator = (env) => {
 
 }
 
-const rollbar = rollbarCreator(process.env.NODE_ENV)
+const rollbar = rollbarCreator()
 
 export default rollbar

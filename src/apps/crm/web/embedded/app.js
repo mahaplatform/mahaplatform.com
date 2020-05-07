@@ -1,3 +1,4 @@
+import { Error, Logger } from 'maha-client'
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Form from './components/form'
@@ -19,10 +20,14 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <div className="maha-form-layout">
-          <Style key="style" { ...this._getStyle() } />
-          <Form { ...this._getForm() } />
-        </div>
+        <Logger environment="form">
+          <Error>
+            <div className="maha-form-layout">
+              <Style key="style" { ...this._getStyle() } />
+              <Form { ...this._getForm() } />
+            </div>
+          </Error>
+        </Logger>
       </Root>
     )
   }

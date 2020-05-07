@@ -28,6 +28,8 @@ export Image from './image'
 export Button from './button'
 export Form from './form'
 export Loader from './loader'
+export Logger from './logger'
+export Error from './error'
 export Message from './message'
 export Stack from './stack'
 
