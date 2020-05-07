@@ -1,6 +1,21 @@
 import { Page, HelpArticleToken } from 'maha-admin'
+import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import React from 'react'
 import New from './new'
+
+const VideoToken = ({ value }) => (
+  <span style={{ color:'red' }}>
+    { value ?
+      <i className="fa fa-video-camera" /> :
+      null
+    }
+  </span>
+)
+
+VideoToken.propTypes ={
+  value: PropTypes.any
+}
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Help Articles',
@@ -10,6 +25,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: HelpArticleToken },
       { label: 'App', key: 'app.title' },
+      { label: 'Large', key: 'desktop', collapsing: true, align: 'center', format: VideoToken },
+      { label: 'Small', key: 'desktop_small', collapsing: true, align: 'center', format: VideoToken },
+      { label: 'Mobile', key: 'mobile', collapsing: true, align: 'center', format: VideoToken },
       { label: 'Published', key: 'is_published', collapsing: true, format: 'check_times' }
     ],
     entity: 'asset',

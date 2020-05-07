@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['app'],
+    withRelated: ['app','mobile','desktop','desktop_small'],
     transacting: req.trx
   })
 
