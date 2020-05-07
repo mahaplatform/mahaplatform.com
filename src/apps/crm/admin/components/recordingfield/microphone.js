@@ -1,6 +1,7 @@
 import { Button, ModalPanel } from 'maha-admin'
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
+import { convert } from './utils'
 import React from 'react'
 
 class Microphone extends React.PureComponent {
@@ -19,12 +20,16 @@ class Microphone extends React.PureComponent {
     status: 'pending'
   }
 
-  recorder = null
+  leftchannel = []
+  recordingLength = 0
   resumable = null
-  sream = null
+  rightchannel = []
+  sampleRate = null
+  stream = null
 
   _handleBack = this._handleBack.bind(this)
   _handleData = this._handleData.bind(this)
+  _handleProcess = this._handleProcess.bind(this)
   _handleRecord = this._handleRecord.bind(this)
   _handleStart = this._handleStart.bind(this)
   _handleStop = this._handleStop.bind(this)
@@ -52,7 +57,7 @@ class Microphone extends React.PureComponent {
     )
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     const { token } = this.context.admin.team
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
@@ -107,15 +112,28 @@ class Microphone extends React.PureComponent {
 
   _handleRecord(stream) {
     this.stream = stream
+    const audioContext = window.AudioContext || window.webkitAudioContext
+    const context = new audioContext()
+    this.sampleRate = context.sampleRate
+    const volume = context.createGain()
+    volume.gain.value = 0.5
+    const audioInput = context.createMediaStreamSource(stream)
+    audioInput.connect(volume)
+    const recorder = context.createScriptProcessor(2048, 2, 2)
+    recorder.addEventListener('audioprocess', this._handleProcess)
+    volume.connect(recorder)
+    recorder.connect(context.destination)
     this.setState({
       status: 'recording'
     })
-    this.recorder = new MediaRecorder(stream, {
-      mimeType: 'audio/webm'
-    })
-    this.recorder.addEventListener('dataavailable', this._handleData)
-    this.recorder.addEventListener('stop', this._handleRecordingStop)
-    this.recorder.start()
+  }
+
+  _handleProcess(stream) {
+    var left = stream.inputBuffer.getChannelData (0)
+    var right = stream.inputBuffer.getChannelData (1)
+    this.leftchannel.push (new Float32Array(left))
+    this.rightchannel.push (new Float32Array(right))
+    this.recordingLength += 2048
   }
 
   _handleStart() {
@@ -130,10 +148,20 @@ class Microphone extends React.PureComponent {
     tracks.map(track => {
       track.stop()
     })
-    this.recorder.stop()
     this.setState({
       status: 'processing'
     })
+    const data = convert({
+      leftchannel: this.leftchannel,
+      rightchannel: this.rightchannel,
+      recordingLength: this.recordingLength,
+      sampleRate: this.sampleRate
+    })
+    const file = new File([data], 'recording.wav', {
+      type: 'audio/x-wav'
+    })
+    this.resumable.addFile(file)
+
   }
 
   _handleSuccess(file, data) {
