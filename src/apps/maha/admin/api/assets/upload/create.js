@@ -10,6 +10,10 @@ const createRoute = async (req, res) => {
     message: 'partly done'
   })
 
+  await asset.load(['user'], {
+    transacting: req.trx
+  })
+
   res.status(200).respond(asset, AssetSerializer)
 
 }

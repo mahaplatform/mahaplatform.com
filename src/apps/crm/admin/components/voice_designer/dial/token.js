@@ -10,7 +10,7 @@ class Token extends React.Component {
 
   static propTypes = {
     user_id: PropTypes.number,
-    number: PropTypes.number
+    number: PropTypes.string
   }
 
   state = {

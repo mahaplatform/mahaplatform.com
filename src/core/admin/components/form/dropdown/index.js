@@ -7,7 +7,7 @@ import _ from 'lodash'
 class DropdownContainer extends React.Component {
 
   static contextTypes = {
-    network: PropTypes.func
+    network: PropTypes.object
   }
 
   static propTypes = {

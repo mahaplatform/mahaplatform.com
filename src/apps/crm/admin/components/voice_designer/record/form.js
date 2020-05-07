@@ -40,7 +40,7 @@ class Record extends React.PureComponent {
     return {
       strategy: 'say',
       voice: 'woman',
-      confirm: true
+      confirm: 'yes'
     }
   }
 

@@ -1,4 +1,5 @@
 import { AssetViewer, Attachments, Button } from 'maha-admin'
+import Microphone from './microphone'
 import PropTypes from 'prop-types'
 import Record from './record'
 import React from 'react'
@@ -67,7 +68,7 @@ class Recordingfield extends React.PureComponent {
 
   _getChooseButton() {
     return {
-      label: 'Choose audio file',
+      label: 'Choose or record an audio file',
       className: 'ui button',
       handler: this._handleChoose
     }
@@ -75,7 +76,7 @@ class Recordingfield extends React.PureComponent {
 
   _getRemoveButton() {
     return {
-      label: 'Choose another audio file',
+      label: 'Choose or record another audio file',
       className: 'link',
       handler: this._handleChoose
     }
@@ -91,12 +92,24 @@ class Recordingfield extends React.PureComponent {
       },
       cancelText: <i className="fa fa-chevron-left" />,
       custom: [
+        { icon: 'microphone', service: 'microphone', label: 'Microphone', component: Microphone, props: this._getMicrophone() },
         { icon: 'phone', service: 'phone', label: 'Phone Call', component: Record, props: this._getRecord() }
       ],
       multiple: false,
       title: 'Choose Audio Source',
       onCancel: this._handleCancel,
       onDone: this._handleDone
+    }
+  }
+
+  _getMicrophone() {
+    const { cid, onCall, onRecord, onSetStatus, onUpdateNumber } = this.props
+    return {
+      cid,
+      onCall,
+      onRecord,
+      onSetStatus,
+      onUpdateNumber
     }
   }
 
