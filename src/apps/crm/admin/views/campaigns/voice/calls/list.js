@@ -10,6 +10,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> },
+      { label: 'Date', key: 'created_at', format: 'datetime' },
+      { label: 'Duration', key: 'call.duration', collapsing: true, format: 'duration', align: 'right' },
       { label: 'Status', key: 'call.status', collapsing: true, primary: true, padded: true, format: TwilioStatusToken }
     ],
     empty: {

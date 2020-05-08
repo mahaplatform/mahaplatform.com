@@ -10,8 +10,10 @@ const EnrollmentSerializer = (req, result) => ({
 
 const call = (call) => {
   if(!call.id) return null
+  console.log(call.toJSON())
   return {
     id: call.get('id'),
+    duration: call.get('duration'),
     status: call.get('status')
   }
 }

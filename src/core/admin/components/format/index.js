@@ -31,6 +31,8 @@ class Format extends React.Component {
       } else if(style === 'number') {
         const template = details || '0'
         return Number(this.props, template)
+      } else if(style === 'duration') {
+        return Duration(this.props)
       } else if(style === 'date') {
         const template = details || 'MM/DD/YY'
         return Date(this.props, template)
@@ -118,6 +120,15 @@ const Rate = (props) => {
 
 const Number = (props, format) => {
   return <span>{ numeral(props.value).format(format) }</span>
+}
+
+const Duration = (props, format) => {
+  const hours = Math.floor(props.value / 60 / 60)
+  const mins = Math.floor(props.value / 60)
+  const seconds = props.value % 60
+  if(hours > 0) return `${hours}h ${mins}m ${seconds}s`
+  if(mins > 0) return `${mins}m ${seconds}s`
+  return `${seconds}s`
 }
 
 const Date = (props, format) => {

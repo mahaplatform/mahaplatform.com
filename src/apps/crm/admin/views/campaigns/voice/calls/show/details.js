@@ -15,7 +15,7 @@ const Details = ({ campaign, enrollment }) => {
     sections: [{
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
-        { label: 'Enrolled', content: enrollment.created_at, format: 'datetime' },
+        { label: 'Date', content: enrollment.created_at, format: 'datetime' },
         { component: <WorkflowActions enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
     }]
