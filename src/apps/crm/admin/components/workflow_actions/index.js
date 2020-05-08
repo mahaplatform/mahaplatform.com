@@ -145,9 +145,9 @@ class WorkflowActions extends React.PureComponent {
       return `: Said "${data.message}"`
     } else if(step.action === 'dial') {
       return `: Connected call to ${config.number}`
-    } else if(step.type === 'administrative' && step.action === 'email') {
+    } else if(step.type === 'administrative' && step.action === 'email' && config.user) {
       return `: Sent internal email to ${config.user.full_name}`
-    } else if(step.type === 'administrative' && step.action === 'sms') {
+    } else if(step.type === 'administrative' && step.action === 'sms' && config.user) {
       return `: Sent internal sms to ${config.user.full_name}`
     } else if(step.type === 'communication' && step.action === 'email' && email) {
       return <span>: Sent <Button { ...this._getEmailButton(email) }/></span>
