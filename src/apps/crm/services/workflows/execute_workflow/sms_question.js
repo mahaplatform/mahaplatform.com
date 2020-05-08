@@ -5,7 +5,9 @@ const smsQuestion = async (req, { config, contact, enrollment, step, answer, tok
   if(answer) {
     return {
       data: {
-        [config.code]: answer
+        data: {
+          [config.code]: answer
+        }
       }
     }
   }

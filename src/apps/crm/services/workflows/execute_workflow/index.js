@@ -8,9 +8,9 @@ import contactWorkflow from './enroll_in_workflow'
 import sendInternalSms from './send_internal_sms'
 import contactProperty from './update_property'
 import contactConsent from './update_consent'
-import contactTopic from './update_interests'
 import Contact from '../../../models/contact'
 import voiceQuestion from './voice_question'
+import contactTopic from './update_topics'
 import smsQuestion from './sms_question'
 import contactList from './update_lists'
 import voiceRecord from './voice_record'
@@ -182,7 +182,7 @@ const saveResults = async (req, { enrollment, step, data, recording_url, unenrol
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
     step_id: step.get('id'),
-    data: data || {}
+    ...data || {}
   }).save(null, {
     transacting: req.trx
   })
@@ -217,6 +217,7 @@ const saveResults = async (req, { enrollment, step, data, recording_url, unenrol
 const completeEnrollment = async (req, { enrollment }) => {
 
   await enrollment.save({
+    completed_at: moment(),
     status: 'completed'
   }, {
     transacting: req.trx,

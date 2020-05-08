@@ -16,7 +16,11 @@ const enrollInWorkflow = async (req, params) => {
     workflow
   })
 
-  return {}
+  return {
+    data: {
+      workflow_id: config.workflow_id
+    }
+  }
 
 }
 

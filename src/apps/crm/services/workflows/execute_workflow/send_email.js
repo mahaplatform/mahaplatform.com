@@ -199,7 +199,11 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
     transacting: req.trx
   })
 
-  return {}
+  return {
+    data: {
+      email_id: email.get('id')
+    }
+  }
 
 }
 

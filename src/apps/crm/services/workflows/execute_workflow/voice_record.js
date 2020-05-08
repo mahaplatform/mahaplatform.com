@@ -90,7 +90,6 @@ const redoRecording = async (req, { enrollment, step }) => {
 
 }
 
-
 const message = async (req, params) => {
 
   const { answer, config, enrollment, step, recording } = params

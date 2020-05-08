@@ -15,9 +15,21 @@ const updateLists = async (req, { contact, config, enrollment }) => {
     return list.get('id')
   })
 
-  if(action === 'add' && _.includes(existing_ids, list_id)) return {}
+  if(action === 'add' && _.includes(existing_ids, list_id)) {
+    return {
+      data: {
+        list_id
+      }
+    }
+  }
 
-  if(action === 'remove' && !_.includes(existing_ids, list_id)) return {}
+  if(action === 'remove' && !_.includes(existing_ids, list_id)) {
+    return {
+      data: {
+        list_id
+      }
+    }
+  }
 
   if(action === 'add') {
     await addToLists(req, {
@@ -33,7 +45,11 @@ const updateLists = async (req, { contact, config, enrollment }) => {
     })
   }
 
-  return {}
+  return {
+    data: {
+      list_id
+    }
+  }
 
 }
 

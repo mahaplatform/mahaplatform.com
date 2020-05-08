@@ -14,7 +14,13 @@ const message = async (req, { config, contact, enrollment, tokens }) => {
     data: tokens
   })
 
-  return {}
+  return {
+    data: {
+      data: {
+        message: config.message
+      }
+    }
+  }
 
 }
 

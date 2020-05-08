@@ -12,6 +12,11 @@ const getDatetime = ({ until_date, until_time }) => {
 }
 
 const wait = async (req, { config }) => ({
+  data: {
+    data: {
+      until: (config.strategy === 'duration') ? getDuration(config) : getDatetime(config)
+    }
+  },
   until: (config.strategy === 'duration') ? getDuration(config) : getDatetime(config)
 })
 

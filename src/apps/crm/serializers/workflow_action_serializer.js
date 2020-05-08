@@ -1,0 +1,85 @@
+const WorkflowActionSerializer = (req, result) => ({
+  id: result.get('id'),
+  asset: asset(result.related('asset')),
+  email: email(result.related('email')),
+  list: list(result.related('list')),
+  program: program(result.related('program')),
+  step: step(result.related('step')),
+  topic: topic(result.related('topic')),
+  user: user(result.related('user')),
+  data: result.get('data'),
+  description: result.get('description'),
+  created_at: result.get('created_at'),
+  updated_at: result.get('updated_at')
+})
+
+const asset = (asset) => {
+  if(!asset.get('id')) return null
+  return {
+    id: asset.get('id'),
+    original_file_name: asset.get('original_file_name'),
+    file_name: asset.get('file_name'),
+    file_size: asset.get('file_size'),
+    content_type: asset.get('content_type'),
+    has_preview: asset.get('has_preview'),
+    is_image: asset.get('is_image'),
+    status: asset.get('status'),
+    icon: asset.get('icon'),
+    path: asset.get('path'),
+    signed_url: asset.get('signed_url'),
+    source: asset.related('source').get('text'),
+    source_url: asset.get('source_url')
+  }
+}
+
+const email = (email) => {
+  if(!email.id) return null
+  return {
+    id: email.get('id'),
+    subject: email.get('subject')
+  }
+}
+
+const list = (list) => {
+  if(!list.id) return null
+  return {
+    id: list.get('id'),
+    title: list.get('title')
+  }
+}
+
+const program = (program) => {
+  if(!program.id) return null
+  return {
+    id: program.get('id'),
+    title: program.get('title')
+  }
+}
+
+const step = (step) => {
+  if(!step.id) return null
+  return {
+    id: step.get('id'),
+    type: step.get('type'),
+    action: step.get('action'),
+    config: step.get('config')
+  }
+}
+
+const topic = (topic) => {
+  if(!topic.id) return null
+  return {
+    id: topic.get('id'),
+    title: topic.get('title')
+  }
+}
+
+const user = (user) => {
+  if(!user.id) return null
+  return {
+    id: user.get('id'),
+    full_name: user.get('full_name')
+  }
+}
+
+export default WorkflowActionSerializer

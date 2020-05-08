@@ -1,10 +1,16 @@
 const set = async (req, { config }) => {
 
-  const { code, value } = config
+  const { name } = config
+
+  // TODO: set with dynamic value
+  const value = config.value
 
   return {
     data: {
-      [code]: value
+      data: {
+        name: name.value,
+        value
+      }
     }
   }
 

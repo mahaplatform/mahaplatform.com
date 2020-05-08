@@ -1,6 +1,7 @@
 import ExecuteWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import generateCode from '../../../../../core/utils/generate_code'
+import { contactActivity } from '../../../services/activities'
 import { toFilter } from '../../../../../core/utils/criteria'
 import { getContacts } from '../../../services/contacts'
 import Workflow from '../../../models/workflow'
@@ -41,6 +42,18 @@ const enrollRoute = async (req, res) => {
       was_converted: false
     }).save(null, {
       transacting: req.trx
+    })
+
+    await contactActivity(req, {
+      contact,
+      type: 'workflow',
+      story: 'enrolled contact in workflow',
+      program_id: workflow.get('program_id'),
+      user: req.user,
+      data: {
+        workflow_id: workflow.get('id'),
+        enrollment_id: enrollment.get('id')
+      }
     })
 
     await ExecuteWorkflowQueue.enqueue(req, {

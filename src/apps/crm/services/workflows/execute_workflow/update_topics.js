@@ -7,7 +7,7 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
 
   if(!topic_id) return {}
 
-  await enrollment.load(['topics'], {
+  await contact.load(['topics'], {
     transacting: req.trx
   })
 
@@ -15,9 +15,21 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
     return topic.get('id')
   })
 
-  if(action === 'add' && _.includes(existing_ids, topic_id)) return {}
+  if(action === 'add' && _.includes(existing_ids, topic_id)) {
+    return {
+      data: {
+        topic_id
+      }
+    }
+  }
 
-  if(action === 'remove' && !_.includes(existing_ids, topic_id)) return {}
+  if(action === 'remove' && !_.includes(existing_ids, topic_id)) {
+    return {
+      data: {
+        topic_id
+      }
+    }
+  }
 
   if(action === 'add') {
     await addToTopics(req, {
@@ -33,7 +45,11 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
     })
   }
 
-  return {}
+  return {
+    data: {
+      topic_id
+    }
+  }
 
 }
 

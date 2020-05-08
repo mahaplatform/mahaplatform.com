@@ -231,7 +231,9 @@ const ifthen = async (req, { config, contact, data, enrollment, step }) => {
 
   return {
     data: {
-      branch: branch.name
+      data: {
+        branch: branch.name
+      }
     },
     condition: {
       parent: step.get('code'),

@@ -8,6 +8,7 @@ class SMSCampaign extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    actions: PropTypes.array,
     enrollment: PropTypes.object,
     sms_campaign: PropTypes.object
   }
@@ -15,10 +16,10 @@ class SMSCampaign extends React.PureComponent {
   static defaultProps = {}
 
   render() {
-    const { enrollment, sms_campaign } = this.props
+    const { actions, enrollment, sms_campaign } = this.props
     return (
       <div className="crm-workflow-card">
-        <WorkflowActions enrollment={ enrollment } trigger_type={`${sms_campaign.direction}_${sms_campaign.type}`} />
+        <WorkflowActions workflow={ sms_campaign } enrollment={ enrollment } actions={ actions } trigger_type={`${sms_campaign.direction}_${sms_campaign.type}`} />
       </div>
     )
   }
@@ -26,6 +27,7 @@ class SMSCampaign extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
+  actions: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}/actions`,
   sms_campaign: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}`,
   enrollment: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}`
 })

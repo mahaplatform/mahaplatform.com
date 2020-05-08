@@ -2,7 +2,7 @@ import { twiml } from 'twilio'
 
 const play = async (req, { config, enrollment, step }) => {
 
-  const { loop } = config
+  const { loop, recording_id } = config
 
   const response = new twiml.VoiceResponse()
 
@@ -15,6 +15,9 @@ const play = async (req, { config, enrollment, step }) => {
   }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
 
   return {
+    data: {
+      asset_id: recording_id
+    },
     twiml: response.toString()
   }
 

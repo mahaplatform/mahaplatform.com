@@ -38,12 +38,6 @@ class Activities extends React.PureComponent {
               <i className="fa fa-fw fa-chevron-right" />
             }
           </div>
-          <div className="crm-timeline-card-header-avatar">
-            { activity.user ?
-              <Avatar user={ activity.user } width="28" presence={ false } /> :
-              <ContactAvatar { ...contact } />
-            }
-          </div>
           <div className="crm-timeline-card-header-details">
             <div className="crm-timeline-card-header-description">
               { activity.user ?

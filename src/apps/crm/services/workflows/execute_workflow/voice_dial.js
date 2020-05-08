@@ -17,9 +17,13 @@ const getToNumber = async (req, { config }) => {
 
 const dial = async (req, { config, enrollment, step }) => {
 
-  const to = await getToNumber(req, {
-    config
-  })
+  const user = config.user_id ? await User.query(qb => {
+    qb.where('id', config.user_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
+  const to = user ? user.get('cell_phone') : config.number
 
   const response = new twiml.VoiceResponse()
 
@@ -34,6 +38,10 @@ const dial = async (req, { config, enrollment, step }) => {
   }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
 
   return {
+    data: {
+      ...user ? { user_id: user.get('id') } : {},
+      ...config.number ? { data: { number: config.number } } : {}
+    },
     twiml: response.toString()
   }
 

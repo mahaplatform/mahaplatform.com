@@ -8,6 +8,7 @@ class VoiceCampaign extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    actions: PropTypes.array,
     enrollment: PropTypes.object,
     voice_campaign: PropTypes.object
   }
@@ -15,10 +16,10 @@ class VoiceCampaign extends React.PureComponent {
   static defaultProps = {}
 
   render() {
-    const { enrollment, voice_campaign } = this.props
+    const { actions, enrollment, voice_campaign } = this.props
     return (
       <div className="crm-workflow-card">
-        <WorkflowActions enrollment={ enrollment } trigger_type={`${voice_campaign.direction}_${voice_campaign.type}`} />
+        <WorkflowActions workflow={ voice_campaign } enrollment={ enrollment } actions={ actions } trigger_type={`${voice_campaign.direction}_${voice_campaign.type}`} />
       </div>
     )
   }
@@ -26,6 +27,7 @@ class VoiceCampaign extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
+  actions: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}/actions`,
   voice_campaign: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}`,
   enrollment: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}`
 })

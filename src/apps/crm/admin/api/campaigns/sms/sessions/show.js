@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
     qb.where('sms_campaign_id', sms_campaign.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['contact.photo','actions.step'],
+    withRelated: ['contact.photo'],
     transacting: req.trx
   })
 

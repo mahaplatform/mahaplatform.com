@@ -3,7 +3,7 @@ import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ campaign, enrollment }) => {
+const Details = ({ actions, enrollment, campaign }) => {
 
   const contact = {
     label: enrollment.contact.display_name,
@@ -16,7 +16,7 @@ const Details = ({ campaign, enrollment }) => {
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'Date', content: enrollment.created_at, format: 'datetime' },
-        { component: <WorkflowActions enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
+        { component: <WorkflowActions actions={ actions } enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
     }]
   }
@@ -26,6 +26,7 @@ const Details = ({ campaign, enrollment }) => {
 }
 
 Details.propTypes = {
+  actions: PropTypes.array,
   campaign: PropTypes.object,
   enrollment: PropTypes.object
 }

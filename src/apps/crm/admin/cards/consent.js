@@ -16,26 +16,33 @@ class Preferences extends React.PureComponent {
     if(!activity.data) return null
     const { type, email_address, mailing_address, phone_number, actions } = activity.data
     return (
-      <div className="crm-timeline-item-card-subscription">
-        { phone_number &&
-          <div className="crm-timeline-item-card-subscription-item">
-            <strong>Phone Number:</strong> { phone_number }
-          </div>
-        }
-        { email_address &&
-          <div className="crm-timeline-item-card-subscription-item">
-            <strong>Email Address:</strong> { email_address }
-          </div>
-        }
-        { mailing_address &&
-          <div className="crm-timeline-item-card-subscription-item">
-            <strong>Address:</strong> { mailing_address }
-          </div>
-        }
-        <div className="crm-timeline-item-card-subscription-item">
-          <strong>Channel:</strong> { type.toUpperCase() }<br />
-        </div>
-
+      <div className="crm-form-card">
+        <table className="ui celled compact unstackable table">
+          <tbody>
+            { phone_number &&
+              <tr>
+                <td>Phone Number</td>
+                <td>{ phone_number }</td>
+              </tr>
+            }
+            { email_address &&
+              <tr>
+                <td>Email Address</td>
+                <td>{ email_address }</td>
+              </tr>
+            }
+            { mailing_address &&
+              <tr>
+                <td>Mailing Address</td>
+                <td>{ mailing_address }</td>
+              </tr>
+            }
+            <tr>
+              <td>Channel</td>
+              <td>{ type.toUpperCase() }</td>
+            </tr>
+          </tbody>
+        </table>
         <ul>
           { actions && actions.map((item, index) => (
             <li key={`item_${index}`}>

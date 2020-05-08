@@ -1,21 +1,23 @@
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 const types = {
-  event: { icon: 'calendar', name: 'workflow', trigger: 'Contact registers for event' },
-  pickup: { icon: 'phone', name: 'call', trigger: 'Contact picked up phone' },
-  response: { icon: 'check-square-o', name: 'workflow', trigger: 'Form is submitted' },
-  delivery: { icon: 'envelope', name: 'workflow', trigger: 'Email is delivered' },
-  open: { icon: 'envelope-open', name: 'workflow', trigger: 'Email is opened' },
-  click: { icon: 'mouse-pointer', name: 'workflow', trigger: 'Email is clicked' },
-  list: { icon: 'th-list', name: 'workflow', trigger: 'Contact is added to list' },
-  topic: { icon: 'lightbulb-o', name: 'Workflow', trigger: 'Contact is added to topic' },
-  property: { icon: 'id-card', name: 'workflow', trigger: 'Contact property is updated' },
-  manual: { icon: 'plus', name: 'workflow', trigger: 'Contact is enrolled' },
-  outbound_sms: { icon: 'phone', name: 'workflow', trigger: 'Outbound SMS' },
-  inbound_sms: { icon: 'phone', name: 'workflow', trigger: 'Incoming SMS' },
-  outbound_voice: { icon: 'phone', name: 'workflow', trigger: 'Contact picked up phone' },
-  inbound_voice: { icon: 'phone', name: 'workflow', trigger: 'Contact called' }
+  event: { icon: 'calendar', name: 'Workflow', trigger: 'Contact registered for event' },
+  pickup: { icon: 'phone', name: 'Call', trigger: 'Contact picked up phone' },
+  response: { icon: 'check-square-o', name: 'Workflow', trigger: 'Contact submitted form' },
+  delivery: { icon: 'envelope', name: 'Workflow', trigger: 'Email was delivered' },
+  open: { icon: 'envelope-open', name: 'Workflow', trigger: 'Email was opened' },
+  click: { icon: 'mouse-pointer', name: 'Workflow', trigger: 'Email was clicked' },
+  list: { icon: 'th-list', name: 'Workflow', trigger: 'Contact was added to list' },
+  topic: { icon: 'lightbulb-o', name: 'Workflow', trigger: 'Contact was added to topic' },
+  property: { icon: 'id-card', name: 'Workflow', trigger: 'Contact property was updated' },
+  manual: { icon: 'plus', name: 'Workflow', trigger: 'Contact was enrolled' },
+  outbound_sms: { icon: 'phone', name: 'Workflow', trigger: 'Contact received an SMS' },
+  inbound_sms: { icon: 'phone', name: 'Workflow', trigger: 'Contact sent an SMS' },
+  outbound_voice: { icon: 'phone', name: 'Workflow', trigger: 'Contact answered the phone' },
+  inbound_voice: { icon: 'phone', name: 'Workflow', trigger: 'Contact called' }
 }
 
 const blocks = {
@@ -38,12 +40,14 @@ const blocks = {
 class WorkflowActions extends React.PureComponent {
 
   static propTypes = {
+    actions: PropTypes.array,
     enrollment: PropTypes.object,
-    trigger_type: PropTypes.string
+    trigger_type: PropTypes.string,
+    workflow: PropTypes.object
   }
 
   render() {
-    const { enrollment, trigger_type } = this.props
+    const { actions, enrollment, trigger_type } = this.props
     return (
       <div className="crm-workflow-actions">
         <div className="crm-workflow-action">
@@ -51,17 +55,25 @@ class WorkflowActions extends React.PureComponent {
             <i className={`fa fa-${types[trigger_type].icon}`} />
           </div>
           <div className="crm-workflow-action-label">
-            { types[trigger_type].trigger }
+            <span className="crm-workflow-action-timestamp">
+              { moment(enrollment.created_at).format('M/D/YY, h:mmA') }
+            </span><br />
+            <strong>TRIGGER: </strong>
+            { this._getTrigger() }
           </div>
         </div>
-        { enrollment.actions.map((action, index) => [
+        { actions.map((action, index) => [
           <div className="crm-workflow-action-connector" key={`connector_${index}`} />,
           <div className="crm-workflow-action" key={`action_${index}`}>
             <div className={`crm-workflow-action-icon ${action.step.type}`}>
               <i className={`fa fa-${blocks[action.step.action].icon}`} />
             </div>
             <div className="crm-workflow-action-label">
-              { action.step.action }
+              <span className="crm-workflow-action-timestamp">
+                { moment(action.created_at).format('M/D/YY, h:mmA') }
+              </span><br />
+              <strong>{ action.step.action.toUpperCase() }</strong>
+              { this._getDescription(action) }
             </div>
           </div>
         ]) }
@@ -74,6 +86,7 @@ class WorkflowActions extends React.PureComponent {
               <i className="fa fa-check" />
             </div>
             <div className="crm-workflow-action-label">
+              <strong>LOST: </strong>
               Contact was lost in workflow
             </div>
           </div>
@@ -84,12 +97,76 @@ class WorkflowActions extends React.PureComponent {
               <i className="fa fa-check" />
             </div>
             <div className="crm-workflow-action-label">
-              { types[trigger_type].name } is complete
+              <span className="crm-workflow-action-timestamp">
+                { moment(enrollment.completed_at).format('M/D/YY, h:mmA') }
+              </span><br />
+              <strong>COMPLETE: </strong>
+              { types[trigger_type].name } was completed
             </div>
           </div>
         }
       </div>
     )
+  }
+
+  _getTrigger() {
+    const { trigger_type, workflow } = this.props
+    if(trigger_type === 'inbound_voice') {
+      return `Contact called ${workflow.phone_number.formatted}`
+    } else if(trigger_type === 'outbound_voice') {
+      return `Contact received call from ${workflow.phone_number.formatted}`
+    }
+
+    return types[trigger_type].trigger
+  }
+
+  _getDescription(action) {
+    const { asset, data, email, list, program, step, topic, user } = action
+    if(!step) return ''
+    const { config } = step
+    if(step.action === 'consent' && program) {
+      return `: ${config.action === 'add' ? 'Opted in to' : 'Oped out of' } ${config.channel_type} channel`
+    } else if(step.action === 'list' && list) {
+      return `: ${config.action === 'add' ? 'Added to' : 'Removed from' } ${list.title}`
+    } else if(step.action === 'topic' && topic) {
+      return `: ${config.action === 'add' ? 'Added to' : 'Removed from' } ${topic.title}`
+    } else if(step.action === 'ifthen') {
+      return `: ${data.branch}`
+    } else if(step.action === 'play' && asset) {
+      return <span>: Played <Button { ...this._getPlayButton(asset) }/></span>
+    } else if(step.action === 'say') {
+      return `: Said "${config.message}"`
+    } else if(step.action === 'dial') {
+      return `: Connected call to ${config.number}`
+    } else if(step.type === 'administrative' && step.action === 'email') {
+      return `: Sent internal email to ${config.user.full_name}`
+    } else if(step.type === 'administrative' && step.action === 'sms') {
+      return `: Sent internal sms to ${config.user.full_name}`
+    } else if(step.type === 'communication' && step.action === 'email' && email) {
+      return <span>: Sent <Button { ...this._getEmailButton(email) }/></span>
+    }
+    return ''
+  }
+
+  _getEmailButton(email) {
+    return {
+      label: email.subject,
+      className: 'link',
+      route: `/admin/crm/emails/${email.id}`
+    }
+  }
+
+  _getPlayButton(asset) {
+    return {
+      label: 'recording',
+      className: 'link',
+      handler: this._handlePlay.bind(this, asset)
+    }
+  }
+
+  _handlePlay(asset) {
+    const audio = new Audio(asset.signed_url)
+    audio.play()
   }
 
 }

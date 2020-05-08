@@ -4,9 +4,7 @@
   }
 }
 .crm-workflow-actions {
-  max-width: 350px;
   padding: 1.6em;
-  width: 100%;
 }
 .crm-workflow-action-connector {
   height: 1.4em;
@@ -74,9 +72,15 @@
   border: 1px solid lighten(@black, 85);
   border-left: none;
   background: @white;
-  color: fadeout(@black, 40);
-  text-transform: uppercase;
   flex: 1;
-  padding: 0.4em 0.8em;
+  padding: 0.6em 0.8em;
   font-size: 0.8em;
+  line-height: 1.4em;
+  color: @black;
+  .link {
+    display: inline;
+  }
+}
+.crm-workflow-action-timestamp {
+  color: fadeout(@black, 60);
 }
