@@ -2,7 +2,7 @@ import Rollbar from 'rollbar'
 
 const rollbarCreator = () => {
 
-  if(process.env.NODE_ENV === 'development') {
+  if(process.env.NODE_ENV !== 'development') {
     return new Rollbar({
       accessToken: process.env.ROLLBAR_SERVER_TOKEN,
       captureUncaught: true,
