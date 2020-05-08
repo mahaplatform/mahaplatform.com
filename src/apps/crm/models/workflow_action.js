@@ -1,5 +1,4 @@
 import WorkflowEnrollment from './workflow_enrollment'
-import WorkflowRecording from './workflow_recording'
 import Model from '../../../core/objects/model'
 import Field from '../../maha/models/field'
 import Email from '../../maha/models/email'
@@ -43,8 +42,8 @@ const WorkflowAction = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
-  recordings() {
-    return this.hasOne(WorkflowRecording, 'action_id')
+  recording() {
+    return this.belongsTo(Asset, 'recording_id')
   },
 
   step() {

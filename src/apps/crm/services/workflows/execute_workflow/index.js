@@ -53,7 +53,6 @@ const getExecutor = (type, action) => {
 
 const executeStep = async (req, params) => {
   const { answer, contact, data, enrollment, execute, step, recording, tokens } = params
-  if(execute === false) return {}
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
@@ -61,6 +60,7 @@ const executeStep = async (req, params) => {
     contact,
     data,
     enrollment,
+    execute,
     recording,
     step,
     tokens
@@ -176,13 +176,17 @@ const getTokens = async(req, { contact, data, steps }) => ({
   }), {})
 })
 
-const saveResults = async (req, { enrollment, step, data, recording_url, unenroll }) => {
+const saveResults = async (req, params) => {
+
+  const { enrollment, step, recording_url, unenroll } = params
+
+  const data = params.data || {}
 
   const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
     step_id: step.get('id'),
-    ...data || {}
+    ...data
   }).save(null, {
     transacting: req.trx
   })
@@ -194,12 +198,12 @@ const saveResults = async (req, { enrollment, step, data, recording_url, unenrol
     })
   }
 
-  if(data || unenroll) {
+  if(data.data || unenroll) {
     await enrollment.save({
       ...data ? {
         data: {
           ...enrollment.get('data') || {},
-          ...data || {}
+          ...data.data || {}
         }
       } : {},
       ...unenroll ? {

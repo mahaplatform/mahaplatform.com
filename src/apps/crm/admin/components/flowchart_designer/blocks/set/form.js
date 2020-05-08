@@ -26,6 +26,7 @@ class Set extends React.PureComponent {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -61,6 +62,7 @@ class Set extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'Value', name: 'value', type: 'textfield', required: true, defaultValue: config.value }
           ]

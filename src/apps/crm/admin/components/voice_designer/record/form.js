@@ -2,6 +2,7 @@ import RecordingField from '../../recordingfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Record extends React.PureComponent {
 
@@ -39,6 +40,7 @@ class Record extends React.PureComponent {
 
   _getDefaults() {
     return {
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
       voice: 'woman',
       confirm: 'yes'
@@ -66,6 +68,8 @@ class Record extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'code', type: 'hidden', defaultValue: config.code },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'How to request', type: 'segment', required: true, fields: [
               { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
               ...this._getStrategy()

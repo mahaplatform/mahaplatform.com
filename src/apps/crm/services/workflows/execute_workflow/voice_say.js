@@ -1,13 +1,23 @@
 import { twiml } from 'twilio'
 import ejs from 'ejs'
 
-const say = async (req, { enrollment, step, tokens }) => {
+const say = async (req, { enrollment, execute, step, tokens }) => {
 
   const { message, voice } = step.get('config')
 
   const response = new twiml.VoiceResponse()
 
   const rendered = ejs.render(message, tokens)
+
+  if(execute === false) {
+    return {
+      data: {
+        data: {
+          message: rendered
+        }
+      }
+    }
+  }
 
   response.say({
     voice

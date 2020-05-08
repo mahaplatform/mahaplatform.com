@@ -1,17 +1,18 @@
 import { twiml } from 'twilio'
 
-const voiceQuestion = async (req, { config, enrollment, step, answer }) => {
+const voiceQuestion = async (req, { config, enrollment, execute, step, answer }) => {
 
-  const { code, digits, message, strategy, voice } = config
+  const { code, digits, message, recording_id, strategy, voice } = config
 
-  if(answer) {
-
+  if(execute === false) {
     return {
       data: {
-        [code]: answer
+        asset_id: recording_id,
+        data: {
+          [code]: answer
+        }
       }
     }
-
   }
 
   const response = new twiml.VoiceResponse()

@@ -6,30 +6,30 @@ const AddActionDescription = {
 
   up: async (knex) => {
 
-    // await knex.schema.table('crm_workflow_enrollments', (table) => {
-    //   table.timestamp('completed_at')
-    // })
-    //
-    // await knex.schema.table('crm_workflow_actions', (table) => {
-    //   table.integer('list_id').unsigned()
-    //   table.foreign('list_id').references('crm_lists.id')
-    //   table.integer('topic_id').unsigned()
-    //   table.foreign('topic_id').references('crm_topics.id')
-    //   table.integer('field_id').unsigned()
-    //   table.foreign('field_id').references('maha_fields.id')
-    //   table.integer('program_id').unsigned()
-    //   table.foreign('program_id').references('crm_programs.id')
-    //   table.integer('workflow_id').unsigned()
-    //   table.foreign('workflow_id').references('crm_workflows.id')
-    //   table.integer('email_id').unsigned()
-    //   table.foreign('email_id').references('maha_emails.id')
-    //   table.integer('recording_id').unsigned()
-    //   table.foreign('recording_id').references('crm_workflow_recordings.id')
-    //   table.integer('asset_id').unsigned()
-    //   table.foreign('asset_id').references('maha_assets.id')
-    //   table.integer('user_id').unsigned()
-    //   table.foreign('user_id').references('maha_users.id')
-    // })
+    await knex.schema.table('crm_workflow_enrollments', (table) => {
+      table.timestamp('completed_at')
+    })
+
+    await knex.schema.table('crm_workflow_actions', (table) => {
+      table.integer('list_id').unsigned()
+      table.foreign('list_id').references('crm_lists.id')
+      table.integer('topic_id').unsigned()
+      table.foreign('topic_id').references('crm_topics.id')
+      table.integer('field_id').unsigned()
+      table.foreign('field_id').references('maha_fields.id')
+      table.integer('program_id').unsigned()
+      table.foreign('program_id').references('crm_programs.id')
+      table.integer('workflow_id').unsigned()
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.integer('email_id').unsigned()
+      table.foreign('email_id').references('maha_emails.id')
+      table.integer('recording_id').unsigned()
+      table.foreign('recording_id').references('crm_workflow_recordings.id')
+      table.integer('asset_id').unsigned()
+      table.foreign('asset_id').references('maha_assets.id')
+      table.integer('user_id').unsigned()
+      table.foreign('user_id').references('maha_users.id')
+    })
 
     const enrollments = WorkflowEnrollment.fetchAll({
       withRelated: ['actions'],

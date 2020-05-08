@@ -1,5 +1,6 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { executeWorkflow } from '../../services/workflows'
+import _ from 'lodash'
 
 const showRoute = async (req, res) => {
 
@@ -28,7 +29,7 @@ const showRoute = async (req, res) => {
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
-    execute: req.params.verb !== 'next',
+    execute: !_.includes(['gather','next'], req.params.verb),
     answer: req.params.verb === 'gather' ? req.body.Digits : null,
     recording: req.params.verb === 'record' ? req.body.RecordingUrl : null
   }) || {}

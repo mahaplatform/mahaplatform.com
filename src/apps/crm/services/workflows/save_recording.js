@@ -1,5 +1,5 @@
 import { createAssetFromUrl } from '../../../maha/services/assets'
-import WorkflowRecording from '../../models/workflow_recording'
+import WorkflowAction from '../../models/workflow_action'
 
 const save_recording = async (req, { action_id, url }) => {
 
@@ -7,11 +7,15 @@ const save_recording = async (req, { action_id, url }) => {
     url
   })
 
-  await WorkflowRecording.forge({
-    team_id: req.team.get('id'),
-    action_id,
-    asset_id: asset.get('id')
-  }).save(null, {
+  const action = await WorkflowAction.query(qb => {
+    qb.where('id', action_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await action.save({
+    recording_id: asset.get('id')
+  }, {
     transacting: req.trx
   })
 

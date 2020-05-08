@@ -30,6 +30,7 @@ const blocks = {
   say: { icon: 'volume-control-phone' },
   message: { icon: 'comment' },
   sms: { icon: 'comment' },
+  set: { icon: 'times' },
   internal_sms: { icon: 'comment' },
   record: { icon: 'microphone' },
   topic: { icon: 'lightbulb-o' },
@@ -121,7 +122,7 @@ class WorkflowActions extends React.PureComponent {
   }
 
   _getDescription(action) {
-    const { asset, data, email, list, program, step, topic, user } = action
+    const { asset, data, email, list, program, recording, step, topic } = action
     if(!step) return ''
     const { config } = step
     if(step.action === 'consent' && program) {
@@ -132,10 +133,16 @@ class WorkflowActions extends React.PureComponent {
       return `: ${config.action === 'add' ? 'Added to' : 'Removed from' } ${topic.title}`
     } else if(step.action === 'ifthen') {
       return `: ${data.branch}`
+    } else if(step.action === 'set') {
+      return `: ${config.name.value} = ${data[config.code]}`
     } else if(step.action === 'play' && asset) {
       return <span>: Played <Button { ...this._getPlayButton(asset) }/></span>
+    } else if(step.action === 'question' && asset) {
+      return <span>: Asked <Button { ...this._getPlayButton(asset) }/>, answered { data[config.code] }</span>
+    } else if(step.action === 'record' && recording) {
+      return <span>: Captured <Button { ...this._getPlayButton(recording) }/></span>
     } else if(step.action === 'say') {
-      return `: Said "${config.message}"`
+      return `: Said "${data.message}"`
     } else if(step.action === 'dial') {
       return `: Connected call to ${config.number}`
     } else if(step.type === 'administrative' && step.action === 'email') {
