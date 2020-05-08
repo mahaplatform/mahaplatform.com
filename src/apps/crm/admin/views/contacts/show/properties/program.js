@@ -1,6 +1,7 @@
 import { Logo, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Program extends React.Component {
 
@@ -21,6 +22,7 @@ class Program extends React.Component {
   render() {
     const { expanded } = this.state
     const { program } = this.props
+    const total = this._getTotal()
     return (
       <div className="crm-contact-properties-program">
         <div className="crm-contact-properties-header" onClick={ this._handleToggle }>
@@ -33,6 +35,13 @@ class Program extends React.Component {
           <div className="crm-contact-properties-header-title">
             { program.title }
           </div>
+          { total > 0 &&
+            <div className="crm-contact-properties-header-total">
+              <div className="crm-contact-properties-header-total-count">
+                { total }
+              </div>
+            </div>
+          }
         </div>
         { expanded &&
           <div className="crm-contact-properties-body">
@@ -52,14 +61,21 @@ class Program extends React.Component {
     const { contact, fields, lists, topics } = this.props
     return {
       items: [
-        { label: 'Lists', content: lists.length > 0 ? lists.map(list => list.title).join(', ') : 'NONE' },
-        { label: 'Topics', content: topics.length > 0 ? topics.map(topic => topic.title).join(', ') : 'NONE' },
+        { label: 'Lists', content: lists.length > 0 ? lists.map(list => list.title).join(', ') : '' },
+        { label: 'Topics', content: topics.length > 0 ? topics.map(topic => topic.title).join(', ') : '' },
         ...fields.map(field => ({
           label: field.label,
           content: contact.values[field.code]
         }))
       ]
     }
+  }
+
+  _getTotal() {
+    const { contact, fields, lists, topics } = this.props
+    return lists.length + topics.length + fields.filter(field => {
+      return !_.isNil(contact.values[field.code])
+    }).length
   }
 
   _handleToggle() {

@@ -4,6 +4,11 @@
   border-radius: 0.3em;
   overflow: hidden;
 }
+.crm-contact-properties-title {
+  background-color: fadeout(@black, 30);
+  padding: 0.8em;
+  color: @white;
+}
 .crm-contact-properties-header {
   display: flex;
   background-color: fadeout(@black, 97);
@@ -39,6 +44,23 @@
 }
 .crm-contact-properties-header-title {
   padding: 0.4em 0.8em;
+  flex: 1;
+}
+.crm-contact-properties-header-total {
+  padding: 0.4em 0.8em;
+  display: flex;
+}
+.crm-contact-properties-header-total-count {
+  background-color: fadeout(@black, 80);
+  border-radius: 50%;
+  color: @white;
+  display: block;
+  width: 1.8em;
+  height: 1.8em;
+  line-height: 1.8em;
+  text-align: center;
+  margin: auto;
+  font-size: 0.7em;
 }
 .crm-contact-properties-body {
   .maha-list {

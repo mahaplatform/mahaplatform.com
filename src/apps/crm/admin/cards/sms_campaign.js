@@ -17,7 +17,7 @@ class SMSCampaign extends React.PureComponent {
   render() {
     const { enrollment, sms_campaign } = this.props
     return (
-      <div className="crm-timeline-item-card-edit">
+      <div className="crm-workflow-card">
         <WorkflowActions enrollment={ enrollment } trigger_type={`${sms_campaign.direction}_${sms_campaign.type}`} />
       </div>
     )

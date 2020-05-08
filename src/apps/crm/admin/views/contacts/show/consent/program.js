@@ -23,6 +23,7 @@ class Program extends React.Component {
   render() {
     const { active, expanded } = this.state
     const { channels, program } = this.props
+    const total = this._getTotal()
     return (
       <div className="crm-contact-properties-program">
         <div className="crm-contact-properties-header" onClick={ this._handleToggle }>
@@ -35,6 +36,13 @@ class Program extends React.Component {
           <div className="crm-contact-properties-header-title">
             { program.title }
           </div>
+          { total > 0 &&
+            <div className="crm-contact-properties-header-total">
+              <div className="crm-contact-properties-header-total-count">
+                { total }
+              </div>
+            </div>
+          }
         </div>
         { expanded &&
           <div className="crm-contact-properties-body">
@@ -148,6 +156,13 @@ class Program extends React.Component {
       className: 'link',
       link: `/crm/preferences/${channel.code}`
     }
+  }
+
+  _getTotal() {
+    const { channels } = this.props
+    return channels.filter(channel => {
+      return channel.has_consented
+    }).length
   }
 
   _handleToggle() {

@@ -15,6 +15,9 @@ class Consent extends React.Component {
     const { programs } = this.props
     return (
       <div className="crm-contact-properties">
+        <div className="crm-contact-properties-title">
+          Program
+        </div>
         { programs.map((program, index) => (
           <Program { ...this._getProgram(program) } key={`program_${index}`} />
         )) }

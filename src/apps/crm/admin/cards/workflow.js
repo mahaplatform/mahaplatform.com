@@ -12,9 +12,8 @@ class Workflow extends React.PureComponent {
   static defaultProps = {}
 
   render() {
-    const { activity } = this.props
     return (
-      <div className="crm-timeline-item-card-edit">
+      <div className="crm-workflow-card">
         <ol>
           <li>Listened to speaking</li>
           <li>Pressed 1</li>

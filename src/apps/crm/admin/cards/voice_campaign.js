@@ -17,7 +17,7 @@ class VoiceCampaign extends React.PureComponent {
   render() {
     const { enrollment, voice_campaign } = this.props
     return (
-      <div className="crm-timeline-item-card-edit">
+      <div className="crm-workflow-card">
         <WorkflowActions enrollment={ enrollment } trigger_type={`${voice_campaign.direction}_${voice_campaign.type}`} />
       </div>
     )

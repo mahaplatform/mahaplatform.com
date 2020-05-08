@@ -38,8 +38,12 @@
      display: block;
   }
 }
+.crm-form-card {
+  .team-email-feed {
+    padding: 0;
+  }
+}
 .team-email-feed {
-  background: fadeout(@black, 95);
   padding: 0.8em;
   .team-email-feed-item:last-child {
     padding-bottom: 0;
@@ -58,37 +62,40 @@
     top: 0;
     bottom: 0;
     left: 0;
-    border-left: 2px dotted fadeout(@black, 70);
-    transform: translateX(1.2em);
+    border-left: 2px solid @blue;
+    transform: translate(0.8em, 1.2em);
   }
 
 }
 .team-email-feed-item-icon {
-  flex: 0 0 2.5em;
+  flex: 0 0 1.6em;
   display: flex;
   z-index: 1;
 }
 .team-email-feed-item-icon-badge {
+  border: 2px solid @blue;
   margin: auto;
-  display: block;
-  width: 2.5em;
-  height: 2.5em;
+  width: 25px;
+  height: 25px;
   background: @white;
   border-radius: 50%;
   display: flex;
-  i {
+  .fa {
     margin: auto;
-    color: @red;
+    color: @blue;
     width: 1em;
-    font-size: 1.2em;
+    font-size: 0.7em;
+  }
+  .fa-paper-plane {
+    transform: translateX(-0.1em);
   }
 }
 .team-email-feed-item-content {
   flex: 1;
   font-size: 0.8em;
-  line-height: 1.5em;
-  padding-left: 1em;
+  line-height: 1.2em;
   color: fadeout(@black, 60);
+  padding-left: 0.8em;
   strong {
     color: @black;
   }

@@ -10,7 +10,7 @@ import cssnano from 'cssnano'
 import path from 'path'
 
 const webpackConfig = (warning) => ({
-  devtool: 'none',
+  devtool: false,
   entry: [
     path.resolve('src','core','admin','index.js'),
     path.resolve('src','core','admin','index.less')
@@ -25,7 +25,7 @@ const webpackConfig = (warning) => ({
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: {
-            url: false, sourceMap: false }
+            url: false, sourceMap: true }
           },
           { loader: 'postcss-loader', options: {
             plugins: [autoprefixer, cssnano] }
@@ -54,7 +54,8 @@ const webpackConfig = (warning) => ({
       new TerserPlugin({
         terserOptions: {
           mangle: true,
-          safari10: true
+          safari10: true,
+          sourceMap: true
         }
       })
     ],
@@ -86,10 +87,6 @@ const webpackConfig = (warning) => ({
       template: path.resolve('src','core','admin','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map',
-      exclude: [/(vendors|style)/]
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         'DATA_ASSET_CDN_HOST': JSON.stringify(process.env.DATA_ASSET_CDN_HOST),
@@ -113,6 +110,11 @@ const webpackConfig = (warning) => ({
         'WEB_ASSET_HOST': JSON.stringify(process.env.WEB_ASSET_HOST),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin`,
+      filename: '[file].map',
+      // exclude: [/(vendors|style)/]
     })
   ],
   resolve: {
