@@ -9,7 +9,7 @@ const Details = ({ program }) => {
   list.items = [
     { label: 'Title', content: program.title },
     { label: 'Phone Number', content: program.phone_number ? program.phone_number.formatted : 'NONE' },
-    { label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: program.address.replace(/\n/g,'<br />') }} /> },
+    { label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: program.address ? program.address.replace(/\n/g,'<br />') : 'NONE' }} /> },
     { label: 'Merchant Account', content: program.merchant ? program.merchant.title : 'NONE' }
   ]
 
