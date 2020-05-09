@@ -52,39 +52,41 @@ class WorkflowActions extends React.PureComponent {
     return (
       <div className="crm-workflow-actions">
         <div className="crm-workflow-action">
-          <div className="crm-workflow-action-icon trigger">
-            <i className={`fa fa-${types[trigger_type].icon}`} />
+          <div className="crm-workflow-action-icon">
+            <div className="crm-workflow-action-action trigger">
+              <i className={`fa fa-${types[trigger_type].icon}`} />
+            </div>
           </div>
           <div className="crm-workflow-action-label">
             <span className="crm-workflow-action-timestamp">
-              { moment(enrollment.created_at).format('M/D/YY, h:mmA') }
+              { moment(enrollment.created_at).format('MMM D YYYY [@] h:mmA') }
             </span><br />
             <strong>TRIGGER: </strong>
             { this._getTrigger() }
           </div>
         </div>
         { actions.map((action, index) => [
-          <div className="crm-workflow-action-connector" key={`connector_${index}`} />,
           <div className="crm-workflow-action" key={`action_${index}`}>
-            <div className={`crm-workflow-action-icon ${action.step.type}`}>
-              <i className={`fa fa-${blocks[action.step.action].icon}`} />
+            <div className="crm-workflow-action-icon">
+              <div className={`crm-workflow-action-action ${action.step.type}`}>
+                <i className={`fa fa-${blocks[action.step.action].icon}`} />
+              </div>
             </div>
             <div className="crm-workflow-action-label">
               <span className="crm-workflow-action-timestamp">
-                { moment(action.created_at).format('M/D/YY, h:mmA') }
+                { moment(action.created_at).format('MMM D YYYY [@] h:mmA') }
               </span><br />
               <strong>{ action.step.action.toUpperCase() }</strong>
               { this._getDescription(action) }
             </div>
           </div>
         ]) }
-        { enrollment.status !== 'active' &&
-          <div className="crm-workflow-action-connector"/>
-        }
         { enrollment.status === 'lost' &&
           <div className="crm-workflow-action">
-            <div className="crm-workflow-action-icon ending">
-              <i className="fa fa-check" />
+            <div className="crm-workflow-action-icon">
+              <div className="crm-workflow-action-action ending">
+                <i className="fa fa-check" />
+              </div>
             </div>
             <div className="crm-workflow-action-label">
               <strong>LOST: </strong>
@@ -94,12 +96,14 @@ class WorkflowActions extends React.PureComponent {
         }
         { enrollment.status === 'completed' &&
           <div className="crm-workflow-action">
-            <div className="crm-workflow-action-icon ending">
-              <i className="fa fa-check" />
+            <div className="crm-workflow-action-icon">
+              <div className="crm-workflow-action-action ending">
+                <i className="fa fa-check" />
+              </div>
             </div>
             <div className="crm-workflow-action-label">
               <span className="crm-workflow-action-timestamp">
-                { moment(enrollment.completed_at).format('M/D/YY, h:mmA') }
+                { moment(enrollment.completed_at).format('MMM D YYYY [@] h:mmA') }
               </span><br />
               <strong>COMPLETE: </strong>
               { types[trigger_type].name } was completed

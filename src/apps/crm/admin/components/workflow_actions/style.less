@@ -6,39 +6,38 @@
 }
 .crm-workflow-actions {
   padding: 1.6em;
-}
-.crm-workflow-action-connector {
-  height: 1.4em;
-  position: relative;
-  overflow: hidden;
-  &:before {
-    content: ' ';
-    border-left: 2px solid lighten(@black, 85);
-    left: 1em;
-    height: 1.4em;
-    position: absolute;
-  }
-  &:after {
-    content: ' ';
-    border: 5px solid transparent;
-    border-top-color: lighten(@black, 85);
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: .6em;
-    left: ~"calc(1em - 4px)";
+  .crm-workflow-action:last-child:after {
+    content: none;
   }
 }
 .crm-workflow-action {
   display: flex;
-  background-color: @white;
-  overflow: hidden;
+  padding-bottom: 1em;
+  position: relative;
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-left: 2px solid fadeout(@black, 85);
+    transform: translate(~"calc(.8em + 1px)", 1.6em);
+  }
 }
 .crm-workflow-action-icon {
-  flex: 0 0 2em;
+  flex: 0 0 1.6em;
   display: flex;
-  padding: 0.2em;
+}
+.crm-workflow-action-action {
+  margin: auto;
+  border: 2px solid fadeout(@black, 80);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  display: flex;
   color: @white;
+  z-index: 2;
   .fa {
     margin: auto;
     font-size: 0.9em;
@@ -67,6 +66,9 @@
   }
   &.action {
     background-color: @blue;
+  }
+  .fa-sitemap {
+    font-size: 1em;
   }
 }
 .crm-workflow-action-label {

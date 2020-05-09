@@ -43,7 +43,9 @@ class EmailCampaign extends React.PureComponent {
                 </div>
               </div>
               <div className="team-email-feed-item-content">
-                <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
+                <div className="team-email-feed-item-timestamp">
+                  { moment(activity.created_at).format('MMM D, YYYY @ h:mm A') }<br />
+                </div>
                 { activity.description }
               </div>
             </div>
