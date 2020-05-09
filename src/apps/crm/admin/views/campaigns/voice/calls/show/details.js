@@ -1,5 +1,5 @@
 import WorkflowActions from '../../../../../components/workflow_actions'
-import { Button, List } from 'maha-admin'
+import { Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -18,7 +18,8 @@ const Details = ({ actions, enrollment, campaign }) => {
         { label: 'Date', content: enrollment.created_at, format: 'datetime' },
         { component: <WorkflowActions actions={ actions } enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
-    }]
+    }],
+    footer: <Comments entity={`crm_workflow_enrollmentsa/${enrollment.id}`} />
   }
 
   return <List { ...list } />
