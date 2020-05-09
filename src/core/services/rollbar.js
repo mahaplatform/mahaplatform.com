@@ -8,7 +8,12 @@ const rollbarCreator = () => {
       captureUncaught: true,
       captureUnhandledRejections: true,
       payload: {
-        environment: 'server'
+        environment: 'server',
+        client: {
+          javascript: {
+            source_map_enabled: true
+          }
+        }
       }
     })
   }

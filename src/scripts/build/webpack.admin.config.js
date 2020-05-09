@@ -55,6 +55,7 @@ const webpackConfig = (warning) => ({
         terserOptions: {
           mangle: true,
           safari10: true,
+          ie8: true,
           sourceMap: true
         }
       })

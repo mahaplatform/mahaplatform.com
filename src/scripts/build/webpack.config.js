@@ -8,7 +8,7 @@ import path from 'path'
 import fs from 'fs'
 
 const webpackConfig = (app, name, root, port) => ({
-  devtool: 'none',
+  devtool: false,
   entry: [
     path.resolve(root,'index.js'),
     ...fs.existsSync(path.resolve(root,'index.less')) ? [
@@ -50,7 +50,9 @@ const webpackConfig = (app, name, root, port) => ({
       new TerserPlugin({
         terserOptions: {
           mangle: true,
-          safari10: true
+          safari10: true,
+          ie8: true,
+          sourceMap: true
         }
       })
     ]
@@ -87,6 +89,11 @@ const webpackConfig = (app, name, root, port) => ({
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`,
+      filename: '[file].map',
+      columns: true
     })
   ],
   resolve: {

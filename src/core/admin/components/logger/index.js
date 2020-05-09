@@ -43,7 +43,12 @@ class Logger extends React.Component {
       accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
       captureUncaught: true,
       payload: {
-        environment: 'admin'
+        environment: 'admin',
+        client: {
+          javascript: {
+            source_map_enabled: true
+          }
+        }
       }
     })
   }

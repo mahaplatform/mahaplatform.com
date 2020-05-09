@@ -33,7 +33,10 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
 const getBabelRc = () => {
   const babelrc = path.join('.babelrc')
   const config = fs.readFileSync(babelrc, 'utf8')
-  return JSON.parse(config)
+  return {
+    ...JSON.parse(config),
+    sourceMaps: true
+  }
 }
 
 const babelrc = getBabelRc()
@@ -78,6 +81,7 @@ const transpileFile = (src, dest) => {
   const source = fs.readFileSync(src, 'utf8')
   const transpiled = transform(source, babelrc)
   fs.writeFileSync(dest, transpiled.code)
+  fs.writeFileSync(`${dest}.map`, JSON.stringify(transpiled.map))
 }
 
 const buildItem = async (item, srcPath, destPath) => {
