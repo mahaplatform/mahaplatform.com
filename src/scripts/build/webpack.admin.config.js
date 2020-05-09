@@ -112,9 +112,9 @@ const webpackConfig = (warning) => ({
       }
     }),
     new webpack.SourceMapDevToolPlugin({
-      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin`,
+      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin/`,
       filename: '[file].map',
-      // exclude: [/(vendors|style)/]
+      columns: true
     })
   ],
   resolve: {
