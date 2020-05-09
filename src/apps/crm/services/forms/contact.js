@@ -1,25 +1,68 @@
+import { updatePhoneNumbers, getFormattedNumber } from '../phone_numbers'
 import generateCode from '../../../../core/utils/generate_code'
 import { updateMailingAddresses } from '../mailing_addresses'
 import { updateEmailAddresses } from '../email_addresses'
-import { updatePhoneNumbers } from '../phone_numbers'
 import EmailAddress from '../../models/email_address'
+import PhoneNumber from '../../models/phone_number'
 import Contact from '../../models/contact'
 import _ from 'lodash'
 
-const getContact = async (req, { email }) => {
+const getContactByEmail = async (req, params) => {
 
-  const email_address = await EmailAddress.query(qb => {
+  const email = params.email ? params.email.toLowerCase() : null
+
+  const email_address = !_.isNil(email) ? await EmailAddress.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('address', email)
   }).fetch({
     withRelated: ['contact'],
     transacting: req.trx
-  })
+  }) : null
 
-  if(email_address) {
-    email_address.related('contact').is_known = true
-    return email_address.related('contact')
-  }
+  if(!email_address) return null
+
+  email_address.related('contact').is_known = true
+
+  return email_address.related('contact')
+
+}
+
+const getContactByPhone = async (req, params) => {
+
+  const first_name = params.first_name ? params.first_name.toLowerCase() : null
+
+  const last_name = params.last_name ? params.last_name.toLowerCase() : null
+
+  const { phone } = params
+
+  const phone_number = !_.isNil(first_name) && !_.isNil(last_name) && !_.isNil(phone) ? await PhoneNumber.query(qb => {
+    qb.innerJoin('crm_contacts', 'crm_contacts.id', 'crm_phone_numbers.contact_id')
+    qb.where('crm_phone_numbers.team_id', req.team.get('id'))
+    qb.whereRaw('lower(crm_contacts.first_name)=?', first_name)
+    qb.whereRaw('lower(crm_contacts.last_name)=?', last_name)
+    qb.where('crm_phone_numbers.number', getFormattedNumber(phone))
+  }).fetch({
+    withRelated: ['contact'],
+    transacting: req.trx
+  }) : null
+
+  if(!phone_number) return
+
+  phone_number.related('contact').is_known = true
+
+  return phone_number.related('contact')
+
+}
+
+const getContact = async (req, params) => {
+
+  const emailContact = await getContactByEmail(req, params)
+
+  if(emailContact) return emailContact
+
+  const phoneContact = await getContactByPhone(req, params)
+
+  if(phoneContact) return phoneContact
 
   const code = await generateCode(req, {
     table: 'crm_contacts'
@@ -71,18 +114,28 @@ const updateContact = async (req, { contact, contactfields, data }) => {
 
 }
 
+const getField = (contactfields, name) => {
+  return contactfields.find(field => {
+    return field.contactfield.name === name
+  })
+}
+
 export const createOrUpdateContact = async (req, { fields, data }) => {
 
   const contactfields = fields.filter(field => {
     return field.type === 'contactfield'
   })
 
-  const emailfield = contactfields.find(field => {
-    return field.contactfield.name === 'email'
-  })
+  const firstnamefield = getField(contactfields, 'first_name')
+  const lastnamefield = getField(contactfields, 'last_name')
+  const emailfield = getField(contactfields, 'email')
+  const phonefield = getField(contactfields, 'phone')
 
   const contact = await getContact(req, {
-    email: data[emailfield.code].toLowerCase()
+    first_name: firstnamefield ? data[firstnamefield.code] : null,
+    last_name: lastnamefield ? data[lastnamefield.code] : null,
+    email: emailfield ? data[emailfield.code] : null,
+    phone: phonefield ? data[phonefield.code] : null
   })
 
   await updateContact(req, {

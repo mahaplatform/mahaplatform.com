@@ -1,98 +1,30 @@
-import InvoiceSerializer from '../../../../finance/serializers/invoice_serializer'
 import { personalizeEmail, renderEmail } from '../../../services/email'
 import generateCode from '../../../../../core/utils/generate_code'
 import { encodeEmail } from '../../../../maha/services/emails'
 import { sendMail } from '../../../../../core/services/email'
-import Invoice from '../../../../finance/models/invoice'
 import Email from '../../../../maha/models/email'
 import CRMEmail from '../../../models/email'
 import Sender from '../../../models/sender'
-import numeral from 'numeral'
-import moment from 'moment'
-import path from 'path'
-import ejs from 'ejs'
-import fs from 'fs'
+import { getEnrollmentData } from './utils'
+import _ from 'lodash'
 
-const summary  = fs.readFileSync(path.join(__dirname,'..','..','..','emails','summary.ejs'), 'utf8')
+const getEmailAddress = async (req, { contact, data }) => {
 
-const getPaymentSummary = async (req, { invoice_id }) => {
+  const email = _.get(data, 'email') || contact.get('email') || null
 
-  const invoice = await Invoice.query(qb => {
-    qb.select('finance_invoices.*','finance_invoice_details.*')
-    qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
-    qb.where('id', invoice_id)
-  }).fetch({
-    withRelated: ['coupon','invoice_line_items','payments.payment_method'],
+  if(!email) return null
+
+  await contact.load(['email_addresses'], {
     transacting: req.trx
   })
 
-  return ejs.render(summary, {
-    invoice: InvoiceSerializer(req, invoice),
-    moment,
-    numeral
+  const email_addresses = contact.related('email_addresses').toArray()
+
+  const email_address = email_addresses.find(email_address => {
+    return email_address.get('address') === email
   })
 
-}
-
-const getPaymentData = async (req, { invoice_id }) => {
-
-  if(!invoice_id) return {}
-
-  const payment_summary = await getPaymentSummary(req, {
-    invoice_id
-  })
-
-  return { payment_summary }
-
-}
-
-const getResponseData = async (req, { response }) => {
-
-  await response.load(['form.program'], {
-    transacting: req.trx
-  })
-
-  const config = response.related('form').get('config')
-
-  const fields = config.fields.filter(field => {
-    return field.type !== 'text'
-  })
-
-  const data = response.get('data')
-
-  const basedata = await getPaymentData(req, {
-    invoice_id: response.get('invoice_id')
-  })
-
-  return fields.reduce((response, field) => ({
-    ...response,
-    [field.name.token]: data[field.code]
-  }), basedata)
-
-}
-
-const getRegistrationData = async (req, { registration }) => {
-
-  await registration.load(['event.program'], {
-    transacting: req.trx
-  })
-
-  const contact_config = registration.related('event').get('contact_config')
-
-  const fields = contact_config.fields.filter(field => {
-    return field.type !== 'text'
-  })
-
-  const data = registration.get('data')
-
-  const basedata = await getPaymentData(req, {
-    invoice_id: registration.get('invoice_id')
-  })
-
-  return fields.reduce((registration, field) => ({
-    ...registration,
-    [field.name.token]: data[field.code]
-  }), basedata)
+  return email_address
 
 }
 
@@ -100,17 +32,16 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!config.email_id) return {}
 
-  await enrollment.load(['response','registration'], {
-    transacting: req.trx
+  const data = await getEnrollmentData(req, {
+    enrollment
   })
 
-  await contact.load(['email_addresses'], {
-    transacting: req.trx
+  const email_address = await getEmailAddress(req, {
+    contact,
+    data
   })
 
-  const email_address = contact.related('email_addresses').toArray().find(email_address => {
-    return email_address.get('address') === contact.get('email')
-  })
+  if(!email_address) return {}
 
   const crm_email = await CRMEmail.query(qb => {
     qb.where('id', config.email_id)
@@ -138,12 +69,8 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     },
     ...tokens,
-    response: enrollment.get('response_id') ? await getResponseData(req, {
-      response: enrollment.related('response')
-    }) : null,
-    registration: enrollment.get('registration_id') ? await getRegistrationData(req, {
-      registration: enrollment.related('registration')
-    }) : null
+    response: enrollment.get('response_id') ? data : null,
+    registration: enrollment.get('registration_id') ? data : null
   }
 
   const { reply_to, sender_id, subject } = crm_email.get('config').settings

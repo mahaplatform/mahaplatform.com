@@ -2,7 +2,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../core/utils/generate_code'
 import PhoneNumber from '../models/phone_number'
 
-const getFormattedNumber = (value) => {
+export const getFormattedNumber = (value) => {
   const parsed = parsePhoneNumberFromString(value, 'US')
   const number = [parsed.number]
   if(parsed.ext) number.push(parsed.ext)
