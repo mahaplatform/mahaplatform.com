@@ -21,7 +21,7 @@ const collectObjects = (pattern) => [
   ...glob.sync(`${root}/*/${pattern}`),
   ...glob.sync(`${root}/*/${pattern}/index.js`)
 ].filter(file => {
-  return file.match(/_test.js$/) === null
+  return file.match(/_test.js$/) === null && file.match(/.map$/) === null
 }).map(file => {
 
   const [,app] = file.match(/apps\/([^/]*)/)
