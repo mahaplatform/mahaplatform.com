@@ -35,7 +35,7 @@ const getBabelRc = () => {
   const config = fs.readFileSync(babelrc, 'utf8')
   return {
     ...JSON.parse(config),
-    sourceMaps: true
+    sourceMaps: 'inline'
   }
 }
 
@@ -81,7 +81,6 @@ const transpileFile = (src, dest) => {
   const source = fs.readFileSync(src, 'utf8')
   const transpiled = transform(source, babelrc)
   fs.writeFileSync(dest, transpiled.code)
-  fs.writeFileSync(`${dest}.map`, JSON.stringify(transpiled.map))
 }
 
 const buildItem = async (item, srcPath, destPath) => {
