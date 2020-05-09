@@ -12,6 +12,7 @@ class Admin extends React.Component {
   static contextTypes = {
     analytics: PropTypes.object,
     flash: PropTypes.object,
+    logger: PropTypes.object,
     network: PropTypes.object,
     router: PropTypes.object
   }
@@ -86,6 +87,7 @@ class Admin extends React.Component {
     }
     if(user_id !== prevProps.user_id && user_id !== null) {
       this._handleJoin(team, user)
+      this._handleLoggerLogin(user)
       this._handleSaveAdmin()
       this._handleRedirectToSaved()
     }
@@ -150,6 +152,10 @@ class Admin extends React.Component {
 
   _handleLoadSession() {
     this.props.onLoadSession()
+  }
+
+  _handleLoggerLogin(user) {
+    this.context.logger.login(user)
   }
 
   _handleRedirectToSignin() {

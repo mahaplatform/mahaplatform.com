@@ -46,6 +46,7 @@ const webpackConfig = (app, name, root, port) => ({
     fs: 'empty'
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -55,7 +56,16 @@ const webpackConfig = (app, name, root, port) => ({
           sourceMap: true
         }
       })
-    ]
+    ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   },
   output: {
     path: path.resolve('dist.staged','public','apps',app,name),

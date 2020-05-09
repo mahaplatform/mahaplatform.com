@@ -50,6 +50,7 @@ const webpackConfig = (warning) => ({
     fs: 'empty'
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
