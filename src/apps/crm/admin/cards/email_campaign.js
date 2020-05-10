@@ -65,11 +65,11 @@ class EmailCampaign extends React.PureComponent {
   }
 
   _getDelivery() {
-    const { email_campaign, email } = this.props
+    const { email } = this.props
     return {
       label: 'View Email',
       className: 'link',
-      route: `/admin/crm/campaigns/email/${email_campaign.id}/deliveries/${email.id}`
+      route: `/admin/crm/contacts/${email.contact.id}/emails/${email.id}`
     }
   }
 
