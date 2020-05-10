@@ -1,5 +1,6 @@
 const emailSerializer = (req, result) => ({
   id: result.get('id'),
+  contact: contact(result.related('contact')),
   user: user(result.related('user')),
   from: result.get('from'),
   to: result.get('to'),
@@ -24,6 +25,18 @@ const activity = (activity) => ({
   forwarded_to: link(activity.related('forwarded_to')),
   created_at: activity.get('created_at')
 })
+
+const contact = (contact) => {
+  if(!contact) return null
+  return {
+    id: contact.get('id'),
+    display_name: contact.get('display_name'),
+    initials: contact.get('initials'),
+    rfc822: contact.get('rfc822'),
+    email: contact.get('email'),
+    photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
 
 const link = (link) => {
   if(!link) return null
