@@ -53,20 +53,11 @@ const webpackConfig = (app, name, root, port) => ({
           mangle: true,
           safari10: true,
           ie8: true,
-          // parallel: 2,
-          // sourceMap: true
+          parallel: 2,
+          sourceMap: true
         }
       })
-    ],
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
+    ]
   },
   output: {
     path: path.resolve('dist.staged','public','apps',app,name),
@@ -101,11 +92,11 @@ const webpackConfig = (app, name, root, port) => ({
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
     }),
-    // new webpack.SourceMapDevToolPlugin({
-    //   publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`,
-    //   filename: '[file].map',
-    //   columns: true
-    // })
+    new webpack.SourceMapDevToolPlugin({
+      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`,
+      filename: '[file].map',
+      columns: true
+    })
   ],
   resolve: {
     alias: {
