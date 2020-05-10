@@ -52,10 +52,10 @@ const webpackConfig = (app, name, root, port) => ({
         terserOptions: {
           mangle: true,
           safari10: true,
-          ie8: true,
-          parallel: 2,
-          sourceMap: true
-        }
+          ie8: true
+        },
+        parallel: 2,
+        sourceMap: true
       })
     ]
   },

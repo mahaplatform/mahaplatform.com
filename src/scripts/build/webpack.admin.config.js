@@ -56,10 +56,10 @@ const webpackConfig = (warning) => ({
         terserOptions: {
           mangle: true,
           safari10: true,
-          ie8: true,
-          parallel: 2,
-          sourceMap: true
-        }
+          ie8: true
+        },
+        parallel: 2,
+        sourceMap: true
       })
     ],
     splitChunks: {

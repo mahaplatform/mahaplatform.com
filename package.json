@@ -60,7 +60,7 @@
     "shipit-deploy": "^5.3.0",
     "sinon": "^2.1.0",
     "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^2.3.6",
+    "terser-webpack-plugin": "^3.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1",
