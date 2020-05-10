@@ -3,7 +3,6 @@ import CampaignsEmailShow from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
 import CampaignsEmailBouncesList from './campaigns/email/deliveries/bounces'
 import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
-import CampaignsEmailDeliveriesShow from './campaigns/email/deliveries/show'
 import CampaignsEmailDesign from './campaigns/email/design'
 import CampaignsPostal from './campaigns/postal/show'
 import CampaignsPostalDesign from './campaigns/postal/design'
@@ -24,10 +23,10 @@ import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
 import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
+import ContactsEmailsShow from './contacts/email'
 import EmailsActivities from './emails/activities'
 import EmailsBouncesList from './emails/deliveries/bounces'
 import EmailsDeliveriesList from './emails/deliveries/list'
-import EmailsDeliveriesShow from './emails/deliveries/show'
 import EmailsDesign from './emails/design'
 import EmailsShow from './emails/show'
 import EmailsList from './emails/list'
@@ -57,7 +56,6 @@ const routes = [
   { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
   { path: '/campaigns/email/:email_id/bounces', component: CampaignsEmailBouncesList },
   { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
-  { path: '/campaigns/email/:email_id/deliveries/:id', component: CampaignsEmailDeliveriesShow },
   { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
   { path: '/campaigns/postal/:id', component: CampaignsPostal },
   { path: '/campaigns/postal/:id/design', component: CampaignsPostalDesign },
@@ -78,10 +76,10 @@ const routes = [
   { path: '/campaigns/voice/:campaign_id/calls/:id', component: CampaignsVoiceCallsShow },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
+  { path: '/contacts/:contact_id/emails/:id', component: ContactsEmailsShow },
   { path: '/emails/:email_id/activities', component: EmailsActivities },
   { path: '/emails/:email_id/bounces', component: EmailsBouncesList },
   { path: '/emails/:email_id/deliveries', component: EmailsDeliveriesList },
-  { path: '/emails/:email_id/deliveries/:id', component: EmailsDeliveriesShow },
   { path: '/emails/:id/design', component: EmailsDesign },
   { path: '/emails/:id', component: EmailsShow },
   { path: '/emails', component: EmailsList },

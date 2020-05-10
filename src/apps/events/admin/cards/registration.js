@@ -1,3 +1,4 @@
+import WorkflowActions from '../../../crm/admin/components/workflow_actions'
 import Content from '../../../crm/admin/tokens/content'
 import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
@@ -7,14 +8,17 @@ import React from 'react'
 class Registration extends React.PureComponent {
 
   static propTypes = {
+    actions: PropTypes.array,
     activity: PropTypes.object,
+    enrollment: PropTypes.object,
     event: PropTypes.object,
     registration: PropTypes.object,
-    program: PropTypes.object
+    program: PropTypes.object,
+    workflow: PropTypes.object
   }
 
   render() {
-    const { registration } = this.props
+    const { actions, enrollment, registration, workflow } = this.props
     const fields = this._getFields()
     return (
       <div className="crm-form-card">
@@ -48,33 +52,17 @@ class Registration extends React.PureComponent {
               <td>Revenue</td>
               <td>{ numeral(registration.revenue).format('$0.00') }</td>
             </tr>
-            <tr>
-              <td>Registration</td>
-              <td><Button { ...this._getRegistration() } /></td>
-            </tr>
             { registration.invoice_id &&
               <tr>
                 <td>Invoice</td>
                 <td><Button { ...this._getInvoice() } /></td>
               </tr>
             }
-            <tr>
-              <td>Workflow</td>
-              <td><Button { ...this._getEnrollment() } /></td>
-            </tr>
           </tbody>
         </table>
+        <WorkflowActions workflow={ workflow } enrollment={ enrollment } actions={ actions } trigger_type={ workflow.trigger_type } />
       </div>
     )
-  }
-
-  _getEnrollment() {
-    const { registration } = this.props
-    return {
-      label: 'View Enrollment',
-      className: 'link',
-      route: `/admin/crm/workflows/${registration.enrollment.workflow_id}/enrollments/${registration.enrollment.id}`
-    }
   }
 
   _getEvent() {
@@ -102,20 +90,14 @@ class Registration extends React.PureComponent {
     }
   }
 
-  _getRegistration() {
-    const { event, registration } = this.props
-    return {
-      label: 'View Registration',
-      className: 'link',
-      route: `/admin/events/events/${event.id}/registrations/${registration.id}`
-    }
-  }
-
 }
 
 const mapResources = (props, context) => ({
+  actions: `/api/admin/events/events/${props.activity.data.event_id}/registrations/${props.activity.data.registration_id}/actions`,
+  enrollment: `/api/admin/events/events/${props.activity.data.event_id}/registrations/${props.activity.data.registration_id}/enrollment`,
   event: `/api/admin/events/events/${props.activity.data.event_id}`,
-  registration: `/api/admin/events/events/${props.activity.data.event_id}/registrations/${props.activity.data.registration_id}`
+  registration: `/api/admin/events/events/${props.activity.data.event_id}/registrations/${props.activity.data.registration_id}`,
+  workflow: `/api/admin/events/events/${props.activity.data.event_id}/workflow`
 })
 
 export default Container(mapResources)(Registration)

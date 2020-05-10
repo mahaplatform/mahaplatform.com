@@ -47,7 +47,7 @@ class Activities extends React.PureComponent {
             </div>
             { activity.program &&
               <div className="crm-timeline-card-header-program">
-                <Image src={ activity.program.logo || admin.team.logo } transforms={{ w: 16, h: 16 }}/>
+                <Image src={ activity.program.logo || admin.team.logo } transforms={{ fit: 'cover', w: 16, h: 16 }}/>
                 { activity.program.title }
               </div>
             }

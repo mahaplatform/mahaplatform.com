@@ -4,7 +4,7 @@ import moment from 'moment'
 import React from 'react'
 
 const types = {
-  event: { icon: 'calendar', name: 'Workflow', trigger: 'Contact registered for event' },
+  event: { icon: 'calendar-o', name: 'Workflow', trigger: 'Contact registered for event' },
   pickup: { icon: 'phone', name: 'Call', trigger: 'Contact picked up phone' },
   response: { icon: 'check-square-o', name: 'Workflow', trigger: 'Contact submitted form' },
   delivery: { icon: 'envelope', name: 'Workflow', trigger: 'Email was delivered' },
@@ -77,7 +77,7 @@ class WorkflowActions extends React.PureComponent {
                 { moment(action.created_at).format('MMM D YYYY [@] h:mmA') }
               </span><br />
               <strong>{ action.step.action.toUpperCase() }</strong>
-              { this._getDescription(action) }
+              { this._getDescription(enrollment, action) }
             </div>
           </div>
         ]) }
@@ -125,7 +125,7 @@ class WorkflowActions extends React.PureComponent {
     return types[trigger_type].trigger
   }
 
-  _getDescription(action) {
+  _getDescription(enrollment, action) {
     const { asset, data, email, list, program, recording, step, topic } = action
     if(!step) return ''
     const { config } = step
@@ -154,16 +154,16 @@ class WorkflowActions extends React.PureComponent {
     } else if(step.type === 'administrative' && step.action === 'sms' && config.user) {
       return `: Sent internal sms to ${config.user.full_name}`
     } else if(step.type === 'communication' && step.action === 'email' && email) {
-      return <span>: Sent <Button { ...this._getEmailButton(email) }/></span>
+      return <span>: Sent <Button { ...this._getEmailButton(enrollment.contact, email) }/></span>
     }
     return ''
   }
 
-  _getEmailButton(email) {
+  _getEmailButton(contact, email) {
     return {
       label: email.subject,
       className: 'link',
-      route: `/admin/crm/emails/${email.id}`
+      route: `/admin/crm/contacts/${contact.id}/emails/${email.id}`
     }
   }
 

@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
 import { Avatar, Page } from 'maha-admin'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 
-class EmailsShow extends React.Component {
+class Email extends React.Component {
 
   static propTypes = {
     email: PropTypes.object
@@ -52,19 +52,19 @@ class EmailsShow extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  email: `/api/admin/crm/campaigns/email/${props.params.email_id}/deliveries/${props.params.id}`
+  email: `/api/admin/crm/contacts/${props.params.contact_id}/emails/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email',
-  component: EmailsShow,
+  component: Email,
   tasks: {
     items: [
       {
         label: 'Resend Email',
         request: {
           method: 'PATCH',
-          endpoint: `/api/admin/crm/campaigns/email/${props.params.email_id}/deliveries/${props.params.id}/resend`,
+          endpoint: `/api/admin/crm/contacts/${props.params.contact_id}/emails/${props.params.id}/resend`,
           onFailure: (result) => {
             context.flash.set('error', 'Unable to resend email')
           },

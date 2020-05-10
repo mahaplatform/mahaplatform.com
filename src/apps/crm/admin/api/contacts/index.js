@@ -4,6 +4,7 @@ import interests from './interests'
 import { Router } from 'express'
 import channels from './channels'
 import destroy from './destroy'
+import emails from './emails'
 import create from './create'
 import update from './update'
 import batch from './batch'
@@ -36,6 +37,8 @@ router.use('/:id/activities', activities)
 router.use('/:id/calls', calls)
 
 router.use('/:id/channels', channels)
+
+router.use('/:id/emails', emails)
 
 router.get('/:id/interests', interests)
 
