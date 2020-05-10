@@ -53,6 +53,7 @@ const webpackConfig = (app, name, root, port) => ({
           mangle: true,
           safari10: true,
           ie8: true,
+          parallel: true,
           sourceMap: true
         }
       })

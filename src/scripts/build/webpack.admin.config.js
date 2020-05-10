@@ -57,6 +57,7 @@ const webpackConfig = (warning) => ({
           mangle: true,
           safari10: true,
           ie8: true,
+          parallel: true,
           sourceMap: true
         }
       })
