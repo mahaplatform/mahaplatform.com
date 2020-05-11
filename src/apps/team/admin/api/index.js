@@ -2,6 +2,7 @@ import phone_numbers from './phone_numbers'
 import device_values from './device_values'
 import supervisors from './supervisors'
 import activities from './activities'
+import shortlinks from './shortlinks'
 import sessions from './sessions'
 import settings from './settings'
 import { Router } from 'express'
@@ -36,6 +37,8 @@ router.use('/groups', groups)
 router.use('/phone_numbers', phone_numbers)
 
 router.use('/roles', roles)
+
+router.use('/shortlinks', shortlinks)
 
 router.use('/sessions', sessions)
 

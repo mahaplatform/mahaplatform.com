@@ -1,5 +1,6 @@
 import 'express-async-errors'
 import './responder'
+import shortlinkMiddleware from './shortlink'
 import multiparty from 'connect-multiparty'
 import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
@@ -36,6 +37,8 @@ server.use(arena)
 server.use(rollbarMiddleware)
 
 server.use(dav)
+
+server.use(shortlinkMiddleware)
 
 server.use('/voice', voice)
 

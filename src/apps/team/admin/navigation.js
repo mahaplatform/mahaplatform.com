@@ -11,6 +11,7 @@ const navigation = async (req) => ({
       { label: 'SMS', route: '/sms' }
     ] },
     { label: 'Roles', rights: ['team:manage_people'], route: '/roles' },
+    { label: 'Shortlinks', rights: ['team:manage_team'], route: '/shortlinks' },
     { label: 'Sessions', rights: ['team:manage_people'], route: '/sessions' },
     { label: 'Settings', rights: ['team:manage_team'], route: '/settings' },
     { label: 'Supervisors', rights: ['team:manage_team'], route: '/supervisors' },

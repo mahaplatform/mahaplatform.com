@@ -12,6 +12,8 @@ import RolesList from './roles/list'
 import RolesShow from './roles/show'
 import SessionsList from './sessions/list'
 import SettingsShow from './settings/show'
+import ShortlinksList from './shortlinks/list'
+import ShortlinksShow from './shortlinks/show'
 import SMSList from './sms/list'
 import SupervisorsList from './supervisors/list'
 import SupervisorsShow from './supervisors/show'
@@ -34,6 +36,8 @@ const routes = [
   { path: '/roles/:id', component: RolesShow },
   { path: '/sessions', component: SessionsList },
   { path: '/settings', component: SettingsShow },
+  { path: '/shortlinks', component: ShortlinksList },
+  { path: '/shortlinks/:id', component: ShortlinksShow },
   { path: '/sms', component: SMSList },
   { path: '/supervisors', component: SupervisorsList },
   { path: '/supervisors/:id', component: SupervisorsShow },
