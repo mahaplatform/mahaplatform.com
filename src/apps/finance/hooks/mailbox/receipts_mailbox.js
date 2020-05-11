@@ -141,8 +141,15 @@ const processor = async (req, { incoming_email }) => {
     return await sendMail({
       from: 'Maha <mailer@mahaplatform.com>',
       to: incoming_email.get('from'),
-      subject: `Successfully processed your ${singular}`,
-      html: `We successfully processed your ${singular}`
+      subject: `Successfully received your ${singular}`,
+      html: `
+        <p>
+          Your ${singular} is now be available in your
+          <a href="${process.env.WEB_HOST}/admin/finance/items">
+            expense items list
+          </a>
+        </p>
+      `
     })
 
   } catch(err) {
@@ -150,8 +157,8 @@ const processor = async (req, { incoming_email }) => {
     return await sendMail({
       from: 'Maha <mailer@mahaplatform.com>',
       to: incoming_email.get('from'),
-      subject: `Unable to process your ${singular}`,
-      html: `Unable to process your ${singular}`
+      subject: `Unable to accept your ${singular}`,
+      html: `Unable to accept your ${singular}`
     })
 
   }

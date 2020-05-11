@@ -10,11 +10,6 @@ const rollbar = (req, res, next) => {
 
     Rollbar.configure({
       payload: {
-        person: req.user ? {
-          id: req.user.get('id'),
-          username: req.user.get('full_name'),
-          email: req.user.get('email')
-        } : null,
         request: {
           headers: req.headers,
           params: req.params,

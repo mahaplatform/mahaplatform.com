@@ -90,6 +90,7 @@ const route = async (req, res, next) => {
         request: {
           headers: req.headers,
           params: req.params,
+          method: req.method,
           query: req.query,
           body: req.body,
           url: req.url
