@@ -12,9 +12,11 @@ const presence = async (io, socket) => {
 
   socket.on('signin', async (token, channel, data) => {
 
-    const authentication = await authenticate(token)
+    const authenticated = token ? await authenticate(token) : true
 
-    auth = authentication
+    if(!authenticated) return
+
+    auth = authenticated
 
     if(!auth.user) return
 

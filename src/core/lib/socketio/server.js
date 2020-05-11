@@ -10,9 +10,7 @@ const server = async (io, socket) => {
 
   socket.on('join', async (token, channels) => {
 
-    const signin = channels[0] && channels[0].match(/signin/) !== null
-
-    const authenticated = !signin ? await authenticate(token) : true
+    const authenticated = token ? await authenticate(token) : true
 
     if(!authenticated) return
 
