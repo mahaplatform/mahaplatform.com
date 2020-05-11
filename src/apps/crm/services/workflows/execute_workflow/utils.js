@@ -103,7 +103,7 @@ export const getEnrollmentData = async (req, { enrollment }) => {
 
   if(enrollment.get('registration_id')) {
     return await getRegistrationData(req, {
-      response: enrollment.related('registration')
+      registration: enrollment.related('registration')
     })
   }
 

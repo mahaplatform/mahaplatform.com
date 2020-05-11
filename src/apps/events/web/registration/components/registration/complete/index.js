@@ -17,12 +17,14 @@ class Step2 extends React.Component {
         <div className="registration-panel-message">
           <Message {...this._getMessage()} />
         </div>
-        <div className="registration-panel-footer">
-          <div className="registration-panel-footer-item" />
-          <div className="registration-panel-footer-item">
-            <Button { ...this._getDone() } />
+        { this.props.onDone &&
+          <div className="registration-panel-footer">
+            <div className="registration-panel-footer-item" />
+            <div className="registration-panel-footer-item">
+              <Button { ...this._getDone() } />
+            </div>
           </div>
-        </div>
+        }
       </div>
     )
   }
