@@ -10,7 +10,7 @@ const ImportToken = (item) => (
     </div>
     <div className="import-token-label">
       <strong>{item.name || (item.asset ? item.asset.original_file_name : item.service) }</strong><br />
-      { pluralize('record', item.item_count, true) } by {item.user.full_name}<br />
+      { pluralize('record', item.completed_count, true) } by {item.user.full_name}<br />
       on { moment(item.created_at).format('MMM DD, YYYY [@] h:mma') }
     </div>
   </div>

@@ -598,8 +598,8 @@ const schema = {
       table.integer('workflow_id').unsigned()
       table.integer('email_id').unsigned()
       table.integer('recording_id').unsigned()
-      table.integer('user_id').unsigned()
       table.integer('asset_id').unsigned()
+      table.integer('user_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
@@ -1655,6 +1655,7 @@ const schema = {
       table.boolean('is_merged')
       table.boolean('is_ignored')
       table.boolean('is_complete')
+      table.boolean('is_empty')
     })
 
     await knex.schema.createTable('maha_imports', (table) => {
@@ -2579,18 +2580,18 @@ const schema = {
     })
 
     await knex.schema.table('crm_workflow_actions', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('email_id').references('maha_emails.id')
       table.foreign('enrollment_id').references('crm_workflow_enrollments.id')
+      table.foreign('field_id').references('maha_fields.id')
+      table.foreign('list_id').references('crm_lists.id')
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('recording_id').references('crm_workflow_recordings.id')
       table.foreign('step_id').references('crm_workflow_steps.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('list_id').references('crm_lists.id')
       table.foreign('topic_id').references('crm_topics.id')
-      table.foreign('field_id').references('maha_fields.id')
-      table.foreign('program_id').references('crm_programs.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('email_id').references('maha_emails.id')
-      table.foreign('recording_id').references('maha_assets.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
@@ -3126,6 +3127,10 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_shortlinks', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('maha_sms_attachments', table => {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('sms_id').references('maha_smses.id')
@@ -3334,10 +3339,6 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_shortlinks', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -5185,59 +5186,65 @@ union
       count(*) as total
       from maha_import_items
       group by maha_import_items.import_id
+      ), empty as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where (maha_import_items.is_empty = true)
+      group by maha_import_items.import_id
       ), valid as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = false) and (maha_import_items.is_nonunique = false))
+      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = false) and (maha_import_items.is_nonunique = false) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), errors as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = false))
+      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = false) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), omitted as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = true))
+      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = true) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), dupicates as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = true))
+      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = true) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), nonunique as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where (maha_import_items.is_nonunique = true)
+      where ((maha_import_items.is_nonunique = true) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), completed as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where (maha_import_items.is_complete = true)
+      where ((maha_import_items.is_complete = true) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), created as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = false) and (maha_import_items.is_ignored = false))
+      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = false) and (maha_import_items.is_ignored = false) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), merged as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = true) and (maha_import_items.is_ignored = false))
+      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = true) and (maha_import_items.is_ignored = false) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       ), ignored as (
       select maha_import_items.import_id,
       count(*) as total
       from maha_import_items
-      where (maha_import_items.is_ignored = true)
+      where ((maha_import_items.is_ignored = true) and (maha_import_items.is_empty = false))
       group by maha_import_items.import_id
       )
       select maha_imports.id as import_id,
@@ -5250,8 +5257,9 @@ union
       (coalesce(completed.total, (0)::bigint))::integer as completed_count,
       (coalesce(created.total, (0)::bigint))::integer as created_count,
       (coalesce(merged.total, (0)::bigint))::integer as merged_count,
-      (coalesce(ignored.total, (0)::bigint))::integer as ignored_count
-      from ((((((((((maha_imports
+      (coalesce(ignored.total, (0)::bigint))::integer as ignored_count,
+      (coalesce(empty.total, (0)::bigint))::integer as empty_count
+      from (((((((((((maha_imports
       left join items on ((items.import_id = maha_imports.id)))
       left join created on ((created.import_id = maha_imports.id)))
       left join merged on ((merged.import_id = maha_imports.id)))
@@ -5261,7 +5269,8 @@ union
       left join omitted on ((omitted.import_id = maha_imports.id)))
       left join dupicates on ((dupicates.import_id = maha_imports.id)))
       left join nonunique on ((nonunique.import_id = maha_imports.id)))
-      left join completed on ((completed.import_id = maha_imports.id)));
+      left join completed on ((completed.import_id = maha_imports.id)))
+      left join empty on ((empty.import_id = maha_imports.id)));
     `)
 
     await knex.raw(`

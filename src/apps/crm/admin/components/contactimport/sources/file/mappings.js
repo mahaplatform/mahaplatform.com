@@ -11,17 +11,23 @@ const fieldmap = [
   { name: 'photo', matches: ['photo','picture'] },
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },
-  { name: 'organization_1', matches: ['organization','company'] },
+  { name: 'organization_1', matches: ['organization','company','organization1','company1'] },
+  { name: 'organization_2', matches: ['organization2','company2'] },
+  { name: 'organization_3', matches: ['organization3','company3'] },
   { name: 'email_1', matches: ['email','emailaddress','email1','primaryemail'] },
   { name: 'email_2', matches: ['email2','secondaryemail'] },
+  { name: 'email_3', matches: ['email3'] },
   { name: 'phone_1', matches: ['phone','phonenumber','phone1','primaryphone'] },
   { name: 'phone_2', matches: ['phone2','secondaryphone'] },
-  { name: 'address_1', matches: ['address'] },
-  { name: 'address_1_street_1', matches: ['street','street1','address1'] },
-  { name: 'address_1_street_2', matches: ['street2','address2'] },
+  { name: 'phone_3', matches: ['phone3','secondaryphone'] },
+  { name: 'address_1', matches: ['address','address1'] },
+  { name: 'address_1_street_1', matches: ['street','street1'] },
+  { name: 'address_1_street_2', matches: ['street2'] },
   { name: 'address_1_city', matches: ['city'] },
   { name: 'address_1_state_province', matches: ['state','province','stateprovince'] },
-  { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode','postal'] }
+  { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode','postal'] },
+  { name: 'address_2', matches: ['address2'] },
+  { name: 'address_3', matches: ['address3'] }
 ]
 
 class Mappings extends React.PureComponent {
@@ -55,30 +61,32 @@ class Mappings extends React.PureComponent {
     if(!mappings) return <Loader />
     return (
       <ModalPanel { ...this._getPanel() }>
-        <table className="ui unstackable table">
-          <thead>
-            <tr>
-              <th>Column</th>
-              <th>Field</th>
-              <th className="collapsing"></th>
-            </tr>
-          </thead>
-          <tbody>
-            { mappings.map((mapping, index) => (
-              <tr key={`item_${index}`}>
-                <td>
-                  { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
-                </td>
-                <td>
-                  { mapping.field ? this._getFieldLabel(mapping.field) : <span className="alert">UNMAPPED</span> }
-                </td>
-                <td>
-                  <Button { ...this._getButton(mapping) } />
-                </td>
+        <div className="import-mappings">
+          <table className="ui unstackable table">
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Field</th>
+                <th className="collapsing"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              { mappings.map((mapping, index) => (
+                <tr key={`item_${index}`}>
+                  <td>
+                    { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
+                  </td>
+                  <td>
+                    { mapping.field ? this._getFieldLabel(mapping.field) : <span className="alert">UNMAPPED</span> }
+                  </td>
+                  <td>
+                    <Button { ...this._getButton(mapping) } />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </ModalPanel>
     )
   }

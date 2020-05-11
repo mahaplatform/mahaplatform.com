@@ -92,6 +92,19 @@ class Summary extends React.PureComponent {
               </div>
             </div>
           }
+          { _import.empty_count > 0 &&
+            <div className="import-summary-item">
+              <div className="import-summary-item-icon">
+                <div className="import-summary-item-icon-circle green">
+                  <i className="fa fa-fw fa-times" />
+                </div>
+              </div>
+              <div className="import-summary-item-label">
+                { pluralize('empty record', _import.empty_count, true) } in your input that will be ignored
+              </div>
+              <div className="import-summary-item-action" />
+            </div>
+          }
           { _import.nonunique_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">

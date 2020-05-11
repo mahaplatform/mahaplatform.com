@@ -72,7 +72,7 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
   const updated = await Promise.mapSeries(update, async (mailing_address) => {
 
     const address = contact.related('mailing_addresses').find(item => {
-      return item.get('id') === item.id
+      return item.get('id') === mailing_address.id
     })
 
     await address.save({

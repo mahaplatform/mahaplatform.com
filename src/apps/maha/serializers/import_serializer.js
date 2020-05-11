@@ -22,6 +22,7 @@ const importSerializer = (req, result) => ({
   completed_count: result.get('completed_count'),
   created_count: result.get('created_count'),
   merged_count: result.get('merged_count'),
+  empty_count: result.get('empty_count'),
   ignored_count: result.get('ignored_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

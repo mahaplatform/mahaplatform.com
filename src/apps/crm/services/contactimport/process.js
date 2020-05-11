@@ -18,40 +18,10 @@ import Organization from '../../models/organization'
 import PhoneNumber from '../../models/phone_number'
 import { updateLists } from '../../services/lists'
 import Import from '../../../maha/models/import'
-import Contact from '../../models/contact'
 import Consent from '../../models/consent'
+import { matchContact } from './utils'
 import moment from 'moment'
 import _ from 'lodash'
-
-const getContact = async (req, values) => {
-
-  const addresses = Object.keys(values).filter(key => {
-    return key.match(/^email_/) !== null
-  }).map(key => {
-    return values[key].toLowerCase()
-  })
-
-  const email_address = addresses.length > 0 ? await EmailAddress.query(qb => {
-    qb.whereIn('address', addresses)
-  }).fetch({
-    withRelated: ['contact.email_addresses','contact.phone_numbers','contact.mailing_addresses'],
-    transacting: req.trx
-  }) : null
-
-  if(email_address) return email_address.related('contact')
-
-  const code = await generateCode(req, {
-    table: 'crm_contacts'
-  })
-
-  return await Contact.forge({
-    team_id: req.team.get('id'),
-    code
-  }).save(null, {
-    transacting: req.trx
-  })
-
-}
 
 const getValue = (strategy, contact, imp) => {
   if(strategy === 'overwrite') return imp || contact
@@ -270,6 +240,7 @@ const processContactImport = async (req, { import_id }) => {
 
   const items = await ImportItem.query(qb => {
     qb.where('import_id', imp.get('id'))
+    qb.where('is_empty', false)
     qb.where('is_valid', true)
     qb.where('is_nonunique', false)
   }).fetchAll({
@@ -288,8 +259,14 @@ const processContactImport = async (req, { import_id }) => {
     let email_addresses = []
     let phone_numbers = []
     let mailing_addresses = []
-    
-    const contact = await getContact(req, values)
+
+    const contact = await matchContact(req, {
+      values
+    })
+
+    await contact.load(['email_addresses','phone_numbers','mailing_addresses'], {
+      transacting: req.trx
+    })
 
     if(imp.get('strategy') === 'ignore' && item.get('is_duplicate')) {
 
@@ -320,7 +297,8 @@ const processContactImport = async (req, { import_id }) => {
       if(email_addresses.length > 0) {
         await updateEmailAddresses(req, {
           contact,
-          email_addresses
+          email_addresses,
+          removing: false
         })
       }
 
@@ -328,7 +306,8 @@ const processContactImport = async (req, { import_id }) => {
       if(phone_numbers.length > 0) {
         await updatePhoneNumbers(req, {
           contact,
-          phone_numbers
+          phone_numbers,
+          removing: false
         })
       }
 
@@ -337,6 +316,7 @@ const processContactImport = async (req, { import_id }) => {
         const created = await updateMailingAddresses(req, {
           contact,
           mailing_addresses,
+          removing: false,
           geocode: false
         })
         created.map(address => {

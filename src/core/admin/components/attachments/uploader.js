@@ -146,7 +146,7 @@ class Uploader extends React.Component {
 
   _handleProcessed(asset) {
     const { network } = this.context
-    if(asset.status !== 'processed') return
+    if(!asset || asset.status !== 'processed') return
     const file = _.find(file, { asset: { id: asset.id } })
     const index = this._getFileIndex(file)
     this.props.onUpdate(index, {

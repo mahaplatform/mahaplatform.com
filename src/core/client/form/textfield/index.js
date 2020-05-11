@@ -134,7 +134,7 @@ class TextField extends React.Component {
     const { value } = this.state
     if(required && value.length === 0) {
       this.props.onValidate(value, 'You must enter a value')
-    } else if(format && !format.regex.test(value)) {
+    } else if(format && value.length > 0 && !format.regex.test(value)) {
       this.props.onValidate(value, format.message)
     } else {
       this.props.onValidate(value)

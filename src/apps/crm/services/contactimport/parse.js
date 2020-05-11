@@ -2,10 +2,10 @@ import ImportSerializer from '../../../maha/serializers/import_serializer'
 import { isValid } from '../../../../core/utils/validation'
 import ImportItem from '../../../maha/models/import_item'
 import socket from '../../../../core/services/emitter'
-import knex from '../../../../core/services/knex'
 import parse from '../../../../core/utils/parse'
 import Import from '../../../maha/models/import'
 import { parseLocation } from 'parse-address'
+import { matchContact } from './utils'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -94,13 +94,9 @@ const parseContactImport = async (req, { import_id }) => {
       ...extract(mapped, 'email', EMAIL_REGEX)
     }
 
-    const addresses = Object.keys(values).filter(key => {
-      return key.match(/^email_/) !== null
-    }).map(key => {
-      return values[key]
+    const contact = await matchContact(req, {
+      values
     })
-
-    const duplicate = values.email_1 ? await knex('crm_email_addresses').transacting(req.trx).whereIn('address', addresses) : []
 
     const is_valid = await isValid({
       email_1: ['email']
@@ -108,14 +104,17 @@ const parseContactImport = async (req, { import_id }) => {
 
     const is_nonunique = values.email_1 !== undefined && _.includes(primarykeys, values.email_1)
 
-    const is_duplicate = !is_nonunique ? duplicate.length > 0 : false
+    const is_duplicate = !is_nonunique ? contact !== null : false
+
+    const is_empty = Object.values(values).length === 0
 
     await ImportItem.forge({
       import_id: imp.get('id'),
       values,
       is_valid,
       is_duplicate,
-      is_nonunique
+      is_nonunique,
+      is_empty
     }).save(null, {
       transacting: req.trx
     })

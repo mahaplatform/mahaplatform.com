@@ -44,7 +44,7 @@ class Edit extends React.Component {
               fields: [
                 { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name' },
                 { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name' },
-                { label: 'Email', name: 'email_addresses', type: EmailsField, required: true },
+                { label: 'Email', name: 'email_addresses', type: EmailsField },
                 { label: 'Phone', name: 'phone_numbers', type: PhonesField },
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
