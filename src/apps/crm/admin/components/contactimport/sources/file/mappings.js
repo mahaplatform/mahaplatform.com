@@ -12,13 +12,13 @@ const fieldmap = [
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },
   { name: 'organization_1', matches: ['organization','company'] },
-  { name: 'email_1', matches: ['email','emailaddress','email1'] },
-  { name: 'email_2', matches: ['email2'] },
-  { name: 'phone_1', matches: ['phone','phonenumber','phone1'] },
-  { name: 'phone_2', matches: ['phone2'] },
-  { name: 'address_1', matches: ['address','address1'] },
-  { name: 'address_1_street_1', matches: ['street','street1'] },
-  { name: 'address_1_street_2', matches: ['street2'] },
+  { name: 'email_1', matches: ['email','emailaddress','email1','primaryemail'] },
+  { name: 'email_2', matches: ['email2','secondaryemail'] },
+  { name: 'phone_1', matches: ['phone','phonenumber','phone1','primaryphone'] },
+  { name: 'phone_2', matches: ['phone2','secondaryphone'] },
+  { name: 'address_1', matches: ['address'] },
+  { name: 'address_1_street_1', matches: ['street','street1','address1'] },
+  { name: 'address_1_street_2', matches: ['street2','address2'] },
   { name: 'address_1_city', matches: ['city'] },
   { name: 'address_1_state_province', matches: ['state','province','stateprovince'] },
   { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode','postal'] }
@@ -70,7 +70,7 @@ class Mappings extends React.PureComponent {
                   { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
                 </td>
                 <td>
-                  { mapping.field && this._getFieldLabel(mapping.field) }
+                  { mapping.field ? this._getFieldLabel(mapping.field) : <span className="alert">UNMAPPED</span> }
                 </td>
                 <td>
                   <Button { ...this._getButton(mapping) } />
@@ -109,6 +109,13 @@ class Mappings extends React.PureComponent {
     return field.label
   }
 
+  _getMapped() {
+    const { mappings } = this.state
+    return mappings.filter(mapping => {
+      return mapping.field !== null
+    })
+  }
+
   _getMapping(mapping) {
     const { fields, onPop } = this.props
     const { mappings } = this.state
@@ -122,6 +129,7 @@ class Mappings extends React.PureComponent {
   }
 
   _getPanel() {
+    const mapped = this._getMapped()
     return {
       title: 'Map Columns',
       instructions: `In order to translate your data into valid contact
@@ -132,9 +140,9 @@ class Mappings extends React.PureComponent {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
-      rightItems: [
+      rightItems: mapped.length > 0 ? [
         { label: 'Next', handler: this._handleDone }
-      ]
+      ] : null
     }
   }
 
@@ -157,7 +165,7 @@ class Mappings extends React.PureComponent {
     const { headers } = this.props
     const mappings = headers.map(header => {
       if(_.isInteger(header)) return { header, field: null, type: null }
-      const text = header.replace(/[\s-_']/g, '').toLowerCase()
+      const text = header.replace(/[\s-_']/g, '').toLowerCase().replace(/^(contact|customer|user)/g,'')
       const field = fieldmap.find(item => {
         return _.includes(item.matches, text)
       })

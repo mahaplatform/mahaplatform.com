@@ -288,6 +288,7 @@ const processContactImport = async (req, { import_id }) => {
     let email_addresses = []
     let phone_numbers = []
     let mailing_addresses = []
+    
     const contact = await getContact(req, values)
 
     if(imp.get('strategy') === 'ignore' && item.get('is_duplicate')) {
