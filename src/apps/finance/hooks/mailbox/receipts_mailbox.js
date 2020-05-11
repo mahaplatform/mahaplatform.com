@@ -121,6 +121,8 @@ const _processEmail = async (req, { type, incoming_email }) => {
     data: null
   })
 
+  return item
+
 }
 
 const processor = async (req, { incoming_email }) => {
@@ -133,7 +135,7 @@ const processor = async (req, { incoming_email }) => {
 
   try {
 
-    await _processEmail(req, {
+    const item = await _processEmail(req, {
       incoming_email,
       type
     })
@@ -144,9 +146,9 @@ const processor = async (req, { incoming_email }) => {
       subject: `Successfully received your ${singular}`,
       html: `
         <p>
-          Your ${singular} is now be available in your
-          <a href="${process.env.WEB_HOST}/admin/finance/items">
-            expense items list
+          Your ${singular} is now available
+          <a href="${process.env.WEB_HOST}${item.get('object_url')}">
+            here
           </a>
         </p>
       `
