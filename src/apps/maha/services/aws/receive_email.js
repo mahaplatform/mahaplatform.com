@@ -9,7 +9,7 @@ import Team from '../../models/team'
 import User from '../../models/user'
 import moment from 'moment'
 
-const mailboxes = collectObjects('hooks/email/*')
+const mailboxes = collectObjects('hooks/mailbox/*')
 
 const ADDRESS_REGEX = new RegExp(`^(.*)@(.*).${process.env.DOMAIN}$`)
 
