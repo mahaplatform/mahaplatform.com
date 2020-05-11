@@ -8,7 +8,9 @@ export const authenticate = async (token) => {
 
   const tokenData = jwt.decode(token)
 
-  if(!tokenData.data.user_id) throw new Error('invalid token')
+  if(!tokenData.data.user_id) throw new Error('invalid token: no user_id')
+
+  if(!tokenData.data.session_id) throw new Error('invalid token: no session_id')
 
   const user = await User.where({
     id: tokenData.data.user_id
