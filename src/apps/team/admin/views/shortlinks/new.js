@@ -39,7 +39,7 @@ class RolesNew extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/team/roles/${result.id}`)
+    this.context.router.history.push(`/admin/team/shortlinks/${result.id}`)
     this.context.modal.close()
   }
 

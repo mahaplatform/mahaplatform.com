@@ -111,8 +111,7 @@ class Step1 extends React.Component {
     const { quantities } = this.state
     const total = Object.values(quantities).reduce((total, ticket_type) => {
       const quantity = Number(ticket_type.quantity)
-      const price = Number(ticket_type.price)
-      return total + (quantity * price)
+      return total + quantity
     }, 0)
     return {
       label: 'Next &raquo;',
@@ -140,7 +139,7 @@ class Step1 extends React.Component {
     const type = quantities[ticket_type.id]
     const quantity = type ? type.quantity : undefined
     const price = type ? type.price : undefined
-    const priceSet = price !== undefined && price.length > 0 && Number(price) >= low_price && Number(price) <= high_price
+    const priceSet = !_.isNil(price) && price.length > 0 && Number(price) >= low_price && Number(price) <= high_price
     return {
       disabled: ticket_type.price_type === 'sliding_scale' && !priceSet,
       max: this._getMax(ticket_type),

@@ -8,7 +8,7 @@
     group_ids:
       - sg-0589cb45cd2b71602
       - sg-40aef631
-    volume_size: 10
+    volume_size: 15
     hostgroups: appservers
   roles:
   - ec2

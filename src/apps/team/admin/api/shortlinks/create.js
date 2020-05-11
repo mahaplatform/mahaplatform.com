@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
     table: 'maha_shortlinks',
-    length: 6
+    length: 4
   })
 
   const shortlink = await ShortLink.forge({

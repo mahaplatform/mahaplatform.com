@@ -25,9 +25,12 @@ const templates = emails.reduce((emails, email) => ({
 }), {})
 
 
-const _findOrCreateLink = async (req, { link }) => {
+const _findOrCreateLink = async (req, { text, url }) => {
 
-  const emailLink = await EmailLink.where(link).fetch({
+  const emailLink = await EmailLink.query(qb => {
+    qb.where('text', text)
+    qb.where('url', url)
+  }).fetch({
     transacting: req.trx
   })
 
@@ -40,7 +43,8 @@ const _findOrCreateLink = async (req, { link }) => {
   return await EmailLink.forge({
     team_id: req.team.get('id'),
     code,
-    ...link
+    text,
+    url
   }).save(null, {
     transacting: req.trx
   })
@@ -69,7 +73,8 @@ export const encodeEmail = async(req, { code, header, html }) => {
     if(link.url.search(code) >= 0) return rendered
 
     const emailLink = await _findOrCreateLink(req, {
-      link
+      text: link.text,
+      url: link.url
     })
 
     return rendered.replace(link.url, `${process.env.WEB_HOST}/c${code}${emailLink.get('code')}`)
