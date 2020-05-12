@@ -1,6 +1,7 @@
 import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import MahaPlugin from '../../core/lib/webpack/maha_plugin'
+import GitRevisionPlugin from 'git-revision-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
@@ -8,6 +9,8 @@ import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
+
+const gitRevisionPlugin = new GitRevisionPlugin()
 
 const webpackConfig = (warning) => ({
   devtool: false,
@@ -78,6 +81,7 @@ const webpackConfig = (warning) => ({
     publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin`
   },
   plugins: [
+    gitRevisionPlugin,
     new MahaPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[hash].min.css'
@@ -102,6 +106,7 @@ const webpackConfig = (warning) => ({
         'FIREBASE_MESSAGE_SENDER_ID': JSON.stringify(process.env.FIREBASE_MESSAGE_SENDER_ID),
         'FIREBASE_PROJECT_ID': JSON.stringify(process.env.FIREBASE_PROJECT_ID),
         'FIREBASE_WEB_PUSH_PUBLIC_KEY': JSON.stringify(process.env.FIREBASE_WEB_PUSH_PUBLIC_KEY),
+        'GIT_VERSION': JSON.stringify(gitRevisionPlugin.version()),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
         'GOOGLEPAY_ENVIRONMENT': JSON.stringify(process.env.GOOGLEPAY_ENVIRONMENT || ''),

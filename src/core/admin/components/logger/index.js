@@ -46,7 +46,8 @@ class Logger extends React.Component {
         environment: 'admin',
         client: {
           javascript: {
-            source_map_enabled: true
+            source_map_enabled: true,
+            code_version: process.env.GIT_VERSION
           }
         }
       }

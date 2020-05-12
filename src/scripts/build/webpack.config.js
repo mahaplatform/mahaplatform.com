@@ -1,3 +1,4 @@
+import GitRevisionPlugin from 'git-revision-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
@@ -6,6 +7,8 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 import fs from 'fs'
+
+const gitRevisionPlugin = new GitRevisionPlugin()
 
 const webpackConfig = (app, name, root, port) => ({
   devtool: false,
@@ -69,6 +72,7 @@ const webpackConfig = (app, name, root, port) => ({
     publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`
   },
   plugins: [
+    gitRevisionPlugin,
     ...fs.existsSync(path.resolve(root,'index.less')) ? [
       new MiniCssExtractPlugin({
         filename: path.join('css','[name]-[chunkhash].css')
@@ -82,6 +86,7 @@ const webpackConfig = (app, name, root, port) => ({
     ] : [],
     new webpack.DefinePlugin({
       'process.env': {
+        'GIT_VERSION': JSON.stringify(gitRevisionPlugin.version()),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
         'GOOGLEPAY_ENVIRONMENT': JSON.stringify(process.env.GOOGLEPAY_ENVIRONMENT || ''),
