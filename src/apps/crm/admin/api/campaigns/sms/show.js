@@ -14,6 +14,8 @@ const getRecipientCount = async (req, { campaign }) => {
 
   }
 
+  if(!campaign.get('to')) return 0
+
   const recipients = await getRecipients(req, {
     type: 'sms',
     purpose: campaign.get('purpose'),

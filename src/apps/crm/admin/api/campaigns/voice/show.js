@@ -14,6 +14,8 @@ const getRecipientCount = async (req, { campaign }) => {
 
   }
 
+  if(!campaign.get('to')) return 0
+
   const contacts = await getRecipients(req, {
     type: 'voice',
     purpose: campaign.get('purpose'),
