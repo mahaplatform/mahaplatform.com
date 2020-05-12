@@ -39,7 +39,8 @@ class Call extends React.Component {
         {
           fields: [
             { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', filter, value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Note', name: 'text', type: 'textarea', placeholder: 'Leave a note', required: true }
+            { label: 'Note', name: 'text', type: 'textarea', placeholder: 'Leave a note', required: true },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, prompt: 'Attach file(s)' }
           ]
         }
       ]

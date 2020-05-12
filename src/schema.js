@@ -223,9 +223,11 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
-      table.integer('contact_note_id').unsigned()
-      table.integer('contact_call_id').unsigned()
-      table.integer('contact_email_id').unsigned()
+    })
+
+    await knex.schema.createTable('crm_calls_assets', (table) => {
+      table.integer('note_id').unsigned()
+      table.integer('asset_id').unsigned()
     })
 
     await knex.schema.createTable('crm_consents', (table) => {
@@ -398,6 +400,11 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+    })
+
+    await knex.schema.createTable('crm_notes_assets', (table) => {
+      table.integer('note_id').unsigned()
+      table.integer('asset_id').unsigned()
     })
 
     await knex.schema.createTable('crm_organizations', (table) => {
@@ -2400,10 +2407,7 @@ const schema = {
     })
 
     await knex.schema.table('crm_activities', table => {
-      table.foreign('contact_call_id').references('crm_contact_calls.id')
-      table.foreign('contact_email_id').references('crm_contact_emails.id')
       table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('contact_note_id').references('crm_contact_notes.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -3340,6 +3344,16 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_notes_assets', table => {
+      table.foreign('note_id').references('crm_contact_notes.id')
+      table.foreign('asset_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('crm_calls_assets', table => {
+      table.foreign('note_id').references('crm_contact_notes.id')
+      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

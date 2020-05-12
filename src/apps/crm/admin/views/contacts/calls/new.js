@@ -23,7 +23,7 @@ class Call extends React.Component {
     return <Form { ...this._getForm() } />
   }
 
-  _getForm() {  
+  _getForm() {
     const { contact } = this.props
     const filter = {
       access_type: {
@@ -42,7 +42,8 @@ class Call extends React.Component {
             { label: 'Date', name: 'date', type: 'datefield', defaultValue: moment().format('YYYY-MM-DD'), required: true },
             { label: 'Time', name: 'time', type: 'timefield', defaultValue: moment().format('hh:mm a'), required: true },
             { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', filter, value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Description', name: 'description', type: 'textarea', rows: 20, placeholder: 'Describe the call', required: true }
+            { label: 'Description', name: 'description', type: 'textarea', rows: 20, placeholder: 'Describe the call', required: true },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, prompt: 'Attach file(s)' }
           ]
         }
       ]

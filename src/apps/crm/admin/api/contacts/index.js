@@ -34,18 +34,18 @@ router.delete('/:id', destroy)
 
 router.use('/:id/activities', activities)
 
-router.use('/:id/calls', calls)
-
 router.use('/:id/channels', channels)
 
 router.use('/:id/emails', emails)
 
 router.get('/:id/interests', interests)
 
+router.post('/:id/sms', sms)
+
 router.get('/:id/subscriptions', subscriptions)
 
-router.use('/:id/notes', notes)
+router.use('/:contact_id/calls', calls)
 
-router.post('/:id/sms', sms)
+router.use('/:contact_id/notes', notes)
 
 export default router

@@ -1,3 +1,4 @@
+import { AssetToken, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,24 +8,32 @@ class Note extends React.PureComponent {
 
   static propTypes = {
     activity: PropTypes.object,
+    note: PropTypes.object,
     program: PropTypes.object
   }
 
   static defaultProps = {}
 
   render() {
-    const { activity } = this.props
-    const { data, program } = activity
-    const { text } = data
+    const { note } = this.props
     return (
-      <div className="crm-timeline-item-card-note">
-        { text.split('\n').map((line, index) => (
+      <div className="crm-card">
+        { note.text.split('\n').map((line, index) => (
           <span key={`line_${index}`}>{ line }<br /></span>
         )) }
+        { note.attachments.map((asset, index) => (
+          <div className="crm-card-asset" key={`asset_${index}`}>
+            <AssetToken { ...asset } />
+          </div>
+        ))}
       </div>
     )
   }
 
 }
 
-export default Note
+const mapResources = (props, context) => ({
+  note: `/api/admin/crm/contacts/${props.activity.contact.id}/notes/${props.activity.data.note_id}`
+})
+
+export default Container(mapResources)(Note)
