@@ -9,7 +9,7 @@ const Details = ({ customer }) => {
       { label: 'Name', content: customer.display_name },
       { label: 'Email', content: customer.email },
       { label: 'Phone', content: customer.phone, format: 'phone' },
-      { label: 'Address', content: customer.address }
+      { label: 'Address', content: customer.address.description }
     ]
   }
 
