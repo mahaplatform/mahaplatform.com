@@ -22,6 +22,7 @@ const listRoute = async (req, res) => {
       defaults: 'name',
       allowed: ['name']
     },
+    withRelated: ['ticket_type'],
     page: req.query.$page,
     transacting: req.trx
   })
