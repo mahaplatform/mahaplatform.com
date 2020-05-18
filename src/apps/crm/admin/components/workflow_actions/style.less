@@ -15,7 +15,7 @@
 }
 .crm-workflow-action {
   display: flex;
-  padding-bottom: 1em;
+  padding-bottom: 0.6em;
   position: relative;
   &:after {
     content: ' ';
@@ -24,7 +24,7 @@
     bottom: 0;
     left: 0;
     border-left: 2px solid fadeout(@black, 85);
-    transform: translate(~"calc(.8em + 1px)", 1.6em);
+    transform: translate(0.8em, 0.8em);
   }
 }
 .crm-workflow-action-icon {
@@ -32,15 +32,16 @@
   display: flex;
 }
 .crm-workflow-action-action {
-  margin: auto;
+  margin: 0 auto auto;
   border: 2px solid fadeout(@black, 80);
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   line-height: 25px;
   display: flex;
   color: @white;
   z-index: 2;
+  font-size: 0.8em;
   .fa {
     margin: auto;
     font-size: 0.9em;
@@ -76,8 +77,8 @@
 }
 .crm-workflow-action-label {
   background: @white;
-  flex: 1;
   padding-left: 0.8em;
+  flex: 1;
   font-size: 0.8em;
   line-height: 1.4em;
   color: @black;
@@ -87,4 +88,5 @@
 }
 .crm-workflow-action-timestamp {
   color: fadeout(@black, 60);
+  font-size: 0.8em;
 }

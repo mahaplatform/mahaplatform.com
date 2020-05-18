@@ -6,7 +6,7 @@ const colors = ['red','orange','green','teal','blue','purple','violet','pink','b
 
 const ContactAvatarToken = (contact) => (
   <div className={`contact-avatar-token ${ colors[contact.id % 9] }`}>
-    <Avatar user={ contact } />
+    <Avatar user={ contact } presence={ false } />
   </div>
 )
 

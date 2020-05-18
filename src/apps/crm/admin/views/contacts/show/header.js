@@ -22,19 +22,6 @@ class Header extends React.Component {
           <ContactAvatarToken { ...contact } />
           <h1>{ contact.display_name }</h1>
         </div>
-        <div className="contact-header-controls">
-          <div className="contact-header-items">
-            <div className="contact-header-item">
-              <Button { ...this._getMessage() } />
-            </div>
-            <div className="contact-header-item">
-              <Button { ...this._getPhone() } />
-            </div>
-            <div className="contact-header-item">
-              <Button { ...this._getEmail() } />
-            </div>
-          </div>
-        </div>
       </div>
     )
   }

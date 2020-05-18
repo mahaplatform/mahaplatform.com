@@ -1,0 +1,58 @@
+.crm-email-channel {
+  display: flex;
+  flex: 1;
+}
+.crm-email-channel-sidebar {
+  flex: 0 0 350px;
+  background-color: @white;
+  .scrollable();
+}
+.crm-email-channel-results {
+  background: @white;
+  .scrollable();
+  flex: 1;
+}
+.crm-email-channel-result {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.crm-email-channel-result-token {
+  display: flex;
+  flex: 1;
+}
+.crm-email-channel-result-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+
+.crm-email-channel-token {
+  display: flex;
+  flex: 1;
+}
+.crm-email-channel-token-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+}
+.crm-email-channel-token-label {
+  position: relative;
+  flex: 1;
+  padding: 0.8em;
+}
+.crm-email-channel-token-timestamp {
+  position: absolute;
+  top: 0.8em;
+  right: 0.8em;
+  color: @blue;
+  font-size: 0.8em;
+}

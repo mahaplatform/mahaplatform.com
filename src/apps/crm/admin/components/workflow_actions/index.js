@@ -58,11 +58,11 @@ class WorkflowActions extends React.PureComponent {
             </div>
           </div>
           <div className="crm-workflow-action-label">
-            <span className="crm-workflow-action-timestamp">
-              { moment(enrollment.created_at).format('MMM D YYYY [@] h:mmA') }
-            </span><br />
             <strong>TRIGGER: </strong>
             { this._getTrigger() }
+          </div>
+          <div className="crm-workflow-action-timestamp">
+            { moment(enrollment.created_at).format('MMM D YYYY [@] h:mmA') }
           </div>
         </div>
         { actions.map((action, index) => [
@@ -73,11 +73,11 @@ class WorkflowActions extends React.PureComponent {
               </div>
             </div>
             <div className="crm-workflow-action-label">
-              <span className="crm-workflow-action-timestamp">
-                { moment(action.created_at).format('MMM D YYYY [@] h:mmA') }
-              </span><br />
               <strong>{ action.step.action.toUpperCase() }</strong>
               { this._getDescription(enrollment, action) }
+            </div>
+            <div className="crm-workflow-action-timestamp">
+              { moment(action.created_at).format('MMM D YYYY [@] h:mmA') }
             </div>
           </div>
         ]) }
@@ -102,11 +102,11 @@ class WorkflowActions extends React.PureComponent {
               </div>
             </div>
             <div className="crm-workflow-action-label">
-              <span className="crm-workflow-action-timestamp">
-                { moment(enrollment.completed_at).format('MMM D YYYY [@] h:mmA') }
-              </span><br />
               <strong>COMPLETE: </strong>
               { types[trigger_type].name } was completed
+            </div>
+            <div className="crm-workflow-action-timestamp">
+              { moment(enrollment.completed_at).format('MMM D YYYY [@] h:mmA') }
             </div>
           </div>
         }

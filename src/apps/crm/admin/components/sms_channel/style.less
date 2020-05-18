@@ -1,0 +1,86 @@
+.crm-sms-channel {
+  display: flex;
+  flex: 1;
+}
+.crm-sms-channel-sidebar {
+  flex: 0 0 350px;
+  background-color: @white;
+  border-right: 1px solid fadeout(@black, 90);
+}
+.crm-sms-channel-body {
+  background: @white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.crm-sms-channel-alert {
+  padding: 0.8em;
+  background-color: fadeout(@yellow, 90);
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.crm-sms-channel-results {
+  .scrollable();
+  flex: 1;
+}
+.crm-sms-channel-date-label {
+  text-align: center;
+  color: fadeout(@black, 60);
+  font-size: 0.8em;
+  padding: 0.8em;
+}
+
+.crm-sms-channel-token {
+  display: flex;
+  flex: 1;
+  &.program {
+    .crm-sms-channel-token-avatar {
+      order: 1;
+    }
+    .crm-sms-channel-token-details {
+      text-align: left;
+    }
+    .crm-sms-channel-token-message {
+      background-color: @blue;
+      color: @white;
+    }
+    .crm-sms-channel-token-padding {
+      order: 3;
+    }
+  }
+  &.contact {
+    .crm-sms-channel-token-avatar {
+      order: 3;
+    }
+    .crm-sms-channel-token-details {
+      text-align: right;
+    }
+    .crm-sms-channel-token-message {
+      background-color: fadeout(@black, 95);
+      color: fadeout(@black, 40);
+    }
+    .crm-sms-channel-token-padding {
+      order: 1;
+    }
+  }
+}
+.crm-sms-channel-token-avatar {
+  flex: 0 0 2.4em;
+  padding: 0 0.4em;
+  .contact-avatar-token,
+  .maha-logo {
+    width: 1.6em;
+  }
+}
+.crm-sms-channel-token-details {
+  order: 2;
+  flex: 1;
+}
+.crm-sms-channel-token-message {
+  padding: 0.4em 0.8em;
+  border-radius: 0.2em;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+.crm-sms-channel-token-padding {
+  flex: 0 0 50%;
+}
