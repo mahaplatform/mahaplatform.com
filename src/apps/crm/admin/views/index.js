@@ -21,6 +21,10 @@ import CampaignsVoiceDesign from './campaigns/voice/design'
 import CampaignsVoiceRecordings from './campaigns/voice/recordings'
 import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
 import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
+import ContactsEmailChannelShow from './contacts/channels/email'
+import ContactsPostalChannelShow from './contacts/channels/postal'
+import ContactsSmsChannelShow from './contacts/channels/sms'
+import ContactsVoiceChannelShow from './contacts/channels/voice'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import ContactsEmailsShow from './contacts/email'
@@ -77,6 +81,10 @@ const routes = [
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/contacts/:contact_id/emails/:id', component: ContactsEmailsShow },
+  { path: '/contacts/:contact_id/channels/programs/:program_id/email/:id', component: ContactsEmailChannelShow },
+  { path: '/contacts/:contact_id/channels/programs/:program_id/postal/:id', component: ContactsPostalChannelShow },
+  { path: '/contacts/:contact_id/channels/programs/:program_id/sms/:id', component: ContactsSmsChannelShow },
+  { path: '/contacts/:contact_id/channels/programs/:program_id/voice/:id', component: ContactsVoiceChannelShow },
   { path: '/emails/:email_id/activities', component: EmailsActivities },
   { path: '/emails/:email_id/bounces', component: EmailsBouncesList },
   { path: '/emails/:email_id/deliveries', component: EmailsDeliveriesList },

@@ -1,5 +1,5 @@
 import WorkflowActions from '../components/workflow_actions'
-import { Container } from 'maha-admin'
+import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -19,9 +19,26 @@ class VoiceCampaign extends React.PureComponent {
     const { actions, enrollment, voice_campaign } = this.props
     return (
       <div className="crm-workflow-card">
+        <table className="ui celled compact unstackable table">
+          <tbody>
+            <tr>
+              <td>Campaign</td>
+              <td><Button { ...this._getCampaign() } /></td>
+            </tr>
+          </tbody>
+        </table>
         <WorkflowActions workflow={ voice_campaign } enrollment={ enrollment } actions={ actions } trigger_type={`${voice_campaign.direction}_${voice_campaign.type}`} />
       </div>
     )
+  }
+
+  _getCampaign() {
+    const { voice_campaign } = this.props
+    return {
+      label: voice_campaign.title,
+      className: 'link',
+      route: `/admin/crm/campaigns/sms/${voice_campaign.id}`
+    }
   }
 
 }

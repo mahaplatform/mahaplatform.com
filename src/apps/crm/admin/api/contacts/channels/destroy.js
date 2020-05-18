@@ -8,7 +8,7 @@ const destroyRoute = async (req, res) => {
 
   const contact = await Contact.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.id)
+    qb.where('id', req.params.contact_id)
   }).fetch({
     transacting: req.trx
   })

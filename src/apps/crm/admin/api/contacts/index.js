@@ -34,8 +34,6 @@ router.delete('/:id', destroy)
 
 router.use('/:id/activities', activities)
 
-router.use('/:id/channels', channels)
-
 router.use('/:id/emails', emails)
 
 router.get('/:id/interests', interests)
@@ -45,6 +43,8 @@ router.post('/:id/sms', sms)
 router.get('/:id/subscriptions', subscriptions)
 
 router.use('/:contact_id/calls', calls)
+
+router.use('/:contact_id/channels', channels)
 
 router.use('/:contact_id/notes', notes)
 
