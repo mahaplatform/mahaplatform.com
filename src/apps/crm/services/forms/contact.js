@@ -41,7 +41,8 @@ const getLookupValue = (contactfields, data, name) => {
   const field = contactfields.find(field => {
     return field.contactfield.name === name
   })
-  return field ? data[field.code] : null
+  const value = field ? data[field.code] : null
+  return value !== null && value.length > 0 ? value : null
 }
 
 export const createOrUpdateContact = async (req, { fields, data }) => {
