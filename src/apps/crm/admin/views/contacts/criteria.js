@@ -60,6 +60,38 @@ const criteria = [
       { value: '$jeq', text: 'was included in import' },
       { value: '$njeq', text: 'was not included in import' }
     ] },
+    { name: 'Inbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/sms/inbound', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$jeq', text: 'enrolled in workflow' },
+      { value: '$njeq', text: 'not enrolled in workflow' },
+      { value: '$wcv', text: 'enrolled and coverted in workflow' },
+      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
+      { value: '$wcm', text: 'enrolled and completed workflow' },
+      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
+    ] },
+    { name: 'Inbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/voice/inbound', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$jeq', text: 'enrolled in workflow' },
+      { value: '$njeq', text: 'not enrolled in workflow' },
+      { value: '$wcv', text: 'enrolled and coverted in workflow' },
+      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
+      { value: '$wcm', text: 'enrolled and completed workflow' },
+      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
+    ] },
+    { name: 'Outbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/sms/outbound', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$jeq', text: 'enrolled in workflow' },
+      { value: '$njeq', text: 'not enrolled in workflow' },
+      { value: '$wcv', text: 'enrolled and coverted in workflow' },
+      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
+      { value: '$wcm', text: 'enrolled and completed workflow' },
+      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
+    ] },
+    { name: 'Outbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/voice/outbound', text: 'title', value: 'id', subject: false, comparisons: [
+      { value: '$jeq', text: 'enrolled in workflow' },
+      { value: '$njeq', text: 'not enrolled in workflow' },
+      { value: '$wcv', text: 'enrolled and coverted in workflow' },
+      { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
+      { value: '$wcm', text: 'enrolled and completed workflow' },
+      { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
+    ] },
     { name: 'Purchase', key: 'product_id', type: 'select', endpoint: '/api/admin/finance/products', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$jeq', text: 'purchased' },
       { value: '$njeq', text: 'did not purchase' }
@@ -69,7 +101,7 @@ const criteria = [
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },
       { value: '$nwcv', text: 'enrolled, but did not covert in workflow' },
-      { value: '$wcm', text: 'enrolled and complete workflow' },
+      { value: '$wcm', text: 'enrolled and completed workflow' },
       { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
     ] },
     { name: 'Workflow Email', key: 'email_id', type: ListCriteria, endpoint: '/api/admin/crm/emails', text: 'display_name', value: 'id', subject: false, comparisons: [

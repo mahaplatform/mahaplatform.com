@@ -28,10 +28,10 @@
   font-size: 0.8em;
   padding: 0.8em;
 }
-
 .crm-sms-channel-token {
   display: flex;
   flex: 1;
+  margin-bottom: 0.4em;
   &.program {
     .crm-sms-channel-token-avatar {
       order: 1;
@@ -39,7 +39,14 @@
     .crm-sms-channel-token-details {
       text-align: left;
     }
-    .crm-sms-channel-token-message {
+    .crm-sms-channel-token-messages {
+    	position: relative;
+      &:after {
+      	border-right-color: @blue;
+        left: -5px;
+      }
+    }
+    .crm-sms-channel-token-message-body {
       background-color: @blue;
       color: @white;
     }
@@ -54,7 +61,14 @@
     .crm-sms-channel-token-details {
       text-align: right;
     }
-    .crm-sms-channel-token-message {
+    .crm-sms-channel-token-messages {
+    	position: relative;
+      &:after {
+        right: -5px;
+        border-left-color: fadeout(@black, 95);
+      }
+    }
+    .crm-sms-channel-token-message-body {
       background-color: fadeout(@black, 95);
       color: fadeout(@black, 40);
     }
@@ -72,15 +86,41 @@
   }
 }
 .crm-sms-channel-token-details {
+  flex: 0 0 50%;
   order: 2;
-  flex: 1;
 }
-.crm-sms-channel-token-message {
-  padding: 0.4em 0.8em;
-  border-radius: 0.2em;
+.crm-sms-channel-token-messages {
+  position: relative;
+  padding: 0 5px;
+  &:after {
+    top: 1em;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-width: 5px;
+    margin-top: -5px;
+  }
+  .crm-sms-channel-token-message:first-child {
+    .crm-sms-channel-token-message-body {
+      border-top-left-radius: 0.3em;
+    }
+  }
+  .crm-sms-channel-token-message:last-child {
+    .crm-sms-channel-token-message-body {
+      border-bottom-left-radius: 0.3em;
+      margin-bottom: 0;
+    }
+  }
+}
+.crm-sms-channel-token-message-body {
+  padding: 0.6em;
+  border-radius: 0 0.3em 0.3em 0;
   display: inline-block;
   margin-bottom: 2px;
 }
 .crm-sms-channel-token-padding {
-  flex: 0 0 50%;
+  flex: 1;
 }

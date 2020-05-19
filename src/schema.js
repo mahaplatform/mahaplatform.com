@@ -2414,6 +2414,11 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('crm_calls_assets', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('note_id').references('crm_contact_notes.id')
+    })
+
     await knex.schema.table('crm_consents', table => {
       table.foreign('email_address_id').references('crm_email_addresses.id')
       table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
@@ -2495,6 +2500,11 @@ const schema = {
     await knex.schema.table('crm_mailing_addresses', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_notes_assets', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('note_id').references('crm_contact_notes.id')
     })
 
     await knex.schema.table('crm_organizations', table => {
@@ -3344,16 +3354,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_notes_assets', table => {
-      table.foreign('note_id').references('crm_contact_notes.id')
-      table.foreign('asset_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('crm_calls_assets', table => {
-      table.foreign('note_id').references('crm_contact_notes.id')
-      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

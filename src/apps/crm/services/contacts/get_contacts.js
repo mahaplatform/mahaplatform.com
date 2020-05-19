@@ -76,6 +76,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_contacts.id']]
       },
+      sms_enrollment_id: {
+        column: 'crm_workflow_enrollments.sms_campaign_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
       tag_id: {
         column: 'crm_taggings.tag_id',
         leftJoin: [['contact_id','crm_contacts.id']]
@@ -83,6 +87,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
       topic_id: {
         column: 'crm_interests.topic_id',
         leftJoin: [['contact_id','crm_contacts.id']]
+      },
+      voice_enrollment_id: {
+        column: 'crm_workflow_enrollments.voice_campaign_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
       }
     },
     filter: {

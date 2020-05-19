@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.contact_id)
   }).fetch({
+    withRelated: ['photo'],
     transacting: req.trx
   })
 
@@ -22,7 +23,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.program_id)
   }).fetch({
-    withRelated: ['phone_number'],
+    withRelated: ['logo','phone_number'],
     transacting: req.trx
   })
 
@@ -54,7 +55,26 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(smses, SMSSerializer)
+  res.status(200).respond(smses, (req, sms) => ({
+    id: sms.get('id'),
+    contact: sms.related('from').get('number') === contact_number ? {
+      id: contact.get('id'),
+      display_name: contact.get('display_name'),
+      initials: contact.get('initials'),
+      rfc822: contact.get('rfc822'),
+      email: contact.get('email'),
+      photo: contact.related('photo') ? contact.related('photo').get('path') : null
+    } : null,
+    program: sms.related('from').get('number') === program_number ? {
+      id: program.get('id'),
+      title: program.get('title'),
+      logo: program.related('logo') ? program.related('logo').get('path') : null
+    } : null,
+    body: sms.get('body'),
+    created_at: sms.get('created_at'),
+    updated_at: sms.get('updated_at')
+
+  }))
 
 }
 

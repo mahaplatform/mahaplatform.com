@@ -1,6 +1,5 @@
 import EmailChannel from '../../../components/email_channel'
 import { Page } from 'maha-admin'
-import React from 'react'
 
 const getTasks = () => ({})
 
@@ -12,7 +11,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email Channel',
-  component: () => <EmailChannel contact={ resources.contact } program={ resources.program } channel={ resources.channel } />,
+  component: EmailChannel,
   tasks: getTasks()
 })
 

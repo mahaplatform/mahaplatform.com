@@ -48,11 +48,16 @@
   position: relative;
   flex: 1;
   padding: 0.8em;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
 }
 .crm-email-channel-token-timestamp {
   position: absolute;
-  top: 0.8em;
+  top: 50%;
   right: 0.8em;
+  transform: translateY(-50%);
   color: @blue;
   font-size: 0.8em;
 }

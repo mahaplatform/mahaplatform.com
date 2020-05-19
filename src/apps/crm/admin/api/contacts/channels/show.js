@@ -1,6 +1,7 @@
 import ChannelSerializer from '../../../../serializers/channel_serializer'
 import Contact from '../../../../models/contact'
 import Channel from '../../../../models/channel'
+import _ from 'lodash'
 
 const showRoute = async (req, res) => {
 
@@ -21,6 +22,8 @@ const showRoute = async (req, res) => {
     qb.where('contact_id', contact.get('id'))
     qb.where('program_id', req.params.program_id)
     qb.where('type', req.params.type)
+    if(req.params.type === 'email') qb.where('email_address_id', req.params.id)
+    if(_.includes(['sms','voice'], req.params.type)) qb.where('phone_number_id', req.params.id)
   }).fetch({
     transacting: req.trx
   })

@@ -91,6 +91,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
     email_id: config.email_id,
+    email_address_id: email_address.get('id'),
     from: sender.get('rfc822'),
     reply_to,
     to: contact.get('rfc822'),

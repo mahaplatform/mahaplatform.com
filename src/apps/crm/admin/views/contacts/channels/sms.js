@@ -1,6 +1,5 @@
 import SmsChannel from '../../../components/sms_channel'
 import { Page } from 'maha-admin'
-import React from 'react'
 
 const getTasks = () => ({})
 
@@ -12,7 +11,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'SMS Channel',
-  component: () => <SmsChannel contact={ resources.contact } program={ resources.program } channel={ resources.channel } />,
+  component: SmsChannel,
   tasks: getTasks(props.user, resources)
 })
 

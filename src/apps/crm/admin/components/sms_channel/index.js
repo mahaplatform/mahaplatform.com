@@ -25,7 +25,7 @@ class SmsChannel extends React.Component {
 
   render() {
     const { channel } = this.props
-    const dates = this._getMessages()
+    const sessions = this._getMessages()
     return (
       <div className="crm-sms-channel">
         <div className="crm-sms-channel-sidebar">
@@ -39,24 +39,30 @@ class SmsChannel extends React.Component {
             </div>
           }
           <div className="crm-sms-channel-results">
-            { dates.map((date,index) => (
+            { sessions.map((session,index) => (
               <div className="crm-sms-channel-result" key={`date_${index}`}>
                 <div className="crm-sms-channel-date-label">
-                  { date.date }
+                  { session.timestamp.format('MM/DD/YY, h:mmA') }
                 </div>
-                { date.messages.map((message, index) => (
-                  <div className={`crm-sms-channel-token ${message.type}`} key={`result_${index}`}>
+                { session.blocks.map((block, bindex) => (
+                  <div className={`crm-sms-channel-token ${block.type}`} key={`result_${bindex}`}>
                     <div className="crm-sms-channel-token-avatar">
-                      { message.program &&
-                        <Logo team={ message.program } width="24" />
+                      { block.program &&
+                        <Logo team={ block.program } width="24" />
                       }
-                      { message.contact &&
-                        <ContactAvatar { ...message.contact } />
+                      { block.contact &&
+                        <ContactAvatar { ...block.contact } />
                       }
                     </div>
                     <div className="crm-sms-channel-token-details">
-                      <div className="crm-sms-channel-token-message">
-                        { message.text }
+                      <div className="crm-sms-channel-token-messages">
+                        { block.messages.map((message, mindex) => (
+                          <div className="crm-sms-channel-token-message" key={`message_${mindex}`}>
+                            <div className="crm-sms-channel-token-message-body">
+                              { message }
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div className="crm-sms-channel-token-padding" />
@@ -75,38 +81,53 @@ class SmsChannel extends React.Component {
   }
 
   _getMessages() {
-    const { contact, program } = this.props
-    const messages = [
-      { id: 1, program, contact: null, text: 'Message 1', created_at: moment().subtract(38, 'hours') },
-      { id: 2, program, contact: null, text: 'Message 2', created_at: moment().subtract(38, 'hours') },
-      { id: 3, program: null, contact, text: 'Message 3', created_at: moment().subtract(37, 'hours') },
-      { id: 4, program, contact: null, text: 'Message 4', created_at: moment().subtract(24, 'hours') },
-      { id: 5, program: null, contact, text: 'Message 5', created_at: moment().subtract(24, 'hours') },
-      { id: 6, program: null, contact, text: 'Message 6', created_at: moment().subtract(24, 'hours') },
-      { id: 7, program, contact: null, text: 'Message 7', created_at: moment().subtract(8, 'hours') },
-      { id: 8, program: null, contact, text: 'Message 8', created_at: moment().subtract(8, 'hours') }
-    ]
-    return Object.values(messages.reduce((sorted, message) => {
-      const day = moment(message.created_at).format('YYYYMMDD')
-      const messages = _.get(sorted, `[${day}].messages`)
-      const last_message = messages ? messages[messages.length - 1] : null
-      return {
-        ...sorted,
-        [day]: {
-          date: moment(message.created_at).format('MM/DD/YY'),
-          messages: [
-            ...messages || [],
+    const { messages } = this.state
+    return messages.slice().reverse().reduce((sessions, message) => {
+      const created_at = moment(message.created_at)
+      const sessionIndex = sessions.findIndex(session => {
+        return created_at.diff(session.timestamp, 'minutes') < 90
+      })
+      return [
+        ...sessions.map((session, index) => {
+          if(index !== sessionIndex) return session
+          const blockIndex = session.blocks.findIndex(block => {
+            return _.isEqual(block.contact, message.contact) && _.isEqual(block.program, message.program)
+          })
+          return {
+            ...session,
+            blocks: [
+              ...session.blocks.map((block, bindex) => {
+                if(bindex !== blockIndex) return block
+                return {
+                  ...block,
+                  messages: [
+                    ...block.messages,
+                    message.body
+                  ]
+                }
+              }),
+              ...blockIndex < 0 ? [{
+                type: message.program ? 'program' : 'contact',
+                program: message.program,
+                contact: message.contact,
+                messages: [message.body]
+              }] : []
+            ]
+          }
+        }),
+        ...sessionIndex < 0 ? [{
+          timestamp: moment(message.created_at),
+          blocks: [
             {
               type: message.program ? 'program' : 'contact',
-              program: last_message && _.isEqual(last_message.program, message.program) ? null : message.program,
-              contact: last_message && _.isEqual(last_message.contact, message.contact) ? null : message.contact,
-              text: message.text
+              program: message.program,
+              contact: message.contact,
+              messages: [message.body]
             }
           ]
-        }
-      }
-    }, {}))
-
+        }] : []
+      ]
+    }, [])
   }
 
   _getDeatails() {
@@ -132,8 +153,10 @@ class SmsChannel extends React.Component {
     })
   }
 
-  _handleSuccess(data) {
-    console.log(data)
+  _handleSuccess({ data }) {
+    this.setState({
+      messages: data
+    })
   }
 
 }
