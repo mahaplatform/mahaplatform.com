@@ -1,6 +1,14 @@
+.crm-sms-channel {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
 .crm-sms-channel-results {
   .scrollable();
   flex: 1;
+}
+.crm-sms-channel-footer {
+  padding: 0.8em;
 }
 .crm-sms-channel-date-label {
   text-align: center;
@@ -64,12 +72,12 @@
       }
       &:after {
         right: -5px;
-        border-left-color: fadeout(@black, 95);
+        border-left-color: fadeout(@black, 90);
       }
     }
     .crm-sms-channel-token-message-body {
       border-radius: 0.3em 0 0 0.3em;
-      background-color: fadeout(@black, 95);
+      background-color: fadeout(@black, 90);
       color: fadeout(@black, 40);
     }
     .crm-sms-channel-token-padding {
@@ -78,11 +86,11 @@
   }
 }
 .crm-sms-channel-token-avatar {
-  flex: 0 0 2.4em;
-  padding: 0.4em 0.4em 0;
+  flex: 0 0 3.4em;
+  padding: 0 0.4em;
   .contact-avatar-token,
   .maha-logo {
-    width: 1.6em;
+    width: 100%;
   }
   .maha-logo-text {
     font-size: 0.8em;
@@ -104,7 +112,7 @@
     position: absolute;
     pointer-events: none;
     border-width: 5px;
-    margin-top: -3px;
+    margin-top: -1px;
   }
   .crm-sms-channel-token-message:last-child {
     .crm-sms-channel-token-message-body {
