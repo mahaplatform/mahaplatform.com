@@ -38,6 +38,8 @@ const listRoute = async (req, res) => {
 
   const program_number = program.related('phone_number').get('number')
 
+  if(!program_number) return   res.status(200).respond([])
+
   const calls = await Call.filterFetch({
     scope: (qb) => {
       qb.joinRaw('inner join maha_numbers to_numbers on to_numbers.id=maha_calls.to_id')
