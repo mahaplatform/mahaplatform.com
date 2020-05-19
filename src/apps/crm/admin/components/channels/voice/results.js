@@ -43,7 +43,7 @@ class Results extends React.Component {
   }
 
   _getIcon(call) {
-    return call.direction === 'outbound' ? 'arrow-circle-left' : 'arrow-circle-right'
+    return call.direction === 'outbound' ? 'arrow-circle-right' : 'arrow-circle-left'
   }
 
   _getNumber(call) {

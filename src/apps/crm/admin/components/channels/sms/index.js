@@ -30,7 +30,7 @@ class Sms extends React.Component {
     const sessions = this._getMessages()
     return (
       <div className="crm-sms-channel">
-        <div className="crm-sms-channel-results">
+        <div className="crm-sms-channel-body">
           { sessions.map((session,index) => (
             <div className="crm-sms-channel-result" key={`date_${index}`}>
               <div className="crm-sms-channel-date-label">

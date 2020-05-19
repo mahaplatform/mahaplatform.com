@@ -1,4 +1,4 @@
-import { Infinite } from 'maha-admin'
+import { Button, Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
@@ -12,7 +12,24 @@ class Voice extends React.Component {
   }
 
   render() {
-    return <Infinite { ...this._getInfinite() } />
+    return (
+      <div className="crm-voice-channel">
+        <div className="crm-voice-channel-body">
+          <Infinite { ...this._getInfinite() } />
+        </div>
+        <div className="crm-voice-channel-footer">
+          <Button { ...this._getButton() } />
+        </div>
+      </div>
+    )
+  }
+
+  _getButton() {
+    return {
+      label: 'Call Contact',
+      color: 'red',
+      handler: () => {}
+    }
   }
 
   _getInfinite() {
@@ -22,7 +39,10 @@ class Voice extends React.Component {
       empty: {
         icon: 'phone',
         title: 'No Calls',
-        text: 'The contact has not made or received any calls via this channel'
+        text: 'The contact has not made or received any calls via this channel',
+        buttons: [
+          { label: 'Call Conatct', handler: () => {} }
+        ]
       },
       layout: Results,
       props: { contact }

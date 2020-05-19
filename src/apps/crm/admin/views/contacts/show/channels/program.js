@@ -1,5 +1,7 @@
+import { Button, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
+import OptOut from '../optout'
+import OptIn from '../optin'
 import React from 'react'
 
 class Program extends React.Component {
@@ -39,7 +41,7 @@ class Program extends React.Component {
         { expanded &&
           <div className="crm-contact-properties-body">
             <div className="crm-contact-channels">
-              <table className="ui unstackable table">
+              <table className="ui compact unstackable table">
                 <tbody>
                   { channels.map((channel, index) => (
                     <tr key={`channel_${index}`} className="crm-contact-channels-channel" onClick={ this._handleChannel.bind(this, channel) }>
@@ -48,11 +50,20 @@ class Program extends React.Component {
                         { channel.type.toUpperCase() } (
                         { channel.label })
                       </td>
-                      <td className="collapsing">
-                        <span className="alert">
-                          { channel.has_consented ? 'Opted In' : 'Opted Out' }
-                        </span>
-                      </td>
+                      { program.access_type === 'manage' ?
+                        <td className="collapsing">
+                          { channel.has_consented ?
+                            <Button { ...this._getOptOutButton(channel, program) } /> :
+                            <Button { ...this._getOptInButton(channel, program) } />
+                          }
+                        </td> :
+                        <td className="collapsing">
+                          { channel.has_consented ?
+                            <span className="alert">Opted In</span> :
+                            <span>Opted Out</span>
+                          }
+                        </td>
+                      }
                       <td className="collapsing">
                         <i className="fa fa-chevron-right" />
                       </td>
@@ -86,6 +97,22 @@ class Program extends React.Component {
   _getIcon() {
     const { expanded } = this.state
     return expanded ? 'down' : 'right'
+  }
+
+  _getOptInButton(channel, program) {
+    return {
+      label: 'Opt In',
+      className: 'ui mini blue button',
+      modal: <OptIn { ...this._getConsent(channel, program) } />
+    }
+  }
+
+  _getOptOutButton(channel, program) {
+    return {
+      label: 'Opt Out',
+      className: 'ui mini red button',
+      modal: <OptOut { ...this._getConsent(channel, program) } />
+    }
   }
 
   _handleToggle() {
