@@ -22,8 +22,12 @@ class SMSCampaign extends React.PureComponent {
         <table className="ui celled compact unstackable table">
           <tbody>
             <tr>
-              <td>Campaign</td>
+              <td>SMS Campaign</td>
               <td><Button { ...this._getCampaign() } /></td>
+            </tr>
+            <tr>
+              <td>Phone Number</td>
+              <td>{ sms_campaign.phone_number.formatted }</td>
             </tr>
           </tbody>
         </table>

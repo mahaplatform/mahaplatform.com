@@ -107,7 +107,7 @@ const processor = async () => {
     'sync:restore',
     'sync:teams',
     'sync:passwords',
-    // 'sync:phone_numbers',
+    'sync:phone_numbers',
     'sync:merchants'
   ])
 

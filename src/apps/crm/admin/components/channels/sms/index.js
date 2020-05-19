@@ -1,11 +1,11 @@
-import ContactAvatar from '../../tokens/contact_avatar'
-import { List, Logo } from 'maha-admin'
+import ContactAvatar from '../../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
+import { Image, Logo } from 'maha-admin'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
-class SmsChannel extends React.Component {
+class Sms extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object
@@ -24,54 +24,45 @@ class SmsChannel extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { channel } = this.props
     const sessions = this._getMessages()
     return (
-      <div className="crm-sms-channel">
-        <div className="crm-sms-channel-sidebar">
-          <List { ...this._getDeatails() } />
-        </div>
-        <div className="crm-sms-channel-body">
-          { !channel.has_consented &&
-            <div className="crm-sms-channel-alert">
-              This contact has not given you consent to send marketing related
-              messages on this channel
+      <div className="crm-sms-channel-results">
+        { sessions.map((session,index) => (
+          <div className="crm-sms-channel-result" key={`date_${index}`}>
+            <div className="crm-sms-channel-date-label">
+              { session.timestamp.format('MM/DD/YY, h:mmA') }
             </div>
-          }
-          <div className="crm-sms-channel-results">
-            { sessions.map((session,index) => (
-              <div className="crm-sms-channel-result" key={`date_${index}`}>
-                <div className="crm-sms-channel-date-label">
-                  { session.timestamp.format('MM/DD/YY, h:mmA') }
+            { session.blocks.map((block, bindex) => (
+              <div className={`crm-sms-channel-token ${block.type}`} key={`result_${bindex}`}>
+                <div className="crm-sms-channel-token-avatar">
+                  { block.program &&
+                    <Logo team={ block.program } width="24" />
+                  }
+                  { block.contact &&
+                    <ContactAvatar { ...block.contact } />
+                  }
                 </div>
-                { session.blocks.map((block, bindex) => (
-                  <div className={`crm-sms-channel-token ${block.type}`} key={`result_${bindex}`}>
-                    <div className="crm-sms-channel-token-avatar">
-                      { block.program &&
-                        <Logo team={ block.program } width="24" />
-                      }
-                      { block.contact &&
-                        <ContactAvatar { ...block.contact } />
-                      }
-                    </div>
-                    <div className="crm-sms-channel-token-details">
-                      <div className="crm-sms-channel-token-messages">
-                        { block.messages.map((message, mindex) => (
-                          <div className="crm-sms-channel-token-message" key={`message_${mindex}`}>
-                            <div className="crm-sms-channel-token-message-body">
-                              { message }
+                <div className="crm-sms-channel-token-details">
+                  <div className="crm-sms-channel-token-messages">
+                    { block.messages.map((message, mindex) => (
+                      <div className="crm-sms-channel-token-message" key={`message_${mindex}`}>
+                        <div className="crm-sms-channel-token-message-body">
+                          { message.text }
+                          { message.attachments.map((attachment, aindex) => (
+                            <div className="crm-sms-channel-token-message-attachment" key={`attachment_${aindex}`}>
+                              <Image src={attachment.asset.path} transforms={{ w: 200 }} />
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <div className="crm-sms-channel-token-padding" />
+                    ))}
                   </div>
-                ))}
+                </div>
+                <div className="crm-sms-channel-token-padding" />
               </div>
             ))}
           </div>
-        </div>
+        ))}
       </div>
     )
   }
@@ -102,7 +93,7 @@ class SmsChannel extends React.Component {
                   ...block,
                   messages: [
                     ...block.messages,
-                    message.body
+                    { text: message.body, attachments: message.attachments }
                   ]
                 }
               }),
@@ -110,7 +101,9 @@ class SmsChannel extends React.Component {
                 type: message.program ? 'program' : 'contact',
                 program: message.program,
                 contact: message.contact,
-                messages: [message.body]
+                messages: [
+                  { text: message.body, attachments: message.attachments }
+                ]
               }] : []
             ]
           }
@@ -122,7 +115,9 @@ class SmsChannel extends React.Component {
               type: message.program ? 'program' : 'contact',
               program: message.program,
               contact: message.contact,
-              messages: [message.body]
+              messages: [
+                { text: message.body, attachments: message.attachments }
+              ]
             }
           ]
         }] : []
@@ -161,4 +156,4 @@ class SmsChannel extends React.Component {
 
 }
 
-export default SmsChannel
+export default Sms

@@ -19,7 +19,7 @@ const receiveSMS = async (req, params) => {
   const num_media = parseInt(incoming.NumMedia)
 
   const sms = await SMS.forge({
-    team_id: req.team.get('id'),
+    team_id: params.team_id || req.team.get('id'),
     from_id: from.get('id'),
     to_id: to.get('id'),
     direction: 'inbound',
@@ -38,12 +38,12 @@ const receiveSMS = async (req, params) => {
       if(!incoming[`MediaUrl${index}`]) return
       const asset = await createAssetFromUrl(req, {
         url: incoming[`MediaUrl${index}`],
-        team_id: params.team_id,
+        team_id: params.team_id || req.team.get('id'),
         user_id: null,
         source: 'sms'
       })
       await SMSAttachment.forge({
-        team_id: params.team_id,
+        team_id: params.team_id || req.team.get('id'),
         sms_id: sms.get('id'),
         asset_id: asset.get('id')
       }).save(null, {

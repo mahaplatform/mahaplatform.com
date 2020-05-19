@@ -1,0 +1,55 @@
+.crm-email-channel-result {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.crm-email-channel-result-token {
+  display: flex;
+  flex: 1;
+}
+.crm-email-channel-result-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+
+.crm-email-channel-token {
+  display: flex;
+  flex: 1;
+}
+.crm-email-channel-token-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-envelope {
+    color: @blue;
+  }
+  .fa-envelope-open {
+    color: fadeout(@black, 60);
+  }
+}
+.crm-email-channel-token-label {
+  position: relative;
+  flex: 1;
+  padding: 0.8em;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
+}
+.crm-email-channel-token-timestamp {
+  position: absolute;
+  top: 50%;
+  right: 0.8em;
+  transform: translateY(-50%);
+  color: @blue;
+  font-size: 0.8em;
+}

@@ -40,7 +40,7 @@ const getTasks = (user, { contact, fields }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
-  channels: `/api/admin/crm/contacts/${props.params.id}/channels`,
+  channels: `/api/admin/crm/contacts/${props.params.id}/consent`,
   fields: '/api/admin/crm/fields',
   programs: '/api/admin/crm/programs'
 })

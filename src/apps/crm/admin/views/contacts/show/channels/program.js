@@ -71,7 +71,7 @@ class Program extends React.Component {
     if(channel.type === 'email') return 'envelope'
     if(channel.type === 'sms') return 'comment'
     if(channel.type === 'voice') return 'phone'
-    if(channel.type === 'postal') return 'map-marker'
+    if(channel.type === 'mail') return 'map-marker'
   }
 
   _getConsent(channel, program) {
@@ -97,7 +97,7 @@ class Program extends React.Component {
 
   _handleChannel(channel) {
     const { contact, program } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/${channel.type}/${channel.id}`)
+    this.context.router.history.push(`/admin/crm/contacts/${contact.id}/channels/programs/${program.id}`)
   }
 
 }

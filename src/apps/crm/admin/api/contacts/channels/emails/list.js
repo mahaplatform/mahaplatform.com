@@ -49,7 +49,7 @@ const listRoute = async (req, res) => {
       email.set('html', personalized.html)
     }
 
-    const from = parser.parse(email.get('from'))
+    const from = parser.parse(email.get('from').replace(',', ''))
 
     return {
       id: email.get('id'),

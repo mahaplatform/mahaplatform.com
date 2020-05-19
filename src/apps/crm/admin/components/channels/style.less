@@ -1,0 +1,44 @@
+.crm-channels {
+  display: flex;
+  flex: 1;
+}
+.crm-channels-sidebar {
+  flex: 0 0 350px;
+  background-color: @white;
+  .scrollable();
+}
+.crm-channels-body {
+  flex-direction: column;
+  background: @white;
+  display: flex;
+  flex: 1;
+}
+.crm-channel-alert {
+  padding: 0.8em;
+  background-color: fadeout(@yellow, 90);
+  border-bottom: 1px solid fadeout(@black, 90);
+  text-align: center;
+}
+
+.crm-channels-channel {
+  border-bottom: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 40);
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  &.selected {
+    color: @black;
+  }
+}
+.crm-channels-channel-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+}
+.crm-channels-channel-label {
+  padding: 0.8em;
+}

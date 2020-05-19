@@ -1,4 +1,3 @@
-import SMSSerializer from '../../../../../serializers/sms_serializer'
 import PhoneNumber from '../../../../../models/phone_number'
 import SMS from '../../../../../../maha/models/sms'
 import Contact from '../../../../../models/contact'
@@ -30,6 +29,7 @@ const listRoute = async (req, res) => {
   const phone = await PhoneNumber.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('contact_id', contact.get('id'))
+    qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })
@@ -51,7 +51,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from'],
+    withRelated: ['to','from','attachments.asset'],
     transacting: req.trx
   })
 
@@ -70,6 +70,25 @@ const listRoute = async (req, res) => {
       title: program.get('title'),
       logo: program.related('logo') ? program.related('logo').get('path') : null
     } : null,
+    attachments: sms.related('attachments').map(attachment => ({
+      id: attachment.get('id'),
+      asset: {
+        id: attachment.related('asset').get('id'),
+        original_file_name: attachment.related('asset').get('original_file_name'),
+        file_name: attachment.related('asset').get('file_name'),
+        content_type: attachment.related('asset').get('content_type'),
+        file_size: attachment.related('asset').get('file_size'),
+        status: attachment.related('asset').get('status'),
+        has_preview: attachment.related('asset').get('has_preview'),
+        is_infected: attachment.related('asset').get('is_infected'),
+        path: attachment.related('asset').get('path'),
+        signed_url: attachment.related('asset').get('signed_url'),
+        source: attachment.related('asset').related('source').get('text'),
+        source_url: attachment.related('asset').get('source_url'),
+        created_at: attachment.related('asset').get('created_at'),
+        updated_at: attachment.related('asset').get('updated_at')
+      }
+    })),
     body: sms.get('body'),
     created_at: sms.get('created_at'),
     updated_at: sms.get('updated_at')

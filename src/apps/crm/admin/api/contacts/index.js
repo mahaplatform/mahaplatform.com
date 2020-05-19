@@ -3,6 +3,7 @@ import activities from './activities'
 import interests from './interests'
 import { Router } from 'express'
 import channels from './channels'
+import consent from './consent'
 import destroy from './destroy'
 import emails from './emails'
 import create from './create'
@@ -13,7 +14,6 @@ import notes from './notes'
 import edit from './edit'
 import list from './list'
 import show from './show'
-
 import sms from './sms'
 
 const router = new Router({ mergeParams: true })
@@ -33,6 +33,8 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.use('/:id/activities', activities)
+
+router.get('/:id/consent', consent)
 
 router.use('/:id/emails', emails)
 

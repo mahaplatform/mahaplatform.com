@@ -1,18 +1,4 @@
-.crm-email-channel {
-  display: flex;
-  flex: 1;
-}
-.crm-email-channel-sidebar {
-  flex: 0 0 350px;
-  background-color: @white;
-  .scrollable();
-}
-.crm-email-channel-results {
-  background: @white;
-  .scrollable();
-  flex: 1;
-}
-.crm-email-channel-result {
+.crm-voice-channel-result {
   border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
   cursor: pointer;
@@ -20,11 +6,11 @@
     background-color: fadeout(@black, 97);
   }
 }
-.crm-email-channel-result-token {
+.crm-voice-channel-result-token {
   display: flex;
   flex: 1;
 }
-.crm-email-channel-result-proceed {
+.crm-voice-channel-result-proceed {
   padding: 0.8em 0.8em 0.8em 0;
   display: flex;
   .fa {
@@ -33,18 +19,19 @@
   }
 }
 
-.crm-email-channel-token {
+.crm-voice-channel-token {
   display: flex;
   flex: 1;
 }
-.crm-email-channel-token-icon {
+.crm-voice-channel-token-icon {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
     margin: auto;
+    font-size: 1.4em;
   }
 }
-.crm-email-channel-token-label {
+.crm-voice-channel-token-label {
   position: relative;
   flex: 1;
   padding: 0.8em;
@@ -53,7 +40,7 @@
     color: @black;
   }
 }
-.crm-email-channel-token-timestamp {
+.crm-voice-channel-token-timestamp {
   position: absolute;
   top: 50%;
   right: 0.8em;
