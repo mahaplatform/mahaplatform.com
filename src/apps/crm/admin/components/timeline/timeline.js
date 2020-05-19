@@ -1,10 +1,11 @@
 import Note from '../../views/contacts/notes/new'
-import Call from '../../views/contacts/calls/new'
 import { Button, Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Activity from './activity'
 import moment from 'moment'
 import React from 'react'
+import Call from './call'
+import SMS from './sms'
 
 class Timeline extends React.PureComponent {
 
@@ -33,6 +34,7 @@ class Timeline extends React.PureComponent {
           <div className="ui fluid basic buttons">
             <Button { ...this._getNote() } />
             <Button { ...this._getEmail() } />
+            <Button { ...this._getSMS() } />
             <Button { ...this._getCall() } />
           </div>
         </div>
@@ -66,25 +68,46 @@ class Timeline extends React.PureComponent {
   _getCall() {
     const { contact } = this.props
     return {
-      label: 'Log Call',
+      label: 'Call',
       className: 'ui blue button',
-      modal: <Call contact={ contact } />
+      modal: {
+        component: <Call contact={ contact } />,
+        options: {
+          width: 375,
+          height: 667
+        }
+      }
     }
   }
 
   _getEmail() {
     const { contact } = this.props
     return {
-      label: 'Import Email',
+      label: 'Email',
       className: 'ui button',
       modal: <Note contact={ contact } />
+    }
+  }
+
+  _getSMS() {
+    const { contact } = this.props
+    return {
+      label: 'SMS',
+      className: 'ui button',
+      modal: {
+        component: <SMS contact={ contact } />,
+        options: {
+          width: 375,
+          height: 667
+        }
+      }
     }
   }
 
   _getNote() {
     const { contact } = this.props
     return {
-      label: 'Leave Note',
+      label: 'Note',
       className: 'ui button',
       modal: <Note contact={ contact } />
     }

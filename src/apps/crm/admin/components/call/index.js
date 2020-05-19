@@ -13,7 +13,6 @@ class Call extends React.Component {
   static propTypes = {
     channel: PropTypes.object,
     contact: PropTypes.object,
-    phone_number: PropTypes.object,
     program: PropTypes.object,
     token: PropTypes.string
   }
@@ -148,6 +147,8 @@ class Call extends React.Component {
   _handleInit() {
     const { token } = this.props
     window.Twilio.Device.setup(token)
+    const status = window.Twilio.Device.status()
+    if(status === 'ready') return this._handleReady()
     window.Twilio.Device.ready(this._handleReady)
     window.Twilio.Device.connect(this._handleStatus.bind(this, 'active'))
     window.Twilio.Device.disconnect(this._handleStatus.bind(this, 'ready'))

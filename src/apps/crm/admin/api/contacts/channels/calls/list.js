@@ -60,6 +60,7 @@ const listRoute = async (req, res) => {
   res.status(200).respond(calls, (req, call) => ({
     id: call.get('id'),
     direction: call.get('direction'),
+    duration: call.get('duration'),
     from: {
       id: call.related('from').get('id'),
       number: call.related('from').get('formatted')
