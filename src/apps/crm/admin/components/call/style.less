@@ -1,0 +1,57 @@
+.crm-call {
+  flex: 1;
+  display: flex;
+}
+.crm-call-panel {
+  width: 100%;
+  margin: auto;
+  padding: 0.8em;
+  .contact-avatar-token {
+    width: 10em;
+    margin: 1em auto;
+  }
+  .maha-avatar-text {
+    font-size: 5em;
+  }
+  h2, p {
+    text-align: center;
+    margin: 0;
+  }
+}
+.crm-call-button {
+  margin: 2em auto;
+  display: flex;
+  color: @white;
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  cursor: pointer;
+  &.call {
+    background-color: @green;
+    &:hover {
+      background-color: lighten(@green, 5);
+    }
+  }
+  &.hangup {
+    background-color: @red;
+    &:hover {
+      background-color: lighten(@red, 5);
+    }
+    .fa {
+      transform: rotate(135deg);
+    }
+  }
+  .fa {
+    margin: auto;
+    font-size: 2em;
+  }
+}
+.crm-call-timer {
+  height: 2em;
+  h3 {
+    text-align: center;
+    margin: 0;
+    color: fadeout(@black, 60);
+  }
+
+}

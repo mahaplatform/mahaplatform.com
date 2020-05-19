@@ -4,13 +4,17 @@ import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
 
-const hooks = collectObjects('hooks/voice/receive.js')
+const receiveHooks = collectObjects('hooks/voice/receive.js')
 
-const receiveRoute = async (req, res) => {
+const makeHooks = collectObjects('hooks/voice/make.js')
+
+const receive = async (req, res) => {
 
   const incoming = req.body
 
-  const { from, sid, to, status } = await twilio.calls(incoming.CallSid).fetch()
+  const params = await twilio.calls(incoming.CallSid).fetch()
+
+  const { from, sid, status, to } = params
 
   const phone_number = await PhoneNumber.where({
     number: to
@@ -32,7 +36,7 @@ const receiveRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const response = await Promise.reduce(hooks, async (response, hook) => {
+  const response = await Promise.reduce(receiveHooks, async (response, hook) => {
     return await hook.default(req, {
       call,
       phone_number
@@ -47,6 +51,55 @@ const receiveRoute = async (req, res) => {
 
   res.status(200).send(null)
 
+}
+
+const make = async (req, res) => {
+
+  const phone_number = await PhoneNumber.where({
+    number: req.body.From
+  }).fetch({
+    withRelated: ['team'],
+    transacting: req.trx
+  })
+
+  req.team = phone_number.related('team')
+
+  const call = await receiveCall(req, {
+    direction: 'outbound',
+    from: req.body.From,
+    to: req.body.To,
+    sid: req.body.CallSid,
+    status: 'pending'
+  })
+
+  await call.load(['from','to'], {
+    transacting: req.trx
+  })
+
+  const response = await Promise.reduce(makeHooks, async (response, hook) => {
+    return await hook.default(req, {
+      call,
+      phone_number
+    })
+  }, null)
+
+  await socket.refresh(req, [
+    '/admin/team/calls'
+  ])
+
+  if(response) return res.status(200).type('text/xml').send(response)
+
+  res.status(200).send(null)
+
+}
+
+const receiveRoute = async (req, res) => {
+
+  const { client } = req.body
+
+  if(client === 'maha') return await make(req, res)
+
+  await receive(req, res)
 
 }
 

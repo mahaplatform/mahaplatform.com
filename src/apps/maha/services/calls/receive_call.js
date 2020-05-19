@@ -12,13 +12,13 @@ const receiveCall = async (req, params) => {
     number: params.to
   })
 
-  const { sid, status } = params
+  const { sid, status, direction } = params
 
   const call = await Call.forge({
     team_id: req.team.get('id'),
     from_id: from.get('id'),
     to_id: to.get('id'),
-    direction: 'inbound',
+    direction: direction || 'inbound',
     sid,
     status,
     received_at: moment()

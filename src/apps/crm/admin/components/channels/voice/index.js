@@ -1,6 +1,7 @@
 import { Button, Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
+import Call from '../../call'
 import React from 'react'
 
 class Voice extends React.Component {
@@ -25,10 +26,17 @@ class Voice extends React.Component {
   }
 
   _getButton() {
+    const { channel, contact, program } = this.props
     return {
       label: 'Call Contact',
       color: 'red',
-      handler: () => {}
+      modal: {
+        component: <Call channel={ channel } program={ program } contact={ contact } />,
+        options: {
+          width: 375,
+          height: 667
+        }
+      }
     }
   }
 
