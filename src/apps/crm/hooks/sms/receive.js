@@ -50,8 +50,19 @@ const getPhoneNumber = async (req, { number }) => {
 
 const receive = async (req, { sms, phone_number }) => {
 
+  await phone_number.load(['program'], {
+    transacting: req.trx
+  })
+
   const from = await getPhoneNumber(req, {
     number: sms.related('from').get('number')
+  })
+
+  await sms.save({
+    program_id: phone_number.related('program').get('id'),
+    phone_number_id: from.get('id')
+  }, {
+    transacting: req.trx
   })
 
   const enrollment = await WorkflowEnrollment.query(qb => {

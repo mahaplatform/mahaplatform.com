@@ -23,13 +23,29 @@ const getPhoneNumber = async (req, { contact, data }) => {
 
 }
 
-const sendSms = async (req, { config, contact, enrollment, tokens }) => {
+const getWorkflow = async (req, { enrollment }) => {
 
-  await enrollment.load(['workflow.program.phone_number'], {
+  await enrollment.load(['workflow','sms_campaign','voice_campaign'], {
     transacting: req.trx
   })
 
-  const program = enrollment.related('workflow').related('program')
+  if(enrollment.get('workflow_id')) return enrollment.related('workflow')
+
+  if(enrollment.get('sms_campaign_id')) return enrollment.related('sms_campaign')
+
+  if(enrollment.get('voice_campaign_id')) return enrollment.related('voice_campaign')
+
+}
+
+const sendSms = async (req, { config, contact, enrollment, tokens }) => {
+
+  const workflow = await getWorkflow(req, { enrollment })
+
+  await workflow.load(['program.phone_number'], {
+    transacting: req.trx
+  })
+
+  const program = workflow.related('program')
 
   const data = await getEnrollmentData(req, {
     enrollment
@@ -42,12 +58,19 @@ const sendSms = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!phone_number) return {}
 
-  await sendSMS(req, {
+  const sms = await sendSMS(req, {
     from: program.related('phone_number').get('number'),
     to: phone_number.get('number'),
     body: config.message,
     asset_ids: config.asset_ids,
     data: tokens
+  })
+
+  await sms.save({
+    program_id: program.get('id'),
+    phone_number_id: phone_number.get('id')
+  }, {
+    transacting: req.trx
   })
 
   return {}

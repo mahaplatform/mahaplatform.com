@@ -30,7 +30,7 @@ const getTasks = ({ campaign }) => {
   }
 
   if(direction === 'outbound' && status === 'draft') {
-    items.push({ label: 'Schedule Campaign', modal: <Send campaign={ campaign } /> })
+    items.push({ label: 'Send/Schedule Campaign', modal: <Send campaign={ campaign } /> })
   } else if(direction === 'inbound' && status === 'active') {
     items.push({
       label: 'Deactivate Campaign',

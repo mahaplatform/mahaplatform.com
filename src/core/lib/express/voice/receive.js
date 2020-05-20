@@ -78,6 +78,7 @@ const make = async (req, res) => {
 
   const response = await Promise.reduce(makeHooks, async (response, hook) => {
     return await hook.default(req, {
+      user_id: req.body.user_id,
       call,
       phone_number
     })

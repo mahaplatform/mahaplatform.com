@@ -2,7 +2,6 @@ import { Button, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
 import OptOut from '../optout'
 import OptIn from '../optin'
-import moment from 'moment'
 import React from 'react'
 
 class Program extends React.Component {
@@ -14,14 +13,13 @@ class Program extends React.Component {
   }
 
   state = {
-    active: null,
     expanded: false
   }
 
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { active, expanded } = this.state
+    const { expanded } = this.state
     const { channels, program } = this.props
     const total = this._getTotal()
     return (
@@ -47,19 +45,14 @@ class Program extends React.Component {
         { expanded &&
           <div className="crm-contact-properties-body">
             <div className="crm-contact-channels">
-              <table className="ui unstackable compact table">
+              <table className="ui compact unstackable table">
                 <tbody>
-                  { channels.map((channel, index) => [
-                    <tr key={`channel_${index}`} className="crm-contact-channels-channel" onClick={ this._handleChannel.bind(this, index) }>
+                  { channels.map((channel, index) => (
+                    <tr key={`channel_${index}`} className="crm-contact-channels-channel" >
                       <td>
-                        { active === index ?
-                          <i className="fa fa-fw fa-chevron-down" /> :
-                          <i className="fa fa-fw fa-chevron-right" />
-                        }
-                        { channel.label }
-                      </td>
-                      <td className="collapsing">
-                        { channel.type.toUpperCase() }
+                        <i className={`fa fa-fw fa-${this._getChannelIcon(channel) }`} />
+                        { channel.type.toUpperCase() } (
+                        { channel.label })
                       </td>
                       { program.access_type === 'manage' ?
                         <td className="collapsing">
@@ -70,47 +63,13 @@ class Program extends React.Component {
                         </td> :
                         <td className="collapsing">
                           { channel.has_consented ?
-                            <div>Opted In</div> :
-                            <div>Opted Out</div>
+                            <span className="alert">Opted In</span> :
+                            <span>Opted Out</span>
                           }
                         </td>
                       }
-                    </tr>,
-                    ...active === index ? [(
-                      <tr key={`channel_${index}_details`} className="crm-contact-channels-channel-details">
-                        <td colSpan="3">
-                          { channel.optedin_at &&
-                            <div>
-                              Opted In: { moment(channel.optedin_at).format('MMM, DD YYYY [@] hh:mm A') }
-                            </div>
-                          }
-                          { channel.optedout_at &&
-                            <div>
-                              Opted Out: { moment(channel.optedout_at).format('MMM, DD YYYY [@] hh:mm A') }
-                            </div>
-                          }
-                          { channel.optin_reason &&
-                            <div>
-                              Opt In Reason: { channel.optin_reason }
-                            </div>
-                          }
-                          { channel.optout_reason &&
-                            <div>
-                              Opt Out Reason: { channel.optout_reason }
-                            </div>
-                          }
-                          { channel.optout_reason_other &&
-                            <div>
-                              Other: { channel.optout_reason_other }
-                            </div>
-                          }
-                          { channel.code &&
-                            <Button {...this._getPreferencesButton(channel) } />
-                          }
-                        </td>
-                      </tr>
-                    )] : []
-                  ])}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -118,6 +77,13 @@ class Program extends React.Component {
         }
       </div>
     )
+  }
+
+  _getChannelIcon(channel) {
+    if(channel.type === 'email') return 'envelope'
+    if(channel.type === 'sms') return 'comment'
+    if(channel.type === 'voice') return 'phone'
+    if(channel.type === 'mail') return 'map-marker'
   }
 
   _getConsent(channel, program) {
@@ -149,15 +115,6 @@ class Program extends React.Component {
       modal: <OptOut { ...this._getConsent(channel, program) } />
     }
   }
-
-  _getPreferencesButton(channel) {
-    return {
-      label: 'Update Preferences',
-      className: 'link',
-      link: `/crm/preferences/${channel.code}`
-    }
-  }
-
   _getTotal() {
     const { channels } = this.props
     return channels.filter(channel => {
@@ -169,12 +126,6 @@ class Program extends React.Component {
     const { expanded } = this.state
     this.setState({
       expanded: !expanded
-    })
-  }
-
-  _handleChannel(id) {
-    this.setState({
-      active: this.state.active === id ? null : id
     })
   }
 

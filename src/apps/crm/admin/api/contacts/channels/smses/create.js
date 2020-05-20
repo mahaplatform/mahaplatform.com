@@ -33,12 +33,19 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await sendSMS(req, {
+  const sms = await sendSMS(req, {
     from: program.related('phone_number').get('number'),
     to: to.get('number'),
     body: req.body.body,
     asset_ids: req.body.asset_ids,
     queue: false
+  })
+
+  await sms.save({
+    program_id: program.get('id'),
+    phone_number_id: to.get('id')
+  }, {
+    transacting: req.trx
   })
 
   res.status(200).respond(true)

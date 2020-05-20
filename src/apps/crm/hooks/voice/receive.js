@@ -58,6 +58,17 @@ const receive = async (req, { call, phone_number }) => {
     number: call.related('from').get('number')
   })
 
+  await phone_number.load(['program'], {
+    transacting: req.trx
+  })
+
+  await call.save({
+    program_id: phone_number.related('program').get('id'),
+    phone_number_id: from.get('id')
+  },{
+    transacting: req.trx
+  })
+
   const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('phone_number_id', phone_number.get('id'))
     qb.where('direction', 'inbound')

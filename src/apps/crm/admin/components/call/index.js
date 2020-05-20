@@ -7,6 +7,7 @@ import React from 'react'
 class Call extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -29,6 +30,7 @@ class Call extends React.Component {
   }
 
   state = {
+    error: null,
     loaded: false,
     ready: false,
     status: 'ready'
@@ -37,12 +39,13 @@ class Call extends React.Component {
   _handleCall = this._handleCall.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleCheck = this._handleCheck.bind(this)
+  _handleError = this._handleError.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleReady = this._handleReady.bind(this)
 
   render() {
     const { channel, contact } = this.props
-    const { loaded, ready, status } = this.state
+    const { error, loaded, ready, status } = this.state
     if(!loaded || !ready) return null
     return (
       <ModalPanel { ...this._getPanel()}>
@@ -57,6 +60,11 @@ class Call extends React.Component {
             <div className="crm-call-timer">
               { status === 'active' &&
                 <Timer />
+              }
+              { error &&
+                <span className="alert">
+                  { error }
+                </span>
               }
             </div>
           </div>
@@ -134,10 +142,15 @@ class Call extends React.Component {
 
   _handleCall() {
     const { channel, program } = this.props
+    const { user } = this.context.admin
+    this.setState({
+      error: null
+    })
     window.Twilio.Device.connect({
       From: program.phone_number.number,
       To: channel.label,
-      client: 'maha'
+      client: 'maha',
+      user_id: user.id
     })
   }
 
@@ -149,6 +162,12 @@ class Call extends React.Component {
     const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
     this.setState({ loaded })
     if(!loaded) setTimeout(this._handleCheck, 1000)
+  }
+
+  _handleError(error) {
+    this.setState({
+      error: error.message
+    })
   }
 
   _handleHangup() {
@@ -173,6 +192,7 @@ class Call extends React.Component {
     window.Twilio.Device.ready(this._handleReady)
     window.Twilio.Device.connect(this._handleStatus.bind(this, 'active'))
     window.Twilio.Device.disconnect(this._handleStatus.bind(this, 'ready'))
+    window.Twilio.Device.error(this._handleError)
   }
 
   _handleReady() {

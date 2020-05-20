@@ -34,17 +34,10 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const contact_number = phone.get('number')
-
-  const program_number = program.related('phone_number').get('number')
-
-  if(!program_number) return res.status(200).respond(null)
-
   const smses = await SMS.filterFetch({
     scope: (qb) => {
-      qb.joinRaw('inner join maha_numbers to_numbers on to_numbers.id=maha_smses.to_id')
-      qb.joinRaw('inner join maha_numbers from_numbers on from_numbers.id=maha_smses.from_id')
-      qb.whereRaw('((to_numbers.number=? and from_numbers.number=?) or (to_numbers.number=? and from_numbers.number=?))', [contact_number, program_number, program_number, contact_number])
+      qb.where('program_id', req.params.program_id)
+      qb.where('phone_number_id', req.params.id)
       qb.where('team_id', req.team.get('id'))
     },
     sort: {
@@ -59,7 +52,7 @@ const listRoute = async (req, res) => {
 
   res.status(200).respond(smses, (req, sms) => ({
     id: sms.get('id'),
-    contact: sms.related('from').get('number') === contact_number ? {
+    contact: sms.related('from').get('number') === phone.get('number') ? {
       id: contact.get('id'),
       display_name: contact.get('display_name'),
       initials: contact.get('initials'),
@@ -67,7 +60,7 @@ const listRoute = async (req, res) => {
       email: contact.get('email'),
       photo: contact.related('photo') ? contact.related('photo').get('path') : null
     } : null,
-    program: sms.related('from').get('number') === program_number ? {
+    program: sms.related('to').get('number') === phone.get('number') ? {
       id: program.get('id'),
       title: program.get('title'),
       logo: program.related('logo') ? program.related('logo').get('path') : null

@@ -2,6 +2,7 @@ import Timeline from '../../../components/timeline'
 import Properties from './properties'
 import { Page } from 'maha-admin'
 import Channels from './channels'
+import Consent from './consent'
 import Details from './details'
 import Header from './header'
 import Edit from '../edit'
@@ -23,6 +24,7 @@ const getTabs = (user, { channels, contact, fields, programs }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
+    { label: 'Consent', component: <Consent contact={ contact } programs={ programs } channels={ channels } /> },
     { label: 'Channels', component: <Channels contact={ contact } programs={ programs } channels={ channels } /> },
     { label: 'Properties', component: <Properties contact={ contact } programs={ programs } fields={ fields } /> }
   ]
