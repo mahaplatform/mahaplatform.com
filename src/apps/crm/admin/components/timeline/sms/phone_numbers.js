@@ -25,7 +25,11 @@ class PhoneNumbers extends React.Component {
   _getList() {
     const { contact } = this.props
     return {
-      format: (phone_number) => <div>{ phone_number.number }</div>,
+      format: (phone_number) => (
+        <div className="token">
+          { phone_number.number }
+        </div>
+      ),
       items: contact.phone_numbers,
       handler: this._handleChoose
     }

@@ -17,23 +17,7 @@ class Call extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <CallChannel { ...this._getCallChannel() } />
-      </ModalPanel>
-    )
-  }
-
-  _getPanel() {
-    return {
-      title: 'Call Contact',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ],
-      rightItems: [
-        { label: 'Done', handler: this._handleDone }
-      ]
-    }
+    return <CallChannel { ...this._getCallChannel() } />
   }
 
   _getCallChannel() {
@@ -41,7 +25,12 @@ class Call extends React.Component {
     return {
       channel,
       contact,
-      program
+      program,
+      title: 'Call Contact',
+      cancelIcon: 'chevron-left',
+      doneText: 'Done',
+      onCancel: this._handleBack,
+      onDone: this._handleDone
     }
   }
 

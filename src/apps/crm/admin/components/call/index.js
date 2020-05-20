@@ -11,10 +11,21 @@ class Call extends React.Component {
   }
 
   static propTypes = {
+    cancelIcon: PropTypes.string,
+    cancelText: PropTypes.string,
     channel: PropTypes.object,
     contact: PropTypes.object,
+    doneText: PropTypes.string,
     program: PropTypes.object,
-    token: PropTypes.string
+    token: PropTypes.string,
+    title: PropTypes.string,
+    onCancel: PropTypes.func,
+    onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    cancelText: 'Cancel',
+    title: 'Call Contact'
   }
 
   state = {
@@ -91,12 +102,22 @@ class Call extends React.Component {
   }
 
   _getPanel() {
+    const { doneText, title, onDone } = this.props
     return {
-      title: 'Call Contact',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
-      ]
+      title,
+      leftItems: this._getCancel(),
+      rightItems: doneText ? [
+        { label: doneText, handler: onDone }
+      ] : null
     }
+  }
+
+  _getCancel() {
+    const { cancelIcon, cancelText, onCancel } = this.props
+    const handler = onCancel || this._handleCancel
+    if(cancelIcon) return [{ icon: cancelIcon, handler }]
+    if(cancelText) return [{ label: cancelText, handler }]
+    return null
   }
 
   _getRadioGroup() {
