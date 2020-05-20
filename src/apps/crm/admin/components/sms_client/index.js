@@ -1,4 +1,4 @@
-import ContactAvatar from '../../../tokens/contact_avatar'
+import ContactAvatar from '../../tokens/contact_avatar'
 import { Image, Logo, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Composer from './composer'
@@ -6,16 +6,16 @@ import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
-class Sms extends React.Component {
+class SmsClient extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object
   }
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
-    program: PropTypes.object
+    phone_number: PropTypes.number,
+    program: PropTypes.number
   }
 
   body = null
@@ -172,31 +172,31 @@ class Sms extends React.Component {
   }
 
   _handleFetch() {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${channel.id}/smses`,
+      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`,
       method: 'get',
       onSuccess: this._handleSuccess
     })
   }
 
   _handleJoin() {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     const { network } = this.context
-    const ch = `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${channel.id}/smses`
-    network.join(ch)
+    const channel = `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
+    network.join(channel)
     network.subscribe([
-      { target: ch, action: 'refresh', handler: this._handleFetch }
+      { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     const { network } = this.context
-    const ch = `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${channel.id}/smses`
-    network.leave(ch)
+    const channel = `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
+    network.leave(channel)
     network.unsubscribe([
-      { target: ch, action: 'refresh', handler: this._handleFetch }
+      { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
@@ -205,10 +205,10 @@ class Sms extends React.Component {
   }
 
   _handleSend(data) {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     const { attachments, text } = data
     this.context.network.request({
-      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${channel.id}/smses`,
+      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`,
       method: 'post',
       body: {
         body: text,
@@ -225,4 +225,4 @@ class Sms extends React.Component {
 
 }
 
-export default Sms
+export default SmsClient

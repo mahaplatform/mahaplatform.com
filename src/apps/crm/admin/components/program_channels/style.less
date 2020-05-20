@@ -1,0 +1,24 @@
+.crm-program-channels {
+  background-color: @white;
+  display: flex;
+  flex: 1;
+}
+.crm-program-channels-sidebar {
+  flex: 0 0 350px;
+  display: flex;
+}
+.crm-program-channels-body {
+  flex: 1;
+  display: flex;
+}
+.crm-program-channels-channels {
+  .scrollable();
+  flex: 1;
+}
+.crm-program-channels-channel {
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}

@@ -1,13 +1,12 @@
-import CallChannel from '../../call'
-import { ModalPanel } from 'maha-admin'
+import VoiceClient from '../../voice_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class Call extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
+    phone_number: PropTypes.object,
     program: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
@@ -17,14 +16,14 @@ class Call extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <CallChannel { ...this._getCallChannel() } />
+    return <VoiceClient { ...this._getVoiceClient() } />
   }
 
-  _getCallChannel() {
-    const { channel, contact, program } = this.props
+  _getVoiceClient() {
+    const { contact, phone_number, program } = this.props
     return {
-      channel,
       contact,
+      phone_number,
       program,
       title: 'Call Contact',
       cancelIcon: 'chevron-left',

@@ -1,13 +1,13 @@
 import { Container, List } from 'maha-admin'
+import SmsClient from '../sms_client'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Voice from './voice'
 import Email from './email'
 import React from 'react'
-import Sms from './sms'
 import _ from 'lodash'
 
-class Channels extends React.Component {
+class Channels extends React.PureComponent {
 
   static contextTypes = {
     network: PropTypes.object,
@@ -69,15 +69,17 @@ class Channels extends React.Component {
 
   _getComponent(channel) {
     if(channel.type === 'email') return Email
-    if(channel.type === 'sms') return Sms
+    if(channel.type === 'sms') return SmsClient
     if(channel.type === 'voice') return Voice
   }
 
   _getChannel(channel) {
     const { contact, program } = this.props
     return {
-      channel,
-      contact,
+      contact: contact,
+      mailing_address: channel.mailing_address,
+      email_address: channel.email_address,
+      phone_number: channel.phone_number,
       program
     }
   }

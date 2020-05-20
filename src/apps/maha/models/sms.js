@@ -1,3 +1,4 @@
+import PhoneNumber from '../../crm/models/phone_number'
 import Model from '../../../core/objects/model'
 import SMSAttachment from './sms_attachment'
 import Number from './number'
@@ -20,6 +21,10 @@ const Sms = new Model({
 
   to() {
     return this.belongsTo(Number, 'to_id')
+  },
+
+  phone_number() {
+    return this.belongsTo(PhoneNumber, 'phone_number_id')
   }
 
 })

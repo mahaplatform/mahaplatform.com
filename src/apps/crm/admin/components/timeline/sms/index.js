@@ -63,11 +63,8 @@ class SMSActivity extends React.PureComponent {
     const { program, phone_number } = this.state
     const { contact } = this.props
     return {
-      channel: {
-        id: phone_number.id,
-        label: phone_number.number
-      },
       contact,
+      phone_number,
       program,
       onBack: this._handlePop,
       onDone: this._handleCancel

@@ -1,5 +1,6 @@
 import recipients from './recipients'
 import templates from './templates'
+import channels from './channels'
 import { Router } from 'express'
 import destroy from './destroy'
 import senders from './senders'
@@ -30,6 +31,8 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.use('/:program_id/access', access)
+
+router.use('/:program_id/channels', channels)
 
 router.use('/:program_id/fields', fields)
 

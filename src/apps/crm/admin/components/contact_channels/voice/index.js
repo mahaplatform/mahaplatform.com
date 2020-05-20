@@ -1,14 +1,14 @@
 import { Button, Infinite } from 'maha-admin'
+import VoiceClient from '../../voice_client'
 import PropTypes from 'prop-types'
 import Results from './results'
-import Call from '../../call'
 import React from 'react'
 
 class Voice extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
+    phone_number: PropTypes.object,
     program: PropTypes.object
   }
 
@@ -26,12 +26,12 @@ class Voice extends React.Component {
   }
 
   _getButton() {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     return {
       label: 'Call Contact',
       color: 'red',
       modal: {
-        component: <Call channel={ channel } program={ program } contact={ contact } />,
+        component: <VoiceClient phone_number={ phone_number } program={ program } contact={ contact } />,
         options: {
           width: 375,
           height: 667
@@ -41,10 +41,10 @@ class Voice extends React.Component {
   }
 
   _getInfinite() {
-    const { channel, contact, program } = this.props
+    const { contact, phone_number, program } = this.props
     return {
-      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${channel.id}/calls`,
-      refresh: `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${channel.id}/calls`,
+      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${phone_number.id}/calls`,
+      refresh: `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${phone_number.id}/calls`,
       empty: {
         icon: 'phone',
         title: 'No Calls',

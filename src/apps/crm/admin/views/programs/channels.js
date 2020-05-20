@@ -1,10 +1,9 @@
-import Channels from '../../components/contact_channels'
+import Channels from '../../components/program_channels'
 import { Page } from 'maha-admin'
 
 const getTasks = () => ({})
 
 const mapResourcesToPage = (props, context) => ({
-  contact: `/api/admin/crm/contacts/${props.params.contact_id}`,
   program: `/api/admin/crm/programs/${props.params.program_id}`
 })
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Timer from './timer'
 import React from 'react'
 
-class Call extends React.Component {
+class VoiceClient extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -14,9 +14,9 @@ class Call extends React.Component {
   static propTypes = {
     cancelIcon: PropTypes.string,
     cancelText: PropTypes.string,
-    channel: PropTypes.object,
     contact: PropTypes.object,
     doneText: PropTypes.string,
+    phone_number: PropTypes.object,
     program: PropTypes.object,
     token: PropTypes.string,
     title: PropTypes.string,
@@ -44,7 +44,7 @@ class Call extends React.Component {
   _handleReady = this._handleReady.bind(this)
 
   render() {
-    const { channel, contact } = this.props
+    const { contact, phone_number } = this.props
     const { error, loaded, ready, status } = this.state
     const loading = !loaded || !ready
     return (
@@ -55,7 +55,7 @@ class Call extends React.Component {
             <div className="crm-call-panel">
               <ContactAvatar { ...contact } />
               <h2>{ contact.display_name }</h2>
-              <p>{ channel.label }</p>
+              <p>{ phone_number.number }</p>
               <div { ...this._getButton() }>
                 <i className="fa fa-phone" />
               </div>
@@ -144,14 +144,14 @@ class Call extends React.Component {
   }
 
   _handleCall() {
-    const { channel, program } = this.props
+    const { program, phone_number } = this.props
     const { user } = this.context.admin
     this.setState({
       error: null
     })
     window.Twilio.Device.connect({
       From: program.phone_number.number,
-      To: channel.label,
+      To: phone_number.number,
       client: 'maha',
       user_id: user.id
     })
@@ -218,4 +218,4 @@ const mapResources = (props, context) => ({
   token: `/api/admin/phone_numbers/${props.program.phone_number.id}/token`
 })
 
-export default Container(mapResources)(Call)
+export default Container(mapResources)(VoiceClient)

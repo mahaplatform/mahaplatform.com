@@ -6,9 +6,9 @@ import React from 'react'
 class Email extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
-    program: PropTypes.object
+    email_address: PropTypes.number,
+    program: PropTypes.number
   }
 
   render() {
@@ -16,9 +16,9 @@ class Email extends React.Component {
   }
 
   _getInfinite() {
-    const { channel, contact, program } = this.props
+    const { contact, email_address, program } = this.props
     return {
-      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/email/${channel.id}/emails`,
+      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/email/${email_address.id}/emails`,
       empty: {
         icon: 'envelope',
         title: 'No Emails',

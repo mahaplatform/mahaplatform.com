@@ -21,6 +21,7 @@ const listRoute = async (req, res) => {
     qb.where('contact_id', contact.get('id'))
     qb.where('program_id', req.params.program_id)
   }).fetchAll({
+    withRelated: ['email_address','mailing_address','phone_number'],
     transacting: req.trx
   })
 

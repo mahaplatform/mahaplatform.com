@@ -1,4 +1,4 @@
-import SMSChannel from '../../channels/sms'
+import SMSClient from '../../sms_client'
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -6,8 +6,8 @@ import React from 'react'
 class SMS extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
+    phone_number: PropTypes.object,
     program: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
@@ -19,7 +19,7 @@ class SMS extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <SMSChannel { ...this._getSMSChannel() } />
+        <SMSClient { ...this._getSMSClient() } />
       </ModalPanel>
     )
   }
@@ -36,11 +36,11 @@ class SMS extends React.Component {
     }
   }
 
-  _getSMSChannel() {
-    const { channel, contact, program } = this.props
+  _getSMSClient() {
+    const { contact, phone_number, program } = this.props
     return {
-      channel,
       contact,
+      phone_number,
       program
     }
   }

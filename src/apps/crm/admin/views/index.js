@@ -36,6 +36,7 @@ import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
+import ProgramsChannels from './programs/channels'
 import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
 import ProgramsListsShow from './programs/show/lists/show'
@@ -100,6 +101,8 @@ const routes = [
   { path: '/programs/:program_id/topics/:id', component: ProgramsTopicsShow },
   { path: '/programs/:program_id/templates/:id', component: TemplatesShow },
   { path: '/programs/:program_id/templates/:id/design', component: TemplatesDesign },
+  { path: '/programs/:program_id/channels', component: ProgramsChannels },
+  { path: '/programs/:program_id/channels/:type/:channel_id', component: ProgramsChannels },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },
