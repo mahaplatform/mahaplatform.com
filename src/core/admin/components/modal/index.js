@@ -31,7 +31,7 @@ class Modal extends React.Component {
     return ([
       children,
       <CSSTransition key="maha-modal-overlay" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-modal-overlay" onClick={this._handleClose.bind(this)} />
+        <div className="maha-modal-overlay" />
       </CSSTransition>,
       <CSSTransition key="maha-modal-window" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-modal-window" style={ this._getStyle() }>

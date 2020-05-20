@@ -44,6 +44,7 @@ class Voice extends React.Component {
     const { channel, contact, program } = this.props
     return {
       endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${channel.id}/calls`,
+      refresh: `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${channel.id}/calls`,
       empty: {
         icon: 'phone',
         title: 'No Calls',

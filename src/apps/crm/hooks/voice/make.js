@@ -1,5 +1,5 @@
+import socket from '../../../../core/services/routes/emitter'
 import PhoneNumber from '../../models/phone_number'
-import User from '../../../maha/models/user'
 import { twiml } from 'twilio'
 
 const makeHook = async (req, { call, phone_number, user_id }) => {
@@ -21,6 +21,10 @@ const makeHook = async (req, { call, phone_number, user_id }) => {
   },{
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${to.get('contact_id')}/channels/programs/${phone_number.related('program').get('id')}/voice/${to.get('id')}/calls`
+  ])
 
   const response = new twiml.VoiceResponse()
 

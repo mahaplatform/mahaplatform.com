@@ -63,12 +63,18 @@ const makeCall = async (req, params) => {
     to: phone_number.get('number')
   })
 
+  await call.save({
+    program_id: enrollment.related('voice_campaign').get('program_id'),
+    phone_number_id: phone_number.get('id')
+  }, {
+    transacting: req.trx
+  })
+
   await enrollment.save({
     call_id: call.get('id')
   }, {
     transacting: req.trx
   })
-
 }
 
 export default makeCall
