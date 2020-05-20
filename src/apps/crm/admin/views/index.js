@@ -79,6 +79,7 @@ const routes = [
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/contacts/:contact_id/emails/:id', component: ContactsEmailsShow },
   { path: '/contacts/:contact_id/channels/programs/:program_id', component: ContactsChannelsShow },
+  { path: '/contacts/:contact_id/channels/programs/:program_id/:type/:channel_id', component: ContactsChannelsShow },
   { path: '/emails/:email_id/activities', component: EmailsActivities },
   { path: '/emails/:email_id/bounces', component: EmailsBouncesList },
   { path: '/emails/:email_id/deliveries', component: EmailsDeliveriesList },

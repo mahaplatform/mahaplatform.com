@@ -2,6 +2,7 @@ import { lookupNumber } from '../../../maha/services/phone_numbers'
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { enrollInCampaign } from '../../services/sms_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
+import socket from '../../../../core/services/routes/emitter'
 import { executeWorkflow } from '../../services/workflows'
 import SMSCampaign from '../../models/sms_campaign'
 import PhoneNumber from '../../models/phone_number'
@@ -64,6 +65,10 @@ const receive = async (req, { sms, phone_number }) => {
   }, {
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${from.get('contact_id')}/channels/programs/${phone_number.related('program').get('id')}/sms/${from.get('id')}/smses`
+  ])
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')

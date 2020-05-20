@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types'
 import { Container, List } from 'maha-admin'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import Voice from './voice'
 import Email from './email'
 import React from 'react'
 import Sms from './sms'
+import _ from 'lodash'
 
 class Channels extends React.Component {
 
@@ -15,7 +17,8 @@ class Channels extends React.Component {
   static propTypes = {
     channels: PropTypes.array,
     contact: PropTypes.object,
-    program: PropTypes.object
+    program: PropTypes.object,
+    route: PropTypes.object
   }
 
   state = {
@@ -31,7 +34,9 @@ class Channels extends React.Component {
       <div className="crm-channels">
         <div className="crm-channels-sidebar">
           <List { ...this._getDeatails() } />
-          { channels.map((channel, index) => (
+          { channels.filter(channel => {
+            return channel.type !== 'mail'
+          }).map((channel, index) => (
             <div className={ this._getClass(index) } key={`channel_${index}`} onClick={ this._handleClick.bind(this, index) }>
               <div className="crm-channels-channel-icon">
                 <i className={`fa fa-${this._getIcon(channel)}`} />
@@ -53,6 +58,13 @@ class Channels extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { route } = this.props
+    if(!_.isEqual(route, prevProps.route)) {
+      this._handleUrlChange()
+    }
   }
 
   _getComponent(channel) {
@@ -95,10 +107,27 @@ class Channels extends React.Component {
   }
 
   _handleClick(selected) {
+    const { channels, contact, program } = this.props
+    const channel = channels[selected]
+    this.context.router.history.replace(`/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/${channel.type}/${channel.id}`)
+  }
+
+  _handleUrlChange() {
+    const { channels, route } = this.props
+    const matches = route.pathname.match(/programs\/(\d*)\/(\w*)\/(\d*)/)
+    const selected = matches ? channels.findIndex(channel => {
+      return channel.type === matches[2] && channel.id === parseInt(matches[3])
+    }) : 0
     this.setState({ selected })
   }
 
 }
+
+const mapStateToProps = (state, props) => ({
+  route: state.maha.router.history.slice(-1)[0]
+})
+
+Channels = connect(mapStateToProps)(Channels)
 
 const mapResources = (props, context) => ({
   channels: `/api/admin/crm/contacts/${props.contact.id}/channels/programs/${props.program.id}`

@@ -22,7 +22,7 @@ class Email extends React.Component {
       empty: {
         icon: 'envelope',
         title: 'No Emails',
-        text: 'The contact has not received any emails via this channel'
+        text: 'The contact has not sent or received any emails via this channel'
       },
       layout: Results,
       props: { contact }

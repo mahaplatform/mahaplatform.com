@@ -1,3 +1,4 @@
+import socket from '../../../../../../../core/services/routes/emitter'
 import { sendSMS } from '../../../../../../maha/services/smses'
 import PhoneNumber from '../../../../../models/phone_number'
 import Program from '../../../../../models/program'
@@ -47,6 +48,10 @@ const createRoute = async (req, res) => {
   }, {
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${to.id}/smses`
+  ])
 
   res.status(200).respond(true)
 

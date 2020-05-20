@@ -1,5 +1,5 @@
 import ContactAvatar from '../../tokens/contact_avatar'
-import { Container, ModalPanel } from 'maha-admin'
+import { Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Timer from './timer'
 import React from 'react'
@@ -46,29 +46,32 @@ class Call extends React.Component {
   render() {
     const { channel, contact } = this.props
     const { error, loaded, ready, status } = this.state
-    if(!loaded || !ready) return null
+    const loading = !loaded || !ready
     return (
       <ModalPanel { ...this._getPanel()}>
-        <div className="crm-call">
-          <div className="crm-call-panel">
-            <ContactAvatar { ...contact } />
-            <h2>{ contact.display_name }</h2>
-            <p>{ channel.label }</p>
-            <div { ...this._getButton() }>
-              <i className="fa fa-phone" />
-            </div>
-            <div className="crm-call-timer">
-              { status === 'active' &&
-                <Timer />
-              }
-              { error &&
-                <span className="alert">
-                  { error }
-                </span>
-              }
+        { loading && <Loader /> }
+        { !loading &&
+          <div className="crm-call">
+            <div className="crm-call-panel">
+              <ContactAvatar { ...contact } />
+              <h2>{ contact.display_name }</h2>
+              <p>{ channel.label }</p>
+              <div { ...this._getButton() }>
+                <i className="fa fa-phone" />
+              </div>
+              <div className="crm-call-timer">
+                { status === 'active' &&
+                  <Timer />
+                }
+                { error &&
+                  <span className="alert">
+                    { error }
+                  </span>
+                }
+              </div>
             </div>
           </div>
-        </div>
+        }
       </ModalPanel>
     )
   }
