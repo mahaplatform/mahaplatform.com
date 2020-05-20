@@ -1,14 +1,14 @@
 import { Router } from 'express'
-import emails from './emails'
-import smses from './smses'
-import calls from './calls'
+import email from './email'
+import sms from './sms'
+import voice from './voice'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/email', emails)
+router.use('/email', email)
 
-router.use('/sms', smses)
+router.use('/sms', sms)
 
-router.use('/voice', calls)
+router.use('/voice', voice)
 
 export default router

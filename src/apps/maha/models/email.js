@@ -1,4 +1,5 @@
 import EmailCampaign from '../../crm/models/email_campaign'
+import EmailAddress from '../../crm/models/email_address'
 import Model from '../../../core/objects/model'
 import Contact from '../../crm/models/contact'
 import CrmEmail from '../../crm/models/email'
@@ -40,6 +41,10 @@ const Email = new Model({
 
   email() {
     return this.belongsTo(CrmEmail, 'email_id')
+  },
+
+  email_address() {
+    return this.belongsTo(EmailAddress, 'email_address_id')
   },
 
   email_campaign() {

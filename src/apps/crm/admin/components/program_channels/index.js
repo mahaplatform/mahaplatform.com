@@ -1,7 +1,10 @@
-import SMSClient from '../sms_client'
 import PropTypes from 'prop-types'
 import Channels from './channels'
+import Types from './types'
+import Voice from './voice'
+import Email from './email'
 import React from 'react'
+import Sms from './sms'
 
 class ProgramChannels extends React.PureComponent {
 
@@ -10,52 +13,71 @@ class ProgramChannels extends React.PureComponent {
   }
 
   state = {
-    contact: null,
-    phone_number: null
+    channel: null,
+    type: 'email'
   }
 
-  _handleChoose = this._handleChoose.bind(this)
+  _handleChannel = this._handleChannel.bind(this)
+  _handleType = this._handleType.bind(this)
 
   render() {
-    const { contact } = this.state
+    const { channel } = this.state
+    const Component = this._getComponent()
     return (
       <div className="crm-program-channels">
+        <Types { ...this._getTypes() } />
         <div className="crm-program-channels-sidebar">
           <Channels { ...this._getChannels() } />
         </div>
-        <div className="crm-program-channels-body">
-          { contact &&
-            <SMSClient { ...this._getSMSClient() } />
-          }
-        </div>
+        { channel &&
+          <Component { ...this._getChannel() } />
+        }
       </div>
     )
   }
 
-  _getChannels() {
+  _getChannel() {
+    const { channel } = this.state
     const { program } = this.props
     return {
-      program,
-      onChoose: this._handleChoose
-    }
-  }
-
-  _getSMSClient() {
-    const { contact, phone_number } = this.state
-    const { program } = this.props
-    return {
-      key: `channel_${phone_number.id}`,
-      contact,
-      phone_number,
+      key: `channels_${channel.id}`,
+      channel,
       program
     }
   }
 
-  _handleChoose(channel) {
-    this.setState({
-      contact: channel.contact,
-      phone_number: channel.phone_number
-    })
+  _getChannels() {
+    const { type } = this.state
+    const { program } = this.props
+    return {
+      key: `channels_${type}`,
+      program,
+      type,
+      onChoose: this._handleChannel
+    }
+  }
+
+  _getComponent() {
+    const { type } = this.state
+    if(type === 'email') return Email
+    if(type === 'sms') return Sms
+    if(type === 'voice') return Voice
+  }
+
+  _getTypes() {
+    const { type } = this.state
+    return {
+      type,
+      onChoose: this._handleType
+    }
+  }
+
+  _handleChannel(channel) {
+    this.setState({ channel })
+  }
+
+  _handleType(type) {
+    this.setState({ type })
   }
 
 }
