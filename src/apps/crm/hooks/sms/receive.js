@@ -66,10 +66,8 @@ const receive = async (req, { sms, phone_number }) => {
     transacting: req.trx
   })
 
-  console.log(`/admin/crm/contacts/${from.get('contact_id')}/channels/programs/${phone_number.related('program').get('id')}/sms/${from.get('id')}/smses`)
-
   await socket.refresh(req, [
-    `/admin/crm/contacts/${from.get('contact_id')}/channels/programs/${phone_number.related('program').get('id')}/sms/${from.get('id')}/smses`
+    `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/sms/${from.get('id')}/smses`
   ])
 
   const enrollment = await WorkflowEnrollment.query(qb => {

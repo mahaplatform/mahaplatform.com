@@ -1,3 +1,4 @@
+import socket from '../../../../../../../core/services/routes/emitter'
 import ChannelView from '../../../../../models/channel_view'
 import Program from '../../../../../models/program'
 import moment from 'moment'
@@ -31,6 +32,10 @@ const readRoute = async (req, res) => {
   }, {
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/programs/${program.get('id')}/channels/sms`
+  ])
 
   res.status(200).respond(true)
 

@@ -44,6 +44,7 @@ class Channels extends React.PureComponent {
     const { q } = this.state
     return {
       endpoint: `/api/admin/crm/programs/${program.id}/channels/${type}`,
+      refresh: `/admin/crm/programs/${program.id}/channels/${type}`,
       filter: {
         q
       },

@@ -1,38 +1,32 @@
 import PhoneNumber from '../../../../../models/phone_number'
 import SMS from '../../../../../../maha/models/sms'
-import Contact from '../../../../../models/contact'
 import Program from '../../../../../models/program'
 
-const listRoute = async (req, res) => {
-
-  const contact = await Contact.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.contact_id)
-  }).fetch({
-    withRelated: ['photo'],
-    transacting: req.trx
-  })
-
-  if(!contact) return res.status(404).respond({
-    code: 404,
-    message: 'Unable to load contact'
-  })
+const smsesRoute = async (req, res) => {
 
   const program = await Program.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+    qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('crm_programs.team_id', req.team.get('id'))
     qb.where('id', req.params.program_id)
   }).fetch({
-    withRelated: ['logo','phone_number'],
     transacting: req.trx
+  })
+
+  if(!program) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load program'
   })
 
   const phone = await PhoneNumber.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('contact_id', contact.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['contact'],
     transacting: req.trx
   })
+
+  const contact = phone.related('contact')
 
   const smses = await SMS.filterFetch({
     scope: (qb) => {
@@ -98,4 +92,4 @@ const listRoute = async (req, res) => {
 
 }
 
-export default listRoute
+export default smsesRoute

@@ -1,6 +1,33 @@
+import ChannelSerializer from '../../../../../serializers/channel_serializer'
+import Program from '../../../../../models/program'
+import Channel from '../../../../../models/channel'
+
 const showRoute = async (req, res) => {
 
-  res.status(200).respond()
+  const program = await Program.query(qb => {
+    qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('crm_programs.team_id', req.team.get('id'))
+    qb.where('id', req.params.program_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!program) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load program'
+  })
+
+  const channel = await Channel.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('program_id', program.get('id'))
+    qb.where('phone_number_id', req.params.id)
+  }).fetch({
+    withRelated: ['phone_number'],
+    transacting: req.trx
+  })
+
+  res.status(200).respond(channel, ChannelSerializer)
 
 }
 

@@ -52,6 +52,10 @@ class VoiceClient extends React.Component {
         { loading && <Loader /> }
         { !loading &&
           <div className="crm-call">
+            <div className="crm-channel-alert">
+              This contact has not given you consent to send marketing related
+              messages on this channel
+            </div>
             <div className="crm-call-panel">
               <ContactAvatar { ...contact } />
               <h2>{ contact.display_name }</h2>
