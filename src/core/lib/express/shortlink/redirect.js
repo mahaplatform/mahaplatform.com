@@ -8,7 +8,7 @@ const url = URL.parse(process.env.SHORTURL_HOST)
 
 const redirectRoute = async (req, res, next) => {
 
-  if(url.hostname !== req.host) return next()
+  if(url.hostname !== req.hostname) return next()
 
   const shortlink = await ShortLink.query(qb => {
     qb.where('code', req.path.substr(1))

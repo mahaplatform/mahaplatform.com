@@ -60,17 +60,27 @@ const reviewRecording = async (req, { enrollment, step, recording }) => {
 
 }
 
-const saveRecording = async (req, { enrollment, step, recording }) => ({
+const saveRecording = async (req, { config, enrollment, step, recording }) => ({
+  data: {
+    data: {
+      [config.code]: recording
+    }
+  },
   recording_url: recording
 })
 
-const confirmRecording = async (req, { enrollment, step }) => {
+const confirmRecording = async (req, { config, enrollment, step }) => {
 
   const data = await redis.getAsync(`recording:${enrollment.get('code')}:${step.get('code')}`)
 
   const { recording } = JSON.parse(data)
 
   return {
+    data: {
+      data: {
+        [config.code]: recording
+      }
+    },
     recording_url: recording
   }
 
@@ -106,6 +116,7 @@ const message = async (req, params) => {
 
   if(recording && confirm === 'no') {
     return await saveRecording(req, {
+      config,
       enrollment,
       step,
       recording
@@ -114,6 +125,7 @@ const message = async (req, params) => {
 
   if(answer === '1') {
     return await confirmRecording(req, {
+      config,
       enrollment,
       step
     })

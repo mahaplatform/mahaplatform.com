@@ -69,8 +69,13 @@ export const tokens = createSelector(
     ...inputTokens,
     ...steps.length > 0 ? [{
       title: 'Workflow', tokens: steps.map(step => ({
-        name: step.config.name.value,
-        token: `workflow.${step.config.name.token}`
+        ...step.action === 'record' ? {
+          name: `${step.config.name.value} Redording URL`,
+          token: `workflow.${step.config.name.token}_recording_url`
+        } : {
+          name: step.config.name.value,
+          token: `workflow.${step.config.name.token}`
+        }
       }))
     }] : []
   ]

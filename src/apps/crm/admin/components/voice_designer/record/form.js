@@ -43,7 +43,7 @@ class Record extends React.PureComponent {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
       voice: 'woman',
-      confirm: 'yes'
+      confirm: 'no'
     }
   }
 
@@ -74,7 +74,7 @@ class Record extends React.PureComponent {
               { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: 'yes', text: 'Yes, require confirmation' },{ value: 'no', text: 'No, immediately save recording' }], defaultValue: config.confirm }
+            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: 'no', text: 'No, immediately save recording' },{ value: 'yes', text: 'Yes, require confirmation' }], defaultValue: config.confirm }
           ]
         }
       ]

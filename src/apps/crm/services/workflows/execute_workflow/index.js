@@ -1,4 +1,4 @@
-import saveWorkflowRecordingQueue from '../../../queues/save_workflow_recording_queue'
+import SaveWorkflowRecordingQueue from '../../../queues/save_workflow_recording_queue'
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import socket from '../../../../../core/services/routes/emitter'
@@ -225,7 +225,7 @@ const saveResults = async (req, params) => {
   })
 
   if(recording_url) {
-    await saveWorkflowRecordingQueue.enqueue(req, {
+    await SaveWorkflowRecordingQueue.enqueue(req, {
       action_id: action.get('id'),
       url: recording_url
     })
