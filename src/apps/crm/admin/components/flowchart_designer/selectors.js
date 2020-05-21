@@ -68,7 +68,7 @@ export const tokens = createSelector(
   (inputTokens, steps) => [
     ...inputTokens,
     ...steps.length > 0 ? [{
-      title: 'Workflow Tokens', tokens: steps.map(step => ({
+      title: 'Workflow', tokens: steps.map(step => ({
         name: step.config.name.value,
         token: `workflow.${step.config.name.token}`
       }))

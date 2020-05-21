@@ -74,7 +74,7 @@ class VoiceDesigner extends React.PureComponent {
     const { program, programfields, fields } = this.props
     return [
       ...programfields.length > 0 ? [{
-        label: `${program.title} Fields`,
+        label: program.title,
         fields: programfields.map(field => ({
           name: field.label,
           key: `contact.${field.name}`,
@@ -92,7 +92,7 @@ class VoiceDesigner extends React.PureComponent {
   _getProperties() {
     const { program, programfields } = this.props
     return [
-      ...programfields.length > 0 ? [{ label: `${program.title} Properties`, fields: programfields.map(field => ({
+      ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
         name: field.label,
         key: `contact.${field.name}`,
         type: 'textfield'
@@ -103,7 +103,7 @@ class VoiceDesigner extends React.PureComponent {
   _getTokens() {
     const { program, programfields, tokens } = this.props
     return [
-      ...programfields.length > 0 ? [{ title: `${program.title} Tokens`, tokens: programfields.map(field => ({
+      ...programfields.length > 0 ? [{ title: program.title, tokens: programfields.map(field => ({
         name:   field.label,
         token: `program.${field.name}`
       }))}] : [],
