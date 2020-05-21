@@ -25,9 +25,13 @@ class ProgramChannels extends React.PureComponent {
     const Component = this._getComponent()
     return (
       <div className="crm-program-channels">
-        <Types { ...this._getTypes() } />
         <div className="crm-program-channels-sidebar">
-          <Channels { ...this._getChannels() } />
+          <div className="crm-program-channels-sidebar-header">
+            <Types { ...this._getTypes() } />
+          </div>
+          <div className="crm-program-channels-sidebar-body">
+            <Channels { ...this._getChannels() } />
+          </div>
         </div>
         { channel &&
           <Component { ...this._getChannel() } />

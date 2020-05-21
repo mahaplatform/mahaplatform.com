@@ -21,6 +21,7 @@
 }
 .crm-sms-channel-token {
   display: flex;
+  flex-direction: column;
   flex: 1;
   margin-bottom: 0.4em;
   &.program {
@@ -87,6 +88,14 @@
       order: 1;
     }
   }
+}
+.crm-sms-channel-token-identity {
+  color: fadeout(@black, 40);
+  font-size: 0.8em;
+  padding-left: 4.8em;
+}
+.crm-sms-channel-token-block {
+  display: flex;
 }
 .crm-sms-channel-token-avatar {
   flex: 0 0 3.4em;

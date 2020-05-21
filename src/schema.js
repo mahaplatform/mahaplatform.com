@@ -230,6 +230,17 @@ const schema = {
       table.integer('asset_id').unsigned()
     })
 
+    await knex.schema.createTable('crm_channel_views', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('email_address_id').unsigned()
+      table.integer('phone_number_id').unsigned()
+      table.string('type', 255)
+      table.timestamp('last_viewed_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_consents', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1448,6 +1459,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
+      table.integer('user_id').unsigned()
     })
 
     await knex.schema.createTable('maha_comments', (table) => {
@@ -1907,6 +1919,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
+      table.integer('user_id').unsigned()
     })
 
     await knex.schema.createTable('maha_sources', (table) => {
@@ -2974,10 +2987,11 @@ const schema = {
 
     await knex.schema.table('maha_calls', table => {
       table.foreign('from_id').references('maha_numbers.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('to_id').references('maha_numbers.id')
-      table.foreign('program_id').references('crm_programs.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_comments', table => {
@@ -3159,10 +3173,11 @@ const schema = {
 
     await knex.schema.table('maha_smses', table => {
       table.foreign('from_id').references('maha_numbers.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('to_id').references('maha_numbers.id')
-      table.foreign('program_id').references('crm_programs.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_stars', table => {
@@ -3362,6 +3377,12 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_channel_views', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('email_address_id').references('crm_email_addresses.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
     })
 
 
@@ -4250,6 +4271,47 @@ union
       left join lost on ((lost.sms_campaign_id = crm_sms_campaigns.id)))
       left join converted on ((converted.sms_campaign_id = crm_sms_campaigns.id)))
       left join completed on ((completed.sms_campaign_id = crm_sms_campaigns.id)));
+    `)
+
+    await knex.raw(`
+      create view crm_sms_receipts AS
+      with recipients as (
+      select distinct on (maha_smses.program_id, maha_smses.phone_number_id) crm_phone_numbers.contact_id,
+      maha_smses.program_id,
+      maha_smses.phone_number_id,
+      maha_smses.created_at as last_message_at
+      from ((maha_smses
+      join crm_phone_numbers on ((crm_phone_numbers.id = maha_smses.phone_number_id)))
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      order by maha_smses.program_id, maha_smses.phone_number_id, maha_smses.created_at desc
+      ), viewings as (
+      select recipients_1.program_id,
+      recipients_1.phone_number_id,
+      case
+      when (crm_channel_views.id is null) then crm_contacts.created_at
+      else crm_channel_views.last_viewed_at
+      end as last_viewed_at
+      from (((recipients recipients_1
+      join crm_phone_numbers on ((crm_phone_numbers.id = recipients_1.phone_number_id)))
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      left join crm_channel_views on (((crm_channel_views.phone_number_id = recipients_1.phone_number_id) and ((crm_channel_views.type)::text = 'sms'::text))))
+      ), messages as (
+      select maha_smses.id,
+      maha_smses.program_id,
+      maha_smses.phone_number_id
+      from (maha_smses
+      join viewings viewings_1 on (((viewings_1.phone_number_id = maha_smses.phone_number_id) and (viewings_1.program_id = maha_smses.program_id))))
+      where ((maha_smses.direction = 'inbound'::maha_smses_direction) and (maha_smses.created_at > viewings_1.last_viewed_at))
+      )
+      select recipients.contact_id,
+      recipients.program_id,
+      recipients.phone_number_id,
+      recipients.last_message_at,
+      count(messages.*) as unread
+      from ((recipients
+      join viewings on (((viewings.phone_number_id = recipients.phone_number_id) and (viewings.program_id = recipients.program_id))))
+      left join messages on (((messages.phone_number_id = recipients.phone_number_id) and (messages.program_id = recipients.program_id))))
+      group by recipients.phone_number_id, recipients.program_id, recipients.contact_id, recipients.last_message_at;
     `)
 
     await knex.raw(`

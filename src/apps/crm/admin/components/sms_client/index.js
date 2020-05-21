@@ -1,5 +1,5 @@
+import { Avatar, Image, Logo, Message } from 'maha-admin'
 import ContactAvatar from '../../tokens/contact_avatar'
-import { Image, Logo, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Composer from './composer'
 import moment from 'moment'
@@ -48,31 +48,41 @@ class SmsClient extends React.Component {
                   </div>
                   { session.blocks.map((block, bindex) => (
                     <div className={`crm-sms-channel-token ${block.type}`} key={`result_${bindex}`}>
-                      <div className="crm-sms-channel-token-avatar">
-                        { block.program &&
-                          <Logo team={ block.program } width="24" />
-                        }
-                        { block.contact &&
-                          <ContactAvatar { ...block.contact } />
-                        }
-                      </div>
-                      <div className="crm-sms-channel-token-details">
-                        <div className="crm-sms-channel-token-messages">
-                          { block.messages.map((message, mindex) => (
-                            <div className="crm-sms-channel-token-message" key={`message_${mindex}`}>
-                              <div className="crm-sms-channel-token-message-body">
-                                { message.text }
-                                { message.attachments.map((attachment, aindex) => (
-                                  <div className="crm-sms-channel-token-message-attachment" key={`attachment_${aindex}`}>
-                                    <Image src={attachment.asset.path} transforms={{ w: 200 }} />
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
+                      { block.user &&
+                        <div className="crm-sms-channel-token-identity">
+                          { block.user.full_name }
                         </div>
+                      }
+                      <div className="crm-sms-channel-token-block">
+                        <div className="crm-sms-channel-token-avatar">
+                          { block.user &&
+                            <Avatar user={ block.user } width="24" />
+                          }
+                          { block.program && !block.user &&
+                            <Logo team={ block.program } width="24" />
+                          }
+                          { block.contact &&
+                            <ContactAvatar { ...block.contact } />
+                          }
+                        </div>
+                        <div className="crm-sms-channel-token-details">
+                          <div className="crm-sms-channel-token-messages">
+                            { block.messages.map((message, mindex) => (
+                              <div className="crm-sms-channel-token-message" key={`message_${mindex}`}>
+                                <div className="crm-sms-channel-token-message-body">
+                                  { message.text }
+                                  { message.attachments.map((attachment, aindex) => (
+                                    <div className="crm-sms-channel-token-message-attachment" key={`attachment_${aindex}`}>
+                                      <Image src={attachment.asset.path} transforms={{ w: 200 }} />
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="crm-sms-channel-token-padding" />
                       </div>
-                      <div className="crm-sms-channel-token-padding" />
                     </div>
                   ))}
                 </div>
@@ -90,6 +100,7 @@ class SmsClient extends React.Component {
   componentDidMount() {
     this._handleJoin()
     this._handleFetch()
+    this._handleRead()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -129,7 +140,7 @@ class SmsClient extends React.Component {
         ...sessions.map((session, index) => {
           if(index !== sessionIndex) return session
           const last = session.blocks[session.blocks.length - 1]
-          const blockIndex = last && _.isEqual(last.contact, message.contact) && _.isEqual(last.program, message.program) ? session.blocks.length - 1 : -1
+          const blockIndex = last && _.isEqual(last.contact, message.contact) && _.isEqual(last.program, message.program) && _.isEqual(last.user, message.user) ? session.blocks.length - 1 : -1
           return {
             ...session,
             blocks: [
@@ -145,6 +156,7 @@ class SmsClient extends React.Component {
               }),
               ...blockIndex < 0 ? [{
                 type: message.program ? 'program' : 'contact',
+                user: message.user,
                 program: message.program,
                 contact: message.contact,
                 messages: [
@@ -159,6 +171,7 @@ class SmsClient extends React.Component {
           blocks: [
             {
               type: message.program ? 'program' : 'contact',
+              user: message.user,
               program: message.program,
               contact: message.contact,
               messages: [
@@ -198,6 +211,14 @@ class SmsClient extends React.Component {
     network.unsubscribe([
       { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
+  }
+
+  _handleRead() {
+    const { phone_number, program } = this.props
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}/read`,
+      method: 'patch'
+    })
   }
 
   _handleScrollToBottom() {

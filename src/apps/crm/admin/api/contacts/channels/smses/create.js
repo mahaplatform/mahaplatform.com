@@ -35,6 +35,7 @@ const createRoute = async (req, res) => {
   })
 
   const sms = await sendSMS(req, {
+    user_id: req.user.get('id'),
     from: program.related('phone_number').get('number'),
     to: to.get('number'),
     body: req.body.body,

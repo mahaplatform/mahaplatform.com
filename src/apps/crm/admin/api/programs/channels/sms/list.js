@@ -1,4 +1,4 @@
-import SMS from '../../../../../../maha/models/sms'
+import SMSReceipt from '../../../../../models/sms_receipt'
 import Program from '../../../../../models/program'
 
 const listRoute = async (req, res) => {
@@ -17,27 +17,36 @@ const listRoute = async (req, res) => {
     message: 'Unable to load program'
   })
 
-  const smses = await SMS.filterFetch({
+  const smses = await SMSReceipt.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (program_id, phone_number_id) maha_smses.*'))
-      qb.where('program_id', program.get('id'))
-      qb.orderByRaw('program_id, phone_number_id, created_at desc')
+      qb.innerJoin('crm_phone_numbers', 'crm_phone_numbers.id','crm_sms_receipts.phone_number_id')
+      qb.innerJoin('crm_contacts', 'crm_contacts.id','crm_sms_receipts.contact_id')
+      qb.where('crm_sms_receipts.program_id', program.get('id'))
+      qb.orderByRaw('crm_sms_receipts.last_message_at desc')
+    },
+    aliases: {
+      first_name: 'crm_contacts.first_name',
+      last_name: 'crm_contacts.last_name'
+    },
+    filter: {
+      params: req.query.$filter,
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,
-      defaults: '-created_at',
-      allowed: ['created_at']
+      defaults: '-last_message_at',
+      allowed: ['last_message_at']
     },
     page: req.query.$page,
-    withRelated: ['phone_number.contact'],
+    withRelated: ['contact.photo','phone_number'],
     transacting: req.trx
   })
 
   res.status(200).respond(smses, (req, sms) => {
     const phone_number = sms.related('phone_number')
-    const contact = phone_number.related('contact')
+    const contact = sms.related('contact')
     return {
-      id: sms.get('id'),
+      id: contact.get('id'),
       phone_number: {
         id: phone_number.get('id'),
         number: phone_number.get('number')
@@ -49,7 +58,8 @@ const listRoute = async (req, res) => {
         rfc822: contact.get('rfc822'),
         email: contact.get('email'),
         photo: contact.related('photo') ? contact.related('photo').get('path') : null
-      }
+      },
+      unread: sms.get('unread')
     }
   })
 

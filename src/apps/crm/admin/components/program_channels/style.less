@@ -5,11 +5,14 @@
 }
 .crm-program-channels-types {
   background-color: fadeout(@black, 90);
+  display: flex;
 }
 .crm-program-channels-type {
-  padding: 1em;
+  flex: 1;
+  padding: 0.8em;
   color: fadeout(@black, 60);
   cursor: pointer;
+  text-align: center;
   &.selected {
     background-color: fadeout(@black, 90) !important;
   }
@@ -21,7 +24,13 @@
   }
 }
 .crm-program-channels-sidebar {
+  border-right: 1px solid fadeout(@black, 90);
   flex: 0 0 350px;
+  display: flex;
+  flex-direction: column;
+}
+.crm-program-channels-sidebar-body {
+  flex: 1;
   display: flex;
 }
 .crm-program-channels-body {
@@ -29,11 +38,20 @@
   display: flex;
 }
 .crm-program-channels-channels {
-  .scrollable();
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.crm-program-channels-channels-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.crm-program-channels-channels-body {
+  display: flex;
   flex: 1;
 }
 .crm-program-channels-channel {
   border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
   cursor: pointer;
   &.selected {
     background-color: fadeout(@black, 95) !important;
@@ -41,4 +59,24 @@
   &:hover {
     background-color: fadeout(@black, 97);
   }
+}
+.crm-program-channels-channel-token {
+  display: flex;
+  flex: 1;
+}
+.crm-program-channels-channel-unread {
+  padding: 0.8em;
+}
+.crm-program-channels-channel-unread-count {
+  background-color: @blue;
+  color: @white;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  height: 1.6em;
+  width: 1.6em;
+  margin: auto;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  font-weight: bold;
 }

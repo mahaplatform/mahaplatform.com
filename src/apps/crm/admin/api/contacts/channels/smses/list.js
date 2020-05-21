@@ -46,7 +46,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from','attachments.asset'],
+    withRelated: ['to','from','attachments.asset','user.photo'],
     transacting: req.trx
   })
 
@@ -64,6 +64,12 @@ const listRoute = async (req, res) => {
       id: program.get('id'),
       title: program.get('title'),
       logo: program.related('logo') ? program.related('logo').get('path') : null
+    } : null,
+    user: sms.get('user_id') ? {
+      id: sms.related('user').get('id'),
+      full_name: sms.related('user').get('full_name'),
+      initials: sms.related('user').get('initials'),
+      photo: sms.related('user').related('photo') ? sms.related('user').related('photo').get('path') : null
     } : null,
     attachments: sms.related('attachments').map(attachment => ({
       id: attachment.get('id'),
