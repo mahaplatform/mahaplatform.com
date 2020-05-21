@@ -24,6 +24,7 @@ import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
 import ContactsChannelsShow from './contacts/channels'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
+import ContactsCallsShow from './contacts/calls/show'
 import ContactsEmailsShow from './contacts/email'
 import EmailsActivities from './emails/activities'
 import EmailsBouncesList from './emails/deliveries/bounces'
@@ -78,6 +79,7 @@ const routes = [
   { path: '/campaigns/voice/:campaign_id/calls/:id', component: CampaignsVoiceCallsShow },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
+  { path: '/contacts/:contact_id/calls/:id', component: ContactsCallsShow },
   { path: '/contacts/:contact_id/emails/:id', component: ContactsEmailsShow },
   { path: '/contacts/:contact_id/channels/programs/:program_id', component: ContactsChannelsShow },
   { path: '/contacts/:contact_id/channels/programs/:program_id/:type/:channel_id', component: ContactsChannelsShow },

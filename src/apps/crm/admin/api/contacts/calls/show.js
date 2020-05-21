@@ -1,22 +1,29 @@
-import ContactCallSerializer from '../../../../serializers/contact_call_serializer'
-import ContactCall from '../../../../models/contact_call'
+import CallSerializer from '../../../../serializers/call_serializer'
+import Call from '../../../../../maha/models/call'
+import Contact from '../../../../models/contact'
 
 const showRoute = async (req, res) => {
 
-  const call = await ContactCall.where({
-    contact_id: req.params.contact_id,
-    id: req.params.id
+  const contact = await Contact.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.contact_id)
   }).fetch({
-    withRelated: ['attachments'],
     transacting: req.trx
   })
 
-  if(!call) return res.status(404).respond({
+  if(!contact) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load call'
+    message: 'Unable to load contact'
   })
 
-  res.status(200).respond(call, ContactCallSerializer)
+  const call = await Call.query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo'],
+    transacting: req.trx
+  })
+
+  res.status(200).respond(call, CallSerializer)
 
 }
 

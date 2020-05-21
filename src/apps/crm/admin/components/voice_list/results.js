@@ -1,3 +1,5 @@
+import ContactAvatar from '../../tokens/contact_avatar'
+import { Avatar, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
@@ -21,14 +23,22 @@ class Results extends React.Component {
           <div className="crm-voice-channel-result" key={`result_${index}`} onClick={ this._handleClick.bind(this, call)}>
             <div className="crm-voice-channel-result-token">
               <div className="crm-voice-channel-token">
-                <div className="crm-voice-channel-token-icon">
-                  <i className={`fa fa-${this._getIcon(call)}`} />
+                <div className="crm-voice-channel-token-avatar">
+                  { call.direction === 'outbound' && call.user &&
+                    <Avatar user={ call.user } width="24" />
+                  }
+                  { call.direction === 'outbound' && call.program && !call.user &&
+                    <Logo team={ call.program } width="24" />
+                  }
+                  { call.direction === 'inbound' && call.contact &&
+                    <ContactAvatar { ...call.contact } />
+                  }
                 </div>
                 <div className="crm-voice-channel-token-label">
                   <strong>{ this._getNumber(call) }</strong><br />
                   { call.direction } call
                   <div className="crm-voice-channel-token-timestamp">
-                    { moment(call.created_at).format('MMM DD') }
+                    { this._getTimestamp(call) }
                   </div>
                 </div>
               </div>
@@ -42,8 +52,14 @@ class Results extends React.Component {
     )
   }
 
-  _getIcon(call) {
-    return call.direction === 'outbound' ? 'arrow-circle-right' : 'arrow-circle-left'
+  _getTimestamp(call) {
+    const today = moment().startOf('day')
+    const yesterday = moment().subtract(1, 'day').startOf('day')
+    const created_at = moment(call.created_at)
+    if(today.format('YYMMDD') === created_at.format('YYMMDD')) return created_at.format('h:mmA')
+    if(yesterday.format('YYMMDD') === created_at.format('YYMMDD')) return 'Yesterday'
+    if(today.diff(created_at, 'days') < 7) return created_at.format('dddd')
+    return created_at.format('MM/DD/YY')
   }
 
   _getNumber(call) {

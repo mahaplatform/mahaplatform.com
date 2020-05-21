@@ -14,6 +14,7 @@ class VoiceClient extends React.Component {
   static propTypes = {
     cancelIcon: PropTypes.string,
     cancelText: PropTypes.string,
+    channel: PropTypes.object,
     contact: PropTypes.object,
     doneText: PropTypes.string,
     phone_number: PropTypes.object,
@@ -44,7 +45,7 @@ class VoiceClient extends React.Component {
   _handleReady = this._handleReady.bind(this)
 
   render() {
-    const { contact, phone_number } = this.props
+    const { contact, channel, phone_number } = this.props
     const { error, loaded, ready, status } = this.state
     const loading = !loaded || !ready
     return (
@@ -52,10 +53,12 @@ class VoiceClient extends React.Component {
         { loading && <Loader /> }
         { !loading &&
           <div className="crm-call">
-            <div className="crm-channel-alert">
-              This contact has not given you consent to send marketing related
-              messages on this channel
-            </div>
+            { !channel.has_consented &&
+              <div className="crm-channel-alert">
+                This contact has not given you consent to send marketing related
+                messages on this channel
+              </div>
+            }
             <div className="crm-call-panel">
               <ContactAvatar { ...contact } />
               <h2>{ contact.display_name }</h2>
@@ -219,6 +222,7 @@ class VoiceClient extends React.Component {
 }
 
 const mapResources = (props, context) => ({
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/voice/${props.phone_number.id}`,
   token: `/api/admin/phone_numbers/${props.program.phone_number.id}/token`
 })
 

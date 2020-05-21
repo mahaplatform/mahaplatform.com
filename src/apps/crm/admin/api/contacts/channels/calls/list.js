@@ -28,7 +28,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from'],
+    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo'],
     transacting: req.trx
   })
 
@@ -36,6 +36,23 @@ const listRoute = async (req, res) => {
     id: call.get('id'),
     direction: call.get('direction'),
     duration: call.get('duration'),
+    contact: {
+      id: call.related('phone_number').related('contact').get('id'),
+      full_name: call.related('phone_number').related('contact').get('full_name'),
+      initials: call.related('phone_number').related('contact').get('initials'),
+      photo: call.related('phone_number').related('contact').related('photo') ? call.related('phone_number').related('contact').related('photo').get('path') : null
+    },
+    user: call.get('user_id') ? {
+      id: call.related('user').get('id'),
+      full_name: call.related('user').get('full_name'),
+      initials: call.related('user').get('initials'),
+      photo: call.related('user').related('photo') ? call.related('user').related('photo').get('path') : null
+    } : null,
+    program: {
+      id: call.related('program').get('id'),
+      title: call.related('program').get('title'),
+      logo: call.related('program').related('logo') ? call.related('program').related('logo').get('path') : null
+    },
     from: {
       id: call.related('from').get('id'),
       number: call.related('from').get('formatted')
@@ -46,7 +63,6 @@ const listRoute = async (req, res) => {
     },
     created_at: call.get('created_at'),
     updated_at: call.get('updated_at')
-
   }))
 
 }

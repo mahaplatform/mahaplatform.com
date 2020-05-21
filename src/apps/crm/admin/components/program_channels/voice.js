@@ -1,4 +1,4 @@
-import SMSClient from '../sms_client'
+import VoiceList from '../voice_list'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -10,10 +10,10 @@ class Voice extends React.PureComponent {
   }
 
   render() {
-    return <SMSClient { ...this._getSMSClient() } />
+    return <VoiceList { ...this._getVoiceList() } />
   }
 
-  _getSMSClient() {
+  _getVoiceList() {
     const { channel, program } = this.props
     const { contact, phone_number } = channel
     return {

@@ -1,10 +1,10 @@
 import { Button, Infinite } from 'maha-admin'
-import VoiceClient from '../../voice_client'
+import VoiceClient from '../voice_client'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
 
-class Voice extends React.Component {
+class VoiceList extends React.Component {
 
   static propTypes = {
     contact: PropTypes.object,
@@ -60,4 +60,4 @@ class Voice extends React.Component {
 
 }
 
-export default Voice
+export default VoiceList

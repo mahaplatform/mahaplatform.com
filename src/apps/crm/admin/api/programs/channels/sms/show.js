@@ -22,6 +22,7 @@ const showRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('program_id', program.get('id'))
     qb.where('phone_number_id', req.params.id)
+    qb.where('type', 'sms')
   }).fetch({
     withRelated: ['phone_number'],
     transacting: req.trx

@@ -16,6 +16,7 @@ const makeHook = async (req, { call, phone_number, user_id }) => {
   })
 
   await call.save({
+    user_id,
     program_id: phone_number.related('program').get('id'),
     phone_number_id: to.get('id')
   },{

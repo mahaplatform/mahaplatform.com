@@ -1,5 +1,6 @@
 import VoiceCampaign from '../../crm/models/voice_campaign'
 import PhoneNumber from '../../crm/models/phone_number'
+import Program from '../../crm/models/program'
 import Model from '../../../core/objects/model'
 import Number from './number'
 import User from './user'
@@ -22,6 +23,10 @@ const Call = new Model({
 
   phone_number() {
     return this.belongsTo(PhoneNumber, 'phone_number_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   },
 
   voice_campaign() {

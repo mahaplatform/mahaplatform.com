@@ -2,7 +2,7 @@ import { Container, List } from 'maha-admin'
 import SmsClient from '../sms_client'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Voice from './voice'
+import VoiceList from '../voice_list'
 import Email from './email'
 import React from 'react'
 import _ from 'lodash'
@@ -48,12 +48,6 @@ class Channels extends React.PureComponent {
           ))}
         </div>
         <div className="crm-channels-body">
-          { !channel.has_consented &&
-            <div className="crm-channel-alert">
-              This contact has not given you consent to send marketing related
-              messages on this channel
-            </div>
-          }
           <Component { ...this._getChannel(channel) } key={`channel_${channel.id}`} />
         </div>
       </div>
@@ -70,7 +64,7 @@ class Channels extends React.PureComponent {
   _getComponent(channel) {
     if(channel.type === 'email') return Email
     if(channel.type === 'sms') return SmsClient
-    if(channel.type === 'voice') return Voice
+    if(channel.type === 'voice') return VoiceList
   }
 
   _getChannel(channel) {
