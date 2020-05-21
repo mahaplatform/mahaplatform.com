@@ -21,7 +21,7 @@ const getPhoneNumber = async (req, { contact }) => {
 
 }
 
-const message = async (req, { config, contact, enrollment, tokens }) => {
+const smsMessage = async (req, { config, contact, enrollment, tokens }) => {
 
   await enrollment.load(['sms_campaign.program.phone_number'], {
     transacting: req.trx
@@ -58,4 +58,4 @@ const message = async (req, { config, contact, enrollment, tokens }) => {
 
 }
 
-export default message
+export default smsMessage

@@ -2,7 +2,9 @@ import WorkflowEnrollment from '../../models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
 import { contactActivity } from '../activities'
 
-export const enrollInCampaign = async (req, { contact, call, voice_campaign }) => {
+export const enrollInCampaign = async (req, params) => {
+
+  const { contact, call, phone_number, voice_campaign } = params
 
   const code = await generateCode(req, {
     table: 'crm_workflow_enrollments'
@@ -13,6 +15,7 @@ export const enrollInCampaign = async (req, { contact, call, voice_campaign }) =
     voice_campaign_id: voice_campaign.get('id'),
     contact_id: contact.get('id'),
     call_id: call.get('id'),
+    phone_number_id: phone_number.get('id'),
     code,
     data: {},
     was_hungup: false,

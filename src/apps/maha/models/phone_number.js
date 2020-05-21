@@ -1,3 +1,4 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 
@@ -22,8 +23,19 @@ const PhoneNumber = new Model({
     },
 
     formatted() {
-      const parts = this.get('number').match(/\+1(\d{3})(\d{3})(\d{4})/)
-      return `(${parts[1]}) ${parts[2]}-${parts[3]}`
+      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
+      return phoneNumber.formatNational()
+    },
+
+    spoken() {
+      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
+      const parts = []
+      parts.push('area code')
+      parts.push(phoneNumber.nationalNumber.split('').join(' '))
+      if(!phoneNumber.ext) return parts.join(' ')
+      parts.push('extension')
+      parts.push(phoneNumber.ext.split('').join(' '))
+      return parts.join(' ')
     }
 
   },

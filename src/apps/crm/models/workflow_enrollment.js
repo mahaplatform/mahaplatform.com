@@ -1,4 +1,5 @@
 import Registration from '../../events/models/registration'
+import PhoneNumber from '../models/phone_number'
 import Model from '../../../core/objects/model'
 import knex from '../../../core/services/knex'
 import WorkflowAction from './workflow_action'
@@ -35,6 +36,10 @@ const WorkflowEnrollment = new Model({
 
   email() {
     return this.belongsTo(Email, 'email_id')
+  },
+
+  phone_number() {
+    return this.belongsTo(PhoneNumber, 'phone_number_id')
   },
 
   registration() {

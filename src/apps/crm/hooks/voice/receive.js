@@ -85,6 +85,7 @@ const receive = async (req, { call, phone_number }) => {
   if(!voice_campaign) return
 
   const enrollment = await enrollInCampaign(req, {
+    phone_number: from,
     voice_campaign,
     call,
     contact: from.related('contact')

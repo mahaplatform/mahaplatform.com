@@ -19,7 +19,7 @@ import sendEmail from './send_email'
 import controlIfThen from './ifthen'
 import voicePlay from './voice_play'
 import voiceSay from './voice_say'
-import smsMessage from './message'
+import smsMessage from './sms_message'
 import sendSms from './send_sms'
 import controlWait from './wait'
 import controlGoal from './goal'
@@ -159,7 +159,7 @@ const getData = async(req, { contact, enrollment, steps }) => ({
   }
 })
 
-const getTokens = async(req, { contact, data, steps }) => ({
+const getTokens = async(req, { contact, enrollment, steps }) => ({
   contact: {
     full_name: contact.get('full_name'),
     first_name: contact.get('first_name'),
@@ -168,11 +168,20 @@ const getTokens = async(req, { contact, data, steps }) => ({
     phone: contact.get('phone'),
     address: contact.get('address')
   },
+  ...enrollment.get('call_id') ? {
+    call: enrollment.related('call').get('direction') === 'inbound' ? {
+      to_number: enrollment.related('voice_campaign').related('phone_number').get('spoken'),
+      from_number: enrollment.related('phone_number').get('spoken')
+    } : {
+      to_number: enrollment.related('phone_number').get('spoken'),
+      from_number: enrollment.related('voice_campaign').related('phone_number').get('spoken')
+    }
+  } : {},
   workflow: steps.filter((step) => {
     return _.includes(['set','question','record'], step.get('action'))
   }).reduce((tokens, step) => ({
     ...tokens,
-    [step.get('config').name.token]: data[step.get('config').code]
+    [step.get('config').name.token]: enrollment.get('data')[step.get('config').code]
   }), {})
 })
 
@@ -239,7 +248,7 @@ const executeWorkflow = async (req, params) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['workflow.steps','sms_campaign.steps','voice_campaign.steps','voice_campaign.phone_number'],
+    withRelated: ['workflow.steps','sms_campaign.steps','voice_campaign.steps','call','voice_campaign.phone_number','phone_number'],
     transacting: req.trx
   })
 
@@ -269,7 +278,7 @@ const executeWorkflow = async (req, params) => {
 
   const tokens = await getTokens(req, {
     contact,
-    data: enrollment.get('data'),
+    enrollment,
     steps
   })
 
