@@ -19,16 +19,30 @@ const CallSerializer = (req, result) => ({
     title: result.related('program').get('title'),
     logo: result.related('program').related('logo') ? result.related('program').related('logo').get('path') : null
   },
-  from: {
-    id: result.related('from').get('id'),
-    number: result.related('from').get('formatted')
-  },
-  to: {
-    id: result.related('to').get('id'),
-    number: result.related('to').get('formatted')
-  },
+  from: number(result.related('from')),
+  to: number(result.related('to')),
+  voice_campaign: voice_campaign(result.related('enrollment')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const number = (number) => {
+  if(!number.id) return null
+  return {
+    id: number.get('id'),
+    number: number.get('number'),
+    formatted: number.get('formatted')
+  }
+}
+
+const voice_campaign = (enrollment) => {
+  if(!enrollment.id) return null
+  const voice_campaign = enrollment.related('voice_campaign')
+  return {
+    id: voice_campaign.get('id'),
+    direction: voice_campaign.get('direction'),
+    title: voice_campaign.get('title')
+  }
+}
 
 export default CallSerializer

@@ -1,4 +1,4 @@
-import { Button, Infinite } from 'maha-admin'
+import { Button, Container, Infinite } from 'maha-admin'
 import VoiceClient from '../voice_client'
 import PropTypes from 'prop-types'
 import Results from './results'
@@ -7,14 +7,22 @@ import React from 'react'
 class VoiceList extends React.Component {
 
   static propTypes = {
+    channel: PropTypes.object,
     contact: PropTypes.object,
     phone_number: PropTypes.object,
     program: PropTypes.object
   }
 
   render() {
+    const { channel } = this.props
     return (
       <div className="crm-voice-channel">
+        { !channel.has_consented &&
+          <div className="crm-channel-alert">
+            This contact has not given consent to send marketing related
+            messages on this channel
+          </div>
+        }
         <div className="crm-voice-channel-body">
           <Infinite { ...this._getInfinite() } />
         </div>
@@ -43,8 +51,8 @@ class VoiceList extends React.Component {
   _getInfinite() {
     const { contact, phone_number, program } = this.props
     return {
-      endpoint: `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${phone_number.id}/calls`,
-      refresh: `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/voice/${phone_number.id}/calls`,
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/${phone_number.id}/calls`,
+      refresh: `/admin/crm/programs/${program.id}/channels/voice/${phone_number.id}/calls`,
       empty: {
         icon: 'phone',
         title: 'No Calls',
@@ -60,4 +68,8 @@ class VoiceList extends React.Component {
 
 }
 
-export default VoiceList
+const mapResources = (props, context) => ({
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/voice/${props.phone_number.id}`
+})
+
+export default Container(mapResources)(VoiceList)

@@ -1,4 +1,4 @@
-import VoiceCampaign from '../../crm/models/voice_campaign'
+import WorkflowEnrollment from '../../crm/models/workflow_enrollment'
 import PhoneNumber from '../../crm/models/phone_number'
 import Program from '../../crm/models/program'
 import Model from '../../../core/objects/model'
@@ -12,6 +12,10 @@ const Call = new Model({
   rules: {},
 
   virtuals: {},
+
+  enrollment() {
+    return this.hasOne(WorkflowEnrollment, 'call_id')
+  },
 
   from() {
     return this.belongsTo(Number, 'from_id')
@@ -27,10 +31,6 @@ const Call = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
-  },
-
-  voice_campaign() {
-    return this.hasOne(VoiceCampaign, 'voice_campaign_id')
   },
 
   user() {

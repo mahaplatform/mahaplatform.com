@@ -1,6 +1,7 @@
 import { lookupNumber } from '../../../maha/services/phone_numbers'
 import { enrollInCampaign } from '../../services/voice_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
+import socket from '../../../../core/services/routes/emitter'
 import { executeWorkflow } from '../../services/workflows'
 import VoiceCampaign from '../../models/voice_campaign'
 import PhoneNumber from '../../models/phone_number'
@@ -68,6 +69,10 @@ const receive = async (req, { call, phone_number }) => {
   },{
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/voice/${from.get('id')}/calls`
+  ])
 
   const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('phone_number_id', phone_number.get('id'))

@@ -55,7 +55,7 @@ class VoiceClient extends React.Component {
           <div className="crm-call">
             { !channel.has_consented &&
               <div className="crm-channel-alert">
-                This contact has not given you consent to send marketing related
+                This contact has not given consent to send marketing related
                 messages on this channel
               </div>
             }

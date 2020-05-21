@@ -36,7 +36,7 @@ class Results extends React.Component {
                 </div>
                 <div className="crm-voice-channel-token-label">
                   <strong>{ this._getNumber(call) }</strong><br />
-                  { call.direction } call
+                  { this._getDescription(call) }
                   <div className="crm-voice-channel-token-timestamp">
                     { this._getTimestamp(call) }
                   </div>
@@ -52,6 +52,11 @@ class Results extends React.Component {
     )
   }
 
+  _getDescription(call) {
+    if(call.voice_campaign) return `${call.voice_campaign.direction} voice campaign`
+    return `${ call.direction } call`
+  }
+
   _getTimestamp(call) {
     const today = moment().startOf('day')
     const yesterday = moment().subtract(1, 'day').startOf('day')
@@ -63,7 +68,7 @@ class Results extends React.Component {
   }
 
   _getNumber(call) {
-    return call.direction === 'outbound' ? call.from.number : call.to.number
+    return call.direction === 'outbound' ? call.from.formatted : call.to.formatted
   }
 
   _handleClick(call) {

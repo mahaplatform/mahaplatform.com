@@ -24,7 +24,7 @@ const makeHook = async (req, { call, phone_number, user_id }) => {
   })
 
   await socket.refresh(req, [
-    `/admin/crm/contacts/${to.get('contact_id')}/channels/programs/${phone_number.related('program').get('id')}/voice/${to.get('id')}/calls`
+    `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/voice/${to.get('id')}/calls`
   ])
 
   const response = new twiml.VoiceResponse()
