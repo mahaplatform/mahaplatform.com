@@ -113,16 +113,24 @@ const getNextStep = async (req, { parent, answer, delta, steps }) => {
 }
 
 const getWorkflow = async (req, { enrollment }) => {
-  if(enrollment.get('voice_campaign_id')) return enrollment.related('voice_campaign')
-  if(enrollment.get('sms_campaign_id')) return enrollment.related('sms_campaign')
-  if(enrollment.get('workflow_id')) return enrollment.related('workflow')
-}
-
-const getSteps = async (req, { enrollment }) => {
-  const workflow = await getWorkflow(req, {
-    enrollment
-  })
-  return workflow.related('steps').toArray()
+  if(enrollment.get('voice_campaign_id')) {
+    await enrollment.load(['voice_campaign.steps','voice_campaign.phone_number','call','phone_number'], {
+      transacting: req.trx
+    })
+    return enrollment.related('voice_campaign')
+  }
+  if(enrollment.get('sms_campaign_id')) {
+    await enrollment.load(['sms_campaign.steps','sms_campaign.phone_number','phone_number'], {
+      transacting: req.trx
+    })
+    return enrollment.related('sms_campaign')
+  }
+  if(enrollment.get('workflow_id')) {
+    await enrollment.load(['workflow.steps'], {
+      transacting: req.trx
+    })
+    return enrollment.related('workflow')
+  }
 }
 
 const refresh = async (req, { enrollment }) => {
@@ -159,7 +167,7 @@ const getData = async(req, { contact, enrollment, steps }) => ({
   }
 })
 
-const getTokens = async(req, { contact, enrollment, steps }) => ({
+const getTokens = async(req, { contact, enrollment, steps, workflow }) => ({
   contact: {
     full_name: contact.get('full_name'),
     first_name: contact.get('first_name'),
@@ -171,17 +179,26 @@ const getTokens = async(req, { contact, enrollment, steps }) => ({
     spouse: contact.get('spouse'),
     url: contact.get('url')
   },
-  ...enrollment.get('call_id') ? {
-    call: enrollment.related('call').get('direction') === 'inbound' ? {
+  ...enrollment.get('voice_campaign_id') ? {
+    call: workflow.get('direction') === 'inbound' ? {
       from_number: enrollment.related('phone_number').get('formatted'),
       from_number_spoken: enrollment.related('phone_number').get('spoken'),
-      to_number: enrollment.related('voice_campaign').related('phone_number').get('formatted'),
-      to_number_spoken: enrollment.related('voice_campaign').related('phone_number').get('spoken')
+      to_number: workflow.related('phone_number').get('formatted'),
+      to_number_spoken: workflow.related('phone_number').get('spoken')
     } : {
-      from_number: enrollment.related('voice_campaign').related('phone_number').get('formatted'),
-      from_number_spoken: enrollment.related('voice_campaign').related('phone_number').get('spoken'),
+      from_number: workflow.related('phone_number').get('formatted'),
+      from_number_spoken: workflow.related('phone_number').get('spoken'),
       to_number: enrollment.related('phone_number').get('formatted'),
       to_number_spoken: enrollment.related('phone_number').get('spoken')
+    }
+  } : {},
+  ...enrollment.get('sms_campaign_id') ? {
+    session: workflow.get('direction') === 'inbound' ? {
+      from_number: enrollment.related('phone_number').get('formatted'),
+      to_number: workflow.related('phone_number').get('formatted')
+    } : {
+      from_number: workflow.related('phone_number').get('formatted'),
+      to_number: enrollment.related('phone_number').get('formatted')
     }
   } : {},
   workflow: steps.filter((step) => {
@@ -255,7 +272,6 @@ const executeWorkflow = async (req, params) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['workflow.steps','sms_campaign.steps','voice_campaign.steps','call','voice_campaign.phone_number','phone_number'],
     transacting: req.trx
   })
 
@@ -267,9 +283,11 @@ const executeWorkflow = async (req, params) => {
     transacting: req.trx
   })
 
-  const steps = await getSteps(req, {
+  const workflow = await getWorkflow(req, {
     enrollment
   })
+
+  const steps = workflow.related('steps').toArray()
 
   const step = await getCurrentStep(req, {
     enrollment,
@@ -286,7 +304,8 @@ const executeWorkflow = async (req, params) => {
   const tokens = await getTokens(req, {
     contact,
     enrollment,
-    steps
+    steps,
+    workflow
   })
 
   const data = await getData(req, {

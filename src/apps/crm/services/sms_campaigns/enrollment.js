@@ -3,7 +3,9 @@ import WorkflowEnrollment from '../../models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
 import { contactActivity } from '../activities'
 
-export const enrollInCampaign = async (req, { contact, sms_campaign }) => {
+export const enrollInCampaign = async (req, params) => {
+
+  const { contact, phone_number, sms_campaign } = params
 
   const existing = WorkflowEnrollment.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -24,6 +26,7 @@ export const enrollInCampaign = async (req, { contact, sms_campaign }) => {
     team_id: req.team.get('id'),
     sms_campaign_id: sms_campaign.get('id'),
     contact_id: contact.get('id'),
+    phone_number_id: phone_number.get('id'),
     code,
     data: {},
     status: 'active',
