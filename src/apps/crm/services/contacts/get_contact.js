@@ -40,7 +40,7 @@ const getContactByPhones = async (req, params) => {
 
   if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(params.phones)) return null
 
-  const phones = params.phones.filter(phone => {
+  const phones = _.castArray(params.phones).filter(phone => {
     return !_.isNil(phone) && phone.length > 0
   }).map(phone => {
     return getFormattedNumber(phone)
@@ -73,7 +73,7 @@ const getContactByAddresses = async (req,  params) => {
 
   if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(params.addresses)) return null
 
-  const addresses = params.addresses.filter(address => {
+  const addresses = _.castArray(params.addresses).filter(address => {
     return !_.isNil(address)
   }).map(address => {
     return address.street_1.toLowerCase()
