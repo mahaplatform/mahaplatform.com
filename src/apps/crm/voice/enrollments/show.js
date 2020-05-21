@@ -31,7 +31,10 @@ const showRoute = async (req, res) => {
     code: req.params.code,
     execute: !_.includes(['gather','next'], req.params.verb),
     answer: req.params.verb === 'gather' ? req.body.Digits : null,
-    recording: req.params.verb === 'record' ? req.body.RecordingUrl : null
+    recording: req.params.verb === 'record' ? {
+      url: req.body.RecordingUrl,
+      duration: req.body.RecordingDuration
+    } : null
   }) || {}
 
   if(result.twiml) {

@@ -1,6 +1,8 @@
 import SaveWorkflowRecordingQueue from '../../../queues/save_workflow_recording_queue'
 import executeWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
+import WorkflowRecording from '../../../models/workflow_recording'
+import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import WorkflowAction from '../../../models/workflow_action'
 import sendInternalEmail from './send_internal_email'
@@ -205,15 +207,47 @@ const getTokens = async(req, { contact, enrollment, steps, workflow }) => ({
     return _.includes(['set','question','record'], step.get('action'))
   }).reduce((tokens, step) => ({
     ...tokens,
-    [step.get('config').name.token]: enrollment.get('data')[step.get('config').code]
+    ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
   }), {})
 })
 
+const getToken = (action, config, data) => {
+  const key = action === 'record' ? `${config.name.token}_recording_url` : config.name.token
+  return { [key]: data[config.code] }
+}
+
+const saveRecording = async(req, { action, recording_data }) => {
+
+  const { url, duration } = recording_data
+
+  const code = await generateCode(req, {
+    table: 'crm_workflow_recordings'
+  })
+
+  const recording = await WorkflowRecording.forge({
+    team_id: req.team.get('id'),
+    action_id: action.get('id'),
+    code,
+    duration
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await SaveWorkflowRecordingQueue.enqueue(req, {
+    recording_id: recording.get('id'),
+    action_id: action.get('id'),
+    url: url
+  })
+
+  return recording
+
+}
+
 const saveResults = async (req, params) => {
 
-  const { enrollment, step, recording_url, unenroll } = params
+  const { enrollment, step, recording_data, unenroll } = params
 
-  const data = params.data || {}
+  const data = params.data ? params.data.data : {}
 
   const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
@@ -224,21 +258,23 @@ const saveResults = async (req, params) => {
     transacting: req.trx
   })
 
-  if(recording_url) {
-    await SaveWorkflowRecordingQueue.enqueue(req, {
-      action_id: action.get('id'),
-      url: recording_url
+  if(recording_data) {
+
+    const recording = await saveRecording(req, {
+      action,
+      recording_data
     })
+
+    data[step.get('config').code] = recording.get('url')
+
   }
 
-  if(data.data || unenroll) {
+  if(data || unenroll) {
     await enrollment.save({
-      ...data ? {
-        data: {
-          ...enrollment.get('data') || {},
-          ...data.data || {}
-        }
-      } : {},
+      data: {
+        ...enrollment.get('data') || {},
+        ...data
+      },
       ...unenroll ? {
         status: 'lost',
         unenrolled_at: moment()
@@ -325,7 +361,7 @@ const executeWorkflow = async (req, params) => {
     tokens
   })
 
-  const { condition, recording_url, twiml, unenroll, until, wait } = result
+  const { condition, recording_data, twiml, unenroll, until, wait } = result
 
   if(twiml) return { twiml }
 
@@ -334,7 +370,7 @@ const executeWorkflow = async (req, params) => {
   await saveResults(req, {
     enrollment,
     data: result.data,
-    recording_url,
+    recording_data,
     step,
     unenroll
   })

@@ -61,12 +61,7 @@ const reviewRecording = async (req, { enrollment, step, recording }) => {
 }
 
 const saveRecording = async (req, { config, enrollment, step, recording }) => ({
-  data: {
-    data: {
-      [config.code]: recording
-    }
-  },
-  recording_url: recording
+  recording_data: recording
 })
 
 const confirmRecording = async (req, { config, enrollment, step }) => {
@@ -76,12 +71,7 @@ const confirmRecording = async (req, { config, enrollment, step }) => {
   const { recording } = JSON.parse(data)
 
   return {
-    data: {
-      data: {
-        [config.code]: recording
-      }
-    },
-    recording_url: recording
+    recording_data: recording
   }
 
 }

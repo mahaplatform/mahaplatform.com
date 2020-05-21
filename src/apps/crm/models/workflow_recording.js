@@ -8,7 +8,13 @@ const WorkflowRecording = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    url() {
+      return `${process.env.WEB_HOST}/crm/recordings/${this.get('code')}`
+    }
+
+  },
 
   action() {
     return this.belongsTo(WorkflowAction, 'action_id')

@@ -17,8 +17,6 @@ const getToNumber = async (req, { config }) => {
 
 const sendInternalSms = async (req, { config, enrollment, tokens }) => {
 
-  console.log('tokens', tokens)
-
   const to = await getToNumber(req, {
     config
   })

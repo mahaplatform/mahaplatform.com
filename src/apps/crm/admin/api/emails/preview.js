@@ -37,8 +37,6 @@ const previewRoute = async (req, res) => {
     }
   })
 
-  console.log(sender.get('rfc822'))
-
   await sendMail({
     from: sender.get('rfc822'),
     to: req.body.email,

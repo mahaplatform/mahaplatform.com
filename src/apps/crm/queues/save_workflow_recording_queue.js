@@ -5,6 +5,7 @@ const processor = async (req, job) => {
 
   await saveRecording(req, {
     action_id: job.data.action_id,
+    recording_id: job.data.recording_id,
     url: job.data.url
   })
 
