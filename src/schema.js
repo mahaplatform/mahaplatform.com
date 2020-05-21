@@ -2436,6 +2436,12 @@ const schema = {
       table.foreign('note_id').references('crm_contact_notes.id')
     })
 
+    await knex.schema.table('crm_channel_views', table => {
+      table.foreign('email_address_id').references('crm_email_addresses.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('crm_consents', table => {
       table.foreign('email_address_id').references('crm_email_addresses.id')
       table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
@@ -3377,12 +3383,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_channel_views', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_address_id').references('crm_email_addresses.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
     })
 
 

@@ -196,7 +196,7 @@ class SmsClient extends React.Component {
   _handleJoin() {
     const { contact, phone_number, program } = this.props
     const { network } = this.context
-    const channel = `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
+    const channel = `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
     network.join(channel)
     network.subscribe([
       { target: channel, action: 'refresh', handler: this._handleFetch }
@@ -206,7 +206,7 @@ class SmsClient extends React.Component {
   _handleLeave() {
     const { contact, phone_number, program } = this.props
     const { network } = this.context
-    const channel = `/api/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
+    const channel = `/admin/crm/contacts/${contact.id}/channels/programs/${program.id}/sms/${phone_number.id}/smses`
     network.leave(channel)
     network.unsubscribe([
       { target: channel, action: 'refresh', handler: this._handleFetch }
