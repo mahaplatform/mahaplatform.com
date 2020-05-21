@@ -1,3 +1,5 @@
+import ImportToken from '../../../../maha/admin/tokens/import'
+import ListCriteria from '../listcriteria'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
@@ -97,22 +99,79 @@ class FlowchartDesigner extends React.PureComponent {
     }
   }
 
+  _getFields() {
+    const { fields } = this.props
+    return [
+      { label: 'Contact', fields: [
+        { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
+        { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
+        { name: 'Email', key: 'contact.email', type: 'emailfield' },
+        { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
+        { name: 'Address', key: 'contact.address', type: 'addressfield' },
+        { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
+        { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
+      ] },
+      { label: 'Classifications', fields: [
+        { name: 'List', key: 'contact.list_ids', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
+          { value: '$ct', text: 'is subscribed to' },
+          { value: '$nct', text: 'is not subscribed to' }
+        ] },
+        { name: 'Oraganizations', key: 'oraganizations.oraganizations_ids', type: 'textfield' },
+        { name: 'Tags', key: 'contact.tag_ids', type: 'textfield' },
+        { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
+          { value: '$ct', text: 'is interested in' },
+          { value: '$nct', text: 'is not interested in' }
+        ] }
+      ] },
+      { label: 'Activities', fields: [
+        { name: 'Event', key: 'contact.event_ids', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
+          { value: '$ct', text: 'registered for' },
+          { value: '$nct', text: 'did not registered for' }
+        ] },
+        { name: 'Form', key: 'contact.form_ids', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
+          { value: '$ct', text: 'filled out' },
+          { value: '$nct', text: 'did not fill out' }
+        ] },
+        { name: 'Import', key: 'contact.import_ids', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', multiple: true, subject: false, format: ImportToken, comparisons: [
+          { value: '$ct', text: 'was included in import' },
+          { value: '$nct', text: 'was not included in import' }
+        ] }
+      ] },
+      ...fields ? fields : []
+    ]
+  }
+
+  _getProperties() {
+    const { properties } = this.props
+    return [
+      { label: 'Contact Properties', fields: [
+        { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
+        { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
+        { name: 'Email', key: 'contact.email', type: 'emailfield' },
+        { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
+        { name: 'Address', key: 'contact.address', type: 'addressfield' },
+        { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
+        { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
+      ] },
+      ...properties ? properties : []
+    ]
+  }
   _getSidebar() {
-    const { active, campaign, changes, cid, fields, program, properties } = this.props
-    const { status, steps, step, tokens, workflow, onEdit, onUpdate } = this.props
+    const { active, campaign, changes, cid, program } = this.props
+    const { status, steps, step, workflow, onEdit, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       campaign,
       changes,
       cid,
-      fields,
+      fields: this._getFields(),
       program,
-      properties,
+      properties: this._getProperties(),
       status,
       steps,
       step,
-      tokens,
+      tokens: this._getTokens(),
       workflow,
       onAdd: this._handleAdd,
       onEdit,
@@ -135,6 +194,22 @@ class FlowchartDesigner extends React.PureComponent {
     } else if(status === 'inactive') {
       return 'This workflow has been deactivated'
     }
+  }
+
+  _getTokens() {
+    const { tokens } = this.props
+    return [
+      { title: 'Contact Tokens', tokens: [
+        { name: 'First Name', token: 'contact.first_name' },
+        { name: 'Last Name', token: 'contact.last_name' },
+        { name: 'Primary Email', token: 'contact.email' },
+        { name: 'Primary Phone', token: 'contact.phone' },
+        { name: 'Primary Address', token: 'contact.address' },
+        { name: 'Birthday', token: 'contact.birthday' },
+        { name: 'Spouse', token: 'contact.spouse' }
+      ] },
+      ...tokens ? tokens : []
+    ]
   }
 
   _handleNew(parent, answer, delta) {

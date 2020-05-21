@@ -28,7 +28,7 @@ class Chooser extends React.Component {
             </div>,
             ...group.fields.map((property, propertyIndex) => (
               <div className="maha-criterion-item" key={`type_${groupIndex}_property_${propertyIndex}`} onClick={ this._handleChoose.bind(this, property)}>
-                { property.label }
+                { property.name }
               </div>
             ))
           ], []) }
