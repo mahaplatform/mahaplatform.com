@@ -166,15 +166,22 @@ const getTokens = async(req, { contact, enrollment, steps }) => ({
     last_name: contact.get('last_name'),
     email: contact.get('email'),
     phone: contact.get('phone'),
-    address: contact.get('address')
+    address: contact.get('address'),
+    birthday: contact.get('birthday'),
+    spouse: contact.get('spouse'),
+    url: contact.get('url')
   },
   ...enrollment.get('call_id') ? {
     call: enrollment.related('call').get('direction') === 'inbound' ? {
-      to_number: enrollment.related('voice_campaign').related('phone_number').get('spoken'),
-      from_number: enrollment.related('phone_number').get('spoken')
+      from_number: enrollment.related('phone_number').get('formatted'),
+      from_number_spoken: enrollment.related('phone_number').get('spoken'),
+      to_number: enrollment.related('voice_campaign').related('phone_number').get('formatted'),
+      to_number_spoken: enrollment.related('voice_campaign').related('phone_number').get('spoken')
     } : {
-      to_number: enrollment.related('phone_number').get('spoken'),
-      from_number: enrollment.related('voice_campaign').related('phone_number').get('spoken')
+      from_number: enrollment.related('voice_campaign').related('phone_number').get('formatted'),
+      from_number_spoken: enrollment.related('voice_campaign').related('phone_number').get('spoken'),
+      to_number: enrollment.related('phone_number').get('formatted'),
+      to_number_spoken: enrollment.related('phone_number').get('spoken')
     }
   } : {},
   workflow: steps.filter((step) => {

@@ -94,8 +94,9 @@ class SMSDesigner extends React.PureComponent {
         name:   field.label,
         token: `program.${field.name}`
       }))}] : [],
-      { title: 'Call', tokens: [
-        { name: 'Phone', token: 'call.phone' }
+      { title: 'Conversation', tokens: [
+        { name: 'From Number', token: 'call.from_number' },
+        { name: 'To Number', token: 'call.to_number' }
       ] },
       ...tokens ? tokens : []
     ]

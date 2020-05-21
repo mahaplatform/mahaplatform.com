@@ -108,8 +108,10 @@ class VoiceDesigner extends React.PureComponent {
         token: `program.${field.name}`
       }))}] : [],
       { title: 'Call', tokens: [
+        { name: 'From Number', token: 'call.from_number' },
+        { name: 'From Number (spoken)', token: 'call.from_number_spoken' },
         { name: 'To Number', token: 'call.to_number' },
-        { name: 'From Number', token: 'call.from_number' }
+        { name: 'To Number (spoken)', token: 'call.to_number_spoken' }
       ] },
       ...tokens ? tokens : []
     ]

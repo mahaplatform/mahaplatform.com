@@ -70,6 +70,10 @@ const Contact = new Model({
       return this.related('topics').map(topic => topic.id)
     },
 
+    url() {
+      return `${process.env.WEB_HOST}/admin/crm/contacts/${this.get('id')}`
+    },
+
     list_ids: function() {
       return this.related('lists').map(list => list.id)
     }

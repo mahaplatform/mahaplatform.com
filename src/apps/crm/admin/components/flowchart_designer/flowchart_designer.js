@@ -144,7 +144,7 @@ class FlowchartDesigner extends React.PureComponent {
   _getProperties() {
     const { properties } = this.props
     return [
-      { label: 'Contact Properties', fields: [
+      { label: 'Contact', fields: [
         { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
         { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
         { name: 'Email', key: 'contact.email', type: 'emailfield' },
@@ -199,14 +199,16 @@ class FlowchartDesigner extends React.PureComponent {
   _getTokens() {
     const { tokens } = this.props
     return [
-      { title: 'Contact Tokens', tokens: [
+      { title: 'Contact', tokens: [
+        { name: 'Full Name', token: 'contact.full_name' },
         { name: 'First Name', token: 'contact.first_name' },
         { name: 'Last Name', token: 'contact.last_name' },
         { name: 'Primary Email', token: 'contact.email' },
         { name: 'Primary Phone', token: 'contact.phone' },
         { name: 'Primary Address', token: 'contact.address' },
         { name: 'Birthday', token: 'contact.birthday' },
-        { name: 'Spouse', token: 'contact.spouse' }
+        { name: 'Spouse', token: 'contact.spouse' },
+        { name: 'Maha URL', token: 'contact.url' }
       ] },
       ...tokens ? tokens : []
     ]
