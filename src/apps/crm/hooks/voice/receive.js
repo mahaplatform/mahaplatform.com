@@ -10,6 +10,7 @@ import Contact from '../../models/contact'
 const getPhoneNumber = async (req, { number }) => {
 
   const phone_number = await PhoneNumber.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('number', number)
   }).fetch({
     withRelated: ['contact'],
