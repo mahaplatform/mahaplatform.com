@@ -2,7 +2,8 @@ import CheckboxesField from '../../components/checkboxesfield'
 import AddressesField from '../../components/addressesfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
-import { Form, Image } from 'maha-admin'
+import ProgramToken from '../../tokens/program'
+import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -88,8 +89,7 @@ class Edit extends React.Component {
       [field.program.id]: {
         label: (
           <div className="crm-program-label">
-            <Image src={ field.program.logo } title={ field.program.title } transforms={{ w: 24, h: 24 }} />
-            { field.program.title }
+            <ProgramToken { ...field.program } />
           </div>
         ),
         fields: [

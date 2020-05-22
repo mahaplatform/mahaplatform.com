@@ -20,6 +20,7 @@ import { updateLists } from '../../services/lists'
 import Import from '../../../maha/models/import'
 import Consent from '../../models/consent'
 import { matchContact } from './utils'
+import { unflatten } from 'flat'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -252,7 +253,7 @@ const processContactImport = async (req, { import_id }) => {
 
   await Promise.mapSeries(items, async (item, index) => {
 
-    const values = item.get('values')
+    const values = unflatten(item.get('values'))
     const { first_name, last_name, birthday, spouse, photo } = values
     let is_merged = false
     let is_ignored = false
@@ -276,11 +277,20 @@ const processContactImport = async (req, { import_id }) => {
 
       const strategy = imp.get('strategy')
 
+      const contactvalues = Object.keys(values.values || {}).reduce((contactvalues, key) => ({
+        [key]: [values.values[key]]
+      }), {})
+
       await contact.save({
         first_name: getValue(strategy, contact.get('first_name'), first_name),
         last_name: getValue(strategy, contact.get('last_name'), last_name),
         birthday: getValue(strategy, contact.get('birthday'), birthday),
-        spouse: getValue(strategy, contact.get('spouse'), spouse)
+        spouse: getValue(strategy, contact.get('spouse'), spouse),
+        values: {
+          ...strategy === 'discard' ? contactvalues : {},
+          ...contact.get('values'),
+          ...strategy === 'overwrite' ? contactvalues : {}
+        }
       }, {
         transacting: req.trx
       })

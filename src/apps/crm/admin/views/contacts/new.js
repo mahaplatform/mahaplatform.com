@@ -3,6 +3,7 @@ import AddressesField from '../../components/addressesfield'
 import BirthdayField from '../../components/birthdayfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
+import ProgramToken from '../../tokens/program'
 import sections from '../sections'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -85,7 +86,11 @@ class New extends React.Component {
     const programs = fields.reduce((programs, field) => ({
       ...programs,
       [field.program.id]: {
-        label: field.program.title,
+        label: (
+          <div className="crm-program-label">
+            <ProgramToken { ...field.program } />
+          </div>
+        ),
         fields: [
           ..._.get(programs, `${field.program.id}.fields`) || [],
           field.config

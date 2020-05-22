@@ -13,14 +13,16 @@ const fieldsRoute = async (req, res) => {
   const programs = await Program.query(qb => {
     qb.where('team_id', req.team.get('id'))
   }).fetchAll({
+    withRelated: ['logo'],
     transacting: req.trx
   }).then(results => results.map(program => ({
     label: program.get('title'),
+    logo: program.related('logo').get('path'),
     fields: fields.filter(field => {
       return field.get('parent_id') === program.get('id')
     }).map(field => ({
       label: field.get('label'),
-      name: field.get('name'),
+      name: `values.${field.get('code')}`,
       type: field.get('type')
     }))
   })).filter(program => {
