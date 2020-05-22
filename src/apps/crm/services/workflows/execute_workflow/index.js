@@ -252,8 +252,7 @@ const saveResults = async (req, params) => {
   const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
-    step_id: step.get('id'),
-    ...data
+    step_id: step.get('id')
   }).save(null, {
     transacting: req.trx
   })
@@ -268,6 +267,13 @@ const saveResults = async (req, params) => {
     data[step.get('config').code] = recording.get('url')
 
   }
+
+  await action.save({
+    data
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
   if(data || unenroll) {
     await enrollment.save({
