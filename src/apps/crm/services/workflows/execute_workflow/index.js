@@ -54,7 +54,7 @@ const getExecutor = (type, action) => {
 }
 
 const executeStep = async (req, params) => {
-  const { answer, contact, data, enrollment, execute, step, recording, tokens } = params
+  const { answer, contact, data, enrollment, execute, step, steps, recording, tokens } = params
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
@@ -65,6 +65,7 @@ const executeStep = async (req, params) => {
     execute,
     recording,
     step,
+    steps,
     tokens
   })
 }
@@ -363,6 +364,7 @@ const executeWorkflow = async (req, params) => {
     enrollment,
     execute,
     step,
+    steps,
     recording,
     tokens
   })

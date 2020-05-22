@@ -19,6 +19,7 @@ const testNotNull = (left, right) => {
 }
 
 const testEquals = (left, right) => {
+  console.log(castValue(left), castValue(right))
   return castValue(left) === castValue(right)
 }
 
@@ -152,6 +153,10 @@ const getRegistrationData = async (req, { enrollment }) => {
 
 }
 
+const getWorkflowData = async (req, { enrollment, steps }) => {
+  return enrollment.get('data')
+}
+
 const getEmailData = async (req, { enrollment }) => {
 
   await enrollment.load(['email'], {
@@ -171,7 +176,7 @@ const getEmailData = async (req, { enrollment }) => {
 
 }
 
-const getEnrollmentData = async (req, { enrollment }) => {
+const getEnrollmentData = async (req, { enrollment, steps }) => {
 
   if(enrollment.get('response_id')) {
     return await getResponseData(req, { enrollment })
@@ -179,6 +184,10 @@ const getEnrollmentData = async (req, { enrollment }) => {
 
   if(enrollment.get('registration_id')) {
     return await getRegistrationData(req, { enrollment })
+  }
+
+  if(enrollment.get('workflow_id') || enrollment.get('sms_campaign_id') || enrollment.get('voice_campaign_id')) {
+    return await getWorkflowData(req, { enrollment, steps })
   }
 
   if(enrollment.get('email_id')) {
@@ -207,14 +216,15 @@ const getContactData = async (req, { contact }) => {
 
 }
 
-const ifthen = async (req, { config, contact, data, enrollment, step }) => {
+const ifthen = async (req, { config, contact, data, enrollment, steps, step }) => {
 
   const contactData = await getContactData(req, {
     contact
   })
 
   const enrollmentData = await getEnrollmentData(req, {
-    enrollment
+    enrollment,
+    steps
   })
 
   const branch = await getBranch(config.branches, {
