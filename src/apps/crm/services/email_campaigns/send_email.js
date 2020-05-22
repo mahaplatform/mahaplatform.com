@@ -5,6 +5,7 @@ import { personalizeEmail } from '../../services/email'
 import EmailCampaign from '../../models/email_campaign'
 import EmailAddress from '../../models/email_address'
 import Email from '../../../maha/models/email'
+import Field from '../../../maha/models/field'
 import Contact from '../../models/contact'
 import Sender from '../../models/sender'
 
@@ -33,6 +34,21 @@ const sendEmail = async (req, params) => {
     transacting: req.trx
   })
 
+  const program = campaign.related('program')
+
+  const fields = await Field.query(qb => {
+    qb.where('parent_type', 'crm_programs')
+    qb.where('parent_id', program.get('id'))
+    qb.where('team_id', req.team.get('id'))
+  }).fetchAll({
+    transacting: req.trx
+  }).then(results => results.toArray())
+
+  const programvalues = fields.reduce((programvalues, field) => ({
+    ...programvalues,
+    [field.get('name').token]: contact.get('values')[field.get('code')][0]
+  }), {})
+
   const config = campaign.get('config')
 
   const sender = await Sender.query(qb => {
@@ -50,8 +66,13 @@ const sendEmail = async (req, params) => {
       full_name: contact.get('full_name'),
       first_name: contact.get('first_name'),
       last_name: contact.get('last_name'),
-      email: contact.get('email')
+      email: contact.get('email'),
+      phone: contact.get('phone'),
+      address: contact.get('address') ? contact.get('address').description : null,
+      birthday: contact.get('birthday'),
+      spouse: contact.get('spouse')
     },
+    program: programvalues,
     email: {
       facebook_link: `${process.env.WEB_HOST}/sf${code}`,
       twitter_link: `${process.env.WEB_HOST}/st${code}`,

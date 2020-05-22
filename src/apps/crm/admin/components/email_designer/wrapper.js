@@ -27,7 +27,7 @@ class EmailDesignerWrapper extends React.Component {
   _getTokens() {
     const { program, programfields, tokens } = this.props
     return [
-      { title: 'Contact Tokens', tokens: [
+      { title: 'Contact', tokens: [
         { name: 'Full Name', token: 'contact.full_name' },
         { name: 'First Name', token: 'contact.first_name' },
         { name: 'Last Name', token: 'contact.last_name' },
@@ -37,11 +37,11 @@ class EmailDesignerWrapper extends React.Component {
         { name: 'Spouse', token: 'spouse' },
         { name: 'Birthday', token: 'birthday' }
       ] },
-      ...programfields.length > 0 ? [{ title: `${program.title} Tokens`, tokens: programfields.map(field => ({
+      ...programfields.length > 0 ? [{ title: program.title, tokens: programfields.map(field => ({
         name:  field.name.value,
         token: `program.${field.name.token}`
       }))}] : [],
-      { title: 'Email Tokens', tokens: [
+      { title: 'Email', tokens: [
         { name: 'Preferences Link', token: 'email.preferences_link' },
         { name: 'Web Link', token: 'email.web_link' }
       ] },

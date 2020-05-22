@@ -20,13 +20,13 @@ class Designer extends React.Component {
   }
 
   _getEmailDesigner() {
-    const { email, form, fields } = this.props
+    const { email, form } = this.props
     return {
       defaultValue: email.config,
       endpoint: `/api/admin/crm/emails/${email.id}`,
       program_id: email.program.id,
       tokens: [
-        { title: 'Response Tokens', tokens: form.config.fields.filter(field => {
+        { title: 'Response', tokens: form.config.fields.filter(field => {
           return field.type !== 'text'
         }).reduce((tokens, field) => [
           ...tokens,
@@ -39,13 +39,13 @@ class Designer extends React.Component {
             token: `response.${field.name.token}_summary`
           }] : []
         ], []) },
-        { title: 'Contact Tokens', tokens: [
+        { title: 'Contact', tokens: [
           { name: 'Full Name', token: 'contact.full_name' },
           { name: 'First Name', token: 'contact.first_name' },
           { name: 'Last Name', token: 'contact.last_name' },
           { name: 'Email', token: 'contact.email' }
         ] },
-        { title: 'Email Tokens', tokens: [
+        { title: 'Email', tokens: [
           { name: 'Preferences Link', token: 'email.preferences_link' },
           { name: 'Web Link', token: 'email.web_link' }
         ] }

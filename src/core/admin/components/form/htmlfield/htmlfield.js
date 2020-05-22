@@ -23,7 +23,7 @@ class HtmlField extends React.Component {
   }
 
   state = {
-    value: null
+    value: ''
   }
 
   _handleChange = _.throttle(this._handleChange.bind(this), 150)
@@ -69,9 +69,15 @@ class HtmlField extends React.Component {
     }
   }
 
+  _getSanitized() {
+    let { value } = this.state
+    return value.replace(/&nbsp;/g, ' ')
+  }
+
   _handleChange() {
-    const { value } = this.state
-    this.props.onChange(value !== '<p><br></p>' ? value : null)
+    const value = this._getSanitized()
+    if(value === '<p><br></p>') return
+    this.props.onChange(value)
   }
 
   _handleUpdate(value) {
