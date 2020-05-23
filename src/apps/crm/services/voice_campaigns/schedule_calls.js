@@ -3,7 +3,7 @@ import VoiceCampaign from '../../models/voice_campaign'
 import { getRecipients } from '../recipients'
 import moment from 'moment'
 
-const scheduleCalls = async (req, { voice_campaign_id }) => {
+const scheduleCalls = async (req, { voice_campaign_id, resend_to }) => {
 
   const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('id', voice_campaign_id)
@@ -15,7 +15,7 @@ const scheduleCalls = async (req, { voice_campaign_id }) => {
     type: 'voice',
     program_id: voice_campaign.get('program_id'),
     purpose: voice_campaign.get('purpose'),
-    ...voice_campaign.get('to')
+    ...resend_to || voice_campaign.get('to') || {}
   }).then(result => result.toArray())
 
   await voice_campaign.save({

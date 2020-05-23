@@ -4,7 +4,8 @@ import Queue from '../../../core/objects/queue'
 const processor = async (req, job) => {
 
   await scheduleCalls(req, {
-    voice_campaign_id: job.data.voice_campaign_id
+    voice_campaign_id: job.data.voice_campaign_id,
+    resend_to: job.data.resend_to
   })
 
 }

@@ -3,9 +3,9 @@ import SmsCampaign from '../../models/sms_campaign'
 import { getRecipients } from '../recipients'
 import moment from 'moment'
 
-const sendCampaign = async (req, { sms_campaign_id }) => {
+const sendCampaign = async (req, { sms_campaign_id, resend_to }) => {
 
-  const campaign = await SmsCampaign.query(qb => {
+  const sms_campaign = await SmsCampaign.query(qb => {
     qb.where('id', sms_campaign_id)
   }).fetch({
     transacting: req.trx
@@ -13,12 +13,12 @@ const sendCampaign = async (req, { sms_campaign_id }) => {
 
   const recipients = await getRecipients(req, {
     type: 'sms',
-    program_id: campaign.get('program_id'),
-    purpose: campaign.get('purpose'),
-    ...campaign.get('to')
+    program_id: sms_campaign.get('program_id'),
+    purpose: sms_campaign.get('purpose'),
+    ...resend_to || sms_campaign.get('to') || {}
   }).then(result => result.toArray())
 
-  await campaign.save({
+  await sms_campaign.save({
     sent_at: moment(),
     status: 'sent'
   }, {
@@ -28,7 +28,7 @@ const sendCampaign = async (req, { sms_campaign_id }) => {
 
   await Promise.map(recipients, async (recipient) => {
     await TriggerSmsEnrollmentQueue.enqueue(req, {
-      sms_campaign_id: campaign.get('id'),
+      sms_campaign_id: sms_campaign.get('id'),
       phone_number_id: recipient.get('phone_number_id'),
       contact_id: recipient.get('contact_id')
     })

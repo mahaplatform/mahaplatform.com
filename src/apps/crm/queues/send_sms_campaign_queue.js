@@ -4,7 +4,8 @@ import Queue from '../../../core/objects/queue'
 const processor = async (req, job) => {
 
   await sendCampaign(req, {
-    sms_campaign_id: job.data.sms_campaign_id
+    sms_campaign_id: job.data.sms_campaign_id,
+    resend_to: job.data.resend_to
   })
 
 }

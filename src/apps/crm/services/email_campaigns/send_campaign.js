@@ -6,7 +6,7 @@ import moment from 'moment'
 
 const sendCampaign = async (req, { email_campaign_id, resend_to }) => {
 
-  const campaign = await EmailCampaign.query(qb => {
+  const email_campaign = await EmailCampaign.query(qb => {
     qb.where('id', email_campaign_id)
   }).fetch({
     withRelated: ['program'],
@@ -15,17 +15,17 @@ const sendCampaign = async (req, { email_campaign_id, resend_to }) => {
 
   const recipients = await getRecipients(req, {
     type: 'email',
-    program_id: campaign.related('program').get('id'),
-    purpose: campaign.get('purpose'),
-    ...resend_to || campaign.get('to') || {}
+    program_id: email_campaign.related('program').get('id'),
+    purpose: email_campaign.get('purpose'),
+    ...resend_to || email_campaign.get('to') || {}
   }).then(result => result.toArray())
 
   if(!resend_to) {
     const html = await renderEmail(req, {
-      config: campaign.get('config')
+      config: email_campaign.get('config')
     })
 
-    await campaign.save({
+    await email_campaign.save({
       sent_at: moment(),
       status: 'sent',
       html
@@ -37,7 +37,7 @@ const sendCampaign = async (req, { email_campaign_id, resend_to }) => {
 
   await Promise.map(recipients, async (recipient) => {
     await TriggerEmailEnrollmentQueue.enqueue(req, {
-      email_campaign_id: campaign.get('id'),
+      email_campaign_id: email_campaign.get('id'),
       email_address_id: recipient.get('email_address_id')
     })
   })
