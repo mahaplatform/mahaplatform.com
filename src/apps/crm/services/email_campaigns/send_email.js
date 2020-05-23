@@ -8,6 +8,7 @@ import Email from '../../../maha/models/email'
 import Field from '../../../maha/models/field'
 import Contact from '../../models/contact'
 import Sender from '../../models/sender'
+import _ from 'lodash'
 
 const sendEmail = async (req, params) => {
 
@@ -44,9 +45,11 @@ const sendEmail = async (req, params) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
+  const values = contact.get('values')
+
   const programvalues = fields.reduce((programvalues, field) => ({
     ...programvalues,
-    [field.get('name').token]: contact.get('values')[field.get('code')][0]
+    [field.get('name').token]: _.get(values, `${field.get('code')}[0]`)
   }), {})
 
   const config = campaign.get('config')

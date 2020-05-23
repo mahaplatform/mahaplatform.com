@@ -174,9 +174,11 @@ const getTokens = async(req, { contact, enrollment, steps, workflow }) => {
 
   const fields = workflow.related('program').related('fields')
 
+  const values = contact.get('values')
+
   const programvalues = fields.reduce((programvalues, field) => ({
     ...programvalues,
-    [field.get('name').token]: contact.get('values')[field.get('code')][0]
+    [field.get('name').token]: _.get(values, `${field.get('code')}[0]`)
   }), {})
 
   return {
