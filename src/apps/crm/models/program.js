@@ -3,6 +3,7 @@ import Merchant from '../../finance/models/merchant'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
 import Asset from '../../maha/models/asset'
+import Field from '../../maha/models/field'
 import Topic from './topic'
 import List from './list'
 
@@ -34,6 +35,10 @@ const Program = new Model({
 
   accesses() {
     return this.hasMany(ProgramAccess, 'program_id')
+  },
+
+  fields() {
+    return this.morphMany(Field, 'parent')
   },
 
   lists () {

@@ -117,19 +117,19 @@ const getNextStep = async (req, { parent, answer, delta, steps }) => {
 
 const getWorkflow = async (req, { enrollment }) => {
   if(enrollment.get('voice_campaign_id')) {
-    await enrollment.load(['voice_campaign.steps','voice_campaign.phone_number','call','phone_number'], {
+    await enrollment.load(['voice_campaign.program.fields','voice_campaign.steps','voice_campaign.phone_number','call','phone_number'], {
       transacting: req.trx
     })
     return enrollment.related('voice_campaign')
   }
   if(enrollment.get('sms_campaign_id')) {
-    await enrollment.load(['sms_campaign.steps','sms_campaign.phone_number','phone_number'], {
+    await enrollment.load(['sms_campaign.program.fields','sms_campaign.steps','sms_campaign.phone_number','phone_number'], {
       transacting: req.trx
     })
     return enrollment.related('sms_campaign')
   }
   if(enrollment.get('workflow_id')) {
-    await enrollment.load(['workflow.steps'], {
+    await enrollment.load(['workflow.program.fields','workflow.steps'], {
       transacting: req.trx
     })
     return enrollment.related('workflow')
@@ -170,47 +170,58 @@ const getData = async(req, { contact, enrollment, steps }) => ({
   }
 })
 
-const getTokens = async(req, { contact, enrollment, steps, workflow }) => ({
-  contact: {
-    full_name: contact.get('full_name'),
-    first_name: contact.get('first_name'),
-    last_name: contact.get('last_name'),
-    email: contact.get('email'),
-    phone: contact.get('phone'),
-    address: contact.get('address'),
-    birthday: contact.get('birthday'),
-    spouse: contact.get('spouse'),
-    url: contact.get('url')
-  },
-  ...enrollment.get('voice_campaign_id') ? {
-    call: workflow.get('direction') === 'inbound' ? {
-      from_number: enrollment.related('phone_number').get('formatted'),
-      from_number_spoken: enrollment.related('phone_number').get('spoken'),
-      to_number: workflow.related('phone_number').get('formatted'),
-      to_number_spoken: workflow.related('phone_number').get('spoken')
-    } : {
-      from_number: workflow.related('phone_number').get('formatted'),
-      from_number_spoken: workflow.related('phone_number').get('spoken'),
-      to_number: enrollment.related('phone_number').get('formatted'),
-      to_number_spoken: enrollment.related('phone_number').get('spoken')
-    }
-  } : {},
-  ...enrollment.get('sms_campaign_id') ? {
-    session: workflow.get('direction') === 'inbound' ? {
-      from_number: enrollment.related('phone_number').get('formatted'),
-      to_number: workflow.related('phone_number').get('formatted')
-    } : {
-      from_number: workflow.related('phone_number').get('formatted'),
-      to_number: enrollment.related('phone_number').get('formatted')
-    }
-  } : {},
-  workflow: steps.filter((step) => {
-    return _.includes(['set','question','record'], step.get('action'))
-  }).reduce((tokens, step) => ({
-    ...tokens,
-    ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
+const getTokens = async(req, { contact, enrollment, steps, workflow }) => {
+
+  const fields = workflow.related('program').related('fields')
+
+  const programvalues = fields.reduce((programvalues, field) => ({
+    ...programvalues,
+    [field.get('name').token]: contact.get('values')[field.get('code')][0]
   }), {})
-})
+
+  return {
+    contact: {
+      full_name: contact.get('full_name'),
+      first_name: contact.get('first_name'),
+      last_name: contact.get('last_name'),
+      email: contact.get('email'),
+      phone: contact.get('phone'),
+      address: contact.get('address'),
+      birthday: contact.get('birthday'),
+      spouse: contact.get('spouse'),
+      url: contact.get('url')
+    },
+    program: programvalues,
+    ...enrollment.get('voice_campaign_id') ? {
+      call: workflow.get('direction') === 'inbound' ? {
+        from_number: enrollment.related('phone_number').get('formatted'),
+        from_number_spoken: enrollment.related('phone_number').get('spoken'),
+        to_number: workflow.related('phone_number').get('formatted'),
+        to_number_spoken: workflow.related('phone_number').get('spoken')
+      } : {
+        from_number: workflow.related('phone_number').get('formatted'),
+        from_number_spoken: workflow.related('phone_number').get('spoken'),
+        to_number: enrollment.related('phone_number').get('formatted'),
+        to_number_spoken: enrollment.related('phone_number').get('spoken')
+      }
+    } : {},
+    ...enrollment.get('sms_campaign_id') ? {
+      session: workflow.get('direction') === 'inbound' ? {
+        from_number: enrollment.related('phone_number').get('formatted'),
+        to_number: workflow.related('phone_number').get('formatted')
+      } : {
+        from_number: workflow.related('phone_number').get('formatted'),
+        to_number: enrollment.related('phone_number').get('formatted')
+      }
+    } : {},
+    workflow: steps.filter((step) => {
+      return _.includes(['set','question','record'], step.get('action'))
+    }).reduce((tokens, step) => ({
+      ...tokens,
+      ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
+    }), {})
+  }
+}
 
 const getToken = (action, config, data) => {
   const key = action === 'record' ? `${config.name.token}_recording_url` : config.name.token
@@ -248,7 +259,7 @@ const saveResults = async (req, params) => {
 
   const { enrollment, step, recording_data, unenroll } = params
 
-  const data = params.data ? params.data.data : {}
+  const data = params.data.data || {}
 
   const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
@@ -276,21 +287,19 @@ const saveResults = async (req, params) => {
     patch: true
   })
 
-  if(data || unenroll) {
-    await enrollment.save({
-      data: {
-        ...enrollment.get('data') || {},
-        ...data
-      },
-      ...unenroll ? {
-        status: 'lost',
-        unenrolled_at: moment()
-      }: {}
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
+  await enrollment.save({
+    data: {
+      ...enrollment.get('data') || {},
+      ...data
+    },
+    ...unenroll ? {
+      status: 'lost',
+      unenrolled_at: moment()
+    }: {}
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
 }
 

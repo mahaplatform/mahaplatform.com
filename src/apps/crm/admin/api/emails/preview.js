@@ -17,7 +17,7 @@ const previewRoute = async (req, res) => {
 
   const rendered = personalizeEmail(req, {
     subject: `PREVIEW: ${config.settings.subject}`,
-    html: html,
+    html,
     data: {
       contact: {
         full_name: `${first_name} ${last_name}`,
