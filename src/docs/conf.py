@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'The Maha Platform'
-copyright = u'2020, Greg Kops'
+copyright = u'2020, Cornell Cooperative Extension of Tompkins County'
 author = u'Greg Kops'
 
 # The short X.Y version
@@ -38,7 +38,10 @@ release = u''
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['recommonmark']
+extensions = [
+  'sphinx.ext.githubpages',
+  'recommonmark'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -65,7 +68,7 @@ language = None
 exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -73,13 +76,27 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
-
+html_theme = 'sphinx_rtd_theme'
+import sphinx_theme
+html_theme_path = [sphinx_theme.get_html_theme_path()]
+html_baseurl = 'https://developer.mahaplatform.com'
+html_short_title = 'The Maha Platform Documentation'
+html_show_sphinx = False
+html_title = 'The Maha Platform Documentation'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#
-# html_theme_options = {}
+
+html_theme_options = {
+  'canonical_url': "https://developer.mahaplatform.com/",
+}
+
+html_context = {
+  'display_github': 'True',
+  'github_user': 'mahaplatform',
+  'github_repo': 'mahaplatform.com',
+  'github_root_dir': 'devel/lib/ansible',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
