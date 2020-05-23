@@ -3,18 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to The Maha Platform's documentation!
+The Maha Platform Documentation
 =============================================
+
+About The Maha Platform
+```````````````````````
+
+The Maha Platform is a mobile first application development platform.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
