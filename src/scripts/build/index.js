@@ -116,8 +116,7 @@ const compile = async (module, config) => {
 }
 
 const buildClients = async (environment) => {
-  const warning = environment === 'staging'
-  await compile('admin', adminConfig(warning))
+  await compile('admin', adminConfig)
   await Promise.mapSeries(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
