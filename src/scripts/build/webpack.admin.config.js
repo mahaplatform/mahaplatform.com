@@ -12,7 +12,7 @@ import path from 'path'
 
 const gitRevisionPlugin = new GitRevisionPlugin()
 
-const webpackConfig = ({
+const webpackConfig = {
   devtool: false,
   entry: [
     path.resolve('src','core','admin','index.js'),
@@ -135,6 +135,6 @@ const webpackConfig = ({
       path.resolve('node_modules')
     ]
   }
-})
+}
 
 export default webpackConfig
