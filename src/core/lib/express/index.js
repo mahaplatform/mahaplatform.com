@@ -12,7 +12,6 @@ import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import qrcode from './media/qrcode'
 import apiMiddleware from './api'
-//import caman from './media/caman'
 import express from 'express'
 import arena from './arena'
 import voice from './voice'
@@ -51,8 +50,6 @@ server.use('/ping', ping)
 server.use('/imagecache', imagecache)
 
 server.use('/qr', qrcode)
-
-//server.use('/caman', caman)
 
 server.use('/.well-known', deeplinkMiddleware)
 
