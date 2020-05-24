@@ -25,13 +25,13 @@ const getTransactions = async(ids) => {
   }), {}))
 }
 
-const updatePayments = async (trx) => {
+const updatePayments = async (req) => {
 
   const payments = await Payment.query(qb => {
     qb.whereIn('method', ['ach','card','googlepay','applepay','paypal'])
     qb.whereNotIn('status',['disbursed','voided'])
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(results => results.toArray())
 
   const transactions = await getTransactions(payments.map(payment => {
@@ -47,7 +47,7 @@ const updatePayments = async (trx) => {
       const merchant = await Merchant.query(qb => {
         qb.where('braintree_id', transaction.merchantAccountId)
       }).fetch({
-        transacting: trx
+        transacting: req.trx
       })
 
       const disbursement = await Disbursement.fetchOrCreate({
@@ -55,7 +55,7 @@ const updatePayments = async (trx) => {
         merchant_id: merchant.get('id'),
         date: transaction.disbursementDetails.disbursementDate
       }, {
-        transacting: trx
+        transacting: req.trx
       })
 
       await payment.save({
@@ -63,7 +63,7 @@ const updatePayments = async (trx) => {
         status: 'disbursed'
       },{
         patch: true,
-        transacting: trx
+        transacting: req.trx
       })
 
     } else if(payment.get('status') !== 'settled' && transaction.status === 'settled') {
@@ -72,7 +72,7 @@ const updatePayments = async (trx) => {
         status: 'settled'
       },{
         patch: true,
-        transacting: trx
+        transacting: req.trx
       })
 
     }
@@ -81,13 +81,13 @@ const updatePayments = async (trx) => {
 
 }
 
-const updateRefunds = async (trx) => {
+const updateRefunds = async (req) => {
 
   const refunds = await Refund.query(qb => {
     qb.where('type', 'card')
     qb.whereNotIn('status',['settled','voided'])
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(results => results.toArray())
 
   const transactions = await getTransactions(refunds.map(refund => {
@@ -103,7 +103,7 @@ const updateRefunds = async (trx) => {
         status: 'settled'
       },{
         patch: true,
-        transacting: trx
+        transacting: req.trx
       })
     }
 
@@ -111,22 +111,20 @@ const updateRefunds = async (trx) => {
 
 }
 
-export const processor = async (trx) => {
+export const processor = async (req) => {
 
-  await updatePayments(trx)
+  await updatePayments(req)
 
-  await updateRefunds(trx)
+  await updateRefunds(req)
 
 }
 
 export const afterCommit = async (trx, result) => {
-
   await socket.refresh({ trx }, [
     '/admin/finance/disbursements',
     '/admin/finance/payments',
     '/admin/finance/refunds'
   ])
-
 }
 
 const updateTransactionsCron = cron({

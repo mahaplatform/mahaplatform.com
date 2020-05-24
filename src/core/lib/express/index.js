@@ -5,6 +5,7 @@ import multiparty from 'connect-multiparty'
 import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
 import rollbarMiddleware from './rollbar'
+import transaction from './transaction'
 import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
@@ -12,9 +13,11 @@ import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import qrcode from './media/qrcode'
 import apiMiddleware from './api'
+import logger from './logger'
 import express from 'express'
 import arena from './arena'
 import voice from './voice'
+import error from './error'
 import ping from './ping'
 import dav from './dav'
 import fax from './fax'
@@ -34,6 +37,10 @@ server.use(multiparty({ uploadDir: './tmp' }))
 server.use(arena)
 
 server.use(rollbarMiddleware)
+
+server.use(transaction)
+
+server.use(logger)
 
 server.use(dav)
 
@@ -64,5 +71,7 @@ server.use('/api', apiMiddleware)
 server.use(legacyMiddleware)
 
 server.use((req, res) => res.send('not found'))
+
+server.use(error)
 
 export default server

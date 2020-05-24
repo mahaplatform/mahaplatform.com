@@ -1,6 +1,6 @@
-import { beginLogger, endLogger, printQueueLogger } from '../utils/logger'
 import socket from '..//services/routes/emitter'
 import Team from '../../apps/maha/models/team'
+import Logger from '../utils/logger'
 import knex from '../services/knex'
 import redis from 'ioredis'
 import moment from 'moment'
@@ -68,25 +68,29 @@ class Queue {
 }
 
 const wrapped = (name, processor, refresh) => async (job, done) => {
-  const processorWithTransaction = withTransaction(processor, refresh, job)
-  const processorWithLogger = withLogger(name, processorWithTransaction, job)
-  const is_prod = process.env.NODE_ENV === 'production'
-  const envProcessor = !is_prod ? processorWithLogger : processorWithTransaction
+  const processorWithLogger = withLogger(name, processor)
+  const processorWithTransaction = withTransaction(processorWithLogger, refresh)
   try {
-    await envProcessor()
+    await processorWithTransaction(job)
     done()
   } catch(err) {
-    if(process.env.NODE_ENV !== 'production') console.error(err)
     done(err)
   }
 }
 
-const withLogger = (name, processor, job) => async () => {
-  const requestId = _.random(100000, 999999).toString(36)
-  beginLogger(requestId)
-  await processor()
-  printQueueLogger(name, job, requestId)
-  endLogger(requestId)
+const withLogger = (title, processor) => async (req, job) => {
+  const logger = new Logger({
+    type: 'JOB',
+    title
+  })
+  logger.begin(req)
+  try {
+    await processor(req, job)
+    logger.info(req, { job })
+  } catch(err) {
+    logger.error(req, err)
+    throw(err)
+  }
 }
 
 const withTransaction = (processor, refresh, job) => async () => {

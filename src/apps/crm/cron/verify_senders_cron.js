@@ -3,12 +3,12 @@ import cron from '../../../core/objects/cron'
 import ses from '../../../core/services/ses'
 import Sender from '../models/sender'
 
-export const processor = async (trx) => {
+export const processor = async (req) => {
 
   const unverified = await Sender.query(qb => {
     qb.where('is_verified', false)
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(results => results.toArray())
 
   if(unverified.length === 0) return
@@ -24,14 +24,14 @@ export const processor = async (trx) => {
       is_verified: true
     }, {
       patch: true,
-      transacting: trx
+      transacting: req.trx
     })
   })
 
 }
 
-export const afterCommit = async (trx, result) => {
-  await socket.refresh({ trx }, [
+export const afterCommit = async (req, result) => {
+  await socket.refresh(req, [
     '/admin/crm/senders'
   ])
 }
