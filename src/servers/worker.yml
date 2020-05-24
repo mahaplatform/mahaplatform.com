@@ -1,0 +1,26 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    image: ami-02eac2c0129f6376b
+    instance_type: t3.medium
+    role: worker
+    group_ids:
+      - sg-0589cb45cd2b71602
+      - sg-04d38b75
+    volume_size: 15
+    hostgroups: workers
+  roles:
+  - ec2
+
+- hosts: workers
+  become: true
+  roles:
+  - base
+  - ntpd
+  - nodejs
+  - openjdk
+  - libreoffice
+  - clamav
+  - app
+  - pm2

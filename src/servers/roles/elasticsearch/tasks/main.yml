@@ -1,0 +1,30 @@
+- name: copy elasticsearch.repo
+  copy:
+    src: ../files/elasticsearch.repo
+    dest: /etc/yum.repos.d/elasticsearch.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install elasticsearch-oss
+  yum:
+    name: elasticsearch-oss
+
+- name: copy elasticsearch.repo
+  copy:
+    src: ../files/elasticsearch.yml
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+
+- name: enable elasticsearch.service
+  systemd:
+    name: elasticsearch.service
+    daemon_reload: yes
+    enabled: yes
+
+- name: start elasticsearch.service
+  systemd:
+    name: elasticsearch.service
+    state: started

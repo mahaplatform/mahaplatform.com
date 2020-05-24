@@ -28,4 +28,4 @@ metadata.csv
 REVISION
 /src/desktop/www/index.js
 /src/desktop/www/index.css
-/servers/group_vars/all/*.yml
+/src/servers/group_vars/all/*.yml

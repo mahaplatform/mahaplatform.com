@@ -1,0 +1,22 @@
+- name: copy mongodb-org.repo
+  copy:
+    src: ../files/mongodb-org.repo
+    dest: /etc/yum.repos.d/mongodb-org.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install mongodb-org
+  yum:
+    name: mongodb-org
+
+- name: enable mongod.service
+  systemd:
+    name: mongod.service
+    daemon_reload: yes
+    enabled: yes
+
+- name: start mongod.service
+  systemd:
+    name: mongod.service
+    state: started

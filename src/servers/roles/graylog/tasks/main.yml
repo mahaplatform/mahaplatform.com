@@ -1,0 +1,26 @@
+- name: Install graylog
+  yum:
+    name: https://packages.graylog2.org/repo/packages/graylog-3.3-repository_latest.rpm
+
+- name: Install graylog-server
+  yum:
+    name: graylog-server
+
+- name: copy server.conf
+  copy:
+    src: ../files/server.conf
+    dest: /etc/graylog/server/server.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable graylog-server.service
+  systemd:
+    name: graylog-server.service
+    daemon_reload: yes
+    enabled: yes
+
+- name: start graylog-server.service
+  systemd:
+    name: graylog-server.service
+    state: started
