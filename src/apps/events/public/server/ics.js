@@ -10,7 +10,7 @@ const icsRoute = async (req, res) => {
     qb.where('code', req.params.code)
     qb.whereNull('deleted_at')
   }).fetch({
-    withRelated: ['program','sessions.location'],
+    withRelated: ['program','sessions.location','team'],
     transacting: req.trx
   })
 
@@ -18,6 +18,8 @@ const icsRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load event'
   })
+
+  req.team = event.related('team')
 
   const template = fs.readFileSync(path.join(__dirname, 'ics.ejs'), 'utf8')
 

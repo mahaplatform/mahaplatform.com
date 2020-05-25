@@ -1,11 +1,10 @@
-import socket from '..//services/routes/emitter'
+import socket from '../services/routes/emitter'
 import Team from '../../apps/maha/models/team'
-import Logger from '../utils/logger'
+import Logger from '../services/logger'
 import knex from '../services/knex'
 import redis from 'ioredis'
 import moment from 'moment'
 import Bull from 'bull'
-import _ from 'lodash'
 
 const defaults = {
   attempts: 3,
@@ -67,8 +66,8 @@ class Queue {
 
 }
 
-const wrapped = (name, processor, refresh) => async (job, done) => {
-  const processorWithLogger = withLogger(name, processor)
+const wrapped = (title, processor, refresh) => async (job, done) => {
+  const processorWithLogger = withLogger(title, processor)
   const processorWithTransaction = withTransaction(processorWithLogger, refresh)
   try {
     await processorWithTransaction(job)
@@ -79,16 +78,13 @@ const wrapped = (name, processor, refresh) => async (job, done) => {
 }
 
 const withLogger = (title, processor) => async (req, job) => {
-  const logger = new Logger({
-    type: 'JOB',
-    title
-  })
+  const logger = new Logger('worker')
   logger.begin(req)
   try {
     await processor(req, job)
-    logger.info(req, { job })
+    logger.info(req, title, { job })
   } catch(err) {
-    logger.error(req, err)
+    logger.error(req, title, { job }, err)
     throw(err)
   }
 }

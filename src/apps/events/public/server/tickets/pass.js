@@ -17,7 +17,7 @@ const passRoute = async (req, res) => {
   const ticket = await Ticket.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['registration.event.program.logo'],
+    withRelated: ['registration.event.program.logo','team'],
     transacting: req. trx
   })
 
@@ -25,6 +25,8 @@ const passRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load ticket'
   })
+
+  req.team = ticket.related('team')
 
   const event = ticket.related('registration').related('event')
 

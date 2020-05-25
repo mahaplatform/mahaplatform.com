@@ -1,24 +1,22 @@
-const error = (err, req, res, next) => {
+const error = (error, req, res, next) => {
 
-  if(process.env.NODE_ENV === 'development') {
-    console.log(err)
-  }
+  res.error = error
 
-  if(err.status) return res.status(err.status).json({
-    status: err.status,
-    errors: err.errors,
-    message: err.message
+  if(error.status) return res.status(error.status).json({
+    status: error.status,
+    errors: error.errors,
+    message: error.message
   })
 
-  if(err.errors) return res.status(422).json({
+  if(error.errors) return res.status(422).json({
     status: 422,
     message: 'Unable to save record',
-    errors: err.toJSON()
+    errors: error.toJSON()
   })
 
   return res.status(500).json({
     status: 500,
-    message: err.message
+    message: error.message
   })
 
 }

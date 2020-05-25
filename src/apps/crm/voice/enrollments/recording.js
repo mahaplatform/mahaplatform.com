@@ -7,6 +7,7 @@ const recordingRoute = async (req, res) => {
   const step = await WorkflowStep.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
 
@@ -14,6 +15,8 @@ const recordingRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load enrollment'
   })
+
+  req.team = step.related('team')
 
   const asset = await Asset.query(qb => {
     qb.where('id', step.get('config').recording_id)

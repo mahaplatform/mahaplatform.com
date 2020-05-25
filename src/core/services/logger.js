@@ -1,15 +1,13 @@
-import winston from '../services/winston'
+import winston from './winston'
 import _ from 'lodash'
 
 class Logger {
 
   sql = []
   startTime = null
-  title = null
   type = null
 
-  constructor({ title, type }) {
-    this.title = title
+  constructor(type) {
     this.type = type
   }
 
@@ -28,12 +26,12 @@ class Logger {
     })
   }
 
-  info(req, data = {}) {
+  info(req, title, data = {}) {
     const duration = this._getDuration(this.startTime)
     winston.info({
-      message: `${this.type}: ${this.title}`,
+      message: `${this.type.toUpperCase()}: ${title}`,
       type: this.type,
-      title: this.title,
+      title,
       ...data,
       duration,
       queries: this.sql.map(query => ({
@@ -44,12 +42,13 @@ class Logger {
     })
   }
 
-  error(req, error) {
+  error(req, title, data = {}, error = null) {
     const duration = this._getDuration(this.startTime)
     winston.error({
-      message: `${this.type}: ${this.title}`,
+      message: `${this.type.toUpperCase()}: ${title}`,
       type: this.type,
-      title: this.title,
+      title,
+      ...data,
       error_message: error.message,
       error_stack: error.stack.split('\n').map(line => line.trim()).slice(1),
       statusCode: 500,

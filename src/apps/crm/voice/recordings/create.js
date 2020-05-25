@@ -29,9 +29,11 @@ const createRoute = async (req, res) => {
       url
     })
 
-    await asset.load(['user.photo','source'], {
+    await asset.load(['user.photo','source','team'], {
       transacting: req.trx
     })
+
+    req.ream = asset.related('team')
 
     await socket.in(`/admin/crm/recordings/${req.params.code}`).emit('message', {
       target: `/admin/crm/recordings/${req.params.code}`,

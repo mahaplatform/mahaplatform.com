@@ -10,9 +10,11 @@ const showRoute = async (req, res) => {
   const recording = await WorkflowRecording.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['action.enrollment.contact','action.enrollment.call.from','asset'],
+    withRelated: ['action.enrollment.contact','action.enrollment.call.from','asset','team'],
     transacting: req.trx
   })
+
+  req.team = recording.related('team')
 
   const enrollment = recording.related('action').related('enrollment')
 

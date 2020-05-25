@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['customer','coupon','line_items.product','payments','program.logo'],
+    withRelated: ['customer','coupon','line_items.product','payments','program.logo','team'],
     transacting: req.trx
   })
 
@@ -21,6 +21,8 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load invoice'
   })
+
+  req.team = invoice.related('team')
 
   const content = ejs.render(template, {
     invoice: InvoiceSerializer(req, invoice)

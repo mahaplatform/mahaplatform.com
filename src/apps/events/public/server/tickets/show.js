@@ -12,7 +12,7 @@ const showRoute = async (req, res) => {
     qb.where('events_events.code', req.params.event_code)
     qb.where('events_tickets.code', req.params.code)
   }).fetch({
-    withRelated: ['registration.event.image', 'registration.event.sessions', 'registration.event.program.logo'],
+    withRelated: ['registration.event.image', 'registration.event.sessions', 'registration.event.program.logo', 'team'],
     transacting: req. trx
   })
 
@@ -20,6 +20,8 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load ticket'
   })
+
+  req.team = ticket.related('team')
 
   const template = fs.readFileSync(path.join(__dirname, 'show.ejs'), 'utf8')
 

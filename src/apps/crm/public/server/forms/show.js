@@ -25,6 +25,8 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  req.team = form.related('team')
+
   const { limits } = form.get('config')
   const { strategy, redirect } = limits
   if(!form.get('is_open') && strategy === 'redirect') {

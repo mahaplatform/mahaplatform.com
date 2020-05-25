@@ -1,36 +1,33 @@
-import Logger from '../utils/logger'
+import Logger from '../services/logger'
 import knex from '../services/knex'
 
 const cron = (options) => ({
   name: options.name,
   schedule: options.schedule,
   handler: wrapped({
-    name: options.name,
+    title: options.name,
     processor: options.processor,
     afterCommit: options.afterCommit,
     beforeRollback: options.beforeRollback
   })
 })
 
-const wrapped = ({ name, processor, afterCommit, beforeRollback }) => async () => {
+const wrapped = ({ title, processor, afterCommit, beforeRollback }) => async () => {
   try {
-    const processorWithLogger = withLogger(name, processor)
+    const processorWithLogger = withLogger(title, processor)
     const processorWithTransaction = withTransaction(processorWithLogger, afterCommit, beforeRollback)
     await processorWithTransaction()
   } catch(err) {}
 }
 
 const withLogger = (title, processor) => async (req) => {
-  const logger = new Logger({
-    type: 'CRON',
-    title
-  })
+  const logger = new Logger('cron')
   logger.begin(req)
   try {
     await processor(req)
-    logger.info(req)
+    logger.info(req, title)
   } catch(err) {
-    logger.error(req, err)
+    logger.error(req, title, null, err)
     throw(err)
   }
 }

@@ -11,12 +11,12 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.team = enrollment.related('team')
-
   if(!enrollment) return res.status(404).respond({
     code: 404,
     message: 'Unable to load enrollment'
   })
+
+  req.team = enrollment.related('team')
 
   if(req.body.AnsweredBy === 'machine_end_beep') {
     await enrollment.save({

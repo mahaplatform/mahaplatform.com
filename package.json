@@ -99,6 +99,7 @@
     "dotenv": "^4.0.0",
     "dropbox-v2-api": "^2.1.15",
     "ejs": "^2.5.7",
+    "ejs-lint": "^1.1.0",
     "element-resize-event": "^3.0.3",
     "emoji-unicode": "^1.0.9",
     "enzyme": "^3.1.0",
@@ -199,6 +200,7 @@
     "webshot": "^0.18.0",
     "winston": "^3.2.1",
     "winston-graylog2": "^2.1.2",
+    "winston-log2gelf": "^2.3.0",
     "xml": "^1.0.1"
   }
 }

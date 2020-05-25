@@ -9,8 +9,11 @@ const embedRoute = async (req, res) => {
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
+
+  req.team = form.related('team')
 
   const content = template.replace('<%= form.code %>', form.get('code'))
 

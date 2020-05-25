@@ -6,6 +6,7 @@ const tokenRoute = async (req, res) => {
   const invoice = await Invoice.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
 
@@ -13,6 +14,8 @@ const tokenRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load invoice'
   })
+
+  req.team = invoice.related('team')
 
   const response = await new Promise((resolve, reject) => {
     braintree.clientToken.generate((err, response) => {

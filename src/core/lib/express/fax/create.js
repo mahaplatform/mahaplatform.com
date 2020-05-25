@@ -15,8 +15,11 @@ const createRoute = async (req, res) => {
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('number', to)
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
+
+  req.team = phone_number.related('team')
 
   await createFax(req, {
     team_id: phone_number.get('team_id'),

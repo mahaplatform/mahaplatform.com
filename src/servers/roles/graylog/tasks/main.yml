@@ -6,6 +6,42 @@
   yum:
     name: graylog-server
 
+- name: Install graylog-enterprise
+  yum:
+    name: graylog-enterprise-plugins,graylog-integrations-plugins,graylog-enterprise-integrations-plugins
+
+- name: copy logs.mahaplatform.com.key
+  copy:
+    src: ../../../../keys/logs.mahaplatform.com.key
+    dest: /etc/pki/tls/private/logs.mahaplatform.com.key
+    owner: graylog
+    group: graylog
+    mode: 0600
+
+- name: copy logs.mahaplatform.com.crt
+  copy:
+    src: ../../../../keys/logs.mahaplatform.com.crt
+    dest: /etc/pki/tls/certs/logs.mahaplatform.com.crt
+    owner: graylog
+    group: graylog
+    mode: 0600
+
+- name: copy gelf.mahaplatform.com.key
+  copy:
+    src: ../../../../keys/gelf.mahaplatform.com.key
+    dest: /etc/pki/tls/private/gelf.mahaplatform.com.key
+    owner: graylog
+    group: graylog
+    mode: 0600
+
+- name: copy gelf.mahaplatform.com.crt
+  copy:
+    src: ../../../../keys/gelf.mahaplatform.com.crt
+    dest: /etc/pki/tls/certs/gelf.mahaplatform.com.crt
+    owner: graylog
+    group: graylog
+    mode: 0600
+
 - name: copy server.conf
   copy:
     src: ../files/server.conf
@@ -20,7 +56,36 @@
     daemon_reload: yes
     enabled: yes
 
-- name: start graylog-server.service
+- name: restart graylog-server.service
   systemd:
     name: graylog-server.service
-    state: started
+    state: restarted
+
+- name: restart graylog-server.service
+  systemd:
+    name: graylog-server.service
+    state: restarted
+
+- name: Install nginx
+  yum:
+    name: nginx
+
+- name: copy nginx.conf
+  copy:
+    src: ../files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: enable nginx
+  systemd:
+    name: nginx.service
+    daemon_reload: yes
+    enabled: yes
+
+- name: restart nginx.service
+  systemd:
+    name: nginx.service
+    state: restarted
