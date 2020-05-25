@@ -1,0 +1,26 @@
+<%- chalk.white(`${data.type.toUpperCase()}:`) -%> <%- chalk.grey(data.title) %>
+<% if(data.params && Object.keys(data.params).length > 0) { -%>
+<%- chalk.red('PARAMS') -%> <%- chalk.grey(JSON.stringify(data.params)) %>
+<% } -%>
+<% if(data.body && Object.keys(data.body).length > 0) { -%>
+<%- chalk.red('BODY') -%> <%- chalk.grey(JSON.stringify(data.body)) %>
+<% } -%>
+<% if(data.query && Object.keys(data.query).length > 0) { -%>
+<%- chalk.red('QUERY') -%> <%- chalk.grey(JSON.stringify(data.query)) %>
+<% } -%>
+<% if(data.job && Object.keys(data.job).length > 0) { -%>
+<%- chalk.red('JOB') -%> <%- chalk.grey(JSON.stringify(data.job)) %>
+<% } -%>
+<% if(data.user_id) { -%>
+<%- chalk.red('USER') -%> <%- chalk.grey(`${data.user_name} (${data.user_id})`) %>
+<% } -%>
+<% if(data.error_message) { -%>
+<%- chalk.red('ERROR') -%> <%- chalk.grey(data.error_message) %>
+<% } -%>
+<% if(data.error_stack) { -%>
+<%- chalk.red('STACKTRACE') -%> <%- chalk.grey(data.error_stack.join('\n')) %>
+<% } -%>
+<%- chalk.red('RESPONSE:') -%> <%- chalk.grey(`${data.statusCode} rendered in ${data.duration}ms`) %>
+<% data.queries.map(query => { -%>
+<%- chalk.green('SQL:') -%> <%- chalk.grey(query.sql) -%> <%- chalk.magenta(`[${query.bindings.join(', ')}]`) %> <%- chalk.grey(`${query.duration}ms`) %>
+<% }) -%>
