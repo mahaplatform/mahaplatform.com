@@ -32,6 +32,7 @@ class Logger {
       message: `${this.type.toUpperCase()}: ${title}`,
       type: this.type,
       title,
+      statusCode: 200,
       ...data,
       duration,
       queries: this.sql.map(query => ({
@@ -48,10 +49,10 @@ class Logger {
       message: `${this.type.toUpperCase()}: ${title}`,
       type: this.type,
       title,
+      statusCode: 500,
       ...data,
       error_message: error.message,
       error_stack: error.stack.split('\n').map(line => line.trim()).slice(1),
-      statusCode: 500,
       duration,
       queries: this.sql.map(query => ({
         sql: query.sql,

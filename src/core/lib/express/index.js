@@ -34,6 +34,12 @@ server.use(bodyParser.json({ limit: '5mb' }))
 
 server.use(multiparty({ uploadDir: './tmp' }))
 
+server.use('/ping', ping)
+
+server.use('/imagecache', imagecache)
+
+server.use(staticMiddleware)
+
 server.use(arena)
 
 server.use(rollbarMiddleware)
@@ -52,15 +58,9 @@ server.use('/fax', fax)
 
 server.use('/sms', sms)
 
-server.use('/ping', ping)
-
-server.use('/imagecache', imagecache)
-
 server.use('/qr', qrcode)
 
 server.use('/.well-known', deeplinkMiddleware)
-
-server.use(staticMiddleware)
 
 server.use(serverMiddleware)
 

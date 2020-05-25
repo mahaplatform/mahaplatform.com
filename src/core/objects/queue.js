@@ -89,7 +89,7 @@ const withLogger = (title, processor) => async (req, job) => {
   }
 }
 
-const withTransaction = (processor, refresh, job) => async () => {
+const withTransaction = (processor, refresh, job) => async (job) => {
   await knex.transaction(async trx => {
     try {
       const team = job.data.team_id ? await Team.query(qb => {
