@@ -11,6 +11,7 @@ export const addToLists = async (req, { contact, list_ids }) => {
     })
 
     await enrollInWorkflows(req, {
+      contact,
       trigger_type: 'list',
       action: 'add',
       list_id
@@ -30,6 +31,7 @@ export const removeFromLists = async (req, { contact, list_ids }) => {
     }).delete()
 
     await enrollInWorkflows(req, {
+      contact,
       trigger_type: 'list',
       action: 'remove',
       list_id

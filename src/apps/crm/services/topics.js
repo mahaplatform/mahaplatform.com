@@ -11,6 +11,7 @@ export const addToTopics = async (req, { contact, topic_ids }) => {
     })
 
     await enrollInWorkflows(req, {
+      contact,
       trigger_type: 'topic',
       action: 'add',
       topic_id
@@ -30,6 +31,7 @@ export const removeFromTopics = async (req, { contact, topic_ids }) => {
     }).delete()
 
     await enrollInWorkflows(req, {
+      contact,
       trigger_type: 'topic',
       action: 'remove',
       topic_id

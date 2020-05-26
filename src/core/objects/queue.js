@@ -80,11 +80,15 @@ const wrapped = (title, processor, refresh) => async (job, done) => {
 const withLogger = (title, processor) => async (req, job) => {
   const logger = new Logger('worker')
   logger.begin(req)
+  const data = {
+    id: job.id,
+    job: job.data
+  }
   try {
     await processor(req, job)
-    logger.info(req, title, { job })
+    logger.info(req, title, data)
   } catch(err) {
-    logger.error(req, title, { job }, err)
+    logger.error(req, title, data, err)
     throw(err)
   }
 }
