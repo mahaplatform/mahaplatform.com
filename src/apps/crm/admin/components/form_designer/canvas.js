@@ -74,7 +74,8 @@ class Canvas extends React.Component {
   }
 
   _handleClone({ index }) {
-    this.props.onClone(index)
+    const code = _.random(100000000, 999999999).toString(36)
+    this.props.onClone(index, code)
   }
 
   _handleEdit({ index }) {

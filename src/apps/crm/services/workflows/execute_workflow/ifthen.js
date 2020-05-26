@@ -218,7 +218,6 @@ const getContactData = async (req, { contact }) => {
       email: contact.get('email'),
       phone: contact.get('phone'),
       address: contact.get('address'),
-      phone: contact.get('phone'),
       birthday: contact.get('birthday'),
       spouse: contact.get('spouse'),
       list_ids: contact.related('lists').map(list => list.get('id')),

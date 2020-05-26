@@ -14,6 +14,7 @@ const logger = (req, res, next) => {
     const data = {
       method: req.method,
       url,
+      useragent: req.header('user-agent'),
       referer: req.header('Referer'),
       params: req.params,
       body: req.body,

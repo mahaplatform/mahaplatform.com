@@ -14,9 +14,10 @@ export const add = (index, field) => ({
   field
 })
 
-export const clone = (field) => ({
+export const clone = (index, code) => ({
   type: 'CLONE',
-  field
+  index,
+  code
 })
 
 export const edit = (field) => ({
