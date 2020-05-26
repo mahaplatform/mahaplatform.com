@@ -163,10 +163,10 @@ const build = async () => {
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
-  await buildPublic(),
+  // await buildPublic(),
   await buildServer(environment),
-  await buildClients(environment),
-  await buildEnv(environment)
+  // await buildClients(environment),
+  // await buildEnv(environment)
   rimraf.sync(dist)
   await move(staged, dist)
   log('info', 'build', `Finished in ${getDuration(start)}`)
