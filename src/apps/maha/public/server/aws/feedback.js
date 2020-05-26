@@ -40,9 +40,9 @@ const feedbackRoute = async (req, res) => {
         transacting: req.trx
       })
 
-      req.team = email.related('team')
-
       if(!email) return res.status(200).send(true)
+
+      req.team = email.related('team')
 
       if(message.notificationType === 'Delivery') {
 

@@ -19,7 +19,6 @@ const testNotNull = (left, right) => {
 }
 
 const testEquals = (left, right) => {
-  console.log(castValue(left), castValue(right))
   return castValue(left) === castValue(right)
 }
 
@@ -240,7 +239,7 @@ const ifthen = async (req, { config, contact, data, enrollment, steps, step }) =
   })
 
   return {
-    data: {
+    action: {
       data: {
         branch: branch.name
       }

@@ -17,7 +17,7 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
 
   if(action === 'add' && _.includes(existing_ids, topic_id)) {
     return {
-      data: {
+      action: {
         topic_id
       }
     }
@@ -25,7 +25,7 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
 
   if(action === 'remove' && !_.includes(existing_ids, topic_id)) {
     return {
-      data: {
+      action: {
         topic_id
       }
     }
@@ -46,7 +46,7 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
   }
 
   return {
-    data: {
+    action: {
       topic_id
     }
   }

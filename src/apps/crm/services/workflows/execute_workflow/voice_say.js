@@ -11,7 +11,7 @@ const say = async (req, { enrollment, execute, step, tokens }) => {
 
   if(execute === false) {
     return {
-      data: {
+      action: {
         data: {
           message: rendered
         }

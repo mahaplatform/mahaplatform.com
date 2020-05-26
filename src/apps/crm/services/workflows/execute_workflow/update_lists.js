@@ -17,7 +17,7 @@ const updateLists = async (req, { contact, config, enrollment }) => {
 
   if(action === 'add' && _.includes(existing_ids, list_id)) {
     return {
-      data: {
+      action: {
         list_id
       }
     }
@@ -25,7 +25,7 @@ const updateLists = async (req, { contact, config, enrollment }) => {
 
   if(action === 'remove' && !_.includes(existing_ids, list_id)) {
     return {
-      data: {
+      action: {
         list_id
       }
     }
@@ -46,7 +46,7 @@ const updateLists = async (req, { contact, config, enrollment }) => {
   }
 
   return {
-    data: {
+    action: {
       list_id
     }
   }

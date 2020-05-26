@@ -49,7 +49,7 @@ const smsMessage = async (req, { config, contact, enrollment, tokens }) => {
   })
 
   return {
-    data: {
+    action: {
       data: {
         message: config.message
       }

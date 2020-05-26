@@ -3,7 +3,7 @@ const set = async (req, { config }) => {
   const value = config.value
 
   return {
-    data: {
+    action: {
       data: {
         [config.code]: value
       }

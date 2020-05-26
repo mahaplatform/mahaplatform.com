@@ -6,7 +6,7 @@ const voiceQuestion = async (req, { config, enrollment, execute, step, answer })
 
   if(execute === false) {
     return {
-      data: {
+      action: {
         asset_id: recording_id,
         data: {
           [code]: answer

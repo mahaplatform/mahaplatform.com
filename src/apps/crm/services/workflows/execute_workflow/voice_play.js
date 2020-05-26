@@ -6,7 +6,7 @@ const play = async (req, { config, enrollment, execute, step }) => {
 
   if(execute === false) {
     return {
-      data: {
+      action: {
         asset_id: recording_id
       }
     }

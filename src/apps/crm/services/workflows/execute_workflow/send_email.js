@@ -128,7 +128,7 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
   })
 
   return {
-    data: {
+    action: {
       email_id: email.get('id')
     }
   }
