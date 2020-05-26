@@ -70,7 +70,8 @@ const sendSms = async (req, { config, contact, enrollment, tokens }) => {
     program_id: program.get('id'),
     phone_number_id: phone_number.get('id')
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   return {}

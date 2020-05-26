@@ -26,7 +26,8 @@ const updateSteps = async (req, params) => {
     await step.save({
       is_active: false
     }, {
-      transacting: req.trx
+      transacting: req.trx,
+      patch: true
     })
   })
 

@@ -102,7 +102,8 @@ const createConfirmationWorkflow = async(req, params) => {
     workflow_id: workflow.get('id'),
     email_id: email.get('id')
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await GenerateScreenshotQueue.enqueue(req, {

@@ -64,7 +64,8 @@ const receive = async (req, { sms, phone_number }) => {
     program_id: phone_number.related('program').get('id'),
     phone_number_id: from.get('id')
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await socket.refresh(req, [

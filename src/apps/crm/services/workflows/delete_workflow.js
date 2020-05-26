@@ -11,8 +11,8 @@ const deleteWorkflow = async(req, { workflow }) => {
   await workflow.save({
     deleted_at: moment()
   }, {
-    patch: true,
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await Promise.mapSeries(workflow.related('emails'), async (email) => {

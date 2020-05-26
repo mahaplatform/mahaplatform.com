@@ -17,7 +17,8 @@ const save_recording = async (req, { action_id, recording_id, url }) => {
   await recording.save({
     asset_id: asset.get('id')
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   const action = await WorkflowAction.query(qb => {
@@ -29,7 +30,8 @@ const save_recording = async (req, { action_id, recording_id, url }) => {
   await action.save({
     recording_id: recording.get('id')
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
 }
