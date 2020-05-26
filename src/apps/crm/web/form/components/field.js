@@ -15,6 +15,7 @@ import {
 import ProductField from '../../embedded/components/form/fields/productfield'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Field extends React.Component {
 
@@ -86,6 +87,7 @@ class Field extends React.Component {
     const { field  } = this.props
     return {
       ...field,
+      name: _.get(field, 'name.value'),
       ...field.contactfield || {}
     }
   }
