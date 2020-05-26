@@ -54,19 +54,19 @@ const getExecutor = (type, action) => {
 }
 
 const executeStep = async (req, params) => {
-  const { answer, contact, data, enrollment, execute, step, steps, recording, tokens } = params
+  const { answer, contact, enrollment, execute, step, steps, recording, tokens, workflow } = params
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
     config: step.get('config'),
     contact,
-    data,
     enrollment,
     execute,
     recording,
     step,
     steps,
-    tokens
+    tokens,
+    workflow
   })
 }
 
@@ -158,18 +158,6 @@ const refresh = async (req, { enrollment }) => {
   }
 }
 
-const getData = async(req, { contact, enrollment, steps }) => ({
-  contact: {
-    full_name: contact.get('full_name'),
-    first_name: contact.get('first_name'),
-    last_name: contact.get('last_name'),
-    email: contact.get('email'),
-    phone: contact.get('phone'),
-    address: contact.get('address'),
-    ...enrollment.get('data')
-  }
-})
-
 const getTokens = async(req, { contact, enrollment, steps, workflow }) => {
 
   const fields = workflow.related('program').related('fields')
@@ -259,7 +247,7 @@ const saveRecording = async(req, { action, recording_data }) => {
 
 const saveResults = async (req, params) => {
 
-  const { enrollment, step, recording_data, unenroll } = params
+  const { converted, enrollment, step, recording_data, unenroll } = params
 
   params.action = params.action || {}
 
@@ -296,6 +284,9 @@ const saveResults = async (req, params) => {
       ...enrollment.get('data') || {},
       ...params.action.data
     },
+    ...converted ? {
+      was_converted: true
+    }: {},
     ...unenroll ? {
       status: 'lost',
       unenrolled_at: moment()
@@ -328,7 +319,6 @@ const executeWorkflow = async (req, params) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['team'],
     transacting: req.trx
   })
 
@@ -365,33 +355,28 @@ const executeWorkflow = async (req, params) => {
     workflow
   })
 
-  const data = await getData(req, {
-    contact,
-    enrollment,
-    steps
-  })
-
   const result = await executeStep(req, {
     answer,
     contact,
-    data,
     enrollment,
     execute,
     step,
     steps,
     recording,
-    tokens
+    tokens,
+    workflow
   })
 
-  const { condition, recording_data, twiml, unenroll, until, wait } = result
+  const { action, condition, converted, recording_data, twiml, unenroll, until, wait } = result
 
   if(twiml) return { twiml }
 
   if(wait === true) return
 
   await saveResults(req, {
+    action,
     enrollment,
-    action: result.action,
+    converted,
     recording_data,
     step,
     unenroll

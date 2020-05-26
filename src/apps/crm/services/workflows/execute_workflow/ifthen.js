@@ -152,9 +152,9 @@ const getRegistrationData = async (req, { enrollment }) => {
 
 }
 
-const getWorkflowData = async (req, { enrollment, steps }) => {
-  return enrollment.get('data')
-}
+const getWorkflowData = async (req, { enrollment, steps }) => ({
+  workflow: enrollment.get('data')
+})
 
 const getEmailData = async (req, { enrollment }) => {
 
@@ -197,6 +197,13 @@ const getEnrollmentData = async (req, { enrollment, steps }) => {
 
 }
 
+const getProgramData = async (req, { contact, program }) => ({
+  program: program.related('fields').reduce((programvalues, field) => ({
+    ...programvalues,
+    [field.get('name').token]: _.get(contact.get('values'), `${field.get('code')}[0]`)
+  }), {})
+})
+
 const getContactData = async (req, { contact }) => {
 
   await contact.load(['lists','organizations','tags','topics','responses','registrations','import_items'], {
@@ -204,21 +211,43 @@ const getContactData = async (req, { contact }) => {
   })
 
   return {
-    list_ids: contact.related('lists').map(list => list.get('id')),
-    organization_ids: contact.related('organizations').map(organization => organization.get('id')),
-    tag_ids: contact.related('tags').map(tag => tag.get('id')),
-    topic_ids: contact.related('topics').map(topic => topic.get('id')),
-    event_ids: contact.related('registrations').map(registration => registration.get('event_id')),
-    form_ids: contact.related('responses').map(response => response.get('form_id')),
-    import_ids: contact.related('import_items').map(item => item.get('import_id'))
+    contact: {
+      full_name: contact.get('full_name'),
+      first_name: contact.get('first_name'),
+      last_name: contact.get('last_name'),
+      email: contact.get('email'),
+      phone: contact.get('phone'),
+      address: contact.get('address'),
+      phone: contact.get('phone'),
+      birthday: contact.get('birthday'),
+      spouse: contact.get('spouse'),
+      list_ids: contact.related('lists').map(list => list.get('id')),
+      organization_ids: contact.related('organizations').map(organization => organization.get('id')),
+      tag_ids: contact.related('tags').map(tag => tag.get('id')),
+      topic_ids: contact.related('topics').map(topic => topic.get('id')),
+      event_ids: contact.related('registrations').map(registration => registration.get('event_id')),
+      form_ids: contact.related('responses').map(response => response.get('form_id')),
+      import_ids: contact.related('import_items').map(item => item.get('import_id'))
+    }
   }
 
 }
 
-const ifthen = async (req, { config, contact, data, enrollment, steps, step }) => {
+const getEnvironmentData = async () => ({
+  environment: {
+    day: moment().day()
+  }
+})
+
+const ifthen = async (req, { config, contact, enrollment, steps, step, workflow }) => {
 
   const contactData = await getContactData(req, {
     contact
+  })
+
+  const programData = await getProgramData(req, {
+    contact,
+    program: workflow.related('program')
   })
 
   const enrollmentData = await getEnrollmentData(req, {
@@ -226,15 +255,12 @@ const ifthen = async (req, { config, contact, data, enrollment, steps, step }) =
     steps
   })
 
+  const environmentData = await getEnvironmentData()
+
   const branch = await getBranch(config.branches, {
-    ...data,
-    environment: {
-      day: moment().day()
-    },
-    contact: {
-      ...data.contact,
-      ...contactData
-    },
+    ...contactData,
+    ...programData,
+    ...environmentData,
     ...enrollmentData
   })
 

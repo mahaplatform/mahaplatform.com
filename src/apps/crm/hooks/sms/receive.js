@@ -1,3 +1,4 @@
+import ExecuteWorkflowQueue from '../../queues/execute_workflow_queue'
 import { lookupNumber } from '../../../maha/services/phone_numbers'
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { enrollInCampaign } from '../../services/sms_campaigns'
@@ -83,7 +84,7 @@ const receive = async (req, { sms, phone_number }) => {
   })
 
   if(enrollment) {
-    return await executeWorkflow(req, {
+    await ExecuteWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       answer: sms.get('body')
     })

@@ -77,15 +77,11 @@ class VoiceDesigner extends React.PureComponent {
         label: program.title,
         fields: programfields.map(field => ({
           name: field.label,
-          key: `contact.${field.name}`,
+          key: `contact.${field.name.token}`,
           type: 'textfield'
         }))
       }] : [],
-      ...fields || [],
-      { label: 'Environment', fields: [
-        { name: 'Day', key: 'environment.day', type: 'date' },
-        // { name: 'Time', key: 'environment.time', type: 'time' }
-      ] }
+      ...fields || []
     ]
   }
 

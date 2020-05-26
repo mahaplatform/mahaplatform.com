@@ -116,7 +116,7 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'is subscribed to' },
           { value: '$nct', text: 'is not subscribed to' }
         ] },
-        { name: 'Oraganizations', key: 'oraganizations.oraganizations_ids', type: 'textfield' },
+        { name: 'Oraganizations', key: 'contact.oraganization_ids', type: 'textfield' },
         { name: 'Tags', key: 'contact.tag_ids', type: 'textfield' },
         { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is interested in' },
@@ -137,7 +137,11 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$nct', text: 'was not included in import' }
         ] }
       ] },
-      ...fields ? fields : []
+      ...fields ? fields : [],
+      { label: 'Environment', fields: [
+        { name: 'Day', key: 'environment.day', type: 'date' },
+        // { name: 'Time', key: 'environment.time', type: 'time' }
+      ] }
     ]
   }
 

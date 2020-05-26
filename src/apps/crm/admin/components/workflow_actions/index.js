@@ -35,7 +35,8 @@ const blocks = {
   record: { icon: 'microphone' },
   topic: { icon: 'lightbulb-o' },
   list: { icon: 'th-list' },
-  wait: { icon: 'clock-o' }
+  wait: { icon: 'clock-o' },
+  goal: { icon: 'flag' }
 }
 
 class WorkflowActions extends React.PureComponent {
@@ -73,7 +74,7 @@ class WorkflowActions extends React.PureComponent {
               </div>
             </div>
             <div className="crm-workflow-action-label">
-              <strong>{ action.step.action.toUpperCase() }</strong>
+              <i className="fa fa-caret-right" /> <strong>{ action.step.action.toUpperCase() }</strong>
               { this._getDescription(enrollment, action) }
             </div>
             <div className="crm-workflow-action-timestamp">

@@ -1,9 +1,7 @@
 import Workflow from '../../../models/workflow'
 import * as enrollments from '../enrollment'
 
-const enrollInWorkflow = async (req, params) => {
-
-  const { config, enrollment } = params
+const enrollInWorkflow = async (req, { config, enrollment }) => {
 
   const workflow = await Workflow.query(qb => {
     qb.where('id', config.workflow_id)

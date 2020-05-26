@@ -52,13 +52,13 @@ export const fields = createSelector(
   dynamicSteps,
   (inputFields, steps) => [
     ...inputFields,
-    ...steps.length > 0 ? [{
-      label: 'Workflow Fields', fields: steps.map(step => ({
+    ...steps.length > 0 ? [
+      { label: 'Workflow', fields: steps.map(step => ({
         name: step.config.name.value,
-        key: step.config.code,
+        key: `workflow.${step.config.code}`,
         type: 'text'
-      }))
-    }] : []
+      }))}
+    ] : []
   ]
 )
 

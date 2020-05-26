@@ -69,7 +69,7 @@ class SMSDesigner extends React.PureComponent {
     return [
       ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
         name: field.label,
-        key: `contact.${field.name}`,
+        key: `contact.${field.name.token}`,
         type: 'textfield'
       }))}] : [],
       ...fields || []
@@ -81,7 +81,7 @@ class SMSDesigner extends React.PureComponent {
     return [
       ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
         label: field.label,
-        name: field.name,
+        name: field.code,
         type: 'textfield'
       }))}] : []
     ]
