@@ -90,11 +90,7 @@ const updateConsent = async (req, { contact, config, enrollment }) => {
     }
   })
 
-  return {
-    action: {
-      program_id: program.get('id')
-    }
-  }
+  return {}
 
 }
 

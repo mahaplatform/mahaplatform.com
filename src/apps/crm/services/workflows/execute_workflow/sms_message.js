@@ -51,6 +51,7 @@ const smsMessage = async (req, { config, contact, enrollment, tokens }) => {
 
   return {
     action: {
+      sms_id: sms.get('id'),
       data: {
         message: config.message
       }

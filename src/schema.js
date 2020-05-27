@@ -618,6 +618,8 @@ const schema = {
       table.integer('recording_id').unsigned()
       table.integer('asset_id').unsigned()
       table.integer('user_id').unsigned()
+      table.integer('sms_id').unsigned()
+      table.timestamp('waited_until')
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
@@ -2631,6 +2633,7 @@ const schema = {
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('user_id').references('maha_users.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('sms_id').references('maha_smses.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {

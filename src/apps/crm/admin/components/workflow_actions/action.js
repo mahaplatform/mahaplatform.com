@@ -77,14 +77,17 @@ class Action extends React.PureComponent {
               { step.type === 'control' && step.action === 'set' &&
                 <span>{ config.name.value } = { data[config.code] }</span>
               }
+              { step.type === 'control' && step.action === 'wait' &&
+                <span>Waited until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
+              }
               { step.type === 'sms' && step.action === 'question' &&
                 <span>
-                  Q: { step.config.message }<br />
+                  Q: { action.sms ? action.sms.body : step.config.message }<br />
                   A: { data[step.config.code] }
                 </span>
               }
               { step.type === 'sms' && step.action === 'message' &&
-                <span>{ step.config.message }</span>
+                <span>{ action.sms ? action.sms.body : step.config.message }</span>
               }
               { step.type === 'voice' && step.action === 'say' &&
                 <span>Said { `"${data.message}"` }</span>

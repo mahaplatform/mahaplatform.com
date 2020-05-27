@@ -74,7 +74,11 @@ const sendSms = async (req, { config, contact, enrollment, tokens }) => {
     patch: true
   })
 
-  return {}
+  return {
+    action: {
+      sms_id: sms.get('id')
+    }    
+  }
 
 }
 

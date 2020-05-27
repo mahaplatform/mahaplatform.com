@@ -21,7 +21,7 @@ const sendInternalSms = async (req, { config, enrollment, tokens }) => {
     config
   })
 
-  await sendSMS(req, {
+  const sms = await sendSMS(req, {
     from: process.env.TWILIO_NUMBER,
     to,
     body: config.message,
@@ -29,7 +29,11 @@ const sendInternalSms = async (req, { config, enrollment, tokens }) => {
     data: tokens
   })
 
-  return {}
+  return {
+    action: {
+      sms_id: sms.get('id')
+    }
+  }
 
 }
 

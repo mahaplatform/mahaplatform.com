@@ -5,6 +5,7 @@ import Email from '../../maha/models/email'
 import Asset from '../../maha/models/asset'
 import WorkflowStep from './workflow_step'
 import User from '../../maha/models/user'
+import Sms from '../../maha/models/sms'
 import Workflow from './workflow'
 import Program from './program'
 import Topic from './topic'
@@ -44,6 +45,10 @@ const WorkflowAction = new Model({
 
   recording() {
     return this.belongsTo(Asset, 'recording_id')
+  },
+
+  sms() {
+    return this.belongsTo(Sms, 'sms_id')
   },
 
   step() {

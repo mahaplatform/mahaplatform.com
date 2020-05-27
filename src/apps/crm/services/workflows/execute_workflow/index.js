@@ -238,7 +238,7 @@ const saveRecording = async(req, { action, recording_data }) => {
 
 const saveResults = async (req, params) => {
 
-  const { converted, enrollment, step, recording_data, unenroll } = params
+  const { converted, enrollment, step, recording_data, unenroll, until } = params
 
   params.action = params.action || {}
 
@@ -247,7 +247,8 @@ const saveResults = async (req, params) => {
   const action = await WorkflowAction.forge({
     team_id: req.team.get('id'),
     enrollment_id: enrollment.get('id'),
-    step_id: step.get('id')
+    step_id: step.get('id'),
+    waited_until: until
   }).save(null, {
     transacting: req.trx
   })
@@ -371,7 +372,8 @@ const executeWorkflow = async (req, params) => {
     converted,
     recording_data,
     step,
-    unenroll
+    unenroll,
+    until
   })
 
 
