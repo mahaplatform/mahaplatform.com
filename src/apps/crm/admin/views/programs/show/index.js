@@ -21,9 +21,14 @@ const getTabs = (user, { accesses, lists, program, senders, templates, topics })
 })
 
 const getTasks = (user, { fields, program }) => ({
-  items: program.access_type === 'manage' ? [
-    { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> }
-  ] : null
+  items: [
+    ...program.access_type === 'manage' ? [
+      { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> }
+    ] : [],
+    ...program.access_type !== 'view' ? [
+      { label: 'Manage Communication', route: `/admin/crm/programs/${program.id}/channels` }
+    ] : []
+  ]
 })
 
 const mapResourcesToPage = (props, context) => ({
