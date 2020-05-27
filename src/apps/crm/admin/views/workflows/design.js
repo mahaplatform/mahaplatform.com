@@ -59,7 +59,7 @@ class Designer extends React.Component {
   _getEmailFields() {
     return [
       {
-        label: 'Email Fields',
+        label: 'Email',
         fields: [
           { name: 'Activity', key: 'email.activities', type: 'activity' }
         ]
@@ -70,7 +70,7 @@ class Designer extends React.Component {
   _getEventFields(event) {
     return [
       {
-        label: 'Registration Fields',
+        label: 'Registration',
         fields: [
           { name: 'First Name', key: 'registration.first_name', type: 'textfield' },
           { name: 'Last Name', key: 'registration.last_name', type: 'textfield' },
@@ -91,7 +91,7 @@ class Designer extends React.Component {
   _getFormFields(form) {
     return [
       {
-        label: 'Response Fields',
+        label: 'Response',
         fields: form.config.fields.filter(field => {
           return field.type !== 'text' && field.name
         }).map(field => ({
@@ -114,7 +114,7 @@ class Designer extends React.Component {
   _getFormTokens(form) {
     return [
       {
-        title: 'Response Tokens',
+        title: 'Response',
         tokens: form.config.fields.filter(field => {
           return field.type !== 'text' && field.name
         }).map(field => ({
@@ -128,7 +128,7 @@ class Designer extends React.Component {
   _getEventTokens(event) {
     return [
       {
-        title: 'Regstration Tokens',
+        title: 'Regstration',
         tokens: [
           { name: 'First Name', token: 'registration.first_name' },
           { name: 'Last Name', token: 'registration.last_name' },

@@ -78,10 +78,7 @@ class Property extends React.PureComponent {
     if(!config.name) return []
     const property = this._getField(config.name)
     return property ? [
-      { label: 'Value', type: 'segment', fields: [
-        { name: 'strategy', type: 'radiogroup', options: [{value:'static',text:'Static Value'}, {value:'dynamic',text:'Dynamic Value'}], defaultValue: config.strategy },
-        { ...property, label: null, placeholder: 'Enter value', name: 'value', required: true, defaultValue: config.value }
-      ] },
+      { ...property, label: null, placeholder: 'Enter value', name: 'value', required: true, defaultValue: config.value },
       { prompt: 'Overwrite value if property is already set', name: 'overwrite', type: 'checkbox', defaultValue: config.overwrite }
     ] : []
   }

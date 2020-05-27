@@ -220,6 +220,7 @@ const getContactData = async (req, { contact }) => {
       address: contact.get('address'),
       birthday: contact.get('birthday'),
       spouse: contact.get('spouse'),
+      values: contact.get('values'),
       list_ids: contact.related('lists').map(list => list.get('id')),
       organization_ids: contact.related('organizations').map(organization => organization.get('id')),
       tag_ids: contact.related('tags').map(tag => tag.get('id')),

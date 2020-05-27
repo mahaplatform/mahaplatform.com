@@ -71,8 +71,8 @@ class WorkflowDesigner extends React.PureComponent {
     return [
       ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
         name: field.label,
-        key: `contact.${field.name}`,
-        type: 'textfield'
+        key: `contact.values.${field.code}`,
+        type: field.type
       }))}] : [],
       ...fields || []
     ]
@@ -82,9 +82,8 @@ class WorkflowDesigner extends React.PureComponent {
     const { program, programfields } = this.props
     return [
       ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
-        name: field.label,
-        key: `contact.${field.name}`,
-        type: 'textfield'
+        ...field,
+        name: `values.${field.code}`
       }))}] : []
     ]
   }

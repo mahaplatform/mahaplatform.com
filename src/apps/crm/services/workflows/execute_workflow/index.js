@@ -137,85 +137,76 @@ const getWorkflow = async (req, { enrollment }) => {
 }
 
 const refresh = async (req, { enrollment }) => {
-  if(enrollment.get('voice_campaign_id')) {
-    await socket.refresh(req, [
+  await socket.refresh(req, [
+    ...enrollment.get('voice_campaign_id') ? [
       '/admin/crm/campaigns/voice',
       `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}`,
       `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}/calls`
-    ])
-  } else if(enrollment.get('sms_campaign_id')) {
-    await socket.refresh(req, [
+    ] : [],
+    ...enrollment.get('sms_campaign_id') ? [
       '/admin/crm/campaigns/sms',
       `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}`,
       `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}/sessions`
-    ])
-  } else if(enrollment.get('workflow_id')) {
-    await socket.refresh(req, [
+    ] : [],
+    ...enrollment.get('workflow_id') ? [
       '/admin/crm/workflows',
       `/admin/crm/workflows/${enrollment.get('workflow_id')}`,
       `/admin/crm/workflows/${enrollment.get('voice_campaign_id')}/enrollments`
-    ])
-  }
+    ] : []
+  ])
 }
 
-const getTokens = async(req, { contact, enrollment, steps, workflow }) => {
-
-  const fields = workflow.related('program').related('fields')
-
-  const values = contact.get('values')
-
-  const programvalues = fields.reduce((programvalues, field) => ({
+const getTokens = async(req, { contact, enrollment, program, steps, workflow }) => ({
+  contact: {
+    full_name: contact.get('full_name'),
+    first_name: contact.get('first_name'),
+    last_name: contact.get('last_name'),
+    email: contact.get('email'),
+    phone: contact.get('phone'),
+    address: contact.get('address'),
+    birthday: contact.get('birthday'),
+    spouse: contact.get('spouse'),
+    url: contact.get('url')
+  },
+  program: program.related('fields').reduce((programvalues, field) => ({
     ...programvalues,
-    [field.get('name').token]: _.get(values, `${field.get('code')}[0]`)
+    [field.get('name').token]: _.get(contact.get('values'), `${field.get('code')}[0]`)
+  }), {}),
+  ...enrollment.get('voice_campaign_id') ? {
+    call: workflow.get('direction') === 'inbound' ? {
+      from_number: enrollment.related('phone_number').get('formatted'),
+      from_number_spoken: enrollment.related('phone_number').get('spoken'),
+      to_number: workflow.related('phone_number').get('formatted'),
+      to_number_spoken: workflow.related('phone_number').get('spoken')
+    } : {
+      from_number: workflow.related('phone_number').get('formatted'),
+      from_number_spoken: workflow.related('phone_number').get('spoken'),
+      to_number: enrollment.related('phone_number').get('formatted'),
+      to_number_spoken: enrollment.related('phone_number').get('spoken')
+    }
+  } : {},
+  ...enrollment.get('sms_campaign_id') ? {
+    session: workflow.get('direction') === 'inbound' ? {
+      from_number: enrollment.related('phone_number').get('formatted'),
+      to_number: workflow.related('phone_number').get('formatted')
+    } : {
+      from_number: workflow.related('phone_number').get('formatted'),
+      to_number: enrollment.related('phone_number').get('formatted')
+    }
+  } : {},
+  workflow: steps.filter((step) => {
+    return _.includes(['set','question','record'], step.get('action'))
+  }).reduce((tokens, step) => ({
+    ...tokens,
+    ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
   }), {})
-
-  return {
-    contact: {
-      full_name: contact.get('full_name'),
-      first_name: contact.get('first_name'),
-      last_name: contact.get('last_name'),
-      email: contact.get('email'),
-      phone: contact.get('phone'),
-      address: contact.get('address'),
-      birthday: contact.get('birthday'),
-      spouse: contact.get('spouse'),
-      url: contact.get('url')
-    },
-    program: programvalues,
-    ...enrollment.get('voice_campaign_id') ? {
-      call: workflow.get('direction') === 'inbound' ? {
-        from_number: enrollment.related('phone_number').get('formatted'),
-        from_number_spoken: enrollment.related('phone_number').get('spoken'),
-        to_number: workflow.related('phone_number').get('formatted'),
-        to_number_spoken: workflow.related('phone_number').get('spoken')
-      } : {
-        from_number: workflow.related('phone_number').get('formatted'),
-        from_number_spoken: workflow.related('phone_number').get('spoken'),
-        to_number: enrollment.related('phone_number').get('formatted'),
-        to_number_spoken: enrollment.related('phone_number').get('spoken')
-      }
-    } : {},
-    ...enrollment.get('sms_campaign_id') ? {
-      session: workflow.get('direction') === 'inbound' ? {
-        from_number: enrollment.related('phone_number').get('formatted'),
-        to_number: workflow.related('phone_number').get('formatted')
-      } : {
-        from_number: workflow.related('phone_number').get('formatted'),
-        to_number: enrollment.related('phone_number').get('formatted')
-      }
-    } : {},
-    workflow: steps.filter((step) => {
-      return _.includes(['set','question','record'], step.get('action'))
-    }).reduce((tokens, step) => ({
-      ...tokens,
-      ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
-    }), {})
-  }
-}
+})
 
 const getToken = (action, config, data) => {
   const key = action === 'record' ? `${config.name.token}_recording_url` : config.name.token
-  return { [key]: data[config.code] }
+  return {
+    [key]: data[config.code]
+  }
 }
 
 const saveRecording = async(req, { action, recording_data }) => {
@@ -351,6 +342,7 @@ const executeWorkflow = async (req, params) => {
   const tokens = await getTokens(req, {
     contact,
     enrollment,
+    program: workflow.related('program'),
     steps,
     workflow
   })

@@ -36,7 +36,7 @@ class PropertyField extends React.PureComponent {
         <div className="maha-input-field" onClick={ this._handleLookup }>
           { property ?
             <div className="maha-input-token">
-              { property.name }
+              { property.label }
             </div> :
             <div className="maha-input-placeholder">
               Choose a property

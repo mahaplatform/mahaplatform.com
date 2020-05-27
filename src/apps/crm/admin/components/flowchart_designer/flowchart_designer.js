@@ -111,13 +111,13 @@ class FlowchartDesigner extends React.PureComponent {
         { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
         { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
       ] },
+      ...fields ? fields : [],
       { label: 'Classifications', fields: [
         { name: 'List', key: 'contact.list_ids', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is subscribed to' },
           { value: '$nct', text: 'is not subscribed to' }
         ] },
         { name: 'Oraganizations', key: 'contact.oraganization_ids', type: 'textfield' },
-        { name: 'Tags', key: 'contact.tag_ids', type: 'textfield' },
         { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is interested in' },
           { value: '$nct', text: 'is not interested in' }
@@ -137,7 +137,6 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$nct', text: 'was not included in import' }
         ] }
       ] },
-      ...fields ? fields : [],
       { label: 'Environment', fields: [
         { name: 'Day', key: 'environment.day', type: 'date' },
         // { name: 'Time', key: 'environment.time', type: 'time' }
@@ -149,17 +148,18 @@ class FlowchartDesigner extends React.PureComponent {
     const { properties } = this.props
     return [
       { label: 'Contact', fields: [
-        { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
-        { name: 'Last Name', key: 'contact.last_name', type: 'textfield' },
-        { name: 'Email', key: 'contact.email', type: 'emailfield' },
-        { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
-        { name: 'Address', key: 'contact.address', type: 'addressfield' },
-        { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
-        { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
+        { label: 'First Name', name: 'first_name', type: 'textfield' },
+        { label: 'Last Name', name: 'last_name', type: 'textfield' },
+        { label: 'Email', name: 'email', type: 'emailfield' },
+        { label: 'Phone', name: 'phone', type: 'phonefield' },
+        { label: 'Address', name: 'address', type: 'addressfield' },
+        { label: 'Birthday', name: 'birthday', type: 'textfield' },
+        { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ] },
       ...properties ? properties : []
     ]
   }
+
   _getSidebar() {
     const { active, campaign, changes, cid, program } = this.props
     const { status, steps, step, workflow, onEdit, onUpdate } = this.props
