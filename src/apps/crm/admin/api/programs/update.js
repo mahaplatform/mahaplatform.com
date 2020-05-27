@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import ProgramSerializer from '../../../serializers/program_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Program from '../../../models/program'
 
@@ -23,6 +24,11 @@ const updateRoute = async (req, res) => {
     ...whitelist(req.body, ['logo_id','title','phone_number_id','address','merchant_id'])
   }, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'updated',
+    auditable: program
   })
 
   await activity(req, {

@@ -2,6 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import ProgramSerializer from '../../../serializers/program_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import ProgramAccess from '../../../models/program_access'
 import Program from '../../../models/program'
@@ -53,6 +54,11 @@ const createRoute = async (req, res) => {
     is_verified: true
   }).save(null, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: program
   })
 
   await activity(req, {

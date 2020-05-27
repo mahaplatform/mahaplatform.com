@@ -160,7 +160,8 @@ class Dropdown extends React.Component {
   }
 
   _handleSetDefault() {
-    const { defaultValue, options, value } = this.props
+    const { defaultValue, value } = this.props
+    const options = this._getOptions()
     const option = options.find(option => {
       return _.get(option, value) === defaultValue
     })

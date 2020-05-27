@@ -41,9 +41,7 @@ class DropdownContainer extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    return (
-      <Dropdown { ...this._getDropdown() } />
-    )
+    return <Dropdown { ...this._getDropdown() } />
   }
 
   componentDidMount() {

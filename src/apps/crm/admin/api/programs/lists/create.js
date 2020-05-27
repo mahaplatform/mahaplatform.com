@@ -1,6 +1,7 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import ListSerializer from '../../../../serializers/list_serializer'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import { createWorkflow } from '../../../../services/workflows'
@@ -43,6 +44,11 @@ const createRoute = async (req, res) => {
       program_id: req.params.program_id
     })
   }
+
+  await audit(req, {
+    story: 'created',
+    auditable: list
+  })
 
   await activity(req, {
     story: 'created {object}',

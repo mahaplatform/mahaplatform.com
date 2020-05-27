@@ -160,6 +160,8 @@ class Admin extends React.Component {
 
   _handleRedirectToSignin() {
     const { flash, router } = this.context
+    const { pathname } = router.history.location
+    if(pathname.match(/(activate|reset)/)) return
     if(this.state.redirect) flash.set('error', 'You must first signin!')
     router.history.push('/admin/signin')
   }
@@ -199,8 +201,7 @@ class Admin extends React.Component {
   }
 
   _handleInitializeAdmin() {
-    const { pathname } = this.context.router.history.location
-    if(!pathname.match(/(activate|reset)/)) this.props.onLoadAdmin()
+    this.props.onLoadAdmin()
   }
 
   _handleSignin(team, token, user) {

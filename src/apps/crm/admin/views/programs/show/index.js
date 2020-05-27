@@ -8,9 +8,9 @@ import Lists from './lists'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = (user, { accesses, lists, program, senders, templates, topics }) => ({
+const getTabs = (user, { accesses, audits, lists, program, senders, templates, topics }) => ({
   items: [
-    { label: 'Details', component: <Details program={ program } /> },
+    { label: 'Details', component: <Details program={ program } audits={ audits } /> },
     { label: 'Access', component: <Access program={ program } accesses={ accesses } /> },
     { label: 'Senders', component: <Senders program={ program } senders={ senders } /> },
     { label: 'Lists', component: <Lists program={ program } lists={ lists } /> },
@@ -32,6 +32,7 @@ const getTasks = (user, { fields, program }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/crm_programs/${props.params.id}/audits`,
   accesses: `/api/admin/crm/programs/${props.params.id}/access`,
   lists: `/api/admin/crm/programs/${props.params.id}/lists`,
   program: `/api/admin/crm/programs/${props.params.id}`,

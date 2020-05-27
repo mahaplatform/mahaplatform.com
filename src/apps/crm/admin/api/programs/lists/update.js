@@ -1,4 +1,5 @@
 import { activity } from '../../../../../../core/services/routes/activities'
+import { audit } from '../../../../../../core/services/routes/audit'
 import ListSerializer from '../../../../serializers/list_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
@@ -28,6 +29,11 @@ const updateRoute = async (req, res) => {
     title: req.body.title
   }, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'updated',
+    auditable: list
   })
 
   await activity(req, {
