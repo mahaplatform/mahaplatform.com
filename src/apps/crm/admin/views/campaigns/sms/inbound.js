@@ -1,7 +1,7 @@
 import CompactCampaignToken from '../../../tokens/campaign/compact'
 import ProgramForm from '../../../components/programform'
 import StatusToken from '../../../tokens/status'
-import { Page } from 'maha-admin'
+import { Logo, Page } from 'maha-admin'
 import New from './new_inbound'
 import React from 'react'
 
@@ -28,7 +28,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         ] }
       ],
       system: resources.programs.map((program, index) => (
-        { id: index, title: program.title, logo: program.logo, config: {
+        { id: index, title: program.title, token: <Logo team={ program } width="24" />, config: {
           criteria: [
             { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
             { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
