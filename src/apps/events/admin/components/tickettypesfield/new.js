@@ -110,7 +110,6 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(ticket_type) {
-    console.log(ticket_type)
     this.props.onDone(ticket_type)
   }
 

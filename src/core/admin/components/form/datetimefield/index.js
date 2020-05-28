@@ -67,7 +67,8 @@ class DateTimeField extends React.Component {
   _handleChange() {
     const { date } = this.state
     const time = this.state.time || '00:00:00'
-    this.props.onChange(`${date} ${time}`)
+    const value = date ? `${date} ${time}` : null
+    this.props.onChange(value)
   }
 
   _handleUpdate(key, value) {

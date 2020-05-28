@@ -58,6 +58,11 @@ class Step1 extends React.Component {
               }
               <h2>Tickets</h2>
               <div className="registration-step1-tickettypes">
+                { event.ticket_types.length === 0 &&
+                  <div className="registration-step1-tickettype-empty">
+                    There are currently no tickets available
+                  </div>
+                }
                 { event.ticket_types.map((ticket_type, index) => (
                   <div className="registration-step1-tickettype" key={`ticket_type_${index}`}>
                     <div className="registration-step1-tickettype-token">

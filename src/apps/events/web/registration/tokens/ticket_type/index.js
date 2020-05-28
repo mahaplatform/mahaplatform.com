@@ -41,9 +41,9 @@ const TicketTypeToken = (ticket_type) => (
         <span>(max {ticket_type.max_per_order} per order)</span>
       }
     </div>
-    { ticket_type.sales_open_at &&
+    { ticket_type.sales_close_at &&
       <div>
-        Available { moment(`${ticket_type.sales_open_at}`).format('MMM D, h:mmA') } - { moment(`${ticket_type.sales_close_at}`).format('MMM D, h:mmA') }
+        Available until { moment(`${ticket_type.sales_close_at}`).format('MMM D, h:mmA') }
       </div>
     }
   </div>
