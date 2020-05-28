@@ -1,4 +1,4 @@
-import TicketTypeToken from '../../tokens/ticket_type'
+import TicketType from './ticket_type'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -30,6 +30,7 @@ class TicketTypesField extends React.PureComponent {
   _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleEdit = this._handleEdit.bind(this)
+  _handleMove = this._handleMove.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -37,18 +38,10 @@ class TicketTypesField extends React.PureComponent {
     return (
       <div className="tickettypesfield">
         <div className="tickettypesfield-tickettypes">
-          { ticket_types.map((ticket_type, index) => (
-            <div className="tickettypesfield-tickettype" key={`ticket_type_${index}`}>
-              <div className="tickettypesfield-tickettype-token">
-                <TicketTypeToken { ...ticket_type } />
-              </div>
-              <div className="tickettypesfield-tickettype-action" onClick={ this._handleEdit.bind(this, ticket_type, index )}>
-                <i className="fa fa-pencil" />
-              </div>
-              <div className="tickettypesfield-tickettype-action" onClick={ this._handleRemove.bind(this, index )}>
-                <i className="fa fa-times" />
-              </div>
-            </div>
+          { ticket_types.sort((a,b) => {
+            return a.delta > b.delta ? 1 : -1
+          }).map((ticket_type, index) => (
+            <TicketType { ...this._getTicketType(ticket_type, index) } key={`ticket_type_${index}`} />
           )) }
         </div>
         <div className="tickettypesfield-add">
@@ -98,6 +91,16 @@ class TicketTypesField extends React.PureComponent {
     }
   }
 
+  _getTicketType(ticket_type, index) {
+    return {
+      index,
+      ticket_type,
+      onEdit: this._handleEdit.bind(this, ticket_type, index),
+      onMove: this._handleMove,
+      onRemove: this._handleRemove.bind(this, ticket_type, index)
+    }
+  }
+
   _handleAdd(ticket_type) {
     this.setState({
       ticket_types: [
@@ -116,32 +119,59 @@ class TicketTypesField extends React.PureComponent {
     this.context.form.push(<Edit { ...this._getEdit(ticket_type, index) } />)
   }
 
+  _handleMove(from, to) {
+    const { ticket_types } = this.state
+    this.setState({
+      ticket_types: ((from < to) ? [
+        ...ticket_types.slice(0, from),
+        ...ticket_types.slice(from + 1, to + 1),
+        ticket_types[from],
+        ...ticket_types.slice(to + 1)
+      ] : [
+        ...ticket_types.slice(0, to),
+        ticket_types[from],
+        ...ticket_types.slice(to, from),
+        ...ticket_types.slice(from + 1)
+      ]).map((question, index) => ({
+        ...question,
+        delta: index
+      }))
+    })
+  }
+
   _handleNew() {
     this.context.form.push(<New { ...this._getNew() } />)
   }
 
-  _handleRemove(index) {
+  _handleRemove(ticket_type, index) {
+    const ticket_types = ticket_type.id ? this.state.ticket_types.map((ticket_type, i) => ({
+      ...ticket_type,
+      is_active: i === index ? !ticket_type.is_active : ticket_type.is_active
+    })) : this.state.ticket_types.filter((ticket_type, i) => {
+      return i !== index
+    })
     this.setState({
-      ticket_types: [
-        ...this.state.ticket_types.filter((ticket_type, i) => {
-          return i !== index
-        })
-      ]
+      ticket_types: ticket_types.map((question, index) => ({
+        ...question,
+        delta: index
+      }))
     })
   }
 
   _handleUpdate(index, newtickettype) {
     this.setState({
-      ticket_types: [
+      ticket_types: ([
         ...this.state.ticket_types.map((ticket_type, i) => {
           return i === index ? newtickettype : ticket_type
         })
-      ]
+      ]).map((question, index) => ({
+        ...question,
+        delta: index
+      }))
     })
     this.context.form.pop()
   }
 
 }
-
 
 export default TicketTypesField

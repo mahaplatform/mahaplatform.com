@@ -51,6 +51,8 @@ const ticket_type = (ticket_type) => {
   if(!ticket_type.id) return
   return {
     id: ticket_type.get('id'),
+    delta: ticket_type.get('delta'),
+    is_active: ticket_type.get('is_active'),
     name: ticket_type.get('name'),
     description: ticket_type.get('description'),
     price_type: ticket_type.get('price_type'),

@@ -1,15 +1,35 @@
 .tickettypesfield {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.5em;
+  overflow: hidden;
+  &.dragging {
+    .tickettypesfield-tickettype-handle {
+      cursor: grabbing;
+    }
+  }
 }
 .tickettypesfield-tickettype {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
+  background-color: @white;
+}
+.tickettypesfield-tickettype-handle {
+  background-color: fadeout(@black, 97);
+  border-right: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  display: flex;
+  cursor: grab;
+  .fa {
+    color: fadeout(@black, 70);
+    margin: auto;
+  }
 }
 .tickettypesfield-tickettype-token {
   flex: 1;
+  height: 7em;
 }
 .tickettypesfield-tickettype-action {
+  flex: 0 0 1.8em;
   padding: 0.4em 0.8em 0.4em 0;
   cursor: pointer;
   color: fadeout(@black, 80);

@@ -5,7 +5,7 @@ import moment from 'moment'
 import React from 'react'
 
 const TicketTypeToken = (ticket_type) => (
-  <div className="tickettype-token">
+  <div className={`tickettype-token${!ticket_type.is_active ? ' inactive' : ''}`}>
     <div>
       <strong>{ ticket_type.name }</strong> (
       { ticket_type.price_type === 'fixed' &&
@@ -22,7 +22,11 @@ const TicketTypeToken = (ticket_type) => (
         <span>
           FREE
         </span>
-      })
+      }) { !ticket_type.is_active &&
+        <span className="alert">
+          INACTIVE
+        </span>
+      }
     </div>
     { ticket_type.description &&
       <div>

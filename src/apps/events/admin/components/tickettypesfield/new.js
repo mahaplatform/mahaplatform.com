@@ -34,6 +34,7 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'is_active', type: 'hidden', value: true },
             { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description' },
             { label: 'Pricing', type: 'segment', fields: [

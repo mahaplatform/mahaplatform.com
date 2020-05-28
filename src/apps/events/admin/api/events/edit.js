@@ -26,6 +26,8 @@ const editRoute = async (req, res) => {
     payment_config: event.get('payment_config'),
     ticket_types: event.related('ticket_types').map(ticket_type => ({
       id: ticket_type.get('id'),
+      delta: ticket_type.get('delta'),
+      is_active: ticket_type.get('is_active'),
       name: ticket_type.get('name'),
       description: ticket_type.get('description'),
       project_id: ticket_type.get('project_id'),

@@ -958,6 +958,8 @@ const schema = {
       table.text('description')
       table.boolean('is_tax_deductible')
       table.decimal('tax_rate', 3, 2)
+      table.integer('delta')
+      table.boolean('is_active')
     })
 
     await knex.schema.createTable('events_tickets', (table) => {

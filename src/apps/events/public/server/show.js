@@ -77,7 +77,7 @@ const showRoute = async (req, res) => {
       ticket_types: event.related('ticket_types').filter(ticket_type => {
         const sales_open = !ticket_type.get('sales_open_at') || moment().diff(moment(ticket_type.get('sales_open_at'))) > 0
         const sales_closed = ticket_type.get('sales_close_at') && moment().diff(moment(ticket_type.get('sales_close_at'))) > 0
-        return sales_open && !sales_closed
+        return sales_open && !sales_closed && ticket_type.get('is_active')
       }).map(ticket_type => ({
         id: ticket_type.get('id'),
         name: ticket_type.get('name'),
