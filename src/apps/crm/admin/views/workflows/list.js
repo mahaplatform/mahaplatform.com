@@ -1,5 +1,7 @@
 import NewWorkflow from '../../components/newworkflow'
-import { Page } from 'maha-admin'
+import WorkflowToken from '../../tokens/workflow'
+import { Logo, Page } from 'maha-admin'
+import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Workflows',
@@ -8,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Title', key: 'display_name', primary: true },
+      { label: 'Title', key: 'display_name', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', sort: 'program', primary: true },
       { label: 'Enrolled', key: 'enrolled_count', collapsing: true, align: 'right' },
       { label: 'Active', key: 'active_count', collapsing: true, align: 'right' },
@@ -24,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         ] }
       ],
       system: resources.programs.map((program, index) => (
-        { id: index, title: program.title, logo: program.logo, config: {
+        { id: index, title: program.title, token: <Logo team={ program } width="24" />, config: {
           criteria: [
             { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
             { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
