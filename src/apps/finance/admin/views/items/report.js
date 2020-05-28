@@ -33,19 +33,21 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' },
       { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', padded: true, format: Status }
     ],
-    criteria: [
-      { label: 'item', fields: [
-        { name: 'Type', key: 'type', type: 'select', options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken, search: false },
-        { name: 'Batch', key: 'batch_id', type: 'select', endpoint: '/api/admin/finance/batches', value: 'id', text: 'title', format: BatchToken },
-        { name: 'User', key: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
-        { name: 'Project', key: 'project_id', type: 'select', endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },
-        { name: 'Expense Type', key: 'expense_type_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken },
-        { name: 'Vendor', key: 'vendor_id', type: 'select', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', format: VendorToken },
-        { name: 'Account', key: 'account_id', type: 'select', endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
-        { name: 'Date Range', key: 'date', type: 'daterange', include: ['this','last'] },
-        { name: 'Status', key: 'status', type: 'select', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
-      ] }
-    ],
+    criteria: {
+      fields: [
+        { label: 'item', fields: [
+          { name: 'Type', key: 'type', type: 'select', options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken, search: false },
+          { name: 'Batch', key: 'batch_id', type: 'select', endpoint: '/api/admin/finance/batches', value: 'id', text: 'title', format: BatchToken },
+          { name: 'User', key: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
+          { name: 'Project', key: 'project_id', type: 'select', endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },
+          { name: 'Expense Type', key: 'expense_type_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken },
+          { name: 'Vendor', key: 'vendor_id', type: 'select', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', format: VendorToken },
+          { name: 'Account', key: 'account_id', type: 'select', endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
+          { name: 'Date Range', key: 'date', type: 'daterange', include: ['this','last'] },
+          { name: 'Status', key: 'status', type: 'select', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
+        ] }
+      ]
+    },
     // filters: [
     //   { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },
     //   { label: 'Batch', name: 'batch_id', type: 'select', endpoint: '/api/admin/finance/batches', value: 'id', text: 'title', format: BatchToken },

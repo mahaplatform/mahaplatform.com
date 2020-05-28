@@ -22,7 +22,7 @@ class Collection extends React.Component {
   static propTypes = {
     buttons: PropTypes.any,
     cacheKey: PropTypes.string,
-    criteria: PropTypes.array,
+    criteria: PropTypes.object,
     data: PropTypes.array,
     defaultSort: PropTypes.object,
     endpoint: PropTypes.string,
@@ -168,7 +168,8 @@ class Collection extends React.Component {
       code: this.code,
       entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
-      fields: criteria,
+      fields: criteria.fields,
+      system: criteria.system,
       onChange: onSetFilter,
       onClose: onToggleFilter
     }

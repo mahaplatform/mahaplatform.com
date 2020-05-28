@@ -1,14 +1,23 @@
 .maha-filter {
   flex: 1;
   display: flex;
-  position: relative;
 }
-.maha-criteria-list {
+.maha-criteria-list-overview {
+  display: flex;
+  flex: 1;
+}
+.maha-criteria-list-items {
   .scrollable();
   flex: 1;
 }
+.maha-criteria-list-section {
+  padding: 0.2em 1.0em;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  background-color: fadeout(@black, 80);
+  color: @white;
+}
 .maha-criteria-list-item {
-  border-bottom: 1px solid fadeout(@black, 95);
   display: flex;
   cursor: pointer;
   &.active {
@@ -19,6 +28,25 @@
     .maha-criteria-list-item-action {
       display: flex;
     }
+  }
+}
+.maha-criteria-list-item-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .maha-logo {
+    width: 1.8em;
+    font-size: 0.8em;
+  }
+  .fa {
+    background-color: fadeout(@black, 80);
+    color: @white;
+    width: 1.6em;
+    height: 1.6em;
+    text-indent: 0;
+    border-radius: 0.4em;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    text-align: center;
   }
 }
 .maha-criteria-list-item-label {

@@ -11,8 +11,14 @@ class Filter extends React.PureComponent {
     defaultValue: PropTypes.object,
     entity: PropTypes.string,
     fields: PropTypes.array,
+    system: PropTypes.array,
     onChange: PropTypes.func,
     onClose: PropTypes.func
+  }
+
+  static defaultProps = {
+    criteria: [],
+    system: []
   }
 
   state = {
@@ -36,11 +42,12 @@ class Filter extends React.PureComponent {
   }
 
   _getOverview() {
-    const { code, entity, fields } = this.props
+    const { code, entity, fields, system } = this.props
     return {
       code,
       entity,
       fields,
+      system,
       onChange: this._handleChange,
       onPop: this._handlePop,
       onPush: this._handlePush

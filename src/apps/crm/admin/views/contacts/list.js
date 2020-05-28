@@ -34,7 +34,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Birthday', key: 'birthday', visible: false },
       { label: 'Spouse', key: 'spouse', visible: false }
     ],
-    criteria,
+    criteria: {
+      fields: criteria
+    },
     defaultSort: { key: 'last_name', order: 'asc' },
     export: [
       { label: 'ID', key: 'id' },

@@ -29,6 +29,7 @@ const program = (program) => {
   return {
     id: program.get('id'),
     title: program.get('title'),
+    logo: program.related('logo') ? program.related('logo').get('path') : null,
     phone_number: phone_number(program.related('phone_number'))
   }
 }

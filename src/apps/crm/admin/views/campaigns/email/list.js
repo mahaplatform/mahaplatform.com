@@ -1,7 +1,7 @@
 import CompactCampaignToken from '../../../tokens/campaign/compact'
 import ProgramForm from '../../../components/programform'
 import StatusToken from '../../../tokens/status'
-import { Page } from 'maha-admin'
+import { Page, Logo } from 'maha-admin'
 import React from 'react'
 import New from './new'
 
@@ -20,6 +20,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Bounce Rate', key: 'bounce_rate', collapsing: true, format: 'rate' },
       { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken }
     ],
+    criteria: {
+      fields: [
+        { label: 'Email Campaign', fields: [
+          { name: 'Program', key: 'program_id', type: 'select', endpoint: '/api/admin/crm/programs', text: 'title', value: 'id' }
+        ] }
+      ],
+      system: resources.programs.map((program, index) => (
+        { id: index, title: program.title, token: <Logo team={ program } width="24" />, config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
+          ]
+        } }
+      ))
+    },
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'envelope',

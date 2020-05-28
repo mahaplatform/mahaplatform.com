@@ -21,6 +21,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Completed', key: 'completed_count', collapsing: true, align: 'right' },
       { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken }
     ],
+    criteria: {
+      fields: [
+        { label: 'SMS Campaign', fields: [
+          { name: 'Program', key: 'program_id', type: 'select', endpoint: '/api/admin/crm/programs', text: 'title', value: 'id' }
+        ] }
+      ],
+      system: resources.programs.map((program, index) => (
+        { id: index, title: program.title, logo: program.logo, config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
+          ]
+        } }
+      ))
+    },
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'comment',

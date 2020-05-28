@@ -20,6 +20,7 @@ class Overview extends React.Component {
     entity: PropTypes.string,
     fields: PropTypes.array,
     filters: PropTypes.array,
+    system: PropTypes.array,
     onChange: PropTypes.func,
     onEdit: PropTypes.func,
     onNew: PropTypes.func,
@@ -36,19 +37,41 @@ class Overview extends React.Component {
   _handleNew = this._handleNew.bind(this)
 
   render() {
-    const { entity, filters } = this.props
+    const { entity, filters, system } = this.props
     const { admin } = this.context
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criteria-list-overview">
           <div className="maha-criteria-list-items">
+            <div className="maha-criteria-list-section">
+              System
+            </div>
             <div className={ this._getClass(null) } onClick={ this._handleChoose.bind(this, null) }>
+              <div className="maha-criteria-list-item-icon">
+                <i className="fa fa-filter" />
+              </div>
               <div className="maha-criteria-list-item-label">
                 All { _.capitalize(pluralize(entity)) }
               </div>
             </div>
+            { system && system.map((filter, index) => (
+              <div className={ this._getClass(`system_${index}`) } key={`system_${index}`} onClick={ this._handleChoose.bind(this, `system_${index}`) }>
+                <div className="maha-criteria-list-item-icon">
+                  { filter.token || <i className="fa fa-filter" /> }
+                </div>
+                <div className="maha-criteria-list-item-label">
+                  { filter.title }
+                </div>
+              </div>
+            )) }
+            <div className="maha-criteria-list-section">
+              Custom
+            </div>
             { filters && filters.map((filter, index) => (
-              <div className={ this._getClass(filter.id) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, filter.id) }>
+              <div className={ this._getClass(`filter_${index}`) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, `filter_${index}`) }>
+                <div className="maha-criteria-list-item-icon">
+                  <i className="fa fa-filter" />
+                </div>
                 <div className="maha-criteria-list-item-label">
                   { filter.title }
                 </div>
@@ -69,14 +92,30 @@ class Overview extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.props.onChange(null)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { active } = this.state
-    const { filters, onChange } = this.props
+    const { onChange } = this.props
     if(active !== prevState.active) {
-      const filter = filters.find(filter => filter.id === active)
+      const filter = this._getActive()
       const criteria = filter ? filter.config.criteria : null
       onChange(criteria)
     }
+  }
+
+  _getActive() {
+    const { active } = this.state
+    const { filters, system } = this.props
+    const filter = filters.find((filter, index) => {
+      return `filter_${index}` === active
+    })
+    if(filter) return filter
+    return system.find((filter, index) => {
+      return `system_${index}` === active
+    })
   }
 
   _getButton() {

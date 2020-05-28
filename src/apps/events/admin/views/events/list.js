@@ -1,5 +1,5 @@
 import EventToken from '../../tokens/event'
-import { Page } from 'maha-admin'
+import { Logo, Page } from 'maha-admin'
 import Clone from './clone'
 import React from 'react'
 import New from './new'
@@ -17,6 +17,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Waiting', key: 'waitings_count', collapsing: true, align: 'right' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right', format: 'currency' }
     ],
+    criteria: {
+      fields: [
+        { label: 'Event', fields: [
+          { name: 'Program', key: 'program_id', type: 'select', endpoint: '/api/admin/crm/programs', text: 'title', value: 'id' }
+        ] }
+      ],
+      system: resources.programs.map((program, index) => (
+        { id: index, title: program.title, token: <Logo team={ program } width="24" />, config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
+          ]
+        } }
+      ))
+    },
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'calendar-o',

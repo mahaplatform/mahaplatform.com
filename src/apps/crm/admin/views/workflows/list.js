@@ -1,5 +1,4 @@
 import NewWorkflow from '../../components/newworkflow'
-import WorkflowToken from '../../tokens/workflow'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -9,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
+      { label: 'Title', key: 'display_name', primary: true },
       { label: 'Program', key: 'program.title', sort: 'program', primary: true },
       { label: 'Enrolled', key: 'enrolled_count', collapsing: true, align: 'right' },
       { label: 'Active', key: 'active_count', collapsing: true, align: 'right' },
@@ -17,6 +16,22 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Converted', key: 'converted_count', collapsing: true, align: 'right' },
       { label: 'Completed', key: 'completed_count', collapsing: true, align: 'right' }
     ],
+    criteria: {
+      fields: [
+        { label: 'Workflow', fields: [
+          { name: 'Program', key: 'program_id', type: 'select', endpoint: '/api/admin/crm/programs', text: 'title', value: 'id' },
+          { name: 'Type', key: 'trigger_type', type: 'select', options: ['manual','response','event'], text: 'text', value: 'value' }
+        ] }
+      ],
+      system: resources.programs.map((program, index) => (
+        { id: index, title: program.title, logo: program.logo, config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
+          ]
+        } }
+      ))
+    },
     empty: {
       icon: 'cogs',
       title: 'No Workflow',

@@ -295,7 +295,6 @@ class Table extends React.Component {
   _handleInit() {
     const windowHeight = window.getComputedStyle(this.window).height
     this.setState({
-      headerDimensions: this._handleMeasure(this.header),
       windowHeight: parseInt(windowHeight.replace('px', ''))
     })
     this._handleResize()
@@ -311,7 +310,16 @@ class Table extends React.Component {
 
   _handleResize() {
     this.setState({
-      bodyDimensions: this._handleMeasure(this.body)
+      headerDimensions: [],
+      bodyDimensions: []
+    }, () => {
+      this.setState({
+        headerDimensions: this._handleMeasure(this.header)
+      }, () => {
+        this.setState({
+          bodyDimensions: this._handleMeasure(this.body)
+        })
+      })
     })
   }
 
