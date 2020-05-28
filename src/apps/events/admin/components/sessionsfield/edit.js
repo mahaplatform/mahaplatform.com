@@ -42,7 +42,7 @@ class Edit extends React.PureComponent {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title', defaultValue: session.title },
-            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description' },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description', defaultValue: session.description },
             this._getLocation(),
             { name: 'is_online', type: 'checkbox', prompt: 'This is an online session', defaultValue: session.is_online },
             { label: 'Date', name: 'date', placeholder: 'Enter date', type: 'datefield', required: true, defaultValue: session.date },

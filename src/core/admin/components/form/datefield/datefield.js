@@ -75,14 +75,10 @@ class Datefield extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { active, value, onChange } = this.props
+    const { active, value } = this.props
     const { form } = this.context
     if(prevProps.value !== value) {
-      if(value) {
-        onChange(value.format('YYYY-MM-DD'))
-      } else  {
-        onChange(value)
-      }
+      this._handleChange()
     }
     if(active !== prevProps.active) {
       if(active) {
@@ -109,6 +105,15 @@ class Datefield extends React.Component {
 
   _handleBegin() {
     this.props.onBegin()
+  }
+
+  _handleChange() {
+    const { value, onChange } = this.props
+    if(value) {
+      onChange(value.format('YYYY-MM-DD'))
+    } else  {
+      onChange(value)
+    }
   }
 
   _handleClear() {
