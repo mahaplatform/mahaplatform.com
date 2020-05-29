@@ -44,7 +44,6 @@ class Edit extends React.PureComponent {
             { name: 'is_online', type: 'checkbox', prompt: 'This is an online session' },
             { label: 'Date', name: 'date', placeholder: 'Enter date', type: 'datefield', required: true },
             { label: 'Start Time', name: 'start_time', placeholder: 'Enter start time', type: 'timefield', required: true },
-            { label: 'End Time', name: 'end_time', placeholder: 'Enter end time', type: 'timefield', required: true },
             { label: 'End Time', name: 'end_time', placeholder: 'Enter end time', type: 'timefield', required: true, start: session.start_time, duration: true, defaultValue: session.end_time }
           ]
         }
