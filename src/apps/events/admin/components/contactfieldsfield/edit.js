@@ -4,7 +4,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class New extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static propTypes = {
     field: PropTypes.object,
@@ -32,6 +32,7 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
+    const { field } = this.state
     return {
       title: 'Edit Field',
       method: 'post',
@@ -43,6 +44,7 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'code', type: 'hidden', defaultValue: field.code },
             ...this._getStrategy()
           ]
         }
@@ -55,19 +57,21 @@ class New extends React.PureComponent {
     const { contactfield, type } = field
     if(contactfield) {
       return [
-        { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields(), defaultValue: contactfield },
+        { label: 'Contact Field', type: 'text', disabled: true, value: contactfield.label },
+        { name: 'contactfield', type: 'hidden', value: contactfield },
         { name: 'type', type: 'hidden', value: 'contactfield' },
         ...this._getContactFields()
       ]
     } else  {
       const typefields = this._getTypeFields()
       return [
-        { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true, defaultValue: type },
+        { label: 'Input Type', type: 'text', disabled: true, value: type },
+        { name: 'type', type: 'hidden', value: type },
         ...field.type ? [
-          { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
-          { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label' },
-          { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
-          { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
+          { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: field.name },
+          { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: field.label },
+          { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: field.instructions },
+          { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: field.required },
           ...typefields
         ] : []
       ]
@@ -76,7 +80,7 @@ class New extends React.PureComponent {
 
   _getFields() {
     return [
-      { label: 'Contact Fields', fields: [
+      { label: 'Contact', fields: [
         { label: 'Phone', name: 'phone', type: 'phonefield' },
         { label: 'Address', name: 'address', type: 'addressfield' },
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
@@ -88,12 +92,11 @@ class New extends React.PureComponent {
   _getContactFields() {
     const { field } = this.state
     if(field.contactfield) {
-      const { label, name } = field.contactfield
       return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: { value: label, token: name } },
-        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
-        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
-        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' }
+        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: field.name },
+        { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: field.label },
+        { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: field.instructions },
+        { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: field.required }
       ]
     }
     return []
@@ -103,7 +106,7 @@ class New extends React.PureComponent {
     return [
       { value: 'addressfield', text: 'Address Field' },
       { value: 'checkbox', text: 'Checkbox' },
-      { value: 'checkboxgroup', text: 'Checkbox Group' },
+      { value: 'checkboxes', text: 'Checkboxes' },
       { value: 'datefield', text: 'Date Field' },
       { value: 'dropdown', text: 'Dropdown' },
       { value: 'emailfield', text: 'Email Field' },
@@ -144,7 +147,7 @@ class New extends React.PureComponent {
         ] }
       ]
     }
-    if(_.includes(['checkboxgroup','radiogroup','dropdown'], field.type)) {
+    if(_.includes(['checkboxes','radiogroup','dropdown'], field.type)) {
       return [
         { label: 'Options', name: 'config.options', type: 'tablefield', columns: [
           { label: 'Value', key: 'value' },
@@ -174,4 +177,4 @@ class New extends React.PureComponent {
 
 }
 
-export default New
+export default Edit

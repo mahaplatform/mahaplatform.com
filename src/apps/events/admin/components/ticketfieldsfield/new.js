@@ -57,7 +57,7 @@ class New extends React.PureComponent {
     return [
       { value: 'addressfield', text: 'Address Field' },
       { value: 'checkbox', text: 'Checkbox' },
-      { value: 'checkboxgroup', text: 'Checkbox Group' },
+      { value: 'checkboxes', text: 'Checkbox Group' },
       { value: 'datefield', text: 'Date Field' },
       { value: 'dropdown', text: 'Dropdown' },
       { value: 'emailfield', text: 'Email Field' },
@@ -98,7 +98,7 @@ class New extends React.PureComponent {
         { label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder }
       ]
     }
-    if(_.includes(['checkboxgroup','radiogroup','dropdown'], field.type)) {
+    if(_.includes(['checkboxes','radiogroup','dropdown'], field.type)) {
       return [
         { label: 'Options', name: 'config.options', type: 'tablefield', columns: [
           { label: 'Value', key: 'value' },

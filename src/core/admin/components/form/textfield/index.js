@@ -62,7 +62,8 @@ class TextField extends React.Component {
   _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { tabIndex, value } = this.state
+    const { disabled, tabIndex } = this.props
+    const { value } = this.state
     return (
       <div className={ this._getClass() } tabIndex={ tabIndex }>
         <div className="maha-input-field">
@@ -70,7 +71,7 @@ class TextField extends React.Component {
           <input { ...this._getControl() } />
           { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
         </div>
-        { value && value.length > 0 &&
+        { value && value.length > 0 && !disabled &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>

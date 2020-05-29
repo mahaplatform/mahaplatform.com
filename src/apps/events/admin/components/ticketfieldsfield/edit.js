@@ -44,7 +44,9 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true, defaultValue: field.type },
+            { name: 'code', type: 'hidden', defaultValue: field.code },
+            { label: 'Input Type', name: 'type', type: 'text', disabled: true, value: field.type },
+            { name: 'type', type: 'hidden', value: field.type },
             ...typefields ? [
               { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: field.name },
               { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: field.label },
@@ -62,7 +64,7 @@ class New extends React.PureComponent {
     return [
       { value: 'addressfield', text: 'Address Field' },
       { value: 'checkbox', text: 'Checkbox' },
-      { value: 'checkboxgroup', text: 'Checkbox Group' },
+      { value: 'checkboxes', text: 'Checkbox Group' },
       { value: 'datefield', text: 'Date Field' },
       { value: 'dropdown', text: 'Dropdown' },
       { value: 'emailfield', text: 'Email Field' },
@@ -103,7 +105,7 @@ class New extends React.PureComponent {
         ] }
       ]
     }
-    if(_.includes(['checkboxgroup','radiogroup','dropdown'], field.type)) {
+    if(_.includes(['checkboxes','radiogroup','dropdown'], field.type)) {
       return [
         { label: 'Options', name: 'config.options', type: 'tablefield', columns: [
           { label: 'Value', key: 'value' },

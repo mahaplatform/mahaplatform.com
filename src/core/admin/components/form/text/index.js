@@ -6,9 +6,9 @@ import _ from 'lodash'
 class Text extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
     format: PropTypes.any,
+    value: PropTypes.string,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -17,20 +17,31 @@ class Text extends React.Component {
   static defaultProps = {
     defaultValue: '',
     disabled: false,
-    format: null,
+    format: ({ value }) => <span>{ value }</span>,
     onBusy: () => {},
     onChange: () => {},
     onReady: () => {}
   }
 
   render() {
-    const { defaultValue, format } = this.props
-    const value = _.toString(defaultValue)
+    const { format } = this.props
+    const value = _.toString(this.props.value)
     return (
-      <div className="maha-text">
+      <div className={ this._getClass() }>
         <Format format={format} value={value} />
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.props.onReady()
+  }
+
+  _getClass() {
+    const { disabled } = this.props
+    const classes = ['maha-text']
+    if(disabled) classes.push('disabled')
+    return classes.join(' ')
   }
 
 }
