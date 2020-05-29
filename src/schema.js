@@ -3586,6 +3586,22 @@ union
     `)
 
     await knex.raw(`
+      create view crm_contact_duplicates AS
+      select distinct on (crm_contacts.id, pn2.contact_id, ma2.contact_id) crm_contacts.id,
+      case
+      when (pn2.contact_id is not null) then pn2.contact_id
+      when (ma2.contact_id is not null) then ma2.contact_id
+      else null::integer
+      end as duplicate_id
+      from ((((crm_contacts
+      join crm_phone_numbers pn1 on ((pn1.contact_id = crm_contacts.id)))
+      left join crm_phone_numbers pn2 on ((((pn2.number)::text = (pn1.number)::text) and (pn2.team_id = pn1.team_id) and (pn2.id <> pn1.id))))
+      join crm_mailing_addresses ma1 on ((ma1.contact_id = crm_contacts.id)))
+      left join crm_mailing_addresses ma2 on ((((ma2.address ->> 'description'::text) = (ma1.address ->> 'description'::text)) and (ma2.team_id = ma1.team_id) and (ma2.id <> ma1.id))))
+      where ((pn2.id is not null) or (ma2.id is not null));
+    `)
+
+    await knex.raw(`
       create view crm_contact_primaries AS
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
       crm_organizations.name as organization,
@@ -3598,6 +3614,27 @@ union
       left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))))
       left join crm_contacts_organizations on ((crm_contacts_organizations.contact_id = crm_contacts.id)))
       left join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)));
+    `)
+
+    await knex.raw(`
+      create view crm_duplicates AS
+      select distinct on (crm_contacts.id,
+      case
+      when (pn2.contact_id is not null) then pn2.contact_id
+      when (ma2.contact_id is not null) then ma2.contact_id
+      else null::integer
+      end) crm_contacts.id as contact_id,
+      case
+      when (pn2.contact_id is not null) then pn2.contact_id
+      when (ma2.contact_id is not null) then ma2.contact_id
+      else null::integer
+      end as duplicate_id
+      from ((((crm_contacts
+      join crm_phone_numbers pn1 on ((pn1.contact_id = crm_contacts.id)))
+      left join crm_phone_numbers pn2 on ((((pn2.number)::text = (pn1.number)::text) and (pn2.team_id = pn1.team_id) and (pn2.contact_id <> crm_contacts.id) and (pn2.id <> pn1.id))))
+      join crm_mailing_addresses ma1 on ((ma1.contact_id = crm_contacts.id)))
+      left join crm_mailing_addresses ma2 on ((((ma2.address ->> 'description'::text) = (ma1.address ->> 'description'::text)) and (ma2.team_id = ma1.team_id) and (ma2.contact_id <> crm_contacts.id) and (ma2.id <> ma1.id))))
+      where ((pn2.id is not null) or (ma2.id is not null));
     `)
 
     await knex.raw(`

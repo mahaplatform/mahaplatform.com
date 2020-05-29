@@ -2,12 +2,17 @@ import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ contact }) => {
+const Details = ({ contact, duplicates }) => {
 
   const list = {}
 
+  const getButton = (contact) => ({
+    label: contact.full_name,
+    className: 'link',
+    route: `/admin/crm/contacts/${contact.id}`
+  })
+
   list.items = [
-    { label: 'Created', content: contact.created_at, format: 'date' },
     { label: 'Email Addresses', content: contact.email_addresses.map((email_address, index) => (
       <div key={`email_address_${index}`}>
         { email_address.address } { email_address.is_primary && <span className="alert">PRIMARY</span> }
@@ -44,7 +49,19 @@ const Details = ({ contact }) => {
       </div>
     ) },
     { label: 'Birthday', content: contact.birthday },
-    { label: 'Spouse', content: contact.spouse }
+    { label: 'Spouse', content: contact.spouse },
+    ...duplicates.length > 0 ? [
+      { label: 'Potential Duplicates', color: 'yellow', content: (
+        <div>
+          { duplicates.map((contact, index) => (
+            <div key={`duplicate_${index}`}>
+              <Button { ...getButton(contact)} />
+            </div>
+          ))}
+        </div>
+      ) }
+    ] : [],
+    { label: 'Created', content: contact.created_at, format: 'date' }
   ]
 
   return <List { ...list } />
@@ -52,7 +69,8 @@ const Details = ({ contact }) => {
 }
 
 Details.propTypes = {
-  contact: PropTypes.object
+  contact: PropTypes.object,
+  duplicates: PropTypes.array
 }
 
 export default Details

@@ -14,6 +14,7 @@ class Item extends React.Component {
     alt: PropTypes.string,
     className: PropTypes.string,
     component: PropTypes.any,
+    color: PropTypes.string,
     content: PropTypes.any,
     empty: PropTypes.string,
     extra: PropTypes.any,
@@ -84,8 +85,9 @@ class Item extends React.Component {
   }
 
   _getClass() {
-    const { className, handler, link, route } = this.props
+    const { color, className, handler, link, route } = this.props
     const classes = ['maha-list-item']
+    if(color) classes.push(color)
     if(className) classes.push(className)
     if(link || handler || route) classes.push('maha-list-item-link')
     return classes.join(' ')

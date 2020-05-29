@@ -1,8 +1,9 @@
 import subscriptions from './subscriptions'
 import activities from './activities'
+import duplicates from './duplicates'
 import interests from './interests'
-import { Router } from 'express'
 import channels from './channels'
+import { Router } from 'express'
 import consent from './consent'
 import destroy from './destroy'
 import emails from './emails'
@@ -35,6 +36,8 @@ router.delete('/:id', destroy)
 router.use('/:id/activities', activities)
 
 router.get('/:id/consent', consent)
+
+router.get('/:id/duplicates', duplicates)
 
 router.use('/:id/emails', emails)
 

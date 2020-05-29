@@ -34,8 +34,24 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Birthday', key: 'birthday', visible: false },
       { label: 'Spouse', key: 'spouse', visible: false }
     ],
+
     criteria: {
-      fields: criteria
+      fields: criteria,
+      system: [
+        { id: 0, title: 'Unknown Contacts', config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'first_name', operator: '$nl', parent: 'abc', value: null },
+            { code: 'ghi', data: null, field: 'last_name', operator: '$nl', parent: 'abc', value: null }
+          ]
+        } },
+        { id: 1, title: 'Potential Duplicates', config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'duplicate_id', operator: '$nnl', parent: 'abc', value: null }
+          ]
+        } }
+      ]
     },
     defaultSort: { key: 'last_name', order: 'asc' },
     export: [

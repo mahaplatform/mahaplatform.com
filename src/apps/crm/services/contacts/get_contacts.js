@@ -13,6 +13,10 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
     aliases: {
       email: 'crm_contact_primaries.email',
       phone: 'crm_contact_primaries.phone',
+      duplicate_id: {
+        column: 'crm_duplicates.duplicate_id',
+        leftJoin: [['contact_id', 'crm_contacts.id']]
+      },
       address: {
         column: 'crm_mailing_addresses.address',
         leftJoin: [['contact_id', 'crm_contacts.id']]
@@ -156,11 +160,16 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
             `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
           ],
           query: `${alias}.${foreign_key} is not null`
+        }),
+        $dup: (table, alias, column, value, foreign_key, primary_key) => ({
+          join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.workflow_id=? and ${alias}.status=?`, value, 'completed'],
+          query: `${alias}.${foreign_key} is not null`
         })
+
       },
       params: filter,
       allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
-      search: ['first_name','last_name','email']
+      search: ['first_name','last_name','email','phone']
     },
     sort: {
       params: sort,
