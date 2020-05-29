@@ -1,6 +1,7 @@
 // import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 const Content = ({ data, field }) => {
   const value = data[field.code]
@@ -12,7 +13,7 @@ const Content = ({ data, field }) => {
     return <span>{ value.description }</span>
   } else if(type === 'checkbox') {
     return <span>{ `${value}` }</span>
-  } else if(type === 'checkboxes') {
+  } else if(_.includes(['checkboxes','checkboxgroup'], type)) {
     return <span>{ `${value.join(', ')}` }</span>
   // } else if(type === 'filefield') {
   //   return (

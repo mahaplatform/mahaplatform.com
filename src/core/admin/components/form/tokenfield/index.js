@@ -55,7 +55,7 @@ class TokenField extends React.Component {
 
   componentDidMount() {
     const { originalValue } = this.props
-    if(originalValue) this.setState(originalValue)
+    if(originalValue) this._handleSet(originalValue)
     this.props.onReady()
   }
 
@@ -77,6 +77,10 @@ class TokenField extends React.Component {
     }
   }
 
+  _getToken(value) {
+    return value.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
+  }
+
   _handleChange() {
     const { token, value } = this.state
     this.props.onChange({ token, value })
@@ -89,9 +93,14 @@ class TokenField extends React.Component {
     })
   }
 
+  _handleSet(value) {
+    value.token = value.token || this._getToken(value.value)
+    this.setState(value)
+  }
+
   _handleUpdate(e) {
     const value = e.target.value
-    const token = value.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
+    const token = this._getToken(value)
     this.setState({ token, value })
   }
 

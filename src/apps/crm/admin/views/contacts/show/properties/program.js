@@ -1,3 +1,4 @@
+import Content from '../../../../tokens/content'
 import { Logo, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -65,7 +66,7 @@ class Program extends React.Component {
         { label: 'Topics', content: topics.length > 0 ? topics.map(topic => topic.title).join(', ') : '' },
         ...fields.map(field => ({
           label: field.label,
-          content: contact.values[field.code]
+          content: <Content data={ contact.values } field={ field } />
         }))
       ]
     }

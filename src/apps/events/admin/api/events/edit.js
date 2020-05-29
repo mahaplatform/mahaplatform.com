@@ -20,6 +20,7 @@ const editRoute = async (req, res) => {
     title: event.get('title'),
     permalink: event.get('permalink'),
     description: event.get('description'),
+    program_id: event.get('program_id'),
     image_id: event.get('image_id'),
     contact_config: event.get('contact_config'),
     ticket_config: event.get('ticket_config'),

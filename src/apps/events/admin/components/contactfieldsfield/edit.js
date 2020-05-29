@@ -1,4 +1,3 @@
-import ContactField from '../../../../crm/admin/components/contactfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -8,6 +7,7 @@ class Edit extends React.PureComponent {
 
   static propTypes = {
     field: PropTypes.object,
+    fields: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -79,13 +79,25 @@ class Edit extends React.PureComponent {
   }
 
   _getFields() {
+    const { fields } = this.props
     return [
       { label: 'Contact', fields: [
         { label: 'Phone', name: 'phone', type: 'phonefield' },
         { label: 'Address', name: 'address', type: 'addressfield' },
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
         { label: 'Spouse', name: 'spouse', type: 'textfield' }
-      ] }
+      ] },
+      ...fields.map(group => ({
+        label: group.label,
+        fields: group.fields.map(field => ({
+          code: field.code,
+          label: field.label,
+          name: `values.${field.code}`,
+          type: field.type,
+          instructions: field.instructions,
+          config: field.config
+        }))
+      }))
     ]
   }
 

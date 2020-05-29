@@ -7,6 +7,7 @@ import _ from 'lodash'
 class New extends React.PureComponent {
 
   static propTypes = {
+    fields: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -55,7 +56,7 @@ class New extends React.PureComponent {
     if(field.strategy === 'contact') {
       return [
         { label: 'Contact Field', name: 'contactfield', type: ContactField, fields: this._getFields() },
-        { name: 'type', type: 'hidden', value: 'contactfield' },
+        { name: 'type', type: 'hidden', defaultValue: 'contactfield' },
         ...this._getContactFields()
       ]
     }
@@ -76,22 +77,34 @@ class New extends React.PureComponent {
   }
 
   _getFields() {
+    const { fields } = this.props
     return [
       { label: 'Contact', fields: [
         { label: 'Phone', name: 'phone', type: 'phonefield' },
         { label: 'Address', name: 'address', type: 'addressfield' },
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
         { label: 'Spouse', name: 'spouse', type: 'textfield' }
-      ] }
+      ] },
+      ...fields.map(group => ({
+        label: group.label,
+        fields: group.fields.map(field => ({
+          code: field.code,
+          label: field.label,
+          name: `values.${field.code}`,
+          type: field.type,
+          instructions: field.instructions,
+          config: field.config
+        }))
+      }))
     ]
   }
 
   _getContactFields() {
     const { field } = this.state
     if(field.contactfield) {
-      const { label, name } = field.contactfield
+      const { label } = field.contactfield
       return [
-        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: { value: label, token: name } },
+        { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: { value: label } },
         { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: label },
         { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
         { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' }

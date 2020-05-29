@@ -37,10 +37,7 @@ const updateContact = async (req, { contact, contactfields, data }) => {
 
 }
 
-const getLookupValue = (contactfields, data, name) => {
-  const field = contactfields.find(field => {
-    return field.contactfield.name === name
-  })
+const getLookupValue = (field, data) => {
   const value = field ? data[field.code] : null
   return value !== null && value.length > 0 ? value : null
 }
@@ -51,13 +48,10 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
     return field.type === 'contactfield'
   })
 
-  const contact = await getContact(req, {
-    first_name: getLookupValue(contactfields, data, 'first_name'),
-    last_name: getLookupValue(contactfields, data, 'last_name'),
-    emails: getLookupValue(contactfields, data, 'email'),
-    phones: getLookupValue(contactfields, data, 'phone'),
-    addresses: getLookupValue(contactfields, data, 'address')
-  })
+  const contact = await getContact(req, contactfields.reduce((fields, field) => ({
+    ...fields,
+    [field.contactfield.name]: getLookupValue(field, data)
+  }), {}))
 
   await updateContact(req, {
     contact,

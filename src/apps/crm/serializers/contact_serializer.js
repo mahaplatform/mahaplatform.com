@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const ContactSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
@@ -90,9 +92,10 @@ const values = (req, values) => {
   return Object.keys(values).reduce((sanitized, code) => {
     const field = req.fields.find(field => field.get('code') === code)
     const { multiple } = field.get('config')
+    const type = field.get('type')
     return {
       ...sanitized,
-      [code]: multiple === true ? values[code] : values[code][0]
+      [code]: _.includes(['checkboxes','checkboxgroup'], type) || multiple === true ? values[code] : values[code][0]
     }
   }, {})
 }

@@ -12,6 +12,7 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   static propTypes = {
+    fields: PropTypes.array,
     defaultValue: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -90,15 +91,19 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   _getEdit(field, index) {
+    const { fields } = this.props
     return {
       field,
+      fields,
       onBack: this._handleBack,
       onDone: this._handleUpdate.bind(this, index)
     }
   }
 
   _getNew() {
+    const { fields } = this.props
     return {
+      fields,
       onBack: this._handleBack,
       onDone: this._handleAdd
     }

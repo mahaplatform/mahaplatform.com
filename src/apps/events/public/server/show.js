@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     qb.where('code', req.params.code)
     qb.whereNull('deleted_at')
   }).fetch({
-    withRelated: ['image','organizers.photo','program.logo','sessions.location','ticket_types','team.logo'],
+    withRelated: ['image','organizers.photo','program.logo','program.fields','sessions.location','ticket_types','team.logo'],
     transacting: req.trx
   })
 
@@ -93,7 +93,20 @@ const showRoute = async (req, res) => {
         sales_open_at: ticket_type.get('sales_open_at'),
         sales_close_at: ticket_type.get('sales_close_at')
       })),
-      contact_config: event.get('contact_config'),
+      contact_config: {
+        fields: event.get('contact_config').fields.map(field => {
+          if(!field.contactfield) return field
+          const programfield = program.related('fields').find(programfield => {
+            return programfield.get('code') === field.contactfield.code
+          })
+          return {
+            ...field,
+            ...programfield ? {
+              config: programfield.get('config')
+            } : {}
+          }
+        })
+      },
       ticket_config: event.get('ticket_config'),
       payment_config: event.get('payment_config')
     },
