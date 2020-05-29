@@ -1,6 +1,6 @@
 import OrganizerToken from '../../tokens/organizer'
 import { Page } from 'maha-admin'
-import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Locations',
@@ -15,10 +15,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       icon: 'user',
       title: 'No Organizers',
       text: 'You have not yet created any organizers',
-      buttons: []
+      buttons: [
+        { label: 'Create Organizer', modal: New }
+      ]
     },
     entity: 'event',
     onClick: (record) => context.router.history.push(`/admin/events/organizers/${record.id}`)
+  },
+  task: {
+    icon: 'plus',
+    modal: New
   }
 })
 

@@ -1,7 +1,8 @@
-import { activity } from '../../../../../core/services/routes/activities'
 import OrganizerSerializer from '../../../serializers/organizer_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import Organizer from '../../../models/organizer'
 
 const createRoute = async (req, res) => {
@@ -20,6 +21,11 @@ const createRoute = async (req, res) => {
   await activity(req, {
     story: 'created {object}',
     object: organizer
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: organizer
   })
 
   await socket.refresh(req, [

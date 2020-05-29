@@ -10,9 +10,9 @@ const getTabs = ({ audits, organizer, events }) => ({
   ]
 })
 
-const getTasks = ({ event }) => {
+const getTasks = ({ organizer }) => {
   const items = [
-    { label: 'Edit Organizer', modal: <Edit event={ event } /> }
+    { label: 'Edit Organizer', modal: <Edit organizer={ organizer } /> }
   ]
   return { items }
 }

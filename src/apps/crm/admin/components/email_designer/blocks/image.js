@@ -62,9 +62,10 @@ class Image extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
+                { label: 'Image', name: 'image', type: ImageField, required: true, defaultValue: config.image },
                 { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption },
-                { label: 'Caption', include: config.show_caption === true, name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption }
+                { label: 'Caption', include: config.show_caption === true, name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption },
+                { label: 'Link', name: 'image_url', type: 'textfield', placeholder: 'Enter a url', defaultValue: config.image_url }
               ]
             }
           ]
