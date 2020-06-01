@@ -55,20 +55,20 @@ class New extends React.Component {
             }
           ]
         }, {
-          label: 'Topics',
-          sections: [
-            {
-              fields: [
-                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics', value: 'id' }
-              ]
-            }
-          ]
-        }, {
           label: 'Lists',
           sections: [
             {
               fields: [
                 { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists', value: 'id' }
+              ]
+            }
+          ]
+        }, {
+          label: 'Topics',
+          sections: [
+            {
+              fields: [
+                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics', value: 'id' }
               ]
             }
           ]
@@ -87,7 +87,7 @@ class New extends React.Component {
     }).map(program => ({
       label: (
         <div className="crm-program-label">
-          <ProgramToken { ...program } />
+          { program.title }
         </div>
       ),
       fields: program.fields.map(field => field.config)

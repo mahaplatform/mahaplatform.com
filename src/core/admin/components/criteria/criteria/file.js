@@ -3,13 +3,14 @@ import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Checkbox extends React.Component {
+class File extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
     code: PropTypes.string,
     comparisons: PropTypes.array,
-    name: PropTypes.string,
+    field: PropTypes.object,
+    name: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -22,7 +23,6 @@ class Checkbox extends React.Component {
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleOperator = this._handleOperator.bind(this)
 
   render() {
     return (
@@ -52,24 +52,22 @@ class Checkbox extends React.Component {
   _getOperators() {
     const { comparisons } = this.props
     return comparisons || [
-      { value: '$ck', text: 'is checked' },
-      { value: '$nck', text: 'is not checked' }
+      { value: '$kn', text: 'is known' },
+      { value: '$nkn', text: 'is unknown' }
     ]
   }
 
   _getPanel() {
-    const { value } = this.state
     const { name } = this.props
     return {
       title: name,
+      color: 'grey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
-      color: 'grey',
       buttons: [{
         label: 'Add Criteria',
         color: 'blue',
-        disabled: value === null,
         handler: this._handleDone
       }]
     }
@@ -81,7 +79,7 @@ class Checkbox extends React.Component {
     return {
       defaultValue: operator || options[0].value,
       options,
-      onChange: this._handleOperator
+      onChange: this._handleUpdate.bind(this, 'operator')
     }
   }
 
@@ -94,9 +92,9 @@ class Checkbox extends React.Component {
     const { code } = this.props
     this.props.onChange({
       code,
-      operator: '$eq',
-      data: operator === '$ck' ? 'is checked' : 'is not checked',
-      value: operator === '$ck' ? 'true' : 'false'
+      operator,
+      value: '',
+      data: null
     })
   }
 
@@ -105,16 +103,24 @@ class Checkbox extends React.Component {
     const { code } = this.props
     this.props.onDone({
       code,
-      operator: '$eq',
-      data: operator === '$ck' ? 'is checked' : 'is not checked',
-      value: operator === '$ck' ? 'true' : 'false'
+      operator,
+      value: '',
+      data: null
     })
   }
 
-  _handleOperator(operator) {
-    this.setState({ operator })
+  _handleSet(defaultValue) {
+    const operator = Object.keys(defaultValue)[0]
+    const value = defaultValue[operator]
+    this.setState({ operator, value })
+  }
+
+  _handleUpdate(key, value) {
+    this.setState({
+      [key]: value
+    })
   }
 
 }
 
-export default Checkbox
+export default File

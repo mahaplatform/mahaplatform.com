@@ -10,6 +10,16 @@ const getConfig = (field) => {
       type: 'daterange'
     }
   }
+  if(field.type === 'checkbox') {
+    return {
+      type: 'checkbox'
+    }
+  }
+  if(field.type === 'filefield') {
+    return {
+      type: 'file'
+    }
+  }
   if(_.includes(['dropdown','radiogroup'], field.type)) {
     return {
       type: 'select',

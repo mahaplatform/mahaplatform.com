@@ -177,7 +177,8 @@ const getFilterSearch = (column, value, options) => {
   if(!options.filter.search || value.length === 0) return { query: null }
   const columns = options.filter.search.map(searchColumn => {
     const alias = getAlias(searchColumn, options.aliases, options)
-    return castColumn(alias)
+    const cast = castColumn(alias)
+    return alias.key ? `${cast}->'${alias.key}'->>0` : cast
   })
   return {
     query: `lower(concat(${columns.join(',\' \',')})) like ?`,
@@ -186,22 +187,22 @@ const getFilterSearch = (column, value, options) => {
 }
 
 const getFilterNull = (column, alias, value) => ({
-  query: alias.key ? `${column}->${alias.key}->>0 is null` : `${column} is null`,
+  query: alias.key ? `${column}->'${alias.key}'->>0 is null` : `${column} is null`,
   bindings: []
 })
 
 const getFilterNotNull = (column, alias, value) => ({
-  query: alias.key ? `${column}->${alias.key}->>0 is not null` : `${column} is not null`,
+  query: alias.key ? `${column}->'${alias.key}'->>0 is not null` : `${column} is not null`,
   bindings: []
 })
 
 const getFilterTrue = (column, alias, value) => ({
-  query: alias.key ? `${column}->${alias.key}->>0 = ?` : `${column} = ?`,
+  query: alias.key ? `(${column}->'${alias.key}'->>0)::boolean = ?` : `${column} = ?`,
   bindings: [true]
 })
 
 const getFilterFalse = (column, alias, value) => ({
-  query: alias.key ? `${column}->${alias.key}->>0 = ?` : `${column} = ?`,
+  query: alias.key ? `(${column}->'${alias.key}'->>0)::boolean = ?` : `${column} = ?`,
   bindings: [false]
 })
 

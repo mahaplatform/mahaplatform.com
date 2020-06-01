@@ -83,6 +83,7 @@ class Control extends React.Component {
     if(type === 'attachmentfield') return AttachmentField
     if(type === 'addressfield') return AddressField
     if(type === 'checkbox') return Checkbox
+    if(type === 'checkboxgroup') return Checkboxes
     if(type === 'checkboxes') return Checkboxes
     if(type === 'codefield') return CodeField
     if(type === 'colorfield') return ColorField

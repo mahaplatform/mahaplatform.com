@@ -8,6 +8,7 @@ import React from 'react'
 import Text from './text'
 import Date from './date'
 import Time from './time'
+import File from './file'
 import _ from 'lodash'
 
 class Field extends React.PureComponent {
@@ -48,6 +49,7 @@ class Field extends React.PureComponent {
     if(type === 'boolean') return Boolean
     if(type === 'checkbox') return Checkbox
     if(type === 'daterange') return DateRange
+    if(type === 'file') return File
     if(type === 'select') return Select
     if(type === 'date') return Date
     if(type === 'time') return Time

@@ -26,7 +26,16 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  res.status(200).respond(contacts, ContactSerializer)
+  res.status(200).respond(contacts, (req, result) => ({
+    id: result.get('id'),
+    code: result.get('code'),
+    display_name: result.get('display_name'),
+    full_name: result.get('full_name'),
+    initials: result.get('initials'),
+    email: result.get('email'),
+    phone: result.get('phone'),
+    photo: result.related('photo') ? result.related('photo').get('path') : null    
+  }))
 
 }
 

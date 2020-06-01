@@ -1,6 +1,7 @@
+import { expandValues } from '../../maha/services/values'
 import _ from 'lodash'
 
-const ContactSerializer = (req, result) => ({
+const ContactSerializer = async (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
   display_name: result.get('display_name'),
@@ -15,7 +16,7 @@ const ContactSerializer = (req, result) => ({
   lists: result.related('lists').map(list),
   topics: result.related('topics').map(topic),
   tags: result.related('tags').map(tag),
-  values: values(req, result.get('values')),
+  values: await values(req, result.get('values')),
   birthday: result.get('birthday'),
   spouse: result.get('spouse'),
   mailing_addresses: result.related('mailing_addresses').map(mailing_address),
@@ -75,7 +76,7 @@ const topic = (topic) => {
   return {
     id: topic.get('id'),
     program_id: topic.get('program_id'),
-    name: topic.get('name')
+    title: topic.get('title')
   }
 }
 
@@ -87,17 +88,9 @@ const tag = (tag) => {
   }
 }
 
-const values = (req, values) => {
+const values = async (req, values) => {
   if(!values || !req.fields) return {}
-  return Object.keys(values).reduce((sanitized, code) => {
-    const field = req.fields.find(field => field.get('code') === code)
-    const { multiple } = field.get('config')
-    const type = field.get('type')
-    return {
-      ...sanitized,
-      [code]: _.includes(['checkboxes','checkboxgroup'], type) || multiple === true ? values[code] : values[code][0]
-    }
-  }, {})
+  return await expandValues(req, 'crm_programs', null, values, false)
 }
 
 export default ContactSerializer

@@ -1,3 +1,4 @@
+import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
 const editRoute = async (req, res) => {
@@ -14,6 +15,14 @@ const editRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load contact'
   })
+
+  const fields = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('parent_type', 'crm_programs')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   res.status(200).respond(contact, (req, contact) => ({
     first_name: contact.get('first_name'),
@@ -38,7 +47,14 @@ const editRoute = async (req, res) => {
     organization_ids: contact.get('organization_ids'),
     topic_ids: contact.get('topic_ids'),
     list_ids: contact.get('list_ids'),
-    values: contact.get('values')
+    values: fields.reduce((values, field) => {
+      const value = contact.get('values')[field.get('code')]
+      if(!value) return values
+      return {
+        ...values,
+        [field.get('code')]: field.get('multiple') ? value : value[0]
+      }
+    }, {})
   }))
 
 }

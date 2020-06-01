@@ -41,6 +41,7 @@ class Checkbox extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
+    console.log(this.props)
     const value = defaultValue || false
     this.setValue(value)
     if(onReady) onReady()
