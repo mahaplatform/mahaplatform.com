@@ -40,8 +40,8 @@ class Overview extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         { criteria && criteria.length > 0 &&
-          <div className="maha-criteria">
-            <div className="maha-criteria-body">
+          <div className="maha-criteria-overview">
+            <div className="maha-criteria-overview-body">
               <div className="maha-criteria-items">
                 <Item { ...this._getItem(criteria[0]) } />
               </div>

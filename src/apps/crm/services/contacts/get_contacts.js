@@ -1,6 +1,6 @@
 import Contact from '../../models/contact'
 
-const getContacts = async (req, { empty, filter, page, scope, sort, withRelated }) => {
+const getContacts = async (req, { empty, filter, fields, page, scope, sort, withRelated }) => {
 
   return await Contact.filterFetch({
     scope: (qb) => {
@@ -11,6 +11,12 @@ const getContacts = async (req, { empty, filter, page, scope, sort, withRelated 
       if(empty === true && (!filter || filter.$and.length === 0)) qb.whereRaw('false')
     },
     aliases: {
+      ...fields ? fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.get('code')]: {
+          column: `crm_contacts.values->'${field.get('code')}'`
+        }
+      }), {}) : {},
       email: 'crm_contact_primaries.email',
       phone: 'crm_contact_primaries.phone',
       duplicate_id: {

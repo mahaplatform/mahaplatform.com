@@ -23,7 +23,9 @@ class ContactFieldsField extends React.PureComponent {
     onReady: () => {}
   }
 
-  state = {}
+  state = {
+    fields: null
+  }
 
   _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
@@ -82,6 +84,46 @@ class ContactFieldsField extends React.PureComponent {
     }
   }
 
+  _getAvailable() {
+    const { fields } = this.state
+    const available = [
+      { label: 'Contact', fields: [
+        { label: 'Phone', name: 'phone', type: 'phonefield' },
+        { label: 'Address', name: 'address', type: 'addressfield' },
+        { label: 'Birthday', name: 'birthday', type: 'textfield' },
+        { label: 'Spouse', name: 'spouse', type: 'textfield' }
+      ] },
+      ...this.props.fields.map(group => ({
+        label: group.label,
+        fields: group.fields.map(field => ({
+          code: field.code,
+          label: field.label,
+          name: `values.${field.code}`,
+          type: field.type,
+          instructions: field.instructions,
+          config: field.config
+        }))
+      })),
+      // { label: 'Consent', fields: [
+      //   { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
+      //   { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },
+      //   { label: 'Voice Consent', name: 'consent.voice', type: 'checkbox', prompt: '<p>Please call me</p>' }
+      // ] }
+    ]
+    return available.map(group => ({
+      ...group,
+      fields: group.fields.filter(field => {
+        return _.find(fields, {
+          contactfield: {
+            name: field.name
+          }
+        }) === undefined
+      })
+    })).filter(group => {
+      return group.fields.length > 0
+    })
+  }
+
   _getButton() {
     return {
       label: 'Add field',
@@ -91,19 +133,17 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   _getEdit(field, index) {
-    const { fields } = this.props
     return {
       field,
-      fields,
+      fields: this._getAvailable(),
       onBack: this._handleBack,
       onDone: this._handleUpdate.bind(this, index)
     }
   }
 
   _getNew() {
-    const { fields } = this.props
     return {
-      fields,
+      fields: this._getAvailable(),
       onBack: this._handleBack,
       onDone: this._handleAdd
     }

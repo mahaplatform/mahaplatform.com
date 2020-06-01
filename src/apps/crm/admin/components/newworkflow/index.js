@@ -4,19 +4,24 @@ import Programs from './programs'
 import Property from './property'
 import Manual from './manual'
 import Types from './types'
+import Topic from './topic'
 import React from 'react'
 import Open from './open'
+import List from './list'
 
 const types = [
   {
-    component: Open,
-    value: 'open'
+    component: Topic,
+    value: 'topic'
   },{
-    component: Open,
-    value: 'click'
+    component: List,
+    value: 'list'
   },{
     component: Property,
     value: 'property'
+  },{
+    component: Open,
+    value: 'open'
   },{
     component: Manual,
     value: 'manual'

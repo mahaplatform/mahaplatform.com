@@ -16,7 +16,7 @@ export const fetchPage = async function(bookshelf, options) {
 
   const allsql = await new Promise((resolve, reject) => {
     this.clone().resetQuery().query(options.scope).query(qb => {
-      resolve(`select count(*) from (${qb.toString()}) total`)
+      resolve(`select count(*) from (${qb.toString().replace(/\?/g, '\\?')}) total`)
     })
   })
 
@@ -26,7 +26,7 @@ export const fetchPage = async function(bookshelf, options) {
 
   const totalsql = await new Promise((resolve, reject) => {
     this.clone().query(qb => {
-      resolve(`select count(*) from (${qb.toString()}) total`)
+      resolve(`select count(*) from (${qb.toString().replace(/\?/g, '\\?')}) total`)
     })
   })
 

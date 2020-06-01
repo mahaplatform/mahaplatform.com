@@ -40,7 +40,11 @@ class Criteria extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
+    return (
+      <div className="maha-criteria">
+        <Stack { ...this._getStack() } />
+      </div>
+    )
   }
 
   componentDidMount() {
@@ -100,7 +104,7 @@ class Criteria extends React.Component {
     }] : defaultValue
     this.props.onSet(value)
   }
-  
+
   _handlePop(index = -1) {
     this.setState({
       cards:this.state.cards.slice(0, index)

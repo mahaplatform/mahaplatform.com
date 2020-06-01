@@ -53,14 +53,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  programs: {
-    endpoint: '/api/admin/crm/programs',
-    filter: {
-      access_type: {
-        $in: ['manage','edit']
-      }
-    }
-  }
+  programs: '/api/admin/crm/programs'
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

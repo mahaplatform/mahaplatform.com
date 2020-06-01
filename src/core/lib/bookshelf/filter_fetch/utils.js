@@ -1,9 +1,8 @@
 import _ from 'lodash'
 
-export const castColumn = ({ table, alias, column, join }) => {
-  const matches = column.match(/(.*)(->{1,2})(.*)/)
+export const castColumn = ({ table, alias, column, key, join }) => {
   const castTable = `"${alias || table}"`
-  const castColumn = matches ? `"${matches[1]}"${matches[2]}${matches[3]}` : `"${column}"`
+  const castColumn = `"${column}"`
   return `${castTable}.${castColumn}`
 }
 
@@ -27,8 +26,10 @@ const normalizeAlias = (alias, options) => {
   const join = normalizeJoin(alias, options)
   return {
     table: alias.table,
+    type: alias.type || 'string',
     alias: join ? generateAlias() : null,
     column: alias.column,
+    key: alias.key,
     join
   }
 }
@@ -37,11 +38,14 @@ const generateAlias = () => {
   return 'w'+_.random(100000000, 999999999).toString(36).replace(/\d/g, '')
 }
 
-const normalizeColumn = (column, options) => {
-  const parts = column.match(/^(.+)\.(.+)$/)
+const normalizeColumn = (string, options) => {
+  const parts = string.match(/^(.+)\.(.+)$/)
+  const column = parts ? parts[2] : string
+  const colparts = column.match(/^(.+)->{1,2}'?([A-Za-z0-9_]+)'?$/)
   return {
     table: parts ? parts[1] : options.tableName,
-    column: parts ? parts[2] : column
+    column: colparts ? colparts[1] : column,
+    key: colparts ? colparts[2] : null
   }
 }
 

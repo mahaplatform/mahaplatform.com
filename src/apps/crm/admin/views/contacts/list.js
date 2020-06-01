@@ -9,14 +9,7 @@ import React from 'react'
 import New from './new'
 
 const mapResourcesToPage = (props, context) => ({
-  programs: {
-    endpoint: '/api/admin/crm/programs',
-    filter: {
-      access_type: {
-        $in: ['manage','edit']
-      }
-    }
-  },
+  programs: '/api/admin/crm/programs',
   fields: '/api/admin/crm/fields'
 })
 
@@ -34,9 +27,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Birthday', key: 'birthday', visible: false },
       { label: 'Spouse', key: 'spouse', visible: false }
     ],
-
     criteria: {
-      fields: criteria,
+      fields: criteria(resources.fields),
       system: [
         { id: 0, title: 'Unknown Contacts', config: {
           criteria: [

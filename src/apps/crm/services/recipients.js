@@ -202,7 +202,7 @@ const getRecipientsByCriteria = async (req, params) => {
 
 export const getRecipients = async (req, params) => {
 
-  const { config, type, purpose, program_id, page, strategy } = params
+  const { config, page, program_id, purpose, strategy, type } = params
 
   const creator = getCreator(strategy)
 
@@ -228,6 +228,12 @@ export const getRecipients = async (req, params) => {
       if(args.scope) args.scope(qb)
     },
     aliases: {
+      ...req.fields ? req.fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.get('code')]: {
+          column: `crm_contacts.values->'${field.get('code')}'`
+        }
+      }), {}) : {},
       first_name: 'crm_contacts.first_name',
       last_name: 'crm_contacts.last_name',
       email: {

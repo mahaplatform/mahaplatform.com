@@ -37,7 +37,7 @@ class CheckboxesField extends React.PureComponent {
         { sections.map((section, index) => (
           <div className="crm-checkboxesfield-section" key={`section_${index}`}>
             <div className="crm-checkboxesfield-header">
-              <ProgramToken { ...section } />
+              { section.title }
             </div>
             <div className="crm-checkboxesfield-items">
               { section.items.map((item, index) => (

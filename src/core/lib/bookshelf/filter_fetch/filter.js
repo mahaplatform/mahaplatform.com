@@ -154,22 +154,23 @@ const getJoin = ({ table, alias, column, join }) => {
 const getFilter = (alias, operation, value, options) => {
   const column = castColumn(alias)
   if(operation === '$sq') return getFilterSearch(alias, value, options)
-  if(operation === '$nl') return getFilterNull(column, value)
-  if(operation === '$nnl') return getFilterNotNull(column, value)
-  if(operation === '$kn') return getFilterKnown(column, value)
-  if(operation === '$nkn') return getFilterNotKnown(column, value)
-  if(operation === '$eq') return getFilterEqual(column, value)
-  if(operation === '$neq') return getFilterNotEqual(column, value)
-  if(operation === '$lk') return getFilterLike(column, value)
-  if(operation === '$nlk') return getFilterNotLike(column, value)
-  if(operation === '$ct') return getFilterContains(column, value)
-  if(operation === '$in') return getFilterIn(column, value)
-  if(operation === '$nin') return getFilterNotIn(column, value)
-  if(operation === '$lt') return getFilterLessThan(column, value)
-  if(operation === '$lte') return getFilterLessThanEqualTo(column, value)
-  if(operation === '$gt') return getFilterGreaterThan(column, value)
-  if(operation === '$gte') return getFilterGreaterThanEqualTo(column, value)
-  if(operation === '$dr') return getFilterDateRange(column, value)
+  if(operation === '$nl') return getFilterNull(column, alias, value)
+  if(operation === '$nnl') return getFilterNotNull(column, alias, value)
+  if(operation === '$kn') return getFilterKnown(column, alias, value)
+  if(operation === '$nkn') return getFilterNotKnown(column, alias, value)
+  if(operation === '$eq') return getFilterEqual(column, alias, value)
+  if(operation === '$neq') return getFilterNotEqual(column, alias, value)
+  if(operation === '$lk') return getFilterLike(column, alias, value)
+  if(operation === '$nlk') return getFilterNotLike(column, alias, value)
+  if(operation === '$ct') return getFilterContains(column, alias, value)
+  if(operation === '$in') return getFilterIn(column, alias, value)
+  if(operation === '$nin') return getFilterNotIn(column, alias, value)
+  if(operation === '$lt') return getFilterLessThan(column, alias, value)
+  if(operation === '$lte') return getFilterLessThanEqualTo(column, alias, value)
+  if(operation === '$gt') return getFilterGreaterThan(column, alias, value)
+  if(operation === '$gte') return getFilterGreaterThanEqualTo(column, alias, value)
+  if(operation === '$dr') return getFilterDateRange(column, alias, value, false)
+  if(operation === '$ndr') return getFilterDateRange(column, alias, value, true)
 }
 
 const getFilterSearch = (column, value, options) => {
@@ -184,79 +185,129 @@ const getFilterSearch = (column, value, options) => {
   }
 }
 
-const getFilterNull = (column, value) => ({
-  query: `${column} is null`,
+const getFilterNull = (column, alias, value) => ({
+  query: alias.key ? `${column}->${alias.key}->>0 is null` : `${column} is null`,
   bindings: []
 })
 
-const getFilterNotNull = (column, value) => ({
-  query: `${column} is not null`,
+const getFilterNotNull = (column, alias, value) => ({
+  query: alias.key ? `${column}->${alias.key}->>0 is not null` : `${column} is not null`,
   bindings: []
 })
 
-const getFilterTrue = (column, value) => ({
-  query: `${column} = ?`,
+const getFilterTrue = (column, alias, value) => ({
+  query: alias.key ? `${column}->${alias.key}->>0 = ?` : `${column} = ?`,
   bindings: [true]
 })
 
-const getFilterFalse = (column, value) => ({
-  query: `${column} = ?`,
+const getFilterFalse = (column, alias, value) => ({
+  query: alias.key ? `${column}->${alias.key}->>0 = ?` : `${column} = ?`,
   bindings: [false]
 })
 
-const getFilterKnown = (column, value) => ({
-  query: `(${column} is not null and ${column} != ?)`,
-  bindings: ['']
-})
-
-const getFilterNotKnown = (column, value) => ({
-  query: `(${column} is null or ${column} = ?)`,
-  bindings: ['']
-})
-
-const getFilterEqual = (column, value) => {
-  if(value === 'null') return getFilterNull(column, value)
-  if(value === 'not_null') return getFilterNotNull(column, value)
-  if(`${value}` === 'true') return getFilterTrue(column, value)
-  if(`${value}` === 'false') return getFilterFalse(column, value)
-  if(!/^\d+$/.test(value)) {
-    column = `lower(${column}::varchar)`,
-    value = value.toLowerCase()
-  }
-  return {
-    query: `${column} = ?`,
-    bindings: [value]
+const getFilterKnown = (column, alias, value) => {
+  if(alias.key) {
+    return {
+      query: `${column} \\? ? and (${column}->'${alias.key}'->>0 is not null and ${column}->'${alias.key}'->>0 != ?)`,
+      bindings: [alias.key, '']
+    }
+  } else {
+    return {
+      query: `${column} is not null and ${column} != ?`,
+      bindings: ['']
+    }
   }
 }
 
-const getFilterNotEqual = (column, value) => {
+const getFilterNotKnown = (column, alias, value) =>{
+  if(alias.key) {
+    return {
+      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or ${column}->'${alias.key}'->>0 = ?`,
+      bindings: [alias.key, '']
+    }
+  } else {
+    return {
+      query: `${column} is null or ${column} = ?`,
+      bindings: ['']
+    }
+  }
+}
+
+const getFilterEqual = (column, alias, value) => {
+  if(value === 'null') return getFilterNull(column, alias, value)
+  if(value === 'not_null') return getFilterNotNull(column, alias, value)
+  if(`${value}` === 'true') return getFilterTrue(column, alias, value)
+  if(`${value}` === 'false') return getFilterFalse(column, alias, value)
+  if(!/^\d+$/.test(value)) value = value.toLowerCase()
+  if(alias.key) {
+    return {
+      query: `lower(${column}->'${alias.key}'->>0) = ?`,
+      bindings: [value]
+    }
+  } else {
+    return {
+      query: `lower(${column}::varchar) = ?`,
+      bindings: [value]
+    }
+  }
+}
+
+const getFilterNotEqual = (column, alias, value) => {
   if(value === 'null') return getFilterNotNull(column, value)
   if(value === 'not_null') return getFilterNull(column, value)
   if(`${value}` === 'true') return getFilterFalse(column, value)
   if(`${value}` === 'false') return getFilterTrue(column, value)
-  if(!/^\d+$/.test(value)) column = `lower(${column}::varchar)`
-  return {
-    query: `${column} != ?`,
-    bindings: [value]
+  if(!/^\d+$/.test(value)) value = value.toLowerCase()
+  if(alias.key) {
+    return {
+      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) != ?`,
+      bindings: [alias.key, value]
+    }
+  } else {
+    return {
+      query: `lower(${column}::varchar) != ?`,
+      bindings: [value]
+    }
   }
 }
 
-const getFilterLike = (column, value) => ({
-  query: `lower(${column}) like ?`,
-  bindings: [`%${value.toLowerCase()}%`]
-})
+const getFilterLike = (column, alias, value) => {
+  const term = `%${value.toLowerCase()}%`
+  if(alias.key) {
+    return {
+      query: `lower(${column}->'${alias.key}'->>0) like ?`,
+      bindings: [term]
+    }
+  } else {
+    return {
+      query: `lower(${column}::varchar) like ?`,
+      bindings: [term]
+    }
+  }
+}
 
-const getFilterNotLike = (column, value) => ({
-  query: `lower(${column}) not like ?`,
-  bindings: [`%${value.toLowerCase()}%`]
-})
+const getFilterNotLike = (column, alias, value) => {
+  const term = `%${value.toLowerCase()}%`
+  if(alias.key) {
+    return {
+      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) not like ?`,
+      bindings: [alias.key, term]
+    }
+  } else {
+    return {
+      query: `lower(${column}::varchar) not like ?`,
+      bindings: [term]
+    }
+  }
+}
 
 const getFilterContains = (column, value) => ({
   query: `${column} @> ?`,
   bindings: [value]
 })
 
-const getFilterIn = (column, value) => {
+const getFilterIn = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : `${column}::varchar`
   const bindings = _.without(value, 'null')
   const markers = Array(bindings.length).fill(0).map(i => '?').join(',')
   return {
@@ -265,7 +316,8 @@ const getFilterIn = (column, value) => {
   }
 }
 
-const getFilterNotIn = (column, value) => {
+const getFilterNotIn = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : `${column}::varchar`
   const bindings = _.without(value, 'null')
   const markers = Array(bindings.length).fill(0).map(i => '?').join(',')
   return {
@@ -274,65 +326,81 @@ const getFilterNotIn = (column, value) => {
   }
 }
 
-const getFilterLessThan = (column, value) => ({
-  query: `${column} < ?`,
-  bindings: [value]
-})
-
-const getFilterLessThanEqualTo = (column, value) => ({
-  query: `${column} <= ?`,
-  bindings: [value]
-})
-
-const getFilterGreaterThan = (column, value) => ({
-  query: `${column} > ?`,
-  bindings: [value]
-})
-
-const getFilterGreaterThanEqualTo = (column, value) => ({
-  query: `${column} >= ?`,
-  bindings: [value]
-})
-
-const getFilterDateRange = (column, value) => {
-  if(value === 'last_week') return getFilterRange(column, -1, 'week')
-  if(value === 'last_month') return getFilterRange(column, -1, 'month')
-  if(value === 'last_quarter') return getFilterRange(column, -1, 'quarter')
-  if(value === 'last_year') return getFilterRange(column, -1, 'year')
-  if(value === 'this_week') return getFilterRange(column, 0, 'week')
-  if(value === 'this_month') return getFilterRange(column, 0, 'month')
-  if(value === 'this_quarter') return getFilterRange(column, 0, 'quarter')
-  if(value === 'this_year') return getFilterRange(column, 0, 'year')
-  if(value === 'next_week') return getFilterRange(column, 1, 'week')
-  if(value === 'next_month') return getFilterRange(column, 1, 'month')
-  if(value === 'next_quarter') return getFilterRange(column, 1, 'quarter')
-  if(value === 'next_year') return getFilterRange(column, 1, 'year')
-  if(value === 'last_30') return getFilterDuration(column, -30, 'days')
-  if(value === 'last_60') return getFilterDuration(column, -60, 'days')
-  if(value === 'last_90') return getFilterDuration(column, -90, 'days')
-  if(value === 'next_30') return getFilterDuration(column, 30, 'days')
-  if(value === 'next_60') return getFilterDuration(column, 60, 'days')
-  if(value === 'next_90') return getFilterDuration(column, 90, 'days')
-  if(value === 'ytd') return getFilterBetween(column, moment().startOf('year'), moment())
-  if(value === 'ltd') return getFilterBetween(column, moment('2000-01-01'), moment())
+const getFilterLessThan = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : column
+  return {
+    query: `? != '' and ${column} < ?`,
+    bindings: [value, value]
+  }
 }
 
-const getFilterRange = (column, quantity, unit) => {
+const getFilterLessThanEqualTo = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : column
+  return {
+    query: `? != '' and ${column} <= ?`,
+    bindings: [value]
+  }
+}
+
+const getFilterGreaterThan = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : column
+  return {
+    query: `? != '' and ${column} > ?`,
+    bindings: [value, value]
+  }
+}
+
+const getFilterGreaterThanEqualTo = (column, alias, value) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : column
+  return {
+    query: `? != '' and ${column} >= ?`,
+    bindings: [value, value]
+  }
+}
+
+const getFilterDateRange = (column, alias, value, not) => {
+  if(value === 'last_week') return getFilterRange(column, alias, -1, 'week', not)
+  if(value === 'last_month') return getFilterRange(column, alias, -1, 'month', not)
+  if(value === 'last_quarter') return getFilterRange(column, alias, -1, 'quarter', not)
+  if(value === 'last_year') return getFilterRange(column, alias, -1, 'year', not)
+  if(value === 'this_week') return getFilterRange(column, alias, 0, 'week', not)
+  if(value === 'this_month') return getFilterRange(column, alias, 0, 'month', not)
+  if(value === 'this_quarter') return getFilterRange(column, alias, 0, 'quarter', not)
+  if(value === 'this_year') return getFilterRange(column, alias, 0, 'year', not)
+  if(value === 'next_week') return getFilterRange(column, alias, 1, 'week', not)
+  if(value === 'next_month') return getFilterRange(column, alias, 1, 'month', not)
+  if(value === 'next_quarter') return getFilterRange(column, alias, 1, 'quarter', not)
+  if(value === 'next_year') return getFilterRange(column, alias, 1, 'year', not)
+  if(value === 'last_30') return getFilterDuration(column, alias, -30, 'days', not)
+  if(value === 'last_60') return getFilterDuration(column, alias, -60, 'days', not)
+  if(value === 'last_90') return getFilterDuration(column, alias, -90, 'days', not)
+  if(value === 'next_30') return getFilterDuration(column, alias, 30, 'days', not)
+  if(value === 'next_60') return getFilterDuration(column, alias, 60, 'days', not)
+  if(value === 'next_90') return getFilterDuration(column, alias, 90, 'days', not)
+  if(value === 'ytd') return getFilterBetween(column, alias, moment().startOf('year'), moment(), not)
+  if(value === 'ltd') return getFilterBetween(column, alias, moment('2000-01-01'), moment(), not)
+}
+
+const getFilterRange = (column, alias, quantity, unit, not) => {
   const start = moment().add(quantity, unit).startOf(unit)
   const end = moment().add(quantity, unit).endOf(unit)
-  return getFilterBetween(column, start, end)
+  return getFilterBetween(column, alias, start, end, not)
 }
 
-const getFilterDuration = (column, quantity, unit) => {
+const getFilterDuration = (column, alias, quantity, unit, not) => {
   const start = quantity > 0 ? moment().startOf(unit) : moment().add(quantity, unit).endOf(unit)
   const end = quantity > 0 ? moment().add(quantity, unit).endOf(unit) : moment().startOf(unit)
-  return getFilterBetween(column, start, end)
+  return getFilterBetween(column, alias, start, end, not)
 }
 
-const getFilterBetween = (column, start, end) => ({
-  query: `${column} >= ? and ${column} <= ?`,
-  bindings: [
-    start.format('YYYY-MM-DD'),
-    end.format('YYYY-MM-DD')
-  ]
-})
+const getFilterBetween = (column, alias, start, end, not) => {
+  column = alias.key ? `${column}->'${alias.key}'->>0` : column
+  const query = `${column} >= ? and ${column} <= ?`
+  return {
+    query: not ? `not(${query})` : query,
+    bindings: [
+      start.format('YYYY-MM-DD'),
+      end.format('YYYY-MM-DD')
+    ]
+  }
+}

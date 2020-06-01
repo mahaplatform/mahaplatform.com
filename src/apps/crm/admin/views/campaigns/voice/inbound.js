@@ -41,7 +41,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Inbound Voice Campaigns',
       text: 'You have not yet created any inbound voice campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
+        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -49,7 +49,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } form={ New } />
+    modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } />
   } : null
 })
 
@@ -59,9 +59,6 @@ const mapResourcesToPage = (props, context) => ({
     filter: {
       phone_number_id: {
         $nnl: true
-      },
-      access_type: {
-        $in: ['manage','edit']
       }
     }
   }

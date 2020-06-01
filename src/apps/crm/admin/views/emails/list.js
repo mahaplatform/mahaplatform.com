@@ -21,31 +21,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: {
       icon: 'envelope-o',
       title: 'No Emails',
-      text: 'You have not yet created any emails',
-      buttons: resources.programs.length > 0 ? [
-        { label: 'Create New Email', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
-      ] : null
+      text: 'You have not yet created any emails'
     },
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'email',
     onClick: (record) => context.router.history.push(`/admin/crm/emails/${record.id}`)
-  },
-  task: resources.programs.length > 0 ? {
-    label: 'Create Email',
-    icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } form={ New } />
-  } : null
+  }
 })
 
 const mapResourcesToPage = (props, context) => ({
-  programs: {
-    endpoint: '/api/admin/crm/programs',
-    filter: {
-      access_type: {
-        $in: ['manage','edit']
-      }
-    }
-  }
+  programs: '/api/admin/crm/programs'
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

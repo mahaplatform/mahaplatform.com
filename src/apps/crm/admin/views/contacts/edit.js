@@ -6,7 +6,6 @@ import ProgramToken from '../../tokens/program'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Edit extends React.Component {
 
@@ -83,21 +82,17 @@ class Edit extends React.Component {
   }
 
   _getProperties() {
-    const {fields} = this.props
-    return Object.values(fields.reduce((programs, field) => ({
-      ...programs,
-      [field.program.id]: {
-        label: (
-          <div className="crm-program-label">
-            <ProgramToken { ...field.program } />
-          </div>
-        ),
-        fields: [
-          ..._.get(programs, `${field.program.id}.fields`) || [],
-          field.config
-        ]
-      }
-    }), {}))
+    const { fields } = this.props
+    return fields.filter(program => {
+      return program.access_type !== 'view'
+    }).map(program => ({
+      label: (
+        <div className="crm-program-label">
+          <ProgramToken { ...program } />
+        </div>
+      ),
+      fields: program.fields.map(field => field.config)
+    }))
   }
 
   _getOrganizationForm() {

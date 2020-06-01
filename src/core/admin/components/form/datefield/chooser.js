@@ -76,7 +76,7 @@ class Chooser extends React.Component {
     return {
       title: 'Choose Date',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ]
     }
   }

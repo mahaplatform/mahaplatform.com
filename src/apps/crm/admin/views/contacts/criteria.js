@@ -2,8 +2,27 @@ import AddressCriteria from '../../components/addresscriteria'
 import ImportToken from '../../../../maha/admin/tokens/import'
 import CountyCriteria from '../../components/countycriteria'
 import ListCriteria from '../../components/listcriteria'
+import _ from 'lodash'
 
-const criteria = [
+const getConfig = (field) => {
+  if(field.type === 'datefield') {
+    return {
+      type: 'daterange'
+    }
+  }
+  if(_.includes(['dropdown','radiogroup'], field.type)) {
+    return {
+      type: 'select',
+      options: field.config.options,
+      search: false
+    }
+  }
+  return {
+    type: 'text'
+  }
+}
+
+const criteria = (programfields) => [
   { label: 'Contact', fields: [
     { name: 'First Name', key: 'first_name', type: 'text' },
     { name: 'Last Name', key: 'last_name', type: 'text' },
@@ -19,6 +38,14 @@ const criteria = [
     { name: 'State/Province', key: 'state_province', type: 'select', endpoint: '/api/admin/states', multiple: true, text: 'full_name', value: 'short_name' },
     { name: 'Postal Code', key: 'postal_code', type: 'text' }
   ] },
+  ...programfields.map(program => ({
+    label: program.title,
+    fields: program.fields.map(field => ({
+      name: field.name.value,
+      key: field.code,
+      ...getConfig(field)
+    }))
+  })),
   { label: 'Classifications', fields: [
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
       { value: '$jin', text: 'is subscribed to' },

@@ -1,6 +1,6 @@
-import { CriteriaDesigner, ModalPanel } from 'maha-admin'
+import { Container, CriteriaDesigner, ModalPanel } from 'maha-admin'
 import RecipientToken from '../../tokens/recipient'
-import fields from '../../views/contacts/criteria'
+import criteria from '../../views/contacts/criteria'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,7 +14,9 @@ class CriteriaPicker extends React.PureComponent {
     channel: PropTypes.string,
     defaultValue: PropTypes.object,
     endpoint: PropTypes.string,
+    fields: PropTypes.array,
     instructions: PropTypes.string,
+    program: PropTypes.object,
     program_id: PropTypes.number,
     purpose: PropTypes.string,
     onDone: PropTypes.func
@@ -37,12 +39,15 @@ class CriteriaPicker extends React.PureComponent {
   }
 
   _getCriteriaDesigner() {
-    const { defaultValue, endpoint } = this.props
+    const { defaultValue, endpoint, fields, program } = this.props
     return {
       defaultValue: defaultValue ? defaultValue.criteria : null,
       endpoint,
       entity: 'contact',
-      fields,
+      fields: criteria([{
+        ...program,
+        fields
+      }]),
       format: (recipient) => <RecipientToken recipient={ recipient } />,
       onChange: this._handleChange
     }
@@ -79,4 +84,9 @@ class CriteriaPicker extends React.PureComponent {
 
 }
 
-export default CriteriaPicker
+const mapResources = (props, context) => ({
+  fields: `/api/admin/crm/programs/${props.program_id}/fields`,
+  program: `/api/admin/crm/programs/${props.program_id}`
+})
+
+export default Container(mapResources)(CriteriaPicker)

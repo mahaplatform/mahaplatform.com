@@ -49,12 +49,14 @@ class Types extends React.PureComponent {
   }
 
   _getField(field) {
-    const { parent, onCancel } = this.props
+    const { parent, onCancel, onPop, onPush } = this.props
     return {
       field,
       onCancel,
       onChange: this._handleChange.bind(this, field, parent),
-      onDone: this._handleDone.bind(this, field, parent)
+      onDone: this._handleDone.bind(this, field, parent),
+      onPop,
+      onPush
     }
   }
 

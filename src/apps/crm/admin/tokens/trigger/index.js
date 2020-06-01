@@ -26,12 +26,12 @@ const triggers = {
   list: {
     icon: 'th-list',
     title: 'List Update',
-    description: 'Enroll contact when they are added to a list'
+    description: 'Enroll contact when they are added to or removed from a list'
   },
   topic: {
     icon: 'lightbulb-o',
     title: 'Topic Update',
-    description: 'Enroll contact when they are added to a topic'
+    description: 'Enroll contact when they are added to or removed from a topic'
   },
   property: {
     icon: 'id-card',

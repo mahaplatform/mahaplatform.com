@@ -37,6 +37,7 @@ class Select extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
+    const { operator } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criterion-form">
@@ -44,7 +45,9 @@ class Select extends React.Component {
             <RadioGroup { ...this._getRadioGroup() } />
           </div>
           <div className="maha-criterion-form-body">
-            <Search { ...this._getSearch() } />
+            { !_.includes(['$kn','$nkn'], operator) &&
+              <Search { ...this._getSearch() } />
+            }
           </div>
         </div>
       </ModalPanel>
@@ -72,7 +75,9 @@ class Select extends React.Component {
       { value: '$eq', text: 'is' },
       { value: '$neq', text: 'is not' },
       { value: '$in', text: 'is one of' },
-      { value: '$nin', text: 'is not one of' }
+      { value: '$nin', text: 'is not one of' },
+      { value: '$kn', text: 'is known' },
+      { value: '$nkn', text: 'is unknown' }
     ]
   }
 

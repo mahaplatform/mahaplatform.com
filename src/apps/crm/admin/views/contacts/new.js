@@ -8,7 +8,6 @@ import sections from '../sections'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-import _ from 'lodash'
 
 class New extends React.Component {
 
@@ -83,21 +82,16 @@ class New extends React.Component {
 
   _getProperties() {
     const { fields } = this.props
-    const programs = fields.reduce((programs, field) => ({
-      ...programs,
-      [field.program.id]: {
-        label: (
-          <div className="crm-program-label">
-            <ProgramToken { ...field.program } />
-          </div>
-        ),
-        fields: [
-          ..._.get(programs, `${field.program.id}.fields`) || [],
-          field.config
-        ]
-      }
-    }), {})
-    return Object.values(programs)
+    return fields.filter(program => {
+      return program.access_type !== 'view'
+    }).map(program => ({
+      label: (
+        <div className="crm-program-label">
+          <ProgramToken { ...program } />
+        </div>
+      ),
+      fields: program.fields.map(field => field.config)
+    }))
   }
 
   _getSections() {

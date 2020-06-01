@@ -12,6 +12,7 @@ class ProgramForm extends React.PureComponent {
 
   static propTypes = {
     form: PropTypes.any,
+    fields: PropTypes.any,
     programs: PropTypes.array,
     onSet: PropTypes.func
   }
@@ -36,7 +37,9 @@ class ProgramForm extends React.PureComponent {
   _getPrograms() {
     const { programs } = this.props
     return {
-      programs,
+      programs: programs.filter(program => {
+        return program.access_type !== 'view'
+      }),
       onCancel: this._handleCancel,
       onChoose: this._handleProgram
     }
@@ -51,7 +54,9 @@ class ProgramForm extends React.PureComponent {
   }
 
   _getForm(program_id) {
+    const { fields } = this.props
     return {
+      fields,
       program_id,
       onBack: this._handlePop
     }

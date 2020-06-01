@@ -37,9 +37,10 @@ class Properties extends React.Component {
 
   _getFields(program) {
     const { fields } = this.props
-    return fields.filter(field => {
-      return field.program.id === program.id
+    const group = fields.find(group => {
+      return group.id === program.id
     })
+    return group ? group.fields : []
   }
 
   _getLists(program) {

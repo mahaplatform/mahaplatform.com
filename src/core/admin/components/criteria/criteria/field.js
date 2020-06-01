@@ -21,7 +21,9 @@ class Field extends React.PureComponent {
     field: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   state = {
@@ -53,7 +55,7 @@ class Field extends React.PureComponent {
   }
 
   _getProps() {
-    const { defaultValue, field, onCancel, onChange, onDone } = this.props
+    const { defaultValue, field, onCancel, onChange, onDone, onPop, onPush } = this.props
     const { code } = this.state
     return {
       ...field,
@@ -61,7 +63,9 @@ class Field extends React.PureComponent {
       defaultValue,
       onCancel,
       onChange,
-      onDone
+      onDone,
+      onPop,
+      onPush
     }
   }
 

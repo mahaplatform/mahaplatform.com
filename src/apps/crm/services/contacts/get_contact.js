@@ -117,7 +117,8 @@ const getContact = async (req, params) => {
 
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
-    code
+    code,
+    values: {}
   }).save(null, {
     transacting: req.trx
   })

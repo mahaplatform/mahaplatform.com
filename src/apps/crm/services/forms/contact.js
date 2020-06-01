@@ -59,6 +59,17 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
     data
   })
 
+  const consent = contactfields.filter(field => {
+    return field.contactfield.name.match(/^consent./)
+  }).reduce((channels, field) => {
+    const [,channel] = field.contactfield.name.match(/^consent.(.*)/)
+    if(data[field.code] !== true) return channels
+    return [
+      ...channels,
+      channel
+    ]
+  }, [])
+
   const email_addresses = contactfields.filter(field => {
     return field.contactfield.name === 'email'
   }).filter(field => {
