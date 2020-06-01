@@ -38,11 +38,11 @@ class FormDesignerWrapper extends React.Component {
       ...programfields.length > 0 ? [{ label: `${program.title} Fields`, fields: programfields.map(field => ({
         ...field.config
       }))}] : [],
-      // { label: 'Consent', fields: [
-      //   { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
-      //   { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },
-      //   { label: 'Voice Consent', name: 'consent.voice', type: 'checkbox', prompt: '<p>Please call me</p>' }
-      // ] }
+      { label: 'Consent', fields: [
+        { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
+        { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },
+        { label: 'Voice Consent', name: 'consent.voice', type: 'checkbox', prompt: '<p>Please call me</p>' }
+      ] }
     ]
   }
 

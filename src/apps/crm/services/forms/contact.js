@@ -1,8 +1,71 @@
-import { updatePhoneNumbers } from '../phone_numbers'
+import { getFormattedNumber, updatePhoneNumbers } from '../phone_numbers'
 import { updateMailingAddresses } from '../mailing_addresses'
 import { updateEmailAddresses } from '../email_addresses'
+import EmailAddress from '../../models/email_address'
+import PhoneNumber from '../../models/phone_number'
+import { updateConsent } from '../consents'
 import { getContact } from '../contacts'
 import _ from 'lodash'
+
+const getContactfields = ({ contactfields, data, name, key, string }) => {
+  return contactfields.filter(field => {
+    return field.contactfield.name === name
+  }).filter(field => {
+    return !_.isNil(data[field.code]) && (string === false || data[field.code].length > 0)
+  }).reduce((fields, field) => [
+    ...fields,
+    { [key]: data[field.code] }
+  ], [])
+}
+
+const updateEmailConsent = async (req, { contact, consent, email_addresses, program }) => {
+  await Promise.map(email_addresses, async (address) => {
+    const email_address = await EmailAddress.query(qb => {
+      qb.where('contact_id', contact.get('id'))
+      qb.where('address', address.address)
+    }).fetch({
+      transacting: req.trx
+    })
+    if(_.includes(consent, 'email')) {
+      await updateConsent(req, {
+        channel_type: 'email',
+        channel_id: email_address.get('id'),
+        program,
+        optin_reason: 'consent',
+        optout: false
+      })
+    }
+  })
+}
+
+const updatePhoneConsent = async (req, { contact, consent, phone_numbers, program }) => {
+  await Promise.map(phone_numbers, async (number) => {
+    const phone_number = await PhoneNumber.query(qb => {
+      qb.where('contact_id', contact.get('id'))
+      qb.where('number', getFormattedNumber(number.number))
+    }).fetch({
+      transacting: req.trx
+    })
+    if(_.includes(consent, 'voice')) {
+      await updateConsent(req, {
+        channel_type: 'voice',
+        channel_id: phone_number.get('id'),
+        program,
+        optin_reason: 'consent',
+        optout: false
+      })
+    }
+    if(_.includes(consent, 'sms')) {
+      await updateConsent(req, {
+        channel_type: 'sms',
+        channel_id: phone_number.get('id'),
+        program,
+        optin_reason: 'consent',
+        optout: false
+      })
+    }
+  })
+}
 
 const updateContact = async (req, { contact, contactfields, data }) => {
 
@@ -42,7 +105,7 @@ const getLookupValue = (field, data) => {
   return value !== null && value.length > 0 ? value : null
 }
 
-export const createOrUpdateContact = async (req, { fields, data }) => {
+export const createOrUpdateContact = async (req, { fields, program, data }) => {
 
   const contactfields = fields.filter(field => {
     return field.type === 'contactfield'
@@ -70,14 +133,12 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
     ]
   }, [])
 
-  const email_addresses = contactfields.filter(field => {
-    return field.contactfield.name === 'email'
-  }).filter(field => {
-    return !_.isNil(data[field.code]) && data[field.code].length > 0
-  }).reduce((email_addresses, field) => [
-    ...email_addresses,
-    { address: data[field.code].toLowerCase() }
-  ], [])
+  const email_addresses = getContactfields({
+    contactfields,
+    data,
+    name: 'email',
+    key: 'address'
+  })
 
   if(email_addresses.length > 0) {
     await updateEmailAddresses(req, {
@@ -85,16 +146,22 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
       email_addresses,
       removing: false
     })
+    await updateEmailConsent(req, {
+      contact,
+      consent,
+      email_addresses,
+      program
+    })
   }
 
-  const phone_numbers = contactfields.filter(field => {
-    return field.contactfield.name === 'phone'
-  }).filter(field => {
-    return !_.isNil(data[field.code]) && data[field.code].length > 0
-  }).reduce((phone_numbers, field) => [
-    ...phone_numbers,
-    { number: data[field.code] }
-  ], [])
+  const phone_numbers = getContactfields({
+    contactfields,
+    data,
+    name: 'phone',
+    key: 'number'
+  })
+
+  console.log(phone_numbers)
 
   if(phone_numbers.length > 0) {
     await updatePhoneNumbers(req, {
@@ -102,16 +169,21 @@ export const createOrUpdateContact = async (req, { fields, data }) => {
       phone_numbers,
       removing: false
     })
+    await updatePhoneConsent(req, {
+      contact,
+      consent,
+      phone_numbers,
+      program
+    })
   }
 
-  const mailing_addresses = contactfields.filter(field => {
-    return field.contactfield.name === 'address'
-  }).filter(field => {
-    return !_.isNil(data[field.code])
-  }).reduce((mailing_addresses, field) => [
-    ...mailing_addresses,
-    { address: data[field.code] }
-  ], [])
+  const mailing_addresses = getContactfields({
+    contactfields,
+    data,
+    name: 'address',
+    key: 'address',
+    string: false
+  })
 
   if(mailing_addresses.length > 0) {
     await updateMailingAddresses(req, {

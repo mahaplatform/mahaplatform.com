@@ -100,6 +100,7 @@ const submitRoute = async (req, res) => {
 
   const contact = await createOrUpdateContact(req, {
     fields,
+    program: event.related('program'),
     data: req.body.contact
   })
 

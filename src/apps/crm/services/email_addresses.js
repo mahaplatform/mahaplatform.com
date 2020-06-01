@@ -17,7 +17,7 @@ export const updateEmailAddresses = async (req, { contact, email_addresses, remo
 
   email_addresses = email_addresses.map(email_address => {
     const found = existing.find(address => {
-      return address.get('address') === email_address.address
+      return address.get('address') === email_address.address.toLowerCase()
     })
     return {
       ...email_address,
@@ -61,7 +61,7 @@ export const updateEmailAddresses = async (req, { contact, email_addresses, remo
       return item.get('id') === email_address.id
     })
     return await address.save({
-      address: email_address.address,
+      address: email_address.address.toLowerCase(),
       is_primary: email_address.is_primary
     }, {
       transacting: req.trx

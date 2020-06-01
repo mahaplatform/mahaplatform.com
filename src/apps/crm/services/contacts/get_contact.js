@@ -8,9 +8,11 @@ import _ from 'lodash'
 
 const getContactByEmails = async (req, params) => {
 
-  if(_.isNil(params.emails)) return null
+  const value = params.emails || params.email
 
-  const emails = _.castArray(params.emails).filter(email => {
+  if(_.isNil(value)) return null
+
+  const emails = _.castArray(value).filter(email => {
     return !_.isNil(email) && email.length > 0
   }).map(email => {
     return email.toLowerCase()
@@ -38,9 +40,11 @@ const getContactByPhones = async (req, params) => {
 
   const { first_name, last_name } = params
 
-  if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(params.phones)) return null
+  const value = params.phones || params.phone
 
-  const phones = _.castArray(params.phones).filter(phone => {
+  if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(value)) return null
+
+  const phones = _.castArray(value).filter(phone => {
     return !_.isNil(phone) && phone.length > 0
   }).map(phone => {
     return getFormattedNumber(phone)
@@ -71,9 +75,11 @@ const getContactByAddresses = async (req,  params) => {
 
   const { first_name, last_name } = params
 
-  if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(params.addresses)) return null
+  const value = params.addresses || params.address
 
-  const addresses = _.castArray(params.addresses).filter(address => {
+  if(_.isNil(first_name) || _.isNil(last_name) || _.isNil(value)) return null
+
+  const addresses = _.castArray(value).filter(address => {
     return !_.isNil(address)
   }).map(address => {
     return address.street_1.toLowerCase()

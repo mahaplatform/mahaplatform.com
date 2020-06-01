@@ -86,6 +86,12 @@ class ContactFieldsField extends React.PureComponent {
 
   _getAvailable() {
     const { fields } = this.state
+    const contactfields = fields.filter(field => {
+      return field.type === 'contactfield'
+    }).map(field => {
+      return field.contactfield.name
+    })
+    console.log('contactfields', contactfields)
     const available = [
       { label: 'Contact', fields: [
         { label: 'Phone', name: 'phone', type: 'phonefield' },
@@ -104,11 +110,13 @@ class ContactFieldsField extends React.PureComponent {
           config: field.config
         }))
       })),
-      // { label: 'Consent', fields: [
-      //   { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
-      //   { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },
-      //   { label: 'Voice Consent', name: 'consent.voice', type: 'checkbox', prompt: '<p>Please call me</p>' }
-      // ] }
+      { label: 'Consent', fields: [
+        { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
+        ..._.includes(contactfields, 'phone') ? [
+          { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },
+          { label: 'Voice Consent', name: 'consent.voice', type: 'checkbox', prompt: '<p>Please call me</p>' }
+        ] : []
+      ] }
     ]
     return available.map(group => ({
       ...group,

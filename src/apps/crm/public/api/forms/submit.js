@@ -81,6 +81,7 @@ const submitRoute = async (req, res) => {
   const contact = await createOrUpdateContact(req, {
     form,
     fields,
+    program: form.related('program'),
     data: req.body
   })
 
