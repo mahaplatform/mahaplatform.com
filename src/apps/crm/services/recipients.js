@@ -64,23 +64,23 @@ const getRecipientsByCriteria = async (req, params) => {
         leftJoin: [['contact_id', 'crm_recipients.contact_id']]
       },
       street_1: {
-        column: 'crm_mailing_addresses.address->>\'street_1\'',
+        column: 'crm_mailing_addresses.address->\'street_1\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       city: {
-        column: 'crm_mailing_addresses.address->>\'city\'',
+        column: 'crm_mailing_addresses.address->\'city\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       state_province: {
-        column: 'crm_mailing_addresses.address->>\'state_province\'',
+        column: 'crm_mailing_addresses.address->\'state_province\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       postal_code: {
-        column: 'crm_mailing_addresses.address->>\'postal_code\'',
+        column: 'crm_mailing_addresses.address->\'postal_code\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       county: {
-        column: 'crm_mailing_addresses.address->>\'county\'',
+        column: 'crm_mailing_addresses.address->\'county\'',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       email_campaign_id: {

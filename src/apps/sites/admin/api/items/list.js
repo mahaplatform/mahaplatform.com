@@ -24,7 +24,7 @@ const listRoute = async (req, res) => {
       }
     },
     aliases: {
-      title: `values->>'${req.fields[0].get('code')}'`
+      title: `values->'${req.fields[0].get('code')}'`
     },
     filter: {
       params: req.query.$filter

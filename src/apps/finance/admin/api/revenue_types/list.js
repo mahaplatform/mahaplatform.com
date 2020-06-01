@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
       qb.where('team_id', req.team.get('id'))
     },
     aliases: {
-      revenue_code: 'integration->>\'revenue_code\''
+      revenue_code: 'integration->\'revenue_code\''
     },
     filter: {
       params: req.query.$filter,

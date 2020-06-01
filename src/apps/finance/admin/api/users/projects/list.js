@@ -10,13 +10,18 @@ const listRoute = async (req, res) => {
       qb.where('finance_projects.is_active', true)
       qb.where('finance_projects.team_id', req.team.get('id'))
     },
+    aliases: {
+      project: 'finance_projects.title',
+      project_code: 'integration->\'project_code\''
+    },
     filter: {
       params: req.query.$filter,
-      search: ['finance_projects.title','integration->>\'project_code\'']
+      search: ['project','project_code'],
+      allowed: ['project','project_code']
     },
     sort: {
       params: req.query.$sort,
-      defaults: ['finance_projects.integration->>\'project_code\'', 'finance_projects.title']
+      defaults: ['project','project_code']
     },
     page: req.query.$page,
     transacting: req.trx

@@ -10,7 +10,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['title','description','integration->>\'revenue_code\'']
+      allowed: ['title','description','integration->\'revenue_code\'']
     },
     sort: {
       params: req.query.$sort,

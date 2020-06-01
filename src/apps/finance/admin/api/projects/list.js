@@ -6,7 +6,7 @@ const listRoute = async (req, res) => {
 
   const projects = await Project.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (finance_projects.id,finance_projects.integration->>\'project_code\',finance_projects.title,finance_projects.is_active,finance_projects.created_at) finance_projects.*'))
+      qb.select(req.trx.raw('distinct on (finance_projects.id,finance_projects.integration->\'project_code\'->>0,finance_projects.title,finance_projects.is_active,finance_projects.created_at) finance_projects.*'))
       if(_.includes(req.rights, 'finance:manage_configuration')) {
         qb.leftJoin('finance_members', 'finance_members.project_id', 'finance_projects.id')
       } else  {
@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
       qb.where('finance_projects.team_id', req.team.get('id'))
     },
     aliases: {
-      project_code: 'integration->>\'project_code\''
+      project_code: 'integration->\'project_code\''
     },
     filter: {
       params: req.query.$filter,

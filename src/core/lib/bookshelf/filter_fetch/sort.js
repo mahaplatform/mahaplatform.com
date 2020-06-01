@@ -23,6 +23,10 @@ export const applySort = (sorts, options) => {
   return sorts.map(sort => {
     const { column, order } = sort
     const alias = getAlias(column, options.aliases, options)
-    return `${castColumn(alias)} ${order}`
+    if(alias.key) {
+      return `${castColumn(alias)}->'${alias.key}'->>0 ${order}`
+    } else  {
+      return `${castColumn(alias)} ${order}`
+    }
   })
 }

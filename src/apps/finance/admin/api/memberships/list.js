@@ -12,12 +12,12 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      search: ['finance_projects.title','integration->>\'project_code\'']
+      search: ['finance_projects.title','integration->\'project_code\'']
     },
     sort: {
       params: req.query.$sort,
-      defaults: ['integration->>\'project_code\'','finance_projects.title'],
-      allowed: ['integration->>\'project_code\'','finance_projects.title','created_at']
+      defaults: ['integration->\'project_code\'','finance_projects.title'],
+      allowed: ['integration->\'project_code\'','finance_projects.title','created_at']
     },
     page: req.query.$page,
     transacting: req.trx

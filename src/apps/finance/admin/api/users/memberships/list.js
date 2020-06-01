@@ -10,9 +10,12 @@ const listRoute = async (req, res) => {
       qb.where('finance_members.user_id', req.params.user_id)
       qb.where('finance_members.team_id', req.team.get('id'))
     },
+    aliases: {
+      project_code: 'finance_projects.integration->\'project_code\''
+    },
     sort: {
       params: req.query.$sort,
-      allowed: ['finance_projects.integration->>\'project_code\'', 'finance_projects.title']
+      allowed: ['project_code', 'finance_projects.title']
     },
     page: req.query.$page,
     withRelated: ['user.photo','project'],

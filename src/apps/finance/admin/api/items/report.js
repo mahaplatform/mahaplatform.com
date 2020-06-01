@@ -21,9 +21,9 @@ const reportRoute = async (req, res) => {
       first_name: 'maha_users.first_name',
       last_name: 'maha_users.last_name',
       project: 'finance_projects.title',
-      project_code: 'finance_projects.integration->>\'project_code\'',
+      project_code: 'finance_projects.integration->\'project_code\'',
       expense_type: 'finance_expense_types.title',
-      expense_type_code: 'finance_expense_types.integration->>\'expense_code\'',
+      expense_type_code: 'finance_expense_types.integration->\'expense_code\'',
       vendor: 'finance_vendors.name',
       account: 'finance_accounts.name'
     },

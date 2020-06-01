@@ -14,8 +14,8 @@ const revenueRoute = async (req, res) => {
     aliases: {
       customer: 'finance_customers.last_name',
       program: 'crm_programs.title',
-      project: 'finance_projects.integration->>\'project_code\'',
-      revenue_type: 'finance_revenue_types.integration->>\'revenue_code\''
+      project: 'finance_projects.integration->\'project_code\'',
+      revenue_type: 'finance_revenue_types.integration->\'revenue_code\''
     },
     filter: {
       params: req.query.$filter,
