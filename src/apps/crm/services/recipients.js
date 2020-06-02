@@ -122,12 +122,20 @@ const getRecipientsByCriteria = async (req, params) => {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_recipients.contact_id']]
       },
+      sms_enrollment_id: {
+        column: 'crm_workflow_enrollments.sms_campaign_id',
+        leftJoin: [['contact_id','crm_recipients.contact_id']]
+      },
       tag_id: {
         column: 'crm_taggings.tag_id',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
       topic_id: {
         column: 'crm_interests.topic_id',
+        leftJoin: [['contact_id','crm_recipients.contact_id']]
+      },
+      voice_enrollment_id: {
+        column: 'crm_workflow_enrollments.voice_campaign_id',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       }
     },

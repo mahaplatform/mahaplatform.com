@@ -83,6 +83,8 @@ const applyCriteria = (column, condition, options) => {
       return applyOperation(alias, operation, value, conditions, options)
     }
   }
+  console.log(alias, operation)
+
   const { query, bindings } = getFilter(alias, operation, value, options)
   const joins = getJoin(alias)
   return { joins, query, bindings }
@@ -209,8 +211,8 @@ const getFilterFalse = (column, alias, value) => ({
 const getFilterKnown = (column, alias, value) => {
   if(alias.key) {
     return {
-      query: `${column} \\? ? and (${column}->'${alias.key}'->>0 is not null and ${column}->'${alias.key}'->>0 != ?)`,
-      bindings: [alias.key, '']
+      query: `${column} \\? '${alias.key}' and (${column}->'${alias.key}'->>0 is not null and ${column}->'${alias.key}'->>0 != ?)`,
+      bindings: ['']
     }
   } else {
     return {
@@ -223,8 +225,8 @@ const getFilterKnown = (column, alias, value) => {
 const getFilterNotKnown = (column, alias, value) =>{
   if(alias.key) {
     return {
-      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or ${column}->'${alias.key}'->>0 = ?`,
-      bindings: [alias.key, '']
+      query: `not(${column} \\? '${alias.key}') or ${column}->'${alias.key}'->>0 is null or ${column}->'${alias.key}'->>0 = ?`,
+      bindings: ['']
     }
   } else {
     return {
@@ -261,8 +263,8 @@ const getFilterNotEqual = (column, alias, value) => {
   if(!/^\d+$/.test(value)) value = value.toLowerCase()
   if(alias.key) {
     return {
-      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) != ?`,
-      bindings: [alias.key, value]
+      query: `not(${column} \\? '${alias.key}') or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) != ?`,
+      bindings: [value]
     }
   } else {
     return {
@@ -291,8 +293,8 @@ const getFilterNotLike = (column, alias, value) => {
   const term = `%${value.toLowerCase()}%`
   if(alias.key) {
     return {
-      query: `not(${column} \\? ?) or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) not like ?`,
-      bindings: [alias.key, term]
+      query: `not(${column} \\? '${alias.key}') or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) not like ?`,
+      bindings: [term]
     }
   } else {
     return {
@@ -312,18 +314,27 @@ const getFilterIn = (column, alias, value) => {
   const bindings = _.without(value, 'null')
   const markers = Array(bindings.length).fill(0).map(i => '?').join(',')
   return {
-    query: _.includes(value, 'null') ? `(${column} in (${markers}) or ${column} is null)` : `${column} in (${markers})`,
+    query: _.includes(value, 'null') ? `${column} is null or ${column} in (${markers})` : `${column} in (${markers})`,
     bindings: _.without(value, 'null')
   }
 }
 
 const getFilterNotIn = (column, alias, value) => {
-  column = alias.key ? `${column}->'${alias.key}'->>0` : `${column}::varchar`
   const bindings = _.without(value, 'null')
   const markers = Array(bindings.length).fill(0).map(i => '?').join(',')
+  const query = []
+  if(alias.key) {
+    query.push(`not(${column} \\? '${alias.key}')`)
+    query.push(`${column}->'${alias.key}'->>0 not in (${markers})`)
+    const nullvalue = _.includes(value, 'null') ? 'not null' : 'null'
+    query.push(`${column}->'${alias.key}'->>0 is ${nullvalue}`)
+  } else {
+    query.push(`${column} not in (${markers})`)
+    if(_.includes(value, 'null')) query.push(`${column} is not null`)
+  }
   return {
-    query: _.includes(value, 'null') ? `(${column} not in (${markers}) or ${column} is not null)` : `${column} not in (${markers})`,
-    bindings: _.without(value, 'null')
+    query: query.join(' or '),
+    bindings
   }
 }
 
