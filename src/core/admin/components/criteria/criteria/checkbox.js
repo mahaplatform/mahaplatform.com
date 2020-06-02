@@ -94,9 +94,9 @@ class Checkbox extends React.Component {
     const { code } = this.props
     this.props.onChange({
       code,
-      operator: '$eq',
+      operator,
       data: operator === '$ck' ? 'is checked' : 'is not checked',
-      value: operator === '$ck' ? 'true' : 'false'
+      value: true
     })
   }
 
@@ -105,9 +105,9 @@ class Checkbox extends React.Component {
     const { code } = this.props
     this.props.onDone({
       code,
-      operator: '$eq',
+      operator,
       data: operator === '$ck' ? 'is checked' : 'is not checked',
-      value: operator === '$ck' ? 'true' : 'false'
+      value: true
     })
   }
 

@@ -162,6 +162,8 @@ const getFilter = (alias, operation, value, options) => {
   if(operation === '$nkn') return getFilterNotKnown(column, alias, value)
   if(operation === '$eq') return getFilterEqual(column, alias, value)
   if(operation === '$neq') return getFilterNotEqual(column, alias, value)
+  if(operation === '$ck') return getFilterChecked(column, alias, value)
+  if(operation === '$nck') return getFilterNotChecked(column, alias, value)
   if(operation === '$lk') return getFilterLike(column, alias, value)
   if(operation === '$nlk') return getFilterNotLike(column, alias, value)
   if(operation === '$ct') return getFilterContains(column, alias, value)
@@ -208,6 +210,25 @@ const getFilterFalse = (column, alias, value) => ({
   bindings: [false]
 })
 
+const getFilterChecked = (column, alias, value) => ({
+  query: alias.key ? `(${column}->'${alias.key}'->>0)::boolean = ?` : `${column} = ?`,
+  bindings: [true]
+})
+
+const getFilterNotChecked = (column, alias, value) => {
+  if(alias.key) {
+    return {
+      query: `not(${column} \\? '${alias.key}') or ${column}->'${alias.key}'->>0 is null or (${column}->'${alias.key}'->>0)::boolean = ?`,
+      bindings: [false]
+    }
+  } else {
+    return {
+      query: `${column} is null or ${column} = ?`,
+      bindings: [false]
+    }
+  }
+}
+
 const getFilterKnown = (column, alias, value) => {
   if(alias.key) {
     return {
@@ -244,12 +265,12 @@ const getFilterEqual = (column, alias, value) => {
   if(!/^\d+$/.test(value)) value = value.toLowerCase()
   if(alias.key) {
     return {
-      query: `lower(${column}->'${alias.key}'->>0) = ?`,
+      query: !/^\d+$/.test(value) ? `lower(${column}->'${alias.key}'->>0) = ?` : `${column}->'${alias.key}'->>0 = ?`,
       bindings: [value]
     }
   } else {
     return {
-      query: `lower(${column}::varchar) = ?`,
+      query: !/^\d+$/.test(value) ? `lower(${column}::varchar) = ?` : `${column} = ?`,
       bindings: [value]
     }
   }
@@ -262,13 +283,15 @@ const getFilterNotEqual = (column, alias, value) => {
   if(`${value}` === 'false') return getFilterTrue(column, value)
   if(!/^\d+$/.test(value)) value = value.toLowerCase()
   if(alias.key) {
+    const query = [`not(${column} \\? '${alias.key}')`, `${column}->'${alias.key}'->>0 is null`]
+    query.push(!/^\d+$/.test(value) ? `lower(${column}->'${alias.key}'->>0) != ?` : `${column}->'${alias.key}'->>0 != ?`)
     return {
-      query: `not(${column} \\? '${alias.key}') or ${column}->'${alias.key}'->>0 is null or lower(${column}->'${alias.key}'->>0) != ?`,
+      query: query.join(' or '),
       bindings: [value]
     }
   } else {
     return {
-      query: `lower(${column}::varchar) != ?`,
+      query: !/^\d+$/.test(value) ? `lower(${column}::varchar) != ?` : `${column} != ?`,
       bindings: [value]
     }
   }

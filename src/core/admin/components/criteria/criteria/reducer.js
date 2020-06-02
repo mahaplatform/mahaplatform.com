@@ -46,12 +46,12 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TEST':
     return {
       ...state,
-      test: [
+      test: action.item !== null ? [
         ...state.items.filter(item => {
           return item.code !== action.item.code
         }),
         action.item
-      ]
+      ] : state.items
     }
 
   default:

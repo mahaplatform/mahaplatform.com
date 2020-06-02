@@ -196,12 +196,26 @@ const getRecipientsByCriteria = async (req, params) => {
         ],
         query: `${alias}.${foreign_key} is not null`
       }),
+      $naddt: (table, alias, column, value, foreign_key, primary_key) => ({
+        join: [
+          `left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_dwithin(concat('POINT(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geography, ?::geography, ?)`,
+          `point(${value.origin.split(',').reverse().join(' ')})`, value.distance * 1609.34
+        ],
+        query: `${alias}.${foreign_key} is null`
+      }),
       $adsh: (table, alias, column, value, foreign_key, primary_key) => ({
         join: [
           `left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
           `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
         ],
         query: `${alias}.${foreign_key} is not null`
+      }),
+      $nadsh: (table, alias, column, value, foreign_key, primary_key) => ({
+        join: [
+          `left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.address->>'latitude' is not null and st_contains(?::geometry,concat('point(',${alias}.address->>'longitude',' ',${alias}.address->>'latitude',')')::geometry)`,
+          `polygon((${value.map(pair => pair.split(',').reverse().join(' ')).join(', ')}))`
+        ],
+        query: `${alias}.${foreign_key} is null`
       })
     }
   }

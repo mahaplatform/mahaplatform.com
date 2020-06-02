@@ -46,7 +46,7 @@ class Select extends React.Component {
           </div>
           <div className="maha-criterion-form-body">
             { !_.includes(['$kn','$nkn'], operator) &&
-              <Search { ...this._getSearch() } />
+              <Search { ...this._getSearch() } key={operator} />
             }
           </div>
         </div>
@@ -142,7 +142,7 @@ class Select extends React.Component {
   _handleChange() {
     const { data, operator, value } = this.state
     const { code } = this.props
-    if(!value) return
+    if(value === null) this.props.onChange(null)
     this.props.onChange({
       code,
       operator,
@@ -163,6 +163,20 @@ class Select extends React.Component {
   }
 
   _handleOperator(operator) {
+    if(_.includes(['$kn','$nkn'], operator)) {
+      return this.setState({
+        operator,
+        data: null,
+        value: true
+      })
+    }
+    if(_.includes(['$eq','$neq'], operator)) {
+      return this.setState({
+        operator,
+        data: null,
+        value: ''
+      })
+    }
     this.setState({ operator })
   }
 
@@ -185,8 +199,8 @@ class Select extends React.Component {
       text: _.get(record, text)
     })) : []
     this.setState({
-      data: multiple ? data : data[0],
-      value: multiple ? values : values[0]
+      data: (multiple ? data : data[0]) || null,
+      value: (multiple ? values : values[0]) || null
     })
   }
 
