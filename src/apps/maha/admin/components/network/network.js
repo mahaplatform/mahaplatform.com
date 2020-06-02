@@ -119,7 +119,7 @@ class Network extends React.Component {
 
   _getHandlers(target, action) {
     const targetHandlers = _.filter(this.props.handlers, { target, action })
-    if(targetHandlers.length > 0) return targetHandlers
+    if(target) return targetHandlers.length > 0 ? targetHandlers : []
     const actionHandlers = _.filter(this.props.handlers, { action })
     if(actionHandlers.length > 0) return actionHandlers
     return null

@@ -151,7 +151,7 @@ const Creator = (mapResourcesToPage, Component) => {
         const resources = mapResourcesToPage(this.props, this.context, page)
         Object.values(resources).map(resource => {
           if(!resource.refresh) return
-          network.join(resource.refresh)
+          network.leave(resource.refresh)
           network.subscribe([
             { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
           ])
