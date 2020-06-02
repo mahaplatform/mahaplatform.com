@@ -2,6 +2,7 @@ import { Logo, Page } from 'maha-admin'
 import Merchants from './merchants'
 import Details from './details'
 import Delete from '../delete'
+import User from '../user'
 import Edit from '../edit'
 import Apps from './apps'
 import React from 'react'
@@ -20,6 +21,9 @@ const getTasks = ({ team }) => ({
     {
       label: 'Edit Team',
       modal: <Edit team_id={ team.id } />
+    }, {
+      label: 'Create User',
+      modal: <User team_id={ team.id } />
     }, {
       label: 'Delete Team',
       modal: {
