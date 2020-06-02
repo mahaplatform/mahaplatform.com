@@ -2630,12 +2630,12 @@ const schema = {
       table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('recording_id').references('crm_workflow_recordings.id')
+      table.foreign('sms_id').references('maha_smses.id')
       table.foreign('step_id').references('crm_workflow_steps.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('user_id').references('maha_users.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('sms_id').references('maha_smses.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
@@ -3586,22 +3586,6 @@ union
     `)
 
     await knex.raw(`
-      create view crm_contact_duplicates AS
-      select distinct on (crm_contacts.id, pn2.contact_id, ma2.contact_id) crm_contacts.id,
-      case
-      when (pn2.contact_id is not null) then pn2.contact_id
-      when (ma2.contact_id is not null) then ma2.contact_id
-      else null::integer
-      end as duplicate_id
-      from ((((crm_contacts
-      join crm_phone_numbers pn1 on ((pn1.contact_id = crm_contacts.id)))
-      left join crm_phone_numbers pn2 on ((((pn2.number)::text = (pn1.number)::text) and (pn2.team_id = pn1.team_id) and (pn2.id <> pn1.id))))
-      join crm_mailing_addresses ma1 on ((ma1.contact_id = crm_contacts.id)))
-      left join crm_mailing_addresses ma2 on ((((ma2.address ->> 'description'::text) = (ma1.address ->> 'description'::text)) and (ma2.team_id = ma1.team_id) and (ma2.id <> ma1.id))))
-      where ((pn2.id is not null) or (ma2.id is not null));
-    `)
-
-    await knex.raw(`
       create view crm_contact_primaries AS
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
       crm_organizations.name as organization,
@@ -3630,11 +3614,11 @@ union
       else null::integer
       end as duplicate_id
       from ((((crm_contacts
-      join crm_phone_numbers pn1 on ((pn1.contact_id = crm_contacts.id)))
+      left join crm_phone_numbers pn1 on ((pn1.contact_id = crm_contacts.id)))
       left join crm_phone_numbers pn2 on ((((pn2.number)::text = (pn1.number)::text) and (pn2.team_id = pn1.team_id) and (pn2.contact_id <> crm_contacts.id) and (pn2.id <> pn1.id))))
-      join crm_mailing_addresses ma1 on ((ma1.contact_id = crm_contacts.id)))
+      left join crm_mailing_addresses ma1 on ((ma1.contact_id = crm_contacts.id)))
       left join crm_mailing_addresses ma2 on ((((ma2.address ->> 'description'::text) = (ma1.address ->> 'description'::text)) and (ma2.team_id = ma1.team_id) and (ma2.contact_id <> crm_contacts.id) and (ma2.id <> ma1.id))))
-      where ((pn2.id is not null) or (ma2.id is not null));
+      where (((pn1.* is not null) and (pn2.id is not null)) or ((ma1.id is not null) and (ma2.id is not null)));
     `)
 
     await knex.raw(`
