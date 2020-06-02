@@ -12,7 +12,7 @@ const getTasks = ({ list }) => ({})
 
 const mapResourcesToPage = (props, context) => ({
   actions: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/${props.params.id}/actions`,
-  campaign: `/api/admin/crm/campaigns/sms/${props.params.campaign_id}`,
+  campaign: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}`,
   enrollment: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/${props.params.id}`
 })
 

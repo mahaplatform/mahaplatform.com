@@ -37,9 +37,8 @@ class Action extends React.PureComponent {
 
   render() {
     const { action, enrollment } = this.props
-    const { asset, data, email, list, program, recording, step, topic } = action
+    const { asset, data, email, list, program, recording, step, topic, user } = action
     const { config } = step
-
     const { expanded } = this.state
     return (
       <div className="crm-workflow-action">
@@ -98,11 +97,32 @@ class Action extends React.PureComponent {
               { step.type === 'voice' && step.action === 'question' && asset &&
                 <span>Asked <Button { ...this._getPlayButton(asset) }/>, answered { data[config.code] }</span>
               }
+              { step.type === 'voice' && step.action === 'question' && data.question &&
+                <span>
+                  Q: { data.question }<br />
+                  A: { data.answer }
+                </span>
+              }
               { step.type === 'voice' && step.action === 'record' && recording &&
                 <span>Captured <Button { ...this._getPlayButton(recording) }/></span>
               }
-              { step.type === 'voice' && step.action === 'dial' &&
-                <span>Connected call to { config.number }</span>
+              { step.type === 'voice' && step.action === 'dial' && data.status === 'failed' &&
+                <span>
+                  Unable to connect to { data.number &&
+                    <span>{ data.number}</span>
+                  } { user &&
+                    <span>{ user.full_name }</span>
+                  }
+                </span>
+              }
+              { step.type === 'voice' && step.action === 'dial' && data.status === 'completed' &&
+                <span>
+                  Connected call to { data.number &&
+                    <span>{ data.number}</span>
+                  } { user &&
+                    <span>{ user.full_name } ({ user.cell_phone })</span>
+                  } for { data.duration } seconds
+                </span>
               }
               { step.type === 'administrative' && step.action === 'email' && config.user &&
                 <span>Sent internal email to { config.user.full_name }</span>

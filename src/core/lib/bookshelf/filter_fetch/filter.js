@@ -83,8 +83,6 @@ const applyCriteria = (column, condition, options) => {
       return applyOperation(alias, operation, value, conditions, options)
     }
   }
-  console.log(alias, operation)
-
   const { query, bindings } = getFilter(alias, operation, value, options)
   const joins = getJoin(alias)
   return { joins, query, bindings }

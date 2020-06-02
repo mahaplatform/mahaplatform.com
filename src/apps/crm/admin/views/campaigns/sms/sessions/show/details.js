@@ -20,7 +20,7 @@ const Details = ({ actions, session, campaign }) => {
   config.items = [
     { label: 'Contact', content: <Button { ...contact } /> },
     { label: 'Enrolled', content: session.created_at, format: 'datetime' },
-    { component: <WorkflowActions actions={ actions } enrollment={ session } trigger_type={`${campaign.direction}_${campaign.type}`} />}
+    { component: <WorkflowActions workflow={ campaign } actions={ actions } enrollment={ session } trigger_type={`${campaign.direction}_${campaign.type}`} />}
   ]
 
   return <List { ...config } />

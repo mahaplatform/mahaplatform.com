@@ -9,6 +9,8 @@ const voiceQuestion = async (req, { config, enrollment, execute, step, answer })
       action: {
         asset_id: recording_id,
         data: {
+          question: message,
+          answer,
           [code]: answer
         }
       }

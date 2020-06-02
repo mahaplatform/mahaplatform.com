@@ -1,5 +1,6 @@
+import WorkflowStatusToken from '../../../../tokens/workflow_status'
 import ContactToken from '../../../../tokens/contact'
-import { Page, TwilioStatusToken } from 'maha-admin'
+import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -12,7 +13,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> },
       { label: 'Date', key: 'created_at', format: 'datetime' },
       { label: 'Duration', key: 'call.duration', collapsing: true, format: 'duration', align: 'right' },
-      { label: 'Status', key: 'call.status', collapsing: true, primary: true, padded: true, format: TwilioStatusToken }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: WorkflowStatusToken }
     ],
     empty: {
       icon: 'phone',

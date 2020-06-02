@@ -54,10 +54,11 @@ const getExecutor = (type, action) => {
 }
 
 const executeStep = async (req, params) => {
-  const { answer, contact, enrollment, execute, step, steps, recording, tokens, workflow } = params
+  const { answer, call, contact, enrollment, execute, step, steps, recording, tokens, workflow } = params
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
+    call,
     config: step.get('config'),
     contact,
     enrollment,
@@ -290,15 +291,17 @@ const saveResults = async (req, params) => {
 
 }
 
-const completeEnrollment = async (req, { enrollment }) => {
+const completeEnrollment = async (req, { enrollment, unenroll }) => {
 
-  await enrollment.save({
-    completed_at: moment(),
-    status: 'completed'
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+  if(!unenroll) {
+    await enrollment.save({
+      completed_at: moment(),
+      status: 'completed'
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
 
   return enrollment.get('voice_campaign_id') ? hangup() : {}
 
@@ -306,7 +309,7 @@ const completeEnrollment = async (req, { enrollment }) => {
 
 const executeWorkflow = async (req, params) => {
 
-  const { enrollment_id, code, execute, answer, recording } = params
+  const { answer, call, code, enrollment_id, execute, recording } = params
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -350,6 +353,7 @@ const executeWorkflow = async (req, params) => {
 
   const result = await executeStep(req, {
     answer,
+    call,
     contact,
     enrollment,
     execute,
@@ -376,13 +380,12 @@ const executeWorkflow = async (req, params) => {
     until
   })
 
-
-  const next = await getNextStep(req, {
+  const next = !unenroll ? await getNextStep(req, {
     steps,
     parent: condition ? condition.parent : step.get('parent'),
     answer: condition ? condition.answer : step.get('answer'),
     delta: condition ? condition.delta : step.get('delta')
-  })
+  }) : null
 
   await refresh(req, {
     enrollment
@@ -390,6 +393,7 @@ const executeWorkflow = async (req, params) => {
 
   if(!next) {
     return await completeEnrollment(req, {
+      unenroll,
       enrollment
     })
   }

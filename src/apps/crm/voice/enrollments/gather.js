@@ -1,8 +1,7 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { executeWorkflow } from '../../services/workflows'
-import _ from 'lodash'
 
-const showRoute = async (req, res) => {
+const gatherRoute = async (req, res) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('code', req.params.enrollment_code)
@@ -18,18 +17,11 @@ const showRoute = async (req, res) => {
 
   req.team = enrollment.related('team')
 
-  if(req.body.AnsweredBy === 'machine_end_beep') {
-    await enrollment.save({
-      was_answering_machine: true
-    },{
-      transacting: req.trx
-    })
-  }
-
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
-    execute: req.params.verb === 'next'
+    execute: false,
+    answer: req.body.Digits
   }) || {}
 
   if(result.twiml) {
@@ -40,4 +32,4 @@ const showRoute = async (req, res) => {
 
 }
 
-export default showRoute
+export default gatherRoute

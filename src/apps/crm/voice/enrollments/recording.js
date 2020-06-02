@@ -5,7 +5,7 @@ import s3 from '../../../../core/services/s3'
 const recordingRoute = async (req, res) => {
 
   const step = await WorkflowStep.query(qb => {
-    qb.where('code', req.params.code)
+    qb.where('code', req.params.enrollment_code)
   }).fetch({
     withRelated: ['team'],
     transacting: req.trx

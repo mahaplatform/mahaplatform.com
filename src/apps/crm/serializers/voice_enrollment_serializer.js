@@ -4,6 +4,8 @@ const EnrollmentSerializer = (req, result) => ({
   contact: contact(result.related('contact')),
   actions: result.related('actions').map(action),
   was_converted: result.get('was_converted'),
+  status: result.get('status'),
+  unenrolled_at: result.get('unenrolled_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -12,8 +14,7 @@ const call = (call) => {
   if(!call.id) return null
   return {
     id: call.get('id'),
-    duration: call.get('duration'),
-    status: call.get('status')
+    duration: call.get('duration')
   }
 }
 

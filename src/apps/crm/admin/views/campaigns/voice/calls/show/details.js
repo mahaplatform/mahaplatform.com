@@ -16,10 +16,10 @@ const Details = ({ actions, enrollment, campaign }) => {
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'Date', content: enrollment.created_at, format: 'datetime' },
-        { component: <WorkflowActions actions={ actions } enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
+        { component: <WorkflowActions workflow={ campaign } actions={ actions } enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
     }],
-    footer: <Comments entity={`crm_workflow_enrollmentsa/${enrollment.id}`} />
+    footer: <Comments entity={`crm_workflow_enrollments/${enrollment.id}`} />
   }
 
   return <List { ...list } />
