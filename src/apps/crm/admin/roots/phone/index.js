@@ -154,6 +154,7 @@ class PhoneContainer extends React.Component {
     call.on('mute', this._handleMuted)
     this.setState({
       call,
+      open: true,
       status: 'ringing'
     })
   }

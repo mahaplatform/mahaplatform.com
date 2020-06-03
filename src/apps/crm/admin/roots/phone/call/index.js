@@ -1,6 +1,6 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
+import { Button, Container } from 'maha-admin'
 import Program from '../programs/program'
-import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -30,6 +30,7 @@ class Call extends React.Component {
         <div className="maha-phone-call-contact">
           <ContactAvatar { ...contact } />
           <h2>{ contact.display_name }</h2>
+          <p><Button { ...this._getContactButton(contact) } /></p>
         </div>
         { call.status === 'ringing' &&
           <div className="maha-phone-call-body">
@@ -53,6 +54,14 @@ class Call extends React.Component {
         }
       </div>
     )
+  }
+
+  _getContactButton(contact) {
+    return {
+      label: 'View Profile',
+      className: 'link',
+      route: `/admin/crm/contacts/${contact.id}`
+    }
   }
 
   _handleHangup() {

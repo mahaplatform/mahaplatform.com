@@ -29,7 +29,9 @@ class Ribbon extends React.Component {
           <i className="fa fa-fw fa-bars" />
         </div>
         <div className="maha-ribbon-spacer" />
-        { badges.slice().reverse().map((item, i) => {
+        { badges.slice().sort((a,b) => {
+          return (a.weight || 0) > (b.weight || 0) ? 1 : -1
+        }).map((item, i) => {
           const index = badges.length - i - 1
           if(item.app !== 'maha' && !this._getAccess(item.app)) return null
           return (

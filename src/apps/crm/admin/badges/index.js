@@ -1,7 +1,7 @@
 import PhoneBadge from './phone'
 
 const badges = [
-  { component: PhoneBadge }
+  { weight: 9, component: PhoneBadge }
 ]
 
 export default badges
