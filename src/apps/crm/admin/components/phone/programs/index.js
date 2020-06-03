@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 import Program from './program'
 import React from 'react'
+import _ from 'lodash'
 
 class Programs extends React.Component {
 
   static propTypes = {
+    program: PropTypes.object,
     programs: PropTypes.array,
     status: PropTypes.string,
-    onClose: PropTypes.func
+    onChange: PropTypes.func
   }
 
   state = {
-    program: { id: 1, title: 'Primitive Pursuits', logo: '/assets/9331/primitivepursuits.jpg', phone_number: { number: '+16072248981', formatted: '(607) 224-8981' } },
+    program: null,
     open: false
   }
 
@@ -24,7 +26,9 @@ class Programs extends React.Component {
       <div className="maha-phone-programs">
         <div className="maha-phone-programs-header" onClick={ this._handleToggle }>
           <div className="maha-phone-programs-header-token">
-            <Program program={ program } />
+            { program &&
+              <Program program={ program } />
+            }
           </div>
           <div className="maha-phone-programs-header-icon">
             <i className="fa fa-caret-down" />
@@ -41,6 +45,23 @@ class Programs extends React.Component {
         }
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { program } = this.props
+    this.setState({ program })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { program } = this.state
+    if(!_.isEqual(program, prevState.program)) {
+      this._handleChange()
+    }
+  }
+
+  _handleChange() {
+    const { program } = this.state
+    this.props.onChange(program)
   }
 
   _handleChoose(program) {

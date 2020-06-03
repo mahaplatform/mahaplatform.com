@@ -1,6 +1,6 @@
+import Phone from '../../components/phone'
 import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Phone from './phone'
 import React from 'react'
 
 class PhoneContainer extends React.Component {
@@ -83,8 +83,8 @@ class PhoneContainer extends React.Component {
 
   _getParams() {
     const { call } = this.state
-    if(!call) return null
     const params = {}
+    if(!call) return params
     call.customParameters.forEach((value, key) => {
       params[key] = value
     })
@@ -92,13 +92,15 @@ class PhoneContainer extends React.Component {
   }
 
   _getPhone() {
-    const { programs } = this.props
     const { muted, status } = this.state
+    const { programs } = this.props
     return {
-      call: this._getParams(),
-      muted: muted,
+      call: {
+        ...this._getParams(),
+        muted,
+        status
+      },
       programs,
-      status,
       onClose: this._handleClose
     }
   }

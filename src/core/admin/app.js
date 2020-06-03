@@ -113,6 +113,7 @@ import mahabrowser from '../../apps/maha/admin/components/device/browser'
 import mahacordova from '../../apps/maha/admin/components/device/cordova'
 import mahaelectron from '../../apps/maha/admin/components/device/electron'
 import mahadevice from '../../apps/maha/admin/components/device'
+import mahahelp from '../../apps/maha/admin/components/help'
 import mahanavigation from '../../apps/maha/admin/components/navigation'
 import mahanetwork from '../../apps/maha/admin/components/network'
 import mahanotifications from '../../apps/maha/admin/components/notifications'
@@ -124,7 +125,6 @@ import mahapush from '../../apps/maha/admin/components/push'
 import mahareset from '../../apps/maha/admin/components/reset'
 import maharouter from '../../apps/maha/admin/components/router'
 import mahasignin from '../../apps/maha/admin/components/signin'
-import mahahelp from '../../apps/maha/admin/roots/help'
 import mahareactions from '../../apps/maha/admin/roots/reactions'
 import mahastars from '../../apps/maha/admin/roots/stars'
 import newsnew from '../../apps/news/admin/components/new'
@@ -369,6 +369,7 @@ class App extends React.Component {
       mahacordova,
       mahaelectron,
       mahadevice,
+      mahahelp,
       mahanavigation,
       mahanetwork,
       mahanotifications,
@@ -380,7 +381,6 @@ class App extends React.Component {
       mahareset,
       maharouter,
       mahasignin,
-      mahahelp,
       mahareactions,
       mahastars,
       newsnew,

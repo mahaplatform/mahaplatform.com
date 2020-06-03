@@ -14,9 +14,7 @@ class SmsClient extends React.Component {
 
   static propTypes = {
     channel: PropTypes.object,
-    contact: PropTypes.object,
-    phone_number: PropTypes.number,
-    program: PropTypes.number
+    program: PropTypes.object
   }
 
   body = null
@@ -193,38 +191,38 @@ class SmsClient extends React.Component {
   }
 
   _handleFetch() {
-    const { phone_number, program } = this.props
+    const { channel, program } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}/smses`,
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${channel.phone_number.id}/smses`,
       method: 'get',
       onSuccess: this._handleSuccess
     })
   }
 
   _handleJoin() {
-    const { phone_number, program } = this.props
+    const { channel, program } = this.props
     const { network } = this.context
-    const channel = `/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}/smses`
-    network.join(channel)
+    const target = `/admin/crm/programs/${program.id}/channels/sms/${channel.phone_number.id}/smses`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
-    const { phone_number, program } = this.props
+    const { channel, program } = this.props
     const { network } = this.context
-    const channel = `/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}/smses`
-    network.leave(channel)
+    const target = `/admin/crm/programs/${program.id}/channels/sms/${channel.phone_number.id}/smses`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleRead() {
-    const { phone_number, program } = this.props
+    const { channel, program } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}/read`,
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${channel.phone_number.id}/read`,
       method: 'patch'
     })
   }
@@ -234,10 +232,10 @@ class SmsClient extends React.Component {
   }
 
   _handleSend(data) {
-    const { phone_number, program } = this.props
+    const { channel, program } = this.props
     const { attachments, text } = data
     this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${phone_number.id}`,
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms/${channel.phone_number.id}`,
       method: 'post',
       body: {
         body: text,
@@ -255,7 +253,7 @@ class SmsClient extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_number.id}`
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.channel.phone_number.id}`
 })
 
 export default Container(mapResources)(SmsClient)

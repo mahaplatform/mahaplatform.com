@@ -7,10 +7,6 @@ import React from 'react'
 
 class Help extends React.Component {
 
-  static childContextTypes = {
-    help: PropTypes.object
-  }
-
   static propTypes = {
     articles: PropTypes.array,
     article: PropTypes.object,
@@ -23,36 +19,14 @@ class Help extends React.Component {
     onType: PropTypes.func
   }
 
-  state = {
-    open: false
-  }
-
-  _handleToggle = this._handleToggle.bind(this)
-
   render() {
-    const { open } = this.state
     return (
       <div className="maha-help">
-        <div className="maha-help-main">
-          { this.props.children }
-        </div>
-        { open &&
-          <div className="maha-help-sidebar">
-            <Error>
-              <Stack { ...this._getStack() } />
-            </Error>
-          </div>
-        }
+        <Error>
+          <Stack { ...this._getStack() } />
+        </Error>
       </div>
     )
-  }
-
-  getChildContext() {
-    return {
-      help: {
-        toggle: this._handleToggle
-      }
-    }
   }
 
   _getArticle(article) {
@@ -73,13 +47,6 @@ class Help extends React.Component {
         ))
       ]
     }
-  }
-
-  _handleToggle() {
-    const { open } = this.state
-    this.setState({
-      open: !open
-    })
   }
 
 }

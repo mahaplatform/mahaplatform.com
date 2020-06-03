@@ -1,6 +1,5 @@
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
-import Programs from '../programs'
 
 import React from 'react'
 
@@ -45,9 +44,6 @@ class DialPad extends React.Component {
     const { formatted } = this.state
     return (
       <div className="maha-phone-dialpad">
-        <div className="maha-phone-client-header">
-          <Programs { ...this._getPrograms() } />
-        </div>
         <div className="maha-phone-dialpad-header">
           <div className="maha-input">
             <div className="maha-input-field">
@@ -100,13 +96,6 @@ class DialPad extends React.Component {
       type: 'text',
       value: formatted,
       onChange: this._handleType
-    }
-  }
-
-  _getPrograms() {
-    const { programs } = this.props
-    return {
-      programs
     }
   }
 

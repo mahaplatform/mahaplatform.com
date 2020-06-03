@@ -1,14 +1,15 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
+import Programs from './programs'
 import DialPad from './dialpad'
-import History from './history'
 import React from 'react'
 import Call from './call'
+import SMS from './sms'
 
 const tabs = [
   { icon: 'th', label: 'DialPad', component: DialPad },
-  { icon: 'clock-o', label: 'History', component: History },
+  { icon: 'comments', label: 'SMS', component: SMS },
   { icon: 'user', label: 'Contacts', component: Contacts }
 ]
 
@@ -21,29 +22,34 @@ class Phone extends React.Component {
   static propTypes = {
     call: PropTypes.object,
     programs: PropTypes.array,
-    muted: PropTypes.bool,
-    status: PropTypes.string,
-    onClose: PropTypes.func
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   state = {
+    program: null,
     selected: 0
   }
 
   _handleCall = this._handleCall.bind(this)
-  _handlePickup = this._handlePickup.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleHangup = this._handleHangup.bind(this)
+  _handlePickup = this._handlePickup.bind(this)
+  _handleProgram = this._handleProgram.bind(this)
 
   render() {
     const { selected } = this.state
-    const { status } = this.props
+    const { call } = this.props
     const tab = tabs[selected]
     return (
       <ModalPanel { ...this._getPanel() }>
-        { status === 'ready' ?
+        { call.status === 'ready' ?
           <div className="maha-phone-client">
+            <div className="maha-phone-client-header">
+              <Programs { ...this._getPrograms() } />
+            </div>
             <div className="maha-phone-client-body">
-              <tab.component { ...this._getDialPad() } />
+              <tab.component { ...this._getComponent() } />
             </div>
             <div className="maha-phone-client-footer">
               { tabs.map((tab, index) =>(
@@ -71,32 +77,39 @@ class Phone extends React.Component {
   }
 
   _getCall() {
-    const { call, muted, status } = this.props
+    const { call } = this.props
     return {
-      call: {
-        ...call,
-        muted,
-        status
-      }
+      call
     }
   }
 
-  _getDialPad() {
-    const { programs } = this.props
+  _getComponent() {
+    const { onPop, onPush } = this.props
+    const { program } = this.state
     return {
-      programs,
-      onCall: this._handleCall
+      program,
+      onCall: this._handleCall,
+      onPop,
+      onPush
     }
   }
 
   _getPanel() {
-    const { onClose } = this.props
     return {
       title: 'Phone',
       color: 'blue',
       leftItems: [
-        { icon: 'times', handler: onClose }
+        { icon: 'times', handler: this._handleClose }
       ]
+    }
+  }
+
+  _getPrograms() {
+    const { programs } = this.props
+    return {
+      program: programs[0],
+      programs,
+      onChange: this._handleProgram
     }
   }
 
@@ -107,12 +120,20 @@ class Phone extends React.Component {
     })
   }
 
+  _handleClose() {
+    this.context.phone.toggle()
+  }
+
   _handleHangup() {
     this.context.phone.hangup()
   }
 
   _handlePickup() {
     this.context.phone.pickup()
+  }
+
+  _handleProgram(program) {
+    this.setState({ program })
   }
 
   _handleSelect(selected) {
