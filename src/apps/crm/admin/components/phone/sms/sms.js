@@ -33,7 +33,7 @@ class SMS extends React.Component {
   _getPanel() {
     return {
       title: 'Conversation',
-      color: 'blue',
+      color: 'violet',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]

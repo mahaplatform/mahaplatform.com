@@ -97,7 +97,7 @@ class Phone extends React.Component {
   _getPanel() {
     return {
       title: 'Phone',
-      color: 'blue',
+      color: 'violet',
       leftItems: [
         { icon: 'times', handler: this._handleClose }
       ]
