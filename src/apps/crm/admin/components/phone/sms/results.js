@@ -24,8 +24,8 @@ class Results extends React.PureComponent {
             </div>
             <div className="maha-phone-sms-result-label">
               <div className="maha-phone-sms-result-message">
-                <strong>{ channel.contact.display_name }</strong><br />
-                { channel.last_message }
+                { channel.contact.display_name }<br />
+                <span>{ channel.last_message }</span>
               </div>
             </div>
             <div className="maha-phone-sms-result-unread">

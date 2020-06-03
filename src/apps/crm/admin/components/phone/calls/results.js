@@ -35,8 +35,8 @@ class Results extends React.Component {
                   }
                 </div>
                 <div className="maha-phone-calls-token-label">
-                  <strong>{ call.contact.full_name }</strong><br />
-                  { this._getDescription(call) }
+                  { call.contact.full_name }<br />
+                  <span>{ this._getDescription(call) }</span>
                   <div className="maha-phone-calls-token-timestamp">
                     { this._getTimestamp(call) }
                   </div>

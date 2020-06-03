@@ -22,7 +22,8 @@ class SmsClient extends React.Component {
 
   state = {
     message: null,
-    messages: []
+    messages: [],
+    status: 'pending'
   }
 
   _handleFetch = this._handleFetch.bind(this)
@@ -32,7 +33,9 @@ class SmsClient extends React.Component {
 
   render() {
     const sessions = this._getMessages()
+    const { status } = this.state
     const { channel } = this.props
+    if(status === 'pending') return null
     return (
       <div className="crm-sms-channel">
         { !channel.has_consented &&
@@ -246,6 +249,7 @@ class SmsClient extends React.Component {
 
   _handleSuccess({ data }) {
     this.setState({
+      status: 'loaded',
       messages: data
     })
   }

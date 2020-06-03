@@ -37,6 +37,7 @@ import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
+import PhoneShow from './phone'
 import ProgramsChannels from './programs/channels'
 import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
@@ -97,6 +98,7 @@ const routes = [
   { path: '/forms/:form_id/responses/:response_id/uploads/:id', component: ResponseUploadShow },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
+  { path: '/phone', component: PhoneShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
   { path: '/programs/:program_id/lists/:id', component: ProgramsListsShow },

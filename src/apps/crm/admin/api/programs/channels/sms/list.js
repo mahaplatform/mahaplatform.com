@@ -49,7 +49,8 @@ const listRoute = async (req, res) => {
       id: contact.get('id'),
       phone_number: {
         id: phone_number.get('id'),
-        number: phone_number.get('number')
+        number: phone_number.get('number'),
+        formatted: phone_number.get('formatted')
       },
       contact: {
         id: contact.get('id'),

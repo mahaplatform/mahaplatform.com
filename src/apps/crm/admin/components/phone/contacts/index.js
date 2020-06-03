@@ -6,11 +6,8 @@ import React from 'react'
 
 class Contacts extends React.Component {
 
-  static contextTypes = {
-  }
-
   static propTypes = {
-    programs: PropTypes.array,
+    program: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -36,8 +33,9 @@ class Contacts extends React.Component {
   }
 
   _getContact(contact) {
-    const { onPop } = this.props
+    const { program, onPop } = this.props
     return {
+      program,
       contact,
       onPop
     }

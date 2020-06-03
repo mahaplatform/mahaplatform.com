@@ -29,3 +29,50 @@
     color: fadeout(@black, 80);
   }
 }
+.maha-phone-contact {
+  text-align: center;
+  .contact-avatar-token {
+    width: 8em;
+    margin: 1.6em auto;
+  }
+  .maha-avatar-text {
+    font-size: 3em;
+  }
+  h2 {
+    margin: 0;
+  }
+  p {
+    color: fadeout(@black, 60);
+    margin: 0;
+  }
+}
+.maha-phone-contact-actions {
+  margin-top: 1.6em;
+  display: flex;
+}
+.maha-phone-contact-action {
+  flex: 1;
+  display: flex;
+}
+.maha-phone-contact-button {
+  margin: auto;
+  background-color: @blue;
+  color: @white;
+  display: inline-flex;
+  width: 3.2em;
+  height: 3.2em;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  &.disabled {
+    background-color: fadeout(@green, 60) !important;
+    cursor: default;
+  }
+  &:hover {
+    background-color: lighten(@blue, 2);
+  }
+  .fa {
+    font-size: 1.4em;
+    margin: auto;
+  }
+}

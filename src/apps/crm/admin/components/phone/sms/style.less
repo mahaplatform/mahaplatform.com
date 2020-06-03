@@ -36,15 +36,14 @@
   flex: 1;
 }
 .maha-phone-sms-result-message {
-  color: fadeout(@black, 60);
-  strong {
-    color: @black;
-  }
   height: 2.8em;
   max-width: 220px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  span {
+    color: fadeout(@black, 60);
+  }
 }
 .maha-phone-sms-result-unread {
   flex: 0 0 2em;
@@ -76,9 +75,55 @@
 .maha-phone-sms-channel {
   display: flex;
   flex: 1;
+  flex-direction: column;
   border-left: 1px solid fadeout(@black, 90);
   .crm-sms-channel-token-message {
     max-width: 280px;
     overflow: hidden;
+  }
+}
+.maha-phone-sms-channel-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.maha-phone-sms-channel-body {
+  flex: 1;
+  display: flex;
+}
+
+.maha-phone-sms-channel-token {
+  display: flex;
+}
+.maha-phone-sms-channel-token-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .contact-avatar-token,
+  .maha-avatar,
+  .maha-logo {
+    margin: auto;
+    width: 2.2em;
+  }
+  .maha-logo-text {
+    font-size: 0.8em;
+  }
+}
+.maha-phone-sms-channel-token-label {
+  padding: 0.8em;
+  flex: 1;
+  span {
+    color: fadeout(@black, 60);
+  }
+}
+.maha-phone-sms-channel-token-icon {
+  flex: 0 0 2em;
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    font-size: 1.4em;
+    margin: auto;
+    color: fadeout(@black, 60);
+    cursor: pointer;
+    &:hover {
+      color: @blue;
+    }
   }
 }
