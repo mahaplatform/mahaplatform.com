@@ -6,7 +6,7 @@
   padding: 0.8em 0.8em 0;
 }
 .maha-phone-dialpad-body {
-  padding: 0 2.4em;
+  padding: 0.8em 2.4em;
 }
 .maha-phone-dialpad-grid {
   display: flex;
@@ -24,13 +24,15 @@
   text-align: center;
 }
 .maha-phone-dialpad-number {
-  font-size: 1.2em;
+  font-size: 1.6em;
   font-weight: bold;
   color: @black;
 }
 .maha-phone-dialpad-letters {
   font-size: 0.8em;
-  color: fadeout(@black, 40);
+  line-height: 1.6em;
+  height: 1.6em;
+  color: fadeout(@black, 60);
 }
 .maha-phone-dialpad-action {
   display: flex;
@@ -41,16 +43,17 @@
   background-color: @green;
   color: @white;
   display: inline-flex;
-  width: 3em;
-  height: 3em;
+  width: 3.4em;
+  height: 3.4em;
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
   &.disabled {
-    background-color: fadeout(@black, 90) !important;
+    background-color: fadeout(@green, 60) !important;
+    cursor: default;
   }
   &:hover {
-    background-color: lighten(@green, 5);
+    background-color: lighten(@green, 2);
   }
   .fa {
     font-size: 1.4em;

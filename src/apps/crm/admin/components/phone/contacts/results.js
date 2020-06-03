@@ -5,7 +5,8 @@ import React from 'react'
 class Contacts extends React.Component {
 
   static propTypes = {
-    records: PropTypes.array
+    records: PropTypes.array,
+    onChoose: PropTypes.func
   }
 
   render() {
@@ -13,7 +14,7 @@ class Contacts extends React.Component {
     return (
       <div className="maha-phone-contacts-results">
         { records.map((contact, index) => (
-          <div className="maha-phone-contacts-result" key={`record_${index}`}>
+          <div className="maha-phone-contacts-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, contact) }>
             <div className="maha-phone-contacts-result-token">
               <ContactToken { ...contact } />
             </div>
@@ -24,6 +25,10 @@ class Contacts extends React.Component {
         ))}
       </div>
     )
+  }
+
+  _handleChoose(contact) {
+    this.props.onChoose(contact)
   }
 
 }

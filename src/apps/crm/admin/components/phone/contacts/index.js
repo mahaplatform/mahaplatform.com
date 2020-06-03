@@ -1,5 +1,6 @@
-import { Infinite, Searchbox} from 'maha-admin'
+import { Infinite, Searchbox } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Contact from './contact'
 import Results from './results'
 import React from 'react'
 
@@ -9,13 +10,16 @@ class Contacts extends React.Component {
   }
 
   static propTypes = {
-    programs: PropTypes.array
+    programs: PropTypes.array,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   state = {
     q: ''
   }
 
+  _handleChoose = this._handleChoose.bind(this)
   _handleQuery = this._handleQuery.bind(this)
 
   render() {
@@ -31,6 +35,14 @@ class Contacts extends React.Component {
     )
   }
 
+  _getContact(contact) {
+    const { onPop } = this.props
+    return {
+      contact,
+      onPop
+    }
+  }
+
   _getInfinite() {
     const { q } = this.state
     return {
@@ -41,7 +53,10 @@ class Contacts extends React.Component {
           $nnl: true
         }
       },
-      layout: Results
+      layout: Results,
+      props: {
+        onChoose: this._handleChoose
+      }
     }
   }
 
@@ -56,6 +71,10 @@ class Contacts extends React.Component {
     return {
       onChange: this._handleQuery
     }
+  }
+
+  _handleChoose(contact) {
+    this.props.onPush(Contact, this._getContact(contact))
   }
 
   _handleQuery(q) {

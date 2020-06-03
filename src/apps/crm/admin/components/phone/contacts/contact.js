@@ -1,40 +1,33 @@
 import { ModalPanel } from 'maha-admin'
-import SMSClient from '../../sms_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class SMS extends React.Component {
+class Contact extends React.Component {
+
+  static contextTypes = {
+  }
 
   static propTypes = {
-    channel: PropTypes.object,
-    program: PropTypes.object,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func
+    contact: PropTypes.object,
+    onPop: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
 
   render() {
+    const { contact } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-sms-channel">
-          <SMSClient { ...this._getClient() } />
+        <div className="maha-phone-contact">
+          { contact.display_name }
         </div>
       </ModalPanel>
     )
   }
 
-  _getClient() {
-    const { channel, program } = this.props
-    return {
-      program,
-      channel
-    }
-  }
-
   _getPanel() {
     return {
-      title: 'Conversation',
+      title: 'Contact',
       color: 'violet',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
@@ -48,4 +41,4 @@ class SMS extends React.Component {
 
 }
 
-export default SMS
+export default Contact

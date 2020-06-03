@@ -4307,11 +4307,13 @@ union
       select distinct on (maha_smses.program_id, maha_smses.phone_number_id) crm_phone_numbers.contact_id,
       maha_smses.program_id,
       maha_smses.phone_number_id,
+      maha_smses.id as last_message_id,
+      maha_smses.body as last_message,
       maha_smses.created_at as last_message_at
       from ((maha_smses
       join crm_phone_numbers on ((crm_phone_numbers.id = maha_smses.phone_number_id)))
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      order by maha_smses.program_id, maha_smses.phone_number_id, maha_smses.created_at desc
+      order by maha_smses.program_id, maha_smses.phone_number_id, maha_smses.id, maha_smses.body, maha_smses.created_at desc
       ), viewings as (
       select recipients_1.program_id,
       recipients_1.phone_number_id,
@@ -4334,12 +4336,14 @@ union
       select recipients.contact_id,
       recipients.program_id,
       recipients.phone_number_id,
+      recipients.last_message_id,
+      recipients.last_message,
       recipients.last_message_at,
       count(messages.*) as unread
       from ((recipients
       join viewings on (((viewings.phone_number_id = recipients.phone_number_id) and (viewings.program_id = recipients.program_id))))
       left join messages on (((messages.phone_number_id = recipients.phone_number_id) and (messages.program_id = recipients.program_id))))
-      group by recipients.phone_number_id, recipients.program_id, recipients.contact_id, recipients.last_message_at;
+      group by recipients.phone_number_id, recipients.program_id, recipients.contact_id, recipients.last_message_id, recipients.last_message, recipients.last_message_at;
     `)
 
     await knex.raw(`

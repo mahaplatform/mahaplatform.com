@@ -59,6 +59,7 @@ const listRoute = async (req, res) => {
         email: contact.get('email'),
         photo: contact.related('photo') ? contact.related('photo').get('path') : null
       },
+      last_message: sms.get('last_message'),
       unread: sms.get('unread')
     }
   })
