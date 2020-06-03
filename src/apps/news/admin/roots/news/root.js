@@ -8,13 +8,14 @@ class Root extends React.Component {
   }
 
   static propTypes = {
+    children: PropTypes.any,
     onUpdateLikerIds: PropTypes.func
   }
 
   _handleUpdateLikerIds = this._handleUpdateLikerIds.bind(this)
 
   render() {
-    return null
+    return this.props.children
   }
 
   componentDidMount() {

@@ -1,22 +1,25 @@
 import Twilio from 'twilio'
-
-const { ClientCapability } = Twilio.jwt
+const { AccessToken } = Twilio.jwt
+const { VoiceGrant } = AccessToken
 
 const tokenRoute = async (req, res) => {
 
-  const capability = new ClientCapability({
-    accountSid: process.env.TWILIO_ACCOUNT_SID,
-    authToken: process.env.TWILIO_AUTH_TOKEN
+  const voiceGrant = new VoiceGrant({
+    outgoingApplicationSid: process.env.TWILIO_APP_SID,
+    incomingAllow: true
   })
 
-  capability.addScope(new ClientCapability.OutgoingClientScope({
-    applicationSid: process.env.TWILIO_APP_SID,
-    clientName: 'maha'
-  }))
+  const token = new AccessToken(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_API_KEY,
+    process.env.TWILIO_API_SECRET
+  )
 
-  capability.addScope(new ClientCapability.IncomingClientScope('maha'))
+  token.addGrant(voiceGrant)
 
-  res.status(200).respond(capability.toJwt())
+  token.identity = `user-${req.user.get('id')}`
+
+  res.status(200).respond(token.toJwt())
 
 }
 

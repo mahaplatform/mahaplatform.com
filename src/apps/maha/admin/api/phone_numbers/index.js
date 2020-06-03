@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.get('/:id/token', token)
+router.get('/token', token)
 
 export default router

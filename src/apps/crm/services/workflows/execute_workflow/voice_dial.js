@@ -29,8 +29,6 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
     transacting: req.trx
   }) : null
 
-  const to = user ? user.get('cell_phone') : config.number
-
   const response = new twiml.VoiceResponse()
 
   const dial = response.dial({
@@ -38,7 +36,11 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
     callerId: enrollment.related('voice_campaign').related('phone_number').get('number')
   })
 
-  dial.number(to)
+  if(user) dial.client(`user-${user.get('id')}`)
+
+  if(user.get('cell_phone')) dial.number(user.get('cell_phone'))
+
+  if(config.number) dial.number(config.number)
 
   return {
     twiml: response.toString()

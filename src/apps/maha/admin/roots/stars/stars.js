@@ -8,6 +8,7 @@ class Star extends React.Component {
   }
 
   static propTypes = {
+    children: PropTypes.any,
     stars: PropTypes.object,
     onUpdate: PropTypes.func
   }
@@ -15,7 +16,7 @@ class Star extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    return null
+    return this.props.children
   }
 
   componentDidMount() {

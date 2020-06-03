@@ -113,7 +113,6 @@ import mahabrowser from '../../apps/maha/admin/components/device/browser'
 import mahacordova from '../../apps/maha/admin/components/device/cordova'
 import mahaelectron from '../../apps/maha/admin/components/device/electron'
 import mahadevice from '../../apps/maha/admin/components/device'
-import mahahelp from '../../apps/maha/admin/components/help'
 import mahanavigation from '../../apps/maha/admin/components/navigation'
 import mahanetwork from '../../apps/maha/admin/components/network'
 import mahanotifications from '../../apps/maha/admin/components/notifications'
@@ -125,6 +124,7 @@ import mahapush from '../../apps/maha/admin/components/push'
 import mahareset from '../../apps/maha/admin/components/reset'
 import maharouter from '../../apps/maha/admin/components/router'
 import mahasignin from '../../apps/maha/admin/components/signin'
+import mahahelp from '../../apps/maha/admin/roots/help'
 import mahareactions from '../../apps/maha/admin/roots/reactions'
 import mahastars from '../../apps/maha/admin/roots/stars'
 import newsnew from '../../apps/news/admin/components/new'
@@ -154,9 +154,10 @@ import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import trainingRoutes from '../../apps/training/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
-import driveBadges from '../../apps/drive/admin/badges/index.js'
+import crmBadges from '../../apps/crm/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
 import chatRoots from '../../apps/chat/admin/roots/index.js'
+import crmRoots from '../../apps/crm/admin/roots/index.js'
 import mahaRoots from '../../apps/maha/admin/roots/index.js'
 import newsRoots from '../../apps/news/admin/roots/index.js'
 import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
@@ -225,8 +226,8 @@ class App extends React.Component {
         app: 'chat',
         ...badge
       })),
-      ...driveBadges.map(badge => ({
-        app: 'drive',
+      ...crmBadges.map(badge => ({
+        app: 'crm',
         ...badge
       })),
       ...mahaBadges.map(badge => ({
@@ -368,7 +369,6 @@ class App extends React.Component {
       mahacordova,
       mahaelectron,
       mahadevice,
-      mahahelp,
       mahanavigation,
       mahanetwork,
       mahanotifications,
@@ -380,6 +380,7 @@ class App extends React.Component {
       mahareset,
       maharouter,
       mahasignin,
+      mahahelp,
       mahareactions,
       mahastars,
       newsnew,
@@ -400,6 +401,10 @@ class App extends React.Component {
     return [
       ...chatRoots.map(root => ({
         app: 'chat',
+        component: root
+      })),
+      ...crmRoots.map(root => ({
+        app: 'crm',
         component: root
       })),
       ...mahaRoots.map(root => ({

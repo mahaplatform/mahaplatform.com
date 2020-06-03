@@ -14,6 +14,7 @@ class Root extends React.Component {
     active: PropTypes.array,
     channels: PropTypes.array,
     channels_status: PropTypes.string,
+    children: PropTypes.any,
     count: PropTypes.number,
     messages: PropTypes.object,
     typing: PropTypes.array,
@@ -46,7 +47,7 @@ class Root extends React.Component {
   _handleUpdateUnread = this._handleUpdateUnread.bind(this)
 
   render() {
-    return null
+    return this.props.children
   }
 
   componentDidMount() {

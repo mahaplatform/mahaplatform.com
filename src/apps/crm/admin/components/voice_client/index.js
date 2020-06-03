@@ -223,7 +223,7 @@ class VoiceClient extends React.Component {
 
 const mapResources = (props, context) => ({
   channel: `/api/admin/crm/programs/${props.program.id}/channels/voice/${props.phone_number.id}`,
-  token: `/api/admin/phone_numbers/${props.program.phone_number.id}/token`
+  token: '/api/admin/phone_numbers/token'
 })
 
 export default Container(mapResources)(VoiceClient)

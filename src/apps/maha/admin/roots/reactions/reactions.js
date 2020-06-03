@@ -8,6 +8,7 @@ class Reactions extends React.Component {
   }
 
   static propTypes = {
+    children: PropTypes.any,
     reactions: PropTypes.object,
     onUpdate: PropTypes.func
   }
@@ -15,7 +16,7 @@ class Reactions extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    return null
+    return this.props.children
   }
 
   componentDidMount() {

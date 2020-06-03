@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   mode: null,
   active: null,
+  phone: null,
   help: false,
   unseen: 0
 }

@@ -9,7 +9,6 @@ import Account from '../account'
 import Sidebar from './sidebar'
 import Ribbon from './ribbon'
 import React from 'react'
-import Help from '../help'
 
 class Portal extends React.Component {
 
@@ -76,11 +75,6 @@ class Portal extends React.Component {
               </Modal>
             </Prompt>
           </div>
-          { help &&
-            <div className="maha-portal-help">
-              <Help { ...this._getHelp() } />
-            </div>
-          }
         </Modal>
       </div>
     )

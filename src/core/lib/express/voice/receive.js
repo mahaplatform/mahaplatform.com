@@ -78,6 +78,7 @@ const make = async (req, res) => {
 
   const response = await Promise.reduce(makeHooks, async (response, hook) => {
     return await hook.default(req, {
+      client: req.body.client,
       user_id: req.body.user_id,
       call,
       phone_number
@@ -96,9 +97,7 @@ const make = async (req, res) => {
 
 const receiveRoute = async (req, res) => {
 
-  const { client } = req.body
-
-  if(client === 'maha') return await make(req, res)
+  if(req.body.client) return await make(req, res)
 
   await receive(req, res)
 

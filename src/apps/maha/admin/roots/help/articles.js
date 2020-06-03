@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import Search from './search'
 import React from 'react'
 
-class Help extends React.Component {
+class Articles extends React.Component {
+
+  static contextTypes = {
+    help: PropTypes.object
+  }
 
   static propTypes = {
     articles: PropTypes.array,
@@ -57,9 +61,9 @@ class Help extends React.Component {
   }
 
   _handleDone() {
-    this.props.onDone()
+    this.context.help.toggle()
   }
 
 }
 
-export default Help
+export default Articles

@@ -103,8 +103,8 @@ const mapResources = (props, context) => ({
   users: {
     endpoint: '/api/admin/users',
     filter: {
-      cell_phone: {
-        $nnl: true
+      is_active: {
+        $eq: true
       }
     }
   }

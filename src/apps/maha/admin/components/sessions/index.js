@@ -37,11 +37,13 @@ class Sessions extends React.Component {
         <TransitionGroup component={ null }>
           <CSSTransition key={ user.id } timeout={ 1000 } classNames="flip" appear={ false }>
             <div className="maha-session">
-              { roots.map((root, index) => {
-                if(root.app !== 'maha' && !this._getAccess(root.app)) return null
-                return <root.component key={`root_${index}`} />
-              }) }
-              <Portal { ...this._getPortal() } />
+              { roots.filter(root => {
+                return root.app === 'maha' || this._getAccess(root.app)
+              }).reduce((roots, root, index) => (
+                <root.component key={`root_${index}`}>
+                  { roots }
+                </root.component>
+              ), <Portal { ...this._getPortal() } />) }
             </div>
           </CSSTransition>
         </TransitionGroup>
