@@ -36,7 +36,31 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
     callerId: enrollment.related('voice_campaign').related('phone_number').get('number')
   })
 
-  if(user) dial.client(`user-${user.get('id')}`)
+  if(user) {
+
+    const client = dial.client(`user-${user.get('id')}`)
+
+    client.parameter({
+      name: 'contact_id',
+      value: enrollment.get('contact_id')
+    })
+
+    client.parameter({
+      name: 'program_id',
+      value: enrollment.related('voice_campaign').get('program_id')
+    })
+
+    client.parameter({
+      name: 'from',
+      value: enrollment.related('phone_number').get('number')
+    })
+
+    client.parameter({
+      name: 'to',
+      value: enrollment.related('voice_campaign').related('phone_number').get('number')
+    })
+
+  }
 
   if(user.get('cell_phone')) dial.number(user.get('cell_phone'))
 

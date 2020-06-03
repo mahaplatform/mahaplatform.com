@@ -15,14 +15,14 @@ class Programs extends React.Component {
     open: false
   }
 
-  _handleOpen = this._handleOpen.bind(this)
+  _handleToggle = this._handleToggle.bind(this)
 
   render() {
     const { programs } = this.props
     const { open, program } = this.state
     return (
       <div className="maha-phone-programs">
-        <div className="maha-phone-programs-header" onClick={ this._handleOpen }>
+        <div className="maha-phone-programs-header" onClick={ this._handleToggle }>
           <div className="maha-phone-programs-header-token">
             <Program program={ program } />
           </div>
@@ -50,9 +50,10 @@ class Programs extends React.Component {
     })
   }
 
-  _handleOpen() {
+  _handleToggle() {
+    const { open } = this.state
     this.setState({
-      open: true
+      open: !open
     })
   }
 

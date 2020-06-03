@@ -1,5 +1,7 @@
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
+import Programs from '../programs'
+
 import React from 'react'
 
 const cells = [
@@ -19,29 +21,39 @@ const cells = [
 
 class DialPad extends React.Component {
 
+  static contextTypes = {
+    phone: PropTypes.object
+  }
+
   static propTypes = {
+    programs: PropTypes.array,
     status: PropTypes.string,
-    onChange: PropTypes.func
+    onCall: PropTypes.func
   }
 
   state = {
-    number: ''
+    number: '',
+    formatted: ''
   }
 
+  _handleCall = this._handleCall.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleDial = this._handleDial.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { number } = this.state
+    const { formatted } = this.state
     return (
       <div className="maha-phone-dialpad">
+        <div className="maha-phone-client-header">
+          <Programs { ...this._getPrograms() } />
+        </div>
         <div className="maha-phone-dialpad-header">
           <div className="maha-input">
             <div className="maha-input-field">
               <input { ...this._getInput() } />
             </div>
-            { number &&
+            { formatted &&
               <div className="maha-input-clear" onClick={ this._handleClear }>
                 <i className="fa fa-times" />
               </div>
@@ -63,38 +75,50 @@ class DialPad extends React.Component {
               </div>
             ))}
           </div>
+          <div className="maha-phone-dialpad-action">
+            <div className={ this._getButtonClass() } onClick={ this._handleCall }>
+              <i className="fa fa-phone" />
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  _getButtonClass() {
     const { number } = this.state
-    if(number !== prevState.number) {
-      this._handleChange()
-    }
+    const classes = ['maha-phone-dialpad-call']
+    if(!number) classes.push('disabled')
+    return classes.join(' ')
   }
 
   _getInput() {
-    const { number } = this.state
+    const { formatted } = this.state
     return {
       placeholder: 'Enter Number',
       ref: node => this.input = node,
       type: 'text',
-      value: number,
+      value: formatted,
       onChange: this._handleType
     }
   }
 
-  _handleChange() {
-    const parsed = parsePhoneNumberFromString(this.state.number, 'US')
-    const number = parsed ? parsed.number : null
-    this.props.onChange(number)
+  _getPrograms() {
+    const { programs } = this.props
+    return {
+      programs
+    }
+  }
+
+  _handleCall() {
+    const { number } = this.state
+    if(number) this.props.onCall(number)
   }
 
   _handleClear() {
     this.setState({
-      number: ''
+      number: '',
+      formatted: ''
     })
   }
 
@@ -105,8 +129,10 @@ class DialPad extends React.Component {
 
   _handleFormat(value) {
     const asyoutype = new AsYouType('US')
-    const number = asyoutype.input(value)
-    this.setState({ number })
+    const formatted = asyoutype.input(value)
+    const parsed = parsePhoneNumberFromString(formatted, 'US')
+    const number = parsed && parsed.isValid() ? parsed.number : null
+    this.setState({ number, formatted })
   }
 
   _handleType(e) {

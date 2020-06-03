@@ -1,13 +1,15 @@
-import { Button, ModalPanel } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Programs from './programs'
+import Contacts from './contacts'
 import DialPad from './dialpad'
+import History from './history'
 import React from 'react'
+import Call from './call'
 
 const tabs = [
-  { icon: 'th', label: 'DialPad' },
-  { icon: 'clock-o', label: 'History' },
-  { icon: 'user', label: 'Contacts' }
+  { icon: 'th', label: 'DialPad', component: DialPad },
+  { icon: 'clock-o', label: 'History', component: History },
+  { icon: 'user', label: 'Contacts', component: Contacts }
 ]
 
 class Phone extends React.Component {
@@ -17,86 +19,73 @@ class Phone extends React.Component {
   }
 
   static propTypes = {
+    call: PropTypes.object,
     programs: PropTypes.array,
+    muted: PropTypes.bool,
     status: PropTypes.string,
     onClose: PropTypes.func
   }
 
   state = {
-    number: '',
     selected: 0
   }
 
   _handleCall = this._handleCall.bind(this)
-  _handleNumber = this._handleNumber.bind(this)
   _handlePickup = this._handlePickup.bind(this)
   _handleHangup = this._handleHangup.bind(this)
 
   render() {
     const { selected } = this.state
     const { status } = this.props
+    const tab = tabs[selected]
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-client">
-          <div className="maha-phone-client-header">
-            <Programs { ...this._getPrograms() } />
-          </div>
-          { status === 'ready' &&
+        { status === 'ready' ?
+          <div className="maha-phone-client">
             <div className="maha-phone-client-body">
-              <DialPad { ...this._getDialPad() } />
-              <div className="maha-phone-action">
-                <div className="maha-phone-call" onClick={ this._handleCall }>
-                  <i className="fa fa-phone" />
+              <tab.component { ...this._getDialPad() } />
+            </div>
+            <div className="maha-phone-client-footer">
+              { tabs.map((tab, index) =>(
+                <div { ...this._getTab(index) } key={`tab_${index}`}>
+                  <i className={`fa fa-${ tab.icon }`} />
+                  <span>{ tab.label }</span>
                 </div>
-              </div>
+              ))}
             </div>
-          }
-          { status === 'ringing' &&
-            <div className="maha-phone-client-body">
-              <Button { ...this._getPickup() } />
-            </div>
-          }
-          { status === 'active' &&
-            <div className="maha-phone-client-body">
-              <Button { ...this._getHangup() } />
-            </div>
-          }
-          <div className="maha-phone-client-footer">
-            { tabs.map((tab, index) =>(
-              <div className={`maha-phone-client-footer-item${index === selected ? ' selected' : ''}`} key={`tab_${index}`}>
-                <i className={`fa fa-${ tab.icon }`} />
-                <span>{ tab.label }</span>
-              </div>
-            ))}
-          </div>
-        </div>
+          </div> :
+          <Call { ...this._getCall() } />
+        }
       </ModalPanel>
     )
   }
 
+  _getTab(index) {
+    const { selected } = this.state
+    const classes = ['maha-phone-client-footer-item']
+    if(index === selected) classes.push('selected')
+    return {
+      className: classes.join(' '),
+      onClick: this._handleSelect.bind(this, index)
+    }
+  }
+
+  _getCall() {
+    const { call, muted, status } = this.props
+    return {
+      call: {
+        ...call,
+        muted,
+        status
+      }
+    }
+  }
+
   _getDialPad() {
+    const { programs } = this.props
     return {
-      onChange: this._handleNumber
-    }
-  }
-
-  _getHangup() {
-    return {
-      label: 'Hangup',
-      className: 'link',
-      handler: this._handleHangup
-    }
-  }
-
-  _handleNumber(number) {
-    this.setState({ number })
-  }
-
-  _getPickup() {
-    return {
-      label: 'Pickup',
-      className: 'link',
-      handler: this._handlePickup
+      programs,
+      onCall: this._handleCall
     }
   }
 
@@ -111,18 +100,10 @@ class Phone extends React.Component {
     }
   }
 
-  _getPrograms() {
-    const { programs } = this.props
-    return {
-      programs
-    }
-  }
-
-  _handleCall() {
-    const { number } = this.state
+  _handleCall(to) {
     this.context.phone.call({
       from: '+16072248981',
-      to: number
+      to
     })
   }
 
@@ -132,6 +113,10 @@ class Phone extends React.Component {
 
   _handlePickup() {
     this.context.phone.pickup()
+  }
+
+  _handleSelect(selected) {
+    this.setState({ selected })
   }
 
 }

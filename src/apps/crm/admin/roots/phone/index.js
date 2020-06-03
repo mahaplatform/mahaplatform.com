@@ -20,8 +20,9 @@ class PhoneContainer extends React.Component {
   }
 
   state = {
-    incoming: null,
+    call: null,
     loaded: false,
+    muted: false,
     open: false,
     ready: false,
     status: 'ready'
@@ -35,6 +36,8 @@ class PhoneContainer extends React.Component {
   _handleError = this._handleError.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
+  _handleMute = this._handleMute.bind(this)
+  _handleMuted = this._handleMuted.bind(this)
   _handlePickup = this._handlePickup.bind(this)
   _handleReady = this._handleReady.bind(this)
   _handleToggle = this._handleToggle.bind(this)
@@ -70,6 +73,7 @@ class PhoneContainer extends React.Component {
     return {
       phone: {
         call: this._handleCall,
+        mute: this._handleMute,
         toggle: this._handleToggle,
         pickup: this._handlePickup,
         hangup: this._handleHangup
@@ -77,10 +81,22 @@ class PhoneContainer extends React.Component {
     }
   }
 
+  _getParams() {
+    const { call } = this.state
+    if(!call) return null
+    const params = {}
+    call.customParameters.forEach((value, key) => {
+      params[key] = value
+    })
+    return params
+  }
+
   _getPhone() {
     const { programs } = this.props
-    const { status } = this.state
+    const { muted, status } = this.state
     return {
+      call: this._getParams(),
+      muted: muted,
       programs,
       status,
       onClose: this._handleClose
@@ -111,7 +127,16 @@ class PhoneContainer extends React.Component {
 
   _handleConnect() {
     this.setState({
+      muted: false,
       status: 'active'
+    })
+  }
+
+  _handleDisconnect() {
+    this.setState({
+      call: null,
+      muted: null,
+      status: 'ready'
     })
   }
 
@@ -125,9 +150,10 @@ class PhoneContainer extends React.Component {
     window.Twilio.Device.disconnectAll()
   }
 
-  _handleIncoming(incoming) {
+  _handleIncoming(call) {
+    call.on('mute', this._handleMuted)
     this.setState({
-      incoming,
+      call,
       status: 'ringing'
     })
   }
@@ -144,11 +170,13 @@ class PhoneContainer extends React.Component {
     window.Twilio.Device.on('incoming', this._handleIncoming)
   }
 
-  _handleDisconnect() {
-    this.setState({
-      incoming: null,
-      status: 'ready'
-    })
+  _handleMute() {
+    const { call } = this.state
+    call.mute(!call.isMuted())
+  }
+
+  _handleMuted(muted) {
+    this.setState({ muted })
   }
 
   _handleLoad() {
@@ -162,7 +190,7 @@ class PhoneContainer extends React.Component {
   }
 
   _handlePickup() {
-    this.state.incoming.accept()
+    this.state.call.accept()
   }
 
   _handleReady() {

@@ -32,3 +32,28 @@
   font-size: 0.8em;
   color: fadeout(@black, 40);
 }
+.maha-phone-dialpad-action {
+  display: flex;
+  padding: 0.8em;
+}
+.maha-phone-dialpad-call {
+  margin: auto;
+  background-color: @green;
+  color: @white;
+  display: inline-flex;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  &.disabled {
+    background-color: fadeout(@black, 90) !important;
+  }
+  &:hover {
+    background-color: lighten(@green, 5);
+  }
+  .fa {
+    font-size: 1.4em;
+    margin: auto;
+  }
+}

@@ -87,7 +87,7 @@ const Creator = (mapResourcesToPage, Component) => {
       return {
         key: cacheKey,
         ...data,
-        ..._.omit(this.props, ['cid','con','component','data','ready','resources','onFetchResource','onSetReady'])
+        ..._.omit(this.props, ['cid','con','component','data','ready','status','resources','onFetchResource','onSetReady'])
       }
     }
 
