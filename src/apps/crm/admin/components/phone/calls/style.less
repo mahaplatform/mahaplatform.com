@@ -1,0 +1,74 @@
+.maha-phone-calls {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-phone-calls-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.maha-phone-calls-body {
+  flex: 1;
+  display: flex;
+}
+
+.maha-phone-calls-result {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-phone-calls-result-token {
+  display: flex;
+  flex: 1;
+}
+.maha-phone-calls-result-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+
+.maha-phone-calls-token {
+  display: flex;
+  flex: 1;
+}
+.maha-phone-calls-token-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  .contact-avatar-token,
+  .maha-avatar,
+  .maha-logo {
+    width: 2.4em;
+  }
+  .maha-logo-text {
+    font-size: 0.8em;
+  }
+}
+.maha-phone-calls-token-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 1.4em;
+  }
+}
+.maha-phone-calls-token-label {
+  position: relative;
+  flex: 1;
+  padding: 0.8em;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
+}
+.maha-phone-calls-token-timestamp {
+  position: absolute;
+  top: 50%;
+  right: 0.8em;
+  transform: translateY(-50%);
+  color: @blue;
+  font-size: 0.8em;
+}

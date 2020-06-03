@@ -38,13 +38,6 @@ class Results extends React.PureComponent {
     )
   }
 
-  _getClass(channel) {
-    const { selected } = this.state
-    const classes = ['']
-    if(channel.id === selected) classes.push('selected')
-    return classes.join(' ')
-  }
-
   _handleChoose(channel) {
     this.props.onChoose(channel)
   }
