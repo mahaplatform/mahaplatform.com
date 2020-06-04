@@ -1,8 +1,8 @@
 import { CSSTransition } from 'react-transition-group'
 import { Modal, Prompt, Tasks } from 'maha-admin'
+import { RouterStack } from 'maha-admin'
 import Navigation from '../navigation'
 import { connect } from 'react-redux'
-import { RouterStack } from 'maha-admin'
 import Dashboard from '../dashboard'
 import PropTypes from 'prop-types'
 import Account from '../account'
@@ -24,25 +24,21 @@ class Portal extends React.Component {
   static propTypes = {
     active: PropTypes.number,
     badges: PropTypes.array,
-    help: PropTypes.bool,
     mode: PropTypes.string,
     routes: PropTypes.object,
     unseen: PropTypes.number,
-    onHelp: PropTypes.func,
     onChoose: PropTypes.func,
     onSetMode: PropTypes.func,
-    onUpdateUnseen: PropTypes.func,
-    onToggleHelp: PropTypes.func
+    onUpdateUnseen: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)
   _handleCloseSidebar = this._handleCloseSidebar.bind(this)
-  _handleHelp = this._handleHelp.bind(this)
   _handleSetMode = this._handleSetMode.bind(this)
   _handleUpdateUnseen = this._handleUpdateUnseen.bind(this)
 
   render() {
-    const { active, badges, help, mode } = this.props
+    const { active, badges, mode } = this.props
     return (
       <div className={ this._getClass() }>
         <Modal>
@@ -133,12 +129,6 @@ class Portal extends React.Component {
     }
   }
 
-  _getHelp() {
-    return {
-      onDone: this.props.onToggleHelp
-    }
-  }
-
   _getNavigation() {
     return {
       onDone: () => this._handleSetMode(null)
@@ -158,11 +148,6 @@ class Portal extends React.Component {
 
   _handleCloseSidebar() {
     this.props.onChoose(null)
-  }
-
-  _handleHelp() {
-    if(document.body.clientWidth > 768) return this.props.onToggleHelp()
-    this.context.router.history.push('/admin/help')
   }
 
   _handleUpdateUnseen(unseen) {

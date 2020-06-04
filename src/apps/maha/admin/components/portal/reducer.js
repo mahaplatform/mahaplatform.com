@@ -1,8 +1,6 @@
 const INITIAL_STATE = {
   mode: null,
   active: null,
-  phone: null,
-  help: false,
   unseen: 0
 }
 
@@ -20,12 +18,6 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: (action.index !== state.active) ? action.index : null
-    }
-
-  case 'TOGGLE_HELP':
-    return {
-      ...state,
-      help: !state.help
     }
 
   case 'UPDATE_UNSEEN':

@@ -29,17 +29,18 @@ class Ribbon extends React.Component {
           <i className="fa fa-fw fa-bars" />
         </div>
         <div className="maha-ribbon-spacer" />
-        { badges.slice().sort((a,b) => {
+        { badges.slice().map((badge, index) => ({
+          ...badge,
+          index
+        })).filter((badge) => {
+          return badge.app === 'maha' || this._getAccess(badge.app)
+        }).sort((a,b) => {
           return (a.weight || 0) > (b.weight || 0) ? 1 : -1
-        }).map((item, i) => {
-          const index = badges.length - i - 1
-          if(item.app !== 'maha' && !this._getAccess(item.app)) return null
-          return (
-            <div className={ this._getClass(index) } key={`badge_${index}`} onClick={ this._handleChoose.bind(this, item, index) }>
-              { item.component ? <item.component /> : <Badge { ...item } /> }
-            </div>
-          )
-        })}
+        }).map((badge, index) => (
+          <div className={ this._getClass(badge.index) } key={`badge_${index}`} onClick={ this._handleChoose.bind(this, badge, badge.index) }>
+            { badge.component ? <badge.component /> : <Badge { ...badge } /> }
+          </div>
+        ))}
         <div className="maha-ribbon-item" onClick={ this._handleMode.bind(this, 'account') }>
           <div className="maha-badge">
             <Avatar user={ user } width={ 28 } presence={ false } />

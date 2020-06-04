@@ -8,10 +8,6 @@ export const choose = (index) => ({
   index
 })
 
-export const toggleHelp = () => ({
-  type: 'TOGGLE_HELP'
-})
-
 export const updateUnseen = (unseen) => ({
   type: 'UPDATE_UNSEEN',
   unseen
