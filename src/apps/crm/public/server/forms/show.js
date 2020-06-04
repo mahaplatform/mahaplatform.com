@@ -61,7 +61,7 @@ const showRoute = async (req, res) => {
       title: team.get('title'),
       logo: team.related('logo') ? team.related('logo').get('path') : null
     },
-    token: encode({ code: form.get('code') }, 60 * 30)
+    token: encode({ code: form.get('code') }, 60 * 60 * 2)
   })
 
   res.status(200).send(content)

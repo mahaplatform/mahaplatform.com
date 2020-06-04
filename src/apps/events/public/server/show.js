@@ -118,7 +118,7 @@ const showRoute = async (req, res) => {
       title: req.team.get('title'),
       logo: req.team.related('logo') ? req.team.related('logo').get('path') : null
     },
-    token: encode({ code: event.get('code') }, 60 * 30)
+    token: encode({ code: event.get('code') }, 60 * 60 * 2)
   })
 
   res.status(200).send(content)
