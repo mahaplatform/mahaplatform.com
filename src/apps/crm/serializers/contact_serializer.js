@@ -1,5 +1,4 @@
 import { expandValues } from '../../maha/services/values'
-import _ from 'lodash'
 
 const ContactSerializer = async (req, result) => ({
   id: result.get('id'),
@@ -7,9 +6,13 @@ const ContactSerializer = async (req, result) => ({
   display_name: result.get('display_name'),
   full_name: result.get('full_name'),
   initials: result.get('initials'),
+  email_id: result.get('email_id'),
   email: result.get('email'),
   rfc822: result.get('rfc822'),
   phone: result.get('phone'),
+  phone_id: result.get('phone_id'),
+  address: result.get('address'),
+  address_id: result.get('address_id'),
   organization: result.get('organization'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
   organizations: result.related('organizations').map(organization),

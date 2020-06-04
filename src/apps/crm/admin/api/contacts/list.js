@@ -33,8 +33,12 @@ const listRoute = async (req, res) => {
     full_name: result.get('full_name'),
     initials: result.get('initials'),
     email: result.get('email'),
+    email_id: result.get('email_id'),
     phone: result.get('phone'),
-    photo: result.related('photo') ? result.related('photo').get('path') : null    
+    phone_id: result.get('phone_id'),
+    address: result.get('address'),
+    address_id: result.get('address_id'),
+    photo: result.related('photo') ? result.related('photo').get('path') : null
   }))
 
 }

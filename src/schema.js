@@ -3589,8 +3589,11 @@ union
       create view crm_contact_primaries AS
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
       crm_organizations.name as organization,
+      crm_email_addresses.id as email_id,
       crm_email_addresses.address as email,
+      crm_phone_numbers.id as phone_id,
       crm_phone_numbers.number as phone,
+      crm_mailing_addresses.id as address_id,
       crm_mailing_addresses.address
       from (((((crm_contacts
       left join crm_email_addresses on (((crm_email_addresses.contact_id = crm_contacts.id) and (crm_email_addresses.is_primary = true))))

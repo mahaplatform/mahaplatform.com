@@ -1,18 +1,22 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
-import { ModalPanel } from 'maha-admin'
+import { Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import SMS from '../sms/sms'
 
 class Contact extends React.Component {
 
   static contextTypes = {
-    phone: PropTypes.object
+    phone: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
     contact: PropTypes.object,
     program: PropTypes.object,
-    onPop: PropTypes.func
+    channel: PropTypes.object,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -30,7 +34,7 @@ class Contact extends React.Component {
           <p>{ contact.email }</p>
           <p>{ contact.phone }</p>
           <div className="maha-phone-contact-actions">
-            <div className="maha-phone-contact-action">
+            <div className="maha-phone-contact-action" onClick={ this._handleSMS }>
               <div className="maha-phone-contact-button">
                 <i className="fa fa-comment" />
               </div>
@@ -61,6 +65,19 @@ class Contact extends React.Component {
     }
   }
 
+  _getSMS() {
+    const { contact, channel, program, onPop, onPush } = this.props
+    return {
+      channel: {
+        ...channel,
+        contact
+      },
+      program,
+      onPop,
+      onPush
+    }
+  }
+
   _handleBack() {
     this.props.onPop()
   }
@@ -70,10 +87,20 @@ class Contact extends React.Component {
     this.context.phone.call(program.phone_number.number, contact.phone)
   }
 
-  _handleInfo() {}
+  _handleInfo() {
+    const { contact } = this.props
+    this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
+  }
 
-  _handleSMS() {}
+  _handleSMS() {
+    this.props.onPush(SMS, this._getSMS())
+  }
 
 }
 
-export default Contact
+
+const mapResources = (props, context) => ({
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.contact.phone_id}`
+})
+
+export default Container(mapResources)(Contact)

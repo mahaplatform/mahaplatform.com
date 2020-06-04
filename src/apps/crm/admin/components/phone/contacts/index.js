@@ -33,11 +33,12 @@ class Contacts extends React.Component {
   }
 
   _getContact(contact) {
-    const { program, onPop } = this.props
+    const { program, onPop, onPush } = this.props
     return {
       program,
       contact,
-      onPop
+      onPop,
+      onPush
     }
   }
 
@@ -55,13 +56,6 @@ class Contacts extends React.Component {
       props: {
         onChoose: this._handleChoose
       }
-    }
-  }
-
-  _getPrograms() {
-    const { programs } = this.props
-    return {
-      programs
     }
   }
 

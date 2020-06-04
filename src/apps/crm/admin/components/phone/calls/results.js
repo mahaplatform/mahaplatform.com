@@ -12,7 +12,8 @@ class Results extends React.Component {
 
   static propTypes = {
     contact: PropTypes.object,
-    records: PropTypes.array
+    records: PropTypes.array,
+    onChoose: PropTypes.func
   }
 
   render() {
@@ -72,8 +73,7 @@ class Results extends React.Component {
   }
 
   _handleClick(call) {
-    const { contact } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}/calls/${call.id}`)
+    this.props.onChoose(call)
   }
 
 }

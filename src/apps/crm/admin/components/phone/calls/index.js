@@ -2,6 +2,7 @@ import { Infinite, Searchbox} from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
+import Call from './call'
 
 class Calls extends React.Component {
 
@@ -18,7 +19,7 @@ class Calls extends React.Component {
     q: ''
   }
 
-  _handleChannel = this._handleChannel.bind(this)
+  _handleCall = this._handleCall.bind(this)
   _handleQuery = this._handleQuery.bind(this)
 
   render() {
@@ -34,25 +35,11 @@ class Calls extends React.Component {
     )
   }
 
-  _getInfinite() {
-    const { program } = this.props
-    const { q } = this.state
+  _getCall(call) {
+    const { onPop } = this.props
     return {
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/calls`,
-      refresh: `/admin/crm/programs/${program.id}/channels/voice/calls`,
-      filter: {
-        q
-      },
-      layout: Results,
-      props: {
-        onChoose: this._handleChannel
-      }
-    }
-  }
-
-  _getSearchBox() {
-    return {
-      onChange: this._handleQuery
+      call,
+      onPop
     }
   }
 
@@ -66,12 +53,34 @@ class Calls extends React.Component {
     }
   }
 
+  _getInfinite() {
+    const { program } = this.props
+    const { q } = this.state
+    return {
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/calls`,
+      refresh: `/admin/crm/programs/${program.id}/channels/voice/calls`,
+      filter: {
+        q
+      },
+      layout: Results,
+      props: {
+        onChoose: this._handleCall
+      }
+    }
+  }
+
+  _getSearchBox() {
+    return {
+      onChange: this._handleQuery
+    }
+  }
+
   _handleQuery(q) {
     this.setState({ q })
   }
 
-  _handleChannel(channel) {
-
+  _handleCall(call) {
+    this.props.onPush(Call, this._getCall(call))
   }
 
 }

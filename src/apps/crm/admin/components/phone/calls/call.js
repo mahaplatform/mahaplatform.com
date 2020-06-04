@@ -1,15 +1,12 @@
 import { ModalPanel } from 'maha-admin'
-import SMSClient from '../../sms_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class SMS extends React.Component {
+class Call extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
-    program: PropTypes.object,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func
+    call: PropTypes.object,
+    onPop: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -17,22 +14,14 @@ class SMS extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <SMSClient { ...this._getClient() } />
+        call
       </ModalPanel>
     )
   }
 
-  _getClient() {
-    const { channel, program } = this.props
-    return {
-      program,
-      channel
-    }
-  }
-
   _getPanel() {
     return {
-      title: 'Conversation',
+      title: 'Call',
       color: 'violet',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
@@ -46,4 +35,4 @@ class SMS extends React.Component {
 
 }
 
-export default SMS
+export default Call
