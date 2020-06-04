@@ -1,0 +1,37 @@
+.crm-recipientsfield {
+
+}
+.crm-recipientsfield-recipients {
+  border: 1px solid fadeout(@black, 85);
+  border-radius: 5px;
+  .crm-recipientsfield-recipient:last-child {
+    border-bottom: none;
+  }
+}
+.crm-recipientsfield-recipient {
+  border-bottom: 1px solid fadeout(@black, 85);
+  display: flex;
+}
+.crm-recipientsfield-recipient-label {
+  padding: 0.6em 0.8em;
+  flex: 1;
+  span {
+    color: fadeout(@black, 60);
+  }
+}
+.crm-recipientsfield-recipient-action {
+  padding: 0.6em 0.8em 0.6em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    margin: 0 auto;
+  }
+}
+.crm-recipientsfield-recipients-add {
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}

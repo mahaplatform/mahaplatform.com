@@ -1,4 +1,5 @@
-import { Container, Form, UserToken } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
+import RecipientsField from '../../recipientsfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -40,12 +41,14 @@ class Dial extends React.PureComponent {
 
   _getDefault() {
     return {
-      strategy: 'user'
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      recipients: []
     }
   }
 
   _getForm() {
     const { config } = this.state
+    const { users } = this.props
     return {
       reference: node => this.form = node,
       title: 'Dial',
@@ -60,23 +63,19 @@ class Dial extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Recipient', type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', options: [{ value: 'user', text: 'Choose a specific user'},{ value: 'number', text: 'Enter a phone number' }], defaultValue: config.strategy },
-              this._getStrategy()
-            ] }
+            { name: 'code', type: 'hidden', defaultValue: config.code },
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', instructions: `
+              Provide a name for this call so you can evaluate whether or not
+              the call was answered
+            `, required: true, defaultValue: config.name },
+            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
+              Add up to ten recipients. When an incoming call arrives,
+              all phones will ring and the call will be transfered to the first
+              phone to answer
+            `, required: true, defaultValue: config.recipients }
           ]
         }
       ]
-    }
-  }
-
-  _getStrategy() {
-    const { config } = this.state
-    const { users } = this.props
-    if(config.strategy === 'number') {
-      return { name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
-    } else {
-      return { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user_id') }
     }
   }
 

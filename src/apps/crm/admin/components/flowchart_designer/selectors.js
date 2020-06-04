@@ -13,7 +13,7 @@ const steps = (state, props) => [
 const dynamicSteps = createSelector(
   steps,
   (steps) => steps.filter((step) => {
-    return _.includes(['set','question','record'], step.action)
+    return _.includes(['set','question','record','dial'], step.action)
   })
 )
 
@@ -53,11 +53,32 @@ export const fields = createSelector(
   (inputFields, steps) => [
     ...inputFields,
     ...steps.length > 0 ? [
-      { label: 'Workflow', fields: steps.map(step => ({
-        name: step.config.name.value,
-        key: `workflow.${step.config.code}`,
-        type: 'text'
-      }))}
+      { label: 'Workflow', fields: steps.reduce((fields, step) => [
+        ...fields,
+        ..._.includes(['set','question','record'], step.action) ? [{
+          name: step.config.name.value,
+          key: `workflow.${step.config.code}`,
+          type: 'text'
+        }] : [],
+        ...step.action === 'dial' ? [
+          {
+            name: `${step.config.name.value} Status`,
+            key: `workflow.${step.config.code}_status`,
+            type: 'callstatus'
+          },
+          {
+            name: `${step.config.name.value} Recipient`,
+            key: `workflow.${step.config.code}_recipient`,
+            type: 'select',
+            options: step.config.recipients.map(recipient => ({
+              value: recipient.code,
+              text: recipient.strategy === 'number' ?
+                recipient.number :
+                `${recipient.user_id} (${recipient.strategy} phone)`
+            }))
+          }
+        ] : []
+      ], [])}
     ] : []
   ]
 )
@@ -69,13 +90,18 @@ export const tokens = createSelector(
     ...inputTokens,
     ...steps.length > 0 ? [{
       title: 'Workflow', tokens: steps.map(step => ({
-        ...step.action === 'record' ? {
-          name: `${step.config.name.value} Redording URL`,
-          token: `workflow.${step.config.name.token}_recording_url`
-        } : {
+        ..._.includes(['set','question'], step.action) ? {
           name: step.config.name.value,
           token: `workflow.${step.config.name.token}`
-        }
+        } : {},
+        ...step.action === 'dial' ? {
+          name: `${step.config.name.value} Was ansered`,
+          token: `workflow.${step.config.name.token}_status`
+        } : {},
+        ...step.action === 'record' ? {
+          name: `${step.config.name.value} Recording URL`,
+          token: `workflow.${step.config.name.token}_recording_url`
+        } : {}
       }))
     }] : []
   ]

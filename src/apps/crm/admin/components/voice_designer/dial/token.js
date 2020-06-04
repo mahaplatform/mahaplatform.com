@@ -9,62 +9,75 @@ class Token extends React.Component {
   }
 
   static propTypes = {
-    user_id: PropTypes.number,
-    number: PropTypes.string
+    recipients: PropTypes.array,
+    strategy: PropTypes.string
   }
 
   state = {
-    user: null
+    users: null
   }
 
   _handleFetch = this._handleFetch.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { number } = this.props
-    const { user } = this.state
+    const { recipients } = this.props
     return (
       <div>
-        { number &&
-          <div>{ number }</div>
-        }
-        { user &&
-          <div>
-            { user.full_name }<br />
-            { user.cell_phone }
+        { recipients.map((recipient, index) => (
+          <div key={`recipient_${index}`}>
+            { recipient.number &&
+              <div>{ recipient.number }</div>
+            }
+            { recipient.user_id &&
+              <div>
+                { this._getUser(recipient.user_id) }
+              </div>
+            }
           </div>
-        }
+        )) }
       </div>
     )
-
   }
 
   componentDidMount() {
-    const { user_id } = this.props
-    if(user_id) this._handleFetch()
+    const user_ids = this._getUserIds()
+    if(user_ids.length > 0) this._handleFetch(user_ids)
   }
 
-  componentDidUpdate(prevProps) {
-    const { user_id } = this.props
-    if(!_.isEqual(user_id, prevProps.user_id)) {
-      this._handleFetch()
-    }
+  _getUserIds() {
+    const { recipients } = this.props
+    return recipients.filter(recipient => {
+      return recipient.strategy !== 'number'
+    }).map(recipient => recipient.user_id)
   }
 
-  _handleFetch() {
-    const { user_id } = this.props
+  _getUser(id) {
+    const { users } = this.state
+    const user = _.find(users, { id })
+    return user ? user.full_name : null
+  }
+
+  _handleFetch(user_ids) {
     this.context.network.request({
-      endpoint: `/api/admin/users/${user_id}`,
+      endpoint: '/api/admin/users',
+      query: {
+        $filter: {
+          id: {
+            $in: user_ids
+          }
+        }
+      },
       onSuccess: this._handleSuccess
     })
   }
 
   _handleSuccess({ data }) {
     this.setState({
-      user: data
+      users: data
     })
   }
-}
 
+}
 
 export default Token

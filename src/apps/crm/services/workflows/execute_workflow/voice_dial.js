@@ -1,70 +1,100 @@
 import User from '../../../../maha/models/user'
 import { twiml } from 'twilio'
 
+const getUser = async (req, user_id) => {
+  return await User.query(qb => {
+    qb.where('id', user_id)
+  }).fetch({
+    transacting: req.trx
+  })
+}
+
+const getRecipient = async (req, { recipients, call }) => {
+  if(call.status !== 'completed') return {}
+  return await Promise.reduce(recipients, async (found, recipient) => {
+    if(found) return found
+    const { number, strategy, user_id } = recipient
+    if(strategy === 'number' && number === call.number) return recipient
+    if(strategy === 'software' && user_id === call.user_id) return recipient
+    const user = await getUser(req, user_id)
+    if(strategy === 'cell' && user.get('cell_phone') === call.number) return recipient
+    return null
+  }, null)
+}
+
 const dial = async (req, { call, config, enrollment, execute, step }) => {
 
   if(execute === false) {
+
+    const recipient = await getRecipient(req, {
+      call,
+      recipients: config.recipients
+    })
+
     return {
       ...call.status === 'failed' ? {
         unenroll: true
       } : {},
       action: {
-        ...config.user_id ? {
-          user_id: config.user_id
+        ...recipient.user_id ? {
+          user_id: recipient.user_id
         } : {},
         data: {
-          ...config.number ? {
-            number: config.number
-          } : {},
-          duration: call.duration,
-          status: call.status
+          [`${config.code}_recipient`]: recipient.code || null,
+          [`${config.code}_status`]: call.status,
+          [`${config.code}_duration`]: call.duration
         }
       }
     }
   }
 
-  const user = config.user_id ? await User.query(qb => {
-    qb.where('id', config.user_id)
-  }).fetch({
-    transacting: req.trx
-  }) : null
-
   const response = new twiml.VoiceResponse()
 
   const dial = response.dial({
     action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/dial`,
-    callerId: enrollment.related('voice_campaign').related('phone_number').get('number')
+    callerId: enrollment.related('voice_campaign').related('phone_number').get('number'),
+    timeout: 15
   })
 
-  if(user) {
+  await Promise.mapSeries(config.recipients, async (recipient) => {
 
-    const client = dial.client(`user-${user.get('id')}`)
+    if(recipient.strategy === 'number') {
 
-    client.parameter({
-      name: 'contact_id',
-      value: enrollment.get('contact_id')
-    })
+      dial.number(config.number)
 
-    client.parameter({
-      name: 'program_id',
-      value: enrollment.related('voice_campaign').get('program_id')
-    })
+    } else if(recipient.strategy === 'software') {
 
-    client.parameter({
-      name: 'from',
-      value: enrollment.related('phone_number').get('number')
-    })
+      const client = dial.client(`user-${recipient.user_id}`)
 
-    client.parameter({
-      name: 'to',
-      value: enrollment.related('voice_campaign').related('phone_number').get('number')
-    })
+      client.parameter({
+        name: 'contact_id',
+        value: enrollment.get('contact_id')
+      })
 
-  }
+      client.parameter({
+        name: 'program_id',
+        value: enrollment.related('voice_campaign').get('program_id')
+      })
 
-  if(user.get('cell_phone')) dial.number(user.get('cell_phone'))
+      client.parameter({
+        name: 'from',
+        value: enrollment.related('phone_number').get('number')
+      })
 
-  if(config.number) dial.number(config.number)
+      client.parameter({
+        name: 'to',
+        value: enrollment.related('voice_campaign').related('phone_number').get('number')
+      })
+
+    } else if(recipient.strategy === 'cell') {
+
+      const user = await getUser(req, recipient.user_id)
+
+      dial.number(user.get('cell_phone'))
+
+    }
+
+  })
 
   return {
     twiml: response.toString()

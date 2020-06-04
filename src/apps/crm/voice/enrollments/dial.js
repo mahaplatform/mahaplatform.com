@@ -20,13 +20,19 @@ const dialRoute = async (req, res) => {
 
   const call = await twilio.calls(req.body.DialCallSid).fetch()
 
+  const { duration, status, to } = call
+
+  const matches = status === 'completed' ? to.match(/^client:user-(.*)$/) : null
+
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
     execute: false,
     call: {
-      duration: call.duration,
-      status: call.status
+      duration,
+      status,
+      user_id: status === 'completed' && matches !== null ? parseInt(matches[1]) : null,
+      number: status === 'completed' && matches === null ? call.to : null
     }
   })
 

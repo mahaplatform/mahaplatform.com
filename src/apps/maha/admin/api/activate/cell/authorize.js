@@ -1,3 +1,4 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import client from '../../../../../../core/services/twilio'
 import redis from '../../../../../../core/services/redis'
 
@@ -11,8 +12,10 @@ const authorizeRoute = async (req, res) => {
     to: req.body.cell_phone
   })
 
+  const cell_phone = parsePhoneNumberFromString(req.body.cell_phone, 'US')
+
   const data = JSON.stringify({
-    cell_phone: req.body.cell_phone,
+    cell_phone: cell_phone.number,
     code
   })
 

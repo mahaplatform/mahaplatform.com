@@ -50,6 +50,14 @@ const testNotIn = (left, right) => {
   return !_.includes(right, left)
 }
 
+const testAn = (left, right) => {
+  return left === 'completed'
+}
+
+const testNotAn = (left, right) => {
+  return left !== 'completed'
+}
+
 const testContains = (left, right) => {
   return _.includes(left, right)
 }
@@ -85,6 +93,8 @@ const getEvaluator = (comparison) => {
   if(comparison === '$nlk') return testNotLike
   if(comparison === '$in') return testIn
   if(comparison === '$nin') return testNotIn
+  if(comparison === '$an') return testAn
+  if(comparison === '$nan') return testNotAn
   if(comparison === '$ct') return testContains
   if(comparison === '$nct') return testNotContains
   if(comparison === '$lt') return testLessThan
@@ -117,7 +127,7 @@ const evaluateCondition = async (filter, data) => {
 const evaluate = async (filter, data) => {
   if(filter.$and) return evaluateAnd(filter, data)
   if(filter.$or) return evaluateOr(filter, data)
-  return evaluateCondition(filter, data)
+  return await evaluateCondition(filter, data)
 }
 
 const getBranch = async (branches, data) => {

@@ -64,7 +64,7 @@ class Token extends React.Component {
       list: data
     })
   }
-}
 
+}
 
 export default Token

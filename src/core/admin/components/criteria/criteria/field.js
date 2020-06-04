@@ -1,3 +1,4 @@
+import CallStatus from './callstatus'
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
 import Activity from './activity'
@@ -49,6 +50,7 @@ class Field extends React.PureComponent {
     if(type === 'boolean') return Boolean
     if(type === 'checkbox') return Checkbox
     if(type === 'daterange') return DateRange
+    if(type === 'callstatus') return CallStatus
     if(type === 'file') return File
     if(type === 'select') return Select
     if(type === 'date') return Date

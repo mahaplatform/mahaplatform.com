@@ -32,26 +32,42 @@ class Call extends React.Component {
           <h2>{ contact.display_name }</h2>
           <p><Button { ...this._getContactButton(contact) } /></p>
         </div>
-        { call.status === 'ringing' &&
-          <div className="maha-phone-call-body">
-            <div className="maha-phone-call-button pickup" onClick={ this._handlePickup }>
-              <i className="fa fa-phone" />
+        <div className="maha-phone-call-body">
+          { call.status === 'ringing' &&
+            <div className="maha-phone-call-actions">
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button pickup" onClick={ this._handlePickup }>
+                  <i className="fa fa-phone" />
+                </div>
+              </div>
             </div>
-          </div>
-        }
-        { call.status === 'active' &&
-          <div className="maha-phone-call-body">
-            <div className="maha-phone-call-button" onClick={ this._handleMute }>
-              { call.muted ?
-                <i className="fa fa-microphone-slash" />:
-                <i className="fa fa-microphone" />
-              }
+          }
+          { call.status === 'active' &&
+            <div className="maha-phone-call-actions">
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button" onClick={ this._handlePause }>
+                  { call.paused ?
+                    <i className="fa fa-play" />:
+                    <i className="fa fa-pause" />
+                  }
+                </div>
+              </div>
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button" onClick={ this._handleMute }>
+                  { call.muted ?
+                    <i className="fa fa-microphone-slash" />:
+                    <i className="fa fa-microphone" />
+                  }
+                </div>
+              </div>
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button hangup" onClick={ this._handleHangup }>
+                  <i className="fa fa-phone" />
+                </div>
+              </div>
             </div>
-            <div className="maha-phone-call-button hangup" onClick={ this._handleHangup }>
-              <i className="fa fa-phone" />
-            </div>
-          </div>
-        }
+          }
+        </div>
       </div>
     )
   }
