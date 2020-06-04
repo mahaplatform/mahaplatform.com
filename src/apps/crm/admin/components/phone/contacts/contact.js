@@ -29,24 +29,103 @@ class Contact extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-phone-contact">
-          <ContactAvatar { ...contact } />
-          <h2>{ contact.display_name }</h2>
-          <p>{ contact.email }</p>
-          <p>{ contact.phone }</p>
-          <div className="maha-phone-contact-actions">
-            <div className="maha-phone-contact-action" onClick={ this._handleSMS }>
-              <div className="maha-phone-contact-button">
-                <i className="fa fa-comment" />
+          <div className="maha-phone-contact-header">
+            <ContactAvatar { ...contact } />
+            <h2>{ contact.display_name }</h2>
+            <p>{ contact.email }</p>
+            <p>{ contact.phone }</p>
+            <div className="maha-phone-contact-actions">
+              <div className="maha-phone-contact-action" onClick={ this._handleSMS }>
+                <div className="maha-phone-contact-button">
+                  <i className="fa fa-comment" />
+                </div>
+              </div>
+              <div className="maha-phone-contact-action" onClick={ this._handleCall }>
+                <div className="maha-phone-contact-button">
+                  <i className="fa fa-phone" />
+                </div>
+              </div>
+              <div className="maha-phone-contact-action" onClick={ this._handleInfo }>
+                <div className="maha-phone-contact-button">
+                  <i className="fa fa-info" />
+                </div>
               </div>
             </div>
-            <div className="maha-phone-contact-action" onClick={ this._handleCall }>
-              <div className="maha-phone-contact-button">
+          </div>
+          <div className="maha-phone-contact-title">
+            Communication History
+          </div>
+          <div className="maha-phone-contact-body">
+            <div className="maha-phone-contact-activity call">
+              <div className="maha-phone-contact-activity-icon">
                 <i className="fa fa-phone" />
               </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
             </div>
-            <div className="maha-phone-contact-action" onClick={ this._handleInfo }>
-              <div className="maha-phone-contact-button">
-                <i className="fa fa-info" />
+            <div className="maha-phone-contact-activity sms">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-comment" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity email">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-envelope" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity call">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-phone" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity call">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-phone" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity sms">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-comment" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity email">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-envelope" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
+              </div>
+            </div>
+            <div className="maha-phone-contact-activity call">
+              <div className="maha-phone-contact-activity-icon">
+                <i className="fa fa-phone" />
+              </div>
+              <div className="maha-phone-contact-activity-label">
+                Phone Call<br />
+                52 seconds
               </div>
             </div>
           </div>
