@@ -29,6 +29,7 @@ class PhoneContainer extends React.Component {
   }
 
   _handleCall = this._handleCall.bind(this)
+  _handleCancel= this._handleCancel.bind(this)
   _handleCheck = this._handleCheck.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleConnect = this._handleConnect.bind(this)
@@ -115,6 +116,12 @@ class PhoneContainer extends React.Component {
     })
   }
 
+  _handleCancel() {
+    this.setState({
+      status: 'ready'
+    })
+  }
+
   _handleCheck() {
     const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
     this.setState({ loaded })
@@ -137,7 +144,7 @@ class PhoneContainer extends React.Component {
   _handleDisconnect() {
     this.setState({
       call: null,
-      muted: null,
+      muted: false,
       status: 'ready'
     })
   }
@@ -171,6 +178,7 @@ class PhoneContainer extends React.Component {
     window.Twilio.Device.on('disconnect', this._handleDisconnect)
     window.Twilio.Device.on('error', this._handleError)
     window.Twilio.Device.on('incoming', this._handleIncoming)
+    window.Twilio.Device.on('cancel', this._handleCancel)
   }
 
   _handleMute() {

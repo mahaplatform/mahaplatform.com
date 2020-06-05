@@ -30,7 +30,7 @@ class Call extends React.Component {
         <div className="maha-phone-call-contact">
           <ContactAvatar { ...contact } />
           <h2>{ contact.display_name }</h2>
-          <p><Button { ...this._getContactButton(contact) } /></p>
+          <div><Button { ...this._getContactButton(contact) } /></div>
         </div>
         <div className="maha-phone-call-body">
           { call.status === 'ringing' &&

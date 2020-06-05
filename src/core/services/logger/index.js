@@ -52,7 +52,7 @@ class Logger {
       statusCode: 500,
       ...data,
       error_message: error.message,
-      error_stack: error.stack.split('\n').map(line => line.trim()).slice(1),
+      error_stack: error.stack,
       duration,
       queries: this.sql.map(query => ({
         sql: query.sql,

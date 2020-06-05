@@ -66,24 +66,20 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
       const client = dial.client(`user-${recipient.user_id}`)
 
-      client.parameter({
-        name: 'contact_id',
-        value: enrollment.get('contact_id')
-      })
+      const params = {
+        id: enrollment.get('call_id'),
+        enrollment_id: enrollment.get('id'),
+        contact_id: enrollment.get('contact_id'),
+        program_id: enrollment.related('voice_campaign').get('program_id'),
+        from: enrollment.related('phone_number').get('number'),
+        to: enrollment.related('voice_campaign').related('phone_number').get('number')
+      }
 
-      client.parameter({
-        name: 'program_id',
-        value: enrollment.related('voice_campaign').get('program_id')
-      })
-
-      client.parameter({
-        name: 'from',
-        value: enrollment.related('phone_number').get('number')
-      })
-
-      client.parameter({
-        name: 'to',
-        value: enrollment.related('voice_campaign').related('phone_number').get('number')
+      Object.keys(params).map(name => {
+        client.parameter({
+          name,
+          value: params[name]
+        })
       })
 
     } else if(recipient.strategy === 'cell') {
@@ -95,6 +91,8 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
     }
 
   })
+
+  console.log(response.toString())
 
   return {
     twiml: response.toString()

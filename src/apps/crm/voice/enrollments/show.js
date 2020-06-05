@@ -1,6 +1,5 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { executeWorkflow } from '../../services/workflows'
-import _ from 'lodash'
 
 const showRoute = async (req, res) => {
 
