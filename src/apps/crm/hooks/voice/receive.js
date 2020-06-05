@@ -6,6 +6,7 @@ import { executeWorkflow } from '../../services/workflows'
 import VoiceCampaign from '../../models/voice_campaign'
 import PhoneNumber from '../../models/phone_number'
 import Contact from '../../models/contact'
+import { twiml } from 'twilio'
 
 const getPhoneNumber = async (req, { number }) => {
 
@@ -68,7 +69,8 @@ const receive = async (req, { call, phone_number }) => {
     program_id: phone_number.related('program').get('id'),
     phone_number_id: from.get('id')
   },{
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await socket.refresh(req, [
@@ -83,7 +85,11 @@ const receive = async (req, { call, phone_number }) => {
     transacting: req.trx
   })
 
-  if(!voice_campaign) return
+  if(!voice_campaign) {
+    const response = new twiml.VoiceResponse()
+    response.say(`You have reached ${phone_number.related('program').get('title')}. I'm sorry, no one is able to take your call`)
+    return response.toString()
+  }
 
   const enrollment = await enrollInCampaign(req, {
     phone_number: from,

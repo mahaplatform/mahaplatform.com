@@ -24,9 +24,6 @@ const getTasks = (user, { fields, program }) => ({
   items: [
     ...program.access_type === 'manage' ? [
       { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> }
-    ] : [],
-    ...program.access_type !== 'view' ? [
-      { label: 'Manage Communication', route: `/admin/crm/programs/${program.id}/channels` }
     ] : []
   ]
 })

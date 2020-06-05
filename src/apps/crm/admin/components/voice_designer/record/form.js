@@ -74,7 +74,10 @@ class Record extends React.PureComponent {
               { name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', required: true, options: [{ value: 'no', text: 'No, immediately save recording' },{ value: 'yes', text: 'Yes, require confirmation' }], defaultValue: config.confirm }
+            { label: 'Confirm Recoring?', name: 'confirm', type: 'radiogroup', instructions: `
+              When the caller is done recording their message, you can play it
+              back to them and let them record it again if they wish
+            `, required: true, options: [{ value: 'no', text: 'No, immediately save recording' },{ value: 'yes', text: 'Yes, require confirmation' }], defaultValue: config.confirm }
           ]
         }
       ]

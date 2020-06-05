@@ -11,8 +11,6 @@ router.get('/:code/recording', recording)
 
 router.post('/:enrollment_code', show)
 
-router.post('/:enrollment_code/recording', recording)
-
 router.post('/:enrollment_code/:code', show)
 
 router.post('/:enrollment_code/:code/dial', dial)

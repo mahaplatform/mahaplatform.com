@@ -62,20 +62,15 @@ export const fields = createSelector(
         }] : [],
         ...step.action === 'dial' ? [
           {
-            name: `${step.config.name.value} Status`,
+            name: `Call Status (${step.config.name.value})`,
             key: `workflow.${step.config.code}_status`,
             type: 'callstatus'
           },
           {
-            name: `${step.config.name.value} Recipient`,
+            name: `Call Recipient (${step.config.name.value})`,
             key: `workflow.${step.config.code}_recipient`,
-            type: 'select',
-            options: step.config.recipients.map(recipient => ({
-              value: recipient.code,
-              text: recipient.strategy === 'number' ?
-                recipient.number :
-                `${recipient.user_id} (${recipient.strategy} phone)`
-            }))
+            type: 'callrecipients',
+            recipients: step.config.recipients
           }
         ] : []
       ], [])}

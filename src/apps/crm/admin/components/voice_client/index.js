@@ -1,7 +1,7 @@
 import ContactAvatar from '../../tokens/contact_avatar'
 import { Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Timer from './timer'
+import Timer from '../timer'
 import React from 'react'
 
 class VoiceClient extends React.Component {
@@ -66,7 +66,7 @@ class VoiceClient extends React.Component {
               <div { ...this._getButton() }>
                 <i className="fa fa-phone" />
               </div>
-              <div className="crm-call-timer">
+              <div className="crm-call-footer">
                 { status === 'active' &&
                   <Timer />
                 }

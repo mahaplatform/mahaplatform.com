@@ -2,7 +2,7 @@ import ContactAvatar from '../../../tokens/contact_avatar'
 import { ModalPanel } from 'maha-admin'
 import Program from '../programs/program'
 import PropTypes from 'prop-types'
-import Timer from './timer'
+import Timer from '../../timer'
 import React from 'react'
 
 class Call extends React.Component {
@@ -44,10 +44,16 @@ class Call extends React.Component {
                   <div className="maha-phone-call-button hangup" onClick={ this._handleReject }>
                     <i className="fa fa-phone" />
                   </div>
+                  <div className="maha-phone-call-label">
+                    Decline
+                  </div>
                 </div>
                 <div className="maha-phone-call-action">
                   <div className="maha-phone-call-button pickup" onClick={ this._handleAccept }>
                     <i className="fa fa-phone" />
+                  </div>
+                  <div className="maha-phone-call-label">
+                    Accept
                   </div>
                 </div>
               </div>
@@ -63,17 +69,28 @@ class Call extends React.Component {
                   <div className="maha-phone-call-button" onClick={ this._handleInfo }>
                     <i className="fa fa-info" />
                   </div>
+                  <div className="maha-phone-call-label">
+                    Info
+                  </div>
                 </div>
-                <div className="maha-phone-call-action">
-                  { call.muted ?
+                { call.muted ?
+                  <div className="maha-phone-call-action">
                     <div className="maha-phone-call-button depressed" onClick={ this._handleMute }>
                       <i className="fa fa-microphone-slash" />
-                    </div> :
+                    </div>
+                    <div className="maha-phone-call-label">
+                     Unmute
+                    </div>
+                  </div> :
+                  <div className="maha-phone-call-action">
                     <div className="maha-phone-call-button" onClick={ this._handleMute }>
                       <i className="fa fa-microphone" />
                     </div>
-                  }
-                </div>
+                    <div className="maha-phone-call-label">
+                      Mute
+                    </div>
+                  </div>
+                }
               </div>
               <div className="maha-phone-call-actions">
                 <div className="maha-phone-call-action">
@@ -98,7 +115,7 @@ class Call extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Call',
+      title: 'Incoming Call',
       color: 'violet'
     }
   }

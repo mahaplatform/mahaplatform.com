@@ -62,6 +62,11 @@ class Calls extends React.Component {
       filter: {
         q
       },
+      empty: {
+        icon: 'phone',
+        title: 'No Calls',
+        text: 'There are no calls for this program'
+      },
       layout: Results,
       props: {
         onChoose: this._handleCall

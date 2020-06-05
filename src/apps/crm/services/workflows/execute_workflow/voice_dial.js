@@ -92,8 +92,6 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
   })
 
-  console.log(response.toString())
-
   return {
     twiml: response.toString()
   }

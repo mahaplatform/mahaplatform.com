@@ -1,8 +1,9 @@
 import Model from '../../../core/objects/model'
-import Program from './program'
 import MailingAddress from './mailing_address'
 import EmailAddress from './email_address'
 import PhoneNumber from './phone_number'
+import Program from './program'
+import Contact from './contact'
 
 const Channel = new Model({
 
@@ -17,6 +18,10 @@ const Channel = new Model({
       if(this.get('type') === 'voice') return 'phone_number_id'
       if(this.get('type') === 'mail') return 'mailing_address_id'
     }
+  },
+
+  contact() {
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   email_address() {

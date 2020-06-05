@@ -161,8 +161,6 @@ export const createOrUpdateContact = async (req, { fields, program, data }) => {
     key: 'number'
   })
 
-  console.log(phone_numbers)
-
   if(phone_numbers.length > 0) {
     await updatePhoneNumbers(req, {
       contact,

@@ -15,7 +15,9 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <h3>{ this._getClock() }</h3>
+      <div className="crm-timer">
+        { this._getClock() }
+      </div>
     )
   }
 

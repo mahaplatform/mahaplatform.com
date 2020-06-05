@@ -5,7 +5,7 @@ import s3 from '../../../../core/services/s3'
 const recordingRoute = async (req, res) => {
 
   const step = await WorkflowStep.query(qb => {
-    qb.where('code', req.params.enrollment_code)
+    qb.where('code', req.params.code)
   }).fetch({
     withRelated: ['team'],
     transacting: req.trx
@@ -13,7 +13,7 @@ const recordingRoute = async (req, res) => {
 
   if(!step) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load enrollment'
+    message: 'Unable to load step'
   })
 
   req.team = step.related('team')

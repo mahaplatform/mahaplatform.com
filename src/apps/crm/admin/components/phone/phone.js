@@ -2,13 +2,13 @@ import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
 import Programs from './programs'
-import DialPad from './dialpad'
+// import DialPad from './dialpad'
 import Calls from './calls'
 import React from 'react'
 import SMS from './sms'
 
 const tabs = [
-  { icon: 'th', label: 'DialPad', component: DialPad },
+  // { icon: 'th', label: 'DialPad', component: DialPad },
   { icon: 'phone', label: 'Calls', component: Calls },
   { icon: 'comments', label: 'SMS', component: SMS },
   { icon: 'user', label: 'Contacts', component: Contacts }

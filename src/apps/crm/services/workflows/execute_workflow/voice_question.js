@@ -2,7 +2,7 @@ import { twiml } from 'twilio'
 
 const voiceQuestion = async (req, { config, enrollment, execute, step, answer }) => {
 
-  const { code, digits, message, recording_id, strategy, voice } = config
+  const { code, message, recording_id, strategy, voice } = config
 
   if(execute === false) {
     return {
@@ -22,9 +22,8 @@ const voiceQuestion = async (req, { config, enrollment, execute, step, answer })
   const gather = response.gather({
     action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/gather`,
     method: 'POST',
-    timeout: 10,
-    finishOnKey: '',
-    numDigits: digits
+    timeout: 3,
+    finishOnKey: ''
   })
 
   if(strategy === 'play') {

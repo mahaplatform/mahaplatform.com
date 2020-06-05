@@ -75,8 +75,7 @@ class Question extends React.PureComponent {
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'How to ask', name: 'strategy', type: 'radiogroup', required: true, options: [{ value: 'say', text: 'Speak text' },{ value: 'play', text: 'Play an audio file'}], defaultValue: config.strategy },
-            this._getStrategy(),
-            { label: 'Digits', name: 'digits', type: 'numberfield', required: true, defaultValue: config.digits, placeholder: 'Enter number of digits to collect' }
+            this._getStrategy()
           ]
         }
       ]

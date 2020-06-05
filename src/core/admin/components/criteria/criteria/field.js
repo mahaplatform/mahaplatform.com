@@ -1,3 +1,4 @@
+import CallRecipients from './callrecipients'
 import CallStatus from './callstatus'
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
@@ -51,6 +52,7 @@ class Field extends React.PureComponent {
     if(type === 'checkbox') return Checkbox
     if(type === 'daterange') return DateRange
     if(type === 'callstatus') return CallStatus
+    if(type === 'callrecipients') return CallRecipients
     if(type === 'file') return File
     if(type === 'select') return Select
     if(type === 'date') return Date

@@ -21,11 +21,13 @@ const cells = [
 class DialPad extends React.Component {
 
   static contextTypes = {
+    network: PropTypes.object,
     phone: PropTypes.object
   }
 
   static propTypes = {
     programs: PropTypes.array,
+    program: PropTypes.object,
     status: PropTypes.string,
     onCall: PropTypes.func
   }
@@ -104,7 +106,7 @@ class DialPad extends React.Component {
 
   _handleCall() {
     const { number } = this.state
-    if(number) this.props.onCall(number)
+    if(number) this._handleFetch(number)
   }
 
   _handleClear() {
@@ -123,8 +125,26 @@ class DialPad extends React.Component {
   _handleKeyPress(e) {
     if(e.charCode !== 13) return
     const { number } = this.state
-    if(number) this.props.onCall(number)
+    if(number) this._handleFetch(number)
   }
+
+  _handleFetch(number) {
+    const { program } = this.props
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/lookup`,
+      query: {
+        number
+      },
+      onSuccess: ({ data }) => {
+        this.context.phone.call({
+          program: data.program,
+          contact: data.contact,
+          to: data.phone_number.number
+        })
+      }
+    })
+  }
+
 
   _handleFormat(value) {
     const asyoutype = new AsYouType('US')
