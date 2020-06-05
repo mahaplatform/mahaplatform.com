@@ -1,5 +1,5 @@
 import Phone from '../../components/phone'
-import { Container } from 'maha-admin'
+import { Container, Dependency } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -10,7 +10,8 @@ class PhoneContainer extends React.Component {
   }
 
   static contextTypes = {
-    admin: PropTypes.object
+    admin: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -20,26 +21,14 @@ class PhoneContainer extends React.Component {
   }
 
   state = {
-    call: null,
-    loaded: false,
-    muted: false,
+    calls: [],
     open: false,
-    ready: false,
-    status: 'ready'
+    ready: false
   }
 
   _handleCall = this._handleCall.bind(this)
-  _handleCancel= this._handleCancel.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
   _handleClose = this._handleClose.bind(this)
-  _handleConnect = this._handleConnect.bind(this)
-  _handleDisconnect = this._handleDisconnect.bind(this)
-  _handleError = this._handleError.bind(this)
-  _handleHangup = this._handleHangup.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
-  _handleMute = this._handleMute.bind(this)
-  _handleMuted = this._handleMuted.bind(this)
-  _handlePickup = this._handlePickup.bind(this)
   _handleReady = this._handleReady.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
@@ -60,32 +49,20 @@ class PhoneContainer extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { loaded } = this.state
-    if(loaded !== prevState.loaded && loaded) {
-      this._handleInit()
-    }
+    this._handleInit()
   }
 
   getChildContext() {
     return {
       phone: {
         call: this._handleCall,
-        mute: this._handleMute,
-        toggle: this._handleToggle,
-        pickup: this._handlePickup,
-        hangup: this._handleHangup
+        toggle: this._handleToggle
       }
     }
   }
 
-  _getParams() {
-    const { call } = this.state
+  _getParams(call) {
     const params = {}
-    if(!call) return params
     call.customParameters.forEach((value, key) => {
       params[key] = value
     })
@@ -93,17 +70,26 @@ class PhoneContainer extends React.Component {
   }
 
   _getPhone() {
-    const { muted, status } = this.state
+    const { calls } = this.state
     const { programs } = this.props
     return {
-      call: {
-        ...this._getParams(),
-        muted,
-        status
-      },
+      calls,
       programs,
       onClose: this._handleClose
     }
+  }
+
+  _handleAccept(connection) {
+    const { CallSid } = connection.parameters
+    this.setState({
+      calls: this.state.calls.map((call) => {
+        if(call.connection.parameters.CallSid !== CallSid) return call
+        return {
+          ...call,
+          status: 'active'
+        }
+      })
+    })
   }
 
   _handleCall({ from, to }) {
@@ -116,92 +102,87 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleCancel() {
-    this.setState({
-      status: 'ready'
-    })
-  }
-
-  _handleCheck() {
-    const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
-    this.setState({ loaded })
-    if(!loaded) setTimeout(this._handleCheck, 1000)
-  }
-
   _handleClose() {
     this.setState({
       open: false
     })
   }
 
-  _handleConnect() {
+  _handleDisconnect(connection) {
+    const { CallSid } = connection.parameters
     this.setState({
-      muted: false,
-      status: 'active'
+      calls: this.state.calls.filter((call) => {
+        return call.connection.parameters.CallSid !== CallSid
+      })
     })
   }
 
-  _handleDisconnect() {
+  _handleError(connection, error) {
+    const { CallSid } = connection.parameters
     this.setState({
-      call: null,
-      muted: false,
-      status: 'ready'
+      calls: this.state.calls.map((call) => {
+        if(call.connection.parameters.CallSid !== CallSid) return call
+        return {
+          ...call,
+          error
+        }
+      })
     })
   }
 
-  _handleError(error) {
-    this.setState({
-      error: error.message
-    })
-  }
-
-  _handleHangup() {
-    window.Twilio.Device.disconnectAll()
-  }
-
-  _handleIncoming(call) {
-    call.on('mute', this._handleMuted)
-    this.setState({
-      call,
-      open: true,
-      status: 'ringing'
+  _handleIncoming(connection) {
+    const { calls } = this.state
+    const params = this._getParams(connection)
+    connection.on('accept', this._handleAccept.bind(this, connection))
+    connection.on('reject', this._handleReject.bind(this, connection))
+    connection.on('cancel', this._handleDisconnect.bind(this, connection))
+    connection.on('disconnect', this._handleDisconnect.bind(this, connection))
+    connection.on('error', this._handleError.bind(this, connection))
+    connection.on('mute', this._handleMuted.bind(this, connection))
+    this.context.network.request({
+      endpoint: `/api/admin/crm/contacts/${params.contact_id}/calls/${params.id}`,
+      method: 'GET',
+      onSuccess: ({ data }) => {
+        this.setState({
+          calls: [
+            ...calls,
+            {
+              connection,
+              call: data,
+              error: null,
+              params,
+              status: 'ringing',
+              muted: false
+            }
+          ],
+          open: true
+        })
+      }
     })
   }
 
   _handleInit() {
     const { token } = this.props
-    window.Twilio.Device.setup(token)
+    window.Twilio.Device.setup(token, {
+      allowIncomingWhileBusy: true
+    })
     const status = window.Twilio.Device.status()
     if(status === 'ready') return this._handleReady()
     window.Twilio.Device.on('ready', this._handleReady)
-    window.Twilio.Device.on('connect', this._handleConnect)
-    window.Twilio.Device.on('disconnect', this._handleDisconnect)
-    window.Twilio.Device.on('error', this._handleError)
     window.Twilio.Device.on('incoming', this._handleIncoming)
-    window.Twilio.Device.on('cancel', this._handleCancel)
   }
 
-  _handleMute() {
-    const { call } = this.state
-    call.mute(!call.isMuted())
-  }
-
-  _handleMuted(muted) {
-    this.setState({ muted })
-  }
-
-  _handleLoad() {
-    const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
-    if(loaded) return this.setState({ loaded })
-    const script = document.createElement('script')
-    script.async = true
-    script.src = '/admin/js/twilio.min.js'
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
-  _handlePickup() {
-    this.state.call.accept()
+  _handleMuted(connection) {
+    const { CallSid } = connection.parameters
+    this.setState({
+      calls: this.state.calls.map((call) => {
+        if(call.connection.parameters.CallSid !== CallSid) return call
+        return {
+          ...call,
+          muted: connection.isMuted()
+        }
+      })
+    })
   }
 
   _handleReady() {
@@ -210,8 +191,13 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleStatus(status) {
-    this.setState({ status })
+  _handleReject(connection) {
+    const { CallSid } = connection.parameters
+    this.setState({
+      calls: this.state.calls.filter((call) => {
+        return call.connection.parameters.CallSid !== CallSid
+      })
+    })
   }
 
   _handleToggle() {
@@ -235,4 +221,12 @@ const mapResources = (props, context) => ({
   token: '/api/admin/phone_numbers/token'
 })
 
-export default Container(mapResources)(PhoneContainer)
+const dependency = {
+  name: 'Twilio',
+  src: '/admin/js/twilio.min.js'
+}
+
+PhoneContainer = Container(mapResources)(PhoneContainer)
+PhoneContainer = Dependency(dependency)(PhoneContainer)
+
+export default PhoneContainer

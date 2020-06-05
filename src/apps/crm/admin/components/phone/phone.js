@@ -22,7 +22,7 @@ class Phone extends React.Component {
   }
 
   static propTypes = {
-    call: PropTypes.object,
+    calls: PropTypes.array,
     programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -41,11 +41,11 @@ class Phone extends React.Component {
 
   render() {
     const { selected } = this.state
-    const { call } = this.props
+    const { calls } = this.props
     const tab = tabs[selected]
     return (
       <ModalPanel { ...this._getPanel() }>
-        { call.status === 'ready' ?
+        { calls.length === 0 ?
           <div className="maha-phone-client">
             <div className="maha-phone-client-header">
               <Programs { ...this._getPrograms() } />
@@ -79,9 +79,9 @@ class Phone extends React.Component {
   }
 
   _getCall() {
-    const { call } = this.props
+    const { calls } = this.props
     return {
-      call
+      calls
     }
   }
 

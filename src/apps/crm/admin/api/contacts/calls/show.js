@@ -19,7 +19,7 @@ const showRoute = async (req, res) => {
   const call = await Call.query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo'],
+    withRelated: ['to','from','program.logo','program.phone_number','user.photo','phone_number.contact.photo'],
     transacting: req.trx
   })
 

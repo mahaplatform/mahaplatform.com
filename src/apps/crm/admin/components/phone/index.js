@@ -8,7 +8,7 @@ class PhoneContainer extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    call: PropTypes.object,
+    calls: PropTypes.array,
     programs: PropTypes.array
   }
 
@@ -28,9 +28,9 @@ class PhoneContainer extends React.Component {
   }
 
   _getPhone() {
-    const { call, programs } = this.props
+    const { calls, programs } = this.props
     return {
-      call,
+      calls,
       programs,
       onPop: this._handlePop,
       onPush: this._handlePush
