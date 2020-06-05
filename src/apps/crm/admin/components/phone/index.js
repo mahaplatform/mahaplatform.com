@@ -2,13 +2,12 @@ import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Phone from './phone'
 import React from 'react'
+import Call from './call'
 
 class PhoneContainer extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
-    calls: PropTypes.array,
+    call: PropTypes.object,
     programs: PropTypes.array
   }
 
@@ -20,17 +19,33 @@ class PhoneContainer extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
+    const { call } = this.props
+    return (
+      <div className="maha-phone-container">
+        <Stack { ...this._getStack() } />
+        { call &&
+          <Call { ...this._getCall() } />
+        }
+      </div>
+    )
+
   }
 
   componentDidMount() {
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
-  _getPhone() {
-    const { calls, programs } = this.props
+  _getCall() {
+    const { call } = this.props
     return {
-      calls,
+      call
+    }
+  }
+
+  _getPhone() {
+    const { call, programs } = this.props
+    return {
+      call,
       programs,
       onPop: this._handlePop,
       onPush: this._handlePush

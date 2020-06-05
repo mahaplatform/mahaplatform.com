@@ -1,5 +1,5 @@
-import Phone from '../../components/phone'
 import { Container, Dependency } from 'maha-admin'
+import Phone from '../../components/phone'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -21,15 +21,18 @@ class PhoneContainer extends React.Component {
   }
 
   state = {
-    calls: [],
-    open: false,
-    ready: false
+    call: null,
+    open: false
   }
 
+  _handleAccept = this._handleAccept.bind(this)
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
+  _handleDisconnect = this._handleDisconnect.bind(this)
+  _handleError = this._handleError.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
-  _handleReady = this._handleReady.bind(this)
+  _handleMuted = this._handleMuted.bind(this)
+  _handleReject = this._handleReject.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -70,36 +73,55 @@ class PhoneContainer extends React.Component {
   }
 
   _getPhone() {
-    const { calls } = this.state
+    const { call } = this.state
     const { programs } = this.props
     return {
-      calls,
+      call,
       programs,
       onClose: this._handleClose
     }
   }
 
-  _handleAccept(connection) {
-    const { CallSid } = connection.parameters
+  _handleAccept() {
+    const { call } = this.state
     this.setState({
-      calls: this.state.calls.map((call) => {
-        if(call.connection.parameters.CallSid !== CallSid) return call
-        return {
-          ...call,
-          status: 'active'
-        }
-      })
+      call: {
+        ...call,
+        status: 'active'
+      }
     })
   }
 
-  _handleCall({ from, to }) {
+  _handleCall({ contact, program, to }) {
     const { admin } = this.context
-    window.Twilio.Device.connect({
-      From: from,
+    const connection = window.Twilio.Device.connect({
+      From: program.phone_number.number,
       To: to,
       client: `user-${admin.user.id}`,
       user_id: admin.user.id
     })
+    this.setState({
+      call: {
+        connection,
+        call: {
+          program,
+          contact,
+          from: program.phone_number.number,
+          to
+        },
+        error: null,
+        params: '',
+        status: 'ringing',
+        muted: false
+      },
+      open: true
+    })
+    connection.on('accept', this._handleAccept)
+    connection.on('reject', this._handleReject)
+    connection.on('cancel', this._handleDisconnect)
+    connection.on('disconnect', this._handleDisconnect)
+    connection.on('error', this._handleError)
+    connection.on('mute', this._handleMuted)
   }
 
   _handleClose() {
@@ -108,53 +130,43 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleDisconnect(connection) {
-    const { CallSid } = connection.parameters
+  _handleDisconnect() {
     this.setState({
-      calls: this.state.calls.filter((call) => {
-        return call.connection.parameters.CallSid !== CallSid
-      })
+      call: null
     })
   }
 
-  _handleError(connection, error) {
-    const { CallSid } = connection.parameters
+  _handleError(error) {
+    const { call } = this.state
     this.setState({
-      calls: this.state.calls.map((call) => {
-        if(call.connection.parameters.CallSid !== CallSid) return call
-        return {
-          ...call,
-          error
-        }
-      })
+      call: {
+        ...call,
+        error
+      }
     })
   }
 
   _handleIncoming(connection) {
-    const { calls } = this.state
     const params = this._getParams(connection)
-    connection.on('accept', this._handleAccept.bind(this, connection))
-    connection.on('reject', this._handleReject.bind(this, connection))
-    connection.on('cancel', this._handleDisconnect.bind(this, connection))
-    connection.on('disconnect', this._handleDisconnect.bind(this, connection))
-    connection.on('error', this._handleError.bind(this, connection))
-    connection.on('mute', this._handleMuted.bind(this, connection))
+    connection.on('accept', this._handleAccept)
+    connection.on('reject', this._handleReject)
+    connection.on('cancel', this._handleDisconnect)
+    connection.on('disconnect', this._handleDisconnect)
+    connection.on('error', this._handleError)
+    connection.on('mute', this._handleMuted)
     this.context.network.request({
       endpoint: `/api/admin/crm/contacts/${params.contact_id}/calls/${params.id}`,
       method: 'GET',
       onSuccess: ({ data }) => {
         this.setState({
-          calls: [
-            ...calls,
-            {
-              connection,
-              call: data,
-              error: null,
-              params,
-              status: 'ringing',
-              muted: false
-            }
-          ],
+          call: {
+            connection,
+            call: data,
+            error: null,
+            params,
+            status: 'ringing',
+            muted: false
+          },
           open: true
         })
       }
@@ -163,25 +175,17 @@ class PhoneContainer extends React.Component {
 
   _handleInit() {
     const { token } = this.props
-    window.Twilio.Device.setup(token, {
-      allowIncomingWhileBusy: true
-    })
-    const status = window.Twilio.Device.status()
-    if(status === 'ready') return this._handleReady()
-    window.Twilio.Device.on('ready', this._handleReady)
+    window.Twilio.Device.setup(token)
     window.Twilio.Device.on('incoming', this._handleIncoming)
   }
 
-  _handleMuted(connection) {
-    const { CallSid } = connection.parameters
+  _handleMuted() {
+    const { call } = this.state
     this.setState({
-      calls: this.state.calls.map((call) => {
-        if(call.connection.parameters.CallSid !== CallSid) return call
-        return {
-          ...call,
-          muted: connection.isMuted()
-        }
-      })
+      call: {
+        ...call,
+        muted: call.connection.isMuted()
+      }
     })
   }
 
@@ -192,11 +196,8 @@ class PhoneContainer extends React.Component {
   }
 
   _handleReject(connection) {
-    const { CallSid } = connection.parameters
     this.setState({
-      calls: this.state.calls.filter((call) => {
-        return call.connection.parameters.CallSid !== CallSid
-      })
+      call: null
     })
   }
 
@@ -227,6 +228,7 @@ const dependency = {
 }
 
 PhoneContainer = Container(mapResources)(PhoneContainer)
+
 PhoneContainer = Dependency(dependency)(PhoneContainer)
 
 export default PhoneContainer

@@ -1,7 +1,12 @@
 .maha-phone-call {
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
+  background-color: @white;
 }
 .maha-phone-call-program {
   display: flex;
@@ -21,15 +26,27 @@
     text-align: center;
     margin: 0;
   }
+  p {
+    color: fadeout(@black, 60);
+  }
 }
 .maha-phone-call-body {
   flex: 1;
   display: flex;
+  flex-direction: column;
 }
 
+.maha-phone-call-timer {
+  height: 2em;
+  text-align: center;
+  h3 {
+    text-align: center;
+    margin: 0;
+    color: fadeout(@black, 60);
+  }
+}
 .maha-phone-call-actions {
   display: flex;
-  flex: 1;
 }
 .maha-phone-call-action {
   flex: 1;
@@ -38,7 +55,7 @@
 .maha-phone-call-button {
   margin: 0 auto;
   display: inline-flex;
-  background-color: fadeout(@black, 90);
+  background-color: fadeout(@black, 80);
   border-radius: 50%;
   width: 3em;
   height: 3em;
@@ -48,6 +65,12 @@
     margin: auto;
     color: @white;
     font-size: 1.4em;
+  }
+  &.depressed {
+    background-color: fadeout(@black, 90);
+    .fa {
+      color: fadeout(@black, 60);
+    }
   }
   &.pickup {
     background-color: @green;

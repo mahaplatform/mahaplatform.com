@@ -1,4 +1,3 @@
-import ContactSerializer from '../../../serializers/contact_serializer'
 import { getContacts } from '../../../services/contacts'
 import Field from '../../../../maha/models/field'
 

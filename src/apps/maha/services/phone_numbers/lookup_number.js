@@ -20,8 +20,8 @@ const lookupNumber = async (req, { number }) => {
   const parts = caller_name.toLowerCase().split(' ')
 
   return {
-    first_name: capitalize(parts.slice(0, 1)),
-    last_name: capitalize(parts.slice(1))
+    first_name: capitalize(parts.slice(1)),
+    last_name: capitalize(parts.slice(0, 1))
   }
 
 }

@@ -5,7 +5,6 @@ import Programs from './programs'
 import DialPad from './dialpad'
 import Calls from './calls'
 import React from 'react'
-import Call from './call'
 import SMS from './sms'
 
 const tabs = [
@@ -22,7 +21,7 @@ class Phone extends React.Component {
   }
 
   static propTypes = {
-    calls: PropTypes.array,
+    call: PropTypes.object,
     programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -40,32 +39,36 @@ class Phone extends React.Component {
   _handleProgram = this._handleProgram.bind(this)
 
   render() {
-    const { selected } = this.state
-    const { calls } = this.props
+    const { program, selected } = this.state
     const tab = tabs[selected]
+    if(!program) return null
     return (
       <ModalPanel { ...this._getPanel() }>
-        { calls.length === 0 ?
-          <div className="maha-phone-client">
-            <div className="maha-phone-client-header">
-              <Programs { ...this._getPrograms() } />
-            </div>
-            <div className="maha-phone-client-body">
-              <tab.component { ...this._getComponent() } />
-            </div>
-            <div className="maha-phone-client-footer">
-              { tabs.map((tab, index) =>(
-                <div { ...this._getTab(index) } key={`tab_${index}`}>
-                  <i className={`fa fa-${ tab.icon }`} />
-                  <span>{ tab.label }</span>
-                </div>
-              ))}
-            </div>
-          </div> :
-          <Call { ...this._getCall() } />
-        }
+        <div className="maha-phone-client">
+          <div className="maha-phone-client-header">
+            <Programs { ...this._getPrograms() } />
+          </div>
+          <div className="maha-phone-client-body">
+            <tab.component { ...this._getComponent() } />
+          </div>
+          <div className="maha-phone-client-footer">
+            { tabs.map((tab, index) =>(
+              <div { ...this._getTab(index) } key={`tab_${index}`}>
+                <i className={`fa fa-${ tab.icon }`} />
+                <span>{ tab.label }</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    const { programs } = this.props
+    this.setState({
+      program: programs[0]
+    })
   }
 
   _getTab(index) {
@@ -75,13 +78,6 @@ class Phone extends React.Component {
     return {
       className: classes.join(' '),
       onClick: this._handleSelect.bind(this, index)
-    }
-  }
-
-  _getCall() {
-    const { calls } = this.props
-    return {
-      calls
     }
   }
 
@@ -108,16 +104,18 @@ class Phone extends React.Component {
 
   _getPrograms() {
     const { programs } = this.props
+    const { program } = this.state
     return {
-      program: programs[0],
+      program,
       programs,
       onChange: this._handleProgram
     }
   }
 
   _handleCall(to) {
+    const { program } = this.state
     this.context.phone.call({
-      from: '+16072248981',
+      program,
       to
     })
   }

@@ -61,8 +61,8 @@ class Contact extends React.Component {
                 <i className="fa fa-phone" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Yesterday</span><br />
+                Incoming Call from Gregory Kops
               </div>
             </div>
             <div className="maha-phone-contact-activity sms">
@@ -70,8 +70,8 @@ class Contact extends React.Component {
                 <i className="fa fa-comment" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Wednesday</span><br />
+                Outgoing SMS Campaign
               </div>
             </div>
             <div className="maha-phone-contact-activity email">
@@ -79,8 +79,8 @@ class Contact extends React.Component {
                 <i className="fa fa-envelope" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Monday</span><br />
+                Email Campaign
               </div>
             </div>
             <div className="maha-phone-contact-activity call">
@@ -88,17 +88,8 @@ class Contact extends React.Component {
                 <i className="fa fa-phone" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity call">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-phone" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Yesterday</span><br />
+                Incoming Call from Gregory Kops
               </div>
             </div>
             <div className="maha-phone-contact-activity sms">
@@ -106,8 +97,8 @@ class Contact extends React.Component {
                 <i className="fa fa-comment" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Wednesday</span><br />
+                Outgoing SMS Campaign
               </div>
             </div>
             <div className="maha-phone-contact-activity email">
@@ -115,17 +106,8 @@ class Contact extends React.Component {
                 <i className="fa fa-envelope" />
               </div>
               <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity call">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-phone" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                Phone Call<br />
-                52 seconds
+                <span>Monday</span><br />
+                Email Campaign
               </div>
             </div>
           </div>
@@ -163,7 +145,11 @@ class Contact extends React.Component {
 
   _handleCall() {
     const { contact, program } = this.props
-    this.context.phone.call(program.phone_number.number, contact.phone)
+    this.context.phone.call({
+      program,
+      contact,
+      to: contact.phone
+    })
   }
 
   _handleInfo() {

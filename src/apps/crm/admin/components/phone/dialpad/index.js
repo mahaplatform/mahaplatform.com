@@ -32,16 +32,18 @@ class DialPad extends React.Component {
 
   state = {
     number: '',
-    formatted: ''
+    formatted: '',
+    value: ''
   }
 
   _handleCall = this._handleCall.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleDial = this._handleDial.bind(this)
+  _handleKeyPress = this._handleKeyPress.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { formatted } = this.state
+    const { value } = this.state
     return (
       <div className="maha-phone-dialpad">
         <div className="maha-phone-dialpad-header">
@@ -49,7 +51,7 @@ class DialPad extends React.Component {
             <div className="maha-input-field">
               <input { ...this._getInput() } />
             </div>
-            { formatted &&
+            { value &&
               <div className="maha-input-clear" onClick={ this._handleClear }>
                 <i className="fa fa-times" />
               </div>
@@ -95,7 +97,8 @@ class DialPad extends React.Component {
       ref: node => this.input = node,
       type: 'text',
       value: formatted,
-      onChange: this._handleType
+      onChange: this._handleType,
+      onKeyPress: this._handleKeyPress
     }
   }
 
@@ -107,21 +110,29 @@ class DialPad extends React.Component {
   _handleClear() {
     this.setState({
       number: '',
-      formatted: ''
+      formatted: '',
+      value: ''
     })
   }
 
-  _handleDial(value) {
+  _handleDial(number) {
+    const { value } = this.state
+    this._handleFormat(value + number)
+  }
+
+  _handleKeyPress(e) {
+    if(e.charCode !== 13) return
     const { number } = this.state
-    this._handleFormat(number + value)
+    if(number) this.props.onCall(number)
   }
 
   _handleFormat(value) {
     const asyoutype = new AsYouType('US')
     const formatted = asyoutype.input(value)
     const parsed = parsePhoneNumberFromString(formatted, 'US')
-    const number = parsed && parsed.isValid() ? parsed.number : null
-    this.setState({ number, formatted })
+    const valid = parsed && parsed.isValid()
+    const number = valid ? parsed.number : null
+    this.setState({ number, formatted, value })
   }
 
   _handleType(e) {
