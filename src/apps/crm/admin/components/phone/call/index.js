@@ -33,7 +33,7 @@ class Call extends React.Component {
             </div>
             <div className="maha-phone-call-contact">
               <ContactAvatar { ...contact } />
-              <h2>{ contact.display_name }</h2>
+              <h2>{ contact.full_name }</h2>
               <p>{ from.formatted }</p>
             </div>
           </div>

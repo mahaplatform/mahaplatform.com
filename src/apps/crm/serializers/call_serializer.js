@@ -17,6 +17,7 @@ const contact = (contact) => {
   if(!contact.id) return null
   return {
     id: contact.get('id'),
+    display_name: contact.get('display_name'),
     full_name: contact.get('full_name'),
     initials: contact.get('initials'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null

@@ -44,8 +44,8 @@ class Call extends React.Component {
         { label: 'Time', content: moment(call.created_at).format('h:mmA') },
         { label: 'Duration', content: this._getDuration(call.duration) },
         { label: 'Direction', content: call.direction },
-        { label: 'From', content: call.from.number },
-        { label: 'To', content: call.to.number }
+        { label: 'From', content: call.from.formatted },
+        { label: 'To', content: call.to.formatted }
       ]
     }
   }
