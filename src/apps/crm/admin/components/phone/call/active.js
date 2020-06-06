@@ -150,7 +150,7 @@ class Call extends React.Component {
 
   _handleMute() {
     const { call } = this.props
-    call.connection.mute()
+    call.connection.mute(!call.muted)
   }
 
   _handleQueue() {
