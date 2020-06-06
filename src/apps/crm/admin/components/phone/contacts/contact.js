@@ -119,7 +119,6 @@ class Contact extends React.Component {
   _getPanel() {
     return {
       title: 'Contact',
-      color: 'violet',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]

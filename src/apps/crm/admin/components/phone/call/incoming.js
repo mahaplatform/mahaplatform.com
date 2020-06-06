@@ -54,8 +54,7 @@ class Call extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Incoming Call',
-      color: 'violet'
+      title: 'Incoming Call'
     }
   }
 

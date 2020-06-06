@@ -1,5 +1,6 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Settings from './settings'
 import Contacts from './contacts'
 import Programs from './programs'
 import DialPad from './dialpad'
@@ -11,7 +12,8 @@ const tabs = [
   { icon: 'th', label: 'DialPad', component: DialPad },
   { icon: 'phone', label: 'Calls', component: Calls },
   { icon: 'comments', label: 'SMS', component: SMS },
-  { icon: 'user', label: 'Contacts', component: Contacts }
+  { icon: 'user', label: 'Contacts', component: Contacts },
+  { icon: 'gear', label: 'Settings', panel: Settings }
 ]
 
 class Phone extends React.Component {
@@ -90,7 +92,6 @@ class Phone extends React.Component {
   _getPanel() {
     return {
       title: 'Phone',
-      color: 'violet',
       leftItems: [
         { icon: 'times', handler: this._handleClose }
       ]
@@ -107,6 +108,13 @@ class Phone extends React.Component {
     }
   }
 
+  _getTabPanel() {
+    const { onPop } = this.props
+    return {
+      onPop
+    }
+  }
+
   _handleClose() {
     this.context.phone.toggle()
   }
@@ -116,7 +124,10 @@ class Phone extends React.Component {
   }
 
   _handleSelect(selected) {
-    this.setState({ selected })
+    const tab = tabs[selected]
+    if(tab.component) return this.setState({ selected })
+    this.props.onPush(tab.panel, this._getTabPanel())
+
   }
 
 }

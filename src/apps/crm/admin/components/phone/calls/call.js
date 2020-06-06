@@ -53,7 +53,6 @@ class Call extends React.Component {
   _getPanel() {
     return {
       title: 'Call',
-      color: 'violet',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
