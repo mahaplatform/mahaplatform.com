@@ -12,9 +12,12 @@ import fields from './fields'
 import topics from './topics'
 import forms from './forms'
 import lists from './lists'
+import calls from './calls'
 import tags from './tags'
 
 const router = new Router({ mergeParams: true })
+
+router.use('/calls', calls)
 
 router.use('/campaigns', campaigns)
 

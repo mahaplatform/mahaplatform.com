@@ -28,8 +28,7 @@ class DialPad extends React.Component {
   static propTypes = {
     programs: PropTypes.array,
     program: PropTypes.object,
-    status: PropTypes.string,
-    onCall: PropTypes.func
+    status: PropTypes.string
   }
 
   state = {
@@ -63,8 +62,8 @@ class DialPad extends React.Component {
         <div className="maha-phone-dialpad-body">
           <div className="maha-phone-dialpad-grid">
             { cells.map((cell, index) => (
-              <div key={`cell_${index}`} className="maha-phone-dialpad-cell"  onClick={ this._handleDial.bind(this, cell.number)}>
-                <div className="maha-phone-dialpad-key">
+              <div key={`cell_${index}`} className="maha-phone-dialpad-cell">
+                <div className="maha-phone-dialpad-key" onClick={ this._handleDial.bind(this, cell.number)}>
                   <div className="maha-phone-dialpad-number">
                     { cell.number }
                   </div>

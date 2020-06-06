@@ -1,28 +1,59 @@
+.maha-phone-receiver {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-phone-receiver-inactive {
+  background-color: fadeout(@black, 97);
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.maha-phone-receiver-inactive-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .contact-avatar-token {
+    width: 2.6em;
+  }
+}
+.maha-phone-receiver-inactive-label {
+  padding: 0.8em;
+  flex: 1;
+  span {
+    color: fadeout(@black, 60);
+  }
+}
+.maha-phone-receiver-inactive-timer {
+  padding: 0.8em 0.8em 0.8em 0;
+  color: @blue;
+  line-height: 2.6em;
+}
+.maha-phone-receiver-active {
+  flex: 1;
+  display: flex;
+}
 .maha-phone-call {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: @white;
 }
-.maha-phone-call-program {
+.maha-phone-call-header {
   display: flex;
-  border-bottom: 1px solid fadeout(@black, 90);
-}
-.maha-phone-call-contact {
-  text-align: center;
   padding: 0.8em;
+}
+.maha-phone-call-program,
+.maha-phone-call-contact {
+  flex: 1;
+  text-align: center;
+  .maha-logo,
   .contact-avatar-token {
-    width: 8em;
+    width: 4em;
     margin: 1em auto;
   }
   .maha-avatar-text {
-    font-size: 3em;
+    font-size: 2em;
   }
-  h2, p {
+  h4, p {
     text-align: center;
     margin: 0;
   }
@@ -35,14 +66,10 @@
   display: flex;
   flex-direction: column;
 }
-
 .maha-phone-call-timer {
-  height: 2em;
-  text-align: center;
-  h3 {
-    text-align: center;
-    margin: 0;
-    color: fadeout(@black, 60);
+  padding: 2.4em 0.8em;
+  .crm-timer {
+    font-size: 1.4em;
   }
 }
 .maha-phone-call-actions {

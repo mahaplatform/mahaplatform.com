@@ -4,11 +4,8 @@ import React from 'react'
 class PhoneBadge extends React.Component {
 
   static contextTypes = {
-    phone: PropTypes.object,
-    router: PropTypes.object
+    phone: PropTypes.object
   }
-
-  static propTypes = {}
 
   _handleClick = this._handleClick.bind(this)
 
@@ -21,9 +18,6 @@ class PhoneBadge extends React.Component {
   }
 
   _handleClick() {
-    if(document.body.clientWidth <= 768) {
-      return this.context.router.history.push('/admin/crm/phone')
-    }
     this.context.phone.toggle()
   }
 

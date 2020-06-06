@@ -24,6 +24,8 @@ const dialRoute = async (req, res) => {
 
   const matches = status === 'completed' ? to.match(/^client:user-(.*)$/) : null
 
+  if(status === 'completed' && matches !== null) return
+
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,

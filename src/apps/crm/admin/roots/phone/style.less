@@ -1,13 +1,27 @@
 .maha-phone {
   display: flex;
   flex: 1;
+  position: relative;
 }
 .maha-phone-main {
   display: flex;
   flex: 1;
 }
 .maha-phone-sidebar {
-  flex: 0 0 350px;
   display: flex;
   position: relative;
+}
+@media (max-width: 768px) {
+  .maha-phone-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+@media (min-width: 769px) {
+  .maha-phone-sidebar {
+    flex: 0 0 350px;
+  }
 }

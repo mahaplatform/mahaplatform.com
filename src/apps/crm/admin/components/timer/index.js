@@ -1,9 +1,13 @@
+import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
 class Timer extends React.Component {
 
-  static propTypes = {}
+  static propTypes = {
+    from: PropTypes.object
+  }
 
   interval = null
 
@@ -15,9 +19,9 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <div className="crm-timer">
+      <span className="crm-timer">
         { this._getClock() }
-      </div>
+      </span>
     )
   }
 
@@ -30,7 +34,8 @@ class Timer extends React.Component {
   }
 
   _getClock() {
-    const { duration } = this.state
+    const { from } = this.props
+    const duration = moment().diff(from, 'seconds')
     const pad = (value) => _.padStart(value, 2, 0)
     const hours = Math.floor(duration / 3600)
     const minutes = Math.floor((duration - (hours * 3600)) / 60)

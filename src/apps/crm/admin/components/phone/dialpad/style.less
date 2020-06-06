@@ -15,7 +15,6 @@
 }
 .maha-phone-dialpad-cell {
   flex: 1 0 ~"calc(100% / 3)";
-  cursor: pointer;
   display: flex;
   padding: 1.2em 0.8em;
 }
@@ -23,17 +22,27 @@
   margin: auto;
   display: inline-block;
   text-align: center;
+  background-color: @blue;
+  width: 3.2em;
+  height: 3.2em;
+  color: @white;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.6em 0;
+  &:hover {
+    background-color: fadeout(@blue, 15);
+  }
 }
 .maha-phone-dialpad-number {
   font-size: 1.6em;
   font-weight: bold;
-  color: @black;
+  color: @white;
 }
 .maha-phone-dialpad-letters {
-  font-size: 0.8em;
+  font-size: 0.6em;
   line-height: 1.6em;
   height: 1.6em;
-  color: fadeout(@black, 60);
+  color: fadeout(@white, 20);
 }
 .maha-phone-dialpad-action {
   display: flex;

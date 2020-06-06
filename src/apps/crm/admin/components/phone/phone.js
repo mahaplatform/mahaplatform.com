@@ -2,13 +2,13 @@ import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
 import Programs from './programs'
-// import DialPad from './dialpad'
+import DialPad from './dialpad'
 import Calls from './calls'
 import React from 'react'
 import SMS from './sms'
 
 const tabs = [
-  // { icon: 'th', label: 'DialPad', component: DialPad },
+  { icon: 'th', label: 'DialPad', component: DialPad },
   { icon: 'phone', label: 'Calls', component: Calls },
   { icon: 'comments', label: 'SMS', component: SMS },
   { icon: 'user', label: 'Contacts', component: Contacts }
@@ -21,7 +21,6 @@ class Phone extends React.Component {
   }
 
   static propTypes = {
-    call: PropTypes.object,
     programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -32,10 +31,7 @@ class Phone extends React.Component {
     selected: 0
   }
 
-  _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
-  _handleHangup = this._handleHangup.bind(this)
-  _handlePickup = this._handlePickup.bind(this)
   _handleProgram = this._handleProgram.bind(this)
 
   render() {
@@ -86,7 +82,6 @@ class Phone extends React.Component {
     const { program } = this.state
     return {
       program,
-      onCall: this._handleCall,
       onPop,
       onPush
     }
@@ -112,24 +107,8 @@ class Phone extends React.Component {
     }
   }
 
-  _handleCall(to) {
-    const { program } = this.state
-    this.context.phone.call({
-      program,
-      to
-    })
-  }
-
   _handleClose() {
     this.context.phone.toggle()
-  }
-
-  _handleHangup() {
-    this.context.phone.hangup()
-  }
-
-  _handlePickup() {
-    this.context.phone.pickup()
   }
 
   _handleProgram(program) {

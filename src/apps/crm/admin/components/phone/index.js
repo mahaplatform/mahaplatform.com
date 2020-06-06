@@ -7,7 +7,7 @@ import Call from './call'
 class PhoneContainer extends React.Component {
 
   static propTypes = {
-    call: PropTypes.object,
+    calls: PropTypes.array,
     programs: PropTypes.array
   }
 
@@ -19,11 +19,11 @@ class PhoneContainer extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    const { call } = this.props
+    const { calls } = this.props
     return (
       <div className="maha-phone-container">
         <Stack { ...this._getStack() } />
-        { call &&
+        { calls.length > 0 &&
           <Call { ...this._getCall() } />
         }
       </div>
@@ -36,16 +36,15 @@ class PhoneContainer extends React.Component {
   }
 
   _getCall() {
-    const { call } = this.props
+    const { calls } = this.props
     return {
-      call
+      calls
     }
   }
 
   _getPhone() {
-    const { call, programs } = this.props
+    const { programs } = this.props
     return {
-      call,
       programs,
       onPop: this._handlePop,
       onPush: this._handlePush

@@ -68,6 +68,7 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
       const params = {
         id: enrollment.get('call_id'),
+        code: step.get('code'),
         enrollment_id: enrollment.get('id'),
         contact_id: enrollment.get('contact_id'),
         program_id: enrollment.related('voice_campaign').get('program_id'),
