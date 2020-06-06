@@ -2,7 +2,6 @@
   flex: 1;
   display: flex;
   .maha-attachments-drive-head,
-  .chat-channels-header,
   .maha-modal-panel-header {
     background-color: @blue !important;
   }
@@ -24,8 +23,17 @@
     display: none;
   }
   .chat-channels-header-search {
+    padding: 0.6em;
     .maha-searchbox {
-      padding: 0 0.8em 0.8em;
+      background-color: fadeout(@black, 95);
+      border-radius: 0.5em;
+      padding: 0.2em;
+    }
+    .maha-searchbox-icon {
+      color: fadeout(@black, 80);
+    }
+    .maha-searchbox-field input {
+      color: fadeout(@black, 60);
     }
   }
 }

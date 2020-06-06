@@ -110,7 +110,9 @@ class Phone extends React.Component {
 
   _getTabPanel() {
     const { onPop } = this.props
+    const { program } = this.state
     return {
+      program,
       onPop
     }
   }

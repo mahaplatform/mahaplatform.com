@@ -13,41 +13,13 @@
   flex-direction: column;
 }
 .chat-channels-header {
-  background: @red;
+  border-bottom: 1px solid fadeout(@black, 90);
 }
 .chat-channels-header-top {
   display: flex;
 }
 .chat-channels-header-search {
   flex: 1;
-  .maha-searchbox-input {
-    background-color: fadeout(@white, 70);
-  }
-  .maha-searchbox-remove-icon {
-    .hover(color, fadeout(@white, 10));
-    color: fadeout(@white, 30);
-  }
-  .maha-searchbox-icon {
-    color: @white;
-  }
-  input {
-    color: @white !important;
-    &::-webkit-input-placeholder {
-      color: fadeout(@white, 20);
-    }
-    &:-moz-placeholder {
-      color: fadeout(@white, 20);
-    }
-    &::-moz-placeholder {
-      color: fadeout(@white, 20);
-    }
-    &::-webkit-input-placeholder,
-    &:-moz-placeholder,
-    &::-moz-placeholder,
-    &:-ms-input-placeholder {
-      color: fadeout(@white, 20);
-    }
-  }
 }
 .chat-channels-header-add {
   display: flex;

@@ -27,6 +27,36 @@
   &.info .fullchat-info {
     display: flex;
   }
+  .chat-channels-header-search {
+    .maha-searchbox-input {
+      background-color: fadeout(@white, 70);
+    }
+    .maha-searchbox-remove-icon {
+      .hover(color, fadeout(@white, 10));
+      color: fadeout(@white, 30);
+    }
+    .maha-searchbox-icon {
+      color: @white;
+    }
+    input {
+      color: @white !important;
+      &::-webkit-input-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &:-moz-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &::-moz-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &::-webkit-input-placeholder,
+      &:-moz-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder {
+        color: fadeout(@white, 20);
+      }
+    }
+  }
 }
 .fullchat-info {
   flex: 0 0 33%;

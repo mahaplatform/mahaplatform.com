@@ -1,3 +1,4 @@
+import Program from '../programs/program'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -5,6 +6,7 @@ import React from 'react'
 class Settings extends React.Component {
 
   static propTypes = {
+    program: PropTypes.object,
     onPop: PropTypes.func
   }
 
@@ -16,6 +18,7 @@ class Settings extends React.Component {
   }
 
   _getForm() {
+    const { program } = this.props
     return {
       title: 'Settings',
       method: 'patch',
@@ -23,10 +26,15 @@ class Settings extends React.Component {
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onSuccess: this._handleSuccess,
+      before: <Program program={ program } />,
       sections: [
         {
+          instructions: `
+            Adjust the settings below for all calls made to and from this
+            program's phone number
+          `,
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true }
+            { label: 'Hold Music', name: 'title', type: 'textfield', required: true }
           ]
         }
       ]
