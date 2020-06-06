@@ -3,6 +3,7 @@ const CallSerializer = (req, result) => ({
   sid: result.get('sid'),
   direction: result.get('direction'),
   duration: result.get('duration'),
+  phone_number: number(result.related('phone_number')),
   contact: contact(result.related('phone_number').related('contact')),
   user: result.get('user_id') ? user(result.related('user')) : null,
   program: program(result.related('program')),

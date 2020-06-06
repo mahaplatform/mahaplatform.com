@@ -37,7 +37,8 @@
 }
 .maha-phone-call {
   width: 100%;
-  margin: auto 0;
+  max-width: 375px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   background-color: @white;
@@ -49,7 +50,7 @@
     .maha-phone-call-header-program {
       order: 3;
     }
-    .maha-phone-call-header-conact {
+    .maha-phone-call-header-contact {
       order: 1;
     }
   }
@@ -57,7 +58,7 @@
     .maha-phone-call-header-program {
       order: 1;
     }
-    .maha-phone-call-header-conact {
+    .maha-phone-call-header-contact {
       order: 3;
     }
   }
@@ -90,6 +91,11 @@
   p {
     color: fadeout(@black, 60);
   }
+}
+.maha-phone-call-transfered {
+  padding: 0.8em;
+  text-align: center;
+  color: red;
 }
 .maha-phone-call-timer {
   padding: 0.8em;

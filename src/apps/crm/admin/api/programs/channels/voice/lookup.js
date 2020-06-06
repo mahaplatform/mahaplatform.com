@@ -10,7 +10,7 @@ const lookupRoute = async (req, res) => {
     qb.where('crm_programs.team_id', req.team.get('id'))
     qb.where('id', req.params.program_id)
   }).fetch({
-    withRelated: ['phone_number'],
+    withRelated: ['phone_number','logo'],
     transacting: req.trx
   })
 
@@ -37,7 +37,7 @@ const lookupRoute = async (req, res) => {
     qb.where('phone_number_id', phone_number.get('id'))
     qb.where('type', 'voice')
   }).fetch({
-    withRelated: ['contact'],
+    withRelated: ['contact.photo'],
     transacting: req.trx
   })
 

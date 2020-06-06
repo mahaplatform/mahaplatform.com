@@ -1,51 +1,61 @@
-import { ModalPanel } from 'maha-admin'
+import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Inactive from './inactive'
-import Incoming from './incoming'
-import Active from './active'
 import React from 'react'
+import Call from './call'
 
-class Call extends React.Component {
+class CallContainer extends React.Component {
 
   static propTypes = {
     calls: PropTypes.array
   }
 
-  render() {
-    const inactive = this._getCalls(false)
-    const active = this._getCalls(true)
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-receiver">
-          { inactive.map((call, index) => (
-            <Inactive key={`call_${index}`} call={ call } />
-          )) }
-          { active.map((call, index) => (
-            <div className="maha-phone-receiver-active" key={`call_${index}`}>
-              { call.status === 'ringing' ?
-                <Incoming call={ call } /> :
-                <Active call={ call } />
-              }
-            </div>
-          )) }
-        </div>
-      </ModalPanel>
-    )
+  state = {
+    cards: []
   }
 
-  _getCalls(active) {
-    return this.props.calls.filter(call => {
-      return call.active === active
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
+
+  render() {
+    return <Stack { ...this._getStack() } />
+  }
+
+  componentDidMount() {
+    this._handlePush(Call, this._getCall.bind(this))
+  }
+
+  _getCall() {
+    const { calls } = this.props
+    return {
+      calls,
+      onPop: this._handlePop,
+      onPush: this._handlePush
+    }
+  }
+
+  _getStack() {
+    const { cards } = this.state
+    return {
+      cards,
+      slideFirst: false
+    }
+  }
+
+  _handlePop(index = -1) {
+    this.setState({
+      cards: this.state.cards.slice(0, index)
     })
   }
 
-  _getPanel() {
-    return {
-      title: 'Incoming Call',
-      color: 'violet'
-    }
+  _handlePush(component, props) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component, props }
+      ]
+    })
   }
 
 }
 
-export default Call
+export default CallContainer

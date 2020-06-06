@@ -16,6 +16,11 @@ class Call extends React.Component {
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
+        { call.params.transfered_from &&
+          <div className="maha-phone-call-transfered">
+            Call transfered from { call.params.transfered_from }
+          </div>
+        }
         <div className="maha-phone-call-body">
           <div className="maha-phone-call-actions">
             <div className="maha-phone-call-action">

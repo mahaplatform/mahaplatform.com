@@ -24,7 +24,7 @@ class Header extends React.Component {
         </div>
         <div className="maha-phone-call-header-contact">
           <ContactAvatar { ...contact } />
-          <h4>{ contact.full_name }</h4>
+          <h4>{ contact.display_name }</h4>
           <p>{ from.formatted }</p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Timer from '../../timer'
 import Header from './header'
+import SMS from '../sms/sms'
 import React from 'react'
 
 class Call extends React.Component {
@@ -11,7 +12,9 @@ class Call extends React.Component {
   }
 
   static propTypes = {
-    call: PropTypes.object
+    call: PropTypes.object,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   _handleEnqueue = this._handleEnqueue.bind(this)
@@ -20,6 +23,8 @@ class Call extends React.Component {
   _handleKeypad = this._handleKeypad.bind(this)
   _handleMute = this._handleMute.bind(this)
   _handleQueue = this._handleQueue.bind(this)
+  _handleSMS = this._handleSMS.bind(this)
+  _handleTransfer = this._handleTransfer.bind(this)
 
   render() {
     const { call } = this.props
@@ -40,13 +45,31 @@ class Call extends React.Component {
               </div>
             </div>
             <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleInfo }>
-                <i className="fa fa-random" />
+              <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
+                <i className="fa fa-th" />
               </div>
               <div className="maha-phone-call-label">
-                transfer call
+                keypad
               </div>
             </div>
+            { call.muted ?
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button depressed" onClick={ this._handleMute }>
+                  <i className="fa fa-microphone-slash" />
+                </div>
+                <div className="maha-phone-call-label">
+                 unmute
+                </div>
+              </div> :
+              <div className="maha-phone-call-action">
+                <div className="maha-phone-call-button" onClick={ this._handleMute }>
+                  <i className="fa fa-microphone" />
+                </div>
+                <div className="maha-phone-call-label">
+                  mute
+                </div>
+              </div>
+            }
             { call.queued ?
               <div className="maha-phone-call-action">
                 <div className="maha-phone-call-button depressed" onClick={ this._handleQueue }>
@@ -77,30 +100,28 @@ class Call extends React.Component {
             </div>
             <div className="maha-phone-call-action">
               <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
-                <i className="fa fa-th" />
+                <i className="fa fa-users" />
               </div>
               <div className="maha-phone-call-label">
-                keypad
+                conference
               </div>
             </div>
-            { call.muted ?
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button depressed" onClick={ this._handleMute }>
-                  <i className="fa fa-microphone-slash" />
-                </div>
-                <div className="maha-phone-call-label">
-                 unmute
-                </div>
-              </div> :
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button" onClick={ this._handleMute }>
-                  <i className="fa fa-microphone" />
-                </div>
-                <div className="maha-phone-call-label">
-                  mute
-                </div>
+            <div className="maha-phone-call-action">
+              <div className="maha-phone-call-button" onClick={ this._handleTransfer }>
+                <i className="fa fa-random" />
               </div>
-            }
+              <div className="maha-phone-call-label">
+                transfer
+              </div>
+            </div>
+            <div className="maha-phone-call-action">
+              <div className="maha-phone-call-button" onClick={ this._handleSMS }>
+                <i className="fa fa-comment" />
+              </div>
+              <div className="maha-phone-call-label">
+                sms
+              </div>
+            </div>
           </div>
           <div className="maha-phone-call-actions">
             <div className="maha-phone-call-action">
@@ -125,6 +146,20 @@ class Call extends React.Component {
     return {
       title: 'Incoming Call',
       color: 'violet'
+    }
+  }
+
+  _getSMS() {
+    const { call, onPop, onPush } = this.props
+    const { contact, program, phone_number} = call.call
+    return  {
+      program,
+      channel: {
+        contact,
+        phone_number
+      },
+      onPop,
+      onPush
     }
   }
 
@@ -156,6 +191,16 @@ class Call extends React.Component {
   _handleQueue() {
     const { call } = this.props
     this.props.call.queue(call)
+  }
+
+  _handleSMS() {
+    this.props.onPush(SMS, this._getSMS())
+  }
+
+  _handleTransfer() {
+    const { call } = this.props
+    this.props.call.transfer(call, 132)
+
   }
 
 }

@@ -34,6 +34,7 @@ class PhoneContainer extends React.Component {
   _handleIncoming = this._handleIncoming.bind(this)
   _handleQueueCall = this._handleQueueCall.bind(this)
   _handleSwapCall = this._handleSwapCall.bind(this)
+  _handleTransferCall = this._handleTransferCall.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -115,20 +116,21 @@ class PhoneContainer extends React.Component {
           active: false
         })),
         {
-          active: true,
-          connection,
-          call,
           accept: this._handleAcceptCall,
+          active: true,
+          call,
+          connection,
           enqueue: this._handleEnqueueCall,
           error: null,
           hangup: this._handleHangupCall,
+          muted: false,
           params,
           queue: this._handleQueueCall,
           queued: false,
           swap: this._handleSwapCall,
           status: 'ringing',
           started_at: moment(),
-          muted: false
+          transfer: this._handleTransferCall
         }
       ],
       open: true
@@ -145,6 +147,7 @@ class PhoneContainer extends React.Component {
         user_id: admin.user.id
       }),
       call: {
+        direction: 'outbound',
         program,
         contact,
         from: program.phone_number.number,
@@ -166,10 +169,12 @@ class PhoneContainer extends React.Component {
   }
 
   _handleEnqueueCall(call, callback) {
-    const { CallSid } = call.connection.parameters
+    const { connection, params } = call
+    const { CallSid } = connection.parameters
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/enqueue`,
       method: 'PATCH',
+      body: { params },
       onSuccess: () => {
         this._handleUpdateCall(CallSid, {
           queued: true
@@ -193,11 +198,11 @@ class PhoneContainer extends React.Component {
   }
 
   _handleHangupCall(call) {
-    const { code } = call.params
+    const { params } = call
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/hangup`,
       method: 'PATCH',
-      body: { code }
+      body: { params }
     })
   }
 
@@ -279,6 +284,18 @@ class PhoneContainer extends React.Component {
     const { open } = this.state
     this.setState({
       open: !open
+    })
+  }
+
+  _handleTransferCall(call, user_id) {
+    const { params } = call
+    this.context.network.request({
+      endpoint: `/api/admin/crm/calls/${call.call.id}/transfer`,
+      method: 'PATCH',
+      body: {
+        params,
+        user_id
+      }
     })
   }
 

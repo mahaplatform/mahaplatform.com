@@ -22,7 +22,7 @@ const hangupRoute = async (req, res) => {
 
   const result = await executeWorkflow(req, {
     enrollment_id: call.related('enrollment').get('id'),
-    code: req.body.code,
+    code: req.body.params.code,
     execute: false,
     call: {
       duration,
