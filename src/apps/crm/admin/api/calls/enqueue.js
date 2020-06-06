@@ -17,7 +17,7 @@ const enqueueRoute = async (req, res) => {
 
   const response = new twiml.VoiceResponse()
 
-  response.enqueue({}, `user-${req.user.get('id')}`)
+  response.enqueue({}, `call-${call.get('id')}`)
 
   twilio.calls(call.get('sid')).update({
     twiml: response.toString()

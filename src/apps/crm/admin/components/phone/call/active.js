@@ -36,16 +36,24 @@ class Call extends React.Component {
                 <i className="fa fa-info" />
               </div>
               <div className="maha-phone-call-label">
-                Info
+                contact info
               </div>
             </div>
-            { call.paused ?
+            <div className="maha-phone-call-action">
+              <div className="maha-phone-call-button" onClick={ this._handleInfo }>
+                <i className="fa fa-random" />
+              </div>
+              <div className="maha-phone-call-label">
+                transfer call
+              </div>
+            </div>
+            { call.queued ?
               <div className="maha-phone-call-action">
                 <div className="maha-phone-call-button depressed" onClick={ this._handleQueue }>
-                  <i className="fa fa-play" />
+                  <i className="fa fa-pause" />
                 </div>
                 <div className="maha-phone-call-label">
-                  Unhold
+                  hold
                 </div>
               </div> :
               <div className="maha-phone-call-action">
@@ -53,16 +61,26 @@ class Call extends React.Component {
                   <i className="fa fa-pause" />
                 </div>
                 <div className="maha-phone-call-label">
-                  Hold
+                  hold
                 </div>
               </div>
             }
+          </div>
+          <div className="maha-phone-call-actions">
+            <div className="maha-phone-call-action">
+              <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
+                <i className="fa fa-plus" />
+              </div>
+              <div className="maha-phone-call-label">
+                add call
+              </div>
+            </div>
             <div className="maha-phone-call-action">
               <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
                 <i className="fa fa-th" />
               </div>
               <div className="maha-phone-call-label">
-                Keypad
+                keypad
               </div>
             </div>
             { call.muted ?
@@ -71,7 +89,7 @@ class Call extends React.Component {
                   <i className="fa fa-microphone-slash" />
                 </div>
                 <div className="maha-phone-call-label">
-                 Unmute
+                 unmute
                 </div>
               </div> :
               <div className="maha-phone-call-action">
@@ -79,7 +97,7 @@ class Call extends React.Component {
                   <i className="fa fa-microphone" />
                 </div>
                 <div className="maha-phone-call-label">
-                  Mute
+                  mute
                 </div>
               </div>
             }
@@ -117,12 +135,7 @@ class Call extends React.Component {
 
   _handleHangup() {
     const { call } = this.props
-    const { code } = call.params
-    this.context.network.request({
-      endpoint: `/api/admin/crm/calls/${call.call.id}/hangup`,
-      method: 'PATCH',
-      body: { code }
-    })
+    this.props.call.hangup(call)
   }
 
   _handleInfo() {
@@ -140,7 +153,10 @@ class Call extends React.Component {
     call.connection.mute()
   }
 
-  _handleQueue() {}
+  _handleQueue() {
+    const { call } = this.props
+    this.props.call.queue(call)
+  }
 
 }
 

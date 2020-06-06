@@ -11,15 +11,18 @@ class Header extends React.Component {
 
   render() {
     const { call } = this.props
-    const { contact, from, program } = call.call
+    const { contact, direction, from, program } = call.call
     return (
-      <div className="maha-phone-call-header">
-        <div className="maha-phone-call-program">
-          <Logo team={ program }/>
+      <div className={`maha-phone-call-header ${direction}`}>
+        <div className="maha-phone-call-header-program">
+          <Logo team={ program } />
           <h4>{ program.title }</h4>
           <p>{ program.phone_number.formatted }</p>
         </div>
-        <div className="maha-phone-call-contact">
+        <div className="maha-phone-call-header-link">
+          <i className="fa fa-arrow-right" />
+        </div>
+        <div className="maha-phone-call-header-contact">
           <ContactAvatar { ...contact } />
           <h4>{ contact.full_name }</h4>
           <p>{ from.formatted }</p>

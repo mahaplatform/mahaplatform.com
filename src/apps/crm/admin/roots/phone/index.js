@@ -26,10 +26,14 @@ class PhoneContainer extends React.Component {
     open: false
   }
 
+  _handleAcceptCall = this._handleAcceptCall.bind(this)
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
+  _handleEnqueueCall = this._handleEnqueueCall.bind(this)
+  _handleHangupCall = this._handleHangupCall.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
-  _handleSelect = this._handleSelect.bind(this)
+  _handleQueueCall = this._handleQueueCall.bind(this)
+  _handleSelectCall = this._handleSelectCall.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -56,7 +60,6 @@ class PhoneContainer extends React.Component {
     return {
       phone: {
         call: this._handleCall,
-        select: this._handleSelect,
         toggle: this._handleToggle
       }
     }
@@ -87,14 +90,24 @@ class PhoneContainer extends React.Component {
     })
   }
 
+  _handleAcceptCall(incoming) {
+    const active = this.state.calls.find(call => {
+      return call.call.id !== incoming.call.id && !call.queued
+    })
+    if(!active) return incoming.connection.accept()
+    this._handleEnqueueCall(active, () => {
+      incoming.connection.accept()
+    })
+  }
+
   _handleAddCall({ connection, call, params }) {
     const { calls } = this.state
     connection.on('accept', this._handleAccept.bind(this, connection))
-    connection.on('reject', this._handleReject.bind(this, connection))
     connection.on('cancel', this._handleDisconnect.bind(this, connection))
     connection.on('disconnect', this._handleDisconnect.bind(this, connection))
     connection.on('error', this._handleError.bind(this, connection))
     connection.on('mute', this._handleMuted.bind(this, connection))
+    connection.on('reject', this._handleReject.bind(this, connection))
     this.setState({
       calls: [
         ...calls.map(call => ({
@@ -105,10 +118,14 @@ class PhoneContainer extends React.Component {
           active: true,
           connection,
           call,
-          enqueue: this._handleEnqueue.bind(this),
+          accept: this._handleAcceptCall,
+          enqueue: this._handleEnqueueCall,
           error: null,
+          hangup: this._handleHangupCall,
           params,
-          paused: false,
+          queue: this._handleQueueCall,
+          queued: false,
+          select: this._handleSelectCall,
           status: 'ringing',
           started_at: moment(),
           muted: false
@@ -148,14 +165,17 @@ class PhoneContainer extends React.Component {
     this._handleRemoveCall(CallSid)
   }
 
-  _handleEnqueue(call) {
+  _handleEnqueueCall(call, callback) {
     const { CallSid } = call.connection.parameters
-    this._handleUpdateCall(CallSid, {
-      paused: true
-    })
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/enqueue`,
-      method: 'PATCH'
+      method: 'PATCH',
+      onSuccess: () => {
+        this._handleUpdateCall(CallSid, {
+          queued: true
+        })
+        if(callback) callback()
+      }
     })
   }
 
@@ -169,6 +189,15 @@ class PhoneContainer extends React.Component {
           error
         }
       })
+    })
+  }
+
+  _handleHangupCall(call) {
+    const { code } = call.params
+    this.context.network.request({
+      endpoint: `/api/admin/crm/calls/${call.call.id}/hangup`,
+      method: 'PATCH',
+      body: { code }
     })
   }
 
@@ -208,6 +237,16 @@ class PhoneContainer extends React.Component {
     })
   }
 
+  _handleQueueCall(call) {
+    const { CallSid } = call.connection.parameters
+    this._handleUpdateCall(CallSid, {
+      connection: window.Twilio.Device.connect({
+        queue: `call-${call.id}`
+      }),
+      queued: false
+    })
+  }
+
   _handleReject(connection) {
     const { CallSid } = connection.parameters
     this._handleRemoveCall(CallSid)
@@ -216,20 +255,18 @@ class PhoneContainer extends React.Component {
   _handleRemoveCall(CallSid) {
     this.setState({
       calls: this.state.calls.filter((call) => {
-        return call.connection.parameters.CallSid !== CallSid || call.paused
+        return call.connection.parameters.CallSid !== CallSid || call.queued
       })
     })
   }
 
-  _handleSelect(call) {
+  _handleSelectCall(call) {
     const { CallSid } = call.connection.parameters
     this.setState({
-      calls: this.state.calls.map((call) => {
-        return {
-          ...call,
-          active: call.connection.parameters.CallSid !== CallSid
-        }
-      })
+      calls: this.state.calls.map((call) => ({
+        ...call,
+        active: call.connection.parameters.CallSid === CallSid
+      }))
     })
   }
 

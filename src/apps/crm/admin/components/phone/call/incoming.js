@@ -56,7 +56,7 @@ class Call extends React.Component {
 
   _handleAccept() {
     const { call } = this.props
-    call.connection.accept()
+    this.props.call.accept(call)
   }
 
   _handleReject() {
