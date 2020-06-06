@@ -33,7 +33,7 @@ class PhoneContainer extends React.Component {
   _handleHangupCall = this._handleHangupCall.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
   _handleQueueCall = this._handleQueueCall.bind(this)
-  _handleSelectCall = this._handleSelectCall.bind(this)
+  _handleSwapCall = this._handleSwapCall.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -125,7 +125,7 @@ class PhoneContainer extends React.Component {
           params,
           queue: this._handleQueueCall,
           queued: false,
-          select: this._handleSelectCall,
+          swap: this._handleSwapCall,
           status: 'ringing',
           started_at: moment(),
           muted: false
@@ -221,19 +221,16 @@ class PhoneContainer extends React.Component {
     window.Twilio.Device.setup(token, {
       allowIncomingWhileBusy: true
     })
+    window.Twilio.Device.audio.incoming(false)
+    window.Twilio.Device.audio.outgoing(false)
+    window.Twilio.Device.audio.disconnect(false)
     window.Twilio.Device.on('incoming', this._handleIncoming)
   }
 
   _handleMuted(connection) {
     const { CallSid } = connection.parameters
-    this.setState({
-      calls: this.state.calls.map((call) => {
-        if(call.connection.parameters.CallSid !== CallSid) return call
-        return {
-          ...call,
-          muted: connection.isMuted()
-        }
-      })
+    this._handleUpdateCall(CallSid, {
+      muted: connection.isMuted()
     })
   }
 
@@ -241,8 +238,9 @@ class PhoneContainer extends React.Component {
     const { CallSid } = call.connection.parameters
     this._handleUpdateCall(CallSid, {
       connection: window.Twilio.Device.connect({
-        queue: `call-${call.id}`
+        queue: `call-${call.call.id}`
       }),
+      active: true,
       queued: false
     })
   }
@@ -260,13 +258,20 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleSelectCall(call) {
-    const { CallSid } = call.connection.parameters
-    this.setState({
-      calls: this.state.calls.map((call) => ({
-        ...call,
-        active: call.connection.parameters.CallSid === CallSid
-      }))
+  _handleSwapCall(newcall) {
+    const active = this.state.calls.find(call => {
+      return call.active
+    })
+    this._handleEnqueueCall(active, () => {
+      this.setState({
+        calls: this.state.calls.map((call) => ({
+          ...call,
+          active: call.call.id === newcall.call.id
+        }))
+      })
+      setTimeout(() => {
+        this._handleQueueCall(newcall)
+      }, 500)
     })
   }
 

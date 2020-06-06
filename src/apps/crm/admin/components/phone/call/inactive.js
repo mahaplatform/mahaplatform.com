@@ -13,18 +13,15 @@ class Inactive extends React.Component {
     call: PropTypes.object
   }
 
-  _handleSelect = this._handleSelect.bind(this)
+  _handleSwap = this._handleSwap.bind(this)
 
   render() {
     const { call } = this.props
     const { contact, program } = call.call
     return (
-      <div className="maha-phone-receiver-inactive" onClick={ this._handleSelect }>
+      <div className="maha-phone-receiver-inactive" onClick={ this._handleSwap }>
         <div className="maha-phone-receiver-inactive-avatar">
-          { call.queued ?
-            <i className="fa fa-pause" /> :
-            <i className="fa fa-play" />
-          }
+          <ContactAvatar { ...contact } />
         </div>
         <div className="maha-phone-receiver-inactive-label">
           { contact.full_name }<br />
@@ -37,9 +34,9 @@ class Inactive extends React.Component {
     )
   }
 
-  _handleSelect() {
+  _handleSwap() {
     const { call } = this.props
-    this.props.call.select(call)
+    this.props.call.swap(call)
   }
 
 }

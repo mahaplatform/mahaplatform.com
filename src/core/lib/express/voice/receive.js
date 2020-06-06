@@ -3,6 +3,7 @@ import { receiveCall } from '../../../../apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
+import { twiml } from 'twilio'
 
 const receiveHooks = collectObjects('hooks/voice/receive.js')
 
@@ -95,9 +96,23 @@ const make = async (req, res) => {
 
 }
 
+const queue = async (req, res) => {
+
+  const response = new twiml.VoiceResponse()
+
+  const dial = response.dial()
+
+  dial.queue({}, req.body.queue)
+
+  return res.status(200).type('text/xml').send(response.toString())
+
+}
+
 const receiveRoute = async (req, res) => {
 
   if(req.body.client) return await make(req, res)
+
+  if(req.body.queue) return await queue(req, res)
 
   await receive(req, res)
 
