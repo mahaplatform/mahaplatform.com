@@ -36,7 +36,8 @@ class Contacts extends React.Component {
     const { program, onPop, onPush } = this.props
     return {
       program,
-      contact,
+      contact_id: contact.id,
+      phone_id: contact.phone_id,
       onPop,
       onPush
     }

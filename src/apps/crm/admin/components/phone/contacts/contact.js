@@ -1,7 +1,7 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
-import { Container, ModalPanel } from 'maha-admin'
+import { Button, Container, List, ModalPanel } from 'maha-admin'
+import PhoneButton from '../button'
 import PropTypes from 'prop-types'
-import Button from '../button'
 import SMS from '../sms/sms'
 import React from 'react'
 
@@ -13,9 +13,9 @@ class Contact extends React.Component {
   }
 
   static propTypes = {
+    channel: PropTypes.object,
     contact: PropTypes.object,
     program: PropTypes.object,
-    channel: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -27,6 +27,8 @@ class Contact extends React.Component {
 
   render() {
     const { contact } = this.props
+    const phone = this._getPhone()
+    const email = this._getEmail()
     const buttons = this._getButtons()
     return (
       <ModalPanel { ...this._getPanel() }>
@@ -34,74 +36,22 @@ class Contact extends React.Component {
           <div className="maha-phone-contact-header">
             <ContactAvatar { ...contact } />
             <h2>{ contact.display_name }</h2>
-            <p>{ contact.email }</p>
-            <p>{ contact.phone }</p>
+            { email &&
+              <p>{ email.address }</p>
+            }
+            { phone &&
+              <p>{ phone.formatted }</p>
+            }
             <div className="maha-phone-actions" >
               { buttons.map((button, index) => (
                 <div className="maha-phone-action" key={`action_${index}`}>
-                  <Button { ...button } />
+                  <PhoneButton { ...button } />
                 </div>
               ))}
             </div>
           </div>
-          <div className="maha-phone-contact-title">
-            Communication History
-          </div>
           <div className="maha-phone-contact-body">
-            <div className="maha-phone-contact-activity call">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-phone" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Yesterday</span><br />
-                Incoming Call from Gregory Kops
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity sms">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-comment" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Wednesday</span><br />
-                Outgoing SMS Campaign
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity email">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-envelope" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Monday</span><br />
-                Email Campaign
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity call">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-phone" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Yesterday</span><br />
-                Incoming Call from Gregory Kops
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity sms">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-comment" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Wednesday</span><br />
-                Outgoing SMS Campaign
-              </div>
-            </div>
-            <div className="maha-phone-contact-activity email">
-              <div className="maha-phone-contact-activity-icon">
-                <i className="fa fa-envelope" />
-              </div>
-              <div className="maha-phone-contact-activity-label">
-                <span>Monday</span><br />
-                Email Campaign
-              </div>
-            </div>
+            <List { ...this._getList() } />
           </div>
         </div>
       </ModalPanel>
@@ -116,6 +66,71 @@ class Contact extends React.Component {
     ]
   }
 
+  _getEmail() {
+    const { contact } = this.props
+    return contact.email_addresses.find(email => {
+      return email.is_primary
+    })
+  }
+
+  _getList() {
+    const { contact } = this.props
+    return {
+      sections: [
+        ...contact.email_addresses.length > 0 ? [
+          {
+            title: 'Email Addresses',
+            items: [
+              ...contact.email_addresses.map(email_address => ({
+                content: email_address.address
+              }))
+            ]
+          }
+        ] : [],
+        ...contact.phone_numbers.length > 0 ? [
+          {
+            title: 'Phone Numbers',
+            items: [
+              ...contact.phone_numbers.map(phone_number => ({
+                content: <Button { ...this._getCallButton(phone_number) } />
+              }))
+            ]
+          }
+        ] : [],
+        ...contact.mailing_addresses.length > 0 ? [
+          {
+            title: 'Mailing Adresses',
+            items: [
+              ...contact.mailing_addresses.map(mailing_address => ({
+                content: (
+                  <div>
+                    <div>
+                      { mailing_address.address.street_1 }
+                    </div>
+                    { mailing_address.address.street_2 &&
+                      <div>{ mailing_address.address.street_2 }</div>
+                    }
+                    <div>
+                      { mailing_address.address.city }, { mailing_address.address.state_province } { mailing_address.address.postal_code }
+                    </div>
+                  </div>
+                )
+              }))
+            ]
+          }
+        ] : []
+      ]
+    }
+  }
+
+  _getCallButton(phone_number) {
+    return {
+      label: phone_number.formatted,
+      className: 'link',
+      handler: () => {}
+    }
+  }
+
   _getPanel() {
     return {
       title: 'Contact',
@@ -123,6 +138,13 @@ class Contact extends React.Component {
         { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
+  }
+
+  _getPhone() {
+    const { contact } = this.props
+    return contact.phone_numbers.find(phone_number => {
+      return phone_number.is_primary
+    })
   }
 
   _getSMS() {
@@ -162,9 +184,9 @@ class Contact extends React.Component {
 
 }
 
-
 const mapResources = (props, context) => ({
-  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.contact.phone_id}`
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_id}`,
+  contact: `/api/admin/crm/contacts/${props.contact_id}`
 })
 
 export default Container(mapResources)(Contact)
