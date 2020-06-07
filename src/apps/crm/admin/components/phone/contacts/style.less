@@ -9,10 +9,13 @@
     color: fadeout(@black, 80);
   }
 }
+.maha-phone-contact-container {
+  .scrollable();
+  flex: 1;
+}
 .maha-phone-contact {
   flex-direction: column;
   display: flex;
-  flex: 1;
 }
 .maha-phone-contact-header {
   text-align: center;
@@ -32,7 +35,7 @@
     margin: 0;
   }
   .maha-phone-actions {
-    margin-bottom: 0.8em;
+    margin-bottom: 1.4em;
   }
 }
 .maha-phone-contact-title {
@@ -46,40 +49,4 @@
   border-top: 1px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
   flex: 1;
-  .scrollable();
-}
-.maha-phone-contact-activity {
-  border-bottom: 1px solid fadeout(@black, 90);
-  background-color: @white;
-  display: flex;
-  &.call .fa {
-    background-color: @violet;
-  }
-  &.email .fa {
-    background-color: @pink;
-  }
-  &.sms .fa {
-    background-color: @teal;
-  }
-}
-.maha-phone-contact-activity-icon {
-  padding: 0.8em 0 0.8em 0.8em;
-  display: flex;
-  .fa {
-    font-size: 0.8em;
-    display: inline-block;
-    width: 2em;
-    height: 2em;
-    line-height: 2em;
-    text-align: center;
-    color: @white;
-    margin: auto;
-    border-radius: 50%;
-  }
-}
-.maha-phone-contact-activity-label {
-  padding: 0.8em;
-  span {
-    color: fadeout(@black, 60);
-  }
 }

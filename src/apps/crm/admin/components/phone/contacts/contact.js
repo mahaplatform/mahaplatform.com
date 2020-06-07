@@ -32,26 +32,28 @@ class Contact extends React.Component {
     const buttons = this._getButtons()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-contact">
-          <div className="maha-phone-contact-header">
-            <ContactAvatar { ...contact } />
-            <h2>{ contact.display_name }</h2>
-            { email &&
-              <p>{ email.address }</p>
-            }
-            { phone &&
-              <p>{ phone.formatted }</p>
-            }
-            <div className="maha-phone-actions" >
-              { buttons.map((button, index) => (
-                <div className="maha-phone-action" key={`action_${index}`}>
-                  <PhoneButton { ...button } />
-                </div>
-              ))}
+        <div className="maha-phone-contact-container">
+          <div className="maha-phone-contact">
+            <div className="maha-phone-contact-header">
+              <ContactAvatar { ...contact } />
+              <h2>{ contact.display_name }</h2>
+              { email &&
+                <p>{ email.address }</p>
+              }
+              { phone &&
+                <p>{ phone.formatted }</p>
+              }
+              <div className="maha-phone-actions" >
+                { buttons.map((button, index) => (
+                  <div className="maha-phone-action" key={`action_${index}`}>
+                    <PhoneButton { ...button } />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="maha-phone-contact-body">
-            <List { ...this._getList() } />
+            <div className="maha-phone-contact-body">
+              <List { ...this._getList() } />
+            </div>
           </div>
         </div>
       </ModalPanel>
