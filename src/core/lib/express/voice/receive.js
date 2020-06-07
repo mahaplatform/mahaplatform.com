@@ -132,7 +132,10 @@ const place = async(req, res) => {
     callerId: call.related('from').get('number')
   })
 
-  dial.number(call.related('to').get('number'))
+  dial.number({
+    statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
+    statusCallbackEvent: ['ringing','answered']
+  }, call.related('to').get('number'))
 
   if(response) return res.status(200).type('text/xml').send(response.toString())
 

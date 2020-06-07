@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import KeyPad from '../keypad'
 import React from 'react'
 
-class DialPad extends React.Component {
+class dialer extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object,
@@ -17,6 +17,7 @@ class DialPad extends React.Component {
   }
 
   state = {
+    channels: [],
     number: '',
     formatted: '',
     value: ''
@@ -25,14 +26,15 @@ class DialPad extends React.Component {
   _handleCall = this._handleCall.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleDial = this._handleDial.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
   _handleKeyPress = this._handleKeyPress.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
     const { value } = this.state
     return (
-      <div className="maha-phone-dialpad">
-        <div className="maha-phone-dialpad-header">
+      <div className="maha-phone-dialer">
+        <div className="maha-phone-dialer-header">
           <div className="maha-input">
             <div className="maha-input-field">
               <input { ...this._getInput() } />
@@ -44,9 +46,12 @@ class DialPad extends React.Component {
             }
           </div>
         </div>
-        <div className="maha-phone-dialpad-body">
+        <div className="maha-phone-dialer-contact">
+          { this._getChannels() }
+        </div>
+        <div className="maha-phone-dialer-body">
           <KeyPad { ...this._getKeyPad() } />
-          <div className="maha-phone-dialpad-action">
+          <div className="maha-phone-dialer-action">
             <div className={ this._getButtonClass() } onClick={ this._handleCall }>
               <i className="fa fa-phone" />
             </div>
@@ -56,11 +61,26 @@ class DialPad extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { number } = this.state
+    if(number !== prevState.number && number) {
+      this._handleFetch()
+    }
+  }
+
   _getButtonClass() {
     const { number } = this.state
-    const classes = ['maha-phone-dialpad-call']
+    const classes = ['maha-phone-dialer-call']
     if(!number) classes.push('disabled')
     return classes.join(' ')
+  }
+
+  _getChannels() {
+    const { channels } = this.state
+    if(channels.length === 0) return null
+    const output = [`${channels[0].contact.display_name}`]
+    if(channels.length > 1) output.push(`${channels.length-1} others`)
+    return output.join(' or ')
   }
 
   _getInput() {
@@ -83,16 +103,19 @@ class DialPad extends React.Component {
 
   _handleCall() {
     const { program } = this.props
-    const { number } = this.state
+    const { channels, number } = this.state
     if(!number) return
     this.context.phone.call({
       program,
-      to: number
+      to: number,
+      phone_number: channels.length > 0 ? channels[0].phone_number : null,
+      contact: channels.length > 0 ? channels[0].contact : null
     })
   }
 
   _handleClear() {
     this.setState({
+      channels: [],
       number: '',
       formatted: '',
       value: ''
@@ -100,7 +123,8 @@ class DialPad extends React.Component {
   }
 
   _handleDial(number) {
-    const { value } = this.state
+    const { value, valid } = this.state
+    if(valid) return
     this._handleFormat(value + number)
   }
 
@@ -109,13 +133,29 @@ class DialPad extends React.Component {
     this._handleCall()
   }
 
+  _handleFetch() {
+    const { program } = this.props
+    const { number } = this.state
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/lookup`,
+      method: 'GET',
+      query: { number },
+      onSuccess: ({ data }) => {
+        this.setState({
+          channels: data
+        })
+      }
+    })
+  }
+
   _handleFormat(value) {
     const asyoutype = new AsYouType('US')
     const formatted = asyoutype.input(value)
     const parsed = parsePhoneNumberFromString(formatted, 'US')
     const valid = parsed && parsed.isValid()
     const number = valid ? parsed.number : null
-    this.setState({ number, formatted, value })
+    const channels = []
+    this.setState({ channels, number, formatted, value })
   }
 
   _handleType(e) {
@@ -124,4 +164,4 @@ class DialPad extends React.Component {
 
 }
 
-export default DialPad
+export default dialer

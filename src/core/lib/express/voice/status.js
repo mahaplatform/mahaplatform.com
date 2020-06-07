@@ -8,18 +8,22 @@ const hooks = collectObjects('hooks/voice/status.js')
 
 const statusRoute = async (req, res) => {
 
-  const twilioCall = await twilio.calls(req.body.CallSid).fetch()
-
-  const { duration, price, sid, status } = twilioCall
-
   const call = await Call.query(qb => {
-    qb.where('sid', sid)
+    if(req.params.id) {
+      qb.where('id', req.params.id)
+    } else if(req.body.CallSid) {
+      qb.where('sid', req.body.CallSid)
+    }
   }).fetch({
     withRelated: ['to','from','team'],
     transacting: req.trx
   })
 
   req.team = call.related('team')
+
+  const twilioCall = await twilio.calls(call.get('sid')).fetch()
+
+  const { duration, price, sid, status } = twilioCall
 
   await updateCall(req, {
     duration,
@@ -36,7 +40,8 @@ const statusRoute = async (req, res) => {
   }, null)
 
   await socket.refresh(req, [
-    '/admin/team/calls'
+    '/admin/team/calls',
+    `/admin/calls/${call.get('id')}`
   ])
 
   res.status(200).send(null)

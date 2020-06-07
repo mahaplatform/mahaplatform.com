@@ -22,8 +22,6 @@ class KeyPad extends React.Component {
     onChoose: PropTypes.func
   }
 
-  _handleKeyDown = this._handleKeyDown.bind(this)
-
   render() {
     return (
       <div className="maha-phone-keypad">
@@ -43,22 +41,8 @@ class KeyPad extends React.Component {
     )
   }
 
-  componentWillMount() {
-    document.addEventListener('keydown', this._handleKeyDown, false)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this._handleKeyDown, false)
-  }
-
   _handleClick(cell) {
     this.props.onChoose(cell.number)
-  }
-
-  _handleKeyDown(e) {
-    if(e.target.tagName !== 'BODY') return
-    if(!/\d/.test(e.key)) return
-    this.props.onChoose(e.key)
   }
 
 }

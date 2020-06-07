@@ -36,7 +36,7 @@ const lookupRoute = async (req, res) => {
     qb.where('program_id', program.get('id'))
     qb.where('phone_number_id', phone_number.get('id'))
     qb.where('type', 'voice')
-  }).fetch({
+  }).fetchAll({
     withRelated: ['contact.photo'],
     transacting: req.trx
   })

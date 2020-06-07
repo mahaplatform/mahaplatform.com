@@ -137,13 +137,13 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleCall({ contact, program, to }) {
+  _handleCall({ contact, phone_number, program, to }) {
     this.context.network.request({
       endpoint: '/api/admin/crm/calls',
       method: 'POST',
       body: {
+        phone_number_id: phone_number ? phone_number.id : null,
         program_id: program.id,
-        contact_id: contact ? contact.id : null,
         from: program.phone_number.number,
         to
       },
@@ -154,8 +154,8 @@ class PhoneContainer extends React.Component {
           }),
           call: data,
           params: {
-            program_id: program.id,
-            contact_id: contact ? contact.id : null,
+            program_id: data.program.id,
+            contact_id: data.contact ? data.contact.id : null,
             from: program.phone_number.number,
             to
           }
@@ -231,7 +231,8 @@ class PhoneContainer extends React.Component {
   _handleInit() {
     const { token } = this.props
     window.Twilio.Device.setup(token, {
-      allowIncomingWhileBusy: true
+      allowIncomingWhileBusy: true,
+      enableRingingState: true
     })
     window.Twilio.Device.audio.incoming(false)
     window.Twilio.Device.audio.outgoing(false)

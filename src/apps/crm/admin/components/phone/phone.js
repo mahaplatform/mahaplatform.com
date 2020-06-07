@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import Settings from './settings'
 import Contacts from './contacts'
 import Programs from './programs'
-import DialPad from './dialpad'
+import Dialer from './dialer'
 import Calls from './calls'
 import React from 'react'
 import SMS from './sms'
 
 const tabs = [
-  { icon: 'th', label: 'DialPad', component: DialPad },
+  { icon: 'th', label: 'Keypad', component: Dialer },
   { icon: 'phone', label: 'Calls', component: Calls },
   { icon: 'comments', label: 'SMS', component: SMS },
   { icon: 'user', label: 'Contacts', component: Contacts },

@@ -13,6 +13,8 @@ voiceFiles.map(middleware => {
 
 router.post('/status', status)
 
+router.post('/:id/status', status)
+
 router.post('/', receive)
 
 export default router

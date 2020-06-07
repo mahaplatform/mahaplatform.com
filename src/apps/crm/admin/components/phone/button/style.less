@@ -7,6 +7,10 @@
   height: 3.2em;
   line-height: 3.2em;
   cursor: pointer;
+  &:active {
+    background-color: @blue;
+    transform: translateY(1px);
+  }
   &:hover {
     background-color: fadeout(@black, 80);
   }

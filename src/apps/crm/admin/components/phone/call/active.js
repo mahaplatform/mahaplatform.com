@@ -45,6 +45,7 @@ class Call extends React.Component {
         <Header call={ call } />
         <div className="maha-phone-call-timer">
           <Timer from={ call.started_at } />
+          { call.status }
         </div>
         <div className="maha-phone-call-body">
           { mode === 'functions' ?

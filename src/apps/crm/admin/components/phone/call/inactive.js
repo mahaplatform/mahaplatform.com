@@ -17,14 +17,14 @@ class Inactive extends React.Component {
 
   render() {
     const { call } = this.props
-    const { contact, program } = call.call
+    const { contact, direction, from, program, to } = call.call
     return (
       <div className="maha-phone-receiver-inactive" onClick={ this._handleSwap }>
         <div className="maha-phone-receiver-inactive-avatar">
           <ContactAvatar { ...contact } />
         </div>
         <div className="maha-phone-receiver-inactive-label">
-          { contact.display_name }<br />
+          { contact ? contact.display_name : (direction === 'inbound' ? from : to) }<br />
           <span>{ program.title }</span>
         </div>
         <div className="maha-phone-receiver-inactive-timer">
