@@ -1,8 +1,9 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
 import { Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import React from 'react'
+import Button from '../button'
 import SMS from '../sms/sms'
+import React from 'react'
 
 class Contact extends React.Component {
 
@@ -26,6 +27,7 @@ class Contact extends React.Component {
 
   render() {
     const { contact } = this.props
+    const buttons = this._getButtons()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-phone-contact">
@@ -34,22 +36,12 @@ class Contact extends React.Component {
             <h2>{ contact.display_name }</h2>
             <p>{ contact.email }</p>
             <p>{ contact.phone }</p>
-            <div className="maha-phone-contact-actions">
-              <div className="maha-phone-contact-action" onClick={ this._handleSMS }>
-                <div className="maha-phone-contact-button">
-                  <i className="fa fa-comment" />
+            <div className="maha-phone-actions" >
+              { buttons.map((button, index) => (
+                <div className="maha-phone-action" key={`action_${index}`}>
+                  <Button { ...button } />
                 </div>
-              </div>
-              <div className="maha-phone-contact-action" onClick={ this._handleCall }>
-                <div className="maha-phone-contact-button">
-                  <i className="fa fa-phone" />
-                </div>
-              </div>
-              <div className="maha-phone-contact-action" onClick={ this._handleInfo }>
-                <div className="maha-phone-contact-button">
-                  <i className="fa fa-info" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="maha-phone-contact-title">
@@ -114,6 +106,14 @@ class Contact extends React.Component {
         </div>
       </ModalPanel>
     )
+  }
+
+  _getButtons() {
+    return [
+      { icon: 'comment', handler: this._handleSMS },
+      { icon: 'phone', handler: this._handleCall },
+      { icon: 'info', handler: this._handleInfo }
+    ]
   }
 
   _getPanel() {

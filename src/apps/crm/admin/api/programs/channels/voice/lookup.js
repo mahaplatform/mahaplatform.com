@@ -26,9 +26,9 @@ const lookupRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!program) return res.status(404).respond({
+  if(!phone_number) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load contact'
+    message: 'Unable to load phone_number'
   })
 
   const channel = await Channel.query(qb => {

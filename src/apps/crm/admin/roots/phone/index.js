@@ -138,22 +138,29 @@ class PhoneContainer extends React.Component {
   }
 
   _handleCall({ contact, program, to }) {
-    const { admin } = this.context
-    this._handleAddCall({
-      connection: window.Twilio.Device.connect({
-        From: program.phone_number.number,
-        To: to,
-        client: `user-${admin.user.id}`,
-        user_id: admin.user.id
-      }),
-      call: {
-        direction: 'outbound',
-        program,
-        contact,
+    this.context.network.request({
+      endpoint: '/api/admin/crm/calls',
+      method: 'POST',
+      body: {
+        program_id: program.id,
+        contact_id: contact ? contact.id : null,
         from: program.phone_number.number,
         to
       },
-      params: ''
+      onSuccess: ({ data }) => {
+        this._handleAddCall({
+          connection: window.Twilio.Device.connect({
+            call_id: data.id
+          }),
+          call: data,
+          params: {
+            program_id: program.id,
+            contact_id: contact ? contact.id : null,
+            from: program.phone_number.number,
+            to
+          }
+        })
+      }
     })
   }
 

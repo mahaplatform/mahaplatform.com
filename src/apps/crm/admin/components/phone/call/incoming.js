@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Button from '../button'
 import Header from './header'
 import React from 'react'
 
@@ -14,6 +15,7 @@ class Call extends React.Component {
   render() {
     const { call } = this.props
     const { extra } = call.params
+    const buttons = this._getButtons()
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
@@ -32,34 +34,23 @@ class Call extends React.Component {
           </div>
         }
         <div className="maha-phone-call-body">
-          <div className="maha-phone-call-actions">
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button hangup" onClick={ this._handleReject }>
-                <i className="fa fa-phone" />
+          <div className="maha-phone-actions" >
+            { buttons.map((button, index) => (
+              <div className="maha-phone-action" key={`action_${index}`}>
+                <Button { ...button } />
               </div>
-              <div className="maha-phone-call-label">
-                Decline
-              </div>
-            </div>
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button pickup" onClick={ this._handleAccept }>
-                <i className="fa fa-phone" />
-              </div>
-              <div className="maha-phone-call-label">
-                Accept
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     )
   }
 
-  _getHeader() {
-    const { call } = this.props.call
-    return {
-      call
-    }
+  _getButtons() {
+    return [
+      { icon: 'phone', type: 'hangup', label: 'Decline', handler: this._handleReject },
+      { icon: 'phone', type: 'pickup', label: 'Accept', handler: this._handleAccept }
+    ]
   }
 
   _getPanel() {

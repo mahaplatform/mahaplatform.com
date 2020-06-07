@@ -20,8 +20,8 @@ const callsRoute = async (req, res) => {
 
   const calls = await Call.filterFetch({
     scope: (qb) => {
-      qb.innerJoin('crm_phone_numbers', 'crm_phone_numbers.id', 'maha_calls.phone_number_id')
-      qb.innerJoin('crm_contacts', 'crm_contacts.id', 'crm_phone_numbers.contact_id')
+      qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.id', 'maha_calls.phone_number_id')
+      qb.leftJoin('crm_contacts', 'crm_contacts.id', 'crm_phone_numbers.contact_id')
       qb.where('maha_calls.program_id', req.params.program_id)
       qb.where('maha_calls.team_id', req.team.get('id'))
     },

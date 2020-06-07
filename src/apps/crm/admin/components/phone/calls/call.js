@@ -39,7 +39,9 @@ class Call extends React.Component {
     const { call } = this.props
     return {
       items: [
-        { label: 'Contact', content: call.contact.full_name },
+        ...call.contact ? [
+          { label: 'Contact', content: call.contact.full_name }          
+        ] : [],
         { label: 'Date', content: this._getTimestamp(call) },
         { label: 'Time', content: moment(call.created_at).format('h:mmA') },
         { label: 'Duration', content: this._getDuration(call.duration) },

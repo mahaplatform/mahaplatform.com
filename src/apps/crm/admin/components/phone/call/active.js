@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
 import Transfer from './transfer'
 import Timer from '../../timer'
+import Button from '../button'
+import Keypad from '../keypad'
 import Header from './header'
 import SMS from '../sms/sms'
 import React from 'react'
+import _ from 'lodash'
 
 class Call extends React.Component {
 
@@ -18,18 +21,25 @@ class Call extends React.Component {
     onPush: PropTypes.func
   }
 
-  _handleEnqueue = this._handleEnqueue.bind(this)
+  state = {
+    mode: 'functions'
+  }
+
+  _handleAddCall = this._handleAddCall.bind(this)
+  _handleDigits = this._handleDigits.bind(this)
   _handleHangup = this._handleHangup.bind(this)
+  _handleHold = this._handleHold.bind(this)
   _handleInfo = this._handleInfo.bind(this)
-  _handleKeypad = this._handleKeypad.bind(this)
   _handleMute = this._handleMute.bind(this)
-  _handleQueue = this._handleQueue.bind(this)
   _handleSMS = this._handleSMS.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
 
   render() {
+    const { mode } = this.state
     const { call } = this.props
+    const buttons = this._getButtons()
+    const rows = _.chunk(buttons, 3)
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
@@ -37,116 +47,68 @@ class Call extends React.Component {
           <Timer from={ call.started_at } />
         </div>
         <div className="maha-phone-call-body">
-          <div className="maha-phone-call-actions">
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleInfo }>
-                <i className="fa fa-info" />
-              </div>
-              <div className="maha-phone-call-label">
-                contact info
-              </div>
-            </div>
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
-                <i className="fa fa-th" />
-              </div>
-              <div className="maha-phone-call-label">
-                keypad
-              </div>
-            </div>
-            { call.muted ?
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button depressed" onClick={ this._handleMute }>
-                  <i className="fa fa-microphone-slash" />
+          { mode === 'functions' ?
+            <div className="maha-phone-call-functions">
+              { rows.map((row, i) => (
+                <div className="maha-phone-actions" key={`actions_${i}`}>
+                  { row.map((button, j) => (
+                    <div className="maha-phone-action" key={`action_${i}_${j}`}>
+                      <Button { ...button } />
+                    </div>
+                  ))}
                 </div>
-                <div className="maha-phone-call-label">
-                 unmute
-                </div>
-              </div> :
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button" onClick={ this._handleMute }>
-                  <i className="fa fa-microphone" />
-                </div>
-                <div className="maha-phone-call-label">
-                  mute
-                </div>
-              </div>
-            }
-            { call.queued ?
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button depressed" onClick={ this._handleQueue }>
-                  <i className="fa fa-pause" />
-                </div>
-                <div className="maha-phone-call-label">
-                  hold
-                </div>
-              </div> :
-              <div className="maha-phone-call-action">
-                <div className="maha-phone-call-button" onClick={ this._handleEnqueue }>
-                  <i className="fa fa-pause" />
-                </div>
-                <div className="maha-phone-call-label">
-                  hold
-                </div>
-              </div>
-            }
-          </div>
-          <div className="maha-phone-call-actions">
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
-                <i className="fa fa-plus" />
-              </div>
-              <div className="maha-phone-call-label">
-                add call
-              </div>
-            </div>
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleKeypad }>
-                <i className="fa fa-users" />
-              </div>
-              <div className="maha-phone-call-label">
-                conference
-              </div>
-            </div>
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleTransfer }>
-                <i className="fa fa-random" />
-              </div>
-              <div className="maha-phone-call-label">
-                transfer
-              </div>
-            </div>
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button" onClick={ this._handleSMS }>
-                <i className="fa fa-comment" />
-              </div>
-              <div className="maha-phone-call-label">
-                sms
-              </div>
-            </div>
-          </div>
-          <div className="maha-phone-call-actions">
-            <div className="maha-phone-call-action">
-              <div className="maha-phone-call-button hangup" onClick={ this._handleHangup }>
-                <i className="fa fa-phone" />
-              </div>
-            </div>
-          </div>
+              )) }
+            </div> :
+            <Keypad { ...this._getKeyPad() } />
+          }
         </div>
+        { mode === 'functions' ?
+          <div className="maha-phone-actions">
+            <div className="maha-phone-action">
+              <Button { ...this._getHangup() } />
+            </div>
+          </div> :
+          <div className="maha-phone-actions">
+            <div className="maha-phone-action">
+              <Button { ...this._getFunctions() } />
+            </div>
+          </div>
+        }
       </div>
     )
   }
 
-  _getHeader() {
-    const { call } = this.props.call
+  _getButtons() {
+    const { call } = this.props
+    return [
+      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
+      { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
+      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.queued },
+      { icon: 'plus', label: 'add call', handler: this._handleAddCall },
+      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+      { icon: 'comment', label: 'sms', handler: this._handleSMS }
+    ]
+  }
+
+  _getFunctions() {
+    return { icon: 'arrow-left', handler: this._handleMode.bind(this, 'functions') }
+  }
+
+  _getHangup() {
+    return { icon: 'phone', type: 'hangup', handler: this._handleHangup }
+  }
+
+  _getKeyPad() {
     return {
-      call
+      onChoose: this._handleDigits
     }
   }
 
   _getPanel() {
+    const { call } = this.props
+    const { direction } = call.call
     return {
-      title: 'Incoming Call'
+      title: direction === 'inbound' ? 'Inbound Call' : 'Outbound Call'
     }
   }
 
@@ -172,14 +134,22 @@ class Call extends React.Component {
     }
   }
 
-  _handleEnqueue() {
+  _handleAddCall() {}
+
+  _handleDigits(number) {
     const { call } = this.props
-    this.props.call.enqueue(call)
+    call.connection.sendDigits(number)
   }
 
   _handleHangup() {
     const { call } = this.props
     this.props.call.hangup(call)
+  }
+
+  _handleHold() {
+    const { call } = this.props
+    if(call.queued) return this.props.call.queue(call)
+    this.props.call.enqueue(call)
   }
 
   _handleInfo() {
@@ -188,18 +158,13 @@ class Call extends React.Component {
     this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
   }
 
-  _handleKeypad() {
-    console.log('keypad')
+  _handleMode(mode) {
+    this.setState({ mode })
   }
 
   _handleMute() {
     const { call } = this.props
     call.connection.mute(!call.muted)
-  }
-
-  _handleQueue() {
-    const { call } = this.props
-    this.props.call.queue(call)
   }
 
   _handleSMS() {
@@ -211,7 +176,6 @@ class Call extends React.Component {
   }
 
   _handleTransferCall(user) {
-    console.log(user)
     const { call } = this.props
     this.props.call.transfer(call, user.id)
   }

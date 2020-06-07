@@ -1,22 +1,7 @@
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
-
+import KeyPad from '../keypad'
 import React from 'react'
-
-const cells = [
-  { number: '1', letters: '' },
-  { number: '2', letters: 'ABC' },
-  { number: '3', letters: 'DEF' },
-  { number: '4', letters: 'GHI' },
-  { number: '5', letters: 'JKL' },
-  { number: '6', letters: 'MNO' },
-  { number: '7', letters: 'PQRS' },
-  { number: '8', letters: 'TUV' },
-  { number: '9', letters: 'WXYZ' },
-  { number: '*', letters: '' },
-  { number: '0', letters: '' },
-  { number: '#', letters: '' }
-]
 
 class DialPad extends React.Component {
 
@@ -60,20 +45,7 @@ class DialPad extends React.Component {
           </div>
         </div>
         <div className="maha-phone-dialpad-body">
-          <div className="maha-phone-dialpad-grid">
-            { cells.map((cell, index) => (
-              <div key={`cell_${index}`} className="maha-phone-dialpad-cell">
-                <div className="maha-phone-dialpad-key" onClick={ this._handleDial.bind(this, cell.number)}>
-                  <div className="maha-phone-dialpad-number">
-                    { cell.number }
-                  </div>
-                  <div className="maha-phone-dialpad-letters">
-                    { cell.letters }
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <KeyPad { ...this._getKeyPad() } />
           <div className="maha-phone-dialpad-action">
             <div className={ this._getButtonClass() } onClick={ this._handleCall }>
               <i className="fa fa-phone" />
@@ -103,9 +75,20 @@ class DialPad extends React.Component {
     }
   }
 
+  _getKeyPad() {
+    return {
+      onChoose: this._handleDial
+    }
+  }
+
   _handleCall() {
+    const { program } = this.props
     const { number } = this.state
-    if(number) this._handleFetch(number)
+    if(!number) return
+    this.context.phone.call({
+      program,
+      to: number
+    })
   }
 
   _handleClear() {
@@ -123,27 +106,8 @@ class DialPad extends React.Component {
 
   _handleKeyPress(e) {
     if(e.charCode !== 13) return
-    const { number } = this.state
-    if(number) this._handleFetch(number)
+    this._handleCall()
   }
-
-  _handleFetch(number) {
-    const { program } = this.props
-    this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/voice/lookup`,
-      query: {
-        number
-      },
-      onSuccess: ({ data }) => {
-        this.context.phone.call({
-          program: data.program,
-          contact: data.contact,
-          to: data.phone_number.number
-        })
-      }
-    })
-  }
-
 
   _handleFormat(value) {
     const asyoutype = new AsYouType('US')

@@ -2,6 +2,7 @@ import PhoneNumber from '../../../../apps/maha/models/phone_number'
 import { receiveCall } from '../../../../apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
+import Call from '../../../../apps/maha/models/call'
 import twilio from '../../../services/twilio'
 import { twiml } from 'twilio'
 
@@ -108,7 +109,40 @@ const queue = async (req, res) => {
 
 }
 
+const place = async(req, res) => {
+
+  const call = await Call.query(qb => {
+    qb.where('id', req.body.call_id)
+  }).fetch({
+    withRelated: ['team','from','to','phone_number','user'],
+    transacting: req.trx
+  })
+
+  req.team = call.related('team')
+
+  await call.save({
+    sid: req.body.CallSid
+  }, {
+    transacting: req.trx
+  })
+
+  const response = new twiml.VoiceResponse()
+
+  const dial = response.dial({
+    callerId: call.related('from').get('number')
+  })
+
+  dial.number(call.related('to').get('number'))
+
+  if(response) return res.status(200).type('text/xml').send(response.toString())
+
+  res.status(200).send(null)
+
+}
+
 const receiveRoute = async (req, res) => {
+
+  if(req.body.call_id) return await place(req, res)
 
   if(req.body.client) return await make(req, res)
 

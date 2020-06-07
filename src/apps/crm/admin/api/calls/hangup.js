@@ -1,6 +1,30 @@
 import { executeWorkflow } from '../../../services/workflows'
 import twilio from '../../../../../core/services/twilio'
 import Call from '../../../../maha/models/call'
+import { twiml } from 'twilio'
+
+const getResponse = async (req, { call, duration, status }) => {
+
+  if(!call.related('enrollment').get('id')) {
+    const response = new twiml.VoiceResponse()
+    response.hangup()
+    return response.toString()
+  }
+
+  const result = await executeWorkflow(req, {
+    enrollment_id: call.related('enrollment').get('id'),
+    code: req.body.params.code,
+    execute: false,
+    call: {
+      duration,
+      status,
+      user_id: req.user.get('id')
+    }
+  })
+
+  return result.toString()
+
+}
 
 const hangupRoute = async (req, res) => {
 
@@ -21,20 +45,13 @@ const hangupRoute = async (req, res) => {
 
   const { duration, status } = twcall
 
-  const result = await executeWorkflow(req, {
-    enrollment_id: call.related('enrollment').get('id'),
-    code: req.body.params.code,
-    execute: false,
-    call: {
-      duration,
-      status,
-      user_id: req.user.get('id')
-    }
+  const twiml = await getResponse(req, {
+    call,
+    duration,
+    status
   })
 
-  twilio.calls(call.get('sid')).update({
-    twiml: result.twiml
-  })
+  twilio.calls(call.get('sid')).update({ twiml })
 
   res.status(200).respond(true)
 
