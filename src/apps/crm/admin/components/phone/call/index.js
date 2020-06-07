@@ -17,11 +17,7 @@ class CallContainer extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    return (
-      <div className="maha-phone-call-container">
-        <Stack { ...this._getStack() } />
-      </div>
-    )
+    return <Stack { ...this._getStack() } />
   }
 
   componentDidMount() {

@@ -5,6 +5,7 @@ import { twiml } from 'twilio'
 const enqueueRoute = async (req, res) => {
 
   const call = await Call.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

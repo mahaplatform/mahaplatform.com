@@ -13,12 +13,22 @@ class Call extends React.Component {
 
   render() {
     const { call } = this.props
+    const { extra } = call.params
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
-        { call.params.transfered_from &&
-          <div className="maha-phone-call-transfered">
-            Call transfered from { call.params.transfered_from }
+        { extra &&
+          <div className="maha-phone-call-extra">
+            { extra.transfered_from &&
+              <div className="maha-phone-call-transfered">
+                Call transfered from { extra.transfered_from }
+              </div>
+            }
+            { extra.transfered_back_from &&
+              <div className="maha-phone-call-transfered">
+                No answer, call transfered back from { extra.transfered_back_from }
+              </div>
+            }
           </div>
         }
         <div className="maha-phone-call-body">

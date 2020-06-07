@@ -5,6 +5,7 @@ import Call from '../../../../maha/models/call'
 const hangupRoute = async (req, res) => {
 
   const call = await Call.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['team', 'enrollment'],

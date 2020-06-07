@@ -69,7 +69,7 @@ class PhoneContainer extends React.Component {
   _getParams(call) {
     const params = {}
     call.customParameters.forEach((value, key) => {
-      params[key] = value
+      params[key] = key === 'extra' ? JSON.parse(value) : value
     })
     return params
   }

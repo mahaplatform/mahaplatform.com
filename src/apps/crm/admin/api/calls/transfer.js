@@ -1,10 +1,32 @@
 import twilio from '../../../../../core/services/twilio'
+import User from '../../../../maha/models/user'
 import Call from '../../../../maha/models/call'
 import { twiml } from 'twilio'
+
+const dial = async (req, { response, extra, user_id }) => {
+
+  const dial = response.dial()
+
+  const client = dial.client(`user-${user_id}`)
+
+  const params = {
+    ...req.body.params,
+    extra: JSON.stringify(extra)
+  }
+
+  Object.keys(params).map(name => {
+    client.parameter({
+      name,
+      value: params[name]
+    })
+  })
+
+}
 
 const transferRoute = async (req, res) => {
 
   const call = await Call.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
@@ -15,22 +37,29 @@ const transferRoute = async (req, res) => {
     message: 'Unable to load call'
   })
 
+  const user = await User.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.body.user_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
   const response = new twiml.VoiceResponse()
 
-  const dial = response.dial()
+  dial(req, {
+    response,
+    user_id: user.get('id'),
+    extra: {
+      transfered_from: req.user.get('full_name')
+    }
+  })
 
-  const client = dial.client(`user-${req.body.user_id}`)
-
-  const params = {
-    ...req.body.params,
-    transfered_from: req.user.get('full_name')
-  }
-
-  Object.keys(params).map(name => {
-    client.parameter({
-      name,
-      value: params[name]
-    })
+  dial(req, {
+    response,
+    user_id: req.user.get('id'),
+    extra: {
+      transfered_back_from: user.get('full_name')
+    }
   })
 
   twilio.calls(call.get('sid')).update({

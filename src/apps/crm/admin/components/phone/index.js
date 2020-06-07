@@ -26,9 +26,13 @@ class PhoneContainer extends React.Component {
     const { calls } = this.props
     return (
       <div className="maha-phone-container">
-        <Stack { ...this._getStack() } />
+        <div className="maha-phone-container-panel">
+          <Stack { ...this._getStack() } />
+        </div>
         { calls.length > 0 &&
-          <Call { ...this._getCall() } />
+          <div className="maha-phone-container-panel">
+            <Call { ...this._getCall() } />
+          </div>
         }
       </div>
     )
