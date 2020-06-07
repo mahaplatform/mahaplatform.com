@@ -24,11 +24,11 @@ class Calls extends React.Component {
 
   render() {
     return (
-      <div className="maha-phone-calls">
-        <div className="maha-phone-calls-header">
+      <div className="maha-phone-search">
+        <div className="maha-phone-search-header">
           <Searchbox { ...this._getSearchBox() } />
         </div>
-        <div className="maha-phone-calls-body">
+        <div className="maha-phone-search-body">
           <Infinite { ...this._getInfinite() } />
         </div>
       </div>

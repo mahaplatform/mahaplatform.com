@@ -12,9 +12,9 @@ class Contacts extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-phone-contacts-results">
+      <div className="maha-phone-search-results">
         { records.map((contact, index) => (
-          <div className="maha-phone-contacts-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, contact) }>
+          <div className="maha-phone-search-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, contact) }>
             <div className="maha-phone-contacts-result-token">
               <ContactToken { ...contact } />
             </div>

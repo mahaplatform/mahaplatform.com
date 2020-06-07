@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Transfer from './transfer'
 import Timer from '../../timer'
 import Header from './header'
 import SMS from '../sms/sms'
@@ -25,6 +26,7 @@ class Call extends React.Component {
   _handleQueue = this._handleQueue.bind(this)
   _handleSMS = this._handleSMS.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
+  _handleTransferCall = this._handleTransferCall.bind(this)
 
   render() {
     const { call } = this.props
@@ -162,6 +164,14 @@ class Call extends React.Component {
     }
   }
 
+  _getTransfer() {
+    const { onPop } = this.props
+    return {
+      onChoose: this._handleTransferCall,
+      onPop
+    }
+  }
+
   _handleEnqueue() {
     const { call } = this.props
     this.props.call.enqueue(call)
@@ -197,9 +207,13 @@ class Call extends React.Component {
   }
 
   _handleTransfer() {
-    const { call } = this.props
-    this.props.call.transfer(call, 132)
+    this.props.onPush(Transfer, this._getTransfer())
+  }
 
+  _handleTransferCall(user) {
+    console.log(user)
+    const { call } = this.props
+    this.props.call.transfer(call, user.id)
   }
 
 }

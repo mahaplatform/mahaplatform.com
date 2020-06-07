@@ -21,11 +21,11 @@ class Contacts extends React.Component {
 
   render() {
     return (
-      <div className="maha-phone-contacts">
-        <div className="maha-phone-contacts-header">
+      <div className="maha-phone-search">
+        <div className="maha-phone-search-header">
           <Searchbox { ...this._getSearchBox() } />
         </div>
-        <div className="maha-phone-contacts-body">
+        <div className="maha-phone-search-body">
           <Infinite { ...this._getInfinite() } />
         </div>
       </div>

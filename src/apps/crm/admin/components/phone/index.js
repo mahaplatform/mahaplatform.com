@@ -6,6 +6,10 @@ import Call from './call'
 
 class PhoneContainer extends React.Component {
 
+  static childContextTypes = {
+    modal: PropTypes.object
+  }
+
   static propTypes = {
     calls: PropTypes.array,
     programs: PropTypes.array
@@ -33,6 +37,16 @@ class PhoneContainer extends React.Component {
 
   componentDidMount() {
     this._handlePush(Phone, this._getPhone.bind(this))
+  }
+
+  getChildContext() {
+    return {
+      modal: {
+        open: this._handlePush,
+        pop: this._handlePop,
+        push: this._handlePush
+      }
+    }
   }
 
   _getCall() {

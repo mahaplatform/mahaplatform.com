@@ -19,9 +19,9 @@ class Results extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-phone-calls-results">
+      <div className="maha-phone-search-results">
         { records.map((call, index) => (
-          <div className="maha-phone-calls-result" key={`result_${index}`} onClick={ this._handleClick.bind(this, call)}>
+          <div className="maha-phone-search-result" key={`result_${index}`} onClick={ this._handleClick.bind(this, call)}>
             <div className="maha-phone-calls-result-token">
               <div className="maha-phone-calls-token">
                 <div className="maha-phone-calls-token-avatar">

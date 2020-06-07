@@ -67,3 +67,31 @@
     font-size: 0.8em;
   }
 }
+
+
+.maha-phone-search {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-phone-search-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0.6em;
+  .maha-searchbox {
+    background-color: fadeout(@black, 95);
+    border-radius: 0.5em;
+    padding: 0.2em;
+  }
+}
+.maha-phone-search-body {
+  flex: 1;
+  display: flex;
+}
+.maha-phone-search-result {
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}

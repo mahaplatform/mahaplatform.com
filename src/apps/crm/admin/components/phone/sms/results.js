@@ -16,9 +16,9 @@ class Results extends React.PureComponent {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-phone-sms-results">
+      <div className="maha-phone-search-results">
         { records.map((channel, index) => (
-          <div className="maha-phone-sms-result" key={`channel_${index}`} onClick={ this._handleChoose.bind(this, channel) }>
+          <div className="maha-phone-search-result" key={`channel_${index}`} onClick={ this._handleChoose.bind(this, channel) }>
             <div className="maha-phone-sms-result-avatar">
               <ContactAvatar { ...channel.contact } />
             </div>

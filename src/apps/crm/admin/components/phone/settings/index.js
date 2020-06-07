@@ -34,12 +34,27 @@ class Settings extends React.Component {
             program's phone number
           `,
           fields: [
-            { label: 'Hold Music', name: 'title', type: 'textfield', required: true }
+            { label: 'Hold Music', name: 'title', type: 'radio', required: true },
+            { label: 'Ring Sound', name: 'title', type: 'textfield', required: true }
           ]
         }
       ]
     }
   }
+
+  ringtone = null
+
+  componentDidMount() {
+    this.ringtone = new Audio(`${process.env.WEB_HOST}/admin/audio/overture.mp3`)
+    this.ringtone.loop = true
+    this.ringtone.play()
+  }
+
+  componentWillUnmount() {
+    this.ringtone.pause()
+    this.ringtone.currentTime = 0
+  }
+
 
   _handleBack() {
     this.props.onPop()
