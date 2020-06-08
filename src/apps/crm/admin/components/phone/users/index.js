@@ -1,17 +1,18 @@
 import { Infinite, Searchbox } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
+import User from './user'
 import React from 'react'
 
 class Users extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object,
-    phone: PropTypes.object
+    admin: PropTypes.object
   }
 
   static propTypes = {
     program: PropTypes.object,
+    onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -59,12 +60,19 @@ class Users extends React.Component {
     }
   }
 
-  _handleChoose(to_user) {
-    const { admin } = this.context
-    this.context.phone.call({
-      from_user: admin.user,
-      to_user
-    })
+  _getUser(user) {
+    const { program, onCall, onPop, onPush } = this.props
+    return {
+      program,
+      user_id: user.id,
+      onCall,
+      onPop,
+      onPush
+    }
+  }
+
+  _handleChoose(user) {
+    this.props.onPush(User, this._getUser(user))
   }
 
   _handleQuery(q) {

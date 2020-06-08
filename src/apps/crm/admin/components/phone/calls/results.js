@@ -36,7 +36,7 @@ class Results extends React.Component {
                   }
                 </div>
                 <div className="maha-phone-calls-token-label">
-                  { call.contact ? call.contact.display_name : call.to.formatted }<br />
+                  { this._getTo(call) }<br />
                   <span>{ this._getDescription(call) }</span>
                   <div className="maha-phone-calls-token-timestamp">
                     { this._getTimestamp(call) }
@@ -51,6 +51,14 @@ class Results extends React.Component {
         ))}
       </div>
     )
+  }
+
+  _getTo(call) {
+    const { contact, to_user, to } = call
+    if(contact) return contact.display_name
+    if(to_user) return to_user.full_name
+    if(to) return to.formatted
+    return 'Unknown'
   }
 
   _getDescription(call) {

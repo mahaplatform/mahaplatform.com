@@ -8,6 +8,7 @@ class Contacts extends React.Component {
 
   static propTypes = {
     program: PropTypes.object,
+    onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -33,11 +34,12 @@ class Contacts extends React.Component {
   }
 
   _getContact(contact) {
-    const { program, onPop, onPush } = this.props
+    const { program, onCall, onPop, onPush } = this.props
     return {
       program,
       contact_id: contact.id,
       phone_id: contact.phone_id,
+      onCall,
       onPop,
       onPush
     }

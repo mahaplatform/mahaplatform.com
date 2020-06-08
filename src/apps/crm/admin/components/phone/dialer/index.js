@@ -6,14 +6,14 @@ import React from 'react'
 class dialer extends React.Component {
 
   static contextTypes = {
-    network: PropTypes.object,
-    phone: PropTypes.object
+    network: PropTypes.object
   }
 
   static propTypes = {
     programs: PropTypes.array,
     program: PropTypes.object,
-    status: PropTypes.string
+    status: PropTypes.string,
+    onCall: PropTypes.func
   }
 
   state = {
@@ -105,7 +105,7 @@ class dialer extends React.Component {
     const { program } = this.props
     const { channels, number } = this.state
     if(!number) return
-    this.context.phone.call({
+    this.props.onCall({
       program,
       to: number,
       phone_number: channels.length > 0 ? channels[0].phone_number : null,

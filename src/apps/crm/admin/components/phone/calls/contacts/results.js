@@ -14,7 +14,7 @@ class Results extends React.Component {
     return (
       <div className="maha-phone-search-results">
         { records.map((contact, index) => (
-          <div className="maha-phone-search-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, contact) }>
+          <div className="maha-phone-search-result" key={`record_${contact.id}`} onClick={ this._handleChoose.bind(this, contact) }>
             <div className="maha-phone-contacts-result-token">
               <ContactToken { ...contact } />
             </div>

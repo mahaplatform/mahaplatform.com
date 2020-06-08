@@ -26,16 +26,13 @@ class SMS extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-phone-sms-channel">
           <div className="maha-phone-sms-channel-header">
-            <div className="maha-phone-sms-channel-token">
+            <div className="maha-phone-sms-channel-token" onClick={ this._handleProfile }>
               <div className="maha-phone-sms-channel-token-avatar">
                 <ContactAvatar { ...channel.contact } />
               </div>
               <div className="maha-phone-sms-channel-token-label">
                 { channel.contact.display_name }<br />
                 <span>{ channel.phone_number.formatted }</span>
-              </div>
-              <div className="maha-phone-sms-channel-token-icon" onClick={ this._handleProfile }>
-                <i className="fa fa-question-circle-o" />
               </div>
             </div>
           </div>

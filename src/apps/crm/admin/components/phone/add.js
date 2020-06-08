@@ -1,9 +1,9 @@
 import { ModalPanel } from 'maha-admin'
-import Programs from '../programs'
 import PropTypes from 'prop-types'
-import Contacts from '../contacts'
-import Dialer from '../dialer'
-import Users from '../users'
+import Contacts from './contacts'
+import Programs from './programs'
+import Dialer from './dialer'
+import Users from './users'
 import React from 'react'
 
 const tabs = [
@@ -20,6 +20,7 @@ class Add extends React.Component {
 
   static propTypes = {
     programs: PropTypes.array,
+    onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -76,10 +77,11 @@ class Add extends React.Component {
   }
 
   _getComponent() {
-    const { onPop, onPush } = this.props
+    const { onCall, onPop, onPush } = this.props
     const { program } = this.state
     return {
       program,
+      onCall,
       onPop,
       onPush
     }

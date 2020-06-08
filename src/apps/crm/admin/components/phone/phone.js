@@ -1,20 +1,14 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Settings from './settings'
-import Contacts from './contacts'
 import Programs from './programs'
-import Dialer from './dialer'
 import Calls from './calls'
-import Users from './users'
 import React from 'react'
 import SMS from './sms'
+import Add from './add'
 
 const tabs = [
-  { icon: 'th', label: 'Keypad', component: Dialer },
   { icon: 'phone', label: 'Calls', component: Calls },
-  { icon: 'comments', label: 'SMS', component: SMS },
-  { icon: 'user', label: 'Contacts', component: Contacts },
-  { icon: 'user-circle', label: 'Users', component: Users }
+  { icon: 'comments', label: 'SMS', component: SMS }
 ]
 
 class Phone extends React.Component {
@@ -34,9 +28,10 @@ class Phone extends React.Component {
     selected: 0
   }
 
+  _handleAdd = this._handleAdd.bind(this)
+  _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleProgram = this._handleProgram.bind(this)
-  _handleSettings = this._handleSettings.bind(this)
 
   render() {
     const { program, selected } = this.state
@@ -71,6 +66,16 @@ class Phone extends React.Component {
     })
   }
 
+  _getAdd() {
+    const { programs, onPop, onPush } = this.props
+    return {
+      programs,
+      onCall: this._handleCall,
+      onPop,
+      onPush
+    }
+  }
+
   _getTab(index) {
     const { selected } = this.state
     const classes = ['maha-phone-client-footer-item']
@@ -98,7 +103,7 @@ class Phone extends React.Component {
         { icon: 'times', handler: this._handleClose }
       ],
       rightItems: [
-        { icon: 'ellipsis-v', handler: this._handleSettings }
+        { icon: 'plus', handler: this._handleAdd }
       ]
     }
   }
@@ -122,6 +127,11 @@ class Phone extends React.Component {
     }
   }
 
+  _handleCall(call) {
+    this.context.phone.call(call)
+    this.props.onPop()
+  }
+
   _handleClose() {
     this.context.phone.toggle()
   }
@@ -134,8 +144,8 @@ class Phone extends React.Component {
     return this.setState({ selected })
   }
 
-  _handleSettings() {
-    this.props.onPush(Settings, this._getTabPanel())
+  _handleAdd() {
+    this.props.onPush(Add, this._getAdd())
   }
 
 }

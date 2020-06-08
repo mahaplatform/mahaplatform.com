@@ -8,7 +8,6 @@ import React from 'react'
 class Contact extends React.Component {
 
   static contextTypes = {
-    phone: PropTypes.object,
     router: PropTypes.object
   }
 
@@ -16,6 +15,7 @@ class Contact extends React.Component {
     channel: PropTypes.object,
     contact: PropTypes.object,
     program: PropTypes.object,
+    onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -62,9 +62,9 @@ class Contact extends React.Component {
 
   _getButtons() {
     return [
-      { icon: 'comment', handler: this._handleSMS },
-      { icon: 'phone', handler: this._handleCall },
-      { icon: 'info', handler: this._handleInfo }
+      { icon: 'comments', label: 'sms', handler: this._handleSMS },
+      { icon: 'phone', label: 'call', handler: this._handleCall },
+      { icon: 'info', label: 'profile', handler: this._handleInfo }
     ]
   }
 
@@ -168,7 +168,7 @@ class Contact extends React.Component {
 
   _handleCall() {
     const { contact, program } = this.props
-    this.context.phone.call({
+    this.props.onCall({
       program,
       contact,
       to: contact.phone

@@ -6,13 +6,14 @@ import Keypad from '../keypad'
 import Header from './header'
 import SMS from '../sms/sms'
 import React from 'react'
-import Add from './add'
+import Add from '../add'
 import _ from 'lodash'
 
 class Call extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object,
+    phone: PropTypes.object,
     router: PropTypes.object
   }
 
@@ -27,6 +28,7 @@ class Call extends React.Component {
     mode: 'functions'
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleAddCall = this._handleAddCall.bind(this)
   _handleDigits = this._handleDigits.bind(this)
   _handleHangup = this._handleHangup.bind(this)
@@ -84,6 +86,7 @@ class Call extends React.Component {
     const { programs, onPop, onPush } = this.props
     return {
       programs,
+      onCall: this._handleAdd,
       onPop,
       onPush
     }
@@ -143,6 +146,11 @@ class Call extends React.Component {
       onChoose: this._handleTransferCall,
       onPop
     }
+  }
+
+  _handleAdd(call) {
+    this.context.phone.call(call)
+    this.props.onPop()
   }
 
   _handleAddCall() {
