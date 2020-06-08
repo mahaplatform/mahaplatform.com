@@ -6,7 +6,8 @@ import Call from './call'
 class CallContainer extends React.Component {
 
   static propTypes = {
-    calls: PropTypes.array
+    calls: PropTypes.array,
+    programs: PropTypes.array
   }
 
   state = {
@@ -25,9 +26,10 @@ class CallContainer extends React.Component {
   }
 
   _getCall() {
-    const { calls } = this.props
+    const { calls, programs } = this.props
     return {
       calls,
+      programs,
       onPop: this._handlePop,
       onPush: this._handlePush
     }

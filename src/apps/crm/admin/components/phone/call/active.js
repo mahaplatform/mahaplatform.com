@@ -6,6 +6,7 @@ import Keypad from '../keypad'
 import Header from './header'
 import SMS from '../sms/sms'
 import React from 'react'
+import Add from './add'
 import _ from 'lodash'
 
 class Call extends React.Component {
@@ -17,6 +18,7 @@ class Call extends React.Component {
 
   static propTypes = {
     call: PropTypes.object,
+    programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -45,7 +47,6 @@ class Call extends React.Component {
         <Header call={ call } />
         <div className="maha-phone-call-timer">
           <Timer from={ call.started_at } />
-          { call.status }
         </div>
         <div className="maha-phone-call-body">
           { mode === 'functions' ?
@@ -77,6 +78,15 @@ class Call extends React.Component {
         }
       </div>
     )
+  }
+
+  _getAdd() {
+    const { programs, onPop, onPush } = this.props
+    return {
+      programs,
+      onPop,
+      onPush
+    }
   }
 
   _getButtons() {
@@ -135,7 +145,9 @@ class Call extends React.Component {
     }
   }
 
-  _handleAddCall() {}
+  _handleAddCall() {
+    this.props.onPush(Add, this._getAdd())
+  }
 
   _handleDigits(number) {
     const { call } = this.props

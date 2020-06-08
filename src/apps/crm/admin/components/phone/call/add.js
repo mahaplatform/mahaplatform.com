@@ -1,21 +1,16 @@
 import { ModalPanel } from 'maha-admin'
+import Programs from '../programs'
 import PropTypes from 'prop-types'
-import Settings from './settings'
-import Contacts from './contacts'
-import Programs from './programs'
-import Dialer from './dialer'
-import Calls from './calls'
+import Contacts from '../contacts'
+import Dialer from '../dialer'
 import React from 'react'
-import SMS from './sms'
 
 const tabs = [
   { icon: 'th', label: 'Keypad', component: Dialer },
-  { icon: 'phone', label: 'Calls', component: Calls },
-  { icon: 'comments', label: 'SMS', component: SMS },
   { icon: 'user', label: 'Contacts', component: Contacts }
 ]
 
-class Phone extends React.Component {
+class Add extends React.Component {
 
   static contextTypes = {
     phone: PropTypes.object
@@ -32,9 +27,8 @@ class Phone extends React.Component {
     selected: 0
   }
 
-  _handleClose = this._handleClose.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleProgram = this._handleProgram.bind(this)
-  _handleSettings = this._handleSettings.bind(this)
 
   render() {
     const { program, selected } = this.state
@@ -91,12 +85,9 @@ class Phone extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Phone',
+      title: 'Add Call',
       leftItems: [
-        { icon: 'times', handler: this._handleClose }
-      ],
-      rightItems: [
-        { icon: 'ellipsis-v', handler: this._handleSettings }
+        { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
   }
@@ -120,8 +111,8 @@ class Phone extends React.Component {
     }
   }
 
-  _handleClose() {
-    this.context.phone.toggle()
+  _handleBack() {
+    this.props.onPop()
   }
 
   _handleProgram(program) {
@@ -132,10 +123,6 @@ class Phone extends React.Component {
     return this.setState({ selected })
   }
 
-  _handleSettings() {
-    this.props.onPush(Settings, this._getTabPanel())
-  }
-
 }
 
-export default Phone
+export default Add

@@ -54,9 +54,10 @@ class PhoneContainer extends React.Component {
   }
 
   _getCall() {
-    const { calls } = this.props
+    const { calls, programs } = this.props
     return {
-      calls
+      calls,
+      programs
     }
   }
 

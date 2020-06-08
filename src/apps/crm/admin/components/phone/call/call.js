@@ -9,6 +9,7 @@ class Call extends React.Component {
 
   static propTypes = {
     calls: PropTypes.array,
+    programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -36,9 +37,10 @@ class Call extends React.Component {
   }
 
   _getActive(call) {
-    const { onPop, onPush } = this.props
+    const { programs, onPop, onPush } = this.props
     return {
       call,
+      programs,
       onPop,
       onPush
     }
