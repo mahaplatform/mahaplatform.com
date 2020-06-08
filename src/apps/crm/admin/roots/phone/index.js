@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 
-class PhoneContainer extends React.Component {
+class PhoneRoot extends React.Component {
 
   static childContextTypes = {
+    admin: PropTypes.object,
     phone: PropTypes.object
   }
 
@@ -137,14 +138,16 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleCall({ contact, phone_number, program, to }) {
+  _handleCall({ contact, phone_number, program, to, from_user, to_user }) {
     this.context.network.request({
       endpoint: '/api/admin/crm/calls',
       method: 'POST',
       body: {
+        from_user_id: from_user ? from_user.id : null,
+        to_user_id: to_user ? to_user.id : null,
         phone_number_id: phone_number ? phone_number.id : null,
-        program_id: program.id,
-        from: program.phone_number.number,
+        program_id: program ? program.id : null,
+        from: program ? program.phone_number.number : null,
         to
       },
       onSuccess: ({ data }) => {
@@ -154,9 +157,9 @@ class PhoneContainer extends React.Component {
           }),
           call: data,
           params: {
-            program_id: data.program.id,
+            program_id: program ? program.id : null,
             contact_id: data.contact ? data.contact.id : null,
-            from: program.phone_number.number,
+            from: program ? program.phone_number.number : null,
             to
           }
         })
@@ -216,7 +219,7 @@ class PhoneContainer extends React.Component {
   _handleIncoming(connection) {
     const params = this._getParams(connection)
     this.context.network.request({
-      endpoint: `/api/admin/crm/contacts/${params.contact_id}/calls/${params.id}`,
+      endpoint: `/api/admin/crm/calls/${params.id}`,
       method: 'GET',
       onSuccess: ({ data }) => {
         this._handleAddCall({
@@ -338,8 +341,8 @@ const dependency = {
   src: '/admin/js/twilio.min.js'
 }
 
-PhoneContainer = Container(mapResources)(PhoneContainer)
+PhoneRoot = Container(mapResources)(PhoneRoot)
 
-PhoneContainer = Dependency(dependency)(PhoneContainer)
+PhoneRoot = Dependency(dependency)(PhoneRoot)
 
-export default PhoneContainer
+export default PhoneRoot

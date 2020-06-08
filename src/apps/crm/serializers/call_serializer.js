@@ -10,6 +10,8 @@ const CallSerializer = (req, result) => ({
   from: number(result.related('from')),
   to: number(result.related('to')),
   voice_campaign: voice_campaign(result.related('enrollment')),
+  from_user: user(result.related('from_user')),
+  to_user: user(result.related('to_user')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

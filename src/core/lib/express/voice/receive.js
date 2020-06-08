@@ -114,7 +114,7 @@ const place = async(req, res) => {
   const call = await Call.query(qb => {
     qb.where('id', req.body.call_id)
   }).fetch({
-    withRelated: ['team','from','to','phone_number','user'],
+    withRelated: ['team','from','to'],
     transacting: req.trx
   })
 
@@ -132,10 +132,34 @@ const place = async(req, res) => {
     callerId: call.related('from').get('number')
   })
 
-  dial.number({
-    statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
-    statusCallbackEvent: ['ringing','answered']
-  }, call.related('to').get('number'))
+  if(call.get('to_user_id')) {
+
+    const client = dial.client({
+      statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
+      statusCallbackEvent: ['ringing','answered']
+    }, `user-${call.get('to_user_id')}`)
+
+    const params = {
+      id: call.get('id'),
+      from_user_id: call.get('from_user_id'),
+      to_user_id: call.get('to_user_id')
+    }
+
+    Object.keys(params).map(name => {
+      client.parameter({
+        name,
+        value: params[name]
+      })
+    })
+    
+  }
+
+  if(call.get('to_id')) {
+    dial.number({
+      statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
+      statusCallbackEvent: ['ringing','answered']
+    }, call.related('to').get('number'))
+  }
 
   if(response) return res.status(200).type('text/xml').send(response.toString())
 

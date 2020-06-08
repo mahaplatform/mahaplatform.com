@@ -21,8 +21,16 @@ const Call = new Model({
     return this.belongsTo(Number, 'from_id')
   },
 
+  from_user() {
+    return this.belongsTo(User, 'from_user_id')
+  },
+
   to() {
     return this.belongsTo(Number, 'to_id')
+  },
+
+  to_user() {
+    return this.belongsTo(User, 'to_user_id')
   },
 
   phone_number() {

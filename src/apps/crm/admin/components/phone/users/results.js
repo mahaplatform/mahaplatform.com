@@ -1,4 +1,4 @@
-import ContactToken from '../../../tokens/contact'
+import { UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,13 +13,10 @@ class Results extends React.Component {
     const { records } = this.props
     return (
       <div className="maha-phone-search-results">
-        { records.map((contact, index) => (
-          <div className="maha-phone-search-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, contact) }>
+        { records.map((user, index) => (
+          <div className="maha-phone-search-result" key={`record_${index}`} onClick={ this._handleChoose.bind(this, user) }>
             <div className="maha-phone-contacts-result-token">
-              <ContactToken { ...contact } />
-            </div>
-            <div className="maha-phone-contacts-result-proceed">
-              <i className="fa fa-chevron-right" />
+              <UserToken { ...user } />
             </div>
           </div>
         ))}
@@ -27,8 +24,8 @@ class Results extends React.Component {
     )
   }
 
-  _handleChoose(contact) {
-    this.props.onChoose(contact)
+  _handleChoose(user) {
+    this.props.onChoose(user)
   }
 
 }

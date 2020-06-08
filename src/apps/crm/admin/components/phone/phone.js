@@ -5,6 +5,7 @@ import Contacts from './contacts'
 import Programs from './programs'
 import Dialer from './dialer'
 import Calls from './calls'
+import Users from './users'
 import React from 'react'
 import SMS from './sms'
 
@@ -12,7 +13,8 @@ const tabs = [
   { icon: 'th', label: 'Keypad', component: Dialer },
   { icon: 'phone', label: 'Calls', component: Calls },
   { icon: 'comments', label: 'SMS', component: SMS },
-  { icon: 'user', label: 'Contacts', component: Contacts }
+  { icon: 'user', label: 'Contacts', component: Contacts },
+  { icon: 'user-circle', label: 'Users', component: Users }
 ]
 
 class Phone extends React.Component {

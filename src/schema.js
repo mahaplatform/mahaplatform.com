@@ -1466,6 +1466,8 @@ const schema = {
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
       table.integer('user_id').unsigned()
+      table.integer('from_user_id').unsigned()
+      table.integer('to_user_id').unsigned()
     })
 
     await knex.schema.createTable('maha_comments', (table) => {
@@ -3005,6 +3007,8 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('to_id').references('maha_numbers.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('from_user_id').references('maha_users.id')
+      table.foreign('to_user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_comments', table => {

@@ -43,54 +43,6 @@
   flex-direction: column;
   background-color: @white;
 }
-.maha-phone-call-header {
-  display: flex;
-  &.inbound {
-    .maha-phone-call-header-program {
-      order: 3;
-    }
-    .maha-phone-call-header-contact {
-      order: 1;
-    }
-  }
-  &.outbound {
-    .maha-phone-call-header-program {
-      order: 1;
-    }
-    .maha-phone-call-header-contact {
-      order: 3;
-    }
-  }
-}
-.maha-phone-call-header-link {
-  display: flex;
-  order: 2;
-  .fa {
-    font-size: 1.6em;
-    color: fadeout(@black, 80);
-    margin: auto;
-  }
-}
-.maha-phone-call-header-program,
-.maha-phone-call-header-contact {
-  flex: 1;
-  text-align: center;
-  .maha-logo,
-  .contact-avatar-token {
-    width: 4em;
-    margin: 1em auto;
-  }
-  .maha-avatar-text {
-    font-size: 2em;
-  }
-  h4, p {
-    text-align: center;
-    margin: 0;
-  }
-  p {
-    color: fadeout(@black, 60);
-  }
-}
 .maha-phone-call-transfered {
   padding: 0.8em;
   text-align: center;

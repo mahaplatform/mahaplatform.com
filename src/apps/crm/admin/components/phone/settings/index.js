@@ -33,28 +33,11 @@ class Settings extends React.Component {
             Adjust the settings below for all calls made to and from this
             program's phone number
           `,
-          fields: [
-            { label: 'Hold Music', name: 'title', type: 'radio', required: true },
-            { label: 'Ring Sound', name: 'title', type: 'textfield', required: true }
-          ]
+          fields: []
         }
       ]
     }
   }
-
-  ringtone = null
-
-  componentDidMount() {
-    this.ringtone = new Audio(`${process.env.WEB_HOST}/admin/audio/overture.mp3`)
-    this.ringtone.loop = true
-    this.ringtone.play()
-  }
-
-  componentWillUnmount() {
-    this.ringtone.pause()
-    this.ringtone.currentTime = 0
-  }
-
 
   _handleBack() {
     this.props.onPop()
