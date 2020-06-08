@@ -50,10 +50,7 @@ class Contacts extends React.Component {
     return {
       endpoint: '/api/admin/crm/contacts',
       filter: {
-        ...q.length > 0 ? { q } : {},
-        phone: {
-          $nnl: true
-        }
+        ...q.length > 0 ? { q } : {}
       },
       layout: Results,
       props: {

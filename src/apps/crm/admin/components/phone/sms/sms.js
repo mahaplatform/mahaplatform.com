@@ -1,6 +1,6 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
 import SMSClient from '../../sms_client'
-import { ModalPanel } from 'maha-admin'
+import { Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -72,4 +72,9 @@ class SMS extends React.Component {
 
 }
 
-export default SMS
+
+const mapResources = (props, context) => ({
+  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_id}`
+})
+
+export default Container(mapResources)(SMS)

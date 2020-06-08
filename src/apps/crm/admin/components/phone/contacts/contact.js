@@ -12,7 +12,6 @@ class Contact extends React.Component {
   }
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
     program: PropTypes.object,
     onCall: PropTypes.func,
@@ -61,9 +60,11 @@ class Contact extends React.Component {
   }
 
   _getButtons() {
+    const { contact } = this.props
+    const disabled = contact.phone_numbers.length === 0
     return [
-      { icon: 'comments', label: 'sms', handler: this._handleSMS },
-      { icon: 'phone', label: 'call', handler: this._handleCall },
+      { icon: 'comments', label: 'sms', handler: this._handleSMS, disabled },
+      { icon: 'phone', label: 'call', handler: this._handleCall, disabled },
       { icon: 'info', label: 'profile', handler: this._handleInfo }
     ]
   }
@@ -79,48 +80,46 @@ class Contact extends React.Component {
     const { contact } = this.props
     return {
       sections: [
-        ...contact.email_addresses.length > 0 ? [
-          {
-            title: 'Email Addresses',
-            items: [
-              ...contact.email_addresses.map(email_address => ({
-                content: email_address.address
-              }))
+        {
+          title: 'Email Addresses',
+          items: [
+            ...contact.email_addresses.length > 0 ? contact.email_addresses.map(email_address => ({
+              content: email_address.address
+            })) : [
+              { content: 'none' }
             ]
-          }
-        ] : [],
-        ...contact.phone_numbers.length > 0 ? [
-          {
-            title: 'Phone Numbers',
-            items: [
-              ...contact.phone_numbers.map(phone_number => ({
-                content: <Button { ...this._getCallButton(phone_number) } />
-              }))
+          ]
+        }, {
+          title: 'Phone Numbers',
+          items: [
+            ...contact.phone_numbers.length > 0 ? contact.phone_numbers.map(phone_number => ({
+              content: <Button { ...this._getCallButton(phone_number) } />
+            })) : [
+              { content: 'none' }
             ]
-          }
-        ] : [],
-        ...contact.mailing_addresses.length > 0 ? [
-          {
-            title: 'Mailing Adresses',
-            items: [
-              ...contact.mailing_addresses.map(mailing_address => ({
-                content: (
+          ]
+        }, {
+          title: 'Mailing Adresses',
+          items: [
+            ...contact.mailing_addresses.length > 0 ? contact.mailing_addresses.map(mailing_address => ({
+              content: (
+                <div>
                   <div>
-                    <div>
-                      { mailing_address.address.street_1 }
-                    </div>
-                    { mailing_address.address.street_2 &&
-                      <div>{ mailing_address.address.street_2 }</div>
-                    }
-                    <div>
-                      { mailing_address.address.city }, { mailing_address.address.state_province } { mailing_address.address.postal_code }
-                    </div>
+                    { mailing_address.address.street_1 }
                   </div>
-                )
-              }))
+                  { mailing_address.address.street_2 &&
+                    <div>{ mailing_address.address.street_2 }</div>
+                  }
+                  <div>
+                    { mailing_address.address.city }, { mailing_address.address.state_province } { mailing_address.address.postal_code }
+                  </div>
+                </div>
+              )
+            })) : [
+              { content: 'none' }
             ]
-          }
-        ] : []
+          ]
+        }
       ]
     }
   }
@@ -150,12 +149,9 @@ class Contact extends React.Component {
   }
 
   _getSMS() {
-    const { contact, channel, program, onPop, onPush } = this.props
+    const { contact, program, onPop, onPush } = this.props
     return {
-      channel: {
-        ...channel,
-        contact
-      },
+      phone_id: contact.phone_id,
       program,
       onPop,
       onPush
@@ -187,7 +183,6 @@ class Contact extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_id}`,
   contact: `/api/admin/crm/contacts/${props.contact_id}`
 })
 

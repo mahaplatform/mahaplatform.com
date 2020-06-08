@@ -27,16 +27,14 @@ class User extends React.Component {
   render() {
     const buttons = this._getButtons()
     const { user } = this.props
-    const phone = this._getPhone()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-phone-contact-container">
           <div className="maha-phone-contact">
             <div className="maha-phone-contact-header">
-              <Avatar user={ user } />
+              <Avatar user={ user } presence={ false } />
               <h2>{ user.full_name }</h2>
               <p>{ user.email }</p>
-              <p>{ phone }</p>
               <div className="maha-phone-actions" >
                 { buttons.map((button, index) => (
                   <div className="maha-phone-action" key={`action_${index}`}>
@@ -55,18 +53,22 @@ class User extends React.Component {
   }
 
   _getButtons() {
+    const { user } = this.props
+    const disabled = user.cell_phone === null
     return [
-      { icon: 'comments', label: 'sms', handler: this._handleSMS },
       { icon: 'comment', label: 'chat', handler: this._handleSMS },
-      { icon: 'phone', label: 'call', handler: this._handleCall }
+      { icon: 'phone', label: 'call', handler: this._handleCall, disabled },
+      { icon: 'comments', label: 'sms', handler: this._handleSMS, disabled }
     ]
   }
 
   _getList() {
+    const { user } = this.props
+    const phone = this._getPhone()
     return {
       items: [
         { label: 'Status', content: 'not online' },
-        { label: 'Cell Phone', content: 'none' }
+        { label: 'Cell Phone', content: phone || 'none' }
       ]
     }
   }
@@ -82,7 +84,7 @@ class User extends React.Component {
 
   _getPhone() {
     const { user } = this.props
-    if(!user.cell_phone) return ''
+    if(!user.cell_phone) return null
     const parsed = parsePhoneNumberFromString(user.cell_phone, 'US')
     return parsed.formatNational()
   }

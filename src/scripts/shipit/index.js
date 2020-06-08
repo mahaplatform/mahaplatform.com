@@ -278,7 +278,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:phone_numbers', () => {
-    var sql = 'UPDATE maha_phone_numbers SET sid=\'PN60fe9832cc1994e0fadb42f0caa3b091\', number=\'+16072248981\''
+    var sql = 'UPDATE maha_phone_numbers SET sid=\'PNd0b817a2a3a600da91ad4f4b06c9f8ea\', number=\'+16072468482\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
