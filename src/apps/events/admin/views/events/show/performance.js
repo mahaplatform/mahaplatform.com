@@ -12,7 +12,7 @@ class Performance extends React.Component {
 
   render() {
     const { event } = this.props
-    const { registrations_count, tickets_count, waitings_count } = event
+    const { registrations_count, tickets_count, ticket_types, waitings_count } = event
     const { revenue, first_registration, last_registration } = event
     return (
       <div className="crm-report">
@@ -57,8 +57,22 @@ class Performance extends React.Component {
           </div>
         </div>
         <div className="crm-report-table">
-          <table className="ui table">
+          <table className="ui unstackable table">
             <tbody>
+              { ticket_types.map((ticket_type, index) => (
+                <tr key={`ticket_type_${index}`}>
+                  <td>
+                    { ticket_type.name } { ticket_type.remaining === 0 &&
+                      <span className="alert">SOLD OUT</span>
+                    }
+                  </td>
+                  <td className="right aligned">
+                    { ticket_type.tickets_count } { ticket_type.total_tickets &&
+                      <span> / { ticket_type.total_tickets }</span>
+                    }
+                  </td>
+                </tr>
+              ))}
               <tr>
                 <td>
                   First Registration

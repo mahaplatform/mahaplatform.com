@@ -51,7 +51,7 @@ class Performance extends React.Component {
           </div>
         </div>
         <div className="crm-report-table">
-          <table className="ui table">
+          <table className="ui unstackable table">
             <tbody>
               <tr>
                 <td>

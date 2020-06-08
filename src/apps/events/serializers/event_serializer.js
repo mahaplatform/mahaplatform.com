@@ -62,6 +62,8 @@ const ticket_type = (ticket_type) => {
     tax_rate: ticket_type.get('tax_rate'),
     total_tickets: ticket_type.get('total_tickets'),
     max_per_order: ticket_type.get('max_per_order'),
+    remaining: ticket_type.get('remaining'),
+    tickets_count: ticket_type.get('tickets_count'),
     sales_open_at: ticket_type.get('sales_open_at'),
     sales_close_at: ticket_type.get('sales_close_at')
   }
