@@ -57,13 +57,17 @@ class User extends React.Component {
   _getButtons() {
     return [
       { icon: 'comments', label: 'sms', handler: this._handleSMS },
+      { icon: 'comment', label: 'chat', handler: this._handleSMS },
       { icon: 'phone', label: 'call', handler: this._handleCall }
     ]
   }
 
   _getList() {
     return {
-      sections: []
+      items: [
+        { label: 'Status', content: 'not online' },
+        { label: 'Cell Phone', content: 'none' }
+      ]
     }
   }
 
