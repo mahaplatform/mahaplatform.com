@@ -22,6 +22,8 @@ const Details = ({ audits, campaign }) => {
     config.alert = { color: 'green', message: 'This campaign is active' }
   } else if(campaign.status === 'inactive') {
     config.alert = { color: 'red', message: 'This campaign is inactive' }
+  } else if(campaign.status === 'retired') {
+    config.alert = { color: 'red', message: 'This campaign is retired' }
   } else if(campaign.status === 'scheduled') {
     config.alert = { color: 'teal', message: 'This campaign is scheduled' }
   } else if(campaign.status === 'sent') {

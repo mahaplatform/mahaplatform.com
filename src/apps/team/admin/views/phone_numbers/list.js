@@ -1,5 +1,4 @@
 import { Page } from 'maha-admin'
-import New from './new'
 
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -50,22 +49,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: {
       icon: 'hashtag',
       title: 'No Phone Numbers',
-      text: 'You have not yet created any phone numbers',
-      buttons: [
-        { label: 'Create Phone Number', modal: New }
-      ]
+      text: 'You have not yet created any phone numbers'
     },
     entity: 'phone number',
     defaultSort: { key: 'title', order: 'asc' }
-  },
-  tasks: {
-    icon: 'plus',
-    items: [
-      {
-        label: 'Provision Number',
-        modal: New
-      }
-    ]
   }
 })
 

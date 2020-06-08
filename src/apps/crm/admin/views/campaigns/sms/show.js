@@ -6,6 +6,7 @@ import Resend from './resend'
 import React from 'react'
 import Send from './send'
 import Edit from './edit'
+import _ from 'lodash'
 
 const getTabs = ({ audits, campaign, emails }) => ({
   items: [
@@ -43,7 +44,7 @@ const getTasks = ({ campaign }) => {
         }
       }
     })
-  } else if(direction === 'inbound') {
+  } else if(direction === 'inbound' && _.includes(['draft','inactive'], status)) {
     items.push({
       label: 'Activate Campaign',
       request: {

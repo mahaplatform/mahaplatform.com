@@ -1801,6 +1801,7 @@ const schema = {
       table.string('region', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.timestamp('released_at')
     })
 
     await knex.schema.createTable('maha_profiles', (table) => {

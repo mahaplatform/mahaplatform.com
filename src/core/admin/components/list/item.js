@@ -25,7 +25,7 @@ class Item extends React.Component {
     label: PropTypes.string,
     link: PropTypes.string,
     route: PropTypes.string,
-    tasks: PropTypes.object,
+    tasks: PropTypes.array,
     units: PropTypes.string
   }
 

@@ -9,7 +9,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/programs',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Title', key: 'title', primary: true, format: ProgramToken }
+      { label: 'Title', key: 'title', primary: true, format: ProgramToken },
+      { label: 'Phone Number', key: 'phone_number.formatted' }
     ],
     empty: {
       icon: 'sitemap',

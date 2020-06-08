@@ -48,7 +48,7 @@ class Chooser extends React.PureComponent {
                     </div>
                     <div className="numberfield-number-label">
                       <strong>{ number.friendlyName }</strong><br />
-                      { number.locality }, { number.region }
+                      { this._getLocation(number) }
                     </div>
                   </div>
                 ))}
@@ -66,6 +66,13 @@ class Chooser extends React.PureComponent {
       placeholder: 'Enter your area code',
       onChange: this._handleChange
     }
+  }
+
+  _getLocation(number) {
+    const parts = []
+    if(number.locality) parts.push(number.locality)
+    if(number.region) parts.push(number.region)
+    return parts.join(', ')
   }
 
   _getMessage() {

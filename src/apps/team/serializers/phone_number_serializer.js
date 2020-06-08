@@ -6,6 +6,7 @@ const NumberSerializer = (req, result) => ({
   locality: result.get('locality'),
   region: result.get('region'),
   program: program(result.related('program')),
+  released_at: result.get('released_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

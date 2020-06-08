@@ -1,5 +1,6 @@
 import { Fields, Page } from 'maha-admin'
 import Templates from './templates'
+import Provision from './provision'
 import Senders from './senders'
 import Details from './details'
 import Access from './access'
@@ -23,7 +24,24 @@ const getTabs = (user, { accesses, audits, lists, program, senders, templates, t
 const getTasks = (user, { fields, program }) => ({
   items: [
     ...program.access_type === 'manage' ? [
-      { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> }
+      { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> },
+      ...program.phone_number ? [
+        {
+          label: 'Release Phone Number',
+          rights: ['crm:manage_phone_numbers'],
+          confirm: 'Are you sure you want to release this phone number?',
+          request: {
+            endpoint: `/api/admin/crm/programs/${program.id}/phone_number`,
+            method: 'DELETE'
+          }
+        }
+      ] : [
+        {
+          label: 'Provision Phone Number',
+          rights: ['crm:manage_phone_numbers'],
+          modal: <Provision program={ program } />
+        }
+      ]
     ] : []
   ]
 })

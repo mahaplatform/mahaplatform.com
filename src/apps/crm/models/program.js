@@ -2,6 +2,7 @@ import PhoneNumber from '../../maha/models/phone_number'
 import Merchant from '../../finance/models/merchant'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
+import VoiceCampaign from './voice_campaign'
 import Asset from '../../maha/models/asset'
 import Field from '../../maha/models/field'
 import Topic from './topic'
@@ -58,6 +59,13 @@ const Program = new Model({
   topics () {
     return this.hasMany(Topic, 'program_id').query(qb => {
       qb.orderBy('title', 'asc')
+    })
+  },
+
+  voice_campaign () {
+    return this.hasOne(VoiceCampaign, 'program_id').query(qb => {
+      qb.where('direction', 'inbound')
+      qb.where('status', 'active')
     })
   }
 

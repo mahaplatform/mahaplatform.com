@@ -1,3 +1,4 @@
+import phone_number from './phone_number'
 import recipients from './recipients'
 import templates from './templates'
 import channels from './channels'
@@ -37,6 +38,8 @@ router.use('/:program_id/channels', channels)
 router.use('/:program_id/fields', fields)
 
 router.use('/:program_id/lists', lists)
+
+router.use('/:program_id/phone_number', phone_number)
 
 router.use('/:program_id/senders', senders)
 
