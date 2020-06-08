@@ -62,12 +62,12 @@ class Step3 extends React.Component {
       captcha: false,
       onSubmit: this._handleSubmit,
       fields: [
-        ...items.reduce((fields, item, i) => [
+        ...items.reduce((fields, item) => [
           ...fields,
-          ...Array(item.quantity).fill(0).reduce((fields, i, index) => [
-            ...fields,
-            { label: `${item.name} Ticket ${index + 1}`, type: 'segment', fields: [
-              ...this._getFields(item, index)
+          ...Array(item.quantity).fill(0).reduce((ticketfields, i, index) => [
+            ...ticketfields,
+            { label: `${item.name} Ticket ${fields.length + index + 1}`, type: 'segment', fields: [
+              ...this._getFields(item, fields.length + index)
             ] }
           ], [])
         ], [])
@@ -140,6 +140,7 @@ class Step3 extends React.Component {
   }
 
   _handleSubmit(tickets) {
+    console.log('tickets', tickets)
     const result = flat.unflatten(tickets, {
       safe: false,
       maxDepth: 3
