@@ -28,7 +28,7 @@ const showRoute = async (req, res) => {
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     code: req.params.code,
-    execute: req.params.verb === 'next'
+    execute: req.params.verb !== 'next'
   }) || {}
 
   if(result.twiml) {

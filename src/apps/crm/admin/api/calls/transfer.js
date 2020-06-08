@@ -5,7 +5,14 @@ import { twiml } from 'twilio'
 
 const dial = async (req, { response, extra, user_id }) => {
 
-  const dial = response.dial()
+  const { enrollment_code, step_code } = req.body.params
+
+  const dial = response.dial({
+    ...enrollment_code ? {
+      action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment_code}/${step_code}/dial`
+    } : {},
+    timeout: 15
+  })
 
   const client = dial.client(`user-${user_id}`)
 

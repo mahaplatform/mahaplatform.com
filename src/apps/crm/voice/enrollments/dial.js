@@ -18,7 +18,7 @@ const dialRoute = async (req, res) => {
 
   req.team = enrollment.related('team')
 
-  const call = await twilio.calls(req.body.DialCallSid).fetch()
+  const call = await twilio.calls(req.body.CallSid).fetch()
 
   const { duration, status, to } = call
 
