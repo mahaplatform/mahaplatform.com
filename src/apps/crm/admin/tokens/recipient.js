@@ -9,21 +9,19 @@ const RecipientToken = ({ recipient }) => {
     full_name: recipient.contact.full_name,
     initials: recipient.contact.initials
   }
+  const getRecipientChannel = (recipient) => {
+    if(recipient.email_address) return '&lt;{ recipient.email_address.address }&gt;'
+    if(recipient.phone_number ) return <Format format="phone" value={ recipient.phone_number.number } />
+    return null
+  }
   return (
     <div className="contact-token">
       <div className="contact-token-avatar">
         <ContactAvatar { ...contact } />
       </div>
-      { recipient.email_address &&
-        <div className="contact-token-label">
-          { recipient.contact.full_name } &lt;{ recipient.email_address.address }&gt;
-        </div>
-      }
-      { recipient.phone_number &&
-        <div className="contact-token-label">
-          { recipient.contact.full_name } <Format format="phone" value={ recipient.phone_number.number } />
-        </div>
-      }
+      <div className="contact-token-label">
+        { recipient.contact.full_name } { getRecipientChannel(recipient) }
+      </div>
     </div>
   )
 }

@@ -1,54 +1,41 @@
-import { ModalPanel, CriteriaDesigner }from 'maha-admin'
-import ContactToken from '../../../tokens/contact'
-import criteria from '../../contacts/criteria'
+import ToField from '../../../components/tofield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
-class Enroll extends React.Component {
+class Resend extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    network: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
     workflow: PropTypes.object
   }
 
-  state = {
-    criteria: null
-  }
-
   _handleCancel = this._handleCancel.bind(this)
-  _handleChange = this._handleChange.bind(this)
-  _handleEnroll = this._handleEnroll.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <CriteriaDesigner { ...this._getDesigner() } />
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  _getDesigner() {
-    return {
-      endpoint: '/api/admin/crm/workflows/contacts',
-      format: ContactToken,
-      fields: criteria,
-      onChange: this._handleChange
-    }
-  }
-
-  _getPanel() {
+  _getForm() {
+    const { workflow } = this.props
     return {
       title: 'Enroll Contacts',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
-      ],
-      rightItems: [
-        { label: 'Enroll', handler: this._handleEnroll }
+      action: `/api/admin/crm/workflows/${workflow.id}/enroll`,
+      method: 'patch',
+      saveText: 'Enroll',
+      onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
+      onSuccess: this._handleSuccess,
+      sections: [
+        {
+          fields: [
+            { label: 'Contacts', name: 'to', type: ToField, program_id: workflow.program.id, channel: 'all', purpose: 'transactional' }
+          ]
+        }
       ]
     }
   }
@@ -57,24 +44,10 @@ class Enroll extends React.Component {
     this.context.modal.close()
   }
 
-  _handleChange(criteria) {
-    this.setState({ criteria })
-  }
-
-  _handleEnroll() {
-    const { workflow } = this.props
-    const { criteria } = this.state
-    this.context.network.request({
-      endpoint: `/api/admin/crm/workflows/${workflow.id}/enroll`,
-      method: 'patch',
-      body: { criteria },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess() {
+  _handleSuccess(result) {
     this.context.modal.close()
   }
 
 }
-export default Enroll
+
+export default Resend

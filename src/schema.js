@@ -656,7 +656,7 @@ const schema = {
       table.timestamp('updated_at')
       table.string('code', 255)
       table.integer('duration')
-      table.boolean('was_listened')
+      table.boolean('was_heard')
       table.boolean('was_handled')
     })
 
@@ -4266,7 +4266,29 @@ union
       crm_contacts.photo_id
       from (crm_mailing_addresses
       join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
-      where crm_mailing_addresses.is_primary;
+      where crm_mailing_addresses.is_primary
+union
+      select 'all'::text as type,
+      'transactional'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from crm_contacts
+union
+      select 'all'::text as type,
+      'marketing'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from crm_contacts;
     `)
 
     await knex.raw(`

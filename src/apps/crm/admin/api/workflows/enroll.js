@@ -2,8 +2,7 @@ import ExecuteWorkflowQueue from '../../../queues/execute_workflow_queue'
 import WorkflowEnrollment from '../../../models/workflow_enrollment'
 import generateCode from '../../../../../core/utils/generate_code'
 import { contactActivity } from '../../../services/activities'
-import { toFilter } from '../../../../../core/utils/criteria'
-import { getContacts } from '../../../services/contacts'
+import { getRecipients } from '../../../services/recipients'
 import Workflow from '../../../models/workflow'
 
 const enrollRoute = async (req, res) => {
@@ -22,11 +21,14 @@ const enrollRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const contacts = await getContacts(req, {
-    filter: toFilter(req.body.criteria)
-  })
+  const recipients = await getRecipients(req, {
+    type: 'all',
+    program_id: workflow.get('program_id'),
+    purpose: 'transactional',
+    ...req.body.to
+  }).then(result => result.toArray())
 
-  await Promise.map(contacts, async (contact) => {
+  await Promise.map(recipients, async (recipient) => {
 
     const code = await generateCode(req, {
       table: 'crm_workflow_enrollments'
@@ -35,7 +37,7 @@ const enrollRoute = async (req, res) => {
     const enrollment = await WorkflowEnrollment.forge({
       team_id: req.team.get('id'),
       workflow_id: workflow.get('id'),
-      contact_id: contact.get('id'),
+      contact_id: recipient.get('contact_id'),
       code,
       data: {},
       status: 'active',
@@ -45,7 +47,7 @@ const enrollRoute = async (req, res) => {
     })
 
     await contactActivity(req, {
-      contact,
+      contact: recipient.related('contact'),
       type: 'workflow',
       story: 'enrolled contact in workflow',
       program_id: workflow.get('program_id'),
