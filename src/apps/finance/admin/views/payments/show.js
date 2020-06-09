@@ -33,7 +33,7 @@ const getTasks = ({ payment }) => {
     })
   }
 
-  if(payment.braintree_id === null || !_.includes(['captured','voided'], payment.status !== 'captured')) {
+  if(payment.braintree_id !== null && !_.includes(['captured','voided'], payment.status)) {
     items.push({
       label: 'Issue Refund',
       modal: <Refund payment={ payment } />

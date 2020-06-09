@@ -10,6 +10,10 @@ const strategies = {
     title: 'Card Refund',
     description: 'Refund money back to credit card'
   },
+  paypal: {
+    title: 'PayPal Refund',
+    description: 'Refund money back to PayPal account'
+  },
   credit: {
     title: 'Customer Credit',
     description: 'Refund money to a customer Credit'

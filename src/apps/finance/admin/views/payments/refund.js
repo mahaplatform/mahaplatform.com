@@ -1,4 +1,5 @@
 import RefundStrategyToken from '../../tokens/refund_strategy'
+import AmountField from '../../components/amountfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -33,8 +34,8 @@ class Refund extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Type', name: 'type', type: 'radiogroup', options: strategies, format: RefundStrategyToken, required: true, defaultValue: 'card' },
-            { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Amount', required: true, defaultValue: payment.refundable }
+            { label: 'Type', name: 'type', type: 'radiogroup', options: strategies, format: RefundStrategyToken, required: true },
+            { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: payment.refundable }
           ]
         }
       ]
@@ -43,12 +44,15 @@ class Refund extends React.Component {
 
   _getStrategies() {
     const { method } = this.props.payment
-    const strategies = ['credit']
+    const strategies = []
     if(method === 'ach') {
       strategies.push('ach')
+    } else if(method === 'paypal') {
+      strategies.push('paypal')
     } else if(_.includes(['card','googlepay','applepay'], method)) {
       strategies.push('card')
     }
+    strategies.push('credit')
     return strategies
   }
 

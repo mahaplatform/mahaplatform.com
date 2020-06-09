@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     message: 'Invalid amount'
   })
 
-  const result = _.includes(['ach','card'], req.body.type) ? await new Promise((resolve, reject) => {
+  const result = _.includes(['ach','card','paypal'], req.body.type) ? await new Promise((resolve, reject) => {
     braintree.transaction.refund(payment.get('braintree_id'), req.body.amount, (err, data) => {
       if(err) return reject(err)
       resolve(data)
