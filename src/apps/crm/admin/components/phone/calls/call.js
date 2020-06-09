@@ -37,19 +37,21 @@ class Call extends React.Component {
 
   _getList() {
     const { call } = this.props
-    return {
-      items: [
-        ...call.contact ? [
-          { label: 'Contact', content: call.contact.full_name }          
-        ] : [],
-        { label: 'Date', content: this._getTimestamp(call) },
-        { label: 'Time', content: moment(call.created_at).format('h:mmA') },
-        { label: 'Duration', content: this._getDuration(call.duration) },
-        { label: 'Direction', content: call.direction },
-        { label: 'From', content: call.from.formatted },
-        { label: 'To', content: call.to.formatted }
-      ]
-    }
+    const items = [
+      { label: 'Program', content: call.program.title },
+      ...call.contact ? [
+        { label: 'Contact', content: call.contact.full_name }
+      ] : [],
+      { label: 'Date', content: this._getTimestamp(call) },
+      { label: 'Time', content: moment(call.created_at).format('h:mmA') },
+      { label: 'Duration', content: this._getDuration(call.duration) },
+      { label: 'Direction', content: call.direction }
+    ]
+    if(call.to) items.push({ label: 'From', content: call.from.formatted })
+    if(call.from_user) items.push({ label: 'From', content: call.from_user.full_name })
+    if(call.to) items.push({ label: 'To', content: call.to.formatted })
+    if(call.to_user) items.push({ label: 'To', content: call.to_user.full_name })
+    return { items }
   }
 
   _getPanel() {

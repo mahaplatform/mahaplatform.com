@@ -12,10 +12,10 @@ class Header extends React.Component {
 
   render() {
     const { call } = this.props
-    const { contact, direction, from, program, from_user, to_user } = call.call
+    const { contact, direction, from, to, program, from_user, to_user } = call.call
     return (
       <div className="maha-phone-call-header">
-        { program && direction === 'outbound' &&
+        { program && direction === 'outbound' && !from_user &&
           <Program program={ program } />
         }
         { contact && direction === 'inbound' &&
@@ -31,10 +31,10 @@ class Header extends React.Component {
           <Program program={ program } />
         }
         { contact && direction === 'outbound' &&
-          <Contact contact={ contact } from={ from }/>
+          <Contact contact={ contact } from={ from } />
         }
         { to_user &&
-          <User user={ to_user } />
+          <User user={ to_user } to={ to } />
         }
       </div>
     )

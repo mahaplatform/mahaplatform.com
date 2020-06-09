@@ -1,18 +1,22 @@
 import { Avatar, Container, List, ModalPanel } from 'maha-admin'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import Button from '../button'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Button from '../button'
 import SMS from '../sms/sms'
 import React from 'react'
+import _ from 'lodash'
 
 class User extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
+    presence: PropTypes.array,
     program: PropTypes.object,
     user: PropTypes.object,
     onCall: PropTypes.func,
@@ -22,6 +26,8 @@ class User extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleCall = this._handleCall.bind(this)
+  _handleCallMaha = this._handleCallMaha.bind(this)
+  _handleCallMobile = this._handleCallMobile.bind(this)
   _handleSMS = this._handleSMS.bind(this)
 
   render() {
@@ -63,14 +69,20 @@ class User extends React.Component {
   }
 
   _getList() {
-    const { user } = this.props
     const phone = this._getPhone()
     return {
       items: [
-        { label: 'Status', content: 'not online' },
-        { label: 'Cell Phone', content: phone || 'none' }
+        { label: 'Status', content: this._getStatus() },
+        { label: 'Mobile Phone', content: phone || 'none' }
       ]
     }
+  }
+
+  _getOnline() {
+    const { presence, user } = this.props
+    return _.find(presence, {
+      user_id: user.id
+    })
   }
 
   _getPanel() {
@@ -102,6 +114,16 @@ class User extends React.Component {
     }
   }
 
+  _getStatus() {
+    const { presence, user } = this.props
+    const user_id = user.id
+    const active = _.find(presence, { user_id, status: 'active' })
+    if(active) return 'active'
+    const absent = _.find(presence, { user_id, status: 'absent' })
+    if(absent) return 'away'
+    return 'not online'
+  }
+
   _handleBack() {
     this.props.onPop()
   }
@@ -115,11 +137,33 @@ class User extends React.Component {
   }
 
   _handleCall() {
+    const phone = this._getPhone()
+    const online = this._getOnline()
+    const items = []
+    if(online) items.push({ label: 'Call Maha Phone', handler: this._handleCallMaha })
+    if(phone) items.push({ label: `Call ${phone}`, handler: this._handleCallMobile })
+    if(items.length === 1) return items[0].handler()
+    this.context.tasks.open({ items })
+  }
+
+  _handleCallMaha() {
     const { admin } = this.context
-    const { user } = this.props
+    const { program, user } = this.props
     this.props.onCall({
+      program,
       from_user: admin.user,
       to_user: user
+    })
+  }
+
+  _handleCallMobile() {
+    const { admin } = this.context
+    const { program, user } = this.props
+    this.props.onCall({
+      program,
+      from_user: admin.user,
+      to_user: user,
+      to: user.cell_phone
     })
   }
 
@@ -133,4 +177,13 @@ const mapResources = (props, context) => ({
   user: `/api/admin/users/${props.user_id}`
 })
 
-export default Container(mapResources)(User)
+User = Container(mapResources)(User)
+
+const mapStateToProps = (state, props) => ({
+  presence: state.maha.presence.presence
+})
+
+User = connect(mapStateToProps)(User)
+
+
+export default User

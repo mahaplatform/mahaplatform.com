@@ -40,7 +40,7 @@ class Recipientsfield extends React.PureComponent {
               <div className="crm-recipientsfield-recipient-label">
                 { recipient.strategy === 'software' &&
                   <div>
-                    { this._getUser(recipient.user_id) } <span>( Software Phone )</span>
+                    { this._getUser(recipient.user_id) } <span>( Maha Phone )</span>
                   </div>
                 }
                 { recipient.strategy === 'cell' &&

@@ -55,8 +55,8 @@ class Recipientsfield extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
             { name: 'strategy', type: 'radiogroup', options: [
-              { value: 'software', text: 'Dial a user\'s software phone' },
-              { value: 'cell', text: 'Dial a user\'s cell phone' },
+              { value: 'software', text: 'Dial a user\'s Maha phone' },
+              { value: 'cell', text: 'Dial a user\'s mobile phone' },
               { value: 'number', text: 'Dial a phone number' }
             ], defaultValue: config.strategy },
             this._getStrategy()

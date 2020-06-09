@@ -132,7 +132,14 @@ const place = async(req, res) => {
     callerId: call.related('from').get('number')
   })
 
-  if(call.get('to_user_id')) {
+  if(call.get('to_id')) {
+
+    dial.number({
+      statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
+      statusCallbackEvent: ['ringing','answered']
+    }, call.related('to').get('number'))
+
+  } else if(call.get('to_user_id')) {
 
     const client = dial.client({
       statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
@@ -151,14 +158,7 @@ const place = async(req, res) => {
         value: params[name]
       })
     })
-    
-  }
 
-  if(call.get('to_id')) {
-    dial.number({
-      statusCallback: `${process.env.TWIML_HOST}/voice/${call.get('id')}/status`,
-      statusCallbackEvent: ['ringing','answered']
-    }, call.related('to').get('number'))
   }
 
   if(response) return res.status(200).type('text/xml').send(response.toString())

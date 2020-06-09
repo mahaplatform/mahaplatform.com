@@ -129,7 +129,6 @@ class Phone extends React.Component {
 
   _handleCall(call) {
     this.context.phone.call(call)
-    this.props.onPop()
   }
 
   _handleClose() {

@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Stack, Tasks } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Phone from './phone'
 import React from 'react'
@@ -25,16 +25,18 @@ class PhoneContainer extends React.Component {
   render() {
     const { calls } = this.props
     return (
-      <div className="maha-phone-container">
-        <div className="maha-phone-container-panel">
-          <Stack { ...this._getStack() } />
-        </div>
-        { calls.length > 0 &&
+      <Tasks>
+        <div className="maha-phone-container">
           <div className="maha-phone-container-panel">
-            <Call { ...this._getCall() } />
+            <Stack { ...this._getStack() } />
           </div>
-        }
-      </div>
+          { calls.length > 0 &&
+            <div className="maha-phone-container-panel">
+              <Call { ...this._getCall() } />
+            </div>
+          }
+        </div>
+      </Tasks>
     )
 
   }

@@ -39,7 +39,7 @@ const callsRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo','enrollment.voice_campaign'],
+    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo','enrollment.voice_campaign','from_user.photo','to_user.photo'],
     transacting: req.trx
   })
 

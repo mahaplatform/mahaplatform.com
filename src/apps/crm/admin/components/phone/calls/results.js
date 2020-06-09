@@ -25,13 +25,13 @@ class Results extends React.Component {
             <div className="maha-phone-calls-result-token">
               <div className="maha-phone-calls-token">
                 <div className="maha-phone-calls-token-avatar">
-                  { call.direction === 'outbound' && call.user &&
-                    <Avatar user={ call.user } width="24" />
+                  { call.to_user &&
+                    <Avatar user={ call.to_user } width="24" />
                   }
-                  { call.direction === 'outbound' && call.program && !call.user &&
+                  { !call.to_user && !call.contact &&
                     <Logo team={ call.program } width="24" />
                   }
-                  { call.direction === 'inbound' && call.contact &&
+                  { call.contact &&
                     <ContactAvatar { ...call.contact } />
                   }
                 </div>
