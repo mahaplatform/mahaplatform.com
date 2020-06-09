@@ -1,7 +1,7 @@
 import PhoneRoot from './phone'
 
 const roots = [
-  // PhoneRoot
+  PhoneRoot
 ]
 
 export default roots
