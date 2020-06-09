@@ -1,4 +1,5 @@
 import recordings from './recordings'
+import voicemails from './voicemails'
 import outbound from './outbound'
 import activate from './activate'
 import { Router } from 'express'
@@ -40,5 +41,7 @@ router.delete('/:id', destroy)
 router.use('/:campaign_id/calls', calls)
 
 router.use('/:campaign_id/recordings', recordings)
+
+router.use('/:campaign_id/voicemails', voicemails)
 
 export default router

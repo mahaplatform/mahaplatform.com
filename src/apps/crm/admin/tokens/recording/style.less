@@ -1,12 +1,18 @@
 .crm-recording-token {
-  background-color: @green;
   border-radius: 50%;
   display: flex;
   width: 2em;
   height: 2em;
   cursor: pointer;
+  background-color: fadeout(@black, 70);
   &:hover {
-    background-color: darken(@green, 10);
+    background-color: fadeout(@black, 80);
+  }
+  &.playing {
+    background-color: @green;
+    &:hover {
+      background-color: lighten(@green, 5);
+    }
   }
   .fa {
     color: @white;

@@ -123,12 +123,11 @@ const Number = (props, format) => {
 }
 
 const Duration = (props, format) => {
-  const hours = Math.floor(props.value / 60 / 60)
-  const mins = Math.floor(props.value / 60)
-  const seconds = props.value % 60
-  if(hours > 0) return `${hours}h ${mins}m ${seconds}s`
-  if(mins > 0) return `${mins}m ${seconds}s`
-  return `${seconds}s`
+  const pad = (value) => _.padStart(value, 2, 0)
+  const minutes = Math.floor(props.value / 60)
+  const seconds = (props.value  - (minutes * 60)) % 60
+  const parts = [ pad(minutes), pad(seconds) ]
+  return parts.join(':')
 }
 
 const Date = (props, format) => {

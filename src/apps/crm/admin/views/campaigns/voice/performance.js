@@ -79,6 +79,14 @@ class Performance extends React.Component {
               </tr>
               <tr>
                 <td>
+                  Voicemails
+                </td>
+                <td className="right aligned">
+                  <Button { ...this._getVoicemailButton(campaign.voicemails_count) } />
+                </td>
+              </tr>
+              <tr>
+                <td>
                   Recordings
                 </td>
                 <td className="right aligned">
@@ -98,6 +106,15 @@ class Performance extends React.Component {
       label,
       className: 'link',
       route: `/admin/crm/campaigns/voice/${campaign.id}/calls${query}`
+    }
+  }
+
+  _getVoicemailButton(label) {
+    const { campaign } = this.props
+    return {
+      label,
+      className: 'link',
+      route: `/admin/crm/campaigns/voice/${campaign.id}/voicemails`
     }
   }
 

@@ -175,6 +175,10 @@ class PhoneRoot extends React.Component {
 
   _handleDisconnect(connection) {
     const { CallSid } = connection.parameters
+    // const queued = this.state.calls.find(call => {
+    //   return !call.active
+    // })
+    // if(queued) this._handleQueueCall(queued)
     this._handleRemoveCall(CallSid)
   }
 
@@ -234,8 +238,7 @@ class PhoneRoot extends React.Component {
   _handleInit() {
     const { token } = this.props
     window.Twilio.Device.setup(token, {
-      allowIncomingWhileBusy: true,
-      enableRingingState: true
+      allowIncomingWhileBusy: true
     })
     window.Twilio.Device.audio.incoming(false)
     window.Twilio.Device.audio.outgoing(false)

@@ -4460,9 +4460,20 @@ union
       ), recordings as (
       select crm_workflow_enrollments.voice_campaign_id,
       count(*) as count
-      from ((crm_workflow_recordings
+      from (((crm_workflow_recordings
       join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
+      join crm_workflow_steps on ((crm_workflow_steps.id = crm_workflow_actions.step_id)))
       join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
+      where (crm_workflow_steps.action = 'record'::crm_workflow_step_actions)
+      group by crm_workflow_enrollments.voice_campaign_id
+      ), voicemails as (
+      select crm_workflow_enrollments.voice_campaign_id,
+      count(*) as count
+      from (((crm_workflow_recordings
+      join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
+      join crm_workflow_steps on ((crm_workflow_steps.id = crm_workflow_actions.step_id)))
+      join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
+      where (crm_workflow_steps.action = 'voicemail'::crm_workflow_step_actions)
       group by crm_workflow_enrollments.voice_campaign_id
       )
       select crm_voice_campaigns.id as voice_campaign_id,
@@ -4473,8 +4484,9 @@ union
       coalesce(answering_machines.count, (0)::bigint) as answering_machines_count,
       coalesce(converted.count, (0)::bigint) as converted_count,
       coalesce(completed.count, (0)::bigint) as completed_count,
-      coalesce(recordings.count, (0)::bigint) as recordings_count
-      from ((((((((crm_voice_campaigns
+      coalesce(recordings.count, (0)::bigint) as recordings_count,
+      coalesce(voicemails.count, (0)::bigint) as voicemails_count
+      from (((((((((crm_voice_campaigns
       left join calls on ((calls.voice_campaign_id = crm_voice_campaigns.id)))
       left join active on ((active.voice_campaign_id = crm_voice_campaigns.id)))
       left join lost on ((lost.voice_campaign_id = crm_voice_campaigns.id)))
@@ -4482,7 +4494,8 @@ union
       left join answering_machines on ((answering_machines.voice_campaign_id = crm_voice_campaigns.id)))
       left join converted on ((converted.voice_campaign_id = crm_voice_campaigns.id)))
       left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)))
-      left join recordings on ((recordings.voice_campaign_id = crm_voice_campaigns.id)));
+      left join recordings on ((recordings.voice_campaign_id = crm_voice_campaigns.id)))
+      left join voicemails on ((voicemails.voice_campaign_id = crm_voice_campaigns.id)));
     `)
 
     await knex.raw(`

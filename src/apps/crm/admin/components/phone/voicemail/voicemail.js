@@ -5,7 +5,6 @@ import Button from '../button'
 import Player from './player'
 import moment from 'moment'
 import React from 'react'
-import _ from 'lodash'
 
 class Voicemail extends React.Component {
 
@@ -74,20 +73,12 @@ class Voicemail extends React.Component {
     return classes.join(' ')
   }
 
-  _getDuration(duration) {
-    const pad = (value) => _.padStart(value, 2, 0)
-    const minutes = Math.floor(duration / 60)
-    const seconds = (duration  - (minutes * 60)) % 60
-    const parts = [ pad(minutes), pad(seconds) ]
-    return parts.join(':')
-  }
-
   _getList() {
     const { audits, voicemail } = this.props
     const items = [
       { label: 'Date', content: this._getTimestamp(voicemail) },
-      { label: 'Time', content: moment(voicemail.created_at).format('h:mmA') },
-      { label: 'Duration', content: this._getDuration(voicemail.duration) }
+      { label: 'Time', content: moment(voicemail.created_at).format('h:mm A') },
+      { label: 'Duration', content: voicemail.duration, format: 'duration' }
     ]
     if(audits.length > 0) {
       items.push({ component: <Audit compact={ true } entries={ audits } /> })

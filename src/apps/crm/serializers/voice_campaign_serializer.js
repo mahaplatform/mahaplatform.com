@@ -19,6 +19,7 @@ const VoiceCampaignSerializer = (req, result) => ({
   converted_count: result.get('converted_count'),
   completed_count: result.get('completed_count'),
   recordings_count: result.get('recordings_count'),
+  voicemails_count: result.get('voicemails_count'),
   send_at: result.get('send_at'),
   sent_at: result.get('sent_at'),
   deleted_at: result.get('deleted_at'),

@@ -1,7 +1,7 @@
 import WorkflowRecordingSerializer from '../../../../serializers/workflow_recording_serializer'
 import WorkflowRecording from '../../../../models/workflow_recording'
 
-const recordingsRoute = async (req, res) => {
+const voicemailsRoute = async (req, res) => {
 
   const voice_campaigns = await WorkflowRecording.filterFetch({
     scope: (qb) => {
@@ -10,7 +10,7 @@ const recordingsRoute = async (req, res) => {
       qb.innerJoin('crm_workflow_enrollments','crm_workflow_enrollments.id','crm_workflow_actions.enrollment_id')
       qb.where('crm_workflow_recordings.team_id', req.team.get('id'))
       qb.where('crm_workflow_enrollments.voice_campaign_id', req.params.campaign_id)
-      qb.where('crm_workflow_steps.action', 'record')
+      qb.where('crm_workflow_steps.action', 'voicemail')
     },
     filter: {
       params: req.query.$filter,
@@ -30,4 +30,4 @@ const recordingsRoute = async (req, res) => {
 
 }
 
-export default recordingsRoute
+export default voicemailsRoute

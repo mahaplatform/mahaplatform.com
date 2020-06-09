@@ -6,18 +6,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Recordings',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/recordings`,
+    endpoint: `/api/admin/crm/campaigns/voice/${props.params.campaign_id}/voicemails`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { key: 'asset.file_name', primary: true, padded: true, collapsing: true, format: (recording) => <RecordToken asset={ recording.asset } /> },
+      { key: 'asset.file_name', primary: true, padded: true, collapsing: true, format: (voicemails) => <RecordToken asset={ voicemails.asset } /> },
       { label: 'Contact', key: 'contact.display_name', primary: true },
       { label: 'Duration', key: 'duration', format: 'duration' },
       { label: 'Created At', key: 'created_at', format: 'datetime' }
     ],
     empty: {
-      icon: 'microphone',
-      title: 'No Recordings',
-      text: 'There are no recordings for this voice campaign'
+      icon: 'voicemail',
+      title: 'No Voicemails',
+      text: 'There are no voicemails for this voice campaign'
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment'
