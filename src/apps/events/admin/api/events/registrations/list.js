@@ -12,6 +12,8 @@ const listRoute = async (req, res) => {
       qb.where('events_registrations.event_id', req.params.event_id)
     },
     aliases: {
+      first_name: 'crm_contacts.first_name',
+      last_name: 'crm_contacts.last_name',
       contact: 'crm_contacts.last_name',
       revenue: 'events_registration_totals.revenue',
       tickets_count: 'events_registration_totals.tickets_count'
@@ -19,7 +21,7 @@ const listRoute = async (req, res) => {
     filter: {
       params: req.query.$filter,
       allowed: ['title'],
-      search: ['title']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,

@@ -33,7 +33,7 @@ class Edit extends React.PureComponent {
   _getForm() {
     const { ticket_type } = this.state
     return {
-      title: 'New Ticket Type',
+      title: 'Edit Ticket Type',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
@@ -41,6 +41,7 @@ class Edit extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'is_active', type: 'hidden', defaultValue: ticket_type.is_active },
             { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: ticket_type.name },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description', defaultValue: ticket_type.description },
             { label: 'Pricing', type: 'segment', fields: [
