@@ -2,6 +2,7 @@ const ChannelSerializer = (req, result) => ({
   type: result.get('type'),
   id: result.get(result.get('key')),
   label: result.get('label'),
+  contact: contact(result.related('contact')),
   email_address: email_address(result.related('email_address')),
   mailing_address: mailing_address(result.related('mailing_address')),
   phone_number: phone_number(result.related('phone_number')),
@@ -13,6 +14,16 @@ const ChannelSerializer = (req, result) => ({
   code: result.get('code'),
   has_consented: result.get('has_consented')
 })
+
+const contact = (contact) => {
+  if(!contact.id) return null
+  return {
+    id: contact.get('id'),
+    display_name: contact.get('display_name'),
+    initials: contact.get('initials'),
+    photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
 
 const email_address = (email_address) => {
   if(!email_address.id) return null

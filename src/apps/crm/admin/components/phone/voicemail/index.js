@@ -1,16 +1,14 @@
-import { Infinite, Searchbox} from 'maha-admin'
+import { Infinite, Searchbox } from 'maha-admin'
+import Voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
-import SMS from './sms'
 
-class Contacts extends React.Component {
-
-  static contextTypes = {
-  }
+class Voicemails extends React.Component {
 
   static propTypes = {
     program: PropTypes.object,
+    onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -19,7 +17,7 @@ class Contacts extends React.Component {
     q: ''
   }
 
-  _handleChannel = this._handleChannel.bind(this)
+  _handleChoose = this._handleChoose.bind(this)
   _handleQuery = this._handleQuery.bind(this)
 
   render() {
@@ -35,23 +33,32 @@ class Contacts extends React.Component {
     )
   }
 
+  _getVoicemail(voicemail) {
+    const { program, onCall, onPop } = this.props
+    return {
+      program,
+      voicemail_id: voicemail.id,
+      onCall,
+      onPop
+    }
+  }
+
   _getInfinite() {
     const { program } = this.props
     const { q } = this.state
     return {
-      endpoint: `/api/admin/crm/programs/${program.id}/channels/sms`,
-      refresh: `/admin/crm/programs/${program.id}/channels/sms`,
+      endpoint: `/api/admin/crm/programs/${program.id}/voicemails`,
       filter: {
-        q
+        ...q.length > 0 ? { q } : {}
       },
       empty: {
-        icon: 'comments',
-        title: 'No Conversations',
-        text: 'There are no sms conversations for this program'
+        icon: 'voicemail',
+        title: 'No Voicemails',
+        text: 'There are no voicemails for this program'
       },
       layout: Results,
       props: {
-        onChoose: this._handleChannel
+        onChoose: this._handleChoose
       }
     }
   }
@@ -62,18 +69,8 @@ class Contacts extends React.Component {
     }
   }
 
-  _getSMS(channel) {
-    const { program, onPop, onPush } = this.props
-    return {
-      program,
-      phone_id: channel.phone_number.id,
-      onPop,
-      onPush
-    }
-  }
-
-  _handleChannel(channel) {
-    this.props.onPush(SMS, this._getSMS.bind(this, channel))
+  _handleChoose(voicemail) {
+    this.props.onPush(Voicemail, this._getVoicemail(voicemail))
   }
 
   _handleQuery(q) {
@@ -82,4 +79,4 @@ class Contacts extends React.Component {
 
 }
 
-export default Contacts
+export default Voicemails

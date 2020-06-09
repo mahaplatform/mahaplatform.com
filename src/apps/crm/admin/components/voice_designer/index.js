@@ -1,5 +1,6 @@
 import FlowchartDesigner from '../flowchart_designer'
 import { Container } from 'maha-admin'
+import voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import question from './question'
 import record from './record'
@@ -44,6 +45,7 @@ class VoiceDesigner extends React.PureComponent {
         say,
         record,
         dial,
+        voicemail,
         { action: 'ifthen' },
         { action: 'wait' },
         { action: 'goal' },

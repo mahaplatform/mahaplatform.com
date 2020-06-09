@@ -1,4 +1,5 @@
 import { ModalPanel } from 'maha-admin'
+import Voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import Programs from './programs'
 import Calls from './calls'
@@ -8,7 +9,8 @@ import Add from './add'
 
 const tabs = [
   { icon: 'phone', label: 'Calls', component: Calls },
-  { icon: 'comments', label: 'SMS', component: SMS }
+  { icon: 'comments', label: 'SMS', component: SMS },
+  { icon: 'voicemail', label: 'Voicemail', component: Voicemail }
 ]
 
 class Phone extends React.Component {
@@ -49,7 +51,9 @@ class Phone extends React.Component {
           <div className="maha-phone-client-footer">
             { tabs.map((tab, index) =>(
               <div { ...this._getTab(index) } key={`tab_${index}`}>
-                <i className={`fa fa-${ tab.icon }`} />
+                { tab.icon &&
+                  <i className={`fa fa-${ tab.icon }`} />
+                }
                 <span>{ tab.label }</span>
               </div>
             ))}
@@ -91,6 +95,7 @@ class Phone extends React.Component {
     const { program } = this.state
     return {
       program,
+      onCall: this._handleCall,
       onPop,
       onPush
     }

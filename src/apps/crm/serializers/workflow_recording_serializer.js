@@ -1,7 +1,11 @@
-const EnrollmentSerializer = (req, result) => ({
+const WorkflowRecordingSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   asset: asset(result.related('asset')),
   contact: contact(result.related('action').related('enrollment').related('contact')),
+  duration: result.get('duration'),
+  was_heard: result.get('was_heard'),
+  was_returned: result.get('was_returned'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -12,6 +16,8 @@ const contact = (contact) => {
     id: contact.get('id'),
     display_name: contact.get('display_name'),
     initials: contact.get('initials'),
+    phone: contact.get('phone'),
+    phone_id: contact.get('phone_id'),
     phone_name: contact.get('phone_name'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
   }
@@ -36,4 +42,4 @@ const asset = (asset) => {
   }
 }
 
-export default EnrollmentSerializer
+export default WorkflowRecordingSerializer

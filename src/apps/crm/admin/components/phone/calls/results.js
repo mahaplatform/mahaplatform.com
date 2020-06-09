@@ -62,7 +62,8 @@ class Results extends React.Component {
   }
 
   _getDescription(call) {
-    if(call.voice_campaign) return `${call.voice_campaign.direction} voice campaign`
+    const { voice_campaign } = call
+    if(voice_campaign && voice_campaign.direction === 'outbound') return 'outbound voice campaign'
     return `${ call.direction } call`
   }
 

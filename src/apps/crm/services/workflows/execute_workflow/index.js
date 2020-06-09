@@ -9,6 +9,7 @@ import sendInternalEmail from './send_internal_email'
 import contactWorkflow from './enroll_in_workflow'
 import sendInternalSms from './send_internal_sms'
 import contactProperty from './update_property'
+import voiceVoicemail from './voice_voicemail'
 import contactConsent from './update_consent'
 import Contact from '../../../models/contact'
 import voiceQuestion from './voice_question'
@@ -49,6 +50,7 @@ const getExecutor = (type, action) => {
   if(type === 'voice' && action === 'question') return voiceQuestion
   if(type === 'voice' && action === 'record') return voiceRecord
   if(type === 'voice' && action === 'dial') return voiceDial
+  if(type === 'voice' && action === 'voicemail') return voiceVoicemail
   if(type === 'sms' && action === 'message') return smsMessage
   if(type === 'sms' && action === 'question') return smsQuestion
 }

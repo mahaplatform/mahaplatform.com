@@ -1,0 +1,73 @@
+.maha-phone-voicemail-result-token {
+  display: flex;
+  flex: 1;
+}
+.maha-phone-voicemail-result-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
+}
+
+.maha-phone-voicemail-token {
+  display: flex;
+  flex: 1;
+}
+.maha-phone-voicemail-token-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .contact-avatar-token {
+    margin: auto;
+    width: 2.2em;
+  }
+  .maha-logo-text {
+    font-size: 0.8em;
+  }
+}
+.maha-phone-voicemail-token-label {
+  position: relative;
+  flex: 1;
+  padding: 0.8em;
+  span {
+    color: fadeout(@black, 60);
+  }
+}
+.maha-phone-voicemail-token-timestamp {
+  position: absolute;
+  top: 50%;
+  right: 0.8em;
+  transform: translateY(-50%);
+  color: @blue;
+  font-size: 0.8em;
+}
+
+.maha-phone-voicemail-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 1.6em 0.8em;
+  display: flex;
+  flex-direction: column;
+}
+
+.maha-phone-voicemail-player {
+  margin: 0 auto 0.8em;
+  display: flex;
+  background-color: @green;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(@green, 5);
+  }
+  .fa {
+    transform: translateX(4px);
+    font-size: 2em;
+    margin: auto;
+    color: @white;
+  }
+}
+.maha-phone-voicemail-body {
+
+}
