@@ -48,6 +48,7 @@ class Voicemails extends React.Component {
     const { q } = this.state
     return {
       endpoint: `/api/admin/crm/programs/${program.id}/voicemails`,
+      refresh: `/admin/crm/programs/${program.id}/voicemails`,
       filter: {
         ...q.length > 0 ? { q } : {}
       },

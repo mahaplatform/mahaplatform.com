@@ -22,7 +22,7 @@ class Audit extends React.Component {
     const { entries } = this.props
     const { showall } = this.state
     return (
-      <div className="maha-audit">
+      <div className="maha-audit compact">
         { entries.length > 5 && !showall &&
           <div className="maha-audit-more">
             <Button { ...this._getShowAll() } />

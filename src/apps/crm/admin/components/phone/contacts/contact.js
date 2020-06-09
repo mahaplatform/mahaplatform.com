@@ -1,5 +1,5 @@
-import ContactAvatar from '../../../tokens/contact_avatar'
 import { Button, Container, List, ModalPanel } from 'maha-admin'
+import ContactAvatar from '../../../tokens/contact_avatar'
 import PhoneButton from '../button'
 import PropTypes from 'prop-types'
 import SMS from '../sms/sms'
@@ -8,7 +8,8 @@ import React from 'react'
 class Contact extends React.Component {
 
   static contextTypes = {
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -31,14 +32,11 @@ class Contact extends React.Component {
     const buttons = this._getButtons()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-contact-container">
-          <div className="maha-phone-contact">
-            <div className="maha-phone-contact-header">
+        <div className="maha-phone-detail-container">
+          <div className="maha-phone-detail">
+            <div className="maha-phone-detail-header">
               <ContactAvatar { ...contact } />
               <h2>{ contact.display_name }</h2>
-              { email &&
-                <p>{ email.address }</p>
-              }
               { phone &&
                 <p>{ phone.formatted }</p>
               }
@@ -50,7 +48,7 @@ class Contact extends React.Component {
                 ))}
               </div>
             </div>
-            <div className="maha-phone-contact-body">
+            <div className="maha-phone-detail-body">
               <List { ...this._getList() } />
             </div>
           </div>
@@ -63,9 +61,9 @@ class Contact extends React.Component {
     const { contact } = this.props
     const disabled = contact.phone_numbers.length === 0
     return [
-      { icon: 'comments', label: 'sms', handler: this._handleSMS, disabled },
+      { icon: 'info', label: 'profile', handler: this._handleInfo },
       { icon: 'phone', label: 'call', handler: this._handleCall, disabled },
-      { icon: 'info', label: 'profile', handler: this._handleInfo }
+      { icon: 'comments', label: 'sms', handler: this._handleSMS, disabled }
     ]
   }
 
@@ -81,40 +79,11 @@ class Contact extends React.Component {
     return {
       sections: [
         {
-          title: 'Email Addresses',
-          items: [
-            ...contact.email_addresses.length > 0 ? contact.email_addresses.map(email_address => ({
-              content: email_address.address
-            })) : [
-              { content: 'none' }
-            ]
-          ]
-        }, {
           title: 'Phone Numbers',
           items: [
             ...contact.phone_numbers.length > 0 ? contact.phone_numbers.map(phone_number => ({
+              label: 'Phone',
               content: <Button { ...this._getCallButton(phone_number) } />
-            })) : [
-              { content: 'none' }
-            ]
-          ]
-        }, {
-          title: 'Mailing Adresses',
-          items: [
-            ...contact.mailing_addresses.length > 0 ? contact.mailing_addresses.map(mailing_address => ({
-              content: (
-                <div>
-                  <div>
-                    { mailing_address.address.street_1 }
-                  </div>
-                  { mailing_address.address.street_2 &&
-                    <div>{ mailing_address.address.street_2 }</div>
-                  }
-                  <div>
-                    { mailing_address.address.city }, { mailing_address.address.state_province } { mailing_address.address.postal_code }
-                  </div>
-                </div>
-              )
             })) : [
               { content: 'none' }
             ]
@@ -148,10 +117,10 @@ class Contact extends React.Component {
     })
   }
 
-  _getSMS() {
-    const { contact, program, onPop, onPush } = this.props
+  _getSMS(phone_number) {
+    const { program, onPop, onPush } = this.props
     return {
-      phone_id: contact.phone_id,
+      phone_id: phone_number.id,
       program,
       onPop,
       onPush
@@ -163,11 +132,16 @@ class Contact extends React.Component {
   }
 
   _handleCall() {
-    const { contact, program } = this.props
-    this.props.onCall({
-      program,
-      contact,
-      to: contact.phone
+    const { contact } = this.props
+    if(contact.phone_numbers.length === 1) {
+      const phone_number = contact.phone_numbers[0]
+      this._handlePlaceCall(phone_number)
+    }
+    this.context.tasks.open({
+      items: contact.phone_numbers.map(phone_number => ({
+        label: phone_number.number,
+        handler: this._handlePlaceCall.bind(this, phone_number)
+      }))
     })
   }
 
@@ -176,8 +150,29 @@ class Contact extends React.Component {
     this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
   }
 
+  _handlePlaceCall(phone_number) {
+    const { contact, program } = this.props
+    this.props.onCall({
+      program,
+      contact,
+      phone_number,
+      to: phone_number.number
+    })
+  }
+
   _handleSMS() {
-    this.props.onPush(SMS, this._getSMS())
+    const { contact } = this.props
+    if(contact.phone_numbers.length === 1) {
+      const phone_number = contact.phone_numbers[0]
+      return this.props.onPush(SMS, this._getSMS(phone_number))
+    }
+    this.context.tasks.open({
+      items: contact.phone_numbers.map(phone_number => (
+        { label: phone_number.number, handler: () => {
+          this.props.onPush(SMS, this._getSMS(phone_number))
+        }}
+      ))
+    })
   }
 
 }

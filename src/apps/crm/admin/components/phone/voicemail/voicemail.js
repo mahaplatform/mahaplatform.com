@@ -1,13 +1,21 @@
-import { Audit, Comments, Container, List, ModalPanel } from 'maha-admin'
+import { Audit, Container, List, ModalPanel } from 'maha-admin'
+import ContactAvatar from '../../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import Button from '../button'
+import Player from './player'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
 class Voicemail extends React.Component {
 
+  static contextTypes = {
+    network: PropTypes.object,
+    router: PropTypes.object
+  }
+
   static propTypes = {
+    audits: PropTypes.array,
     program: PropTypes.object,
     voicemail: PropTypes.object,
     onCall: PropTypes.func,
@@ -16,27 +24,34 @@ class Voicemail extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleCall = this._handleCall.bind(this)
-  _handlePlay = this._handlePlay.bind(this)
+  _handleHandle = this._handleHandle.bind(this)
+  _handleHeard = this._handleHeard.bind(this)
+  _handleInfo = this._handleInfo.bind(this)
 
   render() {
     const buttons = this._getButtons()
+    const { voicemail } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-voicemail">
-          <div className="maha-phone-voicemail-header">
-            <div className="maha-phone-voicemail-player" onClick={ this._handlePlay }>
-              <i className="fa fa-play" />
-            </div>
-            <div className="maha-phone-actions" >
-              { buttons.map((button, index) => (
-                <div className="maha-phone-action" key={`action_${index}`}>
-                  <Button { ...button } />
+        <div className="maha-phone-detail-container">
+          <div className="maha-phone-detail">
+            <div className="maha-phone-detail-header">
+              <ContactAvatar { ...voicemail.contact } />
+              <h2>{ voicemail.contact.display_name }</h2>
+              <div className="maha-phone-actions" >
+                <div className="maha-phone-action">
+                  <Player { ...this._getPlayer() } />
                 </div>
-              ))}
+                { buttons.map((button, index) => (
+                  <div className="maha-phone-action" key={`action_${index}`}>
+                    <Button { ...button } />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="maha-phone-voicemail-body">
-            <List { ...this._getList() } />
+            <div className="maha-phone-detail-body">
+              <List { ...this._getList() } />
+            </div>
           </div>
         </div>
       </ModalPanel>
@@ -44,11 +59,19 @@ class Voicemail extends React.Component {
   }
 
   _getButtons() {
+    const { voicemail } = this.props
     return [
+      { icon: 'info', label: 'info', handler: this._handleInfo },
       { icon: 'phone', label: 'call back', handler: this._handleCall },
-      { icon: 'envelope-open', label: 'mark read', handler: () => {} },
-      { icon: 'check', label: 'mark handled', handler: () => {} }
+      { icon: 'check', label: 'handled', handler: this._handleHandle, depressed: voicemail.was_handled }
     ]
+  }
+
+  _getClass() {
+    const { playing } = this.state
+    const classes = ['maha-phone-voicemail-button']
+    if(playing) classes.push('playing')
+    return classes.join(' ')
   }
 
   _getDuration(duration) {
@@ -60,17 +83,18 @@ class Voicemail extends React.Component {
   }
 
   _getList() {
-    const { voicemail } = this.props
-    const audits = []
+    const { audits, voicemail } = this.props
+    const items = [
+      { label: 'Date', content: this._getTimestamp(voicemail) },
+      { label: 'Time', content: moment(voicemail.created_at).format('h:mmA') },
+      { label: 'Duration', content: this._getDuration(voicemail.duration) }
+    ]
+    if(audits.length > 0) {
+      items.push({ component: <Audit entries={ audits } /> })
+    }
     return {
-      items: [
-        { label: 'Contact', content: voicemail.contact.display_name },
-        { label: 'Date', content: this._getTimestamp(voicemail) },
-        { label: 'Time', content: moment(voicemail.created_at).format('h:mmA') },
-        { label: 'Duration', content: this._getDuration(voicemail.duration) },
-        { component: <Audit entries={ audits } /> }
-      ],
-      footer: <Comments entity={`crm_workflow_recordings/${voicemail.id}`} />
+      compact: true,
+      items
     }
   }
 
@@ -80,6 +104,14 @@ class Voicemail extends React.Component {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
+    }
+  }
+
+  _getPlayer() {
+    const { voicemail } = this.props
+    return {
+      voicemail,
+      onListen: this._handleHeard
     }
   }
 
@@ -108,16 +140,36 @@ class Voicemail extends React.Component {
     })
   }
 
-  _handlePlay() {
+  _handleHandle() {
+    const { program, voicemail } = this.props
+    if(voicemail.was_handled) return
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/voicemails/${voicemail.id}/handled`,
+      method: 'patch'
+    })
+  }
+
+  _handleHeard() {
+    const { program, voicemail } = this.props
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/voicemails/${voicemail.id}/heard`,
+      method: 'patch'
+    })
+  }
+
+  _handleInfo() {
     const { voicemail } = this.props
-    const audio = new Audio(voicemail.asset.signed_url)
-    audio.play()
+    this.context.router.history.push(`/admin/crm/contacts/${voicemail.contact.id}`)
   }
 
 }
 
 const mapResources = (props, context) => ({
-  voicemail: `/api/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`
+  audits: `/api/admin/crm_workflow_recordings/${props.voicemail_id}/audits`,
+  voicemail: {
+    endpoint: `/api/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`,
+    refresh: `/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`
+  }
 })
 
 export default Container(mapResources)(Voicemail)

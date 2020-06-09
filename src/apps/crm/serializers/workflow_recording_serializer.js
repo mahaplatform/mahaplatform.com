@@ -5,7 +5,7 @@ const WorkflowRecordingSerializer = (req, result) => ({
   contact: contact(result.related('action').related('enrollment').related('contact')),
   duration: result.get('duration'),
   was_heard: result.get('was_heard'),
-  was_returned: result.get('was_returned'),
+  was_handled: result.get('was_handled'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

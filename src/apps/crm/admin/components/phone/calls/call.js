@@ -1,7 +1,9 @@
+import ContactAvatar from '../../../tokens/contact_avatar'
 import { List, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
+import _ from 'lodash'
 
 class Call extends React.Component {
 
@@ -13,9 +15,20 @@ class Call extends React.Component {
   _handleBack = this._handleBack.bind(this)
 
   render() {
+    const { call } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <List { ...this._getList() } />
+        <div className="maha-phone-detail-container">
+          <div className="maha-phone-detail">
+            <div className="maha-phone-detail-header">
+              <ContactAvatar { ...call.contact } />
+              <h2>{ call.contact.display_name }</h2>
+            </div>
+            <div className="maha-phone-detail-body">
+              <List { ...this._getList() } />
+            </div>
+          </div>
+        </div>
       </ModalPanel>
     )
   }
@@ -31,17 +44,17 @@ class Call extends React.Component {
   }
 
   _getDuration(duration) {
-    if(duration < 60) return `${duration} seconds`
-    return `${Math.floor(duration / 60)} minutes`
+    const pad = (value) => _.padStart(value, 2, 0)
+    const minutes = Math.floor(duration / 60)
+    const seconds = (duration  - (minutes * 60)) % 60
+    const parts = [ pad(minutes), pad(seconds) ]
+    return parts.join(':')
   }
 
   _getList() {
     const { call } = this.props
     const items = [
       { label: 'Program', content: call.program.title },
-      ...call.contact ? [
-        { label: 'Contact', content: call.contact.full_name }
-      ] : [],
       { label: 'Date', content: this._getTimestamp(call) },
       { label: 'Time', content: moment(call.created_at).format('h:mmA') },
       { label: 'Duration', content: this._getDuration(call.duration) },

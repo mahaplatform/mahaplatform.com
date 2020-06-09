@@ -35,9 +35,9 @@ class User extends React.Component {
     const { user } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-contact-container">
-          <div className="maha-phone-contact">
-            <div className="maha-phone-contact-header">
+        <div className="maha-phone-detail-container">
+          <div className="maha-phone-detail">
+            <div className="maha-phone-detail-header">
               <Avatar user={ user } presence={ false } />
               <h2>{ user.full_name }</h2>
               <p>{ user.email }</p>
@@ -49,7 +49,7 @@ class User extends React.Component {
                 ))}
               </div>
             </div>
-            <div className="maha-phone-contact-body">
+            <div className="maha-phone-detail-body">
               <List { ...this._getList() } />
             </div>
           </div>

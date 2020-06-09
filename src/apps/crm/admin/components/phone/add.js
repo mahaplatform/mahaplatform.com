@@ -20,6 +20,7 @@ class Add extends React.Component {
 
   static propTypes = {
     programs: PropTypes.array,
+    program: PropTypes.array,
     onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -60,10 +61,8 @@ class Add extends React.Component {
   }
 
   componentDidMount() {
-    const { programs } = this.props
-    this.setState({
-      program: programs[0]
-    })
+    const { program } = this.props
+    this.setState({ program })
   }
 
   _getTab(index) {

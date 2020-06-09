@@ -25,9 +25,9 @@ class Call extends React.Component {
           )) }
           { active.map((call, index) => (
             <div className="maha-phone-receiver-active" key={`call_${index}`}>
-              { call.status === 'ringing' ?
-                <Incoming call={ call } /> :
-                <Active { ...this._getActive(call) } />
+              { call.status === 'active' ?
+                <Active { ...this._getActive(call) } /> :
+                <Incoming call={ call } />
               }
             </div>
           )) }

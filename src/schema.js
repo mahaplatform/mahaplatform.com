@@ -656,6 +656,8 @@ const schema = {
       table.timestamp('updated_at')
       table.string('code', 255)
       table.integer('duration')
+      table.boolean('was_listened')
+      table.boolean('was_handled')
     })
 
     await knex.schema.createTable('crm_workflow_steps', (table) => {

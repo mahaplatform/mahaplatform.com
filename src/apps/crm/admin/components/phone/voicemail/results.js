@@ -24,8 +24,16 @@ class Results extends React.Component {
           <div className="maha-phone-search-result" key={`result_${index}`} onClick={ this._handleClick.bind(this, voicemail)}>
             <div className="maha-phone-voicemail-result-token">
               <div className="maha-phone-voicemail-token">
+                <div className="maha-phone-voicemail-token-icon">
+                  { !voicemail.was_heard &&
+                    <i className="fa fa-circle" />
+                  }
+                </div>
                 <div className="maha-phone-voicemail-token-avatar">
                   <ContactAvatar { ...voicemail.contact } />
+                  { voicemail.was_handled &&
+                    <i className="fa fa-check-circle" />
+                  }
                 </div>
                 <div className="maha-phone-voicemail-token-label">
                   { voicemail.contact.display_name }<br />

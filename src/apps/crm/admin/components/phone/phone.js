@@ -72,8 +72,10 @@ class Phone extends React.Component {
 
   _getAdd() {
     const { programs, onPop, onPush } = this.props
+    const { program } = this.state
     return {
       programs,
+      program,
       onCall: this._handleCall,
       onPop,
       onPush

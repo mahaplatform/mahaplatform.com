@@ -100,7 +100,7 @@ class Call extends React.Component {
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.queued },
       { icon: 'plus', label: 'add call', handler: this._handleAddCall },
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-      { icon: 'comment', label: 'sms', handler: this._handleSMS }
+      { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
 
@@ -128,13 +128,10 @@ class Call extends React.Component {
 
   _getSMS() {
     const { call, onPop, onPush } = this.props
-    const { contact, program, phone_number} = call.call
+    const { program, phone_number} = call.call
     return  {
+      phone_id: phone_number.id,
       program,
-      channel: {
-        contact,
-        phone_number
-      },
       onPop,
       onPush
     }
