@@ -90,7 +90,7 @@ class Voicemail extends React.Component {
       { label: 'Duration', content: this._getDuration(voicemail.duration) }
     ]
     if(audits.length > 0) {
-      items.push({ component: <Audit entries={ audits } /> })
+      items.push({ component: <Audit compact={ true } entries={ audits } /> })
     }
     return {
       compact: true,

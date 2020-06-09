@@ -8,7 +8,12 @@ import React from 'react'
 class Audit extends React.Component {
 
   static propTypes = {
+    compact: PropTypes.bool,
     entries: PropTypes.array
+  }
+
+  static defaultProps = {
+    compact: false
   }
 
   state = {
@@ -22,7 +27,7 @@ class Audit extends React.Component {
     const { entries } = this.props
     const { showall } = this.state
     return (
-      <div className="maha-audit compact">
+      <div className={ this._getClass() }>
         { entries.length > 5 && !showall &&
           <div className="maha-audit-more">
             <Button { ...this._getShowAll() } />
@@ -48,6 +53,13 @@ class Audit extends React.Component {
     )
   }
 
+  _getClass() {
+    const { compact } = this.props
+    const classes = ['maha-audit']
+    if(compact) classes.push('compact')
+    return classes.join(' ')
+  }
+  
   _getEntries() {
     const { showall } = this.state
     const { entries } = this.props

@@ -35,10 +35,10 @@ const getTasks = ({ campaign }) => {
   } else if(direction === 'inbound' && status === 'active') {
     items.push({
       label: 'Deactivate Campaign',
+      confirm: 'Are you sure you want to deactivate this campaign?',
       request: {
         endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}/activate`,
         method: 'PATCH',
-        confirm: 'Are you sure you want to deactivate this campaign?',
         body: {
           status: 'inactive'
         }
@@ -47,10 +47,13 @@ const getTasks = ({ campaign }) => {
   } else if(direction === 'inbound' && _.includes(['draft','inactive'], status)) {
     items.push({
       label: 'Activate Campaign',
+      confirm: `
+        Are you sure you want to activate this campaign? If there is another
+        active inbound voice campaign for this program, it will be deactivated.
+      `,
       request: {
         endpoint: `/api/admin/crm/campaigns/voice/${campaign.id}/activate`,
         method: 'PATCH',
-        confirm: 'Are you sure you want to activate this campaign?',
         body: {
           status: 'active'
         }
