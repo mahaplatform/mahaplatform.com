@@ -1,12 +1,13 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
+import socket from '../../../../core/services/routes/emitter'
 import { executeWorkflow } from '../../services/workflows'
 
-const recordRoute = async (req, res) => {
+const voicemailRoute = async (req, res) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('code', req.params.enrollment_code)
   }).fetch({
-    withRelated: ['team'],
+    withRelated: ['team','voice_campaign'],
     transacting: req.trx
   })
 
@@ -28,10 +29,14 @@ const recordRoute = async (req, res) => {
     }
   }) || {}
 
+  await socket.refresh(req, [
+    `/admin/crm/programs/${enrollment.related('voice_campaign').get('program_id')}/voicemails`
+  ])
+
   if(!result.twiml) res.status(200).respond(true)
 
   res.status(200).type('text/xml').send(result.twiml)
 
 }
 
-export default recordRoute
+export default voicemailRoute

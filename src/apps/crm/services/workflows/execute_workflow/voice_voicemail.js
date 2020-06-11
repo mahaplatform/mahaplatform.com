@@ -1,14 +1,21 @@
 import { twiml } from 'twilio'
+import ejs from 'ejs'
 
-const voicemail = async (req, { config, enrollment, step, recording }) => {
-
-  const { message, strategy, voice } = config
+const voicemail = async (req, { config, enrollment, step, recording, tokens }) => {
 
   if(recording) {
     return {
       recording_data: recording
     }
   }
+
+  await enrollment.related('call').save({
+    was_answered: false
+  }, {
+    transacting: req.trx
+  })
+
+  const { message, strategy, voice } = config
 
   const response = new twiml.VoiceResponse()
 
@@ -20,14 +27,16 @@ const voicemail = async (req, { config, enrollment, step, recording }) => {
 
   } else if(strategy === 'say') {
 
+    const rendered = ejs.render(message, tokens)
+
     response.say({
       voice
-    }, message)
+    }, rendered)
 
   }
 
   response.record({
-    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/record`,
+    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/voicemail`,
     method: 'POST',
     finishOnKey: '#',
     trim: 'trim-silence'

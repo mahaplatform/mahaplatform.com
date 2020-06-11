@@ -61,7 +61,7 @@ class Voicemail extends React.Component {
     const { voicemail } = this.props
     return [
       { icon: 'info', label: 'info', handler: this._handleInfo },
-      { icon: 'phone', label: 'call back', handler: this._handleCall },
+      { icon: 'phone', label: 'call', handler: this._handleCall },
       { icon: 'check', label: 'handled', handler: this._handleHandle, depressed: voicemail.was_handled }
     ]
   }

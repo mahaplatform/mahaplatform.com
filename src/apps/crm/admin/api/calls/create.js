@@ -1,5 +1,6 @@
 import { findOrCreateNumber } from '../../../../maha/services/numbers'
 import CallSerializer from '../../../serializers/call_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import Call from '../../../../maha/models/call'
 
 const getNumberId = async (req, number) => {
@@ -25,7 +26,8 @@ const createRoute = async (req, res) => {
     to_id,
     direction: 'outbound',
     from_user_id: req.body.from_user_id,
-    to_user_id: req.body.to_user_id
+    to_user_id: req.body.to_user_id,
+    was_answered: true
   }).save(null, {
     transacting: req.trx
   })
@@ -33,6 +35,10 @@ const createRoute = async (req, res) => {
   await call.load(['to','from','program.logo','program.phone_number','user.photo','phone_number.contact.photo','from_user.photo','to_user.photo'], {
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/crm/programs/${req.body.program_id}/channels/voice/calls`
+  ])
 
   res.status(200).respond(call, CallSerializer)
 

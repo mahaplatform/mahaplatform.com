@@ -1,6 +1,6 @@
 import RecordingField from '../../recordingfield'
+import { Button, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -10,7 +10,8 @@ class Voicemail extends React.PureComponent {
     config: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onTokens: PropTypes.func
   }
 
   form = null
@@ -79,12 +80,21 @@ class Voicemail extends React.PureComponent {
     if(config.strategy === 'say') {
       return [
         { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], required: true, defaultValue: config.voice },
-        { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
+        { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message, after: <Button { ...this._getTokens() } /> }
       ]
     }
     return [
       { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
     ]
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can use the these tokens',
+      className: 'link',
+      handler: onTokens
+    }
   }
 
   _handleCancel() {

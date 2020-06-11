@@ -67,8 +67,9 @@ const receive = async (req, { call, phone_number }) => {
 
   await call.save({
     program_id: phone_number.related('program').get('id'),
-    phone_number_id: from.get('id')
-  },{
+    phone_number_id: from.get('id'),
+    was_answered: false
+  }, {
     transacting: req.trx,
     patch: true
   })
@@ -99,12 +100,17 @@ const receive = async (req, { call, phone_number }) => {
     contact: from.related('contact')
   })
 
+  await call.save({
+    was_answered: true
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
+
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
     call_status: 'in-progress',
-    code: req.params.code,
-    execute: req.params.verb !== 'next',
-    response: req.params.verb === 'gather' ? req.body.Digits : null
+    execute: true
   })
 
   return result.twiml

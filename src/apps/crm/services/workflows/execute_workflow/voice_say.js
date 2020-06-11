@@ -3,10 +3,6 @@ import ejs from 'ejs'
 
 const say = async (req, { enrollment, execute, step, tokens }) => {
 
-  const { message, voice } = step.get('config')
-
-  const rendered = ejs.render(message, tokens)
-
   if(execute === false) {
     return {
       action: {
@@ -16,6 +12,10 @@ const say = async (req, { enrollment, execute, step, tokens }) => {
       }
     }
   }
+
+  const { message, voice } = step.get('config')
+
+  const rendered = ejs.render(message, tokens)
 
   const response = new twiml.VoiceResponse()
 

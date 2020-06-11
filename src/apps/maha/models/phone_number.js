@@ -1,4 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import VoiceCampaign from '../../crm/models/voice_campaign'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 
@@ -42,6 +43,10 @@ const PhoneNumber = new Model({
 
   program() {
     return this.hasOne(Program, 'phone_number_id')
+  },
+
+  voice_campaigns() {
+    return this.hasMany(VoiceCampaign, 'phone_number_id')
   }
 
 })

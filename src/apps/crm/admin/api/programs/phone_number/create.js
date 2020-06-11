@@ -1,11 +1,10 @@
 import PhoneNumberSerializer from '../../../../../team/serializers/phone_number_serializer'
+import { createDefaultInboundCampaign } from '../../../../services/voice_campaigns'
 import { activity } from '../../../../../../core/services/routes/activities'
-import generateCode from '../../../../../../core/utils/generate_code'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import PhoneNumber from '../../../../../maha/models/phone_number'
-import VoiceCampaign from '../../../../models/voice_campaign'
 import twilio from '../../../../../../core/services/twilio'
 import Program from '../../../../models/program'
 
@@ -69,34 +68,21 @@ const createRoute = async (req, res) => {
     patch: true
   })
 
-  const voice_code = await generateCode(req, {
-    table: 'crm_voice_campaigns'
-  })
-
-  const voice_campaign = await VoiceCampaign.forge({
-    team_id: req.team.get('id'),
-    code: voice_code,
-    status: 'active',
-    program_id: program.get('id'),
-    phone_number_id: phone_number.get('id'),
-    title: 'Phone System',
-    direction: 'inbound',
-    purpose: 'transactional'
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await audit(req, {
-    story: 'created',
-    auditable: voice_campaign
+  await createDefaultInboundCampaign(req, {
+    phone_number,
+    program
   })
 
   await socket.refresh(req, [
     '/admin/team/phone_numbers',
     '/admin/crm/programs',
-    `/admin/crm/programs/${program.id}`,
-    '/admin/crm/campaigns/voice/inbound'
+    `/admin/crm/programs/${program.id}`
   ])
+
+  await audit(req, {
+    story: 'provisioned phone number',
+    auditable: phone_number
+  })
 
   await activity(req, {
     story: 'provisioned {object}',

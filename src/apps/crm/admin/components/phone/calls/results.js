@@ -23,8 +23,8 @@ class Results extends React.Component {
         { records.map((call, index) => (
           <div className="maha-phone-search-result" key={`result_${index}`} onClick={ this._handleClick.bind(this, call)}>
             <div className="maha-phone-calls-result-token">
-              <div className="maha-phone-calls-token">
-                <div className="maha-phone-calls-token-avatar">
+              <div className={ this._getClass(call) }>
+                <div className="maha-phone-call-token-avatar">
                   { call.to_user &&
                     <Avatar user={ call.to_user } width="24" />
                   }
@@ -35,10 +35,10 @@ class Results extends React.Component {
                     <ContactAvatar { ...call.contact } />
                   }
                 </div>
-                <div className="maha-phone-calls-token-label">
+                <div className="maha-phone-call-token-label">
                   { this._getTo(call) }<br />
                   <span>{ this._getDescription(call) }</span>
-                  <div className="maha-phone-calls-token-timestamp">
+                  <div className="maha-phone-call-token-timestamp">
                     { this._getTimestamp(call) }
                   </div>
                 </div>
@@ -51,6 +51,12 @@ class Results extends React.Component {
         ))}
       </div>
     )
+  }
+
+  _getClass(call) {
+    const classes = ['maha-phone-call-token']
+    if(!call.was_answered) classes.push('missed')
+    return classes.join(' ')
   }
 
   _getTo(call) {

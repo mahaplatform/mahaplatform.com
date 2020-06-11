@@ -620,7 +620,6 @@ const schema = {
       table.integer('user_id').unsigned()
       table.integer('sms_id').unsigned()
       table.timestamp('waited_until')
-      table.integer('voicemail_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
@@ -676,16 +675,6 @@ const schema = {
       table.integer('voice_campaign_id').unsigned()
       table.integer('sms_campaign_id').unsigned()
       table.boolean('is_active')
-    })
-
-    await knex.schema.createTable('crm_workflow_voicemails', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('asset_id').unsigned()
-      table.boolean('was_heard')
-      table.boolean('was_returned')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {
@@ -1481,6 +1470,7 @@ const schema = {
       table.integer('user_id').unsigned()
       table.integer('from_user_id').unsigned()
       table.integer('to_user_id').unsigned()
+      table.boolean('was_answered')
     })
 
     await knex.schema.createTable('maha_comments', (table) => {
@@ -2652,7 +2642,6 @@ const schema = {
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('user_id').references('maha_users.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('voicemail_id').references('crm_workflow_voicemails.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
@@ -3409,11 +3398,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_workflow_voicemails', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

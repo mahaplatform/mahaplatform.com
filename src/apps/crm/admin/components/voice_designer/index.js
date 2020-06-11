@@ -102,7 +102,7 @@ class VoiceDesigner extends React.PureComponent {
     return [
       ...programfields.length > 0 ? [{ title: program.title, tokens: programfields.map(field => ({
         name:   field.label,
-        token: `program.${field.name}`
+        token: `program.${field.name.token}`
       }))}] : [],
       { title: 'Call', tokens: [
         { name: 'From Number', token: 'call.from_number' },

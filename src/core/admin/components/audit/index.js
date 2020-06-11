@@ -26,6 +26,7 @@ class Audit extends React.Component {
     const shown = this._getEntries()
     const { entries } = this.props
     const { showall } = this.state
+    if(entries.length === 0) return null
     return (
       <div className={ this._getClass() }>
         { entries.length > 5 && !showall &&
@@ -59,7 +60,7 @@ class Audit extends React.Component {
     if(compact) classes.push('compact')
     return classes.join(' ')
   }
-  
+
   _getEntries() {
     const { showall } = this.state
     const { entries } = this.props

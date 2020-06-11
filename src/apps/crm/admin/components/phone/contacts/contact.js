@@ -28,7 +28,6 @@ class Contact extends React.Component {
   render() {
     const { contact } = this.props
     const phone = this._getPhone()
-    const email = this._getEmail()
     const buttons = this._getButtons()
     return (
       <ModalPanel { ...this._getPanel() }>
@@ -97,7 +96,7 @@ class Contact extends React.Component {
     return {
       label: phone_number.formatted,
       className: 'link',
-      handler: () => {}
+      handler: this._handlePlaceCall.bind(this, phone_number)
     }
   }
 

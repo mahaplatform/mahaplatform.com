@@ -11,11 +11,16 @@
   }
 }
 
-.maha-phone-calls-token {
+.maha-phone-call-token {
   display: flex;
   flex: 1;
+  &.missed {
+    .maha-phone-call-token-label {
+      color: @red;
+    }
+  }
 }
-.maha-phone-calls-token-avatar {
+.maha-phone-call-token-avatar {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .contact-avatar-token,
@@ -28,7 +33,7 @@
     font-size: 0.8em;
   }
 }
-.maha-phone-calls-token-icon {
+.maha-phone-call-token-icon {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
@@ -36,7 +41,7 @@
     font-size: 1.4em;
   }
 }
-.maha-phone-calls-token-label {
+.maha-phone-call-token-label {
   position: relative;
   flex: 1;
   padding: 0.8em;
@@ -44,7 +49,7 @@
     color: fadeout(@black, 60);
   }
 }
-.maha-phone-calls-token-timestamp {
+.maha-phone-call-token-timestamp {
   position: absolute;
   top: 50%;
   right: 0.8em;
