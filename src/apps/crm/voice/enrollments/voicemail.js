@@ -30,6 +30,7 @@ const voicemailRoute = async (req, res) => {
   }) || {}
 
   await socket.refresh(req, [
+    `/admin/crm/programs/${enrollment.related('voice_campaign').get('program_id')}/receipts`,
     `/admin/crm/programs/${enrollment.related('voice_campaign').get('program_id')}/voicemails`
   ])
 

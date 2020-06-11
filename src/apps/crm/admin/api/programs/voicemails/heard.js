@@ -30,7 +30,8 @@ const heardRoute = async (req, res) => {
   await recording.save({
     was_heard: true
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await audit(req, {
@@ -39,6 +40,7 @@ const heardRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
+    `/admin/crm/programs/${req.params.program_id}/receipts`,
     `/admin/crm/programs/${req.params.program_id}/voicemails`,
     `/admin/crm/programs/${req.params.program_id}/voicemails/${req.params.id}`
   ])

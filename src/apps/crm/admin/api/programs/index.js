@@ -3,6 +3,7 @@ import recipients from './recipients'
 import voicemails from './voicemails'
 import templates from './templates'
 import channels from './channels'
+import receipts from './receipts'
 import { Router } from 'express'
 import destroy from './destroy'
 import senders from './senders'
@@ -41,6 +42,8 @@ router.use('/:program_id/fields', fields)
 router.use('/:program_id/lists', lists)
 
 router.use('/:program_id/phone_number', phone_number)
+
+router.use('/:program_id/receipts', receipts)
 
 router.use('/:program_id/senders', senders)
 

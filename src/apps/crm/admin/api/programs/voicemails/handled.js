@@ -30,7 +30,8 @@ const handledRoute = async (req, res) => {
   await recording.save({
     was_handled: true
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await audit(req, {

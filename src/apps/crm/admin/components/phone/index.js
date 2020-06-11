@@ -16,10 +16,12 @@ class PhoneContainer extends React.Component {
   }
 
   state = {
+    program: null,
     cards: []
   }
 
   _handlePop = this._handlePop.bind(this)
+  _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
@@ -42,6 +44,10 @@ class PhoneContainer extends React.Component {
   }
 
   componentDidMount() {
+    const { programs } = this.props
+    this.setState({
+      program: programs[0]
+    })
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
@@ -65,9 +71,13 @@ class PhoneContainer extends React.Component {
 
   _getPhone() {
     const { programs } = this.props
+    const { program } = this.state
     return {
+      key: `program_${program.id}`,
       programs,
+      program,
       onPop: this._handlePop,
+      onProgram: this._handleProgram,
       onPush: this._handlePush
     }
   }
@@ -84,6 +94,10 @@ class PhoneContainer extends React.Component {
     this.setState({
       cards: this.state.cards.slice(0, index)
     })
+  }
+
+  _handleProgram(program) {
+    this.setState({ program })
   }
 
   _handlePush(component, props) {

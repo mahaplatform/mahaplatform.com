@@ -39,7 +39,7 @@ class Contact extends React.Component {
               { phone &&
                 <p>{ phone.formatted }</p>
               }
-              <div className="maha-phone-actions" >
+              <div className="maha-phone-actions">
                 { buttons.map((button, index) => (
                   <div className="maha-phone-action" key={`action_${index}`}>
                     <PhoneButton { ...button } />

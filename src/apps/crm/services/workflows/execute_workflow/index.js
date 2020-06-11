@@ -224,7 +224,9 @@ const saveRecording = async(req, { action, recording_data }) => {
     team_id: req.team.get('id'),
     action_id: action.get('id'),
     code,
-    duration
+    duration,
+    was_heard: false,
+    was_handled: false
   }).save(null, {
     transacting: req.trx
   })

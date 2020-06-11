@@ -72,13 +72,14 @@ class Call extends React.Component {
   }
 
   _getTimestamp(call) {
+    const time = moment(call.created_at).format('h:mm A')
     const today = moment().startOf('day')
     const yesterday = moment().subtract(1, 'day').startOf('day')
     const created_at = moment(call.created_at)
-    if(today.format('YYMMDD') === created_at.format('YYMMDD')) return 'Today'
-    if(yesterday.format('YYMMDD') === created_at.format('YYMMDD')) return 'Yesterday'
-    if(today.diff(created_at, 'days') < 7) return created_at.format('dddd')
-    return created_at.format('MM/DD/YY')
+    if(today.format('YYMMDD') === created_at.format('YYMMDD')) return `Today, ${time}`
+    if(yesterday.format('YYMMDD') === created_at.format('YYMMDD')) return `Yesterday, ${time}`
+    if(today.diff(created_at, 'days') < 7) return created_at.format('dddd, h:mm A')
+    return created_at.format('MM/DD/YY, h:mm A')
   }
 
   _getDuration(duration) {
@@ -93,8 +94,7 @@ class Call extends React.Component {
     const { call } = this.props
     const items = [
       { label: 'Program', content: call.program.title },
-      { label: 'Date', content: this._getTimestamp(call) },
-      { label: 'Time', content: moment(call.created_at).format('h:mmA') },
+      { label: 'Time', content: this._getTimestamp(call) },
       { label: 'Duration', content: this._getDuration(call.duration) },
       { label: 'Direction', content: call.direction }
     ]

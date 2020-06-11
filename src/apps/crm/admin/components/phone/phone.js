@@ -6,37 +6,37 @@ import Calls from './calls'
 import React from 'react'
 import SMS from './sms'
 import Add from './add'
-
-const tabs = [
-  { icon: 'phone', label: 'Calls', component: Calls },
-  { icon: 'comments', label: 'SMS', component: SMS },
-  { icon: 'voicemail', label: 'Voicemail', component: Voicemail }
-]
+import _ from 'lodash'
 
 class Phone extends React.Component {
 
   static contextTypes = {
+    network: PropTypes.object,
     phone: PropTypes.object
   }
 
   static propTypes = {
     programs: PropTypes.array,
+    program: PropTypes.object,
     onPop: PropTypes.func,
+    onProgram: PropTypes.func,
     onPush: PropTypes.func
   }
 
   state = {
-    program: null,
+    receipts: {},
     selected: 0
   }
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
-  _handleProgram = this._handleProgram.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
 
   render() {
-    const { program, selected } = this.state
+    const { program } = this.props
+    const { selected } = this.state
+    const tabs = this._getTabs()
     const tab = tabs[selected]
     if(!program) return null
     return (
@@ -54,6 +54,11 @@ class Phone extends React.Component {
                 { tab.icon &&
                   <i className={`fa fa-${ tab.icon }`} />
                 }
+                { (tab.count !== undefined && tab.count > 0) &&
+                  <div className="maha-phone-client-footer-item-count">
+                    { tab.count }
+                  </div>
+                }
                 <span>{ tab.label }</span>
               </div>
             ))}
@@ -64,15 +69,27 @@ class Phone extends React.Component {
   }
 
   componentDidMount() {
-    const { programs } = this.props
-    this.setState({
-      program: programs[0]
-    })
+    const { program } = this.props
+    this._handleFetch()
+    this._handleJoin(program)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { program } = this.props
+    if(!_.isEqual(program, prevProps.program)) {
+      this._handleFetch()
+      this._handleLeave(prevProps.program)
+      this._handleJoin(program)
+    }
+  }
+
+  componentWillUnmount() {
+    const { program } = this.props
+    this._handleLeave(program)
   }
 
   _getAdd() {
-    const { programs, onPop, onPush } = this.props
-    const { program } = this.state
+    const { programs, program, onPop, onPush } = this.props
     return {
       programs,
       program,
@@ -93,8 +110,7 @@ class Phone extends React.Component {
   }
 
   _getComponent() {
-    const { onPop, onPush } = this.props
-    const { program } = this.state
+    const { program, onPop, onPush } = this.props
     return {
       program,
       onCall: this._handleCall,
@@ -116,18 +132,25 @@ class Phone extends React.Component {
   }
 
   _getPrograms() {
-    const { programs } = this.props
-    const { program } = this.state
+    const { programs, program, onProgram } = this.props
     return {
       program,
       programs,
-      onChange: this._handleProgram
+      onChange: onProgram
     }
   }
 
+  _getTabs() {
+    const { receipts } = this.state
+    return [
+      { icon: 'phone', label: 'Calls', component: Calls },
+      { icon: 'comments', label: 'SMS', component: SMS, count: receipts.unread_messages },
+      { icon: 'voicemail', label: 'Voicemail', component: Voicemail, count: receipts.unheard_voicemails }
+    ]
+  }
+
   _getTabPanel() {
-    const { onPop } = this.props
-    const { program } = this.state
+    const { program, onPop } = this.props
     return {
       program,
       onPop
@@ -142,16 +165,43 @@ class Phone extends React.Component {
     this.context.phone.toggle()
   }
 
-  _handleProgram(program) {
-    this.setState({ program })
-  }
-
   _handleSelect(selected) {
     return this.setState({ selected })
   }
 
   _handleAdd() {
     this.props.onPush(Add, this._getAdd())
+  }
+
+  _handleFetch() {
+    const { program } = this.props
+    this.context.network.request({
+      endpoint: `/api/admin/crm/programs/${program.id}/receipts`,
+      method: 'GET',
+      onSuccess: ({ data }) => {
+        this.setState({
+          receipts: data
+        })
+      }
+    })
+  }
+
+  _handleJoin(program) {
+    const { network } = this.context
+    const channel = `/admin/crm/programs/${program.id}/receipts`
+    network.join(channel)
+    network.subscribe([
+      { target: channel, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave(program) {
+    const { network } = this.context
+    const channel = `/admin/crm/programs/${program.id}/receipts`
+    network.leave(channel)
+    network.unsubscribe([
+      { target: channel, action: 'refresh', handler: this._handleFetch }
+    ])
   }
 
 }

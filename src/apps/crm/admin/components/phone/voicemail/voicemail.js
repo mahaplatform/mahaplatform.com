@@ -76,8 +76,7 @@ class Voicemail extends React.Component {
   _getList() {
     const { audits, voicemail } = this.props
     const items = [
-      { label: 'Date', content: this._getTimestamp(voicemail) },
-      { label: 'Time', content: moment(voicemail.created_at).format('h:mm A') },
+      { label: 'Time', content: this._getTimestamp(voicemail) },
       { label: 'Duration', content: voicemail.duration, format: 'duration' }
     ]
     if(audits.length > 0) {
@@ -107,13 +106,14 @@ class Voicemail extends React.Component {
   }
 
   _getTimestamp(call) {
+    const time = moment(call.created_at).format('h:mm A')
     const today = moment().startOf('day')
     const yesterday = moment().subtract(1, 'day').startOf('day')
     const created_at = moment(call.created_at)
-    if(today.format('YYMMDD') === created_at.format('YYMMDD')) return 'Today'
-    if(yesterday.format('YYMMDD') === created_at.format('YYMMDD')) return 'Yesterday'
-    if(today.diff(created_at, 'days') < 7) return created_at.format('dddd')
-    return created_at.format('MM/DD/YY')
+    if(today.format('YYMMDD') === created_at.format('YYMMDD')) return `Today, ${time}`
+    if(yesterday.format('YYMMDD') === created_at.format('YYMMDD')) return `Yesterday, ${time}`
+    if(today.diff(created_at, 'days') < 7) return created_at.format('dddd, h:mm A')
+    return created_at.format('MM/DD/YY, h:mm A')
   }
 
   _handleBack() {
