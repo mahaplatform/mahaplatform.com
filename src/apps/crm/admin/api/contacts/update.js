@@ -42,8 +42,6 @@ const updateRoute = async (req, res) => {
     values: req.body.values
   })
 
-  console.log(req.body.values, values)
-
   await contact.save({
     ...whitelist(req.body, ['first_name','last_name','photo_id','birthday','spouse']),
     values: {

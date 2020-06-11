@@ -1,3 +1,4 @@
+import { updateCall } from '../../../../maha/services/calls'
 import twilio from '../../../../../core/services/twilio'
 import User from '../../../../maha/models/user'
 import Call from '../../../../maha/models/call'
@@ -5,16 +6,12 @@ import { twiml } from 'twilio'
 
 const dial = async (req, { response, extra, user_id }) => {
 
-  const { enrollment_code, step_code } = req.body.params
+  const dial = response.dial()
 
-  const dial = response.dial({
-    ...enrollment_code ? {
-      action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment_code}/${step_code}/dial`
-    } : {},
-    timeout: 15
-  })
-
-  const client = dial.client(`user-${user_id}`)
+  const client = dial.client({
+    statusCallback: `${process.env.TWIML_HOST}/voice/status`,
+    statusCallbackEvent: ['ringing','answered','completed']
+  }, `user-${user_id}`)
 
   const params = {
     ...req.body.params,
@@ -49,6 +46,11 @@ const transferRoute = async (req, res) => {
     qb.where('id', req.body.user_id)
   }).fetch({
     transacting: req.trx
+  })
+
+  await updateCall(req, {
+    call,
+    status: 'transferring'
   })
 
   const response = new twiml.VoiceResponse()

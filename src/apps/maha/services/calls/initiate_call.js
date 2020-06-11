@@ -15,7 +15,7 @@ const initiateCall = async (req, { call_id, method, url }) => {
 
     const result = await twilio.calls.create({
       statusCallback: `${process.env.TWIML_HOST}/voice/status`,
-      statusCallbackEvent: ['initiated','ringing','answered','completed'],
+      statusCallbackEvent: ['ringing','answered','completed'],
       statusCallbackMethod: 'POST',
       machineDetection: 'DetectMessageEnd',
       from: call.related('from').get('number'),

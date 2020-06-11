@@ -18,8 +18,6 @@ const actionsRoute = async (req, res) => {
     message: 'Unable to load registration'
   })
 
-  console.log(registration)
-
   const actions = await WorkflowAction.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('enrollment_id', registration.related('enrollment').get('id'))

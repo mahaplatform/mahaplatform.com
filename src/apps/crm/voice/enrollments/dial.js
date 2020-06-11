@@ -1,13 +1,14 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { executeWorkflow } from '../../services/workflows'
 import twilio from '../../../../core/services/twilio'
+import { twiml } from 'twilio'
 
 const dialRoute = async (req, res) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('code', req.params.enrollment_code)
   }).fetch({
-    withRelated: ['team'],
+    withRelated: ['call','team'],
     transacting: req.trx
   })
 
@@ -18,31 +19,42 @@ const dialRoute = async (req, res) => {
 
   req.team = enrollment.related('team')
 
-  const call = await twilio.calls(req.body.CallSid).fetch()
+  const call = enrollment.related('call')
 
-  const { duration, status, to } = call
+  const twcall = await twilio.calls(req.body.DialCallSid).fetch()
 
-  const matches = status === 'completed' ? to.match(/^client:user-(.*)$/) : null
+  const matches = twcall.to.match(/^client:user-(.*)$/)
 
-  if(status === 'completed' && matches !== null) return
+  const mobile_answered = !matches && twcall.status === 'completed'
 
-  const result = await executeWorkflow(req, {
-    enrollment_id: enrollment.get('id'),
-    code: req.params.code,
-    execute: false,
-    call: {
-      duration,
-      status,
-      user_id: status === 'completed' && matches !== null ? parseInt(matches[1]) : null,
-      number: status === 'completed' && matches === null ? call.to : null
-    }
-  })
+  const maha_answered = matches && req.body.DialCallStatus === 'completed' && req.body.CallStatus === 'completed'
 
-  if(result.twiml) {
-    return res.status(200).type('text/xml').send(result.twiml)
+  const no_one_answered = call.get('status') === 'completed'
+
+  if(mobile_answered || maha_answered || no_one_answered) {
+
+    const result = await executeWorkflow(req, {
+      enrollment_id: enrollment.get('id'),
+      code: req.params.code,
+      execute: false,
+      call_status: req.body.CallStatus,
+      dial: {
+        duration: req.body.DialCallDuration,
+        status: req.body.DialCallStatus,
+        user_id: matches ? parseInt(matches[1]) : null,
+        number: !matches ? twcall.to : null
+      }
+    })
+
+    if(result.twiml) return res.status(200).type('text/xml').send(result.twiml)
+
   }
 
-  res.status(200).respond(true)
+  const response = new twiml.VoiceResponse()
+
+  response.hangup()
+
+  return res.status(200).type('text/xml').send(response.toString())
 
 }
 

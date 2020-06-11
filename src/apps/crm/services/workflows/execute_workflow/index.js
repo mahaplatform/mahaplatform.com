@@ -56,13 +56,13 @@ const getExecutor = (type, action) => {
 }
 
 const executeStep = async (req, params) => {
-  const { answer, call, contact, enrollment, execute, step, steps, recording, tokens, workflow } = params
+  const { answer, contact, dial, enrollment, execute, step, steps, recording, tokens, workflow } = params
   const executor = getExecutor(step.get('type'), step.get('action'))
   return await executor(req, {
     answer,
-    call,
     config: step.get('config'),
     contact,
+    dial,
     enrollment,
     execute,
     recording,
@@ -311,7 +311,7 @@ const completeEnrollment = async (req, { enrollment, unenroll }) => {
 
 const executeWorkflow = async (req, params) => {
 
-  const { answer, call, code, enrollment_id, execute, recording } = params
+  const { answer, code, dial, enrollment_id, execute, recording } = params
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -355,8 +355,8 @@ const executeWorkflow = async (req, params) => {
 
   const result = await executeStep(req, {
     answer,
-    call,
     contact,
+    dial,
     enrollment,
     execute,
     step,
@@ -368,7 +368,9 @@ const executeWorkflow = async (req, params) => {
 
   const { action, condition, converted, recording_data, twiml, unenroll, until, wait } = result
 
-  if(twiml) return { twiml }
+  const call_status = result.call_status || params.call_status
+
+  if(call_status === 'in-progress' && twiml) return { twiml }
 
   if(wait === true) return
 
@@ -411,6 +413,7 @@ const executeWorkflow = async (req, params) => {
 
   return await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
+    call_status,
     code: next.get('code')
   })
 

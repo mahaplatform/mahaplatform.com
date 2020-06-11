@@ -45,10 +45,10 @@ const createRoute = async (req, res) => {
     smsMethod: 'POST',
     smsUrl: `${process.env.TWIML_HOST}/sms`,
     voiceMethod: 'POST',
-    voiceUrl: `${process.env.TWIML_HOST}/${req.body.type}`,
+    voiceUrl: `${process.env.TWIML_HOST}/voice`,
     voiceReceiveMode: req.body.type,
     statusMethod: 'POST',
-    statusCallback: `${process.env.TWIML_HOST}/${req.body.type}/status`
+    statusCallback: `${process.env.TWIML_HOST}/voice/status`
   })
 
   const phone_number = await PhoneNumber.forge({

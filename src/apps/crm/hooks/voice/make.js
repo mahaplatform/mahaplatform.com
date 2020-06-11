@@ -35,7 +35,7 @@ const makeHook = async (req, { call, phone_number, user_id }) => {
 
   dial.number({
     statusCallback: `${process.env.TWIML_HOST}/voice/status`,
-    statusCallbackEvent: ['ringing','answered']
+    statusCallbackEvent: ['ringing','answered','completed']
   }, call.related('to').get('number'))
 
   return response.toString()

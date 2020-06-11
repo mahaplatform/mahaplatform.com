@@ -27,6 +27,7 @@ const showRoute = async (req, res) => {
 
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
+    call_status: 'in-progress',
     code: req.params.code,
     execute: req.params.verb !== 'next'
   }) || {}

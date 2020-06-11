@@ -74,6 +74,7 @@ const receive = async (req, { call, phone_number }) => {
   })
 
   await socket.refresh(req, [
+    `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/voice/calls`,
     `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/voice/${from.get('id')}/calls`
   ])
 
@@ -100,6 +101,7 @@ const receive = async (req, { call, phone_number }) => {
 
   const result = await executeWorkflow(req, {
     enrollment_id: enrollment.get('id'),
+    call_status: 'in-progress',
     code: req.params.code,
     execute: req.params.verb !== 'next',
     response: req.params.verb === 'gather' ? req.body.Digits : null

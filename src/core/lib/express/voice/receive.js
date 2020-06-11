@@ -1,5 +1,5 @@
 import PhoneNumber from '../../../../apps/maha/models/phone_number'
-import { receiveCall } from '../../../../apps/maha/services/calls'
+import { receiveCall, updateCall } from '../../../../apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import Call from '../../../../apps/maha/models/call'
@@ -99,11 +99,23 @@ const make = async (req, res) => {
 
 const queue = async (req, res) => {
 
+  const call = await Call.query(qb => {
+    qb.where('sid', req.body.ParentCallSid)
+  }).fetch({
+    withRelated: ['enrollment'],
+    transacting: req.trx
+  })
+
+  await updateCall(req, {
+    call,
+    status: 'in-progress'
+  })
+
   const response = new twiml.VoiceResponse()
 
   const dial = response.dial()
 
-  dial.queue({}, req.body.queue)
+  dial.queue(req.body.Queue)
 
   return res.status(200).type('text/xml').send(response.toString())
 
@@ -112,7 +124,7 @@ const queue = async (req, res) => {
 const place = async(req, res) => {
 
   const call = await Call.query(qb => {
-    qb.where('id', req.body.call_id)
+    qb.where('id', req.body.CallId)
   }).fetch({
     withRelated: ['team','from','to'],
     transacting: req.trx
@@ -169,11 +181,11 @@ const place = async(req, res) => {
 
 const receiveRoute = async (req, res) => {
 
-  if(req.body.call_id) return await place(req, res)
+  if(req.body.CallId) return await place(req, res)
 
   if(req.body.client) return await make(req, res)
 
-  if(req.body.queue) return await queue(req, res)
+  if(req.body.Queue) return await queue(req, res)
 
   await receive(req, res)
 

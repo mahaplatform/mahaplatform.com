@@ -91,7 +91,6 @@ class ContactFieldsField extends React.PureComponent {
     }).map(field => {
       return field.contactfield.name
     })
-    console.log('contactfields', contactfields)
     const available = [
       { label: 'Contact', fields: [
         { label: 'Phone', name: 'phone', type: 'phonefield' },

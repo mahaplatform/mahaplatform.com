@@ -37,6 +37,7 @@ class PhoneRoot extends React.Component {
   _handleSwapCall = this._handleSwapCall.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
   _handleToggle = this._handleToggle.bind(this)
+  _handleUpdateCallStatus = this._handleUpdateCallStatus.bind(this)
 
   render() {
     const { open } = this.state
@@ -110,6 +111,7 @@ class PhoneRoot extends React.Component {
     connection.on('error', this._handleError.bind(this, connection))
     connection.on('mute', this._handleMuted.bind(this, connection))
     connection.on('reject', this._handleReject.bind(this, connection))
+    this._handleJoin(call)
     this.setState({
       calls: [
         ...calls.map(call => ({
@@ -153,7 +155,7 @@ class PhoneRoot extends React.Component {
       onSuccess: ({ data }) => {
         this._handleAddCall({
           connection: window.Twilio.Device.connect({
-            call_id: data.id
+            CallId: data.id
           }),
           call: data,
           params: {
@@ -175,10 +177,14 @@ class PhoneRoot extends React.Component {
 
   _handleDisconnect(connection) {
     const { CallSid } = connection.parameters
-    // const queued = this.state.calls.find(call => {
-    //   return !call.active
-    // })
-    // if(queued) this._handleQueueCall(queued)
+    const call = this.state.calls.find(call => {
+      return call.connection.parameters.CallSid === CallSid
+    })
+    if(call && call.queued) return
+    const queued = this.state.calls.find(call => {
+      return !call.active
+    })
+    if(queued) this._handleQueueCall(queued)
     this._handleRemoveCall(CallSid)
   }
 
@@ -188,7 +194,11 @@ class PhoneRoot extends React.Component {
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/enqueue`,
       method: 'PATCH',
-      body: { params },
+      body: {
+        CallSid: connection.parameters.CallSid,
+        ParentCallSid: call.call.sid,
+        params
+      },
       onSuccess: () => {
         this._handleUpdateCall(CallSid, {
           queued: true
@@ -212,11 +222,15 @@ class PhoneRoot extends React.Component {
   }
 
   _handleHangupCall(call) {
-    const { params } = call
+    const { connection, params } = call
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/hangup`,
       method: 'PATCH',
-      body: { params }
+      body: {
+        CallSid: connection.parameters.CallSid,
+        ParentCallSid: call.call.sid,
+        params
+      }
     })
   }
 
@@ -246,6 +260,24 @@ class PhoneRoot extends React.Component {
     window.Twilio.Device.on('incoming', this._handleIncoming)
   }
 
+  _handleJoin(call) {
+    const { network } = this.context
+    const channel = `/admin/calls/${call.id}`
+    network.join(channel)
+    network.subscribe([
+      { target: channel, action: 'status', handler: this._handleUpdateCallStatus }
+    ])
+  }
+
+  _handleLeave(call) {
+    const { network } = this.context
+    const channel = `/admin/calls/${call.id}`
+    network.leave(channel)
+    network.unsubscribe([
+      { target: channel, action: 'status', handler: this._handleUpdateCallStatus }
+    ])
+  }
+
   _handleMuted(connection) {
     const { CallSid } = connection.parameters
     this._handleUpdateCall(CallSid, {
@@ -255,10 +287,16 @@ class PhoneRoot extends React.Component {
 
   _handleQueueCall(call) {
     const { CallSid } = call.connection.parameters
+    const connection = window.Twilio.Device.connect({
+      ParentCallSid: call.call.sid,
+      Queue: `call-${call.call.id}`
+    })
+    connection.on('cancel', this._handleDisconnect.bind(this, connection))
+    connection.on('disconnect', this._handleDisconnect.bind(this, connection))
+    connection.on('error', this._handleError.bind(this, connection))
+    connection.on('mute', this._handleMuted.bind(this, connection))
     this._handleUpdateCall(CallSid, {
-      connection: window.Twilio.Device.connect({
-        queue: `call-${call.call.id}`
-      }),
+      connection,
       active: true,
       queued: false
     })
@@ -270,6 +308,10 @@ class PhoneRoot extends React.Component {
   }
 
   _handleRemoveCall(CallSid) {
+    const call = this.state.calls.find((call) => {
+      return call.connection.parameters.CallSid === CallSid && !call.queued
+    })
+    if(call) this._handleLeave(call.call)
     this.setState({
       calls: this.state.calls.filter((call) => {
         return call.connection.parameters.CallSid !== CallSid || call.queued
@@ -302,11 +344,13 @@ class PhoneRoot extends React.Component {
   }
 
   _handleTransferCall(call, user_id) {
-    const { params } = call
+    const { connection, params } = call
     this.context.network.request({
       endpoint: `/api/admin/crm/calls/${call.call.id}/transfer`,
       method: 'PATCH',
       body: {
+        CallSid: connection.parameters.CallSid,
+        ParentCallSid: call.call.sid,
         params,
         user_id
       }
@@ -315,12 +359,27 @@ class PhoneRoot extends React.Component {
 
   _handleUpdateCall(sid, params) {
     this.setState({
+      calls: this.state.calls.map((call) => ({
+        ...call,
+        ...call.connection.parameters.CallSid === sid ? params : {}
+      }))
+    })
+  }
+
+  _handleUpdateCallStatus({ id, sid, status }) {
+    this.setState({
       calls: this.state.calls.map((call) => {
-        if(call.connection.parameters.CallSid !== sid) return call
+        if(call.call.sid !== sid) return call
         return {
           ...call,
-          ...params
+          queued: false,
+          call: {
+            ...call.call,
+            status
+          }
         }
+      }).filter(call => {
+        return status !== 'completed' || call.call.sid !== sid
       })
     })
   }

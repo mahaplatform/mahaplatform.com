@@ -1,3 +1,4 @@
+import { updateCall } from '../../../../maha/services/calls'
 import twilio from '../../../../../core/services/twilio'
 import Call from '../../../../maha/models/call'
 import { twiml } from 'twilio'
@@ -14,6 +15,11 @@ const enqueueRoute = async (req, res) => {
   if(!call) return res.status(404).respond({
     code: 404,
     message: 'Unable to load call'
+  })
+
+  await updateCall(req, {
+    call,
+    status: 'on-hold'
   })
 
   const response = new twiml.VoiceResponse()

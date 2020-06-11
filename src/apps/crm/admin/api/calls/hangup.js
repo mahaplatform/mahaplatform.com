@@ -1,24 +1,34 @@
+import { executeWorkflow } from '../../../services/workflows'
 import twilio from '../../../../../core/services/twilio'
 import Call from '../../../../maha/models/call'
 import { twiml } from 'twilio'
 
 const getResponse = async (req, { call, duration, status }) => {
 
-  const { enrollment_code, step_code } = req.body.params
+  const { enrollment_id } = req.body.params
 
-  const response = new twiml.VoiceResponse()
+  if(enrollment_id) {
 
-  if(enrollment_code) {
+    const result = await executeWorkflow(req, {
+      call_status: 'in-progress',
+      enrollment_id,
+      execute: false,
+      dial: {
+        // duration,
+        // status,
+        // user_id: status === 'completed' && matches !== null ? parseInt(matches[1]) : null,
+        // number: status === 'completed' && matches === null ? call.to : null
+      }
+    })
 
-    response.redirect(`${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment_code}/${step_code}/dial`)
-
-  } else  {
-
-    response.hangup()
+    if(result.twiml) return result.twiml
 
   }
 
+  const response = new twiml.VoiceResponse()
+  response.hangup()
   return response.toString()
+
 
 }
 

@@ -9,40 +9,42 @@ const getUser = async (req, user_id) => {
   })
 }
 
-const getRecipient = async (req, { recipients, call }) => {
-  if(call.status !== 'completed') return {}
+const getRecipient = async (req, { recipients, dial }) => {
+  if(dial.status !== 'completed') return {}
   return await Promise.reduce(recipients, async (found, recipient) => {
     if(found) return found
     const { number, strategy, user_id } = recipient
-    if(strategy === 'number' && number === call.number) return recipient
-    if(strategy === 'software' && user_id === call.user_id) return recipient
+    if(strategy === 'number' && number === dial.number) return recipient
+    if(strategy === 'software' && user_id === dial.user_id) return recipient
     const user = await getUser(req, user_id)
-    if(strategy === 'cell' && user.get('cell_phone') === call.number) return recipient
+    if(strategy === 'cell' && user.get('cell_phone') === dial.number) return recipient
     return null
   }, null)
 }
 
-const dial = async (req, { call, config, enrollment, execute, step }) => {
+const dial = async (req, { dial, config, enrollment, execute, step }) => {
 
   if(execute === false) {
 
     const recipient = await getRecipient(req, {
-      call,
+      dial,
       recipients: config.recipients
     })
 
     return {
-      ...call.status === 'failed' ? {
+      ...dial.status === 'failed' ? {
         unenroll: true
       } : {},
+      call_status: dial.call_status,
       action: {
         ...recipient.user_id ? {
           user_id: recipient.user_id
         } : {},
         data: {
           [`${config.code}_recipient`]: recipient.code || null,
-          [`${config.code}_status`]: call.status,
-          [`${config.code}_duration`]: call.duration
+          [`${config.code}_status`]: dial.status,
+          [`${config.code}_duration`]: dial.duration,
+          [`${config.code}_hangup`]: dial.hangup
         }
       }
     }
@@ -50,7 +52,7 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
   const response = new twiml.VoiceResponse()
 
-  const dial = response.dial({
+  const dialverb = response.dial({
     action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/dial`,
     callerId: enrollment.related('voice_campaign').related('phone_number').get('number'),
     timeout: 15
@@ -60,11 +62,14 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
     if(recipient.strategy === 'number') {
 
-      dial.number(config.number)
+      dialverb.number(config.number)
 
     } else if(recipient.strategy === 'software') {
 
-      const client = dial.client(`user-${recipient.user_id}`)
+      const client = dialverb.client({
+        statusCallback: `${process.env.TWIML_HOST}/voice/status`,
+        statusCallbackEvent: ['ringing','answered','completed']
+      }, `user-${recipient.user_id}`)
 
       const params = {
         id: enrollment.get('call_id'),
@@ -88,7 +93,10 @@ const dial = async (req, { call, config, enrollment, execute, step }) => {
 
       const user = await getUser(req, recipient.user_id)
 
-      dial.number(user.get('cell_phone'))
+      dialverb.number({
+        statusCallback: `${process.env.TWIML_HOST}/voice/status`,
+        statusCallbackEvent: ['ringing','answered','completed']
+      }, user.get('cell_phone'))
 
     }
 

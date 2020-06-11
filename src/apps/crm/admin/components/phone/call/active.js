@@ -97,9 +97,9 @@ class Call extends React.Component {
     return [
       { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
-      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.queued },
+      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.queued, disabled: call.call.direction === 'outbound' },
       { icon: 'plus', label: 'add call', handler: this._handleAddCall },
-      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+      { icon: 'random', label: 'transfer', handler: this._handleTransfer, disabled: call.call.direction === 'outbound' },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }

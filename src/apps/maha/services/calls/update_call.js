@@ -1,20 +1,29 @@
-import Call from '../../models/call'
+import socket from '../../../../core/services/routes/emitter'
 
-const updateCall = async (req, { duration, price, sid, status }) => {
+const updateCall = async (req, { call, status }) => {
 
-  const call = await Call.query(qb => {
-    qb.where('sid', sid)
-  }).fetch({
-    transacting: req.trx
-  })
+  if(call.get('status') === status) return
 
   await call.save({
-    duration,
-    price,
     status
   }, {
     patch: true,
     transacting: req.trx
+  })
+
+  await call.load([], {
+    transacting: req.trx
+  })
+
+  await socket.message(req, {
+    channel: `/admin/calls/${call.get('id')}`,
+    target: `/admin/calls/${call.get('id')}`,
+    action: 'status',
+    data: {
+      id: call.get('id'),
+      sid: call.get('sid'),
+      status: call.get('status')
+    }
   })
 
 }
