@@ -1,3 +1,11 @@
+.maha-dashboard-container {
+  position: relative;
+  @media (max-width: 768px) {
+    .maha-modal-panel-header {
+      display: none;
+    }
+  }
+}
 .maha-dashboard {
   flex: 1;
   display: flex;
@@ -34,9 +42,9 @@
     color: fadeout(@black, 60);
   }
 }
-.maha-dashboard-filters-item {
+.maha-dashboard-filters-body {
+  flex: 1;
   padding: 0.8em;
-  border-right: 1px solid fadeout(@black, 90);
   &:hover {
     .fa {
       color: fadeout(@black, 60);
@@ -45,6 +53,15 @@
   .fa {
     cursor: pointer;
     color: fadeout(@black, 80);
+  }
+}
+.maha-dashboard-filters-add {
+  border-left: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.8em;
+  &:hover {
+    color: fadeout(@black, 60);
   }
 }
 .maha-dashboard-body {
@@ -59,22 +76,22 @@
 }
 .maha-dashboard-panel-item {
   padding: 0.4em;
-  @media (min-width: 2001px) {
+  @media (min-width: 2201px) {
     flex: 0 0 ~"calc(100% / 6)";
   }
-  @media (min-width: 1601px) and (max-width: 2000px) {
+  @media (min-width: 1801px) and (max-width: 2200px) {
     flex: 0 0 ~"calc(100% / 5)";
   }
-  @media (min-width: 1201px) and (max-width: 1600px) {
+  @media (min-width: 1351px) and (max-width: 1800px) {
     flex: 0 0 ~"calc(100% / 4)";
   }
-  @media (min-width: 801px) and (max-width: 1200px) {
+  @media (min-width: 901px) and (max-width: 1350px) {
     flex: 0 0 ~"calc(100% / 3)";
   }
-  @media (min-width: 401px) and (max-width: 800px) {
+  @media (min-width: 451px) and (max-width: 900px) {
     flex: 0 0 ~"calc(100% / 2)";
   }
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     flex: 0 0 100%;
   }
 }

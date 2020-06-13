@@ -7,6 +7,8 @@ const CreateDashboardCard = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('panel_id').unsigned()
       table.foreign('panel_id').references('maha_dashboard_panels.id')
+      table.integer('type_id').unsigned()
+      table.foreign('type_id').references('maha_dashboard_card_types.id')
       table.string('title')
       table.string('type')
       table.integer('delta')

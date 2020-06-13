@@ -1488,10 +1488,20 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
+    await knex.schema.createTable('maha_dashboard_card_types', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('app_id').unsigned()
+      table.string('code', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_dashboard_cards', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('panel_id').unsigned()
+      table.integer('type_id').unsigned()
       table.string('title', 255)
       table.string('type', 255)
       table.integer('delta')
@@ -3445,9 +3455,15 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_dashboard_card_types', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
     await knex.schema.table('maha_dashboard_cards', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('panel_id').references('maha_dashboard_panels.id')
+      table.foreign('type_id').references('maha_dashboard_card_types.id')
     })
 
 

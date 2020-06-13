@@ -50,8 +50,11 @@ class Dashboard extends React.Component {
               <div className="maha-dashboard-filters-toggle" onClick={ this._handleToggle }>
                 <i className="fa fa-bars" />
               </div>
-              <div className="maha-dashboard-filters-item">
+              <div className="maha-dashboard-filters-body">
                 Filters
+              </div>
+              <div className="maha-dashboard-filters-add" onClick={ this._handleToggle }>
+                <i className="fa fa-plus" />
               </div>
             </div>
             <div className="maha-dashboard-panel">
@@ -76,6 +79,7 @@ class Dashboard extends React.Component {
 
   _getPanel() {
     return {
+      className: 'maha-dashboard-container',
       title: 'Dashboard'
     }
   }
