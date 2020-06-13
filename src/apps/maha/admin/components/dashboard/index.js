@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
 
   _getPanel() {
     return {
-      className: 'maha-dashboard'
+      className: 'dashboard'
     }
   }
 }
