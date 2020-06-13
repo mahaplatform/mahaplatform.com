@@ -23,7 +23,7 @@ const destroyRoute = async (req, res) => {
 
   await req.trx('maha_filter_accesses').where('filter_id', filter.get('id')).del()
 
-  filter.destroy({
+  await filter.destroy({
     transacting: req.trx
   })
 

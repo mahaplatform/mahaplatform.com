@@ -18,7 +18,6 @@ const Filter = new Model({
     return this.belongsTo(User, 'owner_id')
   }
 
-
 })
 
 export default Filter

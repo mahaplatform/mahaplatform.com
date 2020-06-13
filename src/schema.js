@@ -1488,6 +1488,38 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
+    await knex.schema.createTable('maha_dashboard_cards', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('panel_id').unsigned()
+      table.string('title', 255)
+      table.string('type', 255)
+      table.integer('delta')
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_dashboard_panel_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('panel_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_dashboard_panels', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('owner_id').unsigned()
+      table.string('title', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_device_values', (table) => {
       table.increments('id').primary()
       table.string('type', 255)
@@ -3400,6 +3432,24 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_dashboard_panels', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('owner_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_dashboard_panel_accesses', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('panel_id').references('maha_dashboard_panels.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_dashboard_cards', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('panel_id').references('maha_dashboard_panels.id')
+    })
+
 
     await knex.raw(`
       create view chat_results AS
@@ -4141,7 +4191,7 @@ union
       where ((maha_smses.direction = 'inbound'::maha_smses_direction) and (maha_smses.created_at > viewings.last_viewed_at))
       ), unread as (
       select crm_programs_1.id as program_id,
-      count(messages.*) as unread_messages
+      (count(messages.*))::integer as unread_messages
       from (crm_programs crm_programs_1
       left join messages on ((messages.program_id = crm_programs_1.id)))
       group by crm_programs_1.id
@@ -4156,7 +4206,7 @@ union
       where ((crm_workflow_steps.action = 'voicemail'::crm_workflow_step_actions) and (crm_workflow_recordings.was_heard = false))
       ), unheard as (
       select crm_programs_1.id as program_id,
-      count(voicemails.*) as unheard_voicemails
+      (count(voicemails.*))::integer as unheard_voicemails
       from (crm_programs crm_programs_1
       left join voicemails on ((voicemails.program_id = crm_programs_1.id)))
       group by crm_programs_1.id
