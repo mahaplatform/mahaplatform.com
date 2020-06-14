@@ -76,22 +76,22 @@
 }
 .maha-dashboard-panel-item {
   padding: 0.4em;
-  @media (min-width: 2201px) {
+  @media (min-width: 2750px) {
     flex: 0 0 ~"calc(100% / 6)";
   }
-  @media (min-width: 1801px) and (max-width: 2200px) {
+  @media (min-width: 2201px) and (max-width: 2750px) {
     flex: 0 0 ~"calc(100% / 5)";
   }
-  @media (min-width: 1351px) and (max-width: 1800px) {
+  @media (min-width: 1651px) and (max-width: 2200px) {
     flex: 0 0 ~"calc(100% / 4)";
   }
-  @media (min-width: 901px) and (max-width: 1350px) {
+  @media (min-width: 1101px) and (max-width: 1650px) {
     flex: 0 0 ~"calc(100% / 3)";
   }
-  @media (min-width: 451px) and (max-width: 900px) {
+  @media (min-width: 551px) and (max-width: 1100px) {
     flex: 0 0 ~"calc(100% / 2)";
   }
-  @media (max-width: 450px) {
+  @media (max-width: 550px) {
     flex: 0 0 100%;
   }
 }
@@ -162,6 +162,7 @@
 .maha-dashboard-card-body {
   flex: 1;
   overflow: hidden;
+  .scrollable();
   table.ui.unstackable.compact.table {
     border: none !important;
     border-radius: 0 !important;

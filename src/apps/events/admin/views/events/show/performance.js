@@ -67,9 +67,7 @@ class Performance extends React.Component {
                     }
                   </td>
                   <td className="right aligned">
-                    { ticket_type.tickets_count } { ticket_type.total_tickets &&
-                      <span> / { ticket_type.total_tickets }</span>
-                    }
+                    { this._getTotal(ticket_type) }
                   </td>
                 </tr>
               ))}
@@ -111,6 +109,12 @@ class Performance extends React.Component {
       endpoint: `/api/admin/events/events/${event.id}/performance`,
       started_at: event.created_at
     }
+  }
+
+  _getTotal(ticket_type) {
+    const parts = [ticket_type.tickets_count]
+    if(ticket_type.total_tickets) parts.push(ticket_type.total_tickets)
+    return parts.join('/')
   }
 
 }

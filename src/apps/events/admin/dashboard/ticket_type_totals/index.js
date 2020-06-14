@@ -1,5 +1,5 @@
+import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
 import React from 'react'
 
 class TicketTypeTotals extends React.Component {
@@ -9,74 +9,50 @@ class TicketTypeTotals extends React.Component {
   }
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    event: PropTypes.object
   }
 
   render() {
+    const { event } = this.props
     return (
-      <div className="maha-dashboard-card-body">
+      <div className="events-dashboard-ticket-type-totals">
         <table className="ui unstackable compact table">
           <tbody>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">14/50</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">1/30</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">14/50</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">1/30</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">14/50</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">1/30</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">14/50</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">1/30</td>
-            </tr>
-            <tr>
-              <td>
-                <div className="link">Key</div>
-              </td>
-              <td className="right aligned">14/50</td>
-            </tr>
+            { event.ticket_types.map((ticket_type, index) => (
+              <tr key={`ticket_type_${index}`}>
+                <td>
+                  <span className={ this._getClass(ticket_type) }>{ ticket_type.name }</span>
+                </td>
+                <td className="right aligned">
+                  <span className="link">
+                    { this._getTotal(ticket_type) }
+                  </span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     )
   }
 
+  _getClass(ticket_type) {
+    const classes = []
+    if(ticket_type.remaining === 0) classes.push('alert')
+    return classes.join(' ')
+  }
+
+  _getTotal(ticket_type) {
+    const parts = [ticket_type.tickets_count]
+    if(ticket_type.total_tickets) parts.push(ticket_type.total_tickets)
+    return parts.join('/')
+  }
+
 }
 
-export default TicketTypeTotals
+const mapResources = (props, context) => ({
+  event: `/api/admin/events/events/${props.config.event_id}`
+})
+
+export default Container(mapResources)(TicketTypeTotals)
