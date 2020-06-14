@@ -11,11 +11,13 @@ const processor = async () => {
 
   await bootstrapApps()
 
-  await bootstrapType('alerts', 'maha_alerts')
+  await bootstrapType('alerts', 'alerts', 'maha_alerts')
 
-  await bootstrapType('notifications', 'maha_notification_types')
+  await bootstrapType('notifications', 'notifications', 'maha_notification_types')
 
-  await bootstrapType('rights', 'maha_rights')
+  await bootstrapType('rights', 'rights', 'maha_rights')
+
+  await bootstrapType('dashboard', 'dashboard/index', 'maha_dashboard_card_types')
 
 }
 

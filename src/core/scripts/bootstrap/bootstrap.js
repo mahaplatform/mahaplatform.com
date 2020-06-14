@@ -31,9 +31,9 @@ export const bootstrapApps = async () => {
 
 }
 
-export const bootstrapType = async (type, table) => {
+export const bootstrapType = async (type, pattern, table) => {
 
-  const objects = await collectObjects(`admin/${type}`)
+  const objects = await collectObjects(`admin/${pattern}`)
 
   const items = await knex(table)
 

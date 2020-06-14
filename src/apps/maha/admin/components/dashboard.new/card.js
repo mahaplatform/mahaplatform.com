@@ -5,6 +5,7 @@ import React from 'react'
 class Card extends React.Component {
 
   static contextTypes = {
+    configuration: PropTypes.object,
     tasks: PropTypes.object
   }
 
@@ -15,81 +16,38 @@ class Card extends React.Component {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
+    const { dashboardCards } = this.context.configuration
     const { card } = this.props
+    const type = dashboardCards.find(dashboardCard => {
+      return dashboardCard.code === card.type.code
+    })
     return (
       <div className="maha-dashboard-card-container">
         <div className="maha-dashboard-card">
           <div className="maha-dashboard-card-header">
-            <div className="maha-dashboard-card-header-avatar">
-              <Logo team={{ title: 'Primitive Pursuits', logo: '/assets/9331/primitivepursuits.jpg' }} />
-            </div>
-            <div className="maha-dashboard-card-header-label">
-              <strong>{ card.title }</strong><br />
-              { card.type.title }
+            <div className="maha-dashboard-card-header-details">
+              <div className="maha-dashboard-card-header-details-title">
+                { card.title }
+              </div>
+              <div className="maha-dashboard-card-header-details-cardtitle">
+                { card.type.app ?
+                  <div className={ `maha-dashboard-card-header-details-appicon ${card.type.app.color}` }>
+                    <i className={ `fa fa-${card.type.app.icon}` } />
+                  </div> :
+                  <div className="maha-dashboard-card-header-details-appicon blue">
+                    <i className="fa fa-bars" />
+                  </div>
+                }
+
+                { card.type.title }
+              </div>
             </div>
             <div className="maha-dashboard-card-header-icon" onClick={ this._handleTasks }>
               <i className="fa fa-ellipsis-v" />
             </div>
           </div>
           <div className="maha-dashboard-card-body">
-            <table className="ui unstackable compact table">
-              <tbody>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">14/50</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">1/30</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">14/50</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">1/30</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">14/50</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">1/30</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">14/50</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">1/30</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="link">Key</div>
-                  </td>
-                  <td className="right aligned">14/50</td>
-                </tr>
-              </tbody>
-            </table>
+            <type.component config={ card.config } />
           </div>
         </div>
       </div>

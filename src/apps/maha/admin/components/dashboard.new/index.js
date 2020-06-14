@@ -1,13 +1,13 @@
-import { ModalPanel } from 'maha-admin'
+import { Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Card from './card'
 
 class Dashboard extends React.Component {
 
-  static contextTypes = {}
-
-  static propTypes = {}
+  static propTypes = {
+    panels: PropTypes.array
+  }
 
   state = {
     expanded: false,
@@ -17,21 +17,8 @@ class Dashboard extends React.Component {
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const panels = [
-      { id: 1, title: 'Active Events', cards: [
-        { id: 1, title: 'Horticuture Plant Sale', type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 2, title: 'Two', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 3, title: 'Three', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 4, title: 'Four', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 5, title: 'Five', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 6, title: 'Six', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 7, title: 'Seven', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } },
-        { id: 8, title: 'Eight', stat: 10.00, type: { code: 'events:ticket_type_totals', title: 'Ticket Type Totals' } }
-      ] },
-      { id: 2, title: 'Primitive Pursuits', cards: [] },
-      { id: 3, title: 'My Finance', cards: [] }
-    ]
     const { expanded, selected } = this.state
+    const { panels } = this.props
     const panel = panels[selected]
     return (
       <ModalPanel { ...this._getPanel() }>
@@ -97,4 +84,8 @@ class Dashboard extends React.Component {
 
 }
 
-export default Dashboard
+const mapResources = (props, context) => ({
+  panels: '/api/admin/dashboard/panels'
+})
+
+export default Container(mapResources)(Dashboard)

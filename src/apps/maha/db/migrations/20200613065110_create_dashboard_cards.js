@@ -10,7 +10,6 @@ const CreateDashboardCard = {
       table.integer('type_id').unsigned()
       table.foreign('type_id').references('maha_dashboard_card_types.id')
       table.string('title')
-      table.string('type')
       table.integer('delta')
       table.jsonb('config')
       table.timestamps()

@@ -44,7 +44,7 @@ const updateRoute = async (req, res) => {
     '/admin/dashboard'
   ])
 
-  await panel.load(['owner','cards'], {
+  await panel.load(['cards.type.app','owner'], {
     transacting: req.trx
   })
 

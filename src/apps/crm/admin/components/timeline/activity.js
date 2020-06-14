@@ -1,5 +1,4 @@
-import ContactAvatar from '../../tokens/contact_avatar'
-import { Avatar, Image } from 'maha-admin'
+import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
@@ -28,7 +27,7 @@ class Activities extends React.PureComponent {
     const { activity, contact } = this.props
     const { admin } = this.context
     const { show } = this.state
-    const type = this.context.configuration.cards[activity.type]
+    const type = this.context.configuration.activityCards[activity.type]
     return (
       <div className="crm-timeline-card">
         <div className="crm-timeline-card-header" onClick={ this._handleToggle }>

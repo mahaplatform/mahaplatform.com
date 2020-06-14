@@ -55,16 +55,6 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
   }
 })
 
-const cards = (pattern) => collectObjects(pattern).map(file => {
-  const appMatches = file.match(/src\/apps\/(([^/]*)\/admin\/cards\/(.*).js)/)
-  return {
-    ...configs[appMatches[2]],
-    name: appMatches[3],
-    component: _.capitalize(appMatches[3]),
-    filepath: `../../apps/${appMatches[1]}`
-  }
-})
-
 const renderTemplate = (templateName, variables) => {
   const template = fs.readFileSync(path.join(__dirname, `${templateName}.ejs`), 'utf8')
   const data = ejs.render(template, variables)
@@ -87,7 +77,9 @@ class MahaWebpackPlugin {
       if(!file) log('info', 'dev', 'Compiling client')
 
       const variables = {
+        activities: extract('admin/activities/index.js'),
         badges: extract('admin/badges/index.js'),
+        dashboard: extract('admin/dashboard/index.js'),
         roots: extract('admin/roots/index.js'),
         routes: extract('admin/views/index.js'),
         reducers: reducers('admin/**/reducer.js'),
@@ -96,8 +88,7 @@ class MahaWebpackPlugin {
         userTasks: extract('admin/user_tasks.js'),
         userFields: extract('admin/user_fields.js'),
         userValues: extract('admin/user_values.js'),
-        usage: extract('admin/usage.js'),
-        cards: extract('admin/cards/index.js')
+        usage: extract('admin/usage.js')
       }
 
       renderTemplate('app.js', variables)

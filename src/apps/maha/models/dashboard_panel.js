@@ -1,5 +1,6 @@
 import DashboardPanelAccess from './dashboard_panel_access'
 import Model from '../../../core/objects/model'
+import DashboardCard from './dashboard_card'
 import User from './user'
 
 const DashboardPanel = new Model({
@@ -12,6 +13,10 @@ const DashboardPanel = new Model({
 
   accesses() {
     return this.hasMany(DashboardPanelAccess, 'panel_id')
+  },
+
+  cards() {
+    return this.hasMany(DashboardCard, 'panel_id')
   },
 
   owner() {

@@ -1,3 +1,4 @@
+import DashboardCardType from './dashboard_card_type'
 import Model from '../../../core/objects/model'
 import DashboardPanel from './dashboard_panel'
 
@@ -11,6 +12,10 @@ const DashboardCard = new Model({
 
   panel() {
     return this.belongsTo(DashboardPanel, 'panel_id')
+  },
+
+  type() {
+    return this.belongsTo(DashboardCardType, 'type_id')
   }
 
 })

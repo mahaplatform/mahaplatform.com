@@ -23,9 +23,27 @@ const card = (card, key) => {
   return {
     id: card.get('id'),
     title: card.get('title'),
-    type: card.get('type'),
+    type: type(card.related('type')),
     delta: card.get('delta'),
     config: card.get('config')
+  }
+}
+
+const type = (type, key) => {
+  if(!type.id) return null
+  return {
+    id: type.get('id'),
+    code: type.get('app_code')+':'+type.get('code'),
+    app: app(type.related('app')),
+    title: 'Ticket Type Totals'
+  }
+}
+
+const app = (app) => {
+  if(!app.id) return null
+  return {
+    id: app.get('id'),
+    ...app.get('data')
   }
 }
 

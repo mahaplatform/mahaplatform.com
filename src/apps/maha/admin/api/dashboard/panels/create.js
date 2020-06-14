@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     })
   }
 
-  await panel.load(['cards','owner'], {
+  await panel.load(['cards.type.app','owner'], {
     transacting: req.trx
   })
 

@@ -19,8 +19,11 @@ import <%= userFields[i].code %>UserFields from '<%= userFields[i].filepath %>'
 <% for(var i = 0; i < userValues.length; i++) {-%>
 import <%= userValues[i].code %>UserValues from '<%= userValues[i].filepath %>'
 <% } -%>
-<% for(var i = 0; i < cards.length; i++) {-%>
-import <%= cards[i].code %>Cards from '<%= cards[i].filepath %>'
+<% for(var i = 0; i < activities.length; i++) {-%>
+import <%= activities[i].code %>ActivityCards from '<%= activities[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < dashboard.length; i++) {-%>
+import <%= dashboard[i].code %>DashboardCards from '<%= dashboard[i].filepath %>'
 <% } -%>
 <% for(var i = 0; i < usage.length; i++) {-%>
 import <%= usage[i].code %>Usage from '<%= usage[i].filepath %>'
@@ -54,13 +57,22 @@ class App extends React.Component {
   getChildContext() {
     return {
       configuration: {
+        activityCards: this._getActivityCards(),
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
-        cards: this._getCards(),
+        dashboardCards: this._getDashboardCards(),
         usage: this._getUsage(),
         settings: this._getSettings()
       }
+    }
+  }
+
+  _getActivityCards() {
+    return {
+<% for(var i = 0; i < activities.length; i++) { -%>
+      ...<%= activities[i].code %>ActivityCards,
+<% } -%>
     }
   }
 
@@ -99,12 +111,15 @@ class App extends React.Component {
     ]
   }
 
-  _getCards() {
-    return {
-<% for(var i = 0; i < cards.length; i++) { -%>
-      ...<%= cards[i].code %>Cards,
+  _getDashboardCards() {
+    return [
+<% for(var i = 0; i < dashboard.length; i++) { -%>
+      ...<%= dashboard[i].code %>DashboardCards.map(card => ({
+        code: '<%= dashboard[i].code %>:'+card.code,
+        component: card.component
+      })),
 <% } -%>
-    }
+    ]
   }
 
   _getPlatform() {

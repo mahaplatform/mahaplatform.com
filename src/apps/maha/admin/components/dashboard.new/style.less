@@ -117,20 +117,36 @@
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
 }
-.maha-dashboard-card-header-avatar {
-  padding: 0.8em 0 0.8em  0.8em;
-  display: flex;
-  .maha-logo {
-    margin: auto;
-    width: 32px;
-  }
-}
-.maha-dashboard-card-header-label {
+.maha-dashboard-card-header-details {
   flex: 1;
   padding: 0.8em;
+  overflow: hidden;
+}
+.maha-dashboard-card-header-details-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  overflow: hidden;
+  color: @black;
+  width: 100%;
+}
+.maha-dashboard-card-header-details-cardtitle {
   color: fadeout(@black, 60);
-  strong {
-    color: @black;
+}
+.maha-dashboard-card-header-details-appicon {
+  .colorize(background-color);
+  border-radius: 3px;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  line-height: 1.4em;
+  font-size: 0.7em;
+  background-color: @red;
+  margin-right: 5px;
+  .fa {
+    margin: auto !important;
+    color: @white;
   }
 }
 .maha-dashboard-card-header-icon {

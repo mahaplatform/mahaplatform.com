@@ -1490,11 +1490,8 @@ const schema = {
 
     await knex.schema.createTable('maha_dashboard_card_types', (table) => {
       table.increments('id').primary()
-      table.integer('team_id').unsigned()
       table.integer('app_id').unsigned()
       table.string('code', 255)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('maha_dashboard_cards', (table) => {
@@ -3456,7 +3453,6 @@ const schema = {
     })
 
     await knex.schema.table('maha_dashboard_card_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('app_id').references('maha_apps.id')
     })
 

@@ -163,8 +163,9 @@ import newsRoots from '../../apps/news/admin/roots/index.js'
 import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
 import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
-import crmCards from '../../apps/crm/admin/cards/index.js'
-import eventsCards from '../../apps/events/admin/cards/index.js'
+import crmActivityCards from '../../apps/crm/admin/activities/index.js'
+import eventsActivityCards from '../../apps/events/admin/activities/index.js'
+import eventsDashboardCards from '../../apps/events/admin/dashboard/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -192,13 +193,21 @@ class App extends React.Component {
   getChildContext() {
     return {
       configuration: {
+        activityCards: this._getActivityCards(),
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
-        cards: this._getCards(),
+        dashboardCards: this._getDashboardCards(),
         usage: this._getUsage(),
         settings: this._getSettings()
       }
+    }
+  }
+
+  _getActivityCards() {
+    return {
+      ...crmActivityCards,
+      ...eventsActivityCards,
     }
   }
 
@@ -237,11 +246,13 @@ class App extends React.Component {
     ]
   }
 
-  _getCards() {
-    return {
-      ...crmCards,
-      ...eventsCards,
-    }
+  _getDashboardCards() {
+    return [
+      ...eventsDashboardCards.map(card => ({
+        code: 'events:'+card.code,
+        component: card.component
+      })),
+    ]
   }
 
   _getPlatform() {

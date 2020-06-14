@@ -3,6 +3,7 @@ import phone_numbers from './phone_numbers'
 import notifications from './notifications'
 import attachments from './attachments'
 import assignees from './assignees'
+import dashboard from './dashboard'
 import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
@@ -37,6 +38,8 @@ router.use('/apps', settings)
 router.use('/assets', assets)
 
 router.use('/assignees', assignees)
+
+router.use('/dashboard', dashboard)
 
 router.use('/devices', devices)
 
