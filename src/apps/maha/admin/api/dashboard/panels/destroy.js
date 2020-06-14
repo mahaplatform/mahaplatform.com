@@ -1,5 +1,5 @@
 import socket from '../../../../../../core/services/routes/emitter'
-import DashboardPanel from '../../../../models/filter'
+import DashboardPanel from '../../../../models/dashboard_panel'
 
 const destroyRoute = async (req, res) => {
 
@@ -16,14 +16,14 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load panel'
   })
 
-  await req.trx('maha_filter_accesses').where('panel_id', panel.get('id')).del()
+  await req.trx('maha_dashboard_panel_accesses').where('panel_id', panel.get('id')).del()
 
   await panel.destroy({
     transacting: req.trx
   })
 
   await socket.refresh(req, [
-    'admin/dashboard'
+    '/admin/dashboard'
   ])
 
   res.status(200).respond(true)

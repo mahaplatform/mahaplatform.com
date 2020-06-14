@@ -30,7 +30,7 @@ const updateRoute = async (req, res) => {
     await Promise.map(req.body.accesses, async access => {
       await req.trx('maha_dashboard_panel_accesses').insert({
         team_id: req.team.get('id'),
-        dashboard_panel_id: panel.get('id'),
+        panel_id: panel.get('id'),
         grouping_id: access.grouping_id,
         group_id: access.group_id,
         user_id: access.user_id,

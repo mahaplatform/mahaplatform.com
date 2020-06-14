@@ -1,3 +1,4 @@
+import { DragSource, DropTarget } from 'react-dnd'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -9,12 +10,18 @@ class Card extends React.Component {
   }
 
   static contextTypes = {
+    admin: PropTypes.object,
     configuration: PropTypes.object,
     tasks: PropTypes.object
   }
 
   static propTypes = {
-    card: PropTypes.object
+    connectDropTarget: PropTypes.func,
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    card: PropTypes.object,
+    panel: PropTypes.object,
+    reordering: PropTypes.bool
   }
 
   state = {
@@ -26,8 +33,10 @@ class Card extends React.Component {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { card } = this.props
-    return (
+    const { connectDropTarget, connectDragPreview, connectDragSource } = this.props
+    const { user } = this.context.admin
+    const { card, panel, reordering } = this.props
+    const result = (
       <div className="maha-dashboard-card-container">
         <div className="maha-dashboard-card">
           <div className="maha-dashboard-card-header">
@@ -59,6 +68,8 @@ class Card extends React.Component {
         </div>
       </div>
     )
+    if(!reordering || user.id !== panel.owner.id) return result
+    return connectDragSource(connectDropTarget(connectDragPreview(result)))
   }
 
   componentDidMount() {
@@ -121,5 +132,37 @@ class Card extends React.Component {
   }
 
 }
+
+const source = {
+  beginDrag: (props) => ({
+    index: props.index,
+    onMove: props.onMove
+  })
+}
+
+const target = {
+  hover(props, monitor, component) {
+    const dragIndex = monitor.getItem().index
+    const hoverIndex = props.index
+    if (dragIndex === hoverIndex) return
+    props.onMove(dragIndex, hoverIndex)
+    monitor.getItem().index = hoverIndex
+  }
+}
+
+const sourceCollector = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
+  isDragging: monitor.isDragging()
+})
+
+const targetCollector = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+})
+
+Card = DragSource('ITEM', source, sourceCollector)(Card)
+Card = DropTarget('ITEM', target, targetCollector)(Card)
 
 export default Card

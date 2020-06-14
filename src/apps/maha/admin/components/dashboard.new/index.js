@@ -1,53 +1,65 @@
-import { Container, ModalPanel } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Sidebar from './sidebar'
 import React from 'react'
 import Card from './card'
 
 class Dashboard extends React.Component {
 
-  static propTypes = {
-    panels: PropTypes.array
+  static contextTypes = {
+    admin: PropTypes.object,
+    modal: PropTypes.object,
+    network: PropTypes.object
   }
+
+  static propTypes = {}
 
   state = {
     expanded: false,
-    selected: 0
+    panels: null,
+    reordering: false,
+    selected: null
   }
 
+  _handleFetch = this._handleFetch.bind(this)
+  _handleReorder = this._handleReorder.bind(this)
+  _handleSelect = this._handleSelect.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { expanded, selected } = this.state
-    const { panels } = this.props
-    const panel = panels[selected]
+    const { expanded, panels } = this.state
+    if(!panels) return null
+    const { user } = this.context.admin
+    const panel = this._getSelected()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-dashboard">
           { expanded &&
-            <div className="maha-dashboard-sidebar">
-              { panels.map((panel, pindex) => (
-                <div className={ this._getClass(pindex) } key={`panel_${pindex}`} onClick={ this._handleSelect.bind(this, pindex) }>
-                  { panel.title }
-                </div>
-              ))}
-            </div>
+            <Sidebar { ...this._getSidebar() } />
           }
           <div className="maha-dashboard-body">
-            <div className="maha-dashboard-filters">
-              <div className="maha-dashboard-filters-toggle" onClick={ this._handleToggle }>
+            <div className="maha-dashboard-header">
+              <div className="maha-dashboard-header-toggle" onClick={ this._handleToggle }>
                 <i className="fa fa-bars" />
               </div>
-              <div className="maha-dashboard-filters-body">
-                Filters
+              <div className="maha-dashboard-header-body">
+                { panel.title }
               </div>
-              <div className="maha-dashboard-filters-add" onClick={ this._handleToggle }>
-                <i className="fa fa-plus" />
-              </div>
+              { user.id === panel.owner.id &&
+                <div className="maha-dashboard-header-action" onClick={ this._handleReorder }>
+                  <i className="fa fa-arrows" />
+                </div>
+              }
+              { user.id === panel.owner.id &&
+                <div className="maha-dashboard-header-action" onClick={ this._handleToggle }>
+                  <i className="fa fa-plus" />
+                </div>
+              }
             </div>
             <div className="maha-dashboard-panel">
               { panel.cards.map((card, cindex) => (
-                <div className="maha-dashboard-panel-item" key={`tab_${cindex}`}>
-                  <Card card={ card } />
+                <div className="maha-dashboard-panel-item" key={`tab_${card.id}`}>
+                  <Card { ...this._getCard(panel, card) } />
                 </div>
               ))}
             </div>
@@ -57,11 +69,22 @@ class Dashboard extends React.Component {
     )
   }
 
-  _getClass(index) {
-    const { selected } = this.state
-    const classes = ['maha-dashboard-sidebar-item']
-    if(index === selected) classes.push('selected')
-    return classes.join(' ')
+  componentDidMount() {
+    this._handleFetch()
+    this._handleJoin()
+  }
+
+  componentWillUnmount() {
+    this._handleLeave()
+  }
+
+  _getCard(panel, card) {
+    const { reordering } = this.state
+    return {
+      card,
+      panel,
+      reordering
+    }
   }
 
   _getPanel() {
@@ -69,6 +92,65 @@ class Dashboard extends React.Component {
       className: 'maha-dashboard-container',
       title: 'Dashboard'
     }
+  }
+
+  _getSelected() {
+    const { panels, selected } = this.state
+    return panels.find(panel => {
+      return panel.id === selected
+    })
+  }
+
+  _getSidebar() {
+    const { panels, selected } = this.state
+    return {
+      panels,
+      selected,
+      onSelect: this._handleSelect
+    }
+  }
+
+  _handleFetch() {
+    const { admin } = this.context
+    this.context.network.request({
+      endpoint: '/api/admin/dashboard/panels',
+      method: 'GET',
+      onSuccess: ({ data }) => {
+        const panels = data
+        const first = panels.find(panel => {
+          return panel.owner.id === admin.user.id
+        })
+        this.setState({
+          panels: data,
+          selected: first ? first.id : null
+        })
+      }
+    })
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const target = '/admin/dashboard'
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const target = '/admin/dashboard'
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleReorder() {
+    const { reordering } = this.state
+    this.setState({
+      reordering: !reordering
+    })
   }
 
   _handleSelect(selected) {
@@ -84,8 +166,4 @@ class Dashboard extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  panels: '/api/admin/dashboard/panels'
-})
-
-export default Container(mapResources)(Dashboard)
+export default Dashboard

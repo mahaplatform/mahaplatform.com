@@ -20,10 +20,10 @@ const editRoute = async (req, res) => {
     id: panel.get('id'),
     title: panel.get('title'),
     accesses: panel.related('accesses').map(access => ({
-      id: req.team.get('id'),
-      grouping_id: access.grouping_id,
-      group_id: access.group_id,
-      user_id: access.user_id
+      id: access.get('id'),
+      grouping_id: access.get('grouping_id'),
+      group_id: access.get('group_id'),
+      user_id: access.get('user_id')
     }))
   }))
 
