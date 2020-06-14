@@ -1,0 +1,78 @@
+.maha-dashboard-header {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.2em;
+  background-color: @white;
+  margin: 0.8em 0.8em 0;
+  display: flex;
+}
+.maha-dashboard-header-toggle {
+  border-right: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.8em;
+  &:hover {
+    color: fadeout(@black, 60);
+  }
+}
+.maha-dashboard-header-body {
+  flex: 1;
+  padding: 0.8em;
+  &:hover {
+    .fa {
+      color: fadeout(@black, 60);
+    }
+  }
+  .fa {
+    cursor: pointer;
+    color: fadeout(@black, 80);
+  }
+}
+.maha-dashboard-header-action {
+  flex: 0 0 2.6em;
+  border-left: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.8em;
+  display: flex;
+  &.active {
+    background-color: fadeout(@black, 60);
+    color: @white !important;
+  }
+  &:hover {
+    color: fadeout(@black, 60);
+  }
+  .fa {
+    margin: auto;
+  }
+}
+.maha-dashboard-body {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  .scrollable();
+}
+.maha-dashboard-panel {
+  flex-wrap: wrap;
+  display: flex;
+  padding: 0.4em;
+}
+.maha-dashboard-panel-item {
+  padding: 0.4em;
+  @media (min-width: 2750px) {
+    flex: 0 0 ~"calc(100% / 6)";
+  }
+  @media (min-width: 2201px) and (max-width: 2750px) {
+    flex: 0 0 ~"calc(100% / 5)";
+  }
+  @media (min-width: 1651px) and (max-width: 2200px) {
+    flex: 0 0 ~"calc(100% / 4)";
+  }
+  @media (min-width: 1101px) and (max-width: 1650px) {
+    flex: 0 0 ~"calc(100% / 3)";
+  }
+  @media (min-width: 551px) and (max-width: 1100px) {
+    flex: 0 0 ~"calc(100% / 2)";
+  }
+  @media (max-width: 550px) {
+    flex: 0 0 100%;
+  }
+}

@@ -1,8 +1,8 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
+import Panel from './panel'
 import React from 'react'
-import Card from './card'
 
 class Dashboard extends React.Component {
 
@@ -17,53 +17,23 @@ class Dashboard extends React.Component {
   state = {
     expanded: false,
     panels: null,
-    reordering: false,
     selected: null
   }
 
   _handleFetch = this._handleFetch.bind(this)
-  _handleReorder = this._handleReorder.bind(this)
   _handleSelect = this._handleSelect.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
     const { expanded, panels } = this.state
     if(!panels) return null
-    const { user } = this.context.admin
-    const panel = this._getSelected()
     return (
-      <ModalPanel { ...this._getPanel() }>
+      <ModalPanel { ...this._getModalPanel() }>
         <div className="maha-dashboard">
           { expanded &&
             <Sidebar { ...this._getSidebar() } />
           }
-          <div className="maha-dashboard-body">
-            <div className="maha-dashboard-header">
-              <div className="maha-dashboard-header-toggle" onClick={ this._handleToggle }>
-                <i className="fa fa-bars" />
-              </div>
-              <div className="maha-dashboard-header-body">
-                { panel.title }
-              </div>
-              { user.id === panel.owner.id &&
-                <div className="maha-dashboard-header-action" onClick={ this._handleReorder }>
-                  <i className="fa fa-arrows" />
-                </div>
-              }
-              { user.id === panel.owner.id &&
-                <div className="maha-dashboard-header-action" onClick={ this._handleToggle }>
-                  <i className="fa fa-plus" />
-                </div>
-              }
-            </div>
-            <div className="maha-dashboard-panel">
-              { panel.cards.map((card, cindex) => (
-                <div className="maha-dashboard-panel-item" key={`tab_${card.id}`}>
-                  <Card { ...this._getCard(panel, card) } />
-                </div>
-              ))}
-            </div>
-          </div>
+          <Panel { ...this._getPanel() } />
         </div>
       </ModalPanel>
     )
@@ -78,27 +48,22 @@ class Dashboard extends React.Component {
     this._handleLeave()
   }
 
-  _getCard(panel, card) {
-    const { reordering } = this.state
-    return {
-      card,
-      panel,
-      reordering
-    }
-  }
-
-  _getPanel() {
+  _getModalPanel() {
     return {
       className: 'maha-dashboard-container',
       title: 'Dashboard'
     }
   }
 
-  _getSelected() {
+  _getPanel() {
     const { panels, selected } = this.state
-    return panels.find(panel => {
+    const panel =  panels.find(panel => {
       return panel.id === selected
     })
+    return {
+      panel,
+      onToggle: this._handleToggle
+    }
   }
 
   _getSidebar() {
@@ -144,13 +109,6 @@ class Dashboard extends React.Component {
     network.unsubscribe([
       { target, action: 'refresh', handler: this._handleFetch }
     ])
-  }
-
-  _handleReorder() {
-    const { reordering } = this.state
-    this.setState({
-      reordering: !reordering
-    })
   }
 
   _handleSelect(selected) {
