@@ -6,6 +6,8 @@ import ejs from 'ejs'
 
 const sendInternalEmail = async (req, { config, tokens }) => {
 
+  console.log(tokens)
+
   const user = await User.query(qb => {
     qb.where('id', config.user_id)
   }).fetch({

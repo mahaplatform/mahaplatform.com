@@ -1,7 +1,7 @@
-import WorkflowRecordingSerializer from '../../../../serializers/workflow_recording_serializer'
-import WorkflowRecording from '../../../../models/workflow_recording'
+import WorkflowRecordingSerializer from '../../../../../serializers/workflow_recording_serializer'
+import WorkflowRecording from '../../../../../models/workflow_recording'
 
-const voicemailsRoute = async (req, res) => {
+const listRoute = async (req, res) => {
 
   const voice_campaigns = await WorkflowRecording.filterFetch({
     scope: (qb) => {
@@ -30,4 +30,4 @@ const voicemailsRoute = async (req, res) => {
 
 }
 
-export default voicemailsRoute
+export default listRoute

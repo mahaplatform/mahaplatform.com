@@ -198,7 +198,7 @@ const getTokens = async(req, { contact, enrollment, program, steps, workflow }) 
     }
   } : {},
   workflow: steps.filter((step) => {
-    return _.includes(['set','question','record'], step.get('action'))
+    return _.includes(['set','question','record','voicemail'], step.get('action'))
   }).reduce((tokens, step) => ({
     ...tokens,
     ...getToken(step.get('action'), step.get('config'), enrollment.get('data'))
@@ -206,7 +206,7 @@ const getTokens = async(req, { contact, enrollment, program, steps, workflow }) 
 })
 
 const getToken = (action, config, data) => {
-  const key = action === 'record' ? `${config.name.token}_recording_url` : config.name.token
+  const key = _.includes(['record','voicemail'], action) ? `${config.name.token}_url` : config.name.token
   return {
     [key]: data[config.code]
   }
@@ -265,7 +265,7 @@ const saveResults = async (req, params) => {
       recording_data
     })
 
-    params.action.data[step.get('config').code] = recording.get('url')
+    params.action.data[step.get('config').code] = `${process.env.WEB_HOST}/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}/voicemails/${recording.get('id')}`
 
   }
 

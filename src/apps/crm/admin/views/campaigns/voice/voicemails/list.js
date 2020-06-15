@@ -1,4 +1,4 @@
-import RecordToken from '../../../tokens/recording'
+import RecordToken from '../../../../tokens/recording'
 import { Page } from 'maha-admin'
 import React from 'react'
 
@@ -20,7 +20,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'There are no voicemails for this voice campaign'
     },
     defaultSort: { key: '-created_at', order: 'asc' },
-    entity: 'enrollment'
+    entity: 'enrollment',
+    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/voice/${props.params.campaign_id}/voicemails/${record.id}`)
   }
 })
 

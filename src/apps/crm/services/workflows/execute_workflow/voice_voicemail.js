@@ -1,13 +1,17 @@
 import { twiml } from 'twilio'
 import ejs from 'ejs'
 
-const voicemail = async (req, { config, enrollment, step, recording, tokens }) => {
+const voicemail = async (req, params) => {
+
+  const { config, enrollment, execute, step, recording, tokens } = params
 
   if(recording) {
     return {
       recording_data: recording
     }
   }
+
+  if(execute) return {}
 
   await enrollment.related('call').save({
     was_answered: false
@@ -41,6 +45,8 @@ const voicemail = async (req, { config, enrollment, step, recording, tokens }) =
     finishOnKey: '#',
     trim: 'trim-silence'
   })
+
+  response.redirect(`${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
 
   return {
     twiml: response.toString()

@@ -27,11 +27,13 @@ const dialRoute = async (req, res) => {
 
   const mobile_answered = !matches && twcall.status === 'completed'
 
-  const maha_answered = matches && req.body.DialCallStatus === 'completed' && req.body.CallStatus === 'completed'
+  const maha_answered = matches && twcall.status === 'completed' && req.body.CallStatus === 'completed'
 
-  const no_one_answered = call.get('status') === 'completed'
+  const rejected = twcall.status === 'busy'
 
-  if(mobile_answered || maha_answered || no_one_answered) {
+  const no_one_answered = twcall.status === 'no-answer' || call.get('status') === 'completed'
+
+  if(mobile_answered || maha_answered || rejected || no_one_answered) {
 
     const result = await executeWorkflow(req, {
       enrollment_id: enrollment.get('id'),

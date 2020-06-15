@@ -13,7 +13,7 @@ const steps = (state, props) => [
 const dynamicSteps = createSelector(
   steps,
   (steps) => steps.filter((step) => {
-    return _.includes(['set','question','record','dial'], step.action)
+    return _.includes(['set','question','record','dial','voicemail'], step.action)
   })
 )
 
@@ -55,7 +55,7 @@ export const fields = createSelector(
     ...steps.length > 0 ? [
       { label: 'Workflow', fields: steps.reduce((fields, step) => [
         ...fields,
-        ..._.includes(['set','question','record'], step.action) ? [{
+        ..._.includes(['set','question'], step.action) ? [{
           name: step.config.name.value,
           key: `workflow.${step.config.code}`,
           type: 'text'
@@ -72,7 +72,16 @@ export const fields = createSelector(
             type: 'callrecipients',
             recipients: step.config.recipients
           }
-        ] : []
+        ] : [],
+        ..._.includes(['record','voicemail'], step.action) ? [{
+          name: `Recording Status (${step.config.name.value})`,
+          key: `workflow.${step.config.code}`,
+          type: 'text',
+          comparisons: [
+            { value: '$kn', text: 'was recorded' },
+            { value: '$nkn', text: 'was not recorded' }
+          ]
+        }] : []
       ], [])}
     ] : []
   ]
@@ -90,12 +99,16 @@ export const tokens = createSelector(
           token: `workflow.${step.config.name.token}`
         } : {},
         ...step.action === 'dial' ? {
-          name: `${step.config.name.value} Was ansered`,
+          name: `Was Answered (${step.config.name.value})`,
           token: `workflow.${step.config.name.token}_status`
         } : {},
         ...step.action === 'record' ? {
-          name: `${step.config.name.value} Recording URL`,
-          token: `workflow.${step.config.name.token}_recording_url`
+          name: `Recording URL (${step.config.name.value})`,
+          token: `workflow.${step.config.name.token}_url`
+        } : {},
+        ...step.action === 'voicemail' ? {
+          name: `Voicemail URL (${step.config.name.value})`,
+          token: `workflow.${step.config.name.token}_url`
         } : {}
       }))
     }] : []

@@ -28,6 +28,8 @@ const requestRecording = async (req, { enrollment, step, config }) => {
     trim: 'trim-silence'
   })
 
+  response.redirect(`${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/${step.get('code')}/next`)
+
   return {
     twiml: response.toString()
   }
@@ -92,7 +94,7 @@ const redoRecording = async (req, { enrollment, step }) => {
 
 const message = async (req, params) => {
 
-  const { answer, config, enrollment, step, recording } = params
+  const { answer, config, enrollment, execute, step, recording } = params
 
   const { confirm } = config
 
@@ -112,6 +114,8 @@ const message = async (req, params) => {
       recording
     })
   }
+
+  if(execute) return {}
 
   if(answer === '1') {
     return await confirmRecording(req, {
