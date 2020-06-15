@@ -117,6 +117,7 @@ class App extends React.Component {
       ...<%= dashboard[i].code %>DashboardCards.map(card => ({
         ...card,
         app: '<%= dashboard[i].code %>',
+        type: card.code,
         code: '<%= dashboard[i].code %>:'+card.code
       })),
 <% } -%>

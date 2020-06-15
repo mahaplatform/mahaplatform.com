@@ -13,6 +13,7 @@ class NewCard extends React.Component {
   }
 
   static propTypes = {
+    panel: PropTypes.object
   }
 
   state = {
@@ -22,6 +23,7 @@ class NewCard extends React.Component {
   _handleApp = this._handleApp.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleCards = this._handleCards.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
@@ -39,6 +41,15 @@ class NewCard extends React.Component {
       apps: admin.apps,
       onCancel: this._handleCancel,
       onChoose: this._handleApp
+    }
+  }
+
+  _getCard(card) {
+    const { panel } = this.props
+    return {
+      panel,
+      onBack: this._handlePop,
+      onDone: this._handleDone
     }
   }
 
@@ -70,7 +81,11 @@ class NewCard extends React.Component {
   }
 
   _handleCards(card) {
-    console.log(card)
+    this._handlePush(card.new, this._getCard(card))
+  }
+
+  _handleDone() {
+    this.context.modal.close()
   }
 
   _handlePop(index = -1) {

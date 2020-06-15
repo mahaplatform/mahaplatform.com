@@ -1,5 +1,6 @@
 import DashboardCardSerializer from '../../../../../serializers/dashboard_card_serializer'
 import { whitelist } from '../../../../../../../core/services/routes/params'
+import DashboardCardType from '../../../../../models/dashboard_card_type'
 import socket from '../../../../../../../core/services/routes/emitter'
 import DashboardPanel from '../../../../../models/dashboard_panel'
 import DashboardCard from '../../../../../models/dashboard_card'
@@ -9,7 +10,7 @@ const createRoute = async (req, res) => {
   const panel = await DashboardPanel.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('owner_id', req.user.get('id'))
-    qb.where('id', req.params.id)
+    qb.where('id', req.params.panel_id)
   }).fetch({
     withRelated: ['owner','cards'],
     transacting: req.trx
@@ -20,10 +21,18 @@ const createRoute = async (req, res) => {
     message: 'Unable to load panel'
   })
 
+  const type = await DashboardCardType.query(qb => {
+    qb.where('code', req.body.type)
+  }).fetch({
+    transacting: req.trx
+  })
+
   const card = await DashboardCard.forge({
     team_id: req.team.get('id'),
     panel_id: panel.get('id'),
-    ...whitelist(req.body, ['type','config'])
+    type_id: type.get('id'),
+    delta: panel.related('cards').length,
+    ...whitelist(req.body, ['title','config'])
   }).save(null, {
     transacting: req.trx
   })

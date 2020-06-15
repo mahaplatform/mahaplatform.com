@@ -6,7 +6,7 @@ const editRoute = async (req, res) => {
   const panel = await DashboardPanel.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('owner_id', req.user.get('id'))
-    qb.where('id', req.params.id)
+    qb.where('id', req.params.panel_id)
   }).fetch({
     withRelated: ['owner','cards'],
     transacting: req.trx

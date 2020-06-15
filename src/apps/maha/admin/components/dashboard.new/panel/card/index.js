@@ -40,21 +40,19 @@ class Card extends React.Component {
       <div className="maha-dashboard-card-container">
         <div className="maha-dashboard-card">
           <div className="maha-dashboard-card-header">
-            <div className="maha-dashboard-card-header-app">
-              { card.type.app ?
-                <div className={ `maha-dashboard-card-appicon ${card.type.app.color}` }>
-                  <i className={ `fa fa-${card.type.app.icon}` } />
-                </div> :
-                <div className="maha-dashboard-card-appicon blue">
-                  <i className="fa fa-bars" />
-                </div>
-              }
-            </div>
             <div className="maha-dashboard-card-header-details">
               <div className="maha-dashboard-card-header-details-title">
                 { card.title }
               </div>
               <div className="maha-dashboard-card-header-details-cardtitle">
+                { card.type.app ?
+                  <div className={ `maha-dashboard-card-appicon ${card.type.app.color}` }>
+                    <i className={ `fa fa-${card.type.app.icon}` } />
+                  </div> :
+                  <div className="maha-dashboard-card-appicon blue">
+                    <i className="fa fa-bars" />
+                  </div>
+                }
                 { card.type.title }
               </div>
             </div>
@@ -131,7 +129,7 @@ class Card extends React.Component {
       items: [
         {
           label: 'Edit Card',
-          modal: <type.edit config={ card.config } />
+          modal: <type.edit card={ card } panel={ panel } />
         }, {
           label: 'Remove Card',
           confirm: 'Are you sure you want to remove this card?',

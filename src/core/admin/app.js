@@ -251,6 +251,7 @@ class App extends React.Component {
       ...eventsDashboardCards.map(card => ({
         ...card,
         app: 'events',
+        type: card.code,
         code: 'events:'+card.code
       })),
     ]

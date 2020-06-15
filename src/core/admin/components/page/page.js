@@ -188,6 +188,7 @@ class Page extends React.Component {
 
   _getPanel() {
     const { color, task, tasks, title } = this.props
+    if(!title) return { showHeader: false }
     const panel = {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
