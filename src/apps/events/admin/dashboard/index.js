@@ -1,7 +1,7 @@
-import TicketTypeTotals from './ticket_type_totals'
+import ticket_type_totals from './ticket_type_totals'
 
 const cards = [
-  { code: 'ticket_type_totals', component: TicketTypeTotals }
+  ticket_type_totals
 ]
 
 export default cards

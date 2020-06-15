@@ -115,8 +115,9 @@ class App extends React.Component {
     return [
 <% for(var i = 0; i < dashboard.length; i++) { -%>
       ...<%= dashboard[i].code %>DashboardCards.map(card => ({
-        code: '<%= dashboard[i].code %>:'+card.code,
-        component: card.component
+        ...card,
+        app: '<%= dashboard[i].code %>',
+        code: '<%= dashboard[i].code %>:'+card.code
       })),
 <% } -%>
     ]

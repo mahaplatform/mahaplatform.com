@@ -1,6 +1,6 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import New from './card/new'
+import New from './newcard'
 import React from 'react'
 import Card from './card'
 

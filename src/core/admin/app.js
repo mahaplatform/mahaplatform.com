@@ -249,8 +249,9 @@ class App extends React.Component {
   _getDashboardCards() {
     return [
       ...eventsDashboardCards.map(card => ({
-        code: 'events:'+card.code,
-        component: card.component
+        ...card,
+        app: 'events',
+        code: 'events:'+card.code
       })),
     ]
   }

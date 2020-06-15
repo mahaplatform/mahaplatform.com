@@ -73,11 +73,7 @@ class Card extends React.Component {
   }
 
   componentDidMount() {
-    const { card } = this.props
-    const { dashboardCards } = this.context.configuration
-    const type = dashboardCards.find(dashboardCard => {
-      return dashboardCard.code === card.type.code
-    })
+    const type = this._getCardType()
     this._handlePush(type.component, this._getComponent())
   }
 
@@ -88,6 +84,14 @@ class Card extends React.Component {
         push: this._handlePush
       }
     }
+  }
+
+  _getCardType() {
+    const { card } = this.props
+    const { dashboardCards } = this.context.configuration
+    return dashboardCards.find(dashboardCard => {
+      return dashboardCard.code === card.type.code
+    })
   }
 
   _getComponent() {
@@ -105,8 +109,6 @@ class Card extends React.Component {
     }
   }
 
-
-
   _handlePop(index = -1) {
     this.setState({
       cards:this.state.cards.slice(0, index)
@@ -123,10 +125,21 @@ class Card extends React.Component {
   }
 
   _handleTasks() {
+    const { card, panel } = this.props
+    const type = this._getCardType()
     this.context.tasks.open({
       items: [
-        { label: 'Edit Card' },
-        { label: 'Remove Card' }
+        {
+          label: 'Edit Card',
+          modal: <type.edit config={ card.config } />
+        }, {
+          label: 'Remove Card',
+          confirm: 'Are you sure you want to remove this card?',
+          request: {
+            endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
+            method: 'DELETE'
+          }
+        }
       ]
     })
   }

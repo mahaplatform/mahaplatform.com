@@ -94,9 +94,10 @@ class Admin extends React.Component {
   }
 
   getChildContext() {
-    const { rights, team, user } = this.props
+    const { apps, rights, team, user } = this.props
     return {
       admin: {
+        apps,
         rights,
         team,
         user,

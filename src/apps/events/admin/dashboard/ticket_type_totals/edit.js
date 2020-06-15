@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
@@ -12,9 +12,9 @@ class New extends React.Component {
   }
 
   render() {
-    return <div>new</div>
+    return <div>edit</div>
   }
 
 }
 
-export default New
+export default Edit
