@@ -23,7 +23,7 @@ import <%= userValues[i].code %>UserValues from '<%= userValues[i].filepath %>'
 import <%= activities[i].code %>ActivityCards from '<%= activities[i].filepath %>'
 <% } -%>
 <% for(var i = 0; i < dashboard.length; i++) {-%>
-import <%= dashboard[i].code %>DashboardCards from '<%= dashboard[i].filepath %>'
+import dashboardCard<%= i %> from '<%= dashboard[i].filepath %>'
 <% } -%>
 <% for(var i = 0; i < usage.length; i++) {-%>
 import <%= usage[i].code %>Usage from '<%= usage[i].filepath %>'
@@ -114,12 +114,12 @@ class App extends React.Component {
   _getDashboardCards() {
     return [
 <% for(var i = 0; i < dashboard.length; i++) { -%>
-      ...<%= dashboard[i].code %>DashboardCards.map(card => ({
-        ...card,
+      {
+        ...dashboardCard<%= i %>,
         app: '<%= dashboard[i].code %>',
-        type: card.code,
-        code: '<%= dashboard[i].code %>:'+card.code
-      })),
+        type: dashboardCard<%= i %>.code,
+        code: '<%= dashboard[i].code %>:'+dashboardCard<%= i %>.code
+      },
 <% } -%>
     ]
   }

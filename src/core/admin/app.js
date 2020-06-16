@@ -165,7 +165,8 @@ import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
-import eventsDashboardCards from '../../apps/events/admin/dashboard/index.js'
+import dashboardCard0 from '../../apps/events/admin/dashboard/ticket_type_totals/index.js'
+import dashboardCard1 from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -248,12 +249,18 @@ class App extends React.Component {
 
   _getDashboardCards() {
     return [
-      ...eventsDashboardCards.map(card => ({
-        ...card,
+      {
+        ...dashboardCard0,
         app: 'events',
-        type: card.code,
-        code: 'events:'+card.code
-      })),
+        type: dashboardCard0.code,
+        code: 'events:'+dashboardCard0.code
+      },
+      {
+        ...dashboardCard1,
+        app: 'maha',
+        type: dashboardCard1.code,
+        code: 'maha:'+dashboardCard1.code
+      },
     ]
   }
 

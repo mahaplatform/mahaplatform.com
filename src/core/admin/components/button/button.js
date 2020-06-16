@@ -24,6 +24,7 @@ class Button extends React.Component {
     error: PropTypes.string,
     location: PropTypes.string,
     handler: PropTypes.func,
+    html: PropTypes.string,
     icon: PropTypes.string,
     label: PropTypes.any,
     link: PropTypes.string,
@@ -67,7 +68,8 @@ class Button extends React.Component {
   }
 
   _getLabel() {
-    const { children, component, label, text } = this.props
+    const { children, component, label, text, html } = this.props
+    if(!_.isNil(html)) return <span dangerouslySetInnerHTML={{__html: html }} />
     if(!_.isNil(label)) return label
     if(!_.isNil(text)) return text
     if(!_.isNil(children)) return children

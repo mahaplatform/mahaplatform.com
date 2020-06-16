@@ -1,0 +1,72 @@
+.dashboard {
+  flex: 1;
+  display: flex;
+  position: relative;
+  .maha-collection-body {
+    background-color: lighten(@black, 95);
+  }
+}
+@media (max-width: 768px) {
+  .dashboard {
+    .maha-modal-panel-header {
+      display: none;
+    }
+  }
+}
+.dashboard-welcome {
+  display: flex;
+  font-size: 1.7em;
+  line-height: normal;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  &.morning {
+    background: rgb(246,211,101);
+    background: -moz-linear-gradient(120deg, rgba(246,211,101,1) 0%, rgba(253,160,133,1) 100%);
+    background: -webkit-linear-gradient(120deg, rgba(246,211,101,1) 0%, rgba(253,160,133,1) 100%);
+    background: linear-gradient(120deg, rgba(246,211,101,1) 0%, rgba(253,160,133,1) 100%);
+  }
+  &.afternoon {
+    background: rgb(199,238,251);
+    background: -moz-linear-gradient(120deg, rgba(199,238,251,1) 0%, rgba(50,156,226,1) 100%);
+    background: -webkit-linear-gradient(120deg, rgba(199,238,251,1) 0%, rgba(50,156,226,1) 100%);
+    background: linear-gradient(120deg, rgba(199,238,251,1) 0%, rgba(50,156,226,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c7eefb",endColorstr="#329ce2",GradientType=1);
+  }
+  &.evening {
+    background: #355C7D;
+    background: -webkit-linear-gradient(to bottom, #C06C84, #6C5B7B, #355C7D);
+    background: linear-gradient(to bottom, #C06C84, #6C5B7B, #355C7D);
+    color:@white;
+    text-shadow: 2px 2px 30px #000000;
+  }
+  &.night {
+    background: #0F2027;
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    color:@white;
+    text-shadow: 2px 2px 30px #000000;
+  }
+  .dashboard-wrapper {
+    margin: auto;
+    flex: 1;
+    display: block;
+    .welcome {
+      font-size: 1.4em;
+      line-height: normal;
+      font-weight:bold;
+      margin-bottom:20px;
+    }
+    .date {
+      font-size: .7em;
+      line-height: normal;
+    }
+    .time {
+      font-size: 2.8em;
+      line-height: normal;
+      margin-top:25px;
+      margin-bottom:40px;
+    }
+  }
+
+}

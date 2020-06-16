@@ -79,7 +79,7 @@ class MahaWebpackPlugin {
       const variables = {
         activities: extract('admin/activities/index.js'),
         badges: extract('admin/badges/index.js'),
-        dashboard: extract('admin/dashboard/index.js'),
+        dashboard: extract('admin/dashboard/*/index.js'),
         roots: extract('admin/roots/index.js'),
         routes: extract('admin/views/index.js'),
         reducers: reducers('admin/**/reducer.js'),

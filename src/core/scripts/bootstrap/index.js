@@ -1,16 +1,10 @@
 import '../../services/environment'
-import  { bootstrapApps,bootstrapType } from './bootstrap'
+import  { bootstrap } from './bootstrap'
 
-const bootstrap = async () => {
+const processor = async () => {
 
-  await bootstrapApps()
-
-  await bootstrapType('alerts', 'maha_alerts')
-
-  await bootstrapType('notifications', 'maha_notification_types')
-
-  await bootstrapType('rights', 'maha_rights')
+  await bootstrap()
 
 }
 
-bootstrap().then(process.exit)
+processor().then(process.exit)

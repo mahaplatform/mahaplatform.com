@@ -32,6 +32,7 @@ class Edit extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title' },
             { label: 'Event', name: 'config.event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', required: true }
           ]
         }

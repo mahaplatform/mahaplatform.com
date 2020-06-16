@@ -35,35 +35,10 @@ class Card extends React.Component {
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource } = this.props
     const { user } = this.context.admin
-    const { card, panel, reordering } = this.props
+    const { panel, reordering } = this.props
     const result = (
       <div className="maha-dashboard-card-container">
-        <div className="maha-dashboard-card">
-          <div className="maha-dashboard-card-header">
-            <div className="maha-dashboard-card-header-details">
-              <div className="maha-dashboard-card-header-details-title">
-                { card.title }
-              </div>
-              <div className="maha-dashboard-card-header-details-cardtitle">
-                { card.type.app ?
-                  <div className={ `maha-dashboard-card-appicon ${card.type.app.color}` }>
-                    <i className={ `fa fa-${card.type.app.icon}` } />
-                  </div> :
-                  <div className="maha-dashboard-card-appicon blue">
-                    <i className="fa fa-bars" />
-                  </div>
-                }
-                { card.type.title }
-              </div>
-            </div>
-            <div className="maha-dashboard-card-header-icon" onClick={ this._handleTasks }>
-              <i className="fa fa-ellipsis-v" />
-            </div>
-          </div>
-          <div className="maha-dashboard-card-body">
-            <Stack { ...this._getStack() } />
-          </div>
-        </div>
+        <Stack { ...this._getStack() } />
       </div>
     )
     if(!reordering || user.id !== panel.owner.id) return result
@@ -93,9 +68,13 @@ class Card extends React.Component {
   }
 
   _getComponent() {
+    const { user } = this.context.admin
+    const { panel } = this.props
     const { card } = this.props
     return {
-      config: card.config
+      config: card.config,
+      onTasks: this._handleTasks,
+      isOwner: user.id === panel.owner.id
     }
   }
 

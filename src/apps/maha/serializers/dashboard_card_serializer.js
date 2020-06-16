@@ -1,6 +1,5 @@
 const DashboardCardSerializer = (req, card) => ({
   id: card.get('id'),
-  title: card.get('title'),
   type: card.get('type'),
   delta: card.get('delta'),
   config: card.get('config'),

@@ -34,7 +34,6 @@ class New extends React.PureComponent {
         {
           fields: [
             { name: 'type', type: 'hidden', value: 'ticket_type_totals' },
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title' },
             { label: 'Event', name: 'config.event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', required: true }
           ]
         }

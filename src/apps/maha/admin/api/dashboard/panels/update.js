@@ -20,7 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await panel.save({
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['config'])
   }, {
     transacting: req.trx,
     patch: true

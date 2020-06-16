@@ -2,15 +2,16 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Edit extends React.PureComponent {
+class New extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
   static propTypes = {
-    card: PropTypes.object,
-    panel: PropTypes.object
+    panel: PropTypes.object,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -21,17 +22,19 @@ class Edit extends React.PureComponent {
   }
 
   _getForm() {
-    const { card, panel } = this.props
+    const { panel } = this.props
     return {
-      title: 'Edit Card',
-      endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}/edit`,
-      action: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
-      method: 'patch',
+      title: 'New Card',
+      action: `/api/admin/dashboard/panels/${panel.id}/cards`,
+      method: 'post',
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
+            { name: 'type', type: 'hidden', value: 'ticket_type_totals' },
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter a title' },
             { label: 'Event', name: 'config.event_id', type: 'lookup', endpoint: '/api/admin/events/events', value: 'id', text: 'title', required: true }
           ]
         }
@@ -40,13 +43,13 @@ class Edit extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    this.props.onBack()
   }
 
   _handleSuccess(organizer) {
-    this.context.modal.close()
+    this.props.onDone()
   }
 
 }
 
-export default Edit
+export default New

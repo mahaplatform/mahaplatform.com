@@ -1,4 +1,5 @@
 import '../../core/services/environment'
+import { bootstrap } from '../../core/scripts/bootstrap/bootstrap'
 import desktopConfig from '../../desktop/config/webpack.config'
 import mobileConfig from '../../mobile/config/webpack.config'
 import adminConfig from './webpack.admin.config'
@@ -173,14 +174,19 @@ const adminWatch = async () => {
   devserver.listen(process.env.DEVSERVER_PORT)
 }
 
-export const dev = async () => {
-  const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','web','admin']
+const connectNgrok = async () => {
   await ngrok.connect({
     authtoken: process.env.NGROK_AUTHTOKEN,
     addr: process.env.SERVER_PORT,
     subdomain: process.env.NGROK_SUBDOMAIN
   })
+}
+
+export const dev = async () => {
+  const argv = process.argv.slice(2)
+  const services = argv.length > 0 ? argv : ['server','web','admin']
+  await bootstrap()
+  await connectNgrok()
   if(_.includes(services, 'server')) await serverWatch()
   if(_.includes(services, 'desktop')) await desktopWatch()
   if(_.includes(services, 'mobile')) await mobileWatch()

@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 const root = path.resolve(__dirname,'..','..','..','apps')
 
-export const bootstrapApps = async () => {
+const bootstrapApps = async () => {
 
   const objects = glob.sync(`${root}/*/app.js`).map(file => {
     return require(path.resolve(file)).default
@@ -31,7 +31,7 @@ export const bootstrapApps = async () => {
 
 }
 
-export const bootstrapType = async (type, pattern, table) => {
+const bootstrapType = async (type, pattern, table) => {
 
   const objects = await collectObjects(`admin/${pattern}`)
 
@@ -77,5 +77,20 @@ const collectObjects = async (pattern) => {
     ]
 
   }, [])
+
+}
+
+
+export const bootstrap = async () => {
+
+  await bootstrapApps()
+
+  await bootstrapType('alerts', 'alerts', 'maha_alerts')
+
+  await bootstrapType('notifications', 'notifications', 'maha_notification_types')
+
+  await bootstrapType('rights', 'rights', 'maha_rights')
+
+  await bootstrapType('dashboard', 'dashboard/index', 'maha_dashboard_card_types')
 
 }

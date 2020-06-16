@@ -5,6 +5,13 @@
   height: 0;
   padding-bottom: 125%;
   position: relative;
+  .maha-stack {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
 }
 .maha-dashboard-card {
   position: absolute;
@@ -15,47 +22,40 @@
   display: flex;
   flex-direction: column;
 }
-.maha-dashboard-card-header {
-  display: flex;
+.maha-dashboard-card-back {
   border-bottom: 1px solid fadeout(@black, 90);
-}
-.maha-dashboard-card-header-app {
-  padding: 0.8em 0 0.8em 0.8em;
-  display: flex;
-}
-.maha-dashboard-card-appicon {
-  .colorize(background-color);
-  margin-right: 5px;
-  border-radius: 3px;
-  display: flex;
-  width: 1em;
-  height: 1em;
-  text-align: center;
-  line-height: 1em;
-  background-color: @red;
-  margin-top: 3px;
-  float: left;
+  background-color: fadeout(@black, 97);
+  color: fadeout(@black, 60);
+  padding: 0.8em;
+  cursor: pointer;
   .fa {
-    margin: auto !important;
-    color: @white;
-    font-size: 0.6em;
+    margin-right: 0.8em;
   }
+}
+.maha-dashboard-card-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  display: flex;
 }
 .maha-dashboard-card-header-details {
   flex: 1;
   padding: 0.8em;
   overflow: hidden;
-}
-.maha-dashboard-card-header-details-title {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-  overflow: hidden;
-  color: @black;
-  width: 100%;
-}
-.maha-dashboard-card-header-details-cardtitle {
-  color: fadeout(@black, 60);
+  h2, h3 {
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.6em;
+    font-weight: normal;
+  }
+  h2 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: @black;
+  }
+  h3 {
+    color: fadeout(@black, 60);
+  }
 }
 .maha-dashboard-card-header-icon {
   padding: 0.8em;
@@ -68,43 +68,11 @@
   }
 }
 .maha-dashboard-card-body {
+  flex-direction: column;
   display: flex;
   flex: 1;
 }
-
-.maha-dashboard-card-list {
-  flex: 1;
-  .scrollable();
-  table.ui.unstackable.compact.table {
-    border: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-  }
-  tr {
-    cursor: pointer;
-    &:hover {
-      background-color: fadeout(@black, 97);
-    }
-  }
-  .fa-chevron-right {
-    color: fadeout(@black, 80);
-    font-size: 0.8em;
-  }
-}
-.maha-dashboard-card-details {
-  flex: 1;
-}
-.maha-dashboard-card-details-header {
+.maha-dashboard-card-body-back {
   border-bottom: 1px solid fadeout(@black, 90);
-  cursor: pointer;
-  padding: 0.8em;
-  display: flex;
-  color: @blue;
-  .fa {
-    font-size: 0.8em;
-    margin-right: 5px;
-  }
-}
-.maha-dashboard-card-details-body {
-  padding: 0.8em;
+  padding: 0.4em 0.8em;
 }
