@@ -9,6 +9,7 @@ const createRoute = async (req, res) => {
   const panel = await DashboardPanel.forge({
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
+    config: {},
     ...whitelist(req.body, ['config'])
   }).save(null, {
     transacting: req.trx

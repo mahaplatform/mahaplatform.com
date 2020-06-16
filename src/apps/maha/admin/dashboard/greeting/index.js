@@ -1,11 +1,11 @@
 import Card from './card'
-import Edit from './edit'
 import New from './new'
 
 const card = {
   code: 'greeting',
+  title: 'Greeting',
+  description: 'A daily greeting',
   component: Card,
-  edit: Edit,
   new: New
 }
 

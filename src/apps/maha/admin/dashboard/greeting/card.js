@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
@@ -7,32 +6,51 @@ import _ from 'lodash'
 class Dashboard extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    rputer: PropTypes.object
+    admin: PropTypes.object,
+    modal: PropTypes.object
   }
 
   static propTypes = {
-    user: PropTypes.object,
-    unseen: PropTypes.number
+    isOwner: PropTypes.bool,
+    onTasks: PropTypes.func
   }
 
   state = {
     time: moment().format('h:mm a')
   }
 
+  _handleTasks = this._handleTasks.bind(this)
+
   render() {
-    const first_name = this.props.user.full_name.split(' ')[0]
+    const { isOwner } = this.props
+    const { admin } = this.context
+    const first_name = admin.user.full_name.split(' ')[0]
     return (
-      <div className={`dashboard-welcome ${ this._getTimeOfDay() }`}>
-        <div className="dashboard-wrapper">
-          <div className="welcome">
-            { this._getSalutation(this.state.time) }, { first_name }!
+      <div className="maha-dashboard-card">
+        <div className="maha-dashboard-card-header">
+          <div className="maha-dashboard-card-header-details">
+            <h2>Welcome to Maha</h2>
+            <h3>Greeting</h3>
           </div>
-          <div className="time">
-            { this.state.time }
-          </div>
-          <div className="date">
-            { moment().format('dddd, MMM Do, YYYY') }
+          { isOwner &&
+            <div className="maha-dashboard-card-header-icon" onClick={ this._handleTasks }>
+              <i className="fa fa-ellipsis-v" />
+            </div>
+          }
+        </div>
+        <div className="maha-dashboard-card-body">
+          <div className={`dashboard-welcome ${ this._getTimeOfDay() }`}>
+            <div className="dashboard-wrapper">
+              <div className="welcome">
+                { this._getSalutation(this.state.time) }, { first_name }!
+              </div>
+              <div className="time">
+                { this.state.time }
+              </div>
+              <div className="date">
+                { moment().format('dddd, MMM Do, YYYY') }
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -40,14 +58,11 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.intervalID = setInterval(
-      () => this._updateTime(),
-      60000
-    )
+    this.interval = setInterval(this._updateTime, 60000)
   }
 
   componentWillUnmount() {
-    clearInterval(this.intervalID)
+    clearInterval(this.interval)
   }
 
   _updateTime() {
@@ -64,7 +79,6 @@ class Dashboard extends React.Component {
 
   _getTimeOfDay(){
     const currentHour = parseFloat(moment().format('HH'))
-
     if(currentHour >= 5 && currentHour <= 11) {
       return 'morning'
     } else if(currentHour >= 12 && currentHour <= 16) {
@@ -81,11 +95,11 @@ class Dashboard extends React.Component {
       className: 'dashboard'
     }
   }
+
+  _handleTasks() {
+    this.props.onTasks()
+  }
+
 }
 
-const mapStateToProps = (state, props) => ({
-  team: state.maha.admin.team,
-  user: state.maha.admin.user
-})
-
-export default connect(mapStateToProps)(Dashboard)
+export default Dashboard

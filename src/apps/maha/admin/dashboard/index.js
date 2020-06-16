@@ -1,8 +1,6 @@
 const cards = [
   {
-    code: 'greeting',
-    title: 'Greeting',
-    description: 'A daily greeting'
+    code: 'greeting'
   }
 ]
 

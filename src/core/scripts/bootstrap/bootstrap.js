@@ -31,7 +31,7 @@ const bootstrapApps = async () => {
 
 }
 
-const bootstrapType = async (type, pattern, table) => {
+export const bootstrapType = async (type, pattern, table) => {
 
   const objects = await collectObjects(`admin/${pattern}`)
 

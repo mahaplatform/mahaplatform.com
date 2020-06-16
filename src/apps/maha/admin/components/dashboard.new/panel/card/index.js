@@ -104,21 +104,22 @@ class Card extends React.Component {
   _handleTasks() {
     const { card, panel } = this.props
     const type = this._getCardType()
-    this.context.tasks.open({
-      items: [
-        {
-          label: 'Edit Card',
-          modal: <type.edit card={ card } panel={ panel } />
-        }, {
-          label: 'Remove Card',
-          confirm: 'Are you sure you want to remove this card?',
-          request: {
-            endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
-            method: 'DELETE'
-          }
-        }
-      ]
+    const items = []
+    if(type.edit) {
+      items.push({
+        label: 'Edit Card',
+        modal: <type.edit card={ card } panel={ panel } />
+      })
+    }
+    items.push({
+      label: 'Remove Card',
+      confirm: 'Are you sure you want to remove this card?',
+      request: {
+        endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
+        method: 'DELETE'
+      }
     })
+    this.context.tasks.open({ items })
   }
 
 }

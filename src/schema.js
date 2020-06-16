@@ -1499,7 +1499,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('panel_id').unsigned()
       table.integer('type_id').unsigned()
-      table.string('title', 255)
       table.integer('delta')
       table.jsonb('config')
       table.timestamp('created_at')

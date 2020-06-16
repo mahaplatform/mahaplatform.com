@@ -38,7 +38,10 @@ class NewCard extends React.Component {
   _getApp() {
     const { admin } = this.context
     return {
-      apps: admin.apps,
+      apps: [
+        { id: null, code: 'maha', label: 'Maha', color: 'blue', icon: 'bars' },
+        ...admin.apps
+      ],
       onCancel: this._handleCancel,
       onChoose: this._handleApp
     }

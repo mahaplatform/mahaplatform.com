@@ -1,6 +1,3 @@
-import DashboardPanel from '../../models/dashboard_panel'
-import User from '../../../maha/models/user'
-
 const CreateDashboardPanel = {
 
   up: async (knex) => {
@@ -13,21 +10,6 @@ const CreateDashboardPanel = {
       table.string('title')
       table.timestamps()
     })
-
-    const users = await User.fetchAll({
-      transacting: knex
-    })
-
-    await Promise.mapSeries(users, async (user) => {
-      await DashboardPanel.forge({
-        team_id: user.get('team_id'),
-        owner_id: user.get('id'),
-        title: 'My Dashboard'
-      }).save(null, {
-        transacting: knex
-      })
-    })
-
   },
 
   down: async (knex) => {
