@@ -262,6 +262,7 @@ const processContactImport = async (req, { import_id }) => {
     let mailing_addresses = []
 
     const contact = await matchContact(req, {
+      createContact: true,
       values
     })
 

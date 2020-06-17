@@ -50,7 +50,7 @@ const matchKeys = (values, regex) => {
   ], [])
 }
 
-export const matchContact = async (req, { values }) => {
+export const matchContact = async (req, { createContact, values }) => {
 
   const normalized = normalizeValues(values)
 
@@ -65,7 +65,8 @@ export const matchContact = async (req, { values }) => {
     last_name: normalized.last_name,
     emails: emails.length > 0 ? emails : null,
     phones: phones.length > 0 ? phones : null,
-    addresses: addresses.length > 0 ? addresses : null
+    addresses: addresses.length > 0 ? addresses : null,
+    createContact
   })
 
   return contact

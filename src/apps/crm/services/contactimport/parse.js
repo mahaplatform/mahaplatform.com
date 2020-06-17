@@ -95,6 +95,7 @@ const parseContactImport = async (req, { import_id }) => {
     }
 
     const contact = await matchContact(req, {
+      createContact: false,
       values
     })
 

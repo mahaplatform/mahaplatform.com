@@ -58,6 +58,7 @@ const getContactByPhones = async (req, params) => {
     qb.whereRaw('lower(crm_contacts.first_name) = ?', first_name.toLowerCase())
     qb.whereRaw('lower(crm_contacts.last_name) = ?', last_name.toLowerCase())
     qb.whereIn('crm_phone_numbers.number', phones)
+    qb.where('crm_phone_numbers.team_id', req.team.get('id'))
   }).fetch({
     withRelated: ['contact'],
     transacting: req.trx
@@ -93,6 +94,7 @@ const getContactByAddresses = async (req,  params) => {
     qb.whereRaw('lower(crm_contacts.first_name) = ?', first_name.toLowerCase())
     qb.whereRaw('lower(crm_contacts.last_name) = ?', last_name.toLowerCase())
     qb.whereRaw(`lower(crm_mailing_addresses.address->>'street_1') in (${Array(addresses.length).fill('?').join(',')})`, addresses)
+    qb.where('crm_mailing_addresses.team_id', req.team.get('id'))
   }).fetch({
     withRelated: ['contact'],
     transacting: req.trx
@@ -116,6 +118,8 @@ const getContact = async (req, params) => {
 
   const addressContact = await getContactByAddresses(req, params)
   if(addressContact) return addressContact
+
+  if(params.createContact === false) return null
 
   const code = await generateCode(req, {
     table: 'crm_contacts'
