@@ -1,5 +1,8 @@
 import { updateRelated } from '../../../../core/services/routes/relations'
+import DashboardCardType from '../../../maha/models/dashboard_card_type'
 import { whitelist } from '../../../../core/services/routes/params'
+import DashboardPanel from '../../../maha/models/dashboard_panel'
+import DashboardCard from '../../../maha/models/dashboard_card'
 import generateCode from '../../../../core/utils/generate_code'
 import User from '../../../maha/models/user'
 
@@ -62,6 +65,30 @@ const createUser = async(req, params) => {
       related_foreign_key: 'supervisor_id'
     })
   }
+
+  const panel = await DashboardPanel.forge({
+    team_id: user.get('team_id'),
+    owner_id: user.get('id'),
+    title: 'My Dashboard'
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  const card_type = await DashboardCardType.query(qb => {
+    qb.whereNull('app_id')
+    qb.where('code', 'greeting')
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await DashboardCard.forge({
+    team_id: user.get('team_id'),
+    panel_id: panel.get('id'),
+    type_id: card_type.get('id'),
+    config: {}
+  }).save(null, {
+    transacting: req.trx
+  })
 
   return user
 

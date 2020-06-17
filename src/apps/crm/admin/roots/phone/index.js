@@ -403,6 +403,9 @@ const mapResources = (props, context) => ({
     filter: {
       phone_number_id: {
         $nnl: true
+      },
+      access_type: {
+        $in: ['manage','edit']
       }
     }
   },

@@ -65,10 +65,10 @@ class TextField extends React.Component {
     const { disabled, tabIndex } = this.props
     const { value } = this.state
     return (
-      <div className={ this._getClass() } tabIndex={ tabIndex }>
+      <div className={ this._getClass() }>
         <div className="maha-input-field">
           { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
-          <input { ...this._getControl() } />
+          <input { ...this._getControl() } tabIndex={ tabIndex } />
           { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
         </div>
         { value && value.length > 0 && !disabled &&
