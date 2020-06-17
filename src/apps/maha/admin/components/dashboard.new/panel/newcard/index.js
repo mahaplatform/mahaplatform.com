@@ -9,7 +9,8 @@ class NewCard extends React.Component {
   static contextTypes = {
     admin: PropTypes.object,
     configuration: PropTypes.object,
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -84,7 +85,20 @@ class NewCard extends React.Component {
   }
 
   _handleCards(card) {
+    if(!card.new) return this._handleCreate(card)
     this._handlePush(card.new, this._getCard(card))
+  }
+
+  _handleCreate(card) {
+    const { panel } = this.props
+    this.context.network.request({
+      endpoint: `/api/admin/dashboard/panels/${panel.id}/cards`,
+      method: 'post',
+      body: {
+        type: card.type
+      },
+      onSuccess: this._handleDone
+    })
   }
 
   _handleDone() {

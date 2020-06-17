@@ -12,7 +12,8 @@ class Card extends React.Component {
   static contextTypes = {
     admin: PropTypes.object,
     configuration: PropTypes.object,
-    tasks: PropTypes.object
+    modal: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -20,34 +21,39 @@ class Card extends React.Component {
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     card: PropTypes.object,
+    index: PropTypes.number,
+    managing: PropTypes.bool,
     panel: PropTypes.object,
-    reordering: PropTypes.bool
+    onExpand: PropTypes.func,
+    onMove: PropTypes.func
   }
 
   state = {
     cards: []
   }
 
+  _handleEdit = this._handleEdit.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
-  _handleTasks = this._handleTasks.bind(this)
+  _handleExpand = this._handleExpand.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource } = this.props
     const { user } = this.context.admin
-    const { panel, reordering } = this.props
+    const { panel, managing } = this.props
     const result = (
       <div className="maha-dashboard-card-container">
         <Stack { ...this._getStack() } />
       </div>
     )
-    if(!reordering || user.id !== panel.owner.id) return result
+    if(!managing || user.id !== panel.owner.id) return result
     return connectDragSource(connectDropTarget(connectDragPreview(result)))
   }
 
   componentDidMount() {
     const type = this._getCardType()
-    this._handlePush(type.component, this._getComponent())
+    this._handlePush(type.component, this._getComponent.bind(this))
   }
 
   getChildContext() {
@@ -68,14 +74,38 @@ class Card extends React.Component {
   }
 
   _getComponent() {
-    const { user } = this.context.admin
-    const { panel } = this.props
     const { card } = this.props
     return {
-      config: card.config,
-      onTasks: this._handleTasks,
-      isOwner: user.id === panel.owner.id
+      controls: this._getControls(),
+      config: card.config
     }
+  }
+
+  _getControls() {
+    const { user } = this.context.admin
+    const { managing, panel } = this.props
+    const type = this._getCardType()
+    if(managing && user.id === panel.owner.id) {
+      return (
+        <div className="maha-dashboard-card-header-controls">
+          { type.edit !== undefined &&
+            <div className="maha-dashboard-card-header-control" onClick={ this._handleEdit }>
+              <i className="fa fa-ellipsis-v" />
+            </div>
+          }
+          <div className="maha-dashboard-card-header-control" onClick={ this._handleRemove }>
+            <i className="fa fa-times" />
+          </div>
+        </div>
+      )
+    }
+    return (
+      <div className="maha-dashboard-card-header-controls">
+        <div className="maha-dashboard-card-header-control" onClick={ this._handleExpand }>
+          <i className="fa fa-expand" />
+        </div>
+      </div>
+    )
   }
 
   _getStack() {
@@ -84,6 +114,12 @@ class Card extends React.Component {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleEdit() {
+    const { card, panel } = this.props
+    const type = this._getCardType()
+    this.context.modal.open(<type.edit card={ card } panel={ panel } />)
   }
 
   _handlePop(index = -1) {
@@ -101,25 +137,18 @@ class Card extends React.Component {
     })
   }
 
-  _handleTasks() {
+  _handleExpand() {
+    const { card } = this.props
+    this.props.onExpand(card.id)
+  }
+
+  _handleRemove() {
     const { card, panel } = this.props
-    const type = this._getCardType()
-    const items = []
-    if(type.edit) {
-      items.push({
-        label: 'Edit Card',
-        modal: <type.edit card={ card } panel={ panel } />
-      })
-    }
-    items.push({
-      label: 'Remove Card',
+    this.context.network.request({
       confirm: 'Are you sure you want to remove this card?',
-      request: {
-        endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
-        method: 'DELETE'
-      }
+      endpoint: `/api/admin/dashboard/panels/${panel.id}/cards/${card.id}`,
+      method: 'DELETE'
     })
-    this.context.tasks.open({ items })
   }
 
 }
@@ -138,6 +167,9 @@ const target = {
     if (dragIndex === hoverIndex) return
     props.onMove(dragIndex, hoverIndex)
     monitor.getItem().index = hoverIndex
+  },
+  drop: (props, monitor, component) => {
+    console.log('drop', { props, monitor, component })
   }
 }
 

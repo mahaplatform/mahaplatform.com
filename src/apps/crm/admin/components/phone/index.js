@@ -44,7 +44,6 @@ class PhoneContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { programs } = this.props
     this.setState({
       program: programs[0]
     })

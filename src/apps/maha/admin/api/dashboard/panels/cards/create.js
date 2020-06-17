@@ -32,13 +32,14 @@ const createRoute = async (req, res) => {
     panel_id: panel.get('id'),
     type_id: type.get('id'),
     delta: panel.related('cards').length,
+    config: {},
     ...whitelist(req.body, ['title','config'])
   }).save(null, {
     transacting: req.trx
   })
 
   await socket.refresh(req, [
-    `/admin/dashboard/panels/${panel.get('id')}`
+    '/admin/dashboard'
   ])
 
   res.status(200).respond(card, DashboardCardSerializer)

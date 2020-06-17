@@ -2,6 +2,7 @@ import { Container, Dependency } from 'maha-admin'
 import Phone from '../../components/phone'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import Empty from './empty'
 import React from 'react'
 
 class PhoneRoot extends React.Component {
@@ -40,6 +41,7 @@ class PhoneRoot extends React.Component {
   _handleUpdateCallStatus = this._handleUpdateCallStatus.bind(this)
 
   render() {
+    const { programs } = this.props
     const { open } = this.state
     return (
       <div className="maha-phone">
@@ -48,7 +50,10 @@ class PhoneRoot extends React.Component {
         </div>
         { open &&
           <div className="maha-phone-sidebar">
-            <Phone { ...this._getPhone() } />
+            { programs.length > 0 ?
+              <Phone { ...this._getPhone() } /> :
+              <Empty { ...this._getEmpty() } />
+            }
           </div>
         }
       </div>
@@ -65,6 +70,12 @@ class PhoneRoot extends React.Component {
         call: this._handleCall,
         toggle: this._handleToggle
       }
+    }
+  }
+
+  _getEmpty() {
+    return {
+      onClose: this._handleClose
     }
   }
 

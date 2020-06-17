@@ -1,17 +1,28 @@
+.maha-dashboard-body.collapsed {
+  .maha-dashboard-card-container {
+    padding-bottom: 125%;
+    height: 0;
+    position: relative;
+    .maha-stack {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
+.maha-dashboard-body.expanded {
+  .maha-dashboard-card-container {
+    display: flex;
+    flex: 1;
+  }
+}
 .maha-dashboard-card-container {
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
-  border-radius: 0.2em;
-  height: 0;
-  padding-bottom: 125%;
-  position: relative;
-  .maha-stack {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-  }
+  border-radius: 5px;
+  overflow: hidden;
 }
 .maha-dashboard-card {
   position: absolute;
@@ -57,14 +68,20 @@
     color: fadeout(@black, 60);
   }
 }
-.maha-dashboard-card-header-icon {
-  padding: 0.8em;
+.maha-dashboard-card-header-controls {
   display: flex;
-  cursor: pointer;
+}
+.maha-dashboard-card-header-control {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
   .fa {
+    cursor: pointer;
     margin: auto;
     font-size: 1.2em;
     color: fadeout(@black, 80);
+    &:hover {
+      color: fadeout(@black, 40);
+    }
   }
 }
 .maha-dashboard-card-body {

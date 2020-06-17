@@ -3,7 +3,7 @@ import React from 'react'
 import moment from 'moment'
 import _ from 'lodash'
 
-class Dashboard extends React.Component {
+class Greeting extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -11,18 +11,16 @@ class Dashboard extends React.Component {
   }
 
   static propTypes = {
-    isOwner: PropTypes.bool,
-    onTasks: PropTypes.func
+    config: PropTypes.object,
+    controls: PropTypes.any
   }
 
   state = {
     time: moment().format('h:mm a')
   }
 
-  _handleTasks = this._handleTasks.bind(this)
-
   render() {
-    const { isOwner } = this.props
+    const { controls } = this.props
     const { admin } = this.context
     const first_name = admin.user.full_name.split(' ')[0]
     return (
@@ -32,11 +30,7 @@ class Dashboard extends React.Component {
             <h2>Welcome to Maha</h2>
             <h3>Greeting</h3>
           </div>
-          { isOwner &&
-            <div className="maha-dashboard-card-header-icon" onClick={ this._handleTasks }>
-              <i className="fa fa-ellipsis-v" />
-            </div>
-          }
+          { controls }
         </div>
         <div className="maha-dashboard-card-body">
           <div className={`dashboard-welcome ${ this._getTimeOfDay() }`}>
@@ -96,10 +90,6 @@ class Dashboard extends React.Component {
     }
   }
 
-  _handleTasks() {
-    this.props.onTasks()
-  }
-
 }
 
-export default Dashboard
+export default Greeting

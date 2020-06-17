@@ -7,15 +7,12 @@ class TicketTypes extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    event: PropTypes.object,
-    isOwner: PropTypes.bool,
-    onTasks: PropTypes.func
+    controls: PropTypes.any,
+    event: PropTypes.object
   }
 
-  _handleTasks = this._handleTasks.bind(this)
-
   render() {
-    const { event, isOwner } = this.props
+    const { controls, event } = this.props
     return (
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
@@ -23,11 +20,7 @@ class TicketTypes extends React.Component {
             <h2>{ event.title }</h2>
             <h3>Ticket Type Total</h3>
           </div>
-          { isOwner &&
-            <div className="maha-dashboard-card-header-icon" onClick={ this._handleTasks }>
-              <i className="fa fa-ellipsis-v" />
-            </div>
-          }
+          { controls }
         </div>
         <div className="maha-dashboard-card-body">
           <Infinite { ...this._getInfinite() } />
@@ -47,12 +40,7 @@ class TicketTypes extends React.Component {
     }
   }
 
-  _handleTasks() {
-    this.props.onTasks()
-  }
-
 }
-
 
 const mapResources = (props, context) => ({
   event: `/api/admin/events/events/${props.config.event_id}`

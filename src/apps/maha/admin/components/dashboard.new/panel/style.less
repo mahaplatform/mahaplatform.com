@@ -1,9 +1,10 @@
 .maha-dashboard-header {
   border: 1px solid fadeout(@black, 90);
-  border-radius: 0.2em;
+  border-radius: 5px;
   background-color: @white;
   margin: 0.8em 0.8em 0;
   display: flex;
+  overflow: hidden;
 }
 .maha-dashboard-header-toggle {
   border-right: 1px solid fadeout(@black, 90);
@@ -35,7 +36,7 @@
   padding: 0.8em;
   display: flex;
   &.active {
-    background-color: fadeout(@black, 60);
+    background-color: @blue;
     color: @white !important;
   }
   &:hover {
@@ -48,31 +49,73 @@
 .maha-dashboard-body {
   background-color: fadeout(@black, 90);
   flex: 1;
-  .scrollable();
+  display: flex;
+  flex-direction: column;
 }
 .maha-dashboard-panel {
+  flex: 1;
   flex-wrap: wrap;
   display: flex;
   padding: 0.4em;
 }
-.maha-dashboard-panel-item {
-  padding: 0.4em;
-  @media (min-width: 2750px) {
+.maha-dashboard-body {
+  &.collapsed {
+    .scrollable();
+  }
+  &.expanded .full {
+    display: flex;
+    flex: 1;
+  }
+  &.six .one {
     flex: 0 0 ~"calc(100% / 6)";
   }
-  @media (min-width: 2201px) and (max-width: 2750px) {
+  &.five .one {
     flex: 0 0 ~"calc(100% / 5)";
   }
-  @media (min-width: 1651px) and (max-width: 2200px) {
+  &.four .one {
     flex: 0 0 ~"calc(100% / 4)";
   }
-  @media (min-width: 1101px) and (max-width: 1650px) {
+  &.three .one {
     flex: 0 0 ~"calc(100% / 3)";
   }
-  @media (min-width: 551px) and (max-width: 1100px) {
+  &.two .one {
     flex: 0 0 ~"calc(100% / 2)";
   }
-  @media (max-width: 550px) {
+  &.one .one {
     flex: 0 0 100%;
+  }
+}
+.maha-dashboard-panel-item {
+  padding: 0.4em;
+}
+.maha-dashboard-panel-add {
+  border: 3px dashed fadeout(@black, 90);
+  border-radius: 0.2em;
+  height: 0;
+  padding-bottom: 125%;
+  position: relative;
+
+}
+.maha-dashboard-panel-add-inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-dashboard-panel-add-content {
+  text-align: center;
+  margin: auto;
+  color: fadeout(@black, 60);
+  font-size: 2em;
+  .fa {
+    display: block;
+    font-size: 2em;
+    line-height: 1.6em;
   }
 }
