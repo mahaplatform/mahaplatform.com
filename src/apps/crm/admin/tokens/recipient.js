@@ -10,7 +10,7 @@ const RecipientToken = ({ recipient }) => {
     initials: recipient.contact.initials
   }
   const getRecipientChannel = (recipient) => {
-    if(recipient.email_address) return '&lt;{ recipient.email_address.address }&gt;'
+    if(recipient.email_address) return <span>&lt;{ recipient.email_address.address }&gt;</span>
     if(recipient.phone_number ) return <Format format="phone" value={ recipient.phone_number.number } />
     return null
   }
