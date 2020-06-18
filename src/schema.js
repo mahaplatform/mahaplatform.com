@@ -4303,7 +4303,7 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
 union
       select 'sms'::text as type,
       'transactional'::text as purpose,
@@ -4329,7 +4329,7 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
 union
       select 'voice'::text as type,
       'transactional'::text as purpose,
@@ -4355,7 +4355,7 @@ union
       crm_contacts.photo_id
       from ((crm_mailing_addresses
       join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
 union
       select 'mail'::text as type,
       'transactional'::text as purpose,

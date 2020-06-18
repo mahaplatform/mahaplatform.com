@@ -4,7 +4,7 @@ import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
 
-const smsFiles = collectObjects('hooks/sms/*')
+const smsFiles = collectObjects('hooks/sms/receive.ja')
 
 const receiveRoute = async (req, res) => {
 
@@ -24,7 +24,7 @@ const receiveRoute = async (req, res) => {
   const sms = await receiveSMS(req, {
     from,
     to,
-    body,
+    body: body.trim(),
     incoming,
     sid
   })
