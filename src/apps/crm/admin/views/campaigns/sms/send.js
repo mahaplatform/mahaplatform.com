@@ -1,3 +1,4 @@
+import ToField from '../../../components/tofield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -35,6 +36,7 @@ class Send extends React.Component {
     return {
       title: 'Send Campaign',
       method: 'patch',
+      endpoint: `/api/admin/crm/campaigns/sms/${campaign.id}/edit`,
       action: `/api/admin/crm/campaigns/sms/${campaign.id}/send`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
@@ -42,7 +44,8 @@ class Send extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
+            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'email', required: true, purpose: campaign.purpose },
+            { label: 'Send At', name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
             ...strategy === 'schedule' ? [
               { label: 'Send At', type: 'segment', fields: [
                 { label: 'Date', name: 'date', type: 'datefield', required: true },

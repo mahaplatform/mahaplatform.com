@@ -1,5 +1,6 @@
 import recordings from './recordings'
 import voicemails from './voicemails'
+import unschedule from './unschedule'
 import outbound from './outbound'
 import activate from './activate'
 import { Router } from 'express'
@@ -33,6 +34,8 @@ router.patch('/:id/resend', resend)
 router.patch('/:id/activate', activate)
 
 router.patch('/:id/send', send)
+
+router.patch('/:id/unschedule', unschedule)
 
 router.patch('/:id', update)
 

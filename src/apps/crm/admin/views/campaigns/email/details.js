@@ -66,7 +66,7 @@ const Details = ({ audits, campaign }) => {
 }
 
 Details.propTypes = {
-  audits: PropTypes.object,
+  audits: PropTypes.array,
   campaign: PropTypes.object
 }
 

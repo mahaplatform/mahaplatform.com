@@ -16,7 +16,7 @@ const getTabs = ({ audits, campaign, emails }) => ({
   ]
 })
 
-const getTasks = ({ campaign }) => {
+const getTasks = ({ campaign }, { flash }) => {
 
   const { direction, status } = campaign
 
@@ -32,6 +32,16 @@ const getTasks = ({ campaign }) => {
 
   if(direction === 'outbound' && status === 'draft') {
     items.push({ label: 'Send/Schedule Campaign', modal: <Send campaign={ campaign } /> })
+  } else if(direction === 'outbound' && status === 'scheduled') {
+    items.push({
+      label: 'Unschedule Campaign',
+      confirm: 'Are you sure you want to unschedule this campaign?',
+      request: {
+        endpoint: `/api/admin/crm/campaigns/email/${campaign.id}/unschedule`,
+        method: 'patch',
+        onFailure: () => flash.set('error', 'Unable to unschedule campaign')
+      }
+    })
   } else if(direction === 'inbound' && status === 'active') {
     items.push({
       label: 'Deactivate Campaign',
@@ -85,8 +95,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Voice Campaign',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

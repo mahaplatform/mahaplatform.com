@@ -1,4 +1,5 @@
 import performance from './performance'
+import unschedule from './unschedule'
 import activities from './activities'
 import deliveries from './deliveries'
 import workflows from './workflows'
@@ -36,6 +37,8 @@ router.get('/:id/workflows', workflows)
 router.patch('/:id/resend', resend)
 
 router.patch('/:id/send', send)
+
+router.patch('/:id/unschedule', unschedule)
 
 router.patch('/:id', update)
 

@@ -2,14 +2,8 @@ import SendEmailCampaignQueue from '../../../../queues/send_email_campaign_queue
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
-import moment from 'moment'
 
-const getSendAt = ({ strategy, date, time }) => {
-  if(strategy === 'now') return moment()
-  return moment(`${date} ${time}`)
-}
-
-const sendRoute = async (req, res) => {
+const unscheduleRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -23,32 +17,26 @@ const sendRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  await campaign.save({
-    to: req.body.to
-  }, {
-    transacting: req.trx,
-    patch: true
+  if(!campaign.get('job_id')) return res.status(422).respond({
+    code: 422,
+    message: 'Campaign is not scheduled'
   })
 
-  const send_at = getSendAt(req.body)
+  const job = await SendEmailCampaignQueue.queue.getJob(campaign.get('job_id'))
 
-  const job = await SendEmailCampaignQueue.enqueue(req, {
-    email_campaign_id: campaign.get('id')
-  }, {
-    until: moment(send_at)
-  })
+  await job.remove()
 
   await campaign.save({
-    send_at,
-    status: 'scheduled',
-    job_id: job.id
+    send_at: null,
+    status: 'draft',
+    job_id: null
   }, {
     transacting: req.trx,
     patch: true
   })
 
   await audit(req, {
-    story: 'scheduled',
+    story: 'unscheduled',
     auditable: campaign
   })
 
@@ -61,4 +49,4 @@ const sendRoute = async (req, res) => {
 
 }
 
-export default sendRoute
+export default unscheduleRoute

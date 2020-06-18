@@ -28,8 +28,10 @@ class ToField extends React.PureComponent {
     defaultValue: PropTypes.object,
     program_id: PropTypes.number,
     purpose: PropTypes.string,
+    required: PropTypes.bool,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   state = {
@@ -43,6 +45,7 @@ class ToField extends React.PureComponent {
   _handlePicker = this._handlePicker.bind(this)
   _handleStrategy = this._handleStrategy.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { recipients, strategy } = this.state
@@ -75,12 +78,16 @@ class ToField extends React.PureComponent {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) return this.setState(defaultValue)
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { config } = this.state
+    const { config, strategy } = this.state
     if(!_.isEqual(config, prevState.config) && config) {
+      this._handleChange()
+      this._handleFetch()
+    }
+    if(strategy !== prevState.strategy) {
       this._handleChange()
       this._handleFetch()
     }
@@ -157,7 +164,8 @@ class ToField extends React.PureComponent {
     })
   }
 
-  _handleClear() {
+  _handleClear(e) {
+    e.stopPropagation()
     this.setState({
       recipients: null
     })
@@ -200,9 +208,22 @@ class ToField extends React.PureComponent {
   }
 
   _handleSuccess({ data }) {
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
     this.setState({
       recipients: data
+    })
+  }
+
+  _handleValidate() {
+    const { config, recipients, strategy } = this.state
+    const { required, onValid } = this.props
+    console.log(required, recipients)
+    if(required && (!recipients || recipients.length === 0)) {
+      return onValid(null, ['You must choose at least 1 recipient'])
+    }
+    onValid({
+      config,
+      strategy
     })
   }
 

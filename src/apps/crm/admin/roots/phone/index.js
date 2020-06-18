@@ -8,7 +8,6 @@ import React from 'react'
 class PhoneRoot extends React.Component {
 
   static childContextTypes = {
-    admin: PropTypes.object,
     phone: PropTypes.object
   }
 

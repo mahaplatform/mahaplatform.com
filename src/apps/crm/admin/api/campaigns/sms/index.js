@@ -1,3 +1,4 @@
+import unschedule from './unschedule'
 import sessions from './sessions'
 import outbound from './outbound'
 import activate from './activate'
@@ -31,6 +32,8 @@ router.get('/:id/emails', emails)
 router.patch('/:id/resend', resend)
 
 router.patch('/:id/send', send)
+
+router.patch('/:id/unschedule', unschedule)
 
 router.patch('/:id', update)
 

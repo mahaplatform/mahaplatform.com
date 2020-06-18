@@ -18,7 +18,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      error: action.result.error.message
+      error: action.result.error ? action.result.error.message : ''
     }
 
   case 'REQUEST_SUCCESS':
