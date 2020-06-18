@@ -55,7 +55,7 @@ class ToField extends React.PureComponent {
         { strategy &&
           <div className="maha-input" onClick={ this._handlePicker }>
             <div className="maha-input-field">
-              { recipients ?
+              { recipients && recipients.length > 0 ?
                 <div className="maha-input-token">
                   { pluralize('contact', recipients.length, true) }
                 </div> :

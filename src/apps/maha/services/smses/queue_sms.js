@@ -2,6 +2,18 @@ import twilio from '../../../../core/services/twilio'
 import SMS from '../../models/sms'
 import moment from 'moment'
 
+const getTotal = async (req, { from_id, to_id, sms_id }) => {
+
+  const results = await req.trx('maha_smses').where(qb => {
+    qb.where('from_id', from_id)
+    qb.where('to_id', to_id)
+    qb.whereNot('id', sms_id)
+  }).count('*')
+
+  return parseInt(results[0].count)
+
+}
+
 const queueSMS = async (req, { sms_id }) => {
 
   const sms = await SMS.query(qb => {
@@ -11,12 +23,26 @@ const queueSMS = async (req, { sms_id }) => {
     transacting: req.trx
   })
 
+  const from = sms.related('from')
+
+  const to = sms.related('to')
+
+  const total = await getTotal(req, {
+    from_id: from.get('id'),
+    to_id: to.get('id'),
+    sms_id: sms.get('id')
+  })
+
+  console.log(total)
+
+  const body = sms.get('body') + (total === 0 ? ' Reply STOP to unsubscribe.' : '')
+
   try {
 
     const result = await twilio.messages.create({
-      from: sms.related('from').get('number'),
-      to: sms.related('to').get('number'),
-      body: sms.get('body'),
+      from: from.get('number'),
+      to: to.get('number'),
+      body,
       mediaUrl: sms.related('attachments').map(attachment => {
         return attachment.related('asset').get('signed_url')
       }),
