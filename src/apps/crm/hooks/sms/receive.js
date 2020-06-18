@@ -4,12 +4,13 @@ import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { enrollInCampaign } from '../../services/sms_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
 import socket from '../../../../core/services/routes/emitter'
-import { executeWorkflow } from '../../services/workflows'
+import { updateConsent } from '../../services/consents'
 import SMSCampaign from '../../models/sms_campaign'
 import PhoneNumber from '../../models/phone_number'
 import Contact from '../../models/contact'
 import { getContact } from '../utils'
 import moment from 'moment'
+import _ from 'lodash'
 
 const getPhoneNumber = async (req, { number }) => {
 
@@ -73,18 +74,46 @@ const receive = async (req, { sms, phone_number }) => {
     `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/sms/${from.get('id')}/smses`
   ])
 
+  if(_.includes(['start','yes','unstop'], sms.get('body').toLowerCase())) {
+    await updateConsent(req, {
+      channel_type: 'sms',
+      channel_id: from.get('id'),
+      program: phone_number.related('program'),
+      optout: false
+    })
+  }
+
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
     qb.where('crm_sms_campaigns.phone_number_id', phone_number.get('id'))
     qb.where('crm_workflow_enrollments.contact_id', from.get('contact_id'))
     qb.where('crm_workflow_enrollments.status', 'active')
+    qb.whereNull('crm_workflow_enrollments.unenrolled_at')
     qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
   }).fetch({
     transacting: req.trx
   })
 
+  if(_.includes(['stop','stopall','unsubscribe','cancel','end','quit'], sms.get('body').toLowerCase())) {
+    await updateConsent(req, {
+      channel_type: 'sms',
+      channel_id: from.get('id'),
+      program: phone_number.related('program'),
+      optout: true
+    })
+    if(!enrollment) return
+    return await enrollment.save({
+      was_opted_out: true,
+      status: 'lost',
+      unenrolled_at: moment()
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
+
   if(enrollment) {
-    await ExecuteWorkflowQueue.enqueue(req, {
+    return await ExecuteWorkflowQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       answer: sms.get('body')
     })

@@ -77,7 +77,7 @@ class ToField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) return this.setState(defaultValue)
+    if(defaultValue) this.setState(defaultValue)
     this.props.onReady(this._handleValidate)
   }
 
@@ -208,7 +208,6 @@ class ToField extends React.PureComponent {
   }
 
   _handleSuccess({ data }) {
-    this.props.onReady(this._handleValidate)
     this.setState({
       recipients: data
     })
@@ -217,7 +216,6 @@ class ToField extends React.PureComponent {
   _handleValidate() {
     const { config, recipients, strategy } = this.state
     const { required, onValid } = this.props
-    console.log(required, recipients)
     if(required && (!recipients || recipients.length === 0)) {
       return onValid(null, ['You must choose at least 1 recipient'])
     }

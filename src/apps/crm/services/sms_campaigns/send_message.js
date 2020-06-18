@@ -19,7 +19,8 @@ const sendMessage = async (req, params) => {
     code,
     data: {},
     status: 'active',
-    was_converted: false
+    was_converted: false,
+    was_opted_out: false
   }).save(null, {
     transacting: req.trx
   })

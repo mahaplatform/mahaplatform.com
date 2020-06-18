@@ -1,5 +1,6 @@
 import SMSAttachment from '../../models/sms_attachment'
 import SendSMSQueue from '../../queues/send_sms_queue'
+import SMSBlacklist from '../../models/sms_blacklist'
 import { findOrCreateNumber } from '../numbers'
 import SMS from '../../models/sms'
 import queueSMS from './queue_sms'
@@ -16,6 +17,15 @@ const sendSMS = async (req, params) => {
   const to_number = await findOrCreateNumber(req, {
     number: to
   })
+
+  const blacklist = await SMSBlacklist.query(qb => {
+    qb.where('from_number_id', from_number.get('id'))
+    qb.where('to_number_id', to_number.get('id'))
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(blacklist) throw new Error('This number has been blacklisted')
 
   const sms = await SMS.forge({
     team_id: team_id || req.team.get('id'),

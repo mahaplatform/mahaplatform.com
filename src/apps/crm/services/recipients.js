@@ -226,6 +226,8 @@ export const getRecipients = async (req, params) => {
 
   const { config, page, program_id, purpose, strategy, type } = params
 
+  if(!config) return []
+
   const creator = getCreator(strategy)
 
   const args = await creator(req, config)

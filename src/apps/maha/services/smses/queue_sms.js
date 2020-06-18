@@ -1,3 +1,4 @@
+import SMSBlacklist from '../../../../apps/maha/models/sms_blacklist'
 import twilio from '../../../../core/services/twilio'
 import SMS from '../../models/sms'
 import moment from 'moment'
@@ -32,8 +33,6 @@ const queueSMS = async (req, { sms_id }) => {
     to_id: to.get('id'),
     sms_id: sms.get('id')
   })
-
-  console.log(total)
 
   const body = sms.get('body') + (total === 0 ? ' Reply STOP to unsubscribe.' : '')
 

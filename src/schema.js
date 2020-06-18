@@ -644,6 +644,7 @@ const schema = {
       table.integer('registration_id').unsigned()
       table.integer('email_id').unsigned()
       table.timestamp('completed_at')
+      table.boolean('was_opted_out')
     })
 
     await knex.schema.createTable('crm_workflow_recordings', (table) => {
@@ -1947,6 +1948,15 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('sms_id').unsigned()
       table.integer('asset_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_sms_blacklists', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('to_number_id').unsigned()
+      table.integer('from_number_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -3458,6 +3468,12 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('panel_id').references('maha_dashboard_panels.id')
       table.foreign('type_id').references('maha_dashboard_card_types.id')
+    })
+
+    await knex.schema.table('maha_sms_blacklists', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('to_number_id').references('maha_numbers.id')
+      table.foreign('from_number_id').references('maha_numbers.id')
     })
 
 
