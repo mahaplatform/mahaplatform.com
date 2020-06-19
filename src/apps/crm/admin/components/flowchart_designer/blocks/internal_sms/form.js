@@ -66,7 +66,7 @@ class InternalSMS extends React.PureComponent {
               this._getStrategy()
             ] },
             { label: 'Message', type: 'segment', fields: [
-              { name: 'message', type: 'textarea', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true },
+              { name: 'message', type: 'smsfield', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true },
               { name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
             ], after: <Button { ...this._getTokens() } /> }
           ]

@@ -26,6 +26,7 @@ import PhoneNumberField from './phonenumberfield'
 import RadioGroup from './select/radio_group'
 import Range from './range'
 import Rating from './rating'
+import SMSField from './smsfield'
 import Submit from './submit'
 import TableField from './tablefield'
 import Text from './text'
@@ -108,6 +109,7 @@ class Control extends React.Component {
     if(type === 'range') return Range
     if(type === 'radiogroup') return RadioGroup
     if(type === 'rating') return Rating
+    if(type === 'smsfield') return SMSField
     if(type === 'submit') return Submit
     if(type === 'tablefield') return TableField
     if(type === 'text') return Text

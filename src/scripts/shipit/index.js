@@ -97,7 +97,7 @@ const processor = async () => {
     'deploy:symlink',
     'deploy:reload_passenger',
     'deploy:restart_pm2',
-    'deploy:cache',
+    // 'deploy:cache',
     'deploy:clean'
   ])
 

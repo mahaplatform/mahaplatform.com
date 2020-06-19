@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
+import { segmenter, util } from './utils'
 import React from 'react'
-import _ from 'lodash'
 
-class TextArea extends React.Component {
+class SMSField extends React.Component {
 
   static propTypes = {
     autogrow: PropTypes.bool,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
-    maxLength: PropTypes.number,
     placeholder: PropTypes.string,
     rows: PropTypes.number,
     tabIndex: PropTypes.number,
@@ -21,7 +20,6 @@ class TextArea extends React.Component {
     autogrow: true,
     defaultValue: '',
     disabled: false,
-    maxLength: null,
     placeholder: '',
     rows: 5,
     tabIndex: 0,
@@ -31,6 +29,8 @@ class TextArea extends React.Component {
   }
 
   state = {
+    remaining: 160,
+    segments: 1,
     value: ''
   }
 
@@ -43,15 +43,12 @@ class TextArea extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { value } = this.state
-    const { maxLength } = this.props
+    const { remaining, segments } = this.state
     return (
-      <div className="maha-textarea">
-        { maxLength &&
-          <div className={ this._getMaxClass() }>
-            { value.length } / { maxLength }
-          </div>
-        }
+      <div className="maha-smsfield">
+        <div className="maha-smsfield-segments">
+          { remaining } / { segments }
+        </div>
         <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
       </div>
     )
@@ -59,7 +56,7 @@ class TextArea extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setValue(_.toString(defaultValue))
+    if(defaultValue) this.setValue(defaultValue)
     this.offset = this.input.offsetHeight - this.input.clientHeight
     onReady()
   }
@@ -71,14 +68,6 @@ class TextArea extends React.Component {
     if(this.state.value !== prevState.value) {
       this._handleChange()
     }
-  }
-
-  _getMaxClass() {
-    const { value } = this.state
-    const { maxLength } = this.props
-    const classes = ['maha-textarea-length']
-    if(value.length >= maxLength) classes.push('max')
-    return classes.join(' ')
   }
 
   _getTextArea() {
@@ -114,10 +103,18 @@ class TextArea extends React.Component {
   }
 
   setValue(value) {
-    if(this.props.maxLength && value.length > this.props.maxLength) return
-    this.setState({ value }, this._handleResize)
+    const chars = util.unicodeCharacters(value)
+    const encoding = util.pickencoding(value)
+    const segments = segmenter[encoding](chars)
+    const dataheader = segments.length > 1 ? (encoding === 'gsm' ? 7 : 3) : 0
+    const charsPerSegment = encoding === 'gsm' ? 160 - dataheader : 70 - dataheader
+    this.setState({
+      remaining: charsPerSegment - (value.length % charsPerSegment),
+      segments: Math.ceil((value.length + 1) / charsPerSegment),
+      value
+    }, this._handleResize)
   }
 
 }
 
-export default TextArea
+export default SMSField
