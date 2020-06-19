@@ -22,6 +22,10 @@ const Payment = new Model({
       return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
     },
 
+    paypal_link() {
+      return `https://www.paypal.com/activity/payment//${this.get('paypal_id')}`
+    },
+
     activity() {
       if(this.get('method') === 'googlepay') return `Charged ${this.get('reference')} via GooglePay`
       if(this.get('method') === 'applepay') return `Charged ${this.get('reference')} via ApplePay`

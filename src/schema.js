@@ -1225,6 +1225,7 @@ const schema = {
       table.integer('photo_id').unsigned()
       table.integer('payment_method_id').unsigned()
       table.USER-DEFINED('status')
+      table.string('paypal_id', 255)
     })
 
     await knex.schema.createTable('finance_products', (table) => {

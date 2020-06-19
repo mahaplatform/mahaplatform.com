@@ -3,6 +3,8 @@ const PaymentSerializer = (req, result) => ({
   amount: result.get('amount'),
   braintree_id: result.get('braintree_id'),
   braintree_link: result.get('braintree_link'),
+  paypal_id: result.get('paypal_id'),
+  paypal_link: result.get('paypal_link'),
   credit: credit(result.related('credit')),
   date: result.get('date'),
   description: result.get('description'),

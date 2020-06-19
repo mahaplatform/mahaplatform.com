@@ -27,12 +27,6 @@ const Details = ({ payment }) => {
     items.push({ label: 'Credit', content: payment.credit.id })
   } else if(_.includes(['card','googlepay','applepay','paypal','ach'], payment.method)) {
 
-    const braintree = {
-      className: 'link',
-      label: payment.braintree_id,
-      link: payment.braintree_link
-    }
-
     if(payment.method === 'ach') {
       items.push({ label: 'Bank Account', content: payment.description })
     } else if(payment.method === 'paypal') {
@@ -42,10 +36,33 @@ const Details = ({ payment }) => {
     }
 
     items.push({ label: 'Merchant', content: payment.merchant.title })
+
+  }
+
+  if(payment.braintree_id) {
+
+    const braintree = {
+      className: 'link',
+      label: payment.braintree_id,
+      link: payment.braintree_link
+    }
+
     items.push({ label: 'Braintree ID', content: <Button { ...braintree } /> })
 
   }
 
+  if(payment.paypal_id) {
+
+    const paypal = {
+      className: 'link',
+      label: payment.paypal_id,
+      link: payment.paypal_link
+    }
+
+    items.push({ label: 'PayPal ID', content: <Button { ...paypal } /> })
+
+  }
+  
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })
 
   if(payment.refunded) {
