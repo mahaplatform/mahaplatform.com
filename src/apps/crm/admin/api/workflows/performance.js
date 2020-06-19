@@ -15,29 +15,24 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const filled = `
+  const segments = await req.trx.raw(`
     with filled_dates AS (
     select date
     from generate_series(?::timestamp, ?::timestamp, ?) AS date
-    )`
-
-  const params = [
+    )
+    select filled_dates.date, count(crm_workflow_enrollments.*) as count
+    from filled_dates
+    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, [
     req.query.start,
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
     req.query.tz,
     workflow.get('id')
-  ]
-
-  const segments = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
-    from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=?
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
+  ]).then(results => results.rows.map(segment => ({
     date: moment(segment.date),
     count: parseInt(segment.count)
   })))

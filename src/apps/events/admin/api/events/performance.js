@@ -15,29 +15,24 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load event'
   })
 
-  const filled = `
+  const registrations = await req.trx.raw(`
     with filled_dates AS (
     select date
     from generate_series(?::timestamp, ?::timestamp, ?) AS date
-    )`
-
-  const params = [
+    )
+    select filled_dates.date, count(events_registrations.*) as count
+    from filled_dates
+    left join events_registrations on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and events_registrations.event_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, [
     req.query.start,
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
     req.query.tz,
     event.get('id')
-  ]
-
-  const registrations = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(events_registrations.*) as count
-    from filled_dates
-    left join events_registrations on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and events_registrations.event_id=?
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
+  ]).then(results => results.rows.map(segment => ({
     date: moment(segment.date),
     count: parseInt(segment.count)
   })))

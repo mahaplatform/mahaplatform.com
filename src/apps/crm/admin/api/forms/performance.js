@@ -17,29 +17,24 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  const filled = `
+  const responses = await req.trx.raw(`
     with filled_dates AS (
     select date
     from generate_series(?::timestamp, ?::timestamp, ?) AS date
-    )`
-
-  const params = [
+    )
+    select filled_dates.date, count(crm_responses.*) as count
+    from filled_dates
+    left join crm_responses on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_responses.form_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, [
     req.query.start,
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
     req.query.tz,
     form.get('id')
-  ]
-
-  const responses = await req.trx.raw(`
-    ${filled}
-    select filled_dates.date, count(crm_responses.*) as count
-    from filled_dates
-    left join crm_responses on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_responses.form_id=?
-    group by filled_dates.date
-    order by filled_dates.date asc
-  `, params).then(results => results.rows.map(segment => ({
+  ]).then(results => results.rows.map(segment => ({
     date: moment(segment.date),
     count: parseInt(segment.count)
   })))
