@@ -26,9 +26,9 @@ const AddPaypalId = {
 
   up: async (knex) => {
 
-    // await knex.schema.table('finance_payments', (table) => {
-    //   table.string('paypal_id')
-    // })
+    await knex.schema.table('finance_payments', (table) => {
+      table.string('paypal_id')
+    })
 
     const payments = await Payment.query(qb => {
       qb.where('method', 'paypal')
