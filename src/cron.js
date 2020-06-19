@@ -4,7 +4,7 @@ import collectObjects from './core/utils/collect_objects'
 import log from './core/utils/log'
 import later from 'later'
 
-const cronFiles = collectObjects('cron/*')
+const cronFiles = collectObjects('cron/*_cron.js')
 
 cronFiles.map(cronFile => {
 

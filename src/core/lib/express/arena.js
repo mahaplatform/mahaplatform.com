@@ -2,7 +2,7 @@ import collectObjects from '../../utils/collect_objects'
 import Arena from 'bull-arena'
 import path from 'path'
 
-const queues = collectObjects('queues/*')
+const queues = collectObjects('queues/*_queue.js')
 
 const arena = Arena({
   queues: queues.map(queue => ({
