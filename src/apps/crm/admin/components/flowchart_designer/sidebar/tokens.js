@@ -1,5 +1,6 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Token from './token'
 import React from 'react'
 
 class Tokens extends React.Component {
@@ -26,7 +27,9 @@ class Tokens extends React.Component {
                 ...group.tokens.map((token, j) => (
                   <tr key={`group_${i}_token_${j}`}>
                     <td>{ token.name }</td>
-                    <td>&lt;%- { token.token } %&gt;</td>
+                    <td>
+                      <Token label={ token.token } />
+                    </td>
                   </tr>
                 ))
               ], []) }

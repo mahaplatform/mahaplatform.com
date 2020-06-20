@@ -7,7 +7,7 @@ class WorkflowDesigner extends React.PureComponent {
 
   static propTypes = {
     endpoint: PropTypes.string,
-    fields: PropTypes.object,
+    fields: PropTypes.array,
     program: PropTypes.object,
     programfields: PropTypes.array,
     tokens: PropTypes.array,
