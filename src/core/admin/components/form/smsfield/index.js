@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { segmenter, util } from './utils'
+import Emojis from '../../emojis'
 import React from 'react'
 
 class SMSField extends React.Component {
@@ -38,6 +39,7 @@ class SMSField extends React.Component {
   offset = 0
 
   _handleChange = this._handleChange.bind(this)
+  _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleResize = this._handleResize.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -49,7 +51,14 @@ class SMSField extends React.Component {
         <div className="maha-smsfield-segments">
           { remaining } / { segments }
         </div>
-        <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
+        <div className="maha-smsfield-editor">
+          <div className="maha-smsfield-editor-textarea">
+            <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
+          </div>
+          <div className="maha-smsfield-editor-emojis">
+            <Emojis { ...this._getEmojis() } />
+          </div>
+        </div>
       </div>
     )
   }
@@ -70,6 +79,12 @@ class SMSField extends React.Component {
     }
   }
 
+  _getEmojis() {
+    return {
+      onChoose: this._handleInsertEmoji
+    }
+  }
+
   _getTextArea() {
     const { autogrow, placeholder, disabled, rows, tabIndex } = this.props
     const { value } = this.state
@@ -86,6 +101,21 @@ class SMSField extends React.Component {
 
   _handleChange() {
     this.props.onChange(this.state.value )
+  }
+
+  _handleInsertEmoji(emoji) {
+    const { value } = this.input
+    if(document.selection) {
+      this.input.focus()
+      const selection = document.selection.createRange()
+      selection.text = emoji
+    } else if (this.input.selectionStart || this.input.selectionStart === '0') {
+      const beginning = value.substring(0, this.input.selectionStart)
+      const ending = value.substring(this.input.selectionEnd, value.length)
+      this.setValue(beginning + emoji + ending)
+    } else {
+      this.setValue(value + emoji)
+    }
   }
 
   _handleKeyUp(e) {
