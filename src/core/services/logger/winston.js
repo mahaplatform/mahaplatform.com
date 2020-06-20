@@ -9,7 +9,18 @@ import fs from 'fs'
 
 const template = fs.readFileSync(path.join(__dirname, 'log.ejs'), 'utf8')
 
-const graylog = URL.parse(process.env.GRAYLOG_URL)
+const createGraylogGelf = () => {
+  const graylog = URL.parse(process.env.GRAYLOG_URL)
+  return new GraylogGelf({
+    name: 'Graylog',
+    hostname: os.hostname(),
+    host: graylog.hostname,
+    port: graylog.port,
+    protocol: graylog.protocol.replace(':', ''),
+    level: 'info',
+    handleExceptions: false
+  })
+}
 
 const logger = createLogger({
   level: 'info',
@@ -20,15 +31,7 @@ const logger = createLogger({
     })
   }),
   transports: [
-    ...process.env.NODE_ENV === 'production' ? [new GraylogGelf({
-      name: 'Graylog',
-      hostname: os.hostname(),
-      host: graylog.hostname,
-      port: graylog.port,
-      protocol: graylog.protocol.replace(':', ''),
-      level: 'info',
-      handleExceptions: false
-    })] : [],
+    ...process.env.NODE_ENV === 'production' ? [createGraylogGelf()] : [],
     new transports.Console({
       level: 'info'
     })
