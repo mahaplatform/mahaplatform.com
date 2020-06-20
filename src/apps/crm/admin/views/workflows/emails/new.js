@@ -36,7 +36,7 @@ class New extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this email', required: true },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${workflow.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }
+            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true }
 
           ]
         }

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Emojis from '../../emojis'
 import React from 'react'
 import _ from 'lodash'
 
@@ -8,6 +9,7 @@ class TextField extends React.Component {
     autoComplete: PropTypes.string,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
+    emojis: PropTypes.bool,
     maxLength: PropTypes.number,
     placeholder: PropTypes.string,
     prefix: PropTypes.string,
@@ -30,6 +32,7 @@ class TextField extends React.Component {
     autoComplete: 'off',
     defaultValue: '',
     disabled: false,
+    emojis: false,
     maxLength: null,
     placeholder: '',
     prefix: null,
@@ -47,6 +50,7 @@ class TextField extends React.Component {
   }
 
   code = _.random(100000000, 999999999).toString(36)
+  input = null
 
   state = {
     focused: false,
@@ -57,12 +61,13 @@ class TextField extends React.Component {
   _handleChange = this._handleChange.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleFocus = this._handleFocus.bind(this)
+  _handleInsertEmoji = this._handleInsertEmoji.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
   _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { disabled, tabIndex } = this.props
+    const { disabled, emojis, tabIndex } = this.props
     const { value } = this.state
     return (
       <div className={ this._getClass() }>
@@ -71,6 +76,11 @@ class TextField extends React.Component {
           <input { ...this._getControl() } tabIndex={ tabIndex } />
           { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
         </div>
+        { emojis &&
+          <div className="maha-input-emojis">
+            <Emojis { ...this._getEmojis() } />
+          </div>
+        }
         { value && value.length > 0 && !disabled &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
@@ -110,6 +120,7 @@ class TextField extends React.Component {
     const { autoComplete, disabled, placeholder, onKeyPress, onKeyDown } = this.props
     const { focused, value } = this.state
     return {
+      ref: node => this.input = node,
       type: 'text',
       disabled,
       value,
@@ -121,6 +132,12 @@ class TextField extends React.Component {
       onKeyPress,
       onKeyUp: this._handleKeyUp,
       onKeyDown
+    }
+  }
+
+  _getEmojis() {
+    return {
+      onChoose: this._handleInsertEmoji
     }
   }
 
@@ -142,6 +159,21 @@ class TextField extends React.Component {
     this.setState({
       focused: true
     })
+  }
+
+  _handleInsertEmoji(emoji) {
+    const { value } = this.input
+    if(document.selection) {
+      this.input.focus()
+      const selection = document.selection.createRange()
+      selection.text = emoji
+    } else if (this.input.selectionStart || this.input.selectionStart === '0') {
+      const beginning = value.substring(0, this.input.selectionStart)
+      const ending = value.substring(this.input.selectionEnd, value.length)
+      this._handleSet(beginning + emoji + ending)
+    } else {
+      this._handleSet(value + emoji)
+    }
   }
 
   _handleKeyUp(e) {
