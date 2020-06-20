@@ -22,7 +22,7 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: 'Enter an amount'
+    placeholder: '0.00'
   }
 
   state = {
@@ -43,6 +43,9 @@ class MoneyField extends React.Component {
     return (
       <div className="maha-moneyfield" tabIndex={ tabIndex }>
         <div className="maha-input">
+          <div className="maha-input-icon">
+            <i className="fa fa-dollar" />
+          </div>
           <div className="maha-input-field">
             <input { ...this._getInput() } />
           </div>
@@ -76,13 +79,13 @@ class MoneyField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder, tabIndex } = this.props
+    const { tabIndex } = this.props
     const { focused, value } = this.state
     return {
       tabIndex,
       className: 'ui input',
       type: 'textfield',
-      placeholder: !focused ? placeholder : null,
+      placeholder: !focused ? '0.00' : null,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
