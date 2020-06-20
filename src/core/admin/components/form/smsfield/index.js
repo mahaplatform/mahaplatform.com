@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { segmenter, util } from './utils'
-import ShortLink from './shortLink'
+import ShortLink from './shortlink'
 import Emojis from '../../emojis'
 import React from 'react'
 
