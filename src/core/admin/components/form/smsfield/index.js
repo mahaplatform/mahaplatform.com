@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { segmenter, util } from './utils'
+import ShortLink from './shortLink'
 import Emojis from '../../emojis'
 import React from 'react'
 
@@ -39,7 +40,8 @@ class SMSField extends React.Component {
   offset = 0
 
   _handleChange = this._handleChange.bind(this)
-  _handleInsertEmoji = this._handleInsertEmoji.bind(this)
+  _handleInsertShortlink = this._handleInsertShortlink.bind(this)
+  _handleInsertText = this._handleInsertText.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleResize = this._handleResize.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -55,8 +57,9 @@ class SMSField extends React.Component {
           <div className="maha-smsfield-editor-textarea">
             <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
           </div>
-          <div className="maha-smsfield-editor-emojis">
+          <div className="maha-smsfield-editor-tools">
             <Emojis { ...this._getEmojis() } />
+            <ShortLink { ...this._getShortLink() } />
           </div>
         </div>
       </div>
@@ -65,7 +68,7 @@ class SMSField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setValue(defaultValue)
+    if(defaultValue) this._handleSet(defaultValue)
     this.offset = this.input.offsetHeight - this.input.clientHeight
     onReady()
   }
@@ -81,7 +84,13 @@ class SMSField extends React.Component {
 
   _getEmojis() {
     return {
-      onChoose: this._handleInsertEmoji
+      onChoose: this._handleInsertText
+    }
+  }
+
+  _getShortLink() {
+    return {
+      onDone: this._handleInsertShortlink
     }
   }
 
@@ -103,18 +112,26 @@ class SMSField extends React.Component {
     this.props.onChange(this.state.value )
   }
 
-  _handleInsertEmoji(emoji) {
+  _handleInsertShortlink(shortlink) {
+    const { shortUrl, url } = shortlink
+    const { value } = this.input
+    const index = value.search(url)
+    if(index >= 0) return this._handleSet(value.replace(url, shortUrl))
+    this._handleInsertText(shortUrl)
+  }
+
+  _handleInsertText(text) {
     const { value } = this.input
     if(document.selection) {
       this.input.focus()
       const selection = document.selection.createRange()
-      selection.text = emoji
+      selection.text = text
     } else if (this.input.selectionStart || this.input.selectionStart === '0') {
       const beginning = value.substring(0, this.input.selectionStart)
       const ending = value.substring(this.input.selectionEnd, value.length)
-      this.setValue(beginning + emoji + ending)
+      this._handleSet(beginning + text + ending)
     } else {
-      this.setValue(value + emoji)
+      this._handleSet(value + text)
     }
   }
 
@@ -128,11 +145,7 @@ class SMSField extends React.Component {
     this.input.style.height = this.input.scrollHeight + this.offset + 'px'
   }
 
-  _handleUpdate(e) {
-    this.setValue(e.target.value)
-  }
-
-  setValue(value) {
+  _handleSet(value) {
     const chars = util.unicodeCharacters(value)
     const encoding = util.pickencoding(value)
     const segments = segmenter[encoding](chars)
@@ -143,6 +156,10 @@ class SMSField extends React.Component {
       segments: Math.ceil((value.length + 1) / charsPerSegment),
       value
     }, this._handleResize)
+  }
+
+  _handleUpdate(e) {
+    this._handleSet(e.target.value)
   }
 
 }

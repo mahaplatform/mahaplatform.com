@@ -2,6 +2,7 @@ import security_questions from './security_questions'
 import phone_numbers from './phone_numbers'
 import notifications from './notifications'
 import attachments from './attachments'
+import shortlinks from './shortlinks'
 import assignees from './assignees'
 import dashboard from './dashboard'
 import comments from './comments'
@@ -62,6 +63,8 @@ router.use('/sessions', sessions)
 router.use('/session', session)
 
 router.use('/security_questions', security_questions)
+
+router.use('/shortlinks', shortlinks)
 
 router.use('/states', states)
 
