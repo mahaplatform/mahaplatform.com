@@ -3070,6 +3070,29 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_dashboard_card_types', table => {
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_dashboard_cards', table => {
+      table.foreign('panel_id').references('maha_dashboard_panels.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('type_id').references('maha_dashboard_card_types.id')
+    })
+
+    await knex.schema.table('maha_dashboard_panel_accesses', table => {
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('panel_id').references('maha_dashboard_panels.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_dashboard_panels', table => {
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('maha_devices', table => {
       table.foreign('browser_name_id').references('maha_device_values.id')
       table.foreign('browser_version_id').references('maha_device_values.id')
@@ -3238,6 +3261,12 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('sms_id').references('maha_smses.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_sms_blacklists', table => {
+      table.foreign('from_number_id').references('maha_numbers.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('to_number_id').references('maha_numbers.id')
     })
 
     await knex.schema.table('maha_smses', table => {
@@ -3446,35 +3475,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_dashboard_panels', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('owner_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('maha_dashboard_panel_accesses', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('panel_id').references('maha_dashboard_panels.id')
-      table.foreign('grouping_id').references('maha_groupings.id')
-      table.foreign('group_id').references('maha_groups.id')
-      table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('maha_dashboard_card_types', table => {
-      table.foreign('app_id').references('maha_apps.id')
-    })
-
-    await knex.schema.table('maha_dashboard_cards', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('panel_id').references('maha_dashboard_panels.id')
-      table.foreign('type_id').references('maha_dashboard_card_types.id')
-    })
-
-    await knex.schema.table('maha_sms_blacklists', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('to_number_id').references('maha_numbers.id')
-      table.foreign('from_number_id').references('maha_numbers.id')
     })
 
 
