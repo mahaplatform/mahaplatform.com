@@ -9,6 +9,7 @@ class App {
   pasteur = null
 
   _handleOpenWindow = this._handleOpenWindow.bind(this)
+  _handleSetTitle = this._handleSetTitle.bind(this)
 
   constructor() {
     this.render()
@@ -20,6 +21,7 @@ class App {
       targetName: 'app'
     })
     this.pasteur.on('openWindow', this._handleOpenWindow)
+    this.pasteur.on('setTitle', this._handleSetTitle)
   }
 
   render() {
@@ -33,6 +35,10 @@ class App {
 
   _handleOpenWindow(url) {
     ipcRenderer.send('openWindow', url)
+  }
+
+  _handleSetTitle(title) {
+    document.getElementsByTagName('title')[0].text = title || 'Maha'
   }
 
 }

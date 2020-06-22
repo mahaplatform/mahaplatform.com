@@ -39,6 +39,7 @@ class Electron extends React.Component {
   _handleSetUpdateReady = this._handleSetUpdateReady.bind(this)
   _handleSetVersion = this._handleSetVersion.bind(this)
   _handleSignin = this._handleSignin.bind(this)
+  _handleSetTitle = this._handleSetTitle.bind(this)
   _handleUpdateUnseen  = this._handleUpdateUnseen.bind(this)
 
   render() {
@@ -71,7 +72,7 @@ class Electron extends React.Component {
         installUpdate: this._handleInstallUpdate,
         openWindow: this._handleOpenWindow,
         signin: this._handleSignin,
-        setTitle: () => {},
+        setTitle: this._handleSetTitle,
         updateUnseen: this._handleUpdateUnseen
       }
     }
@@ -132,6 +133,10 @@ class Electron extends React.Component {
 
   _handleSetProgress(progress) {
     this.props.onSetProgress(progress)
+  }
+
+  _handleSetTitle(title) {
+    this.pasteur.send('setTitle', title)
   }
 
   _handleSetVersion(version) {
