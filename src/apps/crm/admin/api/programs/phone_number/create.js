@@ -40,7 +40,7 @@ const createRoute = async (req, res) => {
 
   const number = await twilio.incomingPhoneNumbers.create({
     phoneNumber: req.body.number.phoneNumber,
-    friendly_name: `${req.team.get('subdomain')} - ${program.get('title')} voice/sms`,
+    friendlyName: `${req.team.get('subdomain')} - ${program.get('title')} voice/sms`,
     smsMethod: 'POST',
     smsUrl: `${process.env.TWIML_HOST}/sms`,
     voiceMethod: 'POST',
@@ -53,7 +53,7 @@ const createRoute = async (req, res) => {
   const phone_number = await PhoneNumber.forge({
     team_id: req.team.get('id'),
     sid: number.sid,
-    type: req.body.type,
+    type: 'voice',
     number: req.body.number.phoneNumber,
     locality: req.body.number.locality,
     region: req.body.number.region

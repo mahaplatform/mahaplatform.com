@@ -8,7 +8,7 @@ const createRoute = async (req, res) => {
 
   const number = await twilio.incomingPhoneNumbers.create({
     phoneNumber: req.body.number.phoneNumber,
-    friendly_name: `${req.team.get('subdomain')} ${req.body.type}`,
+    friendlyName: `${req.team.get('subdomain')} ${req.body.type}`,
     smsMethod: 'POST',
     smsUrl: `${process.env.TWIML_HOST}/sms`,
     voiceMethod: 'POST',
