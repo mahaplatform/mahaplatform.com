@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow } from 'electron'
+import { app, ipcMain, BrowserWindow, Menu } from 'electron'
 
 class Main {
 
@@ -11,11 +11,25 @@ class Main {
   _handleSetBadgeCount = this._handleSetBadgeCount.bind(this)
 
   constructor() {
-    app.setName('The Maha Platform')
+    app.setName('Maha')
     app.on('ready', this._handleInit)
     app.on('certificate-error', this._handleCertificateError)
     ipcMain.on('openWindow', this._handleOpenWindow)
     ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
+  }
+
+  _getMenu() {
+    return Menu.buildFromTemplate([{
+      label: 'Maha',
+      submenu: [{
+        label: `Version ${app.getVersion()}`
+      }, {
+        label: 'Quit',
+        accelerator: 'Command+Q',
+        click: app.quit
+      }]
+    }])
+
   }
 
   _handleCertificateError(event, webContents, url, error, certificate, callback) {
@@ -24,6 +38,7 @@ class Main {
   }
 
   _handleInit() {
+    Menu.setApplicationMenu(this._getMenu())
     this.main = new BrowserWindow({
       width: 1024,
       height: 800,
