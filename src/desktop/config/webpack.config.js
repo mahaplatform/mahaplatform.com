@@ -9,6 +9,9 @@ const config = {
     renderer: path.resolve('src','desktop','app','renderer.js'),
     main: path.resolve('src','desktop','app','main.js')
   },
+  externals: [
+    'electron'
+  ],
   module: {
     rules: [
       {

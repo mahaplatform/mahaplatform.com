@@ -16,14 +16,18 @@ class Electron extends React.Component {
   static propTypes = {
     children: PropTypes.any,
     status: PropTypes.string,
+    title: PropTypes.string,
     version: PropTypes.string,
+    unseen: PropTypes.number,
     update: PropTypes.string,
     onLoadPush: PropTypes.func,
     onSaveToken: PropTypes.func,
     onSetProgress: PropTypes.func,
-    onSetVersion: PropTypes.func,
+    onSetTitle: PropTypes.func,
     onSetUpdate: PropTypes.func,
-    onSetUpdateReady: PropTypes.func
+    onSetUpdateReady: PropTypes.func,
+    onSetVersion: PropTypes.func,
+    onUpdateUnseen: PropTypes.func
   }
 
   _handleHasFocus = this._handleHasFocus.bind(this)
@@ -31,15 +35,14 @@ class Electron extends React.Component {
   _handleInstallUpdate = this._handleInstallUpdate.bind(this)
   _handleGetVersion = this._handleGetVersion.bind(this)
   _handleOpenWindow = this._handleOpenWindow.bind(this)
+  _handlePushNotification = this._handlePushNotification.bind(this)
   _handlePushRoute  = this._handlePushRoute.bind(this)
-  _handleReceiveMessage = this._handleReceiveMessage.bind(this)
-  _handleSendMessage = this._handleSendMessage.bind(this)
   _handleSetProgress = this._handleSetProgress.bind(this)
   _handleSetUpdate = this._handleSetUpdate.bind(this)
   _handleSetUpdateReady = this._handleSetUpdateReady.bind(this)
   _handleSetVersion = this._handleSetVersion.bind(this)
   _handleSignin = this._handleSignin.bind(this)
-  _handleSetTitle = this._handleSetTitle.bind(this)
+  _handleUpdateTitle = this._handleUpdateTitle.bind(this)
   _handleUpdateUnseen  = this._handleUpdateUnseen.bind(this)
 
   render() {
@@ -47,8 +50,6 @@ class Electron extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('message', this._handleReceiveMessage, false)
-    this._handleGetVersion()
     this.pasteur = new Pasteur({
       debug: true,
       window,
@@ -56,10 +57,25 @@ class Electron extends React.Component {
       name: 'app',
       targetName: 'host'
     })
+    this.pasteur.on('pushRoute', this._handlePushRoute)
+    this.pasteur.on('setProgress', this._handleSetProgress)
+    this.pasteur.on('setVersion', this._handleSetVersion)
+    this.pasteur.on('setUpdate', this._handleSetUpdate)
+    this.pasteur.on('setUpdateReady', this._handleSetUpdateReady)
+    this._handleGetVersion()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { title, unseen } = this.props
+    if(title !== prevProps.title || unseen !== prevProps.unseen) {
+      this._handleSetTitle()
+    }
+    if(unseen !== prevProps.unseen) {
+      this._handleSetBadgeCount()
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('message', this._handleReceiveMessage, false)
     this.pasteur.close()
   }
 
@@ -71,24 +87,25 @@ class Electron extends React.Component {
         hasFocus: this._handleHasFocus,
         installUpdate: this._handleInstallUpdate,
         openWindow: this._handleOpenWindow,
+        pushNotification: this._handlePushNotification,
         signin: this._handleSignin,
-        setTitle: this._handleSetTitle,
+        setTitle: this._handleUpdateTitle,
         updateUnseen: this._handleUpdateUnseen
       }
     }
   }
 
   _handleCheckForUpdates() {
-    this._handleSendMessage('checkForUpdates')
+    this.pasteur.send('checkForUpdates')
   }
 
   _handleInstallUpdate() {
     if(this.props.status !== 'downloaded') return
-    this._handleSendMessage('installUpdate')
+    this.pasteur.send('installUpdate')
   }
 
   _handleGetVersion() {
-    this._handleSendMessage('getVersion')
+    this.pasteur.send('getVersion')
   }
 
   _handleHasFocus() {
@@ -99,44 +116,28 @@ class Electron extends React.Component {
     this.context.router.history.push(route)
   }
 
-  _handleReceiveMessage(e) {
-    const message = e.data
-    if(message.target !== 'renderer') return
-    if(message.action === 'pushRoute') {
-      this._handlePushRoute(message.data.route)
-    }
-    if(message.action === 'setProgress') {
-      this._handleSetProgress(message.data.progress)
-    }
-    if(message.action === 'setVersion') {
-      this._handleSetVersion(message.data.version)
-    }
-    if(message.action === 'setUpdate') {
-      this._handleSetUpdate(message.data.version)
-    }
-    if(message.action === 'setUpdateReady') {
-      this._handleSetUpdateReady()
-    }
-  }
-
-  _handleSendMessage(action, data = null) {
-    window.parent.postMessage({
-      action,
-      target: 'main',
-      data
-    }, '*')
-  }
-
   _handleOpenWindow(url) {
     this.pasteur.send('openWindow', url)
+  }
+
+  _handlePushNotification(notification) {
+    this.pasteur.send('pushNotification', notification)
+  }
+
+  _handleSetBadgeCount() {
+    const { unseen } = this.props
+    this.pasteur.send('setBadgeCount', unseen)
   }
 
   _handleSetProgress(progress) {
     this.props.onSetProgress(progress)
   }
 
-  _handleSetTitle(title) {
-    this.pasteur.send('setTitle', title)
+  _handleSetTitle() {
+    const { unseen } = this.props
+    const title = this.props.title || 'Maha'
+    const titlecount = unseen > 0 ? ` (${unseen})` : ''
+    this.pasteur.send('setTitle', title + titlecount)
   }
 
   _handleSetVersion(version) {
@@ -152,11 +153,15 @@ class Electron extends React.Component {
   }
 
   _handleSignin(url) {
-    this._handleSendMessage('openWindow', url)
+    this.pasteur.send('openWindow', url)
+  }
+
+  _handleUpdateTitle(title) {
+    this.props.onSetTitle(title)
   }
 
   _handleUpdateUnseen(count) {
-    this._handleSendMessage('updateBadge', { count })
+    this.props.onUpdateUnseen(count)
   }
 
 }

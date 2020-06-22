@@ -8,12 +8,14 @@ class Main {
   _handleCertificateError = this._handleCertificateError.bind(this)
   _handleInit = this._handleInit.bind(this)
   _handleOpenWindow = this._handleOpenWindow.bind(this)
+  _handleSetBadgeCount = this._handleSetBadgeCount.bind(this)
 
   constructor() {
     app.setName('The Maha Platform')
     app.on('ready', this._handleInit)
     app.on('certificate-error', this._handleCertificateError)
     ipcMain.on('openWindow', this._handleOpenWindow)
+    ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
   }
 
   _handleCertificateError(event, webContents, url, error, certificate, callback) {
@@ -38,6 +40,10 @@ class Main {
       height: 840
     })
     this.window.loadURL(url, { userAgent: 'Chrome' })
+  }
+
+  _handleSetBadgeCount(e, count) {
+    app.setBadgeCount(count)
   }
 
 }

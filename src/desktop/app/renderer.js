@@ -9,6 +9,7 @@ class App {
   pasteur = null
 
   _handleOpenWindow = this._handleOpenWindow.bind(this)
+  _handleSetBadgeCount = this._handleSetBadgeCount.bind(this)
   _handleSetTitle = this._handleSetTitle.bind(this)
 
   constructor() {
@@ -21,6 +22,8 @@ class App {
       targetName: 'app'
     })
     this.pasteur.on('openWindow', this._handleOpenWindow)
+    this.pasteur.on('pushNotification', this._handlePushNotification)
+    this.pasteur.on('setBadgeCount', this._handleSetBadgeCount)
     this.pasteur.on('setTitle', this._handleSetTitle)
   }
 
@@ -35,6 +38,22 @@ class App {
 
   _handleOpenWindow(url) {
     ipcRenderer.send('openWindow', url)
+  }
+
+  _handlePushNotification(data) {
+    const notification = new Notification(data.title, {
+      body: data.body,
+      silent: true
+    })
+    if(data.sound) {
+      const audio = new Audio(data.sound)
+      audio.play()
+    }
+    notification.onclick = () => {}
+  }
+
+  _handleSetBadgeCount(count) {
+    ipcRenderer.send('setBadgeCount', count)
   }
 
   _handleSetTitle(title) {

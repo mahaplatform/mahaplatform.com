@@ -147,11 +147,12 @@ class Notifications extends React.Component {
   }
 
   _handlePushDesktop(data) {
-    const notification = new Notification(data.title, {
-      icon: '/admin/images/maha.png',
-      body: data.body
+    this.context.host.pushNotification({
+      title: data.title,
+      body: data.body,
+      icon: `${process.env.WEB_HOST}/admin/images/maha.png`,
+      sound: `${process.env.WEB_HOST}/admin/audio/boing.mp3`
     })
-    notification.onclick = this._handleDesktopClick.bind(this, data)
   }
 
   _handleRemove(code, e) {

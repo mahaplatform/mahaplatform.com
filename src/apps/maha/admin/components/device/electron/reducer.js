@@ -1,6 +1,8 @@
 export const INITIAL_STATE = {
   progress: 0,
   status: 'pending',
+  title: null,
+  unseen: 0,
   update: null,
   verison: null
 }
@@ -9,10 +11,17 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'SET_VERSION':
+  case 'SET_PROGRESS':
     return {
       ...state,
-      verison: action.version
+      progress: action.progress,
+      status: 'downloading'
+    }
+
+  case 'SET_TITLE':
+    return {
+      ...state,
+      title: action.title
     }
 
   case 'SET_UPDATE':
@@ -28,11 +37,16 @@ export default (state = INITIAL_STATE, action) => {
       status: 'downloaded'
     }
 
-  case 'SET_PROGRESS':
+  case 'SET_VERSION':
     return {
       ...state,
-      progress: action.progress,
-      status: 'downloading'
+      verison: action.version
+    }
+
+  case 'UPDATE_UNSEEN':
+    return {
+      ...state,
+      unseen: action.unseen
     }
 
   default:
