@@ -26,6 +26,7 @@ src/public/*
 ngrok
 metadata.csv
 REVISION
-/src/desktop/www/index.js
-/src/desktop/www/index.css
+/src/desktop/www/main.js
+/src/desktop/www/renderer.js
+/src/desktop/www/renderer.css
 /src/servers/group_vars/all/*.yml

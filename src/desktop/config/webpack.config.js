@@ -1,15 +1,14 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 
 const config = {
-  entry: [
-    path.resolve('src','desktop','app','index.js'),
-    path.resolve('src','desktop','app','index.less')
-  ],
+  entry: {
+    renderer: path.resolve('src','desktop','app','renderer.js'),
+    main: path.resolve('src','desktop','app','main.js')
+  },
   module: {
     rules: [
       {
@@ -41,15 +40,12 @@ const config = {
   mode: 'production',
   output: {
     path: path.resolve('src','desktop','www'),
-    filename: path.join('index.js')
+    filename: path.join('[name].js')
   },
   plugins: [
     new MiniCssExtractPlugin({
       path: path.resolve('src','desktop','www'),
-      filename: path.join('index.css')
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve('src','desktop','app','index.html')
+      filename: path.join('[name].css')
     }),
     new webpack.DefinePlugin({
       'process.env': {

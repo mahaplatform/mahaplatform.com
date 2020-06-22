@@ -184,7 +184,7 @@ const connectNgrok = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','web','admin']
+  const services = argv.length > 0 ? argv : ['desktop','server','web','admin']
   await bootstrap()
   await connectNgrok()
   if(_.includes(services, 'server')) await serverWatch()

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Pasteur from 'pasteur'
 import React from 'react'
 
 class Electron extends React.Component {
@@ -47,10 +48,22 @@ class Electron extends React.Component {
   componentDidMount() {
     window.addEventListener('message', this._handleReceiveMessage, false)
     this._handleGetVersion()
+    this.pasteur = new Pasteur({
+      debug: true,
+      window,
+      target: window.parent,
+      name: 'app',
+      targetName: 'host',
+      services: {
+        app: {
+        }
+      }
+    })
   }
 
   componentWillUnmount() {
     window.removeEventListener('message', this._handleReceiveMessage, false)
+    this.pasteur.close()
   }
 
   getChildContext() {
@@ -118,7 +131,7 @@ class Electron extends React.Component {
   }
 
   _handleOpenWindow(url) {
-    this._handleSendMessage('openWindow', url)
+    this.pasteur.send('host', 'openWindow', url)
   }
 
   _handleSetProgress(progress) {
