@@ -17,13 +17,9 @@ class App {
       window,
       target: this.iframe.contentWindow,
       name: 'host',
-      targetName: 'app',
-      services: {
-        host: {
-          openWindow: this._handleOpenWindow
-        }
-      }
+      targetName: 'app'
     })
+    this.pasteur.on('openWindow', this._handleOpenWindow)
   }
 
   render() {

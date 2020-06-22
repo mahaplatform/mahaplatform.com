@@ -34,17 +34,13 @@ class Canvas extends React.Component {
       window,
       target: this.preview.contentWindow,
       name: 'designerComponent',
-      targetName: 'designerCanvas',
-      services: {
-        designer: {
-          add: this._handleAdd,
-          clone: this._handleClone,
-          edit: this._handleEdit,
-          remove: this._handleRemove,
-          ready: this._handleRender
-        }
-      }
+      targetName: 'designerCanvas'
     })
+    this.pasteur.on('add', this._handleAdd)
+    this.pasteur.on('clone', this._handleClone)
+    this.pasteur.on('edit', this._handleEdit)
+    this.pasteur.on('remove', this._handleRemove)
+    this.pasteur.on('ready', this._handleRender)
   }
 
   componentDidUpdate(prevProps) {
@@ -84,7 +80,7 @@ class Canvas extends React.Component {
 
   _handleHighlight() {
     const { active } = this.props
-    this.pasteur.send('designer', 'highlight', { active })
+    this.pasteur.send('highlight', { active })
   }
 
   _handleRemove({ index }) {
@@ -93,7 +89,7 @@ class Canvas extends React.Component {
 
   _handleRender() {
     const { config } = this.props
-    this.pasteur.send('designer', 'update', { config })
+    this.pasteur.send('update', { config })
   }
 
 }

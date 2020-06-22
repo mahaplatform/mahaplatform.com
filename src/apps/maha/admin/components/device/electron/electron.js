@@ -53,11 +53,7 @@ class Electron extends React.Component {
       window,
       target: window.parent,
       name: 'app',
-      targetName: 'host',
-      services: {
-        app: {
-        }
-      }
+      targetName: 'host'
     })
   }
 
@@ -131,7 +127,7 @@ class Electron extends React.Component {
   }
 
   _handleOpenWindow(url) {
-    this.pasteur.send('host', 'openWindow', url)
+    this.pasteur.send('openWindow', url)
   }
 
   _handleSetProgress(progress) {

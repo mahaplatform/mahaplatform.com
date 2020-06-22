@@ -17,6 +17,6 @@
     "localforage": "^1.7.4"
   },
   "dependencies": {
-    "pasteur": "^1.0.6"
+    "pasteur": "^1.0.7"
   }
 }

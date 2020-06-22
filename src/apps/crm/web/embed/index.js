@@ -22,13 +22,9 @@ class Embed {
       window,
       target: this.iframe.contentWindow,
       name: 'embed',
-      targetName: 'form',
-      services: {
-        embed: {
-          resize: this._handleResize
-        }
-      }
+      targetName: 'form'
     })
+    this.pasteur.on('resize', this._handleResize)
   }
 
   _handleResize(height) {

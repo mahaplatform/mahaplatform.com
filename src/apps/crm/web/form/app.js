@@ -41,15 +41,11 @@ class App extends React.Component {
       window,
       target: window.parent,
       name: 'designerCanvas',
-      targetName: 'designerComponent',
-      services: {
-        designer: {
-          highlight: this._handleHighlight,
-          update: this._handleUpdate
-        }
-      }
+      targetName: 'designerComponent'
     })
-    this.pasteur.send('designer','ready')
+    this.pasteur.send('highlight', this._handleHighlight)
+    this.pasteur.send('update', this._handleUpdate)
+    this.pasteur.send('ready')
   }
 
   componentWillUnmount() {
@@ -70,8 +66,8 @@ class App extends React.Component {
     return { config }
   }
 
-  _handleAction(action, data) {
-    this.pasteur.send('designer', action, data)
+  _handleAction(event, data) {
+    this.pasteur.send(event, data)
   }
 
   _handleHighlight({ active }) {

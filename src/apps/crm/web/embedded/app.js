@@ -39,8 +39,7 @@ class App extends React.Component {
       window,
       target: window.parent,
       name: 'form',
-      targetName: 'embed',
-      services: {}
+      targetName: 'embed'
     })
   }
 
@@ -68,7 +67,7 @@ class App extends React.Component {
 
   _handleResize() {
     const height = document.body.offsetHeight + this._getBodyStyle('marginTop') + this._getBodyStyle('marginBottom') + 40
-    this.pasteur.send('embed', 'resize', height)
+    this.pasteur.send('resize', height)
   }
 
 }
