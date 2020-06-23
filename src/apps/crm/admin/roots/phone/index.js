@@ -262,7 +262,8 @@ class PhoneRoot extends React.Component {
   _handleInit() {
     const { token } = this.props
     window.Twilio.Device.setup(token, {
-      allowIncomingWhileBusy: true
+      allowIncomingWhileBusy: true,
+      fakeLocalDTMF: true
     })
     window.Twilio.Device.audio.incoming(false)
     window.Twilio.Device.audio.outgoing(false)

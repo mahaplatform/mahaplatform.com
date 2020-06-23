@@ -20,7 +20,7 @@ class Add extends React.Component {
 
   static propTypes = {
     programs: PropTypes.array,
-    program: PropTypes.array,
+    program: PropTypes.object,
     onCall: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func

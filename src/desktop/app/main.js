@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, Menu } from 'electron'
+import { app, ipcMain, systemPreferences, BrowserWindow, Menu } from 'electron'
 
 class Main {
 
@@ -16,6 +16,7 @@ class Main {
     app.on('certificate-error', this._handleCertificateError)
     ipcMain.on('openWindow', this._handleOpenWindow)
     ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
+    systemPreferences.askForMediaAccess('microphone')
   }
 
   _getMenuTemplate() {
@@ -23,19 +24,13 @@ class Main {
     menu.push({
       label: 'Maha',
       submenu: [
+        { label: `Version ${app.getVersion()}` },
+        { label: 'Developer', role: 'toggledevtools' },
         {
-          label: `Version ${app.getVersion()}`
-        }, {
           label: 'Quit',
           accelerator: 'Command+Q',
           click: app.quit
         }
-      ]
-    })
-    menu.push({
-      label: 'Development',
-      submenu: [
-        { role: 'toggledevtools' }
       ]
     })
     return menu
@@ -74,4 +69,4 @@ class Main {
 
 }
 
-const main = new Main()
+new Main()
