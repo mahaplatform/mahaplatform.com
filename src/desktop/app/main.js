@@ -1,8 +1,10 @@
 import { app, ipcMain, systemPreferences, BrowserWindow, Menu } from 'electron'
+import _ from 'lodash'
 
 class Main {
 
   main = null
+  session = null
   window = null
 
   _handleCertificateError = this._handleCertificateError.bind(this)
@@ -16,7 +18,7 @@ class Main {
     app.on('certificate-error', this._handleCertificateError)
     ipcMain.on('openWindow', this._handleOpenWindow)
     ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
-    systemPreferences.askForMediaAccess('microphone')
+
   }
 
   _getMenuTemplate() {
@@ -53,6 +55,18 @@ class Main {
       }
     })
     this.main.loadFile('index.html')
+    this.session = this.main.webContents.session
+    this.session.setPermissionRequestHandler((webContents, permission, callback, details) => {
+      const { mediaTypes } = details
+      if(permission === 'media' && _.includes(mediaTypes, 'audio')) {
+        systemPreferences.askForMediaAccess('microphone').then((allowed) => {
+          return callback(allowed)
+        }).catch(err => {
+          console.log({ err })
+        })
+      }
+    })
+
   }
 
   _handleOpenWindow(e, url) {
