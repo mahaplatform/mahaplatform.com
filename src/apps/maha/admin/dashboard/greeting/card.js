@@ -19,6 +19,8 @@ class Greeting extends React.Component {
     time: moment().format('h:mm a')
   }
 
+  _updateTime = this._updateTime.bind(this)
+
   render() {
     const { controls } = this.props
     const { admin } = this.context
