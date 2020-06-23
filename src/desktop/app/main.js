@@ -18,18 +18,27 @@ class Main {
     ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
   }
 
-  _getMenu() {
-    return Menu.buildFromTemplate([{
+  _getMenuTemplate() {
+    const menu = []
+    menu.push({
       label: 'Maha',
-      submenu: [{
-        label: `Version ${app.getVersion()}`
-      }, {
-        label: 'Quit',
-        accelerator: 'Command+Q',
-        click: app.quit
-      }]
-    }])
-
+      submenu: [
+        {
+          label: `Version ${app.getVersion()}`
+        }, {
+          label: 'Quit',
+          accelerator: 'Command+Q',
+          click: app.quit
+        }
+      ]
+    })
+    menu.push({
+      label: 'Development',
+      submenu: [
+        { role: 'toggledevtools' }
+      ]
+    })
+    return menu
   }
 
   _handleCertificateError(event, webContents, url, error, certificate, callback) {
@@ -38,7 +47,9 @@ class Main {
   }
 
   _handleInit() {
-    Menu.setApplicationMenu(this._getMenu())
+    const template = this._getMenuTemplate()
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
     this.main = new BrowserWindow({
       width: 1024,
       height: 800,

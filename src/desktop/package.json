@@ -6,17 +6,72 @@
   "author": "CCETompkins",
   "scripts": {
     "dmgbackground": "tiffutil -cathidpicheck ./build/screens/dmg.png ./build/screens/dmg@2x.png -out ./build/screens/dmg.tiff",
-    "build": "build --mac --win --x64 --project=./src/desktop --config=./config/config.json",
+    "release": "npm run release:compile && npm run release:build",
+    "release:compile": "NODE_ENV=production webpack --config=./config/webpack.config.js",
+    "release:build": "electron-builder build --mac --win  --x64 --publish=always --project=.",
     "start": "electron ./www"
   },
   "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.10",
     "electron": "^9.0.4",
-    "electron-builder": "^20.34.0",
+    "electron-builder": "^22.4.0",
     "electron-log": "^4.2.2",
     "electron-updater": "^4.3.1",
-    "localforage": "^1.7.4"
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "localforage": "^1.7.4",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "pasteur": "^1.0.7"
+  },
+  "build": {
+    "appId": "com.mahaplatform.app",
+    "productName": "Maha",
+    "artifactName": "maha-${version}.${ext}",
+    "directories": {
+      "app": "dist/www"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "build/icons/icon.icns",
+      "category": "public.app-category.utilities",
+      "identity": null
+    },
+    "dmg": {
+      "icon": "build/icons/icon.icns",
+      "title": "Maha"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icons/icon.ico"
+    },
+    "nsis": {
+      "installerIcon": "build/icons/icon.ico",
+      "uninstallerIcon": "build/icons/icon.ico"
+    },
+    "publish": [
+      {
+        "provider": "s3",
+        "bucket": "releases.mahaplatform.com",
+        "acl": "public-read",
+        "publishAutoUpdate": true
+      }
+    ]
   }
 }

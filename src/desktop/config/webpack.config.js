@@ -1,13 +1,20 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import autoprefixer from 'autoprefixer'
-import webpack from 'webpack'
-import cssnano from 'cssnano'
-import path from 'path'
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const autoprefixer = require('autoprefixer')
+const webpack = require('webpack')
+const cssnano = require('cssnano')
+const path = require('path')
+
+const root = path.resolve(__dirname,'..')
+const src = path.join(root,'app')
+const www = path.join(root,'www')
+const dist = path.join(root,'dist','www')
+const dest = process.env.NODE_ENV === 'production' ? dist : www
 
 const config = {
   entry: {
-    renderer: path.resolve('src','desktop','app','renderer.js'),
-    main: path.resolve('src','desktop','app','main.js')
+    renderer: path.join(src,'renderer.js'),
+    main: path.join(src,'main.js')
   },
   module: {
     rules: [
@@ -39,13 +46,17 @@ const config = {
   },
   mode: 'production',
   output: {
-    path: path.resolve('src','desktop','www'),
-    filename: path.join('[name].js')
+    path: dest,
+    filename: '[name].js'
   },
   plugins: [
+    new CopyPlugin(['package.json','index.html'].map(file => ({
+      from: path.join(src,file),
+      to: path.join(dest,file)
+    }))),
     new MiniCssExtractPlugin({
-      path: path.resolve('src','desktop','www'),
-      filename: path.join('[name].css')
+      path: dest,
+      filename: '[name].css'
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -60,4 +71,4 @@ const config = {
   target: 'electron-renderer'
 }
 
-export default config
+module.exports = config
