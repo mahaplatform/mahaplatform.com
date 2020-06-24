@@ -22,6 +22,7 @@ class Card extends React.Component {
     connectDragSource: PropTypes.func,
     card: PropTypes.object,
     index: PropTypes.number,
+    isExpanded: PropTypes.bool,
     managing: PropTypes.bool,
     panel: PropTypes.object,
     onExpand: PropTypes.func,
@@ -74,10 +75,11 @@ class Card extends React.Component {
   }
 
   _getComponent() {
-    const { card } = this.props
+    const { card, isExpanded } = this.props
     return {
       controls: this._getControls(),
-      config: card.config
+      config: card.config,
+      isExpanded
     }
   }
 
@@ -89,11 +91,11 @@ class Card extends React.Component {
       return (
         <div className="maha-dashboard-card-header-controls">
           { type.edit !== undefined &&
-            <div className="maha-dashboard-card-header-control" onClick={ this._handleEdit }>
-              <i className="fa fa-ellipsis-v" />
+            <div className="maha-dashboard-card-header-control edit" onClick={ this._handleEdit }>
+              <i className="fa fa-pencil" />
             </div>
           }
-          <div className="maha-dashboard-card-header-control" onClick={ this._handleRemove }>
+          <div className="maha-dashboard-card-header-control remove" onClick={ this._handleRemove }>
             <i className="fa fa-times" />
           </div>
         </div>
@@ -101,7 +103,7 @@ class Card extends React.Component {
     }
     return (
       <div className="maha-dashboard-card-header-controls">
-        <div className="maha-dashboard-card-header-control" onClick={ this._handleExpand }>
+        <div className="maha-dashboard-card-header-control expand" onClick={ this._handleExpand }>
           <i className="fa fa-expand" />
         </div>
       </div>
@@ -138,8 +140,11 @@ class Card extends React.Component {
   }
 
   _handleExpand() {
-    const { card } = this.props
-    this.props.onExpand(card.id)
+    const { card, panel } = this.props
+    this.props.onExpand({
+      card_id: card.id,
+      panel_id: panel.id
+    })
   }
 
   _handleRemove() {

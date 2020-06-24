@@ -1,71 +1,21 @@
-.maha-dashboard-header {
-  border: 1px solid fadeout(@black, 90);
-  border-radius: 5px;
-  background-color: @white;
-  margin: 0.8em 0.8em 0;
-  display: flex;
-  overflow: hidden;
-}
-.maha-dashboard-header-toggle {
-  border-right: 1px solid fadeout(@black, 90);
-  color: fadeout(@black, 80);
-  cursor: pointer;
-  padding: 0.8em;
-  &:hover {
-    color: fadeout(@black, 60);
-  }
-}
-.maha-dashboard-header-body {
-  flex: 1;
-  padding: 0.8em;
-  &:hover {
-    .fa {
-      color: fadeout(@black, 60);
-    }
-  }
-  .fa {
-    cursor: pointer;
-    color: fadeout(@black, 80);
-  }
-}
-.maha-dashboard-header-action {
-  flex: 0 0 2.6em;
-  border-left: 1px solid fadeout(@black, 90);
-  color: fadeout(@black, 80);
-  cursor: pointer;
-  padding: 0.8em;
-  display: flex;
-  &.active {
-    background-color: @blue;
-    color: @white !important;
-  }
-  &:hover {
-    color: fadeout(@black, 60);
-  }
-  .fa {
-    margin: auto;
-  }
-}
-.maha-dashboard-body {
-  background-color: fadeout(@black, 90);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.maha-dashboard-panel {
-  flex: 1;
-  flex-wrap: wrap;
-  display: flex;
-  padding: 0.4em;
-}
-.maha-dashboard-body {
-  &.collapsed {
-    .scrollable();
-  }
-  &.expanded .full {
+.maha-dashboard-body.expanded {
+  .full {
     display: flex;
     flex: 1;
   }
+  .hidden {
+    display: none;
+  }
+}
+.maha-dashboard-body:not(.expanded) {
+  .maha-dashboard-panel-body {
+    flex-wrap: wrap;
+  }
+}
+.maha-dashboard-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   &.six .one {
     flex: 0 0 ~"calc(100% / 6)";
   }
@@ -84,6 +34,50 @@
   &.one .one {
     flex: 0 0 100%;
   }
+}
+.maha-dashboard-panel-header {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 5px;
+  background-color: @white;
+  margin: 0 0.8em;
+  display: flex;
+  overflow: hidden;
+}
+.maha-dashboard-panel-header-toggle {
+  border-right: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.8em;
+  &:hover {
+    color: fadeout(@black, 60);
+  }
+}
+.maha-dashboard-panel-header-title {
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-dashboard-panel-header-action {
+  flex: 0 0 2.6em;
+  border-left: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.8em;
+  display: flex;
+  &.active {
+    background-color: @blue;
+    color: @white !important;
+  }
+  &:hover {
+    color: fadeout(@black, 60);
+  }
+  .fa {
+    margin: auto;
+  }
+}
+.maha-dashboard-panel-body {
+  flex: 1;
+  display: flex;
+  padding: 0.4em;
 }
 .maha-dashboard-panel-item {
   padding: 0.4em;

@@ -1,21 +1,32 @@
-.maha-dashboard-body.collapsed {
-  .maha-dashboard-card-container {
-    padding-bottom: 125%;
-    height: 0;
-    position: relative;
-    .maha-stack {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
+.maha-dashboard-body.expanded {
+  .maha-dashboard-panel-item {
+    &.full .maha-dashboard-card-container {
+      flex: 1;
+    }
+    &.hidden {
+      display: none;
     }
   }
 }
-.maha-dashboard-body.expanded {
+.maha-dashboard-body:not(.expanded) {
   .maha-dashboard-card-container {
-    display: flex;
-    flex: 1;
+    padding-bottom: 125%;
+    height: 0;
+  }
+}
+.maha-dashboard-panel.one {
+  .expand {
+    display: none;
+  }
+}
+.maha-dashboard-card-container {
+  position: relative;
+  .maha-stack {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
   }
 }
 .maha-dashboard-card-container {

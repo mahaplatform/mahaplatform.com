@@ -9,4 +9,33 @@
 .maha-dashboard {
   flex: 1;
   display: flex;
+  &.collapsed {
+    .scrollable();
+  }
+}
+.maha-dashboard-stacked {
+  .scrollable();
+  flex: 1;
+}
+.maha-dashboard-sidebar {
+  border-right: 1px solid fadeout(@black, 90);
+  flex: 0 0 350px;
+  display: flex;
+  position: relative;
+}
+.maha-dashboard-body {
+  flex: 1;
+  background-color: fadeout(@black, 90);
+  &.stacked {
+    .scrollable();
+    flex: 1;
+  }
+  &.expanded {
+    display: flex;
+  }
+  .maha-dashboard-panel:first-child {
+    .maha-dashboard-panel-header {
+      margin-top: 0.8em;
+    }
+  }
 }

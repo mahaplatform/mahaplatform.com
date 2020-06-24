@@ -1,17 +1,11 @@
-.maha-dashboard-sidebar {
-  border-right: 1px solid fadeout(@black, 90);
-  flex: 0 0 350px;
-  display: flex;
-  position: relative;
-}
-.maha-dashboard-sidebar-title {
+.maha-dashboard-panels-title {
   padding: 0.2em 1.0em;
   font-size: 0.8em;
   text-transform: uppercase;
   background-color: fadeout(@black, 70);
   color: @white;
 }
-.maha-dashboard-sidebar-item {
+.maha-dashboard-panels-item {
   cursor: pointer;
   display: flex;
   &.selected {
@@ -19,16 +13,16 @@
   }
   &:hover {
     background-color: fadeout(@black, 97);
-    .maha-dashboard-sidebar-item-action {
+    .maha-dashboard-panels-item-action {
       display: flex;
     }
   }
 }
-.maha-dashboard-sidebar-item-label {
+.maha-dashboard-panels-item-label {
   padding: 0.8em;
   flex: 1;
 }
-.maha-dashboard-sidebar-item-action {
+.maha-dashboard-panels-item-action {
   padding: 0.8em 0.8em 0.8em 0;
   display: none;
   color: fadeout(@black, 80);
@@ -40,7 +34,7 @@
     margin: auto;
   }
 }
-.maha-dashboard-sidebar-add {
+.maha-dashboard-panels-add {
   cursor: pointer;
   display: flex;
   padding: 0.8em;

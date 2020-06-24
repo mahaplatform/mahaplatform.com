@@ -15,25 +15,37 @@ class Dashboard extends React.Component {
   static propTypes = {}
 
   state = {
-    expanded: false,
+    active: null,
+    expanded: null,
     panels: null,
-    selected: null
+    sidebar: false,
+    stacked: false
   }
 
+  _handleExpand = this._handleExpand.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleSelect = this._handleSelect.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { expanded, panels } = this.state
+    const { sidebar, panels, stacked } = this.state
     if(!panels) return null
     return (
       <ModalPanel { ...this._getModalPanel() }>
         <div className="maha-dashboard">
-          { expanded &&
-            <Sidebar { ...this._getSidebar() } />
+          { !stacked && sidebar &&
+            <div className="maha-dashboard-sidebar">
+              <Sidebar { ...this._getSidebar() } />
+            </div>
           }
-          <Panel { ...this._getPanel() } />
+          <div className={ this._getBodyClass() }>
+            { stacked && panels.map((panel, index) => (
+              <Panel { ...this._getPanel(panel, index) } key={`panel_${panel.id}`} />
+            )) }
+            { !stacked &&
+              <Panel { ...this._getActive() } />
+            }
+          </div>
         </div>
       </ModalPanel>
     )
@@ -55,25 +67,46 @@ class Dashboard extends React.Component {
     }
   }
 
-  _getPanel() {
-    const { panels, selected } = this.state
+  _getActive() {
+    const { panels, active } = this.state
     const index =  panels.findIndex(panel => {
-      return panel.id === selected
+      return panel.id === active
     })
+    return this._getPanel(panels[index], index)
+  }
+
+  _getBodyClass(panel, index) {
+    const { expanded, stacked } = this.state
+    const classes = ['maha-dashboard-body']
+    if(!expanded && stacked) classes.push('stacked')
+    if(expanded) classes.push('expanded')
+    return classes.join(' ')
+  }
+
+  _getPanel(panel, index) {
+    const { expanded, stacked } = this.state
     return {
-      panel: panels[index],
+      expanded,
+      panel,
+      stacked,
+      onExpand: this._handleExpand,
       onMove: this._handleMove.bind(this, index),
       onToggle: this._handleToggle
     }
   }
 
   _getSidebar() {
-    const { panels, selected } = this.state
+    const { panels, active } = this.state
     return {
       panels,
-      selected,
+      active,
       onSelect: this._handleSelect
     }
+  }
+
+  _handleExpand(card) {
+    const expanded = this.state.expanded == null ? card : null
+    this.setState({ expanded })
   }
 
   _handleFetch() {
@@ -88,7 +121,7 @@ class Dashboard extends React.Component {
         })
         this.setState({
           panels: data,
-          selected: first ? first.id : null
+          active: first ? first.id : null
         })
       }
     })
@@ -140,14 +173,14 @@ class Dashboard extends React.Component {
     })
   }
 
-  _handleSelect(selected) {
-    this.setState({ selected })
+  _handleSelect(active) {
+    this.setState({ active })
   }
 
   _handleToggle() {
-    const { expanded } = this.state
+    const { sidebar } = this.state
     this.setState({
-      expanded: !expanded
+      sidebar: !sidebar
     })
   }
 

@@ -20,36 +20,36 @@ class Sidebar extends React.Component {
     const shared = this._getShared()
     const owned = this._getOwned()
     return (
-      <div className="maha-dashboard-sidebar">
+      <div className="maha-dashboard-panels">
         <ModalPanel { ...this._getPanel() }>
           { shared.length > 0 &&
-            <div className="maha-dashboard-sidebar-section">
-              <div className="maha-dashboard-sidebar-title">
+            <div className="maha-dashboard-panels-section">
+              <div className="maha-dashboard-panels-title">
                 Shared With You
               </div>
               { shared.map((panel, index) => (
                 <div className={ this._getClass(panel) } key={`panel_${index}`} onClick={ this._handleSelect.bind(this, panel) }>
-                  <div className="maha-dashboard-sidebar-item-label">
+                  <div className="maha-dashboard-panels-item-label">
                     { panel.title }
                   </div>
                 </div>
               ))}
             </div>
           }
-          <div className="maha-dashboard-sidebar-section">
-            <div className="maha-dashboard-sidebar-title">
+          <div className="maha-dashboard-panels-section">
+            <div className="maha-dashboard-panels-title">
               Your Panels
             </div>
             { owned.map((panel, index) => (
               <div className={ this._getClass(panel) } key={`panel_${index}`} onClick={ this._handleSelect.bind(this, panel) }>
-                <div className="maha-dashboard-sidebar-item-label">
+                <div className="maha-dashboard-panels-item-label">
                   { panel.title }
                 </div>
                 <Button { ...this._getEdit(panel) } />
                 <Button { ...this._getDelete(panel) } />
               </div>
             ))}
-            <div className="maha-dashboard-sidebar-item">
+            <div className="maha-dashboard-panels-item">
               <Button { ...this._getAdd() } />
             </div>
           </div>
@@ -61,14 +61,14 @@ class Sidebar extends React.Component {
   _getAdd() {
     return {
       label: '+ New Panel',
-      className: 'maha-dashboard-sidebar-add',
+      className: 'maha-dashboard-panels-add',
       modal: New
     }
   }
 
   _getClass(panel) {
     const { selected } = this.props
-    const classes = ['maha-dashboard-sidebar-item']
+    const classes = ['maha-dashboard-panels-item']
     if(panel.id === selected) classes.push('selected')
     return classes.join(' ')
   }
@@ -76,7 +76,7 @@ class Sidebar extends React.Component {
   _getDelete(panel) {
     return {
       label: <i className="fa fa-trash-o" />,
-      className: 'maha-dashboard-sidebar-item-action',
+      className: 'maha-dashboard-panels-item-action',
       confirm: 'Are you sure you want to delete this panel?',
       request: {
         method: 'DELETE',
@@ -89,7 +89,7 @@ class Sidebar extends React.Component {
   _getEdit(panel) {
     return {
       label: <i className="fa fa-pencil" />,
-      className: 'maha-dashboard-sidebar-item-action',
+      className: 'maha-dashboard-panels-item-action',
       modal: <Edit panel={ panel } />
     }
   }
