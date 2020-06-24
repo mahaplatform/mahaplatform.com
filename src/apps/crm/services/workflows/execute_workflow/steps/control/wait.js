@@ -11,7 +11,7 @@ const getDatetime = ({ until_date, until_time }) => {
   return moment(`${until_date} ${until_time}`)
 }
 
-const wait = async (req, { config }) => ({
+const waitStep = async (req, { config }) => ({
   action: {
     data: {
       until: (config.strategy === 'duration') ? getDuration(config) : getDatetime(config)
@@ -20,4 +20,4 @@ const wait = async (req, { config }) => ({
   until: (config.strategy === 'duration') ? getDuration(config) : getDatetime(config)
 })
 
-export default wait
+export default waitStep

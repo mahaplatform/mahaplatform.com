@@ -1,12 +1,10 @@
-import generateCode from '../../../../../core/utils/generate_code'
-import { sendMail } from '../../../../../core/services/email'
-import Email from '../../../../maha/models/email'
-import User from '../../../../maha/models/user'
+import generateCode from '../../../../../../../core/utils/generate_code'
+import { sendMail } from '../../../../../../../core/services/email'
+import Email from '../../../../../../maha/models/email'
+import User from '../../../../../../maha/models/user'
 import ejs from 'ejs'
 
-const sendInternalEmail = async (req, { config, tokens }) => {
-
-  console.log(tokens)
+const emailStep = async (req, { config, tokens }) => {
 
   const user = await User.query(qb => {
     qb.where('id', config.user_id)
@@ -52,4 +50,4 @@ const sendInternalEmail = async (req, { config, tokens }) => {
 
 }
 
-export default sendInternalEmail
+export default emailStep

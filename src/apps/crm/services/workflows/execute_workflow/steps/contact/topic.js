@@ -1,7 +1,7 @@
-import { addToTopics, removeFromTopics } from '../../topics'
+import { addToTopics, removeFromTopics } from '../../../../topics'
 import _ from 'lodash'
 
-const updateTopics = async (req, { contact, config, enrollment }) => {
+const topicStep = async (req, { contact, config, enrollment }) => {
 
   const { action, topic_id } = config
 
@@ -53,4 +53,4 @@ const updateTopics = async (req, { contact, config, enrollment }) => {
 
 }
 
-export default updateTopics
+export default topicStep

@@ -1,7 +1,7 @@
-import { addToLists, removeFromLists } from '../../lists'
+import { addToLists, removeFromLists } from '../../../../lists'
 import _ from 'lodash'
 
-const updateLists = async (req, { contact, config, enrollment }) => {
+const listStep = async (req, { contact, config, enrollment }) => {
 
   const { action, list_id } = config
 
@@ -53,4 +53,4 @@ const updateLists = async (req, { contact, config, enrollment }) => {
 
 }
 
-export default updateLists
+export default listStep

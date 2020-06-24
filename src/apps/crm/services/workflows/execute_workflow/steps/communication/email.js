@@ -1,11 +1,11 @@
-import { personalizeEmail, renderEmail } from '../../../services/email'
-import generateCode from '../../../../../core/utils/generate_code'
-import { encodeEmail } from '../../../../maha/services/emails'
-import { sendMail } from '../../../../../core/services/email'
-import Email from '../../../../maha/models/email'
-import CRMEmail from '../../../models/email'
-import Sender from '../../../models/sender'
-import { getEnrollmentData } from './utils'
+import { personalizeEmail, renderEmail } from '../../../../../services/email'
+import generateCode from '../../../../../../../core/utils/generate_code'
+import { encodeEmail } from '../../../../../../maha/services/emails'
+import { sendMail } from '../../../../../../../core/services/email'
+import Email from '../../../../../../maha/models/email'
+import CRMEmail from '../../../../../models/email'
+import Sender from '../../../../../models/sender'
+import { getEnrollmentData } from '../utils'
 import _ from 'lodash'
 
 const getEmailAddress = async (req, { contact, data }) => {
@@ -28,7 +28,7 @@ const getEmailAddress = async (req, { contact, data }) => {
 
 }
 
-const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
+const emailStep = async (req, { config, contact, enrollment, tokens }) => {
 
   if(!config.email_id) return {}
 
@@ -135,4 +135,4 @@ const sendEmail = async (req, { config, contact, enrollment, tokens }) => {
 
 }
 
-export default sendEmail
+export default emailStep

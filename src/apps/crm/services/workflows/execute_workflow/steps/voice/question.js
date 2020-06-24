@@ -1,6 +1,6 @@
 import { twiml } from 'twilio'
 
-const voiceQuestion = async (req, { config, enrollment, execute, step, answer }) => {
+const questionStep = async (req, { config, enrollment, execute, step, answer }) => {
 
   const { code, message, recording_id, strategy, voice } = config
 
@@ -46,4 +46,4 @@ const voiceQuestion = async (req, { config, enrollment, execute, step, answer })
 
 }
 
-export default voiceQuestion
+export default questionStep

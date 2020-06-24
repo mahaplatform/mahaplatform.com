@@ -1,4 +1,4 @@
-import { toFilter } from '../../../../../core/utils/criteria'
+import { toFilter } from '../../../../../../../core/utils/criteria'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -87,6 +87,8 @@ const getEvaluator = (comparison) => {
   if(comparison === '$nnl') return testNotNull
   if(comparison === '$eq') return testEquals
   if(comparison === '$neq') return testNotEquals
+  if(comparison === '$ck') return testEquals
+  if(comparison === '$nck') return testNotEquals
   if(comparison === '$kn') return testKnown
   if(comparison === '$nkn') return testNotKnown
   if(comparison === '$lk') return testLike
@@ -249,7 +251,7 @@ const getEnvironmentData = async () => ({
   }
 })
 
-const ifthen = async (req, { config, contact, enrollment, steps, step, workflow }) => {
+const ifThenStep = async (req, { config, contact, enrollment, steps, step, workflow }) => {
 
   const contactData = await getContactData(req, {
     contact
@@ -289,4 +291,4 @@ const ifthen = async (req, { config, contact, enrollment, steps, step, workflow 
 
 }
 
-export default ifthen
+export default ifThenStep

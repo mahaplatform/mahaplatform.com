@@ -1,22 +1,27 @@
 import { twiml } from 'twilio'
+import ejs from 'ejs'
 
-const play = async (req, { config, enrollment, execute, step }) => {
-
-  const { loop, recording_id } = config
+const sayStep = async (req, { enrollment, execute, step, tokens }) => {
 
   if(execute === false) {
     return {
       action: {
-        asset_id: recording_id
+        data: {
+          message: rendered
+        }
       }
     }
   }
 
+  const { message, voice } = step.get('config')
+
+  const rendered = ejs.render(message, tokens)
+
   const response = new twiml.VoiceResponse()
 
-  response.play({
-    loop
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${step.get('code')}/recording`)
+  response.say({
+    voice
+  }, rendered)
 
   response.redirect({
     method: 'POST'
@@ -28,4 +33,4 @@ const play = async (req, { config, enrollment, execute, step }) => {
 
 }
 
-export default play
+export default sayStep

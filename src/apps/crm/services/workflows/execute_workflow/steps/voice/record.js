@@ -1,4 +1,4 @@
-import redis from '../../../../../core/services/redis'
+import redis from '../../../../../../../core/services/redis'
 import { twiml } from 'twilio'
 
 const requestRecording = async (req, { enrollment, step, config }) => {
@@ -92,7 +92,7 @@ const redoRecording = async (req, { enrollment, step }) => {
 
 }
 
-const message = async (req, params) => {
+const recordStep = async (req, params) => {
 
   const { answer, config, enrollment, execute, step, recording } = params
 
@@ -140,4 +140,4 @@ const message = async (req, params) => {
 
 }
 
-export default message
+export default recordStep

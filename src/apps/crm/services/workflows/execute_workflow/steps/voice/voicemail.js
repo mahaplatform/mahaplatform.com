@@ -1,7 +1,7 @@
 import { twiml } from 'twilio'
 import ejs from 'ejs'
 
-const voicemail = async (req, params) => {
+const voicemailStep = async (req, params) => {
 
   const { config, enrollment, execute, step, recording, tokens } = params
 
@@ -54,4 +54,4 @@ const voicemail = async (req, params) => {
 
 }
 
-export default voicemail
+export default voicemailStep

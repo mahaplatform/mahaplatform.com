@@ -1,5 +1,5 @@
-import { sendSMS } from '../../../../maha/services/smses'
-import User from '../../../../maha/models/user'
+import { sendSMS } from '../../../../../../maha/services/smses'
+import User from '../../../../../../maha/models/user'
 
 const getToNumber = async (req, { config }) => {
 
@@ -15,7 +15,7 @@ const getToNumber = async (req, { config }) => {
 
 }
 
-const sendInternalSms = async (req, { config, enrollment, tokens }) => {
+const smsStep = async (req, { config, enrollment, tokens }) => {
 
   const to = await getToNumber(req, {
     config
@@ -37,4 +37,4 @@ const sendInternalSms = async (req, { config, enrollment, tokens }) => {
 
 }
 
-export default sendInternalSms
+export default smsStep

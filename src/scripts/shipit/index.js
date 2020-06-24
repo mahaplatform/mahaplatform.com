@@ -286,6 +286,12 @@ const processor = async () => {
     var sql = 'UPDATE finance_merchants SET braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
+
+  utils.registerTask(shipit, 'sync:assets', () => {
+    return shipit.local(`aws s3 sync s3://cdn.mahaplatform.com s3://${process.env.AWS_BUCKET}`)
+  })
+
+
   shipit.initialize()
 
   shipit.on('err', () => process.exit(1))

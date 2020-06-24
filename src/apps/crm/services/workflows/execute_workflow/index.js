@@ -5,59 +5,15 @@ import WorkflowRecording from '../../../models/workflow_recording'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import WorkflowAction from '../../../models/workflow_action'
-import sendInternalEmail from './send_internal_email'
-import contactWorkflow from './enroll_in_workflow'
-import sendInternalSms from './send_internal_sms'
-import contactProperty from './update_property'
-import voiceVoicemail from './voice_voicemail'
-import contactConsent from './update_consent'
 import Contact from '../../../models/contact'
-import voiceQuestion from './voice_question'
-import contactTopic from './update_topics'
-import smsQuestion from './sms_question'
-import contactList from './update_lists'
-import voiceRecord from './voice_record'
-import voiceDial from './voice_dial'
-import sendEmail from './send_email'
-import controlIfThen from './ifthen'
-import voicePlay from './voice_play'
-import voiceSay from './voice_say'
-import smsMessage from './sms_message'
-import sendSms from './send_sms'
-import controlWait from './wait'
-import controlGoal from './goal'
-import controlSet from './set'
-import hangup from './hangup'
+import hangup from './steps/voice/hangup'
+import executors from './steps'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getExecutor = (type, action) => {
-  if(type === 'administrative' && action === 'email') return sendInternalEmail
-  if(type === 'administrative' && action === 'sms') return sendInternalSms
-  if(type === 'communication' && action === 'email') return sendEmail
-  if(type === 'communication' && action === 'sms') return sendSms
-  if(type === 'control' && action === 'ifthen') return controlIfThen
-  if(type === 'control' && action === 'wait') return controlWait
-  if(type === 'control' && action === 'goal') return controlGoal
-  if(type === 'control' && action === 'set') return controlSet
-  if(type === 'contact' && action === 'workflow') return contactWorkflow
-  if(type === 'contact' && action === 'property') return contactProperty
-  if(type === 'contact' && action === 'topic') return contactTopic
-  if(type === 'contact' && action === 'consent') return contactConsent
-  if(type === 'contact' && action === 'list') return contactList
-  if(type === 'voice' && action === 'play') return voicePlay
-  if(type === 'voice' && action === 'say') return voiceSay
-  if(type === 'voice' && action === 'question') return voiceQuestion
-  if(type === 'voice' && action === 'record') return voiceRecord
-  if(type === 'voice' && action === 'dial') return voiceDial
-  if(type === 'voice' && action === 'voicemail') return voiceVoicemail
-  if(type === 'sms' && action === 'message') return smsMessage
-  if(type === 'sms' && action === 'question') return smsQuestion
-}
-
 const executeStep = async (req, params) => {
   const { answer, contact, dial, enrollment, execute, step, steps, recording, tokens, workflow } = params
-  const executor = getExecutor(step.get('type'), step.get('action'))
+  const executor = executors[step.get('type')][step.get('action')]
   return await executor(req, {
     answer,
     config: step.get('config'),

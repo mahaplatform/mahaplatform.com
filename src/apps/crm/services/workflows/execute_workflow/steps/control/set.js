@@ -1,4 +1,4 @@
-const set = async (req, { config }) => {
+const setStep = async (req, { config }) => {
 
   const value = config.value
 
@@ -12,4 +12,4 @@ const set = async (req, { config }) => {
 
 }
 
-export default set
+export default setStep

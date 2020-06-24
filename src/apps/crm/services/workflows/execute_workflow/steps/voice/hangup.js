@@ -1,6 +1,6 @@
 import { twiml } from 'twilio'
 
-const hangup = async (req) => {
+const hangupStep = async (req) => {
 
   const response = new twiml.VoiceResponse()
 
@@ -12,4 +12,4 @@ const hangup = async (req) => {
 
 }
 
-export default hangup
+export default hangupStep

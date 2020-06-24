@@ -1,6 +1,6 @@
-import { sendSMS } from '../../../../maha/services/smses'
-import { getFormattedNumber } from '../../phone_numbers'
-import { getEnrollmentData } from './utils'
+import { sendSMS } from '../../../../../../maha/services/smses'
+import { getFormattedNumber } from '../../../../phone_numbers'
+import { getEnrollmentData } from '../utils'
 import _ from 'lodash'
 
 const getPhoneNumber = async (req, { contact, data }) => {
@@ -37,7 +37,7 @@ const getWorkflow = async (req, { enrollment }) => {
 
 }
 
-const sendSms = async (req, { config, contact, enrollment, tokens }) => {
+const smsStep = async (req, { config, contact, enrollment, tokens }) => {
 
   const workflow = await getWorkflow(req, { enrollment })
 
@@ -77,9 +77,9 @@ const sendSms = async (req, { config, contact, enrollment, tokens }) => {
   return {
     action: {
       sms_id: sms.get('id')
-    }    
+    }
   }
 
 }
 
-export default sendSms
+export default smsStep

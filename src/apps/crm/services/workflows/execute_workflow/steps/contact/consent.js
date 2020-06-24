@@ -1,5 +1,5 @@
-import Contact from '../../../models/contact'
-import * as consents from '../../consents'
+import Contact from '../../../../../models/contact'
+import * as consents from '../../../../consents'
 import _ from 'lodash'
 
 const getContactData = async (req, { enrollment }) => {
@@ -51,7 +51,7 @@ const getChannel = async(req, { contact, channel_type, value }) => {
 
 }
 
-const updateConsent = async (req, { contact, config, enrollment }) => {
+const consentStep = async (req, { contact, config, enrollment }) => {
 
   const { action, channel_type, token } = config
 
@@ -94,4 +94,4 @@ const updateConsent = async (req, { contact, config, enrollment }) => {
 
 }
 
-export default updateConsent
+export default consentStep

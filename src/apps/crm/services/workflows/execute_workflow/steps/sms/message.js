@@ -1,5 +1,5 @@
-import { sendSMS } from '../../../../maha/services/smses'
-import { getFormattedNumber } from '../../phone_numbers'
+import { sendSMS } from '../../../../../../maha/services/smses'
+import { getFormattedNumber } from '../../../../phone_numbers'
 
 const getPhoneNumber = async (req, { contact }) => {
 
@@ -21,17 +21,7 @@ const getPhoneNumber = async (req, { contact }) => {
 
 }
 
-const smsQuestion = async (req, { config, contact, enrollment, step, answer, tokens }) => {
-
-  if(answer) {
-    return {
-      action: {
-        data: {
-          [config.code]: answer
-        }
-      }
-    }
-  }
+const messageStep = async (req, { config, contact, enrollment, tokens }) => {
 
   await enrollment.load(['sms_campaign.program.phone_number'], {
     transacting: req.trx
@@ -44,7 +34,7 @@ const smsQuestion = async (req, { config, contact, enrollment, step, answer, tok
   })
 
   const sms = await sendSMS(req, {
-    from: enrollment.related('sms_campaign').related('program').related('phone_number').get('number'),
+    from: program.related('phone_number').get('number'),
     to: contact.get('phone'),
     body: config.message,
     asset_ids: config.asset_ids,
@@ -60,9 +50,14 @@ const smsQuestion = async (req, { config, contact, enrollment, step, answer, tok
   })
 
   return {
-    wait: true
+    action: {
+      sms_id: sms.get('id'),
+      data: {
+        message: config.message
+      }
+    }
   }
 
 }
 
-export default smsQuestion
+export default messageStep

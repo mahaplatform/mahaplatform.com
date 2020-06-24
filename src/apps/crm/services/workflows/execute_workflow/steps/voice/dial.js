@@ -1,4 +1,4 @@
-import User from '../../../../maha/models/user'
+import User from '../../../../../../maha/models/user'
 import { twiml } from 'twilio'
 
 const getUser = async (req, user_id) => {
@@ -22,7 +22,7 @@ const getRecipient = async (req, { recipients, dial }) => {
   }, null)
 }
 
-const dial = async (req, { dial, config, enrollment, execute, step }) => {
+const dialStep = async (req, { dial, config, enrollment, execute, step }) => {
 
   if(execute === false) {
 
@@ -108,4 +108,4 @@ const dial = async (req, { dial, config, enrollment, execute, step }) => {
 
 }
 
-export default dial
+export default dialStep

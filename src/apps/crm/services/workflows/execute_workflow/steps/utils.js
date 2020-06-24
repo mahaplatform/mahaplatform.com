@@ -1,12 +1,12 @@
-import InvoiceSerializer from '../../../../finance/serializers/invoice_serializer'
-import Invoice from '../../../../finance/models/invoice'
+import InvoiceSerializer from '../../../../../finance/serializers/invoice_serializer'
+import Invoice from '../../../../../finance/models/invoice'
 import numeral from 'numeral'
 import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const summary  = fs.readFileSync(path.join(__dirname,'..','..','..','emails','summary.ejs'), 'utf8')
+const summary  = fs.readFileSync(path.join(__dirname,'..','..','..','..','emails','summary.ejs'), 'utf8')
 
 const getPaymentSummary = async (req, { invoice_id }) => {
 
