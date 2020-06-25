@@ -4,6 +4,10 @@ import React from 'react'
 
 class App extends React.Component {
 
+  static contextTypes = {
+    configuration: PropTypes.object
+  }
+
   static propTypes = {
     apps: PropTypes.array,
     onCancel: PropTypes.func,
@@ -22,9 +26,14 @@ class App extends React.Component {
   }
 
   _getList() {
+    const { dashboardCards } = this.context.configuration
     const { apps } = this.props
+
+    const cardAppCodes = dashboardCards.map(card => card.app)
+    const appsWithCards = apps.filter(app => cardAppCodes.includes(app.code))
+
     return {
-      items: apps.map(app => ({
+      items: appsWithCards.map(app => ({
         component: <AppToken {...this._getApp(app) } />,
         handler: this._handleChoose.bind(this, app)
       }))
