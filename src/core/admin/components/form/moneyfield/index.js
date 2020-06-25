@@ -22,7 +22,10 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: '0.00'
+    placeholder: '0.00',
+    tabIndex: 0,
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {
