@@ -1,4 +1,4 @@
-import { Container } from 'maha-admin'
+import { Container, Chart } from 'maha-admin'
 import Registrations from './registrations'
 import TicketTypes from './ticket_types'
 import PropTypes from 'prop-types'
@@ -14,13 +14,14 @@ class EventDetail extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     controls: PropTypes.any,
-    event: PropTypes.object
+    event: PropTypes.object,
+    isExpanded: PropTypes.bool
   }
 
   render() {
-    const { controls, event } = this.props
+    const { controls, event, isExpanded } = this.props
     return (
-      <div className="maha-dashboard-card">
+      <div className="maha-dashboard-card scrollable">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
             <h2>{ event.title }</h2>
@@ -29,40 +30,47 @@ class EventDetail extends React.Component {
           { controls }
         </div>
         <div className="maha-dashboard-card-body">
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
-              Registrations
-            </div>
-            <div className="crm-report-metric-value">
-              <div className="link" onClick={ this._handleRegistrations.bind(this, event)}>
-                { event.registrations_count }
+          <Chart { ...this._getChart() } />
+          <div className="crm-report">
+            <div className="crm-report-metrics">
+              <div className="crm-report-metric">
+                <div className="crm-report-metric-title">
+                  Registrations
+                </div>
+                <div className="crm-report-metric-value">
+                  <div className="link" onClick={ this._handleRegistrations.bind(this, event)}>
+                    { event.registrations_count }
+                  </div>
+                </div>
+              </div>
+              <div className="crm-report-metric">
+                <div className="crm-report-metric-title">
+                  Waiting List
+                </div>
+                <div className="crm-report-metric-value">
+                  { event.waitings_count }
+                </div>
+              </div>
+              <div className="crm-report-metric">
+                <div className="crm-report-metric-title">
+                  Tickets
+                </div>
+                <div className="crm-report-metric-value">
+                  <div className="link" onClick={ this._handleTicketTypes.bind(this, event) }>
+                    { event.tickets_count }
+                  </div>
+                </div>
+              </div>
+              <div className="crm-report-metric">
+                <div className="crm-report-metric-title">
+                  Revenue
+                </div>
+                <div className="crm-report-metric-value">
+                  { numeral(event.revenue).format('0.00') }
+                </div>
               </div>
             </div>
-          </div>
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
-              Waiting List
-            </div>
-            <div className="crm-report-metric-value">
-              { event.waitings_count }
-            </div>
-          </div>
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
-              Tickets
-            </div>
-            <div className="crm-report-metric-value">
-              <div className="link" onClick={ this._handleTicketTypes.bind(this, event) }>
-                { event.tickets_count }
-              </div>
-            </div>
-          </div>
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
-              Revenue
-            </div>
-            <div className="crm-report-metric-value">
-              { numeral(event.revenue).format('0.00') }
+            <div className="crm-report-table">
             </div>
           </div>
         </div>
@@ -91,6 +99,14 @@ class EventDetail extends React.Component {
     return {
       config,
       event
+    }
+  }
+
+  _getChart() {
+    const { event } = this.props
+    return {
+      endpoint: `/api/admin/events/events/${event.id}/performance`,
+      started_at: event.created_at
     }
   }
 }
