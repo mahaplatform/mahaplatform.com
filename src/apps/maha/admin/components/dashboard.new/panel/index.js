@@ -118,11 +118,11 @@ class Panel extends React.Component {
     const { expanded, panel } = this.props
     const { clientWidth } = this.body
     if(expanded && expanded.panel_id !== panel.id) return 'hidden'
-    if(clientWidth > 1868) return 'six'
-    if(clientWidth > 1568) return 'five'
-    if(clientWidth > 1170) return 'four'
-    if(clientWidth > 768) return 'three'
-    if(clientWidth > 414) return 'two'
+    if(clientWidth > 2100) return 'six'
+    if(clientWidth > 1750) return 'five'
+    if(clientWidth > 1400) return 'four'
+    if(clientWidth > 1050) return 'three'
+    if(clientWidth > 700) return 'two'
     return 'one'
   }
 
