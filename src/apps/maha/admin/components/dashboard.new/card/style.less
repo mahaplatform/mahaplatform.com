@@ -109,3 +109,21 @@
   border-bottom: 1px solid fadeout(@black, 90);
   padding: 0.4em 0.8em;
 }
+
+.maha-dashboard-body:not(.expanded) {
+  .crm-report-metrics {
+    flex-wrap: wrap;
+    .crm-report-metric {
+      &:nth-child(1),
+      &:nth-child(2) {
+        border-bottom: 1px solid fadeout(@black, 90);
+      }
+    }
+    .crm-report-metric:nth-child(2n) {
+      border-right: none;
+    }
+  }
+  .crm-report-metric {
+    flex: 0 50%;
+  }
+}
