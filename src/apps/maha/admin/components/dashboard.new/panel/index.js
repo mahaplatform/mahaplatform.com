@@ -85,8 +85,8 @@ class Panel extends React.Component {
   }
 
   _getCard(card, index) {
-    const { expanded, managing } = this.state
-    const { panel, onExpand } = this.props
+    const { managing } = this.state
+    const { panel, onExpand, expanded } = this.props
     return {
       card,
       index,
