@@ -96,9 +96,14 @@
   }
 }
 .maha-dashboard-card-body {
-  flex-direction: column;
-  display: flex;
   flex: 1;
+  &:not(.scrollable) {
+    flex-direction: column;
+    display: flex;
+  }
+  &.scrollable {
+    .scrollable();
+  }
 }
 .maha-dashboard-card-body-back {
   border-bottom: 1px solid fadeout(@black, 90);
