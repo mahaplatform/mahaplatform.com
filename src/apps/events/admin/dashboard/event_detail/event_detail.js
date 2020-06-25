@@ -1,4 +1,4 @@
-import { Container, Chart } from 'maha-admin'
+import { Button, Container, Chart } from 'maha-admin'
 import Registrations from './registrations'
 import TicketTypes from './ticket_types'
 import PropTypes from 'prop-types'
@@ -74,6 +74,9 @@ class EventDetail extends React.Component {
             </div>
           </div>
         </div>
+        <div className="maha-dashboard-card-actions">
+          <Button { ...this._getEvent() } />
+        </div>
       </div>
     )
   }
@@ -83,6 +86,17 @@ class EventDetail extends React.Component {
     return {
       endpoint: `/api/admin/events/events/${event.id}/performance`,
       started_at: event.created_at
+    }
+  }
+
+  _getEvent() {
+    const { config } = this.props
+
+    return {
+      label: ' Manage Event',
+      icon: 'gear',
+      className: 'link',
+      route: `/admin/events/events/${config.event_id}`
     }
   }
 
