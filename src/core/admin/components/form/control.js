@@ -29,6 +29,7 @@ import Rating from './rating'
 import SMSField from './smsfield'
 import Submit from './submit'
 import TableField from './tablefield'
+import TagField from './tagfield'
 import Text from './text'
 import TextArea from './textarea'
 import TextField from './textfield'
@@ -111,6 +112,7 @@ class Control extends React.Component {
     if(type === 'rating') return Rating
     if(type === 'smsfield') return SMSField
     if(type === 'submit') return Submit
+    if(type === 'tagfield') return TagField
     if(type === 'tablefield') return TableField
     if(type === 'text') return Text
     if(type === 'textarea') return TextArea
