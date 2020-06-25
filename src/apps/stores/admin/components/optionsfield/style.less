@@ -1,0 +1,34 @@
+.optionsfield-options {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+}
+.optionsfield-option {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.optionsfield-option-title {
+  padding: 0.8em;
+  flex: 1;
+  color: fadeout(@black, 40);
+  strong {
+    color: @black;
+  }
+}
+.optionsfield-option-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    .fa {
+      color: fadeout(@black, 40);
+    }
+  }
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+}
+.optionsfield-add {
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}

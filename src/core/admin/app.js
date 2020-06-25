@@ -151,6 +151,7 @@ import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import newsRoutes from '../../apps/news/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
+import storesRoutes from '../../apps/stores/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import trainingRoutes from '../../apps/training/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
@@ -461,6 +462,7 @@ class App extends React.Component {
       { path: '/admin/news', children: newsRoutes },
       { path: '/admin/platform', children: platformRoutes },
       { path: '/admin/sites', children: sitesRoutes },
+      { path: '/admin/stores', children: storesRoutes },
       { path: '/admin/team', children: teamRoutes },
       { path: '/admin/training', children: trainingRoutes },
       { path: '/*', component: NotFound }

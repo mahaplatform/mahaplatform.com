@@ -1,8 +1,5 @@
-import ProgramForm from '../../components/programform'
 import EmailToken from '../../tokens/email'
 import { Page } from 'maha-admin'
-import React from 'react'
-import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Emails',

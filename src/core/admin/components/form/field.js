@@ -21,6 +21,10 @@ class Field extends React.Component {
     onValid: PropTypes.func
   }
 
+  static defaultProps = {
+    onReady: () => {}
+  }
+
   _handleBusy = this._handleBusy.bind(this)
   _handleReady = this._handleReady.bind(this)
   _handleUpdateData = this._handleUpdateData.bind(this)

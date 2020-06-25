@@ -1,0 +1,39 @@
+.variantsfield-variants {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+}
+.variantsfield-variant {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  &.disabled {
+    color: fadeout(@black, 80);
+  }
+}
+.variantsfield-variant-title {
+  padding: 0.8em;
+  flex: 1;
+}
+.variantsfield-variant-price {
+  padding: 0.8em;
+}
+.variantsfield-variant-inventory {
+  padding: 0.8em;
+}
+.variantsfield-variant-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    .fa {
+      color: fadeout(@black, 40);
+    }
+  }
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+}
+.variantsfield-add {
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}
