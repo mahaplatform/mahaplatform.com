@@ -2100,6 +2100,17 @@ const schema = {
       table.integer('role_id').unsigned()
     })
 
+    await knex.schema.createTable('media', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('product_id').unsigned()
+      table.integer('asset_id').unsigned()
+      table.integer('delta')
+      table.jsonb('video')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('news_groups', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2237,6 +2248,62 @@ const schema = {
       table.integer('auth_srid')
       table.string('srtext', 2048)
       table.string('proj4text', 2048)
+    })
+
+    await knex.schema.createTable('stores_options', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('product_id').unsigned()
+      table.string('title', 255)
+      table.string('config', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('stores_products', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('store_id').unsigned()
+      table.string('code', 255)
+      table.string('title', 255)
+      table.text('description')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+      table.integer('base_variant_id').unsigned()
+    })
+
+    await knex.schema.createTable('stores_stores', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.string('code', 255)
+      table.string('title', 255)
+      table.string('permalink', 255)
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('stores_variants', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('product_id').unsigned()
+      table.jsonb('options')
+      table.USER-DEFINED('price_type')
+      table.integer('project_id').unsigned()
+      table.integer('revenue_type_id').unsigned()
+      table.decimal('fixed_price', 6, 2)
+      table.decimal('low_price', 6, 2)
+      table.decimal('high_price', 6, 2)
+      table.decimal('tax_rate', 3, 2)
+      table.USER-DEFINED('overage_strategy')
+      table.integer('donation_revenue_type_id').unsigned()
+      table.boolean('is_tax_deductable')
+      table.integer('inventory_quantity')
+      table.USER-DEFINED('inventory_policy')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('training_administrations', (table) => {
@@ -3472,6 +3539,37 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_stores', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+    })
+
+    await knex.schema.table('stores_products', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('base_variant_id').references('stores_variants.id')
+    })
+
+    await knex.schema.table('media', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('product_id').references('stores_products.id')
+      table.foreign('asset_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('stores_options', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('product_id').references('stores_products.id')
+    })
+
+    await knex.schema.table('stores_variants', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('product_id').references('stores_products.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
 
