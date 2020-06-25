@@ -11,11 +11,19 @@ import fs from 'fs'
 dotenv.load({ path: path.join('.env') })
 
 const createFile = (filepath, templateName, data = {}) => {
-  if(fs.existsSync(filepath)) return console.log(chalk.cyan('exists'), chalk.white(filepath))
+  const directory = path.join(...filepath.split('/').slice(0,-1))
+  mkdirp.sync(directory)
+  const gitkeep = path.join(directory,'.gitkeep')
+  if(fs.existsSync(gitkeep)) {
+    console.log(chalk.green('removing'), chalk.white(gitkeep))
+    fs.unlinkSync(gitkeep)
+  }
+  if(fs.existsSync(filepath)) {
+    return console.log(chalk.cyan('exists'), chalk.white(filepath))
+  }
   const templatepath = path.join(__dirname, `${templateName}.ejs`)
   const template = fs.readFileSync(templatepath, 'utf8')
   const source = ejs.render(template, { ...data, _ })
-  mkdirp.sync(path.join(...filepath.split('/').slice(0,-1)))
   fs.writeFileSync(filepath, source)
   console.log(chalk.green('create'), chalk.white(filepath))
 }
@@ -90,8 +98,7 @@ const model = async (args) => {
   createFile(data.modelPath, 'model/model.js', data)
   createFile(data.migrationPath, 'model/migration.js', data)
   createFile(data.fixturesPath, 'model/fixtures.js', data)
-  createFile(data.migrationPath, 'serializer/serializer.js', data)
-  createFile(data.testPath, 'model/test.js', data)
+  createFile(data.serializerPath, 'serializer/serializer.js', data)
 }
 
 const migration = async (args) => {

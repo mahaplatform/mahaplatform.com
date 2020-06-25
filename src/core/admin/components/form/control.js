@@ -23,6 +23,7 @@ import PermalinkField from './permalinkfield'
 import ProfileField from './profilefield'
 import PhoneField from './phonefield'
 import PhoneNumberField from './phonenumberfield'
+import PriceField from './pricefield'
 import RadioGroup from './select/radio_group'
 import Range from './range'
 import Rating from './rating'
@@ -106,6 +107,7 @@ class Control extends React.Component {
     if(type === 'phonefield') return PhoneField
     if(type === 'phonenumberfield') return PhoneNumberField
     if(type === 'profilefield') return ProfileField
+    if(type === 'pricefield') return PriceField
     if(type === 'range') return Range
     if(type === 'radiogroup') return RadioGroup
     if(type === 'rating') return Rating
