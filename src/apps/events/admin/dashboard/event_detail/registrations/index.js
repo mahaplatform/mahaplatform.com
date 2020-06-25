@@ -10,7 +10,8 @@ class Registrations extends React.Component {
   }
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    isExpanded: PropTypes.bool
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -30,12 +31,13 @@ class Registrations extends React.Component {
   }
 
   _getInfinite() {
-    const { config } = this.props
+    const { config, isExpanded } = this.props
     return {
       endpoint: `/api/admin/events/events/${config.event_id}/registrations`,
       layout: Results,
       props: {
-        config
+        config,
+        isExpanded
       }
     }
   }

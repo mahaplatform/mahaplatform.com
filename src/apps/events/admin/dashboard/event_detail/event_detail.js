@@ -19,7 +19,7 @@ class EventDetail extends React.Component {
   }
 
   render() {
-    const { controls, event, isExpanded } = this.props
+    const { controls, event } = this.props
     return (
       <div className="maha-dashboard-card scrollable">
         <div className="maha-dashboard-card-header">
@@ -38,7 +38,7 @@ class EventDetail extends React.Component {
                   Registrations
                 </div>
                 <div className="crm-report-metric-value">
-                  <div className="link" onClick={ this._handleRegistrations.bind(this, event)}>
+                  <div className="link" onClick={ this._handleRegistrations.bind(this)}>
                     { event.registrations_count }
                   </div>
                 </div>
@@ -56,7 +56,7 @@ class EventDetail extends React.Component {
                   Tickets
                 </div>
                 <div className="crm-report-metric-value">
-                  <div className="link" onClick={ this._handleTicketTypes.bind(this, event) }>
+                  <div className="link" onClick={ this._handleTicketTypes.bind(this) }>
                     { event.tickets_count }
                   </div>
                 </div>
@@ -78,30 +78,6 @@ class EventDetail extends React.Component {
     )
   }
 
-  _handleRegistrations(event) {
-    this.context.card.push(Registrations, this._getRegistrations(event))
-  }
-
-  _getRegistrations(event) {
-    const { config } = this.props
-    return {
-      config,
-      event
-    }
-  }
-
-  _handleTicketTypes(event) {
-    this.context.card.push(TicketTypes, this._getTicketTypes(event))
-  }
-
-  _getTicketTypes(event) {
-    const { config } = this.props
-    return {
-      config,
-      event
-    }
-  }
-
   _getChart() {
     const { event } = this.props
     return {
@@ -109,6 +85,30 @@ class EventDetail extends React.Component {
       started_at: event.created_at
     }
   }
+
+  _getRegistrations() {
+    const { config, isExpanded } = this.props
+    return {
+      config,
+      isExpanded
+    }
+  }
+
+  _getTicketTypes() {
+    const { config } = this.props
+    return {
+      config
+    }
+  }
+
+  _handleRegistrations() {
+    this.context.card.push(Registrations, this._getRegistrations())
+  }
+
+  _handleTicketTypes() {
+    this.context.card.push(TicketTypes, this._getTicketTypes())
+  }
+
 }
 
 const mapResources = (props, context) => ({

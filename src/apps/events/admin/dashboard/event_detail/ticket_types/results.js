@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Tickets from './tickets'
 
 class Results extends React.Component {
 
@@ -17,12 +18,15 @@ class Results extends React.Component {
     return (
       <div className="maha-list">
         { records.map((ticket_type, index) => (
-          <div className="maha-list-item" key={`ticket_type_${index}`}>
+          <div className="maha-list-item maha-list-item-link" key={`ticket_type_${index}`} onClick={ this._handleTickets.bind(this, ticket_type) }>
             <div className="maha-list-item-label">
               <span className={ this._getClass(ticket_type) }>{ ticket_type.name }</span>
             </div>
             <div className="maha-list-item-data">
               { this._getTotal(ticket_type) }
+            </div>
+            <div className="maha-list-item-proceed">
+              <i className="fa fa-chevron-right" />
             </div>
           </div>
         ))}
@@ -48,6 +52,10 @@ class Results extends React.Component {
     const parts = [ticket_type.tickets_count]
     if(ticket_type.total_tickets) parts.push(ticket_type.total_tickets)
     return parts.join('/')
+  }
+
+  _handleTickets(ticket_type) {
+    this.context.card.push(Tickets, this._getTickets(ticket_type))
   }
 
 }

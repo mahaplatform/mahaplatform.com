@@ -1,9 +1,9 @@
-import { Container, Infinite } from 'maha-admin'
+import { Infinite } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
 
-class TicketTypes extends React.Component {
+class Tickets extends React.Component {
 
   static contextTypes = {
     card: PropTypes.object
@@ -11,7 +11,7 @@ class TicketTypes extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    controls: PropTypes.any
+    ticket_type: PropTypes.object
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -31,9 +31,9 @@ class TicketTypes extends React.Component {
   }
 
   _getInfinite() {
-    const { config } = this.props
+    const { config, ticket_type } = this.props
     return {
-      endpoint: `/api/admin/events/dashboard/ticket_type_totals/${config.event_id}/ticket_types`,
+      endpoint:`/api/admin/events/dashboard/ticket_type_totals/${config.event_id}/ticket_types/${ticket_type.id}/tickets`,
       layout: Results,
       props: {
         config
@@ -44,10 +44,7 @@ class TicketTypes extends React.Component {
   _handleBack() {
     this.context.card.pop()
   }
+
 }
 
-const mapResources = (props, context) => ({
-  event: `/api/admin/events/events/${props.config.event_id}`
-})
-
-export default Container(mapResources)(TicketTypes)
+export default Tickets
