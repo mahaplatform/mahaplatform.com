@@ -87,10 +87,11 @@ class EventDetail extends React.Component {
   }
 
   _getRegistrations() {
-    const { config, isExpanded } = this.props
+    const { config, isExpanded, event } = this.props
     return {
       config,
-      isExpanded
+      isExpanded,
+      event
     }
   }
 

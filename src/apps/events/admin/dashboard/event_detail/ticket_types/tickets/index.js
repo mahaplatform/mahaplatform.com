@@ -17,11 +17,18 @@ class Tickets extends React.Component {
   _handleBack = this._handleBack.bind(this)
 
   render() {
+    const { ticket_type } = this.props
     return (
       <div className="maha-dashboard-card">
-        <div className="maha-dashboard-card-back" onClick={ this._handleBack }>
-          <i className="fa fa-chevron-left" />
-          Back
+        <div className="maha-dashboard-card-header">
+          <div className="maha-dashboard-card-back" onClick={ this._handleBack }>
+            <i className="fa fa-chevron-left" />
+            Back
+          </div>
+          <div className="maha-dashboard-card-header-details">
+            <h2>Tickets Sold</h2>
+            <h3>{ ticket_type.name } </h3>
+          </div>
         </div>
         <div className="maha-dashboard-card-body">
           <Infinite { ...this._getInfinite() } />

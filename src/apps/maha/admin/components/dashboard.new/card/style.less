@@ -45,11 +45,11 @@
   flex-direction: column;
 }
 .maha-dashboard-card-back {
-  border-bottom: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 97);
   color: fadeout(@black, 60);
   padding: 0.8em;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   .fa {
     margin-right: 0.8em;
   }
@@ -68,11 +68,11 @@
     font-size: 1em;
     line-height: 1.6em;
     font-weight: normal;
-  }
-  h2 {
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
+  }
+  h2 {
     color: @black;
   }
   h3 {
