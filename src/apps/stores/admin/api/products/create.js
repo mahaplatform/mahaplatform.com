@@ -6,6 +6,7 @@ import ProductSerializer from '../../../serializers/product_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Product from '../../../models/product'
+import Variant from '../../../models/variant'
 
 const createRoute = async (req, res) => {
 

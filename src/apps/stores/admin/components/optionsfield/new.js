@@ -13,6 +13,7 @@ class New extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
