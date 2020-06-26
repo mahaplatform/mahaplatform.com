@@ -14,24 +14,27 @@ class EmailCampaign extends React.Component {
     config: PropTypes.object,
     controls: PropTypes.any,
     isExpanded: PropTypes.bool,
+    campaign_id: PropTypes.any,
     campaign: PropTypes.object,
     performance: PropTypes.object
   }
 
-  render() {
-    const { controls, campaign, performance } = this.props
+  _handleBack = this._handleBack.bind(this)
 
-    console.log(campaign)
-    console.log(performance)
+  render() {
+    const { performance, campaign } = this.props
 
     return (
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
+          <div className="maha-dashboard-card-back" onClick={ this._handleBack }>
+            <i className="fa fa-chevron-left" />
+            Back
+          </div>
           <div className="maha-dashboard-card-header-details">
             <h2>{ campaign.title }</h2>
-            <h3>Email Campaign Performance</h3>
+            <h3>Performance</h3>
           </div>
-          { controls }
         </div>
         <div className="maha-dashboard-card-body">
           <div className="crm-report">
@@ -128,11 +131,14 @@ class EmailCampaign extends React.Component {
     return <Button { ...button } />
   }
 
+  _handleBack() {
+    this.context.card.pop()
+  }
+
 }
 
 const mapResources = (props, context) => ({
-  campaign: `/api/admin/crm/campaigns/email/${props.config.campaign_id}`,
-  performance: `/api/admin/crm/campaigns/email/${props.config.campaign_id}/performance`
+  performance: `/api/admin/crm/campaigns/email/${props.campaign.id}/performance`
 })
 
 export default Container(mapResources)(EmailCampaign)

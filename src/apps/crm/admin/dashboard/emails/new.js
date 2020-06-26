@@ -33,8 +33,8 @@ class New extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'type', type: 'hidden', value: 'email_campaign' },
-            { label: 'Email Campaign', name: 'config.campaign_id', type: 'lookup', endpoint: '/api/admin/crm/campaigns/email', value: 'id', text: 'title', required: true }
+            { name: 'type', type: 'hidden', value: 'emails' },
+            { label: 'Program', name: 'config.program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true }
           ]
         }
       ]
