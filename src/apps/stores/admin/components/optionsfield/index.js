@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
 import New from './new'
+import _ from 'lodash'
 
 class OptionsField extends React.Component {
 
@@ -11,6 +12,7 @@ class OptionsField extends React.Component {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -21,10 +23,7 @@ class OptionsField extends React.Component {
   }
 
   state = {
-    options: [
-      { id: 1, title: 'Size', config: { values: ['Small','Medium','Large'] } },
-      { id: 2, title: 'Color', config: { values: ['Red','Green','Blue'] } }
-    ]
+    options: []
   }
 
   _handleAdd = this._handleAdd.bind(this)
@@ -39,7 +38,7 @@ class OptionsField extends React.Component {
         { options.map((option, index) => (
           <div className="optionsfield-option" key={`option_${index}`}>
             <div className="optionsfield-option-title">
-              <strong>{ option.title }</strong> ({ option.config.values.join(', ') })
+              <strong>{ option.title }</strong> ({ option.values.join(', ') })
             </div>
             <Button { ...this._getEditButton(index) } />
             <Button { ...this._getRemoveButton(index) } />
@@ -54,6 +53,13 @@ class OptionsField extends React.Component {
 
   componentDidMount() {
     this.props.onReady()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { options } = this.state
+    if(!_.isEqual(options, prevState.options)) {
+      this._handleChange()
+    }
   }
 
   _getAdd() {
@@ -94,6 +100,11 @@ class OptionsField extends React.Component {
 
   _handleAdd() {
     this.context.form.push(<New { ...this._getNew() } />)
+  }
+
+  _handleChange() {
+    const { options } = this.state
+    this.props.onChange(options)
   }
 
   _handleCreate(option) {

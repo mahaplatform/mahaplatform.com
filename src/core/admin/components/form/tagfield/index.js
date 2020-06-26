@@ -25,28 +25,34 @@ class TagField extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
-  _handleKeyPress = this._handleKeyPress.bind(this)
+  _handleClear = this._handleClear.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { tags } = this.state
     return (
       <div className="maha-tagfield">
-        { tags.length > 0 &&
-          <div className="maha-tagfield-tags">
-            { tags.map((tag, index) => (
-              <div className="maha-tagfield-tag" key={`tag_${index}`}>
-                <div className="maha-tagfield-tag-label">
-                  { tag }
-                </div>
-                <Button { ...this._getRemove(index) } />
-              </div>
-            ))}
-          </div>
-        }
         <div className="maha-tagfield-field">
-          <input { ...this._getInput() } />
+          { tags.length > 0 &&
+            <div className="maha-tagfield-tags">
+              { tags.map((tag, index) => (
+                <div className="maha-tagfield-tag" key={`tag_${index}`}>
+                  <div className="maha-tagfield-tag-label">
+                    { tag }
+                  </div>
+                  <Button { ...this._getRemove(index) } />
+                </div>
+              ))}
+            </div>
+          }
+          <div className="maha-tagfield-input">
+            <input { ...this._getInput() } />
+          </div>
         </div>
+        { tags.length > 0 &&
+          <Button { ...this._getClear() } />
+        }
       </div>
     )
   }
@@ -68,6 +74,14 @@ class TagField extends React.Component {
     }
   }
 
+  _getClear() {
+    return {
+      icon: 'times',
+      className: 'maha-tagfield-clear',
+      handler: this._handleClear
+    }
+  }
+
   _getInput() {
     const { placeholder } = this.props
     const { tag } = this.state
@@ -75,7 +89,7 @@ class TagField extends React.Component {
       type: 'text',
       placeholder,
       value: tag,
-      onKeyPress: this._handleKeyPress,
+      onKeyDown: this._handleKeyDown,
       onChange: this._handleUpdate
     }
   }
@@ -93,9 +107,25 @@ class TagField extends React.Component {
     this.props.onChange(tags)
   }
 
-  _handleKeyPress(e) {
+  _handleClear() {
+    this.setState({
+      tags: [],
+      tag: ''
+    })
+  }
+
+  _handleKeyDown(e) {
     const { tag, tags } = this.state
-    if(_.includes([13,44], e.which)) {
+    if(tag.length === 0 && e.which === 8) {
+      this.setState({
+        tags: [
+          ...tags.slice(0, -1)
+        ],
+        tag: ''
+      })
+      e.preventDefault()
+    }
+    if(tag.length > 0 && _.includes([13,188], e.which)) {
       this.setState({
         tags: [
           ...tags,
@@ -104,7 +134,6 @@ class TagField extends React.Component {
         tag: ''
       })
       e.preventDefault()
-      e.stopPropagation()
     }
   }
 
