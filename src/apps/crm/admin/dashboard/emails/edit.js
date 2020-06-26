@@ -32,7 +32,7 @@ class Edit extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Email Campaign', name: 'config.campaign_id', type: 'lookup', endpoint: '/api/admin/crm/campaigns/email', value: 'id', text: 'title', required: true }
+            { label: 'Program', name: 'config.program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true }
           ]
         }
       ]
