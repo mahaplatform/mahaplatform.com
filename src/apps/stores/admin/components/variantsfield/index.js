@@ -11,6 +11,7 @@ class VariantsField extends React.Component {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -21,17 +22,7 @@ class VariantsField extends React.Component {
   }
 
   state = {
-    variants: [
-      { id: 1, options: { size: 'Small', color: 'Red' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 2, options: { size: 'Small', color: 'Green' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 3, options: { size: 'Small', color: 'Blue' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 4, options: { size: 'Medium', color: 'Red' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 5, options: { size: 'Medium', color: 'Green' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 6, options: { size: 'Medium', color: 'Blue' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 7, options: { size: 'Large', color: 'Red' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 8, options: { size: 'Large', color: 'Green' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true },
-      { id: 9, options: { size: 'Large', color: 'Blue' }, pricing: { fixed_price: 10.00 }, inventory_quantity: 10, is_active: true }
-    ]
+    variants: []
   }
 
   _handleActivate = this._handleActivate.bind(this)
@@ -41,28 +32,44 @@ class VariantsField extends React.Component {
     const { variants } = this.state
     return (
       <div className="variantsfield-variants">
-        { variants.map((variant, index) => (
-          <div className={ this._getClass(variant)} key={`option_${index}`}>
-            <div className="variantsfield-variant-title">
-              { Object.values(variant.options).join(' / ') } (
-              { numeral(variant.pricing.fixed_price).format('0.00') }
-              )
-            </div>
-            <div className="variantsfield-variant-inventory">
-              <NumberField { ...this._getInventory(variant) } />
-            </div>
-            <Button { ...this._getEdit(index) } />
-            { variant.is_active ?
-              <Button { ...this._getDeactivate(index) } /> :
-              <Button { ...this._getActivate(index) } />
-            }
-          </div>
-        )) }
+        <table className="ui unstackable compact table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th className="collapsing">Price</th>
+              <th className="collapsing">Inventory</th>
+              <th className="collapsing" />
+              <th className="collapsing" />
+            </tr>
+          </thead>
+          <tbody>
+            { variants.map((variant, index) => (
+              <tr className={ this._getClass(variant) } key={`option_${index}`}>
+                <td>{ variant.title }</td>
+                <td>$50.00</td>
+                <td><NumberField { ...this._getInventory(variant) } /></td>
+                <td>
+                  <Button { ...this._getEdit(index) } />
+                </td>
+                <td>
+                  { variant.is_active ?
+                    <Button { ...this._getDeactivate(index) } /> :
+                    <Button { ...this._getActivate(index) } />
+                  }
+                </td>
+              </tr>
+            )) }
+          </tbody>
+        </table>
       </div>
     )
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    this.setState({
+      variants: defaultValue
+    })
     this.props.onReady()
   }
 
@@ -101,7 +108,6 @@ class VariantsField extends React.Component {
       defaultValue: variant.inventory_quantity
     }
   }
-
 
   _handleActivate(i) {
     this.setState({

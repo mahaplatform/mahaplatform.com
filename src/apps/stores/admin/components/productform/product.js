@@ -1,4 +1,3 @@
-import VariantsField from '../../components/variantsfield'
 import OptionsField from '../../components/optionsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -11,6 +10,11 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
+  static propTypes = {
+    onCancel: PropTypes.func,
+    onDone: PropTypes.func
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -21,8 +25,7 @@ class New extends React.Component {
   _getForm() {
     return {
       title: 'New Product',
-      method: 'post',
-      action: '/api/admin/stores/products',
+      saveText: 'Next',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -30,9 +33,8 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
             { label: 'Description', name: 'description', type: 'htmlfield', placeholder: 'Enter an optional description' },
-            // { label: 'Base Pricing', name: 'pricing', type: 'pricefield' },
-            { label: 'Options', name: 'options', type: OptionsField },
-            // { label: 'Variants', name: 'variants', type: VariantsField }
+            { label: 'Base Pricing', name: 'pricing', type: 'pricefield' },
+            { label: 'Options', name: 'options', type: OptionsField }
           ]
         }
       ]
@@ -40,12 +42,11 @@ class New extends React.Component {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    this.props.onCancel()
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/stores/products/${result.id}`)
-    this.context.modal.close()
+    this.props.onDone(result)
   }
 
 }

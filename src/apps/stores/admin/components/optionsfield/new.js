@@ -13,6 +13,7 @@ class New extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -23,12 +24,15 @@ class New extends React.Component {
     return {
       title: 'New Option',
       cancelIcon: 'chevron-left',
+      saveText: 'Add',
       onCancel: this._handleBack,
+      onSubmit: this._handleSubmit,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
+            { label: 'Values', name: 'values', type: 'tagfield', required: true, placeholder: 'Separate values with a comma' }
           ]
         }
       ]
@@ -37,6 +41,10 @@ class New extends React.Component {
 
   _handleBack() {
     this.context.form.pop()
+  }
+
+  _handleSubmit() {
+    return true
   }
 
   _handleSuccess(option) {
