@@ -2,13 +2,29 @@
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.5em;
   overflow: hidden;
+  display: flex;
+}
+.maha-tagfield-field {
+  flex: 1;
+}
+.maha-tagfield-clear {
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    margin: 0 auto;
+  }
 }
 .maha-tagfield-tags {
   padding: 0.2em 0.2em 0;
 }
 .maha-tagfield-tag {
-  background-color: fadeout(@black, 97);
-  border-radius: 0.5em;
+  background-color: fadeout(@black, 95);
+  border-radius: 0.3em;
   display: inline-flex;
   margin: 0.2em;
 }
@@ -29,7 +45,7 @@
     margin: auto;
   }
 }
-.maha-tagfield-field {
+.maha-tagfield-input {
   input {
     padding: 0.8em !important;
     outline: none !important;

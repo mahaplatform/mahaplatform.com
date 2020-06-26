@@ -1,6 +1,5 @@
 import Model from '../../../core/objects/model'
 import Variant from './variant'
-import Option from './option'
 import Media from './media'
 import Store from './store'
 
@@ -14,10 +13,6 @@ const Product = new Model({
 
   media() {
     return this.hasMany(Media, 'product_id')
-  },
-
-  options() {
-    return this.hasMany(Option, 'product_id')
   },
 
   stores() {

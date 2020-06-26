@@ -10,6 +10,7 @@ const CreateProduct = {
       table.string('code')
       table.string('title')
       table.text('description')
+      table.specificType('options', 'jsonb[]')
       table.timestamps()
     })
   },
