@@ -23,30 +23,6 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(req.body.options) {
-    const variants = req.body.options.reduce((variants, option) => {
-      return variants.length > 0 ? variants.reduce((subvariants, variant) => {
-        return option.values.reduce((optionvariants, value) => [
-          ...optionvariants,
-          [
-            ...variant,
-            { option: option.title , value }
-          ]
-        ], subvariants)
-      }, []) : option.values.map(value => [
-        { option: option.title , value }
-      ])
-    }, []).map(options => ({
-      title: options.map(option => {
-        return option.value
-      }).join(' / '),
-      options
-    }))
-    console.log(variants)
-    throw new Error()
-
-  }
-
   await audit(req, {
     story: 'created',
     auditable: product

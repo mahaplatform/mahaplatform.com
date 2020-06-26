@@ -26,7 +26,6 @@ class New extends React.Component {
       cancelIcon: 'chevron-left',
       saveText: 'Add',
       onCancel: this._handleBack,
-      onSubmit: this._handleSubmit,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -41,10 +40,6 @@ class New extends React.Component {
 
   _handleBack() {
     this.context.form.pop()
-  }
-
-  _handleSubmit() {
-    return true
   }
 
   _handleSuccess(option) {
