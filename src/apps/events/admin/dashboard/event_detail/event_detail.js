@@ -66,7 +66,7 @@ class EventDetail extends React.Component {
                   Revenue
                 </div>
                 <div className="crm-report-metric-value">
-                  { numeral(event.revenue).format('0.00') }
+                  { numeral(event.revenue).format('$0.00') }
                 </div>
               </div>
             </div>
