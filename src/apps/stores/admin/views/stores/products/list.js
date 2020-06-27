@@ -1,4 +1,4 @@
-import New from '../../components/productform'
+import New from '../../../components/productform'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -16,10 +16,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Create Product', modal: New }
       ]
     },
-    endpoint: '/api/admin/stores/products',
+    endpoint: `/api/admin/stores/stores/${props.params.store_id}/products`,
     entity: 'store',
     defaultSort: { key: 'title', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/stores/products/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/stores/stores/${props.params.store_id}/products/${record.id}`)
   },
   task: {
     icon: 'plus',

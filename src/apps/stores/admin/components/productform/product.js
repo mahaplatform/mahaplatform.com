@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.Component {
+class Product extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -51,4 +51,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Product

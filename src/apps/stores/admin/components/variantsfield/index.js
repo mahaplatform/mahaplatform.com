@@ -1,4 +1,4 @@
-import { Button, NumberField } from 'maha-admin'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
@@ -32,7 +32,7 @@ class VariantsField extends React.Component {
     const { variants } = this.state
     return (
       <div className="variantsfield-variants">
-        <table className="ui unstackable compact table">
+        <table className="ui unstackable table">
           <thead>
             <tr>
               <th>Title</th>
@@ -46,8 +46,8 @@ class VariantsField extends React.Component {
             { variants.map((variant, index) => (
               <tr className={ this._getClass(variant) } key={`option_${index}`}>
                 <td>{ variant.title }</td>
-                <td>$50.00</td>
-                <td><NumberField { ...this._getInventory(variant) } /></td>
+                <td>{ this._getPrice(variant) }</td>
+                <td>{ variant.inventory_quantity }</td>
                 <td>
                   <Button { ...this._getEdit(index) } />
                 </td>
@@ -75,7 +75,7 @@ class VariantsField extends React.Component {
 
   _getActivate(index) {
     return {
-      icon: 'refresh',
+      icon: 'fw fa-refresh',
       className: 'variantsfield-variant-action',
       handler: this._handleActivate.bind(this, index)
     }
@@ -83,13 +83,13 @@ class VariantsField extends React.Component {
 
   _getClass(variant) {
     const classes = ['variantsfield-variant']
-    if(!variant.is_active) classes.push('disabled')
+    if(!variant.is_active) classes.push('inactive')
     return classes.join(' ')
   }
 
   _getDeactivate(index) {
     return {
-      icon: 'times',
+      icon: 'fw fa-times',
       className: 'variantsfield-variant-action',
       handler: this._handleDeactivate.bind(this, index)
     }
@@ -107,6 +107,12 @@ class VariantsField extends React.Component {
     return {
       defaultValue: variant.inventory_quantity
     }
+  }
+
+  _getPrice(variant) {
+    if(variant.price_type === 'free') return 'FREE'
+    if(variant.price_type === 'fixed') return numeral(variant.fixed_price).format('0.00')
+    return `${numeral(variant.low_price, '0.00')} - ${numeral(variant.high_price).format('0.00')}`
   }
 
   _handleActivate(i) {
