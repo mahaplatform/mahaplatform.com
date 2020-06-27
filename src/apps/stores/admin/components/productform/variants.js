@@ -59,6 +59,8 @@ class Variants extends React.Component {
       title: options.map(option => option.value).join(' / '),
       options,
       ...product.pricing,
+      inventory_quantity: 0,
+      inventory_policy: 'deny',
       is_active: true
     }))
   }

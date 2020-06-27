@@ -1,9 +1,11 @@
-import ProductList from './products/list'
+import ProductShow from './stores/products/show'
 import StoreList from './stores/list'
+import StoreShow from './stores/show'
 
 const routes = [
-  { path: '/products', component: ProductList },
-  { path: '/stores', component: StoreList }
+  { path: '/stores', component: StoreList },
+  { path: '/stores/:id', component: StoreShow },
+  { path: '/stores/:store_id/products/:id', component: ProductShow }
 ]
 
 export default routes

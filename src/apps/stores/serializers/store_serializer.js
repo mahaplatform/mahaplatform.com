@@ -5,6 +5,7 @@ const storeSerializer = (req, result) => ({
   permalink: result.get('permalink'),
   url: result.get('url'),
   program: program(result.related('program')),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
