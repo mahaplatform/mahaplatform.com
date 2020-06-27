@@ -28,7 +28,8 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
+            { label: 'Base Pricing', name: 'pricing', type: 'pricefield' }
           ]
         }
       ]

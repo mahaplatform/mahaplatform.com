@@ -1,5 +1,15 @@
 .variantsfield-variant {
-  &.disabled {
+  &.inactive td {
     color: fadeout(@black, 80);
+  }
+  th, td {
+    padding: 0.8em !important;
+  }
+}
+.variantsfield-variant-action {
+  cursor: pointer;
+  color: fadeout(@black, 80);
+  &:hover {
+    color: fadeout(@black, 40);
   }
 }
