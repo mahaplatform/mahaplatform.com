@@ -5,7 +5,7 @@ import EmailCampaign from '../../../../models/email_campaign'
 import moment from 'moment'
 
 const getSendAt = ({ strategy, date, time }) => {
-  if(strategy === 'now') return moment()
+  if(strategy === 'now') return moment().add(10, 'seconds')
   return moment(`${date} ${time}`)
 }
 
