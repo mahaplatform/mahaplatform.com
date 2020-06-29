@@ -216,11 +216,29 @@ const getProgramData = async (req, { contact, program }) => ({
   }), {})
 })
 
-const getContactData = async (req, { contact }) => {
+const extractValues = async (req, { values, fieldMap }) => {
+  return Object.keys(values).reduce((extracted, code) => {
+    const field = fieldMap[code]
+    const type = field.get('type')
+    const config = field.get('config')
+    const value = values[code]
+    return {
+      ...extracted,
+      [code]: type === 'checkboxgroup' || config.multiple === true ? value : value[0]
+    }
+  }, {})
+}
+
+const getContactData = async (req, { contact, fields }) => {
 
   await contact.load(['lists','organizations','tags','topics','responses','registrations','import_items'], {
     transacting: req.trx
   })
+
+  const fieldMap = fields.reduce((map, field) => ({
+    ...map,
+    [field.get('code')]: field
+  }))
 
   return {
     contact: {
@@ -232,7 +250,7 @@ const getContactData = async (req, { contact }) => {
       address: contact.get('address'),
       birthday: contact.get('birthday'),
       spouse: contact.get('spouse'),
-      values: contact.get('values'),
+      values: extractValues(contact.get('values'), fieldMap),
       list_ids: contact.related('lists').map(list => list.get('id')),
       organization_ids: contact.related('organizations').map(organization => organization.get('id')),
       tag_ids: contact.related('tags').map(tag => tag.get('id')),
@@ -251,10 +269,11 @@ const getEnvironmentData = async () => ({
   }
 })
 
-const ifThenStep = async (req, { config, contact, enrollment, steps, step, workflow }) => {
+const ifThenStep = async (req, { config, contact, enrollment, fields, steps, step, workflow }) => {
 
   const contactData = await getContactData(req, {
-    contact
+    contact,
+    fields
   })
 
   const programData = await getProgramData(req, {

@@ -1,6 +1,7 @@
 import { getContacts } from '../../../services/contacts'
-import { addToLists } from '../../../services/lists'
 import { addToTopics } from '../../../services/topics'
+import { addToLists } from '../../../services/lists'
+import Field from '../../../../maha/models/field'
 import _ from 'lodash'
 
 const getType = (type) => {
@@ -26,7 +27,15 @@ const addToItem = async (req, params) => {
 
 const batchRoute = async (req, res) => {
 
+  const fields = await Field.query(qb => {
+    qb.where('parent_type', 'crm_programs')
+    qb.where('team_id', req.team.get('id'))
+  }).fetchAll({
+    transacting: req.trx
+  })
+
   const contacts = await getContacts(req, {
+    fields,
     filter: req.body.filter,
     withRelated: ['lists','topics']
   }).then(result => result.toArray())

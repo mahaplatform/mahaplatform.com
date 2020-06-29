@@ -5,6 +5,7 @@ import WorkflowRecording from '../../../models/workflow_recording'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import WorkflowAction from '../../../models/workflow_action'
+import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 import hangup from './steps/voice/hangup'
 import executors from './steps'
@@ -12,7 +13,7 @@ import moment from 'moment'
 import _ from 'lodash'
 
 const executeStep = async (req, params) => {
-  const { answer, contact, dial, enrollment, execute, step, steps, recording, tokens, workflow } = params
+  const { answer, contact, dial, enrollment, execute, fields, step, steps, recording, tokens, workflow } = params
   const executor = executors[step.get('type')][step.get('action')]
   return await executor(req, {
     answer,
@@ -21,6 +22,7 @@ const executeStep = async (req, params) => {
     dial,
     enrollment,
     execute,
+    fields,
     recording,
     step,
     steps,
@@ -272,6 +274,7 @@ const executeWorkflow = async (req, params) => {
   const { answer, code, dial, enrollment_id, execute, recording } = params
 
   const enrollment = await WorkflowEnrollment.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', enrollment_id)
   }).fetch({
     transacting: req.trx
@@ -281,7 +284,15 @@ const executeWorkflow = async (req, params) => {
     qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('crm_contacts.id', enrollment.get('contact_id'))
+    qb.where('team_id', req.team.get('id'))
   }).fetch({
+    transacting: req.trx
+  })
+
+  const fields = await Field.query(qb => {
+    qb.where('parent_type', 'crm_programs')
+    qb.where('team_id', req.team.get('id'))
+  }).fetchAll({
     transacting: req.trx
   })
 
@@ -317,6 +328,7 @@ const executeWorkflow = async (req, params) => {
     dial,
     enrollment,
     execute,
+    fields,
     step,
     steps,
     recording,
