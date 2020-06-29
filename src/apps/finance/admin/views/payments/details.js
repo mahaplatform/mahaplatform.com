@@ -62,12 +62,17 @@ const Details = ({ payment }) => {
     items.push({ label: 'PayPal ID', content: <Button { ...paypal } /> })
 
   }
-  
+
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })
 
   if(payment.refunded) {
     items.push({ label: 'Refunded', content: numeral(payment.refunded).format('$0.00') })
   }
+
+  items.push({ label: 'Merchant Account', content: payment.merchant.title })
+  items.push({ label: 'Fee', content: (
+    <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
+  ) })
 
   const list = {
     sections: [
@@ -115,10 +120,6 @@ const Details = ({ payment }) => {
       title: 'Disbursement',
       items: [
         { label: 'Date', content: <Button { ...disbursement } /> },
-        { label: 'Merchant Account', content: payment.disbursement.merchant.title },
-        { label: 'Fee', content: (
-          <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
-        ) }
       ]
     })
 

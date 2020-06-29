@@ -26,9 +26,7 @@ const Invoice = new Model({
   },
 
   invoice_line_items() {
-    return this.hasMany(InvoiceLineItem, 'invoice_id').query(qb => {
-      qb.orderByRaw('weight asc,created_at asc')
-    })
+    return this.hasMany(InvoiceLineItem, 'invoice_id')
   },
 
   line_items() {

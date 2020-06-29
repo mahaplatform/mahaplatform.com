@@ -2,7 +2,7 @@ import numeral from 'numeral'
 import moment from 'moment'
 import _ from 'lodash'
 
-const accpaccSerializer = async (req, { batch, items }) => {
+const accpaccExpenseSerializer = async (req, { batch, items }) => {
 
   const vendors = items.reduce((vendors, record) => {
     const key = _getVendorKey(record)
@@ -195,4 +195,4 @@ const _getVendorId = (record) => {
   return record.related('user').get('values').vendor_id
 }
 
-export default accpaccSerializer
+export default accpaccExpenseSerializer

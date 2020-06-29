@@ -2,10 +2,10 @@ import { isOwnerOrAdmin, canApprove } from './utils/access'
 
 const navigation = async (req) => ({
   items: [
+    { label: 'Batches', rights: ['finance:manage_configuration'], route: '/batches'},
     { label: 'Expenses', rights: ['finance:manage_expenses'], items: [
       { label: 'Accounts', rights: ['finance:manage_configuration'], route: '/accounts'},
       { label: 'Approvals', access: canApprove, route: '/approvals'},
-      { label: 'Batches', rights: ['finance:manage_configuration'], route: '/batches'},
       { label: 'Expense Types', rights: ['finance:manage_configuration'], route: '/expense_types' },
       { label: 'Items', route: '/items' },
       { label: 'Rates', rights: ['finance:manage_configuration'], route: '/rates' },
@@ -21,11 +21,8 @@ const navigation = async (req) => ({
       { label: 'Merchant Accounts', route: '/merchants' },
       { label: 'Payments', route: '/payments' },
       { label: 'Products', route: '/products' },
-      { label: 'Revenue Types', route: '/revenue_types' },
-      { label: 'Reports', items: [
-        { label: 'Donation', route: '/reports/donation' },
-        { label: 'Revenue', route: '/reports/revenue' }
-      ] }
+      { label: 'Report', route: '/reports/revenue' },
+      { label: 'Revenue Types', route: '/revenue_types' }
     ] },
     { label: 'Projects', route: '/projects' }
   ]

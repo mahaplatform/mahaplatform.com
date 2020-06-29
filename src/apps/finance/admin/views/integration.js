@@ -1,5 +1,5 @@
-import pluralize from 'pluralize'
 import Export from './batches/new'
+import pluralize from 'pluralize'
 import React from 'react'
 
 export const getIntegrationTasks = (integration, context, selected, onSuccess) => {
@@ -10,7 +10,7 @@ export const getIntegrationTasks = (integration, context, selected, onSuccess) =
       color: 'violet',
       rights: ['finance:manage_configuration'],
       confirm: `Are you sure you want to export these ${selected.total} items?`,
-      modal: <Export filter={ selected.filter } onSuccess={ onSuccess } />
+      modal: <Export type="expense" filter={ selected.filter } onSuccess={ onSuccess } />
     }
   }
 
@@ -25,7 +25,7 @@ export const getIntegrationTask = (integration, team, context, type, code) => {
       color: 'violet',
       text: 'Export',
       confirm: `Are you sure you want to export this ${type}?`,
-      modal: <Export filter={{ $and: [{code: { $eq: code }}] }} />
+      modal: <Export type="expense" filter={{ $and: [{code: { $eq: code }}] }} />
     }]
   }
 

@@ -1,9 +1,9 @@
-import { notifications } from '../../../../../core/services/routes/notifications'
-import { audit } from '../../../../../core/services/routes/audit'
-import BatchSerializer from '../../../serializers/batch_serializer'
-import socket from '../../../../../core/services/routes/emitter'
-import Batch from '../../../models/batch'
-import Item from '../../../models/item'
+import { notifications } from '../../../../../../core/services/routes/notifications'
+import { audit } from '../../../../../../core/services/routes/audit'
+import BatchSerializer from '../../../../serializers/batch_serializer'
+import socket from '../../../../../../core/services/routes/emitter'
+import Batch from '../../../../models/batch'
+import Item from '../../../../models/item'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {
@@ -19,16 +19,13 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const total = batchItems.reduce((total, item) => {
-    return total + parseFloat(item.get('amount'))
-  }, 0.00)
-
+  const settings = req.app.get('settings')
+  
   const batch = await Batch.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    integration: 'accpac',
-    items_count: batchItems.length,
-    total: total.toFixed(2),
+    type: 'expense',
+    integration: settings.integration,
     date: req.body.date || moment().format('YYYY-MM-DD')
   }).save(null, {
     transacting: req.trx
