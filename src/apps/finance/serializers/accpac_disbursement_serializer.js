@@ -25,13 +25,13 @@ const getMethod = (payment) => {
   if(payment.get('method') === 'cash') return 'CASH'
 }
 
-const getSummary = (batch, allocation, index) => {
+const getSummary = (disbursement, allocation, index) => {
 
   const date = moment(allocation.related('payment').get('date'))
 
-  const month = parseInt(moment(batch.get('date')).format('M'))
+  const month = parseInt(moment(disbursement.get('date')).format('M'))
 
-  const year = parseInt(moment(batch.get('date')).format('YYYY'))
+  const year = parseInt(moment(disbursement.get('date')).format('YYYY'))
 
   const startMonth = 10
 
@@ -42,12 +42,12 @@ const getSummary = (batch, allocation, index) => {
   return [
     1,
     'CA',
-    batch.get('id'),
+    disbursement.get('id'),
     index + 1,
     `MH${allocation.related('payment').get('id')}`,
     '',
     date.format('YYYYMMDD'),
-    `MH${batch.get('id')}`,
+    `MH${disbursement.get('id')}`,
     allocation.related('payment').related('invoice').related('customer').get('display_name'),
     numeral(allocation.get('amount')).format('0.00'),
     numeral(allocation.get('amount')).format('0.00'),
@@ -82,7 +82,7 @@ const getSummary = (batch, allocation, index) => {
     1,
     ...Array(11).fill(0),
     'AR',
-    'B10010',
+    disbursement.related('merchant').get('integration').bank_code,
     'USD',
     '',
     0,
@@ -122,11 +122,11 @@ const getLineItemDescription = (allocation, text) => {
   return parts.join(' - ')
 }
 
-const getAmount = (batch, allocation, index) => {
+const getAmount = (disbursement, allocation, index) => {
   return [
     3,
     'CA',
-    batch.get('id'),
+    disbursement.get('id'),
     index + 1,
     20,
     '',
@@ -144,11 +144,11 @@ const getAmount = (batch, allocation, index) => {
   ]
 }
 
-const getFee = (batch, allocation, index) => {
+const getFee = (disbursement, allocation, index) => {
   return [
     3,
     'CA',
-    batch.get('id'),
+    disbursement.get('id'),
     index + 1,
     40,
     '',
@@ -166,7 +166,7 @@ const getFee = (batch, allocation, index) => {
   ]
 }
 
-const accpaccRevenueSerializer = async (req, { batch, allocations }) => {
+const accpaccDisbursementSerializer = async (req, { disbursement, allocations }) => {
 
   const headers = [
     ['RECTYPE','CODEPYMTYP','CNTBTCH','CNTITEM','IDRMIT','IDCUST','DATERMIT','TEXTRMIT','TXTRMITREF','AMTRMIT','AMTRMITTC','RATEEXCHTC','SWRATETC','CNTPAYMETR','AMTPAYMTC','AMTDISCTC','CODEPAYM','CODECURN','RATETYPEHC','RATEEXCHHC','SWRATEHC','RMITTYPE','DOCTYPE','IDINVCMTCH','CNTLSTLINE','FISCYR','FISCPER','TEXTPAYOR','DATERATETC','RATETYPETC','AMTADJENT','DATERATEHC','PAYMTYPE','REMUNAPLTC','REMUNAPL','AMTRMITHC','DOCNBR','AMTADJHC','OPERBANK','OPERCUST','AMTDISCHC','AMTDBADJHC','AMTCRADJHC','AMTDBADJTC','AMTCRADJTC','SWJOB','APPLYMETH','ERRBATCH','ERRENTRY','VALUES','PROCESSCMD','SRCEAPPL','IDBANK','CODECURNBC','DRILLAPP','DRILLTYPE','DRILLDWNLK','SWPRINTED','SWTXAMTCTL','CODETAXGRP','TAXVERSION','CODETAX1','CODETAX2','CODETAX3','CODETAX4','CODETAX5','TAXCLASS1','TAXCLASS2','TAXCLASS3','TAXCLASS4','TAXCLASS5','TXBSE1TC','TXBSE2TC','TXBSE3TC','TXBSE4TC','TXBSE5TC','TXAMT1TC','TXAMT2TC','TXAMT3TC','TXAMT4TC','TXAMT5TC','TXTOTTC','AMTNETTC','DEPSEQ','DEPLINE','CODECURNRC','SWTXCTLRC','RATERC','RATETYPERC','RATEDATERC','RATEOPRC','SWRATERC','TXAMT1RC','TXAMT2RC','TXAMT3RC','TXAMT4RC','TXAMT5RC','TXTOTRC','CNTACC','AMTACCTC','AMTACCHC','AMTPAYMHC','REMUNAPLHC','TXBSE1HC','TXBSE2HC','TXBSE3HC','TXBSE4HC','TXBSE5HC','TXAMT1HC','TXAMT2HC','TXAMT3HC','TXAMT4HC','TXAMT5HC','TXTOTHC','AMTNETHC','ARVERSION','ENTEREDBY','DATEBUS','IDACCTSET','CCPREVID','CCPREVSTTS','CCTRANID','CCTRANSTTS','PROCESSCOD'],
@@ -180,13 +180,13 @@ const accpaccRevenueSerializer = async (req, { batch, allocations }) => {
 
     return [
       ...revenues,
-      getSummary(batch, allocation, index),
-      getAmount(batch, allocation, index),
-      ...allocation.get('fee') > 0 ? [getFee(batch, allocation, index)] : []
+      getSummary(disbursement, allocation, index),
+      getAmount(disbursement, allocation, index),
+      ...allocation.get('fee') > 0 ? [getFee(disbursement, allocation, index)] : []
     ]
 
   }, headers)
 
 }
 
-export default accpaccRevenueSerializer
+export default accpaccDisbursementSerializer

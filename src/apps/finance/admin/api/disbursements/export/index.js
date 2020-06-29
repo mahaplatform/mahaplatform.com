@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.post('/', create)
 
-router.get('/:id', show)
+router.get('/', show)
 
 export default router

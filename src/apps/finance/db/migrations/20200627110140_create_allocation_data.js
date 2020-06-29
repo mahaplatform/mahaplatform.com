@@ -35,8 +35,7 @@ const CreateAllocationData = {
         await Allocation.forge({
           team_id: payment.get('team_id'),
           payment_id: payment.get('id'),
-          line_item_id: line_item.get('id'),
-          status: 'pending'
+          line_item_id: line_item.get('id')
         }).save(null, {
           transacting: knex
         })

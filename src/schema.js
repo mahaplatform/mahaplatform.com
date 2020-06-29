@@ -1020,7 +1020,6 @@ const schema = {
       table.integer('batch_id').unsigned()
       table.integer('payment_id').unsigned()
       table.integer('line_item_id').unsigned()
-      table.USER-DEFINED('status')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1094,6 +1093,7 @@ const schema = {
       table.date('date')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_expense_types', (table) => {

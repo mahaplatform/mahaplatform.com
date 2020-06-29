@@ -16,7 +16,6 @@ const CreateAllocation = {
       table.foreign('payment_id').references('finance_payments.id')
       table.integer('line_item_id').unsigned()
       table.foreign('line_item_id').references('finance_line_items.id')
-      table.enum('status', ['pending','processed'], { useNative: true, enumName: 'finance_allocation_statuses' })
       table.timestamps()
     })
 

@@ -2,6 +2,6 @@ import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
 import create from './create'
 
-describe('src/apps/finance/admin/api/batches/revenue/create.js', () => {
+describe('src/apps/finance/admin/api/disbursements/export/create.js', () => {
 
 })

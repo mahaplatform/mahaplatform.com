@@ -11,7 +11,8 @@ const createRoute = async (req, res) => {
     title: req.body.title,
     bank_name: req.body.routing.bank_name,
     routing_number: req.body.routing.number,
-    account_number: req.body.account_number
+    account_number: req.body.account_number,
+    integration: req.body.integration
   }).save(null, {
     transacting: req.trx
   })

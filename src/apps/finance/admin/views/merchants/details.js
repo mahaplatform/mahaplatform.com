@@ -3,7 +3,7 @@ import { Button, List } from 'maha-admin'
 import Braintree from './braintree'
 import React from 'react'
 
-const Details = ({ merchant }) => {
+const Details = ({ merchant, integration }) => {
 
   const list = {
     items: [
@@ -28,12 +28,19 @@ const Details = ({ merchant }) => {
 
   }
 
+  if(integration === 'accpac') {
+    list.items = list.items.concat([
+      { label: 'Bank Code', content: merchant.integration.bank_code }
+    ])
+  }
+
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
-  merchant: PropTypes.object
+  merchant: PropTypes.object,
+  integration: PropTypes.object
 }
 
 export default Details

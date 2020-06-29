@@ -1,6 +1,11 @@
 import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
 import New from './new'
+import React from 'react'
+
+const mapResourcesToPage = (props, context) => ({
+  app: '/api/admin/apps/finance/settings'
+})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Merchant Accounts',
@@ -18,7 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Merchant Accounts',
       text: 'You have not yet added any merchant accounts',
       buttons: [
-        { label: 'Add Merchant Account', modal: New }
+        { label: 'Add Merchant Account', modal: <New integration={ resources.app.settings.integration } /> }
       ]
     },
     entity: 'invoice'
@@ -26,8 +31,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     label: 'Add Merchant Account',
     icon: 'plus',
-    modal: New
+    modal: <New integration={ resources.app.settings.integration } />
   }
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

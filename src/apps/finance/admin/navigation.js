@@ -2,10 +2,10 @@ import { isOwnerOrAdmin, canApprove } from './utils/access'
 
 const navigation = async (req) => ({
   items: [
-    { label: 'Batches', rights: ['finance:manage_configuration'], route: '/batches'},
     { label: 'Expenses', rights: ['finance:manage_expenses'], items: [
       { label: 'Accounts', rights: ['finance:manage_configuration'], route: '/accounts'},
       { label: 'Approvals', access: canApprove, route: '/approvals'},
+      { label: 'Batches', rights: ['finance:manage_configuration'], route: '/batches'},
       { label: 'Expense Types', rights: ['finance:manage_configuration'], route: '/expense_types' },
       { label: 'Items', route: '/items' },
       { label: 'Rates', rights: ['finance:manage_configuration'], route: '/rates' },

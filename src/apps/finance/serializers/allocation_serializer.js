@@ -9,7 +9,6 @@ const AllocationSerializer = (req, result) => ({
   amount: result.get('amount'),
   fee: result.get('fee'),
   total: result.get('total'),
-  status: result.get('status'),
   created_at: result.get('created_at')
 })
 

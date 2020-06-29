@@ -69,10 +69,12 @@ const Details = ({ payment }) => {
     items.push({ label: 'Refunded', content: numeral(payment.refunded).format('$0.00') })
   }
 
-  items.push({ label: 'Merchant Account', content: payment.merchant.title })
-  items.push({ label: 'Fee', content: (
-    <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
-  ) })
+  if(payment.merchant) {
+    items.push({ label: 'Merchant Account', content: payment.merchant.title })
+    items.push({ label: 'Fee', content: (
+      <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
+    ) })
+  }
 
   const list = {
     sections: [

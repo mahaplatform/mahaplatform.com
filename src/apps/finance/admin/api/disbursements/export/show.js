@@ -1,20 +1,22 @@
-import AccpacRevenueSerializer from '../../../../serializers/accpac_revenue_serializer'
+import AccpacDisbursementSerializer from '../../../../serializers/accpac_disbursement_serializer'
+import Disbursement from '../../../../models/disbursement'
 import Allocation from '../../../../models/allocation'
-import Batch from '../../../../models/batch'
 
 const showRoute = async (req, res) => {
 
-  const batch = await Batch.query(qb => {
+  const disbursement = await Disbursement.query(qb => {
+    qb.select('finance_disbursements.*','finance_disbursement_totals.*')
+    qb.innerJoin('finance_disbursement_totals', 'finance_disbursement_totals.disbursement_id', 'finance_disbursements.id')
     qb.where('team_id', req.team.get('id'))
-    qb.where('type', 'revenue')
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['merchant'],
     transacting: req.trx
   })
 
-  if(!batch) return res.status(404).respond({
+  if(!disbursement) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load batch'
+    message: 'Unable to load disbursement'
   })
 
   const allocations = await Allocation.query(qb => {
@@ -28,13 +30,13 @@ const showRoute = async (req, res) => {
     qb.innerJoin('finance_projects','finance_projects.id','finance_line_items.project_id')
     qb.innerJoin('finance_revenue_types','finance_revenue_types.id','finance_line_items.revenue_type_id')
     qb.where('finance_allocations.team_id', req.team.get('id'))
-    qb.where('finance_allocations.batch_id', req.params.id)
+    qb.where('finance_payments.disbursement_id', req.params.id)
   }).fetchAll({
     withRelated: ['payment.invoice.customer','payment.invoice.program','line_item.project','line_item.revenue_type'],
     transacting: req.trx
   })
 
-  res.status(200).respond({ batch, allocations }, AccpacRevenueSerializer)
+  res.status(200).respond({ disbursement, allocations }, AccpacDisbursementSerializer)
 
 }
 
