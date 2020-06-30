@@ -14,6 +14,7 @@ class Export extends React.Component {
   static propTypes = {
     filter: PropTypes.object,
     token: PropTypes.string,
+    type: PropTypes.string,
     onSuccess: PropTypes.func
   }
 
@@ -25,11 +26,11 @@ class Export extends React.Component {
   }
 
   _getForm() {
-    const { filter } = this.props
+    const { filter, type } = this.props
     return {
       title: 'Create Batch',
       method: 'post',
-      action: '/api/admin/finance/batches',
+      action: `/api/admin/finance/batches/${type}`,
       successText: 'Export',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
@@ -49,8 +50,9 @@ class Export extends React.Component {
   }
 
   _handleSuccess(batch) {
+    const { type } = this.props
     setTimeout(() => {
-      window.location.href = `/api/admin/finance/batches/${batch.id}.csv?$page[limit]=0&download=true&enclosure="&token=${this.props.token}`
+      window.location.href = `/api/admin/finance/batches/${type}/${batch.id}.csv?$page[limit]=0&download=true&enclosure="&token=${this.props.token}`
     }, 500)
     this.props.onSuccess()
     this.context.modal.close()

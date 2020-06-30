@@ -20,6 +20,7 @@ const getLineItems = async (req, { products }) => {
       product_id: product.get('id'),
       project_id: product.get('project_id'),
       donation_revenue_type_id: product.get('donation_revenue_type_id'),
+      overage_strategy: product.get('overage_strategy'),
       revenue_type_id: product.get('revenue_type_id'),
       price_type: product.get('price_type'),
       fixed_price: product.get('fixed_price'),

@@ -18,7 +18,7 @@ const CreatePayment = {
       table.integer('disbursement_id').unsigned()
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.enum('method', ['cash','check','credit','scholarship','card','ach','applepay','googlepay','paypal'], { useNative: true, enumName: 'finance_payments_method' })
-      table.enum('status', ['captured','settled','disbursed'], { useNative: true, enumName: 'finance_payments_status' })
+      table.enum('status', ['captured','settled','deposited'], { useNative: true, enumName: 'finance_payments_status' })
       table.enum('card_type', ['visa','mastercard','discover','amex','jcb'], { useNative: true, enumName: 'finance_payments_card_type' })
       table.decimal('amount', 6, 2)
       table.decimal('fee', 6, 2)

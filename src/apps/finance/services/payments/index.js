@@ -1,6 +1,8 @@
+import { audit } from '../../../../core/services/routes/audit'
 import RouteError from '../../../../core/objects/route_error'
 import braintree from '../../../../core/services/braintree'
 import { chargeScholarship } from './scholarship'
+import Allocation from '../../models/allocation'
 import { chargeGooglePay } from './googlepay'
 import { chargeApplePay } from './applepay'
 import { chargeCredit } from './credit'
@@ -57,13 +59,11 @@ const getCustomer = async(req, { customer }) => {
 
 }
 
-const chargeCustomer = async (req, { invoice, params }) => {
+const getPayment = async (req, { invoice, params }) => {
 
-  const { method, payment, amount } = params
+  const paymentCreator = getPaymentCreator(params.method)
 
-  const paymentCreator = getPaymentCreator(method)
-
-  if(_.includes(['cash','check','credit','scholarship'], method)) {
+  if(_.includes(['cash','check','credit','scholarship'], params.method)) {
     return await paymentCreator(req, {
       invoice,
       ...params
@@ -80,13 +80,49 @@ const chargeCustomer = async (req, { invoice, params }) => {
 
   const merchant = invoice.related('program').related('merchant')
 
-  return await paymentCreator(req, {
+  const payment = await paymentCreator(req, {
     invoice,
     customer,
     merchant,
-    payment,
-    amount
+    payment: params.payment,
+    amount: params.amount
   })
+
+  await audit(req, {
+    contact: customer,
+    story: 'payment made',
+    auditable: invoice
+  })
+
+  await audit(req, {
+    contact: customer,
+    story: 'created',
+    auditable: payment
+  })
+
+  return payment
+
+}
+
+const chargeCustomer = async (req, { invoice, params }) => {
+
+  const payment = await getPayment(req, { invoice, params })
+
+  await invoice.load(['line_items'], {
+    transacting: req.trx
+  })
+
+  await Promise.mapSeries(invoice.related('line_items'), async (line_item) => {
+    await Allocation.forge({
+      team_id: req.team.get('id'),
+      payment_id: payment.get('id'),
+      line_item_id: line_item.get('id')
+    }).save(null, {
+      transacting: req.trx
+    })
+  })
+
+  return payment
 
 }
 

@@ -28,15 +28,25 @@ export const audit = async (req, entries) => {
 }
 
 const _getSubject = (req, entry) => {
+  if(entry.subject === null) {
+    return {
+      team_id: req.team.get('id')
+    }
+  }
   if(entry.contact) {
     return {
       team_id: entry.contact.get('team_id'),
       contact_id: entry.contact.get('id')
     }
   }
+  if(req.user) {
+    return {
+      team_id: req.user.get('team_id'),
+      user_id: req.user.get('id')
+    }
+  }
   return {
-    team_id: req.user.get('team_id'),
-    user_id: req.user.get('id')
+    team_id: req.team.get('id')
   }
 }
 

@@ -8,7 +8,7 @@ const PaymentSerializer = (req, result) => ({
   credit: credit(result.related('credit')),
   date: result.get('date'),
   description: result.get('description'),
-  disbursement: disbursement(result.related('disbursement')),
+  deposit: deposit(result.related('deposit')),
   disbursed: result.get('disbursed'),
   fee: result.get('fee'),
   invoice: invoice(result.related('invoice')),
@@ -45,12 +45,12 @@ const customer = (customer) => {
   }
 }
 
-const disbursement = (disbursement) => {
-  if(!disbursement.id) return null
+const deposit = (deposit) => {
+  if(!deposit.id) return null
   return {
-    id: disbursement.get('id'),
-    date: disbursement.get('date'),
-    merchant: merchant(disbursement.related('merchant'))
+    id: deposit.get('id'),
+    date: deposit.get('date'),
+    merchant: merchant(deposit.related('merchant'))
   }
 }
 

@@ -1,12 +1,12 @@
+import { Audit, Button, List, Comments } from 'maha-admin'
 import Receipt from '../../components/receipt'
-import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
-const Details = ({ payment }) => {
+const Details = ({ audits, payment }) => {
 
   const invoice = {
     className: 'link',
@@ -62,11 +62,30 @@ const Details = ({ payment }) => {
     items.push({ label: 'PayPal ID', content: <Button { ...paypal } /> })
 
   }
-  
+
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })
 
   if(payment.refunded) {
     items.push({ label: 'Refunded', content: numeral(payment.refunded).format('$0.00') })
+  }
+
+  if(payment.merchant) {
+    items.push({ label: 'Merchant Account', content: payment.merchant.title })
+    items.push({ label: 'Fee', content: (
+      <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
+    ) })
+  }
+
+  if(payment.status === 'deposited') {
+
+    const deposit = {
+      className: 'link',
+      label: moment(payment.deposit.date).format('MM/DD/YYYY'),
+      route: `/admin/finance/deposits/${payment.deposit.id}`
+    }
+
+    items.push({ label: 'Deposited', content: <Button { ...deposit } /> })
+
   }
 
   const list = {
@@ -87,8 +106,8 @@ const Details = ({ payment }) => {
     list.alert = { color: 'teal', message: 'This payment is pending settlement' }
   } else if(payment.status === 'settled') {
     list.alert = { color: 'blue', message: 'This payment has been settled' }
-  } else if(payment.status === 'disbursed') {
-    list.alert = { color: 'green', message: 'This payment has been disbursed' }
+  } else if(payment.status === 'deposited') {
+    list.alert = { color: 'violet', message: 'This payment has been deposited' }
   } else if(payment.status === 'received') {
     list.alert = { color: 'green', message: 'This payment was received' }
   }
@@ -103,32 +122,20 @@ const Details = ({ payment }) => {
     })
   }
 
-  if(payment.status === 'disbursed') {
+  list.sections.push({
+    items: [
+      { component: <Audit entries={ audits } /> }
+    ]
+  })
 
-    const disbursement = {
-      className: 'link',
-      label: moment(payment.disbursement.date).format('MM/DD/YYYY'),
-      route: `/admin/finance/disbursements/${payment.disbursement.id}`
-    }
-
-    list.sections.push({
-      title: 'Disbursement',
-      items: [
-        { label: 'Date', content: <Button { ...disbursement } /> },
-        { label: 'Merchant Account', content: payment.disbursement.merchant.title },
-        { label: 'Fee', content: (
-          <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
-        ) }
-      ]
-    })
-
-  }
+  list.footer = <Comments entity={`finance_payments/${payment.id}`} />
 
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   payment: PropTypes.object
 }
 

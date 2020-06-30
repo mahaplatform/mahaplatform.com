@@ -33,7 +33,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.map(line_items, async(line_item) => {
+  await Promise.map(line_items, async(line_item, delta) => {
 
     const product = await Product.query(qb => {
       qb.where('team_id', req.team.get('id'))
@@ -49,6 +49,7 @@ const createRoute = async (req, res) => {
       project_id: product.get('project_id'),
       revenue_type_id: product.get('revenue_type_id'),
       is_tax_deductible: product.get('is_tax_deductible'),
+      delta,
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,

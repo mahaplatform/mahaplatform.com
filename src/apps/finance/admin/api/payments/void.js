@@ -1,5 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import RouteError from '../../../../../core/objects/route_error'
 import braintree from '../../../../../core/services/braintree'
@@ -53,6 +54,11 @@ const voidRoute = async (req, res) => {
   await activity(req, {
     story: 'voided {object}',
     object: payment
+  })
+
+  await audit(req, {
+    story: 'voided',
+    auditable: payment
   })
 
   await socket.refresh(req, [

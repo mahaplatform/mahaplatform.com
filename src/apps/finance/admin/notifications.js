@@ -16,9 +16,9 @@ const notifications = [
     title: 'Item Reviewed',
     description: 'one of my advances, expenses, or trips is reviewed'
   }, {
-    code: 'item_processed',
-    title: 'Item Processed',
-    description: 'one of my advances, expenses, or trips is processed'
+    code: 'item_exported',
+    title: 'Item Exported',
+    description: 'one of my advances, expenses, or trips is exported'
   }, {
     code: 'item_changed',
     title: 'Item Changed',

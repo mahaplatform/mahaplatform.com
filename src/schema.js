@@ -1014,16 +1014,24 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
+    await knex.schema.createTable('finance_allocations', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('payment_id').unsigned()
+      table.integer('line_item_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('finance_batches', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.string('integration', 255)
-      table.integer('items_count')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.decimal('total', 9, 2)
       table.date('date')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('finance_checks', (table) => {
@@ -1077,13 +1085,14 @@ const schema = {
       table.string('description', 255)
     })
 
-    await knex.schema.createTable('finance_disbursements', (table) => {
+    await knex.schema.createTable('finance_deposits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('merchant_id').unsigned()
       table.date('date')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_expense_types', (table) => {
@@ -1152,9 +1161,7 @@ const schema = {
       table.boolean('is_tax_deductible')
       table.decimal('discount_amount', 5, 2)
       table.decimal('discount_percent', 5, 4)
-      table.decimal('base_price', 5, 2)
-      table.decimal('donation', 5, 2)
-      table.integer('donation_revenue_type_id').unsigned()
+      table.integer('delta')
     })
 
     await knex.schema.createTable('finance_members', (table) => {
@@ -1211,7 +1218,7 @@ const schema = {
       table.integer('credit_id').unsigned()
       table.integer('scholarship_id').unsigned()
       table.integer('merchant_id').unsigned()
-      table.integer('disbursement_id').unsigned()
+      table.integer('deposit_id').unsigned()
       table.USER-DEFINED('method')
       table.decimal('amount', 6, 2)
       table.string('reference', 255)
@@ -2954,7 +2961,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_disbursements', table => {
+    await knex.schema.table('finance_deposits', table => {
       table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2967,7 +2974,6 @@ const schema = {
     })
 
     await knex.schema.table('finance_line_items', table => {
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('product_id').references('finance_products.id')
       table.foreign('project_id').references('finance_projects.id')
@@ -2986,7 +2992,7 @@ const schema = {
 
     await knex.schema.table('finance_payments', table => {
       table.foreign('credit_id').references('finance_credits.id')
-      table.foreign('disbursement_id').references('finance_disbursements.id')
+      table.foreign('deposit_id').references('finance_deposits.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('payment_method_id').references('finance_payment_methods.id')
@@ -3475,6 +3481,12 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_allocations', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('line_item_id').references('finance_line_items.id')
     })
 
 
@@ -4937,6 +4949,53 @@ union
     `)
 
     await knex.raw(`
+      create view finance_allocation_details AS
+      with percents as (
+      select finance_invoice_line_items_1.line_item_id,
+      case
+      when (finance_invoice_totals.total > (0)::numeric) then (finance_invoice_line_items_1.allocated / finance_invoice_totals.total)
+      else (0)::numeric
+      end as percent
+      from (finance_invoice_line_items finance_invoice_line_items_1
+      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoice_line_items_1.invoice_id)))
+      )
+      select finance_allocations.id as allocation_id,
+      finance_invoices.customer_id,
+      finance_line_items.project_id,
+      finance_line_items.revenue_type_id,
+      case
+      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payment_details.disbursed) * (100)::numeric)) / (100)::numeric), 2)
+      else round((floor(((percents.percent * finance_payment_details.disbursed) * (100)::numeric)) / (100)::numeric), 2)
+      end as amount,
+      case
+      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payment_details.fee) * (100)::numeric)) / (100)::numeric), 2)
+      else round((floor(((percents.percent * finance_payment_details.fee) * (100)::numeric)) / (100)::numeric), 2)
+      end as fee,
+      case
+      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
+      else round((floor(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
+      end as total
+      from ((((((finance_allocations
+      join finance_payments on ((finance_payments.id = finance_allocations.payment_id)))
+      join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
+      join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
+      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = finance_allocations.line_item_id)))
+      join finance_line_items on ((finance_line_items.id = finance_invoice_line_items.line_item_id)))
+      join percents on ((percents.line_item_id = finance_allocations.line_item_id)));
+    `)
+
+    await knex.raw(`
+      create view finance_batch_totals AS
+      select finance_batches.id as batch_id,
+      count(finance_items.*) as items_count,
+      sum(finance_items.amount) as total
+      from (finance_batches
+      left join finance_items on ((finance_items.batch_id = finance_batches.id)))
+      where (finance_batches.type = 'expense'::finance_batch_types)
+      group by finance_batches.id;
+    `)
+
+    await knex.raw(`
       create view finance_coupon_statuses AS
       select finance_coupons.id as coupon_id,
       case
@@ -4983,35 +5042,35 @@ union
     `)
 
     await knex.raw(`
-      create view finance_disbursement_totals AS
+      create view finance_deposit_totals AS
       with payments as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       count(distinct finance_payments.*) as count
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       ), totals as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       sum(finance_payments.amount) as total
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       ), fees as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       sum(finance_payment_details.fee) as total
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payment_details on ((finance_payment_details.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payment_details on ((finance_payment_details.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       )
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       coalesce(payments.count, (0)::bigint) as payments_count,
       coalesce(totals.total, 0.00) as total,
       coalesce(fees.total, 0.00) as fee,
       coalesce((totals.total - fees.total), 0.00) as amount
-      from (((finance_disbursements
-      left join payments on ((payments.disbursement_id = finance_disbursements.id)))
-      left join totals on ((totals.disbursement_id = finance_disbursements.id)))
-      left join fees on ((fees.disbursement_id = finance_disbursements.id)));
+      from (((finance_deposits
+      left join payments on ((payments.deposit_id = finance_deposits.id)))
+      left join totals on ((totals.deposit_id = finance_deposits.id)))
+      left join fees on ((fees.deposit_id = finance_deposits.id)));
     `)
 
     await knex.raw(`
@@ -5038,50 +5097,45 @@ union
 
     await knex.raw(`
       create view finance_invoice_line_items AS
+      with totals as (
+      select finance_line_items_1.id as line_item_id,
+      ((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) as total,
+      (((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * (
+      case
+      when finance_line_items_1.is_tax_deductible then 1
+      else 0
+      end)::numeric) as tax_deductible,
+      round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * finance_line_items_1.tax_rate), 2) as tax,
+      case
+      when (finance_line_items_1.discount_amount is not null) then finance_line_items_1.discount_amount
+      when (finance_line_items_1.discount_percent is not null) then round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * finance_line_items_1.discount_percent), 2)
+      else 0.00
+      end as discount
+      from finance_line_items finance_line_items_1
+      )
       select finance_line_items.id as line_item_id,
-      0 as weight,
-      finance_invoices.id as invoice_id,
+      finance_line_items.invoice_id,
+      finance_line_items.delta,
       finance_line_items.product_id,
       finance_line_items.project_id,
       finance_line_items.revenue_type_id,
       finance_line_items.description,
       finance_line_items.quantity,
-      finance_line_items.base_price as price,
-      ((finance_line_items.quantity)::numeric * finance_line_items.base_price) as total,
-      (((finance_line_items.quantity)::numeric * finance_line_items.base_price) * (
+      finance_line_items.price,
+      totals.total,
+      totals.tax,
+      totals.discount,
+      ((totals.total + totals.tax) - totals.discount) as allocated,
+      (((finance_line_items.quantity)::numeric * finance_line_items.price) * (
       case
       when finance_line_items.is_tax_deductible then 1
       else 0
       end)::numeric) as tax_deductible,
-      round((((finance_line_items.quantity)::numeric * finance_line_items.base_price) * finance_line_items.tax_rate), 2) as tax,
-      case
-      when (finance_line_items.discount_amount is not null) then finance_line_items.discount_amount
-      when (finance_line_items.discount_percent is not null) then round((((finance_line_items.quantity)::numeric * finance_line_items.base_price) * finance_line_items.discount_percent), 2)
-      else 0.00
-      end as discount,
       finance_line_items.is_tax_deductible,
       finance_line_items.created_at
-      from (finance_invoices
-      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
-union
-      select finance_line_items.id as line_item_id,
-      1 as weight,
-      finance_invoices.id as invoice_id,
-      finance_line_items.product_id,
-      finance_line_items.project_id,
-      finance_line_items.donation_revenue_type_id as revenue_type_id,
-      concat(finance_line_items.description, ' (amount above base price)') as description,
-      finance_line_items.quantity,
-      finance_line_items.donation as price,
-      ((finance_line_items.quantity)::numeric * finance_line_items.donation) as total,
-      ((finance_line_items.quantity)::numeric * finance_line_items.donation) as tax_deductible,
-      0.00 as tax,
-      0.00 as discount,
-      true as is_tax_deductible,
-      finance_line_items.created_at
-      from (finance_invoices
-      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
-      where (finance_line_items.donation > (0)::numeric);
+      from (finance_line_items
+      join totals on ((totals.line_item_id = finance_line_items.id)))
+      order by finance_line_items.id desc;
     `)
 
     await knex.raw(`
@@ -5280,15 +5334,16 @@ union
       create view finance_payment_details AS
       with fees as (
       select finance_payments_1.id as payment_id,
-      round((floor((((finance_payments_1.rate * finance_payments_1.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2) as fee
+      case
+      when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method])) then 0.00
+      else round((floor((((finance_payments_1.rate * finance_payments_1.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2)
+      end as fee
       from finance_payments finance_payments_1
       )
       select finance_payments.id as payment_id,
-      finance_payments.disbursement_id,
+      finance_payments.deposit_id,
       case
-      when (finance_payments.method = 'scholarship'::finance_payments_method) then null::text
-      when (finance_payments.method = 'credit'::finance_payments_method) then null::text
-      when (finance_payments.method = 'cash'::finance_payments_method) then null::text
+      when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method])) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
       when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
@@ -5298,26 +5353,6 @@ union
       from ((finance_payments
       left join finance_payment_methods on ((finance_payment_methods.id = finance_payments.payment_method_id)))
       left join fees on ((fees.payment_id = finance_payments.id)));
-    `)
-
-    await knex.raw(`
-      create view finance_revenues AS
-      select finance_payments.team_id,
-      finance_payments.id as payment_id,
-      finance_invoices.customer_id,
-      finance_invoice_line_items.description,
-      finance_invoices.program_id,
-      finance_invoice_line_items.project_id,
-      finance_invoice_line_items.revenue_type_id,
-      round(((finance_payments.amount / finance_invoice_totals.total) * (finance_invoice_line_items.total - finance_invoice_line_items.discount)), 2) as amount,
-      finance_invoice_line_items.total,
-      finance_payments.date,
-      finance_payments.created_at
-      from (((finance_payments
-      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_payments.invoice_id)))
-      join finance_invoice_line_items on ((finance_invoice_line_items.invoice_id = finance_payments.invoice_id)))
-      join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
-      where (finance_payments.voided_date is null);
     `)
 
     await knex.raw(`

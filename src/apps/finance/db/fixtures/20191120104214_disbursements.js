@@ -2,8 +2,8 @@ const moment = require('moment')
 
 exports.seed = async (knex, Promise) => {
 
-  await knex('disbursements').del()
+  await knex('deposit').del()
 
-  await knex('disbursements').insert([])
+  await knex('deposit').insert([])
 
 }

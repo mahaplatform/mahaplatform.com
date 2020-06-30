@@ -1,14 +1,11 @@
 import { Router } from 'express'
-import create from './create'
+import expense from './expense'
 import list from './list'
-import show from './show'
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.post('/', create)
-
-router.get('/:id', show)
+router.use('/expense', expense)
 
 export default router

@@ -17,15 +17,12 @@ const navigation = async (req) => ({
       { label: 'Coupons', route: '/coupons' },
       { label: 'Customers', route: '/customers' },
       { label: 'Customer Invoices', route: '/invoices' },
-      { label: 'Disbursements', route: '/disbursements' },
+      { label: 'Deposits', route: '/deposits' },
       { label: 'Merchant Accounts', route: '/merchants' },
       { label: 'Payments', route: '/payments' },
       { label: 'Products', route: '/products' },
-      { label: 'Revenue Types', route: '/revenue_types' },
-      { label: 'Reports', items: [
-        { label: 'Donation', route: '/reports/donation' },
-        { label: 'Revenue', route: '/reports/revenue' }
-      ] }
+      { label: 'Report', route: '/reports/revenue' },
+      { label: 'Revenue Types', route: '/revenue_types' }
     ] },
     { label: 'Projects', route: '/projects' }
   ]

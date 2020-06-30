@@ -10,7 +10,9 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    integration: PropTypes.string
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -33,9 +35,22 @@ class New extends React.Component {
             { label: 'Routing Number', name: 'routing', type: RoutingNumberField, required: true },
             { label: 'Account Number', name: 'account_number', type: 'textfield', placeholder: 'Enter an account number', required: true }
           ]
-        }
+        },
+        ...this._getIntegration()
       ]
     }
+  }
+
+  _getIntegration() {
+    if(this.props.integration === 'accpac') {
+      return [{
+        label: 'ACCPAC Details',
+        fields: [
+          { label: 'Bank Code', name: 'integration.bank_code', type: 'textfield', placeholder: 'Enter a bank code', required: true }
+        ]
+      }]
+    }
+    return []
   }
 
   _handleCancel() {

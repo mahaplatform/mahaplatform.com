@@ -42,7 +42,7 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
 
   }
 
-  const can_delete = !_.includes(['reviewed','processed'], item.status)
+  const can_delete = !_.includes(['reviewed','exported'], item.status)
 
   if((is_owner || is_approver || is_manager) && can_delete) {
 

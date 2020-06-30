@@ -7,10 +7,10 @@ import Void from './void'
 import React from 'react'
 import _ from 'lodash'
 
-const getTabs = ({ allocations, payment, refunds }) => {
+const getTabs = ({ audits, allocations, payment, refunds }) => {
 
   const items = [
-    { label: 'Details', component: <Details payment={ payment } /> },
+    { label: 'Details', component: <Details audits={ audits } payment={ payment } /> },
     { label: 'Allocations', component: <Allocations payment={ payment } allocations={ allocations }/> }
   ]
 
@@ -44,6 +44,7 @@ const getTasks = ({ payment }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/finance_payments/${props.params.id}/audits`,
   payment: `/api/admin/finance/payments/${props.params.id}`,
   allocations: `/api/admin/finance/payments/${props.params.id}/allocations`,
   refunds: `/api/admin/finance/payments/${props.params.id}/refunds`

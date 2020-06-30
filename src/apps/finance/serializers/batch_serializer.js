@@ -2,6 +2,7 @@ const BatchSerializer = (req, result) => ({
   id: result.get('id'),
   user: user(result.related('user')),
   integration: result.get('integration'),
+  type: result.get('type'),
   items_count: result.get('items_count'),
   total: result.get('total'),
   date: result.get('date'),
