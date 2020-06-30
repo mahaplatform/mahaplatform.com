@@ -21,7 +21,8 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
     const line_item = quantities[ticket_type.get('id')]
     return {
       project_id: ticket_type.get('project_id'),
-      donation_revenue_type_id: ticket_type.get('revenue_type_id'),
+      donation_revenue_type_id: ticket_type.get('donation_revenue_type_id'),
+      overage_strategy: ticket_type.get('overage_strategy'),
       revenue_type_id: ticket_type.get('revenue_type_id'),
       price_type: ticket_type.get('price_type'),
       fixed_price: ticket_type.get('fixed_price'),

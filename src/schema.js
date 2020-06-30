@@ -1017,7 +1017,6 @@ const schema = {
     await knex.schema.createTable('finance_allocations', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('batch_id').unsigned()
       table.integer('payment_id').unsigned()
       table.integer('line_item_id').unsigned()
       table.timestamp('created_at')
@@ -1162,9 +1161,6 @@ const schema = {
       table.boolean('is_tax_deductible')
       table.decimal('discount_amount', 5, 2)
       table.decimal('discount_percent', 5, 4)
-      table.decimal('base_price', 5, 2)
-      table.decimal('donation', 5, 2)
-      table.integer('donation_revenue_type_id').unsigned()
       table.integer('delta')
     })
 
@@ -2978,7 +2974,6 @@ const schema = {
     })
 
     await knex.schema.table('finance_line_items', table => {
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('product_id').references('finance_products.id')
       table.foreign('project_id').references('finance_projects.id')
@@ -3490,7 +3485,6 @@ const schema = {
 
     await knex.schema.table('finance_allocations', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('batch_id').references('finance_batches.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('line_item_id').references('finance_line_items.id')
     })
@@ -4994,21 +4988,10 @@ union
       create view finance_batch_totals AS
       select finance_batches.id as batch_id,
       count(finance_items.*) as items_count,
-      0.00 as fees,
       sum(finance_items.amount) as total
       from (finance_batches
       left join finance_items on ((finance_items.batch_id = finance_batches.id)))
       where (finance_batches.type = 'expense'::finance_batch_types)
-      group by finance_batches.id
-union
-      select finance_batches.id as batch_id,
-      count(finance_allocations.*) as items_count,
-      sum(finance_allocation_details.fee) as fees,
-      sum(finance_allocation_details.total) as total
-      from ((finance_batches
-      left join finance_allocations on ((finance_allocations.batch_id = finance_batches.id)))
-      left join finance_allocation_details on ((finance_allocation_details.allocation_id = finance_allocations.id)))
-      where (finance_batches.type = 'revenue'::finance_batch_types)
       group by finance_batches.id;
     `)
 
@@ -5116,16 +5099,16 @@ union
       create view finance_invoice_line_items AS
       with totals as (
       select finance_line_items_1.id as line_item_id,
-      ((finance_line_items_1.quantity)::numeric * finance_line_items_1.base_price) as total,
-      (((finance_line_items_1.quantity)::numeric * finance_line_items_1.base_price) * (
+      ((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) as total,
+      (((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * (
       case
       when finance_line_items_1.is_tax_deductible then 1
       else 0
       end)::numeric) as tax_deductible,
-      round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.base_price) * finance_line_items_1.tax_rate), 2) as tax,
+      round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * finance_line_items_1.tax_rate), 2) as tax,
       case
       when (finance_line_items_1.discount_amount is not null) then finance_line_items_1.discount_amount
-      when (finance_line_items_1.discount_percent is not null) then round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.base_price) * finance_line_items_1.discount_percent), 2)
+      when (finance_line_items_1.discount_percent is not null) then round((((finance_line_items_1.quantity)::numeric * finance_line_items_1.price) * finance_line_items_1.discount_percent), 2)
       else 0.00
       end as discount
       from finance_line_items finance_line_items_1
@@ -5138,12 +5121,12 @@ union
       finance_line_items.revenue_type_id,
       finance_line_items.description,
       finance_line_items.quantity,
-      finance_line_items.base_price as price,
+      finance_line_items.price,
       totals.total,
       totals.tax,
       totals.discount,
       ((totals.total + totals.tax) - totals.discount) as allocated,
-      (((finance_line_items.quantity)::numeric * finance_line_items.base_price) * (
+      (((finance_line_items.quantity)::numeric * finance_line_items.price) * (
       case
       when finance_line_items.is_tax_deductible then 1
       else 0

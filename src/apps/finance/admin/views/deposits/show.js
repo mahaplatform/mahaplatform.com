@@ -29,7 +29,7 @@ const getButtons = ({ deposit }, { team, rights }) => {
 
     return [
       {
-        color: 'purple',
+        color: 'violet',
         text: 'Export',
         request: {
           endpoint: `/api/admin/finance/deposits/${deposit.id}/export`,

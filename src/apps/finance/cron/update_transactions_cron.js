@@ -75,6 +75,8 @@ const updatePayments = async (req) => {
 
     const transaction = transactions[payment.get('braintree_id')]
 
+    if(!transaction) return
+
     if(payment.get('status') !== 'deposited' && transaction.disbursementDetails.disbursementDate) {
 
       const merchant = await Merchant.query(qb => {

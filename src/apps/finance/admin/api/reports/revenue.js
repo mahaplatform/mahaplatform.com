@@ -18,6 +18,7 @@ const revenueRoute = async (req, res) => {
     },
     aliases: {
       customer_id: 'finance_invoices.customer_id',
+      program_id: 'finance_invoices.program_id',
       customer: 'finance_customers.last_name',
       created_at: 'finance_allocations.created_at',
       date: 'finance_payments.date',

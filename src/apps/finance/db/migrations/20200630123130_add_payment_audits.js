@@ -13,6 +13,10 @@ const AddPaymentAudits = {
       text: 'created'
     })
 
+    const made = await knex('maha_stories').insert({
+      text: 'payment made'
+    }).returning('*')
+
     const settled = await knex('maha_stories').insert({
       text: 'settled'
     }).returning('*')
@@ -22,6 +26,15 @@ const AddPaymentAudits = {
     }).returning('*')
 
     await Promise.map(payments, async (payment) => {
+      await knex('maha_audits').insert({
+        team_id: payment.get('team_id'),
+        contact_id: payment.related('invoice').get('customer_id'),
+        auditable_type: 'finance_invoices',
+        auditable_id: payment.get('invoice_id'),
+        story_id: made[0].id,
+        created_at: payment.get('created_at'),
+        updated_at: payment.get('created_at')
+      })
       await knex('maha_audits').insert({
         team_id: payment.get('team_id'),
         contact_id: payment.related('invoice').get('customer_id'),
