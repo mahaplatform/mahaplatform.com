@@ -71,7 +71,7 @@ const updatePayments = async (req) => {
 
   await Promise.mapSeries(payments, async(payment) => {
 
-    req.team = payment.realted('team')
+    req.team = payment.related('team')
 
     const transaction = transactions[payment.get('braintree_id')]
 
@@ -97,6 +97,11 @@ const updatePayments = async (req) => {
         transacting: req.trx
       })
 
+      await audit(req, {
+        story: 'deposited',
+        auditable: payment
+      })
+
     } else if(payment.get('status') !== 'settled' && transaction.status === 'settled') {
 
       await payment.save({
@@ -104,6 +109,11 @@ const updatePayments = async (req) => {
       },{
         patch: true,
         transacting: req.trx
+      })
+
+      await audit(req, {
+        story: 'settled',
+        auditable: payment
       })
 
     }

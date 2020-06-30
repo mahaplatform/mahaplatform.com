@@ -1,12 +1,12 @@
+import { Audit, Button, List, Comments } from 'maha-admin'
 import Receipt from '../../components/receipt'
-import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
-const Details = ({ payment }) => {
+const Details = ({ audits, payment }) => {
 
   const invoice = {
     className: 'link',
@@ -122,11 +122,20 @@ const Details = ({ payment }) => {
     })
   }
 
+  list.sections.push({
+    items: [
+      { component: <Audit entries={ audits } /> }
+    ]
+  })
+
+  list.footer = <Comments entity={`finance_payments/${payment.id}`} />
+
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   payment: PropTypes.object
 }
 

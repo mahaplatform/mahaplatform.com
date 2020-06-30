@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import { Audit, List, Comments } from 'maha-admin'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const Details = ({ audits, deposit }) => {

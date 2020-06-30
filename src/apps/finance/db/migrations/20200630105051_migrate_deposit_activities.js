@@ -21,7 +21,7 @@ const MigrateDepositActivities = {
         auditable_id: deposit.id,
         story_id: story[0].id,
         created_at: deposit.get('created_at'),
-        updated_at: deposit.get('updated_at')
+        updated_at: deposit.get('created_at')
       })
     })
 
