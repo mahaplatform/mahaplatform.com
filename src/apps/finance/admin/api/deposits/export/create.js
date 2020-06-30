@@ -1,13 +1,13 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
-import Disbursement from '../../../../models/disbursement'
+import Deposit from '../../../../models/deposit'
 
 const createRoute = async (req, res) => {
 
-  const disbursement = await Disbursement.query(qb => {
-    qb.select('finance_disbursements.*','finance_disbursement_totals.*')
-    qb.innerJoin('finance_disbursement_totals', 'finance_disbursement_totals.disbursement_id', 'finance_disbursements.id')
+  const deposit = await Deposit.query(qb => {
+    qb.select('finance_deposits.*','finance_deposit_totals.*')
+    qb.innerJoin('finance_deposit_totals', 'finance_deposit_totals.deposit_id', 'finance_deposits.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -15,12 +15,12 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!disbursement) return res.status(404).respond({
+  if(!deposit) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load disbursement'
+    message: 'Unable to load deposit'
   })
 
-  await disbursement.save({
+  await deposit.save({
     status: 'exported'
   }, {
     transacting: req.trx,
@@ -29,17 +29,17 @@ const createRoute = async (req, res) => {
 
   await activity(req, {
     story: 'exported {object}',
-    object: disbursement
+    object: deposit
   })
 
   await audit(req, {
     story: 'exported',
-    auditable: disbursement
+    auditable: deposit
   })
 
   await socket.refresh(req, [
-    '/admin/finance/disbursements',
-    `/admin/finance/disbursements/${disbursement.id}`
+    '/admin/finance/deposits',
+    `/admin/finance/deposits/${deposit.id}`
   ])
 
   res.status(200).respond(true)

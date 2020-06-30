@@ -246,7 +246,7 @@ const CreateAllocation = {
       from finance_payments
       )
       select finance_payments.id as payment_id,
-      disbursement_id,
+      deposit_id,
       case
       when finance_payments.method in ('scholarship','credit','cash') then null
       when finance_payments.method='check' then concat('#',finance_payments.reference)
@@ -261,37 +261,37 @@ const CreateAllocation = {
     `)
 
     await knex.raw(`
-      create view finance_disbursement_totals as
+      create view finance_deposit_totals as
       with payments as (
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       count(distinct finance_payments.*) as count
-      from finance_disbursements
-      left join finance_payments on finance_payments.disbursement_id=finance_disbursements.id
-      group by finance_disbursements.id
+      from finance_deposits
+      left join finance_payments on finance_payments.deposit_id=finance_deposits.id
+      group by finance_deposits.id
       ),
       totals as (
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       sum(finance_payments.amount) as total
-      from finance_disbursements
-      left join finance_payments on finance_payments.disbursement_id=finance_disbursements.id
-      group by finance_disbursements.id
+      from finance_deposits
+      left join finance_payments on finance_payments.deposit_id=finance_deposits.id
+      group by finance_deposits.id
       ),
       fees as (
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       sum(finance_payment_details.fee) as total
-      from finance_disbursements
-      left join finance_payment_details on finance_payment_details.disbursement_id=finance_disbursements.id
-      group by finance_disbursements.id
+      from finance_deposits
+      left join finance_payment_details on finance_payment_details.deposit_id=finance_deposits.id
+      group by finance_deposits.id
       )
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       coalesce(payments.count, 0) as payments_count,
       coalesce(totals.total, 0.00) as total,
       coalesce(fees.total, 0.00) as fee,
       coalesce(totals.total - fees.total, 0.00) as amount
-      from finance_disbursements
-      left join payments on payments.disbursement_id=finance_disbursements.id
-      left join totals on totals.disbursement_id=finance_disbursements.id
-      left join fees on fees.disbursement_id=finance_disbursements.id
+      from finance_deposits
+      left join payments on payments.deposit_id=finance_deposits.id
+      left join totals on totals.deposit_id=finance_deposits.id
+      left join fees on fees.deposit_id=finance_deposits.id
     `)
 
     await knex.raw(`

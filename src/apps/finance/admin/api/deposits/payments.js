@@ -1,20 +1,20 @@
 import PaymentSerializer from '../../../serializers/payment_serializer'
-import Disbursement from '../../../models/disbursement'
+import Deposit from '../../../models/deposit'
 import Payment from '../../../models/payment'
 
 const paymentsRoute = async (req, res) => {
 
-  const disbursement = await Disbursement.query(qb => {
+  const deposit = await Deposit.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('id', req.params.disbursement_id)
+    qb.where('id', req.params.deposit_id)
   }).fetch({
     withRelated: ['merchant','payments'],
     transacting: req.trx
   })
 
-  if(!disbursement) return res.status(404).respond({
+  if(!deposit) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load disbursement'
+    message: 'Unable to load deposit'
   })
 
   const payments = await Payment.filterFetch({
@@ -22,7 +22,7 @@ const paymentsRoute = async (req, res) => {
       qb.select('finance_payments.*','finance_payment_details.*')
       qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
       qb.where('finance_payments.team_id', req.team.get('id'))
-      qb.where('finance_payments.disbursement_id', disbursement.get('id'))
+      qb.where('finance_payments.deposit_id', deposit.get('id'))
       qb.orderByRaw('date desc, created_at desc')
     },
     page: req.query.$page,

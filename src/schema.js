@@ -1086,7 +1086,7 @@ const schema = {
       table.string('description', 255)
     })
 
-    await knex.schema.createTable('finance_disbursements', (table) => {
+    await knex.schema.createTable('finance_deposits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('merchant_id').unsigned()
@@ -1222,7 +1222,7 @@ const schema = {
       table.integer('credit_id').unsigned()
       table.integer('scholarship_id').unsigned()
       table.integer('merchant_id').unsigned()
-      table.integer('disbursement_id').unsigned()
+      table.integer('deposit_id').unsigned()
       table.USER-DEFINED('method')
       table.decimal('amount', 6, 2)
       table.string('reference', 255)
@@ -2965,7 +2965,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_disbursements', table => {
+    await knex.schema.table('finance_deposits', table => {
       table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2997,7 +2997,7 @@ const schema = {
 
     await knex.schema.table('finance_payments', table => {
       table.foreign('credit_id').references('finance_credits.id')
-      table.foreign('disbursement_id').references('finance_disbursements.id')
+      table.foreign('deposit_id').references('finance_deposits.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('payment_method_id').references('finance_payment_methods.id')
@@ -5059,35 +5059,35 @@ union
     `)
 
     await knex.raw(`
-      create view finance_disbursement_totals AS
+      create view finance_deposit_totals AS
       with payments as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       count(distinct finance_payments.*) as count
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       ), totals as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       sum(finance_payments.amount) as total
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payments on ((finance_payments.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       ), fees as (
-      select finance_disbursements_1.id as disbursement_id,
+      select finance_deposits_1.id as deposit_id,
       sum(finance_payment_details.fee) as total
-      from (finance_disbursements finance_disbursements_1
-      left join finance_payment_details on ((finance_payment_details.disbursement_id = finance_disbursements_1.id)))
-      group by finance_disbursements_1.id
+      from (finance_deposits finance_deposits_1
+      left join finance_payment_details on ((finance_payment_details.deposit_id = finance_deposits_1.id)))
+      group by finance_deposits_1.id
       )
-      select finance_disbursements.id as disbursement_id,
+      select finance_deposits.id as deposit_id,
       coalesce(payments.count, (0)::bigint) as payments_count,
       coalesce(totals.total, 0.00) as total,
       coalesce(fees.total, 0.00) as fee,
       coalesce((totals.total - fees.total), 0.00) as amount
-      from (((finance_disbursements
-      left join payments on ((payments.disbursement_id = finance_disbursements.id)))
-      left join totals on ((totals.disbursement_id = finance_disbursements.id)))
-      left join fees on ((fees.disbursement_id = finance_disbursements.id)));
+      from (((finance_deposits
+      left join payments on ((payments.deposit_id = finance_deposits.id)))
+      left join totals on ((totals.deposit_id = finance_deposits.id)))
+      left join fees on ((fees.deposit_id = finance_deposits.id)));
     `)
 
     await knex.raw(`
@@ -5358,7 +5358,7 @@ union
       from finance_payments finance_payments_1
       )
       select finance_payments.id as payment_id,
-      finance_payments.disbursement_id,
+      finance_payments.deposit_id,
       case
       when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method])) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)

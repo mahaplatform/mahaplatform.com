@@ -1,10 +1,10 @@
 import Model from '../../../core/objects/model'
 import PaymentMethod from './payment_method'
 import Asset from '../../maha/models/asset'
-import Disbursement from './disbursement'
 import Scholarship from './scholarship'
 import Merchant from './merchant'
 import Invoice from './invoice'
+import Deposit from './deposit'
 import Credit from './credit'
 import Refund from './refund'
 
@@ -54,8 +54,8 @@ const Payment = new Model({
     return this.belongsTo(Credit, 'credit_id')
   },
 
-  disbursement() {
-    return this.belongsTo(Disbursement, 'disbursement_id')
+  deposit() {
+    return this.belongsTo(Deposit, 'deposit_id')
   },
 
   invoice() {

@@ -49,7 +49,7 @@ const CreatePaymentMethod = {
     await knex.raw('DROP TYPE finance_payments_status;')
 
     await knex.schema.table('finance_payments', (table) => {
-      table.enum('status', ['applied','received','captured','settled','disbursed','voided'], { useNative: true, enumName: 'finance_payments_status' })
+      table.enum('status', ['applied','received','captured','settled','deposited','voided'], { useNative: true, enumName: 'finance_payments_status' })
     })
 
   },

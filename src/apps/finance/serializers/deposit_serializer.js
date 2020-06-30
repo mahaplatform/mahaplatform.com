@@ -1,4 +1,4 @@
-const MerchantSerializer = (req, result) => ({
+const DepositSerializer = (req, result) => ({
   id: result.get('id'),
   date: result.get('date'),
   merchant: merchant(result.related('merchant')),
@@ -19,4 +19,4 @@ const merchant = (merchant) => {
   }
 }
 
-export default MerchantSerializer
+export default DepositSerializer

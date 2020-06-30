@@ -2,9 +2,9 @@ import { Page } from 'maha-admin'
 import Status from '../../tokens/status'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Disbursements',
+  title: 'Deposits',
   collection: {
-    endpoint: '/api/admin/finance/disbursements',
+    endpoint: '/api/admin/finance/deposits',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
@@ -20,13 +20,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/disbursements/${record.id}`),
+    onClick: (record) => context.router.history.push(`/admin/finance/deposits/${record.id}`),
     empty: {
       icon: 'university',
       title: 'No Disbursements',
-      text: 'You do not recveived any disbursements'
+      text: 'You do not recveived any deposits'
     },
-    entity: 'disbursements'
+    entity: 'deposits'
   }
 })
 

@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Disbursement from './disbursement'
+import Deposit from './deposit'
 import Payment from './payment'
 
 const Merchant = new Model({
@@ -18,8 +18,8 @@ const Merchant = new Model({
 
   },
 
-  disbursements() {
-    return this.hasMany(Disbursement, 'merchant_id')
+  deposits() {
+    return this.hasMany(Deposit, 'merchant_id')
   },
 
   payments() {

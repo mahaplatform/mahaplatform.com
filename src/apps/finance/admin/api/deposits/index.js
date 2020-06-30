@@ -12,6 +12,6 @@ router.get('/:id', show)
 
 router.use('/:id/export', exp)
 
-router.get('/:disbursement_id/payments', payments)
+router.get('/:deposit_id/payments', payments)
 
 export default router

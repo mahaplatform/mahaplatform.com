@@ -6,8 +6,8 @@ import CouponList from './coupons/list'
 import CustomerList from './customers/list'
 import CustomerShow from './customers/show'
 import CheckShow from './checks/show'
-import DisbursementList from './disbursements/list'
-import DisbursementShow from './disbursements/show'
+import DepositList from './deposits/list'
+import DepositShow from './deposits/show'
 import ExpenseShow from './expenses/show'
 import ExpenseTypeList from './expense_types/list'
 import InvoiceList from './invoices/list'
@@ -43,8 +43,8 @@ const routes = [
   { path: '/customers', component: CustomerList },
   { path: '/customers/:id', component: CustomerShow },
   { path: '/expenses/:id', component: ExpenseShow },
-  { path: '/disbursements', component: DisbursementList },
-  { path: '/disbursements/:id', component: DisbursementShow },
+  { path: '/deposits', component: DepositList },
+  { path: '/deposits/:id', component: DepositShow },
   { path: '/expense_types', component: ExpenseTypeList },
   { path: '/invoices', component: InvoiceList },
   { path: '/invoices/:id', component: InvoiceShow },

@@ -1,10 +1,10 @@
 import reimbursements from './reimbursements'
 import expense_types from './expense_types'
 import revenue_types from './revenue_types'
-import disbursements from './disbursements'
 import memberships from './memberships'
 import customers from './customers'
 import merchants from './merchants'
+import deposits from './deposits'
 import accounts from './accounts'
 import payments from './payments'
 import products from './products'
@@ -40,7 +40,7 @@ router.use('/coupons', coupons)
 
 router.use('/customers', customers)
 
-router.use('/disbursements', disbursements)
+router.use('/deposits', deposits)
 
 router.use('/expense_types', expense_types)
 

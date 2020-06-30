@@ -1,8 +1,9 @@
+import { audit } from '../../../core/services/routes/audit'
 import socket from '../../../core/services/routes/emitter'
 import braintree from '../../../core/services/braintree'
-import Disbursement from '../models/disbursement'
 import cron from '../../../core/objects/cron'
 import Merchant from '../models/merchant'
+import Deposit from '../models/deposit'
 import Payment from '../models/payment'
 import Refund from '../models/refund'
 
@@ -25,12 +26,42 @@ const getTransactions = async(ids) => {
   }), {}))
 }
 
+const getDeposit = async (req, { merchant, payment, transaction }) => {
+
+  const deposit = await Deposit.where(qb => {
+    qb.where('team_id', req.team.get('id')),
+    qb.where('merchant_id', merchant.get('id')),
+    qb.where('date', transaction.disbursementDetails.disbursementDate)
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  if(deposit) return deposit
+
+  const newdeposit = await Deposit.forge({
+    team_id: req.team.get('id'),
+    merchant_id: merchant.get('id'),
+    date: transaction.disbursementDetails.disbursementDate
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'deposited',
+    auditable: newdeposit
+  })
+
+  return newdeposit
+
+}
+
 const updatePayments = async (req) => {
 
   const payments = await Payment.query(qb => {
     qb.whereIn('method', ['ach','card','googlepay','applepay','paypal'])
-    qb.whereNotIn('status',['disbursed','voided'])
+    qb.whereNotIn('status',['deposited','voided'])
   }).fetchAll({
+    withRelated: ['team'],
     transacting: req.trx
   }).then(results => results.toArray())
 
@@ -40,9 +71,11 @@ const updatePayments = async (req) => {
 
   await Promise.mapSeries(payments, async(payment) => {
 
+    req.team = payment.realted('team')
+
     const transaction = transactions[payment.get('braintree_id')]
 
-    if(payment.get('status') !== 'disbursed' && transaction.disbursementDetails.disbursementDate) {
+    if(payment.get('status') !== 'deposited' && transaction.disbursementDetails.disbursementDate) {
 
       const merchant = await Merchant.query(qb => {
         qb.where('braintree_id', transaction.merchantAccountId)
@@ -50,17 +83,15 @@ const updatePayments = async (req) => {
         transacting: req.trx
       })
 
-      const disbursement = await Disbursement.fetchOrCreate({
-        team_id: payment.get('team_id'),
-        merchant_id: merchant.get('id'),
-        date: transaction.disbursementDetails.disbursementDate
-      }, {
-        transacting: req.trx
+      const deposit = await getDeposit(req, {
+        merchant,
+        payment,
+        transaction
       })
 
       await payment.save({
-        disbursement_id: disbursement.get('id'),
-        status: 'disbursed'
+        deposit_id: deposit.get('id'),
+        status: 'deposited'
       },{
         patch: true,
         transacting: req.trx
@@ -121,7 +152,7 @@ export const processor = async (req) => {
 
 export const afterCommit = async (trx, result) => {
   await socket.refresh({ trx }, [
-    '/admin/finance/disbursements',
+    '/admin/finance/deposits',
     '/admin/finance/payments',
     '/admin/finance/refunds'
   ])

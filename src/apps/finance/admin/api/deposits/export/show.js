@@ -1,12 +1,12 @@
-import AccpacDisbursementSerializer from '../../../../serializers/accpac_disbursement_serializer'
-import Disbursement from '../../../../models/disbursement'
+import AccpacDepositSerializer from '../../../../serializers/accpac_deposit_serializer'
+import Deposit from '../../../../models/deposit'
 import Allocation from '../../../../models/allocation'
 
 const showRoute = async (req, res) => {
 
-  const disbursement = await Disbursement.query(qb => {
-    qb.select('finance_disbursements.*','finance_disbursement_totals.*')
-    qb.innerJoin('finance_disbursement_totals', 'finance_disbursement_totals.disbursement_id', 'finance_disbursements.id')
+  const deposit = await Deposit.query(qb => {
+    qb.select('finance_deposits.*','finance_deposit_totals.*')
+    qb.innerJoin('finance_deposit_totals', 'finance_deposit_totals.deposit_id', 'finance_deposits.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -14,9 +14,9 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!disbursement) return res.status(404).respond({
+  if(!deposit) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load disbursement'
+    message: 'Unable to load deposit'
   })
 
   const allocations = await Allocation.query(qb => {
@@ -30,13 +30,13 @@ const showRoute = async (req, res) => {
     qb.innerJoin('finance_projects','finance_projects.id','finance_line_items.project_id')
     qb.innerJoin('finance_revenue_types','finance_revenue_types.id','finance_line_items.revenue_type_id')
     qb.where('finance_allocations.team_id', req.team.get('id'))
-    qb.where('finance_payments.disbursement_id', req.params.id)
+    qb.where('finance_payments.deposit_id', req.params.id)
   }).fetchAll({
     withRelated: ['payment.invoice.customer','payment.invoice.program','line_item.project','line_item.revenue_type'],
     transacting: req.trx
   })
 
-  res.status(200).respond({ disbursement, allocations }, AccpacDisbursementSerializer)
+  res.status(200).respond({ deposit, allocations }, AccpacDepositSerializer)
 
 }
 

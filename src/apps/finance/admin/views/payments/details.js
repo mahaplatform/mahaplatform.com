@@ -76,6 +76,18 @@ const Details = ({ payment }) => {
     ) })
   }
 
+  if(payment.status === 'deposited') {
+
+    const deposit = {
+      className: 'link',
+      label: moment(payment.deposit.date).format('MM/DD/YYYY'),
+      route: `/admin/finance/deposits/${payment.deposit.id}`
+    }
+
+    items.push({ label: 'Deposited', content: <Button { ...deposit } /> })
+
+  }
+
   const list = {
     sections: [
       { items }
@@ -94,8 +106,8 @@ const Details = ({ payment }) => {
     list.alert = { color: 'teal', message: 'This payment is pending settlement' }
   } else if(payment.status === 'settled') {
     list.alert = { color: 'blue', message: 'This payment has been settled' }
-  } else if(payment.status === 'disbursed') {
-    list.alert = { color: 'green', message: 'This payment has been disbursed' }
+  } else if(payment.status === 'deposited') {
+    list.alert = { color: 'violet', message: 'This payment has been deposited' }
   } else if(payment.status === 'received') {
     list.alert = { color: 'green', message: 'This payment was received' }
   }
@@ -108,23 +120,6 @@ const Details = ({ payment }) => {
         { label: 'Reason', content: payment.voided_reason }
       ]
     })
-  }
-
-  if(payment.status === 'disbursed') {
-
-    const disbursement = {
-      className: 'link',
-      label: moment(payment.disbursement.date).format('MM/DD/YYYY'),
-      route: `/admin/finance/disbursements/${payment.disbursement.id}`
-    }
-
-    list.sections.push({
-      title: 'Disbursement',
-      items: [
-        { label: 'Date', content: <Button { ...disbursement } /> },
-      ]
-    })
-
   }
 
   return <List { ...list } />

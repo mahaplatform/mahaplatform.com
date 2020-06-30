@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-const Payments = ({ disbursement, payments }) => {
+const Payments = ({ deposit, payments }) => {
 
   const button = (payment) => ({
     className: 'link',
@@ -32,9 +32,9 @@ const Payments = ({ disbursement, payments }) => {
         )) }
         <tr>
           <td>Total</td>
-          <td className="right aligned">{ numeral(disbursement.total).format('0.00') }</td>
-          <td className="right aligned">{ numeral(disbursement.fee).format('0.00') }</td>
-          <td className="right aligned">{ numeral(disbursement.amount).format('0.00') }</td>
+          <td className="right aligned">{ numeral(deposit.total).format('0.00') }</td>
+          <td className="right aligned">{ numeral(deposit.fee).format('0.00') }</td>
+          <td className="right aligned">{ numeral(deposit.amount).format('0.00') }</td>
         </tr>
       </tbody>
     </table>
@@ -43,7 +43,7 @@ const Payments = ({ disbursement, payments }) => {
 }
 
 Payments.propTypes = {
-  disbursement: PropTypes.array,
+  deposit: PropTypes.object,
   payments: PropTypes.array
 }
 

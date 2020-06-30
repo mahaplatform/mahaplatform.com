@@ -4,9 +4,9 @@ import Payment from './payment'
 import numeral from 'numeral'
 import moment from 'moment'
 
-const Disbursement = new Model({
+const Deposit = new Model({
 
-  tableName: 'finance_disbursements',
+  tableName: 'finance_deposits',
 
   rules: {},
 
@@ -17,11 +17,11 @@ const Disbursement = new Model({
     },
 
     object_type: function() {
-      return 'disbursement'
+      return 'deposit'
     },
 
     object_url: function() {
-      return `/admin/finance/disbursements/${this.get('id')}`
+      return `/admin/finance/deposits/${this.get('id')}`
     }
 
   },
@@ -31,9 +31,9 @@ const Disbursement = new Model({
   },
 
   payments() {
-    return this.hasMany(Payment, 'disbursement_id')
+    return this.hasMany(Payment, 'deposit_id')
   }
 
 })
 
-export default Disbursement
+export default Deposit
