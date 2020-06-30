@@ -26,7 +26,7 @@
   &.active { background-color: @green; }
   &.paid { background-color: @green; }
   &.reviewed { background-color: @pink; }
-  &.processed { background-color: @violet; }
+  &.exported { background-color: @violet; }
 }
 @media (max-width: 768px) {
   tr {
@@ -36,6 +36,6 @@
     &.approved td:first-child { background: linear-gradient(90deg, @green, @green 8px, transparent 8px); }
     &.rejected td:first-child { background: linear-gradient(90deg, @red, @red 8px, transparent 8px); }
     &.reviewed td:first-child { background: linear-gradient(90deg, @pink, @pink 8px, transparent 8px); }
-    &.processed td:first-child { background: linear-gradient(90deg, @violet, @violet 8px, transparent 8px); }
+    &.exported td:first-child { background: linear-gradient(90deg, @violet, @violet 8px, transparent 8px); }
   }
 }

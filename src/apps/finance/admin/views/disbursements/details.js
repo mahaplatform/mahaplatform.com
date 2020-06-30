@@ -17,8 +17,8 @@ const Details = ({ audits, disbursement }) => {
 
   if(disbursement.status === 'pending') {
     list.alert = { color: 'teal', message: 'This disbursement is pending' }
-  } else if(disbursement.status === 'processed') {
-    list.alert = { color: 'violet', message: 'This disbursement was processed' }
+  } else if(disbursement.status === 'exported') {
+    list.alert = { color: 'violet', message: 'This disbursement was exported' }
   }
 
   list.footer = <Comments entity={`finance_disbursements/${disbursement.id}`} />

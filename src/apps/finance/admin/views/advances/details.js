@@ -29,8 +29,8 @@ const Details = ({ advance }) => {
     list.alert = { color: 'red', message: 'This advance has been rejected' }
   } else if(advance.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This advance has been reviewed' }
-  } else if(advance.status === 'processed') {
-    list.alert = { color: 'violet', message: 'This advance was processed' }
+  } else if(advance.status === 'exported') {
+    list.alert = { color: 'violet', message: 'This advance was exported' }
   }
   list.items = [
     requiredField('User', advance, 'user.full_name'),

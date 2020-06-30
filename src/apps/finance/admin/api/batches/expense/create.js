@@ -20,7 +20,7 @@ const createRoute = async (req, res) => {
   }).then(result => result.toArray())
 
   const settings = req.app.get('settings')
-  
+
   const batch = await Batch.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
@@ -44,7 +44,7 @@ const createRoute = async (req, res) => {
       .whereIn('id', models[type])
       .update({
         batch_id: batch.get('id'),
-        status: 'processed'
+        status: 'exported'
       })
   })
 
@@ -55,7 +55,7 @@ const createRoute = async (req, res) => {
   const items = batch.related('items').toArray()
 
   await audit(req, items.map(item => ({
-    story: 'processed',
+    story: 'exported',
     auditable: {
       tableName: `finance_${item.get('type')}s`,
       id: item.get('item_id')
@@ -70,10 +70,10 @@ const createRoute = async (req, res) => {
   ])
 
   await notifications(req, await Promise.mapSeries(items, async item => ({
-    type: 'finance:item_processed',
+    type: 'finance:item_exported',
     listenable: item,
     subject_id: req.user.get('id'),
-    story: 'processed {object}',
+    story: 'exported {object}',
     object: item
   })))
 

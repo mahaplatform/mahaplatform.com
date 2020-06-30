@@ -32,7 +32,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Tax Account', name: 'tax_project_id', type: 'select', endpoint: '/api/admin/finance/projects/tax', value: 'id', text: 'title', format: ProjectToken },
       { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
-      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
+      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','exported'], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)

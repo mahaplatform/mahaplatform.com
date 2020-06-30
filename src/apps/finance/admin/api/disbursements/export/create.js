@@ -21,19 +21,19 @@ const createRoute = async (req, res) => {
   })
 
   await disbursement.save({
-    status: 'processed'
+    status: 'exported'
   }, {
     transacting: req.trx,
     patch: true
   })
 
   await activity(req, {
-    story: 'processed {object}',
+    story: 'exported {object}',
     object: disbursement
   })
 
   await audit(req, {
-    story: 'processed',
+    story: 'exported',
     auditable: disbursement
   })
 

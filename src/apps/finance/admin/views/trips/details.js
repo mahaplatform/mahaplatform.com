@@ -29,8 +29,8 @@ const Details = ({ trip }) => {
     list.alert = { color: 'red', message: 'This trip has been rejected' }
   } else if(trip.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This trip has been reviewed' }
-  } else if(trip.status === 'processed') {
-    list.alert = { color: 'violet', message: 'This trip was processed' }
+  } else if(trip.status === 'exported') {
+    list.alert = { color: 'violet', message: 'This trip was exported' }
   }
   list.items = [
     requiredField('User', trip, 'user.full_name'),

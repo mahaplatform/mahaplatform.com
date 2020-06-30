@@ -44,7 +44,7 @@ const mapPropsToPage = (props, context, resources) => ({
           { name: 'Vendor', key: 'vendor_id', type: 'select', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', format: VendorToken },
           { name: 'Account', key: 'account_id', type: 'select', endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
           { name: 'Date Range', key: 'date', type: 'daterange', include: ['this','last'] },
-          { name: 'Status', key: 'status', type: 'select', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
+          { name: 'Status', key: 'status', type: 'select', options: ['incomplete','pending','submitted','approved','rejected','reviewed','exported'], format: StatusToken }
         ] }
       ]
     },
@@ -57,7 +57,7 @@ const mapPropsToPage = (props, context, resources) => ({
     //   { label: 'Vendor', name: 'vendor_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', format: VendorToken },
     //   { label: 'Account', name: 'account_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
     //   { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
-    //   { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
+    //   { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','exported'], format: StatusToken }
     // ],
     export: [
       { label: 'ID', key: 'id' },

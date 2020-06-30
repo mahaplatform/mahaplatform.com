@@ -32,8 +32,8 @@ const Details = ({ check }) => {
     list.alert = { color: 'red', message: 'This check has been rejected' }
   } else if(check.status === 'reviewed') {
     list.alert = { color: 'pink', message: 'This check has been reviewed' }
-  } else if(check.status === 'processed') {
-    list.alert = { color: 'violet', message: 'This check was processed' }
+  } else if(check.status === 'exported') {
+    list.alert = { color: 'violet', message: 'This check was exported' }
   }
   list.items = [
     requiredField('User', check, 'user.full_name'),
@@ -55,7 +55,7 @@ const Details = ({ check }) => {
     list.items.push(requiredField('Tax', check, 'tax', { content: check.tax, format: 'currency' }))
   }
   if(check.receipts.length > 0) {
-    const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
+    const previews = check.receipts.filter(receipt => receipt.status === 'exported' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)
     list.header = <Carousel slides={ slides } />
     list.items.unshift({ content: check.receipts.map((receipt, index) => <Receipt key={`receipt_${index}`} preview={ false } value={ receipt } />), className: 'receipts' })

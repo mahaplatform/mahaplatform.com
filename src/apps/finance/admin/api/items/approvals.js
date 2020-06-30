@@ -19,7 +19,7 @@ const approvalRoute = async (req, res) => {
       qb.joinRaw('inner join finance_members on finance_members.project_id = finance_items.project_id and finance_members.user_id=? and finance_members.type != ?', [req.user.get('id'), 'member'])
       qb.whereNot('finance_items.user_id', req.user.get('id'))
       qb.where('finance_items.team_id', req.team.get('id'))
-      qb.whereNotIn('finance_items.status', ['reviewed','processed'])
+      qb.whereNotIn('finance_items.status', ['reviewed','exported'])
       qb.whereNull('finance_items.deleted_at')
     },
     aliases: {
