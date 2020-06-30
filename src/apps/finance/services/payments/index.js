@@ -2,7 +2,6 @@ import { audit } from '../../../../core/services/routes/audit'
 import RouteError from '../../../../core/objects/route_error'
 import braintree from '../../../../core/services/braintree'
 import { chargeScholarship } from './scholarship'
-import Allocation from '../../models/allocation'
 import { chargeGooglePay } from './googlepay'
 import { chargeApplePay } from './applepay'
 import { chargeCredit } from './credit'
@@ -59,7 +58,7 @@ const getCustomer = async(req, { customer }) => {
 
 }
 
-const getPayment = async (req, { invoice, params }) => {
+const chargeCustomer = async (req, { invoice, params }) => {
 
   const paymentCreator = getPaymentCreator(params.method)
 
@@ -98,28 +97,6 @@ const getPayment = async (req, { invoice, params }) => {
     contact: customer,
     story: 'created',
     auditable: payment
-  })
-
-  return payment
-
-}
-
-const chargeCustomer = async (req, { invoice, params }) => {
-
-  const payment = await getPayment(req, { invoice, params })
-
-  await invoice.load(['line_items'], {
-    transacting: req.trx
-  })
-
-  await Promise.mapSeries(invoice.related('line_items'), async (line_item) => {
-    await Allocation.forge({
-      team_id: req.team.get('id'),
-      payment_id: payment.get('id'),
-      line_item_id: line_item.get('id')
-    }).save(null, {
-      transacting: req.trx
-    })
   })
 
   return payment

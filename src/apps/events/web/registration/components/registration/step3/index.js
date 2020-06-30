@@ -100,7 +100,7 @@ class Step3 extends React.Component {
     }
     if(!_.includes(hidden, 'race')) {
       fields.push({ label: 'Race', name: `tickets.${index}.race`, type: 'checkboxes', options: [
-        { value: 'caucasion', text: 'Caucasion' },
+        { value: 'caucasian', text: 'Caucasian' },
         { value: 'african', text: 'African American' },
         { value: 'american_indian', text: 'American Indian' },
         { value: 'asian', text: 'Asian' },

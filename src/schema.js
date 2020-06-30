@@ -1014,15 +1014,6 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
-    await knex.schema.createTable('finance_allocations', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('payment_id').unsigned()
-      table.integer('line_item_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('finance_batches', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -3483,12 +3474,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_allocations', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('payment_id').references('finance_payments.id')
-      table.foreign('line_item_id').references('finance_line_items.id')
-    })
-
 
     await knex.raw(`
       create view chat_results AS
@@ -4949,7 +4934,7 @@ union
     `)
 
     await knex.raw(`
-      create view finance_allocation_details AS
+      create view finance_allocations AS
       with percents as (
       select finance_invoice_line_items_1.line_item_id,
       case
@@ -4959,7 +4944,9 @@ union
       from (finance_invoice_line_items finance_invoice_line_items_1
       join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoice_line_items_1.invoice_id)))
       )
-      select finance_allocations.id as allocation_id,
+      select finance_payments.team_id,
+      finance_payments.id as payment_id,
+      finance_line_items.id as line_item_id,
       finance_invoices.customer_id,
       finance_line_items.project_id,
       finance_line_items.revenue_type_id,
@@ -4975,13 +4962,12 @@ union
       when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
       else round((floor(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
       end as total
-      from ((((((finance_allocations
-      join finance_payments on ((finance_payments.id = finance_allocations.payment_id)))
-      join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
+      from (((((finance_payments
       join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
-      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = finance_allocations.line_item_id)))
-      join finance_line_items on ((finance_line_items.id = finance_invoice_line_items.line_item_id)))
-      join percents on ((percents.line_item_id = finance_allocations.line_item_id)));
+      join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
+      join finance_line_items on ((finance_line_items.invoice_id = finance_payments.invoice_id)))
+      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = finance_line_items.id)))
+      join percents on ((percents.line_item_id = finance_line_items.id)));
     `)
 
     await knex.raw(`

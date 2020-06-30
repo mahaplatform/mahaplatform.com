@@ -20,8 +20,6 @@ const showRoute = async (req, res) => {
   })
 
   const allocations = await Allocation.query(qb => {
-    qb.select(req.trx.raw('finance_allocations.*,finance_allocation_details.*'))
-    qb.innerJoin('finance_allocation_details','finance_allocation_details.allocation_id','finance_allocations.id')
     qb.innerJoin('finance_payments','finance_payments.id','finance_allocations.payment_id')
     qb.innerJoin('finance_invoices','finance_invoices.id','finance_payments.invoice_id')
     qb.innerJoin('finance_line_items','finance_line_items.id','finance_allocations.line_item_id')

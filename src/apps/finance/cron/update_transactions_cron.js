@@ -47,7 +47,7 @@ const getDeposit = async (req, { merchant, payment, transaction }) => {
   })
 
   await audit(req, {
-    story: 'deposited',
+    story: 'created',
     auditable: newdeposit
   })
 
