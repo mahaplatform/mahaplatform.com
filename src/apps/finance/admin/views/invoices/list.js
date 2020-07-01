@@ -4,7 +4,7 @@ import { Page } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Customer Invoices',
+  title: 'Invoices',
   collection: {
     endpoint: '/api/admin/finance/invoices',
     table: [

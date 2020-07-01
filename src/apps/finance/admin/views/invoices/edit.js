@@ -3,7 +3,6 @@ import ContactToken from '../../../../crm/admin/tokens/contact'
 import LineItems from '../../components/line_items'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import moment from 'moment'
 import React from 'react'
 
 class Edit extends React.Component {
@@ -27,7 +26,7 @@ class Edit extends React.Component {
   _getForm() {
     const { invoice } = this.props
     return {
-      title: 'Edit Customer Invoice',
+      title: 'Edit Invoice',
       method: 'patch',
       endpoint: `/api/admin/finance/invoices/${invoice.id}/edit`,
       action: `/api/admin/finance/invoices/${invoice.id}`,

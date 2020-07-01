@@ -30,7 +30,7 @@ const showRoute = async (req, res) => {
     qb.where('finance_allocations.team_id', req.team.get('id'))
     qb.where('finance_payments.deposit_id', req.params.id)
   }).fetchAll({
-    withRelated: ['payment.invoice.customer','payment.invoice.program','line_item.project','line_item.revenue_type'],
+    withRelated: ['payment.invoice.customer','payment.bank','payment.invoice.program','line_item.project','line_item.revenue_type'],
     transacting: req.trx
   })
 

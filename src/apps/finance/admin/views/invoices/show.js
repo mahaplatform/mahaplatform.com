@@ -46,7 +46,7 @@ const mapResourcesToPage = (props, context) => ({
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Customer Invoice',
+  title: 'Invoice',
   tabs: getTabs(resources),
   tasks: getTasks(resources)
 })

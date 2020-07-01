@@ -24,7 +24,7 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Customer Invoice',
+      title: 'New Invoice',
       method: 'post',
       action: '/api/admin/finance/invoices',
       onCancel: this._handleCancel,

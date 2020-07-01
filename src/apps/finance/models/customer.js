@@ -31,7 +31,7 @@ const Customer = new Model({
     braintree_link() {
       const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
       const domain = `https://${subdomain}braintreegateway.com`
-      return `${domain}/banks/${process.env.BRAINTREE_MERCHANT_ID}/customers/${this.get('braintree_id')}`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/customers/${this.get('braintree_id')}`
     }
 
   },

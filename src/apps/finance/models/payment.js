@@ -2,11 +2,11 @@ import Model from '../../../core/objects/model'
 import PaymentMethod from './payment_method'
 import Asset from '../../maha/models/asset'
 import Scholarship from './scholarship'
-import Bank from './bank'
 import Invoice from './invoice'
 import Deposit from './deposit'
 import Credit from './credit'
 import Refund from './refund'
+import Bank from './bank'
 
 const Payment = new Model({
 
@@ -19,7 +19,7 @@ const Payment = new Model({
     braintree_link() {
       const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
       const domain = `https://${subdomain}braintreegateway.com`
-      return `${domain}/banks/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
     },
 
     paypal_link() {
