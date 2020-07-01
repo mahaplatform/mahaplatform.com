@@ -1,7 +1,8 @@
-import { Container, Chart } from 'maha-admin'
+import { Button, Container, Chart } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
+import Responses from './responses'
 
 class Form extends React.Component {
 
@@ -39,7 +40,9 @@ class Form extends React.Component {
                   Responses
                 </div>
                 <div className="crm-report-metric-value">
-                  { form.responses_count }
+                  <div className="link" onClick={ this._handleResponses.bind(this)}>
+                    { form.responses_count }
+                  </div>
                 </div>
               </div>
               <div className="crm-report-metric">
@@ -65,6 +68,9 @@ class Form extends React.Component {
             </div>
           </div>
         </div>
+        <div className="maha-dashboard-card-actions">
+          <Button { ...this._getForm() } />
+        </div>
       </div>
     )
   }
@@ -77,6 +83,29 @@ class Form extends React.Component {
     }
   }
 
+  _getForm() {
+    const { config } = this.props
+
+    return {
+      label: ' Manage Form',
+      icon: 'gear',
+      className: 'link',
+      route: `/admin/crm/forms/${config.form_id}`
+    }
+  }
+
+  _getResponses() {
+    const { config, isExpanded, form } = this.props
+    return {
+      config,
+      isExpanded,
+      form
+    }
+  }
+
+  _handleResponses() {
+    this.context.card.push(Responses, this._getResponses())
+  }
 
 }
 
