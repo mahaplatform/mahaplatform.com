@@ -4,7 +4,6 @@ import LineItem from './line_item'
 import Customer from './customer'
 import Payment from './payment'
 import Coupon from './coupon'
-
 const InvoiceLineItem = new Model({
   tableName: 'finance_invoice_line_items'
 })
@@ -15,7 +14,21 @@ const Invoice = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    object_text: function() {
+      return ''
+    },
+
+    object_type: function() {
+      return 'invoice'
+    },
+
+    object_url: function() {
+      return `/admin/finance/invoices/${this.get('id')}`
+    }
+
+  },
 
   customer() {
     return this.belongsTo(Customer, 'customer_id')

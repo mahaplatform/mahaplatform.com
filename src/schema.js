@@ -5321,7 +5321,7 @@ union
       with fees as (
       select finance_payments_1.id as payment_id,
       case
-      when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method])) then 0.00
+      when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00
       else round((floor((((finance_payments_1.rate * finance_payments_1.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2)
       end as fee
       from finance_payments finance_payments_1
@@ -5329,7 +5329,7 @@ union
       select finance_payments.id as payment_id,
       finance_payments.deposit_id,
       case
-      when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method])) then null::text
+      when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
       when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))

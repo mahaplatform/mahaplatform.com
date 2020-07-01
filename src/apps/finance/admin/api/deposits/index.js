@@ -1,5 +1,6 @@
 import payments from './payments'
 import { Router } from 'express'
+import create from './create'
 import exp from './export'
 import list from './list'
 import show from './show'
@@ -7,6 +8,8 @@ import show from './show'
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
+
+router.post('/', create)
 
 router.get('/:id', show)
 

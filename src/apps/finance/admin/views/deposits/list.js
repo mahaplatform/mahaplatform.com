@@ -1,5 +1,6 @@
-import { Page } from 'maha-admin'
 import Status from '../../tokens/status'
+import { Page } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Deposits',
@@ -24,9 +25,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: {
       icon: 'university',
       title: 'No Disbursements',
-      text: 'You do not recveived any deposits'
+      text: 'You do not recveived any deposits',
+      buttons: [
+        { label: 'Add Merchant Account', modal: New }
+      ]
     },
     entity: 'deposits'
+  },
+  task: {
+    label: 'Add Merchant Account',
+    icon: 'plus',
+    modal: New
   }
 })
 

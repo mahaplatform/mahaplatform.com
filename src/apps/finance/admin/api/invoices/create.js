@@ -57,15 +57,7 @@ const createRoute = async (req, res) => {
       ...(coupon && product.get('id') === coupon.get('product_id')) ? {
         discount_amount: coupon.get('amount'),
         discount_percent: coupon.get('percent')
-      } : {},
-      ...(product.get('overage_strategy') === 'donation') ? {
-        base_price: product.get('low_price'),
-        donation: Number(line_item.price) - Number(product.get('low_price')),
-        donation_revenue_type_id: product.get('donation_revenue_type_id')
-      } : {
-        base_price: line_item.price,
-        donation: 0.00
-      }
+      } : {}
     }).save(null, {
       transacting: req.trx
     })

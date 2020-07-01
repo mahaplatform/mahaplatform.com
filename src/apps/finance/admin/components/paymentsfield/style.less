@@ -1,0 +1,66 @@
+.paymentsfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  flex-direction: column;
+  display: flex;
+  overflow: hidden;
+}
+.paymentsfield-body {
+  display: flex;
+  flex: 1;
+}
+.paymentsfield-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+}
+.paymentsfield-payments {
+  .paymentsfield-payment:last-child {
+    border-bottom: none;
+  }
+}
+.paymentsfield-payment {
+  border-bottom: 1px solid fadeout(@black, 90);
+  color: fadeout(@black, 40);
+  cursor: pointer;
+  display: flex;
+  &.selected {
+    background-color: fadeout(@yellow, 97);
+  }
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.paymentsfield-payment-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.paymentsfield-payment-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.paymentsfield-payment-method {
+  padding: 0.8em;
+}
+.paymentsfield-payment-amount {
+  padding: 0.8em;
+}
+@media (max-width: 768px) {
+  .paymentsfield-body {
+    max-height: ~"calc(100vh - 21em)";
+  }
+}
+@media (min-width: 769px) {
+  .paymentsfield-body {
+    max-height: 450px;
+  }
+}
