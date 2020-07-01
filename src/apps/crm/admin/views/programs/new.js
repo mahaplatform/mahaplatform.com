@@ -1,4 +1,4 @@
-import MerchantToken from '../../../../finance/admin/tokens/merchant'
+import BankToken from '../../../../finance/admin/tokens/bank'
 import VisibilityToken from '../../tokens/visibility'
 import { Form, UserToken } from 'maha-admin'
 import { connect } from 'react-redux'
@@ -41,7 +41,7 @@ class New extends React.Component {
         },  {
           label: 'Finance',
           fields: [
-            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', format: MerchantToken },
+            { label: 'Bank', name: 'bank_id', type: 'lookup', placeholder: 'Choose a bank account', endpoint: '/api/admin/finance/banks', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', format: BankToken },
             { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, defaultValue: team.address }
           ]
         }

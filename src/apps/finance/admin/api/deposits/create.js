@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
 
   const deposit = await Deposit.forge({
     team_id: req.team.get('id'),
-    merchant_id: req.body.merchant_id,
+    bank_id: req.body.bank_id,
     date: req.body.date,
     status: 'pending'
   }).save(null, {
@@ -39,7 +39,7 @@ const createRoute = async (req, res) => {
 
   })
 
-  await deposit.load(['payments','merchant'], {
+  await deposit.load(['payments','bank'], {
     transacting: req.trx
   })
 

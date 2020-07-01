@@ -1,5 +1,5 @@
 import { Logo, Page } from 'maha-admin'
-import Merchants from './merchants'
+import Banks from './banks'
 import Details from './details'
 import Delete from '../delete'
 import User from '../user'
@@ -7,12 +7,12 @@ import Edit from '../edit'
 import Apps from './apps'
 import React from 'react'
 
-const getTabs = ({ team, apps, merchants }) => ({
+const getTabs = ({ team, apps, banks }) => ({
   header: <Logo team={ team } width="120" />,
   items:  [
     { label: 'Details', component: <Details team={ team } /> },
     { label: 'Apps', component: <Apps apps={ apps } /> },
-    { label: 'Bank Accounts', component: <Merchants team={ team } merchants={ merchants } /> }
+    { label: 'Bank Accounts', component: <Banks team={ team } banks={ banks } /> }
   ]
 })
 
@@ -39,7 +39,7 @@ const getTasks = ({ team }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   apps: `/api/admin/platform/teams/${props.params.id}/apps`,
-  merchants: `/api/admin/platform/teams/${props.params.id}/merchants`,
+  banks: `/api/admin/platform/teams/${props.params.id}/banks`,
   team: `/api/admin/platform/teams/${props.params.id}`
 })
 

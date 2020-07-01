@@ -25,7 +25,7 @@ const Details = ({ audits, program }) => {
   }
 
   list.items.push({ label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: program.address ? program.address.replace(/\n/g,'<br />') : 'NONE' }} /> })
-  list.items.push({ label: 'Merchant Account', content: program.merchant ? program.merchant.title : 'NONE' })
+  list.items.push({ label: 'Bank Account', content: program.bank ? program.bank.title : 'NONE' })
   list.items.push({ component: <Audit entries={ audits } /> })
 
   return <List { ...list } />

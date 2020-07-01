@@ -1,7 +1,7 @@
 const DepositSerializer = (req, result) => ({
   id: result.get('id'),
   date: result.get('date'),
-  merchant: merchant(result.related('merchant')),
+  bank: bank(result.related('bank')),
   amount: result.get('amount'),
   total: result.get('total'),
   fee: result.get('fee'),
@@ -11,11 +11,11 @@ const DepositSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const merchant = (merchant) => {
-  if(!merchant.id) return null
+const bank = (bank) => {
+  if(!bank.id) return null
   return {
-    id: merchant.get('id'),
-    title: merchant.get('title')
+    id: bank.get('id'),
+    title: bank.get('title')
   }
 }
 

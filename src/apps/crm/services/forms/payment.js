@@ -95,7 +95,7 @@ export const handlePayment = async (req, { invoice, program, payment }) => {
   return await makePayment(req, {
     invoice,
     params: {
-      merchant_id: program.get('merchant_id'),
+      bank_id: program.get('bank_id'),
       ...payment
     }
   })

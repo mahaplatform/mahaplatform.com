@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Merchant from './merchant'
+import Bank from './bank'
 import Payment from './payment'
 import numeral from 'numeral'
 import moment from 'moment'
@@ -13,7 +13,7 @@ const Deposit = new Model({
   virtuals: {
 
     object_text: function() {
-      return `${numeral(this.get('amount')).format('$0.00')} into ${this.related('merchant').get('title')} on ${moment(this.get('date')).format('MM/DD/YY')}`
+      return `${numeral(this.get('amount')).format('$0.00')} into ${this.related('bank').get('title')} on ${moment(this.get('date')).format('MM/DD/YY')}`
     },
 
     object_type: function() {
@@ -26,8 +26,8 @@ const Deposit = new Model({
 
   },
 
-  merchant() {
-    return this.belongsTo(Merchant, 'merchant_id')
+  bank() {
+    return this.belongsTo(Bank, 'bank_id')
   },
 
   payments() {

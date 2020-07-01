@@ -7,7 +7,7 @@ const Details = ({ audits, deposit }) => {
   const list = {
     items: [
       { label: 'Date', content: deposit.date, format: 'date' },
-      { label: 'Merchant Account', content: deposit.merchant.title },
+      { label: 'Bank Account', content: deposit.bank.title },
       { label: 'Total', content: deposit.total, format: 'currency' },
       { label: 'Fee', content: deposit.fee, format: 'currency' },
       { label: 'Amount', content: deposit.amount, format: 'currency' },

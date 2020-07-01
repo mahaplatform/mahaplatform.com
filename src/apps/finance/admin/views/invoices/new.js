@@ -33,7 +33,7 @@ class New extends React.Component {
         {
           fields: [
             { type: 'fields', fields: [
-              { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', filter: { merchant_id: { $eq: 'not_null' } }, value: 'id', text: 'title', required: true, format: ProgramToken },
+              { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', filter: { bank_id: { $eq: 'not_null' } }, value: 'id', text: 'title', required: true, format: ProgramToken },
               { label: 'Customer', name: 'customer_id', type: 'lookup', placeholder: 'Choose a customer', endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', required: true, format: ContactToken }
             ] },
             { type: 'fields', fields: [

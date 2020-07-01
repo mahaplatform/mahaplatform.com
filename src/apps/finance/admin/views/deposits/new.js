@@ -33,7 +33,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Merchant Account', name: 'merchant_id', type: 'lookup', endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title', required: true },
+            { label: 'Bank Account', name: 'bank_id', type: 'lookup', endpoint: '/api/admin/finance/banks', value: 'id', text: 'title', required: true },
             { label: 'Payments', name: 'payment_ids', type: PaymentsField, required: true }
           ]
         }

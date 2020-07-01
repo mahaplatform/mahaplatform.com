@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['date','method','card_type','merchant_id','customer_id','status'],
+      allowed: ['date','method','card_type','bank_id','customer_id','status'],
       search: ['code']
     },
     sort: {

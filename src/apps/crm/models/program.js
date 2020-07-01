@@ -1,5 +1,5 @@
 import PhoneNumber from '../../maha/models/phone_number'
-import Merchant from '../../finance/models/merchant'
+import Bank from '../../finance/models/bank'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
 import VoiceCampaign from './voice_campaign'
@@ -48,8 +48,8 @@ const Program = new Model({
     })
   },
 
-  merchant() {
-    return this.belongsTo(Merchant, 'merchant_id')
+  bank() {
+    return this.belongsTo(Bank, 'bank_id')
   },
 
   phone_number() {

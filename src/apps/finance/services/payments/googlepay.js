@@ -31,7 +31,7 @@ const getPaymentMethod = async(req, { customer, payment }) => {
 
 }
 
-export const chargeGooglePay = async (req, { invoice, customer, merchant, payment, amount }) => {
+export const chargeGooglePay = async (req, { invoice, customer, bank, payment, amount }) => {
 
   const payment_method = await getPaymentMethod(req, {
     customer,
@@ -41,7 +41,7 @@ export const chargeGooglePay = async (req, { invoice, customer, merchant, paymen
   const { nonce } = payment
 
   const result = await braintree.transaction.sale({
-    merchantAccountId: merchant.get('braintree_id'),
+    bankAccountId: bank.get('braintree_id'),
     customerId: customer.get('braintree_id'),
     paymentMethodNonce: nonce,
     amount,
@@ -64,10 +64,10 @@ export const chargeGooglePay = async (req, { invoice, customer, merchant, paymen
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
-    merchant_id: merchant.get('id'),
+    bank_id: bank.get('id'),
     braintree_id: result.transaction.id,
     payment_method_id: payment_method.get('id'),
-    rate: payment_method.get('card_type') === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
+    rate: payment_method.get('card_type') === 'amex' ? bank.get('amex_rate') : bank.get('rate'),
     reference: payment_method.get('description'),
     status: 'captured',
     method: 'googlepay',

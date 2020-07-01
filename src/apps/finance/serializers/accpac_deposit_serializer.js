@@ -82,7 +82,7 @@ const getSummary = (deposit, allocation, index) => {
     1,
     ...Array(11).fill(0),
     'AR',
-    deposit.related('merchant').get('integration').bank_code,
+    deposit.related('bank').get('integration').bank_code,
     'USD',
     '',
     0,

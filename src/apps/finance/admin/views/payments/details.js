@@ -35,7 +35,7 @@ const Details = ({ audits, payment }) => {
       items.push({ label: 'Card', content: payment.description })
     }
 
-    items.push({ label: 'Merchant', content: payment.merchant.title })
+    items.push({ label: 'Bank', content: payment.bank.title })
 
   }
 
@@ -69,23 +69,11 @@ const Details = ({ audits, payment }) => {
     items.push({ label: 'Refunded', content: numeral(payment.refunded).format('$0.00') })
   }
 
-  if(payment.merchant) {
-    items.push({ label: 'Merchant Account', content: payment.merchant.title })
+  if(payment.bank) {
+    items.push({ label: 'Bank Account', content: payment.bank.title })
     items.push({ label: 'Fee', content: (
       <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
     ) })
-  }
-
-  if(payment.status === 'deposited') {
-
-    const deposit = {
-      className: 'link',
-      label: moment(payment.deposit.date).format('MM/DD/YYYY'),
-      route: `/admin/finance/deposits/${payment.deposit.id}`
-    }
-
-    items.push({ label: 'Deposited', content: <Button { ...deposit } /> })
-
   }
 
   const list = {
@@ -110,6 +98,25 @@ const Details = ({ audits, payment }) => {
     list.alert = { color: 'violet', message: 'This payment has been deposited' }
   } else if(payment.status === 'received') {
     list.alert = { color: 'green', message: 'This payment was received' }
+  }
+
+
+  if(payment.status === 'deposited') {
+
+    const deposit = {
+      className: 'link',
+      label: moment(payment.deposit.date).format('MM/DD/YYYY'),
+      route: `/admin/finance/deposits/${payment.deposit.id}`
+    }
+
+    list.sections.push({
+      title: 'Deposited',
+      items: [
+        { label: 'Bank Account', content: payment.deposit.bank.title },
+        { label: 'Date', content: <Button { ...deposit } /> }
+      ]
+    })
+
   }
 
   if(payment.status === 'voided') {

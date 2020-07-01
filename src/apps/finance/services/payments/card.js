@@ -49,7 +49,7 @@ const getPaymentMethod = async(req, { customer, payment }) => {
 
 }
 
-export const chargeCard = async (req, { invoice, customer, merchant, payment, amount }) => {
+export const chargeCard = async (req, { invoice, customer, bank, payment, amount }) => {
 
   const payment_method = await getPaymentMethod(req, {
     customer,
@@ -57,7 +57,7 @@ export const chargeCard = async (req, { invoice, customer, merchant, payment, am
   })
 
   const result = await braintree.transaction.sale({
-    merchantAccountId: merchant.get('braintree_id'),
+    bankAccountId: bank.get('braintree_id'),
     customerId: customer.get('braintree_id'),
     paymentMethodToken: payment_method.get('braintree_id'),
     amount,
@@ -79,10 +79,10 @@ export const chargeCard = async (req, { invoice, customer, merchant, payment, am
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
-    merchant_id: merchant.get('id'),
+    bank_id: bank.get('id'),
     braintree_id: result.transaction.id,
     payment_method_id: payment_method.get('id'),
-    rate: payment_method.get('card_type') === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
+    rate: payment_method.get('card_type') === 'amex' ? bank.get('amex_rate') : bank.get('rate'),
     reference: payment_method.get('description'),
     status: 'captured',
     method: 'card',

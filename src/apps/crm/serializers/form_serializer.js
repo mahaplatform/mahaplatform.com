@@ -28,16 +28,16 @@ const program = (program) => {
     id: program.get('id'),
     title: program.get('title'),
     logo: program.related('logo') ? program.related('logo').get('path') : null,
-    merchant: merchant(program.related('merchant'))
+    bank: bank(program.related('bank'))
   }
 }
 
-const merchant = (merchant) => {
-  if(!merchant.id) return
+const bank = (bank) => {
+  if(!bank.id) return
   return {
-    id: merchant.get('id'),
-    title: merchant.get('title'),
-    status: merchant.get('status')
+    id: bank.get('id'),
+    title: bank.get('title'),
+    status: bank.get('status')
   }
 }
 

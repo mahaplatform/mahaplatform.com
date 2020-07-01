@@ -11,7 +11,7 @@ const paymentRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.invoice_id)
   }).fetch({
-    withRelated: ['customer','coupon','line_items.product','payments','program.merchant','program.logo'],
+    withRelated: ['customer','coupon','line_items.product','payments','program.bank','program.logo'],
     transacting: req.trx
   })
 
@@ -31,6 +31,11 @@ const paymentRoute = async (req, res) => {
 
   await invoice.load(['payments'], {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: payment
   })
 
   await audit(req, {

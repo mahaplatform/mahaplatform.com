@@ -12,7 +12,7 @@ const PaymentSerializer = (req, result) => ({
   disbursed: result.get('disbursed'),
   fee: result.get('fee'),
   invoice: invoice(result.related('invoice')),
-  merchant: merchant(result.related('merchant')),
+  bank: bank(result.related('bank')),
   method: result.get('method'),
   payment_method: payment_method(result.related('payment_method')),
   photo: photo(result.related('photo')),
@@ -50,16 +50,16 @@ const deposit = (deposit) => {
   return {
     id: deposit.get('id'),
     date: deposit.get('date'),
-    merchant: merchant(deposit.related('merchant'))
+    bank: bank(deposit.related('bank'))
   }
 }
 
-const merchant = (merchant) => {
-  if(!merchant.id) return null
+const bank = (bank) => {
+  if(!bank.id) return null
   return {
-    id: merchant.get('id'),
-    title: merchant.get('title'),
-    braintree_id: merchant.get('braintree_id')
+    id: bank.get('id'),
+    title: bank.get('title'),
+    braintree_id: bank.get('braintree_id')
   }
 }
 

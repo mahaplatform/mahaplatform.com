@@ -1,4 +1,4 @@
-import merchants from './merchants'
+import banks from './banks'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -30,6 +30,6 @@ router.get('/:id/roles', roles)
 
 router.post('/:id/users', users)
 
-router.use('/:team_id/merchants', merchants)
+router.use('/:team_id/banks', banks)
 
 export default router

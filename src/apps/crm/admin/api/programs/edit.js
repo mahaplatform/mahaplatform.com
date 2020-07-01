@@ -22,7 +22,7 @@ const editRoute = async (req, res) => {
       'logo_id',
       'address',
       'phone_number_id',
-      'merchant_id'
+      'bank_id'
     ]
   })
 

@@ -1,7 +1,7 @@
 export const lookup = (number) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/finance/merchants/lookup',
+  endpoint: '/api/admin/finance/banks/lookup',
   query: { number },
   request: 'LOOKUP_REQUEST',
   success: 'LOOKUP_SUCCESS',

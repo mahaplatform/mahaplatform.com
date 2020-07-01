@@ -54,6 +54,11 @@ class PaymentsField extends React.Component {
 
   _getInfinite() {
     const { selected } = this.state
+    const empty = {
+      icon: 'dollar',
+      title: 'No Payments',
+      text: 'There are no undeposited payments'
+    }
     return {
       endpoint: '/api/admin/finance/payments',
       filter: {
@@ -64,6 +69,8 @@ class PaymentsField extends React.Component {
           $eq: 'null'
         }
       },
+      notFound: empty,
+      empty,
       layout: Results,
       props: {
         selected,

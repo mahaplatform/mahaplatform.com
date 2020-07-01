@@ -30,7 +30,7 @@ const getPaymentMethod = async(req, { customer, payment }) => {
 
 }
 
-export const chargePayPal = async (req, { invoice, customer, merchant, payment, amount }) => {
+export const chargePayPal = async (req, { invoice, customer, bank, payment, amount }) => {
 
   const payment_method = await getPaymentMethod(req, {
     customer,
@@ -38,7 +38,7 @@ export const chargePayPal = async (req, { invoice, customer, merchant, payment, 
   })
 
   const result = await braintree.transaction.sale({
-    merchantAccountId: merchant.get('braintree_id'),
+    bankAccountId: bank.get('braintree_id'),
     customerId: customer.get('braintree_id'),
     paymentMethodNonce: payment.nonce,
     amount,
@@ -60,11 +60,11 @@ export const chargePayPal = async (req, { invoice, customer, merchant, payment, 
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
-    merchant_id: merchant.get('id'),
+    bank_id: bank.get('id'),
     braintree_id: result.transaction.id,
     paypal_id: result.transaction.paypal.authorizationId,
     payment_method_id: payment_method.get('id'),
-    rate: merchant.get('rate'),
+    rate: bank.get('rate'),
     reference: payment_method.get('description'),
     status: 'captured',
     method: 'paypal',

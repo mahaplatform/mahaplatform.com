@@ -3,7 +3,7 @@ import expense_types from './expense_types'
 import revenue_types from './revenue_types'
 import memberships from './memberships'
 import customers from './customers'
-import merchants from './merchants'
+import banks from './banks'
 import deposits from './deposits'
 import accounts from './accounts'
 import payments from './payments'
@@ -54,7 +54,7 @@ router.use('/invoices', invoices)
 
 router.use('/memberships', memberships)
 
-router.use('/merchants', merchants)
+router.use('/banks', banks)
 
 router.use('/payments', payments)
 

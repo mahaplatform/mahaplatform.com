@@ -69,7 +69,7 @@ const chargeCustomer = async (req, { invoice, params }) => {
     })
   }
 
-  await invoice.load(['customer','program.merchant'], {
+  await invoice.load(['customer','program.bank'], {
     transacting: req.trx
   })
 
@@ -77,12 +77,12 @@ const chargeCustomer = async (req, { invoice, params }) => {
     customer: invoice.related('customer')
   })
 
-  const merchant = invoice.related('program').related('merchant')
+  const bank = invoice.related('program').related('bank')
 
   const payment = await paymentCreator(req, {
     invoice,
     customer,
-    merchant,
+    bank,
     payment: params.payment,
     amount: params.amount
   })

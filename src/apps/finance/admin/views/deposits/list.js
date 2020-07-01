@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/finance/deposits',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
+      { label: 'Bank Account', key: 'bank.title', sort:'bank', primary: true },
       { label: 'Date', key: 'date', collapsing: true, format: 'date' },
       { label: 'Payments', key: 'payments_count', collapsing: true, align: 'right' },
       { label: 'Total', key: 'total', collapsing: true, format: 'currency' },
@@ -17,7 +17,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', padded: true, format: Status }
     ],
     filters: [
-      { label: 'Merchant Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },
+      { label: 'Bank Account', name: 'bank_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/banks', value: 'id', text: 'title' },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
@@ -27,13 +27,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Disbursements',
       text: 'You do not recveived any deposits',
       buttons: [
-        { label: 'Add Merchant Account', modal: New }
+        { label: 'Add Bank Account', modal: New }
       ]
     },
     entity: 'deposits'
   },
   task: {
-    label: 'Add Merchant Account',
+    label: 'Add Bank Account',
     icon: 'plus',
     modal: New
   }

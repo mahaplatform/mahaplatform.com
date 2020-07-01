@@ -8,7 +8,7 @@ const paymentsRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.deposit_id)
   }).fetch({
-    withRelated: ['merchant','payments'],
+    withRelated: ['bank','payments'],
     transacting: req.trx
   })
 

@@ -2,7 +2,7 @@ import { audit } from '../../../core/services/routes/audit'
 import socket from '../../../core/services/routes/emitter'
 import braintree from '../../../core/services/braintree'
 import cron from '../../../core/objects/cron'
-import Merchant from '../models/merchant'
+import Bank from '../models/bank'
 import Deposit from '../models/deposit'
 import Payment from '../models/payment'
 import Refund from '../models/refund'
@@ -26,11 +26,11 @@ const getTransactions = async(ids) => {
   }), {}))
 }
 
-const getDeposit = async (req, { merchant, payment, transaction }) => {
+const getDeposit = async (req, { bank, payment, transaction }) => {
 
   const deposit = await Deposit.where(qb => {
     qb.where('team_id', req.team.get('id')),
-    qb.where('merchant_id', merchant.get('id')),
+    qb.where('bank_id', bank.get('id')),
     qb.where('date', transaction.disbursementDetails.disbursementDate)
   }).save(null, {
     transacting: req.trx
@@ -40,7 +40,7 @@ const getDeposit = async (req, { merchant, payment, transaction }) => {
 
   const newdeposit = await Deposit.forge({
     team_id: req.team.get('id'),
-    merchant_id: merchant.get('id'),
+    bank_id: bank.get('id'),
     date: transaction.disbursementDetails.disbursementDate
   }).save(null, {
     transacting: req.trx
@@ -79,14 +79,14 @@ const updatePayments = async (req) => {
 
     if(payment.get('status') !== 'deposited' && transaction.disbursementDetails.disbursementDate) {
 
-      const merchant = await Merchant.query(qb => {
-        qb.where('braintree_id', transaction.merchantAccountId)
+      const bank = await Bank.query(qb => {
+        qb.where('braintree_id', transaction.bankAccountId)
       }).fetch({
         transacting: req.trx
       })
 
       const deposit = await getDeposit(req, {
-        merchant,
+        bank,
         payment,
         transaction
       })

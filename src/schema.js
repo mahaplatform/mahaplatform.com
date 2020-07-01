@@ -476,7 +476,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.text('address')
-      table.integer('merchant_id').unsigned()
+      table.integer('bank_id').unsigned()
     })
 
     await knex.schema.createTable('crm_responses', (table) => {
@@ -1014,6 +1014,25 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
+    await knex.schema.createTable('finance_banks', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('title', 255)
+      table.string('braintree_id', 255)
+      table.boolean('is_active')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+      table.string('bank_name', 255)
+      table.string('routing_number', 255)
+      table.string('account_number', 255)
+      table.decimal('rate', 5, 4)
+      table.decimal('amex_rate', 5, 4)
+      table.boolean('has_paypal')
+      table.jsonb('integration')
+      table.date('applied_on')
+      table.USER-DEFINED('status')
+    })
+
     await knex.schema.createTable('finance_batches', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1079,7 +1098,7 @@ const schema = {
     await knex.schema.createTable('finance_deposits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('merchant_id').unsigned()
+      table.integer('bank_id').unsigned()
       table.date('date')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -1165,25 +1184,6 @@ const schema = {
       table.USER-DEFINED('type')
     })
 
-    await knex.schema.createTable('finance_merchants', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.string('title', 255)
-      table.string('braintree_id', 255)
-      table.boolean('is_active')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.string('bank_name', 255)
-      table.string('routing_number', 255)
-      table.string('account_number', 255)
-      table.decimal('rate', 5, 4)
-      table.decimal('amex_rate', 5, 4)
-      table.boolean('has_paypal')
-      table.jsonb('integration')
-      table.date('applied_on')
-      table.USER-DEFINED('status')
-    })
-
     await knex.schema.createTable('finance_payment_methods', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1208,7 +1208,7 @@ const schema = {
       table.integer('invoice_id').unsigned()
       table.integer('credit_id').unsigned()
       table.integer('scholarship_id').unsigned()
-      table.integer('merchant_id').unsigned()
+      table.integer('bank_id').unsigned()
       table.integer('deposit_id').unsigned()
       table.USER-DEFINED('method')
       table.decimal('amount', 6, 2)
@@ -2613,7 +2613,7 @@ const schema = {
 
     await knex.schema.table('crm_programs', table => {
       table.foreign('logo_id').references('maha_assets.id')
-      table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('bank_id').references('finance_banks.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2953,7 +2953,7 @@ const schema = {
     })
 
     await knex.schema.table('finance_deposits', table => {
-      table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('bank_id').references('finance_banks.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2972,7 +2972,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_merchants', table => {
+    await knex.schema.table('finance_banks', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2985,7 +2985,7 @@ const schema = {
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('deposit_id').references('finance_deposits.id')
       table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('bank_id').references('finance_banks.id')
       table.foreign('payment_method_id').references('finance_payment_methods.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')

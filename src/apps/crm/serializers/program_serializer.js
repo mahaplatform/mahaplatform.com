@@ -3,7 +3,7 @@ const ProgramSerializer = (req, result) => ({
   title: result.get('title'),
   address: result.get('address'),
   logo: result.related('logo') ? result.related('logo').get('path') : null,
-  merchant: merchant(result.related('merchant')),
+  bank: bank(result.related('bank')),
   phone_number: phone_number(result.related('phone_number')),
   voice_campaign: campaign(result.related('voice_campaign')),
   access_type: result.get('access_type'),
@@ -30,11 +30,11 @@ const campaign = (campaign) => {
   }
 }
 
-const merchant = (merchant) => {
-  if(!merchant.id) return null
+const bank = (bank) => {
+  if(!bank.id) return null
   return {
-    id: merchant.get('id'),
-    title: merchant.get('title')
+    id: bank.get('id'),
+    title: bank.get('title')
   }
 }
 
