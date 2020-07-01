@@ -14,11 +14,11 @@ const navigation = async (req) => ({
       { label: 'Vendors', rights: ['finance:manage_configuration'], route: '/vendors' }
     ] },
     { label: 'Revenue', rights: ['finance:manage_revenue'], items: [
+      { label: 'Banks', route: '/merchants' },
       { label: 'Coupons', route: '/coupons' },
       { label: 'Customers', route: '/customers' },
       { label: 'Customer Invoices', route: '/invoices' },
       { label: 'Deposits', route: '/deposits' },
-      { label: 'Merchant Accounts', route: '/merchants' },
       { label: 'Payments', route: '/payments' },
       { label: 'Products', route: '/products' },
       { label: 'Report', route: '/reports/revenue' },

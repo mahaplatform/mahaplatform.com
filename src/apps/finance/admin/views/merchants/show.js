@@ -11,13 +11,20 @@ const getTabs = ({ app, merchant }) => ({
   ]
 })
 
-const getTasks = ({ app, merchant }) => ({
-  items: [{
+const getTasks = ({ app, merchant }) => {
+  const items = [{
     label: 'Edit Merchant',
     rights: ['finance:manage_configuration'],
     modal: <Edit merchant={ merchant } integration={ app.settings.integration } />
   }]
-})
+  if(!merchant.braintree_id && !merchant.applied_on) {
+    items.push({
+      label: 'Signup with Braintree',
+      link: 'https://apply.braintreegateway.com/signup/us?partner_source=referrer_id=0062E00001GnA8AQAV_0032E00002bbcZ4QAI'
+    })
+  }
+  return { items }
+}
 
 const mapResourcesToPage = (props, context) => ({
   app: '/api/admin/apps/finance/settings',

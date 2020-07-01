@@ -8,7 +8,9 @@ const Braintree = ({ merchant }, { flash }) => {
 
     return (
       <div className="finance-braintree-signup success">
-        Your merchant account is connected to Braintree
+        <div className="finance-braintree-signup-text">
+          Your merchant account is connected to Braintree
+        </div>
       </div>
     )
 
@@ -16,8 +18,10 @@ const Braintree = ({ merchant }, { flash }) => {
 
     return (
       <div className="finance-braintree-signup warning">
-        Thank you for completing the signup process for this account. We&apos;ll
-        connect it as soon as we receive notice from Braintree.
+        <div className="finance-braintree-signup-text">
+          Thank you for completing the signup process for this account. We&apos;ll
+          connect it as soon as we receive notice from Braintree.
+        </div>
       </div>
     )
 
@@ -40,14 +44,14 @@ const Braintree = ({ merchant }, { flash }) => {
 
     return (
       <div className="finance-braintree-signup warning">
-        <p>
+        <div className="finance-braintree-signup-text">
           Before you can begin accepting digital payments and depositing the
           funds into this this bank account, you must first create a merchant
           account with Braintree (a PayPal Company). This involves a small
           underwriting process in which you will be asked to provide supporting
           documentation as well as name a authorized individual for your
           organization.
-        </p>
+        </div>
         <Button { ...signup } />
         <Button { ...complete } />
       </div>
