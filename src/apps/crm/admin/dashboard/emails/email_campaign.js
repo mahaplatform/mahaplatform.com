@@ -26,11 +26,8 @@ class EmailCampaign extends React.Component {
 
     return (
       <div className="maha-dashboard-card">
-        <div className="maha-dashboard-card-header">
-          <div className="maha-dashboard-card-back" onClick={ this._handleBack }>
-            <i className="fa fa-chevron-left" />
-            Back
-          </div>
+        <div className="maha-dashboard-card-header maha-dashboard-card-back" onClick={ this._handleBack }>
+          <i className="fa fa-chevron-left" />
           <div className="maha-dashboard-card-header-details">
             <h2>{ campaign.title }</h2>
             <h3>Performance</h3>
