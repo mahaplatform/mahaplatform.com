@@ -12,7 +12,7 @@ class CsvResponder extends Responder {
     const records = _.castArray(this.data)
     const matrix = (_.isPlainObject(records[0])) ? this._toMatrix(records) : records
     const wrapped = matrix.map(row => row.map(col => this._wrapWithEnclosure(col, enclosure)))
-    return wrapped.map(row => row.join(separator)).join('\n')
+    return wrapped.map(row => row.join(separator)).join('\r\n')
   }
 
   _getSeparator() {
