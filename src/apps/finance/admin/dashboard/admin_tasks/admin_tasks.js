@@ -107,10 +107,10 @@ class AdminTasks extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  payments: '/api/admin/finance/payments?$filter[$and][0][status][$in][0]=received&$filter[$and][1][method][$in][0]=cash&$filter[$and][1][method][$in][1]=check',
-  deposits: '/api/admin/finance/deposits?$filter[$and][0][status][$in][0]=pending',
-  expensesForReview: '/api/admin/finance/items?$filter[$and][0][status][$in][0]=approved',
-  expensesForExport: '/api/admin/finance/items?$filter[$and][0][status][$in][0]=reviewed'
+  payments: '/api/admin/finance/payments?$filter[$and][0][status][$in][0]=received&$filter[$and][1][method][$in][0]=cash&$filter[$and][1][method][$in][1]=check&$page[limit]=0',
+  deposits: '/api/admin/finance/deposits?$filter[$and][0][status][$in][0]=pending&$page[limit]=0',
+  expensesForReview: '/api/admin/finance/items?$filter[$and][0][status][$in][0]=approved&$page[limit]=0',
+  expensesForExport: '/api/admin/finance/items?$filter[$and][0][status][$in][0]=reviewed&$page[limit]=0'
 })
 
 export default Container(mapResources)(AdminTasks)
