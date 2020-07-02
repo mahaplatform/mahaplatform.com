@@ -4935,39 +4935,50 @@ union
 
     await knex.raw(`
       create view finance_allocations AS
-      with percents as (
-      select finance_invoice_line_items_1.line_item_id,
-      case
-      when (finance_invoice_totals.total > (0)::numeric) then (finance_invoice_line_items_1.allocated / finance_invoice_totals.total)
-      else (0)::numeric
-      end as percent
-      from (finance_invoice_line_items finance_invoice_line_items_1
-      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoice_line_items_1.invoice_id)))
-      )
-      select finance_payments.team_id,
+      with computed as (
+      select row_number() over (partition by finance_payment_details.payment_id order by finance_invoice_line_items_1.total desc) as index,
+      finance_invoice_line_items_1.line_item_id,
       finance_payments.id as payment_id,
-      finance_line_items.id as line_item_id,
-      finance_invoices.customer_id,
-      finance_line_items.project_id,
-      finance_line_items.revenue_type_id,
       case
-      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payment_details.disbursed) * (100)::numeric)) / (100)::numeric), 2)
-      else round((floor(((percents.percent * finance_payment_details.disbursed) * (100)::numeric)) / (100)::numeric), 2)
-      end as amount,
-      case
-      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payment_details.fee) * (100)::numeric)) / (100)::numeric), 2)
-      else round((floor(((percents.percent * finance_payment_details.fee) * (100)::numeric)) / (100)::numeric), 2)
-      end as fee,
-      case
-      when (finance_invoice_line_items.delta = 0) then round((ceil(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
-      else round((floor(((percents.percent * finance_payments.amount) * (100)::numeric)) / (100)::numeric), 2)
-      end as total
-      from (((((finance_payments
-      join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
+      when (finance_invoice_totals.total > (0)::numeric) then round(((finance_invoice_line_items_1.allocated / finance_invoice_totals.total) * finance_payment_details.fee), 2)
+      else (0)::numeric
+      end as amount
+      from (((finance_invoice_line_items finance_invoice_line_items_1
+      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoice_line_items_1.invoice_id)))
+      join finance_payments on ((finance_payments.invoice_id = finance_invoice_line_items_1.invoice_id)))
       join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
-      join finance_line_items on ((finance_line_items.invoice_id = finance_payments.invoice_id)))
-      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = finance_line_items.id)))
-      join percents on ((percents.line_item_id = finance_line_items.id)));
+      ), totaled as (
+      select computed.payment_id,
+      sum(computed.amount) as amount
+      from computed
+      group by computed.payment_id
+      ), diffed as (
+      select totaled.payment_id,
+      (finance_payment_details.fee - totaled.amount) as amount
+      from (totaled
+      join finance_payment_details on ((finance_payment_details.payment_id = totaled.payment_id)))
+      ), adjusted as (
+      select computed.index,
+      computed.line_item_id,
+      computed.payment_id,
+      computed.amount,
+      case
+      when (computed.index = 1) then (computed.amount + diffed.amount)
+      else computed.amount
+      end as fee
+      from (computed
+      join diffed on ((diffed.payment_id = computed.payment_id)))
+      )
+      select finance_invoices.team_id,
+      adjusted.payment_id,
+      adjusted.line_item_id,
+      (finance_invoice_line_items.total - adjusted.fee) as amount,
+      adjusted.fee,
+      finance_invoice_line_items.total
+      from (((adjusted
+      join finance_line_items on ((finance_line_items.id = adjusted.line_item_id)))
+      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = adjusted.line_item_id)))
+      join finance_invoices on ((finance_invoices.id = finance_line_items.invoice_id)));
     `)
 
     await knex.raw(`

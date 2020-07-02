@@ -6,6 +6,7 @@ const allocationsRoute = async (req, res) => {
   const allocations = await Allocation.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('payment_id', req.params.payment_id)
+    qb.orderBy('delta','asc')
   }).fetchAll({
     withRelated: ['line_item'],
     transacting: req.trx
