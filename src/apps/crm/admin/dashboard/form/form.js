@@ -63,7 +63,7 @@ class Form extends React.Component {
                   Revenue
                 </div>
                 <div className="crm-report-metric-value">
-                  { numeral(form.revenue).format('$0.00') }
+                  { numeral(form.revenue).format('$0') }
                 </div>
               </div>
               <div className="crm-report-metric">
@@ -72,9 +72,9 @@ class Form extends React.Component {
             <div className="crm-report-table">
             </div>
           </div>
-        </div>
-        <div className="maha-dashboard-card-actions">
-          <Button { ...this._getForm() } />
+          <div className="maha-dashboard-card-actions">
+            <Button { ...this._getForm() } />
+          </div>
         </div>
       </div>
     )
