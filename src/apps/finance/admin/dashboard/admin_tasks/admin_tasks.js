@@ -1,5 +1,6 @@
 import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import React from 'react'
 
 class AdminTasks extends React.Component {
@@ -26,6 +27,35 @@ class AdminTasks extends React.Component {
   render() {
     const { controls, payments, deposits, expensesForReview, expensesForExport } = this.props
 
+    const listItems = [
+      {
+        records: payments,
+        handler: this._handlePayments,
+        noun: pluralize('payment', payments.length),
+        verb: 'deposit'
+      },
+      {
+        records: deposits,
+        handler: this._handleDeposits,
+        noun: pluralize('deposit', deposits.length),
+        verb: 'export'
+      },
+      {
+        records: expensesForReview,
+        handler: this._handleExpensesForReview,
+        noun: pluralize('expense', expensesForReview.length),
+        verb: 'review'
+      },
+      {
+        records: expensesForExport,
+        handler: this._handleExpensesForExport,
+        noun: pluralize('expense', expensesForExport.length),
+        verb: 'export'
+      }
+    ]
+
+    const activeListItems = listItems.filter(item => item.records.length > 0)
+
     return (
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
@@ -36,46 +66,16 @@ class AdminTasks extends React.Component {
         </div>
         <div className="maha-dashboard-card-body">
           <div className="maha-list">
-            { payments.length > 0 &&
-              <div className="maha-list-item maha-list-item-link" onClick={ this._handlePayments }>
+            { activeListItems.map((item, index) => (
+              <div className="maha-list-item maha-list-item-link" key={`finance_item_${index}`}  onClick={ item.handler }>
                 <div className="maha-list-item-label">
-                  <b>{ payments.length }</b> payments to deposit
+                  <b>{ item.records.length }</b> { item.noun } to { item.verb }
                 </div>
                 <div className="maha-list-item-proceed">
                   <i className="fa fa-chevron-right" />
                 </div>
               </div>
-            }
-            { deposits.length > 0 &&
-              <div className="maha-list-item maha-list-item-link" onClick={ this._handleDeposits }>
-                <div className="maha-list-item-label">
-                  <b>{ deposits.length }</b> deposits to export
-                </div>
-                <div className="maha-list-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-            }
-            { expensesForReview.length > 0 &&
-              <div className="maha-list-item maha-list-item-link" onClick={ this._handleExpensesForReview }>
-                <div className="maha-list-item-label">
-                  <b>{ expensesForReview.length }</b> expenses to review
-                </div>
-                <div className="maha-list-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-            }
-            { expensesForExport.length > 0 &&
-              <div className="maha-list-item maha-list-item-link" onClick={ this._handleExpensesForExport }>
-                <div className="maha-list-item-label">
-                  <b>{ expensesForExport.length }</b> expenses to export
-                </div>
-                <div className="maha-list-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-            }
+            ))}
           </div>
         </div>
       </div>
