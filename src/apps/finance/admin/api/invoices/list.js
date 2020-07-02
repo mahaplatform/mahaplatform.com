@@ -14,13 +14,15 @@ const listRoute = async (req, res) => {
     aliases: {
       program: 'crm_programs.title',
       customer: 'finance_customers.last_name',
+      first_name: 'finance_customers.first_name',
+      last_name: 'finance_customers.last_name',
       status: 'finance_invoice_details.status',
       total: 'finance_invoice_details.total'
     },
     filter: {
       params: req.query.$filter,
       allowed: ['customer_id','program_id','status'],
-      search: ['code']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,

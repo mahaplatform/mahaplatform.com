@@ -12,12 +12,15 @@ const listRoute = async (req, res) => {
       qb.where('finance_payments.team_id', req.team.get('id'))
     },
     aliases: {
+      customer: 'finance_customers.last_name',
+      first_name: 'finance_customers.first_name',
+      last_name: 'finance_customers.last_name',
       customer_id: 'finance_invoices.customer_id'
     },
     filter: {
       params: req.query.$filter,
       allowed: ['date','method','card_type','bank_id','customer_id','status'],
-      search: ['code']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,
