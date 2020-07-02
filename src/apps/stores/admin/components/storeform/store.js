@@ -11,6 +11,7 @@ class New extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -22,9 +23,10 @@ class New extends React.Component {
     return {
       title: 'Store Details',
       method: 'post',
-      action: '/api/admin/stores/stores',
       cancelIcon: 'chevron-left',
+      saveText: 'Next',
       onCancel: this._handleBack,
+      onSubmit: this._handleSubmit,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -40,6 +42,10 @@ class New extends React.Component {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleSubmit() {
+    return true
   }
 
   _handleSuccess(store) {

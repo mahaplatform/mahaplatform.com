@@ -102,11 +102,7 @@ class EventForm extends React.PureComponent {
   }
 
   _getPrograms() {
-    const { programs } = this.props
     return {
-      programs: programs.filter(program => {
-        return program.access_type !== 'view'
-      }),
       onCancel: this._handleCancel,
       onChoose: this._handlePrograms
     }

@@ -2285,6 +2285,7 @@ const schema = {
       table.timestamp('deleted_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('contact_config')
     })
 
     await knex.schema.createTable('stores_variants', (table) => {

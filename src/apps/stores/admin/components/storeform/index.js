@@ -1,3 +1,5 @@
+import ContactConfig from './contact_config'
+import Confirmation from './confirmation'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
@@ -21,13 +23,16 @@ class EventForm extends React.PureComponent {
   }
 
   state = {
-    cards: []
+    cards: [],
+    store: {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleContactConfig = this._handleContactConfig.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePrograms = this._handlePrograms.bind(this)
+  _handleStore = this._handleStore.bind(this)
 
   render() {
     return <Stack { ...this._getStack()} />
@@ -35,6 +40,24 @@ class EventForm extends React.PureComponent {
 
   componentDidMount() {
     this._handlePush(Programs, this._getPrograms())
+  }
+
+  _getConfirmation() {
+    const { store } = this.state
+    return {
+      store,
+      onBack: this._handlePop,
+      onDone: this._handleDone
+    }
+  }
+
+  _getContactConfig() {
+    const { store } = this.state
+    return {
+      st: store,
+      onBack: this._handlePop,
+      onDone: this._handleContactConfig
+    }
   }
 
   _getPrograms() {
@@ -56,12 +79,18 @@ class EventForm extends React.PureComponent {
     return {
       program,
       onBack: this._handlePop,
-      onDone: this._handleDone
+      onDone: this._handleStore
     }
   }
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleContactConfig(store) {
+    this._handleUpdate(store, () => {
+      this._handlePush(Confirmation, this._getConfirmation(store))
+    })
   }
 
   _handleDone(store) {
@@ -86,6 +115,21 @@ class EventForm extends React.PureComponent {
         { component, props }
       ]
     })
+  }
+
+  _handleStore(store) {
+    this._handleUpdate(store, () => {
+      this._handlePush(ContactConfig, this._getContactConfig())
+    })
+  }
+
+  _handleUpdate(value, callback) {
+    this.setState({
+      store: {
+        ...this.state.store,
+        ...value
+      }
+    }, callback)
   }
 
 }

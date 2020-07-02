@@ -29,6 +29,8 @@ const getSummary = (deposit, allocation, index) => {
 
   const date = moment(allocation.related('payment').get('date'))
 
+  const deposit_date = moment(deposit.get('date'))
+
   const month = parseInt(moment(deposit.get('date')).format('M'))
 
   const year = parseInt(moment(deposit.get('date')).format('YYYY'))
@@ -106,7 +108,7 @@ const getSummary = (deposit, allocation, index) => {
     numeral(allocation.get('amount')).format('0.00'),
     '62A',
     '',
-    date.format('YYYYMMDD'),
+    deposit_date.format('YYYYMMDD'),
     ...Array(2).fill(''),
     0,
     '',
