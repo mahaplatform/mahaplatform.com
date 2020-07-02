@@ -3,10 +3,6 @@ const INITIAL_STATE = {
     records: null,
     status: 'pending'
   },
-  products: {
-    records: null,
-    status: 'pending'
-  },
   line_items: [],
   coupon_id: null
 }
@@ -27,23 +23,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       coupons: {
-        records: action.result.data,
-        status: 'success'
-      }
-    }
-
-  case 'FETCH_PRODUCTS_REQUEST':
-    return {
-      ...state,
-      products: {
-        status: 'loading'
-      }
-    }
-
-  case 'FETCH_PRODUCTS_SUCCESS':
-    return {
-      ...state,
-      products: {
         records: action.result.data,
         status: 'success'
       }

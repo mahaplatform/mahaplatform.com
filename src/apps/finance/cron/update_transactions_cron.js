@@ -80,7 +80,7 @@ const updatePayments = async (req) => {
     if(payment.get('status') !== 'deposited' && transaction.disbursementDetails.disbursementDate) {
 
       const bank = await Bank.query(qb => {
-        qb.where('braintree_id', transaction.bankAccountId)
+        qb.where('braintree_id', transaction.merchantAccountId)
       }).fetch({
         transacting: req.trx
       })

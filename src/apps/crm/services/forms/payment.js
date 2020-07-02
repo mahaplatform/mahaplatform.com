@@ -90,14 +90,35 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
 
 }
 
-export const handlePayment = async (req, { invoice, program, payment }) => {
+export const handlePayment = async (req, params) => {
 
-  return await makePayment(req, {
+  const { invoice, program } = params
+
+  await invoice.load(['customer'], {
+    transacting: req.trx
+  })
+
+  const payment = await makePayment(req, {
     invoice,
     params: {
       bank_id: program.get('bank_id'),
-      ...payment
+      ...params.payment
     }
   })
+
+  await audit(req, {
+    contact: invoice.related('customer'),
+    story: 'payment made',
+    auditable: invoice
+  })
+
+  await audit(req, {
+    contact: invoice.related('customer'),
+    story: 'created',
+    auditable: payment
+  })
+
+  return payment
+
 
 }

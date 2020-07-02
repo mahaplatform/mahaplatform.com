@@ -19,7 +19,6 @@ class LineItems extends React.PureComponent {
     defaultValue: PropTypes.object,
     discount: PropTypes.number,
     line_items: PropTypes.array,
-    products: PropTypes.object,
     status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
@@ -29,7 +28,6 @@ class LineItems extends React.PureComponent {
     onAddLineItem: PropTypes.func,
     onChange: PropTypes.func,
     onFetchCoupons: PropTypes.func,
-    onFetchProducts: PropTypes.func,
     onReady: PropTypes.func,
     onRemoveCoupon: PropTypes.func,
     onRemoveLineItem: PropTypes.func,
@@ -123,10 +121,9 @@ class LineItems extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { onFetchCoupons, onFetchProducts, onSet, defaultValue } = this.props
+    const { onFetchCoupons, onSet, defaultValue } = this.props
     if(defaultValue) onSet(defaultValue)
     onFetchCoupons()
-    onFetchProducts()
   }
 
   componentDidUpdate(prevProps) {
@@ -156,10 +153,8 @@ class LineItems extends React.PureComponent {
   }
 
   _getNew() {
-    const { products } = this.props
     return {
-      products: products.records,
-      onSubmit: this._handleAddLineItem
+      onDone: this._handleAddLineItem
     }
   }
 

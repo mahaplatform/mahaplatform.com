@@ -38,7 +38,7 @@ export const chargePayPal = async (req, { invoice, customer, bank, payment, amou
   })
 
   const result = await braintree.transaction.sale({
-    bankAccountId: bank.get('braintree_id'),
+    merchantAccountId: bank.get('braintree_id'),
     customerId: customer.get('braintree_id'),
     paymentMethodNonce: payment.nonce,
     amount,

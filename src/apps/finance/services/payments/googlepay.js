@@ -41,7 +41,7 @@ export const chargeGooglePay = async (req, { invoice, customer, bank, payment, a
   const { nonce } = payment
 
   const result = await braintree.transaction.sale({
-    bankAccountId: bank.get('braintree_id'),
+    merchantAccountId: bank.get('braintree_id'),
     customerId: customer.get('braintree_id'),
     paymentMethodNonce: nonce,
     amount,

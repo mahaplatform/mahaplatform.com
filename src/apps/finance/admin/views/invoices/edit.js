@@ -44,7 +44,7 @@ class Edit extends React.Component {
               { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true }
             ] },
             { label: 'Notes', name: 'notes', type: 'textfield', placeholder: 'Add notes' },
-            { label: 'Details', name: 'details', type: LineItems, required: true }
+            { label: 'Line Items', name: 'details', type: LineItems, required: true }
           ]
         }
       ]

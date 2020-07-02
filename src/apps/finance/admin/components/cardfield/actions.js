@@ -1,10 +1,10 @@
-export const fetch = (types) => ({
+export const token = (types) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/finance/payments/token',
-  request: 'FETCH_REQUEST',
-  success: 'FETCH_SUCCESS',
-  failure: 'FETCH_FAILURE'
+  request: 'TOKEN_REQUEST',
+  success: 'TOKEN_SUCCESS',
+  failure: 'TOKEN_FAILURE'
 })
 
 export const authorize = (token, data) => ({

@@ -76,7 +76,7 @@ export const chargeACH = async (req, { invoice, customer, bank, payment, amount 
   })
 
   const result = await braintree.transaction.sale({
-    bankAccountId: bank.get('braintree_id'),
+    merchantAccountId: bank.get('braintree_id'),
     paymentMethodToken: payment_method.get('braintree_id'),
     amount,
     options: {

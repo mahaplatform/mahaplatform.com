@@ -108,7 +108,7 @@ const processor = async () => {
     'sync:teams',
     'sync:passwords',
     'sync:phone_numbers',
-    'sync:merchants'
+    'sync:braintree'
   ])
 
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
@@ -266,25 +266,30 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:teams', () => {
-    var sql = 'UPDATE maha_teams SET authentication_strategy=\'local\''
+    var sql = 'update maha_teams set authentication_strategy=\'local\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:passwords', () => {
     var password_salt = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WO'
     var password_hash = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WOR6KzZnF8hKHBDgmC69gz5SaQVNmhhGa'
-    var sql = `UPDATE maha_users SET password_salt='${password_salt}', password_hash='${password_hash}'`
+    var sql = `update maha_users set password_salt='${password_salt}', password_hash='${password_hash}'`
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:phone_numbers', () => {
-    var sql = `UPDATE maha_phone_numbers SET sid='${process.env.TWILIO_NUMBER_SID}', number='${process.env.TWILIO_NUMBER}'`
+    var sql = `update maha_phone_numbers SET sid='${process.env.TWILIO_NUMBER_SID}', number='${process.env.TWILIO_NUMBER}'`
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
-  utils.registerTask(shipit, 'sync:merchants', () => {
-    var sql = 'UPDATE finance_merchants SET braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\''
-    return shipit.local(`echo "${sql}" | psql maha`)
+  utils.registerTask(shipit, 'sync:braintree', () => {
+    var sql = [
+      'update finance_banks set braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\'',
+      'update crm_contacts set braintree_id=null',
+      'update finance_payments set payment_method_id=null',
+      'delete from finance_payment_methods'
+    ]
+    return shipit.local(`echo "${sql.join(';')}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:assets', () => {

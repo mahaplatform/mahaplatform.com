@@ -7,6 +7,7 @@ import _ from 'lodash'
 class Card extends React.PureComponent {
 
   static propTypes = {
+    errors: PropTypes.object,
     payment: PropTypes.object,
     summary: PropTypes.object,
     token: PropTypes.string,
@@ -14,8 +15,8 @@ class Card extends React.PureComponent {
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
-    onFetch: PropTypes.func,
     onReady: PropTypes.func,
+    onToken: PropTypes.func,
     onUpdate: PropTypes.func,
     onValid: PropTypes.func
   }
@@ -76,14 +77,17 @@ class Card extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onFetch()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { cvv, expirationDate, number } = this.state
-    const { payment, token } = this.props
+    const { errors, payment, token } = this.props
+    if(errors !== prevProps.errors && errors) {
+      this.props.onValid(null, errors)
+    }
     if(token !== prevProps.token) {
-      this.props.onReady(this._handleValidate)
+      this._handleAuthorize()
     }
     if(payment !== prevProps.payment) {
       this.props.onValid(payment)
@@ -221,7 +225,7 @@ class Card extends React.PureComponent {
     } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
       return onValid(null, ['This date is in the past'])
     }
-    onValid({ number, expirationDate, cvv })
+    this.props.onToken()
   }
 
 }

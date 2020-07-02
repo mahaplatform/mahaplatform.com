@@ -27,41 +27,26 @@ const createRoute = async (req, res) => {
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),
     code,
-    coupon_id: coupon ? coupon.get('id') : null,
     ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }).save(null, {
     transacting: req.trx
   })
 
   await Promise.map(line_items, async(line_item, delta) => {
-
-    const product = await Product.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('id', line_item.product_id)
-    }).fetch({
-      transacting: req.trx
-    })
-
     await LineItem.forge({
       team_id: req.team.get('id'),
       invoice_id: invoice.get('id'),
-      product_id: product.get('id'),
-      project_id: product.get('project_id'),
-      revenue_type_id: product.get('revenue_type_id'),
-      is_tax_deductible: product.get('is_tax_deductible'),
+      project_id: line_item.project_id,
+      revenue_type_id: line_item.revenue_type_id,
+      is_tax_deductible: line_item.is_tax_deductible,
       delta,
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,
-      tax_rate: product.get('tax_rate'),
-      ...(coupon && product.get('id') === coupon.get('product_id')) ? {
-        discount_amount: coupon.get('amount'),
-        discount_percent: coupon.get('percent')
-      } : {}
+      tax_rate: line_item.tax_rate
     }).save(null, {
       transacting: req.trx
     })
-
   })
 
   await audit(req, {

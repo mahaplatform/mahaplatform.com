@@ -1,4 +1,3 @@
-import { audit } from '../../../../core/services/routes/audit'
 import RouteError from '../../../../core/objects/route_error'
 import braintree from '../../../../core/services/braintree'
 import { chargeScholarship } from './scholarship'
@@ -77,26 +76,12 @@ const chargeCustomer = async (req, { invoice, params }) => {
     customer: invoice.related('customer')
   })
 
-  const bank = invoice.related('program').related('bank')
-
   const payment = await paymentCreator(req, {
     invoice,
     customer,
-    bank,
+    bank: invoice.related('program').related('bank'),
     payment: params.payment,
     amount: params.amount
-  })
-
-  await audit(req, {
-    contact: customer,
-    story: 'payment made',
-    auditable: invoice
-  })
-
-  await audit(req, {
-    contact: customer,
-    story: 'created',
-    auditable: payment
   })
 
   return payment
