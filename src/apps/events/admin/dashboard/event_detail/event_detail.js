@@ -19,7 +19,7 @@ class EventDetail extends React.Component {
   }
 
   render() {
-    const { controls, event } = this.props
+    const { controls, event, isExpanded } = this.props
     return (
       <div className="maha-dashboard-card scrollable">
         <div className="maha-dashboard-card-header">
@@ -30,7 +30,12 @@ class EventDetail extends React.Component {
           { controls }
         </div>
         <div className="maha-dashboard-card-body">
-          <Chart { ...this._getChart() } />
+          { isExpanded &&
+            <Chart { ...this._getExpandedChart() } />
+          }
+          { !isExpanded &&
+            <Chart { ...this._getCompactChart() } />
+          }
           <div className="crm-report">
             <div className="crm-report-metrics">
               <div className="crm-report-metric">
@@ -81,11 +86,13 @@ class EventDetail extends React.Component {
     )
   }
 
-  _getChart() {
+  _getCompactChart() {
     const { event } = this.props
     return {
       endpoint: `/api/admin/events/events/${event.id}/performance`,
-      started_at: event.created_at
+      started_at: event.created_at,
+      pointRadius: 2,
+      borderWidth: 2
     }
   }
 
@@ -97,6 +104,14 @@ class EventDetail extends React.Component {
       icon: 'gear',
       className: 'link',
       route: `/admin/events/events/${config.event_id}`
+    }
+  }
+
+  _getExpandedChart() {
+    const { event } = this.props
+    return {
+      endpoint: `/api/admin/events/events/${event.id}/performance`,
+      started_at: event.created_at
     }
   }
 

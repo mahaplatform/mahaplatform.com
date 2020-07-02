@@ -18,7 +18,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { controls, form } = this.props
+    const { controls, form, isExpanded } = this.props
 
     return (
       <div className="maha-dashboard-card">
@@ -32,7 +32,12 @@ class Form extends React.Component {
         <div className="maha-dashboard-card-body">
           <div className="crm-report">
             <div className="crm-report-header">
-              <Chart { ...this._getChart() }  />
+              { isExpanded &&
+                <Chart { ...this._getExpandedChart() } />
+              }
+              { !isExpanded &&
+                <Chart { ...this._getCompactChart() } />
+              }
             </div>
             <div className="crm-report-metrics">
               <div className="crm-report-metric">
@@ -75,11 +80,21 @@ class Form extends React.Component {
     )
   }
 
-  _getChart() {
+  _getExpandedChart() {
     const { form } = this.props
     return {
       endpoint: `/api/admin/crm/forms/${form.id}/performance`,
       started_at: form.created_at
+    }
+  }
+
+  _getCompactChart() {
+    const { form } = this.props
+    return {
+      endpoint: `/api/admin/crm/forms/${form.id}/performance`,
+      started_at: form.created_at,
+      pointRadius: 2,
+      borderWidth: 2
     }
   }
 
