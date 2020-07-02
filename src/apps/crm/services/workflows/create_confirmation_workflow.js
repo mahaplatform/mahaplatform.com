@@ -14,7 +14,7 @@ const getTriggerType = ({ form, event }) => {
 
 const createConfirmationWorkflow = async(req, params) => {
 
-  const { form, event, program_id, template_id, sender_id, subject, reply_to } = params
+  const { form, event, program_id, reply_to, template_id, sender_id, store, subject } = params
 
   const workflowCode = await generateCode(req, {
     table: 'crm_workflows'
@@ -24,6 +24,7 @@ const createConfirmationWorkflow = async(req, params) => {
     team_id: req.team.get('id'),
     form_id: form ? form.get('id') : null,
     event_id: event ? event.get('id') : null,
+    store_id: store ? store.get('id') : null,
     program_id,
     code: workflowCode,
     status: 'active',
@@ -55,6 +56,7 @@ const createConfirmationWorkflow = async(req, params) => {
     workflow_id: workflow.get('id'),
     form_id: form ? form.get('id') : null,
     event_id: event ? event.get('id') : null,
+    store_id: store ? store.get('id') : null,
     program_id,
     title: 'Confirmation Email',
     code: emailCode,
@@ -96,7 +98,7 @@ const createConfirmationWorkflow = async(req, params) => {
     transacting: req.trx
   })
 
-  const model = form || event
+  const model = form || event || store
 
   await model.save({
     workflow_id: workflow.get('id'),

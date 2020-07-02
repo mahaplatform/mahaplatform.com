@@ -701,6 +701,7 @@ const schema = {
       table.boolean('is_unique')
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
+      table.integer('store_id').unsigned()
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -2784,6 +2785,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
+      table.foreign('store_id').references('stores_stores.id')
     })
 
     await knex.schema.table('drive_access', table => {
