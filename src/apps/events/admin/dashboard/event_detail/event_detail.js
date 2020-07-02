@@ -21,7 +21,7 @@ class EventDetail extends React.Component {
   render() {
     const { controls, event, isExpanded } = this.props
     return (
-      <div className="maha-dashboard-card scrollable">
+      <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
             <h2>{ event.title }</h2>
@@ -29,7 +29,7 @@ class EventDetail extends React.Component {
           </div>
           { controls }
         </div>
-        <div className="maha-dashboard-card-body">
+        <div className="maha-dashboard-card-body scrollable">
           { isExpanded &&
             <Chart { ...this._getExpandedChart() } />
           }

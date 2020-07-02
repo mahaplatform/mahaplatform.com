@@ -29,7 +29,7 @@ class Form extends React.Component {
           </div>
           { controls }
         </div>
-        <div className="maha-dashboard-card-body">
+        <div className="maha-dashboard-card-body scrollable">
           <div className="crm-report">
             <div className="crm-report-header">
               { isExpanded &&
