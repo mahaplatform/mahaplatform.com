@@ -33,7 +33,7 @@ class EmailCampaign extends React.Component {
             <h3>Performance</h3>
           </div>
         </div>
-        <div className="maha-dashboard-card-body">
+        <div className="maha-dashboard-card-body scrollable">
           <div className="crm-report">
             <div className="crm-report-table">
               <div className="crm-email-campaign-results-header">
