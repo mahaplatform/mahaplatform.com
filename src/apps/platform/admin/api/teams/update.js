@@ -1,7 +1,7 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
 import { whitelist } from '../../../../../core/services/routes/params'
 import TeamSerializer from '../../../serializers/team_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateApps } from '../../../services/apps'
 import Team from '../../../../maha/models/team'
 
 const updateRoute = async (req, res) => {
@@ -22,13 +22,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await updateRelated(req, {
-    object: team,
-    related: 'apps',
-    table: 'maha_teams_apps',
-    ids: req.body.app_ids,
-    foreign_key: 'team_id',
-    related_foreign_key: 'app_id'
+  await updateApps(req, {
+    team,
+    app_ids: req.body.app_ids
   })
 
   await socket.message(req, {

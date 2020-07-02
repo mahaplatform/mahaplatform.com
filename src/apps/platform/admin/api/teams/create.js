@@ -2,6 +2,7 @@ import { createUser, sendActivation } from '../../../../team/services/users'
 import { whitelist } from '../../../../../core/services/routes/params'
 import TeamSerializer from '../../../serializers/team_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateApps } from '../../../services/apps'
 import Role from '../../../../maha/models/role'
 import Team from '../../../../maha/models/team'
 
@@ -18,15 +19,10 @@ const createRoute = async (req, res) => {
     ...req.body.app_ids
   ]
 
-  await req.trx('maha_teams_apps').insert(app_ids.map(app_id => ({
-    team_id: team.get('id'),
-    app_id
-  })))
-
-  await req.trx('maha_installations').insert(app_ids.map(app_id => ({
-    team_id: team.get('id'),
-    app_id
-  })))
+  await updateApps(req, {
+    team,
+    app_ids: req.body.app_ids
+  })
 
   const role = await Role.forge({
     team_id: team.get('id'),

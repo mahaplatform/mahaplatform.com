@@ -2251,6 +2251,16 @@ const schema = {
       table.string('proj4text', 2048)
     })
 
+    await knex.schema.createTable('stores_options', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('product_id').unsigned()
+      table.string('title', 255)
+      table.string('config', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_products', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -3550,6 +3560,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('product_id').references('stores_products.id')
       table.foreign('asset_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('stores_options', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('product_id').references('stores_products.id')
     })
 
     await knex.schema.table('stores_variants', table => {
