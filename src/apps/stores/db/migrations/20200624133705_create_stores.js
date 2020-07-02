@@ -1,6 +1,7 @@
 const CreateStore = {
 
   up: async (knex) => {
+
     await knex.schema.createTable('stores_stores', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -15,6 +16,11 @@ const CreateStore = {
       table.timestamp('deleted_at')
       table.timestamps()
     })
+    await knex.schema.table('crm_workflows', (table) => {
+      table.integer('store_id').unsigned()
+      table.foreign('store_id').references('stores_stores.id')
+    })
+
   },
 
   down: async (knex) => {

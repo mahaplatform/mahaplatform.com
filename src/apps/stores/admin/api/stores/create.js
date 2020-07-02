@@ -1,5 +1,5 @@
+import { createConfirmationWorkflow } from '../../../../crm/services/workflows'
 import { activity } from '../../../../../core/services/routes/activities'
-// import { createConfirmationWorkflow } from '../../../services/workflows'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
 import StoreSerializer from '../../../serializers/store_serializer'
@@ -50,14 +50,14 @@ const createRoute = async (req, res) => {
     auditable: store
   })
 
-  // await createConfirmationWorkflow(req,  {
-  //   store,
-  //   program_id: program.get('id'),
-  //   template_id: req.body.template_id,
-  //   sender_id: req.body.sender_id,
-  //   subject: req.body.subject,
-  //   reply_to: req.body.reply_to
-  // })
+  await createConfirmationWorkflow(req,  {
+    store,
+    program_id: program.get('id'),
+    template_id: req.body.template_id,
+    sender_id: req.body.sender_id,
+    subject: req.body.subject,
+    reply_to: req.body.reply_to
+  })
 
   await activity(req, {
     story: 'created {object}',
