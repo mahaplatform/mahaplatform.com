@@ -22,7 +22,6 @@ class EventForm extends React.PureComponent {
     endpoint: PropTypes.string,
     action: PropTypes.string,
     method: PropTypes.string,
-    programs: PropTypes.array,
     onSuccess: PropTypes.func
   }
 

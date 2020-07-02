@@ -1,0 +1,34 @@
+.programs-list-item {
+  &:not(.disabled) {
+    &:hover {
+      background-color: fadeout(@black, 97);
+    }
+    cursor: pointer;
+  }
+  &.disabled {
+    position: relative;
+    &:after {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: fadeout(@white, 20);
+    }
+  }
+  border-bottom: 1px solid fadeout(@black, 97);
+  display: flex;
+}
+.programs-list-item-token {
+  display: flex;
+  flex: 1;
+}
+.programs-list-item-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+}

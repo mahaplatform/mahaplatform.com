@@ -63,7 +63,7 @@ const getSummary = (deposit, allocation, index) => {
     0,
     5,
     1,
-    allocation.related('payment').related('invoice').get('code'),
+    '',
     2,
     fiscYear,
     fiscPer,
