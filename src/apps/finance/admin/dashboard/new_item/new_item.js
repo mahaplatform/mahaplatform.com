@@ -42,7 +42,7 @@ class NewItem extends React.Component {
           </div>
           { controls }
         </div>
-        <div className="maha-dashboard-card-body">
+        <div className="maha-dashboard-card-body scrollable">
           { tasks && tasks.map((item, index) => (
             <div className="maha-tasks-list-item" key={`task_${index}`} onClick={ () => { this._handleClick(item.modal) } }>
               { item.component }
