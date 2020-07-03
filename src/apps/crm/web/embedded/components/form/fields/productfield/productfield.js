@@ -37,152 +37,6 @@ class ProductField extends React.Component {
     const { products, subtotal, tax, total } = this.props
     return (
       <div className="maha-productfield">
-        { false &&
-          <div className="maha-productfield-products">
-            <div className="maha-productfield-product-header">
-              <div className="maha-productfield-product-header-item">
-                Item
-              </div>
-              <div className="maha-productfield-product-header-price">
-                Price
-              </div>
-              <div className="maha-productfield-product-header-qty">
-                Qty
-              </div>
-              <div className="maha-productfield-product-header-total">
-                Total
-              </div>
-              <div className="maha-productfield-product-header-action" />
-            </div>
-            <div className="maha-productfield-product">
-              <div className="maha-productfield-product-item">
-                <div className="maha-productfield-product-item-title">
-                  5 Ducks
-                </div>
-              </div>
-              <div className="maha-productfield-product-price">
-                20.00
-              </div>
-              <div className="maha-productfield-product-qty">
-                <input type="text" value="5" />
-              </div>
-              <div className="maha-productfield-product-total">
-                100.00
-              </div>
-              <div className="maha-productfield-product-action">
-                <i className="fa fa-times" />
-              </div>
-            </div>
-            <div className="maha-productfield-product">
-              <div className="maha-productfield-product-item">
-                <div className="maha-productfield-product-item-title">
-                  T-Shirt
-                </div>
-                <div className="maha-productfield-product-item-variation">
-                  Size: large
-                </div>
-                <div className="maha-productfield-product-item-variation">
-                  Color: red
-                </div>
-              </div>
-              <div className="maha-productfield-product-price">
-                10.00
-              </div>
-              <div className="maha-productfield-product-qty">
-                <input type="text" value="1" />
-              </div>
-              <div className="maha-productfield-product-total">
-                10.00
-              </div>
-              <div className="maha-productfield-product-action">
-                <i className="fa fa-times" />
-              </div>
-            </div>
-            <div className="maha-productfield-product">
-              <div className="maha-productfield-product-item">
-                <div className="maha-productfield-product-item-title">
-                  T-Shirt
-                </div>
-                <div className="maha-productfield-product-item-variation">
-                  Size: small
-                </div>
-                <div className="maha-productfield-product-item-variation">
-                  Color: green
-                </div>
-              </div>
-              <div className="maha-productfield-product-price">
-                10.00
-              </div>
-              <div className="maha-productfield-product-qty">
-                <input type="text" value="1" />
-              </div>
-              <div className="maha-productfield-product-total">
-                10.00
-              </div>
-              <div className="maha-productfield-product-action">
-                <i className="fa fa-times" />
-              </div>
-            </div>
-          </div>
-        }
-        { false &&
-          <div className="maha-productfield-products-add">
-            <div className="maha-productfield-products-add-body">
-              <div className="field">
-                <label>Item</label>
-                <div className="ui fluid selection dropdown">
-                  <i className="dropdown icon" />
-                  <div className="text">T-Shirt ($10.00)</div>
-                  <div className="menu">
-                    <div className="item">
-                      T-Shirt
-                    </div>
-                    <div className="item">
-                      5 Ducks
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="two fields">
-                <div className="field">
-                  <label>Size</label>
-                  <div className="ui fluid selection dropdown">
-                    <i className="dropdown icon" />
-                    <div className="text">large</div>
-                    <div className="menu">
-                      <div className="item">
-                        T-Shirt
-                      </div>
-                      <div className="item">
-                        5 Ducks
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="field">
-                  <label>Color</label>
-                  <div className="ui fluid selection dropdown">
-                    <i className="dropdown icon" />
-                    <div className="text">green</div>
-                    <div className="menu">
-                      <div className="item">
-                        T-Shirt
-                      </div>
-                      <div className="item">
-                        5 Ducks
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="maha-productfield-products-add-footer">
-              <button className="ui black small button">
-                Add
-              </button>
-            </div>
-          </div>
-        }
         <table className="ui unstackable celled table">
           <thead>
             <tr>
@@ -200,7 +54,7 @@ class ProductField extends React.Component {
             }
             { products.map((product, index) => (
               <tr key={`product_${index}`}>
-                <td>{ product.title }</td>
+                <td>{ product.description }</td>
                 <td className="input">
                   <input { ...this._getInput(product) } />
                 </td>
@@ -252,7 +106,7 @@ class ProductField extends React.Component {
       type: 'text',
       value: product.quantity,
       onFocus: this._handleFocus,
-      onChange: this._handleUpdate.bind(this, product.id)
+      onChange: this._handleUpdate.bind(this, product.code)
     }
   }
 
@@ -264,10 +118,10 @@ class ProductField extends React.Component {
     this.props.onChange(this.props.value)
   }
 
-  _handleUpdate(id, e) {
+  _handleUpdate(code, e) {
     const raw = e.target.value
     const value = raw.length > 0 ? parseInt(raw) : 0
-    this.props.onSet(id, value)
+    this.props.onSet(code, value)
   }
 
   _handleValidate() {

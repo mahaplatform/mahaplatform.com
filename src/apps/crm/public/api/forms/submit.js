@@ -11,27 +11,25 @@ import _ from 'lodash'
 
 const getLineItems = async (req, { products }) => {
   return await Promise.mapSeries(products, async(line_item) => {
-    return await Product.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('id', line_item.product_id)
-    }).fetch({
-      transacting: req.trx
-    }).then(product => ({
-      product_id: product.get('id'),
-      project_id: product.get('project_id'),
-      donation_revenue_type_id: product.get('donation_revenue_type_id'),
-      overage_strategy: product.get('overage_strategy'),
-      revenue_type_id: product.get('revenue_type_id'),
-      price_type: product.get('price_type'),
-      fixed_price: product.get('fixed_price'),
-      low_price: product.get('low_price'),
-      high_price: product.get('high_price'),
-      tax_rate: product.get('tax_rate'),
-      is_tax_deductible: product.get('is_tax_deductible'),
-      description: product.get('title'),
+    const product = products.find(product => {
+      return product.code = line_item.code
+    })
+    return {
+      project_id: product.project_id,
+      donation_revenue_type_id: null,
+      overage_strategy: null,
+      revenue_type_id: product.revenue_type_id,
+      price_type: 'fixed',
+      fixed_price: product.price,
+      low_price: null,
+      high_price: null,
+      tax_rate: product.tax_rate,
+      is_tax_deductible: product.is_tax_deductible,
+      description: product.description,
       quantity: line_item.quantity,
       price: line_item.price
-    }))
+
+    }
   })
 }
 

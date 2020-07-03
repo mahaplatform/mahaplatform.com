@@ -43,8 +43,8 @@ class App extends React.Component {
       name: 'designerCanvas',
       targetName: 'designerComponent'
     })
-    this.pasteur.send('highlight', this._handleHighlight)
-    this.pasteur.send('update', this._handleUpdate)
+    this.pasteur.on('highlight', this._handleHighlight)
+    this.pasteur.on('update', this._handleUpdate)
     this.pasteur.send('ready')
   }
 

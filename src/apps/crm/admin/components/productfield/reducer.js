@@ -36,11 +36,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       products: [
         ...state.products.map((product, index) => {
-          if(index !== action.index) return product
-          return {
-            ...product,
-            [action.key]: action.value
-          }
+          return index === action.index ? action.product : product
         })
       ]
     }

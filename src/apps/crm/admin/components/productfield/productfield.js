@@ -1,7 +1,8 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Chooser from './chooser'
 import React from 'react'
+import Edit from './edit'
+import New from './new'
 import _ from 'lodash'
 
 class Productfield extends React.PureComponent {
@@ -37,7 +38,10 @@ class Productfield extends React.PureComponent {
         { products.map((product, index) => (
           <div className="crm-productfield-product" key={`product_${index}`}>
             <div className="crm-productfield-product-label">
-              <input { ...this.getInput(product, index) } />
+              { product.description }
+            </div>
+            <div className="crm-productfield-product-remove" onClick={ this._handleEdit.bind(this, index) }>
+              <i className="fa fa-pencil" />
             </div>
             <div className="crm-productfield-product-remove" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-times" />
@@ -49,15 +53,6 @@ class Productfield extends React.PureComponent {
         </div>
       </div>
     )
-  }
-
-  getInput(product, index) {
-    return {
-      type: 'textfield',
-      placeholder: 'Enter product title',
-      value: product.title,
-      onChange: this._handleUpdate.bind(this, index, 'title')
-    }
   }
 
   componentDidMount() {
@@ -81,9 +76,17 @@ class Productfield extends React.PureComponent {
     }
   }
 
-  _getChooser() {
+  _getEdit(index) {
+    const { products } = this.props
     return {
-      onChoose: this._handleAdd
+      product: products[index],
+      onDone: this._handleUpdate.bind(this, index)
+    }
+  }
+
+  _getNew() {
+    return {
+      onDone: this._handleAdd
     }
   }
 
@@ -91,8 +94,12 @@ class Productfield extends React.PureComponent {
     this.props.onAdd(product)
   }
 
+  _handleEdit(index) {
+    this.context.form.push(<Edit { ...this._getEdit(index) } />)
+  }
+
   _handleNew() {
-    this.context.form.push(<Chooser { ...this._getChooser() } />)
+    this.context.form.push(<New { ...this._getNew() } />)
   }
 
   _handleChange() {
@@ -104,8 +111,8 @@ class Productfield extends React.PureComponent {
     this.props.onRemove(index)
   }
 
-  _handleUpdate(index, key, e) {
-    this.props.onUpdate(index, key, e.target.value)
+  _handleUpdate(index, product) {
+    this.props.onUpdate(index, product)
   }
 
 }

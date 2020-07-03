@@ -67,13 +67,13 @@ class TextField extends React.Component {
   _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { disabled, emojis, tabIndex } = this.props
+    const { disabled, emojis } = this.props
     const { value } = this.state
     return (
       <div className={ this._getClass() }>
         <div className="maha-input-field">
           { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
-          <input { ...this._getControl() } tabIndex={ tabIndex } />
+          <input { ...this._getControl() } />
           { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
         </div>
         { emojis &&
@@ -117,13 +117,14 @@ class TextField extends React.Component {
   }
 
   _getControl() {
-    const { autoComplete, disabled, placeholder, onKeyPress, onKeyDown } = this.props
+    const { autoComplete, disabled, placeholder, tabIndex, onKeyPress, onKeyDown } = this.props
     const { focused, value } = this.state
     return {
       ref: node => this.input = node,
       type: 'text',
       disabled,
       value,
+      tabIndex,
       autoComplete,
       placeholder: !focused ? placeholder : null,
       onBlur: this._handleBlur,
