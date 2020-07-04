@@ -50,7 +50,7 @@ class Control extends React.Component {
     defaultValue: PropTypes.any,
     field: PropTypes.object,
     status: PropTypes.string,
-    tabIndex: PropTypes.string,
+    tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,

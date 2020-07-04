@@ -55,6 +55,75 @@ const RemoveCouponsAndProducts = {
 
     await knex.schema.dropTable('finance_products')
 
+    const duck_race = await knex('crm_forms').where('id', 1).then(results => results[0])
+
+    await knex('crm_forms').where('id', 1).update({
+      config: {
+        ...duck_race.config,
+        fields: duck_race.config.fields.map((field, index) => {
+          if(index !== 9) return field
+          return {
+            ...field,
+            products: [{
+              code: 'a4bd7hjab6',
+              description: '1 Duck',
+              project_id: 160,
+              revenue_type_id: 47,
+              price: 5.00,
+              tax_rate: 0.00
+            },
+            {
+              code: 'b5tyab8jse',
+              description: '5 Ducks',
+              project_id: 160,
+              revenue_type_id: 47,
+              price: 20.00,
+              tax_rate: 0.00
+            }]
+          }
+        })
+      }
+    })
+
+    const purchases = await knex('crm_responses').where('form_id', 1)
+
+    await Promise.mapSeries(purchases, async (purchase) => {
+      await  knex('crm_responses').where('id', purchase.id).update({
+        data: {
+          ...purchase.data,
+          ce7r1j: {
+            ...purchase.data.ce7r1j,
+            products: purchase.data.ce7r1j.products.map(product => {
+              if(product.product_id === 1) {
+                return {
+                  code: 'a4bd7hjab6',
+                  description: '1 Duck',
+                  project_id: 160,
+                  revenue_type_id: 47,
+                  quantity: product.quantity,
+                  price: 5.00,
+                  tax_rate: 0.00,
+                  total: product.total
+                }
+              } else {
+                return {
+                  code: 'b5tyab8jse',
+                  description: '5 Ducks',
+                  project_id: 160,
+                  revenue_type_id: 47,
+                  quantity: product.quantity,
+                  price: 20.00,
+                  tax_rate: 0.00,
+                  total: product.total
+                }
+              }
+            })
+          }
+        }
+      })
+    })
+
+
   },
 
   down: async (knex) => {
