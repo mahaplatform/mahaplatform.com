@@ -2,7 +2,6 @@ import AccountList from './accounts/list'
 import AdvanceShow from './advances/show'
 import ApprovalList from './items/approvals'
 import BatchList from './batches/list'
-import CouponList from './coupons/list'
 import CustomerList from './customers/list'
 import CustomerShow from './customers/show'
 import CheckShow from './checks/show'
@@ -17,8 +16,6 @@ import BankList from './banks/list'
 import BankShow from './banks/show'
 import PaymentList from './payments/list'
 import PaymentShow from './payments/show'
-import ProductList from './products/list'
-import ProductsShow from './products/show'
 import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
 import RateList from './rates/list'
@@ -38,7 +35,6 @@ const routes = [
   { path: '/approvals', component: ApprovalList },
   { path: '/advances/:id', component: AdvanceShow },
   { path: '/batches', component: BatchList },
-  { path: '/coupons', component: CouponList },
   { path: '/checks/:id', component: CheckShow },
   { path: '/customers', component: CustomerList },
   { path: '/customers/:id', component: CustomerShow },
@@ -53,8 +49,6 @@ const routes = [
   { path: '/banks/:id', component: BankShow },
   { path: '/payments', component: PaymentList },
   { path: '/payments/:id', component: PaymentShow },
-  { path: '/products', component: ProductList },
-  { path: '/products/:id', component: ProductsShow },
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },
   { path: '/rates', component: RateList },

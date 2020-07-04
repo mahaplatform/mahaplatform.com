@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['customer','coupon','line_items.product','payments','program.logo','team'],
+    withRelated: ['customer','invoice_line_items','payments','program.logo','team'],
     transacting: req.trx
   })
 

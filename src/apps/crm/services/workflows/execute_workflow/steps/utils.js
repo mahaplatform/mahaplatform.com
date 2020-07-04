@@ -15,7 +15,7 @@ const getPaymentSummary = async (req, { invoice_id }) => {
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('id', invoice_id)
   }).fetch({
-    withRelated: ['coupon','invoice_line_items','payments.payment_method'],
+    withRelated: ['invoice_line_items','payments.payment_method'],
     transacting: req.trx
   })
 

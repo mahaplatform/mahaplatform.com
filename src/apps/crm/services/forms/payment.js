@@ -35,7 +35,6 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
       await LineItem.forge({
         team_id: req.team.get('id'),
         invoice_id: invoice.get('id'),
-        product_id: line_item.product_id,
         project_id: line_item.project_id,
         revenue_type_id: line_item.revenue_type_id,
         is_tax_deductible: line_item.is_tax_deductible,
@@ -52,7 +51,6 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
       await LineItem.forge({
         team_id: req.team.get('id'),
         invoice_id: invoice.get('id'),
-        product_id: line_item.product_id,
         project_id: line_item.project_id,
         revenue_type_id: line_item.revenue_type_id,
         is_tax_deductible: line_item.is_tax_deductible,
@@ -69,7 +67,6 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
         await LineItem.forge({
           team_id: req.team.get('id'),
           invoice_id: invoice.get('id'),
-          product_id: line_item.product_id,
           project_id: line_item.project_id,
           revenue_type_id: line_item.donation_revenue_type_id,
           is_tax_deductible: true,

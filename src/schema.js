@@ -1070,21 +1070,6 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
-    await knex.schema.createTable('finance_coupons', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.string('code', 255)
-      table.decimal('amount', 5, 2)
-      table.integer('max_uses')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.decimal('percent', 5, 4)
-      table.integer('product_id').unsigned()
-      table.USER-DEFINED('type')
-      table.date('start_date')
-      table.date('end_date')
-    })
-
     await knex.schema.createTable('finance_credits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1144,7 +1129,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('customer_id').unsigned()
-      table.integer('coupon_id').unsigned()
       table.string('code', 255)
       table.date('date')
       table.date('due')
@@ -1160,7 +1144,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('invoice_id').unsigned()
-      table.integer('product_id').unsigned()
       table.integer('quantity')
       table.decimal('price', 6, 2)
       table.decimal('tax_rate', 3, 2)
@@ -1225,25 +1208,6 @@ const schema = {
       table.integer('payment_method_id').unsigned()
       table.USER-DEFINED('status')
       table.string('paypal_id', 255)
-    })
-
-    await knex.schema.createTable('finance_products', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('project_id').unsigned()
-      table.integer('revenue_type_id').unsigned()
-      table.string('title', 255)
-      table.USER-DEFINED('price_type')
-      table.decimal('fixed_price', 6, 2)
-      table.decimal('low_price', 6, 2)
-      table.decimal('high_price', 6, 2)
-      table.decimal('tax_rate', 3, 2)
-      table.boolean('is_active')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.boolean('is_tax_deductible')
-      table.USER-DEFINED('overage_strategy')
-      table.integer('donation_revenue_type_id').unsigned()
     })
 
     await knex.schema.createTable('finance_projects', (table) => {
@@ -2794,9 +2758,9 @@ const schema = {
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
-      table.foreign('store_id').references('stores_stores.id')
     })
 
     await knex.schema.table('drive_access', table => {
@@ -3012,11 +2976,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_coupons', table => {
-      table.foreign('product_id').references('finance_products.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('finance_credits', table => {
       table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('program_id').references('crm_programs.id')
@@ -3030,14 +2989,12 @@ const schema = {
 
     await knex.schema.table('finance_invoices', table => {
       table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('coupon_id').references('finance_coupons.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_line_items', table => {
       table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('product_id').references('finance_products.id')
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -3060,13 +3017,6 @@ const schema = {
       table.foreign('payment_method_id').references('finance_payment_methods.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_products', table => {
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
-      table.foreign('project_id').references('finance_projects.id')
-      table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -3401,6 +3351,12 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('media', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('product_id').references('stores_products.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3462,6 +3418,31 @@ const schema = {
 
     await knex.schema.table('sites_types', table => {
       table.foreign('site_id').references('sites_sites.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_options', table => {
+      table.foreign('product_id').references('stores_products.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_products', table => {
+      table.foreign('base_variant_id').references('stores_variants.id')
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_stores', table => {
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+    })
+
+    await knex.schema.table('stores_variants', table => {
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('product_id').references('stores_products.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -3543,37 +3524,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('stores_stores', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-    })
-
-    await knex.schema.table('stores_products', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('store_id').references('stores_stores.id')
-      table.foreign('base_variant_id').references('stores_variants.id')
-    })
-
-    await knex.schema.table('media', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('product_id').references('stores_products.id')
-      table.foreign('asset_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('stores_options', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('product_id').references('stores_products.id')
-    })
-
-    await knex.schema.table('stores_variants', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('product_id').references('stores_products.id')
-      table.foreign('project_id').references('finance_projects.id')
-      table.foreign('revenue_type_id').references('finance_revenue_types.id')
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
 
@@ -5095,35 +5045,6 @@ union
     `)
 
     await knex.raw(`
-      create view finance_coupon_statuses AS
-      select finance_coupons.id as coupon_id,
-      case
-      when (((finance_coupons.start_date is null) or (finance_coupons.start_date <= now())) and ((finance_coupons.end_date is null) or (finance_coupons.end_date >= now()))) then true
-      else false
-      end as is_active
-      from finance_coupons;
-    `)
-
-    await knex.raw(`
-      create view finance_coupon_uses AS
-      select crm_contacts.id as customer_id,
-      finance_coupons.id as coupon_id,
-      count(finance_invoices.id) as uses
-      from ((crm_contacts
-      left join finance_coupons on (true))
-      join finance_invoices on (((finance_invoices.customer_id = crm_contacts.id) and (finance_invoices.coupon_id = finance_coupons.id))))
-      group by crm_contacts.id, finance_coupons.id;
-    `)
-
-    await knex.raw(`
-      create view finance_customer_products AS
-      select finance_invoices.customer_id,
-      finance_line_items.product_id
-      from (finance_line_items
-      join finance_invoices on ((finance_invoices.id = finance_line_items.invoice_id)));
-    `)
-
-    await knex.raw(`
       create view finance_customers AS
       select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,
@@ -5215,7 +5136,7 @@ union
       select finance_line_items.id as line_item_id,
       finance_line_items.invoice_id,
       finance_line_items.delta,
-      finance_line_items.product_id,
+      0 as product_id,
       finance_line_items.project_id,
       finance_line_items.revenue_type_id,
       finance_line_items.description,

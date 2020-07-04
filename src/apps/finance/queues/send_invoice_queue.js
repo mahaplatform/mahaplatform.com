@@ -13,7 +13,7 @@ const processor = async (req, job) => {
     qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('finance_invoices.id', invoice_id)
   }).fetch({
-    withRelated: ['customer','coupon','invoice_line_items','payments.payment_method','program.logo'],
+    withRelated: ['customer','invoice_line_items','payments.payment_method','program.logo'],
     transacting: req.trx
   })
 

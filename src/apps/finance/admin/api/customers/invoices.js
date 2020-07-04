@@ -25,7 +25,7 @@ const invoicesRoute = async (req, res) => {
       qb.orderByRaw('date desc, created_at desc')
     },
     page: req.query.$page,
-    withRelated: ['coupon','line_items'],
+    withRelated: ['line_items'],
     transacting: req.trx
   })
 
