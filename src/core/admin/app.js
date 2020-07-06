@@ -169,8 +169,7 @@ import eventsActivityCards from '../../apps/events/admin/activities/index.js'
 import dashboardCard0 from '../../apps/crm/admin/dashboard/emails/index.js'
 import dashboardCard1 from '../../apps/crm/admin/dashboard/form/index.js'
 import dashboardCard2 from '../../apps/events/admin/dashboard/event_detail/index.js'
-import dashboardCard3 from '../../apps/events/admin/dashboard/ticket_type_totals/index.js'
-import dashboardCard4 from '../../apps/maha/admin/dashboard/greeting/index.js'
+import dashboardCard3 from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -273,15 +272,9 @@ class App extends React.Component {
       },
       {
         ...dashboardCard3,
-        app: 'events',
-        type: dashboardCard3.code,
-        code: 'events:'+dashboardCard3.code
-      },
-      {
-        ...dashboardCard4,
         app: 'maha',
-        type: dashboardCard4.code,
-        code: 'maha:'+dashboardCard4.code
+        type: dashboardCard3.code,
+        code: 'maha:'+dashboardCard3.code
       },
     ]
   }
