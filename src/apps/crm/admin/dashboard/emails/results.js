@@ -6,7 +6,8 @@ import EmailCampaign from './email_campaign'
 class Results extends React.Component {
 
   static contextTypes = {
-    card: PropTypes.object
+    card: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
@@ -68,7 +69,11 @@ class Results extends React.Component {
   }
 
   _handleCampaign(campaign) {
-    this.context.card.push(EmailCampaign, this._getCampaign(campaign))
+    if(campaign.status === 'draft') {
+      this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.id}`)
+    } else {
+      this.context.card.push(EmailCampaign, this._getCampaign(campaign))
+    }
   }
 
 }
