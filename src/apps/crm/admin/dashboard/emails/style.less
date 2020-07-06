@@ -1,0 +1,25 @@
+.maha-email-dashboard-title {
+  color: @black;
+  margin-bottom: 0.2em;
+}
+
+.maha-email-dashboard-stats {
+
+  .maha-email-dashboard-stat {
+    color: fadeout(@black,50);
+    margin-right: 0.6em;
+
+    &-value {
+      margin-left: 0.4em;
+    }
+
+    &:after {
+      content: ","
+    }
+    &:last-child {
+      &:after {
+        content: "";
+      }
+    }
+  }
+}
