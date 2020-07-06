@@ -61,9 +61,9 @@ class Style extends React.Component {
     const { style } = this.props
     if(!style) return ''
     return style.map(item => `
-      div#form div.maha-form div.ui.form ${item.selector} {
+      div#form div.maha-form ${item.selector} {
         ${Object.keys(item.styles).map(key => `
-          ${_.kebabCase(key)}: ${item.styles[key]};
+          ${_.kebabCase(key)}: ${item.styles[key]} !important;
         `).join('')}
       }
     `).join('')
