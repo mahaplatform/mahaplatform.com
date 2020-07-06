@@ -19,13 +19,44 @@ class AdminTasks extends React.Component {
     expensesForExport: PropTypes.array
   }
 
+  _getListItems = this._getListItems.bind(this)
   _handlePayments = this._handlePayments.bind(this)
   _handleDeposits = this._handleDeposits.bind(this)
   _handleExpensesForReview = this._handleExpensesForReview.bind(this)
   _handleExpensesForExport = this._handleExpensesForExport.bind(this)
 
   render() {
-    const { controls, payments, deposits, expensesForReview, expensesForExport } = this.props
+    const { controls } = this.props
+    const listItems = this._getListItems()
+
+    return (
+      <div className="maha-dashboard-card">
+        <div className="maha-dashboard-card-header">
+          <div className="maha-dashboard-card-header-details">
+            <h2>Finance Tasks</h2>
+          </div>
+          { controls }
+        </div>
+        <div className="maha-dashboard-card-body">
+          <div className="maha-list">
+            { listItems.map((item, index) => (
+              <div className="maha-list-item maha-list-item-link" key={`finance_item_${index}`}  onClick={ item.handler }>
+                <div className="maha-list-item-label">
+                  <b>{ item.records.length }</b> { item.noun } to { item.verb }
+                </div>
+                <div className="maha-list-item-proceed">
+                  <i className="fa fa-chevron-right" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  _getListItems() {
+    const { payments, deposits, expensesForReview, expensesForExport } = this.props
 
     const listItems = [
       {
@@ -55,31 +86,7 @@ class AdminTasks extends React.Component {
     ]
 
     const activeListItems = listItems.filter(item => item.records.length > 0)
-
-    return (
-      <div className="maha-dashboard-card">
-        <div className="maha-dashboard-card-header">
-          <div className="maha-dashboard-card-header-details">
-            <h2>Finance Tasks</h2>
-          </div>
-          { controls }
-        </div>
-        <div className="maha-dashboard-card-body">
-          <div className="maha-list">
-            { activeListItems.map((item, index) => (
-              <div className="maha-list-item maha-list-item-link" key={`finance_item_${index}`}  onClick={ item.handler }>
-                <div className="maha-list-item-label">
-                  <b>{ item.records.length }</b> { item.noun } to { item.verb }
-                </div>
-                <div className="maha-list-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
+    return activeListItems
   }
 
   _getPanel() {
