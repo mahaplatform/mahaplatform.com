@@ -1,4 +1,4 @@
-import { Container } from 'maha-admin'
+import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Performance from '../../views/campaigns/email/performance.js'
@@ -34,9 +34,23 @@ class EmailCampaign extends React.Component {
         </div>
         <div className="maha-dashboard-card-body scrollable">
           <Performance { ...this._getPerformance() }  />
+          <div className="maha-dashboard-card-actions">
+            <Button { ...this._getDetailsButton() } />
+          </div>
         </div>
       </div>
     )
+  }
+
+  _getDetailsButton() {
+    const { campaign } = this.props
+
+    return {
+      label: ' Manage Campaign',
+      icon: 'gear',
+      className: 'link',
+      route: `/admin/crm/campaigns/email/${campaign.id}`
+    }
   }
 
   _getPerformance() {
