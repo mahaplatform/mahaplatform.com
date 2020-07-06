@@ -29,7 +29,7 @@ class Summary extends React.Component {
           <tbody>
             { products.map((product, index) => (
               <tr key={`product_${index}`}>
-                <td>{ product.title }</td>
+                <td>{ product.description }</td>
                 <td>{ product.quantity }</td>
                 <td>{ numeral(product.price).format('0.00') }</td>
                 <td>{ numeral(product.total).format('0.00') }</td>

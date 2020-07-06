@@ -111,13 +111,7 @@ class Invoice extends React.Component {
                   { invoice.discount > 0 &&
                     <tr>
                       <td colSpan="3">
-                        { invoice.discount_amount &&
-                          numeral(invoice.discount_amount).format('$0.00')
-                        }
-                        { invoice.discount_percent &&
-                          numeral(invoice.discount_percent).format('0.0%')
-                        } discount
-                        (coupon code { invoice.coupon.code })
+                        Discount
                       </td>
                       <td>-{ numeral(invoice.discount).format('0.00') }</td>
                     </tr>

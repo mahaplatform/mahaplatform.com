@@ -118,18 +118,22 @@ body {
   padding: 0.8em;
 }
 
+div:not(.maha-form-layout.embedded) {
+  .maha-form-layout-content {
+    .scrollable();
+  }
+}
+div.maha-form-layout.embedded .maha-form {
+  border: none;
+}
 @media (max-width: 768px) {
   .maha-form-layout-image {
     display: none;
-  }
-  .maha-form-layout-content {
-    .scrollable();
   }
 }
 @media (min-width: 769px) {
   .maha-form-layout-content {
     min-width: 400px;
-    .scrollable();
   }
   .maha-form-layout {
     &.covered {

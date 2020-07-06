@@ -20,7 +20,14 @@ class ChartWrapper extends React.Component {
 
   static propTypes = {
     endpoint: PropTypes.string,
-    started_at: PropTypes.any
+    started_at: PropTypes.any,
+    pointRadius: PropTypes.number,
+    borderWidth: PropTypes.number
+  }
+
+  static defaultProps = {
+    pointRadius: 4,
+    borderWidth: 3
   }
 
   chart = null
@@ -181,6 +188,8 @@ class ChartWrapper extends React.Component {
   _handlePlot() {
     const { step } = this._getQuery()
     const { data } = this.state
+    const { pointRadius, borderWidth } = this.props
+
     if(!this.chart) this._handleInit()
     this.chart.options.scales.xAxes[0].time.unit = step
     this.chart.data.datasets = [{
@@ -188,10 +197,10 @@ class ChartWrapper extends React.Component {
       data,
       borderColor: '#DB2828',
       pointBackgroundColor: '#FFFFFF',
-      pointRadius: 4,
+      pointRadius,
       pointHoverBackgroundColor: '#DB2828',
-      pointHoverRadius: 4,
-      borderWidth: 3,
+      pointHoverRadius: pointRadius,
+      borderWidth,
       fill: false
     }]
     this.chart.update()

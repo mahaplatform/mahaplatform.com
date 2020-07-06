@@ -1,6 +1,10 @@
 import 'babel-polyfill'
 import ReactDOM from 'react-dom'
-import App from './app'
 import React from 'react'
+import App from './app'
+import qs from 'qs'
 
-ReactDOM.render(<App />, document.getElementById('form'))
+const query = qs.parse(window.location.search.substr(1))
+const embedded = query.embedded !== undefined
+
+ReactDOM.render(<App embedded={ embedded } />, document.getElementById('form'))

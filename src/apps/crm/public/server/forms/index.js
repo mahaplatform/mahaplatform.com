@@ -17,7 +17,7 @@ server.use(csp({
   }
 }))
 
-server.get('/:code/embed.js', embed)
+server.get('/embed.js', embed)
 
 server.get('/:code', show)
 

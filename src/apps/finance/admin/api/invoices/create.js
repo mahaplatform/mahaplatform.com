@@ -5,24 +5,14 @@ import generateCode from '../../../../../core/utils/generate_code'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import LineItem from '../../../models/line_item'
-import Product from '../../../models/product'
 import Invoice from '../../../models/invoice'
-import Coupon from '../../../models/coupon'
-
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
     table: 'finance_invoices'
   })
 
-  const { line_items, coupon_id } = req.body.details
-
-  const coupon = coupon_id ? await Coupon.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('id', coupon_id)
-  }).fetch({
-    transacting: req.trx
-  }) : null
+  const { line_items } = req.body.details
 
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),

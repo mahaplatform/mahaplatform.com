@@ -50,6 +50,7 @@ class Control extends React.Component {
     defaultValue: PropTypes.any,
     field: PropTypes.object,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -127,11 +128,12 @@ class Control extends React.Component {
   }
 
   _getProps() {
-    const { field, defaultValue, onBusy, onChange, onSubmit, onValid } = this.props
+    const { field, defaultValue, tabIndex, onBusy, onChange, onSubmit, onValid } = this.props
     return {
       ...field,
       originalValue: field.defaultValue,
       defaultValue,
+      tabIndex,
       onBusy,
       onChange,
       onReady: this._handleReady,

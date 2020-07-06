@@ -2,7 +2,6 @@ const InvoiceSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
   customer: customer(result.related('customer')),
-  coupon: coupon(result.related('coupon')),
   balance: result.get('balance'),
   date: result.get('date'),
   discount: result.get('discount'),
@@ -32,16 +31,6 @@ const customer = (customer) => {
     display_name: customer.get('display_name'),
     address: customer.get('address'),
     email: customer.get('email')
-  }
-}
-
-const coupon = (coupon) => {
-  if(!coupon.id) return null
-  return {
-    id: coupon.get('id'),
-    code: coupon.get('code'),
-    percent: coupon.get('percent'),
-    amount: coupon.get('amount')
   }
 }
 
@@ -82,14 +71,6 @@ const payment_method = (payment_method) => {
     ownership_type: payment_method.get('card_type'),
     last_four: payment_method.get('last_four'),
     method: payment_method.get('method')
-  }
-}
-
-const product = (product) => {
-  if(!product.id) return null
-  return {
-    id: product.get('id'),
-    title: product.get('title')
   }
 }
 

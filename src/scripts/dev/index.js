@@ -3,6 +3,7 @@ import { bootstrap } from '../../core/scripts/bootstrap/bootstrap'
 import desktopConfig from '../../desktop/config/webpack.config'
 import mobileConfig from '../../mobile/config/webpack.config'
 import adminConfig from './webpack.admin.config'
+import sdkConfig from './webpack.sdk.config'
 import webpackConfig from './webpack.config'
 import devServer from 'webpack-dev-server'
 import log from '../../core/utils/log'
@@ -34,6 +35,8 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   ...subapp,
   port: parseInt(process.env.DEVSERVER_PORT) + index + 2
 }))
+
+const sdkport = parseInt(process.env.DEVSERVER_PORT) + subapps.length + 2
 
 const serverWatch = async () => {
 
@@ -124,6 +127,18 @@ const webWatch = async () => {
   })
 }
 
+const sdkWatch = async () => {
+  const devserver = new devServer(webpack(sdkConfig), {
+    disableHostCheck: true,
+    hot: true,
+    quiet: true
+  })
+  devserver.listen(sdkport, null, () => {
+    log('info', 'sdk', `Listening on port ${sdkport}`)
+  })
+
+}
+
 const adminWatch = async () => {
   const wildcard = {
     target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
@@ -159,6 +174,10 @@ const adminWatch = async () => {
           secure: false
         }
       }), {}),
+      '/maha.js': {
+        target: `http://${process.env.DOMAIN}:${sdkport}`,
+        secure: false
+      },
       '**': wildcard,
       '/.*': wildcard,
       '/.**/*': wildcard
@@ -184,13 +203,14 @@ const connectNgrok = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['desktop','server','web','admin']
+  const services = argv.length > 0 ? argv : ['desktop','server','web','sdk','admin']
   await bootstrap()
   await connectNgrok()
   if(_.includes(services, 'server')) await serverWatch()
   if(_.includes(services, 'desktop')) await desktopWatch()
   if(_.includes(services, 'mobile')) await mobileWatch()
   if(_.includes(services, 'web')) await webWatch()
+  if(_.includes(services, 'sdk')) await sdkWatch()
   if(_.includes(services, 'admin')) await adminWatch()
 }
 

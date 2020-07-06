@@ -255,15 +255,15 @@ class App extends React.Component {
     return [
       {
         ...dashboardCard0,
-        app: 'events',
+        app: 'crm',
         type: dashboardCard0.code,
-        code: 'events:'+dashboardCard0.code
+        code: 'crm:'+dashboardCard0.code
       },
       {
         ...dashboardCard1,
-        app: 'events',
+        app: 'crm',
         type: dashboardCard1.code,
-        code: 'events:'+dashboardCard1.code
+        code: 'crm:'+dashboardCard1.code
       },
       {
         ...dashboardCard2,

@@ -1,6 +1,7 @@
 import '../../core/services/environment'
 import adminConfig from './webpack.admin.config'
 import webpackConfig from './webpack.config'
+import sdkConfig from './webpack.sdk.config'
 import apps from '../../core/utils/apps'
 import log from '../../core/utils/log'
 import { transform } from 'babel-core'
@@ -124,6 +125,10 @@ const buildClients = async (environment) => {
   })
 }
 
+const buildSdk = async () => {
+  await compile('sdk', sdkConfig)
+}
+
 const buildServer = async (environment) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
@@ -163,9 +168,10 @@ const build = async () => {
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
-  await buildPublic(),
-  await buildServer(environment),
-  await buildClients(environment),
+  await buildPublic()
+  await buildServer(environment)
+  await buildClients(environment)
+  await buildSdk()
   await buildEnv(environment)
   rimraf.sync(dist)
   await move(staged, dist)

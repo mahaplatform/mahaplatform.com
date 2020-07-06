@@ -10,20 +10,29 @@ import React from 'react'
 class App extends React.Component {
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    embedded: PropTypes.bool
   }
 
   pasteur = null
 
+  state = {
+    ready: false,
+    style: null
+  }
+
+  _handleRedirect = this._handleRedirect.bind(this)
   _handleResize = this._handleResize.bind(this)
+  _handleReady = this._handleReady.bind(this)
 
   render() {
+    if(!this.state.ready) return null
     return (
       <Root key="root">
         <Logger environment="form">
           <Error>
             <div className="maha-form-layout">
-              <Style key="style" { ...this._getStyle() } />
+              <Style { ...this._getStyle() } />
               <Form { ...this._getForm() } />
             </div>
           </Error>
@@ -33,43 +42,63 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('DOMContentLoaded', this._handleResize, false)
-    window.addEventListener('resize', this._handleResize, false)
+    if(!this.props.embedded) {
+      return this.setState({
+        ready: true
+      })
+    }
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
       name: 'form',
       targetName: 'embed'
     })
-  }
-
-  componentWillUnmount() {
-    this.pasteur.close()
-  }
-
-  _getBodyStyle(prop) {
-    const el = document.body
-    const retVal = document.defaultView.getComputedStyle(el, null)
-    return !retVal ? parseInt(retVal[prop], 10) : 0
+    this.pasteur.send('ready')
+    this.pasteur.on('ready', this._handleReady)
   }
 
   _getForm() {
+    const { embedded } = this.props
     const { form, token } = window
     const { code, config, ipaddress, referer, starttime, settings, isOpen } = form
-    return { code, config, ipaddress, referer, starttime, settings, isOpen, token }
+    return {
+      code,
+      config,
+      embedded,
+      ipaddress,
+      isOpen,
+      referer,
+      starttime,
+      settings,
+      token,
+      onRedirect: this._handleRedirect,
+      onResize: this._handleResize
+    }
   }
 
   _getStyle() {
+    const { embedded } = this.props
+    const { style } = this.state
     const { form } = window
     const { config } = form
-    return { config }
+    return { config, embedded, style }
   }
 
-  _handleResize() {
-    const height = document.body.offsetHeight + this._getBodyStyle('marginTop') + this._getBodyStyle('marginBottom') + 40
+  _handleReady({ style }) {
+    this.setState({
+      ready: true,
+      style
+    })
+  }
+
+
+  _handleRedirect(url) {
+    this.pasteur.send('redirect', url)
+  }
+
+  _handleResize(height) {
     this.pasteur.send('resize', height)
   }
-
 }
 
 export default hot(module)(App)

@@ -11,7 +11,9 @@ const selectors = [
 class Style extends React.Component {
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    embedded: PropTypes.bool,
+    style: PropTypes.array
   }
 
   render() {
@@ -55,9 +57,22 @@ class Style extends React.Component {
     return []
   }
 
+  _getCustomStyle() {
+    const { style } = this.props
+    if(!style) return ''
+    return style.map(item => `
+      div#form div.maha-form ${item.selector} {
+        ${Object.keys(item.styles).map(key => `
+          ${_.kebabCase(key)}: ${item.styles[key]} !important;
+        `).join('')}
+      }
+    `).join('')
+  }
+
   _getStyle() {
-    const { config } = this.props
+    const { config, embedded } = this.props
     const { fields } = config
+    if(embedded) return this._getCustomStyle()
     const styles = [
       { selector: 'div.maha-form-layout-image', styles: [
         ...this._getProp('flex', 'cover.width'),

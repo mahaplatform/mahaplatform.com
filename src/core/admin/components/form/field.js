@@ -95,12 +95,13 @@ class Field extends React.Component {
   }
 
   _getControl() {
-    const { data, field, status, onSubmit } = this.props
+    const { data, field, status, tabIndex, onSubmit } = this.props
     const { name } = field
     return {
       defaultValue: _.get(data, name),
       field,
       status,
+      tabIndex,
       onBusy: this._handleBusy.bind(this, name),
       onChange: this._handleUpdateData.bind(this, name),
       onReady: this._handleReady.bind(this, name),

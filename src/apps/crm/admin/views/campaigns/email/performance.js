@@ -33,7 +33,6 @@ class Performance extends React.Component {
           items: [
             { component: (
               <div className="crm-report">
-                <div className="crm-report-title">Delivery</div>
                 <div className="crm-report-table">
                   <div className="crm-email-campaign-results-header">
                     <div className="crm-email-campaign-results-header-item">

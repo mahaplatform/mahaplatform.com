@@ -13,9 +13,8 @@ export const set = (products) => ({
   products
 })
 
-export const update = (index, key, value) => ({
+export const update = (index, product) => ({
   type: 'UPDATE',
   index,
-  key,
-  value
+  product
 })

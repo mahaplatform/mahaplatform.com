@@ -8,11 +8,17 @@ class CsvResponder extends Responder {
 
   _getData() {
     const separator = this._getSeparator()
-    const enclosure = this._getEnclosure()
     const records = _.castArray(this.data)
     const matrix = (_.isPlainObject(records[0])) ? this._toMatrix(records) : records
-    const wrapped = matrix.map(row => row.map(col => this._wrapWithEnclosure(col, enclosure)))
-    return wrapped.map(row => row.join(separator)).join('\r\n')+'\r\n'
+    const width = matrix.reduce((width, row) => {
+      return row.length > width ? row.length : width
+    }, 0)
+    const wrapped = matrix.map(row => {
+      return new Array(width).fill(null).map((col, index) => {
+        return row[index] !== undefined ? this._wrapWithEnclosure(row[index]) : null
+      })
+    })
+    return wrapped.map(row => row.join(separator)).join('\n')+'\n'
   }
 
   _getSeparator() {
@@ -20,10 +26,6 @@ class CsvResponder extends Responder {
     if(this.req.format === 'tsv') return '\t'
     if(separator && separator === 'tab') return '\t'
     return separator || ','
-  }
-
-  _getEnclosure() {
-    return this.req.query.enclosure || ''
   }
 
   _toMatrix(records) {
@@ -39,8 +41,9 @@ class CsvResponder extends Responder {
     ], [ labels ])
   }
 
-  _wrapWithEnclosure(value, enclosure) {
-    return enclosure + value + enclosure
+  _wrapWithEnclosure(value) {
+    if(!_.isString(value)) return value
+    return value.search('"') >=0 || value.search(',') >=0  ? `"${value}"` : value
   }
 
 }

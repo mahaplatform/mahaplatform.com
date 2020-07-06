@@ -1,6 +1,7 @@
 import Confirmation from './confirmation'
 import { Payment } from 'maha-client'
 import PropTypes from 'prop-types'
+import Resizer from './resizer'
 import Summary from './summary'
 import Layout from './layout'
 import Header from './header'
@@ -15,6 +16,7 @@ class Form extends React.Component {
     code: PropTypes.string,
     config: PropTypes.object,
     data: PropTypes.object,
+    embedded: PropTypes.bool,
     errors: PropTypes.object,
     fields: PropTypes.array,
     human: PropTypes.bool,
@@ -35,6 +37,8 @@ class Form extends React.Component {
     validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
+    onRedirect: PropTypes.func,
+    onResize: PropTypes.func,
     onSave: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetMode: PropTypes.func,
@@ -51,9 +55,10 @@ class Form extends React.Component {
 
   render() {
     const { config, isActive, isOpen, mode, status } = this.props
+    const { strategy } = config.confirmation
     return (
       <Layout { ...this._getSection() }>
-        <div className="maha-form">
+        <Resizer { ...this._getResizer() }>
           { config.header &&
             <Header { ...this._getSection() } />
           }
@@ -66,7 +71,7 @@ class Form extends React.Component {
               <Payment { ...this._getPayment() } />
             </div>
           }
-          { status === 'success' &&
+          { status === 'success' && strategy === 'message' &&
             <Confirmation { ...this._getSection() } />
           }
           { !isOpen &&
@@ -75,7 +80,7 @@ class Form extends React.Component {
           { config.footer &&
             <Footer { ...this._getSection() } />
           }
-        </div>
+        </Resizer>
       </Layout>
     )
   }
@@ -108,9 +113,14 @@ class Form extends React.Component {
     }
   }
 
+  _getResizer() {
+    const { embedded, onResize } = this.props
+    return { embedded, onResize }
+  }
+
   _getSection() {
-    const { config } = this.props
-    return { config }
+    const { config, embedded } = this.props
+    return { config, embedded }
   }
 
   _getSummary() {
@@ -129,11 +139,11 @@ class Form extends React.Component {
   }
 
   _handleSuccess() {
-    const { config } = this.props
+    const { config, embedded } = this.props
     const { strategy, redirect } = config.confirmation
-    if(strategy === 'redirect') {
-      window.location.href = redirect
-    }
+    if(strategy !== 'redirect') return
+    if(embedded) return this.props.onRedirect(redirect)
+    window.location.href = redirect
   }
 
 }

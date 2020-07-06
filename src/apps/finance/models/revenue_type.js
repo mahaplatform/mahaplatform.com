@@ -1,5 +1,4 @@
 import Model from '../../../core/objects/model'
-import Product from './product'
 
 const RevenueType = new Model({
 
@@ -7,11 +6,7 @@ const RevenueType = new Model({
 
   rules: {},
 
-  virtuals: {},
-
-  products() {
-    return this.hasMany(Product, 'revenue_type_id')
-  }
+  virtuals: {}
 
 })
 
