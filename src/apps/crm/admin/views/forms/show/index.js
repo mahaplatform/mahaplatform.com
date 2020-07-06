@@ -19,10 +19,10 @@ const getTasks = ({ form }) => {
       <p>You can embed this form within your website by pasting this
       code into your html.</p>
     ),
-    code: `<div data-form="${form.code}" />
-<script src="${process.env.WEB_HOST}/crm/forms/embed.js"></script>
+    code: `<div data-form="${form.code}"></div>
+<script src="${process.env.WEB_HOST}/maha.js"></script>
 <script>
-new MahaForm({
+new Maha.Crm.Form({
   code: '${form.code}'
 })
 </script>`
