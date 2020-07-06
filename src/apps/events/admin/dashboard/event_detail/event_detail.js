@@ -78,9 +78,9 @@ class EventDetail extends React.Component {
             <div className="crm-report-table">
             </div>
           </div>
-          <div className="maha-dashboard-card-actions">
-            <Button { ...this._getEvent() } />
-          </div>
+        </div>
+        <div className="maha-dashboard-card-footer">
+          <Button { ...this._getEvent() } />
         </div>
       </div>
     )

@@ -72,9 +72,9 @@ class Form extends React.Component {
             <div className="crm-report-table">
             </div>
           </div>
-          <div className="maha-dashboard-card-actions">
-            <Button { ...this._getForm() } />
-          </div>
+        </div>
+        <div className="maha-dashboard-card-footer">
+          <Button { ...this._getForm() } />
         </div>
       </div>
     )

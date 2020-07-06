@@ -34,9 +34,9 @@ class EmailCampaign extends React.Component {
         </div>
         <div className="maha-dashboard-card-body scrollable">
           <Performance { ...this._getPerformance() }  />
-          <div className="maha-dashboard-card-actions">
-            <Button { ...this._getDetailsButton() } />
-          </div>
+        </div>
+        <div className="maha-dashboard-card-footer">
+          <Button { ...this._getDetailsButton() } />
         </div>
       </div>
     )
