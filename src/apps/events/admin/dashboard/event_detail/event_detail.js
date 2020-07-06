@@ -91,7 +91,7 @@ class EventDetail extends React.Component {
     return {
       endpoint: `/api/admin/events/events/${event.id}/performance`,
       started_at: event.created_at,
-      pointRadius: 2,
+      pointRadius: 0,
       borderWidth: 2
     }
   }

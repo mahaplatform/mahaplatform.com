@@ -93,7 +93,7 @@ class Form extends React.Component {
     return {
       endpoint: `/api/admin/crm/forms/${form.id}/performance`,
       started_at: form.created_at,
-      pointRadius: 2,
+      pointRadius: 0,
       borderWidth: 2
     }
   }
