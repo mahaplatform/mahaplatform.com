@@ -1,8 +1,8 @@
-class MahaEventButton {
+class Event {
 
-  code =null
-  label =null
-  className =null
+  code = null
+  label = null
+  className = null
   button = null
   canvas = null
   iframe = null
@@ -58,4 +58,4 @@ class MahaEventButton {
 
 }
 
-window.MahaEventButton = MahaEventButton
+export default Event

@@ -4,26 +4,25 @@ import Style from './components/style'
 import Form from './components/form'
 import Root from './components/root'
 import PropTypes from 'prop-types'
-import Pasteur from 'pasteur'
 import React from 'react'
 
 class App extends React.Component {
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    embedded: PropTypes.bool
   }
 
-  pasteur = null
-
-  _handleResize = this._handleResize.bind(this)
-
   render() {
+    const { embedded } = this.props
     return (
       <Root key="root">
         <Logger environment="form">
           <Error>
             <div className="maha-form-layout">
-              <Style key="style" { ...this._getStyle() } />
+              { !embedded &&
+                <Style key="style" { ...this._getStyle() } />
+              }
               <Form { ...this._getForm() } />
             </div>
           </Error>
@@ -32,42 +31,17 @@ class App extends React.Component {
     )
   }
 
-  componentDidMount() {
-    document.addEventListener('DOMContentLoaded', this._handleResize, false)
-    window.addEventListener('resize', this._handleResize, false)
-    this.pasteur = new Pasteur({
-      window,
-      target: window.parent,
-      name: 'form',
-      targetName: 'embed'
-    })
-  }
-
-  componentWillUnmount() {
-    this.pasteur.close()
-  }
-
-  _getBodyStyle(prop) {
-    const el = document.body
-    const retVal = document.defaultView.getComputedStyle(el, null)
-    return !retVal ? parseInt(retVal[prop], 10) : 0
-  }
-
   _getForm() {
+    const { embedded } = this.props
     const { form, token } = window
     const { code, config, ipaddress, referer, starttime, settings, isOpen } = form
-    return { code, config, ipaddress, referer, starttime, settings, isOpen, token }
+    return { code, config, embedded, ipaddress, referer, starttime, settings, isOpen, token }
   }
 
   _getStyle() {
     const { form } = window
     const { config } = form
     return { config }
-  }
-
-  _handleResize() {
-    const height = document.body.offsetHeight + this._getBodyStyle('marginTop') + this._getBodyStyle('marginBottom') + 40
-    this.pasteur.send('resize', height)
   }
 
 }

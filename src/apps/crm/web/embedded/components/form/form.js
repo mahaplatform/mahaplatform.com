@@ -1,6 +1,7 @@
 import Confirmation from './confirmation'
 import { Payment } from 'maha-client'
 import PropTypes from 'prop-types'
+import Resizer from './resizer'
 import Summary from './summary'
 import Layout from './layout'
 import Header from './header'
@@ -15,6 +16,7 @@ class Form extends React.Component {
     code: PropTypes.string,
     config: PropTypes.object,
     data: PropTypes.object,
+    embedded: PropTypes.bool,
     errors: PropTypes.object,
     fields: PropTypes.array,
     human: PropTypes.bool,
@@ -53,7 +55,7 @@ class Form extends React.Component {
     const { config, isActive, isOpen, mode, status } = this.props
     return (
       <Layout { ...this._getSection() }>
-        <div className="maha-form">
+        <Resizer { ...this._getResizer() }>
           { config.header &&
             <Header { ...this._getSection() } />
           }
@@ -75,7 +77,7 @@ class Form extends React.Component {
           { config.footer &&
             <Footer { ...this._getSection() } />
           }
-        </div>
+        </Resizer>
       </Layout>
     )
   }
@@ -108,9 +110,14 @@ class Form extends React.Component {
     }
   }
 
+  _getResizer() {
+    const { embedded} = this.props
+    return { embedded }
+  }
+
   _getSection() {
-    const { config } = this.props
-    return { config }
+    const { config, embedded} = this.props
+    return { config, embedded }
   }
 
   _getSummary() {

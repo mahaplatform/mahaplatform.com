@@ -5,14 +5,15 @@ class Layout extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
+    embedded: PropTypes.bool,
     children: PropTypes.any
   }
 
   render() {
-    const { config } = this.props
+    const { config, embedded } = this.props
     return (
       <div className={ this._getClass() }>
-        { config.cover && config.cover.image &&
+        { !embedded && config.cover && config.cover.image &&
           <div className="maha-form-layout-image">
             { config.cover.caption &&
               <div className="maha-form-layout-image-caption" dangerouslySetInnerHTML={{ __html: config.cover.caption }} />
@@ -27,9 +28,10 @@ class Layout extends React.Component {
   }
 
   _getClass() {
-    const { config } = this.props
+    const { config, embedded } = this.props
     const classes = ['maha-form-layout']
-    if(config.cover && config.cover.image) classes.push('covered')
+    if(!embedded && config.cover && config.cover.image) classes.push('covered')
+    if(embedded) classes.push('embedded')
     return classes.join(' ')
   }
 
