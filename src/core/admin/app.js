@@ -280,8 +280,8 @@ class App extends React.Component {
       {
         ...dashboardCard4,
         app: 'maha',
-        type: dashboardCard4.code,
-        code: 'maha:'+dashboardCard4.code
+        type: dashboardCard3.code,
+        code: 'maha:'+dashboardCard3.code
       },
     ]
   }
