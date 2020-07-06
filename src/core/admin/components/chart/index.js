@@ -22,12 +22,14 @@ class ChartWrapper extends React.Component {
     endpoint: PropTypes.string,
     started_at: PropTypes.any,
     pointRadius: PropTypes.number,
-    borderWidth: PropTypes.number
+    borderWidth: PropTypes.number,
+    displayXAxis: PropTypes.bool
   }
 
   static defaultProps = {
     pointRadius: 4,
-    borderWidth: 3
+    borderWidth: 3,
+    displayXAxis: true
   }
 
   chart = null
@@ -141,6 +143,7 @@ class ChartWrapper extends React.Component {
   }
 
   _handleInit() {
+    const { displayXAxis } = this.props
     const { step } = this._getQuery()
     this.chart = new Chart(this.node.getContext('2d'), {
       type: 'line',
@@ -165,7 +168,7 @@ class ChartWrapper extends React.Component {
                 week: 'MM/YY'
               }
             },
-            display: true,
+            display: displayXAxis,
             gridLines: {
               display: false
             }
