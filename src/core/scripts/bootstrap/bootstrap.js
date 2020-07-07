@@ -54,9 +54,54 @@ export const bootstrapType = async (type, pattern, table) => {
 
 }
 
+export const bootstrapDashboard = async () => {
+
+  const files = glob.sync(`${root}/*/admin/dashboard/*`)
+
+  const objects = await Promise.reduce(files, async (objects, file) => {
+
+    const matches = file.match(/apps\/([^/]*)\/admin\/dashboard\/(.*)/)
+
+    const [,appPath,code] = matches
+
+    const config = require(path.join(root,appPath,'app.js')).default
+
+    const app = await knex('maha_apps').where({
+      code: config.code
+    })
+
+    return [
+      ...objects,
+      {
+        code,
+        app_id: app[0] ? app[0].id : null
+      }
+    ]
+
+  }, [])
+
+  const items = await knex('maha_dashboard_card_types')
+
+  const addItems = objects.filter(object => {
+    return _.find(items, { code: object.code }) === undefined
+  })
+
+  await Promise.map(addItems, async (item) => {
+
+    log('info', 'bootstrap', `Adding dashboard card ${item.code}`)
+
+    await knex('maha_dashboard_card_types').insert({
+      app_id: item.app_id,
+      code: item.code
+    })
+
+  })
+
+}
+
 const collectObjects = async (pattern) => {
 
-  const items = glob.sync(`${root}/*/${pattern}.js`)
+  const items = glob.sync(`${root}/*/${pattern}`)
 
   return await Promise.reduce(items, async (objects, file) => {
 
@@ -85,12 +130,12 @@ export const bootstrap = async () => {
 
   await bootstrapApps()
 
-  await bootstrapType('alerts', 'alerts', 'maha_alerts')
+  await bootstrapType('alerts.js', 'alerts', 'maha_alerts')
 
-  await bootstrapType('notifications', 'notifications', 'maha_notification_types')
+  await bootstrapType('notifications.js', 'notifications', 'maha_notification_types')
 
-  await bootstrapType('rights', 'rights', 'maha_rights')
+  await bootstrapType('rights.js', 'rights', 'maha_rights')
 
-  await bootstrapType('dashboard', 'dashboard/index', 'maha_dashboard_card_types')
+  await bootstrapDashboard()
 
 }
