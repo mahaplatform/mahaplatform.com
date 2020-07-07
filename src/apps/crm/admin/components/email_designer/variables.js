@@ -43,6 +43,7 @@ export const fonts = [
 export const link_strategies = [
   { value: 'web', text: 'Web Address' },
   { value: 'form', text: 'Form' },
+  { value: 'preferences', text: 'Adjust Your Preferences' },
   { value: 'calendar', text: 'Event: Add to Calendar' },
   { value: 'registration', text: 'Event: Registration' },
   { value: 'email', text: 'Email Address' },

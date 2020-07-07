@@ -32,6 +32,8 @@
                               <a href="<%= block.url %>" target="_blank">
                             <% } else if(block.link_strategy === 'email') { %>
                               <a href="<%= `mailto:${email_address}?subject=${email_subject}&body=${email_body}` %>">
+                            <% } else if(block.link_strategy === 'preferences') { %>
+                              <a href="&lt;%= email.preferences_link %&gt;">
                             <% } %>
                               <%= block.content %>
                             </a>
