@@ -86,12 +86,6 @@ class Greeting extends React.Component {
     }
   }
 
-  _getPanel() {
-    return {
-      className: 'dashboard'
-    }
-  }
-
 }
 
 export default Greeting

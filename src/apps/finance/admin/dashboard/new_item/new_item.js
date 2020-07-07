@@ -53,12 +53,6 @@ class NewItem extends React.Component {
     )
   }
 
-  _getPanel() {
-    return {
-      className: 'dashboard'
-    }
-  }
-
   _handleClick(modal) {
     this.context.modal.open(modal)
   }

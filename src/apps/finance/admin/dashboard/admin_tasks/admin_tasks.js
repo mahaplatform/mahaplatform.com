@@ -89,12 +89,6 @@ class AdminTasks extends React.Component {
     return activeListItems
   }
 
-  _getPanel() {
-    return {
-      className: 'dashboard'
-    }
-  }
-
   _handleDeposits() {
     this.context.router.history.push('/admin/finance/deposits?$filter[$and][0][status][$in][0]=pending')
   }
