@@ -31,7 +31,7 @@ const bootstrapApps = async () => {
 
 }
 
-export const bootstrapType = async (type, pattern, table) => {
+export const bootstrapType = async (type, pattern, table, relateds = []) => {
 
   const objects = await collectObjects(`admin/${pattern}`)
 
@@ -39,6 +39,10 @@ export const bootstrapType = async (type, pattern, table) => {
 
   const addItems = objects.filter(object => {
     return _.find(items, { code: object.code }) === undefined
+  })
+
+  const removeItems = items.filter(item => {
+    return _.find(objects, { code: item.code }) === undefined
   })
 
   await Promise.map(addItems, async (item) => {
@@ -52,48 +56,15 @@ export const bootstrapType = async (type, pattern, table) => {
 
   })
 
-}
+  await Promise.map(removeItems, async (item) => {
 
-export const bootstrapDashboard = async () => {
+    log('info', 'bootstrap', `Removing ${pluralize.singular(type)} ${item.code}`)
 
-  const files = glob.sync(`${root}/*/admin/dashboard/*`)
-
-  const objects = await Promise.reduce(files, async (objects, file) => {
-
-    const matches = file.match(/apps\/([^/]*)\/admin\/dashboard\/(.*)/)
-
-    const [,appPath,code] = matches
-
-    const config = require(path.join(root,appPath,'app.js')).default
-
-    const app = await knex('maha_apps').where({
-      code: config.code
+    await Promise.mapSeries(relateds, async(related) => {
+      await knex(related.table).where(related.key, item.id).del()
     })
 
-    return [
-      ...objects,
-      {
-        code,
-        app_id: app[0] ? app[0].id : null
-      }
-    ]
-
-  }, [])
-
-  const items = await knex('maha_dashboard_card_types')
-
-  const addItems = objects.filter(object => {
-    return _.find(items, { code: object.code }) === undefined
-  })
-
-  await Promise.map(addItems, async (item) => {
-
-    log('info', 'bootstrap', `Adding dashboard card ${item.code}`)
-
-    await knex('maha_dashboard_card_types').insert({
-      app_id: item.app_id,
-      code: item.code
-    })
+    await knex(table).where('id', item.id).del()
 
   })
 
@@ -130,12 +101,20 @@ export const bootstrap = async () => {
 
   await bootstrapApps()
 
-  await bootstrapType('alerts.js', 'alerts', 'maha_alerts')
+  await bootstrapType('alerts', 'alerts.js', 'maha_alerts', [
+    { table: 'maha_users_alerts', key: 'alert_id' }
+  ])
 
-  await bootstrapType('notifications.js', 'notifications', 'maha_notification_types')
+  await bootstrapType('notifications', 'notifications.js', 'maha_notification_types', [
+    { table: 'maha_users_notification_types', key: 'notification_type_id' }
+  ])
 
-  await bootstrapType('rights.js', 'rights', 'maha_rights')
+  await bootstrapType('rights', 'rights.js', 'maha_rights', [
+    { table: 'maha_roles_rights', key: 'right_id' }
+  ])
 
-  await bootstrapDashboard()
+  await bootstrapType('dashboard', 'dashboard/index.js', 'maha_dashboard_card_types', [
+    { table: 'maha_dashboard_cards', key: 'type_id' }
+  ])
 
 }
