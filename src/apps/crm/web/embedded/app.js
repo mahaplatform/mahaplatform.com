@@ -1,4 +1,4 @@
-import { Error, Logger } from 'maha-client'
+import { Error, Logger, Network } from 'maha-client'
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Form from './components/form'
@@ -31,10 +31,12 @@ class App extends React.Component {
       <Root key="root">
         <Logger environment="form">
           <Error>
-            <div className="maha-form-layout">
-              <Style { ...this._getStyle() } />
-              <Form { ...this._getForm() } />
-            </div>
+            <Network>
+              <div className="maha-form-layout">
+                <Style { ...this._getStyle() } />
+                <Form { ...this._getForm() } />
+              </div>
+            </Network>
           </Error>
         </Logger>
       </Root>

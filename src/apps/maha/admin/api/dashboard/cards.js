@@ -24,7 +24,9 @@ const cardsRoute = async (req, res) => {
 
   cards.pagination = {
     all: cards.length,
-    total: cards.length
+    total: cards.length,
+    limit: cards.length,
+    skip: 0
   }
 
   res.status(200).respond(cards, (req, card) => ({
