@@ -1,64 +1,70 @@
+<%
+const imageurl = (image) => {
+  if(image) return `${host}/imagecache/w=580&h=317&dpi=2&q=100${image}`
+  return 'https://dummyimage.com/1160x634/666666/ffffff&text=+++VIDEO+++'
+}
+const image = (block) => {
+  if(block.video) return `
+    <a href="${block.video.url}">
+      <img src="${imageurl(block.video.preview)}" />
+    </a>
+  `
+  return `<img src="${imageurl(block.image)}" />`
+}
+const captionCell = (block, vertical, position) => {
+  const width = vertical ? 12 : 12 - block.image_width
+  return `
+    <td class="${`small-${width} large-${width} columns ${position} block-caption`}">
+      <div>${ block.caption }</div>
+    </td>
+  `
+}
+const imageCell = (block, vertical, position) => {
+  const width = vertical ? 12 : block.image_width
+  return `
+    <td class="${`small-${width} large-${width} columns ${position} block-image`}">
+      <div>${ image(block) }</div>
+    </td>
+  `
+}
+%>
 <% if(block.show_caption) { %>
   <table class="row collapse">
     <% if(block.video_position === 'bottom') { %>
       <tbody>
         <tr>
-          <td class="small-12 large-12 columns first last block-caption">
-            <div><%- block.caption %></div>
-          </td>
+          <%- captionCell(block, true, 'first last') %>
           <td class="expander"></td>
         </tr>
         <tr>
-          <td class="small-12 large-12 columns first last">
-            <a href="<%= block.video.src %>" target="_blank">
-              <img src="<%= `${host}/imagecache/w=580&dpi=2&q=100&overlay=video${block.video.preview}` %>" />
-            </a>
-          </td>
+          <%- imageCell(block, true, 'first last') %>
           <td class="expander"></td>
         </tr>
       </tbody>
     <% } else if(block.video_position === 'top') { %>
       <tbody>
         <tr>
-          <td class="small-12 large-12 columns first last">
-            <a href="<%= block.video.src %>" target="_blank">
-              <img src="<%= `${host}/imagecache/w=580&dpi=2&q=100&overlay=video${block.video.preview}` %>" />
-            </a>
-          </td>
+          <%- imageCell(block, true, 'first last') %>
           <td class="expander"></td>
         </tr>
         <tr>
-          <td class="small-12 large-12 columns first last block-caption">
-            <div><%- block.caption %></div>
-          </td>
+          <%- captionCell(block, true, 'first last') %>
           <td class="expander"></td>
         </tr>
       </tbody>
     <% } else if(block.video_position === 'left') { %>
       <tbody>
         <tr>
-          <td class="small-12 large-<%= block.video_width %> columns first">
-            <a href="<%= block.video.src %>" target="_blank">
-              <img src="<%= `${host}/imagecache/w=580&dpi=2&q=100&overlay=video${block.video.preview}` %>" />
-            </a>
-          </td>
-          <td class="small-12 large-<%= 12 - block.video_width %> columns last block-caption">
-            <div><%- block.caption %></div>
-          </td>
+          <%- imageCell(block, false, 'first') %>
+          <%- captionCell(block, false, 'last') %>
           <td class="expander"></td>
         </tr>
       </tbody>
     <% } else if(block.video_position === 'right') { %>
       <tbody>
         <tr>
-          <td class="small-12 large-<%= 12 - block.video_width %> columns first block-caption">
-            <div><%- block.caption %></div>
-          </td>
-          <td class="small-12 large-<%= block.video_width %> columns last">
-            <a href="<%= block.video.src %>" target="_blank">
-              <img src="<%= `${host}/imagecache/w=580&dpi=2&q=100&overlay=video${block.video.preview}` %>" />
-            </a>
-          </td>
+          <%- captionCell(block, false, 'first') %>
+          <%- imageCell(block, false, 'last') %>
           <td class="expander"></td>
         </tr>
       </tbody>
@@ -68,11 +74,7 @@
   <table class="row collapse">
     <tbody>
       <tr>
-        <td class="small-12 large-12 columns first last">
-          <a href="<%= block.video.src %>" target="_blank">
-            <img src="<%= `${host}/imagecache/w=580&dpi=2&q=100&overlay=video${block.video.preview}` %>" />
-          </a>
-        </td>
+        <%- imageCell(block, true, 'first last') %>
         <td class="expander"></td>
       </tr>
     </tbody>

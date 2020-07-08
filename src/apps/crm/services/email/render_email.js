@@ -205,9 +205,14 @@ const getInlineStyle = (config) => [
             ...getProp(config, 'padding',`${section}.blocks[${j}].caption_padding`, 'px')
           ]
         }, {
+          selector: `table.section-${section} table.block-${j} table.block-container .block-image div`, styles: [
+            ...getProp(config, 'padding',`${section}.blocks[${j}].image_padding`, 'px')
+          ]
+        }, {
           selector: `table.section-${section} table.block-${j} img`, styles: [
             ...getBorder(config, 'border', `${section}.blocks[${j}].image_border`),
-            ...getProp(config, 'border-radius',`${section}.blocks[${j}].image_border_radius`, 'px')
+            ...getProp(config, 'border-radius',`${section}.blocks[${j}].image_border_radius`, 'px'),
+            ...getProp(config, 'padding',`${section}.blocks[${j}].image_padding`, 'px')
           ]
         }
       ] : [],

@@ -82,7 +82,8 @@ class Image extends React.Component {
               label: 'Image Style',
               fields: [
                 this._getBorder('image_border', 'Border'),
-                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
+                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius },
+                { label: 'Padding', name: 'image_padding', type: 'dropdown', options: options.paddings, defaultValue: config.image_padding }
               ]
             }, {
               label: 'Caption Style',
@@ -152,6 +153,7 @@ class Image extends React.Component {
       image_border_radius: null,
       image_position: 'top',
       image_width: 6,
+      image_padding: 0,
       h1_font_family: null,
       h1_font_size: null,
       h1_color: null,

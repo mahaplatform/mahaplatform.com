@@ -8,12 +8,12 @@ const previewRoute = async (req, res) => {
 
   const html = await renderEmail(req, { config })
 
-  const sender = await Sender.query(qb => {
+  const sender = config.settings.sender_id ? await Sender.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', config.settings.sender_id)
   }).fetch({
     transacting: req.trx
-  })
+  }) : null
 
   const rendered = personalizeEmail(req, {
     subject: `PREVIEW: ${config.settings.subject}`,
@@ -38,7 +38,7 @@ const previewRoute = async (req, res) => {
   })
 
   await sendMail({
-    from: sender.get('rfc822'),
+    from: sender ? sender.get('rfc822') : 'Maha Platform <mail@mahaplatform.com>',
     to: req.body.email,
     subject: rendered.subject,
     html: rendered.html

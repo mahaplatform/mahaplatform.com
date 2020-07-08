@@ -81,13 +81,14 @@ class Video extends React.Component {
               label: 'Image Style',
               fields: [
                 this._getBorder('image_border', 'Border'),
-                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
+                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius },
+                { label: 'Padding', name: 'image_padding', type: 'dropdown', options: options.paddings, defaultValue: config.image_padding }
               ]
             }, {
               label: 'Caption Style',
               fields: [
                 { label: 'Background', name: 'caption_background_color', type: 'colorfield', defaultValue: config.caption_background_color },
-                { label: 'Caption Padding', name: 'caption_padding', type: 'dropdown', options: options.paddings, defaultValue: config.caption_padding }
+                { label: 'Padding', name: 'caption_padding', type: 'dropdown', options: options.paddings, defaultValue: config.caption_padding }
               ]
             },
             ...options.block_types.map(({ value, text }) => ({
@@ -149,6 +150,7 @@ class Video extends React.Component {
       image_border_style: null,
       image_border_color: null,
       image_border_radius: null,
+      image_padding: 0,
       video_position: 'top',
       video_width: 6,
       h1_font_family: null,
