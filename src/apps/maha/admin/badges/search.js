@@ -23,7 +23,10 @@ class SearchPanel extends React.Component {
     return {
       title: 'Search',
       leftItems: [
-        { icon: 'remove', handler: this._handleClose }
+        { icon: 'remove', handler: this._handleClose, tooltip: {
+          title: 'Close Search',
+          position: 'bottom left'
+        } }
       ]
     }
   }

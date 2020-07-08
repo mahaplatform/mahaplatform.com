@@ -123,10 +123,16 @@ class Phone extends React.Component {
     return {
       title: 'Phone',
       leftItems: [
-        { icon: 'times', handler: this._handleClose }
+        { icon: 'times', handler: this._handleClose, tooltip: {
+          title: 'Close Phone',
+          position: 'bottom left'
+        } }
       ],
       rightItems: [
-        { icon: 'plus', handler: this._handleAdd }
+        { icon: 'plus', handler: this._handleAdd, tooltip: {
+          title: 'Add Call',
+          position: 'bottom right'
+        } }
       ]
     }
   }

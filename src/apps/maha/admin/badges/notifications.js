@@ -23,7 +23,10 @@ class NotificationsPanel extends React.Component {
     return {
       title: 'Notifications',
       leftItems: [
-        { icon: 'remove', handler: this._handleClose }
+        { icon: 'remove', handler: this._handleClose, tooltip: {
+          title: 'Close Notifications',
+          position: 'bottom left'
+        } }
       ]
     }
   }

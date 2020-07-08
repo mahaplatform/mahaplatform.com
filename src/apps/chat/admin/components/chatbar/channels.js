@@ -33,10 +33,16 @@ class ChatBarChannels extends React.Component {
     return {
       title: 'Chat',
       leftItems: [
-        { icon: 'remove', handler: this._handleClose }
+        { icon: 'remove', handler: this._handleClose, tooltip: {
+          title: 'Close Chat',
+          position: 'bottom left'
+        } }
       ],
       rightItems: [
-        { icon: 'plus', handler: this._handleNew }
+        { icon: 'plus', handler: this._handleNew, tooltip: {
+          title: 'Start New Conversation',
+          position: 'bottom right'
+        } }
       ]
     }
   }

@@ -33,7 +33,7 @@ class ModalPanel extends React.Component {
             { leftItems &&
               <div className="maha-modal-panel-header-navigation">
                 { leftItems.map((item,index) => (
-                  <div key={`left_${index}`} className="maha-modal-panel-header-navigation-item" onClick={ item.handler }>
+                  <div key={`left_${index}`} { ...this._getItem(item) }>
                     { this._getElement(item) }
                   </div>
                 )) }
@@ -45,7 +45,7 @@ class ModalPanel extends React.Component {
             { rightItems &&
               <div className="maha-modal-panel-header-navigation">
                 { rightItems.map((item,index) => (
-                  <div key={`right_${index}`} className="maha-modal-panel-header-navigation-item" onClick={ item.handler }>
+                  <div key={`right_${index}`} { ...this._getItem(item) }>
                     { this._getElement(item) }
                   </div>
                 )) }
@@ -96,6 +96,14 @@ class ModalPanel extends React.Component {
     if(item.label) return <div className="maha-modal-panel-header-navigation-button"><span>{ item.label }</span></div>
   }
 
+  _getItem(item) {
+    return {
+      className: 'maha-modal-panel-header-navigation-item',
+      onClick: item.handler,
+      ...this._getToolTip(item.tooltip)
+    }
+  }
+
   _getLeftClass() {
     const { leftEnabled } = this.props
     const classes = ['maha-modal-panel-header-navigation']
@@ -109,6 +117,16 @@ class ModalPanel extends React.Component {
     if(!rightEnabled) classes.push('disabled')
     return classes.join(' ')
   }
+
+  _getToolTip(tooltip) {
+    if(!tooltip) return {}
+    return {
+      'data-tooltip': _.isString(tooltip) ? tooltip : tooltip.title,
+      'data-position': _.isString(tooltip) ? 'bottom right' : tooltip.position,
+      'data-inverted': ''
+    }
+  }
+
 
 }
 

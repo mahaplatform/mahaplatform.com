@@ -38,7 +38,10 @@ class ChatBarChannel extends React.Component {
         { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: [
-        { icon: 'info-circle', handler: this._handleInfo }
+        { icon: 'info-circle', handler: this._handleInfo, tooltip: {
+          title: 'View Info',
+          position: 'bottom right'
+        } }
       ]
     }
   }
