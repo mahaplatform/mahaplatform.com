@@ -52,7 +52,7 @@ class Export extends React.Component {
   _handleSuccess(batch) {
     const { type } = this.props
     setTimeout(() => {
-      window.location.href = `/api/admin/finance/batches/${type}/${batch.id}.csv?$page[limit]=0&download=true&enclosure="&token=${this.props.token}`
+      window.location.href = `/api/admin/finance/batches/${type}/${batch.id}.csv?$page[limit]=0&download=true&token=${this.props.token}`
     }, 500)
     this.props.onSuccess()
     this.context.modal.close()

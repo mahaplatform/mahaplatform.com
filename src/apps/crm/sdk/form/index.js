@@ -9,11 +9,12 @@ class Form {
 
   _handleInit = this._handleInit.bind(this)
   _handleReady = this._handleReady.bind(this)
+  _handleRedirect = this._handleRedirect.bind(this)
   _handleResize = this._handleResize.bind(this)
 
   constructor(config) {
     this.code = config.code
-    this.style = config.style
+    this.style = config.style || []
     document.addEventListener('DOMContentLoaded', this._handleInit, false)
   }
 
@@ -32,10 +33,17 @@ class Form {
     })
     this.pasteur.on('ready', this._handleReady)
     this.pasteur.on('resize', this._handleResize)
+    this.pasteur.on('redirect', this._handleRedirect)
   }
 
   _handleReady() {
-    if(this.style) this.pasteur.send('style', this.style)
+    this.pasteur.send('ready', {
+      style: this.style
+    })
+  }
+
+  _handleRedirect(url) {
+    window.location.href = url
   }
 
   _handleResize(height) {

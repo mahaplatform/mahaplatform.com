@@ -4,8 +4,6 @@ import New from './new'
 
 const card = {
   code: 'emails',
-  title: 'Program Emails',
-  description: 'Email Campaigns for a given Program',
   component: Emails,
   edit: Edit,
   new: New

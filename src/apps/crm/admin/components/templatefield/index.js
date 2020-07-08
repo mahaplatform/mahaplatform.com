@@ -105,7 +105,14 @@ class TemplateField extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  templates: '/api/admin/crm/templates'
+  templates: {
+    endpoint: '/api/admin/crm/templates',
+    filter: {
+      program_id: {
+        $in: ['null', props.program_id]
+      }
+    }
+  }
 })
 
 export default Container(mapResources)(TemplateField)

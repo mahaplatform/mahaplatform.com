@@ -1,7 +1,7 @@
 import elementResizeEvent from 'element-resize-event'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import New from './newcard'
+import New from '../newcard'
 import Card from '../card'
 import React from 'react'
 

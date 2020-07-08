@@ -84,11 +84,14 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { field  } = this.props
+    const field = {
+      ...this.props.field.contactfield || {},
+      ...this.props.field
+    }
+
     return {
       ...field,
-      name: _.get(field, 'name.value'),
-      ...field.contactfield || {}
+      name: _.get(field, 'name.value')
     }
   }
 

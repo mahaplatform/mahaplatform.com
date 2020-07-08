@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Cards from './cards'
 import React from 'react'
@@ -8,12 +8,12 @@ class NewCard extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
-    configuration: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
+    cards: PropTypes.array,
     panel: PropTypes.object
   }
 
@@ -58,10 +58,10 @@ class NewCard extends React.Component {
   }
 
   _getCards(app) {
-    const { dashboardCards } = this.context.configuration
+    const { cards } = this.props
     return {
-      cards: dashboardCards.filter(dashboardCard => {
-        return dashboardCard.app === app.code
+      cards: cards.filter(card => {
+        return card.app === app.code
       }),
       onBack: this._handlePop,
       onChoose: this._handleCards
@@ -122,4 +122,8 @@ class NewCard extends React.Component {
 
 }
 
-export default NewCard
+const mapResources = (props, context) => ({
+  cards: '/api/admin/dashboard/cards'
+})
+
+export default Container(mapResources)(NewCard)

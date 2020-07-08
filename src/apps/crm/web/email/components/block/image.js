@@ -72,8 +72,9 @@ class Image extends React.Component {
 
   _getCaptionCell(vertical, position) {
     const { caption, image_width } = this.props.config
+    const width = vertical? 12 : 12 - image_width
     return (
-      <td className={`small-12 large-${vertical? 12 : 12 - image_width} columns ${position} block-caption`}>
+      <td className={`small-${width} large-${width} columns ${position} block-caption`}>
         { caption &&
           <div dangerouslySetInnerHTML={{ __html: caption }} />
         }
@@ -83,12 +84,15 @@ class Image extends React.Component {
 
   _getImageCell(vertical, position) {
     const { image_width, image } = this.props.config
+    const width = vertical ? 12 : image_width
     return (
-      <td className={`small-12 large-${vertical ? 12 : image_width} columns ${position}`}>
-        { image ?
-          <img src={ `/imagecache/w=580&dpi=2&q=100${image}` } /> :
-          <img src="https://dummyimage.com/1000x600/666666/ffffff&text=Choose+Image" />
-        }
+      <td className={`small-${width} large-${width} columns ${position} block-image`}>
+        <div>
+          { image ?
+            <img src={ `/imagecache/w=580&dpi=2&q=100${image}` } /> :
+            <img src="https://dummyimage.com/1000x600/606060/ffffff&text=+++IMAGE+++" />
+          }
+        </div>
       </td>
     )
   }

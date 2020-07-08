@@ -192,6 +192,7 @@ class Button extends React.Component {
         { label: 'File', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose File', defaultValue: config.asset_id}
       ]
     }
+    return []
   }
 
   _handleChange(config) {

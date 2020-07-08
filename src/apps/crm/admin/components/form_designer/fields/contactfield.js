@@ -71,7 +71,7 @@ class ContactFieldForm extends React.Component {
   _getContactFields() {
     const { config } = this.state
     if(!config.contactfield) return []
-    const { label, name } = config.contactfield
+    const { label, type, name, prompt } = config.contactfield
     const fields = [
       { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name || { value: label, token: this._getToken(label) } },
       { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label || label },
@@ -79,6 +79,9 @@ class ContactFieldForm extends React.Component {
       { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
       { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
     ]
+    if(type === 'checkbox') {
+      fields.push({ label: 'Prompt', name: 'prompt', type: 'htmlfield', placeholder: 'Enter prompt text', defaultValue: config.prompt || prompt })
+    }
     if(!_.includes(['email','phone','address'], name)) {
       fields.push({ prompt: 'Overwrite value if property is already set', name: 'overwrite', type: 'checkbox', defaultValue: config.overwrite })
     }

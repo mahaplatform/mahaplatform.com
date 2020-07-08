@@ -26,7 +26,7 @@ class FormDesignerWrapper extends React.Component {
   _getFields() {
     const { program, programfields } = this.props
     return [
-      { label: 'Contact Fields', fields: [
+      { label: 'Contact', fields: [
         { label: 'First Name', name: 'first_name', type: 'textfield' },
         { label: 'Last Name', name: 'last_name', type: 'textfield' },
         { label: 'Email', name: 'email', type: 'emailfield' },
@@ -38,6 +38,9 @@ class FormDesignerWrapper extends React.Component {
       ...programfields.length > 0 ? [{ label: `${program.title} Fields`, fields: programfields.map(field => ({
         ...field.config
       }))}] : [],
+      { label: 'Classification', fields: [
+        { label: 'Topics', name: 'classification.topic_ids', type: 'checkboxes', endpoint: `/api/crm/programs/${program.id}/topics`, value: 'id', text: 'title' }
+      ] },
       { label: 'Consent', fields: [
         { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
         { label: 'SMS Consent', name: 'consent.sms', type: 'checkbox', prompt: '<p>Please send me text messages</p>' },

@@ -95,8 +95,7 @@ class Export extends React.Component {
       }), {})
     }
     const entities = pluralize(entity)
-    const enclosure = encodeURIComponent('"')
-    const url = `${endpoint}.${extension}?$page[limit]=0&enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${qs.stringify(query)}`
+    const url = `${endpoint}.${extension}?$page[limit]=0&filename=${entities}&token=${token}&download=true&${qs.stringify(query)}`
     window.location.href = url
     this._handleDone()
   }

@@ -51,7 +51,7 @@ class New extends React.Component {
     const { type } = this.state
     if(type !== 'basic') return []
     return [
-      { label: 'Tax Account', name: 'tax_project_id', type: 'lookup', required: true , placeholder: 'Choose a project', endpoint: '/api/admin/finance/projects/tax', value: 'id', text: 'title', format: ProjectToken }
+      { label: 'Tax Account', name: 'tax_project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/finance/projects/tax', value: 'id', text: 'title', format: ProjectToken }
     ]
   }
 
@@ -60,11 +60,11 @@ class New extends React.Component {
       return [{
         label: 'ACCPAC Details',
         fields: [
-          { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code', required: true },
-          { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code', required: true },
-          { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match', required: true },
+          { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code' },
+          { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code' },
+          { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match' },
           { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', placeholder: 'Enter a main project code' },
-          { label: 'County Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a county project code', required: true }
+          { label: 'County Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a county project code' }
         ]
       }]
     }

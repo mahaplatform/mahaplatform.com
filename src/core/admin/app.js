@@ -166,10 +166,12 @@ import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
-import dashboardCard0 from '../../apps/crm/admin/dashboard/emails/index.js'
-import dashboardCard1 from '../../apps/crm/admin/dashboard/form/index.js'
-import dashboardCard2 from '../../apps/events/admin/dashboard/event_detail/index.js'
-import dashboardCard3 from '../../apps/maha/admin/dashboard/greeting/index.js'
+import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/emails/index.js'
+import crmAdminDashboardFormIndexJs from '../../apps/crm/admin/dashboard/form/index.js'
+import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
+import financeAdminDashboardAdminTasksIndexJs from '../../apps/finance/admin/dashboard/admin_tasks/index.js'
+import financeAdminDashboardNewItemIndexJs from '../../apps/finance/admin/dashboard/new_item/index.js'
+import mahaAdminDashboardGreetingIndexJs from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -253,28 +255,40 @@ class App extends React.Component {
   _getDashboardCards() {
     return [
       {
-        ...dashboardCard0,
+        ...crmAdminDashboardEmailsIndexJs,
         app: 'crm',
-        type: dashboardCard0.code,
-        code: 'crm:'+dashboardCard0.code
+        type: crmAdminDashboardEmailsIndexJs.code,
+        code: 'crm:'+crmAdminDashboardEmailsIndexJs.code
       },
       {
-        ...dashboardCard1,
+        ...crmAdminDashboardFormIndexJs,
         app: 'crm',
-        type: dashboardCard1.code,
-        code: 'crm:'+dashboardCard1.code
+        type: crmAdminDashboardFormIndexJs.code,
+        code: 'crm:'+crmAdminDashboardFormIndexJs.code
       },
       {
-        ...dashboardCard2,
+        ...eventsAdminDashboardEventDetailIndexJs,
         app: 'events',
-        type: dashboardCard2.code,
-        code: 'events:'+dashboardCard2.code
+        type: eventsAdminDashboardEventDetailIndexJs.code,
+        code: 'events:'+eventsAdminDashboardEventDetailIndexJs.code
       },
       {
-        ...dashboardCard3,
+        ...financeAdminDashboardAdminTasksIndexJs,
+        app: 'finance',
+        type: financeAdminDashboardAdminTasksIndexJs.code,
+        code: 'finance:'+financeAdminDashboardAdminTasksIndexJs.code
+      },
+      {
+        ...financeAdminDashboardNewItemIndexJs,
+        app: 'finance',
+        type: financeAdminDashboardNewItemIndexJs.code,
+        code: 'finance:'+financeAdminDashboardNewItemIndexJs.code
+      },
+      {
+        ...mahaAdminDashboardGreetingIndexJs,
         app: 'maha',
-        type: dashboardCard3.code,
-        code: 'maha:'+dashboardCard3.code
+        type: mahaAdminDashboardGreetingIndexJs.code,
+        code: 'maha:'+mahaAdminDashboardGreetingIndexJs.code
       },
     ]
   }

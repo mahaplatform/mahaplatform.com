@@ -23,10 +23,10 @@ const getTasks = ({ event }) => {
       <p>You can place a <strong>Buy Tickets</strong> button on your
       website by pasting this code into your html.</p>
     ),
-    code: `<div data-event="${event.code}" />
-<script src="${process.env.WEB_HOST}/events/button.js"></script>
+    code: `<div data-event="${event.code}"></div>
+<script src="${process.env.WEB_HOST}/maha.js"></script>
 <script>
-new MahaEventButton({
+new Maha.Events.Button({
   code: '${event.code}',
   className: 'button',
   label: 'Buy Tickets'

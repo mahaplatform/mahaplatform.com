@@ -1,10 +1,13 @@
-const cards = [
+const dashboard = [
   {
-    code: 'form'
-  },
-  {
-    code: 'emails'
+    code: 'form',
+    title: 'Form Performance',
+    description: 'A breakdown of form performance'
+  }, {
+    code: 'emails',
+    title: 'Program Emails',
+    description: 'Email Campaigns for a given Program'
   }
 ]
 
-export default cards
+export default dashboard

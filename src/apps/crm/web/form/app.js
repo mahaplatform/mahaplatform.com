@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader'
 import Style from '../embedded/components/style'
 import Root from '../embedded/components/root'
+import { Error, Network } from 'maha-client'
 import Form from './components/form'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
@@ -27,12 +28,15 @@ class App extends React.Component {
     if(!this.state.config) return null
     return (
       <Root key="root">
-        <div className="maha-form-layout">
-          <Style key="style" { ...this._getStyle() } />
-          <Form { ...this._getForm() } />
-        </div>
+        <Error>
+          <Network>
+            <div className="maha-form-layout">
+              <Style key="style" { ...this._getStyle() } />
+              <Form { ...this._getForm() } />
+            </div>
+          </Network>
+        </Error>
       </Root>
-
     )
   }
 

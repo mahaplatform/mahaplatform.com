@@ -156,9 +156,14 @@ class Style extends React.Component {
                 ...this._getProp('padding',`${section}.blocks[${j}].caption_padding`, 'px')
               ]
             }, {
+              selector: `table.section-${section} table.block-${j} table.block-container .block-image div`, styles: [
+                ...this._getProp('padding',`${section}.blocks[${j}].image_padding`, 'px')
+              ]
+            }, {
               selector: `table.section-${section} table.block-${j} img`, styles: [
                 ...this._getBorder('border', `${section}.blocks[${j}].image_border`),
                 ...this._getProp('border-radius',`${section}.blocks[${j}].image_border_radius`, 'px')
+
               ]
             }
           ] : [],

@@ -4,15 +4,22 @@ import _ from 'lodash'
 
 class Checkboxes extends React.Component {
 
+  static contextTypes = {
+    network: PropTypes.object
+  }
+
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.array,
+    endpoint: PropTypes.string,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.array,
     required: PropTypes.bool,
     tabIndex: PropTypes.number,
+    value: PropTypes.string,
     status: PropTypes.string,
+    text: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -26,13 +33,15 @@ class Checkboxes extends React.Component {
   options = {}
 
   state = {
+    options: null,
     selected: []
   }
 
   _handleChange = this._handleChange.bind(this)
 
   render() {
-    const { options } = this.props
+    const { options } = this.state
+    if(!options) return null
     return (
       <div className="maha-checkboxes">
         { options.map((option, index) => (
@@ -50,14 +59,9 @@ class Checkboxes extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, options, onReady } = this.props
-    if(defaultValue) this.setState({
-      selected: options.reduce((selected, option, index) => [
-        ...selected,
-        ..._.includes(defaultValue, option.value) ? [index] : []
-      ], [])
-    })
-    onReady()
+    const { endpoint, options } = this.props
+    if(endpoint) return this._handleFetch()
+    this._handleOptions(options)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -87,8 +91,7 @@ class Checkboxes extends React.Component {
   }
 
   _getValue() {
-    const { selected } = this.state
-    const { options } = this.props
+    const { options, selected } = this.state
     return options.filter((option, index) => {
       return _.includes(selected, index)
     }).map(option => {
@@ -110,8 +113,22 @@ class Checkboxes extends React.Component {
     })
   }
 
+  _handleFetch() {
+    const { endpoint, text, value } = this.props
+    this.context.network.request({
+      endpoint,
+      method: 'GET',
+      onSuccess: ({ data }) => {
+        this._handleOptions(data.map(option => ({
+          value: _.get(option, value),
+          text: _.get(option, text)
+        })))
+      }
+    })
+  }
+
   _handleKeyDown(index, e) {
-    const { options } = this.props
+    const { options } = this.state
     if(e.which === 9) return
     if(e.which === 38) {
       this.options[index === 0 ? options.length - 1 : index - 1].focus()
@@ -121,6 +138,20 @@ class Checkboxes extends React.Component {
       this._handleChoose(index)
     }
     e.preventDefault()
+  }
+
+  _handleOptions(options) {
+    const { defaultValue } = this.props
+    this.setState({ options })
+    if(defaultValue) {
+      this.setState({
+        selected: options.reduce((selected, option, index) => [
+          ...selected,
+          ..._.includes(defaultValue, option.value) ? [index] : []
+        ], [])
+      })
+    }
+    this.props.onReady()
   }
 
   _handleValidate() {

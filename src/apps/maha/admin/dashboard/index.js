@@ -1,7 +1,9 @@
-const cards = [
+const dashboard = [
   {
-    code: 'greeting'
+    code: 'greeting',
+    title: 'Greeting',
+    description: 'A daily greeting'
   }
 ]
 
-export default cards
+export default dashboard

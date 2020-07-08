@@ -3,6 +3,7 @@ import { updateMailingAddresses } from '../mailing_addresses'
 import { updateEmailAddresses } from '../email_addresses'
 import EmailAddress from '../../models/email_address'
 import PhoneNumber from '../../models/phone_number'
+import { updateProgramTopics } from '../topics'
 import { updateConsent } from '../consents'
 import { getContact } from '../contacts'
 import _ from 'lodash'
@@ -188,6 +189,21 @@ export const createOrUpdateContact = async (req, { fields, program, data }) => {
       contact,
       mailing_addresses,
       removing: false
+    })
+  }
+
+  const topicfields = contactfields.filter(field => {
+    return field.contactfield.name === 'classification.topic_ids'
+  })
+
+  if(topicfields.length > 0) {
+    await updateProgramTopics(req, {
+      contact,
+      program,
+      topic_ids:topicfields.reduce((topic_ids, field) => [
+        ...topic_ids,
+        ...data[field.code]
+      ], [])
     })
   }
 

@@ -1,3 +1,4 @@
+import StatusToken from '../../tokens/status_token'
 import Status from '../../tokens/status'
 import { Page } from 'maha-admin'
 import New from './new'
@@ -18,7 +19,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     filters: [
       { label: 'Bank Account', name: 'bank_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/banks', value: 'id', text: 'title' },
-      { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
+      { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
+      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['pending','exported'], format: StatusToken }      
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     onClick: (record) => context.router.history.push(`/admin/finance/deposits/${record.id}`),

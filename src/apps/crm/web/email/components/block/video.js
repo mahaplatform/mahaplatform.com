@@ -72,8 +72,9 @@ class Image extends React.Component {
 
   _getCaptionCell(vertical, position) {
     const { caption, video_width } = this.props.config
+    const width = vertical? 12 : 12 - video_width
     return (
-      <td className={`small-12 large-${vertical? 12 : 12 - video_width} columns ${position} block-caption`}>
+      <td className={`small-${width} large-${width} columns ${position} block-caption`}>
         { caption &&
           <div dangerouslySetInnerHTML={{ __html: caption }} />
         }
@@ -83,12 +84,15 @@ class Image extends React.Component {
 
   _getVideoCell(vertical, position) {
     const { video_width, video } = this.props.config
+    const width = vertical ? 12 : video_width
     return (
-      <td className={`small-12 large-${vertical ? 12 : video_width} columns ${position}`}>
-        { video ?
-          <img src={`/imagecache/w=580&dpi=2&q=100&overlay=video${video.preview}` } /> :
-          <img src="https://dummyimage.com/1000x600/666666/ffffff&text=Choose+Video" />
-        }
+      <td className={`small-${width} large-${width} columns ${position} block-image`}>
+        <div>
+          { video ?
+            <img src={`/imagecache/w=580&h=317&dpi=2&q=100&overlay=video${video.preview}` } /> :
+            <img src="https://dummyimage.com/1160x634/606060/ffffff&text=+++VIDEO+++" />
+          }
+        </div>
       </td>
     )
   }

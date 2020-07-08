@@ -1,7 +1,9 @@
-const cards = [
+const dashboard = [
   {
-    code: 'event_detail'
+    code: 'event_detail',
+    title: 'Event Detail',
+    description: 'A breakdown of event data'
   }
 ]
 
-export default cards
+export default dashboard

@@ -37,6 +37,8 @@ class Form extends React.Component {
     validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
+    onRedirect: PropTypes.func,
+    onResize: PropTypes.func,
     onSave: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetMode: PropTypes.func,
@@ -53,6 +55,7 @@ class Form extends React.Component {
 
   render() {
     const { config, isActive, isOpen, mode, status } = this.props
+    const { strategy } = config.confirmation
     return (
       <Layout { ...this._getSection() }>
         <Resizer { ...this._getResizer() }>
@@ -68,7 +71,7 @@ class Form extends React.Component {
               <Payment { ...this._getPayment() } />
             </div>
           }
-          { status === 'success' &&
+          { status === 'success' && strategy === 'message' &&
             <Confirmation { ...this._getSection() } />
           }
           { !isOpen &&
@@ -111,12 +114,12 @@ class Form extends React.Component {
   }
 
   _getResizer() {
-    const { embedded} = this.props
-    return { embedded }
+    const { embedded, onResize } = this.props
+    return { embedded, onResize }
   }
 
   _getSection() {
-    const { config, embedded} = this.props
+    const { config, embedded } = this.props
     return { config, embedded }
   }
 
@@ -136,11 +139,11 @@ class Form extends React.Component {
   }
 
   _handleSuccess() {
-    const { config } = this.props
+    const { config, embedded } = this.props
     const { strategy, redirect } = config.confirmation
-    if(strategy === 'redirect') {
-      window.location.href = redirect
-    }
+    if(strategy !== 'redirect') return
+    if(embedded) return this.props.onRedirect(redirect)
+    window.location.href = redirect
   }
 
 }

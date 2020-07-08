@@ -1,4 +1,4 @@
-import { Image } from 'maha-admin'
+import { Image, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -17,7 +17,10 @@ class Chooser extends React.PureComponent {
     const { templates } = this.props
     return (
       <div className="templatefield-templates">
-        { templates.map((template, index) => (
+        { templates.length === 0 &&
+          <Message { ...this._getEmpty() } />
+        }
+        { templates.length > 0 && templates.map((template, index) => (
           <div className="templatefield-template" key={`template_${index}`} onClick={ this._handleChoose.bind(this, template) }>
             <div className="templatefield-template-preview">
               <Image src={ `/${template.preview}` } transforms={{ w: 250 }} />
@@ -29,6 +32,14 @@ class Chooser extends React.PureComponent {
         ))}
       </div>
     )
+  }
+
+  _getEmpty() {
+    return {
+      icon: 'envelope-o',
+      title: 'No Templates',
+      text: 'You have not created any templates for this program'
+    }
   }
 
   _handleChoose(template) {
