@@ -17,3 +17,7 @@
 - name: install wget
   yum:
     name: wget
+
+- name: install msttcore fonts
+  yum:
+    name: https://www.itzgeek.com/msttcore-fonts-2.0-3.noarch.rpm
