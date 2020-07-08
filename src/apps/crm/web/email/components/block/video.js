@@ -90,7 +90,7 @@ class Image extends React.Component {
         <div>
           { video ?
             <img src={`/imagecache/w=580&h=317&dpi=2&q=100&overlay=video${video.preview}` } /> :
-            <img src="https://dummyimage.com/1160x634/666666/ffffff&text=+++VIDEO+++" />
+            <img src="https://dummyimage.com/1160x634/606060/ffffff&text=+++VIDEO+++" />
           }
         </div>
       </td>

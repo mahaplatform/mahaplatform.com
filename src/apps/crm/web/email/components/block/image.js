@@ -90,7 +90,7 @@ class Image extends React.Component {
         <div>
           { image ?
             <img src={ `/imagecache/w=580&dpi=2&q=100${image}` } /> :
-            <img src="https://dummyimage.com/1000x600/666666/ffffff&text=+++IMAGE+++" />
+            <img src="https://dummyimage.com/1000x600/606060/ffffff&text=+++IMAGE+++" />
           }
         </div>
       </td>
