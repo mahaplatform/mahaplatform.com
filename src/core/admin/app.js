@@ -170,6 +170,7 @@ import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/email
 import crmAdminDashboardFormIndexJs from '../../apps/crm/admin/dashboard/form/index.js'
 import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
 import financeAdminDashboardAdminTasksIndexJs from '../../apps/finance/admin/dashboard/admin_tasks/index.js'
+import financeAdminDashboardExpenseApprovalsIndexJs from '../../apps/finance/admin/dashboard/expense_approvals/index.js'
 import financeAdminDashboardNewItemIndexJs from '../../apps/finance/admin/dashboard/new_item/index.js'
 import mahaAdminDashboardGreetingIndexJs from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
@@ -277,6 +278,12 @@ class App extends React.Component {
         app: 'finance',
         type: financeAdminDashboardAdminTasksIndexJs.code,
         code: 'finance:'+financeAdminDashboardAdminTasksIndexJs.code
+      },
+      {
+        ...financeAdminDashboardExpenseApprovalsIndexJs,
+        app: 'finance',
+        type: financeAdminDashboardExpenseApprovalsIndexJs.code,
+        code: 'finance:'+financeAdminDashboardExpenseApprovalsIndexJs.code
       },
       {
         ...financeAdminDashboardNewItemIndexJs,
