@@ -139,6 +139,7 @@ class Card extends React.Component {
     return {
       icon: 'times',
       className: null,
+      confirm: 'Are you sure you want to delete this card?',
       handler: this._handleRemove,
       tooltip: {
         title: 'Remove Card',

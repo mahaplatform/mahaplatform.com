@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Button from '../button'
 import React from 'react'
 import qs from 'qs'
 
@@ -22,24 +23,31 @@ class Export extends React.Component {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    return (
-      <div className="maha-collection-header-action" onClick={ this._handleTasks }>
-        <i className="fa fa-download" />
-      </div>
-    )
+    return <Button { ...this._getButton() } />
   }
 
+  _getButton() {
+    return {
+      icon: 'download',
+      className: 'maha-collection-header-action',
+      handler: this._handleTasks,
+      tooltip: {
+        title: 'Export Records',
+        position: 'bottom right'
+      }
+    }
+  }
 
   _handleTasks() {
     this.context.tasks.open({
       items: [
-        this._getButton('csv'),
-        this._getButton('xlsx')
+        this._getTask('csv'),
+        this._getTask('xlsx')
       ]
     })
   }
 
-  _getButton(type) {
+  _getTask(type) {
     return {
       label: `Export ${type.toUpperCase()}`,
       className: 'maha-collection-dropdown-item',

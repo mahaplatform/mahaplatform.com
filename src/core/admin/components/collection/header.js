@@ -1,5 +1,6 @@
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
+import Button from '../button'
 import Export from './export'
 import React from 'react'
 
@@ -29,24 +30,19 @@ class Header extends React.Component {
   _handleToggleFilter = this._handleToggleFilter.bind(this)
 
   render() {
-    const { criteria, filters, filtering, search, tasks } = this.props
+    const { criteria, filters, search, tasks } = this.props
     if(!filters && !this.props.export && !search && !tasks) return null
     return (
       <div className="maha-collection-header">
         <div className="maha-collection-header-bar">
           { (filters || criteria) &&
-            <div className="maha-collection-header-action" onClick={ this._handleToggleFilter }>
-              { filtering ?
-                <i className="fa fa-times" /> :
-                <i className="fa fa-filter" />
-              }
-            </div>
+            <Button { ...this._getFilter() } />
           }
-          { search && <Searchbox { ...this._getSearchbox() } /> }
+          { search &&
+            <Searchbox { ...this._getSearchbox() } />
+          }
           <Export { ...this._getExport() } />
-          <div className="maha-collection-header-action" onClick={ this._handleRefresh }>
-            <i className="fa fa-refresh" />
-          </div>
+          <Button { ...this._getRefresh() } />
         </div>
       </div>
     )
@@ -60,6 +56,31 @@ class Header extends React.Component {
       entity,
       filter,
       sort: sort.key ? (sort.order === 'desc' ? '-' : '') + sort.key : null
+    }
+  }
+
+  _getFilter() {
+    const { filtering } = this.props
+    return {
+      icon: filtering ? 'times' : 'filter',
+      className: 'maha-collection-header-action',
+      handler: this._handleToggleFilter,
+      tooltip: {
+        title: filtering ? 'Close Filter' : 'Filter Records',
+        position: 'bottom left'
+      }
+    }
+  }
+
+  _getRefresh() {
+    return {
+      icon: 'refresh',
+      className: 'maha-collection-header-action',
+      handler: this._handleRefresh,
+      tooltip: {
+        title: 'Reload Records',
+        position: 'bottom right'
+      }
     }
   }
 

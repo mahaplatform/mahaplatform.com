@@ -31,7 +31,7 @@ class ChatBarChannels extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Conversations',
+      title: 'Chat',
       leftItems: [
         { icon: 'remove', handler: this._handleClose }
       ],
