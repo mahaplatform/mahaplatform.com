@@ -8,6 +8,10 @@ const dashboard = [
     code: 'new_item',
     title: 'New Expense',
     description: 'Submit a new expense'
+  }, {
+    code: 'expense_approvals',
+    title: 'Expense Approvals',
+    description: 'Summary of finance items to approve'
   }
 ]
 
