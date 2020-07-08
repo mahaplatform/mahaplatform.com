@@ -41,14 +41,9 @@ class ExpenseApprovals extends React.Component {
     const { config, isExpanded } = this.props
     return {
       endpoint: '/api/admin/finance/approvals',
-      query: {
-        $filter: {
-          status: {
-            $in: ['submitted']
-          }
-        },
-        $page: {
-          limit: 0
+      filter: {
+        status: {
+          $eq: 'submitted'
         }
       },
       layout: Results,
@@ -61,7 +56,18 @@ class ExpenseApprovals extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  items: '/api/admin/finance/approvals'
-})
+  items: {
+    endpoint: '/api/admin/finance/approvals',
+    query: {
+      $filter: {
+        status: {
+          $in: ['submitted']
+        }
+      },
+      $page: {
+        limit: 0
+      }
+    }
+  }})
 
 export default Container(mapResources)(ExpenseApprovals)
