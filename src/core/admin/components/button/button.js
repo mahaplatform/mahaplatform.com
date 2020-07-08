@@ -39,6 +39,7 @@ class Button extends React.Component {
     route: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
+    tooltip: PropTypes.any,
     url: PropTypes.string,
     onDone: PropTypes.func,
     onRequest: PropTypes.func
@@ -80,6 +81,7 @@ class Button extends React.Component {
   _getButton() {
     const { disabled } = this.props
     return {
+      ...this._getToolTip(),
       className: this._getClass(),
       disabled,
       onClick: this._handleClick
@@ -89,13 +91,23 @@ class Button extends React.Component {
   _getClass() {
     const { component, basic, className, color, disabled, mobile, status } = this.props
     if(component) return ''
-    const classes = className ? className.split(' ') : ['ui', color, 'fluid', 'button']
+    const classes = className === undefined ? ['ui', color, 'fluid', 'button'] : (className ? className.split(' ') : [])
     classes.push('maha-button')
     if(mobile !== false) classes.push('mobile')
     if(basic) classes.push('basic')
     if(disabled) classes.push('disabled')
     if(status === 'submitting') classes.push('loading')
     return classes.join(' ')
+  }
+
+  _getToolTip() {
+    const { tooltip } = this.props
+    if(!tooltip) return {}
+    return {
+      'data-tooltip': _.isString(tooltip) ? tooltip : tooltip.title,
+      'data-position': _.isString(tooltip) ? 'bottom right' : tooltip.position,
+      'data-inverted': ''
+    }
   }
 
   componentDidUpdate(prevProps) {

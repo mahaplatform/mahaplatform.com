@@ -1,5 +1,5 @@
 import { DragSource, DropTarget } from 'react-dnd'
-import { Stack } from 'maha-admin'
+import { Button, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -91,23 +91,60 @@ class Card extends React.Component {
       return (
         <div className="maha-dashboard-card-header-controls">
           { type.edit !== undefined &&
-            <div className="maha-dashboard-card-header-control edit" onClick={ this._handleEdit }>
-              <i className="fa fa-pencil" />
+            <div className="maha-dashboard-card-header-control edit'">
+              <Button { ...this._getEdit() } />
             </div>
           }
-          <div className="maha-dashboard-card-header-control remove" onClick={ this._handleRemove }>
-            <i className="fa fa-times" />
+          <div className="maha-dashboard-card-header-control remove'">
+            <Button { ...this._getRemove() } />
           </div>
         </div>
       )
     }
     return (
       <div className="maha-dashboard-card-header-controls">
-        <div className="maha-dashboard-card-header-control expand" onClick={ this._handleExpand }>
-          <i className="fa fa-expand" />
+        <div className="maha-dashboard-card-header-control expand'">
+          <Button { ...this._getExpand() } />
         </div>
       </div>
     )
+  }
+
+  _getEdit() {
+    return {
+      icon: 'pencil',
+      className: null,
+      handler: this._handleEdit,
+      tooltip: {
+        title: 'Edit Card',
+        position: 'bottom right'
+      }
+    }
+  }
+
+  _getExpand() {
+    const { isExpanded } = this.props
+    return {
+      icon: 'expand',
+      className: null,
+      handler: this._handleExpand,
+      tooltip: {
+        title: isExpanded ? 'Minimize Card' : 'Maximize Card',
+        position: 'bottom right'
+      }
+    }
+  }
+
+  _getRemove() {
+    return {
+      icon: 'times',
+      className: null,
+      handler: this._handleRemove,
+      tooltip: {
+        title: 'Remove Card',
+        position: 'bottom right'
+      }
+    }
   }
 
   _getStack() {

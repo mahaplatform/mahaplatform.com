@@ -8,6 +8,7 @@ class NewCard extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
+    configuration: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
@@ -48,7 +49,7 @@ class NewCard extends React.Component {
     }
   }
 
-  _getCard(card) {
+  _getCard() {
     const { panel } = this.props
     return {
       panel,
@@ -85,18 +86,20 @@ class NewCard extends React.Component {
   }
 
   _handleCards(card) {
-    if(!card.new) return this._handleCreate(card)
-    this._handlePush(card.new, this._getCard(card))
+    const { configuration } = this.context
+    const dashboardCard = configuration.dashboardCards.find(dashboardCard => {
+      return dashboardCard.code === `${card.app}:${card.type}`
+    })
+    if(!dashboardCard.new) return this._handleCreate(card.type)
+    this._handlePush(dashboardCard.new, this._getCard())
   }
 
-  _handleCreate(card) {
+  _handleCreate(type) {
     const { panel } = this.props
     this.context.network.request({
       endpoint: `/api/admin/dashboard/panels/${panel.id}/cards`,
       method: 'post',
-      body: {
-        type: card.type
-      },
+      body: { type },
       onSuccess: this._handleDone
     })
   }

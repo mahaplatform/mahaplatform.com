@@ -138,9 +138,13 @@ class Panel extends React.Component {
     const classes = ['maha-dashboard-panel-header-action']
     if(managing) classes.push('active')
     return {
-      label: <i className="fa fa-gear" />,
+      icon: 'gear',
       className: classes.join(' '),
-      handler: this._handleManage
+      handler: this._handleManage,
+      tooltip: {
+        title: 'Manage Panel',
+        position: 'bottom right'
+      }
     }
   }
 
