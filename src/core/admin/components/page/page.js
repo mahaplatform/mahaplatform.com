@@ -202,7 +202,7 @@ class Page extends React.Component {
     return panel
   }
 
-  _getUserHasRightss(expected) {
+  _getUserHasRights(expected) {
     const { admin } = this.context
     if(!expected) return true
     return expected.reduce((permit, right) => {
