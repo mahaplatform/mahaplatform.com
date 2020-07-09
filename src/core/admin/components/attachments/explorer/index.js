@@ -7,7 +7,7 @@ import Sources from '../sources'
 import Device from '../device'
 import Photos from '../photos'
 import Review from '../review'
-import Camera from '../camera'
+import Phone from '../phone'
 import Files from '../files'
 import Drive from '../drive'
 import React from 'react'
@@ -99,9 +99,11 @@ class Explorer extends React.Component {
     const { clientWidth } = document.body
     return [
       ...clientWidth < 768 ? [
-        { service: 'camera', username: 'Your Camera', component: Camera, id: 'camera', icon: 'camera' }
-      ] : [],
-      { service: 'device', username: 'Your Device', panel: Device, id: 'device' },
+        { service: 'camera', username: 'Your Camera', component: Phone, id: 'camera', icon: 'camera' },
+        { service: 'device', username: 'Your Device', component: Phone, id: 'device' }
+      ] : [
+        { service: 'device', username: 'Your Device', panel: Device, id: 'device' }
+      ],
       { service: 'web', username: 'The Web', panel: Web, id: 'web' },
       { service: 'maha', username: 'Maha Drive', panel: Drive, id: 'maha' },
       ...custom ? custom : [],
