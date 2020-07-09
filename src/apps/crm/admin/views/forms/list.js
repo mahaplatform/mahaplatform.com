@@ -6,7 +6,7 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Forms',
-  rights: [],
+  rights: ['crm:manage_forms'],
   collection: {
     endpoint: '/api/admin/crm/forms',
     table: [

@@ -139,7 +139,7 @@ class Page extends React.Component {
 
   _getAccess(options) {
     const { access, rights, team, user } = this.props
-    if(rights) return this._getUserHasRight(rights, rights)
+    if(rights) return this._getUserHasRights(rights, rights)
     if(access) return access(user, team.token).then(result => !result)
     return true
   }
@@ -179,13 +179,6 @@ class Page extends React.Component {
     }
   }
 
-  _getUserHasRight(expected, actual) {
-    if(!actual) return true
-    return actual.reduce((permit, right) => {
-      return (!_.includes(expected, right)) ? false : permit
-    }, true)
-  }
-
   _getPanel() {
     const { color, task, tasks, title } = this.props
     if(!title) return { showHeader: false }
@@ -207,6 +200,14 @@ class Page extends React.Component {
       ]
     }
     return panel
+  }
+
+  _getUserHasRightss(expected) {
+    const { admin } = this.context
+    if(!expected) return true
+    return expected.reduce((permit, right) => {
+      return (!_.includes(admin.rights, right)) ? false : permit
+    }, true)
   }
 
   _handleBack() {
@@ -241,7 +242,6 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  rights: state.maha.admin.rights,
   team: state.maha.admin.team,
   user: state.maha.admin.user
 })

@@ -12,7 +12,7 @@ import Status from '../../tokens/status'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Approvals',
-  // access: checkOwnerApprover,
+  rights: ['finance:approve_expenses'],
   collection: {
     endpoint: '/api/admin/finance/approvals',
     table: [

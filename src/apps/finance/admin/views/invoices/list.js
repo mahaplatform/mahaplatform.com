@@ -5,6 +5,7 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Invoices',
+  rights: ['finance:manage_revenue'], 
   collection: {
     endpoint: '/api/admin/finance/invoices',
     table: [

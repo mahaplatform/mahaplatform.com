@@ -11,6 +11,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Vendors',
+  rights: ['finance:manage_configuration'], 
   collection: {
     endpoint: '/api/admin/finance/vendors',
     table: [

@@ -169,7 +169,6 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
   }
 
   const mapStateToProps = (state, props) => ({
-    rights: state.maha.admin.rights,
     team: state.maha.admin.team,
     user: state.maha.admin.user
   })

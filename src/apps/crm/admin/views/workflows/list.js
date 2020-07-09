@@ -5,7 +5,7 @@ import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Workflows',
-  rights: [],
+  rights: ['crm:manage_workflows'],
   collection: {
     endpoint: '/api/admin/crm/workflows',
     table: [

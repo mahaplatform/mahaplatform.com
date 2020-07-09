@@ -9,6 +9,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Bank Accounts',
+  rights: ['finance:manage_banks'],
   collection: {
     endpoint: '/api/admin/finance/banks',
     table: [

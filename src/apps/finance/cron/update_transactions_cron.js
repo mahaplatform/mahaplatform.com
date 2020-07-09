@@ -28,7 +28,7 @@ const getTransactions = async(ids) => {
 
 const getDeposit = async (req, { bank, payment, transaction }) => {
 
-  const deposit = await Deposit.where(qb => {
+  const deposit = await Deposit.query(qb => {
     qb.where('team_id', req.team.get('id')),
     qb.where('bank_id', bank.get('id')),
     qb.where('date', transaction.disbursementDetails.disbursementDate)

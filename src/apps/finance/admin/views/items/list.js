@@ -20,6 +20,7 @@ import batchTask from '../batch'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Items',
+  rights: ['finance:manage_expense'], 
   collection: {
     endpoint: '/api/admin/finance/items',
     table: [

@@ -3,7 +3,6 @@ import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Emails',
-  rights: [],
   collection: {
     endpoint: '/api/admin/crm/emails',
     table: [

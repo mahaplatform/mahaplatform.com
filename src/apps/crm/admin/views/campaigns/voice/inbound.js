@@ -7,7 +7,7 @@ import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Inbound Voice Campaigns',
-  rights: [],
+  rights: ['crm:manage_voice_campaigns'],
   collection: {
     endpoint: '/api/admin/crm/campaigns/voice/inbound',
     table: [

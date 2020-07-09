@@ -5,6 +5,7 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Deposits',
+  rights: ['finance:manage_deposits'],
   collection: {
     endpoint: '/api/admin/finance/deposits',
     table: [
@@ -20,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     filters: [
       { label: 'Bank Account', name: 'bank_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/banks', value: 'id', text: 'title' },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
-      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['pending','exported'], format: StatusToken }      
+      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['pending','exported'], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     onClick: (record) => context.router.history.push(`/admin/finance/deposits/${record.id}`),

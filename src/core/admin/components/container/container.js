@@ -98,11 +98,31 @@ const Creator = (mapResourcesToPage, Component) => {
       return [params.endpoint]
     }
 
-    _handleFetchResources() {
-      const { params, pathname, onFetchResource } = this.props
+    _getResources() {
+      const { params, pathname } = this.props
       const page = { params, pathname }
-      if(!mapResourcesToPage) return
+      if(!mapResourcesToPage) return []
       const resources = mapResourcesToPage(this.props, this.context, page)
+      return Object.keys(resources).filter(key => {
+        if(_.isString(resources[key]) || !resources[key].rights) return true
+        return this._getUserHasRights(resources[key].rights)
+      }).reduce((all, key) => ({
+        ...all,
+        [key]: resources[key]
+      }), {})
+    }
+
+    _getUserHasRights(expected) {
+      const { admin } = this.context
+      if(!expected) return true
+      return expected.reduce((permit, right) => {
+        return (!_.includes(admin.rights, right)) ? false : permit
+      }, true)
+    }
+
+    _handleFetchResources() {
+      const { onFetchResource } = this.props
+      const resources = this._getResources()
       Object.keys(resources).map(prop => {
         const params = this._getResourceParams(resources[prop])
         onFetchResource(prop, ...params)
@@ -116,17 +136,16 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _handleJoin() {
-      const { params, pathname } = this.props
-      const page = { params, pathname }
+      const { pathname } = this.props
       const { network } = this.context
+      const resources = this._getResources()
       if(pathname) {
         network.join(pathname)
         network.subscribe([
           { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
         ])
       }
-      if(mapResourcesToPage) {
-        const resources = mapResourcesToPage(this.props, this.context, page)
+      if(resources.length > 0) {
         Object.values(resources).map(resource => {
           if(!resource.refresh) return
           network.join(resource.refresh)
@@ -138,17 +157,16 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _handleLeave() {
-      const { params, pathname } = this.props
-      const page = { params, pathname }
+      const { pathname } = this.props
       const { network } = this.context
+      const resources = this._getResources()
       if(pathname) {
         network.leave(pathname)
         network.unsubscribe([
           { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
         ])
       }
-      if(mapResourcesToPage) {
-        const resources = mapResourcesToPage(this.props, this.context, page)
+      if(resources.length > 0) {
         Object.values(resources).map(resource => {
           if(!resource.refresh) return
           network.leave(resource.refresh)
