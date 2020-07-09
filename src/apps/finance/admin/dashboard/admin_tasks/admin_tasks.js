@@ -109,11 +109,11 @@ class AdminTasks extends React.Component {
   }
 
   _handleExpensesForReview() {
-    this.context.router.history.push('/admin/finance/items?$filter[$and][0][status][$in][0]=approved')
+    this.context.router.history.push('/admin/finance/reports?$filter[$and][0][status][$in][0]=approved')
   }
 
   _handleExpensesForExport() {
-    this.context.router.history.push('/admin/finance/items?$filter[$and][0][status][$in][0]=reviewed')
+    this.context.router.history.push('/admin/finance/reports?$filter[$and][0][status][$in][0]=reviewed')
   }
 
   _handlePhysicalPayments() {
@@ -193,7 +193,7 @@ const mapResources = (props, context) => ({
     }
   },
   expensesForReview: {
-    endpoint: '/api/admin/finance/items',
+    endpoint: '/api/admin/finance/items/report',
     query: {
       $filter: {
         status: {
@@ -206,7 +206,7 @@ const mapResources = (props, context) => ({
     }
   },
   expensesForExport: {
-    endpoint: '/api/admin/finance/items',
+    endpoint: '/api/admin/finance/items/report',
     query: {
       $filter: {
         status: {
