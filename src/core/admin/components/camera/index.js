@@ -25,15 +25,12 @@ class Camera extends React.Component {
   resumable = null
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleChange = this._handleChange.bind(this)
-  _handleClick = this._handleClick.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { icon } = this.props
     return (
-      <div className="maha-camera" onClick={ this._handleClick }>
-        <input type="file" ref={ node => this.input = node } capture />
+      <div className="maha-camera" ref={ node => this.button = node}>
         <i className={`fa fa-${icon}`} />
       </div>
     )
@@ -53,24 +50,15 @@ class Camera extends React.Component {
     })
     this.resumable.on('fileAdded', this._handleAdd)
     this.resumable.on('fileSuccess', this._handleSuccess)
+    this.resumable.assignBrowse(this.button)
+    this.input = this.button.lastChild
+    this.input.setAttribute('capture', true)
     this.input.setAttribute('accept', 'image/*')
-    this.input.addEventListener('change', this._handleChange)
   }
 
   _handleAdd(file) {
     this.resumable.upload()
     this.props.onAddAsset({ file })
-  }
-
-  _handleChange(e) {
-    this.resumable.addFiles(e.target.files, e)
-  }
-
-  _handleClick() {
-    this.input.style.display = 'block'
-    this.input.focus()
-    this.input.click()
-    this.input.style.display = 'none'
   }
 
   _handleSuccess(file, message) {
