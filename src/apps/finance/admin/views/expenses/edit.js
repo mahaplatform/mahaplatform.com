@@ -46,7 +46,7 @@ class Edit extends React.Component {
             { label: 'Date of Purchase', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
-            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', endpoint: '/api/admin/finance/receipts' },
+            { label: 'Receipt', name: 'receipt_ids', type: 'attachmentfield', multiple: true, allow: { content_types: ['application/pdf','image'] }, prompt: 'Upload Receipt' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
             { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
             { label: 'Allocations', name: 'allocations', type: Allocations, projectEndpoint, tax_total, total }

@@ -1,6 +1,7 @@
 import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Source from './source'
 import React from 'react'
 import New from './new'
 import _ from 'lodash'
@@ -30,35 +31,13 @@ class Sources extends React.Component {
   _handleNext = this._handleNext.bind(this)
 
   render() {
-    const { counts, sources } = this.props
     const services = this._getServices()
+    const { sources } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
           { sources.map((source, index) => (
-            <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
-              <div className="maha-attachments-source-logo">
-                <div className={`maha-attachments-source-favicon ${source.service}`}>
-                  { source.icon ?
-                    <i className={`fa fa-${source.icon}`} /> :
-                    <img src={ `/admin/images/services/${source.service}.png` } />
-                  }
-                </div>
-              </div>
-              <div className="maha-attachments-source-text">
-                { source.label || source.username || source.service }
-              </div>
-              { counts[source.id] &&
-                <div className="maha-attachments-source-count">
-                  <div className="maha-attachments-source-count-badge">
-                    { counts[source.id] }
-                  </div>
-                </div>
-              }
-              <div className="maha-attachments-source-proceed">
-                <i className="fa fa-fw fa-chevron-right" />
-              </div>
-            </div>
+            <Source key={`source_${index}`} { ...this._getSource(source) } />
           ))}
           { services.length > 0 &&
             <div className="maha-attachments-source" onClick={ this._handleNew }>
@@ -76,6 +55,16 @@ class Sources extends React.Component {
         </div>
       </ModalPanel>
     )
+  }
+
+  _getSource(source) {
+    const { counts, onAdd } = this.props
+    return {
+      count: counts[source.id],
+      source,
+      onAdd,
+      onChoose: this._handleChoose.bind(this, source)
+    }
   }
 
   _getNew() {
@@ -117,7 +106,7 @@ class Sources extends React.Component {
     })
   }
 
-  _getSource(source) {
+  _getComponent(source) {
     const { allow, doneText, multiple, onAdd, onBack, onNext, onRemove, onToggleView } = this.props
     return {
       allow,
@@ -137,8 +126,8 @@ class Sources extends React.Component {
     this.props.onCancel()
   }
 
-  _handleChooseSource(source) {
-    this.props.onPush(source.component, this._getSource(source))
+  _handleChoose(source) {
+    this.props.onPush(source.panel, this._getComponent(source))
   }
 
   _handleNew() {

@@ -41,7 +41,7 @@ const Reimbursement = new Model({
     },
 
     receipt_ids: function() {
-      return this.related('receipts').map(receipt => receipt.id)
+      return this.related('receipts').map(receipt => receipt.get('asset_id'))
     }
 
   },

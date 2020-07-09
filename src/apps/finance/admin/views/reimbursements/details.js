@@ -50,7 +50,7 @@ const Details = ({ reimbursement }) => {
     list.items.push(requiredField('Amount', reimbursement, 'amount', { content: reimbursement.amount, format: 'currency' }))
   }
   if(reimbursement.receipts.length > 0) {
-    const previews = reimbursement.receipts.filter(receipt => receipt.status === 'exported' && (receipt.has_preview || receipt.is_image))
+    const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)
     list.header = <Carousel slides={ slides } />
     list.items.unshift({ content: reimbursement.receipts.map((receipt, index) => <Receipt key={`receipt_${index}`} preview={ false } value={ receipt } />), className: 'receipts' })

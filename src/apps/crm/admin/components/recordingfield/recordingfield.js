@@ -86,9 +86,7 @@ class Recordingfield extends React.PureComponent {
     return {
       allow: {
         types: ['files'],
-        content_types: ['mpeg','mp3','wav','wave','x-wav','aiff','x-aifc','x-aiff','x-gsm','gsm','ulaw'].map(type => {
-          return `audio/${type}`
-        })
+        content_types: ['audio']
       },
       cancelText: <i className="fa fa-chevron-left" />,
       custom: [

@@ -7,6 +7,7 @@ import Sources from '../sources'
 import Device from '../device'
 import Photos from '../photos'
 import Review from '../review'
+import Camera from '../camera'
 import Files from '../files'
 import Drive from '../drive'
 import React from 'react'
@@ -88,21 +89,26 @@ class Explorer extends React.Component {
     }
   }
 
-  _getSourceComponent(service) {
+  _getSourcePanel(service) {
     if(_.includes(['facebook','instagram','googlephotos'], service)) return Photos
     return Files
   }
 
   _getServices() {
     const { allow, custom, sources } = this.props
+    const { clientWidth } = document.body
     return [
-      { service: 'device', username: 'Your Device', component: Device, id: 'device' },
-      { service: 'web', username: 'The Web', component: Web, id: 'web' },
-      { service: 'maha', username: 'Maha Drive', component: Drive, id: 'maha' },
+      ...clientWidth < 768 ? [
+        { service: 'camera', username: 'Your Camera', component: Camera, id: 'camera', icon: 'camera' }
+      ] : [
+        { service: 'device', username: 'Your Device', panel: Device, id: 'device' }
+      ],
+      { service: 'web', username: 'The Web', panel: Web, id: 'web' },
+      { service: 'maha', username: 'Maha Drive', panel: Drive, id: 'maha' },
       ...custom ? custom : [],
       ...sources.map(source => ({
         ...source,
-        component: this._getSourceComponent(source.service)
+        panel: this._getSourcePanel(source.service)
       }))
     ].filter(source => {
       const service_allowed = !allow.services || _.includes(allow.services, source.service)

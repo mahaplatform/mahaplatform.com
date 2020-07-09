@@ -39,7 +39,7 @@ class New extends React.Component {
           fields: [
             { label: 'Date of Purchase', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
-            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', endpoint: '/api/admin/finance/receipts' },
+            { label: 'Receipt', name: 'receipt_ids', type: 'attachmentfield', allow: { content_types: ['application/pdf','image'] }, multiple: true, prompt: 'Upload Receipt' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
             { label: 'Allocations', name: 'allocations', type: Allocations, total }
           ]

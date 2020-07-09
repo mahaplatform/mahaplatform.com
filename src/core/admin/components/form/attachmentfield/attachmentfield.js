@@ -87,10 +87,10 @@ class AttachmentField extends React.Component {
   }
 
   _getAttachments() {
-    const { allow, multiple } = this.props
+    const { allow } = this.props
     return {
       allow,
-      multiple,
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handleCancel,
       onChooseAssets: this._handleSet,
       onDone: this._handleDone
@@ -108,8 +108,12 @@ class AttachmentField extends React.Component {
     this.props.onChange(value)
   }
 
-  _handleSet(assets) {
+  _handleSet(newassets) {
     const { formatter, multiple } = this.props
+    const assets = multiple ? [
+      ...this.props.assets,
+      ...newassets
+    ] : newassets
     this.props.onSet(assets)
     const value = multiple ? assets.map(formatter) : assets[0].id
     this.props.onChange(value)

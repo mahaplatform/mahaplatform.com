@@ -45,7 +45,7 @@ class New extends React.Component {
             { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Choose a delivery method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }], value: 'value', text: 'text' },
             { label: 'Account Number', name: 'account_number', type: 'textfield', placeholder: 'Enter the account number' },
             { label: 'Invoice Number', name: 'invoice_number', type: 'textfield', placeholder: 'Enter the invoice number' },
-            { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', endpoint: '/api/admin/finance/receipts' },
+            { label: 'Invoice', name: 'receipt_ids', type: 'attachmentfield', allow: { content_types: ['application/pdf','image'] }, multiple: true, prompt: 'Upload Invoice' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
             { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
             { label: 'Allocations', name: 'allocations', type: Allocations, tax_total, total }

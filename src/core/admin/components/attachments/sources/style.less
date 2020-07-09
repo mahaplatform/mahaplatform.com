@@ -7,6 +7,10 @@
   cursor: pointer;
   border-bottom: 1px solid fadeout(@black, 95);
   .hover(background-color, fadeout(@black, 97));
+  input {
+    display: none;
+    opacity: 0;
+  }
 }
 .maha-attachments-source-logo {
   flex: 0 0 3em;
@@ -18,6 +22,14 @@
   .fa {
     font-size: 1.6em;
     margin: auto;
+  }
+  .fa-camera {
+    color: fadeout(@black, 40);
+    font-size: 1.4em;
+  }
+  .fa-th-large {
+    color: @teal;
+    font-size: 1.4em;
   }
   .fa-globe {
     color: @green;

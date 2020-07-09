@@ -50,9 +50,29 @@ class List extends React.Component {
     return classes.join(' ')
   }
 
+
+  _getContentType(content_type) {
+    if(content_type === 'image') return ['jpg','jpeg','png','gif'].map(type => {
+      return `image/${type}`
+    })
+    if(content_type === 'audio') return ['mpeg','mp3','wav','wave','x-wav','aiff','x-aifc','x-aiff','x-gsm','gsm','ulaw'].map(type => {
+      return `audio/${type}`
+    })
+    return [content_type]
+  }
+
+  _getContentTypes(content_types) {
+    if(!content_types) return null
+    return content_types.reduce((content_types, content_type) => [
+      ...content_types,
+      ...this._getContentType(content_type)
+    ], [])
+  }
+
   _getDisabled(item) {
     const { allow } = this.props
-    const { content_types, extensions } = allow
+    const { extensions } = allow
+    const content_types = this._getContentTypes(allow.content_types)
     if(item.type === 'folder') return false
     if(!content_types && !extensions) return false
     const name = item.label || item.name
