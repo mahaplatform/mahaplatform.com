@@ -7,6 +7,7 @@ import signer from '../../../../../core/services/signer'
 import Session from '../../../models/session'
 import Device from '../../../models/device'
 import moment from 'moment'
+import _ from 'lodash'
 
 const navigations = collectObjects('admin/navigation.js')
 
@@ -17,11 +18,20 @@ const loadNavigation = async (req) => {
   }), {})
 }
 
+const canAccess = () => {
+  
+}
+
 const _expandNavigation = (req, prefix, items) => {
   return Promise.reduce(items, async (items, item) => {
     const canAccess = item.access ? await item.access(req) : true
     if(!canAccess) return items
+    const hasRights = item.rights ? item.rights.reduce((permit, right) => {
+      return (!_.includes(req.rights, right)) ? false : permit
+    }, true) : true
+    if(!hasRights) return items
     const subitems = item.items ? await _expandNavigation(req, prefix, item.items) : []
+    if(item.items && subitems.length === 0) return items
     return [
       ...items,
       {
