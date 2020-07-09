@@ -43,7 +43,10 @@ class Source extends React.Component {
   }
 
   _getComponent() {
-    return {}
+    const { onAdd } = this.props
+    return {
+      onAdd
+    }
   }
 
   _handleChoose() {

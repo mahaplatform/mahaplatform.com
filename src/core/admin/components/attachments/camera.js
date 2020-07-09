@@ -22,7 +22,7 @@ class Camera extends React.Component {
 
   render() {
     return (
-      <div className="maha-attachments-source" ref={ node => this.button = node }>
+      <div className="maha-attachments-source" onClick={ this._handleClick }>
         <input type="file" ref={ node => this.input = node } capture />
         <div className="maha-attachments-source-logo">
           <div className="maha-attachments-source-favicon">
@@ -50,14 +50,12 @@ class Camera extends React.Component {
     })
     this.resumable.on('fileAdded', this._handleAdd)
     this.resumable.on('fileSuccess', this._handleSuccess)
-    this.button.addEventListener('click', this._handleClick, false)
     this.resumable.assignBrowse(this.input)
     this.input.setAttribute('accept', 'image/*')
   }
 
   _handleAdd(file) {
     this.resumable.upload()
-    // this.props.onAddAsset({ file })
   }
 
   _handleClick() {

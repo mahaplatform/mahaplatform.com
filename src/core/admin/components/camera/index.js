@@ -31,7 +31,7 @@ class Camera extends React.Component {
   render() {
     const { icon } = this.props
     return (
-      <div className="maha-camera" ref={ node => this.button = node }>
+      <div className="maha-camera" onClick={ this._handleClick }>
         <input type="file" ref={ node => this.input = node } capture />
         <i className={`fa fa-${icon}`} />
       </div>
@@ -52,7 +52,6 @@ class Camera extends React.Component {
     })
     this.resumable.on('fileAdded', this._handleAdd)
     this.resumable.on('fileSuccess', this._handleSuccess)
-    this.button.addEventListener('click', this._handleClick, false)
     this.resumable.assignBrowse(this.input)
     this.input.setAttribute('accept', 'image/*')
   }
