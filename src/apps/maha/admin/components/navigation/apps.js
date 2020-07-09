@@ -29,7 +29,7 @@ class Apps extends React.Component {
   _handleForward = _.debounce(this._handleForward.bind(this), 300, { leading: true })
 
   render() {
-    const { path, team, rights } = this.props
+    const { path, team } = this.props
     const { items, label } = this._getItems(this.props.items, path)
     return (
       <TransitionGroup>
@@ -58,27 +58,23 @@ class Apps extends React.Component {
               </div>
             }
             <div className="maha-navigation-body">
-              { items.map((item, index) => {
-                if(!item.rights || this.userHasRights(rights, item.rights)) {
-                  return (
-                    <div key={`item_${index}`} className={ this._getClass(item) } onClick={ this._handleForward.bind(this, item, index)}>
-                      { item.icon &&
-                        <div className="maha-navigation-item-extra">
-                          <div className="maha-navigation-item-icon">
-                            <i className={`fa fa-${item.icon}`} />
-                          </div>
-                        </div>
-                      }
-                      <div className="maha-navigation-item-details">
-                        { item.label }
-                      </div>
-                      <div className="maha-navigation-item-extra">
-                        { item.items && item.items.length > 0 && <i className="chevron right icon" /> }
+              { items.map((item, index) => (
+                <div key={`item_${index}`} className={ this._getClass(item) } onClick={ this._handleForward.bind(this, item, index)}>
+                  { item.icon &&
+                    <div className="maha-navigation-item-extra">
+                      <div className="maha-navigation-item-icon">
+                        <i className={`fa fa-${item.icon}`} />
                       </div>
                     </div>
-                  )
-                }
-              }) }
+                  }
+                  <div className="maha-navigation-item-details">
+                    { item.label }
+                  </div>
+                  <div className="maha-navigation-item-extra">
+                    { item.items && item.items.length > 0 && <i className="chevron right icon" /> }
+                  </div>
+                </div>
+              )) }
             </div>
           </div>
         </CSSTransition>
@@ -94,12 +90,6 @@ class Apps extends React.Component {
 
   _getItems(items, path) {
     return path.reduce((items, index) => items.items[index], { items })
-  }
-
-  userHasRights = (expected, actual) => {
-    return actual.reduce((permit, right) => {
-      return (!_.includes(expected, right)) ? false : permit
-    }, true)
   }
 
   _handleForward(item, index) {
