@@ -1,8 +1,8 @@
 const dashboard = [
   {
     code: 'admin_tasks',
-    title: 'Finance Tasks',
-    description: 'Breakdown of tasks for Finance staff',
+    title: 'Finance Overview',
+    description: 'Activity overview for Finance staff',
     rights: ['finance:access_reports','finance:manage_revenue']
   }, {
     code: 'new_item',
