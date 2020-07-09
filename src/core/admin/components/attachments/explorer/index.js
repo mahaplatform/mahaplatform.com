@@ -100,9 +100,8 @@ class Explorer extends React.Component {
     return [
       ...clientWidth < 768 ? [
         { service: 'camera', username: 'Your Camera', component: Camera, id: 'camera', icon: 'camera' }
-      ] : [
-        { service: 'device', username: 'Your Device', panel: Device, id: 'device' }
-      ],
+      ] : [],
+      { service: 'device', username: 'Your Device', panel: Device, id: 'device' },
       { service: 'web', username: 'The Web', panel: Web, id: 'web' },
       { service: 'maha', username: 'Maha Drive', panel: Drive, id: 'maha' },
       ...custom ? custom : [],

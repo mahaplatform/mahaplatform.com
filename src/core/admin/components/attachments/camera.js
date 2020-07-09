@@ -17,6 +17,7 @@ class Camera extends React.Component {
   resumable = null
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleClick = this._handleClick.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -50,12 +51,16 @@ class Camera extends React.Component {
     })
     this.resumable.on('fileAdded', this._handleAdd)
     this.resumable.on('fileSuccess', this._handleSuccess)
-    this.resumable.assignBrowse(this.input)
     this.input.setAttribute('accept', 'image/*')
+    this.input.addEventListener('change', this._handleChange)
   }
 
   _handleAdd(file) {
     this.resumable.upload()
+  }
+
+  _handleChange(e) {
+    this.resumable.addFiles(e.target.files, e)
   }
 
   _handleClick() {
