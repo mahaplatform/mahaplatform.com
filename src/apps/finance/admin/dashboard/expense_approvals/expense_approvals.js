@@ -18,11 +18,6 @@ class ExpenseApprovals extends React.Component {
     items: PropTypes.array
   }
 
-  _getItemLabel = this._getItemLabel.bind(this)
-  _getItemClass = this._getItemClass.bind(this)
-  _getListItems = this._getListItems.bind(this)
-  _hasApprovals = this._hasApprovals.bind(this)
-  _hasItems = this._hasItems.bind(this)
   _handleApprovals = this._handleApprovals.bind(this)
   _handleItems = this._handleItems.bind(this)
 
@@ -59,7 +54,6 @@ class ExpenseApprovals extends React.Component {
   }
 
   _getItemLabel(item) {
-    console.log(item)
     if(!item.empty) {
       return (
         <span>
