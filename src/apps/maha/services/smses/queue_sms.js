@@ -1,4 +1,3 @@
-import SMSBlacklist from '../../../../apps/maha/models/sms_blacklist'
 import twilio from '../../../../core/services/twilio'
 import SMS from '../../models/sms'
 import moment from 'moment'

@@ -14,6 +14,10 @@ const Details = ({ audits, project, integration }) => {
     ]
   }
 
+  if(!project.is_active) {
+    list.alert = { color: 'red', message: 'This project is disabled' }
+  }
+
   if(integration === 'accpac') {
     list.items = list.items.concat([
       { label: 'County Project Code', content: project.integration.project_code },

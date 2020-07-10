@@ -12,7 +12,7 @@
     "build": "babel-node ./src/scripts/build/index.js",
     "chrome": "/Applications/'Google Chrome'.app/Contents/MacOS/'Google Chrome' --user-data-dir=./tmp --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://dev.mahaplatform.com:8080",
     "docs": "sphinx-autobuild ./src/docs ./docs",
-    "dev": "NODE_ENV=development babel-node ./src/scripts/dev/index.js",
+    "dev": "NODE_ENV=development babel-node --max-old-space-size=4096 ./src/scripts/dev/index.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "g": "babel-node ./src/scripts/generate/index.js",
     "knex": "babel-node ./src/scripts/knex.js",
