@@ -73,7 +73,7 @@ class TimeFieldForm extends React.Component {
       label: '',
       token: '',
       instructions: '',
-      placeholder: '',
+      placeholder: 'Time',
       required: false
     }
   }

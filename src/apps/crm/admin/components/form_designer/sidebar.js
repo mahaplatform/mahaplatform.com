@@ -1,3 +1,4 @@
+import DonationField from './fields/donationfield'
 import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
@@ -83,7 +84,8 @@ class Sidebar extends React.Component {
       { label: 'Textarea', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField },
-      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField }
+      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },
+      { label: 'Donation', icon: 'dollar', type: 'donationfield', component: DonationField }
     ]
     return fields.filter(field => {
       return field.type !== 'productfield' || _.get(program, 'bank.status') === 'active'

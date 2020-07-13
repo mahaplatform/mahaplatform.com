@@ -58,7 +58,7 @@ const submittable = createSelector(
 export const requiresPayment = createSelector(
   submittable,
   (fields) => fields.find(field => {
-    return field.type === 'productfield'
+    return _.includes(['donationfield','productfield'], field.type)
   }) !== undefined
 )
 
@@ -84,13 +84,63 @@ export const isValid = createSelector(
   }) === undefined
 )
 
-export const summary = createSelector(
+const line_items = createSelector(
   submittable,
   data,
   (fields, data) => {
-    const productfield = fields.find(field => {
-      return field.type === 'productfield'
+    const paymentfields = fields.filter(field => {
+      return _.includes(['donationfield','productfield'], field.type)
     })
-    return productfield ? data[productfield.code] : null
+    return paymentfields ? paymentfields.reduce((line_items, field, index) => [
+      ...line_items,
+      ...data[field.code] ? data[field.code].line_items : []
+    ], []) : []
   }
 )
+
+export const subtotal = createSelector(
+  line_items,
+  (line_items) => line_items.reduce((subtotal, line_item) => {
+    return subtotal + line_item.total
+  }, 0.00))
+
+export const tax = createSelector(
+  line_items,
+  (line_items) => line_items.reduce((tax, line_item) => {
+    return tax + (tax ? line_item.total * line_item.tax : 0)
+  }, 0.00))
+
+export const total = createSelector(
+  subtotal,
+  tax,
+  (subtotal, tax) => subtotal + tax)
+
+const filtered = createSelector(
+  line_items,
+  (line_items) => line_items.filter(line_item => {
+    return line_item.quantity > 0
+  }).map(line_item => ({
+    code: line_item.code,
+    project_id: line_item.project_id,
+    revenue_type_id: line_item.revenue_type_id,
+    description: line_item.description,
+    quantity: line_item.quantity,
+    tax_rate: line_item.tax_rate,
+    is_tax_deductible: line_item.is_tax_deductible,
+    price: line_item.price,
+    total: line_item.total
+  })))
+
+export const summary = createSelector(
+  filtered,
+  subtotal,
+  tax,
+  total,
+  (line_items, subtotal, tax, total) => {
+    return {
+      line_items,
+      subtotal: subtotal.toFixed(2),
+      tax: tax.toFixed(2),
+      total: total.toFixed(2)
+    }
+  })

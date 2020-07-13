@@ -75,8 +75,10 @@ class TextField extends React.Component {
   }
 
   _getClass() {
+    const { focused } = this.state
     const { disabled } = this.props
     const classes = ['maha-input','maha-textfield']
+    if(focused) classes.push('focused')
     if(disabled) classes.push('disabled')
     return classes.join(' ')
   }
@@ -114,6 +116,7 @@ class TextField extends React.Component {
     this.setState({
       value: ''
     })
+    this.input.focus()
   }
 
   _handleFocus() {

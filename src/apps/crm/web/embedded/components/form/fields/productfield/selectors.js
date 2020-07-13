@@ -4,28 +4,28 @@ const given = (state, props) => props.products
 
 const quantities = (state, props) => state.quantities
 
-export const products = createSelector(
+export const line_items = createSelector(
   given,
   quantities,
-  (products, quantities) => products.map(product => {
-    const quantity = quantities[product.code] || 0
+  (line_items, quantities) => line_items.map(line_item => {
+    const quantity = quantities[line_item.code] || 0
     return {
-      ...product,
+      ...line_item,
       quantity,
-      total: quantity * Number(product.price)
+      total: quantity * Number(line_item.price)
     }
   }))
 
 export const subtotal = createSelector(
-  products,
-  (products) => products.reduce((subtotal, product) => {
-    return subtotal + product.total
+  line_items,
+  (line_items) => line_items.reduce((subtotal, line_item) => {
+    return subtotal + line_item.total
   }, 0.00))
 
 export const tax = createSelector(
-  products,
-  (products) => products.reduce((tax, product) => {
-    return tax + (tax ? product.total * product.tax : 0)
+  line_items,
+  (line_items) => line_items.reduce((tax, line_item) => {
+    return tax + (tax ? line_item.total * line_item.tax : 0)
   }, 0.00))
 
 export const total = createSelector(
@@ -33,27 +33,20 @@ export const total = createSelector(
   tax,
   (subtotal, tax) => subtotal + tax)
 
-const filtered = createSelector(
-  products,
-  (products) => products.filter(product => {
-    return product.quantity > 0
-  }).map(product => ({
-    code: product.code,
-    description: product.description,
-    quantity: product.quantity,
-    tax_rate: product.tax_rate,
-    price: product.price,
-    total: product.total
-  })))
-
 export const value = createSelector(
-  filtered,
-  subtotal,
-  tax,
-  total,
-  (products, subtotal, tax, total) => ({
-    products,
-    subtotal: subtotal.toFixed(2),
-    tax: tax.toFixed(2),
-    total: total.toFixed(2)
+  line_items,
+  (line_items) => ({
+    line_items: line_items.filter(line_item => {
+      return line_item.quantity > 0
+    }).map(line_item => ({
+      code: line_item.code,
+      project_id: line_item.project_id,
+      revenue_type_id: line_item.revenue_type_id,
+      description: line_item.description,
+      quantity: line_item.quantity,
+      tax_rate: line_item.tax_rate,
+      is_tax_deductible: false,
+      price: line_item.price,
+      total: line_item.total
+    }))
   }))

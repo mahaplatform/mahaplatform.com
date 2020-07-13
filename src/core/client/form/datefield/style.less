@@ -8,49 +8,38 @@
   border-radius: 0.28em;
   display: flex;
   position: relative;
+  border-radius: 0.28em;
   &:focus {
-    outline: -webkit-focus-ring-color auto 2px !important;
+    outline: none;
+  }
+  &.focused {
+    border-bottom-left-radius: 0;
+    border-color: @blue;
   }
 }
 .maha-datefield-field {
   display: flex;
   flex: 1;
   width: 200px;
-  &:focus {
-    outline: 1px solid @blue;
-  }
   .maha-input {
-    border-radius: 0 !important;
     border: none !important;
-  }
-  .maha-input-field {
-    padding: 0.6em;
-  }
-}
-.maha-datefield-icon {
-  flex: 0 0 3em;
-  display: flex;
-  padding: 0.4em;
-  border-left: 1px solid fadeout(@black, 90);
-  .fa {
-    font-size: 1.2em;
-    color: fadeout(@black, 70);
-    margin: auto;
   }
 }
 .maha-datefield-panel {
-  border: 1px solid fadeout(@black, 90);
+  border: 1px solid @blue;
   background-color: @white;
   position: absolute;
   left: -1px;
-  right: -1px;
   z-index: 10;
+  width: 100%;
+  max-width: 250px;
   &.below {
-    top: ~"calc(100% - 1px)";
+    border-top-color: fadeout(@black, 90);
+    top: 100%;
     border-radius: 0 0 0.28em 0.28em;
   }
   &.above {
-    bottom: ~"calc(100%)";
+    bottom: 100%;
     border-radius: 0.28em 0.28em 0 0;
   }
 }

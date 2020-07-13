@@ -8,47 +8,59 @@ import Form from '../../../models/form'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getLineItems = async (req, { products }) => {
-  return await Promise.mapSeries(products, async(line_item) => {
-    const product = products.find(product => {
-      return product.code = line_item.code
-    })
-    return {
-      project_id: product.project_id,
-      donation_revenue_type_id: null,
-      overage_strategy: null,
-      revenue_type_id: product.revenue_type_id,
-      price_type: 'fixed',
-      fixed_price: product.price,
-      low_price: null,
-      high_price: null,
-      tax_rate: product.tax_rate,
-      is_tax_deductible: product.is_tax_deductible,
-      description: product.description,
-      quantity: line_item.quantity,
-      price: line_item.price
-
-    }
-  })
-}
-
-const getInvoice = async (req, { contact, fields, form }) => {
-
-  const productfield = fields.find(field => {
+const getLineItems = (req, { fields, data }) => [
+  ...fields.filter(field => {
+    return field.type === 'donationfield'
+  }),
+  ...fields.filter(field => {
     return field.type === 'productfield'
   })
+].reduce((line_items, field) => [
+  ...line_items,
+  ...req.body[field.code] ? data[field.code].line_items.map(line_item => ({
+    project_id: line_item.project_id,
+    donation_revenue_type_id: null,
+    overage_strategy: null,
+    revenue_type_id: line_item.revenue_type_id,
+    price_type: 'fixed',
+    fixed_price: line_item.price,
+    low_price: null,
+    high_price: null,
+    tax_rate: line_item.tax_rate,
+    is_tax_deductible: line_item.is_tax_deductible,
+    description: line_item.description,
+    quantity: line_item.quantity,
+    price: line_item.price
+  })) : []
+], [])
 
-  if(!productfield) return null
+const getInvoice = async (req, { contact, fields, form, line_items }) => {
+
+
+}
+
+const getPayment = async (req, { contact, data, fields, form, program }) => {
 
   const line_items = getLineItems(req, {
-    products: req.body[productfield.code].products
+    data,
+    fields
   })
 
-  return await createInvoice(req, {
+  if(line_items.length === 0) return {}
+
+  const invoice = await createInvoice(req, {
     program_id: form.get('program_id'),
     contact,
     line_items
   })
+
+  const payment = await handlePayment(req, {
+    invoice,
+    program: form.related('program'),
+    payment: data.payment
+  })
+
+  return { invoice, payment }
 
 }
 
@@ -83,17 +95,13 @@ const submitRoute = async (req, res) => {
     data: req.body
   })
 
-  const invoice = await getInvoice(req, {
+  const { invoice, payment } = await getPayment(req, {
     contact,
+    data: req.body,
     fields,
-    form
+    form,
+    program: form.related('program')
   })
-
-  const payment = (invoice && req.body.payment) ? await handlePayment(req, {
-    invoice,
-    program: form.related('program'),
-    payment: req.body.payment
-  }) : null
 
   const response = await Response.forge({
     team_id: form.get('team_id'),

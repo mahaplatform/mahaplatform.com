@@ -8,9 +8,9 @@ const Content = ({ data, field }) => {
   const value = data[field.code]
   const type = field.type === 'contactfield' ? field.contactfield.type : field.type
   if(_.isNil(value)) return null
-  if(type === 'productfield') {
+  if(_.includes(['donationfield','productfield'], type)) {
     return (
-      <table className="ui unstackable table">
+      <table className="ui unstackable compact table">
         <thead>
           <tr>
             <th>Item</th>
@@ -18,19 +18,19 @@ const Content = ({ data, field }) => {
           </tr>
         </thead>
         <tbody>
-          { value.products.map((line_item, index) => (
+          { value.line_items.map((line_item, index) => (
             <tr key={`line_item_${index}`}>
               <td>{ line_item.description } x { line_item.quantity }</td>
               <td className="right aligned">{ numeral(line_item.total).format('0.00') }</td>
             </tr>
           )) }
-        </tbody>
-        <tfoot>
           <tr>
             <td>Total</td>
-            <td className="right aligned">{ numeral(value.total).format('0.00') }</td>
+            <td className="right aligned">{ numeral(value.line_items.reduce((total, line_item) => {
+              return total + Number(line_item.total)
+            }, 0)).format('0.00') }</td>
           </tr>
-        </tfoot>
+        </tbody>
       </table>
     )
   } else if(type === 'addressfield') {

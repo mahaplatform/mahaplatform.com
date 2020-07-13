@@ -135,10 +135,16 @@
   &.disabled {
     background-color: fadeout(@black, 95);
   }
-  input {
-    &:focus {
-      outline: -webkit-focus-ring-color auto 2px !important;
-    }
+	&.focused {
+		border: 1px solid @blue;
+  }
+}
+.maha-input-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
   }
 }
 .maha-input-field {
@@ -150,10 +156,10 @@
 }
 .maha-input-placeholder {
   color: fadeout(@black, 70);
-  min-height: 2em;
+	display: inline-block;
   margin: 0.2em;
   padding: 0.2em 0.5em;
-  line-height: 2em;
+  line-height: 1.75em;
 }
 .maha-input-token {
   display: inline-block;

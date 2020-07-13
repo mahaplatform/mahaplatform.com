@@ -18,6 +18,7 @@ class TimeField extends React.Component {
   }
 
   static defaultProps = {
+    placeholder: 'Enter a time',
     onChange: () => {},
     onReady: () => {}
   }
@@ -36,18 +37,18 @@ class TimeField extends React.Component {
       <div className="maha-datefield">
         <div className="maha-datefield-field">
           <div className="maha-input">
+            <div className="maha-input-icon">
+              <i className="fa fa-clock-o" />
+            </div>
             <div className="maha-input-placeholder">
               { placeholder }
             </div>
-            { value && value.length > 0 &&
-              <div className="maha-input-clear" onClick={ this._handleClear }>
-                <i className="fa fa-times" />
-              </div>
-            }
           </div>
-        </div>
-        <div className="maha-datefield-icon">
-          <i className="fa fa-clock-o" />
+          { value && value.length > 0 &&
+            <div className="maha-input-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
+          }
         </div>
       </div>
     )

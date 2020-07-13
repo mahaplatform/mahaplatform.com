@@ -1,9 +1,11 @@
+import RevenueTypeToken from '../../../../../finance/admin/tokens/revenue_type'
+import ProjectToken from '../../../../../finance/admin/tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class DateFieldForm extends React.Component {
+class DonationField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -45,7 +47,7 @@ class DateFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Date Field',
+      title: 'Product Field',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,
@@ -60,8 +62,10 @@ class DateFieldForm extends React.Component {
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
+            { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Enter a description for invoice', required: true, defaultValue: config.description },
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: config.project_id },
+            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: config.revenue_type_id }
           ]
         }
       ]
@@ -73,8 +77,8 @@ class DateFieldForm extends React.Component {
       label: '',
       token: '',
       instructions: '',
-      placeholder: 'Date',
-      required: false
+      required: false,
+      products: []
     }
   }
 
@@ -97,4 +101,4 @@ class DateFieldForm extends React.Component {
 
 }
 
-export default DateFieldForm
+export default DonationField

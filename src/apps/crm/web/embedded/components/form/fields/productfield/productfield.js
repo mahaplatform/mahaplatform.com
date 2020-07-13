@@ -11,7 +11,7 @@ class ProductField extends React.Component {
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    products: PropTypes.array,
+    line_items: PropTypes.array,
     quantities: PropTypes.object,
     required: PropTypes.bool,
     status: PropTypes.string,
@@ -34,7 +34,7 @@ class ProductField extends React.Component {
   _handleFocus = this._handleFocus.bind(this)
 
   render() {
-    const { products, subtotal, tax, total } = this.props
+    const { line_items, subtotal, tax, total } = this.props
     return (
       <div className="maha-productfield">
         <table className="ui unstackable celled table">
@@ -47,19 +47,19 @@ class ProductField extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { products.length === 0 &&
+            { line_items.length === 0 &&
               <tr>
                 <td colSpan="4">There are no products</td>
               </tr>
             }
-            { products.map((product, index) => (
+            { line_items.map((line_item, index) => (
               <tr key={`product_${index}`}>
-                <td>{ product.description }</td>
+                <td>{ line_item.description }</td>
                 <td className="input">
-                  <input { ...this._getInput(product) } />
+                  <input { ...this._getInput(line_item) } />
                 </td>
-                <td>{ numeral(product.price).format('0.00') }</td>
-                <td>{ numeral(product.total).format('0.00') }</td>
+                <td>{ numeral(line_item.price).format('0.00') }</td>
+                <td>{ numeral(line_item.total).format('0.00') }</td>
               </tr>
             )) }
             { tax > 0 &&
@@ -99,14 +99,14 @@ class ProductField extends React.Component {
     }
   }
 
-  _getInput(product) {
+  _getInput(line_item) {
     const { tabIndex } = this.props
     return {
       tabIndex,
       type: 'text',
-      value: product.quantity,
+      value: line_item.quantity,
       onFocus: this._handleFocus,
-      onChange: this._handleUpdate.bind(this, product.code)
+      onChange: this._handleUpdate.bind(this, line_item.code)
     }
   }
 

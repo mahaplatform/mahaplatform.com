@@ -41,7 +41,7 @@ class New extends React.Component {
           fields: [
             { name: 'code', type: 'hidden', value: code },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
-            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken },
+            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item' },
             { label: 'Unit Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' },
             { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' }

@@ -7,6 +7,7 @@ class DateField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
@@ -19,6 +20,7 @@ class DateField extends React.Component {
   }
 
   static defaultProps = {
+    placeholder: 'Enter a date',
     onChange: () => {},
     onReady: () => {}
   }
@@ -26,12 +28,14 @@ class DateField extends React.Component {
   control = null
 
   state = {
+    focused: false,
     position: 'below',
     show: false,
     value: null
   }
 
   _handleBegin = this._handleBegin.bind(this)
+  _handleBlur = this._handleBlur.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleClickOutside = this._handleClickOutside.bind(this)
@@ -39,28 +43,32 @@ class DateField extends React.Component {
 
   render() {
     const { placeholder } = this.props
-    const { position, show, value } = this.state
+    const { focused, position, show, value } = this.state
     return (
       <div { ...this._getInput() }>
         <div className="maha-datefield-field">
           <div className="maha-input">
-            { value ?
-              <div className="maha-input-token">
-                { value }
-              </div> :
-              <div className="maha-input-placeholder">
-                { placeholder }
-              </div>
-            }
+            <div className="maha-input-icon">
+              <i className="fa fa-calendar" />
+            </div>
+            <div className="maha-input-field">
+              { value &&
+                <div className="maha-input-token">
+                  { value }
+                </div>
+              }
+              { !value && !focused &&
+                <div className="maha-input-placeholder">
+                  { placeholder }
+                </div>
+              }
+            </div>
             { value && value.length > 0 &&
               <div className="maha-input-clear" onClick={ this._handleClear }>
                 <i className="fa fa-times" />
               </div>
             }
           </div>
-        </div>
-        <div className="maha-datefield-icon" onClick={ this._handleBegin }>
-          <i className="fa fa-calendar" />
         </div>
         { show &&
           <div className={`maha-datefield-panel ${position}`}>
@@ -101,12 +109,22 @@ class DateField extends React.Component {
     }
   }
 
+  _getClass() {
+    const { focused } = this.state
+    const { disabled } = this.props
+    const classes = ['maha-datefield']
+    if(disabled) classes.push('disabled')
+    if(focused) classes.push('focused')
+    return classes.join(' ')
+  }
+
+
   _getInput() {
     const { tabIndex } = this.props
     return {
-      className: 'maha-datefield',
+      className: this._getClass(),
       ref: node => this.control = node,
-      // onClick: this._handleBegin,
+      onBlur: this._handleBlur,
       onFocus: this._handleBegin,
       tabIndex
     }
@@ -114,10 +132,19 @@ class DateField extends React.Component {
 
   _handleBegin(e) {
     e.stopPropagation()
-    const percent = (e.clientY / window.innerHeight) * 100
+    const { top }= this.control.getBoundingClientRect()
+    const percent = (top / window.innerHeight) * 100
+    const focused = true
     const show = true
     const position = percent < 75 ? 'below' : 'above'
-    this.setState({ show, position })
+    this.setState({ focused, position, show })
+  }
+
+  _handleBlur() {
+    this.setState({
+      focused: false,
+      show: false
+    })
   }
 
   _handleChange() {
@@ -127,9 +154,7 @@ class DateField extends React.Component {
   _handleClickOutside(e) {
     const { show } = this.state
     if(!show || this.control.contains(e.target)) return
-    this.setState({
-      show: false
-    })
+    this.control.blur()
   }
 
   _handleChoose(value) {
@@ -137,6 +162,7 @@ class DateField extends React.Component {
       show: false,
       value
     })
+    this.control.blur()
   }
 
   _handleClear(e) {

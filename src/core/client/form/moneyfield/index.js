@@ -8,6 +8,7 @@ class MoneyField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
     name: PropTypes.string,
     htmlFor: PropTypes.string,
     placeholder: PropTypes.string,
@@ -21,8 +22,12 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: 'Enter an amount'
+    placeholder: '0.00',
+    onChange: () => {},
+    onReady: () => {}
   }
+
+  input = null
 
   state = {
     focused: false,
@@ -39,17 +44,18 @@ class MoneyField extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="maha-moneyfield">
-        <div className="maha-input">
-          <div className="maha-input-field">
-            <input { ...this._getInput() } />
-          </div>
-          { value !== null && value.length > 0 &&
-            <div className="maha-input-clear" onClick={ this._handleClear }>
-              <i className="fa fa-times" />
-            </div>
-          }
+      <div className={ this._getClass() }>
+        <div className="maha-input-icon">
+          <i className="fa fa-dollar" />
         </div>
+        <div className="maha-input-field">
+          <input { ...this._getInput() } />
+        </div>
+        { value !== null && value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -69,6 +75,15 @@ class MoneyField extends React.Component {
     }
   }
 
+  _getClass() {
+    const { focused } = this.state
+    const { disabled } = this.props
+    const classes = ['maha-input','maha-moneyfield']
+    if(disabled) classes.push('disabled')
+    if(focused) classes.push('focused')
+    return classes.join(' ')
+  }
+
   _getInput() {
     const { htmlFor, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
@@ -76,6 +91,7 @@ class MoneyField extends React.Component {
       id: htmlFor,
       type: 'text',
       placeholder: !focused ? placeholder : null,
+      ref: node => this.input = node,
       tabIndex,
       value,
       onBlur: this._handleBlur,
@@ -100,6 +116,7 @@ class MoneyField extends React.Component {
     this.setState({
       value: ''
     })
+    this.input.focus()
   }
 
   _handleFocus() {

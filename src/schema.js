@@ -2591,10 +2591,10 @@ const schema = {
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('store_id').references('stores_stores.id')
     })
 
     await knex.schema.table('crm_forms', table => {

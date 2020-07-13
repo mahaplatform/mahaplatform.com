@@ -5,7 +5,7 @@ import React from 'react'
 class Summary extends React.Component {
 
   static propTypes = {
-    products: PropTypes.array,
+    line_items: PropTypes.array,
     subtotal: PropTypes.string,
     tax: PropTypes.string,
     total: PropTypes.string,
@@ -13,7 +13,7 @@ class Summary extends React.Component {
   }
 
   render() {
-    const { products, subtotal, tax, total } = this.props
+    const { line_items, subtotal, tax, total } = this.props
     return (
       <div className="maha-payment-summary">
         <div className="maha-payment-label">Payment Summary</div>
@@ -27,12 +27,12 @@ class Summary extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { products.map((product, index) => (
-              <tr key={`product_${index}`}>
-                <td>{ product.description }</td>
-                <td>{ product.quantity }</td>
-                <td>{ numeral(product.price).format('0.00') }</td>
-                <td>{ numeral(product.total).format('0.00') }</td>
+            { line_items.map((line_item, index) => (
+              <tr key={`line_item_${index}`}>
+                <td>{ line_item.description }</td>
+                <td>{ line_item.quantity }</td>
+                <td>{ numeral(line_item.price).format('0.00') }</td>
+                <td>{ numeral(line_item.total).format('0.00') }</td>
               </tr>
             )) }
             <tr className="total">
