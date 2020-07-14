@@ -3,7 +3,7 @@ const dashboard = [
     code: 'admin_tasks',
     title: 'Finance Overview',
     description: 'Activity overview for Finance staff',
-    rights: ['finance:access_reports','finance:manage_revenue']
+    rights: ['finance:access_expense_reports','finance:manage_revenue']
   }, {
     code: 'new_item',
     title: 'New Expense',

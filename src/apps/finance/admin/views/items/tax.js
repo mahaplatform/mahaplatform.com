@@ -13,7 +13,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources) => ({
   title: 'Tax',
-  rights: ['finance:access_reports'],
+  rights: ['finance:access_expense_reports'],
   collection: {
     endpoint: '/api/admin/finance/items/tax',
     table: [

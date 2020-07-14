@@ -7,7 +7,7 @@ const navigation = async (req) => ({
       { label: 'Approvals', rights: ['finance:approve_expenses'], access: canApprove, route: '/approvals'},
       { label: 'Batches', rights: ['finance:export_expenses'], route: '/batches'},
       { label: 'Items', rights: ['finance:manage_expenses'], route: '/items' },
-      { label: 'Report', rights: ['finance:access_reports'], access: isOwnerOrAdmin, route: '/reports' },
+      { label: 'Report', rights: ['finance:access_expense_reports'], access: isOwnerOrAdmin, route: '/reports' },
       { label: 'Taxes', rights: ['finance:access_expense_reports'], route: '/tax' },
       { label: 'Vendors', rights: ['finance:manage_configuration'], route: '/vendors' }
     ] },

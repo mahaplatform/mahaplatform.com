@@ -17,7 +17,7 @@ export const canApprove = async (req) => {
 }
 
 export const isAdmin = (req) => {
-  return _.includes(req.rights, 'finance:access_reports')
+  return _.includes(req.rights, 'finance:access_expense_reports')
 }
 
 export const isOwnerOrAdmin = async (req) => {

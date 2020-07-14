@@ -19,7 +19,7 @@ const editRoute = async (req, res) => {
 
   const access = await getUserAccess(req, req.user)
 
-  const is_admin = _.includes(access.rights, 'finance:access_reports')
+  const is_admin = _.includes(access.rights, 'finance:access_expense_reports')
 
   res.status(200).respond(check, (req, check) => ({
     date_needed: check.get('date_needed'),
