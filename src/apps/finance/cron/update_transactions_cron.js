@@ -32,7 +32,7 @@ const getDeposit = async (req, { bank, payment, transaction }) => {
     qb.where('team_id', req.team.get('id')),
     qb.where('bank_id', bank.get('id')),
     qb.where('date', transaction.disbursementDetails.disbursementDate)
-  }).save(null, {
+  }).fetch(null, {
     transacting: req.trx
   })
 
