@@ -24,8 +24,8 @@ const rights = [
     title: 'Access Expense Reports',
     description: 'access expense reports'
   }, {
-    code: 'access_finance_reports',
-    title: 'Access Finance Reports',
+    code: 'access_revenue_reports',
+    title: 'Access Revenue Reports',
     description: 'access expense reports'
   }, {
     code: 'manage_banks',
