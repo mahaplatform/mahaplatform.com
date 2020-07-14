@@ -30,10 +30,8 @@ class App extends React.Component {
       <Root key="root">
         <Error>
           <Network>
-            <div className="maha-form-layout">
-              <Style key="style" { ...this._getStyle() } />
-              <Form { ...this._getForm() } />
-            </div>
+            <Style key="style" { ...this._getStyle() } />
+            <Form { ...this._getForm() } />
           </Network>
         </Error>
       </Root>

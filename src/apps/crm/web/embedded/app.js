@@ -32,10 +32,8 @@ class App extends React.Component {
         <Logger environment="form">
           <Error>
             <Network>
-              <div className="maha-form-layout">
-                <Style { ...this._getStyle() } />
-                <Form { ...this._getForm() } />
-              </div>
+              <Style { ...this._getStyle() } />
+              <Form { ...this._getForm() } />
             </Network>
           </Error>
         </Logger>

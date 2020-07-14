@@ -126,6 +126,11 @@ div:not(.maha-form-layout.embedded) {
 div.maha-form-layout.embedded .maha-form {
   border: none;
 }
+div.maha-form-layout:not(.embedded) {
+  .maha-form-layout-content {
+    .scrollable();
+  }
+}
 @media (max-width: 768px) {
   .maha-form-layout-image {
     display: none;
