@@ -8,7 +8,7 @@ const navigation = async (req) => ({
       { label: 'Batches', rights: ['finance:export_expenses'], route: '/batches'},
       { label: 'Items', rights: ['finance:manage_expenses'], route: '/items' },
       { label: 'Report', rights: ['finance:access_reports'], access: isOwnerOrAdmin, route: '/reports' },
-      { label: 'Taxes', rights: ['finance:access_reports'], route: '/tax' },
+      { label: 'Taxes', rights: ['finance:access_expense_reports'], route: '/tax' },
       { label: 'Vendors', rights: ['finance:manage_configuration'], route: '/vendors' }
     ] },
     { label: 'Revenue', items: [
@@ -17,7 +17,7 @@ const navigation = async (req) => ({
       { label: 'Invoices', rights: ['finance:manage_revenue'], route: '/invoices' },
       { label: 'Deposits', rights: ['finance:manage_deposits'], route: '/deposits' },
       { label: 'Payments', rights: ['finance:manage_revenue'], route: '/payments' },
-      { label: 'Report', rights: ['finance:access_reports'], route: '/reports/revenue' }
+      { label: 'Report', rights: ['finance:access_revenue_reports'], route: '/reports/revenue' }
     ] },
     { label: 'Projects', route: '/projects' }
   ]

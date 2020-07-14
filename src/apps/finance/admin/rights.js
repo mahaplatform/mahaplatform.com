@@ -20,9 +20,13 @@ const rights = [
     title: 'Export Expenses',
     description: 'export other users expense items'
   }, {
-    code: 'access_reports',
-    title: 'Access Reports',
-    description: 'access expense and revenue reports'
+    code: 'access_expense_reports',
+    title: 'Access Expense Reports',
+    description: 'access expense reports'
+  }, {
+    code: 'access_finance_reports',
+    title: 'Access Finance Reports',
+    description: 'access expense reports'
   }, {
     code: 'manage_banks',
     title: 'Manage Bank Accounts',
