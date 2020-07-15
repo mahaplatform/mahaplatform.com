@@ -25,6 +25,12 @@ export const edit = (field) => ({
   field
 })
 
+export const move = (from, to) => ({
+  type: 'MOVE',
+  from,
+  to
+})
+
 export const remove = (field) => ({
   type: 'REMOVE',
   field

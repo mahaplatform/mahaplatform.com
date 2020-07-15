@@ -1,7 +1,9 @@
-import { hot } from 'react-hot-loader'
+import HTML5Backend from 'react-dnd-html5-backend'
 import Style from '../embedded/components/style'
 import Root from '../embedded/components/root'
 import { Error, Network } from 'maha-client'
+import { DndProvider } from 'react-dnd'
+import { hot } from 'react-hot-loader'
 import Form from './components/form'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
@@ -27,14 +29,16 @@ class App extends React.Component {
   render() {
     if(!this.state.config) return null
     return (
-      <Root key="root">
-        <Error>
-          <Network>
-            <Style key="style" { ...this._getStyle() } />
-            <Form { ...this._getForm() } />
-          </Network>
-        </Error>
-      </Root>
+      <DndProvider backend={ HTML5Backend }>
+        <Root key="root">
+          <Error>
+            <Network>
+              <Style key="style" { ...this._getStyle() } />
+              <Form { ...this._getForm() } />
+            </Network>
+          </Error>
+        </Root>
+      </DndProvider>
     )
   }
 

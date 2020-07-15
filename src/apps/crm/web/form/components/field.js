@@ -1,19 +1,7 @@
-import {
-  AddressField,
-  Checkboxes,
-  RadioGroup,
-  PhoneField,
-  FileField,
-  TextField,
-  DateField,
-  TimeField,
-  TextArea,
-  DropDown,
-  Checkbox,
-  Text
-} from 'maha-client'
+import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from 'maha-client'
 import DonationField from '../../embedded/components/form/fields/donationfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
+import { DragSource, DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -21,19 +9,25 @@ import _ from 'lodash'
 class Field extends React.Component {
 
   static propTypes = {
+    connectDropTarget: PropTypes.func,
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
     active: PropTypes.number,
     config: PropTypes.object,
     field: PropTypes.object,
     index: PropTypes.number,
-    onAction: PropTypes.func
+    isDragging: PropTypes.bool,
+    onAction: PropTypes.func,
+    onMove: PropTypes.func,
+    onReordering: PropTypes.func
   }
 
   render() {
-    const { field } = this.props
-    const { label, instructions } = field
+    const { connectDropTarget, connectDragPreview, connectDragSource, field } = this.props
     if(Object.keys(field).length === 1) return null
     const Component  = this._getComponent(field)
-    return (
+    const { label, instructions } = field
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
         <div className={ this._getFieldClass() }>
           { label && <label>{ label }</label> }
@@ -44,6 +38,9 @@ class Field extends React.Component {
         </div>
         <div className="block-highlight" />
         <div className="block-actions">
+          <div className="block-action">
+            <i className="fa fa-bars"></i>
+          </div>
           <div className="block-spacer"></div>
           <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
             <i className="fa fa-pencil"></i>
@@ -56,7 +53,7 @@ class Field extends React.Component {
           </div>
         </div>
       </div>
-    )
+    )))
   }
 
   _getClass() {
@@ -110,5 +107,43 @@ class Field extends React.Component {
   }
 
 }
+
+const source = {
+  beginDrag: (props) => {
+    props.onReordering(true)
+    return {
+      index: props.index,
+      onMove: props.onMove
+    }
+  },
+  endDrag: (props) => {
+    props.onReordering(false)
+  }
+}
+
+const target = {
+  hover(props, monitor, component) {
+    const dragIndex = monitor.getItem().index
+    const hoverIndex = props.index
+    if (dragIndex === hoverIndex) return
+    props.onMove(dragIndex, hoverIndex)
+    monitor.getItem().index = hoverIndex
+  }
+}
+
+const sourceCollector = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
+  isDragging: monitor.isDragging()
+})
+
+const targetCollector = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+})
+
+Field = DragSource('ITEM', source, sourceCollector)(Field)
+Field = DropTarget('ITEM', target, targetCollector)(Field)
 
 export default Field

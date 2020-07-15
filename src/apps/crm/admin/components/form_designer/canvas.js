@@ -12,6 +12,7 @@ class Canvas extends React.Component {
     onChange: PropTypes.func,
     onClone: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -22,6 +23,7 @@ class Canvas extends React.Component {
   _handleClone = this._handleClone.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleHighlight = this._handleHighlight.bind(this)
+  _handleMove = this._handleMove.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleRender = this._handleRender.bind(this)
 
@@ -39,6 +41,7 @@ class Canvas extends React.Component {
     this.pasteur.on('add', this._handleAdd)
     this.pasteur.on('clone', this._handleClone)
     this.pasteur.on('edit', this._handleEdit)
+    this.pasteur.on('move', this._handleMove)
     this.pasteur.on('remove', this._handleRemove)
     this.pasteur.on('ready', this._handleRender)
   }
@@ -81,6 +84,10 @@ class Canvas extends React.Component {
   _handleHighlight() {
     const { active } = this.props
     this.pasteur.send('highlight', { active })
+  }
+
+  _handleMove({ from, to }) {
+    this.props.onMove(from, to)
   }
 
   _handleRemove({ index }) {

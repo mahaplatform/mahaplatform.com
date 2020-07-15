@@ -26,7 +26,7 @@ class Platform extends React.Component {
 
   render() {
     return (
-      <DndProvider backend={ HTML5Backend } >
+      <DndProvider backend={ HTML5Backend }>
         <div className="maha-platform">
           <Environment />
           <Analytics>

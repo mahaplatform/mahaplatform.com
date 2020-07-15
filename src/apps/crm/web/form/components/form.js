@@ -16,16 +16,19 @@ class Form extends React.Component {
 
   state = {
     hovering: false,
-    index: 0
+    index: 0,
+    reordering: false
   }
 
   _handleDrop = this._handleDrop.bind(this)
   _handleDragEnter = this._handleDragEnter.bind(this)
   _handleDragLeave = this._handleDragLeave.bind(this)
   _handleDragOver = this._handleDragOver.bind(this)
+  _handleMove = this._handleMove.bind(this)
+  _handleReordering = this._handleReordering.bind(this)
 
   render() {
-    const { hovering, index } = this.state
+    const { hovering, index, reordering } = this.state
     const { config } = this.props
     const { body, fields, footer, security } = config
     return (
@@ -37,13 +40,13 @@ class Form extends React.Component {
             }
             <div className="maha-form-body">
               <div className="ui form">
-                { (fields.length === 0 || (hovering && index === 0)) &&
+                { (!reordering && fields.length === 0 || (hovering && index === 0)) &&
                   <div className="dropzone-target">Drop Field Here</div>
                 }
                 { fields.map((field, fieldIndex) => (
                   <div key={`field_${fieldIndex}`} className="dropzone-block" data-index={ fieldIndex }>
                     <Field { ...this._getField(field, fieldIndex) } />
-                    { hovering && fieldIndex + 1 === index &&
+                    { !reordering && hovering && fieldIndex + 1 === index &&
                       <div className="dropzone-target">Drop Field Here</div>
                     }
                   </div>
@@ -70,6 +73,8 @@ class Form extends React.Component {
   }
 
   _getDropZone() {
+    const { reordering } = this.state
+    if(reordering) return {}
     return {
       className: 'dropzone',
       onDragEnter: this._handleDrag.bind(this, 'enter'),
@@ -84,7 +89,9 @@ class Form extends React.Component {
       active,
       field,
       index,
-      onAction
+      onAction,
+      onMove: this._handleMove,
+      onReordering: this._handleReordering
     }
   }
 
@@ -166,6 +173,14 @@ class Form extends React.Component {
 
   _handleIndex(index) {
     this.setState({ index })
+  }
+
+  _handleMove(from, to) {
+    this.props.onAction('move', { from, to })
+  }
+
+  _handleReordering(reordering) {
+    this.setState({ reordering })
   }
 
 }

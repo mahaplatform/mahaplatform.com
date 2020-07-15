@@ -58,6 +58,29 @@ const reducer = (state = INITIAL_STATE, action) => {
       active: action.field
     }
 
+  case 'MOVE':
+    return {
+      ...state,
+      changes: state.changes + 1,
+      config: {
+        ...state.config,
+        fields: ((action.from < action.to) ? [
+          ...state.config.fields.slice(0, action.from),
+          ...state.config.fields.slice(action.from + 1, action.to + 1),
+          state.config.fields[action.from],
+          ...state.config.fields.slice(action.to + 1)
+        ] : [
+          ...state.config.fields.slice(0, action.to),
+          state.config.fields[action.from],
+          ...state.config.fields.slice(action.to, action.from),
+          ...state.config.fields.slice(action.from + 1)
+        ]).map((answer, index) => ({
+          ...answer,
+          delta: index
+        }))
+      }
+    }
+
   case 'REMOVE':
     return {
       ...state,

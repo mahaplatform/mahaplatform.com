@@ -19,6 +19,7 @@ class FormDesigner extends React.PureComponent {
     onAdd: PropTypes.func,
     onClone: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
@@ -48,13 +49,14 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, onClone, onEdit, onRemove } = this.props
+    const { active, config, onClone, onEdit, onMove, onRemove } = this.props
     return {
       active,
       config,
       onAdd: this._handleAdd,
       onClone,
       onEdit,
+      onMove,
       onRemove
     }
   }
