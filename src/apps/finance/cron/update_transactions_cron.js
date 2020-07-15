@@ -32,7 +32,7 @@ const getDeposit = async (req, { bank, payment, transaction }) => {
     qb.where('team_id', req.team.get('id')),
     qb.where('bank_id', bank.get('id')),
     qb.where('date', transaction.disbursementDetails.disbursementDate)
-  }).fetch(null, {
+  }).fetch({
     transacting: req.trx
   })
 
@@ -95,8 +95,8 @@ const updatePayments = async (req) => {
         deposit_id: deposit.get('id'),
         status: 'deposited'
       },{
-        patch: true,
-        transacting: req.trx
+        transacting: req.trx,
+        patch: true
       })
 
       await audit(req, {
@@ -109,8 +109,8 @@ const updatePayments = async (req) => {
       await payment.save({
         status: 'settled'
       },{
-        patch: true,
-        transacting: req.trx
+        transacting: req.trx,
+        patch: true
       })
 
       await audit(req, {
@@ -145,8 +145,8 @@ const updateRefunds = async (req) => {
       await refund.save({
         status: 'settled'
       },{
-        patch: true,
-        transacting: req.trx
+        transacting: req.trx,
+        patch: true
       })
     }
 
