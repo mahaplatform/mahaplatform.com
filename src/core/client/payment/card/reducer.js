@@ -22,12 +22,14 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
 
   case 'AUTHORIZE_SUCCESS':
+    const { cardType } = action.result.details
+    const card_type = cardType === 'American Express' ? 'amex' : cardType.toLowerCase()
     return {
       ...state,
       status: 'authorized',
       payment: {
-        reference: `${action.result.details.cardType.toLowerCase()}-${action.result.details.lastFour}`,
-        card_type: action.result.details.cardType.toLowerCase(),
+        reference: `${card_type}-${action.result.details.lastFour}`,
+        card_type,
         last_four: action.result.details.lastFour,
         expiration_month: action.result.details.expirationMonth,
         expiration_year: action.result.details.expirationYear,

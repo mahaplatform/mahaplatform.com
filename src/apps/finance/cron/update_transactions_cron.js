@@ -41,7 +41,8 @@ const getDeposit = async (req, { bank, payment, transaction }) => {
   const newdeposit = await Deposit.forge({
     team_id: req.team.get('id'),
     bank_id: bank.get('id'),
-    date: transaction.disbursementDetails.disbursementDate
+    date: transaction.disbursementDetails.disbursementDate,
+    status: 'pending'
   }).save(null, {
     transacting: req.trx
   })
