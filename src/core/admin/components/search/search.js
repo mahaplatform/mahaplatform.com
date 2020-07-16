@@ -12,6 +12,7 @@ class Search extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
+    autofocus: PropTypes.bool,
     defaultValue: PropTypes.any,
     excludeIds: PropTypes.array,
     empty: PropTypes.object,
@@ -35,6 +36,7 @@ class Search extends React.Component {
   }
 
   static defaultProps = {
+    autofocus: false,
     empty: {
       icon: 'times',
       text: 'No Records Found'
@@ -107,8 +109,9 @@ class Search extends React.Component {
   }
 
   _getSearchbox() {
-    const { label, prompt, onQuery } = this.props
+    const { autofocus, label, prompt, onQuery } = this.props
     return {
+      autofocus,
       prompt: prompt || `Find a ${label}`,
       onChange: onQuery
     }

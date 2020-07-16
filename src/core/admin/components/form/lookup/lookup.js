@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Chooser from './chooser'
 import React from 'react'
 import _ from 'lodash'
@@ -43,7 +44,6 @@ class Lookup extends React.Component {
     filter: {},
     label: 'item',
     options: [],
-    prompt: 'Choose an item',
     search: true,
     tabIndex: 0,
     onBusy: () => {},
@@ -111,7 +111,7 @@ class Lookup extends React.Component {
       format,
       label,
       options,
-      prompt,
+      prompt: prompt || `Search ${pluralize(label).toLowerCase() }...`,
       search,
       text,
       value,

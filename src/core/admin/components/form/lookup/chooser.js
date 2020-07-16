@@ -79,6 +79,7 @@ class Chooser extends React.Component {
   _getSearch() {
     const { chosen, endpoint, filter, format, label, multiple, options, prompt, search, text } = this.props
     return {
+      autofocus: true,
       defaultValue: chosen,
       endpoint,
       filter,

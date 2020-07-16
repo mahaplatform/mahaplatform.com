@@ -6,6 +6,7 @@ class Searchbox extends React.Component {
 
   static propTypes = {
     active: PropTypes.bool,
+    autofocus: PropTypes.bool,
     icon: PropTypes.string,
     prompt: PropTypes.string,
     q: PropTypes.string,
@@ -18,10 +19,13 @@ class Searchbox extends React.Component {
   }
 
   static defaultProps = {
+    autofocus: false,
     prompt: 'Search...',
     q: '',
     onChange: (value) => {}
   }
+
+  input = null
 
   _handleAbort = this._handleAbort.bind(this)
   _handleChange = _.debounce(this._handleChange.bind(this), 300)
@@ -55,6 +59,13 @@ class Searchbox extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { autofocus } = this.props
+    if(autofocus) setTimeout(() => {
+      this.input.focus()
+    }, 500)
+  }
+
   _getClass() {
     const classes = ['maha-searchbox']
     if(this.props.active) classes.push('active')
@@ -64,6 +75,7 @@ class Searchbox extends React.Component {
   _getInput() {
     const { prompt, q } = this.props
     return {
+      ref: node => this.input = node,
       type: 'text',
       placeholder: prompt,
       value: q,
