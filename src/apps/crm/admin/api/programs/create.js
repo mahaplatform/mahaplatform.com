@@ -50,7 +50,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     program_id: program.get('id'),
     name: program.get('title'),
-    email: `${program.get('title').replace(/\s*/g,'').toLowerCase()}@mahaplatform.com`,
+    email: `${program.get('title').replace(/\s*/g,'').toLowerCase()}@${req.team.get('fqdn')}`,
     is_verified: true
   }).save(null, {
     transacting: req.trx
