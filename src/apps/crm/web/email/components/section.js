@@ -30,7 +30,7 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { editable, config, reordering, section, moving } = this.props
+    const { editable, config, reordering, section } = this.props
     const { blocks } = config
     return (
       <div { ...this._getDropZone() }>
@@ -44,16 +44,10 @@ class Section extends React.Component {
                 { (blocks.length === 0 || (hovering && index === 0)) &&
                   <Target />
                 }
-                { (reordering && moving && moving.to.section === section && moving.from.index > 0 && moving.to.index === 0) &&
-                  <Target />
-                }
                 { blocks.map((block, blockIndex) => (
                   <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
                     <Block { ...this._getBlock(block, blockIndex) } />
                     { (hovering && blockIndex + 1 === index) &&
-                      <Target />
-                    }
-                    { (reordering && moving && moving.to.section === section && moving.from.index !== blockIndex && ((moving.from.index > moving.to.index && moving.to.index === blockIndex + 1) || (moving.from.index < moving.to.index && moving.to.index === blockIndex))) &&
                       <Target />
                     }
                   </div>
@@ -66,10 +60,28 @@ class Section extends React.Component {
     )
   }
 
+  _getActive(blockIndex) {
+    const { active, section } = this.props
+    if(active.index === null) return false
+    return active.index === blockIndex && active.section === section
+  }
+
+  _getMovingBottom(blockIndex) {
+    const { moving, reordering, section } = this.props
+    return reordering && moving && moving.to.section === section && moving.from.index !== blockIndex && moving.from.index < moving.to.index && moving.to.index === blockIndex
+  }
+
+  _getMovingTop(blockIndex) {
+    const { moving, reordering, section } = this.props
+    return reordering && moving && moving.to.section === section && moving.from.index !== blockIndex && moving.from.index > moving.to.index && moving.to.index === blockIndex
+  }
+
   _getBlock(config, blockIndex) {
-    const { active, editable, reordering, section, onAction, onHover, onMove, onReordering } = this.props
+    const { editable, reordering, section, onAction, onHover, onMove, onReordering } = this.props
     return {
-      active,
+      isActive: this._getActive(blockIndex),
+      isMovingTop: this._getMovingTop(blockIndex),
+      isMovingBottom: this._getMovingBottom(blockIndex),
       blockIndex,
       config,
       editable,
