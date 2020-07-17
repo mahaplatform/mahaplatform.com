@@ -23,8 +23,8 @@ class Block extends React.Component {
     config: PropTypes.object,
     editable: PropTypes.bool,
     isActive: PropTypes.bool,
-    isMovingTop: PropTypes.bool,
-    isMovingBottom: PropTypes.bool,
+    isMoving: PropTypes.bool,
+    movingPosition: PropTypes.string,
     reordering: PropTypes.bool,
     section: PropTypes.string,
     onAction: PropTypes.func,
@@ -34,11 +34,11 @@ class Block extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, isMovingBottom, isMovingTop, reordering } = this.props
+    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, isMoving, movingPosition, reordering } = this.props
     const Component  = this._getComponent()
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { editable && isMovingTop &&
+        { editable && isMoving && movingPosition === 'top' &&
           <Target />
         }
         <table className={`row collapse block-${ blockIndex } ${ config.type }-block block`}>
@@ -58,7 +58,7 @@ class Block extends React.Component {
             </tr>
           </tbody>
         </table>
-        { editable && (!reordering || isMovingBottom || isMovingTop) &&
+        { editable && (!reordering || isMoving) &&
           <div className="block-highlight" />
         }
         { editable && !reordering &&
@@ -78,7 +78,7 @@ class Block extends React.Component {
             </div>
           </div>
         }
-        { editable && isMovingBottom &&
+        { editable && isMoving && movingPosition === 'bottom' &&
           <Target />
         }
       </div>
@@ -86,9 +86,9 @@ class Block extends React.Component {
   }
 
   _getClass() {
-    const { isActive, isMovingBottom, isMovingTop } = this.props
+    const { isActive, isMoving } = this.props
     const classes = ['block']
-    if(isActive || isMovingBottom || isMovingTop) classes.push('active')
+    if(isActive || isMoving) classes.push('active')
     return classes.join(' ')
   }
 

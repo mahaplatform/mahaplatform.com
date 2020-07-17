@@ -31,7 +31,7 @@ class Section extends React.Component {
   render() {
     const { hovering, index } = this.state
     const { editable, config, reordering, section } = this.props
-    const { blocks } = config
+    const { blocks } = config[section]
     return (
       <div { ...this._getDropZone() }>
         { !reordering && editable && hovering &&
@@ -45,8 +45,8 @@ class Section extends React.Component {
                   <Target />
                 }
                 { blocks.map((block, blockIndex) => (
-                  <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
-                    <Block { ...this._getBlock(block, blockIndex) } />
+                  <div key={`block_${blockIndex}`} className={ this._getClass(blockIndex)} data-index={ blockIndex }>
+                    <Block { ...this._getBlock(blockIndex) } />
                     { (hovering && blockIndex + 1 === index) &&
                       <Target />
                     }
@@ -66,24 +66,35 @@ class Section extends React.Component {
     return active.index === blockIndex && active.section === section
   }
 
-  _getMovingBottom(blockIndex) {
-    const { moving, reordering, section } = this.props
-    return reordering && moving && moving.to.section === section && moving.from.index !== blockIndex && moving.from.index < moving.to.index && moving.to.index === blockIndex
+  _getMoving(blockIndex) {
+    const { moving, section } = this.props
+    if(!moving) return false
+    if(moving.to.section !== section || moving.to.index !== blockIndex) return false
+    return moving.from.section !== moving.to.section || (moving.from.index !== blockIndex && moving.to.index === blockIndex)
   }
 
-  _getMovingTop(blockIndex) {
-    const { moving, reordering, section } = this.props
-    return reordering && moving && moving.to.section === section && moving.from.index !== blockIndex && moving.from.index > moving.to.index && moving.to.index === blockIndex
+  _getClass(index) {
+    const { moving, section } = this.props
+    const classes = ['dropzone-block']
+    if(moving && moving.from.section === section && moving.from.index === index) classes.push('hidden')
+    return classes.join(' ')
   }
 
-  _getBlock(config, blockIndex) {
-    const { editable, reordering, section, onAction, onHover, onMove, onReordering } = this.props
+  _getMovingPosition(blockIndex) {
+    const { moving } = this.props
+    if(!moving) return null
+    const { from, to } = moving
+    return (from.section === to.section && from.index > to.index) || from.section !== to.section ? 'top' : 'bottom'
+  }
+
+  _getBlock(blockIndex) {
+    const { config, editable, reordering, section, onAction, onHover, onMove, onReordering } = this.props
     return {
       isActive: this._getActive(blockIndex),
-      isMovingTop: this._getMovingTop(blockIndex),
-      isMovingBottom: this._getMovingBottom(blockIndex),
+      isMoving: this._getMoving(blockIndex),
+      movingPosition: this._getMovingPosition(blockIndex),
       blockIndex,
-      config,
+      config: config[section].blocks[blockIndex],
       editable,
       reordering,
       section,
@@ -148,7 +159,8 @@ class Section extends React.Component {
   }
 
   _handleDragOver(target, dropzone, x, y) {
-    const { blocks } = this.props.config
+    const { section } = this.props
+    const { blocks } = this.props.config[section]
     const block = this._getParent(target, '.dropzone-block')
     if(this.timeout) clearTimeout(this.timeout)
     this.timeout = setTimeout(this._handleDragLeave, 100)

@@ -53,9 +53,7 @@ class Email extends React.Component {
     return {
       active,
       section,
-      config: {
-        blocks: config[section].blocks
-      },
+      config,
       editable,
       reordering,
       moving,

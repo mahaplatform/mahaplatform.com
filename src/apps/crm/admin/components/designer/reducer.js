@@ -1,5 +1,22 @@
 import _ from 'lodash'
 
+const move = (array, from, to) => (from < to) ? [
+  ...array.slice(0, from),
+  ...array.slice(from + 1, to + 1),
+  array[from],
+  ...array.slice(to + 1)
+] : [
+  ...array.slice(0, to),
+  array[from],
+  ...array.slice(to, from),
+  ...array.slice(from + 1)
+]
+
+const splice = (array, index, item) => {
+  array.splice(index, 0, item)
+  return array
+}
+
 const INITIAL_STATE = {
   active: {
     section: null,
@@ -82,19 +99,24 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...action.from.section === action.to.section ? {
           [action.from.section]: {
             ...state.config[action.from.section],
-            blocks: (action.from.index < action.to.index) ? [
-              ...state.config[action.from.section].blocks.slice(0, action.from.index),
-              ...state.config[action.from.section].blocks.slice(action.from.index + 1, action.to.index + 1),
-              state.config[action.from.section].blocks[action.from.index],
-              ...state.config[action.from.section].blocks.slice(action.to.index + 1)
-            ] : [
-              ...state.config[action.from.section].blocks.slice(0, action.to.index),
-              state.config[action.from.section].blocks[action.from.index],
-              ...state.config[action.from.section].blocks.slice(action.to.index, action.from.index),
-              ...state.config[action.from.section].blocks.slice(action.from.index + 1)
+            blocks: move(state.config[action.from.section].blocks, action.from.index, action.to.index)
+          }
+        } : {
+          [action.from.section]: {
+            ...state.config[action.from.section],
+            blocks: [
+              ...state.config[action.from.section].blocks.filter((block, index) => {
+                return index !== action.from.index
+              })
+            ]
+          },
+          [action.to.section]: {
+            ...state.config[action.to.section],
+            blocks: [
+              ...splice(state.config[action.to.section].blocks, action.to.index, state.config[action.from.section].blocks[action.from.index])
             ]
           }
-        } : {}
+        }
       }
     }
 
