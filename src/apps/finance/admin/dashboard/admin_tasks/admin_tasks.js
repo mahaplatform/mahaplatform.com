@@ -18,7 +18,8 @@ class AdminTasks extends React.Component {
     digitalPaymentsSettled: PropTypes.array,
     deposits: PropTypes.array,
     expensesForReview: PropTypes.array,
-    expensesForExport: PropTypes.array
+    expensesForExport: PropTypes.array,
+    adminSummaryItems: PropTypes.array
   }
 
   _getListItems = this._getListItems.bind(this)
@@ -30,8 +31,10 @@ class AdminTasks extends React.Component {
   _handleExpensesForExport = this._handleExpensesForExport.bind(this)
 
   render() {
-    const { controls } = this.props
+    const { controls, adminSummaryItems } = this.props
     const listItems = this._getListItems()
+
+    console.log(adminSummaryItems)
 
     return (
       <div className="maha-dashboard-card">
@@ -131,6 +134,9 @@ class AdminTasks extends React.Component {
 }
 
 const mapResources = (props, context) => ({
+  adminSummaryItems: {
+    endpoint: '/api/admin/finance/dashboard/admin_summary'
+  },
   physicalPayments: {
     endpoint: '/api/admin/finance/payments',
     query: {
