@@ -69,14 +69,16 @@ class Section extends React.Component {
   _getMoving(blockIndex) {
     const { moving, section } = this.props
     if(!moving) return false
-    if(moving.to.section !== section || moving.to.index !== blockIndex) return false
-    return moving.from.section !== moving.to.section || (moving.from.index !== blockIndex && moving.to.index === blockIndex)
+    const { from, to } = moving
+    if(to.section !== section || to.index !== blockIndex) return false
+    return from.section !== to.section || (from.index !== blockIndex && to.index === blockIndex)
   }
 
   _getClass(index) {
     const { moving, section } = this.props
+    const { from } = moving
     const classes = ['dropzone-block']
-    if(moving && moving.from.section === section && moving.from.index === index) classes.push('hidden')
+    if(moving && from.section === section && from.index === index) classes.push('hidden')
     return classes.join(' ')
   }
 

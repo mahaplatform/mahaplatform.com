@@ -1,4 +1,5 @@
 import { DragSource, DropTarget } from 'react-dnd'
+import { findDOMNode } from 'react-dom'
 import Preferences from './preferences'
 import PropTypes from 'prop-types'
 import Divider from './divider'
@@ -12,7 +13,6 @@ import Video from './video'
 import Text from './text'
 import React from 'react'
 import Web from './web'
-import { findDOMNode } from 'react-dom'
 
 class Block extends React.Component {
 
@@ -116,7 +116,7 @@ class Block extends React.Component {
   }
 
   _handleAction(action) {
-    const { blockIndex, section,onAction } = this.props
+    const { blockIndex, section, onAction } = this.props
     onAction(action, {
       section,
       block: blockIndex
