@@ -9,6 +9,7 @@ import _ from 'lodash'
 const updateRoute = async (req, res) => {
 
   const user = await User.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.user_id)
   }).fetch({
     transacting: req.trx

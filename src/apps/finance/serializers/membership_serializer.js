@@ -3,17 +3,13 @@ const MembershipSerializer = (req, result) => ({
   display: result.get('display'),
   title: result.get('title'),
   integration: integration(req, result),
-  member_type: result.get('member_type').toLowerCase()
+  member_type: result.get('member_type') ? result.get('member_type').toLowerCase() : 'member'
 })
 
 const integration = (req, result) => {
-
-  const integration = req.apps.finance.settings.integration
-
+  const { integration } = req.apps.finance.settings
   if(integration === '' || integration === null) return null
-
   return result.get('integration')
-
 }
 
 export default MembershipSerializer

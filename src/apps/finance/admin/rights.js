@@ -4,9 +4,9 @@ const rights = [
     title: 'Manage Configuration',
     description: 'manage accounts and vendors'
   }, {
-    code: 'manage_all_projects',
-    title: 'Manage All Projects',
-    description: 'manage, edit, and view all projects'
+    code: 'access_all_projects',
+    title: 'Access All Projects',
+    description: 'access all projects'
   }, {
     code: 'manage_expenses',
     title: 'Manage Expenses',

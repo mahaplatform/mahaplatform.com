@@ -18,10 +18,6 @@ const loadNavigation = async (req) => {
   }), {})
 }
 
-const canAccess = () => {
-  
-}
-
 const _expandNavigation = (req, prefix, items) => {
   return Promise.reduce(items, async (items, item) => {
     const canAccess = item.access ? await item.access(req) : true

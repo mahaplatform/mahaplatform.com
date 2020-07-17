@@ -8,8 +8,6 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
     items: [ ]
   }
 
-  console.log(type, item, user, rights, context, Edit)
-
   const is_owner = user.id === item.user.id
 
   const is_approver = _.includes(item.approver_ids, user.id)
