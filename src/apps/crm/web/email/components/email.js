@@ -64,9 +64,9 @@ class Email extends React.Component {
     }
   }
 
-  _handleHover(from, to) {
+  _handleHover(from, to, position) {
     this.setState({
-      moving: { from, to }
+      moving: { from, to, position }
     })
   }
 

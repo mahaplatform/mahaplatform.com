@@ -12,6 +12,7 @@ import Video from './video'
 import Text from './text'
 import React from 'react'
 import Web from './web'
+import { findDOMNode } from 'react-dom'
 
 class Block extends React.Component {
 
@@ -38,7 +39,7 @@ class Block extends React.Component {
     const Component  = this._getComponent()
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { editable && isMoving && movingPosition === 'top' &&
+        { editable && isMoving && movingPosition === 'before' &&
           <Target />
         }
         <table className={`row collapse block-${ blockIndex } ${ config.type }-block block`}>
@@ -78,7 +79,7 @@ class Block extends React.Component {
             </div>
           </div>
         }
-        { editable && isMoving && movingPosition === 'bottom' &&
+        { editable && isMoving && movingPosition === 'after' &&
           <Target />
         }
       </div>
@@ -139,31 +140,45 @@ const source = {
   }
 }
 
+const getPosition = (monitor, component) => {
+  const targetBoundingRect = findDOMNode(component).getBoundingClientRect()
+  const veritcalMiddle = targetBoundingRect.top + (targetBoundingRect.bottom - targetBoundingRect.top) / 2
+  const clientOffset = monitor.getClientOffset()
+  return clientOffset.y >= veritcalMiddle ? 'after' : 'before'
+}
 
 const target = {
   hover(to, monitor, component) {
     const from = monitor.getItem()
+    const position = getPosition(monitor, component)
     to.onHover({
       section: from.section,
       index: from.blockIndex
     }, {
       section: to.section,
       index: to.blockIndex
-    })
+    }, position)
   },
   drop(to, monitor, component) {
     const from = monitor.getItem()
-    if (from.section === to.section && from.blockIndex === to.blockIndex) return
+    const position = getPosition(monitor, component)
+    const offset = getOffset(from, to, position)
+    const toindex = to.blockIndex + offset
+    if(from.section === to.section && from.blockIndex === toindex) return
     to.onMove({
       section: from.section,
       index: from.blockIndex
     }, {
       section: to.section,
-      index: to.blockIndex
+      index: toindex
     })
-    from.section = to.section
-    from.blockIndex = to.blockIndex
   }
+}
+
+const getOffset = (from, to, position) => {
+  if(from.section !== to.section) return position === 'before' ? 0 : 1
+  if(from.blockIndex < to.blockIndex) return position === 'before' ? -1 : 0
+  if(from.blockIndex > to.blockIndex) return position === 'after' ? 1 : 0
 }
 
 const sourceCollector = (connect, monitor) => ({

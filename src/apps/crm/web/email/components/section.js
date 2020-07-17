@@ -80,19 +80,12 @@ class Section extends React.Component {
     return classes.join(' ')
   }
 
-  _getMovingPosition(blockIndex) {
-    const { moving } = this.props
-    if(!moving) return null
-    const { from, to } = moving
-    return (from.section === to.section && from.index > to.index) || from.section !== to.section ? 'top' : 'bottom'
-  }
-
   _getBlock(blockIndex) {
-    const { config, editable, reordering, section, onAction, onHover, onMove, onReordering } = this.props
+    const { config, editable, moving, reordering, section, onAction, onHover, onMove, onReordering } = this.props
     return {
       isActive: this._getActive(blockIndex),
       isMoving: this._getMoving(blockIndex),
-      movingPosition: this._getMovingPosition(blockIndex),
+      movingPosition: moving ? moving.position : null,
       blockIndex,
       config: config[section].blocks[blockIndex],
       editable,
