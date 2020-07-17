@@ -15,6 +15,13 @@
 @android: #A4C639;
 @paypal: #009CDE;
 
+.scrollable() {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
 .opacity(@opacity: 0.5) {
 	opacity: @opacity;
 }

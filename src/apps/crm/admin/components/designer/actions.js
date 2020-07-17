@@ -27,6 +27,12 @@ export const edit = (section, index) => ({
   index
 })
 
+export const move = (from, to) => ({
+  type: 'MOVE',
+  from,
+  to
+})
+
 export const remove = (section, index) => ({
   type: 'REMOVE',
   section,

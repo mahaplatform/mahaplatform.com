@@ -28,6 +28,7 @@ class Designer extends React.Component {
     onChange: PropTypes.func,
     onClone: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
@@ -65,7 +66,7 @@ class Designer extends React.Component {
   }
 
   _getCanvas() {
-    const { active, canvas, config, editable, onAdd, onClone, onEdit, onRemove } = this.props
+    const { active, canvas, config, editable, onAdd, onClone, onEdit, onMove, onRemove } = this.props
     return {
       active,
       canvas,
@@ -74,6 +75,7 @@ class Designer extends React.Component {
       onAdd,
       onClone,
       onEdit,
+      onMove,
       onRemove
     }
   }

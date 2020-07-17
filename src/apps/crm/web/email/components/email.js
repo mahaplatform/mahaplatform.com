@@ -12,6 +12,15 @@ class Email extends React.Component {
     onAction: PropTypes.func
   }
 
+  state = {
+    moving: null,
+    reordering: false
+  }
+
+  _handleHover = this._handleHover.bind(this)
+  _handleMove = this._handleMove.bind(this)
+  _handleReordering = this._handleReordering.bind(this)
+
   render() {
     return (
       <table className="body" id="body">
@@ -40,6 +49,7 @@ class Email extends React.Component {
 
   _getSection(section) {
     const { active, config, editable, onAction } = this.props
+    const { reordering, moving } = this.state
     return {
       active,
       section,
@@ -47,8 +57,30 @@ class Email extends React.Component {
         blocks: config[section].blocks
       },
       editable,
-      onAction
+      reordering,
+      moving,
+      onAction,
+      onHover: this._handleHover,
+      onMove: this._handleMove,
+      onReordering: this._handleReordering
     }
+  }
+
+  _handleHover(from, to) {
+    this.setState({
+      moving: { from, to }
+    })
+  }
+
+  _handleMove(from, to) {
+    this.props.onAction('move', { from, to })
+  }
+
+  _handleReordering(reordering) {
+    this.setState({
+      reordering,
+      moving: null
+    })
   }
 
 }

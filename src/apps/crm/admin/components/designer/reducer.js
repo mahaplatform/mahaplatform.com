@@ -69,6 +69,35 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
+  case 'MOVE':
+    return {
+      ...state,
+      active: {
+        section: null,
+        index: null
+      },
+      changes: state.changes + 1,
+      config: {
+        ...state.config,
+        ...action.from.section === action.to.section ? {
+          [action.from.section]: {
+            ...state.config[action.from.section],
+            blocks: (action.from.index < action.to.index) ? [
+              ...state.config[action.from.section].blocks.slice(0, action.from.index),
+              ...state.config[action.from.section].blocks.slice(action.from.index + 1, action.to.index + 1),
+              state.config[action.from.section].blocks[action.from.index],
+              ...state.config[action.from.section].blocks.slice(action.to.index + 1)
+            ] : [
+              ...state.config[action.from.section].blocks.slice(0, action.to.index),
+              state.config[action.from.section].blocks[action.from.index],
+              ...state.config[action.from.section].blocks.slice(action.to.index, action.from.index),
+              ...state.config[action.from.section].blocks.slice(action.from.index + 1)
+            ]
+          }
+        } : {}
+      }
+    }
+
   case 'REMOVE':
     return {
       ...state,

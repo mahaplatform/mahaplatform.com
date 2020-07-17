@@ -40,7 +40,7 @@ class Form extends React.Component {
             }
             <div className="maha-form-body">
               <div className="ui form">
-                { (!reordering && fields.length === 0 || (hovering && index === 0)) &&
+                { !reordering && (fields.length === 0 || (hovering && index === 0)) &&
                   <div className="dropzone-target">Drop Field Here</div>
                 }
                 { fields.map((field, fieldIndex) => (

@@ -1,3 +1,6 @@
+import { Error, Logger } from 'maha-client'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Email from './components/email'
@@ -28,10 +31,18 @@ class App extends React.Component {
 
   render() {
     if(!this.state.config) return null
-    return [
-      <Style key="style" { ...this._getStyle() } />,
-      <Email key="email" { ...this._getEmail() } />
-    ]
+    return (
+      <DndProvider backend={ HTML5Backend }>
+        <Logger environment="email">
+          <Error>
+            <div className="email">
+              <Style { ...this._getStyle() } />
+              <Email { ...this._getEmail() } />
+            </div>
+          </Error>
+        </Logger>
+      </DndProvider>
+    )
   }
 
   componentDidMount() {

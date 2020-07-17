@@ -74,10 +74,7 @@ const reducer = (state = INITIAL_STATE, action) => {
           state.config.fields[action.from],
           ...state.config.fields.slice(action.to, action.from),
           ...state.config.fields.slice(action.from + 1)
-        ]).map((answer, index) => ({
-          ...answer,
-          delta: index
-        }))
+        ])
       }
     }
 
