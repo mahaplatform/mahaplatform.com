@@ -24,9 +24,7 @@ class Block extends React.Component {
     config: PropTypes.object,
     editable: PropTypes.bool,
     isActive: PropTypes.bool,
-    isMoving: PropTypes.bool,
-    movingPosition: PropTypes.string,
-    reordering: PropTypes.bool,
+    moving: PropTypes.object,
     section: PropTypes.string,
     onAction: PropTypes.func,
     onHover: PropTypes.func,
@@ -35,11 +33,11 @@ class Block extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, isMoving, movingPosition, reordering } = this.props
+    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, moving } = this.props
     const Component  = this._getComponent()
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { editable && isMoving && movingPosition === 'before' &&
+        { editable && moving.isTarget && moving.position === 'before' &&
           <Target />
         }
         <table className={`row collapse block-${ blockIndex } ${ config.type }-block block`}>
@@ -59,10 +57,10 @@ class Block extends React.Component {
             </tr>
           </tbody>
         </table>
-        { editable && (!reordering || isMoving) &&
+        { editable && (!moving.isMoving || moving.isTarget) &&
           <div className="block-highlight" />
         }
-        { editable && !reordering &&
+        { editable && !moving.isMoving &&
           <div className="block-actions">
             <div className="block-action">
               <i className="fa fa-bars"></i>
@@ -79,7 +77,7 @@ class Block extends React.Component {
             </div>
           </div>
         }
-        { editable && isMoving && movingPosition === 'after' &&
+        { editable && moving.isTarget && moving.position === 'after' &&
           <Target />
         }
       </div>
@@ -87,9 +85,9 @@ class Block extends React.Component {
   }
 
   _getClass() {
-    const { isActive, isMoving } = this.props
+    const { isActive, moving } = this.props
     const classes = ['block']
-    if(isActive || isMoving) classes.push('active')
+    if(isActive || moving.isMoving) classes.push('active')
     return classes.join(' ')
   }
 
@@ -147,6 +145,12 @@ const getPosition = (monitor, component) => {
   return clientOffset.y >= veritcalMiddle ? 'after' : 'before'
 }
 
+const getOffset = (from, to, position) => {
+  if(from.section !== to.section) return position === 'before' ? 0 : 1
+  if(from.blockIndex < to.blockIndex) return position === 'before' ? -1 : 0
+  if(from.blockIndex > to.blockIndex) return position === 'after' ? 1 : 0
+}
+
 const target = {
   hover(to, monitor, component) {
     const from = monitor.getItem()
@@ -173,12 +177,6 @@ const target = {
       index: toindex
     })
   }
-}
-
-const getOffset = (from, to, position) => {
-  if(from.section !== to.section) return position === 'before' ? 0 : 1
-  if(from.blockIndex < to.blockIndex) return position === 'before' ? -1 : 0
-  if(from.blockIndex > to.blockIndex) return position === 'after' ? 1 : 0
 }
 
 const sourceCollector = (connect, monitor) => ({

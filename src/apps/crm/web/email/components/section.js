@@ -10,7 +10,6 @@ class Section extends React.Component {
     config: PropTypes.object,
     editable: PropTypes.bool,
     section: PropTypes.string,
-    reordering: PropTypes.bool,
     moving: PropTypes.object,
     onAction: PropTypes.func,
     onHover: PropTypes.func,
@@ -30,11 +29,11 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { editable, config, reordering, section } = this.props
+    const { editable, config, moving, section } = this.props
     const { blocks } = config[section]
     return (
       <div { ...this._getDropZone() }>
-        { !reordering && editable && hovering &&
+        { !moving.isMoving && editable && hovering &&
           <div className="dropzone-highlight" data-label={section} />
         }
         <table className={`section-${ section } section`}>
@@ -66,32 +65,32 @@ class Section extends React.Component {
     return active.index === blockIndex && active.section === section
   }
 
-  _getMoving(blockIndex) {
+  _getIsMovingTarget(blockIndex) {
     const { moving, section } = this.props
-    if(!moving) return false
-    const { from, to } = moving
+    if(!moving.target) return false
+    const { from, to } = moving.target
     if(to.section !== section || to.index !== blockIndex) return false
     return from.section !== to.section || (from.index !== blockIndex && to.index === blockIndex)
   }
 
   _getClass(index) {
     const { moving, section } = this.props
-    const { from } = moving
     const classes = ['dropzone-block']
-    if(moving && from.section === section && from.index === index) classes.push('hidden')
+    if(moving.target && moving.target.from.section === section && moving.target.from.index === index) classes.push('hidden')
     return classes.join(' ')
   }
 
   _getBlock(blockIndex) {
-    const { config, editable, moving, reordering, section, onAction, onHover, onMove, onReordering } = this.props
+    const { config, editable, moving, section, onAction, onHover, onMove, onReordering } = this.props
     return {
       isActive: this._getActive(blockIndex),
-      isMoving: this._getMoving(blockIndex),
-      movingPosition: moving ? moving.position : null,
+      moving: {
+        ...moving,
+        isTarget: this._getIsMovingTarget(blockIndex)
+      },
       blockIndex,
       config: config[section].blocks[blockIndex],
       editable,
-      reordering,
       section,
       onAction,
       onHover,
@@ -101,8 +100,8 @@ class Section extends React.Component {
   }
 
   _getDropZone() {
-    const { editable, reordering } = this.props
-    if(reordering || !editable) return {}
+    const { editable, moving } = this.props
+    if(moving.isMoving || !editable) return {}
     return {
       className: 'dropzone',
       onDragEnter: this._handleDrag.bind(this, 'enter'),

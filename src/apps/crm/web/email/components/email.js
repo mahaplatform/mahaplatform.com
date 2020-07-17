@@ -13,8 +13,11 @@ class Email extends React.Component {
   }
 
   state = {
-    moving: null,
-    reordering: false
+    moving: {
+      isMoving: false,
+      target: null,
+      position: null
+    }
   }
 
   _handleHover = this._handleHover.bind(this)
@@ -49,13 +52,12 @@ class Email extends React.Component {
 
   _getSection(section) {
     const { active, config, editable, onAction } = this.props
-    const { reordering, moving } = this.state
+    const { moving } = this.state
     return {
       active,
       section,
       config,
       editable,
-      reordering,
       moving,
       onAction,
       onHover: this._handleHover,
@@ -66,7 +68,11 @@ class Email extends React.Component {
 
   _handleHover(from, to, position) {
     this.setState({
-      moving: { from, to, position }
+      moving: {
+        isMoving: true,
+        target: { from, to },
+        position
+      }
     })
   }
 
@@ -74,10 +80,13 @@ class Email extends React.Component {
     this.props.onAction('move', { from, to })
   }
 
-  _handleReordering(reordering) {
+  _handleReordering(isMoving) {
     this.setState({
-      reordering,
-      moving: null
+      moving: {
+        isMoving,
+        target: null,
+        position: null
+      }
     })
   }
 
