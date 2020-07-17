@@ -13,13 +13,7 @@ class AdminTasks extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     controls: PropTypes.any,
-    physicalPayments: PropTypes.array,
-    digitalPaymentsCaptured: PropTypes.array,
-    digitalPaymentsSettled: PropTypes.array,
-    deposits: PropTypes.array,
-    expensesForReview: PropTypes.array,
-    expensesForExport: PropTypes.array,
-    adminSummaryItems: PropTypes.array
+    adminSummaryItems: PropTypes.object
   }
 
   _getListItems = this._getListItems.bind(this)
@@ -31,10 +25,8 @@ class AdminTasks extends React.Component {
   _handleExpensesForExport = this._handleExpensesForExport.bind(this)
 
   render() {
-    const { controls, adminSummaryItems } = this.props
+    const { controls } = this.props
     const listItems = this._getListItems()
-
-    console.log(adminSummaryItems)
 
     return (
       <div className="maha-dashboard-card">
@@ -49,7 +41,7 @@ class AdminTasks extends React.Component {
             { listItems.map((item, index) => (
               <div className="maha-list-item maha-list-item-link" key={`finance_item_${index}`}  onClick={ item.handler }>
                 <div className="maha-list-item-label">
-                  <b>{ item.records.length }</b> { item.noun } { item.verb }
+                  <b>{ item.count }</b> { item.noun } { item.verb }
                 </div>
                 <div className="maha-list-item-proceed">
                   <i className="fa fa-chevron-right" />
@@ -63,43 +55,43 @@ class AdminTasks extends React.Component {
   }
 
   _getListItems() {
-    const { physicalPayments, digitalPaymentsCaptured, digitalPaymentsSettled, deposits, expensesForReview, expensesForExport } = this.props
+    const { adminSummaryItems } = this.props
 
     const listItems = [
       {
-        records: physicalPayments,
+        count: adminSummaryItems.physical_payments_count,
         handler: this._handlePhysicalPayments,
-        noun: `cash/check ${pluralize('payment', physicalPayments.length)}`,
+        noun: `cash/check ${pluralize('payment', adminSummaryItems.physical_payments_count)}`,
         verb: 'to deposit'
       },
       {
-        records: digitalPaymentsCaptured,
+        count: adminSummaryItems.digital_payments_captured_count,
         handler: this._handleDigitalPaymentsCaptured,
-        noun: `digital ${pluralize('payment', digitalPaymentsCaptured.length)}`,
+        noun: `digital ${pluralize('payment', adminSummaryItems.digital_payments_captured_count)}`,
         verb: 'pending settlement'
       },
       {
-        records: digitalPaymentsSettled,
+        count: adminSummaryItems.digital_payments_settled_count,
         handler: this._handleDigitalPaymentsSettled,
-        noun: `digital ${pluralize('payment', digitalPaymentsSettled.length)}`,
+        noun: `digital ${pluralize('payment', adminSummaryItems.digital_payments_settled_count)}`,
         verb: 'pending disbursement'
       },
       {
-        records: deposits,
+        count: adminSummaryItems.deposits_count,
         handler: this._handleDeposits,
-        noun: pluralize('deposit', deposits.length),
+        noun: pluralize('deposit', adminSummaryItems.deposits_count),
         verb: 'to export'
       },
       {
-        records: expensesForReview,
+        count: adminSummaryItems.expenses_approved_count,
         handler: this._handleExpensesForReview,
-        noun: pluralize('expense', expensesForReview.length),
+        noun: pluralize('expense', adminSummaryItems.expenses_approved_count),
         verb: 'to review'
       },
       {
-        records: expensesForExport,
+        count: adminSummaryItems.expenses_reviewed_count,
         handler: this._handleExpensesForExport,
-        noun: pluralize('expense', expensesForExport.length),
+        noun: pluralize('expense', adminSummaryItems.expenses_reviewed_count),
         verb: 'to export'
       }
     ]
@@ -136,93 +128,6 @@ class AdminTasks extends React.Component {
 const mapResources = (props, context) => ({
   adminSummaryItems: {
     endpoint: '/api/admin/finance/dashboard/admin_summary'
-  },
-  physicalPayments: {
-    endpoint: '/api/admin/finance/payments',
-    query: {
-      $filter: {
-        status: {
-          $in: ['received']
-        },
-        method: {
-          $in: ['cash','check']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
-  },
-  digitalPaymentsCaptured: {
-    endpoint: '/api/admin/finance/payments',
-    query: {
-      $filter: {
-        status: {
-          $in: ['captured']
-        },
-        method: {
-          $in: ['ach','card','paypal','applepay','googlepay']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
-  },
-  digitalPaymentsSettled: {
-    endpoint: '/api/admin/finance/payments',
-    query: {
-      $filter: {
-        status: {
-          $in: ['settled']
-        },
-        method: {
-          $in: ['ach','card','paypal','applepay','googlepay']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
-  },
-  deposits: {
-    endpoint: '/api/admin/finance/deposits',
-    query: {
-      $filter: {
-        status: {
-          $in: ['pending']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
-  },
-  expensesForReview: {
-    endpoint: '/api/admin/finance/items/report',
-    query: {
-      $filter: {
-        status: {
-          $in: ['approved']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
-  },
-  expensesForExport: {
-    endpoint: '/api/admin/finance/items/report',
-    query: {
-      $filter: {
-        status: {
-          $in: ['reviewed']
-        }
-      },
-      $page: {
-        limit: 0
-      }
-    }
   }
 })
 
