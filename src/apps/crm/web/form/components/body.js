@@ -1,15 +1,13 @@
+import { Recaptcha } from 'maha-client'
 import PropTypes from 'prop-types'
-import Target from './target'
-import Block from './block'
+import Field from './field'
 import React from 'react'
 
-class Section extends React.Component {
+class Form extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     config: PropTypes.object,
-    editable: PropTypes.bool,
-    section: PropTypes.string,
     moving: PropTypes.object,
     onAction: PropTypes.func,
     onHover: PropTypes.func,
@@ -29,62 +27,49 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { editable, config, section } = this.props
-    const { blocks } = config[section]
+    const { config, moving } = this.props
+    const { body, fields, security } = config
     return (
       <div { ...this._getDropZone() }>
-        { editable && hovering &&
-          <div className="dropzone-highlight" data-label={section} />
-        }
-        <table className={`section-${ section } section`}>
-          <tbody>
-            <tr>
-              <td>
-                { (blocks.length === 0 || (hovering && index === 0)) &&
-                  <Target />
+        <div className="maha-form-body">
+          <div className="ui form">
+            { !moving.isMoving && (fields.length === 0 || (hovering && index === 0)) &&
+              <div className="dropzone-target">Drop Field Here</div>
+            }
+            { fields.map((field, fieldIndex) => (
+              <div key={`field_${fieldIndex}`} className={ this._getClass(fieldIndex) } data-index={ fieldIndex }>
+                <Field { ...this._getField(field, fieldIndex) } />
+                { !moving.isMoving && hovering && fieldIndex + 1 === index &&
+                  <div className="dropzone-target">Drop Field Here</div>
                 }
-                { blocks.map((block, blockIndex) => (
-                  <div key={`block_${blockIndex}`} className={ this._getClass(blockIndex) } data-index={ blockIndex }>
-                    <Block { ...this._getBlock(blockIndex) } />
-                    { (hovering && blockIndex + 1 === index) &&
-                      <Target />
-                    }
-                  </div>
-                )) }
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </div>
+            )) }
+            { security.captcha &&
+              <div className="maha-form-captcha">
+                <Recaptcha />
+              </div>
+            }
+            <div className="maha-form-submit">
+              <button className="ui blue fluid button">
+                { body.button_text }
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 
   _getClass(index) {
-    const { moving, section } = this.props
+    const { moving } = this.props
     const classes = ['dropzone-block']
-    if(moving.target && moving.target.from.section === section && moving.target.from.index === index) classes.push('hidden')
+    if(moving.target && moving.target.from.index === index) classes.push('hidden')
     return classes.join(' ')
   }
 
-  _getBlock(blockIndex) {
-    const { config, editable, moving, section, onAction, onHover, onMove, onReordering } = this.props
-    return {
-      isActive: this._getIsActive(blockIndex),
-      moving,
-      blockIndex,
-      config: config[section].blocks[blockIndex],
-      editable,
-      section,
-      onAction,
-      onHover,
-      onMove,
-      onReordering
-    }
-  }
-
   _getDropZone() {
-    const { editable, moving } = this.props
-    if(moving.isMoving || !editable) return {}
+    const { moving } = this.props
+    if(moving.isMoving) return {}
     return {
       className: 'dropzone',
       onDragEnter: this._handleDrag.bind(this, 'enter'),
@@ -93,10 +78,25 @@ class Section extends React.Component {
     }
   }
 
-  _getIsActive(blockIndex) {
-    const { active, section } = this.props
-    if(active.index === null) return false
-    return active.index === blockIndex && active.section === section
+  _getField(field, index) {
+    const { active, moving, onAction, onHover, onMove, onReordering } = this.props
+    return {
+      active,
+      field,
+      index,
+      isActive: this._getIsActive(index),
+      moving,
+      onAction,
+      onHover,
+      onMove,
+      onReordering
+    }
+  }
+
+  _getIsActive(index) {
+    const { active } = this.props
+    if(active === null) return false
+    return active === index
   }
 
   _getMiddle(el) {
@@ -119,12 +119,11 @@ class Section extends React.Component {
 
   _handleDrop(e) {
     const { index } = this.state
-    const { section, onAction } = this.props
+    const { onAction } = this.props
     e.preventDefault()
     e.stopPropagation()
     onAction('add', {
       type: e.dataTransfer.getData('type'),
-      section,
       index
     })
     this.setState({
@@ -142,20 +141,19 @@ class Section extends React.Component {
   }
 
   _handleDragOver(target, dropzone, x, y) {
-    const { section } = this.props
-    const { blocks } = this.props.config[section]
-    const block = this._getParent(target, '.dropzone-block')
+    const { fields } = this.props.config
+    const field = this._getParent(target, '.dropzone-block')
     if(this.timeout) clearTimeout(this.timeout)
     this.timeout = setTimeout(this._handleDragLeave, 100)
-    if(block) {
-      const blockIndex = parseInt(block.dataset.index)
-      const middle = this._getMiddle(block)
+    if(field) {
+      const blockIndex = parseInt(field.dataset.index)
+      const middle = this._getMiddle(field)
       if(y <= middle) return this._handleIndex(blockIndex)
       if(y > middle) return this._handleIndex(blockIndex + 1)
     }
     const middle = this._getMiddle(dropzone)
     if(y <= middle) return this._handleIndex(0)
-    if(y > middle) return this._handleIndex(blocks.length)
+    if(y > middle) return this._handleIndex(fields.length)
   }
 
   _handleHover(hovering) {
@@ -168,4 +166,4 @@ class Section extends React.Component {
 
 }
 
-export default Section
+export default Form

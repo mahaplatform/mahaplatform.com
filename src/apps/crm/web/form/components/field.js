@@ -2,6 +2,7 @@ import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, TextField,
 import DonationField from '../../embedded/components/form/fields/donationfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
 import { DragSource, DropTarget } from 'react-dnd'
+import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -16,19 +17,26 @@ class Field extends React.Component {
     config: PropTypes.object,
     field: PropTypes.object,
     index: PropTypes.number,
+    isActive: PropTypes.bool,
     isDragging: PropTypes.bool,
+    isOver: PropTypes.bool,
+    moving: PropTypes.object,
     onAction: PropTypes.func,
+    onHover: PropTypes.func,
     onMove: PropTypes.func,
     onReordering: PropTypes.func
   }
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, field } = this.props
+    const { connectDropTarget, connectDragPreview, connectDragSource, field, isOver, moving } = this.props
     if(Object.keys(field).length === 1) return null
     const Component  = this._getComponent(field)
     const { label, instructions } = field
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
+        { isOver && moving.position === 'before' &&
+          <div className="dropzone-target">Drop Field Here</div>
+        }
         <div className={ this._getFieldClass() }>
           { label && <label>{ label }</label> }
           { instructions &&
@@ -36,31 +44,37 @@ class Field extends React.Component {
           }
           <Component { ...this._getField() } />
         </div>
-        <div className="block-highlight" />
-        <div className="block-actions">
-          <div className="block-action">
-            <i className="fa fa-bars"></i>
+        { (!moving.isMoving || isOver) &&
+          <div className="block-highlight" />
+        }
+        { !moving.isMoving &&
+          <div className="block-actions">
+            <div className="block-action">
+              <i className="fa fa-bars"></i>
+            </div>
+            <div className="block-spacer"></div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
+              <i className="fa fa-pencil"></i>
+            </div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'clone') }>
+              <i className="fa fa-copy"></i>
+            </div>
+            <div className="block-action" onClick={ this._handleAction.bind(this, 'remove') }>
+              <i className="fa fa-trash"></i>
+            </div>
           </div>
-          <div className="block-spacer"></div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
-            <i className="fa fa-pencil"></i>
-          </div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'clone') }>
-            <i className="fa fa-copy"></i>
-          </div>
-          <div className="block-action" onClick={ this._handleAction.bind(this, 'remove') }>
-            <i className="fa fa-trash"></i>
-          </div>
-        </div>
+        }
+        { isOver && moving.position === 'after' &&
+          <div className="dropzone-target">Drop Field Here</div>
+        }
       </div>
     )))
   }
 
   _getClass() {
-    const { active, index } = this.props
-    const is_active = active !== null && active === index
+    const { isActive, moving } = this.props
     const classes = ['block']
-    if(is_active) classes.push('active')
+    if(isActive || moving.isMoving) classes.push('active')
     return classes.join(' ')
   }
 
@@ -87,7 +101,6 @@ class Field extends React.Component {
       ...this.props.field.contactfield || {},
       ...this.props.field
     }
-
     return {
       ...field,
       name: _.get(field, 'name.value')
@@ -113,6 +126,7 @@ const source = {
     props.onReordering(true)
     return {
       index: props.index,
+      onHover: props.onHover,
       onMove: props.onMove
     }
   },
@@ -121,13 +135,35 @@ const source = {
   }
 }
 
+const getPosition = (monitor, component) => {
+  const targetBoundingRect = findDOMNode(component).getBoundingClientRect()
+  const veritcalMiddle = targetBoundingRect.top + (targetBoundingRect.bottom - targetBoundingRect.top) / 2
+  const clientOffset = monitor.getClientOffset()
+  return clientOffset.y >= veritcalMiddle ? 'after' : 'before'
+}
+
+const getOffset = (from, to, position) => {
+  if(from.index < to.index) return position === 'before' ? -1 : 0
+  if(from.index > to.index) return position === 'after' ? 1 : 0
+}
+
 const target = {
-  hover(props, monitor, component) {
-    const dragIndex = monitor.getItem().index
-    const hoverIndex = props.index
-    if (dragIndex === hoverIndex) return
-    props.onMove(dragIndex, hoverIndex)
-    monitor.getItem().index = hoverIndex
+  hover(to, monitor, component) {
+    const from = monitor.getItem()
+    const position = getPosition(monitor, component)
+    to.onHover({
+      index: from.index
+    }, {
+      index: to.index
+    }, position)
+  },
+  drop(to, monitor, component) {
+    const from = monitor.getItem()
+    const position = getPosition(monitor, component)
+    const offset = getOffset(from, to, position)
+    const toindex = to.index + offset
+    if(from.index === toindex) return
+    to.onMove(from.index, toindex)
   }
 }
 

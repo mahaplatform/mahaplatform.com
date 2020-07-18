@@ -24,6 +24,8 @@ class Block extends React.Component {
     config: PropTypes.object,
     editable: PropTypes.bool,
     isActive: PropTypes.bool,
+    isDragging: PropTypes.bool,
+    isOver: PropTypes.bool,
     moving: PropTypes.object,
     section: PropTypes.string,
     onAction: PropTypes.func,
@@ -33,11 +35,11 @@ class Block extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, moving } = this.props
+    const { connectDropTarget, connectDragPreview, connectDragSource, blockIndex, config, editable, isOver, moving } = this.props
     const Component  = this._getComponent()
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { editable && moving.isTarget && moving.position === 'before' &&
+        { editable && isOver && moving.position === 'before' &&
           <Target />
         }
         <table className={`row collapse block-${ blockIndex } ${ config.type }-block block`}>
@@ -57,7 +59,7 @@ class Block extends React.Component {
             </tr>
           </tbody>
         </table>
-        { editable && (!moving.isMoving || moving.isTarget) &&
+        { editable && (!moving.isMoving || isOver) &&
           <div className="block-highlight" />
         }
         { editable && !moving.isMoving &&
@@ -77,7 +79,7 @@ class Block extends React.Component {
             </div>
           </div>
         }
-        { editable && moving.isTarget && moving.position === 'after' &&
+        { editable && isOver && moving.position === 'after' &&
           <Target />
         }
       </div>
