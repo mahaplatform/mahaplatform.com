@@ -65,10 +65,14 @@ div.dropzone-highlight {
   }
 }
 div.dropzone-target {
-  border: 2px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 95);
-  color:  fadeout(@black, 90);
-  padding: 5px 0;
+  border: 2px solid @teal;
+  background-color: lighten(@teal, 63);
+  td {
+    padding: 0.6em;
+    text-align: center;
+    color: @teal;
+    font-size: 0.8em;
+  }
 }
 div.dropzone-marker {
   background-color: blue;
