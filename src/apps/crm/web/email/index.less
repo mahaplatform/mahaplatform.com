@@ -36,9 +36,6 @@ body {
 }
 div.dropzone {
   position: relative;
-  td.first {
-    text-align: center !important;
-  }
 }
 div.dropzone-block.hidden {
   display: none;
@@ -65,13 +62,14 @@ div.dropzone-highlight {
   }
 }
 div.dropzone-target {
-  border: 2px solid @teal;
-  background-color: lighten(@teal, 63);
+  border: 2px solid @teal !important;
+  background-color: lighten(@teal, 63) !important;
   td {
-    padding: 0.6em;
-    text-align: center;
-    color: @teal;
-    font-size: 0.8em;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
+    font-size: 14px !important;
+    color: @teal !important;
+    padding: 8px !important;
+    line-height: 20px !important;
   }
 }
 div.dropzone-marker {
