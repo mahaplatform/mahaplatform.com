@@ -15,7 +15,7 @@ const Details = ({ audits, campaign }) => {
     route: `/admin/crm/campaigns/email/${campaign.id}/design`
   }
 
-  config.header = <EmailPreview email={ campaign } />
+  config.header = <EmailPreview email={ campaign } link={`/crm/admin/emails/campaign/${campaign.id}/preview`} />
 
   if(campaign.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This campaign was deleted' }

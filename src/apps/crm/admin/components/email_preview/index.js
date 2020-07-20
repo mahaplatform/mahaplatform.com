@@ -2,16 +2,34 @@ import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const EmailPreview = ({ email }) => (
-  <div className="crm-email-preview">
-    { email.preview &&
-      <Image src={ `/${email.preview}` } transforms={{ h: 360 }} />
-    }
-  </div>
-)
+class EmailPreview extends React.Component {
 
-EmailPreview.propTypes = {
-  email: PropTypes.object
+  static contextTypes = {
+    host: PropTypes.object
+  }
+
+  static propTypes = {
+    email: PropTypes.object,
+    link: PropTypes.string
+  }
+
+  _handleClick = this._handleClick.bind(this)
+
+  render() {
+    const { email } = this.props
+    return (
+      <div className="crm-email-preview" onClick={ this._handleClick }>
+        { email.preview &&
+          <Image src={ `/${email.preview}` } transforms={{ h: 360 }} />
+        }
+      </div>
+    )
+  }
+
+  _handleClick() {
+    this.context.host.openWindow(this.props.link)
+  }
+
 }
 
 export default EmailPreview
