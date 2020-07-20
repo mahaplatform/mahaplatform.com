@@ -13,7 +13,6 @@ import topics from './topics'
 import forms from './forms'
 import lists from './lists'
 import calls from './calls'
-import tags from './tags'
 
 const router = new Router({ mergeParams: true })
 
@@ -38,8 +37,6 @@ router.use('/organizations', organizations)
 router.use('/programs', programs)
 
 router.use('/recordings', recordings)
-
-router.use('/tags', tags)
 
 router.use('/topics', topics)
 

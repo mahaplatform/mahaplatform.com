@@ -65,10 +65,6 @@ const criteria = (programfields) => [
       { value: '$jin', text: 'belongs to' },
       { value: '$njin', text: 'does not belong to' }
     ] },
-    { name: 'Tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id', multiple: true, subject: false, comparisons: [
-      { value: '$jin', text: 'is tagged with' },
-      { value: '$njin', text: 'id not tagged with' }
-    ] },
     { name: 'Topic', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
       { value: '$jin', text: 'is interested in' },
       { value: '$njin', text: 'is not interested in' }

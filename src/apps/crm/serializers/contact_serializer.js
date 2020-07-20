@@ -18,7 +18,6 @@ const ContactSerializer = async (req, result) => ({
   organizations: result.related('organizations').map(organization),
   lists: result.related('lists').map(list),
   topics: result.related('topics').map(topic),
-  tags: result.related('tags').map(tag),
   values: await values(req, result.get('values')),
   birthday: result.get('birthday'),
   spouse: result.get('spouse'),

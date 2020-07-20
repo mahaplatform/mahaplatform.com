@@ -30,15 +30,6 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await updateRelated(req, {
-    object: organization,
-    related: 'tags',
-    table: 'crm_taggings',
-    ids: req.body.tag_ids,
-    foreign_key: 'organization_id',
-    related_foreign_key: 'tag_id'
-  })
-
   await activity(req, {
     story: 'created {object}',
     object: organization
@@ -48,7 +39,7 @@ const createRoute = async (req, res) => {
     '/admin/crm/organizations'
   ])
 
-  await organization.load(['logo','tags'], {
+  await organization.load(['logo'], {
     transacting: req.trx
   })
 

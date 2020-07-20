@@ -62,10 +62,6 @@ const Contact = new Model({
       return this.related('organizations').map(organization => organization.id)
     },
 
-    tag_ids: function() {
-      return this.related('tags').map(tag => tag.id)
-    },
-
     topic_ids: function() {
       return this.related('topics').map(topic => topic.id)
     },

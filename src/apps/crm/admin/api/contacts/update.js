@@ -69,15 +69,6 @@ const updateRoute = async (req, res) => {
 
   await updateRelated(req, {
     object: contact,
-    related: 'tags',
-    table: 'crm_taggings',
-    ids: req.body.tag_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'tag_id'
-  })
-
-  await updateRelated(req, {
-    object: contact,
     related: 'organizations',
     table: 'crm_contacts_organizations',
     ids: req.body.organization_ids,
@@ -122,7 +113,7 @@ const updateRoute = async (req, res) => {
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('id', contact.get('id'))
   }).fetch({
-    withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo','tags'],
+    withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo'],
     transacting: req.trx
   })
 

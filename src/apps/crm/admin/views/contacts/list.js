@@ -4,7 +4,6 @@ import { Page } from 'maha-admin'
 import criteria from './criteria'
 import Topics from './topics'
 import Lists from './lists'
-import Tags from './tags'
 import React from 'react'
 import New from './new'
 
@@ -64,14 +63,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`),
     selectable: true,
     buttons: (selected, onSuccess) => [{
-      label: 'Tag Contacts',
-      color: 'red',
-      modal: <Tags filter={ selected.filter } />
-    },{
-      label: 'Add Consent',
-      color: 'red',
-      modal: <Tags filter={ selected.filter } />
-    },{
       label: 'Add to Lists',
       color: 'red',
       modal: <Lists filter={ selected.filter } />
