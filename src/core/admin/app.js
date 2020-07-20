@@ -168,7 +168,7 @@ import eventsActivityCards from '../../apps/events/admin/activities/index.js'
 import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/emails/index.js'
 import crmAdminDashboardFormIndexJs from '../../apps/crm/admin/dashboard/form/index.js'
 import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
-import financeAdminDashboardAdminTasksIndexJs from '../../apps/finance/admin/dashboard/admin_tasks/index.js'
+import financeAdminDashboardAdminOverviewIndexJs from '../../apps/finance/admin/dashboard/admin_overview/index.js'
 import financeAdminDashboardExpenseApprovalsIndexJs from '../../apps/finance/admin/dashboard/expense_approvals/index.js'
 import financeAdminDashboardNewItemIndexJs from '../../apps/finance/admin/dashboard/new_item/index.js'
 import mahaAdminDashboardGreetingIndexJs from '../../apps/maha/admin/dashboard/greeting/index.js'
@@ -273,10 +273,10 @@ class App extends React.Component {
         code: 'events:'+eventsAdminDashboardEventDetailIndexJs.code
       },
       {
-        ...financeAdminDashboardAdminTasksIndexJs,
+        ...financeAdminDashboardAdminOverviewIndexJs,
         app: 'finance',
-        type: financeAdminDashboardAdminTasksIndexJs.code,
-        code: 'finance:'+financeAdminDashboardAdminTasksIndexJs.code
+        type: financeAdminDashboardAdminOverviewIndexJs.code,
+        code: 'finance:'+financeAdminDashboardAdminOverviewIndexJs.code
       },
       {
         ...financeAdminDashboardExpenseApprovalsIndexJs,

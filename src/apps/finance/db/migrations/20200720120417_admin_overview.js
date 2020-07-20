@@ -1,8 +1,8 @@
-const AdminSummary = {
+const AdminOverview = {
 
   up: async (knex) => {
     await knex.raw(`
-      create view finance_admin_summary as 
+      create view finance_admin_overview as
       with physical_payments as (
         select count(*), team_id
         from finance_payments
@@ -66,4 +66,4 @@ const AdminSummary = {
 
 }
 
-export default AdminSummary
+export default AdminOverview

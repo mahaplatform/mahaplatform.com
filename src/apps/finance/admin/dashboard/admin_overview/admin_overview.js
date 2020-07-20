@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
 
-class AdminTasks extends React.Component {
+class AdminOverview extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
@@ -13,7 +13,7 @@ class AdminTasks extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     controls: PropTypes.any,
-    adminSummaryItems: PropTypes.object
+    items: PropTypes.object
   }
 
   _getListItems = this._getListItems.bind(this)
@@ -32,7 +32,7 @@ class AdminTasks extends React.Component {
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
-            <h2>Finance Tasks</h2>
+            <h2>Finance Overview</h2>
           </div>
           { controls }
         </div>
@@ -55,43 +55,43 @@ class AdminTasks extends React.Component {
   }
 
   _getListItems() {
-    const { adminSummaryItems } = this.props
+    const { items } = this.props
 
     const listItems = [
       {
-        count: adminSummaryItems.physical_payments_count,
+        count: items.physical_payments_count,
         handler: this._handlePhysicalPayments,
-        noun: `cash/check ${pluralize('payment', adminSummaryItems.physical_payments_count)}`,
+        noun: `cash/check ${pluralize('payment', items.physical_payments_count)}`,
         verb: 'to deposit'
       },
       {
-        count: adminSummaryItems.digital_payments_captured_count,
+        count: items.digital_payments_captured_count,
         handler: this._handleDigitalPaymentsCaptured,
-        noun: `digital ${pluralize('payment', adminSummaryItems.digital_payments_captured_count)}`,
+        noun: `digital ${pluralize('payment', items.digital_payments_captured_count)}`,
         verb: 'pending settlement'
       },
       {
-        count: adminSummaryItems.digital_payments_settled_count,
+        count: items.digital_payments_settled_count,
         handler: this._handleDigitalPaymentsSettled,
-        noun: `digital ${pluralize('payment', adminSummaryItems.digital_payments_settled_count)}`,
+        noun: `digital ${pluralize('payment', items.digital_payments_settled_count)}`,
         verb: 'pending disbursement'
       },
       {
-        count: adminSummaryItems.deposits_count,
+        count: items.deposits_count,
         handler: this._handleDeposits,
-        noun: pluralize('deposit', adminSummaryItems.deposits_count),
+        noun: pluralize('deposit', items.deposits_count),
         verb: 'to export'
       },
       {
-        count: adminSummaryItems.expenses_approved_count,
+        count: items.expenses_approved_count,
         handler: this._handleExpensesForReview,
-        noun: pluralize('expense', adminSummaryItems.expenses_approved_count),
+        noun: pluralize('expense', items.expenses_approved_count),
         verb: 'to review'
       },
       {
-        count: adminSummaryItems.expenses_reviewed_count,
+        count: items.expenses_reviewed_count,
         handler: this._handleExpensesForExport,
-        noun: pluralize('expense', adminSummaryItems.expenses_reviewed_count),
+        noun: pluralize('expense', items.expenses_reviewed_count),
         verb: 'to export'
       }
     ]
@@ -126,9 +126,9 @@ class AdminTasks extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  adminSummaryItems: {
-    endpoint: '/api/admin/finance/dashboard/admin_summary'
+  items: {
+    endpoint: '/api/admin/finance/dashboard/admin_overview'
   }
 })
 
-export default Container(mapResources)(AdminTasks)
+export default Container(mapResources)(AdminOverview)

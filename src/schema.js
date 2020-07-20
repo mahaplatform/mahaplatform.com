@@ -4988,6 +4988,61 @@ union
     `)
 
     await knex.raw(`
+      create view finance_admin_overview AS
+      with physical_payments as (
+      select count(*) as count,
+      finance_payments.team_id
+      from finance_payments
+      where ((finance_payments.status = 'received'::finance_payments_status) and (finance_payments.method = any (array['cash'::finance_payments_method, 'check'::finance_payments_method])))
+      group by finance_payments.team_id
+      ), digital_payments_captured as (
+      select count(*) as count,
+      finance_payments.team_id
+      from finance_payments
+      where ((finance_payments.status = 'captured'::finance_payments_status) and (finance_payments.method = any (array['ach'::finance_payments_method, 'card'::finance_payments_method, 'paypal'::finance_payments_method, 'applepay'::finance_payments_method, 'googlepay'::finance_payments_method])))
+      group by finance_payments.team_id
+      ), digital_payments_settled as (
+      select count(*) as count,
+      finance_payments.team_id
+      from finance_payments
+      where ((finance_payments.status = 'settled'::finance_payments_status) and (finance_payments.method = any (array['ach'::finance_payments_method, 'card'::finance_payments_method, 'paypal'::finance_payments_method, 'applepay'::finance_payments_method, 'googlepay'::finance_payments_method])))
+      group by finance_payments.team_id
+      ), deposits as (
+      select count(*) as count,
+      finance_deposits.team_id
+      from finance_deposits
+      where (finance_deposits.status = 'pending'::finance_deposit_statuses)
+      group by finance_deposits.team_id
+      ), expenses_approved as (
+      select count(*) as count,
+      finance_items.team_id
+      from finance_items
+      where ((finance_items.deleted_at is null) and ((finance_items.status)::text = 'approved'::text))
+      group by finance_items.team_id
+      ), expenses_reviewed as (
+      select count(*) as count,
+      finance_items.team_id
+      from finance_items
+      where ((finance_items.deleted_at is null) and ((finance_items.status)::text = 'reviewed'::text))
+      group by finance_items.team_id
+      )
+      select maha_teams.id as team_id,
+      coalesce(physical_payments.count, (0)::bigint) as physical_payments_count,
+      coalesce(digital_payments_captured.count, (0)::bigint) as digital_payments_captured_count,
+      coalesce(digital_payments_settled.count, (0)::bigint) as digital_payments_settled_count,
+      coalesce(deposits.count, (0)::bigint) as deposits_count,
+      coalesce(expenses_approved.count, (0)::bigint) as expenses_approved_count,
+      coalesce(expenses_reviewed.count, (0)::bigint) as expenses_reviewed_count
+      from ((((((maha_teams
+      left join physical_payments on ((maha_teams.id = physical_payments.team_id)))
+      left join digital_payments_captured on ((maha_teams.id = digital_payments_captured.team_id)))
+      left join digital_payments_settled on ((maha_teams.id = digital_payments_settled.team_id)))
+      left join deposits on ((maha_teams.id = deposits.team_id)))
+      left join expenses_approved on ((maha_teams.id = expenses_approved.team_id)))
+      left join expenses_reviewed on ((maha_teams.id = expenses_reviewed.team_id)));
+    `)
+
+    await knex.raw(`
       create view finance_admin_summary AS
       with physical_payments as (
       select count(*) as count,
