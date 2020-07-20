@@ -5,7 +5,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class DonationField extends React.Component {
+class PaymentField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -47,7 +47,7 @@ class DonationField extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Product Field',
+      title: 'Payment / Donation',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,
@@ -65,7 +65,8 @@ class DonationField extends React.Component {
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
             { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Enter a description for invoice', required: true, defaultValue: config.description },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: config.project_id },
-            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: config.revenue_type_id }
+            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30,37,42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: config.revenue_type_id },
+            { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: config.is_tax_deductible || false }
           ]
         }
       ]
@@ -101,4 +102,4 @@ class DonationField extends React.Component {
 
 }
 
-export default DonationField
+export default PaymentField

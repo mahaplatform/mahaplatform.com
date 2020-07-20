@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 const getLineItems = (req, { fields, data }) => [
   ...fields.filter(field => {
-    return field.type === 'donationfield'
+    return field.type === 'paymentfield'
   }),
   ...fields.filter(field => {
     return field.type === 'productfield'
@@ -33,11 +33,6 @@ const getLineItems = (req, { fields, data }) => [
     price: line_item.price
   })) : []
 ], [])
-
-const getInvoice = async (req, { contact, fields, form, line_items }) => {
-
-
-}
 
 const getPayment = async (req, { contact, data, fields, form, program }) => {
 

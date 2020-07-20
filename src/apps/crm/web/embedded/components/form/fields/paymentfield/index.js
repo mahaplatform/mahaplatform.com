@@ -2,10 +2,11 @@ import { MoneyField } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class DonationField extends React.Component {
+class PaymentField extends React.Component {
 
   static propTypes = {
     description: PropTypes.string,
+    is_tax_deductible: PropTypes.bool,
     project_id: PropTypes.number,
     required: PropTypes.bool,
     revenue_type_id: PropTypes.number,
@@ -30,7 +31,7 @@ class DonationField extends React.Component {
 
   render() {
     return (
-      <div className="maha-donationfield">
+      <div className="maha-paymentfield">
         <MoneyField { ...this._getMoneyField() } />
       </div>
     )
@@ -61,7 +62,7 @@ class DonationField extends React.Component {
   }
 
   _getValue() {
-    const { description, project_id, revenue_type_id } = this.props
+    const { description, project_id, revenue_type_id, is_tax_deductible } = this.props
     const { value } = this.state
     return {
       line_items: [{
@@ -69,7 +70,7 @@ class DonationField extends React.Component {
         description,
         project_id,
         revenue_type_id,
-        is_tax_deductible: true,
+        is_tax_deductible,
         quantity: 1,
         tax_rate: 0.00,
         price: value,
@@ -98,4 +99,4 @@ class DonationField extends React.Component {
 
 }
 
-export default DonationField
+export default PaymentField

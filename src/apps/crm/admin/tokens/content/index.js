@@ -8,7 +8,7 @@ const Content = ({ data, field }) => {
   const value = data[field.code]
   const type = field.type === 'contactfield' ? field.contactfield.type : field.type
   if(_.isNil(value)) return null
-  if(_.includes(['donationfield','productfield'], type)) {
+  if(_.includes(['paymentfield','productfield'], type)) {
     return (
       <table className="ui unstackable compact table">
         <thead>

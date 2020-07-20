@@ -158,6 +158,7 @@ table.payment-summary {
   border-top: 1px solid #CCCCCC;
   border-left: 1px solid #CCCCCC;
   width: 100%;
+  margin-bottom: 0.8em;
 }
 table.payment-summary td,
 table.payment-summary th {
@@ -177,4 +178,16 @@ table.payment-summary tbody tr.total td[colspan] {
   background-color: #EEEEEE;
   color: #000000;
   font-weight: bold;
+}
+div.payment-summary-footnote {
+  margin-bottom: 0.8em;
+}
+div.payment-summary-tax-deductible {
+  border: 1px solid #FEEDC2;
+  background-color: #FFF8E9;
+  margin-bottom: 0.8em;
+  padding: 0.8em;
+}
+span.payment-summary-asterix {
+  color: #DB2828;
 }

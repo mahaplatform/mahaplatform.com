@@ -15,7 +15,7 @@ import {
   Hidden,
   Text
 } from 'maha-client'
-import DonationField from './donationfield'
+import PaymentField from './paymentfield'
 import ProductField from './productfield'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -81,7 +81,7 @@ class Field extends React.Component {
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'donationfield') return DonationField
+    if(field.type === 'paymentfield') return PaymentField
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'moneyfield') return MoneyField

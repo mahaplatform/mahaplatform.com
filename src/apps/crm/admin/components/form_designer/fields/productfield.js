@@ -46,7 +46,7 @@ class ProductFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Product Field',
+      title: 'Products',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,

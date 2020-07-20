@@ -1,5 +1,5 @@
 import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from 'maha-client'
-import DonationField from '../../embedded/components/form/fields/donationfield'
+import PaymentField from '../../embedded/components/form/fields/paymentfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
 import { DragSource, DropTarget } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
@@ -84,7 +84,7 @@ class Field extends React.Component {
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'donationfield') return DonationField
+    if(field.type === 'paymentfield') return PaymentField
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'phonefield') return PhoneField

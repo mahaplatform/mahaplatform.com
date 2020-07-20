@@ -1,4 +1,4 @@
-import DonationField from './fields/donationfield'
+import PaymentField from './fields/paymentfield'
 import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
@@ -73,19 +73,19 @@ class Sidebar extends React.Component {
       { label: 'Address', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
-      { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
+      { label: 'Contact Field', icon: 'user', type: 'contactfield', component: ContactField },
       { label: 'Date', icon: 'calendar', type: 'datefield', component: DateField },
-      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
+      { label: 'Drop Down', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
       { label: 'Instructions', icon: 'align-left', type: 'text', component: Text },
       { label: 'Money', icon: 'dollar', type: 'moneyfield', component: MoneyField },
       { label: 'Phone', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Radio Group', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
-      { label: 'Textarea', icon: 'font', type: 'textarea', component: TextArea },
-      { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
+      { label: 'Text Area', icon: 'font', type: 'textarea', component: TextArea },
+      { label: 'Text Field', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField },
-      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },
-      { label: 'Donation', icon: 'dollar', type: 'donationfield', component: DonationField }
+      { label: 'Payment / Donation', icon: 'dollar', type: 'paymentfield', component: PaymentField },
+      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField }
     ]
     return fields.filter(field => {
       return field.type !== 'productfield' || _.get(program, 'bank.status') === 'active'

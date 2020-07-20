@@ -103,7 +103,7 @@ class Edit extends React.PureComponent {
     const { ticket_type } = this.state
     if(ticket_type.overage_strategy === 'donation') {
       return [
-        { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.donation_revenue_type_id }
+        { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.donation_revenue_type_id }
       ]
     }
     return []

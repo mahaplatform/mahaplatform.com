@@ -58,7 +58,7 @@ const submittable = createSelector(
 export const requiresPayment = createSelector(
   submittable,
   (fields) => fields.find(field => {
-    return _.includes(['donationfield','productfield'], field.type)
+    return _.includes(['paymentfield','productfield'], field.type)
   }) !== undefined
 )
 
@@ -89,7 +89,7 @@ const line_items = createSelector(
   data,
   (fields, data) => {
     const paymentfields = fields.filter(field => {
-      return _.includes(['donationfield','productfield'], field.type)
+      return _.includes(['paymentfield','productfield'], field.type)
     })
     return paymentfields ? paymentfields.reduce((line_items, field, index) => [
       ...line_items,
