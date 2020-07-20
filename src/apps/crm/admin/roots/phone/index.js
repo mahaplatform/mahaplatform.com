@@ -33,6 +33,7 @@ class PhoneRoot extends React.Component {
   _handleEnqueueCall = this._handleEnqueueCall.bind(this)
   _handleHangupCall = this._handleHangupCall.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
+  _handleOpen = this._handleOpen.bind(this)
   _handleQueueCall = this._handleQueueCall.bind(this)
   _handleSwapCall = this._handleSwapCall.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
@@ -67,7 +68,8 @@ class PhoneRoot extends React.Component {
     return {
       phone: {
         call: this._handleCall,
-        toggle: this._handleToggle
+        toggle: this._handleToggle,
+        open: this._handleOpen
       }
     }
   }
@@ -294,6 +296,14 @@ class PhoneRoot extends React.Component {
     this._handleUpdateCall(CallSid, {
       muted: connection.isMuted()
     })
+  }
+
+  _handleOpen({ program_id, tab }) {
+    const { open } = this.state
+    this.setState({
+      open: !open
+    })
+    // TODO: select program and tab
   }
 
   _handleQueueCall(call) {
