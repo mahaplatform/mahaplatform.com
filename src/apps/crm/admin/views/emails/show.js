@@ -1,6 +1,7 @@
 import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Convert from './convert'
 import Edit from './edit'
 import React from 'react'
 
@@ -15,6 +16,8 @@ const getTasks = ({ email }) => ({
   items: [
     { label: 'Edit Email', modal: <Edit email={ email } /> },
     { label: 'Design Email', route: `/admin/crm/emails/${email.id}/design` },
+
+    { label: 'Convert to Template', modal: <Convert email={ email } /> },
     {
       label: 'Delete Email',
       confirm: `

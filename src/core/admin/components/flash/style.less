@@ -1,72 +1,98 @@
 .maha-flash {
   flex: 1;
   display: flex;
+  position: relative;
 }
 .maha-flash-popup {
-  .translate-y-transition(-100%, 0, .25s);
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   padding: 1em;
   &.info {
-    .maha-flash-popup-panel {
-      border-color: @info_color;
-    }
-    i {
-      color: @info_color;
+    .maha-flash-popup-icon {
+      border-color: @blue;
+      .fa {
+        color: @blue;
+      }
     }
   }
   &.warning {
-    .maha-flash-popup-panel {
-      border-color: @warning_color;
-    }
-    i {
-      color: @warning_color;
+    .maha-flash-popup-icon {
+      border-color: @orange;
+      .fa {
+        color: @orange;
+      }
     }
   }
   &.success {
-    .maha-flash-popup-panel {
-      border-color: @success_color;
-    }
-    i {
-      color: @success_color;
+    .maha-flash-popup-icon {
+      border-color: @green;
+      .fa {
+        color: @green;
+      }
     }
   }
   &.error {
-    .maha-flash-popup-panel {
-      border-color: @error_color;
-    }
-    i {
-      color: @error_color;
+    .maha-flash-popup-icon {
+      border-color: @red;
+      .fa {
+        color: @red;
+      }
     }
   }
 }
 .maha-flash-popup-panel {
   display: flex;
-  color: @black;
-  background-color: @white;
-  border-left: 5px solid @black;
+  color: @white;
+  background-color: lighten(@black, 30);
+  border-radius: 0.2em;
+  overflow: hidden;
   width: 100%;
   max-width: ~"calc(800px - 2em)";
   margin: 0 auto;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 .maha-flash-popup-icon {
-  padding: 1em 0 1em 1em;
+  border-left: 5px solid @black;
+  padding: 0.8em 0 0.8em 0.8em;
   display: flex;
-  i {
-    display: block;
+  .fa {
     margin: auto;
-    font-size: 1.8em;
+    font-size: 1.6em;
   }
 }
 .maha-flash-popup-message {
-  padding: 1em;
+  padding: 0.8em;
   flex: 1;
-  font-weight: bold;
   display: flex;
   p {
     margin: auto 0;
+  }
+}
+.maha-flash-popup-clear {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: @white;
+  }
+  .fa {
+    color: fadeout(@white, 20);
+    margin: auto;
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .maha-flash-popup {
+    .translate-y-transition(-100%, 0, .25s);
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+@media (min-width: 769px) {
+  .maha-flash-popup {
+    .translate-x-transition(100%, 0, .25s);
+    bottom: 0;
+    right: 0;
   }
 }

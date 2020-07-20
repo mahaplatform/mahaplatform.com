@@ -5,7 +5,9 @@ const Template = new Model({
 
   tableName: 'crm_templates',
 
-  rules: {},
+  rules: {
+    
+  },
 
   virtuals: {
 

@@ -1,5 +1,6 @@
 import Performance from './performance'
 import { Page } from 'maha-admin'
+import Convert from './convert'
 import Details from './details'
 import Resend from './resend'
 import React from 'react'
@@ -32,6 +33,8 @@ const getTasks = ({ campaign }, { flash }) => {
       }
     })
   }
+
+  items.push({ label: 'Convert to Template', modal: <Convert campaign={ campaign } /> })
 
   if(campaign.status === 'sent') {
     items.push({ label: 'Resend Campaign', modal: <Resend campaign={ campaign } /> })
