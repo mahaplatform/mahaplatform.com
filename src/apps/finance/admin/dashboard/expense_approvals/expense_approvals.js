@@ -15,11 +15,14 @@ class ExpenseApprovals extends React.Component {
     controls: PropTypes.any,
     isExpanded: PropTypes.bool,
     approvals: PropTypes.array,
+    rejected: PropTypes.array,
     saved: PropTypes.array,
     submitted: PropTypes.array
   }
 
   _handleApprovals = this._handleApprovals.bind(this)
+  _handleRejected = this._handleRejected.bind(this)
+  _handleSaved = this._handleSaved.bind(this)
   _handleSubmitted = this._handleSubmitted.bind(this)
 
   render() {
@@ -59,13 +62,13 @@ class ExpenseApprovals extends React.Component {
     if(!item.empty) {
       itemClass = `${ itemClass } maha-list-item-link`
     } else {
-      itemClass = `${ itemClass } maha-list-item-gray`      
+      itemClass = `${ itemClass } maha-list-item-gray`
     }
     return itemClass
   }
 
   _getListItems() {
-    const { submitted, approvals, saved } = this.props
+    const { submitted, approvals, saved, rejected } = this.props
 
     const listItems = [
       {
@@ -80,9 +83,14 @@ class ExpenseApprovals extends React.Component {
         empty: !this._hasSubmitted()
       }, {
         records: saved,
-        handler: this._handleSubmitted,
-        text: `incomplete/pending ${ pluralize('item', submitted.length)}`,
-        empty: !this._hasSubmitted()
+        handler: this._handleSaved,
+        text: `incomplete/pending ${ pluralize('item', saved.length)}`,
+        empty: !this._hasSaved()
+      }, {
+        records: rejected,
+        handler: this._handleRejected,
+        text: `rejected ${ pluralize('item', rejected.length)}`,
+        empty: !this._hasRejected()
       }
     ]
 
@@ -92,6 +100,16 @@ class ExpenseApprovals extends React.Component {
   _hasApprovals() {
     const { approvals } = this.props
     return typeof approvals !== 'undefined' && approvals.length > 0
+  }
+
+  _hasRejected() {
+    const { rejected } = this.props
+    return typeof rejected !== 'undefined' && rejected.length > 0
+  }
+
+  _hasSaved() {
+    const { saved } = this.props
+    return typeof saved !== 'undefined' && saved.length > 0
   }
 
   _hasSubmitted() {
@@ -105,15 +123,21 @@ class ExpenseApprovals extends React.Component {
     }
   }
 
-  _handleSubmitted() {
-    if(this._hasSubmitted()) {
-      this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=submitted')
+  _handleRejected() {
+    if(this._hasRejected()) {
+      this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=rejected')
     }
   }
 
   _handleSaved() {
     if(this._hasSaved()) {
       this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=incomplete&$filter[$and][0][status][$in][1]=pending')
+    }
+  }
+
+  _handleSubmitted() {
+    if(this._hasSubmitted()) {
+      this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=submitted')
     }
   }
 
@@ -126,6 +150,19 @@ const mapResources = (props, context) => ({
       $filter: {
         status: {
           $in: ['submitted']
+        }
+      },
+      $page: {
+        limit: 0
+      }
+    }
+  },
+  rejected: {
+    endpoint: '/api/admin/finance/items',
+    query: {
+      $filter: {
+        status: {
+          $in: ['rejected']
         }
       },
       $page: {
