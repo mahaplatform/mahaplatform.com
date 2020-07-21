@@ -18,8 +18,7 @@ class Dashboard extends React.Component {
     active: null,
     expanded: null,
     panels: null,
-    sidebar: false,
-    stacked: false
+    sidebar: false
   }
 
   _handleExpand = this._handleExpand.bind(this)
@@ -28,23 +27,18 @@ class Dashboard extends React.Component {
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { sidebar, panels, stacked } = this.state
+    const { sidebar, panels } = this.state
     if(!panels) return null
     return (
       <ModalPanel { ...this._getModalPanel() }>
         <div className="maha-dashboard">
-          { !stacked && sidebar &&
+          { sidebar &&
             <div className="maha-dashboard-sidebar">
               <Sidebar { ...this._getSidebar() } />
             </div>
           }
           <div className={ this._getBodyClass() }>
-            { stacked && panels.map((panel, index) => (
-              <Panel { ...this._getPanel(panel, index) } key={`panel_${panel.id}`} />
-            )) }
-            { !stacked &&
-              <Panel { ...this._getActive() } />
-            }
+            <Panel { ...this._getActive() } />
           </div>
         </div>
       </ModalPanel>
@@ -84,11 +78,11 @@ class Dashboard extends React.Component {
   }
 
   _getPanel(panel, index) {
-    const { expanded, stacked } = this.state
+    const { expanded, sidebar } = this.state
     return {
       expanded,
       panel,
-      stacked,
+      sidebar,
       onExpand: this._handleExpand,
       onMove: this._handleMove.bind(this, index),
       onToggle: this._handleToggle
@@ -111,6 +105,7 @@ class Dashboard extends React.Component {
 
   _handleFetch() {
     const { admin } = this.context
+    const { active } = this.state
     this.context.network.request({
       endpoint: '/api/admin/dashboard/panels',
       method: 'GET',
@@ -121,7 +116,7 @@ class Dashboard extends React.Component {
         })
         this.setState({
           panels: data,
-          active: first ? first.id : null
+          active: active || (first ? first.id : null)
         })
       }
     })

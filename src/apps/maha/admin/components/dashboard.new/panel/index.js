@@ -14,9 +14,9 @@ class Panel extends React.Component {
   }
 
   static propTypes = {
+    sidebar: PropTypes.object,
     expanded: PropTypes.object,
     panel: PropTypes.object,
-    stacked: PropTypes.bool,
     onExpand: PropTypes.func,
     onMove: PropTypes.func,
     onToggle: PropTypes.func
@@ -36,18 +36,19 @@ class Panel extends React.Component {
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { expanded, panel, stacked } = this.props
+    const { sidebar, expanded, panel } = this.props
     const { user } = this.context.admin
     const { managing } = this.state
     return (
       <div className={ this._getClass() } ref={ node => this.body = node }>
         { !expanded &&
           <div className="maha-dashboard-panel-header">
-            { !stacked &&
-              <div className="maha-dashboard-panel-header-toggle" onClick={ this._handleToggle }>
+            <div className="maha-dashboard-panel-header-toggle" onClick={ this._handleToggle }>
+              { sidebar ?
+                <i className="fa fa-times" /> :
                 <i className="fa fa-bars" />
-              </div>
-            }
+              }
+            </div>
             <div className="maha-dashboard-panel-header-title">
               { panel.title }
             </div>

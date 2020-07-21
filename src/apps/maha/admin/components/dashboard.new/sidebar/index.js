@@ -11,7 +11,7 @@ class Sidebar extends React.Component {
   }
 
   static propTypes = {
-    selected: PropTypes.number,
+    active: PropTypes.number,
     panels: PropTypes.array,
     onSelect: PropTypes.func
   }
@@ -21,39 +21,37 @@ class Sidebar extends React.Component {
     const owned = this._getOwned()
     return (
       <div className="maha-dashboard-panels">
-        <ModalPanel { ...this._getPanel() }>
-          { shared.length > 0 &&
-            <div className="maha-dashboard-panels-section">
-              <div className="maha-dashboard-panels-title">
-                Shared With You
-              </div>
-              { shared.map((panel, index) => (
-                <div className={ this._getClass(panel) } key={`panel_${index}`} onClick={ this._handleSelect.bind(this, panel) }>
-                  <div className="maha-dashboard-panels-item-label">
-                    { panel.title }
-                  </div>
-                </div>
-              ))}
-            </div>
-          }
+        { shared.length > 0 &&
           <div className="maha-dashboard-panels-section">
             <div className="maha-dashboard-panels-title">
-              Your Panels
+              Shared With You
             </div>
-            { owned.map((panel, index) => (
+            { shared.map((panel, index) => (
               <div className={ this._getClass(panel) } key={`panel_${index}`} onClick={ this._handleSelect.bind(this, panel) }>
                 <div className="maha-dashboard-panels-item-label">
                   { panel.title }
                 </div>
-                <Button { ...this._getEdit(panel) } />
-                <Button { ...this._getDelete(panel) } />
               </div>
             ))}
-            <div className="maha-dashboard-panels-item">
-              <Button { ...this._getAdd() } />
-            </div>
           </div>
-        </ModalPanel>
+        }
+        <div className="maha-dashboard-panels-section">
+          <div className="maha-dashboard-panels-title">
+            Your Panels
+          </div>
+          { owned.map((panel, index) => (
+            <div className={ this._getClass(panel) } key={`panel_${index}`} onClick={ this._handleSelect.bind(this, panel) }>
+              <div className="maha-dashboard-panels-item-label">
+                { panel.title }
+              </div>
+              <Button { ...this._getEdit(panel) } />
+              <Button { ...this._getDelete(panel) } />
+            </div>
+          ))}
+          <div className="maha-dashboard-panels-item">
+            <Button { ...this._getAdd() } />
+          </div>
+        </div>
       </div>
     )
   }
@@ -67,9 +65,9 @@ class Sidebar extends React.Component {
   }
 
   _getClass(panel) {
-    const { selected } = this.props
+    const { active } = this.props
     const classes = ['maha-dashboard-panels-item']
-    if(panel.id === selected) classes.push('selected')
+    if(panel.id === active) classes.push('selected')
     return classes.join(' ')
   }
 
