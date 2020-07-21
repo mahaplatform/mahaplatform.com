@@ -1,4 +1,4 @@
-const ExpenseStatView = {
+const ExpenseOverview = {
 
   up: async (knex) => {
     await knex.raw(`
@@ -40,4 +40,4 @@ const ExpenseStatView = {
 
 }
 
-export default ExpenseStatView
+export default ExpenseOverview
