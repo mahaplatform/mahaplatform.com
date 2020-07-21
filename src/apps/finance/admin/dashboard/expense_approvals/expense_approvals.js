@@ -15,11 +15,12 @@ class ExpenseApprovals extends React.Component {
     controls: PropTypes.any,
     isExpanded: PropTypes.bool,
     approvals: PropTypes.array,
-    items: PropTypes.array
+    saved: PropTypes.array,
+    submitted: PropTypes.array
   }
 
   _handleApprovals = this._handleApprovals.bind(this)
-  _handleItems = this._handleItems.bind(this)
+  _handleSubmitted = this._handleSubmitted.bind(this)
 
   render() {
     const { controls } = this.props
@@ -38,7 +39,7 @@ class ExpenseApprovals extends React.Component {
             { listItems.map((item, index) => (
               <div className={ this._getItemClass(item) } key={`finance_item_${index}`} onClick={ item.handler }>
                 <div className="maha-list-item-label">
-                  { this._getItemLabel(item) }
+                  <b>{ item.records.length }</b> { item.text }
                 </div>
                 { !item.empty &&
                   <div className="maha-list-item-proceed">
@@ -53,22 +54,6 @@ class ExpenseApprovals extends React.Component {
     )
   }
 
-  _getItemLabel(item) {
-    if(!item.empty) {
-      return (
-        <span>
-          You have <b>{ item.records.length }</b> { item.noun } { item.verb }
-        </span>
-      )
-    } else {
-      return (
-        <span>
-          You have no { item.noun } { item.verb }
-        </span>
-      )
-    }
-  }
-
   _getItemClass(item) {
     let itemClass = 'maha-list-item'
     if(!item.empty) {
@@ -79,21 +64,24 @@ class ExpenseApprovals extends React.Component {
   }
 
   _getListItems() {
-    const { items, approvals } = this.props
+    const { submitted, approvals, saved } = this.props
 
     const listItems = [
       {
         records: approvals,
         handler: this._handleApprovals,
-        noun: pluralize('approval', approvals.length),
-        verb: 'that need your review',
+        text: `${ pluralize('approval', approvals.length)} that need your review`,
         empty: !this._hasApprovals()
       }, {
-        records: items,
-        handler: this._handleItems,
-        noun: pluralize('item', items.length),
-        verb: 'awaiting approval',
-        empty: !this._hasItems()
+        records: submitted,
+        handler: this._handleSubmitted,
+        text: `${ pluralize('item', submitted.length)} awaiting approval`,
+        empty: !this._hasSubmitted()
+      }, {
+        records: saved,
+        handler: this._handleSubmitted,
+        text: `incomplete/pending ${ pluralize('item', submitted.length)}`,
+        empty: !this._hasSubmitted()
       }
     ]
 
@@ -105,9 +93,9 @@ class ExpenseApprovals extends React.Component {
     return typeof approvals !== 'undefined' && approvals.length > 0
   }
 
-  _hasItems() {
-    const { items } = this.props
-    return typeof items !== 'undefined' && items.length > 0
+  _hasSubmitted() {
+    const { submitted } = this.props
+    return typeof submitted !== 'undefined' && submitted.length > 0
   }
 
   _handleApprovals() {
@@ -116,9 +104,15 @@ class ExpenseApprovals extends React.Component {
     }
   }
 
-  _handleItems() {
-    if(this._hasItems()) {
+  _handleSubmitted() {
+    if(this._hasSubmitted()) {
       this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=submitted')
+    }
+  }
+
+  _handleSaved() {
+    if(this._hasSaved()) {
+      this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=incomplete&$filter[$and][0][status][$in][1]=pending')
     }
   }
 
@@ -138,12 +132,25 @@ const mapResources = (props, context) => ({
       }
     }
   },
-  items: {
+  submitted: {
     endpoint: '/api/admin/finance/items',
     query: {
       $filter: {
         status: {
           $in: ['submitted']
+        }
+      },
+      $page: {
+        limit: 0
+      }
+    }
+  },
+  saved: {
+    endpoint: '/api/admin/finance/items',
+    query: {
+      $filter: {
+        status: {
+          $in: ['incomplete', 'pending']
         }
       },
       $page: {
