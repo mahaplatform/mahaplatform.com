@@ -57,10 +57,11 @@ class ExpenseApprovals extends React.Component {
   _getItemClass(item) {
     let itemClass = 'maha-list-item'
     if(!item.empty) {
-      return `${ itemClass } maha-list-item-link`
+      itemClass = `${ itemClass } maha-list-item-link`
     } else {
-      return itemClass
+      itemClass = `${ itemClass } maha-list-item-gray`      
     }
+    return itemClass
   }
 
   _getListItems() {

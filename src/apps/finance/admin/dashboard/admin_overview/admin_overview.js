@@ -39,19 +39,31 @@ class AdminOverview extends React.Component {
         <div className="maha-dashboard-card-body">
           <div className="maha-list">
             { listItems.map((item, index) => (
-              <div className="maha-list-item maha-list-item-link" key={`finance_item_${index}`}  onClick={ item.handler }>
+              <div className={ this._getItemClass(item) } key={`finance_item_${index}`}  onClick={ item.handler }>
                 <div className="maha-list-item-label">
                   <b>{ item.count }</b> { item.noun } { item.verb }
                 </div>
-                <div className="maha-list-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
+                { item.count > 0 &&
+                  <div className="maha-list-item-proceed">
+                    <i className="fa fa-chevron-right" />
+                  </div>
+                }
               </div>
             ))}
           </div>
         </div>
       </div>
     )
+  }
+
+  _getItemClass(item) {
+    let itemClass = 'maha-list-item'
+    if(item.count > 0) {
+      itemClass = `${ itemClass } maha-list-item-link`
+    } else {
+      itemClass = `${ itemClass } maha-list-item-gray`
+    }
+    return itemClass
   }
 
   _getListItems() {
