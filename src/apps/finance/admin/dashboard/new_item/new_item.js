@@ -37,8 +37,7 @@ class NewItem extends React.Component {
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
-            <h2>New Expense</h2>
-            <h3>Submit a new expense</h3>
+            <h2>Submit a new Expense</h2>
           </div>
           { controls }
         </div>

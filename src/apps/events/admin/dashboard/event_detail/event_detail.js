@@ -24,8 +24,7 @@ class EventDetail extends React.Component {
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
-            <h2>{ event.title }</h2>
-            <h3>Event Detail</h3>
+            <h2>EVENT: { event.title }</h2>
           </div>
           { controls }
         </div>

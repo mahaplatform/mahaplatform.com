@@ -18,14 +18,12 @@ class Registrations extends React.Component {
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    const { event } = this.props
     return (
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header maha-dashboard-card-back" onClick={ this._handleBack }>
           <i className="fa fa-chevron-left" />
           <div className="maha-dashboard-card-header-details">
-            <h2>{ event.title }</h2>
-            <h3>Registrations</h3>
+            <h2>Registrations</h2>
           </div>
         </div>
         <div className="maha-dashboard-card-body">

@@ -30,7 +30,6 @@ class Greeting extends React.Component {
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
             <h2>Welcome to Maha</h2>
-            <h3>Greeting</h3>
           </div>
           { controls }
         </div>

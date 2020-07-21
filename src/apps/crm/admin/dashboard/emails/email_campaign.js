@@ -29,7 +29,6 @@ class EmailCampaign extends React.Component {
           <i className="fa fa-chevron-left" />
           <div className="maha-dashboard-card-header-details">
             <h2>{ campaign.title }</h2>
-            <h3>Performance</h3>
           </div>
         </div>
         <div className="maha-dashboard-card-body scrollable">

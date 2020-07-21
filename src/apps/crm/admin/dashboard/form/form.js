@@ -24,8 +24,7 @@ class Form extends React.Component {
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
-            <h2>{ form.title }</h2>
-            <h3>Form Performance</h3>
+            <h2>FORM: { form.title }</h2>
           </div>
           { controls }
         </div>

@@ -23,8 +23,7 @@ class Tickets extends React.Component {
         <div className="maha-dashboard-card-header maha-dashboard-card-back" onClick={ this._handleBack }>
           <i className="fa fa-chevron-left" />
           <div className="maha-dashboard-card-header-details">
-            <h2>Tickets Sold</h2>
-            <h3>{ ticket_type.name } </h3>
+            <h2>{ ticket_type.name } </h2>
           </div>
         </div>
         <div className="maha-dashboard-card-body">

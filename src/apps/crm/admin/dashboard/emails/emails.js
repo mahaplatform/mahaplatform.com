@@ -24,8 +24,7 @@ class Emails extends React.Component {
       <div className="maha-dashboard-card">
         <div className="maha-dashboard-card-header">
           <div className="maha-dashboard-card-header-details">
-            <h2>{ program.title }</h2>
-            <h3>Email Campaigns</h3>
+            <h2>EMAILS: { program.title }</h2>
           </div>
           { controls }
         </div>
