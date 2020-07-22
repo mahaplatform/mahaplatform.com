@@ -21,6 +21,9 @@
 }
 .maha-dashboard-card-container {
   position: relative;
+  &.hidden {
+    display: none;
+  }
   .maha-stack {
     position: absolute;
     top: 0;
@@ -55,14 +58,13 @@
 }
 .maha-dashboard-card-header {
   border-bottom: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 97);
   display: flex;
 }
 .maha-dashboard-card-header-details {
   flex: 1;
   padding: 0.8em;
   overflow: hidden;
-  h2, h3 {
+  h2 {
     margin: 0;
     font-size: 1em;
     line-height: 1.6em;
@@ -70,12 +72,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  h2 {
-    color: @black;
-  }
-  h3 {
-    color: fadeout(@black, 60);
   }
 }
 .maha-dashboard-card-header-controls {
@@ -90,7 +86,7 @@
   .fa {
     cursor: pointer;
     margin: auto;
-    font-size: 1.2em;
+    font-size: 1em;
     color: fadeout(@black, 80);
     &:hover {
       color: fadeout(@black, 40);

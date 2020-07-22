@@ -211,8 +211,7 @@ const getInlineStyle = (config) => [
         }, {
           selector: `table.section-${section} table.block-${j} img`, styles: [
             ...getBorder(config, 'border', `${section}.blocks[${j}].image_border`),
-            ...getProp(config, 'border-radius',`${section}.blocks[${j}].image_border_radius`, 'px'),
-            ...getProp(config, 'padding',`${section}.blocks[${j}].image_padding`, 'px')
+            ...getProp(config, 'border-radius',`${section}.blocks[${j}].image_border_radius`, 'px')
           ]
         }
       ] : [],

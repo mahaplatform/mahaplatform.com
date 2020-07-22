@@ -12,7 +12,7 @@ const image = (block) => {
   return `<img src="${imageurl(block.image)}" />`
 }
 const captionCell = (block, vertical, position) => {
-  const width = vertical ? 12 : 12 - block.image_width
+  const width = vertical ? 12 : 12 - block.video_width
   return `
     <td class="${`small-${width} large-${width} columns ${position} block-caption`}">
       <div>${ block.caption }</div>
@@ -20,7 +20,7 @@ const captionCell = (block, vertical, position) => {
   `
 }
 const imageCell = (block, vertical, position) => {
-  const width = vertical ? 12 : block.image_width
+  const width = vertical ? 12 : block.video_width
   return `
     <td class="${`small-${width} large-${width} columns ${position} block-image`}">
       <div>${ image(block) }</div>
