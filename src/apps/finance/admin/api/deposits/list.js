@@ -15,15 +15,17 @@ const listRoute = async (req, res) => {
       allowed: ['bank_id','date']
     },
     aliases: {
+      payments_count: 'finance_deposit_totals.payments_count',
+      refunds_count: 'finance_deposit_totals.refunds_count',
       bank: 'finance_banks.title'
     },
     sort: {
-      sort: req.query.$sort,
-      defaults: ['-created_at'],
-      allowed: ['id','date','bank','created_at']
+      params: req.query.$sort,
+      defaults: ['-date'],
+      allowed: ['id','date','bank','payments_count','refunds_count','created_at']
     },
     page: req.query.$page,
-    withRelated: ['bank','payments'],
+    withRelated: ['bank'],
     transacting: req.trx
   })
 

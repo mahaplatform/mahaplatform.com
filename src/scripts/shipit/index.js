@@ -286,8 +286,7 @@ const processor = async () => {
     var sql = [
       'update finance_banks set braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\'',
       'update crm_contacts set braintree_id=null',
-      'update finance_payments set payment_method_id=null',
-      'delete from finance_payment_methods'
+      'update finance_payment_methods set customer_id=null'
     ]
     return shipit.local(`echo "${sql.join(';')}" | psql maha`)
   })

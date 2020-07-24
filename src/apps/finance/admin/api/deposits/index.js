@@ -1,4 +1,4 @@
-import payments from './payments'
+import transactions from './transactions'
 import { Router } from 'express'
 import create from './create'
 import exp from './export'
@@ -15,6 +15,6 @@ router.get('/:id', show)
 
 router.use('/:id/export', exp)
 
-router.get('/:deposit_id/payments', payments)
+router.get('/:deposit_id/transactions', transactions)
 
 export default router

@@ -25,6 +25,21 @@ const getMethod = (payment) => {
   if(payment.get('method') === 'cash') return 'CASH'
 }
 
+const getPayment = (allocation) => {
+  if(allocation.get('payment_id')) return allocation.related('payment')
+  if(allocation.get('refund_id')) return allocation.related('refund').related('payment')
+}
+
+const getIDRemit = (allocation) => {
+  if(allocation.get('payment_id')) return `MH-PAYMENT-${allocation.get('payment_id')}`
+  if(allocation.get('refund_id')) return `MH-REFUND-${allocation.get('refund_id')}`
+}
+
+const getFormatted = (allocation, key) => {
+  if(allocation.get('payment_id')) return numeral(allocation.get(key)).format('0.00')
+  if(allocation.get('refund_id')) return numeral(0 - allocation.get(key)).format('0.00')
+}
+
 const getSummary = (deposit, allocation, index) => {
 
   const date = moment(allocation.related('payment').get('date'))
@@ -41,24 +56,29 @@ const getSummary = (deposit, allocation, index) => {
 
   const fiscPer = Math.ceil((month + (month >= startMonth ? 1 : 13) - startMonth) / 3)
 
+  const payment = getPayment(allocation)
+
+  const customer = payment.related('invoice').related('customer')
+
+
   return [
     1,
     'CA',
     deposit.get('id'),
     index + 1,
-    `MH-PAYMENT-${allocation.related('payment').get('id')}`,
+    getIDRemit(allocation),
     '',
     date.format('YYYYMMDD'),
     `MH-DEPOSIT-${deposit.get('id')}`,
-    allocation.related('payment').related('invoice').related('customer').get('display_name'),
-    numeral(allocation.get('amount')).format('0.00'),
-    numeral(allocation.get('amount')).format('0.00'),
+    customer.get('display_name'),
+    getFormatted(allocation, 'amount'),
+    getFormatted(allocation, 'amount'),
     1,
     0,
     2,
-    numeral(allocation.get('amount')).format('0.00'),
+    getFormatted(allocation, 'amount'),
     0,
-    getMethod(allocation.related('payment')),
+    getMethod(payment),
     'USD',
     'SP',
     1,
@@ -69,7 +89,7 @@ const getSummary = (deposit, allocation, index) => {
     2,
     fiscYear,
     fiscPer,
-    allocation.related('payment').related('invoice').related('customer').get('display_name'),
+    customer.get('display_name'),
     date.format('YYYYMMDD'),
     'SP',
     0,
@@ -77,7 +97,7 @@ const getSummary = (deposit, allocation, index) => {
     3,
     0,
     0,
-    numeral(allocation.get('amount')).format('0.00'),
+    getFormatted(allocation, 'amount'),
     '',
     0,
     1,
@@ -95,7 +115,7 @@ const getSummary = (deposit, allocation, index) => {
     0,
     ...Array(5).fill(''),
     ...Array(16).fill(0),
-    numeral(allocation.get('amount')).format('0.00'),
+    getFormatted(allocation, 'amount'),
     '18272',
     index + 1,
     '',
@@ -103,9 +123,9 @@ const getSummary = (deposit, allocation, index) => {
     ...Array(2).fill(''),
     1,
     ...Array(10).fill(0),
-    numeral(allocation.get('amount')).format('0.00'),
+    getFormatted(allocation, 'amount'),
     ...Array(12).fill(0),
-    numeral(allocation.get('amount')).format('0.00'),
+    getFormatted(allocation, 'amount'),
     '62A',
     '',
     deposit_date.format('YYYYMMDD'),
@@ -118,7 +138,8 @@ const getSummary = (deposit, allocation, index) => {
 }
 
 const getLineItemDescription = (allocation, text) => {
-  const parts = [allocation.related('payment').related('invoice').related('customer').get('display_name')]
+  const payment = getPayment(allocation)
+  const parts = [payment.related('invoice').related('customer').get('display_name')]
   parts.push(allocation.related('line_item').get('description'))
   if(text) parts.push(text)
   return parts.join(' - ')
@@ -136,37 +157,35 @@ const getAmount = (deposit, allocation, index) => {
     '',
     getLineItemDescription(allocation),
     ...Array(26).fill(0),
-    numeral(allocation.get('total')).format('0.00'),
-    numeral(allocation.get('total')).format('0.00'),
-    numeral(allocation.get('total')).format('0.00'),
-    numeral(allocation.get('total')).format('0.00'),
+    getFormatted(allocation, 'total'),
+    getFormatted(allocation, 'total'),
+    getFormatted(allocation, 'total'),
+    getFormatted(allocation, 'total'),
     ...Array(19).fill(0),
     ...Array(4).fill(''),
     0
   ]
 }
 
-const getFee = (deposit, allocation, index) => {
-  return [
-    3,
-    'CA',
-    deposit.get('id'),
-    index + 1,
-    40,
-    '',
-    idglacct(allocation, 61110),
-    '',
-    getLineItemDescription(allocation, 'Processing Fee'),
-    ...Array(26).fill(0),
-    numeral(0 - allocation.get('fee')).format('0.00'),
-    numeral(0 - allocation.get('fee')).format('0.00'),
-    numeral(0 - allocation.get('fee')).format('0.00'),
-    numeral(0 - allocation.get('fee')).format('0.00'),
-    ...Array(19).fill(0),
-    ...Array(4).fill(''),
-    0
-  ]
-}
+const getFee = (deposit, allocation, index) => [
+  3,
+  'CA',
+  deposit.get('id'),
+  index + 1,
+  40,
+  '',
+  idglacct(allocation, 61110),
+  '',
+  getLineItemDescription(allocation, 'Processing Fee'),
+  ...Array(26).fill(0),
+  numeral(0 - allocation.get('fee')).format('0.00'),
+  numeral(0 - allocation.get('fee')).format('0.00'),
+  numeral(0 - allocation.get('fee')).format('0.00'),
+  numeral(0 - allocation.get('fee')).format('0.00'),
+  ...Array(19).fill(0),
+  ...Array(4).fill(''),
+  0
+]
 
 const accpaccDepositSerializer = async (req, { deposit, allocations }) => {
 

@@ -11,7 +11,7 @@ const getTabs = ({ audits, allocations, payment, refunds }) => {
 
   const items = [
     { label: 'Details', component: <Details audits={ audits } payment={ payment } /> },
-    { label: 'Allocations', component: <Allocations payment={ payment } allocations={ allocations }/> }
+    { label: 'Allocations', component: <Allocations payment={ payment } allocations={ allocations } /> }
   ]
 
   if(refunds.length > 0) {
@@ -22,7 +22,7 @@ const getTabs = ({ audits, allocations, payment, refunds }) => {
 
 }
 
-const getTasks = ({ payment }) => {
+const getTasks = ({ allocations, payment }) => {
 
   const items = []
 
@@ -36,7 +36,7 @@ const getTasks = ({ payment }) => {
   if(payment.braintree_id !== null && !_.includes(['captured','voided'], payment.status)) {
     items.push({
       label: 'Issue Refund',
-      modal: <Refund payment={ payment } />
+      modal: <Refund allocations={ allocations } payment={ payment } />
     })
   }
 

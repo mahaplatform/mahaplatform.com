@@ -2,6 +2,7 @@ import Model from '../../../core/objects/model'
 import PaymentMethod from './payment_method'
 import Asset from '../../maha/models/asset'
 import Scholarship from './scholarship'
+import Allocation from './allocation'
 import Invoice from './invoice'
 import Deposit from './deposit'
 import Credit from './credit'
@@ -48,6 +49,10 @@ const Payment = new Model({
       return (this.get('amount') - this.get('refunded')).toFixed(2)
     }
 
+  },
+
+  allocations() {
+    return this.hasMany(Allocation, 'payment_id')
   },
 
   credit() {

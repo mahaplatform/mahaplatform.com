@@ -20,13 +20,13 @@ const showRoute = async (req, res) => {
   })
 
   const allocations = await Allocation.query(qb => {
-    qb.innerJoin('finance_payments','finance_payments.id','finance_allocations.payment_id')
+    qb.joinRaw('left join finance_deposit_line_items payments on payments.payment_id=finance_allocations.payment_id')
+    qb.joinRaw('left join finance_deposit_line_items refunds on refunds.refund_id=finance_allocations.refund_id')
     qb.innerJoin('finance_line_items','finance_line_items.id','finance_allocations.line_item_id')
-    qb.where('finance_allocations.team_id', req.team.get('id'))
-    qb.where('finance_payments.deposit_id', req.params.id)
-    qb.orderByRaw('finance_allocations.payment_id asc, finance_line_items.delta asc')
+    qb.whereRaw('refunds.deposit_id=? or payments.deposit_id=?', [deposit.get('id'), deposit.get('id')])
+    qb.orderByRaw('finance_allocations.payment_id asc,finance_allocations.refund_id asc,finance_line_items.delta asc')
   }).fetchAll({
-    withRelated: ['payment.invoice.customer','payment.bank','payment.invoice.program','line_item.project','line_item.revenue_type'],
+    withRelated: ['payment.invoice.customer','payment.bank','payment.invoice.program','refund.payment.invoice.customer','refund.payment.bank','refund.payment.invoice.program','line_item.project','line_item.revenue_type'],
     transacting: req.trx
   })
 
