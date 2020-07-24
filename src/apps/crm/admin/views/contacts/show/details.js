@@ -41,13 +41,6 @@ const Details = ({ contact, duplicates }) => {
         { organization.name }
       </div>
     )) },
-    { label: 'Tags', content: (
-      <div className="links">
-        { contact.tags.map((tag, index) => (
-          <Button label={ tag.text } route={`/admin/crm/contacts?$filter[crm_taggings.tag_id][$in]=${tag.id}`} className="link" key={`tag_${index}`} />
-        )) }
-      </div>
-    ) },
     { label: 'Birthday', content: contact.birthday },
     { label: 'Spouse', content: contact.spouse },
     ...duplicates.length > 0 ? [
