@@ -73,7 +73,7 @@ const emailStep = async (req, { config, contact, enrollment, tokens }) => {
     registration: enrollment.get('registration_id') ? data : null
   }
 
-  const { reply_to, sender_id, subject } = crm_email.get('config').settings
+  const { cc, bcc, reply_to, sender_id, subject } = crm_email.get('config').settings
 
   const rendered = personalizeEmail(req, {
     subject,
@@ -95,6 +95,8 @@ const emailStep = async (req, { config, contact, enrollment, tokens }) => {
     from: sender.get('rfc822'),
     reply_to,
     to: contact.get('rfc822'),
+    cc,
+    bcc,
     subject: rendered.subject,
     html: rendered.html,
     code,
@@ -118,6 +120,8 @@ const emailStep = async (req, { config, contact, enrollment, tokens }) => {
     from: email.get('from'),
     to: email.get('to'),
     reply_to: email.get('reply_to') || 'no-reply@mahaplatform.com',
+    cc,
+    bcc,
     subject: rendered.subject,
     html: encoded
   })

@@ -58,6 +58,8 @@ class Settings extends React.Component {
           fields: [
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: config.sender_id },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', defaultValue: config.reply_to },
+            { label: 'CC', name: 'cc', type: 'textfield', placeholder: 'Enter comma separated list of emails', defaultValue: config.cc },
+            { label: 'BCC', name: 'bcc', type: 'textfield', placeholder: 'Enter comma separated list of emails', defaultValue: config.bcc },
             { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, after: <Button { ...tokens } />, placeholder: 'Enter a subject', required: true, defaultValue: config.subject },
             { label: 'Preview Text', name: 'preview_text', type: 'textarea', maxLength: 150, rows: 1, placeholder: 'Enter preview text', defaultValue: config.preview_text }
           ]

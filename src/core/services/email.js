@@ -17,6 +17,8 @@ export const sendMail = async (email) => {
       ...email,
       from: process.env.EMAIL_SENDER || email.from,
       to: process.env.EMAIL_REDIRECT || email.to,
+      cc: email.cc ? (process.env.EMAIL_REDIRECT || email.cc) : null,
+      bcc: email.bcc ? (process.env.EMAIL_REDIRECT || email.bcc) : null,
       html,
       text: htmlToText(email.html)
     }, async (err, info) => {

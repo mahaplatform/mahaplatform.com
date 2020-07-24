@@ -4,6 +4,8 @@ const emailSerializer = (req, result) => ({
   user: user(result.related('user')),
   from: result.get('from'),
   to: result.get('to'),
+  cc: result.get('cc'),
+  bcc: result.get('bcc'),
   subject: result.get('subject'),
   html: result.get('html'),
   status: result.get('status'),

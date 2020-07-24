@@ -101,6 +101,8 @@ const sendEmail = async (req, params) => {
     from: sender.get('rfc822'),
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),
+    cc: config.settings.cc,
+    bcc: config.settings.bcc,
     code,
     data,
     was_bounced: false,
@@ -122,6 +124,8 @@ const sendEmail = async (req, params) => {
   const result = await sendMail({
     from: email.get('from'),
     to: email.get('to'),
+    cc: email.get('cc'),
+    bcc: email.get('bcc'),
     reply_to: email.get('reply_to') || 'no-reply@mahaplatform.com',
     subject: rendered.subject,
     html: encoded
