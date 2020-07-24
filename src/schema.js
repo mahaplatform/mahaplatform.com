@@ -1016,6 +1016,19 @@ const schema = {
       table.timestamp('deleted_at')
     })
 
+    await knex.schema.createTable('finance_allocations', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('refund_id').unsigned()
+      table.integer('payment_id').unsigned()
+      table.integer('line_item_id').unsigned()
+      table.decimal('amount', 6, 2)
+      table.decimal('fee', 6, 2)
+      table.decimal('total', 6, 2)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('finance_banks', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1254,6 +1267,7 @@ const schema = {
       table.date('voided_date')
       table.text('voided_reason')
       table.USER-DEFINED('type')
+      table.integer('deposit_id').unsigned()
     })
 
     await knex.schema.createTable('finance_reimbursements', (table) => {
@@ -3026,6 +3040,7 @@ const schema = {
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('deposit_id').references('finance_deposits.id')
     })
 
     await knex.schema.table('finance_revenue_types', table => {
@@ -3526,6 +3541,13 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_allocations', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('refund_id').references('finance_refunds.id')
+      table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('line_item_id').references('finance_line_items.id')
     })
 
 
@@ -5043,109 +5065,6 @@ union
     `)
 
     await knex.raw(`
-      create view finance_admin_summary AS
-      with physical_payments as (
-      select count(*) as count,
-      finance_payments.team_id
-      from finance_payments
-      where ((finance_payments.status = 'received'::finance_payments_status) and (finance_payments.method = any (array['cash'::finance_payments_method, 'check'::finance_payments_method])))
-      group by finance_payments.team_id
-      ), digital_payments_captured as (
-      select count(*) as count,
-      finance_payments.team_id
-      from finance_payments
-      where ((finance_payments.status = 'captured'::finance_payments_status) and (finance_payments.method = any (array['ach'::finance_payments_method, 'card'::finance_payments_method, 'paypal'::finance_payments_method, 'applepay'::finance_payments_method, 'googlepay'::finance_payments_method])))
-      group by finance_payments.team_id
-      ), digital_payments_settled as (
-      select count(*) as count,
-      finance_payments.team_id
-      from finance_payments
-      where ((finance_payments.status = 'settled'::finance_payments_status) and (finance_payments.method = any (array['ach'::finance_payments_method, 'card'::finance_payments_method, 'paypal'::finance_payments_method, 'applepay'::finance_payments_method, 'googlepay'::finance_payments_method])))
-      group by finance_payments.team_id
-      ), deposits as (
-      select count(*) as count,
-      finance_deposits.team_id
-      from finance_deposits
-      where (finance_deposits.status = 'pending'::finance_deposit_statuses)
-      group by finance_deposits.team_id
-      ), expenses_approved as (
-      select count(*) as count,
-      finance_items.team_id
-      from finance_items
-      where ((finance_items.deleted_at is null) and ((finance_items.status)::text = 'approved'::text))
-      group by finance_items.team_id
-      ), expenses_reviewed as (
-      select count(*) as count,
-      finance_items.team_id
-      from finance_items
-      where ((finance_items.deleted_at is null) and ((finance_items.status)::text = 'reviewed'::text))
-      group by finance_items.team_id
-      )
-      select maha_teams.id as team_id,
-      coalesce(physical_payments.count, (0)::bigint) as physical_payments_count,
-      coalesce(digital_payments_captured.count, (0)::bigint) as digital_payments_captured_count,
-      coalesce(digital_payments_settled.count, (0)::bigint) as digital_payments_settled_count,
-      coalesce(deposits.count, (0)::bigint) as deposits_count,
-      coalesce(expenses_approved.count, (0)::bigint) as expenses_approved_count,
-      coalesce(expenses_reviewed.count, (0)::bigint) as expenses_reviewed_count
-      from ((((((maha_teams
-      left join physical_payments on ((maha_teams.id = physical_payments.team_id)))
-      left join digital_payments_captured on ((maha_teams.id = digital_payments_captured.team_id)))
-      left join digital_payments_settled on ((maha_teams.id = digital_payments_settled.team_id)))
-      left join deposits on ((maha_teams.id = deposits.team_id)))
-      left join expenses_approved on ((maha_teams.id = expenses_approved.team_id)))
-      left join expenses_reviewed on ((maha_teams.id = expenses_reviewed.team_id)));
-    `)
-
-    await knex.raw(`
-      create view finance_allocations AS
-      with computed as (
-      select row_number() over (partition by finance_payment_details.payment_id order by finance_invoice_line_items_1.total desc) as index,
-      finance_invoice_line_items_1.line_item_id,
-      finance_payments.id as payment_id,
-      case
-      when (finance_invoice_totals.total > (0)::numeric) then round(((finance_invoice_line_items_1.allocated / finance_invoice_totals.total) * finance_payment_details.fee), 2)
-      else (0)::numeric
-      end as amount
-      from (((finance_invoice_line_items finance_invoice_line_items_1
-      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoice_line_items_1.invoice_id)))
-      join finance_payments on ((finance_payments.invoice_id = finance_invoice_line_items_1.invoice_id)))
-      join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
-      ), totaled as (
-      select computed.payment_id,
-      sum(computed.amount) as amount
-      from computed
-      group by computed.payment_id
-      ), diffed as (
-      select totaled.payment_id,
-      (finance_payment_details.fee - totaled.amount) as amount
-      from (totaled
-      join finance_payment_details on ((finance_payment_details.payment_id = totaled.payment_id)))
-      ), adjusted as (
-      select computed.index,
-      computed.line_item_id,
-      computed.payment_id,
-      computed.amount,
-      case
-      when (computed.index = 1) then (computed.amount + diffed.amount)
-      else computed.amount
-      end as fee
-      from (computed
-      join diffed on ((diffed.payment_id = computed.payment_id)))
-      )
-      select finance_invoices.team_id,
-      adjusted.payment_id,
-      adjusted.line_item_id,
-      (finance_invoice_line_items.total - adjusted.fee) as amount,
-      adjusted.fee,
-      finance_invoice_line_items.total
-      from (((adjusted
-      join finance_line_items on ((finance_line_items.id = adjusted.line_item_id)))
-      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = adjusted.line_item_id)))
-      join finance_invoices on ((finance_invoices.id = finance_line_items.invoice_id)));
-    `)
-
-    await knex.raw(`
       create view finance_batch_totals AS
       select finance_batches.id as batch_id,
       count(finance_items.*) as items_count,
@@ -5174,35 +5093,41 @@ union
     `)
 
     await knex.raw(`
+      create view finance_deposit_line_items AS
+      select finance_payments.deposit_id,
+      finance_payments.id as payment_id,
+      null::integer as refund_id,
+      coalesce(sum(finance_allocations.amount), 0.00) as amount,
+      (0.00 - coalesce(sum(finance_allocations.fee), 0.00)) as fee,
+      coalesce(sum(finance_allocations.total), 0.00) as total
+      from (finance_allocations
+      join finance_payments on ((finance_payments.id = finance_allocations.payment_id)))
+      where (finance_payments.deposit_id is not null)
+      group by finance_payments.id, finance_payments.deposit_id
+union
+      select finance_refunds.deposit_id,
+      null::integer as payment_id,
+      finance_refunds.id as refund_id,
+      (0.00 - coalesce(sum(finance_allocations.amount), 0.00)) as amount,
+      coalesce(sum(finance_allocations.fee), 0.00) as fee,
+      (0.00 - coalesce(sum(finance_allocations.total), 0.00)) as total
+      from (finance_allocations
+      join finance_refunds on ((finance_refunds.id = finance_allocations.refund_id)))
+      where (finance_refunds.deposit_id is not null)
+      group by finance_refunds.id, finance_refunds.deposit_id
+      order by 1, 2, 3;
+    `)
+
+    await knex.raw(`
       create view finance_deposit_totals AS
-      with payments as (
-      select finance_deposits_1.id as deposit_id,
-      count(distinct finance_payments.*) as count
-      from (finance_deposits finance_deposits_1
-      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
-      group by finance_deposits_1.id
-      ), totals as (
-      select finance_deposits_1.id as deposit_id,
-      sum(finance_payments.amount) as total
-      from (finance_deposits finance_deposits_1
-      left join finance_payments on ((finance_payments.deposit_id = finance_deposits_1.id)))
-      group by finance_deposits_1.id
-      ), fees as (
-      select finance_deposits_1.id as deposit_id,
-      sum(finance_payment_details.fee) as total
-      from (finance_deposits finance_deposits_1
-      left join finance_payment_details on ((finance_payment_details.deposit_id = finance_deposits_1.id)))
-      group by finance_deposits_1.id
-      )
-      select finance_deposits.id as deposit_id,
-      coalesce(payments.count, (0)::bigint) as payments_count,
-      coalesce(totals.total, 0.00) as total,
-      coalesce(fees.total, 0.00) as fee,
-      coalesce((totals.total - fees.total), 0.00) as amount
-      from (((finance_deposits
-      left join payments on ((payments.deposit_id = finance_deposits.id)))
-      left join totals on ((totals.deposit_id = finance_deposits.id)))
-      left join fees on ((fees.deposit_id = finance_deposits.id)));
+      select finance_deposit_line_items.deposit_id,
+      count(finance_deposit_line_items.payment_id) as payments_count,
+      count(finance_deposit_line_items.refund_id) as refunds_count,
+      coalesce(sum(finance_deposit_line_items.total), 0.00) as total,
+      coalesce(sum(finance_deposit_line_items.fee), 0.00) as fee,
+      coalesce(sum(finance_deposit_line_items.amount), 0.00) as amount
+      from finance_deposit_line_items
+      group by finance_deposit_line_items.deposit_id;
     `)
 
     await knex.raw(`

@@ -8,7 +8,7 @@ const Details = ({ refund }) => {
 
   const payment = {
     className: 'link',
-    label: refund.payment.code,
+    label: refund.payment.reference,
     route: `/admin/finance/payments/${refund.payment.id}`
   }
 
@@ -42,13 +42,39 @@ const Details = ({ refund }) => {
     }
 
     items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
-    items.push({ label: 'Status', content: refund.status })
+
   }
 
   const list = {
     sections: [
       { items }
     ]
+  }
+
+  if(refund.voided_date !== null) {
+    list.alert = { color: 'red', message: 'This refund was voided' }
+  } else if(refund.status === 'settled') {
+    list.alert = { color: 'blue', message: 'This refund has been settled' }
+  } else if(refund.status === 'deposited') {
+    list.alert = { color: 'violet', message: 'This refund has been deposited' }
+  }
+
+  if(refund.status === 'deposited') {
+
+    const deposit = {
+      className: 'link',
+      label: moment(refund.deposit.date).format('MM/DD/YYYY'),
+      route: `/admin/finance/deposits/${refund.deposit.id}`
+    }
+
+    list.sections.push({
+      title: 'Deposited',
+      items: [
+        { label: 'Bank Account', content: refund.deposit.bank.title },
+        { label: 'Date', content: <Button { ...deposit } /> }
+      ]
+    })
+
   }
 
   if(refund.voided_date) {

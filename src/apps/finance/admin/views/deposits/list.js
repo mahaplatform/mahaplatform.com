@@ -13,8 +13,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Bank Account', key: 'bank.title', sort:'bank', primary: true },
       { label: 'Date', key: 'date', collapsing: true, format: 'date' },
       { label: 'Payments', key: 'payments_count', collapsing: true, align: 'right' },
-      { label: 'Total', key: 'total', collapsing: true, format: 'currency' },
-      { label: 'Fee', key: 'fee', collapsing: true, format: 'currency' },
+      { label: 'Refunds', key: 'refunds_count', collapsing: true, align: 'right' },
       { label: 'Amount', key: 'amount', collapsing: true, format: 'currency' },
       { label: 'Status', key: 'status', collapsing: true, primary: true, align: 'center', padded: true, format: Status }
     ],
@@ -23,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['pending','exported'], format: StatusToken }
     ],
-    defaultSort: { key: 'created_at', order: 'desc' },
+    defaultSort: { key: 'date', order: 'desc' },
     onClick: (record) => context.router.history.push(`/admin/finance/deposits/${record.id}`),
     empty: {
       icon: 'university',

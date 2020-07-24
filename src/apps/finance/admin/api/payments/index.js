@@ -18,6 +18,6 @@ router.patch('/:id/void', voyd)
 
 router.use('/:payment_id/refunds', refunds)
 
-router.use('/:payment_id/allocations', allocations)
+router.get('/:payment_id/allocations', allocations)
 
 export default router

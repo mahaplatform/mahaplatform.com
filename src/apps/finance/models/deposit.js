@@ -1,8 +1,10 @@
+import DepositLineItem from './deposit_line_item'
 import Model from '../../../core/objects/model'
-import Bank from './bank'
 import Payment from './payment'
 import numeral from 'numeral'
+import Refund from './refund'
 import moment from 'moment'
+import Bank from './bank'
 
 const Deposit = new Model({
 
@@ -30,8 +32,18 @@ const Deposit = new Model({
     return this.belongsTo(Bank, 'bank_id')
   },
 
+  line_items() {
+    return this.hasMany(DepositLineItem, 'deposit_id').query(qb => {
+      qb.orderByRaw('payment_id asc, refund_id asc')
+    })
+  },
+
   payments() {
     return this.hasMany(Payment, 'deposit_id')
+  },
+
+  refunds() {
+    return this.hasMany(Refund, 'deposit_id')
   }
 
 })

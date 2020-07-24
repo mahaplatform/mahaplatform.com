@@ -102,7 +102,6 @@ const Details = ({ audits, payment }) => {
     list.alert = { color: 'green', message: 'This payment was received' }
   }
 
-
   if(payment.status === 'deposited') {
 
     const deposit = {

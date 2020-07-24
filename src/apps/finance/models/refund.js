@@ -1,5 +1,7 @@
 import Model from '../../../core/objects/model'
+import Allocation from './allocation'
 import Payment from './payment'
+import Deposit from './deposit'
 import Credit from './credit'
 
 const Refund = new Model({
@@ -18,8 +20,16 @@ const Refund = new Model({
 
   },
 
+  allocations() {
+    return this.hasMany(Allocation, 'refund_id')
+  },
+
   credit() {
     return this.belongsTo(Credit, 'credit_id')
+  },
+
+  deposit() {
+    return this.belongsTo(Deposit, 'deposit_id')
   },
 
   payment() {

@@ -17,6 +17,7 @@ const navigation = async (req) => ({
       { label: 'Invoices', rights: ['finance:manage_revenue'], route: '/invoices' },
       { label: 'Deposits', rights: ['finance:manage_deposits'], route: '/deposits' },
       { label: 'Payments', rights: ['finance:manage_revenue'], route: '/payments' },
+      { label: 'Refunds', rights: ['finance:manage_revenue'], route: '/refunds' },
       { label: 'Report', rights: ['finance:access_revenue_reports'], route: '/reports/revenue' }
     ] },
     { label: 'Projects', route: '/projects' }

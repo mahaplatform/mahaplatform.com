@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-const Payments = ({ deposit, payments }) => {
+const Payments = ({ deposit, transactions }) => {
 
-  const button = (payment) => ({
+  const button = (transaction) => ({
     className: 'link',
-    label: `${payment.method.toUpperCase()} ${payment.description ? `(${payment.description})` : ''}`,
-    route: `/admin/finance/payments/${payment.id}`
+    label: transaction.type === 'payment' ? transaction.payment.reference : transaction.refund.reference,
+    route: transaction.type === 'payment' ? `/admin/finance/payments/${transaction.payment.id}` : `/admin/finance/refunds/${transaction.refund.id}`
   })
 
   return (
@@ -16,22 +16,24 @@ const Payments = ({ deposit, payments }) => {
       <thead>
         <tr>
           <th>Description</th>
+          <th className="collapsing">Type</th>
           <th className="collapsing">Total</th>
           <th className="collapsing">Fee</th>
           <th className="collapsing">Amount</th>
         </tr>
       </thead>
       <tbody>
-        { payments.map((payment, index) => (
+        { transactions.map((transaction, index) => (
           <tr key={`payment_${index}`}>
-            <td><Button { ...button(payment) } /></td>
-            <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
-            <td className="right aligned">{ numeral(payment.fee).format('0.00') }</td>
-            <td className="right aligned">{ numeral(payment.disbursed).format('0.00') }</td>
+            <td><Button { ...button(transaction) } /></td>
+            <td>{ transaction.type.toUpperCase() }</td>
+            <td className="right aligned">{ numeral(transaction.total).format('0.00') }</td>
+            <td className="right aligned">{ numeral(transaction.fee).format('0.00') }</td>
+            <td className="right aligned">{ numeral(transaction.amount).format('0.00') }</td>
           </tr>
         )) }
         <tr>
-          <td>Total</td>
+          <td colSpan="2">Total</td>
           <td className="right aligned">{ numeral(deposit.total).format('0.00') }</td>
           <td className="right aligned">{ numeral(deposit.fee).format('0.00') }</td>
           <td className="right aligned">{ numeral(deposit.amount).format('0.00') }</td>
@@ -44,7 +46,7 @@ const Payments = ({ deposit, payments }) => {
 
 Payments.propTypes = {
   deposit: PropTypes.object,
-  payments: PropTypes.array
+  transactions: PropTypes.array
 }
 
 export default Payments

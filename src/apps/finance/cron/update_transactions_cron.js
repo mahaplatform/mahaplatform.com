@@ -26,7 +26,7 @@ const getTransactions = async(ids) => {
   }), {}))
 }
 
-const getDeposit = async (req, { bank, payment, transaction }) => {
+const getDeposit = async (req, { bank, transaction }) => {
 
   const deposit = await Deposit.query(qb => {
     qb.where('team_id', req.team.get('id')),
@@ -88,7 +88,6 @@ const updatePayments = async (req) => {
 
       const deposit = await getDeposit(req, {
         bank,
-        payment,
         transaction
       })
 
@@ -142,7 +141,34 @@ const updateRefunds = async (req) => {
 
     const transaction = transactions[refund.get('braintree_id')]
 
-    if(transaction.status === 'settled') {
+    if(refund.get('status') !== 'deposited' && transaction.disbursementDetails.disbursementDate) {
+
+      const bank = await Bank.query(qb => {
+        qb.where('braintree_id', transaction.merchantAccountId)
+      }).fetch({
+        transacting: req.trx
+      })
+
+      const deposit = await getDeposit(req, {
+        bank,
+        transaction
+      })
+
+      await refund.save({
+        deposit_id: deposit.get('id'),
+        status: 'deposited'
+      },{
+        transacting: req.trx,
+        patch: true
+      })
+
+      await audit(req, {
+        story: 'deposited',
+        auditable: refund
+      })
+
+    } else if(transaction.status === 'settled') {
+
       await refund.save({
         status: 'settled'
       },{

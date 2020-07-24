@@ -9,6 +9,7 @@ const PaymentSerializer = (req, result) => ({
   type: result.get('type'),
   voided_date: result.get('voided_date'),
   voided_reason: result.get('voided_reason'),
+  deposit: deposit(result.related('deposit')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -21,12 +22,47 @@ const credit = (credit) => {
   }
 }
 
+const deposit = (deposit) => {
+  if(!deposit.id) return null
+  return {
+    id: deposit.get('id'),
+    date: deposit.get('date'),
+    bank: bank(deposit.related('bank'))
+  }
+}
+
+const bank = (bank) => {
+  if(!bank.id) return null
+  return {
+    id: bank.get('id'),
+    title: bank.get('title'),
+    braintree_id: bank.get('braintree_id')
+  }
+}
+
 const payment = (payment) => {
   if(!payment.id) return null
   return {
     id: payment.get('id'),
-    code: payment.get('code'),
+    reference: payment.get('reference'),
+    method: payment.get('method'),
+    payment_method: payment_method(payment.related('payment_method')),
     customer: customer(payment.related('invoice').related('customer'))
+  }
+}
+
+const payment_method = (payment_method) => {
+  if(!payment_method.id) return null
+  return {
+    id: payment_method.get('id'),
+    account_type: payment_method.get('card_type'),
+    card_type: payment_method.get('card_type'),
+    email: payment_method.get('email'),
+    expiration_month: payment_method.get('expiration_month'),
+    expiration_year: payment_method.get('expiration_year'),
+    ownership_type: payment_method.get('card_type'),
+    last_four: payment_method.get('last_four'),
+    method: payment_method.get('method')
   }
 }
 

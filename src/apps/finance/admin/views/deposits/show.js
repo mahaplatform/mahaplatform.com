@@ -1,13 +1,13 @@
+import Transactions from './transactions'
 import { Page } from 'maha-admin'
-import Payments from './payments'
 import Details from './details'
 import React from 'react'
 import _ from 'lodash'
 
-const getTabs = ({ audits, deposit, payments }) => ({
+const getTabs = ({ audits, deposit, transactions }) => ({
   items: [
     { label: 'Details', component: <Details audits={ audits } deposit={ deposit } /> },
-    { label: 'Payments', component: <Payments deposit={ deposit } payments={ payments } /> }
+    { label: 'Transactions', component: <Transactions deposit={ deposit } transactions={ transactions } /> }
   ]
 })
 
@@ -50,7 +50,7 @@ const getButtons = ({ deposit }, { team, rights }) => {
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/finance_deposits/${props.params.id}/audits`,
   deposit: `/api/admin/finance/deposits/${props.params.id}`,
-  payments: `/api/admin/finance/deposits/${props.params.id}/payments`
+  transactions: `/api/admin/finance/deposits/${props.params.id}/transactions`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

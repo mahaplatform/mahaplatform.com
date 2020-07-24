@@ -68,9 +68,12 @@ const Select = (multiple) => {
     }
 
     componentDidUpdate(prevProps) {
-      const { defaultValue, multiple, selected, status, onChange, onReady } = this.props
+      const { defaultValue, multiple, options, selected, status, onChange, onReady } = this.props
       if(!_.isEqual(defaultValue, prevProps.defaultValue) && !_.isEqual(defaultValue, selected)) {
         this._handleSetSelected(defaultValue)
+      }
+      if(!_.isEqual(options, prevProps.options)) {
+        this._handleSetOptions(options)
       }
       if(status !== prevProps.status && status === 'success') {
         onReady()
