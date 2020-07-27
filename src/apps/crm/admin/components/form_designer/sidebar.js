@@ -88,7 +88,7 @@ class Sidebar extends React.Component {
       { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField }
     ]
     return fields.filter(field => {
-      return field.type !== 'productfield' || _.get(program, 'bank.status') === 'active'
+      return !_.includes(['paymentfield','productfield'], field.type) || _.get(program, 'bank.status') === 'active'
     })
   }
 

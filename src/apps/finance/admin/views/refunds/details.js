@@ -68,7 +68,7 @@ const Details = ({ refund }) => {
     }
 
     list.sections.push({
-      title: 'Deposited',
+      title: 'Withdrawn',
       items: [
         { label: 'Bank Account', content: refund.deposit.bank.title },
         { label: 'Date', content: <Button { ...deposit } /> }

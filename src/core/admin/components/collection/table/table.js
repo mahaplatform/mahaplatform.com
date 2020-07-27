@@ -127,6 +127,10 @@ class Table extends React.Component {
     this.props.onLoadHidden(code, defaults)
   }
 
+  componentWillUnmount() {
+    elementResizeEvent.unbind(this.body)
+  }
+
   componentDidUpdate(prevProps) {
     const { code, hidden, records, status, visible } = this.props
     if(status !== prevProps.status && status === 'success') {

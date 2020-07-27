@@ -16,7 +16,7 @@ const Details = ({ audits, deposit }) => {
   }
 
   if(deposit.status === 'pending') {
-    list.alert = { color: 'teal', message: 'This deposit is pending' }
+    list.alert = { color: 'teal', message: 'This deposit is pending export' }
   } else if(deposit.status === 'exported') {
     list.alert = { color: 'violet', message: 'This deposit was exported' }
   }
