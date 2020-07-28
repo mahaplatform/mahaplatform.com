@@ -15,7 +15,7 @@ const getTabs = ({ audits, allocations, payment, refunds }) => {
   ]
 
   if(refunds.length > 0) {
-    items.push({ label: 'Refunds', component: <Refunds refunds={ refunds }/> })
+    items.push({ label: 'Refunds', component: <Refunds payment={ payment } refunds={ refunds }/> })
   }
 
   return { items }

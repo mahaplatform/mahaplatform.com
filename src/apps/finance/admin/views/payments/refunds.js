@@ -4,7 +4,7 @@ import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
 
-const Refunds = ({ refunds }) => {
+const Refunds = ({ payment, refunds }) => {
 
   const button = (refund) => ({
     className: 'link',
@@ -27,6 +27,10 @@ const Refunds = ({ refunds }) => {
             <td className="right aligned">{ numeral(refund.amount).format('0.00') }</td>
           </tr>
         )) }
+        <tr>
+          <td>Total</td>
+          <td className="right aligned">{ numeral(payment.refunded).format('0.00') }</td>
+        </tr>
       </tbody>
     </table>
   )
@@ -34,6 +38,7 @@ const Refunds = ({ refunds }) => {
 }
 
 Refunds.propTypes = {
+  payment: PropTypes.object,
   refunds: PropTypes.array
 }
 

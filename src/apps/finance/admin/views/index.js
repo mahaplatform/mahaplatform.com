@@ -5,6 +5,7 @@ import BatchList from './batches/list'
 import CustomerList from './customers/list'
 import CustomerShow from './customers/show'
 import CheckShow from './checks/show'
+import CreditShow from './customers/credits/show'
 import DepositList from './deposits/list'
 import DepositShow from './deposits/show'
 import ExpenseShow from './expenses/show'
@@ -39,6 +40,7 @@ const routes = [
   { path: '/checks/:id', component: CheckShow },
   { path: '/customers', component: CustomerList },
   { path: '/customers/:id', component: CustomerShow },
+  { path: '/customers/:customer_id/credits/:id', component: CreditShow },
   { path: '/expenses/:id', component: ExpenseShow },
   { path: '/deposits', component: DepositList },
   { path: '/deposits/:id', component: DepositShow },

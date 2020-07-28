@@ -1,12 +1,12 @@
 import PaymentMethods from './payment_methods'
 import Scholarships from './scholarships'
 import Scholarship from './scholarship'
+import Credits from './credits/list'
+import Credit from './credits/new'
 import { Page } from 'maha-admin'
 import Invoices from './invoices'
 import Payments from './payments'
 import Details from './details'
-import Credits from './credits'
-import Credit from './credit'
 import Sales from './sales'
 import React from 'react'
 
@@ -15,7 +15,7 @@ const getTabs = ({ payment_methods, customer, invoices, payments, refunds, credi
     { label: 'Details', component: <Details customer={ customer }/> },
     { label: 'Invoices', component: <Invoices invoices={ invoices }/> },
     { label: 'Payments', component: <Payments payments={ payments } /> },
-    { label: 'Credits', component: <Credits credits={ credits }/> },
+    { label: 'Credits', component: <Credits customer={ customer } credits={ credits }/> },
     { label: 'Scholarships', component: <Scholarships scholarships={ scholarships }/> },
     { label: 'Methods', component: <PaymentMethods payment_methods={ payment_methods }/> },
     { label: 'Sales', component: <Sales customer={ customer }/> }

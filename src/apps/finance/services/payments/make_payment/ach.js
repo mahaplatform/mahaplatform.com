@@ -1,8 +1,8 @@
-import RouteError from '../../../../core/objects/route_error'
-import braintree from '../../../../core/services/braintree'
-import PaymentMethod from '../../models/payment_method'
+import RouteError from '../../../../../core/objects/route_error'
+import braintree from '../../../../../core/services/braintree'
+import PaymentMethod from '../../../models/payment_method'
 import { UsBankAccountVerification } from 'braintree'
-import Payment from '../../models/payment'
+import Payment from '../../../models/payment'
 import moment from 'moment'
 import _ from 'lodash'
 

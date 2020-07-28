@@ -5076,6 +5076,16 @@ union
     `)
 
     await knex.raw(`
+      create view finance_credit_details AS
+      select finance_credits.id,
+      coalesce(sum(finance_payments.amount), 0.00) as applied,
+      (finance_credits.amount - coalesce(sum(finance_payments.amount), 0.00)) as balance
+      from (finance_credits
+      left join finance_payments on (((finance_payments.credit_id = finance_credits.id) and (finance_payments.voided_date is null))))
+      group by finance_credits.id;
+    `)
+
+    await knex.raw(`
       create view finance_customers AS
       select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,
@@ -5169,6 +5179,12 @@ union
       else 0.00
       end as discount
       from finance_line_items finance_line_items_1
+      ), refunded as (
+      select finance_line_items_1.id as line_item_id,
+      coalesce(sum(finance_allocations.total), 0.00) as total
+      from (finance_line_items finance_line_items_1
+      left join finance_allocations on (((finance_allocations.line_item_id = finance_line_items_1.id) and (finance_allocations.refund_id is not null))))
+      group by finance_line_items_1.id
       )
       select finance_line_items.id as line_item_id,
       finance_line_items.invoice_id,
@@ -5183,6 +5199,7 @@ union
       totals.tax,
       totals.discount,
       ((totals.total + totals.tax) - totals.discount) as allocated,
+      refunded.total as refunded,
       (((finance_line_items.quantity)::numeric * finance_line_items.price) * (
       case
       when finance_line_items.is_tax_deductible then 1
@@ -5190,8 +5207,9 @@ union
       end)::numeric) as tax_deductible,
       finance_line_items.is_tax_deductible,
       finance_line_items.created_at
-      from (finance_line_items
+      from ((finance_line_items
       join totals on ((totals.line_item_id = finance_line_items.id)))
+      join refunded on ((refunded.line_item_id = finance_line_items.id)))
       order by finance_line_items.id desc;
     `)
 

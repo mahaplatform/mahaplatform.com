@@ -1,5 +1,6 @@
 import AmountField from '../../components/amountfield'
 import CardField from '../../components/cardfield'
+import CreditToken from '../../tokens/credit'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'
@@ -69,7 +70,7 @@ class Payment extends React.Component {
       ]
     } else if(method === 'credit') {
       return [
-        { label: 'Credit', name: 'credit_id', type: 'lookup', placeholder: 'Choose a credit', endpoint: `/api/admin/finance/customers/${invoice.customer.id}/credits`, value: 'id', text: 'id', required: true },
+        { label: 'Customer Credit', name: 'credit_id', type: 'lookup', placeholder: 'Choose a credit', endpoint: `/api/admin/finance/customers/${invoice.customer.id}/credits`, filter: { balance: { $gt: 0 } }, value: 'id', text: 'id', required: true, format: CreditToken },
         { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     } else if(method === 'scholarship') {

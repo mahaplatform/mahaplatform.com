@@ -24,7 +24,15 @@ const Details = ({ audits, payment }) => {
   if(payment.method === 'scholarship') {
     items.push({ label: 'Scholarship', content: payment.scholarship.id })
   } else if(payment.method === 'credit') {
-    items.push({ label: 'Credit', content: payment.credit.id })
+
+    const credit = {
+      className: 'link',
+      label: payment.credit.id,
+      route: `/admin/finance/customers/${payment.invoice.customer.id}/credits/${payment.credit.id}`
+    }
+
+    items.push({ label: 'Credit', content: <Button { ...credit } /> })
+
   } else if(_.includes(['card','googlepay','applepay','paypal','ach'], payment.method)) {
 
     if(payment.method === 'ach') {

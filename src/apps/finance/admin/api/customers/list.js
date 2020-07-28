@@ -9,7 +9,7 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      search: ['code']
+      search: ['first_name','last_name']
     },
     sort: {
       params: req.query.$sort,

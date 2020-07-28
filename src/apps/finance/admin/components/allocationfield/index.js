@@ -35,7 +35,7 @@ class AllocationField extends React.Component {
                   <i className={`fa fa-${this._getIcon(allocation.line_item) }`} />
                 </td>
                 <td>{ allocation.line_item.description }</td>
-                <td className="right aligned">{ numeral(allocation.total).format('0.00') }</td>
+                <td className="right aligned">{ numeral(allocation.line_item.refundable).format('0.00') }</td>
               </tr>
             )) }
           </tbody>
@@ -72,7 +72,7 @@ class AllocationField extends React.Component {
     return allocations.filter(allocation => {
       return _.includes(selected, allocation.line_item.id)
     }).reduce((total, allocation) => {
-      return total + Number(allocation.total)
+      return total + Number(allocation.line_item.refundable)
     }, 0.00)
   }
 

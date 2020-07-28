@@ -9,7 +9,13 @@ const LineItem = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    refundable() {
+      return (this.get('total') - this.get('refunded')).toFixed(2)
+    }
+
+  },
 
   discount_revenue_type() {
     return this.belongsTo(RevenueType, 'discount_revenue_type_id')

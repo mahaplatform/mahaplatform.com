@@ -57,7 +57,7 @@ class Refund extends React.Component {
     return numeral(allocations.filter(allocation => {
       return _.includes(refund.allocations, allocation.line_item.id)
     }).reduce((total, allocation) => {
-      return total + Number(allocation.total)
+      return total + Number(allocation.line_item.refundable)
     }, 0.00)).format('0.00')
   }
 

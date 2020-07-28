@@ -18,8 +18,21 @@ const listRoute = async (req, res) => {
 
   const credits = await Credit.filterFetch({
     scope: (qb) => {
+      qb.select('finance_credits.*','finance_credit_details.*')
+      qb.innerJoin('finance_credit_details','finance_credit_details.credit_id','finance_credits.id')
       qb.where('team_id', req.team.get('id'))
       qb.where('customer_id', customer.get('id'))
+    },
+    aliases: {
+      applied: 'finance_credit_details.applied',
+      balance: 'finance_credit_details.balance'
+    },
+    filter: {
+      params: req.query.$filter
+    },
+    sort: {
+      params: req.query.$sort,
+      defaults: '-created_at'
     },
     page: req.query.$page,
     withRelated: ['program'],

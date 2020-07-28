@@ -6,6 +6,12 @@ import React from 'react'
 
 const Details = ({ refund }) => {
 
+  const customer = {
+    className: 'link',
+    label: refund.payment.customer.display_name,
+    route: `/admin/finance/customers/${refund.payment.customer.id}`
+  }
+
   const payment = {
     className: 'link',
     label: refund.payment.reference,
@@ -14,7 +20,7 @@ const Details = ({ refund }) => {
 
   const items = [
     { label: 'Date', content: moment(refund.created_at).format('MM/DD/YYYY') },
-    { label: 'Customer', content: refund.payment.customer.display_name },
+    { label: 'Customer', content: <Button { ...customer } /> },
     { label: 'Payment', content: <Button { ...payment } /> },
     { label: 'Type', content: refund.type }
   ]

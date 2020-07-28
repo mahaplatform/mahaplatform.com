@@ -24,7 +24,8 @@ const line_item = (line_item) => {
   if(!line_item.id) return null
   return {
     id: line_item.get('id'),
-    description: line_item.get('description')
+    description: line_item.get('description'),
+    refundable: line_item.get('refundable')
   }
 }
 
