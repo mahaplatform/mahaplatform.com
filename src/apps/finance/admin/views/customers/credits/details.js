@@ -1,9 +1,9 @@
-import { Button, List } from 'maha-admin'
+import { Audit, Button, List, Comments } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-const Details = ({ credit }) => {
+const Details = ({ audits, credit }) => {
 
   const customer = {
     className: 'link',
@@ -16,15 +16,19 @@ const Details = ({ credit }) => {
       { label: 'Customer', content: <Button { ...customer } /> },
       { label: 'Program', content: credit.program.title },
       { label: 'Amount', content: numeral(credit.amount).format('0.00') },
-      { label: 'Balance', content: numeral(credit.balance).format('0.00') }
+      { label: 'Balance', content: numeral(credit.balance).format('0.00') },
+      { component: <Audit entries={ audits } /> }
     ]
   }
+
+  list.footer = <Comments entity={`finance_credits/${credit.id}`} />
 
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   credit: PropTypes.object,
   payments: PropTypes.array
 }

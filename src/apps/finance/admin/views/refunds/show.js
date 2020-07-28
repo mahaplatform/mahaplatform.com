@@ -4,10 +4,10 @@ import Details from './details'
 import Void from './void'
 import React from 'react'
 
-const getTabs = ({ allocations, refund }) => ({
+const getTabs = ({ audits, allocations, refund }) => ({
   items: [
-    { label: 'Details', component: <Details refund={ refund }/> },
-    { label: 'Allocations', component: <Allocations refund={ refund } allocations={ allocations }/> }
+    { label: 'Details', component: <Details audits={ audits } refund={ refund } /> },
+    { label: 'Allocations', component: <Allocations refund={ refund } allocations={ allocations } /> }
   ]
 })
 
@@ -24,6 +24,7 @@ const getTasks = ({ refund }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/finance_refunds/${props.params.id}/audits`,
   allocations: `/api/admin/finance/refunds/${props.params.id}/allocations`,
   refund: `/api/admin/finance/refunds/${props.params.id}`
 })

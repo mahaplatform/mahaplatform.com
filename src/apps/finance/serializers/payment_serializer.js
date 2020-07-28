@@ -81,7 +81,8 @@ const payment_method = (payment_method) => {
 const credit = (credit) => {
   if(!credit.id) return null
   return {
-    id: credit.get('id')
+    id: credit.get('id'),
+    description: credit.get('description')
   }
 }
 

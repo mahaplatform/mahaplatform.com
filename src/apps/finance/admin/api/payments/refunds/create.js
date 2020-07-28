@@ -1,5 +1,6 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import RefundSerializer from '../../../../serializers/refund_serializer'
+import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { refundPayment } from '../../../../services/payments'
 import Payment from '../../../../models/payment'
@@ -29,6 +30,16 @@ const createRoute = async (req, res) => {
     allocations: req.body.allocations,
     amount: req.body.amount,
     type: req.body.type
+  })
+
+  await audit(req, {
+    story: 'refunded',
+    auditable: payment
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: refund
   })
 
   await activity(req, {

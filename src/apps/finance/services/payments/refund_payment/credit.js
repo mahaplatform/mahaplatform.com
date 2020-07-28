@@ -1,3 +1,4 @@
+import { audit } from '../../../../../core/services/routes/audit'
 import Refund from '../../../models/refund'
 import Credit from '../../../models/credit'
 
@@ -13,7 +14,7 @@ export const refundCredit = async(req, { amount, payment }) => {
     transacting: req.trx
   })
 
-  return await Refund.forge({
+  const refund = await Refund.forge({
     team_id: req.team.get('id'),
     payment_id: payment.get('id'),
     credit_id: credit.get('id'),
@@ -23,5 +24,12 @@ export const refundCredit = async(req, { amount, payment }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  await audit(req, {
+    story: 'created',
+    auditable: credit
+  })
+
+  return refund
 
 }

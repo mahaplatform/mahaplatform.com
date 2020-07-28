@@ -26,14 +26,14 @@ const getTasks = ({ allocations, payment }) => {
 
   const items = []
 
-  if(payment.braintree_id === null || payment.status === 'captured') {
+  if(!_.includes(['credit','scholarship'], payment.method) && (payment.braintree_id === null || payment.status === 'captured')) {
     items.push({
       label: 'Void Payment',
       modal: <Void payment={ payment } />
     })
   }
 
-  if(payment.braintree_id !== null && !_.includes(['captured','voided'], payment.status)) {
+  if(payment.braintree_id !== null && !_.includes(['captured','voided'], payment.status) && payment.refundable > 0) {
     items.push({
       label: 'Issue Refund',
       modal: <Refund allocations={ allocations } payment={ payment } />

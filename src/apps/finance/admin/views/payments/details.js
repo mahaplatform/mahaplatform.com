@@ -27,7 +27,7 @@ const Details = ({ audits, payment }) => {
 
     const credit = {
       className: 'link',
-      label: payment.credit.id,
+      label: `${payment.credit.id} (${payment.credit.description})`,
       route: `/admin/finance/customers/${payment.invoice.customer.id}/credits/${payment.credit.id}`
     }
 

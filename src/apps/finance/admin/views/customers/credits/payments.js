@@ -22,6 +22,13 @@ const Payments = ({ credit, payments }) => {
         </tr>
       </thead>
       <tbody>
+        { payments.length === 0 &&
+          <tr>
+            <td colSpan="3" className="center aligned">
+              This credit has not been applied to any payments
+            </td>
+          </tr>
+        }
         { payments.map((payment, index) => (
           <tr key={`payment_${index}`}>
             <td>
@@ -33,10 +40,12 @@ const Payments = ({ credit, payments }) => {
             <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
           </tr>
         )) }
-        <tr>
-          <td colSpan="2">Total</td>
-          <td className="right aligned">{ numeral(credit.applied).format('0.00') }</td>
-        </tr>
+        { payments.length > 0 &&
+          <tr>
+            <td colSpan="2">Total</td>
+            <td className="right aligned">{ numeral(credit.applied).format('0.00') }</td>
+          </tr>
+        }
       </tbody>
     </table>
   )

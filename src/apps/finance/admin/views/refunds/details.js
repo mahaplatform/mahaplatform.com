@@ -1,10 +1,10 @@
+import { Audit, Button, List, Comments } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Button, List } from 'maha-admin'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
 
-const Details = ({ refund }) => {
+const Details = ({ audits, refund }) => {
 
   const customer = {
     className: 'link',
@@ -29,8 +29,8 @@ const Details = ({ refund }) => {
 
     const credit = {
       className: 'link',
-      label: refund.credit.id,
-      route: `/admin/finance/credits/${refund.credit.id}`
+      label: `${refund.credit.id} (${refund.credit.description})`,
+      route: `/admin/finance/customers/${refund.payment.customer.id}/credits/${refund.credit.id}`
     }
 
     items.push({ label: 'Credit', content: <Button { ...credit } /> })
@@ -93,11 +93,20 @@ const Details = ({ refund }) => {
     })
   }
 
+  list.sections.push({
+    items: [
+      { component: <Audit entries={ audits } /> }
+    ]
+  })
+
+  list.footer = <Comments entity={`finance_refunds/${refund.id}`} />
+
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   refund: PropTypes.object
 }
 

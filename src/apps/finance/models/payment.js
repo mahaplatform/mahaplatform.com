@@ -42,11 +42,11 @@ const Payment = new Model({
     refunded() {
       return this.related('refunds').reduce((refunded, refund) => {
         return refunded + Number(refund.get('amount'))
-      }, 0.00)
+      }, 0.00).toFixed(2)
     },
 
     refundable() {
-      return (this.get('amount') - this.get('refunded')).toFixed(2)
+      return (this.get('amount') - Number(this.get('refunded'))).toFixed(2)
     }
 
   },
