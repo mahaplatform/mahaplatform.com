@@ -75,7 +75,11 @@ const Details = ({ audits, payment }) => {
     items.push({ label: 'Bank Account', content: payment.bank.title })
     items.push({ label: 'Gross Amount', content: numeral(payment.amount).format('0.00') })
     items.push({ label: 'Fee', content: (
-      <span>{ numeral(payment.fee).format('0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
+      <span>
+        { numeral(payment.fee).format('0.00') } (
+        { numeral(payment.rate).format('0.00%') }
+        { payment.method !== 'ach' ? '+ 0.30' : '' })
+      </span>
     ) })
     items.push({ label: 'Net Amount', content: numeral(payment.disbursed).format('0.00') })
   } else {

@@ -13,13 +13,13 @@ const lookupRoute = async (req, res) => {
   const ids = banks.map(bank => bank.get('braintree_id'))
 
   const data = await new Promise((resolve, reject) => {
-    braintree.bankAccount.all((err, banks) => {
-      resolve(banks.filter(bank => {
-        return bank.status === 'active'
-      }).filter(bank => {
-        return !_.includes(ids, bank.id)
-      }).map(bank => ({
-        id: bank.id
+    braintree.merchantAccount.all((err, merchants) => {
+      resolve(merchants.filter(merchant => {
+        return merchant.status === 'active'
+      }).filter(merchant => {
+        return !_.includes(ids, merchant.id)
+      }).map(merchant => ({
+        id: merchant.id
       })))
     })
   })

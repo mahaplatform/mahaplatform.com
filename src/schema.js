@@ -1046,6 +1046,7 @@ const schema = {
       table.jsonb('integration')
       table.date('applied_on')
       table.USER-DEFINED('status')
+      table.decimal('ach_rate', 5, 4)
     })
 
     await knex.schema.createTable('finance_batches', (table) => {
@@ -5077,7 +5078,7 @@ union
 
     await knex.raw(`
       create view finance_credit_details AS
-      select finance_credits.id,
+      select finance_credits.id as credit_id,
       coalesce(sum(finance_payments.amount), 0.00) as applied,
       (finance_credits.amount - coalesce(sum(finance_payments.amount), 0.00)) as balance
       from (finance_credits
@@ -5411,8 +5412,12 @@ union
       select finance_payments_1.id as payment_id,
       case
       when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00
-      else round((floor((((finance_payments_1.rate * finance_payments_1.amount) + 0.3) * (100)::numeric)) / (100)::numeric), 2)
-      end as fee
+      else round((floor(((finance_payments_1.rate * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
+      end as fee_percent,
+      case
+      when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'ach'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00
+      else 0.30
+      end as fee_flat
       from finance_payments finance_payments_1
       )
       select finance_payments.id as payment_id,
@@ -5421,10 +5426,11 @@ union
       when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
       when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
+      when (finance_payments.method = 'ach'::finance_payments_method) then concat(finance_payment_methods.bank_name, '-', finance_payment_methods.last_four)
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
       end as description,
-      fees.fee,
-      (finance_payments.amount - fees.fee) as disbursed
+      (fees.fee_percent + fees.fee_flat) as fee,
+      ((finance_payments.amount - fees.fee_percent) - fees.fee_flat) as disbursed
       from ((finance_payments
       left join finance_payment_methods on ((finance_payment_methods.id = finance_payments.payment_method_id)))
       left join fees on ((fees.payment_id = finance_payments.id)));

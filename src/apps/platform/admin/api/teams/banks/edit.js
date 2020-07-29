@@ -18,7 +18,8 @@ const editRoute = async (req, res) => {
     fields: [
       'braintree_id',
       'rate',
-      'amex_rate'
+      'amex_rate',
+      'ach_rate'
     ]
   })
 

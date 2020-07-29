@@ -16,7 +16,6 @@ const AddRefundableToLineItems = {
 
     await knex.raw(`
       create or replace view finance_invoice_line_items as
-
       with totals as (
       select finance_line_items.id as line_item_id,
       finance_line_items.quantity * finance_line_items.price as total,
