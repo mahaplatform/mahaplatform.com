@@ -12,7 +12,7 @@ const payment = (payment) => {
   if(!payment.id) return null
   return {
     id: payment.get('id'),
-    reference: payment.get('reference')
+    description: payment.get('description')
   }
 }
 
@@ -20,7 +20,7 @@ const refund = (refund) => {
   if(!refund.id) return null
   return {
     id: refund.get('id'),
-    reference: refund.related('payment').get('reference')
+    description: refund.related('payment').get('description')
   }
 }
 

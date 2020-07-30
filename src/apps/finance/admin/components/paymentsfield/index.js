@@ -63,7 +63,7 @@ class PaymentsField extends React.Component {
       endpoint: '/api/admin/finance/payments',
       filter: {
         method: {
-          $in: ['cash','check']
+          $in: ['cash','check','paypal']
         },
         deposit_id: {
           $eq: 'null'
@@ -93,7 +93,7 @@ class PaymentsField extends React.Component {
 
   _getTotal() {
     return this.state.selected.reduce((total, record) => {
-      return total + Number(record.amount)
+      return total + Number(record.disbursed)
     }, 0)
   }
 

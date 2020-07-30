@@ -43,10 +43,10 @@ class NumberField extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { tabIndex, units } = this.props
+    const { units } = this.props
     const { value } = this.state
     return (
-      <div className="maha-numberfield" tabIndex={ tabIndex }>
+      <div className="maha-numberfield">
         <div className="maha-input">
           <div className="maha-input-field">
             <input { ...this._getInput() } />

@@ -7,7 +7,7 @@ const Payments = ({ deposit, transactions }) => {
 
   const button = (transaction) => ({
     className: 'link',
-    label: transaction.type === 'payment' ? transaction.payment.reference : transaction.refund.reference,
+    label: transaction.type === 'payment' ? transaction.payment.description : transaction.refund.description,
     route: transaction.type === 'payment' ? `/admin/finance/payments/${transaction.payment.id}` : `/admin/finance/refunds/${transaction.refund.id}`
   })
 

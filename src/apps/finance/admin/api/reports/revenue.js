@@ -15,13 +15,14 @@ const revenueRoute = async (req, res) => {
       qb.where('finance_allocations.team_id', req.team.get('id'))
     },
     aliases: {
-      customer_id: 'finance_invoices.customer_id',
-      program_id: 'finance_invoices.program_id',
       customer: 'finance_customers.last_name',
+      customer_id: 'finance_invoices.customer_id',
       created_at: 'finance_allocations.created_at',
       date: 'finance_payments.date',
       program: 'crm_programs.title',
+      program_id: 'finance_invoices.program_id',
       project: 'finance_projects.integration->\'project_code\'',
+      project_id: 'finance_projects.id',
       revenue_type: 'finance_revenue_types.integration->\'revenue_code\''
     },
     filter: {

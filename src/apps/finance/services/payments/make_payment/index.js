@@ -113,42 +113,6 @@ const allocatePayment = async (req, { invoice_id, payment_id }) => {
 
 }
 
-const chargeCustomer = async (req, { invoice, params }) => {
-
-  const paymentCreator = getPaymentCreator(params.method)
-
-  if(_.includes(['cash','check','credit','scholarship'], params.method)) {
-    return await paymentCreator(req, {
-      invoice,
-      ...params
-    })
-  }
-
-  await invoice.load(['customer','program.bank'], {
-    transacting: req.trx
-  })
-
-  const customer = await getCustomer(req, {
-    customer: invoice.related('customer')
-  })
-
-  const payment = await paymentCreator(req, {
-    invoice,
-    customer,
-    bank: invoice.related('program').related('bank'),
-    payment: params.payment,
-    amount: params.amount
-  })
-
-  await allocatePayment(req, {
-    invoice_id: invoice.get('id'),
-    payment_id: payment.get('id')
-  })
-
-  return payment
-
-}
-
 export const makePayment = async (req, { invoice, params }) => {
 
   const { amount } = params
@@ -173,9 +137,37 @@ export const makePayment = async (req, { invoice, params }) => {
     })
   }
 
-  return await chargeCustomer(req, {
-    params,
-    invoice
+  const paymentCreator = getPaymentCreator(params.method)
+
+  if(_.includes(['credit','scholarship'], params.method)) {
+    return await paymentCreator(req, {
+      invoice,
+      ...params
+    })
+  }
+
+  await invoice.load(['customer','program.bank'], {
+    transacting: req.trx
   })
+
+  const customer = await getCustomer(req, {
+    customer: invoice.related('customer')
+  })
+
+  const payment = await paymentCreator(req, {
+    invoice,
+    customer,
+    bank: invoice.related('program').related('bank'),
+    date: params.date,
+    payment: params.payment,
+    amount: params.amount
+  })
+
+  await allocatePayment(req, {
+    invoice_id: invoice.get('id'),
+    payment_id: payment.get('id')
+  })
+
+  return payment
 
 }

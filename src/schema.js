@@ -2993,6 +2993,13 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('finance_allocations', table => {
+      table.foreign('line_item_id').references('finance_line_items.id')
+      table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('refund_id').references('finance_refunds.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('finance_credits', table => {
       table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('program_id').references('crm_programs.id')
@@ -3039,9 +3046,9 @@ const schema = {
 
     await knex.schema.table('finance_refunds', table => {
       table.foreign('credit_id').references('finance_credits.id')
+      table.foreign('deposit_id').references('finance_deposits.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('deposit_id').references('finance_deposits.id')
     })
 
     await knex.schema.table('finance_revenue_types', table => {
@@ -3542,13 +3549,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_allocations', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('refund_id').references('finance_refunds.id')
-      table.foreign('payment_id').references('finance_payments.id')
-      table.foreign('line_item_id').references('finance_line_items.id')
     })
 
 
@@ -5412,6 +5412,7 @@ union
       select finance_payments_1.id as payment_id,
       case
       when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00
+      when (finance_payments_1.method = 'paypal'::finance_payments_method) then round((round(((finance_payments_1.rate * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
       else round((floor(((finance_payments_1.rate * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
       end as fee_percent,
       case
@@ -5423,9 +5424,10 @@ union
       select finance_payments.id as payment_id,
       finance_payments.deposit_id,
       case
-      when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then null::text
-      when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
-      when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
+      when (finance_payments.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method])) then null::text
+      when (finance_payments.method = 'cash'::finance_payments_method) then 'cash'::text
+      when (finance_payments.method = 'check'::finance_payments_method) then concat('check #', finance_payments.reference)
+      when (finance_payments.method = 'paypal'::finance_payments_method) then concat('paypal-', finance_payment_methods.email)
       when (finance_payments.method = 'ach'::finance_payments_method) then concat(finance_payment_methods.bank_name, '-', finance_payment_methods.last_four)
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
       end as description,

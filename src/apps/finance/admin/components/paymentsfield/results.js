@@ -28,7 +28,7 @@ class Results extends React.Component {
               { record.method }
             </div>
             <div className="paymentsfield-payment-amount">
-              { numeral(record.amount).format('0.00') }
+              { numeral(record.disbursed).format('0.00') }
             </div>
           </div>
         )) }

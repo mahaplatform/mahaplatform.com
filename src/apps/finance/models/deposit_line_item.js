@@ -14,7 +14,7 @@ const DepositLineItem = new Model({
     type() {
       return this.get('payment_id') !== null ? 'payment' : 'refund'
     }
-    
+
   },
 
   deposit() {
@@ -22,7 +22,10 @@ const DepositLineItem = new Model({
   },
 
   payment() {
-    return this.belongsTo(Payment, 'payment_id')
+    return this.belongsTo(Payment, 'payment_id').query(qb => {
+      qb.select('finance_payments.*','finance_payment_details.*')
+      qb.innerJoin('finance_payment_details','finance_payment_details.payment_id','finance_payments.id')
+    })
   },
 
   refund() {
