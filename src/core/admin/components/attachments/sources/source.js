@@ -43,9 +43,10 @@ class Source extends React.Component {
   }
 
   _getComponent() {
-    const {  source } = this.props
+    const { source } = this.props
     const { onAdd } = this.props
     return {
+      ...source.props,
       type: source.id,
       onAdd
     }

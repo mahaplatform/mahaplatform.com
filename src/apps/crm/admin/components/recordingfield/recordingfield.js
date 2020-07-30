@@ -90,8 +90,8 @@ class Recordingfield extends React.PureComponent {
       },
       cancelText: <i className="fa fa-chevron-left" />,
       custom: [
-        { icon: 'microphone', service: 'microphone', label: 'Microphone', component: Microphone, props: this._getMicrophone() },
-        { icon: 'phone', service: 'phone', label: 'Phone Call', component: Record, props: this._getRecord() }
+        { icon: 'microphone', service: 'microphone', label: 'Microphone', panel: Microphone, props: this._getMicrophone() },
+        { icon: 'phone', service: 'phone', label: 'Phone Call', panel: Record, props: this._getRecord() }
       ],
       multiple: false,
       title: 'Choose Audio Source',
