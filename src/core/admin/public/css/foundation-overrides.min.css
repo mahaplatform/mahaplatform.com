@@ -140,17 +140,20 @@ table.video-block img {
 }
 table.web-block h1,
 table.placeholder-block h1,
-table.text-block h1 {
-  margin-bottom: 0;
-}
+table.text-block h1,
 table.web-block h2,
 table.placeholder-block h2,
-table.text-block h2 {
-  margin-bottom: 0;
-}
+table.text-block h2,
 table.web-block p,
 table.preferences-block p,
-table.text-block p {
+table.text-block p,
+table.web-block ul,
+table.preferences-block ul,
+table.text-block ul,
+table.web-block ol,
+table.preferences-block ol,
+table.text-block ol {
+  margin-top: 0;
   margin-bottom: 0;
 }
 
