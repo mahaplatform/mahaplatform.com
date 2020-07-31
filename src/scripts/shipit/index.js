@@ -237,10 +237,11 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:clean', () => {
-    return shipit.remote(`(ls -rd ${releasesDir}/*|head -n 2;ls -d ${releasesDir}/*)|sort|uniq -u|xargs rm -rf`, {
+    return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
       roles: ['appserver','cron','worker']
     })
   })
+
 
   utils.registerTask(shipit, 'sync:stage', () => {
     const commands = 'pg_dump -h localhost -U maha maha | psql -U maha staging'
