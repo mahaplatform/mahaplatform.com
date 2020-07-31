@@ -67,17 +67,19 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     transacting: req.trx
   })
 
-  await contactActivity(req, {
-    contact,
-    type: 'workflow',
-    story: 'enrolled contact in workflow',
-    program_id: workflow.get('program_id'),
-    user: req.user,
-    data: {
-      workflow_id: workflow.get('id'),
-      enrollment_id: enrollment.get('id')
-    }
-  })
+  if(!response && !registration && !email) {
+    await contactActivity(req, {
+      contact,
+      type: 'workflow',
+      story: 'enrolled contact in workflow',
+      program_id: workflow.get('program_id'),
+      user: req.user,
+      data: {
+        workflow_id: workflow.get('id'),
+        enrollment_id: enrollment.get('id')
+      }
+    })
+  }
 
   await ExecuteWorkflowQueue.enqueue(req, {
     enrollment_id: enrollment.get('id')

@@ -15,7 +15,7 @@ const captionCell = (block, vertical, position) => {
   const width = vertical ? 12 : 12 - block.image_width
   return `
     <td class="${`small-${width} large-${width} columns ${position} block-caption`}">
-      <div>${ block.caption }</div>
+      <div>${ block.caption || '' }</div>
     </td>
   `
 }

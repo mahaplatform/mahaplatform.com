@@ -72,7 +72,7 @@ class Image extends React.Component {
 
   _getCaptionCell(vertical, position) {
     const { caption, image_width } = this.props.config
-    const width = vertical? 12 : 12 - image_width
+    const width = vertical ? 12 : 12 - image_width
     return (
       <td className={`small-${width} large-${width} columns ${position} block-caption`}>
         { caption &&
