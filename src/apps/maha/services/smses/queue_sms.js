@@ -44,7 +44,7 @@ const queueSMS = async (req, { sms_id }) => {
       mediaUrl: sms.related('attachments').map(attachment => {
         return attachment.related('asset').get('signed_url')
       }),
-      StatusCallbackMethod: 'POST',
+      statusCallbackMethod: 'POST',
       statusCallback: `${process.env.TWIML_HOST}/sms/status`
     })
 

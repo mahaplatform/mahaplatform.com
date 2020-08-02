@@ -1,4 +1,4 @@
-import { Button, ModalPanel } from 'maha-admin'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from '../edit'

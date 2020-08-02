@@ -37,14 +37,15 @@ class Overview extends React.Component {
   _handleNew = this._handleNew.bind(this)
 
   render() {
-    const { entity, filters, system } = this.props
-    const { admin } = this.context
+    const { entity, system } = this.props
+    const shared = this._getShared()
+    const owned = this._getOwned()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criteria-list-overview">
           <div className="maha-criteria-list-items">
             <div className="maha-criteria-list-section">
-              System
+              System Filters
             </div>
             <div className={ this._getClass(null) } onClick={ this._handleChoose.bind(this, null) }>
               <div className="maha-criteria-list-item-icon">
@@ -64,10 +65,12 @@ class Overview extends React.Component {
                 </div>
               </div>
             )) }
-            <div className="maha-criteria-list-section">
-              Custom
-            </div>
-            { filters && filters.map((filter, index) => (
+            { shared.length > 0 &&
+              <div className="maha-criteria-list-section">
+                Shared Filters
+              </div>
+            }
+            { shared.map((filter, index) => (
               <div className={ this._getClass(`filter_${index}`) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, `filter_${index}`) }>
                 <div className="maha-criteria-list-item-icon">
                   <i className="fa fa-filter" />
@@ -75,12 +78,21 @@ class Overview extends React.Component {
                 <div className="maha-criteria-list-item-label">
                   { filter.title }
                 </div>
-                { filter.owner.id === admin.user.id &&
-                  <Button { ...this._getEdit(filter) } />
-                }
-                { filter.owner.id === admin.user.id &&
-                  <Button { ...this._getDelete(filter) } />
-                }
+              </div>
+            ))}
+            <div className="maha-criteria-list-section">
+              Your Filters
+            </div>
+            { owned && owned.map((filter, index) => (
+              <div className={ this._getClass(`filter_${index}`) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, `filter_${index}`) }>
+                <div className="maha-criteria-list-item-icon">
+                  <i className="fa fa-filter" />
+                </div>
+                <div className="maha-criteria-list-item-label">
+                  { filter.title }
+                </div>
+                <Button { ...this._getEdit(filter) } />
+                <Button { ...this._getDelete(filter) } />
               </div>
             )) }
             <div className="maha-criteria-list-item">
@@ -165,11 +177,27 @@ class Overview extends React.Component {
     }
   }
 
+  _getOwned() {
+    const { admin } = this.context
+    const { filters } = this.props
+    return filters.filter(filter => {
+      return filter.owner.id === admin.user.id
+    })
+  }
+
   _getPanel() {
     return {
       title: 'Filters',
       color: 'grey'
     }
+  }
+
+  _getShared() {
+    const { admin } = this.context
+    const { filters } = this.props
+    return filters.filter(filter => {
+      return filter.owner.id !== admin.user.id
+    })
   }
 
   _handleCancel(reset) {
