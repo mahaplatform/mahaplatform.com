@@ -17,7 +17,8 @@ const refresh = async (req, job) => [
 
 const SendSmsCampaignQueue = new Queue({
   attempts: 1,
-  name: 'send_sm,
+  name: 'send_sms_campaign',
+  processor,
   refresh
 })
 
