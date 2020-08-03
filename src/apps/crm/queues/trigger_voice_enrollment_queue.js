@@ -11,15 +11,9 @@ const processor = async (req, job) => {
 
 }
 
-const refresh = async (req, job) => [
-  '/admin/crm/campaigns/voice',
-  `/admin/crm/campaigns/voice/${job.data.voice_campaign_id}`
-]
-
 const TriggerVoiceEnrollmentQueue = new Queue({
   name: 'trigger_voice_enrollment',
-  processor,
-  refresh
+  processor
 })
 
 export default TriggerVoiceEnrollmentQueue

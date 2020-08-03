@@ -10,15 +10,9 @@ const processor = async (req, job) => {
 
 }
 
-const refresh = async (req, job) => [
-  '/admin/crm/campaigns/email',
-  `/admin/crm/campaigns/email/${job.data.email_campaign_id}`
-]
-
 const TriggerEmailEnrollmentQueue = new Queue({
   name: 'trigger_email_enrollment',
-  processor,
-  refresh
+  processor
 })
 
 export default TriggerEmailEnrollmentQueue

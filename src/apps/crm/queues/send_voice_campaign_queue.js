@@ -10,10 +10,16 @@ const processor = async (req, job) => {
 
 }
 
+const refresh = async (req, job) => [
+  '/admin/crm/campaigns/voice',
+  `/admin/crm/campaigns/voice/${job.data.voice_campaign_id}`
+]
+
 const SendVoiceCampaignQueue = new Queue({
   attempts: 1,
   name: 'send_voice_campaign',
-  processor
+  processor,
+  refresh
 })
 
 export default SendVoiceCampaignQueue

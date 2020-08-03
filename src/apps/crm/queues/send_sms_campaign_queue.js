@@ -10,10 +10,15 @@ const processor = async (req, job) => {
 
 }
 
+const refresh = async (req, job) => [
+  '/admin/crm/campaigns/sms',
+  `/admin/crm/campaigns/sms/${job.data.sms_campaign_id}`
+]
+
 const SendSmsCampaignQueue = new Queue({
   attempts: 1,
-  name: 'send_sms_campaign',
-  processor
+  name: 'send_sm,
+  refresh
 })
 
 export default SendSmsCampaignQueue
