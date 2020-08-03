@@ -171,7 +171,8 @@ const adminWatch = async () => {
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
           target: `http://${process.env.DOMAIN}:${proxy.port}`,
-          secure: false
+          secure: false,
+          ws: true
         }
       }), {}),
       '/maha.js': {

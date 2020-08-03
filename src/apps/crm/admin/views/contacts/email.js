@@ -1,5 +1,6 @@
 import { Avatar, Page } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Pasteur from 'pasteur'
 import moment from 'moment'
 import React from 'react'
 
@@ -9,7 +10,16 @@ class Email extends React.Component {
     email: PropTypes.object
   }
 
+  iframe = null
+
+  state = {
+    height: 0
+  }
+
+  _handleResize = this._handleResize.bind(this)
+
   render() {
+    const { height } = this.state
     const { email } = this.props
     return (
       <div className="team-email-canvas">
@@ -27,7 +37,7 @@ class Email extends React.Component {
             </div>
           </div>
           <div className="team-email-body">
-            <iframe border="0" src={ `data:text/html;charset=utf-8,${ encodeURIComponent(email.html) }`} />
+            <iframe ref={ node => this.iframe = node } border="0" style={{ height }} src={`${process.env.WEB_HOST}/w${email.code}`} />
           </div>
           <div className="team-email-feed">
             { email.activities.map((activity, index) => (
@@ -47,6 +57,20 @@ class Email extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.pasteur = new Pasteur({
+      window,
+      target: this.iframe.contentWindow,
+      name: 'viewer',
+      targetName: 'email'
+    })
+    this.pasteur.on('resize', this._handleResize)
+  }
+
+  _handleResize(height) {
+    this.setState({ height })
   }
 
 }

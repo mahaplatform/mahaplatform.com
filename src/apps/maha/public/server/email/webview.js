@@ -41,7 +41,9 @@ const webviewRoute = async (req, res) => {
     email.set('html', personalized.html)
   }
 
-  res.status(200).type('text/html').send(email.get('html'))
+  const html = email.get('html').replace('</html>', `<script src="${process.env.WEB_HOST}/apps/maha/email/js/main.js"></script></html>`)
+
+  res.status(200).type('text/html').send(html)
 
 }
 
