@@ -1,5 +1,5 @@
-import { Loader, ModalPanel, AssigneeToken } from 'maha-admin'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { Loader, ModalPanel, AssigneeToken } from 'maha-admin'
 import AccessTypeToken from '../access_type_token'
 import Unassigned from './unassigned'
 import PropTypes from 'prop-types'

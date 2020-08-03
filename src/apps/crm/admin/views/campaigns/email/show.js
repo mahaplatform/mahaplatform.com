@@ -3,6 +3,7 @@ import { Page } from 'maha-admin'
 import Convert from './convert'
 import Details from './details'
 import Resend from './resend'
+import Clone from './clone'
 import React from 'react'
 import Send from './send'
 import Edit from './edit'
@@ -39,6 +40,8 @@ const getTasks = ({ campaign }, { flash }) => {
   if(campaign.status === 'sent') {
     items.push({ label: 'Resend Campaign', modal: <Resend campaign={ campaign } /> })
   }
+
+  items.push({ label: 'Clone Campaign', modal: <Clone campaign={ campaign } /> })
 
   items.push({
     label: 'Delete Campaign',

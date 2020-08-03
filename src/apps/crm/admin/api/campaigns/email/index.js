@@ -9,6 +9,7 @@ import bounces from './bounces'
 import create from './create'
 import update from './update'
 import resend from './resend'
+import clone from './clone'
 import edit from './edit'
 import show from './show'
 import send from './send'
@@ -33,6 +34,8 @@ router.get('/:id/edit', edit)
 router.get('/:id/performance', performance)
 
 router.get('/:id/workflows', workflows)
+
+router.patch('/:id/clone', clone)
 
 router.patch('/:id/resend', resend)
 

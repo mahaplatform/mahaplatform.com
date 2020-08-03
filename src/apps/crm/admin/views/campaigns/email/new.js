@@ -1,7 +1,6 @@
 import TemplateField from '../../../components/templatefield'
 import PurposeToken from '../../../tokens/purpose'
 import ToField from '../../../components/tofield'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -9,6 +8,7 @@ import React from 'react'
 class New extends React.PureComponent {
 
   static contextTypes = {
+    adminl: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
   }
@@ -32,7 +32,8 @@ class New extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id, user } = this.props
+    const { program_id } = this.props
+    const { admin } = this.context
     const { config } = this.state
     return {
       title: 'New Email Campaign',
@@ -52,7 +53,7 @@ class New extends React.PureComponent {
             { label: 'Email Details', type: 'segment', fields: [
               { label: 'Template', name: 'template_id', type: TemplateField, program_id },
               { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
-              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
               { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true }
             ] }
           ]
@@ -76,8 +77,4 @@ class New extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  user: state.maha.admin.user
-})
-
-export default connect(mapStateToProps)(New)
+export default New
