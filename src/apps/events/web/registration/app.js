@@ -5,7 +5,6 @@ import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-Registration
 class App extends React.Component {
 
   static propTypes = {

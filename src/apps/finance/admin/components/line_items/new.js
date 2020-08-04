@@ -42,7 +42,8 @@ class New extends React.Component {
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item' },
             { label: 'Unit Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' },
             { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' },
-            { label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', number_type: 'integer', placeholder: 'Enter a quantity' }
+            { label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', number_type: 'integer', placeholder: 'Enter a quantity' },
+            { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
           ]
         }
       ]

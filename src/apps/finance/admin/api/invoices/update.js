@@ -55,7 +55,7 @@ const updateRoute = async (req, res) => {
         quantity: line_item.quantity,
         price: line_item.price,
         tax_rate: line_item.tax_rate
-      }).save(null, {
+      }, {
         patch: true,
         transacting: req.trx
       })
