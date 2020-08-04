@@ -8,7 +8,7 @@ import React from 'react'
 class New extends React.PureComponent {
 
   static contextTypes = {
-    adminl: PropTypes.object,
+    admin: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
   }
