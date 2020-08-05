@@ -1,5 +1,6 @@
 import { sendSMS } from '../../../../../../maha/services/smses'
 import User from '../../../../../../maha/models/user'
+import { getEnrollmentData } from '../utils'
 
 const getToNumber = async (req, { config }) => {
 
@@ -21,12 +22,20 @@ const smsStep = async (req, { config, enrollment, tokens }) => {
     config
   })
 
+  const data = await getEnrollmentData(req, {
+    enrollment
+  })
+
   const sms = await sendSMS(req, {
     from: process.env.TWILIO_NUMBER,
     to,
-    body: config.message,
+    body: config.message.replace(/<%- ([\w]*)\.([\w]*) %>/g, '<%- $1[\'$2\'] %>'),
     asset_ids: config.asset_ids,
-    data: tokens
+    data: {
+      ...tokens,
+      response: enrollment.get('response_id') ? data : null,
+      registration: enrollment.get('registration_id') ? data : null
+    }
   })
 
   return {

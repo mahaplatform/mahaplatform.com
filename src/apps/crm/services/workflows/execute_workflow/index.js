@@ -124,9 +124,10 @@ const getTokens = async(req, { contact, enrollment, program, steps, workflow }) 
     last_name: contact.get('last_name'),
     email: contact.get('email'),
     phone: contact.get('phone'),
-    address: contact.get('address'),
+    address: contact.get('fulladdress'),
     birthday: contact.get('birthday'),
     spouse: contact.get('spouse'),
+    maha_url: contact.get('url'),
     url: contact.get('url')
   },
   program: program.related('fields').reduce((programvalues, field) => ({

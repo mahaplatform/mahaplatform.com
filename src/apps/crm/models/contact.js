@@ -72,7 +72,23 @@ const Contact = new Model({
 
     list_ids: function() {
       return this.related('lists').map(list => list.id)
+    },
+
+    fulladdress() {
+      const address = this.get('address')
+      if(!address) return null
+      return [
+        ...address.get('street_1') ? [address.get('street_1')] : [],
+        ...address.get('street_2') ? [address.get('street_2')] : [],
+        [
+          ...address.get('city') ? [address.get('city')] : [],
+          ...address.get('state_province') ? [address.get('state_province')] : []
+        ].join(' '),
+        ...address.get('postal_code') ? [address.get('postal_code')] : []
+      ].join(', ')
     }
+
+
 
   },
 

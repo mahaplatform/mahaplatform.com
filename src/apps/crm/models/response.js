@@ -11,7 +11,13 @@ const Response = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    url() {
+      return `${process.env.WEB_HOST}/admin/crm/forms/${this.get('form_id')}/responses/${this.get('id')}`
+    }
+
+  },
 
   contact() {
     return this.belongsTo(Contact, 'contact_id').query(qb => {

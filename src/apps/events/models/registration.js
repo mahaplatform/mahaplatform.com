@@ -12,7 +12,13 @@ const Registration = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    url() {
+      return `${process.env.WEB_HOST}/admin/events/events/${this.get('event_id')}/registrations/${this.get('id')}`
+    }
+
+  },
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')

@@ -212,7 +212,7 @@ class FlowchartDesigner extends React.PureComponent {
         { name: 'Primary Address', token: 'contact.address' },
         { name: 'Birthday', token: 'contact.birthday' },
         { name: 'Spouse', token: 'contact.spouse' },
-        { name: 'Maha URL', token: 'contact.url' }
+        { name: 'Maha URL', token: 'contact.maha_url' }
       ] },
       ...tokens ? tokens : []
     ]

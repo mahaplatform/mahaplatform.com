@@ -115,12 +115,15 @@ class Designer extends React.Component {
     return [
       {
         title: 'Response',
-        tokens: form.config.fields.filter(field => {
-          return field.type !== 'text' && field.name
-        }).map(field => ({
-          name: field.name.value,
-          token: `response.${field.name.token}`
-        }))
+        tokens: [
+          ...form.config.fields.filter(field => {
+            return field.type !== 'text' && field.name
+          }).map(field => ({
+            name: field.name.value,
+            token: `response.${field.name.token}`
+          })),
+          { name: 'Maha URL', token: 'response.maha_url' }
+        ]
       }
     ]
   }
@@ -138,7 +141,8 @@ class Designer extends React.Component {
           }).map(field => ({
             name: field.name.value,
             token: `registration.${field.name.token}`
-          }))
+          })),
+          { name: 'Maha URL', token: 'registration.maha_url' }
         ]
       }
     ]

@@ -39,6 +39,11 @@ const getPaymentData = async (req, { invoice_id }) => {
 
 }
 
+const getData = (field, value) => {
+  if(field.type === 'addressfield') return value.description
+  return value
+}
+
 const getResponseData = async (req, { response }) => {
 
   await response.load(['form.program'], {
@@ -59,8 +64,11 @@ const getResponseData = async (req, { response }) => {
 
   return fields.reduce((response, field) => ({
     ...response,
-    [field.name.token]: data[field.code]
-  }), basedata)
+    [field.name.token]: getData(field, data[field.code])
+  }), {
+    basedata,
+    maha_url: response.get('url')
+  })
 
 }
 
@@ -84,8 +92,11 @@ const getRegistrationData = async (req, { registration }) => {
 
   return fields.reduce((registration, field) => ({
     ...registration,
-    [field.name.token]: data[field.code]
-  }), basedata)
+    [field.name.token]: getData(field, data[field.code])
+  }), {
+    basedata,
+    maha_url: registration.get('url')
+  })
 
 }
 

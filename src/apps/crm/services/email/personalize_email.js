@@ -4,8 +4,8 @@ import _ from 'lodash'
 import ejs from 'ejs'
 
 const personalizeEmail = (req, params) => {
-  const subject = params.subject.replace(/&nbsp;/g, ' ').replace(/\u2028/g,'')
-  const html = params.html.replace(/&nbsp;/g, ' ').replace(/\u2028/g,'')
+  const subject = params.subject.replace(/&nbsp;/g, ' ').replace(/\u2028/g,'').replace(/<%- ([\w]*)\.([\w]*) %>/g, '<%- $1[\'$2\'] %>')
+  const html = params.html.replace(/&nbsp;/g, ' ').replace(/\u2028/g,'').replace(/<%- ([\w]*)\.([\w]*) %>/g, '<%- $1[\'$2\'] %>')
   const { data } = params
   const variables = {
     ...data,
