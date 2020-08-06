@@ -1,4 +1,4 @@
-import { Avatar, Container, Image, Logo, Message } from 'maha-admin'
+import { Avatar, Image, Logo, Message } from 'maha-admin'
 import ContactAvatar from '../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import Composer from './composer'
@@ -256,8 +256,4 @@ class SmsClient extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.channel.phone_number.id}`
-})
-
-export default Container(mapResources)(SmsClient)
+export default SmsClient

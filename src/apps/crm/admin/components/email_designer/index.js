@@ -1,7 +1,7 @@
 import Preferences from './blocks/preferences'
 import Divider from './blocks/divider'
 import Button from './blocks/button'
-import Images from './blocks/images'
+// import Images from './blocks/images'
 import Follow from './blocks/follow'
 import Image from './blocks/image'
 import Share from './blocks/share'
@@ -52,7 +52,7 @@ class EmailDesigner extends React.Component {
       blocks: [
         { label: 'Text', type: 'text', icon: 'align-justify', component: Text },
         { label: 'Divider', type: 'divider', icon: 'minus', component: Divider },
-        { label: 'Image Group', type: 'images', icon: 'th', component: Images },
+        // { label: 'Image Group', type: 'images', icon: 'th', component: Images },
         { label: 'Image', type: 'image', icon: 'picture-o', component: Image },
         { label: 'Button', type: 'button', icon: 'mouse-pointer', component: Button },
         { label: 'Preferences', type: 'preferences', icon: 'check', component: Preferences },

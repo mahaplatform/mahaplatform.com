@@ -97,8 +97,8 @@ class Timeline extends React.PureComponent {
       modal: {
         component: <SMS contact={ contact } />,
         options: {
-          width: 375,
-          height: 667
+          width: 350,
+          height: 650
         }
       }
     }
