@@ -88,10 +88,17 @@ class VoiceClient extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { loaded } = this.state
+    const { loaded, ready } = this.state
     if(loaded !== prevState.loaded && loaded) {
       this._handleInit()
     }
+    if(ready !== prevState.ready && ready) {
+      this._handleCall()
+    }
+  }
+
+  componentWillUnmount() {
+    this._handleHangup()
   }
 
   _getButton() {

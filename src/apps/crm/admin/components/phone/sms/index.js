@@ -6,9 +6,6 @@ import SMS from './sms'
 
 class Contacts extends React.Component {
 
-  static contextTypes = {
-  }
-
   static propTypes = {
     program: PropTypes.object,
     onPop: PropTypes.func,

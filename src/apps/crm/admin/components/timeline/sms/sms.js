@@ -1,4 +1,4 @@
-import { Container, ModalPanel } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import SMSClient from '../../sms_client'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -6,7 +6,6 @@ import React from 'react'
 class SMS extends React.Component {
 
   static propTypes = {
-    channel: PropTypes.object,
     contact: PropTypes.object,
     phone_number: PropTypes.object,
     program: PropTypes.object,
@@ -38,9 +37,9 @@ class SMS extends React.Component {
   }
 
   _getSMSClient() {
-    const { channel, program } = this.props
+    const { phone_number, program } = this.props
     return {
-      channel,
+      phone_number,
       program
     }
   }
@@ -55,8 +54,4 @@ class SMS extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_number.id}`
-})
-
-export default Container(mapResources)(SMS)
+export default SMS

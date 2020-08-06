@@ -10,6 +10,10 @@ class Modal extends React.Component {
     modal: PropTypes.object
   }
 
+  static contextTypes = {
+    confirm: PropTypes.object
+  }
+
   static propTypes = {
     children: PropTypes.any
   }
@@ -31,7 +35,7 @@ class Modal extends React.Component {
     return ([
       children,
       <CSSTransition key="maha-modal-overlay" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-modal-overlay" onClick={ this._handleClose } />
+        <div className="maha-modal-overlay" onClick={ this._handleClose.bind(this, true) } />
       </CSSTransition>,
       <CSSTransition key="maha-modal-window" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-modal-window" style={ this._getStyle() }>
@@ -54,7 +58,7 @@ class Modal extends React.Component {
   getChildContext() {
     return {
       modal: {
-        close: this._handleClose,
+        close: this._handleClose.bind(this, false),
         open: this._handleOpen,
         pop: this._handlePop,
         push: this._handlePush
@@ -76,8 +80,9 @@ class Modal extends React.Component {
     }
   }
 
-  _handleClose() {
-    this._handlePop()
+  _handleClose(confirm) {
+    if(!confirm) this._handlePop()
+    this.context.confirm.open('Are you sure you want to close this window?', this._handlePop)
   }
 
   _handleOpen(component, options = {}) {

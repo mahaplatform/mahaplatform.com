@@ -34,18 +34,20 @@ class Channels extends React.PureComponent {
       <div className="crm-channels">
         <div className="crm-channels-sidebar">
           <List { ...this._getDeatails() } />
-          { channels.filter(channel => {
-            return channel.type !== 'mail'
-          }).map((channel, index) => (
-            <div className={ this._getClass(index) } key={`channel_${index}`} onClick={ this._handleClick.bind(this, index) }>
-              <div className="crm-channels-channel-icon">
-                <i className={`fa fa-${this._getIcon(channel)}`} />
+          <div className="crm-channels-channels">
+            { channels.filter(channel => {
+              return channel.type !== 'mail'
+            }).map((channel, index) => (
+              <div className={ this._getClass(index) } key={`channel_${index}`} onClick={ this._handleClick.bind(this, index) }>
+                <div className="crm-channels-channel-icon">
+                  <i className={`fa fa-${this._getIcon(channel)}`} />
+                </div>
+                <div className="crm-channels-channel-label">
+                  { channel.label }
+                </div>
               </div>
-              <div className="crm-channels-channel-label">
-                { channel.label }
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <div className="crm-channels-body">
           <Component { ...this._getChannel(channel) } key={`channel_${channel.id}`} />

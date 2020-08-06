@@ -33,18 +33,22 @@ class VoiceList extends React.Component {
     )
   }
 
-  _getButton() {
+  _getVoiceClient() {
     const { contact, phone_number, program } = this.props
+    return {
+      component: <VoiceClient phone_number={ phone_number } program={ program } contact={ contact } />,
+      options: {
+        width: 375,
+        height: 667
+      }
+    }
+  }
+
+  _getButton() {
     return {
       label: 'Call Contact',
       color: 'red',
-      modal: {
-        component: <VoiceClient phone_number={ phone_number } program={ program } contact={ contact } />,
-        options: {
-          width: 375,
-          height: 667
-        }
-      }
+      modal: this._getVoiceClient()
     }
   }
 
@@ -58,7 +62,7 @@ class VoiceList extends React.Component {
         title: 'No Calls',
         text: 'The contact has not made or received any calls via this channel',
         buttons: [
-          { label: 'Call Conatct', handler: () => {} }
+          { label: 'Call Contact', modal: this._getVoiceClient() }
         ]
       },
       layout: Results,

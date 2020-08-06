@@ -9,6 +9,15 @@ class Popup extends React.Component{
     popup: PropTypes.object
   }
 
+  static propTypes = {
+    children: PropTypes.any,
+    component: PropTypes.object,
+    open: PropTypes.bool,
+    onClear: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func
+  }
+
   render() {
     const { children, component, open } = this.props
     return ([
