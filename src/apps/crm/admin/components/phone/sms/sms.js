@@ -72,7 +72,6 @@ class SMS extends React.Component {
 
 }
 
-
 const mapResources = (props, context) => ({
   channel: `/api/admin/crm/programs/${props.program.id}/channels/sms/${props.phone_id}`
 })
