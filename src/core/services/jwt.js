@@ -8,9 +8,9 @@ export const encode = (data, duration = TWO_WEEKS) => {
   return jwt.sign({ iat, exp, data }, process.env.SECRET)
 }
 
-export const decode = (token) => {
+export const decode = (token, options = {}) => {
   try {
-    return jwt.verify(token, process.env.SECRET)
+    return jwt.verify(token, process.env.SECRET, options)
   } catch(e) {
     return {
       err: e.message
