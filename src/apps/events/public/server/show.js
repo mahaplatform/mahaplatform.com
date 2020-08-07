@@ -1,4 +1,3 @@
-import { checkHost } from '../../../../core/services/routes/checks'
 import Setting from '../../../platform/models/setting'
 import { encode } from '../../../../core/services/jwt'
 import Event from '../../models/event'
@@ -8,10 +7,6 @@ import path from 'path'
 import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
-
-  if(!checkHost(req))  {
-    return res.redirect(301, `${process.env.WEB_HOST}${req.originalUrl}`)
-  }
 
   const settings = await Setting.query(qb => {
     qb.where('id', 1)

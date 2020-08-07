@@ -1,5 +1,4 @@
 import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
-import { checkToken } from '../../../../../core/services/routes/checks'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'
@@ -60,10 +59,6 @@ const getPayment = async (req, { contact, data, fields, form, program }) => {
 }
 
 const submitRoute = async (req, res) => {
-
-  if(!checkToken(req.headers.authorization, req.params.code)) {
-    return res.status(401).send('Unauthorized')
-  }
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
