@@ -1,5 +1,5 @@
 import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
-import { checkToken } from '../../../../../core/services/routes/token'
+import { checkToken } from '../../../../../core/services/routes/checks'
 import socket from '../../../../../core/services/routes/emitter'
 import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'

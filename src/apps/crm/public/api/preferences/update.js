@@ -1,4 +1,4 @@
-import { checkToken } from '../../../../../core/services/routes/token'
+import { checkToken } from '../../../../../core/services/routes/checks'
 import EmailActivity from '../../../../maha/models/email_activity'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'

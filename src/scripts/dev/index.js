@@ -142,6 +142,9 @@ const sdkWatch = async () => {
 const adminWatch = async () => {
   const wildcard = {
     target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
+    headers: {
+      'x-forwarded-proto': protocol
+    },
     bypass: (req, res, proxyOptions) => {
       const adminRoot = path.join('src','core','admin','public')
       const publicRoot = path.join('src','core','public','public')

@@ -1,4 +1,4 @@
-import { checkToken } from '../../../../../../core/services/routes/token'
+import { checkToken } from '../../../../../../core/services/routes/checks'
 import { checkUploadedFile } from '../../../../../maha/services/assets'
 import Form from '../../../../models/form'
 

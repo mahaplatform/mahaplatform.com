@@ -1,3 +1,4 @@
+import { checkHost } from '../../../../../core/services/routes/checks'
 import { encode } from '../../../../../core/services/jwt'
 import Setting from '../../../../platform/models/setting'
 import Form from '../../../models/form'
@@ -7,6 +8,10 @@ import path from 'path'
 import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
+
+  if(!checkHost(req))  {
+    return res.redirect(301, `${process.env.WEB_HOST}${req.originalUrl}`)
+  }
 
   const template = await readFile(path.join('crm','embedded','index.html'))
 
