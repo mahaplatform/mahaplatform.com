@@ -59,11 +59,11 @@ const testNotAn = (left, right) => {
 }
 
 const testContains = (left, right) => {
-  return _.includes(left, right)
+  return _.intersection(left, _.castArray(right)).length > 0
 }
 
 const testNotContains = (left, right) => {
-  return !_.includes(left, right)
+  return _.intersection(left, _.castArray(right)).length === 0
 }
 
 const testLessThan = (left, right) => {
@@ -99,7 +99,6 @@ const testNotDelivered = (left, right) => {
 }
 
 const testOpened = (left, right) => {
-  console.log(left[right])
   return !!left[right] && left[right].was_opened === true
 }
 
