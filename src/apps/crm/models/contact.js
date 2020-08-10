@@ -1,6 +1,7 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import Registration from '../../events/models/registration'
 import ImportItem from '../../maha/models/import_item'
+import MahaEmail from '../../maha/models/email'
 import Model from '../../../core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
@@ -75,7 +76,7 @@ const Contact = new Model({
     },
 
     fulladdress() {
-      const address = this.get('address')
+      const address = this.related('address')
       if(!address) return null
       return [
         ...address.get('street_1') ? [address.get('street_1')] : [],
@@ -120,6 +121,10 @@ const Contact = new Model({
 
   lists() {
     return this.belongsToMany(List, 'crm_subscriptions', 'contact_id', 'list_id')
+  },
+
+  maha_emails() {
+    return this.hasMany(MahaEmail, 'contact_id')
   },
 
   mailing_addresses() {

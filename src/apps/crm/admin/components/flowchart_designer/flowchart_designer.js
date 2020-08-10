@@ -100,7 +100,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getFields() {
-    const { fields } = this.props
+    const { fields, program, workflow } = this.props
     return [
       { label: 'Contact', fields: [
         { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
@@ -117,13 +117,23 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'is subscribed to' },
           { value: '$nct', text: 'is not subscribed to' }
         ] },
-        { name: 'Oraganizations', key: 'contact.oraganization_ids', type: 'textfield' },
+        { name: 'Oraganizations', key: 'contact.organization_ids', type: 'textfield' },
         { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'is interested in' },
           { value: '$nct', text: 'is not interested in' }
         ] }
       ] },
       { label: 'Activities', fields: [
+        { name: 'Email Campaigns', key: 'contact.email_campaigns', type: 'select', endpoint: '/api/admin/crm/campaigns/email', filter:  { program_id: { $eq: program.id } }, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+          { text: 'was sent the email', value: '$se' },
+          { text: 'was not sent the email', value: '$nse' },
+          { text: 'received the email', value: '$de' },
+          { text: 'did not received the email', value: '$nde' },
+          { text: 'opened the email', value: '$op' },
+          { text: 'did not open the email', value: '$nop' },
+          { text: 'clicked the email', value: '$ck' },
+          { text: 'did not click the email', value: '$nck' }
+        ] },
         { name: 'Event', key: 'contact.event_ids', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
           { value: '$ct', text: 'registered for' },
           { value: '$nct', text: 'did not registered for' }
@@ -135,6 +145,16 @@ class FlowchartDesigner extends React.PureComponent {
         { name: 'Import', key: 'contact.import_ids', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', multiple: true, subject: false, format: ImportToken, comparisons: [
           { value: '$ct', text: 'was included in import' },
           { value: '$nct', text: 'was not included in import' }
+        ] },
+        { name: 'Workflow Emails', key: 'contact.workflow_emails', type: 'select', endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+          { text: 'was sent the email', value: '$se' },
+          { text: 'was not sent the email', value: '$nse' },
+          { text: 'received the email', value: '$de' },
+          { text: 'did not received the email', value: '$nde' },
+          { text: 'opened the email', value: '$op' },
+          { text: 'did not open the email', value: '$nop' },
+          { text: 'clicked the email', value: '$ck' },
+          { text: 'did not click the email', value: '$nck' }
         ] }
       ] },
       { label: 'Environment', fields: [

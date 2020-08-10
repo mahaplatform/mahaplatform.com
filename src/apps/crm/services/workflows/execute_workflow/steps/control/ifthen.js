@@ -82,6 +82,39 @@ const testGreaterThanEqual = (left, right) => {
   return left >= right
 }
 
+const testSent = (left, right) => {
+  return !!left[right] && left[right].was_sent === true
+}
+
+const testNotSent = (left, right) => {
+  return !left[right] || left[right].was_sent !== true
+}
+
+const testDelivered = (left, right) => {
+  return !!left[right] && left[right].was_delivered === true
+}
+
+const testNotDelivered = (left, right) => {
+  return !left[right] || left[right].was_delivered !== true
+}
+
+const testOpened = (left, right) => {
+  console.log(left[right])
+  return !!left[right] && left[right].was_opened === true
+}
+
+const testNotOpened = (left, right) => {
+  return !left[right] || left[right].was_opened !== true
+}
+
+const testClicked = (left, right) => {
+  return !!left[right] && left[right].was_clicked === true
+}
+
+const testNotClicked = (left, right) => {
+  return !left[right] || left[right].was_clicked !== true
+}
+
 const getEvaluator = (comparison) => {
   if(comparison === '$nl') return testNull
   if(comparison === '$nnl') return testNotNull
@@ -103,6 +136,15 @@ const getEvaluator = (comparison) => {
   if(comparison === '$lte') return testLessThanEqual
   if(comparison === '$gt') return testGreaterThan
   if(comparison === '$gte') return testGreaterThanEqual
+  if(comparison === '$se') return testSent
+  if(comparison === '$nse') return testNotSent
+  if(comparison === '$de') return testDelivered
+  if(comparison === '$nde') return testNotDelivered
+  if(comparison === '$op') return testOpened
+  if(comparison === '$nop') return testNotOpened
+  if(comparison === '$ck') return testClicked
+  if(comparison === '$nck') return testNotClicked
+
 }
 
 const evaluateAnd = async (filter, data) => {
@@ -127,8 +169,8 @@ const evaluateCondition = async (filter, data) => {
 }
 
 const evaluate = async (filter, data) => {
-  if(filter.$and) return evaluateAnd(filter, data)
-  if(filter.$or) return evaluateOr(filter, data)
+  if(filter.$and) return await evaluateAnd(filter, data)
+  if(filter.$or) return await evaluateOr(filter, data)
   return await evaluateCondition(filter, data)
 }
 
@@ -219,6 +261,7 @@ const getProgramData = async (req, { contact, program }) => ({
 const extractValues = async (req, { values, fieldMap }) => {
   return Object.keys(values).reduce((extracted, code) => {
     const field = fieldMap[code]
+    if(!field) return extracted
     const type = field.get('type')
     const config = field.get('config')
     const value = values[code]
@@ -231,7 +274,7 @@ const extractValues = async (req, { values, fieldMap }) => {
 
 const getContactData = async (req, { contact, fields }) => {
 
-  await contact.load(['lists','organizations','topics','responses','registrations','import_items'], {
+  await contact.load(['lists','maha_emails','organizations','topics','responses','registrations','import_items'], {
     transacting: req.trx
   })
 
@@ -239,6 +282,11 @@ const getContactData = async (req, { contact, fields }) => {
     ...map,
     [field.get('code')]: field
   }))
+
+  const values = await extractValues(req, {
+    values: contact.get('values'),
+    fieldMap
+  })
 
   return {
     contact: {
@@ -250,13 +298,37 @@ const getContactData = async (req, { contact, fields }) => {
       address: contact.get('address'),
       birthday: contact.get('birthday'),
       spouse: contact.get('spouse'),
-      values: extractValues(contact.get('values'), fieldMap),
+      values,
       list_ids: contact.related('lists').map(list => list.get('id')),
       organization_ids: contact.related('organizations').map(organization => organization.get('id')),
       topic_ids: contact.related('topics').map(topic => topic.get('id')),
       event_ids: contact.related('registrations').map(registration => registration.get('event_id')),
       form_ids: contact.related('responses').map(response => response.get('form_id')),
-      import_ids: contact.related('import_items').map(item => item.get('import_id'))
+      import_ids: contact.related('import_items').map(item => item.get('import_id')),
+      email_campaigns: contact.related('maha_emails').filter(email => {
+        return email.get('email_campaign_id') !== null
+      }).reduce((emails, email) => ({
+        ...emails,
+        [email.get('email_campaign_id')]: {
+          was_sent: email.get('sent_at') !== null,
+          was_delivered: email.get('was_delivered'),
+          was_opened: email.get('was_opened'),
+          was_clicked: email.get('was_delivered'),
+          was_unsubscribed: email.get('was_unsubscribed')
+        }
+      }), {}),
+      workflow_emails: contact.related('maha_emails').filter(email => {
+        return email.get('email_id') !== null
+      }).reduce((emails, email) => ({
+        ...emails,
+        [email.get('email_id')]: {
+          was_sent: email.get('sent_at') !== null,
+          was_delivered: email.get('was_delivered'),
+          was_opened: email.get('was_opened'),
+          was_clicked: email.get('was_delivered'),
+          was_unsubscribed: email.get('was_unsubscribed')
+        }
+      }), {})
     }
   }
 

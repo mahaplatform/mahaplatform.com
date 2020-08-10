@@ -38,7 +38,10 @@ class Designer extends React.Component {
     const { workflow } = this.props
     return {
       endpoint: `/api/admin/crm/workflows/${workflow.id}`,
-      fields: this._getFields(),
+      fields: [
+        ...this._getEmailFields(),
+        ...this._getFields()
+      ],
       program: workflow.program,
       trigger: this._getTrigger(),
       tokens: this._getTokens(),
@@ -49,19 +52,24 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    if(workflow.email) return this._getEmailFields()
-    if(workflow.email_campaign) return this._getEmailFields()
     if(workflow.event) return this._getEventFields(workflow.event)
     if(workflow.form) return this._getFormFields(workflow.form)
     return {}
   }
 
   _getEmailFields() {
+    const { workflow } = this.props
+    if(!workflow.email_campaign && !workflow.email) return []
     return [
       {
         label: 'Email',
         fields: [
-          { name: 'Activity', key: 'email.activities', type: 'activity' }
+          ...workflow.email ? [
+            { name: workflow.email.title, key: 'email.activities', type: 'activity' }
+          ] : [],
+          ...workflow.email_campaign ? [
+            { name: workflow.email_campaign.title, key: 'email.activities', type: 'activity' }
+          ] : []
         ]
       }
     ]
@@ -131,7 +139,7 @@ class Designer extends React.Component {
   _getEventTokens(event) {
     return [
       {
-        title: 'Regstration',
+        title: 'Registration',
         tokens: [
           { name: 'First Name', token: 'registration.first_name' },
           { name: 'Last Name', token: 'registration.last_name' },
