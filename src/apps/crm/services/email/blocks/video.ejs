@@ -3,13 +3,13 @@ const imageurl = (image) => {
   if(image) return `${host}/imagecache/w=580&h=317&dpi=2&q=100${image}`
   return 'https://dummyimage.com/1160x634/606060/ffffff&text=+++VIDEO+++'
 }
-const image = (block) => {
+const image = (block, width) => {
   if(block.video) return `
     <a href="${block.video.url}">
-      <img src="${imageurl(block.video.preview)}" />
+      <img src="${imageurl(block.video.preview)}" width="${width}" />
     </a>
   `
-  return `<img src="${imageurl(block.image)}" />`
+  return `<img src="${imageurl(block.image)}" width="${width}" />`
 }
 const captionCell = (block, vertical, position) => {
   const width = vertical ? 12 : 12 - block.video_width
@@ -21,9 +21,10 @@ const captionCell = (block, vertical, position) => {
 }
 const imageCell = (block, vertical, position) => {
   const width = vertical ? 12 : block.video_width
+  const pxwidth = (width / 12) * 580
   return `
     <td class="${`small-${width} large-${width} columns ${position} block-image`}">
-      <div>${ image(block) }</div>
+      <div>${ image(block, pxwidth) }</div>
     </td>
   `
 }

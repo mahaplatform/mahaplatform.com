@@ -63,6 +63,18 @@ const getObjects = async (req, { config }) => {
   }
 }
 
+const getPadding = (config, key) => [
+  ...getProp(config, 'padding-top', key, 'px'),
+  ...getProp(config, 'padding-right', key, 'px'),
+  ...getProp(config, 'padding-bottom', key, 'px'),
+  ...getProp(config, 'padding-left', key, 'px')
+]
+
+const getBackground = (config, key) => [
+  ...getProp(config, 'background', key),
+  ...getProp(config, 'background-color', key)
+]
+
 const getProp = (config, prop, key, unit = null, defaultValue = null) => {
   const value = _.get(config, key)
   const adjusted = !_.isNil(value) ? value : defaultValue
@@ -103,11 +115,8 @@ const selectors = [
 ]
 
 const getInlineStyle = (config) => [
-  { selector: 'html', styles: [
-    ...getProp(config, 'background-color', 'page.background_color')
-  ] },
-  { selector: 'table.body', styles: [
-    ...getProp(config, 'background-color', 'page.background_color')
+  { selector: 'html,body,table.body', styles: [
+    ...getBackground(config, 'page.background_color')
   ] },
   ...selectors.reduce((selectorStyles, style) => [
     ...selectorStyles,
@@ -122,7 +131,7 @@ const getInlineStyle = (config) => [
           ...getFormat(config, 'text-decoration', 'underline', `page.${style.selector}_format`),
           ...getProp(config, 'color', `page.${style.selector}_color`),
           ...getProp(config, 'text-align', `page.${style.selector}_text_align`),
-          ...getProp(config, 'line-height', `page.${style.selector}_line_height`),
+          ...getProp(config, 'line-height', `page.${style.selector}_line_height`, 'em'),
           ...getProp(config, 'letter-spacing', `page.${style.selector}_letter_spacing`, 'px')
         ]
       }
@@ -134,11 +143,8 @@ const getInlineStyle = (config) => [
     ...getFormat(config, 'text-decoration', 'underline', 'page.a_format'),
     ...getProp(config, 'color', 'page.a_color')
   ] },
-  { selector: 'table.body', styles: [
-    ...getProp(config, 'background-color', 'page.background_color')
-  ] },
   { selector: 'table.body>tbody>tr>td.float-center', styles: [
-    ...getProp(config, 'padding', 'page.padding', 'px')
+    ...getPadding(config, 'page.')
   ] },
   { selector: 'table.container', styles: [
     ...getProp(config, 'background', 'page.email_background_color', null, 'none'),
@@ -147,7 +153,7 @@ const getInlineStyle = (config) => [
   ...sections.reduce((sectionStyles, section, i) => [
     ...sectionStyles,
     { selector: `table.section-${section}`, styles: [
-      ...getProp(config, 'background', `${section}.background_color`, null, 'none')
+      ...getBackground(config, `${section}.background_color`)
     ] },
     ...config[section].blocks.reduce((blockStyles, block, j) => [
       ...blockStyles,
@@ -164,7 +170,7 @@ const getInlineStyle = (config) => [
               ...getFormat(config, 'text-decoration', 'underline', `${section}.blocks[${j}].${style.selector}_format`),
               ...getProp(config, 'color', `${section}.blocks[${j}].${style.selector}_color`),
               ...getProp(config, 'text-align', `${section}.blocks[${j}].${style.selector}_text_align`),
-              ...getProp(config, 'line-height', `${section}.blocks[${j}].${style.selector}_line_height`),
+              ...getProp(config, 'line-height', `${section}.blocks[${j}].${style.selector}_line_height`, 'em'),
               ...getProp(config, 'letter-spacing', `${section}.blocks[${j}].${style.selector}_letter_spacing`, 'px')
             ]
           }
@@ -179,17 +185,17 @@ const getInlineStyle = (config) => [
       {
         selector: `table.section-${section} table.block-${j} table.block-container`, styles: [
           ...getBorder(config, 'border', `${section}.blocks[${j}].border`),
-          ...getProp(config, 'background-color',`${section}.blocks[${j}].background_color`)
+          ...getBackground(config, `${section}.blocks[${j}].background_color`)
         ]
       }, {
         selector: `table.section-${section} table.block-${j} .block-container-cell`, styles: [
-          ...getProp(config, 'padding', `${section}.blocks[${j}].padding`, 'px')
+          ...getPadding(config, `${section}.blocks[${j}].padding`)
         ]
       },
       ...block.type === 'images' ? [
         {
           selector: `table.section-${section} table.section-${section} table.block-${j} td.image`, styles: [
-            ...getProp(config, 'padding', `${section}.blocks[${j}].image_padding`, 'px')
+            ...getPadding(config, `${section}.blocks[${j}].image_padding`)
           ]
         }, {
           selector: `table.section-${section} table.block-${j} img`, styles: [
@@ -201,12 +207,12 @@ const getInlineStyle = (config) => [
       ..._.includes(['image','video'], block.type) ? [
         {
           selector: `table.section-${section} table.block-${j} table.block-container .block-caption div`, styles: [
-            ...getProp(config, 'background-color',`${section}.blocks[${j}].caption_background_color`),
-            ...getProp(config, 'padding',`${section}.blocks[${j}].caption_padding`, 'px')
+            ...getBackground(config, `${section}.blocks[${j}].caption_background_color`),
+            ...getPadding(config, `${section}.blocks[${j}].caption_padding`)
           ]
         }, {
           selector: `table.section-${section} table.block-${j} table.block-container .block-image div`, styles: [
-            ...getProp(config, 'padding',`${section}.blocks[${j}].image_padding`, 'px')
+            ...getPadding(config, `${section}.blocks[${j}].image_padding`)
           ]
         }, {
           selector: `table.section-${section} table.block-${j} img`, styles: [
@@ -218,8 +224,8 @@ const getInlineStyle = (config) => [
       ...block.type === 'button' ? [
         {
           selector: `table.section-${section} table.block-${j} table.button table td`, styles: [
-            ...getProp(config, 'background-color',`${section}.blocks[${j}].button_background_color`),
-            ...getProp(config, 'padding',`${section}.blocks[${j}].button_padding`, 'px'),
+            ...getBackground(config, `${section}.blocks[${j}].button_background_color`),
+            ...getPadding(config, `${section}.blocks[${j}].button_padding`),
             ...getProp(config, 'border-radius',`${section}.blocks[${j}].button_border_radius`, 'px')
           ]
         },
@@ -227,7 +233,7 @@ const getInlineStyle = (config) => [
           selector: `table.section-${section} table.block-${j} table.button table a`, styles: [
             ...getProp(config, 'font-family',`${section}.blocks[${j}].font_family`),
             ...getProp(config, 'font-size',`${section}.blocks[${j}].font_size`, 'px'),
-            ...getProp(config, 'line-height', `${section}.blocks[${j}].line_height`),
+            ...getProp(config, 'line-height', `${section}.blocks[${j}].line_height`, ''),
             ...getProp(config, 'letter-spacing',`${section}.blocks[${j}].letter_spacing`, 'px'),
             ...getProp(config, 'text-align',`${section}.blocks[${j}].text_align`),
             ...getFormat(config, 'font-weight', 'bold', `${section}.blocks[${j}].format`, 'normal'),
@@ -240,7 +246,7 @@ const getInlineStyle = (config) => [
       ..._.includes(['follow','share'], block.type) ? [
         {
           selector: `table.section-${section} table.block-${j} table.social table`, styles: [
-            ...getProp(config, 'background-color',`${section}.blocks[${j}].button_background_color`),
+            ...getBackground(config, `${section}.blocks[${j}].button_background_color`),
             ...getProp(config, 'border-radius',`${section}.blocks[${j}].button_border_radius`, 'px')
           ]
         },{
@@ -252,7 +258,7 @@ const getInlineStyle = (config) => [
             ...getFormat(config, 'text-decoration', 'underline', `${section}.blocks[${j}].format`),
             ...getProp(config, 'color',`${section}.blocks[${j}].color`),
             ...getProp(config, 'text-align',`${section}.blocks[${j}].text_align`),
-            ...getProp(config, 'line-height',`${section}.blocks[${j}].line_height`),
+            ...getProp(config, 'line-height',`${section}.blocks[${j}].line_height`, 'em'),
             ...getProp(config, 'letter-spacing',`${section}.blocks[${j}].letter_spacing`, 'px')
           ]
         }
@@ -270,7 +276,7 @@ const getInlineStyle = (config) => [
   ], [])
 ].map(item => item.styles.length === 0 ? '' : `
   ${item.selector} {
-    ${ item.styles.map(style => `${style.prop}: ${style.value} !important;`).join('\n') }
+    ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }
   }
 `).join('\n')
 

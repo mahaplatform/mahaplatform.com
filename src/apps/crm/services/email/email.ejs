@@ -21,7 +21,7 @@
                   <tr>
                     <td>
                       <% ['header','body','footer'].map((section) => { %>
-                        <table class="section-<%= section %> section">
+                        <table class="section-<%= section %> section" bgcolor="<%= config[section].background_color %>">
                           <tbody>
                             <tr>
                               <td>
@@ -30,7 +30,7 @@
                                     <tbody>
                                       <tr>
                                         <td class="small-12 large-12 columns first last">
-                                          <table class="block-container">
+                                          <table class="block-container" bgcolor="<%= config[section].blocks[blockIndex].background_color %>">
                                             <tbody>
                                               <tr>
                                                 <td class="block-container-cell">
