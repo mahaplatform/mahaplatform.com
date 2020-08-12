@@ -38,6 +38,7 @@ class Cart {
       })),
       ...!exists ? [{
         code: product.code,
+        price: product.fixed_price,
         quantity: 1
       }] : []
     ])
@@ -56,7 +57,7 @@ class Cart {
       })
       return {
         ...product,
-        quantity: item.quantity
+        ...item
       }
     })
   }

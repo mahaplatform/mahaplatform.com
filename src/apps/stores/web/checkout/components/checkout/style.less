@@ -1,3 +1,5 @@
+@import './step1/style.less';
+
 .checkout {
   display: flex;
   flex: 1;
@@ -7,6 +9,12 @@
   display: flex;
   flex: 1;
 }
+.checkout-sidebar {
+  flex: 0 0 40%;
+  max-width: 400px;
+  background-color: fadeout(@black, 97);
+  border-left: 1px solid fadeout(@black, 90);
+}
 .checkout-main-header {
   border-bottom: 1px solid fadeout(@black, 90);
 }
@@ -14,9 +22,68 @@
   display: flex;
   flex: 1;
 }
-.checkout-sidebar {
-  flex: 0 0 40%;
-  max-width: 400px;
-  border-left: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 97);
+.checkout-sidebar-image {
+  background-color: fadeout(@black, 30);
+  padding-bottom: 50%;
+  position: relative;
+  height: 0;
+  .maha-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.checkout-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.checkout-panel-message {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+.checkout-panel-body {
+  padding: 0.8em;
+  .scrollable();
+  flex: 1;
+}
+.checkout-panel-content {
+  max-width: 625px;
+  margin: 0 auto;
+  width: 100%;
+}
+.checkout-panel-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  background: fadeout(@black, 97);
+  padding: 0.4em;
+  display: flex;
+  .checkout-panel-footer-item:first-child {
+    text-align: left;
+  }
+  .checkout-panel-footer-item:last-child {
+    text-align: right;
+  }
+}
+.checkout-panel-footer-item {
+  flex: 1;
+  padding: 0.4em;
+}
+
+@media (min-width: 769px) {
+  .checkout-panel-body {
+    background-color: fadeout(@black, 90);
+  }
+  .checkout-panel-content {
+    background-color: @white;
+    padding: 0.8em;
+  }
+}
+@media (max-width: 768px) {
+  .checkout-sidebar {
+    display: none;
+  }
 }

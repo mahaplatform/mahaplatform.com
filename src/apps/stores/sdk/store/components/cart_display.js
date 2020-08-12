@@ -24,6 +24,7 @@ class CartDisplay extends React.Component {
         <thead>
           <tr>
             <th />
+            <th />
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -37,8 +38,17 @@ class CartDisplay extends React.Component {
                 <div onClick={ this._handleRemove.bind(this, product.code) }>x</div>
               </td>
               <td>
-                <img src={ product.image } width="50" />
-                { product.title }
+                <img src={ product.image } width="37" />
+              </td>
+              <td>
+                <strong>{ product.title }</strong>
+                { product.options.length > 0 &&
+                  <div>
+                    { product.options.map(option => {
+                      return `${option.option}: ${option.value}`
+                    }).join(', ')}
+                  </div>
+                }
               </td>
               <td>{ numeral(product.price).format('0.00') }</td>
               <td>
