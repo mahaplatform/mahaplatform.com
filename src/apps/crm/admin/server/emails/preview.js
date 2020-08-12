@@ -2,6 +2,7 @@ import renderEmail from '../../../services/email/render_email'
 import EmailCampaign from '../../../models/email_campaign'
 import Template from '../../../models/template'
 import Email from '../../../models/email'
+import inline from 'inline-css'
 
 const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
   if(email_id) {
@@ -43,7 +44,12 @@ const previewRoute = async (req, res) => {
     }
   })
 
-  res.status(200).type('text/html').send(html)
+  const inlined = await inline(html, {
+    url: process.env.WEB_HOST,
+    preserveMediaQueries: true
+  })
+
+  res.status(200).type('text/html').send(inlined)
 
 }
 

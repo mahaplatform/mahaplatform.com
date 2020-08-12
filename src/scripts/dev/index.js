@@ -156,6 +156,7 @@ const adminWatch = async () => {
       if(/^\/admin/.test(req.url)) return req.url
     }
   }
+
   const devserver = new devServer(webpack(adminConfig), {
     https: protocol === 'https' ? {
       key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
@@ -174,8 +175,7 @@ const adminWatch = async () => {
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
           target: `http://${process.env.DOMAIN}:${proxy.port}`,
-          secure: false,
-          ws: true
+          secure: false
         }
       }), {}),
       '/maha.js': {
@@ -207,7 +207,7 @@ const connectNgrok = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','web','admin']
+  const services = argv.length > 0 ? argv : ['server','web','admin','sdk']
   await bootstrap()
   await connectNgrok()
   if(_.includes(services, 'server')) await serverWatch()

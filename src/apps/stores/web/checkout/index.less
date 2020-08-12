@@ -1,0 +1,31 @@
+@import '../../../../core/client/style.less';
+
+.scrollable() {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
+html, body {
+  height: auto;
+  background: none;
+}
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+@import './components/checkout/style.less';

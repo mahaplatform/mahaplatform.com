@@ -33,5 +33,6 @@ export Network from './network'
 export Error from './error'
 export Message from './message'
 export Stack from './stack'
+export Steps from './steps'
 
 export paymentMiddleware from './payment/middleware'

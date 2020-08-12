@@ -1,17 +1,17 @@
-.registration-steps {
+.maha-steps {
   display: flex;
-  .registration-step:first-child {
+  .maha-step:first-child {
     &:before {
       content: none;
     }
   }
-  .registration-step:last-child {
+  .maha-step:last-child {
     &:after {
       content: none;
     }
   }
 }
-.registration-step {
+.maha-step {
   flex: 1;
   padding: 0.8em 0.6em;
   text-align: center;
@@ -32,25 +32,25 @@
     left: ~"calc(50% + 0.8em)";
   }
   &.completed {
-    .registration-step-marker,
+    .maha-step-marker,
     &:before, &:after {
       background-color: @green;
     }
-    .registration-step-label {
+    .maha-step-label {
       color: @black;
     }
   }
   &.current {
-    .registration-step-marker,
+    .maha-step-marker,
     &:before {
       background-color: @green;
     }
-    .registration-step-label {
+    .maha-step-label {
       color: @black;
     }
   }
 }
-.registration-step-marker {
+.maha-step-marker {
   background-color: lighten(@black, 90);
   color: @white;
   border-radius: 50%;
@@ -60,7 +60,7 @@
   line-height: 1.6em;
   text-align: center;
 }
-.registration-step-label {
+.maha-step-label {
   color: fadeout(@black, 80);
   margin-top: 0.4em;
   font-size: 0.8em;

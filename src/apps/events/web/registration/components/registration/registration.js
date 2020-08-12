@@ -1,4 +1,4 @@
-import { Image, Stack } from 'maha-client'
+import { Image, Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
 import Complete from './complete'
 import Summary from './summary'
@@ -6,7 +6,6 @@ import Step1 from './step1'
 import Step2 from './step2'
 import Step3 from './step3'
 import Step4 from './step4'
-import Steps from './steps'
 import React from 'react'
 
 class Registration extends React.Component {
@@ -93,6 +92,7 @@ class Registration extends React.Component {
   _getSteps() {
     const { step } = this.state
     return {
+      steps: ['Ticket Selection','Contact Information','Ticket Information','Payment Information'],
       current: step
     }
   }
