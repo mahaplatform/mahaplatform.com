@@ -26,7 +26,7 @@ class Cart {
 
   async _handleClear() {
     return await this.db.setItem('cart', {
-      cart: {}
+      items: []
     })
   }
 

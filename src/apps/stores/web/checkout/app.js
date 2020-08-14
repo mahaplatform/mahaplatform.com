@@ -13,7 +13,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Root key="root">
+      <Root key="root" storeName="maha">
         <Logger environment="checkout">
           <Error>
             <Network>

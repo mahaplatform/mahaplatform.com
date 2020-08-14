@@ -9,14 +9,14 @@ class CartDisplay extends React.Component {
   }
 
   state = {
-    variants: []
+    items: []
   }
 
   _handleChange = this._handleChange.bind(this)
   _handleClear = this._handleClear.bind(this)
 
   render() {
-    const { variants } = this.state
+    const { items } = this.state
     const subtotal = this._getSubTotal()
     const tax = this._getTax()
     const total = this._getTotal()
@@ -34,54 +34,54 @@ class CartDisplay extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { variants.map((variant, index) => (
+            { items.map((item, index) => (
               <tr key={`product_${index}`}>
                 <td>
-                  <div onClick={ this._handleRemove.bind(this, variant.code) }>x</div>
+                  <div onClick={ this._handleRemove.bind(this, item.code) }>x</div>
                 </td>
                 <td>
-                  <img src={ variant.image } width="37" />
+                  <img src={ item.image } width="37" />
                 </td>
                 <td>
-                  <strong>{ variant.title }</strong>
-                  { variant.options.length > 0 &&
+                  <strong>{ item.title }</strong>
+                  { item.options.length > 0 &&
                     <div>
-                      { variant.options.map(option => {
+                      { item.options.map(option => {
                         return `${option.option}: ${option.value}`
                       }).join(', ')}
                     </div>
                   }
                 </td>
-                <td>{ numeral(variant.price).format('0.00') }</td>
+                <td>{ numeral(item.price).format('0.00') }</td>
                 <td>
-                  <div onClick={ this._handleUpdate.bind(this, variant.code, -1) }>-</div>
-                  { variant.quantity }
-                  <div onClick={ this._handleUpdate.bind(this, variant.code, 1) }>+</div>
+                  <div onClick={ this._handleUpdate.bind(this, item.code, -1) }>-</div>
+                  { item.quantity }
+                  <div onClick={ this._handleUpdate.bind(this, item.code, 1) }>+</div>
                 </td>
-                <td>{ numeral(variant.quantity * variant.price).format('0.00') }</td>
+                <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
               </tr>
             )) }
-            { variants.length === 0 &&
+            { items.length === 0 &&
               <tr>
-                <td colSpan="5">The cart is empty</td>
+                <td colSpan="6">The cart is empty</td>
               </tr>
             }
           </tbody>
           <tfoot>
             { tax > 0 &&
               <tr>
-                <td colSpan="4">Subtotal</td>
+                <td colSpan="5">Subtotal</td>
                 <td>{ numeral(subtotal).format('0.00') }</td>
               </tr>
             }
             { tax > 0 &&
               <tr>
-                <td colSpan="4">Tax</td>
+                <td colSpan="5">Tax</td>
                 <td>{ numeral(tax).format('0.00') }</td>
               </tr>
             }
             <tr>
-              <td colSpan="4">Total</td>
+              <td colSpan="5">Total</td>
               <td>{ numeral(total).format('0.00') }</td>
             </tr>
           </tfoot>
@@ -95,19 +95,19 @@ class CartDisplay extends React.Component {
     const { cart } = this.props
     cart.on('change', this._handleChange)
     this.setState({
-      variants: cart.getItems()
+      items: cart.getItems()
     })
   }
 
   _getSubTotal() {
-    return this.state.variants.reduce((subtotal, variant) => {
-      return subtotal + (Number(variant.quantity) * Number(variant.price))
+    return this.state.items.reduce((subtotal, item) => {
+      return subtotal + (Number(item.quantity) * Number(item.price))
     }, 0.00)
   }
 
   _getTax() {
-    return this.state.variants.reduce((tax, variant) => {
-      return tax + (Number(variant.quantity) * Number(variant.price) * Number(variant.tax_rate))
+    return this.state.items.reduce((tax, item) => {
+      return tax + (Number(item.quantity) * Number(item.price) * Number(item.tax_rate))
     }, 0.00)
   }
 
@@ -120,7 +120,7 @@ class CartDisplay extends React.Component {
   _handleChange() {
     const { cart } = this.props
     this.setState({
-      variants: cart.getItems()
+      items: cart.getItems()
     })
   }
 

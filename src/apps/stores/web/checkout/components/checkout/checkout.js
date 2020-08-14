@@ -1,11 +1,21 @@
 import { Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
+import Summary from './summary'
 import Step1 from './step1'
 import React from 'react'
 
 class Checkout extends React.Component {
 
   static propTypes = {
+    cart: PropTypes.object,
+    items: PropTypes.array,
+    products: PropTypes.array,
+    subtotal: PropTypes.number,
+    tax: PropTypes.number,
+    total: PropTypes.number,
+    variants: PropTypes.array,
+    onFetchProducts: PropTypes.func,
+    onLoadCart: PropTypes.func
   }
 
   state = {
@@ -18,23 +28,25 @@ class Checkout extends React.Component {
 
   render() {
     return (
-      <div className="checkout">
-        <div className="checkout-main">
-          <div className="checkout-main-header">
+      <div className="maha-checkout">
+        <div className="maha-checkout-main">
+          <div className="maha-checkout-main-header">
             <Steps { ...this._getSteps() } />
           </div>
-          <div className="checkout-main-body">
+          <div className="maha-checkout-main-body">
             <Stack { ...this._getStack() } />
           </div>
         </div>
-        <div className="checkout-sidebar">
-          sidebar
+        <div className="maha-checkout-sidebar">
+          <Summary { ...this._getSummary() } />
         </div>
       </div>
     )
   }
 
   componentDidMount() {
+    this.props.onFetchProducts('maha')
+    this.props.onLoadCart()
     this._handlePush(Step1, this._getStep1.bind(this))
   }
 
@@ -56,7 +68,17 @@ class Checkout extends React.Component {
 
   _getStep1() {
     return {
-      
+
+    }
+  }
+
+  _getSummary() {
+    const { items, subtotal, tax, total } = this.props
+    return {
+      items,
+      subtotal,
+      tax,
+      total
     }
   }
 

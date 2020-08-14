@@ -20,19 +20,19 @@ class Step1 extends React.Component {
 
   render() {
     return (
-      <div className="checkout-panel">
-        <div className="checkout-panel-body">
-          <div className="checkout-panel-content">
-            <div className="checkout-step2">
+      <div className="maha-checkout-panel">
+        <div className="maha-checkout-panel-body">
+          <div className="maha-checkout-panel-content">
+            <div className="maha-checkout-step2">
               <Form { ...this._getForm() } />
             </div>
           </div>
         </div>
-        <div className="checkout-panel-footer">
-          <div className="checkout-panel-footer-item">
+        <div className="maha-checkout-panel-footer">
+          <div className="maha-checkout-panel-footer-item">
             <Button { ...this._getBack() } />
           </div>
-          <div className="checkout-panel-footer-item">
+          <div className="maha-checkout-panel-footer-item">
             <Button { ...this._getNext() } />
           </div>
         </div>

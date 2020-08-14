@@ -1,28 +1,28 @@
 @import './step1/style.less';
+@import './summary/style.less';
 
-.checkout {
+.maha-checkout {
   display: flex;
   flex: 1;
 }
-.checkout-main {
+.maha-checkout-main {
   flex-direction: column;
   display: flex;
   flex: 1;
 }
-.checkout-sidebar {
-  flex: 0 0 40%;
-  max-width: 400px;
+.maha-checkout-sidebar {
+  flex: 0 0 50%;
   background-color: fadeout(@black, 97);
   border-left: 1px solid fadeout(@black, 90);
 }
-.checkout-main-header {
+.maha-checkout-main-header {
   border-bottom: 1px solid fadeout(@black, 90);
 }
-.checkout-main-body {
+.maha-checkout-main-body {
   display: flex;
   flex: 1;
 }
-.checkout-sidebar-image {
+.maha-checkout-sidebar-image {
   background-color: fadeout(@black, 30);
   padding-bottom: 50%;
   position: relative;
@@ -36,54 +36,54 @@
   }
 }
 
-.checkout-panel {
+.maha-checkout-panel {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
-.checkout-panel-message {
+.maha-checkout-panel-message {
   position: relative;
   display: flex;
   flex: 1;
 }
-.checkout-panel-body {
+.maha-checkout-panel-body {
   padding: 0.8em;
   .scrollable();
   flex: 1;
 }
-.checkout-panel-content {
+.maha-checkout-panel-content {
   max-width: 625px;
   margin: 0 auto;
   width: 100%;
 }
-.checkout-panel-footer {
+.maha-checkout-panel-footer {
   border-top: 1px solid fadeout(@black, 90);
   background: fadeout(@black, 97);
   padding: 0.4em;
   display: flex;
-  .checkout-panel-footer-item:first-child {
+  .maha-checkout-panel-footer-item:first-child {
     text-align: left;
   }
-  .checkout-panel-footer-item:last-child {
+  .maha-checkout-panel-footer-item:last-child {
     text-align: right;
   }
 }
-.checkout-panel-footer-item {
+.maha-checkout-panel-footer-item {
   flex: 1;
   padding: 0.4em;
 }
 
 @media (min-width: 769px) {
-  .checkout-panel-body {
+  .maha-checkout-panel-body {
     background-color: fadeout(@black, 90);
   }
-  .checkout-panel-content {
+  .maha-checkout-panel-content {
     background-color: @white;
     padding: 0.8em;
   }
 }
 @media (max-width: 768px) {
-  .checkout-sidebar {
+  .maha-checkout-sidebar {
     display: none;
   }
 }

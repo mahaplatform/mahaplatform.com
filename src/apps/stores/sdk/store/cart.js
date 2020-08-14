@@ -72,7 +72,7 @@ class Cart extends Emitter {
   updateItem(code, increment) {
     this._handleSetItems(this.items.map(item => ({
       ...item,
-      quantity: item.quantity + increment
+      quantity: item.quantity + (item.code === code ? increment : 0)
     })).filter(item => {
       return item.quantity > 0
     }))

@@ -1,0 +1,37 @@
+.maha-checkout-summary {
+  padding: 0.8em;
+  h2 {
+    font-size: 1.2em;
+    margin: 0;
+  }
+  table {
+    background: @white;
+    width: 100%;
+    border-top: 1px solid fadeout(@black, 90);
+    border-left: 1px solid fadeout(@black, 90);
+  }
+  thead {
+    td {
+      background: fadeout(@black, 97);
+      font-weight: bold;
+    }
+  }
+  tbody {
+    tr {
+      td:nth-child(1) {
+        width: 50px;
+      }
+      td:nth-child(3),
+      td:nth-child(4),
+      td:nth-child(5) {
+        width: 60px;
+        text-align: right;
+      }
+    }
+  }
+  td, th {
+    padding: 0.6em;
+    border-bottom: 1px solid fadeout(@black, 90);
+    border-right: 1px solid fadeout(@black, 90);
+  }
+}
