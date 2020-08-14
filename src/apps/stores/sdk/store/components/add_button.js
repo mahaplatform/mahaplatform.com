@@ -14,7 +14,7 @@ class AddButton {
   }
 
   _handleClick() {
-    this.cart.addProduct(this.config.code)
+    this.cart.addItem(this.config.code)
   }
 
 }

@@ -2,6 +2,7 @@ import RevenueType from '../../finance/models/revenue_type'
 import Project from '../../finance/models/project'
 import Model from '../../../core/objects/model'
 import Product from './product'
+import Media from './media'
 
 const Variant = new Model({
 
@@ -10,6 +11,10 @@ const Variant = new Model({
   rules: {},
 
   virtuals: {},
+
+  media() {
+    return this.hasMany(Media, 'product_id')
+  },
 
   product() {
     return this.belongsTo(Product, 'product_id')

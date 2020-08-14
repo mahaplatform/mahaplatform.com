@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
-import Product from './product'
+import Variant from './variant'
 
 const Media = new Model({
 
@@ -14,8 +14,8 @@ const Media = new Model({
     return this.belongsTo(Asset, 'asset_id')
   },
 
-  product() {
-    return this.belongsTo(Product, 'product_id')
+  variant() {
+    return this.belongsTo(Variant, 'variant_id')
   }
 
 })

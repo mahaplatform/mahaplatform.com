@@ -2081,17 +2081,6 @@ const schema = {
       table.integer('role_id').unsigned()
     })
 
-    await knex.schema.createTable('media', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('product_id').unsigned()
-      table.integer('asset_id').unsigned()
-      table.integer('delta')
-      table.jsonb('video')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('news_groups', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2229,6 +2218,17 @@ const schema = {
       table.integer('auth_srid')
       table.string('srtext', 2048)
       table.string('proj4text', 2048)
+    })
+
+    await knex.schema.createTable('stores_media', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('variant_id').unsigned()
+      table.integer('asset_id').unsigned()
+      table.integer('delta')
+      table.jsonb('video')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('stores_options', (table) => {
@@ -3376,12 +3376,6 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('media', table => {
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('product_id').references('stores_products.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3549,6 +3543,12 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_media', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('variant_id').references('stores_variants.id')
+      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

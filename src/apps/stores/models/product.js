@@ -1,6 +1,5 @@
 import Model from '../../../core/objects/model'
 import Variant from './variant'
-import Media from './media'
 import Store from './store'
 
 const Product = new Model({
@@ -10,10 +9,6 @@ const Product = new Model({
   rules: {},
 
   virtuals: {},
-
-  media() {
-    return this.hasMany(Media, 'product_id')
-  },
 
   stores() {
     return this.belongsTo(Store, 'store_id')
