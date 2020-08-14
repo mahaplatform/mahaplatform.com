@@ -8,12 +8,14 @@
   table {
     background: @white;
     width: 100%;
+    border-collapse: collapse;
     border-top: 1px solid fadeout(@black, 90);
     border-left: 1px solid fadeout(@black, 90);
     border-right: 1px solid fadeout(@black, 90);
   }
   thead {
     td {
+      border-right: 1px solid fadeout(@black, 90);
       background: fadeout(@black, 97);
       font-weight: bold;
     }
@@ -27,11 +29,20 @@
       }
       td:nth-child(1) {
         width: 20px;
+        span {
+          color: fadeout(@black, 80);
+          cursor: pointer;
+          &:hover {
+            color: fadeout(@black, 40);
+          }
+        }
       }
       td:nth-child(2) {
         width: 50px;
       }
-      td:nth-child(4),
+      td:nth-child(4) {
+        width: 90px;
+      }
       td:nth-child(5),
       td:nth-child(6) {
         width: 60px;
@@ -41,6 +52,11 @@
   }
   tfoot {
     tr {
+      td:first-child {
+        border-right: 1px solid fadeout(@black, 90);
+        background: fadeout(@black, 97);
+        font-weight: bold;
+      }
       td:last-child {
         width: 60px;
         text-align: right;
@@ -58,14 +74,22 @@
   div {
     border-right: 1px solid fadeout(@black, 90);
     padding: 0.4em;
+    text-align: center;
     &:last-child {
       border-right: none;
     }
   }
 }
 .maha-cart-quantity-control {
+  flex: 0 0 20px;
   cursor: pointer;
+  background-color: fadeout(@black, 97);
+  color: fadeout(@black, 80);
   &:hover {
-    background-color: fadeout(@black, 97);
+    background-color: fadeout(@black, 95);
+    color: fadeout(@black, 40);
   }
+}
+.maha-cart-quantity-value {
+  flex: 1;
 }

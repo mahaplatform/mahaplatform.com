@@ -33,7 +33,8 @@ class Cart extends React.Component {
         <table>
           <thead>
             <tr>
-              <td colSpan="3">Product</td>
+              <td />
+              <td colSpan="2">Product</td>
               <td>Qty</td>
               <td>Price</td>
               <td>Total</td>
@@ -43,7 +44,7 @@ class Cart extends React.Component {
             { items.map((item, index) => (
               <tr key={`product_${index}`}>
                 <td onClick={ this._handleRemove.bind(this, item.code) }>
-                  x
+                  <span>x</span>
                 </td>
                 <td>
                   <img src={ item.image } width="37" />
