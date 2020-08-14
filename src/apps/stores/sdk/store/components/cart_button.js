@@ -1,7 +1,3 @@
-import CartDisplay from './cart_display'
-import ReactDOM from 'react-dom'
-import React from 'react'
-
 class CartButton {
 
   cart = null
@@ -25,10 +21,7 @@ class CartButton {
   }
 
   _handleClick() {
-    const body = document.getElementsByTagName('body')[0]
-    const node = document.createElement('DIV')
-    body.appendChild(node)
-    ReactDOM.render(<CartDisplay cart={ this.cart } />, node)
+    this.cart.toggle()
   }
 
 }

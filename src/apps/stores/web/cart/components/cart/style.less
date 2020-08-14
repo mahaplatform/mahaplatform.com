@@ -1,0 +1,71 @@
+.maha-cart {
+  width: 100%;
+  padding: 0.8em;
+  h2 {
+    font-size: 1.2em;
+    margin: 0;
+  }
+  table {
+    background: @white;
+    width: 100%;
+    border-top: 1px solid fadeout(@black, 90);
+    border-left: 1px solid fadeout(@black, 90);
+    border-right: 1px solid fadeout(@black, 90);
+  }
+  thead {
+    td {
+      background: fadeout(@black, 97);
+      font-weight: bold;
+    }
+  }
+  tbody {
+    tr {
+      td[colspan="6"] {
+        width: 100% !important;
+        text-align: center;
+        font-style: italic;
+      }
+      td:nth-child(1) {
+        width: 20px;
+      }
+      td:nth-child(2) {
+        width: 50px;
+      }
+      td:nth-child(4),
+      td:nth-child(5),
+      td:nth-child(6) {
+        width: 60px;
+        text-align: right;
+      }
+    }
+  }
+  tfoot {
+    tr {
+      td:last-child {
+        width: 60px;
+        text-align: right;
+      }
+    }
+  }
+  td, th {
+    padding: 0.6em;
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
+}
+.maha-cart-quantity {
+  border: 1px solid fadeout(@black, 90);
+  display: flex;
+  div {
+    border-right: 1px solid fadeout(@black, 90);
+    padding: 0.4em;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+.maha-cart-quantity-control {
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}

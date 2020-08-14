@@ -14,14 +14,14 @@ class Summary extends React.Component {
   render() {
     const { items, subtotal, tax, total } = this.props
     return (
-      <div className="maha-checkout-summary">
+      <div className="maha-cart">
         <table>
           <thead>
             <tr>
-              <th colSpan="2">Product</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Total</th>
+              <td colSpan="2">Product</td>
+              <td>Qty</td>
+              <td>Price</td>
+              <td>Total</td>
             </tr>
           </thead>
           <tbody>

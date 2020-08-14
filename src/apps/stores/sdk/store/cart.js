@@ -7,7 +7,9 @@ class Cart extends Emitter {
   code = null
   db = null
   pasteur = null
+  iframe = null
   items = []
+  open = false
 
   _handleFetchItems = this._handleFetchItems.bind(this)
 
@@ -19,32 +21,11 @@ class Cart extends Emitter {
   }
 
   addItem(code) {
-    const variants = this.catalog.getVariants()
-    const variant = variants.find(variant => {
-      return variant.code === code
-    })
-    if(!variant) throw new Error('unable to find variant')
-    const exists = this.items.find(item => {
-      return item.code === code
-    }) !== undefined
-    this._handleSetItems([
-      ...this.items.map(item => ({
-        ...item,
-        quantity: item.quantity + (item.code === code ? 1 : 0)
-      })),
-      ...!exists ? [{
-        code: variant.code,
-        price: variant.fixed_price,
-        quantity: 1
-      }] : []
-    ])
+    this.pasteur.send('add', code)
   }
 
   clearItems() {
-    this.pasteur.send('clear', null, (cart) => {
-      this.items = []
-      this.emit('change')
-    })
+    this.pasteur.send('clear')
   }
 
   getCount() {
@@ -63,31 +44,48 @@ class Cart extends Emitter {
     }))
   }
 
+  hide() {
+    this.open = false
+    this.iframe.style.transform = 'translateX(100%)'
+  }
+
   removeItem(code) {
-    this._handleSetItems(this.items.filter(item => {
-      return item.code !== code
-    }))
+    this.pasteur.send('remove', code)
+  }
+
+  show() {
+    this.open = true
+    this.iframe.style.transform = 'translateX(0)'
+  }
+
+
+  toggle() {
+    if(this.open) return this.hide()
+    this.show()
   }
 
   updateItem(code, increment) {
-    this._handleSetItems(this.items.map(item => ({
-      ...item,
-      quantity: item.quantity + (item.code === code ? increment : 0)
-    })).filter(item => {
-      return item.quantity > 0
-    }))
+    this.pasteur.send('remove', { code, increment })
   }
 
   _handleInit() {
-    const iframe = document.createElement('iframe')
-    iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
-    iframe.frameBorder = 0
-    iframe.style.width = 0
-    iframe.style.height = 0
-    document.body.appendChild(iframe)
+    this.iframe = document.createElement('iframe')
+    this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
+    this.iframe.frameBorder = 0
+    this.iframe.style.position = 'absolute'
+    this.iframe.style.top = 0
+    this.iframe.style.right = 0
+    this.iframe.style.bottom = 0
+    this.iframe.style.width = '500px'
+    this.iframe.style.height = '100%'
+    this.iframe.style.borderLeft = '1px solid #CCCCCC'
+    this.iframe.style.backgroundColor = '#EEEEEE'
+    this.iframe.style.transition = 'transform .15s ease-in-out 0s'
+    this.iframe.style.transform = 'translateX(100%)'
+    document.body.appendChild(this.iframe)
     this.pasteur = new Pasteur({
       window,
-      target: iframe.contentWindow,
+      target: this.iframe.contentWindow,
       name: 'cart',
       targetName: 'cartStore'
     })
