@@ -3,24 +3,29 @@ import CartButton from './components/cart_button'
 import AddButton from './components/add_button'
 import Emitter from './emitter'
 import Catalog from './catalog'
+import Checkout from './checkout'
 import Cart from './cart'
 
 class Store extends Emitter {
 
   catalog = null
   cart = null
+  checkout = null
   config = null
   components = []
 
   constructor(config) {
     super()
     this.config = config
+    this.checkout = new Checkout({
+      code: config.code
+    })
   }
 
   createComponent(type, config) {
     const Component = this._getCreator(type)
     const element = document.querySelectorAll(`[data-id="${config.code}"]`)[0]
-    const component = new Component(element, this.cart, config)
+    const component = new Component(element, this.cart, this.checkout, config)
     this.components.push(component)
   }
 
@@ -58,6 +63,7 @@ class Store extends Emitter {
     ])
     this.cart = new Cart({
       code: this.config.code,
+      checkout: this.checkout,
       catalog: this.catalog
     })
     this.emit('ready')

@@ -5,18 +5,22 @@ class Cart extends Emitter {
 
   catalog = null
   code = null
+  checkout = null
   db = null
   pasteur = null
   iframe = null
   items = []
   open = false
 
+  _handleCheckout = this._handleCheckout.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleFetchItems = this._handleFetchItems.bind(this)
 
   constructor(config) {
     super()
     this.catalog = config.catalog
     this.code = config.code
+    this.checkout = config.checkout
     this._handleInit()
   }
 
@@ -78,10 +82,10 @@ class Cart extends Emitter {
     this.iframe.style.bottom = 0
     this.iframe.style.width = '500px'
     this.iframe.style.height = '100%'
-    this.iframe.style.borderLeft = '1px solid #CCCCCC'
     this.iframe.style.backgroundColor = '#EEEEEE'
     this.iframe.style.transition = 'transform .15s ease-in-out 0s'
     this.iframe.style.transform = 'translateX(100%)'
+    this.iframe.style.boxShadow = '-5px 0 5px rgba(0,0,0,0.05)'
     document.body.appendChild(this.iframe)
     this.pasteur = new Pasteur({
       window,
@@ -90,6 +94,18 @@ class Cart extends Emitter {
       targetName: 'cartStore'
     })
     this.pasteur.on('ready', this._handleFetchItems)
+    this.pasteur.on('checkout', this._handleCheckout)
+    this.pasteur.on('close', this._handleClose)
+  }
+
+  _handleCheckout() {
+    this.hide()
+    console.log(this.checkout)
+    this.checkout.begin()
+  }
+
+  _handleClose() {
+    this.hide()
   }
 
   _handleFetchItems() {

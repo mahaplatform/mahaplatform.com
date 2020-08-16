@@ -21,7 +21,9 @@ class Cart extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleCheckout = this._handleCheckout.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -30,73 +32,89 @@ class Cart extends React.Component {
     if(status !== 'success') return null
     return (
       <div className="maha-cart">
-        <table>
-          <thead>
-            <tr>
-              <td />
-              <td colSpan="2">Product</td>
-              <td>Qty</td>
-              <td>Price</td>
-              <td>Total</td>
-            </tr>
-          </thead>
-          <tbody>
-            { items.map((item, index) => (
-              <tr key={`product_${index}`}>
-                <td onClick={ this._handleRemove.bind(this, item.code) }>
-                  <span>x</span>
-                </td>
-                <td>
-                  <img src={ item.image } width="37" />
-                </td>
-                <td>
-                  <strong>{ item.title }</strong>
-                  { item.options.length > 0 &&
-                    <div>
-                      { item.options.map(option => {
-                        return `${option.option}: ${option.value}`
-                      }).join(', ')}
+        <div className="maha-cart-header" onClick={ this._handleClose }>
+          Close
+        </div>
+        <div className="maha-cart-body">
+          <table>
+            <thead>
+              <tr>
+                <td />
+                <td>Product</td>
+                <td>Qty</td>
+                <td>Price</td>
+                <td>Total</td>
+              </tr>
+            </thead>
+            <tbody>
+              { items.map((item, index) => (
+                <tr key={`product_${index}`}>
+                  <td onClick={ this._handleRemove.bind(this, item.code) }>
+                    <span>x</span>
+                  </td>
+                  <td>
+                    <div className="maha-cart-product">
+                      <div className="maha-cart-product-image">
+                        <img src={ item.image } />
+                      </div>
+                      <div className="maha-cart-product-details">
+                        <div className="maha-cart-product-name">
+                          { item.title }
+                        </div>
+                        { item.options.length > 0 &&
+                          <div className="maha-cart-product-options">
+                            { item.options.map(option => {
+                              return `${option.option}: ${option.value}`
+                            }).join(', ')}
+                          </div>
+                        }
+                      </div>
                     </div>
-                  }
-                </td>
-                <td>
-                  <div className="maha-cart-quantity">
-                    <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, -1) }>-</div>
-                    <div className="maha-cart-quantity-value">{ item.quantity }</div>
-                    <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, 1) }>+</div>
-                  </div>
-                </td>
-                <td>{ numeral(item.price).format('0.00') }</td>
-                <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
-              </tr>
-            )) }
-            { items.length === 0 &&
-              <tr>
-                <td colSpan="6">The cart is empty</td>
-              </tr>
+                  </td>
+                  <td>
+                    <div className="maha-cart-quantity">
+                      <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, -1) }>-</div>
+                      <div className="maha-cart-quantity-value">{ item.quantity }</div>
+                      <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, 1) }>+</div>
+                    </div>
+                  </td>
+                  <td>{ numeral(item.price).format('0.00') }</td>
+                  <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
+                </tr>
+              )) }
+              { items.length === 0 &&
+                <tr>
+                  <td colSpan="5">The cart is empty</td>
+                </tr>
+              }
+            </tbody>
+            { items.length > 0 &&
+              <tfoot>
+                { tax > 0 &&
+                  <tr>
+                    <td colSpan="4">Subtotal</td>
+                    <td>{ numeral(subtotal).format('0.00') }</td>
+                  </tr>
+                }
+                { tax > 0 &&
+                  <tr>
+                    <td colSpan="4">Tax</td>
+                    <td>{ numeral(tax).format('0.00') }</td>
+                  </tr>
+                }
+                <tr>
+                  <td colSpan="4">Total</td>
+                  <td>{ numeral(total).format('0.00') }</td>
+                </tr>
+              </tfoot>
             }
-          </tbody>
-          { items.length > 0 &&
-            <tfoot>
-              { tax > 0 &&
-                <tr>
-                  <td colSpan="5">Subtotal</td>
-                  <td>{ numeral(subtotal).format('0.00') }</td>
-                </tr>
-              }
-              { tax > 0 &&
-                <tr>
-                  <td colSpan="5">Tax</td>
-                  <td>{ numeral(tax).format('0.00') }</td>
-                </tr>
-              }
-              <tr>
-                <td colSpan="5">Total</td>
-                <td>{ numeral(total).format('0.00') }</td>
-              </tr>
-            </tfoot>
-          }
-        </table>
+          </table>
+        </div>
+        <div className="maha-cart-footer">
+          <div className="ui fluid red button" onClick={ this._handleCheckout }>
+             Checkout
+          </div>
+        </div>
       </div>
     )
   }
@@ -155,10 +173,18 @@ class Cart extends React.Component {
     })
   }
 
+  _handleCheckout() {
+    this.pasteur.send('checkout')
+  }
+
   _handleClear() {
     this.props.onSetCart({
       items: []
     })
+  }
+
+  _handleClose() {
+    this.pasteur.send('close')
   }
 
   _handleRemove(code) {

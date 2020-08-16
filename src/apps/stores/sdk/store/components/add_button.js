@@ -6,7 +6,7 @@ class AddButton {
 
   _handleClick = this._handleClick.bind(this)
 
-  constructor(element, cart, config) {
+  constructor(element, cart, checkout, config) {
     this.element = element
     this.cart = cart
     this.config = config
