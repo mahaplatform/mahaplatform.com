@@ -1,6 +1,7 @@
 import { Loader, Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
 import Summary from './summary'
+import Pasteur from 'pasteur'
 import Step1 from './step1'
 import React from 'react'
 
@@ -20,30 +21,49 @@ class Checkout extends React.Component {
     onLoadCart: PropTypes.func
   }
 
+  pasteur = null
+
   state = {
     step: 0,
     cards: []
   }
 
+  _handleClose = this._handleClose.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
     const { status } = this.props
-    if(status === 'loading') return <Loader />
     return (
       <div className="maha-checkout">
-        <div className="maha-checkout-main">
-          <div className="maha-checkout-main-header">
-            <Steps { ...this._getSteps() } />
+        <div className="maha-checkout-header">
+          <div className="maha-checkout-header-icon" onClick={ this._handleClose }>
+            <i className="fa fa-times" />
           </div>
-          <div className="maha-checkout-main-body">
-            <Stack { ...this._getStack() } />
+          <div className="maha-checkout-header-title">
+            Checkout
           </div>
         </div>
-        <div className="maha-checkout-sidebar">
-          <Summary { ...this._getSummary() } />
-        </div>
+        { status === 'loading' &&
+          <div className="maha-checkout-body">
+            <Loader />
+          </div>
+        }
+        { status === 'success' &&
+          <div className="maha-checkout-body">
+            <div className="maha-checkout-main">
+              <div className="maha-checkout-main-header">
+                <Steps { ...this._getSteps() } />
+              </div>
+              <div className="maha-checkout-main-body">
+                <Stack { ...this._getStack() } />
+              </div>
+            </div>
+            <div className="maha-checkout-sidebar">
+              <Summary { ...this._getSummary() } />
+            </div>
+          </div>
+        }
       </div>
     )
   }
@@ -52,6 +72,13 @@ class Checkout extends React.Component {
     const { Store } = this.props
     this.props.onFetchProducts(Store.code)
     this.props.onLoadCart()
+    this.pasteur = new Pasteur({
+      window,
+      target: window.parent,
+      name: 'checkout',
+      targetName: 'store'
+    })
+
     this._handlePush(Step1, this._getStep1.bind(this))
   }
 
@@ -85,6 +112,10 @@ class Checkout extends React.Component {
       tax,
       total
     }
+  }
+
+  _handleClose() {
+    this.pasteur.send('close')
   }
 
   _handlePop(index = -1) {

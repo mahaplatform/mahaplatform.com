@@ -1,3 +1,5 @@
+import Pasteur from 'pasteur'
+
 class Checkout {
 
   checkout = null
@@ -31,28 +33,17 @@ class Checkout {
     modal.className = 'maha-store-checkout-modal'
     this.checkout.appendChild(modal)
 
-    const header = document.createElement('div')
-    header.className = 'maha-store-checkout-modal-header'
-    modal.appendChild(header)
-
-    const close = document.createElement('div')
-    close.className = 'maha-store-checkout-modal-header-icon'
-    close.innerHTML = 'X'
-    close.addEventListener('click', this._handleClose)
-    header.appendChild(close)
-
-    const title = document.createElement('div')
-    title.className = 'maha-store-checkout-modal-header-title'
-    title.innerHTML = 'Checkout'
-    header.appendChild(title)
-
-    const body = document.createElement('div')
-    body.className = 'maha-store-checkout-modal-body'
-    modal.appendChild(body)
-
     this.iframe = document.createElement('iframe')
     this.iframe.frameBorder = 0
-    body.appendChild(this.iframe)
+    modal.appendChild(this.iframe)
+
+    this.pasteur = new Pasteur({
+      window,
+      target: this.iframe.contentWindow,
+      name: 'store',
+      targetName: 'cart'
+    })
+    this.pasteur.on('close', this._handleClose)
   }
 
   _handleClose() {

@@ -26,6 +26,8 @@ class Cart extends React.Component {
     onSetCart: PropTypes.func
   }
 
+  pasteur = null
+
   _handleAdd = this._handleAdd.bind(this)
   _handleCheckout = this._handleCheckout.bind(this)
   _handleClear = this._handleClear.bind(this)
@@ -145,8 +147,8 @@ class Cart extends React.Component {
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
-      name: 'cartStore',
-      targetName: 'cart'
+      name: 'cart',
+      targetName: 'store'
     })
     this.pasteur.on('add', this._handleAdd)
     this.pasteur.on('clear', this._handleClear)

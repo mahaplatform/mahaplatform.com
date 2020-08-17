@@ -3,7 +3,32 @@
 
 .maha-checkout {
   display: flex;
+  flex-direction: column;
   flex: 1;
+}
+.maha-checkout-header {
+  background-color: @red;
+  display: flex;
+}
+.maha-checkout-header-icon {
+  padding: 0.8em;
+  font-weight: bold;
+  color: fadeout(@white, 10);
+  cursor: pointer;
+  &:hover {
+    color: @white;
+  }
+}
+.maha-checkout-header-title {
+  text-align: center;
+  padding: 0.8em;
+  color: @white;
+  flex: 1;
+}
+.maha-checkout-body {
+  display: flex;
+  flex: 1;
+
 }
 .maha-checkout-main {
   flex-direction: column;

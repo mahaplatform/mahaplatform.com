@@ -91,8 +91,8 @@ class Cart extends Emitter {
     this.pasteur = new Pasteur({
       window,
       target: this.iframe.contentWindow,
-      name: 'cart',
-      targetName: 'cartStore'
+      name: 'store',
+      targetName: 'cart'
     })
     this.pasteur.on('ready', this._handleFetchItems)
     this.pasteur.on('checkout', this._handleCheckout)
