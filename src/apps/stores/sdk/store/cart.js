@@ -50,7 +50,7 @@ class Cart extends Emitter {
 
   hide() {
     this.open = false
-    this.iframe.style.transform = 'translateX(100%)'
+    this.cart.className = 'maha-store-cart'
   }
 
   removeItem(code) {
@@ -59,9 +59,8 @@ class Cart extends Emitter {
 
   show() {
     this.open = true
-    this.iframe.style.transform = 'translateX(0)'
+    this.cart.className = 'maha-store-cart open'
   }
-
 
   toggle() {
     if(this.open) return this.hide()
@@ -76,17 +75,10 @@ class Cart extends Emitter {
     this.iframe = document.createElement('iframe')
     this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
     this.iframe.frameBorder = 0
-    this.iframe.style.position = 'absolute'
-    this.iframe.style.top = 0
-    this.iframe.style.right = 0
-    this.iframe.style.bottom = 0
-    this.iframe.style.width = '500px'
-    this.iframe.style.height = '100%'
-    this.iframe.style.backgroundColor = '#EEEEEE'
-    this.iframe.style.transition = 'transform .15s ease-in-out 0s'
-    this.iframe.style.transform = 'translateX(100%)'
-    this.iframe.style.boxShadow = '-5px 0 5px rgba(0,0,0,0.05)'
-    document.body.appendChild(this.iframe)
+    this.cart = document.createElement('div')
+    this.cart.className = 'maha-store-cart'
+    this.cart.appendChild(this.iframe)
+    document.body.appendChild(this.cart)
     this.pasteur = new Pasteur({
       window,
       target: this.iframe.contentWindow,
@@ -100,7 +92,6 @@ class Cart extends Emitter {
 
   _handleCheckout() {
     this.hide()
-    console.log(this.checkout)
     this.checkout.begin()
   }
 

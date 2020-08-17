@@ -18,7 +18,7 @@ class Summary extends React.Component {
         <table>
           <thead>
             <tr>
-              <td colSpan="2">Product</td>
+              <td>Product</td>
               <td>Qty</td>
               <td>Price</td>
               <td>Total</td>
@@ -28,17 +28,23 @@ class Summary extends React.Component {
             { items.map((item, index) => (
               <tr key={`product_${index}`}>
                 <td>
-                  <img src={ item.image } width="37" />
-                </td>
-                <td>
-                  <strong>{ item.title }</strong>
-                  { item.options.length > 0 &&
-                    <div>
-                      { item.options.map(option => {
-                        return `${option.option}: ${option.value}`
-                      }).join(', ')}
+                  <div className="maha-cart-product">
+                    <div className="maha-cart-product-image">
+                      <img src={ item.image } />
                     </div>
-                  }
+                    <div className="maha-cart-product-details">
+                      <div className="maha-cart-product-name">
+                        { item.title }
+                      </div>
+                      { item.options.length > 0 &&
+                        <div className="maha-cart-product-options">
+                          { item.options.map(option => {
+                            return `${option.option}: ${option.value}`
+                          }).join(', ')}
+                        </div>
+                      }
+                    </div>
+                  </div>
                 </td>
                 <td>{ item.quantity }</td>
                 <td>{ numeral(item.price).format('0.00') }</td>
@@ -47,25 +53,25 @@ class Summary extends React.Component {
             )) }
             { items.length === 0 &&
               <tr>
-                <td colSpan="5">The cart is empty</td>
+                <td colSpan="4">The cart is empty</td>
               </tr>
             }
           </tbody>
           <tfoot>
             { tax > 0 &&
               <tr>
-                <td colSpan="4">Subtotal</td>
+                <td colSpan="3">Subtotal</td>
                 <td>{ numeral(subtotal).format('0.00') }</td>
               </tr>
             }
             { tax > 0 &&
               <tr>
-                <td colSpan="4">Tax</td>
+                <td colSpan="3">Tax</td>
                 <td>{ numeral(tax).format('0.00') }</td>
               </tr>
             }
             <tr>
-              <td colSpan="4">Total</td>
+              <td colSpan="3">Total</td>
               <td>{ numeral(total).format('0.00') }</td>
             </tr>
           </tfoot>

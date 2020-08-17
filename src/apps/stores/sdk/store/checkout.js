@@ -1,5 +1,6 @@
 class Checkout {
 
+  checkout = null
   code = null
 
   _handleClose = this._handleClose.bind(this)
@@ -10,37 +11,56 @@ class Checkout {
   }
 
   begin() {
-    this.body.className = 'maha-store open'
-    this.iframe = document.createElement('iframe')
     this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/checkout`
-    this.iframe.frameBorder = 0
-    this.modal.appendChild(this.iframe)
+    setTimeout(() => {
+      this.checkout.className = 'maha-store-checkout open'
+    }, 250)
   }
 
   _handleInit() {
-    const stylesheet = document.createElement('link')
-    stylesheet.rel = 'stylesheet'
-    stylesheet.type = 'text/css'
-    stylesheet.href = `${process.env.WEB_HOST}/css/store.css`
-    document.head.appendChild(stylesheet)
+    this.checkout = document.createElement('div')
+    this.checkout.className = 'maha-store-checkout'
+    document.body.appendChild(this.checkout)
 
-    this.body = document.createElement('div')
-    this.body.className = 'maha-store'
-    document.body.appendChild(this.body)
+    const canvas = document.createElement('div')
+    canvas.className = 'maha-store-checkout-canvas'
+    canvas.addEventListener('click', this._handleClose)
+    this.checkout.appendChild(canvas)
 
-    this.canvas = document.createElement('div')
-    this.canvas.className = 'maha-store-canvas'
-    this.canvas.addEventListener('click', this._handleClose)
-    this.body.appendChild(this.canvas)
+    const modal = document.createElement('div')
+    modal.className = 'maha-store-checkout-modal'
+    this.checkout.appendChild(modal)
 
-    this.modal = document.createElement('div')
-    this.modal.className = 'maha-store-modal'
-    this.body.appendChild(this.modal)
+    const header = document.createElement('div')
+    header.className = 'maha-store-checkout-modal-header'
+    modal.appendChild(header)
+
+    const close = document.createElement('div')
+    close.className = 'maha-store-checkout-modal-header-icon'
+    close.innerHTML = 'X'
+    close.addEventListener('click', this._handleClose)
+    header.appendChild(close)
+
+    const title = document.createElement('div')
+    title.className = 'maha-store-checkout-modal-header-title'
+    title.innerHTML = 'Checkout'
+    header.appendChild(title)
+
+    const body = document.createElement('div')
+    body.className = 'maha-store-checkout-modal-body'
+    modal.appendChild(body)
+
+    this.iframe = document.createElement('iframe')
+    this.iframe.frameBorder = 0
+    body.appendChild(this.iframe)
   }
 
   _handleClose() {
-    this.body.className = 'maha-store'
-    this.modal.removeChild(this.iframe)
+    this.checkout.className = 'maha-store'
+    setTimeout(() => {
+      this.iframe.src = 'about:blank'
+    }, 250)
+
   }
 
 }

@@ -32,8 +32,13 @@ class Cart extends React.Component {
     if(status !== 'success') return null
     return (
       <div className="maha-cart">
-        <div className="maha-cart-header" onClick={ this._handleClose }>
-          Close
+        <div className="maha-cart-header">
+          <div className="maha-cart-header-icon" onClick={ this._handleClose }>
+            X
+          </div>
+          <div className="maha-cart-header-title">
+            Cart
+          </div>
         </div>
         <div className="maha-cart-body">
           <table>

@@ -1,12 +1,9 @@
-.maha-store.open .maha-store-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+.maha-store-checkout-canvas {
+  opacity: 0;
+  transition: opacity .25s ease-in-out 0s;
 }
-.maha-store.open .maha-store-modal {
+.maha-store-checkout-modal {
+  transition: transform .25s ease-in-out 0s;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -14,10 +11,64 @@
   height: 100%;
   max-width: 1024px;
   max-height: 768px;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,200%);
   background: rgb(255,255,255);
   display: flex;
+  flex-direction: column;
 }
-.maha-store-modal iframe {
+.maha-store-checkout-modal-header {
+  background-color: #DB2828;
+  color: #FFFFFF;
+  display: flex;
+}
+.maha-store-checkout-modal-header-icon {
+  padding: 0.8em;
+  font-weight: bold;
+  color: #EEEEEE;
+  cursor: pointer;
+}
+.maha-store-checkout-modal-header-icon:hover {
+  color: #FFFFFF;
+}
+.maha-store-checkout-modal-header-title {
+  padding: 0.8em;
   flex: 1;
+  text-align: center;
+}
+.maha-store-checkout-modal-body {
+  display: flex;
+  flex: 1;
+}
+.maha-store-checkout.open .maha-store-checkout-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: 0.5;
+}
+.maha-store-checkout.open .maha-store-checkout-modal {
+  transform: translate(-50%,-50%);
+}
+.maha-store-checkout-modal iframe {
+  flex: 1;
+}
+.maha-store-cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 500px;
+  background-color: #EEEEEE;
+  transition: transform .15s ease-in-out 0s;
+  transform: translateX(calc(100% + 5px));
+  box-shadow: -5px 0 5px rgba(0,0,0,0.05);
+  display: flex;
+}
+.maha-store-cart iframe {
+  flex: 1;
+}
+.maha-store-cart.open {
+  transform: translateX(0);
 }

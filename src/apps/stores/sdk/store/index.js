@@ -20,6 +20,7 @@ class Store extends Emitter {
     this.checkout = new Checkout({
       code: config.code
     })
+    this._handleInit()
   }
 
   createComponent(type, config) {
@@ -67,6 +68,14 @@ class Store extends Emitter {
       catalog: this.catalog
     })
     this.emit('ready')
+  }
+
+  _handleInit() {
+    const stylesheet = document.createElement('link')
+    stylesheet.rel = 'stylesheet'
+    stylesheet.type = 'text/css'
+    stylesheet.href = `${process.env.WEB_HOST}/css/store.css`
+    document.head.appendChild(stylesheet)
   }
 
 }

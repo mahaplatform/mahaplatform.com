@@ -1,4 +1,4 @@
-import { Stack, Steps } from 'maha-client'
+import { Loader, Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
 import Summary from './summary'
 import Step1 from './step1'
@@ -10,6 +10,7 @@ class Checkout extends React.Component {
     cart: PropTypes.object,
     items: PropTypes.array,
     products: PropTypes.array,
+    status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
@@ -27,6 +28,8 @@ class Checkout extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
+    const { status } = this.props
+    if(status === 'loading') return <Loader />
     return (
       <div className="maha-checkout">
         <div className="maha-checkout-main">
