@@ -3,7 +3,6 @@ import Pasteur from 'pasteur'
 
 class Cart extends Emitter {
 
-  catalog = null
   code = null
   checkout = null
   db = null
@@ -16,37 +15,27 @@ class Cart extends Emitter {
   _handleClose = this._handleClose.bind(this)
   _handleError = this._handleError.bind(this)
   _handleFetchItems = this._handleFetchItems.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   constructor(config) {
     super()
-    this.catalog = config.catalog
     this.code = config.code
     this.checkout = config.checkout
     this._handleInit()
   }
 
   addItem(code) {
-    this.pasteur.send('add', code, null, this._handleError)
+    this.pasteur.send('add', code, this._handleSuccess, this._handleError)
   }
 
   clearItems() {
-    this.pasteur.send('clear', null, this._handleError)
+    this.pasteur.send('clear', this._handleSuccess, this._handleError)
   }
 
   getCount() {
     return this.items.reduce((count, item) => {
       return count + item.quantity
     }, 0)
-  }
-
-  getItems() {
-    const variants = this.catalog.getVariants()
-    return this.items.map(item => ({
-      ...item,
-      ...variants.find(variant => {
-        return variant.code === item.code
-      })
-    }))
   }
 
   hide() {
@@ -69,7 +58,7 @@ class Cart extends Emitter {
   }
 
   updateItem(code, increment) {
-    this.pasteur.send('remove', { code, increment }, null, this._handleError)
+    this.pasteur.send('remove', { code, increment }, this._handleSuccess, this._handleError)
   }
 
   _handleCheckout() {
@@ -113,10 +102,12 @@ class Cart extends Emitter {
   _handleSetItems(items) {
     this.pasteur.send('set', {
       items
-    }, (cart) => {
-      this.items = cart.items
-      this.emit('change')
-    })
+    }, this._handleSuccess)
+  }
+
+  _handleSuccess(cart) {
+    this.items = cart.items
+    this.emit('change')
   }
 
 }

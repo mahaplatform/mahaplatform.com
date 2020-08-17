@@ -40,7 +40,7 @@ class Cart extends React.Component {
       <div className="maha-cart">
         <div className="maha-cart-header">
           <div className="maha-cart-header-icon" onClick={ this._handleClose }>
-            X
+            <i className="fa fa-times" />
           </div>
           <div className="maha-cart-header-title">
             Cart
