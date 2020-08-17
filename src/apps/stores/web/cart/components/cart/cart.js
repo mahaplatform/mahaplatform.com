@@ -1,3 +1,4 @@
+import { Button } from 'maha-client'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import numeral from 'numeral'
@@ -5,6 +6,10 @@ import React from 'react'
 import _ from 'lodash'
 
 class Cart extends React.Component {
+
+  static contextTypes = {
+    network: PropTypes.object
+  }
 
   static propTypes = {
     cart: PropTypes.object,
@@ -114,11 +119,14 @@ class Cart extends React.Component {
               </tfoot>
             }
           </table>
+          { items.length > 0 &&
+            <div className="link" onClick={ this._handleClear }>
+              Empty cart
+            </div>
+          }
         </div>
         <div className="maha-cart-footer">
-          <div className="ui fluid red button" onClick={ this._handleCheckout }>
-             Checkout
-          </div>
+          <Button { ...this._getCheckout() } />
         </div>
       </div>
     )
@@ -147,28 +155,47 @@ class Cart extends React.Component {
     }
   }
 
+  _getCheckout() {
+    const { items } = this.props
+    return {
+      disabled: items.length === 0,
+      color: 'red',
+      label: 'Checkout',
+      handler: items.length > 0 ? this._handleCheckout : null
+    }
+  }
+
   _handleAdd(code) {
     const { items, variants } = this.props
     const variant = variants.find(variant => {
       return variant.code === code
     })
     if(!variant) throw new Error('unable to find variant')
-    const exists = items.find(item => {
-      return item.code === code
-    }) !== undefined
-    this.props.onSetCart({
-      items: [
-        ...items.map(item => ({
-          ...item,
-          quantity: item.quantity + (item.code === code ? 1 : 0)
-        })),
-        ...!exists ? [{
-          code: variant.code,
-          price: variant.fixed_price,
-          quantity: 1
-        }] : []
-      ]
+    this.context.network.request({
+      method: 'get',
+      endpoint: `/api/stores/stores/maha/products/${code}/check`,
+      onSuccess: () => {
+        console.log('success!')
+        // throw new Error('out of stock')
+        const exists = items.find(item => {
+          return item.code === code
+        }) !== undefined
+        this.props.onSetCart({
+          items: [
+            ...items.map(item => ({
+              ...item,
+              quantity: item.quantity + (item.code === code ? 1 : 0)
+            })),
+            ...!exists ? [{
+              code: variant.code,
+              price: variant.fixed_price,
+              quantity: 1
+            }] : []
+          ]
+        })
+      }
     })
+
   }
 
   _handleChange() {

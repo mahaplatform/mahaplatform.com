@@ -29,9 +29,7 @@ class Step1 extends React.Component {
           </div>
         </div>
         <div className="maha-checkout-panel-footer">
-          <div className="maha-checkout-panel-footer-item">
-            <Button { ...this._getBack() } />
-          </div>
+          <div className="maha-checkout-panel-footer-item" />
           <div className="maha-checkout-panel-footer-item">
             <Button { ...this._getNext() } />
           </div>
