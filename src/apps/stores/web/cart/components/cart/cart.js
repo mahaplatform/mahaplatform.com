@@ -1,4 +1,4 @@
-import { Button } from 'maha-client'
+import { Button, Image } from 'maha-client'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import numeral from 'numeral'
@@ -16,6 +16,7 @@ class Cart extends React.Component {
     items: PropTypes.array,
     products: PropTypes.array,
     status: PropTypes.string,
+    Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
@@ -65,7 +66,12 @@ class Cart extends React.Component {
                   <td>
                     <div className="maha-cart-product">
                       <div className="maha-cart-product-image">
-                        <img src={ item.image } />
+                        { item.thumbnail ?
+                          <Image { ...this._getThumbnail(item) } /> :
+                          <div className="maha-cart-product-icon">
+                            <i className="fa fa-shopping-bag" />
+                          </div>
+                        }
                       </div>
                       <div className="maha-cart-product-details">
                         <div className="maha-cart-product-name">
@@ -133,7 +139,8 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onFetchProducts('maha')
+    const { Store } = this.props
+    this.props.onFetchProducts(Store.code)
     this.props.onGetCart()
     this.pasteur = new Pasteur({
       window,
@@ -162,6 +169,13 @@ class Cart extends React.Component {
       color: 'red',
       label: 'Checkout',
       handler: items.length > 0 ? this._handleCheckout : null
+    }
+  }
+
+  _getThumbnail(item) {
+    return {
+      src: item.thumbnail ? item.thumbnail.path : null,
+      transforms: { fit: 'cover', w: 30, h: 30 }
     }
   }
 

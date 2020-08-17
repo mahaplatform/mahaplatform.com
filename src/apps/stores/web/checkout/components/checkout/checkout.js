@@ -11,6 +11,7 @@ class Checkout extends React.Component {
     items: PropTypes.array,
     products: PropTypes.array,
     status: PropTypes.string,
+    Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
@@ -48,7 +49,8 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onFetchProducts('maha')
+    const { Store } = this.props
+    this.props.onFetchProducts(Store.code)
     this.props.onLoadCart()
     this._handlePush(Step1, this._getStep1.bind(this))
   }

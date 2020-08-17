@@ -7,7 +7,11 @@ const checkoutRoute = async (req, res) => {
   const template = await readFile(path.join('stores','checkout','index.html'))
 
   const content = ejs.render(template, {
-    code: req.params.code
+    store: {
+      code: req.params.code,
+      title: 'Maha Store'
+    },
+    token: 'abc123'
   })
 
   res.status(200).send(content)

@@ -12,12 +12,13 @@ class App extends React.Component {
   }
 
   render() {
+    const { store } = window
     return (
-      <Root key="root" storeName="maha">
+      <Root key="root" storeName={ store.code }>
         <Logger environment="checkout">
           <Error>
             <Network>
-              <Checkout />
+              <Checkout Store={ store } />
             </Network>
           </Error>
         </Logger>

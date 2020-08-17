@@ -12,8 +12,12 @@ const Variant = new Model({
 
   virtuals: {},
 
+  donation_revenue_type() {
+    return this.belongsTo(RevenueType, 'donation_revenue_type_id')
+  },
+
   media() {
-    return this.hasMany(Media, 'product_id')
+    return this.hasMany(Media, 'variant_id')
   },
 
   product() {

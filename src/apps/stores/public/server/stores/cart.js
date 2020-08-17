@@ -7,7 +7,10 @@ const cartRoute = async (req, res) => {
   const template = await readFile(path.join('stores','cart','index.html'))
 
   const content = ejs.render(template, {
-    code: req.params.code
+    store: {
+      code: req.params.code,
+      title: 'Maha Store'
+    }
   })
 
   res.status(200).send(content)

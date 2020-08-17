@@ -4,8 +4,8 @@ import list from './list'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/', list)
+router.get('/', list)
 
-router.use('/:code/check', check)
+router.get('/:code/check', check)
 
 export default router

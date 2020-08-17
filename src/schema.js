@@ -2272,7 +2272,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('product_id').unsigned()
-      table.jsonb('options')
       table.USER-DEFINED('price_type')
       table.integer('project_id').unsigned()
       table.integer('revenue_type_id').unsigned()
@@ -2287,6 +2286,8 @@ const schema = {
       table.USER-DEFINED('inventory_policy')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.specificType('options', 'jsonb[]')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('training_administrations', (table) => {
