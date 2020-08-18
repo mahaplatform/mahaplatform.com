@@ -2,7 +2,7 @@ import Model from '../../../core/objects/model'
 
 const Order = new Model({
 
-  tableName: 'orders',
+  tableName: 'stores_orders',
 
   rules: {},
 

@@ -18,12 +18,20 @@ class App extends React.Component {
         <Logger environment="checkout">
           <Error>
             <Network>
-              <Checkout Store={ store } />
+              <Checkout { ...this._getCheckout() } />
             </Network>
           </Error>
         </Logger>
       </Root>
     )
+  }
+
+  _getCheckout() {
+    const { store, token } = window
+    return {
+      Store: store,
+      token
+    }
   }
 
 }

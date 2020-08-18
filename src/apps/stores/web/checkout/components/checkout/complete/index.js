@@ -13,14 +13,14 @@ class Complete extends React.Component {
 
   render() {
     return (
-      <div className="registration-panel">
-        <div className="registration-panel-message">
+      <div className="maha-checkout-panel">
+        <div className="maha-checkout-panel-message">
           <Message {...this._getMessage()} />
         </div>
         { this.props.onDone &&
-          <div className="registration-panel-footer">
-            <div className="registration-panel-footer-item" />
-            <div className="registration-panel-footer-item">
+          <div className="maha-checkout-panel-footer">
+            <div className="maha-checkout-panel-footer-item" />
+            <div className="maha-checkout-panel-footer-item">
               <Button { ...this._getDone() } />
             </div>
           </div>
@@ -39,8 +39,8 @@ class Complete extends React.Component {
 
   _getMessage() {
     return {
-      title: 'Registration Complete!',
-      text: 'You will receive your tickets shortly via email',
+      title: 'Purchase Complete!',
+      text: 'Thank you for your purchase',
       icon: 'check',
       color: 'green',
       animation: 'tada'
@@ -50,7 +50,6 @@ class Complete extends React.Component {
   _handleDone() {
     this.props.onDone()
   }
-
 
 }
 

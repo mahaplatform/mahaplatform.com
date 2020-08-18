@@ -23,7 +23,7 @@ class Step1 extends React.Component {
       <div className="maha-checkout-panel">
         <div className="maha-checkout-panel-body">
           <div className="maha-checkout-panel-content">
-            <div className="maha-checkout-step2">
+            <div className="maha-checkout-step1">
               <Form { ...this._getForm() } />
             </div>
           </div>

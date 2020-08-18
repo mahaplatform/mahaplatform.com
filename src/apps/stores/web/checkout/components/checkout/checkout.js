@@ -1,8 +1,10 @@
 import { Loader, Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
+import Complete from './complete'
 import Summary from './summary'
 import Pasteur from 'pasteur'
 import Step1 from './step1'
+import Step2 from './step2'
 import React from 'react'
 
 class Checkout extends React.Component {
@@ -15,6 +17,7 @@ class Checkout extends React.Component {
     Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
+    token: PropTypes.string,
     total: PropTypes.number,
     variants: PropTypes.array,
     onFetchCart: PropTypes.func,
@@ -29,9 +32,13 @@ class Checkout extends React.Component {
     cards: []
   }
 
+  _handleBack = this._handleBack.bind(this)
   _handleClose = this._handleClose.bind(this)
+  _handleComplete = this._handleComplete.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleStep1 = this._handleStep1.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     const { cart } = this.props
@@ -70,6 +77,7 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     const { Store } = this.props
     this.props.onFetchProducts(Store.code)
     this.props.onGetCart()
@@ -88,6 +96,7 @@ class Checkout extends React.Component {
       this.props.onFetchCart(Store.code, code)
     }
   }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -106,7 +115,18 @@ class Checkout extends React.Component {
 
   _getStep1() {
     return {
+      onNext: this._handleStep1
+    }
+  }
 
+  _getStep2() {
+    const { Store, token, total } = this.props
+    return {
+      Store,
+      token,
+      total,
+      onSubmit: this._handleSubmit,
+      onDone: this._handleComplete
     }
   }
 
@@ -118,6 +138,14 @@ class Checkout extends React.Component {
       tax,
       total
     }
+  }
+
+  _handleBack() {
+    const { step } = this.state
+    this.setState({
+      step: step - 1
+    })
+    this._handlePop()
   }
 
   _handleClose() {
@@ -137,6 +165,25 @@ class Checkout extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleStep1() {
+    this.setState({
+      step: 1
+    })
+    this._handlePush(Step2, this._getStep2.bind(this))
+  }
+
+  _handleSubmit() {
+    // const { data, token } = this.props
+    // this.props.onSubmit(token, event.code, data)
+  }
+
+  _handleComplete() {
+    this.setState({
+      step: 4
+    })
+    this._handlePush(Complete, {})
   }
 
 }

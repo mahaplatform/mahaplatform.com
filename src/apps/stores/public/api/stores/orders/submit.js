@@ -4,13 +4,12 @@ import { checkToken } from '../../../../../../core/services/routes/checks'
 import { contactActivity } from '../../../../../crm/services/activities'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
-import Registration from '../../../../models/registration'
-import Ticket from '../../../../models/ticket'
-import Event from '../../../../models/event'
+import Store from '../../../../models/store'
+import Order from '../../../../models/order'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getLineItems = (req, { event, quantities, ticket_types }) => {
+const getLineItems = (req, { store, quantities, ticket_types }) => {
   return Object.keys(quantities).map(id => {
     return ticket_types.find(ticket_type => {
       return ticket_type.get('id') === parseInt(id)
@@ -30,19 +29,19 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
       high_price: ticket_type.get('high_price'),
       tax_rate: ticket_type.get('tax_rate'),
       is_tax_deductible: ticket_type.get('is_tax_deductible'),
-      description: `${event.get('title')}: ${ticket_type.get('name')}`,
+      description: `${store.get('title')}: ${ticket_type.get('name')}`,
       quantity: line_item.quantity,
       price: line_item.price
     }
   })
 }
 
-const getInvoice = async (req, { program_id, contact, event, quantities }) => {
+const getInvoice = async (req, { program_id, contact, store, quantities }) => {
 
   const line_items = getLineItems(req, {
-    event,
+    store,
     quantities,
-    ticket_types: event.related('ticket_types')
+    ticket_types: store.related('ticket_types')
   })
 
   return await createInvoice(req, {
@@ -56,22 +55,22 @@ const getInvoice = async (req, { program_id, contact, event, quantities }) => {
 const createTickets = async (req, { registration, tickets }) => {
 
   await Promise.mapSeries(tickets, async(ticket) => {
-
-    const code = await generateCode(req, {
-      table: 'events_tickets'
-    })
-
-    await Ticket.forge({
-      team_id: req.team.get('id'),
-      registration_id: registration.get('id'),
-      code,
-      values: _.omit(ticket, ['name','ticket_type_id']),
-      ticket_type_id: ticket.ticket_type_id,
-      name: ticket.name
-    }).save(null, {
-      transacting: req.trx
-    })
-
+    //
+    // const code = await generateCode(req, {
+    //   table: 'crm_contacts'
+    // })
+    //
+    // await Ticket.forge({
+    //   team_id: req.team.get('id'),
+    //   registration_id: registration.get('id'),
+    //   code,
+    //   values: _.omit(ticket, ['name','ticket_type_id']),
+    //   ticket_type_id: ticket.ticket_type_id,
+    //   name: ticket.name
+    // }).save(null, {
+    //   transacting: req.trx
+    // })
+    //
   })
 
 }
@@ -82,7 +81,7 @@ const submitRoute = async (req, res) => {
     return res.status(401).send('Unauthorized')
   }
 
-  const event = await Event.query(qb => {
+  const store = await Store.query(qb => {
     qb.where('code', req.params.code)
     qb.whereNull('deleted_at')
   }).fetch({
@@ -90,37 +89,37 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.team = event.related('team')
+  req.team = store.related('team')
 
   const fields = [
     { code: 'first_name', type: 'contactfield', contactfield: { name: 'first_name' }, overwrite: true },
     { code: 'last_name', type: 'contactfield', contactfield: { name: 'last_name' }, overwrite: true },
     { code: 'email', type: 'contactfield', contactfield: { name: 'email' }, overwrite: true },
-    ...event.get('contact_config').fields
+    ...store.get('contact_config').fields
   ]
 
   const contact = await createOrUpdateContact(req, {
     fields,
-    program: event.related('program'),
+    program: store.related('program'),
     data: req.body.contact
   })
 
   const invoice = req.body.payment ? await getInvoice(req, {
-    program_id: event.get('program_id'),
+    program_id: store.get('program_id'),
     contact,
-    event,
+    store,
     quantities: req.body.quantities
   }) : null
 
   const payment = req.body.payment ? await handlePayment(req, {
     invoice,
-    program: event.related('program'),
+    program: store.related('program'),
     payment: req.body.payment
   }) : null
 
-  const registration = await Registration.forge({
+  const order = await Order.forge({
     team_id: req.team.get('id'),
-    event_id: event.get('id'),
+    store_id: store.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
     payment_id: payment ? payment.get('id') : null,
@@ -133,33 +132,33 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await createTickets(req, {
-    registration,
-    tickets: req.body.tickets
-  })
+  // await createTickets(req, {
+  //   registration,
+  //   tickets: req.body.tickets
+  // })
 
-  await enrollInWorkflows(req, {
-    contact,
-    trigger_type: 'event',
-    event_id: event.get('id'),
-    registration
-  })
+  // await enrollInWorkflows(req, {
+  //   contact,
+  //   trigger_type: 'store',
+  //   store_id: store.get('id'),
+  //   registration
+  // })
 
-  await contactActivity(req, {
-    contact,
-    type: 'registration',
-    story: 'registered for an event',
-    program_id: event.get('program_id'),
-    data: {
-      event_id: event.get('id'),
-      registration_id: registration.get('id')
-    }
-  })
+  // await contactActivity(req, {
+  //   contact,
+  //   type: 'registration',
+  //   story: 'registered for an store',
+  //   program_id: store.get('program_id'),
+  //   data: {
+  //     store_id: store.get('id'),
+  //     registration_id: registration.get('id')
+  //   }
+  // })
 
   await socket.refresh(req, [
-    '/admin/events/events',
-    `/admin/events/events/${event.get('id')}`,
-    `/admin/events/events/${event.get('id')}/registrations`
+    '/admin/stores/stores',
+    `/admin/stores/stores/${store.get('id')}`,
+    `/admin/stores/stores/${store.get('id')}/registrations`
   ])
 
   res.status(200).respond(true)
