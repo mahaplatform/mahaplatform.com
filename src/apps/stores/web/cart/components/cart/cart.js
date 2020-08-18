@@ -13,16 +13,18 @@ class Cart extends React.Component {
 
   static propTypes = {
     cart: PropTypes.object,
+    code: PropTypes.string,
     items: PropTypes.array,
-    products: PropTypes.array,
-    status: PropTypes.string,
+    products: PropTypes.object,
     Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
     variants: PropTypes.array,
+    onFetchCart: PropTypes.func,
     onFetchProducts: PropTypes.func,
     onGetCart: PropTypes.func,
+    onSaveCart: PropTypes.func,
     onSetCart: PropTypes.func
   }
 
@@ -36,8 +38,8 @@ class Cart extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { items, status, subtotal, tax, total } = this.props
-    if(status !== 'success') return null
+    const { cart, items, subtotal, tax, total } = this.props
+    if(_.isEqual(['pending', 'loading'], cart.status)) return null
     return (
       <div className="maha-cart">
         <div className="maha-cart-header">
@@ -158,10 +160,14 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cart } = this.props
-    if(!_.isEqual(cart, prevProps.cart)) {
-      this.pasteur.send('change', cart)
+    const { code, Store } = this.props
+    if(code !== prevProps.code) {
+      this.props.onFetchCart(Store.code, code)
+      this.props.onSetCart(code)
     }
+    // if(!_.isEqual(cart, prevProps.cart)) {
+    //   this.pasteur.send('change', cart)
+    // }
   }
 
   _getCheckout() {
@@ -181,26 +187,25 @@ class Cart extends React.Component {
     }
   }
 
-  _handleAdd(code) {
-    const { items, variants } = this.props
+  _handleAdd(variantCode) {
+    const { cart, code, Store, items, variants } = this.props
     const variant = variants.find(variant => {
-      return variant.code === code
+      return variant.code === variantCode
     })
     if(!variant) throw new Error('unable to find variant')
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/stores/stores/maha/products/${code}/check`,
+      endpoint: `/api/stores/stores/maha/products/${variantCode}/check`,
       onSuccess: () => {
-        console.log('success!')
         // throw new Error('out of stock')
         const exists = items.find(item => {
-          return item.code === code
+          return item.code === variantCode
         }) !== undefined
-        this.props.onSetCart({
+        this.props.onSaveCart(Store.code, code, {
           items: [
-            ...items.map(item => ({
+            ...cart.value.items.map(item => ({
               ...item,
-              quantity: item.quantity + (item.code === code ? 1 : 0)
+              quantity: item.quantity + (item.code === variantCode ? 1 : 0)
             })),
             ...!exists ? [{
               code: variant.code,
@@ -211,14 +216,6 @@ class Cart extends React.Component {
         })
       }
     })
-
-  }
-
-  _handleChange() {
-    const { cart } = this.props
-    this.setState({
-      items: cart.getItems()
-    })
   }
 
   _handleCheckout() {
@@ -226,7 +223,8 @@ class Cart extends React.Component {
   }
 
   _handleClear() {
-    this.props.onSetCart({
+    const { code, Store } = this.props
+    this.props.onSaveCart(Store.code, code, {
       items: []
     })
   }
@@ -235,21 +233,21 @@ class Cart extends React.Component {
     this.pasteur.send('close')
   }
 
-  _handleRemove(code) {
-    const { cart } = this.props
-    this.props.onSetCart({
-      items: cart.items.filter(item => {
-        return item.code !== code
+  _handleRemove(variantCode) {
+    const { code, items, Store } = this.props
+    this.props.onSaveCart(Store.code, code, {
+      items: items.filter(item => {
+        return item.code !== variantCode
       })
     })
   }
 
-  _handleUpdate(code, increment) {
-    const { cart } = this.props
-    this.props.onSetCart({
-      items: cart.items.map(item => ({
+  _handleUpdate(variantCode, increment) {
+    const { code, items, Store } = this.props
+    this.props.onSaveCart(Store.code, code, {
+      items: items.map(item => ({
         ...item,
-        quantity: item.quantity + (item.code === code ? increment : 0)
+        quantity: item.quantity + (item.code === variantCode ? increment : 0)
       })).filter(item => {
         return item.quantity > 0
       })

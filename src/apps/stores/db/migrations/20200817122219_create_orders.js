@@ -7,14 +7,23 @@ const CreateOrder = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('store_id').unsigned()
       table.foreign('store_id').references('stores_stores.id')
-      table.integer('customer_id').unsigned()
-      table.foreign('customer_id').references('crm_contacts.id')
+      table.integer('contact_id').unsigned()
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.integer('invoice_id').unsigned()
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.integer('payment_id').unsigned()
+      table.foreign('payment_id').references('finance_payments.id')
+      table.string('ipaddress')
+      table.text('referer')
+      table.integer('duration')
+      table.boolean('is_known')
+      table.jsonb('data')
       table.timestamps()
     })
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('orders')
+    await knex.schema.dropTable('stores_orders')
   }
 
 }

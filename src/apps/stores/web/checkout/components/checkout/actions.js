@@ -6,10 +6,19 @@ export const fetchProducts = (name) => ({
   failure: 'FETCH_PRODUCTS_FAILURE'
 })
 
-export const loadCart = () => ({
+export const fetchCart = (name, code) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: `/api/stores/stores/${name}/carts/${code}`,
+  request: 'FETCH_CART_REQUEST',
+  success: 'FETCH_CART_SUCCESS',
+  failure: 'FETCH_CART_FAILURE'
+})
+
+export const getCart = () => ({
   type: 'LOCAL_GET',
   key: 'cart',
-  request: 'LOAD_CART_REQUEST',
-  success: 'LOAD_CART_SUCCESS',
-  failure: 'LOAD_CART_FAILURE'
+  request: 'GET_CART_REQUEST',
+  success: 'GET_CART_SUCCESS',
+  failure: 'GET_CART_FAILURE'
 })

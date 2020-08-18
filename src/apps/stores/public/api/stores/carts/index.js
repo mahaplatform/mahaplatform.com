@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import update from './update'
-import create from './create'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.post('/', create)
+router.get('/:code', show)
 
 router.patch('/:code', update)
 

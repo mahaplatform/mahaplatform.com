@@ -1,6 +1,7 @@
 import ProductSerializer from '../../../../serializers/product_serializer'
 import Setting from '../../../../../platform/models/setting'
 import Store from '../../../../models/store'
+import Cart from '../../../../models/cart'
 
 const listRoute = async (req, res) => {
 
@@ -11,7 +12,7 @@ const listRoute = async (req, res) => {
   })
 
   const store = await Store.query(qb => {
-    qb.where('code', req.params.code)
+    qb.where('code', req.params.store_code)
     qb.whereNull('deleted_at')
   }).fetch({
     withRelated: ['products.variants.media.asset','products.variants.project','products.variants.revenue_type','products.variants.donation_revenue_type'],

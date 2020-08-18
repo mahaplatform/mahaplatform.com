@@ -2220,6 +2220,16 @@ const schema = {
       table.string('proj4text', 2048)
     })
 
+    await knex.schema.createTable('stores_carts', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('store_id').unsigned()
+      table.string('code', 255)
+      table.jsonb('data')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_media', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2237,6 +2247,22 @@ const schema = {
       table.integer('product_id').unsigned()
       table.string('title', 255)
       table.string('config', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('stores_orders', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('store_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.integer('invoice_id').unsigned()
+      table.integer('payment_id').unsigned()
+      table.string('ipaddress', 255)
+      table.text('referer')
+      table.integer('duration')
+      table.boolean('is_known')
+      table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -3550,6 +3576,19 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('variant_id').references('stores_variants.id')
       table.foreign('asset_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('stores_carts', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('store_id').references('stores_stores.id')
+    })
+
+    await knex.schema.table('stores_orders', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('payment_id').references('finance_payments.id')
     })
 
 
@@ -5774,6 +5813,19 @@ union
       from (news_members
       join maha_users on ((maha_users.id = news_members.user_id)))) members
       order by members.news_group_id, members.user_id;
+    `)
+
+    await knex.raw(`
+      create view stores_reservations AS
+      with items as (
+      select jsonb_array_elements((stores_carts.data -> 'items'::text)) as item
+      from stores_carts
+      )
+      select stores_variants.id as variant_id,
+      sum(((items.item ->> 'quantity'::text))::integer) as quantity
+      from (items
+      join stores_variants on (((stores_variants.code)::text = (items.item ->> 'code'::text))))
+      group by stores_variants.id;
     `)
   }
 

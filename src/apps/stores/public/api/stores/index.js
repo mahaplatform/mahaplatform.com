@@ -4,8 +4,8 @@ import carts from './carts'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/:code/carts', carts)
+router.use('/:store_code/carts', carts)
 
-router.use('/:code/products', products)
+router.use('/:store_code/products', products)
 
 export default router

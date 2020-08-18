@@ -2,7 +2,7 @@ import Model from '../../../core/objects/model'
 
 const Cart = new Model({
 
-  tableName: 'carts',
+  tableName: 'stores_carts',
 
   rules: {},
 

@@ -9,16 +9,17 @@ class Checkout extends React.Component {
 
   static propTypes = {
     cart: PropTypes.object,
+    code: PropTypes.string,
     items: PropTypes.array,
-    products: PropTypes.array,
-    status: PropTypes.string,
+    products: PropTypes.object,
     Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
     variants: PropTypes.array,
+    onFetchCart: PropTypes.func,
     onFetchProducts: PropTypes.func,
-    onLoadCart: PropTypes.func
+    onGetCart: PropTypes.func
   }
 
   pasteur = null
@@ -33,7 +34,7 @@ class Checkout extends React.Component {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    const { status } = this.props
+    const { cart } = this.props
     return (
       <div className="maha-checkout">
         <div className="maha-checkout-header">
@@ -44,12 +45,12 @@ class Checkout extends React.Component {
             Checkout
           </div>
         </div>
-        { status === 'loading' &&
+        { cart.status === 'loading' &&
           <div className="maha-checkout-body">
             <Loader />
           </div>
         }
-        { status === 'success' &&
+        { cart.status === 'success' &&
           <div className="maha-checkout-body">
             <div className="maha-checkout-main">
               <div className="maha-checkout-main-header">
@@ -71,17 +72,22 @@ class Checkout extends React.Component {
   componentDidMount() {
     const { Store } = this.props
     this.props.onFetchProducts(Store.code)
-    this.props.onLoadCart()
+    this.props.onGetCart()
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
       name: 'checkout',
       targetName: 'store'
     })
-
     this._handlePush(Step1, this._getStep1.bind(this))
   }
 
+  componentDidUpdate(prevProps) {
+    const { code, Store } = this.props
+    if(code !== prevProps.code) {
+      this.props.onFetchCart(Store.code, code)
+    }
+  }
   _getStack() {
     const { cards } = this.state
     return {

@@ -1,8 +1,16 @@
+import _ from 'lodash'
+
 export const INITIAL_STATE = {
-  cart: null,
+  code: null,
+  cart: {
+    value: null,
+    status: 'pending'
+  },
   error: null,
-  products: [],
-  status: 'pending'
+  products: {
+    value: [],
+    status: 'pending'
+  }
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -12,37 +20,64 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_PRODUCTS_REQUEST':
     return {
       ...state,
-      status: 'loading'
+      products: {
+        ...state.products,
+        status: 'loading'
+      }
     }
 
   case 'FETCH_PRODUCTS_FAILURE':
     return {
       ...state,
       error: action.result.message,
-      status: 'failed'
+      products: {
+        ...state.products,
+        status: 'failed'
+      }
     }
 
   case 'FETCH_PRODUCTS_SUCCESS':
     return {
       ...state,
-      products: action.result.data,
-      status: 'success'
+      products: {
+        value: action.result.data,
+        status: 'success'
+      }
     }
 
-  case 'LOAD_CART_REQUEST':
-    return {
-      ...state
-    }
-
-  case 'LOAD_CART_FAILURE':
-    return {
-      ...state
-    }
-
-  case 'LOAD_CART_SUCCESS':
+  case 'GET_CART_SUCCESS':
+    const defaultValue = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     return {
       ...state,
-      cart: action.value
+      code: action.value || defaultValue
+    }
+
+  case 'FETCH_CART_REQUEST':
+    return {
+      ...state,
+      cart: {
+        ...state.cart,
+        status: 'loading'
+      }
+    }
+
+  case 'FETCH_CART_FAILURE':
+    return {
+      ...state,
+      error: action.result.message,
+      cart: {
+        ...state.cart,
+        status: 'failed'
+      }
+    }
+
+  case 'FETCH_CART_SUCCESS':
+    return {
+      ...state,
+      cart: {
+        value: action.result.data,
+        status: 'success'
+      }
     }
 
   default:

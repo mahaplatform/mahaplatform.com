@@ -24,8 +24,10 @@ const variant = (variant) => {
     tax_rate: variant.get('tax_rate'),
     donation_revenue_type: revenue_type(variant.related('donation_revenue_type')),
     is_tax_deductable: variant.get('is_tax_deductable'),
-    inventory_quantity: variant.get('inventory_quantity'),
+    inventory_available: variant.get('inventory_available'),
     inventory_policy: variant.get('inventory_policy'),
+    inventory_quantity: variant.get('inventory_quantity'),
+    inventory_reserved: variant.get('inventory_reserved'),
     options: variant.get('options'),
     media: variant.related('media').map(media)
   }
