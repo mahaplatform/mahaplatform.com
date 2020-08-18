@@ -1,6 +1,6 @@
 import { Error, Logger, Network } from 'maha-client'
+import Wrapper from './components/wrapper'
 import { hot } from 'react-hot-loader'
-import Cart from './components/cart'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -18,7 +18,7 @@ class App extends React.Component {
         <Logger environment="cart">
           <Error>
             <Network>
-              <Cart Store={ store } />
+              <Wrapper Store={ store } />
             </Network>
           </Error>
         </Logger>

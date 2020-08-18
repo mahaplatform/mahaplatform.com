@@ -2323,6 +2323,7 @@ const schema = {
       table.USER-DEFINED('inventory_policy')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('max_per_order')
       table.specificType('options', 'jsonb[]')
       table.string('code', 255)
     })

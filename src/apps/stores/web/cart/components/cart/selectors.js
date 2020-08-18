@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect'
 
-const products = (state, props) => state.products.value
+const products = (state, props) => props.products
 
-const cart = (state, props) => state.cart.value
+const cart = (state, props) => state.cart
 
 export const variants = createSelector(
   products,

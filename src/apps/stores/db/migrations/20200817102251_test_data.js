@@ -54,6 +54,7 @@ const TestData = {
       is_tax_deductable: false,
       inventory_quantity: 10,
       inventory_policy: 'deny',
+      max_per_order: 2,
       options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: 'medium' } ]
     },{
       team_id: 1,

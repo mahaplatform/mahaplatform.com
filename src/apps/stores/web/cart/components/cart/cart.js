@@ -1,4 +1,4 @@
-import { Button, Image } from 'maha-client'
+import { Button, Image, Loader } from 'maha-client'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import numeral from 'numeral'
@@ -15,17 +15,15 @@ class Cart extends React.Component {
     cart: PropTypes.object,
     code: PropTypes.string,
     items: PropTypes.array,
-    products: PropTypes.object,
+    products: PropTypes.array,
     Store: PropTypes.object,
+    status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
     variants: PropTypes.array,
-    onFetchCart: PropTypes.func,
-    onFetchProducts: PropTypes.func,
-    onGetCart: PropTypes.func,
-    onSaveCart: PropTypes.func,
-    onSetCart: PropTypes.func
+    onFetch: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   pasteur = null
@@ -38,8 +36,8 @@ class Cart extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { cart, items, subtotal, tax, total } = this.props
-    if(_.isEqual(['pending', 'loading'], cart.status)) return null
+    const { items, status, subtotal, tax, total } = this.props
+    if(_.isEqual(['pending', 'loading'], status)) return <Loader />
     return (
       <div className="maha-cart">
         <div className="maha-cart-header">
@@ -143,9 +141,8 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    const { Store } = this.props
-    this.props.onFetchProducts(Store.code)
-    this.props.onGetCart()
+    const { code, Store } = this.props
+    this.props.onFetch(Store.code, code)
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
@@ -160,14 +157,10 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { code, Store } = this.props
-    if(code !== prevProps.code) {
-      this.props.onFetchCart(Store.code, code)
-      this.props.onSetCart(code)
+    const { cart } = this.props
+    if(!_.isEqual(cart, prevProps.cart)) {
+      this.pasteur.send('change', cart)
     }
-    // if(!_.isEqual(cart, prevProps.cart)) {
-    //   this.pasteur.send('change', cart)
-    // }
   }
 
   _getCheckout() {
@@ -203,9 +196,9 @@ class Cart extends React.Component {
         const exists = items.find(item => {
           return item.code === variantCode
         }) !== undefined
-        this.props.onSaveCart(Store.code, code, {
+        this.props.onSave(Store.code, code, {
           items: [
-            ...cart.value.items.map(item => ({
+            ...cart.items.map(item => ({
               ...item,
               quantity: item.quantity + (item.code === variantCode ? 1 : 0)
             })),
@@ -226,7 +219,7 @@ class Cart extends React.Component {
 
   _handleClear() {
     const { code, Store } = this.props
-    this.props.onSaveCart(Store.code, code, {
+    this.props.onSave(Store.code, code, {
       items: []
     })
   }
@@ -237,8 +230,8 @@ class Cart extends React.Component {
 
   _handleRemove(variantCode) {
     const { cart, code, Store } = this.props
-    this.props.onSaveCart(Store.code, code, {
-      items: cart.value.items.filter(item => {
+    this.props.onSave(Store.code, code, {
+      items: cart.items.filter(item => {
         return item.code !== variantCode
       })
     })
@@ -247,8 +240,8 @@ class Cart extends React.Component {
   _handleUpdate(variantCode, increment) {
     const { cart, code, Store } = this.props
     if(increment > 0) return this._handleAdd(variantCode)
-    this.props.onSaveCart(Store.code, code, {
-      items: cart.value.items.map(item => ({
+    this.props.onSave(Store.code, code, {
+      items: cart.items.map(item => ({
         ...item,
         quantity: item.quantity - 1
       })).filter(item => {
