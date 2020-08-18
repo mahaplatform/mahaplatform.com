@@ -1,6 +1,29 @@
 import Store from '../../../../models/store'
 import Cart from '../../../../models/cart'
 
+const getCart = async (req, { store, code }) => {
+
+  const cart = await Cart.query(qb => {
+    qb.where('store_id', store.get('id'))
+    qb.where('code', code)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(cart) return cart
+
+  return await await Cart.forge({
+    team_id: store.get('team_id'),
+    store_id: store.get('id'),
+    code,
+    data: {
+      items: []
+    }
+  }).save(null, {
+    transacting: req.trx
+  })
+}
+
 const updateRoute = async (req, res) => {
 
   const store = await Store.query(qb => {
@@ -15,13 +38,11 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load store'
   })
 
-  const cart = await Cart.query(qb => {
-    qb.where('store_id', store.get('id'))
-    qb.where('code', req.params.code)
-  }).fetch({
-    transacting: req.trx
+  const cart = await getCart(req, {
+    store,
+    code: req.params.code
   })
-
+  
   await cart.save({
     data: req.body.data
   }, {

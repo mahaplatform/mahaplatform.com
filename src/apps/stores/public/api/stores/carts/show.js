@@ -10,18 +10,11 @@ const getCart = async (req, { store, code }) => {
     transacting: req.trx
   })
 
-  if(cart) return cart
+  if(cart) return cart.get('data')
 
-  return await await Cart.forge({
-    team_id: store.get('team_id'),
-    store_id: store.get('id'),
-    code,
-    data: {
-      items: []
-    }
-  }).save(null, {
-    transacting: req.trx
-  })
+  return {
+    items: []
+  }
 }
 
 const showRoute = async (req, res) => {
@@ -38,12 +31,12 @@ const showRoute = async (req, res) => {
     message: 'Unable to load store'
   })
 
-  const cart = await getCart(req, {
+  const data = await getCart(req, {
     store,
     code: req.params.code
   })
 
-  res.status(200).respond(cart, (req, cart) => cart.get('data'))
+  res.status(200).respond(data)
 
 }
 
