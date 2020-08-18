@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
 
-const cart = (state, props) => state.cart.value
+const cart = (state, props) => props.cart
 
 const contact = (state, props) => state.contact
 
-const products = (state, props) => state.products.value
+const products = (state, props) => props.products
 
 const store = (state, props) => props.Store
 

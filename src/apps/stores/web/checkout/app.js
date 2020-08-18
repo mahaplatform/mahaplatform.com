@@ -1,6 +1,6 @@
 import { Error, Logger, Network } from 'maha-client'
 import { hot } from 'react-hot-loader'
-import Checkout from './components/checkout'
+import Wrapper from './components/wrapper'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -18,7 +18,7 @@ class App extends React.Component {
         <Logger environment="checkout">
           <Error>
             <Network>
-              <Checkout { ...this._getCheckout() } />
+              <Wrapper { ...this._getCheckout() } />
             </Network>
           </Error>
         </Logger>

@@ -1,4 +1,4 @@
-import { Loader, Stack, Steps } from 'maha-client'
+import { Stack, Steps } from 'maha-client'
 import PropTypes from 'prop-types'
 import Complete from './complete'
 import Summary from './summary'
@@ -15,16 +15,13 @@ class Checkout extends React.Component {
     contact: PropTypes.string,
     data: PropTypes.object,
     items: PropTypes.array,
-    products: PropTypes.object,
+    products: PropTypes.array,
     Store: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     token: PropTypes.string,
     total: PropTypes.number,
     variants: PropTypes.array,
-    onFetchCart: PropTypes.func,
-    onFetchProducts: PropTypes.func,
-    onGetCart: PropTypes.func,
     onUpdateContact: PropTypes.func
   }
 
@@ -44,7 +41,6 @@ class Checkout extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { cart } = this.props
     return (
       <div className="maha-checkout">
         <div className="maha-checkout-header">
@@ -55,34 +51,24 @@ class Checkout extends React.Component {
             Checkout
           </div>
         </div>
-        { cart.status === 'loading' &&
-          <div className="maha-checkout-body">
-            <Loader />
-          </div>
-        }
-        { cart.status === 'success' &&
-          <div className="maha-checkout-body">
-            <div className="maha-checkout-main">
-              <div className="maha-checkout-main-header">
-                <Steps { ...this._getSteps() } />
-              </div>
-              <div className="maha-checkout-main-body">
-                <Stack { ...this._getStack() } />
-              </div>
+        <div className="maha-checkout-body">
+          <div className="maha-checkout-main">
+            <div className="maha-checkout-main-header">
+              <Steps { ...this._getSteps() } />
             </div>
-            <div className="maha-checkout-sidebar">
-              <Summary { ...this._getSummary() } />
+            <div className="maha-checkout-main-body">
+              <Stack { ...this._getStack() } />
             </div>
           </div>
-        }
+          <div className="maha-checkout-sidebar">
+            <Summary { ...this._getSummary() } />
+          </div>
+        </div>
       </div>
     )
   }
 
   componentDidMount() {
-    const { Store } = this.props
-    this.props.onFetchProducts(Store.code)
-    this.props.onGetCart()
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
@@ -90,13 +76,6 @@ class Checkout extends React.Component {
       targetName: 'store'
     })
     this._handlePush(Step1, this._getStep1.bind(this))
-  }
-
-  componentDidUpdate(prevProps) {
-    const { code, Store } = this.props
-    if(code !== prevProps.code) {
-      this.props.onFetchCart(Store.code, code)
-    }
   }
 
   _getStack() {

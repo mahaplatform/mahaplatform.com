@@ -1,4 +1,4 @@
-import { AddressField, Button, Form, Network, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
+import { AddressField, Button, ContainerRoot, Form, Network, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import createlocalStorage from 'redux-local-storage'
 import { combineReducers } from 'redux-rubberstamp'
@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import localforage from 'localforage'
 import PropTypes from 'prop-types'
 import Checkout from './checkout'
+import Wrapper from './wrapper'
 import React from 'react'
 import qs from 'qs'
 
@@ -28,6 +29,7 @@ class Root extends React.Component {
       AddressField,
       Button,
       Checkout,
+      ContainerRoot,
       Form,
       Network,
       Payment,
@@ -36,7 +38,8 @@ class Root extends React.Component {
       PayPal,
       ACH,
       Card,
-      Door
+      Door,
+      Wrapper
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

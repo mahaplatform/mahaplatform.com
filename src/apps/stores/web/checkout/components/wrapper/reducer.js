@@ -1,15 +1,18 @@
+import _ from 'lodash'
+
 export const INITIAL_STATE = {
-  contact: null
+  code: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'UPDATE_CONTACT':
+  case 'GET_CART_SUCCESS':
+    const defaultValue = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     return {
       ...state,
-      contact: action.contact
+      code: action.value || defaultValue
     }
 
   default:
