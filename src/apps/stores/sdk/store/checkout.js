@@ -1,6 +1,7 @@
+import Emitter from './emitter'
 import Pasteur from 'pasteur'
 
-class Checkout {
+class Checkout extends Emitter {
 
   checkout = null
   code = null
@@ -8,11 +9,13 @@ class Checkout {
   _handleClose = this._handleClose.bind(this)
 
   constructor(config) {
+    super()
     this.code = config.code
     this._handleInit()
   }
 
   begin() {
+    this.emit('begin')
     this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/checkout`
     setTimeout(() => {
       this.checkout.className = 'maha-store-checkout open'

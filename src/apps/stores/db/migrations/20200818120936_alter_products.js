@@ -15,7 +15,7 @@ const AlterProducts = {
     })
 
     await knex.schema.table('stores_orders', (table) => {
-      table.jsonb('shipping_address')
+      table.jsonb('shipping')
     })
 
   },

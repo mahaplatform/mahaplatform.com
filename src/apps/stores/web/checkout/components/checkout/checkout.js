@@ -20,12 +20,14 @@ class Checkout extends React.Component {
     products: PropTypes.array,
     Store: PropTypes.object,
     shipping: PropTypes.number,
+    shipping_info: PropTypes.number,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     token: PropTypes.string,
     total: PropTypes.number,
     variants: PropTypes.array,
-    onUpdateContact: PropTypes.func
+    onUpdateContact: PropTypes.func,
+    onUpdateShipping: PropTypes.func
   }
 
   pasteur = null
@@ -183,6 +185,7 @@ class Checkout extends React.Component {
   }
 
   _handleShippingStep(shipping) {
+    this.props.onUpdateShipping(shipping)
     this.setState({
       step: 2
     })

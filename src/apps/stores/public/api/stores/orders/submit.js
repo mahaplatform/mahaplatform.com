@@ -166,7 +166,8 @@ const submitRoute = async (req, res) => {
     ipaddress: req.body.ipaddress,
     duration: parseInt(moment().format('YYYYMMDDHHmmss')) - req.body.starttime,
     is_known: contact.is_known,
-    data: req.body.contact
+    data: req.body.contact,
+    shipping: req.body.shipping
   }).save(null, {
     transacting: req.trx
   })

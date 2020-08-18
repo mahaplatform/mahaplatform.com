@@ -19,6 +19,13 @@ class Store extends Emitter {
     this.checkout = new Checkout({
       code: config.code
     })
+    this.cart = new Cart({
+      code: this.config.code,
+      checkout: this.checkout
+    })
+    this.checkout.on('begin', () => {
+      this.cart.hide()
+    })
     this._handleInit()
   }
 
@@ -34,21 +41,13 @@ class Store extends Emitter {
   }
 
   init() {
-    this._handleFetch()
+    this.emit('ready')
   }
 
   _getCreator(type) {
     if(type === 'checkoutButton') return CheckoutButton
     if(type === 'cartButton') return CartButton
     if(type === 'addButton') return AddButton
-  }
-
-  _handleFetch() {
-    this.cart = new Cart({
-      code: this.config.code,
-      checkout: this.checkout
-    })
-    this.emit('ready')
   }
 
   _handleInit() {

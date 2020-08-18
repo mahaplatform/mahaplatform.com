@@ -2276,7 +2276,7 @@ const schema = {
       table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.jsonb('shipping_address')
+      table.jsonb('shipping')
     })
 
     await knex.schema.createTable('stores_products', (table) => {

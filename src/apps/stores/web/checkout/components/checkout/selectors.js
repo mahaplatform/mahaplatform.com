@@ -8,6 +8,8 @@ const contact = (state, props) => state.contact
 
 const products = (state, props) => props.products
 
+const shipping_info = (state, props) => state.shipping_info
+
 const store = (state, props) => props.Store
 
 export const variants = createSelector(
@@ -43,8 +45,6 @@ export const isShipped = createSelector(
     return item.shipping_strategy !== null
   }) !== undefined
 )
-
-
 
 export const shipping = createSelector(
   items,
@@ -85,9 +85,11 @@ export const data = createSelector(
   contact,
   store,
   cart,
-  (code, contact, store, cart) => ({
+  shipping_info,
+  (code, contact, store, cart, shipping) => ({
     code,
     contact,
+    shipping,
     items: cart.items,
     ipaddress: store.ipaddress,
     referer: store.referer,

@@ -23,6 +23,10 @@ class ShippingStep extends React.Component {
         <div className="maha-checkout-panel-body">
           <div className="maha-checkout-panel-content">
             <div className="maha-checkout-step1">
+              <p>
+                One or more of the products you are ordering requires shipping.
+                Please enter your shipping address so we can send it to you!
+              </p>
               <Form { ...this._getForm() } />
             </div>
           </div>
@@ -54,7 +58,8 @@ class ShippingStep extends React.Component {
       captcha: false,
       onSubmit: this._handleSubmit,
       fields: [
-        { label: 'Shipping Address', name: 'shipping address', type: 'addressfield', placeholder: 'Enter shipping address', required: true }
+        { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter name', required: true },
+        { label: 'Address', name: 'address', type: 'addressfield', placeholder: 'Enter shipping address', required: true }
       ]
     }
   }
