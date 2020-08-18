@@ -1,6 +1,7 @@
 import RevenueType from '../../finance/models/revenue_type'
 import Project from '../../finance/models/project'
 import Model from '../../../core/objects/model'
+import Asset from '../../maha/models/asset'
 import Reservation from './reservation'
 import Product from './product'
 import Media from './media'
@@ -15,6 +16,7 @@ const Variant = new Model({
   virtuals: {
 
     inventory_available() {
+      if(this.get('inventory_quantity') === null) return null
       return Number(this.get('inventory_quantity')) - Number(this.get('inventory_reserved'))
     }
 
@@ -22,6 +24,10 @@ const Variant = new Model({
 
   donation_revenue_type() {
     return this.belongsTo(RevenueType, 'donation_revenue_type_id')
+  },
+
+  file() {
+    return this.belongsTo(Asset, 'file_id')
   },
 
   items() {

@@ -2,7 +2,7 @@ import { Loader, Payment } from 'maha-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Step2 extends React.Component {
+class PaymentStep extends React.Component {
 
   static propTypes = {
     data: PropTypes.object,
@@ -53,4 +53,4 @@ class Step2 extends React.Component {
 
 }
 
-export default Step2
+export default PaymentStep

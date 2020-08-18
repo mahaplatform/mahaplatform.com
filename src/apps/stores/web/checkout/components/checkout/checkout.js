@@ -1,10 +1,11 @@
 import { Stack, Steps } from 'maha-client'
+import ShippingStep from './shipping'
+import ContactStep from './contact'
+import PaymentStep from './payment'
 import PropTypes from 'prop-types'
 import Complete from './complete'
 import Summary from './summary'
 import Pasteur from 'pasteur'
-import Step1 from './step1'
-import Step2 from './step2'
 import React from 'react'
 
 class Checkout extends React.Component {
@@ -17,6 +18,7 @@ class Checkout extends React.Component {
     items: PropTypes.array,
     products: PropTypes.array,
     Store: PropTypes.object,
+    shipping: PropTypes.number,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     token: PropTypes.string,
@@ -37,7 +39,7 @@ class Checkout extends React.Component {
   _handleComplete = this._handleComplete.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
-  _handleStep1 = this._handleStep1.bind(this)
+  _handleContactStep = this._handleContactStep.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
@@ -75,7 +77,7 @@ class Checkout extends React.Component {
       name: 'checkout',
       targetName: 'store'
     })
-    this._handlePush(Step1, this._getStep1.bind(this))
+    this._handlePush(ContactStep, this._getContactStep.bind(this))
   }
 
   _getStack() {
@@ -90,20 +92,20 @@ class Checkout extends React.Component {
     const { step } = this.state
     return {
       completion: '',
-      steps: ['Contact Information','Payment Information','Checkout Complete'],
+      steps: ['Contact Information','Shipping Information','Payment Information','Checkout Complete'],
       current: step
     }
   }
 
-  _getStep1() {
+  _getContactStep() {
     const { Store } = this.props
     return {
       Store,
-      onNext: this._handleStep1
+      onNext: this._handleContactStep
     }
   }
 
-  _getStep2() {
+  _getPaymentStep() {
     const { data, Store, token, total } = this.props
     return {
       data,
@@ -116,9 +118,10 @@ class Checkout extends React.Component {
   }
 
   _getSummary() {
-    const { items, subtotal, tax, total } = this.props
+    const { items, shipping, subtotal, tax, total } = this.props
     return {
       items,
+      shipping,
       subtotal,
       tax,
       total
@@ -152,12 +155,12 @@ class Checkout extends React.Component {
     })
   }
 
-  _handleStep1(contact) {
+  _handleContactStep(contact) {
     this.props.onUpdateContact(contact)
     this.setState({
       step: 1
     })
-    this._handlePush(Step2, this._getStep2.bind(this))
+    this._handlePush(PaymentStep, this._getPaymentStep.bind(this))
   }
 
   _handleSubmit() {

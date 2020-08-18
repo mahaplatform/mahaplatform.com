@@ -2276,6 +2276,7 @@ const schema = {
       table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('shipping_address')
     })
 
     await knex.schema.createTable('stores_products', (table) => {
@@ -2289,6 +2290,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('base_variant_id').unsigned()
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('stores_stores', (table) => {
@@ -2326,6 +2328,10 @@ const schema = {
       table.integer('max_per_order')
       table.specificType('options', 'jsonb[]')
       table.string('code', 255)
+      table.USER-DEFINED('shipping_strategy')
+      table.decimal('shipping_fee', 6, 2)
+      table.integer('file_id').unsigned()
+      table.string('url', 255)
     })
 
     await knex.schema.createTable('training_administrations', (table) => {
@@ -3502,6 +3508,7 @@ const schema = {
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('file_id').references('maha_assets.id')
     })
 
     await knex.schema.table('training_administrations', table => {

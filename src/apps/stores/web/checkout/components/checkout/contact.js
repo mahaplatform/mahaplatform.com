@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Step1 extends React.Component {
+class ContactStep extends React.Component {
 
   static propTypes = {
     items: PropTypes.array,
@@ -94,4 +94,4 @@ class Step1 extends React.Component {
 
 }
 
-export default Step1
+export default ContactStep

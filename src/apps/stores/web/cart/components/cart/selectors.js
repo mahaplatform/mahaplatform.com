@@ -31,18 +31,32 @@ export const items = createSelector(
   })) : []
 )
 
+export const shipping = createSelector(
+  items,
+  (items) => items.filter(item => {
+    return item.shipping_strategy === 'flat'
+  }).reduce((shipping, item) => {
+    return shipping + (Number(item.quantity) * Number(item.shipping_fee))
+  }, 0.00)
+)
+
 export const subtotal = createSelector(
   items,
-  (items) => items.reduce((subtotal, item) => {
+  shipping,
+  (items, shipping) => items.reduce((subtotal, item) => {
     return subtotal + (Number(item.quantity) * Number(item.price))
-  }, 0.00)
+  }, shipping)
 )
 
 export const tax = createSelector(
   items,
-  (items) => items.reduce((tax, item) => {
-    return tax + (Number(item.quantity) * Number(item.price) * Number(item.tax_rate))
-  }, 0.00)
+  (items) =>
+    items.reduce((tax, item) => {
+      return tax + (Number(item.quantity) * Number(item.price) * Number(item.tax_rate))
+    }, 0.00) +
+    items.reduce((tax, item) => {
+      return tax + (Number(item.quantity) * Number(item.shipping_fee) * Number(item.tax_rate))
+    }, 0.00)
 )
 
 export const total = createSelector(

@@ -25,7 +25,11 @@ const checkRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(variant.get('inventory_available') <= 0) return res.status(422).respond({
+  const available = variant.get('inventory_available')
+
+  console.log(available)
+
+  if(available !== null && available <= 0) return res.status(422).respond({
     code: 422,
     message: 'product out of Stock'
   })

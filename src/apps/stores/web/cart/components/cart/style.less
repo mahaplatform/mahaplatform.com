@@ -53,7 +53,7 @@
     tr {
       td[colspan="5"] {
         width: 100% !important;
-        text-align: center;
+        text-align: center !important;
         font-style: italic;
       }
       td:nth-child(1) {
@@ -70,7 +70,7 @@
         width: 80px;
       }
       td:nth-child(4),
-      td:nth-child(5) {
+      td:last-child {
         width: 70px;
         text-align: right;
       }
@@ -78,10 +78,11 @@
   }
   tfoot {
     tr {
-      td:first-child {
+      th:first-child {
         border-right: 1px solid lighten(@black, 90);
         background: fadeout(@black, 97);
         font-weight: bold;
+        text-align: left !important;
       }
       td:last-child {
         width: 70px;

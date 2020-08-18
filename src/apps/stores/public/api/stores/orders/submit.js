@@ -78,6 +78,12 @@ const createItems = async (req, { order, items, variants }) => {
       })
     })
 
+    await variant.save({
+      inventory_quantity: variant.get('inventory_quantity') - item.quantity
+    }, {
+      transacting: req.trx
+    })
+
   })
 
 }
@@ -118,7 +124,6 @@ const submitRoute = async (req, res) => {
     ...variants,
     ...product.related('variants')
   ], [])
-
 
   const fields = [
     { code: 'first_name', type: 'contactfield', contactfield: { name: 'first_name' }, overwrite: true },

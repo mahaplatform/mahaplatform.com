@@ -2,6 +2,7 @@ const productSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
   title: result.get('title'),
+  type: result.get('type'),
   description: result.get('description'),
   variants: result.related('variants').map(variant),
   options: result.get('options'),
@@ -30,7 +31,9 @@ const variant = (variant) => {
     inventory_quantity: variant.get('inventory_quantity'),
     inventory_reserved: variant.get('inventory_reserved'),
     options: variant.get('options'),
-    media: variant.related('media').map(media)
+    media: variant.related('media').map(media),
+    shipping_strategy: variant.get('shipping_strategy'),
+    shipping_fee: variant.get('shipping_fee')
   }
 }
 

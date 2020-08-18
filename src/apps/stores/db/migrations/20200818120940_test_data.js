@@ -17,6 +17,7 @@ const TestData = {
       store_id: 1,
       code: 'abc',
       title: 'Socks',
+      type: 'physical',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
       options: []
     },{
@@ -24,20 +25,23 @@ const TestData = {
       store_id: 1,
       code: 'def',
       title: 'Shoes',
+      type: 'physical',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
       options: []
     },{
       team_id: 1,
       store_id: 1,
       code: 'ghi',
-      title: 'Belt',
+      title: 'Workshop',
+      type: 'url',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
       options: []
     },{
       team_id: 1,
       store_id: 1,
       code: 'jkl',
-      title: 'Suspenders',
+      title: 'Software',
+      type: 'file',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
       options: []
     }])
@@ -55,7 +59,9 @@ const TestData = {
       inventory_quantity: 10,
       inventory_policy: 'deny',
       max_per_order: 2,
-      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: 'medium' } ]
+      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: 'medium' } ],
+      shipping_strategy: 'flat',
+      shipping_fee: 2.25
     },{
       team_id: 1,
       product_id: 1,
@@ -68,7 +74,9 @@ const TestData = {
       is_tax_deductable: false,
       inventory_quantity: 10,
       inventory_policy: 'deny',
-      options: [ { option: 'Color', value: 'orange'}, { option: 'Size', value: 'medium' } ]
+      options: [ { option: 'Color', value: 'orange'}, { option: 'Size', value: 'medium' } ],
+      shipping_strategy: 'flat',
+      shipping_fee: 2.25
     },{
       team_id: 1,
       product_id: 2,
@@ -81,7 +89,8 @@ const TestData = {
       is_tax_deductable: false,
       inventory_quantity: 10,
       inventory_policy: 'deny',
-      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '11' } ]
+      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '11' } ],
+      shipping_strategy: 'free'
     },{
       team_id: 1,
       product_id: 2,
@@ -94,7 +103,8 @@ const TestData = {
       is_tax_deductable: false,
       inventory_quantity: 10,
       inventory_policy: 'deny',
-      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '12' } ]
+      options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '12' } ],
+      shipping_strategy: 'free'
     },{
       team_id: 1,
       product_id: 3,
@@ -102,12 +112,13 @@ const TestData = {
       price_type: 'fixed',
       project_id: 1,
       revenue_type_id: 1,
-      fixed_price: 35.00,
+      fixed_price: 45.00,
       tax_rate: 0.000,
       is_tax_deductable: false,
-      inventory_quantity: 10,
-      inventory_policy: 'deny',
-      options: [ { option: 'Color', value: 'black'} ]
+      inventory_quantity: null,
+      inventory_policy: null,
+      file_id: 8346,
+      options: [ { option: 'Version', value: 'with slides' } ]
     },{
       team_id: 1,
       product_id: 3,
@@ -118,9 +129,10 @@ const TestData = {
       fixed_price: 35.00,
       tax_rate: 0.000,
       is_tax_deductable: false,
-      inventory_quantity: 10,
-      inventory_policy: 'deny',
-      options: [ { option: 'Color', value: 'brown'} ]
+      inventory_quantity: null,
+      inventory_policy: null,
+      file_id: 8346,
+      options: [ { option: 'Version', value: 'without slides' } ]
     },{
       team_id: 1,
       product_id: 4,
@@ -131,8 +143,9 @@ const TestData = {
       fixed_price: 45.00,
       tax_rate: 0.000,
       is_tax_deductable: false,
-      inventory_quantity: 10,
-      inventory_policy: 'deny',
+      inventory_quantity: null,
+      inventory_policy: null,
+      url: 'http://google.com',
       options: []
     }])
 

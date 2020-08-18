@@ -7,13 +7,14 @@ class Summary extends React.Component {
 
   static propTypes = {
     items: PropTypes.array,
+    shipping: PropTypes.number,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number
   }
 
   render() {
-    const { items, subtotal, tax, total } = this.props
+    const { items, shipping, subtotal, tax, total } = this.props
     return (
       <div className="maha-cart">
         <table>
@@ -57,6 +58,12 @@ class Summary extends React.Component {
                 <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
               </tr>
             )) }
+            { shipping > 0 &&
+              <tr>
+                <td colSpan="3">Shipping / Handling</td>
+                <td>{ numeral(shipping).format('0.00') }</td>
+              </tr>
+            }
             { items.length === 0 &&
               <tr>
                 <td colSpan="4">The cart is empty</td>
@@ -66,7 +73,7 @@ class Summary extends React.Component {
           <tfoot>
             { tax > 0 &&
               <tr>
-                <td colSpan="3">Subtotal</td>
+                <th colSpan="3">Subtotal</th>
                 <td>{ numeral(subtotal).format('0.00') }</td>
               </tr>
             }
@@ -77,7 +84,7 @@ class Summary extends React.Component {
               </tr>
             }
             <tr>
-              <td colSpan="3">Total</td>
+              <th colSpan="3">Total</th>
               <td>{ numeral(total).format('0.00') }</td>
             </tr>
           </tfoot>

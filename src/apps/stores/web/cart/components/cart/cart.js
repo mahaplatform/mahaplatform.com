@@ -16,6 +16,7 @@ class Cart extends React.Component {
     code: PropTypes.string,
     items: PropTypes.array,
     products: PropTypes.array,
+    shipping: PropTypes.number,
     Store: PropTypes.object,
     status: PropTypes.string,
     subtotal: PropTypes.number,
@@ -36,7 +37,7 @@ class Cart extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { items, status, subtotal, tax, total } = this.props
+    const { items, shipping, status, subtotal, tax, total } = this.props
     if(_.isEqual(['pending', 'loading'], status)) return <Loader />
     return (
       <div className="maha-cart">
@@ -100,6 +101,12 @@ class Cart extends React.Component {
                   <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
                 </tr>
               )) }
+              { shipping > 0 &&
+                <tr>
+                  <td colSpan="4">Shipping / Handling</td>
+                  <td>{ numeral(shipping).format('0.00') }</td>
+                </tr>
+              }
               { items.length === 0 &&
                 <tr>
                   <td colSpan="5">The cart is empty</td>
@@ -110,7 +117,7 @@ class Cart extends React.Component {
               <tfoot>
                 { tax > 0 &&
                   <tr>
-                    <td colSpan="4">Subtotal</td>
+                    <th colSpan="4">Subtotal</th>
                     <td>{ numeral(subtotal).format('0.00') }</td>
                   </tr>
                 }
@@ -121,7 +128,7 @@ class Cart extends React.Component {
                   </tr>
                 }
                 <tr>
-                  <td colSpan="4">Total</td>
+                  <th colSpan="4">Total</th>
                   <td>{ numeral(total).format('0.00') }</td>
                 </tr>
               </tfoot>
