@@ -243,7 +243,7 @@ class Cart extends React.Component {
     this.props.onSave(Store.code, code, {
       items: cart.items.map(item => ({
         ...item,
-        quantity: item.quantity - 1
+        quantity: item.quantity - (item.code === variantCode ? 1 : 0)
       })).filter(item => {
         return item.quantity > 0
       })

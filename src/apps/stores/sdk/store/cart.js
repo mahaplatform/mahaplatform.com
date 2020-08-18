@@ -11,11 +11,11 @@ class Cart extends Emitter {
   items = []
   open = false
 
+  _handleChange = this._handleChange.bind(this)
   _handleCheckout = this._handleCheckout.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleError = this._handleError.bind(this)
   _handleFetchItems = this._handleFetchItems.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   constructor(config) {
     super()
@@ -25,11 +25,11 @@ class Cart extends Emitter {
   }
 
   addItem(code) {
-    this.pasteur.send('add', code, this._handleSuccess, this._handleError)
+    this.pasteur.send('add', code, this._handleChange, this._handleError)
   }
 
   clearItems() {
-    this.pasteur.send('clear', this._handleSuccess, this._handleError)
+    this.pasteur.send('clear', this._handleChange, this._handleError)
   }
 
   getCount() {
@@ -58,7 +58,12 @@ class Cart extends Emitter {
   }
 
   updateItem(code, increment) {
-    this.pasteur.send('remove', { code, increment }, this._handleSuccess, this._handleError)
+    this.pasteur.send('remove', { code, increment }, this._handleChange, this._handleError)
+  }
+
+  _handleChange(cart) {
+    this.items = cart.items
+    this.emit('change')
   }
 
   _handleCheckout() {
@@ -96,18 +101,14 @@ class Cart extends Emitter {
     })
     this.pasteur.on('ready', this._handleFetchItems)
     this.pasteur.on('checkout', this._handleCheckout)
+    this.pasteur.on('change', this._handleChange)
     this.pasteur.on('close', this._handleClose)
   }
 
   _handleSetItems(items) {
     this.pasteur.send('set', {
       items
-    }, this._handleSuccess)
-  }
-
-  _handleSuccess(cart) {
-    this.items = cart.items
-    this.emit('change')
+    }, this._handleChange)
   }
 
 }
