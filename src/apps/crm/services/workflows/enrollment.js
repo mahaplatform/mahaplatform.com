@@ -6,7 +6,7 @@ import Workflow from '../../models/workflow'
 
 export const enrollInWorkflows = async (req, params) => {
 
-  const { contact, trigger_type, action, form_id, event_id, response, registration, email, email_campaign_id, list_id, topic_id } = params
+  const { contact, trigger_type, action, form_id, event_id, store_id, order, response, registration, email, email_campaign_id, list_id, topic_id } = params
 
   const workflows = await Workflow.query(qb => {
     qb.where('trigger_type', trigger_type)
@@ -17,6 +17,7 @@ export const enrollInWorkflows = async (req, params) => {
     if(list_id) qb.where('list_id', list_id)
     if(form_id) qb.where('form_id', form_id)
     if(event_id) qb.where('event_id', event_id)
+    if(store_id) qb.where('store_id', store_id)
     if(email_campaign_id) qb.where('email_campaign_id', email_campaign_id)
   }).fetchAll({
     transacting: req.trx
@@ -29,6 +30,7 @@ export const enrollInWorkflows = async (req, params) => {
       contact,
       workflow,
       email,
+      order,
       response,
       registration
     })
@@ -36,7 +38,7 @@ export const enrollInWorkflows = async (req, params) => {
 
 }
 
-export const enrollInWorkflow = async (req, { contact, workflow, email, response, registration }) => {
+export const enrollInWorkflow = async (req, { contact, workflow, email, response, registration, order }) => {
 
   const existing = WorkflowEnrollment.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -59,6 +61,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     response_id: response ? response.get('id') : null,
     registration_id: registration ? registration.get('id') : null,
     email_id: email ? email.get('id') : null,
+    order_id: order ? order.get('id') : null,
     code,
     data: {},
     status: 'active',

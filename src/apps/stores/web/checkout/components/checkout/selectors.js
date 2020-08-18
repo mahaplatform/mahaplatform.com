@@ -2,6 +2,8 @@ import { createSelector } from 'reselect'
 
 const cart = (state, props) => props.cart
 
+const code = (state, props) => props.code
+
 const contact = (state, props) => state.contact
 
 const products = (state, props) => props.products
@@ -56,12 +58,14 @@ export const total = createSelector(
 )
 
 export const data = createSelector(
+  code,
   contact,
   store,
-  items,
-  (contact, store, items, payment) => ({
+  cart,
+  (code, contact, store, cart) => ({
+    code,
     contact,
-    items,
+    items: cart.items,
     ipaddress: store.ipaddress,
     referer: store.referer,
     starttime: store.starttime

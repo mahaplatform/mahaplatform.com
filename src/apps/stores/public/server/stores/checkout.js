@@ -1,4 +1,5 @@
 import Setting from '../../../../platform/models/setting'
+import { encode } from '../../../../../core/services/jwt'
 import Store from '../../../models/store'
 import { readFile } from '../utils'
 import moment from 'moment'
@@ -78,7 +79,7 @@ const checkoutRoute = async (req, res) => {
       title: req.team.get('title'),
       logo: req.team.related('logo') ? req.team.related('logo').get('path') : null
     },
-    token: 'abc123'
+    token: encode({ code: store.get('code') }, 60 * 60 * 2)
   })
 
   res.status(200).send(content)

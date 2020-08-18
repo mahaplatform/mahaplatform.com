@@ -2,46 +2,53 @@ import { createOrUpdateContact, createInvoice, handlePayment } from '../../../..
 import { enrollInWorkflows } from '../../../../../crm/services/workflows'
 import { checkToken } from '../../../../../../core/services/routes/checks'
 import { contactActivity } from '../../../../../crm/services/activities'
-import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import Store from '../../../../models/store'
 import Order from '../../../../models/order'
+import Item from '../../../../models/item'
+import Cart from '../../../../models/cart'
 import moment from 'moment'
-import _ from 'lodash'
 
-const getLineItems = (req, { store, quantities, ticket_types }) => {
-  return Object.keys(quantities).map(id => {
-    return ticket_types.find(ticket_type => {
-      return ticket_type.get('id') === parseInt(id)
+const getLineItems = (req, { quantities, variants }) => {
+  return Object.keys(quantities).map(code => {
+    return variants.find(variant => {
+      return variant.get('code') === code
     })
-  }).filter(ticket_type => {
-    return quantities[ticket_type.get('id')].quantity > 0
-  }).map(ticket_type => {
-    const line_item = quantities[ticket_type.get('id')]
+  }).filter(variant => {
+    return quantities[variant.get('code')].quantity > 0
+  }).map(variant => {
+    const line_item = quantities[variant.get('code')]
     return {
-      project_id: ticket_type.get('project_id'),
-      donation_revenue_type_id: ticket_type.get('donation_revenue_type_id'),
-      overage_strategy: ticket_type.get('overage_strategy'),
-      revenue_type_id: ticket_type.get('revenue_type_id'),
-      price_type: ticket_type.get('price_type'),
-      fixed_price: ticket_type.get('fixed_price'),
-      low_price: ticket_type.get('low_price'),
-      high_price: ticket_type.get('high_price'),
-      tax_rate: ticket_type.get('tax_rate'),
-      is_tax_deductible: ticket_type.get('is_tax_deductible'),
-      description: `${store.get('title')}: ${ticket_type.get('name')}`,
+      project_id: variant.get('project_id'),
+      donation_revenue_type_id: variant.get('donation_revenue_type_id'),
+      overage_strategy: variant.get('overage_strategy'),
+      revenue_type_id: variant.get('revenue_type_id'),
+      price_type: variant.get('price_type'),
+      fixed_price: variant.get('fixed_price'),
+      low_price: variant.get('low_price'),
+      high_price: variant.get('high_price'),
+      tax_rate: variant.get('tax_rate'),
+      is_tax_deductible: variant.get('is_tax_deductible'),
+      description: 'product',//`${store.get('title')}: ${variant.get('name')}`,
       quantity: line_item.quantity,
       price: line_item.price
     }
   })
 }
 
-const getInvoice = async (req, { program_id, contact, store, quantities }) => {
+const getInvoice = async (req, { program_id, contact, items, variants }) => {
+
+  const quantities = items.reduce((quantities, item) => ({
+    ...quantities,
+    [item.code]: {
+      price: item.price,
+      quantity: item.quantity
+    }
+  }), {})
 
   const line_items = getLineItems(req, {
-    store,
     quantities,
-    ticket_types: store.related('ticket_types')
+    variants
   })
 
   return await createInvoice(req, {
@@ -52,44 +59,66 @@ const getInvoice = async (req, { program_id, contact, store, quantities }) => {
 
 }
 
-const createTickets = async (req, { registration, tickets }) => {
+const createItems = async (req, { order, items, variants }) => {
 
-  await Promise.mapSeries(tickets, async(ticket) => {
-    //
-    // const code = await generateCode(req, {
-    //   table: 'crm_contacts'
-    // })
-    //
-    // await Ticket.forge({
-    //   team_id: req.team.get('id'),
-    //   registration_id: registration.get('id'),
-    //   code,
-    //   values: _.omit(ticket, ['name','ticket_type_id']),
-    //   ticket_type_id: ticket.ticket_type_id,
-    //   name: ticket.name
-    // }).save(null, {
-    //   transacting: req.trx
-    // })
-    //
+  await Promise.mapSeries(items, async(item) => {
+
+    const variant = variants.find(variant => {
+      return variant.get('code') === item.code
+    })
+
+    await Promise.mapSeries(Array(item.quantity).fill(0), async() => {
+      await Item.forge({
+        team_id: req.team.get('id'),
+        order_id: order.get('id'),
+        variant_id: variant.get('id'),
+        status: 'pending'
+      }).save(null, {
+        transacting: req.trx
+      })
+    })
+
   })
 
 }
 
 const submitRoute = async (req, res) => {
 
-  if(!checkToken(req.headers.authorization, req.params.code)) {
+  if(!checkToken(req.headers.authorization, req.params.store_code)) {
     return res.status(401).send('Unauthorized')
   }
 
   const store = await Store.query(qb => {
-    qb.where('code', req.params.code)
+    qb.where('code', req.params.store_code)
     qb.whereNull('deleted_at')
   }).fetch({
-    withRelated: ['program','team','ticket_types'],
+    withRelated: ['program','team','products.variants'],
     transacting: req.trx
   })
 
+  if(!store) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load store'
+  })
+
+  const cart = await Cart.query(qb => {
+    qb.where('code', req.body.code)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!cart) return res.status(422).respond({
+    code: 422,
+    message: 'Unable to load cart'
+  })
+
   req.team = store.related('team')
+
+  const variants = store.related('products').reduce((variants, product) => [
+    ...variants,
+    ...product.related('variants')
+  ], [])
+
 
   const fields = [
     { code: 'first_name', type: 'contactfield', contactfield: { name: 'first_name' }, overwrite: true },
@@ -107,8 +136,8 @@ const submitRoute = async (req, res) => {
   const invoice = req.body.payment ? await getInvoice(req, {
     program_id: store.get('program_id'),
     contact,
-    store,
-    quantities: req.body.quantities
+    items: req.body.items,
+    variants
   }) : null
 
   const payment = req.body.payment ? await handlePayment(req, {
@@ -121,6 +150,7 @@ const submitRoute = async (req, res) => {
     team_id: req.team.get('id'),
     store_id: store.get('id'),
     contact_id: contact.get('id'),
+    cart_id: cart.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
     payment_id: payment ? payment.get('id') : null,
     referer: req.body.referer,
@@ -132,28 +162,29 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  // await createTickets(req, {
-  //   registration,
-  //   tickets: req.body.tickets
-  // })
+  await createItems(req, {
+    order,
+    variants,
+    items: req.body.items
+  })
 
-  // await enrollInWorkflows(req, {
-  //   contact,
-  //   trigger_type: 'store',
-  //   store_id: store.get('id'),
-  //   registration
-  // })
+  await enrollInWorkflows(req, {
+    contact,
+    trigger_type: 'order',
+    store_id: store.get('id'),
+    order
+  })
 
-  // await contactActivity(req, {
-  //   contact,
-  //   type: 'registration',
-  //   story: 'registered for an store',
-  //   program_id: store.get('program_id'),
-  //   data: {
-  //     store_id: store.get('id'),
-  //     registration_id: registration.get('id')
-  //   }
-  // })
+  await contactActivity(req, {
+    contact,
+    type: 'order',
+    story: 'placed an order',
+    program_id: store.get('program_id'),
+    data: {
+      store_id: store.get('id'),
+      order_id: order.get('id')
+    }
+  })
 
   await socket.refresh(req, [
     '/admin/stores/stores',
