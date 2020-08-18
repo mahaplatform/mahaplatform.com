@@ -196,8 +196,10 @@ class Cart extends React.Component {
     this.context.network.request({
       method: 'get',
       endpoint: `/api/stores/stores/maha/products/${variantCode}/check`,
+      onFailure: () => {
+        throw new Error('out of stock')
+      },
       onSuccess: () => {
-        // throw new Error('out of stock')
         const exists = items.find(item => {
           return item.code === variantCode
         }) !== undefined
@@ -234,20 +236,21 @@ class Cart extends React.Component {
   }
 
   _handleRemove(variantCode) {
-    const { code, items, Store } = this.props
+    const { cart, code, Store } = this.props
     this.props.onSaveCart(Store.code, code, {
-      items: items.filter(item => {
+      items: cart.value.items.filter(item => {
         return item.code !== variantCode
       })
     })
   }
 
   _handleUpdate(variantCode, increment) {
-    const { code, items, Store } = this.props
+    const { cart, code, Store } = this.props
+    if(increment > 0) return this._handleAdd(variantCode)
     this.props.onSaveCart(Store.code, code, {
-      items: items.map(item => ({
+      items: cart.value.items.map(item => ({
         ...item,
-        quantity: item.quantity + (item.code === variantCode ? increment : 0)
+        quantity: item.quantity - 1
       })).filter(item => {
         return item.quantity > 0
       })

@@ -1,15 +1,7 @@
 import ProductSerializer from '../../../../serializers/product_serializer'
-import Setting from '../../../../../platform/models/setting'
 import Store from '../../../../models/store'
-import Cart from '../../../../models/cart'
 
 const listRoute = async (req, res) => {
-
-  const settings = await Setting.query(qb => {
-    qb.where('id', 1)
-  }).fetch({
-    transacting: req.trx
-  })
 
   const store = await Store.query(qb => {
     qb.where('code', req.params.store_code)
