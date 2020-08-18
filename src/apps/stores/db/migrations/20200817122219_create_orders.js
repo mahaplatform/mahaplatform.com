@@ -9,6 +9,8 @@ const CreateOrder = {
       table.foreign('store_id').references('stores_stores.id')
       table.integer('contact_id').unsigned()
       table.foreign('contact_id').references('crm_contacts.id')
+      table.integer('cart_id').unsigned()
+      table.foreign('cart_id').references('stores_carts.id')
       table.integer('invoice_id').unsigned()
       table.foreign('invoice_id').references('finance_invoices.id')
       table.integer('payment_id').unsigned()

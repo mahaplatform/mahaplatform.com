@@ -6,8 +6,8 @@ import _ from 'lodash'
 class Step1 extends React.Component {
 
   static propTypes = {
-    event: PropTypes.object,
     items: PropTypes.array,
+    Store: PropTypes.object,
     onBack: PropTypes.func,
     onNext: PropTypes.func
   }
@@ -47,7 +47,7 @@ class Step1 extends React.Component {
   }
 
   _getForm() {
-    // const fields = this._getFields()
+    const fields = this._getFields()
     return {
       reference: node => this.form = node,
       button: false,
@@ -57,19 +57,19 @@ class Step1 extends React.Component {
         { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
         { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter email', required: true },
-        // ...fields.map(field => ({
-        //   type: field.contactfield ? field.contactfield.type : field.type,
-        //   ..._.omit(field, ['contactfield','code','type']),
-        //   ...field.config || {},
-        //   name: field.code
-        // }))
+        ...fields.map(field => ({
+          type: field.contactfield ? field.contactfield.type : field.type,
+          ..._.omit(field, ['contactfield','code','type']),
+          ...field.config || {},
+          name: field.code
+        }))
       ]
     }
   }
 
   _getFields() {
-    const { event } = this.props
-    return event.contact_config ? event.contact_config.fields : []
+    const { Store } = this.props
+    return Store.contact_config ? Store.contact_config.fields : []
   }
 
   _getNext() {

@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Order from './order'
 
 const Cart = new Model({
 
@@ -6,7 +7,11 @@ const Cart = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  order() {
+    return this.hasOne(Order, 'order_id')
+  }
 
 })
 

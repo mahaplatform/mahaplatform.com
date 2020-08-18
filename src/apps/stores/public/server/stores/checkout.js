@@ -54,6 +54,20 @@ const checkoutRoute = async (req, res) => {
         paypal_enabled,
         applepay_enabled,
         door_enabled: false
+      },
+      contact_config: {
+        fields: store.get('contact_config').fields.map(field => {
+          if(!field.contactfield) return field
+          const programfield = program.related('fields').find(programfield => {
+            return programfield.get('code') === field.contactfield.code
+          })
+          return {
+            ...field,
+            ...programfield ? {
+              config: programfield.get('config')
+            } : {}
+          }
+        })
       }
     },
     program: {

@@ -1,4 +1,6 @@
 import Model from '../../../core/objects/model'
+import Item from './item'
+import Cart from './cart'
 
 const Order = new Model({
 
@@ -6,7 +8,15 @@ const Order = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  cart() {
+    return this.belongsTo(Cart, 'cart_id')
+  },
+
+  items() {
+    return this.hasMany(Item, 'order_id')
+  }
 
 })
 

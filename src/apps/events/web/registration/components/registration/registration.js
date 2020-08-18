@@ -16,7 +16,6 @@ class Registration extends React.Component {
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
-    payment: PropTypes.object,
     quantities: PropTypes.object,
     status: PropTypes.string,
     subtotal: PropTypes.number,
@@ -26,7 +25,6 @@ class Registration extends React.Component {
     total: PropTypes.number,
     onSubmit: PropTypes.func,
     onUpdateContact: PropTypes.func,
-    onUpdatePayment: PropTypes.func,
     onUpdateTickets: PropTypes.func,
     onUpdateQuantities: PropTypes.func
   }
@@ -92,7 +90,7 @@ class Registration extends React.Component {
   _getSteps() {
     const { step } = this.state
     return {
-      steps: ['Ticket Selection','Contact Information','Ticket Information','Payment Information'],
+      steps: ['Ticket Selection','Contact Information','Ticket Information','Payment Information','Registration Complete'],
       current: step
     }
   }
@@ -138,13 +136,12 @@ class Registration extends React.Component {
   }
 
   _getSummary() {
-    const { contact, discount, event, items, payment, subtotal, tax, total } = this.props
+    const { contact, discount, event, items, subtotal, tax, total } = this.props
     return {
       contact,
       discount,
       event,
       items,
-      payment,
       subtotal,
       tax,
       total

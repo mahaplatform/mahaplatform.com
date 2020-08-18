@@ -12,6 +12,8 @@ class Checkout extends React.Component {
   static propTypes = {
     cart: PropTypes.object,
     code: PropTypes.string,
+    contact: PropTypes.string,
+    data: PropTypes.object,
     items: PropTypes.array,
     products: PropTypes.object,
     Store: PropTypes.object,
@@ -22,7 +24,8 @@ class Checkout extends React.Component {
     variants: PropTypes.array,
     onFetchCart: PropTypes.func,
     onFetchProducts: PropTypes.func,
-    onGetCart: PropTypes.func
+    onGetCart: PropTypes.func,
+    onUpdateContact: PropTypes.func
   }
 
   pasteur = null
@@ -77,7 +80,6 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const { Store } = this.props
     this.props.onFetchProducts(Store.code)
     this.props.onGetCart()
@@ -108,20 +110,24 @@ class Checkout extends React.Component {
   _getSteps() {
     const { step } = this.state
     return {
-      steps: ['Contact Information','Payment Information'],
+      completion: '',
+      steps: ['Contact Information','Payment Information','Checkout Complete'],
       current: step
     }
   }
 
   _getStep1() {
+    const { Store } = this.props
     return {
+      Store,
       onNext: this._handleStep1
     }
   }
 
   _getStep2() {
-    const { Store, token, total } = this.props
+    const { data, Store, token, total } = this.props
     return {
+      data,
       Store,
       token,
       total,
@@ -167,7 +173,8 @@ class Checkout extends React.Component {
     })
   }
 
-  _handleStep1() {
+  _handleStep1(contact) {
+    this.props.onUpdateContact(contact)
     this.setState({
       step: 1
     })

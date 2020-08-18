@@ -2230,6 +2230,16 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('stores_items', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('order_id').unsigned()
+      table.integer('variant_id').unsigned()
+      table.USER-DEFINED('status')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_media', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2256,6 +2266,7 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('store_id').unsigned()
       table.integer('contact_id').unsigned()
+      table.integer('cart_id').unsigned()
       table.integer('invoice_id').unsigned()
       table.integer('payment_id').unsigned()
       table.string('ipaddress', 255)
@@ -3587,8 +3598,15 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('cart_id').references('stores_carts.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('payment_id').references('finance_payments.id')
+    })
+
+    await knex.schema.table('stores_items', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('order_id').references('stores_orders.id')
+      table.foreign('variant_id').references('stores_variants.id')
     })
 
 
@@ -5822,10 +5840,11 @@ union
       from stores_carts
       )
       select stores_variants.id as variant_id,
-      sum(((items.item ->> 'quantity'::text))::integer) as quantity
-      from (items
-      join stores_variants on (((stores_variants.code)::text = (items.item ->> 'code'::text))))
-      group by stores_variants.id;
+      (coalesce(sum(((items.item ->> 'quantity'::text))::integer), (0)::bigint))::integer as inventory_reserved
+      from (stores_variants
+      left join items on (((items.item ->> 'code'::text) = (stores_variants.code)::text)))
+      group by stores_variants.id
+      order by stores_variants.id;
     `)
   }
 

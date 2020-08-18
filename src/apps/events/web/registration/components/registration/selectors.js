@@ -6,8 +6,6 @@ const quantities = (state, props) => state.quantities
 
 const contact = (state, props) => state.contact
 
-const payment = (state, props) => state.payment
-
 const tickets = (state, props) => state.tickets
 
 const event = (state, props) => props.event
@@ -55,14 +53,12 @@ export const data = createSelector(
   contact,
   event,
   items,
-  payment,
   quantities,
   tickets,
-  (contact, event, items, payment, quantities, tickets) => ({
+  (contact, event, items, quantities, tickets) => ({
     contact,
     items,
     ipaddress: event.ipaddress,
-    payment,
     quantities,
     referer: event.referer,
     starttime: event.starttime,

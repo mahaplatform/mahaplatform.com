@@ -1,6 +1,5 @@
 export const INITIAL_STATE = {
   contact: null,
-  payment: null,
   quantities: {},
   status: 'pending',
   tickets: null
@@ -26,12 +25,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       contact: action.contact
-    }
-
-  case 'UPDATE_PAYMENT':
-    return {
-      ...state,
-      payment: action.payment
     }
 
   case 'UPDATE_TICKETS':

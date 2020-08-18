@@ -22,3 +22,8 @@ export const getCart = () => ({
   success: 'GET_CART_SUCCESS',
   failure: 'GET_CART_FAILURE'
 })
+
+export const updateContact = (contact) => ({
+  type: 'UPDATE_CONTACT',
+  contact
+})

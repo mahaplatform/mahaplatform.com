@@ -1,8 +1,12 @@
 import { createSelector } from 'reselect'
 
+const cart = (state, props) => state.cart.value
+
+const contact = (state, props) => state.contact
+
 const products = (state, props) => state.products.value
 
-const cart = (state, props) => state.cart.value
+const store = (state, props) => props.Store
 
 export const variants = createSelector(
   products,
@@ -49,4 +53,17 @@ export const total = createSelector(
   subtotal,
   tax,
   (subtotal, tax) => subtotal + tax
+)
+
+export const data = createSelector(
+  contact,
+  store,
+  items,
+  (contact, store, items, payment) => ({
+    contact,
+    items,
+    ipaddress: store.ipaddress,
+    referer: store.referer,
+    starttime: store.starttime
+  })
 )

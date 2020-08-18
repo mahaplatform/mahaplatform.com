@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 export const INITIAL_STATE = {
   code: null,
+  contact: null,
   cart: {
     value: null,
     status: 'pending'
@@ -78,6 +79,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         value: action.result.data,
         status: 'success'
       }
+    }
+
+  case 'UPDATE_CONTACT':
+    return {
+      ...state,
+      contact: action.contact
     }
 
   default:

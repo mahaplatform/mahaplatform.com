@@ -4,6 +4,7 @@ import Model from '../../../core/objects/model'
 import Reservation from './reservation'
 import Product from './product'
 import Media from './media'
+import Item from './item'
 
 const Variant = new Model({
 
@@ -21,6 +22,10 @@ const Variant = new Model({
 
   donation_revenue_type() {
     return this.belongsTo(RevenueType, 'donation_revenue_type_id')
+  },
+
+  items() {
+    return this.hasMany(Item, 'variant_id')
   },
 
   media() {

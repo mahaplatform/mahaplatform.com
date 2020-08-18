@@ -6,7 +6,10 @@ const TestData = {
       team_id: 1,
       program_id: 1,
       code: 'maha',
-      title: 'Maha Store'
+      title: 'Maha Store',
+      contact_config: {
+        fields: []
+      }
     })
 
     await knex('stores_products').insert([{

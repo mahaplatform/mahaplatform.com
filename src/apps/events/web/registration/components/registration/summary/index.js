@@ -9,14 +9,13 @@ class Summary extends React.Component {
     discount: PropTypes.number,
     event: PropTypes.object,
     items: PropTypes.array,
-    payment: PropTypes.object,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number
   }
 
   render() {
-    const { contact, discount, items, payment, subtotal, tax, total } = this.props
+    const { contact, discount, items, subtotal, tax, total } = this.props
     return (
       <div className="registration-summary">
         <div className="registration-summary-section">
@@ -70,15 +69,6 @@ class Summary extends React.Component {
             <h2>Customer</h2>
             { contact.first_name } { contact.last_name }<br />
             { contact.email }
-          </div>
-        }
-        { payment &&
-          <div className="registration-summary-section">
-            <h2>Payment</h2>
-            <div className="registration-summary-payment">
-              <img src={`/admin/images/payments/${payment.card_type}.png` } />
-              { payment.card_type.toUpperCase() }-{ payment.last_four }<br />
-            </div>
           </div>
         }
       </div>
