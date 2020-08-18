@@ -15,6 +15,7 @@ class Checkout extends React.Component {
     code: PropTypes.string,
     contact: PropTypes.string,
     data: PropTypes.object,
+    isShipped: PropTypes.bool,
     items: PropTypes.array,
     products: PropTypes.array,
     Store: PropTypes.object,
@@ -40,6 +41,7 @@ class Checkout extends React.Component {
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleContactStep = this._handleContactStep.bind(this)
+  _handleShippingStep = this._handleShippingStep.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
@@ -89,10 +91,16 @@ class Checkout extends React.Component {
   }
 
   _getSteps() {
+    const { isShipped } = this.props
     const { step } = this.state
     return {
       completion: '',
-      steps: ['Contact Information','Shipping Information','Payment Information','Checkout Complete'],
+      steps: [
+        'Contact Information',
+        ...isShipped ? ['Shipping Information'] : [],
+        'Payment Information',
+        'Checkout Complete'
+      ],
       current: step
     }
   }
@@ -102,6 +110,15 @@ class Checkout extends React.Component {
     return {
       Store,
       onNext: this._handleContactStep
+    }
+  }
+
+  _getShippingStep() {
+    const { Store } = this.props
+    return {
+      Store,
+      onBack: this._handleBack,
+      onNext: this._handleShippingStep
     }
   }
 
@@ -156,9 +173,18 @@ class Checkout extends React.Component {
   }
 
   _handleContactStep(contact) {
+    const { isShipped } = this.props
     this.props.onUpdateContact(contact)
     this.setState({
       step: 1
+    })
+    if(isShipped) return this._handlePush(ShippingStep, this._getShippingStep.bind(this))
+    this._handlePush(PaymentStep, this._getPaymentStep.bind(this))
+  }
+
+  _handleShippingStep(shipping) {
+    this.setState({
+      step: 2
     })
     this._handlePush(PaymentStep, this._getPaymentStep.bind(this))
   }
@@ -169,8 +195,9 @@ class Checkout extends React.Component {
   }
 
   _handleComplete() {
+    const { step } = this.state
     this.setState({
-      step: 4
+      step: step + 1
     })
     this._handlePush(Complete, {})
   }

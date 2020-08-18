@@ -27,14 +27,8 @@ const checkRoute = async (req, res) => {
 
   const available = variant.get('inventory_available')
 
-  console.log(available)
 
-  if(available !== null && available <= 0) return res.status(422).respond({
-    code: 422,
-    message: 'product out of Stock'
-  })
-
-  res.status(200).respond(true)
+  res.status(200).respond(available === null || available > 0)
 }
 
 export default checkRoute

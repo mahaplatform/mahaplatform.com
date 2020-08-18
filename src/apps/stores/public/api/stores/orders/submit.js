@@ -68,6 +68,7 @@ const createItems = async (req, { order, items, variants }) => {
     })
 
     await Promise.mapSeries(Array(item.quantity).fill(0), async() => {
+
       await Item.forge({
         team_id: req.team.get('id'),
         order_id: order.get('id'),
@@ -78,10 +79,13 @@ const createItems = async (req, { order, items, variants }) => {
       })
     })
 
+    if(variant.get('inventory_quantity') === null) return
+
     await variant.save({
       inventory_quantity: variant.get('inventory_quantity') - item.quantity
     }, {
-      transacting: req.trx
+      transacting: req.trx,
+      patch: true
     })
 
   })

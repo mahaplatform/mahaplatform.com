@@ -37,6 +37,15 @@ export const items = createSelector(
   })) : []
 )
 
+export const isShipped = createSelector(
+  items,
+  (item) => item.find(item => {
+    return item.shipping_strategy !== null
+  }) !== undefined
+)
+
+
+
 export const shipping = createSelector(
   items,
   (items) => items.filter(item => {
@@ -69,4 +78,19 @@ export const total = createSelector(
   subtotal,
   tax,
   (subtotal, tax) => subtotal + tax
+)
+
+export const data = createSelector(
+  code,
+  contact,
+  store,
+  cart,
+  (code, contact, store, cart) => ({
+    code,
+    contact,
+    items: cart.items,
+    ipaddress: store.ipaddress,
+    referer: store.referer,
+    starttime: store.starttime
+  })
 )

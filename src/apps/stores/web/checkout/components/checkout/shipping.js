@@ -28,7 +28,9 @@ class ShippingStep extends React.Component {
           </div>
         </div>
         <div className="maha-checkout-panel-footer">
-          <div className="maha-checkout-panel-footer-item" />
+          <div className="maha-checkout-panel-footer-item">
+            <Button { ...this._getBack() } />
+          </div>
           <div className="maha-checkout-panel-footer-item">
             <Button { ...this._getNext() } />
           </div>
@@ -52,7 +54,7 @@ class ShippingStep extends React.Component {
       captcha: false,
       onSubmit: this._handleSubmit,
       fields: [
-        { label: 'Shipping Address', name: 'shipping address', type: 'addressdfield', placeholder: 'Enter shipping address', required: true }
+        { label: 'Shipping Address', name: 'shipping address', type: 'addressfield', placeholder: 'Enter shipping address', required: true }
       ]
     }
   }

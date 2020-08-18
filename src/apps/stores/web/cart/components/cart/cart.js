@@ -187,36 +187,46 @@ class Cart extends React.Component {
     }
   }
 
-  _handleAdd(variantCode) {
+  async _handleCheck(variantCode) {
+    return await new Promise((resolve, reject) => {
+      this.context.network.request({
+        method: 'get',
+        endpoint: `/api/stores/stores/maha/products/${variantCode}/check`,
+        onFailure: ({ error }) => reject(error),
+        onSuccess: ({ data }) => resolve(data)
+      })
+    })
+  }
+
+  async _handleAdd(variantCode) {
     const { cart, code, Store, items, variants } = this.props
     const variant = variants.find(variant => {
       return variant.code === variantCode
     })
-    if(!variant) throw new Error('unable to find variant')
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/stores/stores/maha/products/${variantCode}/check`,
-      onFailure: () => {
-        throw new Error('out of stock')
-      },
-      onSuccess: () => {
-        const exists = items.find(item => {
-          return item.code === variantCode
-        }) !== undefined
-        this.props.onSave(Store.code, code, {
-          items: [
-            ...cart.items.map(item => ({
-              ...item,
-              quantity: item.quantity + (item.code === variantCode ? 1 : 0)
-            })),
-            ...!exists ? [{
-              code: variant.code,
-              price: variant.fixed_price,
-              quantity: 1
-            }] : []
-          ]
-        })
-      }
+    if(!variant) {
+      throw new Error('unable to find variant')
+    }
+    const item = items.find(item => {
+      return item.code === variantCode
+    })
+    const exists = item !== undefined
+    if(variant.max_per_order && exists && item.quantity >= variant.max_per_order) {
+      throw new Error(`you are only allowed ${variant.max_per_order} per order`)
+    }
+    const available = await this._handleCheck(variantCode)
+    if(!available) throw new Error('there are no more items left in stock')
+    this.props.onSave(Store.code, code, {
+      items: [
+        ...cart.items.map(item => ({
+          ...item,
+          quantity: item.quantity + (item.code === variantCode ? 1 : 0)
+        })),
+        ...!exists ? [{
+          code: variant.code,
+          price: variant.fixed_price,
+          quantity: 1
+        }] : []
+      ]
     })
   }
 
@@ -244,9 +254,9 @@ class Cart extends React.Component {
     })
   }
 
-  _handleUpdate(variantCode, increment) {
+  async _handleUpdate(variantCode, increment) {
     const { cart, code, Store } = this.props
-    if(increment > 0) return this._handleAdd(variantCode)
+    if(increment > 0) return await this._handleAdd(variantCode)
     this.props.onSave(Store.code, code, {
       items: cart.items.map(item => ({
         ...item,
