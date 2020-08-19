@@ -86,7 +86,7 @@ class Cart extends React.Component {
                           <div className="maha-cart-product-options">
                             { item.options.map(option => {
                               return `${option.option}: ${option.value}`
-                            }).join(', ')}
+                            }).join(', ') }
                           </div>
                         }
                       </div>

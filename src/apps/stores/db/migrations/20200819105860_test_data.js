@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const TestData = {
 
   up: async (knex) => {
@@ -19,7 +21,8 @@ const TestData = {
       title: 'Socks',
       type: 'physical',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
-      options: []
+      options: [],
+      is_active: true
     },{
       team_id: 1,
       store_id: 1,
@@ -27,7 +30,8 @@ const TestData = {
       title: 'Shoes',
       type: 'physical',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
-      options: []
+      options: [],
+      is_active: true
     },{
       team_id: 1,
       store_id: 1,
@@ -35,7 +39,8 @@ const TestData = {
       title: 'Workshop',
       type: 'url',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
-      options: []
+      options: [],
+      is_active: true
     },{
       team_id: 1,
       store_id: 1,
@@ -43,7 +48,27 @@ const TestData = {
       title: 'Software',
       type: 'file',
       description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
-      options: []
+      options: [],
+      is_active: true
+    },{
+      team_id: 1,
+      store_id: 1,
+      code: 'mno',
+      title: 'Deactivated',
+      type: 'file',
+      description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
+      options: [],
+      is_active: false
+    },{
+      team_id: 1,
+      store_id: 1,
+      code: 'pqr',
+      title: 'Deleted',
+      type: 'file',
+      description: 'Im baby fixie normcore meditation kitsch cred meggings, single-origin coffee master cleanse tofu tacos offal venmo 8-bit shoreditch you probably havent heard of them. Single-origin coffee cloud bread offal health goth, master cleanse woke +1 helvetica 3 wolf moon man braid. Venmo street art activated charcoal meditation actually. Pitchfork master cleanse vice you probably havent heard of them green juice palo santo franzen cred banh mi mustache.',
+      options: [],
+      is_active: false,
+      deleted_at: moment()
     }])
 
     await knex('stores_variants').insert([{
@@ -61,7 +86,8 @@ const TestData = {
       max_per_order: 2,
       options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: 'medium' } ],
       shipping_strategy: 'flat',
-      shipping_fee: 2.25
+      shipping_fee: 2.25,
+      is_active: true
     },{
       team_id: 1,
       product_id: 1,
@@ -76,7 +102,8 @@ const TestData = {
       inventory_policy: 'deny',
       options: [ { option: 'Color', value: 'orange'}, { option: 'Size', value: 'medium' } ],
       shipping_strategy: 'flat',
-      shipping_fee: 2.25
+      shipping_fee: 2.25,
+      is_active: true
     },{
       team_id: 1,
       product_id: 2,
@@ -90,7 +117,8 @@ const TestData = {
       inventory_quantity: 10,
       inventory_policy: 'deny',
       options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '11' } ],
-      shipping_strategy: 'free'
+      shipping_strategy: 'free',
+      is_active: true
     },{
       team_id: 1,
       product_id: 2,
@@ -104,7 +132,8 @@ const TestData = {
       inventory_quantity: 10,
       inventory_policy: 'deny',
       options: [ { option: 'Color', value: 'red'}, { option: 'Size', value: '12' } ],
-      shipping_strategy: 'free'
+      shipping_strategy: 'free',
+      is_active: true
     },{
       team_id: 1,
       product_id: 3,
@@ -118,7 +147,8 @@ const TestData = {
       inventory_quantity: null,
       inventory_policy: null,
       file_id: 8346,
-      options: [ { option: 'Version', value: 'with slides' } ]
+      options: [ { option: 'Version', value: 'with slides' } ],
+      is_active: true
     },{
       team_id: 1,
       product_id: 3,
@@ -132,7 +162,8 @@ const TestData = {
       inventory_quantity: null,
       inventory_policy: null,
       file_id: 8346,
-      options: [ { option: 'Version', value: 'without slides' } ]
+      options: [ { option: 'Version', value: 'without slides' } ],
+      is_active: true
     },{
       team_id: 1,
       product_id: 4,
@@ -146,7 +177,8 @@ const TestData = {
       inventory_quantity: null,
       inventory_policy: null,
       url: 'http://google.com',
-      options: []
+      options: [],
+      is_active: true
     }])
 
     await knex('stores_media').insert([{

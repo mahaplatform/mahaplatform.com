@@ -3,10 +3,11 @@ import Product from '../../../../models/product'
 
 const listRoute = async (req, res) => {
 
-  const product = await Product.filterFetch({
+  const products = await Product.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('store_id', req.params.store_id)
+      qb.whereNull('deleted_at')
     },
     filter: {
       params: req.query.$filter,
@@ -21,7 +22,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(product, ProductSerializer)
+  res.status(200).respond(products, ProductSerializer)
 
 }
 

@@ -67,10 +67,9 @@ class NumberField extends React.Component {
   }
 
   componentDidMount() {
-    const { originalValue, onReady } = this.props
-    if(!_.isNil(originalValue)) this.setState({
-      value: originalValue
-    })
+    const { defaultValue, originalValue, onReady } = this.props
+    const value = originalValue || defaultValue
+    if(!_.isNil(value)) this.setState({ value })
     onReady(this._handleValidate)
   }
 

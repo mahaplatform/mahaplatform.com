@@ -1,6 +1,7 @@
 import StoreForm from '../../components/storeform'
 import StoreToken from '../../tokens/store'
-import { Page } from 'maha-admin'
+import { Logo, Page } from 'maha-admin'
+import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Stores',
@@ -10,6 +11,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title', primary: true, format: StoreToken },
       { label: 'Program', key: 'program.title', sort: 'program'}
     ],
+    criteria: {
+      fields: [
+        { label: 'Event', fields: [
+          { name: 'Program', key: 'program_id', type: 'select', endpoint: '/api/admin/crm/programs', text: 'title', value: 'id' }
+        ] }
+      ],
+      system: resources.programs.map((program, index) => (
+        { id: index, title: program.title, token: <Logo team={ program } width="24" />, config: {
+          criteria: [
+            { code: 'abc', data: null, field: null, operator: '$and', parent: null, value: null },
+            { code: 'def', data: null, field: 'program_id', operator: '$eq', parent: 'abc', value: program.id }
+          ]
+        } }
+      ))
+    },
     empty: {
       icon: 'building-o',
       title: 'No Stores',
@@ -29,4 +45,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   }
 })
 
-export default Page(null, mapPropsToPage)
+const mapResourcesToPage = (props, context) => ({
+  programs: '/api/admin/crm/programs'
+})
+
+export default Page(mapResourcesToPage, mapPropsToPage)

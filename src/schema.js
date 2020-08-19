@@ -2291,6 +2291,8 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('base_variant_id').unsigned()
       table.USER-DEFINED('type')
+      table.boolean('is_active')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('stores_stores', (table) => {
@@ -2332,6 +2334,8 @@ const schema = {
       table.decimal('shipping_fee', 6, 2)
       table.integer('file_id').unsigned()
       table.string('url', 255)
+      table.boolean('is_active')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('training_administrations', (table) => {

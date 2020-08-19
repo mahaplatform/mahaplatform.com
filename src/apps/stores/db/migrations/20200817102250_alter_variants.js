@@ -2,6 +2,8 @@ const AlterVariants = {
 
   up: async (knex) => {
 
+    await knex.raw('alter type store_variant_inventory_policy add value \'unlimited\'')
+
     await knex.schema.table('stores_variants', (table) => {
       table.dropColumn('options')
     })

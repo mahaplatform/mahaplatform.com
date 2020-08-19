@@ -19,14 +19,15 @@ const checkRoute = async (req, res) => {
     qb.select('stores_variants.*','stores_reservations.inventory_reserved')
     qb.innerJoin('stores_reservations','stores_reservations.variant_id','stores_variants.id')
     qb.innerJoin('stores_products','stores_products.id','stores_variants.product_id')
-    qb.where('stores_products.store_id', store.get('id'))
     qb.where('stores_variants.code', req.params.code)
+    qb.where('stores_products.store_id', store.get('id'))
+    qb.where('stores_products.is_active', true)
+    qb.whereNull('stores_products.deleted_at')
   }).fetch({
     transacting: req.trx
   })
 
-  const available = variant.get('inventory_available')
-
+  const available = variant ? variant.get('inventory_available') : 0
 
   res.status(200).respond(available === null || available > 0)
 }

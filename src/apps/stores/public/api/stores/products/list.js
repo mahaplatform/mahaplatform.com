@@ -1,4 +1,5 @@
 import ProductSerializer from '../../../../serializers/product_serializer'
+import Product from '../../../../models/product'
 import Store from '../../../../models/store'
 
 const listRoute = async (req, res) => {
@@ -7,7 +8,6 @@ const listRoute = async (req, res) => {
     qb.where('code', req.params.store_code)
     qb.whereNull('deleted_at')
   }).fetch({
-    withRelated: ['products.variants.media.asset','products.variants.project','products.variants.revenue_type','products.variants.donation_revenue_type'],
     transacting: req.trx
   })
 
@@ -16,7 +16,16 @@ const listRoute = async (req, res) => {
     message: 'Unable to load store'
   })
 
-  res.status(200).respond(store.related('products'), ProductSerializer)
+  const products = await Product.query(qb => {
+    qb.where('store_id', store.get('id'))
+    qb.where('is_active', true)
+    qb.whereNull('deleted_at')
+  }).fetchAll({
+    withRelated: ['variants.media.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
+    transacting: req.trx
+  })
+
+  res.status(200).respond(products, ProductSerializer)
 
 }
 

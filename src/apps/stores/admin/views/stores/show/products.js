@@ -21,17 +21,19 @@ class Products extends React.Component {
           <thead>
             <tr>
               <td>Title</td>
-              <td className="collapsing">Inventory</td>
+              <td className="collapsing">Variants</td>
               <td />
             </tr>
           </thead>
           <tbody>
             { products.map((product, index) => (
               <tr key={`product_${index}`} onClick={ this._handleClick.bind(this, product) }>
-                <td>{ product.title } { product.variants.length > 0 &&
-                  <span>({pluralize('Variant', product.variants.length, true)})</span>
-                }</td>
-                <td className="right aligned">15/50</td>
+                <td>
+                  { product.title } { !product.is_active &&
+                    <span className="alert">INACTIVE</span>
+                  }
+                </td>
+                <td className="right aligned">{ product.variants.length }</td>
                 <td className="proceed">
                   <i className="fa fa-chevron-right" />
                 </td>

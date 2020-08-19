@@ -1,5 +1,7 @@
 import NewProduct from '../../../components/productform'
 import Performance from './performance'
+import InventoryForm from '../inventory'
+import Inventory from './inventory'
 import { Page } from 'maha-admin'
 import Products from './products'
 import Details from './details'
@@ -10,17 +12,19 @@ const getTabs = ({ audits, products, store }) => ({
   items: [
     { label: 'Details', component: <Details store={ store } audits={ audits } /> },
     { label: 'Products', component: <Products store={ store } products={ products } /> },
+    { label: 'Inventory', component: <Inventory store={ store } products={ products } /> },
     { label: 'Performance', component: <Performance /> }
   ]
 })
 
-const getTasks = ({ store }) => {
+const getTasks = ({ products, store }) => {
 
   const items = []
 
   if(!store.deleted_at) {
     items.push({ label: 'Edit Store', modal: <Edit store={ store } /> })
     items.push({ label: 'Create Product', modal: <NewProduct store={ store } /> })
+    items.push({ label: 'Manage Inventory', modal: <InventoryForm store_id={ store.id } products={ products } /> })
     items.push({ label: 'View Public Store', link: store.url })
   }
 
