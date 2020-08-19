@@ -66,7 +66,7 @@ const getResponseData = async (req, { response }) => {
     ...response,
     [field.name.token]: getData(field, data[field.code])
   }), {
-    basedata,
+    ...basedata,
     maha_url: response.get('url')
   })
 
@@ -94,7 +94,7 @@ const getRegistrationData = async (req, { registration }) => {
     ...registration,
     [field.name.token]: getData(field, data[field.code])
   }), {
-    basedata,
+    ...basedata,
     maha_url: registration.get('url')
   })
 

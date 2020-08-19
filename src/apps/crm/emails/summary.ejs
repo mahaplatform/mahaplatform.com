@@ -69,6 +69,6 @@
   </div>
   <div class="payment-summary-tax-deductible">
     <strong>Charitable Contribution</strong><br/>
-    Eligible amount of contribution for tax purposes: { numeral(invoice.tax_deductible).format('0.00') }
+    Eligible amount of contribution for tax purposes: <%- numeral(invoice.tax_deductible).format('0.00') %>
   </div>
 <% } %>

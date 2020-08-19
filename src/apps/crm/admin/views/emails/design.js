@@ -56,7 +56,7 @@ class Designer extends React.Component {
       {
         title: 'Response Tokens',
         tokens: [
-          form.config.fields.filter(field => {
+          ...form.config.fields.filter(field => {
             return !_.includes(['text'], field.type)
           }).map(field => ({
             name: field.name.value,
