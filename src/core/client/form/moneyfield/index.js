@@ -15,10 +15,11 @@ class MoneyField extends React.Component {
     min: PropTypes.number,
     max: PropTypes.number,
     required: PropTypes.bool,
+    status: PropTypes.string,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValid: PropTypes.func
+    onValidate: PropTypes.func
   }
 
   static defaultProps = {
@@ -69,9 +70,13 @@ class MoneyField extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
     }
   }
 
@@ -132,12 +137,12 @@ class MoneyField extends React.Component {
   }
 
   _handleValidate() {
-    const { min, max, required, onValid } = this.props
+    const { min, max, required, onValidate } = this.props
     const { value } = this.state
-    if(required === true && value === '') return onValid(value, ['This field is required'])
-    if(min !== undefined && Number(value) < min) return onValid(value, [`This field must be greater than or equal to  ${min}`])
-    if(max !== undefined && Number(value) > max) return onValid(value, [`This field must be less than or equal to ${max}`])
-    onValid(value)
+    if(required === true && value === '') return onValidate(value, ['This field is required'])
+    if(min !== undefined && Number(value) < min) return onValidate(value, [`This field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValidate(value, [`This field must be less than or equal to ${max}`])
+    onValidate(value)
   }
 
 }

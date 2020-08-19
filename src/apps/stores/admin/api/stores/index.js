@@ -18,12 +18,12 @@ router.get('/:id', show)
 
 router.get('/:id/edit', edit)
 
+router.patch('/:id/inventory', inventory)
+
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
 router.use('/:store_id/products', products)
-
-router.patch('/:store_id/inventory', inventory)
 
 export default router

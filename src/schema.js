@@ -646,6 +646,7 @@ const schema = {
       table.integer('email_id').unsigned()
       table.timestamp('completed_at')
       table.boolean('was_opted_out')
+      table.integer('order_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_recordings', (table) => {
@@ -2801,6 +2802,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('order_id').references('stores_orders.id')
     })
 
     await knex.schema.table('crm_workflow_recordings', table => {
