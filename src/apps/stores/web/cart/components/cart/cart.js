@@ -24,6 +24,7 @@ class Cart extends React.Component {
     total: PropTypes.number,
     variants: PropTypes.array,
     onFetch: PropTypes.func,
+    onRemoveCart: PropTypes.func,
     onSave: PropTypes.func
   }
 
@@ -33,6 +34,7 @@ class Cart extends React.Component {
   _handleCheckout = this._handleCheckout.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleClose = this._handleClose.bind(this)
+  _handleDiscard = this._handleDiscard.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -158,6 +160,7 @@ class Cart extends React.Component {
     })
     this.pasteur.on('add', this._handleAdd)
     this.pasteur.on('clear', this._handleClear)
+    this.pasteur.on('discard', this._handleDiscard)
     this.pasteur.on('remove', this._handleRemove)
     this.pasteur.on('update', this._handleUpdate)
     this.pasteur.send('ready')
@@ -239,6 +242,10 @@ class Cart extends React.Component {
     this.props.onSave(Store.code, code, {
       items: []
     })
+  }
+
+  _handleDiscard() {
+    this.props.onRemoveCart()
   }
 
   _handleClose() {

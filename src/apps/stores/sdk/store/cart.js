@@ -33,6 +33,10 @@ class Cart extends Emitter {
     this.pasteur.send('clear', this._handleChange, this._handleError)
   }
 
+  discard() {
+    this.pasteur.send('discard')
+  }
+
   getCount() {
     return this.items.reduce((count, item) => {
       return count + item.quantity

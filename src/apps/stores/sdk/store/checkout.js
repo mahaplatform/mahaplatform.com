@@ -7,6 +7,7 @@ class Checkout extends Emitter {
   code = null
 
   _handleClose = this._handleClose.bind(this)
+  _handleComplete = this._handleComplete.bind(this)
 
   constructor(config) {
     super()
@@ -46,6 +47,7 @@ class Checkout extends Emitter {
       name: 'store',
       targetName: 'cart'
     })
+    this.pasteur.on('complete', this._handleComplete)
     this.pasteur.on('close', this._handleClose)
   }
 
@@ -54,7 +56,10 @@ class Checkout extends Emitter {
     setTimeout(() => {
       this.iframe.src = 'about:blank'
     }, 250)
+  }
 
+  _handleComplete() {
+    this.emit('complete')
   }
 
 }

@@ -17,14 +17,6 @@ class Complete extends React.Component {
         <div className="maha-checkout-panel-message">
           <Message {...this._getMessage()} />
         </div>
-        { this.props.onDone &&
-          <div className="maha-checkout-panel-footer">
-            <div className="maha-checkout-panel-footer-item" />
-            <div className="maha-checkout-panel-footer-item">
-              <Button { ...this._getDone() } />
-            </div>
-          </div>
-        }
       </div>
     )
   }
@@ -43,7 +35,10 @@ class Complete extends React.Component {
       text: 'Thank you for your purchase',
       icon: 'check',
       color: 'green',
-      animation: 'tada'
+      animation: 'tada',
+      buttons: [
+        { label: 'Done', handler: this. _handleDone }
+      ]
     }
   }
 

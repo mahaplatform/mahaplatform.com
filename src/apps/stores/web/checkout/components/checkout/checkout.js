@@ -84,6 +84,12 @@ class Checkout extends React.Component {
     this._handlePush(ContactStep, this._getContactStep.bind(this))
   }
 
+  _getCompleteStep() {
+    return {
+      onDone: this._handleClose
+    }
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -199,10 +205,11 @@ class Checkout extends React.Component {
 
   _handleComplete() {
     const { step } = this.state
+    this.pasteur.send('complete')
     this.setState({
       step: step + 1
     })
-    this._handlePush(Complete, {})
+    this._handlePush(Complete, this._getCompleteStep.bind(this))
   }
 
 }

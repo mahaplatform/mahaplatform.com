@@ -16,3 +16,11 @@ export const save = (name, code, data) => ({
   success: 'SAVE_SUCCESS',
   failure: 'SAVE_FAILURE'
 })
+
+export const removeCart = () => ({
+  type: 'LOCAL_REMOVE',
+  key: 'cart',
+  request: 'REMOVE_CART_REQUEST',
+  success: 'REMOVE_CART_SUCCESS',
+  failure: 'REMOVE_CART_FAILURE'
+})

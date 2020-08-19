@@ -12,14 +12,14 @@ class Message extends React.Component {
   static propTypes = {
     animation: PropTypes.string,
     backgroundColor: PropTypes.string,
+    buttons: PropTypes.array,
+    button: PropTypes.object,
+    component: PropTypes.any,
+    color: PropTypes.string,
     icon: PropTypes.string,
     image: PropTypes.string,
     text: PropTypes.string,
-    title: PropTypes.string,
-    color: PropTypes.string,
-    component: PropTypes.any,
-    buttons: PropTypes.array,
-    button: PropTypes.object
+    title: PropTypes.string
   }
 
   static defaultProps = {

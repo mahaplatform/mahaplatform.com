@@ -13,6 +13,9 @@ class Store extends Emitter {
   config = null
   components = []
 
+  _handleClose = this._handleClose.bind(this)
+  _handleComplete = this._handleComplete.bind(this)
+
   constructor(config) {
     super()
     this.config = config
@@ -23,9 +26,9 @@ class Store extends Emitter {
       code: this.config.code,
       checkout: this.checkout
     })
-    this.checkout.on('begin', () => {
-      this.cart.hide()
-    })
+    this.checkout.on('begin', this._handleClose)
+    this.checkout.on('close', this._handleClose)
+    this.checkout.on('complete', this._handleComplete)
     this._handleInit()
   }
 
@@ -48,6 +51,14 @@ class Store extends Emitter {
     if(type === 'checkoutButton') return CheckoutButton
     if(type === 'cartButton') return CartButton
     if(type === 'addButton') return AddButton
+  }
+
+  _handleClose() {
+    this.cart.hide()
+  }
+
+  _handleComplete() {
+    this.cart.discard()
   }
 
   _handleInit() {
