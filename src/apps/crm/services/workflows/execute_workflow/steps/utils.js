@@ -40,7 +40,8 @@ const getPaymentData = async (req, { invoice_id }) => {
 }
 
 const getData = (field, value) => {
-  if(field.type === 'addressfield') return value.description
+  const type = field.type === 'contactfield' ? field.contactfield.type : field.type
+  if(type === 'addressfield') return value.description
   return value
 }
 

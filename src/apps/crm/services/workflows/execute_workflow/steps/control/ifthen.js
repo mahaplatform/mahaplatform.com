@@ -27,11 +27,15 @@ const testNotEquals = (left, right) => {
 }
 
 const testKnown = (left, right) => {
-  return left !== null && left.length > 0
+  if(left === null) return false
+  if(_.isString(left) && left.length === 0) return false
+  return true
 }
 
 const testNotKnown = (left, right) => {
-  return left === null || left.length === 0
+  if(left !== null) return false
+  if(_.isString(left) && left.length > 0) return false
+  return true
 }
 
 const testLike = (left, right) => {
@@ -143,7 +147,6 @@ const getEvaluator = (comparison) => {
   if(comparison === '$nop') return testNotOpened
   if(comparison === '$ck') return testClicked
   if(comparison === '$nck') return testNotClicked
-
 }
 
 const evaluateAnd = async (filter, data) => {
