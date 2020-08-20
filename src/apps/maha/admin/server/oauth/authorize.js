@@ -1,6 +1,7 @@
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import constantcontact from './constantcontact/authorize'
 import microsoft from './microsoft/authorize'
+import qualtrics from './qualtrics/authorize'
 import mailchimp from './mailchimp/authorize'
 import instagram from './instagram/authorize'
 import facebook from './facebook/authorize'
@@ -15,6 +16,7 @@ const getUrlCreator = (service) => {
   if(_.includes(['outlook','onedrive'], service)) return microsoft
   if(service === 'facebook') return facebook
   if(service === 'constantcontact') return constantcontact
+  if(service === 'qualtrics') return qualtrics
   if(service === 'instagram') return instagram
   if(service === 'mailchimp') return mailchimp
   if(service === 'dropbox') return dropbox
@@ -29,7 +31,7 @@ const getScope = (service, type) => {
   if(service === 'googledrive') return ['userinfo.profile','userinfo.email','drive.readonly','drive.photos.readonly']
   if(service === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
   if(service === 'googlecontacts') return ['userinfo.profile','userinfo.email','contacts.readonly']
-  if(service === 'gmail') return ['userinfo.profile','userinfo.email','gmail.readonly']
+  if(service === 'qualtrics') return ['TODO']
   if(service === 'outlook' && type === 'contacts') return ['user.read','contacts.read']
   if(service === 'outlook' && type === 'emails') return []
   if(service === 'onedrive') return ['user.read','files.read.all']
