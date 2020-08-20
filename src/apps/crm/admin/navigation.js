@@ -11,6 +11,7 @@ const navigation = async (req, trx) => ({
     { label: 'Forms', route: '/forms', rights: ['crm:manage_forms'] },
     { label: 'Organizations', route: '/organizations' },
     { label: 'Programs', route: '/programs' },
+    { label: 'Surveys', route: '/surveys' },
     { label: 'Workflows', rights: ['crm:manage_workflows'], route: '/workflows' }
   ]
 })
