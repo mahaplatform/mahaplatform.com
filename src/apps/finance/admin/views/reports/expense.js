@@ -75,7 +75,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
-    defaultSort: { key: 'created_at', order: 'desc' },
+    defaultSort: { key: 'date', order: 'desc' },
     selectable: true,
     selectValue: 'code',
     buttons: (selected, onSuccess) => [
