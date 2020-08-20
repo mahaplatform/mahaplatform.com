@@ -59,7 +59,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
-    defaultSort: { key: 'created_at', order: 'desc' },
+    defaultSort: { key: 'date', order: 'desc' },
     empty: {
       icon: 'dollar',
       title: 'No Items',
