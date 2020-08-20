@@ -48,7 +48,6 @@ new Maha.Events.Button({
         }
       }
     })
-    items.push({ label: 'View Public Registration', link: event.url })
     items.push({
       label: 'Delete Event',
       confirm: `

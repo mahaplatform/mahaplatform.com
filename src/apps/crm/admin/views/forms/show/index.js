@@ -41,7 +41,6 @@ new Maha.Crm.Form({
         }
       }
     })
-    items.push({ label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` })
     items.push({
       label: 'Delete Form',
       confirm: `

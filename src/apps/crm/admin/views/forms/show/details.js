@@ -4,17 +4,16 @@ import React from 'react'
 
 const Details = ({ audits, form }) => {
 
-  const url = {
-    label: form.url,
-    className: 'link',
-    link: form.url
-  }
-
-
   const design = {
     label: 'Design Form',
     className: 'link',
     route: `/admin/crm/forms/${form.id}/design`
+  }
+
+  const link = {
+    label: 'View Public Form',
+    className: 'link',
+    link: form.url
   }
 
   const workflow = {
@@ -34,6 +33,7 @@ const Details = ({ audits, form }) => {
     { label: 'Program', content: form.program.title },
     { label: 'Code', content: form.code },
     { label: 'Content', content: <Button { ...design } /> },
+    { label: 'URL', content: <Button { ...link } /> },
     { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]

@@ -6,8 +6,14 @@ import React from 'react'
 
 const Details = ({ audits, event }) => {
 
+  const link = {
+    label: 'View Public Registration',
+    className: 'link',
+    link: event.url
+  }
+
   const workflow = {
-    label: ' Manage Workflow',
+    label: 'Manage Workflow',
     className: 'link',
     route: `/admin/crm/workflows/${event.workflow.id}`
   }
@@ -20,6 +26,7 @@ const Details = ({ audits, event }) => {
           { label: 'Description', content: event.description },
           { label: 'Code', content: event.code },
           { label: 'Program', content: event.program.title },
+          { label: 'URL', content: <Button { ...link } /> },
           { label: 'Workflow', content: <Button { ...workflow } /> }
         ]
       }, {
