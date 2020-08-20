@@ -75,8 +75,8 @@ class HtmlField extends React.Component {
   }
 
   _handleChange() {
-    const value = this._getSanitized()
-    if(value === '<p><br></p>') return
+    const sanitized = this._getSanitized()
+    const value = sanitized === '<p><br></p>' ? '' : sanitized
     this.props.onChange(value)
   }
 

@@ -10,6 +10,7 @@ class NumberField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.any,
+    disabled: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
     maxLength: PropTypes.number,
@@ -47,7 +48,7 @@ class NumberField extends React.Component {
     const { value } = this.state
     return (
       <div className="maha-numberfield">
-        <div className="maha-input">
+        <div className={ this._getClass() }>
           <div className="maha-input-field">
             <input { ...this._getInput() } />
           </div>
@@ -80,14 +81,22 @@ class NumberField extends React.Component {
     }
   }
 
+  _getClass() {
+    const { disabled } = this.props
+    const classes = ['maha-input']
+    if(disabled) classes.push('disabled')
+    return classes.join(' ')
+  }
+
   _getInput() {
-    const { placeholder, tabIndex } = this.props
+    const { disabled, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
-      tabIndex,
+      disabled,
       className: 'ui input',
       type: 'textfield',
       placeholder: !focused ? placeholder : null,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
