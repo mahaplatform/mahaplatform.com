@@ -1,6 +1,8 @@
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
+import Discount from './discount'
 import Product from './product'
+import Order from './order'
 
 const Store = new Model({
 
@@ -27,6 +29,14 @@ const Store = new Model({
       return `${process.env.WEB_HOST}${path}`
     }
 
+  },
+
+  discounts() {
+    return this.hasMany(Discount, 'discount_id')
+  },
+
+  orders() {
+    return this.hasMany(Order, 'store_id')
   },
 
   products() {

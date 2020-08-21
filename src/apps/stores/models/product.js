@@ -10,8 +10,8 @@ const Product = new Model({
 
   virtuals: {},
 
-  stores() {
-    return this.belongsTo(Store, 'store_id')
+  base_variant() {
+    return this.hasOne(Variant, 'base_variant_id')
   },
 
   variants() {
@@ -21,8 +21,8 @@ const Product = new Model({
     })
   },
 
-  base_variant() {
-    return this.hasOne(Variant, 'base_variant_id')
+  store() {
+    return this.belongsTo(Store, 'store_id')
   }
 
 })

@@ -1,3 +1,4 @@
+import CartSerializer from '../../../../serializers/cart_serializer'
 import Store from '../../../../models/store'
 import Cart from '../../../../models/cart'
 
@@ -12,7 +13,7 @@ const getCart = async (req, { store, code }) => {
 
   if(cart) return cart
 
-  return await await Cart.forge({
+  return await Cart.forge({
     team_id: store.get('team_id'),
     store_id: store.get('id'),
     code,
@@ -42,14 +43,22 @@ const updateRoute = async (req, res) => {
     store,
     code: req.params.code
   })
-  
+
+  const { discount_id, items } = req.body.data
+
   await cart.save({
-    data: req.body.data
+    ...items ? { data: { items } } : {},
+    ...discount_id ? { discount_id } : {}
   }, {
+    transacting: req.trx,
+    patch: true
+  })
+
+  await cart.load(['discount','items.variant.product'], {
     transacting: req.trx
   })
 
-  res.status(200).respond(cart, (req, cart) => cart.get('data'))
+  res.status(200).respond(cart, CartSerializer)
 
 }
 

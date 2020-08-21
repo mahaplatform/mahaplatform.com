@@ -2229,6 +2229,31 @@ const schema = {
       table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('discount_id').unsigned()
+    })
+
+    await knex.schema.createTable('stores_discounts', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('store_id').unsigned()
+      table.string('code', 255)
+      table.USER-DEFINED('type')
+      table.decimal('amount', 6, 2)
+      table.decimal('percent', 3, 2)
+      table.USER-DEFINED('applies_to')
+      table.boolean('applies_once')
+      table.USER-DEFINED('minimum_requirements')
+      table.decimal('minimum_amount', 6, 2)
+      table.integer('minimum_quantity')
+      table.timestamp('starts_at')
+      table.timestamp('ends_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('stores_discounts_variants', (table) => {
+      table.integer('discount_id').unsigned()
+      table.integer('variant_id').unsigned()
     })
 
     await knex.schema.createTable('stores_items', (table) => {
@@ -2278,6 +2303,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('shipping')
+      table.integer('discount_id').unsigned()
     })
 
     await knex.schema.createTable('stores_products', (table) => {
@@ -2308,6 +2334,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('contact_config')
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('stores_variants', (table) => {
@@ -2795,6 +2822,7 @@ const schema = {
       table.foreign('call_id').references('maha_calls.id')
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('email_id').references('maha_emails.id')
+      table.foreign('order_id').references('stores_orders.id')
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('registration_id').references('events_registrations.id')
       table.foreign('response_id').references('crm_responses.id')
@@ -2802,7 +2830,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('order_id').references('stores_orders.id')
     })
 
     await knex.schema.table('crm_workflow_recordings', table => {
@@ -3491,9 +3518,37 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('stores_carts', table => {
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('discount_id').references('stores_discounts.id')
+    })
+
+    await knex.schema.table('stores_items', table => {
+      table.foreign('order_id').references('stores_orders.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('variant_id').references('stores_variants.id')
+    })
+
+    await knex.schema.table('stores_media', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('variant_id').references('stores_variants.id')
+    })
+
     await knex.schema.table('stores_options', table => {
       table.foreign('product_id').references('stores_products.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_orders', table => {
+      table.foreign('cart_id').references('stores_carts.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('discount_id').references('stores_discounts.id')
     })
 
     await knex.schema.table('stores_products', table => {
@@ -3510,11 +3565,11 @@ const schema = {
 
     await knex.schema.table('stores_variants', table => {
       table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('file_id').references('maha_assets.id')
       table.foreign('product_id').references('stores_products.id')
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('file_id').references('maha_assets.id')
     })
 
     await knex.schema.table('training_administrations', table => {
@@ -3597,29 +3652,13 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('stores_media', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('variant_id').references('stores_variants.id')
-      table.foreign('asset_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('stores_carts', table => {
+    await knex.schema.table('stores_discounts', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('store_id').references('stores_stores.id')
     })
 
-    await knex.schema.table('stores_orders', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('store_id').references('stores_stores.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('cart_id').references('stores_carts.id')
-      table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('payment_id').references('finance_payments.id')
-    })
-
-    await knex.schema.table('stores_items', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('order_id').references('stores_orders.id')
+    await knex.schema.table('stores_discounts_variants', table => {
+      table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('variant_id').references('stores_variants.id')
     })
 
@@ -5845,6 +5884,21 @@ union
       from (news_members
       join maha_users on ((maha_users.id = news_members.user_id)))) members
       order by members.news_group_id, members.user_id;
+    `)
+
+    await knex.raw(`
+      create view stores_cart_items AS
+      with items as (
+      select stores_carts.id as cart_id,
+      jsonb_array_elements((stores_carts.data -> 'items'::text)) as data
+      from stores_carts
+      )
+      select items.cart_id,
+      stores_variants.id as variant_id,
+      ((items.data ->> 'price'::text))::numeric(6,2) as price,
+      ((items.data ->> 'quantity'::text))::integer as quantity
+      from (items
+      join stores_variants on (((stores_variants.code)::text = (items.data ->> 'code'::text))));
     `)
 
     await knex.raw(`

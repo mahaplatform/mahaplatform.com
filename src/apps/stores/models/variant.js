@@ -3,6 +3,7 @@ import Project from '../../finance/models/project'
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Reservation from './reservation'
+import Discount from './discount'
 import Product from './product'
 import Media from './media'
 import Item from './item'
@@ -20,6 +21,10 @@ const Variant = new Model({
       return Number(this.get('inventory_quantity')) - Number(this.get('inventory_reserved'))
     }
 
+  },
+
+  discounts() {
+    return this.belongsToMany(Discount, 'stores_discounts_variants','variant_id','discount_id')
   },
 
   donation_revenue_type() {
