@@ -23,7 +23,7 @@ const updateEmailConsent = async (req, { contact, consent, email_addresses, prog
   await Promise.map(email_addresses, async (address) => {
     const email_address = await EmailAddress.query(qb => {
       qb.where('contact_id', contact.get('id'))
-      qb.where('address', address.address)
+      qb.where('address', address.address.toLowerCase())
     }).fetch({
       transacting: req.trx
     })

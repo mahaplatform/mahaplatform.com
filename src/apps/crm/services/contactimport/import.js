@@ -126,7 +126,7 @@ const importContactImport = async (req, { import_id,profile_id, list_id }) => {
   await Promise.mapSeries(contacts, async (values, index) => {
 
     const email = values.email_1 ? await EmailAddress.query(qb => {
-      if(values.email_1) qb.where('address', values.email_1)
+      if(values.email_1) qb.where('address', values.email_1.toLowerCase())
     }).fetch({
       transacting: req.trx
     }) : null
