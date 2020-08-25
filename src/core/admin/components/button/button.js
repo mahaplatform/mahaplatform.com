@@ -8,6 +8,7 @@ class Button extends React.Component {
     confirm: PropTypes.object,
     drawer: PropTypes.object,
     flash: PropTypes.object,
+    host: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
   }
@@ -52,17 +53,14 @@ class Button extends React.Component {
     onDone: () => {}
   }
 
-  link = null
-
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { icon, link } = this.props
+    const { icon } = this.props
     return (
       <div { ...this._getButton() }>
         { icon && <i className={`fa fa-${icon}`} /> }
         { this._getLabel() }
-        { link && <a target="_blank" ref={ node => this.link = node} /> }
       </div>
     )
 
@@ -125,7 +123,7 @@ class Button extends React.Component {
     const yesHandler = () => {
       if(link) this._handleLink(link)
       if(url) this._handleUrl(url)
-      if(route) this._handleRoute(route)
+      if(route) this._handleRoute(route, e.metaKey)
       if(request) this._handleRequest(request)
       if(modal) this._handleModal(modal)
       if(drawer) this._handleDrawer(drawer, location)
@@ -137,15 +135,15 @@ class Button extends React.Component {
   }
 
   _handleLink(url) {
-    this.link.href = url
-    this.link.click()
+    this.context.host.openWindow(url)
   }
 
   _handleUrl(url) {
     window.location.href = url
   }
 
-  _handleRoute(route) {
+  _handleRoute(route, metaKey) {
+    if(metaKey) return this._handleLink(`${process.env.WEB_HOST}${route}`)
     this.context.router.history.push(route)
   }
 
