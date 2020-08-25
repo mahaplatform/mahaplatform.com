@@ -44,8 +44,15 @@ class Designer extends React.Component {
           }).map(field => ({
             name: field.name.value,
             token: `registration.${field.name.token}`
-          })),
-          { name: 'Payment Summary', token: 'registration.payment_summary' }
+          }))
+        ]
+      }, {
+        title: 'Payment Tokens',
+        tokens: [
+          { name: 'Method', token: 'registration.payment_method' },
+          { name: 'Amount', token: 'registration.payment_amount' },
+          { name: 'Card', token: 'registration.payment_card' },
+          { name: 'Summary', token: 'registration.payment_summary' }
         ]
       }
     ]
@@ -61,8 +68,15 @@ class Designer extends React.Component {
           }).map(field => ({
             name: field.name.value,
             token: `response.${field.name.token}`
-          })),
-          { name: 'Payment Summary', token: 'response.payment_summary' }
+          }))
+        ]
+      }, {
+        title: 'Payment Tokens',
+        tokens: [
+          { name: 'Method', token: 'response.payment_method' },
+          { name: 'Amount', token: 'response.payment_amount' },
+          { name: 'Card', token: 'response.payment_card' },
+          { name: 'Summary', token: 'response.payment_summary' }
         ]
       }
     ]

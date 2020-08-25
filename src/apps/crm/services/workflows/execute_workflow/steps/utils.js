@@ -8,7 +8,9 @@ import fs from 'fs'
 
 const summary  = fs.readFileSync(path.join(__dirname,'..','..','..','..','emails','summary.ejs'), 'utf8')
 
-const getPaymentSummary = async (req, { invoice_id }) => {
+const getPaymentData = async (req, { invoice_id }) => {
+
+  if(!invoice_id) return {}
 
   const invoice = await Invoice.query(qb => {
     qb.select('finance_invoices.*','finance_invoice_details.*')
@@ -19,35 +21,40 @@ const getPaymentSummary = async (req, { invoice_id }) => {
     transacting: req.trx
   })
 
-  return ejs.render(summary, {
+  const payment = invoice.related('payments').find((payment, index) => index === 0)
+
+  const payment_summary = ejs.render(summary, {
     invoice: InvoiceSerializer(req, invoice),
     moment,
     numeral
   })
 
-}
-
-const getPaymentData = async (req, { invoice_id }) => {
-
-  if(!invoice_id) return {}
-
-  const payment_summary = await getPaymentSummary(req, {
-    invoice_id
-  })
-
-  return { payment_summary }
+  return {
+    payment_method: payment.get('method'),
+    payment_amount: payment.get('amount'),
+    payment_card: payment.get('reference'),
+    payment_summary
+  }
 
 }
 
-const getData = (field, value) => {
+const getData = (field, value, payment) => {
   const type = field.type === 'contactfield' ? field.contactfield.type : field.type
   if(type === 'addressfield') return value ? value.description : null
+  if(type === 'paymentfield') return payment ? payment.get('amount') : null
   return value
+}
+
+const getExpanded = (req, { basedata, fields, data, payment }) => {
+  return fields.reduce((expanded, field ) => ({
+    ...expanded,
+    [field.name.token]: getData(field, data[field.code], payment)
+  }), basedata)
 }
 
 const getResponseData = async (req, { response }) => {
 
-  await response.load(['form.program'], {
+  await response.load(['form.program','payment'], {
     transacting: req.trx
   })
 
@@ -63,19 +70,21 @@ const getResponseData = async (req, { response }) => {
     invoice_id: response.get('invoice_id')
   })
 
-  return fields.reduce((response, field) => ({
-    ...response,
-    [field.name.token]: getData(field, data[field.code])
-  }), {
-    ...basedata,
-    maha_url: response.get('url')
+  return getExpanded(req, {
+    basedata:{
+      ...basedata,
+      maha_url: response.get('url')
+    },
+    fields,
+    data,
+    payment: response.related('payment')
   })
 
 }
 
 const getRegistrationData = async (req, { registration }) => {
 
-  await registration.load(['event.program'], {
+  await registration.load(['event.program','payment'], {
     transacting: req.trx
   })
 
@@ -91,12 +100,14 @@ const getRegistrationData = async (req, { registration }) => {
     invoice_id: registration.get('invoice_id')
   })
 
-  return fields.reduce((registration, field) => ({
-    ...registration,
-    [field.name.token]: getData(field, data[field.code])
-  }), {
-    ...basedata,
-    maha_url: registration.get('url')
+  return getExpanded(req, {
+    basedata: {
+      ...basedata,
+      maha_url: registration.get('url')
+    },
+    fields,
+    data,
+    payment: registration.related('payment')
   })
 
 }

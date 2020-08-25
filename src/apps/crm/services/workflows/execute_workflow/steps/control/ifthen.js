@@ -184,26 +184,48 @@ const getBranch = async (branches, data) => {
   }, null) || { code: 'else', name: 'else' }
 }
 
+const getData = (field, value, payment) => {
+  const type = field.type === 'contactfield' ? field.contactfield.type : field.type
+  if(type === 'addressfield') return value ? value.description : null
+  if(type === 'paymentfield') return payment ? payment.get('amount') : null
+  return value
+}
+
+const getExpanded = (req, { fields, data, payment }) => {
+  return fields.reduce((expanded, field ) => ({
+    ...expanded,
+    [field.code]: getData(field, data[field.code], payment)
+  }), {})
+}
+
 const getResponseData = async (req, { enrollment }) => {
 
-  await enrollment.load(['response'], {
+  await enrollment.load(['response.form','response.payment'], {
     transacting: req.trx
   })
 
   return {
-    response: enrollment.related('response').get('data')
+    response: getExpanded(req, {
+      fields: enrollment.related('response').related('form').get('config').fields,
+      data: enrollment.related('response').get('data'),
+      payment: enrollment.related('response').related('payment')
+    })
   }
 
 }
 
 const getRegistrationData = async (req, { enrollment }) => {
 
-  await enrollment.load(['registration'], {
+  await enrollment.load(['registration.event','registration.payment'], {
     transacting: req.trx
   })
 
   return {
-    registration: enrollment.related('registration').get('data')
+    registration: getExpanded(req, {
+      fields: enrollment.related('registration').related('event').get('contact_config').fields,
+      data: enrollment.related('registration').get('data'),
+      payment: enrollment.related('registration').related('payment')
+    })
   }
 
 }

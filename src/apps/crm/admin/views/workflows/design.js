@@ -122,7 +122,7 @@ class Designer extends React.Component {
   _getFormTokens(form) {
     return [
       {
-        title: 'Response',
+        title: 'Response Tokens',
         tokens: [
           ...form.config.fields.filter(field => {
             return field.type !== 'text' && field.name
@@ -132,6 +132,13 @@ class Designer extends React.Component {
           })),
           { name: 'Maha URL', token: 'response.maha_url' }
         ]
+      }, {
+        title: 'Payment Tokens',
+        tokens: [
+          { name: 'Method', token: 'response.payment_method' },
+          { name: 'Amount', token: 'response.payment_amount' },
+          { name: 'Card', token: 'response.payment_card' }
+        ]
       }
     ]
   }
@@ -139,7 +146,7 @@ class Designer extends React.Component {
   _getEventTokens(event) {
     return [
       {
-        title: 'Registration',
+        title: 'Registration Tokens',
         tokens: [
           { name: 'First Name', token: 'registration.first_name' },
           { name: 'Last Name', token: 'registration.last_name' },
@@ -151,6 +158,13 @@ class Designer extends React.Component {
             token: `registration.${field.name.token}`
           })),
           { name: 'Maha URL', token: 'registration.maha_url' }
+        ]
+      }, {
+        title: 'Payment Tokens',
+        tokens: [
+          { name: 'Method', token: 'registration.payment_method' },
+          { name: 'Amount', token: 'registration.payment_amount' },
+          { name: 'Card', token: 'registration.payment_card' }
         ]
       }
     ]
