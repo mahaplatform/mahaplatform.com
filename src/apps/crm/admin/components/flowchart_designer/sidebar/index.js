@@ -1,7 +1,7 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Tokens from '../../tokens'
 import Content from './content'
-import Tokens from './tokens'
 import React from 'react'
 import New from './new'
 import _ from 'lodash'
