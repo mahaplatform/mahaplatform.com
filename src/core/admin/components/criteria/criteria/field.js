@@ -4,6 +4,7 @@ import DateRange from './daterange'
 import PropTypes from 'prop-types'
 import Activity from './activity'
 import Checkbox from './checkbox'
+import Numeric from './numeric'
 import Boolean from './boolean'
 import Select from './select'
 import React from 'react'
@@ -46,7 +47,9 @@ class Field extends React.PureComponent {
   }
 
   _getComponent(type) {
+    console.log('type', type)
     if(!_.isString(type)) return type
+    if(_.includes(['paymentfield','moneyfield','numberfield'], type)) return Numeric
     if(type === 'activity') return Activity
     if(type === 'boolean') return Boolean
     if(type === 'checkbox') return Checkbox
@@ -56,6 +59,7 @@ class Field extends React.PureComponent {
     if(type === 'file') return File
     if(type === 'select') return Select
     if(type === 'date') return Date
+    if(type === 'time') return Time
     if(type === 'time') return Time
     return Text
   }
