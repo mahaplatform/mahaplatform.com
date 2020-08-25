@@ -34,7 +34,7 @@ class Designer extends React.Component {
   _getEventTokens(event) {
     return [
       {
-        title: 'Regstration Tokens',
+        title: 'Registration Tokens',
         tokens: [
           { name: 'First Name', token: 'registration.first_name' },
           { name: 'Last Name', token: 'registration.last_name' },

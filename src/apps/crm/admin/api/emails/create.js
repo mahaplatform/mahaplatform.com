@@ -41,6 +41,8 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     program_id: program.get('id'),
     workflow_id: req.body.workflow_id,
+    form_id: req.body.form_id,
+    event_id: req.body.event_id,
     sms_campaign_id: req.body.sms_campaign_id,
     voice_campaign_id: req.body.voice_campaign_id,
     title: req.body.title,

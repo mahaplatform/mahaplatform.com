@@ -82,7 +82,7 @@ class Email extends React.PureComponent {
   }
 
   _getEmailForm() {
-    const { campaign, program, user, workflow } = this.props
+    const { program, user } = this.props
     return {
       title: 'New Email',
       method: 'post',
@@ -91,21 +91,44 @@ class Email extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program.id },
-            ... workflow ? [
-              { name: 'workflow_id', type: 'hidden', defaultValue: workflow.id }
-            ] : [
-              { name: `${campaign.type}_campaign_id`, type: 'hidden', defaultValue: campaign.id }
-            ],
+            ...this._getHiddenFields(),
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program.id}/templates`, value: 'id', text: 'title' },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true }
-
           ]
         }
       ]
     }
+  }
+
+  _getWorkflowFields() {
+    const { workflow } = this.props
+    const { event, form } = workflow
+    if(form) {
+      return [
+        { name: 'form_id', type: 'hidden', defaultValue: form.id }
+      ]
+    } else if(event) {
+      return [
+        { name: 'event_id', type: 'hidden', defaultValue: event.id }
+      ]
+    }
+    return []
+  }
+
+  _getHiddenFields() {
+    const { campaign, workflow } = this.props
+    if(workflow) {
+      return [
+        { name: 'workflow_id', type: 'hidden', defaultValue: workflow.id },
+        ...this._getWorkflowFields()
+      ]
+    }
+    return [
+      { name: `${campaign.type}_campaign_id`, type: 'hidden', defaultValue: campaign.id }
+    ]
   }
 
   _handleCancel() {

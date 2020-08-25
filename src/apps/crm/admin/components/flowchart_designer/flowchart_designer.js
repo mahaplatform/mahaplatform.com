@@ -101,6 +101,7 @@ class FlowchartDesigner extends React.PureComponent {
 
   _getFields() {
     const { fields, program, workflow } = this.props
+    console.log({ fields, program, workflow })
     return [
       { label: 'Contact', fields: [
         { name: 'First Name', key: 'contact.first_name', type: 'textfield' },
@@ -146,7 +147,7 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'was included in import' },
           { value: '$nct', text: 'was not included in import' }
         ] },
-        { name: 'Workflow Emails', key: 'contact.workflow_emails', type: 'select', endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        { name: 'Workflow Emails', key: 'contact.workflow_emails', type: 'select', endpoint: this._getWorkflowEmailsEndpoint(), text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
           { text: 'was sent the email', value: '$se' },
           { text: 'was not sent the email', value: '$nse' },
           { text: 'received the email', value: '$de' },
@@ -236,6 +237,12 @@ class FlowchartDesigner extends React.PureComponent {
       ] },
       ...tokens ? tokens : []
     ]
+  }
+
+  _getWorkflowEmailsEndpoint() {
+    const { campaign, workflow } = this.props
+    if(campaign) return `/api/admin/crm/campaigns/${campaign.type}/${campaign.id}/emails`
+    if(workflow) return `/api/admin/crm/workflows/${workflow.id}/emails`
   }
 
   _handleNew(parent, answer, delta) {
