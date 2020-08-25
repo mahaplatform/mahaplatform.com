@@ -18,7 +18,9 @@ class Programs extends React.PureComponent {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <List { ...this._getList() } />
+        <div className="crm-programform">
+          <List { ...this._getList() } />
+        </div>
       </ModalPanel>
     )
   }
