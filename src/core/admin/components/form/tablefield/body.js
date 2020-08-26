@@ -6,6 +6,7 @@ class Body extends React.Component {
 
   static propTypes = {
     columns: PropTypes.array,
+    reorderable: PropTypes.bool,
     rows: PropTypes.array,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
@@ -13,7 +14,7 @@ class Body extends React.Component {
   }
 
   render() {
-    const { rows} = this.props
+    const { rows } = this.props
     return (
       <div className="maha-tablefield-body">
         { rows.map((row, index) => (
@@ -24,11 +25,12 @@ class Body extends React.Component {
   }
 
   _getRow(row, index) {
-    const { columns, onRemove, onReorder, onUpdate } = this.props
+    const { columns, reorderable, onRemove, onReorder, onUpdate } = this.props
     return {
-      row,
       columns,
       index,
+      reorderable,
+      row,
       onRemove,
       onReorder,
       onUpdate

@@ -67,8 +67,10 @@ class Listen extends React.PureComponent {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
-            { label: 'Message', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
-            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
+            { label: 'Question', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
+            { label: 'Answers', name: 'answers', headers: false, placeholder: 'Enter Answer', instructions: 'Answers are not case sensitive', type: 'tablefield', reorderable: false, columns: [
+              { label: 'Answer', key: 'answer' }
+            ], defaultValue: config.answers }
           ]
         }
       ]

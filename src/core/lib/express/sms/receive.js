@@ -35,8 +35,7 @@ const receiveRoute = async (req, res) => {
     transacting: req.trx
   })
 
-
-  if(_.includes(['start','yes','unstop'], sms.get('body').toLowerCase())) {
+  if(_.includes(['start','unstop'], sms.get('body').toLowerCase())) {
     const blacklist = await SMSBlacklist.query(qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('from_number_id', sms.related('to').get('id'))

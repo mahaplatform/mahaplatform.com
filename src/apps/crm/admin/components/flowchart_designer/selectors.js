@@ -58,7 +58,11 @@ export const fields = createSelector(
         ..._.includes(['set','question'], step.action) ? [{
           name: step.config.name.value,
           key: `workflow.${step.config.code}`,
-          type: 'text'
+          type: 'select',
+          search: false,
+          options: step.config.answers.map(answer => {
+            return answer.answer
+          })
         }] : [],
         ...step.action === 'dial' ? [
           {

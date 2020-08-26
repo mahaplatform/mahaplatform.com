@@ -54,6 +54,8 @@ const getPhoneNumber = async (req, { number }) => {
 
 const receive = async (req, { sms, phone_number }) => {
 
+  console.log('receive', sms.get('body'))
+
   await phone_number.load(['program'], {
     transacting: req.trx
   })

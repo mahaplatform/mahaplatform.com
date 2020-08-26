@@ -11,6 +11,7 @@ class Row extends React.Component {
     connectDragSource: PropTypes.func,
     index: PropTypes.number,
     isDragging: PropTypes.bool,
+    reorderable: PropTypes.bool,
     row: PropTypes.object,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
@@ -20,12 +21,14 @@ class Row extends React.Component {
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, columns, index } = this.props
-    return connectDragSource(connectDropTarget(connectDragPreview(
+    const { connectDropTarget, connectDragPreview, connectDragSource, columns, index, reorderable } = this.props
+    const row = (
       <div className={ this._getClass() }>
-        <div className="maha-tablefield-handle">
-          <i className="fa fa-fw fa-bars" />
-        </div>
+        { reorderable &&
+          <div className="maha-tablefield-handle">
+            <i className="fa fa-fw fa-bars" />
+          </div>
+        }
         { columns.map((column, index) => (
           <div className="maha-tablefield-column" key={`column_${index}`}>
             <input { ...this._getInput(column) } />
@@ -35,7 +38,9 @@ class Row extends React.Component {
           <i className="fa fa-fw fa-remove" />
         </div>
       </div>
-    )))
+    )
+    if(!reorderable) return row
+    return connectDragSource(connectDropTarget(connectDragPreview(row)))
   }
 
   _getInput(column) {

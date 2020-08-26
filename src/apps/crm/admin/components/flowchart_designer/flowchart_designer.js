@@ -100,8 +100,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getFields() {
-    const { fields, program, workflow } = this.props
-    console.log({ fields, program, workflow })
+    const { fields, program } = this.props
     return [
       { label: 'Contact', fields: [
         { name: 'First Name', key: 'contact.first_name', type: 'textfield' },

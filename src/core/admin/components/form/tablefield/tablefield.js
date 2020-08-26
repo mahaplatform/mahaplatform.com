@@ -9,6 +9,9 @@ class TableField extends React.Component {
     columns: PropTypes.array,
     defaultValue: PropTypes.array,
     isValid: PropTypes.bool,
+    headers: PropTypes.bool,
+    placeholder: PropTypes.string,
+    reorderable: PropTypes.bool,
     row: PropTypes.object,
     rows: PropTypes.array,
     values: PropTypes.object,
@@ -23,6 +26,8 @@ class TableField extends React.Component {
   }
 
   static defaultProps = {
+    headers: true,
+    reorderable: true,
     onChange: () => {},
     onReady: () => {}
   }
@@ -33,24 +38,30 @@ class TableField extends React.Component {
   _handleKeyDown = this._handleKeyDown.bind(this)
 
   render() {
-    const { columns } = this.props
+    const { columns, headers, reorderable } = this.props
     return (
       <div className="maha-tablefield">
-        <div className="maha-tablefield-header">
-          <div className="maha-tablefield-row">
-            <div className="maha-tablefield-handle">&nbsp;</div>
-            { columns.map((column, j) => (
-              <div className="maha-tablefield-column" key={`column_${j}`}>
-                { column.label }
-              </div>
-            ))}
-            <div className="maha-tablefield-actions">&nbsp;</div>
+        { headers &&
+          <div className="maha-tablefield-header">
+            <div className="maha-tablefield-row">
+              { reorderable &&
+                <div className="maha-tablefield-handle">&nbsp;</div>
+              }
+              { columns.map((column, j) => (
+                <div className="maha-tablefield-column" key={`column_${j}`}>
+                  { column.label }
+                </div>
+              ))}
+              <div className="maha-tablefield-actions">&nbsp;</div>
+            </div>
           </div>
-        </div>
+        }
         <Body { ...this._getBody() } />
         <div className="maha-tablefield-footer">
           <div className="maha-tablefield-row">
-            <div className="maha-tablefield-handle">&nbsp;</div>
+            { reorderable &&
+              <div className="maha-tablefield-handle">&nbsp;</div>
+            }
             { columns.map((column, j) => (
               <div className="maha-tablefield-column" key={`column_${j}`}>
                 <input { ...this._getInput(column) } />
@@ -84,10 +95,10 @@ class TableField extends React.Component {
   }
 
   _getInput(column) {
-    const { values } = this.props
+    const { placeholder, values } = this.props
     return {
       type: 'text',
-      placeholder: column.label,
+      placeholder: placeholder || column.label,
       ref: (node) => this.columns[column.key] = node,
       onKeyDown: this._handleKeyDown,
       onChange: this._handleChange.bind(this, column.key),
@@ -96,9 +107,10 @@ class TableField extends React.Component {
   }
 
   _getBody() {
-    const { columns, rows, onRemove, onReorder, onUpdate } = this.props
+    const { columns, rows, reorderable, onRemove, onReorder, onUpdate } = this.props
     return {
       columns,
+      reorderable,
       rows,
       onRemove,
       onReorder,
