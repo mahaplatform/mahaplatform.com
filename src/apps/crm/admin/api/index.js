@@ -7,6 +7,7 @@ import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
 import imports from './imports'
+import surveys from './surveys'
 import emails from './emails'
 import fields from './fields'
 import topics from './topics'
@@ -37,6 +38,8 @@ router.use('/organizations', organizations)
 router.use('/programs', programs)
 
 router.use('/recordings', recordings)
+
+router.use('/surveys', surveys)
 
 router.use('/topics', topics)
 

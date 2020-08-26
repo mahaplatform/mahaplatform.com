@@ -1,5 +1,6 @@
 import contacts from './contacts'
 import { Router } from 'express'
+import surveys from './surveys'
 import destroy from './destroy'
 import photos from './photos'
 import files from './files'
@@ -28,5 +29,7 @@ router.use('/:profile_id/lists', lists)
 router.use('/:profile_id/photos', photos)
 
 router.use('/:profile_id/posts', posts)
+
+router.use('/:profile_id/surveys', surveys)
 
 export default router
