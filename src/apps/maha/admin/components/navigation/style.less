@@ -45,7 +45,7 @@
   flex: 0 0 3.5em;
   background-color: @black;
   cursor: pointer;
-  i {
+  .fa {
     margin: auto;
   }
   .maha-logo {
@@ -110,9 +110,9 @@
 }
 .maha-navigation-item-extra {
   display: flex;
-  .chevron {
+  .fa-chevron-right {
     margin: auto;
-    color: #BBB;
+    color: fadeout(@black, 80);
   }
 }
 .maha-navigation-item-details {
@@ -146,9 +146,9 @@
     margin: auto;
     text-align: center;
     padding: 1.4em;
-    i {
+    .fa {
       font-size: 7em;
-      color: #BBB;
+      color: fadeout(@black, 80);
     }
     h3 {
       font-size: 1.6em;

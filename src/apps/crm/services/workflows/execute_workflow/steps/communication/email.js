@@ -21,7 +21,7 @@ const getEmailAddress = async (req, { contact, data }) => {
   const email_addresses = contact.related('email_addresses').toArray()
 
   const email_address = email_addresses.find(email_address => {
-    return email_address.get('address') === email
+    return email_address.get('address') === email.toLowerCase()
   })
 
   return email_address

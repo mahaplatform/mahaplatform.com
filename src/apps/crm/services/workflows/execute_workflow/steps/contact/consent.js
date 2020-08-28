@@ -27,7 +27,7 @@ const getChannel = async(req, { contact, channel_type, value }) => {
       transacting: req.trx
     })
     return contact.related('email_addresses').toArray().find(email_address => {
-      return email_address.get('address') === value
+      return email_address.get('address') === value.toLowerCase()
     })
   }
 
