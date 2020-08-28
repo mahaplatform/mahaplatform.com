@@ -118,7 +118,7 @@ const compile = async (module, config) => {
 
 const buildClients = async (environment) => {
   await compile('admin', adminConfig)
-  await Promise.mapSeries(subapps, async (item) => {
+  await Promise.map(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
@@ -168,11 +168,13 @@ const build = async () => {
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
-  await buildPublic()
-  await buildServer(environment)
+  await Promise.all([
+    buildPublic(),
+    buildServer(environment),
+    buildSdk(),
+    buildEnv(environment)
+  ])
   await buildClients(environment)
-  await buildSdk()
-  await buildEnv(environment)
   rimraf.sync(dist)
   await move(staged, dist)
   log('info', 'build', `Finished in ${getDuration(start)}`)
