@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import members from './members'
 import items from './items'
 import team from './team'
 

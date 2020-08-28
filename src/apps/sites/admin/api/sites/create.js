@@ -1,19 +1,16 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
-import generateCode from '../../../../../core/utils/generate_code'
 import SiteSerializer from '../../../serializers/site_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import Field from '../../../../maha/models/field'
 import Manager from '../../../models/manager'
 import Origin from '../../../models/origin'
-import Email from '../../../models/email'
 import Site from '../../../models/site'
 
 const createRoute = async (req, res) => {
 
   const site = await Site.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['title','requires_member_approval','has_public_member_submission'])
+    ...whitelist(req.body, ['title'])
   }).save(null, {
     transacting: req.trx
   })
@@ -44,51 +41,6 @@ const createRoute = async (req, res) => {
     role: 'administrator'
   }).save(null, {
     transacting: req.trx
-  })
-
-  await Email.forge({
-    team_id: req.team.get('id'),
-    site_id: site.get('id'),
-    code: 'activation',
-    subject: 'Activate Your Account',
-    text: 'activate your account'
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await Email.forge({
-    team_id: req.team.get('id'),
-    site_id: site.get('id'),
-    code: 'reset',
-    subject: 'Reset Your password',
-    text: 'reset your password'
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await Promise.mapSeries([
-    { label: 'First Name', name: 'first_name', type: 'textfield' },
-    { label: 'Last Name', name: 'last_name', type: 'textfield' },
-    { label: 'Email', name: 'email', type: 'emailfield' }
-  ], async(field, delta) => {
-
-    const code = await generateCode(req, {
-      table: 'maha_fields'
-    })
-
-    await Field.forge({
-      team_id: req.team.get('id'),
-      parent_type: 'sites_sites',
-      parent_id: site.get('id'),
-      code,
-      delta,
-      ...field,
-      config: {},
-      is_mutable: false
-    }).save(null, {
-      transacting: req.trx
-    })
-
   })
 
   await site.load(['origins'], {
