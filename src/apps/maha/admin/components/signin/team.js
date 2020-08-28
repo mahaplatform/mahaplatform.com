@@ -51,14 +51,13 @@ class Team extends React.Component {
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field team-field">
-              <div className="ui fluid left icon input">
-                <i className="user icon"></i>
+              <div className="ui input">
                 <input className="form-control" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck="false" placeholder="team" type="text" ref={ (node) => this.team = node } onChange={ e => this._onChange(e) } value={ team }/>
               </div>
             </div>
             <div className="field button-field">
               <button className={`ui fluid large ${(status === 'submitting') ? 'loading' : ''} button`}>
-                Continue <i className="right chevron icon" />
+                Continue
               </button>
             </div>
           </form>

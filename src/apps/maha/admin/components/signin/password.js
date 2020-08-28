@@ -50,8 +50,7 @@ class Password extends React.Component {
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field password-field">
-              <div className="ui fluid left icon input">
-                <i className="lock icon"></i>
+              <div className="ui input">
                 <input className="form-control" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck="false" placeholder="Password" type={ show ? 'text' : 'password' } onFocus={ this._handleFocus } ref={ (node) => this.password = node } />
                 <a onClick={ this._handleTogglePassword }>{ show ? 'HIDE' : 'SHOW' }</a>
               </div>

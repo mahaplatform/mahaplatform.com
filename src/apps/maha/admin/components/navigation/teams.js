@@ -33,7 +33,7 @@ class Teams extends React.Component {
             Accounts
           </div>
           <div className="maha-navigation-header-next">
-            <i className="chevron down icon" />
+            <i className="fa fa-chevron-down" />
           </div>
         </div>
         <div className="maha-navigation-body">
@@ -51,7 +51,7 @@ class Teams extends React.Component {
                     { team.title }
                   </div>
                   <div className="maha-navigation-account-active">
-                    { index === active && <i className="green check icon" /> }
+                    { index === active && <i className="fa fa-check" /> }
                   </div>
                 </div>
               )
@@ -60,7 +60,7 @@ class Teams extends React.Component {
           <div className="maha-navigation-account-add" onClick={ this._handleAddTeam }>
             <div className="maha-navigation-account-add-button">
               <div className="maha-navigation-account-add-button-image">
-                <i className="icon plus" />
+                <i className="fa fa-plus" />
               </div>
             </div>
             <div className="maha-navigation-account-add-text">

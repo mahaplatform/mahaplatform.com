@@ -31,7 +31,7 @@ class Avatar extends React.Component {
             <FileField { ...this._getFilefield() } />
             { photo_id ?
               <button className="ui fluid large button" onClick={ this._handleSkip }>
-                Continue <i className="right chevron icon" />
+                Continue
               </button> :
               <p><a onClick={ this._handleSkip }>Skip for now</a></p>
             }

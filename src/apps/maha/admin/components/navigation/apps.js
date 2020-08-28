@@ -44,12 +44,12 @@ class Apps extends React.Component {
                   { team.title }
                 </div>
                 <div className="maha-navigation-header-next">
-                  <i className="chevron up icon" />
+                  <i className="fa fa-chevron-up" />
                 </div>
               </div> :
               <div className="maha-navigation-header" onClick={ this._handleBack }>
                 <div className="maha-navigation-header-back">
-                  <i className="chevron left icon" />
+                  <i className="fa fa-chevron-left" />
                 </div>
                 <div className="maha-navigation-header-title">
                   { label }
@@ -71,7 +71,7 @@ class Apps extends React.Component {
                     { item.label }
                   </div>
                   <div className="maha-navigation-item-extra">
-                    { item.items && item.items.length > 0 && <i className="chevron right icon" /> }
+                    { item.items && item.items.length > 0 && <i className="fa fa-chevron-right" /> }
                   </div>
                 </div>
               )) }

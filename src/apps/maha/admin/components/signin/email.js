@@ -40,13 +40,12 @@ class Email extends React.Component {
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field email-field">
-              <div className="ui fluid left icon input">
-                <i className="user icon"></i>
+              <div className="ui input">
                 <input className="form-control" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck="false" placeholder="Email" type="email" ref={ (node) => this.email = node } />
               </div>
             </div>
             <div className="field button-field">
-              <button className={`ui fluid large ${(status === 'submitting') ? 'loading' : ''} button`}>Continue <i className="right chevron icon" /></button>
+              <button className={`ui fluid large ${(status === 'submitting') ? 'loading' : ''} button`}>Continue</button>
             </div>
           </form>
           <div className="maha-signin-footer">

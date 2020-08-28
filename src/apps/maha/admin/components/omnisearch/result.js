@@ -20,7 +20,7 @@ const Result = (result) => (
     }
     { !result.extra &&
       <div className="maha-omnisearch-result-icon">
-        <i className="search icon" />
+        <i className="fa fa-fw fa-search" />
       </div>
     }
     <div className="maha-omnisearch-result-details">

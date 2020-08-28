@@ -29,7 +29,7 @@ class Complete extends React.Component {
             </p>
             <div className="field button-field">
               <button className="ui fluid large button" onClick={ this._handleClick }>
-                Continue <i className="right chevron icon" />
+                Continue
               </button>
             </div>
           </div>
