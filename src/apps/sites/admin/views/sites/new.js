@@ -32,12 +32,6 @@ class New extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield' },
             { label: 'Origins', name: 'origins', type: 'textarea' }
           ]
-        },{
-          label: 'Members',
-          fields: [
-            { label: 'Require Approval', name: 'requires_member_approval', type: 'checkbox' },
-            { label: 'Allow Public Registration', name: 'has_public_member_submission', type: 'checkbox' }
-          ]
         }
       ]
     }

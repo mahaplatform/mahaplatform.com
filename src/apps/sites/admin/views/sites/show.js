@@ -1,4 +1,4 @@
-import { Fields, List, Page } from 'maha-admin'
+import { List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
@@ -27,15 +27,6 @@ Details.propTypes = {
   title: PropTypes.string
 }
 
-const Profiles = (fields, context) => (
-  <div>
-    <p>
-      Below are the fields you want to track for members of your site
-    </p>
-    <Fields { ...fields } />
-  </div>
-)
-
 const mapResourcesToPage = (props, context, page) => ({
   site: `/api/admin/sites/sites/${page.params.id}`
 })
@@ -44,8 +35,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Site',
   tabs: {
     items: [
-      { label: 'Details', component: <Details { ...resources.site } /> },
-      { label: 'Profiles', component: <Profiles parent_type="sites_sites" parent_id={ page.params.id } /> }
+      { label: 'Details', component: <Details { ...resources.site } /> }
     ]
   },
   tasks: {

@@ -26,9 +26,7 @@ const navigation = async (req) => {
             rights: ['sites:manage_content'],
             items: [
               { label: 'Configuration', route: `/sites/${site.get('id')}` },
-              { label: 'Emails', route: `/sites/${site.get('id')}/emails` },
               { label: 'Managers', route: `/sites/${site.get('id')}/managers` },
-              { label: 'Members', route: `/sites/${site.get('id')}/members` },
               { label: 'Types', route: `/sites/${site.get('id')}/types` }
             ]
           },

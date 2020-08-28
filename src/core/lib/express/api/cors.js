@@ -18,6 +18,10 @@ const originFiles = collectObjects('origins.js')
 
 const corsMiddleware = async (req, res, next) => {
 
+  if(process.env.NODE_ENV !== 'production') return cors({
+    origin: (origin,callback) => callback(null, true)
+  })(req, res, next)
+
   var origin = async (origin, callback) => {
 
     if(!origin) return callback(null, true)
