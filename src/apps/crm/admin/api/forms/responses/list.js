@@ -28,7 +28,11 @@ const listRoute = async (req, res) => {
       first_name: 'crm_contacts.first_name',
       last_name: 'crm_contacts.last_name',
       contact: 'crm_contacts.last_name',
-      revenue: 'crm_response_totals.revenue'
+      revenue: 'crm_response_totals.revenue',
+      ...form.get('config').fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.code]: `crm_responses.data->>'${field.code}'`
+      }), {})
     },
     filter: {
       params: req.query.$filter,

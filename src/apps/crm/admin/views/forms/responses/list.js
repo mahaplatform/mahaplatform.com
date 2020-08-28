@@ -1,6 +1,35 @@
 import ContactToken from '../../../tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
+
+const getConfig = (field) => {
+  if(field.type === 'datefield') {
+    return {
+      type: 'daterange'
+    }
+  }
+  if(field.type === 'checkbox') {
+    return {
+      type: 'checkbox'
+    }
+  }
+  if(field.type === 'filefield') {
+    return {
+      type: 'file'
+    }
+  }
+  if(_.includes(['dropdown','radiogroup'], field.type)) {
+    return {
+      type: 'select',
+      options: field.options,
+      search: false
+    }
+  }
+  return {
+    type: 'text'
+  }
+}
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Responses',
@@ -13,6 +42,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Created At', key: 'created_at', format: 'datetime' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' }
     ],
+    criteria: {
+      fields: [
+        { label: 'Form', fields: resources.form.config.fields.filter(field => {
+          return field.type !== 'text'
+        }).map(field => ({
+          name: field.name.value,
+          key: field.code,
+          ...getConfig(field)
+        })) }
+      ]
+    },
     empty: {
       icon: 'user',
       title: 'No Responses',
