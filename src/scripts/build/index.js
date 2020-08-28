@@ -116,9 +116,12 @@ const compile = async (module, config) => {
   log('info', module, 'Compiled successfully.')
 }
 
-const buildClients = async (environment) => {
+const buildAdmin = async (environment) => {
   await compile('admin', adminConfig)
-  await Promise.map(subapps, async (item) => {
+}
+
+const buildApps = async (environment) => {
+  await Promise.mapSeries(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
@@ -172,9 +175,10 @@ const build = async () => {
     buildPublic(),
     buildServer(environment),
     buildSdk(),
-    buildEnv(environment)
+    buildEnv(environment),
+    buildAdmin(environment)
   ])
-  await buildClients(environment)
+  await buildApps(environment)
   rimraf.sync(dist)
   await move(staged, dist)
   log('info', 'build', `Finished in ${getDuration(start)}`)
