@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -20,29 +21,22 @@ class GooglePay extends React.Component {
   }
 
   state = {
-    error: null,
-    ready: false
+    error: null
   }
 
-  _handleCheck = this._handleCheck.bind(this)
   _handleAuthorize = this._handleAuthorize.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     const { isProcessing } = this.props
-    const { error, ready } = this.state
+    const { error } = this.state
     return (
       <div className="maha-payment-googlepay">
         <div className="googlepay-button">
-          { !ready &&
-            <span>
-              <i className="fa fa-circle-o-notch fa-spin fa-fw" />
-            </span>
-          }
-          { ready && !isProcessing &&
+          { !isProcessing &&
             <button className="gpay-button black short" onClick={ this._handleAuthorize } />
           }
-          { ready && isProcessing &&
+          { isProcessing &&
             <span>
               <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
             </span>
@@ -53,10 +47,6 @@ class GooglePay extends React.Component {
         }
       </div>
     )
-  }
-
-  componentDidMount() {
-    this._handleLoad()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -79,22 +69,6 @@ class GooglePay extends React.Component {
     this.props.onAuthorize(paymentToken, { amount })
   }
 
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined'
-    this.setState({ ready })
-    if(!ready) setTimeout(this._handleCheck, 1000)
-  }
-
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined'
-    if(ready) return this.setState({ ready })
-    const script = document.createElement('script')
-    script.async = true
-    script.src = 'https://pay.google.com/gp/p/js/pay.js'
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleSubmit() {
     const { amount, data, endpoint, payment, token } = this.props
     const body = {
@@ -113,5 +87,13 @@ class GooglePay extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    'https://pay.google.com/gp/p/js/pay.js'
+  ]
+}
+
+GooglePay = Dependencies(dependencies)(GooglePay)
 
 export default GooglePay

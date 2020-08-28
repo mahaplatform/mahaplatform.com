@@ -1,5 +1,5 @@
+import { Container, Dependencies, Loader, ModalPanel } from 'maha-admin'
 import ContactAvatar from '../../tokens/contact_avatar'
-import { Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Timer from '../timer'
 import React from 'react'
@@ -32,26 +32,23 @@ class VoiceClient extends React.Component {
 
   state = {
     error: null,
-    loaded: false,
     ready: false,
     status: 'ready'
   }
 
   _handleCall = this._handleCall.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
   _handleError = this._handleError.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleReady = this._handleReady.bind(this)
 
   render() {
     const { contact, channel, phone_number } = this.props
-    const { error, loaded, ready, status } = this.state
-    const loading = !loaded || !ready
+    const { error, ready, status } = this.state
     return (
       <ModalPanel { ...this._getPanel()}>
-        { loading && <Loader /> }
-        { !loading &&
+        { !ready && <Loader /> }
+        { ready &&
           <div className="crm-call">
             { !channel.has_consented &&
               <div className="crm-channel-alert">
@@ -84,14 +81,11 @@ class VoiceClient extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
+    this._handleInit()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { loaded, ready } = this.state
-    if(loaded !== prevState.loaded && loaded) {
-      this._handleInit()
-    }
+    const { ready } = this.state
     if(ready !== prevState.ready && ready) {
       this._handleCall()
     }
@@ -175,12 +169,6 @@ class VoiceClient extends React.Component {
     this.context.modal.close()
   }
 
-  _handleCheck() {
-    const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
-    this.setState({ loaded })
-    if(!loaded) setTimeout(this._handleCheck, 1000)
-  }
-
   _handleError(error) {
     this.setState({
       error: error.message
@@ -189,16 +177,6 @@ class VoiceClient extends React.Component {
 
   _handleHangup() {
     window.Twilio.Device.disconnectAll()
-  }
-
-  _handleLoad() {
-    const loaded = typeof window !== 'undefined' && typeof window.Twilio !== 'undefined'
-    if(loaded) return this.setState({ loaded })
-    const script = document.createElement('script')
-    script.async = true
-    script.src = '/admin/js/twilio.min.js'
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
   }
 
   _handleInit() {
@@ -228,9 +206,17 @@ class VoiceClient extends React.Component {
 
 }
 
+const dependencies = {
+  scripts: [
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`
+  ]
+}
+
 const mapResources = (props, context) => ({
   channel: `/api/admin/crm/programs/${props.program.id}/channels/voice/${props.phone_number.id}`,
   token: '/api/admin/phone_numbers/token'
 })
+
+VoiceClient = Dependencies(dependencies)(VoiceClient)
 
 export default Container(mapResources)(VoiceClient)

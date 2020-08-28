@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -20,11 +21,9 @@ class CodeField extends React.Component {
   editor = null
 
   state = {
-    value: '',
-    ready: false
+    value: ''
   }
 
-  _handleCheck = this._handleCheck.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -36,14 +35,11 @@ class CodeField extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
+    this._handleInit()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { ready, value } = this.state
-    if(ready !== prevState.ready && ready) {
-      this._handleInit()
-    }
+    const { value } = this.state
     if(value !== prevState.value) {
       this.props.onChange(value)
     }
@@ -53,12 +49,6 @@ class CodeField extends React.Component {
     return {
       ref: node => this.div = node
     }
-  }
-
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
-    this.setState({ ready })
-    if(!ready) setTimeout(this._handleCheck, 1000)
   }
 
   _handleInit() {
@@ -84,16 +74,6 @@ class CodeField extends React.Component {
     this.props.onReady()
   }
 
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.ace !== 'undefined'
-    if(ready) return this.setState({ ready })
-    const script = document.createElement('script')
-    script.async = true
-    script.src = `${process.env.WEB_HOST}/admin/js/ace.min.js`
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleUpdate() {
     this.setState({
       value: this.editor.getSession().getValue()
@@ -101,5 +81,13 @@ class CodeField extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `${process.env.WEB_HOST}/admin/js/ace.min.js`
+  ]
+}
+
+CodeField = Dependencies(dependencies)(CodeField)
 
 export default CodeField

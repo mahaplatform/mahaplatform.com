@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import ReactQuill from 'react-quill'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -85,5 +86,13 @@ class HtmlField extends React.Component {
   }
 
 }
+
+const dependencies = {
+  styles: [
+    `${process.env.WEB_ASSET_CDN_HOST}/admin/css/quill.snow.css`
+  ]
+}
+
+HtmlField = Dependencies(dependencies)(HtmlField)
 
 export default HtmlField

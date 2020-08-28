@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -29,20 +30,14 @@ class Addressfield extends React.Component {
     onReady: () => {}
   }
 
-  state = {
-    ready: false
-  }
-
   autocomplete = null
   geocoder = null
 
   _handleAutocomplete = this._handleAutocomplete.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleGeocode = this._handleGeocode.bind(this)
   _handleInit = this._handleInit.bind(this)
-  _handleLoad = this._handleLoad.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
@@ -84,15 +79,11 @@ class Addressfield extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
+    this._handleInit()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { q, value, onChange, onReady } = this.props
-    const { ready } = this.state
-    if(ready !== prevState.ready) {
-      onReady()
-    }
+    const { q, value, onChange } = this.props
     if(q !== prevProps.q) {
       if(q.length === 0) this.props.onSetOptions([])
       this.autocomplete.getPlacePredictions({
@@ -131,13 +122,6 @@ class Addressfield extends React.Component {
     this.props.onSetOptions(options || [])
   }
 
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
-    if(ready) return this._handleInit()
-    this.setState({ ready })
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleChoose(address) {
     this.geocoder.geocode({
       placeId: address.place_id
@@ -165,20 +149,9 @@ class Addressfield extends React.Component {
   }
 
   _handleInit() {
-    this.setState({ ready: true })
     this.autocomplete = new window.google.maps.places.AutocompleteService()
     this.geocoder = new window.google.maps.Geocoder()
-  }
-
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
-    if(ready) return this._handleInit()
-    const script = document.createElement('script')
-    script.async = true
-    script.defer = true
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
+    this.props.onReady()
   }
 
   _handleType(e) {
@@ -186,5 +159,13 @@ class Addressfield extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
+  ]
+}
+
+Addressfield = Dependencies(dependencies)(Addressfield)
 
 export default Addressfield

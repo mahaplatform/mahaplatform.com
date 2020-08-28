@@ -1,4 +1,4 @@
-import { Container, Dependency } from 'maha-admin'
+import { Container, Dependencies } from 'maha-admin'
 import Phone from '../../components/phone'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -422,13 +422,14 @@ const mapResources = (props, context) => ({
   token: '/api/admin/phone_numbers/token'
 })
 
-const dependency = {
-  name: 'Twilio',
-  src: '/admin/js/twilio.min.js'
+const dependencies = {
+  scripts: [
+    `${process.env.WEB_ASSET_CDN_HOST}/admin/js/twilio.min.js`
+  ]
 }
 
 PhoneRoot = Container(mapResources)(PhoneRoot)
 
-PhoneRoot = Dependency(dependency)(PhoneRoot)
+PhoneRoot = Dependencies(dependencies)(PhoneRoot)
 
 export default PhoneRoot

@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import Lookup from './lookup'
 import Manual from './manual'
@@ -40,17 +41,13 @@ class Addressfield extends React.Component {
   }
 
   state = {
-    mode: 'lookup',
-    ready: false
+    mode: 'lookup'
   }
 
   autocomplete = null
   geocoder = null
 
   _handleChangeMode = this._handleChangeMode.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
-  _handleInit = this._handleInit.bind(this)
-  _handleLoad = this._handleLoad.bind(this)
 
   render() {
     const { mode } = this.state
@@ -67,15 +64,11 @@ class Addressfield extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
+    this._handleInit()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value, onChange, onReady } = this.props
-    const { ready } = this.state
-    if(ready !== prevState.ready) {
-      onReady()
-    }
+    const { value, onChange } = this.props
     if(!_.isEqual(value, prevProps.value)) {
       onChange(value)
     }
@@ -102,29 +95,20 @@ class Addressfield extends React.Component {
     })
   }
 
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
-    if(ready) return this._handleInit()
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleInit() {
     this.autocomplete = new window.google.maps.places.AutocompleteService()
     this.geocoder = new window.google.maps.Geocoder()
-    this.setState({ ready: true })
-  }
-
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
-    if(ready) return this._handleInit()
-    const script = document.createElement('script')
-    script.async = true
-    script.defer = true
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
+    this.props.onReady()
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
+  ]
+}
+
+Addressfield = Dependencies(dependencies)(Addressfield)
 
 export default Addressfield

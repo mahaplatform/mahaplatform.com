@@ -1,4 +1,4 @@
-import { Audit, Button, Comments, Embed, List } from 'maha-admin'
+import { Audit, Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

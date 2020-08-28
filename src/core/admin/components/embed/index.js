@@ -1,6 +1,8 @@
-import { Button, ModalPanel } from 'maha-admin'
+import Dependencies from '../dependencies'
 import Highlight from 'react-highlight'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
+import Button from '../button'
 import React from 'react'
 
 class Embed extends React.PureComponent {
@@ -86,5 +88,13 @@ class Embed extends React.PureComponent {
   }
 
 }
+
+const dependencies = {
+  styles: [
+    `${process.env.WEB_ASSET_CDN_HOST}/admin/css/atom-one-dark.min.css`
+  ]
+}
+
+Embed = Dependencies(dependencies)(Embed)
 
 export default Embed

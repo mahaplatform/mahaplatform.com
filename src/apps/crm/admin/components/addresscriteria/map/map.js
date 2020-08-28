@@ -1,4 +1,4 @@
-import { Button, ModalPanel } from 'maha-admin'
+import { Dependencies, Button, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -28,11 +28,9 @@ class Map extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleCenter = this._handleCenter.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
   _handleComplete = this._handleComplete.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleInit = this._handleInit.bind(this)
-  _handleLoad = this._handleLoad.bind(this)
   _handleReset = this._handleReset.bind(this)
   _handleZoom = this._handleZoom.bind(this)
 
@@ -51,7 +49,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     const { center, polygon, zoom } = this.props
-    this.setState({ center, polygon, zoom }, this._handleLoad)
+    this.setState({ center, polygon, zoom }, this._handleInit)
   }
 
   _getButton() {
@@ -84,12 +82,6 @@ class Map extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
-  }
-
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.drawing !== 'undefined'
-    if(ready) return this._handleInit()
-    setTimeout(this._handleCheck, 1000)
   }
 
   _handleCenter() {
@@ -169,17 +161,6 @@ class Map extends React.Component {
     }
   }
 
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.drawing !== 'undefined'
-    if(ready) return this._handleInit()
-    const script = document.createElement('script')
-    script.async = true
-    script.defer = true
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleReset() {
     if(this.polygon) this.polygon.setMap(null)
   }
@@ -191,5 +172,13 @@ class Map extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`
+  ]
+}
+
+Map = Dependencies(dependencies)(Map)
 
 export default Map

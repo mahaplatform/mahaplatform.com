@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -33,13 +34,13 @@ class Recaptcha extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
+    this._handleCheck()
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { ready } = this.state
     if(prevState.ready !== ready) {
-      this._handleRender()
+      this._handleInit()
     }
   }
 
@@ -49,16 +50,7 @@ class Recaptcha extends React.Component {
     if(!ready) setTimeout(this._handleCheck, 1000)
   }
 
-  _handleLoad() {
-    const script = document.createElement('script')
-    script.async = true
-    script.defer = true
-    script.src = 'https://www.google.com/recaptcha/api.js'
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
-  _handleRender() {
+  _handleInit() {
     const { tabIndex } = this.props
     this.id = window.grecaptcha.render(this.recaptcha, {
       badge: 'bottomright',
@@ -76,5 +68,13 @@ class Recaptcha extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    'https://www.google.com/recaptcha/api.js'
+  ]
+}
+
+Recaptcha = Dependencies(dependencies)(Recaptcha)
 
 export default Recaptcha

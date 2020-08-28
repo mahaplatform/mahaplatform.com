@@ -1,4 +1,4 @@
-import { Button, Loader } from 'maha-admin'
+import { Button, Dependencies, Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,7 +14,6 @@ class Scanner extends React.Component {
 
   state = {
     message: null,
-    ready: false,
     total: 0
   }
 
@@ -23,7 +22,6 @@ class Scanner extends React.Component {
   stream = null
   video = null
 
-  _handleCheck = this._handleCheck.bind(this)
   _handleCheckin = this._handleCheckin.bind(this)
   _handleDrawLine = this._handleDrawLine.bind(this)
   _handleFailure = this._handleFailure.bind(this)
@@ -34,8 +32,7 @@ class Scanner extends React.Component {
   _handleTick = this._handleTick.bind(this)
 
   render() {
-    const { message, ready, total } = this.state
-    if(!ready) return <Loader />
+    const { message, total } = this.state
     return (
       <div className="event-scanner">
         <div className="event-scanner-header">
@@ -61,14 +58,7 @@ class Scanner extends React.Component {
   }
 
   componentDidMount() {
-    this._handleLoad()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { ready } = this.state
-    if(ready !== prevState.ready && ready) {
-      this._handleInitVideo()
-    }
+    this._handleInitVideo()
   }
 
   componentWillUnmount() {
@@ -84,12 +74,6 @@ class Scanner extends React.Component {
       color: 'red',
       handler: this._handleReset
     }
-  }
-
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.jsQR !== 'undefined'
-    this.setState({ ready })
-    if(!ready) setTimeout(this._handleCheck, 1000)
   }
 
   _handleCheckin(code) {
@@ -152,16 +136,6 @@ class Scanner extends React.Component {
     }).then(this._handleInitStream)
   }
 
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.jsQR !== 'undefined'
-    if(ready) return this.setState({ ready })
-    const script = document.createElement('script')
-    script.async = true
-    script.src = '/admin/js/jsqr.min.js'
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleReset() {
     this.setState({
       message: null
@@ -196,5 +170,13 @@ class Scanner extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `${process.env.WEB_ASSET_CDN_HOST}/admin/js/jsqr.min.js`
+  ]
+}
+
+Scanner = Dependencies(dependencies)(Scanner)
 
 export default Scanner

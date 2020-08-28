@@ -47,7 +47,6 @@ class Field extends React.PureComponent {
   }
 
   _getComponent(type) {
-    console.log('type', type)
     if(!_.isString(type)) return type
     if(_.includes(['paymentfield','moneyfield','numberfield'], type)) return Numeric
     if(type === 'activity') return Activity

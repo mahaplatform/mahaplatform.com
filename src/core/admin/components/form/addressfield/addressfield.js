@@ -1,3 +1,4 @@
+import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -41,7 +42,6 @@ class Addressfield extends React.Component {
   state = {
     direction: null,
     focused: false,
-    ready: false,
     selected: null
   }
 
@@ -52,14 +52,12 @@ class Addressfield extends React.Component {
 
   _handleAutocomplete = this._handleAutocomplete.bind(this)
   _handleBlur = this._handleBlur.bind(this)
-  _handleCheck = this._handleCheck.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleFocus = this._handleFocus.bind(this)
   _handleGeocode = this._handleGeocode.bind(this)
   _handleInit = this._handleInit.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
-  _handleLoad = this._handleLoad.bind(this)
   _handleLookup = this._handleLookup.bind(this)
   _handleSetStreet2 = this._handleSetStreet2.bind(this)
   _handleType = this._handleType.bind(this)
@@ -109,15 +107,12 @@ class Addressfield extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) this.props.onSet(defaultValue)
-    this._handleLoad()
+    this._handleInit()
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { q, value, onChange, onReady } = this.props
-    const { ready } = this.state
-    if(ready !== prevState.ready) {
-      onReady()
-    }
+    const { q, value, onChange } = this.props
     if(q !== prevProps.q) {
       if(q.length === 0) this.props.onSetOptions([])
       this._handleLookup()
@@ -157,26 +152,6 @@ class Addressfield extends React.Component {
     }
   }
 
-  _getStreet2() {
-    const { tabIndex, value } = this.props
-    const street_2 = value.street_2 || ''
-    return {
-      type: 'text',
-      placeholder: street_2.length === 0 ? 'Enter Suite, Apartment, or PO Box' : null,
-      tabIndex,
-      value: street_2,
-      onChange: this._handleSetStreet2
-    }
-  }
-
-  _handleLookup() {
-    const { q } = this.props
-    this.setState({ selected: null })
-    this.autocomplete.getPlacePredictions({
-      input: q
-    }, this._handleAutocomplete)
-  }
-
   _getOption(option, index) {
     return {
       className: this._getClass(index),
@@ -188,6 +163,18 @@ class Addressfield extends React.Component {
   _getResultClass() {
     const { direction } = this.state
     return ['maha-addressfield-results', direction].join(' ')
+  }
+
+  _getStreet2() {
+    const { tabIndex, value } = this.props
+    const street_2 = value.street_2 || ''
+    return {
+      type: 'text',
+      placeholder: street_2.length === 0 ? 'Enter Suite, Apartment, or PO Box' : null,
+      tabIndex,
+      value: street_2,
+      onChange: this._handleSetStreet2
+    }
   }
 
   _getType(result, type) {
@@ -216,13 +203,6 @@ class Addressfield extends React.Component {
     this.setState({
       focused: false
     })
-  }
-
-  _handleCheck() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.places !== 'undefined'
-    if(ready) return this._handleInit()
-    this.setState({ ready })
-    setTimeout(this._handleCheck, 1000)
   }
 
   _handleChoose(address) {
@@ -258,9 +238,16 @@ class Addressfield extends React.Component {
   }
 
   _handleInit() {
-    this.setState({ ready: true })
     this.autocomplete = new window.google.maps.places.AutocompleteService()
     this.geocoder = new window.google.maps.Geocoder()
+  }
+
+  _handleLookup() {
+    const { q } = this.props
+    this.setState({ selected: null })
+    this.autocomplete.getPlacePredictions({
+      input: q
+    }, this._handleAutocomplete)
   }
 
   _handleKeyDown(e) {
@@ -287,17 +274,6 @@ class Addressfield extends React.Component {
     }
   }
 
-  _handleLoad() {
-    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined' && typeof window.google.maps.places !== 'undefined'
-    if(ready) return this._handleInit()
-    const script = document.createElement('script')
-    script.async = true
-    script.defer = true
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
-    document.body.appendChild(script)
-    setTimeout(this._handleCheck, 1000)
-  }
-
   _handleSetStreet2(e) {
     this.props.onSetStreet2(e.target.value)
   }
@@ -312,5 +288,13 @@ class Addressfield extends React.Component {
   }
 
 }
+
+const dependencies = {
+  scripts: [
+    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
+  ]
+}
+
+Addressfield = Dependencies(dependencies)(Addressfield)
 
 export default Addressfield
