@@ -177,6 +177,15 @@ table.payment-summary thead tr th {
 table.payment-summary tbody tr td {
   color: #444444;
 }
+table.payment-summary tbody tr td:nth-child(2) {
+  text-align: right;
+}
+table.payment-summary tbody tr td:nth-child(3) {
+  text-align: right;
+}
+table.payment-summary tbody tr td:nth-child(4) {
+  text-align: right;
+}
 table.payment-summary tbody tr.total td[colspan] {
   background-color: #EEEEEE;
   color: #000000;
