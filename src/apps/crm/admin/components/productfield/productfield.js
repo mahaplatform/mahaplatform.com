@@ -1,7 +1,8 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Product from './product'
 import React from 'react'
-import Edit from './edit'
+
 import New from './new'
 import _ from 'lodash'
 
@@ -19,6 +20,7 @@ class Productfield extends React.PureComponent {
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
+    onReorder: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -30,23 +32,14 @@ class Productfield extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleNew = this._handleNew.bind(this)
+  _handleReorder = this._handleReorder.bind(this)
 
   render() {
     const { products } = this.props
     return (
       <div className="crm-productfield">
         { products.map((product, index) => (
-          <div className="crm-productfield-product" key={`product_${index}`}>
-            <div className="crm-productfield-product-label">
-              { product.description }
-            </div>
-            <div className="crm-productfield-product-remove" onClick={ this._handleEdit.bind(this, index) }>
-              <i className="fa fa-pencil" />
-            </div>
-            <div className="crm-productfield-product-remove" onClick={ this._handleRemove.bind(this, index) }>
-              <i className="fa fa-times" />
-            </div>
-          </div>
+          <Product { ...this._getProduct(product, index)  } key={`product_${index}`} />
         )) }
         <div className="crm-productfield-product-add">
           <Button { ...this._getAdd() } />
@@ -76,26 +69,24 @@ class Productfield extends React.PureComponent {
     }
   }
 
-  _getEdit(index) {
-    const { products } = this.props
-    return {
-      product: products[index],
-      onDone: this._handleUpdate.bind(this, index)
-    }
-  }
-
   _getNew() {
     return {
       onDone: this._handleAdd
     }
   }
 
-  _handleAdd(product) {
-    this.props.onAdd(product)
+  _getProduct(product, index) {
+    return {
+      index,
+      product,
+      onRemove: this._handleRemove.bind(this, index),
+      onReorder: this._handleReorder.bind(this),
+      onUpdate: this._handleUpdate.bind(this, index)
+    }
   }
 
-  _handleEdit(index) {
-    this.context.form.push(<Edit { ...this._getEdit(index) } />)
+  _handleAdd(product) {
+    this.props.onAdd(product)
   }
 
   _handleNew() {
@@ -109,6 +100,10 @@ class Productfield extends React.PureComponent {
 
   _handleRemove(index) {
     this.props.onRemove(index)
+  }
+
+  _handleReorder(from, to) {
+    this.props.onReorder(from, to)
   }
 
   _handleUpdate(index, product) {

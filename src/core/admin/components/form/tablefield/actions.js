@@ -19,7 +19,6 @@ export const reorder = (from, to) => ({
   to
 })
 
-
 export const setValue = (key, value) => ({
   type: 'SET_VALUE',
   key,

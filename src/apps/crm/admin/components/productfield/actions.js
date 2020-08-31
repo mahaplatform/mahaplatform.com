@@ -8,6 +8,12 @@ export const remove = (index) => ({
   index
 })
 
+export const reorder = (from, to) => ({
+  type: 'REORDER',
+  from,
+  to
+})
+
 export const set = (products) => ({
   type: 'SET',
   products

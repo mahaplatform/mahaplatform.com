@@ -25,6 +25,22 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'REORDER':
+    return {
+      ...state,
+      products: (action.from < action.to) ? [
+        ...state.products.slice(0, action.from),
+        ...state.products.slice(action.from + 1, action.to + 1),
+        state.products[action.from],
+        ...state.products.slice(action.to + 1)
+      ] : [
+        ...state.products.slice(0, action.to),
+        state.products[action.from],
+        ...state.products.slice(action.to, action.from),
+        ...state.products.slice(action.from + 1)
+      ]
+    }
+
   case 'SET':
     return {
       ...state,
