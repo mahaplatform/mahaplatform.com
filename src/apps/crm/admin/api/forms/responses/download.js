@@ -1,5 +1,6 @@
 import Response from '../../../../models/response'
 import Form from '../../../../models/form'
+import numeral from 'numeral'
 import _ from 'lodash'
 
 const getValue = (field, data) => {
@@ -32,14 +33,17 @@ const getValue = (field, data) => {
   if(type === 'productfield') {
     return {
       ...field.products.reduce((items, product) => {
-        const p = _.find(data.products, { product_id: product.id })
+        const p = _.find(data.line_items, { code: product.code })
         return {
           ...items,
-          [`${field.name.value} (${product.title})`]: p ? p.quantity : 0
+          [`${field.name.value} (${product.description})`]: p ? p.quantity : 0
         }
-      }, {}),
-      [`${field.name.value} (Tax)`]: data.tax,
-      [`${field.name.value} (Total)`]: data.total
+      }, {})
+    }
+  }
+  if(type === 'paymentfield') {
+    return {
+      [field.name.value]: numeral(data.line_items[0].price).format('0.00')
     }
   }
   return {
@@ -80,7 +84,7 @@ const downloadRoute = async (req, res) => {
     }), {}),
     'Payment (Method)': response.related('payment') ? response.related('payment').get('method') : null,
     'Payment (Reference)': response.related('payment') ? response.related('payment').get('reference') : null,
-    'Payment (Amount)': response.related('payment') ? response.related('payment').get('amount') : null
+    'Payment (Amount)': response.related('payment') ? numeral(response.related('payment').get('amount')).format('0.00') : null
   }))
 
 }
