@@ -57,7 +57,7 @@ export const encodeEmail = async(req, { code, header, html }) => {
 
   if(header) await parsed(header).prependTo('body')
 
-  await parsed(`<img src="${process.env.WEB_HOST}/v${code}" />`).appendTo('body')
+  await parsed(`<img src="${process.env.WEB_HOST}/v${code}" alt="spacer.gif" />`).appendTo('body')
 
   const links = await parsed('a').map((i, elem) => ({
     text: parsed(elem).text().trim(),

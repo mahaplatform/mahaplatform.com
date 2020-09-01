@@ -6,10 +6,10 @@ const imageurl = (image) => {
 const image = (block, width) => {
   if(block.image_url) return `
     <a href="${block.image_url}">
-      <img src="${imageurl(block.image)}" width="${width}" />
+      <img src="${imageurl(block.image)}" width="${width}" alt="${block.image.split('/').pop()}" />
     </a>
   `
-  return `<img src="${imageurl(block.image)}" width="${width}" />`
+  return `<img src="${imageurl(block.image)}" width="${width}" alt="${block.image.split('/').pop()}" />`
 }
 const captionCell = (block, vertical, position) => {
   const width = vertical ? 12 : 12 - block.image_width

@@ -5,7 +5,7 @@
       <tr>
         <% row.map((image, j) => { %>
           <td class="image small-12 large-<%= 12 / row.length %> <%= j === 0 ? 'first' : '' %> <%= j === row.length - 1 ? 'last' : '' %>">
-            <img src="<%= host %>/imagecache/w=600<%= block.images[k].asset.path %>" />
+            <img src="<%= host %>/imagecache/w=600<%= block.images[k].asset.path %>" alt="<%= block.images[k].asset.path.split('/').pop() %>" />
           </td>
           <% k += 1 %>
         <% }) %>
