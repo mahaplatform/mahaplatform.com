@@ -72,7 +72,7 @@ class Email extends React.Component {
   _getFormClass() {
     const { error } = this.state
     const classes = ['ui','form']
-    if(error) classes.push('animated shake')
+    if(error) classes.push('animating transition shake')
     return classes.join(' ')
   }
 

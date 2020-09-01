@@ -96,7 +96,7 @@ class Message extends React.Component {
     const { animate } = this.state
     const { animation, color, icon } = this.props
     const classes = ['fa', `fa-${icon}`]
-    if(animate && animation) classes.push(`animated ${animation}`)
+    if(animate && animation) classes.push(`animating transition ${animation}`)
     if(color) classes.push(color)
     return classes.join(' ')
   }
