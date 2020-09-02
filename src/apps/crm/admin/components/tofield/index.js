@@ -5,6 +5,7 @@ import pluralize from 'pluralize'
 import Contacts from './contacts'
 import Criteria from './criteria'
 import Filter from './filter'
+import Topic from './topic'
 import List from './list'
 import React from 'react'
 import _ from 'lodash'
@@ -12,6 +13,7 @@ import _ from 'lodash'
 const strategies = [
   { strategy: 'criteria', text: 'Contacts that meet custom criteria', component: Criteria, placeholder: 'Choose criteria' },
   { strategy: 'filter', text: 'Contacts in a saved filter', component: Filter, placeholder: 'Choose a filter' },
+  { strategy: 'topic', text: 'Contacts in a topic', component: Topic, placeholder: 'Choose a topic' },
   { strategy: 'list', text: 'Contacts in a list', component: List, placeholder: 'Choose a list' },
   { strategy: 'contacts', text: 'Specific contacts', component: Contacts, placeholder: 'Choose contacts' }
 ]

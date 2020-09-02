@@ -38,6 +38,7 @@ class Send extends React.Component {
       method: 'patch',
       endpoint: `/api/admin/crm/campaigns/email/${campaign.id}/edit`,
       action: `/api/admin/crm/campaigns/email/${campaign.id}/send`,
+      saveText: 'Send',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

@@ -37,6 +37,7 @@ class Resend extends React.Component {
       title: 'Resend Campaign',
       method: 'patch',
       action: `/api/admin/crm/campaigns/email/${campaign.id}/resend`,
+      saveText: 'Send',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

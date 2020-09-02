@@ -6,6 +6,7 @@ import Field from '../../maha/models/field'
 const getCreator = (strategy) => {
   if(strategy === 'contacts') return getRecipientsById
   if(strategy === 'list')  return getRecipientsByList
+  if(strategy === 'topic')  return getRecipientsByTopic
   if(strategy === 'filter')  return getRecipientsByFilter
   if(strategy === 'lookup')  return getRecipientsByLookup
   if(strategy === 'criteria')  return getRecipientsByCriteria
@@ -27,6 +28,13 @@ const getRecipientsByList = async (req, { list_id }) => ({
   scope: (qb) => {
     qb.innerJoin('crm_subscriptions', 'crm_subscriptions.contact_id', 'crm_contacts.id')
     qb.where('crm_subscriptions.list_id', list_id)
+  }
+})
+
+const getRecipientsByTopic = async (req, { topic_id }) => ({
+  scope: (qb) => {
+    qb.innerJoin('crm_interests', 'crm_interests.contact_id', 'crm_contacts.id')
+    qb.where('crm_interests.topic_id', topic_id)
   }
 })
 
