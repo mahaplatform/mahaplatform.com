@@ -48,12 +48,14 @@ const processor = async (req, job) => {
 
   const innerContent = ejs.render(template.html, data)
 
-  const html = template.envelope !== null ? ejs.render(envelopeTemplate, { ...data, content: innerContent}) : innerContent
+  const subject = ejs.render(template.subject, data)
+
+  const html = template.envelope !== null ? ejs.render(envelopeTemplate, { ...data, subject, content: innerContent}) : innerContent
 
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',
     to: user.get('rfc822'),
-    subject: ejs.render(template.subject, data),
+    subject,
     html,
     list: {
       unsubscribe: {

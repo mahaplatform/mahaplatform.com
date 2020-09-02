@@ -22,10 +22,13 @@ export const sendNotificationEmail = async (user, notifications) => {
     _
   })
 
+  const subject = 'Here\'s what you\'ve missed!'
+
   const html = ejs.render(envelopeTemplate, {
     host: process.env.WEB_HOST,
     maha: true,
     content,
+    subject,
     moment,
     _
   })
@@ -33,7 +36,7 @@ export const sendNotificationEmail = async (user, notifications) => {
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',
     to: user.get('rfc822'),
-    subject: 'Here\'s what you\'ve missed!',
+    subject,
     html,
     list: {
       unsubscribe: {

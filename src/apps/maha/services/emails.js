@@ -108,9 +108,9 @@ export const send_email = async(req, options) => {
 
   const content = ejs.render(contentTemplate, options.data)
 
-  const html = template.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, content }) : content
+  const subject = ejs.render(options.subject || template.subject, options.data)
 
-  const subject = options.subject || template.subject
+  const html = template.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, subject, content }) : content
 
   const code = await generateCode(req, {
     table: 'maha_emails'
@@ -122,7 +122,7 @@ export const send_email = async(req, options) => {
     from: process.env.EMAIL_FROM || options.from || 'Maha <mailer@mahaplatform.com>',
     reply_to: options.reply_to,
     to: options.to || options.user.get('rfc822'),
-    subject: ejs.render(subject, options.data),
+    subject,
     html,
     code,
     was_bounced: false,

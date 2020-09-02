@@ -4,12 +4,13 @@ const imageurl = (image) => {
   return 'https://dummyimage.com/1000x600/606060/ffffff&text=+++IMAGE+++'
 }
 const image = (block, width) => {
+  const image = imageurl(block.image)
   if(block.image_url) return `
     <a href="${block.image_url}">
-      <img src="${imageurl(block.image)}" width="${width}" alt="${block.image.split('/').pop()}" />
+      <img src="${image}" width="${width}" alt="${image.split('/').pop()}" />
     </a>
   `
-  return `<img src="${imageurl(block.image)}" width="${width}" alt="${block.image.split('/').pop()}" />`
+  return `<img src="${image}" width="${width}" alt="${image.split('/').pop()}" />`
 }
 const captionCell = (block, vertical, position) => {
   const width = vertical ? 12 : 12 - block.image_width

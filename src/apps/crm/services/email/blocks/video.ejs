@@ -4,12 +4,16 @@ const imageurl = (image) => {
   return 'https://dummyimage.com/1160x634/606060/ffffff&text=+++VIDEO+++'
 }
 const image = (block, width) => {
-  if(block.video) return `
-    <a href="${block.video.url}">
-      <img src="${imageurl(block.video.preview)}" width="${width}" alt="${block.image.split('/').pop()}" />
-    </a>
-  `
-  return `<img src="${imageurl(block.image)}" width="${width}" alt="${block.image.split('/').pop()}" />`
+  if(block.video) {
+    const preview = imageurl(block.video.preview)
+    return `
+      <a href="${block.video.url}">
+        <img src="${preview}" width="${width}" alt="${preview.split('/').pop()}" />
+      </a>
+    `
+  }
+  const image = imageurl(block.image)
+  return `<img src="${image}" width="${width}" alt="${image.split('/').pop()}" />`
 }
 const captionCell = (block, vertical, position) => {
   const width = vertical ? 12 : 12 - block.video_width
