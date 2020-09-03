@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
+import Content from '../../../../../crm/admin/tokens/content'
 import { Button, Comments, List } from 'maha-admin'
+import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
@@ -28,7 +29,13 @@ const Details = ({ event, registration }) => {
         items: [
           { label: 'First Name', content: registration.data.first_name },
           { label: 'Last Name', content: registration.data.last_name },
-          { label: 'Email', content: registration.data.email }
+          { label: 'Email', content: registration.data.email },
+          ...event.contact_config.fields.filter(field => {
+            return field.type !== 'text'
+          }).map(field => ({
+            label: field.name.value,
+            content: <Content data={ registration.data } field={ field } />
+          }))
         ]
       }
     ]
@@ -57,10 +64,6 @@ const Details = ({ event, registration }) => {
     config.sections[0].items.push({ label: 'Workflow', content: <Button { ...enrollment } /> })
 
   }
-
-  event.contact_config.fields.map(field => {
-    config.sections[1].items.push({ label: field.name.value, content: registration.data[field.code] })
-  })
 
   config.footer = <Comments entity={`events_registrations/${registration.id}`} />
 

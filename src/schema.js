@@ -3519,9 +3519,19 @@ const schema = {
     })
 
     await knex.schema.table('stores_carts', table => {
+      table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_discounts', table => {
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_discounts_variants', table => {
       table.foreign('discount_id').references('stores_discounts.id')
+      table.foreign('variant_id').references('stores_variants.id')
     })
 
     await knex.schema.table('stores_items', table => {
@@ -3544,11 +3554,11 @@ const schema = {
     await knex.schema.table('stores_orders', table => {
       table.foreign('cart_id').references('stores_carts.id')
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('discount_id').references('stores_discounts.id')
     })
 
     await knex.schema.table('stores_products', table => {
@@ -3650,16 +3660,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('stores_discounts', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('store_id').references('stores_stores.id')
-    })
-
-    await knex.schema.table('stores_discounts_variants', table => {
-      table.foreign('discount_id').references('stores_discounts.id')
-      table.foreign('variant_id').references('stores_variants.id')
     })
 
 

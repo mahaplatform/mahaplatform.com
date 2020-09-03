@@ -8,7 +8,19 @@ const getTabs = ({ actions, enrollment, workflow }) => ({
   ]
 })
 
-const getTasks = ({ list }) => ({})
+const getTasks = ({ enrollment, workflow }) => ({
+  items: [
+    {
+      label: 'Cancel Enrollment',
+      confirm: 'Are you sure you want to cancel this enrollment?',
+      show: enrollment.status === 'active',
+      request: {
+        endpoint: `/api/admin/crm/workflows/${workflow.id}/enrollments/${enrollment.id}/cancel`,
+        method: 'patch'
+      }
+    }
+  ]
+})
 
 const mapResourcesToPage = (props, context) => ({
   actions: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments/${props.params.id}/actions`,

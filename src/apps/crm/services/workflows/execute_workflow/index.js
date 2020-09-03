@@ -277,9 +277,12 @@ const executeWorkflow = async (req, params) => {
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', enrollment_id)
+    qb.where('status', 'active')
   }).fetch({
     transacting: req.trx
   })
+
+  if(!enrollment) return
 
   const contact = await Contact.query(qb => {
     qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
