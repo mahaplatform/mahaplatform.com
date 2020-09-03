@@ -16,12 +16,12 @@ const createRoute = async (req, res) => {
 
   const app_ids = [
     1,
-    ...req.body.app_ids
+    ...req.body.app_ids || []
   ]
 
   await updateApps(req, {
     team,
-    app_ids: req.body.app_ids
+    app_ids
   })
 
   const role = await Role.forge({
