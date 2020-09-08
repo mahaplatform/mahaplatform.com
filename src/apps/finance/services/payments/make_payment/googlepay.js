@@ -50,13 +50,24 @@ export const chargeGooglePay = async (req, { invoice, customer, bank, payment, a
     }
   })
 
-  if(!result.success) {
-    const message = result.message || result.transaction.processorResponseText
+  const errors = result.errors ? result.errors.deepErrors() : []
+
+  if(errors.length > 0) {
     throw new RouteError({
       status: 422,
       message: 'Unable to process payment',
       errors: {
-        payment: [`Payment declined (${message})`]
+        payment: [`Unable to process payment (${errors[0].message})`]
+      }
+    })
+  }
+
+  if(!result.success) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        payment: [`Payment declined (${result.transaction.processorResponseText})`]
       }
     })
   }

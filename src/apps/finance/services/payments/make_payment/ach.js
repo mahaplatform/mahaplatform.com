@@ -84,14 +84,24 @@ export const chargeACH = async (req, { invoice, customer, bank, payment, amount 
     }
   })
 
-  if(!result.success) {
-    const processor = _.get(result, 'transaction.processorResponseText')
-    const error = processor ? `Payment declined (${result.transaction.processorResponseText})` : result.message
+  const errors = result.errors ? result.errors.deepErrors() : []
+
+  if(errors.length > 0) {
     throw new RouteError({
       status: 422,
       message: 'Unable to process payment',
       errors: {
-        payment: [error]
+        payment: [`Unable to process payment (${errors[0].message})`]
+      }
+    })
+  }
+
+  if(!result.success) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        payment: [`Payment declined (${result.transaction.processorResponseText})`]
       }
     })
   }
