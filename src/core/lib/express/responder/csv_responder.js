@@ -43,7 +43,7 @@ class CsvResponder extends Responder {
 
   _wrapWithEnclosure(value) {
     if(!_.isString(value)) return value
-    return value.search('"') >=0 || value.search(',') >=0  ? `"${value}"` : value
+    return value.search('"') >=0 || value.search(',') >=0  ? `"${value.replace(/"/g, '""')}"` : value
   }
 
 }
