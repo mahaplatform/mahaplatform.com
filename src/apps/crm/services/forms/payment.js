@@ -32,37 +32,41 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
 
   await Promise.mapSeries(line_items, async (line_item) => {
     if(line_item.price_type === 'fixed' || line_item.overage_strategy !== 'donation' || line_item.price === line_item.high_price) {
-      await LineItem.forge({
-        team_id: req.team.get('id'),
-        invoice_id: invoice.get('id'),
-        project_id: line_item.project_id,
-        revenue_type_id: line_item.revenue_type_id,
-        is_tax_deductible: line_item.is_tax_deductible,
-        description: line_item.description,
-        tax_rate: line_item.tax_rate,
-        quantity: line_item.quantity,
-        price: line_item.price,
-        delta
-      }).save(null, {
-        transacting: req.trx
-      })
-      delta = delta + 1
+      if(line_item.price > 0) {
+        await LineItem.forge({
+          team_id: req.team.get('id'),
+          invoice_id: invoice.get('id'),
+          project_id: line_item.project_id,
+          revenue_type_id: line_item.revenue_type_id,
+          is_tax_deductible: line_item.is_tax_deductible,
+          description: line_item.description,
+          tax_rate: line_item.tax_rate,
+          quantity: line_item.quantity,
+          price: line_item.price,
+          delta
+        }).save(null, {
+          transacting: req.trx
+        })
+        delta = delta + 1
+      }
     } else {
-      await LineItem.forge({
-        team_id: req.team.get('id'),
-        invoice_id: invoice.get('id'),
-        project_id: line_item.project_id,
-        revenue_type_id: line_item.revenue_type_id,
-        is_tax_deductible: line_item.is_tax_deductible,
-        description: line_item.description,
-        tax_rate: line_item.tax_rate,
-        quantity: line_item.quantity,
-        price: line_item.low_price,
-        delta
-      }).save(null, {
-        transacting: req.trx
-      })
-      delta = delta + 1
+      if(line_item.low_price > 0) {
+        await LineItem.forge({
+          team_id: req.team.get('id'),
+          invoice_id: invoice.get('id'),
+          project_id: line_item.project_id,
+          revenue_type_id: line_item.revenue_type_id,
+          is_tax_deductible: line_item.is_tax_deductible,
+          description: line_item.description,
+          tax_rate: line_item.tax_rate,
+          quantity: line_item.quantity,
+          price: line_item.low_price,
+          delta
+        }).save(null, {
+          transacting: req.trx
+        })
+        delta = delta + 1
+      }
       if(line_item.overage_strategy === 'donation' && line_item.price > line_item.low_price) {
         await LineItem.forge({
           team_id: req.team.get('id'),

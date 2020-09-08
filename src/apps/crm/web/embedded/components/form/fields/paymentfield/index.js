@@ -64,6 +64,7 @@ class PaymentField extends React.Component {
   _getValue() {
     const { description, project_id, revenue_type_id, is_tax_deductible } = this.props
     const { value } = this.state
+    if(value === 0) return null
     return {
       line_items: [{
         code: 'abc',

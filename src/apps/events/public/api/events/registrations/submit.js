@@ -16,7 +16,8 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
       return ticket_type.get('id') === parseInt(id)
     })
   }).filter(ticket_type => {
-    return quantities[ticket_type.get('id')].quantity > 0
+    const { price, quantity } = quantities[ticket_type.get('id')]
+    return price !== null && quantity > 0
   }).map(ticket_type => {
     const line_item = quantities[ticket_type.get('id')]
     return {
