@@ -51,6 +51,11 @@ const Select = (multiple) => {
           <div className="maha-select-deselect">
             <Button { ...this._getDeselect() } />
           </div>
+          { items.length === 0 &&
+            <div className="maha-select-option-empty">
+              There are no options
+            </div>
+          }
           { items.map((option, index) => (
             <div key={`option_${index}`} { ...this._getItem(option) }>
               <div className="maha-select-option-icon">
