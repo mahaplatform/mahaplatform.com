@@ -2,7 +2,7 @@
   background-color: @white;
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.5em;
-  overflow: hidden;
+  position:relative;
   &:focus {
     outline: none !important;
     border-color: @lightblue;
@@ -13,6 +13,12 @@
   .maha-select-option:last-child {
     border-bottom: none;
   }
+}
+.maha-select-deselect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(-100%);
 }
 .maha-select-option {
   display: flex;

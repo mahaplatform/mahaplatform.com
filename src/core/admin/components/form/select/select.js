@@ -1,6 +1,7 @@
-import Token from './token'
 import PropTypes from 'prop-types'
+import Button from '../../button'
 import Format from '../../format'
+import Token from './token'
 import React from 'react'
 import _ from 'lodash'
 
@@ -39,12 +40,17 @@ const Select = (multiple) => {
       onReady: () => {}
     }
 
+    _handleDeselectAll = this._handleDeselectAll.bind(this)
     _handleKeyDown = this._handleKeyDown.bind(this)
+    _handleSelectAll = this._handleSelectAll.bind(this)
 
     render() {
       const { items, format, tabIndex, text, value } = this.props
       return (
         <div className="maha-select ui field" tabIndex={ tabIndex } onKeyDown={ this._handleKeyDown }>
+          <div className="maha-select-deselect">
+            <Button { ...this._getDeselect() } />
+          </div>
           { items.map((option, index) => (
             <div key={`option_${index}`} { ...this._getItem(option) }>
               <div className="maha-select-option-icon">
@@ -69,7 +75,7 @@ const Select = (multiple) => {
 
     componentDidUpdate(prevProps) {
       const { defaultValue, multiple, options, selected, status, onChange, onReady } = this.props
-      if(!_.isEqual(defaultValue, prevProps.defaultValue) && !_.isEqual(defaultValue, selected)) {
+      if(!_.isEqual(defaultValue, prevProps.defaultValue) && !_.isEqual(defaultValue, selected) && defaultValue) {
         this._handleSetSelected(defaultValue)
       }
       if(!_.isEqual(options, prevProps.options)) {
@@ -81,6 +87,15 @@ const Select = (multiple) => {
       if(selected !== prevProps.selected) {
         const value = multiple ? selected : selected[0]
         onChange(value)
+      }
+    }
+
+    _getDeselect() {
+      const { selected } = this.props
+      return {
+        label: multiple ? (selected.length > 0 ? 'deselect all' : 'select all') : 'deselect',
+        className: (!multiple && selected.length === 0) ? 'link disabled' : 'link',
+        handler: (multiple && selected.length === 0) ? this._handleSelectAll : this._handleDeselectAll
       }
     }
 
@@ -130,6 +145,11 @@ const Select = (multiple) => {
       onChoose(multiple, value)
     }
 
+    _handleDeselectAll() {
+      console.log('deselect')
+      this.props.onSetSelected([])
+    }
+
     _handleKeyDown(e) {
       const { multiple, options, selected, onChoose } = this.props
       if(multiple || !_.includes([38,40], e.which)) return
@@ -138,6 +158,14 @@ const Select = (multiple) => {
       const index = _.findIndex(options, { value: selected[0] })
       const newindex = mod((index + increment), options.length)
       onChoose(multiple, options[newindex].value)
+    }
+
+    _handleSelectAll() {
+      console.log('select')
+      const { options, value } = this.props
+      this.props.onSetSelected(options.map(option => {
+        return _.get(option, value)
+      }))
     }
 
   }

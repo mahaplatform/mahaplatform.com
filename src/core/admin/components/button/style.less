@@ -34,6 +34,9 @@
 	color: @blue;
 	cursor: pointer;
 	display: inline-block;
+  &.disabled {
+    color: fadeout(@black, 80) !important;
+  }
   &.tiny {
     font-size: 0.9em;
   }
