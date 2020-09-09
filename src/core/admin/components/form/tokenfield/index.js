@@ -54,8 +54,9 @@ class TokenField extends React.Component {
   }
 
   componentDidMount() {
-    const { originalValue } = this.props
-    if(originalValue) this._handleSet(originalValue)
+    const { defaultValue, originalValue } = this.props
+    const value = defaultValue || originalValue
+    if(value) this._handleSet(value)
     this.props.onReady()
   }
 
