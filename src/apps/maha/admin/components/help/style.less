@@ -1,157 +1,28 @@
-.maha-help-main {
-  flex: 2;
-  display: flex;
-}
-.maha-help-search {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.maha-help-search-query {
-  background-color: fadeout(@black, 97);
-  border-bottom: 1px solid fadeout(@black, 95);
-}
-.maha-help-search-results {
+.maha-results {
+  background-color: @white;
+  .scrollable();
   flex: 1;
 }
-.maha-help-search-result {
+.maha-result {
+  border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
   cursor: pointer;
   &:hover {
     background-color: fadeout(@black, 97);
   }
 }
-.maha-help-search-result-token {
-  display: flex;
+.maha-result-details {
   flex: 1;
+  padding: 0.8em;
+  span {
+    color: fadeout(@black, 40);
+  }
 }
-.maha-help-search-result-proceed {
+.maha-result-proceed {
   padding: 0.8em 0.8em 0.8em 0;
   display: flex;
   .fa {
     margin: auto;
-    font-size: 1.2em;
-    line-height: 1em;
     color: fadeout(@black, 80);
-  }
-}
-.maha-help-article-video {
-  display: flex;
-  flex-direction: column
-}
-.maha-help-article-label {
-  text-align: center;
-  background-color: fadeout(@black, 90);
-  font-size: 0.9em;
-  padding: 0.6em 0.8em;
-}
-@media (max-width: 768px) {
-  .maha-help-article-video.desktop {
-    display: none;
-  }
-}
-@media (min-width: 769px) {
-  .maha-help-article-video.mobile {
-    display: none;
-  }
-}
-.maha-help-article-desktop {
-  background-color: @black;
-  flex: 1;
-  display: flex;
-  width: 322px;
-  height: 242px;
-}
-.maha-help-article-mobile {
-  background-color: @black;
-  margin: auto;
-  flex: 1;
-  display: flex;
-  width: 139px;
-  height: 242px;
-}
-.maha-help-article-input {
-  border: 1px solid fadeout(@black, 90);
-  border-radius: 5px;
-  padding: 0.8em;
-}
-.maha-help-article {
-  flex: 1;
-  padding: 0.8em;
-  .scrollable();
-  h1 { font-size: 1.6em; color: @green; }
-}
-.maha-help-article-body {
-  h1 { font-size: 1.6em; color: @green; }
-  h2 { font-size: 1.3em; color: @black; }
-  h3 { font-size: 1.2em; color: @black; }
-  h4 { font-size: 1.1em; color: @black; }
-  h1, h2, h3, h4, ol, ul, p {
-    margin: 10px 0;
-  }
-  ul {
-    padding-left: 1em;
-  }
-  li {
-    margin-bottom: 1em;
-  }
-  p, li {
-    line-height: 1.8em;
-    color: fadeout(@black, 30);
-  }
-  strong {
-    color: @black;
-  }
-  a {
-    color: @green;
-    text-decoration: underline;
-  }
-  ol {
-    margin: 0;
-    padding: 0;
-    counter-reset: list;
-    li {
-      list-style-type: none;
-      padding: 0;
-      text-indent: -2.5em;
-      margin-left: 2.5em;
-      &:before {
-        background-color: @green;
-        width: 2em;
-        text-indent: 0;
-        text-align: center;
-        padding-left: 0px;
-        height: 2em;
-        line-height: 2em;
-        vertical-align: middle;
-        border-radius: 1em;
-        background-clip: padding-box;
-        color: @white;
-        display: inline-block;
-        font-weight: bold;
-        counter-increment: list;
-        content: counter(list);
-        margin-right: 1em;
-        font-size: 0.8em;
-      }
-    }
-  }
-  .fa {
-    background-color: fadeout(@black, 80);
-    color: @white;
-    width: 1.6em;
-    height: 1.6em;
-    text-indent: 0;
-    border-radius: 0.4em;
-    font-size: 0.8em;
-    line-height: 1.7em;
-    text-align: center;
-  }
-}
-.maha-help-article-popup {
-  flex: 1;
-  display: flex;
-  iframe {
-    flex: 1;
   }
 }

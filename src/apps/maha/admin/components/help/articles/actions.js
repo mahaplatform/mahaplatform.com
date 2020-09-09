@@ -10,7 +10,7 @@ export const type = (q) => ({
 export const fetch = (id) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: `/api/admin/help/${id}`,
+  endpoint: `/api/admin/help/articles/${id}`,
   request: 'FETCH_REQUEST',
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'

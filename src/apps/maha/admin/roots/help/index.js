@@ -1,3 +1,4 @@
+import { Error, Stack } from 'maha-admin'
 import Help from '../../components/help'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -13,9 +14,12 @@ class HelpRoot extends React.Component {
   }
 
   state = {
+    cards: [],
     open: false
   }
 
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -27,19 +31,50 @@ class HelpRoot extends React.Component {
         </div>
         { open &&
           <div className="maha-help-sidebar">
-            <Help />
+            <Error>
+              <Stack { ...this._getStack() } />
+            </Error>
           </div>
         }
       </div>
     )
   }
 
+  componentDidMount() {
+    this._handlePush(Help, {})
+  }
+
   getChildContext() {
     return {
       help: {
+        pop: this._handlePop,
+        push: this._handlePush,
         toggle: this._handleToggle
       }
     }
+  }
+
+  _getStack() {
+    const { cards } = this.state
+    return {
+      cards,
+      slideFirst: false
+    }
+  }
+
+  _handlePop(index = -1) {
+    this.setState({
+      cards:this.state.cards.slice(0, index)
+    })
+  }
+
+  _handlePush(component, props) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component, props }
+      ]
+    })
   }
 
   _handleToggle() {

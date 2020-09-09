@@ -112,7 +112,7 @@ import mahabrowser from '../../apps/maha/admin/components/device/browser'
 import mahacordova from '../../apps/maha/admin/components/device/cordova'
 import mahaelectron from '../../apps/maha/admin/components/device/electron'
 import mahadevice from '../../apps/maha/admin/components/device'
-import mahahelp from '../../apps/maha/admin/components/help'
+import mahaarticles from '../../apps/maha/admin/components/help/articles'
 import mahanavigation from '../../apps/maha/admin/components/navigation'
 import mahanetwork from '../../apps/maha/admin/components/network'
 import mahanotifications from '../../apps/maha/admin/components/notifications'
@@ -423,7 +423,7 @@ class App extends React.Component {
       mahacordova,
       mahaelectron,
       mahadevice,
-      mahahelp,
+      mahaarticles,
       mahanavigation,
       mahanetwork,
       mahanotifications,

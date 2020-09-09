@@ -60,14 +60,14 @@ class Timestamp extends React.PureComponent {
     }
 
     if(time.isSame(now, 'month')) {
-      return time.format('MMM DD [at] h:mm A')
+      return time.format('MMM D [at] h:mm A')
     }
 
     if(!time.isSame(now, 'year')) {
-      return time.format('MMM DD')
+      return time.format('MMM D')
     }
 
-    return time.format('MMM DD, YYY')
+    return time.format('MMM D, YYY')
   }
 
   _handleTick() {

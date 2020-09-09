@@ -1,4 +1,3 @@
-import { Error } from 'maha-admin'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Articles from './articles'
@@ -22,9 +21,7 @@ class Help extends React.Component {
   render() {
     return (
       <div className="maha-help">
-        <Error>
-          <Stack { ...this._getStack() } />
-        </Error>
+        <Stack { ...this._getStack() } />
       </div>
     )
   }

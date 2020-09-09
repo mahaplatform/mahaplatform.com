@@ -1,5 +1,5 @@
-import HelpArticleSerializer from '../../../serializers/help_article_serializer'
-import HelpArticle from '../../../models/help_article'
+import HelpArticleSerializer from '../../../../serializers/help_article_serializer'
+import HelpArticle from '../../../../models/help_article'
 
 const showRoute = async (req, res) => {
 

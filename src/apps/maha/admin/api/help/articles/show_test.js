@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import list from './list'
+import show from './show'
 
-describe('src/apps/maha/admin/api/help/list', () => {
+describe('src/apps/maha/admin/api/help/articles/show.js', () => {
 
 })

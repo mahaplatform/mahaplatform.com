@@ -40,7 +40,7 @@ class Search extends React.Component {
       text: 'There were no articles that matched your search'
     }
     return {
-      endpoint: '/api/admin/help',
+      endpoint: '/api/admin/help/articles',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       filter: { q },

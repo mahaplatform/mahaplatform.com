@@ -1,4 +1,4 @@
-import Help from '../components/help'
+import Articles from '../components/help/articles'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -11,7 +11,7 @@ class Page extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Help { ...this._getHelp() } />
+    return <Articles { ...this._getHelp() } />
   }
 
   _getHelp() {

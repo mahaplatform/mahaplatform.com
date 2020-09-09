@@ -20,7 +20,7 @@ class Articles extends React.Component {
     onType: PropTypes.func
   }
 
-  _handleDone = this._handleDone.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleType = this._handleType.bind(this)
 
@@ -39,7 +39,7 @@ class Articles extends React.Component {
       title: 'Help Center',
       color: 'green',
       leftItems: [
-        { icon: 'remove', handler: this._handleDone }
+        { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
   }
@@ -52,16 +52,16 @@ class Articles extends React.Component {
     }
   }
 
+  _handleBack() {
+    this.context.help.pop()
+  }
+
   _handleType(q) {
     this.props.onType(q)
   }
 
   _handleFetch(id) {
     this.props.onFetch(id)
-  }
-
-  _handleDone() {
-    this.context.help.toggle()
   }
 
 }

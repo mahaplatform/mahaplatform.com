@@ -1,0 +1,38 @@
+.maha-help-changelog {
+  flex: 1;
+  .scrollable()
+}
+.maha-help-changelog-release {
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+}
+.maha-help-changelog-release-timestamp {
+  color: fadeout(@black, 40);
+  font-style: italic;
+  font-size: 0.8em;
+}
+.maha-help-changelog-release-body {
+  font-size: 0.8em;
+  ul {
+    margin: 0;
+    padding: 0 0 0 1.6em;
+  }
+  .label {
+    border: 1px solid @black;
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+    margin-right: 0.4em;
+    font-size: 0.8em;
+  }
+  .bug {
+    border-color: @red;
+    color: @red;
+  }
+  .feature {
+    border-color: @green;
+    color: @green;
+  }
+}
+.maha-help-changelog-change {
+  margin: 0.4em 0;
+}
