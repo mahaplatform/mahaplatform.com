@@ -39,7 +39,7 @@ class Changelog extends React.Component {
     return {
       label: `Version ${ release.name.replace('v', '') }`,
       className: 'link',
-      link: `https://github.com/mahaplatform/mahaplatform.com/commit/${release.sha}`
+      link: `https://github.com/mahaplatform/mahaplatform.com/compare/${release.diff[0]}..${release.diff[1]}`
     }
   }
 
