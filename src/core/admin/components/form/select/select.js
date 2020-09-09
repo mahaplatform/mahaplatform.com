@@ -11,10 +11,11 @@ const Select = (multiple) => {
 
     static propTypes = {
       defaultValue: PropTypes.any,
-      multiple: PropTypes.bool,
+      deselectable: PropTypes.bool,
       endpoint: PropTypes.string,
       format: PropTypes.any,
       items: PropTypes.array,
+      multiple: PropTypes.bool,
       options: PropTypes.array,
       selected: PropTypes.array,
       status: PropTypes.string,
@@ -30,6 +31,7 @@ const Select = (multiple) => {
     }
 
     static defaultProps = {
+      deselectable: true,
       format: Token,
       multiple,
       tabIndex: 0,
@@ -45,12 +47,14 @@ const Select = (multiple) => {
     _handleSelectAll = this._handleSelectAll.bind(this)
 
     render() {
-      const { items, format, tabIndex, text, value } = this.props
+      const { deselectable, items, format, tabIndex, text, value } = this.props
       return (
         <div className="maha-select ui field" tabIndex={ tabIndex } onKeyDown={ this._handleKeyDown }>
-          <div className="maha-select-deselect">
-            <Button { ...this._getDeselect() } />
-          </div>
+          { deselectable &&
+            <div className="maha-select-deselect">
+              <Button { ...this._getDeselect() } />
+            </div>
+          }
           { items.length === 0 &&
             <div className="maha-select-option-empty">
               There are no options

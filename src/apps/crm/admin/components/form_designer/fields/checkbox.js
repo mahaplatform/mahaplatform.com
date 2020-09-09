@@ -46,7 +46,7 @@ class CheckboxForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Confirmation',
+      title: 'Checkbox',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,

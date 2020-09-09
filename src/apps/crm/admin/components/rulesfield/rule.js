@@ -65,8 +65,9 @@ class Rule extends React.Component {
     const comparisons = options.comparisons.filter(comparison => {
       return !comparison.types || _.includes(comparison.types, field.type)
     })
+    console.log(fields, field.type, comparisons)
     const items = [
-      { name: 'comparison', type: 'radiogroup', options: comparisons, required: true }
+      { name: 'comparison', type: 'radiogroup', deselectable: false, options: comparisons, required: true }
     ]
     if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
       if(_.includes(['$in','$nin','$int','$nint'], rule.comparison)) {
@@ -90,7 +91,7 @@ class Rule extends React.Component {
     })
     return [
       { label: 'Then', type: 'segment', fields: [
-        { name: 'action', type: 'radiogroup', options: options.actions, required: true },
+        { name: 'action', type: 'radiogroup', deselectable: false, options: options.actions, required: true },
         { name: 'then_code', type: 'dropdown', options: fields, value: 'code', text: 'name', required: true }
       ] }
     ]
