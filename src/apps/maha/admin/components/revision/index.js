@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Changes from './changes'
@@ -10,16 +11,15 @@ class Revision extends React.Component {
   }
 
   static propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
+    revision: PropTypes.string
   }
 
   state = {
-    revision: null,
     reload: false
   }
 
   _handleReload = this._handleReload.bind(this)
-  _handleRevision = this._handleRevision.bind(this)
 
   render() {
     const { reload } = this.state
@@ -37,12 +37,14 @@ class Revision extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.context.network.addEventListener('revision', this._handleRevision)
-  }
-
-  componentWillUnmount() {
-    this.context.network.removeEventListener('revision', this._handleRevision)
+  componentDidUpdate(prevProps) {
+    const { revision } = this.props
+    console.log('revision', revision, prevProps.revision)
+    if(revision !== prevProps.revision && prevProps.revision !== null) {
+      this.setState({
+        reload: true
+      })
+    }
   }
 
   _getChanges() {
@@ -71,14 +73,10 @@ class Revision extends React.Component {
     window.location.reload()
   }
 
-  _handleRevision(newrevision) {
-    const { revision } = this.state
-    this.setState({
-      revision: newrevision,
-      reload: newrevision !== revision && revision !== null
-    })
-  }
-
 }
 
-export default Revision
+const mapStateToProps = (state, props) => ({
+  revision: state.maha.network.revision
+})
+
+export default connect(mapStateToProps)(Revision)

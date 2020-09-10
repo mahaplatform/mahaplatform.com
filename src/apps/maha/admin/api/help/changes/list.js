@@ -32,7 +32,7 @@ const listRoute = async (req, res) => {
   res.status(200).respond(changes, (req, change) => {
     const tag = _.findIndex(tags, { name: change.tag_name })
     return {
-      name: change.name,
+      name: change.tag_name,
       body: change.body,
       diff: [
         tags[tag].commit.sha.substr(0,7),

@@ -6,7 +6,6 @@ export const INITIAL_STATE = {
   handlers: [],
   listeners: {},
   revision: null,
-  reload: false,
   status: null,
   text: null
 }
@@ -109,8 +108,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'SET_REVISION':
     return {
       ...state,
-      revision: action.revision,
-      reload: action.reload
+      revision: action.revision
     }
 
   case 'CLEAR_ALERT':

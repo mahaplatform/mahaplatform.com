@@ -6,13 +6,15 @@ import React from 'react'
 
 const sections = [
   { title: 'Articles', description: 'Step by step how-to instructions', component: Articles },
-  { title: 'Changelog', description: 'History of updates to the platform', component: Changelog }
+  { title: 'Changelog', description: 'History of updates to the platform', component: Changelog },
+  { title: 'Uptime', description: 'Monitor of platform availability', link: 'https://status.mahaplatform.com' }
 ]
 
 class Help extends React.Component {
 
   static contextTypes = {
-    help: PropTypes.object
+    help: PropTypes.object,
+    host: PropTypes.object
   }
 
   static propTypes = {}
@@ -50,6 +52,7 @@ class Help extends React.Component {
   }
 
   _handleClick(section) {
+    if(section.link) return this.context.host.openWindow(section.link)
     this.context.help.push(section.component, {})
   }
 

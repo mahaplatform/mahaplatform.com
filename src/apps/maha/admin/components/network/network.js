@@ -14,6 +14,7 @@ class Network extends React.Component {
     handlers: PropTypes.array,
     children: PropTypes.any,
     listeners: PropTypes.object,
+    revision: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
     online: PropTypes.bool,
@@ -30,6 +31,7 @@ class Network extends React.Component {
     onRequest: PropTypes.func,
     onRemoveEventListener: PropTypes.func,
     onSetAlert: PropTypes.func,
+    onSetRevision: PropTypes.func,
     onSubscribe: PropTypes.func,
     onUnsubscribe: PropTypes.func
   }
@@ -46,6 +48,7 @@ class Network extends React.Component {
   _handleReceiveMessage = this._handleReceiveMessage.bind(this)
   _handleRemoveEventListener = this._handleRemoveEventListener.bind(this)
   _handleRequest = this._handleRequest.bind(this)
+  _handleRevision = this._handleRevision.bind(this)
   _handleSendMessage = this._handleSendMessage.bind(this)
   _handleSubscribe = this._handleSubscribe.bind(this)
   _handleUnsubscribe = this._handleUnsubscribe.bind(this)
@@ -73,6 +76,7 @@ class Network extends React.Component {
     this._handleAddEventListener('message', this._handleMessage)
     this._handleAddEventListener('join', this._handleJoined)
     this._handleAddEventListener('leave', this._handleLeft)
+    this._handleAddEventListener('revision', this._handleRevision)
   }
 
   componentDidUpdate(prevProps) {
@@ -89,6 +93,7 @@ class Network extends React.Component {
     this._handleRemoveEventListener('message', this._handleMessage)
     this._handleRemoveEventListener('join', this._handleJoined)
     this._handleRemoveEventListener('leave', this._handleLeft)
+    this._handleRemoveEventListener('revision', this._handleRevision)
   }
 
   getChildContext() {
@@ -185,6 +190,10 @@ class Network extends React.Component {
   _handleRequest(request) {
     const { onRequest } = this.props
     onRequest(request)
+  }
+
+  _handleRevision(revision) {
+    this.props.onSetRevision(revision)
   }
 
   _handleSendMessage({ channel, target, action, data }) {
