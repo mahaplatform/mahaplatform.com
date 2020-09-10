@@ -5,6 +5,7 @@ import Navigation from '../navigation'
 import { connect } from 'react-redux'
 import Dashboard from '../dashboard'
 import PropTypes from 'prop-types'
+import Revision from '../revision'
 import Account from '../account'
 import Sidebar from './sidebar'
 import Ribbon from './ribbon'
@@ -46,27 +47,29 @@ class Portal extends React.Component {
             <Prompt>
               <Modal>
                 <Tasks>
-                  <div className="maha-portal-frame">
-                    <div className="maha-portal-ribbon">
-                      <Ribbon { ...this._getRibbon() } />
-                    </div>
-                    { active !== null && <Sidebar sidebar={ badges[active].sidebar } /> }
-                    <div className="maha-portal-body">
-                      <Dashboard />
-                      <RouterStack { ...this._getStack() } />
-                    </div>
-                    <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                      <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
-                    </CSSTransition>
-                    <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                      <div className="maha-portal-account">
-                        <Account { ...this._getAccount() } />
+                  <Revision>
+                    <div className="maha-portal-frame">
+                      <div className="maha-portal-ribbon">
+                        <Ribbon { ...this._getRibbon() } />
                       </div>
-                    </CSSTransition>
-                    <div className="maha-portal-navigation">
-                      <Navigation { ...this._getNavigation() } />
+                      { active !== null && <Sidebar sidebar={ badges[active].sidebar } /> }
+                      <div className="maha-portal-body">
+                        <Dashboard />
+                        <RouterStack { ...this._getStack() } />
+                      </div>
+                      <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+                        <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
+                      </CSSTransition>
+                      <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+                        <div className="maha-portal-account">
+                          <Account { ...this._getAccount() } />
+                        </div>
+                      </CSSTransition>
+                      <div className="maha-portal-navigation">
+                        <Navigation { ...this._getNavigation() } />
+                      </div>
                     </div>
-                  </div>
+                  </Revision>
                 </Tasks>
               </Modal>
             </Prompt>

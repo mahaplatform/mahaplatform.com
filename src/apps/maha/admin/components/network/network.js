@@ -1,5 +1,4 @@
 import { CSSTransition } from 'react-transition-group'
-import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -15,8 +14,6 @@ class Network extends React.Component {
     handlers: PropTypes.array,
     children: PropTypes.any,
     listeners: PropTypes.object,
-    reload: PropTypes.bool,
-    revision: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
     online: PropTypes.bool,
@@ -33,7 +30,6 @@ class Network extends React.Component {
     onRequest: PropTypes.func,
     onRemoveEventListener: PropTypes.func,
     onSetAlert: PropTypes.func,
-    onSetRevision: PropTypes.func,
     onSubscribe: PropTypes.func,
     onUnsubscribe: PropTypes.func
   }
@@ -50,20 +46,14 @@ class Network extends React.Component {
   _handleReceiveMessage = this._handleReceiveMessage.bind(this)
   _handleRemoveEventListener = this._handleRemoveEventListener.bind(this)
   _handleRequest = this._handleRequest.bind(this)
-  _handleRevision = this._handleRevision.bind(this)
   _handleSendMessage = this._handleSendMessage.bind(this)
   _handleSubscribe = this._handleSubscribe.bind(this)
   _handleUnsubscribe = this._handleUnsubscribe.bind(this)
 
   render() {
-    const { reload, text } = this.props
+    const { text } = this.props
     return (
       <div className={ this._getClass() }>
-        { reload &&
-          <div className="maha-network-revision">
-            An updated version of Maha is available! <Button { ...this._getReload() } />.
-          </div>
-        }
         <div className="maha-network-body">
           { this.props.children }
         </div>
@@ -83,7 +73,6 @@ class Network extends React.Component {
     this._handleAddEventListener('message', this._handleMessage)
     this._handleAddEventListener('join', this._handleJoined)
     this._handleAddEventListener('leave', this._handleLeft)
-    this._handleAddEventListener('revision', this._handleRevision)
   }
 
   componentDidUpdate(prevProps) {
@@ -92,6 +81,14 @@ class Network extends React.Component {
       if(prevProps.online === true) this._handleOfflineAlert()
       if(prevProps.online === false) this._handleOnlineAlert()
     }
+  }
+
+  componentWillUnmount() {
+    this._handleRemoveEventListener('connect', this._handleConnect)
+    this._handleRemoveEventListener('disconnect', this._handleDisconnect)
+    this._handleRemoveEventListener('message', this._handleMessage)
+    this._handleRemoveEventListener('join', this._handleJoined)
+    this._handleRemoveEventListener('leave', this._handleLeft)
   }
 
   getChildContext() {
@@ -123,14 +120,6 @@ class Network extends React.Component {
     const actionHandlers = _.filter(this.props.handlers, { action })
     if(actionHandlers.length > 0) return actionHandlers
     return null
-  }
-
-  _getReload() {
-    return {
-      label: 'Click here to reload',
-      className: 'link',
-      handler: () => window.location.reload()
-    }
   }
 
   _handleAddEventListener(event, handler) {
@@ -196,12 +185,6 @@ class Network extends React.Component {
   _handleRequest(request) {
     const { onRequest } = this.props
     onRequest(request)
-  }
-
-  _handleRevision(newrevision) {
-    const { revision } = this.props
-    const reload = newrevision !== revision && revision !== null
-    this.props.onSetRevision(newrevision, reload)
   }
 
   _handleSendMessage({ channel, target, action, data }) {
