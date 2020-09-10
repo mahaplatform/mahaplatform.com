@@ -25,5 +25,5 @@ src/public/*
 !src/public/admin
 ngrok
 metadata.csv
-REVISION
+./REVISION
 /src/servers/group_vars/all/*.yml
