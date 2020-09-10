@@ -15,7 +15,7 @@ class Revision extends React.Component {
 
   state = {
     revision: null,
-    reload: true
+    reload: false
   }
 
   _handleReload = this._handleReload.bind(this)
@@ -73,10 +73,10 @@ class Revision extends React.Component {
 
   _handleRevision(newrevision) {
     const { revision } = this.state
-    // this.setState({
-    //   revision: newrevision,
-    //   reload: newrevision !== revision && revision !== null
-    // })
+    this.setState({
+      revision: newrevision,
+      reload: newrevision !== revision && revision !== null
+    })
   }
 
 }
