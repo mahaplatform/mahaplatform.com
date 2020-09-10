@@ -8,7 +8,7 @@ class Contacts extends React.Component {
   static contextTypes = {
     router: PropTypes.object
   }
-  
+
   static propTypes = {
     contacts: PropTypes.array,
     topic: PropTypes.object
@@ -26,6 +26,13 @@ class Contacts extends React.Component {
             </tr>
           </thead>
           <tbody>
+            { contacts.length === 0 &&
+              <tr>
+                <td colSpan="2">
+                  There are no contacts interested in this list
+                </td>
+              </tr>
+            }
             { contacts.map((contact, index) => (
               <tr key={`contact_${index}`}>
                 <td className="unpadded" onClick={ this._handleClick.bind(this, contact) }>

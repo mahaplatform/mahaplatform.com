@@ -5,6 +5,7 @@ const ListSerializer = (req, result) => ({
   subscribe_workflow: workflow(result.related('subscribe_workflow')),
   unsubscribe_workflow: workflow(result.related('unsubscribe_workflow')),
   contacts_count: result.get('contacts_count'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

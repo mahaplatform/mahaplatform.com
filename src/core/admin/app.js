@@ -4,7 +4,6 @@ import adminattachmentsFiles from './components/attachments/files'
 import adminattachments from './components/attachments'
 import adminattachmentsWeb from './components/attachments/web'
 import adminauthorized from './components/authorized'
-import adminbutton from './components/button'
 import admincarousel from './components/carousel'
 import adminchooser from './components/chooser'
 import admincollectionFilters from './components/collection/filters'
@@ -315,7 +314,6 @@ class App extends React.Component {
       adminattachments,
       adminattachmentsWeb,
       adminauthorized,
-      adminbutton,
       admincarousel,
       adminchooser,
       admincollectionFilters,

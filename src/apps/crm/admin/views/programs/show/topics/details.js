@@ -1,10 +1,14 @@
-import { Button, List } from 'maha-admin'
+import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ topic }) => {
+const Details = ({ audits, topic }) => {
 
   const config = {}
+
+  if(topic.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This topic was deleted' }
+  }
 
   config.items = [
     { label: 'Title', content: topic.title },
@@ -29,11 +33,14 @@ const Details = ({ topic }) => {
     config.items.push({ label: 'Unsubscribe', content: <Button { ...unsubscribe } /> })
   }
 
+  config.items.push({ component: <Audit entries={ audits } /> })
+
   return <List { ...config } />
 
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   topic: PropTypes.object
 }
 

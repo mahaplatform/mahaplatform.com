@@ -21,6 +21,7 @@ const listRoute = async (req, res) => {
       qb.innerJoin('crm_topic_totals', 'crm_topic_totals.topic_id', 'crm_topics.id')
       qb.where('crm_topics.team_id', req.team.get('id'))
       qb.where('crm_topics.program_id', req.params.program_id)
+      qb.whereNull('deleted_at')
     },
     filter: {
       params: req.query.$filter,

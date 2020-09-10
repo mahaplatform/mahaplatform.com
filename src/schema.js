@@ -401,6 +401,7 @@ const schema = {
       table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_mailing_addresses', (table) => {
@@ -579,6 +580,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_voice_campaigns', (table) => {

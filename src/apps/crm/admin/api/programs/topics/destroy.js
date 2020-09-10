@@ -1,4 +1,8 @@
+import { activity } from '../../../../../../core/services/routes/activities'
+import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
+import { deleteTopic } from '../../../../services/topics'
+import Topic from '../../../../models/topic'
 
 const destroyRoute = async (req, res) => {
 
@@ -11,8 +15,35 @@ const destroyRoute = async (req, res) => {
     code: 403,
     message: 'You dont have sufficient access to perform this action'
   })
-  
-  res.status(200).respond()
+
+  const topic = await Topic.query(qb => {
+    qb.where('crm_topics.program_id', req.params.program_id)
+    qb.where('crm_topics.team_id', req.team.get('id'))
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!topic) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load topic'
+  })
+
+  await deleteTopic(req, {
+    topic
+  })
+
+  await activity(req, {
+    story: 'deleted {object}',
+    object: topic
+  })
+
+  await socket.refresh(req, [
+    `/admin/crm/programs/${req.params.program_id}`,
+    `/admin/crm/programs/${req.params.program_id}/topic/${req.params.id}`
+  ])
+
+  res.status(200).respond(true)
 
 }
 

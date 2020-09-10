@@ -6,8 +6,8 @@ const deleteEmail = async(req, { email }) => {
   await email.save({
     deleted_at: moment()
   }, {
-    patch: true,
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await audit(req, {

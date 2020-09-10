@@ -27,7 +27,6 @@ class Time extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { operator } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criterion-form">
@@ -90,6 +89,7 @@ class Time extends React.Component {
     const { operator } = this.state
     return {
       defaultValue: operator || options[0].value,
+      deselectable: false,
       options,
       onChange: this._handleUpdate.bind(this, 'operator')
     }

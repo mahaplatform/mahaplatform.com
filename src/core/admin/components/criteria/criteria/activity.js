@@ -84,6 +84,7 @@ class Activity extends React.Component {
     const { operator } = this.state
     return {
       defaultValue: operator || options[0].value,
+      deselectable: false,
       options,
       onChange: this._handleUpdate
     }

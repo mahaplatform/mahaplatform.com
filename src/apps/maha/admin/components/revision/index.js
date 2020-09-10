@@ -39,7 +39,6 @@ class Revision extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { revision } = this.props
-    console.log('revision', revision, prevProps.revision)
     if(revision !== prevProps.revision && prevProps.revision !== null) {
       this.setState({
         reload: true
