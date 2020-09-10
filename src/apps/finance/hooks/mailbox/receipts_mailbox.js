@@ -1,6 +1,6 @@
 import generateCode from '../../../../core/utils/generate_code'
 import { createAsset } from '../../../maha/services/assets'
-import { sendMail } from '../../../../core/services/email'
+import { sendEmail } from '../../../maha/services/emails'
 import socket from '../../../../core/services/emitter'
 import Reimbursement from '../../models/reimbursement'
 import Source from '../../../maha/models/source'
@@ -42,11 +42,16 @@ const _processEmail = async (req, { type, incoming_email }) => {
   const date = type === 'checks' ? 'date_needed' : 'date'
 
   if(!req.user) {
-    return await sendMail({
+    await sendEmail(req, {
+      team_id: req.team.get('id'),
       from: 'Maha <mailer@mahaplatform.com>',
       to: incoming_email.get('from'),
+      template: 'finance:item',
+      maha: true,
       subject: 'Invalid User',
-      html: 'Invalid User'
+      data: {
+        message: `<p>${incoming_email.get('from')} is not a valid user for team ${req.team.get('title')}</p>`
+      }
     })
   }
 
@@ -140,27 +145,37 @@ const processor = async (req, { incoming_email }) => {
       type
     })
 
-    return await sendMail({
+    return await sendEmail(req, {
+      team_id: req.team.get('id'),
       from: 'Maha <mailer@mahaplatform.com>',
       to: incoming_email.get('from'),
+      template: 'finance:item',
+      maha: true,
       subject: `Successfully received your ${singular}`,
-      html: `
-        <p>
-          Your ${singular} is now available
-          <a href="${process.env.WEB_HOST}${item.get('object_url')}">
-            here
-          </a>
-        </p>
-      `
+      data: {
+        message: `
+          <p>
+            Your ${singular} is now available
+            <a href="${process.env.WEB_HOST}${item.get('object_url')}">
+              here
+            </a>
+          </p>
+        `
+      }
     })
 
   } catch(err) {
 
-    return await sendMail({
+    return await sendEmail(req, {
+      team_id: req.team.get('id'),
       from: 'Maha <mailer@mahaplatform.com>',
       to: incoming_email.get('from'),
+      template: 'finance:item',
+      maha: true,
       subject: `Unable to accept your ${singular}`,
-      html: `Unable to accept your ${singular}`
+      data: {
+        message: `Unable to accept your ${singular}`
+      }
     })
 
   }

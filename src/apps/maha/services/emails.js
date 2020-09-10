@@ -83,7 +83,7 @@ export const encodeEmail = async(req, { code, header, html }) => {
 
 }
 
-export const send_email = async(req, options) => {
+export const sendEmail = async(req, options) => {
 
   const template = templates[options.template]
 
