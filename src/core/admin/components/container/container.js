@@ -145,15 +145,14 @@ const Creator = (mapResourcesToPage, Component) => {
           { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
         ])
       }
-      if(resources.length > 0) {
-        Object.values(resources).map(resource => {
-          if(!resource.refresh) return
-          network.join(resource.refresh)
-          network.subscribe([
-            { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
-          ])
-        })
-      }
+      if(resources.length === 0) return
+      Object.values(resources).map(resource => {
+        if(!resource.refresh) return
+        network.join(resource.refresh)
+        network.subscribe([
+          { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
+        ])
+      })
     }
 
     _handleLeave() {
@@ -166,15 +165,14 @@ const Creator = (mapResourcesToPage, Component) => {
           { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
         ])
       }
-      if(resources.length > 0) {
-        Object.values(resources).map(resource => {
-          if(!resource.refresh) return
-          network.leave(resource.refresh)
-          network.subscribe([
-            { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
-          ])
-        })
-      }
+      if(resources.length === 0) return
+      Object.values(resources).map(resource => {
+        if(!resource.refresh) return
+        network.leave(resource.refresh)
+        network.subscribe([
+          { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
+        ])
+      })
     }
 
     _handleRefreshResources() {
