@@ -47,7 +47,7 @@ class SMS extends React.Component {
   _getClient() {
     const { channel, program } = this.props
     return {
-      channel,
+      phone_number: channel.phone_number,
       program
     }
   }
