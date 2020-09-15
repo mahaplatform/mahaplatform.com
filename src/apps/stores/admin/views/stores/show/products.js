@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
 import React from 'react'
 
 class Products extends React.Component {
@@ -21,7 +20,6 @@ class Products extends React.Component {
           <thead>
             <tr>
               <td>Title</td>
-              <td className="collapsing">Variants</td>
               <td />
             </tr>
           </thead>
@@ -33,7 +31,6 @@ class Products extends React.Component {
                     <span className="alert">INACTIVE</span>
                   }
                 </td>
-                <td className="right aligned">{ product.variants.length }</td>
                 <td className="proceed">
                   <i className="fa fa-chevron-right" />
                 </td>
@@ -41,7 +38,7 @@ class Products extends React.Component {
             )) }
             { products.length === 0 &&
               <tr>
-                <td colSpan="3" className="center">
+                <td colSpan="2" className="center">
                   This store doesnt yet have any products
                 </td>
               </tr>

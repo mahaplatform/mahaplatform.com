@@ -1,6 +1,7 @@
 import NewProduct from '../../../components/productform'
 import Performance from './performance'
 import Inventory from '../inventory'
+import Inv from './inventory'
 import { Page } from 'maha-admin'
 import Products from './products'
 import Details from './details'
@@ -11,7 +12,7 @@ const getTabs = ({ audits, products, store }) => ({
   items: [
     { label: 'Details', component: <Details store={ store } audits={ audits } /> },
     { label: 'Products', component: <Products store={ store } products={ products } /> },
-    { label: 'Discounts', component: <Products store={ store } products={ products } /> },
+    { label: 'Inventory', component: <Inv products={ products }/> },
     { label: 'Performance', component: <Performance /> }
   ]
 })
