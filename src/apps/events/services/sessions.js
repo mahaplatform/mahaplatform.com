@@ -17,6 +17,12 @@ export const updateSessions = async (req, { event, sessions }) => {
     return session.id !== undefined
   })
 
+  const destroy = existing.filter(existing => {
+    return sessions.find(session => {
+      return session.id === existing.get('id')
+    }) === undefined
+  })
+
   await Promise.mapSeries(add, async (data) => {
     await Session.forge({
       team_id: req.team.get('id'),
@@ -40,6 +46,13 @@ export const updateSessions = async (req, { event, sessions }) => {
       patch: true
     })
 
+  })
+
+  await Promise.mapSeries(destroy, async (session) => {
+    await session.destroy({
+      transacting: req.trx,
+      patch: true
+    })
   })
 
 }
