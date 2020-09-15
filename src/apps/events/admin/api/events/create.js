@@ -66,12 +66,11 @@ const createRoute = async (req, res) => {
     })
   }
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/events/${req.body.permalink}`,
-      destination: `/events/${event.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/events/${req.body.permalink}`,
+    destination: `/events/${event.get('code')}`
+  })
 
   await audit(req, {
     story: 'created',

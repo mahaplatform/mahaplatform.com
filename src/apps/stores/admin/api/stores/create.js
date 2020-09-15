@@ -38,12 +38,11 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/stores/${req.body.permalink}`,
-      destination: `/stores/stores/${store.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/stores/${req.body.permalink}`,
+    destination: `/stores/stores/${store.get('code')}`
+  })
 
   await audit(req, {
     story: 'created',

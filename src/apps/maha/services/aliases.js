@@ -1,6 +1,6 @@
 import Alias from '../models/alias'
 
-export const updateAlias = async (req, { src, destination }) => {
+export const updateAlias = async (req, { permalink, src, destination }) => {
 
   const alias = await Alias.query(qb => {
     qb.where('destination', destination)
@@ -8,8 +8,8 @@ export const updateAlias = async (req, { src, destination }) => {
     transacting: req.trx
   })
 
-  if(alias && (!src || src.length === 0)) {
-    return await alias.destroy(null, {
+  if(alias && (!permalink || permalink.length === 0)) {
+    return await alias.destroy({
       transacting: req.trx
     })
   }

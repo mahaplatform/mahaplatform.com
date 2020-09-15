@@ -22,17 +22,17 @@ const updateRoute = async (req, res) => {
   })
 
   await store.save({
-    ...whitelist(req.body, ['title','permalink'])
+    permalink: req.body.permalink,
+    ...whitelist(req.body, ['title'])
   }, {
     transacting: req.trx
   })
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/stores/${req.body.permalink}`,
-      destination: `/stores/stores/${store.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/stores/${req.body.permalink}`,
+    destination: `/stores/stores/${store.get('code')}`
+  })
 
   await audit(req, {
     story: 'created',

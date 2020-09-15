@@ -69,12 +69,11 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/forms/${req.body.permalink}`,
-      destination: `/crm/forms/${form.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/forms/${req.body.permalink}`,
+    destination: `/crm/forms/${form.get('code')}`
+  })
 
   await audit(req, {
     story: 'created',

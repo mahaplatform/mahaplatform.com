@@ -21,18 +21,18 @@ const updateRoute = async (req, res) => {
   })
 
   await form.save({
-    ...whitelist(req.body, ['title','config','permalink'])
+    permalink: req.body.permalink,
+    ...whitelist(req.body, ['title','config'])
   }, {
     patch: true,
     transacting: req.trx
   })
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/forms/${req.body.permalink}`,
-      destination: `/crm/forms/${form.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/forms/${req.body.permalink}`,
+    destination: `/crm/forms/${form.get('code')}`
+  })
 
   await audit(req, {
     story: 'updated',

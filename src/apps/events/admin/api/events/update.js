@@ -24,7 +24,8 @@ const updateRoute = async (req, res) => {
   })
 
   await event.save({
-    ...whitelist(req.body, ['title','permalink','description','image_id','contact_config','ticket_config','payment_config'])
+    permalink: req.body.permalink,
+    ...whitelist(req.body, ['title','description','image_id','contact_config','ticket_config','payment_config'])
   }, {
     transacting: req.trx
   })
@@ -54,12 +55,11 @@ const updateRoute = async (req, res) => {
     })
   }
 
-  if(req.body.permalink) {
-    await updateAlias(req, {
-      src: `/events/${req.body.permalink}`,
-      destination: `/events/${event.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    permalink: req.body.permalink,
+    src: `/events/${req.body.permalink}`,
+    destination: `/events/${event.get('code')}`
+  })
 
   await audit(req, {
     story: 'updated',
