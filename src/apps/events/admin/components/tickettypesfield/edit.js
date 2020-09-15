@@ -81,7 +81,7 @@ class Edit extends React.PureComponent {
       return [
         { type: 'fields', fields: [
           { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: ticket_type.project_id },
-          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30,37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.revenue_type_id }
+          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: ticket_type.revenue_type_id }
         ] },
         { type: 'fields', fields: [
           { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true, defaultValue: ticket_type.low_price },
