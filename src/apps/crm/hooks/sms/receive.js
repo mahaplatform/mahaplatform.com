@@ -54,8 +54,6 @@ const getPhoneNumber = async (req, { number }) => {
 
 const receive = async (req, { sms, phone_number }) => {
 
-  console.log('receive', sms.get('body'))
-
   await phone_number.load(['program'], {
     transacting: req.trx
   })
@@ -76,7 +74,7 @@ const receive = async (req, { sms, phone_number }) => {
     `/admin/crm/programs/${phone_number.related('program').get('id')}/channels/sms/${from.get('id')}/smses`
   ])
 
-  if(_.includes(['start','yes','unstop'], sms.get('body').toLowerCase())) {
+  if(_.includes(['start','unstop'], sms.get('body').toLowerCase())) {
     await updateConsent(req, {
       channel_type: 'sms',
       channel_id: from.get('id'),
@@ -90,6 +88,7 @@ const receive = async (req, { sms, phone_number }) => {
     qb.where('crm_sms_campaigns.phone_number_id', phone_number.get('id'))
     qb.where('crm_workflow_enrollments.contact_id', from.get('contact_id'))
     qb.where('crm_workflow_enrollments.status', 'active')
+    qb.where('crm_workflow_enrollments.team_id', req.team.get('id'))
     qb.whereNull('crm_workflow_enrollments.unenrolled_at')
     qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
   }).fetch({
@@ -122,6 +121,7 @@ const receive = async (req, { sms, phone_number }) => {
   }
 
   const sms_campaign = await SMSCampaign.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('phone_number_id', phone_number.get('id'))
     qb.where('direction', 'inbound')
     qb.whereRaw('lower(term) = ?', sms.get('body').toLowerCase())

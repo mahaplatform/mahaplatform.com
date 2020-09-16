@@ -5,6 +5,7 @@ import Contact from '../models/contact'
 export const getContact = async (req, { team_id, number }) => {
 
   const phone_number = await PhoneNumber.query(qb => {
+    qb.where('team_id', team_id)
     qb.where('number', number)
   }).fetch({
     withRelated: ['contact'],
@@ -19,8 +20,7 @@ export const getContact = async (req, { team_id, number }) => {
 
   const contact = await Contact.forge({
     team_id,
-    code,
-    phone: number
+    code
   }).save(null, {
     transacting: req.trx
   })

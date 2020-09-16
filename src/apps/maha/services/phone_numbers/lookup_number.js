@@ -17,11 +17,11 @@ const lookupNumber = async (req, { number }) => {
 
   if(caller_type !== 'CONSUMER') return {}
 
-  const parts = caller_name.toLowerCase().split(' ')
+  const parts = caller_name.replace(/\s+/g, ',').toLowerCase().split(',')
 
   return {
-    first_name: capitalize(parts.slice(1)),
-    last_name: capitalize(parts.slice(0, 1))
+    first_name: capitalize(parts.slice(0, 1)),
+    last_name: capitalize(parts.slice(1))
   }
 
 }
