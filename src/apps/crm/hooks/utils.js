@@ -2,7 +2,11 @@ import generateCode from '../../../core/utils/generate_code'
 import PhoneNumber from '../models/phone_number'
 import Contact from '../models/contact'
 
-export const getContact = async (req, { team_id, number }) => {
+export const getContact = async (req, params) => {
+
+  const { number } = params
+
+  const team_id = params.team_id || req.team.get('id')
 
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('team_id', team_id)
