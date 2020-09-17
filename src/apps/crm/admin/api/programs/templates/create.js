@@ -13,8 +13,7 @@ const getConfig = async (req, { config, program_id, template_id }) => {
   if(template_id) {
 
     const starter = await Template.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('program_id', program_id)
+      qb.whereRaw('team_id is null or (team_id=? and program_id=?)', [req.team.get('id'), program_id])
       qb.where('id', template_id)
     }).fetch({
       transacting: req.trx
