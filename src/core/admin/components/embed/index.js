@@ -91,7 +91,7 @@ class Embed extends React.PureComponent {
 
 const dependencies = {
   styles: [
-    `${process.env.WEB_ASSET_CDN_HOST}/admin/css/atom-one-dark.min.css`
+    { url: `${process.env.WEB_ASSET_CDN_HOST}/admin/css/atom-one-dark.min.css` }
   ]
 }
 

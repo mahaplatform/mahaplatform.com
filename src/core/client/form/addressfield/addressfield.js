@@ -105,7 +105,7 @@ class Addressfield extends React.Component {
 
 const dependencies = {
   scripts: [
-    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
+    { url: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`, check: 'google.maps' }
   ]
 }
 

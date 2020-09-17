@@ -71,7 +71,7 @@ class Recaptcha extends React.Component {
 
 const dependencies = {
   scripts: [
-    'https://www.google.com/recaptcha/api.js'
+    { url: 'https://www.google.com/recaptcha/api.js', check: 'grecaptcha' }
   ]
 }
 

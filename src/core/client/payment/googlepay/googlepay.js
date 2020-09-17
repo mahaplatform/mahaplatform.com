@@ -90,7 +90,8 @@ class GooglePay extends React.Component {
 
 const dependencies = {
   scripts: [
-    'https://pay.google.com/gp/p/js/pay.js'
+    { url: 'https://pay.google.com/gp/p/js/pay.js', check: 'google.payments.api' }
+
   ]
 }
 

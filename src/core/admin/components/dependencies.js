@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 
 const Creator = (dependencies) => (Component) => {
 
@@ -40,15 +41,17 @@ const Creator = (dependencies) => (Component) => {
 
     _handleCheckLoadedScript(dependency) {
       const scripts = Array.prototype.slice.call(document.scripts)
-      const path = this._getNormalized(dependency)
-      return scripts.find(script => {
+      const path = this._getNormalized(dependency.url)
+      const loaded = scripts.find(script => {
         return script.src === path
       }) !== undefined
+      const available = typeof _.get(window, dependency.check) !== 'undefined'
+      return loaded && available
     }
 
     _handleCheckLoadedStyle(dependency) {
       const styles = Array.prototype.slice.call(document.styleSheets)
-      const path = this._getNormalized(dependency)
+      const path = this._getNormalized(dependency.url)
       return styles.find(style => {
         return style.href === path
       }) !== undefined
@@ -58,7 +61,7 @@ const Creator = (dependencies) => (Component) => {
       const script = document.createElement('script')
       script.async = true
       script.defer = true
-      script.src = this._getNormalized(dependency)
+      script.src = this._getNormalized(dependency.url)
       script.onload = this._handleCheck
       document.body.appendChild(script)
     }
@@ -67,7 +70,7 @@ const Creator = (dependencies) => (Component) => {
       const style = document.createElement('link')
       style.rel = 'stylesheet'
       style.type = 'text/css'
-      style.href = this._getNormalized(dependency)
+      style.href = this._getNormalized(dependency.url)
       style.onload = this._handleCheck
       document.head.appendChild(style)
     }

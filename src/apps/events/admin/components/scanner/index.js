@@ -1,4 +1,4 @@
-import { Button, Dependencies, Loader } from 'maha-admin'
+import { Button, Dependencies } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -173,7 +173,7 @@ class Scanner extends React.Component {
 
 const dependencies = {
   scripts: [
-    `${process.env.WEB_ASSET_CDN_HOST}/admin/js/jsqr.min.js`
+    { url: `${process.env.WEB_ASSET_CDN_HOST}/admin/js/jsqr.min.js`, check: 'jsQR' }
   ]
 }
 

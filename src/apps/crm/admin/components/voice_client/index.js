@@ -208,7 +208,7 @@ class VoiceClient extends React.Component {
 
 const dependencies = {
   scripts: [
-    `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`
+    { url: `${process.env.WEB_ASSET_CDN_HOST}/admin/js/twilio.min.js`, check: 'Twilio.Device' }
   ]
 }
 
