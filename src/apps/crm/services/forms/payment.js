@@ -31,7 +31,7 @@ export const createInvoice = async (req, { program_id, contact, line_items }) =>
   let delta = 0
 
   await Promise.mapSeries(line_items, async (line_item) => {
-    if(line_item.price_type === 'fixed' || line_item.overage_strategy !== 'donation' || Number(line_item.price) === Number(line_item.high_price)) {
+    if(line_item.price_type === 'fixed' || line_item.overage_strategy !== 'donation') {
       if(line_item.price > 0) {
         await LineItem.forge({
           team_id: req.team.get('id'),
