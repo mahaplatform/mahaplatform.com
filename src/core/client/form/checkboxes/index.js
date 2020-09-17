@@ -67,7 +67,7 @@ class Checkboxes extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { selected } = this.state
     const { options, status } = this.props
-    if(!_.isEqual(options, prevState.options)) {
+    if(!_.isEqual(options, prevState.options) && options) {
       this.setState({ options })
     }
     if(!_.isEqual(selected, prevState.selected)) {
@@ -146,6 +146,7 @@ class Checkboxes extends React.Component {
   _handleOptions(options) {
     const { defaultValue } = this.props
     this.setState({ options })
+    console.log({ options })
     if(defaultValue) {
       this.setState({
         selected: options.reduce((selected, option, index) => [
