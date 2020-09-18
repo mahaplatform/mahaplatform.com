@@ -44,7 +44,8 @@ class Edit extends React.Component {
             { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: product.revenue_type_id },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item', defaultValue: product.description },
             { label: 'Unit Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00', defaultValue: product.price },
-            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000', defaultValue: product.tax_rate }
+            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000', defaultValue: product.tax_rate },
+            { name: 'is_sold_out', type: 'checkbox', prompt: 'This item is sold out' }
           ]
         }
       ]

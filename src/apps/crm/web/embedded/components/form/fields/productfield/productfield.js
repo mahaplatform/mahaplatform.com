@@ -54,7 +54,9 @@ class ProductField extends React.Component {
             }
             { line_items.map((line_item, index) => (
               <tr key={`product_${index}`}>
-                <td>{ line_item.description }</td>
+                <td>
+                  { line_item.description } { line_item.is_sold_out ? <span className="soldout">SOLD OUT</span> : '' }
+                </td>
                 <td className="input">
                   <input { ...this._getInput(line_item) } />
                 </td>
@@ -103,6 +105,7 @@ class ProductField extends React.Component {
     const { tabIndex } = this.props
     return {
       tabIndex,
+      disabled: line_item.is_sold_out === true,
       type: 'text',
       value: line_item.quantity,
       onFocus: this._handleFocus,

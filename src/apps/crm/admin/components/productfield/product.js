@@ -30,7 +30,9 @@ class Product extends React.PureComponent {
           <i className="fa fa-bars" />
         </div>
         <div className="crm-productfield-product-label">
-          { product.description }
+          { product.description } { product.is_sold_out &&
+            <span className="alert">SOLD OUT</span>
+          }
         </div>
         <Button { ...this._getEditButton() } />
         <Button { ...this._getRemoveButton() } />
