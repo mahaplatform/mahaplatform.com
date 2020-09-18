@@ -21,8 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await form.save({
-    permalink: req.body.permalink,
-    ...whitelist(req.body, ['title','config'])
+    ...whitelist(req.body, ['title','permalink','config'])
   }, {
     patch: true,
     transacting: req.trx

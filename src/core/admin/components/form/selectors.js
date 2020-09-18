@@ -71,12 +71,10 @@ export const defaults = createSelector(
 export const filtered = createSelector(
   submittable,
   data,
-  (fields, data) => unflatten(fields.reduce((entity, field) => {
-    return {
-      ...entity,
-      [field.name]: _.get(data, field.name)
-    }
-  }, {}))
+  (fields, data) => unflatten(fields.reduce((entity, field) => ({
+    ...entity,
+    [field.name]: _.get(data, field.name)
+  }), {}))
 )
 
 export const isReady = createSelector(

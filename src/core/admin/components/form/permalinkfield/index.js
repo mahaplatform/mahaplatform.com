@@ -4,6 +4,7 @@ import React from 'react'
 class PermalinkField extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     network: PropTypes.object
   }
 
@@ -81,7 +82,8 @@ class PermalinkField extends React.Component {
   }
 
   _getHost() {
-    return process.env.WEB_HOST.replace('mahaplatform', 'ccetompkins.mahaplatform')
+    const { team } = this.context.admin
+    return process.env.WEB_HOST.replace('mahaplatform', `${team.subdomain}.mahaplatform`)
   }
 
   _getInput() {

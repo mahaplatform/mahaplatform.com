@@ -2,6 +2,8 @@ import Alias from '../models/alias'
 
 export const updateAlias = async (req, { permalink, src, destination }) => {
 
+  if(permalink === undefined) return
+
   const alias = await Alias.query(qb => {
     qb.where('destination', destination)
   }).fetch({

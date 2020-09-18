@@ -18,8 +18,9 @@ const getAlias = async (req, { path }) => {
 
 const aliasMiddleware = async (req, res, next) => {
   const query = Object.keys(req.query).length > 0 ? `?${qs.stringify(req.query)}` : ''
+  const path = req.path.replace('/admin', '')
   const destination = await Alias.query(qb => {
-    qb.whereRaw('destination=?', req.path)
+    qb.whereRaw('destination=?', path)
   }).fetch({
     transacting: req.trx
   })

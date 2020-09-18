@@ -32,7 +32,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/forms', placeholder: '/path/to/form' }
+            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/forms', destination: `/crm/forms/${form.code}`, placeholder: '/path/to/form' }
           ]
         }
       ]

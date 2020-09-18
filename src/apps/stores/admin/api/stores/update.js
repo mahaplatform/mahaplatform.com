@@ -22,8 +22,7 @@ const updateRoute = async (req, res) => {
   })
 
   await store.save({
-    permalink: req.body.permalink,
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['title','permalink'])
   }, {
     transacting: req.trx
   })
