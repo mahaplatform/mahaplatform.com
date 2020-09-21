@@ -9,9 +9,8 @@ class Complete extends React.Component {
   }
 
   static propTypes = {
-    team: PropTypes.object,
-    token: PropTypes.string,
-    user: PropTypes.object
+    account: PropTypes.object,
+    token: PropTypes.string
   }
 
   _handleClick = this._handleClick.bind(this)
@@ -36,9 +35,17 @@ class Complete extends React.Component {
   }
 
   _handleClick() {
-    const { admin } = this.context
-    const { team, token, user } = this.props
-    admin.signin(team, token, user)
+    const { account, token } = this.props
+    this.context.admin.signin({
+      id: account.id,
+      full_name: account.full_name,
+      initials: account.initials,
+      email: account.email,
+      photo: account.photo,
+      token,
+      authentication_strategy: account.authentication_strategy
+    })
+    this.context.router.history.push('/admin')
   }
 
 }

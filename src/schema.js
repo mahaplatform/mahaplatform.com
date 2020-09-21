@@ -1349,6 +1349,24 @@ const schema = {
       table.jsonb('address')
     })
 
+    await knex.schema.createTable('maha_accounts', (table) => {
+      table.increments('id').primary()
+      table.string('first_name', 255)
+      table.string('last_name', 255)
+      table.string('email', 255)
+      table.string('password_salt', 255)
+      table.string('password_hash', 255)
+      table.integer('security_question_id').unsigned()
+      table.string('security_question_answer', 255)
+      table.integer('photo_id').unsigned()
+      table.boolean('is_blocked')
+      table.timestamp('locked_out_at')
+      table.timestamp('activated_at')
+      table.timestamp('reset_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2001,12 +2019,9 @@ const schema = {
       table.increments('id').primary()
       table.string('title', 255)
       table.string('subdomain', 255)
-      table.string('color', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('logo_id').unsigned()
-      table.USER-DEFINED('authentication_strategy')
-      table.jsonb('authentication_config')
       table.text('address')
       table.timestamp('deleted_at')
     })
@@ -2028,16 +2043,9 @@ const schema = {
       table.string('first_name', 255)
       table.string('last_name', 255)
       table.string('email', 255)
-      table.string('password_salt', 255)
-      table.string('password_hash', 255)
       table.boolean('is_active').defaultsTo(false)
       table.boolean('is_admin').defaultsTo(false)
       table.integer('photo_id').unsigned()
-      table.integer('security_question_id').unsigned()
-      table.string('security_question_answer', 255)
-      table.integer('unread').defaultsTo(0)
-      table.timestamp('activated_at')
-      table.timestamp('reset_at')
       table.timestamp('invalidated_at')
       table.timestamp('last_online_at')
       table.timestamp('created_at')
@@ -2052,13 +2060,11 @@ const schema = {
       table.time('mute_evenings_end_time')
       table.time('mute_evenings_start_time')
       table.boolean('mute_weekends').defaultsTo(false)
-      table.boolean('is_blocked').defaultsTo(false)
-      table.timestamp('locked_out_at')
-      table.string('key', 255)
       table.integer('user_type_id').unsigned()
       table.string('cell_phone', 255)
       table.USER-DEFINED('email_notifications_method')
       table.USER-DEFINED('notification_sound')
+      table.integer('account_id').unsigned()
     })
 
     await knex.schema.createTable('maha_users_alerts', (table) => {
@@ -3446,9 +3452,9 @@ const schema = {
 
     await knex.schema.table('maha_users', table => {
       table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('security_question_id').references('maha_security_questions.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_type_id').references('maha_user_types.id')
+      table.foreign('account_id').references('maha_accounts.id')
     })
 
     await knex.schema.table('maha_users_roles', table => {
@@ -3662,6 +3668,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_accounts', table => {
+      table.foreign('security_question_id').references('maha_security_questions.id')
+      table.foreign('photo_id').references('maha_assets.id')
     })
 
 

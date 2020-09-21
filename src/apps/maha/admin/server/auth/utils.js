@@ -1,37 +1,28 @@
 import { createUserToken } from '../../../../../core/utils/user_tokens'
-import socket from '../../../../../core/services/routes/emitter'
-import User from '../../../models/user'
+import Account from '../../../models/account'
 
-export const loadUserByEmail = async (req, email, done) => {
+export const loadAccountByEmail = async (req, email, done) => {
 
-  const user = await User.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const account = await Account.query(qb => {
     qb.where('email', email)
   }).fetch({
-    withRelated: ['photo','team.logo'],
+    withRelated: ['photo'],
     transacting: req.trx
   })
 
-  if(!user) return done(null, false, { message: 'cannot find user' })
+  if(!account) return done(null, false, { message: 'cannot find account' })
 
-  return done(null, user)
+  return done(null, account)
 
 }
 
-export const getState = (req) => {
-  return new Buffer(JSON.stringify({
-    team_id: req.team_id,
-    signin_id: req.signin_id
-  })).toString('base64')
-}
-
-export const result = (req, res) => async (err, user, info) => {
+export const result = (req, res) => async (err, account, info) => {
 
   console.log('error', err)
 
-  if(!user) return await failure(req, res)
+  if(!account) return await failure(req, res)
 
-  req.user = user
+  req.account = account
 
   await success(req, res)
 
@@ -39,33 +30,17 @@ export const result = (req, res) => async (err, user, info) => {
 
 const success = async (req, res) => {
 
-  const team = req.user.related('team')
-
-  const session = {
-    team: {
-      id: team.get('id'),
-      title: team.get('title'),
-      subdomain: team.get('subdomain'),
-      logo: team.related('logo') ? team.related('logo').get('url') : null,
-      authentication_strategy: team.get('authentication_strategy')
-    },
-    token: createUserToken(req.user, 'user_id'),
-    user: {
-      id: req.user.get('id'),
-      email: req.user.get('email'),
-      full_name: req.user.get('full_name'),
-      initials: req.user.get('initials'),
-      photo: req.user.related('photo') ? req.user.related('photo').get('url') : null
-    }
+  const account = {
+    id: req.account.get('id'),
+    full_name: req.account.get('full_name'),
+    initials: req.account.get('initials'),
+    email: req.account.get('email'),
+    photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
+    token: createUserToken(req.account, 'account_id'),
+    authentication_strategy: req.account.get('authentication_strategy')
   }
 
-  await socket.message(req, {
-    channel: `/admin/signin/${req.signin_id}`,
-    action: 'signin',
-    data: session
-  })
-
-  res.status(200).type('text/html').render('success', { session })
+  res.status(200).type('text/html').render('success', { account })
 
 }
 

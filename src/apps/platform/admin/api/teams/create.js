@@ -9,7 +9,7 @@ import Team from '../../../../maha/models/team'
 const createRoute = async (req, res) => {
 
   const team = await Team.forge({
-    ...whitelist(req.body, ['title','subdomain','authentication_strategy','logo_id'])
+    ...whitelist(req.body, ['title','subdomain','logo_id'])
   }).save(null, {
     transacting: req.trx
   })

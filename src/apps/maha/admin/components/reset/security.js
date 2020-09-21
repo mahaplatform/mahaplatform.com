@@ -5,10 +5,10 @@ import React from 'react'
 class Security extends React.Component {
 
   static propTypes = {
+    account: PropTypes.object,
     question: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
-    user: PropTypes.object,
     onSecurity: PropTypes.func
   }
 
@@ -21,13 +21,13 @@ class Security extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { question, user } = this.props
+    const { account, question } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
-          { user && <Avatar user={ user } width="150" /> }
-          { user && <h2>{ user.full_name }</h2> }
-          <p>Hi { user.first_name }. Before we can reset your password, Please
+          { account && <Avatar user={ account } width="150" /> }
+          { account && <h2>{ account.full_name }</h2> }
+          <p>Hi { account.first_name }. Before we can reset your password, Please
           answer the following security question to prove your identity.</p>
           <p>{ question.text }</p>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>

@@ -94,12 +94,12 @@
   flex: 1;
 }
 .maha-navigation-apps {
-  border-bottom: 1px solid fadeout(@black, 95);
+  border-bottom: 1px solid fadeout(@black, 90);
 }
 .maha-navigation-item {
   .hover(background-color, fadeout(@black, 97));
   display: flex;
-  border-bottom: 1px solid fadeout(@black, 95);
+  border-bottom: 1px solid fadeout(@black, 90);
   .maha-navigation-item-extra:first-child {
     padding: 0.8em 0 0.8em 0.8em;
   }
@@ -160,7 +160,7 @@
 }
 
 .maha-navigation-account {
-  .hover(background-color, fadeout(@black, 95));
+  .hover(background-color, fadeout(@black, 97));
   flex: 1;
   display: flex;
   font-size: .9em;
@@ -168,32 +168,15 @@
   overflow: hidden;
   cursor: pointer;
   background-color: @white;
-  color: #888;
-  border-bottom: 1px solid #EEEEEE;
+  color: fadeout(@black, 40);
+  border-bottom: 1px solid fadeout(@black, 90);
 }
 .maha-navigation-account-logo {
   position: relative;
   padding: 0.8em;
   .maha-logo {
-    height: 2em;
-    width: 2em;
-    img {
-      height: 2em;
-      width: 2em;
-      border-radius: .3em;
-    }
-  }
-  .maha-avatar {
-    width: 1.8em;
-    height: 1.8em;
-    position: absolute;
-    bottom: 1em;
-    right: 0.1em;
-    border-radius: 50%;
-    border: 2px solid @white;
-  }
-  .maha-avatar-text {
-    font-size: .7em;
+    height: 2.4em;
+    width: 2.4em;
   }
   .maha-logo-wrapper {
     border-radius: .3em;
@@ -217,51 +200,15 @@
   }
 }
 .maha-navigation-account-title {
-  flex: 1;
   padding: 0.8em 0.8em 0.8em 0;
-  strong {
-    color: @black;
-  }
+  line-height: 2em;
+  flex: 1;
 }
 .maha-navigation-account-active {
   padding: 0.8em 0.8em 0.8em 0;
-  flex: 0 0 2.8em;
   display: flex;
   .fa {
     margin: auto;
     color: @green;
   }
-}
-.maha-navigation-account-add {
-  flex: 1;
-  display: flex;
-  font-size: 13px;
-  line-height: 15px;
-  padding: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  background-color: @white;
-  border-bottom: 1px solid #EEEEEE;
-}
-.maha-navigation-account-add-button {
-  flex: 0 0 40px;
-}
-.maha-navigation-account-add-button-image {
-  width: 2em;
-  height: 2em;
-  padding: 8px;
-  background-color: #DDD;
-  color: #888;
-  border-radius: 5px;
-  display: flex;
-  i {
-    margin: auto;
-    font-size: 14px;
-    line-height: 14px;
-  }
-}
-.maha-navigation-account-add-text {
-  flex: 1;
-  display: flex;
-  align-items: center;
 }

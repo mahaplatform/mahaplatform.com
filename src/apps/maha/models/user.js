@@ -1,8 +1,7 @@
-import SecurityQuestion from './security_question'
 import Model from '../../../core/objects/model'
 import Supervision from './supervision'
-import bcrypt from 'bcrypt-nodejs'
 import Session from './session'
+import Account from './account'
 import Asset from './asset'
 import Group from './group'
 import Role from './role'
@@ -56,15 +55,6 @@ const User = new Model({
       return `/admin/team/users/${this.get('id')}`
     },
 
-    password: {
-      get() {},
-      set(value) {
-        const password_salt = bcrypt.genSaltSync(10)
-        this.set('password_salt', password_salt)
-        this.set('password_hash', bcrypt.hashSync(value, password_salt))
-      }
-    },
-
     rfc822: function() {
       return `${this.get('full_name')} <${this.get('email')}>`
     },
@@ -93,10 +83,6 @@ const User = new Model({
     return this.belongsTo(Asset, 'photo_id')
   },
 
-  security_question() {
-    return this.belongsTo(SecurityQuestion, 'security_question_id')
-  },
-
   groups() {
     return this.belongsToMany(Group, 'maha_users_groups', 'user_id', 'group_id')
   },
@@ -105,16 +91,16 @@ const User = new Model({
     return this.belongsToMany(Role, 'maha_users_roles', 'user_id', 'role_id')
   },
 
+  account: function() {
+    return this.belongsTo(Account)
+  },
+
   supervisors: function() {
     return this.hasMany(User).through(Supervision, 'id', 'employee_id', 'supervisor_id')
   },
 
   team() {
     return this.belongsTo(Team, 'team_id')
-  },
-
-  authenticate(password) {
-    return this.get('password_hash') === bcrypt.hashSync(password, this.get('password_salt'))
   }
 
 })

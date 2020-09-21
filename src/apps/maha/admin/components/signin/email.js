@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
+import { Image } from 'maha-admin'
 import moment from 'moment'
 import React from 'react'
 
 class Email extends React.Component {
 
   static contextTypes = {
+    host: PropTypes.object,
     router: PropTypes.object
   }
 
   static propTypes = {
+    account: PropTypes.object,
     status: PropTypes.string,
-    team: PropTypes.object,
-    user: PropTypes.object,
     onChangeMode: PropTypes.func,
     onEmail: PropTypes.func,
     onSet: PropTypes.func
@@ -24,20 +24,24 @@ class Email extends React.Component {
     error: false
   }
 
-  _handleBack = this._handleBack.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handleShake = this._handleShake.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { status, team } = this.props
+    const { status } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
-          <div className="maha-signin-header">
-            <Logo host="" team={ team } width="150" />
-            <h2>{ team.title }</h2>
+          <div className="maha-avatar">
+            <div className="maha-avatar-badge">
+              <div className="maha-avatar-wrapper">
+                <Image host={ process.env.WEB_ASSET_CDN_HOST } src="/admin/images/maha.png" title="The Maha Platform" transforms={{ fit: 'cover', w: 150, h: 150 }} />
+              </div>
+            </div>
           </div>
+          <h2>The Maha Platform</h2>
+          <p>Sign in To Your Account</p>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field email-field">
               <div className="ui input">
@@ -48,16 +52,13 @@ class Email extends React.Component {
               <button className={`ui fluid large ${(status === 'submitting') ? 'loading' : ''} button`}>Continue</button>
             </div>
           </form>
-          <div className="maha-signin-footer">
-            <p><a onClick={ this._handleBack }>Wrong team?</a></p>
-          </div>
         </div>
       </div>
     )
   }
 
   componentDidMount() {
-    this.props.onSet(this.props.team, null, 'email')
+    this.props.onSet(null, 'email')
     setTimeout(() => this.email.focus(), 500)
   }
 
@@ -77,23 +78,22 @@ class Email extends React.Component {
   }
 
   _getNextMode() {
-    const { user } = this.props
-    if(user.is_blocked) return 'blocked'
-    if(user.locked_out_at && moment().diff(moment(user.locked_out_at), 'seconds') < 60 * 5) return 'lockout'
+    const { account } = this.props
+    if(account.is_blocked) return 'blocked'
+    if(account.locked_out_at && moment().diff(moment(account.locked_out_at), 'seconds') < 60 * 5) return 'lockout'
     return 'password'
   }
 
-  _handleBack() {
-    const { onSet } = this.props
-    this.email.blur()
-    setTimeout(() => onSet(null, null, 'team'), 250)
-  }
-
   _handleNext() {
-    const { onChangeMode } = this.props
+    const { account, onChangeMode } = this.props
+    const { authentication_strategy } = account
     this.email.blur()
-    const mode = this._getNextMode()
-    setTimeout(() => onChangeMode(mode), 250)
+    if(authentication_strategy === 'local') {
+      const mode = this._getNextMode()
+      setTimeout(() => onChangeMode(mode), 250)
+    } else {
+      this.context.host.signin(`/admin/auth/${authentication_strategy}`)
+    }
   }
 
   _handleShake() {
@@ -104,9 +104,8 @@ class Email extends React.Component {
   }
 
   _handleSubmit(e) {
-    const { team, onEmail } = this.props
     const email = this.email.value
-    onEmail(team.id, email)
+    this.props.onEmail(email)
     e.preventDefault()
   }
 

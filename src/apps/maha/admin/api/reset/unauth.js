@@ -16,4 +16,5 @@ router.post('/verify', verify)
 router.post('/password', password)
 
 router.post('/security', security)
+
 export default router

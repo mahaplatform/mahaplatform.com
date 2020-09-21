@@ -1,44 +1,37 @@
-import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { validate } from '../../../../../core/utils/validation'
-import { sendEmail } from '../../../services/emails'
-import User from '../../../models/user'
+import { sendMail } from '../../../../../core/services/email'
+import { renderTemplate } from '../../../services/emails'
+import Account from '../../../models/account'
 
 const emailRoute = async (req, res, next) => {
 
   await validate({
-    team_id: 'required',
     email: 'required'
   }, req.body)
 
-  req.user = await User.where({
-    team_id: req.body.team_id,
+  const account = await Account.where({
     email: req.body.email
   }).fetch({
-    withRelated: ['team'],
     transacting: req.trx
   })
 
-  req.team = req.user.related('team')
+  const token = createUserToken(account, 'reset_id')
 
-  const token = createUserToken(req.user, 'reset_id')
-
-  await sendEmail(req, {
-    team_id: req.body.team_id,
-    user: req.user,
+  const { subject, html } = await renderTemplate(req, {
     template: 'team:reset',
     data: {
-      first_name: req.user.get('first_name'),
+      first_name: account.get('first_name'),
       reset_url: `${process.env.WEB_HOST}/admin/reset/${token}`
     }
   })
 
-  await activity(req, {
-    story: 'requested {object}',
-    object: req.user,
-    object_owner_id: req.user.get('id'),
-    object_text: 'password reset',
-    object_type: null
+  await sendMail({
+    from: 'Maha <mailer@mahaplatform.com>',
+    to: account.get('rfc822'),
+    reply_to: 'no-reply@mahaplatform.com',
+    subject,
+    html
   })
 
   res.status(200).respond(true)

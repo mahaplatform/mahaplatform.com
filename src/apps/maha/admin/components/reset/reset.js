@@ -17,14 +17,13 @@ class Reset extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
     error: PropTypes.string,
     mode: PropTypes.string,
-    team: PropTypes.object,
     token: PropTypes.string,
     question: PropTypes.string,
     show: PropTypes.bool,
     status: PropTypes.string,
-    user: PropTypes.object,
     onChangeMode: PropTypes.func,
     onSecurity: PropTypes.func,
     onPassword: PropTypes.func,
@@ -84,15 +83,15 @@ class Reset extends React.Component {
   }
 
   _getSecurity() {
-    return _.pick(this.props, ['question','status','token','user','onSecurity'])
+    return _.pick(this.props, ['account','question','status','token','onSecurity'])
   }
 
   _getPassword() {
-    return _.pick(this.props, ['show','status','token','user','onPassword','onTogglePassword'])
+    return _.pick(this.props, ['account','show','status','token','onPassword','onTogglePassword'])
   }
 
   _getComplete() {
-    return _.pick(this.props, ['team','token','user'])
+    return _.pick(this.props, ['account','token'])
   }
 
 }

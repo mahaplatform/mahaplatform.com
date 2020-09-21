@@ -18,22 +18,22 @@ class Admin extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
+    account_status: PropTypes.string,
     active: PropTypes.number,
     apps: PropTypes.array,
     children: PropTypes.any,
     rights: PropTypes.array,
-    session: PropTypes.object,
     status: PropTypes.string,
     teams: PropTypes.array,
+    teams_status: PropTypes.string,
     team: PropTypes.object,
     user: PropTypes.object,
-    user_id: PropTypes.number,
-    onAddTeam: PropTypes.func,
     onChooseTeam: PropTypes.func,
-    onLoadAdmin: PropTypes.func,
-    onLoadSession: PropTypes.func,
-    onRemoveTeam: PropTypes.func,
-    onSaveAdmin: PropTypes.func,
+    onLoadAccount: PropTypes.func,
+    onFetchSession: PropTypes.func,
+    onFetchTeams: PropTypes.func,
+    onSaveAccount: PropTypes.func,
     onSignin: PropTypes.func,
     onSignout: PropTypes.func
   }
@@ -42,15 +42,13 @@ class Admin extends React.Component {
     redirect: null
   }
 
-  _handleAddTeam = this._handleAddTeam.bind(this)
   _handleChooseTeam = this._handleChooseTeam.bind(this)
   _handleForceSignout = this._handleForceSignout.bind(this)
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
   _handleRedirectToSignin = this._handleRedirectToSignin.bind(this)
   _handleReloadSession = this._handleReloadSession.bind(this)
-  _handleRemoveTeam = this._handleRemoveTeam.bind(this)
-  _handleSaveAdmin = this._handleSaveAdmin.bind(this)
+  _handleSaveAccount = this._handleSaveAccount.bind(this)
   _handleSignin = this._handleSignin.bind(this)
   _handleSignout = this._handleSignout.bind(this)
 
@@ -61,62 +59,59 @@ class Admin extends React.Component {
   }
 
   componentDidMount() {
-    this._handleSaveIntent()
-    this._handleInitializeAdmin()
+    this._handleIntent()
+    this._handleInit()
   }
 
   componentDidUpdate(prevProps) {
-    const { active, status, teams, team, user, user_id } = this.props
-    if(status !== prevProps.status && status === 'loaded' && active === null) {
+    const { active, account, account_status, teams_status, team, user } = this.props
+    if(account_status !== prevProps.account_status && account_status === 'success' && !account) {
       this._handleRedirectToSignin()
     }
-    if(active !== prevProps.active && active === null) {
-      this._handleRedirectToSignin()
+    if(account !== prevProps.account && !!account) {
+      this._handleFetchTeams()
     }
-    if(active !== prevProps.active && active !== null) {
-      this._handleLoadSession()
+    if(teams_status !== prevProps.teams_status && teams_status === 'success') {
+      this._handleFetchSession()
     }
-    if(!_.isEqual(teams, prevProps.teams)) {
-      this._handleSaveAdmin()
+    if(active !== prevProps.active) {
+      this._handleSaveAccount()
+      if(active === null) {
+        this._handleRedirectToSignin()
+      } else {
+        if(prevProps.active !== null) this._handleFetchSession()
+      }
     }
-    if(user_id !== prevProps.user_id && prevProps.user_id !== null) {
-      this._handleLeave(prevProps.team, prevProps.user)
-    }
-    if(user_id !== prevProps.user_id && user_id === null) {
-      this._handleSaveAdmin()
-    }
-    if(user_id !== prevProps.user_id && user_id !== null) {
-      this._handleJoin(team, user)
-      this._handleLoggerLogin(user)
-      this._handleSaveAdmin()
-      this._handleRedirectToSaved()
+    if(!_.isEqual(user, prevProps.user)) {
+      if(user === null) {
+        this._handleLeave(prevProps.team, prevProps.user)
+      } else {
+        this._handleJoin(team, user)
+        this._handleLoggerLogin(user)
+        this._handleRedirectToSaved()
+      }
     }
   }
 
   getChildContext() {
-    const { apps, rights, team, user } = this.props
+    const { account, apps, rights, team, user } = this.props
     return {
       admin: {
+        account,
         apps,
         rights,
         team,
         user,
-        addTeam: this._handleAddTeam,
         chooseTeam: this._handleChooseTeam,
-        removeTeam: this._handleRemoveTeam,
         signin: this._handleSignin,
         signout: this._handleSignout
       }
     }
   }
 
-  _handleAddTeam(team, token, user) {
-    this.props.onAddTeam(team, token, user)
-  }
-
-  _handleChooseTeam(index) {
-    if(index === this.props.active) return this._handleRedirectToSaved()
-    this.props.onChooseTeam(index)
+  _handleChooseTeam(active = 0) {
+    if(active === this.props.active) return this._handleRedirectToSaved()
+    this.props.onChooseTeam(active)
   }
 
   _handleForceSignout() {
@@ -126,33 +121,38 @@ class Admin extends React.Component {
   }
 
   _handleJoin(team, user) {
-    const { network } = this.context
-    network.join([
+    this.context.network.join([
       `/admin/teams/${team.id}`,
       `/admin/users/${user.id}`,
       `/admin/sessions/${user.session_id}`
     ])
-    network.subscribe([
+    this.context.network.subscribe([
       { action: 'session', handler: this._handleReloadSession },
       { action: 'signout', handler: this._handleForceSignout }
     ])
   }
 
   _handleLeave(team, user) {
-    const { network } = this.context
-    network.leave([
+    this.context.network.leave([
       `/admin/teams/${team.id}`,
       `/admin/users/${user.id}`,
       `/admin/sessions/${user.session_id}`
     ])
-    network.unsubscribe([
+    this.context.network.unsubscribe([
       { action: 'session', handler: this._handleReloadSession },
       { action: 'signout', handler: this._handleForceSignout }
     ])
   }
 
-  _handleLoadSession() {
-    this.props.onLoadSession()
+  _handleFetchSession() {
+    const { teams } = this.props
+    const active = this.props.active || 0
+    this.props.onFetchSession(active, teams[active].token)
+  }
+
+  _handleFetchTeams() {
+    const { account } = this.props
+    this.props.onFetchTeams(account.token)
   }
 
   _handleLoggerLogin(user) {
@@ -179,20 +179,16 @@ class Admin extends React.Component {
   }
 
   _handleReloadSession() {
-    const { team, onLoadSession } = this.props
-    onLoadSession(team.token)
+    const { team, onFetchSession } = this.props
+    onFetchSession(team.token)
   }
 
-  _handleRemoveTeam(index) {
-    this.props.onRemoveTeam(index)
+  _handleSaveAccount() {
+    const { active, account } = this.props
+    this.props.onSaveAccount(active, account)
   }
 
-  _handleSaveAdmin() {
-    const { active, teams, onSaveAdmin } = this.props
-    onSaveAdmin(active, teams)
-  }
-
-  _handleSaveIntent() {
+  _handleIntent() {
     const { pathname, search, hash } = this.context.router.history.location
     if(pathname === '/admin') return
     if(pathname.match(/(activate|signin|reset)/)) return
@@ -201,15 +197,12 @@ class Admin extends React.Component {
     this.setState({ redirect })
   }
 
-  _handleInitializeAdmin() {
-    this.props.onLoadAdmin()
+  _handleInit() {
+    this.props.onLoadAccount()
   }
 
-  _handleSignin(team, token, user) {
-    const { teams } = this.props
-    const index = _.findIndex(teams, { id: team.id, user: { id: user.id } })
-    if(index < 0) return this.props.onAddTeam(team, token, user)
-    this.props.onSignin(index, token)
+  _handleSignin(account) {
+    this.props.onSignin(account)
   }
 
   _handleSignout() {

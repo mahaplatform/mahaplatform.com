@@ -1,48 +1,38 @@
-export const team = (subdomain) => ({
-  type: 'API_REQUEST',
-  method: 'POST',
-  endpoint: '/api/admin/signin/team',
-  body: { subdomain },
-  request: 'TEAM_REQUEST',
-  success: 'TEAM_SUCCESS',
-  failure: 'TEAM_FAILURE'
-})
-
-export const email = (team_id, email) => ({
+export const email = (email) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/signin/email',
-  body: { team_id, email },
+  body: { email },
   request: 'EMAIL_REQUEST',
   success: 'EMAIL_SUCCESS',
   failure: 'EMAIL_FAILURE'
 })
 
-export const password = (team_id, email, password) => ({
+export const password = (email, password) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/signin/password',
-  body: { team_id, email, password },
+  body: { email, password },
   request: 'PASSWORD_REQUEST',
   success: 'PASSWORD_SUCCESS',
   failure: 'PASSWORD_FAILURE'
 })
 
-export const forgot = (team_id, email) => ({
+export const forgot = (email) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/reset/email',
-  body: { team_id, email },
+  body: { email },
   request: 'FORGOT_REQUEST',
   success: 'FORGOT_SUCCESS',
   failure: 'FORGOT_FAILURE'
 })
 
-export const lockout = (team_id, email) => ({
+export const lockout = (email) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/signin/lockout',
-  body: { team_id, email },
+  body: { email },
   request: 'LOCKOUT_REQUEST',
   success: 'LOCKOUT_SUCCESS',
   failure: 'LOCKOUT_FAILURE'
@@ -61,9 +51,8 @@ export const toggleRemove = () => ({
   type: 'TOGGLE_REMOVE'
 })
 
-export const set = (team, user, mode) => ({
+export const set = (user, mode) => ({
   type: 'SET',
-  team,
   user,
   mode
 })

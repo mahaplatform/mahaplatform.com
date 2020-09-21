@@ -10,8 +10,7 @@ class AccountSidebar extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
-    modal: PropTypes.object,
-    router: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
@@ -23,7 +22,6 @@ class AccountSidebar extends React.Component {
   _handleNotifications = this._handleNotifications.bind(this)
   _handleSecurity = this._handleSecurity.bind(this)
   _handleSignout = this._handleSignout.bind(this)
-  _handleSwitch = this._handleSwitch.bind(this)
 
   render() {
     const { user } = this.props
@@ -43,9 +41,6 @@ class AccountSidebar extends React.Component {
           </div>
           <div className="maha-account-task" onClick={ this._handleNotifications }>
             <i className="fa fa-fw fa-bell" /> Manage Notifications
-          </div>
-          <div className="maha-account-task" onClick={ this._handleSwitch }>
-            <i className="fa fa-fw fa-users" /> Switch Account
           </div>
           <div className="maha-account-task" onClick={ this._handleSignout }>
             <i className="fa fa-fw fa-power-off" /> Sign Out
@@ -74,10 +69,6 @@ class AccountSidebar extends React.Component {
 
   _handleSignout() {
     this.context.admin.signout()
-  }
-
-  _handleSwitch() {
-    this.context.router.history.push('/admin/signin')
   }
 
 }

@@ -5,10 +5,10 @@ import React from 'react'
 class Password extends React.Component {
 
   static propTypes = {
+    account: PropTypes.object,
     show: PropTypes.bool,
     status: PropTypes.string,
     token: PropTypes.string,
-    user: PropTypes.object,
     onPassword: PropTypes.func,
     onTogglePassword: PropTypes.func
   }
@@ -24,13 +24,13 @@ class Password extends React.Component {
   _handleTogglePassword = this._handleTogglePassword.bind(this)
 
   render() {
-    const { show, user } = this.props
+    const { show, account } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-content">
-            { user && <Avatar user={ user } width="150" presence={ false } /> }
-            { user && <h2>{ user.full_name }</h2> }
+            { account && <Avatar user={ account } width="150" /> }
+            { account && <h2>{ account.full_name }</h2> }
             <h3>Please enter and confirm your new password</h3>
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>

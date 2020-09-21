@@ -44,6 +44,7 @@ class Welcome extends React.Component {
 
   _handleClick() {
     const { team } = this.props
+    // remove auth strategy
     if(team.authentication_strategy === 'local') return this.props.onChangeMode('question')
     this.props.onChangeMode('cell')
   }

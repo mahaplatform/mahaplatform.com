@@ -1,52 +1,45 @@
-export const loadAdmin = () => ({
+export const loadAccount = () => ({
   type: 'LOCAL_GET',
-  key: 'admin',
-  request: 'LOAD_ADMIN_REQUEST',
-  success: 'LOAD_ADMIN_SUCCESS',
-  failure: 'LOAD_ADMIN_FAILURE'
+  key: 'account',
+  request: 'LOAD_ACCOUNT_REQUEST',
+  success: 'LOAD_ACCOUNT_SUCCESS',
+  failure: 'LOAD_ACCOUNT_FAILURE'
 })
 
-export const saveAdmin = (active, teams) => ({
+export const saveAccount = (active, account) => ({
   type: 'LOCAL_SET',
-  key: 'admin',
+  key: 'account',
   value: {
     active,
-    teams
+    account
   },
-  request: 'SAVE_ADMIN_REQUEST',
-  success: 'SAVE_ADMIN_SUCCESS',
-  failure: 'SAVE_ADMIN_FAILURE'
+  request: 'SAVE_ACCOUNT_REQUEST',
+  success: 'SAVE_ACCOUNT_SUCCESS',
+  failure: 'SAVE_ACCOUNT_FAILURE'
 })
 
-export const loadSession = (token) => ({
+export const fetchTeams = (token) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: '/api/admin/signin/teams',
+  token,
+  request: 'FETCH_TEAMS_REQUEST',
+  success: 'FETCH_TEAMS_SUCCESS',
+  failure: 'FETCH_TEAMS_FAILURE'
+})
+
+export const fetchSession = (active, token) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/session',
+  meta: { active },
   token,
-  request: 'LOAD_SESSION_REQUEST',
-  success: 'LOAD_SESSION_SUCCESS',
-  failure: 'LOAD_SESSION_FAILURE'
+  request: 'FETCH_SESSION_REQUEST',
+  success: 'FETCH_SESSION_SUCCESS',
+  failure: 'FETCH_SESSION_FAILURE'
 })
 
-export const addTeam = (team, token, user) => ({
-  type: 'ADD_TEAM',
-  team,
-  token,
-  user
-})
-
-export const removeTeam = (index) => ({
-  type: 'REMOVE_TEAM',
-  index
-})
-
-export const signin = (index, token) => ({
-  type: 'SIGNIN',
-  index,
-  token
-})
-
-export const signout = (index) => ({
+export const signout = () => ({
   type: 'API_REQUEST',
   method: 'DELETE',
   endpoint: '/api/admin/session',
@@ -55,16 +48,12 @@ export const signout = (index) => ({
   failure: 'SIGNOUT_FAILURE'
 })
 
+export const signin = (account) => ({
+  type: 'SIGNIN',
+  account
+})
+
 export const chooseTeam = (index) => ({
   type: 'CHOOSE_TEAM',
   index
-})
-
-export const removeSession = () => ({
-  type: 'REMOVE_SESSION'
-})
-
-export const updateSession = (session) => ({
-  type: 'UPDATE_SESSION',
-  session
 })

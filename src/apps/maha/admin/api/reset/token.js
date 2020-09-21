@@ -1,5 +1,5 @@
 import { decode } from '../../../../../core/services/jwt'
-import User from '../../../models/user'
+import Account from '../../../models/account'
 import moment from 'moment'
 
 const route = async (req, res, next) => {
@@ -16,26 +16,24 @@ const route = async (req, res, next) => {
     message: 'Expired token'
   })
 
-  req.user = await User.where({
+  req.account = await Account.where({
     id: data.reset_id
   }).fetch({
     transacting: req.trx,
-    withRelated: ['photo','team']
+    withRelated: ['photo']
   })
 
-  if(!req.user) return res.status(401).json({
+  if(!req.account) return res.status(401).json({
     status: 401,
-    message: 'Invalid user'
+    message: 'Invalid account'
   })
 
-  const reset_at = req.user.get('reset_at')
+  const reset_at = req.account.get('reset_at')
 
   if(reset_at && (moment(reset_at).unix() - iat) > 0) return res.status(404).json({
     code: 404,
     message: 'This reset token has expired'
   })
-
-  req.team = req.user.related('team')
 
   next()
 

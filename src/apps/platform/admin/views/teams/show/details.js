@@ -14,7 +14,6 @@ const Details = ({ team }) => {
   list.items = [
     { label: 'Title ', content: team.title },
     { label: 'Team Name ', content: team.subdomain },
-    { label: 'Authentication', content: team.authentication_strategy },
     { label: 'Storage ', content: bytes(parseInt(team.storage), { decimalPlaces: 2, unitSeparator: ' ' }) },
     { label: 'Users ', content: team.users_count },
     { label: 'Phone Numbers ', content: team.phone_numbers_count },

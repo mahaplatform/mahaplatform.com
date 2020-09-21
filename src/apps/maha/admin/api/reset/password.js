@@ -1,4 +1,3 @@
-import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import moment from 'moment'
 
@@ -14,7 +13,7 @@ const passwordRoute = async (req, res, next) => {
     message: 'Password do not match'
   })
 
-  await req.user.save({
+  await req.account.save({
     password: req.body.password,
     locked_out_at: null,
     is_blocked: null,
@@ -24,29 +23,10 @@ const passwordRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  await req.user.load(['team.logo'], {
-    transacting: req.trx
-  })
-
-  const token = createUserToken(req.user, 'user_id')
-
-  await activity(req, {
-    story: 'reset {object}',
-    object: req.user,
-    object_owner_id: req.user.get('id'),
-    object_text: 'password',
-    object_type: null
-  })
+  const token = createUserToken(req.account, 'account_id')
 
   res.status(200).respond({
-    token,
-    team: {
-      id: req.user.related('team').get('id'),
-      title: req.user.related('team').get('title'),
-      subdomain: req.user.related('team').get('subdomain'),
-      color: req.user.related('team').get('color'),
-      logo: req.user.related('team').related('logo').get('path')
-    }
+    token
   })
 
 }

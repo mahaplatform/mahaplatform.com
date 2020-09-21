@@ -11,11 +11,10 @@ class Password extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
     show: PropTypes.bool,
     status: PropTypes.string,
-    team: PropTypes.object,
     token: PropTypes.string,
-    user: PropTypes.object,
     onLockout: PropTypes.func,
     onPassword: PropTypes.func,
     onForgot: PropTypes.func,
@@ -39,14 +38,14 @@ class Password extends React.Component {
   _handleTogglePassword = this._handleTogglePassword.bind(this)
 
   render() {
-    const { show, status, user } = this.props
+    const { show, status, account } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-header">
-            <Avatar host="" user={ user } width="150" presence={ false } />
-            <h2>{ user.full_name }</h2>
-            <p>{ user.email }</p>
+            <Avatar host="" user={ account } width="150" presence={ false } />
+            <h2>{ account.full_name }</h2>
+            <p>{ account.email }</p>
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field password-field">
@@ -69,7 +68,7 @@ class Password extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onSet(this.props.team, this.props.user, 'password')
+    this.props.onSet(this.props.account, 'password')
     setTimeout(() => this.password.focus(), 500)
   }
 
@@ -92,9 +91,9 @@ class Password extends React.Component {
   }
 
   _handleBack() {
-    const { team, onSet } = this.props
+    const { onSet } = this.props
     this.password.blur()
-    setTimeout(() => onSet(team, null, 'email'), 250)
+    setTimeout(() => onSet(null, 'email'), 250)
   }
 
   _handleFailure() {
@@ -110,13 +109,13 @@ class Password extends React.Component {
   }
 
   _handleForgot() {
-    const { team, user, onForgot } = this.props
-    onForgot(team.id, user.email)
+    const { account, onForgot } = this.props
+    onForgot(account.email)
   }
 
   _handleLockout() {
-    const { team, user, onLockout } = this.props
-    onLockout(team.id, user.email)
+    const { account, onLockout } = this.props
+    onLockout(account.email)
   }
 
   _handleShake() {
@@ -128,10 +127,10 @@ class Password extends React.Component {
 
   _handleSubmit(e) {
     e.preventDefault()
-    const { team, user, onPassword } = this.props
+    const { account, onPassword } = this.props
     const password = this.password.value
     if(password.length === 0) return
-    onPassword(team.id, user.email, password)
+    onPassword(account.email, password)
   }
 
   _handleTogglePassword() {

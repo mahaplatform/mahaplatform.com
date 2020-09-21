@@ -3,16 +3,9 @@ import DashboardCardType from '../../../maha/models/dashboard_card_type'
 import { whitelist } from '../../../../core/services/routes/params'
 import DashboardPanel from '../../../maha/models/dashboard_panel'
 import DashboardCard from '../../../maha/models/dashboard_card'
-import generateCode from '../../../../core/utils/generate_code'
 import User from '../../../maha/models/user'
 
 const createUser = async(req, params) => {
-
-  const key = await generateCode(req, {
-    table: 'maha_users',
-    key: 'key',
-    length: 32
-  })
 
   const user = await User.forge({
     team_id: params.team_id,
@@ -27,7 +20,6 @@ const createUser = async(req, params) => {
     mute_evenings_end_time: '9:00',
     mute_weekends: true,
     values: {},
-    key,
     ...whitelist(params, ['first_name','last_name','email','secondary_email','email_notifications_method','photo_id','values'])
   }).save(null, {
     transacting: req.trx

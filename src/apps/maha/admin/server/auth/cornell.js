@@ -1,4 +1,4 @@
-import { getState, loadUserByEmail, result } from './utils'
+import { loadAccountByEmail, result } from './utils'
 import { Strategy as SAMLStrategy } from 'passport-saml'
 import passport from 'passport'
 
@@ -18,28 +18,21 @@ export const cornell = async (req, res, next) => {
   const strategy = new SAMLStrategy({
     ...config
   }, (profile, done) => {
-    loadUserByEmail(req, profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'], done)
+    loadAccountByEmail(req, profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.6'], done)
   })
 
   passport.use(strategy)
 
   passport.authenticate('saml', {
-    session: false,
-    additionalParams: {
-      RelayState: getState(req)
-    }
+    session: false
   }, result(req, res))(req, res, next)
 
 }
 
 export const metadata = async (req, res) => {
-
   const strategy = new SAMLStrategy(config, () => {})
-
   const metadata = strategy.generateServiceProviderMetadata(process.env.CORNELL_DECRYPTION_CERT, process.env.CORNELL_SIGNING_CERT)
-
   res.status(200).type('application/xml').send(metadata)
-
 }
 
 export default cornell

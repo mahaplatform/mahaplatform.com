@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import team from './team'
+import teams from './teams'
 
-describe('src/apps/maha/admin/api/signin/team', () => {
+describe('src/apps/maha/admin/api/signin/teams.js', () => {
 
 })

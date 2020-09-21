@@ -20,13 +20,13 @@ export const createSession = async (req) => {
     transacting: req.trx
   })
 
-  await sendAlert(req, req.user, 'maha:new_session', {
-    first_name: req.user.get('first_name'),
-    signin_at: moment().format('h:mm A'),
-    icon: req.device.get('icon'),
-    display_name: req.device.related('display_name').get('text'),
-    terminate_url: `/so${session.get('code')}`
-  })
+  // await sendAlert(req, req.user, 'maha:new_session', {
+  //   first_name: req.user.get('first_name'),
+  //   signin_at: moment().format('h:mm A'),
+  //   icon: req.device.get('icon'),
+  //   display_name: req.device.related('display_name').get('text'),
+  //   terminate_url: `/so${session.get('code')}`
+  // })
 
   socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
     action: 'session'

@@ -18,7 +18,6 @@ class Teams extends React.Component {
     onToggleMode: PropTypes.func
   }
 
-  _handleAddTeam = this._handleAddTeam.bind(this)
   _handleToggleMode = this._handleToggleMode.bind(this)
 
   render() {
@@ -30,7 +29,7 @@ class Teams extends React.Component {
             <Logo team={ team } width="50" />
           </div>
           <div className="maha-navigation-header-team">
-            Accounts
+            Teams
           </div>
           <div className="maha-navigation-header-next">
             <i className="fa fa-chevron-down" />
@@ -38,34 +37,19 @@ class Teams extends React.Component {
         </div>
         <div className="maha-navigation-body">
           <div className="maha-navigation-accounts">
-            { teams.map((team, index) => {
-              if(!team.token) return null
-              return (
-                <div key={`team_${index}`} className="maha-navigation-account" onClick={ this._handleChangeTeam.bind(this, index) }>
-                  <div className="maha-navigation-account-logo">
-                    <Logo team={ team } width="32" />
-                    <Avatar user={ team.user } width="16" presence={ false } />
-                  </div>
-                  <div className="maha-navigation-account-title">
-                    <strong>{ team.user.full_name }</strong><br />
-                    { team.title }
-                  </div>
-                  <div className="maha-navigation-account-active">
-                    { index === active && <i className="fa fa-check" /> }
-                  </div>
+            { teams.map((team, index) => (
+              <div key={`team_${index}`} className="maha-navigation-account" onClick={ this._handleChangeTeam.bind(this, index) }>
+                <div className="maha-navigation-account-logo">
+                  <Logo team={ team } width="50" />
                 </div>
-              )
-            })}
-          </div>
-          <div className="maha-navigation-account-add" onClick={ this._handleAddTeam }>
-            <div className="maha-navigation-account-add-button">
-              <div className="maha-navigation-account-add-button-image">
-                <i className="fa fa-plus" />
+                <div className="maha-navigation-account-title">
+                  { team.title }
+                </div>
+                <div className="maha-navigation-account-active">
+                  { index === active && <i className="fa fa-check" /> }
+                </div>
               </div>
-            </div>
-            <div className="maha-navigation-account-add-text">
-              Add account
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -81,14 +65,6 @@ class Teams extends React.Component {
     const { chooseTeam } = this.context.admin
     if(index === active) onDone()
     if(index !== active) chooseTeam(index)
-
-  }
-
-  _handleAddTeam() {
-    const { router } = this.context
-    const { onDone } = this.props
-    onDone()
-    router.history.push('/admin/signin')
   }
 
 }

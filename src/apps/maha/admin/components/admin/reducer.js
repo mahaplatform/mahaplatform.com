@@ -1,14 +1,14 @@
-import _ from 'lodash'
-
 const INITIAL_STATE = {
+  account_status: 'pending',
+  account: null,
   active: null,
   apps: [],
   devices: null,
   preferences: null,
   rights: null,
-  session: null,
-  status: 'pending',
+  session_status: 'pending',
   teams: [],
+  teams_status: 'pending',
   team: null,
   user: null
 }
@@ -17,139 +17,71 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'LOAD_ADMIN_REQUEST':
+  case 'LOAD_ACCOUNT_REQUEST':
     return {
       ...state,
-      status: 'loading'
+      account_status: 'loading'
     }
 
-  case 'LOAD_ADMIN_SUCCESS':
+  case 'LOAD_ACCOUNT_SUCCESS':
     return {
       ...state,
       ...action.value,
-      status: 'loaded'
+      account_status: 'success'
     }
 
-  case 'LOAD_ADMIN_FAILURE':
+  case 'LOAD_ACCOUNT_FAILURE':
     return {
       ...state,
-      status: 'failure'
+      account_status: 'failure'
     }
 
-  case 'LOAD_SESSION_SUCCESS':
+  case 'FETCH_TEAMS_REQUEST':
     return {
       ...state,
-      teams: [
-        ...state.teams.map((team, index) => {
-          if(index !== state.active) return team
-          return {
-            ...state.teams[state.active],
-            ...action.result.data.team,
-            user: action.result.data.user
-          }
-        })
-      ],
+      teams_status: 'loading'
+    }
+
+  case 'FETCH_TEAMS_SUCCESS':
+    return {
+      ...state,
+      teams: action.result.data,
+      teams_status: 'success'
+    }
+
+  case 'FETCH_TEAMS_FAILURE':
+    return {
+      ...state,
+      teams_status: 'failure'
+    }
+
+  case 'FETCH_SESSION_REQUEST':
+    return {
+      ...state,
+      session_status: 'loading'
+    }
+
+  case 'FETCH_SESSION_SUCCESS':
+    return {
+      ...state,
+      session_status: 'success',
+      active: action.active,
       ...action.result.data
-    }
-
-  case 'ADD_TEAM':
-    const team = {
-      ...action.team,
-      token: action.token,
-      user: action.user
-    }
-    return {
-      ...state,
-      active: state.teams ? state.teams.length : 0,
-      teams: [
-        ...state.teams,
-        team
-      ],
-      team
-    }
-
-  case 'REMOVE_TEAM':
-    return {
-      ...state,
-      active: state.active !== action.index ? state.active : null,
-      apps: state.active !== action.index ? state.apps : null,
-      devices: state.active !== action.index ? state.devices : null,
-      preferences: state.active !== action.index ? state.preferences : null,
-      rights: state.active !== action.index ? state.rights : null,
-      session: state.active !== action.index ? state.session : null,
-      teams: state.teams.filter((team, index) => index !== action.index),
-      team: state.active !== action.index ? state.team : null,
-      user: state.active !== action.index ? state.user : null
-    }
-
-  case 'REMOVE_ALL_TEAMS':
-    return {
-      ...state,
-      devices: null,
-      preferences: null,
-      rights: null,
-      session: null,
-      teams: [],
-      team: null,
-      user: null
     }
 
   case 'SIGNIN':
     return {
       ...state,
-      active: action.index,
-      teams: [
-        ...state.teams.map((team, index) => {
-          if(index !== action.index) return team
-          return {
-            ...team,
-            token: action.token
-          }
-        })
-      ]
+      account: action.account
     }
 
   case 'SIGNOUT_SUCCESS':
-    return {
-      ...state,
-      active: null,
-      apps: null,
-      devices: null,
-      preferences: null,
-      rights: null,
-      session: null,
-      teams: [
-        ...state.teams.map((team, index) => {
-          if(index !== state.active) return team
-          return _.omit(team, ['token'])
-        })
-      ],
-      team: null,
-      user: null
-    }
+    return INITIAL_STATE
 
   case 'CHOOSE_TEAM':
     return {
       ...state,
       active: action.index
-    }
-
-  case 'REMOVE_SESSION':
-    return {
-      ...state,
-      apps: null,
-      devices: null,
-      preferences: null,
-      rights: null,
-      session: null,
-      team: null,
-      user: null
-    }
-
-  case 'UPDATE_SESSION':
-    return {
-      ...state,
-      ...action.session
     }
 
   default:

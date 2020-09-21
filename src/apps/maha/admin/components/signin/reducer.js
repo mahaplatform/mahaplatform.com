@@ -1,12 +1,8 @@
 export const INITIAL_STATE = {
-  signin_id: null,
   error: null,
   mode: null,
   show: false,
   status: 'pending',
-  removing: false,
-  team: null,
-  user: null,
   token: null
 }
 
@@ -14,7 +10,6 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'TEAM_REQUEST':
   case 'EMAIL_REQUEST':
   case 'PASSWORD_REQUEST':
   case 'LOCKOUT_REQUEST':
@@ -25,7 +20,6 @@ export default (state = INITIAL_STATE, action) => {
       status: 'submitting'
     }
 
-  case 'TEAM_FAILURE':
   case 'EMAIL_FAILURE':
   case 'PASSWORD_FAILURE':
   case 'LOCKOUT_FAILURE':
@@ -34,13 +28,6 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       status: 'failure',
       error: action.result.message
-    }
-
-  case 'TEAM_SUCCESS':
-    return {
-      ...state,
-      team: action.result.data,
-      status: 'success'
     }
 
   case 'EMAIL_SUCCESS':
@@ -90,15 +77,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'SET':
     return {
       ...state,
-      team: action.team,
       user: action.user,
       mode: action.mode
-    }
-
-  case 'SET_ID':
-    return {
-      ...state,
-      signin_id: action.signin_id
     }
 
   case 'RESET':

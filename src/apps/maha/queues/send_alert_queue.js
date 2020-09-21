@@ -1,7 +1,7 @@
 import collectObjects from '../../../core/utils/collect_objects'
 import { sendMail } from '../../../core/services/email'
 import Queue from '../../../core/objects/queue'
-import User from '../models/user'
+import Account from '../models/account'
 import pluralize from 'pluralize'
 import numeral from 'numeral'
 import moment from 'moment'
@@ -26,12 +26,12 @@ const templates = emails.reduce((emails, email) => ({
 
 const processor = async (req, job) => {
 
-  const { user_id, code } = job.data
+  const { account_id, code } = job.data
 
   const template = templates[code]
 
-  const user = await User.where({
-    id: user_id
+  const account = await Account.where({
+    id: account_id
   }).fetch({
     transacting: req.trx
   })
@@ -40,7 +40,6 @@ const processor = async (req, job) => {
     moment,
     numeral,
     pluralize,
-    team: req.team.toJSON(),
     host: process.env.WEB_HOST,
     maha: true,
     ...job.data.data || {}
@@ -54,15 +53,9 @@ const processor = async (req, job) => {
 
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',
-    to: user.get('rfc822'),
+    to: account.get('rfc822'),
     subject,
-    html,
-    list: {
-      unsubscribe: {
-        url: `${process.env.WEB_HOST}#preferences`,
-        comment: 'Unsubscribe'
-      }
-    }
+    html
   })
 
 }

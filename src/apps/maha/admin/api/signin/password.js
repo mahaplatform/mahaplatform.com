@@ -1,11 +1,10 @@
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { validate } from '../../../../../core/utils/validation'
-import User from '../../../models/user'
+import Account from '../../../models/account'
 
 const passwordRoute = async (req, res) => {
 
   await validate({
-    team_id: 'required',
     email: 'required'
   }, req.body)
 
@@ -14,31 +13,31 @@ const passwordRoute = async (req, res) => {
     message: 'Please enter your password'
   })
 
-  const user = await User.where({
-    team_id: req.body.team_id,
+  const account = await Account.where({
     email: req.body.email
   }).fetch({
     transacting: req.trx
   })
 
-  if(!user) return res.status(422).json({
+  if(!account) return res.status(422).json({
     code: 422,
     message: 'Unable to find this user'
   })
 
-  if(!user.authenticate(req.body.password)) return res.status(422).json({
+  if(!account.authenticate(req.body.password)) return res.status(422).json({
     code: 422,
     message: 'Invalid password'
   })
 
-  await user.save({
+  await account.save({
     locked_out_at: null
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   res.status(200).respond({
-    token: createUserToken(user, 'user_id')
+    token: createUserToken(account, 'account_id')
   })
 
 }

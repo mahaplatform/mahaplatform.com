@@ -6,7 +6,7 @@ import socket from '../../../../../core/services/routes/emitter'
 const updateRoute = async (req, res) => {
 
   await req.team.save({
-    ...whitelist(req.body, ['title','address','subdomain','logo_id','authentication_strategy'])
+    ...whitelist(req.body, ['title','address','subdomain','logo_id'])
   }, {
     patch: true,
     transacting: req.trx

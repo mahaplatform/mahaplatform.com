@@ -1,11 +1,10 @@
 export const INITIAL_STATE = {
+  account: null,
   mode: 'verify',
   show: false,
   status: 'pending',
   token: null,
-  team: null,
-  question: null,
-  user: null
+  question: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       mode: 'security',
-      user: action.result.data.user,
+      account: action.result.data.account,
       question: action.result.data.question,
       status: 'success'
     }
@@ -63,7 +62,6 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.result.data.token,
-      team: action.result.data.team,
       status: 'success',
       mode: 'complete'
     }

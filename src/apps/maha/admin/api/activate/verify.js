@@ -38,7 +38,6 @@ const verifyRoute = async (req, res) => {
     },
     team: {
       id: req.team.get('id'),
-      authentication_strategy: req.team.get('authentication_strategy'),
       title: req.team.get('title')
     },
     questions: questions.map(question => ({

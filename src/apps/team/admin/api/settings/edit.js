@@ -6,8 +6,7 @@ const editRoute = async (req, res) => {
       'title',
       'subdomain',
       'address',
-      'logo_id',
-      'authentication_strategy'
+      'logo_id'
     ]
   })
 

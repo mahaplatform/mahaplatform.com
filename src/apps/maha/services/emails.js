@@ -83,7 +83,7 @@ export const encodeEmail = async(req, { code, header, html }) => {
 
 }
 
-export const sendEmail = async(req, options) => {
+export const renderTemplate = async (req, options) => {
 
   const template = templates[options.template]
 
@@ -111,6 +111,14 @@ export const sendEmail = async(req, options) => {
   const subject = ejs.render(options.subject || template.subject, options.data)
 
   const html = template.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, subject, content }) : content
+
+  return { subject, html }
+
+}
+
+export const sendEmail = async(req, options) => {
+
+  const { subject, html } = await renderTemplate(req, options)
 
   const code = await generateCode(req, {
     table: 'maha_emails'
