@@ -1,3 +1,4 @@
+import { updateCellPhone } from '../../../../services/accounts'
 import redis from '../../../../../../core/services/redis'
 
 const verifyRoute = async (req, res) => {
@@ -14,11 +15,9 @@ const verifyRoute = async (req, res) => {
     })
   }
 
-  await req.user.save({
+  await updateCellPhone(req, {
+    account: req.account,
     cell_phone
-  }, {
-    patch: true,
-    transacting: req.trx
   })
 
   res.status(200).respond(true)

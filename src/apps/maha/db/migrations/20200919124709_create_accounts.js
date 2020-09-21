@@ -7,6 +7,7 @@ const CreateAccount = {
       table.string('first_name')
       table.string('last_name')
       table.string('email')
+      table.string('cell_phone')
       table.string('password_salt')
       table.string('password_hash')
       table.integer('security_question_id').unsigned()
@@ -57,6 +58,7 @@ const CreateAccount = {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
+        cell_phone: user.cell_phone,
         password_salt: user.password_salt,
         password_hash: user.password_hash,
         security_question_id: user.security_question_id,
