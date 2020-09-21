@@ -18,6 +18,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
         format: ({ values }) => <Content data={ values } field={ field } />
       }))
     ],
+    filters: [
+      { label: 'Ticket Type', name: 'ticket_type_id', type: 'select', options: resources.event.ticket_types.map(ticket_type => ({
+        value: ticket_type.id,
+        text: ticket_type.name
+      })) }
+    ],
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Attendee', key: 'name'},
