@@ -1,4 +1,3 @@
-import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import { validate } from '../../../../../core/utils/validation'
 
 const passwordRoute = async (req, res) => {
@@ -9,18 +8,14 @@ const passwordRoute = async (req, res) => {
     token: 'required'
   }, req.body)
 
-  const { user } = await loadUserFromToken('activation_id', req.body.token, req.trx)
-
-  await user.save({
+  await req.account.save({
     password: req.body.password
   }, {
     patch: true,
     transacting: req.trx
   })
 
-  res.status(200).respond({
-    photo_id: user.get('photo_id')
-  })
+  res.status(200).respond(true)
 
 }
 

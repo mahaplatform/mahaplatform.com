@@ -1,4 +1,5 @@
 export const INITIAL_STATE = {
+  account: null,
   error: null,
   message: null,
   mode: 'verify',
@@ -7,7 +8,6 @@ export const INITIAL_STATE = {
   status: 'pending',
   token: null,
   team: null,
-  photo_id: null,
   questions: null,
   question_id: null,
   user: null
@@ -36,6 +36,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'VERIFY_SUCCESS':
     return {
       ...state,
+      account: action.result.data.account,
       mode: 'welcome',
       questions: action.result.data.questions,
       notification_methods: action.result.data.notification_methods,
@@ -78,9 +79,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'PASSWORD_SUCCESS':
     return {
       ...state,
-      photo_id: action.result.data.photo_id,
-      status: 'success',
-      mode: 'cell'
+      status: 'success'
     }
 
   case 'VERIFY_CELL_SUCCESS':
@@ -98,9 +97,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'NOTIFICATIONS_SUCCESS':
     return {
       ...state,
-      team: action.result.data.team,
-      token: action.result.data.token,
-      user: action.result.data.user,
+      account: action.result.data.account,
       mode: 'complete'
     }
 

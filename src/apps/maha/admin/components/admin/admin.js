@@ -200,6 +200,8 @@ class Admin extends React.Component {
   }
 
   _handleInit() {
+    const { pathname } = this.context.router.history.location
+    if(pathname.match(/(activate|signin|reset)/)) return
     this.props.onLoadAccount()
   }
 

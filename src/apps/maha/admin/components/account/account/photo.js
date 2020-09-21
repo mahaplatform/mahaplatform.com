@@ -30,7 +30,7 @@ class Photo extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false }
+            { label: 'Photo', name: 'photo_id', endpoint: '/api/admin/account/photo', type: 'filefield', prompt: 'Choose Photo', multiple: false }
           ]
         }
       ]

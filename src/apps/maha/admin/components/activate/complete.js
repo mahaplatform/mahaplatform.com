@@ -9,6 +9,7 @@ class Complete extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
     team: PropTypes.object,
     token: PropTypes.string,
     user: PropTypes.object
@@ -17,6 +18,7 @@ class Complete extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
+    const { team } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
@@ -24,8 +26,8 @@ class Complete extends React.Component {
             <h1><i className="fa fa-check-circle" /></h1>
             <h2>Congratulations!</h2>
             <p>
-              Your account has been successfully activated! You may now begin
-              using the Maha Platform.
+              Your account for <strong>{ team.title }</strong> has been
+              successfully activated! You may now begin using the Maha Platform.
             </p>
             <div className="field button-field">
               <button className="ui fluid large button" onClick={ this._handleClick }>
@@ -39,9 +41,8 @@ class Complete extends React.Component {
   }
 
   _handleClick() {
-    const { admin } = this.context
-    const { team, token, user } = this.props
-    admin.signin(team, token, user)
+    const { account } = this.props
+    this.context.admin.signin(account)
   }
 
 }

@@ -22,6 +22,7 @@ class Activate extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
     error: PropTypes.string,
     message: PropTypes.string,
     mode: PropTypes.string,
@@ -29,7 +30,6 @@ class Activate extends React.Component {
     status: PropTypes.string,
     token: PropTypes.string,
     team: PropTypes.object,
-    photo_id: PropTypes.number,
     questions: PropTypes.array,
     question_id: PropTypes.number,
     user: PropTypes.object,
@@ -103,7 +103,7 @@ class Activate extends React.Component {
   }
 
   _getWelcome() {
-    return _.pick(this.props, ['team','user','onChangeMode'])
+    return _.pick(this.props, ['account','team','user','onChangeMode'])
   }
 
   _getQuestion() {
@@ -115,7 +115,7 @@ class Activate extends React.Component {
   }
 
   _getPassword() {
-    return _.pick(this.props, ['show','status','token','onChangeMode','onPassword','onTogglePassword'])
+    return _.pick(this.props, ['account','show','status','token','onChangeMode','onPassword','onTogglePassword'])
   }
 
   _getCell() {
@@ -123,15 +123,15 @@ class Activate extends React.Component {
   }
 
   _getAvatar() {
-    return _.pick(this.props, ['photo_id','token','onAvatar','onChangeMode','onSetPhotoId'])
+    return _.pick(this.props, ['account','token','onAvatar','onChangeMode','onSetPhotoId'])
   }
 
   _getNotifications() {
-    return _.pick(this.props, ['token','onNotifications'])
+    return _.pick(this.props, ['team','token','onNotifications'])
   }
 
   _getComplete() {
-    return _.pick(this.props, ['team','token','user'])
+    return _.pick(this.props, ['account','team','token','user'])
   }
 
 }

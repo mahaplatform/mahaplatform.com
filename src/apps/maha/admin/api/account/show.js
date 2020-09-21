@@ -1,6 +1,6 @@
 const showRoute = (req, res) => {
 
-  res.status(200).respond(req.user, {
+  res.status(200).respond(req.account, {
     fields: [
       'first_name',
       'last_name',

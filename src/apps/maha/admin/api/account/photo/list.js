@@ -1,12 +1,9 @@
-import AssetSerializer from '../../../serializers/asset_serializer'
-import Asset from '../../../models/asset'
+import AssetSerializer from '../../../../serializers/asset_serializer'
+import Asset from '../../../../models/asset'
 
 const listRoute = async (req, res) => {
 
   const assets = await Asset.filterFetch({
-    scope: qb => {
-      qb.where('team_id', req.team.get('id'))
-    },
     filter: {
       params: req.query.$filter
     },
@@ -21,5 +18,6 @@ const listRoute = async (req, res) => {
   res.status(200).respond(assets, AssetSerializer)
 
 }
+
 
 export default listRoute

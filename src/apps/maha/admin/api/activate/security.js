@@ -1,4 +1,3 @@
-import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import { validate } from '../../../../../core/utils/validation'
 
 const securityRoute = async (req, res) => {
@@ -9,9 +8,7 @@ const securityRoute = async (req, res) => {
     security_question_answer: 'required'
   }, req.body)
 
-  const { user } = await loadUserFromToken('activation_id', req.body.token, req.trx)
-
-  await user.save({
+  await req.account.save({
     security_question_id: req.body.security_question_id,
     security_question_answer: req.body.security_question_answer
   }, {

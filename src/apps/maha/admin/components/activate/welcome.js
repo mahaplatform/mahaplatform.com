@@ -5,15 +5,16 @@ import React from 'react'
 class Welcome extends React.Component {
 
   static propTypes = {
+    account: PropTypes.object,
     team: PropTypes.object,
     user: PropTypes.object,
     onChangeMode: PropTypes.func
   }
 
-  _handleClick = this._handleClick.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
-    const { user } = this.props
+    const { team, account } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
@@ -27,12 +28,12 @@ class Welcome extends React.Component {
             </div>
             <h2>The Maha Platform</h2>
             <p>
-              Hi { user.first_name} and welcome to the Maha Platform! Thank you
+              Hi { account.first_name} and welcome to the Maha Platform! Thank you
               for verifying your email address. Let&apos;s take a few moments to set
-              up your account.
+              up your account for <strong>{ team.title }</strong>.
             </p>
             <div className="field button-field">
-              <button className="ui fluid large button" onClick={ this._handleClick }>
+              <button className="ui fluid large button" onClick={ this._handleNext }>
                 Continue
               </button>
             </div>
@@ -42,11 +43,13 @@ class Welcome extends React.Component {
     )
   }
 
-  _handleClick() {
-    const { team } = this.props
-    // remove auth strategy
-    if(team.authentication_strategy === 'local') return this.props.onChangeMode('question')
-    this.props.onChangeMode('cell')
+  _handleNext() {
+    const { account } = this.props
+    const { activated_at, authentication_strategy, cell_phone, photo } = account
+    if(!activated_at && authentication_strategy === 'local') return this.props.onChangeMode('question')
+    if(!cell_phone) return this.props.onChangeMode('cell')
+    if(!photo) return this.props.onChangeMode('avatar')
+    this.props.onChangeMode('notifications')
   }
 
 }

@@ -12,7 +12,7 @@ router.get('/', show)
 
 router.patch('/', update)
 
-router.patch('/photo', photo)
+router.use('/photo', photo)
 
 router.use('/notifications', notifications)
 

@@ -1,8 +1,8 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import socket from '../../../../../core/services/routes/emitter'
-import { updatePhoto } from '../../../services/accounts'
+import { activity } from '../../../../../../core/services/routes/activities'
+import socket from '../../../../../../core/services/routes/emitter'
+import { updatePhoto } from '../../../../services/accounts'
 
-const photoRoute = async (req, res) => {
+const updateRoute = async (req, res) => {
 
   await updatePhoto(req, {
     account: req.account,
@@ -28,4 +28,4 @@ const photoRoute = async (req, res) => {
 
 }
 
-export default photoRoute
+export default updateRoute

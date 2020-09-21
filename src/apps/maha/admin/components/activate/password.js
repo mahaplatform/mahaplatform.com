@@ -9,12 +9,10 @@ class Password extends React.Component {
   }
 
   static propTypes = {
-    question: PropTypes.object,
+    account: PropTypes.object,
     show: PropTypes.bool,
     status: PropTypes.string,
-    team: PropTypes.object,
     token: PropTypes.string,
-    user: PropTypes.object,
     onChangeMode: PropTypes.func,
     onPassword: PropTypes.func,
     onTogglePassword: PropTypes.func
@@ -65,8 +63,9 @@ class Password extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { status } = this.props
-    if(status !== prevProps.status && status === 'failure') {
-      this._handleShake()
+    if(status !== prevProps.status) {
+      if(status === 'failure') this._handleShake()
+      if(status === 'success') this._handleNext()
     }
   }
 
@@ -86,6 +85,15 @@ class Password extends React.Component {
 
   _handleBack() {
     this.props.onChangeMode('answer')
+  }
+
+  _handleNext() {
+    const { account } = this.props
+    const { cell_phone, photo } = account
+    if(!cell_phone) return this.props.onChangeMode('cell')
+    if(!photo) return this.props.onChangeMode('avatar')
+    this.props.onChangeMode('notifications')
+
   }
 
   _handleSubmit(e) {

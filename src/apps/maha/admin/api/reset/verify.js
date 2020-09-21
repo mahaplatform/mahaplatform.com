@@ -21,6 +21,7 @@ const securityRoute = async (req, res, next) => {
     account: {
       id: req.account.get('id'),
       first_name: req.account.get('first_name'),
+      last_name: req.account.get('last_name'),
       full_name: req.account.get('full_name'),
       initials: req.account.get('initials'),
       email: req.account.get('email'),

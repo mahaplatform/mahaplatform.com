@@ -1,4 +1,5 @@
 import { validate } from '../../../../../core/utils/validation'
+import { updatePhoto } from '../../../services/accounts'
 
 const avatarRoute = async (req, res) => {
 
@@ -7,21 +8,18 @@ const avatarRoute = async (req, res) => {
     photo_id: 'required'
   }, req.body)
 
-  await req.user.save({
-    photo_id:
-    req.body.photo_id
-  }, {
-    patch: true,
-    transacting: req.trx
+  await updatePhoto(req, {
+    account: req.account,
+    photo_id: req.body.photo_id
   })
 
-  await req.user.load(['photo'], {
+  await req.account.load(['photo'], {
     transacting: req.trx
   })
 
   res.status(200).respond({
-    id: req.user.related('photo').get('id'),
-    photo: req.user.related('photo').get('path')
+    id: req.account.related('photo').get('id'),
+    photo: req.account.related('photo').get('path')
   })
 
 }

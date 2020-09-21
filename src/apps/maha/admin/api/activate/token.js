@@ -30,7 +30,7 @@ const route = async (req, res, next) => {
     id: data.activation_id
   }).fetch({
     transacting: req.trx,
-    withRelated: ['photo','team']
+    withRelated: ['photo','team.logo','account.photo']
   })
 
   if(!req.user) return res.status(401).json({
@@ -44,6 +44,8 @@ const route = async (req, res, next) => {
     code: 404,
     message: 'This reset token has expired'
   })
+
+  req.account = req.user.related('account')
 
   req.team = req.user.related('team')
 

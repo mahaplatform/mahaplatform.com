@@ -41,6 +41,7 @@ const createUser = async(req, params) => {
     first_name: account.get('first_name'),
     last_name: account.get('last_name'),
     email: account.get('email'),
+    photo_id: account.get('photo_id'),
     is_active: true,
     notifications_enabled: true,
     in_app_notifications_enabled: true,
