@@ -84,9 +84,9 @@ class Admin extends React.Component {
     }
     if(!_.isEqual(user, prevProps.user)) {
       if(user === null) {
-        this._handleLeave(prevProps.team, prevProps.user)
+        this._handleLeave(account, prevProps.team, prevProps.user)
       } else {
-        this._handleJoin(team, user)
+        this._handleJoin(account, team, user)
         this._handleLoggerLogin(user)
         this._handleRedirectToSaved()
       }
@@ -120,8 +120,9 @@ class Admin extends React.Component {
     flash.set('info', 'Your session has been manually terminated')
   }
 
-  _handleJoin(team, user) {
+  _handleJoin(account, team, user) {
     this.context.network.join([
+      `/admin/accounts/${account.id}`,
       `/admin/teams/${team.id}`,
       `/admin/users/${user.id}`,
       `/admin/sessions/${user.session_id}`
@@ -132,8 +133,9 @@ class Admin extends React.Component {
     ])
   }
 
-  _handleLeave(team, user) {
+  _handleLeave(account, team, user) {
     this.context.network.leave([
+      `/admin/accounts/${account.id}`,
       `/admin/teams/${team.id}`,
       `/admin/users/${user.id}`,
       `/admin/sessions/${user.session_id}`

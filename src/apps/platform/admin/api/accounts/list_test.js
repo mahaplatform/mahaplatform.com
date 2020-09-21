@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import reset from './reset'
+import list from './list'
 
-describe('src/apps/team/admin/api/users/reset.js', () => {
+describe('src/apps/platform/admin/api/accounts/list.js', () => {
 
 })

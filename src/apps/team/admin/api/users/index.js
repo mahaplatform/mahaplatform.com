@@ -2,14 +2,12 @@ import notifications from './notifications'
 import finalize from './finalize'
 import activate from './activate'
 import { Router } from 'express'
-import signout from './signout'
 import disable from './disable'
 import unblock from './unblock'
 import enable from './enable'
 import create from './create'
 import update from './update'
 import access from './access'
-import reset from './reset'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -33,10 +31,6 @@ router.patch('/:id/activate', activate)
 router.patch('/:id/enable', enable)
 
 router.patch('/:id/disable', disable)
-
-router.patch('/:id/reset', reset)
-
-router.patch('/:id/signout', signout)
 
 router.patch('/:id/unblock', unblock)
 

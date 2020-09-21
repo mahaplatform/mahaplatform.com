@@ -17,11 +17,9 @@ const tokenMiddleware = store => next => action => {
 
   if(!admin || _.isNil(admin.teams) || _.isNil(admin.active)) return next(action)
 
-  const team = admin.teams[admin.active]
+  if(_.isNil(admin.team)) return next(action)
 
-  if(_.isNil(team)) return next(action)
-
-  const token = action.token || team.token
+  const token = action.token || admin.team.token
 
   next({
     ...action,

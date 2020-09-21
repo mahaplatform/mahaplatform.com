@@ -123,28 +123,7 @@ const mapPropsToPage = (props, context, resources) => ({
       ...context.configuration.appUserTasks.reduce((tasks, appUserTasks) => [
         ...tasks,
         ...appUserTasks(resources.user, context)
-      ], []),
-      {
-        label: 'Reset Password',
-        rights: ['team:manage_people'],
-        show: resources.user.is_active && resources.user.activated_at !== null,
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/team/users/${resources.user.id}/reset`,
-          onFailure: (result) => context.flash.set('error', 'Unable to reset the users password'),
-          onSuccess: (result) => context.flash.set('success', `A reset email has been sent to ${resources.user.email}`)
-        }
-      }, {
-        label: 'Sign Out of All Devices',
-        rights: ['team:manage_people'],
-        show: resources.user.is_active && resources.user.activated_at !== null,
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/team/users/${resources.user.id}/signout`,
-          onFailure: (result) => context.flash.set('error', 'Unable to sign out this user'),
-          onSuccess: (result) => context.flash.set('success', 'The user has been signed out of all devices')
-        }
-      }
+      ], [])
     ]
   }
 })

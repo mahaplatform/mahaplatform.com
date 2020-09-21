@@ -115,6 +115,7 @@ export emojify from './components/emojis/emojify'
 
 // core/tokens
 export Token from './tokens/token'
+export AccountToken from './tokens/account'
 export AssetToken from './tokens/asset'
 export AppToken from './tokens/app'
 export AssigneeToken from './tokens/assignee'

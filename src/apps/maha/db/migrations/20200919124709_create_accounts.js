@@ -15,7 +15,6 @@ const CreateAccount = {
       table.integer('photo_id').unsigned()
       table.foreign('photo_id').references('maha_assets.id')
       table.boolean('is_blocked')
-      table.timestamp('last_online_at')
       table.timestamp('invalidated_at')
       table.timestamp('locked_out_at')
       table.timestamp('activated_at')
@@ -26,8 +25,7 @@ const CreateAccount = {
     await knex.schema.table('maha_users', table => {
       table.dropColumn('key')
       table.dropColumn('unread')
-      // table.dropColumn('last_online_at')
-      // table.dropColumn('invalidated_at')
+      table.dropColumn('invalidated_at')
       table.integer('account_id').unsigned()
       table.foreign('account_id').references('maha_accounts.id')
     })
@@ -59,8 +57,7 @@ const CreateAccount = {
         security_question_answer: user.security_question_answer,
         photo_id: user.photo_id,
         is_blocked: user.is_blocked,
-        // last_online_at: user.last_online_at,
-        // invalidated_at: user.invalidated_at,
+        invalidated_at: user.invalidated_at,
         locked_out_at: user.locked_out_at,
         activated_at: user.activated_at,
         reset_at: user.reset_at,

@@ -1360,6 +1360,7 @@ const schema = {
       table.string('security_question_answer', 255)
       table.integer('photo_id').unsigned()
       table.boolean('is_blocked')
+      table.timestamp('invalidated_at')
       table.timestamp('locked_out_at')
       table.timestamp('activated_at')
       table.timestamp('reset_at')
@@ -1381,12 +1382,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('object_type', 255)
-    })
-
-    await knex.schema.createTable('maha_alerts', (table) => {
-      table.increments('id').primary()
-      table.integer('app_id').unsigned()
-      table.string('code', 255)
     })
 
     await knex.schema.createTable('maha_aliases', (table) => {
@@ -2046,7 +2041,6 @@ const schema = {
       table.boolean('is_active').defaultsTo(false)
       table.boolean('is_admin').defaultsTo(false)
       table.integer('photo_id').unsigned()
-      table.timestamp('invalidated_at')
       table.timestamp('last_online_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -2065,11 +2059,6 @@ const schema = {
       table.USER-DEFINED('email_notifications_method')
       table.USER-DEFINED('notification_sound')
       table.integer('account_id').unsigned()
-    })
-
-    await knex.schema.createTable('maha_users_alerts', (table) => {
-      table.integer('user_id').unsigned()
-      table.integer('alert_id').unsigned()
     })
 
     await knex.schema.createTable('maha_users_groups', (table) => {
@@ -3155,10 +3144,6 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('maha_alerts', table => {
-      table.foreign('app_id').references('maha_apps.id')
-    })
-
     await knex.schema.table('maha_aliases', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -3433,11 +3418,6 @@ const schema = {
 
     await knex.schema.table('maha_user_types', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_users_alerts', table => {
-      table.foreign('alert_id').references('maha_alerts.id')
-      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_users_groups', table => {

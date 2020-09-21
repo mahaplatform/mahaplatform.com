@@ -1,3 +1,5 @@
+import AccountsList from './accounts/list'
+import AccountsShow from './accounts/show'
 import AppList from './apps/list'
 import AppShow from './apps/show'
 import ArticlesList from './articles/list'
@@ -12,6 +14,8 @@ import TeamsList from './teams/list'
 import TeamsShow from './teams/show'
 
 const routes = [
+  { path: '/accounts', component: AccountsList },
+  { path: '/accounts/:id', component: AccountsShow },
   { path: '/apps', component: AppList },
   { path: '/apps/:id', component: AppShow },
   { path: '/help/articles', component: ArticlesList },

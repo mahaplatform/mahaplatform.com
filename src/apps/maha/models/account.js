@@ -22,8 +22,20 @@ const Account = new Model({
       return 'local'
     },
 
+    first_initial: function() {
+      return this.get('first_name') ? this.get('first_name')[0].toLowerCase() : ''
+    },
+
     full_name() {
       return this.get('first_name') + ' ' + this.get('last_name')
+    },
+
+    initials: function() {
+      return this.get('first_initial') + this.get('last_initial')
+    },
+
+    last_initial: function() {
+      return this.get('last_name') ? this.get('last_name')[0].toLowerCase() : ''
     },
 
     password: {

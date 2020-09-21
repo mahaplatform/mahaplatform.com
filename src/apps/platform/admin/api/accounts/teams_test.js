@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import signout from './signout'
+import teams from './teams'
 
-describe('src/apps/team/admin/api/users/signout.js', () => {
+describe('src/apps/platform/admin/api/accounts/teams.js', () => {
 
 })

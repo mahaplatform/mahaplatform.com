@@ -101,10 +101,6 @@ export const bootstrap = async () => {
 
   await bootstrapApps()
 
-  await bootstrapType('alerts', 'alerts.js', 'maha_alerts', [
-    { table: 'maha_users_alerts', key: 'alert_id' }
-  ])
-
   await bootstrapType('notifications', 'notifications.js', 'maha_notification_types', [
     { table: 'maha_users_notification_types', key: 'notification_type_id' }
   ])
