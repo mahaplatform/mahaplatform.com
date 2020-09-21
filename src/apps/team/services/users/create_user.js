@@ -3,12 +3,43 @@ import DashboardCardType from '../../../maha/models/dashboard_card_type'
 import { whitelist } from '../../../../core/services/routes/params'
 import DashboardPanel from '../../../maha/models/dashboard_panel'
 import DashboardCard from '../../../maha/models/dashboard_card'
+import Account from '../../../maha/models/account'
 import User from '../../../maha/models/user'
+
+const getAccount = async (req, { first_name, last_name, email }) => {
+
+  const account = await Account.query(qb => {
+    qb.where('email', email)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(account) return account
+
+  return await Account.forge({
+    first_name,
+    last_name,
+    email
+  }).save(null, {
+    transacting: req.trx
+  })
+
+}
 
 const createUser = async(req, params) => {
 
+  const account = await getAccount(req, {
+    first_name: params.first_name,
+    last_name: params.last_name,
+    email: params.email
+  })
+
   const user = await User.forge({
     team_id: params.team_id,
+    account_id: account.get('id'),
+    first_name: account.get('first_name'),
+    last_name: account.get('last_name'),
+    email: account.get('email'),
     is_active: true,
     notifications_enabled: true,
     in_app_notifications_enabled: true,
@@ -20,7 +51,7 @@ const createUser = async(req, params) => {
     mute_evenings_end_time: '9:00',
     mute_weekends: true,
     values: {},
-    ...whitelist(params, ['first_name','last_name','email','email_notifications_method','photo_id','values'])
+    ...whitelist(params, ['email_notifications_method','values'])
   }).save(null, {
     transacting: req.trx
   })

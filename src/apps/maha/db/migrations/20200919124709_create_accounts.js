@@ -24,10 +24,6 @@ const CreateAccount = {
     })
 
     await knex.schema.table('maha_users', table => {
-      table.dropColumn('key')
-      table.dropColumn('unread')
-      table.dropColumn('invalidated_at')
-      table.dropColumn('secondary_email')
       table.integer('account_id').unsigned()
       table.foreign('account_id').references('maha_accounts.id')
     })
@@ -88,9 +84,12 @@ const CreateAccount = {
       table.dropColumn('password_hash')
       table.dropColumn('security_question_id')
       table.dropColumn('security_question_answer')
+      table.dropColumn('key')
+      table.dropColumn('unread')
+      table.dropColumn('invalidated_at')
+      table.dropColumn('secondary_email')
       table.dropColumn('is_blocked')
       table.dropColumn('locked_out_at')
-      table.dropColumn('activated_at')
       table.dropColumn('reset_at')
 
     })

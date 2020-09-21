@@ -2042,6 +2042,7 @@ const schema = {
       table.boolean('is_active').defaultsTo(false)
       table.boolean('is_admin').defaultsTo(false)
       table.integer('photo_id').unsigned()
+      table.timestamp('activated_at')
       table.timestamp('last_online_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')

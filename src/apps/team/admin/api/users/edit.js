@@ -18,13 +18,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond(user, {
     fields: [
       'id',
-      'first_name',
-      'last_name',
-      'email',
-      'secondary_email',
       'email_notifications_method',
-      'cell_phone',
-      'photo_id',
       'role_ids',
       'group_ids',
       'supervisor_ids',
