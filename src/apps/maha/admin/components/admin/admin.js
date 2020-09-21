@@ -78,7 +78,7 @@ class Admin extends React.Component {
       this._handleSaveAccount()
       if(active === null) {
         this._handleRedirectToSignin()
-      } else {
+      } else if(teams_status === 'success') {
         if(prevProps.active !== null) this._handleFetchSession()
       }
     }
@@ -148,8 +148,9 @@ class Admin extends React.Component {
 
   _handleFetchSession() {
     const { teams } = this.props
-    const active = this.props.active || 0
-    this.props.onFetchSession(active, teams[active].token)
+    const active = this.props.active || teams[0].id
+    const team = _.find(teams, { id: active })
+    this.props.onFetchSession(active, team.token)
   }
 
   _handleFetchTeams() {
@@ -205,13 +206,12 @@ class Admin extends React.Component {
     this.props.onLoadAccount()
   }
 
-  _handleSignin(account) {
-    this.props.onSignin(account)
+  _handleSignin(account, active) {
+    this.props.onSignin(account, active)
   }
 
   _handleSignout() {
-    const { active, onSignout } = this.props
-    onSignout(active)
+    this.props.onSignout()
   }
 
 }

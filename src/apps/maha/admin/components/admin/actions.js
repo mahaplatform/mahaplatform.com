@@ -39,6 +39,12 @@ export const fetchSession = (active, token) => ({
   failure: 'FETCH_SESSION_FAILURE'
 })
 
+export const signin = (account, active) => ({
+  type: 'SIGNIN',
+  account,
+  active
+})
+
 export const signout = () => ({
   type: 'API_REQUEST',
   method: 'DELETE',
@@ -46,11 +52,6 @@ export const signout = () => ({
   request: 'SIGNOUT_REQUEST',
   success: 'SIGNOUT_SUCCESS',
   failure: 'SIGNOUT_FAILURE'
-})
-
-export const signin = (account) => ({
-  type: 'SIGNIN',
-  account
 })
 
 export const chooseTeam = (index) => ({

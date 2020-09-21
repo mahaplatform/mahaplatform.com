@@ -38,7 +38,7 @@ class Teams extends React.Component {
         <div className="maha-navigation-body">
           <div className="maha-navigation-accounts">
             { teams.map((team, index) => (
-              <div key={`team_${index}`} className="maha-navigation-account" onClick={ this._handleChangeTeam.bind(this, index) }>
+              <div key={`team_${index}`} className="maha-navigation-account" onClick={ this._handleChangeTeam.bind(this, team) }>
                 <div className="maha-navigation-account-logo">
                   <Logo team={ team } width="50" />
                 </div>
@@ -46,7 +46,7 @@ class Teams extends React.Component {
                   { team.title }
                 </div>
                 <div className="maha-navigation-account-active">
-                  { index === active && <i className="fa fa-check" /> }
+                  { team.id === active && <i className="fa fa-check" /> }
                 </div>
               </div>
             ))}
@@ -60,11 +60,11 @@ class Teams extends React.Component {
     this.props.onToggleMode()
   }
 
-  _handleChangeTeam(index) {
+  _handleChangeTeam(team) {
     const { active, onDone } = this.props
     const { chooseTeam } = this.context.admin
-    if(index === active) onDone()
-    if(index !== active) chooseTeam(index)
+    if(team.id === active) onDone()
+    if(team.id !== active) chooseTeam(team.id)
   }
 
 }

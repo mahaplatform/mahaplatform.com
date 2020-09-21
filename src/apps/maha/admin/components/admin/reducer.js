@@ -72,7 +72,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'SIGNIN':
     return {
       ...state,
-      account: action.account
+      account: action.account,
+      active: action.active || state.active
     }
 
   case 'SIGNOUT_SUCCESS':

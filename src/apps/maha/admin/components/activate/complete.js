@@ -41,8 +41,8 @@ class Complete extends React.Component {
   }
 
   _handleClick() {
-    const { account } = this.props
-    this.context.admin.signin(account)
+    const { account, team } = this.props
+    this.context.admin.signin(account, team.id)
   }
 
 }
