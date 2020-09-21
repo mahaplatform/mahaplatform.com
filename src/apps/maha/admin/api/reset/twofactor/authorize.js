@@ -1,6 +1,10 @@
 import { sendPush } from '../../../../services/twofactor'
 
-const authorizeRoute = async (req, res) => {
+const pushRoute = async (req, res, next) => {
+
+  await req.account.load('photo', {
+    transacting: req.trx
+  })
 
   await sendPush(req, {
     account: req.account,
@@ -11,4 +15,4 @@ const authorizeRoute = async (req, res) => {
 
 }
 
-export default authorizeRoute
+export default pushRoute

@@ -1,4 +1,3 @@
-import { updateCellPhone } from '../../../../services/accounts'
 import { verifyPush } from '../../../../services/twofactor'
 
 const verifyRoute = async (req, res) => {
@@ -15,11 +14,6 @@ const verifyRoute = async (req, res) => {
       errors: { code: ['Invalid code'] }
     })
   }
-
-  await updateCellPhone(req, {
-    account: req.account,
-    cell_phone
-  })
 
   res.status(200).respond(true)
 

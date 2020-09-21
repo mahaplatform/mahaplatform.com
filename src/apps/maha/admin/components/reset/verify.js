@@ -8,6 +8,8 @@ class Verify extends React.Component {
   }
 
   static propTypes = {
+    verification: PropTypes.object,
+    onChangeMode: PropTypes.func,
     onVerify: PropTypes.func
   }
 
@@ -29,6 +31,18 @@ class Verify extends React.Component {
     const { onVerify } = this.props
     const [,token] = pathname.match(/^\/admin\/reset\/(.*)/)
     onVerify(token)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { verification } = this.props
+    if(verification !== prevProps.verification && verification) {
+      this._handleNext()
+    }
+  }
+
+  _handleNext() {
+    const { verification } = this.props
+    this.props.onChangeMode(verification.strategy)
   }
 
 }

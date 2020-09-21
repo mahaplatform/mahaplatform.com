@@ -1,12 +1,14 @@
-import redis from '../../../../../../core/services/redis'
+import { updateCellPhone } from '../../../../services/accounts'
+import { verifyPush } from '../../../../services/twofactor'
 
 const verifyRoute = async (req, res) => {
 
-  const data = await redis.getAsync(`verification:${req.user.get('id')}`)
+  const cell_phone = await verifyPush(req, {
+    account: req.account,
+    code: req.body.code
+  })
 
-  const { cell_phone, code } = JSON.parse(data)
-
-  if(parseInt(req.body.code) !== code) {
+  if(!cell_phone) {
     return res.status(422).respond({
       code: 422,
       message: 'Unable to verify cell phone',
@@ -14,11 +16,9 @@ const verifyRoute = async (req, res) => {
     })
   }
 
-  await req.user.save({
+  await updateCellPhone(req, {
+    account: req.account,
     cell_phone
-  }, {
-    patch: true,
-    transacting: req.trx
   })
 
   res.status(200).respond(true)

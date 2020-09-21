@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
   show: false,
   status: 'pending',
   token: null,
-  question: null
+  verification: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,9 +29,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'VERIFY_SUCCESS':
     return {
       ...state,
-      mode: 'security',
       account: action.result.data.account,
-      question: action.result.data.question,
+      verification: action.result.data.verification,
       status: 'success'
     }
 

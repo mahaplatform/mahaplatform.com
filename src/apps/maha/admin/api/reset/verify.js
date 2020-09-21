@@ -26,8 +26,9 @@ const securityRoute = async (req, res, next) => {
       email: req.account.get('email'),
       photo: req.account.related('photo') ? req.account.related('photo').get('path') : null
     },
-    question: {
-      text: security_question.get('text')
+    verification: {
+      strategy: req.account.get('cell_phone') !== null ? 'twofactor' : 'security',
+      question: security_question.get('text')
     }
   })
 

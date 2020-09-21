@@ -1,5 +1,6 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
+import TwoFactor from './twofactor'
 import Security from './security'
 import Password from './password'
 import Complete from './complete'
@@ -21,9 +22,9 @@ class Reset extends React.Component {
     error: PropTypes.string,
     mode: PropTypes.string,
     token: PropTypes.string,
-    question: PropTypes.string,
     show: PropTypes.bool,
     status: PropTypes.string,
+    verification: PropTypes.object,
     onChangeMode: PropTypes.func,
     onSecurity: PropTypes.func,
     onPassword: PropTypes.func,
@@ -64,7 +65,7 @@ class Reset extends React.Component {
   componentWillUpdate(nextProps) {
     const { mode } = this.props
     if(nextProps.mode === mode) return
-    const modes = ['verify','invalid','security','password','complete']
+    const modes = ['verify','invalid','twofactor','security','password','complete']
     const oldIndex = _.indexOf(modes, mode)
     const newIndex = _.indexOf(modes, nextProps.mode)
     this.direction = (newIndex > oldIndex) ? 'forward' : 'backward'
@@ -74,16 +75,21 @@ class Reset extends React.Component {
     if(mode === 'verify') return <Verify { ...this._getVerify() } />
     if(mode === 'invalid') return <Invalid />
     if(mode === 'security') return <Security { ...this._getSecurity() } />
+    if(mode === 'twofactor') return <TwoFactor { ...this._getTwoFactor() } />
     if(mode === 'password') return <Password { ...this._getPassword() } />
     if(mode === 'complete') return <Complete { ...this._getComplete() } />
   }
 
   _getVerify() {
-    return _.pick(this.props, ['onVerify'])
+    return _.pick(this.props, ['verification','onChangeMode','onVerify'])
+  }
+
+  _getTwoFactor() {
+    return _.pick(this.props, ['account','status','token','onChangeMode'])
   }
 
   _getSecurity() {
-    return _.pick(this.props, ['account','question','status','token','onSecurity'])
+    return _.pick(this.props, ['account','status','token','verification','onSecurity'])
   }
 
   _getPassword() {

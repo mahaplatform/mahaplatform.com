@@ -6,9 +6,9 @@ class Security extends React.Component {
 
   static propTypes = {
     account: PropTypes.object,
-    question: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
+    verification: PropTypes.object,
     onSecurity: PropTypes.func
   }
 
@@ -21,7 +21,7 @@ class Security extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { account, question } = this.props
+    const { account, verification } = this.props
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
@@ -29,7 +29,7 @@ class Security extends React.Component {
           { account && <h2>{ account.full_name }</h2> }
           <p>Hi { account.first_name }. Before we can reset your password, Please
           answer the following security question to prove your identity.</p>
-          <p>{ question.text }</p>
+          <p>{ verification.question }</p>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field email-field">
             </div>

@@ -31,7 +31,7 @@ class Password extends React.Component {
           <div className="maha-signin-content">
             { account && <Avatar user={ account } width="150" /> }
             { account && <h2>{ account.full_name }</h2> }
-            <h3>Please enter and confirm your new password</h3>
+            <p>Please enter and confirm your new password</p>
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>
             <div className="field password-field">
