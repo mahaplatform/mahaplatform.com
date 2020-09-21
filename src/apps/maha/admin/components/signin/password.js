@@ -15,10 +15,12 @@ class Password extends React.Component {
     show: PropTypes.bool,
     status: PropTypes.string,
     token: PropTypes.string,
+    onChangeMode: PropTypes.func,
     onLockout: PropTypes.func,
     onPassword: PropTypes.func,
     onForgot: PropTypes.func,
     onSet: PropTypes.func,
+    onSignin: PropTypes.func,
     onTogglePassword: PropTypes.func
   }
 
@@ -79,6 +81,7 @@ class Password extends React.Component {
     if(status !== prevProps.status) {
       if(status === 'failure') this._handleFailure()
       if(status === 'reset') flash.set('info', 'Please check your email for password reset instructions')
+      if(status === 'success') this._handleNext()
     }
     if(attempts !== prevState.attempts && attempts === 3) this._handleLockout()
   }
@@ -116,6 +119,12 @@ class Password extends React.Component {
   _handleLockout() {
     const { account, onLockout } = this.props
     onLockout(account.email)
+  }
+
+  _handleNext() {
+    const { account } = this.props
+    if(account.use_twofactor) return this.props.onChangeMode('twofactor')
+    this.props.onSignin()
   }
 
   _handleShake() {

@@ -19,7 +19,8 @@ const getAccount = async (req, { first_name, last_name, email }) => {
   return await Account.forge({
     first_name,
     last_name,
-    email
+    email,
+    use_twofactor: false
   }).save(null, {
     transacting: req.trx
   })

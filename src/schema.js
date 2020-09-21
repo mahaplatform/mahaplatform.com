@@ -1360,6 +1360,7 @@ const schema = {
       table.integer('security_question_id').unsigned()
       table.string('security_question_answer', 255)
       table.integer('photo_id').unsigned()
+      table.boolean('use_twofactor')
       table.boolean('is_blocked')
       table.timestamp('invalidated_at')
       table.timestamp('locked_out_at')

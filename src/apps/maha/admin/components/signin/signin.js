@@ -1,4 +1,5 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import TwoFactor from './twofactor'
 import PropTypes from 'prop-types'
 import Password from './password'
 import Lockout from './lockout'
@@ -32,6 +33,8 @@ class Signin extends React.Component {
 
   direction = 'forward'
 
+  _handleSignin = this._handleSignin.bind(this)
+
   render() {
     const { mode } = this.props
     if(!mode) return null
@@ -54,7 +57,7 @@ class Signin extends React.Component {
   componentWillUpdate(nextProps) {
     const { mode } = this.props
     if(nextProps.mode === mode) return
-    const modes = ['email','password','lockout','blocked','wait']
+    const modes = ['email','password','twofactor','lockout','blocked','wait']
     const oldIndex = _.indexOf(modes, mode)
     const newIndex = _.indexOf(modes, nextProps.mode)
     this.direction = (newIndex > oldIndex) ? 'forward' : 'backward'
@@ -62,18 +65,16 @@ class Signin extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { flash } = this.context
-    const { error, status, token } = this.props
+    const { error, status } = this.props
     if(prevProps.status !== status && status === 'failure') {
       flash.set('error', error)
-    }
-    if(prevProps.token !== token && token !== null) {
-      this._handleSignin()
     }
   }
 
   _getMode(mode) {
     if(mode === 'email') return <Email { ...this._getEmail() } />
     if(mode === 'password') return <Password { ...this._getPassword() } />
+    if(mode === 'twofactor') return <TwoFactor { ...this._getTwoFactor() } />
     if(mode === 'lockout') return <Lockout />
     if(mode === 'blocked') return <Blocked />
     return <div />
@@ -84,7 +85,17 @@ class Signin extends React.Component {
   }
 
   _getPassword() {
-    return _.pick(this.props, ['account','show','status','token','onForgot','onLockout','onPassword','onSet','onTogglePassword'])
+    return {
+      ..._.pick(this.props, ['account','show','status','token','onChangeMode','onForgot','onLockout','onPassword','onSet','onTogglePassword']),
+      onSignin: this._handleSignin
+    }
+  }
+
+  _getTwoFactor() {
+    return {
+      ..._.pick(this.props, ['account','status','token','onChangeMode']),
+      onSignin: this._handleSignin
+    }
   }
 
   _handleSignin() {

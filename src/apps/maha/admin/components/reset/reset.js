@@ -1,6 +1,6 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import PropTypes from 'prop-types'
 import TwoFactor from './twofactor'
+import PropTypes from 'prop-types'
 import Security from './security'
 import Password from './password'
 import Complete from './complete'

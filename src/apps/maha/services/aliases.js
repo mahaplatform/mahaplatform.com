@@ -28,7 +28,7 @@ export const updateAlias = async (req, { permalink, src, destination }) => {
     })
   }
 
-  if(src && src.length > 0) {
+  if(permalink && src && src.length > 0) {
     return await Alias.forge({
       team_id: req.team.get('id'),
       src,

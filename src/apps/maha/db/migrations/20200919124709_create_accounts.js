@@ -15,6 +15,7 @@ const CreateAccount = {
       table.string('security_question_answer')
       table.integer('photo_id').unsigned()
       table.foreign('photo_id').references('maha_assets.id')
+      table.boolean('use_twofactor')
       table.boolean('is_blocked')
       table.timestamp('invalidated_at')
       table.timestamp('locked_out_at')
@@ -60,6 +61,7 @@ const CreateAccount = {
         security_question_id: user.security_question_id,
         security_question_answer: user.security_question_answer,
         photo_id: user.photo_id,
+        use_twofactor: false,
         is_blocked: user.is_blocked,
         invalidated_at: user.invalidated_at,
         locked_out_at: user.locked_out_at,
