@@ -28,15 +28,7 @@ class Performance extends React.Component {
               Registrations
             </div>
             <div className="crm-report-metric-value">
-              <Button { ...this._getButton(registrations_count, '') } />
-            </div>
-          </div>
-          <div className="crm-report-metric">
-            <div className="crm-report-metric-title">
-              Waiting List
-            </div>
-            <div className="crm-report-metric-value">
-              <Button { ...this._getButton(waitings_count, '?$filter[was_converted][$eq]=true') } />
+              <Button { ...this._getRegistrations(registrations_count, '') } />
             </div>
           </div>
           <div className="crm-report-metric">
@@ -44,7 +36,15 @@ class Performance extends React.Component {
               Tickets
             </div>
             <div className="crm-report-metric-value">
-              { tickets_count }
+              <Button { ...this._getTickets(tickets_count, '?$filter[was_converted][$eq]=true') } />
+            </div>
+          </div>
+          <div className="crm-report-metric">
+            <div className="crm-report-metric-title">
+              Waiting List
+            </div>
+            <div className="crm-report-metric-value">
+              { waitings_count }
             </div>
           </div>
           <div className="crm-report-metric">
@@ -94,12 +94,21 @@ class Performance extends React.Component {
     )
   }
 
-  _getButton(label, query) {
+  _getRegistrations(label, query) {
     const { event } = this.props
     return {
       label,
       className: 'link',
       route: `/admin/events/events/${event.id}/registrations`
+    }
+  }
+
+  _getTickets(label, query) {
+    const { event } = this.props
+    return {
+      label,
+      className: 'link',
+      route: `/admin/events/events/${event.id}/tickets`
     }
   }
 

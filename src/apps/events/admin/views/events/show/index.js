@@ -1,7 +1,6 @@
 import { Embed, Page } from 'maha-admin'
 import Performance from './performance'
 import Sessions from './sessions'
-import Tickets from './tickets'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'
@@ -10,7 +9,6 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) 
   items: [
     { label: 'Details', component: <Details event={ event } audits={ audits } /> },
     { label: 'Sessions', component: <Sessions event={ event } sessions={ sessions } /> },
-    { label: 'Tickets', component: <Tickets event={ event } tickets={ tickets } /> },
     { label: 'Performance', component: <Performance event={ event } /> }
   ]
 })
@@ -46,6 +44,20 @@ new Maha.Events.Button({
           width: 640,
           height: 480
         }
+      }
+    })
+    items.push({
+      label: 'Export Registration Data',
+      handler: () => {
+        const { token } = context.admin.team
+        window.location.href = `/api/admin/events/events/${event.id}/registrations/download.xlsx?filename=event-${event.code}-registrations&download=true&token=${token}`
+      }
+    })
+    items.push({
+      label: 'Export Ticket Data',
+      handler: () => {
+        const { token } = context.admin.team
+        window.location.href = `/api/admin/events/events/${event.id}/registrations/tickets.xlsx?filename=event-${event.code}-registrations&download=true&token=${token}`
       }
     })
     items.push({

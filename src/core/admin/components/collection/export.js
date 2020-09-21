@@ -60,7 +60,7 @@ class Export extends React.Component {
     const query = {
       $filter: filter,
       $sort: sort,
-      $select: columns.filter(column => column.checked).reduce((select, item) => ({
+      $select: columns.reduce((select, item) => ({
         ...select,
         [item.label]: item.key
       }), {})

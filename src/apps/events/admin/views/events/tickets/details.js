@@ -1,3 +1,4 @@
+import Content from '../../../../../crm/admin/tokens/content'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
@@ -31,7 +32,7 @@ const Details = ({ event, ticket }) => {
   }
 
   event.ticket_config.fields.map(field => {
-    config.items.push({ label: field.name.value, content: ticket.values[field.code] })
+    config.items.push({ label: field.name.value, content: <Content data={ ticket.values } field={ field } /> })
   })
 
   return <List { ...config } />

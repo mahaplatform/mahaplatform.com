@@ -4,7 +4,7 @@ import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Events',
+  title: 'Registrations',
   collection: {
     endpoint: `/api/admin/events/events/${page.params.event_id}/registrations`,
     table: [

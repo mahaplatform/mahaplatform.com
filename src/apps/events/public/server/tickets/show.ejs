@@ -32,15 +32,17 @@
         width: 100%;
       }
       .event-ticket-body {
-        flex: 1;
         padding: 0.8em;
         text-align: center;
       }
       .event-ticket-qrcode {
         text-align: center;
         padding: 0.8em;
+        flex: 1;
+        display: flex;
       }
       .event-ticket-qrcode img {
+        margin: auto;
         width: 50%;
         max-width: 200px;
       }
@@ -63,7 +65,7 @@
   <body>
     <div class="event-ticket">
       <div class="event-ticket-header">
-        <img src="/imagecache/fit=cover&w=375&h=187/<%= event.image %>" />
+        <img src="/imagecache/fit=cover&w=375&h=187<%= event.image %>" />
       </div>
       <div class="event-ticket-body">
         <h2><%= event.title %></h2>
@@ -78,14 +80,6 @@
       </div>
       <div class="event-ticket-qrcode">
         <img src="/qr/<%= ticket.code %>" />
-      </div>
-      <div class="event-ticket-footer">
-        <a href="/events/tickets/<%= ticket.code %>/pass" class="apple">
-          <img src="/admin/images/applewallet.svg" />
-        </a>
-        <a href="/events/tickets/<%= ticket.code %>/pass" class="google">
-          <img src="/admin/images/gpaypass.svg" />
-        </a>
       </div>
     </div>
   </body>
