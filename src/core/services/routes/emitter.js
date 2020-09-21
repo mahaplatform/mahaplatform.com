@@ -32,6 +32,7 @@ export const message = async (req, messages) => {
 
 const _getChannel = (req, message) => {
   if(_.isString(message)) return message
+  if(message.channel === 'account') return `/admin/accounts/${req.account.get('id')}`
   if(message.channel === 'team') return `/admin/teams/${req.team.get('id')}`
   if(message.channel === 'user') return `/admin/users/${req.user.get('id')}`
   if(message.channel) return message.channel

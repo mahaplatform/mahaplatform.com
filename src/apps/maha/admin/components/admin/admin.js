@@ -84,7 +84,7 @@ class Admin extends React.Component {
     }
     if(!_.isEqual(user, prevProps.user)) {
       if(user === null) {
-        this._handleLeave(account, prevProps.team, prevProps.user)
+        this._handleLeave(prevProps.account, prevProps.team, prevProps.user)
       } else {
         this._handleJoin(account, team, user)
         this._handleLoggerLogin(user)

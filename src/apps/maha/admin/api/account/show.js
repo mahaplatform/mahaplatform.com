@@ -5,7 +5,6 @@ const showRoute = (req, res) => {
       'first_name',
       'last_name',
       'email',
-      'secondary_email',
       'cell_phone',
       'photo_id',
       'notification_method',

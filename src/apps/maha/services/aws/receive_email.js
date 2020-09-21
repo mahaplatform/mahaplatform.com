@@ -52,10 +52,7 @@ const process_email = async(req, { email }) => {
 
   req.user = await User.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.whereRaw('(email=? OR secondary_email=?)', [
-      from.value[0].address,
-      from.value[0].address
-    ])
+    qb.where('email', from.value[0].address)
   }).fetch({
     transacting: req.trx
   })

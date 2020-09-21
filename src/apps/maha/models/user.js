@@ -75,6 +75,10 @@ const User = new Model({
 
   },
 
+  account: function() {
+    return this.belongsTo(Account, 'account_id')
+  },
+
   sessions() {
     return this.hasMany(Session, 'user_id')
   },
@@ -89,10 +93,6 @@ const User = new Model({
 
   roles() {
     return this.belongsToMany(Role, 'maha_users_roles', 'user_id', 'role_id')
-  },
-
-  account: function() {
-    return this.belongsTo(Account)
   },
 
   supervisors: function() {

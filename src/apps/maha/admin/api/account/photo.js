@@ -1,17 +1,16 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
+import { updatePhoto } from '../../../services/accounts'
 
 const photoRoute = async (req, res) => {
 
-  req.user = await req.user.save({
-    photo_id: req.body.photo_id || null
-  }, {
-    patch: true,
-    transacting: req.trx
+  await updatePhoto(req, {
+    account: req.account,
+    photo_id: req.body.photo_id
   })
 
   await socket.message(req, {
-    channel: 'user',
+    channel: 'account',
     action: 'session'
   })
 

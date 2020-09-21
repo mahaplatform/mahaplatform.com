@@ -26,6 +26,7 @@ const CreateAccount = {
       table.dropColumn('key')
       table.dropColumn('unread')
       table.dropColumn('invalidated_at')
+      table.dropColumn('secondary_email')
       table.integer('account_id').unsigned()
       table.foreign('account_id').references('maha_accounts.id')
     })
@@ -40,7 +41,12 @@ const CreateAccount = {
 
     await knex.schema.dropTable('maha_alerts')
 
-    await knex('maha_users').where('email', 'mochini@gmail.com').update('email', 'gmk8@cornell.edu')
+    await Promise.mapSeries([
+      { from: 'mochini@gmail.com', to: 'gmk8@cornell.edu' },
+      { from: 'jaymepeck@gmail.com', to: 'jp2539@cornell.edu' }
+    ], async({ from, to }) => {
+      await knex('maha_users').where('email', from).update('email', to)
+    })
 
     const users = await knex('maha_users').orderBy('id','asc')
 

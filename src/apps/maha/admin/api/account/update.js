@@ -1,18 +1,18 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateAccount } from '../../../services/accounts'
 
 const updateRoute = async (req, res) => {
 
-  req.user = await req.user.save({
-    ...whitelist(req.body, ['first_name','last_name','email','secondary_email'])
-  }, {
-    patch: true,
-    transacting: req.trx
+  await updateAccount(req, {
+    account: req.account,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email
   })
 
   await socket.message(req, {
-    channel: 'user',
+    channel: 'account',
     action: 'session'
   })
 
@@ -25,7 +25,7 @@ const updateRoute = async (req, res) => {
   })
 
   res.status(200).respond(req.user, {
-    fields: ['first_name','last_name','email','secondary_email','cell_phone']
+    fields: ['first_name','last_name','email','cell_phone']
   })
 
 }

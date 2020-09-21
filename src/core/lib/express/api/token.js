@@ -38,13 +38,15 @@ const route = async (req, res, next) => {
     id: data.user_id
   }).fetch({
     transacting: req.trx,
-    withRelated: ['photo','team.logo']
+    withRelated: ['photo','team.logo','account.photo']
   })
 
   if(!req.user) return res.status(401).json({
     status: 401,
     message: 'Invalid user'
   })
+
+  req.account = req.user.related('account')
 
   req.team = req.user.related('team')
 

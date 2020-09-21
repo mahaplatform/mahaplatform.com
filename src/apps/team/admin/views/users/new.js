@@ -34,7 +34,6 @@ class New extends React.Component {
             { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name', required: true },
             { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name', required: true },
             { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter email', required: true },
-            { label: 'Secondary Email', name: 'secondary_email', placeholder: 'Enter secondary email', type: 'textfield' },
             { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
             { label: 'Roles', name: 'role_ids', type: 'lookup2', placeholder: 'Assign roles', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title' },
             { label: 'Groups', name: 'group_ids', type: 'lookup2', placeholder: 'Assign groups', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title' },
