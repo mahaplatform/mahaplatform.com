@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import unblock from './unblock'
 import signout from './signout'
 import reset from './reset'
 import teams from './teams'
@@ -16,5 +17,7 @@ router.get('/:id/teams', teams)
 router.patch('/:id/reset', reset)
 
 router.patch('/:id/signout', signout)
+
+router.patch('/:id/unblock', unblock)
 
 export default router

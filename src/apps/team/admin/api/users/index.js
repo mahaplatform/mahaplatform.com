@@ -3,7 +3,6 @@ import finalize from './finalize'
 import activate from './activate'
 import { Router } from 'express'
 import disable from './disable'
-import unblock from './unblock'
 import enable from './enable'
 import create from './create'
 import update from './update'
@@ -31,8 +30,6 @@ router.patch('/:id/activate', activate)
 router.patch('/:id/enable', enable)
 
 router.patch('/:id/disable', disable)
-
-router.patch('/:id/unblock', unblock)
 
 router.use('/:id/notifications', notifications)
 

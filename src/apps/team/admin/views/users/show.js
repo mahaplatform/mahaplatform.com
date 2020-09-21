@@ -29,8 +29,6 @@ const Details = ({ user, appUserValues }) => {
 
   if(!user.is_active) {
     list.alert = { color: 'red', message: 'This user has been disabled' }
-  } else if(user.is_blocked) {
-    list.alert = { color: 'red', message: 'This user has been blocked' }
   } else if(!user.activated_at) {
     list.alert = { color: 'grey', message: 'This user hasn\'t yet activated their account' }
   }
@@ -88,16 +86,6 @@ const mapPropsToPage = (props, context, resources) => ({
         label: 'Edit User',
         modal: () => <Edit user={ resources.user } />,
         rights: ['team:manage_people']
-      }, {
-        label: 'Unblock User',
-        rights: ['team:manage_people'],
-        show: resources.user.is_blocked && resources.user.is_active,
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/team/users/${resources.user.id}/unblock`,
-          onFailure: (result) => context.flash.set('error', 'Unable to unblock this user'),
-          onSuccess: (result) => context.flash.set('success', 'The user has been unblocked')
-        }
       }, {
         label: 'Disable User',
         rights: ['team:manage_people'],

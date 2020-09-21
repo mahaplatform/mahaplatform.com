@@ -11,6 +11,10 @@ const Details = ({ account }) => {
     ]
   }
 
+  if(account.is_blocked) {
+    list.alert = { color: 'red', message: 'This account has been blocked' }
+  }
+  
   return <List { ...list } />
 
 }

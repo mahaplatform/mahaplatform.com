@@ -17,6 +17,13 @@ const enableRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
+  await user.save({
+    is_active: true
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
+
   await updateRelated(req, {
     object: user,
     related: 'roles',

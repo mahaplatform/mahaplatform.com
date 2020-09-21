@@ -14,6 +14,15 @@ const getTabs = ({ account, teams }) => ({
 const getTasks = ({ account }, { flash }) => ({
   items: [
     {
+      label: 'Unblock Account',
+      show: account.is_blocked,
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/platform/accounts/${account.id}/unblock`,
+        onFailure: (result) => flash.set('error', 'Unable to unblock this account'),
+        onSuccess: (result) => flash.set('success', 'The account has been unblocked')
+      }
+    }, {
       label: 'Reset Password',
       request: {
         method: 'PATCH',

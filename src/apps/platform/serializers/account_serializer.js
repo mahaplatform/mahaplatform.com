@@ -4,6 +4,7 @@ const accountSerializer = (req, result) => ({
   initials: result.get('initials'),
   email: result.get('email'),
   photo: result.related('photo').get('path'),
+  is_blocked: result.get('is_blocked'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -42,9 +42,9 @@ class Disable extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Team', name: 'team_strategy', type: 'radiogroup', options: ['remove','nothing'], format: TeamStrategyToken, defaultValue: 'remove' },
-            { label: 'Expenses', name: 'expenses_strategy', type: 'radiogroup', options: ['remove','nothing'], format: ExpenseStrategyToken, defaultValue: 'remove'  },
-            { label: 'Drive', name: 'drive_strategy', type: 'radiogroup', options: ['nothing','transfer','delete'], format: DriveStrategyToken, defaultValue: 'nothing' },
+            { label: 'Team', name: 'team_strategy', type: 'radiogroup', deselectable: false, options: ['remove','nothing'], format: TeamStrategyToken, defaultValue: 'remove' },
+            { label: 'Expenses', name: 'expenses_strategy', type: 'radiogroup', deselectable: false, options: ['remove','nothing'], format: ExpenseStrategyToken, defaultValue: 'remove'  },
+            { label: 'Drive', name: 'drive_strategy', type: 'radiogroup', deselectable: false, options: ['nothing','transfer','delete'], format: DriveStrategyToken, defaultValue: 'nothing' },
             ...this._getDriveStrategy()
           ]
         }
