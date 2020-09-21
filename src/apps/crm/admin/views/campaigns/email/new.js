@@ -48,7 +48,7 @@ class New extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', deselectable: false, options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
             { label: 'To', name: 'to', type: ToField, program_id, channel: 'email', purpose: config.purpose },
             { label: 'Email Details', type: 'segment', fields: [
               { label: 'Template', name: 'template_id', type: TemplateField, program_id },

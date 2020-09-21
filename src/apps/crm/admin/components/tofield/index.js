@@ -147,6 +147,7 @@ class ToField extends React.PureComponent {
     const { strategy } = this.state
     return {
       defaultValue: strategy,
+      deselectable: false,
       options: strategies.map(({ strategy, text }) => ({
         value: strategy,
         text

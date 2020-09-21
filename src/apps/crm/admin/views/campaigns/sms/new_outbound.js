@@ -45,7 +45,7 @@ class New extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'direction', type: 'hidden', defaultValue: 'outbound' },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', deselectable: false, options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
             { label: 'To', name: 'to', type: ToField, program_id, channel: 'sms', purpose: config.purpose }
           ]
         }

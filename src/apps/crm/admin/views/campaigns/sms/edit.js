@@ -59,7 +59,7 @@ class Edit extends React.PureComponent {
       ]
     } else if(campaign.direction === 'outbound') {
       return [
-        { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken },
+        { label: 'Purpose', name: 'purpose', type: 'radiogroup', deselectable: false, options: ['marketing','transactional'], required: true, format: PurposeToken },
         { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'sms', purpose: config.purpose }
       ]
     }
