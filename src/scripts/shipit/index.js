@@ -27,7 +27,10 @@ const processor = async () => {
   ], []).filter(instance => {
     return instance.State.Name === 'running'
   }).filter(instance => {
-    return /mahaplatform/.test(instance.State.Name)
+    const cost = instance.Tags.find(Tag => {
+      return Tag.Key === 'Cost'
+    })
+    return cost.Value === 'maha'
   }).map(instance => {
     const tags = instance.Tags.reduce((tags, tag) => ({
       ...tags,
