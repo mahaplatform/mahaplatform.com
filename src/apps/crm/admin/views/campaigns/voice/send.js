@@ -44,7 +44,7 @@ class Send extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'email', required: true, purpose: campaign.purpose },
+            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'voice', required: true, purpose: campaign.purpose },
             { label: 'Send At', name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
             ...strategy === 'schedule' ? [
               { label: 'Send At', type: 'segment', fields: [
