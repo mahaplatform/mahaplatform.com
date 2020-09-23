@@ -19,6 +19,7 @@ const getTasks = ({ campaign }) => {
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/events_registrations/${props.params.id}/audits`,
   event: `/api/admin/events/events/${props.params.event_id}`,
+  tickets: `/api/admin/events/events/${props.params.event_id}/registrations/${props.params.id}/tickets`,
   registration: `/api/admin/events/events/${props.params.event_id}/registrations/${props.params.id}`
 })
 

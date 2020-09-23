@@ -175,7 +175,7 @@ class Map extends React.Component {
 
 const dependencies = {
   scripts: [
-    { url: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`, check: 'google.map' }
+    { url: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=drawing`, check: 'google.maps' }
   ]
 }
 

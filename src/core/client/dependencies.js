@@ -62,7 +62,7 @@ const Creator = (dependencies) => (Component) => {
       script.async = true
       script.defer = true
       script.src = this._getNormalized(dependency.url)
-      script.onload = this._handleCheck
+      script.onload = this._handleCheck.bind(this, false)
       document.body.appendChild(script)
     }
 
@@ -71,7 +71,7 @@ const Creator = (dependencies) => (Component) => {
       style.rel = 'stylesheet'
       style.type = 'text/css'
       style.href = this._getNormalized(dependency.url)
-      style.onload = this._handleCheck
+      style.onload = this._handleCheck.bind(this, false)
       document.head.appendChild(style)
     }
 
