@@ -26,6 +26,8 @@ const processor = async () => {
     ...reservation.Instances
   ], []).filter(instance => {
     return instance.State.Name === 'running'
+  }).filter(instance => {
+    return /mahaplatform/.test(instance.State.Name)
   }).map(instance => {
     const tags = instance.Tags.reduce((tags, tag) => ({
       ...tags,
