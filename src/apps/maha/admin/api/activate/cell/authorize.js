@@ -4,7 +4,7 @@ const authorizeRoute = async (req, res) => {
 
   await sendPush(req, {
     account: req.account,
-    cell_phone: req.account.get('cell_phone')
+    cell_phone: req.body.cell_phone
   })
 
   res.status(200).respond(true)

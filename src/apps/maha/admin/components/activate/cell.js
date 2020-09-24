@@ -112,6 +112,7 @@ class Cell extends React.Component {
   }
 
   _handleNext() {
+    console.log('next')
     const { account } = this.props
     if(!account.photo) return this.props.onChangeMode('avatar')
     this.props.onChangeMode('notifications')

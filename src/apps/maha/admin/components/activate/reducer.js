@@ -77,21 +77,11 @@ export default (state = INITIAL_STATE, action) => {
     }
 
   case 'PASSWORD_SUCCESS':
-    return {
-      ...state,
-      status: 'success'
-    }
-
   case 'VERIFY_CELL_SUCCESS':
-    return {
-      ...state,
-      status: 'success'
-    }
-
   case 'AVATAR_SUCCESS':
     return {
       ...state,
-      mode: 'notifications'
+      status: 'success'
     }
 
   case 'NOTIFICATIONS_SUCCESS':

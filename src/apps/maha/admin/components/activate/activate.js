@@ -119,11 +119,11 @@ class Activate extends React.Component {
   }
 
   _getCell() {
-    return _.pick(this.props, ['account','token','onChangeMode','onAuthorizeCell', 'onVerifyCell'])
+    return _.pick(this.props, ['account','status','token','onChangeMode','onAuthorizeCell', 'onVerifyCell'])
   }
 
   _getAvatar() {
-    return _.pick(this.props, ['account','token','onAvatar','onChangeMode','onSetPhotoId'])
+    return _.pick(this.props, ['account','status','token','onAvatar','onChangeMode','onSetPhotoId'])
   }
 
   _getNotifications() {

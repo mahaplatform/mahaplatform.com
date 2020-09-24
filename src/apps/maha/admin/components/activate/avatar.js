@@ -10,6 +10,7 @@ class Avatar extends React.Component {
 
   static propTypes = {
     token: PropTypes.string,
+    status: PropTypes.string,
     photo_id: PropTypes.number,
     onAvatar: PropTypes.func,
     onSetPhotoId: PropTypes.func,
@@ -17,7 +18,7 @@ class Avatar extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
-  _handleSkip = this._handleSkip.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     const { photo_id } = this.props
@@ -30,15 +31,22 @@ class Avatar extends React.Component {
               your content across the platform</p>
             <FileField { ...this._getFilefield() } />
             { photo_id ?
-              <button className="ui fluid large button" onClick={ this._handleSkip }>
+              <button className="ui fluid large button" onClick={ this._handleNext }>
                 Continue
               </button> :
-              <p><a onClick={ this._handleSkip }>Skip for now</a></p>
+              <p><a onClick={ this._handleNext }>Skip for now</a></p>
             }
           </div>
         </div>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'success') this._handleNext()
+    }
   }
 
   _getFilefield() {
@@ -66,13 +74,12 @@ class Avatar extends React.Component {
   }
 
   _handleChange(id) {
-    this.props.onSetPhotoId(id)
+    const { token } = this.props
+    this.props.onAvatar(token, id)
   }
 
-  _handleSkip() {
-    const { photo_id, token, onAvatar, onChangeMode } = this.props
-    if(!photo_id) return onChangeMode('notifications')
-    onAvatar(token, photo_id)
+  _handleNext() {
+    this.props.onChangeMode('notifications')
   }
 
 }

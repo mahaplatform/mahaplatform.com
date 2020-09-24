@@ -10,6 +10,7 @@ class Answer extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.array,
     questions: PropTypes.array,
     question_id: PropTypes.number,
     status: PropTypes.string,
@@ -60,8 +61,9 @@ class Answer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { status } = this.props
-    if(status !== prevProps.status && status === 'failure') {
-      this._handleShake()
+    if(status !== prevProps.status) {
+      if(status === 'failure') this._handleShake()
+      if(status === 'success') this._handleNext()
     }
   }
 
@@ -79,9 +81,16 @@ class Answer extends React.Component {
     return classes.join(' ')
   }
 
-
   _handleBack() {
     this.props.onChangeMode('question')
+  }
+
+  _handleNext() {
+    const { account } = this.props
+    const { cell_phone, photo } = account
+    if(!cell_phone) return this.props.onChangeMode('cell')
+    if(!photo) return this.props.onChangeMode('avatar')
+    this.props.onChangeMode('notifications')
   }
 
   _handleSubmit(e) {
