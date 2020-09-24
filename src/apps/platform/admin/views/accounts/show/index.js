@@ -1,6 +1,7 @@
 import { Avatar, Page } from 'maha-admin'
 import Details from './details'
 import Teams from './teams'
+import Team from './team'
 import React from 'react'
 
 const getTabs = ({ account, teams }) => ({
@@ -14,6 +15,9 @@ const getTabs = ({ account, teams }) => ({
 const getTasks = ({ account }, { flash }) => ({
   items: [
     {
+      label: 'Add Team',
+      modal: <Team account={ account } />
+    }, {
       label: 'Unblock Account',
       show: account.is_blocked,
       request: {

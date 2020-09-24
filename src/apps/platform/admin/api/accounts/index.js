@@ -12,12 +12,12 @@ router.get('/', list)
 
 router.get('/:id', show)
 
-router.get('/:id/teams', teams)
-
 router.patch('/:id/reset', reset)
 
 router.patch('/:id/signout', signout)
 
 router.patch('/:id/unblock', unblock)
+
+router.use('/:account_id/teams', teams)
 
 export default router

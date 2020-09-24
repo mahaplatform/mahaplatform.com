@@ -43,7 +43,11 @@ const teamsRoute = async (req, res, next) => {
     message: 'Invalid account'
   })
 
-  res.status(200).respond(req.account.related('users'), (req, user) => {
+  const users = req.account.related('users').filter(user => {
+    return user.get('activated_at') !== null
+  })
+
+  res.status(200).respond(users, (req, user) => {
     const team = user.related('team')
     return {
       id: team.get('id'),

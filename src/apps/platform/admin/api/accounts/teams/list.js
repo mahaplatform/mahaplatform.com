@@ -1,9 +1,9 @@
-import Account from '../../../../maha/models/account'
+import Account from '../../../../../maha/models/account'
 
-const teamsRoute = async (req, res, next) => {
+const listRoute = async (req, res, next) => {
 
   const account = await Account.query(qb => {
-    qb.where('maha_accounts.id', req.params.id)
+    qb.where('id', req.params.account_id)
   }).fetch({
     withRelated: ['users.team.logo'],
     transacting: req.trx
@@ -25,4 +25,4 @@ const teamsRoute = async (req, res, next) => {
 
 }
 
-export default teamsRoute
+export default listRoute

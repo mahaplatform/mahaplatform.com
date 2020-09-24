@@ -85,7 +85,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'VERIFY_CELL_SUCCESS':
     return {
       ...state,
-      mode: 'avatar'
+      status: 'success'
     }
 
   case 'AVATAR_SUCCESS':

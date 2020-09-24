@@ -10,12 +10,9 @@ class Cell extends React.Component {
   }
 
   static propTypes = {
-    question: PropTypes.object,
-    show: PropTypes.bool,
+    account: PropTypes.object,
     status: PropTypes.string,
-    team: PropTypes.object,
     token: PropTypes.string,
-    user: PropTypes.object,
     onChangeMode: PropTypes.func,
     onAuthorizeCell: PropTypes.func,
     onVerifyCell: PropTypes.func
@@ -30,7 +27,7 @@ class Cell extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleSend = this._handleSend.bind(this)
-  _handleSkip = this._handleSkip.bind(this)
+  _handleNext = this._handleNext.bind(this)
   _handleVerify = this._handleVerify.bind(this)
 
   render() {
@@ -68,7 +65,7 @@ class Cell extends React.Component {
           <div className="maha-signin-footer">
             { sent ?
               <p><a onClick={ this._handleSend }>Resend Code</a></p> :
-              <p><a onClick={ this._handleSkip }>Skip for now</a></p>
+              <p><a onClick={ this._handleNext }>Skip for now</a></p>
             }
           </div>
         </div>
@@ -78,8 +75,9 @@ class Cell extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { status } = this.props
-    if(status !== prevProps.status && status === 'failure') {
-      this._handleShake()
+    if(status !== prevProps.status) {
+      if(status === 'failure') this._handleShake()
+      if(status === 'success') this._handleNext()
     }
   }
 
@@ -113,15 +111,17 @@ class Cell extends React.Component {
     })
   }
 
+  _handleNext() {
+    const { account } = this.props
+    if(!account.photo) return this.props.onChangeMode('avatar')
+    this.props.onChangeMode('notifications')
+  }
+
   _handleShake() {
     this.setState({ error: true })
     setTimeout(() => {
       this.setState({ error: false })
     }, 500)
-  }
-
-  _handleSkip() {
-    this.props.onChangeMode('avatar')
   }
 
   _handleSend() {

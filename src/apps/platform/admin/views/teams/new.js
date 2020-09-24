@@ -1,6 +1,6 @@
-import { AuthenticationStrategyToken, Form } from 'maha-admin'
 import Apps from '../../components/apps'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
