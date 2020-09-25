@@ -22,6 +22,24 @@ const getTasks = ({ team }) => ({
       label: 'Edit Team',
       modal: <Edit team_id={ team.id } />
     }, {
+      label: 'Disable Team',
+      show: team.is_active,
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/platform/teams/${team.id}/activate`,
+        body: { is_active: false },
+        onFailure: (result) => context.flash.set('error', 'Unable to disable team')
+      }
+    }, {
+      label: 'Enable Team',
+      show: !team.is_active,
+      request: {
+        method: 'PATCH',
+        endpoint: `/api/admin/platform/teams/${team.id}/activate`,
+        body: { is_active: true },
+        onFailure: (result) => context.flash.set('error', 'Unable to enable team')
+      }
+    }, {
       label: 'Create User',
       modal: <User team_id={ team.id } />
     }, {

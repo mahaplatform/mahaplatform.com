@@ -7,7 +7,9 @@ const Details = ({ team }) => {
 
   const list = {}
 
-  if(team.deleted_at !== null) {
+  if(!team.is_active) {
+    list.alert = { color: 'red', message: 'This team has been disabled' }
+  } else if(team.deleted_at !== null) {
     list.alert = { color: 'red', message: 'This team was deleted' }
   }
 

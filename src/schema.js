@@ -2021,6 +2021,7 @@ const schema = {
       table.integer('logo_id').unsigned()
       table.text('address')
       table.timestamp('deleted_at')
+      table.boolean('is_active')
     })
 
     await knex.schema.createTable('maha_teams_apps', (table) => {

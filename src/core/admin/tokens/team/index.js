@@ -8,6 +8,9 @@ const TeamToken = (team) => (
     </div>
     <div className="team-token-label">
       { team.title }
+      { team.is_active === false && <span className="team-token-activity">
+        INACTIVE
+      </span> }
     </div>
   </div>
 )

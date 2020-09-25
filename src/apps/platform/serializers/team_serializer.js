@@ -1,5 +1,6 @@
 const teamSerializer = (req, result) => ({
   id: result.get('id'),
+  is_active: result.get('is_active'),
   app_ids: result.get('app_ids'),
   title: result.get('title'),
   subdomain: result.get('subdomain'),

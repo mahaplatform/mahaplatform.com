@@ -1,10 +1,11 @@
-import banks from './banks'
+import activate from './activate'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
 import roles from './roles'
 import users from './users'
+import banks from './banks'
 import list from './list'
 import edit from './edit'
 import show from './show'
@@ -23,6 +24,8 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.get('/:id/edit', edit)
+
+router.patch('/:id/activate', activate)
 
 router.get('/:id/apps', apps)
 

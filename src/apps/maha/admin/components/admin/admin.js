@@ -149,7 +149,7 @@ class Admin extends React.Component {
   _handleFetchSession() {
     const { teams } = this.props
     const active = this.props.active || teams[0].id
-    const team = _.find(teams, { id: active })
+    const team = _.find(teams, { id: active }) || teams[0]
     this.props.onFetchSession(active, team.token)
   }
 
