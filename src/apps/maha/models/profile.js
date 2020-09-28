@@ -1,13 +1,19 @@
 import Model from '../../../core/objects/model'
+import Account from './account'
 import Source from './source'
 import Asset from './asset'
-import User from './user'
 
 const Profile = new Model({
+
+  belongsToTeam: false,
 
   tableName: 'maha_profiles',
 
   rules: {},
+
+  account() {
+    return this.belongsTo(Account, 'account_id')
+  },
 
   photo() {
     return this.belongsTo(Asset, 'photo_id')
@@ -15,10 +21,6 @@ const Profile = new Model({
 
   source() {
     return this.belongsTo(Source, 'source_id')
-  },
-
-  user() {
-    return this.belongsTo(User, 'user_id')
   }
 
 })

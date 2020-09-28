@@ -16,7 +16,7 @@ const getCreate = (service) => {
 const filesRoute = async (req, res) => {
 
   const profile = await Profile.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+    qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.profile_id )
   }).fetch({
     withRelated: ['source'],

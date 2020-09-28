@@ -5,8 +5,7 @@ const listRoute = async (req, res) => {
 
   const profiles = await Profile.filterFetch({
     scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('user_id', req.user.get('id'))
+      qb.where('account_id', req.account.get('id'))
       qb.orderByRaw('created_at asc')
     },
     filter: {

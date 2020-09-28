@@ -1846,7 +1846,6 @@ const schema = {
     await knex.schema.createTable('maha_profiles', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('user_id').unsigned()
       table.integer('source_id').unsigned()
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
@@ -1856,6 +1855,7 @@ const schema = {
       table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('account_id').unsigned()
     })
 
     await knex.schema.createTable('maha_reactions', (table) => {
@@ -3139,6 +3139,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_accounts', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('security_question_id').references('maha_security_questions.id')
+    })
+
     await knex.schema.table('maha_activities', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('object_owner_id').references('maha_users.id')
@@ -3333,7 +3338,7 @@ const schema = {
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('source_id').references('maha_sources.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
+      table.foreign('account_id').references('maha_accounts.id')
     })
 
     await knex.schema.table('maha_reactions', table => {
@@ -3423,6 +3428,13 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_users', table => {
+      table.foreign('account_id').references('maha_accounts.id')
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_type_id').references('maha_user_types.id')
+    })
+
     await knex.schema.table('maha_users_groups', table => {
       table.foreign('group_id').references('maha_groups.id')
       table.foreign('user_id').references('maha_users.id')
@@ -3431,13 +3443,6 @@ const schema = {
     await knex.schema.table('maha_users_notification_types', table => {
       table.foreign('notification_type_id').references('maha_notification_types.id')
       table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('maha_users', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_type_id').references('maha_user_types.id')
-      table.foreign('account_id').references('maha_accounts.id')
     })
 
     await knex.schema.table('maha_users_roles', table => {
@@ -3651,11 +3656,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_accounts', table => {
-      table.foreign('security_question_id').references('maha_security_questions.id')
-      table.foreign('photo_id').references('maha_assets.id')
     })
 
 

@@ -67,9 +67,11 @@ const token = async (req, res) => {
 
   const { user } = await loadUserFromToken('user_id', state.token)
 
-  await user.load(['team'], {
+  await user.load(['account','team'], {
     transacting: req.trx
   })
+
+  req.account = user.related('account')
 
   req.team = user.related('team')
 
@@ -90,7 +92,7 @@ const token = async (req, res) => {
   await Promise.mapSeries(profiles, async (data) => {
 
     const profile = await Profile.query(qb => {
-      qb.where('team_id', req.user.get('team_id'))
+      qb.where('account_id', req.account.get('id'))
       qb.where('source_id', source.get('id'))
       qb.where('profile_id', data.profile_id)
       qb.where('type', state.type)
@@ -107,8 +109,7 @@ const token = async (req, res) => {
     })
 
     await Profile.forge({
-      team_id: req.team.get('id'),
-      user_id: req.user.get('id'),
+      account_id: req.account.get('id'),
       source_id: source.get('id'),
       photo_id,
       profile_id: data.profile_id,
@@ -122,12 +123,12 @@ const token = async (req, res) => {
 
   })
 
-  await socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
+  await socket.in(`/admin/accounts/${req.user.get('id')}`).emit('message', {
     target: `/admin/${req.params.source}/authorized`,
     action: 'refresh'
   })
 
-  await socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
+  await socket.in(`/admin/accounts/${req.user.get('id')}`).emit('message', {
     target: '/admin/account/profiles',
     action: 'refresh'
   })
