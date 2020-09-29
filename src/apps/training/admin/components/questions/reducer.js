@@ -15,7 +15,6 @@ const reducer = (state = INITIAL_STATE, action) => {
           ...action.question,
           delta: state.questions.length
         }
-
       ]
     }
 

@@ -24,6 +24,7 @@ class Variants extends React.Component {
   }
 
   _getForm() {
+    const { product } = this.props
     const variants = this._getVariants()
     return {
       title: 'Variants',
@@ -34,7 +35,7 @@ class Variants extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'variants', type: VariantsField, defaultValue: variants }
+            { name: 'variants', type: VariantsField, defaultValue: variants, product }
           ]
         }
       ]
@@ -58,7 +59,17 @@ class Variants extends React.Component {
     }, []).map(options => ({
       title: options.map(option => option.value).join(' / '),
       options,
-      ...product.pricing,
+      price_type: product.price_type,
+      project_id: product.project_id,
+      revenue_type_id: product.revenue_type_id,
+      fixed_price: product.fixed_price,
+      low_price: product.low_price,
+      high_price: product.high_price,
+      overage_strategy: product.overage_strategy,
+      donation_revenue_type_id: product.donation_revenue_type_id,
+      tax_rate: product.tax_rate,
+      is_tax_deductible: product.is_tax_deductible,
+      inventory_strategy: product.inventory_strategy,
       inventory_quantity: 0,
       inventory_policy: 'deny',
       is_active: true

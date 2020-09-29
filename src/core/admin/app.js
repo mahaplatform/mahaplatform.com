@@ -129,6 +129,7 @@ import newsnew from '../../apps/news/admin/components/new'
 import newsnews from '../../apps/news/admin/roots/news'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
+import storesmediafield from '../../apps/stores/admin/components/mediafield'
 import teamaccess from '../../apps/team/admin/components/access'
 import teamroles from '../../apps/team/admin/components/roles'
 import trainingoptions from '../../apps/training/admin/components/options'
@@ -439,6 +440,7 @@ class App extends React.Component {
       newsnews,
       platformapps,
       sitessitesImportFinalize,
+      storesmediafield,
       teamaccess,
       teamroles,
       trainingoptions,

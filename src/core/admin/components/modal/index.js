@@ -81,8 +81,8 @@ class Modal extends React.Component {
   }
 
   _handleClose(confirm) {
-    if(!confirm) return this._handlePop()
-    this.context.confirm.open('Are you sure you want to close this window?', this._handlePop)
+    if(!confirm) return this._handlePop(0)
+    this.context.confirm.open('Are you sure you want to close this window?', this._handlePop.bind(this, 0))
   }
 
   _handleOpen(component, options = {}) {

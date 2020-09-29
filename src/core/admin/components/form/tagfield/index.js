@@ -83,11 +83,12 @@ class TagField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { tag } = this.state
     return {
       type: 'text',
       placeholder,
+      tabIndex,
       value: tag,
       onKeyDown: this._handleKeyDown,
       onChange: this._handleUpdate

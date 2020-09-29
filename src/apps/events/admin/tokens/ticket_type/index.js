@@ -29,7 +29,7 @@ const TicketTypeToken = (ticket_type) => (
       }
     </div>
     { ticket_type.description &&
-      <div>
+      <div className="tickettype-toke-description">
         { ticket_type.description }
       </div>
     }

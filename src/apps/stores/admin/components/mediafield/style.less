@@ -1,0 +1,62 @@
+.mediafield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 5px;
+  background: @white;
+}
+.mediafield-image {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.mediafield-image-handle {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa:hover  {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    cursor: grab;
+    margin: auto;
+  }
+}
+.mediafield-image-image {
+  padding: 0.8em 0 0.8em 0.8em;
+  img {
+    width: 3.2em;
+    height: 3.2em;
+    display: block;
+    overflow: hidden;
+  }
+}
+.mediafield-image-details {
+  padding: 0.8em;
+  flex: 1;
+}
+.mediafield-image-details-filename {
+  line-height: 3.2em;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mediafield-image-details-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa:hover  {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    cursor: pointer;
+    margin: auto;
+  }
+}
+.mediafield-add {
+  padding: 0.8em;
+  cursor: pointer;
+  overflow: hidden;
+  color: @blue;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}

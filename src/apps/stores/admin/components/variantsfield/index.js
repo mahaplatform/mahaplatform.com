@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Button, NumberField } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
@@ -12,6 +12,7 @@ class VariantsField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    product: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -26,17 +27,18 @@ class VariantsField extends React.Component {
   }
 
   _handleActivate = this._handleActivate.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleDeactivate = this._handleDeactivate.bind(this)
 
   render() {
     const { variants } = this.state
+    const { product } = this.props
     return (
       <div className="variantsfield-variants">
         <table className="ui unstackable table">
           <thead>
             <tr>
               <th>Title</th>
-              <th className="collapsing">Price</th>
               <th className="collapsing">Inventory</th>
               <th className="collapsing" />
               <th className="collapsing" />
@@ -45,11 +47,15 @@ class VariantsField extends React.Component {
           <tbody>
             { variants.map((variant, index) => (
               <tr className={ this._getClass(variant) } key={`option_${index}`}>
-                <td>{ variant.title }</td>
-                <td>{ this._getPrice(variant) }</td>
-                <td>{ variant.inventory_quantity }</td>
                 <td>
-                  <Button { ...this._getEdit(index) } />
+                  <strong>{ product.title } ({ variant.title })</strong><br />
+                  { this._getPrice(variant) }
+                </td>
+                <td className="right aligned">
+                  <NumberField { ...this._getQuantity(variant) } />
+                </td>
+                <td>
+                  <Button { ...this._getEditButton(index, variant) } />
                 </td>
                 <td>
                   { variant.is_active ?
@@ -95,11 +101,19 @@ class VariantsField extends React.Component {
     }
   }
 
-  _getEdit(index) {
+  _getEdit(index, variant) {
+    return {
+      variant,
+      onBack: this._handleBack,
+      onDone: this._handleUpdate.bind(this, index, variant)
+    }
+  }
+
+  _getEditButton(index, variant) {
     return {
       icon: 'pencil',
       className: 'variantsfield-variant-action',
-      handler: this._handleEdit.bind(this, index)
+      handler: this._handleEdit.bind(this, index, variant)
     }
   }
 
@@ -112,33 +126,84 @@ class VariantsField extends React.Component {
   _getPrice(variant) {
     if(variant.price_type === 'free') return 'FREE'
     if(variant.price_type === 'fixed') return numeral(variant.fixed_price).format('0.00')
-    return `${numeral(variant.low_price, '0.00')} - ${numeral(variant.high_price).format('0.00')}`
+    return `${numeral(variant.low_price).format('0.00')} - ${numeral(variant.high_price).format('0.00')}`
   }
 
-  _handleActivate(i) {
+  _getPolicy(variant, index) {
+    return {
+      options: [
+        { value: 'deny', text: 'Deny' },
+        { value: 'continue', text: 'Continue' }
+      ],
+      disabled: variant.inventory_policy === 'unlimited' || !variant.is_active,
+      placeholder: '',
+      defaultValue: variant.inventory_policy,
+      onChange: this._handleValue.bind(this, index, 'inventory_policy')
+    }
+  }
+
+  _getQuantity(variant, index) {
+    return {
+      defaultValue: variant.inventory_quantity,
+      disabled: variant.inventory_policy === 'unlimited' || !variant.is_active,
+      placeholder: '',
+      onChange: this._handleValue.bind(this, index, 'inventory_quantity')
+    }
+  }
+
+  _handleActivate(index) {
     this.setState({
       variants: [
-        ...this.state.variants.map((variant, index) => ({
+        ...this.state.variants.map((variant, i) => ({
           ...variant,
-          is_active: index === i ? true : variant.is_active
+          is_active: i === index ? true : variant.is_active
         }))
       ]
     })
   }
 
-  _handleDeactivate(i) {
+  _handleBack() {
+    this.context.form.pop()
+  }
+
+  _handleDeactivate(index) {
     this.setState({
       variants: [
-        ...this.state.variants.map((variant, index) => ({
+        ...this.state.variants.map((variant, i) => ({
           ...variant,
-          is_active: index === i ? false : variant.is_active
+          is_active: i === index ? false : variant.is_active
         }))
       ]
     })
   }
 
-  _handleEdit() {
-    this.context.form.push(<Edit />)
+  _handleEdit(index, variant) {
+    this.context.form.push(<Edit { ...this._getEdit(index, variant) } />)
+  }
+
+  _handleValue(index, key, value) {
+    const { variants } = this.state
+    this.setState({
+      variants: [
+        ...variants.map((variant, i) => ({
+          ...variant,
+          ...i === index ? {
+            [key]: value
+          } : {}
+        }))
+      ]
+    })
+  }
+
+  _handleUpdate(index, newvariant) {
+    this.setState({
+      variants: [
+        ...this.state.variants.map((variant, i) => ({
+          ...i === index ? newvariant : variant
+        }))
+      ]
+    })
+    this.context.form.pop()
   }
 
 }

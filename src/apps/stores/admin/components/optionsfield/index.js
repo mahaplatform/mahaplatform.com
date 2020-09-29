@@ -40,7 +40,7 @@ class OptionsField extends React.Component {
             <div className="optionsfield-option-title">
               <strong>{ option.title }</strong> ({ option.values.join(', ') })
             </div>
-            <Button { ...this._getEditButton(index) } />
+            <Button { ...this._getEditButton(option, index) } />
             <Button { ...this._getRemoveButton(index) } />
           </div>
         )) }
@@ -64,7 +64,7 @@ class OptionsField extends React.Component {
 
   _getAdd() {
     return {
-      label: '+ Add New',
+      label: '+ Add Option',
       className: 'link',
       handler: this._handleAdd
     }
@@ -76,17 +76,18 @@ class OptionsField extends React.Component {
     }
   }
 
-  _getEdit() {
+  _getEdit(option, index) {
     return {
-      onDone: this._handleUpdate
+      option,
+      onDone: this._handleUpdate.bind(this, index)
     }
   }
 
-  _getEditButton(index) {
+  _getEditButton(option, index) {
     return {
       icon: 'pencil',
       className: 'optionsfield-option-action',
-      handler: this._handleEdit.bind(this, index)
+      handler: this._handleEdit.bind(this, option, index)
     }
   }
 
@@ -117,8 +118,8 @@ class OptionsField extends React.Component {
     this.context.form.pop()
   }
 
-  _handleEdit(index) {
-    this.context.form.push(<Edit { ...this._getEdit() } />)
+  _handleEdit(option, index) {
+    this.context.form.push(<Edit { ...this._getEdit(option, index) } />)
   }
 
   _handleRemove(i) {
@@ -131,7 +132,16 @@ class OptionsField extends React.Component {
     })
   }
 
-  _handleUpdate() {}
+  _handleUpdate(index, newoption) {
+    this.setState({
+      options: [
+        ...this.state.options.map((option, i) => {
+          return i === index ? newoption : option
+        })
+      ]
+    })
+    this.context.form.pop()
+  }
 
 }
 

@@ -9,6 +9,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
+    option: PropTypes.object,
     onDone: PropTypes.func
   }
 
@@ -20,15 +21,17 @@ class Edit extends React.Component {
   }
 
   _getForm() {
+    const { option } = this.props
     return {
-      title: 'New Option',
+      title: 'Edit Option',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title', defaultValue: option.title },
+            { label: 'Values', name: 'values', type: 'tagfield', required: true, placeholder: 'Separate values with a comma', defaultValue: option.values }
           ]
         }
       ]

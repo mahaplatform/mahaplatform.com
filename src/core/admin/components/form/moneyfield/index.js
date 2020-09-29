@@ -64,7 +64,7 @@ class MoneyField extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue
+      value: numeral(defaultValue).format('0.00')
     })
     this.props.onReady()
   }
