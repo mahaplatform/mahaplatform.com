@@ -6,10 +6,6 @@ import _ from 'lodash'
 
 class Inventory extends React.Component {
 
-  static contextTypes = {
-    modal: PropTypes.object
-  }
-
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,

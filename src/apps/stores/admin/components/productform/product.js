@@ -4,11 +4,6 @@ import React from 'react'
 
 class Product extends React.Component {
 
-  static contextTypes = {
-    modal: PropTypes.object,
-    router: PropTypes.object
-  }
-
   static propTypes = {
     onCancel: PropTypes.func,
     onNext: PropTypes.func
@@ -45,7 +40,7 @@ class Product extends React.Component {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    this.props.onCancel()
   }
 
   _handleSubmit() {

@@ -6,10 +6,6 @@ import _ from 'lodash'
 
 class Pricing extends React.Component {
 
-  static contextTypes = {
-    form: PropTypes.object
-  }
-
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
