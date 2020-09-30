@@ -120,7 +120,8 @@ class VariantsField extends React.Component {
       is_tax_deductible: product.is_tax_deductible,
       inventory_policy: 'deny',
       inventory_quantity: 0,
-      is_active: true
+      is_active: true,
+      photos: []
     }))
   }
 

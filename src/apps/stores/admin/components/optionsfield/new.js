@@ -23,9 +23,8 @@ class New extends React.Component {
     return {
       title: 'New Option',
       cancelIcon: 'chevron-left',
-      saveText: 'Add',
+      saveText: 'Done',
       onCancel: this._handleBack,
-      onSubmit: this._handleSubmit,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -40,10 +39,6 @@ class New extends React.Component {
 
   _handleBack() {
     this.context.modal.pop()
-  }
-
-  _handleSubmit() {
-    return true
   }
 
   _handleSuccess(option) {

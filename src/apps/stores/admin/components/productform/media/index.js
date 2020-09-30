@@ -1,13 +1,13 @@
-import OptionsField from '../../../components/optionsfield'
+import MediaField from '../../../components/mediafield'
 import VariantsField from './variantsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Variants extends React.Component {
+class Media extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    form: PropTypes.object
   }
 
   static propTypes = {
@@ -19,7 +19,7 @@ class Variants extends React.Component {
   form = null
 
   state = {
-    product: {}
+    data: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -28,13 +28,7 @@ class Variants extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.product) return null
     return <Form { ...this._getForm() } />
-  }
-
-  componentDidMount() {
-    const { product } = this.props
-    this.setState({ product })
   }
 
   _getForm() {
@@ -50,29 +44,33 @@ class Variants extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'has_variants', type: 'radiogroup', deselectable: false, options: [
-              { value: false, text: 'There is only one variant of this product' },
-              { value: true, text: 'There are multiple variants of this product with different options (color, size, etc)' }
-            ], defaultValue: false },
-            ...this._getOptions(),
-            ...this._getVariants()
+            ...this._getStrategy(),
+            ...this._getMedia()
           ]
         }
       ]
     }
   }
 
-  _getOptions()  {
-    const { product } = this.state
+  _getStrategy() {
+    const { product } = this.props
     if(!product.has_variants) return []
     return [
-      { label: 'Options', name: 'options', type: OptionsField }
+      { name: 'media_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
+        { value: 'shared', text: 'Use the same photos for each variant' },
+        { value: 'unique', text: 'Use different photos for each variant' }
+      ], defaultValue: 'shared' }
     ]
   }
 
-  _getVariants() {
-    const { product } = this.state
-    if(!product.has_variants || !product.options) return []
+  _getMedia() {
+    const { product } = this.props
+    const { data } = this.state
+    if(!product.has_variants || data.media_strategy === 'shared') {
+      return [
+        { label: 'Photos', name: 'photos', type: MediaField }
+      ]
+    }
     return [
       { label: 'Variants', name: 'variants', type: VariantsField, product }
     ]
@@ -82,23 +80,18 @@ class Variants extends React.Component {
     this.props.onBack()
   }
 
-  _handleChange(product) {
-    this.setState({
-      product: {
-        ...this.state.product,
-        ...product
-      }
-    })
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {
     this.form.submit()
   }
 
-  _handleSuccess(product) {
-    this.props.onDone(product)
+  _handleSuccess(data) {
+    this.props.onDone(data)
   }
 
 }
 
-export default Variants
+export default Media

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import Variants from './variants'
 import Product from './product'
 import Pricing from './pricing'
+import Media from './media'
 import React from 'react'
-
 
 class ProductForm extends React.Component {
 
@@ -28,6 +28,7 @@ class ProductForm extends React.Component {
   steps = [
     { label: 'Details', component: Product, props: this._getProduct.bind(this) },
     { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
+    { label: 'Media', component: Media, props: this._getMedia.bind(this) },
     { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
     { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) }
   ]
@@ -40,13 +41,10 @@ class ProductForm extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleInventory = this._handleInventory.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handlePop = this._handlePop.bind(this)
-  _handleProduct = this._handleProduct.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleSave = this._handleSave.bind(this)
-  _handleVariants = this._handleVariants.bind(this)
 
   render() {
     return (
@@ -90,7 +88,16 @@ class ProductForm extends React.Component {
     return {
       product,
       onBack: this._handleBack,
-      onDone: this._handleInventory
+      onDone: this._handleNext
+    }
+  }
+
+  _getMedia() {
+    const { product } = this.state
+    return {
+      product,
+      onBack: this._handleBack,
+      onDone: this._handleNext
     }
   }
 
@@ -106,12 +113,17 @@ class ProductForm extends React.Component {
   _getProduct() {
     return {
       onCancel: this._handleCancel,
-      onDone: this._handleProduct
+      onDone: this._handleNext
     }
   }
 
   _getPricing() {
-    return {}
+    const { product } = this.state
+    return {
+      product,
+      onBack: this._handleBack,
+      onDone: this._handleNext
+    }
   }
 
   _getStack() {
@@ -138,7 +150,7 @@ class ProductForm extends React.Component {
     return {
       product,
       onBack: this._handleBack,
-      onDone: this._handleVariants
+      onDone: this._handleNext
     }
   }
 
@@ -152,32 +164,20 @@ class ProductForm extends React.Component {
     this.context.modal.close()
   }
 
-  _handleInventory(product) {
+  _handleNext(data) {
+    const { product, step } = this.state
     this.setState({
       product: {
-        ...this.state.product,
-        ...product
+        ...product,
+        ...data
       },
-      step: 3
-    })
-  }
-
-  _handleNext() {
-    this.setState({
-      step: this.state.step + 1
+      step: step + 1
     })
   }
 
   _handlePop(index = -1) {
     this.setState({
       cards: this.state.cards.slice(0, index)
-    })
-  }
-
-  _handleProduct(product) {
-    this.setState({
-      step: 1,
-      product
     })
   }
 
@@ -216,17 +216,6 @@ class ProductForm extends React.Component {
     }
     console.log('Save', value)
   }
-
-  _handleVariants(product) {
-    this.setState({
-      product: {
-        ...this.state.product,
-        ...product
-      },
-      step: 2
-    })
-  }
-
 
 }
 

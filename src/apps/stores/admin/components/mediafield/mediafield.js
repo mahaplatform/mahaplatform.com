@@ -65,7 +65,7 @@ class MediaField extends React.PureComponent {
 
   _getAdd() {
     return {
-      label: '+ Add Image(s)',
+      label: '+ Add Photo(s)',
       className: 'mediafield-add',
       modal: <Attachments { ...this._getAttachments() } />
     }

@@ -18,7 +18,7 @@ class Inventory extends React.Component {
   form = null
 
   state = {
-    product: {}
+    data: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -27,13 +27,7 @@ class Inventory extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.product) return null
     return <Form { ...this._getForm() } />
-  }
-
-  componentDidMount() {
-    const { product } = this.props
-    this.setState({ product })
   }
 
   _getForm() {
@@ -63,10 +57,16 @@ class Inventory extends React.Component {
   }
 
   _getInventory() {
-    const { product } = this.state
-    if(product.inventory_policy === 'unmanaged') return []
+    const { product } = this.props
+    const { data } = this.state
+    if(data.inventory_policy === 'unmanaged') return []
+    if(product.has_variants) {
+      return [
+        { label: 'Inventory', name: 'variants', type: InventoryField, product }
+      ]
+    }
     return [
-      { label: 'Inventory', name: 'variants', type: InventoryField, product }
+      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield' }
     ]
   }
 
@@ -74,21 +74,16 @@ class Inventory extends React.Component {
     this.props.onBack()
   }
 
-  _handleChange(product) {
-    this.setState({
-      product: {
-        ...this.state.product,
-        ...product
-      }
-    })
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {
     this.form.submit()
   }
 
-  _handleSuccess(product) {
-    this.props.onDone(product)
+  _handleSuccess(data) {
+    this.props.onDone(data)
   }
 
 }

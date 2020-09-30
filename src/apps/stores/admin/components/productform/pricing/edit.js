@@ -1,23 +1,17 @@
 import RevenueTypeToken from '../../../../../finance/admin/tokens/revenue_type'
 import ProjectToken from '../../../../../finance/admin/tokens/project'
-import VariantsField from './variantsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Pricing extends React.Component {
-
-  static contextTypes = {
-    form: PropTypes.object
-  }
+class Edit extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
+    variant: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
-
-  form = null
 
   state = {
     data: {}
@@ -25,59 +19,37 @@ class Pricing extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleChange = this._handleChange.bind(this)
-  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.variant) return null
     return <Form { ...this._getForm() } />
+  }
+
+  componentDidMount() {
+    const { variant } = this.props
+    this.setState({ variant })
   }
 
   _getForm() {
     return {
-      reference: node => this.form = node,
-      showHeader: false,
-      buttons: [
-        { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
-      ],
+      title: 'Edit Pricing',
+      cancelIcon: 'chevron-left',
+      saveText: 'Done',
+      onCancel: this._handleBack,
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            ...this._getStrategy(),
-            ...this._getPricing()
+            { label: 'Pricing', type: 'segment', required: true, fields: [
+              { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true },
+              ...this._getPriceType()
+            ] }
           ]
         }
       ]
     }
-  }
-
-  _getStrategy() {
-    const { product } = this.props
-    if(!product.has_variants) return []
-    return [
-      { name: 'pricing_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
-        { value: 'shared', text: 'Use the same pricing for each variant' },
-        { value: 'unique', text: 'Use different pricing for each variant' }
-      ], defaultValue: 'shared' }
-    ]
-  }
-
-  _getPricing() {
-    const { product } = this.props
-    const { data } = this.state
-    if(!product.has_variants || data.pricing_strategy === 'shared') {
-      return [
-        { label: 'Pricing', type: 'segment', required: true, fields: [
-          { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true },
-          ...this._getPriceType()
-        ] }
-      ]
-    }
-    return [
-      { label: 'Variants', name: 'variants', type: VariantsField, product }
-    ]
   }
 
   _getPriceType() {
@@ -129,18 +101,14 @@ class Pricing extends React.Component {
     this.props.onBack()
   }
 
-  _handleChange(data) {
-    this.setState({ data })
+  _handleChange(variant) {
+    this.setState({ variant })
   }
 
-  _handleSubmit() {
-    this.form.submit()
-  }
-
-  _handleSuccess(data) {
-    this.props.onDone(data)
+  _handleSuccess(variant) {
+    this.props.onDone(variant)
   }
 
 }
 
-export default Pricing
+export default Edit

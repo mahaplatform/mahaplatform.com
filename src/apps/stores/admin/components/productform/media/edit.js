@@ -1,38 +1,47 @@
+import MediaField from '../../../components/mediafield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
 class Edit extends React.Component {
 
-  static contextTypes = {
-    form: PropTypes.object
-  }
-
   static propTypes = {
-    option: PropTypes.object,
+    product: PropTypes.object,
+    variant: PropTypes.object,
+    onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
+  state = {
+    variant: {}
+  }
+
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.variant) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    const { variant } = this.props
+    this.setState({ variant })
+  }
+
   _getForm() {
-    const { option } = this.props
     return {
-      title: 'Edit Option',
+      title: 'Edit Media',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title', defaultValue: option.title },
-            { label: 'Values', name: 'values', type: 'tagfield', required: true, placeholder: 'Separate values with a comma', defaultValue: option.values }
+            { label: 'Photos', name: 'photos', type: MediaField }
           ]
         }
       ]
@@ -40,11 +49,15 @@ class Edit extends React.Component {
   }
 
   _handleBack() {
-    this.context.form.pop()
+    this.props.onBack()
   }
 
-  _handleSuccess(option) {
-    this.props.onDone(option)
+  _handleChange(variant) {
+    this.setState({ variant })
+  }
+
+  _handleSuccess(variant) {
+    this.props.onDone(variant)
   }
 
 }
