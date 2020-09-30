@@ -1,7 +1,8 @@
-import InventoryField from './inventoryfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import Variants from './variants'
 import React from 'react'
+import _ from 'lodash'
 
 class Inventory extends React.Component {
 
@@ -46,10 +47,9 @@ class Inventory extends React.Component {
             { name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
               { value: 'deny', text: 'Stop selling when inventory reaches 0' },
               { value: 'continue', text: 'Allow sales to continue into negative inventory levels' },
-              { value: 'unmanaged', text: 'Do not manage inventory' }
+              { value: 'unlimited', text: 'Do not manage inventory' }
             ], defaultValue: 'deny' },
             ...this._getInventory()
-
           ]
         }
       ]
@@ -59,15 +59,27 @@ class Inventory extends React.Component {
   _getInventory() {
     const { product } = this.props
     const { data } = this.state
-    if(data.inventory_policy === 'unmanaged') return []
+    if(data.inventory_policy === 'unlimited') return []
     if(product.has_variants) {
       return [
-        { label: 'Inventory', name: 'variants', type: InventoryField, product }
+        { label: 'Inventory', name: 'variants', type: Variants, product }
       ]
     }
     return [
-      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield' }
+      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield', required: true, placeholder: 'Enter Quantity' }
     ]
+  }
+
+  _getVariants() {
+    const { product } = this.props
+    const { data } = this.state
+    const { inventory_policy, inventory_quantity, variants } = data
+    return product.variants.map(variant => ({
+      ...variant,
+      inventory_policy,
+      ...inventory_policy !== 'unlimited' ? { inventory_quantity } : {},
+      ...product.has_variants ? _.find(variants, { code: variant.code }) : {}
+    }))
   }
 
   _handleBack() {
@@ -83,7 +95,9 @@ class Inventory extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone(data)
+    this.props.onDone({
+      variants: this._getVariants()
+    })
   }
 
 }

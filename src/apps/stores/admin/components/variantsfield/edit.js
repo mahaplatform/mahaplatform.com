@@ -60,11 +60,11 @@ class Edit extends React.Component {
     const { variant } = this.state
     const fields = []
     fields.push({ name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
-      { value: 'unmanaged', text: 'Do not manage inventory for this product' },
+      { value: 'unlimited', text: 'Do not manage inventory for this product' },
       { value: 'deny', text: 'Stop selling when inventory reaches 0' },
       { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
-    ], defaultValue: 'unmanaged' })
-    if(variant.inventory_policy !== 'unmanaged') {
+    ], defaultValue: 'unlimited' })
+    if(variant.inventory_policy !== 'unlimited') {
       fields.push({ label: 'Quantity', name: 'inventory_quantity', type: 'numberfield', placeholder: 'Enter Starting Inventory', required: true, defaultValue: 0 })
     }
     return fields

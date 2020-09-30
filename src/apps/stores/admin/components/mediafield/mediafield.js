@@ -90,27 +90,21 @@ class MediaField extends React.PureComponent {
   }
 
   _handleAdd(assets) {
-    this.props.onAdd(assets.map(asset => ({
-      asset,
-      transforms: {}
-    })))
+    this.props.onAdd(assets)
   }
 
   _handleChange() {
     const { images } = this.props
     this.props.onChange(images.map(image => ({
-      asset: {
-        id: image.asset.id,
-        path: image.asset.path
-      },
-      transforms: image.transforms
+      id: image.id,
+      path: image.path
     })))
   }
 
   _handleFetch() {
     const { images } = this.props
     this.props.onFetch(images.map(image => {
-      return image.asset.id
+      return image.id
     }))
   }
 
@@ -121,10 +115,7 @@ class MediaField extends React.PureComponent {
   _handleSet(images) {
     const { onSet } = this.props
     return onSet(images.map(image => ({
-      asset: {
-        id: image.asset.id
-      },
-      transforms: image.transforms
+      id: image.id
     })))
   }
 

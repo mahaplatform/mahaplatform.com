@@ -10,7 +10,7 @@ class Image extends React.PureComponent {
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     image: PropTypes.object,
-    index: PropTypes.object,
+    index: PropTypes.number,
     onMove: PropTypes.func,
     onRemove: PropTypes.func
   }
@@ -25,11 +25,11 @@ class Image extends React.PureComponent {
           <i className="fa fa-bars" />
         </div>
         <div className="mediafield-image-image">
-          <img src={`/imagecache/fit=cover&w=50&h=50/${image.asset.path}`} />
+          <img src={`/imagecache/fit=cover&w=50&h=50/${image.path}`} />
         </div>
         <div className="mediafield-image-details">
           <div className="mediafield-image-details-filename">
-            { image.asset.original_file_name }
+            { image.original_file_name }
           </div>
         </div>
         <Button { ...this._getRemove() } />

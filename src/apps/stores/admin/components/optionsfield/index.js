@@ -13,8 +13,11 @@ class OptionsField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -30,6 +33,7 @@ class OptionsField extends React.Component {
   _handleCreate = this._handleCreate.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { options } = this.state
@@ -52,13 +56,17 @@ class OptionsField extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { options } = this.state
+    const { status } = this.props
     if(!_.isEqual(options, prevState.options)) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
     }
   }
 
@@ -141,6 +149,16 @@ class OptionsField extends React.Component {
       ]
     })
     this.context.form.pop()
+  }
+
+  _handleValidate() {
+    const { required } = this.props
+    const { options } = this.state
+    if(required && options.length === 0) {
+      this.props.onValid(null, ['You must add at least one option'])
+    } else {
+      this.props.onValid(options)
+    }
   }
 
 }

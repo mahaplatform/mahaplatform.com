@@ -4,15 +4,20 @@ import React from 'react'
 class Steps extends React.Component {
 
   static propTypes = {
+    completable: PropTypes.bool,
     current: PropTypes.number,
     steps: PropTypes.array
   }
 
+  static defaultProps = {
+    completable: true
+  }
+
   render() {
-    const { steps } = this.props
+    const { completable, steps } = this.props
     return (
       <div className="maha-steps">
-        { Array(steps.length - 1).fill(0).map((i, index) => (
+        { Array(steps.length - (completable ? 1 : 0)).fill(0).map((i, index) => (
           <div className={ this._getClass(index) } key={`step_${index}`}>
             <div className="maha-step-marker">
               { index + 1 }
@@ -20,12 +25,14 @@ class Steps extends React.Component {
             <div className="maha-step-label" dangerouslySetInnerHTML={{ __html: steps[index].split(' ').join('<br />') }} />
           </div>
         ))}
-        <div className={ this._getClass(steps.length - 1) }>
-          <div className="maha-step-marker">
-            <i className="fa fa-check" />
+        { completable &&
+          <div className={ this._getClass(steps.length - 1) }>
+            <div className="maha-step-marker">
+              <i className="fa fa-check" />
+            </div>
+            <div className="maha-step-label" dangerouslySetInnerHTML={{ __html: steps[steps.length - 1].split(' ').join('<br />') }} />
           </div>
-          <div className="maha-step-label" dangerouslySetInnerHTML={{ __html: steps[steps.length - 1].split(' ').join('<br />') }} />
-        </div>
+        }
       </div>
     )
   }

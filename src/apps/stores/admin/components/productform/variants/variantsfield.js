@@ -26,7 +26,6 @@ class VariantsField extends React.Component {
 
   render() {
     const { variants } = this.state
-    const { product } = this.props
     return (
       <div className="variantsfield-variants">
         <table className="ui unstackable table">
@@ -39,7 +38,7 @@ class VariantsField extends React.Component {
                     <Button { ...this._getActivate(index) } />
                   }
                 </td>
-                <td>{ product.title } ({ variant.title })</td>
+                <td>{ variant.title }</td>
               </tr>
             )) }
           </tbody>
@@ -106,22 +105,10 @@ class VariantsField extends React.Component {
         { option: option.title , value }
       ])
     }, []).map(options => ({
-      title: options.map(option => option.value).join(' / '),
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      title: `${product.title} (${options.map(option => option.value).join(' / ')})`,
       options,
-      price_type: product.price_type,
-      project_id: product.project_id,
-      revenue_type_id: product.revenue_type_id,
-      fixed_price: product.fixed_price,
-      low_price: product.low_price,
-      high_price: product.high_price,
-      overage_strategy: product.overage_strategy,
-      donation_revenue_type_id: product.donation_revenue_type_id,
-      tax_rate: product.tax_rate,
-      is_tax_deductible: product.is_tax_deductible,
-      inventory_policy: 'deny',
-      inventory_quantity: 0,
-      is_active: true,
-      photos: []
+      is_active: true
     }))
   }
 

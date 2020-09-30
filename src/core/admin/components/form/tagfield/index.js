@@ -117,15 +117,6 @@ class TagField extends React.Component {
 
   _handleKeyDown(e) {
     const { tag, tags } = this.state
-    if(tag.length === 0 && e.which === 8) {
-      this.setState({
-        tags: [
-          ...tags.slice(0, -1)
-        ],
-        tag: ''
-      })
-      e.preventDefault()
-    }
     if(tag.length > 0 && _.includes([13,188], e.which)) {
       this.setState({
         tags: [

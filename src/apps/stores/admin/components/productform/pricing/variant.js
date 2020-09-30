@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Edit extends React.Component {
+class Variant extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
@@ -43,7 +43,11 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Pricing', type: 'segment', required: true, fields: [
-              { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true },
+              { name: 'price_type', type: 'dropdown', options: [
+                { value: 'fixed', text: 'Fixed Price' },
+                { value: 'sliding_scale', text: 'Sliding Scale' },
+                { value: 'free', text: 'Free'}
+              ], required: true },
               ...this._getPriceType()
             ] }
           ]
@@ -111,4 +115,4 @@ class Edit extends React.Component {
 
 }
 
-export default Edit
+export default Variant

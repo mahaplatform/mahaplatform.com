@@ -3,6 +3,7 @@ import VariantsField from './variantsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Variants extends React.Component {
 
@@ -19,7 +20,7 @@ class Variants extends React.Component {
   form = null
 
   state = {
-    product: {}
+    data: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -28,13 +29,7 @@ class Variants extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.product) return null
     return <Form { ...this._getForm() } />
-  }
-
-  componentDidMount() {
-    const { product } = this.props
-    this.setState({ product })
   }
 
   _getForm() {
@@ -55,7 +50,7 @@ class Variants extends React.Component {
               { value: true, text: 'There are multiple variants of this product with different options (color, size, etc)' }
             ], defaultValue: false },
             ...this._getOptions(),
-            ...this._getVariants()
+            ...this._getVariantField()
           ]
         }
       ]
@@ -63,40 +58,71 @@ class Variants extends React.Component {
   }
 
   _getOptions()  {
-    const { product } = this.state
-    if(!product.has_variants) return []
+    const { data } = this.state
+    if(!data.has_variants) return []
     return [
-      { label: 'Options', name: 'options', type: OptionsField }
+      { label: 'Options', name: 'options', type: OptionsField, required: true }
+    ]
+  }
+
+  _getVariantField() {
+    const { product } = this.props
+    const { data } = this.state
+    if(!data.has_variants || !data.options) return []
+    return [
+      { label: 'Variants', name: 'variants', type: VariantsField, product: {
+        ...product,
+        options: data.options
+      } }
     ]
   }
 
   _getVariants() {
-    const { product } = this.state
-    if(!product.has_variants || !product.options) return []
-    return [
-      { label: 'Variants', name: 'variants', type: VariantsField, product }
-    ]
+    const { product } = this.props
+    const { data } = this.state
+    if(!data.has_variants) {
+      data.variants = [{
+        code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+        title: product.title,
+        options: [],
+        is_active: true
+      }]
+    }
+    return data.variants.map(variant => ({
+      price_type: null,
+      project_id: null,
+      revenue_type_id: null,
+      fixed_price: null,
+      low_price: null,
+      high_price: null,
+      overage_strategy: null,
+      donation_revenue_type_id: null,
+      tax_rate: null,
+      is_tax_deductible: null,
+      inventory_policy: null,
+      inventory_quantity: null,
+      photos: [],
+      ...variant
+    }))
   }
 
   _handleBack() {
     this.props.onBack()
   }
 
-  _handleChange(product) {
-    this.setState({
-      product: {
-        ...this.state.product,
-        ...product
-      }
-    })
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {
     this.form.submit()
   }
 
-  _handleSuccess(product) {
-    this.props.onDone(product)
+  _handleSuccess(data) {
+    this.props.onDone({
+      ...data,
+      variants: this._getVariants()
+    })
   }
 
 }

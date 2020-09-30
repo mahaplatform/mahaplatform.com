@@ -1,8 +1,8 @@
 import RevenueTypeToken from '../../../../../finance/admin/tokens/revenue_type'
 import ProjectToken from '../../../../../finance/admin/tokens/project'
-import VariantsField from './variantsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import Variants from './variants'
 import React from 'react'
 
 class Pricing extends React.Component {
@@ -70,13 +70,17 @@ class Pricing extends React.Component {
     if(!product.has_variants || data.pricing_strategy === 'shared') {
       return [
         { label: 'Pricing', type: 'segment', required: true, fields: [
-          { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true },
+          { name: 'price_type', type: 'dropdown', options: [
+            { value: 'fixed', text: 'Fixed Price' },
+            { value: 'sliding_scale', text: 'Sliding Scale' },
+            { value: 'free', text: 'Free'}
+          ], required: true },
           ...this._getPriceType()
         ] }
       ]
     }
     return [
-      { label: 'Variants', name: 'variants', type: VariantsField, product }
+      { label: 'Pricing', name: 'variants', type: Variants, product }
     ]
   }
 

@@ -2,6 +2,7 @@ import { ModalPanel, Stack, Steps } from 'maha-admin'
 import Inventory from './inventory'
 import PropTypes from 'prop-types'
 import Variants from './variants'
+import Shipping from './shipping'
 import Product from './product'
 import Pricing from './pricing'
 import Media from './media'
@@ -28,9 +29,10 @@ class ProductForm extends React.Component {
   steps = [
     { label: 'Details', component: Product, props: this._getProduct.bind(this) },
     { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
-    { label: 'Media', component: Media, props: this._getMedia.bind(this) },
+    { label: 'Photos', component: Media, props: this._getMedia.bind(this) },
     { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
-    { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) }
+    { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) },
+    { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
   ]
 
   state = {
@@ -126,6 +128,15 @@ class ProductForm extends React.Component {
     }
   }
 
+  _getShipping() {
+    const { product } = this.state
+    return {
+      product,
+      onBack: this._handleBack,
+      onDone: this._handleNext
+    }
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -137,7 +148,7 @@ class ProductForm extends React.Component {
   _getSteps() {
     const { step } = this.state
     return {
-      completion: '',
+      completable: false,
       steps: this.steps.map(step => {
         return step.label
       }),
@@ -166,6 +177,7 @@ class ProductForm extends React.Component {
 
   _handleNext(data) {
     const { product, step } = this.state
+    console.log('next',step,data)
     this.setState({
       product: {
         ...product,

@@ -1,9 +1,8 @@
-import MediaField from '../../../components/mediafield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Edit extends React.Component {
+class Variant extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
@@ -13,7 +12,7 @@ class Edit extends React.Component {
   }
 
   state = {
-    variant: {}
+    data: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -21,18 +20,18 @@ class Edit extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.variant) return null
+    if(!this.state.data) return null
     return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
     const { variant } = this.props
-    this.setState({ variant })
+    this.setState({ data: variant })
   }
 
   _getForm() {
     return {
-      title: 'Edit Media',
+      title: 'Edit Shipping',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,
@@ -41,19 +40,33 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Photos', name: 'photos', type: MediaField }
+            { label: 'Shipping', type: 'segment', fields: [
+              { name: 'shipping_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
+                { value: 'free', text: 'There is no shipping fee' },
+                { value: 'flat', text: 'There is a flat shipping fee' }
+              ], defaultValue: 'free' },
+              ...this._getFee()
+            ]}
           ]
         }
       ]
     }
   }
 
+  _getFee() {
+    const { data } = this.state
+    if(data.shipping_strategy === 'free') return []
+    return [
+      { label: 'Fee', name: 'shipping_fee', type: 'moneyfield' }
+    ]
+  }
+
   _handleBack() {
     this.props.onBack()
   }
 
-  _handleChange(variant) {
-    this.setState({ variant })
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSuccess(variant) {
@@ -62,4 +75,4 @@ class Edit extends React.Component {
 
 }
 
-export default Edit
+export default Variant
