@@ -1,5 +1,6 @@
 import { NumberField } from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
@@ -35,12 +36,11 @@ class InventoryField extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { variants.map((variant, index) => (
+            { variants.filter(variant => {
+              return variant.is_active
+            }).map((variant, index) => (
               <tr className="variantsfield-variant" key={`option_${index}`}>
-                <td>
-                  <strong>{ product.title } ({ variant.title })</strong><br />
-                  { this._getPrice(variant) }
-                </td>
+                <td>{ product.title } ({ variant.title })</td>
                 <td className="right aligned">
                   <NumberField { ...this._getQuantity(variant) } />
                 </td>
@@ -53,9 +53,9 @@ class InventoryField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
+    const { product } = this.props
     this.setState({
-      variants: defaultValue
+      variants: product.variants
     })
     this.props.onReady()
   }

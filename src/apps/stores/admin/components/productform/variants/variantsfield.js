@@ -118,7 +118,7 @@ class VariantsField extends React.Component {
       donation_revenue_type_id: product.donation_revenue_type_id,
       tax_rate: product.tax_rate,
       is_tax_deductible: product.is_tax_deductible,
-      inventory_policy: product.inventory_policy,
+      inventory_policy: 'deny',
       inventory_quantity: 0,
       is_active: true
     }))

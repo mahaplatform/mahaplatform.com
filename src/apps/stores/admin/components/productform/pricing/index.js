@@ -1,6 +1,5 @@
-import RevenueTypeToken from '../../../../finance/admin/tokens/revenue_type'
-import ProjectToken from '../../../../finance/admin/tokens/project'
-import OptionsField from '../../components/optionsfield'
+import RevenueTypeToken from '../../../../../finance/admin/tokens/revenue_type'
+import ProjectToken from '../../../../../finance/admin/tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -13,10 +12,12 @@ class Pricing extends React.Component {
   }
 
   static propTypes = {
-    onCancel: PropTypes.func,
+    product: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
+
+  form = null
 
   state = {
     product: {}
@@ -24,30 +25,32 @@ class Pricing extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.product) return null
     return <Form { ...this._getForm() } />
+  }
+
+  componentDidMount() {
+    const { product } = this.props
+    this.setState({ product })
   }
 
   _getForm() {
     return {
-      title: 'New Product',
-      cancelIcon: 'chevron-left',
-      saveText: 'Next',
-      onCancel: this._handleBack,
+      reference: node => this.form = node,
+      showHeader: false,
+      buttons: [
+        { label: 'Prev', color: 'red', handler: this._handleBack },
+        { label: 'Next', color: 'red', handler: this._handleSubmit }
+      ],
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Options', type: 'segment', required: true, fields: [
-              { name: 'has_variants', type: 'radiogroup', deselectable: false, options: [
-                { value: false, text: 'There is only one version of this product' },
-                { value: true, text: 'This product is available in multiple variations (color, size, etc)' }
-              ], defaultValue: false },
-              ...this._getOptions()
-            ] },
             this._getPricing()
           ]
         }
@@ -63,16 +66,6 @@ class Pricing extends React.Component {
       { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true },
       ...this._getPriceType()
     ] }
-  }
-
-  _getOptions()  {
-    const { product } = this.state
-    if(product.has_variants) {
-      return [
-        { name: 'options', type: OptionsField }
-      ]
-    }
-    return []
   }
 
   _getPriceType() {

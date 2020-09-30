@@ -5,7 +5,7 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
-    form: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
@@ -39,7 +39,7 @@ class New extends React.Component {
   }
 
   _handleBack() {
-    this.context.form.pop()
+    this.context.modal.pop()
   }
 
   _handleSubmit() {

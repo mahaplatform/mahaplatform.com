@@ -37,7 +37,6 @@ class Inventory extends React.Component {
   }
 
   _getForm() {
-    const { product } = this.state
     return {
       reference: node => this.form = node,
       showHeader: false,
@@ -50,8 +49,13 @@ class Inventory extends React.Component {
       sections: [
         {
           fields: [
-            this._getInventory(),
-            { name: 'variants', type: InventoryField, product }
+            { name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
+              { value: 'deny', text: 'Stop selling when inventory reaches 0' },
+              { value: 'continue', text: 'Allow sales to continue into negative inventory levels' },
+              { value: 'unmanaged', text: 'Do not manage inventory' }
+            ], defaultValue: 'deny' },
+            ...this._getInventory()
+
           ]
         }
       ]
@@ -60,16 +64,10 @@ class Inventory extends React.Component {
 
   _getInventory() {
     const { product } = this.state
-    const fields = []
-    fields.push({ name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
-      { value: 'unmanaged', text: 'Do not manage inventory' },
-      { value: 'deny', text: 'Stop selling when inventory reaches 0' },
-      { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
-    ], defaultValue: 'unmanaged' })
-    if(!product.has_variants && product.inventory_policy !== 'unmanaged') {
-      fields.push({ label: 'Quantity', name: 'inventory_quantity', type: 'numberfield', placeholder: 'Enter Starting Inventory', required: true, defaultValue: 0 })
-    }
-    return { label: 'Inventory', type: 'segment', required: true, fields }
+    if(product.inventory_policy === 'unmanaged') return []
+    return [
+      { label: 'Inventory', name: 'variants', type: InventoryField, product }
+    ]
   }
 
   _handleBack() {
@@ -77,15 +75,20 @@ class Inventory extends React.Component {
   }
 
   _handleChange(product) {
-    this.setState({ product })
+    this.setState({
+      product: {
+        ...this.state.product,
+        ...product
+      }
+    })
   }
 
   _handleSubmit() {
     this.form.submit()
   }
 
-  _handleSuccess(result) {
-    this.props.onDone(result)
+  _handleSuccess(product) {
+    this.props.onDone(product)
   }
 
 }

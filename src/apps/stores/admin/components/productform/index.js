@@ -9,6 +9,10 @@ import React from 'react'
 
 class ProductForm extends React.Component {
 
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
   static contextTypes = {
     modal: PropTypes.object,
     network: PropTypes.object
@@ -70,7 +74,15 @@ class ProductForm extends React.Component {
     } else if(step < prevState.step ) {
       this._handlePop()
     }
+  }
 
+  getChildContext() {
+    return {
+      form: {
+        push: this.context.modal.push,
+        pop: this.context.modal.pop
+      }
+    }
   }
 
   _getInventory() {

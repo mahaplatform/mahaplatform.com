@@ -50,13 +50,11 @@ class Variants extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Options', type: 'segment', required: true, fields: [
-              { name: 'has_variants', type: 'radiogroup', deselectable: false, options: [
-                { value: false, text: 'There is only one variant of this product' },
-                { value: true, text: 'There are multiple varaints of this product with different options (color, size, etc)' }
-              ], defaultValue: false },
-              ...this._getOptions()
-            ] },
+            { name: 'has_variants', type: 'radiogroup', deselectable: false, options: [
+              { value: false, text: 'There is only one variant of this product' },
+              { value: true, text: 'There are multiple varaints of this product with different options (color, size, etc)' }
+            ], defaultValue: false },
+            ...this._getOptions(),
             ...this._getVariants()
           ]
         }
@@ -66,22 +64,18 @@ class Variants extends React.Component {
 
   _getOptions()  {
     const { product } = this.state
-    if(product.has_variants) {
-      return [
-        { name: 'options', type: OptionsField }
-      ]
-    }
-    return []
+    if(!product.has_variants) return []
+    return [
+      { label: 'Options', name: 'options', type: OptionsField }
+    ]
   }
 
   _getVariants() {
     const { product } = this.state
-    if(product.options) {
-      return [
-        { label: 'Variants', name: 'variants', type: VariantsField, product }
-      ]
-    }
-    return []
+    if(!product.has_variants || !product.options) return []
+    return [
+      { label: 'Variants', name: 'variants', type: VariantsField, product }
+    ]
   }
 
   _handleBack() {
