@@ -13,7 +13,7 @@ export const variants = createSelector(
       {
         title: product.title,
         description: product.description,
-        thumbnail: variant.media[0] ? variant.media[0].asset : null,
+        thumbnail: variant.photos[0] ? variant.photos[0].asset : null,
         ...variant
       }
     ], [])

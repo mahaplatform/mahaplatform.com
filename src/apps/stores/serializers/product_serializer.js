@@ -32,7 +32,7 @@ const variant = (variant) => {
     inventory_quantity: variant.get('inventory_quantity'),
     inventory_reserved: variant.get('inventory_reserved'),
     options: variant.get('options'),
-    media: variant.related('media').map(media),
+    photos: variant.related('photos').map(photo),
     shipping_strategy: variant.get('shipping_strategy'),
     shipping_fee: variant.get('shipping_fee'),
     is_active: variant.get('is_active')
@@ -60,11 +60,11 @@ const revenue_type = (revenue_type) => {
   }
 }
 
-const media = (media) => {
-  if(!media.id) return null
+const photo = (photo) => {
+  if(!photo.id) return null
   return {
-    id: media.get('id'),
-    asset: asset(media.related('asset'))
+    id: photo.get('id'),
+    asset: asset(photo.related('asset'))
   }
 }
 

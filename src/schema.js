@@ -1845,7 +1845,6 @@ const schema = {
 
     await knex.schema.createTable('maha_profiles', (table) => {
       table.increments('id').primary()
-      table.integer('team_id').unsigned()
       table.integer('source_id').unsigned()
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
@@ -2266,27 +2265,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('stores_media', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('variant_id').unsigned()
-      table.integer('asset_id').unsigned()
-      table.integer('delta')
-      table.jsonb('video')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('stores_options', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('product_id').unsigned()
-      table.string('title', 255)
-      table.string('config', 255)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('stores_orders', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2306,6 +2284,16 @@ const schema = {
       table.integer('discount_id').unsigned()
     })
 
+    await knex.schema.createTable('stores_photos', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('variant_id').unsigned()
+      table.integer('asset_id').unsigned()
+      table.integer('delta')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_products', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2316,7 +2304,6 @@ const schema = {
       table.specificType('options', 'jsonb[]')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('base_variant_id').unsigned()
       table.USER-DEFINED('type')
       table.boolean('is_active')
       table.timestamp('deleted_at')
@@ -3335,10 +3322,9 @@ const schema = {
     })
 
     await knex.schema.table('maha_profiles', table => {
+      table.foreign('account_id').references('maha_accounts.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('source_id').references('maha_sources.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('account_id').references('maha_accounts.id')
     })
 
     await knex.schema.table('maha_reactions', table => {
@@ -3536,15 +3522,10 @@ const schema = {
       table.foreign('variant_id').references('stores_variants.id')
     })
 
-    await knex.schema.table('stores_media', table => {
+    await knex.schema.table('stores_photos', table => {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('variant_id').references('stores_variants.id')
-    })
-
-    await knex.schema.table('stores_options', table => {
-      table.foreign('product_id').references('stores_products.id')
-      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('stores_orders', table => {
@@ -3558,7 +3539,6 @@ const schema = {
     })
 
     await knex.schema.table('stores_products', table => {
-      table.foreign('base_variant_id').references('stores_variants.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
     })

@@ -115,7 +115,7 @@ class AttachmentField extends React.Component {
       ...newassets
     ] : newassets
     this.props.onSet(assets)
-    const value = multiple ? assets.map(formatter) : assets[0].id
+    const value = multiple ? assets.map(formatter) : formatter(assets[0])
     this.props.onChange(value)
   }
 

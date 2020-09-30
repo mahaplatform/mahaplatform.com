@@ -5,7 +5,7 @@ import Asset from '../../maha/models/asset'
 import Reservation from './reservation'
 import Discount from './discount'
 import Product from './product'
-import Media from './media'
+import Photo from './photo'
 import Item from './item'
 
 const Variant = new Model({
@@ -39,8 +39,8 @@ const Variant = new Model({
     return this.hasMany(Item, 'variant_id')
   },
 
-  media() {
-    return this.hasMany(Media, 'variant_id')
+  photos() {
+    return this.hasMany(Photo, 'variant_id')
   },
 
   product() {

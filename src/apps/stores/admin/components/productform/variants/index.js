@@ -100,6 +100,8 @@ class Variants extends React.Component {
       inventory_quantity: null,
       shipping_strategy: null,
       shipping_fee: null,
+      file_id: null,
+      url: null,
       ...variant
     }))
   }

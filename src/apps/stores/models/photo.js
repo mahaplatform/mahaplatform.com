@@ -2,9 +2,9 @@ import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Variant from './variant'
 
-const Media = new Model({
+const Photo = new Model({
 
-  tableName: 'stores_media',
+  tableName: 'store_photos',
 
   rules: {},
 
@@ -20,4 +20,4 @@ const Media = new Model({
 
 })
 
-export default Media
+export default Photo

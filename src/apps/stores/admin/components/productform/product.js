@@ -6,12 +6,14 @@ class Product extends React.Component {
 
   static propTypes = {
     onCancel: PropTypes.func,
+    onChange: PropTypes.func,
     onNext: PropTypes.func
   }
 
   form = null
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -27,11 +29,17 @@ class Product extends React.Component {
         { label: 'Prev', color: 'red', disabled: true, handler: this._handleCancel },
         { label: 'Next', color: 'red', handler: this._handleSubmit }
       ],
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
+            { label: 'Type', name: 'type', type: 'dropdown', options: [
+              { value: 'physical', text: 'Physical Product' },
+              { value: 'file', text: 'File' },
+              { value: 'url', text: 'URL' }
+            ], required: true, defaultValue: 'physical' },
             { label: 'Description', name: 'description', type: 'htmlfield', placeholder: 'Enter an optional description' }
           ]
         }
@@ -41,6 +49,10 @@ class Product extends React.Component {
 
   _handleCancel() {
     this.props.onCancel()
+  }
+
+  _handleChange(product) {
+    this.props.onChange(product)
   }
 
   _handleSubmit() {

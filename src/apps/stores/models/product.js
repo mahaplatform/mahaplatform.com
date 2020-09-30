@@ -10,10 +10,6 @@ const Product = new Model({
 
   virtuals: {},
 
-  base_variant() {
-    return this.hasOne(Variant, 'base_variant_id')
-  },
-
   variants() {
     return this.hasMany(Variant, 'product_id').query(qb => {
       qb.select('stores_variants.*','stores_reservations.inventory_reserved')

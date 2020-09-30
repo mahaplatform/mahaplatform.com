@@ -3,10 +3,12 @@ import Inventory from './inventory'
 import PropTypes from 'prop-types'
 import Variants from './variants'
 import Shipping from './shipping'
+import Download from './download'
 import Product from './product'
 import Pricing from './pricing'
 import Media from './media'
 import React from 'react'
+import URL from './url'
 
 class Main extends React.Component {
 
@@ -19,23 +21,16 @@ class Main extends React.Component {
     store: PropTypes.object
   }
 
-  steps = [
-    { label: 'Details', component: Product, props: this._getProduct.bind(this) },
-    { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
-    { label: 'Photos', component: Media, props: this._getMedia.bind(this) },
-    { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
-    { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) },
-    { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
-  ]
-
   state = {
-    step: 0,
+    steps: [],
+    step: -1,
     product: {},
     cards: []
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -57,15 +52,37 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Product, this._getProduct())
+    this.setState({
+      steps: [
+        { label: 'Details', component: Product, props: this._getProduct.bind(this) },
+        { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
+        { label: 'Photos', component: Media, props: this._getMedia.bind(this) },
+        { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
+        { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) },
+        { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
+      ],
+      step: 0
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { step } = this.state
+    const { product, steps, step } = this.state
+    if(product.type !== prevState.product.type) {
+      this._handleSteps()
+    }
     if(step > prevState.step ) {
-      this._handlePush(this.steps[step].component, this.steps[step].props)
+      this._handlePush(steps[step].component, steps[step].props)
     } else if(step < prevState.step ) {
       this._handlePop()
+    }
+  }
+
+  _getDownload() {
+    const { product } = this.state
+    return {
+      product,
+      onBack: this._handleBack,
+      onNext: this._handleSave
     }
   }
 
@@ -99,6 +116,7 @@ class Main extends React.Component {
   _getProduct() {
     return {
       onCancel: this._handleCancel,
+      onChange: this._handleChange,
       onNext: this._handleNext
     }
   }
@@ -130,10 +148,10 @@ class Main extends React.Component {
   }
 
   _getSteps() {
-    const { step } = this.state
+    const { step, steps } = this.state
     return {
       completable: false,
-      steps: this.steps.map(step => {
+      steps: steps.map(step => {
         return step.label
       }),
       current: step
@@ -157,6 +175,10 @@ class Main extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleChange(product) {
+    this.setState({ product })
   }
 
   _handleNext(data) {
@@ -214,11 +236,29 @@ class Main extends React.Component {
           inventory_policy: varaint.inventory_policy,
           inventory_quantity: varaint.inventory_quantity,
           shipping_strategy: varaint.shipping_strategy,
-          shipping_fee: varaint.shipping_fee
+          shipping_fee: varaint.shipping_fee,
+          file_id: varaint.file ? varaint.file.id : null,
+          url: varaint.url
         }))
       },
       onFailure: () => {},
       onSuccess: () => {}
+    })
+  }
+
+  _handleSteps() {
+    const { product, steps } = this.state
+    this.setState({
+      steps: steps.map((step, index) => {
+        if(index !== 5) return step
+        if(product.type === 'physical') {
+          return { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
+        } else if(product.type === 'file') {
+          return { label: 'File', component: Download, props: this._getDownload.bind(this) }
+        } else if(product.type === 'url') {
+          return { label: 'URL', component: Download, props: this._getDownload.bind(this) }
+        }
+      })
     })
   }
 

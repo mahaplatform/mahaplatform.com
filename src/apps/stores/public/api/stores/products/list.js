@@ -21,7 +21,7 @@ const listRoute = async (req, res) => {
     qb.where('is_active', true)
     qb.whereNull('deleted_at')
   }).fetchAll({
-    withRelated: ['variants.media.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
+    withRelated: ['variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
     transacting: req.trx
   })
 
