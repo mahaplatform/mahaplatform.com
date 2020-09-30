@@ -40,6 +40,7 @@ class Edit extends React.Component {
       title: 'Edit Variant',
       cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -47,7 +48,8 @@ class Edit extends React.Component {
             { label: 'Pricing', type: 'segment', fields: [
               { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true, defaultValue: variant.price_type },
               ...this._getPriceType()
-            ] }
+            ] },
+            { label: 'Inventory Quantity', name: 'inventory_quantity', type: 'numberfield', required: true, defaultValue: variant.inventory_quantity }
           ]
         }
       ]

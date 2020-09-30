@@ -1,0 +1,72 @@
+.maha-steps {
+  background-color: lighten(@black, 30);
+  display: flex;
+  flex: 1;
+  .maha-step:first-child {
+    &:before {
+      content: none;
+    }
+  }
+  .maha-step:last-child {
+    &:after {
+      content: none;
+    }
+  }
+}
+.maha-step {
+  flex: 1;
+  padding: 0.8em 0.6em;
+  text-align: center;
+  position: relative;
+  &:before, &:after {
+    background-color: lighten(@black, 90);
+    content: ' ';
+    position: absolute;
+    height: 2px;
+    top: 30%;
+  }
+  &:before {
+    width: ~"calc(50% - 0.8em)";
+    left: 0;
+  }
+  &:after {
+    width: ~"calc(50% - 0.8em)";
+    left: ~"calc(50% + 0.8em)";
+  }
+  &.completed {
+    .maha-step-marker,
+    &:before, &:after {
+      background-color: @green;
+      color: @white;
+    }
+    .maha-step-label {
+      color: @white
+    }
+  }
+  &.current {
+    .maha-step-marker,
+    &:before {
+      background-color: @green;
+      color: @white;
+    }
+    .maha-step-label {
+      color: @white;
+    }
+  }
+}
+.maha-step-marker {
+  background-color: @white;
+  color: lighten(@black, 30);
+  border-radius: 50%;
+  display: inline-block;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+}
+.maha-step-label {
+  color: @white;
+  margin-top: 0.4em;
+  font-size: 0.8em;
+  line-height: 1.2em;
+}

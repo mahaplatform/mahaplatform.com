@@ -38,15 +38,21 @@ class VariantsField extends React.Component {
         <table className="ui unstackable table">
           <thead>
             <tr>
+              <th className="collapsing" />
               <th>Title</th>
               <th className="collapsing">Inventory</th>
-              <th className="collapsing" />
               <th className="collapsing" />
             </tr>
           </thead>
           <tbody>
             { variants.map((variant, index) => (
               <tr className={ this._getClass(variant) } key={`option_${index}`}>
+                <td>
+                  { variant.is_active ?
+                    <Button { ...this._getDeactivate(index) } /> :
+                    <Button { ...this._getActivate(index) } />
+                  }
+                </td>
                 <td>
                   <strong>{ product.title } ({ variant.title })</strong><br />
                   { this._getPrice(variant) }
@@ -56,12 +62,6 @@ class VariantsField extends React.Component {
                 </td>
                 <td>
                   <Button { ...this._getEditButton(index, variant) } />
-                </td>
-                <td>
-                  { variant.is_active ?
-                    <Button { ...this._getDeactivate(index) } /> :
-                    <Button { ...this._getActivate(index) } />
-                  }
                 </td>
               </tr>
             )) }
@@ -81,7 +81,7 @@ class VariantsField extends React.Component {
 
   _getActivate(index) {
     return {
-      icon: 'fw fa-refresh',
+      icon: 'square-o',
       className: 'variantsfield-variant-action',
       handler: this._handleActivate.bind(this, index)
     }
@@ -95,7 +95,7 @@ class VariantsField extends React.Component {
 
   _getDeactivate(index) {
     return {
-      icon: 'fw fa-times',
+      icon: 'check-square',
       className: 'variantsfield-variant-action',
       handler: this._handleDeactivate.bind(this, index)
     }
