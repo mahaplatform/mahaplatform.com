@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import Variants from './variants'
 import React from 'react'
+import _ from 'lodash'
 
 class Pricing extends React.Component {
 
@@ -12,7 +13,7 @@ class Pricing extends React.Component {
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -36,7 +37,7 @@ class Pricing extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,
@@ -87,6 +88,19 @@ class Pricing extends React.Component {
     ]
   }
 
+  _getVariants() {
+    const { product } = this.props
+    const { data } = this.state
+    const { shipping_type, shipping_strategy, shipping_fee, variants } = data
+    return product.variants.map(variant => ({
+      ...variant,
+      ...shipping_type === 'unique' ? _.find(variants, { code: variant.code }) : {
+        shipping_strategy,
+        shipping_fee: shipping_strategy === 'flat' ? shipping_fee : null
+      }
+    }))
+  }
+
   _handleBack() {
     this.props.onBack()
   }
@@ -100,7 +114,9 @@ class Pricing extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone(data)
+    this.props.onNext({
+      variants: this._getVariants()
+    })
   }
 
 }

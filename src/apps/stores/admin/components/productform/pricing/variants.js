@@ -1,6 +1,7 @@
 import VariantToken from '../../../tokens/variant'
 import PropTypes from 'prop-types'
 import Variant from './variant'
+import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
@@ -40,8 +41,8 @@ class Variants extends React.Component {
                 <td className="unpadded">
                   <VariantToken variant={ variant } />
                 </td>
-                <td className="collapsing">
-                  NO PRICING
+                <td className="right aligned collapsing">
+                  { this._getPrice(variant) }
                 </td>
                 <td className="collapsing">
                   <i className="fa fa-chevron-right" />
@@ -69,6 +70,13 @@ class Variants extends React.Component {
     }
   }
 
+  _getPrice(variant) {
+    if(variant.price_type === 'free') return 'FREE'
+    if(variant.price_type === 'fixed') return numeral(variant.fixed_price).format('0.00')
+    if(variant.price_type === 'sliding_scale') return `${numeral(variant.low_price).format('0.00')} - ${numeral(variant.high_price).format('0.00')}`
+    return 'NO PRICING'
+  }
+
   _getVariant(variant, index) {
     const { product } = this.props
     return {
@@ -92,9 +100,16 @@ class Variants extends React.Component {
     this.props.onChange(variants)
   }
 
-  _handleUpdate(index, variant) {
+  _handleUpdate(index, data) {
+    this.setState({
+      variants: this.state.variants.map((variant, i) => ({
+        ...variant,
+        ...i === index ? data : {}
+      }))
+    })
     this.context.form.pop()
   }
+
 
 }
 

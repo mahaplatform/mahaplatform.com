@@ -11,7 +11,7 @@ class Product extends React.Component {
 
   static propTypes = {
     onCancel: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -53,7 +53,7 @@ class Product extends React.Component {
   }
 
   _handleSuccess(product) {
-    this.props.onDone(product)
+    this.props.onNext(product)
   }
 
 }

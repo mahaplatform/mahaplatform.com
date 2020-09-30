@@ -12,7 +12,7 @@ class Variant extends React.Component {
   }
 
   state = {
-    data: {}
+    variant: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -20,13 +20,13 @@ class Variant extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.data) return null
+    if(!this.state.variant) return null
     return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
     const { variant } = this.props
-    this.setState({ data: variant })
+    this.setState({ variant })
   }
 
   _getForm() {
@@ -54,8 +54,8 @@ class Variant extends React.Component {
   }
 
   _getFee() {
-    const { data } = this.state
-    if(data.shipping_strategy === 'free') return []
+    const { variant } = this.state
+    if(variant.shipping_strategy === 'free') return []
     return [
       { label: 'Fee', name: 'shipping_fee', type: 'moneyfield' }
     ]
@@ -65,8 +65,8 @@ class Variant extends React.Component {
     this.props.onBack()
   }
 
-  _handleChange(data) {
-    this.setState({ data })
+  _handleChange(variant) {
+    this.setState({ variant })
   }
 
   _handleSuccess(variant) {

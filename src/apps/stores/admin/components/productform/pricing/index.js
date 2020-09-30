@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import Variants from './variants'
 import React from 'react'
+import _ from 'lodash'
 
 class Pricing extends React.Component {
 
@@ -14,7 +15,7 @@ class Pricing extends React.Component {
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -80,7 +81,7 @@ class Pricing extends React.Component {
       ]
     }
     return [
-      { label: 'Pricing', name: 'variants', type: Variants, product }
+      { label: 'Pricing', name: 'variants', type: Variants, product, required: true }
     ]
   }
 
@@ -129,6 +130,26 @@ class Pricing extends React.Component {
     return []
   }
 
+  _getVariants() {
+    const { product } = this.props
+    const { data } = this.state
+    return product.variants.map(variant => ({
+      ...variant,
+      ...data.pricing_strategy === 'unique' ? _.find(data.variants, { code: variant.code }) : {
+        price_type: data.price_type,
+        project_id: data.project_id,
+        revenue_type_id: data.revenue_type_id,
+        fixed_price: data.fixed_price,
+        low_price: data.low_price,
+        high_price: data.high_price,
+        overage_strategy: data.overage_strategy,
+        donation_revenue_type_id: data.donation_revenue_type_id,
+        tax_rate: data.tax_rate,
+        is_tax_deductible: data.is_tax_deductible
+      }
+    }))
+  }
+
   _handleBack() {
     this.props.onBack()
   }
@@ -142,7 +163,9 @@ class Pricing extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone(data)
+    this.props.onNext({
+      variants: this._getVariants()
+    })
   }
 
 }

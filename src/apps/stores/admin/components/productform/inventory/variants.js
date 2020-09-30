@@ -37,7 +37,7 @@ class InventoryField extends React.Component {
                   <VariantToken variant={ variant } />
                 </td>
                 <td className="collapsing">
-                  <NumberField { ...this._getQuantity(variant) } />
+                  <NumberField { ...this._getQuantity(variant, index) } />
                 </td>
               </tr>
             )) }
@@ -52,7 +52,10 @@ class InventoryField extends React.Component {
     this.setState({
       variants: product.variants.filter(variant => {
         return variant.is_active
-      })
+      }).map(variant => ({
+        ...variant,
+        inventory_quantity: 0
+      }))
     })
     this.props.onReady()
   }

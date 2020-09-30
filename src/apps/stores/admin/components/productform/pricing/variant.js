@@ -14,7 +14,7 @@ class Variant extends React.Component {
   }
 
   state = {
-    data: {}
+    variant: {}
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -57,8 +57,8 @@ class Variant extends React.Component {
   }
 
   _getPriceType() {
-    const { data } = this.state
-    if(data.price_type === 'fixed') {
+    const { variant } = this.state
+    if(variant.price_type === 'fixed') {
       return [
         { type: 'fields', fields: [
           { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
@@ -69,7 +69,7 @@ class Variant extends React.Component {
         { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
       ]
     }
-    if(data.price_type === 'sliding_scale') {
+    if(variant.price_type === 'sliding_scale') {
       return [
         { type: 'fields', fields: [
           { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
@@ -92,8 +92,8 @@ class Variant extends React.Component {
   }
 
   _getOverageStrategy() {
-    const { data } = this.state
-    if(data.overage_strategy === 'donation') {
+    const { variant } = this.state
+    if(variant.overage_strategy === 'donation') {
       return [
         { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: 30 }
       ]

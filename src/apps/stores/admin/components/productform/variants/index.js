@@ -14,7 +14,7 @@ class Variants extends React.Component {
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -89,6 +89,7 @@ class Variants extends React.Component {
       }]
     }
     return data.variants.map(variant => ({
+      photos: [],
       price_type: null,
       project_id: null,
       revenue_type_id: null,
@@ -101,7 +102,8 @@ class Variants extends React.Component {
       is_tax_deductible: null,
       inventory_policy: null,
       inventory_quantity: null,
-      photos: [],
+      shipping_strategy: null,
+      shipping_fee: null,
       ...variant
     }))
   }
@@ -119,7 +121,7 @@ class Variants extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone({
+    this.props.onNext({
       ...data,
       variants: this._getVariants()
     })

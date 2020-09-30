@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  images: [],
+  images: null,
   status: 'pending'
 }
 

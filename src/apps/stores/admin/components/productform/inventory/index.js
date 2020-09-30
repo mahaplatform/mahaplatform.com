@@ -13,7 +13,7 @@ class Inventory extends React.Component {
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -76,9 +76,9 @@ class Inventory extends React.Component {
     const { inventory_policy, inventory_quantity, variants } = data
     return product.variants.map(variant => ({
       ...variant,
-      inventory_policy,
       ...inventory_policy !== 'unlimited' ? { inventory_quantity } : {},
-      ...product.has_variants ? _.find(variants, { code: variant.code }) : {}
+      ...product.has_variants ? _.find(variants, { code: variant.code }) : {},
+      inventory_policy
     }))
   }
 
@@ -95,7 +95,7 @@ class Inventory extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone({
+    this.props.onNext({
       variants: this._getVariants()
     })
   }

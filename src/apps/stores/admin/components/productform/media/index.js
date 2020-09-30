@@ -14,7 +14,7 @@ class Media extends React.Component {
   static propTypes = {
     product: PropTypes.object,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
   form = null
@@ -82,8 +82,8 @@ class Media extends React.Component {
     const { data } = this.state
     return product.variants.map(variant => ({
       ...variant,
-      photos: data.photos,
       ...data.media_strategy === 'unique' ? _.find(data.variants, { code: variant.code }) : {
+        photos: data.photos
       }
     }))
   }
@@ -101,7 +101,7 @@ class Media extends React.Component {
   }
 
   _handleSuccess(data) {
-    this.props.onDone({
+    this.props.onNext({
       variants: this._getVariants()
     })
   }
