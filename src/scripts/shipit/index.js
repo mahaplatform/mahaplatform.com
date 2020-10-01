@@ -279,7 +279,7 @@ const processor = async () => {
   utils.registerTask(shipit, 'sync:passwords', () => {
     var password_salt = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WO'
     var password_hash = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WOR6KzZnF8hKHBDgmC69gz5SaQVNmhhGa'
-    var sql = `update maha_users set password_salt='${password_salt}', password_hash='${password_hash}'`
+    var sql = `update maha_accounts set password_salt='${password_salt}', password_hash='${password_hash}'`
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
