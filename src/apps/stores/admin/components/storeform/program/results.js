@@ -1,4 +1,4 @@
-import { Infinite, Logo, ModalPanel } from 'maha-admin'
+import { Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -48,56 +48,4 @@ class Results extends React.PureComponent {
 
 }
 
-class Programs extends React.PureComponent {
-
-  static propTypes = {
-    onCancel: PropTypes.func,
-    onChoose: PropTypes.func
-  }
-
-  _handleCancel = this._handleCancel.bind(this)
-  _handleChoose = this._handleChoose.bind(this)
-
-  render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <Infinite { ...this._getInfinite() } />
-      </ModalPanel>
-    )
-  }
-
-  _getInfinite() {
-    return {
-      endpoint: '/api/admin/crm/programs',
-      filter: {
-        access_type: {
-          $neq: 'view'
-        }
-      },
-      layout: Results,
-      props: {
-        onChoose: this._handleChoose
-      }
-    }
-  }
-
-  _getPanel() {
-    return {
-      title: 'Choose a Progam',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
-      ]
-    }
-  }
-
-  _handleCancel() {
-    this.props.onCancel()
-  }
-
-  _handleChoose(program) {
-    this.props.onChoose(program)
-  }
-
-}
-
-export default Programs
+export default Results

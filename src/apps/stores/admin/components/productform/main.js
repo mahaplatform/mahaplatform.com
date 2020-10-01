@@ -54,12 +54,12 @@ class Main extends React.Component {
   componentDidMount() {
     this.setState({
       steps: [
-        { label: 'Details', component: Product, props: this._getProduct.bind(this) },
-        { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
-        { label: 'Photos', component: Photos, props: this._getPhotos.bind(this) },
-        { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
-        { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) },
-        { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
+        { label: 'Details', component: Product, props: this._getStep.bind(this) },
+        { label: 'Variants', component: Variants, props: this._getStep.bind(this) },
+        { label: 'Photos', component: Photos, props: this._getStep.bind(this) },
+        { label: 'Inventory', component: Inventory, props: this._getStep.bind(this) },
+        { label: 'Pricing', component: Pricing, props: this._getStep.bind(this) },
+        { label: 'Shipping', component: Shipping, props: this._getStep.bind(this) }
       ],
       step: 0
     })
@@ -77,65 +77,12 @@ class Main extends React.Component {
     }
   }
 
-  _getFile() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleSave
-    }
-  }
-
-  _getInventory() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleNext
-    }
-  }
-
-  _getPhotos() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleNext
-    }
-  }
-
   _getPanel() {
     return {
       title: 'New Product',
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
       ]
-    }
-  }
-
-  _getProduct() {
-    return {
-      onCancel: this._handleCancel,
-      onChange: this._handleChange,
-      onNext: this._handleNext
-    }
-  }
-
-  _getPricing() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleNext
-    }
-  }
-
-  _getShipping() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleSave
     }
   }
 
@@ -147,6 +94,18 @@ class Main extends React.Component {
     }
   }
 
+  _getStep() {
+    const { product } = this.state
+    return {
+      product,
+      onBack: this._handleBack,
+      onCancel: this._handleCancel,
+      onChange: this._handleChange,
+      onNext: this._handleNext,
+      onSave: this._handleSave
+    }
+  }
+
   _getSteps() {
     const { step, steps } = this.state
     return {
@@ -155,15 +114,6 @@ class Main extends React.Component {
         return step.label
       }),
       current: step
-    }
-  }
-
-  _getVariants() {
-    const { product } = this.state
-    return {
-      product,
-      onBack: this._handleBack,
-      onNext: this._handleNext
     }
   }
 
@@ -251,11 +201,11 @@ class Main extends React.Component {
       steps: steps.map((step, index) => {
         if(index !== 5) return step
         if(product.type === 'physical') {
-          return { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
+          return { label: 'Shipping', component: Shipping, props: this._getStep.bind(this) }
         } else if(product.type === 'file') {
-          return { label: 'File', component: File, props: this._getFile.bind(this) }
+          return { label: 'File', component: File, props: this._getStep.bind(this) }
         } else if(product.type === 'url') {
-          return { label: 'URL', component: URL, props: this._getFile.bind(this) }
+          return { label: 'URL', component: URL, props: this._getStep.bind(this) }
         }
       })
     })

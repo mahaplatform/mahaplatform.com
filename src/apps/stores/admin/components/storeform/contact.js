@@ -1,10 +1,14 @@
+import ContactFieldsField from '../../../../events/admin/components/contactfieldsfield'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
-class Store extends React.Component {
+class Contact extends React.Component {
 
   static propTypes = {
+    fields: PropTypes.array,
+    formdata: PropTypes.array,
+    program: PropTypes.object,
     onBack: PropTypes.func,
     onNext: PropTypes.func
   }
@@ -31,12 +35,19 @@ class Store extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/event' }
+            { name: 'contact_config', type: ContactFieldsField, fields: this._getFields() }
           ]
         }
       ]
     }
+  }
+
+  _getFields() {
+    const { fields, formdata } = this.props
+    return [{
+      label: formdata.program.title,
+      fields
+    }]
   }
 
   _handleBack() {
@@ -53,4 +64,8 @@ class Store extends React.Component {
 
 }
 
-export default Store
+const mapResources = (props, context) => ({
+  fields: `/api/admin/crm/programs/${props.formdata.program.id}/fields`
+})
+
+export default Container(mapResources)(Contact)

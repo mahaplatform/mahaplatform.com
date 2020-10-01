@@ -15,6 +15,7 @@ class PermalinkField extends React.Component {
     prefix: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValid: PropTypes.func
@@ -87,13 +88,14 @@ class PermalinkField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { value } = this.state
     return {
       ref: node => this.input = node,
       type: 'text',
       value,
       placeholder,
+      tabIndex,
       onChange: this._handleUpdate
     }
   }

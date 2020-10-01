@@ -3,20 +3,17 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Confirmation extends React.PureComponent {
-
-  static contextTypes = {
-    admin: PropTypes.object
-  }
+class Confirmation extends React.Component {
 
   static propTypes = {
-    store: PropTypes.object,
     onBack: PropTypes.func,
-    onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
+  form = null
+
   _handleBack = this._handleBack.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -24,15 +21,13 @@ class Confirmation extends React.PureComponent {
   }
 
   _getForm() {
-    const { admin } = this.context
-    const { store } = this.props
-    const { program_id } = store
-    const confirmaton = store.confirmaton || {}
     return {
-      title: 'Confirmation Email',
-      cancelIcon: 'chevron-left',
-      saveText: 'Save',
-      onCancel: this._handleBack,
+      reference: node => this.form = node,
+      showHeader: false,
+      buttons: [
+        { label: 'Prev', color: 'red', disabled: true, handler: this._handleCancel },
+        { label: 'Next', color: 'red', handler: this._handleSubmit }
+      ],
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -50,8 +45,13 @@ class Confirmation extends React.PureComponent {
   _handleBack() {
     this.props.onBack()
   }
-  _handleSuccess(confirmation) {
-    this.props.onDone({ confirmation })
+
+  _handleSubmit() {
+    this.form.submit()
+  }
+
+  _handleSuccess(product) {
+    this.props.onNext(product)
   }
 
 }
