@@ -7,6 +7,7 @@ const productSerializer = (req, result) => ({
   variants: result.related('variants').map(variant),
   options: result.get('options'),
   is_active: result.get('is_active'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

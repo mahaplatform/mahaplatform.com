@@ -11,7 +11,6 @@ const EventSerializer = (req, result) => ({
   payment_config: result.get('payment_config'),
   organizers: result.related('organizers').map(organizer),
   program: program(result.related('program')),
-  email: email(result.related('email')),
   workflow: workflow(result.related('workflow')),
   start_date: result.get('start_date'),
   end_date: result.get('end_date'),
@@ -66,14 +65,6 @@ const ticket_type = (ticket_type) => {
     tickets_count: ticket_type.get('tickets_count'),
     sales_open_at: ticket_type.get('sales_open_at'),
     sales_close_at: ticket_type.get('sales_close_at')
-  }
-}
-
-const email = (email) => {
-  if(!email.id) return
-  return {
-    id: email.get('id'),
-    title: email.get('title')
   }
 }
 

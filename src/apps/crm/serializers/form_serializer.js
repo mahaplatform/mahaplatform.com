@@ -7,7 +7,6 @@ const FormSerializer = (req, result) => ({
   url: result.get('url'),
   config: result.get('config'),
   program: program(result.related('program')),
-  email: email(result.related('email')),
   average_duration: result.get('average_duration'),
   respondents_count: result.get('respondents_count'),
   known_respondents_count: result.get('known_respondents_count'),
@@ -38,14 +37,6 @@ const bank = (bank) => {
     id: bank.get('id'),
     title: bank.get('title'),
     status: bank.get('status')
-  }
-}
-
-const email = (email) => {
-  if(!email.id) return
-  return {
-    id: email.get('id'),
-    title: email.get('title')
   }
 }
 

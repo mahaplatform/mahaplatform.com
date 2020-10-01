@@ -4,22 +4,23 @@ import React from 'react'
 
 const Details = ({ audits, product }) => {
 
+  const config = {}
 
-  const config = {
-    sections: [
-      {
-        items: [
-          { label: 'Title', content: product.title }
-        ]
-      }
-    ]
+  if(product.deleted_at !== null) {
+    config.alert = { color: 'red', message: 'This store was deleted' }
   }
 
-  config.sections.push({
-    items: [
-      { component: <Audit entries={ audits } /> }
-    ]
-  })
+  config.sections = [
+    {
+      items: [
+        { label: 'Title', content: product.title }
+      ]
+    },{
+      items: [
+        { component: <Audit entries={ audits } /> }
+      ]
+    }
+  ]
 
   config.footer = <Comments entity={`stores_products/${product.id}`} />
 

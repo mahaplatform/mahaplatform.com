@@ -19,13 +19,13 @@ const showRoute = async (req, res) => {
   const product = await Product.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('store_id', store.get('id'))
-    qb.where('id', req.params.store_id)
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['variants'],
     transacting: req.trx
   })
 
-  if(!store) return res.status(404).respond({
+  if(!product) return res.status(404).respond({
     code: 404,
     message: 'Unable to load product'
   })

@@ -101,8 +101,7 @@ const createConfirmationWorkflow = async(req, params) => {
   const model = form || event || store
 
   await model.save({
-    workflow_id: workflow.get('id'),
-    email_id: email.get('id')
+    workflow_id: workflow.get('id')
   }, {
     transacting: req.trx,
     patch: true

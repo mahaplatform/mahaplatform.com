@@ -1,6 +1,9 @@
+import { activity } from '../../../../../../core/services/routes/activities'
 import ProductSerializer from '../../../../serializers/product_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
+import { audit } from '../../../../../../core/services/routes/audit'
+import socket from '../../../../../../core/services/routes/emitter'
 import Variant from '../../../../models/variant'
 import Product from '../../../../models/product'
 import Store from '../../../../models/store'
@@ -77,6 +80,21 @@ const createRoute = async (req, res) => {
     })
 
   })
+
+  await audit(req, {
+    story: 'created',
+    auditable: product
+  })
+
+  await activity(req, {
+    story: 'created {object}',
+    object: product
+  })
+
+  await socket.refresh(req, [
+    `/admin/stores/stores/${store.get('id')}`,
+    `/admin/stores/stores/${store.get('id')}/products/${product.get('id')}`
+  ])
 
   await product.load(['variants.photos'], {
     transacting: req.trx

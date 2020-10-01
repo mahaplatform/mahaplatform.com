@@ -384,7 +384,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('workflow_id').unsigned()
-      table.integer('email_id').unsigned()
       table.timestamp('deleted_at')
       table.string('permalink', 255)
     })
@@ -880,7 +879,6 @@ const schema = {
       table.string('code', 255)
       table.integer('image_id').unsigned()
       table.integer('workflow_id').unsigned()
-      table.integer('email_id').unsigned()
       table.timestamp('deleted_at')
       table.string('permalink', 255)
       table.jsonb('contact_config')
@@ -2677,7 +2675,6 @@ const schema = {
     })
 
     await knex.schema.table('crm_forms', table => {
-      table.foreign('email_id').references('crm_emails.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
@@ -2923,7 +2920,6 @@ const schema = {
     })
 
     await knex.schema.table('events_events', table => {
-      table.foreign('email_id').references('crm_emails.id')
       table.foreign('image_id').references('maha_assets.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')

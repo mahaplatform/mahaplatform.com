@@ -17,7 +17,7 @@ const getTabs = ({ audits, products, store }) => ({
   ]
 })
 
-const getTasks = ({ products, store }) => {
+const getTasks = ({ products, store }, { flash, router }) => {
 
   if(store.deleted_at) return {}
 
@@ -34,7 +34,15 @@ const getTasks = ({ products, store }) => {
         `,
         request: {
           endpoint: `/api/admin/stores/stores/${store.id}`,
-          method: 'delete'
+          method: 'delete',
+          onFailure: () => {
+            flash.set('error', 'Unable to delete this store')
+          },
+          onSuccess: () => {
+            flash.set('success', 'The store was successfuly deleted')
+            router.history.goBack()
+          }
+
         }
       }
     ]
@@ -50,8 +58,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Store',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -13,7 +13,8 @@ class StoreForm extends React.Component {
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  _handleCancel = this._handleCancel.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     return <MultiForm { ...this._getMultiForm() } />
