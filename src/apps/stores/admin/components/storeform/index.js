@@ -1,65 +1,62 @@
-import { Stack } from 'maha-admin'
+import Confirmation from './confirmation'
+import { MultiForm } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Main from './main'
+import Contact from './contact'
+import Program from './program'
+import Store from './store'
 import React from 'react'
 
 class StoreForm extends React.Component {
 
-  static childContextTypes = {
-    form: PropTypes.object
+  static contextTypes = {
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
-  static propTypes = {
-  }
-
-  static defaultProps = {
-  }
-
-  state = {
-    cards: []
-  }
-
-  _handlePop = this._handlePop.bind(this)
-  _handlePush = this._handlePush.bind(this)
+  static propTypes = {}
 
   render() {
-    return <Stack { ...this._getStack() } />
+    return <MultiForm { ...this._getMultiForm() } />
   }
 
-  componentDidMount() {
-    this._handlePush(<Main />)
-  }
-
-  getChildContext() {
+  _getMultiForm() {
     return {
-      form: {
-        push: this._handlePush,
-        pop: this._handlePop
-      }
+      title: 'New Store',
+      endpoint: '/api/admin/stores/stores',
+      method: 'post',
+      formatData: this._getData,
+      getSteps: this._getSteps,
+      onCancel: this._handleCancel,
+      onSuccess: this._handleSuccess
     }
   }
 
-  _getStack() {
-    const { cards } = this.state
+  _getData(store) {
     return {
-      cards,
-      slideFirst: false
+      confirmation: store.confirmation,
+      contact_config: store.contact_config,
+      permalink: store.permalink,
+      program_id: store.program.id,
+      title: store.title
     }
   }
 
-  _handlePop(index = -1) {
-    this.setState({
-      cards: this.state.cards.slice(0, index)
-    })
+  _getSteps(formdata) {
+    return [
+      { label: 'Program', component: Program },
+      { label: 'Details', component: Store },
+      { label: 'Contact', component: Contact },
+      { label: 'Confirmation', component: Confirmation }
+    ]
   }
 
-  _handlePush(component, props) {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component, props }
-      ]
-    })
+  _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleSuccess(store) {
+    this.context.router.history.push(`/admin/stores/stores/${store.id}`)
+    this.context.modal.close()
   }
 
 }

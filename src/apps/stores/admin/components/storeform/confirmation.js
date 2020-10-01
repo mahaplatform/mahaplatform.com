@@ -5,9 +5,17 @@ import React from 'react'
 
 class Confirmation extends React.Component {
 
+  static contextTypes = {
+    admin: PropTypes.object
+  }
+
   static propTypes = {
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -21,6 +29,8 @@ class Confirmation extends React.Component {
   }
 
   _getForm() {
+    const { admin } = this.context
+    const { formdata } = this.props
     return {
       reference: node => this.form = node,
       showHeader: false,
@@ -32,10 +42,10 @@ class Confirmation extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Template', name: 'template_id', type: TemplateField, program_id },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: confirmaton.sender_id },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: confirmaton.reply_to || admin.user.email},
-            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: confirmaton.subject || 'Thank you for your purchase' }
+            { label: 'Template', name: 'template_id', type: TemplateField, program_id: formdata.program.id },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
+            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your order' }
           ]
         }
       ]
@@ -50,8 +60,8 @@ class Confirmation extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(product) {
-    this.props.onNext(product)
+  _handleSuccess(confirmation) {
+    this.props.onSave({ confirmation })
   }
 
 }

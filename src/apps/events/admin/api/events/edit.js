@@ -6,7 +6,7 @@ const editRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['organizers','sessions.location','ticket_types'],
+    withRelated: ['organizers','program','sessions.location','ticket_types'],
     transacting: req.trx
   })
 
@@ -25,6 +25,10 @@ const editRoute = async (req, res) => {
     contact_config: event.get('contact_config'),
     ticket_config: event.get('ticket_config'),
     payment_config: event.get('payment_config'),
+    program: {
+      id: event.related('program').get('id'),
+      title: event.related('program').get('title')
+    },
     ticket_types: event.related('ticket_types').map(ticket_type => ({
       id: ticket_type.get('id'),
       delta: ticket_type.get('delta'),

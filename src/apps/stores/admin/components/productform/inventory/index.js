@@ -7,9 +7,12 @@ import _ from 'lodash'
 class Inventory extends React.Component {
 
   static propTypes = {
-    product: PropTypes.object,
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -53,12 +56,12 @@ class Inventory extends React.Component {
   }
 
   _getInventory() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
     if(data.inventory_policy === 'unlimited') return []
-    if(product.has_variants) {
+    if(formdata.has_variants) {
       return [
-        { label: 'Inventory', name: 'variants', type: Variants, product }
+        { label: 'Inventory', name: 'variants', type: Variants, product: formdata }
       ]
     }
     return [
@@ -67,13 +70,13 @@ class Inventory extends React.Component {
   }
 
   _getVariants() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
     const { inventory_policy, inventory_quantity, variants } = data
-    return product.variants.map(variant => ({
+    return formdata.variants.map(variant => ({
       ...variant,
       ...inventory_policy !== 'unlimited' ? { inventory_quantity } : {},
-      ...product.has_variants ? _.find(variants, { code: variant.code }) : {},
+      ...formdata.has_variants ? _.find(variants, { code: variant.code }) : {},
       inventory_policy
     }))
   }

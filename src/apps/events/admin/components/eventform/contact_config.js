@@ -1,5 +1,5 @@
-import ContactFieldsField from '../contactfieldsfield'
-import { Container, Form } from 'maha-admin'
+import ContactFieldsField from '../../../../crm/admin/components/contactfieldsfield'
+import {  Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,8 +7,6 @@ class ContactConfig extends React.PureComponent {
 
   static propTypes = {
     event: PropTypes.object,
-    fields: PropTypes.array,
-    program: PropTypes.object,
     onBack: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -34,19 +32,11 @@ class ContactConfig extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'contact_config', type: ContactFieldsField, fields: this._getFields(), defaultValue: event.contact_config }
+            { name: 'contact_config', type: ContactFieldsField, program: event.program, defaultValue: event.contact_config }
           ]
         }
       ]
     }
-  }
-
-  _getFields() {
-    const { fields, program } = this.props
-    return [{
-      label: program.title,
-      fields
-    }]
   }
 
   _handleBack() {
@@ -63,9 +53,4 @@ class ContactConfig extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  fields: `/api/admin/crm/programs/${props.event.program_id}/fields`,
-  program: `/api/admin/crm/programs/${props.event.program_id}`
-})
-
-export default Container(mapResources)(ContactConfig)
+export default ContactConfig

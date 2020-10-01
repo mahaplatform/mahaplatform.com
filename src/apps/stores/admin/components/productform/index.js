@@ -1,68 +1,97 @@
-import { Stack } from 'maha-admin'
+import { MultiForm } from 'maha-admin'
+import Inventory from './inventory'
 import PropTypes from 'prop-types'
-import Main from './main'
+import Variants from './variants'
+import Shipping from './shipping'
+import Product from './product'
+import Pricing from './pricing'
+import Photos from './photos'
 import React from 'react'
+import File from './file'
+import URL from './url'
 
 class ProductForm extends React.Component {
 
-  static childContextTypes = {
-    form: PropTypes.object
+  static contextTypes = {
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
     store: PropTypes.object
   }
 
-  static defaultProps = {
-  }
-
-  state = {
-    cards: []
-  }
-
-  _handlePop = this._handlePop.bind(this)
-  _handlePush = this._handlePush.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
+    return <MultiForm { ...this._getMultiForm() } />
   }
 
-  componentDidMount() {
+  _getMultiForm() {
     const { store } = this.props
-    this._handlePush(Main, { store })
-  }
-
-  getChildContext() {
     return {
-      form: {
-        push: this._handlePush,
-        pop: this._handlePop
-      }
+      title: 'New Product',
+      endpoint: `/api/admin/stores/stores/${store.id}/products`,
+      method: 'post',
+      formatData: this._getData,
+      getSteps: this._getSteps,
+      onCancel: this._handleCancel,
+      onSuccess: this._handleSuccess
     }
   }
 
-  _getStack() {
-    const { cards } = this.state
+  _getData(product) {
     return {
-      cards,
-      slideFirst: false
+      title: product.title,
+      description: product.description,
+      variants: product.variants.map(variant => ({
+        is_active: variant.is_active,
+        options: variant.options,
+        photo_ids: variant.photos.map(photo => photo.id),
+        price_type: variant.price_type,
+        project_id: variant.project_id,
+        revenue_type_id: variant.revenue_type_id,
+        fixed_price: variant.fixed_price,
+        low_price: variant.low_price,
+        high_price: variant.high_price,
+        overage_strategy: variant.overage_strategy,
+        donation_revenue_type_id: variant.donation_revenue_type_id,
+        tax_rate: variant.tax_rate,
+        inventory_policy: variant.inventory_policy,
+        inventory_quantity: variant.inventory_quantity,
+        shipping_strategy: variant.shipping_strategy,
+        shipping_fee: variant.shipping_fee,
+        file_id: variant.file ? variant.file.id : null,
+        url: variant.url
+      }))
     }
   }
 
-  _handlePop(index = -1) {
-    this.setState({
-      cards: this.state.cards.slice(0, index)
-    })
+  _getSteps(formdata) {
+    const steps = [
+      { label: 'Details', component: Product },
+      { label: 'Variants', component: Variants },
+      { label: 'Photos', component: Photos },
+      { label: 'Inventory', component: Inventory },
+      { label: 'Pricing', component: Pricing }
+    ]
+    if(formdata.type === 'physical') steps.push({ label: 'Shipping', component: Shipping })
+    if(formdata.type === 'file') steps.push({ label: 'File', component: File })
+    if(formdata.type === 'url') steps.push({ label: 'URL', component: URL })
+    return steps
   }
 
-  _handlePush(component, props) {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component, props }
-      ]
-    })
+  _handleCancel() {
+    this.context.modal.close()
   }
+
+  _handleSuccess(product) {
+    const { store } = this.props
+    this.context.router.history.push(`/admin/stores/stores/${store.id}/products/${product.id}`)
+    this.context.modal.close()
+  }
+
 
 }
 

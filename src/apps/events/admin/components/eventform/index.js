@@ -189,6 +189,7 @@ class EventForm extends React.PureComponent {
 
   _handlePrograms(program) {
     this._handleUpdate({
+      program,
       program_id: program.id
     })
     this._handlePush(Event, this._getEvent())

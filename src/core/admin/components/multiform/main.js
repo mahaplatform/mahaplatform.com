@@ -1,9 +1,7 @@
-import { ModalPanel, Stack, Steps } from 'maha-admin'
-import Confirmation from './confirmation'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
-import Contact from './contact'
-import Program from './program'
-import Store from './store'
+import Stack from '../stack'
+import Steps from '../steps'
 import React from 'react'
 
 class Main extends React.Component {
@@ -14,18 +12,24 @@ class Main extends React.Component {
   }
 
   static propTypes = {
-    store: PropTypes.object
+    endpoint: PropTypes.string,
+    formatData: PropTypes.func,
+    getSteps: PropTypes.func,
+    method: PropTypes.string,
+    title: PropTypes.string,
+    onCancel: PropTypes.func,
+    onSuccess: PropTypes.func
   }
 
   state = {
     cards: [],
-    step: -1,
-    steps: [],
-    formdata: {}
+    formdata: {},
+    step: -1
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -34,11 +38,11 @@ class Main extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="stores-productform">
-          <div className="stores-productform-header">
+        <div className="multiform">
+          <div className="multiform-header">
             <Steps { ...this._getSteps() } />
           </div>
-          <div className="stores-productform-body">
+          <div className="multiform-body">
             <Stack { ...this._getStack() } />
           </div>
         </div>
@@ -48,28 +52,24 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.setState({
-      steps: [
-        { label: 'Program', component: Program, props: this._getStep.bind(this) },
-        { label: 'Details', component: Store, props: this._getStep.bind(this) },
-        { label: 'Contact', component: Contact, props: this._getStep.bind(this) },
-        { label: 'Confirmation', component: Confirmation, props: this._getStep.bind(this) }
-      ],
       step: 0
     })
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { steps, step } = this.state
+    const { formdata, step } = this.state
+    const steps = this.props.getSteps(formdata)
     if(step > prevState.step ) {
-      this._handlePush(steps[step].component, steps[step].props)
+      this._handlePush(steps[step].component, this._getStep.bind(this))
     } else if(step < prevState.step ) {
       this._handlePop()
     }
   }
 
   _getPanel() {
+    const { title } = this.props
     return {
-      title: 'New Store',
+      title,
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
       ]
@@ -90,13 +90,15 @@ class Main extends React.Component {
       formdata,
       onBack: this._handleBack,
       onCancel: this._handleCancel,
+      onChange: this._handleChange,
       onNext: this._handleNext,
       onSave: this._handleSave
     }
   }
 
   _getSteps() {
-    const { step, steps } = this.state
+    const { formdata, step } = this.state
+    const steps = this.props.getSteps(formdata)
     return {
       completable: false,
       steps: steps.map(step => {
@@ -113,7 +115,15 @@ class Main extends React.Component {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    this.props.onCancel()
+  }
+
+  _handleChange(formdata) {
+    const { getSteps } = this.props
+    this.setState({
+      formdata,
+      steps: getSteps(formdata)
+    })
   }
 
   _handleNext(data) {
@@ -143,17 +153,18 @@ class Main extends React.Component {
   }
 
   _handleSave(data) {
-    const store = {
-      ...this.state.formdata,
-      ...data
-    }
+    const { endpoint, formatData, method, onSuccess } = this.props
     this.context.network.request({
-      endpoint: '/api/admin/stores/stores',
-      method: 'post',
-      body: {
-      },
+      endpoint,
+      method,
+      body: formatData({
+        ...this.state.formdata,
+        ...data
+      }),
       onFailure: () => {},
-      onSuccess: () => {}
+      onSuccess: (result) => {
+        onSuccess(result.data)
+      }
     })
   }
 

@@ -6,8 +6,12 @@ import React from 'react'
 class Program extends React.Component {
 
   static propTypes = {
+    formdata: PropTypes.object,
+    onBack: PropTypes.func,
     onCancel: PropTypes.func,
-    onNext: PropTypes.func
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null

@@ -8,9 +8,12 @@ import _ from 'lodash'
 class Variants extends React.Component {
 
   static propTypes = {
-    product: PropTypes.object,
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -62,24 +65,24 @@ class Variants extends React.Component {
   }
 
   _getVariantField() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
     if(!data.has_variants || !data.options) return []
     return [
       { label: 'Variants', name: 'variants', type: VariantsField, product: {
-        ...product,
+        ...formdata,
         options: data.options
       } }
     ]
   }
 
   _getVariants() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
     if(!data.has_variants) {
       data.variants = [{
         code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-        title: product.title,
+        title: formdata.title,
         options: [],
         is_active: true
       }]

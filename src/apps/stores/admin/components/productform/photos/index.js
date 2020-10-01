@@ -8,9 +8,12 @@ import _ from 'lodash'
 class Photos extends React.Component {
 
   static propTypes = {
-    product: PropTypes.object,
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -50,8 +53,8 @@ class Photos extends React.Component {
   }
 
   _getStrategy() {
-    const { product } = this.props
-    if(!product.has_variants) return []
+    const { formdata } = this.props
+    if(!formdata.has_variants) return []
     return [
       { name: 'media_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
         { value: 'shared', text: 'Use the same photos for each variant' },
@@ -61,22 +64,22 @@ class Photos extends React.Component {
   }
 
   _getMedia() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
-    if(!product.has_variants || data.media_strategy === 'shared') {
+    if(!formdata.has_variants || data.media_strategy === 'shared') {
       return [
         { label: 'Photos', name: 'photos', type: MediaField }
       ]
     }
     return [
-      { label: 'Photos', name: 'variants', type: Variants, product }
+      { label: 'Photos', name: 'variants', type: Variants, product: formdata }
     ]
   }
 
   _getVariants() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
-    return product.variants.map(variant => ({
+    return formdata.variants.map(variant => ({
       ...variant,
       ...data.media_strategy === 'unique' ? _.find(data.variants, { code: variant.code }) : {
         photos: data.photos

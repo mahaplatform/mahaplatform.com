@@ -52,10 +52,7 @@ const createRoute = async (req, res) => {
   await createConfirmationWorkflow(req,  {
     store,
     program_id: program.get('id'),
-    template_id: req.body.template_id,
-    sender_id: req.body.sender_id,
-    subject: req.body.subject,
-    reply_to: req.body.reply_to
+    ...req.body.confirmation
   })
 
   await activity(req, {

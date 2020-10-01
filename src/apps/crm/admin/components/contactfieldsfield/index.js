@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Container, Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
@@ -12,6 +12,7 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   static propTypes = {
+    program: PropTypes.object,
     fields: PropTypes.array,
     defaultValue: PropTypes.object,
     onChange: PropTypes.func,
@@ -85,6 +86,7 @@ class ContactFieldsField extends React.PureComponent {
   }
 
   _getAvailable() {
+    const { program } = this.props
     const { fields } = this.state
     const contactfields = fields.filter(field => {
       return field.type === 'contactfield'
@@ -98,9 +100,9 @@ class ContactFieldsField extends React.PureComponent {
         { label: 'Birthday', name: 'birthday', type: 'textfield' },
         { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ] },
-      ...this.props.fields.map(group => ({
-        label: group.label,
-        fields: group.fields.map(field => ({
+      {
+        label: program.title,
+        fields: this.props.fields.map(field => ({
           code: field.code,
           label: field.label,
           name: `values.${field.code}`,
@@ -108,7 +110,7 @@ class ContactFieldsField extends React.PureComponent {
           instructions: field.instructions,
           config: field.config
         }))
-      })),
+      },
       { label: 'Consent', fields: [
         { label: 'Email Consent', name: 'consent.email', type: 'checkbox', prompt: '<p>Please send me emails</p>' },
         ..._.includes(contactfields, 'phone') ? [
@@ -206,4 +208,8 @@ class ContactFieldsField extends React.PureComponent {
 
 }
 
-export default ContactFieldsField
+const mapResources = (props, context) => ({
+  fields: `/api/admin/crm/programs/${props.program.id}/fields`
+})
+
+export default Container(mapResources)(ContactFieldsField)

@@ -40,7 +40,7 @@ class New extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: field.code },
-            { name: 'strategy', type: 'radiogroup', options: [
+            { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
               { value: 'contact', text: 'Choose an existing contact field' },
               { value: 'custom', text: 'Create a custom field' }
             ] },

@@ -8,11 +8,13 @@ import _ from 'lodash'
 
 class Pricing extends React.Component {
 
-
   static propTypes = {
-    product: PropTypes.object,
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -52,8 +54,8 @@ class Pricing extends React.Component {
   }
 
   _getStrategy() {
-    const { product } = this.props
-    if(!product.has_variants) return []
+    const { formdata } = this.props
+    if(!formdata.has_variants) return []
     return [
       { name: 'pricing_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
         { value: 'shared', text: 'Use the same pricing for each variant' },
@@ -63,9 +65,9 @@ class Pricing extends React.Component {
   }
 
   _getPricing() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
-    if(!product.has_variants || data.pricing_strategy === 'shared') {
+    if(!formdata.has_variants || data.pricing_strategy === 'shared') {
       return [
         { label: 'Pricing', type: 'segment', required: true, fields: [
           { name: 'price_type', type: 'dropdown', options: [
@@ -78,7 +80,7 @@ class Pricing extends React.Component {
       ]
     }
     return [
-      { label: 'Pricing', name: 'variants', type: Variants, product, required: true }
+      { label: 'Pricing', name: 'variants', type: Variants, product: formdata, required: true }
     ]
   }
 
@@ -126,9 +128,9 @@ class Pricing extends React.Component {
   }
 
   _getVariants() {
-    const { product } = this.props
+    const { formdata } = this.props
     const { data } = this.state
-    return product.variants.map(variant => ({
+    return formdata.variants.map(variant => ({
       ...variant,
       ...data.pricing_strategy === 'unique' ? _.find(data.variants, { code: variant.code }) : {
         price_type: data.price_type,

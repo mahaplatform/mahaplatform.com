@@ -5,8 +5,12 @@ import React from 'react'
 class Store extends React.Component {
 
   static propTypes = {
+    formdata: PropTypes.object,
     onBack: PropTypes.func,
-    onNext: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onNext: PropTypes.func,
+    onSave: PropTypes.func
   }
 
   form = null
@@ -47,8 +51,8 @@ class Store extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(product) {
-    this.props.onNext(product)
+  _handleSuccess(store) {
+    this.props.onNext(store)
   }
 
 }
