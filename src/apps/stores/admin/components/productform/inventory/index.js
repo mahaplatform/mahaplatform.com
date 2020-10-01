@@ -41,10 +41,10 @@ class Inventory extends React.Component {
         {
           fields: [
             { name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
+              { value: 'unlimited', text: 'Do not manage inventory' },
               { value: 'deny', text: 'Stop selling when inventory reaches 0' },
-              { value: 'continue', text: 'Allow sales to continue into negative inventory levels' },
-              { value: 'unlimited', text: 'Do not manage inventory' }
-            ], defaultValue: 'deny' },
+              { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
+            ], defaultValue: 'unlimited' },
             ...this._getInventory()
           ]
         }
@@ -62,7 +62,7 @@ class Inventory extends React.Component {
       ]
     }
     return [
-      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield', required: true, placeholder: 'Enter Quantity' }
+      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield', required: true, placeholder: 'Enter Quantity', defaultValue: 0 }
     ]
   }
 

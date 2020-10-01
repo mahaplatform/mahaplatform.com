@@ -31,7 +31,7 @@ class Variant extends React.Component {
 
   _getForm() {
     return {
-      title: 'Edit Shipping',
+      title: 'Edit Variant Shipping',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,

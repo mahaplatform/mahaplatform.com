@@ -31,7 +31,7 @@ class Variant extends React.Component {
 
   _getForm() {
     return {
-      title: 'Edit Media',
+      title: 'Edit Variant Photos',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,

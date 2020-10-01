@@ -5,7 +5,7 @@ import Variants from './variants'
 import React from 'react'
 import _ from 'lodash'
 
-class Media extends React.Component {
+class Photos extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
@@ -104,4 +104,4 @@ class Media extends React.Component {
 
 }
 
-export default Media
+export default Photos

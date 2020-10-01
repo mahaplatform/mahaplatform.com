@@ -13,8 +13,10 @@ class Variants extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.array,
     product: PropTypes.object,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -27,6 +29,7 @@ class Variants extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
   _handleVariant = this._handleVariant.bind(this)
 
   render() {
@@ -59,18 +62,22 @@ class Variants extends React.Component {
     this.setState({
       variants: product.variants
     })
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { variants } = this.state
+    const { status } = this.props
     if(!_.isEqual(variants, prevState.variants)) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
     }
   }
 
   _getFile(variant) {
-    return variant.file ? variant.file.file_name : 'NONE'
+    return variant.file ? <i className="fa fa-check" /> : 'NONE'
   }
 
   _getVariant(variant, index) {
@@ -104,6 +111,18 @@ class Variants extends React.Component {
       }))
     })
     this.context.form.pop()
+  }
+
+  _handleValidate() {
+    const { variants } = this.state
+    const complete = variants.find(variant => {
+      return variant.file === null
+    }) === undefined
+    if(!complete) {
+      this.props.onValid(null, ['You must set a file for each variant'])
+    } else {
+      this.props.onValid(variants)
+    }
   }
 
 }

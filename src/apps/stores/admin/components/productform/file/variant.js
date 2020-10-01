@@ -31,7 +31,7 @@ class Variant extends React.Component {
 
   _getForm() {
     return {
-      title: 'Edit Download',
+      title: 'Edit Variant File',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,
@@ -40,7 +40,7 @@ class Variant extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'File', name: 'file', type: 'attachmentfield', multiple: false, formatter: asset => asset }
+            { label: 'File', name: 'file', type: 'attachmentfield', multiple: false, formatter: asset => asset, required: true }
           ]
         }
       ]

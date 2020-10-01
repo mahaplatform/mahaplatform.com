@@ -33,7 +33,7 @@ class Variant extends React.Component {
 
   _getForm() {
     return {
-      title: 'Edit Pricing',
+      title: 'Edit Variant Pricing',
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onCancel: this._handleBack,

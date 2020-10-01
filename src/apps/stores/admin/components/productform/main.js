@@ -3,11 +3,11 @@ import Inventory from './inventory'
 import PropTypes from 'prop-types'
 import Variants from './variants'
 import Shipping from './shipping'
-import Download from './download'
 import Product from './product'
 import Pricing from './pricing'
-import Media from './media'
+import Photos from './photos'
 import React from 'react'
+import File from './file'
 import URL from './url'
 
 class Main extends React.Component {
@@ -56,7 +56,7 @@ class Main extends React.Component {
       steps: [
         { label: 'Details', component: Product, props: this._getProduct.bind(this) },
         { label: 'Variants', component: Variants, props: this._getVariants.bind(this) },
-        { label: 'Photos', component: Media, props: this._getMedia.bind(this) },
+        { label: 'Photos', component: Photos, props: this._getPhotos.bind(this) },
         { label: 'Inventory', component: Inventory, props: this._getInventory.bind(this) },
         { label: 'Pricing', component: Pricing, props: this._getPricing.bind(this) },
         { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
@@ -77,7 +77,7 @@ class Main extends React.Component {
     }
   }
 
-  _getDownload() {
+  _getFile() {
     const { product } = this.state
     return {
       product,
@@ -95,7 +95,7 @@ class Main extends React.Component {
     }
   }
 
-  _getMedia() {
+  _getPhotos() {
     const { product } = this.state
     return {
       product,
@@ -108,7 +108,7 @@ class Main extends React.Component {
     return {
       title: 'New Product',
       leftItems: [
-        { label: 'Cancel' }
+        { label: 'Cancel', handler: this._handleCancel }
       ]
     }
   }
@@ -254,9 +254,9 @@ class Main extends React.Component {
         if(product.type === 'physical') {
           return { label: 'Shipping', component: Shipping, props: this._getShipping.bind(this) }
         } else if(product.type === 'file') {
-          return { label: 'File', component: Download, props: this._getDownload.bind(this) }
+          return { label: 'File', component: File, props: this._getFile.bind(this) }
         } else if(product.type === 'url') {
-          return { label: 'URL', component: Download, props: this._getDownload.bind(this) }
+          return { label: 'URL', component: URL, props: this._getFile.bind(this) }
         }
       })
     })

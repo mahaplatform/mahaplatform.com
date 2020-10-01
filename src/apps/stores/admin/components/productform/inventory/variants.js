@@ -52,10 +52,7 @@ class InventoryField extends React.Component {
     this.setState({
       variants: product.variants.filter(variant => {
         return variant.is_active
-      }).map(variant => ({
-        ...variant,
-        inventory_quantity: 0
-      }))
+      })
     })
     this.props.onReady()
   }
@@ -69,7 +66,7 @@ class InventoryField extends React.Component {
 
   _getQuantity(variant, index) {
     return {
-      defaultValue: variant.inventory_quantity,
+      defaultValue: 0,
       disabled: variant.inventory_policy === 'unlimited' || !variant.is_active,
       placeholder: 'Quantity',
       onChange: this._handleUpdate.bind(this, index)

@@ -4,7 +4,7 @@ import Variants from './variants'
 import React from 'react'
 import _ from 'lodash'
 
-class Download extends React.Component {
+class URL extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
@@ -53,7 +53,7 @@ class Download extends React.Component {
     if(!product.has_variants) return [
     ]
     return [
-      { name: 'download_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
+      { name: 'url_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
         { value: 'shared', text: 'Use the same shipping strategy for each variant' },
         { value: 'unique', text: 'Use different shipping strategy for each variant' }
       ], defaultValue: 'shared' }
@@ -63,24 +63,24 @@ class Download extends React.Component {
   _getFile() {
     const { product } = this.props
     const { data } = this.state
-    if(!product.has_variants || data.download_strategy === 'shared') {
+    if(!product.has_variants || data.url_strategy === 'shared') {
       return [
-        { label: 'File', name: 'file', type: 'attachmentfield', multiple: false, formatter: asset => asset }
+        { label: 'URL', name: 'url', type: 'urlfield', required: true }
       ]
     }
     return [
-      { label: 'Files', name: 'variants', type: Variants, product }
+      { label: 'URLs', name: 'variants', type: Variants, product, required: true }
     ]
   }
 
   _getVariants() {
     const { product } = this.props
     const { data } = this.state
-    const { download_strategy, file, variants } = data
+    const { url_strategy, url, variants } = data
     return product.variants.map(variant => ({
       ...variant,
-      ...download_strategy === 'unique' ? _.find(variants, { code: variant.code }) : {
-        file: file
+      ...url_strategy === 'unique' ? _.find(variants, { code: variant.code }) : {
+        url
       }
     }))
   }
@@ -105,4 +105,4 @@ class Download extends React.Component {
 
 }
 
-export default Download
+export default URL

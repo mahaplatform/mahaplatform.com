@@ -37,6 +37,7 @@ import TimeField from './timefield'
 import ToggleList from './toggle_list'
 import TokenField from './tokenfield'
 import VideoField from './videofield'
+import URLField from './urlfield'
 import PropTypes from 'prop-types'
 import Checkit from 'checkit'
 import React from 'react'
@@ -122,6 +123,7 @@ class Control extends React.Component {
     if(type === 'togglelist') return ToggleList
     if(type === 'tokenfield') return TokenField
     if(type === 'videofield') return VideoField
+    if(type === 'urlfield') return URLField
     return TextField
   }
 
