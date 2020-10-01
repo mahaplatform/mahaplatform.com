@@ -95,7 +95,6 @@ class Variants extends React.Component {
       overage_strategy: null,
       donation_revenue_type_id: null,
       tax_rate: null,
-      is_tax_deductible: null,
       inventory_policy: null,
       inventory_quantity: null,
       shipping_strategy: null,

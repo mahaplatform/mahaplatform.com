@@ -69,11 +69,11 @@ class InventoryField extends React.Component {
     this.setState({
       inventory: products.reduce((inventory, product) => ({
         ...inventory,
-        ...product.variants.reduce((vinventory, varaint) => ({
+        ...product.variants.reduce((vinventory, variant) => ({
           ...vinventory,
-          [varaint.id]: {
-            inventory_policy: varaint.inventory_policy,
-            inventory_quantity: varaint.inventory_quantity
+          [variant.id]: {
+            inventory_policy: variant.inventory_policy,
+            inventory_quantity: variant.inventory_quantity
           }
         }), {})
       }), {})

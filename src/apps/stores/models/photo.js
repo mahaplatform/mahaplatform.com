@@ -4,7 +4,7 @@ import Variant from './variant'
 
 const Photo = new Model({
 
-  tableName: 'store_photos',
+  tableName: 'stores_photos',
 
   rules: {},
 
