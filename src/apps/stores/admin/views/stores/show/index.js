@@ -19,16 +19,26 @@ const getTabs = ({ audits, products, store }) => ({
 
 const getTasks = ({ products, store }) => {
 
-  const items = []
+  if(store.deleted_at) return {}
 
-  if(!store.deleted_at) {
-    items.push({ label: 'Edit Store', modal: <Edit store={ store } /> })
-    items.push({ label: 'Create Product', modal: <NewProduct store={ store } /> })
-    items.push({ label: 'Manage Inventory', modal: <Inventory store_id={ store.id } products={ products } /> })
-    items.push({ label: 'View Public Store', link: store.url })
+  return {
+    items: [
+      { label: 'Edit Store', modal: <Edit store={ store } /> },
+      { label: 'Create Product', modal: <NewProduct store={ store } /> },
+      { label: 'Manage Inventory', modal: <Inventory store_id={ store.id } products={ products } /> },
+      {
+        label: 'Delete Store',
+        confirm: `
+          Are you sure you want to delete this store? You will also delete all of
+          the associated products, orders, workflows, emails, and performance data
+        `,
+        request: {
+          endpoint: `/api/admin/stores/stores/${store.id}`,
+          method: 'delete'
+        }
+      }
+    ]
   }
-
-  return { items }
 
 }
 

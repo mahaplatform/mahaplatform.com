@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const store = await Store.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
+      qb.whereNull('deleted_at')
     },
     filter: {
       params: req.query.$filter,

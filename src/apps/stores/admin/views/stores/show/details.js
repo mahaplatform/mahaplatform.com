@@ -10,13 +10,20 @@ const Details = ({ audits, store }) => {
   //   route: `/admin/crm/workflows/${event.workflow.id}`
   // }
 
+  const link = {
+    label: 'View Public Form',
+    className: 'link',
+    link: store.url
+  }
+
   const config = {
     sections: [
       {
         items: [
           { label: 'Title', content: store.title },
           { label: 'Program', content: store.program.title },
-          // { label: 'Workflow', content: <Button { ...workflow } /> }
+          // { label: 'Workflow', content: <Button { ...workflow } /> },
+          { label: 'URL', content: <Button { ...link } /> }
         ]
       }
     ]

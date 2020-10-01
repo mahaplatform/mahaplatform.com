@@ -1,3 +1,4 @@
+import Workflow from '../../crm/models/workflow'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 import Discount from './discount'
@@ -45,6 +46,14 @@ const Store = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  workflows() {
+    return this.hasMany(Workflow, 'form_id')
+  },
+
+  workflow() {
+    return this.belongsTo(Workflow, 'workflow_id')
   }
 
 })
