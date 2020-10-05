@@ -46,10 +46,10 @@ const loadMembers = async(req, { list, profile }) => {
   }
 }
 
-const getContacts = async (req, { profile, list_id }) => {
+const getContacts = async (req, { profile, user, list_id }) => {
   const service = profile.related('source').get('text')
   const list = getList(service)
-  req.token = createUserToken(profile.related('user'), 'user_id')
+  req.token = createUserToken(user, 'user_id')
   if(_.includes(['constantcontact', 'mailchimp'], service)) {
     req.params = { id: list_id }
     const members = await loadMembers(req, { list, profile })
@@ -90,18 +90,19 @@ const importContactImport = async (req, { import_id,profile_id, list_id }) => {
   const imp = await Import.query(qb => {
     qb.where('id', import_id)
   }).fetch({
-    withRelated: ['asset','team'],
+    withRelated: ['asset','user'],
     transacting: req.trx
   })
 
   const profile = await Profile.query(qb => {
     qb.where('id', profile_id )
   }).fetch({
-    withRelated: ['source','user'],
+    withRelated: ['source'],
     transacting: req.trx
   })
 
   const contacts = await getContacts(req, {
+    user: imp.related('user'),
     profile,
     list_id
   })
@@ -140,7 +141,8 @@ const importContactImport = async (req, { import_id,profile_id, list_id }) => {
       is_nonunique: false,
       is_merged: false,
       is_ignored: false,
-      is_complete: false
+      is_complete: false,
+      is_empty: false
     }).save(null, {
       transacting: req.trx
     })
