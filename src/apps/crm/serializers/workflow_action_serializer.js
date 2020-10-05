@@ -39,6 +39,7 @@ const email = (email) => {
   if(!email.id) return null
   return {
     id: email.get('id'),
+    code: email.get('code'),
     subject: email.get('subject')
   }
 }

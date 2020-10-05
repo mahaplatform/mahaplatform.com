@@ -1,5 +1,6 @@
 const EmailCampaignSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   title: result.get('title'),
   editable: result.get('editable'),
   delivery_workflow: workflow(result.related('delivery_workflow')),
@@ -8,7 +9,6 @@ const EmailCampaignSerializer = (req, result) => ({
   reply_to: result.get('reply_to'),
   to: result.get('to'),
   recipients: result.get('recipients'),
-  code: result.get('code'),
   type: 'email',
   direction: 'outbound',
   has_preview: result.get('has_preview'),

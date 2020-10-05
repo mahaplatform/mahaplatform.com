@@ -152,7 +152,7 @@ class Action extends React.PureComponent {
     return {
       label: email.subject,
       className: 'link',
-      route: `/admin/crm/contacts/${contact.id}/emails/${email.id}`
+      route: `/admin/emails/${email.code}`
     }
   }
 

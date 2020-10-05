@@ -53,6 +53,7 @@ const listRoute = async (req, res) => {
 
     return {
       id: email.get('id'),
+      code: email.get('code'),
       from: from[0].phrase,
       subject: email.get('subject'),
       sent_at: email.get('sent_at'),

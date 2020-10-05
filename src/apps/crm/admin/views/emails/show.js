@@ -16,7 +16,6 @@ const getTasks = ({ email }) => ({
   items: [
     { label: 'Edit Email', modal: <Edit email={ email } /> },
     { label: 'Design Email', route: `/admin/crm/emails/${email.id}/design` },
-
     { label: 'Convert to Template', modal: <Convert email={ email } /> },
     {
       label: 'Delete Email',

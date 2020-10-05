@@ -69,7 +69,7 @@ class EmailCampaign extends React.PureComponent {
     return {
       label: 'View Email',
       className: 'link',
-      route: `/admin/crm/contacts/${email.contact.id}/emails/${email.id}`
+      route: `/admin/emails/${email.code}`
     }
   }
 

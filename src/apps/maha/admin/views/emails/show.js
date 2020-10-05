@@ -4,7 +4,7 @@ import Pasteur from 'pasteur'
 import moment from 'moment'
 import React from 'react'
 
-class Email extends React.Component {
+class EmailsShow extends React.Component {
 
   static propTypes = {
     email: PropTypes.object
@@ -33,6 +33,12 @@ class Email extends React.Component {
             <div className="team-email-header-details">
               <strong>From:</strong> { email.from }<br />
               <strong>To:</strong> { email.to }<br />
+              { email.cc &&
+                <span><strong>CC:</strong> { email.cc }<br /></span>
+              }
+              { email.bcc &&
+                <span><strong>BCC:</strong> { email.bcc }<br /></span>
+              }
               <strong>Subject:</strong> { email.subject }
             </div>
           </div>
@@ -48,7 +54,9 @@ class Email extends React.Component {
                   </div>
                 </div>
                 <div className="team-email-feed-item-content">
-                  <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
+                  <div className="team-email-feed-item-timestamp">
+                    { moment(activity.created_at).format('MMM D, YYYY @ h:mm A') }<br />
+                  </div>
                   { activity.description }
                 </div>
               </div>
@@ -76,29 +84,12 @@ class Email extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  email: `/api/admin/crm/contacts/${props.params.contact_id}/emails/${props.params.id}`
+  email: `/api/admin/emails/${props.params.code}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email',
-  component: Email,
-  tasks: {
-    items: [
-      {
-        label: 'Resend Email',
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/crm/contacts/${props.params.contact_id}/emails/${props.params.id}/resend`,
-          onFailure: (result) => {
-            context.flash.set('error', 'Unable to resend email')
-          },
-          onSuccess: (result) => {
-            context.flash.set('success', 'The email was successfully resent')
-          }
-        }
-      }
-    ]
-  }
+  component: EmailsShow
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)
