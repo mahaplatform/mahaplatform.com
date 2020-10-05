@@ -4,9 +4,6 @@ import RevenueType from '../../../models/revenue_type'
 const listRoute = async (req, res) => {
 
   const revenue_types = await RevenueType.filterFetch({
-    scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
-    },
     aliases: {
       revenue_code: 'integration->\'revenue_code\''
     },

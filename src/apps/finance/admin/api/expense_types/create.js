@@ -7,7 +7,6 @@ import ExpenseType from '../../../models/expense_type'
 const createRoute = async (req, res) => {
 
   const expense_type = await ExpenseType.forge({
-    team_id: req.team.get('id'),
     is_active: true,
     ...whitelist(req.body, ['title','description','integration','is_active'])
   }).save(null, {

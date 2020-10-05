@@ -4,7 +4,6 @@ import RevenueType from '../../../models/revenue_type'
 const showRoute = async (req, res) => {
 
   const revenue_type = await RevenueType.query(qb => {
-    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

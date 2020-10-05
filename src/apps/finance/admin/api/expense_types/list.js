@@ -4,9 +4,6 @@ import ExpenseType from '../../../models/expense_type'
 const listRoute = async (req, res) => {
 
   const expense_types = await ExpenseType.filterFetch({
-    scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
-    },
     aliases: {
       expense_code: 'integration->\'expense_code\''
     },

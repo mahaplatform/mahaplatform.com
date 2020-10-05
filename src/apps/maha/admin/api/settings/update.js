@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     })
 
   const app = await App.where({
-    id: req.apps.expenses.id
+    id: req.apps.finance.id
   }).fetch({
     transacting: req.trx
   })

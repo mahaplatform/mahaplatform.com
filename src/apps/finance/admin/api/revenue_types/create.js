@@ -7,7 +7,6 @@ import RevenueType from '../../../models/revenue_type'
 const createRoute = async (req, res) => {
 
   const revenue_type = await RevenueType.forge({
-    team_id: req.team.get('id'),
     is_active: true,
     ...whitelist(req.body, ['title','description','integration','is_active'])
   }).save(null, {

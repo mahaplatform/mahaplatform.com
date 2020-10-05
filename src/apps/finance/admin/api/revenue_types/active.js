@@ -5,7 +5,6 @@ const listRoute = async (req, res) => {
 
   const revenue_types = await RevenueType.filterFetch({
     scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
       qb.where('is_active', true)
     },
     filter: {

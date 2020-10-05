@@ -1109,7 +1109,6 @@ const schema = {
 
     await knex.schema.createTable('finance_expense_types', (table) => {
       table.increments('id').primary()
-      table.integer('team_id').unsigned()
       table.string('title', 255)
       table.jsonb('integration')
       table.text('description')
@@ -1294,7 +1293,6 @@ const schema = {
 
     await knex.schema.createTable('finance_revenue_types', (table) => {
       table.increments('id').primary()
-      table.integer('team_id').unsigned()
       table.string('title', 255)
       table.jsonb('integration')
       table.text('description')
@@ -3000,10 +2998,6 @@ const schema = {
       table.foreign('vendor_id').references('finance_vendors.id')
     })
 
-    await knex.schema.table('finance_expense_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('finance_expenses', table => {
       table.foreign('account_id').references('finance_accounts.id')
       table.foreign('batch_id').references('finance_batches.id')
@@ -3109,10 +3103,6 @@ const schema = {
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('deposit_id').references('finance_deposits.id')
       table.foreign('payment_id').references('finance_payments.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_revenue_types', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
