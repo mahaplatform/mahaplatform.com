@@ -8,7 +8,7 @@ const createRoute = async (req, res) => {
 
   const expense_type = await ExpenseType.forge({
     is_active: true,
-    ...whitelist(req.body, ['title','description','integration','is_active'])
+    ...whitelist(req.body, ['title','description','integration'])
   }).save(null, {
     transacting: req.trx
   })

@@ -17,7 +17,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense type'
   })
 
-  await expense_type.save(whitelist(req.body, ['title','description','integration','is_active']), {
+  await expense_type.save(whitelist(req.body, ['title','description','integration']), {
     patch: true,
     transacting: req.trx
   })

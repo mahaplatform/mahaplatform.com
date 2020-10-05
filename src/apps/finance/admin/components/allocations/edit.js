@@ -38,7 +38,7 @@ class Edit extends React.Component {
           fields: [
             { name: 'id', type: 'hidden', defaultValue: allocation.id },
             { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken, defaultValue: allocation.project_id },
-            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: allocation.expense_type_id },
+            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: allocation.expense_type_id },
             { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield', defaultValue: allocation.description },
             { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: allocation.amount }
           ]

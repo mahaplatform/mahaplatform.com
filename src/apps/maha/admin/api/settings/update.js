@@ -1,5 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import App from '../../../../maha/models/app'
+import Installation from '../../../../maha/models/installation'
 
 const showRoute = async (req, res) => {
 
@@ -8,24 +8,26 @@ const showRoute = async (req, res) => {
     message: 'Unable to find app'
   })
 
-  await req.trx('maha_installations')
-    .where('app_id', req.apps[req.params.code].id)
-    .update({
-      settings: req.body.settings
-    })
-
-  const app = await App.where({
-    id: req.apps.finance.id
+  const installation = await Installation.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('app_id', req.apps[req.params.code].id)
   }).fetch({
+    withRelated: ['app'],
+    transacting: req.trx
+  })
+
+  await installation.save({
+    settings: req.body.settings
+  },{
     transacting: req.trx
   })
 
   await activity(req, {
     story: 'updated settings for {object}',
-    object: app
+    object: installation.related('app')
   })
 
-  res.status(200).respond(app)
+  res.status(200).respond(installation.related('app'))
 
 }
 

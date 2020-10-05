@@ -34,7 +34,7 @@ const createRoute = async (req, res) => {
     user_id: req.user.get('id'),
     code,
     status: 'incomplete',
-    expense_type_id: req.apps.finance.settings.trip_expense_type_id,
+    expense_type_id: 16,
     mileage_rate,
     amount,
     ...whitelist(req.body, ['project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles'])

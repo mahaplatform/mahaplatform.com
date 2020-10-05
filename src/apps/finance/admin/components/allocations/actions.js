@@ -10,7 +10,7 @@ export const fetchProjects = (endpoint) => ({
 export const fetchExpenseTypes = () => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/finance/expense_types/active',
+  endpoint: '/api/admin/finance/expense_types',
   request: 'FETCH_EXPENSE_TYPES_REQUEST',
   success: 'FETCH_EXPENSE_TYPES_SUCCESS',
   failure: 'FETCH_EXPENSE_TYPES_FAILURE'

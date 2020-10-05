@@ -19,7 +19,7 @@ const showRoute = async (req, res) => {
   })
 
   req.tax_expense_type = await ExpenseType.query(qb => {
-    qb.where('id', req.apps.finance.settings.tax_expense_type_id)
+    qb.where('id', 49)
   }).fetch({
     transacting: req.trx
   })

@@ -35,7 +35,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'display', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types/active', value: 'id', text: 'display', format: ExpenseTypeToken },
+            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'display', format: ExpenseTypeToken },
             { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield' },
             { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield' }
           ]

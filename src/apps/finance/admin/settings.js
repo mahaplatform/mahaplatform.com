@@ -27,9 +27,7 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Accouting Platform', name: 'settings.integration', type: 'lookup', placeholder: 'Choose platform', options: [ { value: 'accpac', text: 'ACCPAC' }, { value: 'accumatica', text: 'Accumatica' }], value: 'value', text: 'text' },
-            { label: 'Mileage Expense Type', name: 'settings.trip_expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken },
-            { label: 'Tax Expense Type', name: 'settings.tax_expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken }
+            { label: 'Accouting Platform', name: 'settings.integration', type: 'lookup', placeholder: 'Choose platform', options: [ { value: 'accpac', text: 'ACCPAC' }, { value: 'accumatica', text: 'Accumatica' }], value: 'value', text: 'text' }
           ]
         }
       ]

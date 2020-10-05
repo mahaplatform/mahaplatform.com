@@ -4,6 +4,9 @@ import ExpenseType from '../../../models/expense_type'
 const listRoute = async (req, res) => {
 
   const expense_types = await ExpenseType.filterFetch({
+    scope: (qb) => {
+      qb.where('is_active',true)
+    },
     aliases: {
       expense_code: 'integration->\'expense_code\''
     },
@@ -14,7 +17,7 @@ const listRoute = async (req, res) => {
     sort: {
       params: req.query.$sort,
       defaults: ['expense_code'],
-      allowed: ['id','title','is_active','expense_code','created_at']
+      allowed: ['id','title','expense_code','created_at']
     },
     page: req.query.$page,
     transacting: req.trx
