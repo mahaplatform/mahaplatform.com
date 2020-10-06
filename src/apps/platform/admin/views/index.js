@@ -6,6 +6,8 @@ import ArticlesList from './articles/list'
 import ArticlesShow from './articles/show'
 import AssetsList from './assets/list'
 import AssetsShow from './assets/show'
+import BankList from './banks/list'
+import BankShow from './banks/show'
 import QueuesList from './queues/list'
 import JobsList from './queues/jobs'
 import JobsShow from './queues/job'
@@ -18,6 +20,8 @@ const routes = [
   { path: '/accounts/:id', component: AccountsShow },
   { path: '/apps', component: AppList },
   { path: '/apps/:id', component: AppShow },
+  { path: '/banks', component: BankList },
+  { path: '/banks/:id', component: BankShow },
   { path: '/help/articles', component: ArticlesList },
   { path: '/help/articles/:id', component: ArticlesShow },
   { path: '/assets', component: AssetsList },

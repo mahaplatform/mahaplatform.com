@@ -22,18 +22,18 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { bank, team_id } = this.props
+    const { bank } = this.props
     return {
       title: 'Edit Bank Account',
       method: 'patch',
-      endpoint: `/api/admin/platform/teams/${team_id}/banks/${bank.id}/edit`,
-      action: `/api/admin/platform/teams/${team_id}/banks/${bank.id}`,
+      endpoint: `/api/admin/platform/banks/${bank.id}/edit`,
+      action: `/api/admin/platform/banks/${bank.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: `/api/admin/platform/teams/${team_id}/banks/lookup`, placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true },
+            { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: '/api/admin/platform/banks/lookup', placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true },
             { label: 'Rate', name: 'rate', type: 'numberfield', placeholder: 'Rate', required: true, defaultValue: '0.029' },
             { label: 'Amex Rate', name: 'amex_rate', type: 'numberfield', placeholder: 'Amex Rate', required: true, defaultValue: '0.0375' },
             { label: 'ACH Rate', name: 'ach_rate', type: 'numberfield', placeholder: 'ACH Rate', required: true, defaultValue: '0.0075' }

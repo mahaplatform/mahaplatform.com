@@ -1,12 +1,10 @@
-import braintree from '../../../../../../core/services/braintree'
-import Bank from '../../../../../finance/models/bank'
+import braintree from '../../../../../core/services/braintree'
+import Bank from '../../../../finance/models/bank'
 import _ from 'lodash'
 
 const lookupRoute = async (req, res) => {
 
-  const banks = await await Bank.query(qb => {
-    qb.where('team_id', req.params.team_id)
-  }).fetchAll({
+  const banks = await await Bank.fetchAll({
     transacting: req.trx
   }).then(results => results.toArray())
 

@@ -3,6 +3,7 @@ const navigation = async (req) => ({
     { label: 'Accounts', route: '/accounts' },
     { label: 'Assets', route: '/assets' },
     { label: 'Apps', route: '/apps' },
+    { label: 'Banks', route: '/banks' },
     { label: 'Help', route: '/help/articles' },
     { label: 'Queues', route: '/queues' },
     { label: 'Settings', route: '/settings' },

@@ -8,12 +8,20 @@ const BankSerializer = (req, result) => ({
   braintree_link: result.get('braintree_link'),
   has_paypal: result.get('has_paypal'),
   status: result.get('status'),
-  applied_on: result.get('applied_on'),
   integration: integration(req, result),
+  team: team(result.related('team')),
+  applied_on: result.get('applied_on'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
 
+const team = (team) => {
+  if(!team.id) return null
+  return {
+    id: team.get('id'),
+    title: team.get('title')
+  }
+}
 
 const integration = (req, result) => {
   const integration = req.apps.finance.settings.integration

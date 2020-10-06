@@ -1,9 +1,8 @@
-import Bank from '../../../../../finance/models/bank'
+import Bank from '../../../../finance/models/bank'
 
 const editRoute = async (req, res) => {
 
   const bank = await Bank.query(qb => {
-    qb.where('team_id', req.params.team_id)
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

@@ -1,5 +1,4 @@
 import { Logo, Page } from 'maha-admin'
-import Banks from './banks'
 import Details from './details'
 import Delete from '../delete'
 import User from '../user'
@@ -11,8 +10,7 @@ const getTabs = ({ team, apps, banks }) => ({
   header: <Logo team={ team } width="120" />,
   items:  [
     { label: 'Details', component: <Details team={ team } /> },
-    { label: 'Apps', component: <Apps apps={ apps } /> },
-    { label: 'Bank Accounts', component: <Banks team={ team } banks={ banks } /> }
+    { label: 'Apps', component: <Apps apps={ apps } /> }
   ]
 })
 

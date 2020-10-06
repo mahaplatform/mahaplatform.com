@@ -1,13 +1,12 @@
-import BankSerializer from '../../../../../finance/serializers/bank_serializer'
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../../core/services/routes/emitter'
-import Bank from '../../../../../finance/models/bank'
+import BankSerializer from '../../../../finance/serializers/bank_serializer'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
+import Bank from '../../../../finance/models/bank'
 
 const createRoute = async (req, res) => {
 
   const bank = await Bank.query(qb => {
-    qb.where('team_id', req.params.team_id)
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

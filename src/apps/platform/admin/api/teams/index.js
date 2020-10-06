@@ -5,7 +5,6 @@ import create from './create'
 import update from './update'
 import roles from './roles'
 import users from './users'
-import banks from './banks'
 import list from './list'
 import edit from './edit'
 import show from './show'
@@ -32,7 +31,5 @@ router.get('/:id/apps', apps)
 router.get('/:id/roles', roles)
 
 router.post('/:id/users', users)
-
-router.use('/:team_id/banks', banks)
 
 export default router
