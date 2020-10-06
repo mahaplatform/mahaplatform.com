@@ -7,7 +7,7 @@ class Email {
   _handleResize = this._handleResize.bind(this)
 
   constructor() {
-    this.body = document.getElementById('body')
+    this.body = document.getElementsByTagName('BODY')[0]
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
