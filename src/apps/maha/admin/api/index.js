@@ -22,6 +22,7 @@ import search from './search'
 import fields from './fields'
 import audits from './audits'
 import states from './states'
+import emails from './emails'
 import users from './users'
 import react from './react'
 import links from './links'
@@ -43,6 +44,8 @@ router.use('/assignees', assignees)
 router.use('/dashboard', dashboard)
 
 router.use('/devices', devices)
+
+router.use('/emails', emails)
 
 router.use('/help', help)
 
