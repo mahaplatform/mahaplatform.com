@@ -68,7 +68,7 @@ class Admin extends React.Component {
     if(account_status !== prevProps.account_status && account_status === 'success' && !account) {
       this._handleRedirectToSignin()
     }
-    if(account !== prevProps.account && !!account) {
+    if(!_.isEqual(account, prevProps.account) && !!account) {
       this._handleFetchTeams()
     }
     if(teams_status !== prevProps.teams_status && teams_status === 'success') {
