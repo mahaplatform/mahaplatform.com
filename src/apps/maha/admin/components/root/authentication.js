@@ -9,16 +9,8 @@ const authenticationMiddleware = store => next => action => {
   if(admin.teams === null || admin.active === null) return next(action)
 
   store.dispatch({
-    type: 'maha.admin/REMOVE_TEAM',
-    index: admin.active
+    type: 'maha.admin/SIGNOUT_SUCCESS'
   })
-
-  store.dispatch({
-    type: 'reframe.flash/SET',
-    style: 'info',
-    message: 'Your session has unexpectedly expired'
-  })
-
 }
 
 export default authenticationMiddleware
