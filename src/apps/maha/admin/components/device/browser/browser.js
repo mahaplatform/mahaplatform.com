@@ -1,6 +1,8 @@
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Offer from './offer'
 import React from 'react'
+import _ from 'lodash'
 
 class Browser extends React.Component {
 
@@ -15,6 +17,7 @@ class Browser extends React.Component {
   static propTypes = {
     children: PropTypes.any,
     device: PropTypes.object,
+    team: PropTypes.object,
     title: PropTypes.string,
     unseen: PropTypes.number,
     onSavePush: PropTypes.func,
@@ -60,8 +63,11 @@ class Browser extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { title, unseen } = this.props
+    const { team, title, unseen } = this.props
     if(title !== prevProps.title || unseen !== prevProps.unseen) {
+      this._handleUpdateHead()
+    }
+    if(!_.isEqual(team, prevProps.team)) {
       this._handleUpdateHead()
     }
   }
@@ -84,6 +90,21 @@ class Browser extends React.Component {
         updateUnseen: this._handleUpdateUnseen
       }
     }
+  }
+
+  _getFavicon() {
+    const { unseen } = this.props
+    const count = unseen > 0 ? 'x' : '0'
+    return `/admin/images/icons/favicon-${count}.png`
+  }
+
+  _getTitle() {
+    const { team, title, unseen } = this.props
+    const titlecount = unseen > 0 ? ` (${unseen})` : ''
+    const parts = []
+    if(team) parts.push(team ? team.title : 'Maha')
+    if(title) parts.push(title)
+    return parts.join(' | ') + titlecount
   }
 
   _handleHasFocus() {
@@ -115,16 +136,12 @@ class Browser extends React.Component {
   }
 
   _handleUpdateHead() {
-    const { unseen } = this.props
-    const title = this.props.title || 'Maha'
-    const count = unseen > 0 ? 'x' : '0'
-    const titlecount = unseen > 0 ? ` (${unseen})` : ''
     const link = document.getElementById('favicon')
     link.type = 'image/x-icon'
     link.rel = 'shortcut icon'
-    link.href = `/admin/images/icons/favicon-${count}.png`
+    link.href = this._getFavicon()
     document.getElementsByTagName('head')[0].appendChild(link)
-    document.getElementsByTagName('title')[0].text = title + titlecount
+    document.getElementsByTagName('title')[0].text = this._getTitle()
   }
 
   _handleUpdateUnseen(unseen) {
@@ -133,4 +150,8 @@ class Browser extends React.Component {
 
 }
 
-export default Browser
+const mapStateToProps = (state, props) => ({
+  team: state.maha.admin ? state.maha.admin.team : null
+})
+
+export default connect(mapStateToProps)(Browser)

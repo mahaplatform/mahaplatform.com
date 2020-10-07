@@ -8,8 +8,9 @@ import _ from 'lodash'
 class Dashboard extends React.Component {
 
   static contextTypes = {
+    host: PropTypes.object,
     modal: PropTypes.object,
-    rputer: PropTypes.object
+    router: PropTypes.object
   }
 
   static propTypes = {
@@ -43,6 +44,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.context.host.setTitle('Dashboard')
     this.intervalID = setInterval(
       () => this._updateTime(),
       60000
