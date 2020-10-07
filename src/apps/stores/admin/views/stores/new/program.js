@@ -1,6 +1,5 @@
-import { Infinite } from 'maha-admin'
+import ProgramChooser from '../../../../../crm/admin/components/program_chooser'
 import PropTypes from 'prop-types'
-import Results from './results'
 import React from 'react'
 
 class Program extends React.Component {
@@ -14,26 +13,16 @@ class Program extends React.Component {
     onSave: PropTypes.func
   }
 
-  form = null
-
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
-    return <Infinite { ...this._getInfinite() } />
+    return <ProgramChooser { ...this._getProgramChooser() } />
   }
 
-  _getInfinite() {
+  _getProgramChooser() {
     return {
-      endpoint: '/api/admin/crm/programs',
-      filter: {
-        access_type: {
-          $neq: 'view'
-        }
-      },
-      layout: Results,
-      props: {
-        onChoose: this._handleChoose
-      }
+      requires: ['bank'],
+      onChoose: this._handleChoose
     }
   }
 

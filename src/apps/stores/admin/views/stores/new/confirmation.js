@@ -1,4 +1,4 @@
-import TemplateField from '../../../../crm/admin/components/templatefield'
+import TemplateField from '../../../../../crm/admin/components/templatefield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -36,7 +36,7 @@ class Confirmation extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', disabled: true, handler: this._handleCancel },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onSuccess: this._handleSuccess,
       sections: [

@@ -1,4 +1,3 @@
-import ProgramForm from '../../components/programform'
 import FormToken from '../../tokens/form'
 import { Page, Logo } from 'maha-admin'
 import React from 'react'
@@ -38,7 +37,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Forms',
       text: 'You have not yet created any forms',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create New Form', modal: <ProgramForm programs={ resources.programs } form={ New } /> }
+        { label: 'Create New Form', modal: New }
       ] : null
     },
     entity: 'form',
@@ -47,7 +46,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: resources.programs.length > 0 ? {
     label: 'Create Form',
     icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } form={ New } />
+    modal: New
   } : null
 })
 

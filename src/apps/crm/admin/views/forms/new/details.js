@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Store extends React.Component {
+class Details extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -36,7 +36,7 @@ class Store extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/event' }
+            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/form' }
           ]
         }
       ]
@@ -57,4 +57,4 @@ class Store extends React.Component {
 
 }
 
-export default Store
+export default Details
