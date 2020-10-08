@@ -3,8 +3,9 @@ import puppeteer from 'puppeteer'
 export const generatePDF = async ({ html, css }) => {
 
   const browser = await puppeteer.launch({
-    headless: true,
-    ignoreHTTPSErrors: process.env.NODE_ENV === 'development'
+    ignoreHTTPSErrors: process.env.NODE_ENV === 'development',
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true
   })
 
   const page = await browser.newPage()

@@ -10,7 +10,15 @@
     - cairo
     - cairo-devel
     - libjpeg-devel
-
+    - libXScrnSaver
+    - GConf2
+    - gtk3
+    - ipa-gothic-fonts
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-utils
+    - xorg-x11-fonts-cyrillic
+    - xorg-x11-fonts-misc
 - name: Install nodejs
   yum:
     name: https://rpm.nodesource.com/pub_8.x/el/6/x86_64/nodejs-8.14.0-1nodesource.x86_64.rpm
