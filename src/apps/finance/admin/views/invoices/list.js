@@ -5,7 +5,7 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Invoices',
-  rights: ['finance:manage_revenue'], 
+  rights: ['finance:manage_revenue'],
   collection: {
     endpoint: '/api/admin/finance/invoices',
     table: [
@@ -18,8 +18,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', key: 'status', collapsing: true, primary: true, format: Status  }
     ],
     filters: [
-      { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },
       { label: 'Program', name: 'program_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
+      { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },
+      { label: 'Project', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
+      { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['paid','unpaid','voided'], padded: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

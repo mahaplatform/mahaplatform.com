@@ -21,7 +21,7 @@ const getTabs = ({ audits, invoice, payments }) => {
 
 }
 
-const getTasks = ({ invoice }) => {
+const getTasks = ({ invoice }, { admin }) => {
   if(invoice.status === 'voided') return null
   const items = []
   if(invoice.status !== 'paid') {
@@ -30,12 +30,10 @@ const getTasks = ({ invoice }) => {
       items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
     }
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
-    items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
-    items.push({ label: 'Send Invoice', modal: <Send invoice={ invoice } />  })
-  } else {
-    items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
-    items.push({ label: 'Send Receipt', modal: <Send invoice={ invoice } />  })
   }
+  items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
+  items.push({ label: 'Download Invoice', url: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}/download` })
+  items.push({ label: 'Send Receipt', modal: <Send invoice={ invoice } />  })
   return { items }
 }
 
@@ -47,8 +45,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Invoice',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

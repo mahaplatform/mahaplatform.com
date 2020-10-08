@@ -20,7 +20,7 @@ const sendRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  await sendInvoiceQueue.enqueue (req, {
+  await sendInvoiceQueue.enqueue(req, {
     invoice_id: invoice.get('id'),
     sender_id: req.body.sender_id,
     reply_to: req.body.reply_to,
