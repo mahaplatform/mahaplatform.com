@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Avatar from '../avatar'
+import Logo from '../logo'
 import moment from 'moment'
 import React from 'react'
 
@@ -35,6 +36,12 @@ class Item extends React.Component {
         <div className="maha-feed-item-details">
           <div className="maha-feed-item-story">
             <span dangerouslySetInnerHTML={{ __html }} />
+            { item.team &&
+              <div className="maha-feed-item-team">
+                <Logo team={ item.team } />
+                { item.team.title }
+              </div>
+            }
           </div>
           <div className="maha-feed-item-timestamp">
             <div className={`maha-feed-item-app-icon ${color}`}>

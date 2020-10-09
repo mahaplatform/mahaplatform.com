@@ -19,6 +19,7 @@ const activitySerializer = (req, result) => {
   return {
     id: result.get('id'),
     url: result.get('url'),
+    team: team(result.related('team')),
     app: app(result.related('app')),
     user,
     subject,
@@ -38,6 +39,15 @@ const app = (app) => ({
   id: app.get('id'),
   ...app.get('data')
 })
+
+const team = (team) => {
+  if(!team.id) return null
+  return {
+    id: team.get('id'),
+    title: team.get('title'),
+    logo: team.related('logo') ? team.related('logo').get('path') : null
+  }
+}
 
 const userData = (result) => ({
   id: result.get('id'),

@@ -1,5 +1,6 @@
 const navigation = async (req) => ({
   items: [
+    { label: 'Activities', route: '/activities' },
     { label: 'Accounts', route: '/accounts' },
     { label: 'Assets', route: '/assets' },
     { label: 'Apps', route: '/apps' },

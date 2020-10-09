@@ -1,6 +1,6 @@
+import ActivitiesList from './activities/list'
 import AppsList from './apps/list'
 import AppsShow from './apps/show'
-import ActivitiesList from './activities/list'
 import CallList from './calls/list'
 import EmailsList from './emails/list'
 import FaxesList from './faxes/list'
