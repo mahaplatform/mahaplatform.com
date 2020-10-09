@@ -51,7 +51,7 @@ const fieldsRoute = async (req, res) => {
         ], []),
         ...Array(3).fill(0).reduce((fields, i, j) => [
           ...fields,
-          { label: `Address ${j+1}`, name: `address_${j+1}`, type: 'addressfield' },
+          { label: `Address ${j+1} - Full Address`, name: `address_${j+1}`, type: 'addressfield' },
           { label: `Address ${j+1} - Street 1`, name: `address_${j+1}_street_1`, type: 'textfield' },
           { label: `Address ${j+1} - Street 2`, name: `address_${j+1}_street_2`, type: 'textfield' },
           { label: `Address ${j+1} - City`, name: `address_${j+1}_city`, type: 'textfield' },

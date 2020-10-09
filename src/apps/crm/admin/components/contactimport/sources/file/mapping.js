@@ -1,5 +1,5 @@
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Logo, ModalPanel } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
