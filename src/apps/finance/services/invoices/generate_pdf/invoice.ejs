@@ -19,11 +19,11 @@
   flex: 0 0 50%;
 }
 .finance-invoice-col {
-  padding: .8em;
+  padding: 0.8em;
 }
 .finance-invoice-box {
   border: 1px solid rgba(0,0,0,.1);
-  padding: .8em;
+  padding: 0.8em;
   flex: 1;
 }
 .finance-invoice-status {
@@ -43,7 +43,7 @@
   border-right: 1px solid rgba(0,0,0,.1);
   padding: .4em;
 }
-.finance-invoice-col tr td: first-child {
+.finance-invoice-col tr td:first-child {
   font-weight: 700;
 }
 .finance-invoice-vendor {
@@ -54,26 +54,27 @@
   flex: 0 0 4.6em;
 }
 .finance-invoice-vendor-details {
-  padding-left: .8em;
+  padding-left: 0.8em;
   line-height: 1.6em;
   flex: 1;
 }
 .finance-invoice-lineitems {
-  padding: .8em;
+  padding: 0.8em;
 }
 .finance-invoice-lineitems .ui.table {
   border-radius: 0;
 }
-.finance-invoice-lineitems td,.finance-invoice-lineitems th {
+.finance-invoice-lineitems td,
+.finance-invoice-lineitems th {
   padding: .6em !important;
 }
 .finance-invoice-lineitems tr.voided span {
   color: red;
   text-decoration: line-through;
 }
-.finance-invoice-lineitems tr td: nth-child(2),
-.finance-invoice-lineitems tr td: nth-child(3),
-.finance-invoice-lineitems tr td: nth-child(4) {
+.finance-invoice-lineitems tr td:nth-child(2),
+.finance-invoice-lineitems tr td:nth-child(3),
+.finance-invoice-lineitems tr td:nth-child(4) {
   width: 80px !important;
   text-align: right;
 }
@@ -81,32 +82,30 @@
   color: #000;
   font-weight: 700;
 }
-.finance-invoice-lineitems tr.total td: first-child {
+.finance-invoice-lineitems tr.total td:first-child {
   background-color: rgba(0,0,0,.03);
 }
 .finance-invoice-lineitems img {
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0,0,0,.25);
-  margin-right: .8em;
+  margin-right: 0.8em;
   height: 20px;
   width: 32px;
   vertical-align: middle;
   display: inline-block;
 }
 .finance-invoice-footnote {
-  padding: 0 .8em;
+  padding: 0.8em;
 }
 .finance-invoice-notes {
   border: 1px solid rgba(0,0,0,.1);
   background-color: rgba(0,0,0,.03);
-  margin: .8em;
-  padding: .8em;
+  padding: 0.8em;
 }
 .finance-invoice-tax-deductible {
-  border: 1px solid rgba(251,189,8,.2);
-  background-color: rgba(251,189,8,.1);
-  margin: .8em;
-  padding: .8em;
+  border: 1px solid rgba(251,189,8,.3);
+  background-color: rgba(251,189,8,.2);
+  padding: 0.8em;
 }
 .finance-invoice-asterix {
   color: #db2828;
@@ -229,17 +228,17 @@
       </tbody>
     </table>
     <% if(invoice.get('tax_deductible') > 0) { %>
-      <div className="finance-invoice-footnote">
-        <span className="finance-invoice-asterix">*</span> No substantial goods or services were provided in return for this gift
+      <div class="finance-invoice-footnote">
+        <span class="finance-invoice-asterix">*</span> No substantial goods or services were provided in return for this gift
       </div>
     <% } %>
     <% if(invoice.get('notes')) { %>
-      <div className="finance-invoice-notes">
+      <div class="finance-invoice-notes">
         <%- invoice.get('notes') %>
       </div>
     <% } %>
     <% if(invoice.get('tax_deductible') > 0) { %>
-      <div className="finance-invoice-tax-deductible">
+      <div class="finance-invoice-tax-deductible">
         <strong>Charitable Contribution</strong><br/>
         Eligible amount of contribution for tax purposes: <%- numeral(invoice.get('tax_deductible')).format('0.00') %>
       </div>
