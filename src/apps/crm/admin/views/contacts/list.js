@@ -47,8 +47,20 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'last_name', order: 'asc' },
     export: [
       { label: 'ID', key: 'id' },
-      { label: 'Name', key: 'full_name' },
-      { label: 'Email', key: 'email' }
+      { label: 'First Name', key: 'first_name' },
+      { label: 'Last Name', key: 'last_name' },
+      { label: 'Email', key: 'email' },
+      { label: 'Phone', key: 'phone' },
+      { label: 'Organization', key: 'organization', visible: false },
+      { label: 'Birthday', key: 'birthday' },
+      { label: 'Spouse', key: 'spouse' },
+      ...resources.fields.reduce((fields, program) => [
+        ...fields,
+        ...program.fields.map(field => ({
+          label: `${program.title} - ${field.name.value}`,
+          key: `values.${field.code}`
+        }))
+      ], [])
     ],
     empty: {
       icon: 'user-circle',

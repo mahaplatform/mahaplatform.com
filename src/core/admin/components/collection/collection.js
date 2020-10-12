@@ -176,12 +176,12 @@ class Collection extends React.Component {
   }
 
   _getHeader() {
-    const { criteria, endpoint, entity, filter, filters, filtering, search, sort, tasks, onSetQuery, onToggleFilter } = this.props
+    const { criteria, endpoint, entity, filter, filters, filtering, search, sort, table, tasks, onSetQuery, onToggleFilter } = this.props
     return {
+      columns: this.props.export || table,
       criteria,
       endpoint,
       entity,
-      export: this.props.export,
       filter,
       filters,
       filtering,

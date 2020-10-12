@@ -11,10 +11,10 @@ class Header extends React.Component {
   }
 
   static propTypes = {
+    columns: PropTypes.array,
     criteria: PropTypes.object,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
-    export: PropTypes.array,
     filter: PropTypes.object,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
@@ -31,7 +31,7 @@ class Header extends React.Component {
 
   render() {
     const { criteria, filters, search, tasks } = this.props
-    if(!filters && !this.props.export && !search && !tasks) return null
+    if(!filters && !this.props.columns && !search && !tasks) return null
     return (
       <div className="maha-collection-header">
         <div className="maha-collection-header-bar">
@@ -49,9 +49,9 @@ class Header extends React.Component {
   }
 
   _getExport() {
-    const { endpoint, entity, filter, sort } = this.props
+    const { columns, endpoint, entity, filter, sort } = this.props
     return {
-      columns: this.props.export,
+      columns,
       endpoint,
       entity,
       filter,

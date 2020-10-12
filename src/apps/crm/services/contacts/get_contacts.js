@@ -13,9 +13,8 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
     aliases: {
       ...fields ? fields.reduce((aliases, field) => ({
         ...aliases,
-        [field.get('code')]: {
-          column: `crm_contacts.values->'${field.get('code')}'`
-        }
+        [field.get('code')]: `crm_contacts.values->'${field.get('code')}'`,
+        [`values.${field.get('code')}`]: `crm_contacts.values->'${field.get('code')}'`
       }), {}) : {},
       email: 'crm_contact_primaries.email',
       phone: 'crm_contact_primaries.phone',

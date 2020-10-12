@@ -53,6 +53,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
         })) }
       ]
     },
+    export: [
+      { label: 'ID', key: 'id' },
+      ...resources.form.config.fields.filter(field => {
+        return field.type !== 'text'
+      }).map(field => ({
+        label: field.name.value,
+        key: `data.${field.code}`
+      }))
+    ],
     empty: {
       icon: 'user',
       title: 'No Responses',
