@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   apps: [],
   devices: null,
   preferences: null,
+  redirect: null,
   rights: null,
   session_status: 'pending',
   teams: [],
@@ -82,7 +83,14 @@ export default (state = INITIAL_STATE, action) => {
   case 'CHOOSE_TEAM':
     return {
       ...state,
-      active: action.index
+      active: action.index,
+      redirect: action.redirect
+    }
+
+  case 'SET_REDIRECT':
+    return {
+      ...state,
+      redirect: action.redirect
     }
 
   default:

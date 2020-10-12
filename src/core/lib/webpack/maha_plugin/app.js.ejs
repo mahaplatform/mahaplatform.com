@@ -32,6 +32,7 @@ import <%= usage[i].code %>Usage from '<%= usage[i].filepath %>'
 import <%= settings[i].code %>Settings from '<%= settings[i].filepath %>'
 <% } -%>
 import Platform from '../../apps/maha/admin/components/platform'
+import Forbidden from '../../apps/maha/admin/views/forbidden'
 import NotFound from '../../apps/maha/admin/views/not_found'
 import Root from '../../apps/maha/admin/components/root'
 import { hot } from 'react-hot-loader'
@@ -154,13 +155,14 @@ class App extends React.Component {
   _getRoutes() {
     return [
 <% for(var i = 0; i < routes.length; i++) {-%>
-      { path: '<%= routes[i].path %>', children: <%= routes[i].code %>Routes },
+      { path: '/:team<%= routes[i].path %>', children: <%= routes[i].code %>Routes },
 <% if(routes[i].aliases) {-%>
 <% for(var j = 0; j < routes[i].aliases.length; j++) {-%>
-      { path: '<%= routes[i].aliases[j] %>', children: <%= routes[i].code %>Routes },
+      { path: '/:team<%= routes[i].aliases[j] %>', children: <%= routes[i].code %>Routes },
 <% } -%>
 <% } -%>
 <% } -%>
+      { path: '/forbidden', component: Forbidden },
       { path: '/*', component: NotFound }
     ]
   }

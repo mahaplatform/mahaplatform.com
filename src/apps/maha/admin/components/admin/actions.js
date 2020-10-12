@@ -54,7 +54,13 @@ export const signout = () => ({
   failure: 'SIGNOUT_FAILURE'
 })
 
-export const chooseTeam = (index) => ({
+export const chooseTeam = (index, redirect) => ({
   type: 'CHOOSE_TEAM',
-  index
+  index,
+  redirect
+})
+
+export const setRedirect = (redirect) => ({
+  type: 'SET_REDIRECT',
+  redirect
 })

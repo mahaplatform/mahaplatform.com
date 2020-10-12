@@ -1,19 +1,22 @@
-import { createBrowserHistory } from 'history'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Router extends React.Component {
+class AdminRouter extends React.Component {
 
   static childContextTypes = {
     router: PropTypes.object
   }
 
   static contextTypes = {
+    admin: PropTypes.object,
     router: PropTypes.object
   }
 
   static propTypes = {
+    apps: PropTypes.array,
+    team: PropTypes.object,
+    teams: PropTypes.array,
     children: PropTypes.any
   }
 
@@ -50,33 +53,53 @@ class Router extends React.Component {
     }
   }
 
+  _getTeamPathname(pathname) {
+    const { apps, teams, team } = this.props
+    const fullpath = pathname.replace(/\/admin/, '')
+    if(_.includes(['/signin','/reset','/activate'], fullpath)) return fullpath
+    if(_.includes(['','/'], fullpath)) return team ? `/${team.subdomain}` : '/'
+    const [,subdomain] = fullpath.match(/\/([^/]*).*/)
+    const targetTeam = teams.find(team => {
+      return team.subdomain === subdomain
+    })
+    const targetApp = apps.find(app => {
+      return app.path === `/${subdomain}`
+    })
+    if(!targetTeam && targetApp) {
+      return `/${team.subdomain}${fullpath}`
+    } else if(!targetTeam && !targetApp) {
+      return '/forbidden'
+    } else if(targetTeam.subdomain !== team.subdomain) {
+      this.context.admin.chooseTeam(targetTeam.id, fullpath)
+    } else {
+      return pathname
+    }
+  }
+
   _getTeamRoute(path) {
     const route = this._getRoute(path)
     return {
       ...route,
-      pathname: route.pathname.replace(/^\/admin/, ''),
+      pathname: this._getTeamPathname(route.pathname),
       search: route.search,
       hash: route.hash
     }
   }
 
   _handleGoBack() {
-    console.log('router goBack')
     this.context.router.history.goBack()
   }
 
   _handleReplace(path) {
     const route = this._getTeamRoute(path)
-    console.log('router replace', route)
     this.context.router.history.replace(route)
   }
 
   _handlePush(path) {
     const route = this._getTeamRoute(path)
-    console.log('router push', route)
     this.context.router.history.push(route)
   }
 
 }
 
-export default Router
+export default AdminRouter

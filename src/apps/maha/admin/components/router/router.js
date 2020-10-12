@@ -72,7 +72,7 @@ class Router extends React.Component {
     const route = this._getRoute(path)
     return {
       ...route,
-      pathname: route.pathname.replace(/^\/admin/, ''),
+      pathname: route.pathname,
       search: route.search,
       hash: route.hash
     }

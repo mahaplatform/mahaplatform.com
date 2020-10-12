@@ -174,6 +174,7 @@ import financeAdminDashboardNewItemIndexJs from '../../apps/finance/admin/dashbo
 import mahaAdminDashboardGreetingIndexJs from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
+import Forbidden from '../../apps/maha/admin/views/forbidden'
 import NotFound from '../../apps/maha/admin/views/not_found'
 import Root from '../../apps/maha/admin/components/root'
 import { hot } from 'react-hot-loader'
@@ -474,23 +475,24 @@ class App extends React.Component {
 
   _getRoutes() {
     return [
-      { path: '/appraisals', children: appraisalsRoutes },
-      { path: '/chat', children: chatRoutes },
-      { path: '/crm', children: crmRoutes },
-      { path: '/drive', children: driveRoutes },
-      { path: '/eatfresh', children: eatfreshRoutes },
-      { path: '/events', children: eventsRoutes },
-      { path: '/fax', children: faxRoutes },
-      { path: '/finance', children: financeRoutes },
-      { path: '/expenses', children: financeRoutes },
-      { path: '/learning', children: competenciesRoutes },
-      { path: '', children: mahaRoutes },
-      { path: '/news', children: newsRoutes },
-      { path: '/platform', children: platformRoutes },
-      { path: '/sites', children: sitesRoutes },
-      { path: '/stores', children: storesRoutes },
-      { path: '/team', children: teamRoutes },
-      { path: '/training', children: trainingRoutes },
+      { path: '/:team/appraisals', children: appraisalsRoutes },
+      { path: '/:team/chat', children: chatRoutes },
+      { path: '/:team/crm', children: crmRoutes },
+      { path: '/:team/drive', children: driveRoutes },
+      { path: '/:team/eatfresh', children: eatfreshRoutes },
+      { path: '/:team/events', children: eventsRoutes },
+      { path: '/:team/fax', children: faxRoutes },
+      { path: '/:team/finance', children: financeRoutes },
+      { path: '/:team/expenses', children: financeRoutes },
+      { path: '/:team/learning', children: competenciesRoutes },
+      { path: '/:team', children: mahaRoutes },
+      { path: '/:team/news', children: newsRoutes },
+      { path: '/:team/platform', children: platformRoutes },
+      { path: '/:team/sites', children: sitesRoutes },
+      { path: '/:team/stores', children: storesRoutes },
+      { path: '/:team/team', children: teamRoutes },
+      { path: '/:team/training', children: trainingRoutes },
+      { path: '/forbidden', component: Forbidden },
       { path: '/*', component: NotFound }
     ]
   }

@@ -18,6 +18,7 @@ class Portal extends React.Component {
   }
 
   static contextTypes = {
+    admin: PropTypes.object,
     host: PropTypes.object,
     router: PropTypes.object
   }
@@ -119,9 +120,10 @@ class Portal extends React.Component {
   }
 
   _getStack() {
+    const { admin } = this.context
     const { routes } = this.props
     return {
-      rootPath: '/',
+      rootPath: `/${admin.team.subdomain}`,
       routes
     }
   }
