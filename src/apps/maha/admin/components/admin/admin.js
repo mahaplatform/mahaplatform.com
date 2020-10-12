@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Loader } from 'maha-admin'
+import Router from './router'
 import React from 'react'
 import _ from 'lodash'
 
@@ -55,7 +56,11 @@ class Admin extends React.Component {
   render() {
     const { status } = this.props
     if(status === 'loading') return <Loader />
-    return this.props.children
+    return (
+      <Router>
+        { this.props.children }
+      </Router>
+    )
   }
 
   componentDidMount() {
@@ -164,7 +169,7 @@ class Admin extends React.Component {
 
   _handleRedirectToSignin() {
     const { flash, router } = this.context
-    const { pathname } = router.history.location
+    const { pathname } = router.location
     if(pathname.match(/(activate|reset)/)) return
     if(this.state.redirect) flash.set('error', 'You must first signin!')
     router.history.push('/signin')
@@ -172,7 +177,7 @@ class Admin extends React.Component {
 
   _handleRedirectToSaved() {
     const { router } = this.context
-    const { pathname, hash, search } = router.history.location
+    const { pathname, hash, search } = router.location
     const { redirect } = this.state
     this.setState({ redirect: null })
     if(_.isEqual(redirect, { pathname, hash, search })) return
@@ -192,7 +197,7 @@ class Admin extends React.Component {
   }
 
   _handleIntent() {
-    const { pathname, search, hash } = this.context.router.history.location
+    const { pathname, search, hash } = this.context.router.location
     if(pathname === '/') return
     if(pathname.match(/(activate|signin|reset)/)) return
     this.context.router.history.push('/')
@@ -201,7 +206,7 @@ class Admin extends React.Component {
   }
 
   _handleInit() {
-    const { pathname } = this.context.router.history.location
+    const { pathname } = this.context.router.location
     if(pathname.match(/(activate|signin|reset)/)) return
     this.props.onLoadAccount()
   }

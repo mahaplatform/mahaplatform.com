@@ -50,7 +50,6 @@ class Router extends React.Component {
       router: {
         location: this.history ? this.history.location : null,
         history: {
-          ...this.history,
           goBack: this._handlePop,
           push: this._handlePush,
           replace: this._handleReplace

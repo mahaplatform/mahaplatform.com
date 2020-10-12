@@ -26,7 +26,7 @@ class Sessions extends React.Component {
   }
 
   render() {
-    const { pathname } = this.context.router.history.location
+    const { pathname } = this.context.router.location
     const { roots, team, user } = this.props
     if(pathname.match(/^\/activate/) !== null) return <Activate />
     if(pathname.match(/^\/reset/) !== null) return <Reset />
