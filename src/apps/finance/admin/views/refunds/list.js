@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['captured','settled','deposited','received','voided'], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/refunds/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/refunds/${record.id}`),
     empty: {
       icon: 'dollar',
       title: 'No Refunds',

@@ -227,7 +227,7 @@ class EventForm extends React.PureComponent {
   }
 
   _handleSuccess({ data }) {
-    this.context.router.history.push(`/admin/events/events/${data.id}`)
+    this.context.router.history.push(`/events/events/${data.id}`)
     this.context.modal.close()
   }
 

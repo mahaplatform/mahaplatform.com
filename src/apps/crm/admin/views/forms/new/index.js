@@ -54,7 +54,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(form) {
-    this.context.router.history.push(`/admin/crm/forms/${form.id}`)
+    this.context.router.history.push(`/crm/forms/${form.id}`)
     this.context.modal.close()
   }
 

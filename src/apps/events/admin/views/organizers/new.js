@@ -43,7 +43,7 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(organizer) {
-    this.context.router.history.push(`/admin/events/organizers/${organizer.id}`)
+    this.context.router.history.push(`/events/organizers/${organizer.id}`)
     this.context.modal.close()
   }
 

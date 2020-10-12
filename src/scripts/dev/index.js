@@ -147,13 +147,13 @@ const adminWatch = async () => {
     },
     bypass: (req, res, proxyOptions) => {
       const adminRoot = path.join('src','core','admin','public')
-      const publicRoot = path.join('src','core','public','public')
-      const parts = req.url.split('?').shift().split('/').slice(2)
+      const parts = req.url.split('?').shift().split('/').slice(1)
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
       if(fs.existsSync(path.join(publicRoot,...parts))) return null
       if(/^\/admin\/(oauth|auth)/.test(req.url)) return null
-      if(/^\/admin\/notifications.js/.test(req.url)) return null
-      if(/^\/admin/.test(req.url)) return req.url
+      if(/^\/(api|auth|imagecache|oauth)/.test(req.url)) return null
+      if(/^\/notifications.js/.test(req.url)) return null
+      return req.url
     }
   }
 
@@ -165,7 +165,6 @@ const adminWatch = async () => {
     disableHostCheck: true,
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
-    publicPath: '/admin',
     proxy: {
       '/socket': {
         target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
@@ -188,10 +187,7 @@ const adminWatch = async () => {
     },
     quiet: true,
     historyApiFallback: {
-      disableDotRule: true,
-      rewrites: [
-        { from: /.*/, to: '/admin' }
-      ]
+      disableDotRule: true
     }
   })
   devserver.listen(process.env.DEVSERVER_PORT)

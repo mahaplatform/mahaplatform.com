@@ -42,7 +42,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(site) {
-    this.context.router.history.push(`/admin/sites/sites/${site.id}`)
+    this.context.router.history.push(`/sites/sites/${site.id}`)
     this.context.modal.close()
   }
 

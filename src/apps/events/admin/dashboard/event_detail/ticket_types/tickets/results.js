@@ -32,7 +32,7 @@ class Results extends React.Component {
 
   _handleTicket(ticket) {
     const { config } = this.props
-    this.context.router.history.push(`/admin/events/events/${config.event_id}/tickets/${ticket.id}`)
+    this.context.router.history.push(`/events/events/${config.event_id}/tickets/${ticket.id}`)
   }
 
 }

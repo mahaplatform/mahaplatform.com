@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'link',
-    onClick: (record) => context.router.history.push(`/admin/team/shortlinks/${record.id}`)
+    onClick: (record) => context.router.history.push(`/team/shortlinks/${record.id}`)
   },
   task: {
     label: 'New Shortlink',

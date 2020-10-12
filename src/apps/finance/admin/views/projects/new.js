@@ -86,7 +86,7 @@ class New extends React.Component {
   _handleSuccess(project) {
     const { modal, router } = this.context
     modal.close()
-    router.history.push(`/admin/finance/projects/${project.id}`)
+    router.history.push(`/finance/projects/${project.id}`)
   }
 
 }

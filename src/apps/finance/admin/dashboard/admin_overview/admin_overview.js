@@ -100,27 +100,27 @@ class AdminOverview extends React.Component {
   }
 
   _handleDeposits() {
-    this.context.router.history.push('/admin/finance/deposits?$filter[$and][0][status][$in][0]=pending')
+    this.context.router.history.push('/finance/deposits?$filter[$and][0][status][$in][0]=pending')
   }
 
   _handleExpensesForReview() {
-    this.context.router.history.push('/admin/finance/reports?$filter[$and][0][status][$in][0]=approved')
+    this.context.router.history.push('/finance/reports?$filter[$and][0][status][$in][0]=approved')
   }
 
   _handleExpensesForExport() {
-    this.context.router.history.push('/admin/finance/reports?$filter[$and][0][status][$in][0]=reviewed')
+    this.context.router.history.push('/finance/reports?$filter[$and][0][status][$in][0]=reviewed')
   }
 
   _handlePhysicalPayments() {
-    this.context.router.history.push('/admin/finance/payments?$filter[$and][0][status][$in][0]=received&$filter[$and][1][method][$in][0]=cash&$filter[$and][1][method][$in][1]=check')
+    this.context.router.history.push('/finance/payments?$filter[$and][0][status][$in][0]=received&$filter[$and][1][method][$in][0]=cash&$filter[$and][1][method][$in][1]=check')
   }
 
   _handleDigitalPaymentsCaptured() {
-    this.context.router.history.push('/admin/finance/payments?$filter[$and][0][status][$in][0]=captured&$filter[$and][1][method][$in][0]=ach&$filter[$and][1][method][$in][1]=card&$filter[$and][1][method][$in][2]=googlepay&$filter[$and][1][method][$in][3]=applepay&$filter[$and][1][method][$in][4]=paypal')
+    this.context.router.history.push('/finance/payments?$filter[$and][0][status][$in][0]=captured&$filter[$and][1][method][$in][0]=ach&$filter[$and][1][method][$in][1]=card&$filter[$and][1][method][$in][2]=googlepay&$filter[$and][1][method][$in][3]=applepay&$filter[$and][1][method][$in][4]=paypal')
   }
 
   _handleDigitalPaymentsSettled() {
-    this.context.router.history.push('/admin/finance/payments?$filter[$and][0][status][$in][0]=settled&$filter[$and][1][method][$in][0]=ach&$filter[$and][1][method][$in][1]=card&$filter[$and][1][method][$in][2]=googlepay&$filter[$and][1][method][$in][3]=applepay&$filter[$and][1][method][$in][4]=paypal')
+    this.context.router.history.push('/finance/payments?$filter[$and][0][status][$in][0]=settled&$filter[$and][1][method][$in][0]=ach&$filter[$and][1][method][$in][1]=card&$filter[$and][1][method][$in][2]=googlepay&$filter[$and][1][method][$in][3]=applepay&$filter[$and][1][method][$in][4]=paypal')
   }
 
 }

@@ -53,7 +53,7 @@ class Card extends React.PureComponent {
       <div className="finance-cardfield">
         <div className="finance-cardfield-icon">
           { icon ?
-            <img src={`/admin/images/payments/${icon}.png`} /> :
+            <img src={`/images/payments/${icon}.png`} /> :
             <i className="fa fa-credit-card-alt" />
           }
         </div>

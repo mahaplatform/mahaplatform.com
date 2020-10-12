@@ -16,8 +16,8 @@ const AddEmailFrom = {
 
     await Promise.mapSeries(emails, async (email) => {
       const $ = cheerio.load(email.html)
-      $('style:contains("#outlook")').replaceWith('<link href="https://mahaplatform.com/admin/css/foundation-emails.min.css" rel="stylesheet"></link>')
-      $('style:contains(".header")').replaceWith('<link href="https://mahaplatform.com/admin/css/maha-emails.min.css" rel="stylesheet"></link>')
+      $('style:contains("#outlook")').replaceWith('<link href="https://mahaplatform.com/css/foundation-emails.min.css" rel="stylesheet"></link>')
+      $('style:contains(".header")').replaceWith('<link href="https://mahaplatform.com/css/maha-emails.min.css" rel="stylesheet"></link>')
       await knex('maha_emails').where('id', email.id).update({
         html: $.html()
       })

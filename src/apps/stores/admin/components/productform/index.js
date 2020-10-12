@@ -88,7 +88,7 @@ class ProductForm extends React.Component {
 
   _handleSuccess(product) {
     const { store } = this.props
-    this.context.router.history.push(`/admin/stores/stores/${store.id}/products/${product.id}`)
+    this.context.router.history.push(`/stores/stores/${store.id}/products/${product.id}`)
     this.context.modal.close()
   }
 

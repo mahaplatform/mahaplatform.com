@@ -73,7 +73,7 @@ class Results extends React.Component {
 
   _handleClick(call) {
     const { contact } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}/calls/${call.id}`)
+    this.context.router.history.push(`/crm/contacts/${contact.id}/calls/${call.id}`)
   }
 
 }

@@ -37,7 +37,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/stores/stores',
     entity: 'store',
     defaultSort: { key: 'title', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/stores/stores/${record.id}`)
+    onClick: (record) => context.router.history.push(`/stores/stores/${record.id}`)
   },
   task: {
     icon: 'plus',

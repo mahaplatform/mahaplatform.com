@@ -9,7 +9,7 @@ const _getImage = (method, payment_method) => {
 
 const PaymentTypeToken = ({ method, payment_method }) => (
   <div className="finance-payment-type-token">
-    <img src={`/admin/images/payments/${_getImage(method, payment_method)}.png`} />
+    <img src={`/images/payments/${_getImage(method, payment_method)}.png`} />
   </div>
 )
 

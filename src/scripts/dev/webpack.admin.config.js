@@ -51,7 +51,7 @@ const webpackConfig = {
   output: {
     path: path.resolve('src','public'),
     filename: path.join('js','application.js'),
-    publicPath: '/admin'
+    publicPath: '/'
   },
   plugins: [
     new MahaPlugin(),

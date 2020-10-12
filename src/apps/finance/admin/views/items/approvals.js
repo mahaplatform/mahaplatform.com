@@ -60,7 +60,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'No items have been submitted yet in a project you own'
     },
     entity: 'items',
-    onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)
+    onClick: (record) => context.router.history.push(`/finance/${record.type}s/${record.item_id}`)
   }
 })
 

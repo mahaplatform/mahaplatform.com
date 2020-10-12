@@ -41,7 +41,7 @@ class Methods extends React.PureComponent {
           { methods.map((method, index) => (
             <div className="finance-payment-method" key={`method_${index}`} onClick={ this._handleMethod.bind(this, method.component) }>
               <div className="finance-payment-method-mark">
-                <img src={`/admin/images/payments/${method.name}-mark.png`} />
+                <img src={`/images/payments/${method.name}-mark.png`} />
               </div>
               <div className="finance-payment-method-label">
                 { method.label }

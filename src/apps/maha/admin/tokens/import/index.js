@@ -6,7 +6,7 @@ import React from 'react'
 const ImportToken = (item) => (
   <div className="import-token">
     <div className="import-token-icon">
-      <img src={ `/admin/images/services/${item.service}.png` } />
+      <img src={ `/images/services/${item.service}.png` } />
     </div>
     <div className="import-token-label">
       <strong>{item.name || (item.asset ? item.asset.original_file_name : item.service) }</strong><br />

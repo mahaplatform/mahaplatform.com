@@ -39,7 +39,7 @@ class GroupsNew extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/team/groups/${result.id}`)
+    this.context.router.history.push(`/team/groups/${result.id}`)
     this.context.modal.close()
   }
 

@@ -57,7 +57,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Active', key: 'is_active' },
       ..._getIntegrationExports(resources.app.settings.integration)
     ],
-    onClick: (record) => context.router.history.push(`/admin/finance/projects/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/projects/${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Edit Project',

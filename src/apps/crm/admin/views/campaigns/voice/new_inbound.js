@@ -54,7 +54,7 @@ class Voice extends React.PureComponent {
   }
 
   _handleSuccess(campaign) {
-    this.context.router.history.push(`/admin/crm/campaigns/voice/${campaign.id}`)
+    this.context.router.history.push(`/crm/campaigns/voice/${campaign.id}`)
     this.context.modal.close()
   }
 

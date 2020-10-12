@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/platform/queues/${page.params.name}/${page.params.status}`,
     entity: 'jobs',
     defaultSort: { key: 'created_at', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/platform/queues/${page.params.name}/jobs/${record.id}`)
+    onClick: (record) => context.router.history.push(`/platform/queues/${page.params.name}/jobs/${record.id}`)
   }
 })
 

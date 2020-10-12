@@ -42,7 +42,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'event',
-    onClick: (record) => context.router.history.push(`/admin/events/events/${record.id}`),
+    onClick: (record) => context.router.history.push(`/events/events/${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Clone Event',

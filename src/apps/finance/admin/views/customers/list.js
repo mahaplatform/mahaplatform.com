@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Name', key: 'display_name', primary: true, format: ContactToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/customers/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/customers/${record.id}`),
     empty: {
       icon: 'user',
       title: 'No Customers',

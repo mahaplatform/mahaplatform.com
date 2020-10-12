@@ -36,7 +36,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','exported'], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/${record.type}s/${record.item_id}`)
+    onClick: (record) => context.router.history.push(`/finance/${record.type}s/${record.item_id}`)
 
   }
 })

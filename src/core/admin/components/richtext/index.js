@@ -45,7 +45,7 @@ class RichText extends React.Component {
     const transform = (node, index) => {
       if (node.type === 'tag' && node.name === 'a') {
         const href = node.attribs.href
-        if(!href.startsWith(process.env.WEB_HOST)) {
+        if(href.search('mahaplatform.com') < 0) {
           return <a key={`node_${index}`} href={ href } rel="noopener noreferrer" target="_blank">{ href }</a>
         } else {
           return (

@@ -424,7 +424,7 @@ const mapResources = (props, context) => ({
 
 const dependencies = {
   scripts: [
-    { url: `${process.env.WEB_ASSET_CDN_HOST}/admin/js/twilio.min.js`, check: 'Twilio.Device' }
+    { url: `${process.env.WEB_ASSET_CDN_HOST}/js/twilio.min.js`, check: 'Twilio.Device' }
   ]
 }
 

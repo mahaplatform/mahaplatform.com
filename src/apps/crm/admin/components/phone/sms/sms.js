@@ -67,7 +67,7 @@ class SMS extends React.Component {
 
   _handleProfile() {
     const { channel } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${channel.contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${channel.contact.id}`)
   }
 
 }

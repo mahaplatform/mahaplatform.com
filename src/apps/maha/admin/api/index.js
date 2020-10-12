@@ -31,6 +31,11 @@ import help from './help'
 
 const router = new Router({ mergeParams: true })
 
+router.use((req, res, next) => {
+  console.log(req.url)
+  next()
+})
+
 router.use('/account', account)
 
 router.use('/aliases', aliases)

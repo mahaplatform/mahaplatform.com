@@ -15,7 +15,7 @@ class Notice extends React.Component {
     return (
       <div className="maha-notice">
         <div className="maha-notice-image">
-          <img src="/admin/images/notifications.jpg" />
+          <img src="/images/notifications.jpg" />
         </div>
         <div className="maha-notice-body">
           { status === 'notification_denied' ?

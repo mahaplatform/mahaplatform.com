@@ -30,7 +30,7 @@ class New extends React.Component {
   }
 
   _handleDone(supervisor) {
-    this.context.router.history.push(`/admin/team/supervisors/${supervisor.id}`)
+    this.context.router.history.push(`/team/supervisors/${supervisor.id}`)
   }
 
 }

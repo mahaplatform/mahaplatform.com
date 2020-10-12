@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
     <title><%= `Invoice ${invoice.get('code')}` %></title>
-    <link rel="stylesheet" type="text/css" href="<%- host %>/admin/css/semantic.min.css" />
-    <link rel="stylesheet" type="text/css" href="<%- host %>/admin/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%- host %>/css/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%- host %>/css/font-awesome.min.css" />
   </head>
   <body>
 <style>
@@ -115,7 +115,7 @@
   <div class="finance-invoice-row">
     <% if(invoice.get('code') !== 'unpaid') { %>
       <div class="finance-invoice-col finance-invoice-status">
-        <img src="<%- host %>/admin/images/payments/<%- invoice.get('status') %>.png" />
+        <img src="<%- host %>/images/payments/<%- invoice.get('status') %>.png" />
       </div>
     <% } %>
     <div class="finance-invoice-col">

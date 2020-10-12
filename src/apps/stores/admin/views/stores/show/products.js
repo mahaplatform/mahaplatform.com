@@ -52,7 +52,7 @@ class Products extends React.Component {
   _handleClick(product) {
     const { router } = this.context
     const { store } = this.props
-    router.history.push(`/admin/stores/stores/${store.id}/products/${product.id}`)
+    router.history.push(`/stores/stores/${store.id}/products/${product.id}`)
   }
 
 }

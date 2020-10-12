@@ -150,7 +150,7 @@ class Voicemail extends React.Component {
 
   _handleInfo() {
     const { voicemail } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${voicemail.contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${voicemail.contact.id}`)
   }
 
 }

@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     entity: 'program',
     defaultSort: { key: 'title', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/crm/programs/${record.id}`)
+    onClick: (record) => context.router.history.push(`/crm/programs/${record.id}`)
   },
   tasks: {
     icon: 'plus',

@@ -46,8 +46,8 @@ export default async (req, user) => {
         label: config.title,
         icon: config.icon,
         color: config.color,
-        route: '/admin'+config.path,
-        path: '/admin'+config.path,
+        route: config.path,
+        path: config.path,
         settings: installation.get('settings')
       }
     }

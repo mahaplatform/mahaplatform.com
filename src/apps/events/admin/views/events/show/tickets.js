@@ -53,7 +53,7 @@ class Tickets extends React.Component {
   _handleClick(ticket) {
     const { router } = this.context
     const { event } = this.props
-    router.history.push(`/admin/events/events/${event.id}/tickets/${ticket.id}`)
+    router.history.push(`/events/events/${event.id}/tickets/${ticket.id}`)
   }
 
 }

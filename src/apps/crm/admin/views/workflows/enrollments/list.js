@@ -26,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/admin/crm/workflows/${props.params.workflow_id}/enrollments/${record.id}`)
+    onClick: (record) => context.router.history.push(`/crm/workflows/${props.params.workflow_id}/enrollments/${record.id}`)
   },
   tasks: {
     icon: 'plus',

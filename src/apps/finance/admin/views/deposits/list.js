@@ -23,7 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['pending','exported'], format: StatusToken }
     ],
     defaultSort: { key: 'date', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/deposits/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/deposits/${record.id}`),
     empty: {
       icon: 'university',
       title: 'No Disbursements',

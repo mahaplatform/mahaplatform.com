@@ -121,7 +121,7 @@ class Portal extends React.Component {
   _getStack() {
     const { routes } = this.props
     return {
-      rootPath: '/admin',
+      rootPath: '/',
       routes
     }
   }

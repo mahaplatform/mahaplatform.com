@@ -60,7 +60,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'contact',
-    onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`),
+    onClick: (record) => context.router.history.push(`/crm/contacts/${record.id}`),
     selectable: true,
     buttons: (selected, onSuccess) => [{
       label: 'Add to Lists',

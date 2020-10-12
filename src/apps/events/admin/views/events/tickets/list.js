@@ -41,7 +41,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       buttons: []
     },
     entity: 'event',
-    onClick: (record) => context.router.history.push(`/admin/events/events/${page.params.event_id}/tickets/${record.id}`)
+    onClick: (record) => context.router.history.push(`/events/events/${page.params.event_id}/tickets/${record.id}`)
   }
 })
 

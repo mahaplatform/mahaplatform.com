@@ -83,7 +83,7 @@ class Workflows extends React.Component {
 
   _handleClick(workflow, report) {
     const { router } = this.context
-    router.history.push(`/admin/crm/workflows/${workflow.id}/enrollments?report=${report}`)
+    router.history.push(`/crm/workflows/${workflow.id}/enrollments?report=${report}`)
   }
 
 }

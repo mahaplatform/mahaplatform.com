@@ -27,7 +27,7 @@ const mapPropsToPage = (props, context) => ({
       ]
     },
     entity: 'plan',
-    onClick: (record) => context.router.history.push(`/admin/learning/plans/${record.id}`),
+    onClick: (record) => context.router.history.push(`/learning/plans/${record.id}`),
     rowClass: (record) => record.status
   },
   task: {

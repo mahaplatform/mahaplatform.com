@@ -37,7 +37,7 @@ class Program extends React.Component {
 
   _handleChannels() {
     const { contact, program } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}/channels/programs/${program.id}`)
+    this.context.router.history.push(`/crm/contacts/${contact.id}/channels/programs/${program.id}`)
   }
 
 }

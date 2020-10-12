@@ -24,7 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Name', key: 'name' },
       { label: 'Items', key: 'items_count' }
     ],
-    onClick: (record) => context.router.history.push(`/admin/finance/vendors/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/vendors/${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Merge Vendor',

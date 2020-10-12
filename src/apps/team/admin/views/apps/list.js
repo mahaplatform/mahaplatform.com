@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     defaultSort: { key: 'code', order: 'asc' },
     entity: 'app',
-    onClick: (record) => context.router.history.push(`/admin/team/apps${record.path}/${record.id}`)
+    onClick: (record) => context.router.history.push(`/team/apps${record.path}/${record.id}`)
   }
 })
 export default Page(null, mapPropsToPage)

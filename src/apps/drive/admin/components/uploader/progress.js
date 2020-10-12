@@ -29,7 +29,7 @@ class Progress extends React.Component {
                     { file.thumbnail ?
                       <div className="drive-uploader-progress-item-image">
                         <div style={{backgroundImage:`url('${file.thumbnail}')`}}>
-                          <img src={ `/admin/images/services/${file.service}.png` } />
+                          <img src={ `/images/services/${file.service}.png` } />
                         </div>
                       </div> :
                       <div className="drive-uploader-progress-item-icon">

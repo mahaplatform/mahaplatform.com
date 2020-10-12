@@ -29,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
     ],
     defaultSort: { key: 'date', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/payments/${record.payment.id}`),
+    onClick: (record) => context.router.history.push(`/finance/payments/${record.payment.id}`),
     empty: {
       icon: 'dollar',
       title: 'No Results',

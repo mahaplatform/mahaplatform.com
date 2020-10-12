@@ -69,6 +69,16 @@ class Router extends React.Component {
     }
   }
 
+  _getTeamRoute(path) {
+    const route = this._getRoute(path)
+    return {
+      ...route,
+      pathname: route.pathname.replace(/^\/admin/, ''),
+      search: route.search,
+      hash: route.hash
+    }
+  }
+
   _handlePop() {
     this.history.goBack()
   }
@@ -79,9 +89,9 @@ class Router extends React.Component {
       this.props.onPush(location)
     } else if(action === 'PUSH') {
       this.last = []
-      this.props.onPush(location)
+      this.props.onPush(this._getTeamRoute(location))
     } else if(action === 'REPLACE') {
-      this.props.onReplace(location)
+      this.props.onReplace(this._getTeamRoute(location))
     } else if(action === 'POP') {
       this.last.push(this.props.history.slice(-1)[0])
       this.props.onPop()
@@ -89,12 +99,12 @@ class Router extends React.Component {
   }
 
   _handleReplace(path) {
-    const route = this._getRoute(path)
+    const route = this._getTeamRoute(path)
     this.history.replace(route)
   }
 
   _handlePush(path) {
-    const route = this._getRoute(path)
+    const route = this._getTeamRoute(path)
     this.history.push(route)
   }
 

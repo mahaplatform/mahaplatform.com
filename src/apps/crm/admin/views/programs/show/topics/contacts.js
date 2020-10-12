@@ -63,7 +63,7 @@ class Contacts extends React.Component {
   }
 
   _handleClick(contact) {
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${contact.id}`)
   }
 
 }

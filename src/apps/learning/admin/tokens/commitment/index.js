@@ -42,7 +42,7 @@ class CommitmentToken extends React.Component {
   _handleView(resource, e) {
     const { router } = this.context
     e.stopPropagation()
-    if(resource.asset_id) return router.history.push(`/admin/assets/${resource.asset_id}`)
+    if(resource.asset_id) return router.history.push(`/assets/${resource.asset_id}`)
     if(resource.url) {
       const sanitized = resource.url.replace('https://mahaplatform.com', '')
       if(sanitized[0] === '/')return router.history.push(sanitized)

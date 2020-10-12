@@ -28,7 +28,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet received any faxes'
     },
     entity: 'fax',
-    onClick: (record) => context.router.history.push(`/admin/fax/faxes/${record.id}`),
+    onClick: (record) => context.router.history.push(`/fax/faxes/${record.id}`),
     defaultSort: { key: 'created_at', order: 'desc' }
   }
 })

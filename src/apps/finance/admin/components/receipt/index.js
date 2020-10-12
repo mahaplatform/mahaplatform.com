@@ -67,7 +67,7 @@ class ReceiptView extends React.Component {
 
   _handleImage(src) {
     const { id } = this.props
-    this.context.router.history.push(`/admin/finance/receipts/${id}`)
+    this.context.router.history.push(`/finance/receipts/${id}`)
   }
 
 }

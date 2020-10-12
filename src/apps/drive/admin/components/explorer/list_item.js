@@ -132,7 +132,7 @@ class ListItem extends React.Component {
   _handleView() {
     const { item } = this.props
     const { router } = this.context
-    if(item.type === 'file') router.history.push(`/admin/drive/files/${item.code}`)
+    if(item.type === 'file') router.history.push(`/drive/files/${item.code}`)
   }
 
   _handleTasks(e) {

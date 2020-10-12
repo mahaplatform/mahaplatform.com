@@ -21,7 +21,7 @@ class Event {
     const stylesheet = document.createElement('link')
     stylesheet.rel = 'stylesheet'
     stylesheet.type = 'text/css'
-    stylesheet.href = `${process.env.WEB_HOST}/admin/css/button.css`
+    stylesheet.href = `${process.env.WEB_HOST}/css/button.css`
     document.head.appendChild(stylesheet)
 
     const buttons = document.querySelectorAll(`[data-event="${this.code}"]`)

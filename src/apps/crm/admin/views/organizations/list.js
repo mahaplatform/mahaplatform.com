@@ -26,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'organization',
-    onClick: (record) => context.router.history.push(`/admin/crm/organizations/${record.id}`),
+    onClick: (record) => context.router.history.push(`/crm/organizations/${record.id}`),
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Name', key: 'name' }

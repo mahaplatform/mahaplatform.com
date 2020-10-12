@@ -167,7 +167,7 @@ class Admin extends React.Component {
     const { pathname } = router.history.location
     if(pathname.match(/(activate|reset)/)) return
     if(this.state.redirect) flash.set('error', 'You must first signin!')
-    router.history.push('/admin/signin')
+    router.history.push('/signin')
   }
 
   _handleRedirectToSaved() {
@@ -176,7 +176,7 @@ class Admin extends React.Component {
     const { redirect } = this.state
     this.setState({ redirect: null })
     if(_.isEqual(redirect, { pathname, hash, search })) return
-    const route = redirect || { pathname: '/admin' }
+    const route = redirect || { pathname: '/' }
     if(route.pathname === pathname) return router.history.replace(route)
     router.history.push(route)
   }
@@ -193,9 +193,9 @@ class Admin extends React.Component {
 
   _handleIntent() {
     const { pathname, search, hash } = this.context.router.history.location
-    if(pathname === '/admin') return
+    if(pathname === '/') return
     if(pathname.match(/(activate|signin|reset)/)) return
-    this.context.router.history.push('/admin')
+    this.context.router.history.push('/')
     const redirect = { pathname, search, hash }
     this.setState({ redirect })
   }

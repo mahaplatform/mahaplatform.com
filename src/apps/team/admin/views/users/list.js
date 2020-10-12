@@ -70,7 +70,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     defaultSort: { key: 'last_name', order: 'asc' },
     entity: 'user',
-    onClick: (record) => context.router.history.push(`/admin/team/users/${record.id}`)
+    onClick: (record) => context.router.history.push(`/team/users/${record.id}`)
   },
   tasks : {
     icon: 'plus',

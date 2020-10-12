@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: StatusToken  }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/platform/banks/${record.id}`),
+    onClick: (record) => context.router.history.push(`/platform/banks/${record.id}`),
     empty: {
       icon: 'university',
       title: 'No Bank Accounts',

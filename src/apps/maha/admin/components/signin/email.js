@@ -36,7 +36,7 @@ class Email extends React.Component {
           <div className="maha-avatar">
             <div className="maha-avatar-badge">
               <div className="maha-avatar-wrapper">
-                <Image host={ process.env.WEB_ASSET_CDN_HOST } src="/admin/images/maha.png" title="The Maha Platform" transforms={{ fit: 'cover', w: 150, h: 150 }} />
+                <Image host={ process.env.WEB_ASSET_CDN_HOST } src="/images/maha.png" title="The Maha Platform" transforms={{ fit: 'cover', w: 150, h: 150 }} />
               </div>
             </div>
           </div>

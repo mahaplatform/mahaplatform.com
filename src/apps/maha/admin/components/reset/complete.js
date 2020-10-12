@@ -45,7 +45,7 @@ class Complete extends React.Component {
       token,
       authentication_strategy: account.authentication_strategy
     })
-    this.context.router.history.push('/admin')
+    this.context.router.history.push('/')
   }
 
 }

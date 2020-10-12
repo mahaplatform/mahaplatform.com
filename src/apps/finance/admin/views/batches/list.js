@@ -20,7 +20,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     entity: 'batch',
     onClick: (record) => {
-      context.router.history.push(`/admin/finance/reports?$filter[batch_id][$in][0]=${record.id}`)
+      context.router.history.push(`/finance/reports?$filter[batch_id][$in][0]=${record.id}`)
     },
     recordTasks: (record) => [
       {

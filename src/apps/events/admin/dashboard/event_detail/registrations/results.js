@@ -49,7 +49,7 @@ class Results extends React.Component {
 
   _handleRegistration(registration) {
     const { config } = this.props
-    this.context.router.history.push(`/admin/events/events/${config.event_id}/registrations/${registration.id}`)
+    this.context.router.history.push(`/events/events/${config.event_id}/registrations/${registration.id}`)
   }
 }
 

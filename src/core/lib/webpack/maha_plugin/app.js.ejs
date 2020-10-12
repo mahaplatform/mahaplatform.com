@@ -154,10 +154,10 @@ class App extends React.Component {
   _getRoutes() {
     return [
 <% for(var i = 0; i < routes.length; i++) {-%>
-      { path: '/admin<%= routes[i].path %>', children: <%= routes[i].code %>Routes },
+      { path: '<%= routes[i].path %>', children: <%= routes[i].code %>Routes },
 <% if(routes[i].aliases) {-%>
 <% for(var j = 0; j < routes[i].aliases.length; j++) {-%>
-      { path: '/admin<%= routes[i].aliases[j] %>', children: <%= routes[i].code %>Routes },
+      { path: '<%= routes[i].aliases[j] %>', children: <%= routes[i].code %>Routes },
 <% } -%>
 <% } -%>
 <% } -%>

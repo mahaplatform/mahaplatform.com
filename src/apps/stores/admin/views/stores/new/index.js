@@ -56,7 +56,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(store) {
-    this.context.router.history.push(`/admin/stores/stores/${store.id}`)
+    this.context.router.history.push(`/stores/stores/${store.id}`)
     this.context.modal.close()
   }
 

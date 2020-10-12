@@ -39,7 +39,7 @@ class GalleryList extends React.Component {
   _handleClick(attachment_id) {
     const { attachable_type, attachable_id } = this.props
     const { history } = this.context.router
-    history.push(`/admin/${attachable_type}/${attachable_id}/attachments/${attachment_id}`)
+    history.push(`/${attachable_type}/${attachable_id}/attachments/${attachment_id}`)
   }
 
 }

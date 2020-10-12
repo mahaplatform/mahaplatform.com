@@ -45,7 +45,7 @@ class New extends React.PureComponent {
   }
 
   _handleSuccess(article) {
-    this.context.router.history.push(`/admin/platform/help/articles/${article.id}`)
+    this.context.router.history.push(`/platform/help/articles/${article.id}`)
     this.context.modal.close()
   }
 

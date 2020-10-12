@@ -46,7 +46,7 @@ class Results extends React.Component {
   }
 
   _handleClick(email) {
-    this.context.router.history.push(`/admin/emails/${email.code}`)
+    this.context.router.history.push(`/emails/${email.code}`)
   }
 
 }

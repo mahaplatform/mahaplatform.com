@@ -131,7 +131,7 @@ class Call extends React.Component {
 
   _handleInfo() {
     const { call } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${call.contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${call.contact.id}`)
   }
 
   _handleSMS() {

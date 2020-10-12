@@ -185,7 +185,7 @@ class Chat extends React.Component {
 
   _handleShowMessage(message) {
     const { router } = this.context
-    router.history.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
+    router.history.push(`/chat/channels/${message.channel_id}/messages/${message.id}`)
   }
 
   _handleSubscriptions() {

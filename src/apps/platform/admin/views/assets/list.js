@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     entity: 'asset',
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/assets/${record.id}`),
+    onClick: (record) => context.router.history.push(`/assets/${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Reprocess Asset',

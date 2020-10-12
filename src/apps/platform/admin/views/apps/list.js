@@ -10,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     entity: 'asset',
     defaultSort: { key: 'code', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/platform/apps/${record.code}`)
+    onClick: (record) => context.router.history.push(`/platform/apps/${record.code}`)
   }
 })
 

@@ -173,7 +173,7 @@ class Call extends React.Component {
   _handleInfo() {
     const { call } = this.props
     const { contact } = call.call
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${contact.id}`)
   }
 
   _handleMode(mode) {

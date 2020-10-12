@@ -128,7 +128,7 @@ class Details extends React.Component {
 
   _handleView() {
     const { item } = this.props
-    this.context.router.history.push(`/admin/drive/files/${item.code}`)
+    this.context.router.history.push(`/drive/files/${item.code}`)
   }
 
 }

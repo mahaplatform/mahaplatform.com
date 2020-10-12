@@ -22,7 +22,7 @@ class PhoneBadge extends React.Component {
 
   _handleClick() {
     if(document.body.clientWidth <= 768) {
-      return this.context.router.history.push('/admin/help')
+      return this.context.router.history.push('/help')
     }
     this.context.help.toggle()
   }

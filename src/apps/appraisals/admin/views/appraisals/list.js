@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context) => ({
       text: 'You have not yet created any appraisals'
     },
     entity: 'appraisal',
-    onClick: (record) => context.router.history.push(`/admin/appraisals/appraisals/${record.id}`)
+    onClick: (record) => context.router.history.push(`/appraisals/appraisals/${record.id}`)
   }
 })
 

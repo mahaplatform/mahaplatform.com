@@ -47,7 +47,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/training/quizes/${result.id}`)
+    this.context.router.history.push(`/training/quizes/${result.id}`)
     this.context.modal.close()
   }
 

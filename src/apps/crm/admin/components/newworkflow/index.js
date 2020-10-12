@@ -97,7 +97,7 @@ class NewWorkflow extends React.PureComponent {
   }
 
   _handleDone(result) {
-    this.context.router.history.push(`/admin/crm/workflows/${result.id}`)
+    this.context.router.history.push(`/crm/workflows/${result.id}`)
     this.context.modal.close()
   }
 

@@ -58,7 +58,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(invoice) {
-    this.context.router.history.push(`/admin/finance/banks/${invoice.id}`)
+    this.context.router.history.push(`/finance/banks/${invoice.id}`)
     this.context.modal.close()
   }
 

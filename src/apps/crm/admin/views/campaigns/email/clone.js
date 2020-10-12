@@ -54,7 +54,7 @@ class Clone extends React.Component {
 
   _handleSuccess(campaign) {
     this.context.flash.set('success', 'The template was successfully cloned')
-    this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.id}`)
+    this.context.router.history.push(`/crm/campaigns/email/${campaign.id}`)
     this.context.modal.close()
   }
 

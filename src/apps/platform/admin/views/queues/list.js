@@ -5,7 +5,7 @@ import React from 'react'
 const StatToken = (props, context) => {
   const { queue, value } = props
   const { history } = context.router
-  const onClick = () => history.push(`/admin/platform/queues/${queue.name}/${value}`)
+  const onClick = () => history.push(`/platform/queues/${queue.name}/${value}`)
   return (
     <div className="platform-queue-count" onClick={ onClick }>
       { queue[value] }

@@ -85,7 +85,7 @@ class Emails extends React.Component {
 
   _handleClick(email, report) {
     const { router } = this.context
-    router.history.push(`/admin/crm/emails/${email.id}/deliveries?report=${report}`)
+    router.history.push(`/crm/emails/${email.id}/deliveries?report=${report}`)
   }
 
 }

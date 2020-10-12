@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/voice/${props.params.campaign_id}/calls/${record.id}`),
+    onClick: (record) => context.router.history.push(`/crm/campaigns/voice/${props.params.campaign_id}/calls/${record.id}`),
     selectable: true,
     selectValue: 'id',
     buttons: (selected, onSuccess) => [{

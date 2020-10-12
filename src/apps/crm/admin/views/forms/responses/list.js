@@ -60,7 +60,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'responses',
-    onClick: (record) => context.router.history.push(`/admin/crm/forms/${props.params.form_id}/responses/${record.id}`)
+    onClick: (record) => context.router.history.push(`/crm/forms/${props.params.form_id}/responses/${record.id}`)
   },
   tasks: {
     items: [

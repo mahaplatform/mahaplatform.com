@@ -33,7 +33,7 @@ class Invoice extends React.Component {
             <div className="finance-invoice-row">
               <div className="finance-invoice-col finance-invoice-status">
                 { invoice.status !== 'unpaid' &&
-                  <img src={`/admin/images/payments/${invoice.status}.png`} />
+                  <img src={`/images/payments/${invoice.status}.png`} />
                 }
               </div>
               <div className="finance-invoice-col">

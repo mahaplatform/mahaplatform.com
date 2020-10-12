@@ -47,7 +47,7 @@ class New extends React.Component {
 
   _handleSuccess(result) {
     const { program_id } = this.props
-    this.context.router.history.push(`/admin/crm/programs/${program_id}/templates/${result.id}`)
+    this.context.router.history.push(`/crm/programs/${program_id}/templates/${result.id}`)
     this.context.modal.close()
   }
 

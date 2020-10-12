@@ -125,7 +125,7 @@ class Post extends React.PureComponent {
   }
 
   _handleClick(id) {
-    this.context.router.history.push(`/admin/news/posts/${id}`)
+    this.context.router.history.push(`/news/posts/${id}`)
   }
 
   _handleGroup() {

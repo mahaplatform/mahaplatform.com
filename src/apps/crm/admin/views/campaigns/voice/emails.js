@@ -66,7 +66,7 @@ class Emails extends React.Component {
   }
 
   _handleClick(email) {
-    this.context.router.history.push(`/admin/crm/emails/${email.id}`)
+    this.context.router.history.push(`/crm/emails/${email.id}`)
   }
 
 }

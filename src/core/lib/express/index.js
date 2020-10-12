@@ -64,11 +64,11 @@ server.use('/.well-known', deeplinkMiddleware)
 
 server.use(serverMiddleware)
 
-server.use('/admin*', homeMiddleware)
-
 server.use('/api', apiMiddleware)
 
-server.use(legacyMiddleware)
+server.use('/*', homeMiddleware)
+
+// server.use(legacyMiddleware)
 
 server.use((req, res) => res.send('not found'))
 

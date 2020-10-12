@@ -50,7 +50,7 @@ class Push extends React.Component {
         <CSSTransition component={ null } in={ asking } timeout={ 500 } classNames="fadein" mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-push-modal">
             <div className="maha-push-modal-image">
-              <img src="/admin/images/notifications.jpg" />
+              <img src="/images/notifications.jpg" />
             </div>
             <div className="maha-push-modal-body">
               { push === 'unknown' && permission === 'denied' &&

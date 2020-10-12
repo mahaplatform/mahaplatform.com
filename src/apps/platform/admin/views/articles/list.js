@@ -32,7 +32,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     entity: 'asset',
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/platform/help/articles/${record.id}`),
+    onClick: (record) => context.router.history.push(`/platform/help/articles/${record.id}`),
     selectable: true,
     buttons: (selected, onSuccess) => [{
       color: 'red',

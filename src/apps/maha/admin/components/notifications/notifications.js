@@ -92,7 +92,7 @@ class Notifications extends React.Component {
   _getImage(notification) {
     if(notification.user) return <Avatar user={ notification.user } presence={ false } />
     if(notification.image) return <img src={ notification.image } />
-    return <img src="/admin/images/maha.png" />
+    return <img src="/images/maha.png" />
   }
 
   _handleClear() {
@@ -150,7 +150,7 @@ class Notifications extends React.Component {
     this.context.host.pushNotification({
       title: data.title,
       body: data.body,
-      icon: `${process.env.WEB_HOST}/admin/images/maha.png`,
+      icon: `${process.env.WEB_HOST}/images/maha.png`,
       sound: `${process.env.WEB_HOST}/admin/audio/boing.mp3`
     })
   }

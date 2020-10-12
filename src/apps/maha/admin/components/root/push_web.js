@@ -14,7 +14,7 @@ const pushBrowser = () => {
     host: process.env.WEB_HOST
   }
 
-  const serviceWorkerFile = `/admin/notifications.js?${qs.stringify(firebaseConfig)}`
+  const serviceWorkerFile = `/notifications.js?${qs.stringify(firebaseConfig)}`
 
   firebase.initializeApp(firebaseConfig)
 

@@ -44,7 +44,7 @@ class Sessions extends React.Component {
   _handleClick(session) {
     const { router } = this.context
     const { event } = this.props
-    router.history.push(`/admin/events/events/${event.id}/sessions/${session.id}`)
+    router.history.push(`/events/events/${event.id}/sessions/${session.id}`)
   }
 
 }

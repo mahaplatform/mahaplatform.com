@@ -146,7 +146,7 @@ class Contact extends React.Component {
 
   _handleInfo() {
     const { contact } = this.props
-    this.context.router.history.push(`/admin/crm/contacts/${contact.id}`)
+    this.context.router.history.push(`/crm/contacts/${contact.id}`)
   }
 
   _handlePlaceCall(phone_number) {

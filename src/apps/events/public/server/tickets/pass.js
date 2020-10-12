@@ -47,10 +47,10 @@ const passRoute = async (req, res) => {
   })
 
   template.keys(root, '')
-  template.icon('https://mahaplatform.com/admin/images/maha.png')
+  template.icon('https://mahaplatform.com/images/maha.png')
   template.strip('http://cdn.sitemandala.com/assets/110192/bearcamp2017e1.jpg')
 
-  const logo = program.get('logo_id') ? program.related('logo').get('signed_url') : 'https://mahaplatform.com/admin/images/maha.png'
+  const logo = program.get('logo_id') ? program.related('logo').get('signed_url') : 'https://mahaplatform.com/images/maha.png'
   template.logo(logo)
 
   var pass = template.createPass({

@@ -95,7 +95,7 @@ class Browser extends React.Component {
   _getFavicon() {
     const { unseen } = this.props
     const count = unseen > 0 ? 'x' : '0'
-    return `/admin/images/icons/favicon-${count}.png`
+    return `/images/icons/favicon-${count}.png`
   }
 
   _getTitle() {

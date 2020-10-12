@@ -57,7 +57,7 @@ class Options extends React.Component {
   _handleView(resource, e) {
     const { router } = this.context
     e.stopPropagation()
-    if(resource.asset_id) return router.history.push(`/admin/assets/${resource.asset_id}`)
+    if(resource.asset_id) return router.history.push(`/assets/${resource.asset_id}`)
     if(resource.url) {
       this.link.href = resource.url
       this.link.click()

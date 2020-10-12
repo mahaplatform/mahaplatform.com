@@ -46,7 +46,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(deposit) {
-    this.context.router.history.push(`/admin/finance/deposits/${deposit.id}`)
+    this.context.router.history.push(`/finance/deposits/${deposit.id}`)
     this.context.modal.close()
   }
 

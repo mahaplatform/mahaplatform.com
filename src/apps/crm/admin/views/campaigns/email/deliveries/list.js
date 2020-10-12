@@ -18,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'This email campaign has not yet been sent'
     },
     entity: 'email',
-    onClick: (record) => context.router.history.push(`/admin/emails/${record.code}`)
+    onClick: (record) => context.router.history.push(`/emails/${record.code}`)
   }
 })
 

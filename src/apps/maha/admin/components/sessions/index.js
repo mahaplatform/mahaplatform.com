@@ -28,9 +28,9 @@ class Sessions extends React.Component {
   render() {
     const { pathname } = this.context.router.history.location
     const { roots, team, user } = this.props
-    if(pathname.match(/^\/admin\/activate/) !== null) return <Activate />
-    if(pathname.match(/^\/admin\/reset/) !== null) return <Reset />
-    if(pathname.match(/^\/admin\/signin/) !== null) return <Signin />
+    if(pathname.match(/^\/activate/) !== null) return <Activate />
+    if(pathname.match(/^\/reset/) !== null) return <Reset />
+    if(pathname.match(/^\/signin/) !== null) return <Signin />
     if(!user || !team) return null
     return (
       <div className="maha-sessions">

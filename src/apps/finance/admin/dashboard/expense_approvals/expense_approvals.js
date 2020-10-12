@@ -112,13 +112,13 @@ class ExpenseApprovals extends React.Component {
 
   _handleApprovals() {
     if(this._hasApprovals()) {
-      this.context.router.history.push('/admin/finance/approvals/?$filter[$and][0][status][$in][0]=submitted')
+      this.context.router.history.push('/finance/approvals/?$filter[$and][0][status][$in][0]=submitted')
     }
   }
 
   _handleItems() {
     if(this._hasItems()) {
-      this.context.router.history.push('/admin/finance/items/?$filter[$and][0][status][$in][0]=submitted')
+      this.context.router.history.push('/finance/items/?$filter[$and][0][status][$in][0]=submitted')
     }
   }
 

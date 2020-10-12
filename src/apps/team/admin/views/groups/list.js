@@ -26,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'group',
-    onClick: (record) => context.router.history.push(`/admin/team/groups/${record.id}`)
+    onClick: (record) => context.router.history.push(`/team/groups/${record.id}`)
   },
   task: {
     label: 'New Group',

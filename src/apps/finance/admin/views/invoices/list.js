@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['paid','unpaid','voided'], padded: true, format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/invoices/${record.id}`),
+    onClick: (record) => context.router.history.push(`/finance/invoices/${record.id}`),
     empty: {
       icon: 'dollar',
       title: 'No Invoice',
