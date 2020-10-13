@@ -53,7 +53,7 @@ class CodeField extends React.Component {
 
   _handleInit() {
     const { defaultValue, lang } = this.props
-    window.ace.config.set('basePath', '/admin/js/ace')
+    window.ace.config.set('basePath', '/js/ace')
     this.editor = window.ace.edit(this.div)
     this.editor.setTheme('ace/theme/chrome')
     this.editor.setDisplayIndentGuides(false)
@@ -84,7 +84,7 @@ class CodeField extends React.Component {
 
 const dependencies = {
   scripts: [
-    { url: `${process.env.WEB_HOST}/admin/js/ace.min.js`, check: 'ace' }
+    { url: `${process.env.WEB_HOST}/js/ace.min.js`, check: 'ace' }
   ]
 }
 
