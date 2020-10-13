@@ -28,7 +28,7 @@ class Phone extends React.Component {
           <div className="maha-attachments-source-favicon">
             { type === 'camera' ?
               <i className="fa fa-camera" /> :
-              <img src="/admin/images/services/device.png" />
+              <img src="/images/services/device.png" />
             }
           </div>
         </div>

@@ -30,7 +30,7 @@ class New extends React.PureComponent {
             <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseService.bind(this, service)}>
               <div className="maha-attachments-source-logo">
                 <div className={`maha-attachments-source-favicon ${service.name}`}>
-                  <img src={ `/admin/images/services/${service.name}.png` } />
+                  <img src={ `/images/services/${service.name}.png` } />
                 </div>
               </div>
               <div className="maha-attachments-source-text">

@@ -21,7 +21,7 @@ class Source extends React.Component {
           <div className={`maha-attachments-source-favicon ${source.service}`}>
             { source.icon ?
               <i className={`fa fa-${source.icon}`} /> :
-              <img src={ `/admin/images/services/${source.service}.png` } />
+              <img src={ `/images/services/${source.service}.png` } />
             }
           </div>
         </div>

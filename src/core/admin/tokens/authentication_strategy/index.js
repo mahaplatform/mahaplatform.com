@@ -28,7 +28,7 @@ const AuthenticationStrategyToken = ({ value }) => {
   return (
     <div className="authentication-strategy-token">
       <div className="authentication-strategy-token-icon">
-        <img src={`/admin/images/services/${strategy.service}.png`} />
+        <img src={`/images/services/${strategy.service}.png`} />
       </div>
       <div className="authentication-strategy-token-label">
         <strong>{ strategy.title }</strong><br />

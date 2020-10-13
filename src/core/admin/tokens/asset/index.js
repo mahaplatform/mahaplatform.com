@@ -12,7 +12,7 @@ class AssetToken extends React.Component {
     content_type: PropTypes.string,
     download: PropTypes.bool,
     file_name: PropTypes.string,
-    file_size: PropTypes.number,
+    file_size: PropTypes.any,
     has_preview: PropTypes.bool,
     id: PropTypes.number,
     original_file_name: PropTypes.string,

@@ -29,7 +29,7 @@ class Review extends React.Component {
                   <div className="maha-attachments-list-item-icon">
                     <AssetThumbnail { ...file } />
                     <div className="maha-attachments-list-item-service">
-                      <img src={ `/admin/images/services/${file.service}.png` } />
+                      <img src={ `/images/services/${file.service}.png` } />
                     </div>
                   </div>
                   <div className="maha-attachments-list-item-name">

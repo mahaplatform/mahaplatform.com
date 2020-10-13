@@ -79,7 +79,7 @@ class Audit extends React.Component {
 
   _getActor(entry) {
     if(entry.contact || entry.user) return entry
-    return { user: { full_name: 'Maha',  photo: '/admin/images/maha.png' } }
+    return { user: { full_name: 'Maha',  photo: '/images/maha.png' } }
   }
 
   _getSubject(entry) {

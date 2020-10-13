@@ -28,7 +28,7 @@ class Gallery extends React.Component {
         { images.slice(0,4).map((image, index) => (
           <div className="maha-gallery-photo" key={`gallery_photo_${index}`} onClick={ this._handleClick.bind(this, image, index) }>
             <Image src={ image.asset.path } transforms={{ fit: 'cover', w: 300, h: 300 }} />
-            <img src={ `/admin/images/services/${image.asset.source}.png` } className="maha-gallery-photo-source" />
+            <img src={ `/images/services/${image.asset.source}.png` } className="maha-gallery-photo-source" />
             { index === 3 && images.length > 4 &&
               <div className="maha-gallery-photo-more" data-count={images.length - 3} />
             }

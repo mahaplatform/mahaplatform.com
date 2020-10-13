@@ -26,7 +26,7 @@ class Methods extends React.Component {
                 <i className={`fa fa-${ this._getIcon(method.value) }`} />
               </div>
               <div className="maha-payment-option-mark">
-                <img src={`/admin/images/payments/${method.value}-mark.png`} />
+                <img src={`/images/payments/${method.value}-mark.png`} />
               </div>
               <div className="maha-payment-option-label">
                 { method.label }

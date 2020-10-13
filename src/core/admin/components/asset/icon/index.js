@@ -15,7 +15,7 @@ class AssetIcon extends React.Component {
         <i className={`fa fa-${this._getIcon()}`} />
         { source &&
           <div className="maha-asset-icon-badge">
-            <img src={ `/admin/images/services/${source}.png` } />
+            <img src={ `/images/services/${source}.png` } />
           </div>
         }
       </div>

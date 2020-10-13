@@ -33,7 +33,7 @@ class New extends React.PureComponent {
           { sources.map((source, index) => (
             <div className="contactimport-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
               <div className="contactimport-source-service">
-                <img src={ `/admin/images/services/${source.service}.png` } />
+                <img src={ `/images/services/${source.service}.png` } />
               </div>
               <div className="contactimport-source-label">
                 { source.label }
