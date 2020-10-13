@@ -76,9 +76,9 @@ const webpackConfig = {
     }
   },
   output: {
-    path: path.resolve('dist.staged','public','admin'),
+    path: path.resolve('dist.staged','public'),
     filename: 'js/[name]-[chunkhash].min.js',
-    publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin`
+    publicPath: process.env.WEB_ASSET_CDN_HOST
   },
   plugins: [
     gitRevisionPlugin,
@@ -88,7 +88,7 @@ const webpackConfig = {
     }),
     new CopyWebpackPlugin([{
       from: path.resolve('src','core','admin','public'),
-      to: path.resolve('dist.staged','public','admin')
+      to: path.resolve('dist.staged','public')
     }]),
     new HtmlWebpackPlugin({
       template: path.resolve('src','core','admin','index.html')
@@ -120,7 +120,7 @@ const webpackConfig = {
       }
     }),
     new webpack.SourceMapDevToolPlugin({
-      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/admin/`,
+      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/`,
       filename: '[file].map',
       columns: true
     })
