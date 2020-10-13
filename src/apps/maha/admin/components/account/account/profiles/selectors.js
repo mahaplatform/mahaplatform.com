@@ -10,5 +10,5 @@ export const types = createSelector(
       ...types[profile.type] || [],
       profile
     ]
-  }), { files: [], photos: [], contacts: [], email: [], posts: [] })
+  }), { files: [], photos: [], contacts: [], email: [], posts: [], surveys: [] })
 )
