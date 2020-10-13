@@ -199,7 +199,7 @@ class Infinite extends React.Component {
   _handleLeave() {
     const { network } = this.context
     const { refresh } = this.props
-    network.join(refresh)
+    network.leave(refresh)
     network.unsubscribe([
       { target: refresh, action: 'refresh', handler: this._handleReload }
     ])

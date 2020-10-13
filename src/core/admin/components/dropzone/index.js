@@ -108,6 +108,24 @@ class DropZone extends React.Component {
     e.stopPropagation()
   }
 
+  _handleJoin(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
   _handleStartHover(e) {
     e.preventDefault()
     e.stopPropagation()
@@ -123,28 +141,20 @@ class DropZone extends React.Component {
   }
 
   _handleFinish(asset) {
-    const { network } = this.context
     if(asset.status !== 'processed') return
     const file = this.files[asset.id]
-    network.leave(`/admin/assets/${asset.id}`)
-    network.unsubscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
-    ])
+    this._handleLeave(asset)
     delete this.files[asset.id]
     this.props.onUpdate(file.uniqueIdentifier, asset)
   }
 
   _handleSuccess(file, message) {
-    const { network } = this.context
     const response = JSON.parse(message)
     const asset = response.data
     this.resumable.removeFile(file)
     this.props.onUpdate(file.uniqueIdentifier, asset)
     this.files[asset.id] = file
-    network.join(`/admin/assets/${asset.id}`)
-    network.subscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
-    ])
+    this._handleJoin(asset)
   }
 
 }

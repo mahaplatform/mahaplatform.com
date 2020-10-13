@@ -128,6 +128,24 @@ class Uploader extends React.Component {
     this.resumable.upload()
   }
 
+  _handleJoin(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
   _handleRemoveUpload(file) {
     this.props.onRemoveUpload(file)
     this.resumable.removeFile(file)
@@ -138,7 +156,6 @@ class Uploader extends React.Component {
   }
 
   _handleUploadSuccess(file, message) {
-    const { network } = this.context
     const { onUpdateUpload, onRemoveUpload } = this.props
     const asset = JSON.parse(message).data
     this.resumable.removeFile(file)
@@ -147,10 +164,7 @@ class Uploader extends React.Component {
       status: asset.status === 'assembled' ? 'processing' : 'complete'
     })
     if(asset.status === 'assembled') {
-      network.join(`/admin/assets/${asset.id}`)
-      network.subscribe([
-        { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessSuccess }
-      ])
+      this._handleJoin(asset)
     } else {
       if(this.handler) this.handler(asset)
       onRemoveUpload(file)
@@ -158,15 +172,11 @@ class Uploader extends React.Component {
   }
 
   _handleProcessSuccess(asset) {
-    const { network } = this.context
     if(asset.status !== 'processed') return
     const { uploads, onRemoveUpload, onUpdateUpload } = this.props
     const file = _.find(uploads, { asset_id: asset.id })
     onUpdateUpload(file.file.uniqueIdentifier, { status: 'complete' })
-    network.leave(`/admin/assets/${asset.id}`)
-    network.unsubscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessSuccess }
-    ])
+    this._handleLeave(asset)
     if(this.handler) this.handler(asset)
     onRemoveUpload(file)
   }

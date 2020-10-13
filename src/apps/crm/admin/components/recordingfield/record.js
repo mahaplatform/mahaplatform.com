@@ -129,22 +129,22 @@ class Record extends React.PureComponent {
   _handleJoin() {
     const { network } = this.context
     const { code } = this.props
-    const channel = `/admin/crm/recordings/${code}`
-    network.join(channel)
+    const target = `/admin/crm/recordings/${code}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'created', handler: this._handleCreated },
-      { target: channel, action: 'status', handler: this._handleSetStatus }
+      { target, action: 'created', handler: this._handleCreated },
+      { target, action: 'status', handler: this._handleSetStatus }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
     const { code } = this.props
-    const channel = `/admin/crm/recordings/${code}`
-    network.leave(channel)
+    const target = `/admin/crm/recordings/${code}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'created', handler: this._handleCreated },
-      { target: channel, action: 'status', handler: this._handleSetStatus }
+      { target, action: 'created', handler: this._handleCreated },
+      { target, action: 'status', handler: this._handleSetStatus }
     ])
   }
 

@@ -115,19 +115,19 @@ class Profilefield extends React.PureComponent {
 
   _handleJoin() {
     const { network } = this.context
-    const channel = '/admin/account/profiles'
-    network.join(channel)
+    const target = '/admin/account/profiles'
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
-    const channel = '/admin/account/profiles'
-    network.leave(channel)
+    const target = '/admin/account/profiles'
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 

@@ -50,19 +50,19 @@ class Badge extends React.Component {
 
   _handleJoin() {
     const { network } = this.context
-    const { channel } = this.props
-    network.join(channel)
+    const target = this.props.channel
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
-    const { channel } = this.props
-    network.leave(channel)
+    const target = this.props.channel
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 

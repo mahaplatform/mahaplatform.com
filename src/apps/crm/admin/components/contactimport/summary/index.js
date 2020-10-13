@@ -369,20 +369,20 @@ class Summary extends React.PureComponent {
   _handleJoin() {
     const { network } = this.context
     const { _import } = this.props
-    const channel = `/admin/imports/${_import.id}`
-    network.join(channel)
+    const target = `/admin/imports/${_import.id}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
     const { _import } = this.props
-    const channel = `/admin/imports/${_import.id}`
-    network.leave(channel)
+    const target = `/admin/imports/${_import.id}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 

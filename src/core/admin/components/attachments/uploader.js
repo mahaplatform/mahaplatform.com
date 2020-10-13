@@ -125,6 +125,24 @@ class Uploader extends React.Component {
     })
   }
 
+  _handleJoin(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave(asset) {
+    const { network } = this.context
+    const target = `/admin/assets/${asset.id}`
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
   _handleLoad(file, e) {
     const arrayBuffer = e.target.result
     const bytes = new Uint8Array(arrayBuffer)
@@ -145,17 +163,13 @@ class Uploader extends React.Component {
   }
 
   _handleProcessed(asset) {
-    const { network } = this.context
     if(!asset || asset.status !== 'processed') return
     const file = _.find(file, { asset: { id: asset.id } })
     const index = this._getFileIndex(file)
     this.props.onUpdate(index, {
       status: 'imported'
     })
-    network.leave(`/admin/assets/${asset.id}`)
-    network.unsubscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessed }
-    ])
+    this._handleLeave(asset)
   }
 
   _handleProgress(file) {
@@ -177,7 +191,6 @@ class Uploader extends React.Component {
   }
 
   _handleSuccess(file, message) {
-    const { network } = this.context
     const asset = JSON.parse(message).data
     this.resumable.removeFile(file)
     const index = this._getFileIndex(file)
@@ -185,12 +198,7 @@ class Uploader extends React.Component {
       asset,
       status: asset.status === 'assembled' ? 'processing' : 'complete'
     })
-    if(asset.status === 'assembled') {
-      network.join(`/admin/assets/${asset.id}`)
-      network.subscribe([
-        { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessed }
-      ])
-    }
+    if(asset.status === 'assembled') this._handleJoin(asset)
   }
 
   _handleRetry(id) {

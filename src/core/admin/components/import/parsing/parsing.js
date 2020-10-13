@@ -107,23 +107,23 @@ class Parsing extends React.Component {
 
   _handleJoin() {
     const { network } = this.context
-    const channel = `/admin/imports/${this.props.import.id}`
-    network.join(channel)
+    const target = `/admin/imports/${this.props.import.id}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'progress', handler: this._handleProgress },
-      { target: channel, action: 'success', handler: this._handleSuccess },
-      { target: channel, action: 'failed', handler: this._handleFailure }
+      { target, action: 'progress', handler: this._handleProgress },
+      { target, action: 'success', handler: this._handleSuccess },
+      { target, action: 'failed', handler: this._handleFailure }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
-    const channel = `/admin/imports/${this.props.import.id}`
-    network.leave(channel)
+    const target = `/admin/imports/${this.props.import.id}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'progress', handler: this._handleProgress },
-      { target: channel, action: 'success', handler: this._handleSuccess },
-      { target: channel, action: 'failed', handler: this._handleFailure }
+      { target, action: 'progress', handler: this._handleProgress },
+      { target, action: 'success', handler: this._handleSuccess },
+      { target, action: 'failed', handler: this._handleFailure }
     ])
   }
 

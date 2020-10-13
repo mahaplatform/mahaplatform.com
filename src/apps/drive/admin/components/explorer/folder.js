@@ -93,12 +93,7 @@ class Folder extends React.Component {
   }
 
   componentDidMount() {
-    const { network } = this.context
-    const { folder } = this.props
-    network.join(`/admin/drive/folders/${folder.code}`)
-    network.subscribe([
-      { target: `/admin/drive/folders/${folder.code}`, action: 'refresh', handler: this._handleRefreshFolder }
-    ])
+    this._handleJoin()
     this._handleFocus()
   }
 
@@ -110,12 +105,7 @@ class Folder extends React.Component {
   }
 
   componentWillUnmount() {
-    const { network } = this.context
-    const { folder } = this.props
-    network.leave(`/admin/drive/folders/${folder.code}`)
-    network.unsubscribe([
-      { target: `/admin/drive/folders/${folder.code}`, action: 'refresh', handler: this._handleRefreshFolder }
-    ])
+    this._handleLeave()
   }
 
   _getAttachments() {
@@ -290,6 +280,26 @@ class Folder extends React.Component {
     const { folder } = this.props
     const path = this._getPath(folder.code)
     this.context.router.history.replace(path)
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const { folder } = this.props
+    const target = `/admin/drive/folders/${folder.code}`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleRefreshFolder }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const { folder } = this.props
+    const target = `/admin/drive/folders/${folder.code}`
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleRefreshFolder }
+    ])
   }
 
   _handleTasks(e) {

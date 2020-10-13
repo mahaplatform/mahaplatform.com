@@ -203,19 +203,19 @@ class Validating extends React.Component {
 
   _handleJoin() {
     const { network } = this.context
-    const channel = `/admin/imports/${this.props.import.id}`
-    network.join(channel)
+    const target = `/admin/imports/${this.props.import.id}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetchImport }
+      { target, action: 'refresh', handler: this._handleFetchImport }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
-    const channel = `/admin/imports/${this.props.import.id}`
-    network.leave(channel)
+    const target = `/admin/imports/${this.props.import.id}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetchImport }
+      { target, action: 'refresh', handler: this._handleFetchImport }
     ])
   }
 

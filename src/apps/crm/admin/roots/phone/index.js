@@ -275,19 +275,19 @@ class PhoneRoot extends React.Component {
 
   _handleJoin(call) {
     const { network } = this.context
-    const channel = `/admin/calls/${call.id}`
-    network.join(channel)
+    const target = `/admin/calls/${call.id}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'status', handler: this._handleUpdateCallStatus }
+      { target, action: 'status', handler: this._handleUpdateCallStatus }
     ])
   }
 
   _handleLeave(call) {
     const { network } = this.context
-    const channel = `/admin/calls/${call.id}`
-    network.leave(channel)
+    const target = `/admin/calls/${call.id}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'status', handler: this._handleUpdateCallStatus }
+      { target, action: 'status', handler: this._handleUpdateCallStatus }
     ])
   }
 

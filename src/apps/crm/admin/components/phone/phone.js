@@ -194,19 +194,19 @@ class Phone extends React.Component {
 
   _handleJoin(program) {
     const { network } = this.context
-    const channel = `/admin/crm/programs/${program.id}/receipts`
-    network.join(channel)
+    const target = `/admin/crm/programs/${program.id}/receipts`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave(program) {
     const { network } = this.context
-    const channel = `/admin/crm/programs/${program.id}/receipts`
-    network.leave(channel)
+    const target = `/admin/crm/programs/${program.id}/receipts`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 

@@ -94,20 +94,20 @@ class Versions extends React.Component {
   _handleJoin() {
     const { file } = this.props
     const { network } = this.context
-    const channel = `/admin/drive/files/${file.code}`
-    network.join(channel)
+    const target = `/admin/drive/files/${file.code}`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleRefresh }
+      { target, action: 'refresh', handler: this._handleRefresh }
     ])
   }
 
   _handleLeave() {
     const { file } = this.props
     const { network } = this.context
-    const channel = `/admin/drive/files/${file.code}`
-    network.leave(channel)
+    const target = `/admin/drive/files/${file.code}`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleRefresh }
+      { target, action: 'refresh', handler: this._handleRefresh }
     ])
   }
 

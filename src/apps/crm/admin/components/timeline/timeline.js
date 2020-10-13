@@ -121,20 +121,20 @@ class Timeline extends React.PureComponent {
   _handleJoin() {
     const { network } = this.context
     const { contact } = this.props
-    const channel = `/admin/crm/contacts/${contact.id}/activities`
-    network.join(channel)
+    const target = `/admin/crm/contacts/${contact.id}/activities`
+    network.join(target)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
     const { contact } = this.props
-    const channel = `/admin/crm/contacts/${contact.id}/activities`
-    network.leave(channel)
+    const target = `/admin/crm/contacts/${contact.id}/activities`
+    network.leave(target)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
