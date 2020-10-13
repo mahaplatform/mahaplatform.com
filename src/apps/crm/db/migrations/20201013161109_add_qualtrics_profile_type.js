@@ -1,11 +1,7 @@
 const AddQualtricsProfileType = {
 
   up: async (knex) => {
-
-    await knex('maha_profile_types').insert([
-      { text: 'qualtrics' }
-    ])
-
+    await knex.raw('alter type maha_profiles_type add value \'surveys\'')
   },
 
   down: async (knex) => {
