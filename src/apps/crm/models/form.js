@@ -22,7 +22,7 @@ const Form = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/forms/${this.get('id')}`
+      return `/crm/forms/${this.get('id')}`
     },
 
     editable() {

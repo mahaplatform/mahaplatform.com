@@ -20,7 +20,7 @@ const PhoneNumber = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/phone_numbers/${this.get('id')}`
+      return `/team/phone_numbers/${this.get('id')}`
     },
 
     formatted() {

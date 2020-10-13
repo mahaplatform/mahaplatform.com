@@ -40,7 +40,7 @@ const Trip = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/trips/${this.get('id')}`
+      return `/finance/trips/${this.get('id')}`
     }
 
   },

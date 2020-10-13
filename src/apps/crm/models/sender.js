@@ -20,7 +20,7 @@ const Sender = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/programs/${this.get('program_id')}/senders/${this.get('id')}`
+      return `/crm/programs/${this.get('program_id')}/senders/${this.get('id')}`
     },
 
     rfc822: function() {

@@ -23,7 +23,7 @@ const Role = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/roles/${this.get('id')}`
+      return `/team/roles/${this.get('id')}`
     }
 
   },

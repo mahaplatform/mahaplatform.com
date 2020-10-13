@@ -28,7 +28,7 @@ const Workflow = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/workflows/${this.get('id')}`
+      return `/crm/workflows/${this.get('id')}`
     },
 
     display_name() {

@@ -23,7 +23,7 @@ const Deposit = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/deposits/${this.get('id')}`
+      return `/finance/deposits/${this.get('id')}`
     }
 
   },

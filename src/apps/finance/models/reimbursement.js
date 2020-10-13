@@ -37,7 +37,7 @@ const Reimbursement = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/reimbursements/${this.get('id')}`
+      return `/finance/reimbursements/${this.get('id')}`
     },
 
     receipt_ids: function() {

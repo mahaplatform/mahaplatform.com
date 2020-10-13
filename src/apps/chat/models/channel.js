@@ -26,7 +26,7 @@ const Channel = new Model({
     },
 
     object_url: function() {
-      return `/admin/chat/channels/${this.get('id')}`
+      return `/chat/channels/${this.get('id')}`
     }
 
   },

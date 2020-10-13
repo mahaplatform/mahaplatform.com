@@ -19,7 +19,7 @@ const Topic = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/programs/${this.get('program_id')}/topics/${this.get('id')}`
+      return `/crm/programs/${this.get('program_id')}/topics/${this.get('id')}`
     }
 
   },

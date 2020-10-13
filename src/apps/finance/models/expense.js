@@ -38,7 +38,7 @@ const Expense = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/expenses/${this.get('id')}`
+      return `/finance/expenses/${this.get('id')}`
     },
 
     receipt_ids: function() {

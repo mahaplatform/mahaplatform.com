@@ -19,7 +19,7 @@ const Rate = new Model({
     },
 
     object_url: function() {
-      return '/admin/finance/rates'
+      return '/finance/rates'
     }
 
   }

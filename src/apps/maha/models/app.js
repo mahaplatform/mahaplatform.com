@@ -39,7 +39,7 @@ const App = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/apps/${this.get('id')}`
+      return `/team/apps/${this.get('id')}`
     }
 
   },

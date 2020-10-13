@@ -37,7 +37,7 @@ const Check = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/checks/${this.get('id')}`
+      return `/finance/checks/${this.get('id')}`
     },
 
     receipt_ids: function() {

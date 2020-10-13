@@ -25,7 +25,7 @@ const ExpenseType = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/expense_types/${this.get('id')}`
+      return `/finance/expense_types/${this.get('id')}`
     }
 
   }

@@ -16,7 +16,7 @@ const Account = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/accounts/${this.get('id')}`
+      return `/finance/accounts/${this.get('id')}`
     }
 
   },

@@ -16,7 +16,7 @@ const updateRoute = async (req, res) => {
     story: 'updated {object}',
     object: req.team,
     object_text: 'team settings',
-    object_url: '/admin/team/settings'
+    object_url: '/team/settings'
   })
 
   await socket.refresh(req, [

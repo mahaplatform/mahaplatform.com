@@ -21,7 +21,7 @@ const Category = new Model({
     },
 
     object_url: function() {
-      return `/admin/eatfresh/categories/${this.get('id')}`
+      return `/eatfresh/categories/${this.get('id')}`
     }
 
   },

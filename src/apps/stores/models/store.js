@@ -22,7 +22,7 @@ const Store = new Model({
     },
 
     object_url: function() {
-      return `/admin/stores/stores/${this.get('id')}`
+      return `/stores/stores/${this.get('id')}`
     },
 
     url() {

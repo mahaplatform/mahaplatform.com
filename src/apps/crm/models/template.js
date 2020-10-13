@@ -6,7 +6,7 @@ const Template = new Model({
   tableName: 'crm_templates',
 
   rules: {
-    
+
   },
 
   virtuals: {
@@ -20,7 +20,7 @@ const Template = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/programs/${this.get('program_id')}/templates/${this.get('id')}`
+      return `/crm/programs/${this.get('program_id')}/templates/${this.get('id')}`
     },
 
     preview() {

@@ -20,7 +20,7 @@ const County = new Model({
     },
 
     object_url: function() {
-      return `/admin/eatfresh/counties/${this.get('id')}`
+      return `/eatfresh/counties/${this.get('id')}`
     }
 
   },

@@ -20,7 +20,7 @@ const Installation = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/apps/${this.get('app_id')}`
+      return `/team/apps/${this.get('app_id')}`
     }
 
   },

@@ -22,7 +22,7 @@ const VoiceCampaign = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/campaigns/voice/${this.get('id')}`
+      return `/crm/campaigns/voice/${this.get('id')}`
     }
 
   },

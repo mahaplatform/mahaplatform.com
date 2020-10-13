@@ -25,7 +25,7 @@ const Invoice = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/invoices/${this.get('id')}`
+      return `/finance/invoices/${this.get('id')}`
     }
 
   },

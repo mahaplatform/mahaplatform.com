@@ -25,7 +25,7 @@ const Email = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/emails/${this.get('id')}`
+      return `/crm/emails/${this.get('id')}`
     },
 
     editable() {

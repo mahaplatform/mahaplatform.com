@@ -21,7 +21,7 @@ const Email = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/emails/${this.get('id')}`
+      return `/team/emails/${this.get('id')}`
     }
 
   },

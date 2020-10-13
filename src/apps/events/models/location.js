@@ -18,7 +18,7 @@ const Location = new Model({
     },
 
     object_url: function() {
-      return `/admin/events/locations/${this.get('id')}`
+      return `/events/locations/${this.get('id')}`
     }
 
   },

@@ -22,7 +22,7 @@ const SmsCampaign = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/campaigns/sms/${this.get('id')}`
+      return `/crm/campaigns/sms/${this.get('id')}`
     }
 
   },

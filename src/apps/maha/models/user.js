@@ -52,7 +52,7 @@ const User = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/users/${this.get('id')}`
+      return `/team/users/${this.get('id')}`
     },
 
     rfc822: function() {

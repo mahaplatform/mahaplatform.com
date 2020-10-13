@@ -21,7 +21,7 @@ const HelpArticle = new Model({
     },
 
     object_url: function() {
-      return `/admin/platform/help/articles/${this.get('id')}`
+      return `/platform/help/articles/${this.get('id')}`
     }
 
   },

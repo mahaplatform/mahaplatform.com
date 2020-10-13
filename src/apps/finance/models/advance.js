@@ -36,7 +36,7 @@ const Advances = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/advances/${this.get('id')}`
+      return `/finance/advances/${this.get('id')}`
     }
 
   },

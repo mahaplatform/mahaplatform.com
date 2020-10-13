@@ -22,7 +22,7 @@ const Offering = new Model({
     },
 
     object_url: function() {
-      return `/admin/eatfresh/offerings/${this.get('id')}`
+      return `/eatfresh/offerings/${this.get('id')}`
     }
 
   },

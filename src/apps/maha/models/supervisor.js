@@ -20,7 +20,7 @@ const Supervisor = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/supervisors/${this.get('id')}`
+      return `/team/supervisors/${this.get('id')}`
     }
 
   },

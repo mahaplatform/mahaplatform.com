@@ -35,7 +35,7 @@ const Attraction = new Model({
     },
 
     object_url: function() {
-      return `/admin/eatfresh/attractions/${this.get('id')}`
+      return `/eatfresh/attractions/${this.get('id')}`
     },
 
     offering_ids: function() {

@@ -21,7 +21,7 @@ const Vendor = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/vendors/${this.get('id')}`
+      return `/finance/vendors/${this.get('id')}`
     }
 
   },

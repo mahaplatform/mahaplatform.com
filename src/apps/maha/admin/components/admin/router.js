@@ -28,7 +28,6 @@ class AdminRouter extends React.Component {
     return this.props.children
   }
 
-
   getChildContext() {
     const { router } = this.context
     return {
@@ -65,7 +64,10 @@ class AdminRouter extends React.Component {
     const targetApp = apps.find(app => {
       return app.path === `/${subdomain}`
     })
-    if(!targetTeam && targetApp) {
+    const isCorePage = [/^\/assets/,/\/attachments/,/^\/dashboard/,/^\/emails/,/^\/help/,/^\/notifications/,/^\/search/].find(regex => {
+      return regex.test(fullpath)
+    })
+    if(!targetTeam && (targetApp || isCorePage)) {
       return `/${team.subdomain}${fullpath}`
     } else if(!targetTeam && !targetApp) {
       return '/forbidden'

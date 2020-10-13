@@ -20,7 +20,7 @@ const Group = new Model({
     },
 
     object_url: function() {
-      return `/admin/team/groups/${this.get('id')}`
+      return `/team/groups/${this.get('id')}`
     }
 
   },

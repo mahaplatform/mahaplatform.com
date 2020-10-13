@@ -21,7 +21,7 @@ const EmailCampaign = new Model({
     },
 
     object_url: function() {
-      return `/admin/crm/campaigns/email/${this.get('id')}`
+      return `/crm/campaigns/email/${this.get('id')}`
     },
 
     editable() {

@@ -25,6 +25,18 @@ const Contact = new Model({
 
   virtuals: {
 
+    object_text: function() {
+      return this.get('display_name')
+    },
+
+    object_type: function() {
+      return 'contact'
+    },
+
+    object_url: function() {
+      return `/crm/contacts/${this.get('id')}`
+    },
+
     full_name: function() {
       const parts = []
       if(this.get('first_name')) parts.push(this.get('first_name'))

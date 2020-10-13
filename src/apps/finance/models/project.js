@@ -24,7 +24,7 @@ const Project = new Model({
     },
 
     object_url: function() {
-      return `/admin/finance/projects/${this.get('id')}`
+      return `/finance/projects/${this.get('id')}`
     }
 
   },
