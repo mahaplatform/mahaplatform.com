@@ -1,7 +1,7 @@
 import generateCode from '../../../../core/utils/generate_code'
+import socket from '../../../../core/services/routes/emitter'
 import { createAsset } from '../../../maha/services/assets'
 import { sendEmail } from '../../../maha/services/emails'
-import socket from '../../../../core/services/emitter'
 import Reimbursement from '../../models/reimbursement'
 import Source from '../../../maha/models/source'
 import Story from '../../../maha/models/story'
@@ -120,10 +120,9 @@ const _processEmail = async (req, { type, incoming_email }) => {
     transacting: req.trx
   })
 
-  await socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
-    target: '/admin/finance/items',
-    action: 'refresh',
-    data: null
+  await socket.refresh(req, {
+    channel: 'user',
+    target: '/admin/finance/items'
   })
 
   return item

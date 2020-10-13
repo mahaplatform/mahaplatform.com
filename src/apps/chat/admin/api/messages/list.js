@@ -70,7 +70,7 @@ const listRoute = async (req, res) => {
   }))
 
   const updateUnread = {
-    channel: `/admin/users/${req.user.get('id')}`,
+    channel: 'user',
     target: '/admin/chat/messages',
     action: 'update_unread',
     data: await getUnread(req, req.user.get('id'))

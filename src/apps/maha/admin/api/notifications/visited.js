@@ -26,7 +26,7 @@ const seenRoute = async (req, res) => {
   })
 
   await socket.refresh(req, {
-    channel: '/admin/user',
+    channel: 'user',
     target: '/admin/notifications'
   })
 

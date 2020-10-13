@@ -1,6 +1,6 @@
 import { createAsset, createAssetFromUrl } from '../../../services/assets'
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
-import socket from '../../../../../core/services/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import constantcontact from './constantcontact/token'
 import Profile from '../../../models/profile'
 import Source from '../../../models/source'
@@ -123,14 +123,12 @@ const token = async (req, res) => {
 
   })
 
-  await socket.in(`/admin/accounts/${req.user.get('id')}`).emit('message', {
-    target: `/admin/${req.params.source}/authorized`,
-    action: 'refresh'
-  })
-
-  await socket.in(`/admin/accounts/${req.user.get('id')}`).emit('message', {
-    target: '/admin/account/profiles',
-    action: 'refresh'
+  await socket.refresh(req, {
+    channel: 'account',
+    target: [
+      `/admin/${req.params.source}/authorized`,
+      '/admin/account/profiles'
+    ]
   })
 
   res.render('token')

@@ -27,10 +27,7 @@ const createRoute = async (req, res) => {
     `/admin/users/${req.user.get('id')}`,
     '/admin/finance/approvals',
     '/admin/finance/reports',
-    {
-      channel: 'user',
-      target: '/admin/finance/items'
-    }
+    { channel: 'user', target: '/admin/finance/items' }
   ])
 
   res.status(200).respond(checks, CheckSerializer)
