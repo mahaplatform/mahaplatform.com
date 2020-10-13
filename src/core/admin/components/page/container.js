@@ -141,19 +141,21 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
 
     _handleJoin() {
       const { pathname } = this.props
-      const { network } = this.context
-      network.join(pathname)
+      const { admin, network } = this.context
+      const target = pathname.replace(admin.team.subdomain, 'admin')
+      network.join(target)
       network.subscribe([
-        { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
+        { target, action: 'refresh', handler: this._handleRefreshResources }
       ])
     }
 
     _handleLeave() {
       const { pathname } = this.props
-      const { network } = this.context
-      network.leave(pathname)
+      const { admin, network } = this.context
+      const target = pathname.replace(admin.team.subdomain, 'admin')
+      network.leave(target)
       network.unsubscribe([
-        { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
+        { target, action: 'refresh', handler: this._handleRefreshResources }
       ])
     }
 
