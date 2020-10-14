@@ -25,6 +25,7 @@ export const processor = async (req) => {
   const users = notifications.reduce((users, notification) => ({
     ...users,
     [notification.get('user_id')]: {
+      team: notification.related('team'),
       user: notification.related('user'),
       notifications: [
         ..._.get(users, `[${notification.get('user_id')}].notifications`) || [],
@@ -33,10 +34,10 @@ export const processor = async (req) => {
     }
   }), {})
 
-  await Promise.map(Object.values(users), async ({ user, notifications }) => {
+  await Promise.map(Object.values(users), async ({ user, team, notifications }) => {
     await sendNotificationEmail(user, notifications.map(notification => ({
       body: notification.description,
-      route: notification.url,
+      route: `/${team.get('subdomain')}/${notification.url}`,
       user: notification.subject,
       created_at: notification.created_at
     })))

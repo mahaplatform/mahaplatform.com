@@ -10,7 +10,7 @@ const processor = async (req, job) => {
   const notification = await Notification.where({
     id: job.data.id
   }).fetch({
-    withRelated: ['app','notification_type','object_owner','subject.photo','story','team','user','user.photo'],
+    withRelated: ['app','notification_type','object_owner','subject.photo','story','team','user.photo'],
     transacting: req.trx
   })
 
@@ -23,7 +23,7 @@ const processor = async (req, job) => {
       title: 'New Notification',
       type: notification.get('type'),
       body: serialized.description,
-      route: serialized.url,
+      route: `/${notification.related('team').get('subdomain')}${serialized.url}`,
       user: serialized.subject,
       created_at: serialized.created_at
     }

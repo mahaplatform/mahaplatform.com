@@ -17,7 +17,7 @@ export const sendChatNotification = async (req, { message_id }) => {
     qb.whereRaw('id != ?', message.get('user_id'))
     qb.whereRaw('last_viewed_at < ?', message.get('created_at'))
   }).fetchAll({
-    withRelated: ['user.photo'],
+    withRelated: ['user.photo','team'],
     transacting: req.trx
   })
 
@@ -32,7 +32,7 @@ export const sendChatNotification = async (req, { message_id }) => {
         title: `New Message from ${serialized.user.full_name}`,
         type: 'chat:message_received',
         body: serialized.text,
-        route: `/admin/chat/channels/${serialized.channel_id}`,
+        route: `/${subscription.related('team').get('subdomain')}/chat/channels/${serialized.channel_id}`,
         user: serialized.user,
         created_at: serialized.created_at
       }
