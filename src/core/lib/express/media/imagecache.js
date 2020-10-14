@@ -8,7 +8,7 @@ import fs from 'fs'
 
 const getRoot = (env) => {
   const root = path.resolve(__dirname,'..','..','..')
-  if(env === 'production') return path.join(root,'..','public','admin')
+  if(env === 'production') return path.join(root,'..','public')
   return path.join(root,'admin','public')
 }
 

@@ -6,7 +6,7 @@ import path from 'path'
 
 const getRoot = () => {
   if(process.env.NODE_ENV === 'production') {
-    return path.resolve(__dirname,'..','..','..','..','..','public','admin')
+    return path.resolve(__dirname,'..','..','..','..','..','public')
   }
   return path.resolve(__dirname,'..','..','..','..','..','core','admin','public')
 }
