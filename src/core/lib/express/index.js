@@ -6,7 +6,6 @@ import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
 import rollbarMiddleware from './rollbar'
 import transaction from './transaction'
-import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
 import bodyParser from 'body-parser'
@@ -67,8 +66,6 @@ server.use(serverMiddleware)
 server.use('/api', apiMiddleware)
 
 server.use('/*', homeMiddleware)
-
-// server.use(legacyMiddleware)
 
 server.use((req, res) => res.send('not found'))
 
