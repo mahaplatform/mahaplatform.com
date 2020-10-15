@@ -95,13 +95,13 @@ class AssetViewer extends React.Component {
     const url = asset.signed_url || `${host}/${asset.path}`
     const file = encodeURIComponent(url)
     const type = this._getType()
-    if(type === 'pdf') return `/admin/doc.html?file=${file}`
-    if(type === 'word') return `/admin/doc.html?file=${file}`
-    if(type === 'powerpoint') return `/admin/doc.html?file=${file}`
-    if(type === 'excel') return `/admin/doc.html?file=${file}`
-    if(type === 'audio') return `/admin/audio.html?file=${file}`
-    if(type === 'video') return `/admin/video.html?file=${file}`
-    if(type === 'image') return `/admin/image.html?file=${file}`
+    if(type === 'pdf') return `/doc.html?file=${file}`
+    if(type === 'word') return `/doc.html?file=${file}`
+    if(type === 'powerpoint') return `/doc.html?file=${file}`
+    if(type === 'excel') return `/doc.html?file=${file}`
+    if(type === 'audio') return `/audio.html?file=${file}`
+    if(type === 'video') return `/video.html?file=${file}`
+    if(type === 'image') return `/image.html?file=${file}`
     if(_.includes(['text','html'], type)) return url
     return null
   }
