@@ -1,5 +1,6 @@
 import { Error, Logger, Network } from 'maha-client'
 import { hot } from 'react-hot-loader'
+import Store from './components/store'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -16,7 +17,7 @@ class App extends React.Component {
         <Logger environment="registration">
           <Error>
             <Network>
-              store
+              <Store />
             </Network>
           </Error>
         </Logger>
