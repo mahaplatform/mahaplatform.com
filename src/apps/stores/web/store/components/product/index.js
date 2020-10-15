@@ -12,13 +12,15 @@ class Product extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
 
   render() {
-    const { product } = this.props
+    const product = { id: 1, title: 'Tulip Couleur Cardinal', variants: [
+      { fixed_price: 7.50, inventory_quantity: 0, media: [
+        { path: 'https://cdn.shopify.com/s/files/1/1419/7120/products/sq2Tulip_Coleur_Cardinal.SHUT_1024x.jpg?v=1571439571' }
+      ] }
+    ] }
     return (
       <div className="store-catalog-item">
-        <img src={ product.media[0].path } />
+        <img src={ product.variants[0].media[0].path } />
         <h3>{ product.title }</h3>
-        <p>{ numeral(product.fixed_price).format('0.00') }</p>
-        <Button { ...this._getAdd() } />
       </div>
     )
   }

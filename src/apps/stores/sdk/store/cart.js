@@ -6,6 +6,7 @@ class Cart extends Emitter {
   code = null
   checkout = null
   db = null
+  overlay = null
   pasteur = null
   iframe = null
   items = []
@@ -26,7 +27,6 @@ class Cart extends Emitter {
 
   addItem(code) {
     this.pasteur.send('add', code, this._handleChange, this._handleError)
-    this.show()
   }
 
   clearItems() {
@@ -46,6 +46,7 @@ class Cart extends Emitter {
   hide() {
     this.open = false
     this.cart.className = 'maha-store-cart'
+    this.overlay.className = 'maha-store-cart-overlay'
   }
 
   removeItem(code) {
@@ -55,6 +56,7 @@ class Cart extends Emitter {
   show() {
     this.open = true
     this.cart.className = 'maha-store-cart open'
+    this.overlay.className = 'maha-store-cart-overlay open'
   }
 
   toggle() {
@@ -93,9 +95,14 @@ class Cart extends Emitter {
     this.iframe = document.createElement('iframe')
     this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
     this.iframe.frameBorder = 0
+    this.overlay = document.createElement('div')
+    this.overlay.className = 'maha-store-cart-overlay'
+    this.overlay.appendChild(this.iframe)
+    this.overlay.onclick = this._handleClose
     this.cart = document.createElement('div')
     this.cart.className = 'maha-store-cart'
     this.cart.appendChild(this.iframe)
+    document.body.appendChild(this.overlay)
     document.body.appendChild(this.cart)
     this.pasteur = new Pasteur({
       window,

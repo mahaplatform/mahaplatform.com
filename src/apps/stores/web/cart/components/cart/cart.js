@@ -57,8 +57,6 @@ class Cart extends React.Component {
               <tr>
                 <td />
                 <td>Product</td>
-                <td>Qty</td>
-                <td>Price</td>
                 <td>Total</td>
               </tr>
             </thead>
@@ -80,7 +78,7 @@ class Cart extends React.Component {
                       </div>
                       <div className="maha-cart-product-details">
                         <div className="maha-cart-product-name">
-                          { item.title }
+                          { item.title } x { item.quantity }
                         </div>
                         { item.options.length > 0 &&
                           <div className="maha-cart-product-options">
@@ -92,26 +90,18 @@ class Cart extends React.Component {
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <div className="maha-cart-quantity">
-                      <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, -1) }>-</div>
-                      <div className="maha-cart-quantity-value">{ item.quantity }</div>
-                      <div className="maha-cart-quantity-control" onClick={ this._handleUpdate.bind(this, item.code, 1) }>+</div>
-                    </div>
-                  </td>
-                  <td>{ numeral(item.price).format('0.00') }</td>
                   <td>{ numeral(item.quantity * item.price).format('0.00') }</td>
                 </tr>
               )) }
               { shipping > 0 &&
                 <tr>
-                  <td colSpan="4">Shipping / Handling</td>
+                  <td colSpan="2">Shipping / Handling</td>
                   <td>{ numeral(shipping).format('0.00') }</td>
                 </tr>
               }
               { items.length === 0 &&
                 <tr>
-                  <td colSpan="5">The cart is empty</td>
+                  <td colSpan="3">The cart is empty</td>
                 </tr>
               }
             </tbody>
@@ -119,18 +109,18 @@ class Cart extends React.Component {
               <tfoot>
                 { tax > 0 &&
                   <tr>
-                    <th colSpan="4">Subtotal</th>
+                    <th colSpan="2">Subtotal</th>
                     <td>{ numeral(subtotal).format('0.00') }</td>
                   </tr>
                 }
                 { tax > 0 &&
                   <tr>
-                    <td colSpan="4">Tax</td>
+                    <td colSpan="2">Tax</td>
                     <td>{ numeral(tax).format('0.00') }</td>
                   </tr>
                 }
                 <tr>
-                  <th colSpan="4">Total</th>
+                  <th colSpan="2">Total</th>
                   <td>{ numeral(total).format('0.00') }</td>
                 </tr>
               </tfoot>

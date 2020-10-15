@@ -1,19 +1,29 @@
+import { Image } from 'maha-client'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
 class Catalog extends React.Component {
 
-  static propTypes = {
-    product: PropTypes.object
+  static contextTypes = {
+    router: PropTypes.object
   }
+
+  static propTypes = {
+    product: PropTypes.object,
+    store: PropTypes.object
+  }
+
+  _handleClick = this._handleClick.bind(this)
 
   render() {
     const { product } = this.props
     const inventory = this._getInventory()
     return (
-      <div className={ this._getClass() }>
-        <img src={ product.variants[0].media[0].path } />
+      <div className={ this._getClass() } onClick={ this._handleClick }>
+        { product.variants[0].photos.length > 0 &&
+          <Image { ...this._getThumbnail(product) } />
+        }
         <h3>{ product.title }</h3>
         { inventory > 0 ?
           <p>{ inventory } in stock</p> :
@@ -22,6 +32,13 @@ class Catalog extends React.Component {
         <p>{ numeral(product.variants[0].fixed_price).format('$0.00') }</p>
       </div>
     )
+  }
+
+  _getThumbnail(product) {
+    return {
+      src: product.variants[0].photos[0] ? product.variants[0].photos[0].asset.path : null,
+      transforms: { fit: 'cover', w: 250, h: 250 }
+    }
   }
 
   _getClass() {
@@ -36,6 +53,12 @@ class Catalog extends React.Component {
     return product.variants.reduce((inventory, variant) => {
       return inventory + variant.inventory_quantity
     }, 0)
+  }
+
+  _handleClick() {
+    const { product } = this.props
+    this.props.store.cart.addItem(product.variants[0].code)
+    // this.context.router.history.push('/stores/stores/maha/products/1')
   }
 
 }

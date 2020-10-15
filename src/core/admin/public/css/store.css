@@ -30,12 +30,22 @@
 .maha-store-checkout-modal iframe {
   flex: 1;
 }
+.maha-store-cart-overlay.open {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+}
 .maha-store-cart {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 500px;
+  width: 100%;
+  max-width: 375px;
   background-color: #EEEEEE;
   transition: transform .15s ease-in-out 0s;
   transform: translateX(calc(100% + 5px));

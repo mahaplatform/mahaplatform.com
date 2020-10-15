@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from 'react-router-dom'
 import { Error, Logger, Network } from 'maha-client'
 import { hot } from 'react-hot-loader'
 import Store from './components/store'
@@ -14,13 +15,15 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Logger environment="registration">
-          <Error>
-            <Network>
-              <Store />
-            </Network>
-          </Error>
-        </Logger>
+        <Router>
+          <Logger environment="registration">
+            <Error>
+              <Network>
+                <Store Store={{ code: 'maha' }} />
+              </Network>
+            </Error>
+          </Logger>
+        </Router>
       </Root>
     )
   }
