@@ -1,7 +1,6 @@
+import ProgramChooser from '../program_chooser'
 import { ModalPanel } from 'maha-admin'
-import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
-import List from '../list'
 import React from 'react'
 
 class Programs extends React.PureComponent {
@@ -18,20 +17,9 @@ class Programs extends React.PureComponent {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="crm-programform">
-          <List { ...this._getList() } />
-        </div>
+        <ProgramChooser { ...this._getProgramChooser() } />
       </ModalPanel>
     )
-  }
-
-  _getList() {
-    const { programs } = this.props
-    return {
-      format: ProgramToken,
-      items: programs,
-      handler: this._handleChoose
-    }
   }
 
   _getPanel() {
@@ -40,6 +28,12 @@ class Programs extends React.PureComponent {
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel}
       ]
+    }
+  }
+
+  _getProgramChooser() {
+    return {
+      onChoose: this._handleChoose
     }
   }
 
