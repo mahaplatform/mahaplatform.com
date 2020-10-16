@@ -57,8 +57,7 @@ class Catalog extends React.Component {
 
   _handleClick() {
     const { product } = this.props
-    this.props.store.cart.addItem(product.variants[0].code)
-    // this.context.router.history.push('/stores/stores/maha/products/1')
+    this.context.router.history.push(`/stores/stores/maha/products/${product.code}`)
   }
 
 }

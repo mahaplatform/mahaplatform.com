@@ -6,7 +6,7 @@ class Catalog extends React.Component {
 
   static propTypes = {
     products: PropTypes.array,
-    store: PropTypes.object
+    Store: PropTypes.object
   }
 
   render() {
@@ -59,10 +59,10 @@ class Catalog extends React.Component {
   }
 
   _getItem(product) {
-    const { store } = this.props
+    const { Store } = this.props
     return {
       product,
-      store
+      store: Store
     }
   }
 

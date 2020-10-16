@@ -1,19 +1,16 @@
+import RouterStack from '../stack/router'
 import { Container } from 'maha-client'
 import PropTypes from 'prop-types'
 import CartIcon from '../carticon'
-import React from 'react'
-
-import RouterStack from '../stack/router'
-
 import Catalog from '../catalog'
 import Product from '../product'
-
+import React from 'react'
 
 class Store extends React.Component {
 
   static propTypes = {
     products: PropTypes.array,
-    store: PropTypes.object,
+    Store: PropTypes.object,
     children: PropTypes.any
   }
 
@@ -39,7 +36,7 @@ class Store extends React.Component {
           </div>
         </div>
         <div className="store-body">
-          <Catalog { ...this._getCatalog() } />
+          <RouterStack { ...this._getStack() }  />
         </div>
       </div>
     )
@@ -63,15 +60,24 @@ class Store extends React.Component {
     const { products } = this.props
     return {
       products,
-      store: this.store
+      Store: this.store
+    }
+  }
+
+  _getProduct() {
+    const { Store } = this.props
+    return {
+      code: Store.code,
+      Store: this.store
     }
   }
 
   _getStack() {
     return {
+      prefix: '/stores/stores/maha',
       routes: [
-        { path: '/stores/stores/maha', component: Catalog },
-        { path: '/stores/stores/maha/products/:id', component: Product }
+        { path: '/', component: Catalog, props: this._getCatalog.bind(this) },
+        { path: '/products/:id', component: Product, props: this._getProduct.bind(this) }
       ]
     }
   }

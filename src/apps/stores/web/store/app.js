@@ -19,13 +19,18 @@ class App extends React.Component {
           <Logger environment="registration">
             <Error>
               <Network>
-                <Store Store={{ code: 'maha' }} />
+                <Store { ...this._getStore() } />
               </Network>
             </Error>
           </Logger>
         </Router>
       </Root>
     )
+  }
+
+  _getStore() {
+    const { Store, token } = window
+    return { Store, token }
   }
 
 }

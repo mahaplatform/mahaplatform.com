@@ -1,0 +1,19 @@
+.store-options {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  display: inline-flex;
+  clear: both;
+  .store-options-option:last-child {
+    border-right: none;
+  }
+}
+.store-options-option {
+  flex: 1;
+  border-right: 1px solid fadeout(@black, 90);
+  text-align: center;
+  padding: 0.4em;
+  cursor: pointer;
+  &.selected {
+    background-color: fadeout(@black, 95);
+  }
+}

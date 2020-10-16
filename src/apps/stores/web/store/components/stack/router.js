@@ -6,13 +6,14 @@ import Stack from './stack'
 class Router extends React.Component {
 
   static propTypes = {
+    prefix: PropTypes.string,
     routes: PropTypes.array,
     pathname: PropTypes.string
   }
 
   constructor(props) {
     super(props)
-    this.routes = this._collapseRoutes(props.routes, props.routes.path)
+    this.routes = this._collapseRoutes(props.routes, props.prefix)
     this.state = {
       cards: []
     }
@@ -51,7 +52,13 @@ class Router extends React.Component {
   _collapseRoutes(routes, prefix = '') {
     return routes.reduce((routes, route) => {
       const path = (route.path !== '/') ? route.path : ''
-      const segment = (route.children) ? this._collapseRoutes(route, `${prefix}${path}`) : { [`${prefix}${path}`]: route.component }
+      const segment = (route.children) ? this._collapseRoutes(route, `${prefix}${path}`) : {
+        [`${prefix}${path}`]: {
+          component: route.component,
+          params: route.params,
+          props: route.props
+        }
+      }
       return {
         ...routes,
         ...segment
@@ -66,7 +73,7 @@ class Router extends React.Component {
       if(!matched) return null
       return {
         pathname,
-        component: this.routes[path],
+        ...this.routes[path],
         params: matched.params
       }
     }, null)

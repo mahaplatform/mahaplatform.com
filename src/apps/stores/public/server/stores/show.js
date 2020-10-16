@@ -25,6 +25,8 @@ const showRoute = async (req, res) => {
       logo: program.related('logo') ? program.related('logo').get('path') : null
     },
     store: {
+      id: store.get('id'),
+      code: store.get('code'),
       title: store.get('title'),
       url: store.get('url')
     },
