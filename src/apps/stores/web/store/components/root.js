@@ -1,4 +1,4 @@
-import { AddressField, Button, ContainerRoot, Form, Network, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
+import { AddressField, Button, Carousel, ContainerRoot, Form, Network, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import createlocalStorage from 'redux-local-storage'
 import { combineReducers } from 'redux-rubberstamp'
@@ -26,6 +26,7 @@ class Root extends React.Component {
     const reducer = combineReducers([
       AddressField,
       Button,
+      Carousel,
       ContainerRoot,
       Form,
       Network,

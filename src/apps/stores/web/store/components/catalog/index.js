@@ -1,3 +1,4 @@
+import Categories from './categories'
 import PropTypes from 'prop-types'
 import Item from './item'
 import React from 'react'
@@ -51,9 +52,12 @@ class Catalog extends React.Component {
     const { products } = this.props
     return (
       <div className="store-catalog">
-        { products.map((product, index) => (
-          <Item { ...this._getItem(product) } key={`product_${index}`} />
-        ))}
+        <Categories />
+        <div className="store-catalog-items">
+          { products.map((product, index) => (
+            <Item { ...this._getItem(product) } key={`product_${index}`} />
+          ))}
+        </div>
       </div>
     )
   }

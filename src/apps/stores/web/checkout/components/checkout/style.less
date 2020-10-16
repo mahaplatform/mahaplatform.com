@@ -1,6 +1,7 @@
 @import './summary/style.less';
 
 .maha-checkout {
+  background-color: @white;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -36,7 +37,6 @@
 }
 .maha-checkout-sidebar {
   flex: 0 0 50%;
-  background-color: fadeout(@black, 97);
   border-left: 1px solid fadeout(@black, 90);
 }
 .maha-checkout-main-header {
@@ -98,12 +98,8 @@
 }
 
 @media (min-width: 769px) {
-  .maha-checkout-panel-body {
-    background-color: fadeout(@black, 90);
-  }
   .maha-checkout-panel-content {
     background-color: @white;
-    padding: 0.8em;
   }
 }
 @media (max-width: 768px) {

@@ -4,18 +4,18 @@
   flex-direction: column;
 }
 .maha-cart-header {
-  background-color: #DB2828;
-  color: #FFFFFF;
+  background-color: @red;
+  color: @white;
   display: flex;
 }
 .maha-cart-header-icon {
   padding: 0.8em;
   font-weight: bold;
-  color: #EEEEEE;
+  color: fadeout(@white, 97);
   cursor: pointer;
-}
-.maha-cart-header-icon:hover {
-  color: #FFFFFF;
+  &:hover {
+    color: @white;
+  }
 }
 .maha-cart-header-title {
   padding: 0.8em;

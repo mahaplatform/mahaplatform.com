@@ -1,4 +1,4 @@
-import { Button, Container, Image } from 'maha-client'
+import { Button, Carousel, Container, Image } from 'maha-client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import Options from '../options'
@@ -27,7 +27,7 @@ class Product extends React.Component {
         <div className="store-product">
           <div className="store-product-photos">
             { product.variants[0].photos.length > 0 &&
-              <Image { ...this._getThumbnail() } />
+              <Carousel { ...this._getCarousel() } />
             }
           </div>
           <div className="store-product-details">
@@ -63,6 +63,15 @@ class Product extends React.Component {
     }
   }
 
+  _getCarousel() {
+    const { product } = this.props
+    return {
+      slides: product.variants[0].photos.map((photo, index) => {
+        return <Image { ...this._getThumbnail(photo) } key={`photo_${index}`} />
+      })
+    }
+  }
+
   _getColor() {
     return {
       options: ['red','blue','green']
@@ -81,10 +90,9 @@ class Product extends React.Component {
     }
   }
 
-  _getThumbnail() {
-    const { product } = this.props
+  _getThumbnail(photo) {
     return {
-      src: product.variants[0].photos[0] ? product.variants[0].photos[0].asset.path : null,
+      src: photo.asset.path,
       transforms: { fit: 'cover', w: 250, h: 250 }
     }
   }

@@ -76,3 +76,24 @@
     color: @red;
   }
 }
+.store-catalog-categories {
+  background-color: fadeout(@black, 95);
+  display: flex;
+}
+.store-catalog-categories-category {
+  display: inline-block;
+  padding: 0.8em;
+  flex: 1;
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  color: fadeout(@black, 20);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  &.selected {
+    font-weight: bold;
+    color: @black;
+    border-color: @red;
+  }
+}
