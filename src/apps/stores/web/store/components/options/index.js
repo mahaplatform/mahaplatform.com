@@ -1,45 +1,75 @@
 import PropTypes from 'prop-types'
+import Chooser from './chooser'
 import React from 'react'
+import _ from 'lodash'
 
 class Options extends React.Component {
 
   static propTypes = {
-    options: PropTypes.array
+    product: PropTypes.object,
+    onChange: PropTypes.func
   }
 
   state = {
-    selected: null
+    options: {}
   }
 
   render() {
-    const { options } = this.props
+    const { product } = this.props
     return (
       <div className="store-options">
-        { options.map((option, index) => (
-          <div className={ this._getClass(option) } key={`option_${index}`} onClick={ this._handleClick.bind(this, option) }>
-            { option }
+        { product.options.map((option, index) => (
+          <div className="store-option" key={`options_${index}`}>
+            <Chooser { ...this._getChooser(option) } />
           </div>
-        )) }
+        ))}
       </div>
     )
   }
 
   componentDidMount() {
-    const { options } = this.props
+    const { product } = this.props
     this.setState({
-      selected: options[0]
+      options: product.options.reduce((options, option) => ({
+        ...options,
+        [option.title]: option.values[0]
+      }), {})
     })
   }
 
-  _getClass(option) {
-    const { selected } = this.state
-    const classes = ['store-options-option']
-    if(option === selected) classes.push('selected')
-    return classes.join(' ')
+  componentDidUpdate(prevProps, prevState) {
+    const { options } = this.state
+    if(!_.isEqual(options, prevState.options)) {
+      this._handleChange()
+    }
   }
 
-  _handleClick(selected) {
-    this.setState({ selected })
+  _getChooser(option) {
+    return {
+      ...option,
+      onChange: this._handleUpdate.bind(this, option.title)
+    }
+  }
+
+  _handleChange() {
+    const { options } = this.state
+    const { product } = this.props
+    const index = product.variants.findIndex(variant => {
+      return variant.options.find(option => {
+        return options[option.option] !== option.value
+      }) === undefined
+    })
+    if(index < 0) return
+    this.props.onChange(index)
+  }
+
+  _handleUpdate(option, value) {
+    this.setState({
+      options: {
+        ...this.state.options,
+        [option]: value
+      }
+    })
   }
 
 }

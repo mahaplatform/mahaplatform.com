@@ -1,4 +1,4 @@
-import Categories from './categories'
+import Categories from '../categories'
 import PropTypes from 'prop-types'
 import Item from './item'
 import React from 'react'

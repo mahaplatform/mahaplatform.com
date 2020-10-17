@@ -42,9 +42,11 @@ class ProductForm extends React.Component {
   }
 
   _getData(product) {
+    console.log(product)
     return {
       title: product.title,
       description: product.description,
+      options: product.options,
       variants: product.variants.map(variant => ({
         is_active: variant.is_active,
         options: variant.options,

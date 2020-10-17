@@ -13,53 +13,54 @@ class Product extends React.Component {
   }
 
   state = {
-    quantity: 1,
-    price: 15
+    index: 0,
+    quantity: 1
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleOptions = this._handleOptions.bind(this)
   _handleQuantity = this._handleQuantity.bind(this)
 
   render() {
     const { product } = this.props
+    const variant = this._getVariant()
     return (
       <div className="store-product-container">
         <div className="store-product">
           <div className="store-product-photos">
-            { product.variants[0].photos.length > 0 &&
-              <Carousel { ...this._getCarousel() } />
+            { variant.photos.length > 0 ?
+              <Carousel { ...this._getCarousel() } /> :
+              <div className="store-product-icon">
+                <i className="fa fa-shopping-bag" />
+              </div>
             }
           </div>
           <div className="store-product-details">
             <div className="store-product-title">
               { product.title }
             </div>
-            <div className="store-product-option">
-              <Options { ...this._getColor() } />
-            </div>
-            <div className="store-product-option">
-              <Options { ...this._getSize() } />
-            </div>
+            <Options { ...this._getOptions() } />
             <div className="store-product-price">
-              { numeral(15).format('$0.00') }
+              { this._getPrice(variant) }
             </div>
             <div className="store-product-description">
               { product.description }
             </div>
             <Quantity { ...this._getQuantity() } />
-            <Button { ...this._getAdd() } />
+            <Button { ...this._getAdd(variant) } />
           </div>
         </div>
       </div>
     )
   }
 
-  _getAdd() {
-    const { quantity, price } = this.state
+  _getAdd(variant) {
+    const { quantity } = this.state
+    const price = variant.fixed_price
     return {
       label: `Add to Cart &bull; ${ numeral(price * quantity).format('$0.00') } (${quantity})`,
       color: 'black',
-      handler: this._handleAdd
+      handler: this._handleAdd.bind(this, variant)
     }
   }
 
@@ -72,10 +73,19 @@ class Product extends React.Component {
     }
   }
 
-  _getColor() {
+  _getOptions() {
+    const { product } = this.props
     return {
-      options: ['red','blue','green']
+      product,
+      onChange: this._handleOptions
     }
+  }
+
+  _getPrice(variant) {
+    if(variant.price_type === 'fixed') {
+      return numeral(variant.fixed_price).format('$0.00')
+    }
+    return 'FOO'
   }
 
   _getQuantity() {
@@ -97,9 +107,18 @@ class Product extends React.Component {
     }
   }
 
-  _handleAdd() {
+  _getVariant() {
     const { product } = this.props
-    this.props.Store.cart.addItem(product.variants[0].code)
+    const { index } = this.state
+    return product.variants[index]
+  }
+
+  _handleAdd(variant) {
+    this.props.Store.cart.addItem(variant.code)
+  }
+
+  _handleOptions(index) {
+    this.setState({ index })
   }
 
   _handleQuantity(quantity) {

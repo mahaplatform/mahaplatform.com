@@ -123,6 +123,7 @@ class Variants extends React.Component {
   _handleSuccess(data) {
     this.props.onNext({
       ...data,
+      options: data.options,
       variants: this._getVariants()
     })
   }

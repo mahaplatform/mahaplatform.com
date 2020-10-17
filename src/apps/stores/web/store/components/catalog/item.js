@@ -19,17 +19,21 @@ class Catalog extends React.Component {
   render() {
     const { product } = this.props
     const inventory = this._getInventory()
+    const variant = product.variants[0]
     return (
       <div className={ this._getClass() } onClick={ this._handleClick }>
-        { product.variants[0].photos.length > 0 &&
-          <Image { ...this._getThumbnail(product) } />
+        { variant.photos.length > 0 ?
+          <Image { ...this._getThumbnail(product) } /> :
+          <div className="store-catalog-item-icon">
+            <i className="fa fa-shopping-bag" />
+          </div>
         }
         <h3>{ product.title }</h3>
         { inventory > 0 ?
           <p>{ inventory } in stock</p> :
           <p className="outofstock">sold out</p>
         }
-        <p>{ numeral(product.variants[0].fixed_price).format('$0.00') }</p>
+        <p>{ numeral(variant.fixed_price).format('$0.00') }</p>
       </div>
     )
   }

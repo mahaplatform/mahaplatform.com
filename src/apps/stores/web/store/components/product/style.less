@@ -4,7 +4,19 @@
 }
 .store-product {
   margin: 0 auto;
-  max-width: 1024px;
+  max-width: 800px;
+  width: 100%;
+}
+.store-product-icon {
+  background-color: fadeout(@black, 90);
+  color: @white;
+  display: inline-flex;
+  width: 250px;
+  height: 250px;
+  .fa {
+    font-size: 9em;
+    margin: auto;
+  }
 }
 .store-product-details {
   padding: 0.8em;
@@ -12,10 +24,6 @@
 .store-product-title {
   font-size: 2em;
   line-height: 1em;
-}
-.store-product-option {
-  margin: 0.8em 0.8em 0.8em 0;
-  display: inline-block;
 }
 .store-product-price {
   line-height: 1.6em;
@@ -35,6 +43,9 @@
   }
   .store-product-photos {
     overflow: hidden;
+  }
+  .store-product-icon {
+    width: 100%;
   }
 }
 @media (min-width: 376px) {

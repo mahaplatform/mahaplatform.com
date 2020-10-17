@@ -42,18 +42,6 @@
   }
   border-right: 1px dashed fadeout(@black, 90);
   border-bottom: 1px dashed fadeout(@black, 90);
-  &.outofstock {
-    position: relative;
-    &:after {
-      content: ' ';
-      position: absolute;
-      background-color: fadeout(@white, 30);
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
   &:hover {
     background-color: fadeout(@black, 97);
   }
@@ -76,24 +64,14 @@
     color: @red;
   }
 }
-.store-catalog-categories {
-  background-color: fadeout(@black, 95);
-  display: flex;
-}
-.store-catalog-categories-category {
-  display: inline-block;
-  padding: 0.8em;
-  flex: 1;
-  text-align: center;
-  border-bottom: 2px solid transparent;
-  color: fadeout(@black, 20);
-  cursor: pointer;
-  &:hover {
-    background-color: fadeout(@black, 97);
-  }
-  &.selected {
-    font-weight: bold;
-    color: @black;
-    border-color: @red;
+.store-catalog-item-icon {
+  background-color: fadeout(@black, 90);
+  color: @white;
+  display: inline-flex;
+  width: 150px;
+  height: 150px;
+  .fa {
+    font-size: 5em;
+    margin: auto;
   }
 }

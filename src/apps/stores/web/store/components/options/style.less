@@ -1,13 +1,17 @@
-.store-options {
+.store-option {
+  margin: 0.8em 0.8em 0.8em 0;
+  display: inline-block;
+}
+.store-option-values {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.3em;
   display: inline-flex;
   clear: both;
-  .store-options-option:last-child {
+  .store-option-value:last-child {
     border-right: none;
   }
 }
-.store-options-option {
+.store-option-value {
   flex: 1;
   border-right: 1px solid fadeout(@black, 90);
   text-align: center;
