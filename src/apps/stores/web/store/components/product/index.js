@@ -114,7 +114,8 @@ class Product extends React.Component {
   }
 
   _handleAdd(variant) {
-    this.props.Store.cart.addItem(variant.code)
+    const { quantity } = this.state
+    this.props.Store.cart.addItem(variant.code, quantity)
   }
 
   _handleOptions(index) {
