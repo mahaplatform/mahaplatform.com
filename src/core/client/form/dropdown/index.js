@@ -6,7 +6,7 @@ class Dropdown extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.any,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.array,
@@ -64,7 +64,7 @@ class Dropdown extends React.Component {
   componentDidMount() {
     const { defaultValue, onReady } = this.props
     document.addEventListener('mousedown', this._handleClickOutside)
-    if(defaultValue) this._handleDefault(defaultValue)
+    if(defaultValue !== undefined) this._handleDefault(defaultValue)
     onReady()
   }
 

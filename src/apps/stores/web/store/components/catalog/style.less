@@ -3,7 +3,7 @@
   .scrollable();
 }
 .store-catalog-item {
-  text-align: center;
+  display: flex;
   cursor: pointer;
   padding: 0.8em;
   float: left;
@@ -45,8 +45,12 @@
   &:hover {
     background-color: fadeout(@black, 97);
   }
+}
+.store-catalog-item-inner {
+  text-align: center;
+  margin: auto;
   img {
-    display: inline-block;
+    display: block;
     width: 150px;
     height: 150px;
   }

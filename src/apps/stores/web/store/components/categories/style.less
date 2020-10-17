@@ -2,6 +2,17 @@
   background-color: fadeout(@black, 95);
   overflow-x: scroll;
   white-space: nowrap;
+  flex: 1;
+  &::-webkit-scrollbar-track {
+    background: fadeout(@black, 100) !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: fadeout(@black, 100) !important;
+  }
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
 }
 .store-categories-category {
   display: inline-block;

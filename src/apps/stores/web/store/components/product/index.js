@@ -1,7 +1,6 @@
-import { Button, Carousel, Container, Image } from 'maha-client'
+import { Button, Carousel, Container, DropDown, Image } from 'maha-client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
-import Options from '../options'
 import numeral from 'numeral'
 import React from 'react'
 
@@ -27,24 +26,25 @@ class Product extends React.Component {
     return (
       <div className="store-product-container">
         <div className="store-product">
-          <div className="store-product-photos">
-            { variant.photos.length > 0 ?
-              <Carousel { ...this._getCarousel() } /> :
-              <div className="store-product-icon">
-                <i className="fa fa-shopping-bag" />
-              </div>
-            }
+          <div className="store-product-media">
+            <div className="store-product-media-inner">
+              { variant.photos.length > 0 ?
+                <Carousel { ...this._getCarousel() } /> :
+                <div className="store-product-icon">
+                  <i className="fa fa-shopping-bag" />
+                </div>
+              }
+            </div>
           </div>
           <div className="store-product-details">
             <div className="store-product-title">
               { product.title }
             </div>
-            <Options { ...this._getOptions() } />
-            <div className="store-product-price">
-              { this._getPrice(variant) }
-            </div>
             <div className="store-product-description">
               { product.description }
+            </div>
+            <div className="store-product-variants">
+              <DropDown { ...this._getDropDown() } />
             </div>
             <Quantity { ...this._getQuantity() } />
             <Button { ...this._getAdd(variant) } />
@@ -73,10 +73,16 @@ class Product extends React.Component {
     }
   }
 
-  _getOptions() {
+  _getDropDown() {
     const { product } = this.props
     return {
-      product,
+      options: product.variants.map((variant, index) => ({
+        value: index,
+        text: variant.options.map(option => {
+          return `${option.option}: ${option.value}`
+        }).join(', ') + ` (${this._getPrice(variant)})`
+      })),
+      defaultValue: 0,
       onChange: this._handleOptions
     }
   }
@@ -91,12 +97,6 @@ class Product extends React.Component {
   _getQuantity() {
     return {
       onChange: this._handleQuantity
-    }
-  }
-
-  _getSize() {
-    return {
-      options: ['small','medium','large']
     }
   }
 

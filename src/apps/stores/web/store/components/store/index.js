@@ -1,5 +1,6 @@
 import RouterStack from '../stack/router'
 import { Container } from 'maha-client'
+import Categories from '../categories'
 import PropTypes from 'prop-types'
 import CartIcon from '../carticon'
 import Catalog from '../catalog'
@@ -35,8 +36,13 @@ class Store extends React.Component {
             <CartIcon { ...this._getCartIcon() } />
           </div>
         </div>
-        <div className="store-body">
-          <RouterStack { ...this._getStack() }  />
+        <div className="store-main">
+          <div className="store-main-header">
+            <Categories />
+          </div>
+          <div className="store-main-body">
+            <RouterStack { ...this._getStack() }  />
+          </div>
         </div>
       </div>
     )
