@@ -38,7 +38,7 @@ const categories = [
     { title: 'Crocus sieberi ssp. sub. tricolor', price: 5.00, photo: 'https://cdn.shopify.com/s/files/1/1419/7120/products/sqCrocus_sieberi_Tricolor.DV_1_grande.jpg?v=1595956922' },
     { title: 'Galanthus elwesii', price: 7.50, photo: 'https://www.gardenia.net/storage/app/public/uploads/images/Galanthus%20elwesii.jpg' },
     { title: 'Dutch Iris Rainbow Mix', price: 5.00, photo: 'https://www.americanmeadows.com/media/catalog/product/i/r/iris-hollandica-dutch-iris-mix.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=' },
-    { title: 'Shades-of-Blue Iris reticulata Mix', price: 7.50, photo: 'https://static.artfire.com/img/1x/crop/512/512/0/uploads/mfs/items/7b/9a/7b9a94ce28c186c4be2364b138a5fb3a25f3420b18de60aeb10205780920f43c.jpg' },
+    { title: 'Shades-of-Blue Iris reticulata Mix', price: 7.50, photo: 'https://www.gardenia.net/storage/app/public/plant_family/detail/215818%20Optimized.jpg' },
     { title: 'Muscari armeniacum Valerie Finnis', price: 5.00, photo: 'https://www.vanengelen.com/media/catalog/product/cache/1/thumbnail/0dc2d03fe217f8c83829496872af24a0/m/u/musc_valerie_finnis.jpg' },
     { title: 'Scilla siberica Spring Beauty', price: 7.50, photo: 'https://i.ebayimg.com/images/g/aO8AAOSwUZZbitnt/s-l400.jpg' }
   ] }
