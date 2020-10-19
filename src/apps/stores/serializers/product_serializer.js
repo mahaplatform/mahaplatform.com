@@ -6,11 +6,20 @@ const productSerializer = (req, result) => ({
   description: result.get('description'),
   variants: result.related('variants').map(variant),
   options: result.get('options'),
+  category: category(result.related('category')),
   is_active: result.get('is_active'),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const category = (category) => {
+  if(!category.id) return null
+  return {
+    id: category.get('id'),
+    title: category.get('title')
+  }
+}
 
 const variant = (variant) => {
   if(!variant.id) return null

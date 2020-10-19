@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Category from './category'
 import Variant from './variant'
 import Store from './store'
 
@@ -9,6 +10,10 @@ const Product = new Model({
   rules: {},
 
   virtuals: {},
+
+  category() {
+    return this.belongsTo(Category, 'category_id')
+  },
 
   variants() {
     return this.hasMany(Variant, 'product_id').query(qb => {

@@ -1,5 +1,4 @@
 import RouterStack from '../stack/router'
-import { Container } from 'maha-client'
 import Categories from '../categories'
 import PropTypes from 'prop-types'
 import CartIcon from '../carticon'
@@ -11,13 +10,14 @@ class Store extends React.Component {
 
   static propTypes = {
     products: PropTypes.array,
-    Store: PropTypes.object,
+    store: PropTypes.object,
     children: PropTypes.any
   }
 
   store = null
 
   state = {
+    filters: {},
     ready: false
   }
 
@@ -38,10 +38,10 @@ class Store extends React.Component {
         </div>
         <div className="store-main">
           <div className="store-main-header">
-            <Categories />
+            <Categories { ...this._getCategories() } />
           </div>
           <div className="store-main-body">
-            <RouterStack { ...this._getStack() }  />
+            <RouterStack { ...this._getStack() } />
           </div>
         </div>
       </div>
@@ -49,8 +49,9 @@ class Store extends React.Component {
   }
 
   componentDidMount() {
+    const { store } = this.props
     this.store = new window.Maha.Stores.Store({
-      code: 'maha'
+      code: store.code
     })
     this.store.on('ready', this._handleReady)
     this.store.init()
@@ -63,27 +64,39 @@ class Store extends React.Component {
   }
 
   _getCatalog() {
-    const { products } = this.props
+    const { filters } = this.state
+    const { store } = this.props
     return {
-      products,
-      Store: this.store
+      filters,
+      store
     }
   }
 
-  _getProduct() {
-    const { Store } = this.props
+  _getCategories() {
+    const { store } = this.props
     return {
-      code: Store.code,
+      store
+    }
+  }
+
+  _getProduct(params) {
+    const { store } = this.props
+    return {
+      product: store.products.find(product => {
+        return product.code === params.code
+      }),
       Store: this.store
     }
   }
 
   _getStack() {
+    const { store } = this.props
     return {
-      prefix: '/stores/stores/maha',
+      prefix: `/stores/stores/${store.code}`,
       routes: [
         { path: '/', component: Catalog, props: this._getCatalog.bind(this) },
-        { path: '/products/:id', component: Product, props: this._getProduct.bind(this) }
+        { path: '/categories/:slug', component: Catalog, props: this._getCatalog.bind(this) },
+        { path: '/products/:code', component: Product, props: this._getProduct.bind(this) }
       ]
     }
   }
@@ -96,8 +109,4 @@ class Store extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  products: `/api/stores/stores/${props.Store.code}/products`
-})
-
-export default Container(mapResources)(Store)
+export default Store

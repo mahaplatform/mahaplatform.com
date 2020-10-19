@@ -1,6 +1,7 @@
 import Workflow from '../../crm/models/workflow'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
+import Category from './category'
 import Discount from './discount'
 import Product from './product'
 import Order from './order'
@@ -26,10 +27,14 @@ const Store = new Model({
     },
 
     url() {
-      const path = this.get('permalink') ? `/stores/${this.get('permalink')}` : `/stores/${this.get('code')}`
+      const path = this.get('permalink') ? `/stores/${this.get('permalink')}` : `/stores/stores/${this.get('code')}`
       return `${process.env.WEB_HOST}${path}`
     }
 
+  },
+
+  categories() {
+    return this.hasMany(Category, 'store_id')
   },
 
   discounts() {

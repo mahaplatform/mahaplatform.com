@@ -2227,6 +2227,17 @@ const schema = {
       table.integer('discount_id').unsigned()
     })
 
+    await knex.schema.createTable('stores_categories', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('store_id').unsigned()
+      table.integer('delta')
+      table.string('title', 255)
+      table.string('slug', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_discounts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2303,6 +2314,7 @@ const schema = {
       table.USER-DEFINED('type')
       table.boolean('is_active')
       table.timestamp('deleted_at')
+      table.integer('category_id').unsigned()
     })
 
     await knex.schema.createTable('stores_stores', (table) => {
@@ -3527,6 +3539,7 @@ const schema = {
     await knex.schema.table('stores_products', table => {
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('category_id').references('stores_categories.id')
     })
 
     await knex.schema.table('stores_stores', table => {
@@ -3622,6 +3635,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('stores_categories', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('store_id').references('stores_stores.id')
     })
 
 

@@ -1,4 +1,4 @@
-import { Button, Carousel, Container, DropDown, Image } from 'maha-client'
+import { Button, Carousel, DropDown, Image } from 'maha-client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import numeral from 'numeral'
@@ -43,9 +43,11 @@ class Product extends React.Component {
             <div className="store-product-description">
               { product.description }
             </div>
-            <div className="store-product-variants">
-              <DropDown { ...this._getDropDown() } />
-            </div>
+            { product.variants.length > 1 &&
+              <div className="store-product-variants">
+                <DropDown { ...this._getDropDown() } />
+              </div>
+            }
             <Quantity { ...this._getQuantity() } />
             <Button { ...this._getAdd(variant) } />
           </div>
@@ -128,8 +130,4 @@ class Product extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  product: `/api/stores/stores/${props.code}/products/${props.params.id}`
-})
-
-export default Container(mapResources)(Product)
+export default Product

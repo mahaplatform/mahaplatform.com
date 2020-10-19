@@ -181,10 +181,11 @@ class Cart extends React.Component {
   }
 
   async _handleCheck(variantCode) {
+    const { Store } = this.props
     return await new Promise((resolve, reject) => {
       this.context.network.request({
         method: 'get',
-        endpoint: `/api/stores/stores/maha/products/${variantCode}/check`,
+        endpoint: `/api/stores/stores/${Store.code}/products/${variantCode}/check`,
         onFailure: ({ error }) => reject(error),
         onSuccess: ({ data }) => resolve(data)
       })
@@ -192,8 +193,8 @@ class Cart extends React.Component {
   }
 
   async _handleAdd({ code, quantity }) {
-    console.log(code, quantity)
     const { cart, Store, items, variants } = this.props
+    console.log(code, variants)
     const variant = variants.find(variant => {
       return variant.code === code
     })

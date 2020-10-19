@@ -3,9 +3,13 @@ import React from 'react'
 
 class Categories extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
-    products: PropTypes.array,
-    Store: PropTypes.object
+    store: PropTypes.object,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -13,18 +17,8 @@ class Categories extends React.Component {
   }
 
   render() {
-    // const { categories } = this.props
-    const categories = [
-      { id: 1, title: 'T-Shirts' },
-      { id: 2, title: 'Hats' },
-      { id: 3, title: 'Other' },
-      { id: 4, title: 'T-Shirts' },
-      { id: 5, title: 'Hats' },
-      { id: 6, title: 'Other' },
-      { id: 4, title: 'T-Shirts' },
-      { id: 5, title: 'Hats' },
-      { id: 6, title: 'Other' }
-    ]
+    const { store } = this.props
+    const categories = this._getCategories()
     return (
       <div className="store-categories">
         { categories.map((category, index) => (
@@ -42,11 +36,39 @@ class Categories extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { selected } = this.state
+    if(selected !== prevState.selected) {
+      this._handleChange()
+    }
+  }
+
+  _getCategories() {
+    return [
+      { title: 'All' },
+      ...store.categories
+    ]
+  }
+
   _getClass(index) {
     const { selected } = this.state
     const classes = ['store-categories-category']
     if(index === selected) classes.push('selected')
     return classes.join(' ')
+  }
+
+  _getRoute(category) {
+    const { selected } = this.state
+    const { store } = this.props
+    if(selected === 0) return `/stores/stores/${store.code}`
+    return `/stores/stores/${store.code}/categories/${category.slug}`
+  }
+
+  _handleChange() {
+    const { selected } = this.state
+    const categories = this._getCategories()
+    const route = this._getRoute(categories[selected])
+    this.context.router.history.push(route)
   }
 
   _handleClick(selected) {

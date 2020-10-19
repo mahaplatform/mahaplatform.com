@@ -29,8 +29,8 @@ class App extends React.Component {
   }
 
   _getStore() {
-    const { Store, token } = window
-    return { Store, token }
+    const { store, token } = window
+    return { store, token }
   }
 
 }

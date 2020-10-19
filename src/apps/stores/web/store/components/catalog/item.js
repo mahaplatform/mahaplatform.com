@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-class Catalog extends React.Component {
+class Item extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object
@@ -11,7 +11,8 @@ class Catalog extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
-    store: PropTypes.object
+    store: PropTypes.object,
+    Store: PropTypes.object
   }
 
   _handleClick = this._handleClick.bind(this)
@@ -29,12 +30,14 @@ class Catalog extends React.Component {
               <i className="fa fa-shopping-bag" />
             </div>
           }
-          <h3>{ product.title }</h3>
-          { inventory > 0 ?
-            <p>{ inventory } in stock</p> :
-            <p className="outofstock">sold out</p>
-          }
-          <p>{ numeral(variant.fixed_price).format('$0.00') }</p>
+          <div className="store-catalog-item-details">
+            <h3>{ product.title }</h3>
+            { inventory > 0 ?
+              <p>{ inventory } in stock</p> :
+              <p className="outofstock">sold out</p>
+            }
+            <p>{ numeral(variant.fixed_price).format('$0.00') }</p>
+          </div>
         </div>
       </div>
     )
@@ -62,10 +65,10 @@ class Catalog extends React.Component {
   }
 
   _handleClick() {
-    const { product } = this.props
-    this.context.router.history.push(`/stores/stores/maha/products/${product.code}`)
+    const { store, product } = this.props
+    this.context.router.history.push(`/stores/stores/${store.code}/products/${product.code}`)
   }
 
 }
 
-export default Catalog
+export default Item

@@ -10,33 +10,45 @@
   @media (max-width: 320px) {
     width: 100%
   }
-  @media (min-width: 321px) and (max-width: 414px) {
+  @media (min-width: 321px) and (max-width: 475px) {
     width: ~"calc(100% / 2)";
     &:nth-child(2n) {
       border-right: none;
     }
   }
-  @media (min-width: 415px) and (max-width: 768px) {
+  @media (min-width: 476px) and (max-width: 725px) {
     width: ~"calc(100% / 3)";
     &:nth-child(3n) {
       border-right: none;
     }
   }
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 726px) and (max-width: 975px) {
     width: ~"calc(100% / 4)";
     &:nth-child(4n) {
       border-right: none;
     }
   }
-  @media (min-width: 1025px) and (max-width: 1374px) {
+  @media (min-width: 976px) and (max-width: 1225px) {
     width: ~"calc(100% / 5)";
     &:nth-child(5n) {
       border-right: none;
     }
   }
-  @media (min-width: 1375px) {
+  @media (min-width: 1226px) and (max-width: 1475px) {
     width: ~"calc(100% / 6)";
     &:nth-child(6n) {
+      border-right: none;
+    }
+  }
+  @media (min-width: 1476px) and (max-width: 1725px) {
+    width: ~"calc(100% / 7)";
+    &:nth-child(7n) {
+      border-right: none;
+    }
+  }
+  @media (min-width: 1726px) {
+    width: ~"calc(100% / 8)";
+    &:nth-child(8n) {
       border-right: none;
     }
   }
@@ -49,23 +61,15 @@
 .store-catalog-item-inner {
   text-align: center;
   margin: auto;
-  img {
-    display: block;
-    width: 150px;
-    height: 150px;
-  }
-  h3 {
-    margin: 0;
-    font-size: 1em;
-  }
-  p {
-    color: fadeout(@black, 40);
-    margin: 0;
-    font-size: 1em;
-  }
-  p.outofstock {
-    text-transform: uppercase;
-    color: @red;
+  display: flex;
+  flex-direction: column;
+  .maha-image {
+    margin: 0 auto;
+    img {
+      display: block;
+      width: 150px;
+      height: 150px;
+    }
   }
 }
 .store-catalog-item-icon {
@@ -77,5 +81,18 @@
   .fa {
     font-size: 5em;
     margin: auto;
+  }
+}
+.store-catalog-item-details {
+  margin-top: 0.8em;
+  height: 5em;
+  h3 {
+    margin: 0;
+    font-size: 1em;
+  }
+  p {
+    color: fadeout(@black, 40);
+    margin: 0;
+    font-size: 1em;
   }
 }

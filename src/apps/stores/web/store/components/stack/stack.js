@@ -33,7 +33,7 @@ class Stack extends React.Component {
           { cards.map((card, index) => (
             <div key={ `card_${index}` } className={ this._getCardClass(index) }>
               { _.isFunction(card.component) ?
-                <card.component { ...this._getProps(index) } params={ card.params } active={ index === cards.length - 1} /> :
+                <card.component { ...this._getProps(index, card.params) } params={ card.params } active={ index === cards.length - 1} /> :
                 card.component
               }
             </div>
@@ -62,10 +62,10 @@ class Stack extends React.Component {
     return classes.join(' ')
   }
 
-  _getProps(index) {
+  _getProps(index, params) {
     const card = this.props.cards[index] || this.state.cards[index]
     const { props } = card
-    if(_.isFunction(props)) return props()
+    if(_.isFunction(props)) return props(params)
     if(_.isPlainObject(props)) return props
     return {}
   }
