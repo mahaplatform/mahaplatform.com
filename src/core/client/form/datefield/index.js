@@ -43,21 +43,18 @@ class DateField extends React.Component {
 
   render() {
     const { placeholder } = this.props
-    const { focused, position, show, value } = this.state
+    const { position, show, value } = this.state
     return (
       <div { ...this._getInput() }>
         <div className="maha-datefield-field">
           <div className="maha-input">
-            <div className="maha-input-icon">
-              <i className="fa fa-calendar" />
-            </div>
             <div className="maha-input-field">
               { value &&
                 <div className="maha-input-token">
                   { value }
                 </div>
               }
-              { !value && !focused &&
+              { !value &&
                 <div className="maha-input-placeholder">
                   { placeholder }
                 </div>

@@ -58,14 +58,6 @@ const getResponseData = async (req, { response }) => {
     transacting: req.trx
   })
 
-  const config = response.related('form').get('config')
-
-  const fields = config.fields.filter(field => {
-    return field.type !== 'text'
-  })
-
-  const data = response.get('data')
-
   const basedata = await getPaymentData(req, {
     invoice_id: response.get('invoice_id')
   })
@@ -75,8 +67,10 @@ const getResponseData = async (req, { response }) => {
       ...basedata,
       maha_url: response.get('url')
     },
-    fields,
-    data,
+    fields: response.related('form').get('config').fields.filter(field => {
+      return field.type !== 'text'
+    }),
+    data: response.get('data'),
     payment: response.related('payment')
   })
 

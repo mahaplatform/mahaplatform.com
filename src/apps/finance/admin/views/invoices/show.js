@@ -2,6 +2,7 @@ import { Page } from 'maha-admin'
 import Payments from './payments'
 import Payment from './payment'
 import Details from './details'
+import Clone from './clone'
 import Send from './send'
 import Edit from './edit'
 import Void from './void'
@@ -23,17 +24,21 @@ const getTabs = ({ audits, invoice, payments }) => {
 
 const getTasks = ({ invoice }, { admin }) => {
   if(invoice.status === 'voided') return null
+  const entity = invoice.status === 'paid' ? 'Receipt' : 'Invoice'
   const items = []
+  if(invoice.status !== 'paid' && invoice.payments.length === 0) {
+    items.push({ label: 'Edit Invoice', modal: <Edit invoice={ invoice } /> })
+  }
+  items.push({ label: 'Clone Invoice', modal: <Clone invoice={ invoice } /> })
+  if(invoice.status !== 'paid' && invoice.payments.length === 0) {
+    items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
+  }
   if(invoice.status !== 'paid') {
-    if(invoice.payments.length === 0) {
-      items.push({ label: 'Edit Invoice', modal: <Edit invoice={ invoice } /> })
-      items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
-    }
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
   }
-  items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
+  items.push({ label: `Send ${entity}`, modal: <Send invoice={ invoice } />  })
+  items.push({ label: `View Public ${entity}`, link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
   items.push({ label: 'Download Invoice', url: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}/download` })
-  items.push({ label: 'Send Receipt', modal: <Send invoice={ invoice } />  })
   return { items }
 }
 

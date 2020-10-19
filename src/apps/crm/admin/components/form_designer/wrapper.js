@@ -49,7 +49,6 @@ class FormDesignerWrapper extends React.Component {
     ]
   }
 
-
 }
 
 const mapResources = (props, context) => ({

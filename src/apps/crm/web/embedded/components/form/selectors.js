@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const config = (state, props) => props.config
 
-const data = (state, props) => state.data
+const rawdata = (state, props) => state.data
 
 const errors = (state, props) => state.errors
 
@@ -12,6 +12,30 @@ const ready = (state, props) => state.ready
 const status = (state, props) => state.status
 
 const validated = (state, props) => state.validated
+
+export const data = createSelector(
+  config,
+  rawdata,
+  (config, rawdata) => Object.keys(rawdata).reduce((data, code) => {
+    const field = config.fields.find(field => {
+      return field.code === code
+    })
+    if(!field || field.type !== 'paymentfield') return data
+    return {
+      ...data,
+      [code]: {
+        line_items: rawdata[code].line_items.map(line_item => ({
+          ...line_item,
+          description: config.fields.filter(field => {
+            return !_.includes(['text','paymentfield','productfield'], field.type)
+          }).reduce((description, field) => {
+            return description.replace(`<%- response.${field.name.token} %>`, getData(field, data[field.code]))
+          }, line_item.description)
+        }))
+      }
+    }
+  }, rawdata)
+)
 
 export const fields = createSelector(
   config,
@@ -115,15 +139,22 @@ export const total = createSelector(
   tax,
   (subtotal, tax) => subtotal + tax)
 
+const getData = (field, value) => {
+  const type = field.type === 'contactfield' ? field.contactfield.type : field.type
+  if(type === 'addressfield') return value ? value.description : null
+  return value
+}
+
 const filtered = createSelector(
+  data,
   line_items,
-  (line_items) => line_items.filter(line_item => {
+  (data, line_items) => line_items.filter(line_item => {
     return line_item.quantity > 0
   }).map(line_item => ({
     code: line_item.code,
     project_id: line_item.project_id,
     revenue_type_id: line_item.revenue_type_id,
-    description: line_item.description,
+    description:line_item.description,
     quantity: line_item.quantity,
     tax_rate: line_item.tax_rate,
     is_tax_deductible: line_item.is_tax_deductible,
@@ -136,11 +167,9 @@ export const summary = createSelector(
   subtotal,
   tax,
   total,
-  (line_items, subtotal, tax, total) => {
-    return {
-      line_items,
-      subtotal: subtotal.toFixed(2),
-      tax: tax.toFixed(2),
-      total: total.toFixed(2)
-    }
-  })
+  (line_items, subtotal, tax, total) => ({
+    line_items,
+    subtotal: subtotal.toFixed(2),
+    tax: tax.toFixed(2),
+    total: total.toFixed(2)
+  }))

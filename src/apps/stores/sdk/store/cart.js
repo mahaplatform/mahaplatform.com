@@ -27,6 +27,7 @@ class Cart extends Emitter {
 
   addItem(code, quantity = 1) {
     this.pasteur.send('add', { code, quantity}, this._handleChange, this._handleError)
+    this.show()
   }
 
   clearItems() {

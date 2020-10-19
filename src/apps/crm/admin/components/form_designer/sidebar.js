@@ -16,6 +16,7 @@ import Checkbox from './fields/checkbox'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Text from './fields/text'
+import Tokens from '../tokens'
 import Page from './page'
 import React from 'react'
 import _ from 'lodash'
@@ -48,6 +49,7 @@ class Sidebar extends React.Component {
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleReplace = this._handleReplace.bind(this)
+  _handleTokens = this._handleTokens.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -102,6 +104,7 @@ class Sidebar extends React.Component {
       },
       fields,
       onDone: this._handleDone,
+      onTokens: this._handleTokens,
       onUpdate: this._handleUpdate.bind(this, key)
     }
   }
@@ -127,6 +130,22 @@ class Sidebar extends React.Component {
     return {
       cards,
       slideFirst: false
+    }
+  }
+
+  _getTokens() {
+    const { config } = this.props
+    return {
+      tokens: [{
+        title: 'Form',
+        tokens: config.fields.filter(field => {
+          return !_.includes(['text','paymentfield','productfield'], field.type)
+        }).map(field => ({
+          name: field.name.value,
+          token: `response.${field.name.token}`
+        }))
+      }],
+      onPop: this._handlePop
     }
   }
 
@@ -162,6 +181,10 @@ class Sidebar extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleTokens() {
+    this._handlePush(Tokens, this._getTokens())
   }
 
   _handleUpdate(key, value) {

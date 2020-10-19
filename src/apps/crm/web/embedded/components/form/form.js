@@ -33,6 +33,7 @@ class Form extends React.Component {
     starttime: PropTypes.number,
     status: PropTypes.string,
     summary: PropTypes.object,
+    tokens: PropTypes.object,
     token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
