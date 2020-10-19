@@ -14,7 +14,7 @@ const categories = [
   ] },
   { title: 'Narcissus', products: [
     { title: 'Narcissus Jetfire', price: 8.75, photo: 'https://cdn.shopify.com/s/files/1/1022/5071/products/daffodil-narcissus-jetfire-bulbs-early-blooming-now-shipping-1_700x700.jpg?v=1601248847' },
-    { title: 'Narcissus Pheasant\'s Eye', price: 8.75, photo: 'https://www.netherlandbulb.com/_ccLib/image/plants/DETA-63.jpg' },
+    { title: 'Narcissus Pheasant\'s Eye', price: 8.75, photo: 'https://s3.amazonaws.com/cdn.tulips.com/images/large/Pheasant-Eye.jpg' },
     { title: 'Narcissus Pink Charm', price: 8.75, photo: 'https://www.gardenia.net/storage/app/public/uploads/images/detail/207130%20Narcissus%20Pink%20CharmOptimized.jpg' },
     { title: 'Narcissus Tahiti', price: 8.75, photo: 'https://s3.amazonaws.com/cdn.brecks.com/images/800/67254.jpg' },
     { title: 'Narcissus Tête à Tête', price: 8.75, photo: 'https://thumbs.dreamstime.com/b/narcissus-tete-tete-detail-study-dwarf-flower-isolated-black-38621145.jpg' },
