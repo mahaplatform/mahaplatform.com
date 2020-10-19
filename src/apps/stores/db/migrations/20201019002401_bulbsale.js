@@ -35,7 +35,7 @@ const categories = [
     { title: 'Camassia quamash', price: 5.00, photo: 'https://www.plant-world-seeds.com/images/item_images/000/001/655/large_square/CAMASSIA_QUAMASH.JPG?1495388219' },
     { title: 'Chionodoxa luciliae', price: 5.00, photo: 'https://www.maxpixel.net/static/photo/1x/Scilla-Spring-Chionodoxa-Luciliae-Blue-Star-2162802.jpg' },
     { title: 'Majestic Lavender Dutch Crocus Mix', price: 5.00, photo: 'https://www.johnscheepers.com/media/catalog/product/cache/1/thumbnail/0dc2d03fe217f8c83829496872af24a0/c/r/cr_majestic_1.jpg' },
-    { title: 'Crocus sieberi ssp. sub. tricolor', price: 5.00, photo: 'https://lh3.googleusercontent.com/proxy/zlE-Tdmgn5D2LYFBPDFiNHsJ5CKcMqWD9d9V_OSUCyfq5W5AB69cPrqP5sPELBybUkKRShMPYn5LKySj-L4_2N1Gv3sqOiB_7a-eeYnrq3kw7Hsn5_UtxEurTA' },
+    { title: 'Crocus sieberi ssp. sub. tricolor', price: 5.00, photo: 'https://cdn.shopify.com/s/files/1/1419/7120/products/sqCrocus_sieberi_Tricolor.DV_1_grande.jpg?v=1595956922' },
     { title: 'Galanthus elwesii', price: 7.50, photo: 'https://www.gardenia.net/storage/app/public/uploads/images/Galanthus%20elwesii.jpg' },
     { title: 'Dutch Iris Rainbow Mix', price: 5.00, photo: 'https://www.americanmeadows.com/media/catalog/product/i/r/iris-hollandica-dutch-iris-mix.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=' },
     { title: 'Shades-of-Blue Iris reticulata Mix', price: 7.50, photo: 'https://static.artfire.com/img/1x/crop/512/512/0/uploads/mfs/items/7b/9a/7b9a94ce28c186c4be2364b138a5fb3a25f3420b18de60aeb10205780920f43c.jpg' },
@@ -125,6 +125,8 @@ const Bulbsale = {
           created_at: moment(),
           updated_at: moment()
         }).returning('*').then(results => results[0])
+
+        console.log(product.photo)
 
         const asset = await createAssetFromUrl(req, {
           url: product.photo
