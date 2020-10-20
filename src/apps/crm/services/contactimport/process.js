@@ -52,6 +52,7 @@ const getEmailAddresses = async (contact, values) => {
 
 const getFormattedNumber = (value) => {
   const parsed = parsePhoneNumberFromString(value, 'US')
+  if(!parsed) return null
   const number = [parsed.number]
   if(parsed.ext) number.push(parsed.ext)
   return number.join('x')
@@ -66,6 +67,7 @@ const getPhoneNumbers = async (contact, values) => {
   return Array(3).fill(0).reduce((numbers, n, i) => {
     if(!values[`phone_${i+1}`]) return numbers
     const number = getFormattedNumber(values[`phone_${i+1}`])
+    if(!number) return numbers
     const found = _.find(existing, { number })
     if(found) return numbers
     return [

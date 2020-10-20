@@ -6,8 +6,8 @@ import _ from 'lodash'
 
 const fieldmap = [
   { name: 'full_name', matches: ['name','fullname'] },
-  { name: 'first_name', matches: ['firstname','fname','givenname'] },
-  { name: 'last_name', matches: ['lastname','lastnames','lname','surname'] },
+  { name: 'first_name', matches: ['first','firstname','fname','givenname'] },
+  { name: 'last_name', matches: ['last','lastname','lastnames','lname','surname'] },
   { name: 'photo', matches: ['photo','picture'] },
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },

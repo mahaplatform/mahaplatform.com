@@ -48,6 +48,8 @@ const getContactByPhones = async (req, params) => {
     return !_.isNil(phone) && phone.length > 0
   }).map(phone => {
     return getFormattedNumber(phone)
+  }).filter(number => {
+    return number !== null
   })
 
   if(phones.length === 0) return null
