@@ -29,7 +29,7 @@ class Verify extends React.Component {
   componentDidMount() {
     const { pathname } = this.context.router.location
     const { onVerify } = this.props
-    const [,token] = pathname.match(/^\/admin\/reset\/(.*)/)
+    const [,token] = pathname.match(/^\/reset\/(.*)/)
     onVerify(token)
   }
 
