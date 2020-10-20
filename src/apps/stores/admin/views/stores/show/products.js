@@ -20,6 +20,7 @@ class Products extends React.Component {
           <thead>
             <tr>
               <td>Title</td>
+              <td>Category</td>
               <td />
             </tr>
           </thead>
@@ -31,6 +32,9 @@ class Products extends React.Component {
                     <span className="alert">INACTIVE</span>
                   }
                 </td>
+                <td>
+                  { product.category.title }
+                </td>
                 <td className="proceed">
                   <i className="fa fa-chevron-right" />
                 </td>
@@ -38,7 +42,7 @@ class Products extends React.Component {
             )) }
             { products.length === 0 &&
               <tr>
-                <td colSpan="2" className="center">
+                <td colSpan="3" className="center">
                   This store doesnt yet have any products
                 </td>
               </tr>

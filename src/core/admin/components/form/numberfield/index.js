@@ -112,7 +112,7 @@ class NumberField extends React.Component {
 
   _handleChange() {
     const { value } = this.state
-    const formatted = value.length > 0 ? Number(this.state.value) : null
+    const formatted = value > 0 ? Number(value) : null
     this.props.onChange(formatted)
   }
 

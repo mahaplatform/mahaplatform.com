@@ -17,8 +17,8 @@ const Product = new Model({
 
   variants() {
     return this.hasMany(Variant, 'product_id').query(qb => {
-      qb.select('stores_variants.*','stores_reservations.inventory_reserved')
-      qb.innerJoin('stores_reservations','stores_reservations.variant_id','stores_variants.id')
+      qb.select('stores_variants.*','stores_inventories.*')
+      qb.innerJoin('stores_inventories','stores_inventories.variant_id','stores_variants.id')
     })
   },
 

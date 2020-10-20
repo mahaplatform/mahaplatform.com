@@ -79,15 +79,6 @@ const createItems = async (req, { order, items, variants }) => {
       })
     })
 
-    if(variant.get('inventory_quantity') === null) return
-
-    await variant.save({
-      inventory_quantity: variant.get('inventory_quantity') - item.quantity
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-
   })
 
 }
@@ -159,7 +150,6 @@ const submitRoute = async (req, res) => {
     team_id: req.team.get('id'),
     store_id: store.get('id'),
     contact_id: contact.get('id'),
-    cart_id: cart.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
     payment_id: payment ? payment.get('id') : null,
     referer: req.body.referer,
@@ -169,6 +159,10 @@ const submitRoute = async (req, res) => {
     data: req.body.contact,
     shipping: req.body.shipping
   }).save(null, {
+    transacting: req.trx
+  })
+
+  await cart.destroy({
     transacting: req.trx
   })
 

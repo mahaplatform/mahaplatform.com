@@ -16,8 +16,8 @@ const checkRoute = async (req, res) => {
   })
 
   const variant = await Variant.query(qb => {
-    qb.select('stores_variants.*','stores_reservations.inventory_reserved')
-    qb.innerJoin('stores_reservations','stores_reservations.variant_id','stores_variants.id')
+    qb.select('stores_variants.*','stores_inventories.*')
+    qb.innerJoin('stores_inventories','stores_inventories.variant_id','stores_variants.id')
     qb.innerJoin('stores_products','stores_products.id','stores_variants.product_id')
     qb.where('stores_variants.code', req.params.code)
     qb.where('stores_products.store_id', store.get('id'))
@@ -27,7 +27,7 @@ const checkRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const available = variant ? variant.get('inventory_available') : 0
+  const available = variant ? variant.get('inventory_onhand') : 0
 
   res.status(200).respond(available === null || available > 0)
 }

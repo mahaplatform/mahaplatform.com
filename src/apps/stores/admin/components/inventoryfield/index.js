@@ -27,7 +27,7 @@ class InventoryField extends React.Component {
               <tr>
                 <td>Title</td>
                 <td className="collapsing">Policy</td>
-                <td className="collapsing">Quantity</td>
+                <td className="collapsing">In Stock</td>
               </tr>
             </thead>
             <tbody>
@@ -73,7 +73,7 @@ class InventoryField extends React.Component {
           ...vinventory,
           [variant.id]: {
             inventory_policy: variant.inventory_policy,
-            inventory_quantity: variant.inventory_quantity
+            inventory_instock: variant.inventory_instock
           }
         }), {})
       }), {})
@@ -105,7 +105,7 @@ class InventoryField extends React.Component {
   _getQuantity(variant) {
     const { inventory } = this.state
     return {
-      defaultValue: inventory[variant.id].inventory_quantity,
+      defaultValue: inventory[variant.id].inventory_instock,
       disabled: inventory[variant.id].inventory_policy === 'unlimited',
       placeholder: '',
       onChange: this._handleQuantity.bind(this, variant)
@@ -125,14 +125,14 @@ class InventoryField extends React.Component {
     })
   }
 
-  _handleQuantity(variant, inventory_quantity) {
+  _handleQuantity(variant, inventory_instock) {
     const { inventory } = this.state
     this.setState({
       inventory: {
         ...inventory,
         [variant.id]: {
           ...inventory[variant.id],
-          inventory_quantity
+          inventory_instock
         }
       }
     })

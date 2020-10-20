@@ -4,6 +4,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
+import Adjustment from '../../../../models/adjustment'
 import Variant from '../../../../models/variant'
 import Product from '../../../../models/product'
 import Store from '../../../../models/store'
@@ -59,11 +60,18 @@ const createRoute = async (req, res) => {
       donation_revenue_type_id: data.donation_revenue_type_id,
       tax_rate: data.tax_rate,
       inventory_policy: data.inventory_policy,
-      inventory_quantity: data.inventory_quantity,
       shipping_strategy: data.shipping_strategy,
       shipping_fee: data.shipping_fee,
       file_id: data.file_id,
       url: data.url
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    await Adjustment.forge({
+      team_id: req.team.get('id'),
+      variant_id: variant.get('id'),
+      quantity: data.inventory_quantity
     }).save(null, {
       transacting: req.trx
     })

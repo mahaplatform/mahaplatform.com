@@ -13,7 +13,8 @@ const Details = ({ audits, product }) => {
   config.sections = [
     {
       items: [
-        { label: 'Title', content: product.title }
+        { label: 'Title', content: product.title },
+        { label: 'Category', content: product.category.title }
       ]
     },{
       items: [

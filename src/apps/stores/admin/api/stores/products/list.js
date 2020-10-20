@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
       params: req.query.$sort,
       defaults: 'code'
     },
-    withRelated: ['variants.project','variants.revenue_type'],
+    withRelated: ['variants.project','variants.revenue_type','category'],
     page: req.query.$page,
     transacting: req.trx
   })

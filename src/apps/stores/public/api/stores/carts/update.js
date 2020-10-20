@@ -1,3 +1,4 @@
+import socket from '../../../../../../core/services/routes/emitter'
 import CartSerializer from '../../../../serializers/cart_serializer'
 import Store from '../../../../models/store'
 import Cart from '../../../../models/cart'
@@ -57,6 +58,10 @@ const updateRoute = async (req, res) => {
   await cart.load(['discount','items.variant.product'], {
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/stores/stores/${store.get('id')}`
+  ])
 
   res.status(200).respond(cart, CartSerializer)
 

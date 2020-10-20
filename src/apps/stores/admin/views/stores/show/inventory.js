@@ -21,8 +21,18 @@ class Inventory extends React.Component {
             <thead>
               <tr>
                 <td>Title</td>
-                <td className="collapsing">Policy</td>
-                <td className="collapsing">Quantity</td>
+                <td className="collapsing" data-position="bottom center" data-inverted={ true } data-tooltip="Items in your warehouse">
+                  In Stock
+                </td>
+                <td className="collapsing" data-position="bottom center" data-inverted={ true } data-tooltip="Items reserved in carts">
+                  Reserved
+                </td>
+                <td className="collapsing" data-position="bottom center" data-inverted={ true } data-tooltip="Items ordered but not yet fulfilled">
+                  Unfulfilled
+                </td>
+                <td className="collapsing" data-position="bottom center" data-inverted={ true } data-tooltip="Items available for sale">
+                  On Hand
+                </td>
               </tr>
             </thead>
             <tbody>
@@ -36,16 +46,24 @@ class Inventory extends React.Component {
                         }).join(', ') })</span>
                       }
                     </td>
-                    <td>{ variant.inventory_policy }</td>
                     <td className="right aligned">
-                      { variant.inventory_quantity }
+                      { variant.inventory_instock }
+                    </td>
+                    <td className="right aligned">
+                      { variant.inventory_reserved }
+                    </td>
+                    <td className="right aligned">
+                      { variant.inventory_unfulfilled }
+                    </td>
+                    <td className="right aligned">
+                      { variant.inventory_onhand }
                     </td>
                   </tr>
                 ))
               ]) }
               { products.length === 0 &&
                 <tr>
-                  <td colSpan="2" className="center">
+                  <td colSpan="4" className="center">
                     This store doesnt yet have any products
                   </td>
                 </tr>

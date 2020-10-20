@@ -3,6 +3,7 @@ import Project from '../../finance/models/project'
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Reservation from './reservation'
+import Adjustment from './adjustment'
 import Discount from './discount'
 import Product from './product'
 import Photo from './photo'
@@ -14,13 +15,10 @@ const Variant = new Model({
 
   rules: {},
 
-  virtuals: {
+  virtuals: {},
 
-    inventory_available() {
-      if(this.get('inventory_quantity') === null) return null
-      return Number(this.get('inventory_quantity')) - Number(this.get('inventory_reserved'))
-    }
-
+  adjustments() {
+    return this.hasMany(Adjustment, 'variant_id')
   },
 
   discounts() {

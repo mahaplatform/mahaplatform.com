@@ -2216,6 +2216,15 @@ const schema = {
       table.string('proj4text', 2048)
     })
 
+    await knex.schema.createTable('stores_adjustments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('variant_id').unsigned()
+      table.integer('quantity')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('stores_carts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2277,7 +2286,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('store_id').unsigned()
       table.integer('contact_id').unsigned()
-      table.integer('cart_id').unsigned()
       table.integer('invoice_id').unsigned()
       table.integer('payment_id').unsigned()
       table.string('ipaddress', 255)
@@ -2346,7 +2354,6 @@ const schema = {
       table.USER-DEFINED('overage_strategy')
       table.integer('donation_revenue_type_id').unsigned()
       table.boolean('is_tax_deductable')
-      table.integer('inventory_quantity')
       table.USER-DEFINED('inventory_policy')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -3504,6 +3511,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('stores_categories', table => {
+      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('stores_discounts', table => {
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -3527,7 +3539,6 @@ const schema = {
     })
 
     await knex.schema.table('stores_orders', table => {
-      table.foreign('cart_id').references('stores_carts.id')
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('invoice_id').references('finance_invoices.id')
@@ -3537,9 +3548,9 @@ const schema = {
     })
 
     await knex.schema.table('stores_products', table => {
+      table.foreign('category_id').references('stores_categories.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('category_id').references('stores_categories.id')
     })
 
     await knex.schema.table('stores_stores', table => {
@@ -3637,9 +3648,9 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('stores_categories', table => {
+    await knex.schema.table('stores_adjustments', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('store_id').references('stores_stores.id')
+      table.foreign('variant_id').references('stores_variants.id')
     })
 
 
@@ -5882,17 +5893,52 @@ union
     `)
 
     await knex.raw(`
-      create view stores_reservations AS
-      with items as (
+      create view stores_inventories AS
+      with instock as (
+      select stores_variants_1.id as variant_id,
+      sum(stores_inventory_histories.quantity) as total
+      from (stores_variants stores_variants_1
+      left join stores_inventory_histories on ((stores_inventory_histories.variant_id = stores_variants_1.id)))
+      group by stores_variants_1.id
+      ), cartitems as (
       select jsonb_array_elements((stores_carts.data -> 'items'::text)) as item
       from stores_carts
+      ), reserved as (
+      select stores_variants_1.id as variant_id,
+      (coalesce(sum(((cartitems.item ->> 'quantity'::text))::integer), (0)::bigint))::integer as total
+      from (stores_variants stores_variants_1
+      left join cartitems on (((cartitems.item ->> 'code'::text) = (stores_variants_1.code)::text)))
+      group by stores_variants_1.id
+      ), unfullfilled as (
+      select stores_variants_1.id as variant_id,
+      coalesce(count(stores_items.id), (0)::bigint) as total
+      from (stores_variants stores_variants_1
+      left join stores_items on (((stores_items.variant_id = stores_variants_1.id) and (stores_items.status = 'pending'::stores_item_statuses))))
+      group by stores_variants_1.id
       )
       select stores_variants.id as variant_id,
-      (coalesce(sum(((items.item ->> 'quantity'::text))::integer), (0)::bigint))::integer as inventory_reserved
-      from (stores_variants
-      left join items on (((items.item ->> 'code'::text) = (stores_variants.code)::text)))
-      group by stores_variants.id
-      order by stores_variants.id;
+      (instock.total)::integer as inventory_instock,
+      (((instock.total - reserved.total) - unfullfilled.total))::integer as inventory_onhand,
+      reserved.total as inventory_reserved,
+      (unfullfilled.total)::integer as inventory_unfulfilled
+      from (((stores_variants
+      join instock on ((instock.variant_id = stores_variants.id)))
+      join unfullfilled on ((unfullfilled.variant_id = stores_variants.id)))
+      join reserved on ((reserved.variant_id = stores_variants.id)));
+    `)
+
+    await knex.raw(`
+      create view stores_inventory_histories AS
+      select stores_adjustments.variant_id,
+      stores_adjustments.quantity,
+      stores_adjustments.created_at
+      from stores_adjustments
+union
+      select stores_items.variant_id,
+      '-1'::integer as quantity,
+      stores_items.created_at
+      from stores_items
+      where (stores_items.status = 'fulfilled'::stores_item_statuses);
     `)
   }
 

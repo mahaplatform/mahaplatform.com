@@ -11,7 +11,7 @@ const Details = ({ audits, store }) => {
   // }
 
   const link = {
-    label: 'View Public Form',
+    label: 'View Public Store',
     className: 'link',
     link: store.url
   }

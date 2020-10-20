@@ -62,7 +62,7 @@ class Cart extends React.Component {
             </thead>
             <tbody>
               { items.map((item, index) => (
-                <tr key={`product_${index}`}>
+                <tr key={`product_${item.id}`}>
                   <td onClick={ this._handleRemove.bind(this, item.code) }>
                     <span>x</span>
                   </td>
@@ -194,7 +194,6 @@ class Cart extends React.Component {
 
   async _handleAdd({ code, quantity }) {
     const { cart, Store, items, variants } = this.props
-    console.log(code, variants)
     const variant = variants.find(variant => {
       return variant.code === code
     })

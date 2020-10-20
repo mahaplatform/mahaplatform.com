@@ -60,7 +60,7 @@ class Item extends React.Component {
   _getInventory() {
     const { product } = this.props
     return product.variants.reduce((inventory, variant) => {
-      return inventory + variant.inventory_quantity
+      return inventory + variant.inventory_onhand
     }, 0)
   }
 

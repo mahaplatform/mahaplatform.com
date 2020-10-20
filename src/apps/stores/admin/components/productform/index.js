@@ -42,7 +42,6 @@ class ProductForm extends React.Component {
   }
 
   _getData(product) {
-    console.log(product)
     return {
       title: product.title,
       description: product.description,
@@ -61,7 +60,10 @@ class ProductForm extends React.Component {
         donation_revenue_type_id: variant.donation_revenue_type_id,
         tax_rate: variant.tax_rate,
         inventory_policy: variant.inventory_policy,
-        inventory_quantity: variant.inventory_quantity,
+        inventory_instock: variant.inventory_instock,
+        inventory_onhand: variant.inventory_onhand,
+        inventory_reserved: variant.inventory_reserved,
+        inventory_unfulfilled: variant.inventory_unfulfilled,
         shipping_strategy: variant.shipping_strategy,
         shipping_fee: variant.shipping_fee,
         file_id: variant.file ? variant.file.id : null,
