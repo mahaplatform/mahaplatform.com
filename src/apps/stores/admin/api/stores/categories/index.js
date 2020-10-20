@@ -1,7 +1,3 @@
-import performance from './performance'
-import categories from './categories'
-import inventory from './inventory'
-import products from './products'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -20,16 +16,8 @@ router.get('/:id', show)
 
 router.get('/:id/edit', edit)
 
-router.patch('/:id/inventory', inventory)
-
-router.get('/:id/performance', performance)
-
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
-
-router.use('/:store_id/categories', categories)
-
-router.use('/:store_id/products', products)
 
 export default router

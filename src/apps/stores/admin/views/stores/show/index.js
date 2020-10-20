@@ -13,7 +13,7 @@ const getTabs = ({ audits, products, store }) => ({
     { label: 'Details', component: <Details store={ store } audits={ audits } /> },
     { label: 'Products', component: <Products store={ store } products={ products } /> },
     { label: 'Inventory', component: <Inv products={ products }/> },
-    { label: 'Performance', component: <Performance /> }
+    { label: 'Performance', component: <Performance store={ store } /> }
   ]
 })
 

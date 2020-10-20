@@ -1,6 +1,7 @@
 const productSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
+  slug: result.get('slug'),
   title: result.get('title'),
   type: result.get('type'),
   description: result.get('description'),

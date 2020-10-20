@@ -32,7 +32,9 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     store_id: store.get('id'),
     code: product_code,
-    ...whitelist(req.body, ['title','description','options','type']),
+    title: req.body.title,
+    slug: req.body.title.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '-').toLowerCase(),
+    ...whitelist(req.body, ['title','description','options','type','category_id']),
     is_active: true
   }).save(null, {
     transacting: req.trx

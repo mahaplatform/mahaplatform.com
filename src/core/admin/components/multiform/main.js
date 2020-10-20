@@ -16,6 +16,7 @@ class Main extends React.Component {
     formatData: PropTypes.func,
     getSteps: PropTypes.func,
     method: PropTypes.string,
+    props: PropTypes.object,
     title: PropTypes.string,
     onCancel: PropTypes.func,
     onSuccess: PropTypes.func
@@ -86,8 +87,10 @@ class Main extends React.Component {
 
   _getStep() {
     const { formdata } = this.state
+    const { props } = this.props
     return {
       formdata,
+      props,
       onBack: this._handleBack,
       onCancel: this._handleCancel,
       onChange: this._handleChange,

@@ -141,7 +141,6 @@ class Step3 extends React.Component {
   }
 
   _handleSubmit(tickets) {
-    console.log('tickets', tickets)
     const result = flat.unflatten(tickets, {
       safe: false,
       maxDepth: 3

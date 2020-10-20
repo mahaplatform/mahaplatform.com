@@ -146,7 +146,6 @@ class Checkboxes extends React.Component {
   _handleOptions(options) {
     const { defaultValue } = this.props
     this.setState({ options })
-    console.log({ options })
     if(defaultValue) {
       this.setState({
         selected: options.reduce((selected, option, index) => [

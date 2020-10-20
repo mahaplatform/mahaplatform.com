@@ -83,7 +83,7 @@ class Store extends React.Component {
     const { store } = this.props
     return {
       product: store.products.find(product => {
-        return product.code === params.code
+        return product.slug === params.slug
       }),
       Store: this.store
     }
@@ -96,7 +96,7 @@ class Store extends React.Component {
       routes: [
         { path: '/', component: Catalog, props: this._getCatalog.bind(this) },
         { path: '/categories/:slug', component: Catalog, props: this._getCatalog.bind(this) },
-        { path: '/products/:code', component: Product, props: this._getProduct.bind(this) }
+        { path: '/products/:slug', component: Product, props: this._getProduct.bind(this) }
       ]
     }
   }

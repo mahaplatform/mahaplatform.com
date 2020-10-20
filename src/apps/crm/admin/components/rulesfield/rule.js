@@ -65,7 +65,6 @@ class Rule extends React.Component {
     const comparisons = options.comparisons.filter(comparison => {
       return !comparison.types || _.includes(comparison.types, field.type)
     })
-    console.log(fields, field.type, comparisons)
     const items = [
       { name: 'comparison', type: 'radiogroup', deselectable: false, options: comparisons, required: true }
     ]

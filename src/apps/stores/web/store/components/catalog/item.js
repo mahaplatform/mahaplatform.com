@@ -66,7 +66,7 @@ class Item extends React.Component {
 
   _handleClick() {
     const { store, product } = this.props
-    this.context.router.history.push(`/stores/stores/${store.code}/products/${product.code}`)
+    this.context.router.history.push(`/stores/stores/${store.code}/products/${product.slug}`)
   }
 
 }

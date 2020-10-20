@@ -35,6 +35,7 @@ class ProductForm extends React.Component {
       endpoint: `/api/admin/stores/stores/${store.id}/products`,
       method: 'post',
       formatData: this._getData,
+      props: { store },
       getSteps: this._getSteps,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess
@@ -44,6 +45,8 @@ class ProductForm extends React.Component {
   _getData(product) {
     return {
       title: product.title,
+      type: product.type,
+      category_id: product.category_id,
       description: product.description,
       options: product.options,
       variants: product.variants.map(variant => ({
@@ -60,11 +63,7 @@ class ProductForm extends React.Component {
         donation_revenue_type_id: variant.donation_revenue_type_id,
         tax_rate: variant.tax_rate,
         inventory_policy: variant.inventory_policy,
-        inventory_instock: variant.inventory_instock,
-        inventory_onhand: variant.inventory_onhand,
-        inventory_reserved: variant.inventory_reserved,
-        inventory_unfulfilled: variant.inventory_unfulfilled,
-        shipping_strategy: variant.shipping_strategy,
+        inventory_quantity: variant.inventory_quantity,
         shipping_fee: variant.shipping_fee,
         file_id: variant.file ? variant.file.id : null,
         url: variant.url

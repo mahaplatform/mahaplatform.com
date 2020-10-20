@@ -155,7 +155,6 @@ const Select = (multiple) => {
     }
 
     _handleDeselectAll() {
-      console.log('deselect')
       this.props.onSetSelected([])
     }
 
@@ -170,7 +169,6 @@ const Select = (multiple) => {
     }
 
     _handleSelectAll() {
-      console.log('select')
       const { options, value } = this.props
       this.props.onSetSelected(options.map(option => {
         return _.get(option, value)

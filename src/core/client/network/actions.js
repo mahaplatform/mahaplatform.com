@@ -10,3 +10,25 @@ export const request = ({ method, endpoint, query, body, onSuccess, onFailure })
   onSuccess,
   onFailure
 })
+
+export const join = (channels) => ({
+  type: 'SOCKETIO_JOIN',
+  channels,
+  request: 'JOIN'
+})
+
+export const leave = (channels) => ({
+  type: 'SOCKETIO_LEAVE',
+  channels,
+  request: 'LEAVE'
+})
+
+export const subscribe = (handlers) => ({
+  type: 'SUBSCRIBE',
+  handlers
+})
+
+export const unsubscribe = (handler) => ({
+  type: 'UNSUBSCRIBE',
+  handler
+})

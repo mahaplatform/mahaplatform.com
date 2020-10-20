@@ -6,6 +6,7 @@ class Product extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
+    props: PropTypes.object,
     onBack: PropTypes.func,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
@@ -25,6 +26,7 @@ class Product extends React.Component {
   }
 
   _getForm() {
+    const { props } = this.props
     return {
       reference: node => this.form = node,
       showHeader: false,
@@ -38,6 +40,7 @@ class Product extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
+            { label: 'Category', name: 'category_id', type: 'lookup', endpoint: `/api/admin/stores/stores/${props.store.id}/categories`, value: 'id', text: 'title', required: true, placeholder: 'Choose a category' },
             { label: 'Type', name: 'type', type: 'dropdown', options: [
               { value: 'physical', text: 'Physical Product' },
               { value: 'file', text: 'File' },

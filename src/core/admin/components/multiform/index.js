@@ -15,6 +15,7 @@ class MultiForm extends React.Component {
     getSteps: PropTypes.func,
     method: PropTypes.string,
     title: PropTypes.string,
+    props: PropTypes.object,
     onCancel: PropTypes.func,
     onSuccess: PropTypes.func
   }
@@ -51,12 +52,13 @@ class MultiForm extends React.Component {
   }
 
   _getMain() {
-    const { endpoint, formatData, getSteps, method, title, onCancel, onSuccess } = this.props
+    const { endpoint, formatData, getSteps, method, props, title, onCancel, onSuccess } = this.props
     return {
       endpoint,
       formatData,
       getSteps,
       method,
+      props,
       title,
       onCancel,
       onSuccess

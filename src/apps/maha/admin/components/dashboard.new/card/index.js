@@ -211,9 +211,7 @@ const target = {
     props.onMove(dragIndex, hoverIndex)
     monitor.getItem().index = hoverIndex
   },
-  drop: (props, monitor, component) => {
-    console.log('drop', { props, monitor, component })
-  }
+  drop: (props, monitor, component) => {}
 }
 
 const sourceCollector = (connect, monitor) => ({

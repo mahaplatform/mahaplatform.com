@@ -126,8 +126,6 @@ const Bulbsale = {
           updated_at: moment()
         }).returning('*').then(results => results[0])
 
-        console.log(product.photo)
-
         const asset = await createAssetFromUrl(req, {
           url: product.photo
         })

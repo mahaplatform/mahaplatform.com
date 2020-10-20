@@ -2323,6 +2323,7 @@ const schema = {
       table.boolean('is_active')
       table.timestamp('deleted_at')
       table.integer('category_id').unsigned()
+      table.string('slug', 255)
     })
 
     await knex.schema.createTable('stores_stores', (table) => {
@@ -3505,6 +3506,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('stores_adjustments', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('variant_id').references('stores_variants.id')
+    })
+
     await knex.schema.table('stores_carts', table => {
       table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('store_id').references('stores_stores.id')
@@ -3646,11 +3652,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('stores_adjustments', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('variant_id').references('stores_variants.id')
     })
 
 

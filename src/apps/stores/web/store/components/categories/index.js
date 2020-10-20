@@ -17,7 +17,6 @@ class Categories extends React.Component {
   }
 
   render() {
-    const { store } = this.props
     const categories = this._getCategories()
     return (
       <div className="store-categories">
@@ -44,6 +43,7 @@ class Categories extends React.Component {
   }
 
   _getCategories() {
+    const { store } = this.props
     return [
       { title: 'All' },
       ...store.categories
