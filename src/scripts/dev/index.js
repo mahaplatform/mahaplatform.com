@@ -176,10 +176,13 @@ const adminWatch = async () => {
           secure: false
         }
       }), {}),
-      '/maha.js': {
-        target: `http://${process.env.DOMAIN}:${sdkport}`,
-        secure: false
-      },
+      ...['css','js'].reduce((proxies, ext) => ({
+        ...proxies,
+        [`/maha.${ext}`]: {
+          target: `http://${process.env.DOMAIN}:${sdkport}`,
+          secure: false
+        }
+      }), {}),
       '**': wildcard,
       '/.*': wildcard,
       '/.**/*': wildcard

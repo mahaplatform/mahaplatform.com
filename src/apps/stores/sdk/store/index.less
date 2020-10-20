@@ -1,0 +1,57 @@
+.maha-store-overlay {
+  opacity: 0;
+  &.open {
+    transition: opacity .25s ease-in-out 0s;
+  }
+  &.open-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: @black;
+    opacity: 0.5;
+  }
+}
+.maha-store-checkout {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  max-width: 1024px;
+  max-height: 768px;
+  transform: translate(-50%,200%);
+  background: @white;
+  display: flex;
+  iframe {
+    flex: 1;
+  }
+  &.open {
+    transition: transform .25s ease-in-out 0s;
+  }
+  &.open-active {
+    transform: translate(-50%,-50%);
+  }
+}
+.maha-store-cart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 375px;
+  background-color: @white;
+  transform: ~"translateX(calc(100% + 5px))";
+  box-shadow: -5px 0 5px fadeout(@black, 95);
+  display: flex;
+  iframe {
+    flex: 1;
+  }
+  &.open {
+    transition: transform .25s ease-in-out 0s;
+  }
+  &.open-active {
+    transform: translateX(0);
+  }
+}

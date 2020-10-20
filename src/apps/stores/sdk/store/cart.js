@@ -46,18 +46,25 @@ class Cart extends Emitter {
 
   hide() {
     this.open = false
-    this.cart.className = 'maha-store-cart'
-    this.overlay.className = 'maha-store-cart-overlay'
+    this.overlay.classList.remove('open-active')
+    this.cart.classList.remove('open-active')
+    setTimeout(() => {
+      this.overlay.classList.remove('open')
+      this.cart.classList.remove('open')
+    }, 250)
   }
 
   removeItem(code) {
     this.pasteur.send('remove', code)
   }
 
+
   show() {
     this.open = true
-    this.cart.className = 'maha-store-cart open'
-    this.overlay.className = 'maha-store-cart-overlay open'
+    this.overlay.classList.add('open')
+    this.cart.classList.add('open')
+    this.overlay.classList.add('open-active')
+    this.cart.classList.add('open-active')
   }
 
   toggle() {
@@ -93,18 +100,17 @@ class Cart extends Emitter {
   }
 
   _handleInit() {
+    this.overlay = document.createElement('div')
+    this.overlay.className = 'maha-store-overlay'
+    this.overlay.onclick = this._handleClose
+    document.body.appendChild(this.overlay)
+    this.cart = document.createElement('div')
+    this.cart.className = 'maha-store-cart'
+    document.body.appendChild(this.cart)
     this.iframe = document.createElement('iframe')
     this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
     this.iframe.frameBorder = 0
-    this.overlay = document.createElement('div')
-    this.overlay.className = 'maha-store-cart-overlay'
-    this.overlay.appendChild(this.iframe)
-    this.overlay.onclick = this._handleClose
-    this.cart = document.createElement('div')
-    this.cart.className = 'maha-store-cart'
     this.cart.appendChild(this.iframe)
-    document.body.appendChild(this.overlay)
-    document.body.appendChild(this.cart)
     this.pasteur = new Pasteur({
       window,
       target: this.iframe.contentWindow,

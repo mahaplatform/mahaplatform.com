@@ -1,15 +1,32 @@
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
+import cssnano from 'cssnano'
 import path from 'path'
 
 const webpackConfig = {
   devtool: 'none',
   entry: [
-    path.resolve('src','core','sdk','index.js')
+    path.resolve('src','core','sdk','index.js'),
+    path.resolve('src','core','sdk','index.less')
   ],
   mode: 'development',
   module: {
     rules: [
       {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: {
+            url: false, sourceMap: true }
+          },
+          { loader: 'postcss-loader', options: {
+            plugins: [autoprefixer, cssnano] }
+          },
+          'less-loader'
+        ]
+      }, {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
@@ -30,6 +47,9 @@ const webpackConfig = {
     publicPath: '/'
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'maha.css'
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)

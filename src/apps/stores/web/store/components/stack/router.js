@@ -20,8 +20,7 @@ class Router extends React.Component {
   }
 
   render() {
-    const { cards } = this.state
-    return <Stack cards={ cards }/>
+    return <Stack { ...this._getStack() }/>
   }
 
   componentDidMount() {
@@ -46,6 +45,14 @@ class Router extends React.Component {
           route
         ]
       })
+    }
+  }
+
+  _getStack() {
+    const { cards } = this.state
+    return {
+      slideFirst: false,
+      cards
     }
   }
 
