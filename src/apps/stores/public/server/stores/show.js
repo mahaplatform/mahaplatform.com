@@ -39,6 +39,7 @@ const showRoute = async (req, res) => {
       id: store.get('id'),
       code: store.get('code'),
       title: store.get('title'),
+      path: store.get('path'),
       url: store.get('url'),
       products: products.map(product => ProductSerializer(req, product)),
       categories: store.related('categories').map(category => ({

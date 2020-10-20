@@ -92,7 +92,7 @@ class Store extends React.Component {
   _getStack() {
     const { store } = this.props
     return {
-      prefix: `/stores/stores/${store.code}`,
+      prefix: store.path,
       routes: [
         { path: '/', component: Catalog, props: this._getCatalog.bind(this) },
         { path: '/categories/:slug', component: Catalog, props: this._getCatalog.bind(this) },
