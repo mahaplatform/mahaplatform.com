@@ -4,11 +4,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link href="/css/semantic.min.css" rel="stylesheet" />
-    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="<%= process.env.WEB_ASSET_CDN_HOST %>/css/semantic.min.css" rel="stylesheet" />
+    <link href="<%= process.env.WEB_ASSET_CDN_HOST %>/css/font-awesome.min.css" rel="stylesheet" />
     <%= t('logo = program.logo || team.logo', false) %>
-    <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
-    <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
+    <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
+    <link id="favicon" rel="shortcut icon" href="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
     <title><%= t('store.title', true) %></title>
     <meta property="og:title" content="<%= t('store.title', true) %>" />
     <meta property="og:type" content="article" />
@@ -16,7 +16,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <script src="https://dev.mahaplatform.com:8080/maha.js"></script>
+    <script src="<%= process.env.WEB_HOST %>/maha.js"></script>
     <script>
       window.token = <%= t('JSON.stringify(token)', true) %>;
       window.store = <%= t('JSON.stringify(store)', true) %>;

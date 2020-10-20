@@ -7,7 +7,8 @@ import Workflow from '../../models/workflow'
 import Template from '../../models/template'
 import Email from '../../models/email'
 
-const getTriggerType = ({ form, event }) => {
+const getTriggerType = ({ form, event, store }) => {
+  if(store) return 'order'
   if(form) return 'response'
   if(event) return 'event'
 }
@@ -29,7 +30,7 @@ const createConfirmationWorkflow = async(req, params) => {
     code: workflowCode,
     status: 'active',
     title: 'Confirmation Workflow',
-    trigger_type: getTriggerType({ form, event })
+    trigger_type: getTriggerType({ form, event, store })
   }).save(null, {
     transacting: req.trx
   })

@@ -5,6 +5,7 @@ import React from 'react'
 import _ from 'lodash'
 
 const triggers = {
+  order: { icon: 'shopping-bag', text: 'Order is created' },
   response: { icon: 'check-square-o', text: 'Form is submitted' },
   delivery: { icon: 'envelope', text: 'Email is delivered' },
   open: { icon: 'envelope-open', text: 'Email is opened' },

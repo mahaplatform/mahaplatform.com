@@ -4,11 +4,11 @@ import React from 'react'
 
 const Details = ({ audits, store }) => {
 
-  // const workflow = {
-  //   label: ' Manage Workflow',
-  //   className: 'link',
-  //   route: `/admin/crm/workflows/${event.workflow.id}`
-  // }
+  const workflow = {
+    label: ' Manage Workflow',
+    className: 'link',
+    route: `/admin/crm/workflows/${store.workflow.id}`
+  }
 
   const link = {
     label: 'View Public Store',
@@ -22,7 +22,7 @@ const Details = ({ audits, store }) => {
         items: [
           { label: 'Title', content: store.title },
           { label: 'Program', content: store.program.title },
-          // { label: 'Workflow', content: <Button { ...workflow } /> },
+          { label: 'Workflow', content: <Button { ...workflow } /> },
           { label: 'URL', content: <Button { ...link } /> }
         ]
       }
