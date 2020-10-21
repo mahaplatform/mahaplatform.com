@@ -37,6 +37,9 @@ class Product extends React.Component {
             </div>
           </div>
           <div className="store-product-details">
+            <div className="store-product-breadcrumbs">
+              <Button { ...this._getStore() } /> › <Button { ...this._getCategory() } />
+            </div>
             <div className="store-product-title">
               { product.title }
             </div>
@@ -73,6 +76,15 @@ class Product extends React.Component {
     }
   }
 
+  _getCategory() {
+    const { product } = this.props
+    return {
+      label: product.category.title,
+      className: 'link',
+      handler: () => {}
+    }
+  }
+
   _getDropDown() {
     const { product } = this.props
     return {
@@ -97,6 +109,14 @@ class Product extends React.Component {
   _getQuantity() {
     return {
       onChange: this._handleQuantity
+    }
+  }
+
+  _getStore() {
+    return {
+      label: 'Home',
+      className: 'link',
+      handler: () => {}
     }
   }
 

@@ -1,5 +1,4 @@
 import RouterStack from '../stack/router'
-import Categories from '../categories'
 import PropTypes from 'prop-types'
 import CartIcon from '../carticon'
 import Catalog from '../catalog'
@@ -17,7 +16,6 @@ class Store extends React.Component {
   store = null
 
   state = {
-    filters: {},
     ready: false
   }
 
@@ -37,9 +35,6 @@ class Store extends React.Component {
           </div>
         </div>
         <div className="store-main">
-          <div className="store-main-header">
-            <Categories { ...this._getCategories() } />
-          </div>
           <div className="store-main-body">
             <RouterStack { ...this._getStack() } />
           </div>
@@ -64,15 +59,6 @@ class Store extends React.Component {
   }
 
   _getCatalog() {
-    const { filters } = this.state
-    const { store } = this.props
-    return {
-      filters,
-      store
-    }
-  }
-
-  _getCategories() {
     const { store } = this.props
     return {
       store

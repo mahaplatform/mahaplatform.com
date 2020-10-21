@@ -45,7 +45,7 @@ class Categories extends React.Component {
   _getCategories() {
     const { store } = this.props
     return [
-      { title: 'All' },
+      { id: 0, title: 'All' },
       ...store.categories
     ]
   }
@@ -67,8 +67,7 @@ class Categories extends React.Component {
   _handleChange() {
     const { selected } = this.state
     const categories = this._getCategories()
-    const route = this._getRoute(categories[selected])
-    this.context.router.history.push(route)
+    this.props.onChange(categories[selected].id)
   }
 
   _handleClick(selected) {

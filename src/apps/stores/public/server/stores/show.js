@@ -21,6 +21,7 @@ const showRoute = async (req, res) => {
     qb.where('store_id', store.get('id'))
     qb.where('is_active', true)
     qb.whereNull('deleted_at')
+    qb.orderBy('title', 'asc')
   }).fetchAll({
     withRelated: ['category','variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
     transacting: req.trx

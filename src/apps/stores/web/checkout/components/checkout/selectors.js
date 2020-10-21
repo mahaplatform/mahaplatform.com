@@ -42,7 +42,7 @@ export const items = createSelector(
 export const isShipped = createSelector(
   items,
   (item) => item.find(item => {
-    return item.shipping_strategy !== null
+    return item.shipping_strategy !== 'none'
   }) !== undefined
 )
 

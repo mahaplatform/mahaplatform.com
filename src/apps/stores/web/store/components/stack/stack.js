@@ -33,7 +33,7 @@ class Stack extends React.Component {
           { cards.map((card, index) => (
             <div key={ `card_${index}` } className={ this._getCardClass(index) }>
               { _.isFunction(card.component) ?
-                <card.component { ...this._getProps(index, card.params) } params={ card.params } active={ index === cards.length - 1} /> :
+                <card.component { ...this._getProps(index, card.params) } params={ card.params } cardIndex={ index } active={ index === cards.length - 1} /> :
                 card.component
               }
             </div>

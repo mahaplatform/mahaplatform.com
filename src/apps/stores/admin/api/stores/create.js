@@ -33,7 +33,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     program_id: program.get('id'),
-    ...whitelist(req.body, ['title','permalink'])
+    ...whitelist(req.body, ['title','permalink','contact_config'])
   }).save(null, {
     transacting: req.trx
   })
