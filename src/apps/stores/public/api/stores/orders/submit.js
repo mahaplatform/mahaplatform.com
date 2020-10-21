@@ -149,6 +149,7 @@ const submitRoute = async (req, res) => {
   const order = await Order.forge({
     team_id: req.team.get('id'),
     store_id: store.get('id'),
+    cart_id: cart.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
     payment_id: payment ? payment.get('id') : null,
@@ -162,7 +163,9 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await cart.destroy({
+  await cart.save({
+    status: 'ordered'
+  }, {
     transacting: req.trx
   })
 

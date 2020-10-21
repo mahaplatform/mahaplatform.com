@@ -1,3 +1,4 @@
+import VariantToken from '../../../tokens/variant'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -39,12 +40,8 @@ class Inventory extends React.Component {
               { products.map((product, index) => [
                 product.variants.map((variant, vindex) => (
                   <tr key={`product_${index}_variant_${vindex}`}>
-                    <td>
-                      { product.title } { variant.options.length > 0 &&
-                        <span>({ variant.options.map(option => {
-                          return `${option.option}: ${option.value}`
-                        }).join(', ') })</span>
-                      }
+                    <td className="unpadded">
+                      <VariantToken product={ product } variant={ variant }/>
                     </td>
                     <td className="right aligned">
                       { variant.inventory_instock }
@@ -73,6 +70,14 @@ class Inventory extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getThumbnail(variant) {
+    console.log(variant)
+    return {
+      src: variant.photos[0] ? variant.photos[0].asset.path : null,
+      transforms: { fit: 'cover', w: 250, h: 250 }
+    }
   }
 
 }

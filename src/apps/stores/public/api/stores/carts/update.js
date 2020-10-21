@@ -7,6 +7,7 @@ const getCart = async (req, { store, code }) => {
 
   const cart = await Cart.query(qb => {
     qb.where('store_id', store.get('id'))
+    qb.where('status', 'active')
     qb.where('code', code)
   }).fetch({
     transacting: req.trx
@@ -20,7 +21,8 @@ const getCart = async (req, { store, code }) => {
     code,
     data: {
       items: []
-    }
+    },
+    status: 'active'
   }).save(null, {
     transacting: req.trx
   })

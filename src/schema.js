@@ -2234,6 +2234,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('discount_id').unsigned()
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('stores_categories', (table) => {
@@ -2297,6 +2298,7 @@ const schema = {
       table.timestamp('updated_at')
       table.jsonb('shipping')
       table.integer('discount_id').unsigned()
+      table.integer('cart_id').unsigned()
     })
 
     await knex.schema.createTable('stores_photos', (table) => {
@@ -3551,6 +3553,7 @@ const schema = {
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('cart_id').references('stores_carts.id')
     })
 
     await knex.schema.table('stores_products', table => {
@@ -5904,6 +5907,7 @@ union
       ), cartitems as (
       select jsonb_array_elements((stores_carts.data -> 'items'::text)) as item
       from stores_carts
+      where (stores_carts.status = 'active'::stores_cart_statuses)
       ), reserved as (
       select stores_variants_1.id as variant_id,
       (coalesce(sum(((cartitems.item ->> 'quantity'::text))::integer), (0)::bigint))::integer as total
@@ -5940,6 +5944,75 @@ union
       stores_items.created_at
       from stores_items
       where (stores_items.status = 'fulfilled'::stores_item_statuses);
+    `)
+
+    await knex.raw(`
+      create view stores_order_totals AS
+      with revenue as (
+      select stores_orders_1.id as order_id,
+      coalesce(finance_invoice_payments.paid, 0.00) as revenue
+      from (stores_orders stores_orders_1
+      left join finance_invoice_payments on ((finance_invoice_payments.invoice_id = stores_orders_1.invoice_id)))
+      ), invoice as (
+      select stores_orders_1.id as order_id,
+      coalesce(finance_invoice_totals.total, 0.00) as total
+      from (stores_orders stores_orders_1
+      left join finance_invoice_totals on ((finance_invoice_totals.invoice_id = stores_orders_1.invoice_id)))
+      ), items as (
+      select stores_orders_1.id as order_id,
+      count(stores_items.*) as total
+      from (stores_orders stores_orders_1
+      left join stores_items on ((stores_items.order_id = stores_orders_1.id)))
+      group by stores_orders_1.id
+      )
+      select stores_orders.id as order_id,
+      stores_orders.store_id,
+      items.total as items_count,
+      invoice.total,
+      revenue.revenue,
+      (revenue.revenue = invoice.total) as is_paid
+      from (((stores_orders
+      join revenue on ((revenue.order_id = stores_orders.id)))
+      join invoice on ((invoice.order_id = stores_orders.id)))
+      join items on ((items.order_id = stores_orders.id)));
+    `)
+
+    await knex.raw(`
+      create view stores_store_totals AS
+      with abandoned as (
+      select stores_stores_1.id as store_id,
+      count(stores_carts.*) as total
+      from (stores_stores stores_stores_1
+      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'abandoned'::stores_cart_statuses))))
+      group by stores_stores_1.id
+      ), active as (
+      select stores_stores_1.id as store_id,
+      count(stores_carts.*) as total
+      from (stores_stores stores_stores_1
+      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'active'::stores_cart_statuses))))
+      group by stores_stores_1.id
+      ), orders as (
+      select stores_stores_1.id as store_id,
+      count(stores_orders.*) as total
+      from (stores_stores stores_stores_1
+      left join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
+      group by stores_stores_1.id
+      ), revenue as (
+      select stores_order_totals.store_id,
+      sum(stores_order_totals.revenue) as revenue
+      from stores_order_totals
+      group by stores_order_totals.store_id
+      )
+      select stores_stores.id as store_id,
+      abandoned.total as abandoned,
+      active.total as active,
+      orders.total as orders,
+      revenue.revenue
+      from ((((stores_stores
+      join abandoned on ((abandoned.store_id = stores_stores.id)))
+      join active on ((active.store_id = stores_stores.id)))
+      join orders on ((orders.store_id = stores_stores.id)))
+      join revenue on ((revenue.store_id = stores_stores.id)));
     `)
   }
 

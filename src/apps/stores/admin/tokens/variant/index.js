@@ -2,23 +2,26 @@ import PropTypes from 'prop-types'
 import { Image } from 'maha-admin'
 import React from 'react'
 
-const VariantToken = ({ variant }) => (
+const VariantToken = ({ product, variant }) => (
   <div className="variant-token">
     <div className="variant-token-photo">
       { variant.photos.length > 0 ?
-        <Image src={ variant.photos[0].path } transforms={{ fit: 'cover', width: 32, height: 32 }} /> :
+        <Image src={ variant.photos[0].asset.path } transforms={{ fit: 'cover', width: 24, height: 24 }} /> :
         <div className="variant-token-icon">
           <i className="fa fa-shopping-bag" />
         </div>
       }
     </div>
     <div className="variant-token-label">
-      { variant.title }
+      { product.title } { variant.options.map(option => {
+        return `${option.option}: ${option.value}`
+      }).join(', ') }
     </div>
   </div>
 )
 
 VariantToken.propTypes = {
+  product: PropTypes.object,
   variant: PropTypes.object
 }
 

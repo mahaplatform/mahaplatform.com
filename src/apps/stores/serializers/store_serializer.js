@@ -6,6 +6,12 @@ const storeSerializer = (req, result) => ({
   url: result.get('url'),
   program: program(result.related('program')),
   workflow: workflow(result.related('workflow')),
+  abandoned_count: result.get('abandoned_count'),
+  active_count: result.get('active_count'),
+  orders_count: result.get('orders_count'),
+  revenue: result.get('revenue'),
+  first_order: result.get('first_order'),
+  last_order: result.get('last_order'),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

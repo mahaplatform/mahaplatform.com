@@ -1,3 +1,4 @@
+import ProductToken from '../../../tokens/product'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -27,10 +28,8 @@ class Products extends React.Component {
           <tbody>
             { products.map((product, index) => (
               <tr key={`product_${index}`} onClick={ this._handleClick.bind(this, product) }>
-                <td>
-                  { product.title } { !product.is_active &&
-                    <span className="alert">INACTIVE</span>
-                  }
+                <td className="unpadded">
+                  <ProductToken product={ product } />
                 </td>
                 <td>
                   { product.category.title }
