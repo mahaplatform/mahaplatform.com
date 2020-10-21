@@ -38,12 +38,14 @@ const getEmailAddresses = async (contact, values) => {
   }))
   return Array(3).fill(0).reduce((addresses, n, i) => {
     if(!values[`email_${i+1}`]) return addresses
-    const found = _.find(existing, { address: values[`email_${i+1}`] })
-    if(found) return addresses
+    const address = values[`email_${i+1}`].toLowerCase()
+    const exists = _.find(existing, { address }) !== undefined
+    const duplicate = _.find(addresses, { address }) !== undefined
+    if(exists || duplicate) return addresses
     return [
       ...addresses,
       {
-        address: values[`email_${i+1}`].toLowerCase(),
+        address,
         is_primary: (existing.length + addresses.length) === 0
       }
     ]
@@ -68,8 +70,9 @@ const getPhoneNumbers = async (contact, values) => {
     if(!values[`phone_${i+1}`]) return numbers
     const number = getFormattedNumber(values[`phone_${i+1}`])
     if(!number) return numbers
-    const found = _.find(existing, { number })
-    if(found) return numbers
+    const exists = _.find(existing, { number }) !== undefined
+    const duplicate = _.find(numbers, { number }) !== undefined
+    if(exists || duplicate) return numbers
     return [
       ...numbers,
       {

@@ -6002,17 +6002,31 @@ union
       sum(stores_order_totals.revenue) as revenue
       from stores_order_totals
       group by stores_order_totals.store_id
+      ), first_order as (
+      select stores_orders.store_id,
+      min(stores_orders.created_at) as created_at
+      from stores_orders
+      group by stores_orders.store_id
+      ), last_order as (
+      select stores_orders.store_id,
+      max(stores_orders.created_at) as created_at
+      from stores_orders
+      group by stores_orders.store_id
       )
       select stores_stores.id as store_id,
-      abandoned.total as abandoned,
-      active.total as active,
-      orders.total as orders,
-      revenue.revenue
-      from ((((stores_stores
+      abandoned.total as abandoned_count,
+      active.total as active_count,
+      orders.total as orders_count,
+      revenue.revenue,
+      first_order.created_at as first_order,
+      last_order.created_at as last_order
+      from ((((((stores_stores
       join abandoned on ((abandoned.store_id = stores_stores.id)))
       join active on ((active.store_id = stores_stores.id)))
       join orders on ((orders.store_id = stores_stores.id)))
-      join revenue on ((revenue.store_id = stores_stores.id)));
+      join revenue on ((revenue.store_id = stores_stores.id)))
+      join first_order on ((first_order.store_id = stores_stores.id)))
+      join last_order on ((last_order.store_id = stores_stores.id)));
     `)
   }
 
