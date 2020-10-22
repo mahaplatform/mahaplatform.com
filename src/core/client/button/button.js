@@ -21,6 +21,7 @@ class Button extends React.Component {
     link: PropTypes.string,
     mobile: PropTypes.bool,
     request: PropTypes.object,
+    size: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
     url: PropTypes.string,
@@ -29,8 +30,9 @@ class Button extends React.Component {
 
   static defaultProps = {
     basic: false,
+    disabled: false,
     mobile: true,
-    disabled: false
+    size: 'medium'
   }
 
   link = null
@@ -75,9 +77,9 @@ class Button extends React.Component {
   }
 
   _getClass() {
-    const { component, basic, className, color, disabled, mobile, status } = this.props
+    const { component, basic, className, color, disabled, mobile, size, status } = this.props
     if(component) return ''
-    const classes = className ? className.split(' ') : ['ui', color, 'fluid', 'button']
+    const classes = className ? className.split(' ') : ['ui', color, size, 'fluid', 'button']
     classes.push('maha-button')
     if(mobile !== false) classes.push('mobile')
     if(basic) classes.push('basic')

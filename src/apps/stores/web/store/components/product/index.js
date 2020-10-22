@@ -34,6 +34,11 @@ class Product extends React.Component {
           <div className="store-product">
             <div className="store-product-media">
               <div className="store-product-media-inner">
+                { variant.inventory_policy === 'deny' && variant.inventory_onhand <= 0 &&
+                  <div className="store-product-soldout">
+                    SOLD OUT
+                  </div>
+                }
                 { variant.photos.length > 0 ?
                   <Carousel { ...this._getCarousel() } /> :
                   <div className="store-product-icon">
@@ -55,8 +60,20 @@ class Product extends React.Component {
                   <DropDown { ...this._getDropDown() } />
                 </div>
               }
-              <Quantity { ...this._getQuantity() } />
-              <Button { ...this._getAdd(variant) } />
+              { variant.inventory_policy === 'deny' &&
+                <div className="store-product-instock">
+                  { variant.inventory_onhand <= 0 ?
+                    <span>OUT OF STOCK</span> :
+                    <span>{ variant.inventory_onhand } IN STOCK</span>
+                  }
+                </div>
+              }
+              { variant.inventory_policy === 'deny' && variant.inventory_onhand > 0 &&
+                <Quantity { ...this._getQuantity(variant) } />
+              }
+              { variant.inventory_policy === 'deny' && variant.inventory_onhand > 0 &&
+                <Button { ...this._getAdd(variant) } />
+              }
             </div>
           </div>
         </div>
@@ -117,15 +134,9 @@ class Product extends React.Component {
     }
   }
 
-  _getPrice(variant) {
-    if(variant.price_type === 'fixed') {
-      return numeral(variant.fixed_price).format('$0.00')
-    }
-    return 'FOO'
-  }
-
-  _getQuantity() {
+  _getQuantity(variant) {
     return {
+      max: variant.inventory_onhand,
       onChange: this._handleQuantity
     }
   }

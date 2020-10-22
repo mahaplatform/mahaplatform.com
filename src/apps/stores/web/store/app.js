@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <Root key="root">
         <Router>
-          <Logger environment="registration">
+          <Logger environment="store">
             <Error>
               <Network>
                 <Store { ...this._getStore() } />

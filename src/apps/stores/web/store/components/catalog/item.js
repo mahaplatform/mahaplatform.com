@@ -32,10 +32,6 @@ class Item extends React.Component {
           }
           <div className="store-catalog-item-details">
             <h3>{ product.title }</h3>
-            { inventory > 0 ?
-              <p>{ inventory } in stock</p> :
-              <p className="outofstock">sold out</p>
-            }
             <p>{ numeral(variant.fixed_price).format('$0.00') }</p>
           </div>
         </div>

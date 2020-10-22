@@ -4,7 +4,12 @@ import React from 'react'
 class Quantity extends React.Component {
 
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    max: PropTypes.number
+  }
+
+  static defaultProps = {
+    max: 100
   }
 
   state = {
@@ -30,9 +35,10 @@ class Quantity extends React.Component {
   }
 
   _handleUpdate(increment) {
+    const { max } = this.props
     const { quantity } = this.state
     this.setState({
-      quantity: Math.max(1, quantity + increment)
+      quantity: Math.min(Math.max(1, quantity + increment), max)
     })
   }
 
