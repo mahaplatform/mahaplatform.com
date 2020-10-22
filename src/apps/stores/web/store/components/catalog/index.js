@@ -1,3 +1,4 @@
+import { ModalPanel } from 'maha-client'
 import Categories from '../categories'
 import PropTypes from 'prop-types'
 import Item from './item'
@@ -19,16 +20,18 @@ class Catalog extends React.Component {
   render() {
     const products = this._getProducts()
     return (
-      <div className="store-catalog">
-        <div className="store-catalog-header">
-          <Categories { ...this._getCategories() } />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="store-catalog">
+          <div className="store-catalog-header">
+            <Categories { ...this._getCategories() } />
+          </div>
+          <div className="store-catalog-body">
+            { products.map((product, index) => (
+              <Item { ...this._getItem(product) } key={`product_${product.id}`} />
+            ))}
+          </div>
         </div>
-        <div className="store-catalog-body">
-          { products.map((product, index) => (
-            <Item { ...this._getItem(product) } key={`product_${product.id}`} />
-          ))}
-        </div>
-      </div>
+      </ModalPanel>
     )
   }
 
@@ -37,6 +40,14 @@ class Catalog extends React.Component {
     return {
       store,
       onChange: this._handleCategory
+    }
+  }
+
+  _getPanel() {
+    const { store } = this.props
+    return {
+      title: store.title,
+      color: 'green'
     }
   }
 

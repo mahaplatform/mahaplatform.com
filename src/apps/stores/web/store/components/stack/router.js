@@ -6,17 +6,24 @@ import Stack from './stack'
 class Router extends React.Component {
 
   static propTypes = {
+    action: PropTypes.string,
+    rootPath: PropTypes.string,
     prefix: PropTypes.string,
     routes: PropTypes.array,
     pathname: PropTypes.string
   }
 
+  static defaultProps = {
+    rootPath: '/'
+  }
+
+  state = {
+    cards: []
+  }
+
   constructor(props) {
     super(props)
     this.routes = this._collapseRoutes(props.routes, props.prefix)
-    this.state = {
-      cards: []
-    }
   }
 
   render() {
@@ -24,14 +31,15 @@ class Router extends React.Component {
   }
 
   componentDidMount() {
-    const { pathname } = this.props
+    const { pathname, rootPath } = this.props
+    if(pathname === rootPath) return
     const route = this._matchRoute(pathname)
     const cards = [ route ]
     this.setState({ cards })
   }
 
   componentDidUpdate(prevProps) {
-    const { pathname } = this.props
+    const { action, pathname } = this.props
     if(prevProps.pathname !== pathname) {
       const routeIndex = this.state.cards.reduce((routeIndex, route, index) => {
         return routeIndex !== null ? routeIndex : (route.pathname === pathname ? index : null)
@@ -46,13 +54,16 @@ class Router extends React.Component {
         ]
       })
     }
+    if(prevProps.action !== action) {
+      console.log('action', action)
+    }
   }
 
   _getStack() {
     const { cards } = this.state
     return {
-      slideFirst: false,
-      cards
+      cards,
+      slideFirst: false
     }
   }
 
@@ -100,9 +111,9 @@ class RouterWrapper extends React.Component {
   }
 
   render() {
-    const { pathname } = this.context.router.history.location
+    const { action, location } = this.context.router.history
     return (
-      <Router { ...this.props } pathname={ pathname }>
+      <Router { ...this.props } action={ action.toLowerCase() } pathname={ location.pathname }>
         { this.props.children }
       </Router>
     )

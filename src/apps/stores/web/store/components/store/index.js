@@ -25,19 +25,14 @@ class Store extends React.Component {
     if(!this.state.ready) return null
     return (
       <div className="store">
-        <div className="store-header">
-          <div className="store-header-action"/>
-          <div className="store-header-title">
-            2020 Annual Bulb Sale
-          </div>
-          <div className="store-header-action">
-            <CartIcon { ...this._getCartIcon() } />
-          </div>
-        </div>
         <div className="store-main">
           <div className="store-main-body">
+            <Catalog {...this._getCatalog() } />
             <RouterStack { ...this._getStack() } />
           </div>
+        </div>
+        <div className="store-cart-icon">
+          <CartIcon { ...this._getCartIcon() } />
         </div>
       </div>
     )
@@ -79,9 +74,8 @@ class Store extends React.Component {
     const { store } = this.props
     return {
       prefix: store.path,
+      rootPath: store.path,
       routes: [
-        { path: '/', component: Catalog, props: this._getCatalog.bind(this) },
-        { path: '/categories/:slug', component: Catalog, props: this._getCatalog.bind(this) },
         { path: '/products/:slug', component: Product, props: this._getProduct.bind(this) }
       ]
     }

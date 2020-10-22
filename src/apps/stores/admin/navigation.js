@@ -1,7 +1,3 @@
-const navigation = async (req) => ({
-  items: [
-    { label: 'Stores', route: '/stores' }
-  ]
-})
+const navigation = (req, trx) => ({})
 
 export default navigation

@@ -62,7 +62,7 @@ class Performance extends React.Component {
                   First Order
                 </td>
                 <td className="right aligned">
-                  { moment(store.first_order).format('MM/DD/YY hh:mmA') }
+                  { store.first_order ? moment(store.first_order).format('MM/DD/YY hh:mmA') : 'N/A' }
                 </td>
               </tr>
               <tr>
@@ -70,7 +70,7 @@ class Performance extends React.Component {
                   Last Order
                 </td>
                 <td className="right aligned">
-                  { moment(store.last_order).format('MM/DD/YY hh:mmA') }
+                  { store.last_order ? moment(store.last_order).format('MM/DD/YY hh:mmA') : 'N/A' }
                 </td>
               </tr>
             </tbody>

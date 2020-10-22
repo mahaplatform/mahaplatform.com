@@ -1,10 +1,14 @@
-import { Button, Carousel, DropDown, Image } from 'maha-client'
+import { Button, Carousel, DropDown, Image, ModalPanel } from 'maha-client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import numeral from 'numeral'
 import React from 'react'
 
 class Product extends React.Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
   static propTypes = {
     product: PropTypes.object,
@@ -17,6 +21,7 @@ class Product extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleOptions = this._handleOptions.bind(this)
   _handleQuantity = this._handleQuantity.bind(this)
 
@@ -24,36 +29,38 @@ class Product extends React.Component {
     const { product } = this.props
     const variant = this._getVariant()
     return (
-      <div className="store-product-container">
-        <div className="store-product">
-          <div className="store-product-media">
-            <div className="store-product-media-inner">
-              { variant.photos.length > 0 ?
-                <Carousel { ...this._getCarousel() } /> :
-                <div className="store-product-icon">
-                  <i className="fa fa-shopping-bag" />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="store-product-container">
+          <div className="store-product">
+            <div className="store-product-media">
+              <div className="store-product-media-inner">
+                { variant.photos.length > 0 ?
+                  <Carousel { ...this._getCarousel() } /> :
+                  <div className="store-product-icon">
+                    <i className="fa fa-shopping-bag" />
+                  </div>
+                }
+              </div>
+            </div>
+            <div className="store-product-details">
+              <div className="store-product-breadcrumbs">
+                { product.category.title } ›
+              </div>
+              <div className="store-product-title">
+                { product.title }
+              </div>
+              <div className="store-product-description" dangerouslySetInnerHTML={{ __html: product.description }} />
+              { product.variants.length > 1 &&
+                <div className="store-product-variants">
+                  <DropDown { ...this._getDropDown() } />
                 </div>
               }
+              <Quantity { ...this._getQuantity() } />
+              <Button { ...this._getAdd(variant) } />
             </div>
-          </div>
-          <div className="store-product-details">
-            <div className="store-product-breadcrumbs">
-              <Button { ...this._getStore() } /> › <Button { ...this._getCategory() } />
-            </div>
-            <div className="store-product-title">
-              { product.title }
-            </div>
-            <div className="store-product-description" dangerouslySetInnerHTML={{ __html: product.description }} />
-            { product.variants.length > 1 &&
-              <div className="store-product-variants">
-                <DropDown { ...this._getDropDown() } />
-              </div>
-            }
-            <Quantity { ...this._getQuantity() } />
-            <Button { ...this._getAdd(variant) } />
           </div>
         </div>
-      </div>
+      </ModalPanel>
     )
   }
 
@@ -99,6 +106,17 @@ class Product extends React.Component {
     }
   }
 
+  _getPanel() {
+    const { product } = this.props
+    return {
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      title: product.title,
+      color: 'green'
+    }
+  }
+
   _getPrice(variant) {
     if(variant.price_type === 'fixed') {
       return numeral(variant.fixed_price).format('$0.00')
@@ -136,6 +154,10 @@ class Product extends React.Component {
   _handleAdd(variant) {
     const { quantity } = this.state
     this.props.Store.cart.addItem(variant.code, quantity)
+  }
+
+  _handleBack() {
+    this.context.router.history.goBack()
   }
 
   _handleOptions(index) {

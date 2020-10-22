@@ -5983,19 +5983,19 @@ union
       select stores_stores_1.id as store_id,
       count(stores_carts.*) as total
       from (stores_stores stores_stores_1
-      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'abandoned'::stores_cart_statuses))))
+      join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'abandoned'::stores_cart_statuses))))
       group by stores_stores_1.id
       ), active as (
       select stores_stores_1.id as store_id,
       count(stores_carts.*) as total
       from (stores_stores stores_stores_1
-      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'active'::stores_cart_statuses))))
+      join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'active'::stores_cart_statuses))))
       group by stores_stores_1.id
       ), orders as (
       select stores_stores_1.id as store_id,
       count(stores_orders.*) as total
       from (stores_stores stores_stores_1
-      left join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
+      join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
       group by stores_stores_1.id
       ), revenue as (
       select stores_order_totals.store_id,
@@ -6014,19 +6014,19 @@ union
       group by stores_orders.store_id
       )
       select stores_stores.id as store_id,
-      abandoned.total as abandoned_count,
-      active.total as active_count,
-      orders.total as orders_count,
-      revenue.revenue,
+      coalesce(abandoned.total, (0)::bigint) as abandoned_count,
+      coalesce(active.total, (0)::bigint) as active_count,
+      coalesce(orders.total, (0)::bigint) as orders_count,
+      coalesce(revenue.revenue, 0.00) as revenue,
       first_order.created_at as first_order,
       last_order.created_at as last_order
       from ((((((stores_stores
-      join abandoned on ((abandoned.store_id = stores_stores.id)))
-      join active on ((active.store_id = stores_stores.id)))
-      join orders on ((orders.store_id = stores_stores.id)))
-      join revenue on ((revenue.store_id = stores_stores.id)))
-      join first_order on ((first_order.store_id = stores_stores.id)))
-      join last_order on ((last_order.store_id = stores_stores.id)));
+      left join abandoned on ((abandoned.store_id = stores_stores.id)))
+      left join active on ((active.store_id = stores_stores.id)))
+      left join orders on ((orders.store_id = stores_stores.id)))
+      left join revenue on ((revenue.store_id = stores_stores.id)))
+      left join first_order on ((first_order.store_id = stores_stores.id)))
+      left join last_order on ((last_order.store_id = stores_stores.id)));
     `)
   }
 
