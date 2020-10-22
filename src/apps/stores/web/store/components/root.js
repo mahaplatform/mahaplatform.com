@@ -1,9 +1,9 @@
-import { AddressField, Button, Carousel, ContainerRoot, Form, Network, Payment, ApplePay, GooglePay, PayPal, ACH, Card, Door, paymentMiddleware } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import createlocalStorage from 'redux-local-storage'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
 import { createLogger } from 'redux-logger'
+import * as components from 'maha-client'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import localforage from 'localforage'
@@ -23,25 +23,17 @@ class Root extends React.Component {
 
     super(props)
 
-    const reducer = combineReducers([
-      AddressField,
-      Button,
-      Carousel,
-      ContainerRoot,
-      Form,
-      Network,
-      Payment,
-      ApplePay,
-      GooglePay,
-      PayPal,
-      ACH,
-      Card,
-      Door
-    ])
+    const reducer = combineReducers(Object.values(components).filter(component => {
+      return !!component.reducer
+    }))
 
     const loggerMiddleware = createLogger({ collapsed: true })
 
     const apiRequestMiddleware = createApiRequest()
+
+    const socketioMiddleware = components.socketioMiddleware({
+      url: `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+    })
 
     const client = localforage.createInstance({
       name: 'store',
@@ -58,7 +50,8 @@ class Root extends React.Component {
       thunkMiddleware,
       apiRequestMiddleware,
       localStorageMiddleware,
-      ...paymentMiddleware,
+      socketioMiddleware,
+      ...components.paymentMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 

@@ -19,18 +19,18 @@
   &:after {
     transition: opacity .25s ease-in-out 0s;
     background-color: @black;
-    .opacity(0);
+    opacity: 0;
     content: " ";
   }
   &.active {
-    .translateX(0);
+    transform: translateX(0);
   }
   &.mounting {
-    .translateX(100%);
+    transform: translateX(100%);
   }
   &.covered {
     &:after {
-      .opacity(.2);
+      opacity: 0.2;
     }
   }
   &.covered, &.covering {
@@ -45,7 +45,7 @@
 }
 .maha-stack-slide-beneath {
   .covered {
-    .translateX(-25%);
+    transform: translateX(-25%);
   }
 }
 .maha-modal-window-panel {

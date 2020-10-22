@@ -1,21 +1,24 @@
 import matchPath from 'react-router-dom/matchPath'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import React from 'react'
 import Stack from './stack'
+import React from 'react'
 
-class Router extends React.Component {
+class RouterStack extends React.Component {
 
   static propTypes = {
     action: PropTypes.string,
-    rootPath: PropTypes.string,
     prefix: PropTypes.string,
-    routes: PropTypes.array,
-    pathname: PropTypes.string
+    pathname: PropTypes.string,
+    rootPath: PropTypes.string,
+    routes: PropTypes.array
   }
 
   static defaultProps = {
     rootPath: '/'
   }
+
+  routes = null
 
   state = {
     cards: []
@@ -33,37 +36,31 @@ class Router extends React.Component {
   componentDidMount() {
     const { pathname, rootPath } = this.props
     if(pathname === rootPath) return
-    const route = this._matchRoute(pathname)
-    const cards = [ route ]
-    this.setState({ cards })
+    const card = this._matchRoute(pathname)
+    this.setState({
+      cards: [ card ]
+    })
   }
 
   componentDidUpdate(prevProps) {
     const { action, pathname } = this.props
+    const { mounted } = this.state
     if(prevProps.pathname !== pathname) {
-      const routeIndex = this.state.cards.reduce((routeIndex, route, index) => {
-        return routeIndex !== null ? routeIndex : (route.pathname === pathname ? index : null)
-      }, null)
-      if(routeIndex !== null) return this.setState({ cards: this.state.cards.slice(0, routeIndex + 1) })
-      const route = this._matchRoute(pathname)
-      if(!route) return
-      this.setState({
-        cards:[
-          ...this.state.cards,
-          route
-        ]
-      })
-    }
-    if(prevProps.action !== action) {
-      console.log('action', action)
+      if(action === 'push') {
+        const card = this._matchRoute(pathname)
+        this._handlePush(card)
+        setTimeout(() => this.setState({ mounted: mounted + 1 }), 50)
+      } else if(action === 'pop') {
+        this.setState({ mounted: mounted - 1 })
+        setTimeout(this._handlePop.bind(this), 50)
+      }
     }
   }
 
   _getStack() {
     const { cards } = this.state
     return {
-      cards,
-      slideFirst: false
+      cards
     }
   }
 
@@ -97,29 +94,25 @@ class Router extends React.Component {
     }, null)
   }
 
-}
-
-
-class RouterWrapper extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object
+  _handlePush(card) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        card
+      ]
+    })
   }
 
-  static propTypes = {
-    children: PropTypes.any
-  }
-
-  render() {
-    const { action, location } = this.context.router.history
-    return (
-      <Router { ...this.props } action={ action.toLowerCase() } pathname={ location.pathname }>
-        { this.props.children }
-      </Router>
-    )
+  _handlePop() {
+    const cards = this.state.cards.slice(0, -1)
+    this.setState({ cards })
   }
 
 }
 
+const mapStateToProps = (state, props) => ({
+  action: state.router.action.toLowerCase(),
+  pathname: state.router.history.slice(-1)[0].pathname
+})
 
-export default RouterWrapper
+export default connect(mapStateToProps)(RouterStack)

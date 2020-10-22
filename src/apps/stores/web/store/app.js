@@ -1,5 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom'
-import { Error, Logger, Network } from 'maha-client'
+import { Error, Logger, Network, Router } from 'maha-client'
 import { hot } from 'react-hot-loader'
 import Store from './components/store'
 import Root from './components/root'

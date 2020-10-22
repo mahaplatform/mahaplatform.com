@@ -15,6 +15,15 @@
 @android: #A4C639;
 @paypal: #009CDE;
 
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+	min-height: 0;
+}
+body {
+	overscroll-behavior: none;
+	font-size: 14px;
+}
 .scrollable() {
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
