@@ -55,7 +55,6 @@ const getTasks = ({ team }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   apps: `/api/admin/platform/teams/${props.params.id}/apps`,
-  banks: `/api/admin/platform/teams/${props.params.id}/banks`,
   team: `/api/admin/platform/teams/${props.params.id}`
 })
 
