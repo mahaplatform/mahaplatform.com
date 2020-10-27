@@ -56,7 +56,7 @@ class Settings extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: config.sender_id },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: true } }, value: 'id', text: 'rfc822', required: true, defaultValue: config.sender_id },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', defaultValue: config.reply_to },
             { label: 'CC', name: 'cc', type: 'textfield', placeholder: 'Enter comma separated list of emails', defaultValue: config.cc },
             { label: 'BCC', name: 'bcc', type: 'textfield', placeholder: 'Enter comma separated list of emails', defaultValue: config.bcc },
