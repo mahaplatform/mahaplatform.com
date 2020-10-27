@@ -1035,7 +1035,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.string('title', 255)
       table.string('braintree_id', 255)
-      table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('bank_name', 255)
@@ -1048,6 +1047,7 @@ const schema = {
       table.date('applied_on')
       table.USER-DEFINED('status')
       table.decimal('ach_rate', 5, 4)
+      table.string('braintree_merchant_id', 255)
     })
 
     await knex.schema.createTable('finance_batches', (table) => {

@@ -19,9 +19,10 @@ const createRoute = async (req, res) => {
 
   await bank.save({
     status: 'active',
-    ...whitelist(req.body, ['braintree_id','rate','amex_rate'])
+    ...whitelist(req.body, ['braintree_id','rate','amex_rate','has_paypal'])
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await activity(req, {

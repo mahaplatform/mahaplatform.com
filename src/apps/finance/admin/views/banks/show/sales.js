@@ -1,4 +1,4 @@
-import SalesReport from '../../components/sales_report'
+import SalesReport from '../../../components/sales_report'
 import PropTypes from 'prop-types'
 import React from 'react'
 

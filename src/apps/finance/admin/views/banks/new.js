@@ -46,7 +46,7 @@ class New extends React.Component {
       return [{
         label: 'ACCPAC Details',
         fields: [
-          { label: 'Bank Code', name: 'integration.bank_code', type: 'textfield', placeholder: 'Enter a bank code', required: true }
+          { label: 'Bank Code', name: 'integration.bank_code', type: 'textfield', placeholder: 'Enter a bank code' }
         ]
       }]
     }

@@ -18,7 +18,8 @@ const editRoute = async (req, res) => {
       'braintree_id',
       'rate',
       'amex_rate',
-      'ach_rate'
+      'ach_rate',
+      'has_paypal'
     ]
   })
 

@@ -1,12 +1,15 @@
+import ProgramAssignment from '../programs'
+import Programs from './programs'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Sales from './sales'
-import Edit from './edit'
+import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ app, bank }) => ({
+const getTabs = ({ app, bank, programs }) => ({
   items: [
     { label: 'Details', component: <Details bank={ bank } integration={ app.settings.integration } /> },
+    { label: 'Programs', component: <Programs bank={ bank } programs={ programs } /> },
     { label: 'Sales', component: <Sales bank={ bank } /> }
   ]
 })
@@ -16,6 +19,10 @@ const getTasks = ({ app, bank }) => {
     label: 'Edit Bank',
     rights: ['finance:manage_configuration'],
     modal: <Edit bank={ bank } integration={ app.settings.integration } />
+  // }, {
+  //   label: 'Manage Programs',
+  //   rights: ['finance:manage_configuration'],
+  //   modal: <ProgramAssignment bank={ bank } />
   }]
   if(!bank.braintree_id && !bank.applied_on) {
     items.push({
@@ -28,7 +35,8 @@ const getTasks = ({ app, bank }) => {
 
 const mapResourcesToPage = (props, context) => ({
   app: '/api/admin/apps/finance/settings',
-  bank: `/api/admin/finance/banks/${props.params.id}`
+  bank: `/api/admin/finance/banks/${props.params.id}`,
+  programs: `/api/admin/finance/banks/${props.params.id}/programs`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

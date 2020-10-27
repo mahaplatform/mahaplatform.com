@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Program from '../../crm/models/program'
 import Deposit from './deposit'
 import Payment from './payment'
 
@@ -14,6 +15,10 @@ const Bank = new Model({
       const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
       const domain = `https://${subdomain}braintreegateway.com`
       return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/home`
+    },
+
+    program_ids: function() {
+      return this.related('programs').map(group => group.id)
     }
 
   },
@@ -24,6 +29,10 @@ const Bank = new Model({
 
   payments() {
     return this.hasMany(Payment, 'bank_id')
+  },
+
+  programs() {
+    return this.hasMany(Program, 'bank_id')
   }
 
 })

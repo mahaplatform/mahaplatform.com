@@ -6,6 +6,7 @@ const editRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['programs'],
     transacting: req.trx
   })
 
@@ -18,7 +19,8 @@ const editRoute = async (req, res) => {
     fields: [
       'id',
       'title',
-      'integration'
+      'integration',
+      'program_ids'
     ]
   })
 

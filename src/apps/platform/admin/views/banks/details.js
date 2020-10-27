@@ -10,8 +10,7 @@ const Details = ({ bank }) => {
       { label: 'Bank Name', content: bank.bank_name },
       { label: 'Routing Number', content: bank.routing_number },
       { label: 'Account Number', content: bank.account_number },
-      { label: 'Applied On', content: bank.applied_on, format: 'date' },
-      { label: 'PayPal', content: bank.has_paypal, format: 'yes_no' }
+      { label: 'Applied On', content: bank.applied_on, format: 'date' }
     ]
   }
 
@@ -24,6 +23,10 @@ const Details = ({ bank }) => {
     }
 
     list.items.push({ label: 'Braintree ID', content: <Button { ...braintree} /> })
+    list.items.push({ label: 'Credit Card Rate', content: bank.rate, format: 'percent' })
+    list.items.push({ label: 'Amex Rate', content: bank.amex_rate , format: 'percent'})
+    list.items.push({ label: 'ACH Rate', content: bank.ach_rate, format: 'percent' })
+    list.items.push({ label: 'PayPal', content: bank.has_paypal, format: 'yes_no' })
 
   }
 

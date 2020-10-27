@@ -8,6 +8,7 @@ class RoutingNumberField extends React.PureComponent {
   static propTypes = {
     number: PropTypes.string,
     bank: PropTypes.object,
+    tabIndex: PropTypes.object,
     onLookup: PropTypes.func,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
@@ -55,8 +56,10 @@ class RoutingNumberField extends React.PureComponent {
   }
 
   _getTextField() {
+    const { tabIndex } = this.props
     return {
       placeholder: 'Enter a routing number',
+      tabIndex,
       onChange: this._handleUpdate
     }
   }

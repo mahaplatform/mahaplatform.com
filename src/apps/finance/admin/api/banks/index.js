@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import programs from './programs'
 import lookup from './lookup'
 import create from './create'
 import update from './update'
@@ -25,5 +26,7 @@ router.patch('/:id', update)
 router.patch('/:id/apply', apply)
 
 router.get('/:bank_id/sales', sales)
+
+router.use('/:bank_id/programs', programs)
 
 export default router
