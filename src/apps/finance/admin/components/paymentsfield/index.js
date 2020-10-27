@@ -1,4 +1,4 @@
-import { Infinite } from 'maha-admin'
+import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import numeral from 'numeral'
@@ -12,6 +12,7 @@ class PaymentsField extends React.Component {
   }
 
   static propTypes = {
+    undeposited: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -26,13 +27,18 @@ class PaymentsField extends React.Component {
   }
 
   _handleChoose = this._handleChoose.bind(this)
+  _handleDeselectAll = this._handleDeselectAll.bind(this)
+  _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
     const total = this._getTotal()
     return (
       <div className="paymentsfield">
+        <div className="paymentsfield-selectall">
+          <Button { ...this._getSelectAll() } />
+        </div>
         <div className="paymentsfield-body">
-          <Infinite { ...this._getInfinite() } />
+          <Results { ...this._getResults() } />
         </div>
         <div className="paymentsfield-footer">
           Total: { numeral(total).format('0.00')}
@@ -51,31 +57,13 @@ class PaymentsField extends React.Component {
       this._handleChange()
     }
   }
-
-  _getInfinite() {
+  _getResults() {
+    const { undeposited } = this.props
     const { selected } = this.state
-    const empty = {
-      icon: 'dollar',
-      title: 'No Payments',
-      text: 'There are no undeposited payments'
-    }
     return {
-      endpoint: '/api/admin/finance/payments',
-      filter: {
-        method: {
-          $in: ['cash','check','paypal']
-        },
-        deposit_id: {
-          $eq: 'null'
-        }
-      },
-      notFound: empty,
-      empty,
-      layout: Results,
-      props: {
-        selected,
-        onChoose: this._handleChoose
-      }
+      records: undeposited,
+      selected,
+      onChoose: this._handleChoose
     }
   }
 
@@ -91,23 +79,57 @@ class PaymentsField extends React.Component {
     }
   }
 
+  _getSelectAll() {
+    const { undeposited } = this.props
+    const { selected } = this.state
+    return {
+      label: undeposited.length === selected.length ? 'deselect all' : 'select all',
+      className: 'link',
+      handler: undeposited.length === selected.length ? this._handleDeselectAll : this._handleSelectAll
+    }
+  }
+
   _getTotal() {
-    return this.state.selected.reduce((total, record) => {
-      return total + Number(record.disbursed)
+    const { undeposited } = this.props
+    const { selected } = this.state
+    return undeposited.filter((record, index) => {
+      return _.includes(selected, index)
+    }).reduce((total, record) => {
+      return total + Number(record.amount)
     }, 0)
   }
 
   _handleChange() {
+    const { undeposited } = this.props
     const { selected } = this.state
-    this.props.onChange(selected.map(record => {
-      return record.id
-    }))
+    this.props.onChange(undeposited.filter((record, index) => {
+      return _.includes(selected, index)
+    }).reduce((transactions, transaction) => ({
+      ...transactions,
+      [`${transaction.type}_ids`]: [
+        ...transactions[`${transaction.type}_ids`],
+        transaction.id
+      ]
+    }), { payment_ids: [], refund_ids: [] }))
+  }
+
+  _handleDeselectAll() {
+    this._handleChoose([])
   }
 
   _handleChoose(selected) {
     this.setState({ selected })
   }
 
+  _handleSelectAll() {
+    const { undeposited } = this.props
+    this._handleChoose(undeposited.map((record, index) => index))
+  }
+
 }
 
-export default PaymentsField
+const mapResources = (props, context) => ({
+  undeposited: '/api/admin/finance/deposits/undeposited'
+})
+
+export default Container(mapResources)(PaymentsField)

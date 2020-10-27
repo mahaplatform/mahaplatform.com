@@ -5545,6 +5545,31 @@ union
     `)
 
     await knex.raw(`
+      create view finance_undeposited AS
+      select finance_payments.id,
+      finance_payments.team_id,
+      'payment'::text as type,
+      finance_payments.method,
+      finance_payments.date,
+      finance_payment_details.disbursed as amount,
+      finance_payments.created_at
+      from (finance_payments
+      join finance_payment_details on ((finance_payment_details.payment_id = finance_payments.id)))
+      where ((finance_payments.method = any (array['check'::finance_payments_method, 'paypal'::finance_payments_method, 'cash'::finance_payments_method])) and (finance_payments.deposit_id is null))
+union
+      select finance_refunds.id,
+      finance_refunds.team_id,
+      'refund'::text as type,
+      finance_payments.method,
+      date(finance_refunds.created_at) as date,
+      ((0)::numeric - finance_refunds.amount) as amount,
+      finance_refunds.created_at
+      from (finance_refunds
+      join finance_payments on ((finance_payments.id = finance_refunds.id)))
+      where ((finance_refunds.type = 'card'::finance_refunds_type) and (finance_refunds.deposit_id is null));
+    `)
+
+    await knex.raw(`
       create view geography_columns AS
       select current_database() as f_table_catalog,
       n.nspname as f_table_schema,

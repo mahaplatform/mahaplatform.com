@@ -4,6 +4,7 @@ import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Payment from '../../../models/payment'
 import Deposit from '../../../models/deposit'
+import Refund from '../../../models/refund'
 
 const createRoute = async (req, res) => {
 
@@ -16,29 +17,60 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.mapSeries(req.body.payment_ids, async(id) => {
+  const { payment_ids, refund_ids } = req.body.transactions
 
-    const payment = await Payment.query(qb => {
+  if(payment_ids.length > 0) {
+
+    const payments = await Payment.query(qb => {
       qb.where('team_id', req.team.get('id'))
-      qb.where('id', id)
-    }).fetch({
+      qb.whereIn('id', payment_ids)
+    }).fetchAll({
       transacting: req.trx
     })
 
-    await payment.save({
-      deposit_id: deposit.get('id'),
-      status: 'deposited'
-    },{
+    await Promise.mapSeries(payments, async(payment) => {
+
+      await payment.save({
+        deposit_id: deposit.get('id'),
+        status: 'deposited'
+      },{
+        transacting: req.trx
+      })
+
+      await audit(req, {
+        story: 'deposited',
+        auditable: payment
+      })
+
+    })
+
+  }
+
+  if(refund_ids.length > 0) {
+
+    const refunds = await Refund.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.whereIn('id', refund_ids)
+    }).fetchAll({
       transacting: req.trx
     })
 
-    await audit(req, {
-      story: 'deposited',
-      auditable: payment
+    await Promise.mapSeries(refunds, async(refund) => {
+
+      await refund.save({
+        deposit_id: deposit.get('id'),
+        status: 'deposited'
+      },{
+        transacting: req.trx
+      })
+
+      await audit(req, {
+        story: 'deposited',
+        auditable: refund
+      })
+
     })
-
-  })
-
+  }
   await deposit.load(['payments','bank'], {
     transacting: req.trx
   })

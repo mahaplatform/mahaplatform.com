@@ -1,7 +1,9 @@
+import PaymentTypeToken from '../../tokens/payment_type'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
+import _ from 'lodash'
 
 class Results extends React.Component {
 
@@ -16,19 +18,24 @@ class Results extends React.Component {
     return (
       <div className="paymentsfield-payments">
         { records.map((record, index) => (
-          <div className={ this._getClass(record) } key={`record_${index}`} onClick={ this._handleChoose.bind(this, record) }>
+          <div className={ this._getClass(record) } key={`record_${index}`} onClick={ this._handleChoose.bind(this, index) }>
             <div className="paymentsfield-payment-icon">
-              <i className={`fa fa-${ this._getIcon(record) }`} />
-            </div>
-            <div className="paymentsfield-payment-label">
-              { moment(record.date).format('MM/DD/YY') }<br />
-              { record.invoice.customer.display_name }
+              <i className={`fa fa-${ this._getIcon(index) }`} />
             </div>
             <div className="paymentsfield-payment-method">
-              { record.method }
+              <div className="finance-payment-type-token">
+                <img src={`/images/payments/${record.method}.png`} />
+              </div>
+            </div>
+            <div className="paymentsfield-payment-label">
+              <span>{ moment(record.date).format('MM/DD/YY') }</span><br />
+              <strong>{ record.invoice.customer.display_name }</strong>
+            </div>
+            <div className="paymentsfield-payment-type">
+              { record.type }
             </div>
             <div className="paymentsfield-payment-amount">
-              { numeral(record.disbursed).format('0.00') }
+              { numeral(record.amount).format('0.00') }
             </div>
           </div>
         )) }
@@ -42,22 +49,21 @@ class Results extends React.Component {
     return classes.join(' ')
   }
 
-  _getChecked(record) {
-    return this.props.selected.find(({ id }) => {
-      return id === record.id
-    }) !== undefined
+  _getChecked(index) {
+    const { selected } = this.props
+    return _.includes(selected, index)
   }
 
-  _getIcon(record) {
-    return this._getChecked(record) ? 'check-circle' : 'circle-o'
+  _getIcon(index) {
+    return this._getChecked(index) ? 'check-circle' : 'circle-o'
   }
 
-  _handleChoose(record) {
-    this.props.onChoose(this._getChecked(record) ? this.props.selected.filter(({ id }) => {
-      return id !== record.id
+  _handleChoose(index) {
+    this.props.onChoose(this._getChecked(index) ? this.props.selected.filter(i => {
+      return index !== i
     }) : [
       ...this.props.selected,
-      record
+      index
     ])
   }
 
