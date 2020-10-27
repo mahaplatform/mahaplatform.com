@@ -5,6 +5,7 @@ import socket from '../../../../../core/services/routes/emitter'
 import { updateApps } from '../../../services/apps'
 import Role from '../../../../maha/models/role'
 import Team from '../../../../maha/models/team'
+import moment from 'moment'
 
 const createRoute = async (req, res) => {
 
@@ -53,9 +54,19 @@ const createRoute = async (req, res) => {
     role_ids: [role.get('id')]
   })
 
-  await sendActivation(req, {
-    user
-  })
+  if(user.get('email') === req.user.get('email')) {
+    await user.save({
+      activated_at: moment()
+    })
+    await socket.message(req, {
+      channel: 'user',
+      action: 'session'
+    })
+  } else  {
+    await sendActivation(req, {
+      user
+    })
+  }
 
   await socket.refresh(req, [
     '/admin/platform/teams'
