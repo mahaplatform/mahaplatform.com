@@ -3,8 +3,6 @@ import AddressesField from '../../components/addressesfield'
 import BirthdayField from '../../components/birthdayfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
-import ProgramToken from '../../tokens/program'
-import sections from '../sections'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -37,9 +35,10 @@ class New extends React.Component {
       onSuccess: this._handleSuccess,
       tabs: [
         {
-          label: 'General',
+          label: 'Properties',
           sections: [
             {
+              label: 'Core Properties',
               fields: [
                 { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name' },
                 { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name' },
@@ -51,7 +50,8 @@ class New extends React.Component {
                 { label: 'Birthday', name: 'birthday', type: BirthdayField },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
-            }
+            },
+            ...this._getProperties()
           ]
         }, {
           label: 'Lists',
@@ -71,9 +71,6 @@ class New extends React.Component {
               ]
             }
           ]
-        }, {
-          label: 'Properties',
-          sections: this._getProperties()
         }
       ]
     }
@@ -84,19 +81,11 @@ class New extends React.Component {
     return fields.filter(program => {
       return program.access_type !== 'view'
     }).map(program => ({
-      label: (
-        <div className="crm-program-label">
-          { program.title }
-        </div>
-      ),
+      label: `${ program.title } Properties`,
+      collapsing: true,
+      collapsed: true,
       fields: program.fields.map(field => field.config)
     }))
-  }
-
-  _getSections() {
-    const { fields } = this.props
-    const results = sections(fields)
-    return results
   }
 
   _getOrganizationForm() {

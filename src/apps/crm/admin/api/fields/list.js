@@ -25,21 +25,21 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = Object.values(fields.reduce((data, field) => {
-    return {
-      ...data,
-      [field.get('parent_id')]: {
-        id: programs[field.get('parent_id')].get('id'),
-        access_type: programs[field.get('parent_id')].get('access_type'),
-        title: programs[field.get('parent_id')].get('title'),
-        logo: programs[field.get('parent_id')].related('logo').get('path'),
-        fields: [
-          ..._.get(data, `[${field.get('parent_id')}].fields`) || [],
-          FieldSerializer(req, field)
-        ]
-      }
+  const data = Object.values(fields.reduce((data, field) => ({
+    ...data,
+    [field.get('parent_id')]: {
+      id: programs[field.get('parent_id')].get('id'),
+      access_type: programs[field.get('parent_id')].get('access_type'),
+      title: programs[field.get('parent_id')].get('title'),
+      logo: programs[field.get('parent_id')].related('logo').get('path'),
+      fields: [
+        ..._.get(data, `[${field.get('parent_id')}].fields`) || [],
+        FieldSerializer(req, field)
+      ]
     }
-  }, {}))
+  }), {})).sort((a, b) => {
+    return a.title > b.title ? 1 : -1
+  })
 
   res.status(200).respond(data)
 

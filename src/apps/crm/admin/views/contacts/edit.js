@@ -1,5 +1,6 @@
 import CheckboxesField from '../../components/checkboxesfield'
 import AddressesField from '../../components/addressesfield'
+import BirthdayField from '../../components/birthdayfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
 import { Form } from 'maha-admin'
@@ -37,9 +38,14 @@ class Edit extends React.Component {
       onSuccess: this._handleSuccess,
       tabs: [
         {
-          label: 'General',
+          label: 'Properties',
           sections: [
             {
+              label: (
+                <div className="crm-program-label">
+                  Core Properties
+                </div>
+              ),
               fields: [
                 { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name' },
                 { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name' },
@@ -48,10 +54,11 @@ class Edit extends React.Component {
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
                 { label: 'Organizations', name: 'organization_ids', type: 'lookup2', placeholder: 'Choose organizations', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
-                { label: 'Birthday', name: 'birthday', type: 'textfield', placeholder: 'Enter birthday' },
+                { label: 'Birthday', name: 'birthday', type: BirthdayField },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
-            }
+            },
+            ...this._getProperties()
           ]
         }, {
           label: 'Lists',
@@ -86,7 +93,7 @@ class Edit extends React.Component {
     }).map(program => ({
       label: (
         <div className="crm-program-label">
-          { program.title }
+          { program.title } Properties
         </div>
       ),
       fields: program.fields.map(field => field.config)
