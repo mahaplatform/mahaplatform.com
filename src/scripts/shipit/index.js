@@ -49,9 +49,6 @@ const processor = async () => {
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
   servers[controller].roles.push('controller')
 
-  const cron = servers.findIndex(server => server.roles[0] === 'worker')
-  servers[cron].roles.push('cron')
-
   shipit.initConfig({
     default: {
       asUser: 'root',
@@ -101,7 +98,7 @@ const processor = async () => {
     'deploy:bootstrap',
     'deploy:symlink',
     'deploy:reload_passenger',
-    'deploy:restart_pm2',
+    'servers:pm2:restart',
     // 'deploy:cache',
     'deploy:clean'
   ])
@@ -116,6 +113,11 @@ const processor = async () => {
     'sync:braintree'
   ])
 
+  utils.registerTask(shipit, 'servers:pm2:restart', [
+    'servers:pm2:restart_cron',
+    'servers:pm2:restart_worker'
+  ])
+
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
     await shipit.remoteCopy('servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
   })
@@ -124,10 +126,24 @@ const processor = async () => {
     await shipit.remote('systemctl restart nginx', { roles: 'appserver' })
   })
 
-  utils.registerTask(shipit, 'servers:pm2:restart', async () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
+  utils.registerTask(shipit, 'servers:pm2:deleteall', async () => {
+    return shipit.remote('NODE_ENV=production pm2 delete all', {
       cwd: deployDir,
       roles: ['cron','worker']
+    })
+  })
+
+  utils.registerTask(shipit, 'servers:pm2:restart_cron', async () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only cron_production', {
+      cwd: deployDir,
+      roles: ['cron']
+    })
+  })
+
+  utils.registerTask(shipit, 'servers:pm2:restart_worker', async () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only worker_production', {
+      cwd: deployDir,
+      roles: ['worker']
     })
   })
 
