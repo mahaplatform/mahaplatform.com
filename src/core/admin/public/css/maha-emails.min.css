@@ -24,6 +24,11 @@ html,
   line-height: 24px;
   margin: 0 0 12px;
 }
+.panel li {
+  color: #888888;
+  font-size: 14px;
+  line-height: 24px;
+}
 .intro {
   margin-top: 15px;
 }
@@ -38,6 +43,11 @@ html,
   font-size: 14px;
   line-height: 24px;
   margin: 0 0 12px;
+}
+.intro li {
+  color: #888888;
+  font-size: 14px;
+  line-height: 24px;
 }
 .intro p:last-child {
   margin: 0 !important;

@@ -1,10 +1,29 @@
 import { renderEmail, personalizeEmail } from '../../../services/email'
 import { sendMail } from '../../../../../core/services/email'
+import User from '../../../../maha/models/user'
 import Sender from '../../../models/sender'
+
+const getContact = async (req, params) => {
+  const { strategy, user_id, email, first_name, last_name } = params
+  if(strategy === 'email') {
+    return { email, first_name, last_name }
+  }
+  const user = await User.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', user_id)
+  }).fetch({
+    transacting: req.trx
+  })
+  return {
+    first_name: user.get('first_name'),
+    last_name: user.get('last_name'),
+    email: user.get('email')
+  }
+}
 
 const previewRoute = async (req, res) => {
 
-  const { config, first_name, last_name, email } = req.body
+  const { config } = req.body
 
   const html = await renderEmail(req, { config })
 
@@ -14,6 +33,8 @@ const previewRoute = async (req, res) => {
   }).fetch({
     transacting: req.trx
   }) : null
+
+  const { first_name, last_name, email } = await getContact(req, req.body)
 
   const rendered = personalizeEmail(req, {
     subject: `PREVIEW: ${config.settings.subject}`,
@@ -39,7 +60,7 @@ const previewRoute = async (req, res) => {
 
   await sendMail({
     from: sender ? sender.get('rfc822') : 'Maha Platform <mail@mahaplatform.com>',
-    to: req.body.email,
+    to: email,
     subject: rendered.subject,
     html: rendered.html
   })

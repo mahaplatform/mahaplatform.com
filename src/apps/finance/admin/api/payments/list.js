@@ -9,9 +9,11 @@ const listRoute = async (req, res) => {
       qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
       qb.innerJoin('finance_invoices','finance_invoices.id','finance_payments.invoice_id')
       qb.innerJoin('finance_customers','finance_customers.id','finance_invoices.customer_id')
+      qb.innerJoin('finance_payment_methods','finance_payment_methods.id','finance_payments.payment_method_id')
       qb.where('finance_payments.team_id', req.team.get('id'))
     },
     aliases: {
+      card_type: 'finance_payment_methods.card_type',
       customer: 'finance_customers.last_name',
       first_name: 'finance_customers.first_name',
       last_name: 'finance_customers.last_name',

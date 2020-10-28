@@ -17,7 +17,8 @@
     "g": "babel-node ./src/scripts/generate/index.js",
     "knex": "babel-node ./src/scripts/knex.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
-    "test": "NODE_ENV=test babel-node ./src/scripts/test.js"
+    "test": "NODE_ENV=test babel-node ./src/scripts/test.js",
+    "sandbox": "babel-node ./src/sandbox.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",

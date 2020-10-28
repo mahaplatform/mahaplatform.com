@@ -1,13 +1,13 @@
 <%
 const imageurl = (image) => {
-  if(image) return `${host}/imagecache/w=580&h=317&dpi=2&q=100${image}`
+  if(image) return `${host}/imagecache/w=580&h=317&dpi=2&q=100&overlay=video${image}`
   return 'https://dummyimage.com/1160x634/606060/ffffff&text=+++VIDEO+++'
 }
 const image = (block, width) => {
   if(block.video) {
     const preview = imageurl(block.video.preview)
     return `
-      <a href="${block.video.url}">
+      <a href="${block.video.src}">
         <img src="${preview}" width="${width}" alt="${preview.split('/').pop()}" />
       </a>
     `
