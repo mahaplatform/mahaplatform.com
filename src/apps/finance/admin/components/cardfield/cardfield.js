@@ -179,7 +179,7 @@ class Card extends React.PureComponent {
   _handleNumber(e) {
     const number = card.parse(e.target.value)
     this.setState({ number })
-    if(card.isValid(number)) {
+    if(number.length > 13 && card.isValid(number)) {
       this.expirationDate.focus()
     }
   }
