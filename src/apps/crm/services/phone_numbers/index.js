@@ -1,6 +1,7 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import generateCode from '../../../core/utils/generate_code'
-import PhoneNumber from '../models/phone_number'
+import generateCode from '../../../../core/utils/generate_code'
+import PhoneNumber from '../../models/phone_number'
+import moment from 'moment'
 
 export const getFormattedNumber = (value) => {
   const parsed = parsePhoneNumberFromString(value, 'US')
@@ -10,24 +11,25 @@ export const getFormattedNumber = (value) => {
   return number.join('x')
 }
 
+const getIsPrimary = (phone_number, existing, found) => {
+  if(phone_number.is_primary !== undefined) return phone_number.is_primary
+  if(found && found.get('is_primary')) return true
+  return existing.length === 0
+}
+
 export const updatePhoneNumbers = async (req, { contact, phone_numbers, removing }) => {
 
-  await contact.load(['phone_numbers'], {
+  const existing = await PhoneNumber.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('contact_id', contact.get('id'))
+  }).fetchAll({
     transacting: req.trx
-  })
-
-  const existing = contact.related('phone_numbers').toArray()
-
-  const getIsPrimary = (phone_number, existing, found) => {
-    if(phone_number.is_primary !== undefined) return phone_number.is_primary
-    if(found && found.get('is_primary')) return true
-    return existing.length === 0
-  }
+  }).then(results => results.toArray())
 
   phone_numbers = phone_numbers.map(phone_number => {
     const formatted = getFormattedNumber(phone_number.number)
-    const found = existing.find(number => {
-      return number.get('number') === formatted
+    const found = existing.find(item => {
+      return item.get('id') === phone_number.id || item.get('number') === formatted
     })
     return {
       ...phone_number,
@@ -61,28 +63,36 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers, removing
       code,
       number: phone_number.number,
       is_primary: phone_number.is_primary,
-      is_valid: true
+      undelivered_count: 0,
+      can_text: true
     }).save(null, {
       transacting: req.trx
     })
   }) : []
 
-  const updated = update.length > 0 ?await Promise.mapSeries(update, async (phone_number) => {
-    const number = contact.related('phone_numbers').find(item => {
+  const updated = update.length > 0 ? await Promise.mapSeries(update, async (phone_number) => {
+    const number = existing.find(item => {
       return item.get('id') === phone_number.id
     })
     return await number.save({
+      ...number.get('number') !== phone_number.number ? { can_text: true, undelivered_count: 0 } : {},
+      deleted_at: null,
       number: phone_number.number,
       is_primary: phone_number.is_primary
     }, {
-      transacting: req.trx
+      transacting: req.trx,
+      patch: true
     })
   }) : []
 
   if(remove.length > 0) {
     await Promise.mapSeries(remove, async (phone_number) => {
-      await phone_number.destroy({
-        transacting: req.trx
+      await phone_number.save({
+        is_primary: false,
+        deleted_at: moment()
+      },{
+        transacting: req.trx,
+        patch: true
       })
     })
   }

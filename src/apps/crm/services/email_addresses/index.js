@@ -1,26 +1,29 @@
-import generateCode from '../../../core/utils/generate_code'
-import EmailAddress from '../models/email_address'
+import generateCode from '../../../../core/utils/generate_code'
+import EmailAddress from '../../models/email_address'
+import moment from 'moment'
+
+const getIsPrimary = (email_address, existing, found) => {
+  if(email_address.is_primary !== undefined) return email_address.is_primary
+  if(found && found.get('is_primary')) return true
+  return existing.length === 0
+}
 
 export const updateEmailAddresses = async (req, { contact, email_addresses, removing }) => {
 
-  await contact.load(['email_addresses'], {
+  const existing = await EmailAddress.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('contact_id', contact.get('id'))
+  }).fetchAll({
     transacting: req.trx
-  })
-
-  const existing = contact.related('email_addresses').toArray()
-
-  const getIsPrimary = (email_address, existing, found) => {
-    if(email_address.is_primary !== undefined) return email_address.is_primary
-    if(found && found.get('is_primary')) return true
-    return existing.length === 0
-  }
+  }).then(results => results.toArray())
 
   email_addresses = email_addresses.map(email_address => {
-    const found = existing.find(address => {
-      return address.get('address') === email_address.address.toLowerCase()
+    const found = existing.find(item => {
+      return item.get('id') === email_address.id || item.get('address') === email_address.address.toLowerCase()
     })
     return {
       ...email_address,
+      address: email_address.address.toLowerCase(),
       is_primary: getIsPrimary(email_address, existing, found),
       id: found ? found.get('id') : undefined
     }
@@ -48,30 +51,39 @@ export const updateEmailAddresses = async (req, { contact, email_addresses, remo
       team_id: req.team.get('id'),
       contact_id: contact.get('id'),
       code,
-      address: email_address.address.toLowerCase(),
+      address: email_address.address,
       is_primary: email_address.is_primary,
-      is_valid: true
+      is_valid: true,
+      was_hard_bounced: false,
+      soft_bounce_count: 0
     }).save(null, {
       transacting: req.trx
     })
   }) : []
 
   const updated = update.length > 0 ? await Promise.mapSeries(update, async (email_address) => {
-    const address = contact.related('email_addresses').find(item => {
+    const address = existing.find(item => {
       return item.get('id') === email_address.id
     })
     return await address.save({
-      address: email_address.address.toLowerCase(),
+      ...address.get('address') !== email_address.address ? { is_valid: true, was_hard_bounced: true, soft_bounce_count: 0 } : {},
+      deleted_at: null,
+      address: email_address.address,
       is_primary: email_address.is_primary
     }, {
-      transacting: req.trx
+      transacting: req.trx,
+      patch: true
     })
   }) : []
 
   if(remove.length > 0) {
     await Promise.mapSeries(remove, async (email_address) => {
-      await email_address.destroy({
-        transacting: req.trx
+      await email_address.save({
+        is_primary: false,
+        deleted_at: moment()
+      },{
+        transacting: req.trx,
+        patch: true
       })
     })
   }

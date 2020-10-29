@@ -309,10 +309,7 @@ const schema = {
       table.string('code', 255)
       table.string('braintree_id', 255)
       table.string('spouse', 255)
-      table.string('birthday', 255)
-      table.integer('birth_year')
-      table.USER-DEFINED('gender')
-      table.USER-DEFINED('ethnicity')
+      table.date('birthday')
     })
 
     await knex.schema.createTable('crm_contacts_organizations', (table) => {
@@ -330,6 +327,9 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+      table.boolean('was_hard_bounced')
+      table.integer('soft_bounce_count')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_email_campaigns', (table) => {
@@ -412,6 +412,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_notes_assets', (table) => {
@@ -435,10 +436,12 @@ const schema = {
       table.integer('contact_id').unsigned()
       table.string('number', 255)
       table.boolean('is_primary')
-      table.boolean('is_valid')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+      table.integer('undelivered_count')
+      table.boolean('can_text')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('crm_postal_campaigns', (table) => {
@@ -1047,7 +1050,6 @@ const schema = {
       table.date('applied_on')
       table.USER-DEFINED('status')
       table.decimal('ach_rate', 5, 4)
-      table.string('braintree_merchant_id', 255)
     })
 
     await knex.schema.createTable('finance_batches', (table) => {
@@ -1972,6 +1974,7 @@ const schema = {
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
       table.integer('user_id').unsigned()
+      table.integer('error_code')
     })
 
     await knex.schema.createTable('maha_sources', (table) => {
@@ -3547,13 +3550,13 @@ const schema = {
     })
 
     await knex.schema.table('stores_orders', table => {
+      table.foreign('cart_id').references('stores_carts.id')
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('discount_id').references('stores_discounts.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('cart_id').references('stores_carts.id')
     })
 
     await knex.schema.table('stores_products', table => {
@@ -3852,20 +3855,58 @@ union
 
     await knex.raw(`
       create view crm_contact_primaries AS
-      select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
-      crm_organizations.name as organization,
-      crm_email_addresses.id as email_id,
-      crm_email_addresses.address as email,
-      crm_phone_numbers.id as phone_id,
-      crm_phone_numbers.number as phone,
-      crm_mailing_addresses.id as address_id,
+      with email_addresses as (
+      select crm_email_addresses.id,
+      crm_email_addresses.contact_id,
+      crm_email_addresses.address
+      from crm_email_addresses
+      where (crm_email_addresses.deleted_at is null)
+      order by crm_email_addresses.is_primary desc, crm_email_addresses.created_at
+      ), phone_numbers as (
+      select crm_phone_numbers.id,
+      crm_phone_numbers.contact_id,
+      crm_phone_numbers.number
+      from crm_phone_numbers
+      where (crm_phone_numbers.deleted_at is null)
+      order by crm_phone_numbers.is_primary desc, crm_phone_numbers.created_at
+      ), cell_phone_numbers as (
+      select crm_phone_numbers.id,
+      crm_phone_numbers.contact_id,
+      crm_phone_numbers.number
+      from crm_phone_numbers
+      where ((crm_phone_numbers.deleted_at is null) and (crm_phone_numbers.can_text = true))
+      order by crm_phone_numbers.is_primary desc, crm_phone_numbers.created_at
+      ), mailing_addresses as (
+      select crm_mailing_addresses.id,
+      crm_mailing_addresses.contact_id,
       crm_mailing_addresses.address
+      from crm_mailing_addresses
+      where (crm_mailing_addresses.deleted_at is null)
+      order by crm_mailing_addresses.is_primary desc, crm_mailing_addresses.created_at
+      ), organizations as (
+      select crm_organizations.id,
+      crm_contacts_organizations.contact_id,
+      crm_organizations.name
+      from (crm_contacts_organizations
+      join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)))
+      order by crm_organizations.created_at
+      )
+      select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
+      organizations.name as organization,
+      email_addresses.id as email_id,
+      email_addresses.address as email,
+      phone_numbers.id as phone_id,
+      phone_numbers.number as phone,
+      cell_phone_numbers.id as cell_phone_id,
+      cell_phone_numbers.number as cell_phone,
+      mailing_addresses.id as address_id,
+      mailing_addresses.address
       from (((((crm_contacts
-      left join crm_email_addresses on (((crm_email_addresses.contact_id = crm_contacts.id) and (crm_email_addresses.is_primary = true))))
-      left join crm_phone_numbers on (((crm_phone_numbers.contact_id = crm_contacts.id) and (crm_phone_numbers.is_primary = true))))
-      left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))))
-      left join crm_contacts_organizations on ((crm_contacts_organizations.contact_id = crm_contacts.id)))
-      left join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)));
+      left join email_addresses on ((email_addresses.contact_id = crm_contacts.id)))
+      left join phone_numbers on ((phone_numbers.contact_id = crm_contacts.id)))
+      left join cell_phone_numbers on ((cell_phone_numbers.contact_id = crm_contacts.id)))
+      left join mailing_addresses on ((mailing_addresses.contact_id = crm_contacts.id)))
+      left join organizations on ((organizations.id = crm_contacts.id)));
     `)
 
     await knex.raw(`
@@ -4475,19 +4516,20 @@ union
       from ((crm_email_addresses
       join crm_contacts on ((crm_contacts.id = crm_email_addresses.contact_id)))
       join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.type = 'email'::crm_consent_type))))
+      where ((crm_email_addresses.deleted_at is null) and crm_email_addresses.is_valid)
 union
       select 'email'::text as type,
       'transactional'::text as purpose,
       crm_email_addresses.team_id,
-      crm_contacts.id as contact_id,
+      crm_email_addresses.contact_id,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from (crm_email_addresses
-      join crm_contacts on ((crm_contacts.id = crm_email_addresses.contact_id)))
-      where crm_email_addresses.is_primary
+      from ((crm_email_addresses
+      join crm_contact_primaries on ((crm_contact_primaries.email_id = crm_email_addresses.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
 union
       select 'sms'::text as type,
       'marketing'::text as purpose,
@@ -4500,7 +4542,8 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      where (crm_phone_numbers.deleted_at is null)
 union
       select 'sms'::text as type,
       'transactional'::text as purpose,
@@ -4511,9 +4554,9 @@ union
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from (crm_phone_numbers
-      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      where crm_phone_numbers.is_primary
+      from ((crm_phone_numbers
+      join crm_contact_primaries on ((crm_contact_primaries.cell_phone_id = crm_phone_numbers.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
 union
       select 'voice'::text as type,
       'marketing'::text as purpose,
@@ -4526,7 +4569,8 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      where (crm_phone_numbers.deleted_at is null)
 union
       select 'voice'::text as type,
       'transactional'::text as purpose,
@@ -4537,9 +4581,9 @@ union
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from (crm_phone_numbers
-      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      where crm_phone_numbers.is_primary
+      from ((crm_phone_numbers
+      join crm_contact_primaries on ((crm_contact_primaries.phone_id = crm_phone_numbers.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
 union
       select 'mail'::text as type,
       'marketing'::text as purpose,
@@ -4552,7 +4596,8 @@ union
       crm_contacts.photo_id
       from ((crm_mailing_addresses
       join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
-      join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      join crm_consents on (((crm_consents.email_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      where (crm_mailing_addresses.deleted_at is null)
 union
       select 'mail'::text as type,
       'transactional'::text as purpose,
@@ -4563,31 +4608,9 @@ union
       crm_mailing_addresses.id as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from (crm_mailing_addresses
-      join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
-      where crm_mailing_addresses.is_primary
-union
-      select 'all'::text as type,
-      'transactional'::text as purpose,
-      crm_contacts.team_id,
-      crm_contacts.id as contact_id,
-      null::integer as email_address_id,
-      null::integer as phone_number_id,
-      null::integer as mailing_address_id,
-      null::integer as program_id,
-      crm_contacts.photo_id
-      from crm_contacts
-union
-      select 'all'::text as type,
-      'marketing'::text as purpose,
-      crm_contacts.team_id,
-      crm_contacts.id as contact_id,
-      null::integer as email_address_id,
-      null::integer as phone_number_id,
-      null::integer as mailing_address_id,
-      null::integer as program_id,
-      crm_contacts.photo_id
-      from crm_contacts;
+      from ((crm_mailing_addresses
+      join crm_contact_primaries on ((crm_contact_primaries.address_id = crm_mailing_addresses.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
     `)
 
     await knex.raw(`
@@ -5548,6 +5571,7 @@ union
       create view finance_undeposited AS
       select finance_payments.id,
       finance_payments.team_id,
+      finance_payments.invoice_id,
       'payment'::text as type,
       finance_payments.method,
       finance_payments.date,
@@ -5559,14 +5583,15 @@ union
 union
       select finance_refunds.id,
       finance_refunds.team_id,
+      finance_payments.invoice_id,
       'refund'::text as type,
       finance_payments.method,
       date(finance_refunds.created_at) as date,
       ((0)::numeric - finance_refunds.amount) as amount,
       finance_refunds.created_at
       from (finance_refunds
-      join finance_payments on ((finance_payments.id = finance_refunds.id)))
-      where ((finance_refunds.type = 'card'::finance_refunds_type) and (finance_refunds.deposit_id is null));
+      join finance_payments on ((finance_payments.id = finance_refunds.payment_id)))
+      where ((finance_payments.method = any (array['check'::finance_payments_method, 'paypal'::finance_payments_method, 'cash'::finance_payments_method])) and (finance_refunds.deposit_id is null));
     `)
 
     await knex.raw(`

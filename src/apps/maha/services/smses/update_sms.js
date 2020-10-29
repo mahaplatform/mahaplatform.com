@@ -1,6 +1,6 @@
 import SMS from '../../models/sms'
 
-const updateSMS = async (req, { num_media, price, sid, status }) => {
+const updateSMS = async (req, { num_media, price, sid, status, error_code }) => {
 
   const sms = await SMS.query(qb => {
     qb.where('sid', sid)
@@ -11,7 +11,8 @@ const updateSMS = async (req, { num_media, price, sid, status }) => {
   await sms.save({
     num_media,
     price,
-    status
+    status,
+    error_code
   }, {
     patch: true,
     transacting: req.trx

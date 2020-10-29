@@ -25,6 +25,8 @@ const feedbackRoute = async (req, res) => {
 
     const message = JSON.parse(req.body.Message)
 
+    if(message.notificationType === 'AmazonSnsSubscriptionSucceeded') return
+
     if(message.notificationType === 'Received') {
 
       await ReceiveEmailQueue.enqueue(req, {
@@ -79,6 +81,25 @@ const feedbackRoute = async (req, res) => {
           patch: true,
           transacting: req.trx
         })
+
+        if(email.get('email_address_id') !== null) {
+
+          await email.load(['email_address'], {
+            transacting: req.trx
+          })
+
+          const email_address = email.related('email_address')
+
+          await email_address.save({
+            was_hard_bounced: email.get('bounce_type') === 'Permanent' ? true : email_address.get('was_hard_bounced'),
+            soft_bounce_count: email_address.get('soft_bounce_count') + (email.get('bounce_type') !== 'Permanent' ? 1 : 0),
+            is_valid: email_address.get('soft_bounce_count') >= 2 || email.get('bounce_type') === 'Permanent' ? false : email_address.get('is_valid')
+          }, {
+            transacting: req.trx,
+            patch: true
+          })
+
+        }
 
         await EmailActivity.forge({
           team_id: email.get('team_id'),

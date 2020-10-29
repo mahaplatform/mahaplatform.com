@@ -42,7 +42,8 @@ const getPhoneNumber = async (req, { number }) => {
     contact_id: contact.get('id'),
     number,
     is_primary: true,
-    is_valid: true
+    undelivered_count: 0,
+    can_text: true
   }).save(null, {
     transacting: req.trx
   })

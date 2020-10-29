@@ -1,0 +1,75 @@
+.channelfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  &:focus {
+    outline: none !important;
+    border-color: @lightblue;
+    border-radius: .28571429rem;
+    background: @white;
+    box-shadow: none;
+  }
+  .channelfield-item:last-child {
+    border-bottom: none;
+  }
+}
+.channelfield-item-empty {
+  padding: 0.6em;
+  color: fadeout(@black, 70);
+}
+.channelfield-item {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.channelfield-item-primary {
+  padding: 0.6em 0 0.6em 0.6em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.channelfield-item-type {
+  padding: 0.6em 0 0.6em 0.6em;
+  display: flex;
+  span {
+    background-color: fadeout(@black, 80);
+    color: @white;
+    display: inline-block;
+    padding: 0 0.6em;
+    border-radius: 0.6em;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin: auto;
+    width: 4.2em;
+    text-align: center;
+  }
+}
+.channelfield-item-field {
+  padding: 0.6em;
+  flex: 1;
+}
+.channelfield-item-action {
+  padding: 0.6em 0.6em 0.6em 0;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+    cursor: pointer;
+    &:hover {
+      color: fadeout(@black, 20);
+    }
+  }
+}
+.channelfield-add {
+  padding: 0.4em 0 0;
+  font-size: 0.8em;
+}

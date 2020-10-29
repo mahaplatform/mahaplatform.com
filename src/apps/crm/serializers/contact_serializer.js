@@ -33,6 +33,9 @@ const email_address = (email_address) => {
   return {
     id: email_address.get('id'),
     address: email_address.get('address'),
+    was_hard_bounced: email_address.get('was_hard_bounced'),
+    soft_bounce_count: email_address.get('soft_bounce_count'),
+    is_valid: email_address.get('is_valid'),
     is_primary: email_address.get('is_primary')
   }
 }
@@ -52,6 +55,8 @@ const phone_number = (phone_number) => {
     id: phone_number.get('id'),
     number: phone_number.get('number'),
     formatted: phone_number.get('formatted'),
+    undelivered_count: phone_number.get('undelivered_count'),
+    can_text: phone_number.get('can_text'),
     is_primary: phone_number.get('is_primary')
   }
 }
@@ -60,7 +65,7 @@ const organization = (organization) => {
   if(!organization.id) return null
   return {
     id: organization.get('id'),
-    title: organization.get('title')
+    name: organization.get('name')
   }
 }
 
@@ -79,14 +84,6 @@ const topic = (topic) => {
     id: topic.get('id'),
     program_id: topic.get('program_id'),
     title: topic.get('title')
-  }
-}
-
-const tag = (tag) => {
-  if(!tag.id) return null
-  return {
-    id: tag.get('id'),
-    text: tag.get('text')
   }
 }
 

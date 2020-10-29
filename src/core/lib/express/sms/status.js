@@ -10,6 +10,8 @@ const statusRoute = async (req, res) => {
 
   const message = await twilio.messages(req.body.MessageSid).fetch()
 
+  const error_code = req.body.ErrorCode
+
   const { price, sid, status } = message
 
   const sms = await Sms.query(qb => {
@@ -24,13 +26,15 @@ const statusRoute = async (req, res) => {
   await updateSMS(req, {
     price: Math.abs(price),
     sid,
-    status
+    status,
+    error_code
   })
 
   await Promise.reduce(hooks, async (response, hook) => {
     return await hook.default(req, {
       sms,
-      status
+      status,
+      error_code
     })
   }, null)
 

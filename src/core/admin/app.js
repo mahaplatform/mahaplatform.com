@@ -70,16 +70,13 @@ import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaccess from '../../apps/crm/admin/components/access'
-import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmintro from '../../apps/crm/admin/components/contactimport/intro'
 import crmdesigner from '../../apps/crm/admin/components/designer'
-import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmflowchartDesigner from '../../apps/crm/admin/components/flowchart_designer'
 import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
-import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmproductfield from '../../apps/crm/admin/components/productfield'
 import crmrecordingfield from '../../apps/crm/admin/components/recordingfield'
 import crmrulesfield from '../../apps/crm/admin/components/rulesfield'
@@ -382,16 +379,13 @@ class App extends React.Component {
       chatsubscriptions,
       chatchat,
       crmaccess,
-      crmaddressesfield,
       crmcheckboxesfield,
       crmintro,
       crmdesigner,
-      crmemailsfield,
       crmflowchartDesigner,
       crmfollowsfield,
       crmformDesigner,
       crmimagesfield,
-      crmphonesfield,
       crmproductfield,
       crmrecordingfield,
       crmrulesfield,

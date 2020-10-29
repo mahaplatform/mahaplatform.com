@@ -1,6 +1,7 @@
 import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
 import generateCode from '../../../../core/utils/generate_code'
 import MailingAddress from '../../models/mailing_address'
+import moment from 'moment'
 
 const updateMailingAddresses = async (req, { contact, mailing_addresses, removing, geocode }) => {
 
@@ -79,7 +80,8 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
       address: mailing_address.address,
       is_primary: mailing_address.is_primary
     }, {
-      transacting: req.trx
+      transacting: req.trx,
+      patch: true
     })
 
     if(mailing_address.address.latitude) return address
@@ -96,8 +98,12 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
 
   if(remove.length > 0) {
     await Promise.mapSeries(remove, async (mailing_address) => {
-      await mailing_address.destroy({
-        transacting: req.trx
+      await mailing_address.save({
+        is_primary: false,
+        deleted_at: moment()
+      },{
+        transacting: req.trx,
+        patch: true
       })
     })
   }

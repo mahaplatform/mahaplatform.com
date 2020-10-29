@@ -1,8 +1,7 @@
+import AddressesField from '../../components/channelfield/address'
 import CheckboxesField from '../../components/checkboxesfield'
-import AddressesField from '../../components/addressesfield'
-import BirthdayField from '../../components/birthdayfield'
-import PhonesField from '../../components/phonesfield'
-import EmailsField from '../../components/emailsfield'
+import PhonesField from '../../components/channelfield/phone'
+import EmailsField from '../../components/channelfield/email'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -47,7 +46,7 @@ class New extends React.Component {
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
                 { label: 'Organizations', name: 'organization_ids', type: 'lookup2', placeholder: 'Choose organizations', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
-                { label: 'Birthday', name: 'birthday', type: BirthdayField },
+                { label: 'Birthday', name: 'birthday', type: 'datefield' },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
             },

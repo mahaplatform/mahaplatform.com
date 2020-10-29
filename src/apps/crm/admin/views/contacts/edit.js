@@ -1,8 +1,7 @@
+import AddressesField from '../../components/channelfield/address'
 import CheckboxesField from '../../components/checkboxesfield'
-import AddressesField from '../../components/addressesfield'
-import BirthdayField from '../../components/birthdayfield'
-import PhonesField from '../../components/phonesfield'
-import EmailsField from '../../components/emailsfield'
+import PhonesField from '../../components/channelfield/phone'
+import EmailsField from '../../components/channelfield/email'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -41,11 +40,7 @@ class Edit extends React.Component {
           label: 'Properties',
           sections: [
             {
-              label: (
-                <div className="crm-program-label">
-                  Core Properties
-                </div>
-              ),
+              label: 'Core Properties',
               fields: [
                 { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'Enter first name' },
                 { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Enter last name' },
@@ -54,7 +49,7 @@ class Edit extends React.Component {
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
                 { label: 'Organizations', name: 'organization_ids', type: 'lookup2', placeholder: 'Choose organizations', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
-                { label: 'Birthday', name: 'birthday', type: BirthdayField },
+                { label: 'Birthday', name: 'birthday', type: 'datefield' },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
             },
@@ -78,9 +73,6 @@ class Edit extends React.Component {
               ]
             }
           ]
-        }, {
-          label: 'Properties',
-          sections: this._getProperties()
         }
       ]
     }
@@ -91,11 +83,9 @@ class Edit extends React.Component {
     return fields.filter(program => {
       return program.access_type !== 'view'
     }).map(program => ({
-      label: (
-        <div className="crm-program-label">
-          { program.title } Properties
-        </div>
-      ),
+      label: `${ program.title } Properties`,
+      collapsing: true,
+      collapsed: true,
       fields: program.fields.map(field => field.config)
     }))
   }

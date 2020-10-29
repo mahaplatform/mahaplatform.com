@@ -85,6 +85,7 @@ const smsesRoute = async (req, res) => {
       }
     })),
     body: sms.get('body'),
+    status: sms.get('status'),
     created_at: sms.get('created_at'),
     updated_at: sms.get('updated_at')
 

@@ -121,6 +121,7 @@ const Contact = new Model({
 
   email_addresses() {
     return this.hasMany(EmailAddress, 'contact_id').query(qb => {
+      qb.whereNull('deleted_at')
       qb.orderBy('is_primary', 'desc')
     })
   },
@@ -141,6 +142,7 @@ const Contact = new Model({
 
   mailing_addresses() {
     return this.hasMany(MailingAddress, 'contact_id').query(qb => {
+      qb.whereNull('deleted_at')
       qb.orderBy('is_primary', 'desc')
     })
   },
@@ -155,6 +157,7 @@ const Contact = new Model({
 
   phone_numbers() {
     return this.hasMany(PhoneNumber, 'contact_id').query(qb => {
+      qb.whereNull('deleted_at')
       qb.orderBy('is_primary', 'desc')
     })
   },

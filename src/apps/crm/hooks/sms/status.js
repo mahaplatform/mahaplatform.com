@@ -5,7 +5,7 @@ import { executeWorkflow } from '../../services/workflows'
 import PhoneNumber from '../../models/phone_number'
 import moment from 'moment'
 
-const status = async (req, { sms, status }) => {
+const status = async (req, { sms, status, error_code }) => {
 
   const maha_phone_number = await MahaPhoneNumber.query(qb => {
     qb.whereRaw('number =? or number=?', [
@@ -24,6 +24,17 @@ const status = async (req, { sms, status }) => {
   }).fetch({
     transacting: req.trx
   })
+
+  if(error_code) {
+    await phone_number.save({
+      undelivered_count: parseInt(phone_number.get('undelivered_count')) + (error_code !== 30006 ? 1 : 0),
+      can_text: phone_number.get('undelivered_count') >= 2 || error_code === 30006 ? false : phone_number.get('can_text')
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+    return
+  }
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')

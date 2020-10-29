@@ -86,6 +86,11 @@ class SmsClient extends React.Component {
                                     </div>
                                   ))}
                                 </div>
+                                { message.status === 'undelivered' &&
+                                  <div className="crm-sms-channel-token-message-error">
+                                    <i className="fa fa-exclamation-circle" title="Unable to deliver message" />
+                                  </div>
+                                }
                               </div>
                             ))}
                           </div>
@@ -159,7 +164,7 @@ class SmsClient extends React.Component {
                   ...block,
                   messages: [
                     ...block.messages,
-                    { text: message.body, attachments: message.attachments }
+                    { text: message.body, status: message.status, attachments: message.attachments }
                   ]
                 }
               }),
@@ -169,7 +174,7 @@ class SmsClient extends React.Component {
                 program: message.program,
                 contact: message.contact,
                 messages: [
-                  { text: message.body, attachments: message.attachments }
+                  { text: message.body, status: message.status, attachments: message.attachments }
                 ]
               }] : []
             ]
@@ -184,7 +189,7 @@ class SmsClient extends React.Component {
               program: message.program,
               contact: message.contact,
               messages: [
-                { text: message.body, attachments: message.attachments }
+                { text: message.body, status: message.status, attachments: message.attachments }
               ]
             }
           ]

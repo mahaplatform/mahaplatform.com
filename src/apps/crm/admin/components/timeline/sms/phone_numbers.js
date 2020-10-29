@@ -30,7 +30,9 @@ class PhoneNumbers extends React.Component {
           { phone_number.number }
         </div>
       ),
-      items: contact.phone_numbers,
+      items: contact.phone_numbers.filter(phone_number => {
+        return phone_number.can_text
+      }),
       handler: this._handleChoose
     }
   }
