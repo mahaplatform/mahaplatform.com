@@ -45,8 +45,6 @@ class ContactFieldForm extends React.Component {
   }
 
   _getForm() {
-    const { config } = this.state
-    const { fields } = this.props
     return {
       title: 'Contact Field',
       reference: node => this.form = node,
@@ -59,10 +57,7 @@ class ContactFieldForm extends React.Component {
       ],
       sections: [
         {
-          fields: [
-            { label: 'Contact Field', name: 'contactfield', type: ContactField, fields, defaultValue: config.contactfield },
-            ...this._getContactFields()
-          ]
+          fields: this._getContactFields()
         }
       ]
     }
@@ -70,11 +65,10 @@ class ContactFieldForm extends React.Component {
 
   _getContactFields() {
     const { config } = this.state
-    if(!config.contactfield) return []
-    const { label, type, name, prompt } = config.contactfield
+    const { type } = config.contactfield
     const fields = [
-      { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name || { value: label, token: this._getToken(label) } },
-      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label || label },
+      { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name  },
+      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
       { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
       { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
       { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
@@ -82,14 +76,7 @@ class ContactFieldForm extends React.Component {
     if(type === 'checkbox') {
       fields.push({ label: 'Prompt', name: 'prompt', type: 'htmlfield', placeholder: 'Enter prompt text', defaultValue: config.prompt || prompt })
     }
-    if(!_.includes(['email','phone','address'], name)) {
-      fields.push({ prompt: 'Overwrite value if property is already set', name: 'overwrite', type: 'checkbox', defaultValue: config.overwrite })
-    }
     return fields
-  }
-
-  _getToken(value) {
-    return value.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
   }
 
   _getDefault() {

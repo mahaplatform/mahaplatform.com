@@ -1,5 +1,6 @@
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
+import _ from 'lodash'
 
 const editRoute = async (req, res) => {
 
@@ -50,9 +51,10 @@ const editRoute = async (req, res) => {
     values: fields.reduce((values, field) => {
       const value = contact.get('values')[field.get('code')]
       if(!value) return values
+      const multiple = _.includes(['checkboxes','checkboxgroup'], field.get('type')) || field.get('config').multiple === true
       return {
         ...values,
-        [field.get('code')]: field.get('multiple') ? value : value[0]
+        [field.get('code')]: multiple ? value : value[0]
       }
     }, {})
   }))

@@ -11,9 +11,9 @@ const processor = async () => {
 
   const args = process.argv.slice(2)
 
-  const task = args.length === 2 ? args[1] : args[0]
+  const task = args[0]
 
-  const environment = args.length === 2 ? args[0] : 'production'
+  const environment = 'production'
 
   const shipit = new Shipit({ environment })
 
@@ -117,6 +117,13 @@ const processor = async () => {
     'servers:pm2:restart_cron',
     'servers:pm2:restart_worker'
   ])
+
+  utils.registerTask(shipit, 'cleanup', async () => {
+    const revision = args[1]
+    await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
+      roles: ['appserver','cron','worker']
+    })
+  })
 
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
     await shipit.remoteCopy('servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })

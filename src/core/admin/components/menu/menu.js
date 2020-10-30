@@ -11,12 +11,14 @@ class Menu extends React.Component {
   static propTypes = {
     chosen: PropTypes.number,
     items: PropTypes.array,
+    type: PropTypes.string,
     onChoose: PropTypes.func
   }
 
   static defaultProps = {
     chosen: null,
     items: [],
+    type: 'item',
     onChoose: (index) => {}
   }
 
@@ -26,13 +28,12 @@ class Menu extends React.Component {
   }
 
   render() {
-    const { items } = this.props
-    const numbers = ['zero','one','two','three','four','five','six','seven','eight']
+    const { items, type } = this.props
     return (
-      <div className="maha-menus">
+      <div className={`maha-menus maha-menus-${type}`}>
         <div className="maha-menus-header">
           <div className="maha-menus-header-menu">
-            <div className={`ui ${numbers[items.length]} item menu`}>
+            <div className={ this._getClass() }>
               { items.map((item, index) => (
                 <a key={`menu_${index}`} className={ this._getItemClass(index) } onClick={ this._handleChoose.bind(this, index) }>
                   { item.label }
@@ -56,6 +57,15 @@ class Menu extends React.Component {
 
   componentDidMount() {
     this.props.onChoose(0)
+  }
+
+  _getClass() {
+    const { items, type } = this.props
+    const numbers = ['zero','one','two','three','four','five','six','seven','eight']
+    const classes = ['ui',numbers[items.length],'item']
+    if(type === 'pointing') classes.push('secondary pointing')
+    classes.push('menu')
+    return classes.join(' ')
   }
 
   _getItemClass(index) {

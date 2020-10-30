@@ -68,8 +68,8 @@ class Canvas extends React.Component {
     }
   }
 
-  _handleAdd({ type, index }) {
-    this.props.onAdd(index, type)
+  _handleAdd({ field, index }) {
+    this.props.onAdd(index, field)
   }
 
   _handleClone({ index }) {

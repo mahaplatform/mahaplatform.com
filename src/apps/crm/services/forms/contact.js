@@ -72,19 +72,15 @@ const updateContact = async (req, { contact, contactfields, data }) => {
 
   const core = contactfields.filter(field => {
     return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
-  }).reduce((values, field) => {
-    if(!_.isNil(contact.get(field.contactfield.name)) && field.overwrite === false) return values
-    return {
-      ...values,
-      [field.contactfield.name]: data[field.code]
-    }
-  }, {})
+  }).reduce((values, field) => ({
+    ...values,
+    [field.contactfield.name]: data[field.code]
+  }), {})
 
   const values = contactfields.filter(field => {
     return field.contactfield.name.match(/^values./)
   }).reduce((values, field) => {
     const [,code] = field.contactfield.name.match(/^values.(.*)/)
-    if(!_.isNil(values[code]) && field.overwrite === false) return values
     return {
       ...values,
       [code]: _.castArray(data[field.code])

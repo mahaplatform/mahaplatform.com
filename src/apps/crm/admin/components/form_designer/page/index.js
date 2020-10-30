@@ -57,10 +57,12 @@ class Page extends React.PureComponent {
   }
 
   _getFields() {
-    const { cid, fields } = this.props
+    const { cid, config, fields, form } = this.props
     return {
       cid,
-      fields
+      config,
+      fields,
+      form
     }
   }
 

@@ -26,8 +26,6 @@ class FormDesigner extends React.PureComponent {
     onUpdate: PropTypes.func
   }
 
-  _handleAdd = this._handleAdd.bind(this)
-
   render() {
     return (
       <div className="designer">
@@ -49,11 +47,11 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, onClone, onEdit, onMove, onRemove } = this.props
+    const { active, config, onAdd, onClone, onEdit, onMove, onRemove } = this.props
     return {
       active,
       config,
-      onAdd: this._handleAdd,
+      onAdd,
       onClone,
       onEdit,
       onMove,
@@ -87,10 +85,6 @@ class FormDesigner extends React.PureComponent {
       onSave,
       onUpdate
     }
-  }
-
-  _handleAdd(index, type) {
-    this.props.onAdd(index, { type })
   }
 
 }

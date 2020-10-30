@@ -1,21 +1,20 @@
+import PaymentField from '../../fields/paymentfield'
+import ProductField from '../../fields/productfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Fields extends React.Component {
-
-  static contextTypes = {}
+class Payment extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    fields: PropTypes.array
+    fields: PropTypes.array,
+    form: PropTypes.object
   }
-
-  static defaultProps = {}
 
   _handleDragStart = this._handleDragStart.bind(this)
 
   render() {
-    const { fields } = this.props
+    const fields = this._getFields()
     return (
       <div className="flowchart-designer-blocks">
         { fields.map((field, index) => (
@@ -32,6 +31,13 @@ class Fields extends React.Component {
     )
   }
 
+  _getFields() {
+    return [
+      { label: 'Payment / Donation', icon: 'dollar', type: 'paymentfield', component: PaymentField },
+      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField }
+    ]
+  }
+
   _getField(field) {
     return {
       draggable: true,
@@ -41,9 +47,11 @@ class Fields extends React.Component {
 
   _handleDragStart(field, e) {
     e.dataTransfer.dropEffect = 'all'
-    e.dataTransfer.setData('type', field.type)
+    e.dataTransfer.setData('field', {
+      type: field.type
+    })
   }
 
 }
 
-export default Fields
+export default Payment

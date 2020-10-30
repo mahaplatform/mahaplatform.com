@@ -69,9 +69,7 @@ class Sidebar extends React.Component {
   }
 
   _getFields() {
-    const { form } = this.props
-    const { program } = form
-    const fields = [
+    return [
       { label: 'Address', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
@@ -89,9 +87,6 @@ class Sidebar extends React.Component {
       { label: 'Payment / Donation', icon: 'dollar', type: 'paymentfield', component: PaymentField },
       { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField }
     ]
-    return fields.filter(field => {
-      return !_.includes(['paymentfield','productfield'], field.type) || _.get(program, 'bank.status') === 'active'
-    })
   }
 
   _getField() {
@@ -110,12 +105,12 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { cid, changes, endpoint, form, status, onSave } = this.props
+    const { cid, changes, endpoint, fields, form, status, onSave } = this.props
     return {
       cid,
       changes,
       endpoint,
-      fields: this._getFields(),
+      fields,
       form,
       status,
       onSave,

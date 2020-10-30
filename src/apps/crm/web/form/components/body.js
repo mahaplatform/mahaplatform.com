@@ -123,7 +123,7 @@ class Form extends React.Component {
     e.preventDefault()
     e.stopPropagation()
     onAction('add', {
-      type: e.dataTransfer.getData('type'),
+      field: JSON.parse(e.dataTransfer.getData('field')),
       index
     })
     this.setState({
