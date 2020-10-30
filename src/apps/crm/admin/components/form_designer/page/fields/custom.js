@@ -71,9 +71,9 @@ class Custom extends React.Component {
 
   _handleDragStart(field, e) {
     e.dataTransfer.dropEffect = 'all'
-    e.dataTransfer.setData('field', {
+    e.dataTransfer.setData('field', JSON.stringify({
       type: field.type
-    })
+    }))
   }
 
 }

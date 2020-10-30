@@ -16,7 +16,7 @@ class Chooser extends React.Component {
   }
 
   _handlePrevious = this._handlePrevious.bind(this)
-  _handleNext = this._handlePrevious.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     const { month, year } = this.state
