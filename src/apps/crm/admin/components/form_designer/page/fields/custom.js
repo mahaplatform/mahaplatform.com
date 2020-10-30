@@ -28,13 +28,15 @@ class Custom extends React.Component {
     const fields = this._getFields()
     return (
       <div className="flowchart-designer-blocks">
+        <p>These fields belong to the form and will not update the contact
+        properties when the form is submitted</p>
         { fields.map((field, index) => (
           <div className="flowchart-designer-block" key={`field_${index}`} { ...this._getField(field) }>
             <div className="flowchart-designer-block-icon action">
               <i className={`fa fa-fw fa-${ field.icon }`} />
             </div>
             <div className="flowchart-designer-block-label">
-              { field.label }
+              { field.label.toUpperCase() }
             </div>
           </div>
         )) }

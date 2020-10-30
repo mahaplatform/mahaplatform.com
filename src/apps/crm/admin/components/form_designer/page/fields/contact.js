@@ -17,13 +17,15 @@ class Contact extends React.Component {
     const fields = this._getFields()
     return (
       <div className="flowchart-designer-blocks">
+        <p>These fields belong to the contact and will update the contact
+        properties when the form is submitted</p>
         { fields.map((field, index) => (
           <div className="flowchart-designer-block" key={`field_${index}`} { ...this._getField(field) }>
             <div className="flowchart-designer-block-icon action">
               <i className={`fa fa-fw fa-${ field.icon }`} />
             </div>
             <div className="flowchart-designer-block-label">
-              { field.label }
+              { field.label } ({field.field.contactfield.type.toUpperCase()})
             </div>
           </div>
         )) }
@@ -50,13 +52,18 @@ class Contact extends React.Component {
 
   _getIcon(type) {
     if(type === 'textfield') return 'font'
+    if(type === 'textarea') return 'font'
     if(type === 'emailfield') return 'envelope'
     if(type === 'phonefield') return 'phone'
     if(type === 'addressfield') return 'map-marker'
     if(type === 'datefield') return 'calendar'
     if(type === 'checkbox') return 'check-square'
+    if(type === 'checkboxgroup') return 'check-square-o'
     if(type === 'checkboxes') return 'check-square-o'
     if(type === 'radiogroup') return 'circle-o'
+    if(type === 'filefield') return 'cloud-upload'
+    if(type === 'dropdown') return 'caret-square-o-down'
+    if(type === 'moneyfield') return 'dollar'
     return 'user'
   }
 

@@ -27,7 +27,7 @@ class Types extends React.Component {
                     <i className={`fa fa-fw fa-${ block.icon }`} />
                   </div>
                   <div className="flowchart-designer-block-label">
-                    { block.label }
+                    { block.label.toUpperCase() }
                   </div>
                 </div>
               )) }

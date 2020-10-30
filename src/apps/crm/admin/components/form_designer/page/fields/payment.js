@@ -17,13 +17,15 @@ class Payment extends React.Component {
     const fields = this._getFields()
     return (
       <div className="flowchart-designer-blocks">
+        <p>These fields are for soliciting user payment and will add a second
+        page to the form for collecting payment information</p>
         { fields.map((field, index) => (
           <div className="flowchart-designer-block" key={`field_${index}`} { ...this._getField(field) }>
             <div className="flowchart-designer-block-icon action">
               <i className={`fa fa-fw fa-${ field.icon }`} />
             </div>
             <div className="flowchart-designer-block-label">
-              { field.label }
+              { field.label.toUpperCase() }
             </div>
           </div>
         )) }
