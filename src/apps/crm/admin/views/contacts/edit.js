@@ -47,8 +47,9 @@ class Edit extends React.Component {
                 { label: 'Email', name: 'email_addresses', type: EmailsField },
                 { label: 'Phone', name: 'phone_numbers', type: PhonesField },
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
+                { label: 'Organization', name: 'organization', type: 'textfield', placeholder: 'Enter organization name' },
+                { label: 'Position/Job Title', name: 'position', type: 'textfield', placeholder: 'Enter position' },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
-                { label: 'Organizations', name: 'organization_ids', type: 'lookup2', placeholder: 'Choose organizations', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
                 { label: 'Birthday', name: 'birthday', type: 'datefield' },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
@@ -88,22 +89,6 @@ class Edit extends React.Component {
       collapsed: true,
       fields: program.fields.map(field => field.config)
     }))
-  }
-
-  _getOrganizationForm() {
-    return {
-      title: 'New Organization',
-      method: 'post',
-      action: '/api/admin/crm/organizations',
-      sections: [
-        {
-          fields: [
-            { label: 'Name', name: 'name', type: 'textfield' },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
-          ]
-        }
-      ]
-    }
   }
 
   _handleCancel() {

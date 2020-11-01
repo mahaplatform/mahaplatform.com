@@ -56,13 +56,10 @@ const Details = ({ contact, duplicates }) => {
         </div>
       </div>
     )) },
-    { label: 'Organizations', content: contact.organizations.map((organization, index) => (
-      <div key={`organization_${index}`}>
-        { organization.name }
-      </div>
-    )) },
+    { label: 'Organization', content: contact.organization },
+    { label: 'Position', content: contact.position },
     { label: 'Birthday', content: contact.birthday, format: 'date' },
-    { label: 'Spouse', content: contact.spouse, format: 'date' },
+    { label: 'Spouse', content: contact.spouse },
     ...duplicates.length > 0 ? [
       { label: 'Potential Duplicates', color: 'yellow', content: (
         <div>

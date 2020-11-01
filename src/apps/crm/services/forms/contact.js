@@ -71,7 +71,7 @@ const updatePhoneConsent = async (req, { contact, consent, phone_numbers, progra
 const updateContact = async (req, { contact, contactfields, data }) => {
 
   const core = contactfields.filter(field => {
-    return _.includes(['first_name','last_name','spouse','birthday'], field.contactfield.name)
+    return _.includes(['first_name','last_name','organization','position','spouse','birthday'], field.contactfield.name)
   }).reduce((values, field) => ({
     ...values,
     [field.contactfield.name]: data[field.code]

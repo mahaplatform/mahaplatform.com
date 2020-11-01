@@ -6,7 +6,6 @@ import Model from '../../../core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
 import EmailAddress from './email_address'
-import Organization from './organization'
 import PhoneNumber from './phone_number'
 import Email from './contact_email'
 import Response from './response'
@@ -15,7 +14,6 @@ import Call from './contact_call'
 import Note from './contact_note'
 import Topic from './topic'
 import List from './list'
-import Tag from './tag'
 
 const Contact = new Model({
 
@@ -69,10 +67,6 @@ const Contact = new Model({
       const phoneNumber = parsePhoneNumberFromString(this.get('phone'), 'US')
       const phone = phoneNumber.formatNational()
       return this.get('full_name') ? `${this.get('full_name')} - ${phone}` : phone
-    },
-
-    organization_ids: function() {
-      return this.related('organizations').map(organization => organization.id)
     },
 
     topic_ids: function() {
@@ -151,10 +145,6 @@ const Contact = new Model({
     return this.hasMany(Note, 'contact_id')
   },
 
-  organizations() {
-    return this.belongsToMany(Organization, 'crm_contacts_organizations', 'contact_id', 'organization_id')
-  },
-
   phone_numbers() {
     return this.hasMany(PhoneNumber, 'contact_id').query(qb => {
       qb.whereNull('deleted_at')
@@ -172,10 +162,6 @@ const Contact = new Model({
 
   responses() {
     return this.hasMany(Response, 'contact_id')
-  },
-
-  tags() {
-    return this.belongsToMany(Tag, 'crm_taggings', 'contact_id', 'tag_id')
   },
 
   topics() {

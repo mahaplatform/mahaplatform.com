@@ -1,4 +1,3 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
@@ -43,7 +42,7 @@ const updateRoute = async (req, res) => {
   })
 
   await contact.save({
-    ...whitelist(req.body, ['first_name','last_name','photo_id','birthday','spouse']),
+    ...whitelist(req.body, ['first_name','last_name','organization','position','photo_id','birthday','spouse']),
     values: {
       ...contact.get('values'),
       ...values
@@ -65,15 +64,6 @@ const updateRoute = async (req, res) => {
   await updateMailingAddresses(req, {
     contact,
     mailing_addresses: req.body.mailing_addresses
-  })
-
-  await updateRelated(req, {
-    object: contact,
-    related: 'organizations',
-    table: 'crm_contacts_organizations',
-    ids: req.body.organization_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'organization_id'
   })
 
   await updateLists(req, {
@@ -113,7 +103,7 @@ const updateRoute = async (req, res) => {
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('id', contact.get('id'))
   }).fetch({
-    withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo'],
+    withRelated: ['email_addresses','mailing_addresses','phone_numbers','photo'],
     transacting: req.trx
   })
 

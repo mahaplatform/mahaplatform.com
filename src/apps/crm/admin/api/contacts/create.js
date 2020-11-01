@@ -3,7 +3,6 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
-import { updateOrganizations } from '../../../services/organizations'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
@@ -36,7 +35,7 @@ const createRoute = async (req, res) => {
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['first_name','last_name','photo_id','birthday','spouse']),
+    ...whitelist(req.body, ['first_name','last_name','organization','position','photo_id','birthday','spouse']),
     values
   }).save(null, {
     transacting: req.trx
@@ -56,13 +55,6 @@ const createRoute = async (req, res) => {
     contact,
     mailing_addresses: req.body.mailing_addresses
   })
-
-  if(req.body.organization_ids) {
-    await updateOrganizations(req, {
-      contact,
-      organization_ids: req.body.organization_ids
-    })
-  }
 
   if(req.body.list_ids) {
     await updateLists(req, {
@@ -107,7 +99,7 @@ const createRoute = async (req, res) => {
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('id', contact.get('id'))
   }).fetch({
-    withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo'],
+    withRelated: ['email_addresses','mailing_addresses','phone_numbers','photo'],
     transacting: req.trx
   })
 

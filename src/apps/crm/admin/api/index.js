@@ -1,4 +1,3 @@
-import organizations from './organizations'
 import recordings from './recordings'
 import templates from './templates'
 import workflows from './workflows'
@@ -31,8 +30,6 @@ router.use('/forms', forms)
 router.use('/imports', imports)
 
 router.use('/lists', lists)
-
-router.use('/organizations', organizations)
 
 router.use('/programs', programs)
 

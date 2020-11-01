@@ -310,11 +310,8 @@ const schema = {
       table.string('braintree_id', 255)
       table.string('spouse', 255)
       table.date('birthday')
-    })
-
-    await knex.schema.createTable('crm_contacts_organizations', (table) => {
-      table.integer('contact_id').unsigned()
-      table.integer('organization_id').unsigned()
+      table.string('organization', 255)
+      table.string('position', 255)
     })
 
     await knex.schema.createTable('crm_email_addresses', (table) => {
@@ -418,16 +415,6 @@ const schema = {
     await knex.schema.createTable('crm_notes_assets', (table) => {
       table.integer('note_id').unsigned()
       table.integer('asset_id').unsigned()
-    })
-
-    await knex.schema.createTable('crm_organizations', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('logo_id').unsigned()
-      table.string('name', 255)
-      table.jsonb('values')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('crm_phone_numbers', (table) => {
@@ -549,18 +536,6 @@ const schema = {
     await knex.schema.createTable('crm_subscriptions', (table) => {
       table.integer('list_id').unsigned()
       table.integer('contact_id').unsigned()
-    })
-
-    await knex.schema.createTable('crm_taggings', (table) => {
-      table.integer('tag_id').unsigned()
-      table.integer('contact_id').unsigned()
-      table.integer('organization_id').unsigned()
-    })
-
-    await knex.schema.createTable('crm_tags', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.string('text', 255)
     })
 
     await knex.schema.createTable('crm_templates', (table) => {
@@ -2665,11 +2640,6 @@ const schema = {
       table.foreign('contact_id').references('crm_contacts.id')
     })
 
-    await knex.schema.table('crm_contacts_organizations', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('organization_id').references('crm_organizations.id')
-    })
-
     await knex.schema.table('crm_contacts', table => {
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2721,11 +2691,6 @@ const schema = {
     await knex.schema.table('crm_notes_assets', table => {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('note_id').references('crm_contact_notes.id')
-    })
-
-    await knex.schema.table('crm_organizations', table => {
-      table.foreign('logo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('crm_phone_numbers', table => {
@@ -2781,16 +2746,6 @@ const schema = {
     await knex.schema.table('crm_subscriptions', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('list_id').references('crm_lists.id')
-    })
-
-    await knex.schema.table('crm_taggings', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('organization_id').references('crm_organizations.id')
-      table.foreign('tag_id').references('crm_tags.id')
-    })
-
-    await knex.schema.table('crm_tags', table => {
-      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('crm_templates', table => {
@@ -3883,16 +3838,8 @@ union
       from crm_mailing_addresses
       where (crm_mailing_addresses.deleted_at is null)
       order by crm_mailing_addresses.is_primary desc, crm_mailing_addresses.created_at
-      ), organizations as (
-      select crm_organizations.id,
-      crm_contacts_organizations.contact_id,
-      crm_organizations.name
-      from (crm_contacts_organizations
-      join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)))
-      order by crm_organizations.created_at
       )
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
-      organizations.name as organization,
       email_addresses.id as email_id,
       email_addresses.address as email,
       phone_numbers.id as phone_id,
@@ -3901,12 +3848,11 @@ union
       cell_phone_numbers.number as cell_phone,
       mailing_addresses.id as address_id,
       mailing_addresses.address
-      from (((((crm_contacts
+      from ((((crm_contacts
       left join email_addresses on ((email_addresses.contact_id = crm_contacts.id)))
       left join phone_numbers on ((phone_numbers.contact_id = crm_contacts.id)))
       left join cell_phone_numbers on ((cell_phone_numbers.contact_id = crm_contacts.id)))
-      left join mailing_addresses on ((mailing_addresses.contact_id = crm_contacts.id)))
-      left join organizations on ((organizations.id = crm_contacts.id)));
+      left join mailing_addresses on ((mailing_addresses.contact_id = crm_contacts.id)));
     `)
 
     await knex.raw(`
@@ -4543,7 +4489,7 @@ union
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
       join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
-      where (crm_phone_numbers.deleted_at is null)
+      where ((crm_phone_numbers.deleted_at is null) and (crm_phone_numbers.can_text = true))
 union
       select 'sms'::text as type,
       'transactional'::text as purpose,

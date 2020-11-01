@@ -38,6 +38,8 @@ const criteria = (programfields) => [
     { name: 'Last Name', key: 'last_name', type: 'text' },
     { name: 'Email', key: 'email', type: 'text' },
     { name: 'Phone', key: 'phone', type: 'text' },
+    { name: 'Organization', key: 'organization', type: 'text' },
+    { name: 'Position', key: 'position', type: 'text' },
     { name: 'Birthday', key: 'birthday', type: 'text' },
     { name: 'Spouse', key: 'spouse', type: 'text' }
   ] },
@@ -60,10 +62,6 @@ const criteria = (programfields) => [
     { name: 'List', key: 'list_id', type: ListCriteria, endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
       { value: '$jin', text: 'is subscribed to' },
       { value: '$njin', text: 'is not subscribed to' }
-    ] },
-    { name: 'Organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', multiple: true, subject: false, text: 'name', value: 'id', comparisons: [
-      { value: '$jin', text: 'belongs to' },
-      { value: '$njin', text: 'does not belong to' }
     ] },
     { name: 'Topic', key: 'topic_id', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: true, subject: false, comparisons: [
       { value: '$jin', text: 'is interested in' },

@@ -9,7 +9,6 @@ const navigation = async (req, trx) => ({
       { label: 'Outbound Voice', route: '/campaigns/voice/outbound', rights: ['crm:manage_voice_campaigns'] }
     ] },
     { label: 'Forms', route: '/forms', rights: ['crm:manage_forms'] },
-    { label: 'Organizations', route: '/organizations' },
     { label: 'Programs', route: '/programs' },
     { label: 'Workflows', rights: ['crm:manage_workflows'], route: '/workflows' }
   ]

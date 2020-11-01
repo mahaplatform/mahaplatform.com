@@ -31,6 +31,8 @@ class FormDesignerWrapper extends React.Component {
       { label: 'Email', field: { label: 'Email', name: { token: 'email', value: 'Email' }, placeholder: 'Enter Email', contactfield: { name: 'email', type: 'emailfield' } } },
       { label: 'Phone', field: { label: 'Phone', name: { token: 'phone', value: 'Phone' }, placeholder: 'Enter Phone', contactfield: { name: 'phone', type: 'phonefield' } } },
       { label: 'Address', field: { label: 'Address', name: { token: 'address', value: 'Address' }, placeholder: 'Enter Address', contactfield: { name: 'address', type: 'addressfield' } } },
+      { label: 'Organization', field: { label: 'Organization', name: { token: 'organization', value: 'Organization' }, placeholder: 'Enter Organization Name', contactfield: { name: 'organization', type: 'textfield' } } },
+      { label: 'Position/Job Title', field: { label: 'Position/Job Title', name: { token: 'position', value: 'Position' }, placeholder: 'Enter Position', contactfield: { name: 'position', type: 'textfield' } } },
       { label: 'Birthday', field: { label: 'Birthday', name: { token: 'birthday', value: 'Birthday' }, placeholder: 'Enter Birthday', contactfield: { name: 'birthday', type: 'datefield' } } },
       { label: 'Spouse', field: { label: 'Spouse', name: { token: 'spouse', value: 'Spouse' }, placeholder: 'Enter Spouse', contactfield: { name: 'spouse', type: 'textfield' } } },
       ...programfields.map(field => ({

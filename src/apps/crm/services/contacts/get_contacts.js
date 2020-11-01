@@ -78,10 +78,6 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         column: 'crm_subscriptions.list_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
-      organization_id: {
-        column: 'crm_contacts_organizations.organization_id',
-        leftJoin: [['contact_id','crm_contacts.id']]
-      },
       product_id: {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_contacts.id']]
@@ -187,7 +183,7 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         })
       },
       params: filter,
-      allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','form_id','import_id','open_id','click_id'],
+      allowed: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','list_id','topic_id','form_id','import_id','open_id','click_id'],
       search: ['first_name','last_name','email','phone']
     },
     sort: {

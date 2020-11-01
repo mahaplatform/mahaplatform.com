@@ -5,7 +5,6 @@ import { updateMailingAddresses } from '../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../services/email_addresses'
 import { updatePhoneNumbers } from '../../services/phone_numbers'
 import { refresh } from '../../../../core/services/routes/emitter'
-import { updateOrganizations } from '../../services/organizations'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../../core/utils/generate_code'
 import { contactActivity } from '../../services/activities'
@@ -14,7 +13,6 @@ import MailingAddress from '../../models/mailing_address'
 import socket from '../../../../core/services/emitter'
 import EmailAddress from '../../models/email_address'
 import { updateTopics } from '../../services/topics'
-import Organization from '../../models/organization'
 import PhoneNumber from '../../models/phone_number'
 import { updateLists } from '../../services/lists'
 import Import from '../../../maha/models/import'
@@ -122,22 +120,6 @@ const getMailingAddresses = async (contact, values) => {
       }
     ]
   }, existing)
-}
-
-const getOrganizationIds = async (req, values) => {
-  return Promise.reduce(Array(3).fill(0), async (organizations, n, i) => {
-    if(!values[`organization_${i+1}`]) return organizations
-    const organization = await Organization.fetchOrCreate({
-      team_id: req.team.get('id'),
-      name: values[`organization_${i+1}`]
-    }, {
-      transacting: req.trx
-    })
-    return [
-      ...organizations,
-      ...organization ? [organization.get('id')] : []
-    ]
-  }, [])
 }
 
 const getChannelObjects = async (req, params) => {
@@ -259,7 +241,7 @@ const processContactImport = async (req, { import_id }) => {
   await Promise.mapSeries(items, async (item, index) => {
 
     const values = unflatten(item.get('values'))
-    const { first_name, last_name, birthday, spouse, photo } = values
+    const { first_name, last_name, birthday, spouse, photo, organization, position } = values
     let is_merged = false
     let is_ignored = false
     let email_addresses = []
@@ -290,6 +272,8 @@ const processContactImport = async (req, { import_id }) => {
       await contact.save({
         first_name: getValue(strategy, contact.get('first_name'), first_name),
         last_name: getValue(strategy, contact.get('last_name'), last_name),
+        organization: getValue(strategy, contact.get('organization'), organization),
+        position: getValue(strategy, contact.get('position'), position),
         birthday: getValue(strategy, contact.get('birthday'), birthday),
         spouse: getValue(strategy, contact.get('spouse'), spouse),
         values: {
@@ -341,15 +325,6 @@ const processContactImport = async (req, { import_id }) => {
           })
         })
 
-      }
-
-      const organization_ids = await getOrganizationIds(req, values)
-      if(organization_ids.length > 0) {
-        await updateOrganizations(req, {
-          contact,
-          organization_ids,
-          removing: false
-        })
       }
 
       await contactActivity(req, {

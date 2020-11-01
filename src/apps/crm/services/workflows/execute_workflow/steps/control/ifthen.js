@@ -298,7 +298,7 @@ const extractValues = async (req, { values, fieldMap }) => {
 
 const getContactData = async (req, { contact, fields }) => {
 
-  await contact.load(['lists','maha_emails','organizations','topics','responses','registrations','import_items'], {
+  await contact.load(['lists','maha_emails','topics','responses','registrations','import_items'], {
     transacting: req.trx
   })
 
@@ -320,11 +320,12 @@ const getContactData = async (req, { contact, fields }) => {
       email: contact.get('email'),
       phone: contact.get('phone'),
       address: contact.get('address'),
+      organization: contact.get('organization'),
+      position: contact.get('position'),
       birthday: contact.get('birthday'),
       spouse: contact.get('spouse'),
       values,
       list_ids: contact.related('lists').map(list => list.get('id')),
-      organization_ids: contact.related('organizations').map(organization => organization.get('id')),
       topic_ids: contact.related('topics').map(topic => topic.get('id')),
       event_ids: contact.related('registrations').map(registration => registration.get('event_id')),
       form_ids: contact.related('responses').map(response => response.get('form_id')),

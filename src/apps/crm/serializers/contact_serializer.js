@@ -14,8 +14,8 @@ const ContactSerializer = async (req, result) => ({
   address: result.get('address'),
   address_id: result.get('address_id'),
   organization: result.get('organization'),
+  position: result.get('position'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
-  organizations: result.related('organizations').map(organization),
   lists: result.related('lists').map(list),
   topics: result.related('topics').map(topic),
   values: await values(req, result.get('values')),
@@ -58,14 +58,6 @@ const phone_number = (phone_number) => {
     undelivered_count: phone_number.get('undelivered_count'),
     can_text: phone_number.get('can_text'),
     is_primary: phone_number.get('is_primary')
-  }
-}
-
-const organization = (organization) => {
-  if(!organization.id) return null
-  return {
-    id: organization.get('id'),
-    name: organization.get('name')
   }
 }
 

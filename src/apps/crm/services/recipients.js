@@ -122,10 +122,6 @@ const getRecipientsByCriteria = async (req, params) => {
         column: 'crm_subscriptions.list_id',
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       },
-      organization_id: {
-        column: 'crm_contacts_organizations.organization_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
-      },
       product_id: {
         column: 'finance_customer_products.product_id',
         leftJoin: [['customer_id', 'crm_recipients.contact_id']]
@@ -147,7 +143,7 @@ const getRecipientsByCriteria = async (req, params) => {
         leftJoin: [['contact_id','crm_recipients.contact_id']]
       }
     },
-    allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
+    allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
     operations: {
       $se: (table, alias, column, value, foreign_key, primary_key) => ({
         join: [`left join ${table} ${alias} on ${alias}.${foreign_key}=${primary_key} and ${alias}.${column}=?`, value],

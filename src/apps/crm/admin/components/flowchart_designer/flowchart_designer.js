@@ -108,6 +108,8 @@ class FlowchartDesigner extends React.PureComponent {
         { name: 'Email', key: 'contact.email', type: 'emailfield' },
         { name: 'Phone', key: 'contact.phone', type: 'phonefield' },
         { name: 'Address', key: 'contact.address', type: 'addressfield' },
+        { name: 'Organization', key: 'contact.organization', type: 'textfield' },
+        { name: 'Position', key: 'contact.position', type: 'textfield' },
         { name: 'Birthday', key: 'contact.birthday', type: 'textfield' },
         { name: 'Spouse', key: 'contact.spouse', type: 'textfield' }
       ] },
@@ -117,7 +119,6 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'is subscribed to' },
           { value: '$nct', text: 'is not subscribed to' }
         ] },
-        { name: 'Oraganizations', key: 'contact.organization_ids', type: 'textfield' },
         { name: 'Topic', key: 'contact.topic_ids', type: ListCriteria, endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
           { value: '$ct', text: 'is interested in' },
           { value: '$nct', text: 'is not interested in' }
