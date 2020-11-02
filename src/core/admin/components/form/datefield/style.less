@@ -1,4 +1,4 @@
-.maha-datefield-input {
+.maha-datefield {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.5em;
   background-color: @white;
@@ -11,29 +11,37 @@
     box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
   }
 }
-.maha-datefield-field {
-  color: fadeout(@black, 70);
-  flex: 1;
-  padding: 0.2em;
-  overflow: hidden;
-  min-height: 2.5em;
-  line-height: 2.5em;
+.maha-datefield-handle {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    margin: auto;
+    line-height: 1em;
+    color: fadeout(@black, 80);
+    cursor: pointer;
+  }
 }
-.maha-datefield-prompt {
-  color: fadeout(@black, 70);
-  display: inline-block;
-  margin: 0.2em;
-  padding: 0.2em 0.5em;
-  line-height: 1.7em;
+.maha-datefield-field {
+  flex: 1;
+  display: flex;
+}
+.maha-datefield-input {
+  flex: 1;
+  padding: 0.3em 0;
+  input {
+    border: none !important;
+    padding: 0.2em 0 !important;
+    line-height: 1.6em !important;
+  }
 }
 .maha-datefield-token {
   display: inline-block;
-  margin: 0.2em;
   padding: 0.2em 0.5em;
   background-color: fadeout(@black, 95);
   color: fadeout(@black, 40);
   border-radius: 0.2em;
-  line-height: 1.7em;
+  line-height: 1.6em;
 }
 .maha-datefield-remove {
   padding: 0.8em 0.8em 0.8em 0;

@@ -20,7 +20,6 @@ import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
 import adminformCriteriafield from './components/form/criteriafield'
-import adminformDatefield from './components/form/datefield'
 import adminformFilefield from './components/form/filefield'
 import adminformHtmlfield from './components/form/htmlfield'
 import adminformLinkfield from './components/form/linkfield'
@@ -329,7 +328,6 @@ class App extends React.Component {
       adminformAttachmentfield,
       adminformColorfield,
       adminformCriteriafield,
-      adminformDatefield,
       adminformFilefield,
       adminformHtmlfield,
       adminformLinkfield,
