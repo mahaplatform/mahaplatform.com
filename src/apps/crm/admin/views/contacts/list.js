@@ -23,7 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Email', key: 'email' },
       { label: 'Phone', key: 'phone', format: 'phone' },
       { label: 'Organization', key: 'organization', visible: false },
-      { label: 'Birthday', key: 'birthday', visible: false },
+      { label: 'Birthday', key: 'birthday', visible: false, format: 'date' },
       { label: 'Spouse', key: 'spouse', visible: false }
     ],
     criteria: {

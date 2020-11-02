@@ -1,4 +1,5 @@
 import { getClient } from '../../services/google'
+import moment from 'moment'
 import _ from 'lodash'
 
 const list = async (req, profile) => {
@@ -10,7 +11,7 @@ const list = async (req, profile) => {
   const result = await client.people.connections.list({
     resourceName: 'people/me',
     sortOrder: 'LAST_NAME_ASCENDING',
-    personFields: ['names','emailAddresses','phoneNumbers','addresses','photos','organizations'],
+    personFields: ['names','emailAddresses','phoneNumbers','addresses','photos','organizations','relations','birthdays'],
     pageToken,
     pageSize: 100
   })
@@ -21,9 +22,10 @@ const list = async (req, profile) => {
     first_name: contact.names ? contact.names[0].givenName || '' : '',
     last_name: contact.names ? contact.names[0].familyName || '' : '',
     photo: contact.photos ? contact.photos[0].url : null,
-    organizations: contact.organizations ? contact.organizations.map(organization => ({
-      name: organization.name
-    })) : [],
+    organization: contact.organizations ? contact.organizations[0].name : '',
+    position: contact.organizations ? contact.organizations[0].title : '',
+    birthday: contact.birthdays ? moment(contact.birthdays[0].text).format('YYYY-MM-DD') : '',
+    spouse: contact.relations ? contact.relations.find(relation => relation.type === 'spouse').person : '',
     email_addresses: contact.emailAddresses ? contact.emailAddresses.map(address => ({
       address: address.value
     })) : [],

@@ -1,4 +1,5 @@
 import { getClient } from '../../services/microsoft'
+import moment from 'moment'
 import _ from 'lodash'
 
 const list = async (req, profile) => {
@@ -17,11 +18,10 @@ const list = async (req, profile) => {
     first_name: entry.givenName,
     last_name: entry.surname,
     photo: `${process.env.WEB_HOST}/api/admin/profiles/${profile.get('id')}/contacts/${entry.id}/preview?token=${req.token}`,
-    organizations: [
-      ...entry.companyName ? [{
-        name: entry.companyName
-      }] : []
-    ],
+    organization: entry.companyName,
+    position: entry.jobTitle,
+    birthday: entry.birthday ? moment(entry.birthday).format('YYYY-MM-DD') : '',
+    spouse: entry.spouseName,
     email_addresses: entry.emailAddresses.map((address, index) => ({
       is_primary: index === 0,
       address: address.address

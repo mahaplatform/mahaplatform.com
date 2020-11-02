@@ -45,7 +45,7 @@ class New extends React.Component {
                 { label: 'Phone', name: 'phone_numbers', type: PhonesField },
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Organization', name: 'organization', type: 'textfield', placeholder: 'Enter organization name' },
-                { label: 'Position/Job Title', name: 'position', type: 'textfield', placeholder: 'Enter position' },
+                { label: 'Job Title', name: 'position', type: 'textfield', placeholder: 'Enter position' },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
                 { label: 'Birthday', name: 'birthday', type: 'datefield' },
                 { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }

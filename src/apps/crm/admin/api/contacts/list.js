@@ -37,6 +37,10 @@ const listRoute = async (req, res) => {
     phone_id: result.get('phone_id'),
     address: result.get('address'),
     address_id: result.get('address_id'),
+    organization: result.get('organization'),
+    position: result.get('position'),
+    birthday: result.get('birthday'),
+    spouse: result.get('spouse'),
     photo: result.related('photo') ? result.related('photo').get('path') : null
   }))
 

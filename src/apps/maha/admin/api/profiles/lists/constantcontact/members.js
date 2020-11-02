@@ -1,4 +1,5 @@
 import { getClient } from '../../services/constantcontact'
+import moment from 'moment'
 import _ from 'lodash'
 
 const members = async (req, profile) => {
@@ -24,6 +25,9 @@ const members = async (req, profile) => {
   }).map(contact => ({
     first_name: contact.first_name,
     last_name: contact.last_name,
+    organization: contact.company_name,
+    position: contact.job_title,
+    birthday: contact.birthday_day ? moment(`2020-${contact.birthday_month}-${contact.birthday_day}`).fomat('YYYY-MM-DD') : '',
     email_addresses: [
       { address: contact.email_address.address }
     ],
@@ -35,10 +39,7 @@ const members = async (req, profile) => {
     })) : [],
     phone_numbers: contact.phone_numbers ? contact.phone_numbers.map(number => ({
       number: number.phone_number
-    })) : [],
-    organizations: contact.company_name ? [
-      { name: contact.company_name }
-    ]: []
+    })) : []
   }))
 
   const next = _.get(result, '_links.next.href')

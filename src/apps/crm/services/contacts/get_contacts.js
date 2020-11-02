@@ -1,10 +1,9 @@
 import Contact from '../../models/contact'
 
 const getContacts = async (req, { empty, filter, fields, page, scope, sort, withRelated }) => {
-
   return await Contact.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
+      qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contacts.organization,crm_contacts.birthday,crm_contacts.spouse,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
       qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
       qb.where('crm_contacts.team_id', req.team.get('id'))
       if(scope) scope(qb)

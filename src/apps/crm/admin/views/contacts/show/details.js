@@ -57,7 +57,7 @@ const Details = ({ contact, duplicates }) => {
       </div>
     )) },
     { label: 'Organization', content: contact.organization },
-    { label: 'Position', content: contact.position },
+    { label: 'Job Title', content: contact.position },
     { label: 'Birthday', content: contact.birthday, format: 'date' },
     { label: 'Spouse', content: contact.spouse },
     ...duplicates.length > 0 ? [
