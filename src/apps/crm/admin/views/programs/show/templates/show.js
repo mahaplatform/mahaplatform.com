@@ -29,8 +29,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Template',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -11,7 +11,7 @@ const getTabs = ({ audits, contacts, topic }) => ({
   ]
 })
 
-const getTasks = ({ topic }) => ({
+const getTasks = ({ topic }, { flash, router }) => ({
   items: [
     { label: 'Edit Topic', show: !topic.deleted_at, modal: <Edit topic={ topic } /> },
     {
@@ -23,8 +23,13 @@ const getTasks = ({ topic }) => ({
         data
       `,
       request: {
-        endpoint: `/api/admin/crm/programs/${topic.program.id}/lists/${topic.id}`,
-        method: 'delete'
+        endpoint: `/api/admin/crm/programs/${topic.program.id}/topics/${topic.id}`,
+        method: 'delete',
+        onSuccess: () => {
+          flash.set('success', 'Successfully deleted topic')
+          router.history.goBack()
+        },
+        onFailure: (result) => flash.set('error', 'Unable to delete topic')
       }
     }
   ]
@@ -38,8 +43,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Topic',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

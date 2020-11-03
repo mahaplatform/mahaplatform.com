@@ -51,7 +51,7 @@ const mapResourcesToPage = (props, context) => ({
 const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.role.title,
   rights: ['team:manage_people'],
-  tabs: getTabs(resources),
+  tabs: getTabs(resources, context),
   tasks: getTasks(resources, context)
 })
 

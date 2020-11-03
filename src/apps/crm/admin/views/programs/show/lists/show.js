@@ -11,7 +11,7 @@ const getTabs = ({ audits, contacts, list }) => ({
   ]
 })
 
-const getTasks = ({ list }) => ({
+const getTasks = ({ list }, { flash, router }) => ({
   items: [
     { label: 'Edit List', show: !list.deleted_at, modal: <Edit list={ list } /> },
     {
@@ -24,7 +24,12 @@ const getTasks = ({ list }) => ({
       `,
       request: {
         endpoint: `/api/admin/crm/programs/${list.program.id}/lists/${list.id}`,
-        method: 'delete'
+        method: 'delete',
+        onSuccess: () => {
+          flash.set('success', 'Successfully deleted list')
+          router.history.goBack()
+        },
+        onFailure: (result) => flash.set('error', 'Unable to delete list')
       }
     }
   ]
@@ -38,8 +43,8 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'List',
-  tabs: getTabs(resources),
-  tasks: getTasks(resources)
+  tabs: getTabs(resources, context),
+  tasks: getTasks(resources, context)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

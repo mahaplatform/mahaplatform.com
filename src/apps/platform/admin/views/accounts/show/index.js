@@ -54,7 +54,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources) => ({
   title: resources.account.full_name,
-  tabs: getTabs(resources),
+  tabs: getTabs(resources, context),
   tasks: getTasks(resources, context)
 })
 
