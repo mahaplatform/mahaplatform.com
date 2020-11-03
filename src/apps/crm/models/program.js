@@ -5,6 +5,7 @@ import ProgramAccess from './program_access'
 import VoiceCampaign from './voice_campaign'
 import Asset from '../../maha/models/asset'
 import Field from '../../maha/models/field'
+import Sender from './sender'
 import Topic from './topic'
 import List from './list'
 
@@ -54,6 +55,10 @@ const Program = new Model({
 
   phone_number() {
     return this.belongsTo(PhoneNumber, 'phone_number_id')
+  },
+
+  senders () {
+    return this.hasMany(Sender, 'program_id')
   },
 
   topics () {
