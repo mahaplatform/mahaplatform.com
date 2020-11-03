@@ -5,7 +5,7 @@ import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Payments',
+  title: 'Refunds',
   rights: ['finance:manage_revenue'],
   collection: {
     endpoint: '/api/admin/finance/refunds',

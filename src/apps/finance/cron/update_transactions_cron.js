@@ -128,7 +128,7 @@ const updateRefunds = async (req) => {
 
   const refunds = await Refund.query(qb => {
     qb.where('type', 'card')
-    qb.whereNotIn('status',['settled','voided'])
+    qb.whereNotIn('status',['deposited','voided'])
   }).fetchAll({
     transacting: req.trx
   }).then(results => results.toArray())
