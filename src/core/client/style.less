@@ -140,7 +140,11 @@ body {
     color: @white !important;
   }
 }
-
+.field-invalid {
+  .maha-input {
+    border-color: @red;
+  }
+}
 .maha-input {
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
@@ -221,6 +225,7 @@ body {
 @import './form/dropdown/style.less';
 @import './form/filefield/style.less';
 @import './form/range/style.less';
+@import './form/timefield/style.less';
 @import './payment/style.less';
 @import './avatar/style.less';
 @import './button/style.less';

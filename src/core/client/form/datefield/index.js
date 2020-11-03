@@ -109,11 +109,9 @@ class DateField extends React.Component {
   }
 
   _getControl() {
-    const { tabIndex } = this.props
     return {
       className: this._getClass(),
-      ref: node => this.control = node,
-      tabIndex
+      ref: node => this.control = node
     }
   }
 

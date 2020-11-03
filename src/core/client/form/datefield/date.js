@@ -8,6 +8,7 @@ class Date extends React.Component {
     defaultValue: PropTypes.object,
     format: PropTypes.string,
     placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
     value: PropTypes.object,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
@@ -42,12 +43,13 @@ class Date extends React.Component {
   }
 
   _getDate() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { value } = this.state
     return {
       ref: node => this.input = node,
       type: 'text',
       placeholder,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onFocus: this._handleFocus,
@@ -64,8 +66,8 @@ class Date extends React.Component {
     if(!raw.isValid()) return this.setState({ value: '' })
     const value = raw.format(format)
     const prev = moment(this.props.value).format(format)
-    if(value === prev) return
     this.setState({ value })
+    if(value === prev) return
     this.props.onChange(raw)
   }
 
