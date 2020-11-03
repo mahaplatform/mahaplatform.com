@@ -49,8 +49,9 @@
     margin: auto;
   }
   .maha-logo {
-    width: 2em;
-    height: 2em;
+    margin: auto;
+    width: 1.6em;
+    height: 1.6em;
   }
   .maha-logo-wrapper {
     border-radius: 0 !important;
@@ -99,14 +100,16 @@
 .maha-navigation-item {
   .hover(background-color, fadeout(@black, 97));
   display: flex;
-  border-bottom: 1px solid fadeout(@black, 90);
   .maha-navigation-item-extra:first-child {
     padding: 0.8em 0 0.8em 0.8em;
   }
   .maha-navigation-item-extra:last-child {
     padding: 0.8em 0.8em 0.8em 0;
   }
-  .colorizeItem(maha-navigation-item-icon, background-color)
+  .maha-navigation-item-icon {
+    margin: auto;
+    background-color: @blue;
+  }
 }
 .maha-navigation-item-extra {
   display: flex;
@@ -117,7 +120,7 @@
 }
 .maha-navigation-item-details {
   flex: 1;
-  line-height: 2em;
+  line-height: 1.6em;
   padding: 0.8em;
   position: relative;
   cursor: pointer;
@@ -130,12 +133,12 @@
   border-radius: 5px;
   color: @white;
   display: flex;
-  width: 2em;
-  height: 2em;
+  width: 1.6em;
+  height: 1.6em;
   text-align: center;
   .fa {
     margin: auto;
-    font-size: 1em;
+    font-size: 0.8em;
     line-height: 1em;
   }
 }
@@ -169,14 +172,13 @@
   cursor: pointer;
   background-color: @white;
   color: fadeout(@black, 40);
-  border-bottom: 1px solid fadeout(@black, 90);
 }
 .maha-navigation-account-logo {
   position: relative;
   padding: 0.8em;
   .maha-logo {
-    height: 2.4em;
-    width: 2.4em;
+    height: 2em;
+    width: 2em;
   }
   .maha-logo-wrapper {
     border-radius: .3em;
