@@ -35,6 +35,7 @@ const applyRoute = async (req, res) => {
   await sendMail({
     from: 'Greg Kops <gmk8@cornell.edu>',
     to: 'jbrown2@paypal.com',
+    cc: 'gmk8@cornell.edu',
     reply_to: req.user.get('email'),
     subject,
     html
