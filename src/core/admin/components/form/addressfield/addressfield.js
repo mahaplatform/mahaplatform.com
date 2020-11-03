@@ -1,5 +1,6 @@
 import Dependencies from '../../dependencies'
 import PropTypes from 'prop-types'
+import Manual from './manual'
 import React from 'react'
 import _ from 'lodash'
 
@@ -59,6 +60,7 @@ class Addressfield extends React.Component {
   _handleInit = this._handleInit.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleLookup = this._handleLookup.bind(this)
+  _handleManual = this._handleManual.bind(this)
   _handleSetStreet2 = this._handleSetStreet2.bind(this)
   _handleType = this._handleType.bind(this)
 
@@ -86,6 +88,9 @@ class Addressfield extends React.Component {
                     </div>
                   </div>
                 )) }
+                <div className="maha-addressfield-result-add" onClick={ this._handleManual }>
+                  Cant find your address? Enter it manually
+                </div>
               </div>
             }
           </div>
@@ -149,6 +154,13 @@ class Addressfield extends React.Component {
       onChange: this._handleType,
       onFocus: this._handleFocus,
       onKeyDown: this._handleKeyDown
+    }
+  }
+
+  _getManual() {
+    const { onChoose } = this.props
+    return {
+      onDone: onChoose
     }
   }
 
@@ -242,14 +254,6 @@ class Addressfield extends React.Component {
     this.geocoder = new window.google.maps.Geocoder()
   }
 
-  _handleLookup() {
-    const { q } = this.props
-    this.setState({ selected: null })
-    this.autocomplete.getPlacePredictions({
-      input: q
-    }, this._handleAutocomplete)
-  }
-
   _handleKeyDown(e) {
     const { direction, selected } = this.state
     const { options } = this.props
@@ -272,6 +276,18 @@ class Addressfield extends React.Component {
     } else if(selected !== null && e.which === 13) {
       this._handleChoose(options[selected])
     }
+  }
+
+  _handleLookup() {
+    const { q } = this.props
+    this.setState({ selected: null })
+    this.autocomplete.getPlacePredictions({
+      input: q
+    }, this._handleAutocomplete)
+  }
+
+  _handleManual() {
+    this.context.form.push(Manual, this._getManual.bind(this))
   }
 
   _handleSetStreet2(e) {
