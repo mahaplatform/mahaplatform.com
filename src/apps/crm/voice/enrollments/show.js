@@ -1,5 +1,5 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
-import { executeWorkflow } from '../../services/workflows'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
+import { executeWorkflow } from '../../../automation/services/workflows'
 
 const showRoute = async (req, res) => {
 

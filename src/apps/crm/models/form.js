@@ -1,5 +1,5 @@
+import Workflow from '../../automation/models/workflow'
 import Model from '../../../core/objects/model'
-import Workflow from './workflow'
 import Response from './response'
 import Program from './program'
 import Email from './email'

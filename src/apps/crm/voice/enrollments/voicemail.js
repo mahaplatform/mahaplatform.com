@@ -1,6 +1,6 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
+import { executeWorkflow } from '../../../automation/services/workflows'
 import socket from '../../../../core/services/routes/emitter'
-import { executeWorkflow } from '../../services/workflows'
 
 const voicemailRoute = async (req, res) => {
 

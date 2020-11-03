@@ -1,7 +1,7 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
+import { executeWorkflow } from '../../../automation/services/workflows'
 import MahaPhoneNumber from '../../../maha/models/phone_number'
 import socket from '../../../../core/services/routes/emitter'
-import { executeWorkflow } from '../../services/workflows'
 import PhoneNumber from '../../models/phone_number'
 import moment from 'moment'
 

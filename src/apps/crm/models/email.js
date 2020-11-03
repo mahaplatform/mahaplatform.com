@@ -1,10 +1,10 @@
+import Workflow from '../../automation/models/workflow'
 import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'
 import Event from '../../events/models/event'
 import VoiceCampaign from './voice_campaign'
 import EmailResult from './email_result'
 import SMSCampaign from './sms_campaign'
-import Workflow from './workflow'
 import Program from './program'
 import Form from './form'
 

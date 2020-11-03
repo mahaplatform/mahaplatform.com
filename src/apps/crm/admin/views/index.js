@@ -47,11 +47,6 @@ import ResponsesShow from './forms/responses/show'
 import ResponseUploadShow from './forms/responses/upload'
 import TemplatesShow from './programs/show/templates/show'
 import TemplatesDesign from './programs/show/templates/design'
-import WorkflowsList from './workflows/list'
-import WorkflowsShow from './workflows/show'
-import WorkflowsDesign from './workflows/design'
-import WorkflowEnrollmentsList from './workflows/enrollments/list'
-import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
   { path: '/campaigns/email', component: CampaignsEmailList },
@@ -104,12 +99,7 @@ const routes = [
   { path: '/programs/:program_id/templates/:id', component: TemplatesShow },
   { path: '/programs/:program_id/templates/:id/design', component: TemplatesDesign },
   { path: '/programs/:program_id/channels', component: ProgramsChannels },
-  { path: '/programs/:program_id/channels/:type/:channel_id', component: ProgramsChannels },
-  { path: '/workflows', component: WorkflowsList },
-  { path: '/workflows/:id', component: WorkflowsShow },
-  { path: '/workflows/:id/design', component: WorkflowsDesign },
-  { path: '/workflows/:workflow_id/enrollments', component: WorkflowEnrollmentsList },
-  { path: '/workflows/:workflow_id/enrollments/:id', component: WorkflowEnrollmentsShow }
+  { path: '/programs/:program_id/channels/:type/:channel_id', component: ProgramsChannels }
 
 ]
 

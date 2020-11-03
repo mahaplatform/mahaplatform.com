@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '../../../../../models/workflow_enrollment'
+import WorkflowEnrollment from '../../../../../../automation/models/workflow_enrollment'
 import socket from '../../../../../../../core/services/routes/emitter'
 import SmsCampaign from '../../../../../models/sms_campaign'
 

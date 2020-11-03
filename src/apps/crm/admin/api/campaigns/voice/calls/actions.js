@@ -1,6 +1,6 @@
-import WorkflowActionSerializer from '../../../../../serializers/workflow_action_serializer'
-import WorkflowEnrollment from '../../../../../models/workflow_enrollment'
-import WorkflowAction from '../../../../../models/workflow_action'
+import WorkflowActionSerializer from '../../../../../../automation/serializers/workflow_action_serializer'
+import WorkflowEnrollment from '../../../../../../automation/models/workflow_enrollment'
+import WorkflowAction from '../../../../../../automation/models/workflow_action'
 import VoiceCampaign from '../../../../../models/voice_campaign'
 
 const actionsRoute = async (req, res) => {

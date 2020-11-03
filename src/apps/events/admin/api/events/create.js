@@ -1,4 +1,4 @@
-import { createConfirmationWorkflow } from '../../../../crm/services/workflows'
+import { createConfirmationWorkflow } from '../../../../automation/services/workflows'
 import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'

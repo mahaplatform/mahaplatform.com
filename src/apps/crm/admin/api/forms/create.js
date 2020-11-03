@@ -1,5 +1,5 @@
+import { createConfirmationWorkflow } from '../../../../automation/services/workflows'
 import { activity } from '../../../../../core/services/routes/activities'
-import { createConfirmationWorkflow } from '../../../services/workflows'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'

@@ -1,4 +1,4 @@
-import { enrollInWorkflows } from '../workflows'
+import { enrollInWorkflows } from '../../../automation/services/workflows'
 
 const removeFromTopics = async (req, { contact, topic_ids }) => {
 

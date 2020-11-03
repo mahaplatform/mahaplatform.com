@@ -1,4 +1,4 @@
-import WorkflowActions from '../../../crm/admin/components/workflow_actions'
+import WorkflowActions from '../../../automation/admin/components/workflow_actions'
 import Content from '../../../crm/admin/tokens/content'
 import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'

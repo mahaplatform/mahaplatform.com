@@ -1,4 +1,4 @@
-import WorkflowActions from '../components/workflow_actions'
+import WorkflowActions from '../../../automation/admin/components/workflow_actions'
 import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,6 +1,6 @@
 import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
+import { enrollInWorkflows } from '../../../../automation/services/workflows'
 import socket from '../../../../../core/services/routes/emitter'
-import { enrollInWorkflows } from '../../../services/workflows'
 import { contactActivity } from '../../../services/activities'
 import Response from '../../../models/response'
 import Form from '../../../models/form'

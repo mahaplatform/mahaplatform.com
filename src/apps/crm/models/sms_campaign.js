@@ -1,8 +1,8 @@
+import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
+import WorkflowStep from '../../automation/models/workflow_step'
 import PhoneNumber from '../../maha/models/phone_number'
-import WorkflowEnrollment from './workflow_enrollment'
 import SmsCampaignResult from './sms_campaign_result'
 import Model from '../../../core/objects/model'
-import WorkflowStep from './workflow_step'
 import Program from './program'
 
 const SmsCampaign = new Model({

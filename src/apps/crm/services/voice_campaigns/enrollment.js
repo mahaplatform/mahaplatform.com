@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
 import generateCode from '../../../../core/utils/generate_code'
 import { contactActivity } from '../activities'
 

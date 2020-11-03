@@ -63,6 +63,7 @@ import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import adminuploader from './components/uploader'
 import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
+import automationflowchartDesigner from '../../apps/automation/admin/components/flowchart_designer'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
@@ -72,7 +73,6 @@ import crmaccess from '../../apps/crm/admin/components/access'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmintro from '../../apps/crm/admin/components/contactimport/intro'
 import crmdesigner from '../../apps/crm/admin/components/designer'
-import crmflowchartDesigner from '../../apps/crm/admin/components/flowchart_designer'
 import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
@@ -162,6 +162,7 @@ import newsRoots from '../../apps/news/admin/roots/index.js'
 import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
 import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
+import automationActivityCards from '../../apps/automation/admin/activities/index.js'
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
 import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/emails/index.js'
@@ -212,6 +213,7 @@ class App extends React.Component {
 
   _getActivityCards() {
     return {
+      ...automationActivityCards,
       ...crmActivityCards,
       ...eventsActivityCards,
     }
@@ -374,6 +376,7 @@ class App extends React.Component {
       admintasks,
       adminuploader,
       appraisalsresponsibilities,
+      automationflowchartDesigner,
       chatchannel,
       chatchannels,
       chatfullchat,
@@ -383,7 +386,6 @@ class App extends React.Component {
       crmcheckboxesfield,
       crmintro,
       crmdesigner,
-      crmflowchartDesigner,
       crmfollowsfield,
       crmformDesigner,
       crmimagesfield,

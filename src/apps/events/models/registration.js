@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '../../crm/models/workflow_enrollment'
+import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
 import Payment from '../../finance/models/payment'
 import Model from '../../../core/objects/model'

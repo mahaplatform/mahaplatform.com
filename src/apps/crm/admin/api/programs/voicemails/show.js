@@ -1,5 +1,5 @@
-import WorkflowRecordingSerializer from '../../../../serializers/workflow_recording_serializer'
-import WorkflowRecording from '../../../../models/workflow_recording'
+import WorkflowRecordingSerializer from '../../../../../automation/serializers/workflow_recording_serializer'
+import WorkflowRecording from '../../../../../automation/models/workflow_recording'
 import { checkProgramAccess } from '../../../../services/programs'
 
 const showRoute = async (req, res) => {

@@ -1,10 +1,11 @@
 import VoiceCampaignSerializer from '../../../../serializers/voice_campaign_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
+import { updateSteps } from '../../../../../automation/services/workflows'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
-import { updateSteps } from '../../../../services/workflows'
+
 
 const updateRoute = async (req, res) => {
 

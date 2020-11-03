@@ -1,4 +1,4 @@
-import WorkflowStatusToken from '../../../../tokens/workflow_status'
+import WorkflowStatusToken from '../../../../../../automation/admin/tokens/workflow_status'
 import ContactToken from '../../../../tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'

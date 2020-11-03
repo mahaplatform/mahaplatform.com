@@ -1,6 +1,5 @@
 import recordings from './recordings'
 import templates from './templates'
-import workflows from './workflows'
 import campaigns from './campaigns'
 import programs from './programs'
 import contacts from './contacts'
@@ -39,6 +38,5 @@ router.use('/topics', topics)
 
 router.use('/templates', templates)
 
-router.use('/workflows', workflows)
 
 export default router

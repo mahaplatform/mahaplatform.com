@@ -1,5 +1,5 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
-import { executeWorkflow } from '../../services/workflows'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
+import { executeWorkflow } from '../../../automation/services/workflows'
 import twilio from '../../../../core/services/twilio'
 import { twiml } from 'twilio'
 

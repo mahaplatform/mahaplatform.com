@@ -1,4 +1,4 @@
-import Workflow from '../../crm/models/workflow'
+import Workflow from '../../automation/models/workflow'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 import knex from '../../../core/services/knex'

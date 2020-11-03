@@ -1,6 +1,6 @@
-import ExecuteWorkflowQueue from '../../queues/execute_workflow_queue'
+import ExecuteWorkflowQueue from '../../../automation/queues/execute_workflow_queue'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
 import { lookupNumber } from '../../../maha/services/phone_numbers'
-import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { enrollInCampaign } from '../../services/sms_campaigns'
 import generateCode from '../../../../core/utils/generate_code'
 import socket from '../../../../core/services/routes/emitter'

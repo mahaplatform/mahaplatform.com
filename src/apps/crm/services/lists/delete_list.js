@@ -1,4 +1,4 @@
-import { deleteWorkflow } from '../workflows'
+import { deleteWorkflow } from '../../../automation/services/workflows'
 import { audit } from '../../../../core/services/routes/audit'
 import moment from 'moment'
 

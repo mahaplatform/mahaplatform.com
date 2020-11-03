@@ -1,5 +1,5 @@
-import ExecuteWorkflowQueue from '../../queues/execute_workflow_queue'
-import WorkflowEnrollment from '../../models/workflow_enrollment'
+import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
+import ExecuteWorkflowQueue from '../../../automation/queues/execute_workflow_queue'
 import generateCode from '../../../../core/utils/generate_code'
 import { contactActivity } from '../activities'
 

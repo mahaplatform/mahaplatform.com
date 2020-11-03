@@ -1,4 +1,4 @@
-import { enrollInWorkflows } from '../../services/workflows'
+import { enrollInWorkflows } from '../../../automation/services/workflows'
 import { contactActivity } from '../../services/activities'
 
 const delivery = async (req, { email }) => {

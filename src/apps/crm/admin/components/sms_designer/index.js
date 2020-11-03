@@ -1,4 +1,4 @@
-import FlowchartDesigner from '../flowchart_designer'
+import FlowchartDesigner from '../../../../automation/admin/components/flowchart_designer'
 import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import question from './question'

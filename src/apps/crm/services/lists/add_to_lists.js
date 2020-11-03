@@ -1,4 +1,4 @@
-import { enrollInWorkflows } from '../workflows'
+import { enrollInWorkflows } from '../../../automation/services/workflows'
 
 const addToLists = async (req, { contact, list_ids }) => {
 

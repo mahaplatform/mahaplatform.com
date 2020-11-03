@@ -1,4 +1,4 @@
-import WorkflowRecording from '../../../../models/workflow_recording'
+import WorkflowRecording from '../../../../../automation/models/workflow_recording'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'

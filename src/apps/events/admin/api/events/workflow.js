@@ -1,5 +1,5 @@
-import WorkflowSerializer from '../../../../crm/serializers/workflow_serializer'
-import Workflow from '../../../../crm/models/workflow'
+import WorkflowSerializer from '../../../../automation/serializers/workflow_serializer'
+import Workflow from '../../../../automation/models/workflow'
 import Event from '../../../models/event'
 
 const workflowRoute = async (req, res) => {

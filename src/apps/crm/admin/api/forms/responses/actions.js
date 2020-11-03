@@ -1,5 +1,5 @@
-import WorkflowActionSerializer from '../../../../serializers/workflow_action_serializer'
-import WorkflowAction from '../../../../models/workflow_action'
+import WorkflowActionSerializer from '../../../../../automation/serializers/workflow_action_serializer'
+import WorkflowAction from '../../../../../automation/models/workflow_action'
 import Response from '../../../../models/response'
 
 const actionsRoute = async (req, res) => {
