@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
+import moment from 'moment'
+import Date from './date'
 import React from 'react'
 
 class DateField extends React.Component {
@@ -8,6 +10,7 @@ class DateField extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
+    format: PropTypes.string,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
@@ -20,6 +23,7 @@ class DateField extends React.Component {
   }
 
   static defaultProps = {
+    format: 'MM/DD/YYYY',
     placeholder: 'Enter a date',
     onChange: () => {},
     onReady: () => {}
@@ -40,27 +44,18 @@ class DateField extends React.Component {
   _handleChoose = this._handleChoose.bind(this)
   _handleClickOutside = this._handleClickOutside.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { placeholder } = this.props
     const { position, show, value } = this.state
     return (
       <div { ...this._getInput() }>
         <div className="maha-datefield-field">
           <div className="maha-input">
             <div className="maha-input-field">
-              { value &&
-                <div className="maha-input-token">
-                  { value }
-                </div>
-              }
-              { !value &&
-                <div className="maha-input-placeholder">
-                  { placeholder }
-                </div>
-              }
+              <Date { ...this._getDate() } />
             </div>
-            { value && value.length > 0 &&
+            { value &&
               <div className="maha-input-clear" onClick={ this._handleClear }>
                 <i className="fa fa-times" />
               </div>
@@ -78,8 +73,7 @@ class DateField extends React.Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this._handleClickOutside)
-    const { onReady } = this.props
-    onReady()
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -101,7 +95,6 @@ class DateField extends React.Component {
     const { value } = this.state
     return {
       value,
-      onCancel: this._handleCancel,
       onChoose: this._handleChoose
     }
   }
@@ -115,6 +108,18 @@ class DateField extends React.Component {
     return classes.join(' ')
   }
 
+  _getDate() {
+    const { format, placeholder, tabIndex } = this.props
+    const { value } = this.state
+    return {
+      defaultValue: value,
+      format,
+      placeholder,
+      tabIndex,
+      value,
+      onChange: this._handleSet
+    }
+  }
 
   _getInput() {
     const { tabIndex } = this.props
@@ -145,7 +150,8 @@ class DateField extends React.Component {
   }
 
   _handleChange() {
-    this.props.onChange(this.state.value)
+    const value = moment(this.state.value)
+    this.props.onChange(value.format('YYYY-MM-DD'))
   }
 
   _handleClickOutside(e) {
@@ -155,6 +161,7 @@ class DateField extends React.Component {
   }
 
   _handleChoose(value) {
+    console.log('datefield set', value)
     this.setState({
       show: false,
       value
@@ -166,6 +173,14 @@ class DateField extends React.Component {
     e.stopPropagation()
     this.setState({
       value: null
+    })
+  }
+
+  _handleSet(value) {
+    console.log('datefield set', value)
+    this.setState({
+      show: false,
+      value
     })
   }
 

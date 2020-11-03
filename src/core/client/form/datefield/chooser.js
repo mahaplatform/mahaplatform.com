@@ -5,8 +5,7 @@ import React from 'react'
 class Chooser extends React.Component {
 
   static propTypes = {
-    value: PropTypes.string,
-    onCancel: PropTypes.func,
+    value: PropTypes.object,
     onChoose: PropTypes.func
   }
 
@@ -73,7 +72,7 @@ class Chooser extends React.Component {
 
   componentDidMount() {
     const { value } = this.props
-    const current = value ? moment(value) : moment()
+    const current = value || moment()
     this.setState({
       month: parseInt(current.format('MM')) - 1,
       year: parseInt(current.format('YYYY'))
@@ -81,12 +80,7 @@ class Chooser extends React.Component {
   }
 
   _handleChoose(value) {
-    const { onChoose } = this.props
-    this.setState({
-      month: parseInt(value.format('MM')) - 1,
-      year: parseInt(value.format('YYYY'))
-    })
-    onChoose(value.format('YYYY-MM-DD'))
+    this.props.onChoose(value)
   }
 
   _handlePrevious() {
