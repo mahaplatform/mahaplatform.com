@@ -41,7 +41,7 @@ const Details = ({ audits, campaign }) => {
     const workflow = {
       label: 'Manage Workflow',
       className: 'link',
-      route: `/admin/crm/workflows/${campaign.delivery_workflow.id}`
+      route: `/admin/automation/workflows/${campaign.delivery_workflow.id}`
     }
 
     config.items.push({ label: 'Delivery', content: <Button { ...workflow } /> })

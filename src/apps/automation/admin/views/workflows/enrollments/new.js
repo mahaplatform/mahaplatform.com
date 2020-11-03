@@ -24,7 +24,7 @@ class New extends React.Component {
     return {
       title: 'New Workflow',
       method: 'post',
-      action: '/api/admin/crm/workflows',
+      action: '/api/admin/automation/workflows',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

@@ -27,8 +27,8 @@ const destroyRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/workflows',
-    `/admin/crm/workflows/${workflow.id}`
+    '/admin/automation/workflows',
+    `/admin/automation/workflows/${workflow.id}`
   ])
 
   res.status(200).respond(true)

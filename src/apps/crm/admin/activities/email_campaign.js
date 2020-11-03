@@ -78,7 +78,7 @@ class EmailCampaign extends React.PureComponent {
     return {
       label: 'View Enrollment',
       className: 'link',
-      route: `/admin/crm/workflows/${email.enrollment.workflow_id}/enrollments/${email.enrollment.id}`
+      route: `/admin/automation/workflows/${email.enrollment.workflow_id}/enrollments/${email.enrollment.id}`
     }
   }
 

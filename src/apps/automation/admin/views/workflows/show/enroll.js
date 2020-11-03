@@ -24,7 +24,7 @@ class Resend extends React.Component {
     const { workflow } = this.props
     return {
       title: 'Enroll Contacts',
-      action: `/api/admin/crm/workflows/${workflow.id}/enroll`,
+      action: `/api/admin/automation/workflows/${workflow.id}/enroll`,
       method: 'patch',
       saveText: 'Enroll',
       onCancel: this._handleCancel,

@@ -15,7 +15,7 @@ const Details = ({ audits, event }) => {
   const workflow = {
     label: 'Manage Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${event.workflow.id}`
+    route: `/admin/automation/workflows/${event.workflow.id}`
   }
 
   const config = {

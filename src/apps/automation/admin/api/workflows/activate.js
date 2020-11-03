@@ -30,8 +30,8 @@ const activateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/workflows',
-    `/admin/crm/workflows/${workflow.get('id')}`
+    '/admin/automation/workflows',
+    `/admin/automation/workflows/${workflow.get('id')}`
   ])
 
   res.status(200).respond(workflow, WorkflowSerializer)

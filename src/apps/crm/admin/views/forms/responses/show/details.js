@@ -51,7 +51,7 @@ const Details = ({ form, response }) => {
     const enrollment = {
       label: 'View Enrollment',
       className: 'link',
-      route: `/admin/crm/workflows/${response.enrollment.workflow_id}/enrollments/${response.enrollment.id}`
+      route: `/admin/automation/workflows/${response.enrollment.workflow_id}/enrollments/${response.enrollment.id}`
     }
 
     list.sections[0].items.push({ label: 'Workflow', content: <Button { ...enrollment } /> })

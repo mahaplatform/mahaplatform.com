@@ -58,7 +58,7 @@ const Details = ({ event, registration }) => {
     const enrollment = {
       label: 'View Enrollment',
       className: 'link',
-      route: `/admin/crm/workflows/${registration.enrollment.workflow_id}/enrollments/${registration.enrollment.id}`
+      route: `/admin/automation/workflows/${registration.enrollment.workflow_id}/enrollments/${registration.enrollment.id}`
     }
 
     config.sections[0].items.push({ label: 'Workflow', content: <Button { ...enrollment } /> })

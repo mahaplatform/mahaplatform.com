@@ -110,9 +110,9 @@ const refresh = async (req, { enrollment }) => {
       `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}/sessions`
     ] : [],
     ...enrollment.get('workflow_id') ? [
-      '/admin/crm/workflows',
-      `/admin/crm/workflows/${enrollment.get('workflow_id')}`,
-      `/admin/crm/workflows/${enrollment.get('voice_campaign_id')}/enrollments`
+      '/admin/automation/workflows',
+      `/admin/automation/workflows/${enrollment.get('workflow_id')}`,
+      `/admin/automation/workflows/${enrollment.get('voice_campaign_id')}/enrollments`
     ] : []
   ])
 }

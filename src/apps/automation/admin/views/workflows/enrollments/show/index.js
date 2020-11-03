@@ -15,7 +15,7 @@ const getTasks = ({ enrollment, workflow }) => ({
       confirm: 'Are you sure you want to cancel this enrollment?',
       show: enrollment.status === 'active',
       request: {
-        endpoint: `/api/admin/crm/workflows/${workflow.id}/enrollments/${enrollment.id}/cancel`,
+        endpoint: `/api/admin/automation/workflows/${workflow.id}/enrollments/${enrollment.id}/cancel`,
         method: 'patch'
       }
     }
@@ -23,9 +23,9 @@ const getTasks = ({ enrollment, workflow }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  actions: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments/${props.params.id}/actions`,
-  workflow: `/api/admin/crm/workflows/${props.params.workflow_id}`,
-  enrollment: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments/${props.params.id}`
+  actions: `/api/admin/automation/workflows/${props.params.workflow_id}/enrollments/${props.params.id}/actions`,
+  workflow: `/api/admin/automation/workflows/${props.params.workflow_id}`,
+  enrollment: `/api/admin/automation/workflows/${props.params.workflow_id}/enrollments/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

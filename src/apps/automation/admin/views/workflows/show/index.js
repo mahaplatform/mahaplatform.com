@@ -24,7 +24,7 @@ const getTasks = ({ workflow, list }) => {
       show: workflow.status !== 'active',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/crm/workflows/${workflow.id}/activate`,
+        endpoint: `/api/admin/automation/workflows/${workflow.id}/activate`,
         body: { is_active: true },
         success: () => {},
         failure: () => {}
@@ -35,7 +35,7 @@ const getTasks = ({ workflow, list }) => {
       show: workflow.status === 'active',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/crm/workflows/${workflow.id}/activate`,
+        endpoint: `/api/admin/automation/workflows/${workflow.id}/activate`,
         body: { is_active: false },
         success: () => {},
         failure: () => {}
@@ -48,7 +48,7 @@ const getTasks = ({ workflow, list }) => {
         the associated emails, and performance data
       `,
       request: {
-        endpoint: `/api/admin/crm/workflows/${workflow.id}`,
+        endpoint: `/api/admin/automation/workflows/${workflow.id}`,
         method: 'delete'
       }
     })
@@ -58,8 +58,8 @@ const getTasks = ({ workflow, list }) => {
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_workflows/${props.params.id}/audits`,
-  emails: `/api/admin/crm/workflows/${props.params.id}/emails`,
-  workflow: `/api/admin/crm/workflows/${props.params.id}`
+  emails: `/api/admin/automation/workflows/${props.params.id}/emails`,
+  workflow: `/api/admin/automation/workflows/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

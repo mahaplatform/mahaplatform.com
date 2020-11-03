@@ -1,8 +1,8 @@
 import ProgramToken from '../../../../../crm/admin/tokens/program'
+import List from '../../../../../crm/admin/components/list'
 import { Infinite, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import List from '../list'
 
 class Items extends React.PureComponent {
 

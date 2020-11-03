@@ -7,7 +7,7 @@ const Details = ({ audits, store }) => {
   const workflow = {
     label: ' Manage Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${store.workflow.id}`
+    route: `/admin/automation/workflows/${store.workflow.id}`
   }
 
   const link = {

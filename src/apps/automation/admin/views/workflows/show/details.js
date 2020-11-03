@@ -19,7 +19,7 @@ const Details = ({ audits, workflow }) => {
   const design = {
     label: workflow.deleted_at === null ? 'Design Workflow' : 'View Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${workflow.id}/design`
+    route: `/admin/automation/workflows/${workflow.id}/design`
   }
 
   list.items = [

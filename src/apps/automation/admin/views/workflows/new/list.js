@@ -48,7 +48,7 @@ class List extends React.PureComponent {
     return {
       title: 'Create Workflow',
       method: 'post',
-      action: '/api/admin/crm/workflows',
+      action: '/api/admin/automation/workflows',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onSuccess: this._handleDone,

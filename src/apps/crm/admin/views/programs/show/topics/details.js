@@ -19,7 +19,7 @@ const Details = ({ audits, topic }) => {
     const subscribe = {
       label: 'Manage Workflow',
       className: 'link',
-      route: `/admin/crm/workflows/${topic.subscribe_workflow.id}`
+      route: `/admin/automation/workflows/${topic.subscribe_workflow.id}`
     }
     config.items.push({ label: 'Subscribe', content: <Button { ...subscribe } /> })
   }
@@ -28,7 +28,7 @@ const Details = ({ audits, topic }) => {
     const unsubscribe = {
       label: 'Manage Workflow',
       className: 'link',
-      route: `/admin/crm/workflows/${topic.unsubscribe_workflow.id}`
+      route: `/admin/automation/workflows/${topic.unsubscribe_workflow.id}`
     }
     config.items.push({ label: 'Unsubscribe', content: <Button { ...unsubscribe } /> })
   }

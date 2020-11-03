@@ -127,7 +127,7 @@ const criteria = (programfields) => [
       { value: '$jeq', text: 'purchased' },
       { value: '$njeq', text: 'did not purchase' }
     ] },
-    { name: 'Workflow', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/workflows', text: 'display_name', value: 'id', multiple: false, subject: false, comparisons: [
+    { name: 'Workflow', key: 'enrollment_id', type: ListCriteria, endpoint: '/api/admin/automation/workflows', text: 'display_name', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$jeq', text: 'enrolled in workflow' },
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },

@@ -38,7 +38,7 @@ class Designer extends React.Component {
   _getWorkflowDesigner() {
     const { workflow } = this.props
     return {
-      endpoint: `/api/admin/crm/workflows/${workflow.id}`,
+      endpoint: `/api/admin/automation/workflows/${workflow.id}`,
       fields: [
         ...this._getEmailFields(),
         ...this._getFields()
@@ -181,7 +181,7 @@ class Designer extends React.Component {
     const { id } = page.params
     this.context.network.request({
       method: 'patch',
-      endpoint: `/api/admin/crm/workflows/${id}`,
+      endpoint: `/api/admin/automation/workflows/${id}`,
       body: { steps }
     })
   }
@@ -189,7 +189,7 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  workflow: `/api/admin/crm/workflows/${props.params.id}`
+  workflow: `/api/admin/automation/workflows/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

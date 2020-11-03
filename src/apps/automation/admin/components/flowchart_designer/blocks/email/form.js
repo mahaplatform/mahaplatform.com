@@ -41,7 +41,7 @@ class Email extends React.PureComponent {
   _getEndpoint() {
     const { campaign, workflow } = this.props
     if(campaign) return `/api/admin/crm/campaigns/${campaign.type}/${campaign.id}/emails`
-    if(workflow) return `/api/admin/crm/workflows/${workflow.id}/emails`
+    if(workflow) return `/api/admin/automation/workflows/${workflow.id}/emails`
   }
 
   _getForm() {

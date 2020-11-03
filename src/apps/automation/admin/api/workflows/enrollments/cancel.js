@@ -40,9 +40,9 @@ const cancelRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/workflows',
-    `/admin/crm/workflows/${workflow.get('id')}`,
-    `/admin/crm/workflows/${workflow.get('id')}/enrollments/${enrollment.get('id')}`
+    '/admin/automation/workflows',
+    `/admin/automation/workflows/${workflow.get('id')}`,
+    `/admin/automation/workflows/${workflow.get('id')}/enrollments/${enrollment.get('id')}`
   ])
 
   res.status(200).respond(true)

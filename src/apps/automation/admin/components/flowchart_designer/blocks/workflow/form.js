@@ -54,7 +54,7 @@ class Workflow extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Workflow', name: 'workflow_id', type: 'lookup', required: true, prompt: 'Choose a workflow', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', form: this._getWorkflowForm(), defaultValue: config.workflow_id }
+            { label: 'Workflow', name: 'workflow_id', type: 'lookup', required: true, prompt: 'Choose a workflow', endpoint: '/api/admin/automation/workflows', value: 'id', text: 'title', form: this._getWorkflowForm(), defaultValue: config.workflow_id }
           ]
         }
       ]
@@ -65,7 +65,7 @@ class Workflow extends React.PureComponent {
     return {
       title: 'New Workflow',
       method: 'post',
-      action: '/api/admin/crm/workflows',
+      action: '/api/admin/automation/workflows',
       sections: [
         {
           fields: [
@@ -102,7 +102,7 @@ class Workflow extends React.PureComponent {
 
 }
 const mapResources = (props, context) => ({
-  workflows: '/api/admin/crm/workflows'
+  workflows: '/api/admin/automation/workflows'
 })
 
 export default Container(mapResources)(Workflow)

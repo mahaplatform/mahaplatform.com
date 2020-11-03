@@ -85,14 +85,14 @@ class Performance extends React.Component {
     return {
       label: value,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}/enrollments${query}`
+      route: `/admin/automation/workflows/${workflow.id}/enrollments${query}`
     }
   }
 
   _getChart() {
     const { workflow } = this.props
     return {
-      endpoint: `/api/admin/crm/workflows/${workflow.id}/performance`,
+      endpoint: `/api/admin/automation/workflows/${workflow.id}/performance`,
       started_at: workflow.created_at
     }
   }

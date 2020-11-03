@@ -5,6 +5,7 @@ import WorkflowEnrollmentsList from './workflows/enrollments/list'
 import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
+  { path: '/', component: WorkflowsList },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },

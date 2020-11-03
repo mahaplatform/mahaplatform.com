@@ -5,9 +5,8 @@ import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Workflows',
-  rights: ['crm:manage_workflows'],
   collection: {
-    endpoint: '/api/admin/crm/workflows',
+    endpoint: '/api/admin/automation/workflows',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'display_name', primary: true, format: WorkflowToken },
@@ -44,7 +43,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'workflow',
-    onClick: (record) => context.router.history.push(`/crm/workflows/${record.id}`)
+    onClick: (record) => context.router.history.push(`/automation/workflows/${record.id}`)
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',

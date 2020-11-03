@@ -56,8 +56,8 @@ class Content extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  changes: state.crm.flowchart_designer[props.cid].changes,
-  config: state.crm.flowchart_designer[props.cid].config
+  changes: state.automation.flowchart_designer[props.cid].changes,
+  config: state.automation.flowchart_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Content)

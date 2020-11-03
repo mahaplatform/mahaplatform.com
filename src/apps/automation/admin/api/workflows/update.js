@@ -42,8 +42,8 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/workflows',
-    '/admin/crm/workflows'
+    '/admin/automation/workflows',
+    '/admin/automation/workflows'
   ])
 
   res.status(200).respond(workflow, WorkflowSerializer)

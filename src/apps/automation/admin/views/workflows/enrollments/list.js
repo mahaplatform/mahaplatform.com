@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Enrollments',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/workflows/${props.params.workflow_id}/enrollments`,
+    endpoint: `/api/admin/automation/workflows/${props.params.workflow_id}/enrollments`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (enrollment) => <ContactToken { ...enrollment.contact } /> },
@@ -26,7 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: '-created_at', order: 'asc' },
     entity: 'enrollment',
-    onClick: (record) => context.router.history.push(`/crm/workflows/${props.params.workflow_id}/enrollments/${record.id}`)
+    onClick: (record) => context.router.history.push(`/automation/workflows/${props.params.workflow_id}/enrollments/${record.id}`)
   },
   tasks: {
     icon: 'plus',

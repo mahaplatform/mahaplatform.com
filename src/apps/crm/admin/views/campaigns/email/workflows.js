@@ -63,7 +63,7 @@ class Workflows extends React.Component {
     return {
       label: workflow[report],
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}/enrollments?report=${report}`
+      route: `/admin/automation/workflows/${workflow.id}/enrollments?report=${report}`
     }
   }
 
@@ -71,7 +71,7 @@ class Workflows extends React.Component {
     return {
       label: workflow.title,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}`
+      route: `/admin/automation/workflows/${workflow.id}`
     }
   }
 

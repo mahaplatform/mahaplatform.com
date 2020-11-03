@@ -41,7 +41,7 @@ class Workflow extends React.PureComponent {
     return {
       label: 'View Enrollment',
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}/enrollments/${enrollment.id}`
+      route: `/admin/automation/workflows/${workflow.id}/enrollments/${enrollment.id}`
     }
   }
 
@@ -50,16 +50,16 @@ class Workflow extends React.PureComponent {
     return {
       label: workflow.title,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}`
+      route: `/admin/automation/workflows/${workflow.id}`
     }
   }
 
 }
 
 const mapResources = (props, context) => ({
-  actions: `/api/admin/crm/workflows/${props.activity.data.workflow_id}/enrollments/${props.activity.data.enrollment_id}/actions`,
-  enrollment: `/api/admin/crm/workflows/${props.activity.data.workflow_id}/enrollments/${props.activity.data.enrollment_id}`,
-  workflow: `/api/admin/crm/workflows/${props.activity.data.workflow_id}`
+  actions: `/api/admin/automation/workflows/${props.activity.data.workflow_id}/enrollments/${props.activity.data.enrollment_id}/actions`,
+  enrollment: `/api/admin/automation/workflows/${props.activity.data.workflow_id}/enrollments/${props.activity.data.enrollment_id}`,
+  workflow: `/api/admin/automation/workflows/${props.activity.data.workflow_id}`
 })
 
 export default Container(mapResources)(Workflow)

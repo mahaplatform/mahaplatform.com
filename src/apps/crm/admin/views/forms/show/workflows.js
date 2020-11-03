@@ -77,13 +77,13 @@ class Workflows extends React.Component {
     return {
       label: workflow.title,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}`
+      route: `/admin/automation/workflows/${workflow.id}`
     }
   }
 
   _handleClick(workflow, report) {
     const { router } = this.context
-    router.history.push(`/crm/workflows/${workflow.id}/enrollments?report=${report}`)
+    router.history.push(`/automation/workflows/${workflow.id}/enrollments?report=${report}`)
   }
 
 }

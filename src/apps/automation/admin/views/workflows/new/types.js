@@ -1,7 +1,7 @@
+import List from '../../../../../crm/admin/components/list'
 import TriggerToken from '../../../tokens/trigger'
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import List from '../list'
 import React from 'react'
 
 class Types extends React.PureComponent {
