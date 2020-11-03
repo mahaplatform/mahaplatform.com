@@ -9,7 +9,9 @@ class Date extends React.Component {
     format: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.object,
-    onChange: PropTypes.func
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func
   }
 
   input = null
@@ -19,6 +21,7 @@ class Date extends React.Component {
   }
 
   _handleBlur = this._handleBlur.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleUpdate =this._handleUpdate.bind(this)
 
@@ -47,17 +50,27 @@ class Date extends React.Component {
       placeholder,
       value,
       onBlur: this._handleBlur,
+      onFocus: this._handleFocus,
       onKeyDown: this._handleKeyDown,
       onChange: this._handleUpdate
     }
   }
 
   _handleBlur() {
+    this.props.onBlur()
     const { format } = this.props
-    const value = moment(this.state.value, ['MM-DD-YYYY','MM-DD-YY','YYYY-MM-DD','MM/DD/YY','MM/DD/YYYY','MMDDYY','MMDDYYYY'], true)
-    if(!value.isValid()) return this.setState({ value: '' })
-    this.setState({ value: value.format(format) })
-    this.props.onChange(value)
+    if(this.state.value.length === 0) return
+    const raw = moment(this.state.value, ['MM-DD-YYYY','MM-DD-YY','YYYY-MM-DD','MM/DD/YY','MM/DD/YYYY','MMDDYY','MMDDYYYY'], true)
+    if(!raw.isValid()) return this.setState({ value: '' })
+    const value = raw.format(format)
+    const prev = moment(this.props.value).format(format)
+    if(value === prev) return
+    this.setState({ value })
+    this.props.onChange(raw)
+  }
+
+  _handleFocus() {
+    this.props.onFocus()
   }
 
   _handleKeyDown(e) {

@@ -49,7 +49,7 @@ class DateField extends React.Component {
   render() {
     const { position, show, value } = this.state
     return (
-      <div { ...this._getInput() }>
+      <div { ...this._getControl() }>
         <div className="maha-datefield-field">
           <div className="maha-input">
             <div className="maha-input-field">
@@ -108,6 +108,15 @@ class DateField extends React.Component {
     return classes.join(' ')
   }
 
+  _getControl() {
+    const { tabIndex } = this.props
+    return {
+      className: this._getClass(),
+      ref: node => this.control = node,
+      tabIndex
+    }
+  }
+
   _getDate() {
     const { format, placeholder, tabIndex } = this.props
     const { value } = this.state
@@ -117,24 +126,14 @@ class DateField extends React.Component {
       placeholder,
       tabIndex,
       value,
-      onChange: this._handleSet
-    }
-  }
-
-  _getInput() {
-    const { tabIndex } = this.props
-    return {
-      className: this._getClass(),
-      ref: node => this.control = node,
       onBlur: this._handleBlur,
-      onFocus: this._handleBegin,
-      tabIndex
+      onChange: this._handleSet,
+      onFocus: this._handleBegin
     }
   }
 
-  _handleBegin(e) {
-    e.stopPropagation()
-    const { top }= this.control.getBoundingClientRect()
+  _handleBegin() {
+    const { top } = this.control.getBoundingClientRect()
     const percent = (top / window.innerHeight) * 100
     const focused = true
     const show = true
@@ -144,8 +143,7 @@ class DateField extends React.Component {
 
   _handleBlur() {
     this.setState({
-      focused: false,
-      show: false
+      focused: false
     })
   }
 
@@ -154,14 +152,7 @@ class DateField extends React.Component {
     this.props.onChange(value.format('YYYY-MM-DD'))
   }
 
-  _handleClickOutside(e) {
-    const { show } = this.state
-    if(!show || this.control.contains(e.target)) return
-    this.control.blur()
-  }
-
   _handleChoose(value) {
-    console.log('datefield set', value)
     this.setState({
       show: false,
       value
@@ -176,8 +167,15 @@ class DateField extends React.Component {
     })
   }
 
+  _handleClickOutside(e) {
+    const { show } = this.state
+    if(!show || this.control.contains(e.target)) return
+    this.setState({
+      show: false
+    })
+  }
+
   _handleSet(value) {
-    console.log('datefield set', value)
     this.setState({
       show: false,
       value
