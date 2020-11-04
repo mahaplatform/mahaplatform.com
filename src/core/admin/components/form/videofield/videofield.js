@@ -1,5 +1,4 @@
-import Buttons from '../../buttons'
-import Button from '../../button'
+import { Buttons, Button} from 'maha-admin'
 import PropTypes from 'prop-types'
 import Picker from './picker'
 import React from 'react'
@@ -13,10 +12,10 @@ class VideoField extends React.Component{
   static propTypes = {
     cid: PropTypes.string,
     defaultValue: PropTypes.number,
+    embed: PropTypes.string,
+    preview: PropTypes.string,
+    prompt: PropTypes.string,
     src: PropTypes.string,
-    link_id: PropTypes.number,
-    onFetchLink: PropTypes.func,
-    onCreateLink: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
@@ -24,13 +23,14 @@ class VideoField extends React.Component{
   }
 
   static defaultProps = {
+    prompt: 'Choose Video',
     onChange: () => {},
     onReady: () => {}
   }
 
+  _handleDone = this._handleDone.bind(this)
   _handlePicker = this._handlePicker.bind(this)
   _handleRemove = this._handleRemove.bind(this)
-  _handleSet = this._handleSet.bind(this)
 
   render() {
     const { src } = this.props
@@ -48,32 +48,15 @@ class VideoField extends React.Component{
   }
 
   componentDidMount() {
-    const { defaultValue, onReady, onFetchLink } = this.props
-    if(defaultValue) onFetchLink(defaultValue)
+    const { defaultValue, onReady, onSet } = this.props
+    if(defaultValue) onSet(defaultValue)
     onReady()
   }
 
   componentDidUpdate(prevProps) {
-    const { link_id, onChange } = this.props
-    if(link_id !== prevProps.link_id) {
-      onChange(link_id)
-    }
-  }
-
-  _getIframe() {
     const { src } = this.props
-    return {
-      src,
-      frameBorder: 0,
-      allowFullScreen: true
-    }
-  }
-
-  _getPicker() {
-    const { cid, onCreateLink } = this.props
-    return {
-      cid,
-      onCreateLink
+    if(src !== prevProps.src) {
+      this._handleChange()
     }
   }
 
@@ -93,12 +76,40 @@ class VideoField extends React.Component{
     }
   }
 
-  _getNewButton() {
+  _getIframe() {
+    const { embed } = this.props
     return {
-      className: 'ui blue button',
-      label: 'Embed Video',
+      src: embed,
+      frameBorder: 0,
+      allowFullScreen: true
+    }
+  }
+
+  _getNewButton() {
+    const { prompt } = this.props
+    return {
+      className: 'ui button',
+      label: prompt,
       handler: this._handlePicker
     }
+  }
+
+  _getPicker() {
+    const { cid } = this.props
+    return {
+      cid,
+      onDone: this._handleDone
+    }
+  }
+
+  _handleChange() {
+    const { embed, preview, src } = this.props
+    this.props.onChange({ embed, preview, src })
+  }
+
+  _handleDone(video) {
+    this.props.onSet(video)
+    this.context.form.pop()
   }
 
   _handlePicker() {
@@ -107,10 +118,6 @@ class VideoField extends React.Component{
 
   _handleRemove() {
     this.props.onRemove()
-  }
-
-  _handleSet(src) {
-    this.props.onSet(src)
   }
 
 }

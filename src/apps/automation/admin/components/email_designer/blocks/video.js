@@ -1,7 +1,4 @@
 import FontFamilyToken from '../../../tokens/fontfamily'
-import AlignmentField from '../../alignmentfield'
-import FormatField from '../../formatfield'
-import VideoField from '../../videofield'
 import { Button, Form } from 'maha-admin'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
@@ -62,7 +59,7 @@ class Video extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Video', name: 'video', type: VideoField, prompt: 'Choose Video', defaultValue: config.video },
+                { label: 'Video', name: 'video', type: 'videofield', prompt: 'Choose Video', defaultValue: config.video },
                 { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption },
                 { label: 'Caption', include: config.show_caption === true, name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption }
               ]
@@ -100,8 +97,8 @@ class Video extends React.Component {
                   { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
-                  { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
+                  { label: 'Format', name: `${value}_format`, type: 'formatfield', defaultValue: config[`${value}_format`] },
+                  { label: 'Alignment', name: `${value}_text_align`, type: 'alignmentfield', defaultValue: config[`${value}_text_align`] }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: `${value}_line_height`, type: 'dropdown', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
@@ -114,7 +111,7 @@ class Video extends React.Component {
               fields: [
                 { type: 'fields', fields: [
                   { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
-                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+                  { label: 'Format', name: 'a_format', type: 'formatfield', defaultValue: config.a_format }
                 ] }
               ]
             }

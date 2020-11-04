@@ -1,5 +1,3 @@
-import AlignmentField from '../../../../../automation/admin/components/alignmentfield'
-import FormatField from '../../../../../automation/admin/components/formatfield'
 import FontFamilyToken from '../../../../../automation/admin/tokens/fontfamily'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
@@ -83,8 +81,8 @@ class TextForm extends React.Component {
                   { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
-                  { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
+                  { label: 'Format', name: `${value}_format`, type: 'formatfield', defaultValue: config[`${value}_format`] },
+                  { label: 'Alignment', name: `${value}_text_align`, type: 'alignmentfield', defaultValue: config[`${value}_text_align`] }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: `${value}_line_height`, type: 'dropdown', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
@@ -97,7 +95,7 @@ class TextForm extends React.Component {
               fields: [
                 { type: 'fields', fields: [
                   { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
-                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+                  { label: 'Format', name: 'a_format', type: 'formatfield', defaultValue: config.a_format }
                 ] }
               ]
             }

@@ -12,6 +12,7 @@ import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
 import admincontainer from './components/container'
 import admincriteriaCriteria from './components/criteria/criteria'
+import admindesigner from './components/designer'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
@@ -63,12 +64,10 @@ import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import adminuploader from './components/uploader'
 import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
-import automationdesigner from '../../apps/automation/admin/components/designer'
 import automationflowchartDesigner from '../../apps/automation/admin/components/flowchart_designer'
 import automationfollowsfield from '../../apps/automation/admin/components/followsfield'
 import automationimagesfield from '../../apps/automation/admin/components/imagesfield'
 import automationsharesfield from '../../apps/automation/admin/components/sharesfield'
-import automationvideofield from '../../apps/automation/admin/components/videofield'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
@@ -325,6 +324,7 @@ class App extends React.Component {
       admincomments,
       admincontainer,
       admincriteriaCriteria,
+      admindesigner,
       admindrawer,
       adminemojis,
       adminfields,
@@ -376,12 +376,10 @@ class App extends React.Component {
       admintasks,
       adminuploader,
       appraisalsresponsibilities,
-      automationdesigner,
       automationflowchartDesigner,
       automationfollowsfield,
       automationimagesfield,
       automationsharesfield,
-      automationvideofield,
       chatchannel,
       chatchannels,
       chatfullchat,

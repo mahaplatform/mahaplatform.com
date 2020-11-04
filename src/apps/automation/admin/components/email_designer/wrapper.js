@@ -8,7 +8,7 @@ class EmailDesignerWrapper extends React.Component {
   static propTypes = {
     program: PropTypes.object,
     programfields: PropTypes.array,
-    tokens: PropTypes.object
+    tokens: PropTypes.array
   }
 
   render() {

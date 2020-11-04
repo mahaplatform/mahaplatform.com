@@ -1,7 +1,7 @@
 export const INITIAL_STATE = {
-  link_id: null,
-  src: null,
-  status: 'pending'
+  embed: null,
+  preview: null,
+  src: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -11,38 +11,17 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET':
     return {
       ...state,
-      link_id: action.link_id,
-      src: action.src
+      src: action.data.src,
+      embed: action.data.embed,
+      preview: action.data.preview
     }
 
   case 'REMOVE':
     return {
       ...state,
-      link_id: null,
       src: null,
-      status: 'pending'
-    }
-
-  case 'FETCH_LINK_REQUEST':
-    return {
-      ...state,
-      link_id: null,
-      src: null,
-      status: 'loading'
-    }
-
-  case 'FETCH_LINK_SUCCESS':
-    return {
-      ...state,
-      link_id: action.result.data.id,
-      src: action.result.data.video_url,
-      status: 'success'
-    }
-
-  case 'FETCH_LINK_FAILURE':
-    return {
-      ...state,
-      status: 'failure'
+      embed: null,
+      preview: null
     }
 
   default:

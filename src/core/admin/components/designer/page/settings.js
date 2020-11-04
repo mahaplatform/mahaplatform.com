@@ -89,7 +89,7 @@ class Settings extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer[props.cid].config.settings
+  config: state.maha.designer[props.cid].config.settings
 })
 
 export default connect(mapStateToProps)(Settings)

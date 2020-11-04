@@ -1,6 +1,4 @@
 import FontFamilyToken from '../../../tokens/fontfamily'
-import AlignmentField from '../../alignmentfield'
-import FormatField from '../../formatfield'
 import { Button, Form } from 'maha-admin'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
@@ -83,8 +81,8 @@ class Web extends React.Component {
                   { label: 'Color', name: 'p_color', type: 'colorfield', defaultValue: config.p_color }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: 'p_format', type: FormatField, defaultValue: config.p_format },
-                  { label: 'Alignment', name: 'p_text_align', type: AlignmentField, defaultValue: config.p_text_align }
+                  { label: 'Format', name: 'p_format', type: 'formatfield', defaultValue: config.p_format },
+                  { label: 'Alignment', name: 'p_text_align', type: 'alignmentfield', defaultValue: config.p_text_align }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: 'p_line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.p_line_height },
@@ -97,7 +95,7 @@ class Web extends React.Component {
               fields: [
                 { type: 'fields', fields: [
                   { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
-                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+                  { label: 'Format', name: 'a_format', type: 'formatfield', defaultValue: config.a_format }
                 ] }
               ]
             }

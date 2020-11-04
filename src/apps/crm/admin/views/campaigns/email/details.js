@@ -1,4 +1,4 @@
-import EmailPreview from '../../../components/email_preview'
+import EmailPreview from '../../../../../automation/admin/components/email_preview'
 import { Audit, Comments, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
@@ -15,7 +15,7 @@ const Details = ({ audits, campaign }) => {
     route: `/admin/crm/campaigns/email/${campaign.id}/design`
   }
 
-  config.header = <EmailPreview email={ campaign } link={`/crm/admin/emails/campaign/${campaign.id}/preview`} />
+  config.header = <EmailPreview email={ campaign } link={`/automation/admin/emails/campaign/${campaign.id}/preview`} />
 
   if(campaign.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This campaign was deleted' }

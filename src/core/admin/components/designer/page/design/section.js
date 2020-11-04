@@ -41,7 +41,7 @@ class Section extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer[props.cid].config[props.code]
+  config: state.maha.designer[props.cid].config[props.code]
 })
 
 export default connect(mapStateToProps)(Section)

@@ -1,3 +1,4 @@
+import AlignmentField from './alignmentfield'
 import AssignmentField from './assignmentfield'
 import AttachmentField from './attachmentfield'
 import AddressField from './addressfield'
@@ -11,6 +12,7 @@ import DateTimeField from './datetimefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
 import FileField from './filefield'
+import FormatField from './formatfield'
 import Hidden from './hidden'
 import HtmlField from './htmlfield'
 import LinkField from './linkfield'
@@ -83,6 +85,7 @@ class Control extends React.Component {
     const { field } = this.props
     const type = field.type || 'textfield'
     if(!_.isString(type)) return type
+    if(type === 'alignmentfield') return AlignmentField
     if(type === 'assignmentfield') return AssignmentField
     if(type === 'attachmentfield') return AttachmentField
     if(type === 'addressfield') return AddressField
@@ -97,6 +100,7 @@ class Control extends React.Component {
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
     if(type === 'filefield') return FileField
+    if(type === 'formatfield') return FormatField
     if(type === 'hidden') return Hidden
     if(type === 'htmlfield') return HtmlField
     if(type === 'linkfield') return LinkField

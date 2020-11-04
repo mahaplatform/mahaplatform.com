@@ -1,11 +1,13 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import videofield from './videofield'
+import Designer from './designer'
+import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'crm.videofield',
-  component: videofield,
+  namespace: 'maha.designer',
+  component: Designer,
   reducer,
+  selectors,
   actions
 })

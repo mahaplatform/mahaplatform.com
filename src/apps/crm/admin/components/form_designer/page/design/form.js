@@ -1,5 +1,3 @@
-import AlignmentField from '../../../../../../automation/admin/components/alignmentfield'
-import FormatField from '../../../../../../automation/admin/components/formatfield'
 import FontFamilyToken from '../../../../../../automation/admin/tokens/fontfamily'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
@@ -77,8 +75,8 @@ class Body extends React.Component {
               { label: 'Color', name: 'p_color', type: 'colorfield', defaultValue: config.p_color }
             ] },
             { type: 'fields', fields: [
-              { label: 'Format', name: 'p_format', type: FormatField, defaultValue: config.p_format },
-              { label: 'Alignment', name: 'p_text_align', type: AlignmentField, defaultValue: config.p_text_align }
+              { label: 'Format', name: 'p_format', type: 'formatfield', defaultValue: config.p_format },
+              { label: 'Alignment', name: 'p_text_align', type: 'alignmentfield', defaultValue: config.p_text_align }
             ] },
             { type: 'fields', fields: [
               { label: 'Line Height', name: 'p_line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.p_line_height },
@@ -91,7 +89,7 @@ class Body extends React.Component {
           fields: [
             { type: 'fields', fields: [
               { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
-              { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+              { label: 'Format', name: 'a_format', type: 'formatfield', defaultValue: config.a_format }
             ] }
           ]
         }

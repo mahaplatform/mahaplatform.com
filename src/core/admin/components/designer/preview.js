@@ -96,7 +96,7 @@ class Preview extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer[props.cid].config,
+  config: state.maha.designer[props.cid].config,
   user: state.maha.admin.user
 })
 

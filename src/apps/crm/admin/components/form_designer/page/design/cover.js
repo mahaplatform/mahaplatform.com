@@ -1,5 +1,3 @@
-import AlignmentField from '../../../../../../automation/admin/components/alignmentfield'
-import FormatField from '../../../../../../automation/admin/components/formatfield'
 import FontFamilyToken from '../../../../../../automation/admin/tokens/fontfamily'
 import ImageField from '../../../../../../automation/admin/components/imagefield'
 import * as options from '../../variables'
@@ -90,8 +88,8 @@ class Cover extends React.Component {
                   { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+                  { label: 'Format', name: 'format', type: 'formatfield', defaultValue: config.format },
+                  { label: 'Alignment', name: 'text_align', type: 'alignmentfield', defaultValue: config.text_align }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },

@@ -1,4 +1,4 @@
-import EmailPreview from '../../../../components/email_preview'
+import EmailPreview from '../../../../../../automation/admin/components/email_preview'
 import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -13,7 +13,7 @@ const Details = ({ template }) => {
     route: `/admin/crm/programs/${template.program.id}/templates/${template.id}/design`
   }
 
-  config.header = <EmailPreview email={ template } link={`/crm/admin/emails/template/${template.id}/preview`} />
+  config.header = <EmailPreview email={ template } link={`/automation/admin/emails/template/${template.id}/preview`} />
 
   if(template.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This template was deleted' }
