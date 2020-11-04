@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.use(bodyParser.json({ limit: '5mb', type: '*/*' }))
 
-router.post('/feedback', feedback)
+router.use('/feedback', feedback)
 
 export default router

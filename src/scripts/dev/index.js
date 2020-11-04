@@ -153,8 +153,8 @@ const adminWatch = async () => {
       const adminRoot = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(1)
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
-      if(/^\/(f|v|c|w|s|ns|nv|so)([^/])*$/.test(req.url)) return null
-      if(/^\/(admin|api|aws|imagecache|fax|jobs|sms|voice)/.test(req.url)) return null
+      if(/^\/(c|f|n|s|v|w)([^/])*$/.test(req.url)) return null
+      if(/^\/(admin|api|aws|imagecache|fax|jobs|sms|shortlinks|voice)/.test(req.url)) return null
       if(/^\/notifications.js/.test(req.url)) return null
       if(appregex.test(req.url)) return null
       return req.url
@@ -204,7 +204,8 @@ const connectNgrok = async () => {
   await ngrok.connect({
     authtoken: process.env.NGROK_AUTHTOKEN,
     addr: process.env.SERVER_PORT,
-    subdomain: process.env.NGROK_SUBDOMAIN
+    subdomain: process.env.NGROK_SUBDOMAIN,
+    host_header: process.env.DOMAIN
   })
 }
 

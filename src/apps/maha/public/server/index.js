@@ -7,7 +7,7 @@ const router = new Router({ mergeParams: true })
 
 router.use('/aws', aws)
 
-router.use('/shortlinks/:code/qrcode', qrcode)
+router.get('/shortlinks/:code/qrcode', qrcode)
 
 router.use(email)
 
