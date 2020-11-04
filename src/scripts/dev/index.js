@@ -19,10 +19,14 @@ const protocol = /https/.test(process.env.WEB_HOST) ? 'https' : 'http'
 
 const appsDir = path.resolve('src','apps')
 
-const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
+const apps = fs.readdirSync(appsDir)
+
+const appregex = new RegExp(`^/(${apps.map(app => app).join('|')})`)
+
+const subapps = apps.reduce((subapps, app) => {
   const appDir = path.join(appsDir, app, 'web')
   return [
-    ...apps,
+    ...subapps,
     ...fs.existsSync(appDir) ? fs.readdirSync(appDir).reduce((apps, subapp, index) => {
       const dir = path.join(appsDir, app, 'web',subapp)
       return [
@@ -149,10 +153,10 @@ const adminWatch = async () => {
       const adminRoot = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(1)
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
-      const apps = new RegExp(`^/(${fs.readdirSync(appsDir).map(app => app).join('|')})`)
-      if(apps.test(req.url)) return null
+      if(/^\/(f|v|c|w|s|ns|nv|so)([^/])*$/.test(req.url)) return null
       if(/^\/(admin|api|aws|imagecache|fax|jobs|sms|voice)/.test(req.url)) return null
       if(/^\/notifications.js/.test(req.url)) return null
+      if(appregex.test(req.url)) return null
       return req.url
     }
   }

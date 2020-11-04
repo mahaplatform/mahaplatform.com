@@ -30,7 +30,7 @@ const Form = new Model({
     },
 
     url() {
-      const path = this.get('permalink') ? `/forms/${this.get('permalink')}` : `/forms/forms/${this.get('code')}`
+      const path = this.get('permalink') ? `/forms/${this.get('permalink')}` : `/forms/${this.get('code')}`
       return `${process.env.WEB_HOST}${path}`
     },
 

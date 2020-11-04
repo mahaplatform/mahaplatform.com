@@ -12,15 +12,34 @@ const UpdateAppSchema = {
     await knex('maha_dashboard_card_types').where('code', 'forms').update('app_id', forms.id)
     await knex('maha_dashboard_card_types').where('code', 'emails').update('app_id', campaigns.id)
 
-    await knex.raw('update maha_activities set url=replace(url, \'crm/emails\',\'automation/emails\') where url like \'%crm/emails%\'')
-    await knex.raw('update maha_activities set url=replace(url, \'crm/workflows\',\'automation/workflows\') where url like \'%crm/workflows%\'')
-    await knex.raw('update maha_activities set url=replace(url, \'crm/campaigns\',\'campaigns\') where url like \'%crm/campaigns%\'')
-    await knex.raw('update maha_activities set url=replace(url, \'crm/forms\',\'forms/forms\') where url like \'%crm/forms%\'')
+    await knex.raw('update maha_aliases set destination=replace(destination, \'crm/forms\',\'forms\') where destination like \'%crm/forms%\'')
 
-    await knex.raw('update maha_notifications set url=replace(url, \'crm/emails\',\'automation/emails\') where url like \'%crm/emails%\'')
-    await knex.raw('update maha_notifications set url=replace(url, \'crm/workflows\',\'automation/workflows\') where url like \'%crm/workflows%\'')
-    await knex.raw('update maha_notifications set url=replace(url, \'crm/campaigns\',\'campaigns\') where url like \'%crm/campaigns%\'')
-    await knex.raw('update maha_notifications set url=replace(url, \'crm/forms\',\'forms/forms\') where url like \'%crm/forms%\'')
+    // activity/notifivation urls
+    const urls = [
+      { from: 'crm/emails', to: 'automation/emails' },
+      { from: 'crm/workflows', to: 'automation/workflows' },
+      { from: 'crm/campaigns', to: 'campaigns' },
+      { from: 'crm/forms', to: 'forms/forms' }
+    ]
+
+    await Promise.mapSeries(urls, async (url) => {
+      await knex.raw(`update maha_activities set url=replace(url, '${url.from}','${url.to}') where url like '%${url.from}%'`)
+      await knex.raw(`update maha_notifications set url=replace(url, '${url.from}','${url.to}') where url like '%${url.from}%'`)
+    })
+
+    // activity/notifivation apps
+    const tables = [
+      { app: automation, tables: ['crm_workflows','crm_emails'] },
+      { app: campaigns, tables: ['crm_email_campaigns','crm_sms_campaigns','crm_voice_campaigns'] },
+      { app: forms, tables: ['crm_forms'] }
+    ]
+
+    await Promise.mapSeries(tables, async (item) => {
+      await Promise.mapSeries(item.tables, async (table) => {
+        await knex.raw('update maha_activities set app_id=? where object_table=?', [item.app.id, table])
+        await knex.raw('update maha_notifications set app_id=? where object_table=?', [item.app.id, table])
+      })
+    })
 
     // add apps
     const teams = await knex('maha_teams_apps').where('app_id', crm.id)

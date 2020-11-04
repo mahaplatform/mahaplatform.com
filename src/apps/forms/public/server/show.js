@@ -1,14 +1,14 @@
-import { encode } from '../../../../../core/services/jwt'
-import Setting from '../../../../platform/models/setting'
-import Form from '../../../models/form'
-import { readFile } from '../utils'
+import { encode } from '../../../../core/services/jwt'
+import Setting from '../../../platform/models/setting'
+import Form from '../../models/form'
+import { readFile } from './utils'
 import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
 
-  const template = await readFile(path.join('crm','embedded','index.html'))
+  const template = await readFile(path.join('forms','embedded','index.html'))
 
   const settings = await Setting.query(qb => {
     qb.where('id', 1)

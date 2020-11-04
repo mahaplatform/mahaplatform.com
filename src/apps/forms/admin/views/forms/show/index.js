@@ -22,7 +22,7 @@ const getTasks = ({ form }) => {
     code: `<div data-form="${form.code}"></div>
 <script src="${process.env.WEB_HOST}/maha.js"></script>
 <script>
-new Maha.Crm.Form({
+new Maha.Forms.Form({
   code: '${form.code}'
 })
 </script>`

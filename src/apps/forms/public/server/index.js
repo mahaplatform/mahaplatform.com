@@ -1,8 +1,21 @@
-import { Router } from 'express'
-import forms from './forms'
+import csp from 'express-csp-header'
+import express from 'express'
+import show from './show'
 
-const router = new Router({ mergeParams: true })
+const server = express()
 
-router.use('/forms', forms)
+server.use(csp({
+  policies: {
+    'default-src': [csp.SELF],
+    'script-src': [csp.SELF, csp.INLINE, 'https://*'],
+    'style-src': [csp.SELF, csp.INLINE,'https://*'],
+    'img-src': [csp.SELF, csp.INLINE,'https://*','data:'],
+    'font-src': [csp.SELF, csp.INLINE,'https://fonts.gstatic.com','data:'],
+    'connect-src': [csp.SELF, csp.INLINE,'https://*:*','wss://*:*'],
+    'frame-src': [csp.SELF, csp.INLINE,'https://*']
+  }
+}))
 
-export default router
+server.get('/:code', show)
+
+export default server
