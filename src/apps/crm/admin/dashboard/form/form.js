@@ -82,7 +82,7 @@ class Form extends React.Component {
   _getExpandedChart() {
     const { form } = this.props
     return {
-      endpoint: `/api/admin/crm/forms/${form.id}/performance`,
+      endpoint: `/api/admin/forms/forms/${form.id}/performance`,
       started_at: form.created_at
     }
   }
@@ -90,7 +90,7 @@ class Form extends React.Component {
   _getCompactChart() {
     const { form } = this.props
     return {
-      endpoint: `/api/admin/crm/forms/${form.id}/performance`,
+      endpoint: `/api/admin/forms/forms/${form.id}/performance`,
       started_at: form.created_at,
       pointRadius: 0,
       borderWidth: 2,
@@ -105,7 +105,7 @@ class Form extends React.Component {
       label: ' Manage Form',
       icon: 'gear',
       className: 'link',
-      route: `/admin/crm/forms/${config.form_id}`
+      route: `/admin/forms/forms/${config.form_id}`
     }
   }
 
@@ -125,7 +125,7 @@ class Form extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  form: `/api/admin/crm/forms/${props.config.form_id}`
+  form: `/api/admin/forms/forms/${props.config.form_id}`
 })
 
 export default Container(mapResources)(Form)

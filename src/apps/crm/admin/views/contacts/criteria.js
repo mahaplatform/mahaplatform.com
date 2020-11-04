@@ -83,7 +83,7 @@ const criteria = (programfields) => [
       { value: '$jeq', text: 'registered for' },
       { value: '$njeq', text: 'did not registered for' }
     ] },
-    { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+    { name: 'Form', key: 'form_id', type: ListCriteria, endpoint: '/api/admin/forms/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$jeq', text: 'filled out' },
       { value: '$njeq', text: 'did not fill out' }
     ] },

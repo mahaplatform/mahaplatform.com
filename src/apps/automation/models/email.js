@@ -5,8 +5,8 @@ import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'
 import Program from '../../crm/models/program'
 import Event from '../../events/models/event'
+import Form from '../../forms/models/form'
 import EmailResult from './email_result'
-import Form from '../../crm/models/form'
 
 const Email = new Model({
 

@@ -1,6 +1,6 @@
 import Event from '../../../events/models/event'
 import Asset from '../../../maha/models/asset'
-import Form from '../../../crm/models/form'
+import Form from '../../../forms/models/form'
 import path from 'path'
 import _ from 'lodash'
 import ejs from 'ejs'

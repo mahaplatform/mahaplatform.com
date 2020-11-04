@@ -38,7 +38,7 @@ class Results extends React.Component {
 
   _handleRegistration(response) {
     const { config } = this.props
-    this.context.router.history.push(`/crm/forms/${config.form_id}/responses/${response.id}`)
+    this.context.router.history.push(`/forms/forms/${config.form_id}/responses/${response.id}`)
   }
 }
 

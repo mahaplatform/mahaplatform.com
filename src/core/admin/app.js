@@ -77,9 +77,6 @@ import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaccess from '../../apps/crm/admin/components/access'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmintro from '../../apps/crm/admin/components/contactimport/intro'
-import crmformDesigner from '../../apps/crm/admin/components/form_designer'
-import crmproductfield from '../../apps/crm/admin/components/productfield'
-import crmrulesfield from '../../apps/crm/admin/components/rulesfield'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
@@ -93,6 +90,9 @@ import financecardfield from '../../apps/finance/admin/components/cardfield'
 import financelineItems from '../../apps/finance/admin/components/line_items'
 import financeroutingnumberfield from '../../apps/finance/admin/components/routingnumberfield'
 import financetripsImportFinalize from '../../apps/finance/admin/components/trips_import_finalize'
+import formsformDesigner from '../../apps/forms/admin/components/form_designer'
+import formsproductfield from '../../apps/forms/admin/components/productfield'
+import formsrulesfield from '../../apps/forms/admin/components/rulesfield'
 import competenciescommitments from '../../apps/learning/admin/components/commitments'
 import competenciesgoals from '../../apps/learning/admin/components/goals'
 import competenciesresources from '../../apps/learning/admin/components/resources'
@@ -161,8 +161,10 @@ import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
 import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
 import automationActivityCards from '../../apps/automation/admin/activities/index.js'
+import campaignsActivityCards from '../../apps/campaigns/admin/activities/index.js'
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
+import formsActivityCards from '../../apps/forms/admin/activities/index.js'
 import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/emails/index.js'
 import crmAdminDashboardFormIndexJs from '../../apps/crm/admin/dashboard/form/index.js'
 import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
@@ -212,8 +214,10 @@ class App extends React.Component {
   _getActivityCards() {
     return {
       ...automationActivityCards,
+      ...campaignsActivityCards,
       ...crmActivityCards,
       ...eventsActivityCards,
+      ...formsActivityCards,
     }
   }
 
@@ -388,9 +392,6 @@ class App extends React.Component {
       crmaccess,
       crmcheckboxesfield,
       crmintro,
-      crmformDesigner,
-      crmproductfield,
-      crmrulesfield,
       crmtimeline,
       driveaccess,
       driveexplorer,
@@ -404,6 +405,9 @@ class App extends React.Component {
       financelineItems,
       financeroutingnumberfield,
       financetripsImportFinalize,
+      formsformDesigner,
+      formsproductfield,
+      formsrulesfield,
       competenciescommitments,
       competenciesgoals,
       competenciesresources,

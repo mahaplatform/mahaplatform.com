@@ -139,7 +139,7 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'registered for' },
           { value: '$nct', text: 'did not registered for' }
         ] },
-        { name: 'Form', key: 'contact.form_ids', type: ListCriteria, endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        { name: 'Form', key: 'contact.form_ids', type: ListCriteria, endpoint: '/api/admin/forms/forms', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
           { value: '$ct', text: 'filled out' },
           { value: '$nct', text: 'did not fill out' }
         ] },

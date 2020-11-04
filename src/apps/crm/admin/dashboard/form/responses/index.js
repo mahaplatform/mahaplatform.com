@@ -38,7 +38,7 @@ class Responses extends React.Component {
   _getInfinite() {
     const { config, isExpanded } = this.props
     return {
-      endpoint: `/api/admin/crm/forms/${config.form_id}/responses`,
+      endpoint: `/api/admin/forms/forms/${config.form_id}/responses`,
       layout: Results,
       props: {
         config,

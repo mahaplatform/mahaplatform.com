@@ -179,7 +179,7 @@ class Button extends React.Component {
       ]
     } else if(config.link_strategy === 'form') {
       return [
-        { label: 'Form', name: 'form_id', type: 'lookup', endpoint: '/api/admin/crm/forms', value: 'id', text: 'title', defaultValue: config.form_id }
+        { label: 'Form', name: 'form_id', type: 'lookup', endpoint: '/api/admin/forms/forms', value: 'id', text: 'title', defaultValue: config.form_id }
       ]
     } else if(_.includes(['registration','calendar'], config.link_strategy)) {
       return [

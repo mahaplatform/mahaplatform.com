@@ -1,4 +1,4 @@
-import { createOrUpdateContact, createInvoice, handlePayment } from '../../../../../crm/services/forms'
+import { createOrUpdateContact, createInvoice, handlePayment } from '../../../../../forms/services/forms'
 import { enrollInWorkflows } from '../../../../../automation/services/workflows'
 import { checkToken } from '../../../../../../core/services/routes/checks'
 import { contactActivity } from '../../../../../crm/services/activities'

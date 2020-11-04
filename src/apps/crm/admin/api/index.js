@@ -6,7 +6,6 @@ import { Router } from 'express'
 import imports from './imports'
 import fields from './fields'
 import topics from './topics'
-import forms from './forms'
 import lists from './lists'
 import calls from './calls'
 
@@ -17,8 +16,6 @@ router.use('/calls', calls)
 router.use('/contacts', contacts)
 
 router.use('/fields', fields)
-
-router.use('/forms', forms)
 
 router.use('/imports', imports)
 

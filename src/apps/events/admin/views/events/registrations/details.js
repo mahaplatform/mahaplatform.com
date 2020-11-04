@@ -1,4 +1,4 @@
-import Content from '../../../../../crm/admin/tokens/content'
+import Content from '../../../../../forms/admin/tokens/content'
 import { Button, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'

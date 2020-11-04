@@ -1,4 +1,4 @@
-import Content from '../../../../../crm/admin/tokens/content'
+import Content from '../../../../../forms/admin/tokens/content'
 import { Page } from 'maha-admin'
 import React from 'react'
 

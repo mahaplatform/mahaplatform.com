@@ -21,7 +21,7 @@ class Form {
   _handleInit() {
     this.div = document.querySelectorAll(`[data-form="${this.code}"]`)[0]
     this.iframe = document.createElement('iframe')
-    this.iframe.src = `${process.env.WEB_HOST}/crm/forms/${this.code}?embedded`
+    this.iframe.src = `${process.env.WEB_HOST}/forms/forms/${this.code}?embedded`
     this.iframe.frameBorder = 0
     this.iframe.style.width = '100%'
     this.div.appendChild(this.iframe)
