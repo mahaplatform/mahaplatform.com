@@ -47,7 +47,7 @@ class Token extends React.Component {
   _handleFetch() {
     const { email_id } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/crm/emails/${email_id}`,
+      endpoint: `/api/admin/automation/emails/${email_id}`,
       onSuccess: this._handleSuccess
     })
   }

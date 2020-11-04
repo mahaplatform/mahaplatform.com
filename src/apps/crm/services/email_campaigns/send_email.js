@@ -1,7 +1,7 @@
+import { personalizeEmail } from '../../../automation/services/email'
 import generateCode from '../../../../core/utils/generate_code'
 import { encodeEmail } from '../../../maha/services/emails'
 import { sendMail } from '../../../../core/services/email'
-import { personalizeEmail } from '../../services/email'
 import EmailCampaign from '../../models/email_campaign'
 import EmailAddress from '../../models/email_address'
 import Email from '../../../maha/models/email'

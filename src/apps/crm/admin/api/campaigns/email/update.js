@@ -1,5 +1,5 @@
+import GenerateScreenshotQueue from '../../../../../automation/queues/generate_screenshot_queue'
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
-import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import { audit } from '../../../../../../core/services/routes/audit'

@@ -77,7 +77,7 @@ class Email extends React.PureComponent {
     return {
       label: 'Design Email',
       className: 'link',
-      route: `/admin/crm/emails/${config.email_id}/design`
+      route: `/admin/automation/emails/${config.email_id}/design`
     }
   }
 
@@ -86,7 +86,7 @@ class Email extends React.PureComponent {
     return {
       title: 'New Email',
       method: 'post',
-      action: '/api/admin/crm/emails',
+      action: '/api/admin/automation/emails',
       sections: [
         {
           fields: [

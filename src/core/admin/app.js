@@ -63,7 +63,12 @@ import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import adminuploader from './components/uploader'
 import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
+import automationdesigner from '../../apps/automation/admin/components/designer'
 import automationflowchartDesigner from '../../apps/automation/admin/components/flowchart_designer'
+import automationfollowsfield from '../../apps/automation/admin/components/followsfield'
+import automationimagesfield from '../../apps/automation/admin/components/imagesfield'
+import automationsharesfield from '../../apps/automation/admin/components/sharesfield'
+import automationvideofield from '../../apps/automation/admin/components/videofield'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
@@ -72,17 +77,12 @@ import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaccess from '../../apps/crm/admin/components/access'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmintro from '../../apps/crm/admin/components/contactimport/intro'
-import crmdesigner from '../../apps/crm/admin/components/designer'
-import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
-import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmproductfield from '../../apps/crm/admin/components/productfield'
 import crmrecordingfield from '../../apps/crm/admin/components/recordingfield'
 import crmrulesfield from '../../apps/crm/admin/components/rulesfield'
-import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
-import crmvideofield from '../../apps/crm/admin/components/videofield'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -376,7 +376,12 @@ class App extends React.Component {
       admintasks,
       adminuploader,
       appraisalsresponsibilities,
+      automationdesigner,
       automationflowchartDesigner,
+      automationfollowsfield,
+      automationimagesfield,
+      automationsharesfield,
+      automationvideofield,
       chatchannel,
       chatchannels,
       chatfullchat,
@@ -385,17 +390,12 @@ class App extends React.Component {
       crmaccess,
       crmcheckboxesfield,
       crmintro,
-      crmdesigner,
-      crmfollowsfield,
       crmformDesigner,
-      crmimagesfield,
       crmproductfield,
       crmrecordingfield,
       crmrulesfield,
-      crmsharesfield,
       crmsocialDesigner,
       crmtimeline,
-      crmvideofield,
       driveaccess,
       driveexplorer,
       drivemove,

@@ -1,4 +1,4 @@
-import BounceTypeToken from '../../../../tokens/bounce_type'
+import BounceTypeToken from '../../../../../../automation/admin/tokens/bounce_type'
 import ContactToken from '../../../../tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'

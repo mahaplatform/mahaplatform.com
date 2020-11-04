@@ -135,7 +135,7 @@ const criteria = (programfields) => [
       { value: '$wcm', text: 'enrolled and completed workflow' },
       { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
     ] },
-    { name: 'Workflow Email', key: 'email_id', type: ListCriteria, endpoint: '/api/admin/crm/emails', text: 'display_name', value: 'id', subject: false, comparisons: [
+    { name: 'Workflow Email', key: 'email_id', type: ListCriteria, endpoint: '/api/admin/automation/emails', text: 'display_name', value: 'id', subject: false, comparisons: [
       { value: '$se', text: 'was sent the email' },
       { value: '$nse', text: 'was not sent the email' },
       { value: '$de', text: 'received the email' },

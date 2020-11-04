@@ -1,4 +1,4 @@
-import EmailDeliverySerializer from '../../../../serializers/email_delivery_serializer'
+import EmailDeliverySerializer from '../../../../../automation/serializers/email_delivery_serializer'
 import EmailCampaign from '../../../../models/email_campaign'
 import Email from '../../../../../maha/models/email'
 

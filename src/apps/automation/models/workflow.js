@@ -7,9 +7,9 @@ import Event from '../../events/models/event'
 import Field from '../../maha/models/field'
 import WorkflowStep from './workflow_step'
 import Topic from '../../crm/models/topic'
-import Email from '../../crm/models/email'
 import Form from '../../crm/models/form'
 import List from '../../crm/models/list'
+import Email from './email'
 
 const Workflow = new Model({
 

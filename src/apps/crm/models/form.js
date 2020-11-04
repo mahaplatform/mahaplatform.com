@@ -1,8 +1,8 @@
 import Workflow from '../../automation/models/workflow'
+import Email from '../../automation/models/email'
 import Model from '../../../core/objects/model'
 import Response from './response'
 import Program from './program'
-import Email from './email'
 import moment from 'moment'
 
 const Form = new Model({

@@ -1,8 +1,8 @@
 import EmailCampaign from '../../crm/models/email_campaign'
 import EmailAddress from '../../crm/models/email_address'
+import CrmEmail from '../../automation/models/email'
 import Model from '../../../core/objects/model'
 import Contact from '../../crm/models/contact'
-import CrmEmail from '../../crm/models/email'
 import EmailActivity from './email_activity'
 import User from './user'
 

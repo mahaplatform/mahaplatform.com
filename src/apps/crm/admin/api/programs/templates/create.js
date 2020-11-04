@@ -1,9 +1,9 @@
-import GenerateScreenshotQueue from '../../../../queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '../../../../../automation/queues/generate_screenshot_queue'
 import TemplateSerializer from '../../../../serializers/template_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
+import { getDefaultConfig } from '../../../../../automation/services/email'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
-import { getDefaultConfig } from '../../../../services/email'
 import Template from '../../../../models/template'
 
 const getConfig = async (req, { config, program_id, template_id }) => {

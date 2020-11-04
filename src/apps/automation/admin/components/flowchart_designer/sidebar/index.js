@@ -1,6 +1,6 @@
-import Tokens from '../../../../../crm/admin/components/tokens'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Tokens from '../../tokens'
 import Content from './content'
 import React from 'react'
 import New from './new'

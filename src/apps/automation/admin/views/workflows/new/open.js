@@ -33,7 +33,7 @@ class Open extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'trigger_type', type: 'hidden', defaultValue: trigger_type },
             { label: 'Title', name: 'title', type: 'textfield', required: true, defaultValue: 'Email Open Workflow' },
-            { label: 'Email', name: 'email_id', type: 'lookup', required: true, endpoint: '/api/admin/crm/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
+            { label: 'Email', name: 'email_id', type: 'lookup', required: true, endpoint: '/api/admin/automation/emails', value: 'id', text: 'title', filter: { program_id: { $eq: program_id } } }
           ]
         }
       ]

@@ -1,6 +1,6 @@
-import EmailSerializer from '../../../../serializers/email_serializer'
+import EmailSerializer from '../../../../../automation/serializers/email_serializer'
+import Email from '../../../../../automation/models/email'
 import SMSCampaign from '../../../../models/sms_campaign'
-import Email from '../../../../models/email'
 
 const emailsRoute = async (req, res) => {
 

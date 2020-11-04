@@ -1,4 +1,4 @@
-import { personalizeEmail } from '../../../../crm/services/email'
+import { personalizeEmail } from '../../../../automation/services/email'
 import EmailActivity from '../../../models/email_activity'
 import Email from '../../../models/email'
 

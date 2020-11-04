@@ -1,4 +1,4 @@
-import EmailActivitySerializer from '../../../../serializers/email_activity_serializer'
+import EmailActivitySerializer from '../../../../../automation/serializers/email_activity_serializer'
 import EmailActivity from '../../../../../maha/models/email_activity'
 
 const activitiesRoute = async (req, res) => {

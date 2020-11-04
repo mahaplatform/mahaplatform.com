@@ -1,4 +1,4 @@
-import ImageField from '../../../imagefield'
+import ImageField from '../../../../../../automation/admin/components/imagefield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
