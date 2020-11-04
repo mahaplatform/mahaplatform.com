@@ -1,11 +1,11 @@
 import PhoneNumberSerializer from '../../../../../team/serializers/phone_number_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
+import VoiceCampaign from '../../../../../campaigns/models/voice_campaign'
+import SMSCampaign from '../../../../../campaigns/models/sms_campaign'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
-import VoiceCampaign from '../../../../models/voice_campaign'
 import twilio from '../../../../../../core/services/twilio'
-import SMSCampaign from '../../../../models/sms_campaign'
 import Program from '../../../../models/program'
 import moment from 'moment'
 

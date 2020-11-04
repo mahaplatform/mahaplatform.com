@@ -1,6 +1,5 @@
 import recordings from './recordings'
 import templates from './templates'
-import campaigns from './campaigns'
 import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
@@ -14,8 +13,6 @@ import calls from './calls'
 const router = new Router({ mergeParams: true })
 
 router.use('/calls', calls)
-
-router.use('/campaigns', campaigns)
 
 router.use('/contacts', contacts)
 

@@ -68,6 +68,7 @@ import automationflowchartDesigner from '../../apps/automation/admin/components/
 import automationfollowsfield from '../../apps/automation/admin/components/followsfield'
 import automationimagesfield from '../../apps/automation/admin/components/imagesfield'
 import automationsharesfield from '../../apps/automation/admin/components/sharesfield'
+import campaignsrecordingfield from '../../apps/campaigns/admin/components/recordingfield'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
@@ -78,9 +79,7 @@ import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmintro from '../../apps/crm/admin/components/contactimport/intro'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmproductfield from '../../apps/crm/admin/components/productfield'
-import crmrecordingfield from '../../apps/crm/admin/components/recordingfield'
 import crmrulesfield from '../../apps/crm/admin/components/rulesfield'
-import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
@@ -380,6 +379,7 @@ class App extends React.Component {
       automationfollowsfield,
       automationimagesfield,
       automationsharesfield,
+      campaignsrecordingfield,
       chatchannel,
       chatchannels,
       chatfullchat,
@@ -390,9 +390,7 @@ class App extends React.Component {
       crmintro,
       crmformDesigner,
       crmproductfield,
-      crmrecordingfield,
       crmrulesfield,
-      crmsocialDesigner,
       crmtimeline,
       driveaccess,
       driveexplorer,

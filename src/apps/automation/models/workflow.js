@@ -1,4 +1,4 @@
-import EmailCampaign from '../../crm/models/email_campaign'
+import EmailCampaign from '../../campaigns/models/email_campaign'
 import WorkflowEnrollment from './workflow_enrollment'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'

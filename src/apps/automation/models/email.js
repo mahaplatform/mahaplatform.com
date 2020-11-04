@@ -1,5 +1,5 @@
-import VoiceCampaign from '../../crm/models/voice_campaign'
-import SMSCampaign from '../../crm/models/sms_campaign'
+import VoiceCampaign from '../../campaigns/models/voice_campaign'
+import SMSCampaign from '../../campaigns/models/sms_campaign'
 import Workflow from '../../automation/models/workflow'
 import Model from '../../../core/objects/model'
 import MahaEmail from '../../maha/models/email'

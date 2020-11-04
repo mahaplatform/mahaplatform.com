@@ -1,4 +1,4 @@
-import EmailCampaign from '../../../../crm/models/email_campaign'
+import EmailCampaign from '../../../../campaigns/models/email_campaign'
 import renderEmail from '../../../services/email/render_email'
 import Template from '../../../../crm/models/template'
 import Email from '../../../models/email'

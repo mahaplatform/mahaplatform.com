@@ -1,6 +1,6 @@
 import { getScreenshot } from '../../../../core/services/screenshot'
+import EmailCampaign from '../../../campaigns/models/email_campaign'
 import socket from '../../../../core/services/routes/emitter'
-import EmailCampaign from '../../../crm/models/email_campaign'
 import Template from '../../../crm/models/template'
 import s3 from '../../../../core/services/s3'
 import renderEmail from './render_email'

@@ -1,4 +1,4 @@
-import EmailCampaign from '../../crm/models/email_campaign'
+import EmailCampaign from '../../campaigns/models/email_campaign'
 import EmailAddress from '../../crm/models/email_address'
 import CrmEmail from '../../automation/models/email'
 import Model from '../../../core/objects/model'

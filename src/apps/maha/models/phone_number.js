@@ -1,5 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import VoiceCampaign from '../../crm/models/voice_campaign'
+import VoiceCampaign from '../../campaigns/models/voice_campaign'
 import Model from '../../../core/objects/model'
 import Program from '../../crm/models/program'
 

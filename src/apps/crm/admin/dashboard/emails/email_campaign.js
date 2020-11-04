@@ -1,7 +1,7 @@
+import Performance from '../../../../campaigns/admin/views/email/performance'
 import { Button, Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Performance from '../../views/campaigns/email/performance.js'
 
 class EmailCampaign extends React.Component {
 

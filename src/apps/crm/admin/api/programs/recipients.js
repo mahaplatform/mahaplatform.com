@@ -1,5 +1,5 @@
-import RecipientSerializer from '../../../serializers/recipient_serializer'
-import { getRecipients } from '../../../services/recipients'
+import RecipientSerializer from '../../../../campaigns/serializers/recipient_serializer'
+import { getRecipients } from '../../../../campaigns/services/recipients'
 
 const getStrategy = ({ $filter, contact_ids, filter_id, list_id, topic_id }) => {
   if($filter && $filter.q !== undefined) return 'lookup'

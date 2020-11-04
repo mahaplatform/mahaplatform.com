@@ -1,5 +1,5 @@
+import { createDefaultInboundCampaign } from '../../../../../campaigns/services/voice_campaigns'
 import PhoneNumberSerializer from '../../../../../team/serializers/phone_number_serializer'
-import { createDefaultInboundCampaign } from '../../../../services/voice_campaigns'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'

@@ -1,24 +1,3 @@
-import CampaignsEmailList from './campaigns/email/list'
-import CampaignsEmailShow from './campaigns/email/show'
-import CampaignsEmailActivities from './campaigns/email/activities'
-import CampaignsEmailBouncesList from './campaigns/email/deliveries/bounces'
-import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
-import CampaignsEmailDesign from './campaigns/email/design'
-import CampaignsSmsInbound from './campaigns/sms/inbound'
-import CampaignsSmsOutbound from './campaigns/sms/outbound'
-import CampaignsSmsShow from './campaigns/sms/show'
-import CampaignsSmsDesign from './campaigns/sms/design'
-import CampaignsSmsSessionsList from './campaigns/sms/sessions/list'
-import CampaignsSmsSessionsShow from './campaigns/sms/sessions/show'
-import CampaignsVoiceInbound from './campaigns/voice/inbound'
-import CampaignsVoiceOutbound from './campaigns/voice/outbound'
-import CampaignsVoiceShow from './campaigns/voice/show'
-import CampaignsVoiceDesign from './campaigns/voice/design'
-import CampaignsVoiceRecordings from './campaigns/voice/recordings'
-import CampaignsVoiceVoicemailsList from './campaigns/voice/voicemails/list'
-import CampaignsVoiceVoicemailsShow from './campaigns/voice/voicemails/show'
-import CampaignsVoiceCallsList from './campaigns/voice/calls/list'
-import CampaignsVoiceCallsShow from './campaigns/voice/calls/show'
 import ContactsChannelsShow from './contacts/channels'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
@@ -39,27 +18,6 @@ import TemplatesShow from './programs/show/templates/show'
 import TemplatesDesign from './programs/show/templates/design'
 
 const routes = [
-  { path: '/campaigns/email', component: CampaignsEmailList },
-  { path: '/campaigns/email/:id', component: CampaignsEmailShow },
-  { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
-  { path: '/campaigns/email/:email_id/bounces', component: CampaignsEmailBouncesList },
-  { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
-  { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
-  { path: '/campaigns/sms/outbound', component: CampaignsSmsOutbound },
-  { path: '/campaigns/sms/inbound', component: CampaignsSmsInbound },
-  { path: '/campaigns/sms/:id', component: CampaignsSmsShow },
-  { path: '/campaigns/sms/:id/design', component: CampaignsSmsDesign },
-  { path: '/campaigns/sms/:campaign_id/sessions', component: CampaignsSmsSessionsList },
-  { path: '/campaigns/sms/:campaign_id/sessions/:id', component: CampaignsSmsSessionsShow },
-  { path: '/campaigns/voice/outbound', component: CampaignsVoiceOutbound },
-  { path: '/campaigns/voice/inbound', component: CampaignsVoiceInbound },
-  { path: '/campaigns/voice/:id', component: CampaignsVoiceShow },
-  { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
-  { path: '/campaigns/voice/:campaign_id/recordings', component: CampaignsVoiceRecordings },
-  { path: '/campaigns/voice/:campaign_id/voicemails', component: CampaignsVoiceVoicemailsList },
-  { path: '/campaigns/voice/:campaign_id/voicemails/:id', component: CampaignsVoiceVoicemailsShow },
-  { path: '/campaigns/voice/:campaign_id/calls', component: CampaignsVoiceCallsList },
-  { path: '/campaigns/voice/:campaign_id/calls/:id', component: CampaignsVoiceCallsShow },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/contacts/:contact_id/calls/:id', component: ContactsCallsShow },
