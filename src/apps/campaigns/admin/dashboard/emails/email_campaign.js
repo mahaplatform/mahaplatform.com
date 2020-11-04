@@ -48,7 +48,7 @@ class EmailCampaign extends React.Component {
       label: ' Manage Campaign',
       icon: 'gear',
       className: 'link',
-      route: `/admin/crm/campaigns/email/${campaign.id}`
+      route: `/admin/campaigns/email/${campaign.id}`
     }
   }
 
@@ -67,7 +67,7 @@ class EmailCampaign extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  performance: `/api/admin/crm/campaigns/email/${props.campaign.id}/performance`
+  performance: `/api/admin/campaigns/email/${props.campaign.id}/performance`
 })
 
 export default Container(mapResources)(EmailCampaign)

@@ -3,7 +3,6 @@ const app = {
   title: 'Events',
   path: '/events',
   description: '',
-  color: 'orange',
   icon: 'calendar-o'
 }
 

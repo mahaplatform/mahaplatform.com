@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 import React from 'react'
 import FormDesigner from './form_designer.js'
 
-describe('src/apps/crm/admin/components/form_designer', () => {
+describe('src/apps/forms/admin/components/form_designer', () => {
 
   describe('/actions.js', () => {
 

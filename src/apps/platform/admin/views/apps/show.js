@@ -12,7 +12,7 @@ class AppsShow extends React.Component {
     const { app } = this.props
     return (
       <div className="maha-app-detail">
-        <div className={ `maha-app-detail-header ${app.color}` }>
+        <div className="maha-app-detail-header">
           <i className={ `fa fa-fw fa-${app.icon}` } />
         </div>
         <div className="maha-app-detail-body">
@@ -38,8 +38,7 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.app.title,
-  component: AppsShow,
-  color: resources.app.color
+  component: AppsShow
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -3,7 +3,6 @@ const app = {
   title: 'Forms',
   path: '/forms',
   description: '',
-  color: '',
   icon: 'check-square-o'
 }
 

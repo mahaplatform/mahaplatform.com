@@ -41,16 +41,16 @@ class VoiceCampaign extends React.PureComponent {
     return {
       label: voice_campaign.title,
       className: 'link',
-      route: `/admin/crm/campaigns/sms/${voice_campaign.id}`
+      route: `/admin/campaigns/sms/${voice_campaign.id}`
     }
   }
 
 }
 
 const mapResources = (props, context) => ({
-  actions: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}/actions`,
-  voice_campaign: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}`,
-  enrollment: `/api/admin/crm/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}`
+  actions: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}/actions`,
+  voice_campaign: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}`,
+  enrollment: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}`
 })
 
 export default Container(mapResources)(VoiceCampaign)

@@ -80,8 +80,8 @@ const createRoute = async (req, res) => {
     })
 
     await socket.refresh(req, [
-      '/admin/crm/campaigns/voice/inbound',
-      `/admin/crm/campaigns/voice/${voice_campaign.id}`
+      '/admin/campaigns/voice/inbound',
+      `/admin/campaigns/voice/${voice_campaign.id}`
     ])
 
   })
@@ -109,8 +109,8 @@ const createRoute = async (req, res) => {
     })
 
     await socket.refresh(req, [
-      '/admin/crm/campaigns/sms/inbound',
-      `/admin/crm/campaigns/sms/${sms_campaign.id}`
+      '/admin/campaigns/sms/inbound',
+      `/admin/campaigns/sms/${sms_campaign.id}`
     ])
 
   })

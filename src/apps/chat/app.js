@@ -3,7 +3,6 @@ const app = {
   title: 'Chat',
   path: '/chat',
   description: 'Organization chat',
-  color: 'violet',
   icon: 'comments'
 }
 

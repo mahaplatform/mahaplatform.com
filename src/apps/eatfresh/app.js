@@ -3,7 +3,6 @@ const app = {
   title: 'Eat Fresh',
   path: '/eatfresh',
   description: 'Help tourists find local food and farm resources',
-  color: 'orange',
   icon: 'spoon'
 }
 

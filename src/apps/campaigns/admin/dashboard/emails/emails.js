@@ -46,7 +46,7 @@ class Emails extends React.Component {
   _getInfinite() {
     const { config } = this.props
     return {
-      endpoint: '/api/admin/crm/campaigns/email',
+      endpoint: '/api/admin/campaigns/email',
       filter: {
         program_id: {
           $eq: config.program_id

@@ -1,19 +1,11 @@
 import PropTypes from 'prop-types'
+import { Logo } from 'maha-admin'
 import React from 'react'
 
-const types = {
-  form: 'check-square',
-  event: 'calendar',
-  workflow: 'gear',
-  basic: 'envelope-open'
-}
-
-const EmailToken = ({ display_name, type }) => (
+const EmailToken = ({ display_name, program, type }) => (
   <div className="crm-email-token">
-    <div className="crm-email-token-type">
-      <div className={`crm-email-token-icon ${type}`}>
-        <i className={`fa fa-${types[type]}`} />
-      </div>
+    <div className="crm-email-token-logo">
+      <Logo team={ program } width="24" />
     </div>
     <div className="crm-email-token-label">
       { display_name }
@@ -23,6 +15,7 @@ const EmailToken = ({ display_name, type }) => (
 
 EmailToken.propTypes = {
   display_name: PropTypes.string,
+  program: PropTypes.object,
   type: PropTypes.string
 }
 

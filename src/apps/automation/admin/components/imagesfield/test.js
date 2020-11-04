@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 import React from 'react'
 import Imagesfield from './imagesfield.js'
 
-describe('src/apps/crm/admin/components/designer/imagesfield', () => {
+describe('src/apps/automation/admin/components/designer/imagesfield', () => {
 
   describe('/actions.js', () => {
 

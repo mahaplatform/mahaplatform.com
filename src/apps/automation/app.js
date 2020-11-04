@@ -3,7 +3,6 @@ const app = {
   title: 'Automation',
   path: '/automation',
   description: '',
-  color: '',
   icon: 'gears'
 }
 

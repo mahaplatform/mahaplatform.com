@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 import React from 'react'
 import Rulesfield from './rulesfield.js'
 
-describe('src/apps/crm/admin/components/rulesfield', () => {
+describe('src/apps/forms/admin/components/rulesfield', () => {
 
   describe('/actions.js', () => {
 

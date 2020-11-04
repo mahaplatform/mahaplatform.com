@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 import React from 'react'
 import VoiceDesigner from './voice_designer.js'
 
-describe('src/apps/crm/admin/components/voice_designer', () => {
+describe('src/apps/automation/admin/components/voice_designer', () => {
 
   describe('/actions.js', () => {
 

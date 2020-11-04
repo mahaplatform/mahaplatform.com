@@ -2,6 +2,6 @@ import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
 import show from './show'
 
-describe('src/apps/crm/admin/api/emails/show.js', () => {
+describe('src/apps/automation/admin/api/emails/show.js', () => {
 
 })

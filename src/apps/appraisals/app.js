@@ -3,7 +3,6 @@ const app = {
   title: 'Appraisals',
   path: '/appraisals',
   description: 'Performance appraisal Management',
-  color: 'orange',
   icon: 'check'
 }
 

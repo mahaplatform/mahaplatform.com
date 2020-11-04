@@ -3,7 +3,6 @@ const app = {
   title: 'Drive',
   path: '/drive',
   description: 'Organizational File System',
-  color: 'teal',
   icon: 'hdd-o'
 }
 

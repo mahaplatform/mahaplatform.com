@@ -100,14 +100,14 @@ const getWorkflow = async (req, { enrollment }) => {
 const refresh = async (req, { enrollment }) => {
   await socket.refresh(req, [
     ...enrollment.get('voice_campaign_id') ? [
-      '/admin/crm/campaigns/voice',
-      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}`,
-      `/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}/calls`
+      '/admin/campaigns/voice',
+      `/admin/campaigns/voice/${enrollment.get('voice_campaign_id')}`,
+      `/admin/campaigns/voice/${enrollment.get('voice_campaign_id')}/calls`
     ] : [],
     ...enrollment.get('sms_campaign_id') ? [
-      '/admin/crm/campaigns/sms',
-      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}`,
-      `/admin/crm/campaigns/sms/${enrollment.get('sms_campaign_id')}/sessions`
+      '/admin/campaigns/sms',
+      `/admin/campaigns/sms/${enrollment.get('sms_campaign_id')}`,
+      `/admin/campaigns/sms/${enrollment.get('sms_campaign_id')}/sessions`
     ] : [],
     ...enrollment.get('workflow_id') ? [
       '/admin/automation/workflows',
@@ -224,7 +224,7 @@ const saveResults = async (req, params) => {
       recording_data
     })
 
-    params.action.data[step.get('config').code] = `${process.env.WEB_HOST}/admin/crm/campaigns/voice/${enrollment.get('voice_campaign_id')}/voicemails/${recording.get('id')}`
+    params.action.data[step.get('config').code] = `${process.env.WEB_HOST}/admin/campaigns/voice/${enrollment.get('voice_campaign_id')}/voicemails/${recording.get('id')}`
 
   }
 

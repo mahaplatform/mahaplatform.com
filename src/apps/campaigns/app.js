@@ -3,7 +3,6 @@ const app = {
   title: 'Campaigns',
   path: '/campaigns',
   description: '',
-  color: '',
   icon: 'bullhorn'
 }
 

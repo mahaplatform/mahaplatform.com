@@ -41,16 +41,16 @@ class SMSCampaign extends React.PureComponent {
     return {
       label: sms_campaign.title,
       className: 'link',
-      route: `/admin/crm/campaigns/sms/${sms_campaign.id}`
+      route: `/admin/campaigns/sms/${sms_campaign.id}`
     }
   }
 
 }
 
 const mapResources = (props, context) => ({
-  actions: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}/actions`,
-  sms_campaign: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}`,
-  enrollment: `/api/admin/crm/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}`
+  actions: `/api/admin/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}/actions`,
+  sms_campaign: `/api/admin/campaigns/sms/${props.activity.data.sms_campaign_id}`,
+  enrollment: `/api/admin/campaigns/sms/${props.activity.data.sms_campaign_id}/sessions/${props.activity.data.enrollment_id}`
 })
 
 export default Container(mapResources)(SMSCampaign)

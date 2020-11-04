@@ -165,12 +165,12 @@ import campaignsActivityCards from '../../apps/campaigns/admin/activities/index.
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
 import formsActivityCards from '../../apps/forms/admin/activities/index.js'
-import crmAdminDashboardEmailsIndexJs from '../../apps/crm/admin/dashboard/emails/index.js'
-import crmAdminDashboardFormIndexJs from '../../apps/crm/admin/dashboard/form/index.js'
+import campaignsAdminDashboardEmailsIndexJs from '../../apps/campaigns/admin/dashboard/emails/index.js'
 import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
 import financeAdminDashboardAdminOverviewIndexJs from '../../apps/finance/admin/dashboard/admin_overview/index.js'
 import financeAdminDashboardExpenseApprovalsIndexJs from '../../apps/finance/admin/dashboard/expense_approvals/index.js'
 import financeAdminDashboardNewItemIndexJs from '../../apps/finance/admin/dashboard/new_item/index.js'
+import formsAdminDashboardFormIndexJs from '../../apps/forms/admin/dashboard/form/index.js'
 import mahaAdminDashboardGreetingIndexJs from '../../apps/maha/admin/dashboard/greeting/index.js'
 import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
@@ -259,16 +259,10 @@ class App extends React.Component {
   _getDashboardCards() {
     return [
       {
-        ...crmAdminDashboardEmailsIndexJs,
-        app: 'crm',
-        type: crmAdminDashboardEmailsIndexJs.code,
-        code: 'crm:'+crmAdminDashboardEmailsIndexJs.code
-      },
-      {
-        ...crmAdminDashboardFormIndexJs,
-        app: 'crm',
-        type: crmAdminDashboardFormIndexJs.code,
-        code: 'crm:'+crmAdminDashboardFormIndexJs.code
+        ...campaignsAdminDashboardEmailsIndexJs,
+        app: 'campaigns',
+        type: campaignsAdminDashboardEmailsIndexJs.code,
+        code: 'campaigns:'+campaignsAdminDashboardEmailsIndexJs.code
       },
       {
         ...eventsAdminDashboardEventDetailIndexJs,
@@ -293,6 +287,12 @@ class App extends React.Component {
         app: 'finance',
         type: financeAdminDashboardNewItemIndexJs.code,
         code: 'finance:'+financeAdminDashboardNewItemIndexJs.code
+      },
+      {
+        ...formsAdminDashboardFormIndexJs,
+        app: 'forms',
+        type: formsAdminDashboardFormIndexJs.code,
+        code: 'forms:'+formsAdminDashboardFormIndexJs.code
       },
       {
         ...mahaAdminDashboardGreetingIndexJs,

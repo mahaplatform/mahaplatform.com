@@ -3,7 +3,6 @@ const app = {
   title: 'Team',
   path: '/team',
   description: 'Manage platform configuration, users, apps, and access',
-  color: 'red',
   icon: 'users'
 }
 

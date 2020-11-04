@@ -69,7 +69,7 @@ const criteria = (programfields) => [
     ] }
   ] },
   { label: 'Activities', fields: [
-    { name: 'Email Campaign', key: 'email_campaign_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id', subject: false, comparisons: [
+    { name: 'Email Campaign', key: 'email_campaign_id', type: ListCriteria, endpoint: '/api/admin/campaigns/email', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$se', text: 'was sent the email' },
       { value: '$nse', text: 'was not sent the email' },
       { value: '$de', text: 'received the email' },
@@ -91,7 +91,7 @@ const criteria = (programfields) => [
       { value: '$jeq', text: 'was included in import' },
       { value: '$njeq', text: 'was not included in import' }
     ] },
-    { name: 'Inbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/sms/inbound', text: 'title', value: 'id', subject: false, comparisons: [
+    { name: 'Inbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/campaigns/sms/inbound', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$jeq', text: 'enrolled in workflow' },
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },
@@ -99,7 +99,7 @@ const criteria = (programfields) => [
       { value: '$wcm', text: 'enrolled and completed workflow' },
       { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
     ] },
-    { name: 'Inbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/voice/inbound', text: 'title', value: 'id', subject: false, comparisons: [
+    { name: 'Inbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/campaigns/voice/inbound', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$jeq', text: 'enrolled in workflow' },
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },
@@ -107,7 +107,7 @@ const criteria = (programfields) => [
       { value: '$wcm', text: 'enrolled and completed workflow' },
       { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
     ] },
-    { name: 'Outbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/sms/outbound', text: 'title', value: 'id', subject: false, comparisons: [
+    { name: 'Outbound SMS Campaign', key: 'sms_enrollment_id', type: ListCriteria, endpoint: '/api/admin/campaigns/sms/outbound', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$jeq', text: 'enrolled in workflow' },
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },
@@ -115,7 +115,7 @@ const criteria = (programfields) => [
       { value: '$wcm', text: 'enrolled and completed workflow' },
       { value: '$nwcm', text: 'enrolled, but did not complete workflow' }
     ] },
-    { name: 'Outbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/crm/campaigns/voice/outbound', text: 'title', value: 'id', subject: false, comparisons: [
+    { name: 'Outbound Voice Campaign', key: 'voice_enrollment_id', type: ListCriteria, endpoint: '/api/admin/campaigns/voice/outbound', text: 'title', value: 'id', subject: false, comparisons: [
       { value: '$jeq', text: 'enrolled in workflow' },
       { value: '$njeq', text: 'not enrolled in workflow' },
       { value: '$wcv', text: 'enrolled and coverted in workflow' },

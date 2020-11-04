@@ -125,7 +125,7 @@ class FlowchartDesigner extends React.PureComponent {
         ] }
       ] },
       { label: 'Activities', fields: [
-        { name: 'Email Campaigns', key: 'contact.email_campaigns', type: 'select', endpoint: '/api/admin/crm/campaigns/email', filter:  { program_id: { $eq: program.id } }, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        { name: 'Email Campaigns', key: 'contact.email_campaigns', type: 'select', endpoint: '/api/admin/campaigns/email', filter:  { program_id: { $eq: program.id } }, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
           { text: 'was sent the email', value: '$se' },
           { text: 'was not sent the email', value: '$nse' },
           { text: 'received the email', value: '$de' },
@@ -241,7 +241,7 @@ class FlowchartDesigner extends React.PureComponent {
 
   _getWorkflowEmailsEndpoint() {
     const { campaign, workflow } = this.props
-    if(campaign) return `/api/admin/crm/campaigns/${campaign.type}/${campaign.id}/emails`
+    if(campaign) return `/api/admin/campaigns/${campaign.type}/${campaign.id}/emails`
     if(workflow) return `/api/admin/automation/workflows/${workflow.id}/emails`
   }
 

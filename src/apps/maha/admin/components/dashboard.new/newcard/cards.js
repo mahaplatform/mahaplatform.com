@@ -38,7 +38,6 @@ class Cards extends React.Component {
 
   _getApp(app) {
     return {
-      color: app.color,
       icon: app.icon,
       title: app.label
     }

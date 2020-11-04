@@ -13,7 +13,7 @@ class AppsShow extends React.Component {
     const { app } = this.props
     return (
       <div className="maha-app-detail">
-        <div className={ `maha-app-detail-header ${app.color}` }>
+        <div className="maha-app-detail-header">
           <i className={ `fa fa-fw fa-${app.icon}` } />
         </div>
       </div>
@@ -54,7 +54,6 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources) => ({
   title: resources.app.title,
-  color: resources.app.color,
   rights: ['team:manage_apps'],
   tabs: getTabs(resources, context),
   tasks: context.configuration.settings[resources.app.code] ? {

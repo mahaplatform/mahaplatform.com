@@ -17,7 +17,7 @@ const Details = ({ audits, program }) => {
     const inbound_voice = {
       label: 'Manage Workflow',
       className: 'link',
-      route: `/admin/crm/campaigns/voice/${program.voice_campaign.id}`
+      route: `/admin/campaigns/voice/${program.voice_campaign.id}`
     }
 
     list.items.push({ label: 'Inbound Voice', content: <Button { ...inbound_voice } /> })

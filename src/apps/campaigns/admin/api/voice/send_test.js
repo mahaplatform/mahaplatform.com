@@ -2,6 +2,6 @@ import { testHandler } from '../../../../core/utils/test'
 import { expect } from 'chai'
 import send from './send'
 
-describe('src/apps/crm/admin/api/campaigns/voice/send.js', () => {
+describe('src/apps/campaigns/admin/api/campaigns/voice/send.js', () => {
 
 })

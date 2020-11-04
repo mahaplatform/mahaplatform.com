@@ -12,8 +12,8 @@ const processor = async (req, job) => {
 }
 
 const refresh = async (req, job) => [
-  '/admin/crm/campaigns/voice',
-  `/admin/crm/campaigns/voice/${job.data.voice_campaign_id}`
+  '/admin/campaigns/voice',
+  `/admin/campaigns/voice/${job.data.voice_campaign_id}`
 ]
 
 const SaveWorkflowRecordingQueue = new Queue({

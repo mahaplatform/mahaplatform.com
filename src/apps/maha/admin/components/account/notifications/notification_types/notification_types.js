@@ -30,7 +30,7 @@ class NotificationTypes extends React.Component {
         <div className="maha-notification-types">
           { items.map((app, index) => [
             <div className="maha-notification-types-app" key={`app_${index}`}>
-              <div className={`maha-notification-types-app-icon ${app.color}`}>
+              <div className="maha-notification-types-app-icon">
                 <i className={`fa fa-fw fa-${app.icon}`} />
               </div>
               { app.title }

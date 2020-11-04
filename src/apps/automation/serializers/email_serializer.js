@@ -42,7 +42,8 @@ const program = (program) => {
   if(!program.id) return
   return {
     id: program.get('id'),
-    title: program.get('title')
+    title: program.get('title'),
+    logo: program.related('logo') ? program.related('logo').get('path') : null
   }
 }
 

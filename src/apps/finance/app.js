@@ -4,7 +4,6 @@ const app = {
   path: '/finance',
   aliases: ['/expenses'],
   description: 'Manage revenue and expenses',
-  color: 'green',
   icon: 'dollar'
 }
 

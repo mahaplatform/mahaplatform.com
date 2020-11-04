@@ -1,4 +1,3 @@
-import ContactField from '../../contactfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

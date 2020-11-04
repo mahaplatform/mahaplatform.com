@@ -24,7 +24,7 @@ class AppItems extends React.Component {
       <div className="maha-subscription">
         { items.map((app, index) => [
           <div className="maha-subscription-app" key={`app_${index}`}>
-            <div className={`maha-subscription-app-icon ${app.color}`}>
+            <div className="maha-subscription-app-icon">
               <i className={`fa fa-fw fa-${app.icon}`} />
             </div>
             { app.title }

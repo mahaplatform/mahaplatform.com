@@ -60,7 +60,7 @@ class EmailCampaign extends React.PureComponent {
     return {
       label: email_campaign.title,
       className: 'link',
-      route: `/admin/crm/campaigns/email/${email_campaign.id}`
+      route: `/admin/campaigns/email/${email_campaign.id}`
     }
   }
 
@@ -85,8 +85,8 @@ class EmailCampaign extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  email_campaign: `/api/admin/crm/campaigns/email/${props.activity.data.email_campaign_id}`,
-  email: `/api/admin/crm/campaigns/email/${props.activity.data.email_campaign_id}/deliveries/${props.activity.data.email_id}`
+  email_campaign: `/api/admin/campaigns/email/${props.activity.data.email_campaign_id}`,
+  email: `/api/admin/campaigns/email/${props.activity.data.email_campaign_id}/deliveries/${props.activity.data.email_id}`
 })
 
 export default Container(mapResources)(EmailCampaign)

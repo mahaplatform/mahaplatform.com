@@ -3,7 +3,6 @@ const app = {
   title: 'CRM',
   path: '/crm',
   description: '',
-  color: 'purple',
   icon: 'user'
 }
 
