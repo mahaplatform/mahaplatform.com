@@ -60,17 +60,19 @@ const getValue = async (req, { field, value }) => {
 }
 
 
-const expandValues = async (req, parent_type, parent_id, data, withNames = true) => {
+const expandValues = async (req, { parent_type, parent_id, data, withNames }) => {
 
-  const fields = await Field.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('parent_type', parent_type)
-    if(parent_id) qb.where('parent_id', parent_id)
-  }).fetchAll({
-    transacting: req.trx
-  })
+  if(!req.fields) {
+    req.fields = await Field.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('parent_type', parent_type)
+      if(parent_id) qb.where('parent_id', parent_id)
+    }).fetchAll({
+      transacting: req.trx
+    }).then(result => result.toArray())
+  }
 
-  const fieldMap = fields.toArray().reduce((map, field) => ({
+  const fieldMap = req.fields.reduce((map, field) => ({
     ...map,
     [field.get('code')]: field
   }), {})
@@ -81,7 +83,7 @@ const expandValues = async (req, parent_type, parent_id, data, withNames = true)
 
     const field = fieldMap[code]
 
-    const key = withNames ? fieldMap[code].get('name').token : code
+    const key = withNames !== true ? code : fieldMap[code].get('name').token
 
     const value = await Promise.map(data[code], async(value) => {
       return await getValue(req, {

@@ -14,6 +14,7 @@ const Select = (multiple) => {
       deselectable: PropTypes.bool,
       endpoint: PropTypes.string,
       format: PropTypes.any,
+      height: PropTypes.number,
       items: PropTypes.array,
       multiple: PropTypes.bool,
       options: PropTypes.array,
@@ -60,16 +61,23 @@ const Select = (multiple) => {
               There are no options
             </div>
           }
-          { items.map((option, index) => (
-            <div key={`option_${index}`} { ...this._getItem(option) }>
-              <div className="maha-select-option-icon">
-                <i className={`fa fa-fw fa-${this._getItemIcon(option)}`} />
+          <div className="maha-select-options" style={ this._getStyle() }>
+            { items.length === 0 &&
+              <div className="maha-select-option-empty">
+                There are no options
               </div>
-              <div className="maha-select-option-label">
-                <Format { ...option } format={ format } value={ _.get(option, value) } text={ _.get(option, text) } />
+            }
+            { items.map((option, index) => (
+              <div key={`option_${index}`} { ...this._getItem(option) }>
+                <div className="maha-select-option-icon">
+                  <i className={`fa fa-fw fa-${this._getItemIcon(option)}`} />
+                </div>
+                <div className="maha-select-option-label">
+                  <Format { ...option } format={ format } value={ _.get(option, value) } text={ _.get(option, text) } />
+                </div>
               </div>
-            </div>
-          )) }
+            )) }
+          </div>
         </div>
       )
     }
@@ -115,12 +123,6 @@ const Select = (multiple) => {
       }
     }
 
-    _getSelected(option) {
-      const { selected } = this.props
-      const value = _.get(option, this.props.value)
-      return _.includes(selected, value)
-    }
-
     _getItemClass(option) {
       const classes = ['maha-select-option']
       if(this._getSelected(option)) classes.push('selected')
@@ -132,6 +134,21 @@ const Select = (multiple) => {
       const selected = this._getSelected(option)
       if(selected) return multiple ? 'check-square' : 'check-circle'
       if(!selected) return multiple ? 'square-o' : 'circle-o'
+    }
+
+    _getSelected(option) {
+      const { selected } = this.props
+      const value = _.get(option, this.props.value)
+      return _.includes(selected, value)
+    }
+
+    _getStyle() {
+      const { height } = this.props
+      if(!height) return {}
+      return {
+        overflowY: 'scroll',
+        maxHeight: height
+      }
     }
 
     _handleSetOptions(options) {

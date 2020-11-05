@@ -5,12 +5,14 @@ class EmailField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
+    placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
 
   static defaultProps = {
+    placeholder: 'Enter Email Address',
     onChange: () => {},
     onReady: () => {}
   }
@@ -54,11 +56,11 @@ class EmailField extends React.Component {
 
   _getInput() {
     const { tabIndex } = this.props
-    const { value } = this.state
+    const { placeholder, value } = this.state
     return {
       className: 'ui input',
       type: 'email',
-      placeholder: 'Enter email address',
+      placeholder,
       tabIndex,
       value,
       ref: node => this.email = node,

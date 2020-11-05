@@ -27,6 +27,7 @@ import users from './users'
 import react from './react'
 import links from './links'
 import stars from './stars'
+import exp from './exports'
 import help from './help'
 
 const router = new Router({ mergeParams: true })
@@ -46,6 +47,8 @@ router.use('/dashboard', dashboard)
 router.use('/devices', devices)
 
 router.use('/emails', emails)
+
+router.use('/exports', exp)
 
 router.use('/help', help)
 

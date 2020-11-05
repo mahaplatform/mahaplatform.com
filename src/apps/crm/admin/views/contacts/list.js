@@ -47,8 +47,29 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'last_name', order: 'asc' },
     export: [
       { label: 'ID', key: 'id' },
-      { label: 'Name', key: 'full_name' },
-      { label: 'Email', key: 'email' }
+      { label: 'First Name', key: 'first_name' },
+      { label: 'Last Name', key: 'last_name' },
+      { label: 'Email', key: 'email' },
+      { label: 'Phone', key: 'phone' },
+      { label: 'Address - Full Address', key: 'address.description' },
+      { label: 'Address - Street 1', key: 'address.street_1' },
+      { label: 'Address - Street 2', key: 'address.street_2' },
+      { label: 'Address - City', key: 'address.city' },
+      { label: 'Address - State/Province', key: 'address.state_province' },
+      { label: 'Address - Postal Code', key: 'address.postal_code' },
+      { label: 'Address - Latitude', key: 'address.latitude' },
+      { label: 'Address - Longitude', key: 'address.longitude' },
+      { label: 'Organization', key: 'organization' },
+      { label: 'Job/Title', key: 'position' },
+      { label: 'Birthday', key: 'birthday' },
+      { label: 'Spouse', key: 'spouse' },
+      ...resources.fields.reduce((fields, program) => [
+        ...fields,
+        ...program.fields.map(field => ({
+          label: `${program.title} - ${field.name.value}`,
+          key: `values.${field.code}`
+        }))
+      ], [])
     ],
     empty: {
       icon: 'user-circle',

@@ -5,6 +5,8 @@ const ContactSerializer = async (req, result) => ({
   code: result.get('code'),
   display_name: result.get('display_name'),
   full_name: result.get('full_name'),
+  first_name: result.get('first_name'),
+  last_name: result.get('last_name'),
   initials: result.get('initials'),
   email_id: result.get('email_id'),
   email: result.get('email'),
@@ -81,7 +83,10 @@ const topic = (topic) => {
 
 const values = async (req, values) => {
   if(!values || !req.fields) return {}
-  return await expandValues(req, 'crm_programs', null, values, false)
+  return await expandValues(req, {
+    parent_type: 'crm_programs',
+    data: values
+  })
 }
 
 export default ContactSerializer

@@ -16,6 +16,8 @@ const listRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
+  req.fields = form.get('config').fields
+
   const responses = await Response.filterFetch({
     scope: (qb) => {
       qb.select('crm_responses.*','crm_response_totals.*')
@@ -44,7 +46,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['contact.photo'],
+    withRelated: ['contact.photo','payment'],
     transacting: req.trx
   })
 

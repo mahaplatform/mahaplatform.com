@@ -89,7 +89,7 @@ class Page extends React.PureComponent {
         },{
           label: 'Preview',
           color: 'red',
-          link: `${process.env.WEB_HOST}/forms/forms/${form.code}`
+          link: form.url
         }
       ]
     }

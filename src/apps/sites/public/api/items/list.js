@@ -66,7 +66,12 @@ const listRoute = async (req, res) => {
   res.status(200).respond(items, async (req, result) => ({
     id: result.get('id'),
     distance: result.get('distance'),
-    ...await expandValues(req, 'sites_types', req.params.type_id, result.get('values'))
+    ...await expandValues(req, {
+      parent_type: 'sites_types',
+      parent_id: req.params.type_id,
+      data: result.get('values'),
+      withNames: true
+    })
   }))
 
 }
