@@ -1,6 +1,6 @@
 import ImportSerializer from '../../../serializers/import_serializer'
 import ImportProcessQueue from '../../../queues/import_process_queue'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Import from '../../../models/import'
 
 const processRoute = async (req, res) => {

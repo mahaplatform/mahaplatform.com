@@ -1,6 +1,6 @@
 import DashboardPanelSerializer from '../../../../serializers/dashboard_panel_serializer'
-import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import DashboardPanel from '../../../../models/dashboard_panel'
 import moment from 'moment'
 

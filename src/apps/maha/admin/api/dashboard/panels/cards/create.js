@@ -1,7 +1,7 @@
 import DashboardCardSerializer from '../../../../../serializers/dashboard_card_serializer'
-import { whitelist } from '../../../../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import DashboardCardType from '../../../../../models/dashboard_card_type'
-import socket from '../../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import DashboardPanel from '../../../../../models/dashboard_panel'
 import DashboardCard from '../../../../../models/dashboard_card'
 

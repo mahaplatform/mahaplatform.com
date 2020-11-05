@@ -1,4 +1,4 @@
-import { toFilter } from '../../../../../../../core/utils/criteria'
+import { toFilter } from '@core/utils/criteria'
 import moment from 'moment'
 import _ from 'lodash'
 

@@ -1,4 +1,4 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
 
 const queueFiles = collectObjects('queues/*_queue.js')
 

@@ -1,11 +1,11 @@
 import { createDefaultInboundCampaign } from '../../../../../campaigns/services/voice_campaigns'
 import PhoneNumberSerializer from '../../../../../team/serializers/phone_number_serializer'
-import { activity } from '../../../../../../core/services/routes/activities'
-import { audit } from '../../../../../../core/services/routes/audit'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import PhoneNumber from '../../../../../maha/models/phone_number'
-import twilio from '../../../../../../core/services/twilio'
+import twilio from '@core/services/twilio'
 import Program from '../../../../models/program'
 
 const createRoute = async (req, res) => {

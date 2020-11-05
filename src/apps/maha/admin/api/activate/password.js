@@ -1,4 +1,4 @@
-import { validate } from '../../../../../core/utils/validation'
+import { validate } from '@core/utils/validation'
 
 const passwordRoute = async (req, res) => {
 

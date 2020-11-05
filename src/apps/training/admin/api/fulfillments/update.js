@@ -1,6 +1,6 @@
 import FulfillmentSerializer from '../../../serializers/fulfillment_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Fulfillment from '../../../models/fulfillment'
 
 const updateRoute = async (req, res) => {

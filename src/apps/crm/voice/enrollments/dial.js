@@ -1,6 +1,6 @@
 import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
 import { executeWorkflow } from '../../../automation/services/workflows'
-import twilio from '../../../../core/services/twilio'
+import twilio from '@core/services/twilio'
 import { twiml } from 'twilio'
 
 const dialRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Link from '../../maha/models/link'
 import Attachment from './attachment'
 import User from './user'

@@ -1,6 +1,6 @@
 import { makePayment } from '../../../finance/services/payments'
-import generateCode from '../../../../core/utils/generate_code'
-import { audit } from '../../../../core/services/routes/audit'
+import generateCode from '@core/utils/generate_code'
+import { audit } from '@core/services/routes/audit'
 import LineItem from '../../../finance/models/line_item'
 import Invoice from '../../../finance/models/invoice'
 import moment from 'moment'

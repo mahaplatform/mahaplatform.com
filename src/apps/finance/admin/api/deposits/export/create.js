@@ -1,6 +1,6 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import { audit } from '../../../../../../core/services/routes/audit'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Deposit from '../../../../models/deposit'
 
 const createRoute = async (req, res) => {

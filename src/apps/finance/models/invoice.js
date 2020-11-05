@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from '../../crm/models/program'
 import LineItem from './line_item'
 import Customer from './customer'

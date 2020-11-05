@@ -1,4 +1,4 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
+import { createUserToken } from '@core/utils/user_tokens'
 import Account from '../../../models/account'
 
 export const loadAccountByEmail = async (req, email, done) => {

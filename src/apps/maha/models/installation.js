@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import App from './app'
 
 const Installation = new Model({

@@ -1,4 +1,4 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import { sendActivation } from '../../../services/users'
 import User from '../../../../maha/models/user'
 

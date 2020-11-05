@@ -1,6 +1,6 @@
 import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
 import { contactActivity } from '../../../crm/services/activities'
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import PhoneNumber from '../../../crm/models/phone_number'
 import { createCall } from '../../../maha/services/calls'
 import VoiceCampaign from '../../models/voice_campaign'

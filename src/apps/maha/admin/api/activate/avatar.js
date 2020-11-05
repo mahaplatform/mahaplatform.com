@@ -1,4 +1,4 @@
-import { validate } from '../../../../../core/utils/validation'
+import { validate } from '@core/utils/validation'
 import { updatePhoto } from '../../../services/accounts'
 
 const avatarRoute = async (req, res) => {

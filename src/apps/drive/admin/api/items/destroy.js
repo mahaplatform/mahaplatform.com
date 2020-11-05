@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { deleteForever } from '../../../services/items'
 import Item from '../../../models/item'
 

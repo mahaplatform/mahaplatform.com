@@ -1,4 +1,4 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
+import { createUserToken } from '@core/utils/user_tokens'
 import moment from 'moment'
 
 const passwordRoute = async (req, res, next) => {

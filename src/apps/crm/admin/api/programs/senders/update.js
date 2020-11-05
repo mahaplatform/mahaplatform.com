@@ -1,6 +1,6 @@
-import { activity } from '../../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import SenderSerializer from '../../../../serializers/sender_serializer'
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Sender from '../../../../models/sender'
 

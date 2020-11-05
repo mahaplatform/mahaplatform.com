@@ -1,7 +1,7 @@
 import TrainingSerializer from '../../../serializers/training_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import { updateMaterials } from '../../../services/materials'
 import Training from '../../../models/training'
 

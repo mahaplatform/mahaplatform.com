@@ -1,7 +1,7 @@
 import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
 import { enrollInWorkflows } from '../../../../automation/services/workflows'
 import { contactActivity } from '../../../../crm/services/activities'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Response from '../../../models/response'
 import Form from '../../../models/form'
 import moment from 'moment'

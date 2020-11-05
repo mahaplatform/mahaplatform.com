@@ -1,6 +1,6 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
-import { activity } from '../../../../../core/services/routes/activities'
-import socket from '../../../../../core/services/routes/emitter'
+import { updateRelated } from '@core/services/routes/relations'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 
 const enableRoute = async (req, res) => {

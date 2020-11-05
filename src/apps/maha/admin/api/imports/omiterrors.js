@@ -1,5 +1,5 @@
 import ImportSerializer from '../../../serializers/import_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import ImportItem from '../../../models/import_item'
 import Import from '../../../models/import'
 

@@ -1,7 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import PaymentSerializer from '../../../serializers/payment_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { makePayment } from '../../../services/payments'
 import Invoice from '../../../models/invoice'
 

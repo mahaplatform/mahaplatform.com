@@ -1,5 +1,5 @@
 import DashboardCardType from './dashboard_card_type'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import DashboardPanel from './dashboard_panel'
 
 const DashboardCard = new Model({

@@ -1,4 +1,4 @@
-import * as puppeteer from '../../../../../core/services/puppeteer'
+import * as puppeteer from '@core/services/puppeteer'
 import pluralize from 'pluralize'
 import numeral from 'numeral'
 import moment from 'moment'

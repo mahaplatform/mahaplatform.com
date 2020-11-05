@@ -1,4 +1,4 @@
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import _ from 'lodash'
 
 const AddItemCode = {

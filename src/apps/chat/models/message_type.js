@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Message from './message'
 
 const MessageType = new Model({

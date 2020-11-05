@@ -1,6 +1,6 @@
-import socket from '../../../core/services/routes/emitter'
-import cron from '../../../core/objects/cron'
-import ses from '../../../core/services/ses'
+import socket from '@core/services/routes/emitter'
+import cron from '@core/objects/cron'
+import ses from '@core/services/ses'
 import Sender from '../models/sender'
 
 export const processor = async (req) => {

@@ -1,5 +1,5 @@
-import { audit } from '../../../../../../core/services/routes/audit'
-import socket from '../../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Commitment from '../../../../models/commitment'
 import Plan from '../../../../models/plan'
 

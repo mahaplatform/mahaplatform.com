@@ -1,7 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import RateSerializer from '../../../serializers/rate_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Rate from '../../../models/rate'
 
 const updateRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Folder from '../../../models/folder'
 import File from '../../../models/file'
 import Item from '../../../models/item'

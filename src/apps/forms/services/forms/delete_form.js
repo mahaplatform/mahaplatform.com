@@ -1,5 +1,5 @@
 import { deleteWorkflow } from '../../../automation/services/workflows'
-import { audit } from '../../../../core/services/routes/audit'
+import { audit } from '@core/services/routes/audit'
 import moment from 'moment'
 
 const deleteForm = async(req, { form }) => {

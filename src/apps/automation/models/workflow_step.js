@@ -1,6 +1,6 @@
 import VoiceCampaign from '../../campaigns/models/voice_campaign'
 import SmsCampaign from '../../campaigns/models/sms_campaign'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import WorkflowAction from './workflow_action'
 import Workflow from './workflow'
 

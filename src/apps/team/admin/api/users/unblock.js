@@ -1,5 +1,5 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 
 const unblockRoute = async (req, res) => {

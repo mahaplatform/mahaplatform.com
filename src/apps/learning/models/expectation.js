@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Classification from './classification'
 import Competency from './competency'
 import Goal from './goal'

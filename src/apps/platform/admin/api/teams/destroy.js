@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Team from '../../../../maha/models/team'
 import moment from 'moment'
 

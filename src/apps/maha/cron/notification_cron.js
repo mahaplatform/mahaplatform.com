@@ -1,8 +1,8 @@
 import NotificationSerializer from '../serializers/notification_serializer'
 import { sendNotificationEmail } from '../services/notification_email'
-import socket from '../../../core/services/emitter'
+import socket from '@core/services/emitter'
 import Notification from '../models/notification'
-import cron from '../../../core/objects/cron'
+import cron from '@core/objects/cron'
 import moment from 'moment'
 import _ from 'lodash'
 

@@ -1,5 +1,5 @@
 import { generateScreenshot } from '../services/email'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
 

@@ -1,4 +1,4 @@
-import generateCode from '../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import MailingAddress from '../models/mailing_address'
 import EmailAddress from '../models/email_address'
 import PhoneNumber from '../models/phone_number'

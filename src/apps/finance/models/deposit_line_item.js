@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Deposit from './deposit'
 import Payment from './payment'
 import Refund from './refund'

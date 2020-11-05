@@ -1,5 +1,5 @@
 import Assignment from './assignment'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import User from '../../maha/models/user'
 import Option from './option'
 

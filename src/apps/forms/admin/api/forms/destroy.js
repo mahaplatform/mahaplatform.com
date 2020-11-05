@@ -1,5 +1,5 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import { deleteForm } from '../../../services/forms'
 import Form from '../../../models/form'
 

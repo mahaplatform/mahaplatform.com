@@ -1,4 +1,4 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
 import ReceiveEmailQueue from '../../../queues/receive_email_queue'
 import EmailActivity from '../../../models/email_activity'
 import Email from '../../../models/email'

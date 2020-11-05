@@ -1,4 +1,4 @@
-import braintree from '../../../../../core/services/braintree'
+import braintree from '@core/services/braintree'
 import Bank from '../../../../finance/models/bank'
 import _ from 'lodash'
 

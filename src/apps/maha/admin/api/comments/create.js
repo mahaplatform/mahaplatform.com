@@ -1,11 +1,11 @@
-import { notifications } from '../../../../../core/services/routes/notifications'
-import { attachments } from '../../../../../core/services/routes/attachments'
+import { notifications } from '@core/services/routes/notifications'
+import { attachments } from '@core/services/routes/attachments'
 import CommentSerializer from '../../../serializers/comment_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { objects } from '../../../../../core/services/routes/objects'
+import { whitelist } from '@core/services/routes/params'
+import { objects } from '@core/services/routes/objects'
 import { extractAttachments } from '../../../services/attachments'
-import socket from '../../../../../core/services/routes/emitter'
-import registry from '../../../../../core/utils/registry'
+import socket from '@core/services/routes/emitter'
+import registry from '@core/utils/registry'
 import Comment from '../../../models/comment'
 
 const createRoute = async (req, res) => {

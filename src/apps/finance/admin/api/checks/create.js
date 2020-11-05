@@ -1,7 +1,7 @@
 import CheckSerializer from '../../../serializers/check_serializer'
 import { createCheck } from '../../../services/checks'
-import generateCode from '../../../../../core/utils/generate_code'
-import socket from '../../../../../core/services/routes/emitter'
+import generateCode from '@core/utils/generate_code'
+import socket from '@core/services/routes/emitter'
 
 const createRoute = async (req, res) => {
 

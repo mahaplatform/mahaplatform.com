@@ -1,5 +1,5 @@
 import ProductSerializer from '../../../serializers/product_serializer'
-import { encode } from '../../../../../core/services/jwt'
+import { encode } from '@core/services/jwt'
 import Product from '../../../models/product'
 import Store from '../../../models/store'
 import { readFile } from '../utils'

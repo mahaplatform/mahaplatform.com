@@ -1,5 +1,5 @@
 import Workflow from '../../automation/models/workflow'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from '../../crm/models/program'
 import Category from './category'
 import Discount from './discount'

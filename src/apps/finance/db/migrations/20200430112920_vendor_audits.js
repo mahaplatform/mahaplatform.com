@@ -1,4 +1,4 @@
-import { audit } from '../../../../core/services/routes/audit'
+import { audit } from '@core/services/routes/audit'
 import Activity from '../../../maha/models/activity'
 import Contact from '../../../crm/models/contact'
 import Sender from '../../../crm/models/sender'

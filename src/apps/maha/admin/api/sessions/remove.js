@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Session from '../../../models/session'
 
 const removeRoute = async (req, res) => {

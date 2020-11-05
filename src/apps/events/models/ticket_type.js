@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Ticket from './ticket'
 
 const TicketType = new Model({

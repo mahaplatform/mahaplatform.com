@@ -1,11 +1,11 @@
 import GenerateScreenshotQueue from '../../../../automation/queues/generate_screenshot_queue'
 import EmailCampaignSerializer from '../../../serializers/email_campaign_serializer'
 import { createWorkflow } from '../../../../automation/services/workflows'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import generateCode from '../../../../../core/utils/generate_code'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import generateCode from '@core/utils/generate_code'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import EmailCampaign from '../../../models/email_campaign'
 
 const cloneRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import twilio from '../../../../core/services/twilio'
+import twilio from '@core/services/twilio'
 import Call from '../../models/call'
 import moment from 'moment'
 

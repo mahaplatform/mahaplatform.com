@@ -1,8 +1,8 @@
 import ShortLinkSerializer from '../../../serializers/shortlink_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import generateCode from '../../../../../core/utils/generate_code'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import generateCode from '@core/utils/generate_code'
+import socket from '@core/services/routes/emitter'
 import ShortLink from '../../../models/shortlink'
 
 const createRoute = async (req, res) => {

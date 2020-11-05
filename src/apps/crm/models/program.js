@@ -1,6 +1,6 @@
 import VoiceCampaign from '../../campaigns/models/voice_campaign'
 import PhoneNumber from '../../maha/models/phone_number'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Bank from '../../finance/models/bank'
 import ProgramAccess from './program_access'
 import Asset from '../../maha/models/asset'

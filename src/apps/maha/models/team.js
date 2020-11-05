@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Installation from './installation'
 import Domain from './domain'
 import Asset from './asset'

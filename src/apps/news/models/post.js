@@ -1,5 +1,5 @@
 import Attachment from '../../maha/models/attachment'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import User from '../../maha/models/user'
 import Link from '../../maha/models/link'
 import Group from './group'

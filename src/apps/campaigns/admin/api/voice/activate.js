@@ -1,6 +1,6 @@
 import VoiceCampaignSerializer from '../../../serializers/voice_campaign_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import VoiceCampaign from '../../../models/voice_campaign'
 
 const deactivateActive = async (req, { program }) => {

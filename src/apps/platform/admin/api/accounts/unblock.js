@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Account from '../../../../maha/models/account'
 
 const unblockRoute = async (req, res) => {

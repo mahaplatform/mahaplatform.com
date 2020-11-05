@@ -1,6 +1,6 @@
 import EmailCampaign from '../../campaigns/models/email_campaign'
 import WorkflowEnrollment from './workflow_enrollment'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from '../../crm/models/program'
 import WorkflowResult from './workflow_result'
 import Event from '../../events/models/event'

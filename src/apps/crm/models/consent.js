@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from './program'
 import MailingAddress from './mailing_address'
 import EmailAddress from './email_address'

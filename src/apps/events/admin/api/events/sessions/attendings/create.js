@@ -1,5 +1,5 @@
 import TicketSerializer from '../../../../../serializers/ticket_serializer'
-import socket from '../../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Attending from '../../../../../models/attending'
 import Ticket from '../../../../../models/ticket'
 

@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import _ from 'lodash'
 
 const updateAccess = async (req, accesses, item) => {

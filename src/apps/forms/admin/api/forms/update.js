@@ -1,8 +1,8 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import FormSerializer from '../../../serializers/form_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { updateAlias } from '../../../../maha/services/aliases'
 import Form from '../../../models/form'
 

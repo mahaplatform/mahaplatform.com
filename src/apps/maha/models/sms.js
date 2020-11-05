@@ -1,5 +1,5 @@
 import PhoneNumber from '../../crm/models/phone_number'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import SMSAttachment from './sms_attachment'
 import Number from './number'
 import User from './user'

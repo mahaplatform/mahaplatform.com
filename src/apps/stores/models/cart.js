@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import CartItem from './cart_item'
 import Discount from './discount'
 import Order from './order'

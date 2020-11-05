@@ -1,7 +1,7 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import { audit } from '../../../../../../core/services/routes/audit'
+import { activity } from '@core/services/routes/activities'
+import { audit } from '@core/services/routes/audit'
 import ListSerializer from '../../../../serializers/list_serializer'
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import List from '../../../../models/list'
 

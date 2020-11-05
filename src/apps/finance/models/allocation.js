@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import LineItem from './line_item'
 import Payment from './payment'
 import Refund from './refund'

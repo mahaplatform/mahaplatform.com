@@ -1,5 +1,5 @@
-import generateCode from '../../../../../../../core/utils/generate_code'
-import { sendMail } from '../../../../../../../core/services/email'
+import generateCode from '@core/utils/generate_code'
+import { sendMail } from '@core/services/email'
 import Email from '../../../../../../maha/models/email'
 import User from '../../../../../../maha/models/user'
 import { getEnrollmentData } from '../utils'

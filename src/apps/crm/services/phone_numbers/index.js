@@ -1,5 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import PhoneNumber from '../../models/phone_number'
 import moment from 'moment'
 

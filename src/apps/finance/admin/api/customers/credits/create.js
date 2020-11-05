@@ -1,5 +1,5 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import CreditSerializer from '../../../../serializers/credit_serializer'
 import Customer from '../../../../models/customer'
 import Credit from '../../../../models/credit'

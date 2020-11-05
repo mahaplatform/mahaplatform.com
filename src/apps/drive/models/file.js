@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import User from '../../maha/models/user'
 import Version from './version'
 import Access from './access'

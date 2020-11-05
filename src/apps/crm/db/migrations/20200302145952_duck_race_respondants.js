@@ -1,4 +1,4 @@
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import Response from '../../models/response'
 import Consent from '../../models/consent'
 

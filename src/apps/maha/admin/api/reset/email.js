@@ -1,6 +1,6 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { validate } from '../../../../../core/utils/validation'
-import { sendMail } from '../../../../../core/services/email'
+import { createUserToken } from '@core/utils/user_tokens'
+import { validate } from '@core/utils/validation'
+import { sendMail } from '@core/services/email'
 import { renderTemplate } from '../../../services/emails'
 import Account from '../../../models/account'
 

@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Supervision from './supervision'
 import Session from './session'
 import Account from './account'

@@ -1,7 +1,7 @@
 import ExecuteWorkflowQueue from '../../queues/execute_workflow_queue'
 import { contactActivity } from '../../../crm/services/activities'
 import WorkflowEnrollment from '../../models/workflow_enrollment'
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import Workflow from '../../models/workflow'
 
 export const enrollInWorkflows = async (req, params) => {

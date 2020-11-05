@@ -1,6 +1,6 @@
 import ImportItemSerializer from '../../../../serializers/import_item_serializer'
-import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import ImportItem from '../../../../models/import_item'
 
 const updateRoute = async (req, res) => {

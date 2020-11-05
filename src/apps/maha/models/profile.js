@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Account from './account'
 import Source from './source'
 import Asset from './asset'

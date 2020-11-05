@@ -1,7 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import RevenueTypeSerializer from '../../../serializers/revenue_type_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import RevenueType from '../../../models/revenue_type'
 
 const createRoute = async (req, res) => {

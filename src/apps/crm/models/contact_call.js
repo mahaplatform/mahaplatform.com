@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Asset from '../../maha/models/asset'
 import Program from './program'
 import Contact from './contact'

@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Expectation from './expectation'
 
 const Classificiation = new Model({

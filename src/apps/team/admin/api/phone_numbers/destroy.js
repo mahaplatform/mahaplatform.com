@@ -1,6 +1,6 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import twilio from '../../../../../core/services/twilio'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import twilio from '@core/services/twilio'
+import socket from '@core/services/routes/emitter'
 import PhoneNumber from '../../../../maha/models/phone_number'
 
 const destroyRoute = async (req, res) => {

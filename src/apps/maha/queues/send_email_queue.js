@@ -1,5 +1,5 @@
-import { sendMail } from '../../../core/services/email'
-import Queue from '../../../core/objects/queue'
+import { sendMail } from '@core/services/email'
+import Queue from '@core/objects/queue'
 import { encodeEmail } from '../services/emails'
 import Email from '../models/email'
 

@@ -1,7 +1,7 @@
 import WorkflowStep from '../../../automation/models/workflow_step'
-import generateCode from '../../../../core/utils/generate_code'
-import { audit } from '../../../../core/services/routes/audit'
-import socket from '../../../../core/services/routes/emitter'
+import generateCode from '@core/utils/generate_code'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import VoiceCampaign from '../../models/voice_campaign'
 
 const createDefaultInboundCampaign = async (req, { phone_number, program }) => {

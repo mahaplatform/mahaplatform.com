@@ -1,4 +1,4 @@
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { contactActivity } from '../../../../services/activities'
 import { updateConsent } from '../../../../services/consents'
 import Program from '../../../../models/program'

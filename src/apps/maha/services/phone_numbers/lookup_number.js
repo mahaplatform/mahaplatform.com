@@ -1,4 +1,4 @@
-import twilio from '../../../../core/services/twilio'
+import twilio from '@core/services/twilio'
 import _ from 'lodash'
 
 const capitalize = (parts) => parts.map(part => {

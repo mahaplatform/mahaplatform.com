@@ -1,5 +1,5 @@
-import collectObjects from '../../../core/utils/collect_objects'
-import Model from '../../../core/objects/model'
+import collectObjects from '@core/utils/collect_objects'
+import Model from '@core/objects/model'
 import App from './app'
 import _ from 'lodash'
 

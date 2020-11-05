@@ -1,8 +1,8 @@
 import HelpArticleSerializer from '../../../../maha/serializers/help_article_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import HelpArticle from '../../../../maha/models/help_article'
 
 const updateRoute = async (req, res) => {

@@ -1,5 +1,5 @@
-import RouteError from '../../../../../core/objects/route_error'
-import braintree from '../../../../../core/services/braintree'
+import RouteError from '@core/objects/route_error'
+import braintree from '@core/services/braintree'
 import PaymentMethod from '../../../models/payment_method'
 import Payment from '../../../models/payment'
 import moment from 'moment'

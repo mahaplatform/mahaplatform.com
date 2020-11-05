@@ -1,8 +1,8 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import InvoiceSerializer from '../../../serializers/invoice_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import LineItem from '../../../models/line_item'
 import Invoice from '../../../models/invoice'
 

@@ -1,6 +1,6 @@
 import ScholarshipSerializer from '../../../../serializers/scholarship_serializer'
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import Scholarship from '../../../../models/scholarship'
 import Customer from '../../../../models/customer'
 

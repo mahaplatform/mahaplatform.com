@@ -1,4 +1,4 @@
-import { whitelist } from '../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import Session from '../models/session'
 
 export const updateSessions = async (req, { event, sessions }) => {

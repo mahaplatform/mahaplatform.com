@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import RevenueType from './revenue_type'
 import Project from './project'
 import Invoice from './invoice'

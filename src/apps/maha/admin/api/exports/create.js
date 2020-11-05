@@ -1,4 +1,4 @@
-import { sendMail } from '../../../../../core/services/email'
+import { sendMail } from '@core/services/email'
 import request from 'request-promise'
 import moment from 'moment'
 

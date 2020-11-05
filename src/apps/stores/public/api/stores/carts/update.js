@@ -1,4 +1,4 @@
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import CartSerializer from '../../../../serializers/cart_serializer'
 import Store from '../../../../models/store'
 import Cart from '../../../../models/cart'

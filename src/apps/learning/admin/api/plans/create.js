@@ -1,9 +1,9 @@
-import { notifications } from '../../../../../core/services/routes/notifications'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
+import { notifications } from '@core/services/routes/notifications'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
 import PlanSerializer from '../../../serializers/plan_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Plan from '../../../models/plan'
 
 const createRoute = async (req, res) => {

@@ -1,9 +1,9 @@
 import { createWorkflow } from '../../../../../automation/services/workflows'
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import TopicSerializer from '../../../../serializers/topic_serializer'
-import { audit } from '../../../../../../core/services/routes/audit'
-import socket from '../../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Topic from '../../../../models/topic'
 

@@ -1,4 +1,4 @@
-import socket from '../../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import DashboardPanel from '../../../../../models/dashboard_panel'
 import DashboardCard from '../../../../../models/dashboard_card'
 

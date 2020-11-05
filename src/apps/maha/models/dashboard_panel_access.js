@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import DashboardPanel from './dashboard_panel'
 import Grouping from './grouping'
 import Group from './group'

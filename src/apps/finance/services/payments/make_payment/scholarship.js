@@ -1,4 +1,4 @@
-import RouteError from '../../../../../core/objects/route_error'
+import RouteError from '@core/objects/route_error'
 import Scholarship from '../../../models/scholarship'
 import Payment from '../../../models/payment'
 

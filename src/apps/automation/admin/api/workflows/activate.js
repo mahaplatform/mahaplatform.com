@@ -1,6 +1,6 @@
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Workflow from '../../../models/workflow'
 
 const activateRoute = async (req, res) => {

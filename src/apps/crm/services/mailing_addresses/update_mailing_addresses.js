@@ -1,5 +1,5 @@
 import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import MailingAddress from '../../models/mailing_address'
 import moment from 'moment'
 

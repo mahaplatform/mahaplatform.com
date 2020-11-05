@@ -1,5 +1,5 @@
 import { executeWorkflow } from '../services/workflows'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
 

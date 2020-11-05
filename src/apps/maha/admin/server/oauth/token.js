@@ -1,6 +1,6 @@
 import { createAsset, createAssetFromUrl } from '../../../services/assets'
-import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
-import socket from '../../../../../core/services/routes/emitter'
+import { loadUserFromToken } from '@core/utils/user_tokens'
+import socket from '@core/services/routes/emitter'
 import constantcontact from './constantcontact/token'
 import Profile from '../../../models/profile'
 import Source from '../../../models/source'

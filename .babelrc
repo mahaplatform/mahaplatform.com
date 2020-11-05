@@ -6,6 +6,12 @@
   ],
   "plugins": [
     "transform-promise-to-bluebird",
-    ["transform-runtime", { "polyfill": false }]
+    ["transform-runtime", { "polyfill": false }],
+    ["module-resolver", {
+      "alias": {
+        "@core": ["./src/core"],
+        "@apps": ["./src/apps"]
+      }
+    }]
   ]
 }

@@ -1,5 +1,5 @@
-import socket from '../../../core/services/routes/emitter'
-import Queue from '../../../core/objects/queue'
+import socket from '@core/services/routes/emitter'
+import Queue from '@core/objects/queue'
 import { queueFax } from '../services/faxes'
 
 const processor = async (req, job) => {

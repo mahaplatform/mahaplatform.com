@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Discount from './discount'
 import Store from './store'
 import Item from './item'

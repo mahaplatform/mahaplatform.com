@@ -1,6 +1,6 @@
-import { updateRelated } from '../../../../core/services/routes/relations'
+import { updateRelated } from '@core/services/routes/relations'
 import DashboardCardType from '../../../maha/models/dashboard_card_type'
-import { whitelist } from '../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import DashboardPanel from '../../../maha/models/dashboard_panel'
 import DashboardCard from '../../../maha/models/dashboard_card'
 import Account from '../../../maha/models/account'

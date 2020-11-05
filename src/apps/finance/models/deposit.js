@@ -1,5 +1,5 @@
 import DepositLineItem from './deposit_line_item'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Payment from './payment'
 import numeral from 'numeral'
 import Refund from './refund'

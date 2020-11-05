@@ -1,4 +1,4 @@
-import { validate } from '../../../../../core/utils/validation'
+import { validate } from '@core/utils/validation'
 import { transferItems } from '../../../services/items'
 
 const transferRoute = async (req, res) => {

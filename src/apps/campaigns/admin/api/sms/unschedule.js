@@ -1,6 +1,6 @@
 import SendSmsCampaignQueue from '../../../queues/send_sms_campaign_queue'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import SmsCampaign from '../../../models/sms_campaign'
 
 const unscheduleRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Subscription from './subscription'
 import Contact from './contact'
 

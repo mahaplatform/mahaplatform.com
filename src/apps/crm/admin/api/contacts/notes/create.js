@@ -1,6 +1,6 @@
-import { updateRelated } from '../../../../../../core/services/routes/relations'
+import { updateRelated } from '@core/services/routes/relations'
 import NoteSerializer from '../../../../serializers/contact_note_serializer'
-import { whitelist } from '../../../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import { contactActivity } from '../../../../services/activities'
 import Note from '../../../../models/contact_note'
 import Contact from '../../../../models/contact'

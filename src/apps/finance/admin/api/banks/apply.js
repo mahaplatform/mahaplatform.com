@@ -1,6 +1,6 @@
 import { renderTemplate } from '../../../../maha/services/emails'
-import socket from '../../../../../core/services/routes/emitter'
-import { sendMail } from '../../../../../core/services/email'
+import socket from '@core/services/routes/emitter'
+import { sendMail } from '@core/services/email'
 import Bank from '../../../models/bank'
 import moment from 'moment'
 

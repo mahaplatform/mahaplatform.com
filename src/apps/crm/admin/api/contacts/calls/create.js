@@ -1,6 +1,6 @@
-import { updateRelated } from '../../../../../../core/services/routes/relations'
+import { updateRelated } from '@core/services/routes/relations'
 import CallSerializer from '../../../../serializers/contact_call_serializer'
-import { whitelist } from '../../../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import { contactActivity } from '../../../../services/activities'
 import Call from '../../../../models/contact_call'
 import Contact from '../../../../models/contact'

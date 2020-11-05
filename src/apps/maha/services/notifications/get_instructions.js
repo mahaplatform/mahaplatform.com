@@ -1,4 +1,4 @@
-import { getPresence } from '../../../../core/services/presence'
+import { getPresence } from '@core/services/presence'
 import Session from '../../models/session'
 import moment from 'moment'
 

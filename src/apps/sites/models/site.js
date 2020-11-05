@@ -1,5 +1,5 @@
 import Origin from './origin'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Type from './type'
 
 const Site = new Model({

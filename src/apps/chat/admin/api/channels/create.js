@@ -1,7 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import ChannelSerializer from '../../../serializers/channel_serializer'
-import socket from '../../../../../core/services/routes/emitter'
-import { validate } from '../../../../../core/utils/validation'
+import socket from '@core/services/routes/emitter'
+import { validate } from '@core/utils/validation'
 import { createChannel } from '../../../services/channels'
 
 const createRoute = async (req, res) => {

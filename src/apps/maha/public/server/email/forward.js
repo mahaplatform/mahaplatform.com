@@ -1,4 +1,4 @@
-import { encode } from '../../../../../core/services/jwt'
+import { encode } from '@core/services/jwt'
 import Email from '../../../models/email'
 import { readFile } from './utils'
 import path from 'path'

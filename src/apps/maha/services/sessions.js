@@ -1,6 +1,6 @@
-import generateCode from '../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import { sendAlert } from '../services/alerts'
-import socket from '../../../core/services/emitter'
+import socket from '@core/services/emitter'
 import Session from '../models/session'
 import moment from 'moment'
 

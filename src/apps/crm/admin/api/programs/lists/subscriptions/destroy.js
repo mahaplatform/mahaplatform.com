@@ -1,4 +1,4 @@
-import socket from '../../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../../services/programs'
 import List from '../../../../../models/list'
 

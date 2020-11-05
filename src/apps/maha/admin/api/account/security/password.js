@@ -1,7 +1,7 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../../core/services/routes/emitter'
-import { validate } from '../../../../../../core/utils/validation'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
+import { validate } from '@core/utils/validation'
 
 const passwordRoute = async (req, res) => {
 

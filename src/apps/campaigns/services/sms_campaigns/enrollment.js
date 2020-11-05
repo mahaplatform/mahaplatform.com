@@ -1,7 +1,7 @@
 import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
 import ExecuteWorkflowQueue from '../../../automation/queues/execute_workflow_queue'
 import { contactActivity } from '../../../crm/services/activities'
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 
 export const enrollInCampaign = async (req, params) => {
 

@@ -1,5 +1,5 @@
 import { createUser, sendActivation } from '../../../../../team/services/users'
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Account from '../../../../../maha/models/account'
 
 const createRoute = async (req, res) => {

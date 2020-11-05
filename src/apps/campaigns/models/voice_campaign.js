@@ -2,7 +2,7 @@ import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
 import WorkflowStep from '../../automation/models/workflow_step'
 import VoiceCampaignResult from './voice_campaign_result'
 import PhoneNumber from '../../maha/models/phone_number'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from '../../crm/models/program'
 
 const VoiceCampaign = new Model({

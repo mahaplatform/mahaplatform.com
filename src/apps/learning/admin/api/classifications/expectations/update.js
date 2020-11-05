@@ -1,4 +1,4 @@
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Classification from '../../../../models/classification'
 import Expectation from '../../../../models/expectation'
 

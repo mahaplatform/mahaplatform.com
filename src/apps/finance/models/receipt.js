@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Reimbursement from  './reimbursement'
 import Asset from '../../maha/models/asset'
 import Expense from  './expense'

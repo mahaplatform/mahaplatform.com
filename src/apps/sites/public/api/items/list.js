@@ -1,6 +1,6 @@
 import { expandValues } from '../../../../maha/services/values'
 import geocode from '../../../../maha/services/geocode'
-import knex from '../../../../../core/services/knex'
+import knex from '@core/services/knex'
 import Field from '../../../../maha/models/field'
 import { applyFilters } from './filters'
 import Item from '../../../models/item'

@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { destroyCheck } from '../../../services/checks'
 import Check from '../../../models/check'
 

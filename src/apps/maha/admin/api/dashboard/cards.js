@@ -1,4 +1,4 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
 import _ from 'lodash'
 
 const dashboardCards = collectObjects('admin/dashboard/index.js').reduce((cards, file) => [

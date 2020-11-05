@@ -1,4 +1,4 @@
-import { whitelist } from '../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import Responsibility from '../models/responsibility'
 import _ from 'lodash'
 

@@ -1,5 +1,5 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { validate } from '../../../../../core/utils/validation'
+import { createUserToken } from '@core/utils/user_tokens'
+import { validate } from '@core/utils/validation'
 import Account from '../../../models/account'
 
 const passwordRoute = async (req, res) => {

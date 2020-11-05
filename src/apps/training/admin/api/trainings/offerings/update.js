@@ -1,7 +1,7 @@
 import OfferingSerializer from '../../../../serializers/offering_serializer'
-import { activity } from '../../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import Offering from '../../../../models/offering'
 
 const updateRoute = async (req, res) => {

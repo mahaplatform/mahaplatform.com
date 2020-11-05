@@ -1,5 +1,5 @@
 import DashboardPanelAccess from './dashboard_panel_access'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import DashboardCard from './dashboard_card'
 import User from './user'
 

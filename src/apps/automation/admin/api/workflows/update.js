@@ -1,7 +1,7 @@
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { updateSteps } from '../../../services/workflows'
 import Workflow from '../../../models/workflow'
 

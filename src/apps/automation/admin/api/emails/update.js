@@ -1,9 +1,9 @@
 import GenerateScreenshotQueue from '../../../queues/generate_screenshot_queue'
 import EmailSerializer from '../../../serializers/email_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Email from '../../../models/email'
 
 const updateRoute = async (req, res) => {

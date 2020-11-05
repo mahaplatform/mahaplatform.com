@@ -1,4 +1,4 @@
-import socket from '../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import PhoneNumber from '../../../crm/models/phone_number'
 import { twiml } from 'twilio'
 

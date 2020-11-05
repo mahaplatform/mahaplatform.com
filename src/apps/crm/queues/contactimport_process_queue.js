@@ -1,6 +1,6 @@
 import { processContactImport } from '../services/contactimport'
-import socket from '../../../core/services/emitter'
-import Queue from '../../../core/objects/queue'
+import socket from '@core/services/emitter'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
   await processContactImport(req, {

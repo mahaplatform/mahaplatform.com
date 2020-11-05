@@ -1,4 +1,4 @@
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 import { initiateCall } from '../services/calls'
 
 const processor = async (req, job) => {

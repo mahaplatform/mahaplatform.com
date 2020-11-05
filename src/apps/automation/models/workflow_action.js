@@ -1,5 +1,5 @@
 import WorkflowEnrollment from './workflow_enrollment'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Program from '../../crm/models/program'
 import Field from '../../maha/models/field'
 import Email from '../../maha/models/email'

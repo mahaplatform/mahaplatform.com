@@ -1,4 +1,4 @@
-import socket from '../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Story from '../../maha/models/story'
 import Activity from '../models/activity'
 

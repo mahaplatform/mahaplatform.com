@@ -1,6 +1,6 @@
 import GenerateScreenshotQueue from '../../queues/generate_screenshot_queue'
-import generateCode from '../../../../core/utils/generate_code'
-import { audit } from '../../../../core/services/routes/audit'
+import generateCode from '@core/utils/generate_code'
+import { audit } from '@core/services/routes/audit'
 import { getDefaultConfig } from '../../services/email'
 import WorkflowStep from '../../models/workflow_step'
 import Template from '../../../crm/models/template'

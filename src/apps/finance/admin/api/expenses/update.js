@@ -1,6 +1,6 @@
 import { createExpense, updateExpense, destroyExpense } from '../../../services/expenses'
 import ExpenseSerializer from '../../../serializers/expense_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Expense from '../../../models/expense'
 
 const getAllocations = (item, allocations) => {

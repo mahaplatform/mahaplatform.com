@@ -1,4 +1,4 @@
-import { audit } from '../../../../core/services/routes/audit'
+import { audit } from '@core/services/routes/audit'
 import { deleteEmail } from '../../services/email'
 import moment from 'moment'
 

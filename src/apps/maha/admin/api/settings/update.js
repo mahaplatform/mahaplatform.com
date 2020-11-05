@@ -1,4 +1,4 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import Installation from '../../../../maha/models/installation'
 
 const showRoute = async (req, res) => {

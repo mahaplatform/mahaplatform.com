@@ -1,5 +1,5 @@
-import generateCode from '../../../../core/utils/generate_code'
-import socket from '../../../../core/services/routes/emitter'
+import generateCode from '@core/utils/generate_code'
+import socket from '@core/services/routes/emitter'
 import { createAsset } from '../../../maha/services/assets'
 import { sendEmail } from '../../../maha/services/emails'
 import Reimbursement from '../../models/reimbursement'

@@ -1,6 +1,6 @@
 import { findOrCreateNumber } from '../../../../maha/services/numbers'
 import CallSerializer from '../../../serializers/call_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Call from '../../../../maha/models/call'
 
 const getNumberId = async (req, number) => {

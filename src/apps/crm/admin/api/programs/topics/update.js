@@ -1,7 +1,7 @@
-import { activity } from '../../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import TopicSerializer from '../../../../serializers/topic_serializer'
-import { audit } from '../../../../../../core/services/routes/audit'
-import socket from '../../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Topic from '../../../../models/topic'
 

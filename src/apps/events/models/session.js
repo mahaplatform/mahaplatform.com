@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Attending from './attending'
 import Location from './location'
 import Event from './event'

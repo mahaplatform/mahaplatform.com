@@ -1,5 +1,5 @@
 import { makeCall } from '../services/voice_campaigns'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
 

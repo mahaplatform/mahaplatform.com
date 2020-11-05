@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Category from './category'
 import Expectation from './expectation'
 import Resource from './resource'

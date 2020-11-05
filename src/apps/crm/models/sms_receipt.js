@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import PhoneNumber from './phone_number'
 import Program from './program'
 import Contact from './contact'

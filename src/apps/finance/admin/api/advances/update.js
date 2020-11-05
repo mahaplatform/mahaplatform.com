@@ -1,8 +1,8 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { activity } from '@core/services/routes/activities'
 import AdvanceSerializer from '../../../serializers/advance_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '@core/services/routes/params'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import { completeItem } from '../../../services/items'
 import Advance from '../../../models/advance'
 

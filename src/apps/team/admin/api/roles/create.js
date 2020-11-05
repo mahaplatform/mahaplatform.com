@@ -1,8 +1,8 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
+import { updateRelated } from '@core/services/routes/relations'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import RoleSerializer from '../../../serializers/role_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Role from '../../../../maha/models/role'
 
 const createRoute = async (req, res) => {

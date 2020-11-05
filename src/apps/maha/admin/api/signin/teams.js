@@ -1,5 +1,5 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { decode } from '../../../../../core/services/jwt'
+import { createUserToken } from '@core/utils/user_tokens'
+import { decode } from '@core/services/jwt'
 import Account from '../../../models/account'
 
 const getToken = (req) => {

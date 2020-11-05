@@ -1,4 +1,4 @@
-import { audit } from '../../../../../core/services/routes/audit'
+import { audit } from '@core/services/routes/audit'
 import Refund from '../../../models/refund'
 import Credit from '../../../models/credit'
 

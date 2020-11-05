@@ -1,4 +1,4 @@
-import { sendMail } from '../../../core/services/email'
+import { sendMail } from '@core/services/email'
 import pluralize from 'pluralize'
 import moment from 'moment'
 import path from 'path'

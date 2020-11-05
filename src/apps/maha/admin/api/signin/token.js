@@ -1,4 +1,4 @@
-import { decode } from '../../../../../core/services/jwt'
+import { decode } from '@core/services/jwt'
 import Account from '../../../models/account'
 
 const route = async (req, res, next) => {

@@ -1,5 +1,5 @@
 import Setting from '../../../platform/models/setting'
-import { encode } from '../../../../core/services/jwt'
+import { encode } from '@core/services/jwt'
 import Event from '../../models/event'
 import { readFile } from './utils'
 import moment from 'moment'

@@ -1,6 +1,6 @@
 import RevenueType from '../../finance/models/revenue_type'
 import Project from '../../finance/models/project'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Asset from '../../maha/models/asset'
 import Reservation from './reservation'
 import Adjustment from './adjustment'

@@ -1,5 +1,5 @@
-import socket from '../../../../core/services/emitter'
-import redis from '../../../../core/services/redis'
+import socket from '@core/services/emitter'
+import redis from '@core/services/redis'
 import { twiml } from 'twilio'
 
 const reviewRoute = async (req, res) => {

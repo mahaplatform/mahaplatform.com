@@ -1,4 +1,4 @@
-import { whitelist } from '../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import TicketType from '../models/ticket_type'
 
 export const updateTicketTypes = async(req, { event, ticket_types }) => {

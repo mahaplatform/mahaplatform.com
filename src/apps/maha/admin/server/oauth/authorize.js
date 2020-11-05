@@ -1,4 +1,4 @@
-import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
+import { loadUserFromToken } from '@core/utils/user_tokens'
 import constantcontact from './constantcontact/authorize'
 import microsoft from './microsoft/authorize'
 import mailchimp from './mailchimp/authorize'

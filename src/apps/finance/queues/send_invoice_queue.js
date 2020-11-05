@@ -1,6 +1,6 @@
 import InvoiceSerializer from '../serializers/invoice_serializer'
 import { sendEmail } from '../../maha/services/emails'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 import Sender from '../../crm/models/sender'
 import Invoice from '../models/invoice'
 

@@ -1,5 +1,5 @@
 import TeamSerializer from '../../../serializers/team_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Team from '../../../../maha/models/team'
 
 const activateRoute = async (req, res) => {

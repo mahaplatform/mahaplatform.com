@@ -1,5 +1,5 @@
 import Administration from './administration'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Question from './question'
 import Training from './training'
 import Lesson from './lesson'

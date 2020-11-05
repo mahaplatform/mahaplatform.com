@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Contact from '../../crm/models/contact'
 import Event from './event'
 

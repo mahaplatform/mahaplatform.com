@@ -1,5 +1,5 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import { deleteTopic } from '../../../../services/topics'
 import Topic from '../../../../models/topic'

@@ -1,5 +1,5 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '../../../../services/programs'
 import Template from '../../../../models/template'
 import moment from 'moment'

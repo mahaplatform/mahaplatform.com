@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Registration from './registration'
 import TicketType from './ticket_type'
 import Attending from './attending'

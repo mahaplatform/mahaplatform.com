@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { getQueueFiles } from './utils'
 
 const cleanRoute = async (req, res) => {

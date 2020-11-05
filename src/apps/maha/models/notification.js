@@ -1,5 +1,5 @@
 import NotificationType from './notification_type'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import App from './app'
 import Story from './story'
 import User from './user'

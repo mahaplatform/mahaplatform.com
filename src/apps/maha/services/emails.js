@@ -1,5 +1,5 @@
-import collectObjects from '../../../core/utils/collect_objects'
-import generateCode from '../../../core/utils/generate_code'
+import collectObjects from '@core/utils/collect_objects'
+import generateCode from '@core/utils/generate_code'
 import SendEmailQueue from '../queues/send_email_queue'
 import { AllHtmlEntities } from 'html-entities'
 import EmailLink from '../models/email_link'

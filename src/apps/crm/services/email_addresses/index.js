@@ -1,4 +1,4 @@
-import generateCode from '../../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import EmailAddress from '../../models/email_address'
 import moment from 'moment'
 

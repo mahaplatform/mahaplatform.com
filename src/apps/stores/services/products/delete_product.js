@@ -1,4 +1,4 @@
-import { audit } from '../../../../core/services/routes/audit'
+import { audit } from '@core/services/routes/audit'
 import moment from 'moment'
 
 const deleteProduct = async(req, { product }) => {

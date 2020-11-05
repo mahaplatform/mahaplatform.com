@@ -1,5 +1,5 @@
 import SecurityQuestion from './security_question'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import bcrypt from 'bcrypt-nodejs'
 import Asset from './asset'
 import User from './user'

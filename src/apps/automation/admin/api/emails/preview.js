@@ -1,5 +1,5 @@
 import { renderEmail, personalizeEmail } from '../../../services/email'
-import { sendMail } from '../../../../../core/services/email'
+import { sendMail } from '@core/services/email'
 import Sender from '../../../../crm/models/sender'
 import User from '../../../../maha/models/user'
 

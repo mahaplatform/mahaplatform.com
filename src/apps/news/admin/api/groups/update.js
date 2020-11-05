@@ -1,4 +1,4 @@
-import { whitelist } from '../../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import GroupSerializer from '../../../serializers/group_serializer'
 import { updateMembers } from '../../../services/groups'
 import Group from '../../../models/group'

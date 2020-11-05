@@ -1,5 +1,5 @@
 import { scanAsset } from '../services/assets'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
   await scanAsset(req, job.data.id)

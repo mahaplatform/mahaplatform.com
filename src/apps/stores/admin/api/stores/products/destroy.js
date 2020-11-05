@@ -1,5 +1,5 @@
-import { activity } from '../../../../../../core/services/routes/activities'
-import socket from '../../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import { deleteProduct } from '../../../../services/products'
 import Product from '../../../../models/product'
 import Store from '../../../../models/store'

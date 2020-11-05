@@ -1,8 +1,8 @@
-import formatObjectForTransport from '../../../../core/utils/format_object_for_transport'
+import formatObjectForTransport from '@core/utils/format_object_for_transport'
 import { sendNotificationEmail } from '../../services/notification_email'
-import { messaging } from '../../../../core/services/firebase'
-import socket from '../../../../core/services/emitter'
-import knex from '../../../../core/services/knex'
+import { messaging } from '@core/services/firebase'
+import socket from '@core/services/emitter'
+import knex from '@core/services/knex'
 
 const deliver = async (req, { user, instructions, notification }) => {
 

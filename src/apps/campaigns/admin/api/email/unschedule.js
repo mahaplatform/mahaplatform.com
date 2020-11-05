@@ -1,6 +1,6 @@
 import SendEmailCampaignQueue from '../../../queues/send_email_campaign_queue'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import EmailCampaign from '../../../models/email_campaign'
 
 const unscheduleRoute = async (req, res) => {

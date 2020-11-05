@@ -1,6 +1,6 @@
-import { notifications } from '../../../../../core/services/routes/notifications'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { notifications } from '@core/services/routes/notifications'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Item from '../../../models/item'
 
 const submitAllRoute = async (req, res) => {

@@ -1,5 +1,5 @@
 import WorkflowEnrollment from '../../../../models/workflow_enrollment'
-import socket from '../../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Workflow from '../../../../models/workflow'
 import moment from 'moment'
 

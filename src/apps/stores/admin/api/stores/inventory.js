@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Adjustment from '../../../models/adjustment'
 import Variant from '../../../models/variant'
 import Store from '../../../models/store'

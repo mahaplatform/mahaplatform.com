@@ -1,4 +1,4 @@
-import { bootstrapType } from '../../../../core/scripts/bootstrap/bootstrap'
+import { bootstrapType } from '@core/scripts/bootstrap/bootstrap'
 import DashboardPanel from '../../models/dashboard_panel'
 import DashboardCard from '../../models/dashboard_card'
 import User from '../../../maha/models/user'

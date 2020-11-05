@@ -1,6 +1,6 @@
 import { importContactImport } from '../services/contactimport'
-import socket from '../../../core/services/emitter'
-import Queue from '../../../core/objects/queue'
+import socket from '@core/services/emitter'
+import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
   const { import_id, profile_id, list_id } = job.data

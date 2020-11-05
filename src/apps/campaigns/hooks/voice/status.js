@@ -1,5 +1,5 @@
 import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
-import socket from '../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 
 const status = async (req, { call, status }) => {
 

@@ -1,6 +1,6 @@
 import BankSerializer from '../../../serializers/bank_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import socket from '@core/services/routes/emitter'
 import Bank from '../../../models/bank'
 
 const createRoute = async (req, res) => {

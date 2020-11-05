@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import FilterAccess from './filter_access'
 import User from './user'
 

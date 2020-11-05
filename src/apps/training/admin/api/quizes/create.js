@@ -1,7 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
 import QuizSerializer from '../../../serializers/quiz_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { updateQuestions } from '../../../services/questions'
 import Quiz from '../../../models/quiz'
 

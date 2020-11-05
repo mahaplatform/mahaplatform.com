@@ -1,4 +1,4 @@
-import collectObjects from '../../../../../core/utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
 
 const searchFiles = collectObjects('admin/search.js')
 

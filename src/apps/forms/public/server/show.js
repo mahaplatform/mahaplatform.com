@@ -1,4 +1,4 @@
-import { encode } from '../../../../core/services/jwt'
+import { encode } from '@core/services/jwt'
 import Setting from '../../../platform/models/setting'
 import Form from '../../models/form'
 import { readFile } from './utils'

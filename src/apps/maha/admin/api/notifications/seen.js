@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import Notification from '../../../models/notification'
 
 const seenRoute = async (req, res) => {

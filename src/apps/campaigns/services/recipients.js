@@ -1,4 +1,4 @@
-import { toFilter } from '../../../core/utils/criteria'
+import { toFilter } from '@core/utils/criteria'
 import Filter from '../../maha/models/filter'
 import Recipient from '../models/recipient'
 import Field from '../../maha/models/field'

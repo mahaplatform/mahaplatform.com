@@ -1,4 +1,4 @@
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Assignment from './assignment'
 import Material from './material'
 import Offering from './offering'

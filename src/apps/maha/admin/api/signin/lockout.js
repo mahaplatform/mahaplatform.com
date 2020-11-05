@@ -1,5 +1,5 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { validate } from '../../../../../core/utils/validation'
+import { createUserToken } from '@core/utils/user_tokens'
+import { validate } from '@core/utils/validation'
 import { sendAlert } from '../../../services/alerts'
 import Account from '../../../models/account'
 import moment from 'moment'

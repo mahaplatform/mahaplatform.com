@@ -1,6 +1,6 @@
-import { whitelist } from '../../../../../core/services/routes/params'
+import { whitelist } from '@core/services/routes/params'
 import TeamSerializer from '../../../serializers/team_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { updateApps } from '../../../services/apps'
 import Team from '../../../../maha/models/team'
 

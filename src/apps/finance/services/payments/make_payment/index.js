@@ -1,5 +1,5 @@
-import RouteError from '../../../../../core/objects/route_error'
-import braintree from '../../../../../core/services/braintree'
+import RouteError from '@core/objects/route_error'
+import braintree from '@core/services/braintree'
 import { chargeScholarship } from './scholarship'
 import Allocation from '../../../models/allocation'
 import { chargeGooglePay } from './googlepay'

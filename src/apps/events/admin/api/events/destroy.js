@@ -1,6 +1,6 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
+import { activity } from '@core/services/routes/activities'
+import { audit } from '@core/services/routes/audit'
+import socket from '@core/services/routes/emitter'
 import Event from '../../../models/event'
 import moment from 'moment'
 

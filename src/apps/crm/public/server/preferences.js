@@ -1,5 +1,5 @@
 import MailingAddress from '../../models/mailing_address'
-import { encode } from '../../../../core/services/jwt'
+import { encode } from '@core/services/jwt'
 import EmailAddress from '../../models/email_address'
 import PhoneNumber from '../../models/phone_number'
 import Email from '../../../maha/models/email'

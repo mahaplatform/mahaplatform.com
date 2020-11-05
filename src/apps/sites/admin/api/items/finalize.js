@@ -1,5 +1,5 @@
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '@core/services/routes/emitter'
 import { processValues } from '../../../../maha/services/values'
 import ImportItem from '../../../../maha/models/import_item'
 import Import from '../../../../maha/models/import'

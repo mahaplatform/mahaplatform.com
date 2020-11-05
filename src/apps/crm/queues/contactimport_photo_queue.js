@@ -1,5 +1,5 @@
 import { createAssetFromUrl } from '../../maha/services/assets'
-import Queue from '../../../core/objects/queue'
+import Queue from '@core/objects/queue'
 import User from '../../maha/models/user'
 import Contact from '../models/contact'
 

@@ -1,7 +1,7 @@
 import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
 import Invoice from '../../finance/models/invoice'
 import Payment from '../../finance/models/payment'
-import Model from '../../../core/objects/model'
+import Model from '@core/objects/model'
 import Contact from '../../crm/models/contact'
 import Form from './form'
 

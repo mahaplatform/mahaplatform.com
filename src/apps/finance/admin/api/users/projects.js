@@ -1,5 +1,5 @@
 import MembershipSerializer from '../../../serializers/membership_serializer'
-import getUserAccess from '../../../../../core/utils/get_user_access'
+import getUserAccess from '@core/utils/get_user_access'
 import User from '../../../../maha/models/user'
 import Project from '../../../models/project'
 import _ from 'lodash'

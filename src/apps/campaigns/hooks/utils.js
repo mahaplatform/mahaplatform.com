@@ -1,4 +1,4 @@
-import generateCode from '../../../core/utils/generate_code'
+import generateCode from '@core/utils/generate_code'
 import PhoneNumber from '../../crm/models/phone_number'
 import Contact from '../../crm/models/contact'
 

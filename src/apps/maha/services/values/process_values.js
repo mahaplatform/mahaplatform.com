@@ -1,4 +1,4 @@
-import { validate } from '../../../../core/utils/validation'
+import { validate } from '@core/utils/validation'
 import Field from '../../models/field'
 import geocode from '../geocode'
 import _ from 'lodash'
