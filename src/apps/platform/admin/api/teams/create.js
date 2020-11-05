@@ -57,6 +57,10 @@ const createRoute = async (req, res) => {
   if(user.get('email') === req.user.get('email')) {
     await user.save({
       activated_at: moment()
+    }, {
+      transacting: req.trx,
+      patch: true
+
     })
     await socket.message(req, {
       channel: 'user',
