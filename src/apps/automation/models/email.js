@@ -1,12 +1,12 @@
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import Workflow from '@apps/automation/models/workflow'
-import Model from '@core/objects/model'
 import MahaEmail from '@apps/maha/models/email'
 import Program from '@apps/crm/models/program'
 import Event from '@apps/events/models/event'
 import Form from '@apps/forms/models/form'
 import EmailResult from './email_result'
+import Model from '@core/objects/model'
 
 const Email = new Model({
 
