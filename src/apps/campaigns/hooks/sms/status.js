@@ -1,8 +1,8 @@
-import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
-import { executeWorkflow } from '../../../automation/services/workflows'
-import MahaPhoneNumber from '../../../maha/models/phone_number'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import { executeWorkflow } from '@apps/automation/services/workflows'
+import MahaPhoneNumber from '@apps/maha/models/phone_number'
 import socket from '@core/services/routes/emitter'
-import PhoneNumber from '../../../crm/models/phone_number'
+import PhoneNumber from '@apps/crm/models/phone_number'
 import moment from 'moment'
 
 const status = async (req, { sms, status, error_code }) => {

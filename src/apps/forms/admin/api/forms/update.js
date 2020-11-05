@@ -3,7 +3,7 @@ import { whitelist } from '@core/services/routes/params'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { updateAlias } from '../../../../maha/services/aliases'
+import { updateAlias } from '@apps/maha/services/aliases'
 import Form from '../../../models/form'
 
 const updateRoute = async (req, res) => {

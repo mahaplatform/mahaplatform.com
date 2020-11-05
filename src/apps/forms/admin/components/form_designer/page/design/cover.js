@@ -1,5 +1,5 @@
-import FontFamilyToken from '../../../../../../automation/admin/tokens/fontfamily'
-import ImageField from '../../../../../../automation/admin/components/imagefield'
+import FontFamilyToken from '@apps/automation/admin/tokens/fontfamily'
+import ImageField from '@apps/automation/admin/components/imagefield'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

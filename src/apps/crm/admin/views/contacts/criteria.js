@@ -1,5 +1,5 @@
 import AddressCriteria from '../../components/addresscriteria'
-import ImportToken from '../../../../maha/admin/tokens/import'
+import ImportToken from '@apps/maha/admin/tokens/import'
 import CountyCriteria from '../../components/countycriteria'
 import ListCriteria from '../../components/listcriteria'
 import _ from 'lodash'

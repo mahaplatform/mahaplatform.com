@@ -1,5 +1,5 @@
-import UserSerializer from '../../../../maha/serializers/user_serializer'
-import User from '../../../../maha/models/user'
+import UserSerializer from '@apps/maha/serializers/user_serializer'
+import User from '@apps/maha/models/user'
 
 const listRoute = async (req, res) => {
 

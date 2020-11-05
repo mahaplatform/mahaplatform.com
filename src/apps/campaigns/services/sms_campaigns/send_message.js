@@ -1,6 +1,6 @@
-import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
-import { executeWorkflow } from '../../../automation/services/workflows'
-import { contactActivity } from '../../../crm/services/activities'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import { executeWorkflow } from '@apps/automation/services/workflows'
+import { contactActivity } from '@apps/crm/services/activities'
 import generateCode from '@core/utils/generate_code'
 
 const sendMessage = async (req, params) => {

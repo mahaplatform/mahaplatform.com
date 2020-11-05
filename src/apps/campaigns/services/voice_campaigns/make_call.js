@@ -1,8 +1,8 @@
-import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
-import { contactActivity } from '../../../crm/services/activities'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import { contactActivity } from '@apps/crm/services/activities'
 import generateCode from '@core/utils/generate_code'
-import PhoneNumber from '../../../crm/models/phone_number'
-import { createCall } from '../../../maha/services/calls'
+import PhoneNumber from '@apps/crm/models/phone_number'
+import { createCall } from '@apps/maha/services/calls'
 import VoiceCampaign from '../../models/voice_campaign'
 
 const makeCall = async (req, params) => {

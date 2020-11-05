@@ -1,8 +1,8 @@
-import EmailCampaign from '../../campaigns/models/email_campaign'
-import EmailAddress from '../../crm/models/email_address'
-import CrmEmail from '../../automation/models/email'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
+import EmailAddress from '@apps/crm/models/email_address'
+import CrmEmail from '@apps/automation/models/email'
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 import EmailActivity from './email_activity'
 import User from './user'
 

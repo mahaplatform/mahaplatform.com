@@ -1,4 +1,4 @@
-import Setting from '../../../platform/models/setting'
+import Setting from '@apps/platform/models/setting'
 import { encode } from '@core/services/jwt'
 import Event from '../../models/event'
 import { readFile } from './utils'

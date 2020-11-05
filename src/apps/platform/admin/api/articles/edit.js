@@ -1,4 +1,4 @@
-import HelpArticle from '../../../../maha/models/help_article'
+import HelpArticle from '@apps/maha/models/help_article'
 
 const editRoute = async (req, res) => {
 

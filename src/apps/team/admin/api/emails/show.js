@@ -1,6 +1,6 @@
-import { personalizeEmail } from '../../../../automation/services/email'
+import { personalizeEmail } from '@apps/automation/services/email'
 import EmailSerializer from '../../../serializers/email_serializer'
-import Email from '../../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 
 const showRoute = async (req, res) => {
 

@@ -5,7 +5,7 @@ import EventSerializer from '../../../serializers/event_serializer'
 import { updateTicketTypes } from '../../../services/ticket_types'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { updateAlias } from '../../../../maha/services/aliases'
+import { updateAlias } from '@apps/maha/services/aliases'
 import { updateSessions } from '../../../services/sessions'
 import Event from '../../../models/event'
 

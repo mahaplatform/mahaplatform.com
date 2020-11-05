@@ -1,5 +1,5 @@
 import ItemSerializer from '../../../serializers/item_serializer'
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 import Item from '../../../models/item'
 
 const listRoute = async (req, res) => {

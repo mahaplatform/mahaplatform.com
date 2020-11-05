@@ -1,4 +1,4 @@
-import ShortLink from '../../../../apps/maha/models/shortlink'
+import ShortLink from '@apps/maha/models/shortlink'
 import collectObjects from '../../../utils/collect_objects'
 import URL from 'url'
 

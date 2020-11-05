@@ -1,5 +1,5 @@
-import Asset from '../../../../maha/models/asset'
-import Field from '../../../../maha/models/field'
+import Asset from '@apps/maha/models/asset'
+import Field from '@apps/maha/models/field'
 import stringify from 'csv-stringify/lib/sync'
 import Site from '../../../models/site'
 import Type from '../../../models/type'

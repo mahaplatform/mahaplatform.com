@@ -1,4 +1,4 @@
-import { createConfirmationWorkflow } from '../../../../automation/services/workflows'
+import { createConfirmationWorkflow } from '@apps/automation/services/workflows'
 import { updateRelated } from '@core/services/routes/relations'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
@@ -7,9 +7,9 @@ import generateCode from '@core/utils/generate_code'
 import { updateTicketTypes } from '../../../services/ticket_types'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { updateAlias } from '../../../../maha/services/aliases'
+import { updateAlias } from '@apps/maha/services/aliases'
 import { updateSessions } from '../../../services/sessions'
-import Program from '../../../../crm/models/program'
+import Program from '@apps/crm/models/program'
 import Event from '../../../models/event'
 
 const createRoute = async (req, res) => {

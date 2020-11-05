@@ -1,4 +1,4 @@
-import User from '../../../../../../maha/models/user'
+import User from '@apps/maha/models/user'
 import { twiml } from 'twilio'
 
 const getUser = async (req, user_id) => {

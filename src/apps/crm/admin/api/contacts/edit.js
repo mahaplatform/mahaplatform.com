@@ -1,4 +1,4 @@
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 import Contact from '../../../models/contact'
 import _ from 'lodash'
 

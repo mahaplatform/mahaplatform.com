@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 import PaymentMethod from './payment_method'
 import Scholarship from './scholarship'
 import Invoice from './invoice'

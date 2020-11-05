@@ -1,4 +1,4 @@
-import Team from '../../../../maha/models/team'
+import Team from '@apps/maha/models/team'
 
 const editRoute = async (req, res) => {
 

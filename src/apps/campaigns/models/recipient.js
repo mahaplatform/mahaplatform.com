@@ -1,8 +1,8 @@
-import MailingAddress from '../../crm/models/mailing_address'
-import EmailAddress from '../../crm/models/email_address'
-import PhoneNumber from '../../crm/models/phone_number'
+import MailingAddress from '@apps/crm/models/mailing_address'
+import EmailAddress from '@apps/crm/models/email_address'
+import PhoneNumber from '@apps/crm/models/phone_number'
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 
 const Recipient = new Model({
 

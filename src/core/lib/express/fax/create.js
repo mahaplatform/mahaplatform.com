@@ -1,5 +1,5 @@
-import PhoneNumber from '../../../../apps/maha/models/phone_number'
-import { createFax } from '../../../../apps/maha/services/faxes'
+import PhoneNumber from '@apps/maha/models/phone_number'
+import { createFax } from '@apps/maha/services/faxes'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
 import { twiml } from 'twilio'

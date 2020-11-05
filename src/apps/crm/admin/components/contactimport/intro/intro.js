@@ -1,4 +1,4 @@
-import ImportToken from '../../../../../maha/admin/tokens/import'
+import ImportToken from '@apps/maha/admin/tokens/import'
 import { List, Loader, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

@@ -1,7 +1,7 @@
 import { createUserToken } from '@core/utils/user_tokens'
-import { renderTemplate } from '../../../../maha/services/emails'
+import { renderTemplate } from '@apps/maha/services/emails'
 import { sendMail } from '@core/services/email'
-import Account from '../../../../maha/models/account'
+import Account from '@apps/maha/models/account'
 
 const resetRoute = async (req, res) => {
 

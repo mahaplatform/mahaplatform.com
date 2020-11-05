@@ -1,4 +1,4 @@
-import GenerateScreenshotQueue from '../../../../../automation/queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
 import TemplateSerializer from '../../../../serializers/template_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'

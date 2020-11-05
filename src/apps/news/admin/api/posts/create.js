@@ -1,7 +1,7 @@
 import { whitelist } from '@core/services/routes/params'
 import PostSerializer from '../../../serializers/post_serializer'
 import socket from '@core/services/routes/emitter'
-import Attachment from '../../../../maha/models/attachment'
+import Attachment from '@apps/maha/models/attachment'
 import Post from '../../../models/post'
 
 const createRoute = async (req, res) => {

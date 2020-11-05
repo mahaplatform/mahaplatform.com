@@ -1,6 +1,6 @@
 import { updateRelated } from '@core/services/routes/relations'
 import socket from '@core/services/routes/emitter'
-import Role from '../../../../../maha/models/role'
+import Role from '@apps/maha/models/role'
 
 const updateRoute = async (req, res) => {
 

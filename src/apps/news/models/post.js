@@ -1,7 +1,7 @@
-import Attachment from '../../maha/models/attachment'
+import Attachment from '@apps/maha/models/attachment'
 import Model from '@core/objects/model'
-import User from '../../maha/models/user'
-import Link from '../../maha/models/link'
+import User from '@apps/maha/models/user'
+import Link from '@apps/maha/models/link'
 import Group from './group'
 import Like from './like'
 

@@ -1,5 +1,5 @@
 import ShortLinkSerializer from '../../../serializers/shortlink_serializer'
-import ShortLink from '../../../../maha/models/shortlink'
+import ShortLink from '@apps/maha/models/shortlink'
 
 const showRoute = async (req, res) => {
 

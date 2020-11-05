@@ -1,8 +1,8 @@
-import PhoneNumber from '../../../../apps/maha/models/phone_number'
-import { receiveCall, updateCall } from '../../../../apps/maha/services/calls'
+import PhoneNumber from '@apps/maha/models/phone_number'
+import { receiveCall, updateCall } from '@apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
-import Call from '../../../../apps/maha/models/call'
+import Call from '@apps/maha/models/call'
 import twilio from '../../../services/twilio'
 import { twiml } from 'twilio'
 

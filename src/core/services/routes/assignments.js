@@ -1,4 +1,4 @@
-import User from '../../../apps/maha/models/user'
+import User from '@apps/maha/models/user'
 import _ from 'lodash'
 
 const getEveryone = async (req) => await User.query(qb => {

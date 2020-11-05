@@ -1,5 +1,5 @@
-import FromPhoneNumber from '../../../../maha/models/phone_number'
-import { sendSMS } from '../../../../maha/services/smses'
+import FromPhoneNumber from '@apps/maha/models/phone_number'
+import { sendSMS } from '@apps/maha/services/smses'
 import ToPhoneNumber from '../../../models/phone_number'
 import Contact from '../../../models/contact'
 

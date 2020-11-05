@@ -1,5 +1,5 @@
 import parse from '@core/utils/parse'
-import Asset from '../../../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 
 const previewRoute = async (req, res) => {
 

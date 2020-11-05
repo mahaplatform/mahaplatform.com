@@ -1,4 +1,4 @@
-import User from '../../../../maha/models/user'
+import User from '@apps/maha/models/user'
 
 const editRoute = async (req, res) => {
 

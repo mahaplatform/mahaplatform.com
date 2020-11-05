@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import { sendSMS } from '../../../../../../maha/services/smses'
+import { sendSMS } from '@apps/maha/services/smses'
 import PhoneNumber from '../../../../../models/phone_number'
 import Program from '../../../../../models/program'
 

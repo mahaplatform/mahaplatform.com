@@ -1,6 +1,6 @@
-import { createAssetFromUrl } from '../../maha/services/assets'
+import { createAssetFromUrl } from '@apps/maha/services/assets'
 import Queue from '@core/objects/queue'
-import User from '../../maha/models/user'
+import User from '@apps/maha/models/user'
 import Contact from '../models/contact'
 
 const processor = async (req, job) => {

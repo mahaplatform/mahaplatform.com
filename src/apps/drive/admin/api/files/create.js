@@ -1,6 +1,6 @@
 import FileSerializer from '../../../serializers/file_serializer'
 import { createFile } from '../../../services/files'
-import Asset from '../../../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 import Item from '../../../models/item'
 
 const createRoute = async (req, res) => {

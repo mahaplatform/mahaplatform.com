@@ -1,6 +1,6 @@
-import { executeWorkflow } from '../../../../automation/services/workflows'
+import { executeWorkflow } from '@apps/automation/services/workflows'
 import twilio from '@core/services/twilio'
-import Call from '../../../../maha/models/call'
+import Call from '@apps/maha/models/call'
 import { twiml } from 'twilio'
 
 const getResponse = async (req, { call, duration, status }) => {

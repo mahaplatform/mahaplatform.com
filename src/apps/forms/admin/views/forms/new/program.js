@@ -1,4 +1,4 @@
-import ProgramChooser from '../../../../../crm/admin/components/program_chooser'
+import ProgramChooser from '@apps/crm/admin/components/program_chooser'
 import PropTypes from 'prop-types'
 import React from 'react'
 

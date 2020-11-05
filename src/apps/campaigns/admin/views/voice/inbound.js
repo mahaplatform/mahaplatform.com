@@ -1,4 +1,4 @@
-import ProgramForm from '../../../../crm/admin/components/programform'
+import ProgramForm from '@apps/crm/admin/components/programform'
 import CompactCampaignToken from '../../tokens/campaign/compact'
 import StatusToken from '../../tokens/status'
 import { Logo, Page } from 'maha-admin'

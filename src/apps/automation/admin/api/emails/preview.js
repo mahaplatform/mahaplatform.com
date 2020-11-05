@@ -1,7 +1,7 @@
 import { renderEmail, personalizeEmail } from '../../../services/email'
 import { sendMail } from '@core/services/email'
-import Sender from '../../../../crm/models/sender'
-import User from '../../../../maha/models/user'
+import Sender from '@apps/crm/models/sender'
+import User from '@apps/maha/models/user'
 
 const getContact = async (req, params) => {
   const { strategy, user_id, email, first_name, last_name } = params

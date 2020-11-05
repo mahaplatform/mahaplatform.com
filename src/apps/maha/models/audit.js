@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 import Story from './story'
 import User from './user'
 

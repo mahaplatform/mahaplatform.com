@@ -1,8 +1,8 @@
 import Model from '@core/objects/model'
-import Grouping from '../../maha/models/grouping'
+import Grouping from '@apps/maha/models/grouping'
 import Program from './program'
-import Group from '../../maha/models/group'
-import User from '../../maha/models/user'
+import Group from '@apps/maha/models/group'
+import User from '@apps/maha/models/user'
 
 const ProgramAccess = new Model({
 

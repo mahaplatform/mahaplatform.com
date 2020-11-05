@@ -1,5 +1,5 @@
 import FaxSerializer from '../../../serializers/fax_serializer'
-import Fax from '../../../../maha/models/fax'
+import Fax from '@apps/maha/models/fax'
 
 const outgoingRoute = async (req, res) => {
 

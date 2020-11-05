@@ -1,7 +1,7 @@
-import Grouping from '../../maha/models/grouping'
+import Grouping from '@apps/maha/models/grouping'
 import Model from '@core/objects/model'
-import Group from '../../maha/models/group'
-import User from '../../maha/models/user'
+import Group from '@apps/maha/models/group'
+import User from '@apps/maha/models/user'
 import AccessType from './access_type'
 import Item from './item'
 

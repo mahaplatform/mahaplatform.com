@@ -1,5 +1,5 @@
-import InvoiceSerializer from '../../../../../finance/serializers/invoice_serializer'
-import Invoice from '../../../../../finance/models/invoice'
+import InvoiceSerializer from '@apps/finance/serializers/invoice_serializer'
+import Invoice from '@apps/finance/models/invoice'
 import numeral from 'numeral'
 import moment from 'moment'
 import path from 'path'

@@ -1,5 +1,5 @@
 import ActivitySerializer from '../../../serializers/activity_serializer'
-import Activity from '../../../../maha/models/activity'
+import Activity from '@apps/maha/models/activity'
 
 const listRoute = async (req, res) => {
 

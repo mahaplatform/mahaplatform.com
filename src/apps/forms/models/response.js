@@ -1,8 +1,8 @@
-import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
-import Invoice from '../../finance/models/invoice'
-import Payment from '../../finance/models/payment'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import Invoice from '@apps/finance/models/invoice'
+import Payment from '@apps/finance/models/payment'
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 import Form from './form'
 
 const Response = new Model({

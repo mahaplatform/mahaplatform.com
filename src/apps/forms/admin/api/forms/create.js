@@ -1,13 +1,13 @@
-import { createConfirmationWorkflow } from '../../../../automation/services/workflows'
+import { createConfirmationWorkflow } from '@apps/automation/services/workflows'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { updateAlias } from '../../../../maha/services/aliases'
-import Program from '../../../../crm/models/program'
-import Form from '../../../../forms/models/form'
+import { updateAlias } from '@apps/maha/services/aliases'
+import Program from '@apps/crm/models/program'
+import Form from '@apps/forms/models/form'
 import _ from 'lodash'
 
 const createRoute = async (req, res) => {

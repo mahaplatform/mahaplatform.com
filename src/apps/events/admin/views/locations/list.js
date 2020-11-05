@@ -1,4 +1,4 @@
-import ProgramForm from '../../../../crm/admin/components/programform'
+import ProgramForm from '@apps/crm/admin/components/programform'
 import { Page } from 'maha-admin'
 import React from 'react'
 

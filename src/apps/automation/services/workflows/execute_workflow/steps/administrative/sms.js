@@ -1,5 +1,5 @@
-import { sendSMS } from '../../../../../../maha/services/smses'
-import User from '../../../../../../maha/models/user'
+import { sendSMS } from '@apps/maha/services/smses'
+import User from '@apps/maha/models/user'
 import { getEnrollmentData } from '../utils'
 
 const getToNumber = async (req, { config }) => {

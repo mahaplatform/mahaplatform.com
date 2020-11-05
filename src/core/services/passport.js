@@ -1,7 +1,7 @@
 import Passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
-import User  from '../../apps/maha/models/user'
+import User  from '@apps/maha/models/user'
 
 const passport = (key, trx) => {
 

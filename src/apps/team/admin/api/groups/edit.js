@@ -1,4 +1,4 @@
-import Group from '../../../../maha/models/group'
+import Group from '@apps/maha/models/group'
 
 const showRoute = async (req, res) => {
 

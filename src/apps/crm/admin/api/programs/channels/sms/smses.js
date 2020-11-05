@@ -1,5 +1,5 @@
 import PhoneNumber from '../../../../../models/phone_number'
-import SMS from '../../../../../../maha/models/sms'
+import SMS from '@apps/maha/models/sms'
 import Program from '../../../../../models/program'
 
 const smsesRoute = async (req, res) => {

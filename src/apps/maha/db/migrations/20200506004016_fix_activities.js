@@ -1,4 +1,4 @@
-import List from '../../../crm/models/list'
+import List from '@apps/crm/models/list'
 const FixActivities = {
 
   up: async (knex) => {

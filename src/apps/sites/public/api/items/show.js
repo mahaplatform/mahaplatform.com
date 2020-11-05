@@ -1,4 +1,4 @@
-import { expandValues } from '../../../../maha/services/values'
+import { expandValues } from '@apps/maha/services/values'
 import Item from '../../../models/item'
 
 const showRoute = async (req, res) => {

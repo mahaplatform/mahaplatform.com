@@ -1,7 +1,7 @@
-import { updateCall } from '../../../../apps/maha/services/calls'
+import { updateCall } from '@apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
-import Call from '../../../../apps/maha/models/call'
+import Call from '@apps/maha/models/call'
 
 const hooks = collectObjects('hooks/voice/status.js')
 

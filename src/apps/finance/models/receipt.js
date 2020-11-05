@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
 import Reimbursement from  './reimbursement'
-import Asset from '../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 import Expense from  './expense'
 import Check from  './check'
 

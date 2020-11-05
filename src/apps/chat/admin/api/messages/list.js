@@ -2,7 +2,7 @@ import MessageSerializer from '../../../serializers/message_serializer'
 import socket from '@core/services/routes/emitter'
 import Subscription from '../../../models/subscription'
 import { getUnread } from '../../../services/messages'
-import User from '../../../../maha/models/user'
+import User from '@apps/maha/models/user'
 import Message from '../../../models/message'
 import moment from 'moment'
 

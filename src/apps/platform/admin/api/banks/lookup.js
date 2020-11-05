@@ -1,5 +1,5 @@
 import braintree from '@core/services/braintree'
-import Bank from '../../../../finance/models/bank'
+import Bank from '@apps/finance/models/bank'
 import _ from 'lodash'
 
 const lookupRoute = async (req, res) => {

@@ -1,7 +1,7 @@
 import ContactImportProcessQueue from '../../../queues/contactimport_process_queue'
-import ImportSerializer from '../../../../maha/serializers/import_serializer'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import socket from '@core/services/routes/emitter'
-import Import from '../../../../maha/models/import'
+import Import from '@apps/maha/models/import'
 
 const processRoute = async (req, res) => {
 

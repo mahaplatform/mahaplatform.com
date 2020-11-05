@@ -1,4 +1,4 @@
-import Content from '../../../../../forms/admin/tokens/content'
+import Content from '@apps/forms/admin/tokens/content'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'

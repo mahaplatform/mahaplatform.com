@@ -1,7 +1,7 @@
 import { toFilter } from '@core/utils/criteria'
-import Filter from '../../maha/models/filter'
+import Filter from '@apps/maha/models/filter'
 import Recipient from '../models/recipient'
-import Field from '../../maha/models/field'
+import Field from '@apps/maha/models/field'
 
 const getCreator = (strategy) => {
   if(strategy === 'contacts') return getRecipientsById

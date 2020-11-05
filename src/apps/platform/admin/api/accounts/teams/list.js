@@ -1,4 +1,4 @@
-import Account from '../../../../../maha/models/account'
+import Account from '@apps/maha/models/account'
 
 const listRoute = async (req, res, next) => {
 

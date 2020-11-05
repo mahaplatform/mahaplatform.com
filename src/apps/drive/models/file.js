@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import User from '../../maha/models/user'
+import User from '@apps/maha/models/user'
 import Version from './version'
 import Access from './access'
 import Folder from './folder'

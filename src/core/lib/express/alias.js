@@ -1,4 +1,4 @@
-import Alias from '../../../apps/maha/models/alias'
+import Alias from '@apps/maha/models/alias'
 import qs from 'qs'
 
 const getAlias = async (req, { path }) => {

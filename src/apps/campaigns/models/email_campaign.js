@@ -1,8 +1,8 @@
 import EmailCampaignResult from './email_campaign_result'
-import Workflow from '../../automation/models/workflow'
-import MahaEmail from '../../maha/models/email'
+import Workflow from '@apps/automation/models/workflow'
+import MahaEmail from '@apps/maha/models/email'
 import Model from '@core/objects/model'
-import Program from '../../crm/models/program'
+import Program from '@apps/crm/models/program'
 
 const EmailCampaign = new Model({
 

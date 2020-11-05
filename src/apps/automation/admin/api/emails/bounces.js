@@ -1,6 +1,6 @@
 import EmailDeliverySerializer from '../../../serializers/email_delivery_serializer'
 import CRMEmail from '../../../models/email'
-import Email from '../../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 
 const bouncesRoute = async (req, res) => {
 

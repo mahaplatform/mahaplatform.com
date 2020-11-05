@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import { personalizeEmail } from '../../../../../automation/services/email'
+import { personalizeEmail } from '@apps/automation/services/email'
 import socket from '@core/services/routes/emitter'
 import { sendMail } from '@core/services/email'
-import Email from '../../../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 
 const resendRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import SMSSerializer from '../../../serializers/sms_serializer'
-import SMS from '../../../../maha/models/sms'
+import SMS from '@apps/maha/models/sms'
 
 const listRoute = async (req, res) => {
 

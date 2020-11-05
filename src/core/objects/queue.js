@@ -1,5 +1,5 @@
 import socket from '../services/routes/emitter'
-import Team from '../../apps/maha/models/team'
+import Team from '@apps/maha/models/team'
 import Logger from '../services/logger'
 import knex from '../services/knex'
 import redis from 'ioredis'

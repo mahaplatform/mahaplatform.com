@@ -1,4 +1,4 @@
-import Supervisor from '../../maha/models/supervisor'
+import Supervisor from '@apps/maha/models/supervisor'
 
 const isSupervisor = async (req) => {
 

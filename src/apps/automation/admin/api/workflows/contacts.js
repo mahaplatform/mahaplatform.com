@@ -1,6 +1,6 @@
-import ContactSerializer from '../../../../crm/serializers/contact_serializer'
-import { getContacts } from '../../../../crm/services/contacts'
-import Field from '../../../../maha/models/field'
+import ContactSerializer from '@apps/crm/serializers/contact_serializer'
+import { getContacts } from '@apps/crm/services/contacts'
+import Field from '@apps/maha/models/field'
 
 const listRoute = async (req, res) => {
 

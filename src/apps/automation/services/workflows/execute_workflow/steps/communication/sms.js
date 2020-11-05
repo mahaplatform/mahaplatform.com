@@ -1,5 +1,5 @@
-import { getFormattedNumber } from '../../../../../../crm/services/phone_numbers'
-import { sendSMS } from '../../../../../../maha/services/smses'
+import { getFormattedNumber } from '@apps/crm/services/phone_numbers'
+import { sendSMS } from '@apps/maha/services/smses'
 import { getEnrollmentData } from '../utils'
 import _ from 'lodash'
 

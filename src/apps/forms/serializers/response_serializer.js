@@ -1,4 +1,4 @@
-import { expandValues } from '../../maha/services/values'
+import { expandValues } from '@apps/maha/services/values'
 
 const ResponseSerializer = (req, result) => ({
   id: result.get('id'),

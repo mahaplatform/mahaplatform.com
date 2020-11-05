@@ -1,4 +1,4 @@
-import { enrollInWorkflows } from '../../../automation/services/workflows'
+import { enrollInWorkflows } from '@apps/automation/services/workflows'
 
 const addToTopics = async (req, { contact, topic_ids }) => {
 

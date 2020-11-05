@@ -1,5 +1,5 @@
-import ImportItem from '../../../../../maha/models/import_item'
-import Import from '../../../../../maha/models/import'
+import ImportItem from '@apps/maha/models/import_item'
+import Import from '@apps/maha/models/import'
 
 const showRoute = async (req, res) => {
 

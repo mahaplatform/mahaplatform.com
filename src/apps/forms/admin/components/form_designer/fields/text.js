@@ -1,4 +1,4 @@
-import FontFamilyToken from '../../../../../automation/admin/tokens/fontfamily'
+import FontFamilyToken from '@apps/automation/admin/tokens/fontfamily'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'

@@ -1,5 +1,5 @@
-import ProgramToken from '../../../../crm/admin/tokens/program'
-import ContactToken from '../../../../crm/admin/tokens/contact'
+import ProgramToken from '@apps/crm/admin/tokens/program'
+import ContactToken from '@apps/crm/admin/tokens/contact'
 import LineItems from '../../components/line_items'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'

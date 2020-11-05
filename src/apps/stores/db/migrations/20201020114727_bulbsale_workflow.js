@@ -1,4 +1,4 @@
-import { createConfirmationWorkflow } from '../../../crm/services/workflows'
+import { createConfirmationWorkflow } from '@apps/crm/services/workflows'
 import Store from '../../models/store'
 
 const BulbsaleWorkflow = {

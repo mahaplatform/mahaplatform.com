@@ -1,4 +1,4 @@
-import ContactToken from '../../../../crm/admin/tokens/contact'
+import ContactToken from '@apps/crm/admin/tokens/contact'
 import { Infinite, ModalPanel, Search } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'

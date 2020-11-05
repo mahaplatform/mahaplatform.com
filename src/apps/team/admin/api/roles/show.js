@@ -1,5 +1,5 @@
 import RoleSerializer from '../../../serializers/role_serializer'
-import Role from '../../../../maha/models/role'
+import Role from '@apps/maha/models/role'
 
 const showRoute = async (req, res) => {
 

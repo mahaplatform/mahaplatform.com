@@ -1,9 +1,9 @@
-import WorkflowEnrollment from '../../automation/models/workflow_enrollment'
-import WorkflowStep from '../../automation/models/workflow_step'
-import PhoneNumber from '../../maha/models/phone_number'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowStep from '@apps/automation/models/workflow_step'
+import PhoneNumber from '@apps/maha/models/phone_number'
 import SmsCampaignResult from './sms_campaign_result'
 import Model from '@core/objects/model'
-import Program from '../../crm/models/program'
+import Program from '@apps/crm/models/program'
 
 const SmsCampaign = new Model({
 

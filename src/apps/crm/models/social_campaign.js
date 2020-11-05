@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
 import Program from './program'
-import Profile from '../../maha/models/profile'
+import Profile from '@apps/maha/models/profile'
 
 const SocialCampaign = new Model({
 

@@ -1,5 +1,5 @@
-import EnrollmentSerializer from '../../../../../automation/serializers/enrollment_serializer'
-import WorkflowEnrollment from '../../../../../automation/models/workflow_enrollment'
+import EnrollmentSerializer from '@apps/automation/serializers/enrollment_serializer'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import SmsCampaign from '../../../../models/sms_campaign'
 
 const listRoute = async (req, res) => {

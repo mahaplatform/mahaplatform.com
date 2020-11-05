@@ -1,6 +1,6 @@
 import { updateRelated } from '@core/services/routes/relations'
 import socket from '@core/services/routes/emitter'
-import Supervisor from '../../../../../maha/models/supervisor'
+import Supervisor from '@apps/maha/models/supervisor'
 
 const updateRoute = async (req, res) => {
 

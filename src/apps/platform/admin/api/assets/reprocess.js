@@ -1,5 +1,5 @@
-import ProcessAssetQueue from '../../../../maha/queues/process_asset_queue'
-import Asset from '../../../../maha/models/asset'
+import ProcessAssetQueue from '@apps/maha/queues/process_asset_queue'
+import Asset from '@apps/maha/models/asset'
 
 const reprocessRoute = async (req, res) => {
 

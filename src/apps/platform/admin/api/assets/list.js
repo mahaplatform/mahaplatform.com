@@ -1,5 +1,5 @@
 import AssetSerializer from '../../../serializers/asset_serializer'
-import Asset from '../../../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 
 const listRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import { personalizeEmail } from '../../automation/services/email'
+import { personalizeEmail } from '@apps/automation/services/email'
 import generateCode from '@core/utils/generate_code'
 import { sendMail } from '@core/services/email'
 import EmailActivity from '../models/email_activity'

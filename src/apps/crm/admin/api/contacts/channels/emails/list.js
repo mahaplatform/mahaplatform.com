@@ -1,5 +1,5 @@
-import { personalizeEmail } from '../../../../../../automation/services/email'
-import Email from '../../../../../../maha/models/email'
+import { personalizeEmail } from '@apps/automation/services/email'
+import Email from '@apps/maha/models/email'
 import Contact from '../../../../../models/contact'
 import parser from 'address-rfc2822'
 

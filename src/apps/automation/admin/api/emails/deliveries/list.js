@@ -1,6 +1,6 @@
 import EmailDeliverySerializer from '../../../../serializers/email_delivery_serializer'
 import CrmEmail from '../../../../models/email'
-import Email from '../../../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 
 const listRoute = async (req, res) => {
 

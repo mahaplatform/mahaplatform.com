@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
 import FaxSerializer from '../../../serializers/fax_serializer'
-import PhoneNumber from '../../../../maha/models/phone_number'
+import PhoneNumber from '@apps/maha/models/phone_number'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import { sendFax } from '../../../../maha/services/faxes'
+import { sendFax } from '@apps/maha/services/faxes'
 
 const createRoute = async (req, res) => {
 

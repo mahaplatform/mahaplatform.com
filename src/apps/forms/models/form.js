@@ -1,7 +1,7 @@
-import Workflow from '../../automation/models/workflow'
-import Email from '../../automation/models/email'
+import Workflow from '@apps/automation/models/workflow'
+import Email from '@apps/automation/models/email'
 import Model from '@core/objects/model'
-import Program from '../../crm/models/program'
+import Program from '@apps/crm/models/program'
 import Response from './response'
 import moment from 'moment'
 

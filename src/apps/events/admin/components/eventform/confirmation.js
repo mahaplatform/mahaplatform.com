@@ -1,4 +1,4 @@
-import TemplateField from '../../../../crm/admin/components/templatefield'
+import TemplateField from '@apps/crm/admin/components/templatefield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'

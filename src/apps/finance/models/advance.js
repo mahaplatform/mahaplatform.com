@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import User from '../../maha/models/user'
+import User from '@apps/maha/models/user'
 import ExpenseType from './expense_type'
 import Project from './project'
 

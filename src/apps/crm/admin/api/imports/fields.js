@@ -1,4 +1,4 @@
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 import Program from '../../../models/program'
 
 const fieldsRoute = async (req, res) => {

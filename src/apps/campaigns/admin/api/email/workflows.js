@@ -1,4 +1,4 @@
-import WorkflowSerializer from '../../../../automation/serializers/workflow_serializer'
+import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
 import EmailCampaign from '../../../models/email_campaign'
 
 const workflowsRoute = async (req, res) => {

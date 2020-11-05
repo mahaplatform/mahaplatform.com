@@ -1,4 +1,4 @@
-import { renderTemplate } from '../../../../maha/services/emails'
+import { renderTemplate } from '@apps/maha/services/emails'
 import socket from '@core/services/routes/emitter'
 import { sendMail } from '@core/services/email'
 import Bank from '../../../models/bank'

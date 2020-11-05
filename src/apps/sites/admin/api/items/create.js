@@ -1,8 +1,8 @@
 import ItemSerializer from '../../../serializers/item_serializer'
 import socket from '@core/services/routes/emitter'
-import { processValues } from '../../../../maha/services/values'
+import { processValues } from '@apps/maha/services/values'
 import { addIndex } from '../../../services/search'
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 import Item from '../../../models/item'
 
 const createRoute = async (req, res) => {

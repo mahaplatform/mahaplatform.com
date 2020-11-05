@@ -1,5 +1,5 @@
 import { createUserToken } from '@core/utils/user_tokens'
-import { sendEmail } from '../../../maha/services/emails'
+import { sendEmail } from '@apps/maha/services/emails'
 
 const sendActivation = async (req, { user }) => {
 

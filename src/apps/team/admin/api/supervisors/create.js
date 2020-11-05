@@ -2,7 +2,7 @@ import SupervisorSerializer from '../../../serializers/supervisor_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Supervisor from '../../../../maha/models/supervisor'
+import Supervisor from '@apps/maha/models/supervisor'
 
 const createRoute = async (req, res) => {
 

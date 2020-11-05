@@ -1,4 +1,4 @@
-import Call from '../../../../../../maha/models/call'
+import Call from '@apps/maha/models/call'
 import Contact from '../../../../../models/contact'
 
 const listRoute = async (req, res) => {

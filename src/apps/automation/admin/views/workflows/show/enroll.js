@@ -1,4 +1,4 @@
-import ToField from '../../../../../campaigns/admin/components/tofield'
+import ToField from '@apps/campaigns/admin/components/tofield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

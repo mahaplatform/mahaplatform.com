@@ -1,9 +1,9 @@
 import { updateRelated } from '@core/services/routes/relations'
-import { deleteItems, transferItems } from '../../../../drive/services/items'
+import { deleteItems, transferItems } from '@apps/drive/services/items'
 import { activity } from '@core/services/routes/activities'
-import { deleteMemberships } from '../../../../finance/services/members'
+import { deleteMemberships } from '@apps/finance/services/members'
 import socket from '@core/services/routes/emitter'
-import User from '../../../../maha/models/user'
+import User from '@apps/maha/models/user'
 
 const disableRoute = async (req, res) => {
 

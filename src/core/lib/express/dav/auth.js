@@ -1,4 +1,4 @@
-import User from '../../../../apps/maha/models/user'
+import User from '@apps/maha/models/user'
 import redis from '../../../services/redis'
 import auth from 'http-auth'
 

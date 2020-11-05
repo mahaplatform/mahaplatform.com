@@ -1,5 +1,5 @@
 import AppSerializer from '../../../serializers/app_serializer'
-import App from '../../../../maha/models/app'
+import App from '@apps/maha/models/app'
 
 const showRoute = async (req, res) => {
 

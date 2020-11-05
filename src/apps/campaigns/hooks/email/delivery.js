@@ -1,5 +1,5 @@
-import { enrollInWorkflows } from '../../../automation/services/workflows'
-import { contactActivity } from '../../../crm/services/activities'
+import { enrollInWorkflows } from '@apps/automation/services/workflows'
+import { contactActivity } from '@apps/crm/services/activities'
 
 const delivery = async (req, { email }) => {
 

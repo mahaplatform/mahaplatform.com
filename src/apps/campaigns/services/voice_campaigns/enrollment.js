@@ -1,5 +1,5 @@
-import WorkflowEnrollment from '../../../automation/models/workflow_enrollment'
-import { contactActivity } from '../../../crm/services/activities'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import { contactActivity } from '@apps/crm/services/activities'
 import generateCode from '@core/utils/generate_code'
 
 export const enrollInCampaign = async (req, params) => {

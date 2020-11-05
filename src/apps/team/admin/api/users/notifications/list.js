@@ -1,4 +1,4 @@
-import NotificationType from '../../../../../maha/models/notification_type'
+import NotificationType from '@apps/maha/models/notification_type'
 
 const listRoute = async (req, res) => {
 

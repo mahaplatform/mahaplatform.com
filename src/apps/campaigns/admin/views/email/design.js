@@ -1,4 +1,4 @@
-import EmailDesigner from '../../../../automation/admin/components/email_designer/wrapper'
+import EmailDesigner from '@apps/automation/admin/components/email_designer/wrapper'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'

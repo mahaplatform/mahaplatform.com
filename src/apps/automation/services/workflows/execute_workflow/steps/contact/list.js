@@ -1,4 +1,4 @@
-import { addToLists, removeFromLists } from '../../../../../../crm/services/lists'
+import { addToLists, removeFromLists } from '@apps/crm/services/lists'
 import _ from 'lodash'
 
 const listStep = async (req, { contact, config, enrollment }) => {

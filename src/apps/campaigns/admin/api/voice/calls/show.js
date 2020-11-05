@@ -1,5 +1,5 @@
-import EnrollmentSerializer from '../../../../../automation/serializers/enrollment_serializer'
-import WorkflowEnrollment from '../../../../../automation/models/workflow_enrollment'
+import EnrollmentSerializer from '@apps/automation/serializers/enrollment_serializer'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import VoiceCampaign from '../../../../models/voice_campaign'
 
 const showRoute = async (req, res) => {

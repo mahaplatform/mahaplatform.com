@@ -1,6 +1,6 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import WorkflowAction from '../../models/workflow_action'
-import Email from '../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 
 const AddActionDescription = {
 

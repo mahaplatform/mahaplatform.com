@@ -1,5 +1,5 @@
-import Account from '../../../../../maha/models/account'
-import Team from '../../../../../maha/models/team'
+import Account from '@apps/maha/models/account'
+import Team from '@apps/maha/models/team'
 
 const availableRoute = async (req, res, next) => {
 

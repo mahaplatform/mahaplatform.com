@@ -1,4 +1,4 @@
-import ConatctPhoneNumber from '../../../crm/models/phone_number'
+import ConatctPhoneNumber from '@apps/crm/models/phone_number'
 import PhoneNumber from '../../models/phone_number'
 import SMS from '../../models/sms'
 

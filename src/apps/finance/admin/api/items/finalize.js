@@ -1,8 +1,8 @@
-import ImportSerializer from '../../../../maha/serializers/import_serializer'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import ImportItem from '../../../../maha/models/import_item'
-import Import from '../../../../maha/models/import'
+import ImportItem from '@apps/maha/models/import_item'
+import Import from '@apps/maha/models/import'
 import Trip from '../../../models/trip'
 import moment from 'moment'
 

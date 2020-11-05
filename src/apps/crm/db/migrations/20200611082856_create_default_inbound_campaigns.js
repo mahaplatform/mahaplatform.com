@@ -1,5 +1,5 @@
 import { createDefaultInboundCampaign } from '../../services/voice_campaigns'
-import PhoneNumber from '../../../maha/models/phone_number'
+import PhoneNumber from '@apps/maha/models/phone_number'
 
 const CreateDefaultInboundCampaigns = {
 

@@ -1,8 +1,8 @@
 import ContactImportImportQueue from '../../../queues/contactimport_import_queue'
 import ContactImportParseQueue from '../../../queues/contactimport_parse_queue'
-import ImportSerializer from '../../../../maha/serializers/import_serializer'
-import Import from '../../../../maha/models/import'
-import Profile from '../../../../maha/models/profile'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
+import Import from '@apps/maha/models/import'
+import Profile from '@apps/maha/models/profile'
 
 const getService = async (req, profile_id) => {
   if(!profile_id) return 'excel'

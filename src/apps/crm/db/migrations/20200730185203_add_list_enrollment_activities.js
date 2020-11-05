@@ -1,6 +1,6 @@
 import WorkflowEnrollment from '../../models/workflow_enrollment'
 import { contactActivity } from '../../services/activities'
-import User from '../../../maha/models/user'
+import User from '@apps/maha/models/user'
 import moment from 'moment'
 
 const AddListEnrollmentActivities = {

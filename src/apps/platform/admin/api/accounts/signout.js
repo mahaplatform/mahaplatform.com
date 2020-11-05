@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Account from '../../../../maha/models/account'
+import Account from '@apps/maha/models/account'
 import moment from 'moment'
 
 const signoutRoute = async (req, res) => {

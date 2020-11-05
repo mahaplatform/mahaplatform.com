@@ -1,4 +1,4 @@
-import Asset from '../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 import Model from '@core/objects/model'
 import Category from './category'
 import Attraction from './attraction'

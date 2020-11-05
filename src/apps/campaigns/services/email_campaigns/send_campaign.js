@@ -1,5 +1,5 @@
 import TriggerEmailEnrollmentQueue from '../../queues/trigger_email_enrollment_queue'
-import { renderEmail } from '../../../automation/services/email'
+import { renderEmail } from '@apps/automation/services/email'
 import { getRecipients } from '../../services/recipients'
 import EmailCampaign from '../../models/email_campaign'
 import moment from 'moment'

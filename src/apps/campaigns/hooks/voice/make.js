@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import PhoneNumber from '../../../crm/models/phone_number'
+import PhoneNumber from '@apps/crm/models/phone_number'
 import { twiml } from 'twilio'
 
 const makeHook = async (req, { call, phone_number, user_id }) => {

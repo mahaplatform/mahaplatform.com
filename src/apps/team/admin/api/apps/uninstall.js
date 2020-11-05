@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import Installation from '../../../../maha/models/installation'
-import Right from '../../../../maha/models/right'
-import Role from '../../../../maha/models/role'
+import Installation from '@apps/maha/models/installation'
+import Right from '@apps/maha/models/right'
+import Role from '@apps/maha/models/role'
 
 const uninstallRoute = async (req, res) => {
 

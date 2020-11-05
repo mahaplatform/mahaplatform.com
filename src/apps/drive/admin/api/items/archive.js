@@ -1,4 +1,4 @@
-import { getAssetData } from '../../../../maha/services/assets'
+import { getAssetData } from '@apps/maha/services/assets'
 import Item from '../../../models/item'
 import archiver from 'archiver'
 import moment from 'moment'

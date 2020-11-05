@@ -1,4 +1,4 @@
-import Notification from '../../../maha/models/notification'
+import Notification from '@apps/maha/models/notification'
 
 const UpdateNotifications = {
 

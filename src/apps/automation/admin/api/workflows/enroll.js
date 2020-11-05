@@ -1,4 +1,4 @@
-import { getRecipients } from '../../../../campaigns/services/recipients'
+import { getRecipients } from '@apps/campaigns/services/recipients'
 import { enrollInWorkflow } from '../../../services/workflows'
 import Workflow from '../../../models/workflow'
 

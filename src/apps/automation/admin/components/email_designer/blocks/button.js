@@ -1,4 +1,4 @@
-import EventToken from '../../../../../events/admin/tokens/event'
+import EventToken from '@apps/events/admin/tokens/event'
 import FontFamilyToken from '../../../tokens/fontfamily'
 import * as options from '../variables'
 import PropTypes from 'prop-types'

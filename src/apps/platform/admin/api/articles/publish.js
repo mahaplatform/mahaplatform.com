@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import HelpArticle from '../../../../maha/models/help_article'
+import HelpArticle from '@apps/maha/models/help_article'
 
 const publishRoute = async (req, res) => {
 

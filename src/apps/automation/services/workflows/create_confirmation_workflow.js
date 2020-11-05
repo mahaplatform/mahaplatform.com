@@ -3,7 +3,7 @@ import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import { getDefaultConfig } from '../../services/email'
 import WorkflowStep from '../../models/workflow_step'
-import Template from '../../../crm/models/template'
+import Template from '@apps/crm/models/template'
 import Workflow from '../../models/workflow'
 import Email from '../../models/email'
 

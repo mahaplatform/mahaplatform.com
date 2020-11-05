@@ -1,5 +1,5 @@
-import HelpArticleSerializer from '../../../../maha/serializers/help_article_serializer'
-import HelpArticle from '../../../../maha/models/help_article'
+import HelpArticleSerializer from '@apps/maha/serializers/help_article_serializer'
+import HelpArticle from '@apps/maha/models/help_article'
 
 const listRoute = async (req, res) => {
 

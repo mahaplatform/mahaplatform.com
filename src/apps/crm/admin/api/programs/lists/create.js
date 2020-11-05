@@ -1,4 +1,4 @@
-import { createWorkflow } from '../../../../../automation/services/workflows'
+import { createWorkflow } from '@apps/automation/services/workflows'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import ListSerializer from '../../../../serializers/list_serializer'

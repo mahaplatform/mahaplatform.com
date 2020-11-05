@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
 import Responsibility from './responsibility'
-import User from '../../maha/models/user'
+import User from '@apps/maha/models/user'
 
 const Appraisal = new Model({
 

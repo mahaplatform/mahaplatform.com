@@ -1,5 +1,5 @@
 import PhoneNumberSerializer from '../../../serializers/phone_number_serializer'
-import PhoneNumber from '../../../../maha/models/phone_number'
+import PhoneNumber from '@apps/maha/models/phone_number'
 
 const listRoute = async (req, res) => {
 

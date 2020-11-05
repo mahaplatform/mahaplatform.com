@@ -1,4 +1,4 @@
-import { receiveFax } from '../../../../apps/maha/services/faxes'
+import { receiveFax } from '@apps/maha/services/faxes'
 import socket from '../../../services/routes/emitter'
 import twilio from '../../../services/twilio'
 

@@ -1,4 +1,4 @@
-import ContactField from '../../../../crm/admin/components/contactfield'
+import ContactField from '@apps/crm/admin/components/contactfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

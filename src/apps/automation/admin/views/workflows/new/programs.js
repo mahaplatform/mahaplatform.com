@@ -1,5 +1,5 @@
-import ProgramToken from '../../../../../crm/admin/tokens/program'
-import List from '../../../../../crm/admin/components/list'
+import ProgramToken from '@apps/crm/admin/tokens/program'
+import List from '@apps/crm/admin/components/list'
 import { Infinite, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

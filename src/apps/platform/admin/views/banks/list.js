@@ -1,4 +1,4 @@
-import StatusToken from '../../../../finance/admin/tokens/status'
+import StatusToken from '@apps/finance/admin/tokens/status'
 import { Page } from 'maha-admin'
 
 const mapResourcesToPage = (props, context) => ({

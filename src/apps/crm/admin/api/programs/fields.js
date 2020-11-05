@@ -1,6 +1,6 @@
-import FieldSerializer from '../../../../maha/serializers/field_serializer'
+import FieldSerializer from '@apps/maha/serializers/field_serializer'
 import { checkProgramAccess } from '../../../services/programs'
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 
 const listRoute = async (req, res) => {
 

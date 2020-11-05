@@ -5,7 +5,7 @@ import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import SMSCampaign from '../../../models/sms_campaign'
-import Program from '../../../../crm/models/program'
+import Program from '@apps/crm/models/program'
 
 const createRoute = async (req, res) => {
 

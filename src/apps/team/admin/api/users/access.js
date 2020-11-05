@@ -1,6 +1,6 @@
-import Right from '../../../../maha/models/right'
-import User from '../../../../maha/models/user'
-import App from '../../../../maha/models/app'
+import Right from '@apps/maha/models/right'
+import User from '@apps/maha/models/user'
+import App from '@apps/maha/models/app'
 
 const accessRoute = async (req, res) => {
 

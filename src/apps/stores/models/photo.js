@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Asset from '../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 import Variant from './variant'
 
 const Photo = new Model({

@@ -1,5 +1,5 @@
-import FieldSerializer from '../../../../maha/serializers/field_serializer'
-import Field from '../../../../maha/models/field'
+import FieldSerializer from '@apps/maha/serializers/field_serializer'
+import Field from '@apps/maha/models/field'
 import Program from '../../../models/program'
 import _ from 'lodash'
 

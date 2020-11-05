@@ -1,4 +1,4 @@
-import ContactToken from '../../../../../crm/admin/tokens/contact'
+import ContactToken from '@apps/crm/admin/tokens/contact'
 import WorkflowStatusToken from '../../../tokens/workflow_status'
 import { Page } from 'maha-admin'
 import React from 'react'

@@ -1,4 +1,4 @@
-import EnrollmentSerializer from '../../../../../automation/serializers/enrollment_serializer'
+import EnrollmentSerializer from '@apps/automation/serializers/enrollment_serializer'
 import Registration from '../../../../models/registration'
 
 const enrollmentRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import BankToken from '../../../../finance/admin/tokens/bank'
+import BankToken from '@apps/finance/admin/tokens/bank'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

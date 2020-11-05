@@ -1,5 +1,5 @@
-import { createAssetFromUrl } from '../../../maha/services/assets'
-import Team from '../../../maha/models/team'
+import { createAssetFromUrl } from '@apps/maha/services/assets'
+import Team from '@apps/maha/models/team'
 import generateCode from '@core/utils/generate_code'
 import moment from 'moment'
 

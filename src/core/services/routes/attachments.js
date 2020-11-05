@@ -1,4 +1,4 @@
-import Attachment from '../../../apps/maha/models/attachment'
+import Attachment from '@apps/maha/models/attachment'
 
 export const attachments = async (req, attachments) => {
 

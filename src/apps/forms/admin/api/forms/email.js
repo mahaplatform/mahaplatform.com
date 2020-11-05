@@ -1,4 +1,4 @@
-import EmailSerializer from '../../../../automation/serializers/email_serializer'
+import EmailSerializer from '@apps/automation/serializers/email_serializer'
 import Form from '../../../models/form'
 
 const emailRoute  = async (req, res) => {

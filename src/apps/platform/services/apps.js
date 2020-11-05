@@ -1,4 +1,4 @@
-import Installation from '../../maha/models/installation'
+import Installation from '@apps/maha/models/installation'
 import _ from 'lodash'
 
 export const updateApps = async (req, { team, app_ids }) => {

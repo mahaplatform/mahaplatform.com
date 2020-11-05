@@ -1,4 +1,4 @@
-import Workflow from '../../automation/models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 import Model from '@core/objects/model'
 import Program from './program'
 import Contact from './contact'

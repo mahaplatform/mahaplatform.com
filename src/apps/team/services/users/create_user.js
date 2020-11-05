@@ -1,10 +1,10 @@
 import { updateRelated } from '@core/services/routes/relations'
-import DashboardCardType from '../../../maha/models/dashboard_card_type'
+import DashboardCardType from '@apps/maha/models/dashboard_card_type'
 import { whitelist } from '@core/services/routes/params'
-import DashboardPanel from '../../../maha/models/dashboard_panel'
-import DashboardCard from '../../../maha/models/dashboard_card'
-import Account from '../../../maha/models/account'
-import User from '../../../maha/models/user'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
+import DashboardCard from '@apps/maha/models/dashboard_card'
+import Account from '@apps/maha/models/account'
+import User from '@apps/maha/models/user'
 
 const getAccount = async (req, { first_name, last_name, email }) => {
 

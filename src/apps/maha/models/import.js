@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Program from '../../crm/models/program'
+import Program from '@apps/crm/models/program'
 import ImportItem from './import_item'
 import Asset from './asset'
 import User from './user'

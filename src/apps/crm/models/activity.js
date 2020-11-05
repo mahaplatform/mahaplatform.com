@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
-import Story from '../../maha/models/story'
-import User from '../../maha/models/user'
+import Story from '@apps/maha/models/story'
+import User from '@apps/maha/models/user'
 import Program from './program'
 import Contact from './contact'
 

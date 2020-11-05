@@ -1,4 +1,4 @@
-import BankToken from '../../../../finance/admin/tokens/bank'
+import BankToken from '@apps/finance/admin/tokens/bank'
 import VisibilityToken from '../../tokens/visibility'
 import { Form, UserToken } from 'maha-admin'
 import { connect } from 'react-redux'

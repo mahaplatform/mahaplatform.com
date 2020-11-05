@@ -4,7 +4,7 @@ import WorkflowSerializer from '../../../serializers/workflow_serializer'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Program from '../../../../crm/models/program'
+import Program from '@apps/crm/models/program'
 import Workflow from '../../../models/workflow'
 
 const createRoute = async (req, res) => {

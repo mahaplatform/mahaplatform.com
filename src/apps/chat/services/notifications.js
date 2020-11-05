@@ -1,5 +1,5 @@
 import MessageSerializer from '../serializers/message_serializer'
-import { sendNotification } from '../../maha/services/notifications'
+import { sendNotification } from '@apps/maha/services/notifications'
 import Subscription from '../models/subscription'
 import Message from '../models/message'
 

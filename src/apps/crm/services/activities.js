@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Story from '../../maha/models/story'
+import Story from '@apps/maha/models/story'
 import Activity from '../models/activity'
 
 export const contactActivity = async (req, params) => {

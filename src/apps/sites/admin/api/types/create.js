@@ -3,7 +3,7 @@ import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import TypeSerializer from '../../../serializers/type_serializer'
 import socket from '@core/services/routes/emitter'
-import Field from '../../../../maha/models/field'
+import Field from '@apps/maha/models/field'
 import Type from '../../../models/type'
 import pluralize from 'pluralize'
 

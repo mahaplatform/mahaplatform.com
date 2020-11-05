@@ -1,4 +1,4 @@
-import { addToTopics, removeFromTopics } from '../../../../../../crm/services/topics'
+import { addToTopics, removeFromTopics } from '@apps/crm/services/topics'
 import _ from 'lodash'
 
 const topicStep = async (req, { contact, config, enrollment }) => {

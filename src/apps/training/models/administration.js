@@ -1,4 +1,4 @@
-import User from '../../maha/models/user'
+import User from '@apps/maha/models/user'
 import Model from '@core/objects/model'
 import Answering from './answering'
 import Quiz from './quiz'

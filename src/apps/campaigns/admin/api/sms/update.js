@@ -1,6 +1,6 @@
 import SmsCampaignSerializer from '../../../serializers/sms_campaign_serializer'
 import { activity } from '@core/services/routes/activities'
-import { updateSteps } from '../../../../automation/services/workflows'
+import { updateSteps } from '@apps/automation/services/workflows'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'

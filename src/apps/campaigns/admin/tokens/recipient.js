@@ -1,4 +1,4 @@
-import ContactAvatar from '../../../crm/admin/tokens/contact_avatar'
+import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
 import { Format } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

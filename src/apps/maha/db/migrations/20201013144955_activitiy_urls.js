@@ -1,4 +1,4 @@
-import Contact from '../../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 
 const ActivitiyUrls = {
 

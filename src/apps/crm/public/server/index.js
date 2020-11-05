@@ -1,4 +1,4 @@
-import form from '../../../forms/public/server/show'
+import form from '@apps/forms/public/server/show'
 import preferences from './preferences'
 
 import { Router } from 'express'

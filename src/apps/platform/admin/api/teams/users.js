@@ -1,5 +1,5 @@
-import { createUser, sendActivation } from '../../../../team/services/users'
-import UserSerializer from '../../../../team/serializers/user_serializer'
+import { createUser, sendActivation } from '@apps/team/services/users'
+import UserSerializer from '@apps/team/serializers/user_serializer'
 import socket from '@core/services/routes/emitter'
 
 const usersRoute = async (req, res) => {

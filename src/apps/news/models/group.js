@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
-import Asset from '../../maha/models/asset'
-import User from '../../maha/models/user'
+import Asset from '@apps/maha/models/asset'
+import User from '@apps/maha/models/user'
 import Member from './member'
 import Post from './post'
 

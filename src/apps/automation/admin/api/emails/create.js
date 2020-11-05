@@ -5,8 +5,8 @@ import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { getDefaultConfig } from '../../../services/email'
-import Template from '../../../../crm/models/template'
-import Program from '../../../../crm/models/program'
+import Template from '@apps/crm/models/template'
+import Program from '@apps/crm/models/program'
 import Email from '../../../models/email'
 
 const createRoute = async (req, res) => {

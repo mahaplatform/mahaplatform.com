@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
 import WorkflowAction from './workflow_action'
-import Asset from '../../maha/models/asset'
+import Asset from '@apps/maha/models/asset'
 
 const WorkflowRecording = new Model({
 

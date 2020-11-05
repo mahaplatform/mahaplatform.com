@@ -1,10 +1,10 @@
-import { createUser, sendActivation } from '../../../../team/services/users'
+import { createUser, sendActivation } from '@apps/team/services/users'
 import { whitelist } from '@core/services/routes/params'
 import TeamSerializer from '../../../serializers/team_serializer'
 import socket from '@core/services/routes/emitter'
 import { updateApps } from '../../../services/apps'
-import Role from '../../../../maha/models/role'
-import Team from '../../../../maha/models/team'
+import Role from '@apps/maha/models/role'
+import Team from '@apps/maha/models/team'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {

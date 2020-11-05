@@ -1,5 +1,5 @@
 import TeamSerializer from '../../../serializers/team_serializer'
-import Team from '../../../../maha/models/team'
+import Team from '@apps/maha/models/team'
 
 const showRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import DeviceValue from '../../../../maha/models/device_value'
+import DeviceValue from '@apps/maha/models/device_value'
 import DeviceValueSerializer from '../../../serializers/device_value_serializer'
 import pluralize from 'pluralize'
 

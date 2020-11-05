@@ -2,7 +2,7 @@ import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import GroupSerializer from '../../../serializers/group_serializer'
 import socket from '@core/services/routes/emitter'
-import Group from '../../../../maha/models/group'
+import Group from '@apps/maha/models/group'
 
 const updateRoute = async (req, res) => {
 

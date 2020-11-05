@@ -6,7 +6,7 @@ import socket from '@core/services/routes/emitter'
 import { chooseOption } from '../../../services/assignments'
 import Assignment from '../../../models/assignment'
 import Assigning from '../../../models/assigning'
-import User from '../../../../maha/models/user'
+import User from '@apps/maha/models/user'
 import Option from '../../../models/option'
 import _ from 'lodash'
 

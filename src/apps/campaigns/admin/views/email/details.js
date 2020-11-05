@@ -1,4 +1,4 @@
-import EmailPreview from '../../../../automation/admin/components/email_preview'
+import EmailPreview from '@apps/automation/admin/components/email_preview'
 import { Audit, Comments, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'

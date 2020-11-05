@@ -1,5 +1,5 @@
-import ListCriteria from '../../../../crm/admin/components/listcriteria'
-import ImportToken from '../../../../maha/admin/tokens/import'
+import ListCriteria from '@apps/crm/admin/components/listcriteria'
+import ImportToken from '@apps/maha/admin/tokens/import'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'

@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Team from '../../../../maha/models/team'
+import Team from '@apps/maha/models/team'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

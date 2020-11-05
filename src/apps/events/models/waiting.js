@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Contact from '../../crm/models/contact'
+import Contact from '@apps/crm/models/contact'
 import Event from './event'
 
 const Waiting = new Model({

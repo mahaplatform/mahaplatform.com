@@ -1,5 +1,5 @@
-import * as consents from '../../../../../../crm/services/consents'
-import Contact from '../../../../../../crm/models/contact'
+import * as consents from '@apps/crm/services/consents'
+import Contact from '@apps/crm/models/contact'
 import _ from 'lodash'
 
 const getContactData = async (req, { enrollment }) => {

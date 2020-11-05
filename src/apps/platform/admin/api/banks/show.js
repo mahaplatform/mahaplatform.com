@@ -1,5 +1,5 @@
-import BankSerializer from '../../../../finance/serializers/bank_serializer'
-import Bank from '../../../../finance/models/bank'
+import BankSerializer from '@apps/finance/serializers/bank_serializer'
+import Bank from '@apps/finance/models/bank'
 
 const showRoute = async (req, res) => {
 

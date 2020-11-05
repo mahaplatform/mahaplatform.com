@@ -1,5 +1,5 @@
-import Activity from '../../../apps/maha/models/activity'
-import Story from '../../../apps/maha/models/story'
+import Activity from '@apps/maha/models/activity'
+import Story from '@apps/maha/models/story'
 import socket from './emitter'
 
 export const activity = async (req, activity) => {

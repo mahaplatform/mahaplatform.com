@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import Program from '../../crm/models/program'
+import Program from '@apps/crm/models/program'
 import RevenueType from './revenue_type'
 import Customer from './customer'
 import Payment from './payment'

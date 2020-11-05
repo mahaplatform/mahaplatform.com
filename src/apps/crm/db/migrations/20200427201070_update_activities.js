@@ -1,4 +1,4 @@
-import Registration from '../../../events/models/registration'
+import Registration from '@apps/events/models/registration'
 import { contactActivity } from '../../services/activities'
 import moment from 'moment'
 

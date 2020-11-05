@@ -1,5 +1,5 @@
 import WorkflowAction from '../../models/workflow_action'
-import Email from '../../../maha/models/email'
+import Email from '@apps/maha/models/email'
 import moment from 'moment'
 
 const FixActionEmails = {

@@ -1,7 +1,7 @@
 import InvoiceSerializer from '../serializers/invoice_serializer'
-import { sendEmail } from '../../maha/services/emails'
+import { sendEmail } from '@apps/maha/services/emails'
 import Queue from '@core/objects/queue'
-import Sender from '../../crm/models/sender'
+import Sender from '@apps/crm/models/sender'
 import Invoice from '../models/invoice'
 
 const processor = async (req, job) => {

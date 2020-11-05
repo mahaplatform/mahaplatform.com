@@ -1,5 +1,5 @@
 import SupervisorSerializer from '../../../serializers/supervisor_serializer'
-import Supervisor from '../../../../maha/models/supervisor'
+import Supervisor from '@apps/maha/models/supervisor'
 
 const showRoute = async (req, res) => {
 

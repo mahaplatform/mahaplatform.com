@@ -1,7 +1,7 @@
-import { updateCall } from '../../../../maha/services/calls'
+import { updateCall } from '@apps/maha/services/calls'
 import twilio from '@core/services/twilio'
-import User from '../../../../maha/models/user'
-import Call from '../../../../maha/models/call'
+import User from '@apps/maha/models/user'
+import Call from '@apps/maha/models/call'
 import { twiml } from 'twilio'
 
 const dial = async (req, { response, extra, user_id }) => {

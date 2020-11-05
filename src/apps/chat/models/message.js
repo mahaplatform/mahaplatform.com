@@ -1,7 +1,7 @@
 import Model from '@core/objects/model'
-import Attachment from '../../maha/models/attachment'
-import Link from '../../maha/models/link'
-import User from '../../maha/models/user'
+import Attachment from '@apps/maha/models/attachment'
+import Link from '@apps/maha/models/link'
+import User from '@apps/maha/models/user'
 import Channel from './channel'
 import MessageType from './message_type'
 

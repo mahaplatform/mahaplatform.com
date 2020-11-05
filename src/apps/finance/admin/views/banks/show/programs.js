@@ -1,4 +1,4 @@
-import ProgramToken from '../../../../../crm/admin/tokens/program'
+import ProgramToken from '@apps/crm/admin/tokens/program'
 import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

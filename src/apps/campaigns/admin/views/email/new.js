@@ -1,4 +1,4 @@
-import TemplateField from '../../../../crm/admin/components/templatefield'
+import TemplateField from '@apps/crm/admin/components/templatefield'
 import PurposeToken from '../../tokens/purpose'
 import ToField from '../../components/tofield'
 import PropTypes from 'prop-types'

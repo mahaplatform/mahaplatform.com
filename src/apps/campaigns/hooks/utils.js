@@ -1,6 +1,6 @@
 import generateCode from '@core/utils/generate_code'
-import PhoneNumber from '../../crm/models/phone_number'
-import Contact from '../../crm/models/contact'
+import PhoneNumber from '@apps/crm/models/phone_number'
+import Contact from '@apps/crm/models/contact'
 
 export const getContact = async (req, params) => {
 

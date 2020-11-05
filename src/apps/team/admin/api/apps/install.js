@@ -1,6 +1,6 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import Installation from '../../../../maha/models/installation'
+import Installation from '@apps/maha/models/installation'
 
 const installRoute = async (req, res) => {
 

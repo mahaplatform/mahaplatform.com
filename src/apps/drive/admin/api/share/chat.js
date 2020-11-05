@@ -1,5 +1,5 @@
-import { createChannel, sendMessage } from '../../../../chat/services/channels'
-import Asset from '../../../../maha/models/asset'
+import { createChannel, sendMessage } from '@apps/chat/services/channels'
+import Asset from '@apps/maha/models/asset'
 
 const chatRoute = async (req, res) => {
 

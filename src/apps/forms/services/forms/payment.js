@@ -1,8 +1,8 @@
-import { makePayment } from '../../../finance/services/payments'
+import { makePayment } from '@apps/finance/services/payments'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
-import LineItem from '../../../finance/models/line_item'
-import Invoice from '../../../finance/models/invoice'
+import LineItem from '@apps/finance/models/line_item'
+import Invoice from '@apps/finance/models/invoice'
 import moment from 'moment'
 
 export const createInvoice = async (req, { program_id, contact, line_items }) => {
