@@ -1,11 +1,11 @@
 import { activity } from '@core/services/routes/activities'
-import InvoiceSerializer from '../../../serializers/invoice_serializer'
+import InvoiceSerializer from '@apps/finance/serializers/invoice_serializer'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import LineItem from '../../../models/line_item'
-import Invoice from '../../../models/invoice'
+import LineItem from '@apps/finance/models/line_item'
+import Invoice from '@apps/finance/models/invoice'
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {

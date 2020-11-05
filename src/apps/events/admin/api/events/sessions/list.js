@@ -1,5 +1,5 @@
-import SessionSerializer from '../../../../serializers/session_serializer'
-import Event from '../../../../models/event'
+import SessionSerializer from '@apps/events/serializers/session_serializer'
+import Event from '@apps/events/models/event'
 
 const listRoute = async (req, res) => {
 

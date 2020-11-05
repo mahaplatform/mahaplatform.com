@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import googledrive from './googledrive/list'
 import onedrive from './onedrive/list'
 import dropbox from './dropbox/list'

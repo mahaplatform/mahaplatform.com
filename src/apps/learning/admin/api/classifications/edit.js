@@ -1,4 +1,4 @@
-import Classification from '../../../models/classification'
+import Classification from '@apps/learning/models/classification'
 
 const editRoute = async (req, res) => {
 

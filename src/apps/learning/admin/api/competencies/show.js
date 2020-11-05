@@ -1,5 +1,5 @@
-import CompetencySerializer from '../../../serializers/competency_serializer'
-import Competency from '../../../models/competency'
+import CompetencySerializer from '@apps/learning/serializers/competency_serializer'
+import Competency from '@apps/learning/models/competency'
 
 const showRoute = async (req, res) => {
 

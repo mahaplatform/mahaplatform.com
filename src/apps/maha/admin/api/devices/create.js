@@ -1,5 +1,5 @@
-import DeviceSerializer from '../../../serializers/device_serializer'
-import { createDevice } from '../../../services/device'
+import DeviceSerializer from '@apps/maha/serializers/device_serializer'
+import { createDevice } from '@apps/maha/services/device'
 
 const createRoute = async (req, res) => {
 

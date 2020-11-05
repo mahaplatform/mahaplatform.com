@@ -1,5 +1,5 @@
-import OptionSerializer from '../../../serializers/option_serializer'
-import Assignment from '../../../models/assignment'
+import OptionSerializer from '@apps/training/serializers/option_serializer'
+import Assignment from '@apps/training/models/assignment'
 
 const listRoute = async (req, res) => {
 

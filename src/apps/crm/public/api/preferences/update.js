@@ -1,8 +1,8 @@
 import { checkToken } from '@core/services/routes/checks'
 import EmailActivity from '@apps/maha/models/email_activity'
 import socket from '@core/services/routes/emitter'
-import { contactActivity } from '../../../services/activities'
-import { updateConsent } from '../../../services/consents'
+import { contactActivity } from '@apps/crm/services/activities'
+import { updateConsent } from '@apps/crm/services/consents'
 import Email from '@apps/maha/models/email'
 
 const updateRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import TeamSerializer from '../../../serializers/team_serializer'
+import TeamSerializer from '@apps/team/serializers/team_serializer'
 
 const showRoute = async (req, res) => {
 

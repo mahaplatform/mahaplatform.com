@@ -1,4 +1,4 @@
-import ProgramReceipt from '../../../models/program_receipt'
+import ProgramReceipt from '@apps/crm/models/program_receipt'
 
 const receiptsRoute = async (req, res) => {
 

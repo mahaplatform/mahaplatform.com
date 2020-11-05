@@ -1,5 +1,5 @@
-import TicketTypeSerializer from '../../../../serializers/ticket_type_serializer'
-import TicketType from '../../../../models/ticket_type'
+import TicketTypeSerializer from '@apps/events/serializers/ticket_type_serializer'
+import TicketType from '@apps/events/models/ticket_type'
 
 const ticketTypesRoute = async (req, res) => {
 

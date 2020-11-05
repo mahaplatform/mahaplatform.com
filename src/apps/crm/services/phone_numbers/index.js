@@ -1,6 +1,6 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '@core/utils/generate_code'
-import PhoneNumber from '../../models/phone_number'
+import PhoneNumber from '@apps/crm/models/phone_number'
 import moment from 'moment'
 
 export const getFormattedNumber = (value) => {

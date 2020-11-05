@@ -1,5 +1,5 @@
-import TrainingSerializer from '../../../serializers/training_serializer'
-import Training from '../../../models/training'
+import TrainingSerializer from '@apps/training/serializers/training_serializer'
+import Training from '@apps/training/models/training'
 
 const showRoute = async (req, res) => {
 

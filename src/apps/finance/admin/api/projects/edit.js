@@ -1,4 +1,4 @@
-import Project from '../../../models/project'
+import Project from '@apps/finance/models/project'
 
 const editRoute = async (req, res) => {
 

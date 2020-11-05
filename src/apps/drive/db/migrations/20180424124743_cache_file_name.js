@@ -1,4 +1,4 @@
-import File from '../../models/file'
+import File from '@apps/drive/models/file'
 
 const CacheFileName = {
 

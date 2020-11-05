@@ -1,5 +1,5 @@
-import ProfileSerializer from '../../../serializers/profile_serializer'
-import Profile from '../../../models/profile'
+import ProfileSerializer from '@apps/maha/serializers/profile_serializer'
+import Profile from '@apps/maha/models/profile'
 
 const showRoute = async (req, res) => {
 

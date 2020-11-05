@@ -1,5 +1,5 @@
-import InvoiceSerializer from '../../../serializers/invoice_serializer'
-import Invoice from '../../../models/invoice'
+import InvoiceSerializer from '@apps/finance/serializers/invoice_serializer'
+import Invoice from '@apps/finance/models/invoice'
 
 const showRoute = async (req, res) => {
 

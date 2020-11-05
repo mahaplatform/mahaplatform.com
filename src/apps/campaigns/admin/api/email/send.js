@@ -1,7 +1,7 @@
-import SendEmailCampaignQueue from '../../../queues/send_email_campaign_queue'
+import SendEmailCampaignQueue from '@apps/campaigns/queues/send_email_campaign_queue'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import moment from 'moment'
 
 const getSendAt = ({ strategy, date, time }) => {

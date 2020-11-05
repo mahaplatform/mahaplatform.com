@@ -1,6 +1,6 @@
-import RefundSerializer from '../../../../serializers/refund_serializer'
-import Payment from '../../../../models/payment'
-import Refund from '../../../../models/refund'
+import RefundSerializer from '@apps/finance/serializers/refund_serializer'
+import Payment from '@apps/finance/models/payment'
+import Refund from '@apps/finance/models/refund'
 
 const listRoute = async (req, res) => {
 

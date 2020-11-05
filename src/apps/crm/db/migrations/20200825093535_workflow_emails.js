@@ -1,4 +1,4 @@
-import Workflow from '../../models/workflow'
+import Workflow from '@apps/crm/models/workflow'
 
 const WorkflowEmails = {
 

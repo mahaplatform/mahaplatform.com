@@ -1,5 +1,5 @@
-import LinkSerializer from '../../../serializers/link_serializer'
-import Link from '../../../models/link'
+import LinkSerializer from '@apps/maha/serializers/link_serializer'
+import Link from '@apps/maha/models/link'
 
 const showRoute = async (req, res) => {
 

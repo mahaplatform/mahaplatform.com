@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import Box from 'box-node-sdk'
 
 const box = new Box({

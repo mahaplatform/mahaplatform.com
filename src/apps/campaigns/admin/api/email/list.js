@@ -1,5 +1,5 @@
-import EmailCampaignSerializer from '../../../serializers/email_campaign_serializer'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaignSerializer from '@apps/campaigns/serializers/email_campaign_serializer'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 
 const listRoute = async (req, res) => {
 

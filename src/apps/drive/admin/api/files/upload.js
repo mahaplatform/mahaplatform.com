@@ -1,7 +1,7 @@
-import FileSerializer from '../../../serializers/file_serializer'
-import { createFolder } from '../../../services/folders'
-import { createFile } from '../../../services/files'
-import Folder from '../../../models/folder'
+import FileSerializer from '@apps/drive/serializers/file_serializer'
+import { createFolder } from '@apps/drive/services/folders'
+import { createFile } from '@apps/drive/services/files'
+import Folder from '@apps/drive/models/folder'
 
 const _createFolder = async (req, { parent, path }) => {
 

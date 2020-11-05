@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import SessionSerializer from '../../../../serializers/session_serializer'
+import SessionSerializer from '@apps/events/serializers/session_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Session from '../../../../models/session'
+import Session from '@apps/events/models/session'
 
 const updateRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Email from '../../../models/email'
+import Email from '@apps/automation/models/email'
 
 const editRoute = async (req, res) => {
 

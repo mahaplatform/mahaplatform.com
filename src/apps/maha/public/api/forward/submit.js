@@ -1,5 +1,5 @@
-import ForwardEmailQueue from '../../../queues/forward_email_queue'
-import Email from '../../..//models/email'
+import ForwardEmailQueue from '@apps/maha/queues/forward_email_queue'
+import Email from '@apps/maha/models/email'
 import { checkToken } from './utils'
 
 const submitRoute = async (req, res) => {

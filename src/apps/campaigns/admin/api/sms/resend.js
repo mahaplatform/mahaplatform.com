@@ -1,7 +1,7 @@
-import SendSMSCampaignQueue from '../../../queues/send_sms_campaign_queue'
+import SendSMSCampaignQueue from '@apps/campaigns/queues/send_sms_campaign_queue'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import SMSCampaign from '../../../models/sms_campaign'
+import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import moment from 'moment'
 
 const getSendAt = ({ strategy, date, time }) => {

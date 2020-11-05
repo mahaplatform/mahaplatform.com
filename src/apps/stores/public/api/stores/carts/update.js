@@ -1,7 +1,7 @@
 import socket from '@core/services/routes/emitter'
-import CartSerializer from '../../../../serializers/cart_serializer'
-import Store from '../../../../models/store'
-import Cart from '../../../../models/cart'
+import CartSerializer from '@apps/stores/serializers/cart_serializer'
+import Store from '@apps/stores/models/store'
+import Cart from '@apps/stores/models/cart'
 
 const getCart = async (req, { store, code }) => {
 

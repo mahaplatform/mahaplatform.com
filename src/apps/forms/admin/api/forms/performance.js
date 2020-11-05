@@ -1,4 +1,4 @@
-import Form from '../../../models/form'
+import Form from '@apps/forms/models/form'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {

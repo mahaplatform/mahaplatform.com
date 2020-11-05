@@ -1,4 +1,4 @@
-import { verifyPush } from '../../../../services/twofactor'
+import { verifyPush } from '@apps/maha/services/twofactor'
 
 const verifyRoute = async (req, res) => {
 

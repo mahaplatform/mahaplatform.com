@@ -1,4 +1,4 @@
-import Form from '../../../models/form'
+import Form from '@apps/forms/models/form'
 
 const editRoute = async (req, res) => {
 

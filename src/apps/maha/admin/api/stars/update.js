@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Star from '../../../models/star'
+import Star from '@apps/maha/models/star'
 
 const fetchStar = async (req) => {
 

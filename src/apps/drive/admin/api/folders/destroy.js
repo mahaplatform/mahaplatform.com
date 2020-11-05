@@ -1,5 +1,5 @@
-import { destroyFolder } from '../../../services/folders'
-import Folder from '../../../models/folder'
+import { destroyFolder } from '@apps/drive/services/folders'
+import Folder from '@apps/drive/models/folder'
 
 const destroyRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
-import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
+import GeocodeMailingAddressQueue from '@apps/crm/queues/geocode_mailing_address_queue'
 import generateCode from '@core/utils/generate_code'
-import MailingAddress from '../../models/mailing_address'
+import MailingAddress from '@apps/crm/models/mailing_address'
 import moment from 'moment'
 
 const updateMailingAddresses = async (req, { contact, mailing_addresses, removing, geocode }) => {

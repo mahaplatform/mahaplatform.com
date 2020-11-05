@@ -1,6 +1,6 @@
-import Program from '../../../models/program'
-import Contact from '../../../models/contact'
-import Topic from '../../../models/topic'
+import Program from '@apps/crm/models/program'
+import Contact from '@apps/crm/models/contact'
+import Topic from '@apps/crm/models/topic'
 
 const interestsRoute = async (req, res) => {
 

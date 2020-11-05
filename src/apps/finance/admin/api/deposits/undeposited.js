@@ -1,5 +1,5 @@
-import UndepositedSerializer from '../../../serializers/undeposited_serializer'
-import Undeposited from '../../../models/undeposited'
+import UndepositedSerializer from '@apps/finance/serializers/undeposited_serializer'
+import Undeposited from '@apps/finance/models/undeposited'
 
 const undepositedRoute = async (req, res) => {
 

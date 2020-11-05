@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import Dropbox from 'dropbox-v2-api'
 
 export const getClient = async (req) => {

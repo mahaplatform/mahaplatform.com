@@ -1,6 +1,6 @@
 import Setting from '@apps/platform/models/setting'
 import { encode } from '@core/services/jwt'
-import Event from '../../models/event'
+import Event from '@apps/events/models/event'
 import { readFile } from './utils'
 import moment from 'moment'
 import path from 'path'

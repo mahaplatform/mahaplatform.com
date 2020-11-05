@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Post from '../../../models/post'
+import Post from '@apps/news/models/post'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

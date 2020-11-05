@@ -1,4 +1,4 @@
-import Notification from '../../../models/notification'
+import Notification from '@apps/maha/models/notification'
 
 const viewRoute = async (req, res) => {
 

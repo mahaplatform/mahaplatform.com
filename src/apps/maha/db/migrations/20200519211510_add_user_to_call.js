@@ -1,6 +1,6 @@
 import ConatctPhoneNumber from '@apps/crm/models/phone_number'
-import PhoneNumber from '../../models/phone_number'
-import SMS from '../../models/sms'
+import PhoneNumber from '@apps/maha/models/phone_number'
+import SMS from '@apps/maha/models/sms'
 
 const AddUserToCall = {
 

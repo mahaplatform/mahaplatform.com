@@ -1,5 +1,5 @@
 import ProgramSerializer from '@apps/crm/serializers/program_serializer'
-import Bank from '../../../../models/bank'
+import Bank from '@apps/finance/models/bank'
 
 const listRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Event from '../../../models/event'
+import Event from '@apps/events/models/event'
 
 const editRoute = async (req, res) => {
 

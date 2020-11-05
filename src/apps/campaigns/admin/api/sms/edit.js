@@ -1,4 +1,4 @@
-import SmsCampaign from '../../../models/sms_campaign'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 
 const editRoute = async (req, res) => {
 

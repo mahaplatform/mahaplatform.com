@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Session from '../../../models/session'
+import Session from '@apps/maha/models/session'
 
 const removeRoute = async (req, res) => {
 

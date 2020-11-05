@@ -1,5 +1,5 @@
 import { messaging } from '@core/services/firebase'
-import Device from '../../../models/device'
+import Device from '@apps/maha/models/device'
 
 const pushRoute = async (req, res) => {
 

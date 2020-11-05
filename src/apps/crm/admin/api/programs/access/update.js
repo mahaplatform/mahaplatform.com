@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 import _ from 'lodash'
 
 const updateRoute = async (req, res) => {

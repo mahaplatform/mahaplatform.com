@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Comment from '../../../models/comment'
+import Comment from '@apps/maha/models/comment'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

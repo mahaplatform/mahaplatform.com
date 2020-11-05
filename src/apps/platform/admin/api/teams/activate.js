@@ -1,4 +1,4 @@
-import TeamSerializer from '../../../serializers/team_serializer'
+import TeamSerializer from '@apps/platform/serializers/team_serializer'
 import socket from '@core/services/routes/emitter'
 import Team from '@apps/maha/models/team'
 

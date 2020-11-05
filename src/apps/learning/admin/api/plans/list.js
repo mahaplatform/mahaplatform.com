@@ -1,5 +1,5 @@
-import PlanSerializer from '../../../serializers/plan_serializer'
-import Plan from '../../../models/plan'
+import PlanSerializer from '@apps/learning/serializers/plan_serializer'
+import Plan from '@apps/learning/models/plan'
 
 const listRoute = async (req, res) => {
 

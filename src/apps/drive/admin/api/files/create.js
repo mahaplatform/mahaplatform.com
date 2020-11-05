@@ -1,7 +1,7 @@
-import FileSerializer from '../../../serializers/file_serializer'
-import { createFile } from '../../../services/files'
+import FileSerializer from '@apps/drive/serializers/file_serializer'
+import { createFile } from '@apps/drive/services/files'
 import Asset from '@apps/maha/models/asset'
-import Item from '../../../models/item'
+import Item from '@apps/drive/models/item'
 
 const createRoute = async (req, res) => {
 

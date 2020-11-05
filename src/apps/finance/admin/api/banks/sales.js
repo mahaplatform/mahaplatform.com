@@ -1,4 +1,4 @@
-import Bank from '../../../models/bank'
+import Bank from '@apps/finance/models/bank'
 import moment from 'moment'
 
 const salesRoute = async (req, res) => {

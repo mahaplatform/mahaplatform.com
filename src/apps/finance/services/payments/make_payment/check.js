@@ -1,4 +1,4 @@
-import Payment from '../../../models/payment'
+import Payment from '@apps/finance/models/payment'
 
 export const chargeCheck = async (req, { invoice, date, amount, reference, photo_id }) => {
 

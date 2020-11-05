@@ -1,5 +1,5 @@
-import ExpectationSerializer from '../../../../serializers/expectation_serializer'
-import Expectation from '../../../../models/expectation'
+import ExpectationSerializer from '@apps/learning/serializers/expectation_serializer'
+import Expectation from '@apps/learning/models/expectation'
 
 const listRoute = async (req, res) => {
 

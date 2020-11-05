@@ -1,6 +1,6 @@
-import InitiateCallQueue from '../../queues/initiate_call_queue'
+import InitiateCallQueue from '@apps/maha/queues/initiate_call_queue'
 import { findOrCreateNumber } from '../numbers'
-import Call from '../../models/call'
+import Call from '@apps/maha/models/call'
 
 const createCall = async (req, { from, to, method, url }) => {
 

@@ -1,4 +1,4 @@
-import { sendPush } from '../../../../services/twofactor'
+import { sendPush } from '@apps/maha/services/twofactor'
 
 const pushRoute = async (req, res, next) => {
 

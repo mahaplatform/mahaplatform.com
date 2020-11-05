@@ -1,4 +1,4 @@
-import SupervisorSerializer from '../../../serializers/supervisor_serializer'
+import SupervisorSerializer from '@apps/team/serializers/supervisor_serializer'
 import Supervisor from '@apps/maha/models/supervisor'
 
 const listRoute = async (req, res) => {

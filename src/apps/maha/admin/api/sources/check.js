@@ -1,4 +1,4 @@
-import Profile from '../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 
 const checkRoute = async (req, res) => {
 

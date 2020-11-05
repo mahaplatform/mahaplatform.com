@@ -1,5 +1,5 @@
-import DashboardPanelSerializer from '../../../../serializers/dashboard_panel_serializer'
-import DashboardPanel from '../../../../models/dashboard_panel'
+import DashboardPanelSerializer from '@apps/maha/serializers/dashboard_panel_serializer'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
 
 const listRoute = async (req, res) => {
 

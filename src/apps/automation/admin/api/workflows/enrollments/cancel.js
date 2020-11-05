@@ -1,6 +1,6 @@
-import WorkflowEnrollment from '../../../../models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import socket from '@core/services/routes/emitter'
-import Workflow from '../../../../models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 import moment from 'moment'
 
 const cancelRoute = async (req, res) => {

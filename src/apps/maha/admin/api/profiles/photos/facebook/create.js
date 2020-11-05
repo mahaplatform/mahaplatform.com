@@ -1,4 +1,4 @@
-import { createAsset } from '../../../../../services/assets'
+import { createAsset } from '@apps/maha/services/assets'
 import { getClient } from '../../services/facebook'
 import request from 'request-promise'
 

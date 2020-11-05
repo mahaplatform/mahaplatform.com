@@ -1,9 +1,9 @@
-import { createOrUpdateContact, createInvoice, handlePayment } from '../../../services/forms'
+import { createOrUpdateContact, createInvoice, handlePayment } from '@apps/forms/services/forms'
 import { enrollInWorkflows } from '@apps/automation/services/workflows'
 import { contactActivity } from '@apps/crm/services/activities'
 import socket from '@core/services/routes/emitter'
-import Response from '../../../models/response'
-import Form from '../../../models/form'
+import Response from '@apps/forms/models/response'
+import Form from '@apps/forms/models/form'
 import moment from 'moment'
 import _ from 'lodash'
 

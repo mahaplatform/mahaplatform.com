@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Notification from '../../../models/notification'
+import Notification from '@apps/maha/models/notification'
 
 const seenRoute = async (req, res) => {
 

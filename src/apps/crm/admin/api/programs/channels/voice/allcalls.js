@@ -1,6 +1,6 @@
-import CallSerializer from '../../../../../serializers/call_serializer'
+import CallSerializer from '@apps/crm/serializers/call_serializer'
 import Call from '@apps/maha/models/call'
-import Program from '../../../../../models/program'
+import Program from '@apps/crm/models/program'
 
 const callsRoute = async (req, res) => {
 

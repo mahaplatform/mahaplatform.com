@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import VendorSerializer from '../../../serializers/vendor_serializer'
+import VendorSerializer from '@apps/finance/serializers/vendor_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Vendor from '../../../models/vendor'
+import Vendor from '@apps/finance/models/vendor'
 
 const updateRoute = async (req, res) => {
 

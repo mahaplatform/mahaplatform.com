@@ -1,6 +1,6 @@
-import VoiceCampaignSerializer from '../../../serializers/voice_campaign_serializer'
-import { getRecipients } from '../../../services/recipients'
-import VoiceCampaign from '../../../models/voice_campaign'
+import VoiceCampaignSerializer from '@apps/campaigns/serializers/voice_campaign_serializer'
+import { getRecipients } from '@apps/campaigns/services/recipients'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 
 const getRecipientCount = async (req, { campaign }) => {
 

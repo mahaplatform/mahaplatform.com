@@ -1,5 +1,5 @@
-import EmailActivity from '../../../models/email_activity'
-import Email from '../../../models/email'
+import EmailActivity from '@apps/maha/models/email_activity'
+import Email from '@apps/maha/models/email'
 import UAParser from 'ua-parser-js'
 import moment from 'moment'
 import path from 'path'

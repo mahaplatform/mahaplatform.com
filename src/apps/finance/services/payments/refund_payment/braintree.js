@@ -1,5 +1,5 @@
 import braintree from '@core/services/braintree'
-import Refund from '../../../models/refund'
+import Refund from '@apps/finance/models/refund'
 
 export const refundBraintree = async(req, { amount, payment }) => {
 

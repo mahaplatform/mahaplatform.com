@@ -1,5 +1,5 @@
 import { validate } from '@core/utils/validation'
-import { updatePhoto } from '../../../services/accounts'
+import { updatePhoto } from '@apps/maha/services/accounts'
 
 const avatarRoute = async (req, res) => {
 

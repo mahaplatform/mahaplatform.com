@@ -1,6 +1,6 @@
-import ManagerSerializer from '../../../serializers/manager_serializer'
+import ManagerSerializer from '@apps/sites/serializers/manager_serializer'
 import Field from '@apps/maha/models/field'
-import Manager from '../../../models/manager'
+import Manager from '@apps/sites/models/manager'
 
 const listRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import EmailSerializer from '../../../serializers/email_serializer'
-import Email from '../../../models/email'
+import EmailSerializer from '@apps/automation/serializers/email_serializer'
+import Email from '@apps/automation/models/email'
 
 const listRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Advance from '../../../models/advance'
+import Advance from '@apps/finance/models/advance'
 
 const editRoute = async (req, res) => {
 

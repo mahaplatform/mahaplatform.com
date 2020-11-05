@@ -1,5 +1,5 @@
-import EmailDeliverySerializer from '../../../../serializers/email_delivery_serializer'
-import CrmEmail from '../../../../models/email'
+import EmailDeliverySerializer from '@apps/automation/serializers/email_delivery_serializer'
+import CrmEmail from '@apps/automation/models/email'
 import Email from '@apps/maha/models/email'
 
 const listRoute = async (req, res) => {

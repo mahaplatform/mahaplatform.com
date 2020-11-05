@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Channel from '../../../models/channel'
+import Channel from '@apps/chat/models/channel'
 
 const destroyRoute = async (req, res) => {
 

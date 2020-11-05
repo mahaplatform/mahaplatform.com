@@ -1,4 +1,4 @@
-import Invoice from '../../../models/invoice'
+import Invoice from '@apps/finance/models/invoice'
 
 const editRoute = async (req, res) => {
 

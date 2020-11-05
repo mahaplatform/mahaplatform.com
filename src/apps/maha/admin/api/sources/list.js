@@ -1,5 +1,5 @@
-import SourceSerializer from '../../../serializers/source_serializer'
-import Source from '../../../models/source'
+import SourceSerializer from '@apps/maha/serializers/source_serializer'
+import Source from '@apps/maha/models/source'
 
 const listRoute = async (req, res) => {
 

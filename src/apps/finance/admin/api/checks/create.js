@@ -1,5 +1,5 @@
-import CheckSerializer from '../../../serializers/check_serializer'
-import { createCheck } from '../../../services/checks'
+import CheckSerializer from '@apps/finance/serializers/check_serializer'
+import { createCheck } from '@apps/finance/services/checks'
 import generateCode from '@core/utils/generate_code'
 import socket from '@core/services/routes/emitter'
 

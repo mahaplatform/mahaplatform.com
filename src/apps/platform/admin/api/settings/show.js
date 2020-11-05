@@ -1,4 +1,4 @@
-import Setting from '../../../models/setting'
+import Setting from '@apps/platform/models/setting'
 
 const showRoute = async (req, res) => {
 

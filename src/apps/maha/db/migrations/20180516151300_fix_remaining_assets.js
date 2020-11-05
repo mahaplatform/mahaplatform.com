@@ -1,4 +1,4 @@
-import Asset from '../../models/asset'
+import Asset from '@apps/maha/models/asset'
 
 const FixRemainingAssets = {
 

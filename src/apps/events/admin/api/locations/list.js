@@ -1,5 +1,5 @@
-import LocationSerializer from '../../../serializers/location_serializer'
-import Location from '../../../models/location'
+import LocationSerializer from '@apps/events/serializers/location_serializer'
+import Location from '@apps/events/models/location'
 
 const listRoute = async (req, res) => {
 

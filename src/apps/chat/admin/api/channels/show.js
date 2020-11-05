@@ -1,5 +1,5 @@
-import ChannelSerializer from '../../../serializers/channel_serializer'
-import Channel from '../../../models/channel'
+import ChannelSerializer from '@apps/chat/serializers/channel_serializer'
+import Channel from '@apps/chat/models/channel'
 
 const showRoute = async (req, res) => {
 

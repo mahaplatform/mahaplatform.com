@@ -1,5 +1,5 @@
 import { findOrCreateNumber } from '../numbers'
-import Call from '../../models/call'
+import Call from '@apps/maha/models/call'
 import moment from 'moment'
 
 const receiveCall = async (req, params) => {

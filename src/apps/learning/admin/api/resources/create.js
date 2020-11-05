@@ -1,8 +1,8 @@
-import ResourceSerializer from '../../../serializers/resource_serializer'
+import ResourceSerializer from '@apps/learning/serializers/resource_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Resource from '../../../models/resource'
+import Resource from '@apps/learning/models/resource'
 
 const createRoute = async (req, res) => {
 

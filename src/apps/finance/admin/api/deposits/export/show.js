@@ -1,6 +1,6 @@
-import AccpacDepositSerializer from '../../../../serializers/accpac_deposit_serializer'
-import Deposit from '../../../../models/deposit'
-import Allocation from '../../../../models/allocation'
+import AccpacDepositSerializer from '@apps/finance/serializers/accpac_deposit_serializer'
+import Deposit from '@apps/finance/models/deposit'
+import Allocation from '@apps/finance/models/allocation'
 
 const showRoute = async (req, res) => {
 

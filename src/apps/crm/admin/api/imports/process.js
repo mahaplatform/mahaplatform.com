@@ -1,4 +1,4 @@
-import ContactImportProcessQueue from '../../../queues/contactimport_process_queue'
+import ContactImportProcessQueue from '@apps/crm/queues/contactimport_process_queue'
 import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import socket from '@core/services/routes/emitter'
 import Import from '@apps/maha/models/import'

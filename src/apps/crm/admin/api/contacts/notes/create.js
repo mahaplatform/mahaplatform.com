@@ -1,9 +1,9 @@
 import { updateRelated } from '@core/services/routes/relations'
-import NoteSerializer from '../../../../serializers/contact_note_serializer'
+import NoteSerializer from '@apps/crm/serializers/contact_note_serializer'
 import { whitelist } from '@core/services/routes/params'
-import { contactActivity } from '../../../../services/activities'
-import Note from '../../../../models/contact_note'
-import Contact from '../../../../models/contact'
+import { contactActivity } from '@apps/crm/services/activities'
+import Note from '@apps/crm/models/contact_note'
+import Contact from '@apps/crm/models/contact'
 
 const createRoute = async (req, res) => {
 

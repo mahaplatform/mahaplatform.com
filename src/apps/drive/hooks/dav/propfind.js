@@ -1,5 +1,5 @@
 import response from './response.xml'
-import Item from '../../models/item'
+import Item from '@apps/drive/models/item'
 import error from './error.xml'
 import moment from 'moment'
 

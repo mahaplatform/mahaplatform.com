@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import ImportSerializer from '../../../serializers/import_serializer'
-import Import from '../../../models/import'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
+import Import from '@apps/maha/models/import'
 
 const createRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import { activity } from '@core/services/routes/activities'
-import { sendActivation } from '../../../services/users'
+import { sendActivation } from '@apps/team/services/users'
 import User from '@apps/maha/models/user'
 
 const activateRoute = async (req, res) => {

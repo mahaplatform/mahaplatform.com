@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import Template from '../../../../models/template'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Template from '@apps/crm/models/template'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

@@ -1,5 +1,5 @@
-import DashboardPanel from '../../../../../models/dashboard_panel'
-import DashboardCard from '../../../../../models/dashboard_card'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
+import DashboardCard from '@apps/maha/models/dashboard_card'
 
 const editRoute = async (req, res) => {
 

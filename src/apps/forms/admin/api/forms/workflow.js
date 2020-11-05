@@ -1,6 +1,6 @@
 import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
 import Workflow from '@apps/automation/models/workflow'
-import Form from '../../../models/form'
+import Form from '@apps/forms/models/form'
 
 const workflowRoute = async (req, res) => {
 

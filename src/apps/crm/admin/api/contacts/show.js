@@ -1,6 +1,6 @@
-import ContactSerializer from '../../../serializers/contact_serializer'
+import ContactSerializer from '@apps/crm/serializers/contact_serializer'
 import Field from '@apps/maha/models/field'
-import Contact from '../../../models/contact'
+import Contact from '@apps/crm/models/contact'
 
 const showRoute = async (req, res) => {
 

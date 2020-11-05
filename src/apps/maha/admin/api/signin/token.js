@@ -1,5 +1,5 @@
 import { decode } from '@core/services/jwt'
-import Account from '../../../models/account'
+import Account from '@apps/maha/models/account'
 
 const route = async (req, res, next) => {
 

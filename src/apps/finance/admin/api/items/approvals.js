@@ -1,6 +1,6 @@
-import ItemSerializer from '../../../serializers/item_serializer'
+import ItemSerializer from '@apps/finance/serializers/item_serializer'
 import { canApprove } from '../../utils/access'
-import Item from '../../../models/item'
+import Item from '@apps/finance/models/item'
 
 const approvalRoute = async (req, res) => {
 

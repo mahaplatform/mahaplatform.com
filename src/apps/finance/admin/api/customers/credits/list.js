@@ -1,6 +1,6 @@
-import CreditSerializer from '../../../../serializers/credit_serializer'
-import Customer from '../../../../models/customer'
-import Credit from '../../../../models/credit'
+import CreditSerializer from '@apps/finance/serializers/credit_serializer'
+import Customer from '@apps/finance/models/customer'
+import Credit from '@apps/finance/models/credit'
 
 const listRoute = async (req, res) => {
 

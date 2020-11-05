@@ -1,4 +1,4 @@
-import VoiceCampaign from '../../../models/voice_campaign'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 
 const editRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Offering from '../../../../models/offering'
+import Offering from '@apps/training/models/offering'
 
 const showRoute = async (req, res) => {
 

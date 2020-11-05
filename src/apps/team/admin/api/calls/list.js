@@ -1,4 +1,4 @@
-import CallSerializer from '../../../serializers/call_serializer'
+import CallSerializer from '@apps/team/serializers/call_serializer'
 import Call from '@apps/maha/models/call'
 
 const listRoute = async (req, res) => {

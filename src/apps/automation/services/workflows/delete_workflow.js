@@ -1,5 +1,5 @@
 import { audit } from '@core/services/routes/audit'
-import { deleteEmail } from '../../services/email'
+import { deleteEmail } from '@apps/automation/services/email'
 import moment from 'moment'
 
 const deleteWorkflow = async(req, { workflow }) => {

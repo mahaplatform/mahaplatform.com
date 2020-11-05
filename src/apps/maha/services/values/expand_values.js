@@ -1,6 +1,6 @@
-import Asset from '../../models/asset'
-import Field from '../../models/field'
-import Link from '../../models/link'
+import Asset from '@apps/maha/models/asset'
+import Field from '@apps/maha/models/field'
+import Link from '@apps/maha/models/link'
 import _ from 'lodash'
 
 const getValue = async (req, { field, value }) => {

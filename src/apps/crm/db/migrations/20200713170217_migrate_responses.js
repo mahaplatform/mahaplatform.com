@@ -1,4 +1,4 @@
-import Response from '../../models/response'
+import Response from '@apps/crm/models/response'
 import _ from 'lodash'
 
 const MigrateResponses = {

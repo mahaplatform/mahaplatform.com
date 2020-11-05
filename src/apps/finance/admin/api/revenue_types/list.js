@@ -1,5 +1,5 @@
-import RevenueTypeSerializer from '../../../serializers/revenue_type_serializer'
-import RevenueType from '../../../models/revenue_type'
+import RevenueTypeSerializer from '@apps/finance/serializers/revenue_type_serializer'
+import RevenueType from '@apps/finance/models/revenue_type'
 
 const listRoute = async (req, res) => {
 

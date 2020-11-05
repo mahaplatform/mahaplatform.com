@@ -1,4 +1,4 @@
-import Device from '../../../models/device'
+import Device from '@apps/maha/models/device'
 
 const showRoute = async (req, res) => {
 

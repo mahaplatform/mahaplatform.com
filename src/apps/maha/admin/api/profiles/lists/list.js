@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import constantcontact from './constantcontact/list'
 import mailchimp from './mailchimp/list'
 

@@ -1,5 +1,5 @@
 import { activity } from '@core/services/routes/activities'
-import SecurityQuestion from '../../../models/security_question'
+import SecurityQuestion from '@apps/maha/models/security_question'
 import { validate } from '@core/utils/validation'
 
 const verifyRoute = async (req, res) => {

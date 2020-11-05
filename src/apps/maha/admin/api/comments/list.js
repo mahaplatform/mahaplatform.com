@@ -1,5 +1,5 @@
-import CommentSerializer from '../../../serializers/comment_serializer'
-import Comment from '../../../models/comment'
+import CommentSerializer from '@apps/maha/serializers/comment_serializer'
+import Comment from '@apps/maha/models/comment'
 
 const listRoute = async (req, res) => {
 

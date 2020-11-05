@@ -1,5 +1,5 @@
-import CommitmentSerializer from '../../../../serializers/commitment_serializer'
-import Commitment from '../../../../models/commitment'
+import CommitmentSerializer from '@apps/learning/serializers/commitment_serializer'
+import Commitment from '@apps/learning/models/commitment'
 
 const listRoute = async (req, res) => {
 

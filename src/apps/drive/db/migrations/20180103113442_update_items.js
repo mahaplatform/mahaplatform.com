@@ -1,5 +1,5 @@
-import File from '../../models/file'
-import Version from '../../models/version'
+import File from '@apps/drive/models/file'
+import Version from '@apps/drive/models/version'
 
 const CreateVersions = {
 

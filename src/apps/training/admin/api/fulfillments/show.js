@@ -1,5 +1,5 @@
-import FulfillmentSerializer from '../../../serializers/fulfillment_serializer'
-import Fulfillment from '../../../models/fulfillment'
+import FulfillmentSerializer from '@apps/training/serializers/fulfillment_serializer'
+import Fulfillment from '@apps/training/models/fulfillment'
 
 const showRoute = async (req, res) => {
 

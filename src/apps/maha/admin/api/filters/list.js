@@ -1,5 +1,5 @@
-import FilterSerializer from '../../../serializers/filter_serializer'
-import Filter from '../../../models/filter'
+import FilterSerializer from '@apps/maha/serializers/filter_serializer'
+import Filter from '@apps/maha/models/filter'
 
 const listRoute = async (req, res) => {
 

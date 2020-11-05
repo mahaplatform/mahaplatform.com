@@ -1,5 +1,5 @@
-import SmsCampaignSerializer from '../../../serializers/sms_campaign_serializer'
-import SmsCampaign from '../../../models/sms_campaign'
+import SmsCampaignSerializer from '@apps/campaigns/serializers/sms_campaign_serializer'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 
 const outboundRoute = async (req, res) => {
 

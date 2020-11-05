@@ -1,5 +1,5 @@
-import FileSerializer from '../../../serializers/file_serializer'
-import File from '../../../models/file'
+import FileSerializer from '@apps/drive/serializers/file_serializer'
+import File from '@apps/drive/models/file'
 
 const showRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
-import { getDeviceIcon, getDeviceDisplayName, findOrCreateDeviceValueId } from '../../services/device'
+import { getDeviceIcon, getDeviceDisplayName, findOrCreateDeviceValueId } from '@apps/maha/services/device'
 
-import Device from '../../models/device'
+import Device from '@apps/maha/models/device'
 
 const AddDeviceIconDisplayName = {
 

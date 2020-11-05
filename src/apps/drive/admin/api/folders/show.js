@@ -1,5 +1,5 @@
-import FolderSerializer from '../../../serializers/folder_serializer'
-import Folder from '../../../models/folder'
+import FolderSerializer from '@apps/drive/serializers/folder_serializer'
+import Folder from '@apps/drive/models/folder'
 
 const showRoute = async (req, res) => {
 

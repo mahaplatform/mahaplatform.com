@@ -1,6 +1,6 @@
 import { getRecipients } from '@apps/campaigns/services/recipients'
-import { enrollInWorkflow } from '../../../services/workflows'
-import Workflow from '../../../models/workflow'
+import { enrollInWorkflow } from '@apps/automation/services/workflows'
+import Workflow from '@apps/automation/models/workflow'
 
 const enrollRoute = async (req, res) => {
 

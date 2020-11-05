@@ -1,5 +1,5 @@
-import UserSerializer from '../../../serializers/user_serializer'
-import User from '../../../models/user'
+import UserSerializer from '@apps/maha/serializers/user_serializer'
+import User from '@apps/maha/models/user'
 
 const supervisorsRoute = async (req, res) => {
 

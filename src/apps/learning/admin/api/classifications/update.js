@@ -1,8 +1,8 @@
-import ClassificationSerializer from '../../../serializers/classification_serializer'
+import ClassificationSerializer from '@apps/learning/serializers/classification_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Classification from '../../../models/classification'
+import Classification from '@apps/learning/models/classification'
 
 const updateRoute = async (req, res) => {
 

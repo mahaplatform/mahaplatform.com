@@ -1,6 +1,6 @@
 import { audit } from '@core/services/routes/audit'
-import Refund from '../../../models/refund'
-import Credit from '../../../models/credit'
+import Refund from '@apps/finance/models/refund'
+import Credit from '@apps/finance/models/credit'
 
 export const refundCredit = async(req, { amount, payment }) => {
 

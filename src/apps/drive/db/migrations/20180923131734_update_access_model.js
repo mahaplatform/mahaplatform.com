@@ -1,5 +1,5 @@
-import { propagateAccess } from '../../services/items'
-import Folder from '../../models/folder'
+import { propagateAccess } from '@apps/drive/services/items'
+import Folder from '@apps/drive/models/folder'
 
 const UpdateAccessModel = {
 

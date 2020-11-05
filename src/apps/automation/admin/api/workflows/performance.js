@@ -1,4 +1,4 @@
-import Workflow from '../../../models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {

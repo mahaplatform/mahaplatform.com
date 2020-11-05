@@ -1,7 +1,7 @@
-import AssetSerializer from '../../../../serializers/asset_serializer'
-import Profile from '../../../../models/profile'
+import AssetSerializer from '@apps/maha/serializers/asset_serializer'
+import Profile from '@apps/maha/models/profile'
 import googlephotos from './googlephotos/create'
-import Asset from '../../../../models/asset'
+import Asset from '@apps/maha/models/asset'
 import instagram from './instagram/create'
 import facebook from './facebook/create'
 

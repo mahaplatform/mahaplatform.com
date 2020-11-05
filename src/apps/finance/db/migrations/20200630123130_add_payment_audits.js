@@ -1,4 +1,4 @@
-import Payment from '../../models/payment'
+import Payment from '@apps/finance/models/payment'
 
 const AddPaymentAudits = {
 

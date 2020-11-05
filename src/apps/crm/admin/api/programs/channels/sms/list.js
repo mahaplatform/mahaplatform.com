@@ -1,5 +1,5 @@
-import SMSReceipt from '../../../../../models/sms_receipt'
-import Program from '../../../../../models/program'
+import SMSReceipt from '@apps/crm/models/sms_receipt'
+import Program from '@apps/crm/models/program'
 
 const listRoute = async (req, res) => {
 

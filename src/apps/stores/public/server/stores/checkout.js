@@ -1,6 +1,6 @@
 import Setting from '@apps/platform/models/setting'
 import { encode } from '@core/services/jwt'
-import Store from '../../../models/store'
+import Store from '@apps/stores/models/store'
 import { readFile } from '../utils'
 import moment from 'moment'
 import path from 'path'

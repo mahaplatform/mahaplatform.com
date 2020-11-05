@@ -1,6 +1,6 @@
-import Program from '../../../models/program'
-import Contact from '../../../models/contact'
-import List from '../../../models/list'
+import Program from '@apps/crm/models/program'
+import Contact from '@apps/crm/models/contact'
+import List from '@apps/crm/models/list'
 
 const subscriptionsRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Session from '../../../../models/session'
+import Session from '@apps/events/models/session'
 
 const editRoute = async (req, res) => {
 

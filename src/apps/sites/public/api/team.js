@@ -1,4 +1,4 @@
-import Site from '../../models/site'
+import Site from '@apps/sites/models/site'
 
 const teamRoute = async (req, res, next) => {
 

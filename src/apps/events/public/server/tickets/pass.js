@@ -1,4 +1,4 @@
-import Ticket from '../../../models/ticket'
+import Ticket from '@apps/events/models/ticket'
 import Passbook from 'passbook'
 import mkdirp from 'mkdirp'
 import path from 'path'

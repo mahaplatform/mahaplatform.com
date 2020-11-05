@@ -1,5 +1,5 @@
-import CheckSerializer from '../../../serializers/check_serializer'
-import Check from '../../../models/check'
+import CheckSerializer from '@apps/finance/serializers/check_serializer'
+import Check from '@apps/finance/models/check'
 
 const showRoute = async (req, res) => {
 

@@ -1,10 +1,10 @@
-import VoiceCampaignSerializer from '../../../serializers/voice_campaign_serializer'
+import VoiceCampaignSerializer from '@apps/campaigns/serializers/voice_campaign_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import VoiceCampaign from '../../../models/voice_campaign'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import Program from '@apps/crm/models/program'
 
 const createRoute = async (req, res) => {

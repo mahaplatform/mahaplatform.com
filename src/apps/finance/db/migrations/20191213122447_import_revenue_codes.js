@@ -1,4 +1,4 @@
-import RevenueType from '../../models/revenue_type'
+import RevenueType from '@apps/finance/models/revenue_type'
 import s3 from '@core/services/s3'
 import csvparse from 'csv-parse/lib/sync'
 import request from 'request-promise'

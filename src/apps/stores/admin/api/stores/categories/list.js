@@ -1,5 +1,5 @@
-import CategorySerializer from '../../../../serializers/category_serializer'
-import Category from '../../../../models/category'
+import CategorySerializer from '@apps/stores/serializers/category_serializer'
+import Category from '@apps/stores/models/category'
 
 const listRoute = async (req, res) => {
 

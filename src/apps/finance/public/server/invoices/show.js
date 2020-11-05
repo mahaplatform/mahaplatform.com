@@ -1,5 +1,5 @@
-import InvoiceSerializer from '../../../serializers/invoice_serializer'
-import Invoice from '../../../models/invoice'
+import InvoiceSerializer from '@apps/finance/serializers/invoice_serializer'
+import Invoice from '@apps/finance/models/invoice'
 import { readFile } from './utils'
 import path from 'path'
 import ejs from 'ejs'

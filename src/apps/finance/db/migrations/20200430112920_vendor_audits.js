@@ -2,7 +2,7 @@ import { audit } from '@core/services/routes/audit'
 import Activity from '@apps/maha/models/activity'
 import Contact from '@apps/crm/models/contact'
 import Sender from '@apps/crm/models/sender'
-import Vendor from '../../models/vendor'
+import Vendor from '@apps/finance/models/vendor'
 
 const VendorAudits = {
 

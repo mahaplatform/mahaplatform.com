@@ -1,5 +1,5 @@
-import GeocodeMailingAddressQueue from '../../queues/geocode_mailing_address_queue'
-import MailingAddress from '../../models/mailing_address'
+import GeocodeMailingAddressQueue from '@apps/crm/queues/geocode_mailing_address_queue'
+import MailingAddress from '@apps/crm/models/mailing_address'
 
 const GeocodeMailingAddresses = {
 

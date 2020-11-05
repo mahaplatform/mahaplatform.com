@@ -1,5 +1,5 @@
 import DeviceValue from '@apps/maha/models/device_value'
-import DeviceValueSerializer from '../../../serializers/device_value_serializer'
+import DeviceValueSerializer from '@apps/team/serializers/device_value_serializer'
 import pluralize from 'pluralize'
 
 const listRoute = async (req, res) => {

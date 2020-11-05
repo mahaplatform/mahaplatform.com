@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import QuizSerializer from '../../../serializers/quiz_serializer'
+import QuizSerializer from '@apps/training/serializers/quiz_serializer'
 import socket from '@core/services/routes/emitter'
-import { updateQuestions } from '../../../services/questions'
-import Quiz from '../../../models/quiz'
+import { updateQuestions } from '@apps/training/services/questions'
+import Quiz from '@apps/training/models/quiz'
 
 const createRoute = async (req, res) => {
 

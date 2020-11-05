@@ -1,4 +1,4 @@
-import Organizer from '../../../models/organizer'
+import Organizer from '@apps/events/models/organizer'
 
 const showRoute = async (req, res) => {
 

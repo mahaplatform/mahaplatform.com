@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import LocationSerializer from '../../../serializers/location_serializer'
+import LocationSerializer from '@apps/events/serializers/location_serializer'
 import socket from '@core/services/routes/emitter'
 import { whitelist } from '@core/services/routes/params'
-import Location from '../../../models/location'
+import Location from '@apps/events/models/location'
 
 const createRoute = async (req, res) => {
 

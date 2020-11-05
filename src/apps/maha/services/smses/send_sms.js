@@ -1,8 +1,8 @@
-import SMSAttachment from '../../models/sms_attachment'
-import SendSMSQueue from '../../queues/send_sms_queue'
-import SMSBlacklist from '../../models/sms_blacklist'
+import SMSAttachment from '@apps/maha/models/sms_attachment'
+import SendSMSQueue from '@apps/maha/queues/send_sms_queue'
+import SMSBlacklist from '@apps/maha/models/sms_blacklist'
 import { findOrCreateNumber } from '../numbers'
-import SMS from '../../models/sms'
+import SMS from '@apps/maha/models/sms'
 import queueSMS from './queue_sms'
 import ejs from 'ejs'
 

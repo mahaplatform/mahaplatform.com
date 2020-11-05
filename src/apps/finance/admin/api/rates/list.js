@@ -1,5 +1,5 @@
-import RateSerializer from '../../../serializers/rate_serializer'
-import Rate from '../../../models/rate'
+import RateSerializer from '@apps/finance/serializers/rate_serializer'
+import Rate from '@apps/finance/models/rate'
 
 const listRoute = async (req, res) => {
 

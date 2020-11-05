@@ -1,6 +1,6 @@
-import TopicSerializer from '../../../../serializers/topic_serializer'
-import { checkProgramAccess } from '../../../../services/programs'
-import Topic from '../../../../models/topic'
+import TopicSerializer from '@apps/crm/serializers/topic_serializer'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Topic from '@apps/crm/models/topic'
 
 const updateRoute = async (req, res) => {
 

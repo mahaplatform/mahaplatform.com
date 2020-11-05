@@ -1,6 +1,6 @@
 import WorkflowRecordingSerializer from '@apps/automation/serializers/workflow_recording_serializer'
 import WorkflowRecording from '@apps/automation/models/workflow_recording'
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 
 const listRoute = async (req, res) => {
 

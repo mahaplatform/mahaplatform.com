@@ -1,10 +1,10 @@
 import { updateRelated } from '@core/services/routes/relations'
-import AttractionSerializer from '../../../serializers/attraction_serializer'
+import AttractionSerializer from '@apps/eatfresh/serializers/attraction_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import { slugify } from '../../../services/attractions'
-import Attraction from '../../../models/attraction'
+import { slugify } from '@apps/eatfresh/services/attractions'
+import Attraction from '@apps/eatfresh/models/attraction'
 
 const createRoute = async (req, res) => {
 

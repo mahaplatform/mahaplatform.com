@@ -1,7 +1,7 @@
-import DashboardPanelSerializer from '../../../../serializers/dashboard_panel_serializer'
+import DashboardPanelSerializer from '@apps/maha/serializers/dashboard_panel_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import DashboardPanel from '../../../../models/dashboard_panel'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
 import moment from 'moment'
 
 const updateRoute = async (req, res) => {

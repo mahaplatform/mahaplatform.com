@@ -1,5 +1,5 @@
-import AccountSerializer from '../../../serializers/account_serializer'
-import Account from '../../../models/account'
+import AccountSerializer from '@apps/finance/serializers/account_serializer'
+import Account from '@apps/finance/models/account'
 
 const listRoute = async (req, res) => {
 

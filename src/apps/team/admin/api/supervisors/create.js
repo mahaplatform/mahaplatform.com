@@ -1,4 +1,4 @@
-import SupervisorSerializer from '../../../serializers/supervisor_serializer'
+import SupervisorSerializer from '@apps/team/serializers/supervisor_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'

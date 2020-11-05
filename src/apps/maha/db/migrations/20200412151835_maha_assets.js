@@ -1,5 +1,5 @@
-import ScanAssetQueue from '../../queues/scan_asset_queue'
-import Asset from '../../models/asset'
+import ScanAssetQueue from '@apps/maha/queues/scan_asset_queue'
+import Asset from '@apps/maha/models/asset'
 
 const MahaAssets = {
 

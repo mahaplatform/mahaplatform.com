@@ -1,4 +1,4 @@
-import Allocation from '../../../models/allocation'
+import Allocation from '@apps/finance/models/allocation'
 import { refundBraintree } from './braintree'
 import { refundPaypal } from './paypal'
 import { refundCredit } from './credit'

@@ -1,9 +1,9 @@
-import WorkflowSerializer from '../../../serializers/workflow_serializer'
+import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { updateSteps } from '../../../services/workflows'
-import Workflow from '../../../models/workflow'
+import { updateSteps } from '@apps/automation/services/workflows'
+import Workflow from '@apps/automation/models/workflow'
 
 const updateRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import Administration from '../../../../models/administration'
-import Quiz from '../../../../models/quiz'
+import Administration from '@apps/training/models/administration'
+import Quiz from '@apps/training/models/quiz'
 
 const getAdministration = async (req, quiz) => {
 

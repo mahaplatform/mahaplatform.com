@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import instagram from './instagram/list'
 import facebook from './facebook/list'
 import twitter from './twitter/list'

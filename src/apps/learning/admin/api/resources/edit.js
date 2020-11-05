@@ -1,4 +1,4 @@
-import Resource from '../../../models/resource'
+import Resource from '@apps/learning/models/resource'
 
 const editRoute = async (req, res) => {
 

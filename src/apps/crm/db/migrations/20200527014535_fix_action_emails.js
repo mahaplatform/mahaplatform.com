@@ -1,4 +1,4 @@
-import WorkflowAction from '../../models/workflow_action'
+import WorkflowAction from '@apps/crm/models/workflow_action'
 import Email from '@apps/maha/models/email'
 import moment from 'moment'
 

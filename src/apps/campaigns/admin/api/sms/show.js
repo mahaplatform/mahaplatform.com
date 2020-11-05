@@ -1,6 +1,6 @@
-import SMSCampaignSerializer from '../../../serializers/sms_campaign_serializer'
-import { getRecipients } from '../../../services/recipients'
-import SMSCampaign from '../../../models/sms_campaign'
+import SMSCampaignSerializer from '@apps/campaigns/serializers/sms_campaign_serializer'
+import { getRecipients } from '@apps/campaigns/services/recipients'
+import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 
 const getRecipientCount = async (req, { campaign }) => {
 

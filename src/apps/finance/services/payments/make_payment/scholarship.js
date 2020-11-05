@@ -1,6 +1,6 @@
 import RouteError from '@core/objects/route_error'
-import Scholarship from '../../../models/scholarship'
-import Payment from '../../../models/payment'
+import Scholarship from '@apps/finance/models/scholarship'
+import Payment from '@apps/finance/models/payment'
 
 export const chargeScholarship = async (req, { invoice, date, amount, scholarship_id }) => {
 

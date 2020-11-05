@@ -1,5 +1,5 @@
-import VoiceCampaignSerializer from '../../../serializers/voice_campaign_serializer'
-import VoiceCampaign from '../../../models/voice_campaign'
+import VoiceCampaignSerializer from '@apps/campaigns/serializers/voice_campaign_serializer'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 
 const inboundRoute = async (req, res) => {
 

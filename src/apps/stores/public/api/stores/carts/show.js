@@ -1,5 +1,5 @@
-import Store from '../../../../models/store'
-import Cart from '../../../../models/cart'
+import Store from '@apps/stores/models/store'
+import Cart from '@apps/stores/models/cart'
 
 const getCart = async (req, { store, code }) => {
 

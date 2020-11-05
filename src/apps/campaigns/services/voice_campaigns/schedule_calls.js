@@ -1,5 +1,5 @@
-import TriggerVoiceEnrollmentQueue from '../../queues/trigger_voice_enrollment_queue'
-import VoiceCampaign from '../../models/voice_campaign'
+import TriggerVoiceEnrollmentQueue from '@apps/campaigns/queues/trigger_voice_enrollment_queue'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import { getRecipients } from '../recipients'
 import moment from 'moment'
 

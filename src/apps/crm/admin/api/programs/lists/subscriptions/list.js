@@ -1,5 +1,5 @@
-import ContactSerializer from '../../../../../serializers/contact_serializer'
-import { getContacts } from '../../../../../services/contacts'
+import ContactSerializer from '@apps/crm/serializers/contact_serializer'
+import { getContacts } from '@apps/crm/services/contacts'
 
 const listRoute = async (req, res) => {
 

@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import SiteSerializer from '../../../serializers/site_serializer'
+import SiteSerializer from '@apps/sites/serializers/site_serializer'
 import socket from '@core/services/routes/emitter'
-import Origin from '../../../models/origin'
-import Site from '../../../models/site'
+import Origin from '@apps/sites/models/origin'
+import Site from '@apps/sites/models/site'
 
 const updateRoute = async (req, res) => {
 

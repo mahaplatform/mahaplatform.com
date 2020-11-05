@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import { deleteWorkflow } from '../../../services/workflows'
-import Workflow from '../../../models/workflow'
+import { deleteWorkflow } from '@apps/automation/services/workflows'
+import Workflow from '@apps/automation/models/workflow'
 
 const destroyRoute = async (req, res) => {
 

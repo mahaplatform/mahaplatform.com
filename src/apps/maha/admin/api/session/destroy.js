@@ -1,4 +1,4 @@
-import Session from '../../../models/session'
+import Session from '@apps/maha/models/session'
 
 const destroyRoute = async (req, res) => {
 

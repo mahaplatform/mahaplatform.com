@@ -1,6 +1,6 @@
-import ItemSerializer from '../../../serializers/item_serializer'
-import Folder from '../../../models/folder'
-import Item from '../../../models/item'
+import ItemSerializer from '@apps/drive/serializers/item_serializer'
+import Folder from '@apps/drive/models/folder'
+import Item from '@apps/drive/models/item'
 
 const listRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
-import { getContacts } from '../../../services/contacts'
-import { addToTopics } from '../../../services/topics'
-import { addToLists } from '../../../services/lists'
+import { getContacts } from '@apps/crm/services/contacts'
+import { addToTopics } from '@apps/crm/services/topics'
+import { addToLists } from '@apps/crm/services/lists'
 import Field from '@apps/maha/models/field'
 import _ from 'lodash'
 

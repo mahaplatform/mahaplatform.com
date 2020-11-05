@@ -1,9 +1,9 @@
-import OrganizerSerializer from '../../../serializers/organizer_serializer'
+import OrganizerSerializer from '@apps/events/serializers/organizer_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Organizer from '../../../models/organizer'
+import Organizer from '@apps/events/models/organizer'
 
 const updateRoute = async (req, res) => {
 

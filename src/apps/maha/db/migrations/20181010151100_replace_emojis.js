@@ -1,4 +1,4 @@
-import categories from '../../admin/components/emojis/categories'
+import categories from '@apps/maha/admin/components/emojis/categories'
 import _ from 'lodash'
 
 const ReplaceEmojis = {

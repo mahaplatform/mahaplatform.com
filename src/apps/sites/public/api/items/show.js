@@ -1,5 +1,5 @@
 import { expandValues } from '@apps/maha/services/values'
-import Item from '../../../models/item'
+import Item from '@apps/sites/models/item'
 
 const showRoute = async (req, res) => {
 

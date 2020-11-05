@@ -1,14 +1,14 @@
 import { activity } from '@core/services/routes/activities'
-import ProductSerializer from '../../../../serializers/product_serializer'
+import ProductSerializer from '@apps/stores/serializers/product_serializer'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Adjustment from '../../../../models/adjustment'
-import Variant from '../../../../models/variant'
-import Product from '../../../../models/product'
-import Store from '../../../../models/store'
-import Photo from '../../../../models/photo'
+import Adjustment from '@apps/stores/models/adjustment'
+import Variant from '@apps/stores/models/variant'
+import Product from '@apps/stores/models/product'
+import Store from '@apps/stores/models/store'
+import Photo from '@apps/stores/models/photo'
 
 const createRoute = async (req, res) => {
 

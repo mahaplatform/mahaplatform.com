@@ -1,6 +1,6 @@
 import { createAssetFromUrl } from '@apps/maha/services/assets'
-import WorkflowRecording from '../../models/workflow_recording'
-import WorkflowAction from '../../models/workflow_action'
+import WorkflowRecording from '@apps/automation/models/workflow_recording'
+import WorkflowAction from '@apps/automation/models/workflow_action'
 
 const save_recording = async (req, { action_id, recording_id, url }) => {
 

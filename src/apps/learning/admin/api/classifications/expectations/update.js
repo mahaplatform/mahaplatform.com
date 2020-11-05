@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import Classification from '../../../../models/classification'
-import Expectation from '../../../../models/expectation'
+import Classification from '@apps/learning/models/classification'
+import Expectation from '@apps/learning/models/expectation'
 
 const updateRoute = async (req, res) => {
 

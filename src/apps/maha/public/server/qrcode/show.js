@@ -1,4 +1,4 @@
-import ShortLink from '../../../models/shortlink'
+import ShortLink from '@apps/maha/models/shortlink'
 import QRCode from 'qrcode'
 
 const showRoute = async (req, res) => {

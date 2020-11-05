@@ -1,5 +1,5 @@
-import AssetSerializer from '../../../../serializers/asset_serializer'
-import { checkUploadedFile } from '../../../../services/assets'
+import AssetSerializer from '@apps/maha/serializers/asset_serializer'
+import { checkUploadedFile } from '@apps/maha/services/assets'
 
 const showRoute = async (req, res) => {
 

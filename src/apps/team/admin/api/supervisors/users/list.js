@@ -1,4 +1,4 @@
-import UserSerializer from '../../../../serializers/user_serializer'
+import UserSerializer from '@apps/team/serializers/user_serializer'
 import Supervisor from '@apps/maha/models/supervisor'
 import User from '@apps/maha/models/user'
 

@@ -1,4 +1,4 @@
-import Alias from '../../../models/alias'
+import Alias from '@apps/maha/models/alias'
 
 const listRoute = async (req, res) => {
 

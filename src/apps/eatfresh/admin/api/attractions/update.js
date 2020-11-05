@@ -1,9 +1,9 @@
 import { updateRelated } from '@core/services/routes/relations'
-import AttractionSerializer from '../../../serializers/attraction_serializer'
+import AttractionSerializer from '@apps/eatfresh/serializers/attraction_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Attraction from '../../../models/attraction'
+import Attraction from '@apps/eatfresh/models/attraction'
 
 const updateRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import LessonSerializer from '../../../../serializers/lesson_serializer'
-import Lesson from '../../../../models/lesson'
+import LessonSerializer from '@apps/training/serializers/lesson_serializer'
+import Lesson from '@apps/training/models/lesson'
 
 const listRoute = async (req, res) => {
 

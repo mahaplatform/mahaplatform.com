@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import { deleteStore } from '../../../services/stores'
-import Store from '../../../models/store'
+import { deleteStore } from '@apps/stores/services/stores'
+import Store from '@apps/stores/models/store'
 
 const destroyRoute = async (req, res) => {
 

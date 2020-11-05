@@ -1,5 +1,5 @@
-import ProgramSerializer from '../../../serializers/program_serializer'
-import Program from '../../../models/program'
+import ProgramSerializer from '@apps/crm/serializers/program_serializer'
+import Program from '@apps/crm/models/program'
 
 const showRoute = async (req, res) => {
 

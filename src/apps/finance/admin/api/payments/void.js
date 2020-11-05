@@ -4,7 +4,7 @@ import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import RouteError from '@core/objects/route_error'
 import braintree from '@core/services/braintree'
-import Payment from '../../../models/payment'
+import Payment from '@apps/finance/models/payment'
 import _ from 'lodash'
 
 const voidRoute = async (req, res) => {

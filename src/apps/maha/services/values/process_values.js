@@ -1,5 +1,5 @@
 import { validate } from '@core/utils/validation'
-import Field from '../../models/field'
+import Field from '@apps/maha/models/field'
 import geocode from '../geocode'
 import _ from 'lodash'
 

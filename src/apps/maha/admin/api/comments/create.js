@@ -1,12 +1,12 @@
 import { notifications } from '@core/services/routes/notifications'
 import { attachments } from '@core/services/routes/attachments'
-import CommentSerializer from '../../../serializers/comment_serializer'
+import CommentSerializer from '@apps/maha/serializers/comment_serializer'
 import { whitelist } from '@core/services/routes/params'
 import { objects } from '@core/services/routes/objects'
-import { extractAttachments } from '../../../services/attachments'
+import { extractAttachments } from '@apps/maha/services/attachments'
 import socket from '@core/services/routes/emitter'
 import registry from '@core/utils/registry'
-import Comment from '../../../models/comment'
+import Comment from '@apps/maha/models/comment'
 
 const createRoute = async (req, res) => {
 

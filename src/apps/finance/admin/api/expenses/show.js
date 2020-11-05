@@ -1,5 +1,5 @@
-import ExpenseSerializer from '../../../serializers/expense_serializer'
-import Expense from '../../../models/expense'
+import ExpenseSerializer from '@apps/finance/serializers/expense_serializer'
+import Expense from '@apps/finance/models/expense'
 
 const showRoute = async (req, res) => {
 

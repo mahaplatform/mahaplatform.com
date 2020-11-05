@@ -1,4 +1,4 @@
-import Email from '../../models/email'
+import Email from '@apps/crm/models/email'
 
 const FixEmails = {
 

@@ -1,5 +1,5 @@
 import braintree from '@core/services/braintree'
-import Payment from '../../models/payment'
+import Payment from '@apps/finance/models/payment'
 import _ from 'lodash'
 
 const getTransactions = async(ids) => {

@@ -1,6 +1,6 @@
 import { personalizeEmail } from '@apps/automation/services/email'
 import Email from '@apps/maha/models/email'
-import Contact from '../../../../../models/contact'
+import Contact from '@apps/crm/models/contact'
 import parser from 'address-rfc2822'
 
 const listRoute = async (req, res) => {

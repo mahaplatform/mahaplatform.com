@@ -3,7 +3,7 @@ import { contactActivity } from '@apps/crm/services/activities'
 import generateCode from '@core/utils/generate_code'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import { createCall } from '@apps/maha/services/calls'
-import VoiceCampaign from '../../models/voice_campaign'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 
 const makeCall = async (req, params) => {
 

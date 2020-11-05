@@ -1,4 +1,4 @@
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 
 const editRoute = async (req, res) => {
 

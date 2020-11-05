@@ -1,7 +1,7 @@
-import { createCheck, updateCheck, destroyCheck } from '../../../services/checks'
-import CheckSerializer from '../../../serializers/check_serializer'
+import { createCheck, updateCheck, destroyCheck } from '@apps/finance/services/checks'
+import CheckSerializer from '@apps/finance/serializers/check_serializer'
 import socket from '@core/services/routes/emitter'
-import Check from '../../../models/check'
+import Check from '@apps/finance/models/check'
 
 const getAllocations = (item, allocations) => {
   const items = !allocations || allocations.length === 0 ? [{}] : allocations

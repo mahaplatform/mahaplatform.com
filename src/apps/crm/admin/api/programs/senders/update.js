@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import SenderSerializer from '../../../../serializers/sender_serializer'
+import SenderSerializer from '@apps/crm/serializers/sender_serializer'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import Sender from '../../../../models/sender'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Sender from '@apps/crm/models/sender'
 
 const updateRoute = async (req, res) => {
 

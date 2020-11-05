@@ -1,4 +1,4 @@
-import EmailAddress from '../../models/email_address'
+import EmailAddress from '@apps/crm/models/email_address'
 import Email from '@apps/maha/models/email'
 
 const AddEmailAddressToEmails = {

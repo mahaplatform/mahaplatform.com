@@ -1,5 +1,5 @@
 import { validate } from '@core/utils/validation'
-import { transferItems } from '../../../services/items'
+import { transferItems } from '@apps/drive/services/items'
 
 const transferRoute = async (req, res) => {
 

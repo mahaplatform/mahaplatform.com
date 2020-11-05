@@ -1,5 +1,5 @@
-import SubscriptionSerializer from '../../../serializers/subscription_serializer'
-import Subscription from '../../../models/subscription'
+import SubscriptionSerializer from '@apps/chat/serializers/subscription_serializer'
+import Subscription from '@apps/chat/models/subscription'
 
 const listRoute = async (req, res) => {
 

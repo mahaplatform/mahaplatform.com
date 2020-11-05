@@ -1,5 +1,5 @@
-import AppraisalsSerializer from '../../../serializers/appraisal_serializer'
-import Appraisal from '../../../models/appraisal'
+import AppraisalsSerializer from '@apps/appraisals/serializers/appraisal_serializer'
+import Appraisal from '@apps/appraisals/models/appraisal'
 
 const showRoute = async (req, res) => {
 

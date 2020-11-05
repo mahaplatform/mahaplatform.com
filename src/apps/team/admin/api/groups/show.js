@@ -1,4 +1,4 @@
-import GroupSerializer from '../../../serializers/group_serializer'
+import GroupSerializer from '@apps/team/serializers/group_serializer'
 import Group from '@apps/maha/models/group'
 
 const showRoute = async (req, res) => {

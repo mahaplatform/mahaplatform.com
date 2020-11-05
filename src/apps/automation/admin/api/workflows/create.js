@@ -1,11 +1,11 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import WorkflowSerializer from '../../../serializers/workflow_serializer'
+import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import Program from '@apps/crm/models/program'
-import Workflow from '../../../models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 
 const createRoute = async (req, res) => {
 

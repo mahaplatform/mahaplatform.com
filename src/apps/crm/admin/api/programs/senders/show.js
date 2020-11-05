@@ -1,6 +1,6 @@
-import SenderSerializer from '../../../../serializers/sender_serializer'
-import { checkProgramAccess } from '../../../../services/programs'
-import Sender from '../../../../models/sender'
+import SenderSerializer from '@apps/crm/serializers/sender_serializer'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Sender from '@apps/crm/models/sender'
 
 const updateRoute = async (req, res) => {
 

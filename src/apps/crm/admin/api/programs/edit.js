@@ -1,4 +1,4 @@
-import Program from '../../../models/program'
+import Program from '@apps/crm/models/program'
 
 const editRoute = async (req, res) => {
 

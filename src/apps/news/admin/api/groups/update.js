@@ -1,7 +1,7 @@
 import { whitelist } from '@core/services/routes/params'
-import GroupSerializer from '../../../serializers/group_serializer'
-import { updateMembers } from '../../../services/groups'
-import Group from '../../../models/group'
+import GroupSerializer from '@apps/news/serializers/group_serializer'
+import { updateMembers } from '@apps/news/services/groups'
+import Group from '@apps/news/models/group'
 
 const updateRoute = async (req, res) => {
 

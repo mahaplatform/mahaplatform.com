@@ -1,6 +1,6 @@
-import Fulfillment from '../../../../models/fulfillment'
-import Answering from '../../../../models/answering'
-import Question from '../../../../models/question'
+import Fulfillment from '@apps/training/models/fulfillment'
+import Answering from '@apps/training/models/answering'
+import Question from '@apps/training/models/question'
 
 const answeringsRoute = async (req, res) => {
 

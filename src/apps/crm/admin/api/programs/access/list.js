@@ -1,6 +1,6 @@
-import ProgramAccessSerializer from '../../../../serializers/program_access_serializer'
-import { checkProgramAccess } from '../../../../services/programs'
-import ProgramAccess from '../../../../models/program_access'
+import ProgramAccessSerializer from '@apps/crm/serializers/program_access_serializer'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import ProgramAccess from '@apps/crm/models/program_access'
 
 const listRoute = async (req, res) => {
 

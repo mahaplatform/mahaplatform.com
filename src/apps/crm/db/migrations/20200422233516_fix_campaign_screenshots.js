@@ -1,5 +1,5 @@
-import { generateScreenshot } from '../../services/email'
-import EmailCampaign from '../../models/email_campaign'
+import { generateScreenshot } from '@apps/crm/services/email'
+import EmailCampaign from '@apps/crm/models/email_campaign'
 
 const FixCampaignScreenshots = {
 

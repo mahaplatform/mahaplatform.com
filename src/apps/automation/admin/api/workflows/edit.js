@@ -1,4 +1,4 @@
-import Workflow from '../../../models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 
 const editRoute = async (req, res) => {
 

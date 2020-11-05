@@ -1,6 +1,6 @@
 import generateCode from '@core/utils/generate_code'
-import Response from '../../models/response'
-import Consent from '../../models/consent'
+import Response from '@apps/crm/models/response'
+import Consent from '@apps/crm/models/consent'
 
 const DuckRaceRespondants = {
 

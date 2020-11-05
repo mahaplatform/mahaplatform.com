@@ -1,5 +1,5 @@
-import ItemSerializer from '../../../serializers/item_serializer'
-import Item from '../../../models/item'
+import ItemSerializer from '@apps/finance/serializers/item_serializer'
+import Item from '@apps/finance/models/item'
 
 const listRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Profile from '../../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 import outlook from './outlook/show'
 import gmail from './gmail/show'
 

@@ -1,8 +1,8 @@
-import CategorySerializer from '../../../serializers/category_serializer'
+import CategorySerializer from '@apps/learning/serializers/category_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Category from '../../../models/category'
+import Category from '@apps/learning/models/category'
 
 const updateRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import { createDefaultInboundCampaign } from '../../services/voice_campaigns'
+import { createDefaultInboundCampaign } from '@apps/crm/services/voice_campaigns'
 import PhoneNumber from '@apps/maha/models/phone_number'
 
 const CreateDefaultInboundCampaigns = {

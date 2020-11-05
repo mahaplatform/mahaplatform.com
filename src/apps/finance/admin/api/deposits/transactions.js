@@ -1,5 +1,5 @@
-import DepositLineItemSerializer from '../../../serializers/deposit_line_item_serializer'
-import Deposit from '../../../models/deposit'
+import DepositLineItemSerializer from '@apps/finance/serializers/deposit_line_item_serializer'
+import Deposit from '@apps/finance/models/deposit'
 
 const transactionsRoute = async (req, res) => {
 

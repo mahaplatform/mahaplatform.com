@@ -1,4 +1,4 @@
-import Type from '../../../models/type'
+import Type from '@apps/sites/models/type'
 
 const editRoute = async (req, res) => {
 

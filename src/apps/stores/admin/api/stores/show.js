@@ -1,5 +1,5 @@
-import StoreSerializer from '../../../serializers/store_serializer'
-import Store from '../../../models/store'
+import StoreSerializer from '@apps/stores/serializers/store_serializer'
+import Store from '@apps/stores/models/store'
 
 const showRoute = async (req, res) => {
 

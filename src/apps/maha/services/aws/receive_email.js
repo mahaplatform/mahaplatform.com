@@ -1,12 +1,12 @@
 import { updateRelated } from '@core/services/routes/relations'
 import collectObjects from '@core/utils/collect_objects'
 import { sendMail } from '@core/services/email'
-import IncomingEmail from '../../models/incoming_email'
+import IncomingEmail from '@apps/maha/models/incoming_email'
 import s3 from '@core/services/s3'
-import Source from '../../models/source'
+import Source from '@apps/maha/models/source'
 import { createAsset } from '../assets'
-import Team from '../../models/team'
-import User from '../../models/user'
+import Team from '@apps/maha/models/team'
+import User from '@apps/maha/models/user'
 import moment from 'moment'
 
 const mailboxes = collectObjects('hooks/mailbox/*_mailbox.js')

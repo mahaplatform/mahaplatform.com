@@ -1,5 +1,5 @@
-import FormSerializer from '../../../serializers/form_serializer'
-import Form from '../../../models/form'
+import FormSerializer from '@apps/forms/serializers/form_serializer'
+import Form from '@apps/forms/models/form'
 
 const listRoute = async (req, res) => {
 

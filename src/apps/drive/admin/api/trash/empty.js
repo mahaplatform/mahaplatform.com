@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import { deleteForever } from '../../../services/items'
-import Item from '../../../models/item'
+import { deleteForever } from '@apps/drive/services/items'
+import Item from '@apps/drive/models/item'
 
 const emptyRoute = async (req, res) => {
 

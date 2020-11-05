@@ -1,6 +1,6 @@
-import FileSerializer from '../../../serializers/file_serializer'
-import { updateFile } from '../../../services/files'
-import File from '../../../models/file'
+import FileSerializer from '@apps/drive/serializers/file_serializer'
+import { updateFile } from '@apps/drive/services/files'
+import File from '@apps/drive/models/file'
 
 const updateRoute = async (req, res) => {
 

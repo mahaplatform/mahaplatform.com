@@ -1,7 +1,7 @@
 import collectObjects from '@core/utils/collect_objects'
-import ReceiveEmailQueue from '../../../queues/receive_email_queue'
-import EmailActivity from '../../../models/email_activity'
-import Email from '../../../models/email'
+import ReceiveEmailQueue from '@apps/maha/queues/receive_email_queue'
+import EmailActivity from '@apps/maha/models/email_activity'
+import Email from '@apps/maha/models/email'
 import request from 'request-promise'
 import moment from 'moment'
 

@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
-import PlanSerializer from '../../../serializers/plan_serializer'
+import PlanSerializer from '@apps/learning/serializers/plan_serializer'
 import socket from '@core/services/routes/emitter'
-import Plan from '../../../models/plan'
+import Plan from '@apps/learning/models/plan'
 
 const updateRoute = async (req, res) => {
 

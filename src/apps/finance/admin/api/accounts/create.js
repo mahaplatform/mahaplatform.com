@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import AccountSerializer from '../../../serializers/account_serializer'
+import AccountSerializer from '@apps/finance/serializers/account_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Account from '../../../models/account'
+import Account from '@apps/finance/models/account'
 
 const createRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Account from '../../../models/account'
+import Account from '@apps/maha/models/account'
 
 const emailRoute = async (req, res) => {
 

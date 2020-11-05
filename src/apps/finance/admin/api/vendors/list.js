@@ -1,5 +1,5 @@
-import VendorSerializer from '../../../serializers/vendor_serializer'
-import Vendor from '../../../models/vendor'
+import VendorSerializer from '@apps/finance/serializers/vendor_serializer'
+import Vendor from '@apps/finance/models/vendor'
 
 const listRoute = async (req, res) => {
 

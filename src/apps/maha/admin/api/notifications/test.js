@@ -1,5 +1,5 @@
-import { sendViaFirebase } from '../../../services/notifications/deliver'
-import { sendNotification } from '../../../services/notifications'
+import { sendViaFirebase } from '@apps/maha/services/notifications/deliver'
+import { sendNotification } from '@apps/maha/services/notifications'
 import _ from 'lodash'
 
 const testRoute = async (req, res) => {

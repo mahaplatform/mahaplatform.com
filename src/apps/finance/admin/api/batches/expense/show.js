@@ -1,7 +1,7 @@
-import AccpacExpenseSerializer from '../../../../serializers/accpac_expense_serializer'
-import ExpenseType from '../../../../models/expense_type'
-import Batch from '../../../../models/batch'
-import Item from '../../../../models/item'
+import AccpacExpenseSerializer from '@apps/finance/serializers/accpac_expense_serializer'
+import ExpenseType from '@apps/finance/models/expense_type'
+import Batch from '@apps/finance/models/batch'
+import Item from '@apps/finance/models/item'
 
 const showRoute = async (req, res) => {
 

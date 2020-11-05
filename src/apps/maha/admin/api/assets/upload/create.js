@@ -1,5 +1,5 @@
-import AssetSerializer from '../../../../serializers/asset_serializer'
-import { uploadChunk } from '../../../../services/assets'
+import AssetSerializer from '@apps/maha/serializers/asset_serializer'
+import { uploadChunk } from '@apps/maha/services/assets'
 
 const createRoute = async (req, res) => {
 

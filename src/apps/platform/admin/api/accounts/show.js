@@ -1,4 +1,4 @@
-import AccountSerializer from '../../../serializers/account_serializer'
+import AccountSerializer from '@apps/platform/serializers/account_serializer'
 import Account from '@apps/maha/models/account'
 
 const showRoute = async (req, res) => {

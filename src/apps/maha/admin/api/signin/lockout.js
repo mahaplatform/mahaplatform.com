@@ -1,7 +1,7 @@
 import { createUserToken } from '@core/utils/user_tokens'
 import { validate } from '@core/utils/validation'
-import { sendAlert } from '../../../services/alerts'
-import Account from '../../../models/account'
+import { sendAlert } from '@apps/maha/services/alerts'
+import Account from '@apps/maha/models/account'
 import moment from 'moment'
 
 const lockoutRoute = async (req, res) => {

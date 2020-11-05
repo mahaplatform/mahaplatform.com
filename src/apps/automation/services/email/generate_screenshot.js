@@ -4,7 +4,7 @@ import socket from '@core/services/routes/emitter'
 import Template from '@apps/crm/models/template'
 import s3 from '@core/services/s3'
 import renderEmail from './render_email'
-import Email from '../../models/email'
+import Email from '@apps/automation/models/email'
 import moment from 'moment'
 
 const getObject = async (req, { email_id, email_campaign_id, template_id }) => {

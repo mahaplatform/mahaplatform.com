@@ -1,5 +1,5 @@
 import getUserAccess from '@core/utils/get_user_access'
-import Expense from '../../../models/expense'
+import Expense from '@apps/finance/models/expense'
 import _ from 'lodash'
 
 const editRoute = async (req, res) => {

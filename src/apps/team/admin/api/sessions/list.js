@@ -1,4 +1,4 @@
-import SessionSerializer from '../../../serializers/session_serializer'
+import SessionSerializer from '@apps/team/serializers/session_serializer'
 import Session from '@apps/maha/models/session'
 
 const listRoute = async (req, res) => {

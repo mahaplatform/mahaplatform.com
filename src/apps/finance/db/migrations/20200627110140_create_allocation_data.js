@@ -1,6 +1,6 @@
-import Allocation from '../../models/allocation'
-import Payment from '../../models/payment'
-import Invoice from '../../models/invoice'
+import Allocation from '@apps/finance/models/allocation'
+import Payment from '@apps/finance/models/payment'
+import Invoice from '@apps/finance/models/invoice'
 
 const CreateAllocationData = {
 

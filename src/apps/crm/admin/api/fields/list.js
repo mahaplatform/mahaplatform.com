@@ -1,6 +1,6 @@
 import FieldSerializer from '@apps/maha/serializers/field_serializer'
 import Field from '@apps/maha/models/field'
-import Program from '../../../models/program'
+import Program from '@apps/crm/models/program'
 import _ from 'lodash'
 
 const listRoute = async (req, res) => {

@@ -1,5 +1,5 @@
-import OfferingSerializer from '../../../serializers/offering_serializer'
-import Offering from '../../../models/offering'
+import OfferingSerializer from '@apps/eatfresh/serializers/offering_serializer'
+import Offering from '@apps/eatfresh/models/offering'
 
 const showRoute = async (req, res) => {
 

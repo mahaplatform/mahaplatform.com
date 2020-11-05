@@ -1,10 +1,10 @@
 import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
-import TemplateSerializer from '../../../../serializers/template_serializer'
+import TemplateSerializer from '@apps/crm/serializers/template_serializer'
 import { activity } from '@core/services/routes/activities'
 import { getDefaultConfig } from '@apps/automation/services/email'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import Template from '../../../../models/template'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Template from '@apps/crm/models/template'
 
 const getConfig = async (req, { config, program_id, template_id }) => {
 

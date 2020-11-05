@@ -1,6 +1,6 @@
 import { createUserToken } from '@core/utils/user_tokens'
 import { decode } from '@core/services/jwt'
-import Account from '../../../models/account'
+import Account from '@apps/maha/models/account'
 
 const getToken = (req) => {
   if(req.query.token) return req.query.token

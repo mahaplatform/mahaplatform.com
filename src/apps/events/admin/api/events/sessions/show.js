@@ -1,5 +1,5 @@
-import SessionSerializer from '../../../../serializers/session_serializer'
-import Session from '../../../../models/session'
+import SessionSerializer from '@apps/events/serializers/session_serializer'
+import Session from '@apps/events/models/session'
 
 const showRoute = async (req, res) => {
 

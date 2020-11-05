@@ -1,10 +1,10 @@
-import { personalizeEmail, renderEmail } from '../../../../../services/email'
+import { personalizeEmail, renderEmail } from '@apps/automation/services/email'
 import generateCode from '@core/utils/generate_code'
 import { encodeEmail } from '@apps/maha/services/emails'
 import { sendMail } from '@core/services/email'
 import Sender from '@apps/crm/models/sender'
 import Email from '@apps/maha/models/email'
-import CRMEmail from '../../../../../models/email'
+import CRMEmail from '@apps/automation/models/email'
 import { getEnrollmentData } from '../utils'
 import _ from 'lodash'
 

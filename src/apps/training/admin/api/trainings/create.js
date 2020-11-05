@@ -1,9 +1,9 @@
-import TrainingSerializer from '../../../serializers/training_serializer'
+import TrainingSerializer from '@apps/training/serializers/training_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import { updateMaterials } from '../../../services/materials'
-import Training from '../../../models/training'
+import { updateMaterials } from '@apps/training/services/materials'
+import Training from '@apps/training/models/training'
 
 const createRoute = async (req, res) => {
 

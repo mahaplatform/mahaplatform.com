@@ -1,6 +1,6 @@
-import PaymentSerializer from '../../../../serializers/payment_serializer'
-import Payment from '../../../../models/payment'
-import Credit from '../../../../models/credit'
+import PaymentSerializer from '@apps/finance/serializers/payment_serializer'
+import Payment from '@apps/finance/models/payment'
+import Credit from '@apps/finance/models/credit'
 
 const paymentsRoute = async (req, res) => {
 

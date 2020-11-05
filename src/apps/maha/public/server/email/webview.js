@@ -1,6 +1,6 @@
 import { personalizeEmail } from '@apps/automation/services/email'
-import EmailActivity from '../../../models/email_activity'
-import Email from '../../../models/email'
+import EmailActivity from '@apps/maha/models/email_activity'
+import Email from '@apps/maha/models/email'
 
 const webviewRoute = async (req, res) => {
 

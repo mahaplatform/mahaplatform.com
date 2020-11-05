@@ -1,5 +1,5 @@
-import Profile from '../../models/profile'
-import Asset from '../../models/asset'
+import Profile from '@apps/maha/models/profile'
+import Asset from '@apps/maha/models/asset'
 
 const AddAssetMetadata = {
 

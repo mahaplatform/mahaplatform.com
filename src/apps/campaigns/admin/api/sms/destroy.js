@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import SmsCampaign from '../../../models/sms_campaign'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Refund from '../../../models/refund'
+import Refund from '@apps/finance/models/refund'
 
 const voidRoute = async (req, res) => {
 

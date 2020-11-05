@@ -1,4 +1,4 @@
-import Assigning from '../../../models/assigning'
+import Assigning from '@apps/training/models/assigning'
 
 const editRoute = async (req, res) => {
 

@@ -1,7 +1,7 @@
-import WorkflowActionSerializer from '../../../../serializers/workflow_action_serializer'
-import WorkflowEnrollment from '../../../../models/workflow_enrollment'
-import WorkflowAction from '../../../../models/workflow_action'
-import Workflow from '../../../../models/workflow'
+import WorkflowActionSerializer from '@apps/automation/serializers/workflow_action_serializer'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowAction from '@apps/automation/models/workflow_action'
+import Workflow from '@apps/automation/models/workflow'
 
 const listRoute = async (req, res) => {
 

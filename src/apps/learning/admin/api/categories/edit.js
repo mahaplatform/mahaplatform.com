@@ -1,4 +1,4 @@
-import Category from '../../../models/category'
+import Category from '@apps/learning/models/category'
 
 const editRoute = async (req, res) => {
 

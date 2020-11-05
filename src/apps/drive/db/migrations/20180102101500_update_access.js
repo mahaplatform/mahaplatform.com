@@ -1,5 +1,5 @@
-import Access from '../../models/access'
-import Folder from '../../models/folder'
+import Access from '@apps/drive/models/access'
+import Folder from '@apps/drive/models/folder'
 
 const UpdateAccess = {
 

@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Setting from '../../../models/setting'
+import Setting from '@apps/platform/models/setting'
 
 const updateRoute = async (req, res) => {
 

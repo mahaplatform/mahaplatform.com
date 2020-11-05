@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Event from '../../../models/event'
+import Event from '@apps/events/models/event'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

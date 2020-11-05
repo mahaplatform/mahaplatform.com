@@ -1,7 +1,7 @@
-import SendVoiceCampaignQueue from '../../../queues/send_voice_campaign_queue'
+import SendVoiceCampaignQueue from '@apps/campaigns/queues/send_voice_campaign_queue'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import VoiceCampaign from '../../../models/voice_campaign'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 
 const unscheduleRoute = async (req, res) => {
 

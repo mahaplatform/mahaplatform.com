@@ -1,5 +1,5 @@
-import ContactImportImportQueue from '../../../queues/contactimport_import_queue'
-import ContactImportParseQueue from '../../../queues/contactimport_parse_queue'
+import ContactImportImportQueue from '@apps/crm/queues/contactimport_import_queue'
+import ContactImportParseQueue from '@apps/crm/queues/contactimport_parse_queue'
 import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import Import from '@apps/maha/models/import'
 import Profile from '@apps/maha/models/profile'

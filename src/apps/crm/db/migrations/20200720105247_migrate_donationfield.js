@@ -1,4 +1,4 @@
-import Form from '../../models/form'
+import Form from '@apps/crm/models/form'
 
 const MigrateDonationfield = {
 

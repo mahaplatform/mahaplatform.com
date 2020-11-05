@@ -1,5 +1,5 @@
-import TicketSerializer from '../../../../serializers/ticket_serializer'
-import Registration from '../../../../models/registration'
+import TicketSerializer from '@apps/events/serializers/ticket_serializer'
+import Registration from '@apps/events/models/registration'
 
 const ticketsRoute = async (req, res) => {
 

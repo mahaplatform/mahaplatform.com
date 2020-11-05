@@ -1,9 +1,9 @@
 import generateCode from '@core/utils/generate_code'
-import MailingAddress from '../../models/mailing_address'
+import MailingAddress from '@apps/crm/models/mailing_address'
 import { getFormattedNumber } from '../phone_numbers'
-import EmailAddress from '../../models/email_address'
-import PhoneNumber from '../../models/phone_number'
-import Contact from '../../models/contact'
+import EmailAddress from '@apps/crm/models/email_address'
+import PhoneNumber from '@apps/crm/models/phone_number'
+import Contact from '@apps/crm/models/contact'
 import _ from 'lodash'
 
 const getContactByEmails = async (req, params) => {

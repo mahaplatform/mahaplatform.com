@@ -3,7 +3,7 @@ import { whitelist } from '@core/services/routes/params'
 import { findOrCreateNumber } from '@apps/maha/services/numbers'
 import SendFaxQueue from '@apps/maha/queues/send_fax_queue'
 import socket from '@core/services/routes/emitter'
-import FaxSerializer from '../../../serializers/fax_serializer'
+import FaxSerializer from '@apps/team/serializers/fax_serializer'
 import Fax from '@apps/maha/models/fax'
 
 const createRoute = async (req, res) => {

@@ -1,6 +1,6 @@
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Project from '../../../models/project'
+import Project from '@apps/finance/models/project'
 import moment from 'moment'
 
 const models = ['advance','check','expense','reimbursement','trip']

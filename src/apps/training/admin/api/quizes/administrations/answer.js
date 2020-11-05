@@ -1,9 +1,9 @@
 import socket from '@core/services/routes/emitter'
-import Administration from '../../../../models/administration'
-import Fulfillment from '../../../../models/fulfillment'
-import Answering from '../../../../models/answering'
-import Question from '../../../../models/question'
-import Quiz from '../../../../models/quiz'
+import Administration from '@apps/training/models/administration'
+import Fulfillment from '@apps/training/models/fulfillment'
+import Answering from '@apps/training/models/answering'
+import Question from '@apps/training/models/question'
+import Quiz from '@apps/training/models/quiz'
 
 const answerRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
 import { updateRelated } from '@core/services/routes/relations'
 import socket from '@core/services/routes/emitter'
-import Resource from '../../../../models/resource'
+import Resource from '@apps/learning/models/resource'
 
 const updateRoute = async (req, res) => {
 

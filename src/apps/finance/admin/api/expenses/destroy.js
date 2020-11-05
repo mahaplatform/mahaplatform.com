@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import { destroyExpense } from '../../../services/expenses'
-import Expense from '../../../models/expense'
+import { destroyExpense } from '@apps/finance/services/expenses'
+import Expense from '@apps/finance/models/expense'
 
 const destroyRoute = async (req, res) => {
 

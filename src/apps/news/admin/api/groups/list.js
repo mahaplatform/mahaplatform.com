@@ -1,5 +1,5 @@
-import GroupSerializer from '../../../serializers/group_serializer'
-import Group from '../../../models/group'
+import GroupSerializer from '@apps/news/serializers/group_serializer'
+import Group from '@apps/news/models/group'
 
 const listRoute = async (req, res) => {
 

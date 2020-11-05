@@ -1,6 +1,6 @@
-import { addIndex } from '../../../services/search'
+import { addIndex } from '@apps/sites/services/search'
 import Field from '@apps/maha/models/field'
-import Item from '../../../models/item'
+import Item from '@apps/sites/models/item'
 
 const reindexRoute = async (req, res) => {
 

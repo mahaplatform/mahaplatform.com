@@ -1,5 +1,5 @@
 import Registration from '@apps/events/models/registration'
-import Response from '../../models/response'
+import Response from '@apps/crm/models/response'
 
 const ResponseAndRegistrationPayments = {
 

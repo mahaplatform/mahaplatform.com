@@ -1,5 +1,5 @@
-import AccessSerializer from '../../../serializers/access_serializer'
-import Access from '../../../models/access'
+import AccessSerializer from '@apps/drive/serializers/access_serializer'
+import Access from '@apps/drive/models/access'
 
 const showRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import EnrollmentSerializer from '@apps/automation/serializers/enrollment_serializer'
-import Registration from '../../../../models/registration'
+import Registration from '@apps/events/models/registration'
 
 const enrollmentRoute = async (req, res) => {
 

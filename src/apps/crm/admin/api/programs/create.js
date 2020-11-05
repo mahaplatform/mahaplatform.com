@@ -1,12 +1,12 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import ProgramSerializer from '../../../serializers/program_serializer'
+import ProgramSerializer from '@apps/crm/serializers/program_serializer'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import ProgramAccess from '../../../models/program_access'
-import Program from '../../../models/program'
-import Sender from '../../../models/sender'
+import ProgramAccess from '@apps/crm/models/program_access'
+import Program from '@apps/crm/models/program'
+import Sender from '@apps/crm/models/sender'
 
 const createRoute = async (req, res) => {
 

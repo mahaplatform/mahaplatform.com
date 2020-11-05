@@ -1,5 +1,5 @@
-import TemplateSerializer from '../../../serializers/template_serializer'
-import Template from '../../../models/template'
+import TemplateSerializer from '@apps/crm/serializers/template_serializer'
+import Template from '@apps/crm/models/template'
 
 const listRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Event from '../../../models/event'
+import Event from '@apps/events/models/event'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {

@@ -1,8 +1,8 @@
 import socket from '@core/services/routes/emitter'
-import { contactActivity } from '../../../../services/activities'
-import { updateConsent } from '../../../../services/consents'
-import Contact from '../../../../models/contact'
-import Program from '../../../../models/program'
+import { contactActivity } from '@apps/crm/services/activities'
+import { updateConsent } from '@apps/crm/services/consents'
+import Contact from '@apps/crm/models/contact'
+import Program from '@apps/crm/models/program'
 
 const destroyRoute = async (req, res) => {
 

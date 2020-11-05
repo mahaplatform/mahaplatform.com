@@ -1,5 +1,5 @@
-import { moveToTrash } from '../../../services/items'
-import Item from '../../../models/item'
+import { moveToTrash } from '@apps/drive/services/items'
+import Item from '@apps/drive/models/item'
 
 const trashRoute = async (req, res) => {
 

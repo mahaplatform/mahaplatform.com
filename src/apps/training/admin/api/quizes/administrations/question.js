@@ -1,6 +1,6 @@
-import Administration from '../../../../models/administration'
-import Question from '../../../../models/question'
-import Quiz from '../../../../models/quiz'
+import Administration from '@apps/training/models/administration'
+import Question from '@apps/training/models/question'
+import Quiz from '@apps/training/models/quiz'
 
 const questionRoute = async (req, res) => {
 

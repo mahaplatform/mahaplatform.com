@@ -1,5 +1,5 @@
 import { createUserToken } from '@core/utils/user_tokens'
-import Account from '../../../models/account'
+import Account from '@apps/maha/models/account'
 
 export const loadAccountByEmail = async (req, email, done) => {
 

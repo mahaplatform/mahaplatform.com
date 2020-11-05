@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import sendInvoiceQueue from '../../../queues/send_invoice_queue'
+import sendInvoiceQueue from '@apps/finance/queues/send_invoice_queue'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Invoice from '../../../models/invoice'
+import Invoice from '@apps/finance/models/invoice'
 
 const sendRoute = async (req, res) => {
 

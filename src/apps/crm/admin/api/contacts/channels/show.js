@@ -1,6 +1,6 @@
-import ChannelSerializer from '../../../../serializers/channel_serializer'
-import Contact from '../../../../models/contact'
-import Channel from '../../../../models/channel'
+import ChannelSerializer from '@apps/crm/serializers/channel_serializer'
+import Contact from '@apps/crm/models/contact'
+import Channel from '@apps/crm/models/channel'
 import _ from 'lodash'
 
 const showRoute = async (req, res) => {

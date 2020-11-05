@@ -1,4 +1,4 @@
-import Workflow from '../../../../../models/workflow'
+import Workflow from '@apps/automation/models/workflow'
 import * as enrollments from '../../../enrollment'
 
 const workflowStep = async (req, { config, enrollment }) => {

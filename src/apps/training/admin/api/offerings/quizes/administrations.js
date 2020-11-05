@@ -1,5 +1,5 @@
-import Administration from '../../../../models/administration'
-import Fulfillment from '../../../../models/fulfillment'
+import Administration from '@apps/training/models/administration'
+import Fulfillment from '@apps/training/models/fulfillment'
 
 const administrationsRoute = async (req, res) => {
 

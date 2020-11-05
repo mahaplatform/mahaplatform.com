@@ -1,5 +1,5 @@
 import { getPresence } from '@core/services/presence'
-import Session from '../../models/session'
+import Session from '@apps/maha/models/session'
 import moment from 'moment'
 
 const getInstructions = async (req, { user }) => {

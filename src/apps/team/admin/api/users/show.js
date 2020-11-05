@@ -1,4 +1,4 @@
-import UserSerializer from '../../../serializers/user_serializer'
+import UserSerializer from '@apps/team/serializers/user_serializer'
 import User from '@apps/maha/models/user'
 
 const showRoute = async (req, res) => {

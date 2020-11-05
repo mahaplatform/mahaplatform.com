@@ -3,10 +3,10 @@ import PhoneNumberSerializer from '@apps/team/serializers/phone_number_serialize
 import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import twilio from '@core/services/twilio'
-import Program from '../../../../models/program'
+import Program from '@apps/crm/models/program'
 
 const createRoute = async (req, res) => {
 

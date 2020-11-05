@@ -1,13 +1,13 @@
-import GenerateScreenshotQueue from '../../../queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
 import { activity } from '@core/services/routes/activities'
-import EmailSerializer from '../../../serializers/email_serializer'
+import EmailSerializer from '@apps/automation/serializers/email_serializer'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { getDefaultConfig } from '../../../services/email'
+import { getDefaultConfig } from '@apps/automation/services/email'
 import Template from '@apps/crm/models/template'
 import Program from '@apps/crm/models/program'
-import Email from '../../../models/email'
+import Email from '@apps/automation/models/email'
 
 const createRoute = async (req, res) => {
 

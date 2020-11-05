@@ -1,10 +1,10 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import SiteSerializer from '../../../serializers/site_serializer'
+import SiteSerializer from '@apps/sites/serializers/site_serializer'
 import socket from '@core/services/routes/emitter'
-import Manager from '../../../models/manager'
-import Origin from '../../../models/origin'
-import Site from '../../../models/site'
+import Manager from '@apps/sites/models/manager'
+import Origin from '@apps/sites/models/origin'
+import Site from '@apps/sites/models/site'
 
 const createRoute = async (req, res) => {
 

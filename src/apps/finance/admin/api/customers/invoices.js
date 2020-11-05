@@ -1,6 +1,6 @@
-import InvoiceSerializer from '../../../serializers/invoice_serializer'
-import Customer from '../../../models/customer'
-import Invoice from '../../../models/invoice'
+import InvoiceSerializer from '@apps/finance/serializers/invoice_serializer'
+import Customer from '@apps/finance/models/customer'
+import Invoice from '@apps/finance/models/invoice'
 
 const invoicesRoute = async (req, res) => {
 

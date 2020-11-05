@@ -2,7 +2,7 @@ import { notifications } from '@core/services/routes/notifications'
 import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Plan from '../../../models/plan'
+import Plan from '@apps/learning/models/plan'
 import tensify from 'tensify'
 import _ from 'lodash'
 

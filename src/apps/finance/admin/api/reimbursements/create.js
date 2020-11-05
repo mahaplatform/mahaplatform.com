@@ -1,5 +1,5 @@
-import ReimbursementSerializer from '../../../serializers/reimbursement_serializer'
-import { createReimbursement } from '../../../services/reimbursements'
+import ReimbursementSerializer from '@apps/finance/serializers/reimbursement_serializer'
+import { createReimbursement } from '@apps/finance/services/reimbursements'
 import generateCode from '@core/utils/generate_code'
 import socket from '@core/services/routes/emitter'
 

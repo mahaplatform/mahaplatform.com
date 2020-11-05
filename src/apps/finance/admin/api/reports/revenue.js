@@ -1,5 +1,5 @@
-import AllocationSerializer from '../../../serializers/allocation_serializer'
-import Allocation from '../../../models/allocation'
+import AllocationSerializer from '@apps/finance/serializers/allocation_serializer'
+import Allocation from '@apps/finance/models/allocation'
 
 const revenueRoute = async (req, res) => {
 

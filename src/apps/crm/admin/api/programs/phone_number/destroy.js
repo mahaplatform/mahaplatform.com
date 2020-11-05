@@ -4,9 +4,9 @@ import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 import twilio from '@core/services/twilio'
-import Program from '../../../../models/program'
+import Program from '@apps/crm/models/program'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {

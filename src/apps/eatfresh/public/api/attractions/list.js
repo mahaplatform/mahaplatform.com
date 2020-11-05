@@ -1,6 +1,6 @@
-import AttractionSerializer from '../../../serializers/attraction_serializer'
+import AttractionSerializer from '@apps/eatfresh/serializers/attraction_serializer'
 import knex from '@core/services/knex'
-import Attraction from '../../../models/attraction'
+import Attraction from '@apps/eatfresh/models/attraction'
 
 const listRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import MemberSerializer from '../../../../serializers/member_serializer'
-import Member from '../../../../models/member'
+import MemberSerializer from '@apps/finance/serializers/member_serializer'
+import Member from '@apps/finance/models/member'
 
 const listRoute = async (req, res) => {
 

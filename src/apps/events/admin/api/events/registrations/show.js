@@ -1,5 +1,5 @@
-import RegistrationSerializer from '../../../../serializers/registration_serializer'
-import Registration from '../../../../models/registration'
+import RegistrationSerializer from '@apps/events/serializers/registration_serializer'
+import Registration from '@apps/events/models/registration'
 
 const showRoute = async (req, res) => {
 

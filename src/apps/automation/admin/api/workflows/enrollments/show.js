@@ -1,6 +1,6 @@
-import EnrollmentSerializer from '../../../../serializers/enrollment_serializer'
-import WorkflowEnrollment from '../../../../models/workflow_enrollment'
-import Workflow from '../../../../models/workflow'
+import EnrollmentSerializer from '@apps/automation/serializers/enrollment_serializer'
+import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import Workflow from '@apps/automation/models/workflow'
 
 const showRoute = async (req, res) => {
 

@@ -1,7 +1,7 @@
-import TriggerEmailEnrollmentQueue from '../../queues/trigger_email_enrollment_queue'
+import TriggerEmailEnrollmentQueue from '@apps/campaigns/queues/trigger_email_enrollment_queue'
 import { renderEmail } from '@apps/automation/services/email'
-import { getRecipients } from '../../services/recipients'
-import EmailCampaign from '../../models/email_campaign'
+import { getRecipients } from '@apps/campaigns/services/recipients'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import moment from 'moment'
 
 const sendCampaign = async (req, { email_campaign_id, resend_to }) => {

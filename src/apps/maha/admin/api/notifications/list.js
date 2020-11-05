@@ -1,6 +1,6 @@
-import NotificationSerializer from '../../../serializers/notification_serializer'
+import NotificationSerializer from '@apps/maha/serializers/notification_serializer'
 import socket from '@core/services/routes/emitter'
-import Notification from '../../../models/notification'
+import Notification from '@apps/maha/models/notification'
 
 const listRoute = async (req, res) => {
 

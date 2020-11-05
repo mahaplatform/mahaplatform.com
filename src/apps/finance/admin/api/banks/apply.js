@@ -1,7 +1,7 @@
 import { renderTemplate } from '@apps/maha/services/emails'
 import socket from '@core/services/routes/emitter'
 import { sendMail } from '@core/services/email'
-import Bank from '../../../models/bank'
+import Bank from '@apps/finance/models/bank'
 import moment from 'moment'
 
 const applyRoute = async (req, res) => {

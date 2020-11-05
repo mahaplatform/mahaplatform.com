@@ -1,9 +1,9 @@
 import Asset from '@apps/maha/models/asset'
 import Field from '@apps/maha/models/field'
 import stringify from 'csv-stringify/lib/sync'
-import Site from '../../../models/site'
-import Type from '../../../models/type'
-import Item from '../../../models/item'
+import Site from '@apps/sites/models/site'
+import Type from '@apps/sites/models/type'
+import Item from '@apps/sites/models/item'
 import archiver from 'archiver'
 import moment from 'moment'
 

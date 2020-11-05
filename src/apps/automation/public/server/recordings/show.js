@@ -1,4 +1,4 @@
-import WorkflowRecording from '../../../models/workflow_recording'
+import WorkflowRecording from '@apps/automation/models/workflow_recording'
 import { readFile } from '../utils'
 import path from 'path'
 import ejs from 'ejs'

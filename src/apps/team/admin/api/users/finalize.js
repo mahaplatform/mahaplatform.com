@@ -1,6 +1,6 @@
 import generateCode from '@core/utils/generate_code'
 import ImportItem from '@apps/maha/models/import_item'
-import { sendActivation } from '../../../services/users'
+import { sendActivation } from '@apps/team/services/users'
 import User from '@apps/maha/models/user'
 
 const finalizeRoute = async (req, res) => {

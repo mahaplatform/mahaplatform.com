@@ -1,5 +1,5 @@
-import { restoreFromTrash } from '../../../services/items'
-import Item from '../../../models/item'
+import { restoreFromTrash } from '@apps/drive/services/items'
+import Item from '@apps/drive/models/item'
 
 const restoreAllRoute = async (req, res) => {
 

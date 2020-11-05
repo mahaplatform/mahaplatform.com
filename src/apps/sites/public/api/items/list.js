@@ -3,7 +3,7 @@ import geocode from '@apps/maha/services/geocode'
 import knex from '@core/services/knex'
 import Field from '@apps/maha/models/field'
 import { applyFilters } from './filters'
-import Item from '../../../models/item'
+import Item from '@apps/sites/models/item'
 import _ from 'lodash'
 
 const listRoute = async (req, res) => {

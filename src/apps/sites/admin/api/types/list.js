@@ -1,5 +1,5 @@
-import TypeSerializer from '../../../serializers/type_serializer'
-import Type from '../../../models/type'
+import TypeSerializer from '@apps/sites/serializers/type_serializer'
+import Type from '@apps/sites/models/type'
 
 const listRoute = async (req, res) => {
 

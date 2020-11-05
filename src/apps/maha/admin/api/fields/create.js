@@ -1,8 +1,8 @@
 import { whitelist } from '@core/services/routes/params'
-import FieldSerializer from '../../../serializers/field_serializer'
+import FieldSerializer from '@apps/maha/serializers/field_serializer'
 import generateCode from '@core/utils/generate_code'
 import socket from '@core/services/routes/emitter'
-import Field from '../../../models/field'
+import Field from '@apps/maha/models/field'
 
 const createRoute = async (req, res) => {
 

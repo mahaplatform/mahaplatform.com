@@ -1,11 +1,11 @@
-import { createMetaFile, updateMetaFile } from '../../services/metafiles'
-import { createFile, updateFile } from '../../services/files'
+import { createMetaFile, updateMetaFile } from '@apps/drive/services/metafiles'
+import { createFile, updateFile } from '@apps/drive/services/files'
 import socket from '@core/services/routes/emitter'
 import knex from '@core/services/knex'
-import MetaFile from '../../models/metafile'
-import Folder from '../../models/folder'
-import File from '../../models/file'
-import Item from '../../models/item'
+import MetaFile from '@apps/drive/models/metafile'
+import Folder from '@apps/drive/models/folder'
+import File from '@apps/drive/models/file'
+import Item from '@apps/drive/models/item'
 
 const route = async (req, res) => {
 

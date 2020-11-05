@@ -1,4 +1,4 @@
-import { getUnread } from '../../../services/messages'
+import { getUnread } from '@apps/chat/services/messages'
 
 const listRoute = async (req, res) => {
 

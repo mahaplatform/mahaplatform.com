@@ -1,6 +1,6 @@
-import RefundSerializer from '../../../serializers/refund_serializer'
-import Customer from '../../../models/customer'
-import Refund from '../../../models/refund'
+import RefundSerializer from '@apps/finance/serializers/refund_serializer'
+import Customer from '@apps/finance/models/customer'
+import Refund from '@apps/finance/models/refund'
 
 const refundsRoute = async (req, res) => {
 

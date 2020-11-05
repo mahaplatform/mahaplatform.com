@@ -1,7 +1,7 @@
 import socket from '@core/services/routes/emitter'
-import Adjustment from '../../../models/adjustment'
-import Variant from '../../../models/variant'
-import Store from '../../../models/store'
+import Adjustment from '@apps/stores/models/adjustment'
+import Variant from '@apps/stores/models/variant'
+import Store from '@apps/stores/models/store'
 
 const inventoryRoute = async (req, res) => {
 

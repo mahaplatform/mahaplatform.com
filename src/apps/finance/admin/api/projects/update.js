@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
-import ProjectSerializer from '../../../serializers/project_serializer'
+import ProjectSerializer from '@apps/finance/serializers/project_serializer'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Project from '../../../models/project'
+import Project from '@apps/finance/models/project'
 import _ from 'lodash'
 
 const updateRoute = async (req, res) => {

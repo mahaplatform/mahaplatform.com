@@ -1,5 +1,5 @@
 import Registration from '@apps/events/models/registration'
-import { contactActivity } from '../../services/activities'
+import { contactActivity } from '@apps/crm/services/activities'
 import moment from 'moment'
 
 const imports = async (knex) => {

@@ -1,5 +1,5 @@
-import CustomerSerializer from '../../../serializers/customer_serializer'
-import Customer from '../../../models/customer'
+import CustomerSerializer from '@apps/finance/serializers/customer_serializer'
+import Customer from '@apps/finance/models/customer'
 
 const showRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
 import { bootstrapType } from '@core/scripts/bootstrap/bootstrap'
-import DashboardPanel from '../../models/dashboard_panel'
-import DashboardCard from '../../models/dashboard_card'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
+import DashboardCard from '@apps/maha/models/dashboard_card'
 import User from '@apps/maha/models/user'
 
 const CreateDashboardCard = {

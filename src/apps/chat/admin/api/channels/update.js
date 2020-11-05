@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
-import ChannelSerializer from '../../../serializers/channel_serializer'
+import ChannelSerializer from '@apps/chat/serializers/channel_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Channel from '../../../models/channel'
+import Channel from '@apps/chat/models/channel'
 
 const updateRoute = async (req, res) => {
 

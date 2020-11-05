@@ -1,4 +1,4 @@
-import Trip from '../../../models/trip'
+import Trip from '@apps/finance/models/trip'
 
 const editRoute = async (req, res) => {
 

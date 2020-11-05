@@ -1,5 +1,5 @@
 import { createAssetFromUrl } from '@apps/maha/services/assets'
-import AssetSerializer from '../../../../serializers/asset_serializer'
+import AssetSerializer from '@apps/maha/serializers/asset_serializer'
 
 const createRoute = async (req, res) => {
 

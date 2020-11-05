@@ -1,7 +1,7 @@
-import DiscountSerializer from '../../../../serializers/discount_serializer'
-import Discount from '../../../../models/discount'
-import Store from '../../../../models/store'
-import Cart from '../../../../models/cart'
+import DiscountSerializer from '@apps/stores/serializers/discount_serializer'
+import Discount from '@apps/stores/models/discount'
+import Store from '@apps/stores/models/store'
+import Cart from '@apps/stores/models/cart'
 
 const discountRoute = async (req, res) => {
 

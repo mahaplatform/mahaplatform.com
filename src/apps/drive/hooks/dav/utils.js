@@ -1,4 +1,4 @@
-import Item from '../../models/item'
+import Item from '@apps/drive/models/item'
 
 export const loadItem = async (req, res, next) => {
   if(req.fullpath.length === 0) return next()

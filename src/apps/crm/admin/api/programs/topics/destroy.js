@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import { deleteTopic } from '../../../../services/topics'
-import Topic from '../../../../models/topic'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import { deleteTopic } from '@apps/crm/services/topics'
+import Topic from '@apps/crm/models/topic'
 
 const destroyRoute = async (req, res) => {
 

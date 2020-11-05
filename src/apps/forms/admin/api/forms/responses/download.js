@@ -1,5 +1,5 @@
-import Response from '../../../../models/response'
-import Form from '../../../../models/form'
+import Response from '@apps/forms/models/response'
+import Form from '@apps/forms/models/form'
 import numeral from 'numeral'
 import _ from 'lodash'
 

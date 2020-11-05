@@ -1,5 +1,5 @@
-import MaterialSerializer from '../../../../serializers/material_serializer'
-import Material from '../../../../models/material'
+import MaterialSerializer from '@apps/training/serializers/material_serializer'
+import Material from '@apps/training/models/material'
 
 const showRoute = async (req, res) => {
 

@@ -1,10 +1,10 @@
 import { executeWorkflow } from '@apps/automation/services/workflows'
 import { lookupNumber } from '@apps/maha/services/phone_numbers'
-import { enrollInCampaign } from '../../services/voice_campaigns'
+import { enrollInCampaign } from '@apps/campaigns/services/voice_campaigns'
 import generateCode from '@core/utils/generate_code'
 import socket from '@core/services/routes/emitter'
 import PhoneNumber from '@apps/crm/models/phone_number'
-import VoiceCampaign from '../../models/voice_campaign'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import Contact from '@apps/crm/models/contact'
 import { twiml } from 'twilio'
 

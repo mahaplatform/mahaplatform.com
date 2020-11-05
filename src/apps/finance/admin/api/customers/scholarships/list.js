@@ -1,6 +1,6 @@
-import ScholarshipSerializer from '../../../../serializers/scholarship_serializer'
-import Scholarship from '../../../../models/scholarship'
-import Customer from '../../../../models/customer'
+import ScholarshipSerializer from '@apps/finance/serializers/scholarship_serializer'
+import Scholarship from '@apps/finance/models/scholarship'
+import Customer from '@apps/finance/models/customer'
 
 const listRoute = async (req, res) => {
 

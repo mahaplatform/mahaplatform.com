@@ -1,5 +1,5 @@
-import Registration from '../../../../models/registration'
-import Event from '../../../../models/event'
+import Registration from '@apps/events/models/registration'
+import Event from '@apps/events/models/event'
 import _ from 'lodash'
 
 const getValue = (field, data) => {

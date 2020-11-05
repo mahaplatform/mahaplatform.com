@@ -1,4 +1,4 @@
-import { moveToTrash } from '../../services/items'
+import { moveToTrash } from '@apps/drive/services/items'
 
 const destroyRoute = async (req, res) => {
 

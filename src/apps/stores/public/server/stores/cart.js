@@ -1,4 +1,4 @@
-import Store from '../../../models/store'
+import Store from '@apps/stores/models/store'
 import { readFile } from '../utils'
 import path from 'path'
 import ejs from 'ejs'

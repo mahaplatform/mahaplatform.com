@@ -1,5 +1,5 @@
-import CreditSerializer from '../../../../serializers/credit_serializer'
-import Credit from '../../../../models/credit'
+import CreditSerializer from '@apps/finance/serializers/credit_serializer'
+import Credit from '@apps/finance/models/credit'
 
 const showRoute = async (req, res) => {
 

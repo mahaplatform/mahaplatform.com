@@ -1,8 +1,8 @@
-import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
+import ExpenseTypeSerializer from '@apps/finance/serializers/expense_type_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import ExpenseType from '../../../models/expense_type'
+import ExpenseType from '@apps/finance/models/expense_type'
 
 const updateRoute = async (req, res) => {
 

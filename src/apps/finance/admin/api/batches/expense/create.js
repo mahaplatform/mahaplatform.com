@@ -1,9 +1,9 @@
 import { notifications } from '@core/services/routes/notifications'
 import { audit } from '@core/services/routes/audit'
-import BatchSerializer from '../../../../serializers/batch_serializer'
+import BatchSerializer from '@apps/finance/serializers/batch_serializer'
 import socket from '@core/services/routes/emitter'
-import Batch from '../../../../models/batch'
-import Item from '../../../../models/item'
+import Batch from '@apps/finance/models/batch'
+import Item from '@apps/finance/models/item'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {

@@ -1,6 +1,6 @@
-import ResponseSerializer from '../../../../serializers/response_serializer'
-import Response from '../../../../models/response'
-import Form from '../../../../models/form'
+import ResponseSerializer from '@apps/forms/serializers/response_serializer'
+import Response from '@apps/forms/models/response'
+import Form from '@apps/forms/models/form'
 
 const listRoute = async (req, res) => {
 

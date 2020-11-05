@@ -1,10 +1,10 @@
 import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
-import EmailCampaignSerializer from '../../../serializers/email_campaign_serializer'
+import EmailCampaignSerializer from '@apps/campaigns/serializers/email_campaign_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 
 const updateRoute  = async (req, res) => {
 

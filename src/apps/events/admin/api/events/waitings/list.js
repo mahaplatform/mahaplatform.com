@@ -1,5 +1,5 @@
-import WaitingSerializer from '../../../../serializers/waiting_serializer'
-import Event from '../../../../models/event'
+import WaitingSerializer from '@apps/events/serializers/waiting_serializer'
+import Event from '@apps/events/models/event'
 
 const listRoute = async (req, res) => {
 

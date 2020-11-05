@@ -1,6 +1,6 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import { updatePhoto } from '../../../../services/accounts'
+import { updatePhoto } from '@apps/maha/services/accounts'
 
 const updateRoute = async (req, res) => {
 

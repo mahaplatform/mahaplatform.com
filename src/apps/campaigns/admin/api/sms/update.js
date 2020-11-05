@@ -1,10 +1,10 @@
-import SmsCampaignSerializer from '../../../serializers/sms_campaign_serializer'
+import SmsCampaignSerializer from '@apps/campaigns/serializers/sms_campaign_serializer'
 import { activity } from '@core/services/routes/activities'
 import { updateSteps } from '@apps/automation/services/workflows'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import SmsCampaign from '../../../models/sms_campaign'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 
 const updateRoute = async (req, res) => {
 

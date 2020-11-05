@@ -1,6 +1,6 @@
 import RouteError from '@core/objects/route_error'
-import Payment from '../../../models/payment'
-import Credit from '../../../models/credit'
+import Payment from '@apps/finance/models/payment'
+import Credit from '@apps/finance/models/credit'
 
 export const chargeCredit = async (req, { invoice, date, amount, credit_id }) => {
 

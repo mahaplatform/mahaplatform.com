@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Device from '../../../models/device'
+import Device from '@apps/maha/models/device'
 
 const updateRoute = async (req, res) => {
 

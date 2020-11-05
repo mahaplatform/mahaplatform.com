@@ -1,7 +1,7 @@
-import SMSAttachment from '../../models/sms_attachment'
+import SMSAttachment from '@apps/maha/models/sms_attachment'
 import { findOrCreateNumber } from '../numbers'
 import { createAssetFromUrl } from '../assets'
-import SMS from '../../models/sms'
+import SMS from '@apps/maha/models/sms'
 import moment from 'moment'
 
 const receiveSMS = async (req, params) => {

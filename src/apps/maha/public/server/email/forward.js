@@ -1,5 +1,5 @@
 import { encode } from '@core/services/jwt'
-import Email from '../../../models/email'
+import Email from '@apps/maha/models/email'
 import { readFile } from './utils'
 import path from 'path'
 import ejs from 'ejs'

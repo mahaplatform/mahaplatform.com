@@ -1,5 +1,5 @@
-import CountySerializer from '../../../serializers/county_serializer'
-import County from '../../../models/county'
+import CountySerializer from '@apps/eatfresh/serializers/county_serializer'
+import County from '@apps/eatfresh/models/county'
 
 const showRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import DashboardPanel from '../../../../../models/dashboard_panel'
-import DashboardCard from '../../../../../models/dashboard_card'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
+import DashboardCard from '@apps/maha/models/dashboard_card'
 
 const destroyRoute = async (req, res) => {
 

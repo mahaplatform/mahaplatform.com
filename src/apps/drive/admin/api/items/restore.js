@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import { restoreFromTrash } from '../../../services/items'
-import Item from '../../../models/item'
+import { restoreFromTrash } from '@apps/drive/services/items'
+import Item from '@apps/drive/models/item'
 
 const restoreRoute = async (req, res) => {
 

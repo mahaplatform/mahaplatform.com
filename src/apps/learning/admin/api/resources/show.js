@@ -1,5 +1,5 @@
-import ResourceSerializer from '../../../serializers/resource_serializer'
-import Resource from '../../../models/resource'
+import ResourceSerializer from '@apps/learning/serializers/resource_serializer'
+import Resource from '@apps/learning/models/resource'
 
 const showRoute = async (req, res) => {
 

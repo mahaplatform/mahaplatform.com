@@ -1,5 +1,5 @@
-import ImportItemSerializer from '../../../../serializers/import_item_serializer'
-import ImportItem from '../../../../models/import_item'
+import ImportItemSerializer from '@apps/maha/serializers/import_item_serializer'
+import ImportItem from '@apps/maha/models/import_item'
 
 const listRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import { generatePDF } from '../../../services/invoices'
-import Invoice from '../../../models/invoice'
+import { generatePDF } from '@apps/finance/services/invoices'
+import Invoice from '@apps/finance/models/invoice'
 
 const downloadRoute = async (req, res) => {
 

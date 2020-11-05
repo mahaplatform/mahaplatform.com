@@ -1,7 +1,7 @@
-import TicketSerializer from '../../../../../serializers/ticket_serializer'
+import TicketSerializer from '@apps/events/serializers/ticket_serializer'
 import socket from '@core/services/routes/emitter'
-import Attending from '../../../../../models/attending'
-import Ticket from '../../../../../models/ticket'
+import Attending from '@apps/events/models/attending'
+import Ticket from '@apps/events/models/ticket'
 
 const createRoute = async (req, res) => {
 

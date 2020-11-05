@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import ChannelView from '../../../../../models/channel_view'
-import Program from '../../../../../models/program'
+import ChannelView from '@apps/crm/models/channel_view'
+import Program from '@apps/crm/models/program'
 import moment from 'moment'
 
 const readRoute = async (req, res) => {

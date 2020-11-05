@@ -1,5 +1,5 @@
-import TopicSerializer from '../../../serializers/topic_serializer'
-import Topic from '../../../models/topic'
+import TopicSerializer from '@apps/crm/serializers/topic_serializer'
+import Topic from '@apps/crm/models/topic'
 
 const listRoute = async (req, res) => {
 

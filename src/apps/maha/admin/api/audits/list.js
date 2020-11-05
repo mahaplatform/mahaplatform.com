@@ -1,5 +1,5 @@
-import AuditSerializer from '../../../serializers/audit_serializer'
-import Audit from '../../../models/audit'
+import AuditSerializer from '@apps/maha/serializers/audit_serializer'
+import Audit from '@apps/maha/models/audit'
 
 const listRoute = async (req, res) => {
 

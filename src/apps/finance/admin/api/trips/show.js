@@ -1,5 +1,5 @@
-import TripSerializer from '../../../serializers/trip_serializer'
-import Trip from '../../../models/trip'
+import TripSerializer from '@apps/finance/serializers/trip_serializer'
+import Trip from '@apps/finance/models/trip'
 
 const showRoute = async (req, res) => {
 

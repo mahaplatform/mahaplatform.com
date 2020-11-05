@@ -1,13 +1,13 @@
 import { updateRelated } from '@core/services/routes/relations'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import EventSerializer from '../../../serializers/event_serializer'
-import { updateTicketTypes } from '../../../services/ticket_types'
+import EventSerializer from '@apps/events/serializers/event_serializer'
+import { updateTicketTypes } from '@apps/events/services/ticket_types'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { updateAlias } from '@apps/maha/services/aliases'
-import { updateSessions } from '../../../services/sessions'
-import Event from '../../../models/event'
+import { updateSessions } from '@apps/events/services/sessions'
+import Event from '@apps/events/models/event'
 
 const updateRoute = async (req, res) => {
 

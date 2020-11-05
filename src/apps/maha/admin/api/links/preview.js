@@ -1,4 +1,4 @@
-import { getMetaData } from '../../../services/links'
+import { getMetaData } from '@apps/maha/services/links'
 
 const previewRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import twilio from '@core/services/twilio'
-import SMS from '../../models/sms'
+import SMS from '@apps/maha/models/sms'
 import moment from 'moment'
 
 const getTotal = async (req, { from_id, to_id, sms_id }) => {

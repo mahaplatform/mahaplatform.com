@@ -1,5 +1,5 @@
-import SiteSerializer from '../../../serializers/site_serializer'
-import Site from '../../../models/site'
+import SiteSerializer from '@apps/sites/serializers/site_serializer'
+import Site from '@apps/sites/models/site'
 
 const showRoute = async (req, res) => {
 

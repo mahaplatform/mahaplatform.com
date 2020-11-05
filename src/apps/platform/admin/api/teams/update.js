@@ -1,7 +1,7 @@
 import { whitelist } from '@core/services/routes/params'
-import TeamSerializer from '../../../serializers/team_serializer'
+import TeamSerializer from '@apps/platform/serializers/team_serializer'
 import socket from '@core/services/routes/emitter'
-import { updateApps } from '../../../services/apps'
+import { updateApps } from '@apps/platform/services/apps'
 import Team from '@apps/maha/models/team'
 
 const updateRoute = async (req, res) => {

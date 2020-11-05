@@ -1,8 +1,8 @@
-import ScholarshipSerializer from '../../../../serializers/scholarship_serializer'
+import ScholarshipSerializer from '@apps/finance/serializers/scholarship_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import Scholarship from '../../../../models/scholarship'
-import Customer from '../../../../models/customer'
+import Scholarship from '@apps/finance/models/scholarship'
+import Customer from '@apps/finance/models/customer'
 
 const createRoute = async (req, res) => {
 

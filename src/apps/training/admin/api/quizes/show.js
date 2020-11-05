@@ -1,5 +1,5 @@
-import QuizSerializer from '../../../serializers/quiz_serializer'
-import Quiz from '../../../models/quiz'
+import QuizSerializer from '@apps/training/serializers/quiz_serializer'
+import Quiz from '@apps/training/models/quiz'
 
 const showRoute = async (req, res) => {
 

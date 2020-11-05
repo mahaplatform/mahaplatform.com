@@ -1,8 +1,8 @@
-import CompetencySerializer from '../../../serializers/competency_serializer'
+import CompetencySerializer from '@apps/learning/serializers/competency_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import Competency from '../../../models/competency'
+import Competency from '@apps/learning/models/competency'
 
 const updateRoute = async (req, res) => {
 

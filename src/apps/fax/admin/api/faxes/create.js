@@ -1,6 +1,6 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import FaxSerializer from '../../../serializers/fax_serializer'
+import FaxSerializer from '@apps/fax/serializers/fax_serializer'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { sendFax } from '@apps/maha/services/faxes'

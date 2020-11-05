@@ -1,5 +1,5 @@
-import AttachmentSerializer from '../../../serializers/attachment_serializer'
-import Attachment from '../../../models/attachment'
+import AttachmentSerializer from '@apps/maha/serializers/attachment_serializer'
+import Attachment from '@apps/maha/models/attachment'
 
 const listRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import { getAssetData } from '@apps/maha/services/assets'
-import Item from '../../../models/item'
+import Item from '@apps/drive/models/item'
 import archiver from 'archiver'
 import moment from 'moment'
 

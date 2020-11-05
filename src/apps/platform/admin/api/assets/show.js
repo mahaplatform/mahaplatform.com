@@ -1,5 +1,5 @@
 import ProcessAssetQueue from '@apps/maha/queues/process_asset_queue'
-import AssetSerializer from '../../../serializers/asset_serializer'
+import AssetSerializer from '@apps/platform/serializers/asset_serializer'
 import Asset from '@apps/maha/models/asset'
 
 const showRoute = async (req, res) => {

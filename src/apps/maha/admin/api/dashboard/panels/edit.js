@@ -1,4 +1,4 @@
-import DashboardPanel from '../../../../models/dashboard_panel'
+import DashboardPanel from '@apps/maha/models/dashboard_panel'
 
 const editRoute = async (req, res) => {
 

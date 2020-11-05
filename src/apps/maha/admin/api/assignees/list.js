@@ -1,5 +1,5 @@
-import AssigneeSerializer from '../../../serializers/assignee_serializer'
-import Assignee from '../../../models/assignee'
+import AssigneeSerializer from '@apps/maha/serializers/assignee_serializer'
+import Assignee from '@apps/maha/models/assignee'
 
 const listRoute = async (req, res) => {
 

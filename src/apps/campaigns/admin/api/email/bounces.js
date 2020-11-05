@@ -1,5 +1,5 @@
 import EmailDeliverySerializer from '@apps/automation/serializers/email_delivery_serializer'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import Email from '@apps/maha/models/email'
 
 const bouncesRoute = async (req, res) => {

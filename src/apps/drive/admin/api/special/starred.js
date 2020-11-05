@@ -1,5 +1,5 @@
-import ItemSerializer from '../../../serializers/item_serializer'
-import Starred from '../../../models/starred'
+import ItemSerializer from '@apps/drive/serializers/item_serializer'
+import Starred from '@apps/drive/models/starred'
 
 const starredRoute = async (req, res) => {
 

@@ -1,10 +1,10 @@
 import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
-import TemplateSerializer from '../../../../serializers/template_serializer'
+import TemplateSerializer from '@apps/crm/serializers/template_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import Template from '../../../../models/template'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import Template from '@apps/crm/models/template'
 
 const updateRoute = async (req, res) => {
 

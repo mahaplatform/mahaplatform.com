@@ -1,6 +1,6 @@
-import PhoneNumber from '../../../../../models/phone_number'
-import Program from '../../../../../models/program'
-import Channel from '../../../../../models/channel'
+import PhoneNumber from '@apps/crm/models/phone_number'
+import Program from '@apps/crm/models/program'
+import Channel from '@apps/crm/models/channel'
 
 const lookupRoute = async (req, res) => {
 

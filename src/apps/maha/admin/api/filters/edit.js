@@ -1,4 +1,4 @@
-import Filter from '../../../models/filter'
+import Filter from '@apps/maha/models/filter'
 
 const editRoute = async (req, res) => {
 

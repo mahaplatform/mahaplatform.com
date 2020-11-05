@@ -1,5 +1,5 @@
-import AssignmentSerializer from '../../../serializers/assignment_serializer'
-import Assignment from '../../../models/assignment'
+import AssignmentSerializer from '@apps/training/serializers/assignment_serializer'
+import Assignment from '@apps/training/models/assignment'
 
 const reportRoute = async (req, res) => {
 

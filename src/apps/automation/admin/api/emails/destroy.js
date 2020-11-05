@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
-import { deleteEmail } from '../../../services/email'
+import { deleteEmail } from '@apps/automation/services/email'
 import socket from '@core/services/routes/emitter'
-import Email from '../../../models/email'
+import Email from '@apps/automation/models/email'
 
 const destroyRoute = async (req, res) => {
 

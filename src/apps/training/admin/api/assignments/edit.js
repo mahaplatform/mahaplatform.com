@@ -1,4 +1,4 @@
-import Assignment from '../../../models/assignment'
+import Assignment from '@apps/training/models/assignment'
 
 const showRoute = async (req, res) => {
 

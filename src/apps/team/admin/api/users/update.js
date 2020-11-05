@@ -1,7 +1,7 @@
 import { updateRelated } from '@core/services/routes/relations'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import UserSerializer from '../../../serializers/user_serializer'
+import UserSerializer from '@apps/team/serializers/user_serializer'
 import socket from '@core/services/routes/emitter'
 import User from '@apps/maha/models/user'
 

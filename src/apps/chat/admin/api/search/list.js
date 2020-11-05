@@ -1,5 +1,5 @@
-import ResultSerializer from '../../../serializers/result_serializer'
-import Result from '../../../models/result'
+import ResultSerializer from '@apps/chat/serializers/result_serializer'
+import Result from '@apps/chat/models/result'
 
 const listRoute = async (req, res) => {
 

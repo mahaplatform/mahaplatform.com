@@ -1,5 +1,5 @@
-import AssetSerializer from '../../../serializers/asset_serializer'
-import { processAsset } from '../../../services/assets'
+import AssetSerializer from '@apps/maha/serializers/asset_serializer'
+import { processAsset } from '@apps/maha/services/assets'
 
 const processRoute = async (req, res) => {
 

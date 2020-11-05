@@ -1,4 +1,4 @@
-import Event from '../../models/event'
+import Event from '@apps/events/models/event'
 import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'

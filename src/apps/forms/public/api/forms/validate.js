@@ -1,5 +1,5 @@
 import { checkToken } from '@core/services/routes/checks'
-import Form from '../../../models/form'
+import Form from '@apps/forms/models/form'
 
 const validateRoute = async (req, res) => {
 

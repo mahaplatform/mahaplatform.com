@@ -1,5 +1,5 @@
-import AdvanceSerializer from '../../../serializers/advance_serializer'
-import Advance from '../../../models/advance'
+import AdvanceSerializer from '@apps/finance/serializers/advance_serializer'
+import Advance from '@apps/finance/models/advance'
 
 const showRoute = async (req, res) => {
 

@@ -1,10 +1,10 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import FormSerializer from '../../../serializers/form_serializer'
+import FormSerializer from '@apps/forms/serializers/form_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { updateAlias } from '@apps/maha/services/aliases'
-import Form from '../../../models/form'
+import Form from '@apps/forms/models/form'
 
 const updateRoute = async (req, res) => {
 

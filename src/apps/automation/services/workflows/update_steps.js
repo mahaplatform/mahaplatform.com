@@ -1,4 +1,4 @@
-import WorkflowStep from '../../models/workflow_step'
+import WorkflowStep from '@apps/automation/models/workflow_step'
 
 const getWorkflow = ({ voice_campaign, sms_campaign, workflow }) => {
   if(voice_campaign) return voice_campaign

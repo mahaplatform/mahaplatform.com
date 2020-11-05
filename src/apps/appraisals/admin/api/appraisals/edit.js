@@ -1,4 +1,4 @@
-import Appraisal from '../../../models/appraisal'
+import Appraisal from '@apps/appraisals/models/appraisal'
 
 const editRoute = async (req, res) => {
 

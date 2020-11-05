@@ -1,5 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import User from '../../models/user'
+import User from '@apps/maha/models/user'
 
 const FixUserCellphones = {
 

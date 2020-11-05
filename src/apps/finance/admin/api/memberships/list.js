@@ -1,5 +1,5 @@
-import MembershipSerializer from '../../../serializers/membership_serializer'
-import Project from '../../../models/project'
+import MembershipSerializer from '@apps/finance/serializers/membership_serializer'
+import Project from '@apps/finance/models/project'
 import _ from 'lodash'
 
 const listRoute = async (req, res) => {

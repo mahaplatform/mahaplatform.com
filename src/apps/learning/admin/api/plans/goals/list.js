@@ -1,5 +1,5 @@
-import GoalSerializer from '../../../../serializers/goal_serializer'
-import Goal from '../../../../models/goal'
+import GoalSerializer from '@apps/learning/serializers/goal_serializer'
+import Goal from '@apps/learning/models/goal'
 
 const listRoute = async (req, res) => {
 

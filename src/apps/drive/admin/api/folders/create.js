@@ -1,6 +1,6 @@
-import FolderSerializer from '../../../serializers/folder_serializer'
-import { createFolder } from '../../../services/folders'
-import Item from '../../../models/item'
+import FolderSerializer from '@apps/drive/serializers/folder_serializer'
+import { createFolder } from '@apps/drive/services/folders'
+import Item from '@apps/drive/models/item'
 
 const createRoute = async (req, res) => {
 

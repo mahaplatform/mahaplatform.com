@@ -1,8 +1,8 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import TypeSerializer from '../../../serializers/type_serializer'
+import TypeSerializer from '@apps/sites/serializers/type_serializer'
 import socket from '@core/services/routes/emitter'
-import Type from '../../../models/type'
+import Type from '@apps/sites/models/type'
 
 const updateRoute = async (req, res) => {
 

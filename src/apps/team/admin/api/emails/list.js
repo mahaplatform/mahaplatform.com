@@ -1,4 +1,4 @@
-import EmailSerializer from '../../../serializers/email_serializer'
+import EmailSerializer from '@apps/team/serializers/email_serializer'
 import Email from '@apps/maha/models/email'
 
 const listRoute = async (req, res) => {

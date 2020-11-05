@@ -1,6 +1,6 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import socket from '@core/services/routes/emitter'
-import SmsCampaign from '../../../../models/sms_campaign'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 
 const deleteAllRoute = async (req, res) => {
 

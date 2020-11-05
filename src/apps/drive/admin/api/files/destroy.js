@@ -1,5 +1,5 @@
-import FileSerializer from '../../../serializers/file_serializer'
-import { destroyFile } from '../../../services/files'
+import FileSerializer from '@apps/drive/serializers/file_serializer'
+import { destroyFile } from '@apps/drive/services/files'
 
 const destroyRoute = async (req, res) => {
 

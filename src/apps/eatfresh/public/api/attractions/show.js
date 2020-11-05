@@ -1,5 +1,5 @@
-import AttractionSerializer from '../../../serializers/attraction_serializer'
-import Attraction from '../../../models/attraction'
+import AttractionSerializer from '@apps/eatfresh/serializers/attraction_serializer'
+import Attraction from '@apps/eatfresh/models/attraction'
 
 const showRoute = async (req, res) => {
 

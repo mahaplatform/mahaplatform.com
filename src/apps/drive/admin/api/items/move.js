@@ -1,10 +1,10 @@
 import socket from '@core/services/routes/emitter'
-import Folder from '../../../models/folder'
-import File from '../../../models/file'
-import Item from '../../../models/item'
-import { renameFolder } from '../../../services/folders'
-import { renameMetaFile } from '../../../services/metafiles'
-import { renameFile } from '../../../services/files'
+import Folder from '@apps/drive/models/folder'
+import File from '@apps/drive/models/file'
+import Item from '@apps/drive/models/item'
+import { renameFolder } from '@apps/drive/services/folders'
+import { renameMetaFile } from '@apps/drive/services/metafiles'
+import { renameFile } from '@apps/drive/services/files'
 
 const models = {
   file: { model: File, foreign_key: 'folder_id' },

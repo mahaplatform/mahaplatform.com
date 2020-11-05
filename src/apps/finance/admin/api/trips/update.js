@@ -1,11 +1,11 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
-import TripSerializer from '../../../serializers/trip_serializer'
+import TripSerializer from '@apps/finance/serializers/trip_serializer'
 import socket from '@core/services/routes/emitter'
-import { completeItem } from '../../../services/items'
-import Trip from '../../../models/trip'
-import Rate from '../../../models/rate'
+import { completeItem } from '@apps/finance/services/items'
+import Trip from '@apps/finance/models/trip'
+import Rate from '@apps/finance/models/rate'
 import moment from 'moment'
 
 const _getMileageRate = async (req, date) => {

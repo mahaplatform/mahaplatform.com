@@ -1,5 +1,5 @@
 import { createConfirmationWorkflow } from '@apps/crm/services/workflows'
-import Store from '../../models/store'
+import Store from '@apps/stores/models/store'
 
 const BulbsaleWorkflow = {
 

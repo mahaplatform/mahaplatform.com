@@ -1,4 +1,4 @@
-import Fulfillment from '../../../../models/fulfillment'
+import Fulfillment from '@apps/training/models/fulfillment'
 
 const reviewsRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Topic from '../../../models/topic'
+import Topic from '@apps/crm/models/topic'
 
 const topicsRoute = async (req, res) => {
 

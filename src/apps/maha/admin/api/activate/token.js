@@ -1,5 +1,5 @@
 import { decode } from '@core/services/jwt'
-import User from '../../../models/user'
+import User from '@apps/maha/models/user'
 import moment from 'moment'
 
 const getToken = (req) => {

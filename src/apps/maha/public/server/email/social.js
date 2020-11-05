@@ -1,5 +1,5 @@
-import EmailActivities from '../../../models/email_activity'
-import Email from '../../../models/email'
+import EmailActivities from '@apps/maha/models/email_activity'
+import Email from '@apps/maha/models/email'
 
 const services = {
   f: { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php?u=' },

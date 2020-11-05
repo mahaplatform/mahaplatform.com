@@ -1,4 +1,4 @@
-import SecurityQuestion from '../../../models/security_question'
+import SecurityQuestion from '@apps/maha/models/security_question'
 
 const securityRoute = async (req, res, next) => {
 

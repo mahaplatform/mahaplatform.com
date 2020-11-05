@@ -1,8 +1,8 @@
-import CountySerializer from '../../../serializers/county_serializer'
+import CountySerializer from '@apps/eatfresh/serializers/county_serializer'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import County from '../../../models/county'
+import County from '@apps/eatfresh/models/county'
 
 const createRoute = async (req, res) => {
 

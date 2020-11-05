@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../../services/programs'
-import List from '../../../../../models/list'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import List from '@apps/crm/models/list'
 
 const destroyRoute = async (req, res) => {
 

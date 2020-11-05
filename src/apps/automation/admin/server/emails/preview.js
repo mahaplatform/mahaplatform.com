@@ -1,7 +1,7 @@
 import EmailCampaign from '@apps/campaigns/models/email_campaign'
-import renderEmail from '../../../services/email/render_email'
+import renderEmail from '@apps/automation/services/email/render_email'
 import Template from '@apps/crm/models/template'
-import Email from '../../../models/email'
+import Email from '@apps/automation/models/email'
 import inline from 'inline-css'
 
 const getObject = async (req, { email_id, email_campaign_id, template_id }) => {

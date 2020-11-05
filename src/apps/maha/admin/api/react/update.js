@@ -1,6 +1,6 @@
-import ReactionSerializers from '../../../serializers/reaction_serializer'
+import ReactionSerializers from '@apps/maha/serializers/reaction_serializer'
 import socket from '@core/services/routes/emitter'
-import Reaction from '../../../models/reaction'
+import Reaction from '@apps/maha/models/reaction'
 import moment from 'moment'
 
 const updateRoute = async (req, res) => {

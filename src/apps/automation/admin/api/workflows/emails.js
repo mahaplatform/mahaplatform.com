@@ -1,6 +1,6 @@
-import EmailSerializer from '../../../serializers/email_serializer'
-import Workflow from '../../../models/workflow'
-import Email from '../../../models/email'
+import EmailSerializer from '@apps/automation/serializers/email_serializer'
+import Workflow from '@apps/automation/models/workflow'
+import Email from '@apps/automation/models/email'
 
 const emailsRoute = async (req, res) => {
 

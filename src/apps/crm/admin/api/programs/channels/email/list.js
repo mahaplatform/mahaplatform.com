@@ -1,5 +1,5 @@
 import Email from '@apps/maha/models/email'
-import Program from '../../../../../models/program'
+import Program from '@apps/crm/models/program'
 
 const listRoute = async (req, res) => {
 

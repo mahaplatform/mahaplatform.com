@@ -1,6 +1,6 @@
-import ManagerSerializer from '../../../serializers/manager_serializer'
+import ManagerSerializer from '@apps/sites/serializers/manager_serializer'
 import socket from '@core/services/routes/emitter'
-import Manager from '../../../models/manager'
+import Manager from '@apps/sites/models/manager'
 
 const assignRoute = async (req, res) => {
 

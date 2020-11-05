@@ -1,5 +1,5 @@
-import BatchSerializer from '../../../serializers/batch_serializer'
-import Batch from '../../../models/batch'
+import BatchSerializer from '@apps/finance/serializers/batch_serializer'
+import Batch from '@apps/finance/models/batch'
 
 const listRoute = async (req, res) => {
 

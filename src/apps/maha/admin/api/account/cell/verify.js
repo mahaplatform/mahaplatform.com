@@ -1,5 +1,5 @@
-import { updateCellPhone } from '../../../../services/accounts'
-import { verifyPush } from '../../../../services/twofactor'
+import { updateCellPhone } from '@apps/maha/services/accounts'
+import { verifyPush } from '@apps/maha/services/twofactor'
 
 const verifyRoute = async (req, res) => {
 

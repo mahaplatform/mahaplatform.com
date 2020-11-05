@@ -1,8 +1,8 @@
 import socket from '@core/services/routes/emitter'
-import { contactActivity } from '../../../../services/activities'
-import { updateConsent } from '../../../../services/consents'
-import Program from '../../../../models/program'
-import Contact from '../../../../models/contact'
+import { contactActivity } from '@apps/crm/services/activities'
+import { updateConsent } from '@apps/crm/services/consents'
+import Program from '@apps/crm/models/program'
+import Contact from '@apps/crm/models/contact'
 
 const createRoute = async (req, res) => {
 

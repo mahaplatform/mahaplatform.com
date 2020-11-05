@@ -1,7 +1,7 @@
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { makePayment } from '../../../services/payments'
-import Invoice from '../../../models/invoice'
+import { makePayment } from '@apps/finance/services/payments'
+import Invoice from '@apps/finance/models/invoice'
 
 const paymentRoute = async (req, res) => {
 

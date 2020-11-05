@@ -1,5 +1,5 @@
-import LinkSerializer from '../../../serializers/link_serializer'
-import { findOrCreateByUrl } from '../../../services/links'
+import LinkSerializer from '@apps/maha/serializers/link_serializer'
+import { findOrCreateByUrl } from '@apps/maha/services/links'
 
 const showRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import Contact from '../../models/contact'
+import Contact from '@apps/crm/models/contact'
 
 const getContacts = async (req, { empty, filter, fields, page, scope, sort, withRelated }) => {
   return await Contact.filterFetch({

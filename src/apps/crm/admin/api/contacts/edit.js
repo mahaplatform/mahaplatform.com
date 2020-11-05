@@ -1,5 +1,5 @@
 import Field from '@apps/maha/models/field'
-import Contact from '../../../models/contact'
+import Contact from '@apps/crm/models/contact'
 import _ from 'lodash'
 
 const editRoute = async (req, res) => {

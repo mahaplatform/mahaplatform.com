@@ -1,4 +1,4 @@
-import Deposit from '../../models/deposit'
+import Deposit from '@apps/finance/models/deposit'
 
 const MigrateDepositActivities = {
 

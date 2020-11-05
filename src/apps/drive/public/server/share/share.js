@@ -1,4 +1,4 @@
-import Item from '../../../models/item'
+import Item from '@apps/drive/models/item'
 
 const shareRoute = async (req, res) => {
 

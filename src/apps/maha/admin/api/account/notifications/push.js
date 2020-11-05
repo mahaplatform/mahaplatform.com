@@ -1,4 +1,4 @@
-import { pushFirebaseNotification } from '../../../../services/notifications'
+import { pushFirebaseNotification } from '@apps/maha/services/notifications'
 
 const pushRoute = async (req, res) => {
 

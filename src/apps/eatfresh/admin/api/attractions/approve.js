@@ -1,8 +1,8 @@
 import { notifications } from '@core/services/routes/notifications'
-import AttractionSerializer from '../../../serializers/attraction_serializer'
+import AttractionSerializer from '@apps/eatfresh/serializers/attraction_serializer'
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import Attraction from '../../../models/attraction'
+import Attraction from '@apps/eatfresh/models/attraction'
 import User from '@apps/maha/models/user'
 
 const approveRoute = async (req, res) => {

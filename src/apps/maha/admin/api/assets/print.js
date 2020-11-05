@@ -1,5 +1,5 @@
-import { getPDFData } from '../../../services/assets'
-import Asset from '../../../models/asset'
+import { getPDFData } from '@apps/maha/services/assets'
+import Asset from '@apps/maha/models/asset'
 
 const printRoute = async (req, res) => {
 

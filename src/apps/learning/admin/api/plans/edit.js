@@ -1,4 +1,4 @@
-import Plan from '../../../models/plan'
+import Plan from '@apps/learning/models/plan'
 
 const editRoute = async (req, res) => {
 

@@ -1,6 +1,6 @@
-import Program from '../../../models/program'
-import Contact from '../../../models/contact'
-import Channel from '../../../models/channel'
+import Program from '@apps/crm/models/program'
+import Contact from '@apps/crm/models/contact'
+import Channel from '@apps/crm/models/channel'
 
 const consentRoute = async (req, res) => {
 

@@ -2,7 +2,7 @@ import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import User from '@apps/maha/models/user'
-import Project from '../../../../models/project'
+import Project from '@apps/finance/models/project'
 import moment from 'moment'
 import _ from 'lodash'
 

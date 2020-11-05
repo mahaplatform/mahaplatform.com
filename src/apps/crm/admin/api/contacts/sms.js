@@ -1,7 +1,7 @@
 import FromPhoneNumber from '@apps/maha/models/phone_number'
 import { sendSMS } from '@apps/maha/services/smses'
-import ToPhoneNumber from '../../../models/phone_number'
-import Contact from '../../../models/contact'
+import ToPhoneNumber from '@apps/crm/models/phone_number'
+import Contact from '@apps/crm/models/contact'
 
 const smsRoute = async (req, res) => {
 

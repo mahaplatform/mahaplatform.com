@@ -1,6 +1,6 @@
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import Trip from '../../../models/trip'
+import Trip from '@apps/finance/models/trip'
 import moment from 'moment'
 
 const destroyRoute = async (req, res) => {

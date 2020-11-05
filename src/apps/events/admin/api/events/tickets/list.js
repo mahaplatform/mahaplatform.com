@@ -1,6 +1,6 @@
-import TicketSerializer from '../../../../serializers/ticket_serializer'
-import Ticket from '../../../../models/ticket'
-import Event from '../../../../models/event'
+import TicketSerializer from '@apps/events/serializers/ticket_serializer'
+import Ticket from '@apps/events/models/ticket'
+import Event from '@apps/events/models/event'
 
 const listRoute = async (req, res) => {
 

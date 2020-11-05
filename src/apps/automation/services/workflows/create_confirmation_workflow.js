@@ -1,11 +1,11 @@
-import GenerateScreenshotQueue from '../../queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
-import { getDefaultConfig } from '../../services/email'
-import WorkflowStep from '../../models/workflow_step'
+import { getDefaultConfig } from '@apps/automation/services/email'
+import WorkflowStep from '@apps/automation/models/workflow_step'
 import Template from '@apps/crm/models/template'
-import Workflow from '../../models/workflow'
-import Email from '../../models/email'
+import Workflow from '@apps/automation/models/workflow'
+import Email from '@apps/automation/models/email'
 
 const getTriggerType = ({ form, event, store }) => {
   if(store) return 'order'

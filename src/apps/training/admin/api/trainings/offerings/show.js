@@ -1,5 +1,5 @@
-import OfferingSerializer from '../../../../serializers/offering_serializer'
-import Offering from '../../../../models/offering'
+import OfferingSerializer from '@apps/training/serializers/offering_serializer'
+import Offering from '@apps/training/models/offering'
 
 const showRoute = async (req, res) => {
 

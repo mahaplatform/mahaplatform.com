@@ -1,5 +1,5 @@
-import TriggerSmsEnrollmentQueue from '../../queues/trigger_sms_enrollment_queue'
-import SmsCampaign from '../../models/sms_campaign'
+import TriggerSmsEnrollmentQueue from '@apps/campaigns/queues/trigger_sms_enrollment_queue'
+import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 import { getRecipients } from '../recipients'
 import moment from 'moment'
 

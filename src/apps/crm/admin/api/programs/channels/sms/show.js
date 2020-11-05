@@ -1,6 +1,6 @@
-import ChannelSerializer from '../../../../../serializers/channel_serializer'
-import Program from '../../../../../models/program'
-import Channel from '../../../../../models/channel'
+import ChannelSerializer from '@apps/crm/serializers/channel_serializer'
+import Program from '@apps/crm/models/program'
+import Channel from '@apps/crm/models/channel'
 
 const showRoute = async (req, res) => {
 

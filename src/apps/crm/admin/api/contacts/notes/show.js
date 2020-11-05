@@ -1,5 +1,5 @@
-import ContactNoteSerializer from '../../../../serializers/contact_note_serializer'
-import ContactNote from '../../../../models/contact_note'
+import ContactNoteSerializer from '@apps/crm/serializers/contact_note_serializer'
+import ContactNote from '@apps/crm/models/contact_note'
 
 const showRoute = async (req, res) => {
 

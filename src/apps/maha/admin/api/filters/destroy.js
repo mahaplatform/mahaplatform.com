@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Filter from '../../../models/filter'
+import Filter from '@apps/maha/models/filter'
 
 const destroyRoute = async (req, res) => {
 

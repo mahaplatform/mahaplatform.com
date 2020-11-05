@@ -1,7 +1,7 @@
-import AssignmentSerializer from '../../../serializers/assignment_serializer'
+import AssignmentSerializer from '@apps/training/serializers/assignment_serializer'
 import socket from '@core/services/routes/emitter'
-import { chooseOption } from '../../../services/assignments'
-import Assignment from '../../../models/assignment'
+import { chooseOption } from '@apps/training/services/assignments'
+import Assignment from '@apps/training/models/assignment'
 
 const updateRoute = async (req, res) => {
 

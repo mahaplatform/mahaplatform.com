@@ -1,8 +1,8 @@
-import ImportSerializer from '../../../../serializers/import_serializer'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import socket from '@core/services/routes/emitter'
 import { validate } from '@core/utils/validation'
-import ImportItem from '../../../../models/import_item'
-import Import from '../../../../models/import'
+import ImportItem from '@apps/maha/models/import_item'
+import Import from '@apps/maha/models/import'
 import flat from 'flat'
 
 const fixRoute = async (req, res) => {

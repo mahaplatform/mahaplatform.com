@@ -1,7 +1,7 @@
-import ImportSerializer from '../../../serializers/import_serializer'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import socket from '@core/services/routes/emitter'
-import ImportItem from '../../../models/import_item'
-import Import from '../../../models/import'
+import ImportItem from '@apps/maha/models/import_item'
+import Import from '@apps/maha/models/import'
 
 const omiterrorsRoute = async (req, res) => {
 

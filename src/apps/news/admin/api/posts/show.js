@@ -1,5 +1,5 @@
-import PostSerializer from '../../../serializers/post_serializer'
-import Post from '../../../models/post'
+import PostSerializer from '@apps/news/serializers/post_serializer'
+import Post from '@apps/news/models/post'
 
 const showRoute = async (req, res) => {
 

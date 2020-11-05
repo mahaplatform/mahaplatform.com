@@ -1,5 +1,5 @@
-import Variant from '../../../../models/variant'
-import Store from '../../../../models/store'
+import Variant from '@apps/stores/models/variant'
+import Store from '@apps/stores/models/store'
 
 const checkRoute = async (req, res) => {
 

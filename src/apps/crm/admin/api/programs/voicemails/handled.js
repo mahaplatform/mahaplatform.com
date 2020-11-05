@@ -1,7 +1,7 @@
 import WorkflowRecording from '@apps/automation/models/workflow_recording'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 
 const handledRoute = async (req, res) => {
 

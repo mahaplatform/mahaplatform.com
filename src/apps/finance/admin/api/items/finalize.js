@@ -3,7 +3,7 @@ import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import ImportItem from '@apps/maha/models/import_item'
 import Import from '@apps/maha/models/import'
-import Trip from '../../../models/trip'
+import Trip from '@apps/finance/models/trip'
 import moment from 'moment'
 
 const finalizeRoute = async (req, res) => {

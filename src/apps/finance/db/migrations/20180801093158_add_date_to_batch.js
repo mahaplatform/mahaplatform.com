@@ -1,4 +1,4 @@
-import Batch from '../../models/batch'
+import Batch from '@apps/finance/models/batch'
 
 const AddDateToBatch = {
 

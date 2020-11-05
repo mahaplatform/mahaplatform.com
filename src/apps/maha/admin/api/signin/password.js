@@ -1,6 +1,6 @@
 import { createUserToken } from '@core/utils/user_tokens'
 import { validate } from '@core/utils/validation'
-import Account from '../../../models/account'
+import Account from '@apps/maha/models/account'
 
 const passwordRoute = async (req, res) => {
 

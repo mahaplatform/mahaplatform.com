@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Profile from '../../../models/profile'
+import Profile from '@apps/maha/models/profile'
 
 const destroyRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
 import { activity } from '@core/services/routes/activities'
-import PhoneNumberSerializer from '../../../serializers/phone_number_serializer'
+import PhoneNumberSerializer from '@apps/team/serializers/phone_number_serializer'
 import socket from '@core/services/routes/emitter'
 import twilio from '@core/services/twilio'
 import PhoneNumber from '@apps/maha/models/phone_number'

@@ -1,6 +1,6 @@
-import WorkflowEnrollment from '../../models/workflow_enrollment'
-import WorkflowAction from '../../models/workflow_action'
-import WorkflowStep from '../../models/workflow_step'
+import WorkflowEnrollment from '@apps/crm/models/workflow_enrollment'
+import WorkflowAction from '@apps/crm/models/workflow_action'
+import WorkflowStep from '@apps/crm/models/workflow_step'
 import _ from 'lodash'
 
 const UpdateDuckRace = {

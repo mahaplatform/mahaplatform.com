@@ -1,7 +1,7 @@
 import socket from '@core/services/routes/emitter'
 import { sendSMS } from '@apps/maha/services/smses'
-import PhoneNumber from '../../../../../models/phone_number'
-import Program from '../../../../../models/program'
+import PhoneNumber from '@apps/crm/models/phone_number'
+import Program from '@apps/crm/models/program'
 
 const createRoute = async (req, res) => {
 

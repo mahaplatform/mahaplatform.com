@@ -1,4 +1,4 @@
-import SMS from '../../models/sms'
+import SMS from '@apps/maha/models/sms'
 
 const updateSMS = async (req, { num_media, price, sid, status, error_code }) => {
 

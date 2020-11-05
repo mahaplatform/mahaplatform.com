@@ -1,7 +1,7 @@
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Commitment from '../../../../models/commitment'
-import Plan from '../../../../models/plan'
+import Commitment from '@apps/learning/models/commitment'
+import Plan from '@apps/learning/models/plan'
 
 const updateRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import { renderEmail, personalizeEmail } from '../../../services/email'
+import { renderEmail, personalizeEmail } from '@apps/automation/services/email'
 import { sendMail } from '@core/services/email'
 import Sender from '@apps/crm/models/sender'
 import User from '@apps/maha/models/user'

@@ -1,6 +1,6 @@
-import ActivitySerializer from '../../../../serializers/activity_serializer'
-import Activity from '../../../../models/activity'
-import Contact from '../../../../models/contact'
+import ActivitySerializer from '@apps/crm/serializers/activity_serializer'
+import Activity from '@apps/crm/models/activity'
+import Contact from '@apps/crm/models/contact'
 
 const listRoute = async (req, res) => {
 

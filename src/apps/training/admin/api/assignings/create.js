@@ -1,13 +1,13 @@
-import AssigningsSerializer from '../../../serializers/assigning_serializer'
+import AssigningsSerializer from '@apps/training/serializers/assigning_serializer'
 import { updateRelated } from '@core/services/routes/relations'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
-import { chooseOption } from '../../../services/assignments'
-import Assignment from '../../../models/assignment'
-import Assigning from '../../../models/assigning'
+import { chooseOption } from '@apps/training/services/assignments'
+import Assignment from '@apps/training/models/assignment'
+import Assigning from '@apps/training/models/assigning'
 import User from '@apps/maha/models/user'
-import Option from '../../../models/option'
+import Option from '@apps/training/models/option'
 import _ from 'lodash'
 
 const getEveryone = async (req) => await User.query(qb => {

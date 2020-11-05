@@ -1,5 +1,5 @@
-import AssigningsSerializer from '../../../serializers/assigning_serializer'
-import Assigning from '../../../models/assigning'
+import AssigningsSerializer from '@apps/training/serializers/assigning_serializer'
+import Assigning from '@apps/training/models/assigning'
 
 const listRoute = async (req, res) => {
 

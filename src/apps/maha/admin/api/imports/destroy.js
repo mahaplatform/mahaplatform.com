@@ -1,4 +1,4 @@
-import Import from '../../../models/import'
+import Import from '@apps/maha/models/import'
 
 const destroyRoute = async (req, res) => {
 

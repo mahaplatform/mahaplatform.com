@@ -1,10 +1,10 @@
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import StoreSerializer from '../../../serializers/store_serializer'
+import StoreSerializer from '@apps/stores/serializers/store_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { updateAlias } from '@apps/maha/services/aliases'
-import Store from '../../../models/store'
+import Store from '@apps/stores/models/store'
 
 const updateRoute = async (req, res) => {
 

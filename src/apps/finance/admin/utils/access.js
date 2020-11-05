@@ -1,4 +1,4 @@
-import Member from '../../models/member'
+import Member from '@apps/finance/models/member'
 import _ from 'lodash'
 
 export const canApprove = async (req) => {

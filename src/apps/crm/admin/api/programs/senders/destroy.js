@@ -1,4 +1,4 @@
-import { checkProgramAccess } from '../../../../services/programs'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 
 const destroyRoute = async (req, res) => {
 

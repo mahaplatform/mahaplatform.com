@@ -1,4 +1,4 @@
-import User from '../../../../models/user'
+import User from '@apps/maha/models/user'
 import { getClient } from './utils'
 
 const preview = async (req, res) => {

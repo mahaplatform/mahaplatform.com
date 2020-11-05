@@ -1,4 +1,4 @@
-import { contactActivity } from '../../services/activities'
+import { contactActivity } from '@apps/crm/services/activities'
 import Email from '@apps/maha/models/email'
 
 const EmailActivities = {

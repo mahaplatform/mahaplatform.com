@@ -1,5 +1,5 @@
-import EventSerializer from '../../../serializers/event_serializer'
-import Event from '../../../models/event'
+import EventSerializer from '@apps/events/serializers/event_serializer'
+import Event from '@apps/events/models/event'
 
 const showRoute = async (req, res) => {
 

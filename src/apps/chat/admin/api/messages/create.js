@@ -1,11 +1,11 @@
-import ChatNotificationQueue from '../../../queues/chat_notification_queue'
-import MessageSerializer from '../../../serializers/message_serializer'
+import ChatNotificationQueue from '@apps/chat/queues/chat_notification_queue'
+import MessageSerializer from '@apps/chat/serializers/message_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
 import Attachment from '@apps/maha/models/attachment'
-import { getUnread } from '../../../services/messages'
+import { getUnread } from '@apps/chat/services/messages'
 import User from '@apps/maha/models/user'
-import Message from '../../../models/message'
+import Message from '@apps/chat/models/message'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {

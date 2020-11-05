@@ -1,6 +1,6 @@
-import AppraisalsSerializer from '../../../../serializers/appraisal_serializer'
+import AppraisalsSerializer from '@apps/appraisals/serializers/appraisal_serializer'
 import { generatePDF } from '@core/services/puppeteer'
-import Appraisal from '../../../../models/appraisal'
+import Appraisal from '@apps/appraisals/models/appraisal'
 import moment from 'moment'
 import path from 'path'
 import _ from 'lodash'

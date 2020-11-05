@@ -1,5 +1,5 @@
 import socket from '@core/services/routes/emitter'
-import Field from '../../../models/field'
+import Field from '@apps/maha/models/field'
 
 const destroyRoute = async (req, res) => {
 

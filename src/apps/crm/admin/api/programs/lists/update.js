@@ -1,9 +1,9 @@
 import { activity } from '@core/services/routes/activities'
 import { audit } from '@core/services/routes/audit'
-import ListSerializer from '../../../../serializers/list_serializer'
+import ListSerializer from '@apps/crm/serializers/list_serializer'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '../../../../services/programs'
-import List from '../../../../models/list'
+import { checkProgramAccess } from '@apps/crm/services/programs'
+import List from '@apps/crm/models/list'
 
 const updateRoute = async (req, res) => {
 

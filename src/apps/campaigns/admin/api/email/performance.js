@@ -1,5 +1,5 @@
-import EmailCampaignResultSerializer from '../../../serializers/email_campaign_result_serializer'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaignResultSerializer from '@apps/campaigns/serializers/email_campaign_result_serializer'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 
 const performanceRoute = async (req, res) => {
 

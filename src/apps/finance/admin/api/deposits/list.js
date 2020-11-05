@@ -1,5 +1,5 @@
-import DepositSerializer from '../../../serializers/deposit_serializer'
-import Deposit from '../../../models/deposit'
+import DepositSerializer from '@apps/finance/serializers/deposit_serializer'
+import Deposit from '@apps/finance/models/deposit'
 
 const listRoute = async (req, res) => {
 

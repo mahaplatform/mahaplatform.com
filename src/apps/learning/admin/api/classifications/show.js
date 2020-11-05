@@ -1,5 +1,5 @@
-import ClassificationSerializer from '../../../serializers/classification_serializer'
-import Classification from '../../../models/classification'
+import ClassificationSerializer from '@apps/learning/serializers/classification_serializer'
+import Classification from '@apps/learning/models/classification'
 
 const showRoute = async (req, res) => {
 

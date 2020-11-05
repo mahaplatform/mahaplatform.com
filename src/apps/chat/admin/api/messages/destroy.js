@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
 import User from '@apps/maha/models/user'
-import Message from '../../../models/message'
+import Message from '@apps/chat/models/message'
 
 const destroyRoute = async (req, res) => {
 

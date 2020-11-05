@@ -1,7 +1,7 @@
-import BankSerializer from '../../../serializers/bank_serializer'
+import BankSerializer from '@apps/finance/serializers/bank_serializer'
 import { activity } from '@core/services/routes/activities'
 import socket from '@core/services/routes/emitter'
-import Bank from '../../../models/bank'
+import Bank from '@apps/finance/models/bank'
 
 const createRoute = async (req, res) => {
 

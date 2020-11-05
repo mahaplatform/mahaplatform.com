@@ -1,6 +1,6 @@
-import EmailCampaignSerializer from '../../../serializers/email_campaign_serializer'
-import { getRecipients } from '../../../services/recipients'
-import EmailCampaign from '../../../models/email_campaign'
+import EmailCampaignSerializer from '@apps/campaigns/serializers/email_campaign_serializer'
+import { getRecipients } from '@apps/campaigns/services/recipients'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
 
 const getRecipientCount = async (req, { campaign }) => {
 

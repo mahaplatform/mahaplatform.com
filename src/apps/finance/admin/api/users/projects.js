@@ -1,7 +1,7 @@
-import MembershipSerializer from '../../../serializers/membership_serializer'
+import MembershipSerializer from '@apps/finance/serializers/membership_serializer'
 import getUserAccess from '@core/utils/get_user_access'
 import User from '@apps/maha/models/user'
-import Project from '../../../models/project'
+import Project from '@apps/finance/models/project'
 import _ from 'lodash'
 
 const projectsRoute = async (req, res) => {

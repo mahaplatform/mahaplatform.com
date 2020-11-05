@@ -1,5 +1,5 @@
-import ItemSerializer from '../../../serializers/item_serializer'
-import Item from '../../../models/item'
+import ItemSerializer from '@apps/drive/serializers/item_serializer'
+import Item from '@apps/drive/models/item'
 
 const sharedRoute = async (req, res) => {
 

@@ -3,7 +3,7 @@ import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import RouteError from '@core/objects/route_error'
 import socket from '@core/services/routes/emitter'
-import Invoice from '../../../models/invoice'
+import Invoice from '@apps/finance/models/invoice'
 
 const voidRoute = async (req, res) => {
 

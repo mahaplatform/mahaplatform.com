@@ -1,5 +1,5 @@
-import ProjectSerializer from '../../../serializers/project_serializer'
-import Project from '../../../models/project'
+import ProjectSerializer from '@apps/finance/serializers/project_serializer'
+import Project from '@apps/finance/models/project'
 import _ from 'lodash'
 
 const showRoute = async (req, res) => {

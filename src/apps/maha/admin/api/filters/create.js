@@ -1,7 +1,7 @@
 import { whitelist } from '@core/services/routes/params'
-import FilterSerializer from '../../../serializers/filter_serializer'
+import FilterSerializer from '@apps/maha/serializers/filter_serializer'
 import socket from '@core/services/routes/emitter'
-import Filter from '../../../models/filter'
+import Filter from '@apps/maha/models/filter'
 import moment from 'moment'
 
 const createRoute = async (req, res) => {

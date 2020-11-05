@@ -1,4 +1,4 @@
-import MailingAddresses from '../../models/mailing_address'
+import MailingAddresses from '@apps/crm/models/mailing_address'
 import geocode from '@apps/maha/services/geocode'
 
 const geocodeMailingAddress = async (req, { mailing_address_id }) => {

@@ -1,7 +1,7 @@
-import { createReimbursement, updateReimbursement, destroyReimbursement } from '../../../services/reimbursements'
-import ReimbursementSerializer from '../../../serializers/reimbursement_serializer'
+import { createReimbursement, updateReimbursement, destroyReimbursement } from '@apps/finance/services/reimbursements'
+import ReimbursementSerializer from '@apps/finance/serializers/reimbursement_serializer'
 import socket from '@core/services/routes/emitter'
-import Reimbursement from '../../../models/reimbursement'
+import Reimbursement from '@apps/finance/models/reimbursement'
 
 const getAllocations = (item, allocations) => {
   const items = !allocations || allocations.length === 0 ? [{}] : allocations

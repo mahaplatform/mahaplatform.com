@@ -1,11 +1,11 @@
 import { activity } from '@core/services/routes/activities'
-import AdvanceSerializer from '../../../serializers/advance_serializer'
+import AdvanceSerializer from '@apps/finance/serializers/advance_serializer'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { completeItem } from '../../../services/items'
-import Advance from '../../../models/advance'
+import { completeItem } from '@apps/finance/services/items'
+import Advance from '@apps/finance/models/advance'
 
 const createRoute = async (req, res) => {
 

@@ -1,7 +1,7 @@
-import ImportSerializer from '../../../serializers/import_serializer'
-import ImportProcessQueue from '../../../queues/import_process_queue'
+import ImportSerializer from '@apps/maha/serializers/import_serializer'
+import ImportProcessQueue from '@apps/maha/queues/import_process_queue'
 import socket from '@core/services/routes/emitter'
-import Import from '../../../models/import'
+import Import from '@apps/maha/models/import'
 
 const processRoute = async (req, res) => {
 

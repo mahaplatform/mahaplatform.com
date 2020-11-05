@@ -1,10 +1,10 @@
 import { activity } from '@core/services/routes/activities'
-import DepositSerializer from '../../../serializers/deposit_serializer'
+import DepositSerializer from '@apps/finance/serializers/deposit_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Payment from '../../../models/payment'
-import Deposit from '../../../models/deposit'
-import Refund from '../../../models/refund'
+import Payment from '@apps/finance/models/payment'
+import Deposit from '@apps/finance/models/deposit'
+import Refund from '@apps/finance/models/refund'
 
 const createRoute = async (req, res) => {
 

@@ -1,5 +1,5 @@
-import FieldSerializer from '../../../serializers/field_serializer'
-import Field from '../../../models/field'
+import FieldSerializer from '@apps/maha/serializers/field_serializer'
+import Field from '@apps/maha/models/field'
 
 const showRoute = async (req, res) => {
 

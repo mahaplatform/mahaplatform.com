@@ -1,6 +1,6 @@
 import AssetSerializer from '@apps/maha/serializers/asset_serializer'
 import Asset from '@apps/maha/models/asset'
-import Response from '../../../../models/response'
+import Response from '@apps/forms/models/response'
 
 const uploadRoute = async (req, res) => {
 
