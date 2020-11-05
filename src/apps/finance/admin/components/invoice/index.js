@@ -48,7 +48,9 @@ class Invoice extends React.PureComponent {
                 </div>
                 <div className="finance-invoice-vendor-details">
                   <strong>{ invoice.program.title }</strong><br />
-                  <span dangerouslySetInnerHTML={{ __html: invoice.program.address.replace(/\n/g,'<br />') }} />
+                  { invoice.program.address &&
+                    <span dangerouslySetInnerHTML={{ __html: invoice.program.address.replace(/\n/g,'<br />') }} />
+                  }
                 </div>
               </div>
             </div>
