@@ -16,6 +16,8 @@ server.use(csp({
   }
 }))
 
+server.get('/forms/:code', show)
+
 server.get('/:code', show)
 
 export default server

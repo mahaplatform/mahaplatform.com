@@ -43,6 +43,7 @@ class Step4 extends React.Component {
       amount: total,
       data,
       endpoint: `/api/events/events/${event.code}/registrations`,
+      lineItems: data.items,
       program: event.program,
       settings: event.settings,
       token,

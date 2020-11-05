@@ -92,10 +92,10 @@ class PayPal extends React.Component {
           amount: amount,
           intent: 'capture',
           displayName: program.title,
-          lineItems: lineItems ? lineItems.map(product => ({
-            quantity: product.quantity,
-            unitAmount: product.price,
-            name: product.name
+          lineItems: lineItems ? lineItems.map(line_item => ({
+            quantity: line_item.quantity,
+            unitAmount: line_item.price,
+            name: line_item.name
           })) : []
         }),
         onAuthorize: (data, actions) => paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {

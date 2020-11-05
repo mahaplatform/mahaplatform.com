@@ -27,7 +27,7 @@ const Store = new Model({
     },
 
     path() {
-      return this.get('permalink') ? `/stores/${this.get('permalink')}` : `/stores/stores/${this.get('code')}`
+      return this.get('permalink') ? `/stores/${this.get('permalink')}` : `/stores/${this.get('code')}`
     },
 
     url() {

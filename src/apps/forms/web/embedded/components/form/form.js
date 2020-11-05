@@ -106,7 +106,7 @@ class Form extends React.Component {
       amount: Number(summary.total),
       data,
       endpoint: `/api/forms/forms/${code}`,
-      lineItems: summary.products,
+      lineItems: summary.line_items,
       program: config.program,
       settings,
       token,

@@ -19,7 +19,6 @@ class Item extends React.Component {
 
   render() {
     const { product } = this.props
-    const inventory = this._getInventory()
     const variant = product.variants[0]
     return (
       <div className={ this._getClass() } onClick={ this._handleClick }>
@@ -62,7 +61,7 @@ class Item extends React.Component {
 
   _handleClick() {
     const { store, product } = this.props
-    this.context.router.history.push(`/stores/stores/${store.code}/products/${product.slug}`)
+    this.context.router.history.push(`${store.path}/products/${product.slug}`)
   }
 
 }
