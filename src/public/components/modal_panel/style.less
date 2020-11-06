@@ -1,0 +1,66 @@
+.maha-modal-panel {
+  .colorizeItem(maha-modal-panel-header, background-color);
+  .colorizeItem(maha-tabs-header, background-color);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: @white;
+}
+.maha-modal-panel-header {
+  flex: 0 0 3.5em;
+  background-color: @red;
+  position: relative;
+  .maha-modal-panel-header-navigation:first-child {
+    left: 0;
+  }
+  .maha-modal-panel-header-navigation:last-child {
+    right: 0;
+  }
+}
+.maha-modal-panel-header-navigation {
+  position: absolute;
+  top: 0;
+}
+.maha-modal-panel-header-navigation-item {
+  .hover(color, @white);
+  cursor: pointer;
+  display: inline-block;
+  color: fadeout(@white, 10);
+  padding: 0.8em;
+  min-width: 3.5em;
+  height: 3.5em;
+  position: relative;
+  line-height: 1.8em;
+  .fa {
+    font-size: 1.3em;
+    line-height: 1.5em;
+  }
+  &.disabled {
+    color: fadeout(@white, 40);
+  }
+}
+.maha-modal-panel-header-navigation-button {
+  display: flex;
+  span,
+  .fa {
+    margin: auto;
+  }
+}
+.maha-modal-panel-header-title {
+  flex: 1;
+  color: @white;
+  padding: 0.8em 0;
+  text-align: center;
+  line-height: 1.8em;
+}
+.maha-modal-panel-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.maha-modal-panel-footer {
+  padding: 0.8em 0.4em;
+  border-top: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  display: flex;
+}

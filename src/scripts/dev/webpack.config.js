@@ -75,8 +75,10 @@ const webpackConfig = (app, name, root, port) => ({
   ],
   resolve: {
     alias: {
-      'maha-client': path.resolve('src','core','client','index.js'),
-      'maha-public': path.resolve('src','core','public','client.js')
+      '@apps': path.resolve('src','apps'),
+      '@core': path.resolve('src','core'),
+      '@client': path.resolve('src','client','index.js'),
+      '@public': path.resolve('src','public','client.js')
     },
     modules: [
       path.resolve('node_modules')

@@ -21,8 +21,6 @@ npm-debug.log
 *.cer
 *.p12
 *.pem
-src/public/*
-!src/public/admin
 ngrok
 metadata.csv
 ./REVISION

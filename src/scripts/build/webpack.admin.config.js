@@ -127,7 +127,9 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','core','admin','client.js')
+      '@apps': path.resolve('src','apps'),
+      '@core': path.resolve('src','core'),
+      '@admin': path.resolve('src','admin')
     }
   },
   resolveLoader: {
