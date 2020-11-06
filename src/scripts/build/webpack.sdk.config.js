@@ -7,8 +7,8 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'none',
   entry: [
-    path.resolve('src','sdk','index.js'),
-    path.resolve('src','sdk','index.less')
+    path.resolve('src','core','sdk','index.js'),
+    path.resolve('src','core','sdk','index.less')
   ],
   mode: 'production',
   module: {
