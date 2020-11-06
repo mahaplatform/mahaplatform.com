@@ -148,7 +148,7 @@ import newsRoutes from '../../apps/news/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import storesRoutes from '../../apps/stores/admin/views/index.js'
-import Routes from '../../apps/surveys/admin/views/index.js'
+import surveysRoutes from '../../apps/surveys/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import trainingRoutes from '../../apps/training/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
@@ -491,7 +491,7 @@ class App extends React.Component {
       { path: '/:team/platform', children: platformRoutes },
       { path: '/:team/sites', children: sitesRoutes },
       { path: '/:team/stores', children: storesRoutes },
-      { path: '/:team', children: Routes },
+      { path: '/:team/surveys', children: surveysRoutes },
       { path: '/:team/team', children: teamRoutes },
       { path: '/:team/training', children: trainingRoutes },
       { path: '/forbidden', component: Forbidden },

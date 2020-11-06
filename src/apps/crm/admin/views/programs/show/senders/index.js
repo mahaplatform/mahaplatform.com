@@ -1,3 +1,4 @@
+import SenderToken from '@apps/crm/admin/tokens/sender'
 import PropTypes from 'prop-types'
 import { List } from '@admin'
 import React from 'react'
@@ -11,11 +12,7 @@ const Senders = ({ program, senders }) => {
       tasks: [
         { label: 'Edit Sender', modal: <Edit sender={ sender } /> }
       ],
-      component: (props) => (
-        <div className="token">
-          { sender.rfc822 }
-        </div>
-      )
+      component: (props) => <SenderToken {...sender } />
     })),
     empty: {
       icon: 'paper-plane-o',

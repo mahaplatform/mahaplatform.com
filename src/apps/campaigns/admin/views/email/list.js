@@ -7,6 +7,7 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Email Campaigns',
+  rights: ['campaigns:manage_email_campaigns'],
   collection: {
     endpoint: '/api/admin/campaigns/email',
     table: [

@@ -52,7 +52,7 @@ const createRoute = async (req, res) => {
   const sender = await Sender.forge({
     team_id: req.team.get('id'),
     program_id: req.params.program_id,
-    is_verified: false,
+    is_verified: existing ? existing.get('is_verified') : false,
     ...whitelist(req.body, ['name','email'])
   }).save(null, {
     transacting: req.trx

@@ -5,9 +5,7 @@ const Sender = new Model({
 
   tableName: 'crm_senders',
 
-  rules: {
-    email: 'unique'
-  },
+  rules: {},
 
   virtuals: {
 

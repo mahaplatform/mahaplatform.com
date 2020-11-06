@@ -5,6 +5,7 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
+    flash: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -42,7 +43,8 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess() {
+  _handleSuccess(sender) {
+    this.context.flash.set('success', `A confirmation email has been sent to ${sender.email}`)
     this.context.modal.close()
   }
 

@@ -150,6 +150,7 @@ const adminWatch = async () => {
       'x-forwarded-proto': protocol
     },
     bypass: (req, res, proxyOptions) => {
+      if(/^\/cce/.test(req.url)) return req.url
       const adminRoot = path.join('src','core','admin','public')
       const parts = req.url.split('?').shift().split('/').slice(1)
       if(fs.existsSync(path.join(adminRoot,...parts))) return null

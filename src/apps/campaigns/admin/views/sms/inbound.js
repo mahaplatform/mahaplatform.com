@@ -7,6 +7,7 @@ import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Inbound SMS Campaigns',
+  rights: ['campaigns:manage_sms_campaigns'],
   collection: {
     endpoint: '/api/admin/campaigns/sms/inbound',
     table: [
