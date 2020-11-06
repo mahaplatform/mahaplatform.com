@@ -1,5 +1,5 @@
 import Memberships from '../memberships/users'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Members from './members'
 import React from 'react'

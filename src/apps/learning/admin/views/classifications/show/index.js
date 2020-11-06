@@ -1,6 +1,6 @@
 import AssignExpectations from '../expectations'
 import Expectations from './expectations'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Edit from '../edit'
 import React from 'react'
 

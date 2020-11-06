@@ -1,4 +1,4 @@
-import { Button, List, ProgressBar } from 'maha-admin'
+import { Button, List, ProgressBar } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'

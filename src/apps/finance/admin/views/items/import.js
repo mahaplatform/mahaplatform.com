@@ -1,6 +1,6 @@
 import TripsImportFinalize from '../../components/trips_import_finalize'
 import { connect } from 'react-redux'
-import { Import } from 'maha-admin'
+import { Import } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

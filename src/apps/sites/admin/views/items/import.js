@@ -1,5 +1,5 @@
 import SitesImportFinalize from '../../components/sites_import_finalize'
-import { Import } from 'maha-admin'
+import { Import } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

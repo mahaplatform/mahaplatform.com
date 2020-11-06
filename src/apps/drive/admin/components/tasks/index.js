@@ -1,4 +1,4 @@
-import { Attachments, Button } from 'maha-admin'
+import { Attachments, Button } from '@admin'
 import RenameFolder from '../rename_folder'
 import RenameFile from '../rename_file'
 import { connect } from 'react-redux'

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Form, UserToken } from 'maha-admin'
+import { Form, UserToken } from '@admin'
 import React from 'react'
 
 class GroupsEdit extends React.Component {

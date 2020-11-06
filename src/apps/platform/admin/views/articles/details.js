@@ -1,4 +1,4 @@
-import { AssetViewer, Audit, Button, Comments, List } from 'maha-admin'
+import { AssetViewer, Audit, Button, Comments, List } from '@admin'
 import Highlight from 'react-highlight'
 import PropTypes from 'prop-types'
 import React from 'react'

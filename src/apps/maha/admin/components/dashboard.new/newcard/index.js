@@ -1,4 +1,4 @@
-import { Container, Stack } from 'maha-admin'
+import { Container, Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Cards from './cards'
 import React from 'react'

@@ -1,5 +1,5 @@
 import Releases from '../help/changelog/releases'
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,6 +1,6 @@
 import Authorize from './authorize'
 import PropTypes from 'prop-types'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import Complete from './complete'
 import Verify from './verify'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Error, Stack } from 'maha-admin'
+import { Error, Stack } from '@admin'
 import Help from '../../components/help'
 import PropTypes from 'prop-types'
 import React from 'react'

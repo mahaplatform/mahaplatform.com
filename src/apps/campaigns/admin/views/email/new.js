@@ -2,7 +2,7 @@ import TemplateField from '@apps/crm/admin/components/templatefield'
 import PurposeToken from '../../tokens/purpose'
 import ToField from '../../components/tofield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class New extends React.PureComponent {

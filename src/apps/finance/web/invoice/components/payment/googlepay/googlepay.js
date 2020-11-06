@@ -1,4 +1,4 @@
-import { Form, ModalPanel } from 'maha-public'
+import { Form, ModalPanel } from '@public'
 import AmountField from '../amountfield'
 import PropTypes from 'prop-types'
 import React from 'react'

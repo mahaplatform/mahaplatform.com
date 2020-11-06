@@ -1,5 +1,5 @@
 import Confirmation from './confirmation'
-import { MultiForm } from 'maha-admin'
+import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
 import Details from './details'
 import Program from './program'

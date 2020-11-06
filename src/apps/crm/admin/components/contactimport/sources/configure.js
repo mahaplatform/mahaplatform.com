@@ -1,4 +1,4 @@
-import { Form, ImportStrategyToken } from 'maha-admin'
+import { Form, ImportStrategyToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

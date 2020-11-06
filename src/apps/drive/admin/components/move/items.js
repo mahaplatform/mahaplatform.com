@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { AssetIcon } from 'maha-admin'
+import { AssetIcon } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

@@ -1,5 +1,5 @@
 import AssigningToken from '../../tokens/assigning'
-import { UserToken, Page } from 'maha-admin'
+import { UserToken, Page } from '@admin'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Assignments',

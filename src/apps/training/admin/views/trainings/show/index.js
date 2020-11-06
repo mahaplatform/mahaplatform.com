@@ -1,6 +1,6 @@
 import NewQuiz from '../../quizes/new'
 import Materials from './materials'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Lessons from './lessons'
 import Details from './details'
 import Quizes from './quizes'

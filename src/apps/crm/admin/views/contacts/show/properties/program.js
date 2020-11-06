@@ -1,5 +1,5 @@
 import Content from '@apps/forms/admin/tokens/content'
-import { Logo, List } from 'maha-admin'
+import { Logo, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

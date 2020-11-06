@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-client'
+import { Form } from '@client'
 import React from 'react'
 
 class Preferences extends React.Component {

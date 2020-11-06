@@ -1,4 +1,4 @@
-import { Button, Logo } from 'maha-public'
+import { Button, Logo } from '@public'
 import PropTypes from 'prop-types'
 import Payment from '../payment'
 import numeral from 'numeral'

@@ -1,4 +1,4 @@
-import { UserToken, Page } from 'maha-admin'
+import { UserToken, Page } from '@admin'
 import StatusToken from '../../tokens/status_token'
 import Status from '../../tokens/status'
 

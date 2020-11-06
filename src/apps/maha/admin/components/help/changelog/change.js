@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import ReactHtmlParser from 'react-html-parser'
 import PropTypes from 'prop-types'
 import React from 'react'

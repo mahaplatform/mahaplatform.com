@@ -1,4 +1,4 @@
-import { Format } from 'maha-admin'
+import { Format } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

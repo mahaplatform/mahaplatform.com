@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Assignment } from 'maha-admin'
+import { Assignment } from '@admin'
 import CompetencyToken from '../../tokens/competency'
 
 class Competencies extends React.Component {

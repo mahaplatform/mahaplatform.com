@@ -1,5 +1,5 @@
 import InstallButton from '../../components/install_button'
-import { List, Page } from 'maha-admin'
+import { List, Page } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

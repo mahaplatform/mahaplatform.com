@@ -1,4 +1,4 @@
-import { MultiForm } from 'maha-admin'
+import { MultiForm } from '@admin'
 import Inventory from './inventory'
 import PropTypes from 'prop-types'
 import Variants from './variants'

@@ -1,5 +1,5 @@
 import { DragSource, DropTarget } from 'react-dnd'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

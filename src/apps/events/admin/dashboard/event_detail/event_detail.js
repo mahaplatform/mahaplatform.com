@@ -1,4 +1,4 @@
-import { Button, Container, Chart } from 'maha-admin'
+import { Button, Container, Chart } from '@admin'
 import Registrations from './registrations'
 import TicketTypes from './ticket_types'
 import PropTypes from 'prop-types'

@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import Methods from './methods'
 import PropTypes from 'prop-types'
 import Email from './email'

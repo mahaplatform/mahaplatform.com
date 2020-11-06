@@ -1,4 +1,4 @@
-import { Attachment, Avatar, Comments, Link, Gallery, Timestamp } from 'maha-admin'
+import { Attachment, Avatar, Comments, Link, Gallery, Timestamp } from '@admin'
 import PropTypes from 'prop-types'
 import Likes from './likes'
 import React from 'react'

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import Status from './status'
 import React from 'react'
 import Mute from './mute'

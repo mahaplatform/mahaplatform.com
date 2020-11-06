@@ -1,4 +1,4 @@
-import { Button, Carousel, DropDown, Image, ModalPanel } from 'maha-client'
+import { Button, Carousel, DropDown, Image, ModalPanel } from '@client'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import numeral from 'numeral'

@@ -1,4 +1,4 @@
-import { ModalPanel, ProgressPie } from 'maha-admin'
+import { ModalPanel, ProgressPie } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

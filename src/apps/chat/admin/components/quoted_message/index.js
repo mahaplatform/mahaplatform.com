@@ -1,4 +1,4 @@
-import { Avatar, RichText } from 'maha-admin'
+import { Avatar, RichText } from '@admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

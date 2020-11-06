@@ -1,4 +1,4 @@
-import { RadioGroup } from 'maha-admin'
+import { RadioGroup } from '@admin'
 import { toFilter } from './utils'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'

@@ -1,5 +1,5 @@
 import CompactProjectToken from '../../tokens/project/compact'
-import { Audit, Comments, List } from 'maha-admin'
+import { Audit, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

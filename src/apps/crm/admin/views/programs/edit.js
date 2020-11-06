@@ -1,6 +1,6 @@
 import BankToken from '@apps/finance/admin/tokens/bank'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Edit extends React.Component {

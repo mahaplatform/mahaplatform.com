@@ -1,4 +1,4 @@
-import { Avatar, Image } from 'maha-admin'
+import { Avatar, Image } from '@admin'
 import React from 'react'
 
 const Result = (result) => (

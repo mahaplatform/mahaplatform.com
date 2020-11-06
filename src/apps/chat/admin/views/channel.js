@@ -1,6 +1,6 @@
 import Channel from '../components/mobilechat/channel'
 import FullChat from '../components/chats/full'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: document.body.clientWidth <= 768 ? 'Conversation' : 'Chat',

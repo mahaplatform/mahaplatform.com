@@ -1,7 +1,7 @@
 import TeamStrategyToken from '../../tokens/team_strategy'
 import ExpenseStrategyToken from '../../tokens/expense_strategy'
 import DriveStrategyToken from '../../tokens/drive_strategy'
-import { UserToken, Form } from 'maha-admin'
+import { UserToken, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

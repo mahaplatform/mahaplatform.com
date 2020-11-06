@@ -1,4 +1,4 @@
-import { Fields, List, Page } from 'maha-admin'
+import { Fields, List, Page } from '@admin'
 import PropTypes from 'prop-types'
 import Edit from './edit'
 import React from 'react'

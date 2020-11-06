@@ -1,4 +1,4 @@
-import { Loader, Message } from 'maha-admin'
+import { Loader, Message } from '@admin'
 import PropTypes from 'prop-types'
 import Question from './question'
 import React from 'react'

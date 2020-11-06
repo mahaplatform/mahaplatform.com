@@ -1,4 +1,4 @@
-import { Infinite, Loader, Searchbox } from 'maha-admin'
+import { Infinite, Loader, Searchbox } from '@admin'
 import { Empty, NotFound } from '../search/empty'
 import ChannelToken from '../../tokens/channel'
 import { Results } from '../search'

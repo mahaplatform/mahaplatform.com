@@ -1,7 +1,7 @@
 import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'

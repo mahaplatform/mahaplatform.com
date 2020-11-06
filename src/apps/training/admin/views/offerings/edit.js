@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AttachmentField, Form } from 'maha-admin'
+import { AttachmentField, Form } from '@admin'
 
 class Edit extends React.Component {
 

@@ -1,5 +1,5 @@
 import PhoneNumbers from './phone_numbers'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
 import React from 'react'

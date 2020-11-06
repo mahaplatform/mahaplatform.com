@@ -1,6 +1,6 @@
 import InventoryField from '../../components/inventoryfield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Inventory extends React.Component {

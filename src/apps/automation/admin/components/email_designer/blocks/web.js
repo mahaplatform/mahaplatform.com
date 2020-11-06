@@ -1,5 +1,5 @@
 import FontFamilyToken from '../../../tokens/fontfamily'
-import { Button, Form } from 'maha-admin'
+import { Button, Form } from '@admin'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
 import React from 'react'

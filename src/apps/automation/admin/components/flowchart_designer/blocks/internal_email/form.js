@@ -1,4 +1,4 @@
-import { Button, Form, UserToken } from 'maha-admin'
+import { Button, Form, UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

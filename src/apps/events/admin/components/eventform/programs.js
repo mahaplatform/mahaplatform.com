@@ -1,5 +1,5 @@
 import ProgramChooser from '@apps/crm/admin/components/program_chooser'
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

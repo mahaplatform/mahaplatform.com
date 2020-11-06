@@ -1,4 +1,4 @@
-import { Import, Page, AppToken, UserToken } from 'maha-admin'
+import { Import, Page, AppToken, UserToken } from '@admin'
 import UsersNew from './new'
 import UserImportFinalize from './user_import_finalize'
 import React from 'react'

@@ -1,5 +1,5 @@
 import SessionToken from '../../tokens/session'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'

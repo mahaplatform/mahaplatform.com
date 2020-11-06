@@ -1,4 +1,4 @@
-import { Avatar, Container, List, ModalPanel } from 'maha-admin'
+import { Avatar, Container, List, ModalPanel } from '@admin'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

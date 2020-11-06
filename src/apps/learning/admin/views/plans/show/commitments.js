@@ -1,7 +1,7 @@
 import CommitmentToken from '../../../tokens/commitment'
 import SetCommitments from '../../../components/commitments'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import React from 'react'
 
 const Commitments = ({ user, plan, commitments } ) => {

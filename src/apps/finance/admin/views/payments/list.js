@@ -1,7 +1,7 @@
 import PaymentTypeToken from '../../tokens/payment_type'
 import StatusToken from '../../tokens/status_token'
 import Status from '../../tokens/status'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Payments',

@@ -1,5 +1,5 @@
 import OrganizerToken from '../../tokens/organizer'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({

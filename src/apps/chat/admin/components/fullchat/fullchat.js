@@ -1,4 +1,4 @@
-import { Loader, Message } from 'maha-admin'
+import { Loader, Message } from '@admin'
 import Subscriptions from './subscriptions'
 import Edit from '../../views/edit'
 import PropTypes from 'prop-types'

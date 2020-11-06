@@ -1,5 +1,5 @@
 import StatusToken from '../../tokens/status'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import New from './new'
 import React from 'react'
 

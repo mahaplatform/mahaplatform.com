@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import sections from './sections'
 import React from 'react'
 import _ from 'lodash'

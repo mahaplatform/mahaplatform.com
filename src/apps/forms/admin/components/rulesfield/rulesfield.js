@@ -1,5 +1,5 @@
 import * as options from './variables'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Rule from './rule'

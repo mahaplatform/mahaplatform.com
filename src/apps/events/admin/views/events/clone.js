@@ -1,4 +1,4 @@
-import { Container } from 'maha-admin'
+import { Container } from '@admin'
 import EventForm from '../../components/eventform'
 import PropTypes from 'prop-types'
 import React from 'react'

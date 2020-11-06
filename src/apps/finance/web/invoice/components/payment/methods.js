@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-public'
+import { ModalPanel } from '@public'
 import GooglePay from './googlepay'
 import PropTypes from 'prop-types'
 import ApplePay from './applepay'

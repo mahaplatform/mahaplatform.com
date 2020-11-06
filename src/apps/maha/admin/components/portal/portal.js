@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
-import { Modal, Prompt, Tasks } from 'maha-admin'
-import { RouterStack } from 'maha-admin'
+import { Modal, Prompt, Tasks } from '@admin'
+import { RouterStack } from '@admin'
 import Navigation from '../navigation'
 import { connect } from 'react-redux'
 import Dashboard from '../dashboard'

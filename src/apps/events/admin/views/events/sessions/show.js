@@ -1,5 +1,5 @@
 import Attendance from './attendance'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import React from 'react'
 import Edit from './edit'

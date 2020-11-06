@@ -1,6 +1,6 @@
 import ProgramToken from '@apps/crm/admin/tokens/program'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Scholarship extends React.Component {

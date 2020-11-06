@@ -1,4 +1,4 @@
-import { AssigneeToken, Loader, Message, Searchbox, Virtualized } from 'maha-admin'
+import { AssigneeToken, Loader, Message, Searchbox, Virtualized } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

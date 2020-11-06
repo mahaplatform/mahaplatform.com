@@ -2,7 +2,7 @@ import FontFamilyToken from '../../../tokens/fontfamily'
 import SharesField from '../../sharesfield'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

@@ -1,6 +1,6 @@
 import ToField from '@apps/campaigns/admin/components/tofield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Resend extends React.Component {

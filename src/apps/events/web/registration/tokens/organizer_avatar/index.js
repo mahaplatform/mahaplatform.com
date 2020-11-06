@@ -1,4 +1,4 @@
-import { Avatar } from 'maha-client'
+import { Avatar } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

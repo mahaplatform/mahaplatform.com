@@ -1,5 +1,5 @@
 import ProgramToken from '@apps/crm/admin/tokens/program'
-import { Assignment } from 'maha-admin'
+import { Assignment } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

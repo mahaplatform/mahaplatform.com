@@ -1,4 +1,4 @@
-import { Button, Logo } from 'maha-admin'
+import { Button, Logo } from '@admin'
 import PropTypes from 'prop-types'
 import OptOut from '../optout'
 import OptIn from '../optin'

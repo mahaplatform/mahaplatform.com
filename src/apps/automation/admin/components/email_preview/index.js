@@ -1,4 +1,4 @@
-import { Image } from 'maha-admin'
+import { Image } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

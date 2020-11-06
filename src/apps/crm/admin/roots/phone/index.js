@@ -1,4 +1,4 @@
-import { Container, Dependencies } from 'maha-admin'
+import { Container, Dependencies } from '@admin'
 import Phone from '../../components/phone'
 import PropTypes from 'prop-types'
 import moment from 'moment'

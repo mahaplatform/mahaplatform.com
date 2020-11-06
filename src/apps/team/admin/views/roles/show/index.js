@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import AssignUsers from '../users'
 import Details from './details'
 import Access from './access'

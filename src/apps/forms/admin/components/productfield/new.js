@@ -1,7 +1,7 @@
 import RevenueTypeToken from '@apps/finance/admin/tokens/revenue_type'
 import ProjectToken from '@apps/finance/admin/tokens/project'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

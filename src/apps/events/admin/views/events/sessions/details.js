@@ -1,4 +1,4 @@
-import { Comments, List } from 'maha-admin'
+import { Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

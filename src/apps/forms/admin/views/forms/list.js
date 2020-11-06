@@ -1,5 +1,5 @@
 import FormToken from '../../tokens/form'
-import { Page, Logo } from 'maha-admin'
+import { Page, Logo } from '@admin'
 import React from 'react'
 import New from './new'
 

@@ -1,5 +1,5 @@
 import Channels from '../../components/contact_channels'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const getTasks = () => ({})
 

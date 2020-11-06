@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import Voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import Programs from './programs'

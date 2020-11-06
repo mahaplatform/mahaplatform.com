@@ -1,5 +1,5 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
-import { List, ModalPanel } from 'maha-admin'
+import { List, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Button from '../button'
 import SMS from '../sms/sms'

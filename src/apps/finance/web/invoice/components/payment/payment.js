@@ -1,4 +1,4 @@
-import { Stack } from 'maha-public'
+import { Stack } from '@public'
 import PropTypes from 'prop-types'
 import Methods from './methods'
 import React from 'react'

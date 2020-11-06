@@ -1,4 +1,4 @@
-import { Audit, Button, List, Comments } from 'maha-admin'
+import { Audit, Button, List, Comments } from '@admin'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'

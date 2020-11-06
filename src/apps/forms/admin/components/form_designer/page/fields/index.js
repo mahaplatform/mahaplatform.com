@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Menu } from 'maha-admin'
+import { Menu } from '@admin'
 import Payment from './payment'
 import Contact from './contact'
 import Custom from './custom'

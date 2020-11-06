@@ -1,4 +1,4 @@
-import { Fields, Page } from 'maha-admin'
+import { Fields, Page } from '@admin'
 import Templates from './templates'
 import Provision from './provision'
 import Senders from './senders'

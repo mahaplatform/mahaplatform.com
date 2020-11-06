@@ -1,5 +1,5 @@
 import PaymentToken from '../../../tokens/payment'
-import { Searchbox } from 'maha-admin'
+import { Searchbox } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { UserToken, Form } from 'maha-admin'
+import { UserToken, Form } from '@admin'
 import React from 'react'
 
 class New extends React.Component {

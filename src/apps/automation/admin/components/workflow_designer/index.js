@@ -1,5 +1,5 @@
 import FlowchartDesigner from '../flowchart_designer'
-import { Container } from 'maha-admin'
+import { Container } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

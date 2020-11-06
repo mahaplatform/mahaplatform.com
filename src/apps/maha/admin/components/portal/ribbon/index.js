@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Avatar } from 'maha-admin'
+import { Avatar } from '@admin'
 import Badge from '../badge'
 import React from 'react'
 import _ from 'lodash'

@@ -1,4 +1,4 @@
-import { Button, Container, Loader, ModalPanel } from 'maha-admin'
+import { Button, Container, Loader, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Mapping from './mapping'
 import React from 'react'

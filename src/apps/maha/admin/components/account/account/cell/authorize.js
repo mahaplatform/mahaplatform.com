@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Message } from 'maha-admin'
+import { Form, Message } from '@admin'
 
 class Authorize extends React.Component {
 

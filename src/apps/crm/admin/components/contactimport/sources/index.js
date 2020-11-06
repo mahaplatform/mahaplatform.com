@@ -1,4 +1,4 @@
-import { Loader, ModalPanel } from 'maha-admin'
+import { Loader, ModalPanel } from '@admin'
 import Contacts from './service/contacts'
 import Configure from './configure'
 import Lists from './service/lists'

@@ -1,6 +1,6 @@
 import ContactToken from '@apps/crm/admin/tokens/contact'
 import WorkflowStatusToken from '../../../tokens/workflow_status'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 import New from './new'
 

@@ -1,4 +1,4 @@
-import { Form, UserToken } from 'maha-admin'
+import { Form, UserToken } from '@admin'
 import RoleToken from '../../components/role_token'
 import GroupToken from '../../components/group_token'
 import PropTypes from 'prop-types'

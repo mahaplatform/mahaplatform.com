@@ -1,5 +1,5 @@
 import React from 'react'
-import { Page, Feed, UserToken, AppToken } from 'maha-admin'
+import { Page, Feed, UserToken, AppToken } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Activities',

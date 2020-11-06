@@ -1,6 +1,6 @@
 import ProgramToken from '@apps/crm/admin/tokens/program'
 import List from '@apps/crm/admin/components/list'
-import { Infinite, ModalPanel } from 'maha-admin'
+import { Infinite, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

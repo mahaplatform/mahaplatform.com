@@ -1,6 +1,6 @@
 import Notifications from './notifications'
 import { connect } from 'react-redux'
-import { Avatar} from 'maha-admin'
+import { Avatar} from '@admin'
 import PropTypes from 'prop-types'
 import Security from './security'
 import Account from './account'

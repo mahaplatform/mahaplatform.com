@@ -1,4 +1,4 @@
-import { Page, HelpArticleToken } from 'maha-admin'
+import { Page, HelpArticleToken } from '@admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'

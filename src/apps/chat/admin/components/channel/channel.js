@@ -1,5 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
-import { Loader } from 'maha-admin'
+import { Loader } from '@admin'
 import PropTypes from 'prop-types'
 import Composer from './composer'
 import Message from '../message'

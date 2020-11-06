@@ -2,7 +2,7 @@ import CompactRevenueTypeToken from '../../tokens/revenue_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import RevenueTypeToken from '../../tokens/revenue_type'
 import ProjectToken from '../../tokens/project'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Revenue Report',

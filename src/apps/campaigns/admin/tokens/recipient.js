@@ -1,5 +1,5 @@
 import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
-import { Format } from 'maha-admin'
+import { Format } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,4 +1,4 @@
-import { AssetIcon, Message } from 'maha-admin'
+import { AssetIcon, Message } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'

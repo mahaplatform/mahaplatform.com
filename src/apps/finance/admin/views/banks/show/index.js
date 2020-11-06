@@ -1,6 +1,6 @@
 import ProgramAssignment from '../programs'
 import Programs from './programs'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Sales from './sales'
 import Edit from '../edit'

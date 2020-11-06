@@ -1,5 +1,5 @@
 import StatusToken from '@apps/finance/admin/tokens/status'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapResourcesToPage = (props, context) => ({
   app: '/api/admin/apps/finance/settings'

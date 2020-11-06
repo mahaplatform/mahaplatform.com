@@ -1,4 +1,4 @@
-import { Stack, Tasks } from 'maha-admin'
+import { Stack, Tasks } from '@admin'
 import PropTypes from 'prop-types'
 import Phone from './phone'
 import React from 'react'

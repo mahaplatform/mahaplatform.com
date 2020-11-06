@@ -1,4 +1,4 @@
-import { Button, Image, Loader } from 'maha-client'
+import { Button, Image, Loader } from '@client'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import numeral from 'numeral'

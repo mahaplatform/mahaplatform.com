@@ -1,4 +1,4 @@
-import { List, Page } from 'maha-admin'
+import { List, Page } from '@admin'
 import Highlight from 'react-highlight'
 import PropTypes from 'prop-types'
 import format from 'json-format'

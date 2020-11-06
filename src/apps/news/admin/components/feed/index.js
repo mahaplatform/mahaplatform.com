@@ -1,4 +1,4 @@
-import { Button, Infinite } from 'maha-admin'
+import { Button, Infinite } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Trigger from './trigger'

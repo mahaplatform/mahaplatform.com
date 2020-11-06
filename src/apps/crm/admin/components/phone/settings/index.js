@@ -1,6 +1,6 @@
 import Program from '../programs/program'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Settings extends React.Component {

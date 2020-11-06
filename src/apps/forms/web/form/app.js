@@ -1,7 +1,7 @@
 import HTML5Backend from 'react-dnd-html5-backend'
 import Style from '../embedded/components/style'
 import Root from '../embedded/components/root'
-import { Error, Network } from 'maha-client'
+import { Error, Network } from '@client'
 import { DndProvider } from 'react-dnd'
 import { hot } from 'react-hot-loader'
 import Form from './components/form'

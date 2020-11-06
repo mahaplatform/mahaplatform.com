@@ -1,5 +1,5 @@
 import Content from '@apps/forms/admin/tokens/content'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({

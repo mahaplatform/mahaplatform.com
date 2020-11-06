@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Call from './call'

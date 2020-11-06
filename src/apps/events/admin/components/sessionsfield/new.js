@@ -1,6 +1,6 @@
 import LocationToken from '../../tokens/location'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import moment from 'moment'
 import React from 'react'
 

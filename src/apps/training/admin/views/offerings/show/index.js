@@ -1,6 +1,6 @@
 import Fulfillments from './fulfillments'
 import Materials from './materials'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Reviews from './reviews'
 import Quizes from './quizes'

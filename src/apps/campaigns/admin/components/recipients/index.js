@@ -1,4 +1,4 @@
-import { CriteriaDesigner, ModalPanel } from 'maha-admin'
+import { CriteriaDesigner, ModalPanel } from '@admin'
 import fields from '../../views/contacts/criteria'
 import RecipientToken from '../../tokens/recipient'
 import PropTypes from 'prop-types'

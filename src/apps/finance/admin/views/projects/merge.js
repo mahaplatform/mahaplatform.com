@@ -1,6 +1,6 @@
 import ProjectToken from '../../tokens/project'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Merge extends React.Component {

@@ -1,4 +1,4 @@
-import { AssetViewer, Button, ModalPanel } from 'maha-admin'
+import { AssetViewer, Button, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Popup from './popup'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Loader, Payment } from 'maha-client'
+import { Loader, Payment } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

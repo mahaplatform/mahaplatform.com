@@ -1,4 +1,4 @@
-import { Infinite, ModalPanel, Searchbox, UserToken } from 'maha-admin'
+import { Infinite, ModalPanel, Searchbox, UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

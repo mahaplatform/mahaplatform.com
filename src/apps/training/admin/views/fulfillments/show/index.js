@@ -1,7 +1,7 @@
 import Review from '../../../components/review'
 import Materials from './materials'
 import Complete from '../complete'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Lessons from './lessons'
 import Details from './details'
 import Quizes from './quizes'

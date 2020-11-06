@@ -1,6 +1,6 @@
 import VoiceDesigner from '../../components/voice_designer'
 import PropTypes from 'prop-types'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 class Designer extends React.Component {

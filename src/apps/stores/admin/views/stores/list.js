@@ -1,5 +1,5 @@
 import StoreToken from '../../tokens/store'
-import { Logo, Page } from 'maha-admin'
+import { Logo, Page } from '@admin'
 import React from 'react'
 import New from './new'
 

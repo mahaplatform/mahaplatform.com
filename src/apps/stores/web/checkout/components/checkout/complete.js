@@ -1,4 +1,4 @@
-import { Button, Message } from 'maha-client'
+import { Button, Message } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

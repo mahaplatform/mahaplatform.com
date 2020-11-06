@@ -1,4 +1,4 @@
-import { Error, Logger } from 'maha-client'
+import { Error, Logger } from '@client'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import { hot } from 'react-hot-loader'

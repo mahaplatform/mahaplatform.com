@@ -1,4 +1,4 @@
-import { Container } from 'maha-admin'
+import { Container } from '@admin'
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Audit, Button, Comments, List } from 'maha-admin'
+import { Audit, Button, Comments, List } from '@admin'
 import TicketTypeToken from '../../../tokens/ticket_type'
 import OrganizerToken from '../../../tokens/organizer'
 import PropTypes from 'prop-types'

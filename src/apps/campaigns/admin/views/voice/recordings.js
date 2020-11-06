@@ -1,5 +1,5 @@
 import RecordToken from '../../tokens/recording'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({

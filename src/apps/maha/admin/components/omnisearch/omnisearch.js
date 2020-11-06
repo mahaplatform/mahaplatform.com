@@ -1,4 +1,4 @@
-import { Message, Scrollpane, Searchbox } from 'maha-admin'
+import { Message, Scrollpane, Searchbox } from '@admin'
 import PropTypes from 'prop-types'
 import Result from './result'
 import React from 'react'

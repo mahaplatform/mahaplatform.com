@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-client'
+import { ModalPanel } from '@client'
 import Categories from '../categories'
 import PropTypes from 'prop-types'
 import Item from './item'

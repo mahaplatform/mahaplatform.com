@@ -1,4 +1,4 @@
-import { Audit, Container, List, ModalPanel } from 'maha-admin'
+import { Audit, Container, List, ModalPanel } from '@admin'
 import ContactAvatar from '../../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import Button from '../button'

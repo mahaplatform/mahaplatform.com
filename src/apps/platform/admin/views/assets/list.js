@@ -1,4 +1,4 @@
-import { UserToken, Page } from 'maha-admin'
+import { UserToken, Page } from '@admin'
 import FilenameToken from '../../tokens/filename'
 import SourceToken from '../../tokens/source'
 

@@ -1,6 +1,6 @@
 import MediaField from '../../../components/mediafield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import Variants from './variants'
 import React from 'react'
 import _ from 'lodash'

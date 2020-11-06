@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import ItemsImport from './import'
 import pluralize from 'pluralize'
 import React from 'react'

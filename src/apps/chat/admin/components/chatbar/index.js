@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Edit from '../../views/edit'
 import PropTypes from 'prop-types'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import Channels from './channels'
 import Channel from './channel'
 import Message from './message'

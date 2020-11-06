@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 const StatToken = (props, context) => {

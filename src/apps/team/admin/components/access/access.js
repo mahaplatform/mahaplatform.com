@@ -1,5 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
-import { AppToken } from 'maha-admin'
+import { AppToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

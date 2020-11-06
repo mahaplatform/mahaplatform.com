@@ -1,6 +1,6 @@
 import PurposeToken from '../../tokens/purpose'
 import ToField from '../../components/tofield'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

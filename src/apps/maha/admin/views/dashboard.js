@@ -1,5 +1,5 @@
 import Dashboard from '../components/dashboard.new'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources) => ({
   component: Dashboard

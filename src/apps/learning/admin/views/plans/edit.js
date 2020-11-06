@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import NotifiyMe from './notify_me'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { UserToken, Message } from 'maha-admin'
+import { UserToken, Message } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

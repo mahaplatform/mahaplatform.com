@@ -1,6 +1,6 @@
 import Invoice from '../../components/invoice'
 import PropTypes from 'prop-types'
-import { Audit, Comments, List } from 'maha-admin'
+import { Audit, Comments, List } from '@admin'
 import React from 'react'
 
 const Details = ({ audits, invoice }) => {

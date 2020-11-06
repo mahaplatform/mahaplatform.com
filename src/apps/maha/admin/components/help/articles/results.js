@@ -1,4 +1,4 @@
-import { HelpArticleToken } from 'maha-admin'
+import { HelpArticleToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

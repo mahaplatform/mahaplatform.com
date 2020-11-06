@@ -1,4 +1,4 @@
-import { Page, TwilioStatusToken } from 'maha-admin'
+import { Page, TwilioStatusToken } from '@admin'
 import Send from './send'
 import React from 'react'
 

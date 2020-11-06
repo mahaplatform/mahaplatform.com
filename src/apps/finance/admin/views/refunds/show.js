@@ -1,5 +1,5 @@
 import Allocations from './allocations'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Void from './void'
 import React from 'react'

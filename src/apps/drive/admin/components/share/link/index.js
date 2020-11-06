@@ -1,4 +1,4 @@
-import { AssetToken, ModalPanel, Button } from 'maha-admin'
+import { AssetToken, ModalPanel, Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,6 +1,6 @@
 import List from '@apps/crm/admin/components/list'
 import TriggerToken from '../../../tokens/trigger'
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

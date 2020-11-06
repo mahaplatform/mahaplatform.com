@@ -1,4 +1,4 @@
-import { NumberField, Dropdown } from 'maha-admin'
+import { NumberField, Dropdown } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

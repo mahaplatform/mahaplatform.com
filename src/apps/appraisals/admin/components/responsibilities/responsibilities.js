@@ -1,4 +1,4 @@
-import { RadioGroup, TextArea } from 'maha-admin'
+import { RadioGroup, TextArea } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import New from './new'

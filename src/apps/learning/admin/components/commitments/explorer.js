@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
 import Classifications from './classifications'
-import { ModalPanel, Stack } from 'maha-admin'
+import { ModalPanel, Stack } from '@admin'
 import Competencies from './competencies'
 import Commitments from './commitments'
 import Strategies from './strategies'

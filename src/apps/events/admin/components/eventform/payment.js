@@ -1,6 +1,6 @@
 import TicketTypesField from '../tickettypesfield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

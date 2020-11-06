@@ -1,4 +1,4 @@
-import { Button, Container, Infinite } from 'maha-admin'
+import { Button, Container, Infinite } from '@admin'
 import VoiceClient from '../voice_client'
 import PropTypes from 'prop-types'
 import Results from './results'

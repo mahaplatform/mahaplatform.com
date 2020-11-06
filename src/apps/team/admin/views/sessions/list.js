@@ -1,4 +1,4 @@
-import { UserToken, PresenceToken, Page } from 'maha-admin'
+import { UserToken, PresenceToken, Page } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

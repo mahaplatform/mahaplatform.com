@@ -1,4 +1,4 @@
-import { Infinite, Searchbox } from 'maha-admin'
+import { Infinite, Searchbox } from '@admin'
 import Voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import Results from './results'

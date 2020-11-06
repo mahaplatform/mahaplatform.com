@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import Options from '../options'
 import moment from 'moment'
 import React from 'react'

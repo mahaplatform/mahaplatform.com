@@ -1,4 +1,4 @@
-import { Button, ModalPanel, Stack } from 'maha-admin'
+import { Button, ModalPanel, Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import React from 'react'

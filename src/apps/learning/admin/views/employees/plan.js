@@ -1,6 +1,6 @@
 import CommitmentToken from '../../components/commitment_token'
 import GoalToken from '../../components/goal_token'
-import { List, Page, Comments } from 'maha-admin'
+import { List, Page, Comments } from '@admin'
 import SetCommitments from './commitment'
 import PropTypes from 'prop-types'
 import SetGoals from './goals'

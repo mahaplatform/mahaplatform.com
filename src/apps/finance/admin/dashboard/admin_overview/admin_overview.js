@@ -1,4 +1,4 @@
-import { Container } from 'maha-admin'
+import { Container } from '@admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'

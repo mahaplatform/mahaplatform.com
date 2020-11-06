@@ -1,4 +1,4 @@
-import { RouterStack } from 'maha-client'
+import { RouterStack } from '@client'
 import PropTypes from 'prop-types'
 import CartIcon from '../carticon'
 import Catalog from '../catalog'

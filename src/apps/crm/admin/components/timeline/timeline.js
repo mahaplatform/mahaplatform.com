@@ -1,5 +1,5 @@
 import Note from '../../views/contacts/notes/new'
-import { Button, Loader } from 'maha-admin'
+import { Button, Loader } from '@admin'
 import PropTypes from 'prop-types'
 import Activity from './activity'
 import moment from 'moment'

@@ -1,4 +1,4 @@
-import { Container, List } from 'maha-admin'
+import { Container, List } from '@admin'
 import SmsClient from '../sms_client'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

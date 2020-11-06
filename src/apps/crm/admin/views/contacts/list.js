@@ -1,6 +1,6 @@
 import ContactImport from '../../components/contactimport'
 import ContactToken from '../../tokens/contact'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import criteria from './criteria'
 import Topics from './topics'
 import Lists from './lists'

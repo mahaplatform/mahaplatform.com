@@ -1,5 +1,5 @@
 import Performance from './performance'
-import { Embed, Page } from 'maha-admin'
+import { Embed, Page } from '@admin'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'

@@ -1,5 +1,5 @@
 import { client, paypalCheckout } from 'braintree-web'
-import { Form, ModalPanel } from 'maha-public'
+import { Form, ModalPanel } from '@public'
 import AmountField from '../amountfield'
 import paypal from 'paypal-checkout'
 import PropTypes from 'prop-types'

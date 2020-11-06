@@ -1,4 +1,4 @@
-import { Infinite, Message, Feed } from 'maha-admin'
+import { Infinite, Message, Feed } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

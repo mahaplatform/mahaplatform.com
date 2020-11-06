@@ -1,4 +1,4 @@
-import { Loader, ModalPanel, ProfileToken } from 'maha-admin'
+import { Loader, ModalPanel, ProfileToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,4 +1,4 @@
-import { AppToken, List, ModalPanel } from 'maha-admin'
+import { AppToken, List, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -1,7 +1,7 @@
 import ProgramAccessToken from '../../../tokens/program_access'
 import Access from '../../../components/access'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import React from 'react'
 
 const ProgramAccess = ({ accesses, program }) => {

@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import CheckboxesField from '../../components/checkboxesfield'
 import PropTypes from 'prop-types'
 import React from 'react'

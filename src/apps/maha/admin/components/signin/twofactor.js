@@ -1,4 +1,4 @@
-import { Avatar, TextField } from 'maha-admin'
+import { Avatar, TextField } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

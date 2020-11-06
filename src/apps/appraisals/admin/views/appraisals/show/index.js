@@ -1,7 +1,7 @@
 import SupervisorForm from '../supervisor'
 import EmployeeForm from '../employee'
 import Supervisor from './supervisor'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Employee from './employee'
 import Coaching from './coaching'
 import Details from './details'

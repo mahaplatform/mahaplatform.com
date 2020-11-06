@@ -1,6 +1,6 @@
 import Info from '../components/mobilechat/info'
 import FullChat from '../components/chats/full'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapResourcesToPage = (props, context) => ({
   channel: `/api/admin/chat/channels/${props.params.id}`

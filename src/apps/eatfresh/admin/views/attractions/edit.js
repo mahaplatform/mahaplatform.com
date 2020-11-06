@@ -1,7 +1,7 @@
 import OfferingToken from '../../tokens/offering'
 import CategoryToken from '../../tokens/category'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Edit extends React.Component {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { Avatar } from 'maha-admin'
+import { Avatar } from '@admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

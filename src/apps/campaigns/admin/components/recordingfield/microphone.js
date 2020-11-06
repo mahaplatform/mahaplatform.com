@@ -1,4 +1,4 @@
-import { Button, ModalPanel } from 'maha-admin'
+import { Button, ModalPanel } from '@admin'
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
 import { convert } from './utils'

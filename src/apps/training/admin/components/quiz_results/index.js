@@ -1,4 +1,4 @@
-import { Menu } from 'maha-admin'
+import { Menu } from '@admin'
 import PropTypes from 'prop-types'
 import Question from './question'
 import User from './user'

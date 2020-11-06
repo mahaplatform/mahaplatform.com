@@ -1,5 +1,5 @@
 import ContactAvatarToken from '../../../tokens/contact_avatar'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import SMS from './sms'

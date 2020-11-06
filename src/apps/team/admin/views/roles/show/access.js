@@ -1,4 +1,4 @@
-import { AppToken, List } from 'maha-admin'
+import { AppToken, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

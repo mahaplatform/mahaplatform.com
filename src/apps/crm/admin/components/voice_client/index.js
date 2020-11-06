@@ -1,4 +1,4 @@
-import { Container, Dependencies, Loader, ModalPanel } from 'maha-admin'
+import { Container, Dependencies, Loader, ModalPanel } from '@admin'
 import ContactAvatar from '../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import Timer from '../timer'

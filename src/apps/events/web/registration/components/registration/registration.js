@@ -1,4 +1,4 @@
-import { Image, Stack, Steps } from 'maha-client'
+import { Image, Stack, Steps } from '@client'
 import PropTypes from 'prop-types'
 import Complete from './complete'
 import Summary from './summary'

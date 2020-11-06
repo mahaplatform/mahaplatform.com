@@ -1,4 +1,4 @@
-import { Avatar, Link, RichText, Reactions, Timestamp } from 'maha-admin'
+import { Avatar, Link, RichText, Reactions, Timestamp } from '@admin'
 import { files, images, media } from './selectors'
 import QuotedMessage from '../quoted_message'
 import { connect } from 'react-redux'

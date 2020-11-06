@@ -1,4 +1,4 @@
-import { AssetViewer, Attachments, Button } from 'maha-admin'
+import { AssetViewer, Attachments, Button } from '@admin'
 import Microphone from './microphone'
 import PropTypes from 'prop-types'
 import Record from './record'

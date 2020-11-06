@@ -1,7 +1,7 @@
 import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
-import { Audit, List, Comments, Carousel } from 'maha-admin'
+import { Audit, List, Comments, Carousel } from '@admin'
 import AllocationsToken from '../../tokens/allocations'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'

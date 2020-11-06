@@ -1,5 +1,5 @@
 import ContactFieldsField from '@apps/crm/admin/components/contactfieldsfield'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

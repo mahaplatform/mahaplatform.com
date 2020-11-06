@@ -4,7 +4,7 @@ import Strategies from './strategies'
 import Categories from './categories'
 import Resources from './resources'
 import PropTypes from 'prop-types'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import React from 'react'
 
 class Explorer extends React.Component {

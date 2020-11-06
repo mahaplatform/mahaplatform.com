@@ -14,7 +14,7 @@ import CheckNew from '../checks/new'
 import ExpenseNew from '../expenses/new'
 import ItemTask from './item_task'
 import TripNew from '../trips/new'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import TripImport from './import'
 import batchTask from '../batch'
 

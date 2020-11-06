@@ -2,7 +2,7 @@ import AmountField from '../../components/amountfield'
 import CardField from '../../components/cardfield'
 import CreditToken from '../../tokens/credit'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import moment from 'moment'
 import React from 'react'
 

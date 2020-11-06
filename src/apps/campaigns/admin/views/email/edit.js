@@ -2,7 +2,7 @@ import PurposeToken from '../../tokens/purpose'
 import ToField from '../../components/tofield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Edit extends React.PureComponent {

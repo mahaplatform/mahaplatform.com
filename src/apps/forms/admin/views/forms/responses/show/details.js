@@ -1,4 +1,4 @@
-import { Button, Comments, List } from 'maha-admin'
+import { Button, Comments, List } from '@admin'
 import Content from '../../../../tokens/content'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'

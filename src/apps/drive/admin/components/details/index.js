@@ -1,4 +1,4 @@
-import { Image, List, Message } from 'maha-admin'
+import { Image, List, Message } from '@admin'
 import specials from '../specials'
 import PropTypes from 'prop-types'
 import Accesses from './accesses'

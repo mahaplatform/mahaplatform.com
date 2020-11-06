@@ -1,5 +1,5 @@
 import EventToken from '../../tokens/event'
-import { Logo, Page } from 'maha-admin'
+import { Logo, Page } from '@admin'
 import Clone from './clone'
 import React from 'react'
 import New from './new'

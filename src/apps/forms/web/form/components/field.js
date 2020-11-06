@@ -1,4 +1,4 @@
-import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from 'maha-client'
+import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from '@client'
 import PaymentField from '../../embedded/components/form/fields/paymentfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
 import { DragSource, DropTarget } from 'react-dnd'

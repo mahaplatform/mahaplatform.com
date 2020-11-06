@@ -1,4 +1,4 @@
-import { Avatar, emojify } from 'maha-admin'
+import { Avatar, emojify } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'

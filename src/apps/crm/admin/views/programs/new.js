@@ -1,6 +1,6 @@
 import BankToken from '@apps/finance/admin/tokens/bank'
 import VisibilityToken from '../../tokens/visibility'
-import { Form, UserToken } from 'maha-admin'
+import { Form, UserToken } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

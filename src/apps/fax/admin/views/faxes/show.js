@@ -1,4 +1,4 @@
-import { AssetPreview, Page } from 'maha-admin'
+import { AssetPreview, Page } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

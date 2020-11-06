@@ -1,4 +1,4 @@
-import { ModalPanel, Tabs } from 'maha-admin'
+import { ModalPanel, Tabs } from '@admin'
 import PropTypes from 'prop-types'
 import Custom from './custom'
 import React from 'react'

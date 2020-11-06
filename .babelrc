@@ -9,8 +9,11 @@
     ["transform-runtime", { "polyfill": false }],
     ["module-resolver", {
       "alias": {
+        "@admin": "./src/admin",
+        "@apps": "./src/apps",
         "@core": "./src/core",
-        "@apps": "./src/apps"
+        "@client": "./src/client",
+        "@public": "./src/public"
       }
     }]
   ]

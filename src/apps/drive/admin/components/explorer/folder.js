@@ -1,4 +1,4 @@
-import { Attachments, Infinite, Message } from 'maha-admin'
+import { Attachments, Infinite, Message } from '@admin'
 import * as selectors from './selectors'
 import PropTypes from 'prop-types'
 import Grid from './grid'

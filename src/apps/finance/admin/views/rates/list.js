@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Edit from './edit'
 import React from 'react'
 import New from './new'

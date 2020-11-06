@@ -1,5 +1,5 @@
-import { Attachments, Button } from 'maha-admin'
-// import { ImageEditor } from 'maha-admin'
+import { Attachments, Button } from '@admin'
+// import { ImageEditor } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

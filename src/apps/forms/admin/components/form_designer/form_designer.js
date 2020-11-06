@@ -1,4 +1,4 @@
-import { Preview } from 'maha-admin'
+import { Preview } from '@admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'

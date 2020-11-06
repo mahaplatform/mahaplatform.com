@@ -1,4 +1,4 @@
-import { Button, ModalPanel, PhoneField } from 'maha-admin'
+import { Button, ModalPanel, PhoneField } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Page, TeamToken } from 'maha-admin'
+import { Page, TeamToken } from '@admin'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({

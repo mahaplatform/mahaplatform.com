@@ -1,7 +1,7 @@
 import TemplateField from '@apps/crm/admin/components/templatefield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Confirmation extends React.PureComponent {

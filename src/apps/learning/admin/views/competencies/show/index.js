@@ -1,5 +1,5 @@
 import AssignResources from '../resources'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Edit from '../edit'
 import React from 'react'
 import Details from './details'

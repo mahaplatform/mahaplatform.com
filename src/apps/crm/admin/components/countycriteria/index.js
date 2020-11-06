@@ -1,4 +1,4 @@
-import { Dropdown, ModalPanel, RadioGroup, Search } from 'maha-admin'
+import { Dropdown, ModalPanel, RadioGroup, Search } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

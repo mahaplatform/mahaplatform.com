@@ -1,4 +1,4 @@
-import { Form } from 'maha-public'
+import { Form } from '@public'
 import PropTypes from 'prop-types'
 import React from 'react'
 

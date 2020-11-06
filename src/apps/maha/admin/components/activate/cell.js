@@ -1,4 +1,4 @@
-import { PhoneField, TextField } from 'maha-admin'
+import { PhoneField, TextField } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

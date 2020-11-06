@@ -1,4 +1,4 @@
-import { ModalPanel, PickList } from 'maha-admin'
+import { ModalPanel, PickList } from '@admin'
 import ServiceToken from '../../tokens/service'
 import PropTypes from 'prop-types'
 import React from 'react'

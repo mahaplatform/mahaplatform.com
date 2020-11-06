@@ -1,4 +1,4 @@
-import { Button, TextField } from 'maha-client'
+import { Button, TextField } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

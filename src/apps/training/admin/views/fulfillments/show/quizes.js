@@ -1,6 +1,6 @@
 import QuizToken from '../../../tokens/quiz'
 import Quiz from '../../../components/quiz'
-import { Button, List } from 'maha-admin'
+import { Button, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

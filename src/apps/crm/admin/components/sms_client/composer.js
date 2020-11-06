@@ -1,4 +1,4 @@
-import { Composer } from 'maha-admin'
+import { Composer } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

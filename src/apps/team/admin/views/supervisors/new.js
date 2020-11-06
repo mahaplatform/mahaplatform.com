@@ -1,4 +1,4 @@
-import { Chooser, UserToken } from 'maha-admin'
+import { Chooser, UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

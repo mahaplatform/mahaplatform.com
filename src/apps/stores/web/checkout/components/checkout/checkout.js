@@ -1,4 +1,4 @@
-import { Stack, Steps } from 'maha-client'
+import { Stack, Steps } from '@client'
 import ShippingStep from './shipping'
 import ContactStep from './contact'
 import PaymentStep from './payment'

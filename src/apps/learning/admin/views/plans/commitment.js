@@ -1,5 +1,5 @@
 import ResourceToken from '../../tokens/resource'
-import { Assignment } from 'maha-admin'
+import { Assignment } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

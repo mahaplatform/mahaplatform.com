@@ -1,5 +1,5 @@
 import OrganizerToken from '../../tokens/organizer'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
 import React from 'react'

@@ -1,6 +1,6 @@
 import Administrations from './administrations'
 import Answerings from './answerings'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 const getTabs = (user, { administrations, questions }) => {

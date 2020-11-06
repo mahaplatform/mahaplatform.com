@@ -1,4 +1,4 @@
-import { Button, Chart } from 'maha-admin'
+import { Button, Chart } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'

@@ -1,4 +1,4 @@
-import { AppToken, Avatar, List, Page } from 'maha-admin'
+import { AppToken, Avatar, List, Page } from '@admin'
 import Notifications from './notifications'
 import PropTypes from 'prop-types'
 import Disable from './disable'

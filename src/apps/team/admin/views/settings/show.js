@@ -1,4 +1,4 @@
-import { List, Logo, Page } from 'maha-admin'
+import { List, Logo, Page } from '@admin'
 import PropTypes from 'prop-types'
 import SettingsEdit from './edit'
 import React from 'react'

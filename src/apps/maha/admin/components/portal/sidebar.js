@@ -1,4 +1,4 @@
-import { Error } from 'maha-admin'
+import { Error } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

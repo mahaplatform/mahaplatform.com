@@ -1,4 +1,4 @@
-import { Avatar, Page } from 'maha-admin'
+import { Avatar, Page } from '@admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Avatar, Page } from 'maha-admin'
+import { Avatar, Page } from '@admin'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import moment from 'moment'

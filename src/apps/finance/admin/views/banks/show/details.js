@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Button, List } from 'maha-admin'
+import { Button, List } from '@admin'
 import Braintree from './braintree'
 import React from 'react'
 

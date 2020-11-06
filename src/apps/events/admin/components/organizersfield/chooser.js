@@ -1,5 +1,5 @@
 import OrganizerToken from '../../tokens/organizer'
-import { ModalPanel, Search } from 'maha-admin'
+import { ModalPanel, Search } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import New from './new'

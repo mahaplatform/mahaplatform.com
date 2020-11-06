@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Assignments',

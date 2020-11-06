@@ -1,4 +1,4 @@
-import { Avatar, Logo } from 'maha-admin'
+import { Avatar, Logo } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'

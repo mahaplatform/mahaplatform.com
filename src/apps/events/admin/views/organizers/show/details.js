@@ -1,6 +1,6 @@
 import TicketTypeToken from '../../../tokens/ticket_type'
 import OrganizerToken from '../../../tokens/organizer'
-import { Audit, Comments, List } from 'maha-admin'
+import { Audit, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

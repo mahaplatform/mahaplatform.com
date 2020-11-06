@@ -1,5 +1,5 @@
 import ManagerToken from '../../tokens/manager'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 import Users from './users'
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import Changes from './changes'
 import React from 'react'

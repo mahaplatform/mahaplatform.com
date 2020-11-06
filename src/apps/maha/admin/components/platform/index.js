@@ -1,6 +1,6 @@
 import HTML5Backend from 'react-dnd-html5-backend'
 import Notifications from '../notifications'
-import { Flash, Logger } from 'maha-admin'
+import { Flash, Logger } from '@admin'
 import { DndProvider } from 'react-dnd'
 import Environment from './environment'
 import { connect } from 'react-redux'

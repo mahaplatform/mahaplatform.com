@@ -6,7 +6,7 @@ import ExpenseTypeToken from '../../tokens/expense_type'
 import ProjectToken from '../../tokens/project'
 import StatusToken from '../../tokens/status_token'
 import VendorToken from '../../tokens/vendor'
-import { Page, UserToken } from 'maha-admin'
+import { Page, UserToken } from '@admin'
 import TypeToken from '../../tokens/type'
 import Status from '../../tokens/status'
 

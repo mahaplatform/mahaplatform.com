@@ -1,5 +1,5 @@
 import VendorToken from '../../tokens/vendor'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Merge from './merge'
 import Edit from './edit'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import Branch from './branch'
 import React from 'react'

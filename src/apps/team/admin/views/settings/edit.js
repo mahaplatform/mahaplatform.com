@@ -1,4 +1,4 @@
-import { AuthenticationStrategyToken, Form } from 'maha-admin'
+import { AuthenticationStrategyToken, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

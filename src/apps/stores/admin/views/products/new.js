@@ -3,7 +3,7 @@ import ProjectToken from '@apps/finance/admin/tokens/project'
 import VariantsField from '../../components/variantsfield'
 import OptionsField from '../../components/optionsfield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class New extends React.Component {

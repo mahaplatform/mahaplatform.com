@@ -1,4 +1,4 @@
-import { Form } from 'maha-client'
+import { Form } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

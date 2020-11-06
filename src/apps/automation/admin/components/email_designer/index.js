@@ -1,6 +1,6 @@
 import Preferences from './blocks/preferences'
 import Divider from './blocks/divider'
-import { Designer } from 'maha-admin'
+import { Designer } from '@admin'
 import Button from './blocks/button'
 // import Images from './blocks/images'
 import Follow from './blocks/follow'

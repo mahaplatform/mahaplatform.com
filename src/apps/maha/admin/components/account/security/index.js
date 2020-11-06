@@ -1,5 +1,5 @@
 import SecurityQuestion from './security_question'
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Password from './password'
 import Devices from './devices'

@@ -1,5 +1,5 @@
 import Performance from '@apps/campaigns/admin/views/email/performance'
-import { Button, Container } from 'maha-admin'
+import { Button, Container } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

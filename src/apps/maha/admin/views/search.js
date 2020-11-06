@@ -1,5 +1,5 @@
 import OmniSearch from '../components/omnisearch'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources) => ({
   title: 'Search',

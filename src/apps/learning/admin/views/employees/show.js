@@ -1,5 +1,5 @@
 import PlanToken from '../../tokens/plan'
-import { Avatar, List, Page } from 'maha-admin'
+import { Avatar, List, Page } from '@admin'
 import EmployeePlanCreate from './create'
 import PropTypes from 'prop-types'
 import React from 'react'

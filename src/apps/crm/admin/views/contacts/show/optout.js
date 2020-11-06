@@ -1,6 +1,6 @@
 import OptOutToken from '../../../tokens/optout'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class OptOut extends React.Component {

@@ -1,6 +1,6 @@
 import AssignCompetencies from '../competencies'
 import Competencies from './competencies'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-admin'
+import { ModalPanel } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Types from './types'

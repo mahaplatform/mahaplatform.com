@@ -14,7 +14,7 @@ import {
   Checkbox,
   Hidden,
   Text
-} from 'maha-client'
+} from '@client'
 import PaymentField from './paymentfield'
 import ProductField from './productfield'
 import PropTypes from 'prop-types'

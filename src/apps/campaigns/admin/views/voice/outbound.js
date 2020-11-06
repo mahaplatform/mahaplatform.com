@@ -1,7 +1,7 @@
 import ProgramForm from '@apps/crm/admin/components/programform'
 import CompactCampaignToken from '../../tokens/campaign/compact'
 import StatusToken from '../../tokens/status'
-import { Logo, Page } from 'maha-admin'
+import { Logo, Page } from '@admin'
 import New from './new_outbound'
 import React from 'react'
 

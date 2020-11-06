@@ -1,4 +1,4 @@
-import { Recaptcha } from 'maha-client'
+import { Recaptcha } from '@client'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'

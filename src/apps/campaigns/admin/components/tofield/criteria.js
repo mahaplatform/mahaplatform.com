@@ -1,5 +1,5 @@
 import criteria from '@apps/crm/admin/views/contacts/criteria'
-import { Container, CriteriaDesigner, ModalPanel } from 'maha-admin'
+import { Container, CriteriaDesigner, ModalPanel } from '@admin'
 import RecipientToken from '../../tokens/recipient'
 import PropTypes from 'prop-types'
 import React from 'react'

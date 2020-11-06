@@ -1,4 +1,4 @@
-import { RadioGroup } from 'maha-admin'
+import { RadioGroup } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

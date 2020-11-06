@@ -1,4 +1,4 @@
-import { List, Page, UserToken } from 'maha-admin'
+import { List, Page, UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import AssignUsers from './users'
 import Edit from './edit'

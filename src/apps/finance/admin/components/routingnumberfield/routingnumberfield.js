@@ -1,4 +1,4 @@
-import { TextField } from 'maha-admin'
+import { TextField } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

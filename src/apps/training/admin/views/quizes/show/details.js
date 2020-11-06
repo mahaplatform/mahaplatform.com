@@ -1,6 +1,6 @@
 import QuizKey from '../../../components/quizkey'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import React from 'react'
 
 const Details = ({ quiz }) => {

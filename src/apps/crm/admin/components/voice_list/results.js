@@ -1,5 +1,5 @@
 import ContactAvatar from '../../tokens/contact_avatar'
-import { Avatar, Logo } from 'maha-admin'
+import { Avatar, Logo } from '@admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Token } from 'maha-admin'
+import { Token } from '@admin'
 import PropTypes from 'prop-types'
 import Items from './items'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { Loader, ModalPanel } from 'maha-admin'
+import { Loader, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

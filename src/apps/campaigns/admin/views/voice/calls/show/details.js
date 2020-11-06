@@ -1,5 +1,5 @@
 import WorkflowActions from '@apps/automation/admin/components/workflow_actions'
-import { Button, Comments, List } from 'maha-admin'
+import { Button, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

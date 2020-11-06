@@ -1,4 +1,4 @@
-import { AddressField, DropDown, TextField } from 'maha-client'
+import { AddressField, DropDown, TextField } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

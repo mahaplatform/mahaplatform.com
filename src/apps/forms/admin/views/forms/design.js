@@ -1,6 +1,6 @@
 import FormDesigner from '../../components/form_designer/wrapper'
 import PropTypes from 'prop-types'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 class Form extends React.Component {

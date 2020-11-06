@@ -8,7 +8,7 @@ import ProjectToken from '../../tokens/project'
 import StatusToken from '../../tokens/status_token'
 import VendorToken from '../../tokens/vendor'
 import BatchToken from '../../tokens/batch'
-import { Page, UserToken } from 'maha-admin'
+import { Page, UserToken } from '@admin'
 import TypeToken from '../../tokens/type'
 import Status from '../../tokens/status'
 

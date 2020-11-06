@@ -1,4 +1,4 @@
-import { Attachments, Avatar, Camera, ComposerEditor, Logo, ModalPanel } from 'maha-admin'
+import { Attachments, Avatar, Camera, ComposerEditor, Logo, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Scope from './scope'
 import React from 'react'

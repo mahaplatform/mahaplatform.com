@@ -1,7 +1,7 @@
 import ContactConfig from './contact_config'
 import TicketConfig from './ticket_config'
 import Confirmation from './confirmation'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Sessions from './sessions'
 import Programs from './programs'

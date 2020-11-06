@@ -1,5 +1,5 @@
 import React from 'react'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Edit from './edit'
 import Reject from './reject'
 import Details from './details'

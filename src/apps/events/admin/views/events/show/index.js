@@ -1,4 +1,4 @@
-import { Embed, Page } from 'maha-admin'
+import { Embed, Page } from '@admin'
 import Performance from './performance'
 import Sessions from './sessions'
 import Details from './details'

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import pluralize from 'pluralize'
 import React from 'react'
 import New from './new'

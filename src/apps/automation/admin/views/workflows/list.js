@@ -1,5 +1,5 @@
 import WorkflowToken from '../../tokens/workflow'
-import { Logo, Page } from 'maha-admin'
+import { Logo, Page } from '@admin'
 import NewWorkflow from './new'
 import React from 'react'
 

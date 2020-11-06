@@ -1,6 +1,6 @@
 import Attachment from './attachment'
 import Configure from '../configure'
-import { Stack } from 'maha-admin'
+import { Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Mappings from './mappings'
 import Preview from './preview'

@@ -1,6 +1,6 @@
 import MembershipToken from '../../tokens/membership'
 import Memberships from '../memberships/users'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

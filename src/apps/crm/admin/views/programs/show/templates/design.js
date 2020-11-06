@@ -1,6 +1,6 @@
 import EmailDesigner from '@apps/automation/admin/components/email_designer/wrapper'
 import PropTypes from 'prop-types'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 class Designer extends React.Component {

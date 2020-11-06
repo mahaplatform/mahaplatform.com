@@ -1,5 +1,5 @@
 import Preferences from './components/preferences'
-import { Error, Logger } from 'maha-client'
+import { Error, Logger } from '@client'
 import { hot } from 'react-hot-loader'
 import Root from './components/root'
 import PropTypes from 'prop-types'

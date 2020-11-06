@@ -1,7 +1,7 @@
 import { devices, desktops, mobiles } from '../selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import Desktop from './desktop'
 import Sounds from './sounds'
 import Email from './email'

@@ -1,4 +1,4 @@
-import { Logo, Page } from 'maha-admin'
+import { Logo, Page } from '@admin'
 import Details from './details'
 import Delete from '../delete'
 import User from '../user'

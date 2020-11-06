@@ -1,4 +1,4 @@
-import { ModalPanel, RadioGroup } from 'maha-admin'
+import { ModalPanel, RadioGroup } from '@admin'
 import PropTypes from 'prop-types'
 import Distance from './distance'
 import React from 'react'

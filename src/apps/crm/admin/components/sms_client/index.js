@@ -1,4 +1,4 @@
-import { Avatar, Container, Image, Logo, Message } from 'maha-admin'
+import { Avatar, Container, Image, Logo, Message } from '@admin'
 import ContactAvatar from '../../tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import Composer from './composer'

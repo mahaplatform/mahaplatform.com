@@ -1,6 +1,6 @@
 import TemplateField from '../../components/templatefield'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class New extends React.Component {

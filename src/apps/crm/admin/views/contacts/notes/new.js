@@ -1,6 +1,6 @@
 import ProgramToken from '../../../tokens/program'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 
 class Call extends React.Component {

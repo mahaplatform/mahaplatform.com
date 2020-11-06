@@ -1,5 +1,5 @@
 import FlowchartDesigner from '@apps/automation/admin/components/flowchart_designer'
-import { Container } from 'maha-admin'
+import { Container } from '@admin'
 import voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import question from './question'

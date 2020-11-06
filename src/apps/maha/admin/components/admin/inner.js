@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Loader } from 'maha-admin'
+import { Loader } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

@@ -1,4 +1,4 @@
-import { Attachments } from 'maha-admin'
+import { Attachments } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

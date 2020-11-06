@@ -1,5 +1,5 @@
 import ProjectToken from '../../tokens/project'
-import { Page, UserToken } from 'maha-admin'
+import { Page, UserToken } from '@admin'
 import Merge from './merge'
 import Edit from './edit'
 import React from 'react'

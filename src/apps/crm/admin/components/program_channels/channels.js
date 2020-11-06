@@ -1,4 +1,4 @@
-import { Infinite, Searchbox } from 'maha-admin'
+import { Infinite, Searchbox } from '@admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'

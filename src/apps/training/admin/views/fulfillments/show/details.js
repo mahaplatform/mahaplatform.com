@@ -1,4 +1,4 @@
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import Registration from '../registration'
 import PropTypes from 'prop-types'
 import moment from 'moment'

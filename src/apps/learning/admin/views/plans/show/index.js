@@ -1,7 +1,7 @@
 import SetCommitments from '../../../components/commitments'
 import SetGoals from '../../../components/goals'
 import Commitments from './commitments'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Goals from './goals'
 import Edit from '../edit'

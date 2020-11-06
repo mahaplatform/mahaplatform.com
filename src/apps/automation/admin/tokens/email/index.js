@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
+import { Logo } from '@admin'
 import React from 'react'
 
 const EmailToken = ({ display_name, program, type }) => (

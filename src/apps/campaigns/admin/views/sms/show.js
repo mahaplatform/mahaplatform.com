@@ -1,5 +1,5 @@
 import Performance from './performance'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Emails from './emails'
 import Resend from './resend'

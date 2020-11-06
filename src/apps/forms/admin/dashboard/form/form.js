@@ -1,4 +1,4 @@
-import { Button, Container, Chart } from 'maha-admin'
+import { Button, Container, Chart } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'

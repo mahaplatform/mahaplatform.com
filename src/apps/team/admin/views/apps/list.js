@@ -1,4 +1,4 @@
-import { AppToken, Page } from 'maha-admin'
+import { AppToken, Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Apps',

@@ -1,6 +1,6 @@
 import ContactAvatar from '../../../tokens/contact_avatar'
 import SMSClient from '../../sms_client'
-import { Container, ModalPanel } from 'maha-admin'
+import { Container, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

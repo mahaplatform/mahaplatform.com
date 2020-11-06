@@ -1,5 +1,5 @@
 import Confirmation from './confirmation'
-import { Payment } from 'maha-client'
+import { Payment } from '@client'
 import PropTypes from 'prop-types'
 import Resizer from './resizer'
 import Summary from './summary'

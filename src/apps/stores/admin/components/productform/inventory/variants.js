@@ -1,5 +1,5 @@
 import VariantToken from '../../../tokens/variant'
-import { NumberField } from 'maha-admin'
+import { NumberField } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

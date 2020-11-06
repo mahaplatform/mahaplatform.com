@@ -1,4 +1,4 @@
-import { Button, Container } from 'maha-admin'
+import { Button, Container } from '@admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import numeral from 'numeral'

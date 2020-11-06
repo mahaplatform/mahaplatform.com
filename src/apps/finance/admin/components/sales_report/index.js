@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { Button } from 'maha-admin'
+import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import Chart from 'chart.js'

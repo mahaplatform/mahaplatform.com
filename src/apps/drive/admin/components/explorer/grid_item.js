@@ -1,4 +1,4 @@
-import { Star, AssetThumbnail } from 'maha-admin'
+import { Star, AssetThumbnail } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import bytes from 'bytes'

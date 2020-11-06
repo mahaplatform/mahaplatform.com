@@ -1,4 +1,4 @@
-import { MoneyField } from 'maha-client'
+import { MoneyField } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

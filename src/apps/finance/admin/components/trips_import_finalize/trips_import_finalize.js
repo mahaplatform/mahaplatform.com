@@ -1,4 +1,4 @@
-import { ModalPanel, ProgressPie } from 'maha-admin'
+import { ModalPanel, ProgressPie } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

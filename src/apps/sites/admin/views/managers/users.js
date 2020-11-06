@@ -1,4 +1,4 @@
-import { Assignment, UserToken } from 'maha-admin'
+import { Assignment, UserToken } from '@admin'
 import RoleToken from '../../tokens/role'
 import PropTypes from 'prop-types'
 import React from 'react'

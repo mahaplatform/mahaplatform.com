@@ -1,4 +1,4 @@
-import { Container, Loader } from 'maha-client'
+import { Container, Loader } from '@client'
 import PropTypes from 'prop-types'
 import Cart from '../cart'
 import React from 'react'

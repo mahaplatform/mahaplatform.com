@@ -19,10 +19,10 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/core/${pattern}`),
-  ...glob.sync(`src/core/${pattern}/index.js`),
-  ...glob.sync(`src/apps/*/${pattern}`),
-  ...glob.sync(`src/apps/*/${pattern}/index.js`)
+  ...glob.sync(`src/admin/${pattern}`),
+  ...glob.sync(`src/admin/${pattern}/index.js`),
+  ...glob.sync(`src/apps/*/admin/${pattern}`),
+  ...glob.sync(`src/apps/*/admin/${pattern}/index.js`)
 ]
 
 const extract = (pattern) => collectObjects(pattern).map(file => {
@@ -32,26 +32,26 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
     name: _.camelCase(appMatches[1].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/core\/admin\/(([^/]*).*)/)
+  const matches = file.match(/src\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
-    filepath: `./${matches[1]}`
+    filepath: `../../admin/${matches[1]}`
   }
 })
 
-const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => {
+const reducers = (pattern) => collectObjects(pattern).map(file => {
   const appMatches = file.match(/src\/apps\/(([^/]*)\/admin\/(.*)\/(.*))\/reducer.js/)
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[4].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/core\/admin\/(([^/]*)\/(.*))\/reducer.js/)
+  const matches = file.match(/src\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),
-    filepath: `./${matches[1]}`
+    filepath: `../../admin/${matches[1]}`
   }
 })
 
@@ -77,18 +77,18 @@ class MahaWebpackPlugin {
       if(!file) log('info', 'dev', 'Compiling client')
 
       const variables = {
-        activities: extract('admin/activities/index.js'),
-        badges: extract('admin/badges/index.js'),
-        dashboard: extract('admin/dashboard/*/index.js'),
-        roots: extract('admin/roots/index.js'),
-        routes: extract('admin/views/index.js'),
-        reducers: reducers('admin/**/reducer.js'),
-        styles: extract('admin/**/style.less'),
-        settings: extract('admin/settings.js'),
-        userTasks: extract('admin/user_tasks.js'),
-        userFields: extract('admin/user_fields.js'),
-        userValues: extract('admin/user_values.js'),
-        usage: extract('admin/usage.js')
+        activities: extract('activities/index.js'),
+        badges: extract('badges/index.js'),
+        dashboard: extract('dashboard/*/index.js'),
+        roots: extract('roots/index.js'),
+        routes: extract('views/index.js'),
+        reducers: reducers('**/reducer.js'),
+        styles: extract('**/style.less'),
+        settings: extract('settings.js'),
+        userTasks: extract('user_tasks.js'),
+        userFields: extract('user_fields.js'),
+        userValues: extract('user_values.js'),
+        usage: extract('usage.js')
       }
 
       renderTemplate('app.js', variables)

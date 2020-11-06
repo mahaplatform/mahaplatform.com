@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
+import { Logo } from '@admin'
 import React from 'react'
 
 const CompactCampaignToken = ({ phone_number, program , term, title, type }) => (

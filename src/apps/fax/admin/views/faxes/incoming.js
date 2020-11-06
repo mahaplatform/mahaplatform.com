@@ -1,4 +1,4 @@
-import { Page, TwilioStatusToken } from 'maha-admin'
+import { Page, TwilioStatusToken } from '@admin'
 import React from 'react'
 
 const mapResourcesToPage = (props, context) => ({

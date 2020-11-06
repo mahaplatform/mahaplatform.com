@@ -1,4 +1,4 @@
-import { Button, Container, Loader, ModalPanel } from 'maha-admin'
+import { Button, Container, Loader, ModalPanel } from '@admin'
 import Organize from '../organize'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'

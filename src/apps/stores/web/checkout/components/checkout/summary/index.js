@@ -1,4 +1,4 @@
-import { Image } from 'maha-client'
+import { Image } from '@client'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'

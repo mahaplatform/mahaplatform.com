@@ -1,7 +1,7 @@
 import ImageField from '@apps/automation/admin/components/imagefield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 

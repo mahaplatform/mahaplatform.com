@@ -1,4 +1,4 @@
-import { Error, Logger, Network, Router } from 'maha-client'
+import { Error, Logger, Network, Router } from '@client'
 import { hot } from 'react-hot-loader'
 import Store from './components/store'
 import Root from './components/root'

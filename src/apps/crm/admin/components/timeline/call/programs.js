@@ -1,5 +1,5 @@
 import ProgramToken from '../../../tokens/program'
-import { Container, ModalPanel } from 'maha-admin'
+import { Container, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import List from '../../list'
 import React from 'react'

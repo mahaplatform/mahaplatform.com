@@ -1,4 +1,4 @@
-import { Container, Form } from 'maha-admin'
+import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

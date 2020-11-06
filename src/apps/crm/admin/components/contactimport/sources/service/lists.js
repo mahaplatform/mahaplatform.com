@@ -1,4 +1,4 @@
-import { Infinite, Message, ModalPanel } from 'maha-admin'
+import { Infinite, Message, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Members from './members'
 import React from 'react'

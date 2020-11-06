@@ -1,4 +1,4 @@
-import { Avatar, List, Page, UserToken } from 'maha-admin'
+import { Avatar, List, Page, UserToken } from '@admin'
 import AssignEmployees from './employees'
 import PropTypes from 'prop-types'
 import React from 'react'

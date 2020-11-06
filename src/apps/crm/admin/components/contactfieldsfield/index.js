@@ -1,4 +1,4 @@
-import { Container, Button } from 'maha-admin'
+import { Container, Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'

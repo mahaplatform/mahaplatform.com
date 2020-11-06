@@ -1,6 +1,6 @@
 import CompetencyToken from '../../../tokens/competency'
 import AssignCompetencies from '../competencies'
-import { List } from 'maha-admin'
+import { List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

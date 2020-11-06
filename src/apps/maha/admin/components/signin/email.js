@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Image } from 'maha-admin'
+import { Image } from '@admin'
 import moment from 'moment'
 import React from 'react'
 

@@ -1,4 +1,4 @@
-import { Searchbox, Infinite, Message, Stack } from 'maha-admin'
+import { Searchbox, Infinite, Message, Stack } from '@admin'
 import PropTypes from 'prop-types'
 import specials from '../specials'
 import Uploader from '../uploader'

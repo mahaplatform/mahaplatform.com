@@ -1,5 +1,5 @@
 import RevenueTypeToken from '../../tokens/revenue_type'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 import Edit from './edit'
 import New from './new'

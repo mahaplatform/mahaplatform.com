@@ -1,6 +1,6 @@
 import Timeline from '../../../components/timeline'
 import Properties from './properties'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Channels from './channels'
 import Consent from './consent'
 import Details from './details'

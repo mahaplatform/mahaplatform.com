@@ -1,4 +1,4 @@
-import { AssetViewer, AssetToken, Attachment, Gallery } from 'maha-admin'
+import { AssetViewer, AssetToken, Attachment, Gallery } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

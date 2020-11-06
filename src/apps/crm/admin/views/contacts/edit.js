@@ -2,7 +2,7 @@ import AddressesField from '../../components/channelfield/address'
 import CheckboxesField from '../../components/checkboxesfield'
 import PhonesField from '../../components/channelfield/phone'
 import EmailsField from '../../components/channelfield/email'
-import { Form } from 'maha-admin'
+import { Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

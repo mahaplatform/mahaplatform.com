@@ -1,5 +1,5 @@
-import * as components from 'maha-public'
-import { Modal, Network, Tasks } from 'maha-public'
+import * as components from '@public'
+import { Modal, Network, Tasks } from '@public'
 import Invoice from './components/invoice'
 import { hot } from 'react-hot-loader'
 import Root from './components/root'

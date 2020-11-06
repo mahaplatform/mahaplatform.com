@@ -1,5 +1,5 @@
 import Performance from './performance'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import Details from './details'
 import Enroll from './enroll'
 import Emails from './emails'

@@ -1,4 +1,4 @@
-import { Form, Message } from 'maha-admin'
+import { Form, Message } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

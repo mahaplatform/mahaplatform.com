@@ -1,6 +1,6 @@
 import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
-import { Audit, Comments, List } from 'maha-admin'
+import { Audit, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

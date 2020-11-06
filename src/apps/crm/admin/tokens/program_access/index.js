@@ -1,5 +1,5 @@
 import AccessTypeToken from '../access_type'
-import { AssigneeToken } from 'maha-admin'
+import { AssigneeToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

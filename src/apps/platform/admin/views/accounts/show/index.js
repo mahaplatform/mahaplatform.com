@@ -1,4 +1,4 @@
-import { Avatar, Page } from 'maha-admin'
+import { Avatar, Page } from '@admin'
 import Details from './details'
 import Teams from './teams'
 import Team from './team'

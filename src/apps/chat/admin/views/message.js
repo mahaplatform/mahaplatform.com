@@ -1,6 +1,6 @@
 import Details from '../components/details'
 import PropTypes from 'prop-types'
-import { Page } from 'maha-admin'
+import { Page } from '@admin'
 import React from 'react'
 
 class Component extends React.Component {

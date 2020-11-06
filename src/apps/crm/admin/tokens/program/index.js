@@ -1,4 +1,4 @@
-import { Logo } from 'maha-admin'
+import { Logo } from '@admin'
 import React from 'react'
 
 const ProgramToken = (program) => (
