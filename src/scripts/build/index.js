@@ -31,21 +31,22 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   ]
 }, [])
 
-const dist = path.resolve('dist')
-
-const babelrc = {
-  presets: ['es2015','react','stage-0'],
-  plugins: [
-    'transform-promise-to-bluebird',
-    ['transform-runtime', { 'polyfill': false }],
-    ['module-resolver', {
-      alias: {
-        '@core': path.join(dist, 'core'),
-        '@apps': path.join(dist, 'apps')
-      }
-    }]
-  ]
+const getBabelRc = (root) => {
+  const file = path.join('.babelrc')
+  const config = fs.readFileSync(file, 'utf8')
+  const babelrc = JSON.parse(config)
+  const alias = babelrc.plugins[2][1].alias
+  babelrc.plugins[2][1].alias = Object.keys(alias).reduce((aliases, key) => ({
+    ...aliases,
+    [key]: alias[key].replace('./src', root)
+  }), {})
+  return {
+    ...babelrc,
+    sourceMaps: 'inline'
+  }
 }
+
+const dist = path.resolve('dist')
 
 const staged = `${dist}.staged`
 
@@ -81,31 +82,31 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   return true
 })
 
-const transpileFile = (src, dest) => {
+const transpileFile = (babelrc, src, dest) => {
   const source = fs.readFileSync(src, 'utf8')
   const transpiled = transform(source, babelrc)
   fs.writeFileSync(dest, transpiled.code)
 }
 
-const buildItem = async (item, srcPath, destPath) => {
+const buildItem = async (babelrc, item, srcPath, destPath) => {
   const dest = item.src.replace(srcPath, destPath)
-  if(item.type === 'js') return transpileFile(item.src, dest)
+  if(item.type === 'js') return transpileFile(babelrc, item.src, dest)
   if(item.type === 'dir') return mkdirp.sync(dest)
   return await copy(item.src, dest)
 }
 
-const buildEntry = async (entry) => {
+const buildEntry = (babelrc) => async (entry) => {
   const srcPath = path.resolve('src',entry)
   const destPath = path.join(staged,entry)
-  await transpileFile(srcPath, destPath)
+  await transpileFile(babelrc, srcPath, destPath)
 }
 
-const buildDir = async (dir) => {
+const buildDir = (babelrc) => async (dir) => {
   const srcPath = path.resolve('src',dir)
   const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
-  await Promise.mapSeries(items, item => buildItem(item, srcPath, destPath))
+  await Promise.mapSeries(items, item => buildItem(babelrc, item, srcPath, destPath))
 }
 
 const compile = async (module, config) => {
@@ -135,12 +136,12 @@ const buildSdk = async () => {
   await compile('sdk', sdkConfig)
 }
 
-const buildServer = async (environment) => {
+const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
   const coreDirs = ['lib','objects','scripts','services','utils'].map(dir => `core/${dir}`)
-  await Promise.map([...appDirs, ...coreDirs], buildDir)
-  await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
+  await Promise.map([...appDirs, ...coreDirs], buildDir(babelrc))
+  await Promise.map(['cron.js','server.js','worker.js'], buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })
   fs.writeFileSync(path.join(staged,'ecosystem.config.js'), data, 'utf8')
@@ -165,11 +166,13 @@ const getDuration = (start) => {
 const build = async () => {
   const args = process.argv.slice(2)
   const environment = args[0] || 'production'
+  const root = args[1] || dist
+  const babelrc = getBabelRc(root)
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
   await Promise.all([
-    buildServer(environment),
+    buildServer(environment, babelrc),
     buildSdk(),
     buildEnv(environment),
     buildAdmin(environment)

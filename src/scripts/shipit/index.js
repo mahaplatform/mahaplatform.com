@@ -159,7 +159,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=production npm run build ${environment}`)
+    await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
   })
 
   utils.registerTask(shipit, 'deploy:setup', async () => {
