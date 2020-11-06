@@ -161,10 +161,10 @@ class FollowsField extends React.PureComponent {
     this.props.onRemove(index)
   }
 
-  _handleUpdate(network, index, text) {
+  _handleUpdate(network, index, url) {
     this.props.onUpdate(index, {
       ...network,
-      text
+      url
     })
   }
 
