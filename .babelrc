@@ -9,8 +9,8 @@
     ["transform-runtime", { "polyfill": false }],
     ["module-resolver", {
       "alias": {
-        "@core": ["./src/core"],
-        "@apps": ["./src/apps"]
+        "@core": "./src/core",
+        "@apps": "./src/apps"
       }
     }]
   ]

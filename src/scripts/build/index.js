@@ -31,18 +31,21 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   ]
 }, [])
 
-const getBabelRc = () => {
-  const babelrc = path.join('.babelrc')
-  const config = fs.readFileSync(babelrc, 'utf8')
-  return {
-    ...JSON.parse(config),
-    sourceMaps: 'inline'
-  }
-}
-
-const babelrc = getBabelRc()
-
 const dist = path.resolve('dist')
+
+const babelrc = {
+  presets: ['es2015','react','stage-0'],
+  plugins: [
+    'transform-promise-to-bluebird',
+    ['transform-runtime', { 'polyfill': false }],
+    ['module-resolver', {
+      alias: {
+        '@core': path.join(dist, 'core'),
+        '@apps': path.join(dist, 'apps')
+      }
+    }]
+  ]
+}
 
 const staged = `${dist}.staged`
 

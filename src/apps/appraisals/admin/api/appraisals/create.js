@@ -1,9 +1,9 @@
-import { activity } from '@core/services/routes/activities'
 import AppraisalSerializer from '@apps/appraisals/serializers/appraisal_serializer'
+import { activity } from '@core/services/routes/activities'
+import Appraisal from '@apps/appraisals/models/appraisal'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Appraisal from '@apps/appraisals/models/appraisal'
 
 const createRoute = async (req, res) => {
 
