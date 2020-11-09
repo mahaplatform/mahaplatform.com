@@ -1,0 +1,7 @@
+- name: install git
+  yum:
+    name: git
+
+- name: install gatsby
+  shell:
+    cmd: 'npm install -g gatsby'

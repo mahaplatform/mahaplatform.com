@@ -15,6 +15,10 @@
 
 - hosts: workers
   become: true
+  vars:
+    node_major: 8
+    node_minor: 14
+    node_patch: 0
   roles:
   - base
   - ntpd

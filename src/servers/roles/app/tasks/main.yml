@@ -1,6 +1,23 @@
-- name: install git
+- name: install packages
   yum:
-    name: git
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - bzip
+    - git
+    - cairo
+    - cairo-devel
+    - libjpeg-devel
+    - libXScrnSaver
+    - GConf2
+    - gtk3
+    - ipa-gothic-fonts
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-utils
+    - xorg-x11-fonts-cyrillic
+    - xorg-x11-fonts-misc
+    - libSM
 
 - name: copy deploy
   copy:
