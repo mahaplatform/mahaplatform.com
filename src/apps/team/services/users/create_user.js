@@ -6,10 +6,14 @@ import DashboardCard from '@apps/maha/models/dashboard_card'
 import Account from '@apps/maha/models/account'
 import User from '@apps/maha/models/user'
 
-const getAccount = async (req, { first_name, last_name, email }) => {
+const getAccount = async (req, { account_id, first_name, last_name, email }) => {
 
   const account = await Account.query(qb => {
-    qb.where('email', email)
+    if(account_id) {
+      qb.where('id', account_id)
+    } else {
+      qb.where('email', email)
+    }
   }).fetch({
     transacting: req.trx
   })
@@ -30,6 +34,7 @@ const getAccount = async (req, { first_name, last_name, email }) => {
 const createUser = async(req, params) => {
 
   const account = await getAccount(req, {
+    account_id: params.account_id,
     first_name: params.first_name,
     last_name: params.last_name,
     email: params.email

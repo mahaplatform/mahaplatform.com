@@ -9,6 +9,8 @@ import moment from 'moment'
 
 const createRoute = async (req, res) => {
 
+  const { account_id, first_name, last_name, email, strategy } = req.body
+
   const team = await Team.forge({
     is_active: true,
     ...whitelist(req.body, ['title','subdomain','logo_id'])
@@ -48,9 +50,9 @@ const createRoute = async (req, res) => {
 
   const user = await createUser(req, {
     team_id: team.get('id'),
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
+    ...strategy === 'self' ? { account_id: req.account.get('id') } : {},
+    ...strategy === 'account' ? { account_id } : {},
+    ...strategy === 'new' ? { first_name, last_name, email } : {},
     role_ids: [role.get('id')]
   })
 
