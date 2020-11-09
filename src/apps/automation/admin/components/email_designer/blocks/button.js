@@ -169,7 +169,7 @@ class Button extends React.Component {
     const { config } = this.state
     if(config.link_strategy === 'web') {
       return [
-        { label: 'Web Address', name: 'url', type: 'textfield' }
+        { label: 'Web Address', name: 'url', type: 'textfield', defaultValue: config.url  }
       ]
     } else if(config.link_strategy === 'email') {
       return [
