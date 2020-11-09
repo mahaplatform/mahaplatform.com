@@ -56,12 +56,12 @@ class Network extends React.Component {
   render() {
     const { text } = this.props
     return (
-      <div className={ this._getClass() }>
+      <div className="maha-network">
         <div className="maha-network-body">
           { this.props.children }
         </div>
         <CSSTransition in={ text !== null } timeout={ 500 } classNames="drop" mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-network-status">
+          <div className={ this._getClass() }>
             { text }
           </div>
         </CSSTransition>
@@ -114,8 +114,8 @@ class Network extends React.Component {
 
   _getClass() {
     const { status } = this.props
-    const classes = ['maha-network']
-    if(status) classes.push(status)
+    const classes = ['maha-network-status']
+    if(status) classes.push(`maha-network-${status}`)
     return classes.join(' ')
   }
 

@@ -3,12 +3,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  &.error .maha-network-status {
-    background-color: @yellow;
-  }
-  &.success .maha-network-status {
-    background-color: @green;
-  }
 }
 .maha-network-body {
   display: flex;
@@ -31,4 +25,10 @@
   right: 0;
   color: @white;
   text-align: center;
+}
+.maha-network-error {
+  background-color: @yellow;
+}
+.maha-network-success {
+  background-color: @green;
 }
