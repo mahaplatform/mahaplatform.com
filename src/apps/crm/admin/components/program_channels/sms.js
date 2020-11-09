@@ -1,4 +1,4 @@
-import SMSClient from '../sms_client'
+import SMSClient from '@apps/phone/admin/components/sms_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

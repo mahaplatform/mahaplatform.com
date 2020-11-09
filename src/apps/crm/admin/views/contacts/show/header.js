@@ -1,4 +1,4 @@
-import ContactAvatarToken from '../../../tokens/contact_avatar'
+import ContactAvatarToken from '@apps/crm/admin/tokens/contact_avatar'
 import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'

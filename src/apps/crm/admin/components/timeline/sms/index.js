@@ -1,7 +1,7 @@
 import PhoneNumbers from './phone_numbers'
-import { Stack } from '@admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
+import { Stack } from '@admin'
 import React from 'react'
 import SMS from './sms'
 

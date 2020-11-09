@@ -1,4 +1,4 @@
-import ProgramToken from '../../../tokens/program'
+import ProgramToken from '@apps/crm/admin/tokens/program'
 import { Container, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import List from '../../list'

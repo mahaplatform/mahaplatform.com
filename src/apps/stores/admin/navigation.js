@@ -1,3 +1,5 @@
-const navigation = (req, trx) => ({})
+const navigation = (req, trx) => ({
+  route: '/'
+})
 
 export default navigation

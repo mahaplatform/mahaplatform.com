@@ -1,4 +1,4 @@
-import VoiceClient from '../../voice_client'
+import VoiceClient from '@apps/phone/admin/components/voice_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

@@ -32,6 +32,7 @@ const app = async (args) => {
   const [ appName ] = args
   const root = path.join('src','apps',appName)
   const data = { appName }
+  createFile(`${root}/admin/activities/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/admin/api/index.js`, 'app/api.js', data)
   createFile(`${root}/admin/badges/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/admin/components/.gitkeep`, 'app/gitkeep', data)
@@ -46,6 +47,7 @@ const app = async (args) => {
   createFile(`${root}/db/fixtures/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/db/migrations/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/emails/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/hooks/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/models/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/public/.gitkeep`, 'app/gitkeep', data)
   createFile(`${root}/queues/.gitkeep`, 'app/gitkeep', data)

@@ -2,7 +2,6 @@ import ContactsChannelsShow from './contacts/channels'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import ContactsCallsShow from './contacts/calls/show'
-import PhoneShow from './phone'
 import ProgramsChannels from './programs/channels'
 import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
@@ -17,7 +16,6 @@ const routes = [
   { path: '/contacts/:contact_id/calls/:id', component: ContactsCallsShow },
   { path: '/contacts/:contact_id/channels/programs/:program_id', component: ContactsChannelsShow },
   { path: '/contacts/:contact_id/channels/programs/:program_id/:type/:channel_id', component: ContactsChannelsShow },
-  { path: '/phone', component: PhoneShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
   { path: '/programs/:program_id/lists/:id', component: ProgramsListsShow },

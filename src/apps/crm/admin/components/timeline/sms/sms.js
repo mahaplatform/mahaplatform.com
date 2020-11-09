@@ -1,5 +1,5 @@
+import SMSClient from '@apps/phone/admin/components/sms_client'
 import { ModalPanel } from '@admin'
-import SMSClient from '../../sms_client'
 import PropTypes from 'prop-types'
 import React from 'react'
 

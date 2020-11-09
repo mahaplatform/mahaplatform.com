@@ -99,19 +99,15 @@ const showRoute = async (req, res) => {
 
   session.apps = await Promise.reduce(Object.keys(session.access.apps), async (apps, key) => {
     const app = session.access.apps[key]
-    if(!navigation[app.code]) return apps
-    if(!navigation[app.code].items || navigation[app.code].items.length === 0) {
-      return [
-        ...apps,
-        app
-      ]
-    }
-    const items = await _expandNavigation(req, app.path, navigation[app.code].items)
+    const { code, path } = app
+    if(!navigation[code]) return apps
+    const {items, route } = navigation[code]
     return [
       ...apps,
       {
         ...app,
-        items
+        ...route ? { route: `${path}${route}` } : {},
+        ...items ? { items: await _expandNavigation(req, path, items) } : {}
       }
     ]
   }, []).then(apps => apps.sort((a, b) => {

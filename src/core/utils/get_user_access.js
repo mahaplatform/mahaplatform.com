@@ -45,8 +45,6 @@ export default async (req, user) => {
         code: config.code,
         label: config.title,
         icon: config.icon,
-        color: config.color,
-        route: config.path,
         path: config.path,
         settings: installation.get('settings')
       }

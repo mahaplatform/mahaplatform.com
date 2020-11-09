@@ -145,6 +145,7 @@ import formsRoutes from '../../apps/forms/admin/views/index.js'
 import competenciesRoutes from '../../apps/learning/admin/views/index.js'
 import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import newsRoutes from '../../apps/news/admin/views/index.js'
+import phoneRoutes from '../../apps/phone/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import storesRoutes from '../../apps/stores/admin/views/index.js'
@@ -152,12 +153,12 @@ import surveysRoutes from '../../apps/surveys/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import trainingRoutes from '../../apps/training/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
-import crmBadges from '../../apps/crm/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
+import phoneBadges from '../../apps/phone/admin/badges/index.js'
 import chatRoots from '../../apps/chat/admin/roots/index.js'
-import crmRoots from '../../apps/crm/admin/roots/index.js'
 import mahaRoots from '../../apps/maha/admin/roots/index.js'
 import newsRoots from '../../apps/news/admin/roots/index.js'
+import phoneRoots from '../../apps/phone/admin/roots/index.js'
 import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
 import financeUserFields from '../../apps/finance/admin/user_fields.js'
 import financeUserValues from '../../apps/finance/admin/user_values.js'
@@ -246,12 +247,12 @@ class App extends React.Component {
         app: 'chat',
         ...badge
       })),
-      ...crmBadges.map(badge => ({
-        app: 'crm',
-        ...badge
-      })),
       ...mahaBadges.map(badge => ({
         app: 'maha',
+        ...badge
+      })),
+      ...phoneBadges.map(badge => ({
+        app: 'phone',
         ...badge
       })),
     ]
@@ -456,16 +457,16 @@ class App extends React.Component {
         app: 'chat',
         component: root
       })),
-      ...crmRoots.map(root => ({
-        app: 'crm',
-        component: root
-      })),
       ...mahaRoots.map(root => ({
         app: 'maha',
         component: root
       })),
       ...newsRoots.map(root => ({
         app: 'news',
+        component: root
+      })),
+      ...phoneRoots.map(root => ({
+        app: 'phone',
         component: root
       })),
     ]
@@ -488,6 +489,7 @@ class App extends React.Component {
       { path: '/:team/learning', children: competenciesRoutes },
       { path: '/:team', children: mahaRoutes },
       { path: '/:team/news', children: newsRoutes },
+      { path: '/:team/phone', children: phoneRoutes },
       { path: '/:team/platform', children: platformRoutes },
       { path: '/:team/sites', children: sitesRoutes },
       { path: '/:team/stores', children: storesRoutes },
