@@ -125,7 +125,7 @@ const buildAdmin = async (environment) => {
 }
 
 const buildApps = async (environment) => {
-  await Promise.map(subapps, async (item) => {
+  await Promise.mapSeries(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
