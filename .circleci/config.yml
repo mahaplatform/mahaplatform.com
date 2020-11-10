@@ -10,11 +10,11 @@ executors:
             POSTGRES_USER: root
             POSTGRES_DB: circle_test
             POSTGRES_PASSWORD: ""
-    resource_class: medium+
     working_directory: ~/repo
 jobs:
   test:
     executor: node-postgres
+    resource_class: small
     steps:
       - checkout
       - restore_cache:
@@ -29,6 +29,7 @@ jobs:
       - run: npm test
   stage:
     executor: node-postgres
+    resource_class: medium+
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -49,6 +50,7 @@ jobs:
           key: staging
   deploy:
     executor: node-postgres
+    resource_class: medium+
     steps:
       - add_ssh_keys:
           fingerprints:
