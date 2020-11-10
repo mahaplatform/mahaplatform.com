@@ -125,7 +125,7 @@ const buildAdmin = async (environment) => {
 }
 
 const buildApps = async (environment) => {
-  await Promise.mapSeries(subapps, async (item) => {
+  await Promise.map(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
@@ -175,9 +175,9 @@ const build = async () => {
     buildServer(environment, babelrc),
     buildSdk(),
     buildEnv(environment),
-    buildAdmin(environment)
+    buildAdmin(environment),
+    buildApps(environment)
   ])
-  await buildApps(environment)
   rimraf.sync(dist)
   await move(staged, dist)
   log('info', 'build', `Finished in ${getDuration(start)}`)
