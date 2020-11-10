@@ -106,7 +106,7 @@ const buildDir = (babelrc) => async (dir) => {
   const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
-  await Promise.map(items, item => buildItem(babelrc, item, srcPath, destPath))
+  await Promise.mapSeries(items, item => buildItem(babelrc, item, srcPath, destPath))
 }
 
 const compile = async (module, config) => {
@@ -125,7 +125,7 @@ const buildAdmin = async (environment) => {
 }
 
 const buildApps = async (environment) => {
-  await Promise.map(subapps, async (item) => {
+  await Promise.mapSeries(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
@@ -175,9 +175,9 @@ const build = async () => {
     buildServer(environment, babelrc),
     buildSdk(),
     buildEnv(environment),
-    buildAdmin(environment),
-    buildApps(environment)
+    buildAdmin(environment)
   ])
+  await buildApps(environment)
   rimraf.sync(dist)
   await move(staged, dist)
   log('info', 'build', `Finished in ${getDuration(start)}`)
