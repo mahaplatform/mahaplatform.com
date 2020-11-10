@@ -13,15 +13,15 @@ const listRoute = async (req, res) => {
     parent_id: req.params.type_id
   }).fetchAll({
     transacting: req.trx
-  }).then(fields => fields.toArray().map(field => ({
-    name: field.get('name').token,
-    code: field.get('code')
-  })))
-
-  req.fields = [
+  }).then(fields => fields.toArray().reduce((fields, field) => [
     ...fields,
+    {
+      name: field.get('name').token,
+      code: field.get('code')
+    }
+  ], [
     { name: 'id', code: 'id' }
-  ]
+  ]))
 
   if(req.query.$filters) {
     req.addresses = await Promise.reduce(req.query.$filters.$and, async (addresses, filter) => {
@@ -47,7 +47,7 @@ const listRoute = async (req, res) => {
         req.query.$filters.$and.map(filter => {
           const name = Object.keys(filter)[0]
           if(!filter[name].$ds) return
-          const column = _.find(req.fields, { name }).code
+          const column = _.find(fields, { name }).code
           const lon1 = req.addresses[0].longitude
           const lat1 = req.addresses[0].latitude
           const lon2 = `cast(values->'${column}'->0->>'longitude' as float)`
@@ -56,7 +56,7 @@ const listRoute = async (req, res) => {
           qb.select(knex.raw(`sites_items.*,${distance} as distance`))
           qb.orderBy('distance','asc')
         })
-        applyFilters(qb, req.fields, req.query.$filters)
+        applyFilters(qb, fields, req.query.$filters)
       }
     },
     page: req.query.$page,
