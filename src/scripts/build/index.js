@@ -106,7 +106,7 @@ const buildDir = (babelrc) => async (dir) => {
   const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
-  await Promise.mapSeries(items, item => buildItem(babelrc, item, srcPath, destPath))
+  await Promise.map(items, item => buildItem(babelrc, item, srcPath, destPath))
 }
 
 const compile = async (module, config) => {
@@ -125,7 +125,7 @@ const buildAdmin = async (environment) => {
 }
 
 const buildApps = async (environment) => {
-  await Promise.mapSeries(subapps, async (item) => {
+  await Promise.map(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)

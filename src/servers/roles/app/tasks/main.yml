@@ -3,7 +3,7 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - bzip
+    - bzip2
     - git
     - cairo
     - cairo-devel
