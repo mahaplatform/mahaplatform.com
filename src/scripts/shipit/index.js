@@ -119,7 +119,7 @@ const processor = async () => {
   utils.registerTask(shipit, 'cleanup', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
-      roles: ['appserver','cron','worker']
+      roles: ['appserver','cron','worker','webserver']
     })
   })
 

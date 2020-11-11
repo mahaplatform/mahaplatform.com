@@ -27,30 +27,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
-  stage:
-    executor: node-postgres
-    resource_class: medium+
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 0d:79:bf:2b:27:c2:17:a2:ac:17:89:66:17:66:8a:50
-      - checkout
-      - restore_cache:
-          key: staging
-      - run: npm install
-      - run:
-          name: Install rsync
-          command: sudo apt-get install rsync
-      - run:
-          name: Deploy code
-          command: NODE_ENV=production npm run shipit staging deploy
-      - save_cache:
-          paths:
-            - node_modules
-          key: staging
   deploy:
     executor: node-postgres
-    resource_class: xlarge
+    resource_class: medium
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -77,12 +56,6 @@ workflows:
               only: master
             tags:
               only: /.*/
-      - stage:
-          filters:
-            branches:
-              only: staging
-            tags:
-              ignore: /.*/
       - deploy:
           requires:
             - test
