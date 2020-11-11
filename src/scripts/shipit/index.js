@@ -43,11 +43,15 @@ const processor = async () => {
       roles: (tags.Role || '').split(',')
     }
   }).filter(instance => {
-    return _.intersection(['appserver','worker','cron','dbserver'], instance.roles).length > 0
+    return _.intersection(['webserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
   })
 
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
   servers[controller].roles.push('controller')
+
+  servers.map(server => {
+    console.log(`${server.host} [${server.roles}]`)
+  })
 
   shipit.initConfig({
     default: {
@@ -56,7 +60,7 @@ const processor = async () => {
       strict: 'no'
     },
     production: {
-      deployTo: '/var/www/app',
+      deployTo: '/var/www/maha',
       servers
     }
   })
@@ -113,11 +117,6 @@ const processor = async () => {
     'sync:braintree'
   ])
 
-  utils.registerTask(shipit, 'servers:pm2:restart', [
-    'servers:pm2:restart_cron',
-    'servers:pm2:restart_worker'
-  ])
-
   utils.registerTask(shipit, 'cleanup', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
@@ -139,6 +138,11 @@ const processor = async () => {
       roles: ['cron','worker']
     })
   })
+
+  utils.registerTask(shipit, 'servers:pm2:restart', [
+    'servers:pm2:restart_cron',
+    'servers:pm2:restart_worker'
+  ])
 
   utils.registerTask(shipit, 'servers:pm2:restart_cron', async () => {
     return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only cron_production', {
@@ -162,20 +166,6 @@ const processor = async () => {
     await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
   })
 
-  utils.registerTask(shipit, 'deploy:setup', async () => {
-    const commands = [
-      `mkdir -p ${releasesDir}`,
-      `mkdir -m 0777 -p ${sharedDir}/imagecache`,
-      `mkdir -m 0777 -p ${sharedDir}/tmp`,
-      `mkdir -p ${sharedDir}/logs`,
-      `touch ${sharedDir}/logs/access.log`,
-      `touch ${sharedDir}/logs/error.log`,
-      `chown centos.centos -R ${sharedDir}/*`
-    ]
-    await shipit.remote(commands.join(' && '), {
-      roles: ['appserver','cron','worker']
-    })
-  })
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
     await shipit.local('cd ./dist && tar -czf ../dist.tgz .')
@@ -200,18 +190,30 @@ const processor = async () => {
     })
   })
 
-  utils.registerTask(shipit, 'deploy:install', async () => {
+  utils.registerTask(shipit, 'deploy:install', [
+    'deploy:install_platform',
+    'deploy:install_web'
+  ])
+
+  utils.registerTask(shipit, 'deploy:install_platform', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
       roles: ['appserver','cron','worker'],
-      cwd: releaseDir
+      cwd: path.join(releaseDir, 'platform')
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:install_web', async () => {
+    await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
+      roles: ['webserver'],
+      cwd: path.join(releaseDir, 'web')
     })
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
-      `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
+      `ln -s ${sharedDir}/logs ${releaseDir}/platform/logs`,
+      `ln -s ${sharedDir}/tmp ${releaseDir}/platform/tmp`,
+      `ln -s ${sharedDir}/imagecache ${releaseDir}/platform/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']
@@ -221,14 +223,14 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:bootstrap', async () => {
     await shipit.remote('NODE_ENV=production node ./core/scripts/bootstrap/index.js', {
       roles: ['controller'],
-      cwd: releaseDir
+      cwd: path.join(releaseDir, 'platform')
     })
   })
 
   utils.registerTask(shipit, 'deploy:migrate', async () => {
     await shipit.remote('NODE_ENV=production node ./core/scripts/db/index.js migrate:up', {
       roles: ['controller'],
-      cwd: releaseDir
+      cwd: path.join(releaseDir, 'platform')
     })
   })
 
@@ -239,13 +241,13 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:reload_passenger', () => {
-    return shipit.remote(`touch ${currentDir}/tmp/restart.txt`, {
-      roles: 'appserver'
+    return shipit.remote('service nginx reload', {
+      roles: ['appserver','webserver']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js', {
       cwd: deployDir,
       roles: ['cron','worker']
     })
@@ -269,7 +271,6 @@ const processor = async () => {
       roles: ['appserver','cron','worker']
     })
   })
-
 
   utils.registerTask(shipit, 'sync:stage', () => {
     const commands = 'pg_dump -h localhost -U maha maha | psql -U maha staging'

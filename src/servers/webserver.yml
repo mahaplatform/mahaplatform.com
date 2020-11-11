@@ -23,5 +23,6 @@
   - base
   - ntpd
   - nodejs
+  - app
   - nginx
-  - web
+  - gatsby

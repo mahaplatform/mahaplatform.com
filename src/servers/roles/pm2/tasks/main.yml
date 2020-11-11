@@ -6,4 +6,4 @@
   shell:
     cmd: 'bash -lc "NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js"'
   args:
-    chdir: /var/www/app
+    chdir: /var/www/maha

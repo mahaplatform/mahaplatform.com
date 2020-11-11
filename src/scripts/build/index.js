@@ -97,13 +97,13 @@ const buildItem = async (babelrc, item, srcPath, destPath) => {
 
 const buildEntry = (babelrc) => async (entry) => {
   const srcPath = path.resolve('src',entry)
-  const destPath = path.join(staged,entry)
+  const destPath = path.join(staged,'platform',entry)
   await transpileFile(babelrc, srcPath, destPath)
 }
 
 const buildDir = (babelrc) => async (dir) => {
   const srcPath = path.resolve('src',dir)
-  const destPath = path.join(staged,dir)
+  const destPath = path.join(staged,'platform',dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
   await Promise.mapSeries(items, item => buildItem(babelrc, item, srcPath, destPath))
@@ -144,15 +144,23 @@ const buildServer = async (environment, babelrc) => {
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })
-  fs.writeFileSync(path.join(staged,'ecosystem.config.js'), data, 'utf8')
-  await copy(path.join('package.json'), path.join(staged,'package.json'))
-  await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
+  fs.writeFileSync(path.join(staged,'platform','ecosystem.config.js'), data, 'utf8')
+  await copy(path.join('package.json'), path.join(staged,'platform','package.json'))
+  await copy(path.join('package-lock.json'), path.join(staged,'platform','package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
+}
+
+const buildWeb = async(environment) => {
+  log('info', 'web', 'Compiling...')
+  await copy(path.join('src','web'), path.join(staged,'web'), {
+    filter: (file) => file.search('node_modules') < 0
+  })
+  log('info', 'web', 'Compiled successfully.')
 }
 
 const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
-  await env(staged, environment)
+  await env(path.join(staged, 'platform'), environment)
   log('info', 'environment', 'Compiled successfully.')
 }
 
@@ -166,13 +174,14 @@ const getDuration = (start) => {
 const build = async () => {
   const args = process.argv.slice(2)
   const environment = args[0] || 'production'
-  const root = args[1] || dist
+  const root = args[1] || path.join(dist, 'platform')
   const babelrc = getBabelRc(root)
   const start = process.hrtime()
   rimraf.sync(staged)
-  mkdirp.sync(path.join(staged, 'public'))
+  mkdirp.sync(path.join(staged,'platform','public'))
   await Promise.all([
     buildServer(environment, babelrc),
+    buildWeb(),
     buildSdk(),
     buildEnv(environment),
     buildAdmin(environment)

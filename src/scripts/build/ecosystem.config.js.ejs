@@ -3,7 +3,7 @@ module.exports = {
     name: 'worker_<%= environment %>',
     script: './worker.js',
     instances: 4,
-    cwd: process.env.PWD+'/current',
+    cwd: process.env.PWD+'/current/platform',
     error_file: './logs/worker.err.log',
     out_file: './logs/worker.out.log',
     exec_mode: 'fork_mode'
@@ -11,7 +11,7 @@ module.exports = {
     name: 'cron_<%= environment %>',
     script: './cron.js',
     instances: 1,
-    cwd: process.env.PWD+'/current',
+    cwd: process.env.PWD+'/current/platform',
     error_file: './logs/cron.err.log',
     out_file: './logs/cron.out.log',
     exec_mode: 'fork_mode'

@@ -1,24 +1,3 @@
-- name: install packages
-  yum:
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - bzip2
-    - git
-    - cairo
-    - cairo-devel
-    - libjpeg-devel
-    - libXScrnSaver
-    - GConf2
-    - gtk3
-    - ipa-gothic-fonts
-    - xorg-x11-fonts-100dpi
-    - xorg-x11-fonts-75dpi
-    - xorg-x11-utils
-    - xorg-x11-fonts-cyrillic
-    - xorg-x11-fonts-misc
-    - libSM
-
 - name: copy deploy
   copy:
     src: ../files/deploy
@@ -37,7 +16,7 @@
 
 - name: create releases directory
   file:
-    path: /var/www/app/releases
+    path: /var/www/maha/releases
     state: directory
 
 - name: create shared directories
@@ -48,89 +27,22 @@
     group: root
     mode: 0777
   with_items:
-    - /var/www/app/shared/tmp
-    - /var/www/app/shared/imagecache
-    - /var/www/app/shared/logs
+    - /var/www/maha/shared/tmp
+    - /var/www/maha/shared/imagecache
+    - /var/www/maha/shared/logs
 
-- name: clone master
-  git:
-    repo: https://github.com/mahaplatform/mahaplatform.com.git
-    dest: /var/www/app/repo
-    update: yes
-    force: no
-
-- name: get new tags
-  shell:
-    cmd: 'git fetch --tags'
-  args:
-    chdir: /var/www/app/repo
-
-- name: get lastest tag
-  shell:
-    cmd: 'git describe --tags `git rev-list --tags --max-count=1`'
-  args:
-    chdir: /var/www/app/repo
-  register: latest_tag
-
-- name: clone lastest tag
-  git:
-    repo: https://github.com/mahaplatform/mahaplatform.com.git
-    dest: /var/www/app/repo
-    version: "{{ latest_tag.stdout }}"
-
-- name: write simple .env
-  template:
-    src: ../files/.env.j2
-    dest: /var/www/app/repo/.env
-
-- name: install node_modules
-  shell:
-    cmd: 'npm install'
-  args:
-    chdir: /var/www/app/repo
-
-- name: write full .env
-  shell:
-    cmd: 'NODE_ENV=production npm run env'
-  args:
-    chdir: /var/www/app/repo
-
-- name: build src
-  shell:
-    cmd: 'NODE_ENV=production npm run build'
-  args:
-    chdir: /var/www/app/repo
-
-- name: copy src
-  shell:
-    cmd: 'cp -rp /var/www/app/repo/dist /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}'
-
-- name: install node_modules
-  shell:
-    cmd: 'npm install'
-  args:
-    chdir: "/var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}"
-
-- name: symlink logs
+- name: create temp release
   file:
-    src: /var/www/app/shared/logs
-    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/logs
-    state: link
+    path: '/var/www/maha/releases/{{ansible_date_time.iso8601_basic_short}}/public'
+    state: directory
 
-- name: symlink tmp
-  file:
-    src: /var/www/app/shared/tmp
-    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/tmp
-    state: link
-
-- name: symlink imagecache
-  file:
-    src: /var/www/app/shared/imagecache
-    dest: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}/public/imagecache
-    state: link
+- name: copy index.html
+  copy:
+    src: ../files/index.html
+    dest: '/var/www/maha/releases/{{ansible_date_time.iso8601_basic_short}}/public/index.html'
 
 - name: symlink current
   file:
-    src: /var/www/app/releases/{{ansible_date_time.iso8601_basic_short}}
-    dest: /var/www/app/current
+    src: /var/www/maha/releases/{{ansible_date_time.iso8601_basic_short}}
+    dest: /var/www/maha/current
     state: link

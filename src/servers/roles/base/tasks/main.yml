@@ -14,9 +14,27 @@
     - epel-release
     state: present
 
-- name: install wget
+- name: install base packages
   yum:
-    name: wget
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - wget
+    - bzip2
+    - git
+    - cairo
+    - cairo-devel
+    - libjpeg-devel
+    - libXScrnSaver
+    - GConf2
+    - gtk3
+    - ipa-gothic-fonts
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-utils
+    - xorg-x11-fonts-cyrillic
+    - xorg-x11-fonts-misc
+    - libSM
 
 - name: install msttcore fonts
   yum:
