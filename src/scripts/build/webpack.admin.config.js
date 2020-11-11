@@ -88,7 +88,7 @@ const webpackConfig = {
     }),
     new CopyWebpackPlugin([{
       from: path.resolve('src','core','admin','public'),
-      to: path.resolve('dist.staged','public')
+      to: path.resolve('dist.staged','platform','public')
     }]),
     new HtmlWebpackPlugin({
       template: path.resolve('src','core','admin','index.html')

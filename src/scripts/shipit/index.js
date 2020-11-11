@@ -84,10 +84,7 @@ const processor = async () => {
   utils.registerTask(shipit, 'servers', [
     'servers:all:configure',
     'servers:appserver:configure',
-    'servers:appserver:restart',
-    'servers:loadbalancer:configure',
-    'servers:loadbalancer:restart',
-    'servers:pm2:restart'
+    'servers:appserver:restart'
   ])
 
   utils.registerTask(shipit, 'deploy', [
@@ -104,7 +101,7 @@ const processor = async () => {
     'deploy:migrate',
     'deploy:symlink',
     'deploy:reload_nginx',
-    'servers:pm2:restart',
+    'deploy:restart_pm2',
     // 'deploy:cache',
     'deploy:clean'
   ])
@@ -140,25 +137,6 @@ const processor = async () => {
     return shipit.remote('NODE_ENV=production pm2 delete all', {
       cwd: deployDir,
       roles: ['cron','worker']
-    })
-  })
-
-  utils.registerTask(shipit, 'servers:pm2:restart', [
-    'servers:pm2:restart_cron',
-    'servers:pm2:restart_worker'
-  ])
-
-  utils.registerTask(shipit, 'servers:pm2:restart_cron', async () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only cron_production', {
-      cwd: deployDir,
-      roles: ['cron']
-    })
-  })
-
-  utils.registerTask(shipit, 'servers:pm2:restart_worker', async () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only worker_production', {
-      cwd: deployDir,
-      roles: ['worker']
     })
   })
 
