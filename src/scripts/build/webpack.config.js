@@ -63,7 +63,7 @@ const webpackConfig = (app, name, root, port) => ({
     ]
   },
   output: {
-    path: path.resolve('dist.staged','public','apps',app,name),
+    path: path.resolve('dist.staged','platform','public','apps',app,name),
     ...fs.existsSync(path.resolve(root,'index.html')) ? {
       filename: path.join('js', '[name]-[chunkhash].js')
     } : {

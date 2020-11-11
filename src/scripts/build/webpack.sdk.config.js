@@ -42,7 +42,7 @@ const webpackConfig = {
     fs: 'empty'
   },
   output: {
-    path: path.resolve('dist.staged','public'),
+    path: path.resolve('dist.staged','platform','public'),
     filename: path.join('maha.js'),
     publicPath: '/'
   },

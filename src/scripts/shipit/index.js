@@ -71,13 +71,15 @@ const processor = async () => {
 
   const deployDir = shipit.config.deployTo
 
-  const releasesDir = `${deployDir}/releases`
+  const releasesDir = path.join(deployDir,'releases')
 
-  const releaseDir = `${releasesDir}/${timestamp}`
+  const releaseDir = path.join(releasesDir,timestamp)
 
-  const sharedDir = `${deployDir}/shared`
+  const platformDir = path.join(releaseDir,'platform')
 
-  const currentDir = `${deployDir}/current`
+  const sharedDir = path.join(deployDir,'shared')
+
+  const currentDir = path.join(deployDir,'current')
 
   utils.registerTask(shipit, 'servers', [
     'servers:all:configure',
@@ -125,7 +127,9 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
-    await shipit.remoteCopy('servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
+    await shipit.copyToRemote('src/servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', {
+      roles: ['appserver']
+    })
   })
 
   utils.registerTask(shipit, 'servers:appserver:restart', async () => {
@@ -163,7 +167,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
+    await shipit.local(`NODE_ENV=production npm run build ${environment} ${platformDir}`)
   })
 
 
@@ -211,9 +215,9 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `ln -s ${sharedDir}/logs ${releaseDir}/platform/logs`,
-      `ln -s ${sharedDir}/tmp ${releaseDir}/platform/tmp`,
-      `ln -s ${sharedDir}/imagecache ${releaseDir}/platform/public/imagecache`
+      `ln -s ${sharedDir}/logs ${platformDir}/logs`,
+      `ln -s ${sharedDir}/tmp ${platformDir}/tmp`,
+      `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker','webserver']

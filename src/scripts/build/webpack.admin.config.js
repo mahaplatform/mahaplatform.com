@@ -76,7 +76,7 @@ const webpackConfig = {
     }
   },
   output: {
-    path: path.resolve('dist.staged','public'),
+    path: path.resolve('dist.staged','platform','public'),
     filename: 'js/[name]-[chunkhash].min.js',
     publicPath: process.env.WEB_ASSET_CDN_HOST
   },
