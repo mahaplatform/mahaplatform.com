@@ -46,12 +46,15 @@ const processor = async (req, job) => {
 
     const is_nonunique = (primary_key) ? _.includes(result.primarykeys, values[primary_key]) : false
 
+    const is_empty = Object.values(values).length === 0
+
     await ImportItem.forge({
       import_id: imp.get('id'),
       values,
       is_valid,
       is_duplicate,
-      is_nonunique
+      is_nonunique,
+      is_empty
     }).save(null, {
       transacting: req.trx
     })

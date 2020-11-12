@@ -27,14 +27,6 @@ const finalizeRoute = async (req, res) => {
     }), {})
   })
 
-  const config = await req.trx('maha_installations')
-    .select(req.trx.raw('settings->\'trip_expense_type_id\' as expense_type'))
-    .innerJoin('maha_apps', 'maha_apps.id', 'maha_installations.app_id' )
-    .where({
-      team_id: imp.get('team_id'),
-      code: 'expenses'
-    })
-
   await ImportItem.where({
     import_id: req.body.id
   }).fetchAll({
@@ -52,7 +44,9 @@ const finalizeRoute = async (req, res) => {
     const mileage_rate = rates[moment(trip.get('date')).format('YYYY')]
 
     await trip.save({
-      expense_type_id: config[0].expense_type,
+      odometer_start: trip.get('odometer_start') ? trip.get('odometer_start') : 0,
+      odometer_end: trip.get('odometer_end') ? trip.get('odometer_end') : 0,
+      expense_type_id: 16,
       mileage_rate,
       amount: mileage_rate * trip.get('total_miles')
     }, {

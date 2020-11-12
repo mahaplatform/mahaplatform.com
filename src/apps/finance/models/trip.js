@@ -9,11 +9,7 @@ const Trip = new Model({
 
   rules: {
     date: ['required','datestring'],
-    description: ['required'],
-    time_leaving: ['time'],
-    time_arriving: ['time','laterThan:time_leaving'],
-    odometer_start: ['numeric'],
-    odometer_end: ['numeric','greaterThanField:odometer_start']
+    description: ['required']
   },
 
   virtuals: {
