@@ -62,7 +62,7 @@ class OptionsFieldForm extends React.Component {
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
-            { label: 'Options', name: 'options', type: ProductField, entity: 'option', defaultValue: config.products }
+            { label: 'Options', name: 'options', type: ProductField, entity: 'option', defaultValue: config.options }
           ]
         }
       ]

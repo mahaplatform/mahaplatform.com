@@ -1,3 +1,4 @@
+import { MoneyField } from '@client'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
@@ -28,31 +29,42 @@ class OptionsField extends React.Component {
   options = {}
 
   state = {
+    custom: null,
     selected: null,
     focused: false
   }
 
   _handleBlur = this._handleBlur.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleCustom = this._handleCustom.bind(this)
   _handleFocus = this._handleFocus.bind(this)
 
   render() {
     const { options } = this.props
     return (
-      <div { ...this._getInput() }>
-        { options !== undefined && options.map((option, index) => (
-          <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
-            <div className="maha-checkbox-icon">
-              <i { ...this._getOption(index) } />
+      <div className="maha-optionsfield">
+        <div { ...this._getInput() }>
+          { options !== undefined && options.map((option, index) => (
+            <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
+              <div className="maha-checkbox-icon">
+                <i { ...this._getOption(index) } />
+              </div>
+              <div className="maha-checkbox-label">
+                { option.description }
+              </div>
+              { option.pricing === 'fixed' &&
+                <div className="maha-checkbox-price">
+                  { numeral(option.price).format('$0.00') }
+                </div>
+              }
             </div>
-            <div className="maha-checkbox-label">
-              { option.description }
-            </div>
-            <div className="maha-checkbox-price">
-              { numeral(option.price).format('$0.00') }
-            </div>
+          ))}
+        </div>
+        { this._showCustom() &&
+          <div className="maha-optionsfield-custom">
+            <MoneyField { ...this._getCustom() } />
           </div>
-        ))}
+        }
       </div>
     )
   }
@@ -79,6 +91,19 @@ class OptionsField extends React.Component {
     }
   }
 
+  _getCustom() {
+    const { custom } = this.state
+    return {
+      defaultValue: custom,
+      onChange: this._handleCustom
+    }
+  }
+
+  _showCustom() {
+    const option = this._getSelected()
+    return option && option.pricing === 'custom'
+  }
+
   _getIcon(index) {
     const { selected } = this.state
     return index === selected ? 'check-circle' : 'circle-o'
@@ -103,11 +128,17 @@ class OptionsField extends React.Component {
     }
   }
 
-  _getValue() {
+  _getSelected() {
     const { options } = this.props
     const { selected } = this.state
     if(_.isNil(selected)) return null
-    const option = options[selected]
+    return options[selected]
+  }
+
+  _getValue() {
+    const option = this._getSelected()
+    const { custom } = this.state
+    if(!option) return null
     return {
       line_items: [{
         code: option.code,
@@ -117,8 +148,8 @@ class OptionsField extends React.Component {
         is_tax_deductible: option.is_tax_deductible,
         quantity: 1,
         tax_rate: 0.00,
-        price: option.price,
-        total: option.price
+        price: option.pricing === 'fixed' ? option.price : custom,
+        total: option.pricing === 'fixed' ? option.price : custom
       }]
     }
   }
@@ -142,6 +173,10 @@ class OptionsField extends React.Component {
 
   _handleChoose(selected) {
     this.setState({ selected })
+  }
+
+  _handleCustom(custom) {
+    this.setState({ custom })
   }
 
   _handleKeyDown(e) {

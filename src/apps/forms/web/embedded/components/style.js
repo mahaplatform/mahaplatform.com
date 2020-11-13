@@ -5,7 +5,7 @@ import _ from 'lodash'
 const selectors = [
   { selector: 'h1', blocks: ['h1'] },
   { selector: 'h2', blocks: ['h2'] },
-  { selector: 'p', blocks: ['p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label'] }
+  { selector: 'p', blocks: ['p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label','.maha-checkbox-price'] }
 ]
 
 class Style extends React.Component {

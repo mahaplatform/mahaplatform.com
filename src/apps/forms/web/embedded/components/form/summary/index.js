@@ -35,14 +35,18 @@ class Summary extends React.Component {
                 <td>{ numeral(line_item.total).format('0.00') }</td>
               </tr>
             )) }
-            <tr className="total">
-              <td colSpan="3">Subtotal</td>
-              <td>{ numeral(subtotal).format('0.00') }</td>
-            </tr>
-            <tr>
-              <td colSpan="3">Tax</td>
-              <td>{ numeral(tax).format('0.00') }</td>
-            </tr>
+            { tax > 0 &&
+              <tr className="total">
+                <td colSpan="3">Subtotal</td>
+                <td>{ numeral(subtotal).format('0.00') }</td>
+              </tr>
+            }
+            { tax > 0 &&
+              <tr>
+                <td colSpan="3">Tax</td>
+                <td>{ numeral(tax).format('0.00') }</td>
+              </tr>
+            }
             <tr className="total">
               <td colSpan="3">Total</td>
               <td>{ numeral(total).format('0.00') }</td>

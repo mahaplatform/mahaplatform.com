@@ -7,7 +7,7 @@ class MoneyField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.number,
     disabled: PropTypes.bool,
     name: PropTypes.string,
     htmlFor: PropTypes.string,
