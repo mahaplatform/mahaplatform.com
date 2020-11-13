@@ -15,6 +15,7 @@ class Productfield extends React.PureComponent {
   static propTypes = {
     products: PropTypes.array,
     defaultValue: PropTypes.array,
+    entity: PropTypes.string,
     value: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
@@ -62,21 +63,26 @@ class Productfield extends React.PureComponent {
   }
 
   _getAdd() {
+    const { entity } = this.props
     return {
-      label: 'Add a product',
+      label: `Add a ${entity}`,
       className: 'link',
       handler: this._handleNew
     }
   }
 
   _getNew() {
+    const { entity } = this.props
     return {
+      entity,
       onDone: this._handleAdd
     }
   }
 
   _getProduct(product, index) {
+    const { entity } = this.props
     return {
+      entity,
       index,
       product,
       onRemove: this._handleRemove.bind(this, index),

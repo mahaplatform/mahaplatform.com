@@ -12,6 +12,7 @@ class New extends React.Component {
   }
 
   static propTypes = {
+    entity: PropTypes.string,
     products: PropTypes.array,
     onDone: PropTypes.func
   }
@@ -28,9 +29,10 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { entity } = this.props
     const { code } = this.state
     return {
-      title: 'New Product',
+      title: `New ${entity}`,
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onSubmit: () => true,

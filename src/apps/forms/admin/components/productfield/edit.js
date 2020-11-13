@@ -12,6 +12,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
+    entity: PropTypes.string,
     product: PropTypes.object,
     onDone: PropTypes.func
   }
@@ -28,9 +29,9 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { product } = this.props
+    const { entity, product } = this.props
     return {
-      title: 'Edit Product',
+      title: `Edit ${entity}`,
       cancelIcon: 'chevron-left',
       saveText: 'Done',
       onSubmit: () => true,

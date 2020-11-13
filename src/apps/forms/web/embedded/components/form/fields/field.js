@@ -16,6 +16,7 @@ import {
   Hidden,
   Text
 } from '@client'
+import OptionsField from './optionsfield'
 import PaymentField from './paymentfield'
 import ProductField from './productfield'
 import PropTypes from 'prop-types'
@@ -87,8 +88,9 @@ class Field extends React.Component {
     if(field.type === 'paymentfield') return PaymentField
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
-    if(field.type === 'hiddenfield') return HiddenField    
+    if(field.type === 'hiddenfield') return HiddenField
     if(field.type === 'moneyfield') return MoneyField
+    if(field.type === 'optionsfield') return OptionsField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup

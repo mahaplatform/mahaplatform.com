@@ -2,6 +2,7 @@ import PaymentField from './fields/paymentfield'
 import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
+import OptionsField from './fields/optionsfield'
 import HiddenField from './fields/hiddenfield'
 import MoneyField from './fields/moneyfield'
 import CheckBoxes from './fields/checkboxes'
@@ -85,6 +86,7 @@ class Sidebar extends React.Component {
       { label: 'Text Area', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Text Field', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time Field', icon: 'clock-o', type: 'timefield', component: TimeField },
+      { label: 'Options Field', icon: 'check-circle', type: 'optionsfield', component: OptionsField },
       { label: 'Payment Field', icon: 'dollar', type: 'paymentfield', component: PaymentField },
       { label: 'Product Field', icon: 'shopping-bag', type: 'productfield', component: ProductField }
     ]

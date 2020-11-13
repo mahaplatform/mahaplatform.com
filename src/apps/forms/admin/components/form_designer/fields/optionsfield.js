@@ -4,7 +4,7 @@ import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
-class ProductFieldForm extends React.Component {
+class OptionsFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -46,7 +46,7 @@ class ProductFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Products',
+      title: 'Options',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,
@@ -62,7 +62,7 @@ class ProductFieldForm extends React.Component {
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
-            { label: 'Products', name: 'products', type: ProductField, entity: 'product', defaultValue: config.products }
+            { label: 'Options', name: 'options', type: ProductField, entity: 'option', defaultValue: config.products }
           ]
         }
       ]
@@ -98,4 +98,4 @@ class ProductFieldForm extends React.Component {
 
 }
 
-export default ProductFieldForm
+export default OptionsFieldForm

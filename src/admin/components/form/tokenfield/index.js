@@ -8,6 +8,7 @@ class TokenField extends React.Component {
     defaultValue: PropTypes.object,
     originalValue: PropTypes.object,
     placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -68,12 +69,13 @@ class TokenField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { value } = this.state
     return {
       type: 'text',
-      value,
       placeholder,
+      tabIndex,
+      value,
       onChange: this._handleUpdate
     }
   }

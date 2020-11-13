@@ -1,4 +1,5 @@
 import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, HiddenField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from '@client'
+import OptionsField from '../../embedded/components/form/fields/optionsfield'
 import PaymentField from '../../embedded/components/form/fields/paymentfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
 import { DragSource, DropTarget } from 'react-dnd'
@@ -89,6 +90,7 @@ class Field extends React.Component {
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'hiddenfield') return HiddenField
+    if(field.type === 'optionsfield') return OptionsField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup

@@ -36,7 +36,8 @@ class Payment extends React.Component {
   _getFields() {
     return [
       { label: 'Payment Field', icon: 'dollar', type: 'paymentfield', component: PaymentField },
-      { label: 'Product Field', icon: 'shopping-bag', type: 'productfield', component: ProductField }
+      { label: 'Product Field', icon: 'shopping-bag', type: 'productfield', component: ProductField },
+      { label: 'Options Field', icon: 'check-circle', type: 'optionsfield', component: ProductField }
     ]
   }
 

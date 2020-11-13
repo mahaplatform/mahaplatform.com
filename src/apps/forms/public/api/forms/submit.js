@@ -7,31 +7,28 @@ import Form from '@apps/forms/models/form'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getLineItems = (req, { fields, data }) => [
-  ...fields.filter(field => {
-    return field.type === 'paymentfield'
-  }),
-  ...fields.filter(field => {
-    return field.type === 'productfield'
-  })
-].reduce((line_items, field) => [
-  ...line_items,
-  ...req.body[field.code] ? data[field.code].line_items.map(line_item => ({
-    project_id: line_item.project_id,
-    donation_revenue_type_id: null,
-    overage_strategy: null,
-    revenue_type_id: line_item.revenue_type_id,
-    price_type: 'fixed',
-    fixed_price: line_item.price,
-    low_price: null,
-    high_price: null,
-    tax_rate: line_item.tax_rate,
-    is_tax_deductible: line_item.is_tax_deductible,
-    description: line_item.description,
-    quantity: line_item.quantity,
-    price: line_item.price
-  })) : []
-], [])
+const getLineItems = (req, { fields, data }) => {
+  return fields.filter(field => {
+    return _.includes(['optionsfield','paymentfield','productfield'], field.type)
+  }).reduce((line_items, field) => [
+    ...line_items,
+    ...req.body[field.code] ? data[field.code].line_items.map(line_item => ({
+      project_id: line_item.project_id,
+      donation_revenue_type_id: null,
+      overage_strategy: null,
+      revenue_type_id: line_item.revenue_type_id,
+      price_type: 'fixed',
+      fixed_price: line_item.price,
+      low_price: null,
+      high_price: null,
+      tax_rate: line_item.tax_rate,
+      is_tax_deductible: line_item.is_tax_deductible,
+      description: line_item.description,
+      quantity: line_item.quantity,
+      price: line_item.price
+    })) : []
+  ], [])
+}
 
 const getPayment = async (req, { contact, data, fields, form, program }) => {
 

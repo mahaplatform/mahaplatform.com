@@ -14,6 +14,7 @@ class Product extends React.PureComponent {
     connectDropTarget: PropTypes.func,
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
+    entity: PropTypes.string,
     product: PropTypes.object,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
@@ -41,8 +42,9 @@ class Product extends React.PureComponent {
   }
 
   _getEdit() {
-    const { product, onUpdate } = this.props
+    const { entity, product, onUpdate } = this.props
     return {
+      entity,
       product,
       onDone: onUpdate
     }
