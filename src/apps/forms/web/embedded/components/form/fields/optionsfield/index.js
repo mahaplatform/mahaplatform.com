@@ -40,7 +40,7 @@ class OptionsField extends React.Component {
     const { options } = this.props
     return (
       <div { ...this._getInput() }>
-        { options.map((option, index) => (
+        { options !== undefined && options.map((option, index) => (
           <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
             <div className="maha-checkbox-icon">
               <i { ...this._getOption(index) } />
@@ -110,7 +110,7 @@ class OptionsField extends React.Component {
     const option = options[selected]
     return {
       line_items: [{
-        code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+        code: option.code,
         description: option.description,
         project_id: option.project_id,
         revenue_type_id: option.revenue_type_id,

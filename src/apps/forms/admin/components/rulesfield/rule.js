@@ -68,11 +68,14 @@ class Rule extends React.Component {
     const items = [
       { name: 'comparison', type: 'radiogroup', deselectable: false, options: comparisons, required: true }
     ]
-    if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
+    if(_.includes(['radiogroup','dropdown','checkboxes','optionsfield'], field.type)) {
+      const options = field.type === 'optionsfield' ? field.options.map(option => {
+        return { value: option.code, text: option.description }
+      }) : field.options
       if(_.includes(['$in','$nin','$int','$nint'], rule.comparison)) {
-        items.push({ name: 'value', type: 'checkboxes', options: field.options, required: true })
+        items.push({ name: 'value', type: 'checkboxes', options, required: true })
       } else if(_.includes(['$eq','$neq'], rule.comparison)) {
-        items.push({ name: 'value', type: 'radiogroup', options: field.options, required: true })
+        items.push({ name: 'value', type: 'radiogroup', options, required: true })
       }
     } else if(!_.includes(['checkbox','filefield'], field.type)) {
       items.push({ name: 'value', type: 'textfield', required: true })

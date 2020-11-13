@@ -46,7 +46,11 @@ export const fields = createSelector(
       return rule.then_code === field.code
     })
     if(!rule) return true
-    const value = data[rule.if_code]
+    const if_field = config.fields.find(field => {
+      return field.code === rule.if_code
+    })
+    const if_value = data[rule.if_code]
+    const value = if_value ? (if_field.type === 'optionsfield' ? if_value.line_items[0].code : if_value) : null
     const show = rule.action === 'show'
     if(!value) {
       return rule.comparison === '$nl' ? show : !show

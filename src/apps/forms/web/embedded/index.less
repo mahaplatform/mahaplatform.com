@@ -135,17 +135,12 @@ div.maha-form-layout:not(.embedded) {
   .maha-form-layout {
     &.covered {
       .maha-form-layout-content {
-        display: flex;
+        .scrollable()
       }
       .maha-form {
-        flex: 1;
         display: flex;
         flex-direction: column;
         max-width: 100%;
-      }
-      .maha-form-body {
-        flex: 1;
-        .scrollable()
       }
     }
   }
