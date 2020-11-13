@@ -234,14 +234,14 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'deploy:restart_cron', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only cron_production', {
       cwd: deployDir,
       roles: ['cron']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_worker', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only worker_production', {
       cwd: deployDir,
       roles: ['worker']
     })

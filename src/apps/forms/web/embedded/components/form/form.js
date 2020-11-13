@@ -26,6 +26,7 @@ class Form extends React.Component {
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     mode: PropTypes.string,
+    params: PropTypes.object,
     ready: PropTypes.array,
     referer: PropTypes.string,
     requiresPayment: PropTypes.bool,

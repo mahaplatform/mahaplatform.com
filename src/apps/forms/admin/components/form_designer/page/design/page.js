@@ -145,7 +145,7 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.page
+  config: state.forms.form_designer[props.cid].config.page
 })
 
 export default connect(mapStateToProps)(Page)

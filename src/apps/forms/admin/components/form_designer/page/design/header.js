@@ -162,7 +162,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.header
+  config: state.forms.form_designer[props.cid].config.header
 })
 
 export default connect(mapStateToProps)(Header)

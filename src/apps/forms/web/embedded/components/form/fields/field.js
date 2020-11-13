@@ -6,6 +6,7 @@ import {
   PhoneField,
   EmailField,
   FileField,
+  HiddenField,
   TextField,
   DateField,
   TimeField,
@@ -25,6 +26,7 @@ class Field extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    defaultValue: PropTypes.string,
     error: PropTypes.string,
     field: PropTypes.object,
     index: PropTypes.number,
@@ -85,6 +87,7 @@ class Field extends React.Component {
     if(field.type === 'paymentfield') return PaymentField
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
+    if(field.type === 'hiddenfield') return HiddenField    
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
@@ -98,7 +101,7 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, index, status, token, onChange, onReady, onValidate } = this.props
+    const { code, defaultValue, index, status, token, onChange, onReady, onValidate } = this.props
     const { htmlFor } = this.state
     const field = {
       ...this.props.field.contactfield || {},
@@ -106,6 +109,7 @@ class Field extends React.Component {
     }
     return {
       code,
+      defaultValue,
       htmlFor,
       ..._.omit(field, ['code','name','label','contactfield']),
       name: _.get(field, 'name.value'),

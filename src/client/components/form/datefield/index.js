@@ -73,6 +73,12 @@ class DateField extends React.Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this._handleClickOutside)
+    const { defaultValue } = this.props
+    if(defaultValue) {
+      this.setState({
+        value: defaultValue
+      })
+    }
     this.props.onReady()
   }
 

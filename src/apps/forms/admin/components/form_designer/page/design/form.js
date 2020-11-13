@@ -134,7 +134,7 @@ class Body extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.body
+  config: state.forms.form_designer[props.cid].config.body
 })
 
 export default connect(mapStateToProps)(Body)

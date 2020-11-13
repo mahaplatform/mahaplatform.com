@@ -41,7 +41,6 @@ class Navigation extends React.Component {
     return {
       ...this.props,
       items: apps.filter(app => {
-        console.log(app.code, !app.items, !app.route)
         return !(!app.items && !app.route)
       }),
       rights,

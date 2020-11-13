@@ -66,7 +66,7 @@ class Design extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config
+  config: state.forms.form_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Design)

@@ -2,6 +2,7 @@ import { Submit, Recaptcha } from '@client'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
+import _ from 'lodash'
 
 class Fields extends React.Component {
 
@@ -16,6 +17,7 @@ class Fields extends React.Component {
     isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
+    params: PropTypes.object,
     ready: PropTypes.array,
     referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
@@ -75,10 +77,18 @@ class Fields extends React.Component {
     ]
   }
 
+  _getDefaultValue(field) {
+    const { params } = this.props
+    if(params[field.code]) return params[field.code]
+    const token = _.get(field, 'name.token')
+    return params[token] || field.defaultValue
+  }
+
   _getField(field, index) {
     const { code, errors, status, token } = this.props
     return {
       code,
+      defaultValue: this._getDefaultValue(field),
       field,
       index,
       error: errors[field.code],

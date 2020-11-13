@@ -1,4 +1,5 @@
 import AddressField from './addressfield'
+import HiddenField from './hiddenfield'
 import MoneyField from './moneyfield'
 import Checkboxes from './checkboxes'
 import RadioGroup from './radiogroup'
@@ -86,6 +87,7 @@ class Field extends React.Component {
     if(field.type === 'datefield') return DateField
     if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
+    if(field.type === 'hiddenfield') return HiddenField
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'radiogroup') return RadioGroup

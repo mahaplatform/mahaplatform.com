@@ -98,7 +98,7 @@ class SEO extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.seo
+  config: state.forms.form_designer[props.cid].config.seo
 })
 
 export default connect(mapStateToProps)(SEO)

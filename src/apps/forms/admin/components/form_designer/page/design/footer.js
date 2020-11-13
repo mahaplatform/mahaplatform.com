@@ -159,7 +159,7 @@ class Footer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.footer
+  config: state.forms.form_designer[props.cid].config.footer
 })
 
 export default connect(mapStateToProps)(Footer)

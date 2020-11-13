@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'crm.form_designer',
+  namespace: 'forms.form_designer',
   component: FormDesigner,
   reducer,
   selectors,

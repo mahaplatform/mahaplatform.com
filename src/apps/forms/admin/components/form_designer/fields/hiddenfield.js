@@ -1,18 +1,17 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Security extends React.Component {
+class HiddenField extends React.Component {
 
   static propTypes = {
-    cid: PropTypes.string,
     config: PropTypes.object,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func,
+    onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
+
+  form = null
 
   state = {
     config: null
@@ -20,7 +19,7 @@ class Security extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleReset = this._handleReset.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -28,45 +27,37 @@ class Security extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      config: {
-        ...this._getDefault(),
-        ...this.props.config
-      }
-    })
+    const { config } = this.props
+    this.setState({ config })
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config)) {
-      this.props.onUpdate('security', config)
+      this.props.onUpdate(config)
     }
   }
 
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Security',
-      onCancel: this._handleDone,
+      title: 'Hidden Field',
+      reference: node => this.form = node,
       onChange: this._handleChange,
-      cancelIcon: 'chevron-left',
+      onSubmit: this._handleDone,
+      cancelText: null,
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
-            { name: 'captcha', type: 'checkbox', prompt: 'Include CAPTCHA?', defaultValue: config.captcha }
+            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
+            { label: 'Value', name: 'value', type: 'textfield', placeholder: 'Enter a value', required: true, defaultValue: config.value }
           ]
         }
       ]
-    }
-  }
-
-  _getDefault() {
-    return {
-      captcha: null
     }
   }
 
@@ -80,19 +71,13 @@ class Security extends React.Component {
   }
 
   _handleDone() {
-    this.props.onPop()
+    this.props.onDone()
   }
 
-  _handleReset() {
-    this.setState({
-      config: this._getDefault()
-    })
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }
 
-const mapStateToProps = (state, props) => ({
-  config: state.forms.form_designer[props.cid].config.security
-})
-
-export default connect(mapStateToProps)(Security)
+export default HiddenField

@@ -104,7 +104,7 @@ class Security extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.confirmation
+  config: state.forms.form_designer[props.cid].config.confirmation
 })
 
 export default connect(mapStateToProps)(Security)

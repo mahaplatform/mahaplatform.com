@@ -6,18 +6,20 @@ import Root from './components/root'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import React from 'react'
+import qs from 'qs'
 
 class App extends React.Component {
 
   static propTypes = {
-    config: PropTypes.object,
-    embedded: PropTypes.bool
+    config: PropTypes.object
   }
 
   pasteur = null
 
   state = {
+    embedded: false,
     ready: false,
+    params: { first_name: 'Greg' },
     style: null
   }
 
@@ -42,8 +44,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.embedded) {
+    const params = qs.parse(window.location.search.substr(1))
+    const embeded = params.embedded !== undefined
+    if(!embeded) {
       return this.setState({
+        embeded,
+        params,
         ready: true
       })
     }
@@ -58,7 +64,7 @@ class App extends React.Component {
   }
 
   _getForm() {
-    const { embedded } = this.props
+    const { embedded, params } = this.state
     const { form, token } = window
     const { code, config, ipaddress, referer, starttime, settings, isOpen } = form
     return {
@@ -67,6 +73,7 @@ class App extends React.Component {
       embedded,
       ipaddress,
       isOpen,
+      params,
       referer,
       starttime,
       settings,
@@ -77,8 +84,7 @@ class App extends React.Component {
   }
 
   _getStyle() {
-    const { embedded } = this.props
-    const { style } = this.state
+    const {embedded, style } = this.state
     const { form } = window
     const { config } = form
     return { config, embedded, style }

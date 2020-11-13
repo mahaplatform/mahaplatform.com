@@ -45,7 +45,7 @@ class TextFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Single Line Text',
+      title: 'Text Field',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,

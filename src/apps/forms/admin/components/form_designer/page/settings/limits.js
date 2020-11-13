@@ -112,7 +112,7 @@ class Limits extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.limits
+  config: state.forms.form_designer[props.cid].config.limits
 })
 
 export default connect(mapStateToProps)(Limits)

@@ -1,4 +1,5 @@
 import AddressField from '../../fields/addressfield'
+import HiddenField from '../../fields/hiddenfield'
 import MoneyField from '../../fields/moneyfield'
 import CheckBoxes from '../../fields/checkboxes'
 import RadioGroup from '../../fields/radiogroup'
@@ -46,19 +47,20 @@ class Custom extends React.Component {
 
   _getFields() {
     return [
-      { label: 'Address', icon: 'map-marker', type: 'addressfield', component: AddressField },
+      { label: 'Address Field', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
-      { label: 'Date', icon: 'calendar', type: 'datefield', component: DateField },
+      { label: 'Date Field', icon: 'calendar', type: 'datefield', component: DateField },
       { label: 'Drop Down', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
+      { label: 'Hidden Field', icon: 'eye-slash', type: 'hiddenfield', component: HiddenField },
       { label: 'Instructions', icon: 'align-left', type: 'text', component: Text },
-      { label: 'Money', icon: 'dollar', type: 'moneyfield', component: MoneyField },
-      { label: 'Phone', icon: 'phone', type: 'phonefield', component: PhoneField },
+      { label: 'Money Field', icon: 'dollar', type: 'moneyfield', component: MoneyField },
+      { label: 'Phone Field', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Radio Group', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
       { label: 'Text Area', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Text Field', icon: 'font', type: 'textfield', component: TextField },
-      { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField }
+      { label: 'Time Field', icon: 'clock-o', type: 'timefield', component: TimeField }
     ]
   }
 

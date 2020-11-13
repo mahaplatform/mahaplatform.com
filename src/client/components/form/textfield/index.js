@@ -56,11 +56,13 @@ class TextField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({
-      value: defaultValue
-    })
-    onReady()
+    const { defaultValue } = this.props
+    if(defaultValue) {
+      this.setState({
+        value: defaultValue
+      })      
+    }
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {

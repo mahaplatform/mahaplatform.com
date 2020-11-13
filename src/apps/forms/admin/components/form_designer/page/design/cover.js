@@ -144,7 +144,7 @@ class Cover extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.cover
+  config: state.forms.form_designer[props.cid].config.cover
 })
 
 export default connect(mapStateToProps)(Cover)
