@@ -1,6 +1,26 @@
-.maha-optionsfield-custom {
-  margin-top: 0.8em;
+.maha-optionsfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.28em;
+  &:focus {
+    outline: none !important;
+  }
+  &.focused {
+    border-color: @blue;
+    .maha-optionsfield-custom {
+      border-color: @blue;
+    }
+  }
+  .maha-checkboxes:focus {
+    outline: none !important;
+  }
+  .maha-checkboxes,
+  .maha-input {
+    border: none;
+  }
 }
 .maha-optionsfield-price {
   color: fadeout(@black, 50);
+}
+.maha-optionsfield-custom {
+  border-top: 1px solid fadeout(@black, 90);
 }

@@ -26,6 +26,7 @@ class OptionsField extends React.Component {
     onReady: () => {}
   }
 
+  custom = null
   options = {}
 
   state = {
@@ -39,11 +40,18 @@ class OptionsField extends React.Component {
   _handleCustom = this._handleCustom.bind(this)
   _handleFocus = this._handleFocus.bind(this)
 
+  _getClass() {
+    const { focused } = this.state
+    const classes = ['maha-optionsfield']
+    if(focused) classes.push('focused')
+    return classes.join(' ')
+  }
+
   render() {
     const { options } = this.props
     return (
-      <div className="maha-optionsfield">
-        <div { ...this._getInput() }>
+      <div className={ this._getClass() }>
+        <div { ...this._getOptionsField() }>
           { options !== undefined && options.map((option, index) => (
             <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
               <div className="maha-checkbox-icon">
@@ -61,7 +69,7 @@ class OptionsField extends React.Component {
         </div>
         { this._showCustom() &&
           <div className="maha-optionsfield-custom">
-            <MoneyField { ...this._getCustom() } />
+            <MoneyField { ...this._getMoneyField() } />
           </div>
         }
       </div>
@@ -90,14 +98,6 @@ class OptionsField extends React.Component {
     }
   }
 
-  _getCustom() {
-    const { custom } = this.state
-    return {
-      defaultValue: custom,
-      onChange: this._handleCustom
-    }
-  }
-
   _showCustom() {
     const option = this._getSelected()
     return option && option.pricing === 'custom'
@@ -108,7 +108,18 @@ class OptionsField extends React.Component {
     return index === selected ? 'check-circle' : 'circle-o'
   }
 
-  _getInput() {
+  _getMoneyField() {
+    const { custom } = this.state
+    return {
+      reference: node => this.custom = node,
+      defaultValue: custom,
+      onBlur: this._handleBlur,
+      onChange: this._handleCustom,
+      onFocus: this._handleFocus
+    }
+  }
+
+  _getOptionsField() {
     const { htmlFor, tabIndex } = this.props
     return {
       id: htmlFor,
@@ -159,23 +170,30 @@ class OptionsField extends React.Component {
     })
   }
 
-  _handleFocus(e) {
-    this.setState({
-      focused: true
-    })
-  }
-
   _handleChange() {
     const value = this._getValue()
     this.props.onChange(value)
   }
 
   _handleChoose(selected) {
-    this.setState({ selected })
+    const { options } = this.props
+    this.setState({
+      custom: 0,
+      selected
+    }, () => {
+      if(options[selected].pricing !== 'custom') return
+      return this.custom.focus()
+    })
   }
 
   _handleCustom(custom) {
     this.setState({ custom })
+  }
+
+  _handleFocus(e) {
+    this.setState({
+      focused: true
+    })
   }
 
   _handleKeyDown(e) {

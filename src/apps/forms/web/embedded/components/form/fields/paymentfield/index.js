@@ -1,6 +1,7 @@
 import { MoneyField } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class PaymentField extends React.Component {
 
@@ -24,6 +25,7 @@ class PaymentField extends React.Component {
   }
 
   state = {
+    code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
     value: null
   }
 
@@ -63,11 +65,10 @@ class PaymentField extends React.Component {
 
   _getValue() {
     const { description, project_id, revenue_type_id, is_tax_deductible } = this.props
-    const { value } = this.state
-    if(value === 0) return null
+    const { code, value } = this.state
     return {
-      line_items: [{
-        code: 'abc',
+      line_items: value > 0 ? [{
+        code,
         description,
         project_id,
         revenue_type_id,
@@ -76,7 +77,7 @@ class PaymentField extends React.Component {
         tax_rate: 0.00,
         price: value,
         total: value
-      }]
+      }] : []
     }
   }
 

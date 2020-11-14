@@ -14,17 +14,23 @@ class MoneyField extends React.Component {
     placeholder: PropTypes.string,
     min: PropTypes.number,
     max: PropTypes.number,
+    reference: PropTypes.func,
     required: PropTypes.bool,
     status: PropTypes.string,
     tabIndex: PropTypes.number,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onFocus: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
 
   static defaultProps = {
     placeholder: '0.00',
+    max: 100000000,
+    onBlur: () => {},
     onChange: () => {},
+    onFocus: () => {},
     onReady: () => {}
   }
 
@@ -39,7 +45,6 @@ class MoneyField extends React.Component {
   _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
   _handleReset = this._handleReset.bind(this)
   _handleFocus = this._handleFocus.bind(this)
-  _handleKeyDown = this._handleKeyDown.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
   _handleValidate = this._handleValidate.bind(this)
 
@@ -60,18 +65,23 @@ class MoneyField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
+    const { defaultValue, reference } = this.props
     if(!_.isNil(defaultValue)) this.setState({
       value: defaultValue
     })
-    onReady(this._handleValidate)
+    if(reference) reference(this.input)
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { status } = this.props
-    const { value } = this.state
+    const { focused, value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
+    }
+    if(focused !== prevState.focused) {
+      if(focused) return this.props.onFocus()
+      return this.props.onBlur()
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
@@ -103,39 +113,25 @@ class MoneyField extends React.Component {
       tabIndex,
       value: this._getFormatted(),
       onBlur: this._handleBlur,
-      onKeyDown: this._handleKeyDown,
-      // onChange: this._handleUpdate,
+      onChange: this._handleUpdate,
       onFocus: this._handleFocus
     }
   }
 
-  _getValue(key, which) {
-    const { value } = this.state
-    if(which === 8) return Math.floor(value / 10)
-    const newvalue = (value * 10) + parseInt(key)
-    return newvalue > 100000000 ? value : newvalue
-  }
-
-  _handleBlur() {
+  _handleBlur(e) {
     this.setState({
       focused: false
     })
   }
 
   _handleChange() {
-    this.props.onChange(Number(this.state.value))
+    const { value } = this.state
+    this.props.onChange(value > 0 ? value / 100 : 0)
   }
 
-  _handleFocus() {
+  _handleFocus(e) {
     this.setState({
       focused: true
-    })
-  }
-
-  _handleKeyDown(e) {
-    if(e.which !== 8 && !/\d/.test(e.key)) e.preventDefault()
-    this.setState({
-      value: this._getValue(e.key, e.which)
     })
   }
 
@@ -147,17 +143,18 @@ class MoneyField extends React.Component {
   }
 
   _handleUpdate(e) {
-    const value = e.target.value
-    if(!value.match(/^-?\d*\.?\d{0,2}$/)) return
-    this.setState({ value })
+    const { max } = this.props
+    const value = parseInt(e.target.value.replace(/[^\d]/g,'').replace(/[$,.]/g,''))
+    this.setState({
+      value: value > max ? this.state.value : value
+    })
   }
 
   _handleValidate() {
-    const { min, max, required, onValidate } = this.props
+    const { min, required, onValidate } = this.props
     const { value } = this.state
     if(required === true && value === '') return onValidate(value, ['This field is required'])
     if(min !== undefined && Number(value) < min) return onValidate(value, [`This field must be greater than or equal to  ${min}`])
-    if(max !== undefined && Number(value) > max) return onValidate(value, [`This field must be less than or equal to ${max}`])
     onValidate(value)
   }
 
