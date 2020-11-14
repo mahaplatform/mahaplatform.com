@@ -50,13 +50,12 @@ class OptionsField extends React.Component {
                 <i { ...this._getOption(index) } />
               </div>
               <div className="maha-checkbox-label">
-                { option.description }
+                { option.description } { option.pricing === 'fixed' &&
+                  <span>
+                    ({ numeral(option.price).format('$0.00') })
+                  </span>
+                }
               </div>
-              { option.pricing === 'fixed' &&
-                <div className="maha-checkbox-price">
-                  { numeral(option.price).format('$0.00') }
-                </div>
-              }
             </div>
           ))}
         </div>
