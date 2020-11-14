@@ -32,13 +32,14 @@ class MoneyField extends React.Component {
 
   state = {
     focused: false,
-    value: ''
+    value: 0
   }
 
   _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
-  _handleClear = this._handleClear.bind(this)
+  _handleReset = this._handleReset.bind(this)
   _handleFocus = this._handleFocus.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
   _handleValidate = this._handleValidate.bind(this)
 
@@ -46,14 +47,11 @@ class MoneyField extends React.Component {
     const { value } = this.state
     return (
       <div className={ this._getClass() }>
-        <div className="maha-input-icon">
-          <i className="fa fa-dollar" />
-        </div>
         <div className="maha-input-field">
           <input { ...this._getInput() } />
         </div>
-        { value !== null && value.length > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
+        { value > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleReset }>
             <i className="fa fa-times" />
           </div>
         }
@@ -89,27 +87,38 @@ class MoneyField extends React.Component {
     return classes.join(' ')
   }
 
+  _getFormatted() {
+    const { value } = this.state
+    return numeral(value / 100).format('$0,0.00')
+  }
+
   _getInput() {
     const { htmlFor, placeholder, tabIndex } = this.props
-    const { focused, value } = this.state
+    const { focused } = this.state
     return {
       id: htmlFor,
       type: 'text',
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,
       tabIndex,
-      value,
+      value: this._getFormatted(),
       onBlur: this._handleBlur,
-      onChange: this._handleUpdate,
+      onKeyDown: this._handleKeyDown,
+      // onChange: this._handleUpdate,
       onFocus: this._handleFocus
     }
   }
 
-  _handleBlur() {
+  _getValue(key, which) {
     const { value } = this.state
+    if(which === 8) return Math.floor(value / 10)
+    const newvalue = (value * 10) + parseInt(key)
+    return newvalue > 100000000 ? value : newvalue
+  }
+
+  _handleBlur() {
     this.setState({
-      focused: false,
-      value: value.length > 0 ? numeral(value).format('0.00') : value
+      focused: false
     })
   }
 
@@ -117,17 +126,24 @@ class MoneyField extends React.Component {
     this.props.onChange(Number(this.state.value))
   }
 
-  _handleClear() {
-    this.setState({
-      value: ''
-    })
-    this.input.focus()
-  }
-
   _handleFocus() {
     this.setState({
       focused: true
     })
+  }
+
+  _handleKeyDown(e) {
+    if(e.which !== 8 && !/\d/.test(e.key)) e.preventDefault()
+    this.setState({
+      value: this._getValue(e.key, e.which)
+    })
+  }
+
+  _handleReset() {
+    this.setState({
+      value: 0
+    })
+    this.input.focus()
   }
 
   _handleUpdate(e) {

@@ -51,7 +51,7 @@ class OptionsField extends React.Component {
               </div>
               <div className="maha-checkbox-label">
                 { option.description } { option.pricing === 'fixed' &&
-                  <span>
+                  <span className="maha-optionsfield-price">
                     ({ numeral(option.price).format('$0.00') })
                   </span>
                 }
