@@ -111,9 +111,14 @@ class Card extends React.PureComponent {
   _getCVV() {
     const { cvv } = this.state
     return {
-      autoComplete: 'cc-cvv',
       ref: node => this.cvv = node,
+      type: 'tel',
+      autoComplete: 'cc-cvv',
+      autoCorrect: 'off',
+      autoCapitalize: 'off',
+      spellCheck: 'off',
       placeholder: 'CVV',
+      maxLength: 4,
       onChange: this._handleCVV,
       onKeyDown: this._handleKeyDown.bind(this, 'cvv'),
       value: cvv
@@ -123,9 +128,14 @@ class Card extends React.PureComponent {
   _getExpiration() {
     const { expirationDate } = this.state
     return {
-      autoComplete: 'cc-exp',
       ref: node => this.expirationDate = node,
+      type: 'tel',
+      autoComplete: 'cc-exp',
+      autoCorrect: 'off',
+      autoCapitalize: 'off',
+      spellCheck: 'off',
       placeholder: 'MM/YY',
+      maxLength: 5,
       onChange: this._handleExpiration,
       onKeyDown: this._handleKeyDown.bind(this, 'expirationDate'),
       value: this._getFormattedExpiration(expirationDate)
@@ -154,9 +164,14 @@ class Card extends React.PureComponent {
   _getNumber() {
     const { number } = this.state
     return {
-      autoComplete: 'cc-number',
       ref: node => this.number = node,
+      type: 'tel',
+      autoComplete: 'cc-number',
+      autoCorrect: 'off',
+      autoCapitalize: 'off',
+      spellCheck: 'off',
       placeholder: 'Card Number',
+      maxLength: 22,
       onChange: this._handleNumber,
       value: card.format(number)
     }

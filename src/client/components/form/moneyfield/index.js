@@ -103,16 +103,16 @@ class MoneyField extends React.Component {
   }
 
   _getInput() {
-    const { htmlFor, placeholder, tabIndex } = this.props
-    const { focused } = this.state
+    const { htmlFor, tabIndex } = this.props
     return {
-      id: htmlFor,
-      type: 'text',
-      placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,
+      id: htmlFor,
+      type: 'tel',
+      autoCorrect: 'off',
+      autoCapitalize: 'off',
+      spellCheck: 'off',
+      maxLength: 12,
       tabIndex,
-      pattern: '[0-9]*',
-      inputMode: 'numeric',
       value: this._getFormatted(),
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
