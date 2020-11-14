@@ -153,7 +153,7 @@ const filtered = createSelector(
   data,
   line_items,
   (data, line_items) => line_items.filter(line_item => {
-    return line_item.quantity > 0
+    return line_item.quantity > 0 && line_item.price > 0
   }).map(line_item => ({
     code: line_item.code,
     project_id: line_item.project_id,

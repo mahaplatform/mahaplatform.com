@@ -56,11 +56,6 @@ const Select = (multiple) => {
               <Button { ...this._getDeselect() } />
             </div>
           }
-          { items.length === 0 &&
-            <div className="maha-select-option-empty">
-              There are no options
-            </div>
-          }
           <div className="maha-select-options" style={ this._getStyle() }>
             { items.length === 0 &&
               <div className="maha-select-option-empty">

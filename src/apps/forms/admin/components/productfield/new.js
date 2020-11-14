@@ -12,7 +12,9 @@ class New extends React.Component {
   }
 
   static propTypes = {
+    allowedPricing: PropTypes.array,
     entity: PropTypes.string,
+    manageInventory: PropTypes.bool,
     products: PropTypes.array,
     onDone: PropTypes.func
   }
@@ -45,32 +47,50 @@ class New extends React.Component {
         {
           fields: [
             { name: 'code', type: 'hidden', value: code },
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
-            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item' },
-            { label: 'Pricing', type: 'segment', fields: [
-              { type: 'radiogroup', name: 'pricing', deselectable: false, options: [
-                { value: 'fixed', text: 'Fixed Price' },
-                { value: 'custom', text: 'Custom Amount' }
-              ], defaultValue: 'fixed' },
-              ...this._getPricing()
-            ] },
-            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' },
-            { name: 'is_sold_out', type: 'checkbox', prompt: 'This item is sold out' }
+            ...this._getPricing(),
+            ...this._getInventory()
           ]
         }
       ]
     }
   }
 
+  _getInventory() {
+    const { manageInventory } = this.props
+    return manageInventory ? [
+      { name: 'is_sold_out', type: 'checkbox', prompt: 'This item is sold out' }
+    ] : []
+  }
+
   _getPricing() {
-    const { pricing } = this.state.config
-    if(pricing === 'fixed') {
-      return [
-        { label: 'Fixed Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' }
-      ]
-    }
-    return []
+    const { allowedPricing } = this.props
+    const { config } = this.state
+    const options = this._getPricingOptions()
+    return !_.isEqual(allowedPricing, ['fixed']) ? [
+      { label: 'Pricing', type: 'segment', fields: [
+        { type: 'radiogroup', name: 'pricing', deselectable: false, options, defaultValue: 'free' },
+        ...this._getPricingType(config.pricing)
+      ] }
+    ] : this._getPricingType('fixed')
+  }
+
+  _getPricingOptions() {
+    const { allowedPricing } = this.props
+    const options = []
+    if(_.includes(allowedPricing, 'free')) options.push({ value: 'free', text: 'Free' })
+    if(_.includes(allowedPricing, 'fixed')) options.push({ value: 'fixed', text: 'Fixed Price' })
+    if(_.includes(allowedPricing, 'custom')) options.push({ value: 'custom', text: 'Custom Amount'  })
+    return options
+  }
+
+  _getPricingType(pricing) {
+    return pricing !== 'free' ? [
+      { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
+      { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken },
+      ...pricing === 'fixed' ? [{ label: 'Fixed Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' }] : [],
+      { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' }
+    ] : []
   }
 
   _handleCancel() {

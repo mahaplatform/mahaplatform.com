@@ -10,9 +10,13 @@ import _ from 'lodash'
 const getLineItems = (req, { fields, data }) => {
   return fields.filter(field => {
     return _.includes(['optionsfield','paymentfield','productfield'], field.type)
+  }).filter(field => {
+    return data[field.code]
   }).reduce((line_items, field) => [
     ...line_items,
-    ...req.body[field.code] ? data[field.code].line_items.map(line_item => ({
+    ...data[field.code].line_items.filter(line_item => {
+      return line_item.quantity > 0 && line_item.price > 0
+    }).map(line_item => ({
       project_id: line_item.project_id,
       donation_revenue_type_id: null,
       overage_strategy: null,
@@ -26,7 +30,7 @@ const getLineItems = (req, { fields, data }) => {
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price
-    })) : []
+    }))
   ], [])
 }
 

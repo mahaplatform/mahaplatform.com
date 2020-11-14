@@ -13,9 +13,11 @@ class Productfield extends React.PureComponent {
   }
 
   static propTypes = {
+    allowedPricing: PropTypes.array,
     products: PropTypes.array,
     defaultValue: PropTypes.array,
     entity: PropTypes.string,
+    manageInventory: PropTypes.bool,
     value: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
@@ -27,6 +29,8 @@ class Productfield extends React.PureComponent {
   }
 
   static defaultProps = {
+    allowedPricing: false,
+    manageInventory: false,
     onChange: () => {},
     onReady: () => {}
   }
@@ -72,18 +76,22 @@ class Productfield extends React.PureComponent {
   }
 
   _getNew() {
-    const { entity } = this.props
+    const { allowedPricing, entity, manageInventory } = this.props
     return {
+      allowedPricing,
       entity,
+      manageInventory,
       onDone: this._handleAdd
     }
   }
 
   _getProduct(product, index) {
-    const { entity } = this.props
+    const { allowedPricing, entity, manageInventory } = this.props
     return {
+      allowedPricing,
       entity,
       index,
+      manageInventory,
       product,
       onRemove: this._handleRemove.bind(this, index),
       onReorder: this._handleReorder.bind(this),

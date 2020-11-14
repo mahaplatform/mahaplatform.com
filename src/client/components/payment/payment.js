@@ -15,7 +15,7 @@ class Payment extends React.Component {
     amount: PropTypes.number,
     data: PropTypes.object,
     endpoint: PropTypes.string,
-    lineItems: PropTypes.object,
+    lineItems: PropTypes.array,
     method: PropTypes.string,
     program: PropTypes.object,
     settings: PropTypes.object,

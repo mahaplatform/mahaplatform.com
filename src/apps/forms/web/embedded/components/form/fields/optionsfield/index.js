@@ -58,11 +58,7 @@ class OptionsField extends React.Component {
                 <i { ...this._getOption(index) } />
               </div>
               <div className="maha-checkbox-label">
-                { option.description } { option.pricing === 'fixed' &&
-                  <span className="maha-optionsfield-price">
-                    ({ numeral(option.price).format('$0.00') })
-                  </span>
-                }
+                { option.description } { this._getPricing(option) }
               </div>
             </div>
           ))}
@@ -136,6 +132,15 @@ class OptionsField extends React.Component {
       className: `fa fa-${this._getIcon(index)}`,
       ref: node => this.options[index] = node
     }
+  }
+
+  _getPricing(option) {
+    if(option.pricing === 'custom') return null
+    return (
+      <span className="maha-optionsfield-price">
+        ({ option.pricing === 'fixed' ? numeral(option.price).format('$0.00') : 'FREE' })
+      </span>
+    )
   }
 
   _getSelected() {

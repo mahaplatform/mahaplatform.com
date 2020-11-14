@@ -12,7 +12,9 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
+    allowedPricing: PropTypes.array,
     entity: PropTypes.string,
+    manageInventory: PropTypes.bool,
     product: PropTypes.object,
     onDone: PropTypes.func
   }
@@ -52,32 +54,52 @@ class Edit extends React.Component {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: config.project_id },
-            { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: config.revenue_type_id },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item', defaultValue: config.description },
-            { label: 'Pricing', type: 'segment', fields: [
-              { type: 'radiogroup', name: 'pricing', deselectable: false, options: [
-                { value: 'fixed', text: 'Fixed Price' },
-                { value: 'custom', text: 'Custom Amount' }
-              ], defaultValue: config.pricing  },
-              ...this._getPricing()
-            ] },
-            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000', defaultValue: config.tax_rate },
-            { name: 'is_sold_out', type: 'checkbox', prompt: 'This item is sold out' }
+            ...this._getPricing(),
+            ...this._getInventory()
           ]
         }
       ]
     }
   }
 
-  _getPricing() {
+  _getInventory() {
+    const { manageInventory } = this.props
     const { config } = this.state
-    if(config.pricing === 'fixed') {
-      return [
-        { label: 'Fixed Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00', defaultValue: config.price }
-      ]
-    }
-    return []
+    return manageInventory ? [
+      { name: 'is_sold_out', type: 'checkbox', prompt: 'This item is sold out', defaultValue: config.is_sold_out }
+    ] : []
+  }
+
+  _getPricing() {
+    const { allowedPricing } = this.props
+    const { config } = this.state
+    const options = this._getPricingOptions()
+    return !_.isEqual(allowedPricing, ['fixed']) ? [
+      { label: 'Pricing', type: 'segment', fields: [
+        { type: 'radiogroup', name: 'pricing', deselectable: false, options, defaultValue: config.pricing },
+        ...this._getPricingType(config.pricing)
+      ] }
+    ] : this._getPricingType('fixed')
+  }
+
+  _getPricingOptions() {
+    const { allowedPricing } = this.props
+    const options = []
+    if(_.includes(allowedPricing, 'free')) options.push({ value: 'free', text: 'Free' })
+    if(_.includes(allowedPricing, 'fixed')) options.push({ value: 'fixed', text: 'Fixed Price' })
+    if(_.includes(allowedPricing, 'custom')) options.push({ value: 'custom', text: 'Custom Amount'  })
+    return options
+  }
+
+  _getPricingType(pricing) {
+    const { config } = this.state
+    return pricing !== 'free' ? [
+      { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken, defaultValue: config.project_id },
+      { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: config.revenue_type_id },
+      ...pricing === 'fixed' ? [{ label: 'Fixed Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00', defaultValue: config.price }] : [],
+      { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000', defaultValue: config.tax_rate }
+    ] : []
   }
 
   _handleCancel() {

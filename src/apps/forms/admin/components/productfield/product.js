@@ -1,6 +1,7 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import { Button } from '@admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 import Edit from './edit'
 
@@ -11,10 +12,12 @@ class Product extends React.PureComponent {
   }
 
   static propTypes = {
+    allowedPricing: PropTypes.array,
     connectDropTarget: PropTypes.func,
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     entity: PropTypes.string,
+    manageInventory: PropTypes.bool,
     product: PropTypes.object,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
@@ -31,7 +34,7 @@ class Product extends React.PureComponent {
           <i className="fa fa-bars" />
         </div>
         <div className="crm-productfield-product-label">
-          { product.description } { product.is_sold_out &&
+          { product.description } { this._getPricing(product) } { product.is_sold_out &&
             <span className="alert">SOLD OUT</span>
           }
         </div>
@@ -42,9 +45,11 @@ class Product extends React.PureComponent {
   }
 
   _getEdit() {
-    const { entity, product, onUpdate } = this.props
+    const { allowedPricing, entity, manageInventory, product, onUpdate } = this.props
     return {
+      allowedPricing,
       entity,
+      manageInventory,
       product,
       onDone: onUpdate
     }
@@ -56,6 +61,15 @@ class Product extends React.PureComponent {
       className: 'crm-productfield-product-remove',
       handler: this._handleEdit
     }
+  }
+
+  _getPricing(option) {
+    if(option.pricing === 'custom') return null
+    return (
+      <span className="crm-productfield-product-price">
+        ({ option.pricing !== 'free' ? numeral(option.price).format('$0.00') : 'FREE' })
+      </span>
+    )
   }
 
   _getRemoveButton() {

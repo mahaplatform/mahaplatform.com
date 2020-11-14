@@ -62,7 +62,7 @@ class ProductFieldForm extends React.Component {
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
-            { label: 'Products', name: 'products', type: ProductField, entity: 'product', defaultValue: config.products }
+            { label: 'Products', name: 'products', type: ProductField, entity: 'product', allowedPricing: ['fixed'], manageInventory: true, defaultValue: config.products }
           ]
         }
       ]
