@@ -41,7 +41,7 @@ class New extends React.Component {
             { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item' },
             { label: 'Unit Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' },
-            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' },
+            { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'ratefield', placeholder: '0.000' },
             { label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', number_type: 'integer', placeholder: 'Enter a quantity' },
             { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
           ]

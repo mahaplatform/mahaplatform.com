@@ -3,7 +3,7 @@ import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
-class MoneyField extends React.Component {
+class RateField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.oneOfType([
@@ -21,7 +21,7 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    max: 100000000,
+    max: 99.999,
     tabIndex: 0,
     onChange: () => {},
     onReady: () => {}
@@ -44,7 +44,7 @@ class MoneyField extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="maha-moneyfield">
+      <div className="maha-ratefield">
         <div className="maha-input">
           <div className="maha-input-field">
             <input { ...this._getInput() } />
@@ -62,7 +62,7 @@ class MoneyField extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue * 100
+      value: defaultValue * 100000
     })
     this.props.onReady()
   }
@@ -80,7 +80,7 @@ class MoneyField extends React.Component {
 
   _getFormatted() {
     const { value } = this.state
-    return numeral(value / 100).format('$0,0.00')
+    return numeral(value / 1000).format('0.000')
   }
 
   _getInput() {
@@ -92,7 +92,7 @@ class MoneyField extends React.Component {
       autoCorrect: 'off',
       autoCapitalize: 'off',
       spellCheck: 'off',
-      maxLength: 12,
+      maxLength: 8,
       tabIndex,
       value: this._getFormatted(),
       onBlur: this._handleBlur,
@@ -102,16 +102,14 @@ class MoneyField extends React.Component {
   }
 
   _handleBlur() {
-    const { value } = this.state
     this.setState({
-      focused: false,
-      value: value.length > 0 ? numeral(value).format('0.00') : value
+      focused: false
     })
   }
 
   _handleChange() {
     const { value } = this.state
-    this.props.onChange(value > 0 ? value / 100 : 0)
+    this.props.onChange(value > 0 ? value / 100000 : 0)
   }
 
   _handleFocus() {
@@ -129,9 +127,9 @@ class MoneyField extends React.Component {
 
   _handleUpdate(e) {
     const { max } = this.props
-    const value = parseInt(e.target.value.replace(/[$,.]/g,''))
+    const value = parseInt(e.target.value.replace(/[%,.]/g,''))
     this.setState({
-      value: value > max ? this.state.value : value
+      value: value > max * 1000 ? this.state.value : value
     })
   }
 
@@ -149,4 +147,4 @@ class MoneyField extends React.Component {
 
 }
 
-export default MoneyField
+export default RateField

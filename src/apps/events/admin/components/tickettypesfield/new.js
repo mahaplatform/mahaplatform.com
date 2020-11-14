@@ -66,7 +66,7 @@ class New extends React.PureComponent {
           { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: 26 }
         ] },
         { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Enter a fixed Price', required: true },
-        { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
+        { label: 'Tax Rate', name: 'tax_rate', type: 'ratefield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
         { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
       ]
     }
@@ -85,7 +85,7 @@ class New extends React.PureComponent {
           { value: 'donation', text: 'Treat any amount over the low price as a donation' }
         ], required: true, defaultValue: ticket_type.overage_strategy },
         ...this._getOverageStrategy(),
-        { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
+        { label: 'Tax Rate', name: 'tax_rate', type: 'ratefield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
         { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
       ]
     }

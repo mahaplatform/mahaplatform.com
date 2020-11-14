@@ -34,9 +34,9 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: '/api/admin/platform/banks/lookup', placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true },
-            { label: 'Rate', name: 'rate', type: 'numberfield', placeholder: 'Rate', required: true, defaultValue: '0.029' },
-            { label: 'Amex Rate', name: 'amex_rate', type: 'numberfield', placeholder: 'Amex Rate', required: true, defaultValue: '0.0375' },
-            { label: 'ACH Rate', name: 'ach_rate', type: 'numberfield', placeholder: 'ACH Rate', required: true, defaultValue: '0.0075' },
+            { label: 'Rate', name: 'rate', type: 'ratefield', placeholder: 'Rate', required: true, defaultValue: 0.029 },
+            { label: 'Amex Rate', name: 'amex_rate', type: 'ratefield', placeholder: 'Amex Rate', required: true, defaultValue: 0.0375 },
+            { label: 'ACH Rate', name: 'ach_rate', type: 'ratefield', placeholder: 'ACH Rate', required: true, defaultValue: 0.0075 },
             { name: 'has_paypal', type: 'checkbox', prompt: 'This merchant account is linked to PayPal' }
           ]
         }

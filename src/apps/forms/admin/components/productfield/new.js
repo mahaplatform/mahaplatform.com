@@ -89,7 +89,7 @@ class New extends React.Component {
       { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'title', required: true, format: ProjectToken },
       { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [42,47] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken },
       ...pricing === 'fixed' ? [{ label: 'Fixed Price', name: 'price', required: true, type: 'moneyfield', placeholder: '0.00' }] : [],
-      { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'number', placeholder: '0.000' }
+      { label: 'Tax Rate', name: 'tax_rate', required: true, type: 'ratefield', placeholder: '0.000' }
     ] : []
   }
 

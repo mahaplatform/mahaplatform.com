@@ -11,7 +11,6 @@ class MoneyField extends React.Component {
     disabled: PropTypes.bool,
     name: PropTypes.string,
     htmlFor: PropTypes.string,
-    placeholder: PropTypes.string,
     min: PropTypes.number,
     max: PropTypes.number,
     reference: PropTypes.func,
@@ -26,7 +25,6 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: '0.00',
     max: 100000000,
     onBlur: () => {},
     onChange: () => {},
@@ -67,7 +65,7 @@ class MoneyField extends React.Component {
   componentDidMount() {
     const { defaultValue, reference } = this.props
     if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue
+      value: defaultValue * 100
     })
     if(reference) reference(this.input)
     this.props.onReady(this._handleValidate)
