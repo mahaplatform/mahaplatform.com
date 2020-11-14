@@ -111,6 +111,8 @@ class MoneyField extends React.Component {
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,
       tabIndex,
+      pattern: '[0-9]*',
+      inputMode: 'numeric',
       value: this._getFormatted(),
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
@@ -144,7 +146,7 @@ class MoneyField extends React.Component {
 
   _handleUpdate(e) {
     const { max } = this.props
-    const value = parseInt(e.target.value.replace(/[^\d]/g,'').replace(/[$,.]/g,''))
+    const value = parseInt(e.target.value.replace(/[$,.]/g,''))
     this.setState({
       value: value > max ? this.state.value : value
     })
