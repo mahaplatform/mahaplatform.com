@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const fieldSerializer = (req, result) => ({
   id: result.get('id'),
   delta: result.get('delta'),
@@ -22,7 +24,7 @@ const config = (req, result) => {
     multiple: config.multiple === true ? true : false
   } : {}
 
-  const dataConfig = (type === 'checkboxgroup' || type === 'radiogroup' || type === 'lookup') ? {
+  const dataConfig = (_.includes(['checkboxgroup','radiogroup','lookup','dropdown'], type)) ? {
     endpoint: config.datasource ? config.datasource.endpoint : null,
     data_type: config.data_type,
     options: config.options,

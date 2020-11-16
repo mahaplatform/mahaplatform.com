@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Form from '../form'
 import React from 'react'
+import _ from 'lodash'
 
 class New extends React.Component {
 
@@ -65,6 +66,7 @@ class New extends React.Component {
       { value: 'checkboxgroup', text: 'Checkbox Group' },
       { value: 'colorfield', text: 'Color Picker' },
       { value: 'datefield', text: 'Date Field' },
+      { value: 'dropdown', text: 'Drop Down' },
       { value: 'emailfield', text: 'Email Field' },
       { value: 'filefield', text: 'File Field' },
       { value: 'htmlfield', text: 'HTML Field' },
@@ -105,7 +107,7 @@ class New extends React.Component {
         { value: true, text: 'User can pick multiple values'}
       ], defaultValue: false  })
     }
-    if(type === 'checkboxgroup' || type === 'radiogroup' || type === 'lookup') {
+    if(_.includes(['checkboxgroup','radiogroup','lookup','dropdown'], type)) {
       if(datasources && datasources.length > 0) {
         fields.push({ label: 'Data Type', name: 'config.data_type', type: 'radiogroup', options: [
           { value: 'static', text: 'Static' },
