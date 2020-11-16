@@ -4,6 +4,7 @@ import socket from '@core/services/routes/emitter'
 import constantcontact from './constantcontact/token'
 import Profile from '@apps/maha/models/profile'
 import Source from '@apps/maha/models/source'
+import qualtrics from './qualtrics/token'
 import microsoft from './microsoft/token'
 import mailchimp from './mailchimp/token'
 import instagram from './instagram/token'
@@ -18,6 +19,7 @@ const getProfileCreator = (service) => {
   if(service === 'google') return google
   if(service === 'microsoft') return microsoft
   if(service === 'instagram') return instagram
+  if(service === 'qualtrics') return qualtrics
   if(service === 'twitter') return twitter
   if(service === 'dropbox') return dropbox
   if(service === 'mailchimp') return mailchimp

@@ -1,5 +1,6 @@
 import { loadUserFromToken } from '@core/utils/user_tokens'
 import constantcontact from './constantcontact/authorize'
+import qualtrics from './qualtrics/authorize'
 import microsoft from './microsoft/authorize'
 import mailchimp from './mailchimp/authorize'
 import instagram from './instagram/authorize'
@@ -16,6 +17,7 @@ const getUrlCreator = (service) => {
   if(service === 'facebook') return facebook
   if(service === 'constantcontact') return constantcontact
   if(service === 'instagram') return instagram
+  if(service === 'qualtrics') return qualtrics
   if(service === 'mailchimp') return mailchimp
   if(service === 'dropbox') return dropbox
   if(service === 'twitter') return twitter
@@ -30,6 +32,7 @@ const getScope = (service, type) => {
   if(service === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
   if(service === 'googlecontacts') return ['userinfo.profile','userinfo.email','contacts.readonly']
   if(service === 'gmail') return ['userinfo.profile','userinfo.email','gmail.readonly']
+  if(service === 'qualtrics') return ['offline']
   if(service === 'outlook' && type === 'contacts') return ['user.read','contacts.read']
   if(service === 'outlook' && type === 'emails') return []
   if(service === 'onedrive') return ['user.read','files.read.all']
