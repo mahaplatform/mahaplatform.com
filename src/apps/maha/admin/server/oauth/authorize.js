@@ -31,7 +31,7 @@ const getScope = (service, type) => {
   if(service === 'googledrive') return ['userinfo.profile','userinfo.email','drive.readonly','drive.photos.readonly']
   if(service === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
   if(service === 'googlecontacts') return ['userinfo.profile','userinfo.email','contacts.readonly']
-  if(service === 'qualtrics') return ['TODO']
+  if(service === 'qualtrics') return ['offline']
   if(service === 'outlook' && type === 'contacts') return ['user.read','contacts.read']
   if(service === 'outlook' && type === 'emails') return []
   if(service === 'onedrive') return ['user.read','files.read.all']
