@@ -46,7 +46,50 @@ export async function getStaticProps({ params }) {
             type: 'layout',
             flow: 'fixed',
             columnSizing: 'variable',
-            numColumns: 1,
+            numColumns: null,
+            responsive: 'stackable',
+            backgroundColor: 'red',
+            backgroundImage: '/assets/8346/10156387003857338.jpg',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            height: '100vh',
+            columns: [
+              {
+                columnWidth: 2,
+                blocks: []
+              }, {
+                backgroundColor: null,
+                textAlign: 'center',
+                columnWidth: 12,
+                blocks: [
+                  {
+                    backgroundColor: '#000000',
+                    h2_color: 'white',
+                    p_color: 'white',
+                    type: 'text',
+                    body: '<h2>Plaid pickled pitchfork</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos</p>'
+                  }, {
+                    type: 'button',
+                    backgroundColor: '#000000',
+                    size: 'big',
+                    color: 'red',
+                    text: 'Click Me Damnit',
+                    link_strategy: 'web',
+                    url: '/bar'
+
+                  }
+                ]
+              }, {
+                columnWidth: 2,
+                blocks: []
+              }
+            ]
+          },{
+            type: 'layout',
+            flow: 'fixed',
+            columnSizing: 'variable',
+            numColumns: null,
             responsive: 'stackable',
             backgroundColor: null,
             columns: [

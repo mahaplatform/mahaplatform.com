@@ -44,7 +44,9 @@ function LayoutBlock({ children, config }) {
           { config.columns.map((column, cindex) => (
             <div className={ _getColumnClass(column, config) } style={ _getColumnStyle(column) } key={`column_${cindex}`}>
               { column.blocks.map((block, bindex) => (
-                <Block config={ block } key={`block_${cindex}_${bindex}`} />
+                <div style={ Style(null, block) } key={`block_${cindex}_${bindex}`}>
+                  <Block config={ block } />
+                </div>
               )) }
             </div>
           )) }

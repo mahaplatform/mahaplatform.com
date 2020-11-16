@@ -12,7 +12,7 @@ function Layout({ children, config }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" crossOrigin="anonymous" />
         <link href="/css/font-awesome.min.css" rel="stylesheet" />
       </Head>
-      <div>
+      <div className="maha-page">
         { children }
       </div>
     </>

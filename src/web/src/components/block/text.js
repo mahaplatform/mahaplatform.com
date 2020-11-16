@@ -1,12 +1,9 @@
 import RichText from './richtext'
+import Style from './style'
 import React from 'react'
 
 function TextBlock({ children, config }) {
-  return (
-    <div>
-      { RichText(config.body, config) }
-    </div>
-  )
+  return RichText(config.body, config)
 }
 
 export default TextBlock
