@@ -19,7 +19,7 @@ class App extends React.Component {
   state = {
     embedded: false,
     ready: false,
-    params: { first_name: 'Greg' },
+    params: { },
     style: null
   }
 
