@@ -1,5 +1,5 @@
-import { Button } from '@client'
 import PropTypes from 'prop-types'
+import Button from '../../button'
 import React from 'react'
 
 class Door extends React.Component {

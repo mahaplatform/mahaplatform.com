@@ -1,3 +1,5 @@
+import '@client/style.less'
+import '../style.less'
 import Head from 'next/head'
 import React from 'react'
 

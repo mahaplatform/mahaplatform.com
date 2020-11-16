@@ -44,6 +44,39 @@ export async function getStaticProps({ params }) {
         blocks: [
           {
             type: 'layout',
+            flow: 'fixed',
+            columnSizing: 'variable',
+            numColumns: 1,
+            responsive: 'stackable',
+            backgroundColor: null,
+            columns: [
+              {
+                backgroundColor: null,
+                textAlign: 'left',
+                columnWidth: 16,
+                blocks: [
+                  {
+                    type: 'carousel',
+                    slides: [
+                      {
+                        link: 'http://google.com',
+                        src: '/assets/8346/10156387003857338.jpg',
+                        caption: '<h2>Fall in Ithaca</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p>'
+
+                      },{
+                        src: '/assets/8346/10156387003857338.jpg',
+                        caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                      },{
+                        src: '/assets/8346/10156387003857338.jpg',
+                        caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }, {
+            type: 'layout',
             flow: 'fluid',
             columnSizing: 'fixed',
             numColumns: 2,
@@ -58,7 +91,7 @@ export async function getStaticProps({ params }) {
                   {
                     type: 'image',
                     src: '/assets/8346/10156387003857338.jpg',
-                    caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                    caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>'
                   }
                 ]
               },{

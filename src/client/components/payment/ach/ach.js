@@ -1,4 +1,6 @@
-import { AddressField, DropDown, TextField } from '@client'
+import AddressField from '../../form/addressfield'
+import TextField from '../../form/textfield'
+import DropDown from '../../form/dropdown'
 import PropTypes from 'prop-types'
 import React from 'react'
 

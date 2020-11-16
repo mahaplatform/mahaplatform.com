@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@zeit/next-less": "^1.0.1",
+    "less": "^3.12.2",
     "next": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

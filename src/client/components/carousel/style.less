@@ -1,4 +1,5 @@
 .maha-carousel {
+  flex: 1;
   position: relative;
 }
 .maha-carousel-theatre {
@@ -96,25 +97,21 @@
   }
 }
 .maha-carousel-pagination {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: 0.5em;
   text-align: center;
 }
 .maha-carousel-pagination-button {
 }
 .maha-carousel-pagination-button {
-  margin: 0 5px;
+  margin: 0 0.4em;
   display: inline-block;
-  width: 0.8em;
-  height: 0.8em;
+  width: 0.6em;
+  height: 0.6em;
   border-radius: 50%;
   &:not(.active) {
-    background-color: fadeout(@white, 50);
+    background-color: fadeout(@grey, 50);
   }
   &.active {
-    background-color: @white;
+    background-color: @black;
   }
 }

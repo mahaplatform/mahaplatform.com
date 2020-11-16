@@ -22,37 +22,32 @@ function LayoutBlock({ children, config }) {
     return classes.join(' ')
   }
 
-  const _getColumnClass = ({ columnWidth }, { columnSizing }) => {
+  const _getColumnClass = ({ blocks, columnWidth }, { columnSizing }) => {
     const classes = []
     if(columnSizing === 'variable') classes.push(`${numbers[columnWidth]} wide`)
+    if(blocks.length === 0) classes.push('empty')
     classes.push('column')
     return classes.join(' ')
   }
 
   const _getColumnStyle = (config) => {
     const style = {
-      ...Style(null, config),
-      marginTop: '-1rem',
-      marginBottom: '-1rem',
-      paddingTop: '1rem',
-      paddingBottom: '1rem'
+      ...Style(null, config)
     }
     return style
   }
 
   return (
-    <div className="ui one column fluid grid" style={ Style(null, config) }>
-      <div className="column">
-        <div className={ _getGridClass(config) }>
-          <div className={ _getRowClass(config) }>
-            { config.columns.map((column, cindex) => (
-              <div className={ _getColumnClass(column, config) } style={ _getColumnStyle(column) } key={`column_${cindex}`}>
-                { column.blocks.map((block, bindex) => (
-                  <Block config={ block } key={`block_${cindex}_${bindex}`} />
-                )) }
-              </div>
-            )) }
-          </div>
+    <div style={ Style(null, config) }>
+      <div className={ _getGridClass(config) }>
+        <div className={ _getRowClass(config) }>
+          { config.columns.map((column, cindex) => (
+            <div className={ _getColumnClass(column, config) } style={ _getColumnStyle(column) } key={`column_${cindex}`}>
+              { column.blocks.map((block, bindex) => (
+                <Block config={ block } key={`block_${cindex}_${bindex}`} />
+              )) }
+            </div>
+          )) }
         </div>
       </div>
     </div>
