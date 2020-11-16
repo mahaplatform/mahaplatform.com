@@ -1,5 +1,5 @@
 import Image from '@client/components/image'
-import RichText from './richtext'
+import RichText from '../richtext'
 import React from 'react'
 
 function ImageBlock({ children, config }) {

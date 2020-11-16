@@ -1,10 +1,10 @@
 const properties = [
   'backgroundImage','backgroundRepeat','backgroundSize','backgroundColor','backgroundPosition',
-  'height',
+  'height','padding',
   'fontFamily','fontStyle','fontWeight','color','textAlign'
 ]
 
-const Style = (tag, config) => {
+const Style = (tag, config = {}) => {
 
   const _getElement = (tag, property) => {
     const el = []

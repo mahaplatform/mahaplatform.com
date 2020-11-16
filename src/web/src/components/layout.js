@@ -1,5 +1,6 @@
 import '@client/style.less'
 import '../style.less'
+import Section from './section'
 import Head from 'next/head'
 import React from 'react'
 
@@ -12,9 +13,16 @@ function Layout({ children, config }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" crossOrigin="anonymous" />
         <link href="/css/font-awesome.min.css" rel="stylesheet" />
       </Head>
-      <div className="maha-page">
-        { children }
-      </div>
+      { config.sections.map((section, index) => {
+        if(section.type === 'content') {
+          return (
+            <div key={`block_${index}`}>
+              { children }
+            </div>
+          )
+        }
+        return <Section config={ section } key={`block_${index}`} />
+      }) }
     </>
   )
 }

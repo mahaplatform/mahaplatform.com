@@ -9,7 +9,7 @@ function RichText(text, config) {
 
     if(node.name === 'h2') {
       return (
-        <h2 key={`node_${index}`} style={ Style('h2', config) }>
+        <h2 key={`node_${index}`} style={ Style('h2', config.style) }>
           { node.children.map((child, index) => (
             <Fragment key={`child_${index}`}>
               { transform(config)(child) }
@@ -21,7 +21,7 @@ function RichText(text, config) {
 
     if(node.name === 'h3') {
       return (
-        <h3 key={`node_${index}`} style={ Style('h3', config) }>
+        <h3 key={`node_${index}`} style={ Style('h3', config.style) }>
           { node.children.map((child, index) => (
             <Fragment key={`child_${index}`}>
               { transform(config)(child) }
@@ -33,7 +33,7 @@ function RichText(text, config) {
 
     if(node.name === 'p') {
       return (
-        <p key={`node_${index}`} style={ Style('p', config) }>
+        <p key={`node_${index}`} style={ Style('p', config.style) }>
           { node.children.map((child, index) => (
             <Fragment key={`child_${index}`}>
               { transform(config)(child) }
@@ -49,6 +49,10 @@ function RichText(text, config) {
           <a>{ node.children[0].data }</a>
         </Link>
       )
+    }
+
+    if(node.name === 'br') {
+      return <br />
     }
 
     if(node.data) return node.data

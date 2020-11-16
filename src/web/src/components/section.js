@@ -1,10 +1,10 @@
 import Style from './style'
-import Block from './index'
+import Block from './block'
 import React from 'react'
 
 const numbers = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen']
 
-function LayoutBlock({ children, config }) {
+function Section({ children, config }) {
 
   const _getGridClass = ({ flow, responsive }) => {
     const classes = ['ui']
@@ -30,24 +30,28 @@ function LayoutBlock({ children, config }) {
     return classes.join(' ')
   }
 
-  const _getColumnStyle = (config) => {
-    const style = {
-      ...Style(null, config)
-    }
+  const _getContentStyle = ({ verticalAlign}) => {
+    const style = {}
+    if(verticalAlign === 'bottom') style.margin = '0 0 auto'
+    if(verticalAlign === 'middle') style.margin = 'auto 0'
+    if(verticalAlign === 'bottom') style.margin = 'auto 0 0'
+    style.width = '100%'
     return style
   }
 
   return (
-    <div style={ Style(null, config) }>
+    <div style={ Style(null, config.style) }>
       <div className={ _getGridClass(config) }>
         <div className={ _getRowClass(config) }>
           { config.columns.map((column, cindex) => (
-            <div className={ _getColumnClass(column, config) } style={ _getColumnStyle(column) } key={`column_${cindex}`}>
-              { column.blocks.map((block, bindex) => (
-                <div style={ Style(null, block) } key={`block_${cindex}_${bindex}`}>
-                  <Block config={ block } />
-                </div>
-              )) }
+            <div className={ _getColumnClass(column, config) } style={ Style(null, column.style) } key={`column_${cindex}`}>
+              <div style={ _getContentStyle(column) }>
+                { column.blocks.map((block, bindex) => (
+                  <div style={ Style(null, block.style) } key={`block_${cindex}_${bindex}`}>
+                    <Block config={ block } />
+                  </div>
+                )) }
+              </div>
             </div>
           )) }
         </div>
@@ -57,4 +61,4 @@ function LayoutBlock({ children, config }) {
 
 }
 
-export default LayoutBlock
+export default Section

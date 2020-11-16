@@ -1,7 +1,7 @@
 import './style.less'
 import Carousel from '@client/components/carousel'
 import Image from '@client/components/image'
-import RichText from '../richtext'
+import RichText from '../../richtext'
 import Link from 'next/link'
 import React from 'react'
 
