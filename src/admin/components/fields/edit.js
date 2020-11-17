@@ -43,7 +43,7 @@ class Edit extends React.Component {
           fields: [
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
-            { label: 'Instructions', name: 'instructions', type: 'textarea', placeholder: 'Enter a name', rows: 2 },
+            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
             { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
             ...this._getTypeFields()

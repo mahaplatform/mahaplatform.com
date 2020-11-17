@@ -24,6 +24,10 @@ import _ from 'lodash'
 
 class Sidebar extends React.Component {
 
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
   static propTypes = {
     active: PropTypes.number,
     cid: PropTypes.string,
@@ -58,7 +62,7 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Page, this._getPage())
+    this._handlePush(Page, this._getPage.bind(this))
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +70,15 @@ class Sidebar extends React.Component {
     if(active !== prevProps.active) {
       if(active !== null) this._handleEdit(prevProps.active !== null)
       if(active === null) this._handlePop()
+    }
+  }
+
+  getChildContext() {
+    return {
+      form: {
+        push: this._handlePush,
+        pop: this._handlePop
+      }
     }
   }
 
@@ -108,13 +121,14 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { cid, changes, endpoint, fields, form, status, onSave } = this.props
+    const { cid, changes, endpoint, fields, form, program, status, onSave } = this.props
     return {
       cid,
       changes,
       endpoint,
       fields,
       form,
+      program,
       status,
       onSave,
       onUpdate: this._handleUpdate,
@@ -158,7 +172,7 @@ class Sidebar extends React.Component {
     const { type } = config
     const field = _.find(fields, { type })
     const push = replace ? this._handleReplace : this._handlePush
-    push(field.component, this._getField())
+    push(field.component, this._getField.bind(this))
   }
 
   _handlePop(index = -1) {

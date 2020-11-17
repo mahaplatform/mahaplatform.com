@@ -15,6 +15,7 @@ class FormDesigner extends React.PureComponent {
     endpoint: PropTypes.string,
     form: PropTypes.object,
     fields: PropTypes.array,
+    program: PropTypes.object,
     status: PropTypes.string,
     onAdd: PropTypes.func,
     onClone: PropTypes.func,
@@ -71,7 +72,7 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, cid, changes, config, endpoint, form, fields, status, onEdit, onSave, onUpdate } = this.props
+    const { active, cid, changes, config, endpoint, form, fields, program, status, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       cid,
@@ -80,6 +81,7 @@ class FormDesigner extends React.PureComponent {
       endpoint,
       form,
       fields,
+      program,
       status,
       onEdit,
       onSave,

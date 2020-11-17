@@ -1,20 +1,29 @@
 import ContactField from '../../fields/contactfield'
+import Field from '@admin/components/fields/new'
 import PropTypes from 'prop-types'
+import { Button } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
 class Contact extends React.Component {
 
-  static propTypes = {
-    config: PropTypes.object,
-    fields: PropTypes.array,
+  static contextTypes = {
     form: PropTypes.object
   }
 
+  static propTypes = {
+    config: PropTypes.object,
+    fields: PropTypes.array,
+    form: PropTypes.object,
+    program: PropTypes.object
+  }
+
+  _handleAdd = this._handleAdd.bind(this)
   _handleDragStart = this._handleDragStart.bind(this)
 
   render() {
     const fields = this._getFields()
+    const { program } = this.props
     return (
       <div className="flowchart-designer-blocks">
         <p>These fields belong to the contact and will update the contact
@@ -29,8 +38,19 @@ class Contact extends React.Component {
             </div>
           </div>
         )) }
+        { program.access_type === 'manage' &&
+          <Button { ...this._getAdd() } />
+        }
       </div>
     )
+  }
+
+  _getAdd() {
+    return {
+      label: 'Add Contact Property',
+      className: 'link',
+      handler: this._handleAdd
+    }
   }
 
   _getFields() {
@@ -72,6 +92,11 @@ class Contact extends React.Component {
       draggable: true,
       onDragStart: this._handleDragStart.bind(this, field)
     }
+  }
+
+  _handleAdd() {
+    const { program } = this.props
+    this.context.form.push(<Field action={`/api/admin/crm_programs/${program.id}/fields`} />)
   }
 
   _handleDragStart(field, e) {

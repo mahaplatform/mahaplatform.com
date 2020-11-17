@@ -36,10 +36,6 @@ const Creator = (mapResourcesToPage, Component) => {
       onSetReady: PropTypes.func
     }
 
-    state = {
-      cacheKey: null
-    }
-
     _handleFetchResources = this._handleFetchResources.bind(this)
     _handleInit = this._handleInit.bind(this)
     _handleReady = this._handleReady.bind(this)
@@ -82,10 +78,8 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _getComponent() {
-      const { cacheKey } = this.state
       const { data } = this.props
       return {
-        key: cacheKey,
         ...data,
         ..._.omit(this.props, ['cid','con','component','data','ready','status','resources','onFetchResource','onSetReady'])
       }
@@ -93,9 +87,10 @@ const Creator = (mapResourcesToPage, Component) => {
 
     _getResourceParams(params) {
       if(_.isString(params)) return [params, null]
-      if(params.filter) return [params.endpoint, { $filter: params.filter }]
-      if(params.query) return [params.endpoint, params.query]
-      return [params.endpoint]
+      const query = params.query || {}
+      if(params.filter) query.$filter = params.filter
+      if(params.sort) query.$sort = params.sort
+      return [params.endpoint, query]
     }
 
     _getResources() {
@@ -176,7 +171,6 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _handleRefreshResources() {
-      this.setState({ cacheKey: _.random(100000, 999999).toString(36) })
       this._handleFetchResources()
     }
 

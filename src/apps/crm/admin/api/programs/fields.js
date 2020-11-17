@@ -18,6 +18,7 @@ const listRoute = async (req, res) => {
     qb.where('parent_type', 'crm_programs')
     qb.where('parent_id', req.params.program_id)
     qb.where('team_id', req.team.get('id'))
+    qb.orderBy('label')
   }).fetchAll({
     transacting: req.trx
   })

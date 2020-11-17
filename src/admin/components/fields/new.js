@@ -6,6 +6,7 @@ import _ from 'lodash'
 class New extends React.Component {
 
   static contextTypes = {
+    form: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -53,7 +54,7 @@ class New extends React.Component {
     return [
       { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
       { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
-      { label: 'Instructions', name: 'instructions', type: 'textarea', placeholder: 'Enter a name', rows: 2 },
+      { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
       { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
       ...this._getTypeFields()
     ]
@@ -140,7 +141,9 @@ class New extends React.Component {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    const { form, modal } = this.context
+    if(form) return form.pop()
+    if(modal) return modal.close()
   }
 
   _handleChangeField(name, value) {
@@ -156,7 +159,9 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.modal.close()
+    const { form, modal } = this.context
+    if(form) return form.pop()
+    if(modal) return modal.close()
   }
 
 }

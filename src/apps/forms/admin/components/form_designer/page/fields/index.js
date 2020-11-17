@@ -8,15 +8,12 @@ import _ from 'lodash'
 
 class Fields extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
     config: PropTypes.object,
     fields: PropTypes.array,
-    form: PropTypes.object
+    form: PropTypes.object,
+    program: PropTypes.object
   }
-
-  static defaultProps = {}
 
   render() {
     return (

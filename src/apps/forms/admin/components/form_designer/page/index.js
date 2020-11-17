@@ -8,10 +8,6 @@ import React from 'react'
 
 class Page extends React.PureComponent {
 
-  static childContextTypes = {
-    form: PropTypes.object
-  }
-
   static propTypes = {
     cid: PropTypes.string,
     changes: PropTypes.number,
@@ -19,6 +15,7 @@ class Page extends React.PureComponent {
     endpoint: PropTypes.string,
     fields: PropTypes.array,
     form: PropTypes.object,
+    program: PropTypes.object,
     status: PropTypes.string,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -36,16 +33,6 @@ class Page extends React.PureComponent {
     )
   }
 
-  getChildContext() {
-    const { onPop, onPush } = this.props
-    return {
-      form: {
-        push: onPush,
-        pop: onPop
-      }
-    }
-  }
-
   _getDesign() {
     const { cid, onPop, onPush, onUpdate } = this.props
     return {
@@ -57,12 +44,13 @@ class Page extends React.PureComponent {
   }
 
   _getFields() {
-    const { cid, config, fields, form } = this.props
+    const { cid, config, fields, form, program } = this.props
     return {
       cid,
       config,
       fields,
-      form
+      form,
+      program
     }
   }
 
