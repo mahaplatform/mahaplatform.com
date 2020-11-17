@@ -1,9 +1,9 @@
 import './style.less'
-import RichText from '../../richtext'
-import Style from '../../style'
+import RichText from '../../../richtext'
+import Style from '../../../style'
 import React, { useState } from 'react'
 
-function VideoBlock({ children, config }) {
+function VideoBlock({ config }) {
 
   const [playable, setPlayable] = useState(false)
 

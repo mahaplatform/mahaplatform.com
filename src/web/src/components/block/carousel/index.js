@@ -3,7 +3,7 @@ import Carousel from '@client/components/carousel'
 import React from 'react'
 import Slide from './slide'
 
-function CarouselBlock({ children, config }) {
+function CarouselBlock({ config }) {
 
   const carousel = {
     slides: config.slides.map((slide, index) => (

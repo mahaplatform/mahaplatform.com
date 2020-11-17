@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const assets = await Asset.filterFetch({
     filter: {
       params: req.query.$filter,
+      search: ['original_file_name'],
       allowed: ['user_id','source_id','team_id','status']
     },
     sort: {

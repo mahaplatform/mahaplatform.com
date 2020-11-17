@@ -1,6 +1,6 @@
-import RichText from '../richtext'
+import RichText from '../../richtext'
 
-function TextBlock({ children, config }) {
+function TextBlock({ config }) {
   return RichText(config.body, config.style)
 }
 

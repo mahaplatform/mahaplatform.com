@@ -11,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Filename', key: 'original_file_name', primary: true, format: FilenameToken },
       { label: 'Uploaded By', key: 'user.full_name', primary: true },
       { label: 'Status', key: 'status', primary: true },
-      { label: 'Created', key: 'created_at', primary: true }
+      { label: 'Created', key: 'created_at', primary: true, format: 'date' }
     ],
     filters: [
       { label: 'User', name: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },

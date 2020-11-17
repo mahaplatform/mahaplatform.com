@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-function ButtonBlock({ children, config }) {
+function ButtonBlock({ config }) {
 
   const _getClass = ({ color, flow, size }) => {
     const classes = ['ui']

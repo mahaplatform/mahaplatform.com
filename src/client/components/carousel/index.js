@@ -37,8 +37,8 @@ class Carousel extends React.Component {
         { slides.length > 0 &&
           <div { ...this._getTheatre() }>
             { slides.length > 1 && (infinite || next > 0) &&
-              <div className="maha-carousel-previous" onClick={ this._handlePrevious }>
-                <i className="fa fa-fw fa-chevron-left" />
+              <div className="maha-carousel-previous">
+                <i className="fa fa-fw fa-chevron-left" onClick={ this._handlePrevious } />
               </div>
             }
             <div className="maha-carousel-slides">
@@ -49,8 +49,8 @@ class Carousel extends React.Component {
               ))}
             </div>
             { slides.length > 1 && (infinite || next < slides.length - 1) &&
-              <div className="maha-carousel-next" onClick={ this._handleNext }>
-                <i className="fa fa-fw fa-chevron-right" />
+              <div className="maha-carousel-next">
+                <i className="fa fa-fw fa-chevron-right" onClick={ this._handleNext } />
               </div>
             }
           </div>
@@ -89,9 +89,9 @@ class Carousel extends React.Component {
   }
 
   _getButtonClass(index) {
-    const { curr } = this.state
+    const { next } = this.state
     const classes = ['maha-carousel-pagination-button']
-    if(index === curr) classes.push('active')
+    if(index === next) classes.push('active')
     return classes.join(' ')
   }
 

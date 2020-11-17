@@ -5,12 +5,21 @@ p {
   min-height: 1.4em;
 }
 .ui.grid {
-  margin-top: 0;
-  margin-bottom: 0;
+  width: 100%;
   height: 100%;
 }
-.ui.fluid.grid > .row {
-  padding: 0;
+.maha-section {
+  & > .ui.grid {
+    margin: 0;
+  }
+}
+.ui.fluid.grid {
+  & > .row {
+    padding: 0;
+  }
+  .sixteen.wide.column {
+    padding: 0 !important;
+  }
 }
 .maha-column-content {
   width: 100%;
@@ -20,6 +29,22 @@ p {
     width: 100%;
   }
 }
+@media only screen and (min-width: 992px) {
+  .maha-section > .ui.grid > [class*="computer four column"].row > .column {
+    width: 25% !important;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .maha-section > .ui.grid > [class*="tablet three column"].row > .column {
+    width: 33.33333% !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .maha-section > .ui.grid > [class*="mobile two column"].row > .column {
+    width: 50% !important;
+  }
+}
+
 @media (max-width: 767px) {
   .ui.stackable.grid > .column.row > .column {
     &:first-child {

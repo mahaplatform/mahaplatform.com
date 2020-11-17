@@ -2,8 +2,11 @@ import ReactHtmlParser from 'react-html-parser'
 import Link from 'next/link'
 import Style from './style'
 import React, { Fragment } from 'react'
+import _ from 'lodash'
 
-function RichText(text, style) {
+_.templateSettings.interpolate = /{{([\s\S]+?)}}/g
+
+function RichText(text, style, data) {
 
   const transform = (style) => (node, index) => {
 
@@ -46,11 +49,14 @@ function RichText(text, style) {
     if(node.name === 'a') {
       return (
         <Link key={`node_${index}`} href={ node.attribs.href }>
-          <a>{ node.children[0].data }</a>
+          <a style={ Style('a', style) }>{ node.children[0].data }</a>
         </Link>
       )
     }
 
+    if(node.name === 'strong') {
+      return <strong>{ node.children[0].data }</strong>
+    }
     if(node.name === 'br') {
       return <br />
     }
@@ -59,7 +65,9 @@ function RichText(text, style) {
 
   }
 
-  return ReactHtmlParser(text, {
+  const rendered = data ? _.template(text)({ data }) : text
+
+  return ReactHtmlParser(rendered, {
     transform: transform(style)
   })
 

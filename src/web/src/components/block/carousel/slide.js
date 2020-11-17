@@ -1,5 +1,5 @@
 import './style.less'
-import RichText from '../../richtext'
+import RichText from '../../../richtext'
 import React from 'react'
 
 function Slide({ config, slide }) {
