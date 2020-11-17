@@ -6,7 +6,7 @@ const numbers = ['zero','one','two','three','four','five','six','seven','eight',
 
 function Section({ children, config }) {
 
-  const _getGridClass = ({ flow, responsive }) => {
+  const _getGridClass = ({ columns, flow, responsive }) => {
     const classes = ['ui']
     if(flow === 'fluid') classes.push('fluid')
     if(responsive === 'stackable') classes.push('stackable')
@@ -35,12 +35,11 @@ function Section({ children, config }) {
     if(verticalAlign === 'bottom') style.margin = '0 0 auto'
     if(verticalAlign === 'middle') style.margin = 'auto 0'
     if(verticalAlign === 'bottom') style.margin = 'auto 0 0'
-    style.width = '100%'
     return style
   }
 
   return (
-    <div style={ Style(null, config.style) }>
+    <div className="maha-section" style={ Style(null, config.style) }>
       <div className={ _getGridClass(config) }>
         <div className={ _getRowClass(config) }>
           { config.columns.map((column, cindex) => (

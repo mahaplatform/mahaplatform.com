@@ -1,9 +1,5 @@
 import './style.less'
-import Carousel from '@client/components/carousel'
-import Image from '@client/components/image'
 import RichText from '../../richtext'
-import Style from '../../style'
-import Link from 'next/link'
 import React from 'react'
 
 function Slide({ config, slide }) {
@@ -41,7 +37,7 @@ function Slide({ config, slide }) {
         <div className="maha-carousel-block-slide-image" style={ _getSlideStyle(slide) } />
       </div>
       <div className="maha-carousel-block-slide-caption">
-        <div className="ui stackable grid container">
+        <div className="ui grid container">
           <div className="row">
             <div className="sixteen wide column">
               <div className="maha-carousel-block-slide-caption-content">
@@ -55,6 +51,5 @@ function Slide({ config, slide }) {
   )
 
 }
-
 
 export default Slide

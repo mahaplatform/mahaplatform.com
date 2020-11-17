@@ -52,8 +52,11 @@ export async function getStaticProps({ params }) {
                 {
                   blocks: [
                     {
+                      style: {
+                        textAlign: 'center'
+                      },
                       type: 'text',
-                      body: '<h2>Plaid pickled pitchfork</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos</p>'
+                      body: '<h1>Cornell Cooperative Extension of Tompkins County'
                     }
                   ]
                 }
@@ -91,8 +94,6 @@ export async function getStaticProps({ params }) {
             {
               flow: 'fluid',
               columnSizing: 'variable',
-              numColumns: null,
-              responsive: 'stackable',
               columns: [
                 {
                   style: {
@@ -104,15 +105,14 @@ export async function getStaticProps({ params }) {
                       type: 'carousel',
                       slides: [
                         {
-                          link: 'http://google.com',
                           src: '/assets/8346/10156387003857338.jpg',
-                          caption: '<h2>Fall in Ithaca</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg</p>'
+                          caption: '<p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg</p>'
                         },{
                           src: '/assets/8346/10156387003857338.jpg',
-                          caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                          caption: '<p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg</p>'
                         },{
                           src: '/assets/8346/10156387003857338.jpg',
-                          caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                          caption: '<p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg</p>'
                         }
                       ]
                     }
@@ -124,17 +124,14 @@ export async function getStaticProps({ params }) {
               columnSizing: 'fixed',
               numColumns: 2,
               responsive: 'stackable',
-              style: {
-                marginTop: 20,
-                marginBottom: 20
-              },
               columns: [
                 {
                   textAlign: 'center',
                   blocks: [
                     {
                       type: 'video',
-                      src: 'https://youtube.com/embed/Gn564RrfXkE',
+                      image_url: 'https://i.ytimg.com/vi/Gn564RrfXkE/maxresdefault.jpg',
+                      video_url: 'https://youtube.com/embed/Gn564RrfXkE',
                       caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>',
                       style: {},
                       caption_style: {
@@ -150,7 +147,8 @@ export async function getStaticProps({ params }) {
                   blocks: [
                     {
                       type: 'video',
-                      src: 'https://youtube.com/embed/Gn564RrfXkE',
+                      image_url: 'https://i.ytimg.com/vi/Gn564RrfXkE/maxresdefault.jpg',
+                      video_url: 'https://youtube.com/embed/Gn564RrfXkE',
                       caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>',
                       caption_style: {
                         backgroundColor: '#000000',
@@ -172,7 +170,7 @@ export async function getStaticProps({ params }) {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                height: 500
+                minHeight: 500
               },
               columns: [
                 {
@@ -214,10 +212,6 @@ export async function getStaticProps({ params }) {
               columnSizing: 'fixed',
               numColumns: 3,
               responsive: 'stackable',
-              style: {
-                marginTop: 20,
-                marginBottom: 20
-              },
               columns: [
                 {
                   verticalAlign: 'bottom',

@@ -1,6 +1,3 @@
-.maha-page {
-  padding-top: 1rem;
-}
 h1,h2,p,ul,ol {
   margin: 0;
 }
@@ -8,14 +5,28 @@ p {
   min-height: 1.4em;
 }
 .ui.grid {
+  margin-top: 0;
+  margin-bottom: 0;
   height: 100%;
+}
+.ui.fluid.grid > .row {
+  padding: 0;
 }
 .maha-column-content {
   width: 100%;
   height: 100%;
   display: flex;
+  & > div {
+    width: 100%;
+  }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .ui.stackable.grid > .column.row > .column {
+    &:first-child {
+      margin-top: 0 !important;
+    }
+    margin-top: -1rem !important;
+  }
   .ui.grid .row .column.empty {
     display: none;
   }

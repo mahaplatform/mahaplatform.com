@@ -24,7 +24,7 @@ const Style = (tag, config = {}) => {
     const value = config[element]
     return {
       ...styles,
-      ...value ? {
+      ...value !== undefined ? {
         [property]: _formatValue(value, property)
       } : {}
     }
