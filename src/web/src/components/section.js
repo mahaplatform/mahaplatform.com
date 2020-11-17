@@ -44,13 +44,15 @@ function Section({ children, config }) {
       <div className={ _getGridClass(config) }>
         <div className={ _getRowClass(config) }>
           { config.columns.map((column, cindex) => (
-            <div className={ _getColumnClass(column, config) } style={ Style(null, column.style) } key={`column_${cindex}`}>
-              <div style={ _getContentStyle(column) }>
-                { column.blocks.map((block, bindex) => (
-                  <div style={ Style(null, block.style) } key={`block_${cindex}_${bindex}`}>
-                    <Block config={ block } />
-                  </div>
-                )) }
+            <div className={ _getColumnClass(column, config) } key={`column_${cindex}`}>
+              <div className="maha-column-content" style={ Style(null, column.style) }>
+                <div style={ _getContentStyle(column) }>
+                  { column.blocks.map((block, bindex) => (
+                    <div style={ Style(null, block.style) } key={`block_${cindex}_${bindex}`}>
+                      <Block config={ block } />
+                    </div>
+                  )) }
+                </div>
               </div>
             </div>
           )) }

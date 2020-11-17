@@ -3,16 +3,16 @@ import Link from 'next/link'
 import Style from './style'
 import React, { Fragment } from 'react'
 
-function RichText(text, config) {
+function RichText(text, style) {
 
-  const transform = (config) => (node, index) => {
+  const transform = (style) => (node, index) => {
 
     if(node.name === 'h2') {
       return (
-        <h2 key={`node_${index}`} style={ Style('h2', config.style) }>
-          { node.children.map((child, index) => (
-            <Fragment key={`child_${index}`}>
-              { transform(config)(child) }
+        <h2 key={`node_${index}`} style={ Style('h2', style) }>
+          { node.children.map((child, cindex) => (
+            <Fragment key={`child_${cindex}`}>
+              { transform(style)(child, cindex) }
             </Fragment>
           )) }
         </h2>
@@ -21,10 +21,10 @@ function RichText(text, config) {
 
     if(node.name === 'h3') {
       return (
-        <h3 key={`node_${index}`} style={ Style('h3', config.style) }>
-          { node.children.map((child, index) => (
-            <Fragment key={`child_${index}`}>
-              { transform(config)(child) }
+        <h3 key={`node_${index}`} style={ Style('h3', style) }>
+          { node.children.map((child, cindex) => (
+            <Fragment key={`child_${cindex}`}>
+              { transform(style)(child, cindex) }
             </Fragment>
           )) }
         </h3>
@@ -33,10 +33,10 @@ function RichText(text, config) {
 
     if(node.name === 'p') {
       return (
-        <p key={`node_${index}`} style={ Style('p', config.style) }>
-          { node.children.map((child, index) => (
-            <Fragment key={`child_${index}`}>
-              { transform(config)(child) }
+        <p key={`node_${index}`} style={ Style('p', style) }>
+          { node.children.map((child, cindex) => (
+            <Fragment key={`child_${cindex}`}>
+              { transform(style)(child, cindex) }
             </Fragment>
           )) }
         </p>
@@ -60,7 +60,7 @@ function RichText(text, config) {
   }
 
   return ReactHtmlParser(text, {
-    transform: transform(config)
+    transform: transform(style)
   })
 
 }

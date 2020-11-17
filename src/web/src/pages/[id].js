@@ -106,8 +106,7 @@ export async function getStaticProps({ params }) {
                         {
                           link: 'http://google.com',
                           src: '/assets/8346/10156387003857338.jpg',
-                          caption: '<h2>Fall in Ithaca</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p>'
-
+                          caption: '<h2>Fall in Ithaca</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg</p>'
                         },{
                           src: '/assets/8346/10156387003857338.jpg',
                           caption: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
@@ -121,27 +120,44 @@ export async function getStaticProps({ params }) {
                 }
               ]
             }, {
-              flow: 'fluid',
+              flow: 'fixed',
               columnSizing: 'fixed',
               numColumns: 2,
               responsive: 'stackable',
+              style: {
+                marginTop: 20,
+                marginBottom: 20
+              },
               columns: [
                 {
                   textAlign: 'center',
                   blocks: [
                     {
-                      type: 'image',
-                      src: '/assets/8346/10156387003857338.jpg',
-                      caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>'
+                      type: 'video',
+                      src: 'https://youtube.com/embed/Gn564RrfXkE',
+                      caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>',
+                      style: {},
+                      caption_style: {
+                        backgroundColor: '#000000',
+                        padding: 10,
+                        h2_color: '#FFFFFF',
+                        p_color: '#FFFFFF'
+                      }
                     }
                   ]
                 },{
                   textAlign: 'center',
                   blocks: [
                     {
-                      type: 'image',
-                      src: '/assets/8346/10156387003857338.jpg',
-                      caption: '<h2>Winter in Ithaca</h2><p>The snow is so cold</p>'
+                      type: 'video',
+                      src: 'https://youtube.com/embed/Gn564RrfXkE',
+                      caption: '<h2>Fall in Ithaca</h2><p>The leaves are <a href="http://google.com">google</a> so orange</p>',
+                      caption_style: {
+                        backgroundColor: '#000000',
+                        padding: 10,
+                        h2_color: '#FFFFFF',
+                        p_color: '#FFFFFF'
+                      }
                     }
                   ]
                 }
@@ -149,14 +165,14 @@ export async function getStaticProps({ params }) {
             }, {
               flow: 'fixed',
               columnSizing: 'variable',
-              numColumns: null,
               responsive: 'stackable',
               style: {
                 backgroundColor: 'red',
                 backgroundImage: '/assets/8346/10156387003857338.jpg',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center'
+                backgroundPosition: 'center',
+                height: 500
               },
               columns: [
                 {
@@ -167,6 +183,7 @@ export async function getStaticProps({ params }) {
                     textAlign: 'center'
                   },
                   columnWidth: 12,
+                  verticalAlign: 'middle',
                   blocks: [
                     {
                       style: {
@@ -177,6 +194,9 @@ export async function getStaticProps({ params }) {
                       body: '<h2>Plaid pickled pitchfork</h2><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p><p>Im baby selvage godard pug vaporware plaid pickled pitchfork. Roof party XOXO seitan air plant. Tbh bespoke blue bottle wolf, listicle bitters viral fingerstache. Raclette pug yr, farm-to-table retro williamsburg freegan narwhal umami iceland deep v. Street art flannel shabby chic swag aesthetic vaporware salvia umami kitsch portland +1 roof party jean shorts. Raw denim kitsch pitchfork stumptown health goth glossier kale chips man bun. Beard wayfarers hashtag master cleanse blog tacos organic cold-pressed 90s tumblr actually coloring book.</p>'
                     }, {
                       type: 'button',
+                      style: {
+                        padding: 10
+                      },
                       size: 'big',
                       color: 'blue',
                       text: 'Click Me Damnit',
@@ -194,8 +214,13 @@ export async function getStaticProps({ params }) {
               columnSizing: 'fixed',
               numColumns: 3,
               responsive: 'stackable',
+              style: {
+                marginTop: 20,
+                marginBottom: 20
+              },
               columns: [
                 {
+                  verticalAlign: 'bottom',
                   style: {
                     backgroundImage: '/assets/8346/10156387003857338.jpg',
                     backgroundSize: 'cover',
@@ -203,50 +228,7 @@ export async function getStaticProps({ params }) {
                     backgroundPosition: 'center',
                     textAlign: 'center',
                     height: 300,
-                  },
-                  blocks: [
-                    {
-                      style: {
-                        h2_fontFamily: '"Times New Roman", Times, serif',
-                        h2_fontStyle: 'italic',
-                        h2_fontWeight: 'normal',
-                        h2_color: 'white',
-                        p_color: 'white'
-                      },
-                      type: 'text',
-                      body: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
-                    }
-                  ]
-                },{
-                  style: {
-                    backgroundImage: '/assets/8346/10156387003857338.jpg',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    textAlign: 'center',
-                    height: 300
-                  },
-                  blocks: [
-                    {
-                      style: {
-                        h2_fontFamily: '"Times New Roman", Times, serif',
-                        h2_fontStyle: 'italic',
-                        h2_fontWeight: 'normal',
-                        h2_color: 'white',
-                        p_color: 'white'
-                      },
-                      type: 'text',
-                      body: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
-                    }
-                  ]
-                },{
-                  style: {
-                    backgroundImage: '/assets/8346/10156387003857338.jpg',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    textAlign: 'center',
-                    height: 300
+                    padding: 10
                   },
                   blocks: [
                     {
@@ -261,9 +243,73 @@ export async function getStaticProps({ params }) {
                       body: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
                     }, {
                       type: 'button',
-                      size: 'big',
+                      style: {
+                        padding: 10
+                      },
                       color: 'blue',
-                      text: 'Click Me Damnit'
+                      text: 'Click Me'
+                    }
+                  ]
+                },{
+                  verticalAlign: 'bottom',
+                  style: {
+                    backgroundImage: '/assets/8346/10156387003857338.jpg',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    textAlign: 'center',
+                    height: 300,
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      style: {
+                        h2_fontFamily: '"Times New Roman", Times, serif',
+                        h2_fontStyle: 'italic',
+                        h2_fontWeight: 'normal',
+                        h2_color: 'white',
+                        p_color: 'white'
+                      },
+                      type: 'text',
+                      body: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                    }, {
+                      type: 'button',
+                      style: {
+                        padding: 10
+                      },
+                      color: 'blue',
+                      text: 'Click Me'
+                    }
+                  ]
+                },{
+                  verticalAlign: 'bottom',
+                  style: {
+                    backgroundImage: '/assets/8346/10156387003857338.jpg',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    textAlign: 'center',
+                    height: 300,
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      style: {
+                        h2_fontFamily: '"Times New Roman", Times, serif',
+                        h2_fontStyle: 'italic',
+                        h2_fontWeight: 'normal',
+                        h2_color: 'white',
+                        p_color: 'white'
+                      },
+                      type: 'text',
+                      body: '<h2>Fall in Ithaca</h2><p>The leaves are so orange</p>'
+                    }, {
+                      type: 'button',
+                      style: {
+                        padding: 10
+                      },
+                      color: 'blue',
+                      text: 'Click Me'
                     }
                   ]
                 }

@@ -10,7 +10,7 @@ function ImageBlock({ children, config }) {
         <Image src={ config.src } transforms={{ fit: 'cover', w: 200, h: 200 }} />
       </div>
       <div>
-        { RichText(config.caption, config) }
+        { RichText(config.caption, config.style) }
       </div>
     </div>
   )
