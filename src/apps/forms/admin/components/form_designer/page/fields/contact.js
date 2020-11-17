@@ -65,7 +65,10 @@ class Contact extends React.Component {
       label: field.label,
       icon: this._getIcon(field.field.contactfield.type),
       type: 'contactfield',
-      field: field.field,
+      field: {
+        ...field.field.contactfield || {},
+        ...field.field
+      },
       component: ContactField
     }))
   }

@@ -20,6 +20,7 @@ class Dropdown extends React.Component {
   }
 
   static defaultProps = {
+    options: [],
     onChange: () => {},
     onReady: () => {}
   }

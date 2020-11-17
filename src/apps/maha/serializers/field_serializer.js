@@ -33,18 +33,29 @@ const config = (req, result) => {
     type_id: config.datasource ? config.datasource.type_id : null
   } : {}
 
-  const textareaConfig = (type === 'textarea') ? {
-    minLength: config.minLength,
-    maxLength: config.maxLength
+  const textConfig = (_.includes(['textfield','textarea'], type)) ? {
+    min_length: config.min_length,
+    max_length: config.max_length
+  } : {}
+
+  const numberConfig = (type === 'numberfield') ? {
+    min: config.min,
+    max: config.max
+  } : {}
+
+  const checkboxConfig = (type === 'checkbox') ? {
+    prompt: config.prompt || '<p></p>'
   } : {}
 
   return {
     label: result.get('label'),
     name: `values.${result.get('code')}`,
     type: result.get('type'),
+    ...checkboxConfig,
     ...lookupConfig,
     ...dataConfig,
-    ...textareaConfig
+    ...textConfig,
+    ...numberConfig
   }
 
 }

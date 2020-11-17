@@ -100,7 +100,7 @@ class Main extends React.Component {
 
   _getClass() {
     const { isConfiguring, isReady, status } = this.props
-    const classes = ['ui','form',status]
+    const classes = ['ui','form']
     if(isConfiguring || !isReady || status === 'submitting') classes.push('loading')
     return classes.join(' ')
   }

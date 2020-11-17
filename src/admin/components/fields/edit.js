@@ -101,6 +101,9 @@ class Edit extends React.Component {
         { value: true, text: 'User can pick multiple values'}
       ], defaultValue: false  })
     }
+    if(type === 'checkbox') {
+      fields.push({ label: 'Prompt', name: 'config.prompt', type: 'htmlfield' })
+    }
     if(_.includes(['checkboxgroup','radiogroup','lookup','dropdown'], type)) {
       if(datasources && datasources.length > 0) {
         fields.push({ label: 'Data Type', name: 'config.data_type', type: 'radiogroup', options: [

@@ -26,6 +26,7 @@ class Checkboxes extends React.Component {
   }
 
   static defaultProps = {
+    options: [],
     onChange: () => {},
     onReady: () => {}
   }
