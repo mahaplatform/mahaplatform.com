@@ -4,7 +4,6 @@ const SenderSerializer = (req, result) => ({
   name: result.get('name'),
   email: result.get('email'),
   rfc822: result.get('rfc822'),
-  is_verified: result.get('is_verified'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

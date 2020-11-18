@@ -38,7 +38,7 @@ class Clone extends React.Component {
             { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: campaign.purpose },
             { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'email', purpose: campaign.purpose, defaultValue: campaign.to },
             { label: 'Email Details', type: 'segment', fields: [
-              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${campaign.program.id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true, defaultValue: campaign.config.settings.sender_id },
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${campaign.program.id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: campaign.config.settings.sender_id },
               { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: campaign.config.settings.reply_to },
               { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: campaign.config.settings.subject }
             ] }

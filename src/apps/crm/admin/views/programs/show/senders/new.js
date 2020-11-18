@@ -1,5 +1,6 @@
-import { Form } from '@admin'
+import SenderField from '@apps/crm/admin/components/senderfield'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -32,7 +33,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter the from name', required: true },
-            { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter the email address', required: true }
+            { label: 'Email', name: 'email', type: SenderField, required: true }
           ]
         }
       ]

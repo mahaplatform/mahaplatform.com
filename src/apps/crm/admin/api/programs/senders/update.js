@@ -1,7 +1,8 @@
-import { activity } from '@core/services/routes/activities'
 import SenderSerializer from '@apps/crm/serializers/sender_serializer'
-import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '@apps/crm/services/programs'
+import { activity } from '@core/services/routes/activities'
+import { whitelist } from '@core/services/routes/params'
+import socket from '@core/services/routes/emitter'
 import Sender from '@apps/crm/models/sender'
 
 const updateRoute = async (req, res) => {
@@ -25,7 +26,7 @@ const updateRoute = async (req, res) => {
   })
 
   await sender.save({
-    name: req.body.name
+    ...whitelist(req.body, ['name','email'])
   }, {
     transacting: req.trx
   })

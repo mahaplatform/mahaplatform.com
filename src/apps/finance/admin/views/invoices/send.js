@@ -36,7 +36,7 @@ class Send extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${invoice.program.id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${invoice.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'To', name: 'to', type: 'emailfield', placeholder: 'To', required: true, defaultValue: invoice.customer.email },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter an email address', defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: subject },

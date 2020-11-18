@@ -94,7 +94,7 @@ class Email extends React.PureComponent {
             ...this._getHiddenFields(),
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: `/api/admin/crm/programs/${program.id}/templates`, value: 'id', text: 'title' },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, filter: { is_verified: { $eq: true } }, value: 'id', text: 'rfc822', required: true },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program.id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true }
           ]

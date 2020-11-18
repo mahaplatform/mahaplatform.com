@@ -52,7 +52,7 @@ class New extends React.PureComponent {
             { label: 'To', name: 'to', type: ToField, program_id, channel: 'email', purpose: config.purpose },
             { label: 'Email Details', type: 'segment', fields: [
               { label: 'Template', name: 'template_id', type: TemplateField, program_id },
-              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
               { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
               { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true }
             ] }

@@ -22,7 +22,6 @@ const listRoute = async (req, res) => {
     },
     filter: {
       params: req.query.$filter,
-      allowed: ['is_verified'],
       search: ['name','email']
     },
     page: req.query.$page,

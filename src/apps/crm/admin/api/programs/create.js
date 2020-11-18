@@ -50,8 +50,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     program_id: program.get('id'),
     name: program.get('title'),
-    email: `${program.get('title').replace(/\s*/g,'').toLowerCase()}@${req.team.get('fqdn')}`,
-    is_verified: true
+    email: `${program.get('title').replace(/\s*/g,'').toLowerCase()}-${req.team.get('subdomain')}@${process.env.DOMAIN}`
   }).save(null, {
     transacting: req.trx
   })

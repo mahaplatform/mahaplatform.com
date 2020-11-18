@@ -19,7 +19,6 @@ const processor = async (req, job) => {
 
   const sender = await Sender.query(qb => {
     qb.where('program_id', invoice.get('program_id'))
-    qb.where('is_verified', true)
     qb.where('id', sender_id)
   }).fetch({
     transacting: req.trx
