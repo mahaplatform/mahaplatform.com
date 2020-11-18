@@ -13,6 +13,7 @@ import twitter from './twitter/token'
 import dropbox from './dropbox/token'
 import google from './google/token'
 import box from './box/token'
+import atob from 'atob'
 
 const getProfileCreator = (service) => {
   if(service === 'facebook') return facebook
@@ -53,7 +54,7 @@ const getPhotoId = async (req, { source_id, photo_url, photo_data }) => {
 }
 
 const extractState = (state) => {
-  const parts = state.split('|')
+  const parts = atob(state).split('|')
   return parts.reduce((state,part) => {
     const [key, value] = part.split(':')
     return {

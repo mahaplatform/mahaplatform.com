@@ -33,10 +33,10 @@ class EmailsShow extends React.Component {
             <div className="team-email-header-details">
               <strong>From:</strong> { email.from }<br />
               <strong>To:</strong> { email.to }<br />
-              { email.cc &&
+              { (email.cc && email.cc.length > 0) &&
                 <span><strong>CC:</strong> { email.cc }<br /></span>
               }
-              { email.bcc &&
+              { email.bcc && email.bcc.length > 0 &&
                 <span><strong>BCC:</strong> { email.bcc }<br /></span>
               }
               <strong>Subject:</strong> { email.subject }

@@ -9,6 +9,7 @@ import dropbox from './dropbox/authorize'
 import twitter from './twitter/authorize'
 import google from './google/authorize'
 import box from './box/authorize'
+import btoa from 'btoa'
 import _ from 'lodash'
 
 const getUrlCreator = (service) => {
@@ -52,12 +53,12 @@ const authorize = async (req, res) => {
 
   const scope = getScope(req.params.source, req.query.type)
 
-  const state = [
+  const state = btoa([
     `scope:${scope.join(',')}`,
     `source:${req.params.source}`,
     `token:${req.query.token}`,
     `type:${req.query.type}`
-  ].join('|')
+  ].join('|'))
 
   const urlCreator = getUrlCreator(req.params.source)
 
