@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const fetchReleases = async () => {
   return await request.get({
-    uri: 'https://api.github.com/repos/mahaplatform/mahaplatform.com/releases?per_page=50',
+    uri: 'https://api.github.com/repos/mahaplatform/mahaplatform.com/releases?per_page=20',
     encoding: null,
     headers: {
       'User-Agent': 'the Maha Platform'
@@ -31,6 +31,7 @@ const listRoute = async (req, res) => {
 
   res.status(200).respond(changes, (req, change) => {
     const tag = _.findIndex(tags, { name: change.tag_name })
+    console.log(tag, tags[tag], tags[tag+1])
     return {
       name: change.tag_name,
       body: change.body,
