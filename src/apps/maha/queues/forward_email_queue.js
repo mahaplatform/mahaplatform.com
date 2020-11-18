@@ -40,8 +40,8 @@ const processor = async (req, job) => {
   })
 
   const forward = await Email.forge({
-    team_id: forwarding.get('team_id'),
-    from: `${contact.full_name} <mailer@mahaplatform.com>`,
+    team_id: req.team.get('id'),
+    from: req.team.get('rfc822'),
     reply_to: forwarding.get('reply_to'),
     to: `${first_name} ${last_name} <${email}>`,
     subject: `FW: ${forwarding.get('subject')}`,

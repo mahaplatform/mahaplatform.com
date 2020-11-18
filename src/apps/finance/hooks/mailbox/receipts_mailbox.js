@@ -44,7 +44,7 @@ const _processEmail = async (req, { type, incoming_email }) => {
   if(!req.user) {
     await sendEmail(req, {
       team_id: req.team.get('id'),
-      from: 'Maha <mailer@mahaplatform.com>',
+      from: req.team.get('rfc822'),
       to: incoming_email.get('from'),
       template: 'finance:item',
       maha: true,
@@ -146,7 +146,7 @@ const processor = async (req, { incoming_email }) => {
 
     return await sendEmail(req, {
       team_id: req.team.get('id'),
-      from: 'Maha <mailer@mahaplatform.com>',
+      from: req.team.get('rfc822'),
       to: incoming_email.get('from'),
       template: 'finance:item',
       maha: true,
@@ -167,7 +167,7 @@ const processor = async (req, { incoming_email }) => {
 
     return await sendEmail(req, {
       team_id: req.team.get('id'),
-      from: 'Maha <mailer@mahaplatform.com>',
+      from: req.team.get('rfc822'),
       to: incoming_email.get('from'),
       template: 'finance:item',
       maha: true,

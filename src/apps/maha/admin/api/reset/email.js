@@ -27,7 +27,7 @@ const emailRoute = async (req, res, next) => {
   })
 
   await sendMail({
-    from: 'Maha <mailer@mahaplatform.com>',
+    from: req.team.get('rfc822'),
     to: account.get('rfc822'),
     reply_to: 'no-reply@mahaplatform.com',
     subject,

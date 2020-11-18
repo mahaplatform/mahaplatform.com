@@ -10,7 +10,7 @@ const emailRoute = async (req, res) => {
   }, req.body)
 
   await sendMail({
-    from: `${req.user.get('full_name')} at ${req.team.get('title')}  <mailer@mahaplatform.com>`,
+    from: `${req.user.get('full_name')} at ${req.team.get('title')} <${req.team.get('email')}>`,
     to: req.body.to,
     subject: req.body.subject,
     html: req.body.message

@@ -54,7 +54,7 @@ class HiddenField extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
-            { label: 'Value', name: 'value', type: 'textfield', placeholder: 'Enter a value', required: true, defaultValue: config.value }
+            { label: 'Value', name: 'value', type: 'textfield', placeholder: 'Enter a value', defaultValue: config.value }
           ]
         }
       ]

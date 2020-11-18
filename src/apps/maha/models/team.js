@@ -29,8 +29,12 @@ const Team = new Model({
       return `https://${this.get('fqdn')}`
     },
 
+    email: function() {
+      return `${this.get('subdomain')}@${process.env.DOMAIN}}`
+    },
+
     rfc822: function() {
-      return `${this.get('title')} <${this.get('subdomain')}@${this.get('fqdn')}>`
+      return `${this.get('title')} <${this.get('email')}>`
     }
 
   },

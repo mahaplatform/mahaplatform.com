@@ -99,7 +99,7 @@ const updateContact = async (req, { contact, contactfields, data }) => {
 
 const getLookupValue = (field, data) => {
   const value = field ? data[field.code] : null
-  return value !== null && value.length > 0 ? value : null
+  return !_.isNil(value) && value.length > 0 ? value : null
 }
 
 export const createOrUpdateContact = async (req, { fields, program, data }) => {
