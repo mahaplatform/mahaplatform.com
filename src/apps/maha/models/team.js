@@ -30,7 +30,7 @@ const Team = new Model({
     },
 
     email: function() {
-      return `${this.get('subdomain')}@${process.env.DOMAIN}}`
+      return `${this.get('subdomain')}@${process.env.DOMAIN}`
     },
 
     rfc822: function() {
