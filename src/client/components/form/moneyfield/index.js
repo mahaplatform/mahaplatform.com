@@ -7,7 +7,7 @@ class MoneyField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.number,
+    defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
     name: PropTypes.string,
     htmlFor: PropTypes.string,
@@ -36,7 +36,7 @@ class MoneyField extends React.Component {
 
   state = {
     focused: false,
-    value: 0
+    value: null
   }
 
   _handleBlur = this._handleBlur.bind(this)
@@ -48,6 +48,7 @@ class MoneyField extends React.Component {
 
   render() {
     const { value } = this.state
+    if(value === null) return null
     return (
       <div className={ this._getClass() }>
         <div className="maha-input-field">
@@ -64,8 +65,8 @@ class MoneyField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, reference } = this.props
-    if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue * 100
+    this.setState({
+      value: !_.isNil(defaultValue) ? parseInt(defaultValue) * 100 : 0
     })
     if(reference) reference(this.input)
     this.props.onReady(this._handleValidate)

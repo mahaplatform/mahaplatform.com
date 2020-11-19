@@ -17,7 +17,7 @@ class MoneyField extends React.Component {
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -31,7 +31,7 @@ class MoneyField extends React.Component {
 
   state = {
     focused: false,
-    value: ''
+    value: null
   }
 
   _handleBlur = this._handleBlur.bind(this)
@@ -43,6 +43,7 @@ class MoneyField extends React.Component {
 
   render() {
     const { value } = this.state
+    if(value === null) return null
     return (
       <div className="maha-moneyfield">
         <div className="maha-input">
@@ -61,10 +62,10 @@ class MoneyField extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue * 100
+    this.setState({
+      value: !_.isNil(defaultValue) ? defaultValue * 100 : 0
     })
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -136,14 +137,12 @@ class MoneyField extends React.Component {
   }
 
   _handleValidate() {
-    const { min, required } = this.props
+    const { min } = this.props
     const { value } = this.state
-    if(required === true && value === '') {
-      this.props.onValidate(value, 'This field is required')
-    } else if(min !== undefined && Number(value) < min) {
-      this.props.onValidate(value, `This field must be greater than or equal to  ${min}`)
+    if(min !== undefined && Number(value) < min) {
+      this.props.onValid(value, `This field must be greater than or equal to  ${min}`)
     } else {
-      this.props.onValidate(value)
+      this.props.onValid(value)
     }
   }
 

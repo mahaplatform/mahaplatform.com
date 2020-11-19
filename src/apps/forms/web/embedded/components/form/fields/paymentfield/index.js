@@ -6,6 +6,7 @@ import _ from 'lodash'
 class PaymentField extends React.Component {
 
   static propTypes = {
+    defaultValue: PropTypes.string,
     description: PropTypes.string,
     is_tax_deductible: PropTypes.bool,
     project_id: PropTypes.number,
@@ -32,6 +33,8 @@ class PaymentField extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
+    const { value } = this.state
+    if(value === null) return null
     return (
       <div className="maha-paymentfield">
         <MoneyField { ...this._getMoneyField() } />
@@ -40,8 +43,11 @@ class PaymentField extends React.Component {
   }
 
   componentDidMount() {
-    const { onReady } = this.props
-    onReady()
+    const { defaultValue } = this.props
+    this.setState({
+      value: !_.isNil(defaultValue) ? parseInt(defaultValue) : 0
+    })
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -56,8 +62,9 @@ class PaymentField extends React.Component {
   }
 
   _getMoneyField() {
-    const { tabIndex } = this.props
+    const { defaultValue, tabIndex } = this.props
     return {
+      defaultValue,
       tabIndex,
       onChange: this._handleUpdate
     }
