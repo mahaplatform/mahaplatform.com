@@ -1,4 +1,4 @@
-import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import { activity } from '@core/services/routes/activities'
 import EmailSerializer from '@apps/automation/serializers/email_serializer'
 import generateCode from '@core/utils/generate_code'

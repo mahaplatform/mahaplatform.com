@@ -1,6 +1,9 @@
 import AccountsList from './accounts/list'
 import AccountsShow from './accounts/show'
 import ActivitiesList from './activities/list'
+import AnnouncementsDesign from './announcements/design'
+import AnnouncementsList from './announcements/list'
+import AnnouncementsShow from './announcements/show'
 import AppList from './apps/list'
 import AppShow from './apps/show'
 import ArticlesList from './articles/list'
@@ -20,6 +23,9 @@ const routes = [
   { path: '/accounts', component: AccountsList },
   { path: '/accounts/:id', component: AccountsShow },
   { path: '/activities', component: ActivitiesList },
+  { path: '/announcements', component: AnnouncementsList },
+  { path: '/announcements/:id', component: AnnouncementsShow },
+  { path: '/announcements/:id/design', component: AnnouncementsDesign },
   { path: '/apps', component: AppList },
   { path: '/apps/:id', component: AppShow },
   { path: '/banks', component: BankList },

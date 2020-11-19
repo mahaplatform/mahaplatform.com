@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import emails from './emails'
+import preview from './preview'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/emails', emails)
+router.get('/:type/:id/preview', preview)
 
 export default router

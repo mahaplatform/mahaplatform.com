@@ -1,27 +1,35 @@
-import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import renderEmail from '@apps/automation/services/email/render_email'
-import Template from '@apps/crm/models/template'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
+import Announcement from '@apps/maha/models/announcement'
 import Email from '@apps/automation/models/email'
+import Template from '@apps/crm/models/template'
 import inline from 'inline-css'
 
-const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
-  if(email_id) {
+const getObject = async (req, { type, id }) => {
+  if(type === 'announcement') {
+    return await Announcement.query(qb => {
+      qb.where('id', id)
+    }).fetch({
+      transacting: req.trx
+    })
+  }
+  if(type === 'email') {
     return await Email.query(qb => {
-      qb.where('id', email_id)
+      qb.where('id', id)
     }).fetch({
       transacting: req.trx
     })
   }
-  if(email_campaign_id) {
+  if(type === 'email_campaign') {
     return await EmailCampaign.query(qb => {
-      qb.where('id', email_campaign_id)
+      qb.where('id', id)
     }).fetch({
       transacting: req.trx
     })
   }
-  if(template_id) {
+  if(type === 'template') {
     return await Template.query(qb => {
-      qb.where('id', template_id)
+      qb.where('id', id)
     }).fetch({
       transacting: req.trx
     })
@@ -29,12 +37,11 @@ const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
 }
 const previewRoute = async (req, res) => {
 
-  const { email_campaign_id, email_id, template_id } = req.params
+  const { type, id } = req.params
 
   const object = await getObject(req, {
-    email_campaign_id,
-    email_id,
-    template_id
+    type,
+    id
   })
 
   const html = await renderEmail(req, {

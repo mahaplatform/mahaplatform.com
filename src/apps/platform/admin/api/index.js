@@ -1,5 +1,6 @@
 import accounts from './accounts'
 import activities from './activities'
+import announcements from './announcements'
 import articles from './articles'
 import settings from './settings'
 import { Router } from 'express'
@@ -14,6 +15,8 @@ const router = new Router({ mergeParams: true })
 router.use('/accounts', accounts)
 
 router.use('/activities', activities)
+
+router.use('/announcements', announcements)
 
 router.use('/apps', apps)
 

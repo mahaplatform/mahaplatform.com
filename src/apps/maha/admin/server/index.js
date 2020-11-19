@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import auth from './auth'
+import emails from './emails'
 import oauth from './oauth'
+import auth from './auth'
 
 const router = new Router({ mergeParams: true })
 
 router.use('/auth', auth)
+
+router.use('/emails', emails)
 
 router.use('/oauth', oauth)
 

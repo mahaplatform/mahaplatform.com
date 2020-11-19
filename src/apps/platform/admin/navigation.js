@@ -2,6 +2,7 @@ const navigation = async (req) => ({
   items: [
     { label: 'Activities', route: '/activities' },
     { label: 'Accounts', route: '/accounts' },
+    { label: 'Announcements', route: '/announcements' },
     { label: 'Assets', route: '/assets' },
     { label: 'Apps', route: '/apps' },
     { label: 'Banks', route: '/banks' },

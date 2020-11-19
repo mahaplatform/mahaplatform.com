@@ -17,7 +17,7 @@ const Details = ({ audits, email }) => {
     list.alert = { color: 'red', message: 'This email was deleted' }
   }
 
-  list.header = <EmailPreview email={ email } link={`/automation/admin/emails/email/${email.id}/preview`} />
+  list.header = <EmailPreview email={ email } link={`/admin/emails/email/${email.id}/preview`} />
 
   list.items = [
     { label: 'Title', content: email.title },

@@ -338,8 +338,6 @@ const schema = {
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
-      table.string('subject', 255)
-      table.string('reply_to', 255)
       table.jsonb('to')
       table.jsonb('config')
       table.timestamp('send_at')
@@ -1368,6 +1366,23 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('maha_announcements', (table) => {
+      table.increments('id').primary()
+      table.USER-DEFINED('status')
+      table.string('title', 255)
+      table.string('code', 255)
+      table.jsonb('to')
+      table.jsonb('config')
+      table.timestamp('send_at')
+      table.timestamp('sent_at')
+      table.integer('job_id')
+      table.text('html')
+      table.timestamp('deleted_at')
+      table.timestamp('screenshoted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_apps', (table) => {
       table.increments('id').primary()
       table.string('code', 255)
@@ -1594,6 +1609,8 @@ const schema = {
       table.boolean('was_webviewed')
       table.jsonb('data')
       table.integer('email_address_id').unsigned()
+      table.integer('account_id').unsigned()
+      table.integer('announcement_id').unsigned()
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -3200,6 +3217,8 @@ const schema = {
       table.foreign('email_id').references('crm_emails.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('account_id').references('maha_accounts.id')
+      table.foreign('announcement_id').references('maha_announcements.id')
     })
 
     await knex.schema.table('maha_faxes', table => {
@@ -5600,6 +5619,150 @@ union
       from pg_constraint) s
       where (s.consrc ~~* '%srid(% = %'::text)) sr on (((sr.connamespace = n.oid) and (sr.conrelid = c.oid) and (a.attnum = any (sr.conkey)))))
       where ((c.relkind = any (array['r'::"char", 'v'::"char", 'm'::"char", 'f'::"char", 'p'::"char"])) and (not (c.relname = 'raster_columns'::name)) and (t.typname = 'geometry'::name) and (not pg_is_other_temp_schema(c.relnamespace)) and has_table_privilege(c.oid, 'select'::text));
+    `)
+
+    await knex.raw(`
+      create view maha_announcement_results AS
+      with sent as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where (maha_emails.announcement_id is not null)
+      group by maha_emails.announcement_id
+      ), delivered as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_delivered = true) and (maha_emails.announcement_id is not null))
+      group by maha_emails.announcement_id
+      ), bounced as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.announcement_id is not null))
+      group by maha_emails.announcement_id
+      ), hard_bounced as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.announcement_id is not null) and (maha_emails.bounce_type = 'permanent'::maha_emails_bounce_type))
+      group by maha_emails.announcement_id
+      ), soft_bounced as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_bounced = true) and (maha_emails.announcement_id is not null) and (maha_emails.bounce_type = 'transient'::maha_emails_bounce_type))
+      group by maha_emails.announcement_id
+      ), opened as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where ((maha_emails.was_opened = true) and (maha_emails.announcement_id is not null))
+      group by maha_emails.announcement_id
+      ), total_opened as (
+      select maha_emails.announcement_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type))))
+      where (maha_emails.announcement_id is not null)
+      group by maha_emails.announcement_id
+      ), last_opened as (
+      select maha_emails.announcement_id,
+      max(maha_email_activities.created_at) as last_opened_at
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type))))
+      where (maha_emails.announcement_id is not null)
+      group by maha_emails.announcement_id
+      ), mobile as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from (maha_email_activities
+      join maha_emails on ((maha_emails.id = maha_email_activities.email_id)))
+      where ((maha_email_activities.is_mobile = true) and (maha_emails.announcement_id is not null) and (maha_email_activities.type = 'open'::maha_email_activities_type))
+      group by maha_emails.announcement_id
+      ), desktop as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from (maha_email_activities
+      join maha_emails on ((maha_emails.id = maha_email_activities.email_id)))
+      where ((maha_email_activities.is_mobile = false) and (maha_emails.announcement_id is not null) and (maha_email_activities.type = 'open'::maha_email_activities_type))
+      group by maha_emails.announcement_id
+      ), clicked as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where (maha_emails.was_clicked = true)
+      group by maha_emails.announcement_id
+      ), total_clicked as (
+      select maha_emails.announcement_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'click'::maha_email_activities_type))))
+      where (maha_emails.announcement_id is not null)
+      group by maha_emails.announcement_id
+      ), webviewed as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where (maha_emails.was_webviewed = true)
+      group by maha_emails.announcement_id
+      ), complained as (
+      select maha_emails.announcement_id,
+      count(*) as count
+      from maha_emails
+      where (maha_emails.was_complained = true)
+      group by maha_emails.announcement_id
+      )
+      select maha_announcements.id as announcement_id,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      else ((opened.count)::real / (delivered.count)::real)
+      end as open_rate,
+      case
+      when (coalesce(sent.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(bounced.count, (0)::bigint) = 0) then (0)::real
+      else ((bounced.count)::real / (sent.count)::real)
+      end as bounce_rate,
+      case
+      when (coalesce(opened.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(clicked.count, (0)::bigint) = 0) then (0)::real
+      else ((clicked.count)::real / (opened.count)::real)
+      end as click_rate,
+      case
+      when (coalesce(delivered.count, (0)::bigint) = 0) then (0)::real
+      when (coalesce(complained.count, (0)::bigint) = 0) then (0)::real
+      else ((complained.count)::real / (delivered.count)::real)
+      end as complaint_rate,
+      coalesce(sent.count, (0)::bigint) as sent,
+      coalesce(delivered.count, (0)::bigint) as delivered,
+      coalesce(bounced.count, (0)::bigint) as bounced,
+      coalesce(hard_bounced.count, (0)::bigint) as hard_bounced,
+      coalesce(soft_bounced.count, (0)::bigint) as soft_bounced,
+      coalesce(opened.count, (0)::bigint) as opened,
+      coalesce(total_opened.count, (0)::bigint) as total_opened,
+      last_opened.last_opened_at,
+      coalesce(mobile.count, (0)::bigint) as mobile,
+      coalesce(desktop.count, (0)::bigint) as desktop,
+      coalesce(clicked.count, (0)::bigint) as clicked,
+      coalesce(total_clicked.count, (0)::bigint) as total_clicked,
+      coalesce(webviewed.count, (0)::bigint) as webviewed,
+      coalesce(complained.count, (0)::bigint) as complained
+      from ((((((((((((((maha_announcements
+      left join sent on ((sent.announcement_id = maha_announcements.id)))
+      left join delivered on ((delivered.announcement_id = maha_announcements.id)))
+      left join bounced on ((bounced.announcement_id = maha_announcements.id)))
+      left join hard_bounced on ((hard_bounced.announcement_id = maha_announcements.id)))
+      left join soft_bounced on ((soft_bounced.announcement_id = maha_announcements.id)))
+      left join opened on ((opened.announcement_id = maha_announcements.id)))
+      left join total_opened on ((total_opened.announcement_id = maha_announcements.id)))
+      left join last_opened on ((last_opened.announcement_id = maha_announcements.id)))
+      left join mobile on ((mobile.announcement_id = maha_announcements.id)))
+      left join desktop on ((desktop.announcement_id = maha_announcements.id)))
+      left join clicked on ((clicked.announcement_id = maha_announcements.id)))
+      left join total_clicked on ((total_clicked.announcement_id = maha_announcements.id)))
+      left join webviewed on ((webviewed.announcement_id = maha_announcements.id)))
+      left join complained on ((complained.announcement_id = maha_announcements.id)));
     `)
 
     await knex.raw(`

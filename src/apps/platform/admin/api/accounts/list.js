@@ -1,22 +1,11 @@
 import AccountSerializer from '@apps/platform/serializers/account_serializer'
-import Account from '@apps/maha/models/account'
+import { getAccounts } from '@apps/maha/services/accounts'
 
 const listRoute = async (req, res) => {
 
-  const accounts = await Account.filterFetch({
-    scope: (qb) => {},
-    filter: {
-      params: req.query.$filter,
-      search: ['first_name','last_name','email']
-    },
-    sort: {
-      params: req.query.$sort,
-      defaults: 'last_name',
-      allowed: ['last_name']
-    },
-    page: req.query.$page,
-    withRelated: ['photo'],
-    transacting: req.trx
+  const accounts = await getAccounts(req, {
+    filter: req.query.$filter,
+    page: req.query.$page
   })
 
   res.status(200).respond(accounts, AccountSerializer)

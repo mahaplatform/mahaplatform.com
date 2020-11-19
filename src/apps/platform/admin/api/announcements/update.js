@@ -1,52 +1,50 @@
+import AnnouncementSerializer from '@apps/maha/serializers/announcement_serializer'
 import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
-import EmailSerializer from '@apps/automation/serializers/email_serializer'
 import { activity } from '@core/services/routes/activities'
+import Announcement from '@apps/maha/models/announcement'
 import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import Email from '@apps/automation/models/email'
 
 const updateRoute = async (req, res) => {
 
-  const email = await Email.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const announcement = await Announcement.query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['form','program','workflow'],
     transacting: req.trx
   })
 
-  if(!email) return res.status(404).respond({
+  if(!announcement) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load email'
+    message: 'Unable to load announcement'
   })
 
-  await email.save({
+  await announcement.save({
     ...whitelist(req.body, ['title','config'])
   }, {
     transacting: req.trx
   })
 
   await GenerateScreenshotQueue.enqueue(req, {
-    email_id: email.get('id')
+    announcement_id: announcement.get('id')
   })
 
   await audit(req, {
     story: 'updated',
-    auditable: email
+    auditable: announcement
   })
 
   await activity(req, {
     story: 'updated {object}',
-    object: email
+    object: announcement
   })
 
   await socket.refresh(req, [
-    '/admin/automation/emails',
-    `/admin/automation/emails/${email.id}`
+    '/admin/platform/announcements',
+    `/admin/platform/announcements/${announcement.id}`
   ])
 
-  res.status(200).respond(email, EmailSerializer)
+  res.status(200).respond(announcement, AnnouncementSerializer)
 
 }
 

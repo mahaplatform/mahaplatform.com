@@ -1,4 +1,4 @@
-import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import { getDefaultConfig } from '@apps/automation/services/email'

@@ -1,13 +1,15 @@
-import { getScreenshot } from '@core/services/screenshot'
+import renderEmail from '@apps/automation/services/email/render_email'
 import EmailCampaign from '@apps/campaigns/models/email_campaign'
+import Announcement from '@apps/maha/models/announcement'
+import { getScreenshot } from '@core/services/screenshot'
 import socket from '@core/services/routes/emitter'
+import Email from '@apps/automation/models/email'
 import Template from '@apps/crm/models/template'
 import s3 from '@core/services/s3'
-import renderEmail from './render_email'
-import Email from '@apps/automation/models/email'
 import moment from 'moment'
 
-const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
+const getObject = async (req, params) => {
+  const { announcement_id, email_id, email_campaign_id, template_id } = params
   if(email_id) {
     return await Email.query(qb => {
       qb.where('team_id', req.team.get('id'))
@@ -32,6 +34,13 @@ const getObject = async (req, { email_id, email_campaign_id, template_id }) => {
       transacting: req.trx
     })
   }
+  if(announcement_id) {
+    return await Announcement.query(qb => {
+      qb.where('id', announcement_id)
+    }).fetch({
+      transacting: req.trx
+    })
+  }
 }
 
 const saveScreenshot = async (req, { data, key }) => {
@@ -44,13 +53,11 @@ const saveScreenshot = async (req, { data, key }) => {
   }).promise()
 }
 
-const generateScreenshot = async(req, { email_campaign_id, email_id, template_id }) => {
+const generateScreenshot = async(req, params) => {
 
-  const object = await getObject(req, {
-    email_campaign_id,
-    email_id,
-    template_id
-  })
+  const { announcement_id, email_id, email_campaign_id, template_id } = params
+
+  const object = await getObject(req, params)
 
   const html = await renderEmail(req, {
     config: object.get('config'),
@@ -90,6 +97,7 @@ const generateScreenshot = async(req, { email_campaign_id, email_id, template_id
   })
 
   await socket.refresh(req, [
+    ...announcement_id ? [`/admin/platform/announcements/${object.get('id')}`] : [],
     ...email_id ? [`/admin/automation/emails/${object.get('id')}`] : [],
     ...email_campaign_id ? [`/admin/campaigns/email/${object.get('id')}`] : [],
     ...template_id ? [`/admin/crm/programs/${object.get('program_id')}/templates/${object.get('id')}`] : []

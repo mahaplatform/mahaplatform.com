@@ -46,7 +46,7 @@ class EmailDesigner extends React.Component {
         page: Page,
         section: Section
       },
-      program_id: program.id,
+      program_id: program ? program.id : null,
       settings,
       tokens,
       blocks: [

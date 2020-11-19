@@ -1,4 +1,4 @@
-import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import TemplateSerializer from '@apps/crm/serializers/template_serializer'
 import { activity } from '@core/services/routes/activities'
 import { getDefaultConfig } from '@apps/automation/services/email'

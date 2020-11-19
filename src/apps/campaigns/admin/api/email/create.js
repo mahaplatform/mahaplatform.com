@@ -1,4 +1,4 @@
-import GenerateScreenshotQueue from '@apps/automation/queues/generate_screenshot_queue'
+import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import EmailCampaignSerializer from '@apps/campaigns/serializers/email_campaign_serializer'
 import { createWorkflow } from '@apps/automation/services/workflows'
 import { activity } from '@core/services/routes/activities'

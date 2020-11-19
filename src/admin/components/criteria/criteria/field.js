@@ -59,7 +59,6 @@ class Field extends React.PureComponent {
     if(type === 'select') return Select
     if(type === 'date') return Date
     if(type === 'time') return Time
-    if(type === 'time') return Time
     return Text
   }
 
