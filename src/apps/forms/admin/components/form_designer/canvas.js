@@ -5,6 +5,10 @@ import _ from 'lodash'
 
 class Canvas extends React.Component {
 
+  static contextTypes = {
+    confirm: PropTypes.object
+  }
+
   static propTypes = {
     active: PropTypes.number,
     config: PropTypes.object,
@@ -91,7 +95,9 @@ class Canvas extends React.Component {
   }
 
   _handleRemove({ index }) {
-    this.props.onRemove(index)
+    this.context.confirm.open('Are you sure you want to remove this field? If there are responses, you will loose any associated data.', () => {
+      this.props.onRemove(index)
+    })
   }
 
   _handleRender() {
