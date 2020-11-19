@@ -21,15 +21,15 @@ const getTasks = ({ announcement }, { flash }) => {
     items.push({ label: 'Design Announcement', route: `/admin/platform/announcements/${announcement.id}/design` })
     items.push({ label: 'Send/Schedule Campaign', modal: <Send announcement={ announcement } /> })
   } else if(announcement.status === 'scheduled') {
-  //   items.push({
-  //     label: 'Unschedule Campaign',
-  //     confirm: 'Are you sure you want to unschedule this campaign?',
-  //     request: {
-  //       endpoint: `/api/admin/platform/announcements/${campaign.id}/unschedule`,
-  //       method: 'patch',
-  //       onFailure: () => flash.set('error', 'Unable to unschedule campaign')
-  //     }
-  //   })
+    items.push({
+      label: 'Unschedule Campaign',
+      confirm: 'Are you sure you want to unschedule this announcement?',
+      request: {
+        endpoint: `/api/admin/platform/announcements/${announcement.id}/unschedule`,
+        method: 'patch',
+        onFailure: () => flash.set('error', 'Unable to unschedule announcement')
+      }
+    })
   }
 
   // if(campaign.status === 'sent') {
