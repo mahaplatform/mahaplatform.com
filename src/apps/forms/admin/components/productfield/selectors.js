@@ -9,6 +9,7 @@ export const value = createSelector(
     project_id: product.project_id,
     revenue_type_id: product.revenue_type_id,
     description: product.description,
+    value: product.value,
     pricing: product.pricing,
     price: product.price,
     tax_rate: product.tax_rate,

@@ -56,6 +56,7 @@ class Edit extends React.Component {
             { name: 'code', type: 'hidden', value: config.code },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item', defaultValue: config.description },
             ...this._getPricing(),
+            { label: 'Value', name: 'value', type: 'textfield', placeholder: 'Enter a value for exports', defaultValue: config.value  },
             ...this._getInventory()
           ]
         }
@@ -76,7 +77,7 @@ class Edit extends React.Component {
     const { config } = this.state
     const options = this._getPricingOptions()
     return !_.isEqual(allowedPricing, ['fixed']) ? [
-      { label: 'Pricing', type: 'segment', fields: [
+      { label: 'Pricing', type: 'segment', required: true, fields: [
         { type: 'radiogroup', name: 'pricing', deselectable: false, options, defaultValue: config.pricing },
         ...this._getPricingType(config.pricing)
       ] }

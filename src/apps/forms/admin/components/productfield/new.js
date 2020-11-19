@@ -49,6 +49,7 @@ class New extends React.Component {
             { name: 'code', type: 'hidden', value: code },
             { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item' },
             ...this._getPricing(),
+            { label: 'Value', name: 'value', type: 'textfield', placeholder: 'Enter a value for exports' },
             ...this._getInventory()
           ]
         }
@@ -68,7 +69,7 @@ class New extends React.Component {
     const { config } = this.state
     const options = this._getPricingOptions()
     return !_.isEqual(allowedPricing, ['fixed']) ? [
-      { label: 'Pricing', type: 'segment', fields: [
+      { label: 'Pricing', type: 'segment', required: true, fields: [
         { type: 'radiogroup', name: 'pricing', deselectable: false, options, defaultValue: 'free' },
         ...this._getPricingType(config.pricing)
       ] }
