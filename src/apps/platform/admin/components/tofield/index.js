@@ -57,17 +57,17 @@ class ToField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    if(defaultValue) {
+      this.setState({
+        config: defaultValue
+      })
+    }
     this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { config, strategy } = this.state
+    const { config } = this.state
     if(!_.isEqual(config, prevState.config) && config) {
-      this._handleChange()
-      this._handleFetch()
-    }
-    if(strategy !== prevState.strategy) {
       this._handleChange()
       this._handleFetch()
     }

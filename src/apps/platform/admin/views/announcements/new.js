@@ -16,7 +16,7 @@ class New extends React.PureComponent {
     onBack: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -28,7 +28,7 @@ class New extends React.PureComponent {
       title: 'New Announcement',
       method: 'post',
       action: '/api/admin/platform/announcements',
-      onCancel: this._handleBack,
+      onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -42,8 +42,8 @@ class New extends React.PureComponent {
     }
   }
 
-  _handleBack() {
-    this.props.onBack()
+  _handleCancel() {
+    this.context.modal.close()
   }
 
   _handleSuccess(announcement) {
