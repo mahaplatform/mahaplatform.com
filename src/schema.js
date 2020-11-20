@@ -664,7 +664,6 @@ const schema = {
       table.USER-DEFINED('status')
       table.string('code', 255)
       table.string('title', 255)
-      table.string('description', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('form_id').unsigned()
@@ -1869,7 +1868,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('title', 255)
-      table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -3211,14 +3209,14 @@ const schema = {
     })
 
     await knex.schema.table('maha_emails', table => {
+      table.foreign('account_id').references('maha_accounts.id')
+      table.foreign('announcement_id').references('maha_announcements.id')
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('email_address_id').references('crm_email_addresses.id')
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
       table.foreign('email_id').references('crm_emails.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('account_id').references('maha_accounts.id')
-      table.foreign('announcement_id').references('maha_announcements.id')
     })
 
     await knex.schema.table('maha_faxes', table => {

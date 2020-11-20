@@ -8,8 +8,7 @@ const Role = new Model({
   tableName: 'maha_roles',
 
   rules: {
-    title: ['required', 'unique'],
-    description: 'required'
+    title: ['required', 'unique']
   },
 
   virtuals: {

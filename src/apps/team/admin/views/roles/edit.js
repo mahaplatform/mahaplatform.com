@@ -33,7 +33,6 @@ class RolesEdit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Description', name: 'description', type: 'textfield', required: true },
             { label: 'Access', name: 'assignments', type: Access }
           ]
         }

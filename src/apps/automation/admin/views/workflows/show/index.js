@@ -14,7 +14,7 @@ const getTabs = ({ audits, emails, performance, workflow }) => ({
   ]
 })
 
-const getTasks = ({ workflow, list }) => {
+const getTasks = ({ workflow }) => {
   const items = []
   if(!workflow.deleted_at) {
     items.push({ label: 'Edit Workflow', modal: <Edit workflow={ workflow } /> })

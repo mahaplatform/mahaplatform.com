@@ -60,7 +60,7 @@ const createRoute = async (req, res) => {
   await createWorkflow(req, {
     email_campaign,
     title: 'Delivery Workflow',
-    program_id: req.body.program_id
+    program_id: program.get('id')
   })
 
   await GenerateScreenshotQueue.enqueue(req, {

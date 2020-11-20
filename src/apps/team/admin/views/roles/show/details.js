@@ -5,8 +5,7 @@ import React from 'react'
 const Details = ({ role }) => {
 
   const items = [
-    { label: 'Title ', content: role.title },
-    { label: 'Description ', content: role.description }
+    { label: 'Title ', content: role.title }
   ]
 
   return <List items={ items } />
