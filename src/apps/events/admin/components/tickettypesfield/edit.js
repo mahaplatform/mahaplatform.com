@@ -45,7 +45,11 @@ class Edit extends React.PureComponent {
             { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: ticket_type.name },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description', defaultValue: ticket_type.description },
             { label: 'Pricing', type: 'segment', fields: [
-              { name: 'price_type', type: 'dropdown', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'},{value:'free',text:'Free'}], required: true, defaultValue: ticket_type.price_type },
+              { name: 'price_type', type: 'radiogroup', deselectable: false, options: [
+                { value: 'free', text: 'Free' },
+                { value: 'fixed', text: 'Fixed Price' },
+                { value: 'sliding_scale',text: 'Sliding Scale' }
+              ], required: true, defaultValue: ticket_type.price_type },
               ...this._getPriceType()
             ] },
             { label: 'Availability', type: 'segment', fields: [
