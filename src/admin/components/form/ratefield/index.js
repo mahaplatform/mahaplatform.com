@@ -31,7 +31,7 @@ class RateField extends React.Component {
 
   state = {
     focused: false,
-    value: ''
+    value: null
   }
 
   _handleBlur = this._handleBlur.bind(this)
@@ -61,8 +61,8 @@ class RateField extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(!_.isNil(defaultValue)) this.setState({
-      value: defaultValue * 100000
+    this.setState({
+      value: !_.isNil(defaultValue) ? defaultValue * 1000 : 0
     })
     this.props.onReady()
   }
@@ -101,6 +101,11 @@ class RateField extends React.Component {
     }
   }
 
+  _getValue() {
+    const { value } = this.state
+    return value > 0 ? value / 1000 : 0
+  }
+
   _handleBlur() {
     this.setState({
       focused: false
@@ -108,8 +113,8 @@ class RateField extends React.Component {
   }
 
   _handleChange() {
-    const { value } = this.state
-    this.props.onChange(value > 0 ? value / 100000 : 0)
+    const value = this._getValue()
+    this.props.onChange(value > 0 ? value : 0)
   }
 
   _handleFocus() {
@@ -134,11 +139,9 @@ class RateField extends React.Component {
   }
 
   _handleValidate() {
-    const { min, required } = this.props
-    const { value } = this.state
-    if(required === true && value === '') {
-      this.props.onValidate(value, 'This field is required')
-    } else if(min !== undefined && Number(value) < min) {
+    const { min } = this.props
+    const value = this._getValue()
+    if(min !== undefined && Number(value) < min) {
       this.props.onValidate(value, `This field must be greater than or equal to  ${min}`)
     } else {
       this.props.onValidate(value)

@@ -108,10 +108,8 @@ class MoneyField extends React.Component {
   }
 
   _handleBlur() {
-    const { value } = this.state
     this.setState({
-      focused: false,
-      value: value.length > 0 ? numeral(value).format('0.00') : value
+      focused: false
     })
   }
 

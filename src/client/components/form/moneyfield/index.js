@@ -157,9 +157,8 @@ class MoneyField extends React.Component {
   }
 
   _handleValidate() {
-    const { min, required, onValidate } = this.props
+    const { min, onValidate } = this.props
     const value = this._getValue()
-    if(required === true && value === '') return onValidate(value, ['This field is required'])
     if(min !== undefined && Number(value) < min) return onValidate(value, [`This field must be greater than or equal to  ${min}`])
     onValidate(value)
   }
