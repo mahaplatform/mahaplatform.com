@@ -63,7 +63,7 @@ class MoneyField extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     this.setState({
-      value: !_.isNil(defaultValue) ? defaultValue / 100 : 0
+      value: !_.isNil(defaultValue) ? defaultValue * 100 : 0
     })
     this.props.onReady(this._handleValidate)
   }
@@ -102,6 +102,11 @@ class MoneyField extends React.Component {
     }
   }
 
+  _getValue() {
+    const { value } = this.state
+    return value > 0 ? value / 100 : 0
+  }
+
   _handleBlur() {
     const { value } = this.state
     this.setState({
@@ -111,8 +116,8 @@ class MoneyField extends React.Component {
   }
 
   _handleChange() {
-    const { value } = this.state
-    this.props.onChange(value > 0 ? value / 100 : 0)
+    const value = this._getValue()
+    this.props.onChange(value > 0 ? value : 0)
   }
 
   _handleFocus() {
@@ -138,7 +143,7 @@ class MoneyField extends React.Component {
 
   _handleValidate() {
     const { min } = this.props
-    const { value } = this.state
+    const value = this._getValue()
     if(min !== undefined && Number(value) < min) {
       this.props.onValid(value, `This field must be greater than or equal to  ${min}`)
     } else {
