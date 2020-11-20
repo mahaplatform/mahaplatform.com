@@ -20,7 +20,7 @@ const getObject = async (req, { type, id }) => {
       transacting: req.trx
     })
   }
-  if(type === 'email_campaign') {
+  if(type === 'campaign') {
     return await EmailCampaign.query(qb => {
       qb.where('id', id)
     }).fetch({
