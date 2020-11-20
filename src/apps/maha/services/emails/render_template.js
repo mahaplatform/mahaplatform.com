@@ -39,7 +39,7 @@ const renderTemplate = async (req, options) => {
 
   const contentTemplate = fs.readFileSync(path.join(template.filepath, 'html.ejs')).toString()
 
-  const envelopeTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'envelope.ejs')).toString()
+  const envelopeTemplate = fs.readFileSync(path.resolve(__dirname,'..','..','emails','envelope.ejs')).toString()
 
   const content = ejs.render(contentTemplate, options.data)
 

@@ -3,7 +3,7 @@ import generateCode from '@core/utils/generate_code'
 import renderTemplate from './render_template'
 import Email from '../../models/email'
 
-export const sendEmail = async(req, options) => {
+const sendEmail = async(req, options) => {
 
   const { subject, html } = await renderTemplate(req, options)
 
@@ -36,3 +36,5 @@ export const sendEmail = async(req, options) => {
   })
 
 }
+
+export default sendEmail
