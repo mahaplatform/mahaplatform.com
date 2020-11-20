@@ -48,7 +48,6 @@ class MoneyField extends React.Component {
 
   render() {
     const { value } = this.state
-    if(value === null) return null
     return (
       <div className={ this._getClass() }>
         <div className="maha-input-field">
@@ -98,7 +97,7 @@ class MoneyField extends React.Component {
 
   _getFormatted() {
     const { value } = this.state
-    return numeral(value / 100).format('$0,0.00')
+    return numeral(value ? value / 100 : 0).format('$0,0.00')
   }
 
   _getInput() {
