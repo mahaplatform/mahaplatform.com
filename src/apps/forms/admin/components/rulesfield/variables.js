@@ -4,10 +4,10 @@ export const actions = [
 ]
 
 export const comparisons = [
-  { value: '$eq', text: 'equals', types: ['textfield','textarea','emailfield','phonefield'] },
-  { value: '$neq', text: 'does not equal', types: ['textfield','textarea','emailfield','phonefield'] },
-  { value: '$ct', text: 'contains', types: ['textfield','textarea','emailfield','phonefield'] },
-  { value: '$nct', text: 'does not contain', types: ['textfield','textarea','emailfield','phonefield'] },
+  { value: '$eq', text: 'equals', types: ['textfield','textarea','emailfield','phonefield','hiddenfield'] },
+  { value: '$neq', text: 'does not equal', types: ['textfield','textarea','emailfield','phonefield','hiddenfield'] },
+  { value: '$ct', text: 'contains', types: ['textfield','textarea','emailfield','phonefield','hiddenfield'] },
+  { value: '$nct', text: 'does not contain', types: ['textfield','textarea','emailfield','phonefield','hiddenfield'] },
   { value: '$eq', text: 'is', types: ['optionsfield','radiogroup','dropdown'] },
   { value: '$neq', text: 'is not', types: ['optionsfield','radiogroup','dropdown'] },
   { value: '$in', text: 'is one of', types: ['optionsfield','radiogroup','dropdown'] },
