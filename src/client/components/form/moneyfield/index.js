@@ -66,7 +66,7 @@ class MoneyField extends React.Component {
   componentDidMount() {
     const { defaultValue, reference } = this.props
     this.setState({
-      value: !_.isNil(defaultValue) ? parseInt(defaultValue) * 100 : 0
+      value: !_.isNil(defaultValue) ? parseInt(defaultValue) / 100 : 0
     })
     if(reference) reference(this.input)
     this.props.onReady(this._handleValidate)
