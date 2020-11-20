@@ -12,13 +12,14 @@ p {
   & > .ui.grid {
     margin: 0;
   }
-}
-.ui.fluid.grid {
-  & > .row {
-    padding: 0;
-  }
-  .sixteen.wide.column {
-    padding: 0 !important;
+  .ui.centered.grid,
+  .ui.fluid.grid {
+    & > .row {
+      padding: 0;
+      .column {
+        padding: 0 !important;
+      }
+    }
   }
 }
 .maha-column-content {

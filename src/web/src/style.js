@@ -1,9 +1,11 @@
 const properties = [
   'backgroundImage','backgroundRepeat','backgroundSize','backgroundColor','backgroundPosition',
   'height',
+  'border',
   'fontFamily','fontStyle','fontWeight','color','textAlign','textDecoration',
   'margin','marginTop','marginRight','marginBottom','marginLeft',
-  'padding','paddingTop','paddingRight','paddingBottom','paddingLeft'
+  'padding','paddingTop','paddingRight','paddingBottom','paddingLeft',
+  'transition','transform,'
 ]
 
 const Style = (tag, config = {}) => {

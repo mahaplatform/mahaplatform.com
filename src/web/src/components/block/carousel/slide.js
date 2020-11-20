@@ -1,5 +1,6 @@
 import './style.less'
 import RichText from '../../../richtext'
+import Style from '../../../style'
 import React from 'react'
 
 function Slide({ config, slide }) {
@@ -32,11 +33,11 @@ function Slide({ config, slide }) {
   }
 
   return (
-    <div className={ _getClass(config) } onClick={ _handleClick.bind(this, slide) }>
+    <div className={ _getClass(config) } style={ Style(null, config.slide_style )} onClick={ _handleClick.bind(this, slide) }>
       <div className="maha-carousel-block-slide-image-frame" style={ _getFrameStyle(slide) }>
         <div className="maha-carousel-block-slide-image" style={ _getSlideStyle(slide) } />
       </div>
-      <div className="maha-carousel-block-slide-caption">
+      <div className="maha-carousel-block-slide-caption" style={ Style(null, config.caption_style) }>
         <div className="ui grid container">
           <div className="row">
             <div className="sixteen wide column">
