@@ -1,7 +1,7 @@
-import SendEmailQueue from '../queues/send_email_queue'
+import SendEmailQueue from '../../queues/send_email_queue'
 import generateCode from '@core/utils/generate_code'
 import renderTemplate from './render_template'
-import Email from '../models/email'
+import Email from '../../models/email'
 
 export const sendEmail = async(req, options) => {
 
