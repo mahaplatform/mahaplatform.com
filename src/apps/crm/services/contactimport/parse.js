@@ -37,6 +37,13 @@ const parseContactImport = async (req, { import_id }) => {
         first_name: parts[0],
         last_name: parts.slice(1).join(' ')
       }
+    } else if(mapping.field === 'last_first') {
+      const matches = value.match(/(.*),\s?(.*)/)
+      if(!matches) return {}
+      return {
+        first_name: matches[2],
+        last_name: matches[1]
+      }
     } else if(mapping.field.match(/^address_\d{1}$/)) {
       const { number, prefix, street, type, sec_unit_type, sec_unit_num, city, state, zip, plus4 } = parseLocation(value)
       return {

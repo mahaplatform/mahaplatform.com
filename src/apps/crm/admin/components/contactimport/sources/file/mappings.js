@@ -5,9 +5,10 @@ import React from 'react'
 import _ from 'lodash'
 
 const fieldmap = [
-  { name: 'full_name', matches: ['name','fullname'] },
+  { name: 'last_first', matches: ['lastfirst'] },
   { name: 'first_name', matches: ['first','firstname','fname','givenname'] },
   { name: 'last_name', matches: ['last','lastname','lastnames','lname','surname'] },
+  { name: 'full_name', matches: ['name','fullname'] },
   { name: 'photo', matches: ['photo','picture'] },
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },
@@ -67,19 +68,23 @@ class Mappings extends React.PureComponent {
                 <th>Column</th>
                 <th>Field</th>
                 <th className="collapsing"></th>
+                <th className="collapsing"></th>
               </tr>
             </thead>
             <tbody>
               { mappings.map((mapping, index) => (
                 <tr key={`item_${index}`}>
                   <td>
-                    { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
+                    { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : (mapping.header || 'NO HEADER') }
                   </td>
                   <td>
                     { mapping.field ? this._getFieldLabel(mapping.field) : <span className="alert">UNMAPPED</span> }
                   </td>
                   <td>
-                    <Button { ...this._getButton(mapping) } />
+                    <Button { ...this._getEdit(mapping) } />
+                  </td>
+                  <td>
+                    <Button { ...this._getRemove(index) } />
                   </td>
                 </tr>
               ))}
@@ -94,11 +99,19 @@ class Mappings extends React.PureComponent {
     this._handleInitialMappings()
   }
 
-  _getButton(mapping) {
+  _getEdit(mapping) {
     return {
-      label: 'Edit',
-      className: 'ui mini fluid button',
+      icon: 'pencil',
+      className: '',
       handler: this._handleMapping.bind(this, mapping)
+    }
+  }
+
+  _getRemove(index) {
+    return {
+      icon: 'times',
+      className: '',
+      handler: this._handleRemove.bind(this, index)
     }
   }
 
@@ -171,10 +184,12 @@ class Mappings extends React.PureComponent {
   _handleInitialMappings() {
     const { headers } = this.props
     const mappings = headers.map(header => {
-      if(_.isInteger(header)) return { header, field: null, type: null }
-      const text = header.replace(/[\s-_']/g, '').toLowerCase().replace(/^(contact|customer|user)/g,'')
+      if(!header || _.isInteger(header)) return { header, field: null, type: null }
+      const text = header.replace(/[^A-Za-z0-9]/g, '').toLowerCase().replace(/^(contact|customer|user)/g,'')
       const field = fieldmap.find(item => {
-        return _.includes(item.matches, text)
+        return item.matches.find(match => {
+          return new RegExp(match).test(text)
+        }) !== undefined
       })
       const name = field ? field.name : null
       return this._getDefaultMapping(header, name)
@@ -208,6 +223,21 @@ class Mappings extends React.PureComponent {
       ]
     })
     this.props.onPop()
+  }
+
+  _handleRemove(index) {
+    const { mappings } = this.state
+    this.setState({
+      mappings: [
+        ...mappings.map((mapping, i) => {
+          return i == index ? {
+            field: null,
+            header: mapping.header,
+            type: null
+          } : mapping
+        })
+      ]
+    })
   }
 
 }

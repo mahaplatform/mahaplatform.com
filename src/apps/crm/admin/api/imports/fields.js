@@ -33,9 +33,10 @@ const fieldsRoute = async (req, res) => {
     {
       label: 'Core Fields',
       fields: [
-        { label: 'Full Name', name: 'full_name', type: 'textfield' },
+        { label: 'Last Name, First Name', name: 'last_first', type: 'textfield' },
         { label: 'First Name', name: 'first_name', type: 'textfield' },
         { label: 'Last Name', name: 'last_name', type: 'textfield' },
+        { label: 'Full Name', name: 'full_name', type: 'textfield' },
         { label: 'Organization', name: 'organization', type: 'textfield' },
         { label: 'Job Title', name: 'position', type: 'textfield' },
         { label: 'Photo', name: 'photo', type: 'imagefield' },

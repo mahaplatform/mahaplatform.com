@@ -81,7 +81,7 @@ class Preview extends React.PureComponent {
                 <tbody>
                   { record.map((property, index) => (
                     <tr key={`property_${index}`}>
-                      <th>{ property.key }</th>
+                      <th>{ property.key || 'NO HEADER' }</th>
                       <td>{ property.value }</td>
                     </tr>
                   )) }
