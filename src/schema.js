@@ -546,6 +546,7 @@ const schema = {
       table.timestamp('updated_at')
       table.timestamp('screenshoted_at')
       table.timestamp('deleted_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_topics', (table) => {

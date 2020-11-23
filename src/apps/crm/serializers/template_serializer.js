@@ -1,5 +1,6 @@
 const TemplateSerializer = (req, result) => ({
   id: result.get('id'),
+  code: result.get('code'),
   title: result.get('title'),
   program: program(result.related('program')),
   has_preview: result.get('has_preview'),

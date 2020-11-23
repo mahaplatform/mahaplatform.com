@@ -13,7 +13,7 @@ const Details = ({ template }) => {
     route: `/admin/crm/programs/${template.program.id}/templates/${template.id}/design`
   }
 
-  config.header = <EmailPreview email={ template } link={`/admin/emails/template/${template.id}/preview`} />
+  config.header = <EmailPreview email={ template } link={`/admin/emails/template/${template.code}/preview`} />
 
   if(template.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This template was deleted' }

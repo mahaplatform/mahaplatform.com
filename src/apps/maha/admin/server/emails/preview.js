@@ -5,44 +5,27 @@ import Email from '@apps/automation/models/email'
 import Template from '@apps/crm/models/template'
 import inline from 'inline-css'
 
-const getObject = async (req, { type, id }) => {
-  if(type === 'announcement') {
-    return await Announcement.query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    })
-  }
-  if(type === 'email') {
-    return await Email.query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    })
-  }
-  if(type === 'campaign') {
-    return await EmailCampaign.query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    })
-  }
-  if(type === 'template') {
-    return await Template.query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    })
-  }
+const getModel = (type) => {
+  if(type === 'announcement') return Announcement
+  if(type === 'email') return Email
+  if(type === 'campaign') return EmailCampaign
+  if(type === 'template') return Template
 }
+
 const previewRoute = async (req, res) => {
 
-  const { type, id } = req.params
+  const { type, code } = req.params
 
-  const object = await getObject(req, {
-    type,
-    id
+  const model = getModel(type)
+
+  const object =  await model.query(qb => {
+    qb.where('code', code)
+  }).fetch({
+    withRelated: ['team'],
+    transacting: req.trx
   })
+
+  req.team = object.related('team')
 
   const html = await renderEmail(req, {
     config: object.get('config'),

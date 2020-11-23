@@ -3,6 +3,6 @@ import preview from './preview'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/:type/:id/preview', preview)
+router.get('/:type/:code/preview', preview)
 
 export default router

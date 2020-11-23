@@ -5,6 +5,7 @@ import React from 'react'
 class EmailPreview extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     host: PropTypes.object
   }
 

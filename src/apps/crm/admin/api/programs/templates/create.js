@@ -1,9 +1,10 @@
 import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import TemplateSerializer from '@apps/crm/serializers/template_serializer'
-import { activity } from '@core/services/routes/activities'
 import { getDefaultConfig } from '@apps/automation/services/email'
-import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '@apps/crm/services/programs'
+import { activity } from '@core/services/routes/activities'
+import generateCode from '@core/utils/generate_code'
+import socket from '@core/services/routes/emitter'
 import Template from '@apps/crm/models/template'
 
 const getConfig = async (req, { config, program_id, template_id }) => {
@@ -60,10 +61,15 @@ const createRoute = async (req, res) => {
     config: req.body.config
   })
 
+  const code = await generateCode(req, {
+    table: 'crm_templates'
+  })
+
   const template = await Template.forge({
     team_id: req.team.get('id'),
     program_id: req.params.program_id,
     title: req.body.title,
+    code,
     config
   }).save(null, {
     transacting: req.trx

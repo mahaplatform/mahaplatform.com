@@ -15,7 +15,7 @@ const Details = ({ audits, announcement }) => {
     route: `/admin/platform/announcements/${announcement.id}/design`
   }
 
-  config.header = <EmailPreview email={ announcement } link={`/admin/emails/announcement/${announcement.id}/preview`} />
+  config.header = <EmailPreview email={ announcement } link={`/admin/emails/announcement/${announcement.code}/preview`} />
 
   if(announcement.deleted_at !== null) {
     config.alert = { color: 'red', message: 'This announcement was deleted' }
