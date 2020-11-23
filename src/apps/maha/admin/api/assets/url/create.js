@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
 
   if(!asset) return res.status(200).respond(true)
 
-  await asset.load(['user.photo','source'], {
+  await asset.load(['user.photo'], {
     transacting: req.trx
   })
 
