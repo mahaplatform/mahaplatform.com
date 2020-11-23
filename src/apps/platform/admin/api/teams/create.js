@@ -30,8 +30,7 @@ const createRoute = async (req, res) => {
 
   const role = await Role.forge({
     team_id: team.get('id'),
-    title: 'Team Administrators',
-    description: 'Users who have adminstrative access to the entire platform'
+    title: 'Team Administrators'
   }).save(null, {
     transacting: req.trx
   })
