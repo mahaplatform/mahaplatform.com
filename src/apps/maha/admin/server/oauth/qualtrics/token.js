@@ -18,8 +18,6 @@ const token = async ({ code }, scope) => {
     }
   }).then(result => JSON.parse(result))
 
-  console.dir(data)
-
   return [{
     // TODO: get profile fields
     profile_id: 'id',
