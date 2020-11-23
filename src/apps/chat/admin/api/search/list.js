@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
       allowed: ['id','first_name','last_name','email','date']
     },
     page: req.query.$page,
-    withRelated: ['channel.owner.photo','channel.subscriptions.user.photo','channel.last_message','message.attachments.asset.source','message.attachments.service','message.message_type','message.user.photo'],
+    withRelated: ['channel.owner.photo','channel.subscriptions.user.photo','channel.last_message','message.attachments.asset','message.attachments.service','message.message_type','message.user.photo'],
     transacting: req.trx
   })
 

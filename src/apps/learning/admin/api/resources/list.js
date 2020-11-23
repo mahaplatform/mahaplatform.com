@@ -21,7 +21,7 @@ const listRoute = async (req, res) => {
       defaults: 'title'
     },
     page: req.query.$page,
-    withRelated: ['asset.user.photo','asset.source'],
+    withRelated: ['asset.user.photo','asset'],
     transacting: req.trx
   })
 

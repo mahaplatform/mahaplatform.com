@@ -23,7 +23,7 @@ const listRoute = async (req, res) => {
       allowed: ['id','first_name','last_name','email','created_at']
     },
     page: req.query.$page,
-    withRelated: ['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service'],
+    withRelated: ['attachments.asset','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service'],
     transacting: req.trx
   })
 

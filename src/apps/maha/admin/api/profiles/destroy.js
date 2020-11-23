@@ -7,7 +7,6 @@ const destroyRoute = async (req, res) => {
     qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 

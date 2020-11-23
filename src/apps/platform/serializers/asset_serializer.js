@@ -7,7 +7,7 @@ const assetSerializer = (req, result) => ({
   chunks_total: result.get('chunks_total'),
   resized_url: result.get('resized_url'),
   path: result.get('path'),
-  source: result.related('source').get('text'),
+  source: result.get('source'),
   source_url: result.get('source_url'),
   status: result.get('status'),
   user: user(result.related('user')),

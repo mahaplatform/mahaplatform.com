@@ -3,7 +3,6 @@ import { loadUserFromToken } from '@core/utils/user_tokens'
 import socket from '@core/services/routes/emitter'
 import constantcontact from './constantcontact/token'
 import Profile from '@apps/maha/models/profile'
-import Source from '@apps/maha/models/source'
 import qualtrics from './qualtrics/token'
 import microsoft from './microsoft/token'
 import mailchimp from './mailchimp/token'
@@ -29,7 +28,7 @@ const getProfileCreator = (service) => {
   return null
 }
 
-const getPhotoId = async (req, { source_id, photo_url, photo_data }) => {
+const getPhotoId = async (req, { source, photo_url, photo_data }) => {
 
   if(photo_url) {
     return await createAssetFromUrl(req, {
@@ -43,7 +42,7 @@ const getPhotoId = async (req, { source_id, photo_url, photo_data }) => {
     return await createAsset(req, {
       team_id: req.user.get('team_id'),
       user_id: req.user.get('id'),
-      source_id,
+      source,
       file_name: 'avatar.jpg',
       file_data: photo_data
     }).then(asset => asset.get('id'))
@@ -86,17 +85,11 @@ const token = async (req, res) => {
 
   if(!profiles) return res.render('token')
 
-  const source = await Source.where({
-    text: state.source
-  }).fetch({
-    transacting: req.trx
-  })
-
   await Promise.mapSeries(profiles, async (data) => {
 
     const profile = await Profile.query(qb => {
       qb.where('account_id', req.account.get('id'))
-      qb.where('source_id', source.get('id'))
+      qb.where('source', state.source)
       qb.where('profile_id', data.profile_id)
       qb.where('type', state.type)
     }).fetch({
@@ -106,14 +99,14 @@ const token = async (req, res) => {
     if(profile) return
 
     const photo_id = await getPhotoId(req, {
-      source_id: source.get('id'),
+      source: state.source,
       photo_url: data.photo_url,
       photo_data: data.photo_data
     })
 
     await Profile.forge({
       account_id: req.account.get('id'),
-      source_id: source.get('id'),
+      source: state.source,
       photo_id,
       profile_id: data.profile_id,
       name: data.name,

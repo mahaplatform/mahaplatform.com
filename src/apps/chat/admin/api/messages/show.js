@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx,
-    withRelated: ['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service']
+    withRelated: ['attachments.asset','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service']
   })
 
   if(!message) return res.status(404).respond({

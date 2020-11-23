@@ -32,7 +32,7 @@ const video = (video) => {
     is_infected: video.get('is_infected'),
     path: video.get('path'),
     signed_url: video.get('signed_url'),
-    source: video.related('source').get('text'),
+    source: video.get('source'),
     source_url: video.get('source_url'),
     created_at: video.get('created_at'),
     updated_at: video.get('updated_at')

@@ -47,7 +47,7 @@ const uploadRoute = async (req, res) => {
       folder
     })
 
-    await file.load(['folder', 'current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
+    await file.load(['folder', 'current_version.asset','current_version.asset.user.photo','current_version.asset','versions.asset','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
       transacting: req.trx
     })
 

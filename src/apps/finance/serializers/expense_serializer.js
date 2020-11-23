@@ -65,7 +65,7 @@ const receipt = (receipt) => {
     icon: receipt.related('asset').get('icon'),
     path: receipt.related('asset').get('path'),
     signed_url: receipt.related('asset').get('signed_url'),
-    source: receipt.related('asset').related('source').get('text'),
+    source: receipt.related('asset').get('source'),
     source_url: receipt.related('asset').get('source_url')
   }
 }

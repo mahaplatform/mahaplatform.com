@@ -7,7 +7,7 @@ const receiptSerializer = (req, result) => ({
   chunks_total: result.related('asset').get('chunks_total'),
   icon: result.related('asset').get('icon'),
   path: result.related('asset').get('path'),
-  source: result.related('asset').related('source').get('text'),
+  source: result.related('asset').get('source'),
   source_url: result.related('asset').get('source_url'),
   status: result.related('asset').get('status'),
   user: user(result.related('asset').related('user')),

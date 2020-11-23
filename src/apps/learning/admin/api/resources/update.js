@@ -24,7 +24,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await resource.load(['asset.user.photo','asset.source'], {
+  await resource.load(['asset.user.photo','asset'], {
     transacting: req.trx
   })
 

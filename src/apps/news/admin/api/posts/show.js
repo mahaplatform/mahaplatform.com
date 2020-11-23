@@ -8,7 +8,7 @@ const showRoute = async (req, res) => {
     qb.whereNull('deleted_at')
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['attachments.asset.source','link.service','user.photo','likes','comments.user.photo','comments.attachments.asset.source','comments.link.service','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
+    withRelated: ['attachments.asset','link.service','user.photo','likes','comments.user.photo','comments.attachments.asset','comments.link.service','comments.reactions.user.photo','comments.quoted_comment.user.photo'],
     transacting: req.trx
   })
 

@@ -133,7 +133,7 @@ class Uploader extends React.Component {
       return this.props.onAdd({
         id: file.uniqueIdentifier,
         folder_code: this._getFolderCode(file.container),
-        source_id: 'device',
+        source: 'device',
         name: file.file.name,
         service: 'device',
         content_type: file.file.type,
@@ -195,7 +195,7 @@ class Uploader extends React.Component {
     this.props.onAdd({
       id: file.uniqueIdentifier,
       folder_code: this._getFolderCode(file.container),
-      source_id: 'device',
+      source: 'device',
       name: file.file.name,
       service: 'device',
       content_type: file.file.type,

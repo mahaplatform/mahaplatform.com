@@ -1399,7 +1399,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('user_id').unsigned()
-      table.integer('source_id').unsigned()
       table.string('source_identifier', 255)
       table.text('source_url')
       table.boolean('is_infected')
@@ -1408,6 +1407,7 @@ const schema = {
       table.integer('width')
       table.integer('height')
       table.USER-DEFINED('status')
+      table.USER-DEFINED('source')
     })
 
     await knex.schema.createTable('maha_attachments', (table) => {
@@ -1835,7 +1835,6 @@ const schema = {
 
     await knex.schema.createTable('maha_profiles', (table) => {
       table.increments('id').primary()
-      table.integer('source_id').unsigned()
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
       table.string('name', 255)
@@ -1845,6 +1844,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('account_id').unsigned()
+      table.USER-DEFINED('source')
     })
 
     await knex.schema.createTable('maha_reactions', (table) => {
@@ -1966,11 +1966,6 @@ const schema = {
       table.integer('phone_number_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('error_code')
-    })
-
-    await knex.schema.createTable('maha_sources', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
     })
 
     await knex.schema.createTable('maha_stars', (table) => {
@@ -3126,7 +3121,6 @@ const schema = {
     })
 
     await knex.schema.table('maha_assets', table => {
-      table.foreign('source_id').references('maha_sources.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
@@ -3308,7 +3302,6 @@ const schema = {
     await knex.schema.table('maha_profiles', table => {
       table.foreign('account_id').references('maha_accounts.id')
       table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('source_id').references('maha_sources.id')
     })
 
     await knex.schema.table('maha_reactions', table => {

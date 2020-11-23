@@ -107,7 +107,7 @@ const photo = (photo) => {
     icon: photo.get('icon'),
     path: photo.get('path'),
     signed_url: photo.get('signed_url'),
-    source: photo.related('source').get('text'),
+    source: photo.get('source'),
     source_url: photo.get('source_url')
   }
 }

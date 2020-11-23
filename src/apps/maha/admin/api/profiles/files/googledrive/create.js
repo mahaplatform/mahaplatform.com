@@ -81,7 +81,7 @@ const createRoute = async (req, profile) => {
   const asset = await createAsset(req, {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    source_id: profile.get('source_id'),
+    source: profile.get('source'),
     source_identifier: req.body.id,
     source_url: meta.data.mimeType.match(/google/) ? meta.data.webViewLink : null,
     file_name: _withExt(meta.data.name, meta.data.mimeType),

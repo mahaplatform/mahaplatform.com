@@ -11,7 +11,6 @@ const listRoute = async (req, res) => {
     qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 
@@ -20,7 +19,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  const preview = getPreview(profile.related('source').get('text'))
+  const preview = getPreview(profile.get('source'))
 
   const previewData = await preview(req, profile)
 

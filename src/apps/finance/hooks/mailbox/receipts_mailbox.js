@@ -3,7 +3,6 @@ import socket from '@core/services/routes/emitter'
 import { createAsset } from '@apps/maha/services/assets'
 import { sendEmail } from '@apps/maha/services/emails'
 import Reimbursement from '@apps/finance/models/reimbursement'
-import Source from '@apps/maha/models/source'
 import Story from '@apps/maha/models/story'
 import Audit from '@apps/maha/models/audit'
 import Expense from '@apps/finance/models/expense'
@@ -72,17 +71,11 @@ const _processEmail = async (req, { type, incoming_email }) => {
 
   const file_name = incoming_email.get('subject').replace(/[^0-9a-zA-Z-.]/img, '-').replace(/-{2,}/g, '-').toLowerCase()
 
-  const source = await Source.where({
-    text: 'email'
-  }).fetch({
-    transacting: req.trx
-  })
-
   if(incoming_email.get('html')) {
     const asset = await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      source_id: source.get('id'),
+      source: 'email',
       file_name: `${file_name}.html`,
       content_type: 'text/html',
       file_data: incoming_email.get('html')

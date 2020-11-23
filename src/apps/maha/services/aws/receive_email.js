@@ -3,7 +3,6 @@ import collectObjects from '@core/utils/collect_objects'
 import { sendMail } from '@core/services/email'
 import IncomingEmail from '@apps/maha/models/incoming_email'
 import s3 from '@core/services/s3'
-import Source from '@apps/maha/models/source'
 import { createAsset } from '../assets'
 import Team from '@apps/maha/models/team'
 import User from '@apps/maha/models/user'
@@ -70,19 +69,13 @@ const process_email = async(req, { email }) => {
     transacting: req.trx
   })
 
-  const source = await Source.where({
-    text: 'email'
-  }).fetch({
-    transacting: req.trx
-  })
-
   if(attachments) {
 
     const attachment_ids = await Promise.mapSeries(attachments, async(attachment) => {
       return await createAsset(req, {
         team_id: req.team.get('id'),
         user_id: req.user ? req.user.get('id') : null,
-        source_id: source.get('id'),
+        source: 'email',
         file_size: attachment.size,
         file_name: attachment.filename,
         file_data: attachment.content,

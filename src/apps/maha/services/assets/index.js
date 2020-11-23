@@ -6,7 +6,6 @@ import ScanAssetQueue from '@apps/maha/queues/scan_asset_queue'
 import Clamscan from '@core/services/clamscan'
 import socket from '@core/services/emitter'
 import { simpleParser } from 'mailparser'
-import Source from '@apps/maha/models/source'
 import Asset from '@apps/maha/models/asset'
 import request from 'request-promise'
 import { exec } from 'child_process'
@@ -55,7 +54,7 @@ export const uploadChunk = async (req) => {
   const asset = await Asset.forge({
     team_id: req.team.get('id'),
     user_id: req.user ? req.user.get('id') : null,
-    source_id: 1,
+    source: 'device',
     original_file_name: req.body.resumableFilename,
     file_name: _getNormalizedFileName(req.body.resumableFilename),
     content_type: req.body.resumableType,
@@ -79,15 +78,10 @@ export const createAssetFromUrl = async (req, params) => {
     strictSSL: false
   }).promise().then(response => response.toJSON())
   const parsed = Url.parse(url)
-  const source = await Source.where({
-    text: params.source || 'web'
-  }).fetch({
-    transacting: req.trx
-  })
   return await createAsset(req, {
     team_id: (req.team) ? req.team.get('id') : team_id,
     user_id: (req.user) ? req.user.get('id') : user_id,
-    source_id: source.get('id'),
+    source: params.source || 'web',
     file_size: response.headers['content-length'],
     file_name: path.basename(parsed.pathname),
     file_data: response.body,
@@ -124,7 +118,7 @@ export const createAsset = async (req, params) => {
   const data = {
     team_id: params.team_id,
     user_id: params.user_id,
-    source_id: params.source_id,
+    source: params.source,
     source_identifier: params.source_identifier,
     source_url: params.source_url,
     original_file_name: params.file_name,

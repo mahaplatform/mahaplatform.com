@@ -15,7 +15,7 @@ const listRoute = async (req, res) => {
       params: req.query.$sort
     },
     page: req.query.$page,
-    withRelated: ['source','user.photo'],
+    withRelated: ['user.photo'],
     transacting: req.trx
   })
 

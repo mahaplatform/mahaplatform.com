@@ -1,6 +1,5 @@
 import Model from '@core/objects/model'
 import s3 from '@core/services/s3'
-import Source from './source'
 import User from './user'
 
 const Assets = new Model({
@@ -65,10 +64,6 @@ const Assets = new Model({
     }).fetchAll({
       transacting: trx
     }).then(users => users.map(user => user.get('id')))
-  },
-
-  source() {
-    return this.belongsTo(Source, 'source_id')
   },
 
   user() {

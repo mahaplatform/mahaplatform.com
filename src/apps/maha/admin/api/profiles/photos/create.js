@@ -17,7 +17,6 @@ const filesRoute = async (req, res) => {
     qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 
@@ -28,7 +27,7 @@ const filesRoute = async (req, res) => {
 
   const asset = await Asset.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('source_id', profile.get('source_id'))
+    qb.where('source', profile.get('source'))
     qb.where('source_identifier', req.body.id)
   }).fetch({
     transacting: req.trx,
@@ -37,7 +36,7 @@ const filesRoute = async (req, res) => {
 
   if(asset) res.status(200).respond(asset, AssetSerializer)
 
-  const create = getCreate(profile.related('source').get('text'))
+  const create = getCreate(profile.get('source'))
 
   const newasset = await create(req, profile)
 

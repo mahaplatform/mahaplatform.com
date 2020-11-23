@@ -15,7 +15,6 @@ const listRoute = async (req, res) => {
     qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 
@@ -24,7 +23,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  const list = getList(profile.related('source').get('text'))
+  const list = getList(profile.get('source'))
 
   const records = await list(req, profile)
 

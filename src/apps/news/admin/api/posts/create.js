@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
       })
     })
 
-    await post.load(['attachments.asset.source','link.service'], {
+    await post.load(['attachments.asset','link.service'], {
       transacting: req.trx
     })
 

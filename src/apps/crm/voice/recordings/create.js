@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
       url
     })
 
-    await asset.load(['user.photo','source','team'], {
+    await asset.load(['user.photo','team'], {
       transacting: req.trx
     })
 

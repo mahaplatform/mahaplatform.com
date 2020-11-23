@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
       allowed: 'label'
     },
     page: req.query.$page,
-    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
+    withRelated: ['asset','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx
   })
 

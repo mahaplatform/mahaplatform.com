@@ -13,7 +13,6 @@ const membersRoute = async (req, res) => {
     qb.where('account_id', req.account.get('id'))
     qb.where('id', req.params.profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 
@@ -22,7 +21,7 @@ const membersRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  const members = getMembers(profile.related('source').get('text'))
+  const members = getMembers(profile.get('source'))
 
   const records = await members(req, profile)
 

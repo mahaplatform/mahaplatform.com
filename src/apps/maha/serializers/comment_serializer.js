@@ -79,7 +79,7 @@ const asset = (asset) => {
     file_size: asset.get('file_size'),
     icon: asset.get('icon'),
     path: asset.get('path'),
-    source: asset.related('source').get('text'),
+    source: asset.get('source'),
     source_url: asset.get('source_url')
   }
 }

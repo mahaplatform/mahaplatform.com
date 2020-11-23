@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
       qb.orderBy('created_at', 'asc')
     },
     page: req.query.$page,
-    withRelated: ['user.photo','link.service','attachments.asset.source','reactions.user.photo','quoted_comment.user.photo'],
+    withRelated: ['user.photo','link.service','attachments.asset','reactions.user.photo','quoted_comment.user.photo'],
     transacting: req.trx
   })
 

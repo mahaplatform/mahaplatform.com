@@ -145,7 +145,7 @@ export const sendMessage = async (req, params) => {
 
   await extractAttachments(req, message, sanitized)
 
-  await message.load(['user.photo','attachments.asset.source','message_type'], {
+  await message.load(['user.photo','attachments.asset','message_type'], {
     transacting: req.trx
   })
 

@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     filter: {
       params: req.query.$filter,
       search: ['original_file_name'],
-      allowed: ['user_id','source_id','team_id','status']
+      allowed: ['user_id','source','team_id','status']
     },
     sort: {
       params: req.query.$sort,
@@ -15,7 +15,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['source','user.photo'],
+    withRelated: ['user.photo'],
     transacting: req.trx
   })
 

@@ -47,7 +47,7 @@ const loadMembers = async(req, { list, profile }) => {
 }
 
 const getContacts = async (req, { profile, user, list_id }) => {
-  const service = profile.related('source').get('text')
+  const service = profile.get('source')
   const list = getList(service)
   req.token = createUserToken(user, 'user_id')
   if(_.includes(['constantcontact', 'mailchimp'], service)) {
@@ -103,7 +103,6 @@ const importContactImport = async (req, { import_id,profile_id, list_id }) => {
   const profile = await Profile.query(qb => {
     qb.where('id', profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
 

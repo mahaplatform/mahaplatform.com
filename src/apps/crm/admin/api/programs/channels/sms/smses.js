@@ -78,7 +78,7 @@ const smsesRoute = async (req, res) => {
         is_infected: attachment.related('asset').get('is_infected'),
         path: attachment.related('asset').get('path'),
         signed_url: attachment.related('asset').get('signed_url'),
-        source: attachment.related('asset').related('source').get('text'),
+        source: attachment.related('asset').get('source'),
         source_url: attachment.related('asset').get('source_url'),
         created_at: attachment.related('asset').get('created_at'),
         updated_at: attachment.related('asset').get('updated_at')

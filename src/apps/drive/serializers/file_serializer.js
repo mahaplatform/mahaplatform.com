@@ -43,7 +43,7 @@ const asset = (asset) => {
     is_infected: asset.get('is_infected'),
     path: asset.get('path'),
     signed_url: asset.get('signed_url'),
-    source: asset.related('source').get('text'),
+    source: asset.get('source'),
     source_url: asset.get('source_url'),
     user: user(asset.related('user')),
     created_at: asset.get('created_at'),

@@ -15,7 +15,7 @@ const asset = (asset) => ({
   signed_url: asset.get('signed_url'),
   is_infected: asset.get('is_infected'),
   url: asset.get('url'),
-  source: asset.related('source').get('text'),
+  source: asset.get('source'),
   source_url: asset.get('source_url'),
   status: asset.get('status'),
   user: user(asset.related('user')),

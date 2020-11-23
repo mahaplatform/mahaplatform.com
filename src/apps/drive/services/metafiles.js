@@ -28,7 +28,7 @@ const _getAsset = async (req, params) => {
     return await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      source_id: params.source_id || 1,
+      source: params.source || 'device',
       file_data: params.file_data,
       file_size: params.file_data.length,
       file_name: params.label

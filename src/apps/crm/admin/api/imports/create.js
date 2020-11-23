@@ -9,10 +9,9 @@ const getService = async (req, profile_id) => {
   const profile = await Profile.query(qb => {
     qb.where('id', profile_id )
   }).fetch({
-    withRelated: ['source'],
     transacting: req.trx
   })
-  return profile ? profile.related('source').get('text') : 'excel'
+  return profile ? profile.get('source') : 'excel'
 }
 
 const createRoute = async (req, res) => {

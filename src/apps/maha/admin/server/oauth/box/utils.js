@@ -9,11 +9,8 @@ const box = new Box({
 export const getClient = async (req) => {
 
   const profile = await Profile.query(qb => {
-    qb.innerJoin('maha_sources', 'maha_sources.id', 'maha_profiles.source_id')
-    qb.where({
-      text: 'box',
-      user_id: req.user.get('id')
-    })
+    qb.where('account_id', req.account.get('id'))
+    qb.where('source', 'box')
   }).fetch({
     transacting: req.trx
   })

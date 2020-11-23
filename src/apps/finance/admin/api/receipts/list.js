@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
       allowed: ['id']
     },
     page: req.query.$page,
-    withRelated: ['asset.source','asset.user'],
+    withRelated: ['asset','asset.user'],
     transacting: req.trx
   })
 

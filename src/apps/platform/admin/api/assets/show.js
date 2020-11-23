@@ -7,7 +7,7 @@ const showRoute = async (req, res) => {
   const asset = await Asset.query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['source','user.photo'],
+    withRelated: ['user.photo'],
     transacting: req.trx
   })
 

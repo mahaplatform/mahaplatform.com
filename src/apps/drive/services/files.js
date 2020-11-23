@@ -30,7 +30,7 @@ const _getAsset = async (req, params) => {
     return await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      source_id: params.source_id || 1,
+      source: params.source || 'device',
       file_data: params.file_data.length === 0 ? null : params.file_data,
       file_size: params.file_data.length === 0 ? 0 : null,
       file_name: params.label
@@ -153,7 +153,7 @@ export const updateFile = async (req, file, params) => {
 
   }
 
-  await file.load(['folder','current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
+  await file.load(['folder','current_version.asset','current_version.asset.user.photo','current_version.asset','versions.asset','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
     transacting: req.trx
   })
 

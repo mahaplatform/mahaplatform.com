@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
     qb.innerJoin('training_offerings','training_offerings.training_id','training_materials.training_id')
     qb.where('training_offerings.id', req.params.offering_id)
   }).fetchAll({
-    withRelated: ['asset.source'],
+    withRelated: ['asset'],
     transacting: req.trx
   })
 

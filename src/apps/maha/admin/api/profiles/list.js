@@ -13,7 +13,7 @@ const listRoute = async (req, res) => {
       allowed: ['type']
     },
     page: req.query.$page,
-    withRelated: ['source','photo'],
+    withRelated: ['photo'],
     transacting: req.trx
   })
 

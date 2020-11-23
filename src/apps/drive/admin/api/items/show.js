@@ -12,7 +12,7 @@ const showRoute = async (req, res) => {
     qb.where('drive_items.code', req.params.code)
     qb.where('team_id', req.team.get('id'))
   }).fetch({
-    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
+    withRelated: ['asset','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx
   })
 

@@ -37,7 +37,7 @@ const route = async (req, res) => {
     const create = req.is_metafile ? createMetaFile : createFile
 
     const file = await create(req, {
-      source_id: 11,
+      source: 'webdav',
       label: req.label,
       file_data: req.rawBody,
       folder
@@ -59,7 +59,7 @@ const route = async (req, res) => {
     })
 
     await updateFile(req, file, {
-      source_id: 11,
+      source: 'webdav',
       file_data: req.rawBody
     })
 
@@ -72,7 +72,7 @@ const route = async (req, res) => {
     })
 
     await updateMetaFile(req, metafile, {
-      source_id: 11,
+      source: 'webdav',
       file_data: req.rawBody
     })
 

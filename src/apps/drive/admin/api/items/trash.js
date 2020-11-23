@@ -10,7 +10,7 @@ const trashRoute = async (req, res) => {
     qb.whereIn('drive_items.code', req.body.codes)
     qb.where('team_id', req.team.get('id'))
   }).fetchAll({
-    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
+    withRelated: ['asset','accesses.access_type','accesses.user.photo','accesses.group','folder'],
     transacting: req.trx
   }).then(items => items.toArray())
 

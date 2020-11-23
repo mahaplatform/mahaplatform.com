@@ -1,24 +1,10 @@
-import SourceSerializer from '@apps/maha/serializers/source_serializer'
-import Source from '@apps/maha/models/source'
-
 const listRoute = async (req, res) => {
 
-  const sources = await Source.filterFetch({
-    scope: qb => {
-      qb.whereRaw('id > ?', 4)
-    },
-    filter: {
-      params: req.query.$filter
-    },
-    sort: {
-      params: req.query.$sort,
-      defaults: 'id'
-    },
-    page: req.query.$page,
-    transacting: req.trx
-  })
+  const sources = await req.trx.raw('select pg_enum.enumlabel as text from pg_type inner join pg_enum on pg_enum.enumtypid = pg_type.oid where pg_type.typname=?', 'maha_asset_sources')
 
-  res.status(200).respond(sources, SourceSerializer)
+  res.status(200).respond(sources, (req, source) => ({
+    text: source.text
+  }))
 
 }
 
