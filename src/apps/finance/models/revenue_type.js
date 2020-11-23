@@ -8,7 +8,13 @@ const RevenueType = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {
+
+    display: function() {
+      return `${this.get('integration').revenue_code} - ${this.get('title')}`
+    }
+
+  }
 
 })
 
