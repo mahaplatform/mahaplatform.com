@@ -12,7 +12,8 @@ const services = {
   instagram: 'Instagram',
   mailchimp: 'Mail Chimp',
   constantcontact: 'Constant Contact',
-  box: 'Box'
+  box: 'Box',
+  adobe: 'Adobe Sign'
 }
 
 const ProfileToken = ({ profile }) => {

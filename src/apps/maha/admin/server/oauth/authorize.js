@@ -44,7 +44,7 @@ const getScope = (service, type) => {
   if(service === 'mailchimp') return ['authorization_code']
   if(service === 'twitter') return ['authorization_code']
   if(service === 'instagram') return ['basic']
-  if(service === 'adobe') return ['agreement_read','agreement_write','widget_read','widget_write','library_read','library_write']
+  if(service === 'adobe') return ['user_read','agreement_read','agreement_write','widget_read','widget_write','library_read','library_write']
   return []
 }
 
