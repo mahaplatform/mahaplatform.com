@@ -12,14 +12,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'finalizing'
     }
 
-  case 'SUCCESS':
+  case 'IMPORT_FINALIZE_SUCCESS':
     return {
       ...state,
-      status: 'success',
-      import: action.import
+      status: 'success'
     }
 
-  case 'FAIL':
+  case 'IMPORT_FINALIZE_FAILURE':
     return {
       ...state,
       status: 'failure',

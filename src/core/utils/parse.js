@@ -27,6 +27,7 @@ const parseCsv = async(asset, quote, delimiter, includesHeaders) => {
 
 const sanitizeData = (key, untrimmed) => {
   const value = _.isPlainObject(untrimmed) ? _.trim(untrimmed.text) : _.trim(untrimmed)
+  if(value.length === 0) return null
   if(key === 'Date') {
     return moment(value).format('YYYY-MM-DD')
   } else if(key === 'Time Leaving' || key === 'Time Arriving'){

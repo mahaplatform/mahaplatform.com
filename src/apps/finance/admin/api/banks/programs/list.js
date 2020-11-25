@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.bank_id)
   }).fetch({
-    withRelated: ['programs'],
+    withRelated: ['programs.logo'],
     transacting: req.trx
   })
 

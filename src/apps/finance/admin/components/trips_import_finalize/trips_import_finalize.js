@@ -14,7 +14,7 @@ class TripsImportFinalize extends React.Component {
 
   static propTypes = {
     import: PropTypes.object,
-    progress: PropTypes.number,
+    progress: PropTypes.object,
     status: PropTypes.string,
     onDone: PropTypes.func,
     onFinalizeTrips: PropTypes.func,

@@ -73,18 +73,6 @@ class Intro extends React.Component {
     }
   }
 
-  _getMessage() {
-    return {
-      icon: 'upload',
-      title: 'Import Records',
-      text: 'Lorem ipsum dolor amet synth hashtag tousled tattooed intelligentsia ennui paleo fingerstache.',
-      button: {
-        label: 'Choose File',
-        handler:  this._handleNew
-      }
-    }
-  }
-
   _getPanel() {
     return {
       title: 'Import Contacts',
