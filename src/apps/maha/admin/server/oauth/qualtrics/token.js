@@ -1,5 +1,19 @@
 import request from 'request-promise'
 
+const getProfile = async ({ access_token }) => {
+
+  const result = await request({
+    method: 'GET',
+    uri: 'https://cornell.ca1.qualtrics.com/API/v3/whoami',
+    headers: {
+      'Authorization': `Bearer ${access_token}`
+    }
+  }).then(result => JSON.parse(result))
+
+  return result.result
+
+}
+
 const token = async ({ code }, scope) => {
 
   const host = process.env.WEB_HOST
@@ -18,14 +32,15 @@ const token = async ({ code }, scope) => {
     }
   }).then(result => JSON.parse(result))
 
+  const profile = await getProfile({
+    access_token: data.access_token
+  })
+
   return [{
-    // TODO: get profile fields
-    profile_id: 'id',
-    name: 'name',
-    username: 'username',
-    data: {
-      ...data
-    }
+    profile_id: profile.userId,
+    name: `${profile.firstName} ${profile.lastName}`,
+    username: profile.email,
+    data
   }]
 
 }
