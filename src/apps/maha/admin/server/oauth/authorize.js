@@ -4,11 +4,11 @@ import qualtrics from './qualtrics/authorize'
 import microsoft from './microsoft/authorize'
 import mailchimp from './mailchimp/authorize'
 import instagram from './instagram/authorize'
+import adobesign from './adobesign/authorize'
 import facebook from './facebook/authorize'
 import dropbox from './dropbox/authorize'
 import twitter from './twitter/authorize'
 import google from './google/authorize'
-import adobe from './adobe/authorize'
 import box from './box/authorize'
 import btoa from 'btoa'
 import _ from 'lodash'
@@ -23,7 +23,7 @@ const getUrlCreator = (service) => {
   if(service === 'mailchimp') return mailchimp
   if(service === 'dropbox') return dropbox
   if(service === 'twitter') return twitter
-  if(service === 'adobe') return adobe
+  if(service === 'adobesign') return adobesign
   if(service === 'box') return box
   return null
 }
@@ -44,7 +44,7 @@ const getScope = (service, type) => {
   if(service === 'mailchimp') return ['authorization_code']
   if(service === 'twitter') return ['authorization_code']
   if(service === 'instagram') return ['basic']
-  if(service === 'adobe') return ['user_read','agreement_read','agreement_write','widget_read','widget_write','library_read','library_write']
+  if(service === 'adobesign') return ['user_read','agreement_read','agreement_write','widget_read','widget_write','library_read','library_write']
   return []
 }
 

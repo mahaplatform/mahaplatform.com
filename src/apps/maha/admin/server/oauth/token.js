@@ -7,11 +7,11 @@ import qualtrics from './qualtrics/token'
 import microsoft from './microsoft/token'
 import mailchimp from './mailchimp/token'
 import instagram from './instagram/token'
+import adobesign from './adobesign/token'
 import facebook from './facebook/token'
 import twitter from './twitter/token'
 import dropbox from './dropbox/token'
 import google from './google/token'
-import adobe from './adobe/token'
 import box from './box/token'
 import atob from 'atob'
 
@@ -25,7 +25,7 @@ const getProfileCreator = (service) => {
   if(service === 'dropbox') return dropbox
   if(service === 'mailchimp') return mailchimp
   if(service === 'constantcontact') return constantcontact
-  if(service === 'adobe') return adobe
+  if(service === 'adobesign') return adobesign
   if(service === 'box') return box
   return null
 }

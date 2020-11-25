@@ -4,7 +4,7 @@ const token = async ({ api_access_point, code }, scope) => {
 
   const host = process.env.WEB_HOST
 
-  const redirect_uri = `${host}/admin/oauth/adobe/token`
+  const redirect_uri = `${host}/admin/oauth/adobesign/token`
 
   const data = await request({
     method: 'POST',

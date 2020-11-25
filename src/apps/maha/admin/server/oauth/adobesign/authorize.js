@@ -4,7 +4,7 @@ const authorize = async (req, { scope, state }) => {
 
   const host = process.env.WEB_HOST
 
-  const redirect_uri = `${host}/admin/oauth/adobe/token`
+  const redirect_uri = `${host}/admin/oauth/adobesign/token`
 
   const query = qs.stringify({
     redirect_uri,

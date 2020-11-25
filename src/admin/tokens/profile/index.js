@@ -13,7 +13,7 @@ const services = {
   mailchimp: 'Mail Chimp',
   constantcontact: 'Constant Contact',
   box: 'Box',
-  adobe: 'Adobe Sign'
+  adobesign: 'Adobe Sign'
 }
 
 const ProfileToken = ({ profile }) => {
