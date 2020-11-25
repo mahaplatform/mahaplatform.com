@@ -18,7 +18,7 @@ const token = async ({ api_access_point, code }, scope) => {
     }
   }).then(result => JSON.parse(result))
 
-  const user = await request({
+  const profile = await request({
     method: 'GET',
     uri: `${api_access_point}/api/rest/v6/users/me`,
     headers: {
@@ -27,9 +27,9 @@ const token = async ({ api_access_point, code }, scope) => {
   }).then(result => JSON.parse(result))
 
   return [{
-    profile_id: user.id,
-    name: `${user.first_name} ${user.last_name}`,
-    username: user.email,
+    profile_id: profile.id,
+    name: `${profile.first_name} ${profile.last_name}`,
+    username: profile.email,
     data: {
       ...data
     }
