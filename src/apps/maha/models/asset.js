@@ -1,5 +1,5 @@
 import Model from '@core/objects/model'
-import s3 from '@core/services/s3'
+import s3 from '@core/services/aws/s3'
 import User from './user'
 
 const Assets = new Model({

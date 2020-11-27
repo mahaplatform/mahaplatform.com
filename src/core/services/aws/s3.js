@@ -1,5 +1,7 @@
 import aws from './aws'
 
-export default new aws.S3({
+const s3 = new aws.S3({
   signatureVersion: 'v4'
 })
+
+export default s3
