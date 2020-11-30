@@ -1,5 +1,5 @@
 import '../../core/services/environment'
-import aws from '../../core/services/aws'
+import { ec2 } from '../../core/services/aws'
 import Shipit from 'shipit-cli'
 import utils from 'shipit-utils'
 import roles from './roles'
@@ -16,8 +16,6 @@ const processor = async () => {
   const environment = 'production'
 
   const shipit = new Shipit({ environment })
-
-  const ec2 = new aws.EC2()
 
   const instances = await ec2.describeInstances().promise()
 
