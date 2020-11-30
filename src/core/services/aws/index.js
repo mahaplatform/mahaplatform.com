@@ -1,3 +1,5 @@
+export cloudfront from './cloudfront'
+export route53 from './route53'
 export acm from './acm'
 export ses from './ses'
 export s3 from './s3'

@@ -1,5 +1,5 @@
 import RevenueType from '@apps/finance/models/revenue_type'
-import s3 from '@core/services/aws/s3'
+import { s3 } from '@core/services/aws'
 import csvparse from 'csv-parse/lib/sync'
 import request from 'request-promise'
 

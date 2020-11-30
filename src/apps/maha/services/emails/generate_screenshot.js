@@ -5,7 +5,7 @@ import { getScreenshot } from '@core/services/screenshot'
 import socket from '@core/services/routes/emitter'
 import Email from '@apps/automation/models/email'
 import Template from '@apps/crm/models/template'
-import s3 from '@core/services/aws/s3'
+import { s3 } from '@core/services/aws'
 import moment from 'moment'
 
 const getObject = async (req, params) => {

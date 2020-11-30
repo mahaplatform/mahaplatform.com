@@ -2,11 +2,28 @@
 
 import './core/services/sourcemaps'
 import './core/services/environment'
-import knex from './core/services/knex'
+// import knex from './core/services/knex'
+import { acm } from '@core/services/aws'
+
+const requestCertificate = async (req, { domain }) => {
+  const result = await acm.requestCertificate({
+    DomainName: domain,
+    ValidationMethod: 'EMAIL',
+    SubjectAlternativeNames: [
+      `www.${domain}`
+    ]
+  }).promise()
+  console.log(result.CertificateArn)
+}
 
 const processor = async () => {
-  await knex.transaction(async(trx) => {
+  // await knex.transaction(async(trx) => {
+  // })
+  const req = {}
+  await requestCertificate(req, {
+    domain: 'thinktopography.com'
   })
+
 }
 
 processor().then(process.exit)

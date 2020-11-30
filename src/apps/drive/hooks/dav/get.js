@@ -1,4 +1,4 @@
-import s3 from '@core/services/aws/s3'
+import { s3 } from '@core/services/aws'
 
 const getData = async (req, item) => {
 
