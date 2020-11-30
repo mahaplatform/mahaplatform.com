@@ -24,6 +24,7 @@ class Admin extends React.Component {
     user: PropTypes.object,
     onChooseTeam: PropTypes.func,
     onLoadAccount: PropTypes.func,
+    onFetchAccount: PropTypes.func,
     onFetchSession: PropTypes.func,
     onFetchTeams: PropTypes.func,
     onSaveAccount: PropTypes.func,

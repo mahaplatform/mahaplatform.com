@@ -1,12 +1,15 @@
 import twofactor from './twofactor'
 import password from './password'
 import { Router } from 'express'
+import account from './account'
 import lockout from './lockout'
 import token from './token'
 import teams from './teams'
 import email from './email'
 
 const router = new Router({ mergeParams: true })
+
+router.get('/account', account)
 
 router.post('/email', email)
 

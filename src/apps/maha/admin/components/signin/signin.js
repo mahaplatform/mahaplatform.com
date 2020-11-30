@@ -107,6 +107,7 @@ class Signin extends React.Component {
       email: account.email,
       photo: account.photo,
       token,
+      features: account.features,
       authentication_strategy: account.authentication_strategy
     })
     this.context.router.history.push('/')

@@ -17,6 +17,7 @@
       initials: '<%= account.initials %>',
       email: '<%= account.email %>',
       photo: <%- account.photo ? `'${account.photo}'` : 'null' %>,
+      features: [<%- account.features.map(feature => `'${feature}'`).join(',') %>],
       token: '<%= account.token %>',
       authentication_strategy: '<%= account.authentication_strategy %>'
     }

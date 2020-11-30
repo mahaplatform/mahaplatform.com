@@ -28,6 +28,7 @@ class Admin extends React.Component {
     user: PropTypes.object,
     onChooseTeam: PropTypes.func,
     onLoadAccount: PropTypes.func,
+    onFetchAccount: PropTypes.func,
     onFetchSession: PropTypes.func,
     onFetchTeams: PropTypes.func,
     onSaveAccount: PropTypes.func,
@@ -59,14 +60,20 @@ class Admin extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { active, account, account_status, teams_status, team, user } = this.props
-    if(account_status !== prevProps.account_status && account_status === 'success' && !account) {
-      this._handleRedirectToSignin()
-    }
-    if(!_.isEqual(account, prevProps.account) && !!account) {
-      this._handleFetchTeams()
+    if(account_status !== prevProps.account_status) {
+      if(account_status === 'loaded') {
+        if(!account) return this._handleRedirectToSignin()
+        return this._handleFetchAccount()
+      }
+      if(account_status === 'authenticated') {
+        return this._handleFetchTeams()
+      }
+      if(account_status === 'success') {
+        return this._handleFetchTeams()
+      }
     }
     if(teams_status !== prevProps.teams_status && teams_status === 'success') {
-      this._handleFetchSession()
+      return this._handleFetchSession()
     }
     if(active !== prevProps.active) {
       this._handleSaveAccount()
@@ -122,6 +129,11 @@ class Admin extends React.Component {
       { action: 'session', handler: this._handleReloadSession },
       { action: 'signout', handler: this._handleForceSignout }
     ])
+  }
+
+  _handleFetchAccount() {
+    const { account } = this.props
+    this.props.onFetchAccount(account.token)
   }
 
   _handleFetchSession() {

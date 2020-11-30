@@ -6,7 +6,7 @@ export const loadAccountByEmail = async (req, email, done) => {
   const account = await Account.query(qb => {
     qb.where('email', email)
   }).fetch({
-    withRelated: ['photo'],
+    withRelated: ['features','photo'],
     transacting: req.trx
   })
 
@@ -17,8 +17,6 @@ export const loadAccountByEmail = async (req, email, done) => {
 }
 
 export const result = (req, res) => async (err, account, info) => {
-
-  console.log('error', err)
 
   if(!account) return await failure(req, res)
 
@@ -37,7 +35,9 @@ const success = async (req, res) => {
     email: req.account.get('email'),
     photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
     token: createUserToken(req.account, 'account_id'),
-    authentication_strategy: req.account.get('authentication_strategy')
+    authentication_strategy: req.account.get('authentication_strategy'),
+    features: req.account.related('features').map(feature => feature.get('title'))
+
   }
 
   res.status(200).type('text/html').render('success', { account })

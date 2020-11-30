@@ -10,7 +10,7 @@ const emailRoute = async (req, res) => {
   const account = await Account.where({
     email: req.body.email
   }).fetch({
-    withRelated: ['photo'],
+    withRelated: ['features','photo'],
     transacting: req.trx
   })
 
@@ -32,6 +32,7 @@ const emailRoute = async (req, res) => {
       email: account.get('email'),
       photo: account.related('photo') ? account.related('photo').get('path') : null,
       authentication_strategy: account.get('authentication_strategy'),
+      features: account.related('features').map(feature => feature.get('title')),
       use_twofactor: account.get('use_twofactor'),
       is_blocked: account.get('is_blocked'),
       locked_out_at: account.get('locked_out_at')

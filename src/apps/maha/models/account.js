@@ -1,6 +1,7 @@
 import SecurityQuestion from './security_question'
 import Model from '@core/objects/model'
 import bcrypt from 'bcrypt-nodejs'
+import Feature from './feature'
 import Asset from './asset'
 import User from './user'
 
@@ -15,7 +16,7 @@ const Account = new Model({
   virtuals: {
 
     authentication_strategy() {
-      if(process.env.NODE_ENV !== 'production') return 'local'
+      // if(process.env.NODE_ENV !== 'production') return 'local'
       const fqdn = this.get('email').split('@').pop()
       const domain = fqdn.split('.').slice(-2).join('.')
       if(domain === 'cornell.edu') return 'cornell'
@@ -55,6 +56,10 @@ const Account = new Model({
 
   authenticate(password) {
     return this.get('password_hash') === bcrypt.hashSync(password, this.get('password_salt'))
+  },
+
+  features() {
+    return this.belongsToMany(Feature, 'maha_accounts_features','account_id','feature_id')
   },
 
   photo() {

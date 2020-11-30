@@ -38,7 +38,7 @@ const route = async (req, res, next) => {
     id: data.user_id
   }).fetch({
     transacting: req.trx,
-    withRelated: ['photo','team.logo','account.photo']
+    withRelated: ['photo','team.logo','account.features','account.photo']
   })
 
   if(!req.user) return res.status(401).json({

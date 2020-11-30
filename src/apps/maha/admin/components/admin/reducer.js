@@ -28,10 +28,29 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ...action.value,
-      account_status: 'success'
+      account_status: 'loaded'
     }
 
   case 'LOAD_ACCOUNT_FAILURE':
+    return {
+      ...state,
+      account_status: 'failure'
+    }
+
+  case 'FETCH_ACCOUNT_REQUEST':
+    return {
+      ...state,
+      account_status: 'loading'
+    }
+
+  case 'FETCH_ACCOUNT_SUCCESS':
+    return {
+      ...state,
+      account: action.result.data,
+      account_status: 'success'
+    }
+
+  case 'FETCH_ACCOUNT_FAILURE':
     return {
       ...state,
       account_status: 'failure'
@@ -73,6 +92,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'SIGNIN':
     return {
       ...state,
+      account_status: 'authenticated',
       account: action.account,
       active: action.active || state.active
     }

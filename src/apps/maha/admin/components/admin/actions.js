@@ -18,6 +18,16 @@ export const saveAccount = (active, account) => ({
   failure: 'SAVE_ACCOUNT_FAILURE'
 })
 
+export const fetchAccount = (token) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: '/api/admin/signin/account',
+  token,
+  request: 'FETCH_ACCOUNT_REQUEST',
+  success: 'FETCH_ACCOUNT_SUCCESS',
+  failure: 'FETCH_ACCOUNT_FAILURE'
+})
+
 export const fetchTeams = (token) => ({
   type: 'API_REQUEST',
   method: 'GET',

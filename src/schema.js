@@ -1341,6 +1341,11 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('maha_accounts_features', (table) => {
+      table.integer('account_id').unsigned()
+      table.integer('feature_id').unsigned()
+    })
+
     await knex.schema.createTable('maha_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1629,6 +1634,11 @@ const schema = {
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_features', (table) => {
+      table.increments('id').primary()
+      table.string('title', 255)
     })
 
     await knex.schema.createTable('maha_fields', (table) => {
@@ -3624,6 +3634,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_accounts_features', table => {
+      table.foreign('account_id').references('maha_accounts.id')
+      table.foreign('feature_id').references('maha_features.id')
     })
 
 
