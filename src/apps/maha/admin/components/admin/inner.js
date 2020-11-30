@@ -17,6 +17,7 @@ class Admin extends React.Component {
     account: PropTypes.object,
     account_status: PropTypes.string,
     active: PropTypes.number,
+    active_status: PropTypes.string,
     apps: PropTypes.array,
     children: PropTypes.any,
     redirect: PropTypes.any,
@@ -28,10 +29,12 @@ class Admin extends React.Component {
     user: PropTypes.object,
     onChooseTeam: PropTypes.func,
     onLoadAccount: PropTypes.func,
+    onLoadActive: PropTypes.func,
     onFetchAccount: PropTypes.func,
     onFetchSession: PropTypes.func,
     onFetchTeams: PropTypes.func,
     onSaveAccount: PropTypes.func,
+    onSaveActive: PropTypes.func,
     onSignin: PropTypes.func,
     onSignout: PropTypes.func,
     onSetRedirect: PropTypes.func
@@ -59,27 +62,29 @@ class Admin extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { active, account, account_status, teams_status, team, user } = this.props
-    if(account_status !== prevProps.account_status) {
-      if(account_status === 'loaded') {
-        if(!account) return this._handleRedirectToSignin()
-        return this._handleFetchAccount()
-      }
-      if(account_status === 'authenticated') {
-        return this._handleFetchTeams()
-      }
-      if(account_status === 'success') {
-        return this._handleFetchTeams()
-      }
+    const { active, active_status, account, account_status, teams_status, team, user } = this.props
+    if(active_status !== prevProps.active_status && active_status === 'loaded') {
+      return this.props.onLoadAccount()
+    }
+    if(account_status !== prevProps.account_status && account_status === 'loaded') {
+      if(!account) return this._handleRedirectToSignin()
+      return this._handleFetchAccount()
+    }
+    if(account_status !== prevProps.account_status && _.includes(['authenticated','pending','success'], account_status)) {
+      this._handleSaveAccount()
+    }
+    if(account_status !== prevProps.account_status && _.includes(['authenticated','success'], account_status)) {
+      return this._handleFetchTeams()
+    }
+    if(!_.isEqual(account, prevProps.account) && !account) {
+      return this._handleRedirectToSignin()
     }
     if(teams_status !== prevProps.teams_status && teams_status === 'success') {
       return this._handleFetchSession()
     }
     if(active !== prevProps.active) {
-      this._handleSaveAccount()
-      if(active === null) {
-        this._handleRedirectToSignin()
-      } else if(teams_status === 'success') {
+      this._handleSaveActive()
+      if(teams_status === 'success') {
         if(prevProps.active !== null) this._handleFetchSession()
       }
     }
@@ -137,15 +142,29 @@ class Admin extends React.Component {
   }
 
   _handleFetchSession() {
-    const { teams } = this.props
-    const active = this.props.active || teams[0].id
-    const team = _.find(teams, { id: active }) || teams[0]
-    this.props.onFetchSession(active, team.token)
+    const { active, teams } = this.props
+    const id = active || teams[0].id
+    const team = _.find(teams, { id }) || teams[0]
+    this.props.onFetchSession(id, team.token)
   }
 
   _handleFetchTeams() {
     const { account } = this.props
     this.props.onFetchTeams(account.token)
+  }
+
+  _handleInit() {
+    const { pathname } = this.context.router.location
+    if(pathname.match(/(activate|signin|reset)/)) return
+    this.props.onLoadActive()
+  }
+
+  _handleIntent() {
+    const { pathname, search, hash } = this.context.router.location
+    if(pathname === '/') return
+    if(pathname.match(/(activate|signin|reset)/)) return
+    this.context.router.history.push('/')
+    this.props.onSetRedirect({ pathname, search, hash })
   }
 
   _handleLoggerLogin(user) {
@@ -178,22 +197,15 @@ class Admin extends React.Component {
   }
 
   _handleSaveAccount() {
-    const { active, account } = this.props
-    this.props.onSaveAccount(active, account)
+    const { account } = this.props
+    this.props.onSaveAccount(account ? {
+      token: account.token
+    } : null)
   }
 
-  _handleIntent() {
-    const { pathname, search, hash } = this.context.router.location
-    if(pathname === '/') return
-    if(pathname.match(/(activate|signin|reset)/)) return
-    this.context.router.history.push('/')
-    this.props.onSetRedirect({ pathname, search, hash })
-  }
-
-  _handleInit() {
-    const { pathname } = this.context.router.location
-    if(pathname.match(/(activate|signin|reset)/)) return
-    this.props.onLoadAccount()
+  _handleSaveActive() {
+    const { active } = this.props
+    this.props.onSaveActive(active)
   }
 
   _handleSignin(account, active) {

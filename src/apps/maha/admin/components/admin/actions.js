@@ -6,16 +6,32 @@ export const loadAccount = () => ({
   failure: 'LOAD_ACCOUNT_FAILURE'
 })
 
-export const saveAccount = (active, account) => ({
+export const saveAccount = (account) => ({
   type: 'LOCAL_SET',
   key: 'account',
   value: {
-    active,
     account
   },
   request: 'SAVE_ACCOUNT_REQUEST',
   success: 'SAVE_ACCOUNT_SUCCESS',
   failure: 'SAVE_ACCOUNT_FAILURE'
+})
+
+export const loadActive = () => ({
+  type: 'LOCAL_GET',
+  key: 'active',
+  request: 'LOAD_ACTIVE_REQUEST',
+  success: 'LOAD_ACTIVE_SUCCESS',
+  failure: 'LOAD_ACTIVE_FAILURE'
+})
+
+export const saveActive = (active) => ({
+  type: 'LOCAL_SET',
+  key: 'active',
+  value: active,
+  request: 'SAVE_ACTIVE_REQUEST',
+  success: 'SAVE_ACTIVE_SUCCESS',
+  failure: 'SAVE_ACTIVE_FAILURE'
 })
 
 export const fetchAccount = (token) => ({
@@ -49,10 +65,9 @@ export const fetchSession = (active, token) => ({
   failure: 'FETCH_SESSION_FAILURE'
 })
 
-export const signin = (account, active) => ({
+export const signin = (account) => ({
   type: 'SIGNIN',
-  account,
-  active
+  account
 })
 
 export const signout = () => ({

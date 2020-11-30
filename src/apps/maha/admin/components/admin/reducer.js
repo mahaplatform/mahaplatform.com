@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   account_status: 'pending',
   account: null,
+  active_status: 'pending',
   active: null,
   apps: [],
   devices: null,
@@ -27,7 +28,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'LOAD_ACCOUNT_SUCCESS':
     return {
       ...state,
-      ...action.value,
+      account: action.value ? action.value.account : null,
       account_status: 'loaded'
     }
 
@@ -35,6 +36,25 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       account_status: 'failure'
+    }
+
+  case 'LOAD_ACTIVE_REQUEST':
+    return {
+      ...state,
+      active_status: 'loading'
+    }
+
+  case 'LOAD_ACTIVE_SUCCESS':
+    return {
+      ...state,
+      active: action.value,
+      active_status: 'loaded'
+    }
+
+  case 'LOAD_ACTIVE_FAILURE':
+    return {
+      ...state,
+      active_status: 'failure'
     }
 
   case 'FETCH_ACCOUNT_REQUEST':
@@ -98,7 +118,10 @@ export default (state = INITIAL_STATE, action) => {
     }
 
   case 'SIGNOUT_SUCCESS':
-    return INITIAL_STATE
+    return {
+      ...INITIAL_STATE,
+      active: state.active
+    }
 
   case 'CHOOSE_TEAM':
     return {

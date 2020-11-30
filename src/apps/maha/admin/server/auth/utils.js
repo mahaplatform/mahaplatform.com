@@ -28,19 +28,11 @@ export const result = (req, res) => async (err, account, info) => {
 
 const success = async (req, res) => {
 
-  const account = {
-    id: req.account.get('id'),
-    full_name: req.account.get('full_name'),
-    initials: req.account.get('initials'),
-    email: req.account.get('email'),
-    photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
-    token: createUserToken(req.account, 'account_id'),
-    authentication_strategy: req.account.get('authentication_strategy'),
-    features: req.account.related('features').map(feature => feature.get('title'))
+  const account =
 
-  }
-
-  res.status(200).type('text/html').render('success', { account })
+  res.status(200).type('text/html').render('success', {
+    token: createUserToken(req.account, 'account_id')
+  })
 
 }
 

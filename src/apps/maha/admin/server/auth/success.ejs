@@ -12,14 +12,7 @@
       }
     }
     data.account = {
-      id: <%= account.id %>,
-      full_name: '<%= account.full_name %>',
-      initials: '<%= account.initials %>',
-      email: '<%= account.email %>',
-      photo: <%- account.photo ? `'${account.photo}'` : 'null' %>,
-      features: [<%- account.features.map(feature => `'${feature}'`).join(',') %>],
-      token: '<%= account.token %>',
-      authentication_strategy: '<%= account.authentication_strategy %>'
+      token: '<%= token %>'
     }
     localforage.setItem('account', data).then(function () {
       window.location.href = "/admin";
