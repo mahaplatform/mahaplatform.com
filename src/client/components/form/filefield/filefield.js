@@ -82,7 +82,7 @@ class FileField extends React.Component {
   componentDidMount() {
     const { code, multiple, token, onReady } = this.props
     this.resumable = new Resumable({
-      target: `/api/crm/forms/${code}/uploads`,
+      target: `/api/forms/forms/${code}/uploads`,
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       maxFiles: multiple ? undefined : 1,

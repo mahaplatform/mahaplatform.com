@@ -4,7 +4,9 @@ import _ from 'lodash'
 
 class Button extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     basic: PropTypes.bool,
@@ -20,6 +22,7 @@ class Button extends React.Component {
     label: PropTypes.any,
     link: PropTypes.string,
     mobile: PropTypes.bool,
+    modal: PropTypes.any,
     request: PropTypes.object,
     size: PropTypes.string,
     status: PropTypes.string,
@@ -90,11 +93,12 @@ class Button extends React.Component {
 
   _handleClick(e) {
     e.stopPropagation()
-    const { disabled, handler, link, request, url } = this.props
+    const { disabled, handler, link, modal, request, url } = this.props
     if(disabled) return
     if(link) this._handleLink(link)
     if(url) this._handleUrl(url)
     if(request) this._handleRequest(request)
+    if(modal) this._handleModal(modal)
     if(handler) this._handleFunction(handler, e)
   }
 
@@ -109,6 +113,14 @@ class Button extends React.Component {
 
   _handleFunction(handler, e) {
     handler(e)
+  }
+
+  _handleModal(modal) {
+    if(modal.component) {
+      const options = modal.options || {}
+      return this.context.modal.open(modal.component, options)
+    }
+    this.context.modal.open(modal)
   }
 
   _handleRequest(itemRequest) {

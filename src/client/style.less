@@ -68,7 +68,34 @@ body {
 	&.grey .@{item} { @{property}: @grey; }
 	&.black .@{item} { @{property}: @black; }
 }
-
+.expanded(@begin, @end) {
+  &.expanded-appear,
+  &.expanded-enter,
+  &.expanded-exit.expanded-exit-active {
+    @begin();
+  }
+  &.expanded-appear.expanded-appear-active,
+  &.expanded-enter.expanded-enter-active,
+  &.expanded-exit {
+    @end();
+  }
+}
+.opacity-transition(@start, @end, @duration) {
+	transition: opacity @duration ease-in-out 0s;
+  .expanded({
+    opacity: @start;
+  }, {
+		opacity: @end;
+  })
+}
+.translate-y-transition(@start, @end, @duration) {
+  transition: transform @duration ease-in-out 0s;
+  .expanded({
+    transform: translateY(@start);
+  }, {
+		transform: translateY(@end);
+  })
+}
 .maha-form {
   border: 1px solid rgba(0,0,0,.05);
   background-color: rgba(255, 255, 255, 1);
@@ -232,6 +259,7 @@ body {
 @import './components/carousel/style.less';
 @import './components/image/style.less';
 @import './components/message/style.less';
+@import './components/modal/style.less';
 @import './components/modal_panel/style.less';
 @import './components/stack/style.less';
 @import './components/steps/style.less';

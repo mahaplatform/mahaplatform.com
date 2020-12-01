@@ -1,0 +1,42 @@
+.maha-modal {
+  flex: 1;
+  display: flex;
+}
+.maha-modal-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.maha-modal-window {
+  position: absolute;
+  background: @white;
+  display: flex;
+}
+@media only screen and (min-width: 769px) {
+  .maha-modal-overlay {
+    .opacity-transition(0, 0.5, .5s);
+    opacity: 0.5;
+    background-color: @black;
+  }
+  .maha-modal-window {
+    .opacity-transition(0, 1, .5s);
+    width: ~"calc(100% - 2em)";
+    height: ~"calc(100% - 2em)";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .maha-modal-window {
+    .translate-y-transition(100%, 0, .5s);
+    max-width: 100% !important;
+    max-height: 100% !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
