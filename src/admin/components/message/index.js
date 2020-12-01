@@ -94,6 +94,7 @@ class Message extends React.Component {
         basic: true,
         color: 'red',
         label: button.label,
+        link: button.link,
         modal: button.modal,
         handler: button.handler,
         request: button.request

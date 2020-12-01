@@ -1,28 +1,29 @@
 export const INITIAL_STATE = {
-  connected: null,
-  url: null
+  status: 'pending',
+  profile: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'CHECK_RESULT':
+    return {
+      ...state,
+      status: 'loading'
+    }
+
   case 'CHECK_SUCCESS':
     return {
       ...state,
-      connected: action.result.data === true
-    }
-
-  case 'AUTHORIZE_SUCCESS':
-    return {
-      ...state,
-      url: action.result.data
+      profile: action.result.data,
+      status: 'success'
     }
 
   case 'AUTHORIZED':
     return {
       ...state,
-      connected: true
+      profile: action.profile
     }
 
   default:

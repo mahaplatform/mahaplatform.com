@@ -1,89 +1,82 @@
-import Loader from '../loader'
-import Message from '../message'
 import PropTypes from 'prop-types'
+import Message from '../message'
+import Loader from '../loader'
 import React from 'react'
-import _ from 'lodash'
 
 class Authorized extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     host: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
     children: PropTypes.any,
-    connected: PropTypes.bool,
-    network: PropTypes.string,
     image: PropTypes.string,
     icon: PropTypes.string,
-    url: PropTypes.string,
-    onAuthorize: PropTypes.func,
+    label: PropTypes.string,
+    profile: PropTypes.object,
+    service: PropTypes.string,
+    status: PropTypes.string,
+    type: PropTypes.string,
     onAuthorized: PropTypes.func,
+    onProfile: PropTypes.func,
     onCheck: PropTypes.func
   }
 
+  static defaultProps = {
+    onProfile: () => {}
+  }
+
   _handleAuthorized = this._handleAuthorized.bind(this)
-  _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { children, connected } = this.props
-    if(connected === null) return <Loader />
-    if(connected === false) return <Message { ...this._getMessage() } key="message" />
+    const { children, profile, status } = this.props
+    if(status === 'loading') return <Loader />
+    if(profile === null) return <Message { ...this._getMessage() } key="message" />
     return children
   }
 
   componentDidMount() {
-    const { network } = this.props
-    this.props.onCheck(network)
+    const { service } = this.props
+    this.props.onCheck(service)
     this.context.network.subscribe([
-      { target: `/admin/sources/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
+      { target: `/admin/sources/${service}/authorized`, action: 'authorized', handler: this._handleAuthorized }
     ])
   }
 
   componentDidUpdate(prevProps) {
-    const { url } = this.props
-    if(url !== prevProps.url) {
-      this.context.host.openWindow(url)
+    const { profile } = this.props
+    if(profile !== prevProps.profile) {
+      this.props.onProfile(profile)
     }
   }
 
   componentWillUnmount() {
-    const { network } = this.props
+    const { service } = this.props
     this.context.network.unsubscribe([
-      { target: `/admin/sources/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
+      { target: `/admin/sources/${service}/authorized`, action: 'authorized', handler: this._handleAuthorized }
     ])
   }
 
-  _getAuthorize() {
-    const { url, onAuthorize } = this.props
-    return {
-      url,
-      onAuthorize
-    }
-  }
-
   _getMessage() {
-    const { image, icon, network } = this.props
+    const { image, icon, label , service, type } = this.props
+    const { token } = this.context.admin.team
     return {
       image,
       icon,
-      title: `Sign In to ${ _.capitalize(network) }`,
-      text: `In order to access ${ _.capitalize(network) }, you must authorize the Maha Platform to access your account`,
+      title: label,
+      text: `In order to access ${label}, you must authorize the Maha Platform to access your account`,
       button: {
         label: 'Authorize',
-        handler: this._handleClick
+        link: `${process.env.WEB_HOST}/admin/oauth/${service}/authorize?type=${type}&token=${token}`
       }
     }
   }
 
-  _handleClick() {
-    const { network } = this.props
-    this.props.onAuthorize(network)
-  }
-
-  _handleAuthorized() {
-    this.props.onAuthorized()
+  _handleAuthorized({ profile }) {
+    this.props.onAuthorized(profile)
   }
 
 }
