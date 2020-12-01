@@ -1,4 +1,4 @@
-import { Error, Logger, Network } from '@client'
+import { Error, Logger, Modal, Network } from '@client'
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Form from './components/form'
@@ -34,8 +34,10 @@ class App extends React.Component {
         <Logger environment="form">
           <Error>
             <Network>
-              <Style { ...this._getStyle() } />
-              <Form { ...this._getForm() } />
+              <Modal>
+                <Style { ...this._getStyle() } />
+                <Form { ...this._getForm() } />
+              </Modal>
             </Network>
           </Error>
         </Logger>
@@ -45,11 +47,10 @@ class App extends React.Component {
 
   componentDidMount() {
     const params = qs.parse(window.location.search.substr(1))
-    const embeded = params.embedded !== undefined
-    if(!embeded) {
+    const embedded = params.embedded !== undefined
+    this.setState({ embedded, params })
+    if(!embedded) {
       return this.setState({
-        embeded,
-        params,
         ready: true
       })
     }
