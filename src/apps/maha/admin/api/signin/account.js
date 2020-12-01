@@ -14,7 +14,7 @@ const accountRoute = async (req, res, next) => {
 
   req.token = getToken(req)
 
-  if(true || !req.token) return res.status(401).json({
+  if(!req.token) return res.status(401).json({
     status: 401,
     message: 'No token'
   })

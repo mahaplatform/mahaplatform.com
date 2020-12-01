@@ -4,9 +4,9 @@ const authenticationMiddleware = store => next => action => {
 
   if(type !== 'API_UNAUTHENTICATED') return next(action)
 
-  const admin = store.getState().maha.admin
-
-  if(admin.teams === null || admin.active === null) return next(action)
+  // const admin = store.getState().maha.admin
+  //
+  // if(admin.teams === null || admin.active === null) return next(action)
 
   store.dispatch({
     type: 'maha.admin/SIGNOUT_SUCCESS'
