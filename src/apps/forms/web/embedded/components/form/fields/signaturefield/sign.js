@@ -8,35 +8,32 @@ class Sign extends React.Component {
 
   static propTypes = {
     agreement: PropTypes.object,
-    agreement_status: PropTypes.string,
-    asset_id: PropTypes.number,
     cid: PropTypes.string,
     document: PropTypes.object,
-    email: PropTypes.string,
-    profile_id: PropTypes.number,
     onCreateAgreement: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    signing: true
+    ready: false
   }
 
   _handleDone = this._handleDone.bind(this)
+  _handleReady = this._handleReady.bind(this)
 
   render() {
-    const { agreement_status } = this.props
-    if(agreement_status !== 'success') return <Loader {...this._getLoader() } />
+    const { ready } = this.state
     return (
       <div className="maha-signaturefield-sign">
         <iframe {...this._getIframe() } />
+        { !ready &&
+          <Loader { ...this._getLoader() } />
+        }
       </div>
     )
   }
 
   componentDidMount() {
-    const { asset_id, email, profile_id } = this.props
-    this.props.onCreateAgreement(asset_id, profile_id, email)
     this.pasteur = new Pasteur({
       window,
       target: window.parent,
@@ -48,15 +45,26 @@ class Sign extends React.Component {
 
   _getIframe() {
     const { agreement } = this.props
+    const { ready } = this.state
     return {
-      src: agreement.url
+      src: agreement.url,
+      style: {
+        visibility: ready ? 'visible' : 'hidden'
+      },
+      onLoad: this._handleReady
     }
   }
 
   _getLoader() {
     return {
-      label: 'Contacting Adobe Sign'
+      label: 'Connecting to Adobe Sign'
     }
+  }
+
+  _handleReady() {
+    this.setState({
+      ready: true
+    })
   }
 
   _handleDone() {

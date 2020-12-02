@@ -1,6 +1,7 @@
 const agreementSerializer = (req, result) => ({
   id: result.get('id'),
   signed: signed(result.related('signed')),
+  email: result.get('email'),
   url: result.get('url'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

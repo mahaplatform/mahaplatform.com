@@ -25,6 +25,8 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!form) return res.status(404).send('Unable to load form')
+
   req.team = form.related('team')
 
   const { limits } = form.get('config')

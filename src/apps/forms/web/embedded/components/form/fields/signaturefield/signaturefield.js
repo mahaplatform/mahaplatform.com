@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { Button } from '@client'
+import moment from 'moment'
 import Sign from './sign'
 import React from 'react'
-
-const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i
+import _ from 'lodash'
 
 class SignatureField extends React.Component {
 
@@ -18,6 +18,8 @@ class SignatureField extends React.Component {
     cid: PropTypes.string,
     defaultValue: PropTypes.string,
     description: PropTypes.string,
+    email: PropTypes.string,
+    isEmailValid: PropTypes.bool,
     profile_id: PropTypes.number,
     prompt: PropTypes.string,
     required: PropTypes.bool,
@@ -28,6 +30,7 @@ class SignatureField extends React.Component {
     value: PropTypes.string,
     onCreateAgreement: PropTypes.func,
     onChange: PropTypes.func,
+    onClear: PropTypes.func,
     onReady: PropTypes.func,
     onSigned: PropTypes.func,
     onValidate: PropTypes.func
@@ -39,13 +42,44 @@ class SignatureField extends React.Component {
     onReady: () => {}
   }
 
+  _handleCreateAgreement = _.debounce(this._handleCreateAgreement.bind(this), 500)
   _handleSigned = this._handleSigned.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
+    const { agreement_status, isEmailValid, signed } = this.props
     return (
       <div className="maha-signaturefield">
-        <Button { ...this._getButton() } />
+        { !signed ?
+          <div className="maha-signaturefield-input">
+            <Button { ...this._getButton() } />
+            <div className="maha-signaturefield-status">
+              { !isEmailValid &&
+                <span>
+                  <i className="fa fa-clock-o" /> awaiting valid email
+                </span>
+              }
+              { (isEmailValid && agreement_status !== 'success') &&
+                <span>
+                  <i className="fa fa-circle-o-notch fa-spin" /> preparing document
+                </span>
+              }
+              { agreement_status === 'success' &&
+                <span>
+                  <i className="fa fa-check" /> ready to sign
+                </span>
+              }
+            </div>
+          </div> :
+          <div className="maha-signature-token">
+            <div className="maha-signature-token-icon">
+              <i className="fa fa-check-circle" />
+            </div>
+            <div className="maha-signature-token-label">
+              Signed on { moment().format('MM/DD/YY [@] hh:mm A')}
+            </div>
+          </div>
+        }
       </div>
     )
   }
@@ -55,7 +89,11 @@ class SignatureField extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { status, signed } = this.props
+    const { email, isEmailValid, status, signed } = this.props
+    if(email !== prevProps.email) {
+      if(isEmailValid) return this._handleCreateAgreement()
+      if(!email) return this.props.onClear()
+    }
     if(signed !== prevProps.signed) {
       this._handleChange()
     }
@@ -65,20 +103,13 @@ class SignatureField extends React.Component {
   }
 
   _getButton() {
-    const { prompt } = this.props
-    const disabled = this._getDisabled()
+    const { agreement_status, prompt } = this.props
     return {
       label: prompt,
-      disabled,
-      className: disabled ? 'ui button' : 'ui black button',
+      disabled: agreement_status !== 'success',
+      className: agreement_status === 'success' ? 'ui black button' : 'ui button',
       modal: <Sign { ...this._getSign() } />
     }
-  }
-
-  _getDisabled() {
-    const { tokens } = this.props
-    const { email } = tokens
-    return (!email || !EMAIL_REGEX.test(email))
   }
 
   _getSign() {
@@ -92,6 +123,11 @@ class SignatureField extends React.Component {
       onCreateAgreement,
       onDone: this._handleSigned
     }
+  }
+
+  _handleCreateAgreement() {
+    const { asset_id, email, profile_id } = this.props
+    this.props.onCreateAgreement(asset_id, profile_id, email)
   }
 
   _handleChange() {

@@ -1,7 +1,40 @@
+.maha-signaturefield-status {
+  padding: 0 0.3em;
+  span {
+    font-style: italic;
+    color: fadeout(@black, 70);
+  }
+  .fa {
+    margin-right: 0.2em;
+  }
+  .fa-circle-o-notch {
+    color: @blue;
+  }
+  .fa-check {
+    color: @green;
+  }
+}
 .maha-signaturefield-sign {
   flex: 1;
   display: flex;
   iframe {
     flex: 1;
   }
+}
+.maha-signature-token {
+  display: inline-flex;
+  border-radius: 0.3em;
+  background-color: @green;
+}
+.maha-signature-token-icon {
+  padding: 0.6em 0 0.6em 0.6em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: @white;
+  }
+}
+.maha-signature-token-label {
+  padding: 0.6em;
+  color: @white;
 }

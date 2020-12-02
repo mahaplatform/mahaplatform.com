@@ -8,10 +8,14 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'CLEAR':
+    return INITIAL_STATE
+
   case 'CREATE_AGREEMENT_REQUEST':
     return {
       ...state,
-      agreement_status: 'loading'
+      agreement_status: 'loading',
+      agreement: null
     }
 
   case 'CREATE_AGREEMENT_SUCCESS':
