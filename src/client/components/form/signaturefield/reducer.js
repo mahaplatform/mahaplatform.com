@@ -1,7 +1,8 @@
 export const INITIAL_STATE = {
   agreement_status: 'pending',
   agreement: null,
-  signed: false
+  signed: false,
+  email: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
 
   case 'CREATE_AGREEMENT_SUCCESS':
+    if(action.result.data.email !== state.email) return { ...state }
     return {
       ...state,
       agreement: action.result.data,
@@ -29,6 +31,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       signed: true
+    }
+
+  case 'SET_EMAIL':
+    return {
+      ...state,
+      email: action.email
     }
 
   default:

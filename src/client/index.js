@@ -1,3 +1,4 @@
+export SignatureField from './components/form/signaturefield'
 export AddressField from './components/form/addressfield'
 export HiddenField from './components/form/hiddenfield'
 export GooglePay from './components/payment/googlepay'

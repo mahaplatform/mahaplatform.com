@@ -33,6 +33,7 @@ class SignatureField extends React.Component {
     onClear: PropTypes.func,
     onReady: PropTypes.func,
     onSigned: PropTypes.func,
+    onSetEmail: PropTypes.func,
     onValidate: PropTypes.func
   }
 
@@ -42,7 +43,8 @@ class SignatureField extends React.Component {
     onReady: () => {}
   }
 
-  _handleCreateAgreement = _.debounce(this._handleCreateAgreement.bind(this), 500)
+  _handleCreateAgreement = this._handleCreateAgreement.bind(this)
+  _handleTokens = _.debounce(this._handleTokens.bind(this), 500)
   _handleSigned = this._handleSigned.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -89,7 +91,7 @@ class SignatureField extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { email, isEmailValid, status, signed } = this.props
+    const { email, isEmailValid, status, signed, tokens } = this.props
     if(email !== prevProps.email) {
       if(isEmailValid) return this._handleCreateAgreement()
       if(!email) return this.props.onClear()
@@ -100,6 +102,9 @@ class SignatureField extends React.Component {
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
     }
+    if(!_.isEqual(tokens, prevProps.tokens)) {
+      this._handleTokens()
+    }
   }
 
   _getButton() {
@@ -107,7 +112,7 @@ class SignatureField extends React.Component {
     return {
       label: prompt,
       disabled: agreement_status !== 'success',
-      className: agreement_status === 'success' ? 'ui black button' : 'ui button',
+      className: agreement_status === 'success' ? 'ui fluid black button' : 'ui fluid button',
       modal: <Sign { ...this._getSign() } />
     }
   }
@@ -133,6 +138,12 @@ class SignatureField extends React.Component {
   _handleChange() {
     const { agreement, signed } = this.props
     this.props.onChange(signed ? agreement.id : null)
+  }
+
+  _handleTokens() {
+    const email = this.props.tokens.email || null
+    if(email === this.props.email) return
+    this.props.onSetEmail(email)
   }
 
   _handleSigned() {

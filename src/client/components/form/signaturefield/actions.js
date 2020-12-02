@@ -22,3 +22,8 @@ export const clear = () => ({
 export const signed = () => ({
   type: 'SIGNED'
 })
+
+export const setEmail = (email) => ({
+  type: 'SET_EMAIL',
+  email
+})

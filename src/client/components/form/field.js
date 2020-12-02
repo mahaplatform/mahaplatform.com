@@ -1,3 +1,4 @@
+import SignatureField from './signaturefield'
 import AddressField from './addressfield'
 import HiddenField from './hiddenfield'
 import MoneyField from './moneyfield'
@@ -92,6 +93,7 @@ class Field extends React.Component {
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'radiogroup') return RadioGroup
     if(field.type === 'range') return Range
+    if(field.type === 'signaturefield') return SignatureField
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField

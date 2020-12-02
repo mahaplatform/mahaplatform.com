@@ -1,4 +1,5 @@
 import {
+  SignatureField,
   AddressField,
   MoneyField,
   Checkboxes,
@@ -16,7 +17,6 @@ import {
   Hidden,
   Text
 } from '@client'
-import SignatureField from './signaturefield'
 import OptionsField from './optionsfield'
 import PaymentField from './paymentfield'
 import ProductField from './productfield'

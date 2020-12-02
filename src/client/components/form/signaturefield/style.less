@@ -1,18 +1,25 @@
 .maha-signaturefield-status {
-  padding: 0 0.3em;
+  padding: 0.3em;
   span {
     font-style: italic;
-    color: fadeout(@black, 70);
+    color: fadeout(@black, 40);
   }
   .fa {
     margin-right: 0.2em;
   }
-  .fa-circle-o-notch {
-    color: @blue;
-  }
   .fa-check {
     color: @green;
   }
+}
+.maha-signaturefield-input {
+  border: 1px solid fadeout(@black, 90);
+  padding: 0.4em;
+  display: inline-block;
+  min-width: 160px;
+  border-radius: 0.3em;
+}
+.maha-signaturefield-status {
+  text-align: center;
 }
 .maha-signaturefield-sign {
   flex: 1;
