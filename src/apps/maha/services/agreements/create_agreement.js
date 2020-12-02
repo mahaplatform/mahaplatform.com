@@ -25,6 +25,7 @@ const createAgreement = async (req, { profile, asset, email }) => {
 
   const agreement = await Agreement.forge({
     team_id: req.team.get('id'),
+    unsigned_id: asset.get('id'),
     email
   }).save(null, {
     transacting: req.trx

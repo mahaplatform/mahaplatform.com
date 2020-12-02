@@ -7,11 +7,6 @@ const webhookRoute = async (req, res) => {
 
   if(Object.keys(req.body).length === 0) {
     const clientid = req.headers['x-adobesign-clientid']
-    // console.log(clientid)
-    // if(clientid !== process.env.ADOBE_SIGN_CLIENT_ID) return res.status(403).respond({
-    //   code: 403,
-    //   message: 'Invalid clientid'
-    // })
     res.header('X-AdobeSign-ClientId', clientid)
     return res.status(200).respond(true)
   }
@@ -23,14 +18,9 @@ const webhookRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.team = agreement.related('team')
+  if(agreement && req.body.event === 'AGREEMENT_WORKFLOW_COMPLETED') {
 
-  if(!agreement) return res.status(404).respond({
-    code: 404,
-    message: 'Unable to load agreement'
-  })
-
-  if(req.body.event === 'AGREEMENT_WORKFLOW_COMPLETED') {
+    req.team = agreement.related('team')
 
     const unsigned = agreement.related('unsigned')
 

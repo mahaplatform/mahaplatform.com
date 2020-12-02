@@ -1365,14 +1365,13 @@ const schema = {
     await knex.schema.createTable('maha_agreements', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('unsigned_id').unsigned()
       table.integer('signed_id').unsigned()
       table.string('adobe_agreement_id', 255)
       table.string('adobe_signing_id', 255)
-      table.string('name', 255)
       table.string('email', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('unsigned_id').unsigned()
     })
 
     await knex.schema.createTable('maha_aliases', (table) => {
@@ -3144,6 +3143,12 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_agreements', table => {
+      table.foreign('signed_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('unsigned_id').references('maha_assets.id')
+    })
+
     await knex.schema.table('maha_aliases', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -3652,12 +3657,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_agreements', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('unsigned_id').references('maha_assets.id')
-      table.foreign('signed_id').references('maha_assets.id')
     })
 
 

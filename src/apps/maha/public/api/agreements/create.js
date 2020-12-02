@@ -1,5 +1,5 @@
 import AgreementSerializer from '@apps/maha/serializers/agreement_serializer'
-import { createAgreement } from '@apps/maha/services/adobesign'
+import { createAgreement } from '@apps/maha/services/agreements'
 import Profile from '@apps/maha/models/profile'
 import Asset from '@apps/maha/models/asset'
 
