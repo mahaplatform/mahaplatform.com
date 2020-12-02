@@ -1,4 +1,5 @@
 import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, HiddenField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from '@client'
+import SignatureField from '../../embedded/components/form/fields/signaturefield'
 import OptionsField from '../../embedded/components/form/fields/optionsfield'
 import PaymentField from '../../embedded/components/form/fields/paymentfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
@@ -94,6 +95,7 @@ class Field extends React.Component {
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup
+    if(field.type === 'signaturefield') return SignatureField
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
@@ -107,6 +109,7 @@ class Field extends React.Component {
     }
     return {
       ...field,
+      tokens: {},
       name: _.get(field, 'name.value')
     }
   }

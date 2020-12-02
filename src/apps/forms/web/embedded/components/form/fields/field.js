@@ -16,6 +16,7 @@ import {
   Hidden,
   Text
 } from '@client'
+import SignatureField from './signaturefield'
 import OptionsField from './optionsfield'
 import PaymentField from './paymentfield'
 import ProductField from './productfield'
@@ -33,6 +34,7 @@ class Field extends React.Component {
     index: PropTypes.number,
     status: PropTypes.string,
     token: PropTypes.string,
+    tokens: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -94,6 +96,7 @@ class Field extends React.Component {
     if(field.type === 'phonefield') return PhoneField
     if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup
+    if(field.type === 'signaturefield') return SignatureField
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
@@ -103,7 +106,7 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, defaultValue, index, status, token, onChange, onReady, onValidate } = this.props
+    const { code, defaultValue, index, status, token, tokens, onChange, onReady, onValidate } = this.props
     const { htmlFor } = this.state
     const field = {
       ...this.props.field.contactfield || {},
@@ -118,6 +121,7 @@ class Field extends React.Component {
       status,
       tabIndex: index + 1,
       token,
+      tokens,
       onChange,
       onReady,
       onValidate

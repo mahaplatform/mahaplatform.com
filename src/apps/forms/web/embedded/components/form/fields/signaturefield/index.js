@@ -1,0 +1,11 @@
+import { Factory } from 'redux-rubberstamp'
+import reducer from './reducer'
+import signaturefield from './signaturefield'
+import * as actions from './actions'
+
+export default Factory({
+  namespace: 'signaturefield',
+  component: signaturefield,
+  reducer,
+  actions
+})

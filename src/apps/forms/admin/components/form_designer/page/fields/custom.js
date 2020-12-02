@@ -1,3 +1,4 @@
+import SignatureField from '../../fields/signaturefield'
 import AddressField from '../../fields/addressfield'
 import HiddenField from '../../fields/hiddenfield'
 import MoneyField from '../../fields/moneyfield'
@@ -11,11 +12,16 @@ import TextArea from '../../fields/textfield'
 import TimeField from '../../fields/timefield'
 import DropDown from '../../fields/dropdown'
 import Checkbox from '../../fields/checkbox'
-import PropTypes from 'prop-types'
 import Text from '../../fields/text'
+import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Custom extends React.Component {
+
+  static contextTypes = {
+    admin: PropTypes.object
+  }
 
   static propTypes = {
     config: PropTypes.object,
@@ -46,6 +52,7 @@ class Custom extends React.Component {
   }
 
   _getFields() {
+    const { admin } = this.context
     return [
       { label: 'Address Field', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
@@ -58,6 +65,7 @@ class Custom extends React.Component {
       { label: 'Money Field', icon: 'dollar', type: 'moneyfield', component: MoneyField },
       { label: 'Phone Field', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Radio Group', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
+      ..._.includes(admin.account.features, 'adobesign') ? [{ label: 'Singature Field', icon: 'pencil', type: 'signaturefield', component: SignatureField }] : [],
       { label: 'Text Area', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Text Field', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time Field', icon: 'clock-o', type: 'timefield', component: TimeField }

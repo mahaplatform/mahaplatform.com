@@ -11,7 +11,7 @@ class OptionsField extends React.Component {
     defaultValue: PropTypes.array,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
-    options: PropTypes.array,
+    options: PropTypes.any,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,

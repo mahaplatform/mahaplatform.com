@@ -16,7 +16,7 @@ const Account = new Model({
   virtuals: {
 
     authentication_strategy() {
-      // if(process.env.NODE_ENV !== 'production') return 'local'
+      if(process.env.NODE_ENV !== 'production') return 'local'
       const fqdn = this.get('email').split('@').pop()
       const domain = fqdn.split('.').slice(-2).join('.')
       if(domain === 'cornell.edu') return 'cornell'

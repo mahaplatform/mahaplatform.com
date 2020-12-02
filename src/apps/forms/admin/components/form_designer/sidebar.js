@@ -1,3 +1,4 @@
+import SignatureField from './fields/signaturefield'
 import PaymentField from './fields/paymentfield'
 import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
@@ -8,7 +9,6 @@ import MoneyField from './fields/moneyfield'
 import CheckBoxes from './fields/checkboxes'
 import RadioGroup from './fields/radiogroup'
 import PhoneField from './fields/phonefield'
-import { Stack, Tokens } from '@admin'
 import DateField from './fields/datefield'
 import FileField from './fields/filefield'
 import TextField from './fields/textfield'
@@ -16,6 +16,7 @@ import TextArea from './fields/textfield'
 import TimeField from './fields/timefield'
 import DropDown from './fields/dropdown'
 import Checkbox from './fields/checkbox'
+import { Stack, Tokens } from '@admin'
 import PropTypes from 'prop-types'
 import Text from './fields/text'
 import Page from './page'
@@ -96,6 +97,7 @@ class Sidebar extends React.Component {
       { label: 'Money Field', icon: 'dollar', type: 'moneyfield', component: MoneyField },
       { label: 'Phone Field', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Radio Group', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
+      { label: 'Singature Field', icon: 'pencil', type: 'signaturefield', component: SignatureField },
       { label: 'Text Area', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Text Field', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time Field', icon: 'clock-o', type: 'timefield', component: TimeField },

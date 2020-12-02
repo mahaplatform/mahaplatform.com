@@ -1,4 +1,4 @@
-import { AddressField, FileField, Payment, ApplePay, Form, GooglePay, Network, PayPal, ACH, Card, paymentMiddleware } from '@client'
+import { AddressField, Button, FileField, Payment, ApplePay, Form, GooglePay, Network, PayPal, ACH, Card, paymentMiddleware } from '@client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
+import SignatureField from './form/fields/signaturefield'
 import ProductField from './form/fields/productfield'
 import WebForm from './form'
 
@@ -25,8 +26,10 @@ class Root extends React.Component {
 
     const reducer = combineReducers([
       AddressField,
+      Button,
       FileField,
       ProductField,
+      SignatureField,
       Payment,
       ApplePay,
       GooglePay,

@@ -94,6 +94,7 @@ class Fields extends React.Component {
       error: errors[field.code],
       status,
       token,
+      tokens: this._getTokens(),
       onChange: this._handleChange.bind(this, field.code),
       onReady: this._handleSetReady.bind(this, field.code),
       onValidate: this._handleSetValid.bind(this, field.code)
@@ -123,6 +124,16 @@ class Fields extends React.Component {
       tabIndex: fields.length + (captcha ? 2 : 1),
       onClick: human && !processing ? this._handleValidate : () => {}
     }
+  }
+
+  _getTokens() {
+    const { data, fields } = this.props
+    return fields.filter(field => {
+      return field.type !== 'text'
+    }).reduce((tokens, field) => ({
+      ...tokens,
+      [field.name.token]: data[field.code]
+    }), {})
   }
 
   _handleChange(code, value) {

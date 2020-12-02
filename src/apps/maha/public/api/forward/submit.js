@@ -15,6 +15,11 @@ const submitRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!email) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load email'
+  })
+
   await ForwardEmailQueue.enqueue(req, {
     email_id: email.get('id'),
     first_name: req.body.first_name,

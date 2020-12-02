@@ -1,4 +1,4 @@
-import { Error, Logger, Network } from '@client'
+import { Error, Logger, Modal, Network } from '@client'
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Form from './components/form'
@@ -34,8 +34,10 @@ class App extends React.Component {
         <Logger environment="form">
           <Error>
             <Network>
-              <Style { ...this._getStyle() } />
-              <Form { ...this._getForm() } />
+              <Modal>
+                <Style { ...this._getStyle() } />
+                <Form { ...this._getForm() } />
+              </Modal>
             </Network>
           </Error>
         </Logger>

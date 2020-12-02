@@ -1,7 +1,8 @@
 import { createAsset, createAssetFromUrl } from '@apps/maha/services/assets'
+import ProfileSerializer from '@apps/maha/serializers/profile_serializer'
 import { loadUserFromToken } from '@core/utils/user_tokens'
-import socket from '@core/services/routes/emitter'
 import constantcontact from './constantcontact/token'
+import socket from '@core/services/routes/emitter'
 import Profile from '@apps/maha/models/profile'
 import qualtrics from './qualtrics/token'
 import microsoft from './microsoft/token'
@@ -106,7 +107,7 @@ const token = async (req, res) => {
       photo_data: data.photo_data
     })
 
-    await Profile.forge({
+    const newprofile = await Profile.forge({
       account_id: req.account.get('id'),
       source: state.source,
       photo_id,
@@ -119,14 +120,21 @@ const token = async (req, res) => {
       transacting: req.trx
     })
 
+    await socket.message(req, {
+      channel: 'account',
+      target: `/admin/sources/${state.source}/authorized`,
+      action: 'authorized',
+      data: {
+        profile: ProfileSerializer(req, newprofile)
+      }
+    })
+
   })
+
 
   await socket.refresh(req, {
     channel: 'account',
-    target: [
-      `/admin/${req.params.source}/authorized`,
-      '/admin/account/profiles'
-    ]
+    target: '/admin/account/profiles'
   })
 
   res.render('token')

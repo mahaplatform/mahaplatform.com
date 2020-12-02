@@ -28,9 +28,10 @@ const token = async ({ api_access_point, code }, scope) => {
     json: true
   })
 
+
   return [{
     profile_id: profile.id,
-    name: `${profile.first_name} ${profile.last_name}`,
+    name: `${profile.firstName} ${profile.lastName}`,
     username: profile.email,
     data: {
       api_access_point,
