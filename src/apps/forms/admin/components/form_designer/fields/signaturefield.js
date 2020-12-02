@@ -89,10 +89,10 @@ class SignatureFieldForm extends React.Component {
 
   _getDefault() {
     return {
-      label: 'Signature',
+      label: '',
       name: {
-        token: 'Signature',
-        value: 'Signature'
+        token: '',
+        value: ''
       },
       instructions: '',
       placeholder: '',
