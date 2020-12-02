@@ -12,7 +12,6 @@ class Preview extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
-    user: PropTypes.object,
     onBack: PropTypes.func
   }
 
@@ -32,6 +31,7 @@ class Preview extends React.Component {
   }
 
   _getForm() {
+    const { admin } = this.context
     const { config } = this.props
     return {
       reference: node => this.form = node,
@@ -52,9 +52,10 @@ class Preview extends React.Component {
             { type: 'hidden', name: 'config', defaultValue: config },
             { type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'me', text: `Send to ${admin.user.email}` },
                 { value: 'user', text: 'Choose a specific user' },
                 { value: 'email', text: 'Enter an email address' }
-              ], defaultValue: 'user' },
+              ], defaultValue: 'me' },
               ...this._getStrategy()
             ] }
           ]
@@ -64,7 +65,6 @@ class Preview extends React.Component {
   }
 
   _getStrategy() {
-    const { admin } = this.context
     const { config } = this.state
     if(config.strategy === 'email') {
       return [
@@ -72,9 +72,10 @@ class Preview extends React.Component {
         { label: 'Last Name', type: 'textfield', name: 'last_name', required: true },
         { label: 'Email', type: 'emailfield', name: 'email', required: true }
       ]
-    } else {
-      return [{ name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: admin.user.id }]
+    } else if(config.strategy === 'user') {
+      return [{ name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken }]
     }
+    return []
   }
 
   _handleBack() {
@@ -96,8 +97,7 @@ class Preview extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.maha.designer[props.cid].config,
-  user: state.maha.admin.user
+  config: state.maha.designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Preview)

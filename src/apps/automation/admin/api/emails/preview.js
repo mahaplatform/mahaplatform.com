@@ -5,6 +5,13 @@ import User from '@apps/maha/models/user'
 
 const getContact = async (req, params) => {
   const { strategy, user_id, email, first_name, last_name } = params
+  if(strategy === 'me') {
+    return {
+      first_name: req.user.get('first_name'),
+      last_name: req.user.get('last_name'),
+      email: req.user.get('email')
+    }
+  }
   if(strategy === 'email') {
     return { email, first_name, last_name }
   }
