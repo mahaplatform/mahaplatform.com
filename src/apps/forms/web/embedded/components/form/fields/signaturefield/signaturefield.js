@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import { Button } from '@client'
 import Sign from './sign'
 import React from 'react'
-import _ from 'lodash'
+
+const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i
 
 class SignatureField extends React.Component {
 
@@ -38,17 +39,10 @@ class SignatureField extends React.Component {
     onReady: () => {}
   }
 
-  state = {
-    code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-    value: null
-  }
-
   _handleSigned = this._handleSigned.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { value } = this.state
-    if(value === null) return null
     return (
       <div className="maha-signaturefield">
         <Button { ...this._getButton() } />
@@ -57,10 +51,6 @@ class SignatureField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
-    this.setState({
-      value: !_.isNil(defaultValue) ? parseInt(defaultValue) : 0
-    })
     this.props.onReady()
   }
 
@@ -87,18 +77,16 @@ class SignatureField extends React.Component {
 
   _getDisabled() {
     const { tokens } = this.props
-    const { first_name, last_name, email } = tokens
-    return (!first_name || !last_name || !email)
+    const { email } = tokens
+    return (!email || !EMAIL_REGEX.test(email))
   }
 
   _getSign() {
     const { asset_id, cid, profile_id, tokens, onCreateAgreement } = this.props
-    const { first_name, last_name, email } = tokens
+    const { email } = tokens
     return {
       asset_id,
       cid,
-      first_name,
-      last_name,
       email,
       profile_id,
       onCreateAgreement,
@@ -125,7 +113,7 @@ class SignatureField extends React.Component {
     if(required && !signed) {
       this.props.onValidate(null, 'You must sign the agreement')
     } else {
-      this.props.onValidate(agreement.id)
+      this.props.onValidate(signed ? agreement.id : null)
     }
   }
 

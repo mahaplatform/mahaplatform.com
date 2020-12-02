@@ -1,6 +1,6 @@
 import { getClient } from '@apps/maha/admin/api/profiles/services/adobesign'
-import { getAssetData } from '@apps/maha/services/assets'
 import Agreement from '@apps/maha/models/agreement'
+import moment from 'moment'
 import URL from 'url'
 import qs from 'qs'
 
@@ -19,25 +19,12 @@ const processDocument = async (req, { client, adobeagreement, profile }) => {
   })
 }
 
-const createAgreement = async (req, { profile, asset, name, email }) => {
+const createAgreement = async (req, { profile, asset, email }) => {
 
   const client = await getClient(req, profile)
 
-  const file = await getAssetData(asset)
-
-  const transient = await client.request(req, {
-    method: 'POST',
-    endpoint: 'api/rest/v6/transientDocuments',
-    formData: {
-      'File-Name': asset.get('original_file_name'),
-      'File': file
-    }
-  })
-
   const agreement = await Agreement.forge({
     team_id: req.team.get('id'),
-    unsigned_id: asset.get('id'),
-    name,
     email
   }).save(null, {
     transacting: req.trx
@@ -47,14 +34,22 @@ const createAgreement = async (req, { profile, asset, name, email }) => {
     method: 'POST',
     endpoint: 'api/rest/v6/agreements',
     body: {
-      fileInfos: [transient],
+      fileInfos: [
+        {
+          urlFileInfo: {
+            mimeType: asset.get('content_type'),
+            name: asset.get('original_file_name'),
+            url: asset.get('signed_url')
+          }
+        }
+      ],
       name: asset.get('original_file_name'),
+      expirationTime: moment().add(1, 'day').format('YYYY-MM-DD[T]HH:mm:ss[Z]'),
       participantSetsInfo: [
         {
           memberInfos: [
             { email }
           ],
-          name,
           order: 1,
           role: 'SIGNER'
         }

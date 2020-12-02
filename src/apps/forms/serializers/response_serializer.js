@@ -1,9 +1,9 @@
-import { expandValues } from '@apps/maha/services/values'
+import { expandData } from '@apps/forms/services/responses'
 
-const ResponseSerializer = (req, result) => ({
+const ResponseSerializer = async (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
-  data: result.get('data'),
+  data: await data(req, result.related('form'), result.get('data')),
   enrollment: enrollment(result.related('enrollment')),
   referer: result.get('referer'),
   ipaddress: result.get('ipaddress'),
@@ -11,7 +11,6 @@ const ResponseSerializer = (req, result) => ({
   is_known: result.get('is_known'),
   revenue: result.get('revenue'),
   invoice_id: result.get('invoice_id'),
-//  values: values(req, result.get('data')),
   payment: payment(result.related('payment')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -46,9 +45,11 @@ const enrollment = (enrollment) => {
   }
 }
 
-const values = async (req, data) => {
+const data = async (req, form, data) => {
   if(!data) return {}
-  return await expandValues(req, {
+  if(!form.id) return data
+  return await expandData(req, {
+    fields: form.get('config').fields,
     data
   })
 }

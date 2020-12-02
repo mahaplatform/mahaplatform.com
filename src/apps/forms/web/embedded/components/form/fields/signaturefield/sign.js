@@ -13,8 +13,6 @@ class Sign extends React.Component {
     cid: PropTypes.string,
     document: PropTypes.object,
     email: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
     profile_id: PropTypes.number,
     onCreateAgreement: PropTypes.func,
     onDone: PropTypes.func
@@ -37,9 +35,8 @@ class Sign extends React.Component {
   }
 
   componentDidMount() {
-    const { asset_id, email, first_name, last_name, profile_id } = this.props
-    const full_name = `${first_name} ${last_name}`
-    this.props.onCreateAgreement(asset_id, profile_id, full_name, email)
+    const { asset_id, email, profile_id } = this.props
+    this.props.onCreateAgreement(asset_id, profile_id, email)
     this.pasteur = new Pasteur({
       window,
       target: window.parent,

@@ -6,7 +6,5 @@ export const value = createSelector(
   files,
   (files) => files.filter(file => {
     return file.asset !== undefined
-  }).map(file => ({
-    ...file.asset
-  }))
+  }).map(file => file.asset.id)
 )

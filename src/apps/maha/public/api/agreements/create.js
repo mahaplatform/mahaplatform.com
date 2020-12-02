@@ -31,7 +31,6 @@ const createRoute = async (req, res) => {
   req.team = asset.related('team')
 
   const agreement = await createAgreement(req, {
-    name: req.body.name,
     email: req.body.email,
     profile,
     asset

@@ -1,9 +1,8 @@
-export const createAgreement = (asset_id, profile_id, name, email) => ({
+export const createAgreement = (asset_id, profile_id, email) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/agreements',
   body: {
-    name,
     email,
     asset_id,
     profile_id

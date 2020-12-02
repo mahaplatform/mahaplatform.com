@@ -2,6 +2,7 @@ import security_questions from './security_questions'
 import phone_numbers from './phone_numbers'
 import notifications from './notifications'
 import attachments from './attachments'
+import agreements from './agreements'
 import shortlinks from './shortlinks'
 import assignees from './assignees'
 import dashboard from './dashboard'
@@ -33,6 +34,8 @@ import help from './help'
 const router = new Router({ mergeParams: true })
 
 router.use('/account', account)
+
+router.use('/agreements', agreements)
 
 router.use('/aliases', aliases)
 

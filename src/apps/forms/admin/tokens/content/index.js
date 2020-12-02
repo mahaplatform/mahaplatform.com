@@ -1,4 +1,4 @@
-import { Button } from '@admin'
+import { AssetToken } from '@admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
@@ -39,13 +39,13 @@ const Content = ({ data, field }) => {
     return value ? 'checked' : 'not checked'
   } else if(_.includes(['checkboxes','checkboxgroup'], type)) {
     return <span>{ `${value.join(', ')}` }</span>
+  } else if(type === 'signaturefield') {
+    return <AssetToken { ...value.signed } />
   } else if(type === 'filefield') {
     return (
       <div>
-        { _.castArray(value).map((file, index) => (
-          <div key={`file_${index}`}>
-            <Button label={ file.file_name } className="link" route={`/admin/assets/${file.id}`} />
-          </div>
+        { value.map((asset, index) => (
+          <AssetToken { ...asset } key={`asset_${index}`} />
         ))}
       </div>
     )

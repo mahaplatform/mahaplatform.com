@@ -23,7 +23,7 @@ const showRoute = async (req, res) => {
     qb.where('crm_responses.form_id', form.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['contact.photo','enrollment'],
+    withRelated: ['contact.photo','enrollment','form'],
     transacting: req.trx
   })
 

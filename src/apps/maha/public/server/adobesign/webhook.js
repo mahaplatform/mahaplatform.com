@@ -40,12 +40,10 @@ const webhookRoute = async (req, res) => {
 
     const basename = path.basename(filename, extension)
 
-    const name = agreement.get('name').replace(/\s+/g,'-').replace(/[^\w-]/g,'').toLowerCase()
-
     const signed = await createAsset(req, {
       team_id: unsigned.get('team_id'),
       source: 'adobesign',
-      file_name: `${basename}-${name}-signed-${moment().format('YYYYMMDDHHMMSS')}.pdf`,
+      file_name: `${basename}-signed-${moment().format('YYYYMMDDHHMMSS')}.pdf`,
       file_data: new Buffer(req.body.agreement.signedDocumentInfo.document, 'base64'),
       content_type: 'application/pdf'
     }, req.trx)

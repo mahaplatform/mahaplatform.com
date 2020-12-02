@@ -17,10 +17,6 @@ const Agreement = new Model({
 
   signed() {
     return this.belongsTo(Asset, 'signed_id')
-  },
-
-  unsigned() {
-    return this.belongsTo(Asset, 'unsigned_id')
   }
 
 })
