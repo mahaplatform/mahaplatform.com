@@ -47,20 +47,6 @@ new Maha.Events.Button({
       }
     })
     items.push({
-      label: 'Export Registration Data',
-      handler: () => {
-        const { token } = context.admin.team
-        window.location.href = `/api/admin/events/events/${event.id}/registrations/download.xlsx?filename=event-${event.code}-registrations&download=true&token=${token}`
-      }
-    })
-    items.push({
-      label: 'Export Ticket Data',
-      handler: () => {
-        const { token } = context.admin.team
-        window.location.href = `/api/admin/events/events/${event.id}/registrations/tickets.xlsx?filename=event-${event.code}-registrations&download=true&token=${token}`
-      }
-    })
-    items.push({
       label: 'Delete Event',
       confirm: `
         Are you sure you want to delete this event? You will also delete all of

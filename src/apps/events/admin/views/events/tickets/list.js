@@ -1,6 +1,7 @@
 import Content from '@apps/forms/admin/tokens/content'
 import { Page } from '@admin'
 import React from 'react'
+import _ from 'lodash'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Tickets',
@@ -10,6 +11,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Attendee', key: 'name', primary: true },
       { label: 'Ticket Type', key: 'ticket_type.name', sort: 'ticket_type', primary: true },
+      ...!_.includes(resources.event.ticket_config.hidden, 'gender') ? [{ label: 'Gender', key: 'gender', visible: false }] : [],
+      ...!_.includes(resources.event.ticket_config.hidden, 'age') ? [{ label: 'Age', key: 'age', visible: false }] : [],
+      ...!_.includes(resources.event.ticket_config.hidden, 'race') ? [{ label: 'Race', key: 'race', visible: false }] : [],
+      ...!_.includes(resources.event.ticket_config.hidden, 'ethnicity') ? [{ label: 'Ethnicity', key: 'ethnicity', visible: false }] : [],
       ...resources.event.ticket_config.fields.map(field => ({
         label: field.name.value,
         key: `values.${field.code}`,
@@ -23,15 +28,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
         value: ticket_type.id,
         text: ticket_type.name
       })) }
-    ],
-    export: [
-      { label: 'ID', key: 'id' },
-      { label: 'Attendee', key: 'name'},
-      { label: 'Ticket Type', key: 'ticket_type.name' },
-      ...resources.event.ticket_config.fields.map(field => ({
-        label: field.name.value,
-        key: `values.${field.code}`
-      }))
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

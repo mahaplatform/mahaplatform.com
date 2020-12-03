@@ -1570,9 +1570,12 @@ const schema = {
       table.jsonb('registrant_contact')
       table.jsonb('tech_contact')
       table.jsonb('zone')
-      table.date('expires_on')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('aws_zone_id', 255)
+      table.string('aws_certificate_arn', 255)
+      table.timestamp('domain_expires_on')
+      table.timestamp('certificate_expires_on')
     })
 
     await knex.schema.createTable('maha_email_activities', (table) => {

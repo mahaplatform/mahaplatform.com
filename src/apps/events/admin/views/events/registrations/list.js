@@ -1,4 +1,5 @@
 import ContactToken from '@apps/crm/admin/tokens/contact'
+import Content from '@apps/forms/admin/tokens/content'
 import PaymentToken from '../../../tokens/payment'
 import { Page } from '@admin'
 import React from 'react'
@@ -10,6 +11,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
+      ...resources.event.contact_config.fields.map(field => ({
+        label: field.name.value,
+        key: `data.${field.code}`,
+        sort: field.code,
+        visible: false,
+        format: ({ data }) => <Content data={ data } field={ field } />
+      })),
       { label: 'Submitted', key: 'created_at', format: 'datetime' },
       { label: 'Tickets', key: 'tickets_count', collapsing: true, align: 'right' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' },
