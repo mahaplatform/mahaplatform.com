@@ -68,7 +68,7 @@ class Checkboxes extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { selected } = this.state
     const { options, status } = this.props
-    if(!_.isEqual(options, prevState.options) && options) {
+    if(!_.isEqual(options, prevState.options) && options.length > 0) {
       this.setState({ options })
     }
     if(!_.isEqual(selected, prevState.selected)) {
