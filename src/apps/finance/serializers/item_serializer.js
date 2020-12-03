@@ -14,6 +14,12 @@ const expenseSerializer = (req, result) => ({
   tax: result.get('tax'),
   status: result.get('status'),
   account: account(result.related('account')),
+  time_leaving: result.get('time_leaving'),
+  time_arriving: result.get('time_arriving'),
+  odometer_start: result.get('odometer_start'),
+  odometer_end: result.get('odometer_end'),
+  total_miles: result.get('total_miles'),
+  deleted_at: result.get('created_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

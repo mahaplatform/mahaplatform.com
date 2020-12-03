@@ -50,6 +50,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Vendor', key: 'vendor.name' },
       { label: 'Account', key: 'account.name' },
       { label: 'Description', key: 'description' },
+      { label: 'Time Leaving', key: 'time_leaving' },
+      { label: 'Time Arriving', key: 'time_arriving' },
+      { label: 'Odometer Start', key: 'odometer_start' },
+      { label: 'Odometer End', key: 'odometer_end' },
+      { label: 'Total Miles', key: 'total_miles' },
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],

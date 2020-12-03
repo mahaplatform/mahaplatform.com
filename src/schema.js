@@ -3481,6 +3481,10 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_versions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3692,10 +3696,6 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_versions', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -5426,6 +5426,11 @@ union
       items.tax,
       items.account_id,
       items.status,
+      items.time_leaving,
+      items.time_arriving,
+      items.odometer_start,
+      items.odometer_end,
+      items.total_miles,
       items.batch_id,
       items.created_at,
       items.deleted_at
@@ -5449,6 +5454,11 @@ union
       null::numeric as tax,
       null::integer as account_id,
       (finance_advances.status)::character varying as status,
+      null::time without time zone as time_leaving,
+      null::time without time zone as time_arriving,
+      null::numeric as odometer_start,
+      null::numeric as odometer_end,
+      null::numeric as total_miles,
       finance_advances.batch_id,
       finance_advances.created_at,
       finance_advances.deleted_at
@@ -5476,6 +5486,11 @@ union
       finance_expenses.tax,
       finance_expenses.account_id,
       (finance_expenses.status)::character varying as status,
+      null::time without time zone as time_leaving,
+      null::time without time zone as time_arriving,
+      null::numeric as odometer_start,
+      null::numeric as odometer_end,
+      null::numeric as total_miles,
       finance_expenses.batch_id,
       finance_expenses.created_at,
       finance_expenses.deleted_at
@@ -5503,6 +5518,11 @@ union
       null::numeric as tax,
       null::integer as account_id,
       (finance_trips.status)::character varying as status,
+      finance_trips.time_leaving,
+      finance_trips.time_arriving,
+      finance_trips.odometer_start,
+      finance_trips.odometer_end,
+      finance_trips.total_miles,
       finance_trips.batch_id,
       finance_trips.created_at,
       finance_trips.deleted_at
@@ -5530,6 +5550,11 @@ union
       finance_checks.tax,
       null::integer as account_id,
       (finance_checks.status)::character varying as status,
+      null::time without time zone as time_leaving,
+      null::time without time zone as time_arriving,
+      null::numeric as odometer_start,
+      null::numeric as odometer_end,
+      null::numeric as total_miles,
       finance_checks.batch_id,
       finance_checks.created_at,
       finance_checks.deleted_at
@@ -5557,6 +5582,11 @@ union
       null::numeric as tax,
       null::integer as account_id,
       (finance_reimbursements.status)::character varying as status,
+      null::time without time zone as time_leaving,
+      null::time without time zone as time_arriving,
+      null::numeric as odometer_start,
+      null::numeric as odometer_end,
+      null::numeric as total_miles,
       finance_reimbursements.batch_id,
       finance_reimbursements.created_at,
       finance_reimbursements.deleted_at

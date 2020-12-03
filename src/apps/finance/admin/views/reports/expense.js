@@ -49,17 +49,6 @@ const mapPropsToPage = (props, context, resources) => ({
         ] }
       ]
     },
-    // filters: [
-    //   { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },
-    //   { label: 'Batch', name: 'batch_id', type: 'select', endpoint: '/api/admin/finance/batches', value: 'id', text: 'title', format: BatchToken },
-    //   { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
-    //   { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },
-    //   { label: 'Expense Type', name: 'expense_type_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken },
-    //   { label: 'Vendor', name: 'vendor_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', format: VendorToken },
-    //   { label: 'Account', name: 'account_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/accounts', value: 'id', text: 'name' },
-    //   { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
-    //   { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','exported'], format: StatusToken }
-    // ],
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Type', key: 'type' },
@@ -72,6 +61,11 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name' },
       { label: 'Account', key: 'account.name' },
       { label: 'Description', key: 'description' },
+      { label: 'Time Leaving', key: 'time_leaving' },
+      { label: 'Time Arriving', key: 'time_arriving' },
+      { label: 'Odometer Start', key: 'odometer_start' },
+      { label: 'Odometer End', key: 'odometer_end' },
+      { label: 'Total Miles', key: 'total_miles' },
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
