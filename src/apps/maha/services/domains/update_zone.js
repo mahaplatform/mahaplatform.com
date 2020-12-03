@@ -10,7 +10,7 @@ const updateZone = async (req, { aws_zone_id, zone }) => {
     ttl: record.TTL
   })))
 
-  const zone = await route53.changeResourceRecordSets(({
+  await route53.changeResourceRecordSets(({
     HostedZoneId: aws_zone_id,
     ChangeBatch: {
       Changes: [
