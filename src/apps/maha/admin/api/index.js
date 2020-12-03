@@ -18,6 +18,7 @@ import account from './account'
 import devices from './devices'
 import session from './session'
 import aliases from './aliases'
+import domains from './domains'
 import assets from './assets'
 import search from './search'
 import fields from './fields'
@@ -48,6 +49,8 @@ router.use('/assignees', assignees)
 router.use('/dashboard', dashboard)
 
 router.use('/devices', devices)
+
+router.use('/domains', domains)
 
 router.use('/emails', emails)
 

@@ -4,9 +4,7 @@ const Domain = new Model({
 
   tableName: 'maha_domains',
 
-  rules: {
-    title: 'required'
-  }
+  rules: {}
 
 })
 

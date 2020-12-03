@@ -381,6 +381,7 @@ const schema = {
       table.integer('workflow_id').unsigned()
       table.timestamp('deleted_at')
       table.string('permalink', 255)
+      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -466,6 +467,7 @@ const schema = {
       table.timestamp('updated_at')
       table.text('address')
       table.integer('bank_id').unsigned()
+      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('crm_responses', (table) => {
@@ -860,6 +862,7 @@ const schema = {
       table.jsonb('contact_config')
       table.jsonb('ticket_config')
       table.jsonb('payment_config')
+      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('events_events_organizers', (table) => {
@@ -1556,7 +1559,18 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('name', 255)
-      table.boolean('is_primary')
+      table.integer('duration')
+      table.boolean('auto_renew')
+      table.boolean('manage_dns')
+      table.USER-DEFINED('type')
+      table.USER-DEFINED('registration_status')
+      table.USER-DEFINED('dns_status')
+      table.USER-DEFINED('hosting_status')
+      table.jsonb('admin_contact')
+      table.jsonb('registrant_contact')
+      table.jsonb('tech_contact')
+      table.jsonb('zone')
+      table.date('expires_on')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -2028,6 +2042,7 @@ const schema = {
       table.text('address')
       table.timestamp('deleted_at')
       table.boolean('is_active')
+      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('maha_teams_apps', (table) => {
@@ -2352,6 +2367,7 @@ const schema = {
       table.timestamp('updated_at')
       table.jsonb('contact_config')
       table.jsonb('config')
+      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('stores_variants', (table) => {
@@ -2704,6 +2720,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('domain_id').references('maha_domains.id')
     })
 
     await knex.schema.table('crm_interests', table => {
@@ -2749,6 +2766,7 @@ const schema = {
       table.foreign('bank_id').references('finance_banks.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('domain_id').references('maha_domains.id')
     })
 
     await knex.schema.table('crm_responses', table => {
@@ -2935,6 +2953,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('domain_id').references('maha_domains.id')
     })
 
     await knex.schema.table('events_events_organizers', table => {
@@ -3221,10 +3240,6 @@ const schema = {
       table.foreign('platform_type_id').references('maha_device_values.id')
     })
 
-    await knex.schema.table('maha_domains', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('maha_email_activities', table => {
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('email_link_id').references('maha_email_links.id')
@@ -3418,6 +3433,7 @@ const schema = {
 
     await knex.schema.table('maha_teams', table => {
       table.foreign('logo_id').references('maha_assets.id')
+      table.foreign('domain_id').references('maha_domains.id')
     })
 
     await knex.schema.table('maha_user_types', table => {
@@ -3568,6 +3584,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('domain_id').references('maha_domains.id')
     })
 
     await knex.schema.table('stores_variants', table => {
@@ -3656,6 +3673,10 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_domains', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
