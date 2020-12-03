@@ -1,5 +1,4 @@
-import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, HiddenField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from '@client'
-import SignatureField from '../../embedded/components/form/fields/signaturefield'
+import { AddressField, Checkboxes, RadioGroup, PhoneField, FileField, HiddenField, SignatureField, TextField, DateField, TimeField, TextArea, DropDown, Checkbox, Text } from '@client'
 import OptionsField from '../../embedded/components/form/fields/optionsfield'
 import PaymentField from '../../embedded/components/form/fields/paymentfield'
 import ProductField from '../../embedded/components/form/fields/productfield'
