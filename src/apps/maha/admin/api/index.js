@@ -6,6 +6,7 @@ import agreements from './agreements'
 import shortlinks from './shortlinks'
 import assignees from './assignees'
 import dashboard from './dashboard'
+import versions from './versions'
 import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
@@ -99,5 +100,7 @@ router.use('/:attachable_type/:attachable_id/attachments', attachments)
 router.use('/:auditable_type/:auditable_id/audits', audits)
 
 router.use('/:reactable_type/:reactable_id/react/:type', react)
+
+router.use('/:versionable_type/:versionable_id/versions', versions)
 
 export default router
