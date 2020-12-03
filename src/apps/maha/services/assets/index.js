@@ -371,9 +371,7 @@ const _convertOfficeFormat = async (filedata, format) => {
   const filePath = _getTmpPath()
   const previewPath = `${filePath}.preview.${format}`
   fs.writeFileSync(filePath, filedata)
-  console.log(`soffice --convert-to preview.${format} --outdir ${outDir} ${filePath}`)
   await execAsync(`soffice --convert-to preview.${format} --outdir ${outDir} ${filePath}`)
-  console.log(previewPath)
   const previewData = new Buffer(fs.readFileSync(previewPath), 'binary')
   fs.unlinkSync(filePath)
   fs.unlinkSync(previewPath)

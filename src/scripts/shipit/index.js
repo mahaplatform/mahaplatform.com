@@ -260,7 +260,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:clean', () => {
     return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
-      roles: ['appserver','cron','worker']
+      roles: ['appserver','cron','worker','webserver']
     })
   })
 
