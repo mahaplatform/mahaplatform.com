@@ -11,8 +11,8 @@ const getTabs = ({ audits, contacts, list }) => ({
   ]
 })
 
-const getTasks = ({ list }, { flash, router }) => ({
-  items: [
+const getTasks = ({ list, program }, { flash, router }) => ({
+  items: program.access_type === 'manage' ? [
     { label: 'Edit List', show: !list.deleted_at, modal: <Edit list={ list } /> },
     {
       label: 'Delete List',
@@ -32,13 +32,14 @@ const getTasks = ({ list }, { flash, router }) => ({
         onFailure: (result) => flash.set('error', 'Unable to delete list')
       }
     }
-  ]
+  ] : []
 })
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_lists/${props.params.id}/audits`,
   contacts: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}/subscriptions`,
-  list: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}`
+  list: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.id}`,
+  program: `/api/admin/crm/programs/${props.params.program_id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

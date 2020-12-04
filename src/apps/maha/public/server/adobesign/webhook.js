@@ -5,9 +5,11 @@ import path from 'path'
 
 const webhookRoute = async (req, res) => {
 
+  const clientid = req.headers['x-adobesign-clientid']
+
+  res.header('X-AdobeSign-ClientId', clientid)
+
   if(Object.keys(req.body).length === 0) {
-    const clientid = req.headers['x-adobesign-clientid']
-    res.header('X-AdobeSign-ClientId', clientid)
     return res.status(200).respond(true)
   }
 

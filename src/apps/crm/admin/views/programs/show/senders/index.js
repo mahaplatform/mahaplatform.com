@@ -9,9 +9,9 @@ const Senders = ({ program, senders }) => {
 
   const list = {
     items: senders.map((sender, index) => ({
-      tasks: [
+      tasks: program.access_type === 'manage' ? [
         { label: 'Edit Sender', modal: <Edit sender={ sender } /> }
-      ],
+      ] : null,
       component: (props) => <SenderToken {...sender } />
     })),
     empty: {

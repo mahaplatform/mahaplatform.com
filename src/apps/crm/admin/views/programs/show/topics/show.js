@@ -11,8 +11,8 @@ const getTabs = ({ audits, contacts, topic }) => ({
   ]
 })
 
-const getTasks = ({ topic }, { flash, router }) => ({
-  items: [
+const getTasks = ({ topic, program }, { flash, router }) => ({
+  items: program.access_type === 'manage' ? [
     { label: 'Edit Topic', show: !topic.deleted_at, modal: <Edit topic={ topic } /> },
     {
       label: 'Delete Topic',
@@ -32,13 +32,14 @@ const getTasks = ({ topic }, { flash, router }) => ({
         onFailure: (result) => flash.set('error', 'Unable to delete topic')
       }
     }
-  ]
+  ] : []
 })
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_topics/${props.params.id}/audits`,
   contacts: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}/interests`,
-  topic: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}`
+  topic: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}`,
+  program: `/api/admin/crm/programs/${props.params.program_id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
