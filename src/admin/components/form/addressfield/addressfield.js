@@ -65,7 +65,7 @@ class Addressfield extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { options, value } = this.props
+    const { options, q, value } = this.props
     return (
       <div className="maha-addressfield">
         <div className="maha-input">
@@ -76,7 +76,7 @@ class Addressfield extends React.Component {
               </div> :
               <input { ...this._getInput() } />
             }
-            { options.length > 0 &&
+            { q.length > 0 &&
               <div className={ this._getResultClass() }>
                 { options.map((option, index) => (
                   <div { ...this._getOption(option, index) } key={`option_${index}`}>
@@ -158,8 +158,9 @@ class Addressfield extends React.Component {
   }
 
   _getManual() {
-    const { onChoose } = this.props
+    const { q, onChoose } = this.props
     return {
+      q,
       onDone: onChoose
     }
   }

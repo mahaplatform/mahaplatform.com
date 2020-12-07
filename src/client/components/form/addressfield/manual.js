@@ -72,7 +72,8 @@ class Manual extends React.Component {
     this.props.onValidate({
       description: this._getDescription(address),
       manual: true,
-      ...address
+      ...address,
+      country: 'US'
     })
   }
 

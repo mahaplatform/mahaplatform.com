@@ -9,6 +9,7 @@ class Manual extends React.Component {
   }
 
   static propTypes = {
+    q: PropTypes.string,
     onDone: PropTypes.func
   }
 
@@ -20,6 +21,7 @@ class Manual extends React.Component {
   }
 
   _getForm() {
+    const { q } = this.props
     return {
       title: 'Edit Address',
       cancelIcon: 'chevron-left',
@@ -29,7 +31,7 @@ class Manual extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Street 1', name: 'street_1', type: 'textfield', placeholder: 'Enter street 1', required: true },
+            { label: 'Street 1', name: 'street_1', type: 'textfield', placeholder: 'Enter street 1', required: true, defaultValue: q },
             { label: 'Street 2', name: 'street_2', type: 'textfield', placeholder: 'Enter street 2' },
             { label: 'City', name: 'city', type: 'textfield', placeholder: 'Enter city', required: true },
             { label: 'State/Province', name: 'state_province', type: 'textfield', placeholder: 'Enter state/province', required: true },
@@ -57,6 +59,7 @@ class Manual extends React.Component {
   _handleSuccess(address) {
     this.props.onDone({
       description: this._getDescription(address),
+      manual: true,
       ...address,
       country: 'US'
     })
