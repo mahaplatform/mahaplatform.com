@@ -145,9 +145,7 @@ const sdkWatch = async () => {
 
 const adminWatch = async () => {
 
-  const proxyError = (err) => {
-    console.log('Suppressing WDS proxy upgrade error:', err);
-  }
+  const proxyError = (err) => {}
 
   const wildcard = {
     target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,

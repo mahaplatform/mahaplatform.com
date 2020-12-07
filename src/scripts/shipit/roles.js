@@ -22,7 +22,7 @@ const roles = (shipit) => {
 
     const servers = _.uniq(_.castArray(roles).reduce((servers, role) => [
       ...servers,
-      ...this.servers[role]
+      ...this.servers[role] || []
     ], []))
 
     return new sshPool.ConnectionPool(servers, {
