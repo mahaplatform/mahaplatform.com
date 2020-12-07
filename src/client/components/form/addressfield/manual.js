@@ -9,6 +9,7 @@ class Manual extends React.Component {
   }
 
   static propTypes = {
+    q: PropTypes.string,
     tabIndex: PropTypes.number,
     status: PropTypes.string,
     onChange: PropTypes.func,
@@ -36,7 +37,7 @@ class Manual extends React.Component {
   }
 
   _getForm() {
-    const { tabIndex } = this.props
+    const { q, tabIndex } = this.props
     return {
       button: false,
       captcha: false,
@@ -45,7 +46,7 @@ class Manual extends React.Component {
       tabIndex,
       fields: [
         { type: 'segment', fields: [
-          { name: 'street_1', type: 'textfield', placeholder: 'Enter street 1', required: true },
+          { name: 'street_1', type: 'textfield', placeholder: 'Enter street 1', required: true, defaultValue: q.trim() },
           { name: 'street_2', type: 'textfield', placeholder: 'Enter street 2' },
           { type: 'fields', fields: [
             { name: 'city', type: 'textfield', placeholder: 'Enter city', required: true },
@@ -70,6 +71,7 @@ class Manual extends React.Component {
   _handleValid(address) {
     this.props.onValidate({
       description: this._getDescription(address),
+      manual: true,
       ...address
     })
   }

@@ -1,6 +1,6 @@
 import GeocodeMailingAddressQueue from '@apps/crm/queues/geocode_mailing_address_queue'
-import generateCode from '@core/utils/generate_code'
 import MailingAddress from '@apps/crm/models/mailing_address'
+import generateCode from '@core/utils/generate_code'
 import moment from 'moment'
 
 const updateMailingAddresses = async (req, { contact, mailing_addresses, removing, geocode }) => {
@@ -44,6 +44,8 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
 
   const added = await Promise.mapSeries(add, async (mailing_address) => {
 
+    const { is_primary, manual, latitude } = mailing_address.address
+
     const code = await generateCode(req, {
       table: 'crm_mailing_addresses'
     })
@@ -53,14 +55,12 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
       contact_id: contact.get('id'),
       code,
       address: mailing_address.address,
-      is_primary: mailing_address.is_primary
+      is_primary
     }).save(null, {
       transacting: req.trx
     })
 
-    if(mailing_address.address.latitude) return address
-
-    if(geocode === false) return address
+    if(latitude || manual === true || geocode === false) return address
 
     await GeocodeMailingAddressQueue.enqueue(req, {
       mailing_address_id: address.id
@@ -72,21 +72,21 @@ const updateMailingAddresses = async (req, { contact, mailing_addresses, removin
 
   const updated = await Promise.mapSeries(update, async (mailing_address) => {
 
+    const { is_primary, manual, latitude } = mailing_address.address
+
     const address = contact.related('mailing_addresses').find(item => {
       return item.get('id') === mailing_address.id
     })
 
     await address.save({
       address: mailing_address.address,
-      is_primary: mailing_address.is_primary
+      is_primary
     }, {
       transacting: req.trx,
       patch: true
     })
 
-    if(mailing_address.address.latitude) return address
-
-    if(geocode === false) return address
+    if(latitude || manual === true || geocode === false) return address
 
     await GeocodeMailingAddressQueue.enqueue(req, {
       mailing_address_id: address.id
