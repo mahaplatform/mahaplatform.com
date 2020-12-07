@@ -3,7 +3,7 @@ import { toFilter } from './utils'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Contacts from './contacts'
-import Criteria from './criteria'
+import Picker from './picker'
 import Filter from './filter'
 import Topic from './topic'
 import List from './list'
@@ -11,7 +11,7 @@ import React from 'react'
 import _ from 'lodash'
 
 const strategies = [
-  { strategy: 'criteria', text: 'Contacts that meet custom criteria', component: Criteria, placeholder: 'Choose criteria' },
+  { strategy: 'criteria', text: 'Contacts that meet custom criteria', component: Picker, placeholder: 'Choose criteria' },
   { strategy: 'filter', text: 'Contacts in a saved filter', component: Filter, placeholder: 'Choose a filter' },
   { strategy: 'topic', text: 'Contacts in a topic', component: Topic, placeholder: 'Choose a topic' },
   { strategy: 'list', text: 'Contacts in a list', component: List, placeholder: 'Choose a list' },

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Format from '../../format'
+import Format from '../format'
 import React from 'react'
 
 class Results extends React.Component {

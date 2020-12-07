@@ -1,4 +1,4 @@
-import ModalPanel from '../../modal_panel'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Types from './types'
 import Item from './item'

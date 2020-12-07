@@ -1,10 +1,10 @@
-import criteria from '@apps/crm/admin/views/contacts/criteria'
 import { Container, CriteriaDesigner, ModalPanel } from '@admin'
+import criteria from '@apps/crm/admin/views/contacts/criteria'
 import RecipientToken from '../../tokens/recipient'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class CriteriaPicker extends React.PureComponent {
+class Picker extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -89,4 +89,4 @@ const mapResources = (props, context) => ({
   program: `/api/admin/crm/programs/${props.program_id}`
 })
 
-export default Container(mapResources)(CriteriaPicker)
+export default Container(mapResources)(Picker)

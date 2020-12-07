@@ -1,4 +1,4 @@
-import Designer from '../../criteria/designer'
+import Designer from '../../criteria_designer'
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { ModalPanel } from '@admin'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'

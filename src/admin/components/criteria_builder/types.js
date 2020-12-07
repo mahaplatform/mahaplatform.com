@@ -1,10 +1,10 @@
-import ModalPanel from '../../modal_panel'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
 import _ from 'lodash'
 
-class Types extends React.PureComponent {
+class Types extends React.Component {
 
   static propTypes = {
     parent: PropTypes.string,

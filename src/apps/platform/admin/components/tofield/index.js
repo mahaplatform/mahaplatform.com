@@ -1,7 +1,7 @@
 import { toFilter } from './utils'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Criteria from './criteria'
+import Picker from './picker'
 import React from 'react'
 import _ from 'lodash'
 
@@ -117,7 +117,7 @@ class ToField extends React.PureComponent {
   }
 
   _handlePicker() {
-    this.context.form.push(<Criteria { ...this._getPicker() } />)
+    this.context.form.push(<Picker { ...this._getPicker() } />)
   }
 
   _handleSuccess({ data }) {

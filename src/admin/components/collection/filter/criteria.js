@@ -1,4 +1,4 @@
-import Criteria from '../../criteria'
+import CriteriaBuilder from '../../criteria_builder'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
@@ -30,7 +30,7 @@ class CriteriaPanel extends React.Component {
   _handleChange = this._handleChange.bind(this)
 
   render() {
-    return <Criteria { ...this._getCriteria() } />
+    return <CriteriaBuilder { ...this._getCriteriaBuilder() } />
   }
 
   componentDidMount() {
@@ -49,7 +49,7 @@ class CriteriaPanel extends React.Component {
     }
   }
 
-  _getCriteria() {
+  _getCriteriaBuilder() {
     const { filter, criteria } = this.state
     const { code, fields } = this.props
     return {

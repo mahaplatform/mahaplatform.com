@@ -2,7 +2,7 @@ import { AccountToken, AppToken, CriteriaDesigner, ModalPanel, TeamToken } from 
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class CriteriaPicker extends React.PureComponent {
+class Picker extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -81,4 +81,4 @@ class CriteriaPicker extends React.PureComponent {
 
 }
 
-export default CriteriaPicker
+export default Picker

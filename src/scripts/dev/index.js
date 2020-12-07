@@ -144,6 +144,11 @@ const sdkWatch = async () => {
 }
 
 const adminWatch = async () => {
+
+  const proxyError = (err) => {
+    console.log('Suppressing WDS proxy upgrade error:', err);
+  }
+
   const wildcard = {
     target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
     headers: {
@@ -159,7 +164,8 @@ const adminWatch = async () => {
       if(/^\/notifications.js/.test(req.url)) return null
       if(appregex.test(req.url)) return null
       return req.url
-    }
+    },
+    onError: proxyError
   }
 
   const devserver = new devServer(webpack(adminConfig), {
@@ -173,20 +179,23 @@ const adminWatch = async () => {
     proxy: {
       '/socket': {
         target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
-        ws: true
+        ws: true,
+        onError: proxyError
       },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
           target: `http://${process.env.DOMAIN}:${proxy.port}`,
-          secure: false
+          secure: false,
+          onError: proxyError
         }
       }), {}),
       ...['css','js'].reduce((proxies, ext) => ({
         ...proxies,
         [`/maha.${ext}`]: {
           target: `http://${process.env.DOMAIN}:${sdkport}`,
-          secure: false
+          secure: false,
+          onError: proxyError
         }
       }), {}),
       '**': wildcard,

@@ -1,4 +1,4 @@
-import { toFilter } from '../../criteria/utils'
+import { toFilter } from '../../criteria_builder/utils'
 import PropTypes from 'prop-types'
 import Designer from './designer'
 import pluralize from 'pluralize'

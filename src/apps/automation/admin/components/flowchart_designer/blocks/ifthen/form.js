@@ -1,4 +1,4 @@
-import BranchesField from './branchesfield'
+import BranchesField from '@apps/automation/admin/components/branchesfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Overview from './overview'
-import Stack from '../../stack'
+import Stack from '../stack'
 import React from 'react'
 import _ from 'lodash'
 

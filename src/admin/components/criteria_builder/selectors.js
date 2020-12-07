@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { toFilter, toDisplay} from '../utils'
+import { toFilter, toDisplay} from './utils'
 
 const items = (state, props) => state.items
 

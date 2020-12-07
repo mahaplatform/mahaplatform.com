@@ -1,4 +1,4 @@
-import { Criteria, ModalPanel, TextField } from '@admin'
+import { CriteriaBuilder, ModalPanel, TextField } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -28,7 +28,7 @@ class Branch extends React.PureComponent {
             <TextField {...this._getTextField() } />
           </div>
           <div className="crm-workflow-branchesfield-form-body">
-            <Criteria {...this._getCriteria() } />
+            <CriteriaBuilder {...this._getCriteriaBuilder() } />
           </div>
         </div>
       </ModalPanel>
@@ -52,7 +52,7 @@ class Branch extends React.PureComponent {
     }
   }
 
-  _getCriteria() {
+  _getCriteriaBuilder() {
     const { branch } = this.state
     const { fields } = this.props
     return {

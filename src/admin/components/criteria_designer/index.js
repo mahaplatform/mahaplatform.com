@@ -1,6 +1,6 @@
-import Infinite from '../../infinite'
-import { toFilter } from '../utils'
-import Criteria from '../criteria'
+import { toFilter } from '../criteria_builder/utils'
+import CriteriaBuilder from '../criteria_builder'
+import Infinite from '../infinite'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Results from './results'
@@ -36,7 +36,7 @@ class Designer extends React.PureComponent {
     return (
       <div className="maha-criteria-designer">
         <div className="maha-criteria-designer-filter">
-          <Criteria { ...this._getCriteria() } />
+          <CriteriaBuilder { ...this._getCriteriaBuilder() } />
         </div>
         <div className="maha-criteria-designer-results">
           <Infinite { ...this._getInfinite() } />
@@ -59,7 +59,7 @@ class Designer extends React.PureComponent {
     }
   }
 
-  _getCriteria() {
+  _getCriteriaBuilder() {
     const { fields, entity } = this.props
     const { filter } = this.state
     return {
