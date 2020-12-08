@@ -10,7 +10,7 @@ const getTabs = ({ audits, event, registrations, sessions, tickets, waitings, wo
   items: [
     { label: 'Details', component: <Details event={ event } audits={ audits } /> },
     { label: 'Sessions', component: <Sessions event={ event } sessions={ sessions } /> },
-    { label: 'Workflows', component: <Workflows event={ event } workflows={ workflows } /> },
+    { label: 'Automation', component: <Workflows event={ event } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance event={ event } /> }
   ]
 })

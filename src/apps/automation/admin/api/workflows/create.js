@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['trigger_type','title','action','form_id','email_id','event_id','store_id','list_id','topic_id','purpose','is_unique','status'])
+    ...whitelist(req.body, ['trigger_type','title','action','form_id','email_id','email_campaign_id','event_id','store_id','list_id','topic_id','purpose','is_unique','status'])
   }).save(null, {
     transacting: req.trx
   })
@@ -51,7 +51,7 @@ const createRoute = async (req, res) => {
     '/admin/automation/workflows',
     ...workflow.get('list_id') ? [`/admin/crm/programs/${workflow.get('program_id')}/lists/${workflow.get('list_id')}`] : [],
     ...workflow.get('topic_id') ? [`/admin/crm/programs/${workflow.get('program_id')}/topics/${workflow.get('topic_id')}`] : [],
-    ...workflow.get('email_campaign_id') ? [`/admin/campaigns/email_campaign_id/email/${workflow.get('email_campaign_id')}`] : [],
+    ...workflow.get('email_campaign_id') ? [`/admin/campaigns/email/${workflow.get('email_campaign_id')}`] : [],
     ...workflow.get('event_id') ? [`/admin/events/events/${workflow.get('event_id')}`] : [],
     ...workflow.get('form_id') ? [`/admin/forms/forms/${workflow.get('form_id')}`] : [],
     ...workflow.get('store_id') ? [`/admin/stores/stores/${workflow.get('store_id')}`] : []

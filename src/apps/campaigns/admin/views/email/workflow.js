@@ -2,23 +2,23 @@ import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 
-const actions = {
-  receive: {
+const trigger_types = {
+  email_received: {
     title: 'Email is Delivered',
     description: 'Trigger workflow when contact receives the email'
   },
-  open: {
+  email_opened: {
     title: 'Email is Opened',
     description: 'Trigger workflow when contact opens the email'
   },
-  click: {
+  email_clicked: {
     title: 'Email is Clicked',
     description: 'Trigger workflow when contact clicks on a link in the email'
   }
 }
 
 const WorkflowActionToken = ({ value }) => {
-  const action = actions[value]
+  const action = trigger_types[value]
   return (
     <div className="token">
       <strong>{ action.title }</strong><br />
@@ -60,11 +60,10 @@ class Workflow extends React.PureComponent {
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: campaign.program.id },
-            { name: 'campaign_id', type: 'hidden', defaultValue: campaign.id },
+            { name: 'email_campaign_id', type: 'hidden', defaultValue: campaign.id },
             { name: 'status', type: 'hidden', defaultValue: 'active' },
-            { name: 'trigger_type', type: 'hidden', defaultValue: 'email_campaign' },
             { type: 'segment', fields: [
-              { name: 'action', type: 'radiogroup', options: ['delivery','open','click'], required: true, deselectable: false, format: WorkflowActionToken, defaultValue: 'add' },
+              { name: 'trigger_type', type: 'radiogroup', options: Object.keys(trigger_types), required: true, deselectable: false, format: WorkflowActionToken, defaultValue: 'email_received' },
               { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title' },
               { name: 'is_unique', type: 'checkbox', prompt: 'Contacts can only be enrolled in this workflow once' }
             ] }

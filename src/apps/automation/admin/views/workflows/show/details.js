@@ -77,7 +77,7 @@ const Details = ({ audits, workflow }) => {
       className: 'link',
       route: `/campaigns/campaigns/email/${workflow.email_campaign.id}`
     }
-    items.push({ label: 'Email', content: <Button { ...campaign } /> })
+    items.push({ label: 'Email Campaign', content: <Button { ...campaign } /> })
   }
 
   if(workflow.store) {
