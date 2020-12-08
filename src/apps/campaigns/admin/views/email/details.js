@@ -36,19 +36,6 @@ const Details = ({ audits, campaign }) => {
 
   config.items.push({ label: 'Content', content: <Button { ...design } /> })
 
-  if(campaign.delivery_workflow) {
-
-    const workflow = {
-      label: 'Manage Workflow',
-      className: 'link',
-      route: `/admin/automation/workflows/${campaign.delivery_workflow.id}`
-    }
-
-    config.items.push({ label: 'Delivery', content: <Button { ...workflow } /> })
-
-  }
-
-
   if(campaign.status === 'scheduled') {
     config.items.push({ label: 'Send At', content: campaign.send_at, format: 'datetime' })
   }

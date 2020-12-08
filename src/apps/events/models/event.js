@@ -92,10 +92,6 @@ const Event = new Model({
 
   workflows() {
     return this.hasMany(Workflow, 'event_id')
-  },
-
-  workflow() {
-    return this.belongsTo(Workflow, 'workflow_id')
   }
 
 })

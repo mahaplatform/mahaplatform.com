@@ -28,7 +28,13 @@ const destroyRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/automation/workflows',
-    `/admin/automation/workflows/${workflow.id}`
+    `/admin/automation/workflows/${workflow.get('id')}`,
+    ...workflow.get('list_id') ? [`/admin/crm/programs/${workflow.get('program_id')}/lists/${workflow.get('list_id')}`] : [],
+    ...workflow.get('topic_id') ? [`/admin/crm/programs/${workflow.get('program_id')}/topics/${workflow.get('topic_id')}`] : [],
+    ...workflow.get('email_campaign_id') ? [`/admin/campaigns/email_campaign_id/email/${workflow.get('email_campaign_id')}`] : [],
+    ...workflow.get('event_id') ? [`/admin/events/events/${workflow.get('event_id')}`] : [],
+    ...workflow.get('form_id') ? [`/admin/forms/forms/${workflow.get('form_id')}`] : [],
+    ...workflow.get('store_id') ? [`/admin/stores/stores/${workflow.get('store_id')}`] : []
   ])
 
   res.status(200).respond(true)

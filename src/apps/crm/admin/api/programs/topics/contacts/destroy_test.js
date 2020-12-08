@@ -2,6 +2,6 @@ import { testHandler } from '@core/utils/test'
 import { expect } from 'chai'
 import destroy from './destroy'
 
-describe('src/apps/crm/admin/api/programs/topics/interests/destroy.js', () => {
+describe('src/apps/crm/admin/api/programs/topics/contacts/destroy.js', () => {
 
 })

@@ -61,7 +61,10 @@ class InternalEmail extends React.PureComponent {
         {
           fields: [
             { label: 'Recipient', type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', options: [{ value: 'user', text: 'Choose a specific user'},{ value: 'email', text: 'Enter an email address' }], defaultValue: config.strategy },
+              { name: 'strategy', type: 'radiogroup', options: [
+                { value: 'user', text: 'Choose a specific user'},
+                { value: 'email', text: 'Enter an email address' }
+              ], deselectable: false, defaultValue: config.strategy },
               this._getStrategy()
             ] },
             { label: 'Email', type: 'segment', fields: [

@@ -1,8 +1,8 @@
 import EmailCampaignResult from './email_campaign_result'
 import Workflow from '@apps/automation/models/workflow'
 import MahaEmail from '@apps/maha/models/email'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
+import Model from '@core/objects/model'
 
 const EmailCampaign = new Model({
 
@@ -32,12 +32,6 @@ const EmailCampaign = new Model({
       return this.get('screenshoted_at') ? `screenshots/email-campaign-${this.get('id')}-${this.get('screenshoted_at').getTime()}.jpg` : null
     }
 
-  },
-
-  delivery_workflow() {
-    return this.hasOne(Workflow, 'email_campaign_id').query(qb => {
-      qb.where('trigger_type', 'delivery')
-    })
   },
 
   emails() {

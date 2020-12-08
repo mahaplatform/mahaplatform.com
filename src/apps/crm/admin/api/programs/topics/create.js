@@ -1,10 +1,9 @@
-import { createWorkflow } from '@apps/automation/services/workflows'
+import TopicSerializer from '@apps/crm/serializers/topic_serializer'
+import { checkProgramAccess } from '@apps/crm/services/programs'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import TopicSerializer from '@apps/crm/serializers/topic_serializer'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import { checkProgramAccess } from '@apps/crm/services/programs'
 import Topic from '@apps/crm/models/topic'
 
 const createRoute = async (req, res) => {
@@ -26,24 +25,6 @@ const createRoute = async (req, res) => {
   }).save(null, {
     transacting: req.trx
   })
-
-  if(req.body.subscribe_workflow) {
-    await createWorkflow(req, {
-      topic,
-      title: 'Subscribe Workflow',
-      action: 'add',
-      program_id: req.params.program_id
-    })
-  }
-
-  if(req.body.unsubscribe_workflow) {
-    await createWorkflow(req, {
-      topic,
-      title: 'Unsubscribe Workflow',
-      action: 'remove',
-      program_id: req.params.program_id
-    })
-  }
 
   await audit(req, {
     story: 'created',

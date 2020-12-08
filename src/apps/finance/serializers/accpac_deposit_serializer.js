@@ -7,11 +7,10 @@ const idglacct = (allocation, revenue_code = null) => {
   const project = line_item.related('project').get('integration')
   const revenue_type = line_item.related('revenue_type').get('integration')
   const code = revenue_code || revenue_type.revenue_code
-  const source_code = code === '48000' ? 44 : revenue_type.source_code
   const parts = []
   parts.push(code)
   parts.push(project.program_code)
-  parts.push(source_code)
+  parts.push(revenue_type.source_code)
   parts.push(project.match)
   parts.push(project.main_project_code)
   parts.push(project.project_code)

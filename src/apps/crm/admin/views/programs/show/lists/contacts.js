@@ -1,71 +1,27 @@
-import ContactToken from '../../../../tokens/contact'
-import { Button } from '@admin'
-import PropTypes from 'prop-types'
+import ContactToken from '@apps/crm/admin/tokens/contact'
+import { Page } from '@admin'
 import React from 'react'
 
-class Contacts extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object
+const mapPropsToPage = (props, context, resources, page) => ({
+  title: 'Contacts',
+  rights: [],
+  collection: {
+    endpoint: `/api/admin/crm/programs/${props.params.program_id}/lists/${props.params.list_id}/contacts`,
+    table: [
+      { label: 'ID', key: 'id', collapsing: true, visible: false },
+      { label: 'Name', key: 'full_name', primary: true, format: (contact) => <ContactToken { ...contact } /> },
+      { label: 'Email', key: 'email' },
+      { label: 'Phone', key: 'phone', format: 'phone' }
+    ],
+    empty: {
+      icon: 'user',
+      title: 'No Contacts',
+      text: 'You have not yet added any contacts to this list'
+    },
+    entity: 'program',
+    defaultSort: { key: 'last_name', order: 'asc' },
+    onClick: (record) => context.router.history.push(`/crm/contacts/${record.id}`)
   }
+})
 
-  static propTypes = {
-    contacts: PropTypes.array,
-    list: PropTypes.object
-  }
-
-  render() {
-    const { contacts } = this.props
-    return (
-      <div className="maha-table">
-        <table>
-          <thead>
-            <tr>
-              <td>Contact</td>
-              <td />
-            </tr>
-          </thead>
-          <tbody>
-            { contacts.length === 0 &&
-              <tr>
-                <td colSpan="2">
-                  There are no contacts subscribed to this list
-                </td>
-              </tr>
-            }
-            { contacts.map((contact, index) => (
-              <tr key={`contact_${index}`}>
-                <td className="unpadded" onClick={ this._handleClick.bind(this, contact) }>
-                  <ContactToken { ...contact } property="rfc822" />
-                </td>
-                <td className="unpadded">
-                  <Button { ...this._getRemove(contact) } />
-                </td>
-              </tr>
-            )) }
-          </tbody>
-        </table>
-      </div>
-    )
-  }
-
-  _getRemove(contact) {
-    const { list } = this.props
-    return {
-      icon: 'times',
-      className: 'icon',
-      confirm: 'Are you sure you want to remove this contact?',
-      request: {
-        endpoint: `/api/admin/crm/programs/${list.program.id}/lists/${list.id}/subscriptions/${contact.id}`,
-        method: 'delete'
-      }
-    }
-  }
-
-  _handleClick(contact) {
-    this.context.router.history.push(`/crm/contacts/${contact.id}`)
-  }
-
-}
-
-export default Contacts
+export default Page(null, mapPropsToPage)

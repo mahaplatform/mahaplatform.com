@@ -24,14 +24,14 @@ const Details = ({ actions, enrollment, workflow }) => {
 
   if(enrollment.status === 'canceled') {
     list.alert = { color: 'red', message: 'This enrollment was canceled' }
-  } else if(workflow.status === 'lost') {
+  } else if(enrollment.status === 'lost') {
     list.alert = { color: 'red', message: 'This enrollment was lost' }
-  } else if(workflow.status === 'active') {
+  } else if(enrollment.status === 'active') {
     list.alert = { color: 'yellow', message: 'This enrollment is active' }
-  } else if(workflow.status === 'completed') {
+  } else if(enrollment.status === 'completed') {
     list.alert = { color: 'green', message: 'This enrollment was completed' }
   }
-  
+
   return <List { ...list } />
 
 }

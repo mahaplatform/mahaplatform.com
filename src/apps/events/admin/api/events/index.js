@@ -1,5 +1,6 @@
 import registrations from './registrations'
 import performance from './performance'
+import workflows from './workflows'
 import workflow from './workflow'
 import sessions from './sessions'
 import waitings from './waitings'
@@ -25,6 +26,8 @@ router.get('/:id/edit', edit)
 router.get('/:id/performance', performance)
 
 router.get('/:id/workflow', workflow)
+
+router.get('/:id/workflows', workflows)
 
 router.patch('/:id', update)
 

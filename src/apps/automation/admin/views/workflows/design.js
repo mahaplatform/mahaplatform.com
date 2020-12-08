@@ -5,16 +5,19 @@ import React from 'react'
 import _ from 'lodash'
 
 const triggers = {
-  order: { icon: 'shopping-bag', text: 'Order is created' },
-  response: { icon: 'check-square-o', text: 'Form is submitted' },
-  delivery: { icon: 'envelope', text: 'Email is delivered' },
-  open: { icon: 'envelope-open', text: 'Email is opened' },
-  click: { icon: 'mouse-pointer', text: 'Email is clicked' },
-  list: { icon: 'th-list', text: 'Contact is added to list' },
-  topic: { icon: 'lightbulb-o', text: 'Contact is added to topic' },
-  property: { icon: 'id-card', text: 'Contact property is updated' },
-  manual: { icon: 'plus', text: 'Contact is enrolled' },
-  event: { icon: 'calendar', text: 'Contact registers for event' }
+  email_received: { icon: 'envelope', text: 'Contact receives email' },
+  email_opened: { icon: 'envelope-open', text: 'Contact opens email' },
+  email_clicked: { icon: 'envelope-open', text: 'Contact clicks email' },
+  enrollment_created: { icon: 'plus', text: 'Contact is enrolled in workflow' },
+  interest_created: { icon: 'th-list', text: 'Contact is added to topic' },
+  interest_deleted: { icon: 'th-list', text: 'Contact is removed from topic' },
+  order_created: { icon: 'shopping-bag', text: 'Contact places and order' },
+  order_shipped: { icon: 'shopping-bag', text: 'Contact order is shipped' },
+  property_updated: { icon: 'id-card', text: 'Contact property is updated' },
+  response_created: { icon: 'check-square-o', text: 'Contact submits form' },
+  registration_created: { icon: 'calendar', text: 'Contact registers for event' },
+  subscription_created: { icon: 'th-list', text: 'Contact is added to list' },
+  subscription_deleted: { icon: 'th-list', text: 'Contact is removed from list' }
 }
 
 class Designer extends React.Component {

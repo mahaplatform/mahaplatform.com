@@ -33,16 +33,8 @@ const List = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
-  subscribe_workflow() {
-    return this.hasOne(Workflow, 'list_id').query(qb => {
-      qb.where('action', 'add')
-    })
-  },
-
-  unsubscribe_workflow() {
-    return this.hasOne(Workflow, 'list_id').query(qb => {
-      qb.where('action', 'remove')
-    })
+  workflows() {
+    return this.hasMany(Workflow, 'email_campaign_id')
   }
 
 })

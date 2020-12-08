@@ -22,7 +22,7 @@ const delivery = async (req, { email }) => {
 
   await enrollInWorkflows(req, {
     contact: email.related('contact'),
-    trigger_type: 'delivery',
+    trigger_type: 'email_received',
     email_campaign_id: email.get('email_campaign_id'),
     email
   })

@@ -13,8 +13,8 @@ const WorkflowSerializer = (req, result) => ({
   topic: topic(result.related('topic')),
   status: result.get('status'),
   steps: result.related('steps').map(step),
+  store: store(result.related('store')),
   trigger_type: result.get('trigger_type'),
-  action: result.get('action'),
   enrolled_count: result.get('enrolled_count'),
   active_count: result.get('active_count'),
   lost_count: result.get('lost_count'),
@@ -64,6 +64,14 @@ const list = (list) => {
   return {
     id: list.get('id'),
     title: list.get('title')
+  }
+}
+
+const store = (store) => {
+  if(!store.id) return
+  return {
+    id: store.get('id'),
+    title: store.get('title')
   }
 }
 

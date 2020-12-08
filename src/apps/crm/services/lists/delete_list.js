@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const deleteList = async (req, { list }) => {
 
-  await list.load(['subscribe_workflow','unsubscribe_workflow'], {
+  await list.load(['workflows'], {
     transacting: req.trx
   })
 
@@ -24,15 +24,11 @@ const deleteList = async (req, { list }) => {
     patch: true
   })
 
-  if(list.related('subscribe_workflow').get('id')) {
-    await deleteWorkflow(req, {
-      workflow: list.related('subscribe_workflow')
-    })
-  }
-
-  if(list.related('unsubscribe_workflow').get('id')) {
-    await deleteWorkflow(req, {
-      workflow: list.related('unsubscribe_workflow')
+  if(list.related('workflows').length > 0) {
+    await Promise.mapSeries(list.related('workflows'), async (workflow) => {
+      await deleteWorkflow(req, {
+        workflow
+      })
     })
   }
 

@@ -1,7 +1,8 @@
 import Performance from './performance'
-import { Page } from '@admin'
+import Workflows from './workflows'
 import Convert from './convert'
 import Details from './details'
+import { Page } from '@admin'
 import Resend from './resend'
 import Clone from './clone'
 import React from 'react'
@@ -11,6 +12,7 @@ import Edit from './edit'
 const getTabs = ({ audits, campaign, performance, workflows }) => ({
   items: [
     { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
+    { label: 'Workflows', component: <Workflows campaign={ campaign } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> }
   ]
 })
@@ -62,7 +64,8 @@ const getTasks = ({ campaign }, { flash }) => {
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_email_campaigns/${props.params.id}/audits`,
   campaign: `/api/admin/campaigns/email/${props.params.id}`,
-  performance: `/api/admin/campaigns/email/${props.params.id}/performance`
+  performance: `/api/admin/campaigns/email/${props.params.id}/performance`,
+  workflows: `/api/admin/campaigns/email/${props.params.id}/workflows`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

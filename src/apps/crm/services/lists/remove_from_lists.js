@@ -11,8 +11,7 @@ const removeFromLists = async (req, { contact, list_ids }) => {
 
     await enrollInWorkflows(req, {
       contact,
-      trigger_type: 'list',
-      action: 'remove',
+      trigger_type: 'subscription_deleted',
       list_id
     })
 

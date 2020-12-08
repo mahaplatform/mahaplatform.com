@@ -7,15 +7,10 @@ import Template from '@apps/crm/models/template'
 import Workflow from '@apps/automation/models/workflow'
 import Email from '@apps/automation/models/email'
 
-const getTriggerType = ({ form, event, store }) => {
-  if(store) return 'order'
-  if(form) return 'response'
-  if(event) return 'event'
-}
 
 const createConfirmationWorkflow = async(req, params) => {
 
-  const { form, event, program_id, reply_to, template_id, sender_id, store, subject } = params
+  const { form, event, program_id, reply_to, template_id, sender_id, store, subject, trigger_type } = params
 
   const workflowCode = await generateCode(req, {
     table: 'crm_workflows'
@@ -30,7 +25,7 @@ const createConfirmationWorkflow = async(req, params) => {
     code: workflowCode,
     status: 'active',
     title: 'Confirmation Workflow',
-    trigger_type: getTriggerType({ form, event, store })
+    trigger_type
   }).save(null, {
     transacting: req.trx
   })

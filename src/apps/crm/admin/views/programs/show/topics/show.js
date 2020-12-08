@@ -1,19 +1,21 @@
-import { Page } from '@admin'
-import Contacts from './contacts'
+import Workflows from './workflows'
+import Workflow from './workflow'
 import Details from './details'
+import { Page } from '@admin'
 import React from 'react'
 import Edit from './edit'
 
-const getTabs = ({ audits, contacts, topic }) => ({
+const getTabs = ({ audits, topic, workflows }) => ({
   items: [
     { label: 'Details', component: <Details audits={ audits } topic={ topic } /> },
-    { label: 'Contacts', component: <Contacts topic={ topic } contacts={ contacts } /> }
+    { label: 'Workflows', component: <Workflows topic={ topic }workflows={ workflows }/> }
   ]
 })
 
 const getTasks = ({ topic, program }, { flash, router }) => ({
   items: program.access_type === 'manage' ? [
     { label: 'Edit Topic', show: !topic.deleted_at, modal: <Edit topic={ topic } /> },
+    { label: 'Create Workflow', show: !topic.deleted_at, modal: <Workflow topic={ topic } /> },
     {
       label: 'Delete Topic',
       show: !topic.deleted_at,
@@ -37,9 +39,10 @@ const getTasks = ({ topic, program }, { flash, router }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_topics/${props.params.id}/audits`,
-  contacts: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}/interests`,
   topic: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}`,
-  program: `/api/admin/crm/programs/${props.params.program_id}`
+  program: `/api/admin/crm/programs/${props.params.program_id}`,
+  workflows: `/api/admin/crm/programs/${props.params.program_id}/topics/${props.params.id}/workflows`
+
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

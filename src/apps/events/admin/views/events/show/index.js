@@ -1,14 +1,16 @@
 import { Embed, Page } from '@admin'
 import Performance from './performance'
+import Workflows from './workflows'
 import Sessions from './sessions'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ audits, event, registrations, sessions, tickets, waitings }) => ({
+const getTabs = ({ audits, event, registrations, sessions, tickets, waitings, workflows }) => ({
   items: [
     { label: 'Details', component: <Details event={ event } audits={ audits } /> },
     { label: 'Sessions', component: <Sessions event={ event } sessions={ sessions } /> },
+    { label: 'Workflows', component: <Workflows event={ event } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance event={ event } /> }
   ]
 })
@@ -69,7 +71,8 @@ const mapResourcesToPage = (props, context) => ({
   registrations: `/api/admin/events/events/${props.params.id}/registrations`,
   sessions: `/api/admin/events/events/${props.params.id}/sessions`,
   tickets: `/api/admin/events/events/${props.params.id}/tickets`,
-  waitings: `/api/admin/events/events/${props.params.id}/waitings`
+  waitings: `/api/admin/events/events/${props.params.id}/waitings`,
+  workflows: `/api/admin/events/events/${props.params.id}/workflows`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

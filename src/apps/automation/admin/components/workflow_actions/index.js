@@ -3,21 +3,24 @@ import Action from './action'
 import moment from 'moment'
 import React from 'react'
 
-const types = {
-  event: { icon: 'calendar-o', name: 'Workflow', trigger: 'Contact registered for event' },
-  pickup: { icon: 'phone', name: 'Call', trigger: 'Contact picked up phone' },
-  response: { icon: 'check-square-o', name: 'Workflow', trigger: 'Contact submitted form' },
-  delivery: { icon: 'envelope', name: 'Workflow', trigger: 'Email was delivered' },
-  open: { icon: 'envelope-open', name: 'Workflow', trigger: 'Email was opened' },
-  click: { icon: 'mouse-pointer', name: 'Workflow', trigger: 'Email was clicked' },
-  list: { icon: 'th-list', name: 'Workflow', trigger: 'Contact was added to list' },
-  topic: { icon: 'lightbulb-o', name: 'Workflow', trigger: 'Contact was added to topic' },
-  property: { icon: 'id-card', name: 'Workflow', trigger: 'Contact property was updated' },
-  manual: { icon: 'plus', name: 'Workflow', trigger: 'Contact was enrolled' },
-  outbound_sms: { icon: 'phone', name: 'Workflow', trigger: 'Contact received an SMS' },
-  inbound_sms: { icon: 'phone', name: 'Workflow', trigger: 'Contact sent an SMS' },
-  outbound_voice: { icon: 'phone', name: 'Workflow', trigger: 'Contact answered the phone' },
-  inbound_voice: { icon: 'phone', name: 'Workflow', trigger: 'Contact called' }
+const triggers = {
+  call_sent: { icon: 'envelope', text: 'Contact picked up phone' },
+  call_received: { icon: 'envelope', text: 'Contact called' },
+  email_received: { icon: 'envelope', text: 'Contact received email' },
+  email_opened: { icon: 'envelope-open', text: 'Contact opened email' },
+  email_clicked: { icon: 'envelope-open', text: 'Contact clicked email' },
+  enrollment_created: { icon: 'plus', text: 'Contact is enrolled in workflow' },
+  interest_created: { icon: 'th-list', text: 'Contact was added to topic' },
+  interest_deleted: { icon: 'th-list', text: 'Contact was removed from topic' },
+  order_created: { icon: 'shopping-bag', text: 'Contact placed and order' },
+  order_shipped: { icon: 'shopping-bag', text: 'Contact order was shipped' },
+  property_updated: { icon: 'id-card', text: 'Contact property was updated' },
+  response_created: { icon: 'check-square-o', text: 'Contact submited form' },
+  registration_created: { icon: 'calendar', text: 'Contact registered for event' },
+  sms_sent: { icon: 'envelope', text: 'Contact sent SMS' },
+  sms_received: { icon: 'envelope', text: 'Contact received SMS' },
+  subscription_created: { icon: 'th-list', text: 'Contact was added to list' },
+  subscription_deleted: { icon: 'th-list', text: 'Contact was removed from list' }
 }
 
 class WorkflowActions extends React.PureComponent {
@@ -36,7 +39,7 @@ class WorkflowActions extends React.PureComponent {
         <div className="crm-workflow-action">
           <div className="crm-workflow-action-icon">
             <div className="crm-workflow-action-action trigger">
-              <i className={`fa fa-${types[trigger_type].icon}`} />
+              <i className={`fa fa-${triggers[trigger_type].icon}`} />
             </div>
           </div>
           <div className="crm-workflow-action-label">
@@ -72,7 +75,7 @@ class WorkflowActions extends React.PureComponent {
             </div>
             <div className="crm-workflow-action-label">
               <strong>COMPLETE: </strong>
-              { types[trigger_type].name } was completed
+              Workflow was completed
             </div>
             <div className="crm-workflow-action-timestamp">
               { moment(enrollment.completed_at).format('MMM D YYYY [@] h:mmA') }
@@ -93,12 +96,16 @@ class WorkflowActions extends React.PureComponent {
 
   _getTrigger() {
     const { trigger_type, workflow } = this.props
-    if(trigger_type === 'inbound_voice') {
+    if(trigger_type === 'call_received') {
       return `Contact called ${workflow.phone_number.formatted}`
-    } else if(trigger_type === 'outbound_voice') {
+    } else if(trigger_type === 'call_sent') {
       return `Contact received call from ${workflow.phone_number.formatted}`
+    } else if(trigger_type === 'call_received') {
+      return `Contact sent SMS to ${workflow.phone_number.formatted}`
+    } else if(trigger_type === 'call_sent') {
+      return `Contact received SMS from ${workflow.phone_number.formatted}`
     }
-    return types[trigger_type].trigger
+    return triggers[trigger_type].text
   }
 
 }

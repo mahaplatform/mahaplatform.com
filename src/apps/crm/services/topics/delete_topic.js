@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const deleteTopic = async (req, { topic }) => {
 
-  await topic.load(['subscribe_workflow','unsubscribe_workflow'], {
+  await topic.load(['workflows'], {
     transacting: req.trx
   })
 
@@ -24,18 +24,14 @@ const deleteTopic = async (req, { topic }) => {
     patch: true
   })
 
-  if(topic.related('subscribe_workflow').get('id')) {
-    await deleteWorkflow(req, {
-      workflow: topic.related('subscribe_workflow')
+  if(topic.related('workflows').length > 0) {
+    await Promise.mapSeries(topic.related('workflows'), async (workflow) => {
+      await deleteWorkflow(req, {
+        workflow
+      })
     })
   }
-
-  if(topic.related('unsubscribe_workflow').get('id')) {
-    await deleteWorkflow(req, {
-      workflow: topic.related('unsubscribe_workflow')
-    })
-  }
-
+  
   await audit(req, {
     story: 'deleted',
     auditable: topic

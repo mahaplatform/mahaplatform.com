@@ -678,7 +678,6 @@ const schema = {
       table.integer('topic_id').unsigned()
       table.integer('field_id').unsigned()
       table.jsonb('field_config')
-      table.USER-DEFINED('action')
       table.boolean('is_unique')
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()

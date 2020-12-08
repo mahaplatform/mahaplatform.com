@@ -67,10 +67,6 @@ const Form = new Model({
 
   workflows() {
     return this.hasMany(Workflow, 'form_id')
-  },
-
-  workflow() {
-    return this.belongsTo(Workflow, 'workflow_id')
   }
 
 })

@@ -82,6 +82,7 @@ const createRoute = async (req, res) => {
 
   await createConfirmationWorkflow(req,  {
     form,
+    trigger_type: 'response_created',
     program_id: program.get('id'),
     ...req.body.confirmation
   })

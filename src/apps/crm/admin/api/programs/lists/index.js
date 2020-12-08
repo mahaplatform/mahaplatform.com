@@ -1,4 +1,5 @@
-import subscriptions from './subscriptions'
+import workflows from './workflows'
+import contacts from './contacts'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -14,7 +15,9 @@ router.post('/', create)
 
 router.get('/:id', show)
 
-router.use('/:list_id/subscriptions', subscriptions)
+router.get('/:id/workflows', workflows)
+
+router.use('/:list_id/contacts', contacts)
 
 router.patch('/:id', update)
 

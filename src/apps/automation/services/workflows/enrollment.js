@@ -6,13 +6,12 @@ import Workflow from '@apps/automation/models/workflow'
 
 export const enrollInWorkflows = async (req, params) => {
 
-  const { contact, trigger_type, action, form_id, event_id, store_id, order, response, registration, email, email_campaign_id, list_id, topic_id } = params
+  const { contact, trigger_type, form_id, event_id, store_id, order, response, registration, email, email_campaign_id, list_id, topic_id } = params
 
   const workflows = await Workflow.query(qb => {
     qb.where('trigger_type', trigger_type)
     qb.whereNull('deleted_at')
     qb.where('status', 'active')
-    if(action) qb.where('action', action)
     if(topic_id) qb.where('topic_id', topic_id)
     if(list_id) qb.where('list_id', list_id)
     if(form_id) qb.where('form_id', form_id)

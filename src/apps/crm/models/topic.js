@@ -1,6 +1,7 @@
 import Workflow from '@apps/automation/models/workflow'
 import Model from '@core/objects/model'
 import Program from './program'
+import Contact from './contact'
 
 const Topic = new Model({
 
@@ -24,20 +25,16 @@ const Topic = new Model({
 
   },
 
+  contacts() {
+    return this.belongsToMany(Contact, 'crm_subscriptions', 'list_id', 'contact_id')
+  },
+
   program() {
     return this.belongsTo(Program, 'program_id')
   },
 
-  subscribe_workflow() {
-    return this.hasOne(Workflow, 'topic_id').query(qb => {
-      qb.where('action', 'add')
-    })
-  },
-
-  unsubscribe_workflow() {
-    return this.hasOne(Workflow, 'topic_id').query(qb => {
-      qb.where('action', 'remove')
-    })
+  workflows() {
+    return this.hasMany(Workflow, 'email_campaign_id')
   }
 
 })

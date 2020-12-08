@@ -1,5 +1,6 @@
 import Performance from './performance'
 import { Embed, Page } from '@admin'
+import Workflows from './workflows'
 import Details from './details'
 import Edit from '../edit'
 import React from 'react'
@@ -7,6 +8,7 @@ import React from 'react'
 const getTabs = ({ audits, form, workflows }) => ({
   items: [
     { label: 'Details', component: <Details form={ form } audits={ audits } /> },
+    { label: 'Workflows', component: <Workflows form={ form } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance form={ form } /> }
   ]
 })
@@ -58,7 +60,8 @@ new Maha.Forms.Form({
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_forms/${props.params.id}/audits`,
-  form: `/api/admin/forms/forms/${props.params.id}`
+  form: `/api/admin/forms/forms/${props.params.id}`,
+  workflows: `/api/admin/forms/forms/${props.params.id}/workflows`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

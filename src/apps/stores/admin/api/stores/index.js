@@ -1,5 +1,6 @@
 import performance from './performance'
 import categories from './categories'
+import workflows from './workflows'
 import inventory from './inventory'
 import products from './products'
 import { Router } from 'express'
@@ -19,6 +20,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/workflows', workflows)
 
 router.patch('/:id/inventory', inventory)
 

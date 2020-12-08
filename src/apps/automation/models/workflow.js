@@ -1,14 +1,15 @@
 import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import WorkflowEnrollment from './workflow_enrollment'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import WorkflowResult from './workflow_result'
 import Event from '@apps/events/models/event'
+import Store from '@apps/stores/models/store'
 import Field from '@apps/maha/models/field'
 import Form from '@apps/forms/models/form'
 import WorkflowStep from './workflow_step'
 import Topic from '@apps/crm/models/topic'
 import List from '@apps/crm/models/list'
+import Model from '@core/objects/model'
 import Email from './email'
 
 const Workflow = new Model({
@@ -83,14 +84,18 @@ const Workflow = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
+  results() {
+    return this.hasOne(WorkflowResult, 'email_id')
+  },
+
   steps() {
     return this.hasMany(WorkflowStep, 'workflow_id').query(qb => {
       qb.where('is_active', true)
     })
   },
 
-  results() {
-    return this.hasOne(WorkflowResult, 'email_id')
+  store() {
+    return this.belongsTo(Store, 'store_id')
   },
 
   topic() {

@@ -5,7 +5,7 @@ const CreateWorkflowEnrollment = {
       table.dropColumn('topic_id')
       table.dropColumn('list_id')
       table.dropColumn('config')
-      table.enum('trigger_type', ['form_submission','email_open','email_click','manual_enrollment'], { useNative: true, enumName: 'crm_workflow_trigger_types' })
+      table.enum('trigger_type', ['form_submission','email_opened','email_clicked','manual_enrollment'], { useNative: true, enumName: 'crm_workflow_trigger_types' })
     })
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
       table.increments('id').primary()

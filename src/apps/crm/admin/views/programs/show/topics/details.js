@@ -1,4 +1,5 @@
 import { Audit, Button, List } from '@admin'
+import pluralize from 'pluralize'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -10,28 +11,17 @@ const Details = ({ audits, topic }) => {
     config.alert = { color: 'red', message: 'This topic was deleted' }
   }
 
+  const contacts = {
+    label: pluralize('contact', topic.contacts_count, true),
+    className: 'link',
+    route: `/crm/programs/${topic.program.id}/topics/${topic.id}/contacts`
+  }
+
   config.items = [
     { label: 'Title', content: topic.title },
-    { label: 'Program', content: topic.program.title }
+    { label: 'Program', content: topic.program.title },
+    { label: 'Contacts', content: <Button { ...contacts } /> }
   ]
-
-  if(topic.subscribe_workflow) {
-    const subscribe = {
-      label: 'Manage Workflow',
-      className: 'link',
-      route: `/admin/automation/workflows/${topic.subscribe_workflow.id}`
-    }
-    config.items.push({ label: 'Subscribe', content: <Button { ...subscribe } /> })
-  }
-
-  if(topic.unsubscribe_workflow) {
-    const unsubscribe = {
-      label: 'Manage Workflow',
-      className: 'link',
-      route: `/admin/automation/workflows/${topic.unsubscribe_workflow.id}`
-    }
-    config.items.push({ label: 'Unsubscribe', content: <Button { ...unsubscribe } /> })
-  }
 
   config.items.push({ component: <Audit entries={ audits } /> })
 

@@ -16,12 +16,6 @@ const Details = ({ audits, form }) => {
     link: form.url
   }
 
-  const workflow = {
-    label: 'Manage Workflow',
-    className: 'link',
-    route: `/admin/automation/workflows/${form.workflow.id}`
-  }
-
   const list = {}
 
   if(form.deleted_at !== null) {
@@ -34,7 +28,6 @@ const Details = ({ audits, form }) => {
     { label: 'Code', content: form.code },
     { label: 'Content', content: <Button { ...design } /> },
     { label: 'URL', content: <Button { ...link } /> },
-    { label: 'Workflow', content: <Button { ...workflow } /> },
     { component: <Audit entries={ audits } /> }
   ]
 

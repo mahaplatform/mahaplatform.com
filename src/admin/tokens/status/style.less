@@ -1,0 +1,23 @@
+.crm-status-token {
+  flex: none !important;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+  color: @white;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 4px;
+  text-transform: uppercase;
+  width: 7.5em;
+  &.draft { background-color: @grey; }
+  &.scheduled { background-color: @teal; }
+  &.sending { background-color: @yellow; }
+  &.sent { background-color: @green; }
+  &.lost { background-color: @red; }
+  &.active { background-color: @green; }
+  &.inactive { background-color: @red; }
+  &.retired { background-color: @red; }
+  &.completed { background-color: @green; }
+}

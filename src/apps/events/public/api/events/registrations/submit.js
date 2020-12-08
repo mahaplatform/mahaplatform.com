@@ -141,7 +141,7 @@ const submitRoute = async (req, res) => {
 
   await enrollInWorkflows(req, {
     contact,
-    trigger_type: 'event',
+    trigger_type: 'registration_created',
     event_id: event.get('id'),
     registration
   })

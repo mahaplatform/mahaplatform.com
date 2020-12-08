@@ -31,11 +31,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true },
-            { label: 'Workflows', type: 'segment', fields: [
-              { name: 'subscribe_workflow', type: 'checkbox', prompt: 'Create workflow for when a contact is subscribed to this list' },
-              { name: 'unsubscribe_workflow', type: 'checkbox', prompt: 'Create workflow for when a contact is unsubscribed from this list' }
-            ] }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true }
           ]
         }
       ]

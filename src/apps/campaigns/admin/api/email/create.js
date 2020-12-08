@@ -1,13 +1,12 @@
-import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import EmailCampaignSerializer from '@apps/campaigns/serializers/email_campaign_serializer'
-import { createWorkflow } from '@apps/automation/services/workflows'
-import { activity } from '@core/services/routes/activities'
+import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
 import { getDefaultConfig } from '@apps/automation/services/email'
+import EmailCampaign from '@apps/campaigns/models/email_campaign'
+import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import Template from '@apps/crm/models/template'
 import Program from '@apps/crm/models/program'
 
@@ -55,12 +54,6 @@ const createRoute = async (req, res) => {
     }
   }).save(null, {
     transacting: req.trx
-  })
-
-  await createWorkflow(req, {
-    email_campaign,
-    title: 'Delivery Workflow',
-    program_id: program.get('id')
   })
 
   await GenerateScreenshotQueue.enqueue(req, {

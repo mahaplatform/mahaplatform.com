@@ -12,12 +12,6 @@ const Details = ({ audits, event }) => {
     link: event.url
   }
 
-  const workflow = {
-    label: 'Manage Workflow',
-    className: 'link',
-    route: `/admin/automation/workflows/${event.workflow.id}`
-  }
-
   const config = {
     sections: [
       {
@@ -26,8 +20,7 @@ const Details = ({ audits, event }) => {
           { label: 'Description', content: event.description },
           { label: 'Code', content: event.code },
           { label: 'Program', content: event.program.title },
-          { label: 'URL', content: <Button { ...link } /> },
-          { label: 'Workflow', content: <Button { ...workflow } /> }
+          { label: 'URL', content: <Button { ...link } /> }
         ]
       }, {
         title: 'Ticket Types',

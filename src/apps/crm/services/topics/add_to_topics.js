@@ -11,8 +11,7 @@ const addToTopics = async (req, { contact, topic_ids }) => {
 
     await enrollInWorkflows(req, {
       contact,
-      trigger_type: 'topic',
-      action: 'add',
+      trigger_type: 'intrerest_created',
       topic_id
     })
 

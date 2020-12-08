@@ -62,7 +62,10 @@ class InternalSMS extends React.PureComponent {
         {
           fields: [
             { label: 'Recipient', type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', options: [{ value: 'user', text: 'Choose a specific user'},{ value: 'number', text: 'Enter a phone number' }], defaultValue: config.strategy },
+              { name: 'strategy', type: 'radiogroup', options: [
+                { value: 'user', text: 'Choose a specific user' },
+                { value: 'number', text: 'Enter a phone number' }
+              ], deselectable: false, defaultValue: config.strategy },
               this._getStrategy()
             ] },
             { label: 'Message', type: 'segment', fields: [

@@ -79,6 +79,7 @@ const createRoute = async (req, res) => {
 
   await createConfirmationWorkflow(req,  {
     event,
+    trigger_type: 'registration_created',
     program_id: program.get('id'),
     template_id: req.body.confirmation.template_id,
     sender_id: req.body.confirmation.sender_id,

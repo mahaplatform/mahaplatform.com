@@ -5,7 +5,6 @@ const storeSerializer = (req, result) => ({
   permalink: result.get('permalink'),
   url: result.get('url'),
   program: program(result.related('program')),
-  workflow: workflow(result.related('workflow')),
   abandoned_count: result.get('abandoned_count'),
   active_count: result.get('active_count'),
   orders_count: result.get('orders_count'),
@@ -25,13 +24,4 @@ const program = (program) => {
     logo: program.related('logo') ? program.related('logo').get('path') : null
   }
 }
-
-const workflow = (workflow) => {
-  if(!workflow.id) return
-  return {
-    id: workflow.get('id'),
-    title: workflow.get('title')
-  }
-}
-
 export default storeSerializer

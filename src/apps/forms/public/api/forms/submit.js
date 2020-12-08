@@ -111,7 +111,7 @@ const submitRoute = async (req, res) => {
 
   await enrollInWorkflows(req, {
     contact,
-    trigger_type: 'response',
+    trigger_type: 'response_created',
     form_id: form.get('id'),
     response
   })

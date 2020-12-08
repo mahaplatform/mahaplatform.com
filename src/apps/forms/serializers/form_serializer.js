@@ -15,7 +15,6 @@ const FormSerializer = (req, result) => ({
   revenue: result.get('revenue'),
   first_response: result.get('first_response'),
   last_response: result.get('last_response'),
-  workflow: workflow(result.related('workflow')),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -39,13 +38,4 @@ const bank = (bank) => {
     status: bank.get('status')
   }
 }
-
-const workflow = (workflow) => {
-  if(!workflow.id) return
-  return {
-    id: workflow.get('id'),
-    title: workflow.get('title')
-  }
-}
-
 export default FormSerializer

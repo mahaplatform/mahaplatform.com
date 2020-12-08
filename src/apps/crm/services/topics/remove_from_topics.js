@@ -11,8 +11,7 @@ const removeFromTopics = async (req, { contact, topic_ids }) => {
 
     await enrollInWorkflows(req, {
       contact,
-      trigger_type: 'topic',
-      action: 'remove',
+      trigger_type: 'intrerest_deleted',
       topic_id
     })
 

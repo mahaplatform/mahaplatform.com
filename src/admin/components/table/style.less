@@ -26,6 +26,9 @@
   td.center {
     text-align: center;
   }
+  td.empty {
+    text-align: center;
+  }
   thead {
     td {
       background-color: fadeout(@black, 30);
@@ -34,6 +37,9 @@
     }
   }
   tbody {
+    th {
+      background-color: fadeout(@black, 97);
+    }
     tr {
       cursor: pointer;
       &:hover {
@@ -46,6 +52,12 @@
       .fa-chevron-right {
         color: fadeout(@black, 80);
       }
+    }
+  }
+  tfoot {
+    td {
+      background-color: fadeout(@black, 97);
+      padding: 0.4em;
     }
   }
 }

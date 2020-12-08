@@ -1,6 +1,6 @@
-import TriggerTypeToken from '../../../tokens/trigger_type'
-import { Button }from '@admin'
+import { Button, Message, StatusToken } from '@admin'
 import PropTypes from 'prop-types'
+import Workflow from './workflow'
 import React from 'react'
 
 class Workflows extends React.Component {
@@ -10,80 +10,88 @@ class Workflows extends React.Component {
   }
 
   static propTypes = {
-    workflows: PropTypes.array,
-    form: PropTypes.object
+    form: PropTypes.object,
+    workflows: PropTypes.array
   }
 
   render() {
     const { workflows } = this.props
+    if(workflows.length === 0) return <Message { ...this._getEmpty() } />
     return (
-      <div className="crm-email-leaderboard">
-        <div className="crm-email-leaderboard-header">
-          Workflows
-        </div>
-        <div className="crm-email-leaderboard-body">
-          <table className="ui unstackable table">
-            <thead>
+      <div className="maha-table">
+        <table>
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td className="collapsing">Enrolled</td>
+              <td className="collapsing">Active</td>
+              <td className="collapsing">Lost</td>
+              <td className="collapsing">Converted</td>
+              <td className="collapsing">Completed</td>
+              <td className="collapsing">Status</td>
+              <td className="collapsing" />
+            </tr>
+          </thead>
+          <tbody>
+            { workflows.length === 0 &&
               <tr>
-                <th width="80" />
-                <th>Title</th>
-                <th width="80" className="center aligned">Enrolled</th>
-                <th width="80" className="center aligned">Active</th>
-                <th width="80" className="center aligned">Lost</th>
-                <th width="80" className="center aligned">Converted</th>
-                <th width="80" className="center aligned">Completed</th>
+                <td colSpan="8" className="empty">
+                  There are no workflows for this list
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              { workflows.length === 0 &&
-                <tr>
-                  <td colSpan="7"> There are no workflows for this form</td>
-                </tr>
-              }
-              { workflows.map((workflow, index) => (
-                <tr key={`workflow_${index}`}>
-                  <td>
-                    <TriggerTypeToken value={ workflow.trigger_type } />
-                  </td>
-                  <td>
-                    <Button { ...this._getWorkflow(workflow) } /><br />
-                    <span>Triggered when contact completes form</span>
-                  </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'sent')}>
-                    { workflow.enrolled }
-                  </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'delivered')}>
-                    { workflow.active }
-                  </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'opened')}>
-                    { workflow.lost }
-                  </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'complained')}>
-                    { workflow.converted }
-                  </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'clicked')}>
-                    { workflow.completed }
-                  </td>
-                </tr>
-              )) }
-            </tbody>
-          </table>
-        </div>
+            }
+            { workflows.map((workflow, index) => (
+              <tr key={`workflow_${index}`} onClick={ this._handleClick.bind(this, workflow) }>
+                <td>{ workflow.title }</td>
+                <td className="center aligned">{ workflow.enrolled_count }</td>
+                <td className="center aligned">{ workflow.active_count }</td>
+                <td className="center aligned">{ workflow.lost_count }</td>
+                <td className="center aligned">{ workflow.converted_count }</td>
+                <td className="center aligned">{ workflow.completed_count }</td>
+                <td className="center aligned">
+                  <StatusToken value={ workflow.status } />
+                </td>
+                <td className="proceed">
+                  <i className="fa fa-chevron-right" />
+                </td>
+              </tr>
+            )) }
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="8">
+                <Button { ...this._getNew() } />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     )
   }
 
-  _getWorkflow(workflow) {
+  _getEmpty() {
+    const { form } = this.props
     return {
-      label: workflow.title,
-      className: 'link',
-      route: `/admin/automation/workflows/${workflow.id}`
+      title: 'No Workflows',
+      text: 'There are no worfklows for this form',
+      icon: 'gears',
+      buttons: [
+        { label: 'Create Workflow', modal: <Workflow form={ form } /> }
+      ]
     }
   }
 
-  _handleClick(workflow, report) {
-    const { router } = this.context
-    router.history.push(`/automation/workflows/${workflow.id}/enrollments?report=${report}`)
+  _getNew() {
+    const { form } = this.props
+    return {
+      label: 'Create Workflow',
+      color: 'blue',
+      modal: <Workflow form={ form } />
+    }
+  }
+
+  _handleClick(workflow) {
+    this.context.router.history.push(`/admin/automation/workflows/${workflow.id}`)
   }
 
 }

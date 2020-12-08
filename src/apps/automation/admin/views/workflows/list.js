@@ -1,5 +1,5 @@
 import WorkflowToken from '../../tokens/workflow'
-import { Logo, Page } from '@admin'
+import { Logo, Page, StatusToken } from '@admin'
 import NewWorkflow from './new'
 import React from 'react'
 
@@ -15,7 +15,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Active', key: 'active_count', collapsing: true, align: 'right' },
       { label: 'Lost', key: 'lost_count', collapsing: true, align: 'right' },
       { label: 'Converted', key: 'converted_count', collapsing: true, align: 'right' },
-      { label: 'Completed', key: 'completed_count', collapsing: true, align: 'right' }
+      { label: 'Completed', key: 'completed_count', collapsing: true, align: 'right' },
+      { label: 'Staus', key: 'status', collapsing: true, format: StatusToken }
     ],
     criteria: {
       fields: [
