@@ -22,16 +22,16 @@ const UpdateTriggerTypes = {
       table.dropColumn('action')
     })
 
-    const oldtypes = [
-      'response','open','click','manual','list','topic','property','voice','sms',
-      'voice','event','delivery','order'
-    ]
-
-    await Promise.mapSeries(oldtypes, async(type) => {
-      await knex.raw(`DELETE FROM pg_enum WHERE enumlabel = '${type}' AND enumtypid = (
-        SELECT oid FROM pg_type WHERE typname = 'crm_workflow_trigger_types'
-      )`)
-    })
+    // const oldtypes = [
+    //   'response','open','click','manual','list','topic','property','voice','sms',
+    //   'voice','event','delivery','order'
+    // ]
+    //
+    // await Promise.mapSeries(oldtypes, async(type) => {
+    //   await knex.raw(`DELETE FROM pg_enum WHERE enumlabel = '${type}' AND enumtypid = (
+    //     SELECT oid FROM pg_type WHERE typname = 'crm_workflow_trigger_types'
+    //   )`)
+    // })
     
   },
 
