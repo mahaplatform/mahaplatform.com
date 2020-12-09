@@ -1,4 +1,4 @@
-import WorkflowStep from '@apps/automation/models/workflow_step'
+import WorkflowStep from '@apps/automation/models/step'
 import Asset from '@apps/maha/models/asset'
 import { s3 } from '@core/services/aws'
 

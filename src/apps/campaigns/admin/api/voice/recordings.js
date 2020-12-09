@@ -1,5 +1,5 @@
-import WorkflowRecordingSerializer from '@apps/automation/serializers/workflow_recording_serializer'
-import WorkflowRecording from '@apps/automation/models/workflow_recording'
+import WorkflowRecordingSerializer from '@apps/automation/serializers/recording_serializer'
+import WorkflowRecording from '@apps/automation/models/recording'
 
 const recordingsRoute = async (req, res) => {
 

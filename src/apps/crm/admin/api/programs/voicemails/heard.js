@@ -1,4 +1,4 @@
-import WorkflowRecording from '@apps/automation/models/workflow_recording'
+import WorkflowRecording from '@apps/automation/models/recording'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '@apps/crm/services/programs'

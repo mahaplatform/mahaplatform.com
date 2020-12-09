@@ -1,5 +1,5 @@
 import ExecuteWorkflowQueue from '@apps/automation/queues/execute_workflow_queue'
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import { lookupNumber } from '@apps/maha/services/phone_numbers'
 import { enrollInCampaign } from '@apps/campaigns/services/sms_campaigns'
 import generateCode from '@core/utils/generate_code'

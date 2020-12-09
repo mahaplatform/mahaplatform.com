@@ -1,5 +1,5 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
-import WorkflowAction from '@apps/automation/models/workflow_action'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
+import WorkflowAction from '@apps/automation/models/action'
 import socket from '@core/services/routes/emitter'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 

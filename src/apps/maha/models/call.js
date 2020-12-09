@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Program from '@apps/crm/models/program'
 import Model from '@core/objects/model'

@@ -1,6 +1,6 @@
 import ExecuteWorkflowQueue from '@apps/automation/queues/execute_workflow_queue'
 import { contactActivity } from '@apps/crm/services/activities'
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import generateCode from '@core/utils/generate_code'
 import Workflow from '@apps/automation/models/workflow'
 

@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import { executeWorkflow } from '@apps/automation/services/workflows'
 import MahaPhoneNumber from '@apps/maha/models/phone_number'
 import socket from '@core/services/routes/emitter'

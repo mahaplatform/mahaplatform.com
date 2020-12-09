@@ -1,5 +1,5 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
-import WorkflowStep from '@apps/automation/models/workflow_step'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
+import WorkflowStep from '@apps/automation/models/step'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import SmsCampaignResult from './sms_campaign_result'
 import Model from '@core/objects/model'

@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import { executeWorkflow } from '@apps/automation/services/workflows'
 
 const recordRoute = async (req, res) => {

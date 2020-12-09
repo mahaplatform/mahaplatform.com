@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
 import Invoice from '@apps/finance/models/invoice'
 import Payment from '@apps/finance/models/payment'
 import Model from '@core/objects/model'

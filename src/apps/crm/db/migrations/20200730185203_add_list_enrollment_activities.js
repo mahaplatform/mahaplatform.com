@@ -1,4 +1,4 @@
-import WorkflowEnrollment from '@apps/crm/models/workflow_enrollment'
+import WorkflowEnrollment from '@apps/crm/models/enrollment'
 import { contactActivity } from '@apps/crm/services/activities'
 import User from '@apps/maha/models/user'
 import moment from 'moment'

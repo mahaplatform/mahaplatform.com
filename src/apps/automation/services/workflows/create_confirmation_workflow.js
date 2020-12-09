@@ -2,7 +2,7 @@ import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import { getDefaultConfig } from '@apps/automation/services/email'
-import WorkflowStep from '@apps/automation/models/workflow_step'
+import WorkflowStep from '@apps/automation/models/step'
 import Template from '@apps/crm/models/template'
 import Workflow from '@apps/automation/models/workflow'
 import Email from '@apps/automation/models/email'

@@ -1,6 +1,6 @@
-import WorkflowActionSerializer from '@apps/automation/serializers/workflow_action_serializer'
-import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
-import WorkflowAction from '@apps/automation/models/workflow_action'
+import WorkflowActionSerializer from '@apps/automation/serializers/action_serializer'
+import WorkflowEnrollment from '@apps/automation/models/enrollment'
+import WorkflowAction from '@apps/automation/models/action'
 import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 
 const actionsRoute = async (req, res) => {
