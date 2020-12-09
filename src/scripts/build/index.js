@@ -139,7 +139,7 @@ const buildSdk = async () => {
 const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
-  const coreDirs = ['lib','objects','scripts','services','utils'].map(dir => `core/${dir}`)
+  const coreDirs = ['lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
   await Promise.map([...appDirs, ...coreDirs], buildDir(babelrc))
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
