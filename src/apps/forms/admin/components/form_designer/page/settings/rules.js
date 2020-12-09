@@ -64,9 +64,7 @@ class Rules extends React.Component {
 
   _getFields() {
     const { fields } = this.props.config
-    return fields.filter(field => {
-      return field.type !== 'text' && field.name
-    }).map(field => ({
+    return fields.map(field => ({
       code: field.code,
       name: field.name.value,
       type: _.get(field, 'contactfield.type') || field.type,

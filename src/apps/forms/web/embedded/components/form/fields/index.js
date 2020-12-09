@@ -46,7 +46,7 @@ class Fields extends React.Component {
       <div className="maha-form-body">
         <div className="ui form">
           { fields.map((field, index) => (
-            <Field key={`field_${index}`} { ...this._getField(field, index) } />
+            <Field key={`field_${field.code}`} { ...this._getField(field, index) } />
           )) }
           { security.captcha &&
             <div className="maha-form-captcha">

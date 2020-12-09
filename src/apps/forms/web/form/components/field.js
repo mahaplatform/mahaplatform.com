@@ -114,8 +114,8 @@ class Field extends React.Component {
   }
 
   _getFieldClass() {
-    const { field, index } = this.props
-    const classes = ['field',`field-${index}`]
+    const { field } = this.props
+    const classes = ['field',`field-${field.code}`]
     if(field.required) classes.push('required')
     return classes.join(' ')
   }

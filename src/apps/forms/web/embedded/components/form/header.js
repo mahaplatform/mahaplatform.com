@@ -1,3 +1,4 @@
+import { Image } from '@client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,7 +15,7 @@ class Header extends React.Component {
       <div className="maha-form-header">
         { image &&
           <div className="maha-form-header-image">
-            <img src={`/imagecache/w=770${image}`} />
+            <Image src={ image } transforms={{ width: 770 }} />
           </div>
         }
         { text &&

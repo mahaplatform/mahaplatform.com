@@ -1,4 +1,5 @@
 import FontFamilyToken from '@apps/automation/admin/tokens/fontfamily'
+import ImageField from '@apps/automation/admin/components/imagefield'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -13,12 +14,15 @@ class TextForm extends React.Component {
     onUpdate: PropTypes.func
   }
 
+  form = null
+
   state = {
     config: null
   }
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -45,12 +49,14 @@ class TextForm extends React.Component {
     const { config } = this.state
     return {
       title: 'Text',
+      reference: node => this.form = node,
       onChange: this._handleChange,
+      onSubmit: this._handleDone,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       tabs: [
         {
@@ -58,6 +64,8 @@ class TextForm extends React.Component {
           sections: [
             {
               fields: [
+                { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
+                { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
                 { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
               ]
             }
@@ -163,6 +171,10 @@ class TextForm extends React.Component {
 
   _handleDone() {
     this.props.onDone()
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

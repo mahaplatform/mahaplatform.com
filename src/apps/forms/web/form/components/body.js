@@ -37,7 +37,7 @@ class Form extends React.Component {
               <div className="dropzone-target">Drop Field Here</div>
             }
             { fields.map((field, fieldIndex) => (
-              <div key={`field_${fieldIndex}`} className={ this._getClass(fieldIndex) } data-index={ fieldIndex }>
+              <div key={`field_${fieldIndex}`} className={ this._getClass(fieldIndex) } data-index={ field.code }>
                 <Field { ...this._getField(field, fieldIndex) } />
                 { !moving.isMoving && hovering && fieldIndex + 1 === index &&
                   <div className="dropzone-target">Drop Field Here</div>

@@ -34,7 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "caniuse-lite": "^1.0.30001054",
+    "caniuse-lite": "^1.0.30001165",
     "chai": "^3.5.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^2.1.0",

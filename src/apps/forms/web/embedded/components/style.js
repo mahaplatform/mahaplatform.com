@@ -189,7 +189,7 @@ class Style extends React.Component {
         ...styles,
         ...field.type === 'text' ? [
           {
-            selector: `div.field-${i}`, styles: [
+            selector: `div.field-${field.code}`, styles: [
               ...this._getProp('background-color',`fields[${i}].background_color`),
               ...this._getBorder('border', `fields[${i}].border`),
               ...this._getProp('padding',`fields[${i}].padding`, 'px')
@@ -200,21 +200,21 @@ class Style extends React.Component {
             ...style.blocks.reduce((blockStyles, block) => [
               ...blockStyles,
               {
-                selector: `div.field-${i} ${block}`, styles: [
+                selector: `div.field-${field.code} ${block}`, styles: [
                   ...this._getProp('font-family', `fields[${i}].${style.selector}_font_family`),
                   ...this._getProp('font-size', `fields[${i}].${style.selector}_font_size`, 'px'),
                   ...this._getFormat('font-weight', 'bold', `fields[${i}].${style.selector}_format`, 'normal'),
                   ...this._getFormat('font-style', 'italic', `fields[${i}].${style.selector}_format`),
                   ...this._getFormat('text-decoration', 'underline', `fields[${i}].${style.selector}_format`),
                   ...this._getProp('color', `fields[${i}].${style.selector}_color`),
-                  ...this._getProp('text-align', `fields[${i}]age.${style.selector}_text_align`),
+                  ...this._getProp('text-align', `fields[${i}].${style.selector}_text_align`),
                   ...this._getProp('line-height', `fields[${i}].${style.selector}_line_height`),
                   ...this._getProp('letter-spacing', `fields[${i}].${style.selector}_letter_spacing`, 'px')
                 ]
               }
             ], [])
           ], []),
-          { selector: `div.field-${i} a`, styles: [
+          { selector: `div.field-${field.code} a`, styles: [
             ...this._getFormat('font-weight', 'bold', `fields[${i}].a_format`, 'normal'),
             ...this._getFormat('font-style', 'italic', `fields[${i}].a_format`),
             ...this._getFormat('text-decoration', 'underline', `fields[${i}].a_format`),
