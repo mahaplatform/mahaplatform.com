@@ -1,7 +1,7 @@
 import { createMetaFile, updateMetaFile } from '@apps/drive/services/metafiles'
 import { createFile, updateFile } from '@apps/drive/services/files'
 import socket from '@core/services/routes/emitter'
-import knex from '@core/services/knex'
+import knex from '@core/vendor/knex'
 import MetaFile from '@apps/drive/models/metafile'
 import Folder from '@apps/drive/models/folder'
 import File from '@apps/drive/models/file'

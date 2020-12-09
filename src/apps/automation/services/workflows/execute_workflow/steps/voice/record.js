@@ -1,4 +1,4 @@
-import redis from '@core/services/redis'
+import redis from '@core/vendor/redis'
 import { twiml } from 'twilio'
 
 const requestRecording = async (req, { enrollment, step, config }) => {

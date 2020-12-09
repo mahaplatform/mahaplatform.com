@@ -1,5 +1,5 @@
 import { updateCall } from '@apps/maha/services/calls'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import Call from '@apps/maha/models/call'
 import { twiml } from 'twilio'
 

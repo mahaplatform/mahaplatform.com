@@ -1,5 +1,5 @@
 import User from '@apps/maha/models/user'
-import redis from '../../../services/redis'
+import redis from '../../../vendor/redis'
 import auth from 'http-auth'
 
 const loadUser = async (username, password, callback, req) => {

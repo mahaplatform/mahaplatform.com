@@ -1,4 +1,4 @@
-import knex from '../services/knex'
+import knex from '../vendor/knex'
 
 export const withTransaction = (req, res, middleware) => knex.transaction(async trx => {
 

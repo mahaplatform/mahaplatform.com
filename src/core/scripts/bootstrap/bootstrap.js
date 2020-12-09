@@ -1,4 +1,4 @@
-import knex from '../../services/knex'
+import knex from '../../vendor/knex'
 import pluralize from 'pluralize'
 import log from '../../utils/log'
 import glob from 'glob'

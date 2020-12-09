@@ -1,6 +1,6 @@
 import { createAssetFromUrl } from '../services/assets'
 import SendFaxQueue from '../queues/send_fax_queue'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import { findOrCreateNumber } from './numbers'
 import Fax from '../models/fax'
 import moment from 'moment'

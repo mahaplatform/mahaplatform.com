@@ -1,4 +1,4 @@
-import knex from '../../services/knex'
+import knex from '../../vendor/knex'
 import apps from '../../utils/apps'
 import log from '../../utils/log'
 import path from 'path'

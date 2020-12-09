@@ -1,6 +1,6 @@
 import WorkflowStep from '@apps/automation/models/workflow_step'
 import Asset from '@apps/maha/models/asset'
-import { s3 } from '@core/services/aws'
+import { s3 } from '@core/vendor/aws'
 
 const recordingRoute = async (req, res) => {
 

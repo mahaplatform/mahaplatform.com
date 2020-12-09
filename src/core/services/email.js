@@ -1,5 +1,5 @@
+import nodemailer from '../vendor/nodemailer'
 import htmlToText from 'html-email-to-text'
-import nodemailer from './nodemailer'
 import inline from 'inline-css'
 import moment from 'moment'
 

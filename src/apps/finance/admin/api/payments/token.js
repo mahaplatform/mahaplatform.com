@@ -1,4 +1,4 @@
-import braintree from '@core/services/braintree'
+import braintree from '@core/vendor/braintree'
 
 const tokenRoute = async (req, res) => {
 

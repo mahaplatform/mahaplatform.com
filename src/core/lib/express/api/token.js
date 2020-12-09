@@ -1,7 +1,7 @@
 import Session from '@apps/maha/models/session'
 import Device from '@apps/maha/models/device'
 import User from '@apps/maha/models/user'
-import Rollbar from '../../../services/rollbar'
+import Rollbar from '../../../vendor/rollbar'
 import { decode } from '../../../services/jwt'
 import moment from 'moment'
 

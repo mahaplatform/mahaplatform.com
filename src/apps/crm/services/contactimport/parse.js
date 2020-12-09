@@ -1,7 +1,7 @@
 import ImportSerializer from '@apps/maha/serializers/import_serializer'
 import { isValid } from '@core/utils/validation'
 import ImportItem from '@apps/maha/models/import_item'
-import socket from '@core/services/emitter'
+import socket from '@core/vendor/emitter'
 import parse from '@core/utils/parse'
 import Import from '@apps/maha/models/import'
 import { parseLocation } from 'parse-address'

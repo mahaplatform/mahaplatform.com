@@ -1,4 +1,4 @@
-import './core/services/sourcemaps'
+import './core/vendor/sourcemaps'
 import './core/services/environment'
 import socketio from './core/lib/socketio'
 import app from './core/lib/express'

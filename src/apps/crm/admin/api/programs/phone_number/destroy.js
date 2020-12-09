@@ -5,7 +5,7 @@ import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '@apps/crm/services/programs'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import Program from '@apps/crm/models/program'
 import moment from 'moment'
 

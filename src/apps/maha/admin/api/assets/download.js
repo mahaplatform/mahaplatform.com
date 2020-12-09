@@ -1,4 +1,4 @@
-import { s3 } from '@core/services/aws'
+import { s3 } from '@core/vendor/aws'
 import Asset from '@apps/maha/models/asset'
 
 const downloadRoute = async (req, res) => {

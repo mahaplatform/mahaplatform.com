@@ -1,4 +1,4 @@
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import SMS from '@apps/maha/models/sms'
 import moment from 'moment'
 

@@ -1,4 +1,4 @@
-import { acm } from '@core/services/aws'
+import { acm } from '@core/vendor/aws'
 
 const getCertificate = async (req, { aws_certificate_arn }) => {
 

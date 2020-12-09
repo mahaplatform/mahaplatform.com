@@ -1,4 +1,4 @@
-import socket from '@core/services/emitter'
+import socket from '@core/vendor/emitter'
 import { twiml } from 'twilio'
 
 const recordRoute = async (req, res) => {

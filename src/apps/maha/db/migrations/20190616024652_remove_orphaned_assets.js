@@ -1,4 +1,4 @@
-import { s3 } from '@core/services/aws'
+import { s3 } from '@core/vendor/aws'
 import _ from 'lodash'
 
 const RemoveOrphanedAssets = {

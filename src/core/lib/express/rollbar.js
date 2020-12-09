@@ -1,4 +1,4 @@
-import Rollbar from '../../services/rollbar'
+import Rollbar from '../../vendor/rollbar'
 
 const rollbar = (req, res, next) => {
 

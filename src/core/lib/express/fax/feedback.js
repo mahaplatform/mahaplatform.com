@@ -1,6 +1,6 @@
 import { updateFax } from '@apps/maha/services/faxes'
 import socket from '../../../services/routes/emitter'
-import twilio from '../../../services/twilio'
+import twilio from '../../../vendor/twilio'
 
 const feedbackRoute = async (req, res) => {
 

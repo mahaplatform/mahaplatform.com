@@ -1,4 +1,4 @@
-import { route53Domains } from '@core/services/aws'
+import { route53Domains } from '@core/vendor/aws'
 
 const checkRoute = async (req, res) => {
 

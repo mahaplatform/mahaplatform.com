@@ -1,5 +1,5 @@
 import Logger from '../services/logger'
-import knex from '../services/knex'
+import knex from '../vendor/knex'
 
 const cron = (options) => ({
   name: options.name,

@@ -3,7 +3,7 @@ import { whitelist } from '@core/services/routes/params'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import RouteError from '@core/objects/route_error'
-import braintree from '@core/services/braintree'
+import braintree from '@core/vendor/braintree'
 import Payment from '@apps/finance/models/payment'
 import _ from 'lodash'
 

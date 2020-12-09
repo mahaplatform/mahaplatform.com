@@ -3,7 +3,7 @@ import { receiveCall, updateCall } from '@apps/maha/services/calls'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
 import Call from '@apps/maha/models/call'
-import twilio from '../../../services/twilio'
+import twilio from '../../../vendor/twilio'
 import { twiml } from 'twilio'
 
 const receiveHooks = collectObjects('hooks/voice/receive.js')

@@ -1,7 +1,7 @@
 import PhoneNumber from '@apps/maha/models/phone_number'
 import { createFax } from '@apps/maha/services/faxes'
 import socket from '../../../services/routes/emitter'
-import twilio from '../../../services/twilio'
+import twilio from '../../../vendor/twilio'
 import { twiml } from 'twilio'
 
 const createRoute = async (req, res) => {

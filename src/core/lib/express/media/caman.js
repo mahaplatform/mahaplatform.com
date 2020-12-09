@@ -1,5 +1,5 @@
 import Caman from '../../../services/caman'
-import s3 from '../../../services/aws/s3'
+import s3 from '../../../vendor/aws/s3'
 import { Router } from 'express'
 import path from 'path'
 import url from 'url'

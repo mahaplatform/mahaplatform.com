@@ -1,6 +1,6 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import client from '@core/services/twilio'
-import redis from '@core/services/redis'
+import client from '@core/vendor/twilio'
+import redis from '@core/vendor/redis'
 
 const sendPush = async (req, { account, cell_phone }) => {
 

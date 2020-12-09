@@ -1,5 +1,5 @@
 import onFinished from 'on-finished'
-import knex from '../../services/knex'
+import knex from '../../vendor/knex'
 
 const withTransaction = (req, res, next) => {
 

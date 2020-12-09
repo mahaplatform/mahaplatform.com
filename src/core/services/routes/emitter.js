@@ -1,5 +1,5 @@
 import formatObjectForTransport from '../../utils/format_object_for_transport'
-import socket from '../emitter'
+import socket from '../../vendor/emitter'
 import _ from 'lodash'
 
 export const refresh = async (req, messages) => {

@@ -1,5 +1,5 @@
 import { executeWorkflow } from '@apps/automation/services/workflows'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import Call from '@apps/maha/models/call'
 import { twiml } from 'twilio'
 

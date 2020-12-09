@@ -72,6 +72,7 @@ class Form extends React.Component {
   }
 
   _handleHover(from, to, position) {
+    console.log('hovering')
     this.setState({
       moving: {
         isMoving: true,

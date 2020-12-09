@@ -1,5 +1,5 @@
-import client from '@core/services/twilio'
-import redis from '@core/services/redis'
+import client from '@core/vendor/twilio'
+import redis from '@core/vendor/redis'
 import _ from 'lodash'
 
 const callRoute = async (req, res) => {

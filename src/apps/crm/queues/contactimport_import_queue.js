@@ -1,5 +1,5 @@
 import { importContactImport } from '../services/contactimport'
-import socket from '@core/services/emitter'
+import socket from '@core/vendor/emitter'
 import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {

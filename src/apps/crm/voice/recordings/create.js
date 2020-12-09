@@ -1,7 +1,7 @@
 import AssetSerializer from '@apps/maha/serializers/asset_serializer'
 import { createAssetFromUrl } from '@apps/maha/services/assets'
-import socket from '@core/services/emitter'
-import redis from '@core/services/redis'
+import socket from '@core/vendor/emitter'
+import redis from '@core/vendor/redis'
 import { twiml } from 'twilio'
 
 const createRoute = async (req, res) => {

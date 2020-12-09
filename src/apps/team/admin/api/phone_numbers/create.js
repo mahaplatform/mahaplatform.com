@@ -1,7 +1,7 @@
 import { activity } from '@core/services/routes/activities'
 import PhoneNumberSerializer from '@apps/team/serializers/phone_number_serializer'
 import socket from '@core/services/routes/emitter'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import PhoneNumber from '@apps/maha/models/phone_number'
 
 const createRoute = async (req, res) => {

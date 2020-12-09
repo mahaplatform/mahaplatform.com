@@ -1,5 +1,5 @@
 import RouteError from '@core/objects/route_error'
-import braintree from '@core/services/braintree'
+import braintree from '@core/vendor/braintree'
 import PaymentMethod from '@apps/finance/models/payment_method'
 import { UsBankAccountVerification } from 'braintree'
 import Payment from '@apps/finance/models/payment'

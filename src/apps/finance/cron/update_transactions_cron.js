@@ -1,6 +1,6 @@
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import braintree from '@core/services/braintree'
+import braintree from '@core/vendor/braintree'
 import cron from '@core/objects/cron'
 import Bank from '../models/bank'
 import Deposit from '../models/deposit'

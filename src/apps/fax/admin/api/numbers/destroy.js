@@ -1,5 +1,5 @@
 import { activity } from '@core/services/routes/activities'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import socket from '@core/services/routes/emitter'
 import PhoneNumber from '@apps/maha/models/phone_number'
 

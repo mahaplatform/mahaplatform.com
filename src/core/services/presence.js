@@ -1,4 +1,4 @@
-import redis from './redis'
+import redis from '../vendor/redis'
 import RedisLock from 'redis-lock'
 
 const Lock = RedisLock(redis)

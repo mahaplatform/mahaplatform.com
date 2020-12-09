@@ -1,4 +1,4 @@
-import { s3 } from '@core/services/aws'
+import { s3 } from '@core/vendor/aws'
 
 export const readFile = async (Key) => {
   const chunk = await s3.getObject({

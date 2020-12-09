@@ -5,7 +5,7 @@ import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import { checkProgramAccess } from '@apps/crm/services/programs'
 import PhoneNumber from '@apps/maha/models/phone_number'
-import twilio from '@core/services/twilio'
+import twilio from '@core/vendor/twilio'
 import Program from '@apps/crm/models/program'
 
 const createRoute = async (req, res) => {

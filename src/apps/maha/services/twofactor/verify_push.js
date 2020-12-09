@@ -1,4 +1,4 @@
-import redis from '@core/services/redis'
+import redis from '@core/vendor/redis'
 
 const verifyPush = async (req, { account, code }) => {
 

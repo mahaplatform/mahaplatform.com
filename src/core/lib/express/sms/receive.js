@@ -3,7 +3,7 @@ import PhoneNumber from '@apps/maha/models/phone_number'
 import { receiveSMS } from '@apps/maha/services/smses'
 import collectObjects from '../../../utils/collect_objects'
 import socket from '../../../services/routes/emitter'
-import twilio from '../../../services/twilio'
+import twilio from '../../../vendor/twilio'
 import _ from 'lodash'
 
 const smsFiles = collectObjects('hooks/sms/receive.js')

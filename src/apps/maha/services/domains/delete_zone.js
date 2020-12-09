@@ -1,4 +1,4 @@
-import { route53 } from '@core/services/aws'
+import { route53 } from '@core/vendor/aws'
 
 const deleteZone = async (req, { aws_zone_id }) => {
 

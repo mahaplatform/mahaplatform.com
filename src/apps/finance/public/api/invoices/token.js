@@ -1,4 +1,4 @@
-import braintree from '@core/services/braintree'
+import braintree from '@core/vendor/braintree'
 import Invoice from '@apps/finance/models/invoice'
 
 const tokenRoute = async (req, res) => {
