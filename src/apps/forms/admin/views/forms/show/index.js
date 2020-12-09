@@ -8,7 +8,7 @@ import React from 'react'
 const getTabs = ({ audits, form, workflows }) => ({
   items: [
     { label: 'Details', component: <Details form={ form } audits={ audits } /> },
-    { label: 'Automation', component: <Workflows form={ form } workflows={ workflows } /> },
+    { label: 'Automation', rights: ['automation:access_app'], component: <Workflows form={ form } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance form={ form } /> }
   ]
 })

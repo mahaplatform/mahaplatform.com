@@ -45,18 +45,20 @@ export const bootstrapType = async (type, pattern, table, relateds = []) => {
     return _.find(objects, { code: item.code }) === undefined
   })
 
-  await Promise.map(addItems, async (item) => {
+  const added = await Promise.map(addItems, async (item) => {
 
     log('info', 'bootstrap', `Adding ${pluralize.singular(type)} ${item.code}`)
 
-    await knex(table).insert({
+    const record = await knex(table).insert({
       app_id: item.app_id,
       code: item.code
-    })
+    }).returning('*')
+
+    return record[0]
 
   })
 
-  await Promise.map(removeItems, async (item) => {
+  const removed = await Promise.map(removeItems, async (item) => {
 
     log('info', 'bootstrap', `Removing ${pluralize.singular(type)} ${item.code}`)
 
@@ -66,7 +68,11 @@ export const bootstrapType = async (type, pattern, table, relateds = []) => {
 
     await knex(table).where('id', item.id).del()
 
+    return item.id
+
   })
+
+  return { added, removed }
 
 }
 
@@ -105,9 +111,20 @@ export const bootstrap = async () => {
     { table: 'maha_users_notification_types', key: 'notification_type_id' }
   ])
 
-  await bootstrapType('rights', 'rights.js', 'maha_rights', [
+  const admins = await knex('maha_roles').where('type', 'admin')
+
+  const rights = await bootstrapType('rights', 'rights.js', 'maha_rights', [
     { table: 'maha_roles_rights', key: 'right_id' }
   ])
+
+  await Promise.mapSeries(rights.added, async (right) => {
+    await Promise.mapSeries(admins, async (role) => {
+      await knex('maha_roles_rights').insert({
+        role_id: role.id,
+        right_id: right.id
+      })
+    })
+  })
 
   await bootstrapType('dashboard', 'dashboard/index.js', 'maha_dashboard_card_types', [
     { table: 'maha_dashboard_cards', key: 'type_id' }

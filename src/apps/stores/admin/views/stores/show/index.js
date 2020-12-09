@@ -14,7 +14,7 @@ const getTabs = ({ audits, products, store, workflows }) => ({
     { label: 'Details', component: <Details store={ store } audits={ audits } /> },
     { label: 'Products', component: <Products store={ store } products={ products } /> },
     { label: 'Inventory', component: <Inv products={ products }/> },
-    { label: 'Automation', component: <Workflows store={ store } workflows={ workflows } /> },
+    { label: 'Automation', rights: ['automation:access_app'], component: <Workflows store={ store } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance store={ store } /> }
   ]
 })

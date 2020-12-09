@@ -28,22 +28,31 @@ const createRoute = async (req, res) => {
     app_ids
   })
 
-  const role = await Role.forge({
+  const admin = await Role.forge({
     team_id: team.get('id'),
-    title: 'Team Administrators'
+    title: 'Team Administrators',
+    type: 'admin'
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await Role.forge({
+    team_id: team.get('id'),
+    title: 'Employees',
+    type: 'custom'
   }).save(null, {
     transacting: req.trx
   })
 
   await req.trx('maha_roles_apps').insert(app_ids.map(app_id => ({
-    role_id: role.get('id'),
+    role_id: admin.get('id'),
     app_id
   })))
 
   const rights = await req.trx('maha_rights').whereIn('app_id', app_ids)
 
   await req.trx('maha_roles_rights').insert(rights.map(right => ({
-    role_id: role.get('id'),
+    role_id: admin.get('id'),
     right_id: right.id
   })))
 
@@ -52,7 +61,7 @@ const createRoute = async (req, res) => {
     ...strategy === 'self' ? { account_id: req.account.get('id') } : {},
     ...strategy === 'account' ? { account_id } : {},
     ...strategy === 'new' ? { first_name, last_name, email } : {},
-    role_ids: [role.get('id')]
+    role_ids: [admin.get('id')]
   })
 
   if(user.get('email') === req.user.get('email')) {

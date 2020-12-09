@@ -12,7 +12,7 @@ import Edit from './edit'
 const getTabs = ({ audits, campaign, performance, workflows }) => ({
   items: [
     { label: 'Details', component: <Details campaign={ campaign } audits={ audits } /> },
-    { label: 'Automation', component: <Workflows campaign={ campaign } workflows={ workflows } /> },
+    { label: 'Automation', rights: ['automation:access_app'], component: <Workflows campaign={ campaign } workflows={ workflows } /> },
     { label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> }
   ]
 })

@@ -8,7 +8,7 @@ import Edit from './edit'
 const getTabs = ({ audits, topic, workflows }) => ({
   items: [
     { label: 'Details', component: <Details audits={ audits } topic={ topic } /> },
-    { label: 'Automation', component: <Workflows topic={ topic }workflows={ workflows }/> }
+    { label: 'Automation', rights: ['automation:access_app'], component: <Workflows topic={ topic } workflows={ workflows }/> }
   ]
 })
 

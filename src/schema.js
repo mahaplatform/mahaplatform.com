@@ -1909,6 +1909,7 @@ const schema = {
       table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('maha_roles_apps', (table) => {

@@ -49,7 +49,6 @@ export default async (req, user) => {
         settings: installation.get('settings')
       }
     }
-
   }, {
     maha: {
       code: 'maha',
@@ -59,10 +58,13 @@ export default async (req, user) => {
     }
   })
 
-  const assignedRights = rights.map(right => {
-    const appCode = right.related('app') ? right.related('app').get('code') : 'maha'
-    return appCode + ':' + right.get('code')
-  })
+  const assignedRights = [
+    ...Object.keys(assignedApps).map(code => `${code}:access_app`),
+    ...rights.map(right => {
+      const appCode = right.related('app') ? right.related('app').get('code') : 'maha'
+      return appCode + ':' + right.get('code')
+    })
+  ]
 
   return {
     apps: assignedApps,
