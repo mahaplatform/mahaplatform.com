@@ -34,7 +34,7 @@ class Configure extends React.PureComponent {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Optional name for this import' },
-            { label: 'Duplicate Strategy', instructions, name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
+            { label: 'Duplicate Strategy', instructions, name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], deselectable: false, format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
           ]
         }
       ]

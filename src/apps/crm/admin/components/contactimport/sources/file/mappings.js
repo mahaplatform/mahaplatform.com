@@ -5,6 +5,7 @@ import React from 'react'
 import _ from 'lodash'
 
 const fieldmap = [
+  { name: 'organization', matches: ['organization','company','business','organizationname','companyname','businessname','organization1','company1','business1'] },
   { name: 'last_first', matches: ['lastfirst'] },
   { name: 'first_name', matches: ['first','firstname','fname','givenname'] },
   { name: 'last_name', matches: ['last','lastname','lastnames','lname','surname'] },
@@ -12,7 +13,6 @@ const fieldmap = [
   { name: 'photo', matches: ['photo','picture'] },
   { name: 'spouse', matches: ['spouse'] },
   { name: 'birthday', matches: ['birthday'] },
-  { name: 'organization', matches: ['organization','company','organization1','company1'] },
   { name: 'position', matches: ['job','position','title','jobtitle'] },
   { name: 'email_1', matches: ['email','emailaddress','email1','primaryemail'] },
   { name: 'email_2', matches: ['email2','secondaryemail'] },

@@ -31,10 +31,11 @@ const geocode = async (address) => {
     uri: `${endpoint}?address=${fulladdress}&key=${process.env.GOOGLE_MAPS_API_KEY}`,
     json: true
   })
-  if(response.results.length < 1) return null
+  if(response.results.length < 1) return address
   const result = response.results[0]
   const street_number = getType(result, 'street_number')
   const route = getType(result, 'route')
+  if(route === null) return address
   return {
     ...address,
     description: result.formatted_address,

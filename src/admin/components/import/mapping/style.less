@@ -2,6 +2,15 @@
   flex: 1;
   display: flex;
   .scrollable();
+  .maha-button {
+    cursor: pointer;
+    &:hover .fa {
+      color: fadeout(@black, 40);
+    }
+    .fa {
+      color: fadeout(@black, 80);
+    }
+  }
 }
 .import-mapping {
   flex: 1;

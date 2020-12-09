@@ -41,7 +41,7 @@ const parseExcel = async (asset, quote, delimiter, headers) => {
   const data = await getAssetData(asset, 'stream')
   const excel = new Excel.Workbook()
   const workbook = await excel.xlsx.read(data)
-  const worksheet = workbook.getWorksheet(1)
+  const worksheet = workbook.worksheets[0]
   const parsed = { headers: [], rows: [] }
   worksheet.eachRow((row, i) => {
     row.eachCell((cell, j) => {
