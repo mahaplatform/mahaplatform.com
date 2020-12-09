@@ -30,8 +30,8 @@ const getRecipientCount = async (req, { campaign }) => {
 const showRoute = async (req, res) => {
 
   const campaign = await VoiceCampaign.query(qb => {
-    qb.select('crm_voice_campaigns.*','crm_voice_campaign_results.*')
-    qb.innerJoin('crm_voice_campaign_results','crm_voice_campaign_results.voice_campaign_id','crm_voice_campaigns.id')
+    qb.select('campaigns_voice_campaigns.*','campaigns_voice_campaign_results.*')
+    qb.innerJoin('campaigns_voice_campaign_results','campaigns_voice_campaign_results.voice_campaign_id','campaigns_voice_campaigns.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({

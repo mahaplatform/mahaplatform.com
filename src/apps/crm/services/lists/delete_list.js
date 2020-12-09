@@ -10,7 +10,7 @@ const deleteList = async (req, { list }) => {
 
   await req.trx('crm_subscriptions').where('list_id', list.get('id')).del()
 
-  await req.trx('crm_workflow_steps').where(qb => {
+  await req.trx('automation_steps').where(qb => {
     qb.where('action', 'list')
     qb.whereRaw('(config->\'list_id\')::int=?', list.get('id'))
   }).update({

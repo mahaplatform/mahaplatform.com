@@ -38,11 +38,11 @@ const deleteAllRoute = async (req, res) => {
 
   const action_ids = actions.map(action => action.get('id'))
 
-  await req.trx('crm_workflow_recordings').whereIn('action_id', action_ids).delete()
+  await req.trx('automation_recordings').whereIn('action_id', action_ids).delete()
 
-  await req.trx('crm_workflow_actions').whereIn('id', action_ids).delete()
+  await req.trx('automation_actions').whereIn('id', action_ids).delete()
 
-  await req.trx('crm_workflow_enrollments').whereIn('id', ids).delete()
+  await req.trx('automation_enrollments').whereIn('id', ids).delete()
 
   await socket.refresh(req, [
     `/admin/campaigns/voice/${voice_campaign.get('id')}`,

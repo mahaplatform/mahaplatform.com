@@ -17,10 +17,10 @@ const showRoute = async (req, res) => {
   })
 
   const response = await Response.query(qb => {
-    qb.select('crm_responses.*','crm_response_totals.*')
-    qb.innerJoin('crm_response_totals','crm_response_totals.response_id','crm_responses.id')
-    qb.where('crm_responses.team_id', req.team.get('id'))
-    qb.where('crm_responses.form_id', form.get('id'))
+    qb.select('forms_responses.*','crm_response_totals.*')
+    qb.innerJoin('crm_response_totals','crm_response_totals.response_id','forms_responses.id')
+    qb.where('forms_responses.team_id', req.team.get('id'))
+    qb.where('forms_responses.form_id', form.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['contact.photo','enrollment','form'],

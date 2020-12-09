@@ -13,7 +13,7 @@ import Workflow from './workflow'
 
 const WorkflowEnrollment = new Model({
 
-  tableName: 'crm_workflow_enrollments',
+  tableName: 'automation_enrollments',
 
   rules: {},
 

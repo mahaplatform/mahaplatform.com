@@ -60,11 +60,11 @@ const RenameAppTables = {
     ]
 
     const alterviews = [
-      { from: 'crm_email_campaign_results', to: 'camapigns_email_campaign_results' },
+      { from: 'crm_email_campaign_results', to: 'campaigns_email_campaign_results' },
       { from: 'crm_email_results', to: 'automation_email_results' },
       { from: 'crm_form_totals', to: 'forms_form_totals' },
-      { from: 'crm_sms_campaign_results', to: 'camapigns_sms_campaign_results' },
-      { from: 'crm_voice_campaign_results', to: 'camapigns_voice_campaign_results' },
+      { from: 'crm_sms_campaign_results', to: 'campaigns_sms_campaign_results' },
+      { from: 'crm_voice_campaign_results', to: 'campaigns_voice_campaign_results' },
       { from: 'crm_workflow_results', to: 'automation_workflow_results' },
       { from: 'crm_recipients', to: 'campaigns_recipients' }
     ]

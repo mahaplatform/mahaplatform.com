@@ -31,7 +31,7 @@ const Details = ({ audits, form }) => {
     { component: <Audit entries={ audits } /> }
   ]
 
-  list.footer = <Comments entity={`crm_forms/${form.id}`} active={ form.deleted_at === null } />
+  list.footer = <Comments entity={`forms_forms/${form.id}`} active={ form.deleted_at === null } />
 
   return <List { ...list } />
 

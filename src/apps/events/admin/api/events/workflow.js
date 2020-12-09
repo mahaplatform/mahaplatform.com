@@ -17,10 +17,10 @@ const workflowRoute = async (req, res) => {
   })
 
   const workflow = await Workflow.query(qb => {
-    qb.select('crm_workflows.*','crm_workflow_results.*')
-    qb.innerJoin('crm_workflow_results','crm_workflow_results.workflow_id','crm_workflows.id')
-    qb.where('crm_workflows.team_id', req.team.get('id'))
-    qb.where('crm_workflows.event_id', event.get('id'))
+    qb.select('automation_workflows.*','automation_workflow_results.*')
+    qb.innerJoin('automation_workflow_results','automation_workflow_results.workflow_id','automation_workflows.id')
+    qb.where('automation_workflows.team_id', req.team.get('id'))
+    qb.where('automation_workflows.event_id', event.get('id'))
   }).fetch({
     withRelated: ['program'],
     transacting: req.trx

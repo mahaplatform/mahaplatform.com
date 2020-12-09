@@ -2,7 +2,7 @@ import Model from '@core/objects/model'
 
 const WorkflowResult = new Model({
 
-  tableName: 'crm_workflow_results',
+  tableName: 'automation_workflow_results',
 
   rules: {},
 

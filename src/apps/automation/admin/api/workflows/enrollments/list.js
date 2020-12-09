@@ -18,9 +18,9 @@ const listRoute = async (req, res) => {
 
   const enrollments = await WorkflowEnrollment.filterFetch({
     scope: (qb) => {
-      qb.innerJoin('crm_contacts','crm_contacts.id','crm_workflow_enrollments.contact_id')
-      qb.where('crm_workflow_enrollments.team_id', req.team.get('id'))
-      qb.where('crm_workflow_enrollments.workflow_id', workflow.get('id'))
+      qb.innerJoin('crm_contacts','crm_contacts.id','automation_enrollments.contact_id')
+      qb.where('automation_enrollments.team_id', req.team.get('id'))
+      qb.where('automation_enrollments.workflow_id', workflow.get('id'))
     },
     aliases: {
       first_name: 'crm_contacts.first_name',

@@ -4,10 +4,10 @@ import Email from '@apps/automation/models/email'
 const showRoute = async (req, res) => {
 
   const email = await Email.query(qb => {
-    qb.select('crm_emails.*','crm_email_results.*')
-    qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
-    qb.where('crm_emails.team_id', req.team.get('id'))
-    qb.where('crm_emails.id', req.params.id)
+    qb.select('automation_emails.*','automation_email_results.*')
+    qb.innerJoin('automation_email_results','automation_email_results.email_id','automation_emails.id')
+    qb.where('automation_emails.team_id', req.team.get('id'))
+    qb.where('automation_emails.id', req.params.id)
   }).fetch({
     withRelated: ['event','form','program','workflow'],
     transacting: req.trx

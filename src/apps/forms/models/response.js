@@ -7,7 +7,7 @@ import Form from './form'
 
 const Response = new Model({
 
-  tableName: 'crm_responses',
+  tableName: 'forms_responses',
 
   rules: {},
 

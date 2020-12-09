@@ -2,7 +2,7 @@ import Model from '@core/objects/model'
 
 const SmsCampaignResult = new Model({
 
-  tableName: 'sms_campaign_results',
+  tableName: 'campaigns_sms_campaign_results',
 
   rules: {},
 

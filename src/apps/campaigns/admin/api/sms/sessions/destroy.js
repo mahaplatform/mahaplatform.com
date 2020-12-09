@@ -24,9 +24,9 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await req.trx('crm_workflow_actions').where('enrollment_id', enrollment.get('id')).delete()
+  await req.trx('automation_actions').where('enrollment_id', enrollment.get('id')).delete()
 
-  await req.trx('crm_workflow_enrollments').where('id', enrollment.get('id')).delete()
+  await req.trx('automation_enrollments').where('id', enrollment.get('id')).delete()
 
   await socket.refresh(req, [
     `/admin/campaigns/sms/${sms_campaign.get('id')}`,

@@ -176,7 +176,7 @@ const saveRecording = async(req, { action, recording_data }) => {
   const { url, duration } = recording_data
 
   const code = await generateCode(req, {
-    table: 'crm_workflow_recordings'
+    table: 'automation_recordings'
   })
 
   const recording = await WorkflowRecording.forge({

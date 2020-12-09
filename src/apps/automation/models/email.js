@@ -10,7 +10,7 @@ import Model from '@core/objects/model'
 
 const Email = new Model({
 
-  tableName: 'crm_emails',
+  tableName: 'automation_emails',
 
   rules: {},
 

@@ -19,7 +19,7 @@ const Details = ({ actions, enrollment, campaign }) => {
         { component: <WorkflowActions workflow={ campaign } actions={ actions } enrollment={ enrollment } trigger_type={`${campaign.direction}_${campaign.type}`} />}
       ]
     }],
-    footer: <Comments entity={`crm_workflow_enrollments/${enrollment.id}`} />
+    footer: <Comments entity={`automation_enrollments/${enrollment.id}`} />
   }
 
   return <List { ...list } />

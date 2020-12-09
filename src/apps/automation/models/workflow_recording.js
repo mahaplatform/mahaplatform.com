@@ -4,7 +4,7 @@ import Asset from '@apps/maha/models/asset'
 
 const WorkflowRecording = new Model({
 
-  tableName: 'crm_workflow_recordings',
+  tableName: 'automation_recordings',
 
   rules: {},
 

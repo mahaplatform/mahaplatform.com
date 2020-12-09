@@ -29,9 +29,9 @@ const deleteAllRoute = async (req, res) => {
     return result.get('id')
   }))
 
-  await req.trx('crm_workflow_actions').whereIn('enrollment_id', ids).delete()
+  await req.trx('automation_actions').whereIn('enrollment_id', ids).delete()
 
-  await req.trx('crm_workflow_enrollments').whereIn('id', ids).delete()
+  await req.trx('automation_enrollments').whereIn('id', ids).delete()
 
   await socket.refresh(req, [
     `/admin/campaigns/sms/${sms_campaign.get('id')}`,

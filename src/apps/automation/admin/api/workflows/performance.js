@@ -20,9 +20,9 @@ const performanceRoute = async (req, res) => {
     select date
     from generate_series(?::timestamp, ?::timestamp, ?) AS date
     )
-    select filled_dates.date, count(crm_workflow_enrollments.*) as count
+    select filled_dates.date, count(automation_enrollments.*) as count
     from filled_dates
-    left join crm_workflow_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_workflow_enrollments.workflow_id=?
+    left join automation_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and automation_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, [

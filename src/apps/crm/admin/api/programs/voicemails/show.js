@@ -15,12 +15,12 @@ const showRoute = async (req, res) => {
   })
 
   const recording = await WorkflowRecording.query(qb => {
-    qb.innerJoin('crm_workflow_actions','crm_workflow_actions.id','crm_workflow_recordings.action_id')
-    qb.innerJoin('crm_workflow_enrollments','crm_workflow_enrollments.id','crm_workflow_actions.enrollment_id')
-    qb.innerJoin('crm_voice_campaigns','crm_voice_campaigns.id','crm_workflow_enrollments.voice_campaign_id')
-    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_voice_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
-    qb.where('crm_workflow_recordings.team_id', req.team.get('id'))
-    qb.where('crm_workflow_recordings.id', req.params.id)
+    qb.innerJoin('automation_actions','automation_actions.id','automation_recordings.action_id')
+    qb.innerJoin('automation_enrollments','automation_enrollments.id','automation_actions.enrollment_id')
+    qb.innerJoin('campaigns_voice_campaigns','campaigns_voice_campaigns.id','automation_enrollments.voice_campaign_id')
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=campaigns_voice_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('automation_recordings.team_id', req.team.get('id'))
+    qb.where('automation_recordings.id', req.params.id)
   }).fetch({
     withRelated: ['asset','action.enrollment.contact.photo'],
     transacting: req.trx

@@ -57,7 +57,7 @@ const getTasks = ({ workflow }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  audits: `/api/admin/crm_workflows/${props.params.id}/audits`,
+  audits: `/api/admin/automation_workflows/${props.params.id}/audits`,
   emails: `/api/admin/automation/workflows/${props.params.id}/emails`,
   workflow: `/api/admin/automation/workflows/${props.params.id}`
 })

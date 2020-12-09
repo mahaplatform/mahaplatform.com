@@ -7,7 +7,7 @@ import moment from 'moment'
 
 const Form = new Model({
 
-  tableName: 'crm_forms',
+  tableName: 'forms_forms',
 
   rules: {},
 
@@ -37,11 +37,11 @@ const Form = new Model({
     is_open() {
       const { limits } = this.get('config')
       const { start_date, end_date, max_responses } = limits
-      const num_responses = this.get('num_responses')
+      const responses_count = this.get('responses_count')
       const now = moment().startOf('day')
       const start = moment(start_date).startOf('day')
       const end = moment(end_date).startOf('day')
-      if(max_responses && num_responses >= max_responses ) return false
+      if(max_responses && responses_count >= max_responses ) return false
       if(start_date && now.diff(start, 'days') < 0) return false
       if(end_date && now.diff(end, 'days') > 0) return false
       return true

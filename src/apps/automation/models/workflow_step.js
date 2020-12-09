@@ -6,7 +6,7 @@ import Workflow from './workflow'
 
 const WorkflowStep = new Model({
 
-  tableName: 'crm_workflow_steps',
+  tableName: 'automation_steps',
 
   rules: {},
 

@@ -20,9 +20,9 @@ const listRoute = async (req, res) => {
 
   const emails = await Email.filterFetch({
     scope: (qb) => {
-      qb.leftJoin('crm_email_campaigns', 'crm_email_campaigns.id','maha_emails.email_campaign_id')
-      qb.leftJoin('crm_emails', 'crm_emails.id','maha_emails.email_id')
-      qb.whereRaw('(crm_email_campaigns.program_id=? or crm_emails.program_id=?)', [req.params.program_id, req.params.program_id])
+      qb.leftJoin('campaigns_email_campaigns', 'campaigns_email_campaigns.id','maha_emails.email_campaign_id')
+      qb.leftJoin('automation_emails', 'automation_emails.id','maha_emails.email_id')
+      qb.whereRaw('(campaigns_email_campaigns.program_id=? or automation_emails.program_id=?)', [req.params.program_id, req.params.program_id])
       qb.where('maha_emails.email_address_id', req.params.id)
       qb.where('maha_emails.team_id', req.team.get('id'))
     },

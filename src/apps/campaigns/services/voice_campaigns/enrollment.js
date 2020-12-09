@@ -7,7 +7,7 @@ export const enrollInCampaign = async (req, params) => {
   const { contact, call, phone_number, voice_campaign } = params
 
   const code = await generateCode(req, {
-    table: 'crm_workflow_enrollments'
+    table: 'automation_enrollments'
   })
 
   const enrollment = await WorkflowEnrollment.forge({

@@ -85,13 +85,13 @@ const receive = async (req, { sms, phone_number }) => {
   }
 
   const enrollment = await WorkflowEnrollment.query(qb => {
-    qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
-    qb.where('crm_sms_campaigns.phone_number_id', phone_number.get('id'))
-    qb.where('crm_workflow_enrollments.contact_id', from.get('contact_id'))
-    qb.where('crm_workflow_enrollments.status', 'active')
-    qb.where('crm_workflow_enrollments.team_id', req.team.get('id'))
-    qb.whereNull('crm_workflow_enrollments.unenrolled_at')
-    qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
+    qb.innerJoin('campaigns_sms_campaigns', 'campaigns_sms_campaigns.id', 'automation_enrollments.sms_campaign_id')
+    qb.where('campaigns_sms_campaigns.phone_number_id', phone_number.get('id'))
+    qb.where('automation_enrollments.contact_id', from.get('contact_id'))
+    qb.where('automation_enrollments.status', 'active')
+    qb.where('automation_enrollments.team_id', req.team.get('id'))
+    qb.whereNull('automation_enrollments.unenrolled_at')
+    qb.whereRaw('automation_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
   }).fetch({
     transacting: req.trx
   })

@@ -5,19 +5,19 @@ const listRoute = async (req, res) => {
 
   const emails = await Email.filterFetch({
     scope: (qb) => {
-      qb.select('crm_emails.*','crm_email_results.*')
-      qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
-      qb.joinRaw('inner join crm_programs on crm_programs.id=crm_emails.program_id')
-      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_emails.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
-      qb.where('crm_emails.team_id', req.team.get('id'))
+      qb.select('automation_emails.*','automation_email_results.*')
+      qb.innerJoin('automation_email_results','automation_email_results.email_id','automation_emails.id')
+      qb.joinRaw('inner join crm_programs on crm_programs.id=automation_emails.program_id')
+      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=automation_emails.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+      qb.where('automation_emails.team_id', req.team.get('id'))
       qb.whereNull('deleted_at')
     },
     aliases: {
       program: 'crm_programs.title',
-      bounce_rate: 'crm_email_results.bounce_rate',
-      click_rate: 'crm_email_results.click_rate',
-      open_rate: 'crm_email_results.open_rate',
-      sent: 'crm_email_results.sent'
+      bounce_rate: 'automation_email_results.bounce_rate',
+      click_rate: 'automation_email_results.click_rate',
+      open_rate: 'automation_email_results.open_rate',
+      sent: 'automation_email_results.sent'
     },
     filter: {
       params: req.query.$filter,

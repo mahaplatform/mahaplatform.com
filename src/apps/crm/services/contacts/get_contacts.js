@@ -55,7 +55,7 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         leftJoin: [['contact_id', 'crm_contacts.id']]
       },
       enrollment_id: {
-        column: 'crm_workflow_enrollments.workflow_id',
+        column: 'automation_enrollments.workflow_id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
       },
       event_id: {
@@ -63,7 +63,7 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         leftJoin: [['contact_id','crm_contacts.id']]
       },
       form_id: {
-        column: 'crm_responses.form_id',
+        column: 'forms_responses.form_id',
         leftJoin: [['contact_id','crm_contacts.id']]
       },
       import_id: {
@@ -82,7 +82,7 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         leftJoin: [['customer_id', 'crm_contacts.id']]
       },
       sms_enrollment_id: {
-        column: 'crm_workflow_enrollments.sms_campaign_id',
+        column: 'automation_enrollments.sms_campaign_id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
       },
       tag_id: {
@@ -94,7 +94,7 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
         leftJoin: [['contact_id','crm_contacts.id']]
       },
       voice_enrollment_id: {
-        column: 'crm_workflow_enrollments.voice_campaign_id',
+        column: 'automation_enrollments.voice_campaign_id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
       }
     },

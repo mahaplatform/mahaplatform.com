@@ -84,7 +84,7 @@ const getTasks = ({ campaign }, { flash }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  audits: `/api/admin/crm_sms_campaigns/${props.params.id}/audits`,
+  audits: `/api/admin/campaigns_sms_campaigns/${props.params.id}/audits`,
   emails: `/api/admin/campaigns/sms/${props.params.id}/emails`,
   campaign: `/api/admin/campaigns/sms/${props.params.id}`
 })

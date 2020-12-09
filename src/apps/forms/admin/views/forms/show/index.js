@@ -59,7 +59,7 @@ new Maha.Forms.Form({
 }
 
 const mapResourcesToPage = (props, context) => ({
-  audits: `/api/admin/crm_forms/${props.params.id}/audits`,
+  audits: `/api/admin/forms_forms/${props.params.id}/audits`,
   form: `/api/admin/forms/forms/${props.params.id}`,
   workflows: `/api/admin/forms/forms/${props.params.id}/workflows`
 })

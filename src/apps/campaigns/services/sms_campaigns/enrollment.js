@@ -19,7 +19,7 @@ export const enrollInCampaign = async (req, params) => {
   // if(existing && workflow.get('is_unique')) return false
 
   const code = await generateCode(req, {
-    table: 'crm_workflow_enrollments'
+    table: 'automation_enrollments'
   })
 
   const enrollment = await WorkflowEnrollment.forge({

@@ -19,11 +19,11 @@ const listRoute = async (req, res) => {
 
   const smses = await Email.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (crm_email_campaigns.program_id,crm_emails.program_id,email_address_id) maha_emails.*'))
-      qb.leftJoin('crm_email_campaigns', 'crm_email_campaigns.id','maha_emails.email_campaign_id')
-      qb.leftJoin('crm_emails', 'crm_emails.id','maha_emails.email_id')
-      qb.whereRaw('(crm_email_campaigns.program_id=? or crm_emails.program_id=?)', [program.get('id'), program.get('id')])
-      qb.orderByRaw('crm_email_campaigns.program_id,crm_emails.program_id,email_address_id,created_at desc')
+      qb.select(req.trx.raw('distinct on (campaigns_email_campaigns.program_id,automation_emails.program_id,email_address_id) maha_emails.*'))
+      qb.leftJoin('campaigns_email_campaigns', 'campaigns_email_campaigns.id','maha_emails.email_campaign_id')
+      qb.leftJoin('automation_emails', 'automation_emails.id','maha_emails.email_id')
+      qb.whereRaw('(campaigns_email_campaigns.program_id=? or automation_emails.program_id=?)', [program.get('id'), program.get('id')])
+      qb.orderByRaw('campaigns_email_campaigns.program_id,automation_emails.program_id,email_address_id,created_at desc')
     },
     sort: {
       params: req.query.$sort,

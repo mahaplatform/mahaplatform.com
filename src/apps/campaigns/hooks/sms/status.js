@@ -37,11 +37,11 @@ const status = async (req, { sms, status, error_code }) => {
   }
 
   const enrollment = await WorkflowEnrollment.query(qb => {
-    qb.innerJoin('crm_sms_campaigns', 'crm_sms_campaigns.id', 'crm_workflow_enrollments.sms_campaign_id')
-    qb.where('crm_workflow_enrollments.phone_number_id', maha_phone_number.get('id'))
-    qb.where('crm_workflow_enrollments.contact_id', phone_number.get('contact_id'))
-    qb.whereNot('crm_workflow_enrollments.status', 'completed')
-    qb.whereRaw('crm_workflow_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
+    qb.innerJoin('campaigns_sms_campaigns', 'campaigns_sms_campaigns.id', 'automation_enrollments.sms_campaign_id')
+    qb.where('automation_enrollments.phone_number_id', maha_phone_number.get('id'))
+    qb.where('automation_enrollments.contact_id', phone_number.get('contact_id'))
+    qb.whereNot('automation_enrollments.status', 'completed')
+    qb.whereRaw('automation_enrollments.created_at >= ?', moment().subtract(2, 'hours'))
   }).fetch({
     transacting: req.trx
   })

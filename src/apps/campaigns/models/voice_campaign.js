@@ -7,7 +7,7 @@ import Program from '@apps/crm/models/program'
 
 const VoiceCampaign = new Model({
 
-  tableName: 'crm_voice_campaigns',
+  tableName: 'campaigns_voice_campaigns',
 
   rules: {},
 

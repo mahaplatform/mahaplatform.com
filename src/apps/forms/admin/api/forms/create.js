@@ -27,7 +27,7 @@ const createRoute = async (req, res) => {
   })
 
   const code = await generateCode(req, {
-    table: 'crm_forms'
+    table: 'forms_forms'
   })
 
   const generateFieldCode = () => {

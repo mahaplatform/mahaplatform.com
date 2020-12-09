@@ -18,11 +18,11 @@ const emailsRoute = async (req, res) => {
 
   const emails = await Email.filterFetch({
     scope: (qb) => {
-      qb.select('crm_emails.*','crm_email_results.*')
-      qb.innerJoin('crm_email_results','crm_email_results.email_id','crm_emails.id')
-      qb.where('crm_emails.sms_campaign_id', campaign.get('id'))
-      qb.where('crm_emails.team_id', req.team.get('id'))
-      qb.whereNull('crm_emails.deleted_at')
+      qb.select('automation_emails.*','automation_email_results.*')
+      qb.innerJoin('automation_email_results','automation_email_results.email_id','automation_emails.id')
+      qb.where('automation_emails.sms_campaign_id', campaign.get('id'))
+      qb.where('automation_emails.team_id', req.team.get('id'))
+      qb.whereNull('automation_emails.deleted_at')
     },
     filter: {
       params: req.query.$filter,

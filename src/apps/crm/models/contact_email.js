@@ -4,7 +4,7 @@ import Contact from './contact'
 
 const ContactEmail = new Model({
 
-  tableName: 'crm_contact_emails',
+  tableName: 'crm_emails',
 
   rules: {},
 

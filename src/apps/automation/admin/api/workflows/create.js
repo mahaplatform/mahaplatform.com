@@ -24,7 +24,7 @@ const createRoute = async (req, res) => {
   })
 
   const code = await generateCode(req, {
-    table: 'crm_workflows'
+    table: 'automation_workflows'
   })
 
   const workflow = await Workflow.forge({

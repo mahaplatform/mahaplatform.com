@@ -13,7 +13,7 @@ const getTasks = ({ workflow, list }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  audits: `/api/admin/crm_workflow_recordings/${props.params.id}/audits`,
+  audits: `/api/admin/automation_recordings/${props.params.id}/audits`,
   voicemail: `/api/admin/campaigns/voice/${props.params.campaign_id}/voicemails/${props.params.id}`
 })
 

@@ -5,7 +5,7 @@ import Contact from './contact'
 
 const ContactNote = new Model({
 
-  tableName: 'crm_contact_notes',
+  tableName: 'crm_notes',
 
   rules: {},
 

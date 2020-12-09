@@ -6,7 +6,7 @@ import Model from '@core/objects/model'
 
 const EmailCampaign = new Model({
 
-  tableName: 'crm_email_campaigns',
+  tableName: 'campaigns_email_campaigns',
 
   rules: {},
 

@@ -7,7 +7,7 @@ import Program from '@apps/crm/models/program'
 
 const SmsCampaign = new Model({
 
-  tableName: 'crm_sms_campaigns',
+  tableName: 'campaigns_sms_campaigns',
 
   rules: {},
 

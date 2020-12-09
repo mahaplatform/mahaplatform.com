@@ -13,7 +13,7 @@ const createWorkflow = async(req, params) => {
   const { list, topic, email_campaign, title, action, program_id } = params
 
   const workflowCode = await generateCode(req, {
-    table: 'crm_workflows'
+    table: 'automation_workflows'
   })
 
   const workflow = await Workflow.forge({

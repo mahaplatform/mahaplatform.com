@@ -16,15 +16,15 @@ const listRoute = async (req, res) => {
 
   const recordings = await WorkflowRecording.filterFetch({
     scope: (qb) => {
-      qb.innerJoin('crm_workflow_actions','crm_workflow_actions.id','crm_workflow_recordings.action_id')
-      qb.innerJoin('crm_workflow_steps','crm_workflow_steps.id','crm_workflow_actions.step_id')
-      qb.innerJoin('crm_workflow_enrollments','crm_workflow_enrollments.id','crm_workflow_actions.enrollment_id')
-      qb.innerJoin('crm_contacts','crm_contacts.id','crm_workflow_enrollments.contact_id')
-      qb.innerJoin('crm_voice_campaigns','crm_voice_campaigns.id','crm_workflow_enrollments.voice_campaign_id')
-      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_voice_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
-      qb.where('crm_workflow_recordings.team_id', req.team.get('id'))
-      qb.where('crm_voice_campaigns.program_id', req.params.program_id)
-      qb.where('crm_workflow_steps.action', 'voicemail')
+      qb.innerJoin('automation_actions','automation_actions.id','automation_recordings.action_id')
+      qb.innerJoin('automation_steps','automation_steps.id','automation_actions.step_id')
+      qb.innerJoin('automation_enrollments','automation_enrollments.id','automation_actions.enrollment_id')
+      qb.innerJoin('crm_contacts','crm_contacts.id','automation_enrollments.contact_id')
+      qb.innerJoin('campaigns_voice_campaigns','campaigns_voice_campaigns.id','automation_enrollments.voice_campaign_id')
+      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=campaigns_voice_campaigns.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+      qb.where('automation_recordings.team_id', req.team.get('id'))
+      qb.where('campaigns_voice_campaigns.program_id', req.params.program_id)
+      qb.where('automation_steps.action', 'voicemail')
     },
     aliases: {
       first_name: 'crm_contacts.first_name',

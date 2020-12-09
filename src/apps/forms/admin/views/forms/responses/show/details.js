@@ -58,7 +58,7 @@ const Details = ({ form, response }) => {
 
   }
 
-  list.footer = <Comments entity={`crm_responses/${response.id}`} />
+  list.footer = <Comments entity={`forms_responses/${response.id}`} />
 
   return <List { ...list } />
 

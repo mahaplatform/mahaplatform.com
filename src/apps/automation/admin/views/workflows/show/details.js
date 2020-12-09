@@ -101,7 +101,7 @@ const Details = ({ audits, workflow }) => {
 
   const config = {
     items,
-    footer: <Comments entity={`crm_workflows/${workflow.id}`} active={ workflow.deleted_at === null } />
+    footer: <Comments entity={`automation_workflows/${workflow.id}`} active={ workflow.deleted_at === null } />
   }
 
   if(workflow.deleted_at !== null) {

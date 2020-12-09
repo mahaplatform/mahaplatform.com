@@ -5,19 +5,19 @@ const listRoute = async (req, res) => {
 
   const workflows = await Workflow.filterFetch({
     scope: (qb) => {
-      qb.select('crm_workflows.*','crm_workflow_results.*')
-      qb.innerJoin('crm_workflow_results','crm_workflow_results.workflow_id','crm_workflows.id')
-      qb.joinRaw('inner join crm_programs on crm_programs.id=crm_workflows.program_id')
-      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_workflows.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
-      qb.where('crm_workflows.team_id', req.team.get('id'))
+      qb.select('automation_workflows.*','automation_workflow_results.*')
+      qb.innerJoin('automation_workflow_results','automation_workflow_results.workflow_id','automation_workflows.id')
+      qb.joinRaw('inner join crm_programs on crm_programs.id=automation_workflows.program_id')
+      qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=automation_workflows.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+      qb.where('automation_workflows.team_id', req.team.get('id'))
       qb.whereNull('deleted_at')
     },
     aliases: {
-      active_count: 'crm_workflow_results.active_count',
-      completed_count: 'crm_workflow_results.completed_count',
-      converted_count: 'crm_workflow_results.converted_count',
-      enrolled_count: 'crm_workflow_results.enrolled_count',
-      lost_count: 'crm_workflow_results.lost_count',
+      active_count: 'automation_workflow_results.active_count',
+      completed_count: 'automation_workflow_results.completed_count',
+      converted_count: 'automation_workflow_results.converted_count',
+      enrolled_count: 'automation_workflow_results.enrolled_count',
+      lost_count: 'automation_workflow_results.lost_count',
       program: 'crm_programs.title'
     },
     filter: {

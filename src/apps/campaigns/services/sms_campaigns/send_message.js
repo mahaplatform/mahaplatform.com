@@ -8,7 +8,7 @@ const sendMessage = async (req, params) => {
   const { sms_campaign_id, phone_number_id, contact_id } = params
 
   const code = await generateCode(req, {
-    table: 'crm_workflow_enrollments'
+    table: 'automation_enrollments'
   })
 
   const enrollment = await WorkflowEnrollment.forge({

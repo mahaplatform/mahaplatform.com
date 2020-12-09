@@ -17,9 +17,9 @@ const showRoute = async (req, res) => {
   })
 
   const form = await Form.query(qb => {
-    qb.select('crm_forms.*','crm_form_responses.num_responses')
-    qb.innerJoin('crm_form_responses','crm_form_responses.form_id','crm_forms.id')
-    qb.where('crm_forms.code', req.params.code)
+    qb.select('forms_forms.*','forms_form_totals.responses_count')
+    qb.innerJoin('forms_form_totals','forms_form_totals.form_id','forms_forms.id')
+    qb.where('forms_forms.code', req.params.code)
   }).fetch({
     withRelated: ['program.logo','team.logo'],
     transacting: req.trx

@@ -30,8 +30,8 @@ const getRecipientCount = async (req, { campaign }) => {
 const showRoute = async (req, res) => {
 
   const campaign = await SMSCampaign.query(qb => {
-    qb.select('crm_sms_campaigns.*','crm_sms_campaign_results.*')
-    qb.innerJoin('crm_sms_campaign_results','crm_sms_campaign_results.sms_campaign_id','crm_sms_campaigns.id')
+    qb.select('campaigns_sms_campaigns.*','campaigns_sms_campaign_results.*')
+    qb.innerJoin('campaigns_sms_campaign_results','campaigns_sms_campaign_results.sms_campaign_id','campaigns_sms_campaigns.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({

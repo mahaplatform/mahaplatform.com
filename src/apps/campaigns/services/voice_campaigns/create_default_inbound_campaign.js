@@ -7,7 +7,7 @@ import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 const createDefaultInboundCampaign = async (req, { phone_number, program }) => {
 
   const voice_code = await generateCode(req, {
-    table: 'crm_voice_campaigns'
+    table: 'campaigns_voice_campaigns'
   })
 
   const voice_campaign = await VoiceCampaign.forge({
@@ -24,7 +24,7 @@ const createDefaultInboundCampaign = async (req, { phone_number, program }) => {
   })
 
   const step_code = await generateCode(req, {
-    table: 'crm_workflow_steps'
+    table: 'automation_steps'
   })
 
   await WorkflowStep.forge({

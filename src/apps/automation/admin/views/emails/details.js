@@ -34,7 +34,7 @@ const Details = ({ audits, email }) => {
 
   list.items.push({ component: <Audit entries={ audits } /> })
 
-  list.footer = <Comments entity={`crm_emails/${email.id}`} active={ email.deleted_at === null } />
+  list.footer = <Comments entity={`automation_emails/${email.id}`} active={ email.deleted_at === null } />
 
   return <List { ...list } />
 

@@ -156,7 +156,7 @@ class Voicemail extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  audits: `/api/admin/crm_workflow_recordings/${props.voicemail_id}/audits`,
+  audits: `/api/admin/automation_recordings/${props.voicemail_id}/audits`,
   voicemail: {
     endpoint: `/api/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`,
     refresh: `/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`

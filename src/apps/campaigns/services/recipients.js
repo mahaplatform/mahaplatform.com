@@ -20,7 +20,7 @@ const getFilter = ({ filter, criteria }) => {
 
 const getRecipientsById = async (req, { contact_ids }) => ({
   scope: (qb) => {
-    qb.whereIn('crm_recipients.contact_id', contact_ids)
+    qb.whereIn('campaigns_recipients.contact_id', contact_ids)
   }
 })
 
@@ -66,81 +66,81 @@ const getRecipientsByCriteria = async (req, params) => {
       if(!filter || filter.$and.length === 0) qb.whereRaw('false')
     },
     aliases: {
-      contact_id: 'crm_recipients.contact_id',
+      contact_id: 'campaigns_recipients.contact_id',
       address: {
         column: 'crm_mailing_addresses.address',
-        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+        leftJoin: [['contact_id', 'campaigns_recipients.contact_id']]
       },
       street_1: {
         column: 'crm_mailing_addresses.address->\'street_1\'',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       city: {
         column: 'crm_mailing_addresses.address->\'city\'',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       state_province: {
         column: 'crm_mailing_addresses.address->\'state_province\'',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       postal_code: {
         column: 'crm_mailing_addresses.address->\'postal_code\'',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       county: {
         column: 'crm_mailing_addresses.address->\'county\'',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       email_campaign_id: {
         column: 'maha_emails.email_campaign_id',
-        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+        leftJoin: [['contact_id', 'campaigns_recipients.contact_id']]
       },
       email_id: {
         column: 'maha_emails.email_id',
-        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+        leftJoin: [['contact_id', 'campaigns_recipients.contact_id']]
       },
       enrollment_id: {
-        column: 'crm_workflow_enrollments.workflow_id',
-        leftJoin: [['contact_id', 'crm_recipients.contact_id']]
+        column: 'automation_enrollments.workflow_id',
+        leftJoin: [['contact_id', 'campaigns_recipients.contact_id']]
       },
       event_id: {
         column: 'events_registrations.event_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       form_id: {
-        column: 'crm_responses.form_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        column: 'forms_responses.form_id',
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       import_id: {
         column: 'maha_imports_import_items.import_id',
         leftJoin: [
           ['object_type','\'crm_contacts\''],
-          ['object_id','crm_recipients.contact_id']
+          ['object_id','campaigns_recipients.contact_id']
         ]
       },
       list_id: {
         column: 'crm_subscriptions.list_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       product_id: {
         column: 'finance_customer_products.product_id',
-        leftJoin: [['customer_id', 'crm_recipients.contact_id']]
+        leftJoin: [['customer_id', 'campaigns_recipients.contact_id']]
       },
       sms_enrollment_id: {
-        column: 'crm_workflow_enrollments.sms_campaign_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        column: 'automation_enrollments.sms_campaign_id',
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       tag_id: {
         column: 'crm_taggings.tag_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       topic_id: {
         column: 'crm_interests.topic_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       },
       voice_enrollment_id: {
-        column: 'crm_workflow_enrollments.voice_campaign_id',
-        leftJoin: [['contact_id','crm_recipients.contact_id']]
+        column: 'automation_enrollments.voice_campaign_id',
+        leftJoin: [['contact_id','campaigns_recipients.contact_id']]
       }
     },
     allowed: ['tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','list_id','topic_id','email_id','email_campaign_id','form_id','import_id'],
@@ -246,9 +246,9 @@ export const getRecipients = async (req, params) => {
 
   return await Recipient.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('distinct on (crm_recipients.contact_id,crm_recipients.email_address_id,crm_recipients.phone_number_id,crm_recipients.mailing_address_id,crm_contacts.last_name) crm_recipients.*'))
-      qb.innerJoin('crm_contacts','crm_contacts.id','crm_recipients.contact_id')
-      qb.where('crm_recipients.team_id', req.team.get('id'))
+      qb.select(req.trx.raw('distinct on (campaigns_recipients.contact_id,campaigns_recipients.email_address_id,campaigns_recipients.phone_number_id,campaigns_recipients.mailing_address_id,crm_contacts.last_name) campaigns_recipients.*'))
+      qb.innerJoin('crm_contacts','crm_contacts.id','campaigns_recipients.contact_id')
+      qb.where('campaigns_recipients.team_id', req.team.get('id'))
       qb.where('type', type)
       qb.where('purpose', purpose)
       qb.orderBy('crm_contacts.last_name','asc')
@@ -266,11 +266,11 @@ export const getRecipients = async (req, params) => {
       last_name: 'crm_contacts.last_name',
       email: {
         column: 'crm_email_addresses.address',
-        leftJoin: [['id','crm_recipients.email_address_id']]
+        leftJoin: [['id','campaigns_recipients.email_address_id']]
       },
       phone: {
         column: 'crm_phone_numbers.number',
-        leftJoin: [['id','crm_recipients.phone_number_id']]
+        leftJoin: [['id','campaigns_recipients.phone_number_id']]
       },
       ...args.aliases || {}
     },

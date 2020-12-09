@@ -46,7 +46,7 @@ const Details = ({ audits, campaign }) => {
 
   config.items.push({ component: <Audit entries={ audits } /> })
 
-  config.footer = <Comments entity={`crm_email_campaigns/${campaign.id}`} />
+  config.footer = <Comments entity={`campaigns_email_campaigns/${campaign.id}`} />
 
   return <List { ...config } />
 

@@ -25,7 +25,7 @@ const createRoute = async (req, res) => {
   })
 
   const code = await generateCode(req, {
-    table: 'crm_voice_campaigns'
+    table: 'campaigns_voice_campaigns'
   })
 
   const voice_campaign = await VoiceCampaign.forge({

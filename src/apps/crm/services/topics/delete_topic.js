@@ -10,7 +10,7 @@ const deleteTopic = async (req, { topic }) => {
 
   await req.trx('crm_interests').where('topic_id', topic.get('id')).del()
 
-  await req.trx('crm_workflow_steps').where(qb => {
+  await req.trx('automation_steps').where(qb => {
     qb.where('action', 'topic')
     qb.whereRaw('(config->\'topic_id\')::int=?', topic.get('id'))
   }).update({

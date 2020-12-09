@@ -13,7 +13,7 @@ const createConfirmationWorkflow = async(req, params) => {
   const { form, event, program_id, reply_to, template_id, sender_id, store, subject, trigger_type } = params
 
   const workflowCode = await generateCode(req, {
-    table: 'crm_workflows'
+    table: 'automation_workflows'
   })
 
   const workflow = await Workflow.forge({
@@ -44,7 +44,7 @@ const createConfirmationWorkflow = async(req, params) => {
   }) : null
 
   const emailCode = await generateCode(req, {
-    table: 'crm_emails'
+    table: 'automation_emails'
   })
 
   const email = await Email.forge({
@@ -74,7 +74,7 @@ const createConfirmationWorkflow = async(req, params) => {
   })
 
   const stepCode = await generateCode(req, {
-    table: 'crm_workflow_steps'
+    table: 'automation_steps'
   })
 
   await WorkflowStep.forge({

@@ -34,7 +34,7 @@ const createRoute = async (req, res) => {
   }) : null
 
   const emailCode = await generateCode(req, {
-    table: 'crm_emails'
+    table: 'automation_emails'
   })
 
   const email = await Email.forge({

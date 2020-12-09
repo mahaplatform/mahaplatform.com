@@ -6,7 +6,7 @@ import Contact from '@apps/crm/models/contact'
 
 const Recipient = new Model({
 
-  tableName: 'crm_recipients',
+  tableName: 'campaigns_recipients',
 
   rules: {},
 

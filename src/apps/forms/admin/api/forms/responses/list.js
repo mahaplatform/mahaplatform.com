@@ -20,11 +20,11 @@ const listRoute = async (req, res) => {
 
   const responses = await Response.filterFetch({
     scope: (qb) => {
-      qb.select('crm_responses.*','crm_response_totals.*')
-      qb.innerJoin('crm_response_totals','crm_response_totals.response_id','crm_responses.id')
-      qb.innerJoin('crm_contacts','crm_contacts.id','crm_responses.contact_id')
-      qb.where('crm_responses.team_id', req.team.get('id'))
-      qb.where('crm_responses.form_id', form.get('id'))
+      qb.select('forms_responses.*','crm_response_totals.*')
+      qb.innerJoin('crm_response_totals','crm_response_totals.response_id','forms_responses.id')
+      qb.innerJoin('crm_contacts','crm_contacts.id','forms_responses.contact_id')
+      qb.where('forms_responses.team_id', req.team.get('id'))
+      qb.where('forms_responses.form_id', form.get('id'))
     },
     aliases: {
       first_name: 'crm_contacts.first_name',
@@ -33,7 +33,7 @@ const listRoute = async (req, res) => {
       revenue: 'crm_response_totals.revenue',
       ...form.get('config').fields.reduce((aliases, field) => ({
         ...aliases,
-        [field.code]: `crm_responses.data->>'${field.code}'`
+        [field.code]: `forms_responses.data->>'${field.code}'`
       }), {})
     },
     filter: {

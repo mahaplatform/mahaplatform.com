@@ -32,7 +32,7 @@ const getTasks = ({ email }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  audits: `/api/admin/crm_emails/${props.params.id}/audits`,
+  audits: `/api/admin/automation_emails/${props.params.id}/audits`,
   email: `/api/admin/automation/emails/${props.params.id}`
 })
 

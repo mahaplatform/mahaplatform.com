@@ -13,7 +13,7 @@ import Workflow from './workflow'
 
 const WorkflowAction = new Model({
 
-  tableName: 'crm_workflow_actions',
+  tableName: 'automation_actions',
 
   rules: {},
 

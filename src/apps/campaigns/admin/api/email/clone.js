@@ -23,7 +23,7 @@ const cloneRoute = async (req, res) => {
   })
 
   const code = await generateCode(req, {
-    table: 'crm_email_campaigns'
+    table: 'campaigns_email_campaigns'
   })
 
   const cloned = await EmailCampaign.forge({
