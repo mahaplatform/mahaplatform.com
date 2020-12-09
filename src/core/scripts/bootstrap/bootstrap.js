@@ -111,20 +111,20 @@ export const bootstrap = async () => {
     { table: 'maha_users_notification_types', key: 'notification_type_id' }
   ])
 
-  // const admins = await knex('maha_roles').where('type', 'admin')
-  //
-  // const rights = await bootstrapType('rights', 'rights.js', 'maha_rights', [
-  //   { table: 'maha_roles_rights', key: 'right_id' }
-  // ])
-  //
-  // await Promise.mapSeries(rights.added, async (right) => {
-  //   await Promise.mapSeries(admins, async (role) => {
-  //     await knex('maha_roles_rights').insert({
-  //       role_id: role.id,
-  //       right_id: right.id
-  //     })
-  //   })
-  // })
+  const admins = await knex('maha_roles').where('type', 'admin')
+
+  const rights = await bootstrapType('rights', 'rights.js', 'maha_rights', [
+    { table: 'maha_roles_rights', key: 'right_id' }
+  ])
+
+  await Promise.mapSeries(rights.added, async (right) => {
+    await Promise.mapSeries(admins, async (role) => {
+      await knex('maha_roles_rights').insert({
+        role_id: role.id,
+        right_id: right.id
+      })
+    })
+  })
 
   await bootstrapType('dashboard', 'dashboard/index.js', 'maha_dashboard_card_types', [
     { table: 'maha_dashboard_cards', key: 'type_id' }

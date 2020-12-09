@@ -16,6 +16,7 @@ class Apps extends React.Component {
     path: PropTypes.array,
     rights: PropTypes.array,
     state: PropTypes.string,
+    teams: PropTypes.object,
     team: PropTypes.object,
     title: PropTypes.string,
     onBack: PropTypes.func,
@@ -29,7 +30,7 @@ class Apps extends React.Component {
   _handleForward = _.debounce(this._handleForward.bind(this), 300, { leading: true })
 
   render() {
-    const { path, team } = this.props
+    const { path, teams, team } = this.props
     const { items, label } = this._getItems(this.props.items, path)
     return (
       <TransitionGroup>
@@ -43,9 +44,11 @@ class Apps extends React.Component {
                 <div className="maha-navigation-header-team">
                   { team.title }
                 </div>
-                <div className="maha-navigation-header-next">
-                  <i className="fa fa-chevron-up" />
-                </div>
+                { teams.length > 1 &&
+                  <div className="maha-navigation-header-next">
+                    <i className="fa fa-chevron-up" />
+                  </div>
+                }
               </div> :
               <div className="maha-navigation-header" onClick={ this._handleBack }>
                 <div className="maha-navigation-header-back">
@@ -108,6 +111,8 @@ class Apps extends React.Component {
   }
 
   _handleToggleMode() {
+    const { teams } = this.props
+    if(teams.length === 1) return
     this.props.onToggleMode()
   }
 
