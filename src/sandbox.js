@@ -3,6 +3,7 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 // import knex from './core/vendor/knex'
+import { createRecords, deleteRecords, createZone, deleteZone } from '@core/services/aws/route53'
 
 const processor = async () => {
   // await knex.transaction(async(trx) => {
@@ -12,6 +13,7 @@ const processor = async () => {
   // const zone = await createZone(req, {
   //   name: 'ccetompkins.org'
   // })
+  })
 
 }
 

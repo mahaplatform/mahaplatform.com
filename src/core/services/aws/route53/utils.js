@@ -7,6 +7,16 @@ const getARecord = ({ name, value }) => ({
   Type: 'A'
 })
 
+const getALIASRecord = ({ name, value }) => ({
+  AliasTarget: {
+    DNSName: value,
+    EvaluateTargetHealth: false,
+    HostedZoneId: 'Z2FDTNDATAQYW2'
+  },
+  Name: name,
+  Type: 'A'
+})
+
 const getCNAMERecord = ({ name, value }) => ({
   Name: name,
   ResourceRecords: [
@@ -18,5 +28,6 @@ const getCNAMERecord = ({ name, value }) => ({
 
 export const getRecordType = (record) => {
   if(record.type === 'A') return getARecord(record)
+  if(record.type === 'ALIAS') return getALIASRecord(record)
   if(record.type === 'CNAME') return getCNAMERecord(record)
 }
