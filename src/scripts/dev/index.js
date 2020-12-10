@@ -1,7 +1,7 @@
 import '../../core/services/environment'
 import { bootstrap } from '../../core/scripts/bootstrap/bootstrap'
-import desktopConfig from '../../desktop/config/webpack.config'
-import mobileConfig from '../../mobile/config/webpack.config'
+// import desktopConfig from '../../desktop/config/webpack.config'
+// import mobileConfig from '../../mobile/config/webpack.config'
 import adminConfig from './webpack.admin.config'
 import sdkConfig from './webpack.sdk.config'
 import webpackConfig from './webpack.config'
@@ -223,8 +223,8 @@ export const dev = async () => {
   await bootstrap()
   await connectNgrok()
   if(_.includes(services, 'server')) await serverWatch()
-  if(_.includes(services, 'desktop')) await desktopWatch()
-  if(_.includes(services, 'mobile')) await mobileWatch()
+  // if(_.includes(services, 'desktop')) await desktopWatch()
+  // if(_.includes(services, 'mobile')) await mobileWatch()
   if(_.includes(services, 'web')) await webWatch()
   if(_.includes(services, 'sdk')) await sdkWatch()
   if(_.includes(services, 'admin')) await adminWatch()

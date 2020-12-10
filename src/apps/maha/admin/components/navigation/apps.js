@@ -16,7 +16,7 @@ class Apps extends React.Component {
     path: PropTypes.array,
     rights: PropTypes.array,
     state: PropTypes.string,
-    teams: PropTypes.object,
+    teams: PropTypes.array,
     team: PropTypes.object,
     title: PropTypes.string,
     onBack: PropTypes.func,

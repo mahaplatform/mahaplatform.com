@@ -135,6 +135,7 @@ import automationRoutes from '../../apps/automation/admin/views/index.js'
 import campaignsRoutes from '../../apps/campaigns/admin/views/index.js'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
 import crmRoutes from '../../apps/crm/admin/views/index.js'
+import datasetsRoutes from '../../apps/datasets/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
 import eventsRoutes from '../../apps/events/admin/views/index.js'
@@ -151,6 +152,7 @@ import storesRoutes from '../../apps/stores/admin/views/index.js'
 import surveysRoutes from '../../apps/surveys/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import trainingRoutes from '../../apps/training/admin/views/index.js'
+import websitesRoutes from '../../apps/websites/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
 import phoneBadges from '../../apps/phone/admin/badges/index.js'
@@ -477,6 +479,7 @@ class App extends React.Component {
       { path: '/:team/campaigns', children: campaignsRoutes },
       { path: '/:team/chat', children: chatRoutes },
       { path: '/:team/crm', children: crmRoutes },
+      { path: '/:team/datasets', children: datasetsRoutes },
       { path: '/:team/drive', children: driveRoutes },
       { path: '/:team/eatfresh', children: eatfreshRoutes },
       { path: '/:team/events', children: eventsRoutes },
@@ -494,6 +497,7 @@ class App extends React.Component {
       { path: '/:team/surveys', children: surveysRoutes },
       { path: '/:team/team', children: teamRoutes },
       { path: '/:team/training', children: trainingRoutes },
+      { path: '/:team/websites', children: websitesRoutes },
       { path: '/forbidden', component: Forbidden },
       { path: '/*', component: NotFound }
     ]

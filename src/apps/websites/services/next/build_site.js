@@ -23,8 +23,6 @@ const silent = async (method) => {
 
 const buildSite = async(req, params) => {
 
-  console.log('here')
-
   const buildhash = moment().format('x')
 
   const indir = params.path

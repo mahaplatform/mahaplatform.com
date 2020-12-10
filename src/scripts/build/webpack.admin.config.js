@@ -8,6 +8,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
+import babel from './babel'
 import path from 'path'
 
 const gitRevisionPlugin = new GitRevisionPlugin()
@@ -44,7 +45,7 @@ const webpackConfig = {
         exclude: /node_modules/,
         options: {
           cacheDirectory: true,
-          presets: ['es2015', 'react', 'stage-0']
+          ...babel
         }
       }
     ]

@@ -1,4 +1,4 @@
-import { transform } from 'babel-core'
+import { transform } from '@babel/core'
 import path from 'path'
 import fs from 'fs'
 

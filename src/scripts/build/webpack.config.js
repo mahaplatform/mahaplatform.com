@@ -5,6 +5,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
+import babel from './babel'
 import path from 'path'
 import fs from 'fs'
 
@@ -40,7 +41,7 @@ const webpackConfig = (app, name, root, port) => ({
         exclude: /node_modules/,
         options: {
           cacheDirectory: true,
-          presets: ['es2015', 'react', 'stage-0']
+          ...babel
         }
       }
     ]

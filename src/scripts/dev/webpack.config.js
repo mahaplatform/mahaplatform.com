@@ -2,6 +2,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
+import babel from './babel'
 import path from 'path'
 import fs from 'fs'
 
@@ -37,8 +38,7 @@ const webpackConfig = (app, name, root, port) => ({
         loader: 'babel-loader',
         options: {
           cacheDirectory: true,
-          plugins: ['react-hot-loader/babel'],
-          presets: ['es2015', 'react', 'stage-0']
+          ...babel
         }
       }
     ]

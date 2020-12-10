@@ -1,11 +1,5 @@
 import '../core/services/environment'
 import db from '../core/scripts/db/db'
-import register from 'babel-register'
-import fs from 'fs'
-
-const babelrc = JSON.parse(fs.readFileSync('.babelrc'))
-
-register(babelrc)
 
 const processor = async () => {
 

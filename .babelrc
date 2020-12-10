@@ -1,12 +1,15 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "stage-0"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
+    "@babel/plugin-transform-modules-commonjs",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
     "transform-promise-to-bluebird",
-    ["transform-runtime", { "polyfill": false }],
     ["module-resolver", {
       "alias": {
         "@admin": "./src/admin",

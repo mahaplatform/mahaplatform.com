@@ -93,7 +93,7 @@ class Menu extends React.Component {
     }
   }
 
-  _handleChoose(index: number): void {
+  _handleChoose(index) {
     const { onChoose } = this.props
     const visited = _.uniq([ ...this.state.visited, index ])
     this.setState({ visited, transitioning: true })
