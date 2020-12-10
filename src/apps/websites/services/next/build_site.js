@@ -1,9 +1,9 @@
-const next_build = require('next/dist/build').default
-const next_export = require('next/dist/export').default
-const move  = require('move-concurrently')
-const mkdirp = require('mkdirp')
-const moment = require('moment')
-const path = require('path')
+import next_build from 'next/dist/build'
+import next_export from 'next/dist/export'
+import move from 'move-concurrently'
+import mkdirp from 'mkdirp'
+import moment from 'moment'
+import path from 'path'
 
 const silent = async (method) => {
 
@@ -21,11 +21,13 @@ const silent = async (method) => {
 
 }
 
-const processor = async() => {
+const buildSite = async(req, params) => {
+
+  console.log('here')
 
   const buildhash = moment().format('x')
 
-  const indir = path.resolve('site1')
+  const indir = params.path
 
   const outdir = path.resolve(indir,'out')
 
@@ -48,13 +50,6 @@ const processor = async() => {
     await move(path.join(builddir,'_next'), path.join(outdir,'_next'))
 
   })
-
-}
-
-processor().then(process.exit)
-
-
-const buildSite = async () => {
 
 }
 

@@ -1,1 +1,1 @@
-export buildSite from 'build_site'
+export buildSite from './build_site'
