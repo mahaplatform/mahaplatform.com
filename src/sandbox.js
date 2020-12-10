@@ -3,26 +3,15 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 // import knex from './core/vendor/knex'
-import { acm } from '@core/vendor/aws'
-
-const requestCertificate = async (req, { domain }) => {
-  const result = await acm.requestCertificate({
-    DomainName: domain,
-    ValidationMethod: 'EMAIL',
-    SubjectAlternativeNames: [
-      `www.${domain}`
-    ]
-  }).promise()
-  console.log(result.CertificateArn)
-}
 
 const processor = async () => {
   // await knex.transaction(async(trx) => {
   // })
   const req = {}
-  await requestCertificate(req, {
-    domain: 'thinktopography.com'
-  })
+
+  // const zone = await createZone(req, {
+  //   name: 'ccetompkins.org'
+  // })
 
 }
 

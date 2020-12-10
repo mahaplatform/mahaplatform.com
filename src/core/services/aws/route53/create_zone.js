@@ -9,7 +9,7 @@ const createZone = async (req, { name }) => {
   }).promise()
 
   return {
-    aws_zone_id: result.Id
+    aws_zone_id: result.HostedZone.Id.replace('/hostedzone/', '')
   }
 
 }
