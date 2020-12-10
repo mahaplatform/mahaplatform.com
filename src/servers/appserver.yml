@@ -16,8 +16,8 @@
 - hosts: appservers
   become: yes
   vars:
-    node_major: 8
-    node_minor: 14
+    node_major: 10
+    node_minor: 23
     node_patch: 0
   roles:
   - base

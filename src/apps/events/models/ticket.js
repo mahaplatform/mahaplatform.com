@@ -9,7 +9,13 @@ const Ticket = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    eticket() {
+      return `${process.env.WEB_HOST}/events/tickets/${this.get('code')}`
+    }
+
+  },
 
   attendings() {
     return this.hasMany(Attending, 'session_id')

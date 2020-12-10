@@ -13,7 +13,7 @@ const getTabs = ({ attendings, event, ticket }) => ({
 
 const getTasks = ({ attendings, event, ticket }) => ({
   items: [
-    { label: 'View eTicket', link: `/events/${event.code}/tickets/${ticket.code}`}
+    { label: 'View eTicket', link: ticket.eticket }
   ]
 })
 

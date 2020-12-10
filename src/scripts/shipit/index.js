@@ -42,10 +42,15 @@ const processor = async () => {
     }
   }).filter(instance => {
     return _.intersection(['webserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
+  }).sort((a,b) => {
+    return a.host < b.host ? -1 : 1
   })
 
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
   servers[controller].roles.push('controller')
+
+  const cron = servers.findIndex(server => server.roles[0] === 'worker')
+  servers[cron].roles.push('cron')
 
   servers.map(server => {
     console.log(`${server.host} [${server.roles}]`)

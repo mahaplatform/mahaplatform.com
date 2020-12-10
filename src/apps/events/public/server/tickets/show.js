@@ -9,7 +9,6 @@ const showRoute = async (req, res) => {
   const ticket = await Ticket.query(qb => {
     qb.innerJoin('events_registrations','events_registrations.id','events_tickets.registration_id')
     qb.innerJoin('events_events','events_events.id','events_registrations.event_id')
-    qb.where('events_events.code', req.params.event_code)
     qb.where('events_tickets.code', req.params.code)
   }).fetch({
     withRelated: ['registration.event.image', 'registration.event.sessions', 'registration.event.program.logo', 'team'],

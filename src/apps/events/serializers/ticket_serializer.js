@@ -5,6 +5,7 @@ const TicketSerializer = (req, result) => ({
   is_checked: result.get('is_checked'),
   ticket_type: ticket_type(result.related('ticket_type')),
   is_paid: result.get('is_paid'),
+  eticket: result.get('eticket'),
   values: result.get('values'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

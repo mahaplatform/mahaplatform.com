@@ -12,6 +12,6 @@ router.get('/:code.ics', ics)
 
 router.get('/:code', show)
 
-router.use('/:event_code/tickets', tickets)
+router.use('/tickets', tickets)
 
 export default router
