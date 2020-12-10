@@ -15,7 +15,66 @@ const createDistibution = async (req, params) => {
           ...aliases || []
         ]
       },
-      DefaultRootObject: 'index.html',
+      CacheBehaviors: {
+        Quantity: 2,
+        Items: [
+          {
+            PathPattern: '_next*',
+            TargetOriginId: `S3-${name}`,
+            ViewerProtocolPolicy: 'https-only',
+            AllowedMethods: {
+              Quantity: 2,
+              Items: ['GET','HEAD']
+            },
+            Compress: true,
+            TrustedSigners: {
+              Enabled: false,
+              Quantity: 0,
+              Items: []
+            },
+            ForwardedValues: {
+              QueryString: false,
+              Cookies: {
+                Forward: 'none'
+              },
+              Headers: {
+                Quantity: 1,
+                Items: [ 'Origin' ]
+              }
+            },
+            MinTTL: 0,
+            MaxTTL: 31536000,
+            DefaultTTL: 86400
+          }, {
+            PathPattern: 'static*',
+            TargetOriginId: `S3-${name}`,
+            ViewerProtocolPolicy: 'https-only',
+            AllowedMethods: {
+              Quantity: 2,
+              Items: ['GET','HEAD']
+            },
+            Compress: true,
+            TrustedSigners: {
+              Enabled: false,
+              Quantity: 0,
+              Items: []
+            },
+            ForwardedValues: {
+              QueryString: false,
+              Cookies: {
+                Forward: 'none'
+              },
+              Headers: {
+                Quantity: 1,
+                Items: [ 'Origin' ]
+              }
+            },
+            MinTTL: 0,
+            MaxTTL: 31536000,
+            DefaultTTL: 86400
+          }
+        ]
+      },
       Origins: {
         Quantity: 1,
         Items: [
@@ -27,34 +86,34 @@ const createDistibution = async (req, params) => {
               HTTPPort: '80',
               HTTPSPort: '443',
               OriginProtocolPolicy: 'http-only'
-            },
-            ConnectionAttempts: 3,
-            ConnectionTimeout: 10
+            }
           }
         ]
       },
       DefaultCacheBehavior: {
         TargetOriginId: `S3-${name}`,
-        TrustedKeyGroups: {
-          Quantity: 0,
-          Enabled: false
-        },
         ViewerProtocolPolicy: 'redirect-to-https',
         AllowedMethods: {
           Quantity: 2,
           Items: ['GET','HEAD']
         },
-        SmoothStreaming: false,
         Compress: true,
+        TrustedSigners: {
+          Enabled: false,
+          Quantity: 0,
+          Items: []
+        },
         ForwardedValues: {
           QueryString: false,
           Cookies: {
             Forward: 'none'
+          },
+          Headers: {
+            Quantity: 1,
+            Items: [ 'Origin' ]
           }
         },
-        MinTTL: 0,
-        MaxTTL: 31536000,
-        DefaultTTL: 86400
+        MinTTL: 0
       },
       CustomErrorResponses: {
         Quantity: 2,
@@ -83,8 +142,12 @@ const createDistibution = async (req, params) => {
     }
   }).promise()
 
+  await cloudfront.waitFor('distributionDeployed', {
+    Id: distribution.Id
+  }).promise()
+
   return {
-    id: distribution.id
+    aws_cloudfront_id: distribution.Id
   }
 
 }

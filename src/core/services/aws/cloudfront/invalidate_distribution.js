@@ -9,9 +9,13 @@ const createDistibution = async (req, { aws_cloudfront_id, paths }) => {
       CallerReference: moment().format('x'),
       Paths: {
         Quantity: paths.length,
-        Items: parths
+        Items: paths
       }
     }
+  }).promise()
+
+  await cloudfront.waitFor('invalidationCompleted', {
+    Id: aws_cloudfront_id
   }).promise()
 
 }
