@@ -2,7 +2,7 @@ version: 2.1
 executors:
   node-postgres:
     docker:
-      - image: circleci/node:8.14.0
+      - image: circleci/node:14.15.1
         environment:
             DATABASE_URL: postgresql://root@localhost/circle_test
       - image: circleci/postgres:10-alpine-ram
