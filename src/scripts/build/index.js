@@ -3,8 +3,8 @@ import adminConfig from './webpack.admin.config'
 import webpackConfig from './webpack.config'
 import sdkConfig from './webpack.sdk.config'
 import apps from '../../core/utils/apps'
+import { transform } from '@babel/core'
 import log from '../../core/utils/log'
-import { transform } from 'babel-core'
 import move from 'move-concurrently'
 import webpack from 'webpack'
 import env from '../env/env'
@@ -32,14 +32,21 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
 }, [])
 
 const getBabelRc = (root) => {
-  const file = path.join('.babelrc')
-  const config = fs.readFileSync(file, 'utf8')
-  const babelrc = JSON.parse(config)
-  const alias = babelrc.plugins[2][1].alias
-  babelrc.plugins[2][1].alias = Object.keys(alias).reduce((aliases, key) => ({
-    ...aliases,
-    [key]: alias[key].replace('./src', root)
-  }), {})
+  const file = path.resolve('src','core','utils','babel.config.js')
+  const babelrc = require(file)
+  babelrc.plugins = babelrc.plugins.map(plugin => {
+    if(typeof(plugin) === 'string') return plugin
+    if(plugin[0] !== 'module-resolver') return plugin
+    return [
+      'module-resolver',
+      {
+        alias: Object.keys(plugin[1].alias).reduce((aliases, key) => ({
+          ...aliases,
+          [key]: plugin[1].alias[key].replace('./src', root)
+        }), {})
+      }
+    ]
+  })
   return {
     ...babelrc,
     sourceMaps: 'inline'
@@ -150,14 +157,6 @@ const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiled successfully.')
 }
 
-const buildWeb = async(environment) => {
-  log('info', 'web', 'Compiling...')
-  await copy(path.join('src','web'), path.join(staged,'web'), {
-    filter: (file) => file.search('node_modules') < 0
-  })
-  log('info', 'web', 'Compiled successfully.')
-}
-
 const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
   await env(path.join(staged, 'platform'), environment)
@@ -181,7 +180,6 @@ const build = async () => {
   mkdirp.sync(path.join(staged,'platform','public'))
   await Promise.all([
     buildServer(environment, babelrc),
-    buildWeb(),
     buildSdk(),
     buildEnv(environment),
     buildAdmin(environment)
