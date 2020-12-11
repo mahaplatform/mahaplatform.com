@@ -35,7 +35,6 @@ const processor = async () => {
       [tag.Key]: tag.Value
     }), {})
     return {
-      env: tags.Env || 'production',
       user: 'centos',
       host: tags.Name,
       port: 22,
@@ -45,8 +44,6 @@ const processor = async () => {
     return _.intersection(['webserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
   }).sort((a,b) => {
     return a.host < b.host ? -1 : 1
-  }).filter(instance => {
-    return instance.env === 'test'
   })
 
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
