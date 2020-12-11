@@ -16,9 +16,9 @@
 - hosts: appservers
   become: yes
   vars:
-    node_major: 10
-    node_minor: 23
-    node_patch: 0
+    node_major: 14
+    node_minor: 15
+    node_patch: 1
   roles:
   - base
   - ntpd

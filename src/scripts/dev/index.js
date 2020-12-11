@@ -50,7 +50,8 @@ const serverWatch = async () => {
     '--color',
     '--quiet',
     '--exec',
-    'babel-node'
+    'babel-node',
+    '--config-file=./src/core/utils/babel.config.js'
   ]
   nodemon.push('--watch')
   nodemon.push(path.resolve('src','apps'))

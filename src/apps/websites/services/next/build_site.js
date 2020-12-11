@@ -7,17 +7,17 @@ import path from 'path'
 
 const silent = async (method) => {
 
-  const consolebak = console.log
-
-  console.log = function() {}
-
-  process.stdout.isTTY = false
+  // const consolebak = console.log
+  //
+  // console.log = function() {}
+  //
+  // process.stdout.isTTY = false
 
   await method()
 
-  console.log = consolebak
-
-  process.stdout.isTTY = true
+  // console.log = consolebak
+  //
+  // process.stdout.isTTY = true
 
 }
 

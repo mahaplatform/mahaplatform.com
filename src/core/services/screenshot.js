@@ -1,6 +1,6 @@
-import webshot from 'webshot'
+import webshot from 'node-webshot'
 
-export const getScreenshot = async({ config, html }) => {
+const getScreenshot = async({ config, html }) => {
   return await new Promise((resolve, reject) => {
     const ws = webshot(html, {
       siteType:'html',
@@ -18,3 +18,5 @@ export const getScreenshot = async({ config, html }) => {
     ws.on('end', () => resolve(Buffer.concat(buffer)))
   })
 }
+
+export default getScreenshot
