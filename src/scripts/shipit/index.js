@@ -45,8 +45,6 @@ const processor = async () => {
     return _.intersection(['webserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
   }).sort((a,b) => {
     return a.host < b.host ? -1 : 1
-  }).filter(instance => {
-    return instance.env === 'test'
   })
 
   const controller = servers.findIndex(server => server.roles[0] === 'appserver')
@@ -178,22 +176,10 @@ const processor = async () => {
     })
   })
 
-  utils.registerTask(shipit, 'deploy:install', [
-    'deploy:install_platform',
-    'deploy:install_web'
-  ])
-
-  utils.registerTask(shipit, 'deploy:install_platform', async () => {
+  utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
       roles: ['appserver','cron','worker'],
       cwd: path.join(releaseDir, 'platform')
-    })
-  })
-
-  utils.registerTask(shipit, 'deploy:install_web', async () => {
-    await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
-      roles: ['webserver'],
-      cwd: path.join(releaseDir, 'web')
     })
   })
 
@@ -201,6 +187,7 @@ const processor = async () => {
     const commands = [
       `ln -s ${sharedDir}/logs ${platformDir}/logs`,
       `ln -s ${sharedDir}/tmp ${platformDir}/tmp`,
+      `ln -s ${sharedDir}/web ${platformDir}/web`,
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {

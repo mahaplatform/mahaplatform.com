@@ -25,7 +25,7 @@ export const getIntegrationTask = (integration, team, context, type, code) => {
       color: 'violet',
       text: 'Export',
       confirm: `Are you sure you want to export this ${type}?`,
-      modal: <Export type="expense" filter={{ $and: [{code: { $eq: code }}] }} />
+      modal: <Export type="expense" filter={{ $and: [{code: { $eq: code }}] }} onSuccess={ onSuccess }  />
     }]
   }
 

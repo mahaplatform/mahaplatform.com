@@ -29,6 +29,7 @@
   with_items:
     - /var/www/maha/shared/tmp
     - /var/www/maha/shared/imagecache
+    - /var/www/maha/shared/web
     - /var/www/maha/shared/logs
 
 - name: create temp release
