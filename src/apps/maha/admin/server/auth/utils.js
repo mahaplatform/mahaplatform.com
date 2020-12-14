@@ -28,8 +28,6 @@ export const result = (req, res) => async (err, account, info) => {
 
 const success = async (req, res) => {
 
-  const account =
-
   res.status(200).type('text/html').render('success', {
     token: createUserToken(req.account, 'account_id')
   })

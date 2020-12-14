@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "env": {
     "browser": true,
     "commonjs": true,
@@ -17,7 +17,10 @@
       "experimentalObjectRestSpread": true,
       "jsx": true
     },
-    "sourceType": "module"
+    "sourceType": "module",
+    "babelOptions": {
+      "configFile": "./src/core/utils/babel.config.js"
+    }
   },
   "plugins": [
     "react"
