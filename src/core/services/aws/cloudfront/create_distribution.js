@@ -3,7 +3,9 @@ import moment from 'moment'
 
 const createDistibution = async (req, params) => {
 
-  const { name, aliases, aws_certificate_arn } = params
+  const { code, aliases, aws_certificate_arn } = params
+
+  const name = `${code}.mahaplatform.com`
 
   const distribution = await cloudfront.createDistribution({
     DistributionConfig: {
@@ -16,11 +18,38 @@ const createDistibution = async (req, params) => {
         ]
       },
       CacheBehaviors: {
-        Quantity: 2,
+        Quantity: 3,
         Items: [
           {
+            PathPattern: 'imagecache*',
+            TargetOriginId: `${code}-cdn`,
+            ViewerProtocolPolicy: 'https-only',
+            AllowedMethods: {
+              Quantity: 2,
+              Items: ['GET','HEAD']
+            },
+            Compress: true,
+            TrustedSigners: {
+              Enabled: false,
+              Quantity: 0,
+              Items: []
+            },
+            ForwardedValues: {
+              QueryString: false,
+              Cookies: {
+                Forward: 'none'
+              },
+              Headers: {
+                Quantity: 0,
+                Items: []
+              }
+            },
+            MinTTL: 0,
+            MaxTTL: 31536000,
+            DefaultTTL: 86400
+          }, {
             PathPattern: '_next*',
-            TargetOriginId: `S3-${name}`,
+            TargetOriginId: `${code}`,
             ViewerProtocolPolicy: 'https-only',
             AllowedMethods: {
               Quantity: 2,
@@ -47,7 +76,7 @@ const createDistibution = async (req, params) => {
             DefaultTTL: 86400
           }, {
             PathPattern: 'static*',
-            TargetOriginId: `S3-${name}`,
+            TargetOriginId: `${code}`,
             ViewerProtocolPolicy: 'https-only',
             AllowedMethods: {
               Quantity: 2,
@@ -76,22 +105,39 @@ const createDistibution = async (req, params) => {
         ]
       },
       Origins: {
-        Quantity: 1,
+        Quantity: 3,
         Items: [
           {
-            Id: `S3-${name}`,
+            Id: `${code}`,
             DomainName: `${process.env.AWS_WEB_BUCKET}.s3-website-us-east-1.amazonaws.com`,
-            OriginPath: `/${name}`,
+            OriginPath: `/${code}`,
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',
               OriginProtocolPolicy: 'http-only'
             }
-          }
+          }, {
+            Id: `${code}-current`,
+            DomainName: `${process.env.AWS_WEB_BUCKET}.s3-website-us-east-1.amazonaws.com`,
+            OriginPath: `/${code}/current`,
+            CustomOriginConfig: {
+              HTTPPort: '80',
+              HTTPSPort: '443',
+              OriginProtocolPolicy: 'http-only'
+            }
+          }, {
+            Id: `${code}-cdn`,
+            DomainName: 'assets.mahaplatform.com',
+            CustomOriginConfig: {
+              HTTPPort: '80',
+              HTTPSPort: '443',
+              OriginProtocolPolicy: 'https-only'
+            }
+          },
         ]
       },
       DefaultCacheBehavior: {
-        TargetOriginId: `S3-${name}`,
+        TargetOriginId: `${code}-current`,
         ViewerProtocolPolicy: 'redirect-to-https',
         AllowedMethods: {
           Quantity: 2,
@@ -120,18 +166,18 @@ const createDistibution = async (req, params) => {
         Items: [
           {
             ErrorCode: 403,
-            ErrorCachingMinTTL: 10,
-            ResponseCode: '200',
-            ResponsePagePath: '/index.html'
-          },{
+            ErrorCachingMinTTL: 300,
+            ResponseCode: '404',
+            ResponsePagePath: '/404'
+          }, {
             ErrorCode: 404,
             ErrorCachingMinTTL: 300,
-            ResponseCode: '200',
-            ResponsePagePath: '/index.html'
+            ResponseCode: '404',
+            ResponsePagePath: '/404'
           }
         ]
       },
-      Comment: name,
+      Comment: code,
       Enabled: true,
       ViewerCertificate: {
         ACMCertificateArn: aws_certificate_arn,

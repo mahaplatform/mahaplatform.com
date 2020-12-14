@@ -5,6 +5,8 @@ node_modules
 /dist.staged
 /tmp/*
 !/tmp/.gitkeep
+/web/*
+!/web/.gitkeep
 /servers/lb/mahaplatform.*
 /servers/node/deploy
 /repo

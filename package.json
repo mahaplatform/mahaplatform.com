@@ -78,6 +78,7 @@
     "archiver": "^3.0.0",
     "atob": "^2.1.2",
     "aws-sdk": "^2.554.0",
+    "babel-plugin-file-loader": "^2.0.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
     "body-parser-xml": "^1.1.0",
