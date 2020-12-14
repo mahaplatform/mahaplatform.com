@@ -1,15 +1,20 @@
 import collectObjects from '../../utils/collect_objects'
 import Arena from 'bull-arena'
 import path from 'path'
+import bull from 'bull'
 
 const queues = collectObjects('queues/*_queue.js')
 
 const arena = Arena({
-  queues: queues.map(queue => ({
-    name: path.basename(queue.filepath).replace('_queue.js', ''),
-    hostId: 'worker',
-    redis: process.env.REDIS_URL
-  }))
+  Bull: bull,
+  queues: [
+    ...queues.map(queue => ({
+      type: 'bull',
+      name: path.basename(queue.filepath).replace('_queue.js', ''),
+      hostId: 'worker',
+      redis: process.env.REDIS_URL
+    }))
+  ]
 }, {
   basePath: '/jobs',
   disableListen: true
