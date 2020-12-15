@@ -32,8 +32,6 @@ const buildSite = async(req, { code, hash }) => {
 
   const srcdir = path.resolve(indir,'src')
 
-  const staticdir = path.resolve(indir,'static')
-
   const outdir = path.resolve(indir, 'out')
 
   const buildsdir = path.join(outdir, 'builds')
@@ -50,10 +48,6 @@ const buildSite = async(req, { code, hash }) => {
 
   await copy(path.join(__dirname, 'src'), srcdir)
 
-  await rimraf.sync(staticdir)
-
-  await copy(path.join(__dirname, 'static'), staticdir)
-
   await silent(async () => {
 
     await next_build(indir)
@@ -67,8 +61,6 @@ const buildSite = async(req, { code, hash }) => {
   })
 
   fs.renameSync(path.join(publicdir,'_next'), path.join(builddir,'_next'))
-
-  fs.renameSync(path.join(publicdir,'static'), path.join(builddir,'static'))
 
 }
 

@@ -5,7 +5,6 @@ import Link from 'next/link'
 function Layout({ children, config }) {
   return (
     <div className="page">
-      <img src="/static/images/maha.png" />
       <img src="/imagecache/fit=cover&w=28&h=28&dpi=2/assets/19532/me.jpg" />
       <ul>
         <li>
