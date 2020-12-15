@@ -32,9 +32,7 @@ const buildSite = async(req, { code, hash }) => {
 
   const srcdir = path.resolve(indir,'src')
 
-  const outdir = path.resolve(indir, 'out')
-
-  const buildsdir = path.join(outdir, 'builds')
+  const buildsdir = path.join(indir, 'builds')
 
   const builddir = path.join(buildsdir, hash)
 
@@ -54,7 +52,6 @@ const buildSite = async(req, { code, hash }) => {
 
     await next_export(indir, {
       silent: true,
-      threads: undefined,
       outdir: publicdir
     })
 
