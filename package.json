@@ -137,7 +137,7 @@
     "later": "^1.2.0",
     "less": "^3.9.0",
     "libphonenumber-js": "^1.7.9",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "mailparser": "2.1.0",
     "mime-types": "^2.1.21",
     "moment": "^2.24.0",

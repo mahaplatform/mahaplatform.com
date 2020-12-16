@@ -1,13 +1,9 @@
-import Layout from '../components/layout'
+import Layout from './layout'
 import Head from 'next/head'
-import config from '../../maha.config'
 
 export default function Page({ site, page }) {
   return (
-    <Layout>
-      <Head>
-        <title>{ page.title } | { site.title }</title>
-      </Head>
+    <Layout site={ site } page={ page }>
       <div className="grid">
         <div className="row">
           <div className="col-4">

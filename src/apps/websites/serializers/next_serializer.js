@@ -7,15 +7,18 @@ const nextSerializer = (req, result) => ({
     {
       id: 1,
       permalink: 'about',
-      title: 'About Us'
+      title: 'About Us',
+      description: 'A page about us'
     }, {
       id: 2,
       permalink: 'contact',
-      title: 'Contact Us'
+      title: 'Contact Us',
+      description: 'A page to contact us'
     }, {
       id: 3,
       permalink: 'home',
-      title: 'Home'
+      title: 'Home',
+      description: 'The home page'
     }
   ]
 
