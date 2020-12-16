@@ -6,7 +6,7 @@ export default function Page({ site, page }) {
   return (
     <Layout>
       <Head>
-        <title>{site.title} | { page.title }</title>
+        <title>{ page.title } | { site.title }</title>
       </Head>
       <div className="grid">
         <div className="row">

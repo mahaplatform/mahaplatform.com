@@ -1,9 +1,11 @@
+import NextSerializer from '@apps/websites/serializers/next_serializer'
 import next_export from 'next/dist/export'
 import next_build from 'next/dist/build'
 import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
 import path from 'path'
 import ncp from 'ncp'
+import ejs from 'ejs'
 import fs from 'fs'
 
 const copy = Promise.promisify(ncp)
@@ -29,6 +31,8 @@ const silent = async (method, silent = true) => {
 
 const buildSite = async(req, { code, hash }) => {
 
+  const config = await NextSerializer(req, {})
+
   const sitedir = path.resolve(__dirname, '..', '..', 'template')
 
   const indir = path.resolve('web', code)
@@ -49,7 +53,9 @@ const buildSite = async(req, { code, hash }) => {
 
   await rimraf.sync(srcdir)
 
-  await copy(path.join(sitedir, 'maha.config.js'), path.join(indir, 'maha.config.js'))
+  const content = ejs.render('export default <%- JSON.stringify(config) %>', { config })
+
+  fs.writeFileSync(path.join(indir, 'maha.config.js'), content)
 
   await copy(path.join(sitedir, 'next.config.js'), path.join(indir, 'next.config.js'))
 

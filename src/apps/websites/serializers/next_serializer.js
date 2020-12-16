@@ -1,4 +1,4 @@
-const config = {
+const nextSerializer = (req, result) => ({
   site: {
     title: 'CCE Tompkins',
     homepage: 3
@@ -19,6 +19,6 @@ const config = {
     }
   ]
 
-}
+})
 
-export default config
+export default nextSerializer
