@@ -49,6 +49,8 @@ const buildSite = async(req, { code, hash }) => {
 
   await rimraf.sync(srcdir)
 
+  await copy(path.join(sitedir, 'maha.config.js'), path.join(indir, 'maha.config.js'))
+
   await copy(path.join(sitedir, 'next.config.js'), path.join(indir, 'next.config.js'))
 
   await copy(path.join(sitedir, 'src'), srcdir)
