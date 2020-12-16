@@ -130,10 +130,13 @@ class Fields extends React.Component {
     const { data, fields } = this.props
     return fields.filter(field => {
       return field.type !== 'text'
-    }).reduce((tokens, field) => ({
-      ...tokens,
-      [field.name.token]: data[field.code]
-    }), {})
+    }).reduce((tokens, field) => {
+      console.log(field)
+      return {
+        ...tokens,
+        [field.name.token]: data[field.code]
+      }
+    }, {})
   }
 
   _handleChange(code, value) {

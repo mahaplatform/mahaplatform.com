@@ -35,11 +35,15 @@ const publishSite = async(req, { code, hash }) => {
 
   const chunkspath = path.join(staticpath, 'chunks')
 
-  const buildhash = fs.readdirSync(nextpath).find(path => path !== 'static')
+  const csspath = path.join(staticpath, 'css')
+
+  const buildhash = fs.readdirSync(nextpath).find(path => !_.includes(['data','static'], path))
 
   const manifestpath = path.join(staticpath, buildhash)
 
-  const publicpath = path.join(buildpath, 'public')
+  const datapath = path.join(nextpath, 'data', buildhash)
+
+  const currentpath = path.join(buildpath, 'current')
 
   const nextkey = path.join(basekey, '_next')
 
@@ -47,47 +51,64 @@ const publishSite = async(req, { code, hash }) => {
 
   const chunkskey = path.join(statickey, 'chunks')
 
+  const csskey = path.join(statickey, 'css')
+
   const manifestkey = path.join(statickey, buildhash)
+
+  const datakey = path.join(nextkey, 'data', buildhash)
 
   const currentkey = path.join(basekey, 'current')
 
-  const chunkskeys = await listObjects(req, {
-    prefix: chunkskey
-  })
+  const staticdirs = [
+    { path: chunkspath, key: chunkskey },
+    { path: csspath, key: csskey }
+  ]
 
-  await Promise.mapSeries(getFiles(chunkspath), async (file) => {
+  await Promise.mapSeries(staticdirs, async (staticdir) => {
 
-    const key = path.join(chunkskey, file.replace(chunkspath, ''))
+    const existing = await listObjects(req, {
+      prefix: staticdir.key
+    })
 
-    if(_.includes(chunkskeys, key)) return
+    await Promise.mapSeries(getFiles(staticdir.path), async (file) => {
 
-    await upload(req, {
-      key,
-      cache_control: 'immutable,max-age=100000000,public',
-      file_data: fs.readFileSync(file, 'utf8')
+      const key = path.join(staticdir.key, file.replace(staticdir.path, ''))
+
+      if(_.includes(existing, key)) return
+
+      await upload(req, {
+        key,
+        cache_control: 'immutable,max-age=100000000,public',
+        file_data: fs.readFileSync(file, 'utf8')
+      })
+
     })
 
   })
 
   await Promise.mapSeries(getFiles(manifestpath), async (file) => {
-
-    const key = path.join(manifestkey, file.replace(manifestpath, ''))
-
     await upload(req, {
-      key,
+      key: path.join(manifestkey, file.replace(manifestpath, '')),
       cache_control: 'immutable,max-age=100000000,public',
       file_data: fs.readFileSync(file, 'utf8')
     })
+  })
 
+  await Promise.mapSeries(getFiles(datapath), async (file) => {
+    await upload(req, {
+      key: path.join(datakey, file.replace(datapath, '')),
+      cache_control: 'immutable,max-age=100000000,public',
+      file_data: fs.readFileSync(file, 'utf8')
+    })
   })
 
   const currentkeys = await listObjects(req, {
     prefix: currentkey
   })
 
-  const notfound = await Promise.reduce(getFiles(publicpath), async (notfound, file) => {
+  const notfound = await Promise.reduce(getFiles(currentpath), async (notfound, file) => {
 
-    const filepath = file.replace(publicpath, '').replace('.html','')
+    const filepath = file.replace(currentpath, '').replace('.html','')
 
     const to = path.join(currentkey, filepath)
 
