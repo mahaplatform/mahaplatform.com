@@ -13,18 +13,18 @@ const getBlock = ({ type }) => {
   if(type === 'text') return Text
 }
 
-const getClass = (block, rindex, cindex, bindex) => {
-  return `r${rindex}c${cindex}b${bindex}`
+const getClass = (block, sindex, rindex, cindex, bindex) => {
+  return `s${sindex}r${rindex}c${cindex}b${bindex}`
 }
 
-function Block({ block, rindex, cindex, bindex }) {
+function Block({ block, sindex, rindex, cindex, bindex }) {
 
   if(!block) return null
 
   const Component = getBlock(block)
 
   return (
-    <div className={ getClass(block, rindex, cindex, bindex) }>
+    <div className={ getClass(block, sindex, rindex, cindex, bindex) }>
       <div className="b">
         <Component block={ block } />
       </div>

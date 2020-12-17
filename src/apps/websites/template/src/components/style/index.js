@@ -1,4 +1,4 @@
-import Row from './row'
+import Section from './section'
 import _ from 'lodash'
 
 const getValue = (property, value) => {
@@ -38,8 +38,8 @@ const getMediaStyles = (config) => [
 
 export default function Style({ site, page }) {
 
-  const config = page.rows.reduce((config, row, rindex) => {
-    return Row(config, row, rindex)
+  const config = page.sections.reduce((config, section, sindex) => {
+    return Section(config, section, sindex)
   }, { all: [], desktop: [], tablet: [], mobile: [] })
 
   const style = {

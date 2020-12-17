@@ -9,63 +9,97 @@ const nextSerializer = (req, result) => ({
       permalink: 'about',
       title: 'About Us',
       description: 'A page about us',
-      rows: [
+      sections: [
         {
-          alignment: {
-            align: 'center'
+          background: {
+            image: 'assets/8346/10156387003857338.jpg'
           },
-          sizing: {
-            fullWidth: false,
-            customWidth: 700
-          },
-          spacing: {
-            margin: 10,
-            padding: 10
-          },
-          border: {
-            radius: 5,
-            style: 'solid',
-            width: 1,
-            color: '#FF0000'
-          },
-          columns: [
+          rows: [
             {
-              border: {
-                style: 'solid',
-                width: 1,
-                color: '#0000FF'
+              alignment: {
+                align: 'center'
+              },
+              sizing: {
+                fullWidth: false
+              },
+              spacing: {
+                padding: 10
               },
               background: {
-                color: '#0000FF99'
+                color: 'green'
               },
-              blocks: [
+              columns: [
                 {
-                  type: 'text',
-                  text: '<p>one</p>'
-                }
-              ]
-            }, {
-              blocks: [
-                {
-                  type: 'text',
-                  text: '<p>two</p>'
-                }
-              ]
-            }, {
-              blocks: [
-                {
-                  type: 'text',
-                  text: '<p>three</p>'
-                }
-              ]
-            }, {
-              blocks: [
-                {
-                  type: 'text',
-                  text: '<p>four</p>'
+                  spacing: {
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      type: 'text',
+                      background: {
+                        color: '#FFFFFF99'
+                      },
+                      spacing: {
+                        padding: 10
+                      },
+                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                    }
+                  ]
+                }, {
+                  spacing: {
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      type: 'text',
+                      background: {
+                        color: '#FFFFFF99'
+                      },
+                      spacing: {
+                        padding: 10
+                      },
+                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                    }
+                  ]
+                }, {
+                  spacing: {
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      type: 'text',
+                      background: {
+                        color: '#FFFFFF99'
+                      },
+                      spacing: {
+                        padding: 10
+                      },
+                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                    }
+                  ]
+                }, {
+                  spacing: {
+                    padding: 10
+                  },
+                  blocks: [
+                    {
+                      type: 'text',
+                      background: {
+                        color: '#FFFFFF99'
+                      },
+                      spacing: {
+                        padding: 10
+                      },
+                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                    }
+                  ]
                 }
               ]
             }
+          ]
+        }, {
+          rows: [
+
           ]
         }
       ]
@@ -74,13 +108,13 @@ const nextSerializer = (req, result) => ({
       permalink: 'contact',
       title: 'Contact Us',
       description: 'A page to contact us',
-      rows: []
+      sections: []
     }, {
       id: 3,
       permalink: 'home',
       title: 'Home',
       description: 'The home page',
-      rows: []
+      sections: []
     }
   ]
 
