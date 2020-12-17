@@ -18,6 +18,10 @@ class Export extends React.Component {
     onSuccess: PropTypes.func
   }
 
+  static defaultProps = {
+    onSuccess: () => {}
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 

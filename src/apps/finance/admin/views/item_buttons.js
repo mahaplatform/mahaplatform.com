@@ -59,7 +59,7 @@ const itemButtons = (settings, type, item, team, user, rights, context) => {
 
   } else if(item.status === 'reviewed' && _.includes(rights, 'finance:manage_configuration')) {
 
-    return getIntegrationTask(settings.integration, team, context, type, item.code)
+    return getIntegrationTask(settings.integration, team, context, type, item.code, () => {})
 
   }
 

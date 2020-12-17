@@ -18,7 +18,7 @@ export const getIntegrationTasks = (integration, context, selected, onSuccess) =
 
 }
 
-export const getIntegrationTask = (integration, team, context, type, code) => {
+export const getIntegrationTask = (integration, team, context, type, code, onSuccess) => {
 
   if(integration === 'accpac') {
     return [{
