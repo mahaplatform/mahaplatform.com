@@ -8,13 +8,24 @@ const getAlignment = (config) => {
   if(align === 'bottom') return { margin: 'auto 0 0' }
 }
 
+const getBasis = (cols) => {
+  if(cols === 1) return 'calc(100%/12)'
+  if(cols === 2) return 'calc(100%/6)'
+  if(cols === 3) return '25%'
+  if(cols === 4) return 'calc(100%/3)'
+  if(cols === 6) return '50%'
+  if(cols === 9) return '75%'
+  if(cols === 12) return '100%'
+  return `calc(100%*(${cols}/12))`
+}
+
 const getColumn = (selector, cols) => ({
-  flex: `0 0 calc(100%*(${cols}/12))`
+  flex: `0 0 ${getBasis(cols)}`
 })
 
 export default function Column(site, config, column, namespace) {
 
-  const selector = `${namespace} .c`
+  const selector = `${namespace}>*`
 
   applyRule(config.all, namespace, getColumn(namespace, 3))
   applyRule(config.tablet, namespace, getColumn(namespace, 6))

@@ -4,7 +4,7 @@ import Row from './row'
 
 export default function Section(site, config, section, namespace) {
 
-  const selector = `${namespace} .s`
+  const selector = `${namespace}>*`
 
   applyBoxModel(config, selector, section)
 

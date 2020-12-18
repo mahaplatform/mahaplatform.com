@@ -16,7 +16,7 @@ const getSizing = (config) => {
 
 export default function Row(site, config, row, namespace) {
 
-  const selector = `${namespace} .r`
+  const selector = `${namespace}>*`
 
   applyBoxModel(config, selector, row)
 

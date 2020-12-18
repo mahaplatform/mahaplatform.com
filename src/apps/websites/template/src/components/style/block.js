@@ -2,7 +2,7 @@ import { applyBoxModel } from './utils'
 
 export default function Block(site, config, block, namespace) {
 
-  const selector = `${namespace} .b`
+  const selector = `${namespace}>*`
 
   applyBoxModel(config, selector, block)
 

@@ -6,9 +6,11 @@ const getValue = (property, value) => {
 }
 
 const getStyle = (selector, properties) => {
-  const definition = Object.keys(properties).map(property => {
-    return `${_.kebabCase(property)}:${getValue(property, properties[property])};`
-  }).join('')
+  const keys = Object.keys(properties)
+  if(keys.length == 0) return ''
+  const definition = keys.map(key => {
+    return `${_.kebabCase(key)}:${getValue(key, properties[key])}`
+  }).join(';')
   return `${selector}{${definition}}`
 }
 

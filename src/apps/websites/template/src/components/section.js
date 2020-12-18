@@ -8,8 +8,8 @@ const getClass = (section, sindex) => {
 
 export default function Section({ section, namespace }) {
   return (
-    <div className={ namespace }>
-      <div className="s">
+    <div className={ `${namespace} s` }>
+      <div>
         { section.rows.map((row, rindex) => (
           <Row key={`row_${rindex}`} row={ row } namespace={ `r${rindex}` } />
         ))}
