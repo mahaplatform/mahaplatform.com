@@ -46,10 +46,15 @@ class Image extends React.Component {
     }
   }
 
+  _getHost() {
+    return process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
+  }
+
   _getImage() {
     const { alt, className, title } = this.props
-    const normal = `/imagecache${this._getNormal()}`
-    const retina = `/imagecache${this._getRetina()}`
+    const host = this._getHost()
+    const normal = `${host}/imagecache${this._getNormal()}`
+    const retina = `${host}/imagecache${this._getRetina()}`
     return {
       alt,
       className,

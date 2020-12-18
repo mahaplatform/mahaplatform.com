@@ -1,10 +1,8 @@
-import { getBorder, getBackground, getSpacing, withUnits } from './utils'
+import { applyBoxModel, applyRule, withUnits } from './utils'
 import Column from './column'
 
 const getAlignment = (config) => {
-  if(!config) return {}
-  const { align } = config
-  if(!align) return {}
+  const align = config ? config.align : 'center'
   if(align === 'left') return { margin: '0 auto 0 0' }
   if(align === 'center') return { margin: '0 auto' }
   if(align === 'right') return { margin: '0 0 0 auto' }
@@ -16,30 +14,21 @@ const getSizing = (config) => {
   return { flex: fullWidth ? 1 : `0 0 ${withUnits(customWidth || 980)}` }
 }
 
-export default function Row(config, row, sindex, rindex) {
+export default function Row(site, config, row, namespace) {
 
-  const namespace = `.s${sindex}r${rindex}`
+  const selector = `${namespace} .r`
 
-  config.all.push({
-    selector: `${namespace} .r`,
-    properties: {
-      ...getBackground(row.background),
-      ...getSpacing(row.spacing),
-      ...getBorder(row.border),
-      ...getAlignment(row.alignment)
-    }
-  })
+  applyBoxModel(config, selector, row)
 
-  config.desktop.push({
-    selector: `${namespace} .r`,
-    properties: {
-      ...getSizing(row.sizing)
-    }
-  })
+  applyRule(config.all, selector, getAlignment(row.alignment))
 
-  config = row.columns.reduce((config, column, cindex) => {
-    return Column(config, column, sindex, rindex, cindex)
-  }, config)
+  applyRule(config.desktop, selector, getSizing(row.sizing))
+
+  if(row.columns) {
+    config = row.columns.reduce((config, column, cindex) => {
+      return Column(site, config, column, `${namespace} .c${cindex}`)
+    }, config)
+  }
 
   return config
 

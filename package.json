@@ -21,7 +21,8 @@
     "knex": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/knex.js",
     "shipit": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js",
-    "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js"
+    "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js",
+    "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

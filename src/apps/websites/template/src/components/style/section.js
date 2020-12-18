@@ -1,23 +1,18 @@
-import { getBorder, getBackground, getSpacing, withUnits } from './utils'
+import { applyBoxModel } from './utils'
 import Row from './row'
 
-export default function Section(config, section, sindex) {
 
-  const namespace = `.s${sindex}`
+export default function Section(site, config, section, namespace) {
 
-  config.all.push({
-    selector: `${namespace} .s`,
-    properties: {
-      ...getBackground(section.background),
-      ...getSpacing(section.spacing),
-      ...getBorder(section.border)
-    }
-  })
+  const selector = `${namespace} .s`
 
-  config = section.rows.reduce((config, row, rindex) => {
-    return Row(config, row, sindex, rindex)
-  }, config)
+  applyBoxModel(config, selector, section)
 
+  if(section.rows) {
+    config = section.rows.reduce((config, row, rindex) => {
+      return Row(site, config, row, `${namespace} .r${rindex}`)
+    }, config)
+  }
   return config
 
 }

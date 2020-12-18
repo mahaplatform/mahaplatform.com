@@ -6,12 +6,12 @@ const getClass = (section, sindex) => {
   return classes.join(' ')
 }
 
-export default function Section({ section, sindex }) {
+export default function Section({ section, namespace }) {
   return (
-    <div className={ getClass(section, sindex) }>
+    <div className={ namespace }>
       <div className="s">
         { section.rows.map((row, rindex) => (
-          <Row key={`row_${rindex}`} row={ row } sindex={ sindex } rindex={ rindex } />
+          <Row key={`row_${rindex}`} row={ row } namespace={ `r${rindex}` } />
         ))}
       </div>
     </div>

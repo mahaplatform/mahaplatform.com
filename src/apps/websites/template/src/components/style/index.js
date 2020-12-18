@@ -21,6 +21,7 @@ const getStyles = (definitions) => {
 const getMediaStyle = (config, type) => {
   const medias = {
     all: (styles) => styles,
+    retina: (styles) => `@media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi){${styles}}`,
     desktop: (styles) => `@media all and (min-width: 981px){${styles}}`,
     tablet: (styles) => `@media all and (max-width: 980px){${styles}}`,
     mobile: (styles) => `@media all and (max-width: 767px){${styles}}`
@@ -31,16 +32,19 @@ const getMediaStyle = (config, type) => {
 
 const getMediaStyles = (config) => [
   ...getMediaStyle(config, 'all'),
+  ...getMediaStyle(config, 'retina'),
   ...getMediaStyle(config, 'desktop'),
   ...getMediaStyle(config, 'tablet'),
   ...getMediaStyle(config, 'mobile')
 ].join('')
 
-export default function Style({ site, page }) {
+export default function Style({ site, layout, page }) {
 
   const config = page.sections.reduce((config, section, sindex) => {
-    return Section(config, section, sindex)
-  }, { all: [], desktop: [], tablet: [], mobile: [] })
+    return Section(site, config, section, `.ps${sindex}`)
+  }, layout.sections.reduce((config, section, sindex) => {
+    return Section(site, config, section, `.ls${sindex}`)
+  }, { all: [], retina: [], desktop: [], tablet: [], mobile: [] }))
 
   const style = {
     __html: getMediaStyles(config)

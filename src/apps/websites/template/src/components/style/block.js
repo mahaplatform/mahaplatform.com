@@ -1,17 +1,10 @@
-import { getBorder, getBackground, getSpacing } from './utils'
+import { applyBoxModel } from './utils'
 
-export default function Block(config, block, sindex, rindex, cindex, bindex) {
+export default function Block(site, config, block, namespace) {
 
-  const namespace = `.s${sindex}r${rindex}c${cindex}b${bindex}`
+  const selector = `${namespace} .b`
 
-  config.all.push({
-    selector: `${namespace} .b`,
-    properties: {
-      ...getBackground(block.background),
-      ...getSpacing(block.spacing),
-      ...getBorder(block.border)
-    }
-  })
+  applyBoxModel(config, selector, block)
 
   return config
 

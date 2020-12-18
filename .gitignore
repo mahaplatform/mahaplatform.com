@@ -7,6 +7,8 @@ node_modules
 !/tmp/.gitkeep
 /web/*
 !/web/.gitkeep
+/src/apps/websites/template/.next/*
+!/src/apps/websites/template/.next/.gitkeep
 /servers/lb/mahaplatform.*
 /servers/node/deploy
 /repo
@@ -27,4 +29,3 @@ ngrok
 metadata.csv
 ./REVISION
 /src/servers/group_vars/all/*.yml
-/src/web/dist
