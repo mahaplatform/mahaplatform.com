@@ -37,7 +37,10 @@
     border-bottom: 1px solid #DDDDDD;
     padding: 4px;
   }
-  .invoice-details tr td:first-child {
+  .invoice-details td[rowspan="3"] {
+    width: 80px;
+  }
+  .invoice-details tr td:nth-last-child(2) {
     width: 100px;
   }
   .invoice-customer,
@@ -106,6 +109,9 @@
                 <table class="invoice-details">
                   <tbody>
                     <tr>
+                      <td rowSpan="3">
+                        <img src="<%- `${host}/finance/invoices/${invoice.code}/code` %>" width="80" height="80" />
+                      </td>
                       <td>Invoice ID</td>
                       <td><%= invoice.code %></td>
                     </tr>
@@ -126,7 +132,7 @@
                         <table>
                           <tr>
                             <td>
-                              <img src="<%= host %>/imagecache/w=64&h=64<%= invoice.program.logo %>" />
+                              <img src="<%= host %>/imagecache/fit=cover&w=64&h=64<%= invoice.program.logo %>" />
                             </td>
                             <td>
                               <strong><%= invoice.program.title %></strong><br />

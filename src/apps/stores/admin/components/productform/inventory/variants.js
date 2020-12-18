@@ -23,6 +23,7 @@ class InventoryField extends React.Component {
   }
 
   render() {
+    const { product } = this.props
     const { variants } = this.state
     if(!variants) return null
     return (
@@ -34,7 +35,7 @@ class InventoryField extends React.Component {
             }).map((variant, index) => (
               <tr className="variantsfield-variant" key={`option_${index}`}>
                 <td className="unpadded">
-                  <VariantToken variant={ variant } />
+                  <VariantToken product={ product } variant={ variant } />
                 </td>
                 <td className="collapsing">
                   <NumberField { ...this._getQuantity(variant, index) } />

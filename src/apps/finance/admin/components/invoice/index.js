@@ -21,22 +21,29 @@ class Invoice extends React.PureComponent {
             }
           </div>
           <div className="finance-invoice-col">
-            <table>
-              <tbody>
-                <tr>
-                  <td>Invoice ID</td>
-                  <td>{ invoice.code }</td>
-                </tr>
-                <tr>
-                  <td>Date</td>
-                  <td>{ moment(invoice.date).format('MMM DD, YYYY') }</td>
-                </tr>
-                <tr>
-                  <td>Due</td>
-                  <td>{ moment(invoice.due).format('MMM DD, YYYY') }</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="finance-invoice-details">
+              <div className="finance-invoice-details-code">
+                <img src={`/finance/invoices/${invoice.code}/code`} />
+              </div>
+              <div className="finance-invoice-details-data">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Invoice ID</td>
+                      <td>{ invoice.code }</td>
+                    </tr>
+                    <tr>
+                      <td>Date</td>
+                      <td>{ moment(invoice.date).format('MMM DD, YYYY') }</td>
+                    </tr>
+                    <tr>
+                      <td>Due</td>
+                      <td>{ moment(invoice.due).format('MMM DD, YYYY') }</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
         <div className="finance-invoice-row">

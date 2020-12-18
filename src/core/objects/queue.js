@@ -53,7 +53,7 @@ class Queue {
 
   fail(method) {
     return async(job, err) => {
-      if(process.env !== 'production') console.err(err)
+      if(process.env !== 'production') console.error(err)
       await method(job, err)
     }
   }

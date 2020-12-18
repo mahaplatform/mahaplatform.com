@@ -31,6 +31,7 @@ class Variants extends React.Component {
   _handleVariant = this._handleVariant.bind(this)
 
   render() {
+    const { product } = this.props
     const { variants } = this.state
     return (
       <div className="variantsfield-variants selectable">
@@ -39,7 +40,7 @@ class Variants extends React.Component {
             { variants.map((variant, index) => (
               <tr className="variantsfield-variant" key={`option_${index}`} onClick={ this._handleVariant.bind(this, variant, index) }>
                 <td className="unpadded">
-                  <VariantToken variant={ variant } />
+                  <VariantToken product={ product } variant={ variant } />
                 </td>
                 <td className="collapsing right aligned">
                   { this._getShipping(variant) }

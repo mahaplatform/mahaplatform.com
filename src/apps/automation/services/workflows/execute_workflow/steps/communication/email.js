@@ -69,8 +69,7 @@ const emailStep = async (req, { config, contact, enrollment, tokens }) => {
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     },
     ...tokens,
-    response: enrollment.get('response_id') ? data : null,
-    registration: enrollment.get('registration_id') ? data : null
+    ...data
   }
 
   const { cc, bcc, reply_to, sender_id, subject } = crm_email.get('config').settings

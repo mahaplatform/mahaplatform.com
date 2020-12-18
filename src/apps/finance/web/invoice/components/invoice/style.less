@@ -54,15 +54,27 @@
 }
 .finance-invoice-col {
   display: flex;
+}
+.finance-invoice-details {
+  border: 1px solid fadeout(@black, 90);
+  flex: 1;
+  display: flex;
+}
+.finance-invoice-details-code {
+  border-right: 1px solid fadeout(@black, 90);
+  img {
+    width: 87px;
+    height: 87px;
+    display: block;
+  }
+}
+.finance-invoice-details-data {
+  flex: 1;
   table {
     width: 100%;
-    border-top: 1px solid fadeout(@black, 90);
-    border-left: 1px solid fadeout(@black, 90);
   }
   tr {
     td {
-      border-bottom: 1px solid fadeout(@black, 90);
-      border-right: 1px solid fadeout(@black, 90);
       padding: 0.4em;
       &:first-child {
         font-weight: bold;

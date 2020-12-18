@@ -72,3 +72,6 @@
     Eligible amount of contribution for tax purposes: <%- numeral(invoice.tax_deductible).format('0.00') %>
   </div>
 <% } %>
+<div class="payment-link">
+  <a href="<%- invoice.url %>" target="_blank">View Online</a>
+</div>

@@ -26,6 +26,10 @@ const Invoice = new Model({
 
     object_url: function() {
       return `/finance/invoices/${this.get('id')}`
+    },
+
+    url() {
+      return `${process.env.WEB_HOST}/finance/invoices/${this.get('code')}`
     }
 
   },

@@ -56,9 +56,10 @@ class Designer extends React.Component {
 
   _getFields() {
     const { workflow } = this.props
-    if(workflow.event) return this._getEventFields(workflow.event)
-    if(workflow.form) return this._getFormFields(workflow.form)
-    return {}
+    if(workflow.store) return this._getOrderFields(workflow.store)
+    if(workflow.event) return this._getRegistrationFields(workflow.event)
+    if(workflow.form) return this._getResponseFields(workflow.form)
+    return []
   }
 
   _getEmailFields() {
@@ -79,7 +80,7 @@ class Designer extends React.Component {
     ]
   }
 
-  _getEventFields(event) {
+  _getRegistrationFields(event) {
     return [
       {
         label: 'Registration',
@@ -100,7 +101,7 @@ class Designer extends React.Component {
     ]
   }
 
-  _getFormFields(form) {
+  _getResponseFields(form) {
     return [
       {
         label: 'Response',
@@ -112,6 +113,15 @@ class Designer extends React.Component {
           type: _.get(field, 'contactfield.type') || field.type,
           options: _.get(field, 'contactfield.options') || field.options
         }))
+      }
+    ]
+  }
+
+  _getOrderFields(store) {
+    return [
+      {
+        label: 'Order',
+        fields: []
       }
     ]
   }

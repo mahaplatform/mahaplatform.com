@@ -8,6 +8,7 @@ const EmailSerializer = (req, result) => ({
   config: result.get('config'),
   event: event(result.related('event')),
   form: form(result.related('form')),
+  store: store(result.related('store')),
   program: program(result.related('program')),
   has_preview: result.get('has_preview'),
   preview: result.get('preview'),
@@ -62,6 +63,15 @@ const form = (form) => {
     id: form.get('id'),
     title: form.get('title'),
     config: form.get('config')
+  }
+}
+
+const store = (store) => {
+  if(!store.id) return
+  return {
+    id: store.get('id'),
+    config: store.get('config'),
+    title: store.get('title')
   }
 }
 

@@ -45,12 +45,12 @@ const getData = (field, value, payment) => {
   return value
 }
 
-const getExpanded = (req, { basedata, fields, data, payment }) => {
-  return fields.reduce((expanded, field ) => ({
+const getExpanded = (req, key, { basedata, fields, data, payment }) => ({
+  [key]: fields.reduce((expanded, field ) => ({
     ...expanded,
     [field.name.token]: getData(field, data[field.code], payment)
   }), basedata)
-}
+})
 
 const getResponseData = async (req, { response }) => {
 
@@ -62,7 +62,7 @@ const getResponseData = async (req, { response }) => {
     invoice_id: response.get('invoice_id')
   })
 
-  return getExpanded(req, {
+  return getExpanded(req, 'response', {
     basedata:{
       ...basedata,
       maha_url: response.get('url')
@@ -94,7 +94,7 @@ const getRegistrationData = async (req, { registration }) => {
     invoice_id: registration.get('invoice_id')
   })
 
-  return getExpanded(req, {
+  getExpanded(req, 'registration', {
     basedata: {
       ...basedata,
       maha_url: registration.get('url')
@@ -106,9 +106,40 @@ const getRegistrationData = async (req, { registration }) => {
 
 }
 
+const getOrderData = async (req, { order }) => {
+
+  await order.load(['store.program','payment'], {
+    transacting: req.trx
+  })
+
+  const contact_config = order.related('store').get('contact_config')
+
+  const fields = contact_config.fields.filter(field => {
+    return field.type !== 'text'
+  })
+
+  const data = order.get('data')
+
+  const basedata = await getPaymentData(req, {
+    invoice_id: order.get('invoice_id')
+  })
+
+
+  return getExpanded(req, 'order', {
+    basedata: {
+      ...basedata,
+      maha_url: order.get('url')
+    },
+    fields,
+    data,
+    payment: order.related('payment')
+  })
+
+}
+
 export const getEnrollmentData = async (req, { enrollment }) => {
 
-  await enrollment.load(['response','registration'], {
+  await enrollment.load(['response','registration','order'], {
     transacting: req.trx
   })
 
@@ -121,6 +152,12 @@ export const getEnrollmentData = async (req, { enrollment }) => {
   if(enrollment.get('registration_id')) {
     return await getRegistrationData(req, {
       registration: enrollment.related('registration')
+    })
+  }
+
+  if(enrollment.get('order_id')) {
+    return await getOrderData(req, {
+      order: enrollment.related('order')
     })
   }
 

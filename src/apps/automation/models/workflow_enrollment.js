@@ -3,12 +3,13 @@ import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 import Registration from '@apps/events/models/registration'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Response from '@apps/forms/models/response'
-import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
-import knex from '@core/vendor/knex'
 import WorkflowAction from './workflow_action'
+import Order from '@apps/stores/models/order'
 import Email from '@apps/maha/models/email'
 import Call from '@apps/maha/models/call'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex'
 import Workflow from './workflow'
 
 const WorkflowEnrollment = new Model({
@@ -36,6 +37,10 @@ const WorkflowEnrollment = new Model({
 
   email() {
     return this.belongsTo(Email, 'email_id')
+  },
+
+  order() {
+    return this.belongsTo(Order, 'order_id')
   },
 
   phone_number() {

@@ -20,6 +20,7 @@ const InvoiceSerializer = (req, result) => ({
   total: result.get('total'),
   voided_date: result.get('voided_date'),
   voided_reason: result.get('voided_reason'),
+  url: result.get('url'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

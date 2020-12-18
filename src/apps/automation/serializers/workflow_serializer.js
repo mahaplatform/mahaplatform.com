@@ -59,19 +59,20 @@ const form = (form) => {
   }
 }
 
+const store = (store) => {
+  if(!store.id) return
+  return {
+    id: store.get('id'),
+    config: store.get('config'),
+    title: store.get('title')
+  }
+}
+
 const list = (list) => {
   if(!list.id) return
   return {
     id: list.get('id'),
     title: list.get('title')
-  }
-}
-
-const store = (store) => {
-  if(!store.id) return
-  return {
-    id: store.get('id'),
-    title: store.get('title')
   }
 }
 

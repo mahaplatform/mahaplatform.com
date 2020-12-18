@@ -26,12 +26,13 @@ class Designer extends React.Component {
 
   _getTokens() {
     const { email } = this.props
-    if(email.event) return this._getEventTokens(email.event)
-    if(email.form) return this._getFormTokens(email.form)
+    if(email.store) return this._getOrderTokens(email.store)
+    if(email.event) return this._getRegistrationTokens(email.event)
+    if(email.form) return this._getResponseTokens(email.form)
     return []
   }
 
-  _getEventTokens(event) {
+  _getRegistrationTokens(event) {
     return [
       {
         title: 'Registration Tokens',
@@ -58,7 +59,7 @@ class Designer extends React.Component {
     ]
   }
 
-  _getFormTokens(form) {
+  _getResponseTokens(form) {
     return [
       {
         title: 'Response Tokens',
@@ -77,6 +78,27 @@ class Designer extends React.Component {
           { name: 'Amount', token: 'response.payment_amount' },
           { name: 'Card', token: 'response.payment_card' },
           { name: 'Summary', token: 'response.payment_summary' }
+        ]
+      }
+    ]
+  }
+
+  _getOrderTokens(store) {
+    return [
+      {
+        title: 'Order Tokens',
+        tokens: [
+          { name: 'First Name', token: 'order.first_name' },
+          { name: 'Last Name', token: 'order.last_name' },
+          { name: 'Email', token: 'order.email' },
+        ]
+      }, {
+        title: 'Payment Tokens',
+        tokens: [
+          { name: 'Method', token: 'order.payment_method' },
+          { name: 'Amount', token: 'order.payment_amount' },
+          { name: 'Card', token: 'order.payment_card' },
+          { name: 'Summary', token: 'order.payment_summary' }
         ]
       }
     ]

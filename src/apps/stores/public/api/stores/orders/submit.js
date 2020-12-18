@@ -9,7 +9,7 @@ import Item from '@apps/stores/models/item'
 import Cart from '@apps/stores/models/cart'
 import moment from 'moment'
 
-const getLineItems = (req, { quantities, variants }) => {
+const getLineItems = (req, { quantities, store, variants }) => {
   return Object.keys(quantities).map(code => {
     return variants.find(variant => {
       return variant.get('code') === code
@@ -29,14 +29,14 @@ const getLineItems = (req, { quantities, variants }) => {
       high_price: variant.get('high_price'),
       tax_rate: variant.get('tax_rate'),
       is_tax_deductible: variant.get('is_tax_deductible'),
-      description: 'product',//`${store.get('title')}: ${variant.get('name')}`,
+      description: `${store.get('title')}: ${variant.get('name')}`,
       quantity: line_item.quantity,
       price: line_item.price
     }
   })
 }
 
-const getInvoice = async (req, { program_id, contact, items, variants }) => {
+const getInvoice = async (req, { program_id, contact, items, store, variants }) => {
 
   const quantities = items.reduce((quantities, item) => ({
     ...quantities,
@@ -48,6 +48,7 @@ const getInvoice = async (req, { program_id, contact, items, variants }) => {
 
   const line_items = getLineItems(req, {
     quantities,
+    store,
     variants
   })
 
@@ -137,6 +138,7 @@ const submitRoute = async (req, res) => {
     program_id: store.get('program_id'),
     contact,
     items: req.body.items,
+    store,
     variants
   }) : null
 

@@ -3,6 +3,7 @@ import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import Workflow from '@apps/automation/models/workflow'
 import MahaEmail from '@apps/maha/models/email'
 import Program from '@apps/crm/models/program'
+import Store from '@apps/stores/models/store'
 import Event from '@apps/events/models/event'
 import Form from '@apps/forms/models/form'
 import EmailResult from './email_result'
@@ -74,6 +75,10 @@ const Email = new Model({
 
   sms_campaign() {
     return this.belongsTo(SMSCampaign, 'sms_campaign_id')
+  },
+
+  store() {
+    return this.belongsTo(Store, 'store_id')
   },
 
   workflow() {
