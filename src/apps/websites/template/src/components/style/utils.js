@@ -20,9 +20,10 @@ export const imageUrl = (src, transform) => {
 
 export const getBackground = (config) => {
   if(!config) return {}
-  const { color, repeat, position, size } = config
+  const { color, image, position, repeat, size } = config
   const properties = {}
   if(color) properties.backgroundColor = color
+  if(!image) return properties
   if(repeat) properties.backgroundRepeat = repeat
   if(position) properties.backgroundPosition = position
   properties.backgroundSize = size || 'cover'

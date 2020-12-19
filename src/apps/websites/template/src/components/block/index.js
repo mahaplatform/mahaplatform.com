@@ -20,7 +20,7 @@ function Block({ block, namespace }) {
   const Component = getBlock(block)
 
   return (
-    <div className={ `${namespace} b` }>
+    <div className={ namespace }>
       <div>
         <Component block={ block } />
       </div>

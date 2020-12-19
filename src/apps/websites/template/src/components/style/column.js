@@ -37,7 +37,7 @@ export default function Column(site, config, column, namespace) {
 
   if(column.blocks) {
     config = column.blocks.reduce((config, block, bindex) => {
-      return Block(site, config, block, `${namespace} .b${bindex}`)
+      return Block(site, config, block, `${namespace}${bindex}`)
     }, config)
   }
 

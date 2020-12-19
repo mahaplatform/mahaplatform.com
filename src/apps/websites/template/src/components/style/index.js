@@ -1,4 +1,6 @@
+import postcssMergeRules from 'postcss-merge-rules'
 import Section from './section'
+import postcss from 'postcss'
 import _ from 'lodash'
 
 const getValue = (property, value) => {
@@ -43,15 +45,17 @@ const getMediaStyles = (config) => [
 export default function Style({ site, layout, page }) {
 
   const config = page.sections.reduce((config, section, sindex) => {
-    return Section(site, config, section, `.ps${sindex}`)
+    return Section(site, config, section, `.p${sindex}`)
   }, layout.sections.reduce((config, section, sindex) => {
-    return Section(site, config, section, `.ls${sindex}`)
+    return Section(site, config, section, `.l${sindex}`)
   }, { all: [], retina: [], desktop: [], tablet: [], mobile: [] }))
 
-  const style = {
-    __html: getMediaStyles(config)
-  }
+  const styles = getMediaStyles(config)
 
-  return <style dangerouslySetInnerHTML={ style } />
+  const __html = postcss([
+    postcssMergeRules()
+  ]).process(styles).toString()
+
+  return <style dangerouslySetInnerHTML={{ __html }} />
 
 }

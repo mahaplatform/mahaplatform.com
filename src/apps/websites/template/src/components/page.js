@@ -20,10 +20,10 @@ function Page({ site, layout, page }) {
               { section.type === 'content' ?
                 <Fragment>
                   { page.sections.map((section, psindex) => (
-                    <Section key={`psection_${psindex}`} section={ section } namespace={ `ps${psindex}` } />
+                    <Section key={`psection_${psindex}`} section={ section } namespace={ `p${psindex}` } />
                   )) }
                 </Fragment> :
-                <Section section={ section } namespace={ `ls${lsindex}` } />
+                <Section section={ section } namespace={ `l${lsindex}` } />
               }
             </Fragment>
           )) }

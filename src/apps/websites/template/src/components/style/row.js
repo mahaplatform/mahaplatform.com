@@ -26,7 +26,7 @@ export default function Row(site, config, row, namespace) {
 
   if(row.columns) {
     config = row.columns.reduce((config, column, cindex) => {
-      return Column(site, config, column, `${namespace} .c${cindex}`)
+      return Column(site, config, column, `${namespace}${cindex}`)
     }, config)
   }
 

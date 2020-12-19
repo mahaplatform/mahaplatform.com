@@ -10,7 +10,7 @@ export default function Section(site, config, section, namespace) {
 
   if(section.rows) {
     config = section.rows.reduce((config, row, rindex) => {
-      return Row(site, config, row, `${namespace} .r${rindex}`)
+      return Row(site, config, row, `${namespace}${rindex}`)
     }, config)
   }
   return config
