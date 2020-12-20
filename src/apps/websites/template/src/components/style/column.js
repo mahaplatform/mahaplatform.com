@@ -23,13 +23,17 @@ const getColumn = (selector, cols) => ({
   flex: `0 0 ${getBasis(cols)}`
 })
 
+const applyLayout = (config, namespace) => {
+  applyRule(config.all, namespace, getColumn(namespace, 3))
+  applyRule(config.tablet, namespace, getColumn(namespace, 6))
+  applyRule(config.mobile, namespace, getColumn(namespace, 12))
+}
+
 export default function Column(site, config, column, namespace) {
 
   const selector = `${namespace}>*`
 
-  applyRule(config.all, namespace, getColumn(namespace, 3))
-  applyRule(config.tablet, namespace, getColumn(namespace, 6))
-  applyRule(config.mobile, namespace, getColumn(namespace, 12))
+  applyLayout(config, namespace)
 
   applyBoxModel(config, selector, column)
 

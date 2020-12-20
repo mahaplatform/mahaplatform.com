@@ -21,9 +21,7 @@ function Block({ block, namespace }) {
 
   return (
     <div className={ namespace }>
-      <div>
-        <Component block={ block } />
-      </div>
+      <Component block={ block } />
     </div>
   )
 
