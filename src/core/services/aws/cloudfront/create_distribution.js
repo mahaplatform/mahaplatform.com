@@ -127,7 +127,7 @@ const createDistibution = async (req, params) => {
             }
           }, {
             Id: `${code}-cdn`,
-            DomainName: 'assets.mahaplatform.com',
+            DomainName: `assets.${process.env.DOMAIN}`,
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',

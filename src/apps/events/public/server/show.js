@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     qb.where('code', req.params.code)
     qb.whereNull('deleted_at')
   }).fetch({
-    withRelated: ['image','organizers.photo','program.logo','program.fields','sessions.location','ticket_types','team.logo'],
+    withRelated: ['image','organizers.photo','program.logo','program.fields','program.bank','sessions.location','ticket_types','team.logo'],
     transacting: req.trx
   })
 
@@ -47,10 +47,10 @@ const showRoute = async (req, res) => {
       url: event.get('url'),
       settings: {
         card_enabled: true,
-        ach_enabled: settings.get('values').ach_enabled,
+        ach_enabled: program.related('bank').get('has_ach'),
         googlepay_enabled: settings.get('values').googlepay_enabled,
-        paypal_enabled: settings.get('values').paypal_enabled,
-        applepay_enabled: settings.get('values').ach_enabled,
+        paypal_enabled: program.related('bank').get('has_paypal'),
+        applepay_enabled: true,
         door_enabled: event.get('payment_config').pay_at_door
       },
       sessions: event.related('sessions').map(session => ({

@@ -65,8 +65,8 @@ class New extends React.PureComponent {
     if(ticket_type.price_type === 'fixed') {
       return [
         { type: 'fields', fields: [
-          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'description', required: true, format: ProjectToken },
-          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'description', required: true, format: RevenueTypeToken, defaultValue: 26 }
+          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'display', required: true, format: ProjectToken },
+          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'display', required: true, format: RevenueTypeToken, defaultValue: 26 }
         ] },
         { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Enter a fixed Price', required: true },
         { label: 'Tax Rate', name: 'tax_rate', type: 'ratefield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
@@ -76,8 +76,8 @@ class New extends React.PureComponent {
     if(ticket_type.price_type === 'sliding_scale') {
       return [
         { type: 'fields', fields: [
-          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'description', required: true, format: ProjectToken },
-          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'description', required: true, format: RevenueTypeToken, defaultValue: 26 }
+          { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'display', required: true, format: ProjectToken },
+          { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [26,49] } }, value: 'id', text: 'display', required: true, format: RevenueTypeToken, defaultValue: 26 }
         ] },
         { type: 'fields', fields: [
           { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true },
@@ -99,7 +99,7 @@ class New extends React.PureComponent {
     const { ticket_type } = this.state
     if(ticket_type.overage_strategy === 'donation') {
       return [
-        { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: 30 }
+        { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'display', required: true, format: RevenueTypeToken, defaultValue: 30 }
       ]
     }
     return []

@@ -19,6 +19,7 @@ const editRoute = async (req, res) => {
       'rate',
       'amex_rate',
       'ach_rate',
+      'has_ach',
       'has_paypal'
     ]
   })

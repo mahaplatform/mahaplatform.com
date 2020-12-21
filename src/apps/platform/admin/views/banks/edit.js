@@ -37,7 +37,8 @@ class Edit extends React.Component {
             { label: 'Rate', name: 'rate', type: 'ratefield', placeholder: 'Rate', required: true, defaultValue: 0.029 },
             { label: 'Amex Rate', name: 'amex_rate', type: 'ratefield', placeholder: 'Amex Rate', required: true, defaultValue: 0.0375 },
             { label: 'ACH Rate', name: 'ach_rate', type: 'ratefield', placeholder: 'ACH Rate', required: true, defaultValue: 0.0075 },
-            { name: 'has_paypal', type: 'checkbox', prompt: 'This merchant account is linked to PayPal' }
+            { name: 'has_ach', type: 'checkbox', prompt: 'ACH enabled' },
+            { name: 'has_paypal', type: 'checkbox', prompt: 'PayPal enabled' }
           ]
         }
       ]

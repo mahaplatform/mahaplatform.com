@@ -13,6 +13,7 @@ const createRoute = async (req, res) => {
     routing_number: req.body.routing.number,
     account_number: req.body.account_number,
     integration: req.body.integration,
+    has_ach: false,
     has_paypal: false
   }).save(null, {
     transacting: req.trx

@@ -1025,6 +1025,7 @@ const schema = {
       table.date('applied_on')
       table.USER-DEFINED('status')
       table.decimal('ach_rate', 5, 4)
+      table.boolean('has_ach')
     })
 
     await knex.schema.createTable('finance_batches', (table) => {

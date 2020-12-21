@@ -26,6 +26,7 @@ const Details = ({ bank }) => {
     list.items.push({ label: 'Credit Card Rate', content: bank.rate, format: 'percent' })
     list.items.push({ label: 'Amex Rate', content: bank.amex_rate , format: 'percent'})
     list.items.push({ label: 'ACH Rate', content: bank.ach_rate, format: 'percent' })
+    list.items.push({ label: 'ACH', content: bank.has_ach, format: 'yes_no' })
     list.items.push({ label: 'PayPal', content: bank.has_paypal, format: 'yes_no' })
 
   }

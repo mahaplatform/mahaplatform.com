@@ -19,7 +19,7 @@ const createRoute = async (req, res) => {
 
   await bank.save({
     status: 'active',
-    ...whitelist(req.body, ['braintree_id','rate','amex_rate','has_paypal'])
+    ...whitelist(req.body, ['braintree_id','rate','amex_rate','has_ach','has_paypal'])
   }, {
     transacting: req.trx,
     patch: true
@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
 
   await socket.refresh(req, [
     `/admin/platform/teams/${req.params.team_id}`,
-    `/admin/platform/finance/banks/${bank.get('id')}`
+    `/admin/platform/banks/${bank.get('id')}`
   ])
 
   res.status(200).respond(bank, BankSerializer)

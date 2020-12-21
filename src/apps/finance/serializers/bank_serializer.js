@@ -6,6 +6,7 @@ const BankSerializer = (req, result) => ({
   account_number: result.get('account_number'),
   braintree_id: result.get('braintree_id'),
   braintree_link: result.get('braintree_link'),
+  has_ach: result.get('has_ach'),
   has_paypal: result.get('has_paypal'),
   rate: result.get('rate'),
   amex_rate: result.get('amex_rate'),
