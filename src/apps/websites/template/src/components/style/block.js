@@ -1,9 +1,9 @@
 import { applyBoxModel } from './utils'
 
-export default function Block(site, config, block, namespace) {
+export default function Block(site, rules, block, namespace) {
 
-  applyBoxModel(config, namespace, block)
+  applyBoxModel(rules, namespace, block)
 
-  return config
+  return rules
 
 }

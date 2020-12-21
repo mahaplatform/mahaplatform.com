@@ -11,25 +11,25 @@ const getAlignment = (config) => {
 const getSizing = (config) => {
   if(!config) return {}
   const { customWidth, fullWidth } = config
-  return { flex: fullWidth ? 1 : `0 0 ${withUnits(customWidth || 980)}` }
+  return { flex: fullWidth ? 1 : `0 0 ${withUnits(customWidth || 980, 'px')}` }
 }
 
-export default function Row(site, config, row, namespace) {
+export default function Row(site, rules, row, namespace) {
 
   const selector = `${namespace}>*`
 
-  applyBoxModel(config, selector, row)
+  applyBoxModel(rules, selector, row)
 
-  applyRule(config.all, selector, getAlignment(row.alignment))
+  applyRule(rules.all.standard, selector, getAlignment(row.alignment))
 
-  applyRule(config.desktop, selector, getSizing(row.sizing))
+  applyRule(rules.desktop.standard, selector, getSizing(row.sizing))
 
-  if(row.columns) {
-    config = row.columns.reduce((config, column, cindex) => {
-      return Column(site, config, column, `${namespace}${cindex}`)
-    }, config)
+  if(row.content.columns) {
+    rules = row.content.columns.reduce((rules, column, cindex) => {
+      return Column(site, rules, column, row.content.layout, cindex, `${namespace}${cindex}`)
+    }, rules)
   }
 
-  return config
+  return rules
 
 }

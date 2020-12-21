@@ -1,7 +1,7 @@
 import RichText from '../richtext'
 
 function TextBlock({ block }) {
-  return RichText(block.text)
+  return RichText(block.content.text)
 }
 
 export default TextBlock

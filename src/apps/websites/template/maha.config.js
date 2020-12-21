@@ -14,43 +14,81 @@ export default {
       sections: [
         {
           background: {
-            color: 'red'
+            background: {
+              isResponsive: false,
+              isHover: false,
+              all: {
+                type: 'color',
+                color: 'red'
+              }
+            }
           },
-          rows: [
-            {
-              columns: [
-                {
-                  blocks: [
+          content: {
+            rows: [
+              {
+                content: {
+                  layout: {
+                    isResponsive: false,
+                    all: [1]
+                  },
+                  columns: [
                     {
-                      type: 'text',
-                      text: 'foo'
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            content: {
+                              text: 'foo'
+                            }
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         },
         {
           type: 'content'
         },{
           background: {
-            color: 'red'
+            background: {
+              isResponsive: false,
+              isHover: false,
+              all: {
+                type: 'color',
+                color: 'red'
+              }
+            }
           },
-          rows: [
-            {
-              columns: [
-                {
-                  blocks: [
+          content: {
+            rows: [
+              {
+                content: {
+                  layout: {
+                    isResponsive: false,
+                    all: [1]
+                  },
+                  columns: [
                     {
-                      type: 'text',
-                      text: 'foo'
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            content: {
+                              text: 'foo'
+                            }
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     }
@@ -65,94 +103,227 @@ export default {
       sections: [
         {
           background: {
-            image: '/assets/8346/10156387003857338.jpg'
+            background: {
+              isResponsive: false,
+              isHover: false,
+              all: {
+                type: 'image',
+                image: '/assets/8346/10156387003857338.jpg'
+              }
+            }
           },
-          rows: [
-            {
-              sizing: {
-                fullWidth: false
-              },
-              spacing: {
-                padding: [10, 10, 10, 10]
-              },
-              background: {
-                color: 'green'
-              },
-              columns: [
-                {
-                  alignment: {
-                    align: 'middle'
-                  },
-                  spacing: {
-                    padding: [10, 10, 10, 10]
-                  },
-                  blocks: [
-                    {
-                      type: 'text',
-                      background: {
-                        color: '#FFFFFF99'
-                      },
-                      spacing: {
-                        padding: [10, 10, 10, 10]
-                      },
-                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+          content: {
+            rows: [
+              {
+                sizing: {
+                  fullWidth: false
+                },
+                spacing: {
+                  padding: {
+                    isResponsive: false,
+                    isHover: false,
+                    all: [10, 10, 10, 10]
+                  }
+                },
+                background: {
+                  background: {
+                    isResponsive: false,
+                    isHover: true,
+                    all: {
+                      type: 'color',
+                      color: 'green'
+                    },
+                    hover: {
+                      type: 'color',
+                      color: 'green'
                     }
-                  ]
-                }, {
-                  spacing: {
-                    padding: [10, 10, 10, 10]
+                  }
+                },
+                content: {
+                  layout: {
+                    isResponsive: true,
+                    desktop: [3,3,3,3],
+                    tablet: [6,6],
+                    mobile: [12]
                   },
-                  blocks: [
+                  columns: [
                     {
-                      type: 'text',
-                      background: {
-                        color: '#FFFFFF99'
+                      alignment: {
+                        align: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: 'middle'
+                        }
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        padding: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: [10, 10, 10, 10]
+                        }
                       },
-                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p><p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
-                    }
-                  ]
-                }, {
-                  alignment: {
-                    align: 'bottom'
-                  },
-                  spacing: {
-                    padding: [10, 10, 10, 10]
-                  },
-                  blocks: [
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            background: {
+                              background: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: {
+                                  type: 'color',
+                                  color: '#FFFFFF99'
+                                }
+                              }
+                            },
+                            spacing: {
+                              padding: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: [10, 10, 10, 10]
+                              }
+                            },
+                            content: {
+                              text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                            }
+                          }
+                        ]
+                      }
+                    },
                     {
-                      type: 'text',
-                      background: {
-                        color: '#FFFFFF99'
+                      alignment: {
+                        align: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: 'middle'
+                        }
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        padding: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: [10, 10, 10, 10]
+                        }
                       },
-                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
-                    }
-                  ]
-                }, {
-                  spacing: {
-                    padding: [10, 10, 10, 10]
-                  },
-                  blocks: [
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            background: {
+                              background: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: {
+                                  type: 'color',
+                                  color: '#FFFFFF99'
+                                }
+                              }
+                            },
+                            spacing: {
+                              padding: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: [10, 10, 10, 10]
+                              }
+                            },
+                            content: {
+                              text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                            }
+                          }
+                        ]
+                      }
+                    },
                     {
-                      type: 'text',
-                      background: {
-                        color: '#FFFFFF99'
+                      alignment: {
+                        align: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: 'middle'
+                        }
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        padding: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: [10, 10, 10, 10]
+                        }
                       },
-                      text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            background: {
+                              background: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: {
+                                  type: 'color',
+                                  color: '#FFFFFF99'
+                                }
+                              }
+                            },
+                            spacing: {
+                              padding: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: [10, 10, 10, 10]
+                              }
+                            },
+                            content: {
+                              text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      alignment: {
+                        align: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: 'middle'
+                        }
+                      },
+                      spacing: {
+                        padding: {
+                          isResponsive: false,
+                          isHover: false,
+                          all: [10, 10, 10, 10]
+                        }
+                      },
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            background: {
+                              background: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: {
+                                  type: 'color',
+                                  color: '#FFFFFF99'
+                                }
+                              }
+                            },
+                            spacing: {
+                              padding: {
+                                isResponsive: false,
+                                isHover: false,
+                                all: [10, 10, 10, 10]
+                              }
+                            },
+                            content: {
+                              text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                            }
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     }, {

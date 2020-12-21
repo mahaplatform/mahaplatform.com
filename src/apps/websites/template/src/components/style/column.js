@@ -1,8 +1,8 @@
 import { applyBoxModel, applyRule } from './utils'
 import Block from './block'
 
-const getAlignment = (config) => {
-  const align = config ? config.align : 'top'
+const getAlignment = (alignment) => {
+  const align = alignment ? alignment.align.all : 'top'
   if(align === 'top') return { margin: '0 0 auto' }
   if(align === 'middle') return { margin: 'auto 0' }
   if(align === 'bottom') return { margin: 'auto 0 0' }
@@ -19,32 +19,34 @@ const getBasis = (cols) => {
   return `calc(100%*(${cols}/12))`
 }
 
-const getColumn = (selector, cols) => ({
-  flex: `0 0 ${getBasis(cols)}`
-})
-
-const applyLayout = (config, namespace) => {
-  applyRule(config.all, namespace, getColumn(namespace, 3))
-  applyRule(config.tablet, namespace, getColumn(namespace, 6))
-  applyRule(config.mobile, namespace, getColumn(namespace, 12))
+const getColumn = (layout, cindex) => {
+  const index = cindex % layout.length
+  return { flex: `0 0 ${getBasis(layout[index])}` }
 }
 
-export default function Column(site, config, column, namespace) {
+const applyLayout = (rules, namespace, layout, cindex) => {
+  if(!layout.isResponsive) return applyRule(rules.all.standard, namespace, getColumn(layout.all, cindex))
+  applyRule(rules.desktop.standard, namespace, getColumn(layout.desktop, cindex))
+  applyRule(rules.tablet.standard, namespace, getColumn(layout.tablet, cindex))
+  applyRule(rules.mobile.standard, namespace, getColumn(layout.mobile, cindex))
+}
+
+export default function Column(site, rules, column, layout, cindex, namespace) {
 
   const selector = `${namespace}>*`
 
-  applyLayout(config, namespace)
+  applyLayout(rules, namespace, layout, cindex)
 
-  applyBoxModel(config, selector, column)
+  applyBoxModel(rules, selector, column)
 
-  applyRule(config.all, selector, getAlignment(column.alignment))
+  applyRule(rules.all.standard, selector, getAlignment(column.alignment))
 
-  if(column.blocks) {
-    config = column.blocks.reduce((config, block, bindex) => {
+  if(column.content.blocks) {
+    rules = column.content.blocks.reduce((config, block, bindex) => {
       return Block(site, config, block, `${namespace}${bindex}`)
-    }, config)
+    }, rules)
   }
 
-  return config
+  return rules
 
 }
