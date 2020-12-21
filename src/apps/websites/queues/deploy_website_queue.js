@@ -1,4 +1,4 @@
-import { buildSite, publishSite } from '@apps/websites/services/next'
+import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 import Queue from '@core/objects/queue'
 import moment from 'moment'
 
@@ -6,21 +6,21 @@ const processor = async (req, job) => {
 
   const hash = moment().format('YYYYMMDDHHmmss')
 
-  await buildSite(req, {
+  await buildWebsite(req, {
     code: 'abcdef',
     hash
   })
 
-  await publishSite(req, {
+  await publishWebsite(req, {
     code: 'abcdef',
     hash
   })
 
 }
 
-const DeploySiteQueue = new Queue({
-  name: 'deploy_site',
+const DeployWebsiteQueue = new Queue({
+  name: 'deploy_website',
   processor
 })
 
-export default DeploySiteQueue
+export default DeployWebsiteQueue

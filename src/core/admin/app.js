@@ -139,7 +139,6 @@ import datasetsRoutes from '../../apps/datasets/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
 import eventsRoutes from '../../apps/events/admin/views/index.js'
-import faxRoutes from '../../apps/fax/admin/views/index.js'
 import financeRoutes from '../../apps/finance/admin/views/index.js'
 import formsRoutes from '../../apps/forms/admin/views/index.js'
 import competenciesRoutes from '../../apps/learning/admin/views/index.js'
@@ -483,7 +482,6 @@ class App extends React.Component {
       { path: '/:team/drive', children: driveRoutes },
       { path: '/:team/eatfresh', children: eatfreshRoutes },
       { path: '/:team/events', children: eventsRoutes },
-      { path: '/:team/fax', children: faxRoutes },
       { path: '/:team/finance', children: financeRoutes },
       { path: '/:team/expenses', children: financeRoutes },
       { path: '/:team/forms', children: formsRoutes },

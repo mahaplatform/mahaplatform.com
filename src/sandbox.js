@@ -5,7 +5,7 @@ import './core/services/environment'
 // import knex from './core/vendor/knex'
 import { createRecords, deleteRecords, createZone, deleteZone } from '@core/services/aws/route53'
 import { createDistribution, invalidateDistibution, deleteDistribution } from '@core/services/aws/cloudfront'
-import { buildSite, publishSite } from '@apps/websites/services/next'
+import { buildWebsite, publishWebsite } from '@apps/websites/services/websites '
 import { cloudfront } from '@core/vendor/aws'
 import moment from 'moment'
 import path from 'path'
@@ -44,12 +44,12 @@ const processor = async () => {
   //
   const hash = moment().format('YYYYMMDDHHmmss')
 
-  await buildSite(req, {
+  await buildWebsite(req, {
     code: 'abcdef',
     hash
   })
 
-  await publishSite(req, {
+  await publishWebsite(req, {
     code: 'abcdef',
     hash
   })
