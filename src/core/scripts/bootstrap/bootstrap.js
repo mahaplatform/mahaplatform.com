@@ -19,6 +19,10 @@ const bootstrapApps = async () => {
     code: object.code
   }) === undefined)
 
+  const removeItems = items.filter(item => {
+    return _.find(objects, { code: item.code }) === undefined
+  })
+
   await Promise.map(addItems, async (item) => {
 
     log('info', 'bootstrap', `Adding app ${item.code}`)
@@ -26,6 +30,22 @@ const bootstrapApps = async () => {
     await knex('maha_apps').insert({
       code: item.code
     })
+
+  })
+
+  await Promise.map(removeItems, async (item) => {
+
+    log('info', 'bootstrap', `Removing app ${item.code}`)
+
+    await knex('maha_roles_apps').where('app_id', item.id).del()
+
+    await knex('maha_teams_apps').where('app_id', item.id).del()
+
+    await knex('maha_installations').where('app_id', item.id).del()
+
+    await knex('maha_apps').where('id', item.id).del()
+
+    return item.id
 
   })
 
