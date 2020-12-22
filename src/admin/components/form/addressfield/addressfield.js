@@ -282,6 +282,7 @@ class Addressfield extends React.Component {
   _handleLookup() {
     const { q } = this.props
     this.setState({ selected: null })
+    if(!q || q.length == 0) return
     this.autocomplete.getPlacePredictions({
       input: q
     }, this._handleAutocomplete)

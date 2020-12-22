@@ -1,12 +1,19 @@
 import React from 'react'
 import _ from 'lodash'
 
+const page = {
+  scripts: [],
+  styles: []
+}
+
 const Creator = (dependencies) => (Component) => {
 
   class Dependencies extends React.Component {
 
     state = {
-      loaded: false
+      loaded: false,
+      scripts: [],
+      styles: []
     }
 
     _handleCheck = this._handleCheck.bind(this)
@@ -17,7 +24,28 @@ const Creator = (dependencies) => (Component) => {
     }
 
     componentDidMount() {
-      this._handleCheck(true)
+      const scripts = dependencies.scripts ? dependencies.scripts.reduce((scripts, script) => {
+        const load = _.find(page.scripts, { url: script.url }) === undefined
+        if(load) page.scripts.push(script)
+        return [
+          ...scripts,
+          { ...script, load }
+        ]
+      }, []) : []
+      const styles = dependencies.styles ? dependencies.styles.reduce((styles, style) => {
+        const load = _.find(page.styles, { url: style.url }) === undefined
+        if(load) page.styles.push(style)
+        return [
+          ...styles,
+          { ...style, load }
+        ]
+      }, []) : []
+      this.setState({
+        scripts,
+        styles
+      }, () => {
+        this._handleCheck(true)
+      })
     }
 
     _getNormalized(path) {
@@ -25,17 +53,18 @@ const Creator = (dependencies) => (Component) => {
     }
 
     _handleCheck(load = false) {
-      const scripts = dependencies.scripts ? dependencies.scripts.reduce((loaded, dependency) => {
-        if(this._handleCheckLoadedScript(dependency)) return loaded
-        if(load) this._handleLoadScript(dependency)
+      const { scripts, styles } = this.state
+      const scriptscheck = scripts.reduce((loaded, dependency) => {
+        if(this._handleCheckLoadedScript(dependency)) return dependency
+        if(load && dependency.load) this._handleLoadScript(dependency)
         return false
-      }, true) : true
-      const styles = dependencies.styles ? dependencies.styles.reduce((loaded, dependency) => {
-        if(this._handleCheckLoadedStyle(dependency)) return loaded
-        if(load) this._handleLoadStyle(dependency)
+      }, true)
+      const stylescheck = styles.reduce((loaded, dependency) => {
+        if(this._handleCheckLoadedStyle(dependency)) return dependency
+        if(load && dependency.load) this._handleLoadStyle(dependency)
         return false
-      }, true) : true
-      if(scripts && styles) return this.setState({ loaded: true })
+      }, true)
+      if(scriptscheck && stylescheck) return this.setState({ loaded: true })
       setTimeout(this._handleCheck, 1000)
     }
 
@@ -56,7 +85,6 @@ const Creator = (dependencies) => (Component) => {
         return style.href === path
       }) !== undefined
     }
-
 
     _handleLoadScript(dependency) {
       const script = document.createElement('script')

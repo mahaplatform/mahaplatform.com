@@ -43,8 +43,6 @@ const Details = ({ audits, payment }) => {
       items.push({ label: 'Card', content: payment.description })
     }
 
-    items.push({ label: 'Bank', content: payment.bank.title })
-
   }
 
   if(payment.braintree_id) {

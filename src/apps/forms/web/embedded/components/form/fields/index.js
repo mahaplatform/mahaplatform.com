@@ -131,7 +131,6 @@ class Fields extends React.Component {
     return fields.filter(field => {
       return field.type !== 'text'
     }).reduce((tokens, field) => {
-      console.log(field)
       return {
         ...tokens,
         [field.name.token]: data[field.code]

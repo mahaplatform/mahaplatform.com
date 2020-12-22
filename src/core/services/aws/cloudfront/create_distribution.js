@@ -5,7 +5,7 @@ const createDistibution = async (req, params) => {
 
   const { code, aliases, aws_certificate_arn } = params
 
-  const name = `${code}.mahaplatform.com`
+  const name = `${code}.${process.env.DOMAIN}`
 
   const distribution = await cloudfront.createDistribution({
     DistributionConfig: {
@@ -127,7 +127,7 @@ const createDistibution = async (req, params) => {
             }
           }, {
             Id: `${code}-cdn`,
-            DomainName: `assets.${process.env.DOMAIN}`,
+            DomainName: 'assets.mahaplatform.com',
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',
