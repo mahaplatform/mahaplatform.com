@@ -2,6 +2,7 @@ const RegistrationSerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
   enrollment: enrollment(result.related('enrollment')),
+  payment: payment(result.related('payment')),
   invoice_id: result.get('invoice_id'),
   ipaddress: result.get('ipaddress'),
   referer: result.get('referer'),
@@ -30,6 +31,16 @@ const enrollment = (enrollment) => {
   return {
     id: enrollment.get('id'),
     workflow_id: enrollment.get('workflow_id')
+  }
+}
+
+const payment = (payment) => {
+  if(!payment) return null
+  return {
+    id: payment.get('id'),
+    method: payment.get('method'),
+    reference: payment.get('reference'),
+    amount: payment.get('amount')
   }
 }
 

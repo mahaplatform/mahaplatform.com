@@ -188,7 +188,6 @@ const processor = async () => {
     const commands = [
       `ln -s ${sharedDir}/logs ${platformDir}/logs`,
       `ln -s ${sharedDir}/tmp ${platformDir}/tmp`,
-      `ln -s ${sharedDir}/web ${platformDir}/web`,
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {

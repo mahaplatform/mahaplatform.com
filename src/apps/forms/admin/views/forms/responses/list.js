@@ -1,4 +1,5 @@
 import ContactToken from '@apps/crm/admin/tokens/contact'
+import Content from '@apps/forms/admin/tokens/content'
 import { Page } from '@admin'
 import React from 'react'
 import _ from 'lodash'
@@ -29,6 +30,7 @@ const getField = (field) => {
       { label: `${field.name.value} - City`, key: `data.${field.code}.city` },
       { label: `${field.name.value} - State/Province`, key: `data.${field.code}.state_province` },
       { label: `${field.name.value} - Postal Code`, key: `data.${field.code}.postal_code` },
+      { label: `${field.name.value} - County`, key: `data.${field.code}.county` },
       { label: `${field.name.value} - Latitude`, key: `data.${field.code}.latitude` },
       { label: `${field.name.value} - Longitude`, key: `data.${field.code}.longitude` }
     ]
@@ -72,7 +74,7 @@ const mapPropsToPage = (props, context, resources, page) => {
           ...getField(field)
         ], []),
         ...payment ? [
-          { label: 'Payment - Method)', key: 'payment.method' },
+          { label: 'Payment - Method', key: 'payment.method' },
           { label: 'Payment - Reference', key: 'payment.reference' },
           { label: 'Payment - Amount', key: 'payment.amount' }
         ] : []

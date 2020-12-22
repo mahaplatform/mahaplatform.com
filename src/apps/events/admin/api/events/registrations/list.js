@@ -29,7 +29,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['contact'],
+    withRelated: ['contact','payment'],
     transacting: req.trx
   })
 
