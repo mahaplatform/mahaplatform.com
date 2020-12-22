@@ -1201,6 +1201,7 @@ const schema = {
       table.integer('payment_method_id').unsigned()
       table.USER-DEFINED('status')
       table.string('paypal_id', 255)
+      table.decimal('cross_border_rate', 5, 4)
     })
 
     await knex.schema.createTable('finance_projects', (table) => {
@@ -5602,8 +5603,8 @@ union
       select finance_payments_1.id as payment_id,
       case
       when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00
-      when (finance_payments_1.method = 'paypal'::finance_payments_method) then round((round(((finance_payments_1.rate * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
-      else round((floor(((finance_payments_1.rate * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
+      when (finance_payments_1.method = 'paypal'::finance_payments_method) then round((round((((finance_payments_1.rate + finance_payments_1.cross_border_rate) * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
+      else round((floor((((finance_payments_1.rate + finance_payments_1.cross_border_rate) * finance_payments_1.amount) * (100)::numeric)) / (100)::numeric), 2)
       end as fee_percent,
       case
       when (finance_payments_1.method = any (array['scholarship'::finance_payments_method, 'ach'::finance_payments_method, 'credit'::finance_payments_method, 'cash'::finance_payments_method, 'check'::finance_payments_method])) then 0.00

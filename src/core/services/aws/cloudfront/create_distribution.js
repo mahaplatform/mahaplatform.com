@@ -10,6 +10,7 @@ const createDistibution = async (req, params) => {
   const distribution = await cloudfront.createDistribution({
     DistributionConfig: {
       CallerReference: moment().format('x'),
+      DefaultRootObject: 'index',
       Aliases: {
         Quantity: aliases.length + 1,
         Items: [

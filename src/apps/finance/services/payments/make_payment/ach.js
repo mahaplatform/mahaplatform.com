@@ -112,6 +112,7 @@ export const chargeACH = async (req, { invoice, customer, bank, payment, amount 
     bank_id: bank.get('id'),
     braintree_id: result.transaction.id,
     payment_method_id: payment_method.get('id'),
+    cross_border_rate: 0.0000,
     rate: bank.get('ach_rate'),
     reference: payment_method.get('description'),
     status: 'captured',

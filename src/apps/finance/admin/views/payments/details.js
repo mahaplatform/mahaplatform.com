@@ -75,8 +75,10 @@ const Details = ({ audits, payment }) => {
     items.push({ label: 'Fee', content: (
       <span>
         { numeral(payment.fee).format('0.00') } (
-        { numeral(payment.rate).format('0.00%') }
-        { payment.method !== 'ach' ? '+ 0.30' : '' })
+        { numeral(Number(payment.rate) + Number(payment.cross_border_rate)).format('0.00%') }
+        { payment.method !== 'ach' ? ' + 0.30' : '' }) { payment.cross_border_rate > 0 &&
+          <span className="alert">* an additional 1.5% cross border fee was applied</span>
+        }
       </span>
     ) })
     items.push({ label: 'Net Amount', content: numeral(payment.disbursed).format('0.00') })

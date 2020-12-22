@@ -16,6 +16,7 @@ const PaymentSerializer = (req, result) => ({
   method: result.get('method'),
   payment_method: payment_method(result.related('payment_method')),
   photo: photo(result.related('photo')),
+  cross_border_rate: result.get('cross_border_rate'),
   rate: result.get('rate'),
   reference: result.get('reference'),
   refunded: result.get('refunded'),
