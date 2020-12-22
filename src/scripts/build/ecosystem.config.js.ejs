@@ -6,7 +6,10 @@ module.exports = {
     cwd: process.env.PWD+'/current/platform',
     error_file: './logs/worker.err.log',
     out_file: './logs/worker.out.log',
-    exec_mode: 'fork_mode'
+    exec_mode: 'fork_mode',
+    env: {
+      NODE_ENV: '<%= environment %>'
+    }
   },{
     name: 'cron_<%= environment %>',
     script: './cron.js',
@@ -14,6 +17,9 @@ module.exports = {
     cwd: process.env.PWD+'/current/platform',
     error_file: './logs/cron.err.log',
     out_file: './logs/cron.out.log',
-    exec_mode: 'fork_mode'
+    exec_mode: 'fork_mode',
+    env: {
+      NODE_ENV: '<%= environment %>'
+    }
   }]
 }

@@ -31,6 +31,7 @@ class PaymentsField extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
+    const { selected } = this.state
     const total = this._getTotal()
     return (
       <div className="paymentsfield">
@@ -41,7 +42,9 @@ class PaymentsField extends React.Component {
           <Results { ...this._getResults() } />
         </div>
         <div className="paymentsfield-footer">
-          Total: { numeral(total).format('0.00')}
+          Total: { numeral(total).format('0.00') } {
+            selected.length > 0 ? <span>({ selected.length} transactions)</span> : ''
+          }
         </div>
       </div>
     )
