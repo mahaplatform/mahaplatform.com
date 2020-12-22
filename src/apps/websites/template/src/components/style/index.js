@@ -1,4 +1,5 @@
 import Section from './section'
+import React from 'react'
 import _ from 'lodash'
 
 const getValue = (property, value) => {
