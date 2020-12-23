@@ -10,8 +10,10 @@ export const expand = (value, unit) => {
 
 export const applyResponsiveRule = (rulesets, selector, rule, applicator, extra) => {
   if(!rule) return
+  if(!_.isPlainObject(rule)) return applicator(rulesets.all, selector, rule, extra)
   if(rule.isHover === true && rule.hover) applicator(rulesets.all, `${selector}:hover`, rule.hover, extra)
   if(rule.isResponsive !== true && rule.all !== undefined) return applicator(rulesets.all, selector, rule.all, extra)
+  if(rule.isResponsive !== true && rule.all === undefined) return applicator(rulesets.all, selector, rule, extra)
   if(rule.desktop !== undefined) applicator(rulesets.desktop, selector, rule.desktop, extra)
   if(rule.tablet !== undefined) applicator(rulesets.tablet, selector, rule.tablet, extra)
   if(rule.mobile !== undefined) applicator(rulesets.mobile, selector, rule.mobile, extra)

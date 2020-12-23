@@ -1,4 +1,4 @@
-import { applyBoxModel, applyRule } from './utils'
+import { applyBoxModel, applyRule, applyResponsiveRule } from './utils'
 import Block from './block'
 
 const getAlignment = (alignment) => {
@@ -24,18 +24,15 @@ const getColumn = (layout, cindex) => {
   return { flex: `0 0 ${getBasis(layout[index])}` }
 }
 
-const applyLayout = (rules, namespace, layout, cindex) => {
-  if(!layout.isResponsive) return applyRule(rules.all.standard, namespace, getColumn(layout.all, cindex))
-  applyRule(rules.desktop.standard, namespace, getColumn(layout.desktop, cindex))
-  applyRule(rules.tablet.standard, namespace, getColumn(layout.tablet, cindex))
-  applyRule(rules.mobile.standard, namespace, getColumn(layout.mobile, cindex))
+const applyLayout = (ruleset, namespace, layout, cindex) => {
+  applyRule(ruleset.standard, namespace, getColumn(layout, cindex))
 }
 
 export default function Column(site, rules, column, layout, cindex, namespace) {
 
   const selector = `${namespace}>*`
 
-  applyLayout(rules, namespace, layout, cindex)
+  applyResponsiveRule(rules, namespace, layout, applyLayout, cindex)
 
   applyBoxModel(rules, selector, column)
 
