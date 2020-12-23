@@ -11,6 +11,9 @@ export const applyBoxModel = (rulesets, selector, item) => {
   applyBackground(rulesets, selector, item.background)
   applyBorder(rulesets, selector, item.border)
   applyBoxShadow(rulesets, selector, item.boxShadow)
-  applyFilter(rulesets, selector, item.filter)
   applySpacing(rulesets, selector, item.spacing)
+}
+
+export const applyDesign = (rulesets, selector, item) => {
+  applyFilter(rulesets, selector, item.filter)
 }

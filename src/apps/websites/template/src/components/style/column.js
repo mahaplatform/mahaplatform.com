@@ -2,7 +2,7 @@ import { applyBoxModel, applyRule, applyResponsiveRule } from './utils'
 import Block from './block'
 
 const getAlignment = (alignment) => {
-  const align = alignment ? alignment.align.all : 'top'
+  if(!alignment) return {}
   if(align === 'top') return { margin: '0 0 auto' }
   if(align === 'middle') return { margin: 'auto 0' }
   if(align === 'bottom') return { margin: 'auto 0 0' }

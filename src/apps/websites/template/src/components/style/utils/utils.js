@@ -4,14 +4,14 @@ export const withUnits = (value, unit) => {
   return `${value}${unit}`
 }
 
-export const expand = (value, unit) => {
+export const expand = (value, unit = '') => {
   return _.castArray(value).map(subvalue => withUnits(subvalue, unit)).join(' ')
 }
 
 export const applyResponsiveRule = (rulesets, selector, rule, applicator, extra) => {
-  if(!rule) return
+  if(rule === undefined) return
   if(!_.isPlainObject(rule)) return applicator(rulesets.all, selector, rule, extra)
-  if(rule.isHover === true && rule.hover) applicator(rulesets.all, `${selector}:hover`, rule.hover, extra)
+  if(rule.hover !== undefined) applicator(rulesets.all, `${selector}:hover`, rule.hover, extra)
   if(rule.isResponsive !== true && rule.all !== undefined) return applicator(rulesets.all, selector, rule.all, extra)
   if(rule.isResponsive !== true && rule.all === undefined) return applicator(rulesets.all, selector, rule, extra)
   if(rule.desktop !== undefined) applicator(rulesets.desktop, selector, rule.desktop, extra)

@@ -1,7 +1,10 @@
 import { applyRule, applyResponsiveRule, expand } from './utils'
 
 const applyRadius = (ruleset, selector, radius) => {
-  applyRule(ruleset.standard, selector, { borderRadius: expand(radius, 'px') })
+  applyRule(ruleset.standard, selector, {
+    borderRadius: expand(radius, 'px'),
+    overflow: 'hidden'
+  })
 }
 
 const applyWidth = (ruleset, selector, width) => {

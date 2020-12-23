@@ -112,138 +112,210 @@ export default {
                 content: {
                   layout: {
                     isResponsive: true,
-                    desktop: [3,3,3,3],
+                    desktop: [4,4,4],
                     tablet: [6,6],
                     mobile: [12]
                   },
                   columns: [
                     {
-                      alignment: {
-                        align: 'middle'
+                      animation: {
+                        type: 'fade',
+                        duration: 1000,
+                        delay: 0,
+                        opacity: 0,
+                        curve: 'ease-in-out',
+                        repeat: 1
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        margin: [10, 10, 10, 10]
+                      },
+                      border: {
+                        radius: 10
+                      },
+                      background: {
+                        background: {
+                          type: 'color',
+                          color: '#FFFFFF99'
+                        }
+                      },
+                      boxShadow: {
+                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
+                            type: 'image',
+                            content: {
+                              image: '/assets/8346/10156387003857338.jpg'
+                            }
+                          },{
                             type: 'text',
-                            border: {
-                              radius: 10
-                            },
-                            background: {
-                              background: {
-                                type: 'color',
-                                color: '#FFFFFF99'
-                              }
-                            },
-                            boxShadow: {
-                              boxShadow: 1
-                            },
                             spacing: {
                               padding: [10, 10, 10, 10]
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
                             }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      alignment: {
-                        align: 'middle'
-                      },
-                      spacing: {
-                        padding: [10, 10, 10, 10]
-                      },
-                      content: {
-                        blocks: [
-                          {
-                            type: 'text',
-                            border: {
-                              radius: 10
-                            },
-                            background: {
-                              background: {
-                                type: 'color',
-                                color: '#FFFFFF99'
-                              }
-                            },
-                            boxShadow: {
-                              boxShadow: 1
-                            },
+                          },{
+                            type: 'button',
                             spacing: {
                               padding: [10, 10, 10, 10]
                             },
+                            button: {
+                              custom: true,
+                              color: '#FFFFFF',
+                              background: {
+                                all: {
+                                  type: 'color',
+                                  color: '#e22a8a'
+                                },
+                                hover: {
+                                  type: 'color',
+                                  color: '#7fba42'
+                                }
+                              },
+                              border: {
+                                radius: 5
+                              }
+                            },
                             content: {
-                              text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                              text: 'Click Me'
                             }
                           }
                         ]
                       }
                     },
                     {
-                      alignment: {
-                        align: 'middle'
+                      animation: {
+                        type: 'fade',
+                        duration: 1000,
+                        delay: 0,
+                        opacity: 0,
+                        curve: 'ease-in-out',
+                        repeat: 1
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        margin: [10, 10, 10, 10]
+                      },
+                      border: {
+                        radius: 10
+                      },
+                      background: {
+                        background: {
+                          type: 'color',
+                          color: '#FFFFFF99'
+                        }
+                      },
+                      boxShadow: {
+                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
+                            type: 'image',
+                            content: {
+                              image: '/assets/8346/10156387003857338.jpg'
+                            }
+                          },{
                             type: 'text',
-                            border: {
-                              radius: 10
-                            },
-                            background: {
-                              background: {
-                                type: 'color',
-                                color: '#FFFFFF99'
-                              }
-                            },
-                            boxShadow: {
-                              boxShadow: 1
-                            },
                             spacing: {
                               padding: [10, 10, 10, 10]
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
                             }
+                          },{
+                            type: 'button',
+                            spacing: {
+                              padding: [10, 10, 10, 10]
+                            },
+                            button: {
+                              custom: true,
+                              color: '#FFFFFF',
+                              background: {
+                                all: {
+                                  type: 'color',
+                                  color: '#e22a8a'
+                                },
+                                hover: {
+                                  type: 'color',
+                                  color: '#7fba42'
+                                }
+                              },
+                              border: {
+                                radius: 5
+                              }
+                            },
+                            content: {
+                              text: 'Click Me'
+                            }
                           }
                         ]
                       }
                     },
                     {
-                      alignment: {
-                        align: 'middle'
+                      animation: {
+                        type: 'fade',
+                        duration: 1000,
+                        delay: 0,
+                        opacity: 0,
+                        curve: 'ease-in-out',
+                        repeat: 1
                       },
                       spacing: {
-                        padding: [10, 10, 10, 10]
+                        margin: [10, 10, 10, 10]
+                      },
+                      border: {
+                        radius: 10
+                      },
+                      background: {
+                        background: {
+                          type: 'color',
+                          color: '#FFFFFF99'
+                        }
+                      },
+                      boxShadow: {
+                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
+                            type: 'image',
+                            content: {
+                              image: '/assets/8346/10156387003857338.jpg'
+                            }
+                          },{
                             type: 'text',
-                            border: {
-                              radius: 10
-                            },
-                            background: {
-                              background: {
-                                type: 'color',
-                                color: '#FFFFFF99'
-                              }
-                            },
-                            boxShadow: {
-                              boxShadow: 1
-                            },
                             spacing: {
                               padding: [10, 10, 10, 10]
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
+                            }
+                          },{
+                            type: 'button',
+                            spacing: {
+                              padding: [10, 10, 10, 10]
+                            },
+                            button: {
+                              custom: true,
+                              color: '#FFFFFF',
+                              background: {
+                                all: {
+                                  type: 'color',
+                                  color: '#e22a8a'
+                                },
+                                hover: {
+                                  type: 'color',
+                                  color: '#7fba42'
+                                }
+                              },
+                              border: {
+                                radius: 5
+                              }
+                            },
+                            content: {
+                              text: 'Click Me'
                             }
                           }
                         ]

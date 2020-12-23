@@ -1,13 +1,13 @@
 import { applyAnimation } from '../utils/animation'
 // import Carousel from './carousel'
-// import Button from './button'
+import Button from './button'
 // import Video from './video'
 import Image from './image'
 import Text from './text'
 
 const getBlock = ({ type }) => {
   // if(type === 'carousel') return Carousel
-  // if(type === 'button') return Button
+  if(type === 'button') return Button
   if(type === 'image') return Image
   // if(type === 'video') return Video
   if(type === 'text') return Text

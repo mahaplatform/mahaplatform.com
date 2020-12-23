@@ -1,9 +1,31 @@
-import { applyBoxModel } from './utils'
+import { applyBoxModel, applyResponsiveRule, applyRule, withUnits } from './utils'
 
-export default function Block(site, rules, block, namespace) {
+const applyFontSize = (ruleset, namespace, fontSize) => {
+  applyRule(ruleset.standard, namespace, { fontSize: withUnits(fontSize,'px') })
+}
 
-  applyBoxModel(rules, namespace, block)
+const applyColor = (ruleset, namespace, color) => {
+  applyRule(ruleset.standard, namespace, { color })
+}
 
-  return rules
+const applyButton = (rulesets, namespace, button) => {
+  if(button.custom !== true) return
+  applyResponsiveRule(rulesets, namespace, button.fontSize, applyFontSize)
+  applyResponsiveRule(rulesets, namespace, button.color, applyColor)
+  applyBoxModel(rulesets, namespace, {
+    ...button,
+    background: {
+      background: button.background
+    }
+  })
+}
+
+export default function Block(site, rulesets, block, namespace) {
+
+  applyBoxModel(rulesets, namespace, block)
+
+  if(block.button) applyButton(rulesets, `${namespace}>.bt`, block.button)
+
+  return rulesets
 
 }

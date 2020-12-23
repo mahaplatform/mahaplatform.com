@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const getDuration = (duration) => {
-  if(!duration.isResponsive) return duration.all
+  if(!duration.isResponsive) return duration.all || duration
   return duration.desktop
 }
 
