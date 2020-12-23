@@ -4,6 +4,7 @@ import Button from './button'
 // import Video from './video'
 import Image from './image'
 import Text from './text'
+import React from 'react'
 
 const getBlock = ({ type }) => {
   // if(type === 'carousel') return Carousel
