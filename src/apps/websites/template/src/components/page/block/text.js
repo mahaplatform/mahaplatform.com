@@ -1,4 +1,4 @@
-import RichText from '../richtext'
+import RichText from '../../richtext'
 
 function TextBlock({ block }) {
   return RichText(block.content.text)

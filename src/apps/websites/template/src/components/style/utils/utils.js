@@ -5,19 +5,16 @@ export const withUnits = (value, unit) => {
 }
 
 export const expand = (value, unit) => {
-  if(typeof(value) === 'string') return withUnits(value, unit)
-  const uniq = _.uniq(value)
-  if(uniq.length === 1) return withUnits(uniq[0], unit)
-  return value.map(subvalue => withUnits(subvalue, unit)).join(' ')
+  return _.castArray(value).map(subvalue => withUnits(subvalue, unit)).join(' ')
 }
 
-export const applyResponsiveRule = (rulesets, selector, rule, applicator) => {
+export const applyResponsiveRule = (rulesets, selector, rule, applicator, extra) => {
   if(!rule) return
-  if(rule.isHover === true && rule.hover) applicator(rulesets.all, `${selector}:hover`, rule.hover)
-  if(rule.isResponsive !== true && rule.all !== undefined) return applicator(rulesets.all, selector, rule.all)
-  if(rule.desktop !== undefined) applicator(rulesets.desktop, selector, rule.desktop)
-  if(rule.tablet !== undefined) applicator(rulesets.tablet, selector, rule.tablet)
-  if(rule.mobile !== undefined) applicator(rulesets.mobile, selector, rule.mobile)
+  if(rule.isHover === true && rule.hover) applicator(rulesets.all, `${selector}:hover`, rule.hover, extra)
+  if(rule.isResponsive !== true && rule.all !== undefined) return applicator(rulesets.all, selector, rule.all, extra)
+  if(rule.desktop !== undefined) applicator(rulesets.desktop, selector, rule.desktop, extra)
+  if(rule.tablet !== undefined) applicator(rulesets.tablet, selector, rule.tablet, extra)
+  if(rule.mobile !== undefined) applicator(rulesets.mobile, selector, rule.mobile, extra)
 }
 
 export const applyRule = (ruleset, selector, properties) => {

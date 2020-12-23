@@ -18,7 +18,7 @@ const projectsRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
-  const { rights } = await getUserAccess(req, user)
+  const { rights } = await getUserAccess(req, req.user)
 
   const projects = await Project.filterFetch({
     scope: (qb) => {

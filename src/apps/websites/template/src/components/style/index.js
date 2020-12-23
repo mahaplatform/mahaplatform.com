@@ -1,3 +1,4 @@
+import minify from './utils/minify'
 import Section from './section'
 import React from 'react'
 import _ from 'lodash'
@@ -108,6 +109,8 @@ export default function Style({ site, layout, page }) {
 
   const css = render(merged)
 
-  return <style dangerouslySetInnerHTML={{ __html: css }} />
+  const minified = minify(css)
+
+  return <style dangerouslySetInnerHTML={{ __html: minified }} />
 
 }

@@ -1,8 +1,8 @@
-import '../css/style.less'
+import '../../css/style.less'
 import React, { Fragment } from 'react'
 import Section from './section'
+import Style from '../style'
 import Head from 'next/head'
-import Style from './style'
 
 function Page({ site, layout, page }) {
   return (

@@ -131,11 +131,7 @@ export default {
                     isHover: true,
                     all: {
                       type: 'color',
-                      color: 'green'
-                    },
-                    hover: {
-                      type: 'color',
-                      color: 'green'
+                      color: '#EEEEEE'
                     }
                   }
                 },
@@ -166,15 +162,51 @@ export default {
                         blocks: [
                           {
                             type: 'text',
+                            animation: {
+                              type: 'slide',
+                              direction: {
+                                isResponsive: false,
+                                all: 'right'
+                              },
+                              duration: {
+                                isResponsive: false,
+                                all: 1000
+                              },
+                              delay: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              opacity: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              curve: {
+                                isResponsive: false,
+                                all: 'ease-in-out'
+                              },
+                              repeat: {
+                                isResponsive: false,
+                                all: 1
+                              }
+                            },
+                            border: {
+                              radius: {
+                                isResponsive: false,
+                                all: 10
+                              }
+                            },
                             background: {
                               background: {
                                 isResponsive: false,
-                                isHover: false,
+                                isHover: true,
                                 all: {
                                   type: 'color',
                                   color: '#FFFFFF99'
                                 }
                               }
+                            },
+                            boxShadow: {
+                              boxShadow: 1
                             },
                             spacing: {
                               padding: {
@@ -209,6 +241,39 @@ export default {
                         blocks: [
                           {
                             type: 'text',
+                            animation: {
+                              type: 'slide',
+                              direction: {
+                                isResponsive: false,
+                                all: 'down'
+                              },
+                              duration: {
+                                isResponsive: false,
+                                all: 1000
+                              },
+                              delay: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              opacity: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              curve: {
+                                isResponsive: false,
+                                all: 'ease-in-out'
+                              },
+                              repeat: {
+                                isResponsive: false,
+                                all: 1
+                              }
+                            },
+                            border: {
+                              radius: {
+                                isResponsive: false,
+                                all: 10
+                              }
+                            },
                             background: {
                               background: {
                                 isResponsive: false,
@@ -218,6 +283,9 @@ export default {
                                   color: '#FFFFFF99'
                                 }
                               }
+                            },
+                            boxShadow: {
+                              boxShadow: 1
                             },
                             spacing: {
                               padding: {
@@ -252,6 +320,39 @@ export default {
                         blocks: [
                           {
                             type: 'text',
+                            animation: {
+                              type: 'slide',
+                              direction: {
+                                isResponsive: false,
+                                all: 'up'
+                              },
+                              duration: {
+                                isResponsive: false,
+                                all: 1000
+                              },
+                              delay: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              opacity: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              curve: {
+                                isResponsive: false,
+                                all: 'ease-in-out'
+                              },
+                              repeat: {
+                                isResponsive: false,
+                                all: 1
+                              }
+                            },
+                            border: {
+                              radius: {
+                                isResponsive: false,
+                                all: 10
+                              }
+                            },
                             background: {
                               background: {
                                 isResponsive: false,
@@ -261,6 +362,9 @@ export default {
                                   color: '#FFFFFF99'
                                 }
                               }
+                            },
+                            boxShadow: {
+                              boxShadow: 1
                             },
                             spacing: {
                               padding: {
@@ -295,6 +399,39 @@ export default {
                         blocks: [
                           {
                             type: 'text',
+                            animation: {
+                              type: 'slide',
+                              direction: {
+                                isResponsive: false,
+                                all: 'left'
+                              },
+                              duration: {
+                                isResponsive: false,
+                                all: 1000
+                              },
+                              delay: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              opacity: {
+                                isResponsive: false,
+                                all: 0
+                              },
+                              curve: {
+                                isResponsive: false,
+                                all: 'ease-in-out'
+                              },
+                              repeat: {
+                                isResponsive: false,
+                                all: 1
+                              }
+                            },
+                            border: {
+                              radius: {
+                                isResponsive: false,
+                                all: 10
+                              }
+                            },
                             background: {
                               background: {
                                 isResponsive: false,
@@ -304,6 +441,9 @@ export default {
                                   color: '#FFFFFF99'
                                 }
                               }
+                            },
+                            boxShadow: {
+                              boxShadow: 1
                             },
                             spacing: {
                               padding: {
