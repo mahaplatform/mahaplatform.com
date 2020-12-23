@@ -163,14 +163,14 @@ export default {
                           {
                             type: 'text',
                             animation: {
-                              type: 'slide',
+                              type: 'roll',
                               direction: {
                                 isResponsive: false,
                                 all: 'right'
                               },
                               duration: {
                                 isResponsive: false,
-                                all: 1000
+                                all: 4000
                               },
                               delay: {
                                 isResponsive: false,
@@ -242,14 +242,14 @@ export default {
                           {
                             type: 'text',
                             animation: {
-                              type: 'slide',
+                              type: 'roll',
                               direction: {
                                 isResponsive: false,
                                 all: 'down'
                               },
                               duration: {
                                 isResponsive: false,
-                                all: 1000
+                                all: 4000
                               },
                               delay: {
                                 isResponsive: false,
@@ -321,14 +321,14 @@ export default {
                           {
                             type: 'text',
                             animation: {
-                              type: 'slide',
+                              type: 'roll',
                               direction: {
                                 isResponsive: false,
                                 all: 'up'
                               },
                               duration: {
                                 isResponsive: false,
-                                all: 1000
+                                all: 4000
                               },
                               delay: {
                                 isResponsive: false,
@@ -400,14 +400,14 @@ export default {
                           {
                             type: 'text',
                             animation: {
-                              type: 'slide',
+                              type: 'roll',
                               direction: {
                                 isResponsive: false,
                                 all: 'left'
                               },
                               duration: {
                                 isResponsive: false,
-                                all: 1000
+                                all: 4000
                               },
                               delay: {
                                 isResponsive: false,
