@@ -162,33 +162,6 @@ export default {
                         blocks: [
                           {
                             type: 'text',
-                            animation: {
-                              type: 'roll',
-                              direction: {
-                                isResponsive: false,
-                                all: 'right'
-                              },
-                              duration: {
-                                isResponsive: false,
-                                all: 4000
-                              },
-                              delay: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              opacity: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              curve: {
-                                isResponsive: false,
-                                all: 'ease-in-out'
-                              },
-                              repeat: {
-                                isResponsive: false,
-                                all: 1
-                              }
-                            },
                             border: {
                               radius: {
                                 isResponsive: false,
@@ -241,33 +214,6 @@ export default {
                         blocks: [
                           {
                             type: 'text',
-                            animation: {
-                              type: 'roll',
-                              direction: {
-                                isResponsive: false,
-                                all: 'down'
-                              },
-                              duration: {
-                                isResponsive: false,
-                                all: 4000
-                              },
-                              delay: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              opacity: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              curve: {
-                                isResponsive: false,
-                                all: 'ease-in-out'
-                              },
-                              repeat: {
-                                isResponsive: false,
-                                all: 1
-                              }
-                            },
                             border: {
                               radius: {
                                 isResponsive: false,
@@ -320,33 +266,6 @@ export default {
                         blocks: [
                           {
                             type: 'text',
-                            animation: {
-                              type: 'roll',
-                              direction: {
-                                isResponsive: false,
-                                all: 'up'
-                              },
-                              duration: {
-                                isResponsive: false,
-                                all: 4000
-                              },
-                              delay: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              opacity: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              curve: {
-                                isResponsive: false,
-                                all: 'ease-in-out'
-                              },
-                              repeat: {
-                                isResponsive: false,
-                                all: 1
-                              }
-                            },
                             border: {
                               radius: {
                                 isResponsive: false,
@@ -399,33 +318,6 @@ export default {
                         blocks: [
                           {
                             type: 'text',
-                            animation: {
-                              type: 'roll',
-                              direction: {
-                                isResponsive: false,
-                                all: 'left'
-                              },
-                              duration: {
-                                isResponsive: false,
-                                all: 4000
-                              },
-                              delay: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              opacity: {
-                                isResponsive: false,
-                                all: 0
-                              },
-                              curve: {
-                                isResponsive: false,
-                                all: 'ease-in-out'
-                              },
-                              repeat: {
-                                isResponsive: false,
-                                all: 1
-                              }
-                            },
                             border: {
                               radius: {
                                 isResponsive: false,
