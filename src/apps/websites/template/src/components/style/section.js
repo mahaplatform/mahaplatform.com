@@ -3,7 +3,7 @@ import Row from './row'
 
 export default function Section(site, rules, section, namespace) {
 
-  applyBoxModel(rules, namespace, section)
+  applyBoxModel(rules, `.s${namespace}`, section)
 
   if(section.content && section.content.rows) {
     rules = section.content.rows.reduce((config, row, rindex) => {

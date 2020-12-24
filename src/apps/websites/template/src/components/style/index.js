@@ -44,14 +44,12 @@ const renderMediaRules = (ruleset, device, resolution) => {
 }
 
 const mergeSections = (layout, page) => {
-  return [
-    ...layout.sections.map((section, index) => {
-      return { prefix: `.l${index}`, section }
-    }),
-    ...page.sections.map((section, index) => {
-      return { prefix: `.p${index}`, section }
-    })
-  ]
+  return layout.sections.reduce((sections, section) => [
+    ...sections,
+    ...section.type === 'content' ? page.sections : [section]
+  ], []).map((section, index) => {
+    return { prefix: index, section }
+  })
 }
 
 const parseRules = (site, sections) => {

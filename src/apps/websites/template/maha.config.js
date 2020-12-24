@@ -361,37 +361,44 @@ export default {
                       curve: 'ease-in-out',
                       repeat: 1
                     },
+                    background: {
+                      background: {
+                        hover: {
+                          type: 'color',
+                          color: '#EEEEEE'
+                        }
+                      }
+                    },
                     border: {
                       radius: 5
                     },
-                    boxShadow: {
-                      boxShadow: 1
-                    },
-                    background: {
-                      background: {
-                        type: 'color',
-                        color: '#EEEEEE'
-                      }
-                    },
                     spacing: {
-                      margin: 10,
-                      padding: 10
+                      padding: 20
                     },
                     content: {
                       blocks: [
                         {
                           type: 'image',
-                          border: {
-                            radius: '50%'
+                          image: {
+                            border: {
+                              radius: '50%'
+                            }
                           },
                           caption: {
                             sizing: {
-                              height: 110
+                              height: 130
+                            },
+                            text: {
+                              align: 'center'
+                            },
+                            spacing: {
+                              padding: 10
                             }
                           },
                           content: {
                             image: '<%- data.photo %>',
-                            caption: '<p><strong><%- data.name %></strong></p><p><%- data.position %></p><p><%- data.phone %></p><p><%- data.email %></p>'
+                            caption: '<p><strong><%- data.name %></strong></p><p><%- data.position %></p><p><%- data.phone %></p><p><%- data.email %></p>',
+                            link: 'http://cornell.edu'
                           }
                         }
                       ]

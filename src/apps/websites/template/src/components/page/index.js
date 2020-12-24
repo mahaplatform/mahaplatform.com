@@ -5,6 +5,12 @@ import Style from '../style'
 import Head from 'next/head'
 
 function Page({ site, layout, page }) {
+
+  const sections = layout.sections.reduce((sections, section) => [
+    ...sections,
+    ...section.type === 'content' ? page.sections : [section]
+  ], [])
+
   return (
     <>
       <Head>
@@ -15,22 +21,14 @@ function Page({ site, layout, page }) {
       <article>
         <header />
         <main>
-          { layout.sections.map((section, lsindex) => (
-            <Fragment key={`lsection_${lsindex}`}>
-              { section.type === 'content' ?
-                <Fragment>
-                  { page.sections.map((section, psindex) => (
-                    <Section key={`psection_${psindex}`} section={ section } namespace={ `p${psindex}` } />
-                  )) }
-                </Fragment> :
-                <Section section={ section } namespace={ `l${lsindex}` } />
-              }
-            </Fragment>
+          { sections.map((section, index) => (
+            <Section section={ section } namespace={ index } />
           )) }
         </main>
       </article>
     </>
   )
+
 }
 
 export default Page

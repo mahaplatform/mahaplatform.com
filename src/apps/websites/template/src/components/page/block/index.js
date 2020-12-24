@@ -15,7 +15,7 @@ const getBlock = ({ type }) => {
 }
 
 const getClass = (namespace, animate) => {
-  const classes = [namespace]
+  const classes = [`b${namespace}`]
   if(animate) classes.push('an')
   return classes.join(' ')
 }

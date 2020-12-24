@@ -32,11 +32,7 @@ class Image extends React.Component {
   render() {
     const { src } = this.props
     if(!src) return <div className="maha-image" />
-    return (
-      <div className="maha-image" onClick={ this._handleClick }>
-        <img { ...this._getImage() } />
-      </div>
-    )
+    return <img { ...this._getImage() } />
   }
 
   componentDidUpdate(prevProps, prevState) {

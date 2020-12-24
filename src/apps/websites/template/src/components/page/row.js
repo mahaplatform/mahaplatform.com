@@ -7,7 +7,7 @@ export default function Row({ row, namespace }) {
   const animate = applyAnimation(row.animation)
 
   return (
-    <div className={ namespace }>
+    <div className={ `r${namespace}` }>
       <div className={ animate ? 'an' : null }>
         <div>
           <div>

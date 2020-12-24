@@ -3,7 +3,7 @@ import React from 'react'
 import Row from './row'
 
 const getClass = (namespace, animate) => {
-  const classes = [namespace]
+  const classes = [`s${namespace}`]
   if(animate) classes.push('an')
   return classes.join(' ')
 }

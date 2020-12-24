@@ -16,11 +16,11 @@ const getSizing = (config) => {
 
 export default function Row(site, rules, row, namespace) {
 
-  applyRule(rules.all.standard, `${namespace}>*`, getAlignment(row.alignment))
+  applyRule(rules.all.standard, `.r${namespace}>*`, getAlignment(row.alignment))
 
-  applyRule(rules.desktop.standard, `${namespace}>*`, getSizing(row.sizing))
+  applyRule(rules.desktop.standard, `.r${namespace}>*`, getSizing(row.sizing))
 
-  applyBoxModel(rules, `${namespace}>*>*`, row)
+  applyBoxModel(rules, `.r${namespace}>*>*`, row)
 
   if(row.content && row.content.template && row.content.data) {
     rules = row.content.data.reduce((rules, record, cindex) => {

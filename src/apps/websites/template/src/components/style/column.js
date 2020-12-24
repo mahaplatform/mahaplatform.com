@@ -30,13 +30,11 @@ const applyLayout = (ruleset, namespace, layout, cindex) => {
 
 export default function Column(site, rules, column, layout, cindex, namespace) {
 
-  const selector = `${namespace}>*`
+  applyResponsiveRule(rules, `.c${namespace}`, layout, applyLayout, cindex)
 
-  applyResponsiveRule(rules, namespace, layout, applyLayout, cindex)
+  applyBoxModel(rules, `.c${namespace}>*`, column)
 
-  applyBoxModel(rules, selector, column)
-
-  applyRule(rules.all.standard, selector, getAlignment(column.alignment))
+  applyRule(rules.all.standard, `.c${namespace}>*`, getAlignment(column.alignment))
 
   if(column.content.blocks) {
     rules = column.content.blocks.reduce((config, block, bindex) => {

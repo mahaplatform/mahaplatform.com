@@ -6,6 +6,7 @@ import { applySpacing } from './spacing'
 import { applySizing } from './sizing'
 import { applyBorder } from './border'
 import { applyFilter } from './filter'
+import { applyText } from './text'
 
 export const applyBoxModel = (rulesets, selector, item) => {
   applyAnimation(rulesets, selector, item.animation)
@@ -14,6 +15,7 @@ export const applyBoxModel = (rulesets, selector, item) => {
   applyBoxShadow(rulesets, selector, item.boxShadow)
   applySpacing(rulesets, selector, item.spacing)
   applySizing(rulesets, selector, item.sizing)
+  applyText(rulesets, selector, item.text)
 }
 
 export const applyDesign = (rulesets, selector, item) => {
