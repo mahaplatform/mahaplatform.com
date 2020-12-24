@@ -1,4 +1,4 @@
-import config from '../templates/maha.config'
+import config from '../template/maha.config'
 
 const nextSerializer = (req, result) => config
 
