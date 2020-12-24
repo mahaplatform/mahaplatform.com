@@ -1,4 +1,4 @@
-import { applyBoxModel, applyResponsiveRule, applyRule, withUnits } from './utils'
+import { applyBoxModel, applyResponsiveRule, applyRule, withUnits } from '../utils'
 
 const applyFontSize = (ruleset, namespace, fontSize) => {
   applyRule(ruleset.standard, namespace, { fontSize: withUnits(fontSize,'px') })
@@ -8,8 +8,10 @@ const applyColor = (ruleset, namespace, color) => {
   applyRule(ruleset.standard, namespace, { color })
 }
 
-const applyButton = (rulesets, namespace, button) => {
+export default function ButtonBlock(site, rulesets, block, namespace) {
+  const { button } = block
   if(button.custom !== true) return
+  namespace = `${namespace}>.bt`
   applyResponsiveRule(rulesets, namespace, button.fontSize, applyFontSize)
   applyResponsiveRule(rulesets, namespace, button.color, applyColor)
   applyBoxModel(rulesets, namespace, {
@@ -18,14 +20,4 @@ const applyButton = (rulesets, namespace, button) => {
       background: button.background
     }
   })
-}
-
-export default function Block(site, rulesets, block, namespace) {
-
-  applyBoxModel(rulesets, namespace, block)
-
-  if(block.button) applyButton(rulesets, `${namespace}>.bt`, block.button)
-
-  return rulesets
-
 }

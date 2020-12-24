@@ -14,7 +14,7 @@ export default function Section({ section, namespace }) {
 
   return (
     <div className={ getClass(namespace, animate) }>
-      { section.content.rows.map((row, rindex) => (
+      { section.content && section.content.rows.map((row, rindex) => (
         <Row key={`row_${rindex}`} row={ row } namespace={ `${namespace}${rindex}` } />
       ))}
     </div>

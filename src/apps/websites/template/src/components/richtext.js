@@ -1,9 +1,7 @@
 import ReactHtmlParser from 'react-html-parser'
+import template from './template'
 import Link from 'next/link'
 import React from 'react'
-import _ from 'lodash'
-
-_.templateSettings.interpolate = /{{([\s\S]+?)}}/g
 
 const transform = (node, index) => {
 
@@ -17,8 +15,9 @@ const transform = (node, index) => {
 
 }
 
-function RichText(text) {
-  return ReactHtmlParser(text, {
+function RichText(text, data) {
+  const rendered = data ? template(text, data) : text
+  return ReactHtmlParser(rendered, {
     transform
   })
 }

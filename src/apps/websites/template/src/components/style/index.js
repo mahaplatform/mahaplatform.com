@@ -11,9 +11,9 @@ const getRule = (selector, properties) => {
   const keys = Object.keys(properties)
   if(keys.length == 0) return ''
   const declaration = keys.map(key => {
-    return `${_.kebabCase(key)}:${getValue(key, properties[key])}`
-  }).join(';')
-  return `${selector}{${declaration}}`
+    return `  ${_.kebabCase(key)}: ${getValue(key, properties[key])}`
+  }).join(';\n')
+  return `${selector}{\n${declaration}\n}\n`
 }
 
 const getRules = (rules) => {
@@ -33,9 +33,9 @@ const getMediaQuery = (device, resolution, styles) => {
   }
   if(device === 'all') {
     if(resolution === 'standard') return styles
-    if(resolution === 'retina') return `@media ${params[resolution]}{${styles}}`
+    if(resolution === 'retina') return `@media ${params[resolution]}{\n${styles}}\n`
   }
-  return `@media ${params[resolution]} and ${params[device]}{${styles}}`
+  return `@media ${params[resolution]} and ${params[device]}{\n${styles}}\n`
 }
 
 const renderMediaRules = (ruleset, device, resolution) => {
@@ -105,11 +105,11 @@ export default function Style({ site, layout, page }) {
 
   const rules = parseRules(site, sections)
 
-  const merged = mergeRules(rules)
+  const merged = process.env.NODE_ENV === 'production' ? mergeRules(rules) : rules
 
   const css = render(merged)
 
-  const minified = minify(css)
+  const minified = process.env.NODE_ENV === 'production' ? minify(css) : css
 
   return <style dangerouslySetInnerHTML={{ __html: minified }} />
 

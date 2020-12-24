@@ -3,6 +3,7 @@ import { applyAnimation } from './animation'
 import { applyBackground } from './background'
 import { applyBoxShadow } from './box_shadow'
 import { applySpacing } from './spacing'
+import { applySizing } from './sizing'
 import { applyBorder } from './border'
 import { applyFilter } from './filter'
 
@@ -12,6 +13,7 @@ export const applyBoxModel = (rulesets, selector, item) => {
   applyBorder(rulesets, selector, item.border)
   applyBoxShadow(rulesets, selector, item.boxShadow)
   applySpacing(rulesets, selector, item.spacing)
+  applySizing(rulesets, selector, item.sizing)
 }
 
 export const applyDesign = (rulesets, selector, item) => {

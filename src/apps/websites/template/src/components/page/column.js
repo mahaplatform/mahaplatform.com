@@ -4,15 +4,15 @@ import React from 'react'
 
 const getClass = (animate) => animate ? 'an' : null
 
-export default function Column({ column, namespace }) {
+export default function Column({ column, data, namespace }) {
 
   const animate = applyAnimation(column.animation)
 
   return (
     <div className={ namespace }>
       <div className={ animate ? 'an' : null }>
-        { column.content.blocks.map((block, bindex) => (
-          <Block key={`block_${bindex}`} block={ block } namespace={ `${namespace}${bindex}` } />
+        { column.content && column.content.blocks.map((block, bindex) => (
+          <Block key={`block_${bindex}`} block={ block } data={ data } namespace={ `${namespace}${bindex}` } />
         ))}
       </div>
     </div>

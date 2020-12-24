@@ -20,7 +20,7 @@ const getClass = (namespace, animate) => {
   return classes.join(' ')
 }
 
-function Block({ block, namespace }) {
+function Block({ block, data, namespace }) {
 
   if(!block) return null
 
@@ -30,7 +30,7 @@ function Block({ block, namespace }) {
 
   return (
     <div className={ getClass(namespace, animate) }>
-      <Component block={ block } />
+      <Component block={ block } data={ data } />
     </div>
   )
 
