@@ -1,5 +1,6 @@
 import { applyAnimation } from '../utils/animation'
 // import Carousel from './carousel'
+import PropTypes from 'prop-types'
 import Button from './button'
 // import Video from './video'
 import Image from './image'
@@ -20,7 +21,7 @@ const getClass = (namespace, animate) => {
   return classes.join(' ')
 }
 
-function Block({ block, data, namespace }) {
+const Block = ({ block, data, namespace }) => {
 
   if(!block) return null
 
@@ -34,6 +35,12 @@ function Block({ block, data, namespace }) {
     </div>
   )
 
+}
+
+Block.propTypes = {
+  block: PropTypes.object,
+  data: PropTypes.array,
+  namespace: PropTypes.string
 }
 
 export default Block

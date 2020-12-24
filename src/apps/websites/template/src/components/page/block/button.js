@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
-function ButtonBlock({ block }) {
+const ButtonBlock = ({ block }) => (
+  <div className="bb">
+    { block.content.text }
+  </div>
+)
 
-  return (
-    <div className="bt">
-      { block.content.text }
-    </div>
-  )
-
+ButtonBlock.propTypes = {
+  block: PropTypes.object,
+  data: PropTypes.array
 }
 
 export default ButtonBlock

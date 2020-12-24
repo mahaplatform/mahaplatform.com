@@ -11,7 +11,7 @@ const applyColor = (ruleset, namespace, color) => {
 export default function ButtonBlock(site, rulesets, block, namespace) {
   const { button } = block
   if(button.custom !== true) return
-  namespace = `${namespace}>.bt`
+  namespace = `${namespace}>.bb`
   applyResponsiveRule(rulesets, namespace, button.fontSize, applyFontSize)
   applyResponsiveRule(rulesets, namespace, button.color, applyColor)
   applyBoxModel(rulesets, namespace, {

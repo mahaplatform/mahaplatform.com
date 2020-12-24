@@ -1,10 +1,9 @@
 import { applyAnimation } from './utils/animation'
+import PropTypes from 'prop-types'
 import Block from './block'
 import React from 'react'
 
-const getClass = (animate) => animate ? 'an' : null
-
-export default function Column({ column, data, namespace }) {
+const Column = ({ column, data, namespace }) => {
 
   const animate = applyAnimation(column.animation)
 
@@ -19,3 +18,11 @@ export default function Column({ column, data, namespace }) {
   )
 
 }
+
+Column.propTypes = {
+  column: PropTypes.object,
+  data: PropTypes.array,
+  namespace: PropTypes.string
+}
+
+export default Column

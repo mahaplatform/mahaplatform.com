@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
 import RichText from '../../richtext'
 import template from '../../template'
+import PropTypes from 'prop-types'
 import Image from '../../image'
 import React from 'react'
 
-function ImageBlock({ block, data }) {
+const ImageBlock = ({ block, data }) => {
 
   const { caption, image, link } = block.content
 
@@ -21,17 +22,30 @@ function ImageBlock({ block, data }) {
     router.push(href)
   }
 
+  const getImage = () => ({
+    alt: image.alt ? interpolate(image.alt, data) : null,
+    src: interpolate(image.src || image, data),
+    transforms: image.transforms,
+    height: image.height,
+    width: image.width
+  })
+
   return (
-    <div className="im" onClick={ handleClick }>
-      <div className="imi">
-        <Image src={ interpolate(image, data) } transforms={{ fit: 'cover', w: 360, h: 360 }} />
+    <div className="bi" onClick={ handleClick }>
+      <div className="bii">
+        <Image { ...getImage() } />
       </div>
-      <div className="imc">
+      <div className="bic">
         { RichText(caption, data) }
       </div>
     </div>
   )
 
+}
+
+ImageBlock.propTypes = {
+  block: PropTypes.object,
+  data: PropTypes.array
 }
 
 export default ImageBlock

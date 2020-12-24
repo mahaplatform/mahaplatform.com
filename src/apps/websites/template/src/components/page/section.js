@@ -1,4 +1,5 @@
 import { applyAnimation } from './utils/animation'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Row from './row'
 
@@ -8,7 +9,7 @@ const getClass = (namespace, animate) => {
   return classes.join(' ')
 }
 
-export default function Section({ section, namespace }) {
+const Section = ({ section, namespace }) => {
 
   const animate = applyAnimation(section.animation)
 
@@ -21,3 +22,10 @@ export default function Section({ section, namespace }) {
   )
 
 }
+
+Section.propTypes = {
+  section: PropTypes.object,
+  namespace: PropTypes.string
+}
+
+export default Section

@@ -1,8 +1,9 @@
 import { applyAnimation } from './utils/animation'
+import PropTypes from 'prop-types'
 import Column from './column'
 import React from 'react'
 
-export default function Row({ row, namespace }) {
+const Row = ({ row, namespace }) => {
 
   const animate = applyAnimation(row.animation)
 
@@ -24,3 +25,10 @@ export default function Row({ row, namespace }) {
   )
 
 }
+
+Row.propTypes = {
+  row: PropTypes.object,
+  namespace: PropTypes.string
+}
+
+export default Row

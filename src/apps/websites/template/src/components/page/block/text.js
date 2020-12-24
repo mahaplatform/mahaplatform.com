@@ -1,7 +1,16 @@
 import RichText from '../../richtext'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-function TextBlock({ block, data }) {
-  return RichText(block.content.text, data)
+const TextBlock = ({ block, data }) => (
+  <div className="bt">
+    { RichText(block.content.text, data) }
+  </div>
+)
+
+TextBlock.propTypes = {
+  block: PropTypes.object,
+  data: PropTypes.array
 }
 
 export default TextBlock

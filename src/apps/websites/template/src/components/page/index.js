@@ -1,10 +1,11 @@
 import '../../css/style.less'
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import Section from './section'
 import Style from '../style'
 import Head from 'next/head'
 
-function Page({ site, layout, page }) {
+const Page = ({ site, layout, page }) => {
 
   const sections = layout.sections.reduce((sections, section) => [
     ...sections,
@@ -29,6 +30,12 @@ function Page({ site, layout, page }) {
     </>
   )
 
+}
+
+Page.propTypes = {
+  site: PropTypes.object,
+  layout: PropTypes.object,
+  page: PropTypes.object
 }
 
 export default Page

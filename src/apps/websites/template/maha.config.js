@@ -146,7 +146,11 @@ export default {
                           {
                             type: 'image',
                             content: {
-                              image: '/assets/8346/10156387003857338.jpg'
+                              image: {
+                                src: '/assets/8346/10156387003857338.jpg',
+                                width: 960,
+                                height: 720
+                              }
                             }
                           },{
                             type: 'text',
@@ -214,7 +218,11 @@ export default {
                           {
                             type: 'image',
                             content: {
-                              image: '/assets/8346/10156387003857338.jpg'
+                              image: {
+                                src: '/assets/8346/10156387003857338.jpg',
+                                width: 960,
+                                height: 720
+                              }
                             }
                           },{
                             type: 'text',
@@ -282,7 +290,11 @@ export default {
                           {
                             type: 'image',
                             content: {
-                              image: '/assets/8346/10156387003857338.jpg'
+                              image: {
+                                src: '/assets/8346/10156387003857338.jpg',
+                                width: 960,
+                                height: 720
+                              }
                             }
                           },{
                             type: 'text',
@@ -396,7 +408,17 @@ export default {
                             }
                           },
                           content: {
-                            image: '<%- data.photo %>',
+                            image: {
+                              src: '<%- data.photo %>',
+                              alt: '<%- data.name %>',
+                              width: 200,
+                              height: 200,
+                              transforms: {
+                                fit: 'cover',
+                                w: 200,
+                                h: 200
+                              }
+                            },
                             caption: '<p><strong><%- data.name %></strong></p><p><%- data.position %></p><p><%- data.phone %></p><p><%- data.email %></p>',
                             link: 'http://cornell.edu'
                           }

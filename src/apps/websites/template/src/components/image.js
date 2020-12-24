@@ -12,6 +12,8 @@ class Image extends React.Component {
     src2: PropTypes.string,
     title: PropTypes.string,
     transforms: PropTypes.object,
+    width: PropTypes.number,
+    height: PropTypes.number,
     onClick: PropTypes.func,
     onLoad: PropTypes.func
   }
@@ -31,8 +33,12 @@ class Image extends React.Component {
 
   render() {
     const { src } = this.props
-    if(!src) return <div className="maha-image" />
-    return <img { ...this._getImage() } />
+    if(!src) return null
+    return (
+      <div className="i">
+        <img { ...this._getImage() } />
+      </div>
+    )
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -46,17 +52,24 @@ class Image extends React.Component {
     return process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
   }
 
+  _getFilename() {
+    const { src } = this.props
+    return src.split('/').pop()
+  }
+
   _getImage() {
-    const { alt, className, title } = this.props
+    const { alt, className, height, title, width } = this.props
     const host = this._getHost()
     const normal = `${host}/imagecache${this._getNormal()}`
     const retina = `${host}/imagecache${this._getRetina()}`
     return {
-      alt,
+      alt: alt || this._getFilename(),
       className,
+      ...!!height ? { height } : {},
       src: normal,
       srcSet: `${normal} 1x, ${retina} 2x`,
       title,
+      ...!!width ? { width } : {},
       onLoad: this._handleLoad
     }
   }

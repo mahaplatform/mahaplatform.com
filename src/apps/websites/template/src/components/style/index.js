@@ -1,4 +1,5 @@
 import minify from './utils/minify'
+import PropTypes from 'prop-types'
 import Section from './section'
 import React from 'react'
 import _ from 'lodash'
@@ -97,7 +98,7 @@ const render = (rules) => [
   ...renderMediaRules(rules, 'mobile', 'retina')
 ].join('')
 
-export default function Style({ site, layout, page }) {
+const Style = ({ site, layout, page }) => {
 
   const sections = mergeSections(layout, page)
 
@@ -112,3 +113,11 @@ export default function Style({ site, layout, page }) {
   return <style dangerouslySetInnerHTML={{ __html: minified }} />
 
 }
+
+Style.propTypes = {
+  site: PropTypes.object,
+  layout: PropTypes.object,
+  page: PropTypes.object
+}
+
+export default Style
