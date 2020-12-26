@@ -17,14 +17,22 @@ const root = getRoot(process.env.NODE_ENV)
 const router = new Router({ mergeParams: true })
 
 router.get('/*', async (req, res) => {
-  const type = getType(req.originalUrl)
-  const { transforms, path } = parseUrl(req.originalUrl)
-  const original = await getData(path)
-  if(!transforms) return res.type(type).status(200).send(original)
-  const transformed = await transform(original, transforms)
-  const data = await convert(transformed, type, transforms)
+  const url = req.originalUrl
+  const type = getType(url)
+  const data = await getTransformed(url, type)
+  if(process.env.NODE_ENV === 'production') {
+    res.setHeader('Cache-Control','immutable,max-age=100000000,public')
+  }
   return res.type(type).status(200).send(data)
 })
+
+const getTransformed = async (url, type) => {
+  const { transforms, path } = parseUrl(url)
+  const original = await getData(path)
+  if(!transforms) return original
+  const transformed = await transform(original, transforms)
+  return await convert(transformed, type, transforms)
+}
 
 const getType = (originalUrl) => {
   const ext = path.extname(originalUrl).substr(1)
