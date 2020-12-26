@@ -1,8 +1,9 @@
+import kebabCase from 'lodash/kebabCase'
+import isEqual from 'lodash/isEqual'
 import minify from './utils/minify'
 import PropTypes from 'prop-types'
 import Section from './section'
 import React from 'react'
-import _ from 'lodash'
 
 const getValue = (property, value) => {
   return value
@@ -12,7 +13,7 @@ const getRule = (selector, properties) => {
   const keys = Object.keys(properties)
   if(keys.length == 0) return ''
   const declaration = keys.map(key => {
-    return `  ${_.kebabCase(key)}: ${getValue(key, properties[key])}`
+    return `  ${kebabCase(key)}: ${getValue(key, properties[key])}`
   }).join(';\n')
   return `${selector}{\n${declaration}\n}\n`
 }
@@ -72,7 +73,7 @@ const mergeRules = (rules) => {
       [resolution]: rules[device][resolution].reduce((merged3, rule) => {
         if(!rule.properties) return merged3
         const index = merged3.findIndex(rule2 => {
-          return _.isEqual(rule.properties, rule2.properties)
+          return isEqual(rule.properties, rule2.properties)
         })
         if(index >= 0) {
           merged3[index].selector += `,${rule.selector}`
