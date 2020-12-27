@@ -1,17 +1,32 @@
 import { applyRule, applyResponsiveRule, withUnits } from './utils'
 import qs from 'qs'
 
-const imageUrl = (src, transform) => {
-  const host = process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
-  const imagecache = '/imagecache' + (transform ? `/${qs.stringify(transform)}` : '')
-  return `url(${host}${imagecache}${src})`
+const getParsed = (src) => {
+  const parts = src.substr(1).split('/')
+  const filename = parts.slice(-1)[0]
+  const fileparts = filename.split('.')
+  return {
+    path: parts.slice(0, parts.length - 1).join('/'),
+    basename: fileparts.slice(0, fileparts.length - 1).join('.'),
+    extname: fileparts.slice(-1)[0]
+  }
 }
 
-const getBackgroundImage  = (background, dpi) => {
+const imageUrl = (src, dpi, format) => {
+  const parsed = getParsed(src)
+  const transform = { dpi }
+  const to = format || parsed.extname
+  if(parsed.extname !== to) transform.fm = parsed.extname
+  const host = process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
+  const query = qs.stringify(transform)
+  return `url(${host}/imagecache/${query}/${parsed.path}/${parsed.basename}.${to})`
+}
+
+const getBackgroundImage  = (background, dpi, format) => {
   const { image, position, repeat, size } = background
   if(!image) return
   const properties = {}
-  properties.backgroundImage = imageUrl(image, { dpi })
+  properties.backgroundImage = imageUrl(image, dpi, format)
   properties.backgroundSize = size || 'cover'
   if(repeat) properties.backgroundRepeat = repeat
   if(position) properties.backgroundPosition = position
@@ -49,8 +64,10 @@ const applyBackgroundGradient = (ruleset, selector, background) => {
 
 const applyBackgroundImage = (ruleset, selector, background) => {
   if(!background.image) return
-  applyRule(ruleset.standard, selector, getBackgroundImage(background, 1))
-  applyRule(ruleset.retina, selector, getBackgroundImage(background, 2))
+  applyRule(ruleset.standard, selector, getBackgroundImage(background, 1, 'webp'))
+  applyRule(ruleset.retina, selector, getBackgroundImage(background, 2, 'webp'))
+  applyRule(ruleset.standard, `.nwp ${selector}`, getBackgroundImage(background, 1))
+  applyRule(ruleset.retina, `.nwp ${selector}`, getBackgroundImage(background, 2))
 }
 
 const applyBackgroundType = (ruleset, selector, background) => {
