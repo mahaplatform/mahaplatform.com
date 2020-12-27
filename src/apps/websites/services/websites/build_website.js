@@ -7,8 +7,25 @@ import path from 'path'
 import ncp from 'ncp'
 import ejs from 'ejs'
 import fs from 'fs'
+import qs from 'qs'
 
 const copy = Promise.promisify(ncp)
+
+const icon = (src, format, size) => {
+  const parsed = path.parse(src)
+  const extname = parsed.ext.substr(1)
+  const transforms = {
+    dpi: 1,
+    fit: 'cover',
+    w: size,
+    h: size
+  }
+  if(format !== extname) transforms.fm = extname
+  const query = qs.stringify(transforms)
+  const host = process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
+  const url = `${host}/imagecache/${query}${parsed.dir}/${parsed.name}.${format}`
+  return url
+}
 
 const silent = async (method, silent = true) => {
 
@@ -27,6 +44,12 @@ const silent = async (method, silent = true) => {
     console.warn = consolewarn
   }
 
+}
+
+const writeFile = (req, { data, dest, filename }) => {
+  const template = fs.readFileSync(path.join(__dirname,`${filename}.ejs`), 'utf8')
+  const content = ejs.render(template, data)
+  fs.writeFileSync(path.join(dest, filename), content)
 }
 
 const buildSite = async(req, { code, hash }) => {
@@ -53,9 +76,20 @@ const buildSite = async(req, { code, hash }) => {
 
   await rimraf.sync(srcdir)
 
-  const content = ejs.render('export default <%- JSON.stringify(config) %>', { config })
+  writeFile(req, {
+    data: { config },
+    dest: indir,
+    filename: 'maha.config.js'
+  })
 
-  fs.writeFileSync(path.join(indir, 'maha.config.js'), content)
+  writeFile(req, {
+    data: {
+      ...config,
+      icon
+    },
+    dest: publicdir,
+    filename: 'manifest.json'
+  })
 
   await copy(path.join(sitedir, 'next.config.js'), path.join(indir, 'next.config.js'))
 

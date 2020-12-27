@@ -2,6 +2,7 @@ export default {
   site: {
     title: 'CCE Tompkins',
     homepage: 3,
+    favicon: '/assets/19532/me.jpg',
     pallette: {
       red: '#FF0000',
       blue: '#0000FF'

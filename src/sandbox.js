@@ -3,36 +3,13 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 // import knex from './core/vendor/knex'
-
-import braintree from './core/vendor/braintree'
-
-
-const getTransactions = async(ids) => {
-  return await new Promise((resolve, reject) => {
-    braintree.transaction.search(search => {
-      search.ids().in(ids)
-    }, (err, result) => {
-      if(err) return reject(err)
-      const length = result.length()
-      const data = []
-      result.each((err, item) => {
-        data.push(item)
-        if(data.length === length) resolve(data)
-      })
-    })
-  }).then(results => results.reduce((transactions, transaction) => ({
-    ...transactions,
-    [transaction.id]: transaction
-  }), {}))
-}
+import { buildWebsite } from '@apps/websites/services/websites'
+import moment from 'moment'
 
 const processor = async () => {
   // await knex.transaction(async(trx) => {
   // })
   const req = {}
-  const transactions = await getTransactions(['ghk9hzr9'])
-
-  console.log(transactions)
 
   // const config = await cloudfront.getDistributionConfig({
   //   Id: 'E3OCSGHWCPV74A'
@@ -60,13 +37,13 @@ const processor = async () => {
   // await deleteDistribution(req, {
   //   aws_cloudfront_id: distribution.aws_cloudfront_id
   // // })
-  //
-  // const hash = moment().format('YYYYMMDDHHmmss')
-  //
-  // await buildWebsite(req, {
-  //   code: 'abcdef',
-  //   hash
-  // })
+
+  const hash = moment().format('YYYYMMDDHHmmss')
+
+  await buildWebsite(req, {
+    code: 'abcdef',
+    hash
+  })
   //
   // await publishWebsite(req, {
   //   code: 'abcdef',
