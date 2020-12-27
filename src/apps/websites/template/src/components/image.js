@@ -48,8 +48,7 @@ class Image extends React.Component {
       src: this._getUrl(1, 'jpg'),
       srcSet: this._getSourceset('jpg'),
       title,
-      ...!!width ? { width } : {},
-      onLoad: this._handleLoad
+      ...!!width ? { width } : {}
     }
   }
 
