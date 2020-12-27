@@ -1,7 +1,9 @@
 import s3 from '../../../vendor/aws/s3'
 import { Router } from 'express'
+import mime from 'mime-types'
 import sharp from 'sharp'
 import path from 'path'
+import _ from 'lodash'
 import url from 'url'
 import qs from 'qs'
 import fs from 'fs'
@@ -17,38 +19,47 @@ const root = getRoot(process.env.NODE_ENV)
 const router = new Router({ mergeParams: true })
 
 router.get('/*', async (req, res) => {
-  const url = req.originalUrl
+  const url = parseUrl(req.originalUrl)
   const type = getType(url)
   const data = await getTransformed(url, type)
   if(process.env.NODE_ENV === 'production') {
     res.setHeader('Cache-Control','immutable,max-age=100000000,public')
   }
-  return res.type(type).status(200).send(data)
+  const mimetype = mime.lookup(type)
+  return res.type(mimetype).status(200).send(data)
 })
 
+const getOriginal = async (url) => {
+  const fm = url.transforms ? url.transforms.fm : null
+  const originalPath = fm ? url.path.replace(url.extension, fm) : url.path
+  return await getData(originalPath)
+}
+
 const getTransformed = async (url, type) => {
-  const { transforms, path } = parseUrl(url)
-  const original = await getData(path)
-  if(!transforms) return original
-  const transformed = await transform(original, transforms)
-  return await convert(transformed, type, transforms)
+  const original = await getOriginal(url)
+  if(!url.transforms) return original
+  const transformed = await transform(original, url.transforms)
+  return await convert(transformed, type, url.transforms)
 }
 
-const getType = (originalUrl) => {
-  const ext = path.extname(originalUrl).substr(1)
-  if(ext === 'png') return 'png'
-  if(ext === 'gif') return 'gif'
-  return 'jpeg'
+const getType = (url) => {
+  const to = url.transforms ? url.transforms.to : null
+  const ext = to || url.extension
+  return _.includes(['gif','png','webp'], ext) ? ext : 'jpeg'
 }
 
-const parseUrl = (originalUrl) => {
-  const uri = url.parse(originalUrl)
+const parseUrl = (original) => {
+  const uri = url.parse(original)
   const raw = uri.path.replace('/imagecache/', '')
   const parts = raw.split('/')
   const matches = parts[0].match(/\w*=\w*/)
-  const transforms = matches ? qs.parse(parts[0]) : null
-  const path = matches ? parts.slice(1).join('/') : parts.join('/')
-  return { transforms, path }
+  return {
+    basename: path.basename(original),
+    extension: path.extname(original).substr(1),
+    original,
+    transforms: matches ? qs.parse(parts[0]) : null,
+    path: matches ? parts.slice(1).join('/') : parts.join('/')
+  }
 }
 
 const getData = async (key) => {
@@ -89,6 +100,7 @@ const transform = async(data, transforms) => {
 const convert = async (transformed, type, transforms) => {
   const quality = transforms.q ? parseInt(transforms.q) : 70
   if(type === 'jpeg') return await transformed.jpeg({ quality }).toBuffer()
+  if(type === 'webp') return await transformed.webp({ quality }).toBuffer()
   return await transformed.png({ quality }).toBuffer()
 }
 
