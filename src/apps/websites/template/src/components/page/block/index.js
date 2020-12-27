@@ -39,7 +39,7 @@ const Block = ({ block, data, namespace }) => {
 
 Block.propTypes = {
   block: PropTypes.object,
-  data: PropTypes.array,
+  data: PropTypes.object,
   namespace: PropTypes.string
 }
 

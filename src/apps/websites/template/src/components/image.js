@@ -6,96 +6,90 @@ class Image extends React.Component {
 
   static propTypes = {
     alt: PropTypes.string,
-    className: PropTypes.string,
-    host: PropTypes.string,
     src: PropTypes.string,
-    src2: PropTypes.string,
     title: PropTypes.string,
     transforms: PropTypes.object,
     width: PropTypes.number,
-    height: PropTypes.number,
-    onClick: PropTypes.func,
-    onLoad: PropTypes.func
-  }
-
-  static defaultProps = {
-    host: null,
-    onLoad: () => {},
-    onClick: () => {}
+    height: PropTypes.number
   }
 
   state = {
-    loaded: false
+    basename: null,
+    extname: null,
+    path: null,
+    src: null
   }
 
-  _handleClick = this._handleClick.bind(this)
-  _handleLoad = this._handleLoad.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = this._getParsed(props.src)
+  }
 
   render() {
-    const { src } = this.props
-    if(!src) return null
     return (
-      <div className="i">
+      <picture>
+        <source { ...this._getSource() } />
         <img { ...this._getImage() } />
-      </div>
+      </picture>
     )
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { loaded } = this.state
-    if(loaded !== prevState.loaded) {
-      this.props.onLoad()
-    }
   }
 
   _getHost() {
     return process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
   }
 
-  _getFilename() {
-    const { src } = this.props
-    return src.split('/').pop()
-  }
-
   _getImage() {
     const { alt, className, height, title, width } = this.props
-    const host = this._getHost()
-    const normal = `${host}/imagecache${this._getNormal()}`
-    const retina = `${host}/imagecache${this._getRetina()}`
+    const { filename } = this.state
     return {
-      alt: alt || this._getFilename(),
+      alt: alt || filename,
       className,
       ...!!height ? { height } : {},
-      src: normal,
-      srcSet: `${normal} 1x, ${retina} 2x`,
+      src: this._getUrl(1, 'jpg'),
+      srcSet: this._getSourceset('jpg'),
       title,
       ...!!width ? { width } : {},
       onLoad: this._handleLoad
     }
   }
 
-  _getNormal() {
-    const { src, transforms } = this.props
-    if(!transforms) return src
+  _getParsed(src) {
+    const parts = src.substr(1).split('/')
+    const filename = parts.slice(-1)[0]
+    const fileparts = filename.split('.')
+    return {
+      src,
+      filename,
+      path: parts.slice(0, parts.length - 1).join('/'),
+      basename: fileparts.slice(0, fileparts.length - 1).join('.'),
+      extname: fileparts.slice(-1)[0]
+    }
+  }
+
+  _getSource() {
+    return {
+      type: 'image/webp',
+      srcSet: this._getSourceset('webp')
+    }
+  }
+
+  _getSourceset(format) {
+    return [
+      this._getUrl(1, format),
+      this._getUrl(2, format)
+    ].join(', ')
+  }
+
+  _getUrl(dpi, format) {
+    const { basename, extname, path } = this.state
+    const transforms = {
+      ...this.props.transforms || {},
+      ...extname !== format ? { fm: extname } : {},
+      dpi
+    }
     const query = qs.stringify(transforms, { encode: false })
-    return `/${query}&dpi=2${src}`
-  }
-
-  _getRetina() {
-    const { src, src2, transforms } = this.props
-    if(!transforms) return src2 || src
-    const query = qs.stringify(transforms, { encode: false })
-    return `/${query}&dpi=2${src2 || src}`
-  }
-
-  _handleClick() {
-    this.props.onClick()
-  }
-
-  _handleLoad() {
-    this.setState({
-      loaded: true
-    })
+    const host = this._getHost()
+    return `${host}/imagecache/${query}/${path}/${basename}.${format} ${dpi}x`
   }
 
 }

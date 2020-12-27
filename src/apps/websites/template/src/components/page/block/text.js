@@ -10,7 +10,7 @@ const TextBlock = ({ block, data }) => (
 
 TextBlock.propTypes = {
   block: PropTypes.object,
-  data: PropTypes.array
+  data: PropTypes.object
 }
 
 export default TextBlock

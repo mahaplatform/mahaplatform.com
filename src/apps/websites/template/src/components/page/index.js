@@ -23,7 +23,7 @@ const Page = ({ site, layout, page }) => {
         <header />
         <main>
           { sections.map((section, index) => (
-            <Section key={`section_${index}`} section={ section } namespace={ index } />
+            <Section key={`section_${index}`} section={ section } namespace={ `${index}` } />
           )) }
         </main>
       </article>

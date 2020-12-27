@@ -45,7 +45,7 @@ const ImageBlock = ({ block, data }) => {
 
 ImageBlock.propTypes = {
   block: PropTypes.object,
-  data: PropTypes.array
+  data: PropTypes.object
 }
 
 export default ImageBlock

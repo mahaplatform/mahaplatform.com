@@ -9,7 +9,7 @@ const ButtonBlock = ({ block }) => (
 
 ButtonBlock.propTypes = {
   block: PropTypes.object,
-  data: PropTypes.array
+  data: PropTypes.object
 }
 
 export default ButtonBlock

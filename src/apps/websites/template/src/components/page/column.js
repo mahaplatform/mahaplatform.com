@@ -21,7 +21,7 @@ const Column = ({ column, data, namespace }) => {
 
 Column.propTypes = {
   column: PropTypes.object,
-  data: PropTypes.array,
+  data: PropTypes.object,
   namespace: PropTypes.string
 }
 
