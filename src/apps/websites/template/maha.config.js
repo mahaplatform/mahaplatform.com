@@ -3,8 +3,6 @@ export default {
     title: 'CCE Tompkins',
     homepage: 3,
     favicon: '/assets/19532/me.jpg',
-    background_color: '#FF0000',
-    theme_color: '#0000FF',
     pallette: {
       red: '#FF0000',
       blue: '#0000FF'
@@ -16,7 +14,7 @@ export default {
       title: 'Basic Page',
       sections: [
         {
-          config: {
+          background: {
             background: {
               type: 'color',
               color: 'red'
@@ -49,7 +47,7 @@ export default {
         {
           type: 'content'
         },{
-          config: {
+          background: {
             background: {
               type: 'color',
               color: 'red'
@@ -91,7 +89,7 @@ export default {
       description: 'A page about us',
       sections: [
         {
-          config: {
+          background: {
             background: {
               type: 'image',
               image: '/assets/8346/10156387003857338.jpg'
@@ -100,42 +98,49 @@ export default {
           content: {
             rows: [
               {
-                config: {
-                  fullWidth: false,
-                  padding: 10,
+                sizing: {
+                  fullWidth: false
+                },
+                spacing: {
+                  padding: 10
+                },
+                background: {
                   background: {
                     type: 'color',
                     color: '#DDDDDD'
-                  },
+                  }
+                },
+                content: {
                   layout: {
                     isResponsive: true,
                     desktop: [4,4,4],
                     tablet: [6,6],
                     mobile: [12]
-                  }
-                },
-                content: {
+                  },
                   columns: [
                     {
-                      config: {
-                        animation: {
-                          type: 'fade',
-                          duration: 1000,
-                          delay: 0,
-                          opacity: 0,
-                          curve: 'ease-in-out',
-                          repeat: 1
-                        },
-                        margin: [10, 10, 10, 10],
-                        border: {
-                          radius: 10
-                        },
+                      animation: {
+                        type: 'fade',
+                        duration: 1000,
+                        delay: 0,
+                        opacity: 0,
+                        curve: 'ease-in-out',
+                        repeat: 1
+                      },
+                      spacing: {
+                        margin: [10, 10, 10, 10]
+                      },
+                      border: {
+                        radius: 10
+                      },
+                      background: {
                         background: {
                           type: 'color',
                           color: '#FFFFFF99'
-                        },
+                        }
+                      },
+                      boxShadow: {
                         boxShadow: 1
-
                       },
                       content: {
                         blocks: [
