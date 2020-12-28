@@ -1,32 +1,32 @@
 
 {
-   “short_name”: “<%- site.title %>”,
-   “name”: “<%- site.title %>”,
-   “icons”: [
+   "short_name”: "<%- site.title %>”,
+   "name”: "<%- site.title %>”,
+   "icons”: [
      {
-       “src”: “<%- icon(site.favicon, 'webp', 192) %>”,
-       “type”: “image/webp”,
-       “sizes”: “192x192”
+       "src”: "<%- icon(site.favicon, 'webp', 192) %>”,
+       "type”: "image/webp”,
+       "sizes”: "192x192”
      },
      {
-       “src”: “<%- icon(site.favicon, 'png', 192) %>”,
-       “type”: “image/png,
-       “sizes”: “192x192”
+       "src”: "<%- icon(site.favicon, 'png', 192) %>”,
+       "type”: "image/png,
+       "sizes”: "192x192”
      },
      {
-       “src”: “<%- icon(site.favicon, 'webp', 512) %>”,
-       “type”: “image/webp,
-       “sizes”: “512x512”
+       "src”: "<%- icon(site.favicon, 'webp', 512) %>”,
+       "type”: "image/webp,
+       "sizes”: "512x512”
      },
      {
-       “src”: “<%- icon(site.favicon, 'png', 512) %>”,
-       “type”: “image/png,
-       “sizes”: “192x192”
+       "src”: "<%- icon(site.favicon, 'png', 512) %>”,
+       "type”: "image/png,
+       "sizes”: "192x192”
      }
     ],
-    “start_url”: “/?source=pwa”,
-    “background_color”: “#3367D6”,
-    “display”: “standalone”,
-    “scope”: “/”,
-    “theme_color”: “#3367D6”
+    "start_url”: "/?source=pwa”,
+    "background_color”: "<%- site.background_color” %>”,
+    "display”: "standalone”,
+    "scope”: "/”,
+    "theme_color”: "<%- site.theme_color” %>”
 }

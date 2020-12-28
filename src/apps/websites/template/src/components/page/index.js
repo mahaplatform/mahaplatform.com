@@ -29,6 +29,7 @@ const Page = ({ site, layout, page }) => {
       <Head>
         <title>{ page.title } | { site.title }</title>
         <meta name="description" content={ page.description} />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="icon" sizes="16x16" type="image/png" src={ icon(site.favicon, 16) } />
         <link rel="icon" sizes="32x32" type="image/png" src={ icon(site.favicon, 32) } />
         <link rel="icon" sizes="96x96" type="image/png" src={ icon(site.favicon, 96) } />
