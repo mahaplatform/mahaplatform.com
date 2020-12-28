@@ -76,6 +76,12 @@ const buildSite = async(req, { code, hash }) => {
 
   await rimraf.sync(srcdir)
 
+  await copy(path.join(sitedir, 'src'), srcdir)
+
+  await copy(path.join(sitedir, 'public'), publicdir)
+
+  await copy(path.join(sitedir, 'next.config.js'), path.join(indir, 'next.config.js'))
+
   writeFile(req, {
     data: { config },
     dest: indir,
@@ -90,12 +96,6 @@ const buildSite = async(req, { code, hash }) => {
     dest: publicdir,
     filename: 'manifest.json'
   })
-
-  await copy(path.join(sitedir, 'next.config.js'), path.join(indir, 'next.config.js'))
-
-  await copy(path.join(sitedir, 'src'), srcdir)
-
-  await copy(path.join(sitedir, 'public'), publicdir)
 
   await silent(async () => {
 
