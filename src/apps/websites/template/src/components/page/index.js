@@ -33,6 +33,8 @@ const Page = ({ site, layout, page }) => {
         <link rel="icon" sizes="16x16" type="image/png" href={ icon(site.favicon, 16) } />
         <link rel="icon" sizes="32x32" type="image/png" href={ icon(site.favicon, 32) } />
         <link rel="icon" sizes="96x96" type="image/png" href={ icon(site.favicon, 96) } />
+        <link rel="icon" sizes="192x192" type="image/png" href={ icon(site.favicon, 192) } />
+        <link rel="icon" sizes="228x228" type="image/png" href={ icon(site.favicon, 228) } />
         <link rel="apple-touch-icon" type="image/png" sizes="120x120" href={ icon(site.favicon, 120) } />
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href={ icon(site.favicon, 180) } />
         <link rel="apple-touch-icon" type="image/png" sizes="152x152" href={ icon(site.favicon, 152) } />

@@ -93,6 +93,15 @@ const buildSite = async(req, { code, hash }) => {
     filename: 'manifest.json'
   })
 
+  writeFile(req, {
+    data: {
+      ...config,
+      icon
+    },
+    dest: publicdir,
+    filename: 'browserconfig.xml'
+  })
+
   await silent(async () => {
 
     await next_build(indir)
