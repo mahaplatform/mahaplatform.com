@@ -70,6 +70,8 @@ const buildSite = async(req, { code, hash }) => {
 
   const currentdir = path.join(builddir, 'current')
 
+  await rimraf.sync(indir)
+
   await mkdirp(indir)
 
   await mkdirp(buildsdir)
