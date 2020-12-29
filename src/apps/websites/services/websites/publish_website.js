@@ -1,4 +1,5 @@
 import { deleteObjects, listObjects, upload } from '@core/services/aws/s3'
+import mime from 'mime-types'
 import rimraf from 'rimraf'
 import path from 'path'
 import _ from 'lodash'
@@ -116,7 +117,7 @@ const publishSite = async(req, { code, hash }) => {
       key: to,
       file_data: fs.readFileSync(file, 'utf8'),
       cache_control: 'max-age=0,no-cache',
-      content_type: 'text/html'
+      content_type: mime.lookup(path.basename(file))
     })
 
     return notfound.filter(key => {

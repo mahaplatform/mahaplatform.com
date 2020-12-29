@@ -30,13 +30,13 @@ const Page = ({ site, layout, page }) => {
         <title>{ page.title } | { site.title }</title>
         <meta name="description" content={ page.description} />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" sizes="16x16" type="image/png" src={ icon(site.favicon, 16) } />
-        <link rel="icon" sizes="32x32" type="image/png" src={ icon(site.favicon, 32) } />
-        <link rel="icon" sizes="96x96" type="image/png" src={ icon(site.favicon, 96) } />
-        <link rel="apple-touch-icon" type="image/png" sizes="120x120" src={ icon(site.favicon, 120) } />
-        <link rel="apple-touch-icon" type="image/png" sizes="180x180" src={ icon(site.favicon, 180) } />
-        <link rel="apple-touch-icon" type="image/png" sizes="152x152" src={ icon(site.favicon, 152) } />
-        <link rel="apple-touch-icon" type="image/png" sizes="167x167" src={ icon(site.favicon, 167) } />
+        <link rel="icon" sizes="16x16" type="image/png" href={ icon(site.favicon, 16) } />
+        <link rel="icon" sizes="32x32" type="image/png" href={ icon(site.favicon, 32) } />
+        <link rel="icon" sizes="96x96" type="image/png" href={ icon(site.favicon, 96) } />
+        <link rel="apple-touch-icon" type="image/png" sizes="120x120" href={ icon(site.favicon, 120) } />
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href={ icon(site.favicon, 180) } />
+        <link rel="apple-touch-icon" type="image/png" sizes="152x152" href={ icon(site.favicon, 152) } />
+        <link rel="apple-touch-icon" type="image/png" sizes="167x167" href={ icon(site.favicon, 167) } />
       </Head>
       <Style site={ site } layout={ layout } page={ page } />
       <article>
