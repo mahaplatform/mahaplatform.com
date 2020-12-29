@@ -3,6 +3,8 @@ export default {
     title: 'CCE Tompkins',
     homepage: 3,
     favicon: '/assets/19532/me.jpg',
+    theme_color: '#FF0000',
+    background_color: '#0000FF',
     pallette: {
       red: '#FF0000',
       blue: '#0000FF'
