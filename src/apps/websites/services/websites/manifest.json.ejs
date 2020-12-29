@@ -4,22 +4,28 @@
    "name": "<%- site.title %>",
    "icons": [
      {
-       "src": "<%- icon(site.favicon, 'webp', 192) %>",
+       "src": "<%- icon(site.favicon, 'webp', { dpi: 1, fit: 'cover', w: 192, h: 192 }) %>",
        "type": "image/webp",
        "sizes": "192x192"
      },
      {
-       "src": "<%- icon(site.favicon, 'png', 192) %>",
+       "src": "<%- icon(site.favicon, 'png', { dpi: 1, fit: 'cover', w: 192, h: 192 }) %>",
        "type": "image/png",
        "sizes": "192x192"
      },
      {
-       "src": "<%- icon(site.favicon, 'webp', 512) %>",
+       "src": "<%- icon(site.favicon, 'png', { dpi: 1, fit: 'cover', w: 110, h: 110, p: 43, bg: 00000000 }) %>",
+       "sizes": "196x196",
+       "type": "image/png",
+       "purpose": "maskable"
+     },
+     {
+       "src": "<%- icon(site.favicon, 'webp', { dpi: 1, fit: 'cover', w: 512, h: 512 }) %>",
        "type": "image/webp",
        "sizes": "512x512"
      },
      {
-       "src": "<%- icon(site.favicon, 'png', 512) %>",
+       "src": "<%- icon(site.favicon, 'png', { dpi: 1, fit: 'cover', w: 512, h: 512 }) %>",
        "type": "image/png",
        "sizes": "512x512"
      }

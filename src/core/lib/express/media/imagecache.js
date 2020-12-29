@@ -81,20 +81,56 @@ const getOverlay = async (w) => {
 
 const transform = async(data, transforms) => {
   const source = sharp(data)
-  const dpi = transforms.dpi ? parseInt(transforms.dpi) : 1
-  const fit = transforms.fit || 'inside'
-  const w = transforms.w ? parseInt(transforms.w) * dpi : null
-  const h = transforms.h ? parseInt(transforms.h) * dpi : null
-  const overlay = transforms.overlay
+  await overlay(source, transforms)
+  crop(source, transforms)
+  resize(source, transforms)
+  pad(source, transforms)
+  return source
+}
+
+const overlay = async (source, { dpi = 1, w, overlay }) => {
+  if(!overlay) return
+  const width = w ? parseInt(w) * parseInt(dpi) : null
   if(overlay && overlay === 'video') {
     source.composite([{
-      input: await getOverlay(w)
+      input: await getOverlay(width)
     }])
   }
-  if(w & h) return source.resize(w, h, { fit })
-  if(w) return source.resize(w)
-  if(h) return source.resize(h)
-  return source
+}
+
+const crop = (source, { ct, cl, cw, ch }) => {
+  if(!ct || !cl || !cw || !ch) return
+  source.extract({
+    left:  parseInt(cl),
+    top: parseInt(ct),
+    width: parseInt(cw),
+    height: parseInt(ch)
+  })
+}
+
+const resize = (source, { dpi = 1, fit = 'inside', w, h }) => {
+  if(!w && !h) return
+  const width = w ? parseInt(w) * parseInt(dpi) : null
+  const height = h ? parseInt(h) * parseInt(dpi) : null
+  if(width & height) return source.resize(width, height, { fit })
+  if(width) return source.resize(width)
+  if(height) return source.resize(height)
+}
+
+const pad = (source, { p, pt, pl, pb, pr, bg }) => {
+  if(!bg || (!p && !pt && !pl && !pb && !pr)) return
+  const padding = p ? parseInt(p) : null
+  const top = pt ? parseInt(pt) : null
+  const right = pr ? parseInt(pr) : null
+  const bottom = pb ? parseInt(pb) : null
+  const left = pl ? parseInt(pl) : null
+  return source.extend({
+    top: padding || top || null,
+    right: padding || right || null,
+    bottom: padding || bottom || null,
+    left: padding || left || null,
+    background: `#${bg}`
+  })
 }
 
 const convert = async (transformed, type, transforms) => {

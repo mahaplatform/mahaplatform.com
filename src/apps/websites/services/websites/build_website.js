@@ -11,15 +11,9 @@ import qs from 'qs'
 
 const copy = Promise.promisify(ncp)
 
-const icon = (src, format, size) => {
+const icon = (src, format, transforms) => {
   const parsed = path.parse(src)
   const extname = parsed.ext.substr(1)
-  const transforms = {
-    dpi: 1,
-    fit: 'cover',
-    w: size,
-    h: size
-  }
   if(format !== extname) transforms.fm = extname
   const query = qs.stringify(transforms)
   const host = process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''

@@ -193,7 +193,7 @@
     "reselect": "^3.0.1",
     "resumablejs": "^1.1.0",
     "rollbar": "^2.15.2",
-    "sharp": "^0.26.3",
+    "sharp": "^0.27.0",
     "simple-oauth2": "^1.5.2",
     "socket.io": "^3.0.4",
     "socket.io-emitter": "^3.1.1",
