@@ -4,11 +4,7 @@ export default {
     homepage: 3,
     favicon: '/assets/19532/me.jpg',
     theme_color: '#FF0000',
-    background_color: '#0000FF',
-    pallette: {
-      red: '#FF0000',
-      blue: '#0000FF'
-    }
+    background_color: '#0000FF'
   },
   layouts: [
     {
@@ -89,6 +85,11 @@ export default {
       permalink: 'about',
       title: 'About Us',
       description: 'A page about us',
+      image: '/assets/8346/10156387003857338.jpg',
+      created_at: '2020-12-01T15:03:22Z',
+      published_at: '2020-12-01T15:12:12Z',
+      updated_at: '2020-12-01T15:23:12Z',
+      tags: ['a','b','c'],
       sections: [
         {
           background: {

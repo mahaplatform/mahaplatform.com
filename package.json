@@ -144,6 +144,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "next": "^10.0.3",
+    "next-seo": "^4.17.0",
     "node-instagram": "^4.1.0",
     "node-webshot": "^1.0.4",
     "nodemailer": "4.0.1",

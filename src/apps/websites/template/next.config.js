@@ -6,6 +6,7 @@ import path from 'path'
 module.exports = withLess({
   webpack: (config, {dev, isServer}) => {
     config.node.fs = 'empty'
+    if(config.mode !== 'production') return config
     config.plugins.push(
       new WorkboxPlugin.InjectManifest({
         dontCacheBustURLsMatching: /^\/_next\/static\/.*/iu,
@@ -23,7 +24,6 @@ module.exports = withLess({
         }
       })
     )
-    if(config.mode !== 'production') return config
     config.optimization.minimizer.push(
       new OptimizeCSSAssetsPlugin({})
     )
