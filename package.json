@@ -144,7 +144,6 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "next": "^10.0.3",
-    "next-with-workbox": "^2.0.1",
     "node-instagram": "^4.1.0",
     "node-webshot": "^1.0.4",
     "nodemailer": "4.0.1",
@@ -207,6 +206,7 @@
     "ua-parser-js": "^0.7.23",
     "winston": "^3.2.1",
     "winston-log2gelf": "^2.3.0",
+    "workbox-webpack-plugin": "^6.0.2",
     "workbox-window": "^6.0.2",
     "xml": "^1.0.1"
   }
