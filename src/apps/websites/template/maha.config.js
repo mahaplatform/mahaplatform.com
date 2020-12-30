@@ -4,7 +4,9 @@ export default {
     homepage: 3,
     favicon: '/assets/19532/me.jpg',
     theme_color: '#FF0000',
-    background_color: '#0000FF'
+    background_color: '#0000FF',
+    ga_tracking_id: 123,
+    mt_tracking_id: 123
   },
   layouts: [
     {

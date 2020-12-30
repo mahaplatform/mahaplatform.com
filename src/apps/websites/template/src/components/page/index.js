@@ -7,39 +7,54 @@ import Style from '../style'
 import Head from 'next/head'
 import Seo from './seo'
 
-const Page = ({ site, layout, page }) => {
+class Page extends React.Component {
 
-  const sections = layout.sections.reduce((sections, section) => [
-    ...sections,
-    ...section.type === 'content' ? page.sections : [section]
-  ], [])
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
 
-  return (
-    <>
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#FFFFFF" />
-      </Head>
-      <Favicons favicon={ site.favicon } />
-      <Seo site={ site } page={ page } />
-      <Style site={ site } layout={ layout } page={ page } />
-      <article>
-        <header />
-        <main>
-          { sections.map((section, index) => (
-            <Section key={`section_${index}`} section={ section } namespace={ `${index}` } />
-          )) }
-        </main>
-      </article>
-    </>
-  )
+  static propTypes = {
+    site: PropTypes.object,
+    layout: PropTypes.object,
+    page: PropTypes.object
+  }
 
-}
+  render() {
+    const { site, layout, page } = this.props
+    const sections = this._getSections()
+    return (
+      <>
+        <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#FFFFFF" />
+        </Head>
+        <Favicons favicon={ site.favicon } />
+        <Seo site={ site } page={ page } />
+        <Style site={ site } layout={ layout } page={ page } />
+        <article>
+          <header />
+          <main>
+            { sections.map((section, index) => (
+              <Section key={`section_${index}`} section={ section } namespace={ `${index}` } />
+            )) }
+          </main>
+        </article>
+      </>
+    )
+  }
 
-Page.propTypes = {
-  site: PropTypes.object,
-  layout: PropTypes.object,
-  page: PropTypes.object
+  componentDidMount() {
+    this.context.analytics.view()
+  }
+
+  _getSections() {
+    const { layout, page } = this.props
+    return layout.sections.reduce((sections, section) => [
+      ...sections,
+      ...section.type === 'content' ? page.sections : [section]
+    ], [])
+  }
+
 }
 
 export default Page
