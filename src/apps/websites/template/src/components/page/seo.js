@@ -14,18 +14,27 @@ const image = (src) => {
   return `${host}/imagecache/${query}/${path}/${basename}.png`
 }
 
+const getPrimaryDomain = (domains) => {
+  const index = domains.findIndex(domain => {
+    return domain.is_primary
+  })
+  return domains[Math.max(index, 0)].name
+}
+
 const Seo = ({ site, page }) => {
+
+  const domain = getPrimaryDomain(site.domains)
 
   const seo = {
     title: `${page.title} | ${site.title}`,
     description: page.description,
-    canonical: `https://ccetompkins.org/${page.permalink}`,
+    canonical: `https://${domain}/${page.permalink}`,
     openGraph: {
       type: 'article',
       locale: 'en_us',
       site_name: site.title,
       title: page.title,
-      url: `https://ccetompkins.org/${page.permalink}`,
+      url: `https://${domain}/${page.permalink}`,
       description: page.description,
       article: {
         publishedTime: page.published_at,

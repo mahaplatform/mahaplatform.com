@@ -1,12 +1,17 @@
 export default {
   site: {
     title: 'CCE Tompkins',
-    homepage: 3,
+    homepage: 1,
     favicon: '/assets/19532/me.jpg',
     theme_color: '#FF0000',
     background_color: '#0000FF',
     ga_tracking_id: 123,
-    mt_tracking_id: 123
+    mt_tracking_id: 123,
+    domains: [
+      { name: 'abcdef.mahaplatform.com', is_primary: false },
+      { name: 'dnciqwzbn0zhu.cloudfront.net', is_primary: true },
+      { name: 'abcdef.com', is_primary: false }
+    ]
   },
   layouts: [
     {
@@ -84,9 +89,9 @@ export default {
     {
       id: 1,
       layout_id: 1,
-      permalink: 'about',
-      title: 'About Us',
-      description: 'A page about us',
+      permalink: 'home',
+      title: 'Home Page',
+      description: 'The Home Page',
       image: '/assets/8346/10156387003857338.jpg',
       created_at: '2020-12-01T15:03:22Z',
       published_at: '2020-12-01T15:12:12Z',
@@ -448,9 +453,9 @@ export default {
     }, {
       id: 3,
       layout_id: 1,
-      permalink: 'home',
-      title: 'Home',
-      description: 'The home page',
+      permalink: 'about',
+      title: 'About',
+      description: 'About Us',
       sections: []
     }
   ]
