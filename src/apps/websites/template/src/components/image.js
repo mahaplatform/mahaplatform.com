@@ -45,6 +45,7 @@ class Image extends React.Component {
       alt: alt || filename,
       className,
       ...!!height ? { height } : {},
+      loading: 'lazy',
       src: this._getUrl(1, 'jpg'),
       srcSet: this._getSourceset('jpg'),
       title,
