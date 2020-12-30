@@ -3,7 +3,7 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 // import knex from './core/vendor/knex'
-import { buildWebsite } from '@apps/websites/services/websites'
+import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 import moment from 'moment'
 
 const processor = async () => {
@@ -44,11 +44,11 @@ const processor = async () => {
     code: 'abcdef',
     hash
   })
-  //
-  // await publishWebsite(req, {
-  //   code: 'abcdef',
-  //   hash
-  // })
+
+  await publishWebsite(req, {
+    code: 'abcdef',
+    hash
+  })
 
 }
 

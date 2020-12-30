@@ -113,12 +113,18 @@ const publishSite = async(req, { code, hash }) => {
 
     const to = path.join(currentkey, filepath)
 
-    await upload(req, {
-      key: to,
-      file_data: fs.readFileSync(file, 'utf8'),
-      cache_control: 'max-age=0,no-cache',
-      content_type: mime.lookup(path.basename(file))
-    })
+    const isStatic = /current\/static/.test(to)
+
+    const exists = _.includes(currentkeys, to)
+
+    if(!isStatic || !exists) {
+      await upload(req, {
+        key: to,
+        file_data: fs.readFileSync(file, 'utf8'),
+        cache_control: isStatic ? 'immutable,max-age=100000000,public' : 'max-age=0,no-cache',
+        content_type: mime.lookup(path.basename(file))
+      })
+    }
 
     return notfound.filter(key => {
       return key !== to

@@ -19,9 +19,36 @@ const createDistibution = async (req, params) => {
         ]
       },
       CacheBehaviors: {
-        Quantity: 3,
+        Quantity: 4,
         Items: [
           {
+            PathPattern: 'api*',
+            TargetOriginId: `${code}-api`,
+            ViewerProtocolPolicy: 'https-only',
+            AllowedMethods: {
+              Quantity: 7,
+              Items: ['GET','HEAD','OPTIONS','PUT','POST','PATCH','DELETE']
+            },
+            Compress: true,
+            TrustedSigners: {
+              Enabled: false,
+              Quantity: 0,
+              Items: []
+            },
+            ForwardedValues: {
+              QueryString: true,
+              Cookies: {
+                Forward: 'none'
+              },
+              Headers: {
+                Quantity: 0,
+                Items: []
+              }
+            },
+            MinTTL: 0,
+            MaxTTL: 0,
+            DefaultTTL: 0
+          }, {
             PathPattern: 'imagecache*',
             TargetOriginId: `${code}-cdn`,
             ViewerProtocolPolicy: 'https-only',
@@ -134,7 +161,15 @@ const createDistibution = async (req, params) => {
               HTTPSPort: '443',
               OriginProtocolPolicy: 'https-only'
             }
-          },
+          }, {
+            Id: `${code}-api`,
+            DomainName: 'mahaplatform.com',
+            CustomOriginConfig: {
+              HTTPPort: '80',
+              HTTPSPort: '443',
+              OriginProtocolPolicy: 'https-only'
+            }
+          }
         ]
       },
       DefaultCacheBehavior: {
