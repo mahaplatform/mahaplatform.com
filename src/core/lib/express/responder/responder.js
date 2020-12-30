@@ -31,6 +31,7 @@ class Responder {
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
+    this.res.setHeader('Cache-Control', 'max-age=0,no-cache')
     this.res.type(this.type).send(data)
   }
 
