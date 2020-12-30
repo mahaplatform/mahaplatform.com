@@ -19,7 +19,7 @@ const createDistibution = async (req, params) => {
         ]
       },
       CacheBehaviors: {
-        Quantity: 4,
+        Quantity: 3,
         Items: [
           {
             PathPattern: 'api*',
@@ -77,33 +77,6 @@ const createDistibution = async (req, params) => {
             DefaultTTL: 86400
           }, {
             PathPattern: '_next*',
-            TargetOriginId: `${code}`,
-            ViewerProtocolPolicy: 'https-only',
-            AllowedMethods: {
-              Quantity: 2,
-              Items: ['GET','HEAD']
-            },
-            Compress: true,
-            TrustedSigners: {
-              Enabled: false,
-              Quantity: 0,
-              Items: []
-            },
-            ForwardedValues: {
-              QueryString: false,
-              Cookies: {
-                Forward: 'none'
-              },
-              Headers: {
-                Quantity: 1,
-                Items: [ 'Origin' ]
-              }
-            },
-            MinTTL: 0,
-            MaxTTL: 31536000,
-            DefaultTTL: 86400
-          }, {
-            PathPattern: 'static*',
             TargetOriginId: `${code}`,
             ViewerProtocolPolicy: 'https-only',
             AllowedMethods: {

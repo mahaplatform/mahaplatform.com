@@ -11,11 +11,14 @@ import env from '../env/env'
 import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
 import path from 'path'
+import _ from 'lodash'
 import ncp from 'ncp'
 import ejs from 'ejs'
 import fs from 'fs'
 
 const appsDir = path.resolve('src','apps')
+
+const jswhitelist = ['mt.js']
 
 const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   const appDir = path.join(appsDir, app, 'web')
@@ -97,7 +100,8 @@ const transpileFile = (babelrc, src, dest) => {
 
 const buildItem = async (babelrc, item, srcPath, destPath) => {
   const dest = item.src.replace(srcPath, destPath)
-  if(item.type === 'js') return transpileFile(babelrc, item.src, dest)
+  const file = path.basename(item.src)
+  if(!_.includes(jswhitelist, file) && item.type === 'js') return transpileFile(babelrc, item.src, dest)
   if(item.type === 'dir') return mkdirp.sync(dest)
   return await copy(item.src, dest)
 }
