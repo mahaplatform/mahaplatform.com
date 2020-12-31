@@ -19,10 +19,12 @@ export default {
       title: 'Basic Page',
       sections: [
         {
-          background: {
+          styles: {
             background: {
-              type: 'color',
-              color: 'red'
+              background: {
+                type: 'color',
+                color: 'red'
+              }
             }
           },
           content: {
@@ -52,10 +54,12 @@ export default {
         {
           type: 'content'
         },{
-          background: {
+          styles: {
             background: {
-              type: 'color',
-              color: 'red'
+              background: {
+                type: 'color',
+                color: 'red'
+              }
             }
           },
           content: {
@@ -99,25 +103,29 @@ export default {
       tags: ['a','b','c'],
       sections: [
         {
-          background: {
+          styles: {
             background: {
-              type: 'image',
-              image: '/assets/8346/10156387003857338.jpg'
+              background: {
+                type: 'image',
+                image: '/assets/8346/10156387003857338.jpg'
+              }
             }
           },
           content: {
             rows: [
               {
-                sizing: {
-                  fullWidth: false
-                },
-                spacing: {
-                  padding: 10
-                },
-                background: {
+                styles: {
                   background: {
-                    type: 'color',
-                    color: '#DDDDDD'
+                    background: {
+                      type: 'color',
+                      color: '#DDDDDD'
+                    }
+                  },
+                  sizing: {
+                    fullWidth: false
+                  },
+                  spacing: {
+                    padding: 10
                   }
                 },
                 content: {
@@ -129,35 +137,39 @@ export default {
                   },
                   columns: [
                     {
-                      animation: {
-                        type: 'fade',
-                        duration: 1000,
-                        delay: 0,
-                        opacity: 0,
-                        curve: 'ease-in-out',
-                        repeat: 1
-                      },
-                      spacing: {
-                        margin: [10, 10, 10, 10]
-                      },
-                      border: {
-                        radius: 10
-                      },
-                      background: {
+                      styles: {
+                        animation: {
+                          type: 'fade',
+                          duration: 1000,
+                          delay: 0,
+                          opacity: 0,
+                          curve: 'ease-in-out',
+                          repeat: 1
+                        },
                         background: {
-                          type: 'color',
-                          color: '#FFFFFF99'
+                          background: {
+                            type: 'color',
+                            color: '#FFFFFF99'
+                          }
+                        },
+                        border: {
+                          radius: 10
+                        },
+                        boxShadow: {
+                          boxShadow: 1
+                        },
+                        spacing: {
+                          margin: [10, 10, 10, 10]
                         }
-                      },
-                      boxShadow: {
-                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
                             type: 'image',
-                            image: {
-                              ratio: 2/3
+                            styles: {
+                              image: {
+                                ratio: 2/3
+                              }
                             },
                             content: {
                               image: {
@@ -181,32 +193,36 @@ export default {
                             }
                           },{
                             type: 'text',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
+                            styles: {
+                              spacing: {
+                                padding: [10, 10, 10, 10]
+                              }
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
                             }
                           },{
                             type: 'button',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
-                            },
-                            button: {
-                              custom: true,
-                              color: '#FFFFFF',
-                              background: {
-                                all: {
-                                  type: 'color',
-                                  color: '#e22a8a'
-                                },
-                                hover: {
-                                  type: 'color',
-                                  color: '#7fba42'
-                                }
+                            styles: {
+                              spacing: {
+                                padding: [10, 10, 10, 10]
                               },
-                              border: {
-                                radius: 5
+                              button: {
+                                custom: true,
+                                color: '#FFFFFF',
+                                background: {
+                                  all: {
+                                    type: 'color',
+                                    color: '#e22a8a'
+                                  },
+                                  hover: {
+                                    type: 'color',
+                                    color: '#7fba42'
+                                  }
+                                },
+                                border: {
+                                  radius: 5
+                                }
                               }
                             },
                             content: {
@@ -217,35 +233,39 @@ export default {
                       }
                     },
                     {
-                      animation: {
-                        type: 'fade',
-                        duration: 1000,
-                        delay: 0,
-                        opacity: 0,
-                        curve: 'ease-in-out',
-                        repeat: 1
-                      },
-                      spacing: {
-                        margin: [10, 10, 10, 10]
-                      },
-                      border: {
-                        radius: 10
-                      },
-                      background: {
+                      styles: {
+                        animation: {
+                          type: 'fade',
+                          duration: 1000,
+                          delay: 0,
+                          opacity: 0,
+                          curve: 'ease-in-out',
+                          repeat: 1
+                        },
                         background: {
-                          type: 'color',
-                          color: '#FFFFFF99'
+                          background: {
+                            type: 'color',
+                            color: '#FFFFFF99'
+                          }
+                        },
+                        border: {
+                          radius: 10
+                        },
+                        boxShadow: {
+                          boxShadow: 1
+                        },
+                        spacing: {
+                          margin: [10, 10, 10, 10]
                         }
-                      },
-                      boxShadow: {
-                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
                             type: 'image',
-                            image: {
-                              ratio: 2/3
+                            styles: {
+                              image: {
+                                ratio: 2/3
+                              }
                             },
                             content: {
                               image: {
@@ -256,32 +276,36 @@ export default {
                             }
                           },{
                             type: 'text',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
+                            styles: {
+                              spacing: {
+                                padding: [10, 10, 10, 10]
+                              }
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
                             }
                           },{
                             type: 'button',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
-                            },
-                            button: {
-                              custom: true,
-                              color: '#FFFFFF',
-                              background: {
-                                all: {
-                                  type: 'color',
-                                  color: '#e22a8a'
+                            styles: {
+                              button: {
+                                custom: true,
+                                color: '#FFFFFF',
+                                background: {
+                                  all: {
+                                    type: 'color',
+                                    color: '#e22a8a'
+                                  },
+                                  hover: {
+                                    type: 'color',
+                                    color: '#7fba42'
+                                  }
                                 },
-                                hover: {
-                                  type: 'color',
-                                  color: '#7fba42'
+                                border: {
+                                  radius: 5
                                 }
                               },
-                              border: {
-                                radius: 5
+                              spacing: {
+                                padding: [10, 10, 10, 10]
                               }
                             },
                             content: {
@@ -292,35 +316,39 @@ export default {
                       }
                     },
                     {
-                      animation: {
-                        type: 'fade',
-                        duration: 1000,
-                        delay: 0,
-                        opacity: 0,
-                        curve: 'ease-in-out',
-                        repeat: 1
-                      },
-                      spacing: {
-                        margin: [10, 10, 10, 10]
-                      },
-                      border: {
-                        radius: 10
-                      },
-                      background: {
+                      styles: {
+                        animation: {
+                          type: 'fade',
+                          duration: 1000,
+                          delay: 0,
+                          opacity: 0,
+                          curve: 'ease-in-out',
+                          repeat: 1
+                        },
                         background: {
-                          type: 'color',
-                          color: '#FFFFFF99'
+                          background: {
+                            type: 'color',
+                            color: '#FFFFFF99'
+                          }
+                        },
+                        border: {
+                          radius: 10
+                        },
+                        boxShadow: {
+                          boxShadow: 1
+                        },
+                        spacing: {
+                          margin: [10, 10, 10, 10]
                         }
-                      },
-                      boxShadow: {
-                        boxShadow: 1
                       },
                       content: {
                         blocks: [
                           {
                             type: 'image',
-                            image: {
-                              ratio: 2/3
+                            styles: {
+                              image: {
+                                ratio: 2/3
+                              }
                             },
                             content: {
                               image: {
@@ -331,32 +359,36 @@ export default {
                             }
                           },{
                             type: 'text',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
+                            styles: {
+                              spacing: {
+                                padding: [10, 10, 10, 10]
+                              }
                             },
                             content: {
                               text: '<p>Im baby meditation umami taiyaki man braid, godard +1 XOXO jianbing bespoke kitsch butcher artisan tumblr. Umami vape tote bag, raw denim austin tilde distillery bushwick. Seitan tote bag kogi, trust fund gochujang kickstarter listicle polaroid occupy pok pok lo-fi biodiesel literally portland. Poke cornhole vinyl, cray vexillologist shoreditch chia roof party.</p>'
                             }
                           },{
                             type: 'button',
-                            spacing: {
-                              padding: [10, 10, 10, 10]
-                            },
-                            button: {
-                              custom: true,
-                              color: '#FFFFFF',
-                              background: {
-                                all: {
-                                  type: 'color',
-                                  color: '#e22a8a'
-                                },
-                                hover: {
-                                  type: 'color',
-                                  color: '#7fba42'
-                                }
-                              },
+                            styles: {
                               border: {
                                 radius: 5
+                              },
+                              button: {
+                                custom: true,
+                                color: '#FFFFFF',
+                                background: {
+                                  all: {
+                                    type: 'color',
+                                    color: '#e22a8a'
+                                  },
+                                  hover: {
+                                    type: 'color',
+                                    color: '#7fba42'
+                                  }
+                                }
+                              },
+                              spacing: {
+                                padding: [10, 10, 10, 10]
                               }
                             },
                             content: {
@@ -375,11 +407,13 @@ export default {
           content: {
             rows: [
               {
-                sizing: {
-                  fullWidth: false
-                },
-                spacing: {
-                  padding: 10
+                styles: {
+                  sizing: {
+                    fullWidth: false
+                  },
+                  spacing: {
+                    padding: 10
+                  }
                 },
                 content: {
                   data: [
@@ -398,47 +432,51 @@ export default {
                     mobile: [6,6]
                   },
                   template: {
-                    animation: {
-                      type: 'fade',
-                      duration: 1000,
-                      delay: 0,
-                      opacity: 0,
-                      curve: 'ease-in-out',
-                      repeat: 1
-                    },
-                    background: {
+                    styles: {
+                      animation: {
+                        type: 'fade',
+                        duration: 1000,
+                        delay: 0,
+                        opacity: 0,
+                        curve: 'ease-in-out',
+                        repeat: 1
+                      },
                       background: {
-                        hover: {
-                          type: 'color',
-                          color: '#EEEEEE'
+                        background: {
+                          hover: {
+                            type: 'color',
+                            color: '#EEEEEE'
+                          }
                         }
+                      },
+                      border: {
+                        radius: 5
+                      },
+                      spacing: {
+                        padding: 20
                       }
-                    },
-                    border: {
-                      radius: 5
-                    },
-                    spacing: {
-                      padding: 20
                     },
                     content: {
                       blocks: [
                         {
                           type: 'image',
-                          image: {
-                            ratio: 1,
-                            border: {
-                              radius: '50%'
-                            }
-                          },
-                          caption: {
-                            sizing: {
-                              height: 130
+                          styles: {
+                            image: {
+                              ratio: 1,
+                              border: {
+                                radius: '50%'
+                              }
                             },
-                            text: {
-                              align: 'center'
-                            },
-                            spacing: {
-                              padding: 10
+                            caption: {
+                              sizing: {
+                                height: 130
+                              },
+                              text: {
+                                align: 'center'
+                              },
+                              spacing: {
+                                padding: 10
+                              }
                             }
                           },
                           content: {

@@ -1,10 +1,10 @@
-import { applyBoxModel, applyResponsiveRule, applyRule, withUnits } from '../utils'
+import { applyBoxModel } from '../utils'
 
-export default function ImageBlock(site, rulesets, block, namespace) {
+export default function ImageBlock(site, rulesets, styles, namespace) {
 
-  if(block.caption) applyBoxModel(rulesets, `${namespace} .bic`, block.caption)
+  if(styles.caption) applyBoxModel(rulesets, `${namespace} .bic`, styles.caption)
 
-  if(block.image) applyBoxModel(rulesets, `${namespace} .bii`, block.image)
+  if(styles.image) applyBoxModel(rulesets, `${namespace} .bii`, styles.image)
 
   return rulesets
 

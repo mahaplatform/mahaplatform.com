@@ -59,8 +59,8 @@ const ImageBlock = ({ block, data, widths }) => {
   const getImage = (block, image, widths, data) => {
     return {
       images: expand(image, data),
-      ratio: _.get(block, 'image.ratio') || (image.height / image.width),
-      height: _.get(block, 'image.height'),
+      ratio: _.get(block, 'styles.image.ratio') || (image.height / image.width),
+      height: _.get(block, 'styles.image.height'),
       widths
     }
   }
