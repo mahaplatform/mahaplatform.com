@@ -5,10 +5,13 @@ import cors from 'cors'
 const router = new Router({ mergeParams: true })
 
 router.use(cors({
-  origin:(origin, callback) => callback(null, true)
+  origin:(origin, callback) => callback(null, true),
+  credentials: true
 }))
 
 router.use('/collect', (req, res) => res.status(200).send(true))
+
+router.use('/health', (req, res) => res.status(200).send(true))
 
 router.get('/mt.js', (req, res) => res.status(200).sendFile(path.resolve(__dirname,'mt.js')))
 
