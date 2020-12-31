@@ -5,85 +5,93 @@ import qs from 'qs'
 class Image extends React.Component {
 
   static propTypes = {
-    alt: PropTypes.string,
-    src: PropTypes.string,
-    title: PropTypes.string,
+    images: PropTypes.object,
     transforms: PropTypes.object,
-    width: PropTypes.number,
-    height: PropTypes.number
+    widths: PropTypes.object
   }
 
   state = {
-    basename: null,
-    extname: null,
-    path: null,
-    src: null
+    sources: null
   }
 
   constructor(props) {
     super(props)
-    this.state = this._getParsed(props.src)
+    this.state = {
+      sources: this._getSources()
+    }
   }
 
   render() {
+    const { sources } = this.state
     return (
       <picture>
-        <source { ...this._getSource() } />
+        { sources.map((source, index) => (
+          <source key={`source_${index}`} { ...source } />
+        )) }
         <img { ...this._getImage() } />
       </picture>
     )
   }
 
   _getHost() {
-    return process.env.NODE_ENV !== 'production' ? 'https://assets.mahaplatform.com' : ''
+    return process.env.NODE_ENV !== 'production' ? 'https://dev.mahaplatform.com:8080' : ''
   }
 
   _getImage() {
-    const { alt, className, height, title, width } = this.props
-    const { filename } = this.state
+    const { height, images, ratio, widths } = this.props
+    const image = images.desktop || images.all
+    const width = widths.desktop|| widths.all
+    const { w, h } = this._getSize(image, width, height, ratio)
+    const { alt, filename, src } = image
     return {
       alt: alt || filename,
-      className,
-      ...!!height ? { height } : {},
+      height: h,
       loading: 'lazy',
-      src: this._getUrl(1, 'jpg'),
-      srcSet: this._getSourceset('jpg'),
-      title,
-      ...!!width ? { width } : {}
+      src: image.src,
+      width: w
     }
   }
 
-  _getParsed(src) {
-    const parts = src.substr(1).split('/')
-    const filename = parts.slice(-1)[0]
-    const fileparts = filename.split('.')
-    return {
-      src,
-      filename,
-      path: parts.slice(0, parts.length - 1).join('/'),
-      basename: fileparts.slice(0, fileparts.length - 1).join('.'),
-      extname: fileparts.slice(-1)[0]
-    }
+  _getSize(image, width, height, ratio) {
+    const w = Math.min(width, image.width)
+    const h = Math.floor(ratio * w)
+    return { w, h }
   }
 
-  _getSource() {
-    return {
-      type: 'image/webp',
-      srcSet: this._getSourceset('webp')
-    }
-  }
-
-  _getSourceset(format) {
+  _getSource(media, device, maxWidth) {
+    const { height, images, ratio, widths } = this.props
+    const image = images[device] || images.all
+    const width = maxWidth || widths[device] || widths.all
+    const { w, h } = this._getSize(image, width, height, ratio)
     return [
-      this._getUrl(1, format),
-      this._getUrl(2, format)
-    ].join(', ')
+      { media, type: 'image/webp', srcSet: this._getSrcSet(image, w, h, 'webp') },
+      { media, type: 'image/jpeg', srcSet: this._getSrcSet(image, w, h, 'jpg') },
+    ]
   }
 
-  _getUrl(dpi, format) {
-    const { basename, extname, path } = this.state
+  _getSources() {
+    return [
+      ...this._getSource('(min-width:981px)', 'desktop'),
+      ...this._getSource('(min-width:768px) and (max-width:980px)', 'tablet'),
+      ...this._getSource('(min-width:480px) and (max-width:767px)', 'mobile'),
+      ...this._getSource('(max-width:479px)', 'mobile', 479)
+    ]
+  }
+
+  _getSrcSet(image, w, h, format) {
+    const srcSet = []
+    srcSet.push(this._getUrl(image, w, h, 1, format))
+    if(image.width > w) srcSet.push(this._getUrl(image, w, h, 2, format))
+    return srcSet.join(', ')
+  }
+
+  _getUrl(image, w, h, dpi, format) {
+    const { basename, extname, path } = image
     const transforms = {
       ...this.props.transforms || {},
+      fit: 'cover',
+      w,
+      h,
       ...extname !== format ? { fm: extname } : {},
       dpi
     }

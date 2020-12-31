@@ -21,7 +21,7 @@ const getClass = (namespace, animate) => {
   return classes.join(' ')
 }
 
-const Block = ({ block, data, namespace }) => {
+const Block = ({ block, data, namespace, widths }) => {
 
   if(!block) return null
 
@@ -31,7 +31,7 @@ const Block = ({ block, data, namespace }) => {
 
   return (
     <div className={ getClass(namespace, animate) }>
-      <Component block={ block } data={ data } />
+      <Component block={ block } data={ data } widths={ widths } />
     </div>
   )
 
@@ -40,7 +40,8 @@ const Block = ({ block, data, namespace }) => {
 Block.propTypes = {
   block: PropTypes.object,
   data: PropTypes.object,
-  namespace: PropTypes.string
+  namespace: PropTypes.string,
+  widths: PropTypes.object
 }
 
 export default Block

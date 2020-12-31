@@ -112,7 +112,7 @@ const resize = (source, { dpi = 1, fit = 'inside', w, h }) => {
   if(!w && !h) return
   const width = w ? parseInt(w) * parseInt(dpi) : null
   const height = h ? parseInt(h) * parseInt(dpi) : null
-  if(width & height) return source.resize(width, height, { fit })
+  if(width && height) return source.resize(width, height, { fit })
   if(width) return source.resize(width)
   if(height) return source.resize(height)
 }
