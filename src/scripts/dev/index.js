@@ -160,6 +160,7 @@ const adminWatch = async () => {
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
       if(/^\/(c|f|n|s|v|w)([^/])*$/.test(req.url)) return null
       if(/^\/(admin|adobesign|api|aws|imagecache|fax|jobs|qr|sms|shortlinks|voice)/.test(req.url)) return null
+      if(/^\/(mt|collect)/.test(req.url)) return null
       if(/^\/notifications.js/.test(req.url)) return null
       if(appregex.test(req.url)) return null
       return req.url
