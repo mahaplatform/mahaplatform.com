@@ -1,13 +1,12 @@
 [Unit]
 Description=snowplow-collector
+After=network.target
 
 [Service]
 WorkingDirectory=/opt/stream-collector/nsq/target/scala-2.12/
+PrivateTmp=yes
 ExecStart=java -jar snowplow-stream-collector-nsq-2.1.0.jar --config snowplow-stream-collector.hocon
-User=jvmapps
-Type=simple
-Restart=on-failure
-RestartSec=10
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

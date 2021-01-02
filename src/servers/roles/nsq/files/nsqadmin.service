@@ -1,0 +1,11 @@
+[Unit]
+Description=nsqadmin daemon Service (nsqadmin)
+After=network.target
+
+[Service]
+PrivateTmp=yes
+ExecStart=/usr/local/nsq/bin/nsqadmin -config /etc/nsq/nsqadmin.conf
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -16,7 +16,6 @@
 - hosts: appservers
   become: yes
   vars:
-    elb_group: appservers
     node_major: 14
     node_minor: 15
     node_patch: 1
@@ -35,6 +34,7 @@
   connection: local
   gather_facts: false
   vars:
+    elb_group: appservers
     region: us-east-1
   roles:
   - elb

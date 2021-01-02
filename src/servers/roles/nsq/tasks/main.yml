@@ -18,6 +18,23 @@
     dest: /etc/profile.d/nsq.sh
     content: 'PATH=$PATH:/usr/local/nsq/bin'
 
+- name: Create /etc/nsq
+  file:
+    path: /etc/nsq
+    state: directory
+
+- name: Create /etc/nsq
+  file:
+    path: /var/lib/nsq
+    state: directory
+
+- name: copy nsqd.conf
+  copy:
+    src: ../files/nsqd.conf
+    dest: /etc/nsq/nsqd.conf
+    mode: 0644
+    backup: yes
+
 - name: copy nsqd.service
   copy:
     src: ../files/nsqd.service
@@ -35,6 +52,13 @@
     name: nsqd.service
     state: started
 
+- name: copy nsqlookupd.conf
+  copy:
+    src: ../files/nsqlookupd.conf
+    dest: /etc/nsq/nsqlookupd.conf
+    mode: 0644
+    backup: yes
+
 - name: copy nsqlookupd.service
   copy:
     src: ../files/nsqlookupd.service
@@ -50,4 +74,28 @@
 - name: start nsqlookupd.service
   systemd:
     name: nsqlookupd.service
+    state: started
+
+- name: copy nsqadmin.conf
+  copy:
+    src: ../files/nsqadmin.conf
+    dest: /etc/nsq/nsqadmin.conf
+    mode: 0644
+    backup: yes
+
+- name: copy nsqadmin.service
+  copy:
+    src: ../files/nsqadmin.service
+    dest: /lib/systemd/system/nsqadmin.service
+    mode: 0755
+    backup: yes
+
+- name: enable nsqadmin.service
+  systemd:
+    name: nsqadmin.service
+    enabled: yes
+
+- name: start nsqadmin.service
+  systemd:
+    name: nsqadmin.service
     state: started
