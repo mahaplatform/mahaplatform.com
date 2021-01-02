@@ -2,7 +2,7 @@
   elb_target:
     aws_access_key: "{{aws_access_key}}"
     aws_secret_key: "{{aws_secret_key}}"
-    target_group_name: appservers
+    target_group_name: "{{elb_group}}"
     target_id: "{{ item.id }}"
     region: "{{ aws_region }}"
     state: present

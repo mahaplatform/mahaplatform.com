@@ -1,0 +1,32 @@
+- name: clone collector
+  shell:
+    cmd: 'git clone https://github.com/snowplow/stream-collector.git'
+    chdir: /opt
+
+- name: build collector
+  shell:
+    cmd: 'sbt "project nsq" assembly'
+    chdir: /opt/stream-collector
+
+- name: copy collector.conf
+  copy:
+    src: ../files/collector.conf
+    dest: /opt/stream-collector/kafka/target/scala-2.12/collector.conf
+    backup: yes
+
+- name: copy collector.init
+  copy:
+    src: ../files/collector.init
+    dest: /etc/init.d/collector
+    mode: 0755
+    backup: yes
+
+- name: clone enrich
+  shell:
+    cmd: 'git clone https://github.com/snowplow/enrich.git'
+    chdir: /opt
+
+- name: build enrich
+  shell:
+    cmd: 'sbt "project nsq" assembly'
+    chdir: /opt/enrich

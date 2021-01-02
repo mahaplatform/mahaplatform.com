@@ -1,0 +1,21 @@
+- name: Download
+  get_url:
+    url: "https://golang.org/dl/go{{go_version}}.linux-amd64.tar.gz"
+    dest: "/root/go{{go_version}}.linux-amd64.tar.gz"
+
+- name: Extract
+  unarchive:
+    dest: /usr/local
+    src: "/root/go{{go_version}}.linux-amd64.tar.gz"
+    creates: /usr/local/go
+    remote_src: true
+
+- name: Add to path
+  copy:
+    dest: /etc/profile.d/go.sh
+    content: 'PATH=$PATH:/usr/local/go/bin'
+
+- name: install gpm
+  yum:
+    name: gpm
+    state: latest

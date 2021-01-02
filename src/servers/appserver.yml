@@ -16,6 +16,7 @@
 - hosts: appservers
   become: yes
   vars:
+    elb_group: appservers
     node_major: 14
     node_minor: 15
     node_patch: 1

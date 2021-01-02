@@ -1,3 +1,0 @@
-- name: install gatsby
-  shell:
-    cmd: 'npm install -g gatsby'

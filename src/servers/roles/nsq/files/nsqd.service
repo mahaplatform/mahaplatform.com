@@ -1,0 +1,16 @@
+[Unit]
+Description=NSQD
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/local/nsq
+ExecStart=/usr/local/nsq/bin/nsqd -http-address 127.0.0.1:4151 -tcp-address 127.0.0.1:4150 -lookupd-tcp-address 127.0.0.1:4160
+ExecReload=/bin/kill -HUP $MAINPID
+Type=simple
+KillMode=process
+Restart=on-failure
+RestartSec=10s
+User=root
+
+[Install]
+WantedBy=multi-user.target

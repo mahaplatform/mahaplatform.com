@@ -9,7 +9,7 @@ export default {
         firefox: 53,
         ie: 11,
         safari: 10,
-        node: 7.5
+        node: 7
       }
     }],
     '@babel/preset-react'
