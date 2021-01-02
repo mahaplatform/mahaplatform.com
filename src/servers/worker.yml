@@ -21,6 +21,7 @@
     node_patch: 1
   roles:
   - base
+  - appbase
   - ntpd
   - nodejs
   - openjdk

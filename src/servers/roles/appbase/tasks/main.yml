@@ -1,0 +1,22 @@
+- name: install packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - cairo
+    - cairo-devel
+    - libjpeg-devel
+    - libXScrnSaver
+    - GConf2
+    - gtk3
+    - ipa-gothic-fonts
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-utils
+    - xorg-x11-fonts-cyrillic
+    - xorg-x11-fonts-misc
+    - libSM
+
+- name: install msttcore fonts
+  yum:
+    name: https://www.itzgeek.com/msttcore-fonts-2.0-3.noarch.rpm

@@ -34,7 +34,7 @@ class MahaTracker {
   _handleConfigure() {
     window.mt('newTracker', 'mt', 'analytics.mahaplatform.com', {
       appId: this.appId,
-      postPath: '/collect',
+      postPath: '/mt/collect',
       contexts: {
         webPage: true
       }

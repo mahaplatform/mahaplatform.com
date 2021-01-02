@@ -1,0 +1,114 @@
+# Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+#
+# This program is licensed to you under the Apache License Version 2.0, and
+# you may not use this file except in compliance with the Apache License
+# Version 2.0.  You may obtain a copy of the Apache License Version 2.0 at
+# http://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the Apache License Version 2.0 is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.  See the Apache License Version 2.0 for the specific language
+# governing permissions and limitations there under.
+
+# This file (application.conf.example) contains a template with
+# configuration options for the Scala Stream Collector.
+#
+# To use, copy this to 'application.conf' and modify the configuration options.
+
+# 'collector' contains configuration options for the main Scala collector.
+
+collector {
+  interface = "0.0.0.0"
+  port = 80
+
+  paths {
+    "/mt/collect" = "/com.snowplowanalytics.snowplow/tp2"
+  }
+
+  p3p {
+    policyRef = "/w3c/p3p.xml"
+    CP = "NOI DSP COR NID PSA OUR IND COM NAV STA"
+  }
+
+  crossDomain {
+    enabled = false
+    domains = ["*"]
+    secure = true
+  }
+
+  cookie {
+    enabled = true
+    expiration = "365 days"
+    name = sp
+    secure = true
+    sameSite = "None"
+    httpOnly = false
+  }
+
+  cookieBounce {
+    enabled = false
+    name = "n3pc"
+    fallbackNetworkUserId = "00000000-0000-4000-A000-000000000000"
+  }
+
+  doNotTrackCookie {
+    enabled = false
+    name = dnt
+    value = 1
+  }
+
+  rootResponse {
+    enabled = true
+    statusCode = 302
+    headers = {
+        Location = "/home",
+    }
+    body = "302, redirecting"
+  }
+
+  enableDefaultRedirect = false
+
+  redirectMacro {
+    enabled = false
+    placeholder = "[TOKEN]"
+  }
+
+  cors {
+    accessControlMaxAge = 10 seconds
+  }
+
+  prometheusMetrics.enabled = false
+
+  streams {
+    good = RawEvents
+    bad = BadRawEvents
+    useIpAddressAsPartitionKey = false
+
+    sink {
+      enabled = nsq
+      host = 127.0.0.1
+      port = 4150
+    }
+
+    buffer {
+      byteLimit = 4000000
+      recordLimit = 500
+      timeLimit = 5000
+    }
+  }
+}
+
+akka {
+  loglevel = DEBUG # 'OFF' for no logging, 'DEBUG' for all logging.
+  loggers = ["akka.event.slf4j.Slf4jLogger"]
+
+  http.server {
+    remote-address-header = on
+    raw-request-uri-header = on
+    parsing {
+      max-uri-length = 32768
+      uri-parsing-mode = relaxed
+    }
+  }
+}
