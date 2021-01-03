@@ -19,5 +19,6 @@
   - base
   - ntpd
   - python
+  - aws
   - awscli
   - postgresql

@@ -1,5 +1,5 @@
-source = "nsq"
-sink = "nsq"
+source = nsq
+sink = nsq
 
 aws {
   accessKey = "default"
@@ -7,15 +7,15 @@ aws {
 }
 
 nsq {
-  channelName = "StreamEnrichChannel"
+  channelName = StreamEnrichChannel
   host = 127.0.0.1
   port = 4151
   lookupPort = 4161
 }
 
 streams {
-  inStreamName = "EnrichedEvents"
-  outStreamName = "BadS3Events"
+  inStreamName = EnrichedEvents
+  outStreamName = BadS3Events
 
   buffer {
     recordLimit = 1

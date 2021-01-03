@@ -1,0 +1,23 @@
+- name: create .aws directory
+  file:
+    path: /root/.aws
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create config
+  template:
+    src: ../files/config
+    dest: /root/.aws/config
+    owner: root
+    group: root
+    mode: 0600
+
+- name: create credentials
+  template:
+    src: ../files/credentials
+    dest: /root/.aws/credentials
+    owner: root
+    group: root
+    mode: 0600
