@@ -1,0 +1,17 @@
+- name: install lzo
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - lzo
+    - lzo-devel
+
+- name: clone snowplow-s3-loader
+  shell:
+    cmd: 'git clone https://github.com/snowplow/snowplow-s3-loader.git'
+    chdir: /opt
+
+- name: build snowplow-s3-loader
+  shell:
+    cmd: 'sbt assembly'
+    chdir: /opt/snowplow-s3-loader

@@ -1,0 +1,44 @@
+source = "nsq"
+sink = "nsq"
+
+aws {
+  accessKey = "default"
+  secretKey = "default"
+}
+
+nsq {
+  channelName = "StreamEnrichChannel"
+  host = 127.0.0.1
+  port = 4151
+  lookupPort = 4161
+}
+
+streams {
+  inStreamName = "EnrichedEvents"
+  outStreamName = "BadS3Events"
+
+  buffer {
+    recordLimit = 1
+  }
+}
+
+s3 {
+  region = "{{ aws_region }}"
+  bucket = "{{ aws_analytics_bucket }}"
+  partitionedBucket = "{{ aws_analytics_bucket }}/partitioned"
+  dateFormat = "{YYYY}/{MM}/{dd}/{HH}"
+  outputDirectory = "enriched/good"
+  filenamePrefix = "output"
+  format = "gzip"
+  maxTimeout = 60
+}
+
+# Optional section for tracking endpoints
+#monitoring {
+#  snowplow{
+#    collectorUri = "{{collectorUri}}"
+#    collectorPort = 80
+#    appId = "{{appName}}"
+#    method = "{{method}}"
+#  }
+#}

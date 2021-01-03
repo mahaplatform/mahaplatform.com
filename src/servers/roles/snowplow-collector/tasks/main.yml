@@ -14,19 +14,19 @@
     dest: /opt/stream-collector/nsq/target/scala-2.12/snowplow-stream-collector.hocon
     backup: yes
 
-# - name: copy collector.init
-#   copy:
-#     src: ../files/collector.init
-#     dest: /etc/init.d/collector
-#     mode: 0755
-#     backup: yes
-#
-# - name: clone enrich
-#   shell:
-#     cmd: 'git clone https://github.com/snowplow/enrich.git'
-#     chdir: /opt
-#
-# - name: build enrich
-#   shell:
-#     cmd: 'sbt "project nsq" assembly'
-#     chdir: /opt/enrich
+- name: copy collector.service
+  copy:
+    src: ../files/collector.service
+    dest: /lib/systemd/system/collector.service
+    mode: 0755
+    backup: yes
+
+- name: enable collector.service
+  systemd:
+    name: collector.service
+    enabled: yes
+
+- name: start collector.service
+  systemd:
+    name: collector.service
+    state: started

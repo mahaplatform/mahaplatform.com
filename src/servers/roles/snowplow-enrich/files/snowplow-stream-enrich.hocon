@@ -32,13 +32,13 @@ enrich {
     sourceSink {
       enabled = nsq
       aws {
-        accessKey = iam
-        secretKey = iam
+        accessKey = "default"
+        secretKey = "default"
       }
       rawChannel = StreamEnrichChannel
-      host = nsqd
-      port = 4150
-      lookupHost = nsqlookupd
+      host = 127.0.0.1
+      port = 4151
+      lookupHost = 127.0.0.1
       lookupPort = 4161
     }
 

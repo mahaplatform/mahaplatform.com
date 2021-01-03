@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory=/opt/stream-collector/nsq/target/scala-2.12/
 PrivateTmp=yes
-ExecStart=java -jar snowplow-stream-collector-nsq-2.1.0.jar --config snowplow-stream-collector.hocon
+ExecStart=/bin/java -jar snowplow-stream-collector-nsq-2.1.0.jar --config snowplow-stream-collector.hocon
 Restart=always
 
 [Install]

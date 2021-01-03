@@ -1,0 +1,12 @@
+[Unit]
+Description=snowplow-collector
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/enrich/modules/nsq/target/scala-2.12/
+PrivateTmp=yes
+ExecStart=/bin/java -jar snowplow-stream-enrich-nsq-1.4.2.jar --config snowplow-stream-enrich.hocon --resolver file:resolver.json --enrichments file:./enrichments
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
