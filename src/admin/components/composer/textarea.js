@@ -1,10 +1,12 @@
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
 import Emojis from '../emojis'
-import getUrls from 'get-urls'
+// import getUrls from 'get-urls'
 import Quoted from './quoted'
 import Link from './link'
 import React from 'react'
+
+// TODO: fix link lookup
 
 class TextArea extends React.Component {
 
@@ -215,17 +217,17 @@ class TextArea extends React.Component {
   _handleParse(text) {
     const { link } = this.props
     if(link) return
-    const urls = Array.from(getUrls(text, {
-      sortQueryParameters: false,
-      removeTrailingSlash: true,
-      stripWWW: false,
-      stripFragment: false,
-      normalizeProtocol: false
-    }))
-    if(urls.length === 0) return
-    const url = urls[0]
-    if(url.startsWith(process.env.WEB_HOST)) return
-    this._handleFetchLink(url)
+    // const urls = Array.from(getUrls(text, {
+    //   sortQueryParameters: false,
+    //   removeTrailingSlash: true,
+    //   stripWWW: false,
+    //   stripFragment: false,
+    //   normalizeProtocol: false
+    // }))
+    // if(urls.length === 0) return
+    // const url = urls[0]
+    // if(url.startsWith(process.env.WEB_HOST)) return
+    // this._handleFetchLink(url)
   }
 
   _handleUpdate(e) {
