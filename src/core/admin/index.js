@@ -1,4 +1,4 @@
-import 'core-js/stable'
+import 'core-js'
 import 'regenerator-runtime/runtime'
 import { setConfig } from 'react-hot-loader'
 import ReactDOM from 'react-dom'

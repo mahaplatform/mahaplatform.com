@@ -1,44 +1,44 @@
-- name: clone enrich
-  shell:
-    cmd: 'git clone https://github.com/snowplow/enrich.git'
-    chdir: /opt
+# - name: clone enrich
+#   shell:
+#     cmd: 'git clone https://github.com/snowplow/enrich.git'
+#     chdir: /opt
+#
+# - name: build enrich
+#   shell:
+#     cmd: 'sbt "project nsq" assembly'
+#     chdir: /opt/enrich
+#
+# - name: copy snowplow-stream-enrich.hocon
+#   template:
+#     src: ../files/snowplow-stream-enrich.hocon
+#     dest: /opt/enrich/modules/nsq/target/scala-2.12/snowplow-stream-enrich.hocon
+#     backup: yes
+#
+# - name: copy resolver.json
+#   copy:
+#     src: ../files/resolver.json
+#     dest: /opt/enrich/modules/nsq/target/scala-2.12/resolver.json
+#     backup: yes
+#
+# - name: copy enrichments
+#   copy:
+#     src: ../files/enrichments
+#     dest: /opt/enrich/modules/nsq/target/scala-2.12/
+#     backup: yes
 
-- name: build enrich
-  shell:
-    cmd: 'sbt "project nsq" assembly'
-    chdir: /opt/enrich
-
-- name: copy snowplow-stream-collector.hocon
-  template:
-    src: ../files/snowplow-enrich.hocon
-    dest: /opt/enrich/modules/nsq/target/scala-2.12/snowplow-enrich.hocon
-    backup: yes
-
-- name: copy resolver.json
+- name: copy enrich.service
   copy:
-    src: ../files/resolver.json
-    dest: /opt/enrich/modules/nsq/target/scala-2.12/resolver.json
-    backup: yes
-
-- name: copy enrichments
-  copy:
-    src: ../files/enrichments
-    dest: /opt/enrich/modules/nsq/target/scala-2.12/
-    backup: yes
-
-- name: copy enirch.service
-  copy:
-    src: ../files/enirch.service
-    dest: /lib/systemd/system/enirch.service
+    src: ../files/enrich.service
+    dest: /lib/systemd/system/enrich.service
     mode: 0755
     backup: yes
 
-- name: enable enirch.service
+- name: enable enrich.service
   systemd:
-    name: enirch.service
+    name: enrich.service
     enabled: yes
 
-- name: start enirch.service
+- name: start enrich.service
   systemd:
-    name: enirch.service
+    name: enrich.service
     state: started

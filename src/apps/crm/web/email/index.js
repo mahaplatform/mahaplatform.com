@@ -1,4 +1,4 @@
-import 'core-js/stable'
+import 'core-js'
 import 'regenerator-runtime/runtime'
 import ReactDOM from 'react-dom'
 import App from './app'

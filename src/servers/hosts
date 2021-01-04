@@ -11,3 +11,6 @@ all:
 logservers:
   hosts:
     54.209.53.43
+analyticsservers:
+  hosts:
+    34.202.165.153
