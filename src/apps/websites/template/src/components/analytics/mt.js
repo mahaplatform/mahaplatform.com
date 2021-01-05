@@ -34,12 +34,16 @@ class MahaTracker {
   _handleConfigure() {
     window.mt('newTracker', 'mt', 'analytics.mahaplatform.com', {
       appId: this.appId,
+      cookieName: 'mt',
       postPath: '/mt/collect',
       contexts: {
-        webPage: true
+        webPage: true,
+        geolocation: true,
+        clientHints: true
       }
     })
     window.mt('enableActivityTracking', 30, 10)
+    window.mt('setUserId', 1456)
   }
 
   _handleDrainQueue() {
