@@ -21,7 +21,7 @@ collector {
   cookie {
     enabled = true
     expiration = "365 days"
-    name = sp
+    name = mt
     secure = true
     sameSite = "None"
     httpOnly = false

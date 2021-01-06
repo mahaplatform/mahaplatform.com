@@ -37,13 +37,80 @@ class MahaTracker {
       cookieName: 'mt',
       postPath: '/mt/collect',
       contexts: {
-        webPage: true,
-        geolocation: true,
-        clientHints: true
+        webPage: true
       }
     })
     window.mt('enableActivityTracking', 30, 10)
     window.mt('setUserId', 1456)
+    window.mt('updatePageActivity')
+    window.mt('addTrans',
+      '1234',           // order ID - required
+      'Acme Clothing',  // affiliation or store name
+      '11.99',          // total - required
+      '1.29',           // tax
+      '5',              // shipping
+      'San Jose',       // city
+      'California',     // state or province
+      'USA',            // country
+      'USD'             // currency
+    )
+    window.mt('addItem',
+      '1234',           // order ID - required
+      'DD44',           // SKU/code - required
+      'T-Shirt',        // product name
+      'Green Medium',   // category or variation
+      '11.99',          // unit price - required
+      '1',              // quantity - required
+      'USD'             // currency
+    )
+    window.mt('trackTrans')
+    window.mt('trackSocialInteraction', 'like', 'facebook', 'pbz00123')
+    const rnd = Math.random().toString(36).substring(2)
+    window.mt('trackAdImpression:'+rnd,
+      '67965967893',            // impressionId
+      'cpm',                    // costModel - 'cpa', 'cpc', or 'cpm'
+      5.5,                      // cost
+      'http://www.example.com', // targetUrl
+      '23',                     // bannerId
+      '7',                      // zoneId
+      '201',                    // advertiserId
+      '12'                      // campaignId
+    )
+    window.mt('trackAdClick:' + rnd,
+      'http://www.example.com',  // targetUrl
+      '12243253',                // clickId
+      'cpm',                     // costModel
+      2.5,                       // cost
+      '23',                      // bannerId
+      '7',                       // zoneId
+      '67965967893',             // impressionId - the same as in trackAdImpression
+      '201',                     // advertiserId
+      '12'                       // campaignId
+    )
+    window.mt('trackAdConversion',
+      '743560297', // conversionId
+      'cpa',       // costModel
+      10,          // cost
+      'ecommerce', // category
+      'purchase',  // action
+      '',          // property
+      99,          // initialValue - how much the conversion is initially worth
+      '201',       // advertiserId
+      '12'         // campaignId
+    )
+    window.mt('trackSelfDescribingEvent', {
+      schema: 'iglu:com.acme_company/viewed_product/jsonschema/2-0-0',
+      data: {
+        productId: 'ASO01043',
+        category: 'Dresses',
+        brand: 'ACME',
+        returning: true,
+        price: 49.95,
+        sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+        availableSince: new Date(2013,3,7)
+      }
+    })
+    window.mt('trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', 'foobar', '0.0')
   }
 
   _handleDrainQueue() {
