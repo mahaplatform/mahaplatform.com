@@ -1,5 +1,16 @@
 module.exports = {
   apps: [{
+    name: 'anlytics_<%= environment %>',
+    script: './anlytics.js',
+    instances: 2,
+    cwd: process.env.PWD+'/current/platform',
+    error_file: './logs/worker.err.log',
+    out_file: './logs/worker.out.log',
+    exec_mode: 'fork_mode',
+    env: {
+      NODE_ENV: '<%= environment %>'
+    }
+  },{
     name: 'worker_<%= environment %>',
     script: './worker.js',
     instances: 2,

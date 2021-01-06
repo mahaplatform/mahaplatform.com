@@ -31,15 +31,25 @@
   - scala
   - go
   - nsq
+  - app
+  - pm2
   - snowplow-collector
   - snowplow-enrich
-  - snowplow-loader
 
 - hosts: local
   connection: local
   gather_facts: false
   vars:
     elb_group: analyticsservers
+    region: us-east-1
+  roles:
+  - elb
+
+- hosts: local
+  connection: local
+  gather_facts: false
+  vars:
+    elb_group: nsqservers
     region: us-east-1
   roles:
   - elb

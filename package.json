@@ -10,6 +10,7 @@
     "node": ">=14.15.1"
   },
   "scripts": {
+    "analytics": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/analytics.js",
     "assets": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/assets.js",
     "bootstrap": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/bootstrap.js",
     "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",
@@ -148,6 +149,7 @@
     "node-instagram": "^4.1.0",
     "node-webshot": "^1.0.4",
     "nodemailer": "4.0.1",
+    "nsqjs": "^0.12.1",
     "numeral": "^2.0.6",
     "open-graph": "^0.2.3",
     "optimize-css-assets-webpack-plugin": "^5.0.4",

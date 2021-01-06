@@ -1,4 +1,4 @@
-- name: add appserver to elb target group
+- name: "add server to {{elb_group}} elb target group"
   elb_target:
     aws_access_key: "{{aws_access_key}}"
     aws_secret_key: "{{aws_secret_key}}"

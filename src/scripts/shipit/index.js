@@ -42,7 +42,7 @@ const processor = async () => {
       roles: (tags.Role || '').split(',')
     }
   }).filter(instance => {
-    return _.intersection(['appserver','worker','cron','dbserver'], instance.roles).length > 0
+    return _.intersection(['analyticsserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
   }).sort((a,b) => {
     return a.host < b.host ? -1 : 1
   })
@@ -160,26 +160,26 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:mkdir', async () => {
     await shipit.remote(`mkdir -p ${releaseDir}`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
     await shipit.copyToRemote('dist.tgz', `${releaseDir}/dist.tgz`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:unzip', async () => {
     await shipit.remote('tar -xzf dist.tgz && rm -rf dist.tgz', {
-      roles: ['appserver','cron','worker'],
+      roles: ['analyticsserver','appserver','cron','worker'],
       cwd: releaseDir
     })
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
-      roles: ['appserver','cron','worker'],
+      roles: ['analyticsserver','appserver','cron','worker'],
       cwd: path.join(releaseDir, 'platform')
     })
   })
@@ -191,13 +191,13 @@ const processor = async () => {
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:webroot', async () => {
     await shipit.remote(`mkdir -p ${platformDir}/web`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
@@ -217,7 +217,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:symlink', async () => {
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releaseDir} ${currentDir}`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
@@ -228,9 +228,17 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', [
+    'deploy:restart_analytics',
     'deploy:restart_cron',
     'deploy:restart_worker'
   ])
+
+  utils.registerTask(shipit, 'deploy:restart_analytics', () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only analytics_production', {
+      cwd: deployDir,
+      roles: ['analyticsserver']
+    })
+  })
 
   utils.registerTask(shipit, 'deploy:restart_cron', () => {
     return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only cron_production', {
@@ -255,13 +263,13 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:preclean', () => {
     if(environment === 'production') return
     return shipit.remote(`rm -rf ${currentDir} && rm -rf ${releasesDir}/*`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:clean', () => {
     return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
-      roles: ['appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','worker']
     })
   })
 
