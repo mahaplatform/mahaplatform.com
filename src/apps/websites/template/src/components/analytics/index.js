@@ -23,7 +23,7 @@ class Analytics extends React.Component {
 
   componentDidMount() {
     if(!this._isProduction()) return
-    // this._handleLoadGA()
+    this._handleLoadGA()
     this._handleLoadMT()
   }
 
@@ -37,7 +37,7 @@ class Analytics extends React.Component {
   }
 
   _isProduction() {
-    return process.env.NODE_ENV === 'production'
+    return true //process.env.NODE_ENV === 'production'
   }
 
   _handleLoadGA(id) {
@@ -80,7 +80,7 @@ class Analytics extends React.Component {
       ga.pageview(page)
     }
     if(mt_tracking_id) {
-      mt.pageview(page)
+      mt.trackPageView(page)
     }
   }
 
