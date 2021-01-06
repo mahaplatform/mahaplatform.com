@@ -48,7 +48,7 @@ class MahaTracker {
     this._handleEvent('trackStructEvent', category, action, label, property, value)
   }
 
-  trackPageView(pathname) {
+  trackPageView() {
     this._handleEvent('trackPageView')
   }
 
@@ -81,22 +81,22 @@ class MahaTracker {
       }
     })
     window.mt('enableActivityTracking', 30, 10)
-    this.addItem('orderId','sku','name','category','price','quantity','currency')
-    this.addTrans('orderId','storeName','total','tax','shipping','city','state','country','currency')
-    this.trackTrans()
   }
 
   _handleDrainQueue() {
     if(this.queue.length === 0) return
-    this.queue.map(this._handleEvent)
+    this.queue.map(event => {
+      this._handleEvent(...event)
+    })
   }
 
   _handleEvent() {
     const args = Array.prototype.slice.call(arguments)
     const event = args[0]
     const data = args.slice(1)
-    if(!this.loaded) return this.queue.push({ event, data })
-    window.mt(event, ...data)
+    if(!this.loaded) return this.queue.push([ event, ...data ])
+    if(data.length > 0) return window.mt(event, ...data)
+    window.mt(event)
   }
 
   _handleLoad() {

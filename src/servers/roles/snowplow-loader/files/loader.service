@@ -1,0 +1,12 @@
+[Unit]
+Description=snowplow-maha
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/snowplow-maha
+PrivateTmp=yes
+ExecStart=NODE_ENV=production node ./dist/index.js
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
