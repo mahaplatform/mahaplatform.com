@@ -92,8 +92,6 @@ badevents.on('message', async msg => {
 
   const rawMessage = JSON.parse(Buffer.from(raw, 'hex').toString('utf8'))
 
-  console.log(rawMessage.data.failure.messages)
-
   await knex('bad_events').insert({
     data: rawMessage.data.payload.enriched,
     errors: {
