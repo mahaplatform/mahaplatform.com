@@ -23,7 +23,7 @@ class Analytics extends React.Component {
 
   componentDidMount() {
     if(!this._isProduction()) return
-    this._handleLoadGA()
+    // this._handleLoadGA()
     this._handleLoadMT()
   }
 

@@ -16,8 +16,8 @@ class MahaTracker {
     this._handleCheck()
   }
 
-  addItem(orderId, sku, name, castegory, price, quantity, currency) {
-    this._handleEvent('addItem', orderId, sku, name, castegory, price, quantity, currency)
+  addItem(orderId, sku, name, category, price, quantity, currency) {
+    this._handleEvent('addItem', orderId, sku, name, category, price, quantity, currency)
   }
 
   addTrans(orderId, storeName, total, tax, shipping, city, state, country, currency) {
@@ -81,7 +81,9 @@ class MahaTracker {
       }
     })
     window.mt('enableActivityTracking', 30, 10)
-    this.trackStructEvent('category','action','label','property','value')
+    this.addItem('orderId','sku','name','category','price','quantity','currency')
+    this.addTrans('orderId','storeName','total','tax','shipping','city','state','country','currency')
+    this.trackTrans()
   }
 
   _handleDrainQueue() {
