@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
-import path from 'path'
+import './core/vendor/sourcemaps'
+import './core/services/environment'
 import nsq from 'nsqjs'
 import Knex from 'knex'
 
@@ -60,10 +60,6 @@ const keys = [
   'event_vendor','event_name','event_format','event_version','event_fingerprint',
   'true_tstamp'
 ]
-
-dotenv.config({
-  path: path.resolve(__dirname, '..', '.env')
-})
 
 const knex = new Knex({
   client: 'postgresql',
