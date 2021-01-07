@@ -11,6 +11,8 @@ import List from './list'
 
 const Program = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_programs',
 
   rules: {},

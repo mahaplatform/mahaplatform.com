@@ -1,5 +1,7 @@
 const EmailWorkflows = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_workflow_enrollments', (table) => {
       table.integer('email_id').unsigned()

@@ -3,6 +3,8 @@ import User from '@apps/maha/models/user'
 
 const FixUserCellphones = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const users = await User.query(qb => {

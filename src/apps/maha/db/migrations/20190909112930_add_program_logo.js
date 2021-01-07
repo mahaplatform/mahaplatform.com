@@ -1,5 +1,7 @@
 const AddProgramLogo = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_programs', (table) => {

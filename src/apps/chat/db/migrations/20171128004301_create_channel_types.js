@@ -1,5 +1,7 @@
 const CreateChannelTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('chat_channel_types', (table) => {
       table.increments('id').primary()

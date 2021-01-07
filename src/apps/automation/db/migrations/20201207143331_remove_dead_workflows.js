@@ -2,6 +2,8 @@ import Workflow from '@apps/automation/models/workflow'
 
 const RemoveDeadWorkflows = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const workflows = await Workflow.query(qb => {

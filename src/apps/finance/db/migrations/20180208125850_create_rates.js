@@ -1,5 +1,7 @@
 const CreateRates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('expenses_rates', (table) => {

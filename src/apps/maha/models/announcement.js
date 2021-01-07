@@ -3,6 +3,8 @@ import Email from '@apps/maha/models/email'
 
 const Announcement = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'maha_announcements',

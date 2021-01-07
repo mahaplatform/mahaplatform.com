@@ -6,6 +6,8 @@ import Option from './option'
 
 const Assignment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_assignments',
 
   rules: {},

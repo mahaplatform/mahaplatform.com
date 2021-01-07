@@ -1,5 +1,7 @@
 const CreateDuplicates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
     create view crm_duplicates as

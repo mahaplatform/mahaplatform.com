@@ -1,5 +1,7 @@
 const CreateGroupingsUsers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

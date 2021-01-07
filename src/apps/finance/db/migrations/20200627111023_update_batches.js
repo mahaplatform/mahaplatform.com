@@ -1,5 +1,7 @@
 const UpdateBatches = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_batches', (table) => {

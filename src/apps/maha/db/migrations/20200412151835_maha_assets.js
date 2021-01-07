@@ -3,6 +3,8 @@ import Asset from '@apps/maha/models/asset'
 
 const MahaAssets = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const unscanned = await Asset.query(qb => {

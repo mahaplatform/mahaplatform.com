@@ -1,5 +1,7 @@
 const CreateVersion = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_versions', (table) => {
       table.increments('id').primary()

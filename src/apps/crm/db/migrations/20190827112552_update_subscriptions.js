@@ -1,5 +1,7 @@
 const UpdateSubscriptions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_email_addresses', (table) => {

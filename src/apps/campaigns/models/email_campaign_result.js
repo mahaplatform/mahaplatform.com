@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const EmailCampaignResult = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_email_campaign_results',
 
   rules: {},

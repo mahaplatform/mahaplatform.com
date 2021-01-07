@@ -1,5 +1,7 @@
 const ChangeStatus = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const stories = await knex('maha_stories').whereRaw('text like ?', '%reverted%')

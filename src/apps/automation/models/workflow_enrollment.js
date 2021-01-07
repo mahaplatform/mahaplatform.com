@@ -14,6 +14,8 @@ import Workflow from './workflow'
 
 const WorkflowEnrollment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_workflow_enrollments',
 
   rules: {},

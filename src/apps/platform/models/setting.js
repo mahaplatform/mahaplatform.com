@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const Setting = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   hasTimestamps: false,

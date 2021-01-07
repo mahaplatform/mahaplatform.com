@@ -2,6 +2,8 @@ import pluralize from 'pluralize'
 
 const SingularizeTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const types = await knex('sites_types')

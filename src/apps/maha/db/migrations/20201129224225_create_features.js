@@ -1,5 +1,7 @@
 const CreateFeature = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_features', (table) => {
       table.increments('id').primary()

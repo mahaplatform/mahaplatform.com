@@ -3,6 +3,8 @@ import Program from './program'
 
 const Template = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_templates',
 
   rules: {

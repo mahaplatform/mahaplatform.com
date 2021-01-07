@@ -5,6 +5,8 @@ import Attraction from './attraction'
 
 const Offering = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'eatfresh_offerings' ,
 
   rules: {

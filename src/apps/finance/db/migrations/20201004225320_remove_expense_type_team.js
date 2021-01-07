@@ -1,5 +1,7 @@
 const RemoveExpenseTypeTeam = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_expense_types', (table) => {

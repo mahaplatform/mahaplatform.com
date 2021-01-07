@@ -8,6 +8,8 @@ import User from './user'
 
 const Email = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_emails',
 
   virtuals: {

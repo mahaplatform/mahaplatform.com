@@ -4,6 +4,8 @@ import Device from '@apps/maha/models/device'
 
 const AddDeviceIconDisplayName = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const devices = await Device.fetchAll({

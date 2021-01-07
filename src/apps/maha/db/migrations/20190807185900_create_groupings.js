@@ -1,5 +1,7 @@
 const CreateGrouping = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_groupings', (table) => {

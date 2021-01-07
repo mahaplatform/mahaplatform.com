@@ -2,6 +2,8 @@ import moment from 'moment'
 
 const TestData = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('stores_stores').insert({

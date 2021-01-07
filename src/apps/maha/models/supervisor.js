@@ -3,6 +3,8 @@ import User from './user'
 
 const Supervisor = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_supervisors',
 
   rules: {

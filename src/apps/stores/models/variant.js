@@ -11,6 +11,8 @@ import Item from './item'
 
 const Variant = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_variants',
 
   rules: {},

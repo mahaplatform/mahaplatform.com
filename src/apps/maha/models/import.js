@@ -7,6 +7,8 @@ import moment from 'moment'
 
 const Import = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_imports',
 
   rules: {},

@@ -1,5 +1,7 @@
 const AlterDecimals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view expenses_items')

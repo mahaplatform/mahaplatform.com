@@ -5,6 +5,8 @@ import Contact from './contact'
 
 const PhoneNumber = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_phone_numbers',
 
   rules: {},

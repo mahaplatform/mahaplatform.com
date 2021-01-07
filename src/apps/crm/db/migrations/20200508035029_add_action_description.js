@@ -4,6 +4,8 @@ import Email from '@apps/maha/models/email'
 
 const AddActionDescription = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_workflow_enrollments', (table) => {

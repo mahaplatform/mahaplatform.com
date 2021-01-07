@@ -1,5 +1,7 @@
 const LinkWorkflowEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('crm_emails').where('id', 12).update({ workflow_id: 2 })

@@ -4,6 +4,8 @@ import User from '@apps/maha/models/user'
 
 const Manager = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'sites_managers',
 
   rules: {},

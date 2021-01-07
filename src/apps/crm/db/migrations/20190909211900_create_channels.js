@@ -1,5 +1,7 @@
 const CreateChannel = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

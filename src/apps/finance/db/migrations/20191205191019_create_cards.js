@@ -1,5 +1,7 @@
 const CreateCard = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('finance_cards', (table) => {

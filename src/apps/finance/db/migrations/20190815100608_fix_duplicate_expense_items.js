@@ -1,5 +1,7 @@
 const FixDuplicateExpenseItems = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_import_items', (table) => {

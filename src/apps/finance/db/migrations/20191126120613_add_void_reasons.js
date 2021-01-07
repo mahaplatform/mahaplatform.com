@@ -1,5 +1,7 @@
 const AddVoidReasons = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const models = ['invoices','payments','refunds']

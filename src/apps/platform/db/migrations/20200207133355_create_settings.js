@@ -1,5 +1,7 @@
 const CreateSetting = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('platform_settings', (table) => {

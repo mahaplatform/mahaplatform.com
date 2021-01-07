@@ -9,6 +9,8 @@ import Team from './team'
 
 const User = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_users',
 
   rules: {

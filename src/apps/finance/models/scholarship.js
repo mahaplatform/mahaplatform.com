@@ -5,6 +5,8 @@ import Payment from './payment'
 
 const Scholarship = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_scholarships',
 
   rules: {},

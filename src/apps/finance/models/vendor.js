@@ -4,6 +4,8 @@ import Expense from './expense'
 
 const Vendor = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_vendors',
 
   rules: {

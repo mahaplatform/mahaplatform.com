@@ -1,5 +1,7 @@
 const CreateEmailResults = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view crm_email_results AS

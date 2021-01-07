@@ -1,5 +1,7 @@
 const SoftDeleteItems = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['list','topic'], async model => {

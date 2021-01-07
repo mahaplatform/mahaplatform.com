@@ -1,5 +1,7 @@
 const CreateTopic = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('crm_topics', (table) => {

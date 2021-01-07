@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 const AddItemCode = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('expenses_checks', (table) => {

@@ -4,6 +4,8 @@ import Post from './post'
 
 const Like = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'news_likes',
 
   displayName: 'like',

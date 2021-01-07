@@ -2,6 +2,8 @@ import generateCode from '@core/utils/generate_code'
 
 const AddItemCodes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['advances','trips'], async (model) => {

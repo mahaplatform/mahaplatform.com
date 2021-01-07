@@ -4,6 +4,8 @@ import request from 'request-promise'
 
 const AddAssetDimensions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const url = s3.getSignedUrl('getObject', {

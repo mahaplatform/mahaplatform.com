@@ -4,6 +4,8 @@ import Message from './message'
 
 const Result = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'chat_results',
 
   channel() {

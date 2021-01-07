@@ -12,6 +12,8 @@ import Waiting from './waiting'
 
 const Event = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_events',
 
   rules: {},

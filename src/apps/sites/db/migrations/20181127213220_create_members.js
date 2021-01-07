@@ -1,5 +1,7 @@
 const CreateMembers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('sites_members', (table) => {

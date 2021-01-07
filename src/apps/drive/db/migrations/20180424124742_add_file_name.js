@@ -1,5 +1,7 @@
 const AddFileName = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('drive_files', (table) => {

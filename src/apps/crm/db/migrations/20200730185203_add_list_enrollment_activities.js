@@ -5,6 +5,8 @@ import moment from 'moment'
 
 const AddListEnrollmentActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const req = {}

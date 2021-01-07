@@ -6,6 +6,8 @@ import Workflow from './workflow'
 
 const WorkflowStep = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_workflow_steps',
 
   rules: {},

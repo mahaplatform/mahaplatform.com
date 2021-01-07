@@ -1,5 +1,7 @@
 const CreateDiscount = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('stores_discounts', (table) => {

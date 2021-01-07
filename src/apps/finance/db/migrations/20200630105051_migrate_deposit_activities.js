@@ -2,6 +2,8 @@ import Deposit from '@apps/finance/models/deposit'
 
 const MigrateDepositActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('update finance_payments set status=\'deposited\' where status=\'disbursed\'')

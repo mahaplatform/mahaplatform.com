@@ -1,5 +1,7 @@
 const CreateFields = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_fields', (table) => {

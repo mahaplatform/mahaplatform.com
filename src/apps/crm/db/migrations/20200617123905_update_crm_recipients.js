@@ -1,5 +1,7 @@
 const UpdateCrmRecipients = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

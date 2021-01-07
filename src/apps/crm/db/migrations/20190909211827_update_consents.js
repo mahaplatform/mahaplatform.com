@@ -1,5 +1,7 @@
 const UpdateConsents = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_consents', (table) => {
       table.enum('type', ['email','sms','voice','mail'], { useNative: true, enumName: 'crm_consent_type' })

@@ -3,6 +3,8 @@ import Service from './service'
 
 const Listening = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_links',
 
   belongsToTeam: false,

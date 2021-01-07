@@ -1,5 +1,7 @@
 const ToStrategies = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_filters', (table) => {

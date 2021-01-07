@@ -1,5 +1,7 @@
 const AddBounceTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('drop view crm_email_results')
     await knex.raw(`

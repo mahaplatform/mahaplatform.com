@@ -1,5 +1,7 @@
 const CreateResources = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('competencies_resources', (table) => {
       table.increments('id').primary()

@@ -7,6 +7,8 @@ import Credit from './credit'
 
 const Customer = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_customers',
 
   rules: {},

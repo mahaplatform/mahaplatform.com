@@ -1,5 +1,7 @@
 const CreateCall = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('maha_sources').insert({

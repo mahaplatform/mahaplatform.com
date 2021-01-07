@@ -1,5 +1,7 @@
 const CreateRecipient = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

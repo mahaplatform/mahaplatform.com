@@ -1,5 +1,7 @@
 const PlatformVideos = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_help_articles', (table) => {
       table.dropColumn('video_id')

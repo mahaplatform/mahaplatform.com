@@ -1,5 +1,7 @@
 const CreateEmailAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_email_addresses', (table) => {
       table.increments('id').primary()

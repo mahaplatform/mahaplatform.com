@@ -1,5 +1,7 @@
 const RecordingCode = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_workflow_recordings', (table) => {

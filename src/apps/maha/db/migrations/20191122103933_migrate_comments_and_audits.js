@@ -1,5 +1,7 @@
 const MigrateCommentsAndAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const tables  = ['audit','comment']

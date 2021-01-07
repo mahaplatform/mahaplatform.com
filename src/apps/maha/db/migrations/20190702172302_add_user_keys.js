@@ -2,6 +2,8 @@ import generateCode from '@core/utils/generate_code'
 
 const AddUserKeys = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_users', (table) => {

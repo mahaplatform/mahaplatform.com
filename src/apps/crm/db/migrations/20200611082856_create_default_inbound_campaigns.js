@@ -3,6 +3,8 @@ import PhoneNumber from '@apps/maha/models/phone_number'
 
 const CreateDefaultInboundCampaigns = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const phone_numbers = await PhoneNumber.query(qb => {

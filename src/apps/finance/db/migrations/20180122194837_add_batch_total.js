@@ -1,5 +1,7 @@
 const AddBatchTotal = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('expenses_batches', (table) => {

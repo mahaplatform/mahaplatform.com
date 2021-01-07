@@ -7,6 +7,8 @@ import Item from './item'
 
 const Access = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_access',
 
   hasTimestamps: false,

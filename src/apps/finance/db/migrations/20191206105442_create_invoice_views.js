@@ -1,5 +1,7 @@
 const CreateInvoiceViews = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_invoices', (table) => {

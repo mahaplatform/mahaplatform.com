@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const AddAdobeProfile = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const sources = await knex('maha_sources').then(results => {

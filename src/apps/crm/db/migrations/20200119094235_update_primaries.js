@@ -1,5 +1,7 @@
 const UpdatePrimaries = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view finance_customers')

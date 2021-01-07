@@ -1,5 +1,7 @@
 const CreateDomain = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.dropTable('maha_domains')
     await knex.schema.createTable('maha_domains', (table) => {

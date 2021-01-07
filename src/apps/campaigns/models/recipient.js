@@ -6,6 +6,8 @@ import Contact from '@apps/crm/models/contact'
 
 const Recipient = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_recipients',
 
   rules: {},

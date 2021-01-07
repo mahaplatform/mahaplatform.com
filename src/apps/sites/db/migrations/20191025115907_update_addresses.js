@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const UpdateAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const fields = await knex('maha_fields').where('type','addressfield').where('parent_type', 'sites_types')

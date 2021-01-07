@@ -5,6 +5,8 @@ import Store from './store'
 
 const Discount = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_discounts',
 
   rules: {},

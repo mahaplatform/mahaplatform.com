@@ -1,5 +1,7 @@
 const CreateContactCall = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_activities', (table) => {

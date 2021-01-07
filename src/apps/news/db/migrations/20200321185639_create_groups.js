@@ -1,5 +1,7 @@
 const CreateGroup = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('news_groups', (table) => {

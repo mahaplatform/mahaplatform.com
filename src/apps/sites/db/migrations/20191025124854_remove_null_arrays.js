@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const RemoveNullArrays = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const items = await knex('sites_items')

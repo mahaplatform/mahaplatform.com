@@ -3,6 +3,8 @@ import Asset from './asset'
 
 const Attachment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_attachments',
 
   asset() {

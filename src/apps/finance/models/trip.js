@@ -5,6 +5,8 @@ import Project from  './project'
 
 const Trip = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_trips',
 
   rules: {

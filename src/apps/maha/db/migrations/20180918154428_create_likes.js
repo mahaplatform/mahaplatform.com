@@ -1,5 +1,7 @@
 const CreateLikes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_likes', (table) => {
       table.increments('id').primary()

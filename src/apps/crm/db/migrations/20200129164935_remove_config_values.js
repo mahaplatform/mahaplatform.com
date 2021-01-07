@@ -1,5 +1,7 @@
 const RemoveConfigValues = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_emails', (table) => {
       table.dropColumn('sender_id')

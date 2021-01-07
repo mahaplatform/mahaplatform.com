@@ -1,5 +1,7 @@
 const AddBankAchRate = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_banks', (table) => {

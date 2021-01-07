@@ -4,6 +4,8 @@ import Ticket from './ticket'
 
 const Attending = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_attendings',
 
   rules: {},

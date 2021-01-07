@@ -1,5 +1,7 @@
 const UpdateWorkflowTables = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_voice_campaigns', (table) => {

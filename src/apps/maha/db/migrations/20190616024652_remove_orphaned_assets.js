@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 const RemoveOrphanedAssets = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const assets = await knex.raw(`

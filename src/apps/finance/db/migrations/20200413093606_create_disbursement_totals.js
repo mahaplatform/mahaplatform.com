@@ -1,5 +1,7 @@
 const CreateDisbursementTotals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('drop view finance_payment_details')
     await knex.raw(`

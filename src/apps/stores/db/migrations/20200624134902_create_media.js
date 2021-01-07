@@ -1,5 +1,7 @@
 const CreateMedia = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('media', (table) => {
       table.increments('id').primary()

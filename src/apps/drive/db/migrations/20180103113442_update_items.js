@@ -3,6 +3,8 @@ import Version from '@apps/drive/models/version'
 
 const CreateVersions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const files = await File.fetchAll()

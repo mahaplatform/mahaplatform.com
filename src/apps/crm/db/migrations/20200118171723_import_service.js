@@ -1,5 +1,7 @@
 const ImportService = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_imports', (table) => {
       table.enum('service', ['excel','mailchimp','constantcontact','googlecontacts','outlook'], { useNative: true, enumName: 'crm_imports_service' })

@@ -1,5 +1,7 @@
 const AddHtmlToEmailCampigns = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_email_campaigns', (table) => {
       table.text('html')

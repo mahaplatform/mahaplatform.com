@@ -8,6 +8,8 @@ import Bank from './bank'
 
 const Deposit = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_deposits',
 
   rules: {},

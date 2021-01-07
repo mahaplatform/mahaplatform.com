@@ -1,5 +1,7 @@
 const UpdateFilterAccesses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('maha_filter_accesses')

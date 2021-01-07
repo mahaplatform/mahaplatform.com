@@ -5,6 +5,8 @@ import Refund from './refund'
 
 const DepositLineItem = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_deposit_line_items',
 
   rules: {},

@@ -3,6 +3,8 @@ import path from 'path'
 
 const EmployeeTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_user_types', (table) => {

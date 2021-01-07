@@ -1,5 +1,7 @@
 const AddMerchantFields = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('finance_merchants', (table) => {
       table.date('applied_on')

@@ -1,5 +1,7 @@
 const CreateCompetenciesResources = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('competencies_competencies_resources', (table) => {
       table.integer('competency_id').unsigned()

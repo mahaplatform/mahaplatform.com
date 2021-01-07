@@ -1,5 +1,7 @@
 const CreateLocation = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('events_locations', (table) => {

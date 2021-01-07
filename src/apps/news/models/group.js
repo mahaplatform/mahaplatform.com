@@ -6,6 +6,8 @@ import Post from './post'
 
 const Group = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'news_groups',
 
   rules: {},

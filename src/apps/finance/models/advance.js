@@ -5,6 +5,8 @@ import Project from './project'
 
 const Advances = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_advances',
 
   rules: {

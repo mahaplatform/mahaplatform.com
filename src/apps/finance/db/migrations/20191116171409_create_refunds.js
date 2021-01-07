@@ -1,5 +1,7 @@
 const CreateRefund = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_refunds', (table) => {
       table.increments('id').primary()

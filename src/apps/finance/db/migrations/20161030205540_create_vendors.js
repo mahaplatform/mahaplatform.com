@@ -1,5 +1,7 @@
 const CreateVendors = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('expenses_vendors', (table) => {
       table.increments('id').primary()

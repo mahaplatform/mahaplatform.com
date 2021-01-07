@@ -1,5 +1,7 @@
 const UpdateChatResults = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create or replace view chat_results AS

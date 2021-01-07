@@ -6,6 +6,8 @@ import Contact from './contact'
 
 const Activity = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_activities',
 
   rules: {},

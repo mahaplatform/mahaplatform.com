@@ -2,6 +2,8 @@ import moment from 'moment'
 
 const FixAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     // remove orphaned audits

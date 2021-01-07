@@ -1,5 +1,7 @@
 const AddPostLinks = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('news_posts', (table) => {
       table.integer('link_id').unsigned()

@@ -1,5 +1,7 @@
 const CreateRevenueType = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_revenue_types', (table) => {
       table.increments('id').primary()

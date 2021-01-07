@@ -1,5 +1,7 @@
 const CreateSession = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('events_sessions', (table) => {
       table.increments('id').primary()

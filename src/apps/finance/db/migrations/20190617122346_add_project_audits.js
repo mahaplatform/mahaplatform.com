@@ -1,5 +1,7 @@
 const AddProjectAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const projects = await knex('expenses_projects')

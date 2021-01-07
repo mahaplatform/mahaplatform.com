@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const RevenueType = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'finance_revenue_types',

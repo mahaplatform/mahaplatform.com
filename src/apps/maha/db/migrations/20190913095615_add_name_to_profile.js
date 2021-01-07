@@ -1,5 +1,7 @@
 const AddNameToProfile = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const googledrive = await knex('maha_sources').insert({ text: 'googledrive' }).returning('id')

@@ -7,6 +7,8 @@ import MessageType from './message_type'
 
 const Message = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'chat_messages',
 
   rules: {},

@@ -13,6 +13,8 @@ import Workflow from './workflow'
 
 const WorkflowAction = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_workflow_actions',
 
   rules: {},

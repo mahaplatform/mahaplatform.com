@@ -1,5 +1,7 @@
 const AddInvoiceToResponse = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_responses', (table) => {
       table.integer('invoice_id').unsigned()

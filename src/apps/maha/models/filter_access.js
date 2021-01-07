@@ -6,6 +6,8 @@ import User from './user'
 
 const FilterAccess = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_filter_accesses',
 
   rules: {},

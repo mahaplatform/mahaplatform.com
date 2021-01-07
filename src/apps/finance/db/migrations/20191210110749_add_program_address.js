@@ -1,5 +1,7 @@
 const AddProgramAddress = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const tompkins = '615 Willow Ave\nIthaca, NY 14850'

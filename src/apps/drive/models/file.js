@@ -6,6 +6,8 @@ import Folder from './folder'
 
 const File = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_files',
 
   accesses: function() {

@@ -1,5 +1,7 @@
 const UpdateSavedFilters = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_filters', (table) => {
       table.dropColumn('criteria')

@@ -3,7 +3,9 @@ import Classification from './classification'
 import Competency from './competency'
 import Goal from './goal'
 
-const Expectation = new Model ({
+const Expectation = new Model({
+
+  databaseName: 'maha',
 
   tableName: 'competencies_expectations',
 

@@ -1,5 +1,7 @@
 const AddDeletedAt = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['advance','check','expense','reimbursement','trip'], async (model) => {

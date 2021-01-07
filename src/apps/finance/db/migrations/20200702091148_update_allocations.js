@@ -1,5 +1,7 @@
 const UpdateAllocations = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view finance_allocations')

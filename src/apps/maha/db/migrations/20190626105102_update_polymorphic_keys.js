@@ -1,5 +1,7 @@
 const UpdatePolymorphicKeys = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.alterTable('maha_activities', (table) => {

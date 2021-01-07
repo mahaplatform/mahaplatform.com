@@ -3,6 +3,8 @@ import Product from './product'
 
 const Category = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_categories',
 
   rules: {},

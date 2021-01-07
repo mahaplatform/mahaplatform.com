@@ -1,5 +1,7 @@
 const UpdateWorkflowRelations = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_workflows', (table) => {
       table.enum('purpose', ['marketing','transactional'], { useNative: true, enumName: 'crm_workflow_purposes' })

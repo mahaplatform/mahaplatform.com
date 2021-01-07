@@ -1,5 +1,7 @@
 const RemoveActiveUsers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view maha_assignees')

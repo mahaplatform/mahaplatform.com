@@ -5,6 +5,8 @@ import _ from 'lodash'
 
 const UpdateDuckRace = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('crm_forms').where('id', 1).update({

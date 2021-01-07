@@ -6,6 +6,8 @@ import Credit from './credit'
 
 const Refund = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_refunds',
 
   rules: {},

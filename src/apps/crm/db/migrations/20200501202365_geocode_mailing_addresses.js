@@ -3,6 +3,8 @@ import MailingAddress from '@apps/crm/models/mailing_address'
 
 const GeocodeMailingAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const addresses = await MailingAddress.query(qb => {

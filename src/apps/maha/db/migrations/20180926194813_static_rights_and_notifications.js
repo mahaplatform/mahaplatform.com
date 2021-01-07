@@ -1,5 +1,7 @@
 const StaticRightsAndNotifications = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
   },

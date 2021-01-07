@@ -3,7 +3,9 @@ import User from '@apps/maha/models/user'
 import Goal from './goal'
 import Commitment from './commitment'
 
-const Plan = new Model ({
+const Plan = new Model({
+
+  databaseName: 'maha',
 
   tableName: 'competencies_plans',
 

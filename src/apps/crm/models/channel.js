@@ -7,6 +7,8 @@ import Contact from './contact'
 
 const Channel = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_channels',
 
   rules: {},

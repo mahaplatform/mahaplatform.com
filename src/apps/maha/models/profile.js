@@ -4,6 +4,8 @@ import Asset from './asset'
 
 const Profile = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'maha_profiles',

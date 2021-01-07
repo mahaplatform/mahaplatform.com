@@ -1,5 +1,7 @@
 const CreateFilter = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_filters', (table) => {
       table.increments('id').primary()

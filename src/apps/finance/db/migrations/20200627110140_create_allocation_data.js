@@ -4,6 +4,8 @@ import Invoice from '@apps/finance/models/invoice'
 
 const CreateAllocationData = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     // split donations from

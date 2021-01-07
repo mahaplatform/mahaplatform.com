@@ -5,6 +5,8 @@ import Subscription from './subscription'
 
 const Channel = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'chat_channels',
 
   rules: {

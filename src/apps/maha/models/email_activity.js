@@ -4,6 +4,8 @@ import Email from './email'
 
 const EmailActivity = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_email_activities',
 
   virtuals: {

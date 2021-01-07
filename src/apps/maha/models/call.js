@@ -7,6 +7,8 @@ import User from './user'
 
 const Call = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_calls',
 
   rules: {},

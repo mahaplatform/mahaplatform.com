@@ -1,5 +1,7 @@
 const UpdateEmailCampaign = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_email_campaigns', (table) => {
       table.integer('job_id')

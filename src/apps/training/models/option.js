@@ -4,6 +4,8 @@ import Training from './training'
 
 const Option = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_options',
 
   rules: {},

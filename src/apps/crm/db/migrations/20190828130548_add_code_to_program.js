@@ -1,5 +1,7 @@
 const AddCodeToProgram = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_programs', (table) => {

@@ -2,6 +2,8 @@ import Form from '@apps/crm/models/form'
 
 const MigrateDonationfield = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const forms = await Form.fetchAll({

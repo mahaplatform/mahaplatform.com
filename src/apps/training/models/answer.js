@@ -3,6 +3,8 @@ import Question from './question'
 
 const Answer = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_answers',
 
   rules: {},

@@ -1,5 +1,7 @@
 const CreateDriveFoldersAccesses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.raw(`
       create or replace VIEW drive_folders_accesses AS

@@ -1,5 +1,7 @@
 const CreateItems = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('sites_domains')

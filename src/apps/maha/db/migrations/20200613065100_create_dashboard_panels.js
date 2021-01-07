@@ -1,5 +1,7 @@
 const CreateDashboardPanel = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_dashboard_panels', (table) => {
       table.increments('id').primary()

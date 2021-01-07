@@ -1,5 +1,7 @@
 const AddRefundDeposits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_refunds', (table) => {

@@ -3,6 +3,8 @@ import Program from './program'
 
 const Sender = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_senders',
 
   rules: {},

@@ -1,5 +1,7 @@
 const CreateContactEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('crm_contact_emails', (table) => {

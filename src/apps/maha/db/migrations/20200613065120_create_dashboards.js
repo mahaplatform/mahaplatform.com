@@ -5,6 +5,8 @@ import User from '@apps/maha/models/user'
 
 const CreateDashboardCard = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await bootstrapType('dashboard', 'dashboard/index', 'maha_dashboard_card_types')

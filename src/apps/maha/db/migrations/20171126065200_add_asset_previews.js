@@ -1,5 +1,7 @@
 const AddAssetPreview = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_asset_statuses', (table) => {

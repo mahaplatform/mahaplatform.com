@@ -1,5 +1,7 @@
 const CreateIncomingEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_incoming_emails', (table) => {

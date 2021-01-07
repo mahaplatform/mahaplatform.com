@@ -6,6 +6,8 @@ import User from '@apps/maha/models/user'
 
 const ProgramAccess = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_program_accesses',
 
   rules: {},

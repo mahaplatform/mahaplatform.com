@@ -3,6 +3,8 @@ import Folder from '@apps/drive/models/folder'
 
 const UpdateAccessModel = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const accesses = await knex('drive_access')

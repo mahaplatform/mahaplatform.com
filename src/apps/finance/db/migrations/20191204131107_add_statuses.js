@@ -1,5 +1,7 @@
 const AddStatuses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_merchants', (table) => {

@@ -6,6 +6,8 @@ import Folder from './folder'
 
 const MetaFile = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_metafiles',
 
   accesses: function() {

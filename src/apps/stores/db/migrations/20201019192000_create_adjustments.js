@@ -1,5 +1,7 @@
 const CreateAdjustments = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('stores_orders', (table) => {

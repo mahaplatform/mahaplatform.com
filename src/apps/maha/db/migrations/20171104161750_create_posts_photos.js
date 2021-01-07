@@ -1,5 +1,7 @@
 const CreatePostsPhotos = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_posts_photos', (table) => {
       table.increments('id').primary()

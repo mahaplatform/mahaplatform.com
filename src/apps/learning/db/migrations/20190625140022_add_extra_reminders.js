@@ -1,5 +1,7 @@
 const AddExtraReminders = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('competencies_plans', table => {

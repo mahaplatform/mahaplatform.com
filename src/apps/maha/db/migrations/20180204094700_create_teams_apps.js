@@ -1,5 +1,7 @@
 const CreateTeamsApps = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_teams_apps', (table) => {
       table.integer('team_id').unsigned()

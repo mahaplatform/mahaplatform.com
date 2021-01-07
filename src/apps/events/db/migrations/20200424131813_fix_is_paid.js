@@ -1,5 +1,7 @@
 const FixIsPaid = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('drop view events_event_totals')
     await knex.raw('drop view events_registration_totals')

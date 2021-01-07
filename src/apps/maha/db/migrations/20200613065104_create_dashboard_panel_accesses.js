@@ -1,5 +1,7 @@
 const CreateDashboardPageAccess = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_dashboard_panel_accesses', (table) => {
       table.increments('id').primary()

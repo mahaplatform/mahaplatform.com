@@ -1,5 +1,7 @@
 const AlterVariants = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter type store_variant_inventory_policy add value \'unlimited\'')

@@ -5,6 +5,8 @@ import Message from './message'
 
 const Subscription = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'chat_subscriptions',
 
   rules: {

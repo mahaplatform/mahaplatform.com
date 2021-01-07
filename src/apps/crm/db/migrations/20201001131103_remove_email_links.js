@@ -1,5 +1,7 @@
 const RemoveEmailLinks = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await Promise.mapSeries(['crm_forms','events_events'], async model => {
       await knex.schema.table(model, (table) => {

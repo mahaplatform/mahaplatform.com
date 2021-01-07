@@ -1,5 +1,7 @@
 const UpdateItems2 = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

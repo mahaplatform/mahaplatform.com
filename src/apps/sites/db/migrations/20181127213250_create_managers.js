@@ -1,5 +1,7 @@
 const CreateManagers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('sites_managers', (table) => {

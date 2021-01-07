@@ -1,5 +1,7 @@
 const AddDescriptionToGoals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('competencies_goals', table => {

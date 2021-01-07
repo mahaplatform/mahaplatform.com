@@ -7,6 +7,8 @@ import Photo from './photo'
 
 const Attraction = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'eatfresh_attractions',
 
   rules: {

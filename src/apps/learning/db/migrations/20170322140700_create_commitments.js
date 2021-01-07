@@ -1,5 +1,7 @@
 const CreateCommitments = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('competencies_commitments', (table) => {
       table.increments('id').primary()

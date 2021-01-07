@@ -1,5 +1,7 @@
 const AddReceiptsToReimbursements = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('expenses_receipts', (table) => {

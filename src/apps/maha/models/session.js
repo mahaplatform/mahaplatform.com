@@ -4,6 +4,8 @@ import User from './user'
 
 const Session = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_sessions',
 
   device() {

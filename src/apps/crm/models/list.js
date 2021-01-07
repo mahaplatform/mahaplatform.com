@@ -5,6 +5,8 @@ import Contact from './contact'
 
 const List = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_lists',
 
   rules: {},

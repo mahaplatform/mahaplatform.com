@@ -1,5 +1,7 @@
 const CreateAlerts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('maha_notification_types').update({

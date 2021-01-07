@@ -1,5 +1,7 @@
 const AddProgramToImport = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_imports', (table) => {
       table.integer('program_id').unsigned()

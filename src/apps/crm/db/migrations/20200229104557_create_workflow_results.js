@@ -1,5 +1,7 @@
 const CreateWorkflowResult = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.dropTable('actions')
     await knex.schema.dropTable('crm_enrollments')

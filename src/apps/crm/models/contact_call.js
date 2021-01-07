@@ -5,6 +5,8 @@ import Contact from './contact'
 
 const ContactCall = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_contact_calls',
 
   rules: {},

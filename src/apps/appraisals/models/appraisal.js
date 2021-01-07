@@ -4,6 +4,8 @@ import User from '@apps/maha/models/user'
 
 const Appraisal = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'appraisals_appraisals',
 
   rules: {},

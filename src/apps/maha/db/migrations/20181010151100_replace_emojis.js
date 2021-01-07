@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 const ReplaceEmojis = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emoji = categories.reduce((emojis, category) => ({

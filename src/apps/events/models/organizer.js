@@ -4,6 +4,8 @@ import Event from './event'
 
 const Organizer = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_organizers',
 
   rules: {},

@@ -1,5 +1,7 @@
 const DropExpenseTypesProjects = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.dropTable('expenses_expense_types_projects')
   },

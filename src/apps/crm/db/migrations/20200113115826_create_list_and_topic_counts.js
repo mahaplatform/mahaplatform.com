@@ -1,5 +1,7 @@
 const CreateListAndTopicCounts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

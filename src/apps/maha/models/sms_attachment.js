@@ -4,6 +4,8 @@ import SMS from './sms'
 
 const SmsAttachment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_sms_attachments',
 
   rules: {},

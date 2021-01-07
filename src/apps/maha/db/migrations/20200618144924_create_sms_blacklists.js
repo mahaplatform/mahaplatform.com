@@ -1,5 +1,7 @@
 const CreateSmsBlacklist = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_sms_blacklists', (table) => {
       table.increments('id').primary()

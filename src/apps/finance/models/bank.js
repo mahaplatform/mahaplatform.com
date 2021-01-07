@@ -5,6 +5,8 @@ import Payment from './payment'
 
 const Bank = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_banks',
 
   rules: {},

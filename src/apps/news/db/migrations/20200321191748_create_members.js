@@ -1,5 +1,7 @@
 const CreateMember = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('news_members', (table) => {
       table.increments('id').primary()

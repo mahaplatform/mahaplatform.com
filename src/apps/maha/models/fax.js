@@ -4,6 +4,8 @@ import Number from './number'
 
 const Fax = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_faxes',
 
   rules: {},

@@ -1,5 +1,7 @@
 const MigrateEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emails = await knex('crm_emails')

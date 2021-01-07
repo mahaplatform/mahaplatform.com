@@ -1,5 +1,7 @@
 const UpdateDuplicates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_duplicates')

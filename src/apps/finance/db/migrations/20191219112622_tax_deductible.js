@@ -1,5 +1,7 @@
 const TaxDeductible = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view finance_invoice_details')

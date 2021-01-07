@@ -1,5 +1,7 @@
 const AddImportCompletedField = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_imports', table => {
       table.integer('completed_count')

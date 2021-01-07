@@ -6,6 +6,8 @@ import Folder from './folder'
 
 const Item = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_items',
 
   virtuals: {

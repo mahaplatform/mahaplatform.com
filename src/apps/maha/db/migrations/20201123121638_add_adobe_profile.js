@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const AddAdobeProfile = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter type maha_profiles_type add value \'signatures\'')

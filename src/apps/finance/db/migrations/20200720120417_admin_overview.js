@@ -1,5 +1,7 @@
 const AdminOverview = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view finance_admin_overview as

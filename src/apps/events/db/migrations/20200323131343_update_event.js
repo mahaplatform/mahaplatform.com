@@ -1,5 +1,7 @@
 const UpdateEvent = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('events_events', (table) => {
       table.string('code')

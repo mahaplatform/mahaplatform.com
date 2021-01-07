@@ -7,6 +7,8 @@ import Form from './form'
 
 const Response = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_responses',
 
   rules: {},

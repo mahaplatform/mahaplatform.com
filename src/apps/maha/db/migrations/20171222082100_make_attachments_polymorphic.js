@@ -1,5 +1,7 @@
 const MakeAttachmentsPolymorphic = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_services', (table) => {

@@ -2,6 +2,8 @@ import generateCode from '@core/utils/generate_code'
 
 const CreateImportsImportItems = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view expenses_items')

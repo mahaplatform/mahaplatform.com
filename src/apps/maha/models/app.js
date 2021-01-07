@@ -16,6 +16,8 @@ const getData = () => {
 
 const App = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_apps',
 
   rules: {

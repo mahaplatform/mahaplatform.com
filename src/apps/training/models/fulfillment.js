@@ -6,6 +6,8 @@ import Offering from './offering'
 
 const Fulfillment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_fulfillments',
 
   rules: {},

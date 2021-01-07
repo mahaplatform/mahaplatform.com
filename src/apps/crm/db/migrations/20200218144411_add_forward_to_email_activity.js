@@ -1,5 +1,7 @@
 const AddForwardToEmailActivity = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_email_activities', (table) => {
       table.string('forwarded_to')

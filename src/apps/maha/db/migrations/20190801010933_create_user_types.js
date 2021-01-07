@@ -18,6 +18,8 @@ const assignUsers = async(knex, text) => {
 
 const CreateUserTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_user_types', (table) => {

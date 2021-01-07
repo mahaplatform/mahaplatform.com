@@ -1,5 +1,7 @@
 const AddBankName = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_payment_methods', (table) => {

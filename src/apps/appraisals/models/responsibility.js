@@ -4,6 +4,8 @@ import Appraisal from './appraisal'
 
 const Responsibility = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'appraisals_responsibilities',
 
   rules: {},

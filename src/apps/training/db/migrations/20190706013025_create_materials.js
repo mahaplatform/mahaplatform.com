@@ -1,5 +1,7 @@
 const Material = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('training_materials', (table) => {
       table.increments('id').primary()

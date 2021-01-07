@@ -6,6 +6,8 @@ import User from './user'
 
 const DashboardPanelAccess = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_dashboard_panel_accesses',
 
   rules: {},

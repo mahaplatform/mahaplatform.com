@@ -8,6 +8,8 @@ import Event from './event'
 
 const Registration = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_registrations',
 
   rules: {},

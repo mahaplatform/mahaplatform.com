@@ -1,5 +1,7 @@
 const CreateCampaigns = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view crm_campaigns AS

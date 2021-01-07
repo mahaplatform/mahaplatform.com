@@ -1,5 +1,7 @@
 const AddInstructionTokens = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     const forms = await knex('crm_forms')
     await Promise.mapSeries(forms, async(form) => {

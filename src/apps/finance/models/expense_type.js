@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const ExpenseType = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'finance_expense_types',

@@ -5,6 +5,8 @@ import Invoice from './invoice'
 
 const LineItem = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_line_items',
 
   rules: {},

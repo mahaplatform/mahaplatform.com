@@ -1,5 +1,7 @@
 const AddEnrollmentStatus = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_workflow_results')

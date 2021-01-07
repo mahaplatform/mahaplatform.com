@@ -3,6 +3,8 @@ import User from './user'
 
 const Reaction = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_reactions',
 
   rules: {

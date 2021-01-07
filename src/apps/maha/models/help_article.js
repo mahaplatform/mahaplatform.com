@@ -4,6 +4,8 @@ import App from './app'
 
 const HelpArticle = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'maha_help_articles',

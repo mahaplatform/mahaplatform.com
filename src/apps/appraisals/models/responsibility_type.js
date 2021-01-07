@@ -3,6 +3,8 @@ import Responsibility from './responsibility'
 
 const ResponsibilityType = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'appraisals_responsibility_types',
 
   rules: {},

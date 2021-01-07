@@ -1,5 +1,7 @@
 const CreateInventories = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view stores_reservations')

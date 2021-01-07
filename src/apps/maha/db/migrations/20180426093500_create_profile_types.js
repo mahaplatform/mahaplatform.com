@@ -1,5 +1,7 @@
 const CreateProfileTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_profile_types', (table) => {

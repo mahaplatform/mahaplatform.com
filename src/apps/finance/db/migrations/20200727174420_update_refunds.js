@@ -1,5 +1,7 @@
 const UpdateRefunds = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('finance_refunds').where('status', 'deposited').update({

@@ -7,6 +7,8 @@ import User from './user'
 
 const Account = new Model({
 
+  databaseName: 'maha',
+
   belongsToTeam: false,
 
   tableName: 'maha_accounts',

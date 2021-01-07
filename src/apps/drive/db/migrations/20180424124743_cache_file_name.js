@@ -2,6 +2,8 @@ import File from '@apps/drive/models/file'
 
 const CacheFileName = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const files = await File.fetchAll({ withRelated: ['current_version.asset'] })

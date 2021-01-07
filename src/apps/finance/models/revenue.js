@@ -7,6 +7,8 @@ import Project from './project'
 
 const Revenue = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_revenues',
 
   rules: {},

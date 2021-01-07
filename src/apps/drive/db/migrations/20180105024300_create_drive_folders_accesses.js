@@ -1,5 +1,7 @@
 const CreateDriveFoldersAccesses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

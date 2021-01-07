@@ -1,5 +1,7 @@
 const FixActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('maha_notification_types').where('id', 7).update({

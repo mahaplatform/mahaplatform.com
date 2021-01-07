@@ -5,6 +5,8 @@ import User from './user'
 
 const Role = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_roles',
 
   rules: {

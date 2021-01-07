@@ -4,6 +4,8 @@ import Order from './order'
 
 const Item = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_items',
 
   rules: {},

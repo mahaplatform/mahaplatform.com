@@ -5,6 +5,8 @@ import Answer from './answer'
 
 const Answering = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_answerings',
 
   rules: {},

@@ -1,5 +1,7 @@
 const CreateHelpArticle = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_help_articles', (table) => {
       table.increments('id').primary()

@@ -1,5 +1,7 @@
 const MigrateTables = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const item_types = ['advances','checks','expenses','reimbursements','trips']

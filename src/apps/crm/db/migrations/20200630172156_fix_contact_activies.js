@@ -1,5 +1,7 @@
 const FixContactActivies = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const texts = [

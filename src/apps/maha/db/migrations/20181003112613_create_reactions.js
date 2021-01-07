@@ -1,5 +1,7 @@
 const CreateReactions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_reactions', (table) => {

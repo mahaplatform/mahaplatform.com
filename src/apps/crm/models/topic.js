@@ -5,6 +5,8 @@ import Contact from './contact'
 
 const Topic = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_topics',
 
   rules: {},

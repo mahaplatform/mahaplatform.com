@@ -1,5 +1,7 @@
 const CreateCounties = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_counties', (table) => {
       table.increments('id').primary()

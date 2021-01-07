@@ -4,6 +4,8 @@ import Quiz from './quiz'
 
 const Lesson = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_lessons',
 
   rules: {},

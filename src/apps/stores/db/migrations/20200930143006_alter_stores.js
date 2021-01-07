@@ -1,5 +1,7 @@
 const AlterStores = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('stores_options')

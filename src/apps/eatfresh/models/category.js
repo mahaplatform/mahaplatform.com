@@ -4,6 +4,8 @@ import Attraction from './attraction'
 
 const Category = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'eatfresh_categories',
 
   rules: {

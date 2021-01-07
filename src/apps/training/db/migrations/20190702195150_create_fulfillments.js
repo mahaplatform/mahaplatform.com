@@ -1,5 +1,7 @@
 const CreateFulfillment = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('training_fulfillments', (table) => {
       table.increments('id').primary()

@@ -21,6 +21,8 @@ const normalizeStreet = (street) => {
 
 const FixMailingAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const nulls = await knex('crm_mailing_addresses').whereRaw('address->>\'street_1\' like ?', '%null%')

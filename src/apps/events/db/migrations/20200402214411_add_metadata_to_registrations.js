@@ -1,5 +1,7 @@
 const AddMetadataToRegistrations = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('events_registrations', (table) => {
       table.string('ipaddress')

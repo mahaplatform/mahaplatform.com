@@ -1,5 +1,7 @@
 const AddUserPosts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('news_posts', (table) => {
       table.integer('target_user_id').unsigned()

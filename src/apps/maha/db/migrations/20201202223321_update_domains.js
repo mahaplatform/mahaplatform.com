@@ -1,5 +1,7 @@
 const UpdateDomains = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_domains', (table) => {
       table.dropColumn('expires_on')

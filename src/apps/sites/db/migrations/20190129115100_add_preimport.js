@@ -1,5 +1,7 @@
 const AddPreimport = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('sites_items', (table) => {

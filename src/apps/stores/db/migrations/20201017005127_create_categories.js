@@ -1,5 +1,7 @@
 const CreateCategory = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('stores_categories', (table) => {

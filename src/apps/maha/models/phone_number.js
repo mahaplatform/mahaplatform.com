@@ -5,6 +5,8 @@ import Program from '@apps/crm/models/program'
 
 const PhoneNumber = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_phone_numbers',
 
   rules: {},

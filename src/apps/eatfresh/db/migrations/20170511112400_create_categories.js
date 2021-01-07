@@ -1,5 +1,7 @@
 const CreateCategories = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_categories', (table) => {
       table.increments('id').primary()

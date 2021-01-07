@@ -5,6 +5,8 @@ import Contact from './contact'
 
 const SmsReceipt = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_sms_receipts',
 
   rules: {},

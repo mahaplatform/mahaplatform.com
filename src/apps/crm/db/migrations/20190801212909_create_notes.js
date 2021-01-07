@@ -1,5 +1,7 @@
 const CreateNote = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_notes', (table) => {
       table.increments('id').primary()

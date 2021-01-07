@@ -1,5 +1,7 @@
 const RemoveFvrxDates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const contacts = await knex('crm_contacts')

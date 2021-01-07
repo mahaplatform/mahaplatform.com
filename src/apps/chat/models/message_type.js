@@ -3,6 +3,8 @@ import Message from './message'
 
 const MessageType = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'chat_message_types',
 
   messages() {

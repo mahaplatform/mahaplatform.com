@@ -6,6 +6,8 @@ import Check from  './check'
 
 const Receipt = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_receipts',
 
   asset() {

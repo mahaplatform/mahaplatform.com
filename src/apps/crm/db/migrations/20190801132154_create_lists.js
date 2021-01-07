@@ -1,5 +1,7 @@
 const CreateList = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_lists', (table) => {
       table.increments('id').primary()

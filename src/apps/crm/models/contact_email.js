@@ -4,6 +4,8 @@ import Contact from './contact'
 
 const ContactEmail = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_contact_emails',
 
   rules: {},

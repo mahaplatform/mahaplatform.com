@@ -1,5 +1,7 @@
 const CreateAllocation = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_line_items', (table) => {

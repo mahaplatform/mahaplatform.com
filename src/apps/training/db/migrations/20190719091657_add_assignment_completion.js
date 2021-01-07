@@ -1,5 +1,7 @@
 const AddAssignmentCompletion = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('training_trainings', (table) => {

@@ -2,6 +2,8 @@ import moment from 'moment'
 
 const UpdateAppSchema = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const crm = await knex('maha_apps').where('code', 'crm').then(results => results[0])

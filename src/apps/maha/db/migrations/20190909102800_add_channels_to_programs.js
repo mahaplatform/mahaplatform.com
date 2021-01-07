@@ -1,5 +1,7 @@
 const AddChannelsToPrograms = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_programs', (table) => {
       table.bool('has_email_channel')

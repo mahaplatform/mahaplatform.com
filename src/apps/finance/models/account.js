@@ -3,6 +3,8 @@ import Expense from './expense'
 
 const Account = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_accounts',
 
   virtuals: {

@@ -3,6 +3,8 @@ import Email from '@apps/maha/models/email'
 
 const EmailActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emails = await Email.query(qb => {

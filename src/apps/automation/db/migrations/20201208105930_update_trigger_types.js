@@ -1,5 +1,7 @@
 const UpdateTriggerTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const changes = [

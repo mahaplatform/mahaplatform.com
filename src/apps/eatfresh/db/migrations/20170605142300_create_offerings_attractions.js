@@ -1,5 +1,7 @@
 const CreateOfferingsAttractions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_offerings_attractions', (table) => {
       table.integer('offering_id').unsigned()

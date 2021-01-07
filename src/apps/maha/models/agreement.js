@@ -3,6 +3,8 @@ import Asset from './asset'
 
 const Agreement = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_agreements',
 
   rules: {},

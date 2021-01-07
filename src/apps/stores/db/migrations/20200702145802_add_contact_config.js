@@ -1,5 +1,7 @@
 const AddContactConfig = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('stores_stores', (table) => {
       table.jsonb('contact_config')

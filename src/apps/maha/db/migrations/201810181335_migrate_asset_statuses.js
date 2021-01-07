@@ -1,5 +1,7 @@
 const MigrateAssetStatuses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const statuses = ['chunked','assembled','processed']

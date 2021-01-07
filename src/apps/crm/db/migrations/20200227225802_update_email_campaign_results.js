@@ -1,5 +1,7 @@
 const UpdateEmailCampaignResults = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('drop view crm_email_campaign_results')
     await knex.raw(`

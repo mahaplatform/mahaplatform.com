@@ -5,6 +5,8 @@ import Payment from './payment'
 
 const Credit = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_credits',
 
   rules: {},

@@ -1,5 +1,7 @@
 const AddTeamLogos = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const client = knex.client.config.client

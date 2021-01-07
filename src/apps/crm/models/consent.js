@@ -6,6 +6,8 @@ import PhoneNumber from './phone_number'
 
 const Consent = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_consents',
 
   rules: {},

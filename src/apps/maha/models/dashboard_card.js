@@ -4,6 +4,8 @@ import DashboardPanel from './dashboard_panel'
 
 const DashboardCard = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_dashboard_cards',
 
   rules: {},

@@ -4,6 +4,8 @@ import Consent from '@apps/crm/models/consent'
 
 const DuckRaceRespondants = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const responses = await Response.query(qb => {

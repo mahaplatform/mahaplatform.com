@@ -2,7 +2,9 @@ import Model from '@core/objects/model'
 import Plan from './plan'
 import Resource from './resource'
 
-const Commitment = new Model ({
+const Commitment = new Model({
+
+  databaseName: 'maha',
 
   tableName: 'competencies_commitments',
 

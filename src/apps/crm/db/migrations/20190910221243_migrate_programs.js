@@ -1,5 +1,7 @@
 const MigratePrograms = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_channels')

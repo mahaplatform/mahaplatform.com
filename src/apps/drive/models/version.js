@@ -5,6 +5,8 @@ import File from './file'
 
 const Version = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_versions',
 
   asset: function() {

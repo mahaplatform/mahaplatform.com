@@ -9,6 +9,8 @@ import Trip from './trip'
 
 const Batch = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_batches',
 
   advances() {

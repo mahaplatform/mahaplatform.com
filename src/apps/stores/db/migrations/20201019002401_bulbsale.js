@@ -46,6 +46,8 @@ const categories = [
 
 const Bulbsale = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const team = await Team.where('id', 1).fetch({

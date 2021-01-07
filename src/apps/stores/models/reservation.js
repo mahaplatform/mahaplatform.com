@@ -3,6 +3,8 @@ import Variant from './variant'
 
 const Reservation = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'store_reservations',
 
   rules: {},

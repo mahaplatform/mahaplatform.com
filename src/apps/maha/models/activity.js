@@ -5,6 +5,8 @@ import User from './user'
 
 const Activity = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_activities',
 
   rules: {

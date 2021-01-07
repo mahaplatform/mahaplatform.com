@@ -1,5 +1,7 @@
 const CreateAssigning = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('training_assignings', (table) => {
       table.increments('id').primary()

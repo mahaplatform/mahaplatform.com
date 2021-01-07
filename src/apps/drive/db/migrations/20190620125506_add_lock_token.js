@@ -1,5 +1,7 @@
 const AddLockToken = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('drive_folders', (table) => {

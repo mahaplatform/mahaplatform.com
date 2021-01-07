@@ -1,6 +1,8 @@
 import List from '@apps/crm/models/list'
 const FixActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     const lists = await knex('maha_activities').where({
       object_table: 'crm_lists'

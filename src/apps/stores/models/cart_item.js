@@ -4,6 +4,8 @@ import Cart from './cart'
 
 const CartItem = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_cart_items',
 
   rules: {},

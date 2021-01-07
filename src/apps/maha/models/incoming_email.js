@@ -4,6 +4,8 @@ import User from './user'
 
 const IncomingEmail = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_incoming_emails',
 
   rules: {},

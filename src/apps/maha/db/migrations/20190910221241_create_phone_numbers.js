@@ -1,5 +1,7 @@
 const CreatePhoneNumber = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_phone_numbers', (table) => {
       table.increments('id').primary()

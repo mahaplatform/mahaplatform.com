@@ -1,5 +1,7 @@
 const AddFormToEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_emails', (table) => {
       table.integer('form_id').unsigned()

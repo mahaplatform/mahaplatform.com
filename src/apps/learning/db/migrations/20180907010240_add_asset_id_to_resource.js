@@ -1,5 +1,7 @@
 const AddAssetIdToResource = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('competencies_resources', table => {
       table.integer('asset_id').unsigned()

@@ -1,5 +1,7 @@
 const DeleteStore = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('delete from stores_photos where variant_id <= 7')

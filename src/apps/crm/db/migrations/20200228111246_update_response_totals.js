@@ -1,5 +1,7 @@
 const UpdateResponseTotals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_form_totals')

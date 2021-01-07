@@ -1,5 +1,7 @@
 const CreatePost = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('news_posts', (table) => {
       table.increments('id').primary()

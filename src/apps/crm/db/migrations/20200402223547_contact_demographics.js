@@ -1,5 +1,7 @@
 const ContactDemographics = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_contacts', (table) => {

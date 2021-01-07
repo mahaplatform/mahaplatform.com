@@ -4,6 +4,8 @@ import User from './user'
 
 const Assets = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_assets',
 
   virtuals: {

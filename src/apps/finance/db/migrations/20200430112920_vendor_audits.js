@@ -6,6 +6,8 @@ import Vendor from '@apps/finance/models/vendor'
 
 const VendorAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('update maha_activities set object_table=replace(object_table, \'expenses\', \'finance\') where object_table like \'expenses%\'')

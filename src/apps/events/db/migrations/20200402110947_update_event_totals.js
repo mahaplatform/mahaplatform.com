@@ -1,5 +1,7 @@
 const UpdateEventTotals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('drop view events_event_totals')
     await knex.raw(`

@@ -1,5 +1,7 @@
 const AddInstallationsDefaultSettings = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const installations = await knex('maha_installations')

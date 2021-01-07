@@ -1,5 +1,7 @@
 const AddTicketType = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('events_tickets', (table) => {
       table.integer('ticket_type_id').unsigned()

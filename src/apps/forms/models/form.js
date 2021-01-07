@@ -7,6 +7,8 @@ import moment from 'moment'
 
 const Form = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_forms',
 
   rules: {},

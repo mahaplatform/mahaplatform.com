@@ -1,5 +1,7 @@
 const CreateRevenue = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

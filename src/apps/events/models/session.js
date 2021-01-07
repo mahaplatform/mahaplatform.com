@@ -6,6 +6,8 @@ import moment from 'moment'
 
 const Session = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_sessions',
 
   rules: {},

@@ -1,5 +1,7 @@
 const CreateSubscription = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_subscriptions', (table) => {
       table.increments('id').primary()

@@ -11,6 +11,8 @@ import Bank from './bank'
 
 const Payment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_payments',
 
   rules: {},

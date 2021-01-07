@@ -1,5 +1,7 @@
 const CreateMerchant = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_merchants', (table) => {
       table.increments('id').primary()

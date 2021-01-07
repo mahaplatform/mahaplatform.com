@@ -1,5 +1,7 @@
 const FixStoreMedia = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.dropTable('media')
     await knex.schema.createTable('stores_media', (table) => {

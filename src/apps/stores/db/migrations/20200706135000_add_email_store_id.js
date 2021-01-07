@@ -1,5 +1,7 @@
 const AddEmailStoreId = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_emails', (table) => {
       table.integer('store_id').unsigned()

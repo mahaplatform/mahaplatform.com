@@ -2,6 +2,8 @@ import Asset from '@apps/maha/models/asset'
 
 const FixRemainingAssets = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const assets = await Asset.query(qb => {

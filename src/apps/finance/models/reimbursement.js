@@ -7,6 +7,8 @@ import Vendor from  './vendor'
 
 const Reimbursement = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_reimbursements',
 
   rules: {

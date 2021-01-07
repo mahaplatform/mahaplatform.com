@@ -7,6 +7,8 @@ import Like from './like'
 
 const Post = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'news_posts',
 
   rules: {},

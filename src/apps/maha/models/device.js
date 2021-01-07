@@ -4,6 +4,8 @@ import Session from './session'
 
 const Device = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_devices',
 
   belongsToTeam: false,

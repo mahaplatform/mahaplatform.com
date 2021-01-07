@@ -7,6 +7,8 @@ import Vendor from './vendor'
 
 const Check = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_checks',
 
   rules: {

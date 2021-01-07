@@ -3,6 +3,8 @@ import EmailCampaign from '@apps/crm/models/email_campaign'
 
 const FixCampaignScreenshots = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['template','email','email_campaign'], async(model) => {

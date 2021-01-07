@@ -4,6 +4,8 @@ import Attraction from './attraction'
 
 const Photo = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'eatfresh_photos',
 
   rules: {

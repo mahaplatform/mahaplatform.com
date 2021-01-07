@@ -16,6 +16,8 @@ const getRows = async (filename) => {
 
 const MigrateVendors = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(getRows('users_vendors'), async(row, index) => {

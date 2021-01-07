@@ -1,5 +1,7 @@
 const AddReviewedStatus = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const statuses = await knex('expenses_statuses').count('*')

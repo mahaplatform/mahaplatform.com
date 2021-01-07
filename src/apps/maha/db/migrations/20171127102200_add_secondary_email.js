@@ -1,5 +1,7 @@
 const AddSecondaryEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_users', (table) => {

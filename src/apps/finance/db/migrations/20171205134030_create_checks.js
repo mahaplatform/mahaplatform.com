@@ -1,5 +1,7 @@
 const CreateChecks = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('expenses_checks', (table) => {
       table.increments('id').primary()

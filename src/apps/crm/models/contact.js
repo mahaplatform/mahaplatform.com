@@ -17,6 +17,8 @@ import List from './list'
 
 const Contact = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_contacts',
 
   rules: {},

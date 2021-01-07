@@ -3,6 +3,8 @@ import Session from './session'
 
 const Location = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_locations',
 
   rules: {},

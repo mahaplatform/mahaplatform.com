@@ -1,5 +1,7 @@
 const DeactivateExpenseTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('expenses_expense_types', (table) => {

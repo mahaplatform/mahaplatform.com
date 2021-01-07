@@ -1,5 +1,7 @@
 const MigrateDisbursements = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter table finance_disbursements rename to finance_deposits')

@@ -1,5 +1,7 @@
 const AddEmailIdToEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_emails', (table) => {
       table.integer('email_id').unsigned()

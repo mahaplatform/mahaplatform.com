@@ -1,5 +1,7 @@
 const UpdateProductTaxRate = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
   },

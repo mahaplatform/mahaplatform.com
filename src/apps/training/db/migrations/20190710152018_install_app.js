@@ -1,5 +1,7 @@
 const InstallApp = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const app = await knex('maha_apps').insert({

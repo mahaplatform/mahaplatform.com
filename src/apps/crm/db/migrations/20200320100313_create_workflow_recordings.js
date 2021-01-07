@@ -1,5 +1,7 @@
 const CreateWorkflowRecording = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_workflow_recordings', (table) => {
       table.increments('id').primary()

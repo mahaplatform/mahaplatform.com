@@ -2,6 +2,8 @@ import Workflow from '@apps/crm/models/workflow'
 
 const WorkflowEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const workflows = await Workflow.fetchAll({

@@ -1,5 +1,7 @@
 const UpdateMembers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.dropTable('news_members')
     await knex.schema.createTable('news_members', (table) => {

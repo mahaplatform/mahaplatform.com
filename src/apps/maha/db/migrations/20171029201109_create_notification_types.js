@@ -1,5 +1,7 @@
 const CreateNotificationTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_notification_types', (table) => {
       table.increments('id').primary()

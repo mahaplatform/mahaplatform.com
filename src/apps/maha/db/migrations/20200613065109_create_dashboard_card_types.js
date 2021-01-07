@@ -1,5 +1,7 @@
 const CreateDashboardCardType = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_dashboard_card_types', (table) => {
       table.increments('id').primary()

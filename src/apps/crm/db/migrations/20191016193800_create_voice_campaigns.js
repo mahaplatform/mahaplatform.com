@@ -1,5 +1,7 @@
 const CreateVoiceCampaign = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_voice_campaigns', (table) => {
       table.increments('id').primary()

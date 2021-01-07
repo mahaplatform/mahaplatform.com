@@ -1,5 +1,7 @@
 const ToStrategies = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await Promise.mapSeries(['email','sms','voice'], async (channel) => {
       const campaigns = await knex(`crm_${channel}_campaigns`)

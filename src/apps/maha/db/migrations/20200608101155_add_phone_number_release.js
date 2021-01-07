@@ -1,5 +1,7 @@
 const AddPhoneNumberRelease = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_phone_numbers', (table) => {

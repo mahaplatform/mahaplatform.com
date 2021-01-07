@@ -2,6 +2,8 @@ import cheerio from 'cheerio'
 
 const AddEmailFrom = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_emails', (table) => {

@@ -1,5 +1,7 @@
 const DesktopSmall = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('maha_help_articles', (table) => {
       table.integer('desktop_small_id').unsigned()

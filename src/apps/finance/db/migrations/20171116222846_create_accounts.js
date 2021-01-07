@@ -1,5 +1,7 @@
 const CreateAccounts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('expenses_accounts', (table) => {

@@ -1,5 +1,7 @@
 const MigratePrograms = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['consents','lists','activities','notes','calls','topics'], async (type) => {

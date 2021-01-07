@@ -1,5 +1,7 @@
 const AddAssetMetadata2 = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_assets', (table) => {

@@ -1,5 +1,7 @@
 const NonWorkflowEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_emails', (table) => {
       table.integer('voice_campaign_id').unsigned()

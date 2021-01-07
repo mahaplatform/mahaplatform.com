@@ -1,5 +1,7 @@
 const TemplateSoftDelete = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await Promise.mapSeries(['template','email','email_campaign'], async(model) => {
       await knex.schema.table(`crm_${model}s`, (table) => {

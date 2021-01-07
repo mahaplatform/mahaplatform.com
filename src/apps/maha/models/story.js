@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const Story = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_stories',
 
   hasTimestamps: [],

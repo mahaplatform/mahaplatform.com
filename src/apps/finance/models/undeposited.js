@@ -3,6 +3,8 @@ import Invoice from './invoice'
 
 const Undeposited = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_undeposited',
 
   rules: {},

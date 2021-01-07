@@ -2,6 +2,8 @@ import Model from '@core/objects/model'
 
 const Number = new Model({
 
+  databaseName: 'maha',
+
   hasTimestamps: false,
 
   belongsToTeam: false,

@@ -1,5 +1,7 @@
 const CreateImports = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_import_items', (table) => {

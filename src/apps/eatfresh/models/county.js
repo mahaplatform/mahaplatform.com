@@ -3,6 +3,8 @@ import Attraction from './attraction'
 
 const County = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'eatfresh_counties',
 
   rules: {

@@ -3,6 +3,8 @@ import Team from '@apps/maha/models/team'
 
 const CreateAnnouncement = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const req = {

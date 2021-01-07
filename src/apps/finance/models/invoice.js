@@ -5,10 +5,14 @@ import Customer from './customer'
 import Payment from './payment'
 
 const InvoiceLineItem = new Model({
+
+  databaseName: 'maha',
   tableName: 'finance_invoice_line_items'
 })
 
 const Invoice = new Model({
+
+  databaseName: 'maha',
 
   tableName: 'finance_invoices',
 

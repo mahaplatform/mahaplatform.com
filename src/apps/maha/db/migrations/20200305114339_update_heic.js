@@ -3,6 +3,8 @@ import Asset from '@apps/maha/models/asset'
 
 const UpdateHeic = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const assets = await Asset.query(qb => {

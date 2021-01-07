@@ -3,6 +3,8 @@ import App from './app'
 
 const DashboardCardType = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_dashboard_card_types',
 
   rules: {},

@@ -1,5 +1,7 @@
 const UpdateNotesAndCalls = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.map(['activities','notes','calls'], async(type) => {

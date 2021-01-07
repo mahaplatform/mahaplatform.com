@@ -2,6 +2,8 @@ import moment from 'moment'
 
 const AddContacts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const users = await knex('maha_users').where({ team_id: 1 })

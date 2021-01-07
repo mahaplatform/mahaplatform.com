@@ -2,6 +2,8 @@ import Email from '@apps/crm/models/email'
 
 const FixEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emails = await Email.query(qb => {

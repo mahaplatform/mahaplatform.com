@@ -5,6 +5,8 @@ import Competency from './competency'
 
 const Resource = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'competencies_resources',
 
   virtuals: {

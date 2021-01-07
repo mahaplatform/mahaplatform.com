@@ -3,6 +3,8 @@ import Expectation from './expectation'
 
 const Classificiation = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'competencies_classifications',
 
   rules: {

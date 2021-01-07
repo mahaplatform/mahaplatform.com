@@ -1,5 +1,7 @@
 const CreateCustomerProducts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view finance_customer_products as

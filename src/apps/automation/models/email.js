@@ -11,6 +11,8 @@ import Model from '@core/objects/model'
 
 const Email = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_emails',
 
   rules: {},

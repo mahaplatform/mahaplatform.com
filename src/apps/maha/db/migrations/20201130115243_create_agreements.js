@@ -1,5 +1,7 @@
 const CreateAgreement = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_agreements', (table) => {

@@ -1,5 +1,7 @@
 const MigrateProcessed = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw(`

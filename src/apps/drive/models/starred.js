@@ -6,6 +6,8 @@ import Folder from './folder'
 
 const Starred = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_starred',
 
 

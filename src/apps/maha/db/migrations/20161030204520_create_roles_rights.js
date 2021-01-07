@@ -1,5 +1,7 @@
 const CreateRolesRights = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_roles_rights', (table) => {
       table.integer('role_id').unsigned()

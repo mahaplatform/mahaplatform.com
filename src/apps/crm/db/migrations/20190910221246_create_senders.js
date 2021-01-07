@@ -1,5 +1,7 @@
 const CreateSender = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_senders', (table) => {
       table.increments('id').primary()

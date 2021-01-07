@@ -1,5 +1,7 @@
 const CreateOption = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('training_options', (table) => {

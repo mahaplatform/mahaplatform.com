@@ -3,6 +3,8 @@ import App from './app'
 
 const Installation = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_installations',
 
   rules: {

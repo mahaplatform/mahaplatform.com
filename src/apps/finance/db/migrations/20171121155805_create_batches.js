@@ -2,6 +2,8 @@ import moment from 'moment'
 
 const CreateBatches = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('expenses_batches', (table) => {

@@ -6,6 +6,8 @@ import User from './user'
 
 const Notification = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_notifications',
 
   rules: {

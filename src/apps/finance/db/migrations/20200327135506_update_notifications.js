@@ -2,6 +2,8 @@ import Notification from '@apps/maha/models/notification'
 
 const UpdateNotifications = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['advance','check','expense','reimbursement','trip'], async (model) => {

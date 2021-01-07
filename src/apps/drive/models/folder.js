@@ -3,6 +3,8 @@ import Access from './access'
 
 const Folder = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'drive_folders',
 
   accesses: function() {

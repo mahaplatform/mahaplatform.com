@@ -1,5 +1,7 @@
 const CreateShortlink = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_shortlinks', (table) => {
       table.increments('id').primary()

@@ -3,6 +3,8 @@ import Program from './program'
 
 const PostalCampaign = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_postal_campaigns',
 
   rules: {},

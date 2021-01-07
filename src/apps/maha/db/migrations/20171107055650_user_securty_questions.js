@@ -1,5 +1,7 @@
 const UserSecurityQuestions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.table('maha_users', (table) => {
       table.dropColumn('security_question_2_id')

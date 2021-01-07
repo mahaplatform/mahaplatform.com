@@ -1,5 +1,7 @@
 const CreateAccessTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('drive_access_types', (table) => {

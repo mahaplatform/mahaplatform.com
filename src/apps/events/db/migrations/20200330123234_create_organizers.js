@@ -1,5 +1,7 @@
 const CreateOrganizer = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('events_organizers', (table) => {

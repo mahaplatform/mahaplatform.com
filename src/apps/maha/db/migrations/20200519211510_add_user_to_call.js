@@ -4,6 +4,8 @@ import SMS from '@apps/maha/models/sms'
 
 const AddUserToCall = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_calls', (table) => {

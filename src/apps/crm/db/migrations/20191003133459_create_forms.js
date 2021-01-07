@@ -1,5 +1,7 @@
 const CreateForm = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_forms', (table) => {
       table.increments('id').primary()

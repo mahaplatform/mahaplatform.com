@@ -1,5 +1,7 @@
 const AddDevicePlatforms = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_devices', (table) => {

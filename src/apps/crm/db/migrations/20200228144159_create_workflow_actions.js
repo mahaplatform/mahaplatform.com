@@ -1,5 +1,7 @@
 const CreateWorkflowAction = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_workflow_actions', (table) => {
       table.increments('id').primary()

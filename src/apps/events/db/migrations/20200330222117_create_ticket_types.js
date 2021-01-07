@@ -1,5 +1,7 @@
 const CreateTicketType = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('events_ticket_types', (table) => {
       table.increments('id').primary()

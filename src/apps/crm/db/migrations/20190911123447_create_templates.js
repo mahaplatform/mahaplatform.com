@@ -1,5 +1,7 @@
 const CreateTemplate = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_templates', (table) => {
       table.increments('id').primary()

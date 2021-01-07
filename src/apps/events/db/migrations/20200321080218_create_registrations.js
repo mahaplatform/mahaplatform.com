@@ -1,5 +1,7 @@
 const CreateRegistration = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('events_registrations', (table) => {
       table.increments('id').primary()

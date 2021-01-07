@@ -1,5 +1,7 @@
 const StreamlineDriveItems = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view drive_items_access')

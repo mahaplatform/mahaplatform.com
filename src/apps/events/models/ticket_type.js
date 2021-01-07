@@ -3,6 +3,8 @@ import Ticket from './ticket'
 
 const TicketType = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_ticket_types',
 
   rules: {},

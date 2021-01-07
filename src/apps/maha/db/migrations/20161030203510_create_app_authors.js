@@ -1,5 +1,7 @@
 const CreateAppAuthors = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_app_authors', (table) => {
       table.increments('id').primary()

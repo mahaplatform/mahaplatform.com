@@ -3,6 +3,8 @@ import csvparse from 'csv-parse/lib/sync'
 
 const MigrateProjects = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const contents = await s3.getObject({

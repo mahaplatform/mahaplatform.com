@@ -3,6 +3,8 @@ import User from './user'
 
 const Group = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_groups',
 
   rules: {

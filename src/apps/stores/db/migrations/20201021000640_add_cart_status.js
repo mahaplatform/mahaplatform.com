@@ -1,5 +1,7 @@
 const AddCartStatus = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('stores_carts', (table) => {

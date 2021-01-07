@@ -1,5 +1,7 @@
 const ConvertSubscriptions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('crm_subscriptions')

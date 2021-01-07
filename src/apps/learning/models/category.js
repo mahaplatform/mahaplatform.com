@@ -3,6 +3,8 @@ import Competency from './competency'
 
 const Category = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'competencies_categories',
 
   rules: {

@@ -1,5 +1,7 @@
 const UpdateLists = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('crm_lists', (table) => {

@@ -3,6 +3,8 @@ import Attachment from './attachment'
 
 const Service = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_services',
   
   belongsToTeam: false,

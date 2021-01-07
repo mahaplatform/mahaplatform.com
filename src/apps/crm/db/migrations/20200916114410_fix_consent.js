@@ -1,5 +1,7 @@
 const FixConsent = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     const enrollments = await knex('crm_workflow_enrollments').where('sms_campaign_id', 32).whereNot('id', 32696)
     await Promise.mapSeries(enrollments, async (enrollment) => {

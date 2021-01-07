@@ -4,6 +4,8 @@ import request from 'request-promise'
 
 const AddAssetDimensions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_assets', (table) => {

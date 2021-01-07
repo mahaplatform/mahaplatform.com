@@ -1,5 +1,7 @@
 const FixPrimaryEmailAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emails = await knex.raw(`

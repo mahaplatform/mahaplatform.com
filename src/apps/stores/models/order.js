@@ -8,6 +8,8 @@ import Cart from './cart'
 
 const Order = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_orders',
 
   rules: {},

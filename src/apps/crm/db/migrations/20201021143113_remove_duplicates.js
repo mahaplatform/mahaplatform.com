@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const RemoveDuplicates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const emails = await knex.raw(`

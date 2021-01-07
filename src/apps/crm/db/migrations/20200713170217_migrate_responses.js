@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 const MigrateResponses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     const responses = await Response.query(qb => {
       qb.whereNotNull('invoice_id')

@@ -1,5 +1,7 @@
 const MigrateTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter type crm_profile_sources rename to maha_profile_sources')

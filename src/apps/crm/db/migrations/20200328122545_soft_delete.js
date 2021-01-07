@@ -1,5 +1,7 @@
 const SoftDelete = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['email','voice','sms','postal','social'], async (model) => {

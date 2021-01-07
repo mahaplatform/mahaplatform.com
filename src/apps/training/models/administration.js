@@ -5,6 +5,8 @@ import Quiz from './quiz'
 
 const Administration = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_administrations',
 
   rules: {},

@@ -2,6 +2,8 @@ const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|
 
 const UpdateEmailAddresses = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const nulls = await knex('maha_emails').whereRaw('"maha_emails"."to" like ?', 'null%')

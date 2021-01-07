@@ -6,6 +6,8 @@ import App from './app'
 
 const Team = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_teams',
 
   belongsToTeam: false,

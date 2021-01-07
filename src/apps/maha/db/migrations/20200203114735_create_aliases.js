@@ -1,5 +1,7 @@
 const CreateAlias = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('maha_aliases', (table) => {
       table.increments('id').primary()

@@ -3,6 +3,8 @@ import Program from '@apps/crm/models/program'
 
 const FixProgramAccess = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const programs = await Program.query(qb => {

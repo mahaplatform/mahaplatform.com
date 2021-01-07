@@ -1,5 +1,7 @@
 const AddWorkflowTrigger = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter type crm_workflow_trigger_types add value \'order\'')

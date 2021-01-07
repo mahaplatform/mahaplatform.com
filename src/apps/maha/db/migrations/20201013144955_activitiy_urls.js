@@ -2,6 +2,8 @@ import Contact from '@apps/crm/models/contact'
 
 const ActivitiyUrls = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('update maha_activities set url=replace(url, \'/admin\',\'\')')
     await knex.raw('update maha_notifications set url=replace(url, \'/admin\',\'\')')

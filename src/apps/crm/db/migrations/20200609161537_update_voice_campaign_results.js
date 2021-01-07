@@ -1,5 +1,7 @@
 const UpdateVoiceCampaignResults = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_voice_campaign_results')

@@ -1,5 +1,7 @@
 const AddEveryoneGroups = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_groups', (table) => {

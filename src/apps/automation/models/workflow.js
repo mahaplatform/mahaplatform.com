@@ -14,6 +14,8 @@ import Email from './email'
 
 const Workflow = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_workflows',
 
   rules: {},

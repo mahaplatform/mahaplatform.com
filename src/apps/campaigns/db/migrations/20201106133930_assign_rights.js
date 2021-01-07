@@ -1,5 +1,7 @@
 const AssignRights = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const roles = await knex('maha_roles_apps').where('app_id', 22)

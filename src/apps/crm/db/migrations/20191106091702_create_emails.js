@@ -1,5 +1,7 @@
 const CreateEmail = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('maha_email_templates')

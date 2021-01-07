@@ -5,6 +5,8 @@ import Refund from './refund'
 
 const Allocation = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_allocations',
 
   rules: {},

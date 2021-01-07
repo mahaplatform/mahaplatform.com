@@ -1,5 +1,7 @@
 const NotesAttachments = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('crm_notes_assets', (table) => {
       table.integer('note_id').unsigned()

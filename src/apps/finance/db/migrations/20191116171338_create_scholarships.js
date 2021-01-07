@@ -1,5 +1,7 @@
 const CreateScholarship = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_scholarships', (table) => {
       table.increments('id').primary()

@@ -1,5 +1,7 @@
 const CreateUsersNotificationTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_users_notification_types', (table) => {
       table.integer('user_id').unsigned()

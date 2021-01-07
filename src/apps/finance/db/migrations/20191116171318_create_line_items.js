@@ -1,5 +1,7 @@
 const CreateLineItem = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_line_items', (table) => {
       table.increments('id').primary()

@@ -1,5 +1,7 @@
 const AddContactInfo = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('eatfresh_attractions', (table) => {

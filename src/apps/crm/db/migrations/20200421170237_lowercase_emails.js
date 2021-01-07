@@ -1,5 +1,7 @@
 const LowercaseEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('update crm_email_addresses set address = lower(address)')
   },

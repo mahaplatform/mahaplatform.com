@@ -2,6 +2,8 @@ const sounds = ['ding','boing','drop','tada','plink','wow','here_you_go','hi','k
 
 const AddPreferences = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const methods = ['none','ondemand', 'digest']

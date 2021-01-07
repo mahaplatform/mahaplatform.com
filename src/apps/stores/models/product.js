@@ -5,6 +5,8 @@ import Store from './store'
 
 const Product = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_products',
 
   rules: {},

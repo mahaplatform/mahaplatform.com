@@ -1,5 +1,7 @@
 const AlterEnrollmentStatus = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw('alter type crm_workflow_enrollment_status add value \'canceled\'')
   },

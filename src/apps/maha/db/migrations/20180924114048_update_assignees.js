@@ -1,5 +1,7 @@
 const UpdateAssignees = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view maha_assignees')

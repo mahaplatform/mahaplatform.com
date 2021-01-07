@@ -1,5 +1,7 @@
 const CreateContactOrganizations = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('crm_contacts_organizations', (table) => {
       table.integer('contact_id').unsigned()

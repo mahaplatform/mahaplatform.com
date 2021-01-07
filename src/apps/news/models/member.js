@@ -4,6 +4,8 @@ import Group from './group'
 
 const Member = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'news_members',
 
   rules: {},

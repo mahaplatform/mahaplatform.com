@@ -5,6 +5,8 @@ import User from './user'
 
 const Audit = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_audits',
 
   contact: function() {

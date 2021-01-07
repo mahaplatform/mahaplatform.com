@@ -7,6 +7,8 @@ import Quiz from './quiz'
 
 const Training = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'training_trainings',
 
   rules: {},

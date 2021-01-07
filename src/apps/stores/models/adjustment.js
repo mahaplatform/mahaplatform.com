@@ -3,6 +3,8 @@ import Variant from './variant'
 
 const Adjustment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_adjustments',
 
   rules: {},

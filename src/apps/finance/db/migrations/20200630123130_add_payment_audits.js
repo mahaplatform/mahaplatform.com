@@ -2,6 +2,8 @@ import Payment from '@apps/finance/models/payment'
 
 const AddPaymentAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const payments = await Payment.fetchAll({

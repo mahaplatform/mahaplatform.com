@@ -3,6 +3,8 @@ import User from './user'
 
 const Star = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_stars',
 
   rules: {

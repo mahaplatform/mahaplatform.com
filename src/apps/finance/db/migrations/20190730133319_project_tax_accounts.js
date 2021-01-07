@@ -3,6 +3,8 @@ import path from 'path'
 
 const ProjectTaxAccounts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     var workbook = new Excel.Workbook()

@@ -2,6 +2,8 @@ import generateCode from '@core/utils/generate_code'
 
 const EmailCodes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const req = { trx: knex }

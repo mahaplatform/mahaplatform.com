@@ -2,6 +2,8 @@ import generateCode from '@core/utils/generate_code'
 
 const UpdateKeys = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const users = await knex('maha_users')

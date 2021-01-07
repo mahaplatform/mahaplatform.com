@@ -1,5 +1,7 @@
 const CreateDocuments = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('drive_documents', (table) => {
       table.increments('id').primary()

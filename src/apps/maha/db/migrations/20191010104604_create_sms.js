@@ -1,5 +1,7 @@
 const CreateSms = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_smses', (table) => {

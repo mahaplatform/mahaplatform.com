@@ -3,6 +3,8 @@ import Folder from '@apps/drive/models/folder'
 
 const UpdateAccess = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('drive_access_types').where({ id: 1 }).update({ text: 'owner' })

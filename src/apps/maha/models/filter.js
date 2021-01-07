@@ -4,6 +4,8 @@ import User from './user'
 
 const Filter = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_filters',
 
   rules: {},

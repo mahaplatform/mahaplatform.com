@@ -2,6 +2,8 @@ import Model from '../../../core/objects/model'
 
 const Version = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_versions',
 
   rules: {},

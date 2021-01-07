@@ -1,5 +1,7 @@
 const CreateUsersGroups = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     return await knex.schema.createTable('maha_users_groups', (table) => {
       table.integer('group_id').unsigned()

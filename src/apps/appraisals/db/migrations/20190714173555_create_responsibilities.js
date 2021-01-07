@@ -1,5 +1,7 @@
 const CreateResponsibility = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('appraisals_responsibilities', (table) => {
       table.increments('id').primary()

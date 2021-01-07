@@ -3,6 +3,8 @@ import Import from './import'
 
 const ImportItem = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_import_items',
 
   rules: {},

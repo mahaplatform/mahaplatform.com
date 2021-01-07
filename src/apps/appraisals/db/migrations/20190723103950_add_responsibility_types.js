@@ -1,5 +1,7 @@
 const AddResponsibilityTypes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('appraisals_responsibilities')

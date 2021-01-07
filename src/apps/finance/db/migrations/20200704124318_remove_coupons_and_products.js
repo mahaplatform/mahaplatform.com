@@ -1,5 +1,7 @@
 const RemoveCouponsAndProducts = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view finance_coupon_uses')

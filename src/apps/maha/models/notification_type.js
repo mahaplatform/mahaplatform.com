@@ -19,6 +19,8 @@ const getData = () => {
 
 const NotificationType = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_notification_types',
 
   virtuals: {

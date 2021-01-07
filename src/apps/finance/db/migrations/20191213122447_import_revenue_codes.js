@@ -5,6 +5,8 @@ import request from 'request-promise'
 
 const ImportRevenueCodes = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const url = s3.getSignedUrl('getObject', {

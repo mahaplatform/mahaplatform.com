@@ -4,6 +4,8 @@ import Event from './event'
 
 const Waiting = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'events_waitings',
 
   rules: {},

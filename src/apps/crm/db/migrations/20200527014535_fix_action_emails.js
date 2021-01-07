@@ -4,6 +4,8 @@ import moment from 'moment'
 
 const FixActionEmails = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const actions = await WorkflowAction.query(qb => {

@@ -1,5 +1,7 @@
 const AlterChatResults = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view chat_results')

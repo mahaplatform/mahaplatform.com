@@ -1,5 +1,7 @@
 const UpdateProgramUserAccess = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('drop view crm_program_user_access')

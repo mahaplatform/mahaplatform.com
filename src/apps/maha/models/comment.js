@@ -5,6 +5,8 @@ import User from './user'
 
 const Comment = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_comments',
 
   rules: {},

@@ -1,5 +1,7 @@
 const AddWaitingsEventId = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('events_waitings', (table) => {
       table.integer('event_id').unsigned()

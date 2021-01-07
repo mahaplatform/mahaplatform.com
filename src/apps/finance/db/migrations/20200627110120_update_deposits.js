@@ -1,5 +1,7 @@
 const UpdateDeposits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_deposits', (table) => {

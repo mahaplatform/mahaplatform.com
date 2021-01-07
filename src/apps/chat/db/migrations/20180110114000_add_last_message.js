@@ -1,5 +1,7 @@
 const AddLastMessage = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('chat_channels', (table) => {

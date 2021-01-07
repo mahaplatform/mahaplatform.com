@@ -6,6 +6,8 @@ import User from './user'
 
 const Sms = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_smses',
 
   rules: {},

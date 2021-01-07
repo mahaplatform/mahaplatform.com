@@ -8,6 +8,8 @@ import Order from './order'
 
 const Store = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_stores',
 
   rules: {},

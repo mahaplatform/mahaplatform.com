@@ -1,5 +1,7 @@
 const RemovePlans = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex('competencies_commitments').delete()

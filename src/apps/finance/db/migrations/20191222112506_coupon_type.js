@@ -1,5 +1,7 @@
 const CouponType = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('finance_coupons', (table) => {

@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const RemoveDuplicates = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const mailing_addresses = knex({ ma1: 'crm_mailing_addresses' })

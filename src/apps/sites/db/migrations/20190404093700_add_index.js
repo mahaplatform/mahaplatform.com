@@ -5,6 +5,8 @@ import Item from '@apps/sites/models/item'
 
 const AddIndex = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('sites_items', (table) => {

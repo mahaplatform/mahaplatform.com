@@ -3,6 +3,8 @@ import Store from '@apps/stores/models/store'
 
 const BulbsaleWorkflow = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const store = await Store.where('id', 5).fetch({

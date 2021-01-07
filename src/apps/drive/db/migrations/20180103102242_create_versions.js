@@ -1,5 +1,7 @@
 const CreateVersions = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('drive_versions', (table) => {

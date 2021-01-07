@@ -84,6 +84,8 @@ const registration = async (knex) => {
 
 const UpdateActivities = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await imports(knex)

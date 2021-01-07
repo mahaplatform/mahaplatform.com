@@ -2,6 +2,8 @@ import Invoice from '@apps/finance/models/invoice'
 
 const AddInvoiceAudits = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const invoices = await Invoice.fetchAll({

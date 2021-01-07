@@ -57,6 +57,8 @@ const migrateItems = async (knex, { from, from_join, from_items, to, to_join }) 
 
 const MigratePp = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const topics = await knex('crm_topics').where('program_id', 1)

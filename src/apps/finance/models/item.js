@@ -7,6 +7,8 @@ import Vendor from  './vendor'
 
 const Item = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_items',
 
   virtuals: {

@@ -1,6 +1,8 @@
 
 const AlterMembers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('sites_members', (table) => {

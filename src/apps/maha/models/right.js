@@ -20,6 +20,8 @@ const getData = () => {
 
 const Right = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'maha_rights',
 
   rules: {

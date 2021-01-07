@@ -4,6 +4,8 @@ import List from './list'
 
 const Subscription = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_subscriptions',
 
   rules: {},

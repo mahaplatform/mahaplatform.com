@@ -4,6 +4,8 @@ import Type from './type'
 
 const Item = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'sites_items',
 
   rules: {},

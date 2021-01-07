@@ -1,5 +1,7 @@
 const DropListenings = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('maha_listenings')

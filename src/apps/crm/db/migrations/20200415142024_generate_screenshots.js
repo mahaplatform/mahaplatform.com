@@ -22,6 +22,8 @@ const generate = async (knex, key, model) => {
 
 const GenerateScreenshots = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await generate(knex, 'email', Email)

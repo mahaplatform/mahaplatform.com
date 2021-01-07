@@ -2,6 +2,8 @@ import ScanAssetQueue from '@apps/maha/queues/scan_asset_queue'
 
 const ScanAssets = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const assets = await knex('maha_assets').whereNull('is_infected')

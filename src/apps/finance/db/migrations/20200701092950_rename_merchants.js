@@ -1,5 +1,7 @@
 const RenameMerchants = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.raw('alter table finance_merchants rename to finance_banks')

@@ -1,5 +1,7 @@
 const UpdateTags = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.dropTable('crm_taggings')

@@ -1,5 +1,7 @@
 const CreateCustomers = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const tables = ['invoice','credit','scholarship']

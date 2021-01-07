@@ -1,5 +1,7 @@
 const CreateVoiceCampaignResult = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view crm_voice_campaign_results as

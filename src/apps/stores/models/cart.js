@@ -5,6 +5,8 @@ import Order from './order'
 
 const Cart = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'stores_carts',
 
   rules: {},

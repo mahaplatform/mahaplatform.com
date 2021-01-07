@@ -3,6 +3,8 @@ import Asset from '@apps/maha/models/asset'
 
 const AddAssetMetadata = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.createTable('maha_sources', (table) => {

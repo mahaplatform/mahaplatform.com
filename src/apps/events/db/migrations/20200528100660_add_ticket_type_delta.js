@@ -2,6 +2,8 @@ import Event from '@apps/events/models/event'
 
 const AddTicketTypeDelta = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('events_ticket_types', (table) => {

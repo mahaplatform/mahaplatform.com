@@ -1,5 +1,7 @@
 const CreateRegistrationTotals = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.raw(`
       create view events_registration_totals as

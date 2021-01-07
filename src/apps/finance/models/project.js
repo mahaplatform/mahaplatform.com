@@ -3,6 +3,8 @@ import Member from './member'
 
 const Project = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'finance_projects',
 
   rules: {

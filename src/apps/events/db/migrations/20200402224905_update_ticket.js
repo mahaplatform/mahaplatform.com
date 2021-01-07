@@ -1,5 +1,7 @@
 const UpdateTicket = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('events_tickets', (table) => {
       table.dropColumn('first_name')

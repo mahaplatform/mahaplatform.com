@@ -1,5 +1,7 @@
 const UpdateFieldTokens = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const fields = await knex('maha_fields')

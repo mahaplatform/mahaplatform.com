@@ -1,5 +1,7 @@
 const CreatePayment = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.createTable('finance_payments', (table) => {
       table.increments('id').primary()

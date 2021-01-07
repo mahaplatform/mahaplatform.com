@@ -1,5 +1,7 @@
 const UpdateSenders = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     const teams = await knex('maha_teams')
     await Promise.map(teams, async (team) => {

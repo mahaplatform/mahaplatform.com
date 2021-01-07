@@ -1,5 +1,7 @@
 const UpdateForm = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
     await knex.schema.table('crm_forms', (table) => {
       table.integer('workflow_id').unsigned()

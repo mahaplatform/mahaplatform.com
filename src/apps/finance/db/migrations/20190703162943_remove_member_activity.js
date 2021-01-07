@@ -1,5 +1,7 @@
 const RemoveMemberActivity = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('expenses_members', (table) => {

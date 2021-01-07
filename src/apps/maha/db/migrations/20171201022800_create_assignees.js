@@ -1,5 +1,7 @@
 const CreateAssignees = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     return await knex.raw(`

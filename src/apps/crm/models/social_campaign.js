@@ -4,6 +4,8 @@ import Profile from '@apps/maha/models/profile'
 
 const SocialCampaign = new Model({
 
+  databaseName: 'maha',
+
   tableName: 'crm_social_campaigns',
 
   rules: {},

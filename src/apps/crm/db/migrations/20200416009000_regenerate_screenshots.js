@@ -22,6 +22,8 @@ const generate = async (knex, key, model) => {
 
 const RegenerateScreenshots = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await Promise.mapSeries(['template','email','email_campaign'], async(model) => {

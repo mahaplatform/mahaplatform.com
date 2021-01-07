@@ -1,5 +1,7 @@
 const AddProgramSenders = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     const programs = await knex('crm_programs')

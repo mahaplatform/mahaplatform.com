@@ -1,5 +1,7 @@
 const AddContactToAudit = {
 
+  databaseName: 'maha',
+
   up: async (knex) => {
 
     await knex.schema.table('maha_audits', (table) => {

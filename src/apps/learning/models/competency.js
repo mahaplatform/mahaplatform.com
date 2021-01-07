@@ -3,7 +3,9 @@ import Category from './category'
 import Expectation from './expectation'
 import Resource from './resource'
 
-const Competency = new Model ({
+const Competency = new Model({
+
+  databaseName: 'maha',
 
   tableName: 'competencies_competencies',
 
