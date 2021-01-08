@@ -130,6 +130,7 @@ import traininganswers from '../../apps/training/admin/components/questions/answ
 import trainingquestions from '../../apps/training/admin/components/questions'
 import trainingquiz from '../../apps/training/admin/components/quiz'
 import trainingreview from '../../apps/training/admin/components/review'
+import analyticsRoutes from '../../apps/analytics/admin/views/index.js'
 import appraisalsRoutes from '../../apps/appraisals/admin/views/index.js'
 import automationRoutes from '../../apps/automation/admin/views/index.js'
 import campaignsRoutes from '../../apps/campaigns/admin/views/index.js'
@@ -473,6 +474,7 @@ class App extends React.Component {
 
   _getRoutes() {
     return [
+      { path: '/:team/analytics', children: analyticsRoutes },
       { path: '/:team/appraisals', children: appraisalsRoutes },
       { path: '/:team/automation', children: automationRoutes },
       { path: '/:team/campaigns', children: campaignsRoutes },

@@ -1,10 +1,12 @@
-import knex from '../../vendor/knex'
+import * as knex from '../../vendor/knex'
 import apps from '../../utils/apps'
 import log from '../../utils/log'
 import path from 'path'
 import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
+
+const databases = ['analytics','maha']
 
 const [,,,database] = process.env.DATABASE_URL.match(/(.*):\/\/([^/]*)\/(.*)/)
 
@@ -22,38 +24,44 @@ export const setup = async () => await truncate().then(schemaLoad).then(loadFixt
 
 export const truncate = async (flags, args) => {
   _log(`truncate ${database}`)
-  await knex.raw('drop schema public cascade')
-  await knex.raw('create schema public')
+  await knex.maha.raw('drop schema public cascade')
+  await knex.maha.raw('create schema public')
 }
 
 export const schemaDump = async (flags, args) => {
   if(process.env.NODE_ENV === 'production') return
-  _log('dump schema')
-  const constraints = await _getConstraints()
-  const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)
-  const tables = await _getTables(constraints)
-  const views = await _getViews()
-  const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
-  const platform = _.camelCase(path.basename(path.resolve()))
-  const data = ejs.render(template, { platform, tables, views, foreign_keys })
-  fs.writeFileSync(path.join('src', 'schema.js'), data)
+  _log('dump schemas')
+  await Promise.mapSeries(databases, async (database) => {
+    const adapter = knex[database]
+    const constraints = await _getConstraints(adapter)
+    const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)
+    const tables = await _getTables(constraints, adapter)
+    const views = await _getViews(adapter)
+    const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
+    const platform = _.camelCase(path.basename(path.resolve()))
+    const data = ejs.render(template, { platform, tables, views, foreign_keys })
+    fs.writeFileSync(path.join('src', 'schemas', `${database}.js`), data)
+  })
 }
 
 export const schemaLoad = async (flags, args) => {
   _log('load schema')
-  await knex.transaction(async trx => {
+  await knex.maha.transaction(async trx => {
     const schema = require(path.resolve('src','schema.js')).default
     await schema.load(trx)
   })
 }
 
 const _migrate = async (direction) => {
-  await _findOrCreateSchema()
-  const appPaths = _getAppPaths()
-  const allMigrations = _getMigrations(appPaths)
-  const migrations = await _filterScripts(allMigrations, direction)
-  await _runMigrations(migrations, direction)
-  if(direction === 'down') await _dropSchema()
+  await Promise.mapSeries(databases, async (database) => {
+    const adapter = knex[database]
+    await _findOrCreateSchema(adapter)
+    const appPaths = _getAppPaths()
+    const allMigrations = _getMigrations(appPaths)
+    const migrations = await _filterScripts(allMigrations, direction)
+    await _runMigrations(migrations, direction)
+    if(direction === 'down') await _dropSchema(adapter)
+  })
 }
 
 const _reset = async () => {
@@ -61,25 +69,26 @@ const _reset = async () => {
   await _migrate('up', null)
 }
 
-const _hasScriptBeenRun = async (migration) => {
-  const result = await knex('schema_migrations').count('* as count').where({ migration })
+const _hasScriptBeenRun = async (migration, adapter) => {
+  const result = await adapter('schema_migrations').count('* as count').where({ migration })
   const response = result.rows ? result.rows[0] : result[0]
   const count = response.count ? parseInt(response.count) : 0
   return count !== 0
 }
 
-const _findOrCreateSchema = async () => {
-  return await knex.schema.createTableIfNotExists('schema_migrations', (table) => table.string('migration'))
+const _findOrCreateSchema = async (adapter) => {
+  return await adapter.schema.createTableIfNotExists('schema_migrations', (table) => table.string('migration'))
 }
 
-const _dropSchema = async () => {
-  return await knex.schema.dropTableIfExists('schema_migrations')
+const _dropSchema = async (adapter) => {
+  return await adapter.schema.dropTableIfExists('schema_migrations')
 }
 
 const _runMigrations = (migrations, direction) => {
   return Promise.mapSeries(migrations, async migration => {
-    await knex.transaction(async trx => {
-      const runner = require(migration.path).default
+    const runner = require(migration.path).default
+    const adapter = knex[runner.databaseName]
+    await adapter.transaction(async trx => {
       if(direction === 'up') {
         await runner.up(trx)
         await _recordMigration(migration.name, trx)
@@ -101,18 +110,19 @@ const _removeMigration = (migration, trx) => {
 }
 
 const _filterScripts = async (scripts, direction) => {
-  if(direction === 'down') {
-    return await Promise.filter(scripts.reverse(), async script => await _hasScriptBeenRun(script.name))
-  } else {
-    return await Promise.filter(scripts, async script => await _hasScriptBeenRun(script.name) === false)
-  }
+  const ordered = direction === 'up' ? scripts : scripts.reverse()
+  return await Promise.filter(ordered, async script => {
+    const analytics = await _hasScriptBeenRun(script.name, knex.analytics) === (direction !== 'up')
+    const maha = await _hasScriptBeenRun(script.name, knex.maha) === (direction !== 'up')
+    return analytics && maha
+  })
 }
 
 const _loadData = async (type) => {
   const appPaths = _getAppPaths()
   const fixtures = _getFixtures(appPaths, type)
   await Promise.mapSeries(fixtures, async fixture => {
-    await knex.transaction(async trx => {
+    await knex.maha.transaction(async trx => {
       _log(`run ${fixture.name}`)
       await trx.raw('set session_replication_role = replica')
       const creator = require(fixture.path).default
@@ -156,10 +166,10 @@ const _getAppPaths = () => {
   return apps.map(app => path.resolve(__dirname,'..','..','..','apps', app))
 }
 
-const _getTables = async (constraints) => {
-  const tables = await knex.raw('select tablename from pg_catalog.pg_tables where schemaname=\'public\' order by tablename')
+const _getTables = async (constraints, adapter) => {
+  const tables = await adapter.raw('select tablename from pg_catalog.pg_tables where schemaname=\'public\' order by tablename')
   return await Promise.mapSeries(tables.rows, async(table) => {
-    const fields = await knex.raw(`select * from information_schema.columns where table_name='${table.tablename}'`)
+    const fields = await adapter.raw(`select * from information_schema.columns where table_name='${table.tablename}'`)
     return {
       name: table.tablename,
       fields: fields.rows.map(field => ({
@@ -172,16 +182,16 @@ const _getTables = async (constraints) => {
   })
 }
 
-const _getViews = async () => {
-  const views = await knex.raw('select * from information_schema.views where table_schema=\'public\' order by table_name')
+const _getViews = async (adapter) => {
+  const views = await adapter.raw('select * from information_schema.views where table_schema=\'public\' order by table_name')
   return views.rows.map((view) => ({
     name: view.table_name,
     definition: view.view_definition.replace(/[\s\t]{2,}/g, '\n      ').toLowerCase()
   }))
 }
 
-const _getConstraints = async () => {
-  const constraints = await knex.raw('SELECT tc.constraint_name, tc.constraint_type, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name  FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema')
+const _getConstraints = async (adapter) => {
+  const constraints = await adapter.raw('SELECT tc.constraint_name, tc.constraint_type, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name  FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema')
   return constraints.rows.reduce((constraints, constraint) => ({
     ...constraints,
     primary: (constraint.constraint_type === 'PRIMARY KEY') ? [

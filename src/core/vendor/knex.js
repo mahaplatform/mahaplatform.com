@@ -5,11 +5,15 @@ const getPool = (env) => ({
   max: (env === 'test') ? 1 : 30
 })
 
-const knex = new Knex({
+const knex = (connection) => new Knex({
   client: 'postgresql',
-  connection: process.env.DATABASE_URL,
+  connection,
   useNullAsDefault: true,
   pool: getPool(process.env.NODE_ENV)
 })
 
-export default knex
+export const maha = knex(process.env.DATABASE_URL)
+
+export const analytics = knex(process.env.ANALYTICS_URL)
+
+export default maha

@@ -6,15 +6,25 @@ import fetchOrCreate from './fetch_or_create'
 import './validations/unique_validation'
 import filterFetch from './filter_fetch'
 import './validations/time_validation'
-import knex from '../../vendor/knex'
+import * as knex from '../../vendor/knex'
 import Bookshelf from 'bookshelf'
 
-const bookshelf = Bookshelf(knex)
+const creator = (knex) => {
 
-bookshelf.plugin('virtuals')
+  const bookshelf = Bookshelf(knex)
 
-bookshelf.plugin(filterFetch)
+  bookshelf.plugin('virtuals')
 
-bookshelf.plugin(fetchOrCreate)
+  bookshelf.plugin(filterFetch)
 
-export default bookshelf
+  bookshelf.plugin(fetchOrCreate)
+
+  return bookshelf
+
+}
+
+export const maha = creator(knex.maha)
+
+export const analytics = creator(knex.analytics)
+
+export default maha

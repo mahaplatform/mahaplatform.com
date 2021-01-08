@@ -1,5 +1,5 @@
 import registry from '../utils/registry'
-import bookshelf from '../lib/bookshelf'
+import * as bookshelf from '../lib/bookshelf'
 import Checkit from  'checkit'
 import _ from 'lodash'
 
@@ -7,9 +7,11 @@ class Model {
 
   constructor(options) {
 
-    const model = bookshelf.Model.extend({
+    const model = bookshelf[options.databaseName].Model.extend({
 
       hasTimestamps: options.hasTimestamps !== false,
+
+      belongsToTeam: options.databaseName === 'maha' && options.belongsToTeam !== false,
 
       tableName: '',
 
@@ -22,18 +24,18 @@ class Model {
       },
 
       fetch: function(fetchOptions = {}) {
-        return bookshelf.Model.prototype.fetch.call(this, mergeOptions(fetchOptions, options))
+        return bookshelf[options.databaseName].Model.prototype.fetch.call(this, mergeOptions(fetchOptions, options))
       },
 
       fetchAll: function(fetchOptions = {}) {
-        return bookshelf.Model.prototype.fetchAll.call(this, mergeOptions(fetchOptions, options))
+        return bookshelf[options.databaseName].Model.prototype.fetchAll.call(this, mergeOptions(fetchOptions, options))
       },
 
       validateSave: function(model, attrs, saveOptions) {
         if(saveOptions.skipValidation) return true
         const rules = (this.belongsToTeam !== false) ? {
           ...(saveOptions.withRules || this.rules),
-          ...(options.belongsToTeam !== false ? { team_id: 'required' } : {})
+          ...(this.belongsToTeam !== false ? { team_id: 'required' } : {})
         } : {}
         return new Checkit(rules).run(this.attributes, {
           tableName: this.tableName
