@@ -7,6 +7,8 @@ const Region = new Model({
 
   tableName: 'regions',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

@@ -7,6 +7,8 @@ const City = new Model({
 
   tableName: 'cities',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

@@ -8,6 +8,7 @@ const CreateRaw = {
       table.enum('status', ['bad','enriched','processed'], { useNative: true, enumName: 'raw_statuses' })
       table.jsonb('data')
       table.jsonb('errors')
+      table.timestamps()
     })
   },
 

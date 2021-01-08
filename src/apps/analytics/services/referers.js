@@ -1,23 +1,27 @@
 import Referer from '@apps/analytics/models/referer'
+import { getDomain } from './domains'
+import URL from 'url'
 
-export const getReferer = async(req, { raw }) => {
+export const getReferer = async(req, { data }) => {
 
   const referer = await Referer.query(qb => {
-    qb.where('url', raw.get('page_referrer'))
+    qb.where('url', data.page_referrer)
   }).fetch({
     transacting: req.trx
   })
 
   if(referer) return referer
 
+  const url = URL.parse(data.page_referrer)
+
+  const domain = await getDomain(req, {
+    name: url.hostname
+  })
+
   return await Referer.forge({
-    url: raw.get('page_referrer'),
-    urlscheme: raw.get('refr_urlscheme'),
-    urlhost: raw.get('refr_urlhost'),
-    urlport: raw.get('refr_urlport'),
-    urlpath: raw.get('refr_urlpath'),
-    urlquery: raw.get('refr_urlquery'),
-    urlfragment: raw.get('refr_urlfragment')
+    domain_id: domain.get('id'),
+    url: data.page_referrer,
+    path: url.path
   }).save(null, {
     transacting: req.trx
   })

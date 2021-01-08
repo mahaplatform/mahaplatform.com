@@ -8,7 +8,17 @@ const schema = {
       table.string('platform', 255)
     })
 
+    await knex.schema.createTable('campaigns', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('cities', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('contents', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -17,6 +27,38 @@ const schema = {
       table.increments('id').primary()
       table.string('code', 255)
       table.string('text', 255)
+    })
+
+    await knex.schema.createTable('domains', (table) => {
+      table.increments('id').primary()
+      table.string('name', 255)
+      table.name('domain_catalog')
+      table.name('domain_schema')
+      table.name('domain_name')
+      table.string('data_type', null)
+      table.integer('character_maximum_length')
+      table.integer('character_octet_length')
+      table.name('character_set_catalog')
+      table.name('character_set_schema')
+      table.name('character_set_name')
+      table.name('collation_catalog')
+      table.name('collation_schema')
+      table.name('collation_name')
+      table.integer('numeric_precision')
+      table.integer('numeric_precision_radix')
+      table.integer('numeric_scale')
+      table.integer('datetime_precision')
+      table.string('interval_type', null)
+      table.integer('interval_precision')
+      table.string('domain_default', null)
+      table.name('udt_catalog')
+      table.name('udt_schema')
+      table.name('udt_name')
+      table.name('scope_catalog')
+      table.name('scope_schema')
+      table.name('scope_name')
+      table.integer('maximum_cardinality')
+      table.name('dtd_identifier')
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -32,8 +74,6 @@ const schema = {
       table.integer('page_id').unsigned()
       table.jsonb('context')
       table.timestamp('tstamp')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -48,20 +88,22 @@ const schema = {
       table.string('address', 255)
     })
 
+    await knex.schema.createTable('mediums', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('metro_codes', (table) => {
       table.increments('id').primary()
-      table.string('code', 255)
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('pages', (table) => {
       table.increments('id').primary()
+      table.integer('domain_id').unsigned()
       table.string('title', 255)
       table.string('url', 255)
-      table.USER-DEFINED('scheme')
-      table.string('host', 255)
       table.string('path', 255)
-      table.string('query', 255)
-      table.string('fragment', 255)
     })
 
     await knex.schema.createTable('postal_codes', (table) => {
@@ -74,16 +116,15 @@ const schema = {
       table.USER-DEFINED('status')
       table.jsonb('data')
       table.jsonb('errors')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('referers', (table) => {
       table.increments('id').primary()
+      table.integer('domain_id').unsigned()
       table.string('url', 255)
-      table.USER-DEFINED('scheme')
-      table.string('host', 255)
       table.string('path', 255)
-      table.string('query', 255)
-      table.string('fragment', 255)
     })
 
     await knex.schema.createTable('regions', (table) => {
@@ -102,10 +143,23 @@ const schema = {
       table.integer('app_id').unsigned()
       table.integer('referer_id').unsigned()
       table.integer('ipaddress_id').unsigned()
+      table.integer('source_id').unsigned()
+      table.integer('medium_id').unsigned()
+      table.integer('campaign_id').unsigned()
+      table.integer('term_id').unsigned()
+      table.integer('content_id').unsigned()
       table.string('domain_sessionid', 255)
       table.integer('domain_sessionidx')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('sources', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('terms', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('users', (table) => {
@@ -113,10 +167,12 @@ const schema = {
       table.string('user_id', 255)
       table.string('domain_userid', 255)
       table.string('network_userid', 255)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
+
+    await knex.schema.table('referers', table => {
+      table.foreign('domain_id').references('domains.id')
+    })
 
     await knex.schema.table('ipaddresses', table => {
       table.foreign('city_id').references('cities.id')
@@ -131,6 +187,15 @@ const schema = {
       table.foreign('app_id').references('apps.id')
       table.foreign('referer_id').references('referers.id')
       table.foreign('ipaddress_id').references('ipaddresses.id')
+      table.foreign('source_id').references('sources.id')
+      table.foreign('medium_id').references('mediums.id')
+      table.foreign('campaign_id').references('campaigns.id')
+      table.foreign('term_id').references('terms.id')
+      table.foreign('content_id').references('contents.id')
+    })
+
+    await knex.schema.table('pages', table => {
+      table.foreign('domain_id').references('domains.id')
     })
 
     await knex.schema.table('events', table => {

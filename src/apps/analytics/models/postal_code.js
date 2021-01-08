@@ -7,6 +7,8 @@ const PostalCode = new Model({
 
   tableName: 'postal_codes',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

@@ -1,12 +1,12 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 import { createBad, createGood } from '@apps/analytics/services/messages'
-import knex from '@core/vendor/knex'
+import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
 
 const parseMessage = (msg) => {
   const raw = msg.rawMessage.toString('hex').substr(52)
-  return JSON.parse(Buffer.from(raw, 'hex').toString('utf8'))
+  return Buffer.from(raw, 'hex').toString('utf8')
 }
 
 const badevents = new nsq.Reader('BadEnrichedEvents', 'BadEnrichedEvents', {
@@ -19,11 +19,19 @@ badevents.on('message', async msg => {
 
   knex.analytics.transaction(async trx => {
 
-    await createBad({ trx }, {
-      message: parseMessage(msg)
-    })
+    try {
 
-    msg.finish()
+      await createBad({ trx }, {
+        message: JSON.parse(parseMessage(msg))
+      })
+
+      trx.commit()
+
+      msg.finish()
+
+    } catch(e) {
+      trx.rollback()
+    }
 
   }).catch(err => {})
 
@@ -39,11 +47,20 @@ goodevents.on('message', async msg => {
 
   knex.analytics.transaction(async trx => {
 
-    await createGood({ trx }, {
-      message: parseMessage(msg)
-    })
+    try {
 
-    msg.finish()
+      await createGood({ trx }, {
+        message: parseMessage(msg)
+      })
+
+      trx.commit()
+
+      msg.finish()
+
+    } catch(e) {
+      console.log(e)
+      trx.rollback()
+    }
 
   }).catch(err => {})
 

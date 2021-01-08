@@ -7,6 +7,8 @@ const Country = new Model({
 
   tableName: 'countries',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

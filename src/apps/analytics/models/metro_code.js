@@ -7,6 +7,8 @@ const MetroCode = new Model({
 
   tableName: 'metro_codes',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

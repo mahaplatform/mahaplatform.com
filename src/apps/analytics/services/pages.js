@@ -1,23 +1,28 @@
 import Page from '@apps/analytics/models/page'
+import { getDomain } from './domains'
+import URL from 'url'
 
-export const createPage = async(req, params) => {
+export const getPage = async(req, data) => {
 
   const page = await Page.query(qb => {
-    qb.where('url', params.url)
+    qb.where('url', data.url)
   }).fetch({
     transacting: req.trx
   })
 
   if(page) return page
 
+  const url = URL.parse(data.url)
+
+  const domain = await getDomain(req, {
+    name: url.hostname
+  })
+
   return await Page.forge({
-    url: params.url,
-    urlscheme: params.urlscheme,
-    urlhost: params.urlhost,
-    urlport: params.urlport,
-    urlpath: params.urlpath,
-    urlquery: params.urlquery,
-    urlfragment: params.urlfragment
+    domain_id: domain.get('id'),
+    title: data.title,
+    url: data.url,
+    path: url.path
   }).save(null, {
     transacting: req.trx
   })

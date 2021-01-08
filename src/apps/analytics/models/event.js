@@ -8,6 +8,8 @@ const Event = new Model({
 
   tableName: 'events',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

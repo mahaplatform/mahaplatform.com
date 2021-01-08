@@ -10,7 +10,7 @@
     "node": ">=14.15.1"
   },
   "scripts": {
-    "analytics": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/analytics.js",
+    "analytics": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/process.js",
     "assets": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/assets.js",
     "bootstrap": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/bootstrap.js",
     "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",

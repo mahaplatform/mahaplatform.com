@@ -8,7 +8,6 @@ const CreateUser = {
       table.string('user_id')
       table.string('domain_userid')
       table.string('network_userid')
-      table.timestamps()
     })
   },
 

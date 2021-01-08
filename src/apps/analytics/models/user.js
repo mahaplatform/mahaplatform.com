@@ -7,7 +7,7 @@ const User = new Model({
 
   tableName: 'users',
 
-  belongsToTeam: false,
+  hasTimestamps: false,
 
   rules: {},
 

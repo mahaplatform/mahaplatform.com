@@ -15,7 +15,6 @@ const CreateEvent = {
       table.foreign('page_id').references('pages.id')
       table.jsonb('context')
       table.timestamp('tstamp')
-      table.timestamps()
     })
   },
 

@@ -10,6 +10,8 @@ const Session = new Model({
 
   tableName: 'sessions',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

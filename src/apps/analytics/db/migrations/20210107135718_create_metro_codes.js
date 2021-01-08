@@ -5,7 +5,7 @@ const CreateMetroCode = {
   up: async (knex) => {
     await knex.schema.createTable('metro_codes', (table) => {
       table.increments('id').primary()
-      table.string('code')
+      table.string('text')
     })
   },
 
