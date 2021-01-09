@@ -273,6 +273,13 @@ const processor = async () => {
     })
   })
 
+  utils.registerTask(shipit, 'maxmind', () => {
+    return shipit.remote('NODE_ENV=production node ./server.js', {
+      cwd: `${currentDir}/platform`,
+      roles: ['analyticsserver']
+    })
+  })
+
   utils.registerTask(shipit, 'sync:stage', () => {
     const commands = 'pg_dump -h localhost -U maha maha | psql -U maha staging'
     return shipit.remote(commands.join(' && '), {

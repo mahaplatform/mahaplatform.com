@@ -47,4 +47,5 @@ export const updateDatabase = async () => {
     encoding: 'binary'
   })
 
+  fs.unlinkSync(path.join('maxmind.tar.gz'))
 }

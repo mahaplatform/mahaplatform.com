@@ -20,6 +20,7 @@
     "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",
     "g": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/generate/index.js",
     "knex": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/knex.js",
+    "maxmind": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/maxmind.js",
     "shipit": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js",
     "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js",
