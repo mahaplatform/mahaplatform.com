@@ -1,12 +1,18 @@
+import Manufacturer from '@apps/analytics/models/manufacturer'
 import Campaign from '@apps/analytics/models/campaign'
 import Session from '@apps/analytics/models/session'
 import Content from '@apps/analytics/models/content'
+import Browser from '@apps/analytics/models/browser'
+import Version from '@apps/analytics/models/version'
 import Source from '@apps/analytics/models/source'
 import Medium from '@apps/analytics/models/medium'
+import Device from '@apps/analytics/models/device'
 import Term from '@apps/analytics/models/term'
 import App from '@apps/analytics/models/app'
 import { getIPAddress } from './ipaddresses'
+import OS from '@apps/analytics/models/os'
 import { getReferer } from './referers'
+import UAParser from 'ua-parser-js'
 
 export const getSession = async(req, { data, domain_user }) => {
 
@@ -25,6 +31,44 @@ export const getSession = async(req, { data, domain_user }) => {
   })
 
   if(session) return session
+
+  const ua = UAParser(data.useragent)
+
+  const device = await Device.fetchOrCreate({
+    text: ua.device.type || 'computer'
+  },{
+    transacting: req.trx
+  })
+
+  const manufacturer = ua.device.vendor ? await Manufacturer.fetchOrCreate({
+    text: ua.device.vendor
+  },{
+    transacting: req.trx
+  }) : null
+
+  const os = await OS.fetchOrCreate({
+    text: ua.os.name
+  },{
+    transacting: req.trx
+  })
+
+  const os_version = await Version.fetchOrCreate({
+    text: ua.os.version
+  },{
+    transacting: req.trx
+  })
+
+  const browser = await Browser.fetchOrCreate({
+    text: ua.browser.name
+  },{
+    transacting: req.trx
+  })
+
+  const browser_version = await Version.fetchOrCreate({
+    text: ua.browser.major
+  },{
+    transacting: req.trx
+  })
 
   const referer = data.page_referrer ? await getReferer(req, {
     data
@@ -67,6 +111,12 @@ export const getSession = async(req, { data, domain_user }) => {
   return await Session.forge({
     domain_user_id: domain_user.get('id'),
     app_id: app.get('id'),
+    device_id: device.get('id'),
+    manufacturer_id: manufacturer ? manufacturer.get('id') : null,
+    os_id: os.get('id'),
+    os_version_id: os_version.get('id'),
+    browser_id: browser.get('id'),
+    browser_version_id: browser_version.get('id'),
     referer_id: referer ? referer.get('id') : null,
     source_id: source ? source.get('id') : null,
     medium_id: medium ? medium.get('id') : null,

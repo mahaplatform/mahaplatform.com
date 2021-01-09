@@ -52,6 +52,8 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
+      table.increments('id').primary()
+      table.string('name', 255)
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -79,8 +81,6 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
-      table.increments('id').primary()
-      table.string('name', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -89,14 +89,14 @@ const schema = {
     })
 
     await knex.schema.createTable('events', (table) => {
-      table.timestamp('tstamp')
+      table.increments('id').primary()
       table.integer('raw_id').unsigned()
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.increments('id').primary()
-      table.jsonb('data')
       table.string('event_id', 255)
+      table.jsonb('data')
+      table.timestamp('tstamp')
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -128,12 +128,6 @@ const schema = {
 
     await knex.schema.createTable('network_users', (table) => {
       table.increments('id').primary()
-      table.integer('device_id').unsigned()
-      table.integer('manufacturer_id').unsigned()
-      table.integer('os_id').unsigned()
-      table.integer('os_version_id').unsigned()
-      table.integer('browser_id').unsigned()
-      table.integer('browser_version_id').unsigned()
       table.string('network_userid', 255)
     })
 
@@ -185,6 +179,12 @@ const schema = {
       table.increments('id').primary()
       table.integer('domain_user_id').unsigned()
       table.integer('app_id').unsigned()
+      table.integer('device_id').unsigned()
+      table.integer('manufacturer_id').unsigned()
+      table.integer('os_id').unsigned()
+      table.integer('os_version_id').unsigned()
+      table.integer('browser_id').unsigned()
+      table.integer('browser_version_id').unsigned()
       table.integer('referer_id').unsigned()
       table.integer('ipaddress_id').unsigned()
       table.integer('source_id').unsigned()
@@ -211,20 +211,11 @@ const schema = {
     })
 
 
-    await knex.schema.table('network_users', table => {
-      table.foreign('device_id').references('devices.id')
-      table.foreign('manufacturer_id').references('manufacturers.id')
-      table.foreign('os_id').references('oses.id')
-      table.foreign('os_version_id').references('versions.id')
-      table.foreign('browser_id').references('browsers.id')
-      table.foreign('browser_version_id').references('versions.id')
-    })
-
-    await knex.schema.table('domain_users', table => {
+    await knex.schema.table('contacts', table => {
       table.foreign('network_user_id').references('network_users.id')
     })
 
-    await knex.schema.table('contacts', table => {
+    await knex.schema.table('domain_users', table => {
       table.foreign('network_user_id').references('network_users.id')
     })
 
@@ -243,6 +234,12 @@ const schema = {
     await knex.schema.table('sessions', table => {
       table.foreign('domain_user_id').references('domain_users.id')
       table.foreign('app_id').references('apps.id')
+      table.foreign('device_id').references('devices.id')
+      table.foreign('manufacturer_id').references('manufacturers.id')
+      table.foreign('os_id').references('oses.id')
+      table.foreign('os_version_id').references('versions.id')
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
       table.foreign('referer_id').references('referers.id')
       table.foreign('ipaddress_id').references('ipaddresses.id')
       table.foreign('source_id').references('sources.id')

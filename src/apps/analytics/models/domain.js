@@ -1,4 +1,6 @@
 import Model from '@core/objects/model'
+import Referer from './referer'
+import Page from './page'
 
 const Domain = new Model({
 
@@ -10,7 +12,15 @@ const Domain = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  pages() {
+    return this.hasMany(Page, 'domain_id')
+  },
+
+  referers() {
+    return this.hasMany(Referer, 'domain_id')
+  }
 
 })
 

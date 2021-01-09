@@ -1,4 +1,5 @@
 import Model from '@core/objects/model'
+import Session from './session'
 
 const Source = new Model({
 
@@ -10,7 +11,11 @@ const Source = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  sessions() {
+    return this.hasMany(Session, 'app_id')
+  }
 
 })
 
