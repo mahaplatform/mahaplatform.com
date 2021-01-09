@@ -1,5 +1,5 @@
+import Domain from '@apps/analytics/models/domain'
 import Page from '@apps/analytics/models/page'
-import { getDomain } from './domains'
 import URL from 'url'
 
 export const getPage = async(req, data) => {
@@ -14,8 +14,10 @@ export const getPage = async(req, data) => {
 
   const url = URL.parse(data.url)
 
-  const domain = await getDomain(req, {
+  const domain = await Domain.fetchOrCreate({
     name: url.hostname
+  }, {
+    transacting: req.trx
   })
 
   return await Page.forge({

@@ -1,7 +1,8 @@
+import { getNetworkUser } from '../network_users'
+import { getDomainUser } from '../domain_users'
 import { getSession } from '../sessions'
 import { createEvent } from '../events'
 import Raw from '../../models/raw'
-import { getUser } from '../users'
 
 export const processRaw = async(req, { id }) => {
 
@@ -9,12 +10,17 @@ export const processRaw = async(req, { id }) => {
     transacting: req.trx
   })
 
-  const user = await getUser(req, {
+  const network_user = await getNetworkUser(req, {
+    data: raw.get('data')
+  })
+
+  const domain_user = await getDomainUser(req, {
+    network_user,
     data: raw.get('data')
   })
 
   const session = await getSession(req, {
-    user,
+    domain_user,
     data: raw.get('data')
   })
 

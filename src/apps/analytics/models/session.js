@@ -1,7 +1,7 @@
 import Model from '@core/objects/model'
+import DomainUser from './domain_user'
 import IPAddress from './ipaddress'
 import Referer from './referer'
-import User from './user'
 import App from './app'
 
 const Session = new Model({
@@ -20,6 +20,10 @@ const Session = new Model({
     return this.belongsTo(App, 'app_id')
   },
 
+  domain_user() {
+    return this.belongsTo(DomainUser, 'domain_user_id')
+  },
+
   events() {
     return this.hasMany(Event, 'session_id')
   },
@@ -30,10 +34,6 @@ const Session = new Model({
 
   referer() {
     return this.belongsTo(Referer, 'referer_id')
-  },
-
-  user() {
-    return this.belongsTo(User, 'user_id')
   }
 
 })

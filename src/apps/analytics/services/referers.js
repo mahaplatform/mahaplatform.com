@@ -1,5 +1,5 @@
 import Referer from '@apps/analytics/models/referer'
-import { getDomain } from './domains'
+import Domain from '@apps/analytics/models/domain'
 import URL from 'url'
 
 export const getReferer = async(req, { data }) => {
@@ -14,8 +14,10 @@ export const getReferer = async(req, { data }) => {
 
   const url = URL.parse(data.page_referrer)
 
-  const domain = await getDomain(req, {
+  const domain = await Domain.fetchOrCreate({
     name: url.hostname
+  }, {
+    transacting: req.trx
   })
 
   return await Referer.forge({

@@ -5,8 +5,8 @@ const CreateSession = {
   up: async (knex) => {
     await knex.schema.createTable('sessions', (table) => {
       table.increments('id').primary()
-      table.integer('user_id').unsigned()
-      table.foreign('user_id').references('users.id')
+      table.integer('domain_user_id').unsigned()
+      table.foreign('domain_user_id').references('domain_users.id')
       table.integer('app_id').unsigned()
       table.foreign('app_id').references('apps.id')
       table.integer('referer_id').unsigned()
@@ -24,7 +24,6 @@ const CreateSession = {
       table.integer('content_id').unsigned()
       table.foreign('content_id').references('contents.id')
       table.string('domain_sessionid')
-      table.integer('domain_sessionidx')
     })
   },
 

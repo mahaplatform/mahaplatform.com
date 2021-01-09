@@ -13,7 +13,8 @@ const CreateEvent = {
       table.foreign('event_type_id').references('event_types.id')
       table.integer('page_id').unsigned()
       table.foreign('page_id').references('pages.id')
-      table.jsonb('context')
+      table.string('event_id')
+      table.jsonb('data')
       table.timestamp('tstamp')
     })
   },

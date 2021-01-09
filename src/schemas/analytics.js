@@ -8,6 +8,11 @@ const schema = {
       table.string('platform', 255)
     })
 
+    await knex.schema.createTable('browsers', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('campaigns', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
@@ -16,6 +21,12 @@ const schema = {
     await knex.schema.createTable('cities', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
+    })
+
+    await knex.schema.createTable('contacts', (table) => {
+      table.increments('id').primary()
+      table.integer('network_user_id').unsigned()
+      table.integer('contact_id')
     })
 
     await knex.schema.createTable('contents', (table) => {
@@ -29,9 +40,18 @@ const schema = {
       table.string('text', 255)
     })
 
-    await knex.schema.createTable('domains', (table) => {
+    await knex.schema.createTable('devices', (table) => {
       table.increments('id').primary()
-      table.string('name', 255)
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('domain_users', (table) => {
+      table.increments('id').primary()
+      table.integer('network_user_id').unsigned()
+      table.string('domain_userid', 255)
+    })
+
+    await knex.schema.createTable('domains', (table) => {
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -59,6 +79,8 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
+      table.increments('id').primary()
+      table.string('name', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -67,13 +89,14 @@ const schema = {
     })
 
     await knex.schema.createTable('events', (table) => {
-      table.increments('id').primary()
+      table.timestamp('tstamp')
       table.integer('raw_id').unsigned()
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.jsonb('context')
-      table.timestamp('tstamp')
+      table.increments('id').primary()
+      table.jsonb('data')
+      table.string('event_id', 255)
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -88,12 +111,33 @@ const schema = {
       table.string('address', 255)
     })
 
+    await knex.schema.createTable('manufacturers', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('mediums', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
 
     await knex.schema.createTable('metro_codes', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('network_users', (table) => {
+      table.increments('id').primary()
+      table.integer('device_id').unsigned()
+      table.integer('manufacturer_id').unsigned()
+      table.integer('os_id').unsigned()
+      table.integer('os_version_id').unsigned()
+      table.integer('browser_id').unsigned()
+      table.integer('browser_version_id').unsigned()
+      table.string('network_userid', 255)
+    })
+
+    await knex.schema.createTable('oses', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -139,7 +183,7 @@ const schema = {
 
     await knex.schema.createTable('sessions', (table) => {
       table.increments('id').primary()
-      table.integer('user_id').unsigned()
+      table.integer('domain_user_id').unsigned()
       table.integer('app_id').unsigned()
       table.integer('referer_id').unsigned()
       table.integer('ipaddress_id').unsigned()
@@ -149,7 +193,6 @@ const schema = {
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
       table.string('domain_sessionid', 255)
-      table.integer('domain_sessionidx')
     })
 
     await knex.schema.createTable('sources', (table) => {
@@ -162,13 +205,28 @@ const schema = {
       table.string('text', 255)
     })
 
-    await knex.schema.createTable('users', (table) => {
+    await knex.schema.createTable('versions', (table) => {
       table.increments('id').primary()
-      table.string('user_id', 255)
-      table.string('domain_userid', 255)
-      table.string('network_userid', 255)
+      table.string('text', 255)
     })
 
+
+    await knex.schema.table('network_users', table => {
+      table.foreign('device_id').references('devices.id')
+      table.foreign('manufacturer_id').references('manufacturers.id')
+      table.foreign('os_id').references('oses.id')
+      table.foreign('os_version_id').references('versions.id')
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
+    })
+
+    await knex.schema.table('domain_users', table => {
+      table.foreign('network_user_id').references('network_users.id')
+    })
+
+    await knex.schema.table('contacts', table => {
+      table.foreign('network_user_id').references('network_users.id')
+    })
 
     await knex.schema.table('referers', table => {
       table.foreign('domain_id').references('domains.id')
@@ -183,7 +241,7 @@ const schema = {
     })
 
     await knex.schema.table('sessions', table => {
-      table.foreign('user_id').references('users.id')
+      table.foreign('domain_user_id').references('domain_users.id')
       table.foreign('app_id').references('apps.id')
       table.foreign('referer_id').references('referers.id')
       table.foreign('ipaddress_id').references('ipaddresses.id')
@@ -205,6 +263,33 @@ const schema = {
       table.foreign('page_id').references('pages.id')
     })
 
+
+    await knex.raw(`
+      create view domain_user_details AS
+      with first_page as (
+      select distinct on (sessions.domain_user_id) sessions.domain_user_id,
+      events.page_id
+      from ((events
+      join sessions on ((sessions.id = events.session_id)))
+      join event_types on ((event_types.id = events.event_type_id)))
+      where ((event_types.type)::text = 'page_view'::text)
+      order by sessions.domain_user_id, events.tstamp
+      ), last_page as (
+      select distinct on (sessions.domain_user_id) sessions.domain_user_id,
+      events.page_id
+      from ((events
+      join sessions on ((sessions.id = events.session_id)))
+      join event_types on ((event_types.id = events.event_type_id)))
+      where ((event_types.type)::text = 'page_view'::text)
+      order by sessions.domain_user_id, events.tstamp desc
+      )
+      select domain_users.id as domain_domain_user_id,
+      first_page.page_id as first_page_id,
+      last_page.page_id as last_page_id
+      from ((domain_users
+      join first_page on ((first_page.domain_user_id = domain_users.id)))
+      join last_page on ((last_page.domain_user_id = domain_users.id)));
+    `)
 
     await knex.raw(`
       create view session_details AS
@@ -257,33 +342,6 @@ const schema = {
       join last_event on ((last_event.session_id = sessions.id)))
       join first_page on ((first_page.session_id = sessions.id)))
       join last_page on ((last_page.session_id = sessions.id)));
-    `)
-
-    await knex.raw(`
-      create view user_details AS
-      with first_page as (
-      select distinct on (sessions.user_id) sessions.user_id,
-      events.page_id
-      from ((events
-      join sessions on ((sessions.id = events.session_id)))
-      join event_types on ((event_types.id = events.event_type_id)))
-      where ((event_types.type)::text = 'page_view'::text)
-      order by sessions.user_id, events.tstamp
-      ), last_page as (
-      select distinct on (sessions.user_id) sessions.user_id,
-      events.page_id
-      from ((events
-      join sessions on ((sessions.id = events.session_id)))
-      join event_types on ((event_types.id = events.event_type_id)))
-      where ((event_types.type)::text = 'page_view'::text)
-      order by sessions.user_id, events.tstamp desc
-      )
-      select users.id as user_id,
-      first_page.page_id as first_page_id,
-      last_page.page_id as last_page_id
-      from ((users
-      join first_page on ((first_page.user_id = users.id)))
-      join last_page on ((last_page.user_id = users.id)));
     `)
   }
 

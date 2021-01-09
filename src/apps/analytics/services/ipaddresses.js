@@ -1,10 +1,10 @@
+import PostalCode from '@apps/analytics/models/postal_code'
+import MetroCode from '@apps/analytics/models/metro_code'
 import IPAddress from '@apps/analytics/models/ipaddress'
-import { getPostalCode } from './postal_codes'
-import { getMetroCode } from './metro_codes'
+import Country from '@apps/analytics/models/country'
+import Region from '@apps/analytics/models/region'
+import City from '@apps/analytics/models/city'
 import { lookupIPAddress } from './maxmind'
-import { getCountry } from './countries'
-import { getRegion } from './regions'
-import { getCity } from './cities'
 
 export const getIPAddress = async(req, { data }) => {
 
@@ -20,26 +20,36 @@ export const getIPAddress = async(req, { data }) => {
     ipaddress: data.user_ipaddress
   })
 
-  const city = await getCity(req, {
+  const city = await City.fetchOrCreate({
     text: geo.city
+  }, {
+    transacting: req.trx
   })
 
-  const region = await getRegion(req, {
+  const region = await Region.fetchOrCreate({
     code: geo.region_code,
     text: geo.region
+  }, {
+    transacting: req.trx
   })
 
-  const country = await getCountry(req, {
+  const country = await Country.fetchOrCreate({
     code: geo.country_code,
     text: geo.country
+  }, {
+    transacting: req.trx
   })
 
-  const metro_code = await getMetroCode(req, {
+  const metro_code = await MetroCode.fetchOrCreate({
     text: geo.metro_code
+  }, {
+    transacting: req.trx
   })
 
-  const postal_code = await getPostalCode(req, {
+  const postal_code = await PostalCode.fetchOrCreate({
     text: geo.postal_code
+  }, {
+    transacting: req.trx
   })
 
   return await IPAddress.forge({
