@@ -1,11 +1,11 @@
 import Model from '@core/objects/model'
 import Event from './event'
 
-const Referer = new Model({
+const Network = new Model({
 
   databaseName: 'analytics',
 
-  tableName: 'referers',
+  tableName: 'networks',
 
   hasTimestamps: false,
 
@@ -13,11 +13,10 @@ const Referer = new Model({
 
   virtuals: {},
 
-
   events() {
-    return this.hasMany(Event, 'referer_id')
+    return this.hasMany(Event, 'page_id')
   }
 
 })
 
-export default Referer
+export default Network

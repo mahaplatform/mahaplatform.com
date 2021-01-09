@@ -7,15 +7,15 @@ export const lookupIPAddress = async (req, { ipaddress }) => {
     maxmind.open(path.join('maxmind.mmdb')).then((lookup) => {
       const result = lookup.get(ipaddress)
       resolve({
-        city: result.city.names.en,
-        region: result.subdivisions[0].names.en,
-        region_code: result.subdivisions[0].iso_code,
-        country: result.country.names.en,
-        country_code: result.country.iso_code,
-        latitude: result.location.latitude,
-        longitude: result.location.longitude,
-        metro_code: result.location.metro_code,
-        postal_code: result.postal.code
+        city: result.city ? result.city.names.en : null,
+        region: result.subdivisions ? result.subdivisions[0].names.en : null,
+        region_code: result.subdivisions ? result.subdivisions[0].iso_code : null,
+        country: result.country ? result.country.names.en : null,
+        country_code: result.country ? result.country.iso_code : null,
+        latitude: result.location ? result.location.latitude : null,
+        longitude: result.location ? result.location.longitude : null,
+        metro_code: result.location ? result.location.metro_code : null,
+        postal_code: result.postal ? result.postal.code : null
       })
     })
   })

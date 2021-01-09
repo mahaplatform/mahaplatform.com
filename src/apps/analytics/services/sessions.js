@@ -46,29 +46,29 @@ export const getSession = async(req, { data, domain_user }) => {
     transacting: req.trx
   }) : null
 
-  const os = await OS.fetchOrCreate({
+  const os = ua.os.name ? await OS.fetchOrCreate({
     text: ua.os.name
   },{
     transacting: req.trx
-  })
+  }): null
 
-  const os_version = await Version.fetchOrCreate({
+  const os_version = ua.os.version ? await Version.fetchOrCreate({
     text: ua.os.version
   },{
     transacting: req.trx
-  })
+  }) : null
 
-  const browser = await Browser.fetchOrCreate({
+  const browser = ua.browser.name ? await Browser.fetchOrCreate({
     text: ua.browser.name
   },{
     transacting: req.trx
-  })
+  }): null
 
-  const browser_version = await Version.fetchOrCreate({
+  const browser_version = ua.browser.major ? await Version.fetchOrCreate({
     text: ua.browser.major
   },{
     transacting: req.trx
-  })
+  }) : null
 
   const referer = data.page_referrer ? await getReferer(req, {
     data
@@ -113,10 +113,10 @@ export const getSession = async(req, { data, domain_user }) => {
     app_id: app.get('id'),
     device_id: device.get('id'),
     manufacturer_id: manufacturer ? manufacturer.get('id') : null,
-    os_id: os.get('id'),
-    os_version_id: os_version.get('id'),
-    browser_id: browser.get('id'),
-    browser_version_id: browser_version.get('id'),
+    os_id: os ? os.get('id') : null,
+    os_version_id: os_version ? os_version.get('id') : null,
+    browser_id: browser ? browser.get('id') : null,
+    browser_version_id: browser_version ? browser_version.get('id') : null,
     referer_id: referer ? referer.get('id') : null,
     source_id: source ? source.get('id') : null,
     medium_id: medium ? medium.get('id') : null,

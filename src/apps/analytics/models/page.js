@@ -1,5 +1,4 @@
 import Model from '@core/objects/model'
-import Domain from './domain'
 import Event from './event'
 
 const Page = new Model({
@@ -13,10 +12,6 @@ const Page = new Model({
   rules: {},
 
   virtuals: {},
-
-  domain() {
-    return this.belongsTo(Domain, 'domain_id')
-  },
 
   events() {
     return this.hasMany(Event, 'page_id')

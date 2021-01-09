@@ -67,7 +67,7 @@ export const createGood = async(req, { message }) => {
 
   message = message.split('\t')
 
-  await Raw.forge({
+  return await Raw.forge({
     data: keys.reduce((event, key, index) => ({
       ...event,
       [key]: sanitize(message[index])

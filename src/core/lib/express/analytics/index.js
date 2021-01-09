@@ -9,10 +9,9 @@ router.use(cors({
   credentials: true
 }))
 
-router.use('/collect', (req, res) => res.status(200).send(true))
-
-router.use('/health', (req, res) => res.status(200).send(true))
-
-router.get('/mt.js', (req, res) => res.status(200).sendFile(path.resolve(__dirname,'mt.js')))
+router.get('/mt.js', (req, res) => {
+  res.set('Cache-Control', 'immutable,max-age=100000000,public')
+  res.status(200).sendFile(path.resolve(__dirname,'mt.js'))
+})
 
 export default router

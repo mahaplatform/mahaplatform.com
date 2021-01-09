@@ -20,45 +20,45 @@ export const getIPAddress = async(req, { data }) => {
     ipaddress: data.user_ipaddress
   })
 
-  const city = await City.fetchOrCreate({
+  const city = geo.city ? await City.fetchOrCreate({
     text: geo.city
   }, {
     transacting: req.trx
-  })
+  }) : null
 
-  const region = await Region.fetchOrCreate({
+  const region = geo.region ? await Region.fetchOrCreate({
     code: geo.region_code,
     text: geo.region
   }, {
     transacting: req.trx
-  })
+  }) : null
 
-  const country = await Country.fetchOrCreate({
+  const country = geo.country ? await Country.fetchOrCreate({
     code: geo.country_code,
     text: geo.country
   }, {
     transacting: req.trx
-  })
+  }) : null
 
-  const metro_code = await MetroCode.fetchOrCreate({
+  const metro_code = geo.metro_code ? await MetroCode.fetchOrCreate({
     text: geo.metro_code
   }, {
     transacting: req.trx
-  })
+  }) : null
 
-  const postal_code = await PostalCode.fetchOrCreate({
+  const postal_code = geo.postal_code ? await PostalCode.fetchOrCreate({
     text: geo.postal_code
   }, {
     transacting: req.trx
-  })
+  }) : null
 
   return await IPAddress.forge({
     address: data.user_ipaddress,
-    city_id: city.get('id'),
-    region_id: region.get('id'),
-    country_id: country.get('id'),
-    metro_code_id: metro_code.get('id'),
-    postal_code_id: postal_code.get('id'),
+    city_id: city ? city.get('id') : null,
+    region_id: region ? region.get('id') : null,
+    country_id: country ? country.get('id') : null,
+    metro_code_id: metro_code ? metro_code.get('id') : null,
+    postal_code_id: postal_code ? postal_code.get('id') : null,
     latitude: geo.latitude,
     longitude: geo.longitude
   }).save(null, {

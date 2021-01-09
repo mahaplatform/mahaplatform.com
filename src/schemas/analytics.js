@@ -2,6 +2,11 @@ const schema = {
 
   load: async (knex) => {
 
+    await knex.schema.createTable('actions', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('apps', (table) => {
       table.increments('id').primary()
       table.string('title', 255)
@@ -14,6 +19,11 @@ const schema = {
     })
 
     await knex.schema.createTable('campaigns', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('categories', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -52,8 +62,6 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
-      table.increments('id').primary()
-      table.string('name', 255)
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -81,6 +89,8 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
+      table.increments('id').primary()
+      table.string('name', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -94,9 +104,40 @@ const schema = {
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.string('event_id', 255)
+      table.integer('action_id').unsigned()
+      table.integer('network_id').unsigned()
+      table.integer('label_id').unsigned()
+      table.integer('property_id').unsigned()
+      table.integer('category_id').unsigned()
+      table.double precision('value')
+      table.decimal('tr_total', 8, 2)
+      table.decimal('tr_tax', 8, 2)
+      table.decimal('ti_price', 8, 2)
+      table.integer('ti_quantity')
+      table.integer('ti_currency')
+      table.integer('ti_price_base')
+      table.integer('base_currency')
+      table.integer('pp_xoffset_min')
+      table.integer('pp_xoffset_max')
+      table.integer('pp_yoffset_min')
+      table.integer('pp_yoffset_max')
       table.jsonb('data')
       table.timestamp('tstamp')
+      table.string('ti_orderid', 255)
+      table.string('event_id', 255)
+      table.string('target', 255)
+      table.string('ti_sku', 255)
+      table.string('tr_orderid', 255)
+      table.string('tr_affiliation', 255)
+      table.string('ti_name', 255)
+      table.string('ti_category', 255)
+      table.string('tr_city', 255)
+      table.string('tr_state', 255)
+      table.string('tr_country', 255)
+      table.string('tr_currency', 255)
+      table.string('tr_total_base', 255)
+      table.string('tr_tax_base', 255)
+      table.string('tr_shipping_base', 255)
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -109,6 +150,11 @@ const schema = {
       table.decimal('latitude', 10, 6)
       table.decimal('longitude', 10, 6)
       table.string('address', 255)
+    })
+
+    await knex.schema.createTable('labels', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('manufacturers', (table) => {
@@ -131,6 +177,11 @@ const schema = {
       table.string('network_userid', 255)
     })
 
+    await knex.schema.createTable('networks', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('oses', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
@@ -145,6 +196,11 @@ const schema = {
     })
 
     await knex.schema.createTable('postal_codes', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
+    await knex.schema.createTable('properties', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -258,6 +314,11 @@ const schema = {
       table.foreign('session_id').references('sessions.id')
       table.foreign('event_type_id').references('event_types.id')
       table.foreign('page_id').references('pages.id')
+      table.foreign('action_id').references('actions.id')
+      table.foreign('network_id').references('networks.id')
+      table.foreign('label_id').references('labels.id')
+      table.foreign('property_id').references('properties.id')
+      table.foreign('category_id').references('categories.id')
     })
 
 

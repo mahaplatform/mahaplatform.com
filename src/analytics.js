@@ -1,6 +1,6 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-import { createBad, createGood } from '@apps/analytics/services/messages'
+import { createBad, createGood, processRaw } from '@apps/analytics/services/messages'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
 
@@ -49,8 +49,14 @@ goodevents.on('message', async msg => {
 
     try {
 
-      await createGood({ trx }, {
+      const req = { trx }
+
+      const raw = await createGood(req, {
         message: parseMessage(msg)
+      })
+
+      await processRaw(req, {
+        raw
       })
 
       trx.commit()
