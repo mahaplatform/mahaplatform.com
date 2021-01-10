@@ -6,7 +6,7 @@ const CreateRaw = {
     await knex.schema.createTable('raws', (table) => {
       table.increments('id').primary()
       table.text('data')
-      table.enum('status', ['pending','processed'], { useNative: true, enumName: 'raw_statuses' })
+      table.enum('status', ['pending','processed','failed'], { useNative: true, enumName: 'raw_statuses' })
       table.timestamps()
     })
   },

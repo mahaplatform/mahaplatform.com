@@ -29,55 +29,45 @@ goodevents.connect()
 
 goodevents.on('message', async msg => {
 
-  const message = parseMessage(msg)
-
-  const raw = await new Promise((resolve, reject) => {
-
-    knex.analytics.transaction(async trx => {
-
-      try {
-
-        const raw =  await Raw.forge({
-          data: message,
-          status: 'pending'
-        }).save(null, {
-          transacting: trx
-        })
-
-        trx.commit()
-
-        msg.finish()
-
-        resolve(raw)
-
-      } catch(err) {
-
-        trx.rollback()
-        reject(err)
-
-      }
-
-    }).catch(reject)
-
-  })
-
   knex.analytics.transaction(async trx => {
+
+    const message = parseMessage(msg)
 
     try {
 
-      await processMessage({ trx }, { message })
-
-      await raw.save(null, {
-        status: 'processed'
+      const raw =  await Raw.forge({
+        data: message,
+        status: 'pending'
+      }).save(null, {
+        transacting: trx
       })
+
+      try {
+
+        await processMessage({ trx }, { message })
+
+        await raw.save(null, {
+          status: 'processed'
+        })
+
+      } catch(e) {
+
+        await raw.save(null, {
+          status: 'failed'
+        })
+
+      }
 
       trx.commit()
 
-    } catch(e) {
-      console.log(e)
-      trx.rollback()
+      msg.finish()
+
+    } catch(err) {
+
+      trx.rollback(err)
+
     }
 
-  }).catch(err => {})
+  }).catch(err => console.log(err))
 
 })
