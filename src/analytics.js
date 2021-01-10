@@ -43,7 +43,11 @@ goodevents.on('message', async msg => {
         }).save(null, {
           transacting: trx
         })
+
         trx.commit()
+
+        msg.finish()
+
         resolve(raw)
 
       } catch(err) {
@@ -68,8 +72,6 @@ goodevents.on('message', async msg => {
       })
 
       trx.commit()
-
-      msg.finish()
 
     } catch(e) {
       console.log(e)
