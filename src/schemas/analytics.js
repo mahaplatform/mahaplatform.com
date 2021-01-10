@@ -62,6 +62,8 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -89,8 +91,6 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
-      table.increments('id').primary()
-      table.string('name', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -100,7 +100,6 @@ const schema = {
 
     await knex.schema.createTable('events', (table) => {
       table.increments('id').primary()
-      table.integer('raw_id').unsigned()
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
@@ -109,35 +108,28 @@ const schema = {
       table.integer('label_id').unsigned()
       table.integer('property_id').unsigned()
       table.integer('category_id').unsigned()
+      table.string('event_id', 255)
+      table.string('target', 255)
       table.double precision('value')
+      table.string('tr_orderid', 255)
+      table.string('tr_affiliation', 255)
       table.decimal('tr_total', 8, 2)
+      table.decimal('tr_shipping', 8, 2)
       table.decimal('tr_tax', 8, 2)
+      table.integer('tr_city_id').unsigned()
+      table.integer('tr_state_id').unsigned()
+      table.integer('tr_country_id').unsigned()
+      table.string('ti_orderid', 255)
+      table.string('ti_sku', 255)
+      table.string('ti_name', 255)
+      table.integer('ti_category_id').unsigned()
       table.decimal('ti_price', 8, 2)
       table.integer('ti_quantity')
-      table.integer('ti_currency')
-      table.integer('ti_price_base')
-      table.integer('base_currency')
       table.integer('pp_xoffset_min')
       table.integer('pp_xoffset_max')
       table.integer('pp_yoffset_min')
       table.integer('pp_yoffset_max')
-      table.jsonb('data')
       table.timestamp('tstamp')
-      table.string('ti_orderid', 255)
-      table.string('event_id', 255)
-      table.string('target', 255)
-      table.string('ti_sku', 255)
-      table.string('tr_orderid', 255)
-      table.string('tr_affiliation', 255)
-      table.string('ti_name', 255)
-      table.string('ti_category', 255)
-      table.string('tr_city', 255)
-      table.string('tr_state', 255)
-      table.string('tr_country', 255)
-      table.string('tr_currency', 255)
-      table.string('tr_total_base', 255)
-      table.string('tr_tax_base', 255)
-      table.string('tr_shipping_base', 255)
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -189,9 +181,9 @@ const schema = {
 
     await knex.schema.createTable('pages', (table) => {
       table.increments('id').primary()
-      table.integer('domain_id').unsigned()
       table.string('title', 255)
-      table.string('url', 255)
+      table.integer('protocol_id').unsigned()
+      table.integer('domain_id').unsigned()
       table.string('path', 255)
     })
 
@@ -205,19 +197,15 @@ const schema = {
       table.string('text', 255)
     })
 
-    await knex.schema.createTable('raw', (table) => {
+    await knex.schema.createTable('protocols', (table) => {
       table.increments('id').primary()
-      table.USER-DEFINED('status')
-      table.jsonb('data')
-      table.jsonb('errors')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('referers', (table) => {
       table.increments('id').primary()
+      table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
-      table.string('url', 255)
       table.string('path', 255)
     })
 
@@ -248,6 +236,8 @@ const schema = {
       table.integer('campaign_id').unsigned()
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
+      table.integer('network_id').unsigned()
+      table.string('clickid', 255)
       table.string('domain_sessionid', 255)
     })
 
@@ -276,6 +266,7 @@ const schema = {
     })
 
     await knex.schema.table('referers', table => {
+      table.foreign('protocol_id').references('protocols.id')
       table.foreign('domain_id').references('domains.id')
     })
 
@@ -303,14 +294,15 @@ const schema = {
       table.foreign('campaign_id').references('campaigns.id')
       table.foreign('term_id').references('terms.id')
       table.foreign('content_id').references('contents.id')
+      table.foreign('network_id').references('networks.id')
     })
 
     await knex.schema.table('pages', table => {
+      table.foreign('protocol_id').references('protocols.id')
       table.foreign('domain_id').references('domains.id')
     })
 
     await knex.schema.table('events', table => {
-      table.foreign('raw_id').references('raw.id')
       table.foreign('session_id').references('sessions.id')
       table.foreign('event_type_id').references('event_types.id')
       table.foreign('page_id').references('pages.id')
@@ -319,6 +311,10 @@ const schema = {
       table.foreign('label_id').references('labels.id')
       table.foreign('property_id').references('properties.id')
       table.foreign('category_id').references('categories.id')
+      table.foreign('tr_city_id').references('cities.id')
+      table.foreign('tr_state_id').references('regions.id')
+      table.foreign('tr_country_id').references('countries.id')
+      table.foreign('ti_category_id').references('categories.id')
     })
 
 

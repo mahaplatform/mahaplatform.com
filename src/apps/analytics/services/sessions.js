@@ -4,6 +4,7 @@ import Session from '@apps/analytics/models/session'
 import Content from '@apps/analytics/models/content'
 import Browser from '@apps/analytics/models/browser'
 import Version from '@apps/analytics/models/version'
+import Network from '@apps/analytics/models/network'
 import Source from '@apps/analytics/models/source'
 import Medium from '@apps/analytics/models/medium'
 import Device from '@apps/analytics/models/device'
@@ -108,9 +109,16 @@ export const getSession = async(req, { data, domain_user }) => {
     transacting: req.trx
   }) : null
 
+  const network = data.mkt_network ? await Network.fetchOrCreate({
+    text: data.mkt_network
+  },{
+    transacting: req.trx
+  }) : null
+
   return await Session.forge({
     domain_user_id: domain_user.get('id'),
     app_id: app.get('id'),
+    ipaddress_id: ipaddress.get('id'),
     device_id: device.get('id'),
     manufacturer_id: manufacturer ? manufacturer.get('id') : null,
     os_id: os ? os.get('id') : null,
@@ -123,7 +131,8 @@ export const getSession = async(req, { data, domain_user }) => {
     campaign_id: campaign ? campaign.get('id') : null,
     term_id: term ? term.get('id') : null,
     content_id: content ? content.get('id') : null,
-    ipaddress_id: ipaddress.get('id'),
+    network_id: network ? network.get('id') : null,
+    clickid: data.mkt_clickid,
     domain_sessionid: data.domain_sessionid
   }).save(null, {
     transacting: req.trx

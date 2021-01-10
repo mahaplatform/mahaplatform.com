@@ -35,6 +35,9 @@ const CreateSession = {
       table.foreign('term_id').references('terms.id')
       table.integer('content_id').unsigned()
       table.foreign('content_id').references('contents.id')
+      table.integer('network_id').unsigned()
+      table.foreign('network_id').references('networks.id')
+      table.string('clickid')
       table.string('domain_sessionid')
     })
   },

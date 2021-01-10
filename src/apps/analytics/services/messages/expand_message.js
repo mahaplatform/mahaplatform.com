@@ -1,5 +1,3 @@
-import Raw from '@apps/analytics/models/raw'
-
 const keys = [
   // app
   'app_id','platform',
@@ -63,18 +61,13 @@ const sanitize = (value) => {
   return value
 }
 
-export const createGood = async(req, { message }) => {
+export const expandMessage = (message) => {
 
-  message = message.split('\t')
+  const fields = message.split('\t')
 
-  return await Raw.forge({
-    data: keys.reduce((event, key, index) => ({
-      ...event,
-      [key]: sanitize(message[index])
-    }), {}),
-    status: 'enriched'
-  }).save(null, {
-    transacting: req.trx
-  })
+  return keys.reduce((event, key, index) => ({
+    ...event,
+    [key]: sanitize(fields[index])
+  }), {})
 
 }

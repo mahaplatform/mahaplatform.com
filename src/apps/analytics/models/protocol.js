@@ -1,10 +1,12 @@
 import Model from '@core/objects/model'
 
-const Raw = new Model({
+const Protocol = new Model({
 
   databaseName: 'analytics',
 
-  tableName: 'raw',
+  tableName: 'protocols',
+
+  hasTimestamps: false,
 
   rules: {},
 
@@ -12,4 +14,4 @@ const Raw = new Model({
 
 })
 
-export default Raw
+export default Protocol

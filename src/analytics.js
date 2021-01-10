@@ -1,13 +1,8 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-import { createBad, createGood, processRaw } from '@apps/analytics/services/messages'
+import { parseMessage, processMessage } from '@apps/analytics/services/messages'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
-
-const parseMessage = (msg) => {
-  const raw = msg.rawMessage.toString('hex').substr(52)
-  return Buffer.from(raw, 'hex').toString('utf8')
-}
 
 const badevents = new nsq.Reader('BadEnrichedEvents', 'BadEnrichedEvents', {
   nsqdTCPAddresses: process.env.NSQD_URL
@@ -19,19 +14,7 @@ badevents.on('message', async msg => {
 
   knex.analytics.transaction(async trx => {
 
-    try {
-
-      await createBad({ trx }, {
-        message: JSON.parse(parseMessage(msg))
-      })
-
-      trx.commit()
-
-      msg.finish()
-
-    } catch(e) {
-      trx.rollback()
-    }
+    msg.finish()
 
   }).catch(err => {})
 
@@ -49,15 +32,9 @@ goodevents.on('message', async msg => {
 
     try {
 
-      const req = { trx }
+      const message = parseMessage(msg)
 
-      const raw = await createGood(req, {
-        message: parseMessage(msg)
-      })
-
-      await processRaw(req, {
-        raw
-      })
+      await processMessage({ trx }, { message })
 
       trx.commit()
 
