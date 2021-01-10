@@ -3,12 +3,13 @@ import { expandMessage } from './expand_message'
 import { getDomainUser } from '../domain_users'
 import { getSession } from '../sessions'
 import { createEvent } from '../events'
+import isbot from 'isbot'
 
 export const processMessage = async(req, { message }) => {
 
   const data = expandMessage(message)
 
-  if(data.br_type === 'Robot') return
+  if(data.br_type === 'Robot' || isbot(data.useragent)) return
 
   const network_user = await getNetworkUser(req, {
     data

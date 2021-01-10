@@ -81,6 +81,13 @@ class MahaTracker {
       }
     })
     window.mt('enableActivityTracking', 30, 10)
+    this.setUser('abc')
+    this.trackStructEvent('category', 'action', 'label', 'property', 12.2)
+    this.trackSocialInteraction('action', 'network', 12.2)
+    this.addItem('12345', 'sku', 'name', 'category', 10.00, 1, 'USD')
+    this.addItem('12345', 'sku2', 'name2', 'category2', 15.00, 1, 'USD')
+    this.addTrans('12345', 'store', 25.00, 0.00, 0.00, 'Ithaca', 'NY', 'USA', 'USD')
+    this.trackTrans()
   }
 
   _handleDrainQueue() {
