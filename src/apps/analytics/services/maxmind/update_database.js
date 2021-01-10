@@ -11,7 +11,7 @@ export const updateDatabase = async () => {
     encoding: 'binary'
   })
 
-  fs.writeFileSync(path.join('maxmind.tar.gz'), database, {
+  fs.writeFileSync(path.join('maxmind','geolitecity.tar.gz'), database, {
     encoding: 'binary'
   })
 
@@ -39,13 +39,13 @@ export const updateDatabase = async () => {
       resolve(Buffer.concat(buffer))
     })
 
-    fs.createReadStream(path.join('maxmind.tar.gz')).pipe(zlib.createGunzip()).pipe(extract)
+    fs.createReadStream(path.join('maxmind','geolitecity.tar.gz')).pipe(zlib.createGunzip()).pipe(extract)
 
   })
 
-  fs.writeFileSync(path.join('maxmind.mmdb'), data, {
+  fs.writeFileSync(path.join('maxmind','geolitecity.mmdb'), data, {
     encoding: 'binary'
   })
 
-  fs.unlinkSync(path.join('maxmind.tar.gz'))
+  fs.unlinkSync(path.join('maxmind','geolitecity.tar.gz'))
 }

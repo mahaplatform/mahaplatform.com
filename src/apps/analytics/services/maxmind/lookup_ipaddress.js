@@ -4,7 +4,7 @@ import path from 'path'
 export const lookupIPAddress = async (req, { ipaddress }) => {
 
   const geo = await new Promise((resolve, reject) => {
-    maxmind.open(path.join('maxmind.mmdb')).then((lookup) => {
+    maxmind.open(path.join('maxmind','geolitecity.mmdb')).then((lookup) => {
       const result = lookup.get(ipaddress)
       resolve({
         city: result.city ? result.city.names.en : null,

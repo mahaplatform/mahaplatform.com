@@ -186,6 +186,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
+      `ln -s ${sharedDir}/maxmind ${platformDir}/maxmind`,
       `ln -s ${sharedDir}/logs ${platformDir}/logs`,
       `ln -s ${sharedDir}/tmp ${platformDir}/tmp`,
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`

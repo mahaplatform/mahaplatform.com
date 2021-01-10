@@ -27,10 +27,11 @@
     group: root
     mode: 0777
   with_items:
-    - /var/www/maha/shared/tmp
     - /var/www/maha/shared/imagecache
-    - /var/www/maha/shared/web
+    - /var/www/maha/shared/maxmind
     - /var/www/maha/shared/logs
+    - /var/www/maha/shared/tmp
+    - /var/www/maha/shared/web
 
 - name: create temp release
   file:
