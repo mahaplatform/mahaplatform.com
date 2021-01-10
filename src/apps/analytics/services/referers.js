@@ -10,13 +10,13 @@ export const getReferer = async(req, { data }) => {
   const protocol = await Protocol.fetchOrCreate({
     text: url.protocol.slice(0, -1)
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   const domain = await Domain.fetchOrCreate({
     text: url.hostname
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   const referer = await Referer.query(qb => {
@@ -24,7 +24,7 @@ export const getReferer = async(req, { data }) => {
     qb.where('domain_id', domain.get('id'))
     qb.where('path', url.path)
   }).fetch({
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   if(referer) return referer
@@ -34,7 +34,7 @@ export const getReferer = async(req, { data }) => {
     domain_id: domain.get('id'),
     path: url.path
   }).save(null, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
 }

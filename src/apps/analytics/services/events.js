@@ -14,7 +14,7 @@ export const createEvent = async(req, { data, session }) => {
   const event = await Event.query(qb => {
     qb.where('event_id', data.event_id)
   }).fetch({
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   if(event) return event
@@ -22,7 +22,7 @@ export const createEvent = async(req, { data, session }) => {
   const event_type = await EventType.fetchOrCreate({
     type: data.event
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   const page = data.page_url ? await getPage(req, {
@@ -33,49 +33,49 @@ export const createEvent = async(req, { data, session }) => {
   const action = data.se_action ? await Action.fetchOrCreate({
     text: data.se_action
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const category = data.se_category ? await Category.fetchOrCreate({
     text: data.se_category
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const label = data.se_label ? await Label.fetchOrCreate({
     text: data.se_label
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const property = data.se_property ? await Property.fetchOrCreate({
     text: data.se_property
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const tr_city = data.tr_city ? await City.fetchOrCreate({
     text: data.tr_city
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const tr_state = data.tr_state ? await Region.fetchOrCreate({
     text: data.tr_state_id
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const tr_country = data.tr_country ? await Country.fetchOrCreate({
     text: data.tr_country
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const ti_category = data.ti_category ? await Category.fetchOrCreate({
     text: data.ti_category
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   return await Event.forge({
@@ -109,7 +109,7 @@ export const createEvent = async(req, { data, session }) => {
     pp_yoffset_max: data.pp_yoffset_max,
     tstamp: data.dvce_created_tstamp
   }).save(null, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
 }

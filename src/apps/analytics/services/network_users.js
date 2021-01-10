@@ -6,7 +6,7 @@ export const getNetworkUser = async(req, { data }) => {
   const network_user = await NetworkUser.fetchOrCreate({
     network_userid: data.network_userid
   },{
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   if(data.user_id) {
@@ -14,7 +14,7 @@ export const getNetworkUser = async(req, { data }) => {
       network_user_id: network_user.get('id'),
       contact_id: data.user_id
     }, {
-      transacting: req.trx
+      transacting: req.analytics
     })
   }
 

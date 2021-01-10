@@ -1,7 +1,7 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-import { parseMessage, processMessage } from '@apps/analytics/services/messages'
-import Raw from '@apps/analytics/models/raw'
+import { parseMessage } from '@apps/analytics/services/messages'
+import { processEvent } from '@apps/analytics/services/raws'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
 
@@ -29,45 +29,31 @@ goodevents.connect()
 
 goodevents.on('message', async msg => {
 
-  knex.analytics.transaction(async trx => {
-
-    const message = parseMessage(msg)
+  knex.analytics.transaction(async analytics => {
 
     try {
 
-      const raw =  await Raw.forge({
-        data: message,
-        status: 'pending'
-      }).save(null, {
-        transacting: trx
+      const message = parseMessage(msg)
+
+      await processEvent({ analytics }, {
+        data: message
       })
-
-      try {
-
-        await processMessage({ trx }, { message })
-
-        await raw.save(null, {
-          status: 'processed'
-        })
-
-      } catch(e) {
-
-        await raw.save(null, {
-          status: 'failed'
-        })
-
-      }
-
-      trx.commit()
 
       msg.finish()
 
     } catch(err) {
 
-      trx.rollback(err)
+      console.log('here', err)
+
+      analytics.rollback(err)
 
     }
 
-  }).catch(err => console.log(err))
+  }).catch(err => {
+
+    console.log('here2', err)
+
+
+  })
 
 })

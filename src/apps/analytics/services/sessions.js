@@ -21,14 +21,14 @@ export const getSession = async(req, { data, domain_user }) => {
     title: data.app_id,
     platform: data.platform
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   const session = await Session.query(qb => {
     qb.where('domain_user_id', domain_user.get('id'))
     qb.where('app_id', app.get('id'))
   }).fetch({
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   if(session) return session
@@ -38,37 +38,37 @@ export const getSession = async(req, { data, domain_user }) => {
   const device = await Device.fetchOrCreate({
     text: ua.device.type || 'computer'
   },{
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   const manufacturer = ua.device.vendor ? await Manufacturer.fetchOrCreate({
     text: ua.device.vendor
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const os = ua.os.name ? await OS.fetchOrCreate({
     text: ua.os.name
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }): null
 
   const os_version = ua.os.version ? await Version.fetchOrCreate({
     text: ua.os.version
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const browser = ua.browser.name ? await Browser.fetchOrCreate({
     text: ua.browser.name
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }): null
 
   const browser_version = ua.browser.major ? await Version.fetchOrCreate({
     text: ua.browser.major
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const referer = data.page_referrer ? await getReferer(req, {
@@ -82,37 +82,37 @@ export const getSession = async(req, { data, domain_user }) => {
   const source = data.mkt_source ? await Source.fetchOrCreate({
     text: data.mkt_source
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const medium = data.mkt_medium ? await Medium.fetchOrCreate({
     text: data.mkt_source
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const campaign = data.mkt_campaign ? await Campaign.fetchOrCreate({
     text: data.mkt_campaign
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const term = data.mkt_term ? await Term.fetchOrCreate({
     text: data.mkt_term
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const content = data.mkt_content ? await Content.fetchOrCreate({
     text: data.mkt_content
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const network = data.mkt_network ? await Network.fetchOrCreate({
     text: data.mkt_network
   },{
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   return await Session.forge({
@@ -135,7 +135,7 @@ export const getSession = async(req, { data, domain_user }) => {
     clickid: data.mkt_clickid,
     domain_sessionid: data.domain_sessionid
   }).save(null, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
 }

@@ -6,7 +6,7 @@ export const getDomainUser = async(req, { data, network_user }) => {
     network_user_id: network_user.get('id'),
     domain_userid: data.domain_userid
   },{
-    transacting: req.trx
+    transacting: req.analytics
   })
 
 }

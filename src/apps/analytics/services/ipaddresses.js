@@ -11,7 +11,7 @@ export const getIPAddress = async(req, { data }) => {
   const ipaddress = await IPAddress.query(qb => {
     qb.where('address', data.user_ipaddress)
   }).fetch({
-    transacting: req.trx
+    transacting: req.analytics
   })
 
   if(ipaddress) return ipaddress
@@ -23,33 +23,33 @@ export const getIPAddress = async(req, { data }) => {
   const city = geo.city ? await City.fetchOrCreate({
     text: geo.city
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const region = geo.region ? await Region.fetchOrCreate({
     code: geo.region_code,
     text: geo.region
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const country = geo.country ? await Country.fetchOrCreate({
     code: geo.country_code,
     text: geo.country
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const metro_code = geo.metro_code ? await MetroCode.fetchOrCreate({
     text: geo.metro_code
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   const postal_code = geo.postal_code ? await PostalCode.fetchOrCreate({
     text: geo.postal_code
   }, {
-    transacting: req.trx
+    transacting: req.analytics
   }) : null
 
   return await IPAddress.forge({
@@ -62,7 +62,7 @@ export const getIPAddress = async(req, { data }) => {
     latitude: geo.latitude,
     longitude: geo.longitude
   }).save(null, {
-    transacting: req.trx
+    transacting: req.analytics
   })
 
 }
