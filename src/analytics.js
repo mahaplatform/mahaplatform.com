@@ -1,6 +1,7 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 import { parseMessage, processMessage } from '@apps/analytics/services/messages'
+import Raw from '@apps/analytics/models/raw'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
 
@@ -28,13 +29,43 @@ goodevents.connect()
 
 goodevents.on('message', async msg => {
 
+  const message = parseMessage(msg)
+
+  const raw = await new Promise((resolve, reject) => {
+
+    knex.analytics.transaction(async trx => {
+
+      try {
+
+        const raw =  await Raw.forge({
+          data: message,
+          status: 'pending'
+        }).save(null, {
+          transacting: trx
+        })
+        trx.commit()
+        resolve(raw)
+
+      } catch(err) {
+
+        trx.rollback()
+        reject(err)
+
+      }
+
+    }).catch(reject)
+
+  })
+
   knex.analytics.transaction(async trx => {
 
     try {
 
-      const message = parseMessage(msg)
-
       await processMessage({ trx }, { message })
+
+      await raw.save(null, {
+        status: 'processed'
+      })
 
       trx.commit()
 

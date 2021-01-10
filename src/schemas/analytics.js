@@ -202,6 +202,14 @@ const schema = {
       table.string('text', 255)
     })
 
+    await knex.schema.createTable('raws', (table) => {
+      table.increments('id').primary()
+      table.text('data')
+      table.USER-DEFINED('status')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('referers', (table) => {
       table.increments('id').primary()
       table.integer('protocol_id').unsigned()

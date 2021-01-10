@@ -1,5 +1,5 @@
 import Logger from '../services/logger'
-import knex from '../vendor/knex'
+import * as knex from '../vendor/knex'
 
 const cron = (options) => ({
   name: options.name,
@@ -33,16 +33,24 @@ const withLogger = (title, processor) => async (req) => {
 }
 
 const withTransaction = (processor, afterCommit, beforeRollback) => async () => {
-  await knex.transaction(async trx => {
-    try {
-      const req = { trx }
-      const result = await processor(req)
-      await trx.commit()
-      if(afterCommit) await afterCommit(req, result)
-    } catch(err) {
-      if(beforeRollback) await beforeRollback()
-      await trx.rollback(err)
-    }
+  knex.maha.transaction(async maha => {
+    knex.analytics.transaction(async analytics => {
+      const req = {
+        analytics,
+        trx: maha,
+        maha
+      }
+      try {
+        const result = await processor(req)
+        await analytics.commit()
+        await maha.commit()
+        if(afterCommit) await afterCommit(req, result)
+      } catch(err) {
+        if(beforeRollback) await beforeRollback()
+        await analytics.rollback(err)
+        await maha.rollback(err)
+      }
+    })
   })
 }
 

@@ -15,6 +15,7 @@
     "bootstrap": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/bootstrap.js",
     "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",
     "chrome": "/Applications/'Google Chrome'.app/Contents/MacOS/'Google Chrome' --user-data-dir=./tmp --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://dev.mahaplatform.com:8080",
+    "cron": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/cron.js",
     "docs": "sphinx-autobuild ./src/docs ./docs",
     "dev": "NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 npx babel-node --trace-warnings --config-file=./src/core/utils/babel.config.js ./src/scripts/dev/index.js",
     "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",

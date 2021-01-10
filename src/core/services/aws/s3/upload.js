@@ -7,12 +7,12 @@ const getContentType = (key) => {
   return mime.lookup(filename)
 }
 
-const upload = async (req, { key, cache_control, content_type, file_data }) => {
+const upload = async (req, { acl, key, bucket, cache_control, content_type, file_data }) => {
 
   await s3.upload({
-    ACL: 'public-read',
+    ACL: acl || 'public-read',
     Body: file_data,
-    Bucket: process.env.AWS_WEB_BUCKET,
+    Bucket: bucket || process.env.AWS_WEB_BUCKET,
     ContentType: content_type || getContentType(key),
     ...cache_control ? {
       CacheControl: cache_control
