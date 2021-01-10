@@ -152,7 +152,7 @@ const buildServer = async (environment, babelrc) => {
   const appDirs = apps.map(app => `apps/${app}`)
   const coreDirs = ['lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
   await Promise.map([...appDirs, ...coreDirs], buildDir(babelrc))
-  await Promise.map(['analytics.js','cron.js','server.js','worker.js'], buildEntry(babelrc))
+  await Promise.map(['analytics.js','maxmind.js','cron.js','server.js','worker.js'], buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })
   fs.writeFileSync(path.join(staged,'platform','ecosystem.config.js'), data, 'utf8')

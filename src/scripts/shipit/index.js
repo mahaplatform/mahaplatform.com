@@ -275,7 +275,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'maxmind', () => {
-    return shipit.remote('NODE_ENV=production node ./server.js', {
+    return shipit.remote('NODE_ENV=production node ./maxmind.js', {
       cwd: `${currentDir}/platform`,
       roles: ['analyticsserver']
     })
