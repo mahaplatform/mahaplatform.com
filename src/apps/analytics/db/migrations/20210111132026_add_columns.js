@@ -42,12 +42,6 @@ const AddColumns = {
     await knex.schema.dropTable('labels')
     await knex.schema.dropTable('properties')
 
-    await knex.raw('delete from events')
-    await knex.raw('delete from sessions')
-    await knex.raw('delete from domain_users')
-    await knex.raw('delete from contacts')
-    await knex.raw('delete from network_users')
-
   },
 
   down: async (knex) => {
