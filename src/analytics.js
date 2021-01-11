@@ -1,6 +1,6 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-import { parseMessage } from '@apps/analytics/services/messages'
+import { parseMessage, expandMessage } from '@apps/analytics/services/messages'
 import { processEvent } from '@apps/analytics/services/raws'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
@@ -13,9 +13,18 @@ badevents.connect()
 
 badevents.on('message', async msg => {
 
-  knex.analytics.transaction(async trx => {
+  knex.analytics.transaction(async analytics => {
 
-    msg.finish()
+    try {
+
+      msg.finish()
+
+    } catch(err) {
+
+      analytics.rollback(err)
+      console.log(err)
+
+    }
 
   }).catch(err => {})
 
@@ -43,17 +52,10 @@ goodevents.on('message', async msg => {
 
     } catch(err) {
 
-      console.log('here', err)
-
       analytics.rollback(err)
 
     }
 
-  }).catch(err => {
-
-    console.log('here2', err)
-
-
-  })
+  }).catch(err => {})
 
 })

@@ -65,9 +65,15 @@ export const expandMessage = (message) => {
 
   const fields = message.split('\t')
 
-  return keys.reduce((event, key, index) => ({
+  const data = keys.reduce((event, key, index) => ({
     ...event,
     [key]: sanitize(fields[index])
   }), {})
+
+  data.contexts = JSON.parse(data.contexts)
+
+  data.unstruct_event = JSON.parse(data.unstruct_event)
+
+  return data
 
 }
