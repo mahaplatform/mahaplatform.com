@@ -5,8 +5,8 @@ const knex = (connection) => new Knex({
   connection,
   useNullAsDefault: true,
   pool: {
-    min: 2,
-    max: 5
+    min: 5,
+    max: 30
   }
 })
 
