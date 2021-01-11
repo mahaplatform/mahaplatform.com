@@ -18,7 +18,7 @@ export const createEvent = async(req, { data, session }) => {
   })
 
   if(event) return event
-  
+
   const event_type = await EventType.fetchOrCreate({
     type: data.event
   }, {

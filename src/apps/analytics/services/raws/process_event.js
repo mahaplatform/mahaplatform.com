@@ -5,7 +5,8 @@ export const processEvent = async(req, { data }) => {
 
   const raw = await Raw.forge({
     data,
-    status: 'pending'
+    status: 'pending',
+    attempts: 0
   }).save(null, {
     transacting: req.analytics
   })
@@ -23,10 +24,12 @@ export const processEvent = async(req, { data }) => {
       patch: true
     })
 
-  } catch(e) {
+  } catch(error) {
 
     await raw.save({
-      status: 'failed'
+      attempts: parseInt(raw.get('attempts')) + 1,
+      status: 'failed',
+      error
     }, {
       transacting: req.analytics,
       patch: true

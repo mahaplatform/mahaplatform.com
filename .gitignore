@@ -29,4 +29,5 @@ ngrok
 metadata.csv
 ./REVISION
 /src/servers/group_vars/all/*.yml
-maxmind
+/maxmind
+!/*/maxmind
