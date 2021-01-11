@@ -4,16 +4,16 @@ export const getData = (req, { type, data }) => {
 
   if(type === 'page_ping') {
     return {
-      pp_xoffset_min: data.pp_xoffset_min,
-      pp_xoffset_max: data.pp_xoffset_max,
-      pp_yoffset_min: data.pp_yoffset_min,
-      pp_yoffset_max: data.pp_yoffset_max
+      x_min: data.pp_xoffset_min,
+      x_max: data.pp_xoffset_max,
+      y_min: data.pp_yoffset_min,
+      y_max: data.pp_yoffset_max
     }
   }
 
   if(type === 'transaction_item') {
     return {
-      orderid: data.ti_orderid,
+      order_id: data.ti_orderid,
       sku: data.ti_sku,
       name: data.ti_name,
       category: data.ti_category,
@@ -24,7 +24,7 @@ export const getData = (req, { type, data }) => {
 
   if(type === 'transaction') {
     return {
-      orderid: data.tr_orderid,
+      order_id: data.tr_orderid,
       affiliation: data.tr_affiliation,
       total: data.tr_total,
       shipping: data.tr_shipping,
