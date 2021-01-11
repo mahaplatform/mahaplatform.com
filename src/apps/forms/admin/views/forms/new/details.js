@@ -36,7 +36,7 @@ class Details extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/form' }
+            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/forms', placeholder: '/path/to/form' }
           ]
         }
       ]
