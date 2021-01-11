@@ -3,7 +3,7 @@ const AddColumns = {
   databaseName: 'analytics',
 
   up: async (knex) => {
-
+    
     await knex.schema.table('events', (table) => {
       table.dropColumn('action_id')
       table.dropColumn('network_id')
@@ -37,6 +37,12 @@ const AddColumns = {
     await knex.schema.dropTable('categories')
     await knex.schema.dropTable('labels')
     await knex.schema.dropTable('properties')
+
+    await knex.raw('delete from events')
+    await knex.raw('delete from sessions')
+    await knex.raw('delete from domain_users')
+    await knex.raw('delete from contacts')
+    await knex.raw('delete from network_users')
 
   },
 
