@@ -6,7 +6,7 @@ const knex = (connection) => new Knex({
   useNullAsDefault: true,
   pool: {
     min: 5,
-    max: 30
+    max: 10
   }
 })
 

@@ -52,6 +52,8 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -79,8 +81,6 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
-      table.increments('id').primary()
-      table.string('text', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -93,10 +93,13 @@ const schema = {
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.timestamp('tstamp')
-      table.jsonb('data')
       table.string('event_id', 255)
-      table.string('ti_orderid', 255)
+      table.timestamp('tstamp')
+      table.integer('doc_width')
+      table.integer('doc_height')
+      table.integer('view_width')
+      table.integer('view_height')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -143,9 +146,9 @@ const schema = {
 
     await knex.schema.createTable('pages', (table) => {
       table.increments('id').primary()
+      table.string('title', 255)
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
-      table.string('title', 255)
       table.text('path')
     })
 
@@ -160,13 +163,13 @@ const schema = {
     })
 
     await knex.schema.createTable('raws', (table) => {
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.integer('attempts')
-      table.USER-DEFINED('status')
       table.increments('id').primary()
       table.text('data')
+      table.USER-DEFINED('status')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
       table.text('error')
+      table.integer('attempts')
     })
 
     await knex.schema.createTable('referers', (table) => {

@@ -74,6 +74,8 @@ export const expandMessage = (message) => {
 
   data.unstruct_event = JSON.parse(data.unstruct_event)
 
+  data.context_id = data.contexts.data[0].data.id
+
   return data
 
 }

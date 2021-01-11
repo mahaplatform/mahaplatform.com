@@ -8,8 +8,6 @@ import isbot from 'isbot'
 
 export const processEvent = async(req, { message }) => {
 
-  console.log('processing')
-
   const raw = await Raw.forge({
     data: message,
     status: 'pending',
