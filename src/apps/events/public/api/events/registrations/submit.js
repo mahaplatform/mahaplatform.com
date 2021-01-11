@@ -38,13 +38,7 @@ const getLineItems = (req, { event, quantities, ticket_types }) => {
   })
 }
 
-const getInvoice = async (req, { program_id, contact, event, quantities }) => {
-
-  const line_items = getLineItems(req, {
-    event,
-    quantities,
-    ticket_types: event.related('ticket_types')
-  })
+const getInvoice = async (req, { program_id, contact, line_items }) => {
 
   return await createInvoice(req, {
     program_id,
@@ -106,11 +100,20 @@ const submitRoute = async (req, res) => {
     data: req.body.contact
   })
 
-  const invoice = req.body.payment ? await getInvoice(req, {
+  const line_items = getLineItems(req, {
+    event,
+    quantities: req.body.quantities,
+    ticket_types: event.related('ticket_types')
+  })
+
+  const total = line_items.reduce((total, line_item) => {
+    return total + (Number(line_item.quantity) * Number(line_item.price))
+  }, 0.00)
+
+  const invoice = total > 0 ? await getInvoice(req, {
     program_id: event.get('program_id'),
     contact,
-    event,
-    quantities: req.body.quantities
+    line_items
   }) : null
 
   const payment = req.body.payment ? await handlePayment(req, {

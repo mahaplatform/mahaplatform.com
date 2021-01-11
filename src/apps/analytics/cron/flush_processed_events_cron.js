@@ -3,7 +3,7 @@ import cron from '@core/objects/cron'
 
 const flushProcessedEventsCron = cron({
   name: 'flush_processed_events',
-  schedule: '0 1 0 * * *',
+  cron: '0 01 0 * * *',
   processor: flushProcessedEvents
 })
 

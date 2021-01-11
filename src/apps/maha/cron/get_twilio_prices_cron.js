@@ -104,7 +104,7 @@ export const afterCommit = async (req, result) => {
 
 const getTwilioPricesCron = cron({
   name: 'get_twilio_prices',
-  schedule: '0 0 * * * *',
+  cron: '0 0 * * * *',
   processor,
   afterCommit
 })

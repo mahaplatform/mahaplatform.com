@@ -5,7 +5,7 @@ import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Payments',
-  rights: ['finance:manage_revenue'], 
+  rights: ['finance:manage_revenue'],
   collection: {
     endpoint: '/api/admin/finance/payments',
     table: [
@@ -15,7 +15,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Method', key: 'method', collapsing: true, primary: true },
       { label: 'Date', key: 'date', collapsing: true, primary: true, format: 'date' },
       { label: 'Amount', key: 'amount', collapsing: true, primary: true, format: 'currency' },
-      { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: Status  }
+      { label: 'Status', key: 'status', collapsing: true, primary: true, padded: true, format: Status },
+      { label: 'Braintree ID', key: 'braintree_id', collapsing: true, visible: false },
+      { label: 'PayPal ID', key: 'paypal_id', collapsing: true, visible: false }
     ],
     filters: [
       { label: 'Bank Account', name: 'bank_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/banks', value: 'id', text: 'title' },

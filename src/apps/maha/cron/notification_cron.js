@@ -63,7 +63,7 @@ export const afterCommit = async (req, result) => {
 
 const digestCron = cron({
   name: 'notification',
-  schedule: '0 0 2 * * *',
+  cron: '0 0 2 * * *',
   processor,
   afterCommit
 })

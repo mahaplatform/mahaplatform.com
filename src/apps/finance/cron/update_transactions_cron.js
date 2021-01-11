@@ -199,7 +199,7 @@ export const afterCommit = async (trx, result) => {
 
 const updateTransactionsCron = cron({
   name: 'update_transactions',
-  schedule: '0 0 * * * *',
+  cron: '0 0 * * * *',
   processor,
   afterCommit
 })

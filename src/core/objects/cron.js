@@ -3,7 +3,9 @@ import * as knex from '../vendor/knex'
 
 const cron = (options) => ({
   name: options.name,
-  schedule: options.schedule,
+  cron: options.cron,
+  text: options.text,
+  time: options.time,
   handler: wrapped({
     title: options.name,
     processor: options.processor,

@@ -17,12 +17,14 @@ const listRoute = async (req, res) => {
       customer: 'finance_customers.last_name',
       first_name: 'finance_customers.first_name',
       last_name: 'finance_customers.last_name',
-      customer_id: 'finance_invoices.customer_id'
+      customer_id: 'finance_invoices.customer_id',
+      paypal_id: 'finance_payments.paypal_id',
+      braintree_id: 'finance_payments.braintree_id'
     },
     filter: {
       params: req.query.$filter,
       allowed: ['date','method','card_type','bank_id','customer_id','status'],
-      search: ['first_name','last_name']
+      search: ['first_name','last_name','paypal_id','braintree_id']
     },
     sort: {
       params: req.query.$sort,
