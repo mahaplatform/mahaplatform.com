@@ -3,7 +3,7 @@ const AddColumns = {
   databaseName: 'analytics',
 
   up: async (knex) => {
-    
+
     await knex.schema.table('events', (table) => {
       table.dropColumn('action_id')
       table.dropColumn('network_id')
@@ -30,6 +30,10 @@ const AddColumns = {
       table.dropColumn('pp_yoffset_max')
       table.dropColumn('target')
       table.dropColumn('value')
+      table.integer('doc_width')
+      table.integer('doc_height')
+      table.integer('view_width')
+      table.integer('view_height')
       table.jsonb('data')
     })
 
