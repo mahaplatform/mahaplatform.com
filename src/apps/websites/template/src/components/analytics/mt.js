@@ -32,6 +32,18 @@ class MahaTracker {
     this._handleEvent('setUserId', userid)
   }
 
+  trackAddToCart(sku, name, category, unitPrice, quantity, currency) {
+    this._handleEvent('trackAddToCart', sku, name, category, unitPrice, quantity, currency)
+  }
+
+  trackRemoveFromCart(sku, name, category, unitPrice, quantity, currency) {
+    this._handleEvent('trackRemoveFromCart', sku, name, category, unitPrice, quantity, currency)
+  }
+
+  trackSiteSearch(terms, filters, totalResults) {
+    this._handleEvent('trackSiteSearch', terms, filters, totalResults)
+  }
+
   trackAdImpression(impressionId, costModel, cost, targetUrl, bannerId, zoneId, advertiserId, campaignId) {
     this._handleEvent('trackAdImpression', impressionId, costModel, cost, targetUrl, bannerId, zoneId, advertiserId, campaignId)
   }
@@ -82,12 +94,10 @@ class MahaTracker {
     })
     window.mt('enableActivityTracking', 30, 10)
     this.setUser(1234)
-    this.trackStructEvent('category', 'action', 'label', 'property', 12.2)
     this.trackSocialInteraction('action', 'network', '12.2')
-    this.addItem('12345', 'sku', 'name', 'category', 10.00, 1, 'USD')
-    this.addItem('12345', 'sku2', 'name2', 'category2', 15.00, 1, 'USD')
-    this.addTrans('12345', 'store', 25.00, 0.00, 0.00, 'Ithaca', 'NY', 'USA', 'USD')
-    this.trackTrans()
+    this.trackAddToCart('sku', 'name', 'category', 10.00, 1, 'USD')
+    this.trackRemoveFromCart('sku', 'name', 'category', 10.00, 1, 'USD')
+    this.trackSiteSearch('terms', 'filters', 1000)
   }
 
   _handleDrainQueue() {

@@ -1,8 +1,9 @@
 import EventType from '@apps/analytics/models/event_type'
 
 const getType = (data) => {
-  if(data.event === 'unstruct' && /social_interaction/.test(data.event)) return 'social_interaction'
-  return data.event
+  if(data.event !== 'unstruct') return data.event
+  const matches = data.unstruct_event.data.schema.match(/snowplow\/([^/]*)/)
+  return matches[1]
 }
 
 export const getEventType = async(req, { data }) => {

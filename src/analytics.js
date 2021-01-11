@@ -1,6 +1,6 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-import { parseMessage, expandMessage } from '@apps/analytics/services/messages'
+import { parseMessage } from '@apps/analytics/services/messages'
 import { processEvent } from '@apps/analytics/services/raws'
 import * as knex from '@core/vendor/knex'
 import nsq from 'nsqjs'
@@ -45,7 +45,7 @@ goodevents.on('message', async msg => {
       const message = parseMessage(msg)
 
       await processEvent({ analytics }, {
-        data: message
+        message
       })
 
       msg.finish()

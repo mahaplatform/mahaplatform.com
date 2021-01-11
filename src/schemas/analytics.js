@@ -2,11 +2,6 @@ const schema = {
 
   load: async (knex) => {
 
-    await knex.schema.createTable('actions', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
-    })
-
     await knex.schema.createTable('apps', (table) => {
       table.increments('id').primary()
       table.string('title', 255)
@@ -19,11 +14,6 @@ const schema = {
     })
 
     await knex.schema.createTable('campaigns', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
-    })
-
-    await knex.schema.createTable('categories', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -99,37 +89,14 @@ const schema = {
     })
 
     await knex.schema.createTable('events', (table) => {
-      table.timestamp('tstamp')
+      table.increments('id').primary()
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.integer('action_id').unsigned()
-      table.integer('network_id').unsigned()
-      table.integer('label_id').unsigned()
-      table.integer('property_id').unsigned()
-      table.integer('category_id').unsigned()
-      table.decimal('ti_price', 8, 2)
-      table.integer('ti_quantity')
-      table.integer('pp_xoffset_min')
-      table.integer('pp_xoffset_max')
-      table.integer('pp_yoffset_min')
-      table.integer('pp_yoffset_max')
-      table.increments('id').primary()
-      table.decimal('value', 8, 2)
-      table.decimal('tr_total', 8, 2)
-      table.decimal('tr_shipping', 8, 2)
-      table.decimal('tr_tax', 8, 2)
-      table.integer('tr_city_id').unsigned()
-      table.integer('tr_state_id').unsigned()
-      table.integer('tr_country_id').unsigned()
-      table.integer('ti_category_id').unsigned()
+      table.timestamp('tstamp')
+      table.jsonb('data')
       table.string('event_id', 255)
-      table.string('target', 255)
-      table.string('ti_name', 255)
-      table.string('tr_orderid', 255)
-      table.string('tr_affiliation', 255)
       table.string('ti_orderid', 255)
-      table.string('ti_sku', 255)
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -142,11 +109,6 @@ const schema = {
       table.decimal('latitude', 10, 6)
       table.decimal('longitude', 10, 6)
       table.string('address', 255)
-    })
-
-    await knex.schema.createTable('labels', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
     })
 
     await knex.schema.createTable('manufacturers', (table) => {
@@ -184,15 +146,10 @@ const schema = {
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
       table.string('title', 255)
-      table.string('path', 255)
+      table.text('path')
     })
 
     await knex.schema.createTable('postal_codes', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
-    })
-
-    await knex.schema.createTable('properties', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
@@ -216,7 +173,7 @@ const schema = {
       table.increments('id').primary()
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
-      table.string('path', 255)
+      table.text('path')
     })
 
     await knex.schema.createTable('regions', (table) => {
@@ -316,15 +273,6 @@ const schema = {
       table.foreign('session_id').references('sessions.id')
       table.foreign('event_type_id').references('event_types.id')
       table.foreign('page_id').references('pages.id')
-      table.foreign('action_id').references('actions.id')
-      table.foreign('network_id').references('networks.id')
-      table.foreign('label_id').references('labels.id')
-      table.foreign('property_id').references('properties.id')
-      table.foreign('category_id').references('categories.id')
-      table.foreign('tr_city_id').references('cities.id')
-      table.foreign('tr_state_id').references('regions.id')
-      table.foreign('tr_country_id').references('countries.id')
-      table.foreign('ti_category_id').references('categories.id')
     })
 
 
