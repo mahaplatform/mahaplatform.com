@@ -1,7 +1,8 @@
 import ImportSerializer from '@apps/maha/serializers/import_serializer'
+import ImportItem from '@apps/maha/models/import_item'
+import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
-import ImportItem from '@apps/maha/models/import_item'
 import Import from '@apps/maha/models/import'
 import Trip from '@apps/finance/models/trip'
 import moment from 'moment'
@@ -41,9 +42,14 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
+    const code = await generateCode(req, {
+      table: 'finance_trips'
+    })
+
     const mileage_rate = rates[moment(trip.get('date')).format('YYYY')]
 
     await trip.save({
+      code,
       odometer_start: trip.get('odometer_start') ? trip.get('odometer_start') : 0,
       odometer_end: trip.get('odometer_end') ? trip.get('odometer_end') : 0,
       expense_type_id: 16,
