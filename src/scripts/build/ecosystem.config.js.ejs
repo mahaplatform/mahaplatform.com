@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: 'analytics_<%= environment %>',
     script: './analytics.js',
-    instances: 2,
+    instances: 1,
     cwd: process.env.PWD+'/current/platform',
     error_file: './logs/worker.err.log',
     out_file: './logs/worker.out.log',
