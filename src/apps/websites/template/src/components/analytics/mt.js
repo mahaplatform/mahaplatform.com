@@ -92,12 +92,7 @@ class MahaTracker {
         webPage: true
       }
     })
-    window.mt('enableActivityTracking', 30, 10)
-    this.setUser(1234)
-    this.trackSocialInteraction('action', 'network', '12.2')
-    this.trackAddToCart('sku', 'name', 'category', 10.00, 1, 'USD')
-    this.trackRemoveFromCart('sku', 'name', 'category', 10.00, 1, 'USD')
-    this.trackSiteSearch('terms', 'filters', 1000)
+    window.mt('enableActivityTracking', 10, 10)
   }
 
   _handleDrainQueue() {

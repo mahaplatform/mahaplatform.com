@@ -34,6 +34,11 @@ const schema = {
       table.string('text', 255)
     })
 
+    await knex.schema.createTable('contexts', (table) => {
+      table.increments('id').primary()
+      table.string('context_id', 255)
+    })
+
     await knex.schema.createTable('countries', (table) => {
       table.increments('id').primary()
       table.string('code', 255)
@@ -52,8 +57,6 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
       table.name('domain_catalog')
       table.name('domain_schema')
       table.name('domain_name')
@@ -81,6 +84,8 @@ const schema = {
       table.name('scope_name')
       table.integer('maximum_cardinality')
       table.name('dtd_identifier')
+      table.increments('id').primary()
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -89,17 +94,18 @@ const schema = {
     })
 
     await knex.schema.createTable('events', (table) => {
-      table.increments('id').primary()
+      table.integer('context_id').unsigned()
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
-      table.string('event_id', 255)
+      table.increments('id').primary()
       table.timestamp('tstamp')
       table.integer('doc_width')
       table.integer('doc_height')
       table.integer('view_width')
       table.integer('view_height')
       table.jsonb('data')
+      table.string('event_id', 255)
     })
 
     await knex.schema.createTable('ipaddresses', (table) => {
@@ -146,9 +152,9 @@ const schema = {
 
     await knex.schema.createTable('pages', (table) => {
       table.increments('id').primary()
-      table.string('title', 255)
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
+      table.string('title', 255)
       table.text('path')
     })
 
@@ -163,13 +169,13 @@ const schema = {
     })
 
     await knex.schema.createTable('raws', (table) => {
-      table.increments('id').primary()
-      table.text('data')
-      table.USER-DEFINED('status')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.text('error')
       table.integer('attempts')
+      table.USER-DEFINED('status')
+      table.increments('id').primary()
+      table.text('data')
+      table.text('error')
     })
 
     await knex.schema.createTable('referers', (table) => {
@@ -276,6 +282,7 @@ const schema = {
       table.foreign('session_id').references('sessions.id')
       table.foreign('event_type_id').references('event_types.id')
       table.foreign('page_id').references('pages.id')
+      table.foreign('context_id').references('contexts.id')
     })
 
 
@@ -304,6 +311,69 @@ const schema = {
       from ((domain_users
       join first_page on ((first_page.domain_user_id = domain_users.id)))
       join last_page on ((last_page.domain_user_id = domain_users.id)));
+    `)
+
+    await knex.raw(`
+      create view pageview_details AS
+      with pageviews as (
+      select events.id,
+      events.session_id,
+      events.event_type_id,
+      events.page_id,
+      events.event_id,
+      events.tstamp,
+      events.doc_width,
+      events.doc_height,
+      events.view_width,
+      events.view_height,
+      events.data,
+      events.context_id
+      from (events
+      join event_types on ((event_types.id = events.event_type_id)))
+      where ((event_types.type)::text = 'page_view'::text)
+      order by events.tstamp
+      ), pagepings as (
+      select events.id,
+      events.session_id,
+      events.event_type_id,
+      events.page_id,
+      events.event_id,
+      events.tstamp,
+      events.doc_width,
+      events.doc_height,
+      events.view_width,
+      events.view_height,
+      events.data,
+      events.context_id
+      from (events
+      join event_types on ((event_types.id = events.event_type_id)))
+      where ((event_types.type)::text = 'page_ping'::text)
+      order by events.tstamp desc
+      ), durations as (
+      select distinct on (pagepings.context_id) pageviews_1.id as pageview_id,
+      date_part('epoch'::text, (pagepings.tstamp - pageviews_1.tstamp)) as duration
+      from (pageviews pageviews_1
+      join pagepings on ((pagepings.context_id = pageviews_1.context_id)))
+      ), scrolldepths as (
+      select pageviews_1.id as pageview_id,
+      max(((pagepings.data ->> 'y_max'::text))::integer) as scrolldepth
+      from (pageviews pageviews_1
+      join pagepings on ((pagepings.context_id = pageviews_1.context_id)))
+      group by pageviews_1.id
+      ), documents as (
+      select pageviews_1.id as pageview_id,
+      min(pagepings.doc_height) as doc_height
+      from (pageviews pageviews_1
+      join pagepings on ((pagepings.context_id = pageviews_1.context_id)))
+      group by pageviews_1.id
+      )
+      select pageviews.id as pageview_id,
+      durations.duration,
+      (((scrolldepths.scrolldepth)::double precision + (pageviews.view_height)::double precision) / (documents.doc_height)::double precision) as scrolldepth
+      from (((pageviews
+      join durations on ((durations.pageview_id = pageviews.id)))
+      join scrolldepths on ((scrolldepths.pageview_id = pageviews.id)))
+      join documents on ((documents.pageview_id = pageviews.id)));
     `)
 
     await knex.raw(`
