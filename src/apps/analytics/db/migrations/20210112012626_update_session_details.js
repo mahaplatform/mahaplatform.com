@@ -1,9 +1,11 @@
 const UpdateSessionDetails = {
 
-  databaseName: 'maha',
+  databaseName: 'analytics',
 
   up: async (knex) => {
 
+    await knex.raw('drop view session_details')
+    
     await knex.raw(`
       create view session_details as (
       with pageviews as (

@@ -23,7 +23,7 @@ const showRoute = async (req, res) => {
     qb.whereNull('deleted_at')
     qb.orderBy('title', 'asc')
   }).fetchAll({
-    withRelated: ['category','variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
+    withRelated: ['categories','variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
     transacting: req.trx
   })
 

@@ -40,7 +40,7 @@ class Product extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'Category', name: 'category_id', type: 'lookup', endpoint: `/api/admin/stores/stores/${props.store.id}/categories`, value: 'id', text: 'title', required: true, placeholder: 'Choose a category' },
+            { label: 'Categories', name: 'category_ids', type: 'checkboxes', endpoint: `/api/admin/stores/stores/${props.store.id}/categories`, value: 'id', text: 'title', required: true, placeholder: 'Choose a category' },
             { label: 'Type', name: 'type', type: 'dropdown', options: [
               { value: 'physical', text: 'Physical Product' },
               { value: 'file', text: 'File' },

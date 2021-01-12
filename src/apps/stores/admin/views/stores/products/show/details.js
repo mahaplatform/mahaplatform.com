@@ -14,7 +14,7 @@ const Details = ({ audits, product }) => {
     {
       items: [
         { label: 'Title', content: product.title },
-        { label: 'Category', content: product.category.title }
+        { label: 'Categories', content: product.categories.map(category => category.title).join(', ') }
       ]
     },{
       items: [

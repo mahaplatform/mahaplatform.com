@@ -1,8 +1,8 @@
-import { Form } from '@admin'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 
-class Edit extends React.Component {
+class New extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
@@ -16,23 +16,21 @@ class Edit extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    return <Form { ...this._getForm() } />
+    return <Form {...this._getForm()} />
   }
 
   _getForm() {
     const { store } = this.props
     return {
-      title: 'Edit Store',
-      method: 'patch',
-      endpoint: `/api/admin/stores/stores/${store.id}/edit`,
-      action: `/api/admin/stores/stores/${store.id}`,
+      title: 'New Category',
+      method: 'post',
+      action: `/api/admin/stores/stores/${store.id}/categories`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/event' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true }
           ]
         }
       ]
@@ -43,10 +41,10 @@ class Edit extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess(result) {
+  _handleSuccess() {
     this.context.modal.close()
   }
 
 }
 
-export default Edit
+export default New

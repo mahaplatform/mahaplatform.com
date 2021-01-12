@@ -51,6 +51,7 @@ import adminimportValidating from '../../admin/components/import/validating'
 import adminimportValidatingReview from '../../admin/components/import/validating/review'
 import admininfinite from '../../admin/components/infinite'
 import adminmenu from '../../admin/components/menu'
+import adminmultiform from '../../admin/components/multiform'
 import adminpage from '../../admin/components/page'
 import adminpicklist from '../../admin/components/picklist'
 import adminpopup from '../../admin/components/popup'
@@ -369,6 +370,7 @@ class App extends React.Component {
       adminimportValidatingReview,
       admininfinite,
       adminmenu,
+      adminmultiform,
       adminpage,
       adminpicklist,
       adminpopup,

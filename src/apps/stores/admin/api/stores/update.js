@@ -22,7 +22,7 @@ const updateRoute = async (req, res) => {
   })
 
   await store.save({
-    ...whitelist(req.body, ['title','permalink'])
+    ...whitelist(req.body, ['title','permalink','contact_config'])
   }, {
     transacting: req.trx
   })
@@ -44,7 +44,8 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/stores/stores'
+    '/admin/stores/stores',
+    `/admin/stores/stores/${store.get('id')}`
   ])
 
   res.status(200).respond(store, StoreSerializer)

@@ -1,4 +1,4 @@
-import { Error, Logger, Network, Router } from '@client'
+import { Analytics, Error, Logger, Network, Router } from '@client'
 import { hot } from 'react-hot-loader'
 import Store from './components/store'
 import Root from './components/root'
@@ -14,15 +14,17 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Router>
-          <Logger environment="store">
-            <Error>
-              <Network>
-                <Store { ...this._getStore() } />
-              </Network>
-            </Error>
-          </Logger>
-        </Router>
+        <Analytics app_id={ `store-${window.store.id}` }>
+          <Router>
+            <Logger environment="store">
+              <Error>
+                <Network>
+                  <Store { ...this._getStore() } />
+                </Network>
+              </Error>
+            </Logger>
+          </Router>
+        </Analytics>
       </Root>
     )
   }

@@ -31,13 +31,13 @@ class Contact extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'contact_config', type: ContactFieldsField, program: formdata.program }
+            { name: 'contact_config', type: ContactFieldsField, program: formdata.program, defaultValue: formdata.contact_config }
           ]
         }
       ]
@@ -53,7 +53,7 @@ class Contact extends React.Component {
   }
 
   _handleSuccess(contact) {
-    this.props.onNext(contact)
+    this.props.onSave(contact)
   }
 
 }

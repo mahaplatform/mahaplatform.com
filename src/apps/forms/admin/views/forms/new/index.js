@@ -22,7 +22,7 @@ class New extends React.Component {
   _getMultiForm() {
     return {
       title: 'New Form',
-      endpoint: '/api/admin/forms/forms',
+      action: '/api/admin/forms/forms',
       method: 'post',
       formatData: this._getData,
       getSteps: this._getSteps,

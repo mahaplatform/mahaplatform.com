@@ -34,10 +34,17 @@ const createRoute = async (req, res) => {
     code: product_code,
     title: req.body.title,
     slug: req.body.title.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '-').toLowerCase(),
-    ...whitelist(req.body, ['title','description','options','type','category_id']),
+    ...whitelist(req.body, ['title','description','options','type']),
     is_active: true
   }).save(null, {
     transacting: req.trx
+  })
+
+  await Promise.mapSeries(req.body.category_ids, async(category_id) => {
+    await req.trx('stores_products_categories').insert({
+      product_id: product.get('id'),
+      category_id
+    })
   })
 
   await Promise.mapSeries(req.body.variants, async(data) => {

@@ -1,5 +1,7 @@
 import NewProduct from '../../../components/productform'
+import NewCategory from '../categories/new'
 import Performance from './performance'
+import Categories from './categories'
 import Inventory from '../inventory'
 import Workflows from './workflows'
 import Products from './products'
@@ -9,9 +11,10 @@ import { Page } from '@admin'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ audits, products, store, workflows }) => ({
+const getTabs = ({ audits, categories, products, store, workflows }) => ({
   items: [
     { label: 'Details', component: <Details store={ store } audits={ audits } /> },
+    { label: 'Categories', component: <Categories store={ store } categories={ categories } /> },
     { label: 'Products', component: <Products store={ store } products={ products } /> },
     { label: 'Inventory', component: <Inv products={ products }/> },
     { label: 'Automation', rights: ['automation:access_app'], component: <Workflows store={ store } workflows={ workflows } /> },
@@ -26,6 +29,7 @@ const getTasks = ({ products, store }, { flash, router }) => {
   return {
     items: [
       { label: 'Edit Store', modal: <Edit store={ store } /> },
+      { label: 'Create Category', modal: <NewCategory store={ store } /> },
       { label: 'Create Product', modal: <NewProduct store={ store } /> },
       { label: 'Manage Inventory', modal: <Inventory store_id={ store.id } products={ products } /> },
       {
@@ -55,6 +59,7 @@ const getTasks = ({ products, store }, { flash, router }) => {
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/stores_stores/${props.params.id}/audits`,
   store: `/api/admin/stores/stores/${props.params.id}`,
+  categories: `/api/admin/stores/stores/${props.params.id}/categories`,
   products: `/api/admin/stores/stores/${props.params.id}/products`,
   workflows: `/api/admin/stores/stores/${props.params.id}/workflows`
 })

@@ -55,7 +55,9 @@ class Catalog extends React.Component {
     const { category_id } = this.state
     const { store } = this.props
     return store.products.filter(product => {
-      return category_id === 0 || product.category.id === category_id
+      return category_id === 0 || product.categories.find(category => {
+        return category.id === category_id
+      }) !== undefined
     })
   }
 

@@ -1,7 +1,7 @@
 import renderEmail from '@apps/automation/services/email/render_email'
 import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import Announcement from '@apps/maha/models/announcement'
-import { getScreenshot } from '@core/services/screenshot'
+import getScreenshot from '@core/services/screenshot'
 import socket from '@core/services/routes/emitter'
 import Email from '@apps/automation/models/email'
 import Template from '@apps/crm/models/template'

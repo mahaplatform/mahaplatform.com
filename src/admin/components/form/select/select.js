@@ -181,8 +181,8 @@ const Select = (multiple) => {
     }
 
     _handleSelectAll() {
-      const { options, value } = this.props
-      this.props.onSetSelected(options.map(option => {
+      const { items, value } = this.props
+      this.props.onSetSelected(items.map(option => {
         return _.get(option, value)
       }))
     }

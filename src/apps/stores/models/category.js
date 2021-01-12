@@ -12,7 +12,7 @@ const Category = new Model({
   virtuals: {},
 
   products() {
-    return this.hasMany(Product, 'category_id')
+    return this.belongsToMany(Product, 'stores_products_categories', 'category_id', 'product_id')
   }
 
 })

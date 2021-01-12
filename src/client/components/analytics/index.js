@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import ga from 'react-ga'
 import React from 'react'
 import mt from './mt'
 
@@ -10,7 +9,7 @@ class Analytics extends React.Component {
   }
 
   static propTypes = {
-    site: PropTypes.object,
+    app_id: PropTypes.object,
     children: PropTypes.any
   }
 
@@ -22,8 +21,7 @@ class Analytics extends React.Component {
   }
 
   componentDidMount() {
-    if(!this._isProduction()) return
-    this._handleLoadGA()
+    // if(!this._isProduction()) return
     this._handleLoadMT()
   }
 
@@ -37,32 +35,19 @@ class Analytics extends React.Component {
   }
 
   _isProduction() {
-    return process.env.NODE_ENV === 'production'
-  }
-
-  _handleLoadGA(id) {
-    const { ga_tracking_id } = this.props.site
-    if(!ga_tracking_id) return
-    ga.initialize(ga_tracking_id)
+    return true //process.env.NODE_ENV === 'production'
   }
 
   _handleLoadMT(id) {
-    const { mt_tracking_id } = this.props.site
-    if(!mt_tracking_id) return
-    mt.initialize(mt_tracking_id)
+    const { app_id } = this.props
+    if(!app_id) return
+    mt.initialize(app_id)
   }
 
   _handleEvent(category, action, extra = {}) {
     if(!this._isProduction()) return
-    const { ga_tracking_id, mt_tracking_id } = this.props.site
-    if(ga_tracking_id) {
-      ga.event({
-        category,
-        action,
-        ...extra
-      })
-    }
-    if(mt_tracking_id) {
+    const { app_id } = this.props
+    if(app_id) {
       mt.event({
         category,
         action,
@@ -73,13 +58,9 @@ class Analytics extends React.Component {
 
   _handleView() {
     if(!this._isProduction()) return
-    const { ga_tracking_id, mt_tracking_id } = this.props.site
+    const { app_id } = this.props
     const page = window.location.pathname
-    if(ga_tracking_id) {
-      ga.set({ page })
-      ga.pageview(page)
-    }
-    if(mt_tracking_id) {
+    if(app_id) {
       mt.trackPageView(page)
     }
   }

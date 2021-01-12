@@ -13,8 +13,8 @@ const Product = new Model({
 
   virtuals: {},
 
-  category() {
-    return this.belongsTo(Category, 'category_id')
+  categories() {
+    return this.belongsToMany(Category, 'stores_products_categories', 'product_id', 'category_id')
   },
 
   variants() {

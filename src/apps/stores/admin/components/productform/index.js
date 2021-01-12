@@ -32,7 +32,7 @@ class ProductForm extends React.Component {
     const { store } = this.props
     return {
       title: 'New Product',
-      endpoint: `/api/admin/stores/stores/${store.id}/products`,
+      action: `/api/admin/stores/stores/${store.id}/products`,
       method: 'post',
       formatData: this._getData,
       props: { store },
@@ -46,7 +46,7 @@ class ProductForm extends React.Component {
     return {
       title: product.title,
       type: product.type,
-      category_id: product.category_id,
+      category_ids: product.category_ids,
       description: product.description,
       options: product.options,
       variants: product.variants.map(variant => ({

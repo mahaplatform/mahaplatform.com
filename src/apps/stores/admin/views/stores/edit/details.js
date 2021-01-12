@@ -1,9 +1,8 @@
-import ContactFieldsField from '@apps/crm/admin/components/contactfieldsfield'
-import { Form } from '@admin'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 
-class Contact extends React.Component {
+class Details extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -37,7 +36,8 @@ class Contact extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'contact_config', type: ContactFieldsField, program: formdata.program }
+            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title', defaultValue: formdata.title },
+            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/store', defaultValue: formdata.permalink }
           ]
         }
       ]
@@ -52,10 +52,10 @@ class Contact extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(contact) {
-    this.props.onNext(contact)
+  _handleSuccess(store) {
+    this.props.onNext(store)
   }
 
 }
 
-export default Contact
+export default Details

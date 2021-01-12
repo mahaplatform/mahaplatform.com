@@ -11,7 +11,8 @@ class Button extends React.Component {
     host: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -122,7 +123,7 @@ class Button extends React.Component {
 
   _handleClick(e) {
     e.stopPropagation()
-    const { confirm, disabled, drawer, handler, link, location, modal, request, route, url, onDone } = this.props
+    const { confirm, disabled, drawer, handler, link, location, modal, request, route, tasks, url, onDone } = this.props
     if(disabled) return
     const yesHandler = () => {
       if(link) this._handleLink(link)
@@ -132,6 +133,7 @@ class Button extends React.Component {
       if(modal) this._handleModal(modal)
       if(drawer) this._handleDrawer(drawer, location)
       if(handler) this._handleFunction(handler, e)
+      if(tasks) this._handleTasks(tasks)
     }
     onDone()
     if(confirm) return this.context.confirm.open(confirm, yesHandler)
@@ -190,6 +192,10 @@ class Button extends React.Component {
         if(onSuccess) onSuccess(result)
       }
     })
+  }
+
+  _handleTasks(items) {
+    this.context.tasks.open({ items })
   }
 
 }

@@ -1,8 +1,11 @@
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
+import Message from '../message'
+import Loader from '../loader'
 import Stack from '../stack'
 import Steps from '../steps'
 import React from 'react'
+import _ from 'lodash'
 
 class Main extends React.Component {
 
@@ -12,20 +15,25 @@ class Main extends React.Component {
   }
 
   static propTypes = {
+    action: PropTypes.string,
     endpoint: PropTypes.string,
+    formdata: PropTypes.object,
     formatData: PropTypes.func,
     getSteps: PropTypes.func,
     method: PropTypes.string,
     props: PropTypes.object,
+    status: PropTypes.string,
+    step: PropTypes.number,
     title: PropTypes.string,
     onCancel: PropTypes.func,
-    onSuccess: PropTypes.func
+    onSave: PropTypes.func,
+    onSetStep: PropTypes.func,
+    onSuccess: PropTypes.func,
+    onUpdateData: PropTypes.func
   }
 
   state = {
-    cards: [],
-    formdata: {},
-    step: -1
+    cards: []
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -37,32 +45,35 @@ class Main extends React.Component {
   _handleSave = this._handleSave.bind(this)
 
   render() {
+    const { status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="multiform">
-          <div className="multiform-header">
-            <Steps { ...this._getSteps() } />
+        { _.includes(['loading','saving'], status) && <Loader /> }
+        { status === 'failiure' && <Message { ...this._getFailure()} /> }
+        { status === 'ready' &&
+          <div className="multiform">
+            <div className="multiform-header">
+              <Steps { ...this._getSteps() } />
+            </div>
+            <div className="multiform-body">
+              <Stack { ...this._getStack() } />
+            </div>
           </div>
-          <div className="multiform-body">
-            <Stack { ...this._getStack() } />
-          </div>
-        </div>
+        }
       </ModalPanel>
     )
   }
 
   componentDidMount() {
-    this.setState({
-      step: 0
-    })
+    this.props.onSetStep(0)
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { formdata, step } = this.state
+  componentDidUpdate(prevProps) {
+    const { formdata, step } = this.props
     const steps = this.props.getSteps(formdata)
-    if(step > prevState.step ) {
+    if(step > prevProps.step ) {
       this._handlePush(steps[step].component, this._getStep.bind(this))
-    } else if(step < prevState.step ) {
+    } else if(step < prevProps.step ) {
       this._handlePop()
     }
   }
@@ -86,8 +97,7 @@ class Main extends React.Component {
   }
 
   _getStep() {
-    const { formdata } = this.state
-    const { props } = this.props
+    const { formdata, props, onSetStep } = this.props
     return {
       formdata,
       props,
@@ -95,12 +105,13 @@ class Main extends React.Component {
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onNext: this._handleNext,
-      onSave: this._handleSave
+      onSave: this._handleSave,
+      onSetStep
     }
   }
 
   _getSteps() {
-    const { formdata, step } = this.state
+    const { formdata, step } = this.props
     const steps = this.props.getSteps(formdata)
     return {
       completable: false,
@@ -112,9 +123,8 @@ class Main extends React.Component {
   }
 
   _handleBack() {
-    this.setState({
-      step: this.state.step - 1
-    })
+    const { step } = this.props
+    this.props.onSetStep(step - 1)
   }
 
   _handleCancel() {
@@ -130,14 +140,11 @@ class Main extends React.Component {
   }
 
   _handleNext(data) {
-    const { step, formdata } = this.state
-    this.setState({
-      formdata: {
-        ...formdata,
-        ...data
-      },
-      step: step + 1
-    })
+    const { step, formdata } = this.props
+    this.props.onUpdateData({
+      ...formdata,
+      ...data
+    }, step + 1)
   }
 
   _handlePop(index = -1) {
@@ -156,19 +163,12 @@ class Main extends React.Component {
   }
 
   _handleSave(data) {
-    const { endpoint, formatData, method, onSuccess } = this.props
-    this.context.network.request({
-      endpoint,
-      method,
-      body: formatData({
-        ...this.state.formdata,
-        ...data
-      }),
-      onFailure: () => {},
-      onSuccess: (result) => {
-        onSuccess(result.data)
-      }
+    const { action, formatData, method } = this.props
+    const body = formatData({
+      ...this.props.formdata,
+      ...data
     })
+    this.props.onSave(action, method, body)
   }
 
 }

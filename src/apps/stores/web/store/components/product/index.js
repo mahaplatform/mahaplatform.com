@@ -48,11 +48,11 @@ class Product extends React.Component {
               </div>
             </div>
             <div className="store-product-details">
-              <div className="store-product-breadcrumbs">
-                { product.category.title } ›
-              </div>
               <div className="store-product-title">
                 { product.title }
+              </div>
+              <div className="store-product-breadcrumbs">
+                CATEGORIES: { product.categories.map(category => category.title).join(', ') }
               </div>
               <div className="store-product-description" dangerouslySetInnerHTML={{ __html: product.description }} />
               { product.variants.length > 1 &&
