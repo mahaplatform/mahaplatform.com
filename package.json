@@ -25,7 +25,8 @@
     "shipit": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js",
     "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js",
-    "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js"
+    "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js",
+    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -132,7 +133,7 @@
     "imports-loader": "^0.8.0",
     "inline-css": "^2.2.2",
     "instagram-node": "^0.5.8",
-    "ioredis": "^3.1.2",
+    "ioredis": "^4.19.4",
     "isbot": "^3.0.23",
     "json-format": "^1.0.1",
     "json-hash": "^1.2.0",

@@ -2,7 +2,7 @@ import createRedisClient from '@core/utils/create_redis_client'
 import socket from '@core/services/routes/emitter'
 import Logger from '@core/services/logger'
 import Team from '@apps/maha/models/team'
-import knex from '@core/vendor/knex'
+import * as knex from '@core/vendor/knex'
 import moment from 'moment'
 import Bull from 'bull'
 
@@ -41,7 +41,7 @@ class Queue {
       setTimeout(() => resolve(), 500)
     })
     return await this.queue.add({
-      ...job,
+      ...job  || {},
       team_id: req.team ? req.team.get('id') : null
     }, {
       removeOnComplete: true,
@@ -98,24 +98,31 @@ const withLogger = (title, processor) => async (req, job) => {
 }
 
 const withTransaction = (processor, refresh) => async (job) => {
-  await knex.transaction(async trx => {
-    try {
-      const team = job.data.team_id ? await Team.query(qb => {
-        qb.where('id', job.data.team_id)
-      }).fetch({
-        withRelated: ['logo'],
-        transacting: trx
-      }) : null
-      const req = { team, trx }
-      const result = await processor(req, job)
-      await trx.commit()
-      if(refresh) {
-        const channels = await refresh(req, job, result)
-        await socket.refresh(req, channels)
+  knex.maha.transaction(async maha => {
+    knex.analytics.transaction(async analytics => {
+      const req = {
+        analytics,
+        trx: maha,
+        maha
       }
-    } catch(err) {
-      await trx.rollback(err)
-    }
+      try {
+        req.team = job.data.team_id ? await Team.query(qb => {
+          qb.where('id', job.data.team_id)
+        }).fetch({
+          withRelated: ['logo'],
+          transacting: req.trx
+        }) : null
+        const result = await processor(req, job)
+        if(refresh) {
+          const channels = await refresh(req, job, result)
+          await socket.refresh(req, channels)
+        }
+      } catch(err) {
+        console.log(err)
+        await analytics.rollback(err)
+        await maha.rollback(err)
+      }
+    })
   })
 }
 

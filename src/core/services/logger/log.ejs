@@ -19,7 +19,7 @@
 <% } -%>
 <%- chalk.red('RESPONSE:') -%> <%- chalk.grey(`${data.statusCode} rendered in ${data.duration}ms`) %>
 <% data.queries.map(query => { -%>
-<%- chalk.green('SQL:') -%> <%- chalk.grey(query.sql) -%> <%- chalk.magenta(`[${query.bindings.join(', ')}]`) %> <%- chalk.grey(`${query.duration}ms`) %>
+<%- chalk.green(`SQL(${chalk.white(query.database)}):`) -%> <%- chalk.grey(query.sql) -%> <%- chalk.magenta(`[${query.bindings.join(', ')}]`) %> <%- chalk.grey(`${query.duration}ms`) %>
 <% }) -%>
 <% if(data.error_stack) { -%>
 <%- chalk.white(data.error_stack) %>

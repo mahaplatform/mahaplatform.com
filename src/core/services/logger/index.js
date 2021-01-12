@@ -6,6 +6,7 @@ class Logger {
   sql = []
   startTime = null
   type = null
+  response = this.response.bind(this)
 
   constructor(type) {
     this.type = type
@@ -13,17 +14,25 @@ class Logger {
 
   begin(req) {
     this.startTime = process.hrtime()
-    req.trx.on('query', (query) => {
-      if(!query.__knexQueryUid) return
-      this.sql.push({
-        ...query,
-        startTime: process.hrtime(),
-        duration: 0
-      })
-    }).on('query-response', (data, query) => {
-      const index = _.findIndex(this.sql, { __knexQueryUid: query.__knexQueryUid })
-      if(index) this.sql[index].duration = this._getDuration(this.sql[index].startTime)
+    req.analytics.on('query', this.query.bind(this, 'analytics'))
+    req.analytics.on('query-response', this.response)
+    req.maha.on('query', this.query.bind(this, 'maha'))
+    req.maha.on('query-response', this.response)
+  }
+
+  query(database, query) {
+    if(!query.__knexQueryUid) return
+    this.sql.push({
+      ...query,
+      database,
+      startTime: process.hrtime(),
+      duration: 0
     })
+  }
+
+  response(data, query) {
+    const index = _.findIndex(this.sql, { __knexQueryUid: query.__knexQueryUid })
+    if(index) this.sql[index].duration = this._getDuration(this.sql[index].startTime)
   }
 
   info(req, title, data = {}) {
@@ -36,6 +45,7 @@ class Logger {
       ...data,
       duration,
       queries: this.sql.map(query => ({
+        database: query.database,
         sql: query.sql,
         bindings: query.bindings,
         duration: query.duration
