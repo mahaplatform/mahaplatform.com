@@ -7,13 +7,13 @@ const CreateSessionDetails = {
     await knex.raw(`
       create view session_details as (
       with pageviews as (
-      select session_id,
+      select sessions.id as session_id,
       count(events.*) as pageviews
-      from events
-      inner join sessions on sessions.id=events.session_id
+      from sessions
+      inner join events on events.session_id=sessions.id
       inner join event_types on event_types.id=events.event_type_id
       where event_types.type='page_view'
-      group by session_id
+      group by sessions.id
       ),
       first_event as (
       select distinct on (sessions.id) sessions.id as session_id,
@@ -53,7 +53,8 @@ const CreateSessionDetails = {
       first_event.tstamp as first_event_tstamp,
       last_event.tstamp as last_event_tstamp,
       first_page.page_id as first_page_id,
-      last_page.page_id as last_page_id
+      last_page.page_id as last_page_id,
+      ceil(extract(epoch from (last_event.tstamp - first_event.tstamp))) as duration
       from sessions
       inner join pageviews on pageviews.session_id=sessions.id
       inner join first_event on first_event.session_id=sessions.id

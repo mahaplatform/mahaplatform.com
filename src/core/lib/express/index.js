@@ -1,7 +1,6 @@
 import 'express-async-errors'
 import './responder'
 import shortlinkMiddleware from './shortlink'
-import analyticsMiddleware from './analytics'
 import multiparty from 'connect-multiparty'
 import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
@@ -37,8 +36,6 @@ server.use(multiparty({ uploadDir: './tmp' }))
 server.use('/ping', ping)
 
 server.use('/imagecache', imagecache)
-
-server.use(analyticsMiddleware)
 
 server.use(staticMiddleware)
 

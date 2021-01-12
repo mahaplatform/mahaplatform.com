@@ -1,4 +1,3 @@
-import NetworkUser from './network_user'
 import Model from '@core/objects/model'
 import Session from './session'
 
@@ -13,10 +12,6 @@ const DomainUser = new Model({
   rules: {},
 
   virtuals: {},
-
-  network_user() {
-    return this.belongsTo(NetworkUser, 'network_user_id')
-  },
 
   sessions() {
     return this.hasMany(Session, 'domain_user_id')

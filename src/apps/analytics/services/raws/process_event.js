@@ -1,5 +1,4 @@
 import { expandMessage } from '../messages/expand_message'
-import { getNetworkUser } from '../network_users'
 import { getDomainUser } from '../domain_users'
 import Raw from '@apps/analytics/models/raw'
 import { getSession } from '../sessions'
@@ -22,12 +21,7 @@ export const processEvent = async(req, { message }) => {
 
     if(data.br_type !== 'Robot' && !isbot(data.useragent)) {
 
-      const network_user = await getNetworkUser(req, {
-        data
-      })
-
       const domain_user = await getDomainUser(req, {
-        network_user,
         data
       })
 

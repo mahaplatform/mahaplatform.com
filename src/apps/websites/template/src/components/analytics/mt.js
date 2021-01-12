@@ -122,7 +122,7 @@ class MahaTracker {
     const n = document.createElement('script')
     const g = document.getElementsByTagName('script')[0]
     n.async = 1
-    n.src = 'https://analytics.mahaplatform.com/mt.js'
+    n.src = 'https://assets.mahaplatform.com/mt.js'
     g.parentNode.insertBefore(n,g)
   }
 
