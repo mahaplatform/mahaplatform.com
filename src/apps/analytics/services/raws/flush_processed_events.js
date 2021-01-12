@@ -13,11 +13,24 @@ export const flushProcessedEvents = async (req) => {
 
   if(events.length === 0) return
 
-  await upload(req, {
-    acl: 'private',
-    bucket: process.env.AWS_DATA_BUCKET,
-    key: `analytics/${moment().format('YYYYMMDD')}.tsv`,
-    file_data: events.map(event => event.get('data')).join('\n')
+  const records = events.reduce((records, event) => {
+    const timestamp = moment(event.get('created_at')).format('YYYYMMDD')
+    return {
+      ...records,
+      [timestamp]: [
+        ...records[timestamp] || [],
+        event.get('data')
+      ]
+    }
+  }, {})
+
+  await Promise.mapSeries(Object.keys(records), async (timestamp) => {
+    await upload(req, {
+      acl: 'private',
+      bucket: process.env.AWS_DATA_BUCKET,
+      key: `analytics/${timestamp}.tsv`,
+      file_data: records[timestamp].join('\n')
+    })
   })
 
   await req.analytics('raws').where(qb => {
