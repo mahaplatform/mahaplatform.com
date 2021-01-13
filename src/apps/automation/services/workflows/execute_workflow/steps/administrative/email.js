@@ -25,8 +25,7 @@ const emailStep = async (req, params) => {
 
   const tokens = {
     ...params.tokens,
-    response: enrollment.get('response_id') ? data : null,
-    registration: enrollment.get('registration_id') ? data : null
+    ...data
   }
 
   const subject = config.subject.replace(/<%- ([\w]*)\.([\w]*) %>/g, '<%- $1[\'$2\'] %>')

@@ -34,7 +34,7 @@ const UpdateTriggerTypes = {
     //     SELECT oid FROM pg_type WHERE typname = 'crm_workflow_trigger_types'
     //   )`)
     // })
-    
+
   },
 
   down: async (knex) => {

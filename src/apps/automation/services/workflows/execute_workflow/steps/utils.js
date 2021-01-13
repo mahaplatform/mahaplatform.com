@@ -30,9 +30,9 @@ const getPaymentData = async (req, { invoice_id }) => {
   })
 
   return {
-    payment_method: payment.get('method'),
-    payment_amount: payment.get('amount'),
-    payment_card: payment.get('reference'),
+    payment_method: payment ? payment.get('method') : null,
+    payment_amount: payment ? payment.get('amount') : null,
+    payment_card: payment ? payment.get('reference') : null,
     payment_summary
   }
 
@@ -94,10 +94,13 @@ const getRegistrationData = async (req, { registration }) => {
     invoice_id: registration.get('invoice_id')
   })
 
-  getExpanded(req, 'registration', {
+  return getExpanded(req, 'registration', {
     basedata: {
       ...basedata,
-      maha_url: registration.get('url')
+      maha_url: registration.get('url'),
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email
     },
     fields,
     data,
@@ -123,7 +126,6 @@ const getOrderData = async (req, { order }) => {
   const basedata = await getPaymentData(req, {
     invoice_id: order.get('invoice_id')
   })
-
 
   return getExpanded(req, 'order', {
     basedata: {

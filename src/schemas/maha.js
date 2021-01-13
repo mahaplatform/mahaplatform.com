@@ -1601,6 +1601,7 @@ const schema = {
       table.text('url')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('email_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('maha_emails', (table) => {
@@ -3266,6 +3267,7 @@ const schema = {
     await knex.schema.table('maha_email_links', table => {
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
     })
 
     await knex.schema.table('maha_emails', table => {

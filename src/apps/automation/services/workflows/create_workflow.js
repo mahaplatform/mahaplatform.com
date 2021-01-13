@@ -26,7 +26,8 @@ const createWorkflow = async(req, params) => {
     code: workflowCode,
     status: 'active',
     title,
-    trigger_type: getTriggerType({ list, topic, email_campaign })
+    trigger_type: getTriggerType({ list, topic, email_campaign }),
+    is_unique: false
   }).save(null, {
     transacting: req.trx
   })

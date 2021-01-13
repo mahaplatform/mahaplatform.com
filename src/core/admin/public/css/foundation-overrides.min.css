@@ -158,6 +158,7 @@ table.text-block ol {
 }
 
 table.payment-summary {
+  background-color: #FFFFFF;
   border-top: 1px solid #CCCCCC;
   border-left: 1px solid #CCCCCC;
   width: 100%;

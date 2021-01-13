@@ -25,7 +25,8 @@ const createConfirmationWorkflow = async(req, params) => {
     code: workflowCode,
     status: 'active',
     title: 'Confirmation Workflow',
-    trigger_type
+    trigger_type,
+    is_unique: false
   }).save(null, {
     transacting: req.trx
   })

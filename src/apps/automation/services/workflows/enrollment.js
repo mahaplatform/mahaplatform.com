@@ -39,7 +39,7 @@ export const enrollInWorkflows = async (req, params) => {
 
 export const enrollInWorkflow = async (req, { contact, workflow, email, response, registration, order }) => {
 
-  const existing = WorkflowEnrollment.query(qb => {
+  const existing = await WorkflowEnrollment.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('workflow_id', workflow.get('id'))
     qb.where('contact_id', contact.get('id'))

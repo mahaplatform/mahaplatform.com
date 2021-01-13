@@ -137,7 +137,6 @@ class Queue {
       req.team = job.data.team_id ? await Team.query(qb => {
         qb.where('id', job.data.team_id)
       }).fetch({
-        withRelated: ['logo'],
         transacting: req.maha
       }) : null
       await processor(req, job)

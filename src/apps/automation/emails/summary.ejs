@@ -39,10 +39,12 @@
         <td>-<%= numeral(invoice.discount).format('0.00') %></td>
       </tr>
     <% } %>
-    <tr class="total">
-      <td colspan="3">TOTAL</td>
-      <td><%= numeral(invoice.total).format('0.00')%></td>
-    </tr>
+    <% if(invoice.paid > 0) { %>
+      <tr class="total">
+        <td colspan="3">TOTAL</td>
+        <td><%= numeral(invoice.total).format('0.00')%></td>
+      </tr>
+    <% } %>
     <% invoice.payments.map((payment) => { %>
       <tr>
         <td colspan="3">
@@ -55,12 +57,10 @@
         <td>-<%= numeral(payment.amount).format('0.00')%></td>
       </tr>
     <% }) %>
-    <% if(invoice.payments.length > 0) { %>
-      <tr class="total">
-        <td colspan="3">BALANCE DUE</td>
-        <td><%= numeral(invoice.balance).format('0.00') %></td>
-      </tr>
-    <% } %>
+    <tr class="total">
+      <td colspan="3">BALANCE DUE</td>
+      <td><%= numeral(invoice.balance).format('0.00') %></td>
+    </tr>
   </tbody>
 </table>
 <% if(invoice.tax_deductible > 0) { %>
