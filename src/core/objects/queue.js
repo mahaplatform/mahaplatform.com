@@ -34,7 +34,7 @@ class Queue {
     this.refresh = options.refresh
   }
 
-  async enqueue(req, job = {}, options = {}) {
+  async enqueue(req = {}, job = {}, options = {}) {
     await new Promise((resolve) => {
       setTimeout(resolve, 500)
     })
@@ -63,7 +63,7 @@ class Queue {
       if(job.name !== this.name) return
       await this.queue.removeRepeatableByKey(job.key)
     })
-    this.enqueue(null)
+    this.enqueue()
   }
 
   _getProcessor(processor) {

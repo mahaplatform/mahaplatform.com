@@ -1,6 +1,16 @@
 import { upload } from '@core/services/aws/s3'
 import Raw from '@apps/analytics/models/raw'
 import moment from 'moment'
+import zlib from 'zlib'
+
+const gzip = async (data) => {
+  return await new Promise((resolve, reject) => {
+    zlib.gzip(data, (err, buffer) => {
+      if(err) reject(err)
+      resolve(buffer)
+    })
+  })
+}
 
 export const flushProcessedEvents = async (req) => {
 
@@ -28,8 +38,8 @@ export const flushProcessedEvents = async (req) => {
     await upload(req, {
       acl: 'private',
       bucket: process.env.AWS_DATA_BUCKET,
-      key: `analytics/${timestamp}.tsv`,
-      file_data: records[timestamp].join('\n')
+      key: `analytics/${timestamp}.tsv.gz`,
+      file_data: await gzip(records[timestamp].join('\n'))
     })
   })
 

@@ -263,6 +263,13 @@ const processor = async () => {
     })
   })
 
+  utils.registerTask(shipit, 'deploy:delete_all', () => {
+    return shipit.remote('NODE_ENV=production pm2 delete all', {
+      cwd: deployDir,
+      roles: ['worker']
+    })
+  })
+
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
       roles: 'appserver'
