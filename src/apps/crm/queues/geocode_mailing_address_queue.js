@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const GeocodeMailingAddressQueue = new Queue({
+  queue: 'worker',
   name: 'geocode_mailing_address',
   processor
 })

@@ -14,10 +14,14 @@ class Logger {
 
   begin(req) {
     this.startTime = process.hrtime()
-    req.analytics.on('query', this.query.bind(this, 'analytics'))
-    req.analytics.on('query-response', this.response)
-    req.maha.on('query', this.query.bind(this, 'maha'))
-    req.maha.on('query-response', this.response)
+    if(req.analytics) {
+      req.analytics.on('query', this.query.bind(this, 'analytics'))
+      req.analytics.on('query-response', this.response)
+    }
+    if(req.maha) {
+      req.maha.on('query', this.query.bind(this, 'maha'))
+      req.maha.on('query-response', this.response)
+    }
   }
 
   query(database, query) {
@@ -65,6 +69,7 @@ class Logger {
       error_stack: error.stack,
       duration,
       queries: this.sql.map(query => ({
+        database: query.database,
         sql: query.sql,
         bindings: query.bindings,
         duration: query.duration

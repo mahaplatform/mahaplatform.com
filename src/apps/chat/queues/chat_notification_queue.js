@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const ChatNotificationQueue = new Queue({
+  queue: 'worker',
   name: 'chat_notification',
   processor
 })

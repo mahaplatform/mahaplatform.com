@@ -12,6 +12,7 @@ const processor = async (req, job) => {
 }
 
 const InitiateCallQueue = new Queue({
+  queue: 'worker',
   name: 'initiate_call',
   processor
 })

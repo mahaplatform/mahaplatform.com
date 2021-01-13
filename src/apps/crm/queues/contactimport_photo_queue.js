@@ -31,6 +31,7 @@ const processor = async (req, job) => {
 }
 
 const ContactImportPhotoQueue = new Queue({
+  queue: 'worker',
   name: 'contactimport_photo',
   processor
 })

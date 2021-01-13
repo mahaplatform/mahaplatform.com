@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const ExecuteWorkflowQueue = new Queue({
+  queue: 'worker',
   name: 'execute_workflow',
   processor
 })

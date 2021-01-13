@@ -1,6 +1,6 @@
 import socket from '@core/services/routes/emitter'
-import cron from '@core/objects/cron'
 import twilio from '@core/vendor/twilio'
+import Queue from '@core/objects/queue'
 import Call from '../models/call'
 import SMS from '../models/sms'
 import Fax from '../models/fax'
@@ -102,7 +102,8 @@ export const afterCommit = async (req, result) => {
   ])
 }
 
-const getTwilioPricesCron = cron({
+const getTwilioPricesCron = new Queue({
+  queue: 'cron',
   name: 'get_twilio_prices',
   cron: '0 0 * * * *',
   processor,

@@ -6,6 +6,7 @@ const processor = async (req, job) => {
 }
 
 const ScanAssetQueue = new Queue({
+  queue: 'worker',
   name: 'scan_asset',
   processor
 })

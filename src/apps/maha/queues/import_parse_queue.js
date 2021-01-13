@@ -109,6 +109,7 @@ const failed = async (job, err) => {
 }
 
 const ImportParseQueue = new Queue({
+  queue: 'worker',
   name: 'import_parse',
   processor,
   failed

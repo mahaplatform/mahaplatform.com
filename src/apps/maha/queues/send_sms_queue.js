@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const SendSMSQueue = new Queue({
+  queue: 'worker',
   name: 'send_sms',
   processor
 })

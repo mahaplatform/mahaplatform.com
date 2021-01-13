@@ -41,6 +41,7 @@ const processor = async (req, job) => {
 }
 
 const SendInvoiceQueue = new Queue({
+  queue: 'worker',
   name: 'send_invoice',
   processor
 })

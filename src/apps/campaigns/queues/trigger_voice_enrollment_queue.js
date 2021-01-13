@@ -12,6 +12,7 @@ const processor = async (req, job) => {
 }
 
 const TriggerVoiceEnrollmentQueue = new Queue({
+  queue: 'worker',
   name: 'trigger_voice_enrollment',
   processor
 })

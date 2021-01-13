@@ -61,6 +61,7 @@ const processor = async (req, job) => {
 }
 
 const SendAlertQueue = new Queue({
+  queue: 'worker',
   name: 'send_alert',
   processor
 })

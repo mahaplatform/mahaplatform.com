@@ -16,6 +16,7 @@ const processor = async (req, job) => {
 }
 
 const SendFaxQueue = new Queue({
+  queue: 'worker',
   name: 'send_fax',
   processor
 })

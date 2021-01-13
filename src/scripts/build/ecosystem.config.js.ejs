@@ -11,9 +11,9 @@ module.exports = {
       NODE_ENV: '<%= environment %>'
     }
   },{
-    name: 'worker_<%= environment %>',
-    script: './worker.js',
-    instances: 2,
+    name: 'collector_<%= environment %>',
+    script: './collector.js',
+    instances: 1,
     cwd: process.env.PWD+'/current/platform',
     error_file: './logs/worker.err.log',
     out_file: './logs/worker.out.log',
@@ -28,6 +28,17 @@ module.exports = {
     cwd: process.env.PWD+'/current/platform',
     error_file: './logs/cron.err.log',
     out_file: './logs/cron.out.log',
+    exec_mode: 'fork_mode',
+    env: {
+      NODE_ENV: '<%= environment %>'
+    }
+  },{
+    name: 'worker_<%= environment %>',
+    script: './worker.js',
+    instances: 1,
+    cwd: process.env.PWD+'/current/platform',
+    error_file: './logs/worker.err.log',
+    out_file: './logs/worker.out.log',
     exec_mode: 'fork_mode',
     env: {
       NODE_ENV: '<%= environment %>'

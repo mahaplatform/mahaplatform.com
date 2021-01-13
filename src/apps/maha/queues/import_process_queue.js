@@ -211,6 +211,7 @@ const failed = async (job, err) => {
 }
 
 const ImportProcessQueue = new Queue({
+  queue: 'worker',
   name: 'import_process',
   processor,
   failed

@@ -6,6 +6,7 @@ const processor = async (req, job) => {
 }
 
 const ProcessAssetQueue = new Queue({
+  queue: 'worker',
   name: 'process_asset',
   processor
 })

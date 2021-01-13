@@ -34,6 +34,7 @@ const processor = async (req, job) => {
 }
 
 const NotificationQueue = new Queue({
+  queue: 'worker',
   name: 'notification',
   enqueue,
   processor

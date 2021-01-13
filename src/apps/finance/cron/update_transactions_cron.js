@@ -1,11 +1,11 @@
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import braintree from '@core/vendor/braintree'
-import cron from '@core/objects/cron'
-import Bank from '../models/bank'
+import Queue from '@core/objects/queue'
 import Deposit from '../models/deposit'
 import Payment from '../models/payment'
 import Refund from '../models/refund'
+import Bank from '../models/bank'
 
 const getTransactions = async(ids) => {
   return await new Promise((resolve, reject) => {
@@ -197,7 +197,8 @@ export const afterCommit = async (trx, result) => {
   ])
 }
 
-const updateTransactionsCron = cron({
+const updateTransactionsCron = new Queue({
+  queue: 'cron',
   name: 'update_transactions',
   cron: '0 0 * * * *',
   processor,

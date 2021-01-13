@@ -1,129 +1,149 @@
 import createRedisClient from '@core/utils/create_redis_client'
 import socket from '@core/services/routes/emitter'
 import Logger from '@core/services/logger'
-import Team from '@apps/maha/models/team'
 import * as knex from '@core/vendor/knex'
+import Team from '@apps/maha/models/team'
 import moment from 'moment'
 import Bull from 'bull'
 
+const queues = {}
+
+const getQueue = (name) => {
+  if(queues[name]) return queues[name]
+  queues[name] = new Bull(name, {
+    createClient: createRedisClient
+  })
+  return queues[name]
+}
+
+
 class Queue {
 
-  constructor(opts) {
-    const options = {
-      ...opts,
-      attempts: 3,
-      enqueue: async (req, job) => job,
-      failed: async (job, err) => {}
-    }
-    this._enqueue = options.enqueue
-    this.attempts = options.attempts
+  constructor(options) {
+    this.processor = this._getProcessor(options.processor)
+    this.completed = this._getCompleted(options.completed)
+    this.failed = this._getFailed(options.failed)
+    this.concurrency = options.concurrency || 1
+    this.priority = options.priority || 10
+    this.attempts = options.attempts || 3
+    this.queue = getQueue(options.queue)
+    this.queueName = options.queue
     this.name = options.name
-    this.processor = options.processor
+    this.cron = options.cron
+    this.path = options.path
     this.refresh = options.refresh
-    this.failed = options.failed
-    this.completed = options.completed
-    this.queue = new Bull(this.name, {
-      createClient: createRedisClient
-    })
   }
 
-  start(options) {
-    this.queue.process(wrapped(this.name, this.processor, this.refresh))
-    if(this.failed) this.queue.on('failed', this.fail(this.failed))
-    if(this.completed) this.queue.on('completed', this.completed)
-    return this.queue
-  }
-
-  async enqueue(req, data, options = {}) {
-    const job = await this._enqueue(req, data)
-    if(process.env.NODE_ENV === 'test') return
+  async enqueue(req, job = {}, options = {}) {
     await new Promise((resolve) => {
-      setTimeout(() => resolve(), 500)
+      setTimeout(resolve, 500)
     })
-    return await this.queue.add({
-      ...job  || {},
-      team_id: req.team ? req.team.get('id') : null
-    }, {
-      removeOnComplete: true,
+    job.team_id = req.team ? req.team.get('id') : null
+    return await this.queue.add(this.name, job, {
+      priority: this.priority,
       delay: options.until ? options.until.diff(moment()) : 2000,
       attempts: this.attempts,
-      backoff: 5000
+      repeat: this.cron ? { cron: this.cron } : null,
+      backoff: {
+        type: 'exponential',
+        delay: 5000
+      },
+      removeOnComplete: true
     })
   }
 
-  fail(method) {
+  async start() {
+    this.queue.process(this.name, this.concurrency, this.processor)
+    if(this.cron) await this.startCron()
+  }
+
+  async startCron() {
+    const jobs = await this.queue.getRepeatableJobs()
+    await Promise.mapSeries(jobs, async(job) => {
+      if(job.name !== this.name) return
+      await this.queue.removeRepeatableByKey(job.key)
+    })
+    this.enqueue(null)
+  }
+
+  _getProcessor(processor) {
+    const withTeam = this._withTeam(processor)
+    const withLogger = this._withLogger(withTeam)
+    const withtransaction = this._withTransaction(withLogger)
+    return this._withCallbacks(withtransaction)
+  }
+
+  _getCompleted(completed) {
+    if(!completed) return () => {}
+    return completed
+  }
+
+  _getFailed(failed) {
     return async(job, err) => {
-      if(process.env !== 'production') console.error(err)
-      await method(job, err)
+      if(failed) await failed(job, err)
     }
   }
 
-  async clean(type) {
-    return await this.queue.clean(0, type)
-  }
-
-  async getJob(job_id) {
-    return await this.queue.getJob(job_id)
-  }
-
-}
-
-const wrapped = (title, processor, refresh) => {
-  const processorWithLogger = withLogger(title, processor)
-  const processorWithTransaction = withTransaction(processorWithLogger, refresh)
-  return async (job, done) => {
-    try {
-      await processorWithTransaction(job)
-      done()
-    } catch(err) {
-      done(err)
+  _withCallbacks(processor) {
+    return async (job) => {
+      try {
+        await processor(job)
+        await this.completed()
+      } catch(err) {
+        await this.failed(job, err)
+        throw err
+      }
     }
   }
-}
 
-const withLogger = (title, processor) => async (req, job) => {
-  const logger = new Logger('worker')
-  logger.begin(req)
-  const data = {
-    id: job.id,
-    job: job.data
-  }
-  try {
-    await processor(req, job)
-    logger.info(req, title, data)
-  } catch(err) {
-    logger.error(req, title, data, err)
-    throw(err)
-  }
-}
-
-const withTransaction = (processor, refresh) => async (job) => {
-  knex.maha.transaction(async maha => {
-    knex.analytics.transaction(async analytics => {
-      const req = {
-        analytics,
-        trx: maha,
-        maha
+  _withLogger(processor) {
+    return async (req, job) => {
+      const logger = new Logger(this.queueName)
+      logger.begin(req)
+      const data = {
+        id: job.id,
+        job: job.data
       }
       try {
-        req.team = job.data.team_id ? await Team.query(qb => {
-          qb.where('id', job.data.team_id)
-        }).fetch({
-          withRelated: ['logo'],
-          transacting: req.trx
-        }) : null
-        const result = await processor(req, job)
-        if(refresh) {
-          const channels = await refresh(req, job, result)
-          await socket.refresh(req, channels)
-        }
+        await processor(req, job)
+        logger.info(req, this.name, data)
       } catch(err) {
-        console.log(err)
-        await analytics.rollback(err)
-        await maha.rollback(err)
+        logger.error(req, this.name, data, err)
+        throw(err)
       }
-    })
-  })
+    }
+  }
+
+  _withTransaction(processor) {
+    return async (job) => {
+      return knex.analytics.transaction(async analytics => {
+        return await knex.maha.transaction(async maha => {
+          const req = {}
+          req.analytics = analytics
+          req.maha = maha
+          req.trx = maha
+          const result = await processor(req, job)
+          if(this.refresh) {
+            const channels = await this.refresh(req, job, result)
+            await socket.refresh(req, channels)
+          }
+        })
+      })
+    }
+  }
+
+  _withTeam(processor) {
+    return async (req, job) => {
+      req.team = job.data.team_id ? await Team.query(qb => {
+        qb.where('id', job.data.team_id)
+      }).fetch({
+        withRelated: ['logo'],
+        transacting: req.maha
+      }) : null
+      await processor(req, job)
+    }
+  }
+
 }
 
 export default Queue

@@ -16,9 +16,17 @@ import ncp from 'ncp'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const appsDir = path.resolve('src','apps')
+const srcDir = path.resolve('src')
+
+const appsDir = path.join(srcDir,'apps')
 
 const jswhitelist = ['mt.js']
+
+const dist = path.resolve('dist')
+
+const staged = `${dist}.staged`
+
+const copy = Promise.promisify(ncp)
 
 const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   const appDir = path.join(appsDir, app, 'web')
@@ -55,12 +63,6 @@ const getBabelRc = (root) => {
     sourceMaps: 'inline'
   }
 }
-
-const dist = path.resolve('dist')
-
-const staged = `${dist}.staged`
-
-const copy = Promise.promisify(ncp)
 
 const getItemType = (item) => {
   return path.extname(item).length > 0 ? path.extname(item).substr(1) : 'dir'
@@ -151,8 +153,11 @@ const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
   const coreDirs = ['lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
+  const entries = fs.readdirSync(srcDir).filter(item => {
+    return !fs.lstatSync(path.join(srcDir,item)).isDirectory()
+  })
   await Promise.map([...appDirs, ...coreDirs], buildDir(babelrc))
-  await Promise.map(['analytics.js','maxmind.js','cron.js','server.js','worker.js'], buildEntry(babelrc))
+  await Promise.map(entries, buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })
   fs.writeFileSync(path.join(staged,'platform','ecosystem.config.js'), data, 'utf8')

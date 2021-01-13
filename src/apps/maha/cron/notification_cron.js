@@ -1,8 +1,8 @@
 import NotificationSerializer from '../serializers/notification_serializer'
 import { sendNotificationEmail } from '../services/notification_email'
-import socket from '@core/vendor/emitter'
 import Notification from '../models/notification'
-import cron from '@core/objects/cron'
+import socket from '@core/vendor/emitter'
+import Queue from '@core/objects/queue'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -61,7 +61,8 @@ export const afterCommit = async (req, result) => {
   })
 }
 
-const digestCron = cron({
+const digestCron = new Queue({
+  queue: 'cron',
   name: 'notification',
   cron: '0 0 2 * * *',
   processor,

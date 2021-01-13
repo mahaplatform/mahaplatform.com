@@ -13,6 +13,7 @@ const processor = async (req, job) => {
 }
 
 const GenerateScreenshotQueue = new Queue({
+  queue: 'worker',
   name: 'generate_screenshot',
   processor
 })

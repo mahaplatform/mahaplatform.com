@@ -17,6 +17,7 @@ const refresh = async (req, job) => [
 ]
 
 const SaveWorkflowRecordingQueue = new Queue({
+  queue: 'worker',
   name: 'save_workflow_recording',
   processor,
   refresh

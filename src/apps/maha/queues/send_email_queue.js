@@ -32,6 +32,7 @@ const processor = async (req, job) => {
 }
 
 const MailerQueue = new Queue({
+  queue: 'worker',
   name: 'send_email',
   processor
 })

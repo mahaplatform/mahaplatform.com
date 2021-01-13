@@ -20,6 +20,7 @@ const failed = async (job, err) => {
 }
 
 const ContactImportImportQueue = new Queue({
+  queue: 'worker',
   name: 'contactimport_import',
   processor,
   failed

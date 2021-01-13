@@ -96,6 +96,7 @@ const processor = async (req, job) => {
 }
 
 const ForwardEmailQueue = new Queue({
+  queue: 'worker',
   name: 'forward_email',
   processor
 })

@@ -11,6 +11,7 @@ const processor = async (req, job) => {
 }
 
 const TriggerEmailEnrollmentQueue = new Queue({
+  queue: 'worker',
   name: 'trigger_email_enrollment',
   processor
 })

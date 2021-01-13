@@ -16,8 +16,9 @@ const refresh = async (req, job) => [
 ]
 
 const SendAnnouncementQueue = new Queue({
-  attempts: 1,
+  queue: 'worker',
   name: 'send_announcement',
+  attempts: 1,
   processor,
   refresh
 })

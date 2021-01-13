@@ -10,6 +10,7 @@ const processor = async (req, job) => {
 }
 
 const ReceiveEmailQueue = new Queue({
+  queue: 'worker',
   name: 'receive_email',
   processor
 })

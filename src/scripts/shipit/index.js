@@ -230,12 +230,20 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:restart_pm2', [
     'deploy:restart_analytics',
+    'deploy:restart_collector',
     'deploy:restart_cron',
     'deploy:restart_worker'
   ])
 
   utils.registerTask(shipit, 'deploy:restart_analytics', () => {
     return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only analytics_production', {
+      cwd: deployDir,
+      roles: ['analyticsserver']
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:restart_collector', () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only collector_production', {
       cwd: deployDir,
       roles: ['analyticsserver']
     })
@@ -271,13 +279,6 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:clean', () => {
     return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
       roles: ['analyticsserver','appserver','cron','worker']
-    })
-  })
-
-  utils.registerTask(shipit, 'maxmind', () => {
-    return shipit.remote('NODE_ENV=production node ./maxmind.js', {
-      cwd: `${currentDir}/platform`,
-      roles: ['analyticsserver']
     })
   })
 

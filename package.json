@@ -93,7 +93,7 @@
     "braintree-web": "^3.55.0",
     "btoa": "^1.2.1",
     "bull": "^3.20.0",
-    "bull-arena": "^3.6.1",
+    "bull-arena": "^3.7.0",
     "bytes": "^3.1.0",
     "chalk": "2.1.0",
     "chart.js": "^2.8.0",

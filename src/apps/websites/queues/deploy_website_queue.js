@@ -19,6 +19,7 @@ const processor = async (req, job) => {
 }
 
 const DeployWebsiteQueue = new Queue({
+  queue: 'worker',
   name: 'deploy_website',
   processor
 })

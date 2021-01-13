@@ -12,6 +12,7 @@ const processor = async (req, job) => {
 }
 
 const createDistributionQueue = new Queue({
+  queue: 'worker',
   name: 'create_distribution',
   processor
 })
