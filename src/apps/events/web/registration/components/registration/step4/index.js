@@ -43,7 +43,10 @@ class Step4 extends React.Component {
       amount: total,
       data,
       endpoint: `/api/events/events/${event.code}/registrations`,
-      lineItems: data.items,
+      lineItems: data.items.map(item => ({
+        ...item,
+        name: `${event.program.title} - ${event.title} - ${item.name}`
+      })),
       program: event.program,
       settings: event.settings,
       token,

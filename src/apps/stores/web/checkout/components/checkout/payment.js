@@ -6,6 +6,7 @@ class PaymentStep extends React.Component {
 
   static propTypes = {
     data: PropTypes.object,
+    items: PropTypes.array,
     Store: PropTypes.object,
     token: PropTypes.string,
     total: PropTypes.number,
@@ -38,12 +39,13 @@ class PaymentStep extends React.Component {
   }
 
   _getPayment() {
-    const { data, Store, token, total, onDone } = this.props
+    const { data, items, Store, token, total, onDone } = this.props
     const { code, program, settings } = Store
     return {
       amount: total,
       data,
       endpoint: `/api/stores/stores/${code}/orders`,
+      items,
       program,
       settings,
       token,

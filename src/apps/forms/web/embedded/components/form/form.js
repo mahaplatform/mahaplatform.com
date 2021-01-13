@@ -34,6 +34,7 @@ class Form extends React.Component {
     starttime: PropTypes.number,
     status: PropTypes.string,
     summary: PropTypes.object,
+    title: PropTypes.string,
     tokens: PropTypes.object,
     token: PropTypes.string,
     validated: PropTypes.array,
@@ -102,12 +103,15 @@ class Form extends React.Component {
   }
 
   _getPayment() {
-    const { code, config, data, settings, summary, token, onSetPaid } = this.props
+    const { code, config, data, settings, summary, title, token, onSetPaid } = this.props
     return {
       amount: Number(summary.total),
       data,
       endpoint: `/api/forms/forms/${code}`,
-      lineItems: summary.line_items,
+      lineItems: summary.line_items.map(item => ({
+        ...item,
+        name: `${config.program.title} - ${title} - ${item.description}`
+      })),
       program: config.program,
       settings,
       token,

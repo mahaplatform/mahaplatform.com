@@ -131,9 +131,13 @@ class Checkout extends React.Component {
   }
 
   _getPaymentStep() {
-    const { data, Store, token, total } = this.props
+    const { data, Store, items, token, total } = this.props
     return {
       data,
+      items: items.map(item => ({
+        ...item,
+        name: `${Store.program.title} - ${Store.title} - ${item.title}`
+      })),
       Store,
       token,
       total,
