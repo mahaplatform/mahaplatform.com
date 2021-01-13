@@ -131,9 +131,11 @@
                       <td>
                         <table>
                           <tr>
-                            <td>
-                              <img src="<%= host %>/imagecache/fit=cover&w=64&h=64<%= invoice.program.logo %>" />
-                            </td>
+                            <% if(invoice.program.logo) { %>
+                              <td>
+                                <img src="<%= host %>/imagecache/fit=cover&w=64&h=64<%= invoice.program.logo %>" />
+                              </td>
+                            <% } %>
                             <td>
                               <strong><%= invoice.program.title %></strong><br />
                               <%- invoice.program.address ? invoice.program.address.replace(/\n/g, '<br />') : '' %>

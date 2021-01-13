@@ -55,7 +55,7 @@ const encodeEmail = async(req, { code, header, html }) => {
       url: link.url
     })
 
-    return rendered.replace(link.url, `${process.env.WEB_HOST}/c${code}${emailLink.get('code')}`)
+    return rendered.replace(`href="${link.url}"`, `href="${process.env.WEB_HOST}/c${code}${emailLink.get('code')}"`)
 
   }, decoded)
 
