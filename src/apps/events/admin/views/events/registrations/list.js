@@ -1,4 +1,4 @@
-import ContactToken from '@apps/crm/admin/tokens/contact'
+import RegistrationToken from '@apps/events/admin/tokens/registration'
 import Content from '@apps/forms/admin/tokens/content'
 import PaymentToken from '../../../tokens/payment'
 import { Page } from '@admin'
@@ -30,7 +30,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/events/events/${page.params.event_id}/registrations`,
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: (registration) => <ContactToken { ...registration.contact } /> },
+      { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: RegistrationToken },
       ...resources.event.contact_config.fields.map(field => ({
         label: field.name.value,
         key: `data.${field.code}`,
