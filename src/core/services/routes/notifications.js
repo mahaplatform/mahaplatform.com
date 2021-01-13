@@ -34,7 +34,9 @@ export const notifications = async (req, notifications) => {
         transacting: req.trx
       })
 
-      NotificationQueue.enqueue(req, notificationObject.get('id'))
+      NotificationQueue.enqueue(req, {
+        id: notificationObject.get('id')
+      })
 
     })
 

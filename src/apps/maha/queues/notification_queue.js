@@ -3,8 +3,6 @@ import { sendNotification } from '../services/notifications'
 import Notification from '../models/notification'
 import Queue from '@core/objects/queue'
 
-const enqueue = async (req, id) => ({ id })
-
 const processor = async (req, job) => {
 
   const notification = await Notification.where({
@@ -36,7 +34,6 @@ const processor = async (req, job) => {
 const NotificationQueue = new Queue({
   queue: 'worker',
   name: 'notification',
-  enqueue,
   processor
 })
 

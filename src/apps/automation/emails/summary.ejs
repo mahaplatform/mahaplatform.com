@@ -42,7 +42,7 @@
     <% if(invoice.paid > 0) { %>
       <tr class="total">
         <td colspan="3">TOTAL</td>
-        <td><%= numeral(invoice.total).format('0.00')%></td>
+        <td><%= numeral(invoice.total).format('0.00') %></td>
       </tr>
     <% } %>
     <% invoice.payments.map((payment) => { %>
