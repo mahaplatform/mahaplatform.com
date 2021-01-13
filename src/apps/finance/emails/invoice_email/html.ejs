@@ -136,7 +136,7 @@
                             </td>
                             <td>
                               <strong><%= invoice.program.title %></strong><br />
-                              <%- invoice.program.address.replace(/\n/g, '<br />') %>
+                              <%- invoice.program.address ? invoice.program.address.replace(/\n/g, '<br />') : '' %>
                             </td>
                           </tr>
                         </table>
