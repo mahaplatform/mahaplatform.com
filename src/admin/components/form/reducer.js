@@ -1,3 +1,4 @@
+import flatten from 'flat'
 import _ from 'lodash'
 
 const INITIAL_STATE = {
@@ -74,13 +75,10 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'ready',
-      data: _.uniq([
-        ...Object.keys(action.defaults),
-        ...Object.keys(action.result.data)
-      ]).reduce((data, key) => ({
-        ...data,
-        [key]: !_.isNil(_.get(action.result.data, key)) ? _.get(action.result.data, key) : action.defaults[key] || null
-      }), {})
+      data: {
+        ...action.defaults,
+        ...flatten(action.result.data)
+      }
     }
 
   case 'UPDATE_DATA':
