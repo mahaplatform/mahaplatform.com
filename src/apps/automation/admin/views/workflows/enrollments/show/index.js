@@ -8,15 +8,26 @@ const getTabs = ({ actions, enrollment, workflow }) => ({
   ]
 })
 
-const getTasks = ({ enrollment, workflow }) => ({
+const getTasks = ({ enrollment, workflow }, { flash }) => ({
   items: [
     {
+      label: 'Retry Enrollment',
+      show: enrollment.status === 'failed',
+      request: {
+        endpoint: `/api/admin/automation/workflows/${workflow.id}/enrollments/${enrollment.id}/retry`,
+        method: 'patch',
+        onFailure: () => flash.set('error', 'Unable to retry enrollment'),
+        onSuccess: () => flash.set('success', 'The enrollment has been queued for execution')
+      }
+    }, {
       label: 'Cancel Enrollment',
       confirm: 'Are you sure you want to cancel this enrollment?',
       show: enrollment.status === 'active',
       request: {
         endpoint: `/api/admin/automation/workflows/${workflow.id}/enrollments/${enrollment.id}/cancel`,
-        method: 'patch'
+        method: 'patch',
+        onFailure: () => flash.set('error', 'Unable to cancel enrollment'),
+        onSuccess: () => flash.set('success', 'The enrollment has been canceled')
       }
     }
   ]

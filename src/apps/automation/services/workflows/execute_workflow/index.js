@@ -15,20 +15,28 @@ import _ from 'lodash'
 const executeStep = async (req, params) => {
   const { answer, contact, dial, enrollment, execute, fields, step, steps, recording, tokens, workflow } = params
   const executor = executors[step.get('type')][step.get('action')]
-  return await executor(req, {
-    answer,
-    config: step.get('config'),
-    contact,
-    dial,
-    enrollment,
-    execute,
-    fields,
-    recording,
-    step,
-    steps,
-    tokens,
-    workflow
-  })
+  try {
+    return await executor(req, {
+      answer,
+      config: step.get('config'),
+      contact,
+      dial,
+      enrollment,
+      execute,
+      fields,
+      recording,
+      step,
+      steps,
+      tokens,
+      workflow
+    })
+  } catch(err) {
+    await enrollment.save({
+      status: 'failed',
+      error: err.toString()
+    })
+    return null
+  }
 }
 
 const getCurrentStep = async (req, { enrollment, code, steps }) => {
@@ -339,6 +347,8 @@ const executeWorkflow = async (req, params) => {
     tokens,
     workflow
   })
+
+  if(!result) return
 
   const { action, condition, converted, recording_data, twiml, unenroll, until, wait } = result
 

@@ -66,6 +66,19 @@ class WorkflowActions extends React.PureComponent {
             </div>
           </div>
         }
+        { enrollment.status === 'failed' &&
+          <div className="crm-workflow-action">
+            <div className="crm-workflow-action-icon">
+              <div className="crm-workflow-action-action ending">
+                <i className="fa fa-times" />
+              </div>
+            </div>
+            <div className="crm-workflow-action-label">
+              <strong>FAILED: </strong>
+              The enrollment failed due to an internal error
+            </div>
+          </div>
+        }
         { enrollment.status === 'completed' &&
           <div className="crm-workflow-action">
             <div className="crm-workflow-action-icon">

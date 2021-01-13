@@ -627,6 +627,7 @@ const schema = {
       table.timestamp('completed_at')
       table.boolean('was_opted_out')
       table.integer('order_id').unsigned()
+      table.text('error')
     })
 
     await knex.schema.createTable('crm_workflow_recordings', (table) => {
