@@ -5,6 +5,7 @@ const EnrollmentSerializer = (req, result) => ({
   status: result.get('status'),
   unenrolled_at: result.get('unenrolled_at'),
   completed_at: result.get('completed_at'),
+  error: result.get('error'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

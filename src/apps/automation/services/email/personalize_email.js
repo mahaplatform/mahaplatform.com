@@ -10,7 +10,7 @@ const sanitizeTemplate = (content) => {
   if(tags) {
     tags.map(tag => {
       const [fulltag, object, prop] = tag.match(/<%- ([\w]*)\.([\w]*) %>/)
-      content = content.replace(fulltag, `<%- ( typeof(${object}) !== "undefined" && ${object}['${prop}']) ? ${object}['${prop}'] : ''%>`)
+      content = content.replace(fulltag, `<%- (typeof(${object}) !== "undefined" && ${object}['${prop}']) ? ${object}['${prop}'] : '' %>`)
     })
   }
   return content

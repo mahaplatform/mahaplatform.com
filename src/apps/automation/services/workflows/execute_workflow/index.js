@@ -33,7 +33,10 @@ const executeStep = async (req, params) => {
   } catch(err) {
     await enrollment.save({
       status: 'failed',
-      error: err.toString()
+      error: err.stack
+    }, {
+      transacting: req.trx,
+      patch: true
     })
     return null
   }

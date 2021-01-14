@@ -69,7 +69,7 @@ class WorkflowActions extends React.PureComponent {
         { enrollment.status === 'failed' &&
           <div className="crm-workflow-action">
             <div className="crm-workflow-action-icon">
-              <div className="crm-workflow-action-action ending">
+              <div className="crm-workflow-action-action ending" title={ enrollment.error }>
                 <i className="fa fa-times" />
               </div>
             </div>
