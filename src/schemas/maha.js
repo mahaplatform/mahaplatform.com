@@ -1602,7 +1602,6 @@ const schema = {
       table.text('url')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('email_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('maha_emails', (table) => {
@@ -3268,7 +3267,6 @@ const schema = {
     await knex.schema.table('maha_email_links', table => {
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
     })
 
     await knex.schema.table('maha_emails', table => {
@@ -3598,6 +3596,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('stores_products_categories', table => {
+      table.foreign('category_id').references('stores_categories.id')
+      table.foreign('product_id').references('stores_products.id')
+    })
+
     await knex.schema.table('stores_products', table => {
       table.foreign('store_id').references('stores_stores.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -3697,11 +3700,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('stores_products_categories', table => {
-      table.foreign('product_id').references('stores_products.id')
-      table.foreign('category_id').references('stores_categories.id')
     })
 
 
