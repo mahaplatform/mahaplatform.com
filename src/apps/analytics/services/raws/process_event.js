@@ -5,19 +5,17 @@ import { getSession } from '../sessions'
 import { createEvent } from '../events'
 import isbot from 'isbot'
 
-export const processEvent = async(req, { message }) => {
+export const processEvent = async(req, { id }) => {
 
-  const raw = await Raw.forge({
-    data: message,
-    status: 'pending',
-    attempts: 0
-  }).save(null, {
+  const raw = await Raw.query(qb => {
+    qb.where('id', id)
+  }).fetch({
     transacting: req.analytics
   })
 
   try {
 
-    const data = expandMessage(message)
+    const data = expandMessage(raw.get('data'))
 
     if(data.br_type !== 'Robot' && !isbot(data.useragent)) {
 
@@ -47,7 +45,7 @@ export const processEvent = async(req, { message }) => {
   } catch(error) {
 
     await raw.save({
-      attempts: parseInt(raw.get('attempts')) + 1,
+      attempts: raw.get('attempts') + 1,
       status: 'failed',
       error: error.stack
     }, {

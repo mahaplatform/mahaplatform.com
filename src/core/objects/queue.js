@@ -32,13 +32,14 @@ class Queue {
     this.cron = options.cron
     this.path = options.path
     this.refresh = options.refresh
+    this.log = options.log || true
   }
 
   async enqueue(req = {}, job = {}, options = {}) {
     await new Promise((resolve) => {
       setTimeout(resolve, 500)
     })
-    job.team_id = req.team ? req.team.get('id') : null
+    if(req.team) job.team_id = req.team.get('id')
     return await this.queue.add(this.name, job, {
       priority: this.priority,
       delay: options.until ? options.until.diff(moment()) : 2000,
@@ -68,7 +69,7 @@ class Queue {
 
   _getProcessor(processor) {
     const withTeam = this._withTeam(processor)
-    const withLogger = this._withLogger(withTeam)
+    const withLogger = this.log ? this._withLogger(withTeam) : withTeam
     const withtransaction = this._withTransaction(withLogger)
     return this._withCallbacks(withtransaction)
   }
