@@ -71,7 +71,7 @@ export const chargePayPal = async (req, { invoice, customer, bank, payment, amou
 
   const { authorizationId, transactionFeeAmount } = result.transaction.paypal
 
-  const expected_fee = amount * bank.get('rate') + 0.3
+  const expected_fee = Math.round(((amount * bank.get('rate')) + 0.3) * 100) / 100
 
   const difference = transactionFeeAmount - expected_fee
 
