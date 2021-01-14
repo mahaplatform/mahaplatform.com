@@ -46,12 +46,10 @@ export const processEvent = async(req, { message }) => {
 
   } catch(error) {
 
-    console.log(error)
-
     await raw.save({
       attempts: parseInt(raw.get('attempts')) + 1,
       status: 'failed',
-      error: error.toString()
+      error: error.stack
     }, {
       transacting: req.analytics,
       patch: true
