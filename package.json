@@ -97,6 +97,7 @@
     "bull": "^3.20.0",
     "bull-arena": "^3.7.0",
     "bytes": "^3.1.0",
+    "canvas": "^2.6.1",
     "chalk": "2.1.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",

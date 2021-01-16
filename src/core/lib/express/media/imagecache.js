@@ -1,5 +1,4 @@
 import s3 from '../../../vendor/aws/s3'
-import { Router } from 'express'
 import mime from 'mime-types'
 import sharp from 'sharp'
 import path from 'path'
@@ -15,19 +14,6 @@ const getRoot = (env) => {
 }
 
 const root = getRoot(process.env.NODE_ENV)
-
-const router = new Router({ mergeParams: true })
-
-router.get('/*', async (req, res) => {
-  const url = parseUrl(req.originalUrl)
-  const type = getType(url)
-  const data = await getTransformed(url, type)
-  if(process.env.NODE_ENV === 'production') {
-    res.setHeader('Cache-Control','immutable,max-age=100000000,public')
-  }
-  const mimetype = mime.lookup(type)
-  return res.type(mimetype).status(200).send(data)
-})
 
 const getOriginal = async (url) => {
   const fm = url.transforms ? url.transforms.fm : null
@@ -140,4 +126,15 @@ const convert = async (transformed, type, transforms) => {
   return await transformed.png({ quality }).toBuffer()
 }
 
-export default router
+const imagecache = async (req, res) => {
+  const url = parseUrl(req.originalUrl)
+  const type = getType(url)
+  const data = await getTransformed(url, type)
+  if(process.env.NODE_ENV === 'production') {
+    res.setHeader('Cache-Control','immutable,max-age=100000000,public')
+  }
+  const mimetype = mime.lookup(type)
+  return res.type(mimetype).status(200).send(data)
+}
+
+export default imagecache

@@ -2,15 +2,14 @@ import 'express-async-errors'
 import './responder'
 import shortlinkMiddleware from './shortlink'
 import multiparty from 'connect-multiparty'
-import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
 import rollbarMiddleware from './rollbar'
 import transaction from './transaction'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
+import mediaMiddleware from './media'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
-import qrcode from './media/qrcode'
 import apiMiddleware from './api'
 import logger from './logger'
 import express from 'express'
@@ -35,7 +34,7 @@ server.use(multiparty({ uploadDir: './tmp' }))
 
 server.use('/ping', ping)
 
-server.use('/imagecache', imagecache)
+server.use(mediaMiddleware)
 
 server.use(staticMiddleware)
 
@@ -56,8 +55,6 @@ server.use('/voice', voice)
 server.use('/fax', fax)
 
 server.use('/sms', sms)
-
-server.use('/qr', qrcode)
 
 server.use('/.well-known', deeplinkMiddleware)
 
