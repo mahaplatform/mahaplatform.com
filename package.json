@@ -10,6 +10,7 @@
     "node": ">=14.15.1"
   },
   "scripts": {
+    "useragent": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/useragent.js",
     "analytics": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/analytics.js",
     "collector": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/collector.js",
     "assets": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/assets.js",
