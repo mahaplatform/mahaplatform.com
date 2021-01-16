@@ -1,19 +1,14 @@
-import Manufacturer from '@apps/analytics/models/manufacturer'
 import Campaign from '@apps/analytics/models/campaign'
 import Session from '@apps/analytics/models/session'
 import Content from '@apps/analytics/models/content'
-import Browser from '@apps/analytics/models/browser'
-import Version from '@apps/analytics/models/version'
 import Network from '@apps/analytics/models/network'
 import Source from '@apps/analytics/models/source'
 import Medium from '@apps/analytics/models/medium'
-import Device from '@apps/analytics/models/device'
 import Term from '@apps/analytics/models/term'
 import App from '@apps/analytics/models/app'
 import { getIPAddress } from './ipaddresses'
-import OS from '@apps/analytics/models/os'
 import { getReferer } from './referers'
-import UAParser from 'ua-parser-js'
+import { getUseragent } from './useragents'
 
 export const getSession = async(req, { data, domain_user }) => {
 
@@ -33,43 +28,7 @@ export const getSession = async(req, { data, domain_user }) => {
 
   if(session) return session
 
-  const ua = UAParser(data.useragent)
-
-  const device = await Device.fetchOrCreate({
-    text: ua.device.type || 'computer'
-  },{
-    transacting: req.analytics
-  })
-
-  const manufacturer = ua.device.vendor ? await Manufacturer.fetchOrCreate({
-    text: ua.device.vendor
-  },{
-    transacting: req.analytics
-  }) : null
-
-  const os = ua.os.name ? await OS.fetchOrCreate({
-    text: ua.os.name
-  },{
-    transacting: req.analytics
-  }): null
-
-  const os_version = ua.os.version ? await Version.fetchOrCreate({
-    text: ua.os.version
-  },{
-    transacting: req.analytics
-  }) : null
-
-  const browser = ua.browser.name ? await Browser.fetchOrCreate({
-    text: ua.browser.name
-  },{
-    transacting: req.analytics
-  }): null
-
-  const browser_version = ua.browser.major ? await Version.fetchOrCreate({
-    text: ua.browser.major
-  },{
-    transacting: req.analytics
-  }) : null
+  const useragent = await getUseragent(req, { data })
 
   const referer = data.page_referrer ? await getReferer(req, {
     data
@@ -119,12 +78,7 @@ export const getSession = async(req, { data, domain_user }) => {
     domain_user_id: domain_user.get('id'),
     app_id: app.get('id'),
     ipaddress_id: ipaddress.get('id'),
-    device_id: device.get('id'),
-    manufacturer_id: manufacturer ? manufacturer.get('id') : null,
-    os_id: os ? os.get('id') : null,
-    os_version_id: os_version ? os_version.get('id') : null,
-    browser_id: browser ? browser.get('id') : null,
-    browser_version_id: browser_version ? browser_version.get('id') : null,
+    useragent_id: useragent.get('id'),
     referer_id: referer ? referer.get('id') : null,
     source_id: source ? source.get('id') : null,
     medium_id: medium ? medium.get('id') : null,
@@ -132,7 +86,6 @@ export const getSession = async(req, { data, domain_user }) => {
     term_id: term ? term.get('id') : null,
     content_id: content ? content.get('id') : null,
     network_id: network ? network.get('id') : null,
-    useragent: data.useragent,
     clickid: data.mkt_clickid,
     domain_sessionid: data.domain_sessionid
   }).save(null, {

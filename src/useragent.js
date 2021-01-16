@@ -1,6 +1,7 @@
 import './core/vendor/sourcemaps'
 import './core/services/environment'
 import { expandMessage } from '@apps/analytics/services/messages/expand_message'
+import { getUseragent } from '@apps/analytics/services/useragents'
 import { listObjects, getObject } from '@core/services/aws/s3'
 import { gunzip } from '@core/services/gzip'
 import * as knex from '@core/vendor/knex'
@@ -29,10 +30,18 @@ knex.analytics.transaction(async analytics => {
 
       const data = expandMessage(row)
 
-      console.log(data.event_id)
+      const session = await analytics('sessions').where('domain_sessionid', data.domain_sessionid).then(results => {
+        return results[0]
+      })
+
+      if(session) return
+
+      const useragent = await getUseragent({ analytics }, {
+        data
+      })
 
       await analytics('sessions').where('domain_sessionid', data.domain_sessionid).update({
-        useragent: data.useragent
+        useragent_id: useragent.get('id')
       })
 
     })
