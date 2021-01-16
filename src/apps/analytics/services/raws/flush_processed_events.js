@@ -1,16 +1,7 @@
 import { upload } from '@core/services/aws/s3'
 import Raw from '@apps/analytics/models/raw'
+import { gzip } from '@core/services/gzip'
 import moment from 'moment'
-import zlib from 'zlib'
-
-const gzip = async (data) => {
-  return await new Promise((resolve, reject) => {
-    zlib.gzip(data, (err, buffer) => {
-      if(err) reject(err)
-      resolve(buffer)
-    })
-  })
-}
 
 export const flushProcessedEvents = async (req) => {
 

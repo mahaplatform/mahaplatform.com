@@ -115,6 +115,7 @@ const processor = async () => {
     'sync:backup',
     'sync:download',
     'sync:restore',
+    'sync:remove',
     'sync:teams',
     'sync:passwords',
     'sync:phone_numbers',
@@ -297,27 +298,39 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:backup', () => {
-    return shipit.remote('pg_dump -h 127.0.0.1 -U maha maha | gzip > backup.sql.gz', {
+    const database = args[1] || 'maha'
+    return shipit.remote(`pg_dump -h 127.0.0.1 -U maha ${database} | gzip > ${database}.sql.gz`, {
       roles: 'dbserver'
     })
   })
 
   utils.registerTask(shipit, 'sync:download', () => {
-    return shipit.copyFromRemote('backup.sql.gz', path.join('tmp','backup.sql.gz'), {
+    const database = args[1] || 'maha'
+    return shipit.copyFromRemote(`${database}.sql.gz`, path.join('tmp',`${database}.sql.gz`), {
       roles: 'dbserver'
     })
   })
 
   utils.registerTask(shipit, 'sync:restore', () => {
-    return shipit.local('dropdb maha && createdb maha && gunzip < tmp/backup.sql.gz | psql maha')
+    const database = args[1] || 'maha'
+    return shipit.local(`dropdb ${database} && createdb ${database} && gunzip < tmp/${database}.sql.gz | psql ${database}`)
+  })
+
+  utils.registerTask(shipit, 'sync:remove', () => {
+    const database = args[1] || 'maha'
+    return shipit.remote(`rm -rf ${database}.sql.gz`, {
+      roles: 'dbserver'
+    })
   })
 
   utils.registerTask(shipit, 'sync:teams', () => {
+    if(args[1] !== 'maha') return
     var sql = 'update maha_teams set authentication_strategy=\'local\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:passwords', () => {
+    if(args[1] !== 'maha') return
     var password_salt = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WO'
     var password_hash = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WOR6KzZnF8hKHBDgmC69gz5SaQVNmhhGa'
     var sql = `update maha_accounts set password_salt='${password_salt}', password_hash='${password_hash}'`
@@ -325,11 +338,13 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:phone_numbers', () => {
+    if(args[1] !== 'maha') return
     var sql = `update maha_phone_numbers SET sid='${process.env.TWILIO_NUMBER_SID}', number='${process.env.TWILIO_NUMBER}'`
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:braintree', () => {
+    if(args[1] !== 'maha') return
     var sql = [
       'update finance_banks set braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\'',
       'update crm_contacts set braintree_id=null',

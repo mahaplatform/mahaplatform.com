@@ -132,6 +132,7 @@ export const getSession = async(req, { data, domain_user }) => {
     term_id: term ? term.get('id') : null,
     content_id: content ? content.get('id') : null,
     network_id: network ? network.get('id') : null,
+    useragent: data.useragent,
     clickid: data.mkt_clickid,
     domain_sessionid: data.domain_sessionid
   }).save(null, {
