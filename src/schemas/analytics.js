@@ -185,15 +185,9 @@ const schema = {
     })
 
     await knex.schema.createTable('sessions', (table) => {
-      table.increments('id').primary()
+      table.integer('useragent_id').unsigned()
       table.integer('domain_user_id').unsigned()
       table.integer('app_id').unsigned()
-      table.integer('device_id').unsigned()
-      table.integer('manufacturer_id').unsigned()
-      table.integer('os_id').unsigned()
-      table.integer('os_version_id').unsigned()
-      table.integer('browser_id').unsigned()
-      table.integer('browser_version_id').unsigned()
       table.integer('referer_id').unsigned()
       table.integer('ipaddress_id').unsigned()
       table.integer('source_id').unsigned()
@@ -202,9 +196,9 @@ const schema = {
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
       table.integer('network_id').unsigned()
-      table.string('clickid', 255)
+      table.increments('id').primary()
       table.string('domain_sessionid', 255)
-      table.text('useragent')
+      table.string('clickid', 255)
     })
 
     await knex.schema.createTable('sources', (table) => {
@@ -215,6 +209,17 @@ const schema = {
     await knex.schema.createTable('terms', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
+    })
+
+    await knex.schema.createTable('useragents', (table) => {
+      table.increments('id').primary()
+      table.integer('device_id').unsigned()
+      table.integer('manufacturer_id').unsigned()
+      table.integer('os_id').unsigned()
+      table.integer('os_version_id').unsigned()
+      table.integer('browser_id').unsigned()
+      table.integer('browser_version_id').unsigned()
+      table.text('useragent')
     })
 
     await knex.schema.createTable('versions', (table) => {
@@ -250,21 +255,25 @@ const schema = {
 
     await knex.schema.table('sessions', table => {
       table.foreign('app_id').references('apps.id')
-      table.foreign('browser_id').references('browsers.id')
-      table.foreign('browser_version_id').references('versions.id')
       table.foreign('campaign_id').references('campaigns.id')
       table.foreign('content_id').references('contents.id')
-      table.foreign('device_id').references('devices.id')
       table.foreign('domain_user_id').references('domain_users.id')
       table.foreign('ipaddress_id').references('ipaddresses.id')
-      table.foreign('manufacturer_id').references('manufacturers.id')
       table.foreign('medium_id').references('mediums.id')
       table.foreign('network_id').references('networks.id')
-      table.foreign('os_id').references('oses.id')
-      table.foreign('os_version_id').references('versions.id')
       table.foreign('referer_id').references('referers.id')
       table.foreign('source_id').references('sources.id')
       table.foreign('term_id').references('terms.id')
+      table.foreign('useragent_id').references('useragents.id')
+    })
+
+    await knex.schema.table('useragents', table => {
+      table.foreign('device_id').references('devices.id')
+      table.foreign('manufacturer_id').references('manufacturers.id')
+      table.foreign('os_id').references('oses.id')
+      table.foreign('os_version_id').references('versions.id')
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
     })
 
 
