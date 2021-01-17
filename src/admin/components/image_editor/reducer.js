@@ -1,9 +1,5 @@
 const INITIAL_STATE = {
-  mode: null,
-  ratio: null,
-  transforms: [
-    { key: 'crop', value: '10,10,940,700'}
-  ],
+  transforms: [],
   status: 'pending'
 }
 
@@ -52,18 +48,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       transforms: action.transforms
-    }
-
-  case 'SET_MODE':
-    return {
-      ...state,
-      mode: action.mode
-    }
-
-  case 'SET_RATIO':
-    return {
-      ...state,
-      ratio: action.ratio
     }
 
   default:

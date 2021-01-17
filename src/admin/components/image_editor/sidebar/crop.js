@@ -63,14 +63,6 @@ class Crop extends React.PureComponent {
     )
   }
 
-  componentDidMount() {
-    this.props.onSetMode('crop')
-  }
-
-  componentWillUnmount() {
-    this.props.onSetMode(null)
-  }
-
   _getClass(ratio) {
     const classes = ['maha-imageeditor-button']
     if(this.props.ratio === ratio.ratio) classes.push('active')
@@ -97,8 +89,31 @@ class Crop extends React.PureComponent {
 
   _handleClick(ratio) {
     const { asset } = this.props
-    const { width, height } = asset.metadata
-    this.props.onSetRatio(ratio || (width / height))
+    const image = asset.metadata
+    const canvas = {
+      width: 615,
+      height: 615
+    }
+    const viewport = {
+      width: ratio > 1 ? canvas.height : canvas.width * ratio,
+      height: ratio <= 1 ? canvas.width : canvas.height / ratio
+    }
+    const scaled = {
+      width: ratio > 1 ? canvas.height : (image.width / image.height) * canvas.width,
+      height: ratio <= 1 ? canvas.width : (image.height / image.width) * canvas.height
+    }
+    const scalar = {
+      h: image.width / scaled.width,
+      v: image.height / scaled.height,
+    }
+    const crop = {
+      left: ((viewport.width - scaled.width) / 2) * scalar.h,
+      top: ((viewport.height - scaled.height) / 2) * scalar.v,
+      width: viewport.width * scalar.h,
+      height: viewport.height * scalar.v
+    }
+    const value = [crop.left,crop.top,crop.width,crop.height].join(',')
+    this.props.onPushTransform({ key: 'crop', value })
   }
 
 }

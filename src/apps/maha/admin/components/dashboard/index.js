@@ -1,4 +1,4 @@
-import { ModalPanel } from '@admin'
+import { Button, ImageEditor, ModalPanel } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -8,6 +8,7 @@ import _ from 'lodash'
 class Dashboard extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     host: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
@@ -37,10 +38,44 @@ class Dashboard extends React.Component {
             <div className="date">
               { moment().format('dddd, MMM Do, YYYY') }
             </div>
+            <Button { ...this._getButton()} />
           </div>
         </div>
       </ModalPanel>
     )
+  }
+
+  _getButton() {
+    const asset = {
+      "id": 8346,
+      "original_file_name": "10156387003857338.jpg",
+      "file_name": "10156387003857338.jpg",
+      "content_type": "image/jpeg",
+      "file_size": 62923,
+      "status": "processed",
+      "has_preview": false,
+      "is_infected": false,
+      "metadata": {
+        "width": 960,
+        "height": 720
+      },
+      "path": "/assets/8346/10156387003857338.jpg",
+      "signed_url": "https://s3.amazonaws.com/dev.cdn.mahaplatform.com/assets/8346/10156387003857338.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5QC4GVH4PMU7AWVO%2F20210117%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210117T004703Z&X-Amz-Expires=604800&X-Amz-Signature=5b7a61af4147e7f343769071c768b23463243cc7b757659ad98538f1458ff46d&X-Amz-SignedHeaders=host",
+      "source": "facebook",
+      "source_url": null,
+      "user": {
+        "id": 79,
+        "full_name": "Gregory Kops",
+        "initials": "gk",
+        "photo": "/assets/19532/me.jpg"
+      },
+      "created_at": "2019-07-23T21:06:42.045Z",
+      "updated_at": "2019-07-24T17:39:30.585Z"
+    }
+    return {
+      label: 'Go',
+      modal: <ImageEditor asset={ asset} />
+    }
   }
 
   componentDidMount() {
@@ -69,7 +104,6 @@ class Dashboard extends React.Component {
 
   _getTimeOfDay(){
     const currentHour = parseFloat(moment().format('HH'))
-
     if(currentHour >= 5 && currentHour <= 11) {
       return 'morning'
     } else if(currentHour >= 12 && currentHour <= 16) {

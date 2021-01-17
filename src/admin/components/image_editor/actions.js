@@ -12,13 +12,3 @@ export const pushTransform = (key, value) => ({
   key,
   value
 })
-
-export const setMode = (mode) => ({
-  type: 'SET_MODE',
-  mode
-})
-
-export const setRatio = (ratio) => ({
-  type: 'SET_RATIO',
-  ratio
-})

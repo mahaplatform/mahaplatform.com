@@ -1,11 +1,8 @@
-import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
-import Crop from './crop'
-import _ from 'lodash'
 
 class ImageEditor extends React.PureComponent {
 
@@ -17,12 +14,10 @@ class ImageEditor extends React.PureComponent {
     asset: PropTypes.object,
     defaultValue: PropTypes.object,
     mode: PropTypes.string,
-    ratio: PropTypes.number,
     status: PropTypes.string,
     transforms: PropTypes.array,
     onPopTransform: PropTypes.func,
     onPushTransform: PropTypes.func,
-    onSetMode: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
@@ -39,7 +34,12 @@ class ImageEditor extends React.PureComponent {
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
-            <Canvas { ...this._getCanvas() } />
+            <div className="maha-imageeditor-header">
+              undo
+            </div>
+            <div className="maha-imageeditor-body">
+              <Canvas { ...this._getCanvas() } />
+            </div>
           </div>
         </div>
       </ModalPanel>
@@ -47,10 +47,7 @@ class ImageEditor extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { asset, defaultValue } = this.props
-    const { width, height } = asset.metadata
-    const ratio = width / height
-    this.props.onSetRatio(ratio)
+    const { defaultValue } = this.props
     if(defaultValue) this._handleSet(defaultValue)
   }
 
@@ -62,21 +59,18 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, canvas, mode, ratio, transforms } = this.props
+    const { asset, mode, transforms } = this.props
     return {
       asset,
-      canvas,
       mode,
-      ratio,
       transforms
     }
   }
 
   _getCrop() {
-    const { asset, ratio, transforms, onPushTransform } = this.props
+    const { asset, transforms, onPushTransform } = this.props
     return {
       asset,
-      ratio,
       transforms,
       onPushTransform
     }
@@ -95,13 +89,12 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { asset, transforms, onPopTransform, onPushTransform, onSetMode, onSetRatio } = this.props
+    const { asset, transforms, onPopTransform, onPushTransform, onSetRatio } = this.props
     return {
       asset,
       transforms,
       onPopTransform,
       onPushTransform,
-      onSetMode,
       onSetRatio
     }
   }
