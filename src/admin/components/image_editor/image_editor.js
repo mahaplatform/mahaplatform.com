@@ -13,13 +13,19 @@ class ImageEditor extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    canvas: PropTypes.object,
     crop: PropTypes.object,
     defaultValue: PropTypes.object,
+    image: PropTypes.object,
     orientation: PropTypes.object,
     status: PropTypes.string,
     transforms: PropTypes.array,
+    undone: PropTypes.array,
     onPopTransform: PropTypes.func,
-    onPushTransform: PropTypes.func
+    onPushTransform: PropTypes.func,
+    onRedo: PropTypes.func,
+    onReset: PropTypes.func,
+    onUndo: PropTypes.func
   }
 
   static defaultProps = {
@@ -60,32 +66,39 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, crop, orientation, transforms } = this.props
+    const { asset, canvas, crop, image, orientation, transforms } = this.props
     return {
       asset,
+      canvas,
       crop,
+      image,
       orientation,
       transforms
     }
   }
 
   _getButtons() {
-    const { transforms, onPopTransform } = this.props
+    const { transforms, undone, onRedo, onReset, onUndo } = this.props
     return {
       buttons: [
         {
+          label: 'Reset',
+          size: 'tiny',
+          color: 'blue',
+          disabled: transforms.length === 0,
+          handler: onReset
+        }, {
           label: 'Undo',
           size: 'tiny',
           color: 'blue',
           disabled: transforms.length === 0,
-          handler: onPopTransform
-        },
-        {
+          handler: onUndo
+        }, {
           label: 'Redo',
           size: 'tiny',
           color: 'blue',
-          disabled: transforms.length == 0,
-          handler: onPopTransform
+          disabled: undone.length == 0,
+          handler: onRedo
         }
       ]
     }
@@ -104,10 +117,13 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { asset, crop, transforms, onPopTransform, onPushTransform } = this.props
+    const { asset, canvas, crop, image, orientation, transforms, onPopTransform, onPushTransform } = this.props
     return {
       asset,
+      canvas,
       crop,
+      image,
+      orientation,
       transforms,
       onPopTransform,
       onPushTransform

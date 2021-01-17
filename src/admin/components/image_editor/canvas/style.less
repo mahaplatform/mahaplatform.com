@@ -2,20 +2,37 @@
   flex: 1;
   position: relative;
 }
-.maha-imageeditor-canvas-viewport {
-  border: 1px solid #FFFFFF;
+.maha-imageeditor-canvas-rotate {
+  transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
   position: absolute;
   top: 50%;
   left: 50%;
-  transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
   display: flex;
-  overflow: hidden;
+}
+.maha-imageeditor-canvas-flip {
+  transition: transform 0.25s ease-in;
+  transform-origin: center;
+  position: relative;
+  display: flex;
+  flex: 1;
 }
 .maha-imageeditor-canvas-frame {
-  transform-origin: top left;
-  flex: 1;
+  transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
+  position: absolute;
+  left: 0;
+  top: 0;
   img {
     width: 100%;
     display: block;
   }
+}
+.maha-imageeditor-canvas-overlay {
+  box-shadow: 0 0 2000px 2000px fadeout(@black, 30);
+  border: 1px solid #FFFFFF;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 }

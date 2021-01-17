@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   transforms: [],
+  undone: [],
   status: 'pending'
 }
 
@@ -29,9 +30,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       transforms: [
-        ...state.transforms.filter((transform, index) => {
-          return index !== state.transforms.length - 1
-        })
+        ...state.transforms.slice(0, -1)
       ]
     }
 
@@ -41,6 +40,38 @@ const reducer = (state = INITIAL_STATE, action) => {
       transforms: [
         ...state.transforms,
         { key: action.key, value: action.value }
+      ],
+      undone: []
+    }
+
+  case 'RESET':
+    return {
+      ...state,
+      transforms: [],
+      undone: []
+    }
+
+  case 'UNDO':
+    return {
+      ...state,
+      transforms: [
+        ...state.transforms.slice(0, -1)
+      ],
+      undone: [
+        ...state.undone,
+        ...state.transforms.slice(-1)
+      ]
+    }
+
+  case 'REDO':
+    return {
+      ...state,
+      transforms: [
+        ...state.transforms,
+        ...state.undone.slice(-1)
+      ],
+      undone: [
+        ...state.undone.slice(0, -1)
       ]
     }
 

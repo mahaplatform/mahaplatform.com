@@ -1,12 +1,15 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
+import { adjust } from '../utils'
 import React from 'react'
 
 class Crop extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    canvas: PropTypes.object,
     crop: PropTypes.object,
+    image: PropTypes.object,
     orientation: PropTypes.object,
     transforms: PropTypes.array,
     onBack: PropTypes.func,
@@ -55,9 +58,8 @@ class Crop extends React.PureComponent {
   }
 
   _getRatios() {
-    const { asset } = this.props
-    const image = asset.metadata
-    if(image.width >= image.height ) {
+    const { image, orientation } = this.props
+    if(orientation.mode === 'landscape') {
       return [
         { label: 'Original', ratio: image.width / image.height },
         { label: 'Square', ratio: 1 },
@@ -98,30 +100,27 @@ class Crop extends React.PureComponent {
   }
 
   _handleClick(ratio) {
-    const { asset } = this.props
-    const image = asset.metadata
-    const canvas = {
-      width: 615,
-      height: 615
-    }
+    const { canvas, image, orientation } = this.props
+    ratio = orientation.mode !== image.mode ? 1 / ratio : ratio
     const viewport = {
-      width: ratio > 1 ? canvas.height : canvas.width * ratio,
-      height: ratio <= 1 ? canvas.width : canvas.height / ratio
+      width: ratio > 1 ? canvas.width : canvas.width * ratio,
+      height: ratio > 1 ? canvas.height / ratio : canvas.height
     }
     const scaled = {
-      width: ratio > 1 ? canvas.height : (image.width / image.height) * canvas.width,
-      height: ratio <= 1 ? canvas.width : (image.height / image.width) * canvas.height
+      width: ratio > 1 ? canvas.width : (image.width / image.height) * canvas.height,
+      height: ratio > 1 ? (image.height / image.width) * canvas.width : canvas.height
     }
     const scalar = {
       h: image.width / scaled.width,
       v: image.height / scaled.height,
     }
     const crop = {
-      left: ((viewport.width - scaled.width) / 2) * scalar.h,
-      top: ((viewport.height - scaled.height) / 2) * scalar.v,
+      left: ((scaled.width - viewport.width) / 2) * scalar.h,
+      top: ((scaled.height - viewport.height) / 2) * scalar.v,
       width: viewport.width * scalar.h,
       height: viewport.height * scalar.v
     }
+    console.log({ ratio, viewport, scaled, scalar, crop })
     const value = [crop.left,crop.top,crop.width,crop.height].join(',')
     this.props.onPushTransform('crop', value)
   }

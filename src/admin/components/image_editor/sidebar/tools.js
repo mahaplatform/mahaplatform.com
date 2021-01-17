@@ -17,7 +17,9 @@ class Tools extends React.Component {
 
   static propTypes = {
     asset: PropTypes.object,
+    canvas: PropTypes.object,
     crop: PropTypes.object,
+    image: PropTypes.object,
     orientation: PropTypes.object,
     transforms: PropTypes.array,
     onBack: PropTypes.func,
@@ -57,10 +59,12 @@ class Tools extends React.Component {
   }
 
   _getTool(tool) {
-    const { asset, crop, orientation, transforms, onPopTransform, onPushTransform, onPop} = this.props
+    const { asset, canvas, crop, image, orientation, transforms, onPopTransform, onPushTransform, onPop} = this.props
     return {
       asset,
+      canvas,
       crop,
+      image,
       orientation,
       transforms,
       onPopTransform,

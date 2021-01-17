@@ -3,6 +3,18 @@ export const set = (transforms) => ({
   transforms
 })
 
+export const reset = () => ({
+  type: 'RESET'
+})
+
+export const undo = () => ({
+  type: 'UNDO'
+})
+
+export const redo = () => ({
+  type: 'REDO'
+})
+
 export const popTransform = () => ({
   type: 'POP_TRANSFORM'
 })
