@@ -8,6 +8,8 @@ class Orientation extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    crop: PropTypes.object,
+    orientation: PropTypes.object,
     transforms: PropTypes.array,
     onBack: PropTypes.func,
     onPopTransform: PropTypes.func,
@@ -53,19 +55,11 @@ class Orientation extends React.PureComponent {
 
   _handleFlip(newvalue) {
     const { transforms } = this.props
-    if(transforms.length > 0) {
-      const { key, value } = transforms[transforms.length - 1]
-      if(key === 'flip' && value === newvalue) return this.props.onPopTransform()
-    }
     this.props.onPushTransform('flip', newvalue)
   }
 
   _handleRotate(newvalue) {
     const { transforms } = this.props
-    if(transforms.length > 0) {
-      const { key, value } = transforms[transforms.length - 1]
-      if(key === 'rot' && value === (0 - newvalue)) return this.props.onPopTransform()
-    }
     this.props.onPushTransform('rot', newvalue)
   }
 

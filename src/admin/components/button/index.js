@@ -39,6 +39,7 @@ class Button extends React.Component {
       onSuccess: PropTypes.func
     }),
     route: PropTypes.string,
+    size: PropTypes.string,
     text: PropTypes.string,
     tooltip: PropTypes.any,
     url: PropTypes.string,
@@ -91,12 +92,13 @@ class Button extends React.Component {
   }
 
   _getClass() {
-    const { component, basic, className, color, disabled, mobile } = this.props
+    const { component, basic, className, color, disabled, mobile, size } = this.props
     const { status } = this.state
     if(component) return ''
     const classes = className === undefined ? ['ui', color, 'fluid', 'button'] : (className ? className.split(' ') : [])
     classes.push('maha-button')
     if(mobile !== false) classes.push('mobile')
+    if(size) classes.push(size)
     if(basic) classes.push('basic')
     if(disabled) classes.push('disabled')
     if(status === 'processing') classes.push('loading')

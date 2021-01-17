@@ -7,6 +7,8 @@ class Adjustment extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    crop: PropTypes.object,
+    orientation: PropTypes.object,
     transforms: PropTypes.array,
     onBack: PropTypes.func,
     onPopTransform: PropTypes.func,

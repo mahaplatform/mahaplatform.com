@@ -7,7 +7,7 @@ import Text from './text'
 import React from 'react'
 
 const tools = [
-  { label: 'Cropping', icon: 'crop', component: Crop }, 
+  { label: 'Cropping', icon: 'crop', component: Crop },
   { label: 'Adjustments', icon: 'sun-o', component: Adjustment },
   { label: 'Orientation', icon: 'repeat', component: Orientation },
   { label: 'Text', icon: 'font', component: Text }
@@ -17,13 +17,14 @@ class Tools extends React.Component {
 
   static propTypes = {
     asset: PropTypes.object,
+    crop: PropTypes.object,
+    orientation: PropTypes.object,
     transforms: PropTypes.array,
+    onBack: PropTypes.func,
     onPopTransform: PropTypes.func,
     onPushTransform: PropTypes.func,
     onPush: PropTypes.func,
-    onPop: PropTypes.func,
-    onSetMode: PropTypes.func,
-    onSetRatio: PropTypes.func
+    onPop: PropTypes.func
   }
 
   render() {
@@ -56,21 +57,20 @@ class Tools extends React.Component {
   }
 
   _getTool(tool) {
-    const { asset, transforms, onPopTransform, onPushTransform, onPop, onSetMode, onSetRatio } = this.props
+    const { asset, crop, orientation, transforms, onPopTransform, onPushTransform, onPop} = this.props
     return {
       asset,
+      crop,
+      orientation,
       transforms,
       onPopTransform,
       onPushTransform,
-      onBack: onPop,
-      onSetMode,
-      onSetRatio
+      onBack: onPop
     }
   }
 
   _handleClick(tool) {
-    this.props.onPush(tool.component, this._getTool(tool))
-
+    this.props.onPush(tool.component, this._getTool.bind(this, tool))
   }
 
 }

@@ -1,6 +1,7 @@
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
+import Buttons from '../buttons'
 import Canvas from './canvas'
 import React from 'react'
 
@@ -12,13 +13,13 @@ class ImageEditor extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    crop: PropTypes.object,
     defaultValue: PropTypes.object,
-    mode: PropTypes.string,
+    orientation: PropTypes.object,
     status: PropTypes.string,
     transforms: PropTypes.array,
     onPopTransform: PropTypes.func,
-    onPushTransform: PropTypes.func,
-    onSetRatio: PropTypes.func
+    onPushTransform: PropTypes.func
   }
 
   static defaultProps = {
@@ -35,7 +36,7 @@ class ImageEditor extends React.PureComponent {
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
             <div className="maha-imageeditor-header">
-              undo
+              <Buttons  { ...this._getButtons()} />
             </div>
             <div className="maha-imageeditor-body">
               <Canvas { ...this._getCanvas() } />
@@ -59,20 +60,34 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, mode, transforms } = this.props
+    const { asset, crop, orientation, transforms } = this.props
     return {
       asset,
-      mode,
+      crop,
+      orientation,
       transforms
     }
   }
 
-  _getCrop() {
-    const { asset, transforms, onPushTransform } = this.props
+  _getButtons() {
+    const { transforms, onPopTransform } = this.props
     return {
-      asset,
-      transforms,
-      onPushTransform
+      buttons: [
+        {
+          label: 'Undo',
+          size: 'tiny',
+          color: 'blue',
+          disabled: transforms.length === 0,
+          handler: onPopTransform
+        },
+        {
+          label: 'Redo',
+          size: 'tiny',
+          color: 'blue',
+          disabled: transforms.length == 0,
+          handler: onPopTransform
+        }
+      ]
     }
   }
 
@@ -89,13 +104,13 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { asset, transforms, onPopTransform, onPushTransform, onSetRatio } = this.props
+    const { asset, crop, transforms, onPopTransform, onPushTransform } = this.props
     return {
       asset,
+      crop,
       transforms,
       onPopTransform,
-      onPushTransform,
-      onSetRatio
+      onPushTransform
     }
   }
 
