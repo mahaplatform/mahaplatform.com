@@ -41,6 +41,10 @@ const asset = (asset) => {
     status: asset.get('status'),
     has_preview: asset.get('has_preview'),
     is_infected: asset.get('is_infected'),
+    metadata: {
+      width: asset.get('width'),
+      height: asset.get('height')
+    },
     path: asset.get('path'),
     signed_url: asset.get('signed_url'),
     source: asset.get('source'),

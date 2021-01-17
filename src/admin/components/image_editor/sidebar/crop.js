@@ -1,41 +1,40 @@
 import ModalPanel from '../../modal_panel'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const landscape = [
   { label: 'Original', ratio: null },
   { label: 'Square', ratio: 1.00 },
-  { label: '3:2', ratio: 1.50 },
-  { label: '5:3', ratio: 1.66 },
-  { label: '4:3', ratio: 1.33 },
-  { label: '5:4', ratio: 1.25 },
+  { label: '16:9', ratio: 1.77 },
+  { label: '10:8', ratio: 1.25 },
   { label: '7:5', ratio: 1.40 },
-  { label: '16:9', ratio: 1.77 }
+  { label: '4:3', ratio: 1.33 },
+  { label: '5:3', ratio: 1.66 },
+  { label: '3:2', ratio: 1.50 }
 ]
 
 const portrait = [
   { label: 'Original', ratio: null },
   { label: 'Square', ratio: 1.00 },
-  { label: '2:3', ratio: 0.66 },
-  { label: '3:5', ratio: 0.60 },
-  { label: '3:4', ratio: 0.75 },
-  { label: '4:5', ratio: 0.80 },
+  { label: '9:16', ratio: 0.56 },
+  { label: '8:10', ratio: 0.8 },
   { label: '5:7', ratio: 0.71 },
-  { label: '9:16', ratio: 0.56 }
+  { label: '3:4', ratio: 0.75 },
+  { label: '3:5', ratio: 0.60 },
+  { label: '2:3', ratio: 0.66 }
 ]
 
 class Crop extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    height: PropTypes.number,
     ratio: PropTypes.number,
-    transforms: PropTypes.object,
+    transforms: PropTypes.array,
     width: PropTypes.number,
-    onAdjust: PropTypes.func,
     onBack: PropTypes.func,
-    onCrop: PropTypes.func,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func,
+    onSetMode: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
@@ -65,11 +64,11 @@ class Crop extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onCrop(true)
+    this.props.onSetMode('crop')
   }
 
   componentWillUnmount() {
-    this.props.onCrop(false)
+    this.props.onSetMode(null)
   }
 
   _getClass(ratio) {
@@ -97,16 +96,11 @@ class Crop extends React.PureComponent {
   }
 
   _handleClick(ratio) {
-    this.props.onSetRatio(ratio)
+    const { asset } = this.props
+    const { width, height } = asset.metadata
+    this.props.onSetRatio(ratio || (width / height))
   }
 
 }
 
-const mapStateToProps = (state, props) => ({
-  height: state.maha.image_editor.height,
-  ratio: state.maha.image_editor.ratio,
-  transforms: state.maha.image_editor.transforms,
-  width: state.maha.image_editor.width
-})
-
-export default connect(mapStateToProps)(Crop)
+export default Crop

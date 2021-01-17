@@ -7,8 +7,10 @@ class Sidebar extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    onAdjust: PropTypes.func,
-    onCrop: PropTypes.func,
+    transforms: PropTypes.array,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func,
+    onSetMode: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
@@ -28,7 +30,7 @@ class Sidebar extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Tools, this._getTools())
+    this._handlePush(Tools, this._getTools.bind(this))
   }
 
   _getStack() {
@@ -40,13 +42,15 @@ class Sidebar extends React.PureComponent {
   }
 
   _getTools() {
-    const { asset, onAdjust, onCrop, onSetRatio } = this.props
+    const { asset, transforms, onPopTransform, onPushTransform, onSetMode, onSetRatio } = this.props
     return {
       asset,
-      onAdjust,
+      transforms,
       onPop: this._handlePop,
       onPush: this._handlePush,
-      onCrop,
+      onPopTransform,
+      onPushTransform,
+      onSetMode,
       onSetRatio
     }
   }

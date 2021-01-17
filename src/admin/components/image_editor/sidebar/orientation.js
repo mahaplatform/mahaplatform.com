@@ -8,9 +8,10 @@ class Orientation extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    transforms: PropTypes.object,
-    onAdjust: PropTypes.func,
-    onBack: PropTypes.func
+    transforms: PropTypes.array,
+    onBack: PropTypes.func,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func
   }
 
   orientations = [
@@ -26,16 +27,13 @@ class Orientation extends React.PureComponent {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-imageeditor-grid">
-          { _.chunk(this.orientations, 2).map((row, i) => (
-            <div className="maha-imageeditor-row" key={`row_${i}`}>
-              { row.map((orientation, j) => (
-                <div className="maha-imageeditor-column" key={`cell_${j}`}>
-                  <div className="maha-imageeditor-button" onClick={ orientation.handler }>
-                    <i className={`fa fa-${ orientation.icon }`} />
-                    { orientation.label }
-                  </div>
+          { this.orientations.map((orientation, index) => (
+            <div className="maha-imageeditor-row" key={`row_${index}`}>
+              <div className="maha-imageeditor-column">
+                <div className="maha-imageeditor-button" onClick={ orientation.handler }>
+                  { orientation.label}
                 </div>
-              )) }
+              </div>
             </div>
           )) }
         </div>
@@ -53,17 +51,22 @@ class Orientation extends React.PureComponent {
     }
   }
 
-  _handleRotate(degrees) {
+  _handleFlip(newvalue) {
     const { transforms } = this.props
-    const rot = (transforms.rot || 0) + degrees
-    this.props.onAdjust('rot', rot)
+    if(transforms.length > 0) {
+      const { key, value } = transforms[transforms.length - 1]
+      if(key === 'flip' && value === newvalue) return this.props.onPopTransform()
+    }
+    this.props.onPushTransform('flip', newvalue)
   }
 
-  _handleFlip(axis) {
+  _handleRotate(newvalue) {
     const { transforms } = this.props
-    const flip = transforms.flip ? [...transforms.flip] : []
-    const value = axis ? _.xor(flip, [axis]).join('') : axis
-    this.props.onAdjust('flip', value)
+    if(transforms.length > 0) {
+      const { key, value } = transforms[transforms.length - 1]
+      if(key === 'rot' && value === (0 - newvalue)) return this.props.onPopTransform()
+    }
+    this.props.onPushTransform('rot', newvalue)
   }
 
   _handleBack() {

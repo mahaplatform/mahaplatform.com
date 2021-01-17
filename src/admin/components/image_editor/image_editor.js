@@ -15,15 +15,14 @@ class ImageEditor extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    cropping: PropTypes.bool,
     defaultValue: PropTypes.object,
+    mode: PropTypes.string,
     ratio: PropTypes.number,
     status: PropTypes.string,
-    transforms: PropTypes.object,
-    onAdjust: PropTypes.func,
-    onChange: PropTypes.func,
-    onCrop: PropTypes.func,
-    onSet: PropTypes.func,
+    transforms: PropTypes.array,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func,
+    onSetMode: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
@@ -35,16 +34,12 @@ class ImageEditor extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { cropping } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
             <Canvas { ...this._getCanvas() } />
-            <CSSTransition in={ cropping } classNames="fadein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-              <Crop { ...this._getCrop() } />
-            </CSSTransition>
           </div>
         </div>
       </ModalPanel>
@@ -52,10 +47,11 @@ class ImageEditor extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
-    const ratio = _.get(defaultValue, 'crop.ra')
+    const { asset, defaultValue } = this.props
+    const { width, height } = asset.metadata
+    const ratio = width / height
+    this.props.onSetRatio(ratio)
     if(defaultValue) this._handleSet(defaultValue)
-    if(ratio) this.props.onSetRatio(ratio)
   }
 
   // componentDidUpdate(prevProps) {
@@ -66,22 +62,23 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, cropping, ratio, transforms } = this.props
+    const { asset, canvas, mode, ratio, transforms } = this.props
     return {
       asset,
+      canvas,
+      mode,
       ratio,
-      cropping,
       transforms
     }
   }
 
   _getCrop() {
-    const { asset, ratio, transforms, onAdjust } = this.props
+    const { asset, ratio, transforms, onPushTransform } = this.props
     return {
       asset,
       ratio,
       transforms,
-      onAdjust
+      onPushTransform
     }
   }
 
@@ -98,11 +95,13 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { asset, onAdjust, onCrop, onSetRatio } = this.props
+    const { asset, transforms, onPopTransform, onPushTransform, onSetMode, onSetRatio } = this.props
     return {
       asset,
-      onAdjust,
-      onCrop,
+      transforms,
+      onPopTransform,
+      onPushTransform,
+      onSetMode,
       onSetRatio
     }
   }

@@ -1,7 +1,9 @@
 const INITIAL_STATE = {
-  cropping: false,
+  mode: null,
   ratio: null,
-  transforms: {},
+  transforms: [
+    { key: 'crop', value: '10,10,940,700'}
+  ],
   status: 'pending'
 }
 
@@ -27,13 +29,23 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'saveed'
     }
 
-  case 'ADJUST':
+  case 'POP_TRANSFORM':
     return {
       ...state,
-      transforms: {
+      transforms: [
+        ...state.transforms.filter((transform, index) => {
+          return index !== state.transforms.length - 1
+        })
+      ]
+    }
+
+  case 'PUSH_TRANSFORM':
+    return {
+      ...state,
+      transforms: [
         ...state.transforms,
-        [action.key]: action.value
-      }
+        { key: action.key, value: action.value }
+      ]
     }
 
   case 'SET':
@@ -42,10 +54,10 @@ const reducer = (state = INITIAL_STATE, action) => {
       transforms: action.transforms
     }
 
-  case 'CROP':
+  case 'SET_MODE':
     return {
       ...state,
-      cropping: action.cropping
+      mode: action.mode
     }
 
   case 'SET_RATIO':

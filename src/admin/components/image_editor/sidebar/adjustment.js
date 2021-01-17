@@ -7,9 +7,10 @@ class Adjustment extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    transforms: PropTypes.object,
-    onAdjust: PropTypes.func,
-    onBack: PropTypes.func
+    transforms: PropTypes.array,
+    onBack: PropTypes.func,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)

@@ -2,46 +2,27 @@ import ModalPanel from '../../modal_panel'
 import Orientation from './orientation'
 import Adjustment from './adjustment'
 import PropTypes from 'prop-types'
-import Filters from './filters'
 import Crop from './crop'
 import Text from './text'
 import React from 'react'
 
 const tools = [
-  {
-    label: 'Cropping',
-    icon: 'crop',
-    component: Crop
-  }, {
-    label: 'Adjustments',
-    icon: 'sun-o',
-    component: Adjustment
-  }, {
-    label: 'Orientation',
-    icon: 'repeat',
-    component: Orientation
-  }, {
-    label: 'Filters',
-    icon: 'picture-o',
-    component: Filters
-  }, {
-    label: 'Text',
-    icon: 'font',
-    component: Text
-  }
+  { label: 'Cropping', icon: 'crop', component: Crop }, 
+  { label: 'Adjustments', icon: 'sun-o', component: Adjustment },
+  { label: 'Orientation', icon: 'repeat', component: Orientation },
+  { label: 'Text', icon: 'font', component: Text }
 ]
-
-
 
 class Tools extends React.Component {
 
   static propTypes = {
     asset: PropTypes.object,
-    transforms: PropTypes.object,
-    onAdjust: PropTypes.func,
-    onCrop: PropTypes.func,
+    transforms: PropTypes.array,
+    onPopTransform: PropTypes.func,
+    onPushTransform: PropTypes.func,
     onPush: PropTypes.func,
     onPop: PropTypes.func,
+    onSetMode: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
@@ -75,13 +56,14 @@ class Tools extends React.Component {
   }
 
   _getTool(tool) {
-    const { asset, transforms, onAdjust, onPop, onCrop, onSetRatio } = this.props
+    const { asset, transforms, onPopTransform, onPushTransform, onPop, onSetMode, onSetRatio } = this.props
     return {
       asset,
       transforms,
-      onAdjust,
+      onPopTransform,
+      onPushTransform,
       onBack: onPop,
-      onCrop,
+      onSetMode,
       onSetRatio
     }
   }

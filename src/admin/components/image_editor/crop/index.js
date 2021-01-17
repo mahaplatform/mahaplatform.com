@@ -7,7 +7,7 @@ class Crop extends React.PureComponent {
   static propTypes = {
     asset: PropTypes.object,
     ratio: PropTypes.number,
-    transforms: PropTypes.object,
+    transforms: PropTypes.array,
     onAdjust: PropTypes.func
   }
 

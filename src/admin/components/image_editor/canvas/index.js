@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-// import Caman from '../caman'
 import React from 'react'
 import _ from 'lodash'
 
@@ -8,7 +7,7 @@ class Canvas extends React.Component {
   static propTypes = {
     asset: PropTypes.object,
     ratio: PropTypes.number,
-    transforms: PropTypes.object
+    transforms: PropTypes.array
   }
 
   canvas = null
@@ -20,99 +19,157 @@ class Canvas extends React.Component {
     frame: null
   }
 
-  _handleRedraw = this._handleRedraw.bind(this)
-  _handleRender = _.throttle(this._handleRender.bind(this), 500, { leading: true })
-  _handleResize = this._handleResize.bind(this)
-  _handleInit = this._handleInit.bind(this)
-
   render() {
+    const { asset } = this.props
     return (
-      <div className="maha-imageeditor-canvas" ref={ node => this.panel = node }>
-        <div className="maha-imageeditor-frame" style={ this._getStyle() }>
-          <canvas ref={ node => this.canvas = node } />
+      <div className="maha-imageeditor-canvas">
+        <div className="maha-imageeditor-canvas-orientation" style={ this._getOrientationStyle() }>
+          <div className="maha-imageeditor-canvas-viewport">
+            <div className="maha-imageeditor-canvas-frame" style={ this._getFrameStyle() }>
+              <img src={`/imagecache${asset.path}`} />
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 
-  componentDidMount() {
-    this._handleInit()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { panel } = this.state
-    const { transforms } = this.props
-    if(!_.isEqual(panel, prevState.panel)) {
-      this._handleRedraw()
-    } else if(!_.isEqual(transforms, prevProps.transforms)) {
-      this._handleRedraw()
-    }
-  }
-
-  _getStyle() {
-    const { frame } = this.state
-    if(!frame) return
+  _getOrientationStyle() {
     return {
-      width: frame.w,
-      height: frame.h
+      transform: [
+        'translate(-50%, -50%)',
+        ...this._getOrientation()
+      ].join(' '),
+      ...this._getDimensions()
     }
   }
 
-  _handleInit() {
-    const { offsetWidth, offsetHeight } = this.panel
-    const { padding } = this
-    this.setState({
-      panel: {
-        w: offsetWidth - padding,
-        h: offsetHeight - 30 - padding
-      }
-    })
-  }
-
-  _handleRedraw() {
-    this._handleResize()
-    this._handleRender()
-  }
-
-  _handleResize() {
-    const { panel } = this.state
-    const { asset, transforms } = this.props
+  _getFrame() {
+    const viewport = this._getViewport()
+    const { asset } = this.props
+    const crop = this._getCrop()
     const { width, height } = asset.metadata
-    const landscape = width >= height
-    const image = {
-      w: transforms.crop ? transforms.crop.w : width,
-      h: transforms.crop ? transforms.crop.h : height
+    return {
+      width: (width / crop.width) * viewport.width,
+      height: (height / crop.height) * viewport.height,
+      left: (crop.left / width) * viewport.width,
+      top: (crop.top / height) * viewport.height
     }
-    const frame = {
-      w: landscape ? panel.w : Math.floor((image.w / image.h) * panel.h),
-      h: landscape ? Math.floor((image.h / image.w) * panel.w) : panel.h
-    }
-    this.setState({ frame })
   }
 
-  _handleRender() {
-    const { asset, transforms } = this.props
-    const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, vibrance } = transforms
-    Caman(this.canvas, `/imagecache${asset.path}`, function() {
-      this.reset()
-      if(crop) this.crop(crop.w,crop.h,crop.x,crop.y)
-      if(blur) this.stackBlur(blur)
-      if(bri) this.brightness(bri)
-      if(con) this.contrast(con)
-      if(exp) this.exposure(exp)
-      if(filter) this[filter]()
-      if(flip) this.flip(flip)
-      if(gamma) this.gamma(gamma)
-      if(hue) this.hue(hue)
-      if(invert) this.invert()
-      if(noise) this.noise(noise)
-      if(sat) this.saturation(sat)
-      if(sepia) this.sepia(sepia)
-      if(sharp) this.sharp(sharp)
-      if(vibrance) this.vibrance(vibrance)
-      if(rot) this.rotate(rot)
-      this.render()
-    })
+  _getFrameStyle() {
+    const viewport = this._getViewport()
+    const frame = this._getFrame()
+    return {
+      top: 0 - frame.top,
+      left: 0 - frame.left,
+      bottom: viewport.height + frame.top - frame.height,
+      right: viewport.width + frame.left - frame.width
+    }
+  }
+
+  _getCanvas() {
+    return {
+      width: 635,
+      height: 660
+    }
+  }
+
+  _getCrop() {
+    const { asset, ratio, transforms } = this.props
+    const crop = transforms.filter(transform => {
+      return transform.key === 'crop'
+    }).reduce((frame, transform) => {
+      return transform.value
+    }, `0,0,${asset.width}.${asset.height}`)
+    const [ top, left, width, height ] = crop.split(',').map(value => parseInt(value))
+    return { top, left, width, height }
+  }
+
+  _getAdjusted = (frame) => {
+    const viewport = this._getViewport()
+    if(viewport.width > viewport.height) {
+      if((viewport.height / viewport.width) * frame.width > frame.height) {
+        return {
+          width: (viewport.width / viewport.height) * frame.height,
+          height: frame.height
+        }
+      } else {
+        return {
+          width: frame.width,
+          height: (viewport.height / viewport.width) * frame.width
+        }
+      }
+    } else {
+      if((viewport.width / viewport.height) * frame.height > frame.width) {
+        return {
+          width: frame.width,
+          height: (viewport.height / viewport.width) * frame.width
+        }
+      } else {
+        return {
+          width: (viewport.width / viewport.height) * frame.height,
+          height: frame.height
+        }
+      }
+    }
+  }
+
+  _getViewport = () => {
+    const canvas = this._getCanvas()
+    const { ratio } = this.props
+    if(ratio > 1) {
+      return {
+        width: canvas.width,
+        height: canvas.width / ratio
+      }
+    }
+    if(ratio <= 1) {
+      return {
+        width: canvas.height * ratio,
+        height: canvas.height
+      }
+    }
+    return canvas
+  }
+
+  _getDimensions() {
+    const { asset, ratio, transforms } = this.props
+    const canvas = this._getCanvas()
+    const frame = transforms.filter(transform => {
+      return transform.key === 'rot'
+    }).reduce((frame, transform) => ({
+      width: frame.height,
+      height: frame.width
+    }), canvas)
+    return this._getAdjusted(frame)
+  }
+
+  _getOrientation() {
+    const { transforms } = this.props
+    const csstransforms = transforms.filter(transform => {
+      return _.includes(['rot','flip'], transform.key)
+    }).reduce((state, transform) => {
+      if(transform.key === 'rot') {
+        return {
+          axis: state.axis + transform.value,
+          transforms: [
+            ...state.transforms,
+            `rotate(${transform.value}deg)`
+          ]
+        }
+      }
+      if(transform.key === 'flip') {
+        return {
+          axis: state.axis,
+          transforms: [
+            ...state.transforms,
+            state.axis % 180 === 0 && transform.value === 'h' ? 'rotate3d(0,1,0,180deg)' : 'rotate3d(1,0,0,180deg)'
+          ]
+        }
+      }
+    }, { axis: 0, transforms: [] })
+    return csstransforms.transforms
   }
 
 }
