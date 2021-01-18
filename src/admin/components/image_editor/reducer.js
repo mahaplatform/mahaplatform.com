@@ -80,7 +80,8 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CROP':
     return {
       ...state,
-      cropping: action.cropping
+      cropping: action.cropping,
+      ratio: null
     }
 
   case 'SET_RATIO':
