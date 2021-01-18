@@ -1,5 +1,6 @@
 import Buttons from '../../buttons'
 import PropTypes from 'prop-types'
+import { fit } from '../utils'
 import React from 'react'
 import _ from 'lodash'
 
@@ -13,7 +14,8 @@ class Crop extends React.PureComponent {
     orientation: PropTypes.object,
     ratio: PropTypes.number,
     transforms: PropTypes.array,
-    onCrop: PropTypes.func
+    onCrop: PropTypes.func,
+    onPushTransform: PropTypes.func
   }
 
   state = {
@@ -54,9 +56,12 @@ class Crop extends React.PureComponent {
     )
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    const { zoom, offset } = this.state
     const { ratio } = this.props
-    if(ratio !== prevProps.ratio) {}
+    if(ratio !== prevProps.ratio) {
+      this._handleReset()
+    }
   }
 
   _getButtons() {
@@ -82,53 +87,39 @@ class Crop extends React.PureComponent {
     }
   }
 
-  _getOffset(drag, offset) {
+  _getOffset() {
+    const { drag, offset } = this.state
     const { orientation } = this.props
     const rot = (360 + orientation.rot) % 360
-    if(rot === 0) {
-      return {
-        left: (offset.x + drag.x),
-        top: (offset.y + drag.y)
-      }
-    }
-    if(rot === 90) {
-      return {
-        left: (offset.y + drag.y),
-        top: (offset.x - drag.x)
-      }
-    }
-    if(rot === 180) {
-      return {
-        left: (offset.x - drag.x),
-        top: (offset.y - drag.y)
-      }
-    }
-    if(rot === 270) {
-      return {
-        left: (offset.y - drag.y),
-        top: (offset.x + drag.x)
-      }
-    }
-
+    const x = offset.x + drag.x
+    const y = offset.y + drag.y
+    if(rot === 0) return { left: x, top: y }
+    if(rot === 90)  return { left: -y, top: x }
+    if(rot === 180) return { left: -x, top: -y }
+    if(rot === 2709)  return { left: y, top: -x }
   }
 
   _getFrame() {
     const viewport = this._getViewport()
     const { image } = this.props
+    const frame = fit(image, viewport)
     return {
-      width: image.mode === 'portrait' ? viewport.width : (image.width / image.height) * viewport.height,
-      height: image.mode === 'portrait' ? (image.height / image.width) * viewport.width : viewport.height
+      ...frame,
+      left: 0 - (frame.width / 2) + (viewport.width / 2),
+      top: 0 - (frame.height / 2) + (viewport.height / 2),
     }
   }
 
   _getFrameStyle() {
-    const { drag, offset, zoom } = this.state
+    const { zoom } = this.state
     const { orientation } = this.props
     const frame = this._getFrame()
     const csstransforms = []
-    const { left, top } = this._getOffset(drag, offset)
-    if(left !== 0) csstransforms.push(`translateX(${left}px)`)
+    const offset = this._getOffset()
+    const top = frame.top + offset.top
+    const left = frame.left + offset.left
     if(top !== 0 ) csstransforms.push(`translateY(${top}px)`)
+    if(left !== 0) csstransforms.push(`translateX(${left}px)`)
     if(zoom > 0) {
       const scale =  1 + (zoom / 5)
       csstransforms.push(`scale(${scale})`)
@@ -186,6 +177,30 @@ class Crop extends React.PureComponent {
   }
 
   _handleDone() {
+    const { offset, zoom } = this.state
+    const { image } = this.props
+    const zoomscale = (zoom / 5) + 1
+    const viewport = this._getViewport()
+    const frame = this._getFrame()
+    const adjusted = {
+      width: frame.width * zoomscale,
+      height: frame.height * zoomscale
+    }
+    const unprojected = {
+      left: (adjusted.width / 2) - (viewport.width / 2) - offset.x,
+      top: (adjusted.height / 2) - (viewport.height / 2) - offset.y,
+      width: viewport.width,
+      height: viewport.height
+    }
+    const projectionscale = image.width / adjusted.width
+    const crop = {
+      left: Math.round(unprojected.left * projectionscale),
+      top: Math.round(unprojected.top * projectionscale),
+      width: Math.round(unprojected.width * projectionscale),
+      height: Math.round(unprojected.height * projectionscale)
+    }
+    const value = [crop.left,crop.top,crop.width,crop.height].join(',')
+    this.props.onPushTransform('crop', value)
     this.props.onCrop(false)
   }
 
@@ -227,6 +242,15 @@ class Crop extends React.PureComponent {
         x: offset.x + drag.x,
         y: offset.y + drag.y
       }
+    })
+  }
+
+  _handleReset() {
+    this.setState({
+      drag: { x: 0, y: 0 },
+      offset: { x: 0, y: 0 },
+      start: { x: 0, y: 0 },
+      zoom: 0
     })
   }
 

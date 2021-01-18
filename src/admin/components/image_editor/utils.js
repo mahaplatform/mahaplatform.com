@@ -1,26 +1,22 @@
-export const adjust = (element, container) => {
+export const fit = (element, container) => {
   const proportional = {
     width: (element.width / element.height) * container.height,
     height: (element.height / element.width) * container.width
   }
-  if(container.width >= container.height) {
-    if(element.height > container.height) {
-      return {
-        width: proportional.width,
-        height: container.height
-      }
+  if(proportional.width < container.width) {
+    return {
+      width: container.width,
+      height: proportional.height
     }
-  } else {
-    if(element.width > container.width) {
-      return {
-        width: container.width,
-        height: proportional.height
-      }
+  }
+  if(proportional.height < container.height) {
+    return {
+      width: proportional.width,
+      height: container.height
     }
   }
   return {
-    width: element.width,
-    height: element.height
+    width: container.width,
+    height: container.height
   }
-
 }

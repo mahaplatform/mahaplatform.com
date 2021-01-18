@@ -39,6 +39,7 @@ class Dashboard extends React.Component {
               { moment().format('dddd, MMM Do, YYYY') }
             </div>
             <Button { ...this._getHorizontal()} />
+            <Button { ...this._getSquare()} />
             <Button { ...this._getVertical()} />
           </div>
         </div>
@@ -108,6 +109,40 @@ class Dashboard extends React.Component {
     }
     return {
       label: 'Veritcal',
+      modal: <ImageEditor asset={ asset} />
+    }
+  }
+
+  _getSquare() {
+    const asset = {
+      "id": 19532,
+      "original_file_name": "me.jpg",
+      "file_name": "me.jpg",
+      "content_type": "image/jpeg",
+      "file_size": 15326,
+      "chunks_total": 1,
+      "path": "/assets/19532/me.jpg",
+      "signed_url": "https://s3.amazonaws.com/dev.cdn.mahaplatform.com/assets/19532/me.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5QC4GVH4PMU7AWVO%2F20210118%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210118T170621Z&X-Amz-Expires=604800&X-Amz-Signature=580fec54d8db156b1fe59d5093bc06c5c7479ecbe9600cd42b45fe4061c05c61&X-Amz-SignedHeaders=host",
+      "is_infected": false,
+      "url": "http://dev.cdn.mahaplatform.com/assets/19532/me.jpg",
+      "source": "device",
+      "source_url": null,
+      "status": "processed",
+      "user": {
+        "id": 79,
+        "full_name": "Gregory Kops",
+        "initials": "gk",
+        "photo": "/assets/19532/me.jpg"
+      },
+      "metadata": {
+        "width": 300,
+        "height": 300
+      },
+      "created_at": "2020-09-24T18:50:10.387Z",
+      "updated_at": "2020-09-24T18:50:13.170Z"
+    }
+    return {
+      label: 'Square',
       modal: <ImageEditor asset={ asset} />
     }
   }

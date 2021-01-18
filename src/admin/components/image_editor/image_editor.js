@@ -91,18 +91,16 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getCrop() {
-    const { asset, canvas, crop, image, orientation, ratio, scaled, transforms, viewport, onCrop } = this.props
+    const { asset, canvas, image, orientation, ratio, transforms, onCrop, onPushTransform } = this.props
     return {
       asset,
       canvas,
-      crop,
       image,
       ratio,
-      scaled,
-      viewport,
       orientation,
       transforms,
-      onCrop
+      onCrop,
+      onPushTransform
     }
   }
 
