@@ -30,6 +30,7 @@
   top: 50%;
   left: 50%;
   display: flex;
+  overflow: hidden;
 }
 .maha-imageeditor-canvas-flip {
   transition: transform 0.25s ease-in;
@@ -39,6 +40,8 @@
   flex: 1;
 }
 .maha-imageeditor-canvas-frame {
+  transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
+  transform-origin: center;
   position: absolute;
   left: 0;
   top: 0;

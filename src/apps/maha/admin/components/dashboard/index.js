@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
     }
     return {
       label: 'Horizontal',
-      modal: <ImageEditor asset={ asset} />
+      modal: <ImageEditor asset={ asset } defaultValue={ [{crop:'300,180,360,360'}]} />
     }
   }
 

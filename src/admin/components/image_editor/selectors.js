@@ -71,17 +71,13 @@ export const scaled = createSelector(
   viewport,
   (canvas, crop, image, orientation, viewport) => {
     const scaled = {
-      width: image.mode === 'portrait' ? viewport.width : (image.width / image.height) * viewport.height,
-      height: image.mode === 'portrait' ? (image.height / image.width) * viewport.width : viewport.height
-    }
-    const scalar = {
-      h: image.width / scaled.width,
-      v: image.height / scaled.height
+      width: image.width * (viewport.width / crop.width),
+      height: image.height * (viewport.height / crop.height)
     }
     return {
       ...scaled,
-      left: crop.left * scalar.h,
-      top: crop.top * scalar.v
+      left: 0 - (scaled.width / 2) + (viewport.width / 2),
+      top: 0 - (scaled.height / 2) + (viewport.height / 2)
     }
 
   }

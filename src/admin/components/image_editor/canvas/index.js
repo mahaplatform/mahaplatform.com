@@ -19,11 +19,6 @@ class Canvas extends React.Component {
     onUndo: PropTypes.func
   }
 
-  state = {
-    start: null,
-    offset: null
-  }
-
   render() {
     const { asset } = this.props
     return (
@@ -95,20 +90,10 @@ class Canvas extends React.Component {
 
   _getFrameStyle() {
     const { scaled, viewport } = this.props
-    const { start } = this.state
-    const offset = this.state.offset || { x: 0, y: 0 }
-    const left = scaled.left - offset.x
-    const top = scaled.top - offset.y
     const csstransforms = []
-    if(left !== 0) csstransforms.push(`translateX(${0 - left}px)`)
-    if(top !== 0 ) csstransforms.push(`translateY(${0 - top}px)`)
-    if(scaled.height > viewport.height || scaled.width > viewport.width) {
-      const xscale =  scaled.width / viewport.width
-      const yscale =  scaled.height / viewport.height
-      csstransforms.push(`scale(${xscale}, ${yscale})`)
-    }
+    if(scaled.left !== 0) csstransforms.push(`translateX(${scaled.left}px)`)
+    if(scaled.top !== 0 ) csstransforms.push(`translateY(${scaled.top}px)`)
     return {
-      transition: start == null ? 'transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in' : null,
       transform: csstransforms.join(' '),
       width: scaled.width,
       height: scaled.height

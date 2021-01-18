@@ -34,3 +34,9 @@ export const pushTransform = (key, value) => ({
   key,
   value
 })
+
+
+export const setTransforms = (transforms) => ({
+  type: 'SET_TRANSFORMS',
+  transforms
+})

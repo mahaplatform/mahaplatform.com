@@ -2,23 +2,18 @@ import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
-import Buttons from '../buttons'
 import Canvas from './canvas'
 import Crop from './crop'
 import React from 'react'
 
 class ImageEditor extends React.PureComponent {
 
-  static contextTypes = {
-    modal: PropTypes.object
-  }
-
   static propTypes = {
     asset: PropTypes.object,
     canvas: PropTypes.object,
     crop: PropTypes.object,
     cropping: PropTypes.bool,
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.array,
     image: PropTypes.object,
     orientation: PropTypes.object,
     ratio: PropTypes.number,
@@ -28,16 +23,19 @@ class ImageEditor extends React.PureComponent {
     undone: PropTypes.array,
     viewport: PropTypes.object,
     onCrop: PropTypes.func,
+    onDone: PropTypes.func,
     onPopTransform: PropTypes.func,
     onPushTransform: PropTypes.func,
     onRedo: PropTypes.func,
     onReset: PropTypes.func,
+    onSetTransforms: PropTypes.func,
     onSetRatio: PropTypes.func,
     onUndo: PropTypes.func
   }
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    onDone: () => {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -139,11 +137,22 @@ class ImageEditor extends React.PureComponent {
   }
 
   _handleDone() {
-    this.context.modal.close()
+    const { transforms } = this.props
+    const value = transforms.map(transform => ({
+      [transform.key]: transform.value
+    }))
+    console.log(value)
+    this.props.onDone(value)
   }
 
   _handleSet(transforms) {
-    this.props.onSet(transforms)
+    this.props.onSetTransforms(transforms.reduce((transforms, transform) => [
+      ...transforms,
+      ...Object.keys(transform).map(key => ({
+        key,
+        value: transform[key]
+      }))
+    ], []))
   }
 
 }

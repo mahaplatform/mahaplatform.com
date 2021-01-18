@@ -90,7 +90,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ratio: action.ratio
     }
 
-  case 'SET':
+  case 'SET_TRANSFORMS':
     return {
       ...state,
       transforms: action.transforms
