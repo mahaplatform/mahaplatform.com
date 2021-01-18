@@ -1,7 +1,13 @@
 .maha-imageeditor-canvas {
+  background-color: @black;
   flex-direction: column;
   display: flex;
   flex: 1;
+}
+.maha-imageeditor-canvas-header {
+  background-color: lighten(@white, 10);
+  padding: 0.8em;
+  line-height: 1.8em
 }
 .maha-imageeditor-canvas-body {
   flex: 1;
@@ -40,14 +46,4 @@
     width: 100%;
     display: block;
   }
-}
-.maha-imageeditor-canvas-overlay {
-  box-shadow: 0 0 2000px 2000px fadeout(@black, 30);
-  border: 1px solid #FFFFFF;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
 }

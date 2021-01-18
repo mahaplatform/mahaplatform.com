@@ -1,4 +1,6 @@
 const INITIAL_STATE = {
+  cropping: false,
+  ratio: null,
   transforms: [],
   undone: [],
   status: 'pending'
@@ -73,6 +75,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       undone: [
         ...state.undone.slice(0, -1)
       ]
+    }
+
+  case 'CROP':
+    return {
+      ...state,
+      cropping: action.cropping
+    }
+
+  case 'SET_RATIO':
+    return {
+      ...state,
+      ratio: action.ratio
     }
 
   case 'SET':

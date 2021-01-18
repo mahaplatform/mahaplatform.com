@@ -1,8 +1,10 @@
+import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Buttons from '../buttons'
 import Canvas from './canvas'
+import Crop from './crop'
 import React from 'react'
 
 class ImageEditor extends React.PureComponent {
@@ -15,18 +17,22 @@ class ImageEditor extends React.PureComponent {
     asset: PropTypes.object,
     canvas: PropTypes.object,
     crop: PropTypes.object,
+    cropping: PropTypes.bool,
     defaultValue: PropTypes.object,
     image: PropTypes.object,
     orientation: PropTypes.object,
+    ratio: PropTypes.number,
     scaled: PropTypes.object,
     status: PropTypes.string,
     transforms: PropTypes.array,
     undone: PropTypes.array,
     viewport: PropTypes.object,
+    onCrop: PropTypes.func,
     onPopTransform: PropTypes.func,
     onPushTransform: PropTypes.func,
     onRedo: PropTypes.func,
     onReset: PropTypes.func,
+    onSetRatio: PropTypes.func,
     onUndo: PropTypes.func
   }
 
@@ -38,17 +44,16 @@ class ImageEditor extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    const { cropping } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
-            <div className="maha-imageeditor-header">
-              <Buttons  { ...this._getButtons()} />
-            </div>
-            <div className="maha-imageeditor-body">
-              <Canvas { ...this._getCanvas() } />
-            </div>
+            <Canvas { ...this._getCanvas() } />
+            <CSSTransition in={ cropping } classNames="fadein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+              <Crop { ...this._getCrop() } />
+            </CSSTransition>
           </div>
         </div>
       </ModalPanel>
@@ -68,43 +73,36 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, canvas, crop, image, orientation, scaled, transforms, viewport } = this.props
+    const { asset, canvas, crop, image, orientation, scaled, transforms, undone, viewport, onRedo, onReset, onUndo } = this.props
     return {
       asset,
       canvas,
       crop,
       image,
       scaled,
+      undone,
       viewport,
       orientation,
-      transforms
+      transforms,
+      onRedo,
+      onReset,
+      onUndo
     }
   }
 
-  _getButtons() {
-    const { transforms, undone, onRedo, onReset, onUndo } = this.props
+  _getCrop() {
+    const { asset, canvas, crop, image, orientation, ratio, scaled, transforms, viewport, onCrop } = this.props
     return {
-      buttons: [
-        {
-          label: 'Reset',
-          size: 'tiny',
-          color: 'blue',
-          disabled: transforms.length === 0,
-          handler: onReset
-        }, {
-          label: 'Undo',
-          size: 'tiny',
-          color: 'blue',
-          disabled: transforms.length === 0,
-          handler: onUndo
-        }, {
-          label: 'Redo',
-          size: 'tiny',
-          color: 'blue',
-          disabled: undone.length == 0,
-          handler: onRedo
-        }
-      ]
+      asset,
+      canvas,
+      crop,
+      image,
+      ratio,
+      scaled,
+      viewport,
+      orientation,
+      transforms,
+      onCrop
     }
   }
 
@@ -121,16 +119,20 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { asset, canvas, crop, image, orientation, transforms, onPopTransform, onPushTransform } = this.props
+    const { asset, canvas, crop, cropping, image, orientation, ratio, transforms, onCrop, onPopTransform, onPushTransform, onSetRatio } = this.props
     return {
       asset,
       canvas,
       crop,
+      cropping,
       image,
       orientation,
+      ratio,
       transforms,
+      onCrop,
       onPopTransform,
-      onPushTransform
+      onPushTransform,
+      onSetRatio
     }
   }
 

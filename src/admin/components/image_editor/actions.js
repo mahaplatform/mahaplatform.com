@@ -15,6 +15,16 @@ export const redo = () => ({
   type: 'REDO'
 })
 
+export const crop = (cropping) => ({
+  type: 'CROP',
+  cropping
+})
+
+export const setRatio = (ratio) => ({
+  type: 'SET_RATIO',
+  ratio
+})
+
 export const popTransform = () => ({
   type: 'POP_TRANSFORM'
 })

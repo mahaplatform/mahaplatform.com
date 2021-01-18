@@ -8,12 +8,16 @@ class Sidebar extends React.PureComponent {
   static propTypes = {
     asset: PropTypes.object,
     canvas: PropTypes.object,
+    cropping: PropTypes.bool,
     crop: PropTypes.object,
     image: PropTypes.object,
     orientation: PropTypes.object,
+    ratio: PropTypes.number,
     transforms: PropTypes.array,
+    onCrop: PropTypes.func,
     onPopTransform: PropTypes.func,
-    onPushTransform: PropTypes.func
+    onPushTransform: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   state = {
@@ -22,6 +26,7 @@ class Sidebar extends React.PureComponent {
 
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleTool = this._handleTool.bind(this)
 
   render() {
     return (
@@ -43,19 +48,28 @@ class Sidebar extends React.PureComponent {
     }
   }
 
-  _getTools() {
-    const { asset, canvas, crop, image, orientation, transforms, onPopTransform, onPushTransform} = this.props
+  _getTool(tool) {
+    const { asset, canvas, crop, cropping, image, orientation, ratio, transforms, onCrop, onPopTransform, onPushTransform, onSetRatio } = this.props
     return {
       asset,
       canvas,
       crop,
+      cropping,
       image,
       orientation,
+      ratio,
       transforms,
-      onPop: this._handlePop,
-      onPush: this._handlePush,
+      onCrop,
       onPopTransform,
-      onPushTransform
+      onPushTransform,
+      onBack: this._handlePop,
+      onSetRatio
+    }
+  }
+
+  _getTools() {
+    return {
+      onChoose: this._handleTool
     }
   }
 
@@ -72,6 +86,10 @@ class Sidebar extends React.PureComponent {
         { component, props }
       ]
     })
+  }
+
+  _handleTool(tool) {
+    this._handlePush(tool.component, this._getTool.bind(this, tool))
   }
 
 }

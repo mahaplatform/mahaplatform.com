@@ -8,12 +8,16 @@ class Crop extends React.PureComponent {
     asset: PropTypes.object,
     canvas: PropTypes.object,
     crop: PropTypes.object,
+    cropping: PropTypes.bool,
     image: PropTypes.object,
     orientation: PropTypes.object,
+    ratio: PropTypes.number,
     transforms: PropTypes.array,
     onBack: PropTypes.func,
+    onCrop: PropTypes.func,
     onPopTransform: PropTypes.func,
-    onPushTransform: PropTypes.func
+    onPushTransform: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -27,7 +31,7 @@ class Crop extends React.PureComponent {
             { ratios.map((ratio, index) => (
               <div className="maha-imageeditor-row" key={`row_${index}`}>
                 <div className="maha-imageeditor-column">
-                  <div className={ this._getClass(index) } onClick={ this._handleClick.bind(this, ratio.ratio) }>
+                  <div className={ this._getClass(ratio) } onClick={ this._handleClick.bind(this, ratio.ratio) }>
                     { ratio.label}
                   </div>
                 </div>
@@ -39,10 +43,20 @@ class Crop extends React.PureComponent {
     )
   }
 
-  _getClass(index) {
-    const selected = this._getSelected()
+  componentDidMount() {
+    this.props.onCrop(true)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { cropping } = this.props
+    if(cropping !== prevProps.cropping && !cropping) {
+      this.props.onBack()
+    }
+  }
+
+  _getClass(ratio) {
     const classes = ['maha-imageeditor-button']
-    if(index === selected) classes.push('active')
+    if(ratio.ratio === this.props.ratio) classes.push('active')
     return classes.join(' ')
   }
 
@@ -91,34 +105,38 @@ class Crop extends React.PureComponent {
   }
 
   _handleBack() {
-    this.props.onBack()
+    this.props.onCrop(false)
   }
 
   _handleClick(ratio) {
-    const { canvas, image, orientation } = this.props
-    ratio = orientation.mode !== image.mode ? 1 / ratio : ratio
-    const viewport = {
-      width: ratio > 1 ? canvas.width : canvas.width * ratio,
-      height: ratio > 1 ? canvas.height / ratio : canvas.height
-    }
-    const scaled = {
-      width: image.mode === 'portrait' ? viewport.width : (image.width / image.height) * viewport.height,
-      height: image.mode === 'portrait' ? (image.height / image.width) * viewport.width : viewport.height
-    }
-    const scalar = {
-      h: image.width / scaled.width,
-      v: image.height / scaled.height,
-    }
-    const crop = {
-      left: ((scaled.width - viewport.width) / 2) * scalar.h,
-      top: ((scaled.height - viewport.height) / 2) * scalar.v,
-      width: viewport.width * scalar.h,
-      height: viewport.height * scalar.v
-    }
-    console.log({ ratio, canvas, image, viewport, scaled, scalar, crop })
-    const value = [crop.left,crop.top,crop.width,crop.height].join(',')
-    this.props.onPushTransform('crop', value)
+    this.props.onSetRatio(ratio)
   }
+
+  // _handleClick(ratio) {
+  //   const { canvas, image, orientation } = this.props
+  //   ratio = orientation.mode !== image.mode ? 1 / ratio : ratio
+  //   const viewport = {
+  //     width: ratio > 1 ? canvas.width : canvas.width * ratio,
+  //     height: ratio > 1 ? canvas.height / ratio : canvas.height
+  //   }
+  //   const scaled = {
+  //     width: image.mode === 'portrait' ? viewport.width : (image.width / image.height) * viewport.height,
+  //     height: image.mode === 'portrait' ? (image.height / image.width) * viewport.width : viewport.height
+  //   }
+  //   const scalar = {
+  //     h: image.width / scaled.width,
+  //     v: image.height / scaled.height,
+  //   }
+  //   const crop = {
+  //     left: ((scaled.width - viewport.width) / 2) * scalar.h,
+  //     top: ((scaled.height - viewport.height) / 2) * scalar.v,
+  //     width: viewport.width * scalar.h,
+  //     height: viewport.height * scalar.v
+  //   }
+  //   console.log({ ratio, canvas, image, viewport, scaled, scalar, crop })
+  //   const value = [crop.left,crop.top,crop.width,crop.height].join(',')
+  //   this.props.onPushTransform('crop', value)
+  // }
 
 }
 

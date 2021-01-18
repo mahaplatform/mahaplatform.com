@@ -7,7 +7,7 @@ import Text from './text'
 import React from 'react'
 
 const tools = [
-  { label: 'Cropping', icon: 'crop', component: Crop },
+  { label: 'Crop / Resize', icon: 'crop', component: Crop },
   { label: 'Adjustments', icon: 'sun-o', component: Adjustment },
   { label: 'Orientation', icon: 'repeat', component: Orientation },
   { label: 'Text', icon: 'font', component: Text }
@@ -16,17 +16,7 @@ const tools = [
 class Tools extends React.Component {
 
   static propTypes = {
-    asset: PropTypes.object,
-    canvas: PropTypes.object,
-    crop: PropTypes.object,
-    image: PropTypes.object,
-    orientation: PropTypes.object,
-    transforms: PropTypes.array,
-    onBack: PropTypes.func,
-    onPopTransform: PropTypes.func,
-    onPushTransform: PropTypes.func,
-    onPush: PropTypes.func,
-    onPop: PropTypes.func
+    onChoose: PropTypes.func
   }
 
   render() {
@@ -58,23 +48,8 @@ class Tools extends React.Component {
     }
   }
 
-  _getTool(tool) {
-    const { asset, canvas, crop, image, orientation, transforms, onPopTransform, onPushTransform, onPop} = this.props
-    return {
-      asset,
-      canvas,
-      crop,
-      image,
-      orientation,
-      transforms,
-      onPopTransform,
-      onPushTransform,
-      onBack: onPop
-    }
-  }
-
   _handleClick(tool) {
-    this.props.onPush(tool.component, this._getTool.bind(this, tool))
+    this.props.onChoose(tool)
   }
 
 }

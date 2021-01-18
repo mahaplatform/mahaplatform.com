@@ -1,3 +1,4 @@
+import Buttons from '../../buttons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -12,7 +13,10 @@ class Canvas extends React.Component {
     orientation: PropTypes.object,
     scaled: PropTypes.object,
     transforms: PropTypes.array,
-    viewport: PropTypes.object
+    viewport: PropTypes.object,
+    onRedo: PropTypes.func,
+    onReset: PropTypes.func,
+    onUndo: PropTypes.func
   }
 
   state = {
@@ -24,6 +28,9 @@ class Canvas extends React.Component {
     const { asset } = this.props
     return (
       <div className="maha-imageeditor-canvas">
+        <div className="maha-imageeditor-canvas-header">
+          <Buttons  { ...this._getButtons()} />
+        </div>
         <div className="maha-imageeditor-canvas-body">
           <div className="maha-imageeditor-canvas-viewport" style={ this._getViewportStyle() }>
             <div className="maha-imageeditor-canvas-flip" style={ this._getFlipStyle() }>
@@ -31,24 +38,36 @@ class Canvas extends React.Component {
                 <img src={`/imagecache${asset.path}`} />
               </div>
             </div>
-            <div className="maha-imageeditor-canvas-overlay" { ...this._getOverlay() } />
           </div>
-        </div>
-        <div className="maha-imageeditor-canvas-footer">
-          <input { ...this._getRange() } />
         </div>
       </div>
     )
   }
 
-  _getRange() {
-    const { zoom } = this.state
+  _getButtons() {
+    const { transforms, undone, onRedo, onReset, onUndo } = this.props
     return {
-      type: 'range',
-      min: 0,
-      max: 100,
-      defaultValue: zoom,
-      // onChange: this._handleZoom
+      buttons: [
+        {
+          label: 'Reset',
+          size: 'tiny',
+          color: 'blue',
+          disabled: transforms.length === 0,
+          handler: onReset
+        }, {
+          label: 'Undo',
+          size: 'tiny',
+          color: 'blue',
+          disabled: transforms.length === 0,
+          handler: onUndo
+        }, {
+          label: 'Redo',
+          size: 'tiny',
+          color: 'blue',
+          disabled: undone.length == 0,
+          handler: onRedo
+        }
+      ]
     }
   }
 
@@ -94,60 +113,6 @@ class Canvas extends React.Component {
       width: scaled.width,
       height: scaled.height
     }
-  }
-
-  _getOverlay() {
-    return {
-      draggable: true,
-      onDragStart: this._handleDragStart.bind(this),
-      onDrag: this._handleDrag.bind(this),
-      onDragEnd: this._handleDragEnd.bind(this),
-      onWheel: this._handleWheel.bind(this)
-    }
-  }
-
-  _getDragImage() {
-    var img = document.createElement('img')
-    img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
-    return img
-  }
-
-  _handleDragStart(e) {
-    e.dataTransfer.setDragImage(this._getDragImage(), 0, 0)
-    this.setState({
-      start: {
-        x: e.clientX,
-        y: e.clientY
-      }
-    })
-  }
-
-  _handleDrag(e) {
-    const { start } = this.state
-    this.setState({
-      offset: {
-        x: e.clientX - start.x,
-        y: e.clientY - start.y
-      }
-    })
-  }
-
-  _handleDragEnd(e) {
-    const { start, offset } = this.state
-    const delta = {
-      x: e.clientX - start.x,
-      y: e.clientY - start.y
-    }
-    console.log('delta', delta)
-    this.setState({
-      start: null,
-      offset: null
-    })
-  }
-
-  _handleWheel(e) {
-    if(e.deltaY < 0) console.log('zoom in')
-    if(e.deltaY > 0) console.log('zoom out')
   }
 
 }
