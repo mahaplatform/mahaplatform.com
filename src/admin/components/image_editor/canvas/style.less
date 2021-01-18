@@ -1,6 +1,22 @@
 .maha-imageeditor-canvas {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.maha-imageeditor-canvas-body {
   flex: 1;
   position: relative;
+  overflow: hidden;
+}
+.maha-imageeditor-canvas-footer {
+  padding: 0 0.8em;
+  display: flex;
+  height: 30px;
+  input {
+    margin: auto;
+    width: 100%;
+    display: block
+  }
 }
 .maha-imageeditor-canvas-viewport {
   transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
@@ -17,7 +33,6 @@
   flex: 1;
 }
 .maha-imageeditor-canvas-frame {
-  transition: transform 0.25s ease-in, width 0.25s ease-in, height 0.25s ease-in;
   position: absolute;
   left: 0;
   top: 0;

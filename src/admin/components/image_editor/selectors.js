@@ -6,8 +6,8 @@ export const asset = (state, props) => props.asset
 export const transforms = (state, props) => state.transforms
 
 export const canvas = (state, props) => ({
-  width: 615,
-  height: 615
+  width: 580,
+  height: 580
 })
 
 export const image = createSelector(
