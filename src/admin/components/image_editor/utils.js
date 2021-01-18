@@ -1,27 +1,26 @@
 export const adjust = (element, container) => {
-  if(container.width > container.height) {
-    if((container.height / container.width) * element.width > element.height) {
+  const proportional = {
+    width: (element.width / element.height) * container.height,
+    height: (element.height / element.width) * container.width
+  }
+  if(container.width >= container.height) {
+    if(element.height > container.height) {
       return {
-        width: (container.width / container.height) * element.height,
-        height: element.height
-      }
-    } else {
-      return {
-        width: element.width,
-        height: (container.height / container.width) * element.width
+        width: proportional.width,
+        height: container.height
       }
     }
   } else {
-    if((container.width / container.height) * element.height > element.width) {
+    if(element.width > container.width) {
       return {
-        width: element.width,
-        height: (container.height / container.width) * element.width
-      }
-    } else {
-      return {
-        width: (container.width / container.height) * element.height,
-        height: element.height
+        width: container.width,
+        height: proportional.height
       }
     }
   }
+  return {
+    width: element.width,
+    height: element.height
+  }
+
 }

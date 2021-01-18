@@ -1,6 +1,5 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import { adjust } from '../utils'
 import React from 'react'
 
 class Crop extends React.PureComponent {
@@ -91,10 +90,6 @@ class Crop extends React.PureComponent {
     })
   }
 
-  _handleAdjust(key, value) {
-    this.props.onAdjust(key, value)
-  }
-
   _handleBack() {
     this.props.onBack()
   }
@@ -107,8 +102,8 @@ class Crop extends React.PureComponent {
       height: ratio > 1 ? canvas.height / ratio : canvas.height
     }
     const scaled = {
-      width: ratio > 1 ? canvas.width : (image.width / image.height) * canvas.height,
-      height: ratio > 1 ? (image.height / image.width) * canvas.width : canvas.height
+      width: image.mode === 'portrait' ? viewport.width : (image.width / image.height) * viewport.height,
+      height: image.mode === 'portrait' ? (image.height / image.width) * viewport.width : viewport.height
     }
     const scalar = {
       h: image.width / scaled.width,
@@ -120,7 +115,7 @@ class Crop extends React.PureComponent {
       width: viewport.width * scalar.h,
       height: viewport.height * scalar.v
     }
-    console.log({ ratio, viewport, scaled, scalar, crop })
+    console.log({ ratio, canvas, image, viewport, scaled, scalar, crop })
     const value = [crop.left,crop.top,crop.width,crop.height].join(',')
     this.props.onPushTransform('crop', value)
   }

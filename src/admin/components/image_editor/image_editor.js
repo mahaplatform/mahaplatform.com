@@ -18,9 +18,11 @@ class ImageEditor extends React.PureComponent {
     defaultValue: PropTypes.object,
     image: PropTypes.object,
     orientation: PropTypes.object,
+    scaled: PropTypes.object,
     status: PropTypes.string,
     transforms: PropTypes.array,
     undone: PropTypes.array,
+    viewport: PropTypes.object,
     onPopTransform: PropTypes.func,
     onPushTransform: PropTypes.func,
     onRedo: PropTypes.func,
@@ -66,12 +68,14 @@ class ImageEditor extends React.PureComponent {
   // }
 
   _getCanvas() {
-    const { asset, canvas, crop, image, orientation, transforms } = this.props
+    const { asset, canvas, crop, image, orientation, scaled, transforms, viewport } = this.props
     return {
       asset,
       canvas,
       crop,
       image,
+      scaled,
+      viewport,
       orientation,
       transforms
     }
