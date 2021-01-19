@@ -1,3 +1,4 @@
+import Edit from '../categories/edit'
 import PropTypes from 'prop-types'
 import { Button } from '@admin'
 import React from 'react'
@@ -55,7 +56,7 @@ class Categories extends React.Component {
       icon: 'ellipsis-v',
       className: '',
       tasks: [
-        { label: 'Edit Category', modal: <div>foo</div> },
+        { label: 'Edit Category', modal: <Edit store={ store } category={ category } /> },
         {
           label: 'Delete Category',
           confirm: 'Are you sure you want to delete this category?',
