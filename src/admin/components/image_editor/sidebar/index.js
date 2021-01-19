@@ -59,6 +59,7 @@ class Sidebar extends React.PureComponent {
       orientation,
       ratio,
       transforms,
+      onAdjust: () => {},
       onCrop,
       onPopTransform,
       onPushTransform,

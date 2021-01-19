@@ -66,36 +66,97 @@ const getOverlay = async (w) => {
 }
 
 const transform = async(data, transforms) => {
-  const source = sharp(data)
-  await overlay(source, transforms)
-  crop(source, transforms)
-  resize(source, transforms)
-  pad(source, transforms)
+  let source = sharp(data)
+  source = flip(source, transforms)
+  source = rotate(source, transforms)
+  source = crop(source, transforms)
+  source = await saturation(source, transforms)
+  source = await brightness(source, transforms)
+  source = await contrast(source, transforms)
+  source = pad(source, transforms)
+  source = resize(source, transforms)
+  source = await overlay(source, transforms)
   return source
 }
 
+const clamp = (value) => Math.max(Math.min(value, 255), 0)
+
+const brightness = async (source, params) => {
+  if(!params.bri) return source
+  const bri = Math.floor(255 * (parseInt(params.bri) / 100))
+  const { width, height, channels } = await source.metadata()
+  const buffer = await source.raw().toBuffer()
+  for(var i = 0; i < buffer.length; i += channels) {
+    buffer[i] = clamp(buffer[i] + bri)
+    buffer[i + 1] = clamp(buffer[i + 1] + bri)
+    buffer[i + 2] = clamp(buffer[i + 2] + bri)
+  }
+  return sharp(buffer, { raw: { width, height, channels } })
+}
+
+const contrast = async (source, params) => {
+  if(!params.con) return source
+  const con = Math.pow((parseInt(params.con) + 100) / 100, 2)
+  const { width, height, channels } = await source.metadata()
+  const buffer = await source.raw().toBuffer()
+  for(var i = 0; i < buffer.length; i += channels) {
+    buffer[i] = clamp(((((buffer[i] / 255) - 0.5) * con) + 0.5) * 255)
+    buffer[i + 1] = clamp(((((buffer[i + 1] / 255) - 0.5) * con) + 0.5) * 255)
+    buffer[i + 2] = clamp(((((buffer[i + 2] / 255) - 0.5) * con) + 0.5) * 255)
+  }
+  return sharp(buffer, { raw: { width, height, channels } })
+}
+
+const saturation = async (source, params) => {
+  if(!params.sat) return source
+  const sat = parseInt(params.sat) * -0.01
+  const { width, height, channels } = await source.metadata()
+  const buffer = await source.raw().toBuffer()
+  for(var i = 0; i < buffer.length; i += channels) {
+    const max = Math.max(buffer[i], buffer[i + 1], buffer[i + 2])
+    if(buffer[i] !== max) buffer[i] = clamp(buffer[i] + (max - buffer[i]) * sat)
+    if(buffer[i + 1] !== max) buffer[i + 1] = clamp(buffer[i + 1] + (max - buffer[i + 1]) * sat)
+    if(buffer[i + 2] !== max) buffer[i + 2] = clamp(buffer[i + 2] + (max - buffer[i + 2]) * sat)
+  }
+  return sharp(buffer, { raw: { width, height, channels } })
+}
+
 const overlay = async (source, { dpi = 1, w, overlay }) => {
-  if(!overlay) return
+  if(!overlay) return source
   const width = w ? parseInt(w) * parseInt(dpi) : null
   if(overlay && overlay === 'video') {
     source.composite([{
       input: await getOverlay(width)
     }])
   }
+  return source
 }
 
-const crop = (source, { ct, cl, cw, ch }) => {
-  if(!ct || !cl || !cw || !ch) return
+const flip = (source, { flip }) => {
+  if(!flip) return source
+  if(flip === 'h') return source.flop()
+  if(flip === 'v') return source.flip()
+}
+
+const rotate = async (source, { rot }) => {
+  if(!rot) return source
+  return source.rotate(parseInt(rot))
+}
+
+const crop = (source, { crop }) => {
+  if(!crop) return source
+  const [left, top, width, height] = crop.split(',')
   source.extract({
-    left:  parseInt(cl),
-    top: parseInt(ct),
-    width: parseInt(cw),
-    height: parseInt(ch)
+    left:  parseInt(left),
+    top: parseInt(top),
+    width: parseInt(width),
+    height: parseInt(height)
   })
+  return source
 }
 
 const resize = (source, { dpi = 1, fit = 'inside', w, h }) => {
-  if(!w && !h) return
+  if(!w && !h) return source
   const width = w ? parseInt(w) * parseInt(dpi) : null
   const height = h ? parseInt(h) * parseInt(dpi) : null
   if(width && height) return source.resize(width, height, { fit })
@@ -104,7 +165,7 @@ const resize = (source, { dpi = 1, fit = 'inside', w, h }) => {
 }
 
 const pad = (source, { p, pt, pl, pb, pr, bg }) => {
-  if(!bg || (!p && !pt && !pl && !pb && !pr)) return
+  if(!bg || (!p && !pt && !pl && !pb && !pr)) return source
   const padding = p ? parseInt(p) : null
   const top = pt ? parseInt(pt) : null
   const right = pr ? parseInt(pr) : null

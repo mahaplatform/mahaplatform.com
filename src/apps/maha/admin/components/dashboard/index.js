@@ -38,9 +38,6 @@ class Dashboard extends React.Component {
             <div className="date">
               { moment().format('dddd, MMM Do, YYYY') }
             </div>
-            <Button { ...this._getHorizontal()} />
-            <Button { ...this._getSquare()} />
-            <Button { ...this._getVertical()} />
           </div>
         </div>
       </ModalPanel>
@@ -76,7 +73,7 @@ class Dashboard extends React.Component {
     }
     return {
       label: 'Horizontal',
-      modal: <ImageEditor asset={ asset } defaultValue={ [{crop:'300,180,360,360'}]} />
+      modal: <ImageEditor asset={ asset } />
     }
   }
 

@@ -19,6 +19,10 @@ class Canvas extends React.Component {
     onUndo: PropTypes.func
   }
 
+  _handleRender = this._handleRender.bind(this)
+
+  canvas = null
+
   render() {
     const { asset } = this.props
     return (
@@ -30,13 +34,54 @@ class Canvas extends React.Component {
           <div className="maha-imageeditor-canvas-viewport" style={ this._getViewportStyle() }>
             <div className="maha-imageeditor-canvas-flip" style={ this._getFlipStyle() }>
               <div className="maha-imageeditor-canvas-frame" style={ this._getFrameStyle() }>
-                <img src={`/imagecache${asset.path}`} />
+                <canvas ref={ node => this.canvas = node} />
               </div>
             </div>
           </div>
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { asset } = this.props
+    const { width, height } = asset.metadata
+    this.canvas.width = width
+    this.canvas.height = height
+    this.ctx = this.canvas.getContext('2d')
+    this.image = new Image()
+    this.image.onload = this._handleRender
+    this.image.src = `/imagecache${asset.path}`
+  }
+
+  _handleRender() {
+    const { asset } = this.props
+    const { width, height } = asset.metadata
+    this.ctx.drawImage(this.image, 0, 0)
+    const imagedata = this.ctx.getImageData(0, 0, width, height)
+    const data = imagedata.data
+    this._appleBrightness(data, 50)
+    this.ctx.putImageData(imagedata, 0, 0)
+  }
+
+  _appleBrightness(data, amount) {
+    const clamp = (value) => Math.max(Math.min(value, 255), 0)
+    const bri = Math.floor(255 * (amount / 100))
+    for (var i = 0; i < data.length; i+= 4) {
+      data[i] = clamp(data[i] + bri)
+      data[i+1] = clamp(data[i+1] + bri)
+      data[i+2] = clamp(data[i+2] + bri)
+    }
+  }
+
+  _applyContrast(data, amount) {
+    const clamp = (value) => Math.max(Math.min(value, 255), 0)
+    var con = (259.0 * (amount + 255.0)) / (255.0 * (259.0 - amount))
+    for (var i = 0; i < data.length; i+= 4) {
+      data[i] = clamp(con * (data[i] - 128.0) + 128.0)
+      data[i+1] = clamp(con * (data[i+1] - 128.0) + 128.0)
+      data[i+2] = clamp(con * (data[i+2] - 128.0) + 128.0)
+    }
   }
 
   _getButtons() {
