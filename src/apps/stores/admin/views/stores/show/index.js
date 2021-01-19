@@ -1,5 +1,5 @@
-import NewProduct from '../../../components/productform'
 import NewCategory from '../categories/new'
+import NewProduct from '../products/new'
 import Performance from './performance'
 import Categories from './categories'
 import Inventory from '../inventory'

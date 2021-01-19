@@ -108,7 +108,6 @@ class OptionsField extends React.Component {
     const { custom } = this.state
     return {
       reference: node => this.custom = node,
-      defaultValue: custom,
       onBlur: this._handleBlur,
       onChange: this._handleCustom,
       onFocus: this._handleFocus
@@ -183,7 +182,6 @@ class OptionsField extends React.Component {
   _handleChoose(selected) {
     const { options } = this.props
     this.setState({
-      custom: 0,
       selected
     }, () => {
       if(options[selected].pricing !== 'custom') return

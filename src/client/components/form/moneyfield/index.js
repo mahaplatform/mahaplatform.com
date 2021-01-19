@@ -7,28 +7,25 @@ class MoneyField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.any,
+    defaultValue: PropTypes.number,
     disabled: PropTypes.bool,
     name: PropTypes.string,
     htmlFor: PropTypes.string,
+    placeholder: PropTypes.string,
     min: PropTypes.number,
     max: PropTypes.number,
     reference: PropTypes.func,
     required: PropTypes.bool,
     status: PropTypes.string,
     tabIndex: PropTypes.number,
-    onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    onFocus: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
 
   static defaultProps = {
-    max: 100000000,
-    onBlur: () => {},
+    placeholder: '0.00',
     onChange: () => {},
-    onFocus: () => {},
     onReady: () => {}
   }
 
@@ -36,12 +33,12 @@ class MoneyField extends React.Component {
 
   state = {
     focused: false,
-    value: null
+    value: ''
   }
 
   _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
-  _handleReset = this._handleReset.bind(this)
+  _handleClear = this._handleClear.bind(this)
   _handleFocus = this._handleFocus.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
   _handleValidate = this._handleValidate.bind(this)
@@ -50,11 +47,14 @@ class MoneyField extends React.Component {
     const { value } = this.state
     return (
       <div className={ this._getClass() }>
+        <div className="maha-input-icon">
+          <i className="fa fa-dollar" />
+        </div>
         <div className="maha-input-field">
           <input { ...this._getInput() } />
         </div>
-        { value > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleReset }>
+        { value !== null && value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>
         }
@@ -63,23 +63,19 @@ class MoneyField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, reference } = this.props
-    this.setState({
-      value: !_.isNil(defaultValue) ? parseInt(defaultValue) * 100 : 0
+    const { defaultValue, reference, onReady } = this.props
+     if(reference) reference(this.input)
+    if(!_.isNil(defaultValue)) this.setState({
+      value: defaultValue
     })
-    if(reference) reference(this.input)
-    this.props.onReady(this._handleValidate)
+    onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { status } = this.props
-    const { focused, value } = this.state
+    const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
-    }
-    if(focused !== prevState.focused) {
-      if(focused) return this.props.onFocus()
-      return this.props.onBlur()
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
@@ -95,70 +91,59 @@ class MoneyField extends React.Component {
     return classes.join(' ')
   }
 
-  _getFormatted() {
-    const { value } = this.state
-    return numeral(value ? value / 100 : 0).format('$0,0.00')
-  }
-
   _getInput() {
-    const { htmlFor, tabIndex } = this.props
+    const { htmlFor, placeholder, tabIndex } = this.props
+    const { focused, value } = this.state
     return {
-      ref: node => this.input = node,
       id: htmlFor,
-      type: 'tel',
-      autoCorrect: 'off',
-      autoCapitalize: 'off',
-      spellCheck: 'off',
-      maxLength: 12,
+      type: 'text',
+      placeholder: !focused ? placeholder : null,
+      ref: node => this.input = node,
       tabIndex,
-      value: this._getFormatted(),
+      value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
       onFocus: this._handleFocus
     }
   }
 
-  _getValue() {
+  _handleBlur() {
     const { value } = this.state
-    return value > 0 ? value / 100 : 0
-  }
-
-  _handleBlur(e) {
     this.setState({
-      focused: false
+      focused: false,
+      value: value.length > 0 ? numeral(value).format('0.00') : value
     })
   }
 
   _handleChange() {
-    const value = this._getValue()
-    this.props.onChange(value > 0 ? value : 0)
+    this.props.onChange(Number(this.state.value))
   }
 
-  _handleFocus(e) {
+  _handleClear() {
+    this.setState({
+      value: ''
+    })
+    this.input.focus()
+  }
+
+  _handleFocus() {
     this.setState({
       focused: true
     })
   }
 
-  _handleReset() {
-    this.setState({
-      value: 0
-    })
-    this.input.focus()
-  }
-
   _handleUpdate(e) {
-    const { max } = this.props
-    const value = parseInt(e.target.value.replace(/[$,.]/g,''))
-    this.setState({
-      value: value > max ? this.state.value : value
-    })
+    const value = e.target.value
+    if(!value.match(/^-?\d*\.?\d{0,2}$/)) return
+    this.setState({ value })
   }
 
   _handleValidate() {
-    const { min, onValidate } = this.props
-    const value = this._getValue()
+    const { min, max, required, onValidate } = this.props
+    const { value } = this.state
+    if(required === true && value === '') return onValidate(value, ['This field is required'])
     if(min !== undefined && Number(value) < min) return onValidate(value, [`This field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValidate(value, [`This field must be less than or equal to ${max}`])
     onValidate(value)
   }
 
