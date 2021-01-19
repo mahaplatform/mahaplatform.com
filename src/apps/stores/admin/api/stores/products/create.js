@@ -1,5 +1,5 @@
-import { activity } from '@core/services/routes/activities'
 import ProductSerializer from '@apps/stores/serializers/product_serializer'
+import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
@@ -34,6 +34,7 @@ const createRoute = async (req, res) => {
     code: product_code,
     title: req.body.title,
     slug: req.body.title.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '-').toLowerCase(),
+    options: {},
     ...whitelist(req.body, ['title','description','options','type']),
     is_active: true
   }).save(null, {
@@ -65,9 +66,10 @@ const createRoute = async (req, res) => {
       fixed_price: data.fixed_price,
       low_price: data.low_price,
       high_price: data.high_price,
+      tax_rate: data.tax_rate,
       overage_strategy: data.overage_strategy,
       donation_revenue_type_id: data.donation_revenue_type_id,
-      tax_rate: data.tax_rate,
+      is_tax_deductable: data.is_tax_deductable,
       inventory_policy: data.inventory_policy,
       shipping_strategy: data.shipping_strategy,
       shipping_fee: data.shipping_fee,

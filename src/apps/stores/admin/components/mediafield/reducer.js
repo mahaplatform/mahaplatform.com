@@ -29,14 +29,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'ready',
-      images: [
-        ...state.images.map(image => ({
-          ...image,
-          asset: action.result.data.find(asset => {
-            return asset.id === image.asset.id
-          })
-        }))
-      ]
+      images: action.result.data
     }
 
   case 'MOVE':
@@ -69,13 +62,6 @@ const reducer = (state = INITIAL_STATE, action) => {
           delta: index
         }))
       ]
-    }
-
-  case 'SET':
-    return {
-      ...state,
-      images: action.images,
-      status: action.images.length > 0 ? 'initialized' : 'ready'
     }
 
   default:

@@ -51,7 +51,7 @@ class ProductForm extends React.Component {
       options: product.options,
       variants: product.variants.map(variant => ({
         is_active: variant.is_active,
-        options: variant.options,
+        options: variant.options || {},
         photo_ids: variant.photos.map(photo => photo.id),
         price_type: variant.price_type,
         project_id: variant.project_id,
@@ -64,6 +64,7 @@ class ProductForm extends React.Component {
         tax_rate: variant.tax_rate,
         inventory_policy: variant.inventory_policy,
         inventory_quantity: variant.inventory_quantity,
+        shipping_strategy: variant.shipping_strategy,
         shipping_fee: variant.shipping_fee,
         file_id: variant.file ? variant.file.id : null,
         url: variant.url

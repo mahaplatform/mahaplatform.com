@@ -1,7 +1,7 @@
-export const fetch = (ids) => ({
+export const fetch = (endpoint, ids) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/assets',
+  endpoint,
   query: {
     $filter: {
       id: {

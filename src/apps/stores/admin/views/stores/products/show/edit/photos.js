@@ -1,8 +1,9 @@
+import MediaField from '@apps/stores/admin/components/mediafield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 
-class Details extends React.Component {
+class Photos extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -36,6 +37,7 @@ class Details extends React.Component {
       sections: [
         {
           fields: [
+            { label: 'Photos', name: 'photos', type: MediaField, endpoint: `/api/admin/stores/stores/${formdata.store_id}/products/${formdata.product_id}/variants/${formdata.id}/photos` }
           ]
         }
       ]
@@ -56,4 +58,4 @@ class Details extends React.Component {
 
 }
 
-export default Details
+export default Photos

@@ -8,6 +8,7 @@ class MediaField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    endpoint: PropTypes.string,
     images: PropTypes.array,
     status: PropTypes.string,
     onAdd: PropTypes.func,
@@ -43,17 +44,15 @@ class MediaField extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
-    const images = defaultValue || []
-    this._handleSet(images)
+    const { defaultValue, endpoint } = this.props
+    const ids = _.castArray(defaultValue)
+    if(ids.length === 0) return this.props.onReady()
+    this.props.onFetch(endpoint, ids)
   }
 
   componentDidUpdate(prevProps) {
     const { images, status } = this.props
     if(status !== prevProps.status) {
-      if(status === 'initialized') {
-        this._handleFetch()
-      }
       if(status === 'ready') {
         this.props.onReady()
       }
@@ -112,11 +111,7 @@ class MediaField extends React.PureComponent {
     this.props.onRemove(index)
   }
 
-  _handleSet(images) {
-    const { onSet } = this.props
-    return onSet(images.map(image => ({
-      id: image.id
-    })))
+  _handleSet(image_ids) {
   }
 
 }

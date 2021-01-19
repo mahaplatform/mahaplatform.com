@@ -16,7 +16,7 @@ class Variants extends React.Component {
   }
 
   render() {
-    const { product, variants } = this.props
+    const { product } = this.props
     return (
       <div className="stores-inventoryfield">
         <div className="maha-table">
@@ -53,12 +53,12 @@ class Variants extends React.Component {
   }
 
   _getEdit(variant) {
-    const { store } = this.props
+    const { product, store } = this.props
     return {
       icon: 'ellipsis-v',
       className: '',
       tasks: [
-        { label: 'Edit Variant', modal: <Edit store={ store } variant={ variant } /> }
+        { label: 'Edit Variant', modal: <Edit store={ store } product={ product } variant={ variant } /> }
       ]
     }
   }

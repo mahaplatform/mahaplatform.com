@@ -1,6 +1,8 @@
+import Inventory from './inventory'
 import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
-import Details from './details'
+import Pricing from './pricing'
+import Photos from './photos'
 import React from 'react'
 
 class Edit extends React.Component {
@@ -11,8 +13,9 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
-    variant: PropTypes.object,
-    store: PropTypes.object
+    product: PropTypes.object,
+    store: PropTypes.object,
+    variant: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -46,7 +49,9 @@ class Edit extends React.Component {
 
   _getSteps(formdata) {
     return [
-      { label: 'Details', component: Details }
+      { label: 'Photos', component: Photos },
+      { label: 'Inventory', component: Inventory },
+      { label: 'Pricing', component: Pricing }
     ]
   }
 

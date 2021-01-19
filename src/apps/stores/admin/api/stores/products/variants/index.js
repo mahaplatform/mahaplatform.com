@@ -2,6 +2,7 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import photos from './photos'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -15,6 +16,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/photos', photos)
 
 router.patch('/:id', update)
 

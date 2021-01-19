@@ -1,8 +1,9 @@
+import PhotoSerializer from '@apps/stores/serializers/photo_serializer'
 import Variant from '@apps/stores/models/variant'
 import Product from '@apps/stores/models/product'
 import Store from '@apps/stores/models/store'
 
-const editRoute = async (req, res) => {
+const photosRoute = async (req, res) => {
 
   const store = await Store.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -35,7 +36,7 @@ const editRoute = async (req, res) => {
     qb.where('product_id', product.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['photos'],
+    withRelated: ['photos.asset'],
     transacting: req.trx
   })
 
@@ -44,25 +45,8 @@ const editRoute = async (req, res) => {
     message: 'Unable to load variant'
   })
 
-  res.status(200).respond(variant, (req, variant) => ({
-    id: variant.get('id'),
-    store_id: store.get('id'),
-    product_id: product.get('id'),
-    photo_ids: variant.related('photos').map(photo => photo.get('id')),
-    price_type: variant.get('price_type'),
-    project_id: variant.get('project_id'),
-    revenue_type_id: variant.get('revenue_type_id'),
-    fixed_price: variant.get('fixed_price'),
-    low_price: variant.get('low_price'),
-    high_price: variant.get('high_price'),
-    tax_rate: variant.get('tax_rate'),
-    overage_strategy: variant.get('overage_strategy'),
-    donation_revenue_type_id: variant.get('donation_revenue_type_id'),
-    is_tax_deductable: variant.get('is_tax_deductable'),
-    inventory_policy: variant.get('inventory_policy'),
-    max_per_order: variant.get('max_per_order')
-  }))
+  res.status(200).respond(variant.related('photos'), PhotoSerializer)
 
 }
 
-export default editRoute
+export default photosRoute
