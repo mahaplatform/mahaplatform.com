@@ -1,6 +1,5 @@
 import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
-import Contact from './contact'
 import Details from './details'
 import React from 'react'
 
@@ -12,6 +11,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
+    variant: PropTypes.object,
     store: PropTypes.object
   }
 
@@ -23,11 +23,11 @@ class Edit extends React.Component {
   }
 
   _getMultiForm() {
-    const { store } = this.props
+    const { store, product, variant } = this.props
     return {
-      title: 'Edit Store',
-      endpoint: `/api/admin/stores/stores/${store.id}/edit`,
-      action: `/api/admin/stores/stores/${store.id}`,
+      title: 'Edit Variant',
+      endpoint: `/api/admin/stores/stores/${store.id}/products/${product.id}/variants/${variant.id}/edit`,
+      action: `/api/admin/stores/stores/${store.id}/products/${product.id}/variants/${variant.id}`,
       method: 'patch',
       formatData: this._getData,
       getSteps: this._getSteps,
@@ -46,8 +46,7 @@ class Edit extends React.Component {
 
   _getSteps(formdata) {
     return [
-      { label: 'Details', component: Details },
-      { label: 'Contact', component: Contact }
+      { label: 'Details', component: Details }
     ]
   }
 

@@ -24,7 +24,8 @@ const updateRoute = async (req, res) => {
   await store.save({
     ...whitelist(req.body, ['title','permalink','contact_config'])
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await updateAlias(req, {

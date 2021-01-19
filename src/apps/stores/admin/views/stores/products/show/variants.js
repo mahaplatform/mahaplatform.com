@@ -1,5 +1,8 @@
+import VariantToken from '@apps/stores/admin/tokens/variant'
 import PropTypes from 'prop-types'
+import { Button } from '@admin'
 import React from 'react'
+import Edit from './edit'
 
 class Variants extends React.Component {
 
@@ -8,16 +11,57 @@ class Variants extends React.Component {
   }
 
   static propTypes = {
-    products: PropTypes.array,
+    product: PropTypes.object,
     store: PropTypes.object
   }
 
   render() {
+    const { product, variants } = this.props
     return (
-      <div>Variants</div>
+      <div className="stores-inventoryfield">
+        <div className="maha-table">
+          <table>
+            <thead>
+              <tr>
+                <td>Title</td>
+                <td />
+              </tr>
+            </thead>
+            <tbody>
+              { product.variants.map((variant, index) => (
+                <tr key={`variant_${index}`}>
+                  <td className="unpadded">
+                    <VariantToken product={ product } variant={ variant }/>
+                  </td>
+                  <td className="action">
+                    <Button { ...this._getEdit(variant) } />
+                  </td>
+                </tr>
+              )) }
+              { product.variants.length === 0 &&
+                <tr>
+                  <td colSpan="2" className="center">
+                    This product doesnt have any variants
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 
+  _getEdit(variant) {
+    const { store } = this.props
+    return {
+      icon: 'ellipsis-v',
+      className: '',
+      tasks: [
+        { label: 'Edit Variant', modal: <Edit store={ store } variant={ variant } /> }
+      ]
+    }
+  }
 
 }
 

@@ -1,12 +1,13 @@
 import Variants from './variants'
 import { Page } from '@admin'
 import Details from './details'
+import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ audits, product }) => ({
+const getTabs = ({ audits, product, store, variants }) => ({
   items: [
     { label: 'Details', component: <Details product={ product } audits={ audits } /> },
-    { label: 'Variants', component: <Variants /> }
+    { label: 'Variants', component: <Variants store={ store } product={ product } /> }
   ]
 })
 
@@ -16,7 +17,7 @@ const getTasks = ({ product, store }, { flash, router }) => {
 
   return {
     items: [
-      // { label: 'Edit Product', modal: <Edit store={ product } /> },
+      { label: 'Edit Product', modal: <Edit store={ store } product={ product } /> },
       {
         label: 'Delete Product',
         confirm: `

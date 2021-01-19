@@ -1,4 +1,4 @@
-import VariantToken from '../../../tokens/variant'
+import VariantToken from '@apps/stores/admin/tokens/variant'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -70,14 +70,6 @@ class Inventory extends React.Component {
         </div>
       </div>
     )
-  }
-
-  _getThumbnail(variant) {
-    console.log(variant)
-    return {
-      src: variant.photos[0] ? variant.photos[0].asset.path : null,
-      transforms: { fit: 'cover', w: 250, h: 250 }
-    }
   }
 
 }

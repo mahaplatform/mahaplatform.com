@@ -77,7 +77,9 @@ export default (state = INITIAL_STATE, action) => {
       status: 'ready',
       data: {
         ...action.defaults,
-        ...flatten(action.result.data)
+        ...flatten(action.result.data, {
+          safe: true
+        })
       }
     }
 

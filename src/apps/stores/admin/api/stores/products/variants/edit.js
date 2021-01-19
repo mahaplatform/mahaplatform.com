@@ -21,7 +21,7 @@ const editRoute = async (req, res) => {
     qb.where('store_id', store.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['categories'],
+    withRelated: ['variants'],
     transacting: req.trx
   })
 
@@ -30,11 +30,20 @@ const editRoute = async (req, res) => {
     message: 'Unable to load product'
   })
 
-  res.status(200).respond(product, (req, product) => ({
-    store_id: product.get('store_id'),
-    title: product.get('title'),
-    category_ids: product.related('categories').map(category => category.get('id')),
-    description: product.get('description')    
+  res.status(200).respond(product.related('variants'), (req, variant) => ({
+    product_id: variant.get('product_id'),
+    price_type: variant.get('price_type'),
+    project_id: variant.get('project_id'),
+    revenue_type_id: variant.get('revenue_type_id'),
+    fixed_price: variant.get('fixed_price'),
+    low_price: variant.get('low_price'),
+    high_price: variant.get('high_price'),
+    tax_rate: variant.get('tax_rate'),
+    overage_strategy: variant.get('overage_strategy'),
+    donation_revenue_type_id: variant.get('donation_revenue_type_id'),
+    is_tax_deductable: variant.get('is_tax_deductable'),
+    inventory_policy: variant.get('inventory_policy'),
+    max_per_order: variant.get('max_per_order')
   }))
 
 }
