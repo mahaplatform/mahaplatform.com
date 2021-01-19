@@ -1,4 +1,4 @@
-import OptionsField from '../../../components/optionsfield'
+import OptionsField from '@apps/stores/admin/components/optionsfield'
 import VariantsField from './variantsfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'

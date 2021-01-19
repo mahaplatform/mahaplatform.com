@@ -32,6 +32,18 @@ class Designer extends React.Component {
     return []
   }
 
+  _getPaymentTokens(model) {
+    return {
+      title: 'Payment Tokens',
+      tokens: [
+        { name: 'Method', token: `${model}.payment_method` },
+        { name: 'Amount', token: `${model}.payment_amount` },
+        { name: 'Card', token: `${model}.payment_card` },
+        { name: 'Summary', token: `${model}.payment_summary` }
+      ]
+    }
+  }
+
   _getRegistrationTokens(event) {
     return [
       {
@@ -47,15 +59,8 @@ class Designer extends React.Component {
             token: `registration.${field.name.token}`
           }))
         ]
-      }, {
-        title: 'Payment Tokens',
-        tokens: [
-          { name: 'Method', token: 'registration.payment_method' },
-          { name: 'Amount', token: 'registration.payment_amount' },
-          { name: 'Card', token: 'registration.payment_card' },
-          { name: 'Summary', token: 'registration.payment_summary' }
-        ]
-      }
+      },
+      this._getPaymentTokens('registration')
     ]
   }
 
@@ -71,15 +76,8 @@ class Designer extends React.Component {
             token: `response.${field.name.token}`
           }))
         ]
-      }, {
-        title: 'Payment Tokens',
-        tokens: [
-          { name: 'Method', token: 'response.payment_method' },
-          { name: 'Amount', token: 'response.payment_amount' },
-          { name: 'Card', token: 'response.payment_card' },
-          { name: 'Summary', token: 'response.payment_summary' }
-        ]
-      }
+      },
+      this._getPaymentTokens('response')
     ]
   }
 
@@ -91,16 +89,15 @@ class Designer extends React.Component {
           { name: 'First Name', token: 'order.first_name' },
           { name: 'Last Name', token: 'order.last_name' },
           { name: 'Email', token: 'order.email' },
+          ...store.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            token: `order.${field.name.token}`
+          }))
         ]
-      }, {
-        title: 'Payment Tokens',
-        tokens: [
-          { name: 'Method', token: 'order.payment_method' },
-          { name: 'Amount', token: 'order.payment_amount' },
-          { name: 'Card', token: 'order.payment_card' },
-          { name: 'Summary', token: 'order.payment_summary' }
-        ]
-      }
+      },
+      this._getPaymentTokens('order')
     ]
   }
 

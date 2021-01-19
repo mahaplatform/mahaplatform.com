@@ -1,4 +1,4 @@
-import VariantToken from '../../../tokens/variant'
+import VariantToken from '@apps/stores/admin/tokens/variant'
 import PropTypes from 'prop-types'
 import Variant from './variant'
 import React from 'react'

@@ -121,19 +121,32 @@ class Designer extends React.Component {
     return [
       {
         label: 'Order',
-        fields: []
+        fields: [
+          { name: 'First Name', key: 'order.first_name', type: 'textfield' },
+          { name: 'Last Name', key: 'order.last_name', type: 'textfield' },
+          { name: 'Email', key: 'order.email', type: 'emailfield' },
+          ...store.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            key: `order.${field.code}`,
+            type: _.get(field, 'contactfield.type') || field.type,
+            options: _.get(field, 'contactfield.options') || field.options
+          }))
+        ]
       }
     ]
   }
 
   _getTokens() {
     const { workflow } = this.props
-    if(workflow.event) return this._getEventTokens(workflow.event)
-    if(workflow.form) return this._getFormTokens(workflow.form)
+    if(workflow.event) return this._getRegistrationTokens(workflow.event)
+    if(workflow.form) return this._getResponseTokens(workflow.form)
+    if(workflow.store) return this._getOrderTokens(workflow.store)
     return []
   }
 
-  _getFormTokens(form) {
+  _getResponseTokens(form) {
     return [
       {
         title: 'Response Tokens',
@@ -146,18 +159,33 @@ class Designer extends React.Component {
           })),
           { name: 'Maha URL', token: 'response.maha_url' }
         ]
-      }, {
-        title: 'Payment Tokens',
-        tokens: [
-          { name: 'Method', token: 'response.payment_method' },
-          { name: 'Amount', token: 'response.payment_amount' },
-          { name: 'Card', token: 'response.payment_card' }
-        ]
-      }
+      },
+      this._gePaymentTokens('response')
     ]
   }
 
-  _getEventTokens(event) {
+  _getOrderTokens(store) {
+    return [
+      {
+        title: 'Order Tokens',
+        tokens: [
+          { name: 'First Name', token: 'order.first_name' },
+          { name: 'Last Name', token: 'order.last_name' },
+          { name: 'Email', token: 'order.email' },
+          ...store.contact_config.fields.filter(field => {
+            return !_.includes(['text'], field.type)
+          }).map(field => ({
+            name: field.name.value,
+            token: `order.${field.name.token}`
+          })),
+          { name: 'Maha URL', token: 'order.maha_url' }
+        ]
+      },
+      this._gePaymentTokens('order')
+    ]
+  }
+
+  _getRegistrationTokens(event) {
     return [
       {
         title: 'Registration Tokens',
@@ -173,15 +201,20 @@ class Designer extends React.Component {
           })),
           { name: 'Maha URL', token: 'registration.maha_url' }
         ]
-      }, {
-        title: 'Payment Tokens',
-        tokens: [
-          { name: 'Method', token: 'registration.payment_method' },
-          { name: 'Amount', token: 'registration.payment_amount' },
-          { name: 'Card', token: 'registration.payment_card' }
-        ]
-      }
+      },
+      this._gePaymentTokens('registration')
     ]
+  }
+
+  _gePaymentTokens(model) {
+    return {
+      title: 'Payment Tokens',
+      tokens: [
+        { name: 'Method', token: `${model}.payment_method` },
+        { name: 'Amount', token: `${model}.payment_amount` },
+        { name: 'Card', token: `${model}.payment_card` }
+      ]
+    }
   }
 
   _getTrigger() {

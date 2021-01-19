@@ -36,12 +36,12 @@ class New extends React.PureComponent {
             { name: 'is_active', type: 'hidden', value: true },
             { label: 'Name', name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter an optional description' },
-            { label: 'Pricing', type: 'segment', fields: [
-              { name: 'price_type', type: 'radiogroup', deselectable: false, options: [
-                { value: 'free', text: 'Free' },
+            { label: 'Pricing', type: 'segment', required: true, fields: [
+              { name: 'price_type', type: 'radiogroup', deselectable: false,options: [
                 { value: 'fixed', text: 'Fixed Price' },
-                { value: 'sliding_scale',text: 'Sliding Scale' }
-              ], required: true, defaultValue: 'free' },
+                { value: 'sliding_scale', text: 'Sliding Scale' },
+                { value: 'free', text: 'Free'}
+              ], required: true, defaultValue: 'fixed' },
               ...this._getPriceType()
             ] },
             { label: 'Availability', type: 'segment', fields: [

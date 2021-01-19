@@ -1,4 +1,4 @@
-const getDefaultConfig = () => ({
+const getDefaultConfig = (body = null) => ({
   page: {
     background_color: '#DFDFDF'
   },
@@ -21,7 +21,7 @@ const getDefaultConfig = () => ({
     background_color: '#FFFFFF',
     blocks: [{
       type: 'text',
-      content_0: `
+      content_0: body || `
         <p><%- contact.first_name %>,</p>
         <p></p>
         <p>Messenger bag portland adaptogen food truck pabst, la croix pug

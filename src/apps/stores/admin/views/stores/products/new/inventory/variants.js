@@ -1,14 +1,10 @@
-import VariantToken from '../../../tokens/variant'
+import VariantToken from '@apps/stores/admin/tokens/variant'
+import { NumberField } from '@admin'
 import PropTypes from 'prop-types'
-import Variant from './variant'
 import React from 'react'
 import _ from 'lodash'
 
-class Variants extends React.Component {
-
-  static contextTypes = {
-    form: PropTypes.object
-  }
+class InventoryField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
@@ -26,22 +22,23 @@ class Variants extends React.Component {
     variants: []
   }
 
-  _handleBack = this._handleBack.bind(this)
-  _handleVariant = this._handleVariant.bind(this)
-
   render() {
+    const { product } = this.props
     const { variants } = this.state
+    if(!variants) return null
     return (
-      <div className="variantsfield-variants selectable">
+      <div className="variantsfield-variants">
         <table className="ui unstackable table">
           <tbody>
-            { variants.map((variant, index) => (
-              <tr className="variantsfield-variant" key={`option_${index}`} onClick={ this._handleVariant.bind(this, variant, index) }>
+            { variants.filter(variant => {
+              return variant.is_active
+            }).map((variant, index) => (
+              <tr className="variantsfield-variant" key={`option_${index}`}>
                 <td className="unpadded">
-                  <VariantToken variant={ variant } />
+                  <VariantToken product={ product } variant={ variant } />
                 </td>
                 <td className="collapsing">
-                  <i className="fa fa-chevron-right" />
+                  <NumberField { ...this._getQuantity(variant, index) } />
                 </td>
               </tr>
             )) }
@@ -68,20 +65,13 @@ class Variants extends React.Component {
     }
   }
 
-  _getVariant(variant, index) {
+  _getQuantity(variant, index) {
     return {
-      variant,
-      onBack: this._handleBack,
-      onDone: this._handleUpdate.bind(this, index)
+      defaultValue: 0,
+      disabled: variant.inventory_policy === 'unlimited' || !variant.is_active,
+      placeholder: 'Quantity',
+      onChange: this._handleUpdate.bind(this, index)
     }
-  }
-
-  _handleBack() {
-    this.context.form.pop()
-  }
-
-  _handleVariant(variant, index) {
-    this.context.form.push(<Variant { ...this._getVariant(variant, index) } />)
   }
 
   _handleChange() {
@@ -89,16 +79,15 @@ class Variants extends React.Component {
     this.props.onChange(variants)
   }
 
-  _handleUpdate(index, data) {
+  _handleUpdate(index, inventory_quantity) {
     this.setState({
       variants: this.state.variants.map((variant, i) => ({
         ...variant,
-        ...i === index ? data : {}
+        ...i === index ? { inventory_quantity } : {}
       }))
     })
-    this.context.form.pop()
   }
 
 }
 
-export default Variants
+export default InventoryField

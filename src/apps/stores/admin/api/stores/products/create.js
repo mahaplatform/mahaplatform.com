@@ -41,12 +41,14 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.mapSeries(req.body.category_ids, async(category_id) => {
-    await req.trx('stores_products_categories').insert({
-      product_id: product.get('id'),
-      category_id
+  if(req.body.category_ids) {
+    await Promise.mapSeries(req.body.category_ids, async(category_id) => {
+      await req.trx('stores_products_categories').insert({
+        product_id: product.get('id'),
+        category_id
+      })
     })
-  })
+  }
 
   await Promise.mapSeries(req.body.variants, async(data) => {
 

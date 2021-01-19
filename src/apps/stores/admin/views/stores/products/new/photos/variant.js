@@ -1,4 +1,4 @@
-import MediaField from '../../../components/mediafield'
+import MediaField from '@apps/stores/admin/components/mediafield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'

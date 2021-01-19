@@ -64,6 +64,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'SET':
+    return {
+      ...state,
+      images: []
+    }
+
   default:
     return state
   }

@@ -51,7 +51,7 @@ const Select = (multiple) => {
       const { deselectable, items, format, tabIndex, text, value } = this.props
       return (
         <div className="maha-select ui field" tabIndex={ tabIndex } onKeyDown={ this._handleKeyDown }>
-          { deselectable &&
+          { deselectable && items.length > 0 &&
             <div className="maha-select-deselect">
               <Button { ...this._getDeselect() } />
             </div>

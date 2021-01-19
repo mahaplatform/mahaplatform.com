@@ -1,4 +1,3 @@
-import Inventory from './inventory'
 import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
 import Pricing from './pricing'
@@ -39,18 +38,24 @@ class Edit extends React.Component {
     }
   }
 
-  _getData(store) {
+  _getData(variant) {
     return {
-      contact_config: store.contact_config,
-      permalink: store.permalink,
-      title: store.title
+      photo_ids: variant.photos.map(photo => photo.id),
+      price_type: variant.price_type,
+      project_id: variant.project_id,
+      revenue_type_id: variant.revenue_type_id,
+      fixed_price: variant.fixed_price,
+      low_price: variant.low_price,
+      high_price: variant.high_price,
+      overage_strategy: variant.overage_strategy,
+      donation_revenue_type_id: variant.donation_revenue_type_id,
+      tax_rate: variant.tax_rate,
     }
   }
 
   _getSteps(formdata) {
     return [
       { label: 'Photos', component: Photos },
-      { label: 'Inventory', component: Inventory },
       { label: 'Pricing', component: Pricing }
     ]
   }

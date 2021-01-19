@@ -1,4 +1,4 @@
-import VariantToken from '../../../tokens/variant'
+import VariantToken from '@apps/stores/admin/tokens/variant'
 import PropTypes from 'prop-types'
 import Variant from './variant'
 import numeral from 'numeral'
@@ -31,8 +31,8 @@ class Variants extends React.Component {
   _handleVariant = this._handleVariant.bind(this)
 
   render() {
-    const { variants } = this.state
     const { product } = this.props
+    const { variants } = this.state
     return (
       <div className="variantsfield-variants selectable">
         <table className="ui unstackable table">
@@ -42,8 +42,8 @@ class Variants extends React.Component {
                 <td className="unpadded">
                   <VariantToken product={ product } variant={ variant } />
                 </td>
-                <td className="right aligned collapsing">
-                  { this._getPrice(variant) }
+                <td className="collapsing right aligned">
+                  { this._getShipping(variant) }
                 </td>
                 <td className="collapsing">
                   <i className="fa fa-chevron-right" />
@@ -71,11 +71,9 @@ class Variants extends React.Component {
     }
   }
 
-  _getPrice(variant) {
-    if(variant.price_type === 'free') return 'FREE'
-    if(variant.price_type === 'fixed') return numeral(variant.fixed_price).format('0.00')
-    if(variant.price_type === 'sliding_scale') return `${numeral(variant.low_price).format('0.00')} - ${numeral(variant.high_price).format('0.00')}`
-    return 'NO PRICING'
+  _getShipping(variant) {
+    if(variant.shipping_strategy !== 'flat') return '0.00'
+    return numeral(variant.shipping_fee).format('0.00')
   }
 
   _getVariant(variant, index) {
@@ -110,7 +108,6 @@ class Variants extends React.Component {
     })
     this.context.form.pop()
   }
-
 
 }
 

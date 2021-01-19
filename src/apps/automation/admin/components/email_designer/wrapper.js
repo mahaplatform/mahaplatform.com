@@ -41,11 +41,11 @@ class EmailDesignerWrapper extends React.Component {
         name:  field.name.value,
         token: `program.${field.name.token}`
       }))}] : [],
+      ...tokens ? tokens : [],
       { title: 'Email', tokens: [
         { name: 'Preferences Link', token: 'email.preferences_link' },
         { name: 'Web Link', token: 'email.web_link' }
-      ] },
-      ...tokens ? tokens : []
+      ] }
     ]
   }
 

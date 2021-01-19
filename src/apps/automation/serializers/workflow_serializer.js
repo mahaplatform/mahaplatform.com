@@ -63,8 +63,8 @@ const store = (store) => {
   if(!store.id) return
   return {
     id: store.get('id'),
-    config: store.get('config'),
-    title: store.get('title')
+    title: store.get('title'),
+    contact_config: store.get('contact_config')
   }
 }
 

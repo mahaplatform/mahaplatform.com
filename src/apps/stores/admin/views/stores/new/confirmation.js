@@ -20,7 +20,12 @@ class Confirmation extends React.Component {
 
   form = null
 
+  state = {
+    data: {}
+  }
+
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -38,22 +43,46 @@ class Confirmation extends React.Component {
         { label: 'Prev', color: 'red', disabled: true, handler: this._handleCancel },
         { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Template', name: 'template_id', type: TemplateField, program_id: formdata.program.id },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
-            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your order' }
+            { label: 'Email', type: 'segment', fields: [
+              { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your order' },
+              { label: 'Template', name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'template', text: 'Create email from an existing email template' },
+                { value: 'new', text: 'Create email from a blank template' }
+              ], required: true, defaultValue: 'template' },
+              ...this._getTemplates()
+            ] }
           ]
         }
       ]
     }
   }
 
+  _getTemplates() {
+    const { data } = this.state
+    const { formdata } = this.props
+    if(data.strategy === 'template' ) {
+      return [
+        { name: 'template_id', type: TemplateField, program_id: formdata.program.id }
+      ]
+    }
+    return [
+      { label: 'Body', name: 'body', type: 'htmlfield', rows: 5, required: true, defaultValue: '<p><%- contact.first_name %>,</p><p>&nbsp;</p><p>Thank you for your order. Here is a summary:</p><p>&nbsp;</p><p><%- order.payment_summary %></p>' }
+    ]
+  }
+
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {

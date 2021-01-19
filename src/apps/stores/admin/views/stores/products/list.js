@@ -1,5 +1,5 @@
-import New from '../../../components/productform'
 import { Page } from '@admin'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Products',

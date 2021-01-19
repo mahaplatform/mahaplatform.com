@@ -36,8 +36,8 @@ class Chooser extends React.PureComponent {
   _getTabs() {
     return {
       items: [
-        { label: 'Layouts', component: <Custom { ...this._getLayouts() } /> },
-        { label: 'Custom', component: <Custom { ...this._getCustom() } /> }
+        { label: 'Global', component: <Custom { ...this._getLayouts() } /> },
+        { label: 'Program', component: <Custom { ...this._getCustom() } /> }
       ]
     }
   }

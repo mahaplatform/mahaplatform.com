@@ -32,7 +32,7 @@ class Pricing extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,
@@ -40,7 +40,7 @@ class Pricing extends React.Component {
         {
           fields: [
             { label: 'Pricing', type: 'segment', required: true, fields: [
-              { name: 'price_type', type: 'dropdown', options: [
+              { name: 'price_type', type: 'radiogroup', deselectable: false,options: [
                 { value: 'fixed', text: 'Fixed Price' },
                 { value: 'sliding_scale', text: 'Sliding Scale' },
                 { value: 'free', text: 'Free'}
@@ -104,8 +104,12 @@ class Pricing extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(store) {
-    this.props.onNext(store)
+  _handleSuccess(variant) {
+    const { formdata } = this.props
+    this.props.onSave({
+      ...formdata,
+      ...variant
+    })
   }
 
 }

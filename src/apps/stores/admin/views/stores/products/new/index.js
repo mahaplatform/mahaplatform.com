@@ -36,7 +36,7 @@ class ProductForm extends React.Component {
       method: 'post',
       formatData: this._getData,
       props: { store },
-      getSteps: this._getSteps,
+      getSteps: this._getSteps.bind(this),
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess
     }
@@ -73,17 +73,20 @@ class ProductForm extends React.Component {
   }
 
   _getSteps(formdata) {
-    const steps = [
+    return [
       { label: 'Details', component: Product },
       { label: 'Variants', component: Variants },
       { label: 'Photos', component: Photos },
       { label: 'Inventory', component: Inventory },
-      { label: 'Pricing', component: Pricing }
+      { label: 'Pricing', component: Pricing },
+      this._getFinalStep(formdata)
     ]
-    if(formdata.type === 'physical') steps.push({ label: 'Shipping', component: Shipping })
-    if(formdata.type === 'file') steps.push({ label: 'File', component: File })
-    if(formdata.type === 'url') steps.push({ label: 'URL', component: URL })
-    return steps
+  }
+
+  _getFinalStep(formdata) {
+    if(formdata.type === 'file') return{ label: 'File', component: File }
+    if(formdata.type === 'url') return { label: 'URL', component: URL }
+    return { label: 'Shipping', component: Shipping }
   }
 
   _handleCancel() {

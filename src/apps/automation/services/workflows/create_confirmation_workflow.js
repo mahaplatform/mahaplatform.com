@@ -10,7 +10,7 @@ import Email from '@apps/automation/models/email'
 
 const createConfirmationWorkflow = async(req, params) => {
 
-  const { form, event, program_id, reply_to, template_id, sender_id, store, subject, trigger_type } = params
+  const { form, event, program_id, reply_to, template_id, sender_id, store, subject, body, trigger_type } = params
 
   const workflowCode = await generateCode(req, {
     table: 'crm_workflows'
@@ -58,7 +58,7 @@ const createConfirmationWorkflow = async(req, params) => {
     title: 'Confirmation Email',
     code: emailCode,
     config: {
-      ...template ? template.get('config') : getDefaultConfig(),
+      ...template ? template.get('config') : getDefaultConfig(body),
       settings: {
         sender_id,
         subject,

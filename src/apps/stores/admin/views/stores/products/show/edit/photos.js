@@ -52,8 +52,12 @@ class Photos extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(store) {
-    this.props.onNext(store)
+  _handleSuccess(variant) {
+    const { formdata } = this.props
+    this.props.onNext({
+      ...formdata,
+      ...variant
+    })
   }
 
 }

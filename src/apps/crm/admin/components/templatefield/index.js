@@ -81,7 +81,8 @@ class TemplateField extends React.PureComponent {
 
   _handleChange() {
     const { template } = this.state
-    this.props.onChange(template.id)
+    const id = template ? template.id : null
+    this.props.onChange(id)
   }
 
   _handleChoose(template) {

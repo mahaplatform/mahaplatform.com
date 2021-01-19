@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
+import Variants from './variants'
 import React from 'react'
 import _ from 'lodash'
 
@@ -16,7 +17,12 @@ class Inventory extends React.Component {
 
   form = null
 
+  state = {
+    data: {}
+  }
+
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -41,23 +47,56 @@ class Inventory extends React.Component {
               { value: 'unlimited', text: 'Do not manage inventory' },
               { value: 'deny', text: 'Stop selling when inventory reaches 0' },
               { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
-            ], defaultValue: 'unlimited' }
+            ], defaultValue: 'unlimited' },
+            ...this._getInventory()
           ]
         }
       ]
     }
   }
 
+  _getInventory() {
+    const { formdata } = this.props
+    const { data } = this.state
+    if(data.inventory_policy === 'unlimited') return []
+    if(formdata.has_variants) {
+      return [
+        { label: 'Inventory', name: 'variants', type: Variants, product: formdata }
+      ]
+    }
+    return [
+      { label: 'Quantity', name: 'inventory_quantity', type: 'numberfield', required: true, placeholder: 'Enter Quantity', defaultValue: 0 }
+    ]
+  }
+
+  _getVariants() {
+    const { formdata } = this.props
+    const { data } = this.state
+    const { inventory_policy, inventory_quantity, variants } = data
+    return formdata.variants.map(variant => ({
+      ...variant,
+      ...inventory_policy !== 'unlimited' ? { inventory_quantity } : {},
+      ...formdata.has_variants ? _.find(variants, { code: variant.code }) : {},
+      inventory_policy
+    }))
+  }
+
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {
     this.form.submit()
   }
 
-  _handleSuccess(store) {
-    this.props.onNext(store)
+  _handleSuccess(data) {
+    this.props.onNext({
+      variants: this._getVariants()
+    })
   }
 
 }

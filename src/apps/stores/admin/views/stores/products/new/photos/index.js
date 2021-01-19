@@ -1,10 +1,11 @@
+import MediaField from '@apps/stores/admin/components/mediafield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import Variants from './variants'
 import React from 'react'
 import _ from 'lodash'
 
-class Inventory extends React.Component {
+class Photos extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -43,41 +44,46 @@ class Inventory extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
-              { value: 'unlimited', text: 'Do not manage inventory' },
-              { value: 'deny', text: 'Stop selling when inventory reaches 0' },
-              { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
-            ], defaultValue: 'unlimited' },
-            ...this._getInventory()
+            ...this._getStrategy(),
+            ...this._getMedia()
           ]
         }
       ]
     }
   }
 
-  _getInventory() {
+  _getStrategy() {
+    const { formdata } = this.props
+    if(!formdata.has_variants) return []
+    return [
+      { name: 'media_strategy', type: 'radiogroup', deselectable: false, required: true, options: [
+        { value: 'shared', text: 'Use the same photos for each variant' },
+        { value: 'unique', text: 'Use different photos for each variant' }
+      ], defaultValue: 'shared' }
+    ]
+  }
+
+  _getMedia() {
     const { formdata } = this.props
     const { data } = this.state
-    if(data.inventory_policy === 'unlimited') return []
-    if(formdata.has_variants) {
+    if(!formdata.has_variants || data.media_strategy === 'shared') {
       return [
-        { label: 'Inventory', name: 'variants', type: Variants, product: formdata }
+        { label: 'Photos', name: 'photos', type: MediaField }
       ]
     }
     return [
-      { label: 'Inventory', name: 'inventory_quantity', type: 'numberfield', required: true, placeholder: 'Enter Quantity', defaultValue: 0 }
+      { label: 'Photos', name: 'variants', type: Variants, product: formdata }
     ]
   }
 
   _getVariants() {
     const { formdata } = this.props
     const { data } = this.state
-    const { inventory_policy, inventory_quantity, variants } = data
     return formdata.variants.map(variant => ({
       ...variant,
-      ...inventory_policy !== 'unlimited' ? { inventory_quantity } : {},
-      ...formdata.has_variants ? _.find(variants, { code: variant.code }) : {},
-      inventory_policy
+      ...data.media_strategy === 'unique' ? _.find(data.variants, { code: variant.code }) : {
+        photos: data.photos
+      }
     }))
   }
 
@@ -101,4 +107,4 @@ class Inventory extends React.Component {
 
 }
 
-export default Inventory
+export default Photos

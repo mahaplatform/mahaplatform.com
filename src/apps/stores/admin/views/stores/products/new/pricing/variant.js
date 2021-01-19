@@ -43,11 +43,11 @@ class Variant extends React.Component {
         {
           fields: [
             { label: 'Pricing', type: 'segment', required: true, fields: [
-              { name: 'price_type', type: 'dropdown', options: [
+              { name: 'price_type', type: 'radiogroup', deselectable: false,options: [
                 { value: 'fixed', text: 'Fixed Price' },
                 { value: 'sliding_scale', text: 'Sliding Scale' },
                 { value: 'free', text: 'Free'}
-              ], required: true },
+              ], required: true, defaultValue: 'fixed' },
               ...this._getPriceType()
             ] }
           ]

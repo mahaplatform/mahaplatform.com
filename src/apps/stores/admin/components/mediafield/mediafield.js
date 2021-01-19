@@ -27,12 +27,11 @@ class MediaField extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleChange = this._handleChange.bind(this)
-  _handleSet = this._handleSet.bind(this)
   _handleFetch = this._handleFetch.bind(this)
 
   render() {
     const { images, status } = this.props
-    if(status !== 'ready') return null
+    if(!images) return null
     return (
       <div className="mediafield">
         { images.map((image, index) => (
@@ -45,17 +44,15 @@ class MediaField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue, endpoint } = this.props
-    const ids = _.castArray(defaultValue)
-    if(ids.length === 0) return this.props.onReady()
-    this.props.onFetch(endpoint, ids)
+    if(defaultValue) return this.props.onFetch(endpoint, defaultValue)
+    this.props.onSet(defaultValue)
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps) {
     const { images, status } = this.props
-    if(status !== prevProps.status) {
-      if(status === 'ready') {
-        this.props.onReady()
-      }
+    if(status !== prevProps.status && status === 'ready') {
+      this.props.onReady()
     }
     if(!_.isEqual(images, prevProps.images)) {
       this._handleChange()
@@ -109,9 +106,6 @@ class MediaField extends React.PureComponent {
 
   _handleRemove(index) {
     this.props.onRemove(index)
-  }
-
-  _handleSet(image_ids) {
   }
 
 }
