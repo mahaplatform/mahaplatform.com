@@ -14,7 +14,7 @@ const transferDomain = async(req, params) => {
 
   const { domain, duration, admin, registrant, tech, authcode, autorenew } = params
 
-  await route53Domains.transferDomain({
+  return await route53Domains.transferDomain({
     AdminContact: expandContact(admin),
     RegistrantContact: expandContact(registrant),
     TechContact: expandContact(tech),
