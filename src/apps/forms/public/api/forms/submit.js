@@ -133,7 +133,10 @@ const submitRoute = async (req, res) => {
     `/admin/forms/forms/${form.get('id')}/responses`
   ])
 
-  res.status(200).respond(true)
+  res.status(200).respond(response, (req, response) => ({
+    response_id: response.get('id'),
+    contact_id: response.get('contact_id')
+  }))
 
 }
 

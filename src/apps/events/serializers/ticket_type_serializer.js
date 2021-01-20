@@ -3,6 +3,7 @@ const TicketTypeSerializer = (req, ticket_type) => ({
   delta: ticket_type.get('delta'),
   is_active: ticket_type.get('is_active'),
   name: ticket_type.get('name'),
+  code: ticket_type.get('code'),
   description: ticket_type.get('description'),
   price_type: ticket_type.get('price_type'),
   fixed_price: ticket_type.get('fixed_price'),

@@ -3,9 +3,14 @@ import React from 'react'
 
 class Quantity extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     disabled: PropTypes.bool,
     max: PropTypes.number,
+    ticket_type: PropTypes.object,
     quantity: PropTypes.number,
     onChange: PropTypes.func
   }
@@ -54,6 +59,14 @@ class Quantity extends React.Component {
     this.setState({
       value: this._getAdjusted(this.state.value + increment)
     })
+    this._handleTrack(increment)
+  }
+
+  _handleTrack(increment) {
+    const { price, ticket_type } = this.props
+    const { analytics } = this.context
+    if(increment > 0) return analytics.trackAddToCart(ticket_type.code, ticket_type.name, null, price, increment, 'USD')
+    analytics.trackRemoveFromCart(ticket_type.code, ticket_type.name, null, price, increment, 'USD')
   }
 
 }

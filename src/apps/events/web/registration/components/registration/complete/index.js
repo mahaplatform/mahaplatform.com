@@ -4,6 +4,10 @@ import React from 'react'
 
 class Complete extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     event: PropTypes.object,
     onDone: PropTypes.func
@@ -27,6 +31,10 @@ class Complete extends React.Component {
         }
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.context.analytics.trackPageView('Complete')
   }
 
   _getDone() {

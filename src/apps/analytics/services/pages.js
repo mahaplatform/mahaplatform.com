@@ -23,6 +23,7 @@ export const getPage = async(req, data) => {
     qb.where('protocol_id', protocol.get('id'))
     qb.where('domain_id', domain.get('id'))
     qb.where('path', url.path)
+    qb.where('title', data.title)
   }).fetch({
     transacting: req.analytics
   })

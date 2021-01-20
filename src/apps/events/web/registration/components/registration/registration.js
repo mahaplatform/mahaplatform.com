@@ -10,6 +10,10 @@ import React from 'react'
 
 class Registration extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     contact: PropTypes.object,
     data: PropTypes.object,
@@ -17,6 +21,7 @@ class Registration extends React.Component {
     event: PropTypes.object,
     items: PropTypes.array,
     quantities: PropTypes.object,
+    result: PropTypes.object,
     status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
@@ -69,13 +74,14 @@ class Registration extends React.Component {
   }
 
   componentDidMount() {
+    this.context.analytics.trackPageView()
     this._handlePush(Step1, this._getStep1.bind(this))
   }
 
   componentDidUpdate(prevProps) {
-    const { status } = this.props
+    const { result, status } = this.props
     if(status !== prevProps.status && status === 'success') {
-      this._handleComplete()
+      this._handleComplete(result)
     }
   }
 
@@ -194,7 +200,8 @@ class Registration extends React.Component {
     this._handlePush(Step4, this._getStep4.bind(this))
   }
 
-  _handleComplete() {
+  _handleComplete(result) {
+    this._handleTrack(result)
     this.setState({
       step: 4
     })
@@ -204,6 +211,18 @@ class Registration extends React.Component {
   _handleSubmit() {
     const { data, token } = this.props
     this.props.onSubmit(token, event.code, data)
+  }
+
+  _handleTrack(result) {
+    const { items, event, tax, total } = this.props
+    const { contact_id, registration_id } = result
+    const { analytics } = this.context
+    analytics.setUserId(contact_id)
+    items.map(item => {
+      analytics.addItem(registration_id, item.code, item.title, null, item.price, item.quantity, 'USD')
+    })
+    analytics.addTrans(registration_id, event.title, total, tax, null, null, null, null, 'USD')
+    analytics.trackTrans()
   }
 
   _handleUpdateQuantities(quantities) {

@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   contact: null,
   quantities: {},
+  result: null,
   status: 'pending',
   tickets: null
 }
@@ -18,6 +19,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_SUCCESS':
     return {
       ...state,
+      result: action.result.data,
       status: 'success'
     }
 

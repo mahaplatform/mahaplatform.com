@@ -45,7 +45,7 @@ class Analytics extends React.Component {
   }
 
   _isProduction() {
-    return process.env.NODE_ENV === 'production'
+    return true //process.env.NODE_ENV === 'production'
   }
 
   _handleLoadMT(id) {

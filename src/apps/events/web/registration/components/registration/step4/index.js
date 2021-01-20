@@ -4,6 +4,10 @@ import React from 'react'
 
 class Step4 extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     data: PropTypes.object,
     event: PropTypes.object,
@@ -33,6 +37,7 @@ class Step4 extends React.Component {
 
   componentDidMount() {
     const { total } = this.props
+    this.context.analytics.trackPageView('Step 4 - Payment Information')
     if(total > 0) return
     this.props.onSubmit()
   }

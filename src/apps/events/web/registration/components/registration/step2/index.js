@@ -5,6 +5,10 @@ import _ from 'lodash'
 
 class Step2 extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     event: PropTypes.object,
     items: PropTypes.array,
@@ -38,6 +42,10 @@ class Step2 extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.context.analytics.trackPageView('Step 2 - Contact Information')
   }
 
   _getBack() {

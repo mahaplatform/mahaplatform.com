@@ -37,6 +37,7 @@ const showRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     event: {
+      id: event.get('id'),
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
       referer: req.header('referer'),
       ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
@@ -81,6 +82,7 @@ const showRoute = async (req, res) => {
       }).map(ticket_type => ({
         id: ticket_type.get('id'),
         name: ticket_type.get('name'),
+        code: ticket_type.get('code'),
         description: ticket_type.get('description'),
         price_type: ticket_type.get('price_type'),
         fixed_price: ticket_type.get('fixed_price'),

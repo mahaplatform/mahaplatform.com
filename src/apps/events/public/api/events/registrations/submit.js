@@ -166,7 +166,10 @@ const submitRoute = async (req, res) => {
     `/admin/events/events/${event.get('id')}/registrations`
   ])
 
-  res.status(200).respond(true)
+  res.status(200).respond(registration, (req, registration) => ({
+    registration_id: registration.get('id'),
+    contact_id: registration.get('contact_id')
+  }))
 
 }
 

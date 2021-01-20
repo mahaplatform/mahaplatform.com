@@ -11,6 +11,10 @@ import _ from 'lodash'
 
 class Step1 extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     event: PropTypes.object,
     onChange: PropTypes.func,
@@ -99,6 +103,10 @@ class Step1 extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.context.analytics.trackPageView('Step 1 - Ticket Selection')
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { quantities } = this.state
     if(!_.isEqual(quantities, prevState.quantities)) {
@@ -146,6 +154,8 @@ class Step1 extends React.Component {
     const price = type ? type.price : undefined
     const priceSet = !_.isNil(price) && price.length > 0 && Number(price) >= low_price && Number(price) <= high_price
     return {
+      ticket_type,
+      price,
       disabled: ticket_type.price_type === 'sliding_scale' && !priceSet,
       max: this._getMax(ticket_type),
       quantity: priceSet ? quantity : 0,

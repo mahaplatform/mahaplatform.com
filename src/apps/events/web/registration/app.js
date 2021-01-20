@@ -1,6 +1,6 @@
-import { hot } from 'react-hot-loader'
+import { Analytics, Error, Logger, Network } from '@client'
 import Registration from './components/registration'
-import { Error, Logger, Network } from '@client'
+import { hot } from 'react-hot-loader'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -14,13 +14,15 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Logger environment="registration">
-          <Error>
-            <Network>
-              <Registration { ...this._getRegistration() } />
-            </Network>
-          </Error>
-        </Logger>
+        <Analytics app_id={ `event-${window.event.id}` }>
+          <Logger environment="registration">
+            <Error>
+              <Network>
+                <Registration { ...this._getRegistration() } />
+              </Network>
+            </Error>
+          </Logger>
+        </Analytics>
       </Root>
     )
   }

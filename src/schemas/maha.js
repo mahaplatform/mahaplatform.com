@@ -945,6 +945,7 @@ const schema = {
       table.decimal('tax_rate', 3, 2)
       table.integer('delta')
       table.boolean('is_active')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('events_tickets', (table) => {

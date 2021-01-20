@@ -215,7 +215,7 @@ class Checkout extends React.Component {
   }
 
   _handleTrack(result) {
-    const { data, items, shipping, Store, tax, total } = this.props
+    const { items, shipping, Store, tax, total } = this.props
     const { contact_id, order_id } = result
     const { analytics } = this.context
     analytics.setUserId(contact_id)

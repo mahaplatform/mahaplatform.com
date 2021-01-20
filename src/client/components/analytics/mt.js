@@ -60,8 +60,8 @@ class MahaTracker {
     this._handleEvent('trackStructEvent', category, action, label, property, value)
   }
 
-  trackPageView() {
-    this._handleEvent('trackPageView')
+  trackPageView(title) {
+    this._handleEvent('trackPageView', title)
   }
 
   trackSocialInteraction(action, network, target) {
