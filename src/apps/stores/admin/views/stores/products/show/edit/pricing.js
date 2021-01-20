@@ -17,11 +17,17 @@ class Pricing extends React.Component {
 
   form = null
 
+  state = {
+    pricing: null
+  }
+
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    if(!this.state.pricing) return null
     return <Form { ...this._getForm() } />
   }
 
@@ -53,9 +59,17 @@ class Pricing extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const { formdata } = this.props
+    this.setState({
+      pricing: formdata
+    })
+  }
+
   _getPriceType() {
     const { formdata } = this.props
-    if(formdata.price_type === 'fixed') {
+    const { pricing } = this.state
+    if(pricing.price_type === 'fixed') {
       return [
         { type: 'fields', fields: [
           { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'display', required: true, format: ProjectToken, defaultValue: formdata.project_id },
@@ -65,7 +79,7 @@ class Pricing extends React.Component {
         { label: 'Tax Rate', name: 'tax_rate', type: 'ratefield', placeholder: 'Tax Rate', required: true, defaultValue: formdata.tax_rate }
       ]
     }
-    if(formdata.price_type === 'sliding_scale') {
+    if(pricing.price_type === 'sliding_scale') {
       return [
         { type: 'fields', fields: [
           { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/memberships', value: 'id', text: 'display', required: true, format: ProjectToken, defaultValue: formdata.project_id },
@@ -87,8 +101,9 @@ class Pricing extends React.Component {
   }
 
   _getOverageStrategy() {
-    const { formdata } = this.state
-    if(formdata.overage_strategy === 'donation') {
+    const { formdata } = this.props
+    const { pricing } = this.state
+    if(pricing.overage_strategy === 'donation') {
       return [
         { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', filter: { id: { $in: [30, 37] } }, value: 'id', text: 'title', required: true, format: RevenueTypeToken, defaultValue: formdata.donation_revenue_type_id }
       ]
@@ -98,6 +113,10 @@ class Pricing extends React.Component {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(pricing) {
+    this.setState({ pricing })
   }
 
   _handleSubmit() {

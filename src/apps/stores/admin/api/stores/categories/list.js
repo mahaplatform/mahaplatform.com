@@ -5,8 +5,10 @@ const listRoute = async (req, res) => {
 
   const categories = await Category.filterFetch({
     scope: qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('store_id', req.params.store_id)
+      qb.select('stores_categories.*','stores_category_totals.products_count')
+      qb.innerJoin('stores_category_totals','stores_category_totals.category_id','stores_categories.id')
+      qb.where('stores_categories.team_id', req.team.get('id'))
+      qb.where('stores_categories.store_id', req.params.store_id)
     },
     filter: {
       params: req.query.$filter,

@@ -23,15 +23,15 @@ class Categories extends React.Component {
           <thead>
             <tr>
               <td>Title</td>
+              <td className="collapsing">Products</td>
               <td />
             </tr>
           </thead>
           <tbody>
             { categories.map((category, index) => (
               <tr key={`category_${index}`}>
-                <td>
-                  { category.title }
-                </td>
+                <td>{ category.title }</td>
+                <td className="right">{ category.products_count }</td>
                 <td className="action">
                   <Button { ...this._getEdit(category) } />
                 </td>
@@ -39,7 +39,7 @@ class Categories extends React.Component {
             )) }
             { categories.length === 0 &&
               <tr>
-                <td colSpan="2" className="center">
+                <td colSpan="3" className="center">
                   This store doesnt yet have any categories
                 </td>
               </tr>

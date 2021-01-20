@@ -25,7 +25,7 @@ class Products extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { products.map((product, index) => (
+            { products.sort((a,b) => a.title > b.title ? 1 : -1).map((product, index) => (
               <tr key={`product_${index}`} onClick={ this._handleClick.bind(this, product) }>
                 <td className="unpadded">
                   <ProductToken product={ product } />

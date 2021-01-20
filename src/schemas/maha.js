@@ -4707,41 +4707,31 @@ union
       from crm_responses crm_responses_1,
       lateral jsonb_each(crm_responses_1.data) data(key, value)
       ), fields as (
-      select crm_forms_1.id as form_id,
+      select crm_forms.id as form_id,
       (fields.value ->> 'code'::text) as code,
       case
       when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
       else (fields.value ->> 'type'::text)
       end as type,
       ((fields.value -> 'name'::text) ->> 'token'::text) as token
-      from crm_forms crm_forms_1,
-      lateral jsonb_array_elements((crm_forms_1.config -> 'fields'::text)) fields(value)
+      from crm_forms,
+      lateral jsonb_array_elements((crm_forms.config -> 'fields'::text)) fields(value)
       ), computed as (
       select responses.response_id,
-      crm_forms_1.program_id,
       fields.type,
       fields.token,
       case
       when (fields.type = 'addressfield'::text) then (responses.value -> 'description'::text)
       else responses.value
       end as value
-      from ((responses
+      from (responses
       join fields on (((responses.form_id = fields.form_id) and (responses.code = fields.code))))
-      join crm_forms crm_forms_1 on ((crm_forms_1.id = responses.form_id)))
-      ), tokens as (
-      select computed.response_id,
-      computed.program_id,
-      jsonb_object_agg(computed.token, computed.value) as tokens
-      from computed
-      group by computed.response_id, computed.program_id
       )
-      select crm_responses.id,
-      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('response', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
-      from ((((crm_responses
-      join crm_forms on ((crm_forms.id = crm_responses.form_id)))
-      join crm_contact_tokens on ((crm_contact_tokens.contact_id = crm_responses.contact_id)))
-      left join crm_program_tokens on (((crm_program_tokens.contact_id = crm_responses.contact_id) and (crm_program_tokens.program_id = crm_forms.program_id))))
-      join tokens on ((tokens.response_id = crm_responses.id)));
+      select computed.response_id,
+      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/forms/forms/', crm_responses.form_id, '/responses/', computed.response_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
+      from (computed
+      join crm_responses on ((crm_responses.id = computed.response_id)))
+      group by computed.response_id, crm_responses.form_id;
     `)
 
     await knex.raw(`
@@ -6282,6 +6272,15 @@ union
     `)
 
     await knex.raw(`
+      create view stores_category_totals AS
+      select stores_categories.id as category_id,
+      count(stores_products_categories.*) as product_count
+      from (stores_categories
+      join stores_products_categories on ((stores_products_categories.category_id = stores_categories.id)))
+      group by stores_categories.id;
+    `)
+
+    await knex.raw(`
       create view stores_inventories AS
       with instock as (
       select stores_variants_1.id as variant_id,
@@ -6347,15 +6346,15 @@ union
       codes.code as token
       from ( select unnest(array['first_name'::text, 'last_name'::text, 'email'::text]) as code) codes
       union
-      select stores_stores_1.id as store_id,
+      select stores_stores.id as store_id,
       (fields.value ->> 'code'::text) as code,
       case
       when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
       else (fields.value ->> 'type'::text)
       end as type,
       ((fields.value -> 'name'::text) ->> 'token'::text) as token
-      from stores_stores stores_stores_1,
-      lateral jsonb_array_elements((stores_stores_1.contact_config -> 'fields'::text)) fields(value)
+      from stores_stores,
+      lateral jsonb_array_elements((stores_stores.contact_config -> 'fields'::text)) fields(value)
       ), computed as (
       select orders.order_id,
       fields.token,
@@ -6365,20 +6364,12 @@ union
       end as value
       from (orders
       join fields on (((fields.code = orders.code) and ((fields.store_id = orders.store_id) or (fields.store_id is null)))))
-      ), tokens as (
-      select computed.order_id,
-      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/stores/stores/', stores_orders_1.store_id, '/orders/', computed.order_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
-      from (computed
-      join stores_orders stores_orders_1 on ((stores_orders_1.id = computed.order_id)))
-      group by computed.order_id, stores_orders_1.store_id
       )
-      select stores_orders.id,
-      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('order', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
-      from ((((stores_orders
-      join stores_stores on ((stores_stores.id = stores_orders.store_id)))
-      join crm_contact_tokens on ((crm_contact_tokens.contact_id = stores_orders.contact_id)))
-      left join crm_program_tokens on (((crm_program_tokens.contact_id = stores_orders.contact_id) and (crm_program_tokens.program_id = stores_stores.program_id))))
-      join tokens on ((tokens.order_id = stores_orders.id)));
+      select computed.order_id,
+      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/stores/stores/', stores_orders.store_id, '/orders/', computed.order_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
+      from (computed
+      join stores_orders on ((stores_orders.id = computed.order_id)))
+      group by computed.order_id, stores_orders.store_id;
     `)
 
     await knex.raw(`

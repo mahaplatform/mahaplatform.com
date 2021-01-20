@@ -37,7 +37,7 @@ class Photos extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Photos', name: 'photos', type: MediaField, endpoint: `/api/admin/stores/stores/${formdata.store_id}/products/${formdata.product_id}/variants/${formdata.id}/photos` }
+            { label: 'Photos', name: 'photos', type: MediaField, endpoint: `/api/admin/stores/stores/${formdata.store_id}/products/${formdata.product_id}/variants/${formdata.id}/photos`, defaultValue: formdata.photo_ids }
           ]
         }
       ]
