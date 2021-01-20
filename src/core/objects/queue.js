@@ -20,7 +20,7 @@ const getQueue = (name) => {
 class Queue {
 
   constructor(options) {
-    this.processor = this._getProcessor(options.processor)
+    this.processor = this._getProcessor(options.processor, options.log)
     this.completed = this._getCompleted(options.completed)
     this.failed = this._getFailed(options.failed)
     this.concurrency = options.concurrency || 1
@@ -32,7 +32,6 @@ class Queue {
     this.cron = options.cron
     this.path = options.path
     this.refresh = options.refresh
-    this.log = options.log || true
   }
 
   async enqueue(req = {}, job = {}, options = {}) {
@@ -67,9 +66,9 @@ class Queue {
     this.enqueue()
   }
 
-  _getProcessor(processor) {
+  _getProcessor(processor, log = true) {
     const withTeam = this._withTeam(processor)
-    const withLogger = this.log ? this._withLogger(withTeam) : withTeam
+    const withLogger = log ? this._withLogger(withTeam) : withTeam
     const withtransaction = this._withTransaction(withLogger)
     return this._withCallbacks(withtransaction)
   }
