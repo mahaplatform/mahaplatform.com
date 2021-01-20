@@ -1,4 +1,5 @@
 import { Button, Carousel, DropDown, Image, ModalPanel } from '@client'
+import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
 import numeral from 'numeral'
@@ -7,6 +8,7 @@ import React from 'react'
 class Product extends React.Component {
 
   static contextTypes = {
+    analytics: PropTypes.object,
     router: PropTypes.object
   }
 
@@ -30,6 +32,9 @@ class Product extends React.Component {
     const variant = this._getVariant()
     return (
       <ModalPanel { ...this._getPanel() }>
+        <Helmet>
+          <title>{ product.title }</title>
+        </Helmet>
         <div className="store-product-container">
           <div className="store-product">
             <div className="store-product-media">
@@ -51,7 +56,7 @@ class Product extends React.Component {
               <div className="store-product-title">
                 { product.title }
               </div>
-              <div className="store-product-breadcrumbs">
+              <div className="store-product-categories">
                 CATEGORIES: { product.categories.map(category => category.title).join(', ') }
               </div>
               <div className="store-product-description" dangerouslySetInnerHTML={{ __html: product.description }} />
@@ -79,6 +84,10 @@ class Product extends React.Component {
         </div>
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    this.context.analytics.trackPageView()
   }
 
   _getAdd(variant) {
@@ -163,7 +172,9 @@ class Product extends React.Component {
   }
 
   _handleAdd(variant) {
+    const { product } = this.props
     const { quantity } = this.state
+    const categories = product.categories.map(category => category.title).join(',')
     this.props.Store.cart.addItem(variant.code, quantity)
   }
 

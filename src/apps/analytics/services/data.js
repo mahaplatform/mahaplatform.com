@@ -18,7 +18,8 @@ export const getData = (req, { type, data }) => {
       name: data.ti_name,
       category: data.ti_category,
       price: data.ti_price,
-      quantity: data.ti_quantity
+      quantity: data.ti_quantity,
+      currency: data.ti_currency
     }
   }
 
@@ -31,7 +32,8 @@ export const getData = (req, { type, data }) => {
       tax: data.tr_tax,
       city: data.tr_city,
       state: data.tr_state,
-      country: data.tr_country
+      country: data.tr_country,
+      currency: data.tr_currency
     }
   }
 
@@ -41,8 +43,9 @@ export const getData = (req, { type, data }) => {
       sku: ca.sku,
       name: ca.name,
       category: ca.category,
-      price: data.unitPrice,
-      quantity: data.quantity
+      price: ca.unitPrice,
+      quantity: ca.quantity,
+      currency: ca.currency
     }
   }
 

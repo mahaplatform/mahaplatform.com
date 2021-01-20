@@ -1,4 +1,4 @@
-import { Error, Logger, Network } from '@client'
+import { Analytics, Error, Logger, Network } from '@client'
 import { hot } from 'react-hot-loader'
 import Wrapper from './components/wrapper'
 import Root from './components/root'
@@ -15,13 +15,15 @@ class App extends React.Component {
     const { store } = window
     return (
       <Root key="root" storeName={ store.code }>
-        <Logger environment="checkout">
-          <Error>
-            <Network>
-              <Wrapper { ...this._getCheckout() } />
-            </Network>
-          </Error>
-        </Logger>
+        <Analytics app_id={ `store-${window.store.id}` }>
+          <Logger environment="checkout">
+            <Error>
+              <Network>
+                <Wrapper { ...this._getCheckout() } />
+              </Network>
+            </Error>
+          </Logger>
+        </Analytics>
       </Root>
     )
   }

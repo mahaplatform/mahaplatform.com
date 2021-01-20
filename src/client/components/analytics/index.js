@@ -9,27 +9,37 @@ class Analytics extends React.Component {
   }
 
   static propTypes = {
-    app_id: PropTypes.object,
+    app_id: PropTypes.string,
     children: PropTypes.any
   }
-
-  _handleEvent = this._handleEvent.bind(this)
-  _handleView = this._handleView.bind(this)
 
   render() {
     return this.props.children
   }
 
   componentDidMount() {
-    // if(!this._isProduction()) return
+    if(!this._isProduction()) return
     this._handleLoadMT()
   }
 
   getChildContext() {
     return {
       analytics: {
-        event: this._handleEvent,
-        view: this._handleView
+        addItem: this._handleEvent.bind(this, 'addItem'),
+        addTrans: this._handleEvent.bind(this, 'addTrans'),
+        enableLinkClickTracking: this._handleEvent.bind(this, 'enableLinkClickTracking'),
+        setUser: this._handleEvent.bind(this, 'setUser'),
+        trackAddToCart: this._handleEvent.bind(this, 'trackAddToCart'),
+        trackRemoveFromCart: this._handleEvent.bind(this, 'trackRemoveFromCart'),
+        trackSiteSearch: this._handleEvent.bind(this, 'trackSiteSearch'),
+        trackAdImpression: this._handleEvent.bind(this, 'trackAdImpression'),
+        trackAdClick: this._handleEvent.bind(this, 'trackAdClick'),
+        trackAdConversion: this._handleEvent.bind(this, 'trackAdConversion'),
+        trackStructEvent: this._handleEvent.bind(this, 'trackStructEvent'),
+        trackPageView: this._handleEvent.bind(this, 'trackPageView'),
+        trackSocialInteraction: this._handleEvent.bind(this, 'trackSocialInteraction'),
+        trackTrans: this._handleEvent.bind(this, 'trackTrans'),
+        updatePageActivity: this._handleEvent.bind(this, 'updatePageActivity')
       }
     }
   }
@@ -44,25 +54,14 @@ class Analytics extends React.Component {
     mt.initialize(app_id)
   }
 
-  _handleEvent(category, action, extra = {}) {
-    if(!this._isProduction()) return
+  _handleEvent() {
     const { app_id } = this.props
-    if(app_id) {
-      mt.event({
-        category,
-        action,
-        ...extra
-      })
-    }
-  }
-
-  _handleView() {
+    if(!app_id) return
+    const args = Array.prototype.slice.call(arguments)
+    const action = args[0]
+    const params = args.slice(1)
     if(!this._isProduction()) return
-    const { app_id } = this.props
-    const page = window.location.pathname
-    if(app_id) {
-      mt.trackPageView(page)
-    }
+    mt[action](...params)
   }
 
 }

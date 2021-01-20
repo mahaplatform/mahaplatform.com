@@ -8,6 +8,7 @@ import _ from 'lodash'
 class Cart extends React.Component {
 
   static contextTypes = {
+    analytics: PropTypes.object,
     network: PropTypes.object
   }
 
@@ -222,6 +223,7 @@ class Cart extends React.Component {
         }] : []
       ]
     })
+    this.context.analytics.trackAddToCart(variant.code, variant.title, variant.categories, variant.fixed_price, quantity, 'USD')
   }
 
   _handleCheckout() {
@@ -244,12 +246,19 @@ class Cart extends React.Component {
   }
 
   _handleRemove(variantCode) {
-    const { cart, code, Store } = this.props
+    const { cart, code, Store, variants } = this.props
+    const variant = variants.find(variant => {
+      return variant.code === variantCode
+    })
+    const item = cart.items.find(item => {
+      return item.code === variantCode
+    })
     this.props.onSave(Store.code, code, {
       items: cart.items.filter(item => {
         return item.code !== variantCode
       })
     })
+    this.context.analytics.trackRemoveFromCart(variant.code, variant.title, variant.categories, item.price, item.quantity, 'USD')
   }
 
   async _handleUpdate(variantCode, increment) {

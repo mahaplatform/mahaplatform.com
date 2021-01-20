@@ -12,6 +12,7 @@ export const variants = createSelector(
       ...variants,
       {
         title: product.title,
+        categories: product.categories.map(category => category.title).join(','),
         description: product.description,
         thumbnail: variant.photos[0] ? variant.photos[0].asset : null,
         ...variant
