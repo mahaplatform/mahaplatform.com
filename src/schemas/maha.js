@@ -3943,6 +3943,17 @@ union
     `)
 
     await knex.raw(`
+      create view crm_contact_tokens AS
+      select crm_contacts.id as contact_id,
+      (((((((((((jsonb_build_object('full_name', concat(crm_contacts.first_name, ' ', crm_contacts.last_name)) || jsonb_build_object('first_name', crm_contacts.first_name)) || jsonb_build_object('last_name', crm_contacts.last_name)) || jsonb_build_object('email', crm_email_addresses.address)) || jsonb_build_object('phone', crm_phone_numbers.number)) || jsonb_build_object('address', (crm_mailing_addresses.address ->> 'description'::text))) || jsonb_build_object('spouse', crm_contacts.spouse)) || jsonb_build_object('birthday', crm_contacts.birthday)) || jsonb_build_object('organization', crm_contacts.organization)) || jsonb_build_object('position', crm_contacts."position")) || jsonb_build_object('url', concat('https://mahaplatform.com/admin/crm/contacts/', crm_contacts.id))) || jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/crm/contacts/', crm_contacts.id))) as tokens
+      from ((((crm_contacts
+      join crm_contact_primaries on ((crm_contact_primaries.contact_id = crm_contacts.id)))
+      left join crm_email_addresses on ((crm_email_addresses.id = crm_contact_primaries.email_id)))
+      left join crm_phone_numbers on ((crm_phone_numbers.id = crm_contact_primaries.phone_id)))
+      left join crm_mailing_addresses on ((crm_mailing_addresses.id = crm_contact_primaries.address_id)));
+    `)
+
+    await knex.raw(`
       create view crm_duplicates AS
       select distinct on (crm_contacts.id,
       case
@@ -4501,6 +4512,46 @@ union
     `)
 
     await knex.raw(`
+      create view crm_program_tokens AS
+      with contacts as (
+      select crm_contacts_1.id as contact_id,
+      crm_contacts_1.team_id,
+      "values".key as code,
+      "values".value
+      from crm_contacts crm_contacts_1,
+      lateral jsonb_each(crm_contacts_1."values") "values"(key, value)
+      ), fields as (
+      select maha_fields.team_id,
+      maha_fields.parent_id as program_id,
+      maha_fields.code,
+      maha_fields.type,
+      (maha_fields.name ->> 'token'::text) as token
+      from maha_fields
+      where ((maha_fields.parent_type)::text = 'crm_programs'::text)
+      ), computed as (
+      select contacts.contact_id,
+      fields.program_id,
+      fields.token,
+      case
+      when (fields.type = 'addressfield'::maha_fields_type) then (contacts.value -> 'description'::text)
+      else contacts.value
+      end as value
+      from (contacts
+      join fields on (((fields.team_id = contacts.team_id) and ((fields.code)::text = contacts.code))))
+      )
+      select computed.contact_id,
+      computed.program_id,
+      jsonb_object_agg(computed.token, computed.value) as tokens
+      from (((((computed
+      join crm_contacts on ((crm_contacts.id = computed.contact_id)))
+      join crm_contact_primaries on ((crm_contact_primaries.contact_id = computed.contact_id)))
+      left join crm_email_addresses on ((crm_email_addresses.id = crm_contact_primaries.email_id)))
+      left join crm_phone_numbers on ((crm_phone_numbers.id = crm_contact_primaries.phone_id)))
+      left join crm_mailing_addresses on ((crm_mailing_addresses.id = crm_contact_primaries.address_id)))
+      group by computed.contact_id, computed.program_id;
+    `)
+
+    await knex.raw(`
       create view crm_program_user_access AS
       select distinct on (accesses.program_id, accesses.user_id) accesses.program_id,
       accesses.user_id,
@@ -4644,6 +4695,53 @@ union
       from ((crm_mailing_addresses
       join crm_contact_primaries on ((crm_contact_primaries.address_id = crm_mailing_addresses.id)))
       join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
+    `)
+
+    await knex.raw(`
+      create view crm_response_tokens AS
+      with responses as (
+      select crm_responses_1.id as response_id,
+      crm_responses_1.form_id,
+      data.key as code,
+      data.value
+      from crm_responses crm_responses_1,
+      lateral jsonb_each(crm_responses_1.data) data(key, value)
+      ), fields as (
+      select crm_forms_1.id as form_id,
+      (fields.value ->> 'code'::text) as code,
+      case
+      when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
+      else (fields.value ->> 'type'::text)
+      end as type,
+      ((fields.value -> 'name'::text) ->> 'token'::text) as token
+      from crm_forms crm_forms_1,
+      lateral jsonb_array_elements((crm_forms_1.config -> 'fields'::text)) fields(value)
+      ), computed as (
+      select responses.response_id,
+      crm_forms_1.program_id,
+      fields.type,
+      fields.token,
+      case
+      when (fields.type = 'addressfield'::text) then (responses.value -> 'description'::text)
+      else responses.value
+      end as value
+      from ((responses
+      join fields on (((responses.form_id = fields.form_id) and (responses.code = fields.code))))
+      join crm_forms crm_forms_1 on ((crm_forms_1.id = responses.form_id)))
+      ), tokens as (
+      select computed.response_id,
+      computed.program_id,
+      jsonb_object_agg(computed.token, computed.value) as tokens
+      from computed
+      group by computed.response_id, computed.program_id
+      )
+      select crm_responses.id,
+      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('response', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
+      from ((((crm_responses
+      join crm_forms on ((crm_forms.id = crm_responses.form_id)))
+      join crm_contact_tokens on ((crm_contact_tokens.contact_id = crm_responses.contact_id)))
+      left join crm_program_tokens on (((crm_program_tokens.contact_id = crm_responses.contact_id) and (crm_program_tokens.program_id = crm_forms.program_id))))
+      join tokens on ((tokens.response_id = crm_responses.id)));
     `)
 
     await knex.raw(`
@@ -5142,6 +5240,48 @@ union
     `)
 
     await knex.raw(`
+      create view events_registration_tokens AS
+      with registrations as (
+      select events_registrations_1.id as registration_id,
+      events_registrations_1.event_id,
+      data.key as code,
+      data.value
+      from events_registrations events_registrations_1,
+      lateral jsonb_each(events_registrations_1.data) data(key, value)
+      ), fields as (
+      select null::integer as event_id,
+      codes.code,
+      'textfield'::text as type,
+      codes.code as token
+      from ( select unnest(array['first_name'::text, 'last_name'::text, 'email'::text]) as code) codes
+      union
+      select events_events.id as event_id,
+      (fields.value ->> 'code'::text) as code,
+      case
+      when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
+      else (fields.value ->> 'type'::text)
+      end as type,
+      ((fields.value -> 'name'::text) ->> 'token'::text) as token
+      from events_events,
+      lateral jsonb_array_elements((events_events.contact_config -> 'fields'::text)) fields(value)
+      ), computed as (
+      select registrations.registration_id,
+      fields.token,
+      case
+      when (fields.type = 'addressfield'::text) then (registrations.value -> 'description'::text)
+      else registrations.value
+      end as value
+      from (registrations
+      join fields on (((fields.code = registrations.code) and ((fields.event_id = registrations.event_id) or (fields.event_id is null)))))
+      )
+      select computed.registration_id,
+      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/events/events/', events_registrations.event_id, '/registrations/', computed.registration_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
+      from (computed
+      join events_registrations on ((events_registrations.id = computed.registration_id)))
+      group by computed.registration_id, events_registrations.event_id;
+    `)
+
+    await knex.raw(`
       create view events_registration_totals AS
       with revenue as (
       select events_registrations_1.id as registration_id,
@@ -5170,6 +5310,56 @@ union
       join revenue on ((revenue.registration_id = events_registrations.id)))
       join invoice on ((invoice.registration_id = events_registrations.id)))
       join tickets on ((tickets.registration_id = events_registrations.id)));
+    `)
+
+    await knex.raw(`
+      create view events_tickets_tokens AS
+      with registrations as (
+      select events_registrations_1.id as registration_id,
+      events_registrations_1.event_id,
+      data.key as code,
+      data.value
+      from events_registrations events_registrations_1,
+      lateral jsonb_each(events_registrations_1.data) data(key, value)
+      ), fields as (
+      select null::integer as event_id,
+      codes.code,
+      'textfield'::text as type,
+      codes.code as token
+      from ( select unnest(array['first_name'::text, 'last_name'::text, 'email'::text]) as code) codes
+      union
+      select events_events_1.id as event_id,
+      (fields.value ->> 'code'::text) as code,
+      case
+      when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
+      else (fields.value ->> 'type'::text)
+      end as type,
+      ((fields.value -> 'name'::text) ->> 'token'::text) as token
+      from events_events events_events_1,
+      lateral jsonb_array_elements((events_events_1.contact_config -> 'fields'::text)) fields(value)
+      ), computed as (
+      select registrations.registration_id,
+      fields.token,
+      case
+      when (fields.type = 'addressfield'::text) then (registrations.value -> 'description'::text)
+      else registrations.value
+      end as value
+      from (registrations
+      join fields on (((fields.code = registrations.code) and ((fields.event_id = registrations.event_id) or (fields.event_id is null)))))
+      ), tokens as (
+      select computed.registration_id,
+      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/events/events/', events_registrations_1.event_id, '/registrations/', computed.registration_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
+      from (computed
+      join events_registrations events_registrations_1 on ((events_registrations_1.id = computed.registration_id)))
+      group by computed.registration_id, events_registrations_1.event_id
+      )
+      select events_registrations.id,
+      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('registration', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
+      from ((((events_registrations
+      join events_events on ((events_events.id = events_registrations.event_id)))
+      join crm_contact_tokens on ((crm_contact_tokens.contact_id = events_registrations.contact_id)))
+      left join crm_program_tokens on (((crm_program_tokens.contact_id = events_registrations.contact_id) and (crm_program_tokens.program_id = events_events.program_id))))
+      join tokens on ((tokens.registration_id = events_registrations.id)));
     `)
 
     await knex.raw(`
@@ -6139,6 +6329,56 @@ union
       stores_items.created_at
       from stores_items
       where (stores_items.status = 'fulfilled'::stores_item_statuses);
+    `)
+
+    await knex.raw(`
+      create view stores_order_tokens AS
+      with orders as (
+      select stores_orders_1.id as order_id,
+      stores_orders_1.store_id,
+      data.key as code,
+      data.value
+      from stores_orders stores_orders_1,
+      lateral jsonb_each(stores_orders_1.data) data(key, value)
+      ), fields as (
+      select null::integer as store_id,
+      codes.code,
+      'textfield'::text as type,
+      codes.code as token
+      from ( select unnest(array['first_name'::text, 'last_name'::text, 'email'::text]) as code) codes
+      union
+      select stores_stores_1.id as store_id,
+      (fields.value ->> 'code'::text) as code,
+      case
+      when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
+      else (fields.value ->> 'type'::text)
+      end as type,
+      ((fields.value -> 'name'::text) ->> 'token'::text) as token
+      from stores_stores stores_stores_1,
+      lateral jsonb_array_elements((stores_stores_1.contact_config -> 'fields'::text)) fields(value)
+      ), computed as (
+      select orders.order_id,
+      fields.token,
+      case
+      when (fields.type = 'addressfield'::text) then (orders.value -> 'description'::text)
+      else orders.value
+      end as value
+      from (orders
+      join fields on (((fields.code = orders.code) and ((fields.store_id = orders.store_id) or (fields.store_id is null)))))
+      ), tokens as (
+      select computed.order_id,
+      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/stores/stores/', stores_orders_1.store_id, '/orders/', computed.order_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
+      from (computed
+      join stores_orders stores_orders_1 on ((stores_orders_1.id = computed.order_id)))
+      group by computed.order_id, stores_orders_1.store_id
+      )
+      select stores_orders.id,
+      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('order', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
+      from ((((stores_orders
+      join stores_stores on ((stores_stores.id = stores_orders.store_id)))
+      join crm_contact_tokens on ((crm_contact_tokens.contact_id = stores_orders.contact_id)))
+      left join crm_program_tokens on (((crm_program_tokens.contact_id = stores_orders.contact_id) and (crm_program_tokens.program_id = stores_stores.program_id))))
+      join tokens on ((tokens.order_id = stores_orders.id)));
     `)
 
     await knex.raw(`
