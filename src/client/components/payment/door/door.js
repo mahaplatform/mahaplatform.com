@@ -12,6 +12,7 @@ class Door extends React.Component {
     data: PropTypes.object,
     endpoint: PropTypes.string,
     error: PropTypes.string,
+    result: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -55,7 +56,8 @@ class Door extends React.Component {
   }
 
   _handleSuccess() {
-    this.props.onSuccess()
+    const { result } = this.props
+    this.props.onSuccess(result)
   }
 
 }

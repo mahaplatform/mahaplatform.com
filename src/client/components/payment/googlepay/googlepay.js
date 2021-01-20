@@ -13,6 +13,7 @@ class GooglePay extends React.Component {
     lineItems: PropTypes.array,
     payment: PropTypes.object,
     paymentToken: PropTypes.string,
+    result: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
@@ -83,7 +84,8 @@ class GooglePay extends React.Component {
   }
 
   _handleSuccess() {
-    this.props.onSuccess()
+    const { result } = this.props
+    this.props.onSuccess(result)
   }
 
 }

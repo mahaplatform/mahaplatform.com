@@ -27,6 +27,7 @@ class ACH extends React.Component {
     program: PropTypes.object,
     region: PropTypes.string,
     routingNumber: PropTypes.string,
+    result: PropTypes.object,
     status: PropTypes.string,
     streetAddress: PropTypes.string,
     token: PropTypes.string,
@@ -175,7 +176,8 @@ class ACH extends React.Component {
   }
 
   _handleSuccess() {
-    this.props.onSuccess()
+    const { result } = this.props
+    this.props.onSuccess(result)
   }
 
   _handleUpdate(name, value) {

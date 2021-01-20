@@ -14,6 +14,7 @@ class PayPal extends React.Component {
     lineItems: PropTypes.array,
     paymentToken: PropTypes.string,
     program: PropTypes.object,
+    result: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -131,7 +132,8 @@ class PayPal extends React.Component {
   }
 
   _handleSuccess() {
-    this.props.onSuccess()
+    const { result } = this.props
+    this.props.onSuccess(result)
   }
 
 }

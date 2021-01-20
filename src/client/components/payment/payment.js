@@ -114,8 +114,8 @@ class Payment extends React.Component {
     }
   }
 
-  _handleSuccess() {
-    this.props.onSuccess()
+  _handleSuccess(result) {
+    this.props.onSuccess(result)
   }
 
 }

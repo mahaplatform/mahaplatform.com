@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   error: null,
+  result: null,
   status: 'pending',
   payment: null
 }
@@ -60,6 +61,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_SUCCESS':
     return {
       ...state,
+      result: action.result.data,
       status: 'success'
     }
 

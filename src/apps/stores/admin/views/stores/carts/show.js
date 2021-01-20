@@ -2,18 +2,34 @@ import { Page } from '@admin'
 import Items from './items'
 import React from 'react'
 
-const getTabs = ({ carts, products }) => ({
+const getTabs = ({ cart, products }) => ({
   items: [
-    { label: 'Items', component: <Items items={ carts.items } products={ products } /> },
+    { label: 'Items', component: <Items items={ cart.items } products={ products } /> },
   ]
 })
 
-const getTasks = ({ products, store }, { flash, router }) => {
+const getTasks = ({ cart, store }, { flash, router }) => ({
+  items: [
+    {
+      label: 'Delete Cart',
+      show: cart.status !== 'ordered',
+      confirm: 'Are you sure you want to delete this cart?',
+      request: {
+        endpoint: `/api/admin/stores/stores/${store.id}/carts/${cart.id}`,
+        method: 'delete',
+        onFailure: () => flash.set('error', 'Unable to delete cart'),
+        onSuccess: () => {
+          flash.set('success', 'Successfully deleted cart'),
+          router.history.goBack()
+        }
+      }
 
-}
+    }
+  ]
+})
 
 const mapResourcesToPage = (props, context) => ({
-  carts: `/api/admin/stores/stores/${props.params.store_id}/carts/${props.params.id}`,
+  cart: `/api/admin/stores/stores/${props.params.store_id}/carts/${props.params.id}`,
   products: `/api/admin/stores/stores/${props.params.store_id}/products`,
   store: `/api/admin/stores/stores/${props.params.store_id}`
 })

@@ -1,11 +1,12 @@
-import { Button, Message } from '@client'
 import PropTypes from 'prop-types'
+import { Message } from '@client'
 import React from 'react'
 
 class Complete extends React.Component {
 
   static propTypes = {
-    event: PropTypes.object,
+    data: PropTypes.object,
+    Store: PropTypes.object,
     onDone: PropTypes.func
   }
 

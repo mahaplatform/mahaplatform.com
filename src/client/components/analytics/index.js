@@ -28,7 +28,7 @@ class Analytics extends React.Component {
         addItem: this._handleEvent.bind(this, 'addItem'),
         addTrans: this._handleEvent.bind(this, 'addTrans'),
         enableLinkClickTracking: this._handleEvent.bind(this, 'enableLinkClickTracking'),
-        setUser: this._handleEvent.bind(this, 'setUser'),
+        setUserId: this._handleEvent.bind(this, 'setUserId'),
         trackAddToCart: this._handleEvent.bind(this, 'trackAddToCart'),
         trackRemoveFromCart: this._handleEvent.bind(this, 'trackRemoveFromCart'),
         trackSiteSearch: this._handleEvent.bind(this, 'trackSiteSearch'),
@@ -45,7 +45,7 @@ class Analytics extends React.Component {
   }
 
   _isProduction() {
-    return true //process.env.NODE_ENV === 'production'
+    return process.env.NODE_ENV === 'production'
   }
 
   _handleLoadMT(id) {
@@ -56,12 +56,9 @@ class Analytics extends React.Component {
 
   _handleEvent() {
     const { app_id } = this.props
-    if(!app_id) return
+    if(!this._isProduction() || !app_id) return
     const args = Array.prototype.slice.call(arguments)
-    const action = args[0]
-    const params = args.slice(1)
-    if(!this._isProduction()) return
-    mt[action](...params)
+    mt[args[0]](...args.slice(1))
   }
 
 }

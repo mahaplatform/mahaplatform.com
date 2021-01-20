@@ -10,10 +10,14 @@ import React from 'react'
 
 class Checkout extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     cart: PropTypes.object,
     code: PropTypes.string,
-    contact: PropTypes.string,
+    contact: PropTypes.object,
     data: PropTypes.object,
     isShipped: PropTypes.bool,
     items: PropTypes.array,
@@ -44,7 +48,6 @@ class Checkout extends React.Component {
   _handlePush = this._handlePush.bind(this)
   _handleContactStep = this._handleContactStep.bind(this)
   _handleShippingStep = this._handleShippingStep.bind(this)
-  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -141,7 +144,6 @@ class Checkout extends React.Component {
       Store,
       token,
       total,
-      onSubmit: this._handleSubmit,
       onDone: this._handleComplete
     }
   }
@@ -202,18 +204,26 @@ class Checkout extends React.Component {
     this._handlePush(PaymentStep, this._getPaymentStep.bind(this))
   }
 
-  _handleSubmit() {
-    // const { data, token } = this.props
-    // this.props.onSubmit(token, event.code, data)
-  }
-
-  _handleComplete() {
+  _handleComplete(result) {
     const { step } = this.state
+    this._handleTrack(result)
     this.pasteur.send('complete')
     this.setState({
       step: step + 1
     })
     this._handlePush(Complete, this._getCompleteStep.bind(this))
+  }
+
+  _handleTrack(result) {
+    const { data, items, shipping, Store, tax, total } = this.props
+    const { contact_id, order_id } = result
+    const { analytics } = this.context
+    analytics.setUserId(contact_id)
+    items.map(item => {
+      analytics.addItem(order_id, item.code, item.title, null, item.price, item.quantity, 'USD')
+    })
+    analytics.addTrans(order_id, Store.title, total, tax, shipping, null, null, null, 'USD')
+    analytics.trackTrans()
   }
 
 }

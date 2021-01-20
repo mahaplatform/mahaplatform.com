@@ -17,19 +17,19 @@ class MahaTracker {
   }
 
   addItem(orderId, sku, name, category, price, quantity, currency) {
-    this._handleEvent('addItem', orderId, sku, name, category, Number(price), Number(quantity), currency)
+    this._handleEvent('addItem', orderId, sku, name, category, price, quantity, currency)
   }
 
   addTrans(orderId, storeName, total, tax, shipping, city, state, country, currency) {
-    this._handleEvent('addTrans', orderId, storeName, Number(total), Number(tax), Number(shipping), city, state, country, currency)
+    this._handleEvent('addTrans', orderId, storeName, total, tax, shipping, city, state, country, currency)
   }
 
   enableLinkClickTracking() {
     this._handleEvent('enableLinkClickTracking')
   }
 
-  setUser(userid) {
-    this._handleEvent('setUserId', userid)
+  setUserId(userid) {
+    this._handleEvent('setUserId', `${userid}`)
   }
 
   trackAddToCart(sku, name, category, unitPrice, quantity, currency) {

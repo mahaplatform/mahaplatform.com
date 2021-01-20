@@ -10,7 +10,6 @@ class PaymentStep extends React.Component {
     Store: PropTypes.object,
     token: PropTypes.string,
     total: PropTypes.number,
-    onSubmit: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -30,12 +29,6 @@ class PaymentStep extends React.Component {
         </div>
       </div>
     )
-  }
-
-  componentDidMount() {
-    const { total } = this.props
-    if(total > 0) return
-    this.props.onSubmit()
   }
 
   _getPayment() {

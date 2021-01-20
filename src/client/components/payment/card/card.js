@@ -14,6 +14,7 @@ class Card extends React.PureComponent {
     lineItems: PropTypes.array,
     payment: PropTypes.object,
     paymentToken: PropTypes.string,
+    result: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
@@ -236,7 +237,8 @@ class Card extends React.PureComponent {
   }
 
   _handleSuccess() {
-    this.props.onSuccess()
+    const { result } = this.props
+    this.props.onSuccess(result)
   }
 
   _handleValidate() {

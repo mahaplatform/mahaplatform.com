@@ -5,6 +5,7 @@ const cartSerializer = (req, result) => ({
   items: result.related('items').map(item),
   items_count: result.related('items').length,
   expires_at: result.get('expires_at'),
+  status: result.get('status'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

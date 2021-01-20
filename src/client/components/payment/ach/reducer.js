@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   address: null,
   name: '',
   payment: null,
+  result: null,
   routingNumber: '',
   status: 'pending'
 }
@@ -54,6 +55,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_SUCCESS':
     return {
       ...state,
+      result: action.result.data,
       status: 'success'
     }
 
