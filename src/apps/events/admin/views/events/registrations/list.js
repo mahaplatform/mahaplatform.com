@@ -1,6 +1,6 @@
 import RegistrationToken from '@apps/events/admin/tokens/registration'
+import PaymentToken from '@apps/events/admin/tokens/payment'
 import Content from '@apps/forms/admin/tokens/content'
-import PaymentToken from '../../../tokens/payment'
 import { Page } from '@admin'
 import React from 'react'
 

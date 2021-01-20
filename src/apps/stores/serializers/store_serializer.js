@@ -2,6 +2,7 @@ const storeSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   code: result.get('code'),
+  contact_config: result.get('contact_config'),
   permalink: result.get('permalink'),
   url: result.get('url'),
   program: program(result.related('program')),

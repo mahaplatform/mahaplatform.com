@@ -1,3 +1,4 @@
+import PaymentToken from '@apps/events/admin/tokens/payment'
 import OrderToken from '@apps/stores/admin/tokens/order'
 import { Page } from '@admin'
 import React from 'react'
@@ -7,7 +8,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
-      { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: OrderToken }
+      { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: OrderToken },
+      { label: 'Submitted', key: 'created_at', format: 'datetime' },
+      { label: 'Items', key: 'items_count', collapsing: true, align: 'right' },
+      { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' },
+      { label: 'Status', key: 'is_paid', collapsing: true, format: PaymentToken }
     ],
     empty: {
       icon: 'shopping-bag',
