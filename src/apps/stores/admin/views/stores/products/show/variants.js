@@ -1,6 +1,7 @@
 import VariantToken from '@apps/stores/admin/tokens/variant'
 import PropTypes from 'prop-types'
 import { Button } from '@admin'
+import numeral from 'numeral'
 import React from 'react'
 import Edit from './edit'
 
@@ -25,7 +26,8 @@ class Variants extends React.Component {
             <thead>
               <tr>
                 <td>Title</td>
-                <td />
+                <td className="collapsing">Price</td>
+                <td className="collapsing">Status</td>
                 <td />
               </tr>
             </thead>
@@ -35,7 +37,10 @@ class Variants extends React.Component {
                   <td className="unpadded">
                     <VariantToken product={ product } variant={ variant }/>
                   </td>
-                  <td className="unpadded collapsing">
+                  <td className="right">
+                    { this._getPrice(variant) }
+                  </td>
+                  <td>
                     <span className={variant.is_active ? 'success' : 'error'}>
                       { variant.is_active ? 'ACTIVE' : 'DISABLED' }
                     </span>
@@ -57,6 +62,15 @@ class Variants extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getPrice(variant) {
+    if(variant.price_type === 'fixed') {
+      return numeral(variant.fixed_price).format('$0.00')
+    }
+    if(variant.price_type === 'free') {
+      return 'FREE'
+    }
   }
 
   _getEdit(variant) {

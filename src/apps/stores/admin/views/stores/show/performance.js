@@ -80,12 +80,12 @@ class Performance extends React.Component {
     )
   }
 
-  _getCarts(label, query) {
+  _getCarts(label, status) {
     const { store } = this.props
     return {
       label,
       className: 'link',
-      route: `/admin/stores/stores/${store.id}/carts`
+      route: `/admin/stores/stores/${store.id}/carts?$filter[status][$eq]=${status}`
     }
   }
 

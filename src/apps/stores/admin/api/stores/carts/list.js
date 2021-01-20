@@ -7,7 +7,10 @@ const listRoute = async (req, res) => {
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
       qb.where('store_id', req.params.store_id)
-      qb.where('status', 'active')
+    },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
     },
     sort: {
       params: req.query.$sort,

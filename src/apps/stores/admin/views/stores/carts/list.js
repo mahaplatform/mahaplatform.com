@@ -12,8 +12,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     empty: {
       icon: 'shopping-cart',
-      title: 'No Active Carts',
-      text: 'There are no currently active carts'
+      title: 'No Carts',
+      text: 'There are no carts'
     },
     endpoint: `/api/admin/stores/stores/${props.params.store_id}/carts`,
     entity: 'cart',

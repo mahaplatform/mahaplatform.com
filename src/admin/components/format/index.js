@@ -82,7 +82,11 @@ const Default = (props) => {
 }
 
 const From = (props) => {
-  return <span>in { pluralize('hour', moment(props.value).diff(moment(), 'hours'), true) }</span>
+  const diff = moment(props.value).diff(moment(), 'hour')
+  const unit = Math.abs(diff) > 24 ? 'day' : 'hour'
+  const adjusted = Math.abs(moment(props.value).diff(moment(), unit))
+  if(diff > 0) return <span>in { pluralize(unit, adjusted, true) }</span>
+  return <span>{ pluralize(unit, adjusted, true) } ago</span>
 }
 
 const Element = (props) => {
