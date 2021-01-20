@@ -49,6 +49,7 @@ const updateRoute = async (req, res) => {
   })
 
   await variant.save({
+    inventory_policy: req.body.inventory_policy,
     price_type: req.body.price_type,
     project_id: req.body.project_id,
     revenue_type_id: req.body.revenue_type_id,

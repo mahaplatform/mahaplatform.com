@@ -1,3 +1,4 @@
+import Inventory from './inventory'
 import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
 import Pricing from './pricing'
@@ -41,6 +42,7 @@ class Edit extends React.Component {
   _getData(variant) {
     return {
       photo_ids: variant.photos.map(photo => photo.id),
+      inventory_policy: variant.inventory_policy,
       price_type: variant.price_type,
       project_id: variant.project_id,
       revenue_type_id: variant.revenue_type_id,
@@ -56,6 +58,7 @@ class Edit extends React.Component {
   _getSteps(formdata) {
     return [
       { label: 'Photos', component: Photos },
+      { label: 'Inventory', component: Inventory },
       { label: 'Pricing', component: Pricing }
     ]
   }

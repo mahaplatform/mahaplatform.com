@@ -55,9 +55,17 @@
     }
     td.action {
       width: 1px;
-      padding: 0.8em 0.8em 0.8em 0;
+      padding: 0.8em 0.8em 0.8em;
       .fa-ellipsis-v {
         color: fadeout(@black, 80);
+        text-align: center;
+        cursor: pointer;
+        width: 2em;
+        height: 2em;
+        line-height: 2em;
+        &:hover {
+          color: fadeout(@black, 60);
+        }
       }
     }
   }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 
-class Details extends React.Component {
+class Inventory extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -24,6 +24,7 @@ class Details extends React.Component {
   }
 
   _getForm() {
+    const { formdata } = this.props
     return {
       reference: node => this.form = node,
       showHeader: false,
@@ -35,8 +36,11 @@ class Details extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true, placeholder: 'Enter title' },
-            { label: 'URL', name: 'permalink', type: 'permalinkfield', prefix: '/stores', placeholder: '/path/to/store' }
+            { name: 'inventory_policy', type: 'radiogroup', deselectable: false, required: true, options: [
+              { value: 'unlimited', text: 'Do not manage inventory' },
+              { value: 'deny', text: 'Stop selling when inventory reaches 0' },
+              { value: 'continue', text: 'Allow sales to continue into negative inventory levels' }
+            ], defaultValue: formdata.inventory_policy }
           ]
         }
       ]
@@ -51,10 +55,14 @@ class Details extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(store) {
-    this.props.onNext(store)
+  _handleSuccess(inventory) {
+    const { formdata } = this.props
+    this.props.onNext({
+      ...formdata,
+      ...inventory
+    })
   }
 
 }
 
-export default Details
+export default Inventory

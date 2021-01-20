@@ -5,11 +5,7 @@ class Quantity extends React.Component {
 
   static propTypes = {
     onChange: PropTypes.func,
-    max: PropTypes.number
-  }
-
-  static defaultProps = {
-    max: 100
+    variant: PropTypes.object
   }
 
   state = {
@@ -34,11 +30,18 @@ class Quantity extends React.Component {
     }
   }
 
+  _getBound(value) {
+    const { variant } = this.props
+    const newvalue = Math.max(1, value)
+    if(variant.inventory_policy !== 'deny') return newvalue
+    return Math.min(newvalue, variant.inventory_onhand)
+
+  }
+
   _handleUpdate(increment) {
-    const { max } = this.props
     const { quantity } = this.state
     this.setState({
-      quantity: Math.min(Math.max(1, quantity + increment), max)
+      quantity: this._getBound(quantity + increment)
     })
   }
 

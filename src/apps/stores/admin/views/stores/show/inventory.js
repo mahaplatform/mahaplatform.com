@@ -14,7 +14,7 @@ class Inventory extends React.Component {
   }
 
   render() {
-    const { products } = this.props
+    const variants = this._getVariants()
     return (
       <div className="stores-inventoryfield">
         <div className="maha-table">
@@ -37,31 +37,29 @@ class Inventory extends React.Component {
               </tr>
             </thead>
             <tbody>
-              { products.map((product, index) => [
-                product.variants.map((variant, vindex) => (
-                  <tr key={`product_${index}_variant_${vindex}`}>
-                    <td className="unpadded">
-                      <VariantToken product={ product } variant={ variant }/>
-                    </td>
-                    <td className="right aligned">
-                      { variant.inventory_instock }
-                    </td>
-                    <td className="right aligned">
-                      { variant.inventory_reserved }
-                    </td>
-                    <td className="right aligned">
-                      { variant.inventory_unfulfilled }
-                    </td>
-                    <td className="right aligned">
-                      { variant.inventory_onhand }
-                    </td>
-                  </tr>
-                ))
-              ]) }
-              { products.length === 0 &&
+              { variants.map((variant, vindex) => (
+                <tr key={`product_${index}_variant_${vindex}`}>
+                  <td className="unpadded">
+                    <VariantToken product={ product } variant={ variant }/>
+                  </td>
+                  <td className="right aligned">
+                    { variant.inventory_instock }
+                  </td>
+                  <td className="right aligned">
+                    { variant.inventory_reserved }
+                  </td>
+                  <td className="right aligned">
+                    { variant.inventory_unfulfilled }
+                  </td>
+                  <td className="right aligned">
+                    { variant.inventory_onhand }
+                  </td>
+                </tr>
+              )) }
+              { variants.length === 0 &&
                 <tr>
                   <td colSpan="4" className="center">
-                    This store doesnt yet have any products
+                    You are not tracking inventory for any product varaints
                   </td>
                 </tr>
               }
@@ -70,6 +68,16 @@ class Inventory extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getVariants() {
+    const { products } = this.props
+    return products.reduce((variants, product) => [
+      ...variants,
+      ...product.variants.filter(variant => {
+        return variant.inventory_policy !== 'unlimited'
+      })
+    ], [])
   }
 
 }

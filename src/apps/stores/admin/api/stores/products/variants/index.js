@@ -1,3 +1,4 @@
+import activate from './activate'
 import { Router } from 'express'
 import destroy from './destroy'
 import update from './update'
@@ -14,6 +15,8 @@ router.get('/:id/edit', edit)
 router.get('/:id/photos', photos)
 
 router.patch('/:id', update)
+
+router.patch('/:id/activate', activate)
 
 router.delete('/:id', destroy)
 

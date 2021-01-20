@@ -68,10 +68,10 @@ class Product extends React.Component {
                   }
                 </div>
               }
-              { variant.inventory_policy === 'deny' && variant.inventory_onhand > 0 &&
+              { (variant.inventory_policy !== 'deny' || variant.inventory_onhand > 0) &&
                 <Quantity { ...this._getQuantity(variant) } />
               }
-              { variant.inventory_policy === 'deny' && variant.inventory_onhand > 0 &&
+              { (variant.inventory_policy !== 'deny' || variant.inventory_onhand > 0) &&
                 <Button { ...this._getAdd(variant) } />
               }
             </div>
@@ -136,7 +136,7 @@ class Product extends React.Component {
 
   _getQuantity(variant) {
     return {
-      max: variant.inventory_onhand,
+      variant,
       onChange: this._handleQuantity
     }
   }
