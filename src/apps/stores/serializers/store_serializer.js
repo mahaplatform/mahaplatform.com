@@ -9,6 +9,7 @@ const storeSerializer = (req, result) => ({
   abandoned_count: result.get('abandoned_count'),
   active_count: result.get('active_count'),
   orders_count: result.get('orders_count'),
+  unfulfilled_count: result.get('unfulfilled_count'),
   revenue: result.get('revenue'),
   first_order: result.get('first_order'),
   last_order: result.get('last_order'),

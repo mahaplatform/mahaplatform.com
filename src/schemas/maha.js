@@ -6274,7 +6274,7 @@ union
     await knex.raw(`
       create view stores_category_totals AS
       select stores_categories.id as category_id,
-      count(stores_products_categories.*) as product_count
+      count(stores_products_categories.*) as products_count
       from (stores_categories
       join stores_products_categories on ((stores_products_categories.category_id = stores_categories.id)))
       group by stores_categories.id;
@@ -6390,16 +6390,25 @@ union
       from (stores_orders stores_orders_1
       left join stores_items on ((stores_items.order_id = stores_orders_1.id)))
       group by stores_orders_1.id
+      ), unfulfilled as (
+      select stores_orders_1.id as order_id,
+      count(stores_items.*) as total
+      from (stores_orders stores_orders_1
+      join stores_items on ((stores_items.order_id = stores_orders_1.id)))
+      where (stores_items.status = 'pending'::stores_item_statuses)
+      group by stores_orders_1.id
       )
       select stores_orders.id as order_id,
       stores_orders.store_id,
       items.total as items_count,
-      invoice.total,
-      revenue.revenue,
+      coalesce(unfulfilled.total, (0)::bigint) as unfulfilled_count,
+      coalesce(invoice.total, 0.00) as total,
+      coalesce(revenue.revenue, 0.00) as revenue,
       (revenue.revenue = invoice.total) as is_paid
-      from (((stores_orders
-      join revenue on ((revenue.order_id = stores_orders.id)))
-      join invoice on ((invoice.order_id = stores_orders.id)))
+      from ((((stores_orders
+      left join unfulfilled on ((unfulfilled.order_id = stores_orders.id)))
+      left join revenue on ((revenue.order_id = stores_orders.id)))
+      left join invoice on ((invoice.order_id = stores_orders.id)))
       join items on ((items.order_id = stores_orders.id)));
     `)
 
@@ -6409,19 +6418,19 @@ union
       select stores_stores_1.id as store_id,
       count(stores_carts.*) as total
       from (stores_stores stores_stores_1
-      join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'abandoned'::stores_cart_statuses))))
+      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'abandoned'::stores_cart_statuses))))
       group by stores_stores_1.id
       ), active as (
       select stores_stores_1.id as store_id,
       count(stores_carts.*) as total
       from (stores_stores stores_stores_1
-      join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'active'::stores_cart_statuses))))
+      left join stores_carts on (((stores_carts.store_id = stores_stores_1.id) and (stores_carts.status = 'active'::stores_cart_statuses))))
       group by stores_stores_1.id
       ), orders as (
       select stores_stores_1.id as store_id,
       count(stores_orders.*) as total
       from (stores_stores stores_stores_1
-      join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
+      left join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
       group by stores_stores_1.id
       ), revenue as (
       select stores_order_totals.store_id,
@@ -6438,18 +6447,28 @@ union
       max(stores_orders.created_at) as created_at
       from stores_orders
       group by stores_orders.store_id
+      ), unfulfilled as (
+      select stores_stores_1.id as store_id,
+      count(stores_items.*) as total
+      from ((stores_stores stores_stores_1
+      join stores_orders on ((stores_orders.store_id = stores_stores_1.id)))
+      join stores_items on ((stores_items.order_id = stores_orders.id)))
+      where (stores_items.status = 'pending'::stores_item_statuses)
+      group by stores_stores_1.id
       )
       select stores_stores.id as store_id,
       coalesce(abandoned.total, (0)::bigint) as abandoned_count,
       coalesce(active.total, (0)::bigint) as active_count,
       coalesce(orders.total, (0)::bigint) as orders_count,
-      coalesce(revenue.revenue, 0.00) as revenue,
+      coalesce(unfulfilled.total, (0)::bigint) as unfulfilled_count,
+      coalesce(revenue.revenue, 0.00) as "coalesce",
       first_order.created_at as first_order,
       last_order.created_at as last_order
-      from ((((((stores_stores
+      from (((((((stores_stores
       left join abandoned on ((abandoned.store_id = stores_stores.id)))
       left join active on ((active.store_id = stores_stores.id)))
       left join orders on ((orders.store_id = stores_stores.id)))
+      left join unfulfilled on ((unfulfilled.store_id = stores_stores.id)))
       left join revenue on ((revenue.store_id = stores_stores.id)))
       left join first_order on ((first_order.store_id = stores_stores.id)))
       left join last_order on ((last_order.store_id = stores_stores.id)));

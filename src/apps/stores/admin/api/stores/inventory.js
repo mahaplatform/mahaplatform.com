@@ -19,7 +19,7 @@ const inventoryRoute = async (req, res) => {
 
   await Promise.mapSeries(Object.keys(req.body.inventory), async (variant_id) => {
 
-    const { inventory_instock, inventory_policy } = req.body.inventory[variant_id]
+    const { inventory_instock } = req.body.inventory[variant_id]
 
     const variant = await Variant.query(qb => {
       qb.select('stores_variants.*','stores_inventories.*')
@@ -30,15 +30,6 @@ const inventoryRoute = async (req, res) => {
     }).fetch({
       transacting: req.trx
     })
-
-    if(inventory_policy !== variant.get('inventory_policy')) {
-      await variant.save({
-        inventory_policy
-      },{
-        transacting: req.trx,
-        patch: true
-      })
-    }
 
     if(inventory_instock !== variant.get('inventory_instock')) {
       await Adjustment.forge({

@@ -11,6 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Contact', key: 'contact.display_name', sort: 'contact', primary: true, format: OrderToken },
       { label: 'Submitted', key: 'created_at', format: 'datetime' },
       { label: 'Items', key: 'items_count', collapsing: true, align: 'right' },
+      { label: 'Unfulfilled', key: 'unfulfilled_count', collapsing: true, align: 'right' },
       { label: 'Revenue', key: 'revenue', collapsing: true, align: 'right' },
       { label: 'Status', key: 'is_paid', collapsing: true, format: PaymentToken }
     ],

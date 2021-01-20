@@ -41,5 +41,4 @@ const asset = (asset) => {
   }
 }
 
-
 export default itemSerializer

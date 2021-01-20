@@ -59,6 +59,14 @@ class Performance extends React.Component {
             <tbody>
               <tr>
                 <td>
+                  Unfulfilled Items
+                </td>
+                <td className="right aligned">
+                  { store.unfulfilled_count }
+                </td>
+              </tr>
+              <tr>
+                <td>
                   First Order
                 </td>
                 <td className="right aligned">
