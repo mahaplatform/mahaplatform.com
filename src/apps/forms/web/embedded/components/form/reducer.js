@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   human: false,
   mode: 'fields',
   ready: [],
+  result: null,
   status: 'ready',
   validated: []
 }
@@ -102,6 +103,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_SUCCESS':
     return {
       ...state,
+      result: action.result.data,
       status: 'success'
     }
 

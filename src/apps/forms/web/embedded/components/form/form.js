@@ -12,6 +12,10 @@ import React from 'react'
 
 class Form extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     code: PropTypes.string,
     config: PropTypes.object,
@@ -30,6 +34,7 @@ class Form extends React.Component {
     ready: PropTypes.array,
     referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
+    result: PropTypes.object,
     settings: PropTypes.object,
     starttime: PropTypes.number,
     status: PropTypes.string,
@@ -86,6 +91,10 @@ class Form extends React.Component {
         </Resizer>
       </Layout>
     )
+  }
+
+  componentDidMount() {
+    this.context.analytics.trackPageView()
   }
 
   componentDidUpdate(prevProps) {
@@ -145,11 +154,19 @@ class Form extends React.Component {
   }
 
   _handleSuccess() {
-    const { config, embedded } = this.props
+    const { config, embedded, result } = this.props
     const { strategy, redirect } = config.confirmation
+    this._handleTrack()
     if(strategy !== 'redirect') return
     if(embedded) return this.props.onRedirect(redirect)
     window.location.href = redirect
+  }
+
+  _handleTrack() {
+    const { result } = this.props
+    const { form_id, contact_id } = result
+    this.context.analytics.setUserId(contact_id)
+    this.context.analytics.updatePageActivity()
   }
 
 }

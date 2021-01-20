@@ -39,13 +39,14 @@ const showRoute = async (req, res) => {
   const team = form.related('team')
   const content = ejs.render(template, {
     form: {
+      id: form.get('id'),
+      title: form.get('config').seo.title || form.get('title'),
+      code: form.get('code'),
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
       referer: req.header('referer'),
       ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
       isOpen: form.get('is_open'),
       settings: settings.get('values'),
-      title: form.get('config').seo.title || form.get('title'),
-      code: form.get('code'),
       path: form.get('config').seo.permalink || `/forms/forms/${form.get('code')}`,
       config: {
         ...form.get('config'),
