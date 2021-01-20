@@ -3,6 +3,7 @@ import StoreList from './stores/list'
 import StoreShow from './stores/show'
 import CartList from './stores/carts/list'
 import CartShow from './stores/carts/show'
+import OrderList from './stores/orders/list'
 
 const routes = [
   { path: '/', component: StoreList },
@@ -10,7 +11,8 @@ const routes = [
   { path: '/stores/:id', component: StoreShow },
   { path: '/stores/:store_id/products/:id', component: ProductShow },
   { path: '/stores/:store_id/carts', component: CartList },
-  { path: '/stores/:store_id/carts/:id', component: CartShow }
+  { path: '/stores/:store_id/carts/:id', component: CartShow },
+  { path: '/stores/:store_id/orders', component: OrderList }
 ]
 
 export default routes

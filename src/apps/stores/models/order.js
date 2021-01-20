@@ -1,5 +1,6 @@
 import Payment from '@apps/finance/models/payment'
 import Invoice from '@apps/finance/models/invoice'
+import Contact from '@apps/crm/models/contact'
 import Model from '@core/objects/model'
 import Discount from './discount'
 import Store from './store'
@@ -24,6 +25,10 @@ const Order = new Model({
 
   cart() {
     return this.belongsTo(Cart, 'cart_id')
+  },
+
+  contact() {
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   discount() {

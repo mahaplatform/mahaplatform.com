@@ -5,6 +5,7 @@ import inventory from './inventory'
 import products from './products'
 import { Router } from 'express'
 import destroy from './destroy'
+import orders from './orders'
 import create from './create'
 import update from './update'
 import carts from './carts'
@@ -35,6 +36,8 @@ router.delete('/:id', destroy)
 router.use('/:store_id/carts', carts)
 
 router.use('/:store_id/categories', categories)
+
+router.use('/:store_id/orders', orders)
 
 router.use('/:store_id/products', products)
 
