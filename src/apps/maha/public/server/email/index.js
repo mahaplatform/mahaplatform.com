@@ -10,20 +10,20 @@ import view from './view'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/f:email_code([a-z0-9]{10})', forward)
+router.use('/fo/:email_code([a-z0-9]{10})', forward)
 
-router.get('/v:email_code([a-z0-9]{10})', open)
+router.get('/op/:email_code([a-z0-9]{10})', open)
 
-router.get('/c:email_code([a-z0-9]{10}):link_code([a-z0-9]{10})', link)
+router.get('/li/:email_code([a-z0-9]{10}):link_code([a-z0-9]{10})', link)
 
-router.get('/w:email_code([a-z0-9]{10})', webview)
+router.get('/wv/:email_code([a-z0-9]{10})', webview)
 
-router.use('/s:service([a-z]{1}):email_code([a-z0-9]{10})', social)
+router.use('/so/:service([a-z]{21})/:email_code([a-z0-9]{10})', social)
 
-router.get('/ns:codes', seen)
+router.get('/ns/:codes', seen)
 
 router.get('/nv:code', view)
 
-router.get('/so:code', signout)
+router.get('/so/:code', signout)
 
 export default router

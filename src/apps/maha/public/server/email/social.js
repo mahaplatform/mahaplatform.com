@@ -2,10 +2,10 @@ import EmailActivities from '@apps/maha/models/email_activity'
 import Email from '@apps/maha/models/email'
 
 const services = {
-  f: { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php?u=' },
-  t: { name: 'twitter', url: 'https://twitter.com/home?status=' },
-  l: { name: 'linkedin', url: 'https://www.linkedin.com/shareArticle?mini=true&url=' },
-  p: { name: 'pinterest', url: 'https://pinterest.com/pin/create/button/?url=' }
+  fa: { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php?u=' },
+  tw: { name: 'twitter', url: 'https://twitter.com/home?status=' },
+  li: { name: 'linkedin', url: 'https://www.linkedin.com/shareArticle?mini=true&url=' },
+  pi: { name: 'pinterest', url: 'https://pinterest.com/pin/create/button/?url=' }
 }
 
 const socialRoute = async (req, res) => {

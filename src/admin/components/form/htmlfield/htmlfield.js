@@ -27,7 +27,10 @@ class HtmlField extends React.Component {
     value: ''
   }
 
+  quill = null
+
   _handleChange = _.throttle(this._handleChange.bind(this), 150)
+  _handlePaste = this._handlePaste.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -41,6 +44,7 @@ class HtmlField extends React.Component {
   componentDidMount() {
     const { defaultValue, onReady } = this.props
     if(defaultValue) this._handleUpdate(defaultValue)
+    this.quill.getEditor().clipboard.addMatcher(Node.ELEMENT_NODE, this._handlePaste)
     onReady()
   }
 
@@ -52,10 +56,10 @@ class HtmlField extends React.Component {
   }
 
   _getEditor() {
-    const { headers } = this.props
-    const { value } = this.state
+    const { defaultValue, headers } = this.props
     return {
-      value,
+      defaultValue,
+      ref: node => this.quill= node,
       onChange: this._handleUpdate,
       modules: {
         toolbar: [
@@ -79,6 +83,19 @@ class HtmlField extends React.Component {
     const sanitized = this._getSanitized()
     const value = sanitized === '<p><br></p>' ? '' : sanitized
     this.props.onChange(value)
+  }
+
+  _handlePaste (node, delta) {
+    let ops = []
+    delta.ops.forEach(op => {
+      if (op.insert && typeof op.insert === 'string') {
+        ops.push({
+          insert: op.insert
+        })
+      }
+    })
+    delta.ops = ops
+    return delta
   }
 
   _handleUpdate(value) {
