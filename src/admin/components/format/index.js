@@ -1,5 +1,6 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import numeral from 'numeral'
 import moment from 'moment'
 import _ from 'lodash'
@@ -58,6 +59,8 @@ class Format extends React.Component {
         return Link(this.props)
       } else if(style === 'raw') {
         return Raw(this.props)
+      } else if(style === 'from') {
+        return From(this.props)
       } else if(style === 'element') {
         return Element(this.props)
       } else if(this.props.value === '') {
@@ -76,6 +79,10 @@ class Format extends React.Component {
 
 const Default = (props) => {
   return <span>{ props.value }</span>
+}
+
+const From = (props) => {
+  return <span>in { pluralize('hour', moment(props.value).diff(moment(), 'hours'), true) }</span>
 }
 
 const Element = (props) => {

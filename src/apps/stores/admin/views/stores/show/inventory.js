@@ -37,10 +37,10 @@ class Inventory extends React.Component {
               </tr>
             </thead>
             <tbody>
-              { variants.map((variant, vindex) => (
-                <tr key={`product_${index}_variant_${vindex}`}>
+              { variants.map((variant, index) => (
+                <tr key={`variant_${index}`}>
                   <td className="unpadded">
-                    <VariantToken product={ product } variant={ variant }/>
+                    <VariantToken product={ variant.product } variant={ variant }/>
                   </td>
                   <td className="right aligned">
                     { variant.inventory_instock }
@@ -76,7 +76,10 @@ class Inventory extends React.Component {
       ...variants,
       ...product.variants.filter(variant => {
         return variant.inventory_policy !== 'unlimited'
-      })
+      }).map(variant => ({
+        ...variant,
+        product
+      }))
     ], [])
   }
 

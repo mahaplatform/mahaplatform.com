@@ -1,6 +1,7 @@
 import Model from '@core/objects/model'
 import CartItem from './cart_item'
 import Discount from './discount'
+import moment from 'moment'
 import Order from './order'
 
 const Cart = new Model({
@@ -11,7 +12,13 @@ const Cart = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    expires_at() {
+      return moment(this.get('updated_at')).add(24, 'hours')
+    }
+
+  },
 
   discount() {
     return this.belongsTo(Discount, 'discount_id')

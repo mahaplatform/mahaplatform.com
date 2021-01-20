@@ -7,6 +7,7 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import carts from './carts'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -30,6 +31,8 @@ router.get('/:id/performance', performance)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.use('/:store_id/carts', carts)
 
 router.use('/:store_id/categories', categories)
 
