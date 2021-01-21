@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
   const events = await Event.query(qb => {
     qb.select('events.*','event_details.*')
     qb.innerJoin('event_details','event_details.event_id','events.id')
-    qb.whereRaw('event_details.type != ?', 'page_ping')
+    qb.weherNotIn('event_details.type', ['page_ping','track_maha'])
     qb.where('events.session_id', session.get('id'))
     qb.orderBy('events.tstamp', 'asc')
   }).fetchAll({
