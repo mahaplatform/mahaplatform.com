@@ -16,8 +16,6 @@ const Details = ({ form, response }) => {
     sections: [{
       items: [
         { label: 'Contact', content: <Button { ...contact } /> },
-        { label: 'IP Address', content: response.ipaddress },
-        { label: 'Referer', content: response.referer },
         { label: 'Duration', content: `${response.duration} seconds` },
         { label: 'Contact Status', content: response.is_known ? 'KNOWN' : 'UNKNOWN' },
         { label: 'Submitted', content: response.created_at, format: 'datetime' },

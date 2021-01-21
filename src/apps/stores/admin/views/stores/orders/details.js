@@ -17,8 +17,6 @@ const Details = ({ store, order }) => {
       {
         items: [
           { label: 'Contact', content: <Button { ...contact } /> },
-          { label: 'IP Address', content: order.ipaddress },
-          { label: 'Referer', content: order.referer },
           { label: 'Duration', content: `${order.duration} seconds` },
           { label: 'Contact Status', content: order.is_known ? 'KNOWN' : 'UNKNOWN' },
           { label: 'Submitted', content: order.created_at, format: 'datetime' },

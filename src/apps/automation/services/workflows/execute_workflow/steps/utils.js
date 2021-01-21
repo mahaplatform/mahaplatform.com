@@ -130,7 +130,10 @@ const getOrderData = async (req, { order }) => {
   return getExpanded(req, 'order', {
     basedata: {
       ...basedata,
-      maha_url: order.get('url')
+      maha_url: order.get('url'),
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email
     },
     fields,
     data,

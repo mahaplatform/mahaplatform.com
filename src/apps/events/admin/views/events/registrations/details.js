@@ -17,8 +17,6 @@ const Details = ({ event, registration }) => {
       {
         items: [
           { label: 'Contact', content: <Button { ...contact } /> },
-          { label: 'IP Address', content: registration.ipaddress },
-          { label: 'Referer', content: registration.referer },
           { label: 'Duration', content: `${registration.duration} seconds` },
           { label: 'Contact Status', content: registration.is_known ? 'KNOWN' : 'UNKNOWN' },
           { label: 'Submitted', content: registration.created_at, format: 'datetime' },

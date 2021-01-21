@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
     qb.where('store_id', store.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['items.variant.product','items.variant.photos.asset'],
+    withRelated: ['enrollment','store','items.variant.product','items.variant.photos.asset'],
     transacting: req.trx
   })
 

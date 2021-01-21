@@ -1,4 +1,6 @@
-const orderSerializer = (req, result) => ({
+import { expandData } from '@apps/forms/services/responses'
+
+const orderSerializer = async (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
   enrollment: enrollment(result.related('enrollment')),
@@ -10,7 +12,7 @@ const orderSerializer = (req, result) => ({
   duration: result.get('duration'),
   is_known: result.get('is_known'),
   tokens: result.get('tokens'),
-  data: result.get('data'),
+  data: await data(req, result.related('store'), result.get('data')),
   items: result.related('items').map(item),
   items_count: result.get('items_count'),
   unfulfilled_count: result.get('unfulfilled_count'),
@@ -94,6 +96,15 @@ const asset = (asset) => {
     path: asset.get('path'),
     signed_url: asset.get('signed_url')
   }
+}
+
+const data = async (req, store, data) => {
+  if(!data) return {}
+  if(!store.id) return data
+  return await expandData(req, {
+    fields: store.get('contact_config').fields,
+    data
+  })
 }
 
 export default orderSerializer
