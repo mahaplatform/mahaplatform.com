@@ -23,6 +23,7 @@ class Form extends React.Component {
     embedded: PropTypes.bool,
     errors: PropTypes.object,
     fields: PropTypes.array,
+    form: PropTypes.object,
     human: PropTypes.bool,
     ipaddress: PropTypes.string,
     isActive: PropTypes.bool,
@@ -163,10 +164,10 @@ class Form extends React.Component {
   }
 
   _handleTrack() {
-    const { result } = this.props
+    const { form, result } = this.props
     const { response_id, contact_id } = result
     this.context.analytics.setUserId(contact_id)
-    this.context.analytics.trackResponse(response_id)
+    this.context.analytics.trackResponse(form.id, response_id)
   }
 
 }

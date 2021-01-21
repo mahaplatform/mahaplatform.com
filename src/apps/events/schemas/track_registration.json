@@ -9,11 +9,15 @@
   },
   "type": "object",
   "properties": {
+    "event_id": {
+      "type": "integer",
+      "minimum": 0
+    },
     "registration_id": {
       "type": "integer",
       "minimum": 0
     }
   },
-  "required": ["registration_id"],
+  "required": ["event_id","registration_id"],
   "additionalProperties": false
 }

@@ -4,8 +4,8 @@ const schema = {
 
     await knex.schema.createTable('apps', (table) => {
       table.increments('id').primary()
+      table.integer('platform_id').unsigned()
       table.string('title', 255)
-      table.string('platform', 255)
     })
 
     await knex.schema.createTable('browsers', (table) => {
@@ -147,6 +147,11 @@ const schema = {
       table.text('path')
     })
 
+    await knex.schema.createTable('platforms', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('postal_codes', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
@@ -185,7 +190,7 @@ const schema = {
     })
 
     await knex.schema.createTable('sessions', (table) => {
-      table.integer('order_id')
+      table.integer('website_id')
       table.integer('domain_user_id').unsigned()
       table.integer('app_id').unsigned()
       table.integer('referer_id').unsigned()
@@ -196,10 +201,14 @@ const schema = {
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
       table.integer('network_id').unsigned()
-      table.integer('registration_id')
+      table.integer('store_id')
       table.increments('id').primary()
       table.integer('useragent_id').unsigned()
       table.integer('response_id')
+      table.integer('registration_id')
+      table.integer('order_id')
+      table.integer('form_id')
+      table.integer('event_id')
       table.string('clickid', 255)
       table.string('domain_sessionid', 255)
     })
@@ -271,12 +280,16 @@ const schema = {
     })
 
     await knex.schema.table('useragents', table => {
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
       table.foreign('device_id').references('devices.id')
       table.foreign('manufacturer_id').references('manufacturers.id')
       table.foreign('os_id').references('oses.id')
       table.foreign('os_version_id').references('versions.id')
-      table.foreign('browser_id').references('browsers.id')
-      table.foreign('browser_version_id').references('versions.id')
+    })
+
+    await knex.schema.table('apps', table => {
+      table.foreign('platform_id').references('platforms.id')
     })
 
 
@@ -305,6 +318,27 @@ const schema = {
       from ((domain_users
       join first_page on ((first_page.domain_user_id = domain_users.id)))
       join last_page on ((last_page.domain_user_id = domain_users.id)));
+    `)
+
+    await knex.raw(`
+      create view event_details AS
+      select events.id as event_id,
+      event_types.type,
+      pages.title as page_title,
+      case
+      when (events.page_id is not null) then concat(page_protocols.text, '://', page_domains.text, pages.path)
+      else null::text
+      end as page_url,
+      pageview_details.duration,
+      pageview_details.scrolldepth,
+      events.data,
+      events.tstamp
+      from (((((events
+      join event_types on ((event_types.id = events.event_type_id)))
+      left join pages on ((pages.id = events.page_id)))
+      left join protocols page_protocols on ((page_protocols.id = pages.protocol_id)))
+      left join domains page_domains on ((page_domains.id = pages.domain_id)))
+      left join pageview_details on ((pageview_details.pageview_id = events.id)));
     `)
 
     await knex.raw(`
@@ -354,7 +388,7 @@ const schema = {
       group by pageviews_1.id
       ), scrolldepths as (
       select pageviews_1.id as pageview_id,
-      round((least((((maxdepths.maxdepth + pageviews_1.view_height))::double precision / (documents.doc_height)::double precision), (1)::double precision))::numeric, 2) as scrolldepth
+      round((least((((least(maxdepths.maxdepth, pageviews_1.doc_height) + pageviews_1.view_height))::double precision / (documents.doc_height)::double precision), (1)::double precision))::numeric, 2) as scrolldepth
       from ((pageviews pageviews_1
       join maxdepths on ((maxdepths.pageview_id = pageviews_1.id)))
       join documents on ((documents.pageview_id = pageviews_1.id)))
@@ -371,7 +405,7 @@ const schema = {
       create view session_details AS
       with pageviews as (
       select sessions_1.id as session_id,
-      count(events.*) as pageviews
+      count(events.*) as total
       from ((sessions sessions_1
       join events on ((events.session_id = sessions_1.id)))
       join event_types on ((event_types.id = events.event_type_id)))
@@ -407,18 +441,80 @@ const schema = {
       order by sessions_1.id, events.tstamp desc
       )
       select sessions.id as session_id,
-      pageviews.pageviews,
-      first_event.tstamp as first_event_tstamp,
-      last_event.tstamp as last_event_tstamp,
+      domain_users.domain_userid,
+      domain_users.contact_id,
+      apps.title as app,
+      platforms.text as platform,
+      case
+      when (sessions.referer_id is not null) then concat(referer_protocols.text, '://', referer_domains.text, referers.path)
+      else null::text
+      end as referer,
+      cities.text as city,
+      regions.text as region,
+      countries.text as country,
+      postal_codes.text as postal_code,
+      metro_codes.text as metro_code,
+      ipaddresses.latitude,
+      ipaddresses.longitude,
+      ipaddresses.address as ipaddress,
+      sources.text as source,
+      mediums.text as medium,
+      campaigns.text as campaign,
+      terms.text as term,
+      contents.text as content,
+      networks.text as network,
+      devices.text as device,
+      manufacturers.text as manufacturer,
+      oses.text as os,
+      os_versions.text as os_version,
+      browsers.text as browser,
+      browser_versions.text as browser_version,
+      useragents.useragent,
+      sessions.clickid,
+      sessions.form_id,
+      sessions.response_id,
+      sessions.event_id,
+      sessions.registration_id,
+      sessions.store_id,
+      sessions.order_id,
+      sessions.website_id,
+      pageviews.total as pageviews_count,
+      ceil(date_part('epoch'::text, (last_event.tstamp - first_event.tstamp))) as duration,
       first_page.page_id as first_page_id,
       last_page.page_id as last_page_id,
-      ceil(date_part('epoch'::text, (last_event.tstamp - first_event.tstamp))) as duration
-      from (((((sessions
-      join pageviews on ((pageviews.session_id = sessions.id)))
+      first_event.tstamp as started_at,
+      last_event.tstamp as ended_at
+      from ((((((((((((((((((((((((((((((sessions
+      left join pageviews on ((pageviews.session_id = sessions.id)))
+      left join first_page on ((first_page.session_id = sessions.id)))
+      left join last_page on ((last_page.session_id = sessions.id)))
       join first_event on ((first_event.session_id = sessions.id)))
       join last_event on ((last_event.session_id = sessions.id)))
-      join first_page on ((first_page.session_id = sessions.id)))
-      join last_page on ((last_page.session_id = sessions.id)));
+      join domain_users on ((domain_users.id = sessions.domain_user_id)))
+      join apps on ((apps.id = sessions.app_id)))
+      join platforms on ((platforms.id = apps.platform_id)))
+      left join referers on ((referers.id = sessions.referer_id)))
+      left join protocols referer_protocols on ((referer_protocols.id = referers.protocol_id)))
+      left join domains referer_domains on ((referer_domains.id = referers.domain_id)))
+      left join ipaddresses on ((ipaddresses.id = sessions.ipaddress_id)))
+      left join cities on ((cities.id = ipaddresses.city_id)))
+      left join regions on ((regions.id = ipaddresses.region_id)))
+      left join countries on ((countries.id = ipaddresses.country_id)))
+      left join postal_codes on ((postal_codes.id = ipaddresses.postal_code_id)))
+      left join metro_codes on ((metro_codes.id = ipaddresses.metro_code_id)))
+      left join sources on ((sources.id = sessions.source_id)))
+      left join mediums on ((mediums.id = sessions.medium_id)))
+      left join campaigns on ((campaigns.id = sessions.campaign_id)))
+      left join terms on ((terms.id = sessions.term_id)))
+      left join contents on ((contents.id = sessions.content_id)))
+      left join networks on ((networks.id = sessions.network_id)))
+      left join useragents on ((useragents.id = sessions.useragent_id)))
+      left join devices on ((devices.id = useragents.device_id)))
+      left join manufacturers on ((manufacturers.id = useragents.manufacturer_id)))
+      left join oses on ((oses.id = useragents.os_id)))
+      left join versions os_versions on ((os_versions.id = useragents.os_version_id)))
+      left join browsers on ((browsers.id = useragents.browser_id)))
+      left join versions browser_versions on ((browser_versions.id = useragents.browser_version_id)));
     `)
   }
 

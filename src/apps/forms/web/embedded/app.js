@@ -91,7 +91,7 @@ class App extends React.Component {
     const {embedded, style } = this.state
     const { form } = window
     const { config } = form
-    return { config, embedded, style }
+    return { config, embedded, form, style }
   }
 
   _handleReady({ style }) {

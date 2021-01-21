@@ -214,7 +214,7 @@ class Registration extends React.Component {
   }
 
   _handleTrack(result) {
-    const { items, event, tax, total } = this.props
+    const { items, event, form, tax, total } = this.props
     const { contact_id, registration_id } = result
     const { analytics } = this.context
     analytics.setUserId(contact_id)
@@ -223,7 +223,7 @@ class Registration extends React.Component {
     })
     analytics.addTrans(registration_id, event.title, total, tax, null, null, null, null, 'USD')
     analytics.trackTrans()
-    analytics.trackRegistration(registration_id)
+    analytics.trackRegistration(form.id, registration_id)
   }
 
   _handleUpdateQuantities(quantities) {

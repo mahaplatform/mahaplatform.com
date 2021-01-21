@@ -1,8 +1,11 @@
 import { Router } from 'express'
-import sessions from './sessions'
+import list from './list'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/sessions', sessions)
+router.get('/', list)
+
+router.get('/:id', show)
 
 export default router

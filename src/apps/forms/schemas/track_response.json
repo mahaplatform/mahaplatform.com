@@ -9,11 +9,15 @@
   },
   "type": "object",
   "properties": {
+    "form_id": {
+      "type": "integer",
+      "minimum": 0
+    },
     "response_id": {
       "type": "integer",
       "minimum": 0
     }
   },
-  "required": ["response_id"],
+  "required": ["form_id","response_id"],
   "additionalProperties": false
 }
