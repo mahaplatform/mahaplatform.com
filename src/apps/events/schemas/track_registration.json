@@ -1,0 +1,19 @@
+{
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for tracking a event registration",
+  "self": {
+    "vendor": "com.mahaplatform",
+    "name": "track_registration",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "registration_id": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["registration_id"],
+  "additionalProperties": false
+}

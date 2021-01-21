@@ -185,7 +185,7 @@ const schema = {
     })
 
     await knex.schema.createTable('sessions', (table) => {
-      table.integer('useragent_id').unsigned()
+      table.integer('order_id')
       table.integer('domain_user_id').unsigned()
       table.integer('app_id').unsigned()
       table.integer('referer_id').unsigned()
@@ -196,9 +196,12 @@ const schema = {
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
       table.integer('network_id').unsigned()
+      table.integer('registration_id')
       table.increments('id').primary()
-      table.string('domain_sessionid', 255)
+      table.integer('useragent_id').unsigned()
+      table.integer('response_id')
       table.string('clickid', 255)
+      table.string('domain_sessionid', 255)
     })
 
     await knex.schema.createTable('sources', (table) => {

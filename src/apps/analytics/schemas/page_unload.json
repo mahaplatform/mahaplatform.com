@@ -1,0 +1,35 @@
+{
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for a context of an aggregated activity tracking on page unload",
+  "self": {
+    "vendor": "com.mahaplatform",
+    "name": "page_unload",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "minXOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxXOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "minYOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxYOffset": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "activeSeconds": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["minXOffset","maxXOffset","minYOffset","maxYOffset","activeSeconds"],
+  "additionalProperties": false
+}

@@ -224,6 +224,7 @@ class Checkout extends React.Component {
     })
     analytics.addTrans(order_id, Store.title, total, tax, shipping, null, null, null, 'USD')
     analytics.trackTrans()
+    analytics.trackOrder(order_id)
   }
 
 }

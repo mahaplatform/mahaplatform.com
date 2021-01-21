@@ -164,9 +164,9 @@ class Form extends React.Component {
 
   _handleTrack() {
     const { result } = this.props
-    const { form_id, contact_id } = result
+    const { response_id, contact_id } = result
     this.context.analytics.setUserId(contact_id)
-    this.context.analytics.updatePageActivity()
+    this.context.analytics.trackResponse(response_id)
   }
 
 }

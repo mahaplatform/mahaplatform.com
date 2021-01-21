@@ -1,5 +1,6 @@
 import { expandMessage } from '../messages/expand_message'
 import { getDomainUser } from '../domain_users'
+import { getEventType } from '../event_types'
 import Raw from '@apps/analytics/models/raw'
 import { getSession } from '../sessions'
 import { createEvent } from '../events'
@@ -23,13 +24,17 @@ export const processEvent = async(req, { id }) => {
         data
       })
 
+      const event_type = await getEventType(req, { data })
+
       const session = await getSession(req, {
         domain_user,
+        event_type,
         data
       })
 
       await createEvent(req, {
         session,
+        event_type,
         data
       })
 

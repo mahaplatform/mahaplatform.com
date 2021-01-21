@@ -1,10 +1,9 @@
 import Context from '@apps/analytics/models/context'
 import Event from '@apps/analytics/models/event'
-import { getEventType } from './event_types'
 import { getPage } from './pages'
 import { getData } from './data'
 
-export const createEvent = async(req, { data, session }) => {
+export const createEvent = async(req, { data, event_type, session }) => {
 
   const event = await Event.query(qb => {
     qb.where('event_id', data.event_id)
@@ -13,8 +12,6 @@ export const createEvent = async(req, { data, session }) => {
   })
 
   if(event) return event
-
-  const event_type = await getEventType(req, { data })
 
   const context = await Context.fetchOrCreate({
     context_id: data.context_id

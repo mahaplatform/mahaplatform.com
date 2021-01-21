@@ -10,7 +10,7 @@ import { getIPAddress } from './ipaddresses'
 import { getReferer } from './referers'
 import { getUseragent } from './useragents'
 
-export const getSession = async(req, { data, domain_user }) => {
+const fetchOrCreate = async(req, { data, domain_user }) => {
 
   const app = await App.fetchOrCreate({
     title: data.app_id,
@@ -91,5 +91,40 @@ export const getSession = async(req, { data, domain_user }) => {
   }).save(null, {
     transacting: req.analytics
   })
+
+}
+
+export const getSession = async(req, { data, event_type, domain_user }) => {
+
+  const session = await fetchOrCreate(req, { data, domain_user })
+
+  if(event_type.get('type') === 'track_order') {
+    await session.save({
+      order_id: data.unstruct_event.data.data.order_id
+    }, {
+      transacting: req.analytics,
+      patch: true
+    })
+  }
+
+  if(event_type.get('type') === 'track_registration') {
+    await session.save({
+      registration_id: data.unstruct_event.data.data.registration_id
+    }, {
+      transacting: req.analytics,
+      patch: true
+    })
+  }
+
+  if(event_type.get('type') === 'track_response') {
+    await session.save({
+      response_id: data.unstruct_event.data.data.response_id
+    }, {
+      transacting: req.analytics,
+      patch: true
+    })
+  }
+
+  return session
 
 }

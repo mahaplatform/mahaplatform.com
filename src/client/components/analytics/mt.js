@@ -76,6 +76,34 @@ class MahaTracker {
     this._handleEvent('updatePageActivity')
   }
 
+  trackResponse(response_id) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/track_response/jsonschema/1-0-0',
+      data: { response_id }
+    })
+  }
+
+  trackRegistration(registration_id) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/track_registration/jsonschema/1-0-0',
+      data: { registration_id }
+    })
+  }
+
+  trackOrder(order_id) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/track_order/jsonschema/1-0-0',
+      data: { order_id }
+    })
+  }
+
+  trackPageUnload(minXOffset, maxXOffset, minYOffset, maxYOffset, activeSeconds) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/page_unload/jsonschema/1-0-0',
+      data: { minXOffset, maxXOffset, minYOffset, maxYOffset, activeSeconds }
+    })
+  }
+
   _handleCheck() {
     if(!window.mt) return setTimeout(this._handleCheck, 250)
     this.loaded = true

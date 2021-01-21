@@ -17,6 +17,18 @@ badevents.on('message', async msg => {
 
     try {
 
+      const message = parseMessage(msg)
+
+      const parts = JSON.parse(message)
+
+      console.log(parts.data.failure.messages[0].error.lookupHistory[3].errors)
+
+      await createEvent({ analytics }, {
+        data: message,
+        status: 'error',
+        error: JSON.stringify(parts.data.failure)
+      })
+
       msg.finish()
 
     } catch(err) {
@@ -42,10 +54,9 @@ goodevents.on('message', async msg => {
 
     try {
 
-      const message = parseMessage(msg)
-
       await createEvent({ analytics }, {
-        message
+        data: parseMessage(msg),
+        status: 'pending'
       })
 
       msg.finish()

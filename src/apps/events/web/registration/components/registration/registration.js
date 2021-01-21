@@ -223,6 +223,7 @@ class Registration extends React.Component {
     })
     analytics.addTrans(registration_id, event.title, total, tax, null, null, null, null, 'USD')
     analytics.trackTrans()
+    analytics.trackRegistration(registration_id)
   }
 
   _handleUpdateQuantities(quantities) {
