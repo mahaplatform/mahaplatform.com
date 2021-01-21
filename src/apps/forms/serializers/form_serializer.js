@@ -4,7 +4,7 @@ const FormSerializer = (req, result) => ({
   code: result.get('code'),
   editable: result.get('editable'),
   permalink: result.get('permalink'),
-  url: result.get('url'),
+  url: `${req.team.get('origin')}${result.get('path')}`,
   config: result.get('config'),
   program: program(result.related('program')),
   average_duration: result.get('average_duration'),

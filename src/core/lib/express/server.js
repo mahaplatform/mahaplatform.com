@@ -1,15 +1,12 @@
 import collectObjects from '../../utils/collect_objects'
 import { Router } from 'express'
 import alias from './alias'
-import host from './host'
 
 const publics = collectObjects('public/server')
 
 const admins = collectObjects('admin/server')
 
 const router = new Router({ mergeParams: true })
-
-router.use(host)
 
 router.use(alias)
 

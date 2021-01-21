@@ -4,7 +4,7 @@ const storeSerializer = (req, result) => ({
   code: result.get('code'),
   contact_config: result.get('contact_config'),
   permalink: result.get('permalink'),
-  url: result.get('url'),
+  url: `${req.team.get('origin')}${result.get('path')}`,
   program: program(result.related('program')),
   abandoned_count: result.get('abandoned_count'),
   active_count: result.get('active_count'),

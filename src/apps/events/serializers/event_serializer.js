@@ -3,7 +3,7 @@ const EventSerializer = (req, result) => ({
   title: result.get('title'),
   code: result.get('code'),
   permalink: result.get('permalink'),
-  url: result.get('url'),
+  url: `${req.team.get('origin')}${result.get('path')}`,
   description: result.get('description'),
   image: result.related('image') ? result.related('image').get('path') : null,
   contact_config: result.get('contact_config'),

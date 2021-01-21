@@ -24,7 +24,10 @@ const Team = new Model({
     },
 
     fqdn: function() {
-      return `${this.get('subdomain')}.${process.env.DOMAIN}`
+      const subdomain = process.env.NODE_ENV === 'production' ? `${this.get('subdomain')}.`: ''
+      const domain = process.env.DOMAIN
+      const port = process.env.NODE_ENV !== 'production' ? `:${process.env.DEVSERVER_PORT}`: ''
+      return subdomain + domain + port
     },
 
     origin: function() {

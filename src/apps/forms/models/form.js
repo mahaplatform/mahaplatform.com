@@ -31,9 +31,13 @@ const Form = new Model({
       return this.get('deleted_at') === null
     },
 
-    url() {
-      const path = this.get('permalink') ? `/forms/${this.get('permalink')}` : `/forms/${this.get('code')}`
+    path() {
+      return this.get('permalink') ? `/forms/${this.get('permalink')}` : `/forms/${this.get('code')}`
       return `${process.env.WEB_HOST}${path}`
+    },
+
+    url() {
+      return `${process.env.WEB_HOST}${this.get('path')}`
     },
 
     is_open() {
