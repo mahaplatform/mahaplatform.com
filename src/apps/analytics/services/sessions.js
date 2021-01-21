@@ -108,7 +108,7 @@ export const getSession = async(req, { data, event_type, domain_user }) => {
 
   if(event_type.get('type') === 'track_maha') {
     const { key, value } = data.unstruct_event.data.data
-    if(_.includes(['form_id','response_id','event_id','registration_id','store_id','order_id','website_id'])) {
+    if(_.includes(['form_id','response_id','event_id','registration_id','store_id','order_id','website_id'], key)) {
       await session.save({
         [key]: value
       }, {
