@@ -1,23 +1,21 @@
 {
   "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-  "description": "Schema for tracking a store order",
+  "description": "Schema for a context of an maha tracking event",
   "self": {
     "vendor": "com.mahaplatform",
-    "name": "track_registration",
+    "name": "track_maha",
     "format": "jsonschema",
     "version": "1-0-0"
   },
   "type": "object",
   "properties": {
-    "store_id": {
-      "type": "integer",
-      "minimum": 0
+    "key": {
+      "type": "string"
     },
-    "order_id": {
-      "type": "integer",
-      "minimum": 0
+    "value": {
+      "type": "integer"
     }
   },
-  "required": ["store_id","order_id"],
+  "required": ["key","value"],
   "additionalProperties": false
 }

@@ -12,16 +12,14 @@ class Fields extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
+    form: PropTypes.object,
     human: PropTypes.bool,
-    ipaddress: PropTypes.string,
     isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     params: PropTypes.object,
     ready: PropTypes.array,
-    referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
-    starttime: PropTypes.number,
     status: PropTypes.string,
     token: PropTypes.string,
     validated: PropTypes.array,
@@ -68,11 +66,11 @@ class Fields extends React.Component {
   }
 
   _getFields() {
-    const { fields, ipaddress, referer, starttime } = this.props
+    const { fields, form } = this.props
     return [
-      { type: 'hidden', code: 'referer', value: referer },
-      { type: 'hidden', code: 'starttime', value: starttime },
-      { type: 'hidden', code: 'ipaddress', value: ipaddress },
+      { type: 'hidden', code: 'referer', value: form.referer },
+      { type: 'hidden', code: 'starttime', value: form.starttime },
+      { type: 'hidden', code: 'ipaddress', value: form.ipaddress },
       ...fields
     ]
   }

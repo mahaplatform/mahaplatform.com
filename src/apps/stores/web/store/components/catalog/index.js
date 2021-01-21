@@ -6,10 +6,6 @@ import React from 'react'
 
 class Catalog extends React.Component {
 
-  static contextTypes = {
-    analytics: PropTypes.object
-  }
-
   static propTypes = {
     categories: PropTypes.array,
     store: PropTypes.object
@@ -37,10 +33,6 @@ class Catalog extends React.Component {
         </div>
       </ModalPanel>
     )
-  }
-
-  componentDidMount() {
-    this.context.analytics.trackPageView()
   }
 
   _getCategories() {

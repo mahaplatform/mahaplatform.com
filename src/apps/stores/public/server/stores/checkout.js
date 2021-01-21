@@ -39,11 +39,12 @@ const checkoutRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     store: {
+      id: store.get('id'),
+      code: store.get('code'),
+      title: store.get('title'),
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),
       referer: req.header('referer'),
       ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
-      code: store.get('code'),
-      title: store.get('title'),
       program: {
         title: program.get('title'),
         logo: program.related('logo') ? program.related('logo').get('path') : null

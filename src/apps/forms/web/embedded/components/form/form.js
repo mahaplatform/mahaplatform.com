@@ -17,7 +17,6 @@ class Form extends React.Component {
   }
 
   static propTypes = {
-    code: PropTypes.string,
     config: PropTypes.object,
     data: PropTypes.object,
     embedded: PropTypes.bool,
@@ -25,22 +24,16 @@ class Form extends React.Component {
     fields: PropTypes.array,
     form: PropTypes.object,
     human: PropTypes.bool,
-    ipaddress: PropTypes.string,
     isActive: PropTypes.bool,
-    isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     mode: PropTypes.string,
     params: PropTypes.object,
     ready: PropTypes.array,
-    referer: PropTypes.string,
     requiresPayment: PropTypes.bool,
     result: PropTypes.object,
-    settings: PropTypes.object,
-    starttime: PropTypes.number,
     status: PropTypes.string,
     summary: PropTypes.object,
-    title: PropTypes.string,
     tokens: PropTypes.object,
     token: PropTypes.string,
     validated: PropTypes.array,
@@ -63,7 +56,7 @@ class Form extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { config, isActive, isOpen, mode, status } = this.props
+    const { config, isActive, form, mode, status } = this.props
     const { strategy } = config.confirmation
     return (
       <Layout { ...this._getSection() }>
@@ -71,10 +64,10 @@ class Form extends React.Component {
           { config.header &&
             <Header { ...this._getSection() } />
           }
-          { isActive && isOpen && mode === 'fields' &&
+          { isActive && form.isOpen && mode === 'fields' &&
             <Fields { ...this._getFields() } />
           }
-          { isActive && isOpen && mode === 'payment' &&
+          { isActive && form.isOpen && mode === 'payment' &&
             <div className="maha-form-body">
               <Summary { ...this._getSummary() } />
               <Payment { ...this._getPayment() } />
@@ -83,7 +76,7 @@ class Form extends React.Component {
           { status === 'success' && strategy === 'message' &&
             <Confirmation { ...this._getSection() } />
           }
-          { !isOpen &&
+          { !form.isOpen &&
             <Closed { ...this._getSection() } />
           }
           { config.footer &&
@@ -96,6 +89,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.context.analytics.trackPageView()
+    this.context.analytics.trackMaha('form_id', form.id)
   }
 
   componentDidUpdate(prevProps) {
@@ -113,17 +107,17 @@ class Form extends React.Component {
   }
 
   _getPayment() {
-    const { code, config, data, settings, summary, title, token, onSetPaid } = this.props
+    const { config, data, form, summary, token, onSetPaid } = this.props
     return {
       amount: Number(summary.total),
       data,
-      endpoint: `/api/forms/forms/${code}`,
+      endpoint: `/api/forms/forms/${form.code}`,
       lineItems: summary.line_items.map(item => ({
         ...item,
-        name: `${config.program.title} - ${title} - ${item.description}`
+        name: `${config.program.title} - ${form.title} - ${item.description}`
       })),
       program: config.program,
-      settings,
+      settings: form.settings,
       token,
       onSuccess: onSetPaid
     }
@@ -150,8 +144,8 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { code, data, token } = this.props
-    this.props.onSubmit(token, code, data)
+    const { data, form, token } = this.props
+    this.props.onSubmit(token, form.code, data)
   }
 
   _handleSuccess() {
@@ -167,7 +161,7 @@ class Form extends React.Component {
     const { form, result } = this.props
     const { response_id, contact_id } = result
     this.context.analytics.setUserId(contact_id)
-    this.context.analytics.trackResponse(form.id, response_id)
+    this.context.analytics.trackMaha('response_id', response_id)
   }
 
 }

@@ -7,6 +7,10 @@ import React from 'react'
 
 class Store extends React.Component {
 
+  static contextTypes = {
+    analytics: PropTypes.object
+  }
+
   static propTypes = {
     products: PropTypes.array,
     store: PropTypes.object,
@@ -41,6 +45,8 @@ class Store extends React.Component {
     })
     this.store.on('ready', this._handleReady)
     this.store.init()
+    this.context.analytics.trackPageView()
+    this.context.analytics.trackMaha('store_id', store.id)
   }
 
   _getCartIcon() {

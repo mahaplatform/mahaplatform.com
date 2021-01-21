@@ -1,3 +1,4 @@
+import Platform from '@apps/analytics/models/platform'
 import Campaign from '@apps/analytics/models/campaign'
 import Session from '@apps/analytics/models/session'
 import Content from '@apps/analytics/models/content'
@@ -7,14 +8,21 @@ import Medium from '@apps/analytics/models/medium'
 import Term from '@apps/analytics/models/term'
 import App from '@apps/analytics/models/app'
 import { getIPAddress } from './ipaddresses'
-import { getReferer } from './referers'
 import { getUseragent } from './useragents'
+import { getReferer } from './referers'
+import _ from 'lodash'
 
 const fetchOrCreate = async(req, { data, domain_user }) => {
 
+  const platform = await Platform.fetchOrCreate({
+    text: data.platform
+  }, {
+    transacting: req.analytics
+  })
+
   const app = await App.fetchOrCreate({
     title: data.app_id,
-    platform: data.platform
+    platform_id: platform.get('id')
   }, {
     transacting: req.analytics
   })
@@ -98,31 +106,17 @@ export const getSession = async(req, { data, event_type, domain_user }) => {
 
   const session = await fetchOrCreate(req, { data, domain_user })
 
-  if(event_type.get('type') === 'track_order') {
-    await session.save({
-      order_id: data.unstruct_event.data.data.order_id
-    }, {
-      transacting: req.analytics,
-      patch: true
-    })
-  }
+  if(event_type.get('type') === 'track_maha') {
+    const { key, value } = data.unstruct_event.data.data
+    if(_.includes(['form_id','response_id','event_id','registration_id','store_id','order_id','website_id'])) {
+      await session.save({
+        [key]: value
+      }, {
+        transacting: req.analytics,
+        patch: true
+      })
+    }
 
-  if(event_type.get('type') === 'track_registration') {
-    await session.save({
-      registration_id: data.unstruct_event.data.data.registration_id
-    }, {
-      transacting: req.analytics,
-      patch: true
-    })
-  }
-
-  if(event_type.get('type') === 'track_response') {
-    await session.save({
-      response_id: data.unstruct_event.data.data.response_id
-    }, {
-      transacting: req.analytics,
-      patch: true
-    })
   }
 
   return session

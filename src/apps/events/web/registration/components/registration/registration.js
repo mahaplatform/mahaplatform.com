@@ -74,7 +74,9 @@ class Registration extends React.Component {
   }
 
   componentDidMount() {
+    const { event } = this.props
     this.context.analytics.trackPageView()
+    this.context.analytics.trackMaha('event_id', event.id)
     this._handlePush(Step1, this._getStep1.bind(this))
   }
 
@@ -214,7 +216,7 @@ class Registration extends React.Component {
   }
 
   _handleTrack(result) {
-    const { items, event, form, tax, total } = this.props
+    const { items, event, tax, total } = this.props
     const { contact_id, registration_id } = result
     const { analytics } = this.context
     analytics.setUserId(contact_id)
@@ -223,7 +225,7 @@ class Registration extends React.Component {
     })
     analytics.addTrans(registration_id, event.title, total, tax, null, null, null, null, 'USD')
     analytics.trackTrans()
-    analytics.trackRegistration(form.id, registration_id)
+    this.context.analytics.trackMaha('registration_id', registration_id)
   }
 
   _handleUpdateQuantities(quantities) {

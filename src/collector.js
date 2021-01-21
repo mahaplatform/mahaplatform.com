@@ -21,7 +21,7 @@ badevents.on('message', async msg => {
 
       const parts = JSON.parse(message)
 
-      console.log(parts.data.failure.messages[0].error.lookupHistory[3].errors)
+      console.log(parts.data.failure)
 
       await createEvent({ analytics }, {
         data: message,

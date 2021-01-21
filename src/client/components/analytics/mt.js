@@ -76,24 +76,10 @@ class MahaTracker {
     this._handleEvent('updatePageActivity')
   }
 
-  trackResponse(form_id, response_id) {
+  trackMaha(key, value) {
     this._handleEvent('trackUnstructEvent', {
-      schema: 'iglu:com.mahaplatform/track_response/jsonschema/1-0-0',
-      data: { form_id, response_id }
-    })
-  }
-
-  trackRegistration(event_id, registration_id) {
-    this._handleEvent('trackUnstructEvent', {
-      schema: 'iglu:com.mahaplatform/track_registration/jsonschema/1-0-0',
-      data: { event_id, registration_id }
-    })
-  }
-
-  trackOrder(store_id, order_id) {
-    this._handleEvent('trackUnstructEvent', {
-      schema: 'iglu:com.mahaplatform/track_order/jsonschema/1-0-0',
-      data: { store_id, order_id }
+      schema: 'iglu:com.mahaplatform/track_maha/jsonschema/1-0-0',
+      data: { key, value }
     })
   }
 

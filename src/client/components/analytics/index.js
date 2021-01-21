@@ -39,9 +39,7 @@ class Analytics extends React.Component {
         trackPageView: this._handleEvent.bind(this, 'trackPageView'),
         trackSocialInteraction: this._handleEvent.bind(this, 'trackSocialInteraction'),
         trackTrans: this._handleEvent.bind(this, 'trackTrans'),
-        trackOrder: this._handleEvent.bind(this, 'trackOrder'),
-        trackResponse: this._handleEvent.bind(this, 'trackResponse'),
-        trackRegistration: this._handleEvent.bind(this, 'trackRegistration'),
+        trackMaha: this._handleEvent.bind(this, 'trackMaha'),
         trackPageUnload: this._handleEvent.bind(this, 'trackPageUnload'),
         updatePageActivity: this._handleEvent.bind(this, 'updatePageActivity')
       }

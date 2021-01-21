@@ -69,18 +69,12 @@ class App extends React.Component {
   _getForm() {
     const { embedded, params } = this.state
     const { form, token } = window
-    const { code, config, title, ipaddress, referer, starttime, settings, isOpen } = form
+    const { config } = form
     return {
-      code,
       config,
       embedded,
-      ipaddress,
-      isOpen,
+      form,
       params,
-      referer,
-      starttime,
-      settings,
-      title,
       token,
       onRedirect: this._handleRedirect,
       onResize: this._handleResize
@@ -91,7 +85,7 @@ class App extends React.Component {
     const {embedded, style } = this.state
     const { form } = window
     const { config } = form
-    return { config, embedded, form, style }
+    return { config, embedded, style }
   }
 
   _handleReady({ style }) {
