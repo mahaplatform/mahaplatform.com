@@ -158,10 +158,11 @@ class Form extends React.Component {
   }
 
   _handleTrack() {
+    const { analytics } = this.context
     const { form, result } = this.props
     const { response_id, contact_id } = result
-    this.context.analytics.setUserId(contact_id)
-    this.context.analytics.trackMaha('response_id', response_id)
+    analytics.setUserId(contact_id)
+    analytics.trackMaha('response_id', response_id)
   }
 
 }
