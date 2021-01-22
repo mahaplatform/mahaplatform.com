@@ -28,16 +28,16 @@ class MahaTracker {
     this._handleEvent('enableLinkClickTracking')
   }
 
-  setUser(userid) {
-    this._handleEvent('setUserId', userid)
+  setUserId(userid) {
+    this._handleEvent('setUserId', `${userid}`)
   }
 
   trackAddToCart(sku, name, category, unitPrice, quantity, currency) {
-    this._handleEvent('trackAddToCart', sku, name, category, unitPrice, quantity, currency)
+    this._handleEvent('trackAddToCart', sku, name, category, Number(unitPrice), Number(quantity), currency)
   }
 
   trackRemoveFromCart(sku, name, category, unitPrice, quantity, currency) {
-    this._handleEvent('trackRemoveFromCart', sku, name, category, unitPrice, quantity, currency)
+    this._handleEvent('trackRemoveFromCart', sku, name, category, Number(unitPrice), Number(quantity), currency)
   }
 
   trackSiteSearch(terms, filters, totalResults) {
@@ -60,8 +60,8 @@ class MahaTracker {
     this._handleEvent('trackStructEvent', category, action, label, property, value)
   }
 
-  trackPageView() {
-    this._handleEvent('trackPageView')
+  trackPageView(title) {
+    this._handleEvent('trackPageView', title)
   }
 
   trackSocialInteraction(action, network, target) {
@@ -74,6 +74,20 @@ class MahaTracker {
 
   updatePageActivity() {
     this._handleEvent('updatePageActivity')
+  }
+
+  trackMaha(key, value) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/track_maha/jsonschema/1-0-0',
+      data: { key, value }
+    })
+  }
+
+  trackPageUnload(minXOffset, maxXOffset, minYOffset, maxYOffset, activeSeconds) {
+    this._handleEvent('trackUnstructEvent', {
+      schema: 'iglu:com.mahaplatform/page_unload/jsonschema/1-0-0',
+      data: { minXOffset, maxXOffset, minYOffset, maxYOffset, activeSeconds }
+    })
   }
 
   _handleCheck() {
@@ -93,6 +107,7 @@ class MahaTracker {
       }
     })
     window.mt('enableActivityTracking', 10, 10)
+    window.mt('setUserIdFromLocation', 'cid')
   }
 
   _handleDrainQueue() {

@@ -3,14 +3,19 @@ import EmailLink from '@apps/maha/models/email_link'
 import Email from '@apps/maha/models/email'
 import moment from 'moment'
 import _ from 'lodash'
+import qs from 'qs'
 
 const getQuery = async (req, { email }) => {
 
-  if(!email.get('email_id') || !email.get('email_campaign_id')) return ''
+  if(!email.get('email_id') && !email.get('email_campaign_id')) return ''
+
+  await email.load(['team'], {
+    transacting: req.trx
+  })
 
   const params = {
     utm_medium: 'email',
-    utm_source: req.team.get('fqdn'),
+    utm_source: email.related('team').get('fqdn'),
     cid: email.get('contact_id')
   }
 
@@ -32,11 +37,12 @@ const getQuery = async (req, { email }) => {
 
   const query = Object.keys(params).filter(key => {
     return _.isNil(params.key)
-  }).map(key => {
-    return `${key}=${params[key]}`
-  })
+  }).reduce((query, key) => ({
+    ...query,
+    [key]: params[key]
+  }), {})
 
-  return query.length > 0 ? `?${query.join('&')}` : ''
+  return Object.keys(query).length > 0 ? `?${qs.stringify(query)}` : ''
 
 }
 

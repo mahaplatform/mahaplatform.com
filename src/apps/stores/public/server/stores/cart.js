@@ -15,6 +15,7 @@ const cartRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     store: {
+      id: store.get('id'),
       code: store.get('code'),
       title: store.get('title')
     }

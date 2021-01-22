@@ -14,9 +14,6 @@ class Analytics extends React.Component {
     children: PropTypes.any
   }
 
-  _handleEvent = this._handleEvent.bind(this)
-  _handleView = this._handleView.bind(this)
-
   render() {
     return this.props.children
   }
@@ -30,8 +27,23 @@ class Analytics extends React.Component {
   getChildContext() {
     return {
       analytics: {
-        event: this._handleEvent,
-        view: this._handleView
+        addItem: this._handleEvent.bind(this, 'addItem'),
+        addTrans: this._handleEvent.bind(this, 'addTrans'),
+        enableLinkClickTracking: this._handleEvent.bind(this, 'enableLinkClickTracking'),
+        setUserId: this._handleEvent.bind(this, 'setUserId'),
+        trackAddToCart: this._handleEvent.bind(this, 'trackAddToCart'),
+        trackRemoveFromCart: this._handleEvent.bind(this, 'trackRemoveFromCart'),
+        trackSiteSearch: this._handleEvent.bind(this, 'trackSiteSearch'),
+        trackAdImpression: this._handleEvent.bind(this, 'trackAdImpression'),
+        trackAdClick: this._handleEvent.bind(this, 'trackAdClick'),
+        trackAdConversion: this._handleEvent.bind(this, 'trackAdConversion'),
+        trackStructEvent: this._handleEvent.bind(this, 'trackStructEvent'),
+        trackPageView: this._handleEvent.bind(this, 'trackPageView'),
+        trackSocialInteraction: this._handleEvent.bind(this, 'trackSocialInteraction'),
+        trackTrans: this._handleEvent.bind(this, 'trackTrans'),
+        trackMaha: this._handleEvent.bind(this, 'trackMaha'),
+        trackPageUnload: this._handleEvent.bind(this, 'trackPageUnload'),
+        updatePageActivity: this._handleEvent.bind(this, 'updatePageActivity')
       }
     }
   }
@@ -52,36 +64,12 @@ class Analytics extends React.Component {
     mt.initialize(mt_tracking_id)
   }
 
-  _handleEvent(category, action, extra = {}) {
-    if(!this._isProduction()) return
+  _handleEvent() {
     const { ga_tracking_id, mt_tracking_id } = this.props.site
-    if(ga_tracking_id) {
-      ga.event({
-        category,
-        action,
-        ...extra
-      })
-    }
-    if(mt_tracking_id) {
-      mt.event({
-        category,
-        action,
-        ...extra
-      })
-    }
-  }
-
-  _handleView() {
     if(!this._isProduction()) return
-    const { ga_tracking_id, mt_tracking_id } = this.props.site
-    const page = window.location.pathname
-    if(ga_tracking_id) {
-      ga.set({ page })
-      ga.pageview(page)
-    }
-    if(mt_tracking_id) {
-      mt.trackPageView(page)
-    }
+    const args = Array.prototype.slice.call(arguments)
+    if(mt_tracking_id) mt[args[0]](...args.slice(1))
+    if(ga_tracking_id) ga[args[0]](...args.slice(1))
   }
 
 }

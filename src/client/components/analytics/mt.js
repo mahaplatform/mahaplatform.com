@@ -107,6 +107,7 @@ class MahaTracker {
       }
     })
     window.mt('enableActivityTracking', 10, 10)
+    window.mt('setUserIdFromLocation', 'cid')
   }
 
   _handleDrainQueue() {
