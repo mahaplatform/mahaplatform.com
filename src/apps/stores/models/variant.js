@@ -40,7 +40,9 @@ const Variant = new Model({
   },
 
   photos() {
-    return this.hasMany(Photo, 'variant_id')
+    return this.hasMany(Photo, 'variant_id').query(qb => {
+      qb.orderBy('delta', 'asc')
+    })
   },
 
   product() {

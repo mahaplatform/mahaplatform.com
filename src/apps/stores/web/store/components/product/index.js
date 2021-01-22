@@ -1,4 +1,4 @@
-import { Button, Carousel, DropDown, Image, ModalPanel } from '@client'
+import { Button, Carousel, Container, DropDown, Image, ModalPanel } from '@client'
 import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import Quantity from '../quantity'
@@ -192,4 +192,8 @@ class Product extends React.Component {
 
 }
 
-export default Product
+const mapResources = (props, context) => ({
+  product: `/api/stores/stores/${props.store_code}/products/${props.code}`
+})
+
+export default Container(mapResources)(Product)

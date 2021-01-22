@@ -1,10 +1,14 @@
-import { ModalPanel } from '@client'
+import { Infinite, ModalPanel } from '@client'
 import Categories from '../categories'
 import PropTypes from 'prop-types'
-import Item from './item'
+import Results from './results'
 import React from 'react'
 
 class Catalog extends React.Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
   static propTypes = {
     categories: PropTypes.array,
@@ -18,7 +22,6 @@ class Catalog extends React.Component {
   _handleCategory = this._handleCategory.bind(this)
 
   render() {
-    const products = this._getProducts()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="store-catalog">
@@ -26,9 +29,7 @@ class Catalog extends React.Component {
             <Categories { ...this._getCategories() } />
           </div>
           <div className="store-catalog-body">
-            { products.map((product, index) => (
-              <Item { ...this._getItem(product) } key={`product_${product.id}`} />
-            ))}
+            <Infinite { ...this._getInfinite() } />
           </div>
         </div>
       </ModalPanel>
@@ -43,29 +44,33 @@ class Catalog extends React.Component {
     }
   }
 
+  _getFilter() {
+    const { category_id } = this.state
+    if(category_id === 0) return null
+    return {
+      category_id: {
+        $eq: category_id
+      }
+    }
+  }
+
+  _getInfinite() {
+    const { store } = this.props
+    return {
+      endpoint: `/api/stores/stores/${store.code}/products`,
+      filter: this._getFilter(),
+      layout: Results,
+      props: {
+        store
+      }
+    }
+  }
+
   _getPanel() {
     const { store } = this.props
     return {
       title: store.title,
       color: 'green'
-    }
-  }
-
-  _getProducts() {
-    const { category_id } = this.state
-    const { store } = this.props
-    return store.products.filter(product => {
-      return category_id === 0 || product.categories.find(category => {
-        return category.id === category_id
-      }) !== undefined
-    })
-  }
-
-  _getItem(product) {
-    const { store } = this.props
-    return {
-      product,
-      store
     }
   }
 

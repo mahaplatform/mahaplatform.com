@@ -11,8 +11,7 @@ class Item extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,
-    store: PropTypes.object,
-    Store: PropTypes.object
+    store: PropTypes.object
   }
 
   _handleClick = this._handleClick.bind(this)
@@ -61,7 +60,7 @@ class Item extends React.Component {
 
   _handleClick() {
     const { store, product } = this.props
-    this.context.router.history.push(`${store.path}/products/${product.slug}`)
+    this.context.router.history.push(`${store.path}/products/${product.code}`)
   }
 
 }

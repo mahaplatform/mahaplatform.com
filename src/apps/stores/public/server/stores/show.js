@@ -17,16 +17,6 @@ const showRoute = async (req, res) => {
 
   req.team = store.related('team')
 
-  const products = await Product.query(qb => {
-    qb.where('store_id', store.get('id'))
-    qb.where('is_active', true)
-    qb.whereNull('deleted_at')
-    qb.orderBy('title', 'asc')
-  }).fetchAll({
-    withRelated: ['categories','variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
-    transacting: req.trx
-  })
-
   const template = await readFile(path.join('stores','store','index.html'))
 
   const program = store.related('program')
@@ -42,7 +32,6 @@ const showRoute = async (req, res) => {
       title: store.get('title'),
       path: store.get('path'),
       url: store.get('url'),
-      products: products.map(product => ProductSerializer(req, product)),
       categories: store.related('categories').map(category => ({
         id: category.get('id'),
         slug: category.get('slug'),

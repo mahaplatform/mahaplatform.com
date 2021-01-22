@@ -65,9 +65,8 @@ class Store extends React.Component {
   _getProduct(params) {
     const { store } = this.props
     return {
-      product: store.products.find(product => {
-        return product.slug === params.slug
-      }),
+      store_code: store.code,
+      code: params.code,
       Store: this.store
     }
   }
@@ -78,7 +77,7 @@ class Store extends React.Component {
       prefix: store.path,
       rootPath: store.path,
       routes: [
-        { path: '/products/:slug', component: Product, props: this._getProduct.bind(this) }
+        { path: '/products/:code', component: Product, props: this._getProduct.bind(this) }
       ]
     }
   }

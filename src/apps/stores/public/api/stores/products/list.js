@@ -16,11 +16,23 @@ const listRoute = async (req, res) => {
     message: 'Unable to load store'
   })
 
-  const products = await Product.query(qb => {
-    qb.where('store_id', store.get('id'))
-    qb.where('is_active', true)
-    qb.whereNull('deleted_at')
-  }).fetchAll({
+  const products = await Product.filterFetch({
+    scope: qb => {
+      qb.select(req.trx.raw('distinct on (stores_products.id,stores_products.title) stores_products.*'))
+      qb.innerJoin('stores_products_categories', 'stores_products_categories.product_id', 'stores_products.id')
+      qb.where('stores_products.store_id', store.get('id'))
+      qb.where('stores_products.is_active', true)
+      qb.whereNull('stores_products.deleted_at')
+      qb.orderBy('stores_products.title', 'asc')
+    },
+    aliases: {
+      category_id: 'stores_products_categories.category_id'
+    },
+    filter: {
+      params: req.query.$filter,
+      allowed: ['id']
+    },
+    page: req.query.$page,
     withRelated: ['categories','variants.photos.asset','variants.project','variants.revenue_type','variants.donation_revenue_type'],
     transacting: req.trx
   })
