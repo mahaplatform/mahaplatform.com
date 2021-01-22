@@ -36,7 +36,7 @@ const sessionSerializer = (req, result) => ({
   last_page_id: result.get('last_page_id'),
   started_at: result.get('started_at'),
   ended_at: result.get('ended_at'),
-  events: result.get('events').map(event)
+  events: result.get('events') ? result.get('events').map(event) : null
 })
 
 const event = (event) => {

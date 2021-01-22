@@ -87,6 +87,7 @@ const webpackConfig = (app, name, root, port) => ({
     ] : [],
     new webpack.DefinePlugin({
       'process.env': {
+        'DATA_ASSET_CDN_HOST': JSON.stringify(process.env.DATA_ASSET_CDN_HOST),
         'GIT_VERSION': JSON.stringify(gitRevisionPlugin.version()),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
