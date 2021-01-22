@@ -2,7 +2,7 @@ import DomainUser from '@apps/analytics/models/domain_user'
 
 const getContactId = ({ data, page_url }) => {
   if(data.user_id) return data.user_id
-  if(page_url.qsargs && page_url.qsargs.contact) return page_url.qsargs.contact
+  if(page_url.qsargs && page_url.qsargs.cid) return page_url.qsargs.cid
   return null
 }
 

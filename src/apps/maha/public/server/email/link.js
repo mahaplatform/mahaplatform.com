@@ -11,16 +11,17 @@ const getQuery = async (req, { email }) => {
     transacting: req.trx
   })
 
-  const utm = {
-    medium: 'email',
-    source: email.related('team').get('fqdn'),
-    campaign: email.related('email_campaign').get('title'),
-    contact: email.get('contact_id'),
-    email: email.get('email_campaign_id')
+  const params = {
+    utm_medium: 'email',
+    utm_source: email.related('team').get('fqdn'),
+    utm_campaign: email.related('email_campaign').get('title'),
+    cid: email.get('contact_id'),
+    ecid: email.get('email_campaign_id'),
+    eid: email.get('email_id')
   }
 
-  const query = Object.keys(utm).map(key => {
-    return `utm_${key}=${utm[key]}`
+  const query = Object.keys(params).map(key => {
+    return `${key}=${params[key]}`
   }).join('&')
 
   return `?${query}`

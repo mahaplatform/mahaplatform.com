@@ -108,8 +108,9 @@ export const getSession = async(req, { data, event_type, domain_user, page_url }
 
   const params = {}
 
-  if(page_url.qsargs && page_url.qsargs.utm_email) {
-    params.email_campaign_id = page_url.qsargs.utm_email
+  if(page_url.qsargs) {
+    if(page_url.qsargs.ecid) params.email_campaign_id = page_url.qsargs.ecid
+    if(page_url.qsargs.eid) params.email_id = page_url.qsargs.eid
   }
 
   if(event_type.get('type') === 'track_maha') {
