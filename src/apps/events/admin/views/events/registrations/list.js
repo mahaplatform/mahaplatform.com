@@ -54,12 +54,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
         ...fields,
         ...getField(field)
       ], []),
-      { label: 'Tickets', key: 'tickets_count' },
-      { label: 'Revenue', key: 'revenue' },
-      { label: 'Status', key: 'is_paid' },
-      { label: 'Payment - Method', key: 'payment.method' },
-      { label: 'Payment - Reference', key: 'payment.reference' },
-      { label: 'Payment - Amount', key: 'payment.amount' }
+      ...resources.event.ticket_types.reduce((ticket_types, ticket_type) => [
+        ...ticket_types,
+        { label: `${ticket_type.name}`, key: `ticket_type_totals[${ticket_type.id}]` }
+      ], []),
+      { label: 'Registration Date', key: 'created_at' },
+      { label: 'Payment Method', key: 'payment.method' },
+      { label: 'Payment Reference', key: 'payment.reference' },
+      { label: 'Payment Amount', key: 'payment.amount' },
+      { label: 'Payment Date', key: 'payment.date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

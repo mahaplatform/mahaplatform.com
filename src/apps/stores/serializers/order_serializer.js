@@ -18,6 +18,7 @@ const orderSerializer = async (req, result) => ({
   unfulfilled_count: result.get('unfulfilled_count'),
   revenue: result.get('revenue'),
   is_paid: result.get('is_paid'),
+  variant_totals: result.get('variant_totals'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -47,7 +48,8 @@ const payment = (payment) => {
     id: payment.get('id'),
     method: payment.get('method'),
     reference: payment.get('reference'),
-    amount: payment.get('amount')
+    amount: payment.get('amount'),
+    date: payment.get('date')
   }
 }
 

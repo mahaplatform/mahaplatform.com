@@ -1,15 +1,29 @@
 import RegistrationSerializer from '@apps/events/serializers/registration_serializer'
 import Registration from '@apps/events/models/registration'
+import Event from '@apps/events/models/event'
 
 const listRoute = async (req, res) => {
 
+  const event = await Event.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.event_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!event) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load event'
+  })
+
   const registrations = await Registration.filterFetch({
     scope: (qb) => {
-      qb.select(req.trx.raw('events_registrations.*,events_registration_totals.*'))
+      qb.select('events_registrations.*','events_registration_totals.*','events_registration_ticket_type_totals.ticket_type_totals','events_registration_tokens.tokens')
       qb.innerJoin('events_registration_totals','events_registration_totals.registration_id','events_registrations.id')
-      qb.innerJoin('crm_contacts','crm_contacts.id','events_registrations.contact_id')
+      qb.innerJoin('events_registration_ticket_type_totals','events_registration_ticket_type_totals.registration_id','events_registrations.id')
+      qb.innerJoin('events_registration_tokens','events_registration_tokens.registration_id','events_registrations.id')
       qb.where('events_registrations.team_id', req.team.get('id'))
-      qb.where('events_registrations.event_id', req.params.event_id)
+      qb.where('events_registrations.event_id', event.get('id'))
     },
     aliases: {
       first_name: 'crm_contacts.first_name',

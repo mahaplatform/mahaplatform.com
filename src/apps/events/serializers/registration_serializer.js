@@ -12,6 +12,7 @@ const RegistrationSerializer = (req, result) => ({
   revenue: result.get('revenue'),
   is_paid: result.get('is_paid'),
   data: result.get('data'),
+  ticket_type_totals: result.get('ticket_type_totals'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -40,7 +41,8 @@ const payment = (payment) => {
     id: payment.get('id'),
     method: payment.get('method'),
     reference: payment.get('reference'),
-    amount: payment.get('amount')
+    amount: payment.get('amount'),
+    date: payment.get('date')
   }
 }
 
