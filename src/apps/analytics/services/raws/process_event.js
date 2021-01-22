@@ -4,6 +4,7 @@ import { getEventType } from '../event_types'
 import Raw from '@apps/analytics/models/raw'
 import { getSession } from '../sessions'
 import { createEvent } from '../events'
+import { parseUrl } from '../urls'
 import isbot from 'isbot'
 
 export const processEvent = async(req, { id }) => {
@@ -20,8 +21,11 @@ export const processEvent = async(req, { id }) => {
 
     if(data.br_type !== 'Robot' && !isbot(data.useragent)) {
 
+      const page_url = data.page_url ? parseUrl(data.page_url) : null
+
       const domain_user = await getDomainUser(req, {
-        data
+        data,
+        page_url
       })
 
       const event_type = await getEventType(req, { data })
@@ -29,13 +33,15 @@ export const processEvent = async(req, { id }) => {
       const session = await getSession(req, {
         domain_user,
         event_type,
-        data
+        data,
+        page_url
       })
 
       await createEvent(req, {
         session,
         event_type,
-        data
+        data,
+        page_url
       })
 
     }

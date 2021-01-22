@@ -102,21 +102,28 @@ const fetchOrCreate = async(req, { data, domain_user }) => {
 
 }
 
-export const getSession = async(req, { data, event_type, domain_user }) => {
+export const getSession = async(req, { data, event_type, domain_user, page_url }) => {
 
   const session = await fetchOrCreate(req, { data, domain_user })
+
+  const params = {}
+
+  if(page_url.qsargs && page_url.qsargs.utm_email) {
+    params.email_campaign_id = page_url.qsargs.utm_email
+  }
 
   if(event_type.get('type') === 'track_maha') {
     const { key, value } = data.unstruct_event.data.data
     if(_.includes(['form_id','response_id','event_id','registration_id','store_id','order_id','website_id'], key)) {
-      await session.save({
-        [key]: value
-      }, {
-        transacting: req.analytics,
-        patch: true
-      })
+      params[key] = value
     }
+  }
 
+  if(Object.keys(params).length > 0) {
+    await session.save(params, {
+      transacting: req.analytics,
+      patch: true
+    })
   }
 
   return session

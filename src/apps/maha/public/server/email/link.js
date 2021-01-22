@@ -3,6 +3,30 @@ import EmailLink from '@apps/maha/models/email_link'
 import Email from '@apps/maha/models/email'
 import moment from 'moment'
 
+const getQuery = async (req, { email }) => {
+
+  if(!email.get('email_campaign_id')) return
+
+  await email.load(['email_campaign','team'], {
+    transacting: req.trx
+  })
+
+  const utm = {
+    medium: 'email',
+    source: email.related('team').get('fqdn'),
+    campaign: email.related('email_campaign').get('title'),
+    contact: email.get('contact_id'),
+    email: email.get('email_campaign_id')
+  }
+
+  const query = Object.keys(utm).map(key => {
+    return `utm_${key}=${utm[key]}`
+  }).join('&')
+
+  return `?${query}`
+
+}
+
 const linkRoute = async (req, res) => {
 
   const email = await Email.where({
@@ -42,7 +66,11 @@ const linkRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.redirect(emailLink.get('url'))
+  const query = await getQuery(req, {
+    email
+  })
+
+  res.redirect(emailLink.get('url') + query)
 
 }
 
