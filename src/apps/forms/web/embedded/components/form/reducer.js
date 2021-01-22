@@ -53,6 +53,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET_PAID':
     return {
       ...state,
+      result: action.result,
       status: 'success'
     }
 
