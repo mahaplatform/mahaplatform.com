@@ -1,6 +1,6 @@
 const CreateEmailId = {
 
-  databaseName: 'maha',
+  databaseName: 'analytics',
 
   up: async (knex) => {
 

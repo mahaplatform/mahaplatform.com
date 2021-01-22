@@ -1,4 +1,3 @@
-import { Button } from '@admin'
 import PropTypes from 'prop-types'
 import Change from './change'
 import moment from 'moment'
@@ -16,7 +15,7 @@ class Release extends React.Component {
     return (
       <div className="maha-help-changelog-release">
         <div className="maha-help-changelog-release-title">
-          <Button { ...this._getTitle(release) } />
+          Version { release.name.replace('v', '') }
           { index === 0 &&
             <span className="maha-help-changelog-release-new">NEW</span>
           }
@@ -33,14 +32,6 @@ class Release extends React.Component {
         </div>
       </div>
     )
-  }
-
-  _getTitle(release) {
-    return {
-      label: `Version ${ release.name.replace('v', '') }`,
-      className: 'link',
-      link: `https://github.com/mahaplatform/mahaplatform.com/compare/${release.diff[0]}..${release.diff[1]}`
-    }
   }
 
 }
