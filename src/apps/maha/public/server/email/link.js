@@ -2,29 +2,41 @@ import EmailActivity from '@apps/maha/models/email_activity'
 import EmailLink from '@apps/maha/models/email_link'
 import Email from '@apps/maha/models/email'
 import moment from 'moment'
+import _ from 'lodash'
 
 const getQuery = async (req, { email }) => {
 
-  if(!email.get('email_campaign_id')) return ''
-
-  await email.load(['email_campaign','team'], {
-    transacting: req.trx
-  })
+  if(!email.get('email_id') || !email.get('email_campaign_id')) return ''
 
   const params = {
     utm_medium: 'email',
-    utm_source: email.related('team').get('fqdn'),
-    utm_campaign: email.related('email_campaign').get('title'),
-    cid: email.get('contact_id'),
-    ecid: email.get('email_campaign_id'),
-    eid: email.get('email_id')
+    utm_source: req.team.get('fqdn'),
+    cid: email.get('contact_id')
   }
 
-  const query = Object.keys(params).map(key => {
-    return `${key}=${params[key]}`
-  }).join('&')
+  if(email.get('email_campaign_id')) {
+    await email.load(['email_campaign'], {
+      transacting: req.trx
+    })
+    params.utm_campaign = email.related('email_campaign').get('title')
+    params.ecid = email.get('email_campaign_id')
+  }
 
-  return `?${query}`
+  if(email.get('email_id')) {
+    await email.load(['email'], {
+      transacting: req.trx
+    })
+    params.utm_campaign = email.related('email').get('title')
+    params.eid = email.get('email_id')
+  }
+
+  const query = Object.keys(params).filter(key => {
+    return _.isNil(params.key)
+  }).map(key => {
+    return `${key}=${params[key]}`
+  })
+
+  return query.length > 0 ? `?${query.join('&')}` : ''
 
 }
 
