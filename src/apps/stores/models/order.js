@@ -37,7 +37,7 @@ const Order = new Model({
   },
 
   enrollment() {
-    return this.hasOne(WorkflowEnrollment, 'response_id')
+    return this.hasOne(WorkflowEnrollment, 'order_id')
   },
 
   invoice() {

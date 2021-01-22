@@ -4534,8 +4534,8 @@ union
       fields.program_id,
       fields.token,
       case
-      when (fields.type = 'addressfield'::maha_fields_type) then (contacts.value -> 'description'::text)
-      else contacts.value
+      when (fields.type = 'addressfield'::maha_fields_type) then ((contacts.value -> 0) -> 'description'::text)
+      else (contacts.value -> 0)
       end as value
       from (contacts
       join fields on (((fields.team_id = contacts.team_id) and ((fields.code)::text = contacts.code))))
@@ -5307,56 +5307,6 @@ union
       join revenue on ((revenue.registration_id = events_registrations.id)))
       join invoice on ((invoice.registration_id = events_registrations.id)))
       join tickets on ((tickets.registration_id = events_registrations.id)));
-    `)
-
-    await knex.raw(`
-      create view events_tickets_tokens AS
-      with registrations as (
-      select events_registrations_1.id as registration_id,
-      events_registrations_1.event_id,
-      data.key as code,
-      data.value
-      from events_registrations events_registrations_1,
-      lateral jsonb_each(events_registrations_1.data) data(key, value)
-      ), fields as (
-      select null::integer as event_id,
-      codes.code,
-      'textfield'::text as type,
-      codes.code as token
-      from ( select unnest(array['first_name'::text, 'last_name'::text, 'email'::text]) as code) codes
-      union
-      select events_events_1.id as event_id,
-      (fields.value ->> 'code'::text) as code,
-      case
-      when ((fields.value ->> 'type'::text) = 'contactfield'::text) then ((fields.value -> 'contactfield'::text) ->> 'type'::text)
-      else (fields.value ->> 'type'::text)
-      end as type,
-      ((fields.value -> 'name'::text) ->> 'token'::text) as token
-      from events_events events_events_1,
-      lateral jsonb_array_elements((events_events_1.contact_config -> 'fields'::text)) fields(value)
-      ), computed as (
-      select registrations.registration_id,
-      fields.token,
-      case
-      when (fields.type = 'addressfield'::text) then (registrations.value -> 'description'::text)
-      else registrations.value
-      end as value
-      from (registrations
-      join fields on (((fields.code = registrations.code) and ((fields.event_id = registrations.event_id) or (fields.event_id is null)))))
-      ), tokens as (
-      select computed.registration_id,
-      (jsonb_build_object('maha_url', concat('https://mahaplatform.com/admin/events/events/', events_registrations_1.event_id, '/registrations/', computed.registration_id)) || jsonb_object_agg(computed.token, computed.value)) as tokens
-      from (computed
-      join events_registrations events_registrations_1 on ((events_registrations_1.id = computed.registration_id)))
-      group by computed.registration_id, events_registrations_1.event_id
-      )
-      select events_registrations.id,
-      ((jsonb_build_object('contact', coalesce(crm_contact_tokens.tokens, '{}'::jsonb)) || jsonb_build_object('program', coalesce(crm_program_tokens.tokens, '{}'::jsonb))) || jsonb_build_object('registration', coalesce(tokens.tokens, '{}'::jsonb))) as tokens
-      from ((((events_registrations
-      join events_events on ((events_events.id = events_registrations.event_id)))
-      join crm_contact_tokens on ((crm_contact_tokens.contact_id = events_registrations.contact_id)))
-      left join crm_program_tokens on (((crm_program_tokens.contact_id = events_registrations.contact_id) and (crm_program_tokens.program_id = events_events.program_id))))
-      join tokens on ((tokens.registration_id = events_registrations.id)));
     `)
 
     await knex.raw(`
@@ -6468,7 +6418,7 @@ union
       coalesce(active.total, (0)::bigint) as active_count,
       coalesce(orders.total, (0)::bigint) as orders_count,
       coalesce(unfulfilled.total, (0)::bigint) as unfulfilled_count,
-      coalesce(revenue.revenue, 0.00) as "coalesce",
+      coalesce(revenue.revenue, 0.00) as revenue,
       first_order.created_at as first_order,
       last_order.created_at as last_order
       from (((((((stores_stores
