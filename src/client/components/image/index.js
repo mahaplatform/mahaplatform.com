@@ -49,6 +49,7 @@ class Image extends React.Component {
   _getHost() {
     if(this.props.host !== null) return this.props.host
     if(process.env.DATA_ASSET_CDN_HOST) return process.env.DATA_ASSET_CDN_HOST
+    if(process.env.WEB_ASSET_CDN_HOST) return process.env.WEB_ASSET_CDN_HOST
     return process.env.WEB_HOST
   }
 
