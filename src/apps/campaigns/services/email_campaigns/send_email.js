@@ -62,9 +62,6 @@ const sendEmail = async (req, params) => {
     }
   }
 
-  console.log(data)
-  throw new Error()
-
   const rendered = personalizeEmail(req, {
     subject: config.settings.subject,
     html: campaign.get('html'),
