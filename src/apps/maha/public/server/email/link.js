@@ -5,7 +5,7 @@ import moment from 'moment'
 
 const getQuery = async (req, { email }) => {
 
-  if(!email.get('email_campaign_id')) return
+  if(!email.get('email_campaign_id')) return ''
 
   await email.load(['email_campaign','team'], {
     transacting: req.trx

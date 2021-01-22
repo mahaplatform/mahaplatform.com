@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const keys = [
   // app
   'app_id','platform',
@@ -74,7 +76,7 @@ export const expandMessage = (message) => {
 
   data.unstruct_event = JSON.parse(data.unstruct_event)
 
-  data.context_id = data.contexts.data[0].data.id
+  data.context_id = _.get(data, 'contexts.data[0].data.id') || null
 
   return data
 
