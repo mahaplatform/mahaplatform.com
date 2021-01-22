@@ -4539,17 +4539,23 @@ union
       end as value
       from (contacts
       join fields on (((fields.team_id = contacts.team_id) and ((fields.code)::text = contacts.code))))
-      )
+      ), tokens as (
       select computed.contact_id,
       computed.program_id,
       jsonb_object_agg(computed.token, computed.value) as tokens
-      from (((((computed
-      join crm_contacts on ((crm_contacts.id = computed.contact_id)))
-      join crm_contact_primaries on ((crm_contact_primaries.contact_id = computed.contact_id)))
-      left join crm_email_addresses on ((crm_email_addresses.id = crm_contact_primaries.email_id)))
-      left join crm_phone_numbers on ((crm_phone_numbers.id = crm_contact_primaries.phone_id)))
-      left join crm_mailing_addresses on ((crm_mailing_addresses.id = crm_contact_primaries.address_id)))
-      group by computed.contact_id, computed.program_id;
+      from (computed
+      join crm_contacts crm_contacts_1 on ((crm_contacts_1.id = computed.contact_id)))
+      group by computed.contact_id, computed.program_id
+      )
+      select crm_contacts.id as contact_id,
+      crm_programs.id as program_id,
+      case
+      when (tokens.tokens is null) then '{}'::jsonb
+      else tokens.tokens
+      end as tokens
+      from ((crm_contacts
+      join crm_programs on ((crm_programs.team_id = crm_contacts.team_id)))
+      left join tokens on (((tokens.contact_id = crm_contacts.id) and (tokens.program_id = crm_programs.id))));
     `)
 
     await knex.raw(`

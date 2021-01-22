@@ -16,7 +16,7 @@ router.get('/op/:email_code([a-z0-9]{10})', open)
 
 router.get('/li/:email_code([a-z0-9]{10}):link_code([a-z0-9]{10})', link)
 
-router.get('/wv/:email_code([a-z0-9]{10})', webview)
+router.get('/:type(wv|vw)/:email_code([a-z0-9]{10})', webview)
 
 router.use('/so/:service([a-z]{21})/:email_code([a-z0-9]{10})', social)
 
@@ -24,6 +24,6 @@ router.get('/ns/:codes', seen)
 
 router.get('/nv:code', view)
 
-router.get('/so/:code', signout)
+router.get('/si/:code', signout)
 
 export default router

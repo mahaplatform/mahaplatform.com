@@ -13,22 +13,26 @@ const webviewRoute = async (req, res) => {
 
   if(!email) return res.status(404).send('not found')
 
-  await email.save({
-    was_delivered: true,
-    was_opened: true,
-    was_webviewed: true
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
+  if(req.params.type == 'wv') {
 
-  await EmailActivity.forge({
-    team_id: email.get('team_id'),
-    email_id: email.get('id'),
-    type: 'webview'
-  }).save(null, {
-    transacting: req.trx
-  })
+    await email.save({
+      was_delivered: true,
+      was_opened: true,
+      was_webviewed: true
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+
+    await EmailActivity.forge({
+      team_id: email.get('team_id'),
+      email_id: email.get('id'),
+      type: 'webview'
+    }).save(null, {
+      transacting: req.trx
+    })
+
+  }
 
   if(email.get('email_campaign_id')) {
     const campaign = email.related('email_campaign')

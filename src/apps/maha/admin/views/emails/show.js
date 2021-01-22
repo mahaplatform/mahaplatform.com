@@ -43,7 +43,7 @@ class EmailsShow extends React.Component {
             </div>
           </div>
           <div className="team-email-body">
-            <iframe ref={ node => this.iframe = node } border="0" style={{ height }} src={`${process.env.WEB_HOST}/w${email.code}`} />
+            <iframe ref={ node => this.iframe = node } border="0" style={{ height }} src={`${process.env.WEB_HOST}/vw/${email.code}`} />
           </div>
           <div className="team-email-feed">
             { email.activities.map((activity, index) => (

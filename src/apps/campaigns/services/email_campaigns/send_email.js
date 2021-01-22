@@ -20,37 +20,21 @@ const sendEmail = async (req, params) => {
     transacting: req.trx
   })
 
+  const campaign = await EmailCampaign.query(qb => {
+    qb.where('id', email_campaign_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
   const contact = await Contact.query(qb => {
-    qb.select('crm_contacts.*','crm_contact_primaries.*')
+    qb.select('crm_contacts.*','crm_contact_primaries.*','crm_contact_tokens.tokens as contact_tokens','crm_program_tokens.tokens as program_tokens')
     qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+    qb.innerJoin('crm_contact_tokens', 'crm_contact_tokens.contact_id', 'crm_contacts.id')
+    qb.joinRaw('inner join crm_program_tokens on crm_program_tokens.contact_id=crm_contact_tokens.contact_id and crm_program_tokens.program_id=?', campaign.get('program_id'))
     qb.where('id', email_address.get('contact_id'))
   }).fetch({
     transacting: req.trx
   })
-
-  const campaign = await EmailCampaign.query(qb => {
-    qb.where('id', email_campaign_id)
-  }).fetch({
-    withRelated: ['program'],
-    transacting: req.trx
-  })
-
-  const program = campaign.related('program')
-
-  const fields = await Field.query(qb => {
-    qb.where('parent_type', 'crm_programs')
-    qb.where('parent_id', program.get('id'))
-    qb.where('team_id', req.team.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(results => results.toArray())
-
-  const values = contact.get('values')
-
-  const programvalues = fields.reduce((programvalues, field) => ({
-    ...programvalues,
-    [field.get('name').token]: _.get(values, `${field.get('code')}[0]`)
-  }), {})
 
   const config = campaign.get('config')
 
@@ -65,17 +49,8 @@ const sendEmail = async (req, params) => {
   })
 
   const data = {
-    contact: {
-      full_name: contact.get('full_name'),
-      first_name: contact.get('first_name'),
-      last_name: contact.get('last_name'),
-      email: contact.get('email'),
-      phone: contact.get('phone'),
-      address: contact.get('address') ? contact.get('address').description : null,
-      birthday: contact.get('birthday'),
-      spouse: contact.get('spouse')
-    },
-    program: programvalues,
+    contact: contact.get('contact_tokens'),
+    program: contact.get('program_tokens'),
     email: {
       facebook_link: `${process.env.WEB_HOST}/so/fb/${code}`,
       twitter_link: `${process.env.WEB_HOST}/so/tw/${code}`,
@@ -86,6 +61,9 @@ const sendEmail = async (req, params) => {
       preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     }
   }
+
+  console.log(data)
+  throw new Error()
 
   const rendered = personalizeEmail(req, {
     subject: config.settings.subject,
