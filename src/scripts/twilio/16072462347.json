@@ -1,0 +1,19 @@
+{
+  "steps": [
+    { "verb": "gather", "say": "Press one or two", "answers": [
+      { "answer": "1", "steps": [
+        { "verb": "say", "text": "You pressed one" },
+        { "verb": "say", "text": "Good job" }
+      ] },
+      { "answer": "2", "steps": [
+        { "verb": "say", "text": "You pressed two" },
+        { "verb": "say", "text": "Good job" }
+      ] }
+    ], "noanswer": {
+      "steps": [
+        { "verb": "say", "text": "Im sorry I didnt hear that" }
+      ] }
+    },
+    { "verb": "hangup"}
+  ]
+}

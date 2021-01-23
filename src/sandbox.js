@@ -5,6 +5,7 @@ import './core/services/environment'
 // import knex from './core/vendor/knex'
 import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 import moment from 'moment'
+import _ from 'lodash'
 
 const processor = async () => {
   // await knex.transaction(async(trx) => {
@@ -37,18 +38,54 @@ const processor = async () => {
   // await deleteDistribution(req, {
   //   aws_cloudfront_id: distribution.aws_cloudfront_id
   // // })
+  //
+  // const hash = moment().format('YYYYMMDDHHmmss')
+  //
+  // await buildWebsite(req, {
+  //   code: 'abcdef',
+  //   hash
+  // })
+  //
+  // await publishWebsite(req, {
+  //   code: 'abcdef',
+  //   hash
+  // })
 
-  const hash = moment().format('YYYYMMDDHHmmss')
+  const config = JSON.parse(`{
+    "steps": [
+      { "say": "Foo" },
+      { "verb": "gather", "say": "Press one or two", "answers": [
+        { "number": 1, "steps": [
+          { "say": "You pressed one" },
+          { "say": "Good job" }
+        ] },
+        { "number": 2, "steps": [
+          { "say": "You pressed two" },
+          { "say": "Good job" }
+        ] }
+      ] },
+      { "verb": "hangup"}
+    ]
+  }`)
 
-  await buildWebsite(req, {
-    code: 'abcdef',
-    hash
-  })
 
-  await publishWebsite(req, {
-    code: 'abcdef',
-    hash
-  })
+  const getNextUrl = (steps, state) => {
+    const parts = state.split('.')
+    const next = state.split('.').reverse().reduce((newstate, part, index) => {
+      if(newstate !== null || !/^\d$/.test(part)) return newstate
+      const next = parts.slice(0, parts.length - index)
+      next[next.length - 1] = parseInt(next[next.length - 1]) + 1
+      const candidate = next.join('.')
+      return _.get(steps, candidate) !== undefined ? candidate : null
+    }, null)
+    return`/call?state=${next}`
+  }
+
+  const next = getNextUrl(config.steps, '0')
+
+  console.log(next)
+
+
 
 }
 

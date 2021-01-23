@@ -1,5 +1,5 @@
-import '../../core/services/environment'
-import { ec2 } from '../../core/vendor/aws'
+import '@core/services/environment'
+import { ec2 } from '@core/vendor/aws'
 import Shipit from 'shipit-cli'
 import utils from 'shipit-utils'
 import roles from './roles'
