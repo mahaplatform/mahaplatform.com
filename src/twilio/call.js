@@ -25,6 +25,15 @@ const say = ({ code, config, step, state, twiml }) => {
   twiml.redirect(getNext(code, config, state))
 }
 
+const dial = ({ code, config, step, state, twiml }) => {
+  const dial = twiml.dial({
+    timeout:15
+  })
+  step.numbers.map(number => {
+    dial.number({}, number)
+  })
+}
+
 const play = ({ code, config, step, state, twiml }) => {
   twiml.play(step.url)
   twiml.redirect(getNext(code, config, state))
@@ -51,10 +60,11 @@ const hangup = ({ twiml }) => {
 }
 
 const execute = (params) => {
-  if(params.step.verb === 'say') return say(params)
+  if(params.step.verb === 'dial') return dial(params)
   if(params.step.verb === 'play') return play(params)
   if(params.step.verb === 'gather') return gather(params)
   if(params.step.verb === 'hangup') return hangup(params)
+  if(params.step.verb === 'say') return say(params)
 }
 
 const generateCode = () => {
@@ -72,8 +82,6 @@ exports.handler = async (context, event, callback) => {
   const config = await fetchConfig(direction, to)
 
   const twiml = new Twilio.twiml.VoiceResponse()
-
-  console.log(event)
 
   execute({
     action: event.action,
