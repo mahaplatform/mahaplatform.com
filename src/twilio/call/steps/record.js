@@ -38,6 +38,7 @@ const review = (twiml, call, step) => {
    gather.say('You said')
    gather.play(recording)
    gather.say('Press 1 to keep this recording, 2 to record again')
+   twiml.redirect(url(call, { state, action: 'confirm', timeout: true, sid }))
    return {
      verb: 'record',
      action: 'review',
@@ -46,19 +47,31 @@ const review = (twiml, call, step) => {
    }
 }
 
+const processResponse = (twiml, call) => {
+  const { req } = call
+  const { body, query } = req
+  const { state } = query
+  if(query.timeout) {
+    next(twiml, call)
+    return 'timout'
+  } else if(body.Digits === '1') {
+    next(twiml, call)
+    return 'confirmed'
+  } else if(body.Digits === '2') {
+    twiml.redirect(url(call, { state, action: 'ask' }))
+    return 'rejected'
+  }
+
+}
+
 const confirm = (twiml, call, step) => {
   const { config, req } = call
-  const { state, sid } = req.query
-  if(req.body.Digits === '1') {
-    next(twiml, call)
-  }
-  if(req.body.Digits === '2') {
-    twiml.redirect(url(call, { state, action: 'ask' }))
-  }
+  const { sid } = req.query
+  const response = processResponse(twiml, call)
   return {
     verb: 'record',
     action: 'confirm',
-    confirmed: req.body.Digits === '1',
+    response,
     sid
   }
 }

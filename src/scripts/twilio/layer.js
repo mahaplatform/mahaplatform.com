@@ -51,15 +51,12 @@ const layer = async (name) => {
     }
   }).promise()
 
-  await lambda.updateFunctionConfiguration({
-    FunctionName: 'twilio-call',
-    Layers: [layer.LayerVersionArn]
-  }).promise()
-
-  await lambda.updateFunctionConfiguration({
-    FunctionName: 'twilio-status',
-    Layers: [layer.LayerVersionArn]
-  }).promise()
+  await Promise.mapSeries(['call','sms','status'],  async (func) => {
+    await lambda.updateFunctionConfiguration({
+      FunctionName: `twilio-${func}`,
+      Layers: [layer.LayerVersionArn]
+    }).promise()
+  })
 
 }
 
