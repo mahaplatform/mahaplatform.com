@@ -84,6 +84,7 @@
     "@microsoft/microsoft-graph-client": "^2.2.1",
     "@zeit/next-less": "^1.0.1",
     "address-rfc2822": "^2.0.1",
+    "adm-zip": "^0.5.1",
     "archiver": "^3.0.0",
     "atob": "^2.1.2",
     "autoprefixer": "^9.6.1",

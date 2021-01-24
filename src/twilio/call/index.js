@@ -1,8 +1,9 @@
 const rp = require('request-promise')
+const Twilio = require('twilio')
 const _ = require('lodash')
 
 const fetchConfig = async (direction, number) => {
-  const result = await rp(`http://twiml.mahaplatform.com/${direction}/${number}.json`)
+  const result = await rp(`https://assets.mahaplatform.com/twiml/${direction}/${number}`)
   return JSON.parse(result)
 }
 
