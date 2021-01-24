@@ -15,9 +15,13 @@ exports.handler = async (event, context) => {
 
   const envvars = JSON.parse(secret.SecretString)
 
+  const body = JSON.parse(event.body)
+
+  console.log(body)
+
   return {
     statusCode: 200,
-    body: 'foo',
+    body: true,
     headers: {
       'Content-Type': 'application/json'
     }
