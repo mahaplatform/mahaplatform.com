@@ -16,7 +16,7 @@ const listFiles = (basedir, localdir = '.') => {
   }, [])
 }
 
-const updateFunction = async ({ name }) => {
+const publish = async (name) => {
 
   const outfile = path.join('tmp',`${name}.zip`)
 
@@ -30,14 +30,6 @@ const updateFunction = async ({ name }) => {
     FunctionName: `twilio-${name}`,
     ZipFile: fs.readFileSync(outfile)
   }).promise()
-
-}
-
-const publish = async (name) => {
-
-  await updateFunction({
-    name
-  })
 
 }
 

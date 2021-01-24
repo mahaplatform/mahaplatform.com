@@ -31,3 +31,5 @@ metadata.csv
 /src/servers/group_vars/all/*.yml
 /maxmind
 !/*/maxmind
+nodejs
+*.zip
