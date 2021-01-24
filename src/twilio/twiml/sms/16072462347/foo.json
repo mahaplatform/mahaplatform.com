@@ -1,0 +1,7 @@
+{
+  "steps": [
+    { "code": "abc", "verb": "message", "text": "foo" },
+    { "code": "abc", "verb": "message", "text": "foo" },
+    { "code": "abc", "verb": "message", "text": "foo" }
+  ]
+}

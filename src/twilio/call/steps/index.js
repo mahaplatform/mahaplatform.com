@@ -22,4 +22,11 @@ const execute = (call, step) => {
   return { result, twiml }
 }
 
+const terminate = () => {
+  const twiml = new Twilio.twiml.VoiceResponse()
+  hangup({ twiml })
+  return { twiml }
+}
+
 exports.execute = execute
+exports.terminate = terminate
