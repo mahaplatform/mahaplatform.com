@@ -1,6 +1,7 @@
 const axios = require('axios')
 
-const getConfigPath = (query, body) => {
+const getConfigPath = (req) => {
+  const { query, body } = req
   const workflow = query.workflow
   const direction = body.Direction
   const from = body.From
@@ -15,9 +16,9 @@ const getConfigPath = (query, body) => {
   }
 }
 
-const fetchConfig = async (query, body) => {
+const fetchConfig = async (req) => {
   const result = await axios({
-    url: `https://assets.mahaplatform.com/twiml/${getConfigPath(query, body)}`,
+    url: `https://assets.mahaplatform.com/twiml/${getConfigPath(req)}`,
     responseType: 'json'
   })
   return result.data

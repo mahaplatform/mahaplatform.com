@@ -1,5 +1,5 @@
 {
   "steps": [
-    { "verb": "say", "text": "Hello Greg" }
+    { "verb": "play", "url": "https://api.twilio.com/cowbell.mp3" }
   ]
 }

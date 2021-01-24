@@ -1,16 +1,18 @@
+const Twilio = require('twilio')
 const _ = require('lodash')
 const qs = require('qs')
 
 const url = (call, params) => {
-  const { enrollment, query } = call
-  const { workflow } = query
+  const { req } = call
+  const { enrollment, workflow } = req.query
   params.enrollment = enrollment
   if(workflow) params.workflow = workflow
   return `/call?${qs.stringify(params)}`
 }
 
-const next = (call) => {
-  const { config, state, twiml } = call
+const next = (twiml, call) => {
+  const { config, req } = call
+  const { state } = req.query
   const parts = state.split('.')
   const nextstate = state.split('.').reverse().reduce((newstate, part, index) => {
     if(newstate !== null) return newstate
@@ -25,14 +27,15 @@ const next = (call) => {
   return twiml.hangup()
 }
 
-const say = (call) => {
-  const { step, twiml } = call
-  twiml.say(step.text)
-  next(call)
+const say = (twiml, call, step) => {
+  twiml.say({
+    voice: step.voice || 'woman',
+    loop: step.loop || 1
+  }, step.text)
+  next(twiml, call)
 }
 
-const dial = (call) => {
-  const { step, twiml } = call
+const dial = (twiml, call, step) => {
   const dial = twiml.dial({
     timeout: 15
   })
@@ -41,16 +44,18 @@ const dial = (call) => {
   })
 }
 
-const play = (call) => {
-  const { step, twiml } = call
-  twiml.play(step.url)
-  next(call)
+const play = (twiml, call, step) => {
+  twiml.play({
+    loop: step.loop || 1
+  }, step.url)
+  next(twiml, call)
 }
 
-const gather = (call) => {
-  const { body, query, step, state, twiml } = call
+const gather = (twiml, call, step) => {
+  const { req, query } = call
+  const { state } = req.query
   if(query.action === 'answer') {
-    const answer = body.Digits
+    const answer = req.body.Digits
     const selected = _.findIndex(step.answers, { answer })
     twiml.redirect(url(call, { state: `${state}.answers.${selected}.steps.0` }))
   } else {
@@ -65,19 +70,21 @@ const gather = (call) => {
   }
 }
 
-const hangup = (call) => {
-  const { twiml } = call
+const hangup = (twiml, call, step) => {
   twiml.hangup()
 }
 
 const executeStep = (call) => {
-  const { step } = call
-  if(!step) return hangup(call)
-  if(step.verb === 'dial') return dial(call)
-  if(step.verb === 'play') return play(call)
-  if(step.verb === 'gather') return gather(call)
-  if(step.verb === 'hangup') return hangup(call)
-  if(step.verb === 'say') return say(call)
+  const { config, req } = call
+  const twiml = new Twilio.twiml.VoiceResponse()
+  const step = _.get(config, req.query.state) || {}
+  if(step.verb === 'dial') dial(twiml, call, step)
+  if(step.verb === 'play') play(twiml, call, step)
+  if(step.verb === 'gather') gather(twiml, call, step)
+  if(step.verb === 'hangup') hangup(twiml, call, step)
+  if(step.verb === 'say') say(twiml, call, step)
+  if(!step.verb) hangup(twiml, call, step)
+  return twiml
 }
 
 exports.executeStep = executeStep
