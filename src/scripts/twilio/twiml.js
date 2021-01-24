@@ -17,7 +17,7 @@ const listFiles = (basedir, localdir = '.') => {
 
 const test = async () => {
 
-  const files = listFiles(path.join('src','twilio','test'))
+  const files = listFiles(path.join('src','twilio','twiml'))
 
   await Promise.mapSeries(files, async (file) => {
     await upload(null, {

@@ -1,0 +1,5 @@
+{
+  "steps": [
+    { "verb": "say", "text": "Hello Greg" }
+  ]
+}

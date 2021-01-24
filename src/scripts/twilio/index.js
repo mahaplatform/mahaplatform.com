@@ -1,7 +1,7 @@
 import '@core/services/environment'
 import publish from './publish'
 import layer from './layer'
-import test from './test'
+import twiml from './twiml'
 
 const processor = async () => {
 
@@ -11,7 +11,7 @@ const processor = async () => {
 
   if(args[0] === 'layer') await layer()
 
-  if(args[0] === 'test') await test()
+  if(args[0] === 'twiml') await twiml()
 
 }
 
