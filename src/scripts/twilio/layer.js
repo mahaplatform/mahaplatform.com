@@ -14,7 +14,7 @@ const listFiles = (basedir, localdir = '.') => {
       ...fs.lstatSync(basepath).isDirectory() ? listFiles(basedir, localpath) : [
         {
           name: localpath,
-          data: fs.readFileSync(basepath, 'utf8')
+          data: fs.readFileSync(basepath)
         }
       ]
     ]
@@ -37,7 +37,7 @@ const layer = async (name) => {
 
   const archive = new zip()
   files.filter(file => {
-    return /^package/.test(file.name)
+    return !/^package/.test(file.name)
   }).map(file => archive.addFile(`nodejs/${file.name}`, file.data))
   archive.writeZip(outfile)
 
@@ -53,6 +53,11 @@ const layer = async (name) => {
 
   await lambda.updateFunctionConfiguration({
     FunctionName: 'twilio-call',
+    Layers: [layer.LayerVersionArn]
+  }).promise()
+
+  await lambda.updateFunctionConfiguration({
+    FunctionName: 'twilio-status',
     Layers: [layer.LayerVersionArn]
   }).promise()
 

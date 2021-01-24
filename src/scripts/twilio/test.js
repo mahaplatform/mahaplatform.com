@@ -2,16 +2,35 @@ import { deleteObjects, upload } from '@core/services/aws/s3'
 import path from 'path'
 import fs from 'fs'
 
+const listFiles = (basedir, localdir = '.') => {
+  return fs.readdirSync(path.join(basedir, localdir)).reduce((files, file) => {
+    const localpath = path.join(localdir,file)
+    const basepath = path.join(basedir,localpath)
+    return [
+      ...files,
+      ...fs.lstatSync(basepath).isDirectory() ? listFiles(basedir, localpath) : [
+        { data: fs.readFileSync(basepath, 'utf8'), name: localpath }
+      ]
+    ]
+  }, [])
+}
+
 const test = async () => {
 
-  await upload(null, {
-    acl: 'private',
-    bucket: 'cdn.mahaplatform.com',
-    key: 'twiml/inbound/16072462347',
-    cache_control: 'max-age=0,no-cache',
-    content_type: 'application/json',
-    file_data: fs.readFileSync(path.join(__dirname,'16072462347.json'))
+  const files = listFiles(path.join('src','twilio','test'))
+
+  await Promise.mapSeries(files, async (file) => {
+    await upload(null, {
+      acl: 'private',
+      bucket: 'cdn.mahaplatform.com',
+      key: `twiml/${file.name.replace('.json','')}`,
+      cache_control: 'max-age=0,no-cache',
+      content_type: 'application/json',
+      file_data: file.data
+    })
   })
+
+
 
 }
 

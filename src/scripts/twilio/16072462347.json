@@ -1,7 +1,0 @@
-{
-  "steps": [
-    { "verb": "say", "text": "Foo" },
-    { "verb": "say", "text": "Bar" },
-    { "verb": "say", "text": "Baz" }
-  ]
-}
