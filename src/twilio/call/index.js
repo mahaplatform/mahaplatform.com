@@ -1,10 +1,15 @@
-const rp = require('request-promise')
 const Twilio = require('twilio')
+const axios = require('axios')
+const atob = require('atob')
 const _ = require('lodash')
+const qs = require('qs')
 
 const fetchConfig = async (direction, number) => {
-  const result = await rp(`https://assets.mahaplatform.com/twiml/${direction}/${number}`)
-  return JSON.parse(result)
+  const result = await axios({
+    url: 'https://assets.mahaplatform.com/twiml/inbound/16072462347',
+    responseType: 'json'
+  })
+  return result.data
 }
 
 const getNext = (code, config, state) => {
@@ -61,6 +66,7 @@ const hangup = ({ twiml }) => {
 }
 
 const execute = (params) => {
+  if(!params.step) return hangup(params)
   if(params.step.verb === 'dial') return dial(params)
   if(params.step.verb === 'play') return play(params)
   if(params.step.verb === 'gather') return gather(params)
@@ -72,28 +78,38 @@ const generateCode = () => {
   return _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
 }
 
-exports.handler = async (context, event, callback) => {
+exports.handler = async (event, context) => {
 
-  const direction = event.Direction
+  const body = qs.parse(decodeURIComponent(atob(event.body)))
 
-  const to = event.To.substr(1)
+  const query = qs.parse(event.rawQueryString)
 
-  const state = event.state || 'steps.0'
+  const direction = body.Direction
+
+  const to = body.To.substr(1)
+
+  const state = query.state || 'steps.0'
 
   const config = await fetchConfig(direction, to)
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
   execute({
-    action: event.action,
-    answer: event.Digits,
+    action: query.action,
+    answer: body.Digits,
     config,
-    code: event.code || generateCode(),
+    code: body.code || generateCode(),
     step: _.get(config, state),
     state,
     twiml
   })
 
-  return callback(null, twiml)
+  return {
+    statusCode: 200,
+    body: twiml.toString(),
+    headers: {
+      'Content-Type': 'application/xml'
+    }
+  }
 
 }

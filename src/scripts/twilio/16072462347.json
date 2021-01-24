@@ -1,6 +1,7 @@
 {
   "steps": [
-    { "verb": "say", "text": "Connecting you to Margaret" },
-    { "verb": "dial", "numbers": ["+16072165565"] }
+    { "verb": "say", "text": "Foo" },
+    { "verb": "say", "text": "Bar" },
+    { "verb": "say", "text": "Baz" }
   ]
 }
