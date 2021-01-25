@@ -1,10 +1,11 @@
 const Bull = require('bull')
 
-const statusQueue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
+const statusQueue = new Bull('voice_status', process.env.REDIS_URL)
 
 const status = async (req, result) => {
 
-  const job = await statusQueue.add('voice', {
+  await statusQueue.add({
+    type: 'voice',
     result,
     enrollment: req.query.enrollment,
     workflow: req.query.workflow,
@@ -14,8 +15,6 @@ const status = async (req, result) => {
     to: req.body.To,
     status: req.body.Status
   })
-
-  console.log(job)
 
 }
 

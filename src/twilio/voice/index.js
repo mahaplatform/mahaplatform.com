@@ -41,8 +41,6 @@ exports.handler = async (event, context) => {
 
   await handle(req, res)
 
-  console.log(res.render())
-
   return res.render()
 
 }
