@@ -60,7 +60,6 @@ const processResponse = (req, twiml) => {
     twiml.redirect(url(req, { state, action: 'ask' }))
     return 'rejected'
   }
-
 }
 
 const confirm = (req, twiml) => {

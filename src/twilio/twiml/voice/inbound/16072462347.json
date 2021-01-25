@@ -3,8 +3,11 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "say", "voice": "man", "text": "foo" },
-    { "verb": "say", "voice": "man", "text": "bar" },
-    { "verb": "say", "voice": "man", "text": "baz" }
+    { "verb": "dialbyname", "users": [
+      { "phone": "+16072775647", "first_name": "Greg", "last_name": "Kops" },
+      { "phone": "+16072807552", "first_name": "Suli", "last_name": "Kops" },
+      { "phone": "+16072775647", "first_name": "Bob", "last_name": "Hutko" },
+      { "phone": "+16072775647", "first_name": "Simina", "last_name": "Leotescu" }
+    ] }
   ]
 }

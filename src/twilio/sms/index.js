@@ -11,11 +11,11 @@ const evaluate = async (req, res) => {
 
   if(!req.config) return null
 
+  req.session.workflow = req.config.workflow.code
+
   req.step = _.get(req.config, req.session.state)
 
   if(!req.step) return null
-
-  req.session.workflow = req.config.workflow.code
 
   const { twiml, result } = execute(req, res)
 

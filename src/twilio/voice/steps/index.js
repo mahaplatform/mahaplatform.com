@@ -1,3 +1,4 @@
+const dialbyname  = require('./dialbyname')
 const hangup  = require('./hangup')
 const gather = require('./gather')
 const record = require('./record')
@@ -7,6 +8,7 @@ const play = require('./play')
 const say = require('./say')
 
 const getExecutor = (verb) => {
+  if(verb === 'dialbyname') return dialbyname
   if(verb === 'dial') return dial
   if(verb === 'play') return play
   if(verb === 'gather') return gather
