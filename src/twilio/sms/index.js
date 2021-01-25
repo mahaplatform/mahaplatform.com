@@ -2,21 +2,34 @@ const { fetchConfig } = require('./config')
 const { parseEvent } = require('./event')
 const { execute } = require('./steps')
 const { status } = require('./status')
+const btoa = require('btoa')
 const _ = require('lodash')
 
-const handler = async (thread) => {
+const evaluate = async (req, res) => {
 
-  const { req, config } = thread
+  req.step = _.get(req.config, req.session.state) || {}
 
-  if(!config) return null
+  const execution = execute(req, res)
 
-  const step = _.get(config, req.query.state) || {}
-
-  const execution = execute(thread, step)
-
-  await status(thread, execution, step)
+  await status(req, execution.result)
 
   return execution.twiml
+
+}
+
+const handler = async (req, res) => {
+
+  req.config = await fetchConfig(req)
+
+  if(!req.config) return
+
+  const twiml = await evaluate(req, res)
+
+  if(!twiml) return
+
+  res.headers['Set-Cookie'] = req.session ? `session=${btoa(JSON.stringify(req.session))}` : 'session=; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+  res.headers['Content-Type'] = 'application/xml'
+  res.body = twiml.toString()
 
 }
 
@@ -24,19 +37,16 @@ exports.handler = async (event, context) => {
 
   const req = parseEvent(event)
 
-  const config = await fetchConfig(req)
-
-  const twiml = await handler({
-    req,
-    config
-  })
-
-  return {
+  const res = {
     statusCode: 200,
-    body: twiml ? twiml.toString() : 'true',
+    body: '',
     headers: {
-      'Content-Type': 'application/xml'
+      'Content-Type': 'text/plain'
     }
   }
+
+  await handler(req, res)
+
+  return res
 
 }

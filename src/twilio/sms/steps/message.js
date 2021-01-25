@@ -1,14 +1,12 @@
 const { next } = require('./utils')
 
-const message = (twiml, thread, step, child = false) => {
+const message = (req, res, twiml) => {
 
-  const text = step.text
-
-  console.log(text)
+  const text = req.step.text
 
   twiml.message(text)
 
-  if(!child) next(twiml, thread)
+  next(req, res, twiml)
 
   return {
     verb: 'message',

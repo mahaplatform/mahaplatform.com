@@ -1,17 +1,8 @@
 const _ = require('lodash')
-const qs = require('qs')
 
-const url = (call, params) => {
-  const { req } = call
-  const { enrollment, workflow } = req.query
-  params.enrollment = enrollment
-  if(workflow) params.workflow = workflow
-  return `/sms?${qs.stringify(params)}`
-}
-
-const next = (twiml, call) => {
-  const { config, req } = call
-  const { state } = req.query
+const next = (req, res, twiml) => {
+  const { config } = req
+  const { state } = req.session
   const parts = state.split('.')
   const nextstate = state.split('.').reverse().reduce((newstate, part, index) => {
     if(newstate !== null) return newstate
@@ -22,8 +13,10 @@ const next = (twiml, call) => {
     const candidate = next.join('.')
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
-  if(nextstate) return twiml.redirect(url(call, { state: nextstate }))
+
+  if(!nextstate) req.session = null
+  if(nextstate) req.session.state = nextstate
+  if(nextstate) twiml.redirect('/sms')
 }
 
-exports.url = url
 exports.next = next

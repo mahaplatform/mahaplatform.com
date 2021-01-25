@@ -1,8 +1,7 @@
 const axios = require('axios')
 
 const getConfigPath = (req) => {
-  const { query, body } = req
-  const workflow = query.workflow
+  const { body } = req
   const message = body.Body
   const from = body.From
   const to = body.To
