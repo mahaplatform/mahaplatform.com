@@ -14,8 +14,8 @@ const ask = (req, twiml) => {
   const ask = performAsk(req, twiml)
   const record = twiml.record({
     action: url(req, { state, action: 'review' }),
-    finishOnKey: '#',
-    trim: 'trim-silence'
+    trim: 'trim-silence',
+    finishOnKey: '#'
   })
   return {
     verb: 'record',

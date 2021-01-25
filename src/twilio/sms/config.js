@@ -1,4 +1,4 @@
-const axios = require('axios')
+const aws = require('aws-sdk')
 
 const getConfigPath = (req) => {
   const { body } = req
@@ -10,15 +10,23 @@ const getConfigPath = (req) => {
 }
 
 const fetchConfig = async (req) => {
-  try {
-    const response = await axios({
-      url: `https://assets.mahaplatform.com/twiml/sms/${getConfigPath(req)}`,
-      responseType: 'json'
-    })
-    return response.data
-  } catch(err) {
-    return null
-  }
+
+  aws.config.constructor({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+    sessionToken: process.env.AWS_SESSION_TOKEN
+  })
+
+  const s3 = new aws.S3()
+
+  const data = await s3.getObject({
+    Bucket: 'cdn.mahaplatform.com',
+    Key: `twiml/sms/${getConfigPath(req)}`
+  }).promise()
+
+  return JSON.parse(data.Body)
+
 }
 
 module.exports = fetchConfig

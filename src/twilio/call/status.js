@@ -1,11 +1,5 @@
-const Bull = require('bull')
-
-const statusQueue = new Bull('voice_status', process.env.REDIS_URL)
-
-const status = async (req, result) => {
-
-  await statusQueue.add({
-    type: 'voice',
+const status = async (req, result, queue) => {
+  await queue.add('process_voice_status', {
     result,
     enrollment: req.query.enrollment,
     workflow: req.query.workflow,
@@ -15,7 +9,6 @@ const status = async (req, result) => {
     to: req.body.To,
     status: req.body.Status
   })
-
 }
 
 module.exports = status

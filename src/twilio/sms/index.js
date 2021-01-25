@@ -3,7 +3,10 @@ const Response = require('./response')
 const Request = require('./request')
 const execute = require('./steps')
 const status = require('./status')
+const Bull = require('bull')
 const _ = require('lodash')
+
+const queue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
 
 const evaluate = async (req, res) => {
 

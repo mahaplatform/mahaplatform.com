@@ -1,8 +1,9 @@
 const Response = require('./response')
 const Request = require('./request')
 const Twilio = require('twilio')
+const Bull = require('bull')
 
-const aws = require('aws-sdk')
+const queue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
 
 const handle = async (req, res) => {
   const twiml = new Twilio.twiml.VoiceResponse()
@@ -13,28 +14,13 @@ const handle = async (req, res) => {
 
 exports.handler = async (event, context) => {
 
-  aws.config.constructor({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-    sessionToken: process.env.AWS_SESSION_TOKEN
-  })
-
-  const s3 = new aws.S3()
-
-  const data = await s3.getObject({
-    Bucket: 'cdn.mahaplatform.com',
-    Key: 'twiml/voice/inbound/16072462347'
-  }).promise()
-
-
-  console.log(JSON.parse(data.Body))
-
   const req = new Request(event)
 
   const res = new Response()
 
-  await handle(req, res)
+  const result = await handle(req, res)
+
+  await status(req, result, queue)
 
   return res.render()
 
