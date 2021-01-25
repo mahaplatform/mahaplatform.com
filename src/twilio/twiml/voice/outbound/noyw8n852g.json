@@ -3,6 +3,6 @@
     "code": "abcdef"
   },
   "steps": [
-    { "code": "abc", "verb": "say", "text": "Hello Greg" }
+    { "code": "abc", "verb": "play", "url": "http://195.122.253.112/public/mp3/Beatles/11%20Yellow%20Submarine/The%20Beatles%20-%20Yellow%20Submarine%20-%2001%20Yellow%20Submarine.mp3" }
   ]
 }

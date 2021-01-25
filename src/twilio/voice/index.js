@@ -3,7 +3,10 @@ const fetchConfig = require('./config')
 const Response = require('./response')
 const Request = require('./request')
 const status = require('./status')
+const Bull = require('bull')
 const _ = require('lodash')
+
+const queue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
 
 const evaluate = async (req) => {
 
@@ -13,11 +16,13 @@ const evaluate = async (req) => {
 
   req.step = _.get(req.config, req.query.state)
 
+  req.query.workflow = req.config.workflow.code
+
   if(!req.step) return terminate(req)
 
   const { twiml, result } = execute(req)
 
-  await status(req, result)
+  await status(req, result, queue)
 
   if(!twiml) return terminate(req)
 

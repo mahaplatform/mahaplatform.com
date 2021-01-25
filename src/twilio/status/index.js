@@ -1,30 +1,26 @@
-const aws = require('aws-sdk')
+const Response = require('./response')
+const Request = require('./request')
+const status = require('./status')
+const Bull = require('bull')
+
+const queue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
+
+
+const handle = async (req, res) => {
+}
 
 exports.handler = async (event, context) => {
 
-  const client = new aws.SecretsManager({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-    sessionToken: process.env.AWS_SESSION_TOKEN
-  })
+  const req = new Request(event)
 
-  const secret = await client.getSecretValue({
-    SecretId: 'production'
-  }).promise()
+  const res = new Response()
 
-  const envvars = JSON.parse(secret.SecretString)
+  await status(req, queue)
 
-  const body = JSON.parse(event.body)
+  res.status(200).type('text/plain').send(true)
 
-  console.log(body)
+  await handle(req, res)
 
-  return {
-    statusCode: 200,
-    body: true,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
+  return res.render()
 
 }
