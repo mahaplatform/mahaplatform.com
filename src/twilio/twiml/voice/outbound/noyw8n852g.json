@@ -1,4 +1,7 @@
 {
+  "workflow": {
+    "code": "abcdef"
+  },
   "steps": [
     { "code": "abc", "verb": "say", "text": "Hello Greg" }
   ]

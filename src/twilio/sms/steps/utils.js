@@ -13,9 +13,7 @@ const next = (req, res, twiml) => {
     const candidate = next.join('.')
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
-
-  if(!nextstate) req.session = null
-  if(nextstate) req.session.state = nextstate
+  req.session.state = nextstate
   if(nextstate) twiml.redirect('/sms')
 }
 

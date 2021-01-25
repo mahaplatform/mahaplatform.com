@@ -3,15 +3,15 @@ const play = require('./play')
 const say = require('./say')
 const _ = require('lodash')
 
-const performAsk = (req, res, gather) => {
+const performAsk = (req, gather) => {
   const { step } = req
-  if(step.say) return say({ step: step.say }, res, gather, true)
-  if(step.play) return play({ step: step.play }, res, gather, true)
+  if(step.say) return say({ step: step.say }, gather, true)
+  if(step.play) return play({ step: step.play }, gather, true)
 }
 
-const ask = (req, res, twiml) => {
+const ask = (req, twiml) => {
   const { state } = req.query
-  const ask = performAsk(req, res, twiml)
+  const ask = performAsk(req, twiml)
   const record = twiml.record({
     action: url(req, { state, action: 'review' }),
     finishOnKey: '#',
@@ -24,7 +24,7 @@ const ask = (req, res, twiml) => {
   }
 }
 
-const review = (req, res, twiml) => {
+const review = (req, twiml) => {
   const { body, query } = req
   const { state } = query
   const recording = body.RecordingUrl
@@ -47,7 +47,7 @@ const review = (req, res, twiml) => {
    }
 }
 
-const processResponse = (req, res, twiml) => {
+const processResponse = (req, twiml) => {
   const { body, query } = req
   const { state } = query
   if(query.timeout) {
@@ -63,9 +63,9 @@ const processResponse = (req, res, twiml) => {
 
 }
 
-const confirm = (req, res, twiml) => {
+const confirm = (req, twiml) => {
   const { sid } = req.query
-  const response = processResponse(req, res, twiml)
+  const response = processResponse(req, twiml)
   return {
     verb: 'record',
     action: 'confirm',
@@ -74,7 +74,7 @@ const confirm = (req, res, twiml) => {
   }
 }
 
-const answer = (req, res, twiml) => {
+const answer = (req, twiml) => {
   const { state } = req.query
   const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
   const answer = _.get(req.config, `${state}.answers.${index}`)
@@ -92,9 +92,9 @@ const getAction = (action) => {
   return ask
 }
 
-const record = (req, res, twiml) => {
+const record = (req, twiml) => {
   const action = getAction(req.query.action)
-  return action(req, res, twiml)
+  return action(req, twiml)
 }
 
 module.exports = record

@@ -11,7 +11,11 @@ const evaluate = async (req, res) => {
 
   if(!req.config) return null
 
-  req.step = _.get(req.config, req.session.state) || {}
+  req.step = _.get(req.config, req.session.state)
+
+  if(!req.step) return null
+
+  req.session.workflow = req.config.workflow.code
 
   const { twiml, result } = execute(req, res)
 
@@ -27,11 +31,11 @@ const handle = async (req, res) => {
 
   const twiml = await evaluate(req, res)
 
-  if(!twiml || !req.session) res.expireCookie('session')
+  if(!twiml || !req.session.state) res.expireCookie('session')
 
-  if(!twiml) return res.status(200).type('text/plain').send(true)
+  if(!twiml) return res.status(200).type('text/plain').send(null)
 
-  res.setCookie('session', req.session)
+  if(req.session.state) res.setCookie('session', req.session)
 
   res.status(200).type('application/xml').send(twiml.toString())
 

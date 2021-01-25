@@ -1,5 +1,10 @@
 {
+  "workflow": {
+    "code": "abcdef"
+  },
   "steps": [
-    { "code": "abc", "verb": "record", "say": { "voice": "man", "text": "Record your message at the tone" } }
+    { "verb": "say", "voice": "man", "text": "foo" },
+    { "verb": "say", "voice": "man", "text": "bar" },
+    { "verb": "say", "voice": "man", "text": "baz" }
   ]
 }

@@ -3,20 +3,20 @@ const play = require('./play')
 const say = require('./say')
 const _ = require('lodash')
 
-const performAsk = (req, res, gather) => {
+const performAsk = (req, gather) => {
   const { step } = req
-  if(step.say) return say({ step: step.say }, res, gather, true)
-  if(step.play) return play({ step: step.play }, res, gather, true)
+  if(step.say) return say({ step: step.say }, gather, true)
+  if(step.play) return play({ step: step.play }, gather, true)
 }
 
-const ask = (req, res, twiml) => {
+const ask = (req, twiml) => {
   const { state } = req.query
   const gather = twiml.gather({
     action: url(req, { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 1
   })
-  const ask = performAsk(req, res, gather)
+  const ask = performAsk(req, gather)
   if(req.step.noanswer) twiml.redirect(url(req, { state: `${state}.noanswer.steps.0` }))
   return {
     verb: 'gather',
@@ -25,7 +25,7 @@ const ask = (req, res, twiml) => {
   }
 }
 
-const answer = (req, res, twiml) => {
+const answer = (req, twiml) => {
   const { config } = req
   const { state } = req.query
   const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
@@ -38,9 +38,9 @@ const answer = (req, res, twiml) => {
   }
 }
 
-const gather = (req, res, twiml) => {
+const gather = (req, twiml) => {
   const verb = req.query.action === 'answer' ? answer : ask
-  return verb(req, res, twiml)
+  return verb(req, twiml)
 }
 
 module.exports = gather

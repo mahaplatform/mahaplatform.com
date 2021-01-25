@@ -5,6 +5,7 @@ const getConfigPath = (req) => {
   const message = body.Body
   const from = body.From
   const to = body.To
+  const term = req.session.term || message
   return `${to.substr(1)}/${message.toLowerCase()}`
 }
 

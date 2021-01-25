@@ -4,18 +4,15 @@ const qs = require('qs')
 
 class Request {
 
-  body = null
+  body = {}
 
   config = null
 
   cookies = null
 
-  query = null
+  query = {}
 
-  session = {
-    enrollment: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-    state: 'steps.0'
-  }
+  session = {}
 
   step = null
 
@@ -23,16 +20,22 @@ class Request {
     this.body = qs.parse(decodeURIComponent(atob(event.body)))
     this.query = qs.parse(event.rawQueryString)
     this.cookies = event.cookies
-    if(this.cookies) this._extractSession()
+    this.session = {
+      enrollment: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      state: 'steps.0',
+      term: this.body.Body ? this.body.Body.toLowerCase() : null,
+      ...this._extractSession()
+    }
   }
 
   _extractSession() {
+    if(!this.cookies) return {}
     const cookie = this.cookies.find(cookie => {
       return /^session/.test(cookie)
     })
-    if(!cookie) return
+    if(!cookie) return {}
     const values = qs.parse(cookie)
-    this.session = JSON.parse(atob(values.session))
+    return JSON.parse(atob(values.session))
   }
 
 }

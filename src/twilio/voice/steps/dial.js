@@ -1,4 +1,4 @@
-const dial = (req, res, twiml) => {
+const dial = (req, twiml) => {
 
   const { numbers } = req.step
 

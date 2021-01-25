@@ -5,7 +5,7 @@ const url = (req, params) => {
   const { enrollment, workflow } = req.query
   params.enrollment = enrollment
   if(workflow) params.workflow = workflow
-  return `/call?${qs.stringify(params)}`
+  return `/voice?${qs.stringify(params)}`
 }
 
 const next = (req, twiml) => {
@@ -21,7 +21,6 @@ const next = (req, twiml) => {
     const candidate = next.join('.')
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
-
   if(nextstate) return twiml.redirect(url(req, { state: nextstate }))
   return twiml.hangup()
 }

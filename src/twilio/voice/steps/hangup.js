@@ -1,4 +1,4 @@
-const hangup = (req, res, twiml) => {
+const hangup = (req, twiml) => {
 
   twiml.hangup()
 

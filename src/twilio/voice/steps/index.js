@@ -15,16 +15,16 @@ const getExecutor = (verb) => {
   return hangup
 }
 
-const execute = (req, res) => {
+const execute = (req) => {
   const twiml = new Twilio.twiml.VoiceResponse()
   const executor = getExecutor(req.step.verb)
-  const result = executor(req, res, twiml)
+  const result = executor(req, twiml)
   return { result, twiml }
 }
 
-const terminate = (req, res) => {
+const terminate = (req) => {
   const twiml = new Twilio.twiml.VoiceResponse()
-  hangup(req, res, twiml)
+  hangup(req, twiml)
   return twiml
 }
 

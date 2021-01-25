@@ -1,6 +1,6 @@
 const { next } = require('./utils')
 
-const play = (req, res, twiml, child = false) => {
+const play = (req, twiml, child = false) => {
 
   const loop = req.step.loop || 1
 

@@ -1,7 +1,10 @@
 {
+  "workflow": {
+    "code": "ghijkl"
+  },
   "steps": [
     { "code": "abc", "verb": "message", "text": "bar" },
-    { "code": "abc", "verb": "message", "text": "bar" },
-    { "code": "abc", "verb": "message", "text": "bar" }
+    { "code": "def", "verb": "message", "text": "bar" },
+    { "code": "ghi", "verb": "message", "text": "bar" }
   ]
 }

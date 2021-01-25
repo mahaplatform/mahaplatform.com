@@ -1,6 +1,6 @@
 const { next } = require('./utils')
 
-const say = (req, res, twiml, child = false) => {
+const say = (req, twiml, child = false) => {
 
   const voice = req.step.voice || 'woman'
   const loop = req.step.loop || 1
@@ -11,7 +11,7 @@ const say = (req, res, twiml, child = false) => {
     loop
   }, text)
 
-  if(!child) next(req, res, twiml)
+  if(!child) next(req, twiml)
 
   return {
     verb: 'say',

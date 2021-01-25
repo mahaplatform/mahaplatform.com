@@ -5,21 +5,21 @@ const Request = require('./request')
 const status = require('./status')
 const _ = require('lodash')
 
-const evaluate = async (req, res) => {
+const evaluate = async (req) => {
 
   req.config = await fetchConfig(req)
 
-  if(!req.config) return terminate(req, res)
+  if(!req.config) return terminate(req)
 
   req.step = _.get(req.config, req.query.state)
 
-  if(!req.step) return terminate(req, res)
+  if(!req.step) return terminate(req)
 
-  const { twiml, result } = execute(req, res)
+  const { twiml, result } = execute(req)
 
   await status(req, result)
 
-  if(!twiml) return terminate(req, res)
+  if(!twiml) return terminate(req)
 
   return twiml
 
@@ -27,7 +27,7 @@ const evaluate = async (req, res) => {
 
 const handle = async (req, res) => {
 
-  const twiml = await evaluate(req, res)
+  const twiml = await evaluate(req)
 
   res.status(200).type('application/xml').send(twiml.toString())
 
@@ -40,8 +40,6 @@ exports.handler = async (event, context) => {
   const res = new Response()
 
   await handle(req, res)
-
-  console.log(res.render())
 
   return res.render()
 

@@ -1,7 +1,10 @@
 {
+  "workflow": {
+    "code": "abcdef"
+  },
   "steps": [
     { "code": "abc", "verb": "message", "text": "foo" },
-    { "code": "abc", "verb": "message", "text": "foo" },
-    { "code": "abc", "verb": "message", "text": "foo" }
+    { "code": "def", "verb": "message", "text": "foo" },
+    { "code": "ghi", "verb": "message", "text": "foo" }
   ]
 }
