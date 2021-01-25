@@ -3,11 +3,11 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "dialbyname", "users": [
-      { "phone": "+16072775647", "first_name": "Greg", "last_name": "Kops" },
-      { "phone": "+16072807552", "first_name": "Suli", "last_name": "Kops" },
-      { "phone": "+16072775647", "first_name": "Bob", "last_name": "Hutko" },
-      { "phone": "+16072775647", "first_name": "Simina", "last_name": "Leotescu" }
+    { "verb": "dialbyextension", "users": [
+      { "extension": "100", "phone": "+16072775647", "first_name": "Greg", "last_name": "Kops" },
+      { "extension": "200", "phone": "+16072807552", "first_name": "Suli", "last_name": "Kops" },
+      { "extension": "300", "phone": "+16072775647", "first_name": "Bob", "last_name": "Hutko" },
+      { "extension": "400", "phone": "+16072775647", "first_name": "Simina", "last_name": "Leotescu" }
     ] }
   ]
 }

@@ -1,7 +1,5 @@
 const { url } = require('./utils')
-const say = require('./say')
 
-const question = 'Please dial the first three letters of the person\'s last name'
 const dialpad = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
 
 const getUserByNumber = (last_name) => {
@@ -13,12 +11,21 @@ const getUserByNumber = (last_name) => {
 }
 
 const getMatches = (digits, users) => {
-  return users.filter(user => {
+  return users.map((user, index) => ({
+    index,
+    ...user
+  })).filter(user => {
     return getUserByNumber(user.last_name) === digits
   })
 }
 
-const dial = () => {}
+const dial = (req, twiml) => {
+  const { query, step } = req
+  const { index } = query
+  const user = step.users[index]
+  twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
+  twiml.dial(user.phone)
+}
 
 const choose = (req, twiml) => {
   const { body, query, step } = req
@@ -27,8 +34,7 @@ const choose = (req, twiml) => {
   const index = parseInt(body.Digits) - 1
   const user = users[index]
   if(user) {
-    twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
-    twiml.dial(user.phone)
+    twiml.redirect(url(req, { state, action: 'dial', index: user.index }))
   } else {
     twiml.say(`${body.Digits} is not a valid response`)
     twiml.redirect(url(req, { state, action: 'answer', digits: query.digits }))
@@ -54,13 +60,12 @@ const processAnswer = (req, twiml) => {
     })
     return 'multiple users'
   } else if(users.length === 1) {
-    twiml.say(`Connecting you to ${names[0]}`)
-    twiml.dial(users[0].phone)
-    return 'connected'
+    twiml.redirect(url(req, { state, action: 'dial', index: users[0].index }))
+    return 'found'
   } else {
     twiml.say('I couldnt find anyone who matches that input')
     twiml.redirect(url(req, { action: 'ask' }))
-    return 'no match'
+    return 'not found'
   }
 }
 
@@ -81,12 +86,11 @@ const ask = (req, twiml) => {
     numDigits: 3,
     timeout: 10
   })
-  const ask = say({ step: { text: question} }, gather, true)
+  gather.say('Please dial the first three letters of the person\'s last name')
   twiml.redirect(url(req, { action: 'answer' }))
   return {
     verb: 'dialbyname',
-    action: 'ask',
-    ask
+    action: 'ask'
   }
 }
 
@@ -98,7 +102,6 @@ const getAction = (action) => {
 }
 
 const dialbyname = (req, twiml) => {
-  console.log(req)
   const action = getAction(req.query.action)
   return action(req, twiml)
 }
