@@ -1,36 +1,21 @@
-const { url } = require('./utils')
-
-const dialpad = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
-
-const getUserByNumber = (last_name) => {
-  return last_name.toLowerCase().substr(0, 3).split('').map(letter => {
-    return dialpad.findIndex(cluster => {
-      return cluster.search(letter) >= 0
-    }) + 2
-  }).join('')
-}
-
-const getMatches = (digits, users) => {
-  return users.map((user, index) => ({
-    index,
-    ...user
-  })).filter(user => {
-    return getUserByNumber(user.last_name) === digits
-  })
-}
+const { getMatchingUsers, url } = require('./utils')
 
 const dial = (req, twiml) => {
   const { query, step } = req
   const { index } = query
   const user = step.users[index]
   twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
-  twiml.dial(user.phone)
+  const dial = twiml.dial({
+    timeout: 15
+  })
+  if(user.client) dial.client(user.client)
+  if(user.number) dial.number(user.number)
 }
 
 const choose = (req, twiml) => {
   const { body, query, step } = req
   const { state } = query
-  const users = getMatches(query.digits, step.users)
+  const users = getMatchingUsers(query.digits, step.users)
   const index = parseInt(body.Digits) - 1
   const user = users[index]
   if(user) {
@@ -45,7 +30,7 @@ const processAnswer = (req, twiml) => {
   const { body, query, step } = req
   const { state } = query
   const digits = req.query.digits || body.Digits
-  const users = getMatches(digits, step.users)
+  const users = getMatchingUsers(digits, step.users)
   const names = users.map(user => `${user.first_name} ${user.last_name}`)
   if(users.length > 1) {
     const gather = twiml.gather({

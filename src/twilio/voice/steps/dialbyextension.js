@@ -1,19 +1,15 @@
-const { url } = require('./utils')
-
-const numbers = ['zero','one','two','three','four','five','six','seven','eight','nine']
-
-const speakNumber = (number) => {
-  return number.split('').map(number => {
-    return numbers[parseInt(number)]
-  }).join(' ')
-}
+const { speakNumber, url } = require('./utils')
 
 const dial = (req, twiml) => {
   const { query, step } = req
   const { index } = query
   const user = step.users[index]
   twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
-  twiml.dial(user.phone)
+  const dial = twiml.dial({
+    timeout: 15
+  })
+  if(user.client) dial.client(user.client)
+  if(user.number) dial.number(user.number)
 }
 
 const processAnswer = (req, twiml) => {

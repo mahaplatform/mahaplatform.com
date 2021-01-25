@@ -1,6 +1,32 @@
 const _ = require('lodash')
 const qs = require('qs')
 
+const dialpad = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
+const numbers = ['zero','one','two','three','four','five','six','seven','eight','nine']
+
+const getUserByNumber = (last_name) => {
+  return last_name.toLowerCase().substr(0, 3).split('').map(letter => {
+    return dialpad.findIndex(cluster => {
+      return cluster.search(letter) >= 0
+    }) + 2
+  }).join('')
+}
+
+const getMatchingUsers = (digits, users) => {
+  return users.map((user, index) => ({
+    index,
+    ...user
+  })).filter(user => {
+    return getUserByNumber(user.last_name) === digits
+  })
+}
+
+const speakNumber = (number) => {
+  return number.split('').map(number => {
+    return numbers[parseInt(number)]
+  }).join(' ')
+}
+
 const url = (req, params) => {
   const { enrollment, workflow } = req.query
   params.enrollment = enrollment
@@ -25,5 +51,8 @@ const next = (req, twiml) => {
   return twiml.hangup()
 }
 
-exports.url = url
 exports.next = next
+exports.getUserByNumber = getUserByNumber
+exports.getMatchingUsers = getMatchingUsers
+exports.speakNumber = speakNumber
+exports.url = url
