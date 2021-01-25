@@ -1,15 +1,16 @@
 const { next } = require('./utils')
 
-const play = (twiml, call, step, child = false) => {
+const play = (req, res, twiml, child = false) => {
 
-  const loop = step.loop || 1
-  const url = step.url
+  const loop = req.step.loop || 1
+
+  const url = req.step.url
 
   twiml.play({
     loop
   }, url)
 
-  if(!child) next(twiml, call)
+  if(!child) next(req, twiml)
 
   return {
     verb: 'play',
@@ -19,4 +20,4 @@ const play = (twiml, call, step, child = false) => {
 
 }
 
-exports.play = play
+module.exports = play

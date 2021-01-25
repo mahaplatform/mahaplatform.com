@@ -1,17 +1,17 @@
 const { next } = require('./utils')
 
-const say = (twiml, call, step, child = false) => {
+const say = (req, res, twiml, child = false) => {
 
-  const voice = step.voice || 'woman'
-  const loop = step.loop || 1
-  const text = step.text
+  const voice = req.step.voice || 'woman'
+  const loop = req.step.loop || 1
+  const text = req.step.text
 
   twiml.say({
     voice,
     loop
   }, text)
 
-  if(!child) next(twiml, call)
+  if(!child) next(req, res, twiml)
 
   return {
     verb: 'say',
@@ -22,4 +22,4 @@ const say = (twiml, call, step, child = false) => {
 
 }
 
-exports.say = say
+module.exports = say

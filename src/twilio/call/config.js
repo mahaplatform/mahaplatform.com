@@ -28,4 +28,4 @@ const fetchConfig = async (req) => {
   }
 }
 
-exports.fetchConfig = fetchConfig
+module.exports = fetchConfig

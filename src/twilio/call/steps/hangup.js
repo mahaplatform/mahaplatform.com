@@ -1,4 +1,4 @@
-const hangup = (twiml, call, step) => {
+const hangup = (req, res, twiml) => {
 
   twiml.hangup()
 
@@ -7,4 +7,4 @@ const hangup = (twiml, call, step) => {
   }
 }
 
-exports.hangup = hangup
+module.exports = hangup

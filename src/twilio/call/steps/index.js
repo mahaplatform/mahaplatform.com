@@ -1,10 +1,10 @@
-const { hangup } = require('./hangup')
-const { gather } = require('./gather')
-const { record } = require('./record')
-const { dial } = require('./dial')
-const { play } = require('./play')
+const hangup  = require('./hangup')
+const gather = require('./gather')
+const record = require('./record')
 const Twilio = require('twilio')
-const { say } = require('./say')
+const dial = require('./dial')
+const play = require('./play')
+const say = require('./say')
 
 const getExecutor = (verb) => {
   if(verb === 'dial') return dial
@@ -15,17 +15,17 @@ const getExecutor = (verb) => {
   return hangup
 }
 
-const execute = (call, step) => {
+const execute = (req, res) => {
   const twiml = new Twilio.twiml.VoiceResponse()
-  const executor = getExecutor(step.verb)
-  const result = executor(twiml, call, step)
+  const executor = getExecutor(req.step.verb)
+  const result = executor(req, res, twiml)
   return { result, twiml }
 }
 
-const terminate = () => {
+const terminate = (req, res) => {
   const twiml = new Twilio.twiml.VoiceResponse()
-  hangup({ twiml })
-  return { twiml }
+  hangup(req, res, twiml)
+  return twiml
 }
 
 exports.execute = execute

@@ -6,6 +6,7 @@ const status = async (req, result) => {
     url: 'https://twiml.mahaplatform.com/status',
     method: 'post',
     data: {
+      type: 'sms',
       result,
       enrollment: req.query.enrollment,
       workflow: req.query.workflow,

@@ -1,23 +1,23 @@
 const { url } = require('./utils')
-const { play } = require('./play')
-const { say } = require('./say')
+const play = require('./play')
+const say = require('./say')
 const _ = require('lodash')
 
-const performAsk = (gather, call, step) => {
-  if(step.say) return say(gather, call, step.say, true)
-  if(step.play) return play(gather, call, step.play, true)
+const performAsk = (req, res, gather) => {
+  const { step } = req
+  if(step.say) return say({ step: step.say }, res, gather, true)
+  if(step.play) return play({ step: step.play }, res, gather, true)
 }
 
-const ask = (twiml, call, step) => {
-  const { req } = call
+const ask = (req, res, twiml) => {
   const { state } = req.query
   const gather = twiml.gather({
-    action: url(call, { state, action: 'answer' }),
+    action: url(req, { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 1
   })
-  const ask = performAsk(gather, call, step)
-  if(step.noanswer) twiml.redirect(url(call, { state: `${state}.noanswer.steps.0` }))
+  const ask = performAsk(req, res, gather)
+  if(req.step.noanswer) twiml.redirect(url(req, { state: `${state}.noanswer.steps.0` }))
   return {
     verb: 'gather',
     action: 'ask',
@@ -25,10 +25,10 @@ const ask = (twiml, call, step) => {
   }
 }
 
-const answer = (twiml, call, step) => {
-  const { config, req } = call
+const answer = (req, res, twiml) => {
+  const { config } = req
   const { state } = req.query
-  const index = _.findIndex(step.answers, { answer: req.body.Digits })
+  const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
   const answer = _.get(config, `${state}.answers.${index}`)
   twiml.redirect(url(call, { state: `${state}.answers.${index}.steps.0` }))
   return {
@@ -38,10 +38,9 @@ const answer = (twiml, call, step) => {
   }
 }
 
-const gather = (twiml, call, step) => {
-  const { req } = call
+const gather = (req, res, twiml) => {
   const verb = req.query.action === 'answer' ? answer : ask
-  return verb(twiml, call, step)
+  return verb(req, res, twiml)
 }
 
-exports.gather = gather
+module.exports = gather

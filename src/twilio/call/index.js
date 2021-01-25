@@ -1,42 +1,48 @@
 const { execute, terminate } = require('./steps')
-const { fetchConfig } = require('./config')
-const { parseEvent } = require('./event')
-const { status } = require('./status')
+const fetchConfig = require('./config')
+const Response = require('./response')
+const Request = require('./request')
+const status = require('./status')
 const _ = require('lodash')
 
-const handler = async (call) => {
+const evaluate = async (req, res) => {
 
-  const { req, config } = call
+  req.config = await fetchConfig(req)
 
-  if(!config) return terminate()
+  if(!req.config) return terminate(req, res)
 
-  const step = _.get(config, req.query.state) || {}
+  req.step = _.get(req.config, req.query.state)
 
-  const execution = execute(call, step)
+  if(!req.step) return terminate(req, res)
 
-  await status(call, execution, step)
+  const { twiml, result } = execute(req, res)
 
-  return execution.twiml
+  await status(req, result)
+
+  if(!twiml) return terminate(req, res)
+
+  return twiml
+
+}
+
+const handle = async (req, res) => {
+
+  const twiml = await evaluate(req, res)
+
+  res.status(200).type('application/xml').send(twiml.toString())
 
 }
 
 exports.handler = async (event, context) => {
 
-  const req = parseEvent(event)
+  const req = new Request(event)
 
-  const config = await fetchConfig(req)
+  const res = new Response()
 
-  const twiml = await handler({
-    req,
-    config
-  })
+  await handle(req, res)
 
-  return {
-    statusCode: 200,
-    body: twiml.toString(),
-    headers: {
-      'Content-Type': 'application/xml'
-    }
-  }
+  console.log(res.render())
+
+  return res.render()
 
 }

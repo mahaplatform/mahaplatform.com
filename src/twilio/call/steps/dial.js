@@ -1,6 +1,6 @@
-const dial = (twiml, call, step) => {
+const dial = (req, res, twiml) => {
 
-  const { numbers } = step
+  const { numbers } = req.step
 
   const dial = twiml.dial({
     timeout: 15
@@ -17,4 +17,4 @@ const dial = (twiml, call, step) => {
 
 }
 
-exports.dial = dial
+module.exports = dial

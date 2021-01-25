@@ -7,29 +7,31 @@ const _ = require('lodash')
 
 const evaluate = async (req, res) => {
 
+  req.config = await fetchConfig(req)
+
+  if(!req.config) return null
+
   req.step = _.get(req.config, req.session.state) || {}
 
-  const execution = execute(req, res)
+  const { twiml, result } = execute(req, res)
 
-  await status(req, execution.result)
+  await status(req, result)
 
-  return execution.twiml
+  if(!twiml) return null
+
+  return twiml
 
 }
 
-const handler = async (req, res) => {
-
-  req.config = await fetchConfig(req)
-
-  if(!req.config) return
+const handle = async (req, res) => {
 
   const twiml = await evaluate(req, res)
 
-  if(!twiml) return
+  if(!twiml || !req.session) res.expireCookie('session')
 
-  if(req.session) res.setCookie('session', req.session)
+  if(!twiml) return res.status(200).type('text/plain').send(true)
 
-  if(!req.session) res.expireCookie('session')
+  res.setCookie('session', req.session)
 
   res.status(200).type('application/xml').send(twiml.toString())
 
@@ -37,17 +39,11 @@ const handler = async (req, res) => {
 
 exports.handler = async (event, context) => {
 
-  console.log(event)
-
   const req = new Request(event)
-
-  console.log(req)
 
   const res = new Response()
 
-  await handler(req, res)
-
-  console.log(res.render())
+  await handle(req, res)
 
   return res.render()
 

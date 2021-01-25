@@ -1,19 +1,19 @@
 const { next, url } = require('./utils')
-const { play } = require('./play')
-const { say } = require('./say')
+const play = require('./play')
+const say = require('./say')
 const _ = require('lodash')
 
-const performAsk = (gather, call, step) => {
-  if(step.say) return say(gather, call, step.say, true)
-  if(step.play) return play(gather, call, step.play, true)
+const performAsk = (req, res, gather) => {
+  const { step } = req
+  if(step.say) return say({ step: step.say }, res, gather, true)
+  if(step.play) return play({ step: step.play }, res, gather, true)
 }
 
-const ask = (twiml, call, step) => {
-  const { req } = call
+const ask = (req, res, twiml) => {
   const { state } = req.query
-  const ask = performAsk(twiml, call, step)
+  const ask = performAsk(req, res, twiml)
   const record = twiml.record({
-    action: url(call, { state, action: 'review' }),
+    action: url(req, { state, action: 'review' }),
     finishOnKey: '#',
     trim: 'trim-silence'
   })
@@ -24,21 +24,21 @@ const ask = (twiml, call, step) => {
   }
 }
 
-const review = (twiml, call, step) => {
-  const { body, query } = call.req
+const review = (req, res, twiml) => {
+  const { body, query } = req
   const { state } = query
   const recording = body.RecordingUrl
   const duration = parseInt(body.RecordingDuration)
   const sid = body.RecordingSid
   const gather = twiml.gather({
-     action: url(call, { state, action: 'confirm', sid }),
+     action: url(req, { state, action: 'confirm', sid }),
      numDigits: 1,
      timeout: duration + 5
    })
    gather.say('You said')
    gather.play(recording)
    gather.say('Press 1 to keep this recording, 2 to record again')
-   twiml.redirect(url(call, { state, action: 'confirm', timeout: true, sid }))
+   twiml.redirect(url(req, { state, action: 'confirm', timeout: true, sid }))
    return {
      verb: 'record',
      action: 'review',
@@ -47,27 +47,25 @@ const review = (twiml, call, step) => {
    }
 }
 
-const processResponse = (twiml, call) => {
-  const { req } = call
+const processResponse = (req, res, twiml) => {
   const { body, query } = req
   const { state } = query
   if(query.timeout) {
-    next(twiml, call)
+    next(req, twiml)
     return 'timout'
   } else if(body.Digits === '1') {
-    next(twiml, call)
+    next(req, twiml)
     return 'confirmed'
   } else if(body.Digits === '2') {
-    twiml.redirect(url(call, { state, action: 'ask' }))
+    twiml.redirect(url(req, { state, action: 'ask' }))
     return 'rejected'
   }
 
 }
 
-const confirm = (twiml, call, step) => {
-  const { config, req } = call
+const confirm = (req, res, twiml) => {
   const { sid } = req.query
-  const response = processResponse(twiml, call)
+  const response = processResponse(req, res, twiml)
   return {
     verb: 'record',
     action: 'confirm',
@@ -76,12 +74,11 @@ const confirm = (twiml, call, step) => {
   }
 }
 
-const answer = (twiml, call, step) => {
-  const { config, req } = call
+const answer = (req, res, twiml) => {
   const { state } = req.query
-  const index = _.findIndex(step.answers, { answer: req.body.Digits })
-  const answer = _.get(config, `${state}.answers.${index}`)
-  twiml.redirect(url(call, { state: `${state}.answers.${index}.steps.0` }))
+  const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
+  const answer = _.get(req.config, `${state}.answers.${index}`)
+  twiml.redirect(url(req, { state: `${state}.answers.${index}.steps.0` }))
   return {
     verb: 'gather',
     action: 'answer',
@@ -95,11 +92,9 @@ const getAction = (action) => {
   return ask
 }
 
-const record = (twiml, call, step) => {
-  const { req } = call
-  console.log(req)
+const record = (req, res, twiml) => {
   const action = getAction(req.query.action)
-  return action(twiml, call, step)
+  return action(req, res, twiml)
 }
 
-exports.record = record
+module.exports = record
