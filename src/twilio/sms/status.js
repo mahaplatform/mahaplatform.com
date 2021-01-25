@@ -20,4 +20,4 @@ const status = async (req, result) => {
 
 }
 
-exports.status = status
+module.exports = status

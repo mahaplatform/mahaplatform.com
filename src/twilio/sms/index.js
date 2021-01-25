@@ -1,8 +1,8 @@
-const { fetchConfig } = require('./config')
-const { parseEvent } = require('./event')
-const { execute } = require('./steps')
-const { status } = require('./status')
-const btoa = require('btoa')
+const fetchConfig = require('./config')
+const Response = require('./response')
+const Request = require('./request')
+const execute = require('./steps')
+const status = require('./status')
 const _ = require('lodash')
 
 const evaluate = async (req, res) => {
@@ -27,26 +27,28 @@ const handler = async (req, res) => {
 
   if(!twiml) return
 
-  res.headers['Set-Cookie'] = req.session ? `session=${btoa(JSON.stringify(req.session))}` : 'session=; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-  res.headers['Content-Type'] = 'application/xml'
-  res.body = twiml.toString()
+  if(req.session) res.setCookie('session', req.session)
+
+  if(!req.session) res.expireCookie('session')
+
+  res.status(200).type('application/xml').send(twiml.toString())
 
 }
 
 exports.handler = async (event, context) => {
 
-  const req = parseEvent(event)
+  console.log(event)
 
-  const res = {
-    statusCode: 200,
-    body: '',
-    headers: {
-      'Content-Type': 'text/plain'
-    }
-  }
+  const req = new Request(event)
+
+  console.log(req)
+
+  const res = new Response()
 
   await handler(req, res)
 
-  return res
+  console.log(res.render())
+
+  return res.render()
 
 }

@@ -1,4 +1,4 @@
-const { message } = require('./message')
+const message = require('./message')
 const Twilio = require('twilio')
 
 const getExecutor = (verb) => {
@@ -12,4 +12,4 @@ const execute = (req, res) => {
   return { result, twiml }
 }
 
-exports.execute = execute
+module.exports = execute

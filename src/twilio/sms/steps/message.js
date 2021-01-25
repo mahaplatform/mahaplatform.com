@@ -15,4 +15,4 @@ const message = (req, res, twiml) => {
 
 }
 
-exports.message = message
+module.exports = message
