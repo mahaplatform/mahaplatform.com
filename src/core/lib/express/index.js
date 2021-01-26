@@ -12,6 +12,7 @@ import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import apiMiddleware from './api'
 import logger from './logger'
+import twilio from './twilio'
 import express from 'express'
 import arena from './arena'
 import voice from './voice'
@@ -49,6 +50,8 @@ server.use(logger)
 server.use(dav)
 
 server.use(shortlinkMiddleware)
+
+server.use('/twilio', twilio)
 
 server.use('/voice', voice)
 

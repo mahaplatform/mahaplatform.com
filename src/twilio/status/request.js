@@ -10,6 +10,8 @@ class Request {
 
   cookies = null
 
+  env = 'development'
+
   query = {}
 
   step = null

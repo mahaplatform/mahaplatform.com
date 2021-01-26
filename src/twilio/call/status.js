@@ -1,20 +1,28 @@
-const Bull = require('bull')
+const axios = require('axios')
 
-const status = async (req, result, redis) => {
+const getStatusHost = (env) => {
+  if(env === 'production') return 'https://mahaplatform.com'
+  return 'https://greg-kops-mahaplatform.ngrok.io'
+}
 
-  const queue = new Bull('twilio', {
-    createClient: () => redis
-  })
-
-  await queue.add('call', {
-    result,
-    body: req.body,
-    direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
-    from: req.body.From,
-    to: req.body.To,
-    status: req.body.Status
-  })
-
+const status = async (req, result) => {
+  const host = getStatusHost(req.env)
+  try {
+    const result = await axios({
+      url: `${host}/twilio/status`,
+      method: 'post',
+      data: {
+        result,
+        body: req.body,
+        direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
+        from: req.body.From,
+        to: req.body.To,
+        status: req.body.Status
+      }
+    })
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 module.exports = status

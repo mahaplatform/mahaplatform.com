@@ -3,15 +3,7 @@ const identify = require('./identify')
 const Request = require('./request')
 const status = require('./status')
 const Twilio = require('twilio')
-const Redis = require('ioredis')
 const dial = require('./dial')
-
-const redis = new Redis({
-  port: 6379,
-  host: '172.31.31.51',
-  db: 2,
-  connectTimeout: 60000
-})
 
 const handle = async (req, res) => {
   const { config } = req
@@ -29,7 +21,7 @@ exports.handler = async (event, context) => {
 
   const result = await handle(req, res)
 
-  await status(req, result, redis)
+  await status(req, result)
 
   return res.render()
 
