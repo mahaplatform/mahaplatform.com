@@ -1,13 +1,14 @@
 const Response = require('./response')
 const Request = require('./request')
 const status = require('./status')
-const Bull = require('bull')
+const Redis = require('ioredis')
 
-const queue = new Bull('twilio', 'redis://172.31.31.51:6379/2')
-
-
-const handle = async (req, res) => {
-}
+const redis = new Redis({
+  port: 6379,
+  host: '172.31.31.51',
+  db: 2,
+  connectTimeout: 60000
+})
 
 exports.handler = async (event, context) => {
 
@@ -15,11 +16,9 @@ exports.handler = async (event, context) => {
 
   const res = new Response()
 
-  await status(req, queue)
+  await status(req, redis)
 
   res.status(200).type('text/plain').send(true)
-
-  await handle(req, res)
 
   return res.render()
 

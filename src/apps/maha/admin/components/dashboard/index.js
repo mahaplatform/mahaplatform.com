@@ -1,4 +1,5 @@
 import { Button, ImageEditor, ModalPanel } from '@admin'
+import Phone from '@apps/phone/admin/components/newphone'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -38,10 +39,24 @@ class Dashboard extends React.Component {
             <div className="date">
               { moment().format('dddd, MMM Do, YYYY') }
             </div>
+            <Button { ...this._getPhone() } />
           </div>
         </div>
       </ModalPanel>
     )
+  }
+
+  _getPhone() {
+    return {
+      label: 'Open Phone',
+      modal: {
+        component: Phone,
+        options: {
+          width: 375,
+          height: 667
+        }
+      }
+    }
   }
 
   _getHorizontal() {

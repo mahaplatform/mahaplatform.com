@@ -1,4 +1,13 @@
-const status = async (req, result, queue) => {
+const Bull = require('bull')
+
+const status = async (req, result, redis) => {
+
+  const queue = new Bull('twilio', {
+    createClient: () => redis
+  })
+
+  console.log(queue)
+
   await queue.add('process_voice_status', {
     result,
     enrollment: req.query.enrollment,
@@ -12,6 +21,7 @@ const status = async (req, result, queue) => {
     status: req.body.CallStatus,
     sequence: req.body.SequenceNumber
   })
+
 }
 
 module.exports = status

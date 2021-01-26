@@ -52,14 +52,21 @@ const processor = async () => {
   //   hash
   // })
 
+  // await twilio.calls.create({
+  //   machineDetection: 'DetectMessageEnd',
+  //   statusCallbackEvent: ['initiated','ringing','answered','completed'],
+  //   statusCallback: 'https://twiml.mahaplatform.com/status',
+  //   url: 'https://twiml.mahaplatform.com/voice?workflow=noyw8n852g',
+  //   to: '+16072775647',
+  //   from: '+16072462347'
+  // })
+
   await twilio.calls.create({
-    machineDetection: 'DetectMessageEnd',
-    statusCallbackEvent: ['initiated','ringing','answered','completed'],
-    statusCallback: 'https://twiml.mahaplatform.com/status',
-    url: 'https://twiml.mahaplatform.com/voice?workflow=noyw8n852g',
+    url: 'https://twiml.mahaplatform.com/call?client=463',
     to: '+16072775647',
     from: '+16072462347'
   })
+
 
 }
 

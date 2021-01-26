@@ -3,11 +3,8 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "dialbyextension", "users": [
-      { "extension": "100", "client": "user-79", "first_name": "Greg", "last_name": "Kops" },
-      { "extension": "200", "number": "+16072807552", "first_name": "Suli", "last_name": "Kops" },
-      { "extension": "300", "number": "+16072775647", "first_name": "Bob", "last_name": "Hutko" },
-      { "extension": "400", "number": "+16072775647", "first_name": "Simina", "last_name": "Leotescu" }
+    { "verb": "dial", "recipients": [
+      { "client": "user_463", "first_name": "Greg", "last_name": "Kops" }
     ] }
   ]
 }

@@ -219,6 +219,7 @@
     "tempfile": "^2.0.0",
     "tensify": "0.0.4",
     "twilio": "^3.55.0",
+    "twilio-client": "^1.13.1",
     "ua-parser-js": "^0.7.23",
     "winston": "^3.2.1",
     "winston-log2gelf": "^2.3.0",
