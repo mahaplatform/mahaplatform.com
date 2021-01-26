@@ -24,7 +24,6 @@ class Request {
       ...qs.parse(event.rawQueryString)
     }
     this.config = JSON.parse(atob(this.body.config || this.query.config))
-    console.log('body', this.config)
   }
 
 }

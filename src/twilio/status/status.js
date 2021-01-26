@@ -12,13 +12,16 @@ const status = async (req, result) => {
       url: `${host}/twilio/status`,
       method: 'post',
       data: {
-        body: req.body,
-        sid: req.body.CallSid,
-        from: req.body.From,
-        to: req.body.To,
-        direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
-        status: req.body.CallStatus,
-        sequence: req.body.SequenceNumber
+        name: 'status',
+        job: {
+          body: req.body,
+          sid: req.body.CallSid,
+          from: req.body.From,
+          to: req.body.To,
+          direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
+          status: req.body.CallStatus,
+          sequence: req.body.SequenceNumber
+        }
       }
     })
   } catch(err) {

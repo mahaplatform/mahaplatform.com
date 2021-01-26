@@ -3,15 +3,7 @@ const fetchConfig = require('./config')
 const Response = require('./response')
 const Request = require('./request')
 const status = require('./status')
-const Redis = require('ioredis')
 const _ = require('lodash')
-
-const redis = new Redis({
-  port: 6379,
-  host: '172.31.31.51',
-  db: 2,
-  connectTimeout: 60000
-})
 
 const evaluate = async (req) => {
 
@@ -27,7 +19,7 @@ const evaluate = async (req) => {
 
   const { twiml, result } = execute(req)
 
-  await status(req, result, redis)
+  await status(req, result)
 
   if(!twiml) return terminate(req)
 
