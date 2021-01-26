@@ -5,21 +5,21 @@ const getStatusHost = (env) => {
   return 'https://greg-kops-mahaplatform.ngrok.io'
 }
 
-const status = async (req, result) => {
+const status = async (req) => {
   const host = getStatusHost(req.env)
   try {
     await axios({
       url: `${host}/twilio/status`,
       method: 'post',
       data: {
-        body: req.body,
         sid: req.body.CallSid,
         parent_sid: req.body.ParentCallSid,
+        direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
         from: req.body.From,
         to: req.body.To,
-        direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
-        status: req.body.CallStatus,
-        sequence: req.body.SequenceNumber
+        status: req.body.Status,
+        sequence: req.body.SequenceNumber,
+        body: req.body
       }
     })
   } catch(err) {

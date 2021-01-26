@@ -32,10 +32,10 @@ class Receiver extends React.Component {
         { status === 'in-progress' &&
           <Active { ...this._getCall(call) } />
         }
-        { (call.direction === 'inbound' && status === 'ringing') &&
+        { (call.direction === 'inbound' && status !== 'in-progress') &&
           <Incoming { ...this._getCall(call) } />
         }
-        { (call.direction === 'outbound' && status === 'ringing') &&
+        { (call.direction === 'outbound' && status !== 'in-progress') &&
           <Outgoing { ...this._getCall(call) } />
         }
       </div>
@@ -80,6 +80,7 @@ class Receiver extends React.Component {
   }
 
   _handleStatus(data) {
+    console.log(data)
     this.setState({
       status: data.status
     })

@@ -5,9 +5,6 @@ const statusRoute = async (req, res) => {
 
   await TwilioStatusQueue.enqueue(req, req.body)
 
-  console.log(`/calls/${req.body.parent_sid}`)
-  console.log(`/calls/${req.body.sid}`)
-
   await socket.message(req, {
     channel: [
       `/calls/${req.body.parent_sid}`,
@@ -16,6 +13,8 @@ const statusRoute = async (req, res) => {
     action: 'callstatus',
     data: req.body
   })
+
+  console.log(req.body)
 
   res.status(200).respond(true)
 

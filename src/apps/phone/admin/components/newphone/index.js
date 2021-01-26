@@ -95,7 +95,10 @@ class PhoneRoot extends React.Component {
       network.request({
         endpoint: '/api/admin/phone/calls',
         method: 'post',
-        body: { config }
+        body: { config },
+        onSuccess: (data) => {
+          console.log(data)
+        }
       })
     }
   }

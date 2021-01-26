@@ -5,7 +5,7 @@ const createRoute = async (req, res) => {
 
   const config = JSON.parse(atob(req.body.config))
 
-  await twilio.calls.create({
+  const call = await twilio.calls.create({
     url: `https://twiml.mahaplatform.com/call?config=${req.body.config}`,
     statusCallback: 'https://twiml.mahaplatform.com/status',
     statusCallbackEvent: ['initiated','ringing','answered','completed'],
@@ -13,7 +13,7 @@ const createRoute = async (req, res) => {
     from: config.from
   })
 
-  res.status(200).respond(true)
+  res.status(200).respond(call)
 
 }
 
