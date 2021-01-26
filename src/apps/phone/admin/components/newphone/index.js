@@ -88,12 +88,16 @@ class PhoneRoot extends React.Component {
       identify: call.through ? this._getIdentify(call) : null,
       through: call.through
     }))
-    if(!call.through) return this._handleOutgoing(call, config)
-    network.request({
-      endpoint: '/api/admin/phone/calls',
-      method: 'post',
-      body: { config }
-    })
+    if(!call.through) {
+      const connection = window.Twilio.Device.connect({ config })
+      connection.on('accept', this._handleOutgoing.bind(this, call, config))
+    } else {
+      network.request({
+        endpoint: '/api/admin/phone/calls',
+        method: 'post',
+        body: { config }
+      })
+    }
   }
 
   _handleError(error) {
@@ -149,10 +153,9 @@ class PhoneRoot extends React.Component {
     })
   }
 
-  _handleOutgoing(call, config) {
+  _handleOutgoing(call, config, connection) {
     const { admin } = this.context
     const { calls, program } = this.state
-    const connection = window.Twilio.Device.connect({ config })
     this.setState({
       calls: [
         ...calls,
@@ -170,13 +173,12 @@ class PhoneRoot extends React.Component {
         }
       ]
     })
-    connection.on('accept', () => console.log('accepted'))
-    connection.on('answer', () => console.log('answered'))
     connection.on('cancel', this._handleRemove.bind(this, connection))
     connection.on('disconnect', this._handleRemove)
     connection.on('error', this._handleError)
     connection.on('mute', this._handleMute)
   }
+
 
   _handleProgram(program) {
     this.setState({

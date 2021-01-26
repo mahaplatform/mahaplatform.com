@@ -26,12 +26,13 @@ class Queue {
     this.concurrency = options.concurrency || 1
     this.priority = options.priority || 10
     this.attempts = options.attempts || 3
+    this.remove = options.remove || true
     this.queue = getQueue(options.queue)
     this.queueName = options.queue
+    this.refresh = options.refresh
     this.name = options.name
     this.cron = options.cron
     this.path = options.path
-    this.refresh = options.refresh
   }
 
   async enqueue(req = {}, job = {}, options = {}) {
@@ -48,7 +49,7 @@ class Queue {
         type: 'exponential',
         delay: 5000
       },
-      removeOnComplete: true
+      removeOnComplete: this.remove
     })
   }
 

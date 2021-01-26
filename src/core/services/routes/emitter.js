@@ -4,13 +4,15 @@ import _ from 'lodash'
 
 export const refresh = async (req, messages) => {
   await Promise.map(_.castArray(messages), async message => {
-    const channel = _getChannel(req, message)
+    const channels = _getChannels(req, message)
     const targets = _getTargets(req, message)
-    await Promise.map(targets, async target => {
-      await socket.in(channel).emit('message', {
-        target,
-        action: 'refresh',
-        data: null
+    await Promise.map(_.castArray(channels), async channel => {
+      await Promise.map(_.castArray(targets), async target => {
+        await socket.in(channel).emit('message', {
+          target,
+          action: 'refresh',
+          data: null
+        })
       })
     })
   })
@@ -18,19 +20,21 @@ export const refresh = async (req, messages) => {
 
 export const message = async (req, messages) => {
   await Promise.map(_.castArray(messages), async message => {
-    const channel = _getChannel(req, message)
+    const channels = _getChannels(req, message)
     const targets = _getTargets(req, message)
-    await Promise.map(targets, async target => {
-      await socket.in(channel).emit('message', {
-        target,
-        action: message.action,
-        data: message.data ? formatObjectForTransport(message.data) : null
+    await Promise.map(_.castArray(channels), async channel => {
+      await Promise.map(_.castArray(targets), async target => {
+        await socket.in(channel).emit('message', {
+          target,
+          action: message.action,
+          data: message.data ? formatObjectForTransport(message.data) : null
+        })
       })
     })
   })
 }
 
-const _getChannel = (req, message) => {
+const _getChannels = (req, message) => {
   if(_.isString(message)) return message
   if(message.channel === 'account') return `/admin/accounts/${req.account.get('id')}`
   if(message.channel === 'team') return `/admin/teams/${req.team.get('id')}`
@@ -40,8 +44,7 @@ const _getChannel = (req, message) => {
 }
 
 const _getTargets = (req, message) => {
-  const target = message.target || _getChannel(req, message)
-  return _.castArray(target)
+  return message.target || _getChannels(req, message)
 }
 
 export default {

@@ -8,22 +8,19 @@ const getStatusHost = (env) => {
 const status = async (req, result) => {
   const host = getStatusHost(req.env)
   try {
-    const result = await axios({
-      url: `${host}/twilio/status`,
+    await axios({
+      url: `${host}/twilio/sms`,
       method: 'post',
       data: {
-        name: 'sms',
-        job: {
-          result,
-          enrollment: req.session.enrollment,
-          workflow: req.session.workflow,
-          term: req.session.term,
-          step: req.step.code,
-          from: req.body.From,
-          to: req.body.To,
-          status: req.body.Status,
-          message: req.body.Body
-        }
+        result,
+        enrollment: req.session.enrollment,
+        workflow: req.session.workflow,
+        term: req.session.term,
+        step: req.step.code,
+        from: req.body.From,
+        to: req.body.To,
+        status: req.body.Status,
+        message: req.body.Body
       }
     })
   } catch(err) {

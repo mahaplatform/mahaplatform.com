@@ -1,7 +1,7 @@
 import TwilioStatusQueue from '@apps/maha/queues/twilio_status_queue'
 import socket from '@core/services/routes/emitter'
 
-const statusRoute = async (req, res) => {
+const callRoute = async (req, res) => {
 
   await TwilioStatusQueue.enqueue(req, req.body)
 
@@ -21,4 +21,4 @@ const statusRoute = async (req, res) => {
 
 }
 
-export default statusRoute
+export default callRoute
