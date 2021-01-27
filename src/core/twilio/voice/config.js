@@ -1,12 +1,19 @@
 const aws = require('aws-sdk')
 
 const getConfigPath = (req) => {
-  const { body } = req
-  const message = body.Body
+  const { query, body } = req
+  const workflow = query.workflow
+  const direction = body.Direction
   const from = body.From
   const to = body.To
-  const term = req.session.term || message
-  return `${to.substr(1)}/${message.toLowerCase()}`
+  if(direction === 'inbound') {
+    return `inbound/${to.substr(1)}`
+  }
+  if(direction === 'outbound-api') {
+    if(workflow !== undefined) {
+      return `outbound/${workflow}`
+    }
+  }
 }
 
 const fetchConfig = async (req) => {
@@ -21,8 +28,8 @@ const fetchConfig = async (req) => {
   const s3 = new aws.S3()
 
   const data = await s3.getObject({
-    Bucket: 'cdn.mahaplatform.com',
-    Key: `twiml/sms/${getConfigPath(req)}`
+    Bucket: process.env.AWS_BUCKET,
+    Key: `twiml/voice/${getConfigPath(req)}`
   }).promise()
 
   return JSON.parse(data.Body)

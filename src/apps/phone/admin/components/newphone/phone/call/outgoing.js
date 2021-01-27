@@ -16,7 +16,6 @@ class Outgoing extends React.Component {
       <div className="maha-phone-call">
         <Header program={ program } call={ call } />
         <div className="maha-phone-call-body">
-          outgoing
         </div>
       </div>
     )

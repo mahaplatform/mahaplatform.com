@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import call from './call'
+import lambda from './lambda'
 
-describe('src/core/lib/express/twilio/call.js', () => {
+describe('src/core/lib/express/twilio/lambda.js', () => {
 
 })

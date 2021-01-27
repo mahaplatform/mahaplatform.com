@@ -23,7 +23,7 @@ const listFiles = (basedir, localdir = '.') => {
 
 const layer = async (name) => {
 
-  const layerDir = path.join('src','twilio','layer')
+  const layerDir = path.join('src','core','twilio','layer')
 
   const outfile = path.join('tmp','layer.zip')
 

@@ -1,15 +1,9 @@
 const axios = require('axios')
 
-const getStatusHost = (env) => {
-  if(env === 'production') return 'https://mahaplatform.com'
-  return 'https://greg-kops-mahaplatform.ngrok.io'
-}
-
 const status = async (req, result) => {
-  const host = getStatusHost(req.env)
   try {
     await axios({
-      url: `${host}/twilio/call`,
+      url: `${process.env.TWILIO_STATUS_HOST}/status`,
       method: 'post',
       data: {
         sid: req.body.CallSid,
@@ -17,7 +11,7 @@ const status = async (req, result) => {
         direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
         from: req.body.From,
         to: req.body.To,
-        status: req.body.Status,
+        status: req.body.CallStatus,
         sequence: req.body.SequenceNumber,
         body: req.body,
         result

@@ -3,18 +3,19 @@ import socket from '@core/services/routes/emitter'
 
 const statusRoute = async (req, res) => {
 
+  if(req.body.ParentCallSid) {
+    req.body.CallSid = req.body.ParentCallSid
+    req.body.ChildCallSid = req.body.CallSid
+    delete req.body.ParentCallSid
+  }
+
   await TwilioStatusQueue.enqueue(req, req.body)
 
   await socket.message(req, {
-    channel: [
-      `/calls/${req.body.parent_sid}`,
-      `/calls/${req.body.sid}`,
-    ],
+    channel: `/calls/${req.body.CallSid}`,
     action: 'callstatus',
     data: req.body
   })
-
-  console.log(req.body)
 
   res.status(200).respond(true)
 

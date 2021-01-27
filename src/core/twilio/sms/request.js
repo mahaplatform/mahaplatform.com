@@ -17,7 +17,7 @@ class Request {
   step = null
 
   constructor(event) {
-    this.body = qs.parse(decodeURIComponent(atob(event.body)))
+    this.body = this.parseBody(event)
     this.query = qs.parse(event.rawQueryString)
     this.cookies = event.cookies
     this.session = {
@@ -26,6 +26,13 @@ class Request {
       term: this.body.Body ? this.body.Body.toLowerCase() : null,
       ...this._extractSession()
     }
+  }
+
+  parseBody(event) {
+    const { body, isBase64Encoded } = event
+    if(!body) return {}
+    if(!isBase64Encoded) return body
+    return qs.parse(decodeURIComponent(atob(body)))
   }
 
   _extractSession() {

@@ -17,12 +17,12 @@ const listFiles = (basedir, localdir = '.') => {
 
 const test = async () => {
 
-  const files = listFiles(path.join('src','twilio','twiml'))
+  const files = listFiles(path.join('src','core','twilio','twiml'))
 
   await Promise.mapSeries(files, async (file) => {
     await upload(null, {
       acl: 'private',
-      bucket: 'cdn.mahaplatform.com',
+      bucket: process.env.AWS_BUCKET,
       key: `twiml/${file.name.replace('.json','')}`,
       cache_control: 'max-age=0,no-cache',
       content_type: 'application/json',

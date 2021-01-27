@@ -1,6 +1,8 @@
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
-import Receiver from './receiver'
+import Incoming from './incoming'
+import Outgoing from './outgoing'
+import Active from './active'
 import React from 'react'
 
 class Call extends React.Component {
@@ -17,19 +19,27 @@ class Call extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         { call &&
-          <Receiver { ...this._getReceiver(call) } />
+          <div className="maha-phone-receiver">
+            { call.status === 'in-progress' &&
+              <Active { ...this._getCall(call) } />
+            }
+            { (call.direction === 'inbound' && call.status !== 'in-progress') &&
+              <Incoming { ...this._getCall(call) } />
+            }
+            { (call.direction === 'outbound' && call.status !== 'in-progress') &&
+              <Outgoing { ...this._getCall(call) } />
+            }
+          </div>
         }
       </ModalPanel>
     )
   }
 
-  _getReceiver(call) {
-    const { program, onPop, onPush } = this.props
+  _getCall(call) {
+    const { program } = this.props
     return {
       call,
-      program,
-      onPop,
-      onPush
+      program
     }
   }
 

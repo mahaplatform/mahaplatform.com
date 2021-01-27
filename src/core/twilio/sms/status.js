@@ -1,15 +1,9 @@
 const axios = require('axios')
 
-const getStatusHost = (env) => {
-  if(env === 'production') return 'https://mahaplatform.com'
-  return 'https://greg-kops-mahaplatform.ngrok.io'
-}
-
 const status = async (req, result) => {
-  const host = getStatusHost(req.env)
   try {
     await axios({
-      url: `${host}/twilio/sms`,
+      url: `${process.env.TWILIO_STATUS_HOST}/status`,
       method: 'post',
       data: {
         result,

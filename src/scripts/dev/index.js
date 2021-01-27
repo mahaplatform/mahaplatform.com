@@ -159,7 +159,7 @@ const adminWatch = async () => {
       const parts = req.url.split('?').shift().split('/').slice(1)
       if(fs.existsSync(path.join(adminRoot,...parts))) return null
       if(/^\/(fo|op|li|wv|vw|so|ns|nv|si)\//.test(req.url)) return null
-      if(/^\/(admin|adobesign|api|aws|imagecache|fax|jobs|qr|sms|shortlinks|voice)/.test(req.url)) return null
+      if(/^\/(admin|adobesign|api|aws|imagecache|fax|jobs|qr|sms|shortlinks|twilio|voice)/.test(req.url)) return null
       if(/^\/(mt|collect)/.test(req.url)) return null
       if(/^\/notifications.js/.test(req.url)) return null
       if(appregex.test(req.url)) return null

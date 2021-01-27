@@ -24,12 +24,13 @@ class PhoneRoot extends React.Component {
 
   _handleAccept = this._handleAccept.bind(this)
   _handleCall = this._handleCall.bind(this)
-  _handleError = this._handleRemove.bind(this)
+  _handleError = this._handleError.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
   _handleMute = this._handleMute.bind(this)
   _handleProgram = this._handleProgram.bind(this)
-  _handleReady = this._handleReady.bind(this)
-  _handleRemove = this._handleError.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
+  _handleStatus = this._handleStatus.bind(this)
+  _handleThrough = this._handleThrough.bind(this)
 
   render() {
     return (
@@ -68,11 +69,28 @@ class PhoneRoot extends React.Component {
     this.setState({
       calls: calls.map(call => ({
         ...call,
-        ...call.connection.parameters.CallSid === CallSid ? {
+        ...call.sid === CallSid ? {
           status: 'in-progress'
         } : {}
       }))
     })
+  }
+
+  _handleAdd(call) {
+    const { connection } = call
+    const { calls } = this.state
+    call.sid = call.sid || connection.parameters.CallSid
+    this.setState({
+      calls: [ ...calls, call ]
+    })
+    this._handleJoin(call.sid)
+    if(!connection) return
+    connection.on('accept', this._handleAccept)
+    connection.on('cancel', this._handleRemove.bind(this, connection))
+    connection.on('disconnect', this._handleRemove)
+    connection.on('error', this._handleError)
+    connection.on('mute', this._handleMute)
+    connection.on('reject', this._handleRemove.bind(this, connection))
   }
 
   _handleCall(call) {
@@ -96,9 +114,7 @@ class PhoneRoot extends React.Component {
         endpoint: '/api/admin/phone/calls',
         method: 'post',
         body: { config },
-        onSuccess: (data) => {
-          console.log(data)
-        }
+        onSuccess: ({ data }) => this._handleThrough(call, config, data)
       })
     }
   }
@@ -108,28 +124,18 @@ class PhoneRoot extends React.Component {
   }
 
   _handleIncoming(connection) {
-    const { calls } = this.state
-    this.setState({
-      calls: [
-        ...calls,
-        {
-          connection,
-          from: connection.parameters.from,
-          to_user: call.user,
-          to: config.number,
-          direction: 'inbound',
-          muted: false,
-          started_at: moment(),
-          status: 'ringing'
-        }
-      ]
+    const { program } = this.props
+    const { admin } = this.context
+    this._handleAdd({
+      connection,
+      from: connection.parameters.from,
+      to_user: admin.user,
+      to: program.number,
+      direction: 'inbound',
+      muted: false,
+      started_at: moment(),
+      status: 'ringing'
     })
-    connection.on('accept', this._handleAccept)
-    connection.on('cancel', this._handleRemove.bind(this, connection))
-    connection.on('disconnect', this._handleRemove)
-    connection.on('error', this._handleError)
-    connection.on('mute', this._handleMute)
-    connection.on('reject', this._handleRemove.bind(this, connection))
   }
 
   _handleInit() {
@@ -142,7 +148,24 @@ class PhoneRoot extends React.Component {
     window.Twilio.Device.audio.outgoing(false)
     window.Twilio.Device.audio.disconnect(false)
     window.Twilio.Device.on('incoming', this._handleIncoming)
-    window.Twilio.Device.on('ready', this._handleReady.bind(this))
+  }
+
+  _handleJoin(sid) {
+    const { network } = this.context
+    const target = `/calls/${sid}`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'callstatus', handler: this._handleStatus }
+    ])
+  }
+
+  _handleLeave(sid) {
+    const { network } = this.context
+    const target = `/calls/${sid}`
+    network.leave(target)
+    network.subscribe([
+      { target, action: 'callstatus', handler: this._handleStatus }
+    ])
   }
 
   _handleMute(muted, connection) {
@@ -151,37 +174,27 @@ class PhoneRoot extends React.Component {
     this.setState({
       calls: calls.map(call => ({
         ...call,
-        ...call.connection.parameters.CallSid === CallSid ? { muted } : {}
+        ...call.sid === CallSid ? { muted } : {}
       }))
     })
   }
 
   _handleOutgoing(call, config, connection) {
     const { admin } = this.context
-    const { calls, program } = this.state
-    this.setState({
-      calls: [
-        ...calls,
-        {
-          connection,
-          contact: call.contact,
-          direction: 'outbound',
-          from: program.phone_number.number,
-          from_user: admin.user,
-          to_user: call.user,
-          to: config.number,
-          muted: false,
-          started_at: moment(),
-          status: 'ringing'
-        }
-      ]
+    const { program } = this.state
+    this._handleAdd({
+      connection,
+      contact: call.contact,
+      direction: 'outbound',
+      from: program.phone_number.number,
+      from_user: admin.user,
+      to_user: call.user,
+      to: config.number,
+      muted: false,
+      started_at: moment(),
+      status: 'ringing'
     })
-    connection.on('cancel', this._handleRemove.bind(this, connection))
-    connection.on('disconnect', this._handleRemove)
-    connection.on('error', this._handleError)
-    connection.on('mute', this._handleMute)
   }
-
 
   _handleProgram(program) {
     this.setState({
@@ -196,15 +209,44 @@ class PhoneRoot extends React.Component {
     })
   }
 
-  _handleReady() {}
-
   _handleRemove(connection) {
     const { CallSid } = connection.parameters
     const { calls } = this.state
+    this._handleLeave(CallSid)
     this.setState({
       calls: calls.filter(call => {
-        return call.connection.parameters.CallSid !== CallSid
+        return call.sid !== CallSid
       })
+    })
+  }
+
+  _handleStatus(data) {
+    console.log(data)
+    const { calls } = this.state
+    const sid = data.parent_sid || data.sid
+    const status = data.status
+    this.setState({
+      calls: calls.map(call => ({
+        ...call,
+        ...call.sid === sid ? { status } : {}
+      }))
+    })
+  }
+
+  _handleThrough(call, config, twcall) {
+    const { admin } = this.context
+    const { program } = this.state
+    this._handleAdd({
+      sid: twcall.sid,
+      contact: call.contact,
+      direction: 'outbound',
+      from: program.phone_number.number,
+      from_user: admin.user,
+      to_user: call.user,
+      to: config.number,
+      muted: false,
+      started_at: moment(),
+      status: call.status
     })
   }
 
