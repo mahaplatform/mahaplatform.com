@@ -1,5 +1,5 @@
 import { Button, ImageEditor, ModalPanel } from '@admin'
-import Phone from '@apps/phone/admin/components/newphone'
+import Phone from '@apps/phone/admin/components/newphoneroot'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

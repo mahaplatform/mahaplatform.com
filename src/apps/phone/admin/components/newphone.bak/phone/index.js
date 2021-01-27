@@ -1,21 +1,16 @@
 import { Stack, Tasks } from '@admin'
 import PropTypes from 'prop-types'
+import Add from './add'
 import React from 'react'
-import Phone from './phone'
 import Call from './call'
 
-class Handset extends React.Component {
-
-  static contextTypes = {
-    network: PropTypes.object
-  }
+class Phone extends React.Component {
 
   static propTypes = {
     calls: PropTypes.array,
-    error: PropTypes.string,
     programs: PropTypes.array,
     program: PropTypes.object,
-    onClose: PropTypes.func,
+    onCall: PropTypes.func,
     onProgram: PropTypes.func
   }
 
@@ -49,11 +44,11 @@ class Handset extends React.Component {
   }
 
   _getPhone() {
-    const { programs, program, onClose, onProgram } = this.props
+    const { programs, program, onCall, onProgram } = this.props
     return {
       programs,
       program,
-      onClose,
+      onCall,
       onProgram,
       onPop: this._handlePop,
       onPush: this._handlePush
@@ -91,7 +86,6 @@ class Handset extends React.Component {
     })
   }
 
-
 }
 
-export default Handset
+export default Phone
