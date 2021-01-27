@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Timer from '../../../timer'
 import Keypad from '../keypad'
 import Button from '../button'
+import Header from './header'
 import React from 'react'
 
 class Call extends React.Component {
@@ -31,6 +32,7 @@ class Call extends React.Component {
     const { mode } = this.state
     return (
       <div className="maha-phone-call">
+        <Header call={ call } />
         <div className="maha-phone-call-timer">
           <Timer from={ call.started_at } />
         </div>

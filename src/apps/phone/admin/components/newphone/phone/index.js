@@ -40,10 +40,10 @@ class Phone extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Add, this._getAdd.bind(this))
+    this._handlePush(Phone, this._getPhone.bind(this))
   }
 
-  _getAdd() {
+  _getPhone() {
     const { programs, program, onCall, onProgram } = this.props
     return {
       programs,

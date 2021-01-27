@@ -1,10 +1,14 @@
 import { Infinite, Searchbox } from '@admin'
 import PropTypes from 'prop-types'
-import Contact from './contact'
 import Results from './results'
+import User from './user'
 import React from 'react'
 
-class Contacts extends React.Component {
+class Users extends React.Component {
+
+  static contextTypes = {
+    admin: PropTypes.object
+  }
 
   static propTypes = {
     program: PropTypes.object,
@@ -33,25 +37,15 @@ class Contacts extends React.Component {
     )
   }
 
-  _getContact(contact) {
-    const { program, onCall, onPop, onPush } = this.props
-    return {
-      program,
-      contact_id: contact.id,
-      phone_id: contact.phone_id,
-      onCall,
-      onPop,
-      onPush
-    }
-  }
-
   _getInfinite() {
     const { q } = this.state
     return {
-      endpoint: '/api/admin/crm/contacts',
+      endpoint: '/api/admin/users',
       filter: {
-        phone: { $nnl: true },
-        ...q.length > 0 ? { q } : {}
+        ...q.length > 0 ? { q } : {},
+        is_active: {
+          $eq: true
+        }
       },
       layout: Results,
       props: {
@@ -66,8 +60,19 @@ class Contacts extends React.Component {
     }
   }
 
-  _handleChoose(contact) {
-    this.props.onPush(Contact, this._getContact(contact))
+  _getUser(user) {
+    const { program, onCall, onPop, onPush } = this.props
+    return {
+      program,
+      user_id: user.id,
+      onCall,
+      onPop,
+      onPush
+    }
+  }
+
+  _handleChoose(user) {
+    this.props.onPush(User, this._getUser(user))
   }
 
   _handleQuery(q) {
@@ -76,4 +81,4 @@ class Contacts extends React.Component {
 
 }
 
-export default Contacts
+export default Users

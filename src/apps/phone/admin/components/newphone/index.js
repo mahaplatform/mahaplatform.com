@@ -19,7 +19,7 @@ class PhoneRoot extends React.Component {
   state = {
     calls: [],
     error: null,
-    program: null
+    program_id: null
   }
 
   _handleAccept = this._handleAccept.bind(this)
@@ -41,23 +41,31 @@ class PhoneRoot extends React.Component {
   componentDidMount() {
     const { programs } = this.props
     this._handleInit()
-    this._handleProgram(programs[0])
+    this._handleProgram(programs[0].id)
   }
 
   _getIdentify(call) {
     if(call.contact) return { name: call.contact.display_name }
-    if(call.user) return { name: call.user.full_name }
+    if(call.to_user) return { name: call.to_user.full_name }
     return { number: call.number }
   }
 
+  _getProgram() {
+    const { program_id } = this.state
+    const { programs } = this.props
+    return programs.find(program => {
+      return program.id === program_id
+    })
+  }
+
   _getPhone() {
-    const { error, calls, program } = this.state
+    const { error, calls } = this.state
     const { programs } = this.props
     return {
       calls,
       error,
       programs,
-      program,
+      program: this._getProgram(),
       onProgram: this._handleProgram,
       onCall: this._handleCall
     }
@@ -65,9 +73,8 @@ class PhoneRoot extends React.Component {
 
   _handleAccept(connection) {
     const { CallSid } = connection.parameters
-    const { calls } = this.state
     this.setState({
-      calls: calls.map(call => ({
+      calls: this.state.calls.map(call => ({
         ...call,
         ...call.sid === CallSid ? {
           status: 'in-progress'
@@ -79,7 +86,7 @@ class PhoneRoot extends React.Component {
   _handleAdd(call) {
     const { connection } = call
     const { calls } = this.state
-    call.sid = call.sid || connection.parameters.CallSid
+    if(connection) call.sid = connection.parameters.CallSid
     this.setState({
       calls: [ ...calls, call ]
     })
@@ -93,9 +100,9 @@ class PhoneRoot extends React.Component {
     connection.on('reject', this._handleRemove.bind(this, connection))
   }
 
-  _handleCall(call) {
+  _handleCall(through) {
     const { admin, network } = this.context
-    const { program } = this.state
+    const program = this._getProgram()
     const config = btoa(JSON.stringify({
       caller_id: admin.user.id,
       contact_id: call.contact ? call.contact.id : null,
@@ -124,7 +131,7 @@ class PhoneRoot extends React.Component {
   }
 
   _handleIncoming(connection) {
-    const { program } = this.props
+    const { program } = this.state
     const { admin } = this.context
     this._handleAdd({
       connection,
@@ -197,16 +204,7 @@ class PhoneRoot extends React.Component {
   }
 
   _handleProgram(program) {
-    this.setState({
-      program: {
-        ...program,
-        phone_number: {
-          id: 1,
-          formatted: '(607) 246-2347',
-          number: '+16072462347'
-        }
-      }
-    })
+    this.setState({ program })
   }
 
   _handleRemove(connection) {

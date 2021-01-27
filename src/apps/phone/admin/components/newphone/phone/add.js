@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import Contacts from './contacts'
 import Programs from './programs'
 import Dialer from './dialer'
-// import Users from './users'
+import Users from './users'
 import React from 'react'
 
 const tabs = [
   { icon: 'th', label: 'Keypad', component: Dialer },
   { icon: 'user', label: 'Contacts', component: Contacts },
-  // { icon: 'user-circle', label: 'Users', component: Users }
+  { icon: 'user-circle', label: 'Users', component: Users }
 ]
 
 class Add extends React.Component {
