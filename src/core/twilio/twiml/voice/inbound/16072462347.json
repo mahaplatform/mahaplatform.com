@@ -3,6 +3,8 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "dial", "client": "user_483" }
+    { "verb": "dial", "recipients": [
+      { "client": "user_463" }
+    ] }
   ]
 }

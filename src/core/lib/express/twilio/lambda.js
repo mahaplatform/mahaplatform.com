@@ -18,7 +18,7 @@ const lambdaRoute = async (req, res) => {
   const { body, headers, statusCode } = await handler({
     cookies: req.cookies,
     body: req.body,
-    queryString: url.query,
+    rawQueryString: url.query,
     isBase64Encoded: false
   })
 

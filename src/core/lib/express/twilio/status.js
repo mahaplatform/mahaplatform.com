@@ -3,8 +3,9 @@ import socket from '@core/services/routes/emitter'
 
 const normalize = (body) => {
   if(body.ParentCallSid) {
-    body.CallSid = body.ParentCallSid
-    body.ChildCallSid = body.CallSid
+    const { CallSid, ParentCallSid} = body
+    body.CallSid = ParentCallSid
+    body.ChildCallSid = CallSid
     delete body.ParentCallSid
   }
   return {

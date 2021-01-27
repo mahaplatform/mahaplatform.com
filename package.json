@@ -31,8 +31,7 @@
     "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js",
     "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js",
     "server": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/server.js",
-    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js",
-    "twilio": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/twilio.js"
+    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
