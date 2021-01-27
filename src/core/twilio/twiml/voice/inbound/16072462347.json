@@ -3,6 +3,6 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "say", "text": "hello "}
+    { "verb": "dial", "client": "user_483" }
   ]
 }

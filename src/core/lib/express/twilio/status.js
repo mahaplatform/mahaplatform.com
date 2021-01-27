@@ -1,20 +1,38 @@
 import TwilioStatusQueue from '@apps/maha/queues/twilio_status_queue'
 import socket from '@core/services/routes/emitter'
 
+const normalize = (body) => {
+  if(body.ParentCallSid) {
+    body.CallSid = body.ParentCallSid
+    body.ChildCallSid = body.CallSid
+    delete body.ParentCallSid
+  }
+  return {
+    data: {
+      sid: body.CallSid,
+      answered_by: body.AnsweredBy,
+      child_sid: body.ChildCallSid,
+      direction: body.Direction,
+      from: body.From,
+      to: body.To,
+      status: body.CallStatus
+    },
+    tstamp: body.Timestamp,
+    meta: body.Meta,
+    result: body.Result
+  }
+}
+
 const statusRoute = async (req, res) => {
 
-  if(req.body.ParentCallSid) {
-    req.body.CallSid = req.body.ParentCallSid
-    req.body.ChildCallSid = req.body.CallSid
-    delete req.body.ParentCallSid
-  }
+  const job = normalize(req.body)
 
-  await TwilioStatusQueue.enqueue(req, req.body)
+  await TwilioStatusQueue.enqueue(req, job)
 
   await socket.message(req, {
-    channel: `/calls/${req.body.CallSid}`,
+    channel: `/calls/${job.data.sid}`,
     action: 'callstatus',
-    data: req.body
+    data: job.data
   })
 
   res.status(200).respond(true)

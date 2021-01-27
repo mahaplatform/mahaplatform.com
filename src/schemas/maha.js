@@ -1460,13 +1460,20 @@ const schema = {
       table.integer('contact_id').unsigned()
     })
 
+    await knex.schema.createTable('maha_call_activities', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('call_id').unsigned()
+      table.jsonb('data')
+      table.timestamp('tstamp')
+    })
+
     await knex.schema.createTable('maha_calls', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('from_id').unsigned()
       table.integer('to_id').unsigned()
       table.USER-DEFINED('direction')
-      table.text('body')
       table.string('sid', 255)
       table.USER-DEFINED('status')
       table.integer('duration')
@@ -3703,6 +3710,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_call_activities', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('call_id').references('maha_calls.id')
+    })
+
 
     await knex.raw(`
       create view chat_results AS
@@ -5237,6 +5249,23 @@ union
     `)
 
     await knex.raw(`
+      create view events_registration_ticket_type_totals AS
+      with totals as (
+      select events_registrations.id as registration_id,
+      events_ticket_types.id as ticket_type_id,
+      coalesce(count(events_tickets.*), (0)::bigint) as total
+      from ((events_registrations
+      join events_ticket_types on ((events_ticket_types.event_id = events_registrations.event_id)))
+      left join events_tickets on (((events_tickets.registration_id = events_registrations.id) and (events_tickets.ticket_type_id = events_ticket_types.id))))
+      group by events_registrations.id, events_ticket_types.id
+      )
+      select totals.registration_id,
+      jsonb_object_agg(totals.ticket_type_id, totals.total) as ticket_type_totals
+      from totals
+      group by totals.registration_id;
+    `)
+
+    await knex.raw(`
       create view events_registration_tokens AS
       with registrations as (
       select events_registrations_1.id as registration_id,
@@ -5307,23 +5336,6 @@ union
       join revenue on ((revenue.registration_id = events_registrations.id)))
       join invoice on ((invoice.registration_id = events_registrations.id)))
       join tickets on ((tickets.registration_id = events_registrations.id)));
-    `)
-
-    await knex.raw(`
-      create view events_registrstion_ticket_type_totals AS
-      with totals as (
-      select events_registrations.id as registration_id,
-      events_ticket_types.id as ticket_type_id,
-      coalesce(count(events_tickets.*), (0)::bigint) as total
-      from ((events_registrations
-      join events_ticket_types on ((events_ticket_types.event_id = events_registrations.event_id)))
-      left join events_tickets on (((events_tickets.registration_id = events_registrations.id) and (events_tickets.ticket_type_id = events_ticket_types.id))))
-      group by events_registrations.id, events_ticket_types.id
-      )
-      select totals.registration_id,
-      jsonb_object_agg(totals.ticket_type_id, totals.total) as totals
-      from totals
-      group by totals.registration_id;
     `)
 
     await knex.raw(`
@@ -6305,24 +6317,6 @@ union
     `)
 
     await knex.raw(`
-      create view stores_order_item_totals AS
-      with computed as (
-      select stores_orders.id as order_id,
-      stores_variants.id as variant_id,
-      coalesce(count(stores_items.*), (0)::bigint) as total
-      from (((stores_orders
-      join stores_products on ((stores_products.store_id = stores_orders.store_id)))
-      join stores_variants on ((stores_variants.product_id = stores_products.id)))
-      left join stores_items on (((stores_items.order_id = stores_orders.id) and (stores_items.variant_id = stores_variants.id))))
-      group by stores_orders.id, stores_variants.id
-      )
-      select computed.order_id,
-      jsonb_object_agg(computed.variant_id, computed.total) as totals
-      from computed
-      group by computed.order_id;
-    `)
-
-    await knex.raw(`
       create view stores_order_tokens AS
       with orders as (
       select stores_orders_1.id as order_id,
@@ -6402,6 +6396,24 @@ union
       left join revenue on ((revenue.order_id = stores_orders.id)))
       left join invoice on ((invoice.order_id = stores_orders.id)))
       join items on ((items.order_id = stores_orders.id)));
+    `)
+
+    await knex.raw(`
+      create view stores_order_variant_totals AS
+      with computed as (
+      select stores_orders.id as order_id,
+      stores_variants.id as variant_id,
+      coalesce(count(stores_items.*), (0)::bigint) as total
+      from (((stores_orders
+      join stores_products on ((stores_products.store_id = stores_orders.store_id)))
+      join stores_variants on ((stores_variants.product_id = stores_products.id)))
+      left join stores_items on (((stores_items.order_id = stores_orders.id) and (stores_items.variant_id = stores_variants.id))))
+      group by stores_orders.id, stores_variants.id
+      )
+      select computed.order_id,
+      jsonb_object_agg(computed.variant_id, computed.total) as variant_totals
+      from computed
+      group by computed.order_id;
     `)
 
     await knex.raw(`

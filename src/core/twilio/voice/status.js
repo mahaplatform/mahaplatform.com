@@ -6,17 +6,13 @@ const status = async (req, result) => {
       url: `${process.env.TWILIO_STATUS_HOST}/status`,
       method: 'post',
       data: {
-        result,
-        enrollment: req.query.enrollment,
-        workflow: req.query.workflow,
-        step: req.step.code,
-        direction: req.body.Direction === 'inbound' ? 'inbound' : 'outbound',
-        answered_by: req.body.AnsweredBy,
-        sid: req.body.CallSid,
-        from: req.body.From,
-        to: req.body.To,
-        status: req.body.CallStatus,
-        sequence: req.body.SequenceNumber
+        ...req.body,
+        Meta: {
+          enrollment: req.query.enrollment,
+          workflow: req.query.workflow,
+          step: req.step.code
+        },
+        Result: result
       }
     })
   } catch(err) {
