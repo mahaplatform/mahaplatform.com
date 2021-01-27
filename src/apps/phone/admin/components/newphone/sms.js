@@ -1,13 +1,12 @@
+import SMSClient from '@apps/phone/admin/components/sms_client'
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class SMS extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
-    programs: PropTypes.array,
+    phone_number: PropTypes.object,
     program: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -18,7 +17,7 @@ class SMS extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        sms
+        <SMSClient { ...this._getSMSClient() } />
       </ModalPanel>
     )
   }
@@ -29,6 +28,14 @@ class SMS extends React.Component {
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
+    }
+  }
+
+  _getSMSClient() {
+    const { phone_number, program } = this.props
+    return {
+      phone_number,
+      program
     }
   }
 

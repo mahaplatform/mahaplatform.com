@@ -2,7 +2,7 @@ import { Infinite, Searchbox} from '@admin'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
-import SMS from './sms'
+import SMS from '../../sms'
 
 class Contacts extends React.Component {
 
@@ -62,8 +62,8 @@ class Contacts extends React.Component {
   _getSMS(channel) {
     const { program, onPop, onPush } = this.props
     return {
+      phone_number: channel.phone_number,
       program,
-      phone_id: channel.phone_number.id,
       onPop,
       onPush
     }

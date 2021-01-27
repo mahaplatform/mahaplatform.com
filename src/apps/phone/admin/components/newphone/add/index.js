@@ -2,7 +2,6 @@ import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
 import Dialer from './dialer'
-import Users from './users'
 import Tabs from '../tabs'
 import React from 'react'
 
@@ -13,10 +12,9 @@ class Add extends React.Component {
   }
 
   static propTypes = {
-    programs: PropTypes.array,
     program: PropTypes.object,
-    onProgram: PropTypes.func,
     onPop: PropTypes.func,
+    onProgram: PropTypes.func,
     onPush: PropTypes.func
   }
 
@@ -55,14 +53,12 @@ class Add extends React.Component {
   }
 
   _getTabs() {
-    const { programs, program, onProgram } = this.props
+    const { program, onProgram } = this.props
     return {
-      programs,
       program,
       tabs: [
         { icon: 'th', label: 'Keypad', component: Dialer, props: this._getProps.bind(this) },
-        { icon: 'user', label: 'Contacts', component: Contacts, props: this._getProps.bind(this) },
-        { icon: 'user-circle', label: 'Users', component: Users, props: this._getProps.bind(this) }
+        { icon: 'user', label: 'Contacts', component: Contacts, props: this._getProps.bind(this) }
       ],
       onProgram
     }

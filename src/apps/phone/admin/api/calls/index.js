@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import token from './token'
+import lookup from './lookup'
 import create from './create'
+import token from './token'
 
 const router = new Router({ mergeParams: true })
 
 router.post('/', create)
+
+router.post('/lookup', lookup)
 
 router.get('/token', token)
 

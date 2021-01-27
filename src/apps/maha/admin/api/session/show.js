@@ -3,9 +3,10 @@ import { createUserToken } from '@core/utils/user_tokens'
 import collectObjects from '@core/utils/collect_objects'
 import getUserAccess from '@core/utils/get_user_access'
 import { createSession } from '@apps/maha/services/sessions'
-import signer from '@core/vendor/aws/signer'
 import Session from '@apps/maha/models/session'
+import Program from '@apps/crm/models/program'
 import Device from '@apps/maha/models/device'
+import signer from '@core/vendor/aws/signer'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -115,6 +116,15 @@ const showRoute = async (req, res) => {
     if(a.label < b.label) return -1
     return 0
   }))
+
+  session.programs = await Program.where(qb => {
+    qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('crm_programs.team_id', req.team.get('id'))
+  }).fetchAll({
+    withRelated: ['bank','logo','phone_number'],
+    transacting: req.trx
+  })
 
   if(process.env.DATA_ASSET_CDN_HOST) {
 

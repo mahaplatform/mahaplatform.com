@@ -7,23 +7,23 @@ import Call from './call'
 class Handset extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
     calls: PropTypes.array,
     error: PropTypes.string,
-    programs: PropTypes.array,
-    program: PropTypes.object,
-    onClose: PropTypes.func,
-    onProgram: PropTypes.func
+    onClose: PropTypes.func
   }
 
   state = {
-    cards: []
+    cards: [],
+    program_id: null
   }
 
   _handlePop = this._handlePop.bind(this)
+  _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
@@ -45,27 +45,42 @@ class Handset extends React.Component {
   }
 
   componentDidMount() {
+    const programs = this._getPrograms()
+    this._handleProgram(programs[0].id)
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
   _getPhone() {
-    const { programs, program, onClose, onProgram } = this.props
+    const { onClose } = this.props
     return {
-      programs,
-      program,
+      program: this._getProgram(),
       onClose,
-      onProgram,
+      onProgram: this._handleProgram,
       onPop: this._handlePop,
       onPush: this._handlePush
     }
   }
 
   _getCall() {
-    const { program, calls } = this.props
+    const { calls } = this.props
     return {
-      program,
       calls
     }
+  }
+
+  _getPrograms() {
+    const { programs } = this.context.admin
+    return programs.filter(program => {
+      return program.phone_number !== null
+    })
+  }
+
+  _getProgram() {
+    const { program_id } = this.state
+    const { programs } = this.context.admin
+    return programs.find(program => {
+      return program.id === program_id
+    })
   }
 
   _getStack() {
@@ -82,6 +97,10 @@ class Handset extends React.Component {
     })
   }
 
+  _handleProgram(program_id) {
+    this.setState({ program_id })
+  }
+
   _handlePush(component, props) {
     this.setState({
       cards: [
@@ -90,7 +109,6 @@ class Handset extends React.Component {
       ]
     })
   }
-
 
 }
 

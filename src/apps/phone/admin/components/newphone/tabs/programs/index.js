@@ -5,9 +5,12 @@ import _ from 'lodash'
 
 class Programs extends React.Component {
 
+  static contextTypes = {
+    admin: PropTypes.object
+  }
+
   static propTypes = {
     program: PropTypes.object,
-    programs: PropTypes.array,
     status: PropTypes.string,
     onChange: PropTypes.func
   }
@@ -20,7 +23,7 @@ class Programs extends React.Component {
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { programs } = this.props
+    const programs = this._getPrograms()
     const program = this._getProgram()
     const { open } = this.state
     return (
@@ -69,9 +72,16 @@ class Programs extends React.Component {
     }
   }
 
+  _getPrograms() {
+    const { programs } = this.context.admin
+    return programs.filter(program => {
+      return program.phone_number !== null
+    })
+  }
+
   _getProgram() {
+    const { programs } = this.context.admin
     const { program_id } = this.state
-    const { programs } = this.props
     return programs.find(program => {
       return program.id === program_id
     })

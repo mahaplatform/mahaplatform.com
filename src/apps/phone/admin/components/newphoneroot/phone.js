@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Phone from '../newphone'
+import moment from 'moment'
 import React from 'react'
 
 class PhoneRoot extends React.Component {
@@ -9,15 +10,12 @@ class PhoneRoot extends React.Component {
   }
 
   static contextTypes = {
+    modal: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
-    programs: PropTypes.array,
-    program: PropTypes.object,
-    token: PropTypes.string,
-    onClose: PropTypes.func,
-    onProgram: PropTypes.func
+    token: PropTypes.string
   }
 
   state = {
@@ -26,6 +24,7 @@ class PhoneRoot extends React.Component {
   }
 
   _handleCall = this._handleCall.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
 
   render() {
@@ -47,16 +46,29 @@ class PhoneRoot extends React.Component {
   }
 
   _getPhone() {
-    const { programs, program, onClose, onProgram } = this.props
     const { calls, error } = this.state
     return {
       calls,
       error,
-      programs,
-      program,
-      onClose,
-      onProgram
+      onClose: this._handleClose
     }
+  }
+
+  _handleAdd(call) {
+    const { connection } = call
+    const { calls } = this.state
+    if(connection) call.sid = connection.parameters.CallSid
+    this.setState({
+      calls: [ ...calls, call ]
+    })
+    // this._handleJoin(call.sid)
+    // if(!connection) return
+    // connection.on('accept', this._handleAccept)
+    // connection.on('cancel', this._handleRemove.bind(this, connection))
+    // connection.on('disconnect', this._handleRemove)
+    // connection.on('error', this._handleError)
+    // connection.on('mute', this._handleMute)
+    // connection.on('reject', this._handleRemove.bind(this, connection))
   }
 
   _handleInit() {
@@ -75,8 +87,29 @@ class PhoneRoot extends React.Component {
     console.log('call', call)
   }
 
-  _handleIncoming() {
-    console.log('handling incoming')
+  _handleClose() {
+    this.context.modal.close()
+  }
+
+  _handleIncoming(connection) {
+    const { network } = this.context
+    const { CallSid } = connection.parameters
+    network.request({
+      endpoint: '/api/admin/phone/calls/lookup',
+      method: 'post',
+      body: { sid: CallSid },
+      onSuccess: (result) => {
+        const call = result.data
+        this._handleAdd({
+          connection,
+          call,
+          direction: 'incoming',
+          muted: false,
+          started_at: moment(),
+          status: 'ringing'
+        })
+      }
+    })
   }
 
 }

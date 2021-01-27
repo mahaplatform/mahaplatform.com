@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   active: null,
   apps: [],
   devices: null,
+  programs: [],
   preferences: null,
   redirect: null,
   rights: null,

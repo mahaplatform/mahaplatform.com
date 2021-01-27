@@ -64,7 +64,7 @@ class Call extends React.Component {
   _getSMS(phone_number) {
     const { program, onPop, onPush } = this.props
     return {
-      phone_id: phone_number.id,
+      phone_number,
       program,
       onPop,
       onPush

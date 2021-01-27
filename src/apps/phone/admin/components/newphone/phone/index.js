@@ -16,7 +16,6 @@ class Phone extends React.Component {
   }
 
   static propTypes = {
-    programs: PropTypes.array,
     program: PropTypes.object,
     onPop: PropTypes.func,
     onProgram: PropTypes.func,
@@ -56,9 +55,8 @@ class Phone extends React.Component {
   }
 
   _getAdd() {
-    const { programs, program, onProgram, onPop, onPush } = this.props
+    const { program, onProgram, onPop, onPush } = this.props
     return {
-      programs,
       program,
       onProgram,
       onPop,
@@ -94,9 +92,8 @@ class Phone extends React.Component {
   }
 
   _getTabs() {
-    const { programs, program, onPop, onProgram, onPush } = this.props
+    const { program, onPop, onProgram, onPush } = this.props
     return {
-      programs,
       program,
       tabs: [
         { icon: 'phone', label: 'Calls', component: Calls, props: this._getProps.bind(this) },

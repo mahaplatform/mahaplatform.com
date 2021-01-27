@@ -16,6 +16,7 @@ class Admin extends React.Component {
     active_status: PropTypes.string,
     apps: PropTypes.array,
     children: PropTypes.any,
+    programs: PropTypes.array,
     redirect: PropTypes.any,
     rights: PropTypes.array,
     status: PropTypes.string,
@@ -64,11 +65,12 @@ class Admin extends React.Component {
   }
 
   getChildContext() {
-    const { account, apps, rights, team, teams, user } = this.props
+    const { account, apps, programs, rights, team, teams, user } = this.props
     return {
       admin: {
         account,
         apps,
+        programs,
         rights,
         team,
         teams,

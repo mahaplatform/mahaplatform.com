@@ -5,7 +5,6 @@ import React from 'react'
 class Tabs extends React.Component {
 
   static propTypes = {
-    programs: PropTypes.array,
     program: PropTypes.object,
     tabs: PropTypes.array,
     onProgram: PropTypes.func
@@ -65,10 +64,9 @@ class Tabs extends React.Component {
   }
 
   _getPrograms() {
-    const { programs, program, onProgram } = this.props
+    const { program, onProgram } = this.props
     return {
       program,
-      programs,
       onChange: onProgram
     }
   }
