@@ -15,7 +15,7 @@ class Contact extends React.Component {
       <div className="maha-phone-call-header-contact">
         <ContactAvatar { ...contact } />
         <h4>{ contact ? contact.display_name : 'Unknown' }</h4>
-        <p>{ number.formatted }</p>
+        <p>{ number ? number.formatted : '' }</p>
       </div>
     )
   }

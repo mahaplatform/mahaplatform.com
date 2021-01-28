@@ -4,6 +4,7 @@ const CallSerializer = (req, result) => ({
   to: number(result.related('to')),
   from: number(result.related('from')),
   program: program(result.related('program')),
+  phone_number: number(result.related('phone_number')),
   contact: contact(result.related('phone_number').related('contact')),
   direction: result.get('direction'),
   status: result.get('status'),

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
+import Transfer from './transfer'
 import Keypad from '../keypad'
 import Button from '../button'
 import { Timer } from '@admin'
 import Header from './header'
 import React from 'react'
 
-class VoiceClient extends React.Component {
+class Active extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object,
@@ -13,7 +14,9 @@ class VoiceClient extends React.Component {
   }
 
   static propTypes = {
-    call: PropTypes.object
+    call: PropTypes.object,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   state = {
@@ -23,6 +26,7 @@ class VoiceClient extends React.Component {
   _handleDigits = this._handleDigits.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
+  _handleTransferCall = this._handleTransferCall.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
   _handleMute = this._handleMute.bind(this)
 
@@ -79,8 +83,6 @@ class VoiceClient extends React.Component {
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
 //      { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
-
-    462
   }
 
   _getFunctions() {
@@ -123,13 +125,27 @@ class VoiceClient extends React.Component {
     call.connection.mute(!call.connection.isMuted())
   }
 
+  _getTransfer() {
+    const { onPop } = this.props
+    return {
+      onPop,
+      onChoose: this._handleTransferCall
+    }
+  }
+
   _handleTransfer() {
+    this.props.onPush(Transfer, this._getTransfer.bind(this))
+  }
+
+  _handleTransferCall(user) {
     const { phone } = this.context
     const { call } = this.props
-    console.log('here')
-    phone.onTransfer(call, { client: '462' })
+    phone.onTransfer(call, {
+      user,
+      user_id: user.id 
+    })
   }
 
 }
 
-export default VoiceClient
+export default Active

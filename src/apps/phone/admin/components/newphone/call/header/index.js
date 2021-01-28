@@ -24,7 +24,7 @@ class Header extends React.Component {
   _getFrom() {
     const { call } = this.props
     const { contact, direction, from, program } = call
-    if( direction === 'inbound') {
+    if(direction === 'inbound') {
       return <Contact contact={ contact } number={ from } />
     }
     if(direction === 'outbound') {

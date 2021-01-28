@@ -35,12 +35,12 @@ class Handset extends React.Component {
           <div className="maha-phone-container-panel">
             <Stack { ...this._getStack() } />
           </div>
+          { calls.length > 0 &&
+            <div className="maha-phone-container-panel">
+              <Call { ...this._getCall() } />
+            </div>
+          }
         </div>
-        { calls.length > 0 &&
-          <div className="maha-phone-container-panel">
-            <Call { ...this._getCall() } />
-          </div>
-        }
       </Tasks>
     )
   }

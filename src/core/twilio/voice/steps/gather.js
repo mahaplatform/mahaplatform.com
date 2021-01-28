@@ -30,7 +30,7 @@ const answer = (req, twiml) => {
   const { state } = req.query
   const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
   const answer = _.get(config, `${state}.answers.${index}`)
-  twiml.redirect(url(call, { state: `${state}.answers.${index}.steps.0` }))
+  twiml.redirect(url(req, { state: `${state}.answers.${index}.steps.0` }))
   return {
     verb: 'gather',
     action: 'answer',

@@ -1,54 +1,62 @@
-import { ModalPanel } from '@admin'
+import { Stack } from '@admin'
 import PropTypes from 'prop-types'
-import Incoming from './incoming'
-import Outgoing from './outgoing'
-import Active from './active'
 import React from 'react'
+import Call from './call'
 
-class Call extends React.Component {
+class CallContainer extends React.Component {
 
   static propTypes = {
     calls: PropTypes.array,
-    program: PropTypes.object,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func
+    programs: PropTypes.array
   }
+
+  state = {
+    cards: []
+  }
+
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
 
   render() {
-    const call = this.props.calls[0]
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        { call &&
-          <div className="maha-phone-receiver">
-            { call.status === 'in-progress-contact' &&
-              <Active { ...this._getCall(call) } />
-            }
-            { (call.direction === 'inbound' && call.status !== 'in-progress-contact') &&
-              <Incoming { ...this._getCall(call) } />
-            }
-            { (call.direction === 'outbound' && call.status !== 'in-progress-contact') &&
-              <Outgoing { ...this._getCall(call) } />
-            }
-          </div>
-        }
-      </ModalPanel>
-    )
+    return <Stack { ...this._getStack() } />
   }
 
-  _getCall(call) {
-    const { program } = this.props
+  componentDidMount() {
+    this._handlePush(Call, this._getCall.bind(this))
+  }
+
+  _getCall() {
+    const { calls } = this.props
     return {
-      call,
-      program
+      calls,
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 
-  _getPanel() {
+  _getStack() {
+    const { cards } = this.state
     return {
-      title: 'Call'
+      cards,
+      slideFirst: false
     }
+  }
+
+  _handlePop(index = -1) {
+    this.setState({
+      cards: this.state.cards.slice(0, index)
+    })
+  }
+
+  _handlePush(component, props) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component, props }
+      ]
+    })
   }
 
 }
 
-export default Call
+export default CallContainer

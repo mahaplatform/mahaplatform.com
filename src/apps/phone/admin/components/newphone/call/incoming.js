@@ -6,8 +6,7 @@ import React from 'react'
 class Incoming extends React.Component {
 
   static propTypes = {
-    call: PropTypes.object,
-    program: PropTypes.object
+    call: PropTypes.object
   }
 
   _handleAccept = this._handleAccept.bind(this)
@@ -15,11 +14,25 @@ class Incoming extends React.Component {
 
   render() {
     const { program } = this.props
-    const { call } = this.props.call
+    const { call, extra } = this.props.call
     const buttons = this._getButtons()
     return (
       <div className="maha-phone-call">
-        <Header program={ program } call={ call } />
+        <Header call={ call } />
+        { extra &&
+          <div className="maha-phone-call-extra">
+            { extra.transfered_from &&
+              <div className="maha-phone-call-transfered">
+                Call transfered from { extra.transfered_from }
+              </div>
+            }
+            { extra.transfered_back_from &&
+              <div className="maha-phone-call-transfered">
+                No answer, call transfered back from { extra.transfered_back_from }
+              </div>
+            }
+          </div>
+        }
         <div className="maha-phone-call-body">
           <div className="maha-phone-actions" >
             { buttons.map((button, index) => (

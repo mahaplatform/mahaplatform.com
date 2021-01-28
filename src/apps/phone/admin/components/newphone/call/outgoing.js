@@ -11,11 +11,10 @@ class Outgoing extends React.Component {
   }
 
   render() {
-    const { program } = this.props
     const { call } = this.props.call
     return (
       <div className="maha-phone-call">
-        <Header program={ program } call={ call } />
+        <Header call={ call } />
         <div className="maha-phone-call-body">
         </div>
       </div>
