@@ -1,5 +1,3 @@
-import ProgramSerializer from '@apps/crm/serializers/program_serializer'
-
 const SessionSerializer = (req, session) => ({
   apps: session.apps,
   devices: session.sessions.map(session => ({
@@ -32,9 +30,6 @@ const SessionSerializer = (req, session) => ({
     }))
   },
   rights: session.access.rights,
-  programs: session.programs.map(program => {
-    return ProgramSerializer(req, program)
-  }),
   team: {
     id: session.team.get('id'),
     title: session.team.get('title'),

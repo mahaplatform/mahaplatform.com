@@ -12,6 +12,7 @@ class Handset extends React.Component {
   }
 
   static propTypes = {
+    programs: PropTypes.array,
     calls: PropTypes.array,
     error: PropTypes.string,
     onClose: PropTypes.func
@@ -45,14 +46,15 @@ class Handset extends React.Component {
   }
 
   componentDidMount() {
-    const programs = this._getPrograms()
+    const { programs } = this.props
     this._handleProgram(programs[0].id)
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
   _getPhone() {
-    const { onClose } = this.props
+    const { programs, onClose } = this.props
     return {
+      programs,
       program: this._getProgram(),
       onClose,
       onProgram: this._handleProgram,
@@ -68,16 +70,9 @@ class Handset extends React.Component {
     }
   }
 
-  _getPrograms() {
-    const { programs } = this.context.admin
-    return programs.filter(program => {
-      return program.phone_number !== null
-    })
-  }
-
   _getProgram() {
     const { program_id } = this.state
-    const { programs } = this.context.admin
+    const { programs } = this.props
     return programs.find(program => {
       return program.id === program_id
     })

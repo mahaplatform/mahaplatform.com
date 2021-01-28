@@ -5,6 +5,7 @@ import React from 'react'
 class Tabs extends React.Component {
 
   static propTypes = {
+    programs: PropTypes.array,
     program: PropTypes.object,
     tabs: PropTypes.array,
     onProgram: PropTypes.func
@@ -16,7 +17,7 @@ class Tabs extends React.Component {
 
   render() {
     const { selected } = this.state
-    const { tabs } = this.props
+    const { programs, tabs } = this.props
     const tab = tabs[selected]
     return (
       <div className="maha-phone-client">
@@ -64,8 +65,9 @@ class Tabs extends React.Component {
   }
 
   _getPrograms() {
-    const { program, onProgram } = this.props
+    const { programs, program, onProgram } = this.props
     return {
+      programs,
       program,
       onChange: onProgram
     }

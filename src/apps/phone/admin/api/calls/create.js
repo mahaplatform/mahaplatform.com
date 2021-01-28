@@ -1,19 +1,39 @@
+import CallSerializer from '@apps/phone/serializers/call_serializer'
+import { getCall } from '@apps/maha/services/calls'
 import twilio from '@core/vendor/twilio'
-import atob from 'atob'
+
+const getCell = async (req, { config, from}) => {
+  const twcall = await twilio.calls.create({
+    url: `${process.env.TWILIO_TWIML_HOST}/call?config=${config}`,
+    statusCallback: `${process.env.TWILIO_TWIML_HOST}/status`,
+    statusCallbackEvent: ['initiated','ringing','answered','completed'],
+    to: req.user.get('cell_phone'),
+    from
+  })
+  return twcall.sid
+}
 
 const createRoute = async (req, res) => {
 
-  const config = JSON.parse(atob(req.body.config))
+  const { config, from, direction, to, type } = req.body
 
-  const call = await twilio.calls.create({
-    url: `https://twiml.mahaplatform.com/call?config=${req.body.config}`,
-    statusCallback: 'https://twiml.mahaplatform.com/status',
-    statusCallbackEvent: ['initiated','ringing','answered','completed'],
-    to: config.through,
-    from: config.from
+  const sid = type === 'outbound-cell' ? await getCell(req, {
+    config,
+    from
+  }) : req.body.sid
+
+  const call = await getCall(req, {
+    sid,
+    direction,
+    from,
+    to
   })
 
-  res.status(200).respond(call)
+  await call.load(['from','to','program.logo','program.phone_number','phone_number.contact.photo'], {
+    transacting: req.trx
+  })
+
+  res.status(200).respond(call, CallSerializer)
 
 }
 

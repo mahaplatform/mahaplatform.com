@@ -15,6 +15,7 @@ const Number = new Model({
   virtuals: {
 
     formatted() {
+      if(!/^\+\d{11}$/.test(this.get('number'))) return this.get('number')
       const parts = this.get('number').match(/\+1(\d{3})(\d{3})(\d{4})/)
       return `(${parts[1]}) ${parts[2]}-${parts[3]}`
     }

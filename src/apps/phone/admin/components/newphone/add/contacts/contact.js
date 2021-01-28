@@ -131,11 +131,12 @@ class Contact extends React.Component {
     this.props.onPop()
   }
 
-  _handleCall(number, type) {
+  _handleCall(number, client) {
     const { admin, phone } = this.context
-    const { contact } = this.props
+    const { contact, program } = this.props
     this.context.phone.onCall({
-      type,
+      program,
+      client,
       number,
       contact
     })
@@ -150,7 +151,7 @@ class Contact extends React.Component {
     this.context.tasks.open({
       items: [
         { label: 'Call with Cell phone', handler: this._handleCall.bind(this, number, 'cell') },
-        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, number, 'client') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, number, 'maha') },
       ]
     })
   }

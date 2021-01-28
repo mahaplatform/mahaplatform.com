@@ -4,7 +4,7 @@
   },
   "steps": [
     { "verb": "dial", "recipients": [
-      { "client": "user_463" }
+      { "client": "463" }
     ] }
   ]
 }

@@ -1,7 +1,7 @@
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
-import KeyPad from '../../keypad'
 import Button from '../../button'
+import KeyPad from '../../keypad'
 import React from 'react'
 
 class Dialer extends React.Component {
@@ -104,12 +104,15 @@ class Dialer extends React.Component {
     }
   }
 
-  _handleCall(type) {
+  _handleCall(client) {
     const { channels, number } = this.state
+    const { program } = this.props
+    const contact = channels.length > 0 ? channels[0].contact : null
     this.context.phone.onCall({
-      type,
+      client,
+      contact,
       number,
-      contact: channels.length > 0 ? channels[0].contact : null
+      program
     })
   }
 
@@ -163,7 +166,7 @@ class Dialer extends React.Component {
     this.context.tasks.open({
       items: [
         { label: 'Call with Cell phone', handler: this._handleCall.bind(this, 'cell') },
-        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'client') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') },
       ]
     })
   }

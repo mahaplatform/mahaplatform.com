@@ -1,6 +1,6 @@
 import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
 import PropTypes from 'prop-types'
-import Timer from '../../timer'
+import { Timer } from '@admin'
 import React from 'react'
 
 class Inactive extends React.Component {

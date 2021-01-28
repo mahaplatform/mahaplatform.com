@@ -117,15 +117,6 @@ const showRoute = async (req, res) => {
     return 0
   }))
 
-  session.programs = await Program.where(qb => {
-    qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
-    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
-    qb.where('crm_programs.team_id', req.team.get('id'))
-  }).fetchAll({
-    withRelated: ['bank','logo','phone_number'],
-    transacting: req.trx
-  })
-
   if(process.env.DATA_ASSET_CDN_HOST) {
 
     const cookie = signer.getSignedCookie({

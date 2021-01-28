@@ -17,7 +17,7 @@ const getToken = async (req) => {
 
   token.addGrant(voiceGrant)
 
-  token.identity = `user_${req.user.get('id')}`
+  token.identity = `${req.user.get('id')}`
 
   return token.toJwt()
 

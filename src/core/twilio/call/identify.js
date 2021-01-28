@@ -11,7 +11,9 @@ const getTarget = (identify) => {
   return speakNumber(identify.number)
 }
 
-const identify = (twiml, identify) => {
+const identify = (twiml, config) => {
+  const { identify } = config
+  if(!identify) return
   twiml.say(`Connecting you to ${getTarget(identify)}`)
 }
 

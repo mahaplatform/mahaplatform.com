@@ -1,39 +1,30 @@
 import TwilioStatusQueue from '@apps/maha/queues/twilio_status_queue'
+import CallSerializer from '@apps/phone/serializers/call_serializer'
 import socket from '@core/services/routes/emitter'
-
-const normalize = (body) => {
-  if(body.ParentCallSid) {
-    const { CallSid, ParentCallSid} = body
-    body.CallSid = ParentCallSid
-    body.ChildCallSid = CallSid
-    delete body.ParentCallSid
-  }
-  return {
-    data: {
-      sid: body.CallSid,
-      answered_by: body.AnsweredBy,
-      child_sid: body.ChildCallSid,
-      direction: body.Direction,
-      from: body.From,
-      to: body.To,
-      status: body.CallStatus
-    },
-    tstamp: body.Timestamp,
-    meta: body.Meta,
-    result: body.Result
-  }
-}
+import twilio from '@core/vendor/twilio'
 
 const statusRoute = async (req, res) => {
 
-  const job = normalize(req.body)
 
-  await TwilioStatusQueue.enqueue(req, job)
+  const sid = req.body.ParentCallSid || req.body.CallSid
+
+  // await TwilioStatusQueue.enqueue(req, {
+  //   sid: ParentCallSid || CallSid,
+  //   data: { foo: 1 },
+  //   tstamp: body.Timestamp
+  // })
 
   await socket.message(req, {
-    channel: `/calls/${job.data.sid}`,
+    channel: `/calls/${sid}`,
     action: 'callstatus',
-    data: job.data
+    data: {
+      parent_sid: sid,
+      sid: req.body.CallSid,
+      direction:req.body.Direction,
+      from: req.body.From,
+      to: req.body.To,
+      status: req.body.CallStatus
+    }
   })
 
   res.status(200).respond(true)

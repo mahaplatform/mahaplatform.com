@@ -12,6 +12,7 @@ class Add extends React.Component {
   }
 
   static propTypes = {
+    programs: PropTypes.array,
     program: PropTypes.object,
     onPop: PropTypes.func,
     onProgram: PropTypes.func,
@@ -53,8 +54,9 @@ class Add extends React.Component {
   }
 
   _getTabs() {
-    const { program, onProgram } = this.props
+    const { programs, program, onProgram } = this.props
     return {
+      programs,
       program,
       tabs: [
         { icon: 'th', label: 'Keypad', component: Dialer, props: this._getProps.bind(this) },

@@ -1,7 +1,6 @@
-import { Container, Dependencies, Loader, ModalPanel } from '@admin'
+import { Container, Dependencies, Loader, ModalPanel, Timer } from '@admin'
 import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
 import PropTypes from 'prop-types'
-import Timer from '../timer'
 import React from 'react'
 
 class VoiceClient extends React.Component {

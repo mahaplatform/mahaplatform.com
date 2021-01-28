@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Transfer from './transfer'
-import Timer from '../../timer'
+import { Timer } from '@admin'
 import Button from '../button'
 import Keypad from '../keypad'
 import Header from './header'

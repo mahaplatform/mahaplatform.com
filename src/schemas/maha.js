@@ -1488,6 +1488,7 @@ const schema = {
       table.integer('from_user_id').unsigned()
       table.integer('to_user_id').unsigned()
       table.boolean('was_answered')
+      table.integer('parent_id').unsigned()
     })
 
     await knex.schema.createTable('maha_comments', (table) => {
@@ -3220,6 +3221,7 @@ const schema = {
       table.foreign('to_id').references('maha_numbers.id')
       table.foreign('to_user_id').references('maha_users.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('parent_id').references('maha_calls.id')
     })
 
     await knex.schema.table('maha_comments', table => {

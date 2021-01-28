@@ -61,6 +61,7 @@ const lookupRoute = async (req, res) => {
       contact: {
         id: contact.get('id'),
         display_name: contact.get('display_name'),
+        full_name: contact.get('full_name'),
         initials: contact.get('initials'),
         rfc822: contact.get('rfc822'),
         email: contact.get('email'),

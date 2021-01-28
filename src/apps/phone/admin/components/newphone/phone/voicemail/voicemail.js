@@ -1,5 +1,5 @@
-import { Audit, Container, List, ModalPanel } from '@admin'
 import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
+import { Audit, Container, List, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Button from '../../button'
 import Player from './player'
