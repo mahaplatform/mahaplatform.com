@@ -34,7 +34,7 @@ class Active extends React.Component {
 
   render() {
     const buttons = this._getButtons()
-    const rows = _.chunk(buttons, 2)
+    const rows = _.chunk(buttons, Math.ceil(buttons.length / 2))
     const { call } = this.props.call
     const { mode } = this.state
     return (
