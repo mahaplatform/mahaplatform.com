@@ -3,13 +3,14 @@ const Response = require('./response')
 const Request = require('./request')
 const execute = require('./steps')
 const status = require('./status')
+const forward = require('./forward')
 const _ = require('lodash')
 
 const evaluate = async (req, res) => {
 
   req.config = await fetchConfig(req)
 
-  if(!req.config) return null
+  if(!req.config) return await forward(req)
 
   req.session.workflow = req.config.workflow.code
 

@@ -13,6 +13,6 @@ smsFiles.map(middleware => {
 
 router.post('/status', status)
 
-router.post('/', receive)
+router.post('/receive', receive)
 
 export default router

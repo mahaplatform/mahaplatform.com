@@ -25,7 +25,6 @@ const receiveSMS = async (req, params) => {
     direction: 'inbound',
     num_media,
     body,
-    price: num_media > 0 ? num_media * 0.01 : 0.0075,
     sid,
     status: 'received',
     received_at: moment()

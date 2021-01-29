@@ -10,7 +10,7 @@ const number = (twiml, { from, number }) => {
   })
 
   dial.number({
-    statusCallback: `${process.env.TWILIO_STATUS_HOST}/status`,
+    statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, number)
 
@@ -23,7 +23,7 @@ const client = (twiml, client, extra) => {
   })
 
   const cdial = dial.client({
-    statusCallback: `${process.env.TWILIO_STATUS_HOST}/status`,
+    statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, client)
 

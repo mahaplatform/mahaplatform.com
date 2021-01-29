@@ -8,13 +8,13 @@ const dial = (req, twiml) => {
     const { client, number } = recipient
     if(number) {
       dial.number({
-        statusCallback: `${process.env.TWILIO_STATUS_HOST}/status`,
+        statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
       }, number)
     }
     if(client) {
       dial.client({
-        statusCallback: `${process.env.TWILIO_STATUS_HOST}/status`,
+        statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
       }, client)
     }

@@ -33,14 +33,17 @@
       text-align: left;
     }
     .crm-sms-channel-token-messages {
-      .crm-sms-channel-token-message:first-child {
-        .crm-sms-channel-token-message-body {
-          border-top-left-radius: 0.3em;
+      .crm-sms-channel-token-message {
+        justify-content: flex-start;
+        &:first-child {
+          .crm-sms-channel-token-message-body {
+            border-top-left-radius: 0.3em;
+          }
         }
-      }
-      .crm-sms-channel-token-message:last-child {
-        .crm-sms-channel-token-message-body {
-          border-bottom-left-radius: 0.3em;
+        &:last-child {
+          .crm-sms-channel-token-message-body {
+            border-bottom-left-radius: 0.3em;
+          }
         }
       }
       &:after {
@@ -65,14 +68,17 @@
       text-align: right;
     }
     .crm-sms-channel-token-messages {
-      .crm-sms-channel-token-message:first-child {
-        .crm-sms-channel-token-message-body {
-          border-top-right-radius: 0.3em;
+      .crm-sms-channel-token-message {
+        justify-content: flex-end;
+        &:first-child {
+          .crm-sms-channel-token-message-body {
+            border-top-right-radius: 0.3em;
+          }
         }
-      }
-      .crm-sms-channel-token-message:last-child {
-        .crm-sms-channel-token-message-body {
-          border-bottom-right-radius: 0.3em;
+        &:last-child {
+          .crm-sms-channel-token-message-body {
+            border-bottom-right-radius: 0.3em;
+          }
         }
       }
       &:after {
