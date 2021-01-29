@@ -94,12 +94,14 @@ class PhoneRoot extends React.Component {
   _handleAccept(call, callback) {
     call.connection.accept()
     this._handleUpdate(call.call.sid, {
+      status: 'in-progress-contact',
       answered: true
     }, callback)
   }
 
   _handleAdd(call) {
     const { calls } = this.state
+    console.log('adding parent', call.call.sid)
     this.setState({
       calls: [
         ...calls,
@@ -317,6 +319,7 @@ class PhoneRoot extends React.Component {
     if(!call) return
     const status = this._getSignal(call, data)
     if(!status) return
+    console.log(call.call.sid, data, status)
     if(_.includes(['no-answer-transfer','completed-contact'], status)) {
       return this._handleHangup(call)
     } else if(call.type === 'outbound-maha' && status === 'initiated-contact') {
@@ -368,7 +371,7 @@ class PhoneRoot extends React.Component {
         from: call.call.program.phone_number.number,
         user_id: data.user_id,
         number: data.number,
-        sid: call.call.sid
+        sid: call.active_sid
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
@@ -391,7 +394,6 @@ class PhoneRoot extends React.Component {
     connection.on('accept', (connection) => {
       this._handleUpdate(call.call.sid, {
         connection,
-        // active_sid: connection.parameters.CallSid,
         held: false
       }, callback)
     })

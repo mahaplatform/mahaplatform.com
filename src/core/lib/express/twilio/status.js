@@ -3,10 +3,15 @@ import CallSerializer from '@apps/phone/serializers/call_serializer'
 import socket from '@core/services/routes/emitter'
 import twilio from '@core/vendor/twilio'
 
+const getParent = async (sid) => {
+  const twcall = await twilio.calls(sid).fetch()
+  if(!twcall.parentCallSid) return twcall
+  return await getParent(twcall.parentCallSid)
+}
+
 const statusRoute = async (req, res) => {
 
-
-  const sid = req.body.ParentCallSid || req.body.CallSid
+  const twcall = await getParent(req.body.CallSid)
 
   // await TwilioStatusQueue.enqueue(req, {
   //   sid: ParentCallSid || CallSid,
@@ -15,10 +20,10 @@ const statusRoute = async (req, res) => {
   // })
 
   await socket.message(req, {
-    channel: `/calls/${sid}`,
+    channel: `/calls/${twcall.sid}`,
     action: 'callstatus',
     data: {
-      parent_sid: sid,
+      parent_sid: twcall.sid,
       sid: req.body.CallSid,
       direction:req.body.Direction,
       from: req.body.From,
