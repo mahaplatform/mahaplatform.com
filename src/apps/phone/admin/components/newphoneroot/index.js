@@ -84,11 +84,13 @@ class PhoneRoot extends React.Component {
   }
 
   _handleAdd(call) {
+    const { calls } = this.state
     this.setState({
       calls: [
-        ...this.state.calls,
+        ...calls,
         {
           ...call,
+          focused: calls.length === 0,
           held: false,
           muted: false,
           transfering: null,
@@ -156,7 +158,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleIncoming(connection) {
-    const { calls } = this.state
     connection.on('error', this._handleError)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/lookup',
@@ -167,7 +168,6 @@ class PhoneRoot extends React.Component {
       onSuccess: (result) => {
         this._handleAdd({
           extra: this._getParams(connection.customParameters),
-          active: calls.length === 0,
           answered: false,
           type: 'inbound',
           connection,
@@ -263,7 +263,7 @@ class PhoneRoot extends React.Component {
     })
   }
 
-  _getAction(call, data) {
+  _getSignal(call, data) {
     const { direction, status, to } = data
     if(call.held) return 'in-progress-contact'
     if(call.transfering) {
@@ -298,13 +298,12 @@ class PhoneRoot extends React.Component {
       return call.call.sid === parent_sid
     })
     if(!call) return
-    const status = this._getAction(call, data)
+    const status = this._getSignal(call, data)
     if(!status) return
+    console.log(status, data)
     if(_.includes(['no-answer-transfer','in-progres-transfer','completed-contact'], status)) {
       return this._handleHangup(call)
     } else if(status === 'completed-contact') {
-      return this._handleRemove(call.call.sid)
-    } else if(status === 'in-progress-contact' && data.to !== `client:${admin.user.id}`) {
       return this._handleRemove(call.call.sid)
     } else {
       console.log(data.status, status)
@@ -316,17 +315,17 @@ class PhoneRoot extends React.Component {
   }
 
   _handleSwap(newcall) {
-    const active = this.state.calls.find(call => {
-      return call.active
+    const focused = this.state.calls.find(call => {
+      return call.focused
     })
-    this._handleHold(active, () => {
-      console.log('active held')
-      this._handleUpdate(active.call.sid, {
-        active: false
+    this._handleHold(focused, () => {
+      console.log('focused held')
+      this._handleUpdate(focused.call.sid, {
+        focused: false
       }, () => {
-        console.log('active deactivated')
+        console.log('focused deactivated')
         this._handleUpdate(newcall.call.sid, {
-          active: true
+          focused: true
         }, () => {
           console.log('newcall activated')
           if(!newcall.answered) {

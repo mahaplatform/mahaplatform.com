@@ -22,14 +22,14 @@ class Call extends React.Component {
   }
 
   render() {
-    const inactive = this._getCalls(false)
-    const active = this._getCalls(true)
+    const unfocused = this._getCalls(false)
+    const focused = this._getCalls(true)
     return (
       <ModalPanel { ...this._getPanel() }>
-        { inactive.map((call, index) => (
+        { unfocused.map((call, index) => (
           <Inactive key={`call_${index}`} call={ call } />
         )) }
-        { active.map((call, index) => (
+        { focused.map((call, index) => (
           <div className="maha-phone-receiver" key={`call_${index}`}>
             { call.transfering !== null &&
               <Transfering { ...this._getCall(call) } />
@@ -37,10 +37,10 @@ class Call extends React.Component {
             { !call.transfering && call.status === 'in-progress-contact' &&
               <Active { ...this._getCall(call) } />
             }
-            { !call.transfering && (call.direction === 'inbound' && call.status !== 'in-progress-contact') &&
+            { !call.transfering && call.direction === 'inbound' && call.status !== 'in-progress-contact' &&
               <Incoming { ...this._getCall(call) } />
             }
-            { !call.transfering && (call.direction === 'outbound' && call.status !== 'in-progress-contact') &&
+            { !call.transfering && call.direction === 'outbound' && call.status !== 'in-progress-contact' &&
               <Outgoing { ...this._getCall(call) } />
             }
           </div>
@@ -49,9 +49,9 @@ class Call extends React.Component {
     )
   }
 
-  _getCalls(active) {
+  _getCalls(focused) {
     return this.props.calls.filter(call => {
-      return call.active === active
+      return call.focused === focused
     })
   }
 

@@ -11,7 +11,8 @@ class Call extends React.Component {
 
   static contextTypes = {
     phone: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -24,6 +25,7 @@ class Call extends React.Component {
   _handleBack = this._handleBack.bind(this)
   _handleCall = this._handleCall.bind(this)
   _handleInfo = this._handleInfo.bind(this)
+  _handlePlace = this._handlePlace.bind(this)
   _handleSMS = this._handleSMS.bind(this)
 
   render() {
@@ -56,7 +58,7 @@ class Call extends React.Component {
   _getButtons() {
     return [
       { icon: 'info', label: 'info', handler: this._handleInfo },
-      { icon: 'phone', label: 'call', handler: this._handleCall },
+      { icon: 'phone', label: 'call', handler: this._handlePlace },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -118,20 +120,29 @@ class Call extends React.Component {
     this.props.onPop()
   }
 
-  _handleCall() {
+  _handleCall(client) {
     const { call, program } = this.props
     const { contact, phone_number } = call
     this.context.phone.call({
+      client,
       program,
       contact,
-      phone_number,
-      to: phone_number.number
+      number: phone_number.number
     })
   }
 
   _handleInfo() {
     const { call } = this.props
     this.context.router.history.push(`/crm/contacts/${call.contact.id}`)
+  }
+
+  _handlePlace() {
+    this.context.tasks.open({
+      items: [
+        { label: 'Call with Cell phone', handler: this._handleCall.bind(this, 'cell') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') },
+      ]
+    })
   }
 
   _handleSMS() {
