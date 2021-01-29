@@ -53,17 +53,15 @@ class Call extends React.Component {
         <div className="maha-phone-call-body">
           { mode === 'functions' ?
             <div className="maha-phone-call-functions">
-              <div className="maha-phone-actions">
-                { rows.map((row, i) => (
-                  <div className="maha-phone-actions" key={`actions_${i}`}>
-                    { row.map((button, j) => (
-                      <div className="maha-phone-action" key={`action_${i}_${j}`}>
-                        <Button { ...button } />
-                      </div>
-                    ))}
-                  </div>
-                )) }
-              </div>
+              { rows.map((row, i) => (
+                <div className="maha-phone-actions" key={`actions_${i}`}>
+                  { row.map((button, j) => (
+                    <div className="maha-phone-action" key={`action_${i}_${j}`}>
+                      <Button { ...button } />
+                    </div>
+                  ))}
+                </div>
+              )) }
             </div> :
             <Keypad { ...this._getKeyPad() } />
           }

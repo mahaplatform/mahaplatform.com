@@ -34,6 +34,7 @@ class Active extends React.Component {
 
   render() {
     const buttons = this._getButtons()
+    const rows = _.chunk(buttons, 2)
     const { call } = this.props.call
     const { mode } = this.state
     return (
@@ -45,13 +46,15 @@ class Active extends React.Component {
         <div className="maha-phone-call-body">
           { mode === 'functions' &&
             <div className="maha-phone-call-functions">
-              <div className="maha-phone-actions">
-                { buttons.map((button, i) => (
-                  <div className="maha-phone-action" key={`action_${i}`}>
-                    <Button { ...button } />
-                  </div>
-                ))}
-              </div>
+              { rows.map((row, i) => (
+                <div className="maha-phone-actions" key={`actions_${i}`}>
+                  { row.map((button, j) => (
+                    <div className="maha-phone-action" key={`action_${i}_${j}`}>
+                      <Button { ...button } />
+                    </div>
+                  ))}
+                </div>
+              )) }
             </div>
           }
           { mode === 'keypad' &&
