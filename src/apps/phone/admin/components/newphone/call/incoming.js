@@ -25,18 +25,14 @@ class Incoming extends React.Component {
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
-        { extra &&
+        { extra && extra.transfered_from &&
           <div className="maha-phone-call-extra">
-            { extra.transfered_from &&
-              <div className="maha-phone-call-transfered">
-                Call transfered from { extra.transfered_from }
-              </div>
-            }
-            { extra.transfered_back_from &&
-              <div className="maha-phone-call-transfered">
-                No answer, call transfered back from { extra.transfered_back_from }
-              </div>
-            }
+            Call transfered from { extra.transfered_from }
+          </div>
+        }
+        { extra && extra.transfered_back_from &&
+          <div className="maha-phone-call-extra">
+            No answer, call transfered back from { extra.transfered_back_from }
           </div>
         }
         <div className="maha-phone-call-body">

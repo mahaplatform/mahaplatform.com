@@ -163,9 +163,11 @@ class Dialer extends React.Component {
 
   _handlePlace() {
     if(!this.state.number) return
+    const { user } = this.context.admin
+    if(!user.cell_phone) return this._handleCall('maha')
     this.context.tasks.open({
       items: [
-        { label: 'Call with Cell phone', handler: this._handleCall.bind(this, 'cell') },
+        { label: 'Call with cell phone', handler: this._handleCall.bind(this, 'cell') },
         { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') },
       ]
     })

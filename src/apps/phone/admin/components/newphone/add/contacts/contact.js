@@ -148,9 +148,11 @@ class Contact extends React.Component {
   }
 
   _handlePlace(number) {
+    const { user } = this.context.admin
+    if(!user.cell_phone) return this._handleCall(number, 'maha')
     this.context.tasks.open({
       items: [
-        { label: 'Call with Cell phone', handler: this._handleCall.bind(this, number, 'cell') },
+        { label: 'Call with cell phone', handler: this._handleCall.bind(this, number, 'cell') },
         { label: 'Call with Maha phone', handler: this._handleCall.bind(this, number, 'maha') },
       ]
     })

@@ -31,6 +31,7 @@ class PhoneRoot extends React.Component {
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleError = this._handleError.bind(this)
+  _handleForward = this._handleForward.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
@@ -65,6 +66,7 @@ class PhoneRoot extends React.Component {
         call: this._handleCall,
         hangup: this._handleHangup,
         hold: this._handleHold,
+        forward: this._handleForward,
         mute: this._handleMute,
         reject: this._handleReject,
         swap: this._handleSwap,
@@ -128,7 +130,7 @@ class PhoneRoot extends React.Component {
     }))
     if(client === 'cell') {
       this._handleOutgoing({
-        type: 'outbound-cell',
+        client: 'cell',
         config,
         direction: 'outbound',
         from: program.phone_number.number,
@@ -139,7 +141,7 @@ class PhoneRoot extends React.Component {
       const connection = window.Twilio.Device.connect({ config })
       connection.on('accept', (connection) => {
         this._handleOutgoing({
-          type: 'outbound-maha',
+          client: 'maha',
           sid: connection.parameters.CallSid,
           direction: 'outbound',
           from: program.phone_number.number,
@@ -155,6 +157,27 @@ class PhoneRoot extends React.Component {
 
   _handleError(error) {
     this.setState({ error })
+  }
+
+  _handleForward(call, data, callback) {
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/transfer',
+      method: 'post',
+      body: {
+        from: call.call.program.phone_number.number,
+        user_id: data.user_id,
+        number: data.number,
+        sid: call.active_sid
+      },
+      onSuccess: () => {
+        this._handleUpdate(call.call.sid, {
+          forwarding: {
+            number: data.number,
+            user: data.user
+          }
+        }, callback)
+      }
+    })
   }
 
   _handleHangup(call) {
@@ -190,9 +213,9 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         this._handleAdd({
+          client: 'maha',
           extra: this._getParams(connection.customParameters),
           answered: false,
-          type: 'inbound',
           connection,
           call: result.data,
           direction: 'inbound',
@@ -256,7 +279,7 @@ class PhoneRoot extends React.Component {
       onSuccess: (result) => {
         this._handleAdd({
           connection,
-          type: body.type,
+          client: body.client,
           call: result.data,
           direction: 'outbound',
         })
@@ -319,10 +342,11 @@ class PhoneRoot extends React.Component {
     if(!call) return
     const status = this._getSignal(call, data)
     if(!status) return
-    console.log(call.call.sid, data, status)
     if(_.includes(['no-answer-transfer','completed-contact'], status)) {
       return this._handleHangup(call)
-    } else if(call.type === 'outbound-maha' && status === 'initiated-contact') {
+    } else if(call.client === 'maha' && status === 'initiated-contact') {
+      return this._handleUpdate(call.call.sid, { active_sid: data.sid, status })
+    } else if(call.client === 'cell' && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { active_sid: data.sid, status })
     } else if(_.includes(['completed-contact','in-progress-transfer'], status)) {
       return this._handleRemove(call.call.sid)

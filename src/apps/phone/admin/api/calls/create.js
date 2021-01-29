@@ -15,9 +15,9 @@ const getCell = async (req, { config, from}) => {
 
 const createRoute = async (req, res) => {
 
-  const { config, from, direction, to, type } = req.body
+  const { config, from, direction, to, client } = req.body
 
-  const sid = type === 'outbound-cell' ? await getCell(req, {
+  const sid = client === 'cell' ? await getCell(req, {
     config,
     from
   }) : req.body.sid

@@ -10,8 +10,10 @@ import React from 'react'
 class Active extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     network: PropTypes.object,
-    phone: PropTypes.object
+    phone: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -24,6 +26,8 @@ class Active extends React.Component {
     mode: 'functions'
   }
 
+  _handleDevicePrompt = this._handleDevicePrompt.bind(this)
+  _handleDevice = this._handleDevice.bind(this)
   _handleDigits = this._handleDigits.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
@@ -35,14 +39,19 @@ class Active extends React.Component {
   render() {
     const buttons = this._getButtons()
     const rows = _.chunk(buttons, Math.ceil(buttons.length / 2))
-    const { call } = this.props.call
+    const { call } = this.props
     const { mode } = this.state
     return (
       <div className="maha-phone-call">
-        <Header call={ call } />
+        <Header call={ call.call } />
         <div className="maha-phone-call-timer">
           <Timer from={ call.started_at } />
         </div>
+        { call.client === 'cell' &&
+          <div className="maha-phone-call-extra">
+            This call is active on your cell phone
+          </div>
+        }
         <div className="maha-phone-call-body">
           { mode === 'functions' &&
             <div className="maha-phone-call-functions">
@@ -80,12 +89,14 @@ class Active extends React.Component {
   }
 
   _getButtons() {
+    const { user } = this.context.admin
     const { call } = this.props
     return [
-      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
+      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad'), disabled: call.client === 'cell' },
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
-      { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
+      { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted, disabled: call.client === 'cell' },
+      { icon: 'arrow-right', label: 'forward', handler: this._handleDevicePrompt, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -95,7 +106,8 @@ class Active extends React.Component {
   }
 
   _getHangup() {
-    return { icon: 'phone', type: 'hangup', handler: this._handleHangup }
+    const { call } = this.props
+    return { icon: 'phone', type: 'hangup', handler: this._handleHangup, disabled: call.client === 'cell' }
   }
 
   _getKeyPad() {
@@ -112,6 +124,32 @@ class Active extends React.Component {
       onPop,
       onPush
     }
+  }
+
+  _handleDevicePrompt() {
+    const { user } = this.context.admin
+    if(!user.cell_phone) return
+    const { call } = this.props
+    const items = []
+    if(call.client === 'maha') {
+      items.push({ label: 'Forward to cell phone', handler: this._handleDevice.bind(this, 'cell') })
+    }
+    if(call.client === 'cell') {
+      items.push({ label: 'Forward to Maha phone', handler: this._handleDevice.bind(this, 'maha') })
+    }
+    this.context.tasks.open({ items })
+  }
+
+  _handleDevice(client) {
+    const { user } = this.context.admin
+    const { call } = this.props
+    const config = client === 'maha' ? {
+      user,
+      user_id: user.id
+    } : {
+      number: user.cell_phone
+    }
+    this.context.phone.forward(call, config)
   }
 
   _handleDigits(number) {
