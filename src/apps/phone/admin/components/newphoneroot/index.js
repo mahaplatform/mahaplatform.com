@@ -1,6 +1,7 @@
 import { Container, Dependencies } from '@admin'
 import PropTypes from 'prop-types'
 import Phone from '../newphone'
+import Empty from './empty'
 import moment from 'moment'
 import React from 'react'
 
@@ -42,7 +43,15 @@ class PhoneRoot extends React.Component {
   _handleUnhold = this._handleUnhold.bind(this)
 
   render() {
-    return <Phone { ...this._getPhone() } />
+    const { programs } = this.props
+    return (
+      <>
+        { programs.length > 0 ?
+          <Phone { ...this._getPhone() } /> :
+          <Empty { ...this._getEmpty() } />
+        }
+      </>
+    )
   }
 
   componentDidMount() {
@@ -62,6 +71,12 @@ class PhoneRoot extends React.Component {
         transfer: this._handleTransfer,
         unhold: this._handleUnhold
       }
+    }
+  }
+
+  _getEmpty() {
+    return {
+      onClose: this._handleClose
     }
   }
 
@@ -302,11 +317,11 @@ class PhoneRoot extends React.Component {
     if(!call) return
     const status = this._getSignal(call, data)
     if(!status) return
-    if(_.includes(['no-answer-transfer','in-progres-transfer','completed-contact'], status)) {
+    if(_.includes(['no-answer-transfer','completed-contact'], status)) {
       return this._handleHangup(call)
     } else if(call.type === 'outbound-maha' && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { active_sid: data.sid, status })
-    } else if(status === 'completed-contact') {
+    } else if(_.includes(['completed-contact','in-progress-transfer'], status)) {
       return this._handleRemove(call.call.sid)
     } else {
       console.log(data.status, status)
