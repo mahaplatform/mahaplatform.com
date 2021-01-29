@@ -6,6 +6,7 @@ import React from 'react'
 class Incoming extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     phone: PropTypes.object
   }
 
@@ -14,6 +15,7 @@ class Incoming extends React.Component {
   }
 
   _handleAccept = this._handleAccept.bind(this)
+  _handleCell = this._handleCell.bind(this)
   _handleReject = this._handleReject.bind(this)
 
   render() {
@@ -51,9 +53,10 @@ class Incoming extends React.Component {
   }
 
   _getButtons() {
+    const { admin } = this.context
     return [
       { icon: 'phone', type: 'hangup', label: 'Decline', handler: this._handleReject },
-      { icon: 'arrow-right', type: 'hangup', label: 'Send to Cell', handler: this._handleReject },
+      { icon: 'arrow-right', label: 'Forward to Cell', handler: this._handleCell, disabled: admin.user.cell_phone === null },
       { icon: 'phone', type: 'pickup', label: 'Accept', handler: this._handleAccept }
     ]
   }
@@ -67,6 +70,14 @@ class Incoming extends React.Component {
   _handleAccept() {
     const { call } = this.props
     this.context.phone.accept(call)
+  }
+
+  _handleCell() {
+    const { admin } = this.context
+    const { call } = this.props
+    this.context.phone.transfer(call, {
+      number: admin.user.cell_phone
+    })
   }
 
   _handleReject() {

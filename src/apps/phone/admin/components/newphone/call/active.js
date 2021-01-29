@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Transfer from './transfer'
 import Keypad from '../keypad'
 import Button from '../button'
+import SMS from '../sms'
 import { Timer } from '@admin'
 import Header from './header'
 import React from 'react'
@@ -26,6 +27,7 @@ class Active extends React.Component {
   _handleDigits = this._handleDigits.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
+  _handleSMS = this._handleSMS.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
   _handleMute = this._handleMute.bind(this)
@@ -81,7 +83,7 @@ class Active extends React.Component {
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
-//      { icon: 'comments', label: 'sms', handler: this._handleSMS }
+      { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
 
@@ -96,6 +98,16 @@ class Active extends React.Component {
   _getKeyPad() {
     return {
       onChoose: this._handleDigits
+    }
+  }
+
+  _getSMS() {
+    const { call, onPop, onPush } = this.props
+    return {
+      phone_number: call.call.phone_number,
+      program: call.call.program,
+      onPop,
+      onPush
     }
   }
 
@@ -123,6 +135,11 @@ class Active extends React.Component {
   _handleMute() {
     const { call } = this.props
     this.context.phone.mute(call)
+  }
+
+  _handleSMS() {
+    const { call } = this.props
+    return this.props.onPush(SMS, this._getSMS.bind(this))
   }
 
   _getTransfer() {

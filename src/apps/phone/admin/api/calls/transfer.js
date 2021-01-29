@@ -2,9 +2,10 @@ import User from '@apps/maha/models/user'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
-const number = (twiml, number) => {
+const number = (twiml, { from, number }) => {
 
   const dial = twiml.dial({
+    callerId: from,
     timeout: 10
   })
 
@@ -37,12 +38,10 @@ const client = (twiml, client, extra) => {
 
 const transferRoute = async (req, res) => {
 
-  const { number, user_id } = req.body
-
   const twiml = new Twilio.twiml.VoiceResponse()
 
   if(req.body.number) {
-    number(twiml, req.body.number)
+    number(twiml, req.body)
     client(twiml, `${req.user.get('id')}`, { transfered_back_from: req.body.number })
   }
 

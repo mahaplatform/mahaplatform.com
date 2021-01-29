@@ -77,7 +77,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleAccept(call, callback) {
-    console.log(call)
     call.connection.accept()
     this._handleUpdate(call.call.sid, {
       answered: true
@@ -358,6 +357,7 @@ class PhoneRoot extends React.Component {
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
           transfering: {
+            number: data.number,
             user: data.user
           }
         }, callback)

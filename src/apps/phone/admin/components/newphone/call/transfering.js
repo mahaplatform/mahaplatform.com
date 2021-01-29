@@ -25,7 +25,12 @@ class Transfering extends React.Component {
           <div className="maha-phone-call-header-link">
             <i className="fa fa-arrow-right" />
           </div>
-          <User user={ call.transfering.user } />
+          { call.transfering.user &&
+            <User user={ call.transfering.user } />
+          }
+          { call.transfering.number &&
+            <div>{ call.transfering.number }</div>
+          }
         </div>
         <p>{ call.status }</p>
       </div>

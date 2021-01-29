@@ -33,6 +33,7 @@ class SMS extends React.Component {
 
   _getSMSClient() {
     const { phone_number, program } = this.props
+    console.log({ phone_number, program })
     return {
       phone_number,
       program
