@@ -121,7 +121,7 @@ class Call extends React.Component {
   _handleCall() {
     const { call, program } = this.props
     const { contact, phone_number } = call
-    this.context.phone.onCall({
+    this.context.phone.call({
       program,
       contact,
       phone_number,

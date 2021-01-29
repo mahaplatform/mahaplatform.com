@@ -121,7 +121,7 @@ class Voicemail extends React.Component {
 
   _handleCall() {
     const { voicemail, program } = this.props
-    this.context.phone.onCall({
+    this.context.phone.call({
       program,
       phone_number: {
         id: voicemail.contact.phone_id

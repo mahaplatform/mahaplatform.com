@@ -26,14 +26,12 @@ const client = (twiml, client, extra) => {
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, client)
 
-  if(extra) {
-    Object.keys(extra).map(name => {
-      cdial.parameter({
-        name,
-        value: extra[name]
-      })
+  Object.keys(extra).map(name => {
+    cdial.parameter({
+      name,
+      value: extra[name]
     })
-  }
+  })
 
 }
 

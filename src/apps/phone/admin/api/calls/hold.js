@@ -2,22 +2,17 @@ import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
 const getQueue = async(friendlyName) => {
-
   const queues = await twilio.queues.list()
-
   const queue = queues.find(queue => {
     return queue.friendlyName === friendlyName
   })
-
   if(queue) return queue
-
   return await twilio.queues.create({ friendlyName })
-
 }
 
 const holdRoute = async (req, res) => {
 
-  const { queue } = req.body
+  const { queue, sid } = req.body
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
@@ -25,7 +20,7 @@ const holdRoute = async (req, res) => {
 
   twiml.enqueue(queue)
 
-  const twcall = await twilio.calls(req.body.sid).update({
+  const twcall = await twilio.calls(sid).update({
     twiml: twiml.toString()
   })
 

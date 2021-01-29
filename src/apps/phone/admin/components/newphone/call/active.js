@@ -112,8 +112,8 @@ class Active extends React.Component {
   _handleHold() {
     const { phone } = this.context
     const { call } = this.props
-    if(call.held) phone.onUnhold(call)
-    if(!call.held) phone.onHold(call)
+    if(call.held) phone.unhold(call)
+    if(!call.held) phone.hold(call)
   }
 
   _handleMode(mode) {
@@ -122,7 +122,7 @@ class Active extends React.Component {
 
   _handleMute() {
     const { call } = this.props
-    call.connection.mute(!call.connection.isMuted())
+    this.context.phone.mute(call)
   }
 
   _getTransfer() {
@@ -140,9 +140,9 @@ class Active extends React.Component {
   _handleTransferCall(user) {
     const { phone } = this.context
     const { call } = this.props
-    phone.onTransfer(call, {
+    phone.transfer(call, {
       user,
-      user_id: user.id 
+      user_id: user.id
     })
   }
 

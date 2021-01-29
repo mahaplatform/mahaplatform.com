@@ -3,17 +3,8 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "gather", "say": { "text": "Press 1 for Greg and 2 for Tara" }, "answers": [
-      { "answer": "1", "steps": [
-        { "verb": "dial", "recipients": [
-          { "client": "463" }
-        ] }
-      ]},
-      { "answer": "2", "steps": [
-        { "verb": "dial", "recipients": [
-          { "client": "462" }
-        ] }
-      ]}
-    ]}
+    { "verb": "dial", "recipients": [
+      { "client": "463" }
+    ] }
   ]
 }

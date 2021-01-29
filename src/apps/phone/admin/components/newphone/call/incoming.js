@@ -5,6 +5,10 @@ import React from 'react'
 
 class Incoming extends React.Component {
 
+  static contextTypes = {
+    phone: PropTypes.object
+  }
+
   static propTypes = {
     call: PropTypes.object
   }
@@ -62,12 +66,12 @@ class Incoming extends React.Component {
 
   _handleAccept() {
     const { call } = this.props
-    call.connection.accept()
+    this.context.phone.accept(call)
   }
 
   _handleReject() {
     const { call } = this.props
-    call.connection.reject()
+    this.context.phone.reject(call)
   }
 
 }

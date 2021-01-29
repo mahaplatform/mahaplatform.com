@@ -11,6 +11,7 @@ class PhoneRoot extends React.Component {
   }
 
   static contextTypes = {
+    admin: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
@@ -34,7 +35,9 @@ class PhoneRoot extends React.Component {
   _handleIncoming = this._handleIncoming.bind(this)
   _handleMute = this._handleMute.bind(this)
   _handleRemove = this._handleRemove.bind(this)
+  _handleReject = this._handleReject.bind(this)
   _handleStatus = this._handleStatus.bind(this)
+  _handleSwap = this._handleSwap.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
   _handleUnhold = this._handleUnhold.bind(this)
 
@@ -49,11 +52,15 @@ class PhoneRoot extends React.Component {
   getChildContext() {
     return {
       phone: {
-        onCall: this._handleCall,
-        onHangup: this._handleHangup,
-        onHold: this._handleHold,
-        onTransfer: this._handleTransfer,
-        onUnhold: this._handleUnhold
+        accept: this._handleAccept,
+        call: this._handleCall,
+        hangup: this._handleHangup,
+        hold: this._handleHold,
+        mute: this._handleMute,
+        reject: this._handleReject,
+        swap: this._handleSwap,
+        transfer: this._handleTransfer,
+        unhold: this._handleUnhold
       }
     }
   }
@@ -69,20 +76,15 @@ class PhoneRoot extends React.Component {
     }
   }
 
-  _handleAccept(connection) {
-    const { CallSid } = connection.parameters
-    this.setState({
-      calls: this.state.calls.map(call => ({
-        ...call,
-        ...call.sid === CallSid ? {
-          status: 'in-progress'
-        } : {}
-      }))
-    })
+  _handleAccept(call, callback) {
+    console.log(call)
+    call.connection.accept()
+    this._handleUpdate(call.call.sid, {
+      answered: true
+    }, callback)
   }
 
   _handleAdd(call) {
-    console.log(call.params)
     this.setState({
       calls: [
         ...this.state.calls,
@@ -92,8 +94,7 @@ class PhoneRoot extends React.Component {
           muted: false,
           transfering: null,
           status: 'ringing',
-          started_at: moment(),
-          onHold: this._handleHold
+          started_at: moment()
         }
       ]
     })
@@ -138,7 +139,7 @@ class PhoneRoot extends React.Component {
     this.setState({ error })
   }
 
-  _handleHold(call) {
+  _handleHold(call, callback) {
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
@@ -150,14 +151,14 @@ class PhoneRoot extends React.Component {
         this._handleUpdate(call.call.sid, {
           held: true
         })
+        if(callback) callback()
       }
     })
   }
 
   _handleIncoming(connection) {
-    connection.on('accept', this._handleAccept)
+    const { calls } = this.state
     connection.on('error', this._handleError)
-    connection.on('mute', this._handleMute)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/lookup',
       method: 'post',
@@ -167,6 +168,8 @@ class PhoneRoot extends React.Component {
       onSuccess: (result) => {
         this._handleAdd({
           extra: this._getParams(connection.customParameters),
+          active: calls.length === 0,
+          answered: false,
           type: 'inbound',
           connection,
           call: result.data,
@@ -219,14 +222,11 @@ class PhoneRoot extends React.Component {
     ])
   }
 
-  _handleMute(muted, connection) {
-    const { CallSid } = connection.parameters
-    const { calls } = this.state
-    this.setState({
-      calls: calls.map(call => ({
-        ...call,
-        ...call.sid === CallSid ? { muted } : {}
-      }))
+  _handleMute(call) {
+    const { muted } = call
+    call.connection.mute(!muted)
+    this._handleUpdate(call.call.sid, {
+      muted: !muted
     })
   }
 
@@ -244,6 +244,11 @@ class PhoneRoot extends React.Component {
         })
       }
     })
+  }
+
+  _handleReject(call) {
+    call.connection.reject()
+    this._handleRemove(call.call.sid)
   }
 
   _handleRemove(sid) {
@@ -284,11 +289,10 @@ class PhoneRoot extends React.Component {
     if(direction === 'inbound') {
       if(status === 'completed') return 'completed-contact'
     }
-    console.log(direction, status)
-    console.log(call, data)
   }
 
   _handleStatus(data) {
+    const { admin } = this.context
     const { calls } = this.state
     const { parent_sid } = data
     const call = calls.find(call => {
@@ -299,7 +303,9 @@ class PhoneRoot extends React.Component {
     if(!status) return
     if(_.includes(['no-answer-transfer','in-progres-transfer','completed-contact'], status)) {
       return this._handleHangup(call)
-    } else if(_.includes(['completed-contact'], status)) {
+    } else if(status === 'completed-contact') {
+      return this._handleRemove(call.call.sid)
+    } else if(status === 'in-progress-contact' && data.to !== `client:${admin.user.id}`) {
       return this._handleRemove(call.call.sid)
     } else {
       console.log(data.status, status)
@@ -310,7 +316,36 @@ class PhoneRoot extends React.Component {
     }
   }
 
-  _handleTransfer(call, data) {
+  _handleSwap(newcall) {
+    const active = this.state.calls.find(call => {
+      return call.active
+    })
+    this._handleHold(active, () => {
+      console.log('active held')
+      this._handleUpdate(active.call.sid, {
+        active: false
+      }, () => {
+        console.log('active deactivated')
+        this._handleUpdate(newcall.call.sid, {
+          active: true
+        }, () => {
+          console.log('newcall activated')
+          if(!newcall.answered) {
+            this._handleAccept(newcall, () => {
+              console.log('newcall answered')
+            })
+          }
+          if(!newcall.held) {
+            this._handleUnhold(newcall, () => {
+              console.log('newcall unheld')
+            })
+          }
+        })
+      })
+    })
+  }
+
+  _handleTransfer(call, data, callback) {
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/transfer',
       method: 'post',
@@ -325,12 +360,12 @@ class PhoneRoot extends React.Component {
           transfering: {
             user: data.user
           }
-        })
+        }, callback)
       }
     })
   }
 
-  _handleUnhold(call) {
+  _handleUnhold(call, callback) {
     const connection = window.Twilio.Device.connect({
       config: btoa(JSON.stringify({
         from: call.call.program.phone_number.number,
@@ -341,18 +376,18 @@ class PhoneRoot extends React.Component {
       this._handleUpdate(call.call.sid, {
         connection,
         held: false
-      })
+      }, callback)
     })
   }
 
-  _handleUpdate(sid, data) {
+  _handleUpdate(sid, data, callback) {
     const { calls } = this.state
     this.setState({
       calls: calls.map(call => ({
         ...call,
         ...call.call.sid === sid ? data : {}
       }))
-    })
+    }, callback)
   }
 
 }

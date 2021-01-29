@@ -108,7 +108,7 @@ class Dialer extends React.Component {
     const { channels, number } = this.state
     const { program } = this.props
     const contact = channels.length > 0 ? channels[0].contact : null
-    this.context.phone.onCall({
+    this.context.phone.call({
       client,
       contact,
       number,

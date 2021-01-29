@@ -134,7 +134,7 @@ class Contact extends React.Component {
   _handleCall(number, client) {
     const { admin, phone } = this.context
     const { contact, program } = this.props
-    this.context.phone.onCall({
+    this.context.phone.call({
       program,
       client,
       number,

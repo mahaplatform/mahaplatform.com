@@ -1,6 +1,7 @@
 import Transfering from './transfering'
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
+import Inactive from './inactive'
 import Incoming from './incoming'
 import Outgoing from './outgoing'
 import Active from './active'
@@ -14,12 +15,22 @@ class Call extends React.Component {
     onPush: PropTypes.func
   }
 
+  _getActive() {
+    return this.props.calls.find(call => {
+      return call.active
+    })
+  }
+
   render() {
-    const call = this.props.calls[0]
+    const inactive = this._getCalls(false)
+    const active = this._getCalls(true)
     return (
       <ModalPanel { ...this._getPanel() }>
-        { call &&
-          <div className="maha-phone-receiver">
+        { inactive.map((call, index) => (
+          <Inactive key={`call_${index}`} call={ call } />
+        )) }
+        { active.map((call, index) => (
+          <div className="maha-phone-receiver" key={`call_${index}`}>
             { call.transfering !== null &&
               <Transfering { ...this._getCall(call) } />
             }
@@ -33,9 +44,15 @@ class Call extends React.Component {
               <Outgoing { ...this._getCall(call) } />
             }
           </div>
-        }
+        )) }
       </ModalPanel>
     )
+  }
+
+  _getCalls(active) {
+    return this.props.calls.filter(call => {
+      return call.active === active
+    })
   }
 
   _getCall(call) {
