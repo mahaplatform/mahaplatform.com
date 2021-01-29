@@ -3,6 +3,7 @@ const WorkflowRecordingSerializer = (req, result) => ({
   code: result.get('code'),
   asset: asset(result.related('asset')),
   contact: contact(result.related('action').related('enrollment').related('contact')),
+  phone_number: number(result.related('action').related('enrollment').related('phone_number')),
   duration: result.get('duration'),
   was_heard: result.get('was_heard'),
   was_handled: result.get('was_handled'),
@@ -20,6 +21,15 @@ const contact = (contact) => {
     phone_id: contact.get('phone_id'),
     phone_name: contact.get('phone_name'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
+
+const number = (number) => {
+  if(!number.id) return null
+  return {
+    id: number.get('id'),
+    number: number.get('number'),
+    formatted: number.get('formatted')
   }
 }
 

@@ -40,7 +40,7 @@ const listRoute = async (req, res) => {
       defaults: '-created_at'
     },
     page: req.query.$page,
-    withRelated: ['asset','action.enrollment.contact.photo'],
+    withRelated: ['asset','action.enrollment.contact.photo','action.enrollment.phone_number'],
     transacting: req.trx
   })
 

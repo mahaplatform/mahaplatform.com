@@ -9,8 +9,11 @@ import React from 'react'
 class Voicemail extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     network: PropTypes.object,
-    router: PropTypes.object
+    phone: PropTypes.object,
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -21,10 +24,10 @@ class Voicemail extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleCall = this._handleCall.bind(this)
   _handleHandle = this._handleHandle.bind(this)
   _handleHeard = this._handleHeard.bind(this)
   _handleInfo = this._handleInfo.bind(this)
+  _handlePlaceCall = this._handlePlaceCall.bind(this)
 
   render() {
     const buttons = this._getButtons()
@@ -60,7 +63,7 @@ class Voicemail extends React.Component {
     const { voicemail } = this.props
     return [
       { icon: 'info', label: 'info', handler: this._handleInfo },
-      { icon: 'phone', label: 'call', handler: this._handleCall },
+      { icon: 'phone', label: 'call', handler: this._handlePlaceCall },
       { icon: 'check', label: 'handled', handler: this._handleHandle, depressed: voicemail.was_handled }
     ]
   }
@@ -119,14 +122,14 @@ class Voicemail extends React.Component {
     this.props.onPop()
   }
 
-  _handleCall() {
+  _handleCall(client) {
     const { voicemail, program } = this.props
+    const { admin, phone } = this.context
     this.context.phone.call({
       program,
-      phone_number: {
-        id: voicemail.contact.phone_id
-      },
-      to: voicemail.contact.phone
+      client,
+      number: voicemail.phone_number,
+      contact: voicemail.contact
     })
   }
 
@@ -150,6 +153,17 @@ class Voicemail extends React.Component {
   _handleInfo() {
     const { voicemail } = this.props
     this.context.router.history.push(`/crm/contacts/${voicemail.contact.id}`)
+  }
+
+  _handlePlaceCall() {
+    const { user } = this.context.admin
+    if(!user.cell_phone) return this._handleCall(number, 'maha')
+    this.context.tasks.open({
+      items: [
+        { label: 'Call with cell phone', handler: this._handleCall.bind(this, 'cell') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') },
+      ]
+    })
   }
 
 }
