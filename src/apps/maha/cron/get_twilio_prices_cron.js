@@ -3,7 +3,6 @@ import twilio from '@core/vendor/twilio'
 import Queue from '@core/objects/queue'
 import Call from '../models/call'
 import SMS from '../models/sms'
-import Fax from '../models/fax'
 
 export const processor = async (req) => {
 
@@ -64,40 +63,11 @@ export const processor = async (req) => {
 
   })
 
-  const faxes = await Fax.query(qb => {
-    qb.whereNotNull('sid')
-    qb.whereNull('price')
-  }).fetchAll({
-    transacting: req.trx
-  })
-
-  await Promise.mapSeries(faxes, async (fax) => {
-
-    try {
-
-      const twfax = await twilio.fax.faxes(fax.get('sid')).fetch()
-
-      if(!twfax.price) return
-
-      await fax.save({
-        price: Math.abs(twfax.price)
-      }, {
-        transacting: req.trx,
-        patch: true
-      })
-
-    } catch(err) {
-      console.log(err)
-    }
-
-  })
-
 }
 
 export const afterCommit = async (req, result) => {
   await socket.refresh(req, [
     '/admin/team/calls',
-    '/admin/team/faxes',
     '/admin/team/sms'
   ])
 }

@@ -6,7 +6,6 @@ const navigation = async (req) => ({
     { label: 'Groups', rights: ['team:manage_people'], route: '/groups' },
     { label: 'Phone', items: [
       { label: 'Calls', route: '/calls' },
-      { label: 'Faxes', route: '/faxes' },
       { label: 'Numbers', route: '/phone_numbers' },
       { label: 'SMS', route: '/sms' }
     ] },

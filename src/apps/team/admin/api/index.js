@@ -9,7 +9,6 @@ import { Router } from 'express'
 import groups from './groups'
 import access from './access'
 import emails from './emails'
-import faxes from './faxes'
 import roles from './roles'
 import users from './users'
 import calls from './calls'
@@ -29,8 +28,6 @@ router.use('/calls', calls)
 router.use('/device_values', device_values)
 
 router.use('/emails', emails)
-
-router.use('/faxes', faxes)
 
 router.use('/groups', groups)
 

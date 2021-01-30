@@ -19,7 +19,6 @@ import voice from './voice'
 import error from './error'
 import ping from './ping'
 import dav from './dav'
-import fax from './fax'
 import sms from './sms'
 import qs from 'qs'
 
@@ -54,8 +53,6 @@ server.use(shortlinkMiddleware)
 server.use('/twilio', twilio)
 
 server.use('/voice', voice)
-
-server.use('/fax', fax)
 
 server.use('/sms', sms)
 

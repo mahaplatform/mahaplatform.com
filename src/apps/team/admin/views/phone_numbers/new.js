@@ -26,7 +26,6 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Type', name: 'type', type: 'radiogroup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true, defaultValue: 'voice' },
             { label: 'Number', name: 'number', type: 'phonenumberfield', required: true }
           ]
         }

@@ -8,20 +8,19 @@ const createRoute = async (req, res) => {
 
   const number = await twilio.incomingPhoneNumbers.create({
     phoneNumber: req.body.number.phoneNumber,
-    friendlyName: `${req.team.get('subdomain')} ${req.body.type}`,
+    friendlyName: `${req.team.get('subdomain')} voice`,
     smsMethod: 'POST',
     smsUrl: `${process.env.TWIML_HOST}/sms`,
     voiceMethod: 'POST',
-    voiceUrl: `${process.env.TWIML_HOST}/${req.body.type}`,
+    voiceUrl: `${process.env.TWIML_HOST}/voice`,
     voiceReceiveMode: req.body.type,
     statusMethod: 'POST',
-    statusCallback: `${process.env.TWIML_HOST}/${req.body.type}/status`
+    statusCallback: `${process.env.TWIML_HOST}/voice/status`
   })
 
   const phone_number = await PhoneNumber.forge({
     team_id: req.team.get('id'),
     sid: number.sid,
-    type: req.body.type,
     number: req.body.number.phoneNumber,
     locality: req.body.number.locality,
     region: req.body.number.region

@@ -3,12 +3,6 @@ import { Page } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const PhoneTypeToken = ({ type }) => (
-  <div className="token">
-    { type === 'fax' ? 'fax' : 'voice / sms' }
-  </div>
-)
-
 PhoneTypeToken.propTypes = {
   type: PropTypes.string
 }
@@ -32,8 +26,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Number', key: 'formatted', primary: true},
-      { label: 'Locality', key: 'locality', format: LocalityToken },
-      { label: 'Type', key: 'type', format: PhoneTypeToken }
+      { label: 'Locality', key: 'locality', format: LocalityToken }
     ],
     recordTasks: (program) => [
       {
