@@ -137,7 +137,7 @@ class Voicemail extends React.Component {
     const { program, voicemail } = this.props
     if(voicemail.was_handled) return
     this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/voicemails/${voicemail.id}/handled`,
+      endpoint: `/api/admin/phone/programs/${program.id}/voicemails/${voicemail.id}/handled`,
       method: 'patch'
     })
   }
@@ -145,7 +145,7 @@ class Voicemail extends React.Component {
   _handleHeard() {
     const { program, voicemail } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/crm/programs/${program.id}/voicemails/${voicemail.id}/heard`,
+      endpoint: `/api/admin/phone/programs/${program.id}/voicemails/${voicemail.id}/heard`,
       method: 'patch'
     })
   }
@@ -169,10 +169,10 @@ class Voicemail extends React.Component {
 }
 
 const mapResources = (props, context) => ({
-  audits: `/api/admin/crm_workflow_recordings/${props.voicemail_id}/audits`,
+  audits: `/api/admin/maha_voicemails/${props.voicemail_id}/audits`,
   voicemail: {
-    endpoint: `/api/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`,
-    refresh: `/admin/crm/programs/${props.program.id}/voicemails/${props.voicemail_id}`
+    endpoint: `/api/admin/phone/programs/${props.program.id}/voicemails/${props.voicemail_id}`,
+    refresh: `/admin/phone/programs/${props.program.id}/voicemails/${props.voicemail_id}`,
   }
 })
 

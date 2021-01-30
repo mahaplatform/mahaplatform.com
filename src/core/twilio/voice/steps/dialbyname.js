@@ -19,10 +19,10 @@ const choose = (req, twiml) => {
   const index = parseInt(body.Digits) - 1
   const user = users[index]
   if(user) {
-    twiml.redirect(url(req, { state, action: 'dial', index: user.index }))
+    twiml.redirect(url(req, '/voice', { state, action: 'dial', index: user.index }))
   } else {
     twiml.say(`${body.Digits} is not a valid response`)
-    twiml.redirect(url(req, { state, action: 'answer', digits: query.digits }))
+    twiml.redirect(url(req, '/voice', { state, action: 'answer', digits: query.digits }))
   }
 }
 
@@ -34,7 +34,7 @@ const processAnswer = (req, twiml) => {
   const names = users.map(user => `${user.first_name} ${user.last_name}`)
   if(users.length > 1) {
     const gather = twiml.gather({
-      action: url(req, { state, action: 'choose', digits }),
+      action: url(req, '/voice', { state, action: 'choose', digits }),
       finishOnKey: '',
       numDigits: 1,
       timeout: 10
@@ -45,11 +45,11 @@ const processAnswer = (req, twiml) => {
     })
     return 'multiple users'
   } else if(users.length === 1) {
-    twiml.redirect(url(req, { state, action: 'dial', index: users[0].index }))
+    twiml.redirect(url(req, '/voice', { state, action: 'dial', index: users[0].index }))
     return 'found'
   } else {
     twiml.say('I couldnt find anyone who matches that input')
-    twiml.redirect(url(req, { action: 'ask' }))
+    twiml.redirect(url(req, '/voice', { action: 'ask' }))
     return 'not found'
   }
 }
@@ -66,13 +66,13 @@ const answer = (req, twiml) => {
 const ask = (req, twiml) => {
   const { state } = req.query
   const gather = twiml.gather({
-    action: url(req, { state, action: 'answer' }),
+    action: url(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 3,
     timeout: 10
   })
   gather.say('Please dial the first three letters of the person\'s last name')
-  twiml.redirect(url(req, { action: 'answer' }))
+  twiml.redirect(url(req, '/voice', { action: 'answer' }))
   return {
     verb: 'dialbyname',
     action: 'ask'

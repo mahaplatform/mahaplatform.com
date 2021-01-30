@@ -19,11 +19,11 @@ const processAnswer = (req, twiml) => {
     return user.extension === body.Digits
   })
   if(index >= 0) {
-    twiml.redirect(url(req, { state, action: 'dial', index }))
+    twiml.redirect(url(req, '/voice', { state, action: 'dial', index }))
     return 'found'
   } else {
     twiml.say('I couldnt find anyone with that extension')
-    twiml.redirect(url(req, { action: 'ask' }))
+    twiml.redirect(url(req, '/voice', { action: 'ask' }))
     return 'not found'
   }
 }
@@ -41,7 +41,7 @@ const ask = (req, twiml) => {
   const { state } = req.query
   const attempt = req.query.attempt ? parseInt(req.query.attempt) : 1
   const gather = twiml.gather({
-    action: url(req, { state, action: 'answer' }),
+    action: url(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 3,
     timeout: 5
@@ -56,7 +56,7 @@ const ask = (req, twiml) => {
   })
   if(attempt < 3) {
     twiml.say('I didnt receive any input')
-    twiml.redirect(url(req, { action: 'ask', attempt: attempt + 1 }))
+    twiml.redirect(url(req, '/voice', { action: 'ask', attempt: attempt + 1 }))
   } else {
     twiml.hangup()
   }

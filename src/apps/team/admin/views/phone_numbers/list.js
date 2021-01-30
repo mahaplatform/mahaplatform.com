@@ -1,11 +1,6 @@
 import { Page } from '@admin'
-
 import PropTypes from 'prop-types'
 import React from 'react'
-
-PhoneTypeToken.propTypes = {
-  type: PropTypes.string
-}
 
 const LocalityToken = ({ locality, region }) => (
   <div className="token">

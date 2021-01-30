@@ -13,11 +13,10 @@ const statusRoute = async (req, res) => {
 
   const twcall = await getParent(req.body.CallSid)
 
-  // await TwilioStatusQueue.enqueue(req, {
-  //   sid: ParentCallSid || CallSid,
-  //   data: { foo: 1 },
-  //   tstamp: body.Timestamp
-  // })
+  await TwilioStatusQueue.enqueue(req, {
+    sid: twcall.sid,
+    body: req.body
+  })
 
   await socket.message(req, {
     channel: `/calls/${twcall.sid}`,

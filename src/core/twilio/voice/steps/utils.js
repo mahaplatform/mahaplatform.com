@@ -27,11 +27,11 @@ const speakNumber = (number) => {
   }).join(' ')
 }
 
-const url = (req, params) => {
+const url = (req, path, params) => {
   const { enrollment, workflow } = req.query
   params.enrollment = enrollment
   if(workflow) params.workflow = workflow
-  return `${process.env.TWILIO_TWIML_HOST}/voice?${qs.stringify(params)}`
+  return `${process.env.TWILIO_TWIML_HOST}${path}?${qs.stringify(params)}`
 }
 
 const next = (req, twiml) => {
@@ -47,7 +47,7 @@ const next = (req, twiml) => {
     const candidate = next.join('.')
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
-  if(nextstate) return twiml.redirect(url(req, { state: nextstate }))
+  if(nextstate) return twiml.redirect(url(req, '/voice', { state: nextstate }))
   return twiml.hangup()
 }
 

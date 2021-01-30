@@ -3,7 +3,6 @@ import AppsList from './apps/list'
 import AppsShow from './apps/show'
 import CallList from './calls/list'
 import EmailsList from './emails/list'
-import FaxesList from './faxes/list'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
 import PhoneNumbersList from './phone_numbers/list'
@@ -26,7 +25,6 @@ const routes = [
   { path: '/foobar', component: AppsList },
   { path: '/activities', component: ActivitiesList },
   { path: '/emails', component: EmailsList },
-  { path: '/faxes', component: FaxesList },
   { path: '/groups', component: GroupsList },
   { path: '/groups/:id', component: GroupsShow },
   { path: '/phone_numbers', component: PhoneNumbersList },

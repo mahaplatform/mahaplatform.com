@@ -13,7 +13,7 @@ const ask = (req, twiml) => {
   const { state } = req.query
   const ask = performAsk(req, twiml)
   const record = twiml.record({
-    action: url(req, { state, action: 'review' }),
+    action: url(req, '/voice', { state, action: 'review' }),
     trim: 'trim-silence',
     finishOnKey: '#'
   })
@@ -31,14 +31,14 @@ const review = (req, twiml) => {
   const duration = parseInt(body.RecordingDuration)
   const sid = body.RecordingSid
   const gather = twiml.gather({
-     action: url(req, { state, action: 'confirm', sid }),
+     action: url(req, '/voice', { state, action: 'confirm', sid }),
      numDigits: 1,
      timeout: duration + 5
    })
    gather.say('You said')
    gather.play(recording)
    gather.say('Press 1 to keep this recording, 2 to record again')
-   twiml.redirect(url(req, { state, action: 'confirm', timeout: true, sid }))
+   twiml.redirect(url(req, '/voice', { state, action: 'confirm', timeout: true, sid }))
    return {
      verb: 'record',
      action: 'review',
@@ -57,7 +57,7 @@ const processResponse = (req, twiml) => {
     next(req, twiml)
     return 'confirmed'
   } else if(body.Digits === '2') {
-    twiml.redirect(url(req, { state, action: 'ask' }))
+    twiml.redirect(url(req, '/voice', { state, action: 'ask' }))
     return 'rejected'
   }
 }
@@ -77,7 +77,7 @@ const answer = (req, twiml) => {
   const { state } = req.query
   const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
   const answer = _.get(req.config, `${state}.answers.${index}`)
-  twiml.redirect(url(req, { state: `${state}.answers.${index}.steps.0` }))
+  twiml.redirect(url(req, '/voice', { state: `${state}.answers.${index}.steps.0` }))
   return {
     verb: 'gather',
     action: 'answer',

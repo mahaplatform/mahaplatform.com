@@ -12,12 +12,12 @@ const performAsk = (req, gather) => {
 const ask = (req, twiml) => {
   const { state } = req.query
   const gather = twiml.gather({
-    action: url(req, { state, action: 'answer' }),
+    action: url(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 1
   })
   const ask = performAsk(req, gather)
-  if(req.step.noanswer) twiml.redirect(url(req, { state: `${state}.noanswer.steps.0` }))
+  if(req.step.noanswer) twiml.redirect(url(req, '/voice', { state: `${state}.noanswer.steps.0` }))
   return {
     verb: 'gather',
     action: 'ask',
@@ -30,7 +30,7 @@ const answer = (req, twiml) => {
   const { state } = req.query
   const index = _.findIndex(req.step.answers, { answer: req.body.Digits })
   const answer = _.get(config, `${state}.answers.${index}`)
-  twiml.redirect(url(req, { state: `${state}.answers.${index}.steps.0` }))
+  twiml.redirect(url(req, '/voice', { state: `${state}.answers.${index}.steps.0` }))
   return {
     verb: 'gather',
     action: 'answer',

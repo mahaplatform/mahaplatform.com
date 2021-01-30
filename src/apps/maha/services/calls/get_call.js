@@ -4,13 +4,6 @@ import Number from '@apps/maha/models/number'
 import Call from '@apps/maha/models/call'
 import twilio from '@core/vendor/twilio'
 
-const getParentCall = async(req, { sid }) => {
-  if(!sid) return null
-  return await getCall(req, {
-    sid
-  })
-}
-
 const getContactPhoneNumber = async (req, { number }) => {
   if(!/^\+\d{11}$/.test(number)) return null
   return await getPhoneNumber(req, {

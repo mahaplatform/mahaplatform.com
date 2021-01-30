@@ -1,5 +1,6 @@
 const dialbyextension  = require('./dialbyextension')
 const dialbyname  = require('./dialbyname')
+const voicemail = require('./voicemail')
 const hangup  = require('./hangup')
 const gather = require('./gather')
 const record = require('./record')
@@ -16,6 +17,7 @@ const getExecutor = (verb) => {
   if(verb === 'gather') return gather
   if(verb === 'record') return record
   if(verb === 'say') return say
+  if(verb === 'voicemail') return voicemail
   return hangup
 }
 
