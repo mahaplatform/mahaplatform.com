@@ -159,21 +159,20 @@ class PhoneRoot extends React.Component {
     this.setState({ error })
   }
 
-  _handleForward(call, data, callback) {
+  _handleForward(call, client, callback) {
+    console.log('forward', call.direction === 'inbound' ? call.from_sid : call.to_sid)
     this.context.network.request({
-      endpoint: '/api/admin/phone/calls/transfer',
+      endpoint: '/api/admin/phone/calls/forward',
       method: 'post',
       body: {
         from: call.call.program.phone_number.number,
-        user_id: data.user_id,
-        number: data.number,
-        sid: call.active_sid
+        client,
+        sid: call.direction === 'inbound' ? call.from_sid : call.to_sid
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
           forwarding: {
-            number: data.number,
-            user: data.user
+            client
           }
         }, callback)
       }
@@ -327,6 +326,13 @@ class PhoneRoot extends React.Component {
       if(status === 'no-answer') return 'no-answer-transfer'
       if(status === 'completed') return 'completed-transfer'
     }
+    if(call.forwarding) {
+      if(status === 'initiated') return 'initiated-forward'
+      if(status === 'ringing') return 'ringing-forward'
+      if(status === 'in-progress') return 'in-progress-forward'
+      if(status === 'no-answer') return 'no-answer-forward'
+      if(status === 'completed') return 'completed-forward'
+    }
     if(direction === 'outbound-api') {
       if(status === 'ringing') return 'ringing-cell'
       if(status === 'in-progress') return 'announcing-cell'
@@ -353,6 +359,7 @@ class PhoneRoot extends React.Component {
     })
     if(!call) return
     const status = this._getSignal(call, data)
+    console.log(status)
     if(!status) return
     if(_.includes(['no-answer-transfer','completed-contact'], status)) {
       console.log('here1')

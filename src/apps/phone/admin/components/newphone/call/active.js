@@ -26,9 +26,9 @@ class Active extends React.Component {
     mode: 'functions'
   }
 
-  _handleDevicePrompt = this._handleDevicePrompt.bind(this)
-  _handleDevice = this._handleDevice.bind(this)
   _handleDigits = this._handleDigits.bind(this)
+  _handleForward = this._handleForward.bind(this)
+  _handleForwardPrompt = this._handleForwardPrompt.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleSMS = this._handleSMS.bind(this)
@@ -94,6 +94,7 @@ class Active extends React.Component {
     if(call.client === 'cell') {
       return [
         { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+        { icon: 'arrow-right', label: 'forward', handler: this._handleForwardPrompt, disabled: user.cell_phone === null },
         { icon: 'comments', label: 'sms', handler: this._handleSMS }
       ]
     }
@@ -102,7 +103,7 @@ class Active extends React.Component {
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
-      { icon: 'arrow-right', label: 'forward', handler: this._handleDevicePrompt, disabled: user.cell_phone === null },
+      { icon: 'arrow-right', label: 'forward', handler: this._handleForwardPrompt, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -132,35 +133,29 @@ class Active extends React.Component {
     }
   }
 
-  _handleDevicePrompt() {
+  _handleDigits(number) {
+    const { call } = this.props
+    call.connection.sendDigits(number)
+  }
+
+  _handleForward(client) {
+    const { user } = this.context.admin
+    const { call } = this.props
+    this.context.phone.forward(call, client)
+  }
+
+  _handleForwardPrompt() {
     const { user } = this.context.admin
     if(!user.cell_phone) return
     const { call } = this.props
     const items = []
     if(call.client === 'maha') {
-      items.push({ label: 'Forward to cell phone', handler: this._handleDevice.bind(this, 'cell') })
+      items.push({ label: 'Forward to cell phone', handler: this._handleForward.bind(this, 'cell') })
     }
     if(call.client === 'cell') {
-      items.push({ label: 'Forward to Maha phone', handler: this._handleDevice.bind(this, 'maha') })
+      items.push({ label: 'Forward to Maha phone', handler: this._handleForward.bind(this, 'maha') })
     }
     this.context.tasks.open({ items })
-  }
-
-  _handleDevice(client) {
-    const { user } = this.context.admin
-    const { call } = this.props
-    const config = client === 'maha' ? {
-      user,
-      user_id: user.id
-    } : {
-      number: user.cell_phone
-    }
-    this.context.phone.forward(call, config)
-  }
-
-  _handleDigits(number) {
-    const { call } = this.props
-    call.connection.sendDigits(number)
   }
 
   _handleHangup() {
