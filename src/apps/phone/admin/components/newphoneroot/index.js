@@ -103,7 +103,6 @@ class PhoneRoot extends React.Component {
 
   _handleAdd(call) {
     const { calls } = this.state
-    console.log('adding parent', call.call.sid)
     this.setState({
       calls: [
         ...calls,
@@ -160,7 +159,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleForward(call, client, callback) {
-    console.log('forward', call.direction === 'inbound' ? call.from_sid : call.to_sid)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/forward',
       method: 'post',
@@ -193,7 +191,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleHold(call, callback) {
-    console.log('hold', call.direction === 'inbound' ? call.from_sid : call.to_sid)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
@@ -211,7 +208,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleIncoming(connection) {
-    connection.on('error', this._handleError)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/lookup',
       method: 'post',
@@ -304,14 +300,17 @@ class PhoneRoot extends React.Component {
   }
 
   _handleRemove(sid) {
-    const { calls } = this.state
-    const call = calls.find(call => {
+    const call = this.state.calls.find(call => {
       return call.call.sid === sid
     })
     this._handleLeave(call.call.sid)
-    this.setState({
-      calls: calls.filter(call => {
-        return call.call.sid !== sid
+    const calls = this.state.calls.filter(call => {
+      return call.call.sid !== sid
+    })
+    this.setState({ calls }, () => {
+      if(calls.length === 0) return
+      this._handleUpdate(calls[0].call.sid, {
+        focused: true
       })
     })
   }
@@ -359,19 +358,14 @@ class PhoneRoot extends React.Component {
     })
     if(!call) return
     const status = this._getSignal(call, data)
-    console.log(status)
     if(!status) return
-    if(_.includes(['no-answer-transfer','completed-contact'], status)) {
-      console.log('here1')
+    if(_.includes(['no-answer-transfer','completed-contact','completed-forward'], status)) {
       return this._handleRemove(call.call.sid)
     } else if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
     } else if(_.includes(['completed-contact','in-progress-transfer'], status)) {
-      console.log('here4')
       return this._handleRemove(call.call.sid)
     } else {
-      console.log('here5')
-      console.log(data.status, status)
       this._handleUpdate(parent_sid, {
         status
       })
@@ -383,24 +377,17 @@ class PhoneRoot extends React.Component {
       return call.focused
     })
     this._handleHold(focused, () => {
-      console.log('focused held')
       this._handleUpdate(focused.call.sid, {
         focused: false
       }, () => {
-        console.log('focused deactivated')
         this._handleUpdate(newcall.call.sid, {
           focused: true
         }, () => {
-          console.log('newcall activated')
           if(!newcall.answered) {
-            this._handleAccept(newcall, () => {
-              console.log('newcall answered')
-            })
+            this._handleAccept(newcall)
           }
-          if(!newcall.held) {
-            this._handleUnhold(newcall, () => {
-              console.log('newcall unheld')
-            })
+          if(newcall.held) {
+            this._handleUnhold(newcall)
           }
         })
       })
@@ -408,7 +395,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleTransfer(call, data, callback) {
-    console.log('transfer', call.direction === 'inbound' ? call.from_sid : call.to_sid)
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/transfer',
       method: 'post',
@@ -437,7 +423,6 @@ class PhoneRoot extends React.Component {
       }))
     })
     connection.on('accept', (connection) => {
-      console.log('unheld', connection.parameters.CallSid)
       const sidkey = call.direction === 'outbound' ? 'from_sid' : 'to_sid'
       this._handleUpdate(call.call.sid, {
         [sidkey]: connection.parameters.CallSid,
@@ -449,7 +434,6 @@ class PhoneRoot extends React.Component {
 
   _handleUpdate(sid, data, callback) {
     const { calls } = this.state
-    console.log('update', sid, data)
     this.setState({
       calls: calls.map(call => ({
         ...call,

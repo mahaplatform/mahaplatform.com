@@ -99,10 +99,10 @@ class Active extends React.Component {
       ]
     }
     return [
-      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
-      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
+      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
+      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
+      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'arrow-right', label: 'forward', handler: this._handleForwardPrompt, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]

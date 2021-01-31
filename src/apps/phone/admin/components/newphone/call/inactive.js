@@ -1,6 +1,7 @@
 import ContactAvatar from '@apps/crm/admin/tokens/contact_avatar'
 import PropTypes from 'prop-types'
 import { Timer } from '@admin'
+import Button from '../button'
 import React from 'react'
 
 class Inactive extends React.Component {
@@ -13,6 +14,8 @@ class Inactive extends React.Component {
     call: PropTypes.object
   }
 
+  _handleAccept = this._handleAccept.bind(this)
+  _handleReject = this._handleReject.bind(this)
   _handleSwap = this._handleSwap.bind(this)
 
   render() {
@@ -27,11 +30,41 @@ class Inactive extends React.Component {
           { contact ? contact.display_name : (direction === 'inbound' ? from : to) }<br />
           <span>{ program.title }</span>
         </div>
-        <div className="maha-phone-receiver-inactive-timer">
-          <Timer from={ call.started_at } />
-        </div>
+        { call.answered ?
+          <div className="maha-phone-receiver-inactive-timer">
+            <Timer from={ call.started_at } />
+          </div> :
+          <div className="maha-phone-actions" >
+            <div className="maha-phone-action">
+              <Button { ...this._getReject() } />
+            </div>
+            <div className="maha-phone-action">
+              <Button { ...this._getAccept() } />
+            </div>
+          </div>
+        }
       </div>
     )
+  }
+
+  _getAccept() {
+    return { icon: 'phone', type: 'pickup', handler: this._handleSwap }
+  }
+
+  _getReject() {
+    return { icon: 'phone', type: 'hangup', handler: this._handleReject }
+  }
+
+  _handleAccept(e) {
+    e.stopPropagation()
+    const { call } = this.props
+    this.context.phone.swap(call)
+  }
+
+  _handleReject(e) {
+    e.stopPropagation()
+    const { call } = this.props
+    this.context.phone.reject(call)
   }
 
   _handleSwap() {

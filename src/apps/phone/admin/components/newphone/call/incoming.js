@@ -35,14 +35,13 @@ class Incoming extends React.Component {
             No answer, call transfered back from { extra.transfered_back_from }
           </div>
         }
-        <div className="maha-phone-call-body">
-          <div className="maha-phone-actions" >
-            { buttons.map((button, index) => (
-              <div className="maha-phone-action" key={`action_${index}`}>
-                <Button { ...button } />
-              </div>
-            ))}
-          </div>
+        <div className="maha-phone-call-body" />
+        <div className="maha-phone-actions" >
+          { buttons.map((button, index) => (
+            <div className="maha-phone-action" key={`action_${index}`}>
+              <Button { ...button } />
+            </div>
+          ))}
         </div>
       </div>
     )
