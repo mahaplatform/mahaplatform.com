@@ -61,6 +61,12 @@ class Dialer extends React.Component {
     )
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.input.focus()
+    }, 500)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { number } = this.state
     if(number !== prevState.number && number) {

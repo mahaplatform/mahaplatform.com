@@ -4,6 +4,7 @@ import Phone from '../newphone'
 import Empty from './empty'
 import moment from 'moment'
 import React from 'react'
+import _ from 'lodash'
 
 class PhoneRoot extends React.Component {
 
@@ -13,6 +14,7 @@ class PhoneRoot extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
+    flash: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
@@ -178,15 +180,15 @@ class PhoneRoot extends React.Component {
   }
 
   _handleHangup(call) {
+    const { direction, held, to_sid, from_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hangup',
       method: 'post',
       body: {
-        sid: call.direction === 'inbound' ? call.to_sid : call.from_sid
+        sid: (direction === 'outbound' || !held) ? to_sid : from_sid
       },
-      onSuccess: () => {
-        this._handleRemove(call.call.sid)
-      }
+      onSuccess: () => this._handleRemove(call.call.sid),
+      onFailure: () => this.context.flash.set('error', 'Unable to hangup call')
     })
   }
 
@@ -316,7 +318,7 @@ class PhoneRoot extends React.Component {
   }
 
   _getSignal(call, data) {
-    const { direction, status, to } = data
+    const { direction, status } = data
     if(call.held) return 'in-progress-contact'
     if(call.transfering) {
       if(status === 'initiated') return 'initiated-transfer'
@@ -350,7 +352,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleStatus(data) {
-    const { admin } = this.context
     const { calls } = this.state
     const { parent_sid } = data
     const call = calls.find(call => {
@@ -359,7 +360,9 @@ class PhoneRoot extends React.Component {
     if(!call) return
     const status = this._getSignal(call, data)
     if(!status) return
-    if(_.includes(['no-answer-transfer','completed-contact','completed-forward'], status)) {
+    if(data.sid === (call.direction === 'inbound' ? call.from_sid : call.to_sid) && data.status === 'completed') {
+      return this._handleRemove(call.call.sid)
+    } else if(_.includes(['no-answer-transfer','completed-contact','completed-forward'], status)) {
       return this._handleRemove(call.call.sid)
     } else if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
