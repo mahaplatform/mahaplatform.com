@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import Transfer from './transfer'
 import Keypad from '../keypad'
 import Button from '../button'
-import SMS from '../sms'
 import { Timer } from '@admin'
 import Header from './header'
 import React from 'react'
+import SMS from '../sms'
+import _ from 'lodash'
 
 class Active extends React.Component {
 
@@ -27,13 +27,9 @@ class Active extends React.Component {
   }
 
   _handleDigits = this._handleDigits.bind(this)
-  _handleForward = this._handleForward.bind(this)
-  _handleForwardPrompt = this._handleForwardPrompt.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleSMS = this._handleSMS.bind(this)
-  _handleTransferCall = this._handleTransferCall.bind(this)
-  _handleTransfer = this._handleTransfer.bind(this)
   _handleMute = this._handleMute.bind(this)
 
   render() {
@@ -70,7 +66,7 @@ class Active extends React.Component {
             <Keypad { ...this._getKeyPad() } />
           }
         </div>
-        { mode === 'functions' && call.client === 'maha' &&
+        { mode === 'functions' &&
           <div className="maha-phone-actions">
             <div className="maha-phone-action">
               <Button { ...this._getHangup() } />
@@ -89,12 +85,9 @@ class Active extends React.Component {
   }
 
   _getButtons() {
-    const { user } = this.context.admin
     const { call } = this.props
     if(call.client === 'cell') {
       return [
-        { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-        { icon: 'arrow-right', label: 'forward', handler: this._handleForwardPrompt, disabled: user.cell_phone === null },
         { icon: 'comments', label: 'sms', handler: this._handleSMS }
       ]
     }
@@ -102,8 +95,6 @@ class Active extends React.Component {
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
       { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
-      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-      { icon: 'arrow-right', label: 'forward', handler: this._handleForwardPrompt, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -113,7 +104,6 @@ class Active extends React.Component {
   }
 
   _getHangup() {
-    const { call } = this.props
     return { icon: 'phone', type: 'hangup', handler: this._handleHangup }
   }
 
@@ -138,26 +128,6 @@ class Active extends React.Component {
     call.connection.sendDigits(number)
   }
 
-  _handleForward(client) {
-    const { user } = this.context.admin
-    const { call } = this.props
-    this.context.phone.forward(call, client)
-  }
-
-  _handleForwardPrompt() {
-    const { user } = this.context.admin
-    if(!user.cell_phone) return
-    const { call } = this.props
-    const items = []
-    if(call.client === 'maha') {
-      items.push({ label: 'Forward to cell phone', handler: this._handleForward.bind(this, 'cell') })
-    }
-    if(call.client === 'cell') {
-      items.push({ label: 'Forward to Maha phone', handler: this._handleForward.bind(this, 'maha') })
-    }
-    this.context.tasks.open({ items })
-  }
-
   _handleHangup() {
     const { call } = this.props
     this.context.phone.hangup(call)
@@ -180,29 +150,7 @@ class Active extends React.Component {
   }
 
   _handleSMS() {
-    const { call } = this.props
     return this.props.onPush(SMS, this._getSMS.bind(this))
-  }
-
-  _getTransfer() {
-    const { onPop } = this.props
-    return {
-      onPop,
-      onChoose: this._handleTransferCall
-    }
-  }
-
-  _handleTransfer() {
-    this.props.onPush(Transfer, this._getTransfer.bind(this))
-  }
-
-  _handleTransferCall(user) {
-    const { phone } = this.context
-    const { call } = this.props
-    phone.transfer(call, {
-      user,
-      user_id: user.id
-    })
   }
 
 }

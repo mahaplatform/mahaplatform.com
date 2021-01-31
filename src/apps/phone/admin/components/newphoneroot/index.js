@@ -33,7 +33,6 @@ class PhoneRoot extends React.Component {
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleError = this._handleError.bind(this)
-  _handleForward = this._handleForward.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
@@ -42,7 +41,6 @@ class PhoneRoot extends React.Component {
   _handleReject = this._handleReject.bind(this)
   _handleStatus = this._handleStatus.bind(this)
   _handleSwap = this._handleSwap.bind(this)
-  _handleTransfer = this._handleTransfer.bind(this)
   _handleUnhold = this._handleUnhold.bind(this)
 
   render() {
@@ -68,11 +66,9 @@ class PhoneRoot extends React.Component {
         call: this._handleCall,
         hangup: this._handleHangup,
         hold: this._handleHold,
-        forward: this._handleForward,
         mute: this._handleMute,
         reject: this._handleReject,
         swap: this._handleSwap,
-        transfer: this._handleTransfer,
         unhold: this._handleUnhold
       }
     }
@@ -113,7 +109,6 @@ class PhoneRoot extends React.Component {
           focused: calls.length === 0,
           held: false,
           muted: false,
-          transfering: null,
           status: 'ringing',
           started_at: moment()
         }
@@ -160,32 +155,13 @@ class PhoneRoot extends React.Component {
     this.setState({ error })
   }
 
-  _handleForward(call, client, callback) {
-    this.context.network.request({
-      endpoint: '/api/admin/phone/calls/forward',
-      method: 'post',
-      body: {
-        from: call.call.program.phone_number.number,
-        client,
-        sid: call.direction === 'inbound' ? call.from_sid : call.to_sid
-      },
-      onSuccess: () => {
-        this._handleUpdate(call.call.sid, {
-          forwarding: {
-            client
-          }
-        }, callback)
-      }
-    })
-  }
-
   _handleHangup(call) {
-    const { direction, held, to_sid, from_sid } = call
+    const { answered, direction, held, to_sid, from_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hangup',
       method: 'post',
       body: {
-        sid: (direction === 'outbound' || !held) ? to_sid : from_sid
+        sid: (answered && (direction === 'outbound' || !held)) ? to_sid : from_sid
       },
       onSuccess: () => this._handleRemove(call.call.sid),
       onFailure: () => this.context.flash.set('error', 'Unable to hangup call')
@@ -193,12 +169,13 @@ class PhoneRoot extends React.Component {
   }
 
   _handleHold(call, callback) {
+    const { direction, to_sid, from_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
       body: {
         queue: `contact-${call.call.contact.id}`,
-        sid: call.direction === 'inbound' ? call.from_sid : call.to_sid
+        sid: direction === 'inbound' ? from_sid : to_sid
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
@@ -320,20 +297,6 @@ class PhoneRoot extends React.Component {
   _getSignal(call, data) {
     const { direction, status } = data
     if(call.held) return 'in-progress-contact'
-    if(call.transfering) {
-      if(status === 'initiated') return 'initiated-transfer'
-      if(status === 'ringing') return 'ringing-transfer'
-      if(status === 'in-progress') return 'in-progress-transfer'
-      if(status === 'no-answer') return 'no-answer-transfer'
-      if(status === 'completed') return 'completed-transfer'
-    }
-    if(call.forwarding) {
-      if(status === 'initiated') return 'initiated-forward'
-      if(status === 'ringing') return 'ringing-forward'
-      if(status === 'in-progress') return 'in-progress-forward'
-      if(status === 'no-answer') return 'no-answer-forward'
-      if(status === 'completed') return 'completed-forward'
-    }
     if(direction === 'outbound-api') {
       if(status === 'ringing') return 'ringing-cell'
       if(status === 'in-progress') return 'announcing-cell'
@@ -359,19 +322,16 @@ class PhoneRoot extends React.Component {
     })
     if(!call) return
     const status = this._getSignal(call, data)
+    console.log(status)
     if(!status) return
-    if(data.sid === (call.direction === 'inbound' ? call.from_sid : call.to_sid) && data.status === 'completed') {
-      return this._handleRemove(call.call.sid)
-    } else if(_.includes(['no-answer-transfer','completed-contact','completed-forward'], status)) {
-      return this._handleRemove(call.call.sid)
-    } else if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
+    if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
-    } else if(_.includes(['completed-contact','in-progress-transfer'], status)) {
+    } else if(data.sid === (call.direction === 'inbound' ? call.from_sid : call.to_sid) && data.status === 'completed') {
+      return this._handleRemove(call.call.sid)
+    } else if(_.includes(['completed-cell','completed-contact'], status)) {
       return this._handleRemove(call.call.sid)
     } else {
-      this._handleUpdate(parent_sid, {
-        status
-      })
+      this._handleUpdate(parent_sid, { status })
     }
   }
 
@@ -394,27 +354,6 @@ class PhoneRoot extends React.Component {
           }
         })
       })
-    })
-  }
-
-  _handleTransfer(call, data, callback) {
-    this.context.network.request({
-      endpoint: '/api/admin/phone/calls/transfer',
-      method: 'post',
-      body: {
-        from: call.call.program.phone_number.number,
-        user_id: data.user_id,
-        number: data.number,
-        sid: call.direction === 'inbound' ? call.from_sid : call.to_sid
-      },
-      onSuccess: () => {
-        this._handleUpdate(call.call.sid, {
-          transfering: {
-            number: data.number,
-            user: data.user
-          }
-        }, callback)
-      }
     })
   }
 

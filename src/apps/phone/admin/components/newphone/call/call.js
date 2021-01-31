@@ -1,4 +1,3 @@
-import Transfering from './transfering'
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Inactive from './inactive'
@@ -27,16 +26,13 @@ class Call extends React.Component {
         )) }
         { focused.map((call, index) => (
           <div className="maha-phone-receiver" key={`call_${index}`}>
-            { call.transfering !== null &&
-              <Transfering { ...this._getCall(call) } />
-            }
-            { !call.transfering && call.status === 'in-progress-contact' &&
+            { call.status === 'in-progress-contact' &&
               <Active { ...this._getCall(call) } />
             }
-            { !call.transfering && call.direction === 'inbound' && call.status !== 'in-progress-contact' &&
+            { call.direction === 'inbound' && call.status !== 'in-progress-contact' &&
               <Incoming { ...this._getCall(call) } />
             }
-            { !call.transfering && call.direction === 'outbound' && call.status !== 'in-progress-contact' &&
+            { call.direction === 'outbound' && call.status !== 'in-progress-contact' &&
               <Outgoing { ...this._getCall(call) } />
             }
           </div>
