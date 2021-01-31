@@ -6,7 +6,7 @@ const listRoute = async (req, res) => {
   const phone_numbers = await PhoneNumber.filterFetch({
     scope: (qb) => {
       qb.where('team_id', req.team.get('id'))
-      qb.whereNull('realeased_at')
+      qb.whereNull('released_at')
     },
     filter: {
       params: req.query.$filter,
