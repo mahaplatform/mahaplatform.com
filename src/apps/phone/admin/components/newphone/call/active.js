@@ -38,7 +38,7 @@ class Active extends React.Component {
 
   render() {
     const buttons = this._getButtons()
-    const rows = _.chunk(buttons, Math.ceil(buttons.length / 2))
+    const rows = _.chunk(buttons, 3)
     const { call } = this.props
     const { mode } = this.state
     return (
@@ -70,7 +70,7 @@ class Active extends React.Component {
             <Keypad { ...this._getKeyPad() } />
           }
         </div>
-        { mode === 'functions' &&
+        { mode === 'functions' && call.client === 'maha' &&
           <div className="maha-phone-actions">
             <div className="maha-phone-action">
               <Button { ...this._getHangup() } />
@@ -91,11 +91,17 @@ class Active extends React.Component {
   _getButtons() {
     const { user } = this.context.admin
     const { call } = this.props
+    if(call.client === 'cell') {
+      return [
+        { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+        { icon: 'comments', label: 'sms', handler: this._handleSMS }
+      ]
+    }
     return [
-      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad'), disabled: call.client === 'cell' },
+      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
-      { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted, disabled: call.client === 'cell' },
+      { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
       { icon: 'arrow-right', label: 'forward', handler: this._handleDevicePrompt, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
@@ -107,7 +113,7 @@ class Active extends React.Component {
 
   _getHangup() {
     const { call } = this.props
-    return { icon: 'phone', type: 'hangup', handler: this._handleHangup, disabled: call.client === 'cell' }
+    return { icon: 'phone', type: 'hangup', handler: this._handleHangup }
   }
 
   _getKeyPad() {
@@ -159,7 +165,7 @@ class Active extends React.Component {
 
   _handleHangup() {
     const { call } = this.props
-    call.connection.disconnect()
+    this.context.phone.hangup(call)
   }
 
   _handleHold() {

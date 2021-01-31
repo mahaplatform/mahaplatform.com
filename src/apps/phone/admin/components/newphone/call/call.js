@@ -15,11 +15,7 @@ class Call extends React.Component {
     onPush: PropTypes.func
   }
 
-  _getActive() {
-    return this.props.calls.find(call => {
-      return call.active
-    })
-  }
+  _handleDebug = this._handleDebug.bind(this)
 
   render() {
     const unfocused = this._getCalls(false)
@@ -45,8 +41,19 @@ class Call extends React.Component {
             }
           </div>
         )) }
+        { process.env.NODE_ENV !== 'production' &&
+          <div className="maha-phone-debug" onClick={ this._handleDebug }>
+            Debug Calls
+          </div>
+        }
       </ModalPanel>
     )
+  }
+
+  _getActive() {
+    return this.props.calls.find(call => {
+      return call.active
+    })
   }
 
   _getCalls(focused) {
@@ -68,6 +75,10 @@ class Call extends React.Component {
     return {
       title: 'Call'
     }
+  }
+
+  _handleDebug() {
+    this.props.calls.map(call => console.log(call))
   }
 
 }
