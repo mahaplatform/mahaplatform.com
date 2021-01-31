@@ -3,7 +3,8 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "voicemail", "say": { "text": "record a voicemail" } },
-    { "verb": "say", "text": "record a voicemail" }
+    { "verb": "dial", "recipients": [
+      { "client": "79" }
+    ] }
   ]
 }
