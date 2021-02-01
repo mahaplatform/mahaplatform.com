@@ -20,11 +20,15 @@
   }
 }
 .maha-phone-receiver-inactive-label {
+  max-width: 240px;
   padding: 0.8em;
   flex: 1;
-  span {
-    color: fadeout(@black, 60);
-  }
+}
+.maha-phone-receiver-inactive-program {
+  color: fadeout(@black, 60);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .maha-phone-receiver-inactive-timer {
   padding: 0.8em 0.8em 0.8em 0;
@@ -32,8 +36,13 @@
   line-height: 2.6em;
 }
 .maha-phone-receiver-inactive {
+  .maha-phone-action {
+    padding: 0.4em;
+    display: flex;
+  }
   .maha-phone-button-container {
-    font-size: 0.7em;
+    margin: auto;
+    font-size: 0.6em;
   }
 }
 .maha-phone-receiver-active {

@@ -41,6 +41,7 @@ class PhoneRoot extends React.Component {
   _handleReject = this._handleReject.bind(this)
   _handleStatus = this._handleStatus.bind(this)
   _handleSwap = this._handleSwap.bind(this)
+  _handleTransfer = this._handleTransfer.bind(this)
   _handleUnhold = this._handleUnhold.bind(this)
 
   render() {
@@ -57,6 +58,11 @@ class PhoneRoot extends React.Component {
 
   componentDidMount() {
     this._handleInit()
+    this._handleJoin()
+  }
+
+  componentWillUnmount() {
+    this._handleLeave()
   }
 
   getChildContext() {
@@ -69,6 +75,7 @@ class PhoneRoot extends React.Component {
         mute: this._handleMute,
         reject: this._handleReject,
         swap: this._handleSwap,
+        transfer: this._handleTransfer,
         unhold: this._handleUnhold
       }
     }
@@ -78,6 +85,14 @@ class PhoneRoot extends React.Component {
     return {
       onClose: this._handleClose
     }
+  }
+
+  _getParams(params) {
+    const extra = {}
+    params.forEach((value, key) => {
+      extra[key] = value
+    })
+    return extra
   }
 
   _getPhone() {
@@ -109,12 +124,13 @@ class PhoneRoot extends React.Component {
           focused: calls.length === 0,
           held: false,
           muted: false,
+          transfering_sid: null,
+          transfering: null,
           status: 'ringing',
           started_at: moment()
         }
       ]
     })
-    this._handleJoin(call.call.sid)
   }
 
   _handleCall(call) {
@@ -127,6 +143,7 @@ class PhoneRoot extends React.Component {
     if(client === 'cell') {
       this._handleOutgoing({
         client: 'cell',
+        action: 'new',
         config,
         direction: 'outbound',
         from: program.phone_number.number,
@@ -138,6 +155,7 @@ class PhoneRoot extends React.Component {
       connection.on('accept', (connection) => {
         this._handleOutgoing({
           client: 'maha',
+          action: 'new',
           sid: connection.parameters.CallSid,
           direction: 'outbound',
           from: program.phone_number.number,
@@ -156,25 +174,28 @@ class PhoneRoot extends React.Component {
   }
 
   _handleHangup(call) {
-    const { answered, direction, held, to_sid, from_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hangup',
       method: 'post',
       body: {
-        sid: (answered && (direction === 'outbound' || !held)) ? to_sid : from_sid
+        sid: call.answered ? call.local_sid : call.remote_sid
       },
-      onSuccess: () => this._handleRemove(call.call.sid),
+      onSuccess: () => {
+        this._handleRemove({
+          sid: call.call.sid
+        })
+      },
       onFailure: () => this.context.flash.set('error', 'Unable to hangup call')
     })
   }
 
   _handleHold(call, callback) {
-    const { direction, to_sid, from_sid } = call
+    const { remote_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
       body: {
-        sid: direction === 'inbound' ? from_sid : to_sid
+        sid: remote_sid
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
@@ -187,46 +208,66 @@ class PhoneRoot extends React.Component {
 
   _handleIncoming(connection) {
     const params = this._getParams(connection.customParameters)
-    console.log(params, connection.parameters.CallSid)
-    if(params.action === 'new') {
-      this.context.network.request({
-        endpoint: '/api/admin/phone/calls/lookup',
-        method: 'post',
-        body: {
-          sid: connection.parameters.CallSid
-        },
-        onSuccess: (result) => {
-          const { parent_sid, call } = result.data
-          console.log(parent_sid, connection.parameters.CallSid)
-          this._handleAdd({
-            client: 'maha',
-            extra: this._getParams(connection.customParameters),
-            answered: false,
-            connection,
-            call,
-            direction: 'inbound',
-            from_sid: parent_sid,
-            to_sid: connection.parameters.CallSid
-          })
-        }
-      })
-    }
-    if(params.action === 'unhold') {
-      connection.accept()
-      this._handleUpdate(params.sid, {
-        connection,
-        held: false
-      })
-      return
-    }
+    console.log('incoming', params)
+    if(params.action === 'new') this._handleIncomingNew(connection, params)
+    if(params.action === 'transfer') this._handleIncomingTransfer(connection, params)
+    if(params.action === 'unhold') this._handleIncomingUnhold(connection, params)
   }
 
-  _getParams(params) {
-    const extra = {}
-    params.forEach((value, key) => {
-      extra[key] = value
+  _handleIncomingNew(connection, params) {
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/lookup',
+      method: 'post',
+      body: {
+        sid: connection.parameters.CallSid
+      },
+      onSuccess: (result) => {
+        const { parent_sid, call } = result.data
+        this._handleAdd({
+          client: 'maha',
+          action: 'new',
+          extra: params,
+          answered: false,
+          connection,
+          call,
+          direction: 'inbound',
+          remote_sid: parent_sid,
+          local_sid: connection.parameters.CallSid
+        })
+      }
     })
-    return extra
+  }
+
+  _handleIncomingTransfer(connection, params) {
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/lookup',
+      method: 'post',
+      body: {
+        sid: params.sid
+      },
+      onSuccess: (result) => {
+        const { parent_sid, call } = result.data
+        this._handleAdd({
+          client: 'maha',
+          action: 'transfer',
+          extra: this._getParams(connection.customParameters),
+          answered: false,
+          connection,
+          call,
+          direction: 'inbound',
+          remote_sid: parent_sid,
+          local_sid: connection.parameters.CallSid
+        })
+      }
+    })
+  }
+
+  _handleIncomingUnhold(connection, params) {
+    connection.accept()
+    this._handleUpdate(params.sid, {
+      connection,
+      held: false
+    })
   }
 
   _handleInit() {
@@ -241,9 +282,9 @@ class PhoneRoot extends React.Component {
     window.Twilio.Device.on('incoming', this._handleIncoming)
   }
 
-  _handleJoin(sid) {
+  _handleJoin() {
     const { network } = this.context
-    const target = `/calls/${sid}`
+    const target = '/calls'
     network.join(target)
     network.subscribe([
       { target, action: 'callstatus', handler: this._handleStatus }
@@ -252,7 +293,7 @@ class PhoneRoot extends React.Component {
 
   _handleLeave(sid) {
     const { network } = this.context
-    const target = `/calls/${sid}`
+    const target = '/calls'
     network.leave(target)
     network.subscribe([
       { target, action: 'callstatus', handler: this._handleStatus }
@@ -278,7 +319,7 @@ class PhoneRoot extends React.Component {
           client: body.client,
           call: result.data,
           direction: 'outbound',
-          from_sid: result.data.sid
+          local_sid: result.data.sid
         })
       }
     })
@@ -286,63 +327,94 @@ class PhoneRoot extends React.Component {
 
   _handleReject(call) {
     call.connection.reject()
-    this._handleRemove(call.call.sid)
+    this._handleRemove({
+      sid: call.call.sid
+    })
   }
 
-  _handleRemove(sid) {
-    const call = this.state.calls.find(call => {
-      return call.call.sid === sid
-    })
-    this._handleLeave(call.call.sid)
+  _handleRemove(params) {
+    const { sid, local_sid, remote_sid, transfering_sid } = params
     const calls = this.state.calls.filter(call => {
-      return call.call.sid !== sid
+      if(sid) return call.call.sid !== sid
+      if(local_sid) return call.local_sid !== local_sid
+      if(remote_sid) return call.remote_sid !== remote_sid
+      if(transfering_sid) return call.transfering_sid !== transfering_sid
+      return true
     })
     this.setState({ calls }, () => {
       if(calls.length === 0) return
       this._handleUpdate(calls[0].call.sid, {
         focused: true
+      }, () => {
+        if(!calls[0].held) return
+        this._handleUnhold(calls[0])
       })
     })
   }
 
   _getSignal(call, data) {
-    const { direction, status } = data
-    if(call.held) return 'in-progress-contact'
-    if(direction === 'outbound-api') {
-      if(status === 'ringing') return 'ringing-cell'
-      if(status === 'in-progress') return 'announcing-cell'
-      if(status === 'completed') return 'completed-cell'
+    const { sid, parent_sid, direction, status } = data
+    const { transfering_sid } = call
+    if(sid === transfering_sid) {
+      if(status === 'initiated') return 'initiated-transfer'
+      if(status === 'ringing') return 'ringing-transfer'
+      if(status === 'in-progress') return 'in-progress-transfer'
+      if(status === 'completed') return 'completed-transfer'
+      if(status === 'busy') return 'busy-transfer'
+      if(status === 'no-answer') return 'no-answer-transfer'
     }
-    if(direction === 'outbound-dial') {
-      if(status === 'initiated') return 'initiated-contact'
-      if(status === 'ringing') return 'ringing-contact'
-      if(status === 'in-progress') return 'in-progress-contact'
-      if(status === 'completed') return 'completed-contact'
-      if(status === 'no-answer') return 'no-answer-contact'
-    }
-    if(direction === 'inbound') {
-      if(status === 'completed') return 'completed-contact'
-    }
+
+
+    // if(call.held) return 'in-progress-contact'
+    // if(direction === 'outbound-api') {
+    //   if(status === 'ringing') return 'ringing-cell'
+    //   if(status === 'in-progress') return 'announcing-cell'
+    //   if(status === 'completed') return 'completed-cell'
+    // }
+    // if(direction === 'outbound-dial') {
+    //   if(status === 'initiated') return 'initiated-contact'
+    //   if(status === 'ringing') return 'ringing-contact'
+    //   if(status === 'in-progress') return 'in-progress-contact'
+    //   if(status === 'completed') return 'completed-contact'
+    //   if(status === 'no-answer') return 'no-answer-contact'
+    // }
+    // if(direction === 'inbound') {
+    //   if(status === 'completed') return 'completed-contact'
+    // }
   }
 
   _handleStatus(data) {
-    console.log(data.sid, data.status)
+    console.log(data.parent_sid, data.sid, data.status)
     const { calls } = this.state
-    const { parent_sid } = data
     const call = calls.find(call => {
-      return call.call.sid === parent_sid
+      return call.call.sid === data.parent_sid
     })
     if(!call) return
-    const status = this._getSignal(call, data)
-    if(!status) return
-    if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
-      return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
-    } else if(data.sid === (call.direction === 'inbound' ? call.from_sid : call.to_sid) && data.status === 'completed') {
-      return this._handleRemove(call.call.sid)
-    } else if(_.includes(['completed-cell','completed-contact'], status)) {
-      return this._handleRemove(call.call.sid)
+    // if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
+    //   return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
+    // } else if(data.sid === (call.direction === 'inbound' ? call.from_sid : call.to_sid) && data.status === 'completed') {
+    //   return this._handleRemove(call.call.sid)
+    // } else if(_.includes(['completed-cell','completed-contact'], status)) {
+    //   return this._handleRemove(call.call.sid)
+
+    if(data.sid === call.transfering_sid && _.includes(['in-progress','busy','no-answer'], data.status)) {
+      console.log('here1')
+      this._handleRemove({
+        transfering_sid: call.transfering_sid
+      })
+    } else if(call.action === 'transfer' && data.sid === call.local_sid && _.includes(['no-answer','busy'], data.status)) {
+      console.log('here2')
+      this._handleRemove({
+        local_sid: data.sid
+      })
+    } else if(data.sid === call.remote_sid && data.status === 'completed') {
+      console.log('here3')
+      this._handleRemove({
+        remote_sid: data.sid
+      })
     } else {
-      this._handleUpdate(parent_sid, { status })
+      const status = this._getSignal(call, data)
+      if(status) this._handleUpdate(data.parent_sid, { status })
     }
   }
 
@@ -368,13 +440,34 @@ class PhoneRoot extends React.Component {
     })
   }
 
+  _handleTransfer(call, data, callback) {
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/transfer',
+      method: 'post',
+      body: {
+        from: call.call.program.phone_number.number,
+        user_id: data.user_id,
+        number: data.number,
+        sid: call.remote_sid
+      },
+      onSuccess: (result) => {
+        this._handleUpdate(call.call.sid, {
+          transfering_sid: result.data.sid,
+          transfering: {
+            number: data.number,
+            user: data.user
+          }
+        }, callback)
+      }
+    })
+  }
+
   _handleUnhold(call, callback) {
-    const { direction, to_sid, from_sid } = call
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/unhold',
       method: 'post',
       body: {
-        sid: direction === 'inbound' ? from_sid : to_sid
+        sid: call.remote_sid
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {

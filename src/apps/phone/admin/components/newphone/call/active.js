@@ -1,3 +1,4 @@
+import Transfer from './transfer'
 import PropTypes from 'prop-types'
 import Keypad from '../keypad'
 import Button from '../button'
@@ -30,6 +31,8 @@ class Active extends React.Component {
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleSMS = this._handleSMS.bind(this)
+  _handleTransferCall = this._handleTransferCall.bind(this)
+  _handleTransfer = this._handleTransfer.bind(this)
   _handleMute = this._handleMute.bind(this)
 
   render() {
@@ -95,6 +98,7 @@ class Active extends React.Component {
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
       { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
+      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -120,6 +124,14 @@ class Active extends React.Component {
       program: call.call.program,
       onPop,
       onPush
+    }
+  }
+
+  _getTransfer() {
+    const { onPop } = this.props
+    return {
+      onPop,
+      onChoose: this._handleTransferCall
     }
   }
 
@@ -151,6 +163,19 @@ class Active extends React.Component {
 
   _handleSMS() {
     return this.props.onPush(SMS, this._getSMS.bind(this))
+  }
+
+  _handleTransfer() {
+    this.props.onPush(Transfer, this._getTransfer.bind(this))
+  }
+
+  _handleTransferCall(user) {
+    const { phone } = this.context
+    const { call } = this.props
+    phone.transfer(call, {
+      user,
+      user_id: user.id
+    })
   }
 
 }

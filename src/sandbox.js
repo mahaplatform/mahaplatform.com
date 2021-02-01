@@ -61,12 +61,7 @@ const processor = async () => {
   //   from: '+16072462347'
   // })
 
-  await twilio.calls.create({
-    url: 'https://twiml.mahaplatform.com/call?client=463',
-    to: '+16072775647',
-    from: '+16072462347'
-  })
-
+  console.log(await twilio.calls.list({ parentCallSid: 'CAdf7eb496e1369a0d3a451502016c2e19' }))
 
 }
 

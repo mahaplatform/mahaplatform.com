@@ -27,8 +27,13 @@ class Inactive extends React.Component {
           <ContactAvatar { ...contact } />
         </div>
         <div className="maha-phone-receiver-inactive-label">
-          { contact ? contact.display_name : (direction === 'inbound' ? from : to) }<br />
-          <span>{ program.title }</span>
+          <div className="maha-phone-receiver-inactive-contact">
+            { contact ? contact.display_name : (direction === 'inbound' ? from : to) }<br />
+          </div>
+          <div className="maha-phone-receiver-inactive-program">
+            { program.title }
+          </div>
+          <span></span>
         </div>
         { call.answered ?
           <div className="maha-phone-receiver-inactive-timer">

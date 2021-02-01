@@ -12,7 +12,7 @@ const unholdRoute = async (req, res) => {
   const client = dial.client({
     statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
-  }, '79')
+  }, req.user.get('id'))
 
   client.parameter({
     name: 'action',

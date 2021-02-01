@@ -1,3 +1,4 @@
+import transfer from './transfer'
 import { Router } from 'express'
 import hangup from './hangup'
 import lookup from './lookup'
@@ -17,6 +18,8 @@ router.post('/hold', hold)
 router.post('/unhold', unhold)
 
 router.post('/lookup', lookup)
+
+router.post('/transfer', transfer)
 
 router.get('/token', token)
 
