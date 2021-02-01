@@ -132,7 +132,6 @@ class Contact extends React.Component {
   }
 
   _handleCall(number, client) {
-    const { admin, phone } = this.context
     const { contact, program } = this.props
     this.context.phone.call({
       program,
@@ -153,7 +152,7 @@ class Contact extends React.Component {
     this.context.tasks.open({
       items: [
         { label: 'Call with cell phone', handler: this._handleCall.bind(this, number, 'cell') },
-        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, number, 'maha') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, number, 'maha') }
       ]
     })
   }
@@ -162,7 +161,6 @@ class Contact extends React.Component {
     const { contact } = this.props
     const { phone_numbers } = contact
     if(phone_numbers.length === 1) {
-      const phone_number =
       this._handlePlace(phone_numbers[0].number)
     } else {
       this.context.tasks.open({

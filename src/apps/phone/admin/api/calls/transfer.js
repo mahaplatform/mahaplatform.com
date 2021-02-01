@@ -2,17 +2,17 @@ import User from '@apps/maha/models/user'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
-const number = (twiml, { from, number }) => {
+const number = (twiml, config) => {
 
   const dial = twiml.dial({
-    callerId: from,
+    callerId: config.from,
     timeout: 10
   })
 
   dial.number({
     statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
-  }, number)
+  }, config.number)
 
 }
 

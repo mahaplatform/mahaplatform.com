@@ -28,12 +28,14 @@ class Active extends React.Component {
   }
 
   _handleDigits = this._handleDigits.bind(this)
+  _handleForward = this._handleForward.bind(this)
+  _handleForwardCall = this._handleForwardCall.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
+  _handleMute = this._handleMute.bind(this)
   _handleSMS = this._handleSMS.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
   _handleTransfer = this._handleTransfer.bind(this)
-  _handleMute = this._handleMute.bind(this)
 
   render() {
     const buttons = this._getButtons()
@@ -92,6 +94,7 @@ class Active extends React.Component {
     if(call.client === 'cell') {
       return [
         { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+        { icon: 'arrow-right', label: 'forward', handler: this._handleForward },
         { icon: 'comments', label: 'sms', handler: this._handleSMS }
       ]
     }
@@ -100,6 +103,7 @@ class Active extends React.Component {
       { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+      { icon: 'arrow-right', label: 'forward', handler: this._handleForward },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -139,6 +143,19 @@ class Active extends React.Component {
   _handleDigits(number) {
     const { call } = this.props
     call.connection.sendDigits(number)
+  }
+
+  _handleForward() {
+    const { call } = this.props
+    const items = []
+    if(call.client === 'cell') items.push({ label: 'Forward to my Maha phone', handler: this._handleForwardCall.bind(this, 'maha') })
+    if(call.client === 'maha') items.push({ label: 'Forward to my cell phone', handler: this._handleForwardCall.bind(this, 'cell') })
+    this.context.tasks.open({ items })
+  }
+
+  _handleForwardCall(client) {
+    const { call } = this.props
+    this.context.phone.forward(call, client)
   }
 
   _handleHangup() {

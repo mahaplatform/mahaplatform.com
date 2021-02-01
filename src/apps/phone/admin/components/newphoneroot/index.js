@@ -33,6 +33,7 @@ class PhoneRoot extends React.Component {
   _handleCall = this._handleCall.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleError = this._handleError.bind(this)
+  _handleForward = this._handleForward.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
   _handleIncoming = this._handleIncoming.bind(this)
@@ -70,6 +71,7 @@ class PhoneRoot extends React.Component {
       phone: {
         accept: this._handleAccept,
         call: this._handleCall,
+        forward: this._handleForward,
         hangup: this._handleHangup,
         hold: this._handleHold,
         mute: this._handleMute,
@@ -177,6 +179,23 @@ class PhoneRoot extends React.Component {
     this.setState({ error })
   }
 
+  _handleForward(call, client, callback) {
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/forward',
+      method: 'post',
+      body: {
+        from: call.call.program.phone_number.number,
+        sid: call.remote_sid,
+        client
+      },
+      onSuccess: (result) => {
+        this._handleUpdate(call.call.sid, {
+        }, callback)
+      }
+    })
+
+  }
+
   // incoming && answered - local
   // outgoing && !answered - remote
 
@@ -216,6 +235,7 @@ class PhoneRoot extends React.Component {
   _handleIncoming(connection) {
     const params = this._getParams(connection.customParameters)
     if(params.action === 'new') this._handleIncomingNew(connection, params)
+    if(params.action === 'forward') this._handleIncomingForward(connection, params)
     if(params.action === 'transfer') this._handleIncomingTransfer(connection, params)
     if(params.action === 'unhold') this._handleIncomingUnhold(connection, params)
   }
@@ -239,6 +259,29 @@ class PhoneRoot extends React.Component {
           direction: 'inbound',
           remote_sid: parent_sid,
           local_sid: connection.parameters.CallSid
+        })
+      }
+    })
+  }
+
+  _handleIncomingForward(connection, params) {
+    this._handleUpdate()
+    console.log('forward', params, connection.parameters)
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/lookup',
+      method: 'post',
+      body: {
+        sid: params.sid
+      },
+      onSuccess: (result) => {
+        connection.accept()
+        this._handleUpdate(result.data.call.sid, {
+          connection,
+          action: 'forward',
+          client: 'maha',
+          direction: 'inbound',
+          local_sid: connection.parameters.CallSid,
+          remote_sid: params.sid
         })
       }
     })
