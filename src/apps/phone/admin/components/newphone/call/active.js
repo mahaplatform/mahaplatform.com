@@ -91,6 +91,7 @@ class Active extends React.Component {
     const { call } = this.props
     if(call.client === 'cell') {
       return [
+        { icon: 'random', label: 'transfer', handler: this._handleTransfer },
         { icon: 'comments', label: 'sms', handler: this._handleSMS }
       ]
     }

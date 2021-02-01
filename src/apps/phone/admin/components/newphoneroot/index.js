@@ -327,7 +327,8 @@ class PhoneRoot extends React.Component {
           client: body.client,
           call: result.data,
           direction: 'outbound',
-          local_sid: result.data.sid
+          local_sid: body.client === 'maha' ? result.data.sid : null,
+          remote_sid: body.client === 'cell' ? result.data.sid : null
         })
       }
     })
@@ -388,7 +389,7 @@ class PhoneRoot extends React.Component {
       this._handleRemove({
         transfering_sid: call.transfering_sid
       })
-    } else if(call.action === 'call' && data.parent_sid === call.local_sid && data.status === 'in-progress') {
+    } else if(call.action === 'call' && call.client === 'maha' && data.parent_sid === call.local_sid && data.status === 'in-progress') {
       if(!call.remote_sid) {
         this._handleUpdate(call.call.sid, {
           remote_sid: data.sid,
@@ -397,6 +398,17 @@ class PhoneRoot extends React.Component {
       } else  {
         this._handleUpdate(call.call.sid, {
           local_sid: data.sid
+        })
+      }
+    } else if(call.action === 'call' && call.client === 'cell' && data.parent_sid === call.remote_sid && data.status === 'in-progress') {
+      if(!call.local_sid) {
+        this._handleUpdate(call.call.sid, {
+          local_sid: data.sid,
+          status: data.status
+        })
+      } else  {
+        this._handleUpdate(call.call.sid, {
+          remote_sid: data.sid
         })
       }
     } else if(call.action === 'transfer' && data.sid === call.local_sid && _.includes(['no-answer','busy'], data.status)) {
