@@ -1,10 +1,12 @@
-import CallSerializer from '@apps/team/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import Call from '@apps/maha/models/call'
 
 const listRoute = async (req, res) => {
 
   const calls = await Call.filterFetch({
     scope: (qb) => {
+      qb.select('maha_calls.*','maha_call_totals.*')
+      qb.innerJoin('maha_call_totals','maha_call_totals.call_id','maha_calls.id')
       qb.where('team_id', req.team.get('id'))
     },
     sort: {
@@ -13,7 +15,7 @@ const listRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from'],
+    withRelated: ['to_number','from_number'],
     transacting: req.trx
   })
 

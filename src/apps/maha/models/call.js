@@ -1,9 +1,9 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import CallConnection from '@apps/maha/models/call_connection'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Program from '@apps/crm/models/program'
+import Number from '@apps/maha/models/number'
 import Model from '@core/objects/model'
-import Number from './number'
-import User from './user'
 
 const Call = new Model({
 
@@ -15,24 +15,16 @@ const Call = new Model({
 
   virtuals: {},
 
-  children() {
-    return this.hasMany(Call, 'parent_id')
+  connections() {
+    return this.hasMany(CallConnection, 'call_id')
   },
 
   enrollment() {
     return this.hasOne(WorkflowEnrollment, 'call_id')
   },
 
-  from() {
-    return this.belongsTo(Number, 'from_id')
-  },
-
-  from_user() {
-    return this.belongsTo(User, 'from_user_id')
-  },
-
-  parent() {
-    return this.belongsTo(Call, 'parent_id')
+  from_number() {
+    return this.belongsTo(Number, 'from_number_id')
   },
 
   phone_number() {
@@ -43,16 +35,8 @@ const Call = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
-  to() {
-    return this.belongsTo(Number, 'to_id')
-  },
-
-  to_user() {
-    return this.belongsTo(User, 'to_user_id')
-  },
-
-  user() {
-    return this.belongsTo(User, 'user_id')
+  to_number() {
+    return this.belongsTo(Number, 'to_number_id')
   }
 
 })

@@ -1,4 +1,4 @@
-import CallSerializer from '@apps/phone/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import { getCall } from '@apps/maha/services/calls'
 import twilio from '@core/vendor/twilio'
 

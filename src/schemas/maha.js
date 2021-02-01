@@ -1463,32 +1463,47 @@ const schema = {
     await knex.schema.createTable('maha_call_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('call_id').unsigned()
+      table.integer('call_connection_id').unsigned()
       table.jsonb('data')
       table.timestamp('tstamp')
+    })
+
+    await knex.schema.createTable('maha_call_connections', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('call_id').unsigned()
+      table.integer('from_number_id').unsigned()
+      table.integer('to_number_id').unsigned()
+      table.integer('from_program_id').unsigned()
+      table.integer('to_program_id').unsigned()
+      table.integer('from_user_id').unsigned()
+      table.integer('to_user_id').unsigned()
+      table.integer('from_phone_number_id').unsigned()
+      table.integer('to_phone_number_id').unsigned()
+      table.string('sid', 255)
+      table.USER-DEFINED('direction')
+      table.USER-DEFINED('status')
+      table.integer('duration')
+      table.decimal('price', 4, 3)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('maha_calls', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('from_id').unsigned()
-      table.integer('to_id').unsigned()
+      table.integer('from_number_id').unsigned()
+      table.integer('to_number_id').unsigned()
       table.USER-DEFINED('direction')
       table.string('sid', 255)
       table.USER-DEFINED('status')
-      table.integer('duration')
-      table.decimal('price', 5, 4)
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
-      table.integer('user_id').unsigned()
-      table.integer('from_user_id').unsigned()
-      table.integer('to_user_id').unsigned()
       table.boolean('was_answered')
-      table.integer('parent_id').unsigned()
     })
 
     await knex.schema.createTable('maha_comments', (table) => {
@@ -3227,15 +3242,11 @@ const schema = {
     })
 
     await knex.schema.table('maha_calls', table => {
-      table.foreign('from_id').references('maha_numbers.id')
-      table.foreign('from_user_id').references('maha_users.id')
+      table.foreign('from_number_id').references('maha_numbers.id')
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('to_id').references('maha_numbers.id')
-      table.foreign('to_user_id').references('maha_users.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('parent_id').references('maha_calls.id')
+      table.foreign('to_number_id').references('maha_numbers.id')
     })
 
     await knex.schema.table('maha_comments', table => {
@@ -3726,15 +3737,28 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_call_activities', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('call_id').references('maha_calls.id')
-    })
-
     await knex.schema.table('maha_voicemails', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('call_id').references('maha_calls.id')
       table.foreign('asset_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('maha_call_connections', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('from_number_id').references('maha_numbers.id')
+      table.foreign('to_number_id').references('maha_numbers.id')
+      table.foreign('from_program_id').references('crm_programs.id')
+      table.foreign('to_program_id').references('crm_programs.id')
+      table.foreign('from_user_id').references('maha_users.id')
+      table.foreign('to_user_id').references('maha_users.id')
+      table.foreign('from_phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
+    })
+
+    await knex.schema.table('maha_call_activities', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('call_connection_id').references('maha_call_connections.id')
     })
 
 
@@ -6044,6 +6068,27 @@ union
       from (maha_users
       left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees
       order by assignees.priority, assignees.delta, assignees.name;
+    `)
+
+    await knex.raw(`
+      create view maha_call_totals AS
+      with prices as (
+      select maha_call_connections.call_id,
+      sum(maha_call_connections.price) as price
+      from maha_call_connections
+      group by maha_call_connections.call_id
+      ), durations as (
+      select maha_call_connections.call_id,
+      max(maha_call_connections.duration) as duration
+      from maha_call_connections
+      group by maha_call_connections.call_id
+      )
+      select maha_calls.id as call_id,
+      coalesce(durations.duration, 0) as duration,
+      coalesce(prices.price, 0.000) as price
+      from ((maha_calls
+      join durations on ((durations.call_id = maha_calls.id)))
+      join prices on ((prices.call_id = maha_calls.id)));
     `)
 
     await knex.raw(`

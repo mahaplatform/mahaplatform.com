@@ -1,4 +1,4 @@
-import VoicemailSerializer from '@apps/phone/serializers/voicemail_serializer'
+import VoicemailSerializer from '@apps/maha/serializers/voicemail_serializer'
 import Voicemail from '@apps/maha/models/voicemail'
 
 const listRoute = async (req, res) => {

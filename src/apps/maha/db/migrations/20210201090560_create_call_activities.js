@@ -8,14 +8,10 @@ const CreateCallActivity = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
-      table.integer('call_id').unsigned()
-      table.foreign('call_id').references('maha_calls.id')
+      table.integer('call_connection_id').unsigned()
+      table.foreign('call_connection_id').references('maha_call_connections.id')
       table.jsonb('data')
       table.timestamp('tstamp')
-    })
-
-    await knex.schema.table('maha_calls', (table) => {
-      table.dropColumn('body')
     })
 
   },

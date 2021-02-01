@@ -1,3 +1,4 @@
+import CallConnection from '@apps/maha/models/call_connection'
 import Model from '@core/objects/model'
 
 const CallActivity = new Model({
@@ -8,7 +9,11 @@ const CallActivity = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  connection() {
+    return this.belongsTo(CallConnection, 'call_connection_id')
+  }
 
 })
 

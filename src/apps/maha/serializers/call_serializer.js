@@ -1,13 +1,15 @@
 const CallSerializer = (req, result) => ({
   id: result.get('id'),
   sid: result.get('sid'),
-  to: number(result.related('to')),
-  from: number(result.related('from')),
+  to_number: number(result.related('to_number')),
+  from_number: number(result.related('from_number')),
   program: program(result.related('program')),
   phone_number: number(result.related('phone_number')),
   contact: contact(result.related('phone_number').related('contact')),
   direction: result.get('direction'),
+  duration: result.get('duration'),
   status: result.get('status'),
+  price: result.get('price'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -41,7 +43,5 @@ const contact = (contact) => {
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
   }
 }
-
-
 
 export default CallSerializer

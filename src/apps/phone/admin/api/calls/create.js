@@ -1,4 +1,4 @@
-import CallSerializer from '@apps/phone/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import { getPhoneNumber } from '@apps/crm/services/phone_numbers'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import Number from '@apps/maha/models/number'
