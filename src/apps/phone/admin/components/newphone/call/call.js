@@ -30,13 +30,13 @@ class Call extends React.Component {
             { call.transfering !== null &&
               <Transfering { ...this._getCall(call) } />
             }
-            { !call.transfering && call.status === 'in-progress-contact' &&
+            { !call.transfering && call.status === 'in-progress' &&
               <Active { ...this._getCall(call) } />
             }
-            { !call.transfering && call.direction === 'inbound' && call.status !== 'in-progress-contact' &&
+            { !call.transfering && call.direction === 'inbound' && call.status !== 'in-progress' &&
               <Incoming { ...this._getCall(call) } />
             }
-            { !call.transfering && call.direction === 'outbound' && call.status !== 'in-progress-contact' &&
+            { !call.transfering && call.direction === 'outbound' && call.status !== 'in-progress' &&
               <Outgoing { ...this._getCall(call) } />
             }
           </div>

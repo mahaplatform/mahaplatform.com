@@ -1,12 +1,12 @@
 import { ModalPanel } from '@admin'
 import Voicemail from './voicemail'
 import PropTypes from 'prop-types'
+import Contacts from './contacts'
+import Dialer from './dialer'
 import Calls from './calls'
 import Tabs from '../tabs'
 import React from 'react'
-import Add from '../add'
 import SMS from './sms'
-import _ from 'lodash'
 
 class Phone extends React.Component {
 
@@ -24,7 +24,6 @@ class Phone extends React.Component {
     onPush: PropTypes.func
   }
 
-  _handleAdd = this._handleAdd.bind(this)
   _handleClose = this._handleClose.bind(this)
 
   render() {
@@ -56,17 +55,6 @@ class Phone extends React.Component {
     // this._handleLeave(program)
   }
 
-  _getAdd() {
-    const { programs, program, onProgram, onPop, onPush } = this.props
-    return {
-      programs,
-      program,
-      onProgram,
-      onPop,
-      onPush
-    }
-  }
-
   _getPanel() {
     return {
       title: 'Phone',
@@ -74,12 +62,6 @@ class Phone extends React.Component {
         { icon: 'times', handler: this._handleClose, tooltip: {
           title: 'Close Phone',
           position: 'bottom left'
-        } }
-      ],
-      rightItems: [
-        { icon: 'plus', handler: this._handleAdd, tooltip: {
-          title: 'Add Call',
-          position: 'bottom right'
         } }
       ]
     }
@@ -95,21 +77,19 @@ class Phone extends React.Component {
   }
 
   _getTabs() {
-    const { programs, program, onPop, onProgram, onPush } = this.props
+    const { programs, program, onProgram } = this.props
     return {
       programs,
       program,
       tabs: [
         { icon: 'phone', label: 'Calls', component: Calls, props: this._getProps.bind(this) },
         { icon: 'comments', label: 'SMS', component: SMS, props: this._getProps.bind(this) },
+        { icon: 'user', label: 'Contacts', component: Contacts, props: this._getProps.bind(this) },
+        { icon: 'th', label: 'Keypad', component: Dialer, props: this._getProps.bind(this) },
         { icon: 'voicemail', label: 'Voicemail', component: Voicemail, props: this._getProps.bind(this) }
       ],
       onProgram
     }
-  }
-
-  _handleAdd() {
-    this.props.onPush(Add, this._getAdd())
   }
 
   _handleClose() {
