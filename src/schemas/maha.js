@@ -2188,20 +2188,6 @@ const schema = {
       table.integer('link_id').unsigned()
     })
 
-    await knex.schema.createTable('phone_voicemails', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('call_id').unsigned()
-      table.integer('asset_id').unsigned()
-      table.string('code', 255)
-      table.integer('duration')
-      table.boolean('was_heard')
-      table.boolean('was_handled')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.timestamp('deleted_at')
-    })
-
     await knex.schema.createTable('platform_settings', (table) => {
       table.increments('id').primary()
       table.jsonb('values')
@@ -3743,12 +3729,6 @@ const schema = {
     await knex.schema.table('maha_call_activities', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('call_id').references('maha_calls.id')
-    })
-
-    await knex.schema.table('phone_voicemails', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('call_id').references('maha_calls.id')
-      table.foreign('asset_id').references('maha_assets.id')
     })
 
     await knex.schema.table('maha_voicemails', table => {

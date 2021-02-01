@@ -174,7 +174,6 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
       body: {
-        queue: `contact-${call.call.contact.id}`,
         sid: direction === 'inbound' ? from_sid : to_sid
       },
       onSuccess: () => {
@@ -187,27 +186,39 @@ class PhoneRoot extends React.Component {
   }
 
   _handleIncoming(connection) {
-    this.context.network.request({
-      endpoint: '/api/admin/phone/calls/lookup',
-      method: 'post',
-      body: {
-        sid: connection.parameters.CallSid
-      },
-      onSuccess: (result) => {
-        const { parent_sid, call } = result.data
-        console.log(parent_sid, connection.parameters.CallSid)
-        this._handleAdd({
-          client: 'maha',
-          extra: this._getParams(connection.customParameters),
-          answered: false,
-          connection,
-          call,
-          direction: 'inbound',
-          from_sid: parent_sid,
-          to_sid: connection.parameters.CallSid
-        })
-      }
-    })
+    const params = this._getParams(connection.customParameters)
+    console.log(params, connection.parameters.CallSid)
+    if(params.action === 'new') {
+      this.context.network.request({
+        endpoint: '/api/admin/phone/calls/lookup',
+        method: 'post',
+        body: {
+          sid: connection.parameters.CallSid
+        },
+        onSuccess: (result) => {
+          const { parent_sid, call } = result.data
+          console.log(parent_sid, connection.parameters.CallSid)
+          this._handleAdd({
+            client: 'maha',
+            extra: this._getParams(connection.customParameters),
+            answered: false,
+            connection,
+            call,
+            direction: 'inbound',
+            from_sid: parent_sid,
+            to_sid: connection.parameters.CallSid
+          })
+        }
+      })
+    }
+    if(params.action === 'unhold') {
+      connection.accept()
+      this._handleUpdate(params.sid, {
+        connection,
+        held: false
+      })
+      return
+    }
   }
 
   _getParams(params) {
@@ -315,6 +326,7 @@ class PhoneRoot extends React.Component {
   }
 
   _handleStatus(data) {
+    console.log(data.sid, data.status)
     const { calls } = this.state
     const { parent_sid } = data
     const call = calls.find(call => {
@@ -322,7 +334,6 @@ class PhoneRoot extends React.Component {
     })
     if(!call) return
     const status = this._getSignal(call, data)
-    console.log(status)
     if(!status) return
     if(_.includes(['cell','maha'], call.client) && status === 'initiated-contact') {
       return this._handleUpdate(call.call.sid, { to_sid: data.sid, status })
@@ -358,19 +369,19 @@ class PhoneRoot extends React.Component {
   }
 
   _handleUnhold(call, callback) {
-    const connection = window.Twilio.Device.connect({
-      config: btoa(JSON.stringify({
-        from: call.call.program.phone_number.number,
-        queue: `contact-${call.call.contact.id}`
-      }))
-    })
-    connection.on('accept', (connection) => {
-      const sidkey = call.direction === 'outbound' ? 'from_sid' : 'to_sid'
-      this._handleUpdate(call.call.sid, {
-        [sidkey]: connection.parameters.CallSid,
-        connection,
-        held: false
-      }, callback)
+    const { direction, to_sid, from_sid } = call
+    this.context.network.request({
+      endpoint: '/api/admin/phone/calls/unhold',
+      method: 'post',
+      body: {
+        sid: direction === 'inbound' ? from_sid : to_sid
+      },
+      onSuccess: () => {
+        this._handleUpdate(call.call.sid, {
+          held: false
+        })
+        if(callback) callback()
+      }
     })
   }
 

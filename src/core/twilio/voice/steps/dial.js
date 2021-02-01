@@ -5,18 +5,21 @@ const dial = (req, twiml) => {
   const dial = twiml.dial()
 
   recipients.map(recipient => {
-    const { client, number } = recipient
-    if(number) {
+    if(recipient.number) {
       dial.number({
         statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
-      }, number)
+      }, recipient.number)
     }
-    if(client) {
-      dial.client({
+    if(recipient.client) {
+      const client = dial.client({
         statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
-      }, client)
+      }, recipient.client)
+      client.parameter({
+        name: 'action',
+        value: 'new'
+      })
     }
   })
 

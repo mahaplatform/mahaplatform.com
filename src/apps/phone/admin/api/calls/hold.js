@@ -1,24 +1,15 @@
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
-const getQueue = async(friendlyName) => {
-  const queues = await twilio.queues.list()
-  const queue = queues.find(queue => {
-    return queue.friendlyName === friendlyName
-  })
-  if(queue) return queue
-  return await twilio.queues.create({ friendlyName })
-}
-
 const holdRoute = async (req, res) => {
 
-  const { queue, sid } = req.body
+  const { sid } = req.body
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
-  await getQueue(queue)
-
-  twiml.enqueue(queue)
+  twiml.play({
+    loop: 0
+  },'http://com.twilio.sounds.music.s3.amazonaws.com/ClockworkWaltz.mp3')
 
   const twcall = await twilio.calls(sid).update({
     twiml: twiml.toString()

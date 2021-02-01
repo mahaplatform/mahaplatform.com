@@ -15,6 +15,10 @@ const Call = new Model({
 
   virtuals: {},
 
+  children() {
+    return this.hasMany(Call, 'parent_id')
+  },
+
   enrollment() {
     return this.hasOne(WorkflowEnrollment, 'call_id')
   },
@@ -27,12 +31,8 @@ const Call = new Model({
     return this.belongsTo(User, 'from_user_id')
   },
 
-  to() {
-    return this.belongsTo(Number, 'to_id')
-  },
-
-  to_user() {
-    return this.belongsTo(User, 'to_user_id')
+  parent() {
+    return this.belongsTo(Call, 'parent_id')
   },
 
   phone_number() {
@@ -41,6 +41,14 @@ const Call = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  to() {
+    return this.belongsTo(Number, 'to_id')
+  },
+
+  to_user() {
+    return this.belongsTo(User, 'to_user_id')
   },
 
   user() {

@@ -22,6 +22,7 @@ const callsRoute = async (req, res) => {
     scope: (qb) => {
       qb.where('program_id', req.params.program_id)
       qb.where('phone_number_id', req.params.id)
+      qb.whereNull('parent_id')
       qb.where('team_id', req.team.get('id'))
     },
     sort: {
