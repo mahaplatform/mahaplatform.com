@@ -101,9 +101,9 @@ class Call extends React.Component {
       { label: 'Duration', content: this._getDuration(call.duration) },
       { label: 'Direction', content: call.direction }
     ]
-    if(call.to) items.push({ label: 'From', content: call.from.formatted })
+    if(call.from_number) items.push({ label: 'From', content: call.from_number.formatted })
     if(call.from_user) items.push({ label: 'From', content: call.from_user.full_name })
-    if(call.to) items.push({ label: 'To', content: call.to.formatted })
+    if(call.to_number) items.push({ label: 'To', content: call.to_number.formatted })
     if(call.to_user) items.push({ label: 'To', content: call.to_user.full_name })
     return { items }
   }

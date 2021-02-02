@@ -1,5 +1,4 @@
 import TwilioStatusQueue from '@apps/maha/queues/twilio_status_queue'
-import CallSerializer from '@apps/phone/serializers/call_serializer'
 import socket from '@core/services/routes/emitter'
 import twilio from '@core/vendor/twilio'
 
@@ -11,20 +10,23 @@ const getParent = async (sid) => {
 
 const statusRoute = async (req, res) => {
 
-  const twcall = await getParent(req.body.CallSid)
+  const parent = await getParent(req.body.CallSid)
 
-  console.log(twcall.sid, req.body.ParentCallSid, req.body.CallSid, req.body.CallStatus)
+  console.log(parent.sid, req.body.ParentCallSid, req.body.CallSid, req.body.CallStatus)
 
   await TwilioStatusQueue.enqueue(req, {
-    sid: twcall.sid,
+    parent_sid: parent.sid,
+    sid: req.body.CallSid,
     body: req.body
+  }, {
+    delay: 5000
   })
 
   await socket.message(req, {
-    channel: `/calls/${twcall.sid}`,
+    channel: '/calls',
     action: 'callstatus',
     data: {
-      parent_sid: twcall.sid,
+      parent_sid: parent.sid,
       sid: req.body.CallSid,
       direction:req.body.Direction,
       from: req.body.From,

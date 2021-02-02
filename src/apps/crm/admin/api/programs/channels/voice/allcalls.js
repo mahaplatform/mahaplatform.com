@@ -1,4 +1,4 @@
-import CallSerializer from '@apps/crm/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import Call from '@apps/maha/models/call'
 import Program from '@apps/crm/models/program'
 
@@ -20,6 +20,8 @@ const callsRoute = async (req, res) => {
 
   const calls = await Call.filterFetch({
     scope: (qb) => {
+      qb.select('maha_calls.*','maha_call_totals.*')
+      qb.innerJoin('maha_call_totals','maha_call_totals.call_id','maha_calls.id')
       qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.id', 'maha_calls.phone_number_id')
       qb.leftJoin('crm_contacts', 'crm_contacts.id', 'crm_phone_numbers.contact_id')
       qb.where('maha_calls.program_id', req.params.program_id)
@@ -39,7 +41,7 @@ const callsRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo','enrollment.voice_campaign','from_user.photo','to_user.photo'],
+    withRelated: ['to_number','from_number','program.logo','phone_number.contact.photo'],
     transacting: req.trx
   })
 

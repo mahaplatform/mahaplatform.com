@@ -10,6 +10,7 @@ const CallSerializer = (req, result) => ({
   duration: result.get('duration'),
   status: result.get('status'),
   price: result.get('price'),
+  connections: result.related('connections').map(connection),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -41,6 +42,24 @@ const contact = (contact) => {
     display_name: contact.get('display_name'),
     initials: contact.get('initials'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
+  }
+}
+
+const connection = (connection) => {
+  if(!connection.id) return
+  return {
+    id: connection.get('id'),
+    sid: connection.get('sid'),
+    activities: connection.related('activities').map(activity)
+  }
+}
+
+const activity = (activity) => {
+  if(!activity.id) return
+  return {
+    id: activity.get('id'),
+    story: activity.related('story').get('text'),
+    tstamp: activity.get('tstamp')
   }
 }
 

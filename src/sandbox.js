@@ -61,7 +61,7 @@ const processor = async () => {
   //   from: '+16072462347'
   // })
 
-  console.log(await twilio.calls.list({ parentCallSid: 'CAdf7eb496e1369a0d3a451502016c2e19' }))
+  console.log(await twilio.calls('CAca47f2c4285b071004b1487dc0ee30d6').fetch())
 
 }
 

@@ -26,11 +26,6 @@ const getCell = async (req, { config, from}) => {
 
 const createRoute = async (req, res) => {
 
-  const sid = req.body.client === 'cell' ? await getCell(req, {
-    config: req.body.config,
-    from: req.body.from
-  }) : req.body.sid
-
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('number', req.body.from)
   }).fetch({
@@ -38,13 +33,13 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const from = await Number.fetchOrCreate({
+  const from_number = await Number.fetchOrCreate({
     number: req.body.from
   }, {
     transacting: req.trx
   })
 
-  const to = await Number.fetchOrCreate({
+  const to_number = await Number.fetchOrCreate({
     number: req.body.to
   }, {
     transacting: req.trx
@@ -56,10 +51,9 @@ const createRoute = async (req, res) => {
 
   const call = await Call.forge({
     team_id: req.team.get('id'),
-    from_id: from.get('id'),
-    to_id: to.get('id'),
+    from_number_id: from_number.get('id'),
+    to_number_id: to_number.get('id'),
     direction: req.body.direction,
-    sid,
     received_at: null,
     sent_at: moment(),
     status: 'initiated',
@@ -69,7 +63,18 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await call.load(['from','to','program.logo','program.phone_number','phone_number.contact.photo'], {
+  const sid = req.body.client === 'cell' ? await getCell(req, {
+    config: req.body.config,
+    from: req.body.from
+  }) : req.body.sid
+
+  await call.save({
+    sid
+  }, {
+    transacting: req.trx
+  })
+
+  await call.load(['from_number','to_number','program.logo','program.phone_number','phone_number.contact.photo'], {
     transacting: req.trx
   })
 

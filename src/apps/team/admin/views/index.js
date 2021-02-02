@@ -2,6 +2,7 @@ import ActivitiesList from './activities/list'
 import AppsList from './apps/list'
 import AppsShow from './apps/show'
 import CallList from './calls/list'
+import CallShow from './calls/show'
 import EmailsList from './emails/list'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
@@ -22,6 +23,7 @@ const routes = [
   { path: '/apps', component: AppsList },
   { path: '/apps/:path/:id', component: AppsShow },
   { path: '/calls', component: CallList },
+  { path: '/calls/:id', component: CallShow },
   { path: '/foobar', component: AppsList },
   { path: '/activities', component: ActivitiesList },
   { path: '/emails', component: EmailsList },

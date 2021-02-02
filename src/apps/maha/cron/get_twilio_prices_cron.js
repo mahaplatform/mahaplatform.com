@@ -1,8 +1,8 @@
+import CallConnection from '@apps/maha/models/call_connection'
 import socket from '@core/services/routes/emitter'
 import twilio from '@core/vendor/twilio'
 import Queue from '@core/objects/queue'
-import Call from '../models/call'
-import SMS from '../models/sms'
+import SMS from '@apps/maha/models/sms'
 
 export const processor = async (req) => {
 
@@ -34,22 +34,22 @@ export const processor = async (req) => {
 
   })
 
-  const calls = await Call.query(qb => {
+  const connections = await CallConnection.query(qb => {
     qb.whereNotNull('sid')
     qb.whereNull('price')
   }).fetchAll({
     transacting: req.trx
   })
 
-  await Promise.mapSeries(calls, async (call) => {
+  await Promise.mapSeries(connections, async (connection) => {
 
     try {
 
-      const twcall = await twilio.calls(call.get('sid')).fetch()
+      const twcall = await twilio.calls(connections.get('sid')).fetch()
 
       if(!twcall.price) return
 
-      await call.save({
+      await connections.save({
         duration: twcall.duration,
         price: Math.abs(twcall.price)
       }, {

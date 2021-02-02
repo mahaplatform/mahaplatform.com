@@ -1,4 +1,4 @@
-import CallSerializer from '@apps/crm/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import Call from '@apps/maha/models/call'
 import Program from '@apps/crm/models/program'
 
@@ -31,7 +31,7 @@ const callsRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from','program.logo','user.photo','phone_number.contact.photo','enrollment.voice_campaign','from_user.photo','to_user.photo'],
+    withRelated: ['to_number','from_number','program.logo','phone_number.contact.photo'],
     transacting: req.trx
   })
 

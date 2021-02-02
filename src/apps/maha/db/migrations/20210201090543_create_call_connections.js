@@ -27,11 +27,12 @@ const CreateCallConnection = {
       table.integer('to_phone_number_id').unsigned()
       table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
       table.string('sid')
-      table.enum('direction', ['incoming','outgoing','outgoing-dial','outgoing-api'], { useNative: true, enumName: 'maha_call_connection_directions' })
-      table.enum('status', ['intiated','ringing','in-progress','completed','failed','no-answer','busy'], { useNative: true, enumName: 'maha_call_connection_statuses' })
+      table.enum('direction', ['inbound','outbound','outbound-dial','outbound-api'], { useNative: true, enumName: 'maha_call_connection_directions' })
+      table.enum('status', ['initiated','ringing','in-progress','completed','failed','canceled','no-answer','busy'], { useNative: true, enumName: 'maha_call_connection_statuses' })
       table.integer('duration')
       table.decimal('price', 4, 3)
-      table.timestamps()
+      table.timestamp('started_at')
+      table.timestamp('ended_at')
     })
 
     await knex('maha_calls').whereNotIn('status', ['no-answer','busy','failed','completed']).update('status', 'completed')
@@ -42,7 +43,7 @@ const CreateCallConnection = {
     await Promise.mapSeries(calls, async (call) => {
 
       await knex('maha_calls').where('id', call.id).update({
-        direction: call.direction === 'inbound' ? 'incoming' : 'outgoing'
+        direction: call.direction === 'inbound' ? 'inbound' : 'outbound'
       })
 
       await knex('maha_call_connections').insert({
@@ -57,10 +58,12 @@ const CreateCallConnection = {
         from_phone_number_id: call.direction === 'inbound' ? call.phone_number_id : null,
         to_phone_number_id: call.direction === 'outbound' ? call.phone_number_id : null,
         sid: call.sid,
-        direction: call.direction === 'inbound' ? 'incoming' : 'outgoing',
+        direction: call.direction === 'inbound' ? 'inbound' : 'outbound',
         status: call.status,
         duration: call.duration,
-        price: call.price
+        price: call.price,
+        started_at: call.created_at,
+        ended_at: call.created_at
       })
 
     })

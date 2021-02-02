@@ -23,23 +23,23 @@ class Header extends React.Component {
 
   _getFrom() {
     const { call } = this.props
-    const { contact, direction, from, program } = call
+    const { contact, direction, from_number, program } = call
     if(direction === 'inbound') {
-      return <Contact contact={ contact } number={ from } />
+      return <Contact contact={ contact } number={ from_number } />
     }
     if(direction === 'outbound') {
-      return <Program program={ program } number={ from } />
+      return <Program program={ program } number={ from_number } />
     }
   }
 
   _getTo() {
     const { call } = this.props
-    const { contact, direction, to, program } = call
+    const { contact, direction, to_number, program } = call
     if(direction === 'inbound') {
-      return <Program program={ program } number={ to } />
+      return <Program program={ program } number={ to_number } />
     }
     if(direction === 'outbound') {
-      return <Contact contact={ contact } number={ to } />
+      return <Contact contact={ contact } number={ to_number } />
     }
   }
 

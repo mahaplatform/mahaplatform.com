@@ -1,5 +1,5 @@
 import { findOrCreateNumber } from '@apps/maha/services/numbers'
-import CallSerializer from '@apps/crm/serializers/call_serializer'
+import CallSerializer from '@apps/maha/serializers/call_serializer'
 import socket from '@core/services/routes/emitter'
 import Call from '@apps/maha/models/call'
 

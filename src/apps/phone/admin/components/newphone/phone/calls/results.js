@@ -69,7 +69,7 @@ class Results extends React.Component {
 
   _getDescription(call) {
     const { voice_campaign } = call
-    if(voice_campaign && voice_campaign.direction === 'outbound') return 'outbound voice campaign'
+    if(voice_campaign && voice_campaign.direction === 'outbound') return 'outgoing voice campaign'
     return `${ call.direction } call`
   }
 
@@ -84,7 +84,7 @@ class Results extends React.Component {
   }
 
   _getNumber(call) {
-    return call.direction === 'outbound' ? call.from.formatted : call.to.formatted
+    return call.direction === 'outbound' ? call.from_number.formatted : call.to_number.formatted
   }
 
   _handleClick(call) {

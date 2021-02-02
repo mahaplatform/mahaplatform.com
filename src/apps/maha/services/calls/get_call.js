@@ -23,12 +23,10 @@ const getCall = async(req, params) => {
 
   const twcall = await twilio.calls(params.sid).fetch()
 
-  const from_number = params.from || twcall.from
-  const to_number = params.to || twcall.to
-  const direction = params.direction || twcall.direction
+  console.log(twcall)
 
   const phone_number = await PhoneNumber.query(qb => {
-    qb.where('number', direction === 'outbound' ? from_number : to_number)
+    qb.where('sid', twcall.phoneNumberSid)
   }).fetch({
     withRelated: ['program','team'],
     transacting: req.trx
@@ -36,30 +34,30 @@ const getCall = async(req, params) => {
 
   req.team = phone_number.related('team')
 
-  const from = await Number.fetchOrCreate({
-    number: from_number
+  const from_number = await Number.fetchOrCreate({
+    number: twcall.from
   }, {
     transacting: req.trx
   })
 
-  const to = await Number.fetchOrCreate({
-    number: to_number
+  const to_number = await Number.fetchOrCreate({
+    number: twcall.to
   }, {
     transacting: req.trx
   })
 
   const contact_phone_number = await getContactPhoneNumber(req, {
-    number: direction === 'inbound' ? from_number : to_number
+    number: twcall.direction === 'inbound' ? twcall.from : twcall.to
   })
 
   return await Call.forge({
     team_id: req.team.get('id'),
-    from_id: from.get('id'),
-    to_id: to.get('id'),
-    direction,
+    from_number_id: from_number.get('id'),
+    to_number_id: to_number.get('id'),
+    direction: twcall.direction,
     sid: twcall.sid,
-    received_at: direction === 'inbound' ? twcall.startTime : null,
-    sent_at: direction === 'outbound' ? twcall.startTime : null,
+    received_at: twcall.direction === 'inbound' ? twcall.startTime : null,
+    sent_at: twcall.direction === 'outbound' ? twcall.startTime : null,
     status: twcall.status,
     program_id: phone_number.related('program').get('id'),
     phone_number_id: contact_phone_number ? contact_phone_number.get('id') : null

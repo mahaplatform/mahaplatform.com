@@ -1464,6 +1464,7 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('call_connection_id').unsigned()
+      table.integer('story_id').unsigned()
       table.jsonb('data')
       table.timestamp('tstamp')
     })
@@ -1485,8 +1486,8 @@ const schema = {
       table.USER-DEFINED('status')
       table.integer('duration')
       table.decimal('price', 4, 3)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('started_at')
+      table.timestamp('ended_at')
     })
 
     await knex.schema.createTable('maha_calls', (table) => {
@@ -3759,6 +3760,7 @@ const schema = {
     await knex.schema.table('maha_call_activities', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('call_connection_id').references('maha_call_connections.id')
+      table.foreign('story_id').references('maha_stories.id')
     })
 
 
@@ -6077,18 +6079,24 @@ union
       sum(maha_call_connections.price) as price
       from maha_call_connections
       group by maha_call_connections.call_id
-      ), durations as (
+      ), started as (
       select maha_call_connections.call_id,
-      max(maha_call_connections.duration) as duration
+      min(maha_call_connections.started_at) as started_at
+      from maha_call_connections
+      group by maha_call_connections.call_id
+      ), ended as (
+      select maha_call_connections.call_id,
+      min(maha_call_connections.ended_at) as ended_at
       from maha_call_connections
       group by maha_call_connections.call_id
       )
       select maha_calls.id as call_id,
-      coalesce(durations.duration, 0) as duration,
+      ceil(date_part('epoch'::text, (ended.ended_at - started.started_at))) as duration,
       coalesce(prices.price, 0.000) as price
-      from ((maha_calls
-      join durations on ((durations.call_id = maha_calls.id)))
-      join prices on ((prices.call_id = maha_calls.id)));
+      from (((maha_calls
+      join started on ((started.call_id = maha_calls.id)))
+      join ended on ((ended.call_id = maha_calls.id)))
+      left join prices on ((prices.call_id = maha_calls.id)));
     `)
 
     await knex.raw(`

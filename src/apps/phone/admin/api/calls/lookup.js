@@ -14,7 +14,7 @@ const lookupRoute = async (req, res) => {
     sid: main.sid
   })
 
-  await call.load(['from','to','program.phone_number','program.logo','phone_number.contact.photo'], {
+  await call.load(['from_number','to_number','program.phone_number','program.logo','phone_number.contact.photo'], {
     transacting: req.trx
   })
 

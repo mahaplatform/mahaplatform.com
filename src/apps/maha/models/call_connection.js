@@ -10,14 +10,16 @@ const CallConnection = new Model({
 
   databaseName: 'maha',
 
-  tableName: 'call_connections',
+  tableName: 'maha_call_connections',
+
+  hasTimestamps: false,
 
   rules: {},
 
   virtuals: {},
 
   activities() {
-    return this.hasMany(CallActivity, 'call_id')
+    return this.hasMany(CallActivity, 'call_connection_id')
   },
 
   call() {
