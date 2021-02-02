@@ -90,11 +90,12 @@ class Active extends React.Component {
   }
 
   _getButtons() {
+    const { user } = this.context.admin
     const { call } = this.props
     if(call.client === 'cell') {
       return [
         { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-        { icon: 'arrow-right', label: 'forward', handler: this._handleForward },
+        { icon: 'mobile', label: 'device', handler: this._handleForward, disabled: user.cell_phone === null },
         { icon: 'comments', label: 'sms', handler: this._handleSMS }
       ]
     }
@@ -103,7 +104,7 @@ class Active extends React.Component {
       { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
       { icon: 'random', label: 'transfer', handler: this._handleTransfer },
-      { icon: 'arrow-right', label: 'forward', handler: this._handleForward },
+      { icon: 'mobile', label: 'device', handler: this._handleForward, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }

@@ -190,6 +190,8 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         this._handleUpdate(call.call.sid, {
+          client,
+          local_sid: result.sid
         }, callback)
       }
     })
@@ -204,7 +206,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/hangup',
       method: 'post',
       body: {
-        sid: call.local_sid
+        sid: call.remote_sid
       },
       onSuccess: () => {
         this._handleRemove({

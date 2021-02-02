@@ -40,11 +40,6 @@ const forwardRoute = async (req, res) => {
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
-  const dial = twiml.dial({
-    callerId: req.body.from,
-    timeout: 10
-  })
-
   if(req.body.client === 'maha') {
     client(twiml, {
       client: `${req.user.get('id')}`
@@ -53,14 +48,26 @@ const forwardRoute = async (req, res) => {
       sid: req.body.sid
     })
   } else  {
-    number(dial, `${req.user.get('cell_phone')}`)
+    number(twiml, {
+      from: req.body.from,
+      number: `${req.user.get('cell_phone')}`
+    })
   }
 
-  const twcall = await twilio.calls(req.body.sid).update({
+  await twilio.calls(req.body.sid).update({
     twiml: twiml.toString()
   })
 
-  res.status(200).respond(twcall)
+  const children = await twilio.calls.list({
+    parentCallSid: req.body.sid
+  })
+
+  const newcall = children.find(child => {
+    const to = req.body.client === 'maha' ? `client:${req.user.get('id')}` : req.user.get('cell_phone')
+    return child.status === 'queued' && child.to === to
+  })
+
+  res.status(200).respond(newcall)
 
 }
 export default forwardRoute
