@@ -16,6 +16,9 @@ const getQueue = (name) => {
   return queues[name]
 }
 
+const getConcurrency = (name) => {
+  return queues[name] === undefined ? 5 : 0
+}
 
 class Queue {
 
@@ -23,7 +26,7 @@ class Queue {
     this.processor = this._getProcessor(options.processor, options.log)
     this.completed = this._getCompleted(options.completed)
     this.failed = this._getFailed(options.failed)
-    this.concurrency = options.concurrency || 1
+    this.concurrency = getConcurrency(options.queue)
     this.priority = options.priority || 10
     this.attempts = options.attempts || 3
     this.remove = options.remove || true
@@ -42,7 +45,7 @@ class Queue {
     if(req.team) job.team_id = req.team.get('id')
     return await this.queue.add(this.name, job, {
       priority: this.priority,
-      delay: options.until ? options.until.diff(moment()) : 2000,
+      delay: this._getDelay(options),
       attempts: this.attempts,
       repeat: this.cron ? { cron: this.cron } : null,
       backoff: {
@@ -65,6 +68,12 @@ class Queue {
       await this.queue.removeRepeatableByKey(job.key)
     })
     this.enqueue()
+  }
+
+  _getDelay(options) {
+    if(options.until) return options.until.diff(moment())
+    if(this.delay) return this.delay
+    return 2000
   }
 
   _getProcessor(processor, log = true) {

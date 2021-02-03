@@ -21,8 +21,6 @@ badevents.on('message', async msg => {
 
       const parts = JSON.parse(message)
 
-      console.log(parts.data.failure)
-
       await createEvent({ analytics }, {
         data: message,
         status: 'error',
