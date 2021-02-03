@@ -23,7 +23,7 @@ const getCall = async(req, params) => {
 
   const twcall = await twilio.calls(params.sid).fetch()
 
-  console.log(twcall)
+  // console.log(twcall)
 
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('sid', twcall.phoneNumberSid)

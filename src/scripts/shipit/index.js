@@ -51,6 +51,7 @@ const processor = async () => {
   servers[controller].roles.push('controller')
 
   const cron = servers.findIndex(server => server.roles[0] === 'worker')
+  servers[cron].roles.push('twilio')
   servers[cron].roles.push('cron')
 
   servers.map(server => {
@@ -125,7 +126,7 @@ const processor = async () => {
   utils.registerTask(shipit, 'cleanup', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
-      roles: ['appserver','cron','worker']
+      roles: ['appserver','cron','twilio','worker']
     })
   })
 
@@ -161,26 +162,26 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:mkdir', async () => {
     await shipit.remote(`mkdir -p ${releaseDir}`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
     await shipit.copyToRemote('dist.tgz', `${releaseDir}/dist.tgz`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:unzip', async () => {
     await shipit.remote('tar -xzf dist.tgz && rm -rf dist.tgz', {
-      roles: ['analyticsserver','appserver','cron','worker'],
+      roles: ['analyticsserver','appserver','cron','twilio','worker'],
       cwd: releaseDir
     })
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
-      roles: ['analyticsserver','appserver','cron','worker'],
+      roles: ['analyticsserver','appserver','cron','twilio','worker'],
       cwd: path.join(releaseDir, 'platform')
     })
   })
@@ -193,13 +194,13 @@ const processor = async () => {
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:webroot', async () => {
     await shipit.remote(`mkdir -p ${platformDir}/web`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
@@ -219,7 +220,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:symlink', async () => {
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releaseDir} ${currentDir}`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
@@ -233,6 +234,7 @@ const processor = async () => {
     'deploy:restart_analytics',
     'deploy:restart_collector',
     'deploy:restart_cron',
+    'deploy:restart_twilio',
     'deploy:restart_worker'
   ])
 
@@ -254,6 +256,13 @@ const processor = async () => {
     return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only cron_production', {
       cwd: deployDir,
       roles: ['cron']
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:restart_twilio', () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only twilio_production', {
+      cwd: deployDir,
+      roles: ['twilio']
     })
   })
 
@@ -280,13 +289,13 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:preclean', () => {
     if(environment === 'production') return
     return shipit.remote(`rm -rf ${currentDir} && rm -rf ${releasesDir}/*`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:clean', () => {
     return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
-      roles: ['analyticsserver','appserver','cron','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 

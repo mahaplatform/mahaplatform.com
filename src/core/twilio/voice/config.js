@@ -1,10 +1,9 @@
-const aws = require('aws-sdk')
+const aws = require('./aws')
 
 const getConfigPath = (req) => {
   const { query, body } = req
   const workflow = query.workflow
   const direction = body.Direction
-  const from = body.From
   const to = body.To
   if(direction === 'inbound') {
     return `inbound/${to.substr(1)}`
@@ -17,13 +16,6 @@ const getConfigPath = (req) => {
 }
 
 const fetchConfig = async (req) => {
-
-  aws.config.constructor({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-    sessionToken: process.env.AWS_SESSION_TOKEN
-  })
 
   const s3 = new aws.S3()
 

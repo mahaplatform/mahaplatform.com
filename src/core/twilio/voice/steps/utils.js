@@ -31,7 +31,7 @@ const url = (req, path, params) => {
   const { enrollment, workflow } = req.query
   params.enrollment = enrollment
   if(workflow) params.workflow = workflow
-  return `${process.env.TWILIO_TWIML_HOST}${path}?${qs.stringify(params)}`
+  return `${process.env.TWILIO_HOST_TWIML}${path}?${qs.stringify(params)}`
 }
 
 const next = (req, twiml) => {

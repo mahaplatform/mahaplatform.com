@@ -70,7 +70,7 @@ const getCallConnection = async (req, { call, sid }) => {
 
   const twcall = await twilio.calls(sid).fetch()
 
-  console.log(twcall)
+  // console.log(twcall)
 
   const from = await getSource(req, {
     number: twcall.from

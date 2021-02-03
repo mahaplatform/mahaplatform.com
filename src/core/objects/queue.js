@@ -17,7 +17,8 @@ const getQueue = (name) => {
 }
 
 const getConcurrency = (name) => {
-  return queues[name] === undefined ? 5 : 0
+  const defaultConcurrency = name === 'worker' ? 5 : 1
+  return queues[name] === undefined ? defaultConcurrency : 0
 }
 
 class Queue {

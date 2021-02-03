@@ -33,27 +33,29 @@ class Details extends React.Component {
           <tbody>
             { connections.map((connection, index) => (
               <tr key={`connection_${index}`}>
-                <td className="unpadded">
+                <td>
                   { connection.from_user &&
-                    <UserToken { ...connection.from_user } />
+                    <div>{ connection.from_user.full_name }</div>
                   }
                   { connection.from_program &&
-                    <ProgramToken { ...connection.from_program } />
+                    <div>{ connection.from_program.title }</div>
                   }
                   { connection.from_contact &&
-                    <ContactToken { ...connection.from_contact } />
+                    <div>{ connection.from_contact.display_name }</div>
                   }
+                  { connection.from_number.formatted }
                 </td>
-                <td className="unpadded">
+                <td>
                   { connection.to_user &&
-                    <UserToken { ...connection.to_user } />
+                    <div>{ connection.to_user.full_name }</div>
                   }
                   { connection.to_program &&
-                    <ProgramToken { ...connection.to_program } />
+                    <div>{ connection.to_program.title }</div>
                   }
                   { connection.to_contact &&
-                    <ContactToken { ...connection.to_contact } />
+                    <div>{ connection.to_contact.display_name }</div>
                   }
+                  { connection.to_number.formatted }
                 </td>
                 <td>{ connection.duration }</td>
                 <td>{ connection.price }</td>

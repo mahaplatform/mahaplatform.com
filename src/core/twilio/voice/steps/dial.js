@@ -1,19 +1,22 @@
 const dial = (req, twiml) => {
 
-  const { recipients } = req.step
+  const { body, step } = req
+  const { recipients } = step
 
-  const dial = twiml.dial()
+  const dial = twiml.dial({
+    callerId: body.To
+  })
 
   recipients.map(recipient => {
     if(recipient.number) {
       dial.number({
-        statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
+        statusCallback: `${process.env.TWILIO_HOST_STATUS}/twilio/voice_status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
       }, recipient.number)
     }
     if(recipient.client) {
       const client = dial.client({
-        statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
+        statusCallback: `${process.env.TWILIO_HOST_STATUS}/twilio/voice_status`,
         statusCallbackEvent: ['initiated','ringing','answered','completed']
       }, recipient.client)
       client.parameter({

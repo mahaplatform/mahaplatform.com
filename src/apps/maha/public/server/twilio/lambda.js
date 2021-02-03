@@ -1,9 +1,13 @@
+import voice_status from '@core/twilio/voice_status'
+import sms_status from '@core/twilio/sms_status'
 import voice from '@core/twilio/voice'
 import call from '@core/twilio/call'
 import sms from '@core/twilio/sms'
 import Url from 'url'
 
 const getHandler = (type) => {
+  if(type === 'voice_status') return voice_status
+  if(type === 'sms_status') return sms_status
   if(type === 'voice') return voice
   if(type === 'call') return call
   if(type === 'sms') return sms

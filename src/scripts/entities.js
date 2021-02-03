@@ -5,4 +5,6 @@ require(path.join('..','server'))
 
 require(path.join('..','worker'))
 
+require(path.join('..','twilio'))
+
 require(path.join('..','cron'))

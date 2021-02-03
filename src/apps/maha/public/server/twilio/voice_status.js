@@ -8,11 +8,11 @@ const getParent = async (sid) => {
   return await getParent(twcall.parentCallSid)
 }
 
-const statusRoute = async (req, res) => {
+const voiceStatusRoute = async (req, res) => {
 
   const parent = await getParent(req.body.CallSid)
 
-  console.log(parent.sid, req.body.ParentCallSid, req.body.CallSid, req.body.CallStatus)
+  // console.log(parent.sid, req.body.ParentCallSid, req.body.CallSid, req.body.CallStatus)
 
   await TwilioStatusQueue.enqueue(req, {
     parent_sid: parent.sid,
@@ -39,4 +39,4 @@ const statusRoute = async (req, res) => {
 
 }
 
-export default statusRoute
+export default voiceStatusRoute

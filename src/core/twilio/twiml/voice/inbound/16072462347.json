@@ -3,8 +3,26 @@
     "code": "abcdef"
   },
   "steps": [
-    { "verb": "dial", "recipients": [
-      { "client": "79" }
-    ] }
+    { "verb": "timeofday", "timeblocks": [
+      { "days": [1,3,5], "times": [
+        { "start_time": "9:00", "end_time": "12:00" },
+        { "start_time": "13:00", "end_time": "17:00" }
+      ], "steps": [
+        { "verb": "dial", "recipients": [
+          { "client": "79" },
+          { "number": "+16072775647" }
+        ] }
+      ] },
+      { "days": [2,4], "times": [
+        { "start_time": "9:00", "end_time": "12:00" },
+        { "start_time": "13:00", "end_time": "17:00" }
+      ], "steps": [
+        { "verb": "say", "text": "Baz Perry" }
+      ] }
+    ], "else": {
+      "steps": [
+        { "verb": "say", "text": "else" }
+      ]
+    } }
   ]
 }

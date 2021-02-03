@@ -1,5 +1,6 @@
 const dialbyextension  = require('./dialbyextension')
 const dialbyname  = require('./dialbyname')
+const timeofday = require('./timeofday')
 const voicemail = require('./voicemail')
 const hangup  = require('./hangup')
 const gather = require('./gather')
@@ -12,12 +13,13 @@ const say = require('./say')
 const getExecutor = (verb) => {
   if(verb === 'dialbyextension') return dialbyextension
   if(verb === 'dialbyname') return dialbyname
-  if(verb === 'dial') return dial
-  if(verb === 'play') return play
+  if(verb === 'timeofday') return timeofday
+  if(verb === 'voicemail') return voicemail
   if(verb === 'gather') return gather
   if(verb === 'record') return record
+  if(verb === 'dial') return dial
+  if(verb === 'play') return play
   if(verb === 'say') return say
-  if(verb === 'voicemail') return voicemail
   return hangup
 }
 

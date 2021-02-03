@@ -1,13 +1,13 @@
 const number = (dial, config) => {
   dial.number({
-    statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
+    statusCallback: `${process.env.TWILIO_HOST_STATUS}/twilio/voice_status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, config.number)
 }
 
 const client = (dial, config) => {
   const client = dial.client({
-    statusCallback: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
+    statusCallback: `${process.env.TWILIO_HOST_STATUS}/twilio/voice_status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, config.client)
   client.parameter({

@@ -28,7 +28,7 @@ const CreateCallConnection = {
       table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
       table.string('sid')
       table.enum('direction', ['inbound','outbound','outbound-dial','outbound-api'], { useNative: true, enumName: 'maha_call_connection_directions' })
-      table.enum('status', ['initiated','ringing','in-progress','completed','failed','canceled','no-answer','busy'], { useNative: true, enumName: 'maha_call_connection_statuses' })
+      table.enum('status', ['queued','initiated','ringing','in-progress','completed','failed','canceled','no-answer','busy'], { useNative: true, enumName: 'maha_call_connection_statuses' })
       table.integer('duration')
       table.decimal('price', 4, 3)
       table.timestamp('started_at')

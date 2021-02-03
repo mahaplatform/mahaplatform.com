@@ -1,11 +1,11 @@
-const axios = require('axios')
+const aws = require('./aws')
 
 const status = async (req, result) => {
   try {
-    await axios({
-      url: `${process.env.TWILIO_STATUS_HOST}/twilio/status`,
-      method: 'post',
-      data: {
+    const sns = new aws.SNS()
+    await sns.publish({
+      TopicArn: process.env.TWILIO_SNS_VOICE,
+      Message: JSON.stringify({
         ...req.body,
         Meta: {
           enrollment: req.query.enrollment,
@@ -13,7 +13,7 @@ const status = async (req, result) => {
           step: req.step.code
         },
         Result: result
-      }
+      })
     })
   } catch(err) {
     console.log(err)

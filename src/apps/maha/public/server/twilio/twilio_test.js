@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import status from './status'
+import twilio from './twilio'
 
-describe('src/core/lib/express/twlio/status.js', () => {
+describe('src/apps/maha/public/server/twilio/twilio.js', () => {
 
 })

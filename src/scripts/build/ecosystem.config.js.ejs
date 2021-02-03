@@ -33,6 +33,17 @@ module.exports = {
       NODE_ENV: '<%= environment %>'
     }
   },{
+    name: 'twilio_<%= environment %>',
+    script: './twilio.js',
+    instances: 1,
+    cwd: process.env.PWD+'/current/platform',
+    error_file: './logs/twilio.err.log',
+    out_file: './logs/twilio.out.log',
+    exec_mode: 'fork_mode',
+    env: {
+      NODE_ENV: '<%= environment %>'
+    }
+  },{
     name: 'worker_<%= environment %>',
     script: './worker.js',
     instances: 2,

@@ -1,6 +1,8 @@
 import lambda from '@core/vendor/aws/lambda'
+import log from '../../core/utils/log'
 import zip from 'adm-zip'
 import path from 'path'
+import _ from 'lodash'
 import fs from 'fs'
 
 const listFiles = (basedir, localdir = '.') => {
@@ -16,20 +18,28 @@ const listFiles = (basedir, localdir = '.') => {
   }, [])
 }
 
-const publish = async (name) => {
+const publish = async (keys) => {
 
-  const outfile = path.join('tmp',`${name}.zip`)
+  const functions = keys ? _.castArray(keys) : ['call','sms','sms_status','voice','voice_status']
 
-  const files = listFiles(path.join('src','core','twilio',name))
+  await Promise.mapSeries(functions, async (name) => {
 
-  const archive = new zip()
-  files.map(file => archive.addFile(file.name, file.data))
-  archive.writeZip(outfile)
+    log('info', 'twilio', `Publishing ${name}`)
 
-  await lambda.updateFunctionCode({
-    FunctionName: `twilio-${name}`,
-    ZipFile: fs.readFileSync(outfile)
-  }).promise()
+    const outfile = path.join('tmp',`${name}.zip`)
+
+    const files = listFiles(path.join('src','core','twilio',name))
+
+    const archive = new zip()
+    files.map(file => archive.addFile(file.name, file.data))
+    archive.writeZip(outfile)
+
+    await lambda.updateFunctionCode({
+      FunctionName: `twilio-${name.replace('_', '-')}`,
+      ZipFile: fs.readFileSync(outfile)
+    }).promise()
+
+  })
 
 }
 
