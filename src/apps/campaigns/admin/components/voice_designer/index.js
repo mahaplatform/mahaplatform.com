@@ -1,9 +1,11 @@
 import FlowchartDesigner from '@apps/automation/admin/components/flowchart_designer'
+import dialbyextension from './dialbyextension'
+import dialbyname from './dialbyname'
+import timeofday from './timeofday'
 import { Container } from '@admin'
 import voicemail from './voicemail'
 import PropTypes from 'prop-types'
 import question from './question'
-import record from './record'
 import React from 'react'
 import play from './play'
 import dial from './dial'
@@ -41,24 +43,14 @@ class VoiceDesigner extends React.PureComponent {
       blocks: [
         this._getTrigger(),
         play,
-        question,
         say,
-        record,
+        question,
         dial,
+        dialbyname,
+        dialbyextension,
         voicemail,
         { action: 'ifthen' },
-        { action: 'wait' },
-        { action: 'goal' },
-        { action: 'set' },
-        { action: 'property' },
-        { action: 'consent' },
-        { action: 'list' },
-        { action: 'topic' },
-        { action: 'workflow' },
-        { action: 'email' },
-        { action: 'sms' },
-        { action: 'internal_email' },
-        { action: 'internal_sms' },
+        timeofday,
         {
           icon: 'phone',
           label: 'Hangup',

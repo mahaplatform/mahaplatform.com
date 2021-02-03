@@ -1,8 +1,9 @@
+import TimeBlocksField from '../../timeblocksfield'
 import { Button, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Say extends React.PureComponent {
+class TimeOfDay extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -38,7 +39,7 @@ class Say extends React.PureComponent {
 
   _getDefaults() {
     return {
-      voice: 'woman'
+      timeblocks: []
     }
   }
 
@@ -46,7 +47,7 @@ class Say extends React.PureComponent {
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Speak Text',
+      title: 'Time of Day',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
@@ -58,10 +59,7 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Message', type: 'segment', required: true, fields: [
-              { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], required: true, defaultValue: config.voice },
-              { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
-            ] }
+            { label: 'Time Blocks', name: 'timeblocks', type: TimeBlocksField, required: true, defaultValue: config.timeblocks }
           ]
         }
       ]
@@ -87,4 +85,4 @@ class Say extends React.PureComponent {
 
 }
 
-export default Say
+export default TimeOfDay

@@ -89,12 +89,13 @@ class NumberField extends React.Component {
   }
 
   _getInput() {
-    const { disabled, placeholder, tabIndex } = this.props
+    const { disabled, maxLength, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
       disabled,
       className: 'ui input',
       type: 'textfield',
+      maxLength,
       placeholder: !focused ? placeholder : null,
       tabIndex,
       value,

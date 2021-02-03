@@ -43,7 +43,9 @@ class Recordingfield extends React.PureComponent {
     return (
       <div className="crm-recordingfield">
         { asset ?
-          <AssetViewer asset={ asset } /> :
+          <div className="crm-recordingfield-asset">
+            <AssetViewer asset={ asset } />
+          </div> :
           <Button { ...this._getChooseButton() } />
         }
         { asset &&

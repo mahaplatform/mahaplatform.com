@@ -17,6 +17,37 @@ const dynamicSteps = createSelector(
   })
 )
 
+const getBranches = (steps, step) => {
+  if(!step.config) return null
+  if(step.action === 'ifthen') {
+    return  [
+      ...step.config.branches.map(branch => ({
+        ...branch,
+        label: branch.name || branch.text,
+        then: segment(steps, step.code, branch.code)
+      })),
+      {
+        code: 'else',
+        label: 'else',
+        then: segment(steps, step.code, 'else')
+      }
+    ]
+  } else if(step.action === 'timeofday') {
+    return  [
+      ...step.config.timeblocks.map(timeblock => ({
+        label: timeblock.name,
+        then: segment(steps, step.code, timeblock.code)
+      })),
+      {
+        code: 'else',
+        label: 'else',
+        then: segment(steps, step.code, 'else')
+      }
+    ]
+  }
+  return null
+}
+
 const segment = (steps, parent, answer) => {
   const result = steps.filter((step) => {
     return step.parent === parent && step.answer === answer
@@ -25,18 +56,7 @@ const segment = (steps, parent, answer) => {
   }).map(step => {
     return {
       ...step,
-      branches: step.config && step.config.branches ? [
-        ...step.config.branches.map(branch => ({
-          ...branch,
-          label: branch.name || branch.text,
-          then: segment(steps, step.code, branch.code)
-        })),
-        {
-          code: 'else',
-          label: 'else',
-          then: segment(steps, step.code, 'else')
-        }
-      ] : null
+      branches: getBranches(steps, step)
     }
   })
   return result
