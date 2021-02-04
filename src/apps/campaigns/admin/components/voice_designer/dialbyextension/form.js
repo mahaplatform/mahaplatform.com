@@ -55,7 +55,7 @@ class DialByExtension extends React.PureComponent {
     const { users } = this.props
     return {
       reference: node => this.form = node,
-      title: 'Dial',
+      title: 'Dial By Extension',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
@@ -75,7 +75,8 @@ class DialByExtension extends React.PureComponent {
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Extensions', name: 'extensions', type: ExtensionsField, users, required: true, defaultValue: config.extensions }
+            { label: 'Extensions', name: 'extensions', type: ExtensionsField, users, required: true, defaultValue: config.extensions },
+            { name: 'escape', type: 'checkbox', prompt: 'Enable # to escape', defaultValue: config.escape }
           ]
         }
       ]

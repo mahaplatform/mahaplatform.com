@@ -37,14 +37,16 @@ class Recipientsfield extends React.PureComponent {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman'
+      voice: 'woman',
+      destination: 'dial',
+      client: ['maha','cell']
     }
   }
 
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Recipient',
+      title: 'Extension',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
@@ -54,8 +56,11 @@ class Recipientsfield extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { label: 'Extension', name: 'extension', type: 'numberfield', required: true, placeholder: 'Enter a 3 digit extension', maxLength: 3, defaultValue: config.extension },
-            { label: 'User', name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id },
+            { label: 'Extension', type: 'segment', fields: [
+              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name },
+              { name: 'extension', type: 'numberfield', required: true, placeholder: 'Enter a 3 digit extension', maxLength: 3, defaultValue: config.extension },
+              { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
+            ] },
             { label: 'Announcement', type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },

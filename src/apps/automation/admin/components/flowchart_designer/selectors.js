@@ -22,7 +22,7 @@ const getBranches = (steps, step) => {
   if(step.action === 'ifthen') {
     return  [
       ...step.config.branches.map(branch => ({
-        ...branch,
+        code: branch.code,
         label: branch.name || branch.text,
         then: segment(steps, step.code, branch.code)
       })),
@@ -35,9 +35,28 @@ const getBranches = (steps, step) => {
   } else if(step.action === 'timeofday') {
     return  [
       ...step.config.timeblocks.map(timeblock => ({
+        code: timeblock.code,
         label: timeblock.name,
         then: segment(steps, step.code, timeblock.code)
       })),
+      {
+        code: 'else',
+        label: 'else',
+        then: segment(steps, step.code, 'else')
+      }
+    ]
+  } else if(step.action === 'dialbyextension') {
+    return  [
+      {
+        code: 'connected',
+        label: 'connected',
+        then: segment(steps, step.code, 'connected')
+      },
+      {
+        code: 'dialed #',
+        label: 'hash',
+        then: segment(steps, step.code, 'hash')
+      },
       {
         code: 'else',
         label: 'else',
@@ -49,17 +68,14 @@ const getBranches = (steps, step) => {
 }
 
 const segment = (steps, parent, answer) => {
-  const result = steps.filter((step) => {
+  return steps.filter((step) => {
     return step.parent === parent && step.answer === answer
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
-  }).map(step => {
-    return {
-      ...step,
-      branches: getBranches(steps, step)
-    }
-  })
-  return result
+  }).map(step => ({
+    ...step,
+    branches: getBranches(steps, step)
+  }))
 }
 
 export const config = createSelector(
@@ -84,19 +100,6 @@ export const fields = createSelector(
             return answer.answer
           }) : []
         }] : [],
-        ...step.action === 'dial' ? [
-          {
-            name: `Call Status (${step.config.name.value})`,
-            key: `workflow.${step.config.code}_status`,
-            type: 'callstatus'
-          },
-          {
-            name: `Call Recipient (${step.config.name.value})`,
-            key: `workflow.${step.config.code}_recipient`,
-            type: 'callrecipients',
-            recipients: step.config.recipients
-          }
-        ] : [],
         ..._.includes(['record','voicemail'], step.action) ? [{
           name: `Recording Status (${step.config.name.value})`,
           key: `workflow.${step.config.code}`,
@@ -121,10 +124,6 @@ export const tokens = createSelector(
         ..._.includes(['set','question'], step.action) ? {
           name: step.config.name.value,
           token: `workflow.${step.config.name.token}`
-        } : {},
-        ...step.action === 'dial' ? {
-          name: `Was Answered (${step.config.name.value})`,
-          token: `workflow.${step.config.name.token}_status`
         } : {},
         ...step.action === 'record' ? {
           name: `Recording URL (${step.config.name.value})`,

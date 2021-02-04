@@ -3,7 +3,7 @@ import Form from './form'
 export default {
   icon: 'font',
   label: 'Dial By Name',
-  type: 'voice',
+  type: 'control',
   action: 'dialbyname',
   form: Form
 }

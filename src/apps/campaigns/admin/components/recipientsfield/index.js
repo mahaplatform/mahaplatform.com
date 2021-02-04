@@ -12,6 +12,7 @@ class Recipientsfield extends React.PureComponent {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     users: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -38,14 +39,9 @@ class Recipientsfield extends React.PureComponent {
           { recipients.map((recipient, index) => (
             <div className="crm-recipientsfield-recipient" key={`recipient_${index}`}>
               <div className="crm-recipientsfield-recipient-label">
-                { recipient.strategy === 'software' &&
+                { recipient.strategy === 'user' &&
                   <div>
-                    { this._getUser(recipient.user_id) } <span>( Maha Phone )</span>
-                  </div>
-                }
-                { recipient.strategy === 'cell' &&
-                  <div>
-                    { this._getUser(recipient.user_id) } <span>( Cell Phone )</span>
+                    { this._getUser(recipient.user_id) }
                   </div>
                 }
                 { recipient.strategy === 'number' &&

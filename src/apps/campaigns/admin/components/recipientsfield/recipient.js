@@ -37,7 +37,7 @@ class Recipientsfield extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      strategy: 'software'
+      strategy: 'user'
     }
   }
 
@@ -54,13 +54,13 @@ class Recipientsfield extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { name: 'strategy', type: 'radiogroup', options: [
-              { value: 'software', text: 'Dial a user\'s Maha phone' },
-              { value: 'cell', text: 'Dial a user\'s mobile phone' },
-              { value: 'number', text: 'Dial a phone number' }
-            ], defaultValue: config.strategy },
-            this._getStrategy()
-
+            { label: 'Recipient', type: 'segment', fields: [
+              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'user', text: 'Dial a user' },
+                { value: 'number', text: 'Dial a phone number' }
+              ], defaultValue: config.strategy },
+              this._getStrategy()
+            ] }
           ]
         }
       ]
@@ -69,12 +69,10 @@ class Recipientsfield extends React.PureComponent {
 
   _getStrategy() {
     const { config } = this.state
-    if(config.strategy === 'number') {
-      return { label: 'Number', name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
-    } else if(config.strategy === 'software') {
-      return { label: 'User', name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
-    } else if(config.strategy === 'cell') {
-      return { label: 'User', name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true }, cell_phone: { $nnl: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
+    if(config.strategy === 'user') {
+      return { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
+    } else if(config.strategy === 'number') {
+      return { name: 'number', type: 'phonefield', required: true, placeholder: 'Enter a number', defaultValue: config.number }
     }
   }
 
@@ -88,12 +86,7 @@ class Recipientsfield extends React.PureComponent {
 
   _handleDone() {
     const { config } = this.state
-    this.props.onDone({
-      code: config.code,
-      strategy: config.strategy,
-      user_id: config.strategy !== 'number' ? config.user_id : null,
-      number: config.strategy === 'number' ? config.number : null
-    })
+    this.props.onDone(config)
     this.context.form.pop()
   }
 

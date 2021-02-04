@@ -46,11 +46,11 @@ class VoiceDesigner extends React.PureComponent {
         say,
         question,
         dial,
-        dialbyname,
-        dialbyextension,
         voicemail,
         { action: 'ifthen' },
         timeofday,
+        dialbyname,
+        dialbyextension,
         {
           icon: 'phone',
           label: 'Hangup',
