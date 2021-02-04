@@ -66,6 +66,7 @@ class VoiceDesigner extends React.PureComponent {
 
   _getFields() {
     const { program, programfields, fields } = this.props
+    if(!programfields) return []
     return [
       ...programfields.length > 0 ? [{
         label: program.title,
@@ -81,6 +82,7 @@ class VoiceDesigner extends React.PureComponent {
 
   _getProperties() {
     const { program, programfields } = this.props
+    if(!programfields) return []
     return [
       ...programfields.length > 0 ? [{ label: program.title, fields: programfields.map(field => ({
         ...field,
@@ -91,6 +93,7 @@ class VoiceDesigner extends React.PureComponent {
 
   _getTokens() {
     const { program, programfields, tokens } = this.props
+    if(!programfields) return []
     return [
       ...programfields.length > 0 ? [{ title: program.title, tokens: programfields.map(field => ({
         name:   field.label,

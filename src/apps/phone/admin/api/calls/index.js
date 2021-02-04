@@ -7,8 +7,12 @@ import create from './create'
 import unhold from './unhold'
 import token from './token'
 import hold from './hold'
+import list from './list'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
+
+router.get('/', list)
 
 router.post('/', create)
 
@@ -25,5 +29,7 @@ router.post('/lookup', lookup)
 router.post('/transfer', transfer)
 
 router.get('/token', token)
+
+router.get('/:id', show)
 
 export default router

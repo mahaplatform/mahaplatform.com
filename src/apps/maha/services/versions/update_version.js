@@ -1,11 +1,12 @@
 import Version from '@apps/maha/models/version'
 import moment from 'moment'
 
-const getVersion = async (req, { versionable_type, versionable_id }) => {
+const getVersion = async (req, { versionable_type, versionable_id, key }) => {
 
   const version = await Version.query(qb => {
     qb.where('versionable_type', versionable_type)
     qb.where('versionable_id', versionable_id)
+    qb.where('key', key)
     qb.orderBy('created_at', 'desc')
   }).fetch({
     transacting: req.trx

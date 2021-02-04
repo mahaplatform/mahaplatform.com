@@ -4,11 +4,12 @@ import socket from '@core/services/routes/emitter'
 
 const rollbackRoute = async (req, res) => {
 
-  const { versionable_type, versionable_id } = req.params
+  const { versionable_type, versionable_id, key } = req.params
 
   const version = await rollbackVersion(req, {
     versionable_type,
     versionable_id,
+    key,
     rollback_id: req.body.rollback_id
   })
 

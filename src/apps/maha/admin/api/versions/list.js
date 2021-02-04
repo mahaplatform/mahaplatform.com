@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const versions = await Version.query(qb => {
     qb.where('versionable_type', req.params.versionable_type)
     qb.where('versionable_id', req.params.versionable_id)
+    qb.where('key', req.params.key)
     qb.where('team_id', req.team.get('id'))
     qb.orderBy('created_at', 'asc')
   }).fetchAll({

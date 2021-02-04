@@ -2144,6 +2144,7 @@ const schema = {
       table.timestamp('unpublished_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('key', 255)
     })
 
     await knex.schema.createTable('maha_voicemails', (table) => {

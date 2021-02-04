@@ -1,2 +1,5 @@
 export rollbackVersion from './rollback_version'
 export updateVersion from './update_version'
+export createVersion from './create_version'
+export getPublished from './get_published'
+export getCurrent from './get_current'

@@ -101,6 +101,6 @@ router.use('/:auditable_type/:auditable_id/audits', audits)
 
 router.use('/:reactable_type/:reactable_id/react/:type', react)
 
-router.use('/:versionable_type/:versionable_id/versions', versions)
+router.use('/:versionable_type/:versionable_id/:key/versions', versions)
 
 export default router
