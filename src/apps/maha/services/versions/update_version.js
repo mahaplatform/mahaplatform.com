@@ -18,6 +18,7 @@ const getVersion = async (req, { versionable_type, versionable_id, key }) => {
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
+    key,
     published_at: null,
     unpublished_at: null
   }).save(null, {
@@ -38,6 +39,7 @@ const publishVersion = async (req, { version }) => {
   const oldversions = await Version.query(qb => {
     qb.where('versionable_type', version.get('versionable_type'))
     qb.where('versionable_id', version.get('versionable_id'))
+    qb.where('key', version.get('key'))
     qb.whereNotNull('published_at')
     qb.whereNull('unpublished_at')
     qb.whereNot('id', version.get('id'))
@@ -58,12 +60,13 @@ const publishVersion = async (req, { version }) => {
 
 const updateVersion = async (req, params) => {
 
-  const { versionable_type, versionable_id, value, publish } = params
+  const { versionable_type, versionable_id, key, value, publish } = params
 
   const version = await getVersion(req, {
     versionable_type,
     versionable_id,
-    value
+    value,
+    key
   })
 
   await version.save({

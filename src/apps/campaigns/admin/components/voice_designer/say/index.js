@@ -5,6 +5,5 @@ export default {
   label: 'Speak Text',
   type: 'voice',
   action: 'say',
-  form: Form,
-  token: ({ message }) => message
+  form: Form
 }

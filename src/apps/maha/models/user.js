@@ -73,6 +73,10 @@ const User = new Model({
       if(this.get('activated_at') === null) return 'inactive'
       if(!this.get('is_active')) return 'disabled'
       return 'active'
+    },
+
+    client: function(){
+      return this.get('id').toString()
     }
 
   },

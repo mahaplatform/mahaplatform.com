@@ -9,7 +9,7 @@ const getContentType = (key) => {
 
 const upload = async (req, { acl, key, bucket, cache_control, content_type, file_data }) => {
 
-  await s3.upload({
+  return await s3.upload({
     ACL: acl || 'public-read',
     Body: file_data,
     Bucket: bucket || process.env.AWS_WEB_BUCKET,

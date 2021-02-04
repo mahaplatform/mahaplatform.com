@@ -6,7 +6,12 @@ import './core/services/environment'
 // import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 // import moment from 'moment'
 // import _ from 'lodash'
-import twilio from '@core/vendor/twilio'
+// import twilio from '@core/vendor/twilio'
+
+import { renderConfig } from '@apps/maha/services/phone_numbers'
+import { getCurrent } from '@apps/maha/services/versions'
+import PhoneNumber from '@apps/maha/models/phone_number'
+import { upload } from '@core/services/aws/s3'
 
 const processor = async () => {
   // await knex.transaction(async(trx) => {
@@ -61,8 +66,35 @@ const processor = async () => {
   //   from: '+16072462347'
   // })
 
-  console.log(await twilio.calls('CAca47f2c4285b071004b1487dc0ee30d6').fetch())
+  const phone_number = await PhoneNumber.query(qb => {
+    qb.where('id', 1)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  const config = await getCurrent(req, {
+    versionable_type: 'maha_phone_numbers',
+    versionable_id: 1,
+    key: 'config'
+  })
+
+  const rendered = await renderConfig(req, {
+    phone_number,
+    config: config.get('value')
+  })
+
+  const result = await upload(null, {
+    acl: 'private',
+    bucket: process.env.AWS_BUCKET,
+    key: `twiml/voice/inbound/${phone_number.get('number').substr(1)}`,
+    cache_control: 'max-age=0,no-cache',
+    content_type: 'application/json',
+    file_data: JSON.stringify(rendered)
+  })
+
+  console.log(result)
 
 }
+
 
 processor().then(process.exit)

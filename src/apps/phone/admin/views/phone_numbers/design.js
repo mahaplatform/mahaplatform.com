@@ -24,7 +24,7 @@ class Designer extends React.Component {
         status: 'active',
         steps: current.value.steps
       },
-      endpoint: `/api/admin/maha_phone_numbers/${phone_number.id}/config/versions`,
+      endpoint: `/api/admin/phone/phone_numbers/${phone_number.id}/workflow`,
       program: phone_number.program
     }
   }
