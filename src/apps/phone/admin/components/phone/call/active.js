@@ -1,25 +1,24 @@
-import PropTypes from 'prop-types'
 import Transfer from './transfer'
-import { Timer } from '@admin'
-import Button from '../button'
+import PropTypes from 'prop-types'
 import Keypad from '../keypad'
+import Button from '../button'
+import { Timer } from '@admin'
 import Header from './header'
-import SMS from '../sms/sms'
 import React from 'react'
-import Add from '../add'
+import SMS from '../sms'
 import _ from 'lodash'
 
-class Call extends React.Component {
+class Active extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     network: PropTypes.object,
     phone: PropTypes.object,
-    router: PropTypes.object
+    tasks: PropTypes.object
   }
 
   static propTypes = {
     call: PropTypes.object,
-    programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -28,30 +27,34 @@ class Call extends React.Component {
     mode: 'functions'
   }
 
-  _handleAdd = this._handleAdd.bind(this)
-  _handleAddCall = this._handleAddCall.bind(this)
   _handleDigits = this._handleDigits.bind(this)
+  _handleForward = this._handleForward.bind(this)
+  _handleForwardCall = this._handleForwardCall.bind(this)
   _handleHangup = this._handleHangup.bind(this)
   _handleHold = this._handleHold.bind(this)
-  _handleInfo = this._handleInfo.bind(this)
   _handleMute = this._handleMute.bind(this)
   _handleSMS = this._handleSMS.bind(this)
-  _handleTransfer = this._handleTransfer.bind(this)
   _handleTransferCall = this._handleTransferCall.bind(this)
+  _handleTransfer = this._handleTransfer.bind(this)
 
   render() {
-    const { mode } = this.state
-    const { call } = this.props
     const buttons = this._getButtons()
-    const rows = _.chunk(buttons, 2)
+    const rows = _.chunk(buttons, 3)
+    const { call } = this.props
+    const { mode } = this.state
     return (
       <div className="maha-phone-call">
-        <Header call={ call } />
+        <Header call={ call.call } />
         <div className="maha-phone-call-timer">
           <Timer from={ call.started_at } />
         </div>
+        { call.client === 'cell' &&
+          <div className="maha-phone-call-extra">
+            This call is active on your cell phone
+          </div>
+        }
         <div className="maha-phone-call-body">
-          { mode === 'functions' ?
+          { mode === 'functions' &&
             <div className="maha-phone-call-functions">
               { rows.map((row, i) => (
                 <div className="maha-phone-actions" key={`actions_${i}`}>
@@ -62,16 +65,20 @@ class Call extends React.Component {
                   ))}
                 </div>
               )) }
-            </div> :
+            </div>
+          }
+          { mode === 'keypad' &&
             <Keypad { ...this._getKeyPad() } />
           }
         </div>
-        { mode === 'functions' ?
+        { mode === 'functions' &&
           <div className="maha-phone-actions">
             <div className="maha-phone-action">
               <Button { ...this._getHangup() } />
             </div>
-          </div> :
+          </div>
+        }
+        { mode === 'keypad' &&
           <div className="maha-phone-actions">
             <div className="maha-phone-action">
               <Button { ...this._getFunctions() } />
@@ -82,22 +89,22 @@ class Call extends React.Component {
     )
   }
 
-  _getAdd() {
-    const { programs, onPop, onPush } = this.props
-    return {
-      programs,
-      onCall: this._handleAdd,
-      onPop,
-      onPush
-    }
-  }
-
   _getButtons() {
+    const { user } = this.context.admin
     const { call } = this.props
+    if(call.client === 'cell') {
+      return [
+        { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+        { icon: 'mobile', label: 'device', handler: this._handleForward, disabled: user.cell_phone === null },
+        { icon: 'comments', label: 'sms', handler: this._handleSMS }
+      ]
+    }
     return [
-      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
       { icon: call.muted ? 'microphone-slash' : 'microphone', label: 'mute', handler: this._handleMute, depressed: call.muted },
-      { icon: 'plus', label: 'add call', handler: this._handleAddCall },
+      { icon: 'th', label: 'keypad', handler: this._handleMode.bind(this, 'keypad') },
+      { icon: 'pause', label: 'hold', handler: this._handleHold, depressed: call.held },
+      { icon: 'random', label: 'transfer', handler: this._handleTransfer },
+      { icon: 'mobile', label: 'device', handler: this._handleForward, disabled: user.cell_phone === null },
       { icon: 'comments', label: 'sms', handler: this._handleSMS }
     ]
   }
@@ -116,20 +123,11 @@ class Call extends React.Component {
     }
   }
 
-  _getPanel() {
-    const { call } = this.props
-    const { direction } = call.call
-    return {
-      title: direction === 'inbound' ? 'Inbound Call' : 'Outbound Call'
-    }
-  }
-
   _getSMS() {
     const { call, onPop, onPush } = this.props
-    const { program, phone_number} = call.call
-    return  {
-      phone_id: phone_number.id,
-      program,
+    return {
+      phone_number: call.call.phone_number,
+      program: call.call.program,
       onPop,
       onPush
     }
@@ -138,18 +136,9 @@ class Call extends React.Component {
   _getTransfer() {
     const { onPop } = this.props
     return {
-      onChoose: this._handleTransferCall,
-      onPop
+      onPop,
+      onChoose: this._handleTransferCall
     }
-  }
-
-  _handleAdd(call) {
-    this.context.phone.call(call)
-    this.props.onPop()
-  }
-
-  _handleAddCall() {
-    this.props.onPush(Add, this._getAdd())
   }
 
   _handleDigits(number) {
@@ -157,21 +146,29 @@ class Call extends React.Component {
     call.connection.sendDigits(number)
   }
 
+  _handleForward() {
+    const { call } = this.props
+    const items = []
+    if(call.client === 'cell') items.push({ label: 'Forward to my Maha phone', handler: this._handleForwardCall.bind(this, 'maha') })
+    if(call.client === 'maha') items.push({ label: 'Forward to my cell phone', handler: this._handleForwardCall.bind(this, 'cell') })
+    this.context.tasks.open({ items })
+  }
+
+  _handleForwardCall(client) {
+    const { call } = this.props
+    this.context.phone.forward(call, client)
+  }
+
   _handleHangup() {
     const { call } = this.props
-    this.props.call.hangup(call)
+    this.context.phone.hangup(call)
   }
 
   _handleHold() {
+    const { phone } = this.context
     const { call } = this.props
-    if(call.queued) return this.props.call.queue(call)
-    this.props.call.enqueue(call)
-  }
-
-  _handleInfo() {
-    const { call } = this.props
-    const { contact } = call.call
-    this.context.router.history.push(`/crm/contacts/${contact.id}`)
+    if(call.held) phone.unhold(call)
+    if(!call.held) phone.hold(call)
   }
 
   _handleMode(mode) {
@@ -180,22 +177,26 @@ class Call extends React.Component {
 
   _handleMute() {
     const { call } = this.props
-    call.connection.mute(!call.muted)
+    this.context.phone.mute(call)
   }
 
   _handleSMS() {
-    this.props.onPush(SMS, this._getSMS())
+    return this.props.onPush(SMS, this._getSMS.bind(this))
   }
 
   _handleTransfer() {
-    this.props.onPush(Transfer, this._getTransfer())
+    this.props.onPush(Transfer, this._getTransfer.bind(this))
   }
 
   _handleTransferCall(user) {
+    const { phone } = this.context
     const { call } = this.props
-    this.props.call.transfer(call, user.id)
+    phone.transfer(call, {
+      user,
+      user_id: user.id
+    })
   }
 
 }
 
-export default Call
+export default Active

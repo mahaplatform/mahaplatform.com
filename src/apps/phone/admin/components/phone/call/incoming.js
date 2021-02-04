@@ -3,7 +3,13 @@ import Button from '../button'
 import Header from './header'
 import React from 'react'
 
-class Call extends React.Component {
+class Incoming extends React.Component {
+
+  static contextTypes = {
+    admin: PropTypes.object,
+    phone: PropTypes.object,
+    tasks: PropTypes.object
+  }
 
   static propTypes = {
     call: PropTypes.object
@@ -13,34 +19,28 @@ class Call extends React.Component {
   _handleReject = this._handleReject.bind(this)
 
   render() {
-    const { call } = this.props
-    const { extra } = call.params
+    const { call, extra } = this.props.call
     const buttons = this._getButtons()
     return (
       <div className="maha-phone-call">
         <Header call={ call } />
-        { extra &&
+        { extra && extra.transfered_from &&
           <div className="maha-phone-call-extra">
-            { extra.transfered_from &&
-              <div className="maha-phone-call-transfered">
-                Call transfered from { extra.transfered_from }
-              </div>
-            }
-            { extra.transfered_back_from &&
-              <div className="maha-phone-call-transfered">
-                No answer, call transfered back from { extra.transfered_back_from }
-              </div>
-            }
+            Call transfered from { extra.transfered_from }
           </div>
         }
-        <div className="maha-phone-call-body">
-          <div className="maha-phone-actions" >
-            { buttons.map((button, index) => (
-              <div className="maha-phone-action" key={`action_${index}`}>
-                <Button { ...button } />
-              </div>
-            ))}
+        { extra && extra.transfered_back_from &&
+          <div className="maha-phone-call-extra">
+            No answer, call transfered back from { extra.transfered_back_from }
           </div>
+        }
+        <div className="maha-phone-call-body" />
+        <div className="maha-phone-actions" >
+          { buttons.map((button, index) => (
+            <div className="maha-phone-action" key={`action_${index}`}>
+              <Button { ...button } />
+            </div>
+          ))}
         </div>
       </div>
     )
@@ -61,14 +61,14 @@ class Call extends React.Component {
 
   _handleAccept() {
     const { call } = this.props
-    this.props.call.accept(call)
+    this.context.phone.accept(call)
   }
 
   _handleReject() {
     const { call } = this.props
-    call.connection.reject()
+    this.context.phone.reject(call)
   }
 
 }
 
-export default Call
+export default Incoming

@@ -82,7 +82,7 @@ class Recipientsfield extends React.PureComponent {
           { value: 'woman', text: 'Female Voice' },
           { value: 'man', text: 'Male Voice' }
         ], required: true, defaultValue: config.voice },
-        { name: 'message', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.message }
+        { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
       ]
     } else if(config.strategy === 'play') {
       return [

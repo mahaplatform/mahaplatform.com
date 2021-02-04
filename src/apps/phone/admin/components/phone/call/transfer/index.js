@@ -5,6 +5,10 @@ import React from 'react'
 
 class Transfer extends React.Component {
 
+  static contextTypes = {
+    admin: PropTypes.object
+  }
+
   static propTypes = {
     onChoose: PropTypes.func,
     onPop: PropTypes.func
@@ -34,11 +38,15 @@ class Transfer extends React.Component {
   }
 
   _getInfinite() {
+    const { user } = this.context.admin
     const { q } = this.state
     return {
       endpoint: '/api/admin/users',
       filter: {
         ...q.length > 0 ? { q } : {},
+        id: {
+          $neq: user.id
+        },
         is_active: {
           $eq: true
         }

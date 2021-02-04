@@ -1,7 +1,9 @@
+import Transfering from './transfering'
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Inactive from './inactive'
 import Incoming from './incoming'
+import Outgoing from './outgoing'
 import Active from './active'
 import React from 'react'
 
@@ -9,53 +11,74 @@ class Call extends React.Component {
 
   static propTypes = {
     calls: PropTypes.array,
-    programs: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
 
+  _handleDebug = this._handleDebug.bind(this)
+
   render() {
-    const inactive = this._getCalls(false)
-    const active = this._getCalls(true)
+    const unfocused = this._getCalls(false)
+    const focused = this._getCalls(true)
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-phone-receiver">
-          { inactive.map((call, index) => (
-            <Inactive key={`call_${index}`} call={ call } />
-          )) }
-          { active.map((call, index) => (
-            <div className="maha-phone-receiver-active" key={`call_${index}`}>
-              { call.status === 'active' ?
-                <Active { ...this._getActive(call) } /> :
-                <Incoming call={ call } />
-              }
-            </div>
-          )) }
-        </div>
+        { unfocused.map((call, index) => (
+          <Inactive key={`call_${index}`} call={ call } />
+        )) }
+        { focused.map((call, index) => (
+          <div className="maha-phone-receiver" key={`call_${index}`}>
+            { call.transfering !== null &&
+              <Transfering { ...this._getCall(call) } />
+            }
+            { !call.transfering && call.status === 'in-progress' &&
+              <Active { ...this._getCall(call) } />
+            }
+            { !call.transfering && call.direction === 'inbound' && call.status !== 'in-progress' &&
+              <Incoming { ...this._getCall(call) } />
+            }
+            { !call.transfering && call.direction === 'outbound' && call.status !== 'in-progress' &&
+              <Outgoing { ...this._getCall(call) } />
+            }
+          </div>
+        )) }
+        { process.env.NODE_ENV !== 'production' &&
+          <div className="maha-phone-debug" onClick={ this._handleDebug }>
+            Debug Calls
+          </div>
+        }
       </ModalPanel>
     )
   }
 
-  _getActive(call) {
-    const { programs, onPop, onPush } = this.props
+  _getActive() {
+    return this.props.calls.find(call => {
+      return call.active
+    })
+  }
+
+  _getCalls(focused) {
+    return this.props.calls.filter(call => {
+      return call.focused === focused
+    })
+  }
+
+  _getCall(call) {
+    const { onPop, onPush } = this.props
     return {
       call,
-      programs,
       onPop,
       onPush
     }
   }
 
-  _getCalls(active) {
-    return this.props.calls.filter(call => {
-      return call.active === active
-    })
-  }
-
   _getPanel() {
     return {
-      title: 'Incoming Call'
+      title: 'Call'
     }
+  }
+
+  _handleDebug() {
+    this.props.calls.map(call => console.log(call))
   }
 
 }

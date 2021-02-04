@@ -26,10 +26,9 @@ class CallContainer extends React.Component {
   }
 
   _getCall() {
-    const { calls, programs } = this.props
+    const { calls } = this.props
     return {
       calls,
-      programs,
       onPop: this._handlePop,
       onPush: this._handlePush
     }

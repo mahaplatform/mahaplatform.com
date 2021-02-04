@@ -1,4 +1,3 @@
-import Token from './token'
 import Form from './form'
 
 export default {
@@ -6,6 +5,5 @@ export default {
   label: 'Dial',
   type: 'voice',
   action: 'dial',
-  form: Form,
-  token: Token
+  form: Form
 }

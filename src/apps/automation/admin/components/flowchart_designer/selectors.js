@@ -52,16 +52,16 @@ const getBranches = (steps, step) => {
         label: 'connected',
         then: segment(steps, step.code, 'connected')
       },
-      {
-        code: 'dialed #',
-        label: 'hash',
+      ..._.includes(step.config.specials, 'hash') ? [{
+        code: 'hash',
+        label: '#',
         then: segment(steps, step.code, 'hash')
-      },
-      {
-        code: 'else',
-        label: 'else',
-        then: segment(steps, step.code, 'else')
-      }
+      }] : [],
+      ..._.includes(step.config.specials, 'star') ? [{
+        code: 'star',
+        label: '*',
+        then: segment(steps, step.code, 'star')
+      }] : []
     ]
   }
   return null

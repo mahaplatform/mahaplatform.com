@@ -45,8 +45,9 @@ class DialByExtension extends React.PureComponent {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
       voice: 'woman',
-      message: 'You may dial your party\'s extension at any time',
-      extensions: []
+      text: 'You may dial your party\'s extension at any time',
+      extensions: [],
+      specials: []
     }
   }
 
@@ -76,7 +77,12 @@ class DialByExtension extends React.PureComponent {
               ...this._getStrategy()
             ] },
             { label: 'Extensions', name: 'extensions', type: ExtensionsField, users, required: true, defaultValue: config.extensions },
-            { name: 'escape', type: 'checkbox', prompt: 'Enable # to escape', defaultValue: config.escape }
+            { label: 'Special Characters', type: 'segment', fields: [
+              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
+                { value: 'hash', text: 'Respond to hash (#)' },
+                { value: 'star', text: 'Respond to star (*)' }
+              ], defaultValue: config.specials }
+            ] }
           ]
         }
       ]
@@ -91,7 +97,7 @@ class DialByExtension extends React.PureComponent {
           { value: 'woman', text: 'Female Voice' },
           { value: 'man', text: 'Male Voice' }
         ], required: true, defaultValue: config.voice },
-        { name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.message }
+        { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
       ]
     } else if(config.strategy === 'play') {
       return [

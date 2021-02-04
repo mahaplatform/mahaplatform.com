@@ -5,16 +5,17 @@ import React from 'react'
 class Program extends React.Component {
 
   static propTypes = {
+    number: PropTypes.object,
     program: PropTypes.object
   }
 
   render() {
-    const { program } = this.props
+    const { number, program } = this.props
     return (
       <div className="maha-phone-call-header-program">
         <Logo team={ program } />
         <h4>{ program.title }</h4>
-        <p>{ program.phone_number.formatted }</p>
+        <p>{ number.formatted }</p>
       </div>
     )
   }

@@ -2,7 +2,7 @@ import { UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Contacts extends React.Component {
+class Results extends React.Component {
 
   static propTypes = {
     records: PropTypes.array,
@@ -28,4 +28,4 @@ class Contacts extends React.Component {
 
 }
 
-export default Contacts
+export default Results

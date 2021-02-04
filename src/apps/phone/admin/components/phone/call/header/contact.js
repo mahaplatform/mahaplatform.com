@@ -6,16 +6,16 @@ class Contact extends React.Component {
 
   static propTypes = {
     contact: PropTypes.object,
-    from: PropTypes.object
+    number: PropTypes.object
   }
 
   render() {
-    const { contact, from } = this.props
+    const { contact, number } = this.props
     return (
       <div className="maha-phone-call-header-contact">
         <ContactAvatar { ...contact } />
         <h4>{ contact ? contact.display_name : 'Unknown' }</h4>
-        <p>{ from.formatted }</p>
+        <p>{ number ? number.formatted : '' }</p>
       </div>
     )
   }

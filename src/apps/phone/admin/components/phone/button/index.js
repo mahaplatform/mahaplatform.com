@@ -39,10 +39,10 @@ class Button extends React.Component {
     return classes.join(' ')
   }
 
-  _handleClick() {
+  _handleClick(e) {
     const { disabled, handler } = this.props
     if(disabled) return
-    handler()
+    handler(e)
   }
 
 }

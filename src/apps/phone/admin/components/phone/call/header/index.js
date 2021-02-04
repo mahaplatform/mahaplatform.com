@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Program from './program'
 import Contact from './contact'
-import User from './user'
 import React from 'react'
 
 class Header extends React.Component {
@@ -11,33 +10,37 @@ class Header extends React.Component {
   }
 
   render() {
-    const { call } = this.props
-    const { contact, direction, from, to, program, from_user, to_user } = call.call
     return (
       <div className="maha-phone-call-header">
-        { program && direction === 'outbound' && !from_user &&
-          <Program program={ program } />
-        }
-        { contact && direction === 'inbound' &&
-          <Contact contact={ contact } from={ from }/>
-        }
-        { from_user &&
-          <User user={ from_user } />
-        }
+        { this._getFrom() }
         <div className="maha-phone-call-header-link">
           <i className="fa fa-arrow-right" />
         </div>
-        { program && direction === 'inbound' &&
-          <Program program={ program } />
-        }
-        { contact && direction === 'outbound' &&
-          <Contact contact={ contact } from={ from } />
-        }
-        { to_user &&
-          <User user={ to_user } to={ to } />
-        }
+        { this._getTo() }
       </div>
     )
+  }
+
+  _getFrom() {
+    const { call } = this.props
+    const { contact, direction, from_number, program } = call
+    if(direction === 'inbound') {
+      return <Contact contact={ contact } number={ from_number } />
+    }
+    if(direction === 'outbound') {
+      return <Program program={ program } number={ from_number } />
+    }
+  }
+
+  _getTo() {
+    const { call } = this.props
+    const { contact, direction, to_number, program } = call
+    if(direction === 'inbound') {
+      return <Program program={ program } number={ to_number } />
+    }
+    if(direction === 'outbound') {
+      return <Contact contact={ contact } number={ to_number } />
+    }
   }
 
 }

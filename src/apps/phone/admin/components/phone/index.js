@@ -1,23 +1,26 @@
 import { Stack, Tasks } from '@admin'
 import PropTypes from 'prop-types'
-import Phone from './phone'
 import React from 'react'
+import Phone from './phone'
 import Call from './call'
 
-class PhoneContainer extends React.Component {
+class Handset extends React.Component {
 
-  static childContextTypes = {
-    modal: PropTypes.object
+  static contextTypes = {
+    admin: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
+    programs: PropTypes.array,
     calls: PropTypes.array,
-    programs: PropTypes.array
+    error: PropTypes.string,
+    onClose: PropTypes.func
   }
 
   state = {
-    program: null,
-    cards: []
+    cards: [],
+    program_id: null
   }
 
   _handlePop = this._handlePop.bind(this)
@@ -40,46 +43,39 @@ class PhoneContainer extends React.Component {
         </div>
       </Tasks>
     )
-
   }
 
   componentDidMount() {
     const { programs } = this.props
-    this.setState({
-      program: programs[0]
-    })
+    this._handleProgram(programs[0].id)
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
-  getChildContext() {
+  _getPhone() {
+    const { programs, onClose } = this.props
     return {
-      modal: {
-        open: this._handlePush,
-        pop: this._handlePop,
-        push: this._handlePush
-      }
+      programs,
+      program: this._getProgram(),
+      onClose,
+      onProgram: this._handleProgram,
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 
   _getCall() {
-    const { calls, programs } = this.props
+    const { calls } = this.props
     return {
-      calls,
-      programs
+      calls
     }
   }
 
-  _getPhone() {
+  _getProgram() {
+    const { program_id } = this.state
     const { programs } = this.props
-    const { program } = this.state
-    return {
-      key: `program_${program.id}`,
-      programs,
-      program,
-      onPop: this._handlePop,
-      onProgram: this._handleProgram,
-      onPush: this._handlePush
-    }
+    return programs.find(program => {
+      return program.id === program_id
+    })
   }
 
   _getStack() {
@@ -96,8 +92,8 @@ class PhoneContainer extends React.Component {
     })
   }
 
-  _handleProgram(program) {
-    this.setState({ program })
+  _handleProgram(program_id) {
+    this.setState({ program_id })
   }
 
   _handlePush(component, props) {
@@ -111,4 +107,4 @@ class PhoneContainer extends React.Component {
 
 }
 
-export default PhoneContainer
+export default Handset

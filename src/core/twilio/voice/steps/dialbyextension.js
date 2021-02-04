@@ -1,4 +1,6 @@
 const { speakNumber, url } = require('./utils')
+const play = require('./play')
+const say = require('./say')
 
 const dial = (req, twiml) => {
   const { query, step } = req
@@ -14,8 +16,9 @@ const dial = (req, twiml) => {
 
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
+  const { extensions } = step
   const { state } = query
-  const index = step.users.findIndex(user => {
+  const index = extensions.findIndex(extension => {
     return user.extension === body.Digits
   })
   if(index >= 0) {
@@ -38,6 +41,7 @@ const answer = (req, twiml) => {
 }
 
 const ask = (req, twiml) => {
+  const { extensions, strategy, voice, text, recording_id } = req.step
   const { state } = req.query
   const attempt = req.query.attempt ? parseInt(req.query.attempt) : 1
   const gather = twiml.gather({
@@ -47,11 +51,14 @@ const ask = (req, twiml) => {
     timeout: 5
   })
   if(attempt === 1) {
-    gather.say('You may dial your party\'s extension at any time')
+    if(strategy === 'say') say({ step: { voice, text } }, gather, true)
+    if(strategy === 'play') play({ step: { loop: 1, recording_id } }, gather, true)
     gather.pause({ length: 1 })
   }
-  req.step.users.map(user => {
-    gather.say(`Dial ${speakNumber(user.extension)} for ${user.first_name} ${user.last_name}`)
+  extensions.map(extension => {
+    const { strategy, voice, text, recording_id } = extension
+    if(strategy === 'say') say({ step: { voice, text } }, gather, true)
+    if(strategy === 'play') play({ step: { loop: 1, recording_id } }, gather, true)
     gather.pause({ length: 1 })
   })
   if(attempt < 3) {

@@ -15,8 +15,8 @@ const getContactPhoneNumber = async (req, { number }) => {
 
 const getCell = async (req, { config, from}) => {
   const twcall = await twilio.calls.create({
-    url: `${process.env.TWILIO_TWIML_HOST}/call?config=${config}`,
-    statusCallback: `${process.env.TWILIO_TWIML_HOST}/status`,
+    url: `${process.env.TWILIO_HOST_TWIML}/call?config=${config}`,
+    statusCallback: `${process.env.TWILIO_HOST_TWIML}/status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed'],
     to: req.user.get('cell_phone'),
     from
