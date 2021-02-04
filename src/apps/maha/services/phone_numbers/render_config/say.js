@@ -1,5 +1,5 @@
-const say = async (req, { config }) => {
-  const { text, voice } = config
+const say = async (req, { steps, step }) => {
+  const { text, voice } = step.config
   return { verb: 'say', voice, text }
 }
 

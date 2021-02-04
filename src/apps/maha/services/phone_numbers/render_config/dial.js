@@ -12,8 +12,8 @@ const getUser = async(req, { user_id }) => {
   ]
 }
 
-const dial = async (req, { config }) => {
-  const recipients = await Promise.reduce(config.recipients, async(recipients, recipient) => {
+const dial = async (req, { steps, step }) => {
+  const recipients = await Promise.reduce(step.config.recipients, async(recipients, recipient) => {
     const { strategy, user_id, number } = recipient
     return [
       ...recipients,
