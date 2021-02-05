@@ -1,15 +1,50 @@
 import dialbyextension from './dialbyextension'
+import Asset from '@apps/maha/models/asset'
 import timeofday from './timeofday'
 import voicemail from './voicemail'
+import dialmenu from './dialmenu'
 import redirect from './redirect'
 import play from './play'
 import dial from './dial'
 import say from './say'
 
+const announcePlay = async (req, config) => {
+  const recording = await Asset.query(qb => {
+    qb.where('id', config.recording_id)
+  }).fetch({
+    transacting: req.trx
+  })
+  return {
+    play: {
+      url: recording.get('signed_url'),
+      loop: 0
+    }
+  }
+}
+
+const announceSay = async(req, config) => ({
+  say: {
+    voice: config.voice,
+    text: config.text
+  }
+})
+
+const getAnnounceVerb = (strategy) => {
+  if(strategy === 'play') return announcePlay
+  if(strategy === 'say') return announceSay
+  return null
+}
+
+export const announce = async(req, config) => {
+  const verb = getAnnounceVerb(config.strategy)
+  return verb ? await verb(req, config) : {}
+}
+
 const getCreator = (action) => {
   if(action === 'dialbyextension') return dialbyextension
   if(action === 'timeofday') return timeofday
   if(action === 'voicemail') return voicemail
+  if(action === 'dialmenu') return dialmenu
   if(action === 'redirect') return redirect
   if(action === 'play') return play
   if(action === 'dial') return dial

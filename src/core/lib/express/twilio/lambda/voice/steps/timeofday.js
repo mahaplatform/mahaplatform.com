@@ -1,4 +1,4 @@
-const { url } = require('./utils')
+const { voiceurl } = require('./utils')
 const moment = require('moment')
 const _ = require('lodash')
 
@@ -18,9 +18,9 @@ const timeofday = (req, twiml) => {
     return _.includes(timeblock.days, dayofweek)
   })
   if(index >= 0) {
-    twiml.redirect(url(req, '/voice', { state: `${state}.timeblocks.${index}.steps.0` }))
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.timeblocks.${index}.steps.0` }))
   } else  {
-    twiml.redirect(url(req, '/voice', { state: `${state}.else.steps.0` }))
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.else.steps.0` }))
   }
 }
 

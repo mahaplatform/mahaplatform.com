@@ -2,7 +2,7 @@ const { next } = require('./utils')
 
 const say = (req, twiml, child = false) => {
 
-  const voice = req.step.voice || 'woman'
+  const voice = req.step.voice || 'alice'
   const loop = req.step.loop || 1
   const text = req.step.text
 

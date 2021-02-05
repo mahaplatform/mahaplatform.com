@@ -27,7 +27,7 @@ const speakNumber = (number) => {
   }).join(' ')
 }
 
-const url = (req, path, params) => {
+const voiceurl = (req, path, params) => {
   const { enrollment, workflow } = req.query
   params.enrollment = enrollment
   if(workflow) params.workflow = workflow
@@ -47,7 +47,7 @@ const next = (req, twiml) => {
     const candidate = next.join('.')
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
-  if(nextstate) return twiml.redirect(url(req, '/voice', { state: nextstate }))
+  if(nextstate) return twiml.redirect(voiceurl(req, '/voice', { state: nextstate }))
   return twiml.hangup()
 }
 
@@ -55,4 +55,4 @@ exports.next = next
 exports.getUserByNumber = getUserByNumber
 exports.getMatchingUsers = getMatchingUsers
 exports.speakNumber = speakNumber
-exports.url = url
+exports.voiceurl = voiceurl

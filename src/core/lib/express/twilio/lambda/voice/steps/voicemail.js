@@ -1,4 +1,4 @@
-const { next, url } = require('./utils')
+const { next, voiceurl } = require('./utils')
 const play = require('./play')
 const say = require('./say')
 
@@ -12,7 +12,7 @@ const ask = (req, twiml) => {
   const { state } = req.query
   const ask = performAsk(req, twiml)
   twiml.record({
-    action: url(req, '/voice', { state, action: 'complete' }),
+    action: voiceurl(req, '/voice', { state, action: 'complete' }),
     trim: 'trim-silence',
     finishOnKey: '#'
   })
