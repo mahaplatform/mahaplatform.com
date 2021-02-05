@@ -14,8 +14,6 @@ const twilio = async (req, res, next) => {
 
   }
 
-  console.log('sns', req.body)
-
   req.body = JSON.parse(req.body.Message)
 
   next()

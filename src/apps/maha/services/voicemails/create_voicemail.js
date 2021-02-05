@@ -10,7 +10,7 @@ const createVoicemail = async(req, { call, url, duration }) => {
   })
 
   const code = await generateCode(req, {
-    table: 'phone_voicemails'
+    table: 'maha_voicemails'
   })
 
   await Voicemail.forge({
