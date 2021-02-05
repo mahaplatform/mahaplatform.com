@@ -17,14 +17,14 @@ const dial = (req, twiml) => {
 
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
-  const { specials, extensions } = step
+  const { star, hash, extensions } = step
   const { state } = query
-  if(_.includes(specials, 'star') && body.Digits === '*') {
-    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.timeblocks.${index}.steps.0` }))
+  if(star && body.Digits === '*') {
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.star.steps.0` }))
     return 'pressed star'
   }
-  if(_.includes(specials, 'hash') && body.Digits === '#') {
-    twiml.say('You pressed hash')
+  if(hash && body.Digits === '#') {
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.hash.steps.0` }))
     return 'pressed hash'
   }
   const index = extensions.findIndex(extension => {
@@ -50,25 +50,26 @@ const answer = (req, twiml) => {
 }
 
 const ask = (req, twiml) => {
-  const { extensions, strategy, voice, text, url } = req.step
+  console.log('here')
   const { state } = req.query
   const attempt = req.query.attempt ? parseInt(req.query.attempt) : 1
   const gather = twiml.gather({
     action: voiceurl(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
-    numDigits: 3,
+    numDigits: req.step.extensions.reduce((digits, extension) => {
+      return Math.max(digits, extension.extension.length)
+    }, 0),
     timeout: 5
   })
   if(attempt === 1) {
-    if(strategy === 'say') say({ step: { voice, text } }, gather, true)
-    if(strategy === 'play') play({ step: { loop: 1, url } }, gather, true)
-    gather.pause({ length: 1 })
+    if(req.step.say) say({ step: req.step.say }, gather, true)
+    if(req.step.play) play({ step: req.step.play }, gather, true)
+    if(req.step.say || req.step.play) gather.pause({ length: 1 })
   }
-  extensions.map(extension => {
-    const { strategy, voice, text, url } = extension
-    if(strategy === 'say') say({ step: { voice, text } }, gather, true)
-    if(strategy === 'play') play({ step: { loop: 1, url } }, gather, true)
-    gather.pause({ length: 1 })
+  req.step.extensions.map(extension => {
+    if(extension.say) say({ step: extension.say }, gather, true)
+    if(extension.play) play({ step: extension.play }, gather, true)
+    if(extension.say || extension.play) gather.pause({ length: 1 })
   })
   if(attempt < 3) {
     twiml.say('I didnt receive any input')

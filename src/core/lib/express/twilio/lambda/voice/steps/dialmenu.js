@@ -1,7 +1,6 @@
-const { speakNumber, voiceurl } = require('./utils')
+const { voiceurl } = require('./utils')
 const play = require('./play')
 const say = require('./say')
-const _ = require('lodash')
 
 const dial = (req, twiml) => {
   const { query, step } = req
@@ -17,13 +16,13 @@ const dial = (req, twiml) => {
 
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
-  const { specials, options } = step
+  const { star, hash, options } = step
   const { state } = query
-  if(_.includes(specials, 'star') && body.Digits === '*') {
+  if(star && body.Digits === '*') {
     twiml.redirect(voiceurl(req, '/voice', { state: `${state}.star.steps.0` }))
     return 'pressed star'
   }
-  if(_.includes(specials, 'hash') && body.Digits === '#') {
+  if(hash && body.Digits === '#') {
     twiml.redirect(voiceurl(req, '/voice', { state: `${state}.hash.steps.0` }))
     return 'pressed hash'
   }
@@ -55,6 +54,9 @@ const ask = (req, twiml) => {
   const gather = twiml.gather({
     action: voiceurl(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
+    numDigits: req.step.options.reduce((digits, option) => {
+      return Math.max(digits, option.number.length)
+    }, 0),
     timeout: 5
   })
   if(attempt === 1) {

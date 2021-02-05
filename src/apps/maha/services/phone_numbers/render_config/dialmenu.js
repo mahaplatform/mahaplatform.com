@@ -1,4 +1,5 @@
 import { announce, getSegment } from './utils'
+import _ from 'lodash'
 
 const dialmenu = async (req, { steps, step }) => {
   const { config } = step
@@ -23,7 +24,25 @@ const dialmenu = async (req, { steps, step }) => {
         parent: step.code,
         answer: option.code
       })
-    }))
+    })),
+    ..._.includes(config.specials, 'hash') ? {
+      hash: {
+        steps: await getSegment(req, {
+          steps,
+          parent: step.code,
+          answer: 'hash'
+        })
+      }
+    } : {},
+    ..._.includes(config.specials, 'star') ? {
+      star: {
+        steps: await getSegment(req, {
+          steps,
+          parent: step.code,
+          answer: 'star'
+        })
+      }
+    } : {}
   }
 }
 
