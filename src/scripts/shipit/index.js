@@ -333,13 +333,15 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:teams', () => {
-    if(args[1] !== 'maha') return
+    const database = args[1] || 'maha'
+    if(database !== 'maha') return
     var sql = 'update maha_teams set authentication_strategy=\'local\''
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:passwords', () => {
-    if(args[1] !== 'maha') return
+    const database = args[1] || 'maha'
+    if(database !== 'maha') return
     var password_salt = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WO'
     var password_hash = '\\$2a\\$10\\$EjngW3t55b8gCmtgs4a/WOR6KzZnF8hKHBDgmC69gz5SaQVNmhhGa'
     var sql = `update maha_accounts set password_salt='${password_salt}', password_hash='${password_hash}'`
@@ -347,13 +349,15 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'sync:phone_numbers', () => {
-    if(args[1] !== 'maha') return
+    const database = args[1] || 'maha'
+    if(database !== 'maha') return
     var sql = `update maha_phone_numbers SET sid='${process.env.TWILIO_NUMBER_SID}', number='${process.env.TWILIO_NUMBER}'`
     return shipit.local(`echo "${sql}" | psql maha`)
   })
 
   utils.registerTask(shipit, 'sync:braintree', () => {
-    if(args[1] !== 'maha') return
+    const database = args[1] || 'maha'
+    if(database !== 'maha') return
     var sql = [
       'update finance_banks set braintree_id=\'cornellcooperativeextensionassociationoftompkinscounty\'',
       'update crm_contacts set braintree_id=null',

@@ -13,6 +13,7 @@ import homeMiddleware from './home'
 import apiMiddleware from './api'
 import logger from './logger'
 import express from 'express'
+import twilio from './twilio'
 import arena from './arena'
 import voice from './voice'
 import error from './error'
@@ -48,6 +49,8 @@ server.use(logger)
 server.use(dav)
 
 server.use(shortlinkMiddleware)
+
+server.use('/twilio', twilio)
 
 server.use('/voice', voice)
 

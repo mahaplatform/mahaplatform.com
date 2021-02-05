@@ -28,7 +28,7 @@ const publish = async (keys) => {
 
     const outfile = path.join('tmp',`${name}.zip`)
 
-    const files = listFiles(path.join('src','core','twilio',name))
+    const files = listFiles(path.join('src','core','lib','express','twilio','lambda',name))
 
     const archive = new zip()
     files.map(file => archive.addFile(file.name, file.data))

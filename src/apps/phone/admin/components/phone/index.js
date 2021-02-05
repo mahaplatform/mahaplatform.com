@@ -13,18 +13,18 @@ class Handset extends React.Component {
 
   static propTypes = {
     programs: PropTypes.array,
+    program: PropTypes.object,
     calls: PropTypes.array,
     error: PropTypes.string,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    onProgram: PropTypes.func
   }
 
   state = {
-    cards: [],
-    program_id: null
+    cards: []
   }
 
   _handlePop = this._handlePop.bind(this)
-  _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
@@ -46,18 +46,16 @@ class Handset extends React.Component {
   }
 
   componentDidMount() {
-    const { programs } = this.props
-    this._handleProgram(programs[0].id)
     this._handlePush(Phone, this._getPhone.bind(this))
   }
 
   _getPhone() {
-    const { programs, onClose } = this.props
+    const { program, programs, onClose, onProgram } = this.props
     return {
+      program,
       programs,
-      program: this._getProgram(),
       onClose,
-      onProgram: this._handleProgram,
+      onProgram,
       onPop: this._handlePop,
       onPush: this._handlePush
     }
@@ -68,14 +66,6 @@ class Handset extends React.Component {
     return {
       calls
     }
-  }
-
-  _getProgram() {
-    const { program_id } = this.state
-    const { programs } = this.props
-    return programs.find(program => {
-      return program.id === program_id
-    })
   }
 
   _getStack() {
@@ -90,10 +80,6 @@ class Handset extends React.Component {
     this.setState({
       cards: this.state.cards.slice(0, index)
     })
-  }
-
-  _handleProgram(program_id) {
-    this.setState({ program_id })
   }
 
   _handlePush(component, props) {

@@ -11,6 +11,16 @@ const getContactPhoneNumber = async (req, { number }) => {
   })
 }
 
+const getProgramPhoneNumber = async (req, { number, sid }) => {
+  return await PhoneNumber.query(qb => {
+    if(number) qb.where('number', number)
+    if(sid) qb.where('sid', sid)
+  }).fetch({
+    withRelated: ['program','team'],
+    transacting: req.trx
+  })
+}
+
 const getCall = async(req, params) => {
 
   const call = await Call.where(qb => {
@@ -25,11 +35,9 @@ const getCall = async(req, params) => {
 
   // console.log(twcall)
 
-  const phone_number = await PhoneNumber.query(qb => {
-    qb.where('sid', twcall.phoneNumberSid)
-  }).fetch({
-    withRelated: ['program','team'],
-    transacting: req.trx
+  const phone_number = await getProgramPhoneNumber(req, {
+    sid: twcall.phoneNumberSid,
+    number: twcall.To
   })
 
   req.team = phone_number.related('team')

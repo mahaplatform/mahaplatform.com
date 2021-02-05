@@ -9,7 +9,7 @@ const status = async (req, result) => {
         ...req.body,
         Result: result
       })
-    })
+    }).promise()
   } catch(err) {
     console.log(err)
   }

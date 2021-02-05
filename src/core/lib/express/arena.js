@@ -3,7 +3,7 @@ import bull from 'bull'
 
 const arena = Arena({
   Bull: bull,
-  queues: ['analytics','cron','worker'].map(name => ({
+  queues: ['analytics','cron','twilio','worker'].map(name => ({
     type: 'bull',
     name,
     hostId: name,

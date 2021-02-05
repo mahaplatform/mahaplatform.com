@@ -100,7 +100,7 @@ export const fields = createSelector(
             return answer.answer
           }) : []
         }] : [],
-        ..._.includes(['record','voicemail'], step.action) ? [{
+        ..._.includes(['record'], step.action) ? [{
           name: `Recording Status (${step.config.name.value})`,
           key: `workflow.${step.config.code}`,
           type: 'text',
@@ -127,10 +127,6 @@ export const tokens = createSelector(
         } : {},
         ...step.action === 'record' ? {
           name: `Recording URL (${step.config.name.value})`,
-          token: `workflow.${step.config.name.token}_url`
-        } : {},
-        ...step.action === 'voicemail' ? {
-          name: `Voicemail URL (${step.config.name.value})`,
           token: `workflow.${step.config.name.token}_url`
         } : {}
       }))

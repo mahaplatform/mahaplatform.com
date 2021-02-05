@@ -1,8 +1,8 @@
-import voice_status from '@core/twilio/voice_status'
-import sms_status from '@core/twilio/sms_status'
-import voice from '@core/twilio/voice'
-import call from '@core/twilio/call'
-import sms from '@core/twilio/sms'
+import voice_status from './voice_status'
+import sms_status from './sms_status'
+import voice from './voice'
+import call from './call'
+import sms from './sms'
 import Url from 'url'
 
 const getHandler = (type) => {

@@ -28,7 +28,8 @@ class PhoneRoot extends React.Component {
   state = {
     calls: [],
     error: null,
-    open: false
+    open: false,
+    program_id: null
   }
 
   _handleAccept = this._handleAccept.bind(this)
@@ -41,6 +42,7 @@ class PhoneRoot extends React.Component {
   _handleIncoming = this._handleIncoming.bind(this)
   _handleMute = this._handleMute.bind(this)
   _handleOpen = this._handleOpen.bind(this)
+  _handleProgram = this._handleProgram.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleReject = this._handleReject.bind(this)
   _handleStatus = this._handleStatus.bind(this)
@@ -70,6 +72,8 @@ class PhoneRoot extends React.Component {
   }
 
   componentDidMount() {
+    const { programs } = this.props
+    if(programs.length > 0) this._handleProgram(programs[0].id)
     this._handleInit()
     this._handleJoin()
   }
@@ -115,11 +119,21 @@ class PhoneRoot extends React.Component {
     const { calls, error } = this.state
     const { programs } = this.props
     return {
-      programs,
       calls,
       error,
-      onClose: this._handleClose
+      programs,
+      program: this._getProgram(),
+      onClose: this._handleClose,
+      onProgram: this._handleProgram
     }
+  }
+
+  _getProgram() {
+    const { program_id } = this.state
+    const { programs } = this.props
+    return programs.find(program => {
+      return program.id === program_id
+    })
   }
 
   _handleAccept(call, callback) {
@@ -396,6 +410,10 @@ class PhoneRoot extends React.Component {
         })
       }
     })
+  }
+
+  _handleProgram(program_id) {
+    this.setState({ program_id })
   }
 
   _handleReject(call) {

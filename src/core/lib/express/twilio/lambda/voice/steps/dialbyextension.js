@@ -1,6 +1,7 @@
 const { speakNumber, url } = require('./utils')
 const play = require('./play')
 const say = require('./say')
+const _ = require('lodash')
 
 const dial = (req, twiml) => {
   const { query, step } = req
@@ -16,10 +17,18 @@ const dial = (req, twiml) => {
 
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
-  const { extensions } = step
+  const { specials, extensions } = step
   const { state } = query
+  if(_.includes(specials, 'star') && body.Digits === '*') {
+    twiml.redirect(url(req, '/voice', { state: `${state}.timeblocks.${index}.steps.0` }))
+    return 'pressed star'
+  }
+  if(_.includes(specials, 'hash') && body.Digits === '#') {
+    twiml.say('You pressed hash')
+    return 'pressed hash'
+  }
   const index = extensions.findIndex(extension => {
-    return user.extension === body.Digits
+    return extension.extension === body.Digits
   })
   if(index >= 0) {
     twiml.redirect(url(req, '/voice', { state, action: 'dial', index }))
