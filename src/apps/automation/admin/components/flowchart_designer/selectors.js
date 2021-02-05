@@ -45,6 +45,24 @@ const getBranches = (steps, step) => {
         then: segment(steps, step.code, 'else')
       }
     ]
+  } else if(step.action === 'dialmenu') {
+    return  [
+      ...step.config.options.map(option => ({
+        code: option.code,
+        label: option.number,
+        then: segment(steps, step.code,  option.code)
+      })),
+      ..._.includes(step.config.specials, 'hash') ? [{
+        code: 'hash',
+        label: '#',
+        then: segment(steps, step.code, 'hash')
+      }] : [],
+      ..._.includes(step.config.specials, 'star') ? [{
+        code: 'star',
+        label: '*',
+        then: segment(steps, step.code, 'star')
+      }] : []
+    ]
   } else if(step.action === 'dialbyextension') {
     return  [
       {

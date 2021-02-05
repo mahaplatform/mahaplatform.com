@@ -64,6 +64,7 @@ class Dial extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
               Add up to ten recipients. When an incoming call arrives,
               all phones will ring and the call will be transfered to the first

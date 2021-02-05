@@ -1,9 +1,9 @@
 import Form from './form'
 
 export default {
-  icon: 'font',
-  label: 'Dial By Name',
+  icon: 'arrow-right',
+  label: 'Redirect',
   type: 'voice',
-  action: 'dialbyname',
+  action: 'redirect',
   form: Form
 }

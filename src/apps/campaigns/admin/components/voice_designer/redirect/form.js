@@ -2,10 +2,11 @@ import { Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Say extends React.PureComponent {
+class Redirect extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    steps: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -37,16 +38,15 @@ class Say extends React.PureComponent {
   }
 
   _getDefaults() {
-    return {
-      voice: 'woman'
-    }
+    return {}
   }
 
   _getForm() {
     const { config } = this.state
+    const { steps } = this.props
     return {
       reference: node => this.form = node,
-      title: 'Speak Text',
+      title: 'Redirect',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
@@ -58,11 +58,10 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Message', type: 'segment', required: true, fields: [
-              { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], required: true, defaultValue: config.voice },
-              { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
-            ] }
+            { label: 'Destination', name: 'destination', type: 'dropdown', placeholder: 'Choose a step', deselectable: false, options: steps.map(step => ({
+              value: step.code,
+              text: step.config.name
+            })), required: true, defaultValue: config.destination }
           ]
         }
       ]
@@ -88,4 +87,4 @@ class Say extends React.PureComponent {
 
 }
 
-export default Say
+export default Redirect

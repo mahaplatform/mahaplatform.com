@@ -69,10 +69,12 @@ class DialByExtension extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Announcement', type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play an audio file' }
+                { value: 'play', text: 'Play an audio file' },
+                { value: 'none', text: 'No announcement' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
@@ -95,15 +97,18 @@ class DialByExtension extends React.PureComponent {
       return [
         { name: 'voice', type: 'dropdown', options: [
           { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
+          { value: 'man', text: 'Male Voice' },
+          { value: 'none', text: 'No announcement' }
         ], required: true, defaultValue: config.voice },
         { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
       ]
-    } else if(config.strategy === 'play') {
+    }
+    if(config.strategy === 'play') {
       return [
         { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
+    return []
   }
 
   _handleCancel() {

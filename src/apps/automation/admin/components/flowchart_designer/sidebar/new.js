@@ -11,6 +11,7 @@ class New extends React.PureComponent {
     properties: PropTypes.array,
     step: PropTypes.object,
     program: PropTypes.object,
+    steps: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
@@ -31,7 +32,7 @@ class New extends React.PureComponent {
   }
 
   _getType(block) {
-    const { cid, campaign, fields, properties, program, workflow, onCancel, onTokens } = this.props
+    const { cid, campaign, fields, properties, program, steps, workflow, onCancel, onTokens } = this.props
     return {
       cid,
       campaign,
@@ -39,6 +40,7 @@ class New extends React.PureComponent {
       fields,
       program,
       properties,
+      steps,
       workflow,
       onCancel,
       onChange: () => {},

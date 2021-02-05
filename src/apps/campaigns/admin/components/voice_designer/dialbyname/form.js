@@ -64,15 +64,8 @@ class DialByName extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
-            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', instructions: `
-              Provide a name for this call so you can evaluate whether or not
-              the call was answered
-            `, required: true, defaultValue: config.name },
-            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
-              Add up to ten recipients. When an incoming call arrives,
-              all phones will ring and the call will be transfered to the first
-              phone to answer
-            `, required: true, defaultValue: config.recipients }
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients }
           ]
         }
       ]

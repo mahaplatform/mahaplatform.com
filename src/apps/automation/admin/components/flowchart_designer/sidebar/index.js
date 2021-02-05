@@ -77,7 +77,7 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
-    const { campaign, fields, program, properties, workflow } = this.props
+    const { campaign, fields, program, properties, steps, workflow } = this.props
     const { code, config } = step
     return {
       campaign,
@@ -85,6 +85,7 @@ class Sidebar extends React.PureComponent {
       fields,
       properties,
       program,
+      steps,
       workflow,
       onCancel: this._handlePop,
       onTokens: this._handleTokens,
@@ -93,7 +94,7 @@ class Sidebar extends React.PureComponent {
   }
 
   _getNew() {
-    const { cid, campaign, blocks, fields, program, properties, step, workflow } = this.props
+    const { cid, campaign, blocks, fields, program, properties, step, steps, workflow } = this.props
     const { type, action } = step
     const block = _.find(blocks, { type, action })
     return {
@@ -104,6 +105,7 @@ class Sidebar extends React.PureComponent {
       program,
       properties,
       step,
+      steps,
       workflow,
       onAdd: this._handleAdd,
       onCancel: this._handleCancel,

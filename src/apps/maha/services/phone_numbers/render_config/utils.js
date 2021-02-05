@@ -1,6 +1,7 @@
 import dialbyextension from './dialbyextension'
 import timeofday from './timeofday'
 import voicemail from './voicemail'
+import redirect from './redirect'
 import play from './play'
 import dial from './dial'
 import say from './say'
@@ -9,6 +10,7 @@ const getCreator = (action) => {
   if(action === 'dialbyextension') return dialbyextension
   if(action === 'timeofday') return timeofday
   if(action === 'voicemail') return voicemail
+  if(action === 'redirect') return redirect
   if(action === 'play') return play
   if(action === 'dial') return dial
   if(action === 'say') return say
