@@ -19,17 +19,24 @@ class Canvas extends React.PureComponent {
   }
 
   state = {
+    dragging: false,
+    start: { x: 0, y: 0 },
+    current: { x: 0, y: 0 },
+    offset: { x: 0, y: 0 },
     zoom: 0
   }
 
+  _handleMouseDown = this._handleMouseDown.bind(this)
+  _handleMouseMove = this._handleMouseMove.bind(this)
+  _handleMouseUp = this._handleMouseUp.bind(this)
   _handleZoom = this._handleZoom.bind(this)
 
   render() {
     return (
       <div className="flowchart-canvas">
-        <div className="flowchart-canvas-body">
-          <div className="flowchart">
-            <div className="flowchart-inner" style={ this._getStyle() }>
+        <div className="flowchart-canvas-body" { ...this._getBody() }>
+          <div className="flowchart" style={ this._getOuter() }>
+            <div className="flowchart-inner" style={ this._getInner() }>
               <Trunk { ...this._getTrunk() } />
             </div>
           </div>
@@ -41,11 +48,28 @@ class Canvas extends React.PureComponent {
     )
   }
 
-  _getStyle() {
+  _getBody() {
+    return {
+      onMouseDown: this._handleMouseDown,
+      onMouseMove: this._handleMouseMove,
+      onMouseUp: this._handleMouseUp
+    }
+  }
+
+  _getInner() {
     const { zoom } = this.state
     const scale = 1 - ((zoom * 4) / 100)
     return {
       transform: `scale(${scale})`
+    }
+  }
+
+  _getOuter() {
+    const { current, start, offset } = this.state
+    const offsetX = offset.x + (start.x - current.x)
+    const offsetY = offset.y - (start.y - current.y)
+    return {
+      transform: `translate(calc(-50% - ${offsetX}px), ${offsetY}px)`
     }
   }
 
@@ -80,6 +104,44 @@ class Canvas extends React.PureComponent {
       onNew,
       onRemove
     }
+  }
+
+  _handleMouseDown(e ) {
+    this.setState({
+      start: {
+        x: e.clientX ,
+        y: e.clientY
+      },
+      current: {
+        x: e.clientX ,
+        y: e.clientY
+      },
+      dragging: true
+    })
+  }
+
+  _handleMouseMove(e) {
+    const { dragging } = this.state
+    if(!dragging) return
+    this.setState({
+      current: {
+        x: e.clientX,
+        y: e.clientY
+      }
+    })
+  }
+
+  _handleMouseUp(e) {
+    const { current, offset, start } = this.state
+    this.setState({
+      dragging: false,
+      start: { x: 0, y: 0 },
+      current: { x: 0, y: 0 },
+      offset: {
+        x: offset.x + (start.x - current.x),
+        y: offset.y - (start.y - current.y)
+      }
+    })
   }
 
   _handleZoom(e) {
