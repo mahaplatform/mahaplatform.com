@@ -6,7 +6,7 @@ const inputFields = (state, props) => props.fields
 const inputTokens = (state, props) => props.tokens
 
 const steps = (state, props) => [
-  { parent: null, answer: null, type: 'trigger', action: null },
+  { parent: null, answer: null, type: 'trigger', action: null, delta: -1 },
   ...state.steps || []
 ]
 

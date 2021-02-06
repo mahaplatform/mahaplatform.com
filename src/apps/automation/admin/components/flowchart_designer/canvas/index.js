@@ -33,6 +33,7 @@ class Canvas extends React.PureComponent {
   _handleWheel = this._handleWheel.bind(this)
 
   render() {
+    console.log(this.props.boxes)
     return (
       <div className="flowchart-canvas">
         <div className="flowchart-canvas-body" { ...this._getBody() }>
@@ -79,9 +80,9 @@ class Canvas extends React.PureComponent {
   _getOuter() {
     const { current, start, offset } = this.state
     const offsetX = offset.x + (start.x - current.x)
-    const offsetY = offset.y - (start.y - current.y)
+    const offsetY = offset.y + (start.y - current.y)
     return {
-      transform: `translate(calc(-50% - ${offsetX}px), ${offsetY}px)`
+      transform: `translate(calc(-50% - ${offsetX}px), calc(-50% - ${offsetY}px))`
     }
   }
 
@@ -142,7 +143,7 @@ class Canvas extends React.PureComponent {
       current: { x: 0, y: 0 },
       offset: {
         x: offset.x + (start.x - current.x),
-        y: offset.y - (start.y - current.y)
+        y: offset.y + (start.y - current.y)
       }
     })
   }

@@ -158,10 +158,6 @@ class FlowchartDesigner extends React.PureComponent {
           { text: 'clicked the email', value: '$ck' },
           { text: 'did not click the email', value: '$nck' }
         ] }
-      ] },
-      { label: 'Environment', fields: [
-        { name: 'Day', key: 'environment.day', type: 'date' },
-        // { name: 'Time', key: 'environment.time', type: 'time' }
       ] }
     ]
   }
