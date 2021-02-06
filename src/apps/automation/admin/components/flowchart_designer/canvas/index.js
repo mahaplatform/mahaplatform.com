@@ -18,14 +18,46 @@ class Canvas extends React.PureComponent {
     onRemove: PropTypes.func
   }
 
+  state = {
+    zoom: 0
+  }
+
+  _handleZoom = this._handleZoom.bind(this)
+
   render() {
     return (
       <div className="flowchart-canvas">
-        <div className="flowchart">
-          <Trunk { ...this._getTrunk() } />
+        <div className="flowchart-canvas-body">
+          <div className="flowchart">
+            <div className="flowchart-inner" style={ this._getStyle() }>
+              <Trunk { ...this._getTrunk() } />
+            </div>
+          </div>
+        </div>
+        <div className="flowchart-canvas-footer">
+          <input { ...this._getRange() } />
         </div>
       </div>
     )
+  }
+
+  _getStyle() {
+    const { zoom } = this.state
+    const scale = 1 - ((zoom * 4) / 100)
+    return {
+      transform: `scale(${scale})`
+    }
+  }
+
+  _getRange() {
+    const { zoom } = this.state
+    return {
+      type: 'range',
+      min: 0,
+      max: 10,
+      value: zoom,
+      onChange: this._handleZoom
+    }
   }
 
   _getTrunk() {
@@ -49,6 +81,13 @@ class Canvas extends React.PureComponent {
       onRemove
     }
   }
+
+  _handleZoom(e) {
+    this.setState({
+      zoom: Math.floor(e.target.value)
+    })
+  }
+
 }
 
 export default Canvas

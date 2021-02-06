@@ -1,3 +1,4 @@
+import Connector from './connector'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -28,6 +29,7 @@ class Add extends React.Component {
   render() {
     return (
       <div { ...this._getTarget() }>
+        <Connector type="vertical" />
         <div className="flowchart-box-add" />
       </div>
     )

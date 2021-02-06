@@ -58,7 +58,7 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Message', type: 'segment', required: true, fields: [
               { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], required: true, defaultValue: config.voice },
               { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }

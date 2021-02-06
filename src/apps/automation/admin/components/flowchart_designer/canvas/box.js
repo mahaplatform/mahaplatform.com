@@ -1,3 +1,4 @@
+import Connector from './connector'
 import PropTypes from 'prop-types'
 import Trunk from './trunk'
 import React from 'react'
@@ -27,7 +28,12 @@ class Box extends React.PureComponent {
     onRemove: PropTypes.func
   }
 
+  state = {
+    expanded: false
+  }
+
   _handleEdit = this._handleEdit.bind(this)
+  _handleExpand = this._handleExpand.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
@@ -35,9 +41,12 @@ class Box extends React.PureComponent {
     const block = this._getBlock()
     const { icon, label } = block
     const { code, config, branches, type } = box
+    const { expanded } = this.state
     return (
       <div className={ this._getClass(box) }>
-        <Add { ...this._getAdd() } />
+        { block.type !== 'trigger' &&
+          <Add { ...this._getAdd() } />
+        }
         <div className="flowchart-box-padding">
           <div className={ this._getBoxClass() }>
             { editable && (code === active || !_.includes(['trigger','ending'], type)) &&
@@ -67,22 +76,49 @@ class Box extends React.PureComponent {
             }
           </div>
           { branches && branches.length > 0 &&
-            <div className="flowchart-branches">
-              { branches.map((branch, index) => (
-                <div className="flowchart-branch" key={`options_${index}`}>
-                  <div className="flowchart-branch-label">
-                    <div className="flowchart-branch-label-box" title={ branch.label }>
-                      { branch.label }
-                    </div>
+            <div className="flowchart-branches-container" >
+              <Connector type="vertical" />
+              <div className="flowchart-branches-expander" onClick={ this._handleExpand }>
+                <i className="fa fa-ellipsis-h" />
+              </div>
+              { expanded &&
+                <>
+                  <Connector type="vertical" />
+                  <div className="flowchart-branches">
+                    { branches.map((branch, index) => (
+                      <div className="flowchart-branch" key={`options_${index}`}>
+                        <Connector type={ this._getTopConnector(branches, index) } />
+                        <div className="flowchart-branch-label">
+                          <div className="flowchart-branch-label-box" title={ branch.label }>
+                            { branch.label }
+                          </div>
+                        </div>
+                        <Trunk { ...this._getTrunk(branch) } />
+                        <Connector type={ this._getBottomConnector(branches, index) } />
+                      </div>
+                    )) }
                   </div>
-                  <Trunk { ...this._getTrunk(branch) } />
-                </div>
-              )) }
+                </>
+              }
             </div>
           }
         </div>
       </div>
     )
+  }
+
+  _getTopConnector(branches, index) {
+    if(branches.length === 1) return 'vertical'
+    if(index === 0) return 'upper_left'
+    if(index === branches.length-1) return 'upper_right'
+    return 'horizontal_down'
+  }
+
+  _getBottomConnector(branches, index) {
+    if(branches.length === 1) return 'vertical'
+    if(index === 0) return 'lower_left'
+    if(index === branches.length-1) return 'lower_right'
+    return 'horizontal_up'
   }
 
   _getAdd() {
@@ -126,6 +162,11 @@ class Box extends React.PureComponent {
     }
   }
 
+  _getExpander() {
+    const { expanded } =this.state
+    return expanded ? 'minus' : 'plus'
+  }
+
   _getRemoveButton() {
     return {
       icon: 'trash',
@@ -164,6 +205,12 @@ class Box extends React.PureComponent {
   _handleEdit() {
     const { box } = this.props
     this.props.onEdit(box.code)
+  }
+
+  _handleExpand() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
   }
 
   _handleRemove() {

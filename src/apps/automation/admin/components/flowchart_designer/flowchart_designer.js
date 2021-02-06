@@ -67,6 +67,7 @@ class FlowchartDesigner extends React.PureComponent {
     )
   }
 
+
   componentDidMount() {
     this.props.onSet(this.props.defaultValue)
   }

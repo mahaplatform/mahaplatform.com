@@ -59,7 +59,7 @@ class TimeOfDay extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Time Blocks', name: 'timeblocks', type: TimeBlocksField, required: true, defaultValue: config.timeblocks }
           ]
         }

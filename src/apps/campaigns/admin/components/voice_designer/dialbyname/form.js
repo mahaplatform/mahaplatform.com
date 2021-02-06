@@ -64,7 +64,7 @@ class DialByName extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients }
           ]
         }
