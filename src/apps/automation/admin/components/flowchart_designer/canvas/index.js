@@ -23,13 +23,14 @@ class Canvas extends React.PureComponent {
     start: { x: 0, y: 0 },
     current: { x: 0, y: 0 },
     offset: { x: 0, y: 0 },
-    zoom: 0
+    zoom: 5
   }
 
-  _handleMouseDown = this._handleMouseDown.bind(this)
-  _handleMouseMove = this._handleMouseMove.bind(this)
-  _handleMouseUp = this._handleMouseUp.bind(this)
+  _handleMoveStart = this._handleMoveStart.bind(this)
+  _handleMove = this._handleMove.bind(this)
+  _handleMoveEnd = this._handleMoveEnd.bind(this)
   _handleZoom = this._handleZoom.bind(this)
+  _handleWheel = this._handleWheel.bind(this)
 
   render() {
     return (
@@ -48,17 +49,28 @@ class Canvas extends React.PureComponent {
     )
   }
 
+  _getCoordinates(e) {
+    return {
+      x: e.touches ? e.touches[0].clientX : e.clientX,
+      y: e.touches ? e.touches[0].clientY : e.clientY
+    }
+  }
+
   _getBody() {
     return {
-      onMouseDown: this._handleMouseDown,
-      onMouseMove: this._handleMouseMove,
-      onMouseUp: this._handleMouseUp
+      onTouchStart: this._handleMoveStart,
+      onTouchMove: this._handleMove,
+      onTouchEnd: this._handleMoveEnd,
+      onMouseDown: this._handleMoveStart,
+      onMouseMove: this._handleMove,
+      onMouseUp: this._handleMoveEnd,
+      onWheel: this._handleWheel
     }
   }
 
   _getInner() {
     const { zoom } = this.state
-    const scale = 1 - ((zoom * 4) / 100)
+    const scale = 1.2 - ((zoom * 4) / 100)
     return {
       transform: `scale(${scale})`
     }
@@ -78,7 +90,7 @@ class Canvas extends React.PureComponent {
     return {
       type: 'range',
       min: 0,
-      max: 10,
+      max: 11,
       value: zoom,
       onChange: this._handleZoom
     }
@@ -106,32 +118,23 @@ class Canvas extends React.PureComponent {
     }
   }
 
-  _handleMouseDown(e ) {
+  _handleMoveStart(e) {
     this.setState({
-      start: {
-        x: e.clientX ,
-        y: e.clientY
-      },
-      current: {
-        x: e.clientX ,
-        y: e.clientY
-      },
+      start: this._getCoordinates(e),
+      current: this._getCoordinates(e),
       dragging: true
     })
   }
 
-  _handleMouseMove(e) {
+  _handleMove(e) {
     const { dragging } = this.state
     if(!dragging) return
     this.setState({
-      current: {
-        x: e.clientX,
-        y: e.clientY
-      }
+      current: this._getCoordinates(e)
     })
   }
 
-  _handleMouseUp(e) {
+  _handleMoveEnd(e) {
     const { current, offset, start } = this.state
     this.setState({
       dragging: false,
@@ -141,6 +144,13 @@ class Canvas extends React.PureComponent {
         x: offset.x + (start.x - current.x),
         y: offset.y - (start.y - current.y)
       }
+    })
+  }
+
+  _handleWheel(e) {
+    const { zoom } = this.state
+    this.setState({
+      zoom: Math.max(Math.min(zoom + (e.deltaY < 0 ? 1 : -1), 11), 0)
     })
   }
 
