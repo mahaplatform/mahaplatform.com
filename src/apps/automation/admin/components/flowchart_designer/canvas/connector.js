@@ -3,35 +3,35 @@ import React from 'react'
 
 const lines = {
   vertical: [
-    { x1: 80, y1: 0, x2: 80, y2: 1000, strokeWidth: 2 }
+    { d: 'M 80 0 L 80 1000', strokeWidth: 2 }
   ],
   upper_left: [
-    { x1: 80, y1: 0, x2: 1000, y2: 0, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M 80 0 L 1000 0', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   upper_right: [
-    { x1: -1000, y1: 0, x2: 80, y2: 0, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M -1000 0 L 80 0', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   lower_left: [
-    { x1: 80, y1: 30, x2: 1000, y2: 30, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M 80 30 L 1000 30', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   lower_right: [
-    { x1: -1000, y1: 30, x2: 80, y2: 30, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M -1000 30 L 80 30', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   horizontal_up: [
-    { x1: -1000, y1: 30, x2: 1000, y2: 30, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M -1000 30 L 1000 30', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   horizontal_down: [
-    { x1: -1000, y1: 0, x2: 1000, y2: 0, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 30, strokeWidth: 2 }
+    { d: 'M -1000 0 1000 0', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 30', strokeWidth: 2 }
   ],
   horizontal_vertical: [
-    { x1: -1000, y1: 20, x2: 1000, y2: 20, strokeWidth: 4 },
-    { x1: 80, y1: 0, x2: 80, y2: 1000, strokeWidth: 2 }
+    { d: 'M -1000 20 1000 20', strokeWidth: 4 },
+    { d: 'M 80 0 L 80 1000', strokeWidth: 2 }
   ]
 }
 
@@ -46,7 +46,7 @@ class Connector extends React.PureComponent {
     return (
       <svg className="flowchart-connector" preserveAspectRatio="xMidYMid meet" viewBox="0 0 160 30">
         { lines[type].map((line, index) => (
-          <line { ...line } key={`line_${index}`} />
+          <path { ...line } key={`line_${index}`} />
         ))}
       </svg>
     )
