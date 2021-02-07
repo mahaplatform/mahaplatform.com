@@ -11,11 +11,13 @@ class Trunk extends React.PureComponent {
     boxes: PropTypes.array,
     blocks: PropTypes.array,
     editable: PropTypes.bool,
+    expanded: PropTypes.array,
     fields: PropTypes.array,
     parent: PropTypes.string,
     hovering: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onExpand: PropTypes.func,
     onHover: PropTypes.func,
     onNew: PropTypes.func,
     onRemove: PropTypes.func
@@ -37,7 +39,7 @@ class Trunk extends React.PureComponent {
   }
 
   _getBox(box, delta) {
-    const { active, answer, blocks, editable, fields, hovering, parent, onAdd, onEdit, onHover, onNew, onRemove } = this.props
+    const { active, answer, blocks, editable, expanded, fields, hovering, parent, onAdd, onEdit, onExpand, onHover, onNew, onRemove } = this.props
     return {
       answer,
       box,
@@ -45,11 +47,13 @@ class Trunk extends React.PureComponent {
       blocks,
       delta,
       editable,
+      expanded,
       fields,
       parent,
       hovering,
       onAdd,
       onEdit,
+      onExpand,
       onHover,
       onNew,
       onRemove

@@ -18,18 +18,16 @@ class Box extends React.PureComponent {
     blocks: PropTypes.array,
     delta: PropTypes.number,
     editable: PropTypes.bool,
+    expanded: PropTypes.bool,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     parent: PropTypes.string,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onExpand: PropTypes.func,
     onHover: PropTypes.func,
     onNew: PropTypes.func,
     onRemove: PropTypes.func
-  }
-
-  state = {
-    expanded: false
   }
 
   _handleEdit = this._handleEdit.bind(this)
@@ -37,11 +35,10 @@ class Box extends React.PureComponent {
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { active, box, editable } = this.props
+    const { active, box, editable, expanded } = this.props
     const block = this._getBlock()
     const { icon, label } = block
     const { code, config, branches, type } = box
-    const { expanded } = this.state
     return (
       <div className={ this._getClass(box) }>
         { block.type !== 'trigger' &&
@@ -81,7 +78,7 @@ class Box extends React.PureComponent {
               <div className="flowchart-branches-expander" onClick={ this._handleExpand }>
                 <i className="fa fa-ellipsis-h" />
               </div>
-              { expanded &&
+              { _.includes(expanded, code) &&
                 <>
                   <Connector type="vertical" />
                   <div className="flowchart-branches">
@@ -184,18 +181,20 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, box, editable, fields, hovering, onAdd, onEdit, onHover, onNew, onRemove } = this.props
+    const { active, blocks, box, editable, expanded, fields, hovering, onAdd, onEdit, onExpand, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: option.code,
       boxes: option.then,
       blocks,
       editable,
+      expanded,
       fields,
       parent: box.code,
       hovering,
       onAdd,
       onEdit,
+      onExpand,
       onHover,
       onNew,
       onRemove
@@ -208,9 +207,8 @@ class Box extends React.PureComponent {
   }
 
   _handleExpand() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
+    const { box } = this.props
+    this.props.onExpand(box.code)
   }
 
   _handleRemove() {

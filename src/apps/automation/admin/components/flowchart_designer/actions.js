@@ -43,3 +43,8 @@ export const update = (code, config) => ({
   code,
   config
 })
+
+export const expand = (code) => ({
+  type: 'EXPAND',
+  code
+})

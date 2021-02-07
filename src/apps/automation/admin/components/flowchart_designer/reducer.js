@@ -1,6 +1,9 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   active: null,
   changes: 0,
+  expanded: [],
   hovering: null,
   status: 'ready',
   steps: [],
@@ -29,6 +32,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         })),
         action.step
       ],
+      expanded: [
+        ...state.expanded,
+        action.step.code
+      ],
       step: null
     }
 
@@ -38,6 +45,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       active: action.code
     }
 
+  case 'EXPAND':
+    return {
+      ...state,
+      expanded: [
+        ..._.xor(state.expanded, [action.code])
+      ]
+    }
 
   case 'HOVER':
     return {
