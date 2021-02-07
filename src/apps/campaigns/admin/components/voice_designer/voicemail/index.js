@@ -1,4 +1,3 @@
-import Token from './token'
 import Form from './form'
 
 export default {
@@ -7,5 +6,5 @@ export default {
   type: 'voice',
   action: 'voicemail',
   form: Form,
-  token: null
+  token: step => step.name
 }

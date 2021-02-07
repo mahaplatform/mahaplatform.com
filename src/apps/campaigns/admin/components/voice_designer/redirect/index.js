@@ -2,8 +2,8 @@ import Form from './form'
 
 export default {
   icon: 'arrow-right',
-  label: 'Redirect',
-  type: 'voice',
+  label: 'Goto Step',
+  type: 'control',
   action: 'redirect',
   form: Form
 }

@@ -65,11 +65,12 @@ class Voicemail extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
+            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Announcement', type: 'segment', required: true, fields: [
-              { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
               { name: 'strategy', type: 'radiogroup', deselectable: false, required: true, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play an audio file'}
+                { value: 'play', text: 'Play an audio file' },
+                { value: 'none', text: 'No announcement' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] }
@@ -90,9 +91,12 @@ class Voicemail extends React.PureComponent {
         { name: 'text', type: 'textarea', placeholder: 'Enter a text', required: true, defaultValue: config.text }
       ]
     }
-    return [
-      { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
-    ]
+    if(config.strategy === 'play') {
+      return [
+        { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+      ]
+    }
+    return []
   }
 
   _handleCancel() {

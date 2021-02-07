@@ -1,4 +1,5 @@
 import RecordingField from '../../recordingfield'
+import SpecialsField from '../../specialsfield'
 import OptionsField from '../../optionsfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -78,12 +79,7 @@ class Menu extends React.PureComponent {
               ...this._getStrategy()
             ] },
             { label: 'Options', name: 'options', type: OptionsField, required: true, defaultValue: config.options },
-            { label: 'Special Characters', type: 'segment', fields: [
-              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
-                { value: 'hash', text: 'Respond to hash (#)' },
-                { value: 'star', text: 'Respond to star (*)' }
-              ], defaultValue: config.specials }
-            ] }
+            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
           ]
         }
       ]

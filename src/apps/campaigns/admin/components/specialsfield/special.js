@@ -4,7 +4,7 @@ import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Optionsfield extends React.PureComponent {
+class Special extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -13,7 +13,7 @@ class Optionsfield extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.object,
     mode: PropTypes.string,
-    options: PropTypes.array,
+    specials: PropTypes.array,
     onDone: PropTypes.func
   }
 
@@ -37,11 +37,31 @@ class Optionsfield extends React.PureComponent {
     })
   }
 
+  _getAvailable() {
+    const { mode, defaultValue, specials } = this.props
+    const available = [
+      { value: 'hash', text: '# (hash key)' },
+      { value: 'star', text: '* (star key)' }
+    ]
+    if(mode === 'edit') {
+      return available.filter(option => {
+        return option.value === defaultValue.character
+      })
+    }
+    return available.filter(option => {
+      return specials.find(special => {
+        return special.character === option.value
+      }) === undefined
+    })
+  }
+
   _getDefault() {
+    const available = this._getAvailable()
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman'
+      voice: 'woman',
+      character: available[0].value
     }
   }
 
@@ -49,7 +69,7 @@ class Optionsfield extends React.PureComponent {
     const { config } = this.state
     const { mode } = this.props
     return {
-      title: 'Option',
+      title: 'Special Character',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
@@ -59,14 +79,14 @@ class Optionsfield extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { label: 'Option', type: 'segment', fields: [
-              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name },
-              { name: 'number', type: 'numberfield', required: true, placeholder: 'Enter a number', maxLength: 1, defaultValue: config.number }
+            { label: 'Character', type: 'segment', fields: [
+              { name: 'character', type: 'radiogroup', deselectable: false, options: this._getAvailable(), defaultValue: config.character }
             ] },
             { label: 'Announcement', type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play recording' }
+                { value: 'play', text: 'Play recording' },
+                { value: 'none', text: 'No announcement' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] }
@@ -86,11 +106,13 @@ class Optionsfield extends React.PureComponent {
         ], required: true, defaultValue: config.voice },
         { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
       ]
-    } else if(config.strategy === 'play') {
+    }
+    if(config.strategy === 'play') {
       return [
         { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
+    return []
   }
 
   _handleBack() {
@@ -109,4 +131,4 @@ class Optionsfield extends React.PureComponent {
 
 }
 
-export default Optionsfield
+export default Special

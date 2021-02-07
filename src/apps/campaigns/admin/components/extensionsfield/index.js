@@ -12,9 +12,10 @@ class Extensionsfield extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.array,
-    users: PropTypes.array,
+    required: PropTypes.bool,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -28,6 +29,7 @@ class Extensionsfield extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { extensions } = this.state
@@ -37,14 +39,12 @@ class Extensionsfield extends React.PureComponent {
           { extensions.map((extension, index) => (
             <div className="crm-recipientsfield-recipient" key={`extension_${index}`}>
               <div className="crm-recipientsfield-recipient-label">
-                <div>
-                  <span className="crm-recipientsfield-recipient-extension">
-                    { extension.extension }
-                  </span>
-                  { this._getDescription(extension) }
-                </div>
+                <span className="crm-recipientsfield-recipient-extension">
+                  { extension.extension }
+                </span>
+                { extension.name }
               </div>
-              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
+              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleEdit.bind(this, index)}>
                 <i className="fa fa-pencil" />
               </div>
               <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
@@ -65,7 +65,7 @@ class Extensionsfield extends React.PureComponent {
     if(defaultValue) this.setState({
       extensions: defaultValue
     })
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -83,25 +83,22 @@ class Extensionsfield extends React.PureComponent {
     }
   }
 
-  _getExtension() {
-    const { users } = this.props
+  _getNew() {
     return {
-      users,
       onDone: this._handleCreate
     }
   }
 
-  _getDescription(extension) {
-    const { user_id } = extension
-    const { users } = this.props
-    const user = _.find(users, {
-      id: user_id
-    })
-    return user.full_name
+  _getEdit(index) {
+    const extension = this.state.extensions[index]
+    return {
+      extension,
+      onDone: this._handleUpdate.bind(this, index)
+    }
   }
 
   _handleAdd() {
-    this.context.form.push(Extension, this._getExtension())
+    this.context.form.push(Extension, this._getNew())
   }
 
   _handleCreate(extension) {
@@ -114,6 +111,10 @@ class Extensionsfield extends React.PureComponent {
     })
   }
 
+  _handleEdit(index) {
+    this.context.form.push(Extension, this._getEdit(index))
+  }
+
   _handleRemove(remove) {
     const { extensions } = this.state
     this.setState({
@@ -121,6 +122,24 @@ class Extensionsfield extends React.PureComponent {
         return index !== remove
       })
     })
+  }
+
+  _handleUpdate(i, updated) {
+    const { extensions } = this.state
+    this.setState({
+      extensions: extensions.map((extension, index) => {
+        return index === i ? updated : extension
+      })
+    })
+  }
+
+  _handleValidate() {
+    const { extensions } = this.state
+    const { required, onValid } = this.props
+    if(required && (!extensions || extensions.length === 0)) {
+      return onValid(null, ['You must add at least 1 extension'])
+    }
+    onValid(extensions)
   }
 
 }

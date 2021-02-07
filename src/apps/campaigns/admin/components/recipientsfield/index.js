@@ -13,9 +13,11 @@ class Recipientsfield extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    required: PropTypes.bool,
     users: PropTypes.array,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -30,6 +32,7 @@ class Recipientsfield extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { recipients } = this.state
@@ -68,7 +71,7 @@ class Recipientsfield extends React.PureComponent {
     if(defaultValue) this.setState({
       recipients: defaultValue
     })
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -92,9 +95,7 @@ class Recipientsfield extends React.PureComponent {
   }
 
   _getRecipient() {
-    const { users } = this.props
     return {
-      users,
       onDone: this._handleCreate
     }
   }
@@ -126,6 +127,15 @@ class Recipientsfield extends React.PureComponent {
         return index !== remove
       })
     })
+  }
+
+  _handleValidate() {
+    const { recipients } = this.state
+    const { required, onValid } = this.props
+    if(required && (!recipients || recipients.length === 0)) {
+      return onValid(null, ['You must add at least 1 recipient'])
+    }
+    onValid(recipients)
   }
 
 }

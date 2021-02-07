@@ -1,4 +1,5 @@
 import RecipientsField from '../../recipientsfield'
+import SpecialsField from '../../specialsfield'
 import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -42,7 +43,8 @@ class DialByName extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      recipients: []
+      recipients: [],
+      specials: []
     }
   }
 
@@ -65,7 +67,8 @@ class DialByName extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients }
+            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients },
+            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
           ]
         }
       ]

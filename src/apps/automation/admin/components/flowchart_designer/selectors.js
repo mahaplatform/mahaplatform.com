@@ -52,16 +52,11 @@ const getBranches = (steps, step) => {
         label: option.number,
         then: segment(steps, step.code,  option.code)
       })),
-      ..._.includes(step.config.specials, 'hash') ? [{
-        code: 'hash',
-        label: '#',
-        then: segment(steps, step.code, 'hash')
-      }] : [],
-      ..._.includes(step.config.specials, 'star') ? [{
-        code: 'star',
-        label: '*',
-        then: segment(steps, step.code, 'star')
-      }] : []
+      ...step.config.specials.map(special => ({
+        code: special.code,
+        label: special.character === 'hash' ? '#' : '*',
+        then: segment(steps, step.code,  special.code)
+      }))
     ]
   } else if(step.action === 'dialbyextension') {
     return  [
@@ -70,16 +65,24 @@ const getBranches = (steps, step) => {
         label: 'connected',
         then: segment(steps, step.code, 'connected')
       },
-      ..._.includes(step.config.specials, 'hash') ? [{
-        code: 'hash',
-        label: '#',
-        then: segment(steps, step.code, 'hash')
-      }] : [],
-      ..._.includes(step.config.specials, 'star') ? [{
-        code: 'star',
-        label: '*',
-        then: segment(steps, step.code, 'star')
-      }] : []
+      ...step.config.specials.map(special => ({
+        code: special.code,
+        label: special.character === 'hash' ? '#' : '*',
+        then: segment(steps, step.code,  special.code)
+      }))
+    ]
+  } else if(step.action === 'dialbyname') {
+    return  [
+      {
+        code: 'connected',
+        label: 'connected',
+        then: segment(steps, step.code, 'connected')
+      },
+      ...step.config.specials.map(special => ({
+        code: special.code,
+        label: special.character === 'hash' ? '#' : '*',
+        then: segment(steps, step.code,  special.code)
+      }))
     ]
   }
   return null

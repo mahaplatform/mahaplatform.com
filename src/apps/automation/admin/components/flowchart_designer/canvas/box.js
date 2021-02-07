@@ -18,7 +18,7 @@ class Box extends React.PureComponent {
     blocks: PropTypes.array,
     delta: PropTypes.number,
     editable: PropTypes.bool,
-    expanded: PropTypes.bool,
+    expanded: PropTypes.array,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     parent: PropTypes.string,

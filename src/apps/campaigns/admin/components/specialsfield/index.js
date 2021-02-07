@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { Button } from '@admin'
-import Option from './option'
+import Special from './special'
 import React from 'react'
 import _ from 'lodash'
 
-class Optionsfield extends React.PureComponent {
+class SpecialsField extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -12,9 +12,10 @@ class Optionsfield extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.array,
-    users: PropTypes.array,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -24,24 +25,24 @@ class Optionsfield extends React.PureComponent {
   }
 
   state = {
-    options: []
+    specials: []
   }
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
 
   render() {
-    const { options } = this.state
+    const { specials } = this.state
     return (
       <div className="crm-recipientsfield">
         <div className="crm-recipientsfield-recipients">
-          { options.map((option, index) => (
-            <div className="crm-recipientsfield-recipient" key={`option_${index}`}>
+          { specials.map((special, index) => (
+            <div className="crm-recipientsfield-recipient" key={`special_${index}`}>
               <div className="crm-recipientsfield-recipient-label">
                 <span className="crm-recipientsfield-recipient-extension">
-                  { option.number }
+                  { special.character === 'hash' ? '#' : '*' }
                 </span>
-                { option.name }
+                { special.character === 'hash' ? 'Hash Key' : 'Star Key' }
               </div>
               <div className="crm-recipientsfield-recipient-action" onClick={ this._handleEdit.bind(this, index)}>
                 <i className="fa fa-pencil" />
@@ -51,9 +52,11 @@ class Optionsfield extends React.PureComponent {
               </div>
             </div>
           ))}
-          <div className="crm-recipientsfield-recipients-add">
-            <Button { ...this._getAdd() } />
-          </div>
+          { specials.length < 2 &&
+            <div className="crm-recipientsfield-recipients-add">
+              <Button { ...this._getAdd() } />
+            </div>
+          }
         </div>
       </div>
     )
@@ -62,86 +65,79 @@ class Optionsfield extends React.PureComponent {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) this.setState({
-      options: defaultValue
+      specials: defaultValue
     })
     this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { options } = this.state
-    if(!_.isEqual(options, prevState.options)) {
-      this.props.onChange(options)
+    const { specials } = this.state
+    if(!_.isEqual(specials, prevState.specials)) {
+      this.props.onChange(specials)
     }
   }
 
   _getAdd() {
     return {
-      label: 'Add Option',
+      label: 'Add Special Character',
       className: 'link',
       handler: this._handleAdd
     }
   }
 
   _getEdit(index) {
-    const { options } = this.state
+    const { specials } = this.state
     return {
-      defaultValue: options[index],
+      defaultValue: specials[index],
       mode: 'edit',
-      options,
+      specials,
       onDone: this._handleUpdate.bind(this, index)
     }
   }
 
   _getNew() {
-    const { options } = this.state
+    const { specials } = this.state
     return {
       mode: 'new',
-      options,
-      onDone: this._handleCreate
-    }
-  }
-
-  _getOption() {
-    const { users } = this.props
-    return {
-      users,
+      specials,
       onDone: this._handleCreate
     }
   }
 
   _handleAdd() {
-    this.context.form.push(Option, this._getNew())
+    this.context.form.push(Special, this._getNew())
   }
 
   _handleEdit(index) {
-    this.context.form.push(Option, this._getEdit(index))
+    this.context.form.push(Special, this._getEdit(index))
   }
 
-  _handleCreate(option) {
+  _handleCreate(special) {
     this.setState({
-      options: [
-        ...this.state.options,
-        option
+      specials: [
+        ...this.state.specials,
+        special
       ]
     })
   }
 
   _handleRemove(remove) {
     this.setState({
-      options: this.state.options.filter((option, index) => {
+      specials: this.state.specials.filter((special, index) => {
         return index !== remove
       })
     })
   }
 
   _handleUpdate(i, updated) {
+    const { specials } = this.state
     this.setState({
-      options: this.state.options.map((option, index) => {
-        return index === i ? updated : option
+      specials: specials.map((special, index) => {
+        return index === i ? updated : special
       })
     })
   }
 
 }
 
-export default Optionsfield
+export default SpecialsField

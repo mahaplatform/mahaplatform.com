@@ -51,7 +51,6 @@ class VoiceDesigner extends React.PureComponent {
         dialmenu,
         dial,
         voicemail,
-        { action: 'ifthen' },
         timeofday,
         {
           icon: 'phone',

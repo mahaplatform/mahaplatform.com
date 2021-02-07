@@ -4,14 +4,19 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Recipientsfield extends React.PureComponent {
+class Extension extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
   }
 
   static propTypes = {
+    extension: PropTypes.object,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    extension: {}
   }
 
   state = {
@@ -28,8 +33,12 @@ class Recipientsfield extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { extension } = this.props
     this.setState({
-      config: this._getDefault()
+      config: {
+        ...this._getDefault(),
+        ...extension
+      }
     })
   }
 
@@ -64,7 +73,8 @@ class Recipientsfield extends React.PureComponent {
             { label: 'Announcement', type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play recording' }
+                { value: 'play', text: 'Play recording' },
+                { value: 'none', text: 'No announcement' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] }
@@ -84,11 +94,13 @@ class Recipientsfield extends React.PureComponent {
         ], required: true, defaultValue: config.voice },
         { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
       ]
-    } else if(config.strategy === 'play') {
+    }
+    if(config.strategy === 'play') {
       return [
         { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
+    return []
   }
 
   _handleBack() {
@@ -107,4 +119,4 @@ class Recipientsfield extends React.PureComponent {
 
 }
 
-export default Recipientsfield
+export default Extension

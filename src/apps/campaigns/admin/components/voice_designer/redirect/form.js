@@ -43,7 +43,6 @@ class Redirect extends React.PureComponent {
 
   _getForm() {
     const { config } = this.state
-    const { steps } = this.props
     return {
       reference: node => this.form = node,
       title: 'Redirect',
@@ -58,14 +57,21 @@ class Redirect extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Destination', name: 'destination', type: 'dropdown', placeholder: 'Choose a step', deselectable: false, options: steps.map(step => ({
-              value: step.code,
-              text: step.config.name
-            })), required: true, defaultValue: config.destination }
+            { label: 'Destination', name: 'destination', type: 'dropdown', placeholder: 'Choose a step', deselectable: false, options: this._getSteps(), required: true, defaultValue: config.destination }
           ]
         }
       ]
     }
+  }
+
+  _getSteps() {
+    const { steps } = this.props
+    return steps.filter(step => {
+      return step.verb !== 'control'
+    }).map(step => ({
+      value: step.code,
+      text: step.config.name
+    }))
   }
 
   _handleCancel() {

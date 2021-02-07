@@ -1,7 +1,8 @@
 import ExtensionsField from '../../extensionsfield'
 import RecordingField from '../../recordingfield'
-import { Container, Form } from '@admin'
+import SpecialsField from '../../specialsfield'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -9,7 +10,6 @@ class DialByExtension extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    users: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -53,7 +53,6 @@ class DialByExtension extends React.PureComponent {
 
   _getForm() {
     const { config } = this.state
-    const { users } = this.props
     return {
       reference: node => this.form = node,
       title: 'Dial By Extension',
@@ -78,13 +77,8 @@ class DialByExtension extends React.PureComponent {
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Extensions', name: 'extensions', type: ExtensionsField, users, required: true, defaultValue: config.extensions },
-            { label: 'Special Characters', type: 'segment', fields: [
-              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
-                { value: 'hash', text: 'Respond to hash (#)' },
-                { value: 'star', text: 'Respond to star (*)' }
-              ], defaultValue: config.specials }
-            ] }
+            { label: 'Extensions', name: 'extensions', type: ExtensionsField, required: true, defaultValue: config.extensions },
+            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
           ]
         }
       ]
@@ -130,15 +124,5 @@ class DialByExtension extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  users: {
-    endpoint: '/api/admin/users',
-    filter: {
-      is_active: {
-        $eq: true
-      }
-    }
-  }
-})
 
-export default Container(mapResources)(DialByExtension)
+export default DialByExtension

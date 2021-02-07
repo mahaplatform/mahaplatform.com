@@ -5,5 +5,6 @@ export default {
   label: 'Dial Menu',
   type: 'voice',
   action: 'dialmenu',
-  form: Form
+  form: Form,
+  token: (step) => step.name
 }
