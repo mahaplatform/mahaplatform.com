@@ -1,5 +1,5 @@
-import RecordingField from '../recordingfield'
-import { Form, UserToken } from '@admin'
+import RecipientsField from '../recipientsfield'
+import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -12,6 +12,8 @@ class Extension extends React.PureComponent {
 
   static propTypes = {
     extension: PropTypes.object,
+    mode: PropTypes.string,
+    users: PropTypes.array,
     onDone: PropTypes.func
   }
 
@@ -45,14 +47,12 @@ class Extension extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      strategy: 'say',
-      voice: 'woman',
-      destination: 'dial',
-      client: ['maha','cell']
+      recipients: []
     }
   }
 
   _getForm() {
+    const { mode, users } = this.props
     const { config } = this.state
     return {
       title: 'Extension',
@@ -60,47 +60,24 @@ class Extension extends React.PureComponent {
       onCancel: this._handleBack,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
-      saveText: 'Add',
+      saveText: mode === 'new' ? 'Add' : 'Update',
       sections: [
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
             { label: 'Extension', type: 'segment', fields: [
-              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name },
               { name: 'extension', type: 'numberfield', required: true, placeholder: 'Enter a 3 digit extension', maxLength: 3, defaultValue: config.extension },
-              { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
+              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name }
             ] },
-            { label: 'Announcement', type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
-                { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play recording' },
-                { value: 'none', text: 'No announcement' }
-              ], defaultValue: config.strategy },
-              ...this._getStrategy()
-            ] }
+            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
+              Add one or more recipients. When an incoming call is routed to this
+              extension, all phones will ring simultaneously and the call will
+              be fowarded to the first one that answers
+            `, required: true, defaultValue: config.recipients }
           ]
         }
       ]
     }
-  }
-
-  _getStrategy() {
-    const { config } = this.state
-    if(config.strategy === 'say') {
-      return [
-        { name: 'voice', type: 'dropdown', options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
-      ]
-    }
-    if(config.strategy === 'play') {
-      return [
-        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
-      ]
-    }
-    return []
   }
 
   _handleBack() {
@@ -119,4 +96,16 @@ class Extension extends React.PureComponent {
 
 }
 
-export default Extension
+
+const mapResources = (props, context) => ({
+  users: {
+    endpoint: '/api/admin/users',
+    filter: {
+      is_active: {
+        $eq: true
+      }
+    }
+  }
+})
+
+export default Container(mapResources)(Extension)

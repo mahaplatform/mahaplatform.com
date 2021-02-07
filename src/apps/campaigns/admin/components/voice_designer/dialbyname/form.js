@@ -1,5 +1,5 @@
 import RecipientsField from '../../recipientsfield'
-import SpecialsField from '../../specialsfield'
+import RecordingField from '../../recordingfield'
 import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -43,6 +43,9 @@ class DialByName extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      strategy: 'say',
+      voice: 'woman',
+      text: 'Dial the first three letters of the persons last name',
       recipients: [],
       specials: []
     }
@@ -53,7 +56,7 @@ class DialByName extends React.PureComponent {
     const { users } = this.props
     return {
       reference: node => this.form = node,
-      title: 'Dial',
+      title: 'Dial by Name',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
@@ -67,12 +70,43 @@ class DialByName extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Greeting', type: 'segment', fields: [
+              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'say', text: 'Speak text' },
+                { value: 'play', text: 'Play an audio file' }
+              ], defaultValue: config.strategy },
+              ...this._getStrategy()
+            ] },
             { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients },
-            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
+            { label: 'Special Characters', type: 'segment', fields: [
+              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
+                { value: 'hash', text: 'Respond to hash (#)' },
+                { value: 'star', text: 'Respond to star (*)' }
+              ], defaultValue: config.specials }
+            ] }
           ]
         }
       ]
     }
+  }
+
+  _getStrategy() {
+    const { config } = this.state
+    if(config.strategy === 'say') {
+      return [
+        { name: 'voice', type: 'dropdown', options: [
+          { value: 'woman', text: 'Female Voice' },
+          { value: 'man', text: 'Male Voice' }
+        ], required: true, defaultValue: config.voice },
+        { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
+      ]
+    }
+    if(config.strategy === 'play') {
+      return [
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+      ]
+    }
+    return []
   }
 
   _handleCancel() {

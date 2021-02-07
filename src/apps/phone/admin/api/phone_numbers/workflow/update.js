@@ -30,6 +30,8 @@ const updateRoute = async (req, res) => {
     config: version.get('value')
   })
 
+  console.log(rendered)
+
   await upload(null, {
     acl: 'private',
     bucket: process.env.AWS_BUCKET,

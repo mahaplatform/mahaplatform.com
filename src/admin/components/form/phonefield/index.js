@@ -1,4 +1,4 @@
-import { AsYouType } from 'libphonenumber-js'
+import parsePhoneNumber, { AsYouType } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -24,8 +24,8 @@ class PhoneField extends React.Component {
     value: ''
   }
 
-  _handleChange = this._handleChange.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { value } = this.state
@@ -51,8 +51,15 @@ class PhoneField extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.state.value !== prevState.value) {
-      this.props.onChange(this.state.value)
+      this._handleChange()
     }
+  }
+
+  _handleChange() {
+    const { value } = this.state
+    const parsed = parsePhoneNumber(value, 'US')
+    if(!(parsed && parsed.isValid())) return
+    this.props.onChange(parsed.number)
   }
 
   _getInput() {
@@ -65,11 +72,11 @@ class PhoneField extends React.Component {
       tabIndex,
       value,
       ref: node => this.phone = node,
-      onChange: this._handleChange
+      onChange: this._handleUpdate
     }
   }
 
-  _handleChange() {
+  _handleUpdate() {
     const asyoutype = new AsYouType(this.props.defaultCountry)
     const parsed = asyoutype.input(this.phone.value)
     this.setState({

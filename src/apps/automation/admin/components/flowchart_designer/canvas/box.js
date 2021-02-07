@@ -75,7 +75,7 @@ class Box extends React.PureComponent {
           { branches && branches.length > 0 &&
             <div className="flowchart-branches-container" >
               <Connector type="vertical" />
-              <div className="flowchart-branches-expander" onClick={ this._handleExpand }>
+              <div className="flowchart-branches-expander" onClick={ this._handleExpand } data-tooltip="Expand options" data-position="top center" data-inverted="true">
                 <i className="fa fa-ellipsis-h" />
               </div>
               { _.includes(expanded, code) &&
@@ -85,7 +85,7 @@ class Box extends React.PureComponent {
                     { branches.map((branch, index) => (
                       <div className="flowchart-branch" key={`options_${index}`}>
                         <Connector type={ this._getTopConnector(branches, index) } />
-                        <div className="flowchart-branch-label">
+                        <div className="flowchart-branch-label" data-tooltip={ branch.tooltip} data-position="top center" data-inverted="true">
                           <div className="flowchart-branch-label-box" title={ branch.label }>
                             { branch.label }
                           </div>

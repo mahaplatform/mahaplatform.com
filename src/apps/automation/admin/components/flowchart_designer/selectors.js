@@ -52,37 +52,43 @@ const getBranches = (steps, step) => {
         label: option.number,
         then: segment(steps, step.code,  option.code)
       })),
-      ...step.config.specials.map(special => ({
-        code: special.code,
-        label: special.character === 'hash' ? '#' : '*',
-        then: segment(steps, step.code,  special.code)
-      }))
+      ..._.includes(step.config.specials, 'hash') ? [{
+        code: 'hash',
+        label: '#',
+        then: segment(steps, step.code, 'hash')
+      }] : [],
+      ..._.includes(step.config.specials, 'star') ? [{
+        code: 'star',
+        label: '*',
+        then: segment(steps, step.code, 'star')
+      }] : []
     ]
-  } else if(step.action === 'dialbyextension') {
+  } else if(_.includes(['dialbyname','dialbyextension'], step.action)) {
     return  [
+      ..._.includes(step.config.specials, 'hash') ? [{
+        code: 'hash',
+        tooltip: 'Caller pressed hash',
+        label: '#',
+        then: segment(steps, step.code, 'hash')
+      }] : [],
+      ..._.includes(step.config.specials, 'star') ? [{
+        code: 'star',
+        tooltip: 'Caller pressed star',
+        label: '*',
+        then: segment(steps, step.code, 'star')
+      }] : [],
       {
-        code: 'connected',
-        label: 'connected',
-        then: segment(steps, step.code, 'connected')
+        code: 'noanswer',
+        tooltip: 'Extension did not answer',
+        label: 'no answer',
+        then: segment(steps, step.code, 'noanswer')
       },
-      ...step.config.specials.map(special => ({
-        code: special.code,
-        label: special.character === 'hash' ? '#' : '*',
-        then: segment(steps, step.code,  special.code)
-      }))
-    ]
-  } else if(step.action === 'dialbyname') {
-    return  [
       {
-        code: 'connected',
-        label: 'connected',
-        then: segment(steps, step.code, 'connected')
-      },
-      ...step.config.specials.map(special => ({
-        code: special.code,
-        label: special.character === 'hash' ? '#' : '*',
-        then: segment(steps, step.code,  special.code)
-      }))
+        code: 'noinput',
+        tooltip: 'No input was received',
+        label: 'no input',
+        then: segment(steps, step.code, 'noinput')
+      }
     ]
   }
   return null

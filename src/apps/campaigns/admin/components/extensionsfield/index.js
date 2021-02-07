@@ -85,6 +85,7 @@ class Extensionsfield extends React.PureComponent {
 
   _getNew() {
     return {
+      mode: 'new',
       onDone: this._handleCreate
     }
   }
@@ -93,6 +94,7 @@ class Extensionsfield extends React.PureComponent {
     const extension = this.state.extensions[index]
     return {
       extension,
+      mode: 'edit',
       onDone: this._handleUpdate.bind(this, index)
     }
   }

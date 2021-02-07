@@ -49,7 +49,7 @@ class Recipientsfield extends React.PureComponent {
                 }
                 { recipient.strategy === 'number' &&
                   <div>
-                    { recipient.number }
+                    { this._getFormatted(recipient.number) }
                   </div>
                 }
               </div>

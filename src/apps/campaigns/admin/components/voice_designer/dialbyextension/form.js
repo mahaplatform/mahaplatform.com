@@ -1,6 +1,5 @@
 import ExtensionsField from '../../extensionsfield'
 import RecordingField from '../../recordingfield'
-import SpecialsField from '../../specialsfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
@@ -69,16 +68,20 @@ class DialByExtension extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Announcement', type: 'segment', fields: [
+            { label: 'Greeting', type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play an audio file' },
-                { value: 'none', text: 'No announcement' }
+                { value: 'play', text: 'Play an audio file' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
             { label: 'Extensions', name: 'extensions', type: ExtensionsField, required: true, defaultValue: config.extensions },
-            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
+            { label: 'Special Characters', type: 'segment', fields: [
+              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
+                { value: 'hash', text: 'Respond to hash (#)' },
+                { value: 'star', text: 'Respond to star (*)' }
+              ], defaultValue: config.specials }
+            ] }
           ]
         }
       ]
