@@ -99,7 +99,7 @@ class Menu extends React.PureComponent {
     }
     if(config.strategy === 'play') {
       return [
-        { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
     return []

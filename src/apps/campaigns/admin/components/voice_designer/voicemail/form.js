@@ -93,7 +93,7 @@ class Voicemail extends React.PureComponent {
     }
     if(config.strategy === 'play') {
       return [
-        { label: 'Recording', name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+        {name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
       ]
     }
     return []

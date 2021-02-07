@@ -10,6 +10,18 @@ const INITIAL_STATE = {
   step: null
 }
 
+const getChildren = (steps, code) => {
+  const item = steps.find(step => {
+    return step.code === code
+  })
+  return steps.filter(step => {
+    return step.parent === item.code
+  }).reduce((children, child) => [
+    ...children,
+    ...getChildren(steps, child.code)
+  ], [item])
+}
+
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
@@ -62,15 +74,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'REMOVE':
     return {
       ...state,
-      active: state.active !== action.step.code ? state.active : null,
+      active: null,
       changes: state.changes + 1,
       steps: [
         ...state.steps.filter(step => {
-          return step.code !== action.step.code && step.parent !== action.step.code
-        }).map(step => ({
-          ...step,
-          delta: step.delta - (step.parent === action.step.parent && step.answer === action.step.answer && step.delta > action.step.delta ? 1 : 0)
-        }))
+          return getChildren(state.steps, action.step.code).find(child => {
+            return child.code === step.code
+          }) === undefined
+        })
       ]
     }
 

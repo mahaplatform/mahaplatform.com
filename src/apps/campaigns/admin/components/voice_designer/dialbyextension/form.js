@@ -91,15 +91,14 @@ class DialByExtension extends React.PureComponent {
       return [
         { name: 'voice', type: 'dropdown', options: [
           { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' },
-          { value: 'none', text: 'No announcement' }
+          { value: 'man', text: 'Male Voice' }
         ], required: true, defaultValue: config.voice },
         { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
       ]
     }
     if(config.strategy === 'play') {
       return [
-        { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
     return []

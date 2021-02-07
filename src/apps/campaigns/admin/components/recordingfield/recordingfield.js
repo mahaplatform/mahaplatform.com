@@ -20,10 +20,10 @@ class Recordingfield extends React.PureComponent {
     status: PropTypes.string,
     onCall: PropTypes.func,
     onChange: PropTypes.func,
+    onClear: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
     onRecord: PropTypes.func,
-    onRemove: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSet: PropTypes.func,
     onUpdateNumber: PropTypes.func
@@ -36,6 +36,7 @@ class Recordingfield extends React.PureComponent {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleChoose = this._handleChoose.bind(this)
+  _handleClear = this._handleClear.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -43,13 +44,15 @@ class Recordingfield extends React.PureComponent {
     return (
       <div className="crm-recordingfield">
         { asset ?
-          <div className="crm-recordingfield-asset">
-            <AssetViewer asset={ asset } />
+          <div className="crm-recordingfield-recording">
+            <div className="crm-recordingfield-recording-asset">
+              <AssetViewer asset={ asset } />
+            </div>
+            <div className="maha-input-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
           </div> :
           <Button { ...this._getChooseButton() } />
-        }
-        { asset &&
-          <Button { ...this._getRemoveButton() } />
         }
       </div>
     )
@@ -71,15 +74,7 @@ class Recordingfield extends React.PureComponent {
   _getChooseButton() {
     return {
       label: 'Choose or record an audio file',
-      className: 'ui button',
-      handler: this._handleChoose
-    }
-  }
-
-  _getRemoveButton() {
-    return {
-      label: 'Choose or record another audio file',
-      className: 'link',
+      className: 'ui black button',
       handler: this._handleChoose
     }
   }
@@ -135,6 +130,10 @@ class Recordingfield extends React.PureComponent {
 
   _handleChoose() {
     this.context.form.push(<Attachments { ...this._getAttachments() } />)
+  }
+
+  _handleClear() {
+    this.props.onClear()
   }
 
   _handleDone(assets) {

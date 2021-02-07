@@ -1,3 +1,4 @@
+import RecordingField from '../recordingfield'
 import TimesField from '../timesfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -83,7 +84,7 @@ class TimeBlock extends React.PureComponent {
       ]
     } else if(config.strategy === 'play') {
       return [
-        { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
   }

@@ -31,16 +31,9 @@ class Play extends React.PureComponent {
   componentDidMount() {
     this.setState({
       config: {
-        ...this._getDefaults(),
         ...this.props.config || {}
       }
     })
-  }
-
-  _getDefaults() {
-    return {
-      loop: 1
-    }
   }
 
   _getForm() {
@@ -60,14 +53,7 @@ class Play extends React.PureComponent {
         {
           fields: [
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Recording', type: 'segment', fields: [
-              { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id },
-              { name: 'loop', type: 'dropdown', search: false, options: [
-                { value: 0, text: 'Loop Infinitely' },
-                { value: 1, text: 'Play Once' },
-                { value: 2, text: 'Play Twice' }
-              ], required: true, defaultValue: config.loop }
-            ]}
+            { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
           ]
         }
       ]

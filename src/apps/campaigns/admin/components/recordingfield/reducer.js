@@ -53,6 +53,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       number: action.number
     }
 
+  case 'CLEAR':
+    return {
+      ...state,
+      asset: null,
+      number: null,
+      status: 'pending',
+      code: null
+    }
+
   default:
     return state
   }

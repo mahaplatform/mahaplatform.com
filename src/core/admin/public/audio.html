@@ -30,12 +30,15 @@
   .maha-audio audio:focus {
     outline: none !important;
   }
+  audio::-webkit-media-controls-panel {
+    background-color: white;
+  }
 </style>
 </head>
 <body>
 
 <div class="maha-audio">
-  <audio id="maha-audio-player" controls="controls" />
+  <audio id="maha-audio-player" controls="controls" controlsList="nodownload" />
 </div>
 
 <script type="application/javascript">

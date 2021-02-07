@@ -26,8 +26,8 @@ export const upload = (id) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const remove = () => ({
-  type: 'REMOVE'
+export const clear = () => ({
+  type: 'CLEAR'
 })
 
 export const setStatus = (status) => ({
