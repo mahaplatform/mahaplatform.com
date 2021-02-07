@@ -22,29 +22,23 @@ class Canvas extends React.PureComponent {
     dragging: false,
     start: { x: 0, y: 0 },
     current: { x: 0, y: 0 },
-    offset: { x: 0, y: 0 },
-    zoom: 5
+    offset: { x: 0, y: 0 }
   }
 
   _handleMoveStart = this._handleMoveStart.bind(this)
   _handleMove = this._handleMove.bind(this)
   _handleMoveEnd = this._handleMoveEnd.bind(this)
-  _handleZoom = this._handleZoom.bind(this)
   _handleWheel = this._handleWheel.bind(this)
 
   render() {
-    console.log(this.props.boxes)
     return (
       <div className="flowchart-canvas">
-        <div className="flowchart-canvas-body" { ...this._getBody() }>
+        <div { ...this._getBody() }>
           <div className="flowchart" style={ this._getOuter() }>
-            <div className="flowchart-inner" style={ this._getInner() }>
+            <div className="flowchart-inner">
               <Trunk { ...this._getTrunk() } />
             </div>
           </div>
-        </div>
-        <div className="flowchart-canvas-footer">
-          <input { ...this._getRange() } />
         </div>
       </div>
     )
@@ -58,7 +52,9 @@ class Canvas extends React.PureComponent {
   }
 
   _getBody() {
+    const { dragging } = this.state
     return {
+      className: `flowchart-canvas-body${dragging ? ' dragging' : ''}`,
       onTouchStart: this._handleMoveStart,
       onTouchMove: this._handleMove,
       onTouchEnd: this._handleMoveEnd,
@@ -69,31 +65,12 @@ class Canvas extends React.PureComponent {
     }
   }
 
-  _getInner() {
-    const { zoom } = this.state
-    const scale = 1.2 - ((zoom * 4) / 100)
-    return {
-      transform: `scale(${scale})`
-    }
-  }
-
   _getOuter() {
     const { current, start, offset } = this.state
     const offsetX = offset.x + (start.x - current.x)
-    const offsetY = offset.y + (start.y - current.y)
+    const offsetY = offset.y - (start.y - current.y)
     return {
-      transform: `translate(calc(-50% - ${offsetX}px), calc(-50% - ${offsetY}px))`
-    }
-  }
-
-  _getRange() {
-    const { zoom } = this.state
-    return {
-      type: 'range',
-      min: 0,
-      max: 11,
-      value: zoom,
-      onChange: this._handleZoom
+      transform: `translate(calc(-50% - ${offsetX}px), ${offsetY}px)`
     }
   }
 
@@ -143,21 +120,18 @@ class Canvas extends React.PureComponent {
       current: { x: 0, y: 0 },
       offset: {
         x: offset.x + (start.x - current.x),
-        y: offset.y + (start.y - current.y)
+        y: offset.y - (start.y - current.y)
       }
     })
   }
 
   _handleWheel(e) {
-    const { zoom } = this.state
+    const { offset } = this.state
     this.setState({
-      zoom: Math.max(Math.min(zoom + (e.deltaY < 0 ? 1 : -1), 11), 0)
-    })
-  }
-
-  _handleZoom(e) {
-    this.setState({
-      zoom: Math.floor(e.target.value)
+      offset: {
+        x: offset.x,
+        y: offset.y + (e.deltaY < 0 ? 20 : -20)
+      }
     })
   }
 

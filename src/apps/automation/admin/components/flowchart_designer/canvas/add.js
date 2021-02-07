@@ -29,7 +29,7 @@ class Add extends React.Component {
   render() {
     return (
       <div { ...this._getTarget() }>
-        <Connector type="vertical" />
+        <Connector type="vertical"/>
         <div className="flowchart-box-add" />
       </div>
     )

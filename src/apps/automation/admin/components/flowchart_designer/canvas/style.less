@@ -9,7 +9,11 @@
     overflow: visible;
     path {
       stroke: lighten(@black, 80);
+      stroke-width: 2;
       fill: transparent;
+    }
+    circle {
+      fill: lighten(@black, 80);
     }
   }
 }
@@ -18,6 +22,9 @@
   overflow: hidden;
   cursor: grab;
   flex: 1;
+  &.dragging {
+    cursor: grabbing;
+  }
 }
 .flowchart-canvas-footer {
   border-top: 1px solid fadeout(@black, 90);
@@ -32,7 +39,7 @@
 }
 .flowchart {
   position: absolute;
-  top: 50%;
+  top: 0.8em;
   left: ~"calc(50% + 3.2em)";
 }
 .flowchart-inner {
@@ -191,6 +198,7 @@
   overflow: hidden;
   .flowchart-segments {
     flex-direction: column;
+    overflow: hidden;
     display: flex;
     flex: 1;
   }
