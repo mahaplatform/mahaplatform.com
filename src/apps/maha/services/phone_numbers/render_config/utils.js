@@ -17,8 +17,7 @@ const announcePlay = async (req, config) => {
   })
   return {
     play: {
-      url: recording.get('signed_url'),
-      loop: 0
+      key: recording.get('key')
     }
   }
 }
