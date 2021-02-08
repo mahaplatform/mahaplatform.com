@@ -25,6 +25,8 @@ class PhoneRoot extends React.Component {
     token: PropTypes.string
   }
 
+  ringtone = null
+
   state = {
     calls: [],
     error: null,
@@ -141,7 +143,10 @@ class PhoneRoot extends React.Component {
     this._handleUpdate(call.call.sid, {
       status: 'in-progress-contact',
       answered: true
-    }, callback)
+    }, () => {
+      this._handleRingtone(false)
+      callback()
+    })
   }
 
   _handleAdd(call) {
@@ -159,7 +164,9 @@ class PhoneRoot extends React.Component {
           status: 'ringing',
           started_at: moment()
         }
-      ]
+      ],
+      open: true,
+      program_id: call.call.program.id
     })
   }
 
@@ -281,6 +288,7 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         const { parent_sid, call } = result.data
+        this._handleRingtone(true)
         this._handleAdd({
           client: 'maha',
           action: 'new',
@@ -305,6 +313,7 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         connection.accept()
+        this._handleRingtone(true)
         this._handleUpdate(result.data.call.sid, {
           connection,
           action: 'forward',
@@ -326,6 +335,7 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         const { call } = result.data
+        this._handleRingtone(true)
         this._handleAdd({
           client: 'maha',
           action: 'transfer',
@@ -417,6 +427,7 @@ class PhoneRoot extends React.Component {
   }
 
   _handleReject(call) {
+    this._handleRingtone(false)
     call.connection.reject()
     this._handleRemove({
       sid: call.call.sid
@@ -441,6 +452,16 @@ class PhoneRoot extends React.Component {
         this._handleUnhold(calls[0])
       })
     })
+  }
+
+  _handleRingtone(start) {
+    if(start) {
+      this.ringtone = new Audio('/audio/ring.mp3')
+      this.ringtone.play()
+    } else  {
+      this.ringtone.pause()
+      this.ringtone = null
+    }
   }
 
   _getSignal(call, data) {
