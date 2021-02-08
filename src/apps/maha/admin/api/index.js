@@ -26,6 +26,7 @@ import fields from './fields'
 import audits from './audits'
 import states from './states'
 import emails from './emails'
+import speak from './speak'
 import users from './users'
 import react from './react'
 import links from './links'
@@ -78,6 +79,8 @@ router.use('/session', session)
 router.use('/security_questions', security_questions)
 
 router.use('/shortlinks', shortlinks)
+
+router.use('/speak', speak)
 
 router.use('/states', states)
 
