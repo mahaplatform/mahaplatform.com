@@ -1,5 +1,6 @@
 import dialbyextension from './dialbyextension'
 import Asset from '@apps/maha/models/asset'
+import dialbyname from './dialbyname'
 import timeofday from './timeofday'
 import voicemail from './voicemail'
 import dialmenu from './dialmenu'
@@ -42,6 +43,7 @@ export const announce = async(req, config) => {
 
 const getCreator = (action) => {
   if(action === 'dialbyextension') return dialbyextension
+  if(action === 'dialbyname') return dialbyname
   if(action === 'timeofday') return timeofday
   if(action === 'voicemail') return voicemail
   if(action === 'dialmenu') return dialmenu

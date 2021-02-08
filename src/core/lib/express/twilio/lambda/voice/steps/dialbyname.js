@@ -1,25 +1,30 @@
 const { getMatchingUsers, voiceurl } = require('./utils')
+const play = require('./play')
+const say = require('./say')
 
 const dial = (req, twiml) => {
-  const { query, step } = req
-  const { index } = query
-  const user = step.users[index]
-  twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
+  const { body, query, step } = req
+  const { index, state } = query
+  const recipient = step.recipients[index]
+  if(recipient.say) say({ step: recipient.say }, twiml, true)
+  if(recipient.play) play({ step: recipient.play }, twiml, true)
   const dial = twiml.dial({
+    callerId: body.To,
     timeout: 15
   })
-  if(user.client) dial.client(user.client)
-  if(user.number) dial.number(user.number)
+  if(recipient.client) dial.client(recipient.client)
+  if(recipient.number) dial.number(recipient.number)
+  twiml.redirect(voiceurl(req, '/voice', { state: `${state}.noanswer.steps.0` }))
 }
 
 const choose = (req, twiml) => {
   const { body, query, step } = req
   const { state } = query
-  const users = getMatchingUsers(query.digits, step.users)
+  const recipients = getMatchingUsers(query.digits, step.recipients)
   const index = parseInt(body.Digits) - 1
-  const user = users[index]
-  if(user) {
-    twiml.redirect(voiceurl(req, '/voice', { state, action: 'dial', index: user.index }))
+  const recipient = recipients[index]
+  if(recipient) {
+    twiml.redirect(voiceurl(req, '/voice', { state, action: 'dial', index: recipient.index }))
   } else {
     twiml.say(`${body.Digits} is not a valid response`)
     twiml.redirect(voiceurl(req, '/voice', { state, action: 'answer', digits: query.digits }))
@@ -28,24 +33,33 @@ const choose = (req, twiml) => {
 
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
+  const { star, hash } = step
   const { state } = query
+  if(star && body.Digits === '*') {
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.star.steps.0` }))
+    return 'pressed star'
+  }
+  if(hash && body.Digits === '#') {
+    twiml.redirect(voiceurl(req, '/voice', { state: `${state}.hash.steps.0` }))
+    return 'pressed hash'
+  }
   const digits = req.query.digits || body.Digits
-  const users = getMatchingUsers(digits, step.users)
-  const names = users.map(user => `${user.first_name} ${user.last_name}`)
-  if(users.length > 1) {
+  const recipients = getMatchingUsers(digits, step.recipients)
+  const names = recipients.map(recipient => `${recipient.first_name} ${recipient.last_name}`)
+  if(recipients.length > 1) {
     const gather = twiml.gather({
       action: voiceurl(req, '/voice', { state, action: 'choose', digits }),
       finishOnKey: '',
       numDigits: 1,
-      timeout: 10
+      timeout: 3
     })
     names.map((names, index) => {
       gather.say(`Press ${index + 1} for ${names}`)
       gather.pause({ length: 1 })
     })
     return 'multiple users'
-  } else if(users.length === 1) {
-    twiml.redirect(voiceurl(req, '/voice', { state, action: 'dial', index: users[0].index }))
+  } else if(recipients.length === 1) {
+    twiml.redirect(voiceurl(req, '/voice', { state, action: 'dial', index: recipients[0].index }))
     return 'found'
   } else {
     twiml.say('I couldnt find anyone who matches that input')
@@ -69,10 +83,11 @@ const ask = (req, twiml) => {
     action: voiceurl(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: 3,
-    timeout: 10
+    timeout: 3
   })
-  gather.say('Please dial the first three letters of the person\'s last name')
-  twiml.redirect(voiceurl(req, '/voice', { action: 'answer' }))
+  if(req.step.say) say({ step: req.step.say }, gather, true)
+  if(req.step.play) play({ step: req.step.play }, gather, true)
+  twiml.redirect(voiceurl(req, '/voice', { state: `${state}.noinput.steps.0` }))
   return {
     verb: 'dialbyname',
     action: 'ask'

@@ -1,6 +1,6 @@
-import RecipientsField from '../../recipientsfield'
 import RecordingField from '../../recordingfield'
 import { Container, Form } from '@admin'
+import UserField from '../../userfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -45,7 +45,7 @@ class DialByName extends React.PureComponent {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
       voice: 'woman',
-      text: 'Dial the first three letters of the persons last name',
+      text: 'Dial the first three letters of your party\'s last name',
       recipients: [],
       specials: []
     }
@@ -81,7 +81,7 @@ class DialByName extends React.PureComponent {
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
-            { label: 'Recipients', name: 'recipients', type: RecipientsField, users, required: true, defaultValue: config.recipients },
+            { label: 'Recipients', name: 'recipients', type: UserField, users, required: true, defaultValue: config.recipients },
             { label: 'Special Characters', type: 'segment', fields: [
               { name: 'specials', type: 'checkboxes', deselectable: false, options: [
                 { value: 'hash', text: 'Respond to hash (#)' },

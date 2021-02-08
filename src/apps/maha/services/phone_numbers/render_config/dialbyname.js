@@ -8,34 +8,32 @@ const getUser = async (req, user_id) => {
   }).fetch({
     transacting: req.trx
   })
-  return [
-    { client: user.get('client') },
-    { number: user.get('cell_phone') }
-  ]
+  return {
+    first_name: user.get('first_name'),
+    last_name: user.get('last_name'),
+    client: user.get('client'),
+    number: user.get('cell_phone')
+  }
 }
 
-const dialbyextension = async (req, { steps, step }) => {
+const dialbyname = async (req, { steps, step }) => {
   const { config } = step
   return {
-    verb: 'dialbyextension',
+    verb: 'dialbyname',
     ...await announce(req, {
       strategy: config.strategy,
       voice: config.voice,
       text: config.text,
       recording_id: config.recording_id
     }),
-    extensions: await Promise.mapSeries(config.extensions, async(extension) => ({
-      extension: extension.extension,
+    recipients: await Promise.mapSeries(config.recipients, async(recipient) => ({
       ...await announce(req, {
-        strategy: extension.strategy,
-        voice: extension.voice,
-        text: extension.text,
-        recording_id: extension.recording_id
+        strategy: recipient.strategy,
+        voice: recipient.voice,
+        text: recipient.text,
+        recording_id: recipient.recording_id
       }),
-      recipients: await Promise.reduce(extension.recipients, async(recipients, recipient) => [
-        ...recipients,
-        ...recipient.strategy === 'user' ? await getUser(req, recipient.user_id) : [{ number: recipient.number }]
-      ], [])
+      ...await getUser(req, recipient.user_id)
     })),
     ..._.includes(config.specials, 'hash') ? {
       hash: {
@@ -72,4 +70,4 @@ const dialbyextension = async (req, { steps, step }) => {
   }
 }
 
-export default dialbyextension
+export default dialbyname

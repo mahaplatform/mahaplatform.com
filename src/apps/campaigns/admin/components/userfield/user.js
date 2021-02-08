@@ -1,20 +1,24 @@
+import { Form, UserToken } from '@admin'
 import RecordingField from '../recordingfield'
 import PropTypes from 'prop-types'
-import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Special extends React.PureComponent {
+class User extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
   }
 
   static propTypes = {
-    defaultValue: PropTypes.object,
+    user: PropTypes.object,
     mode: PropTypes.string,
-    specials: PropTypes.array,
+    users: PropTypes.array,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    user: {}
   }
 
   state = {
@@ -31,45 +35,28 @@ class Special extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { mode, defaultValue } = this.props
+    const { user } = this.props
     this.setState({
-      config: mode === 'edit' ? defaultValue : this._getDefault()
-    })
-  }
-
-  _getAvailable() {
-    const { mode, defaultValue, specials } = this.props
-    const available = [
-      { value: 'hash', text: '# (hash key)' },
-      { value: 'star', text: '* (star key)' }
-    ]
-    if(mode === 'edit') {
-      return available.filter(option => {
-        return option.value === defaultValue.character
-      })
-    }
-    return available.filter(option => {
-      return specials.find(special => {
-        return special.character === option.value
-      }) === undefined
+      config: {
+        ...this._getDefault(),
+        ...user
+      }
     })
   }
 
   _getDefault() {
-    const available = this._getAvailable()
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman',
-      character: available[0].value
+      voice: 'woman'
     }
   }
 
   _getForm() {
-    const { config } = this.state
     const { mode } = this.props
+    const { config } = this.state
     return {
-      title: 'Special Character',
+      title: 'Recipient',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
@@ -79,16 +66,16 @@ class Special extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { label: 'Character', type: 'segment', fields: [
-              { name: 'character', type: 'radiogroup', deselectable: false, options: this._getAvailable(), defaultValue: config.character }
-            ] },
-            { label: 'Announcement', type: 'segment', fields: [
+            { label: 'Announcement', type: 'segment', instructions: 'Play this announcement before dialing out to recipient', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play recording' },
+                { value: 'play', text: 'Play an audio file' },
                 { value: 'none', text: 'No announcement' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
+            ] },
+            { label: 'User', type: 'segment', fields: [
+              { name: 'user_id', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, value: 'id', text: 'full_name', format: UserToken, defaultValue: config.user_id }
             ] }
           ]
         }
@@ -104,7 +91,7 @@ class Special extends React.PureComponent {
           { value: 'woman', text: 'Female Voice' },
           { value: 'man', text: 'Male Voice' }
         ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
+        { name: 'text', type: 'textarea', placeholder: 'Connecting you to...', required: true, defaultValue: config.text }
       ]
     }
     if(config.strategy === 'play') {
@@ -131,4 +118,4 @@ class Special extends React.PureComponent {
 
 }
 
-export default Special
+export default User
