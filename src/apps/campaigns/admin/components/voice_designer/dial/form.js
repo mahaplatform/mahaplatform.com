@@ -1,4 +1,5 @@
 import RecipientsField from '../../recipientsfield'
+import RecordingField from '../../recordingfield'
 import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -42,6 +43,8 @@ class Dial extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      strategy: 'say',
+      voice: 'woman',
       recipients: []
     }
   }
@@ -51,7 +54,7 @@ class Dial extends React.PureComponent {
     const { users } = this.props
     return {
       reference: node => this.form = node,
-      title: 'Dial',
+      title: 'Forward Call',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
@@ -65,15 +68,42 @@ class Dial extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Announcement', type: 'segment', instructions: 'Play this announcement before dialing out to recipient(s)', fields: [
+              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'say', text: 'Speak text' },
+                { value: 'play', text: 'Play an audio file' },
+                { value: 'none', text: 'No announcement' }
+              ], defaultValue: config.strategy },
+              ...this._getStrategy()
+            ] },
             { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
-              Add up to ten recipients. When an incoming call arrives,
+              Add as many recipients as you like. When an incoming call arrives,
               all phones will ring and the call will be transfered to the first
-              phone to answer
+              phone that answers
             `, required: true, defaultValue: config.recipients }
           ]
         }
       ]
     }
+  }
+
+  _getStrategy() {
+    const { config } = this.state
+    if(config.strategy === 'say') {
+      return [
+        { name: 'voice', type: 'dropdown', options: [
+          { value: 'woman', text: 'Female Voice' },
+          { value: 'man', text: 'Male Voice' }
+        ], required: true, defaultValue: config.voice },
+        { name: 'text', type: 'textarea', placeholder: 'Connecting you to...', required: true, defaultValue: config.text }
+      ]
+    }
+    if(config.strategy === 'play') {
+      return [
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+      ]
+    }
+    return []
   }
 
   _handleCancel() {

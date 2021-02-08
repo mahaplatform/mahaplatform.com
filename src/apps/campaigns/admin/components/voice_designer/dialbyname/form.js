@@ -70,7 +70,11 @@ class DialByName extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Greeting', type: 'segment', fields: [
+            { label: 'Greeting', type: 'segment', instructions: `
+              Play this greeting to instruct the caller to dial the first three
+              letters of their party's last name. The greeting will stop when
+              the caller begins to dial.
+            `, fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
                 { value: 'play', text: 'Play an audio file' }

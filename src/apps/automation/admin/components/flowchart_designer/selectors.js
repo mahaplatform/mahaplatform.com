@@ -49,19 +49,28 @@ const getBranches = (steps, step) => {
     return  [
       ...step.config.options.map(option => ({
         code: option.code,
-        label: option.number,
+        label: `${option.number}: ${option.name}`,
+        tooltip: `Caller pressed ${option.number}`,
         then: segment(steps, step.code,  option.code)
       })),
       ..._.includes(step.config.specials, 'hash') ? [{
         code: 'hash',
         label: '#',
+        tooltip: 'Caller pressed hash',
         then: segment(steps, step.code, 'hash')
       }] : [],
       ..._.includes(step.config.specials, 'star') ? [{
         code: 'star',
         label: '*',
+        tooltip: 'Caller pressed star',
         then: segment(steps, step.code, 'star')
-      }] : []
+      }] : [],
+      {
+        code: 'noinput',
+        tooltip: 'No input was received',
+        label: 'no input',
+        then: segment(steps, step.code, 'noinput')
+      }
     ]
   } else if(_.includes(['dialbyname','dialbyextension'], step.action)) {
     return  [

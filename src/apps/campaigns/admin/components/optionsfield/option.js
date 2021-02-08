@@ -39,9 +39,7 @@ class Optionsfield extends React.PureComponent {
 
   _getDefault() {
     return {
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      strategy: 'say',
-      voice: 'woman'
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     }
   }
 
@@ -60,15 +58,8 @@ class Optionsfield extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
             { label: 'Option', type: 'segment', fields: [
-              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name },
-              { name: 'number', type: 'numberfield', required: true, placeholder: 'Enter a number', maxLength: 1, defaultValue: config.number }
-            ] },
-            { label: 'Announcement', type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
-                { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play recording' }
-              ], defaultValue: config.strategy },
-              ...this._getStrategy()
+              { name: 'number', type: 'numberfield', required: true, placeholder: 'Enter a number', maxLength: 1, defaultValue: config.number },
+              { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name }
             ] }
           ]
         }

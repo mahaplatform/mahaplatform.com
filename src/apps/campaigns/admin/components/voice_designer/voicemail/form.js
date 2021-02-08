@@ -66,11 +66,13 @@ class Voicemail extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Announcement', type: 'segment', required: true, fields: [
+            { label: 'Greeting', instructions: `
+              Play this greeting before the caller leaves a voicemail. They
+              will be prompted by a tone
+            `, type: 'segment', required: true, fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, required: true, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play an audio file' },
-                { value: 'none', text: 'No announcement' }
+                { value: 'play', text: 'Play an audio file' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] }

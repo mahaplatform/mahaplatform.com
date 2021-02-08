@@ -1,5 +1,4 @@
 import RecordingField from '../../recordingfield'
-import SpecialsField from '../../specialsfield'
 import OptionsField from '../../optionsfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -70,16 +69,23 @@ class Menu extends React.PureComponent {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Announcement', type: 'segment', fields: [
+            { label: 'Greeting', instructions: `
+              Play this greeting to inform the caller of their available
+              options. The greeting will stop when the caller begins to dial.
+            `, type: 'segment', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },
-                { value: 'play', text: 'Play an audio file' },
-                { value: 'none', text: 'No announcement' }
+                { value: 'play', text: 'Play an audio file' }
               ], defaultValue: config.strategy },
               ...this._getStrategy()
             ] },
             { label: 'Options', name: 'options', type: OptionsField, required: true, defaultValue: config.options },
-            { label: 'Special Characters', name: 'specials', type: SpecialsField, defaultValue: config.specials }
+            { label: 'Special Characters', type: 'segment', fields: [
+              { name: 'specials', type: 'checkboxes', deselectable: false, options: [
+                { value: 'hash', text: 'Respond to hash (#)' },
+                { value: 'star', text: 'Respond to star (*)' }
+              ], defaultValue: config.specials }
+            ] }
           ]
         }
       ]

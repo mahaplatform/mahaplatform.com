@@ -1,4 +1,5 @@
 import RecipientsField from '../recipientsfield'
+import RecordingField from '../recordingfield'
 import { Container, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -47,6 +48,8 @@ class Extension extends React.PureComponent {
   _getDefault() {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      strategy: 'say',
+      voice: 'woman',
       recipients: []
     }
   }
@@ -69,6 +72,14 @@ class Extension extends React.PureComponent {
               { name: 'extension', type: 'numberfield', required: true, placeholder: 'Enter a 3 digit extension', maxLength: 3, defaultValue: config.extension },
               { name: 'name', type: 'textfield', required: true, placeholder: 'Enter a name', defaultValue: config.name }
             ] },
+            { label: 'Announcement', type: 'segment', instructions: 'Play this announcement before dialing out to recipient(s)', fields: [
+              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'say', text: 'Speak text' },
+                { value: 'play', text: 'Play an audio file' },
+                { value: 'none', text: 'No announcement' }
+              ], defaultValue: config.strategy },
+              ...this._getStrategy()
+            ] },
             { label: 'Recipients', name: 'recipients', type: RecipientsField, users, instructions: `
               Add one or more recipients. When an incoming call is routed to this
               extension, all phones will ring simultaneously and the call will
@@ -78,6 +89,25 @@ class Extension extends React.PureComponent {
         }
       ]
     }
+  }
+
+  _getStrategy() {
+    const { config } = this.state
+    if(config.strategy === 'say') {
+      return [
+        { name: 'voice', type: 'dropdown', options: [
+          { value: 'woman', text: 'Female Voice' },
+          { value: 'man', text: 'Male Voice' }
+        ], required: true, defaultValue: config.voice },
+        { name: 'text', type: 'textarea', placeholder: 'Connecting you to...', required: true, defaultValue: config.text }
+      ]
+    }
+    if(config.strategy === 'play') {
+      return [
+        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
+      ]
+    }
+    return []
   }
 
   _handleBack() {
