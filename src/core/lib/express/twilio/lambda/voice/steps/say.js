@@ -6,10 +6,13 @@ const say = (req, twiml, child = false) => {
   const loop = req.step.loop || 1
   const text = req.step.text
 
-  twiml.say({
-    voice,
-    loop
-  }, text)
+  text.split('\n').map(segment => {
+    twiml.say({
+      voice,
+      loop
+    }, segment)
+    twiml.pause(1)
+  })
 
   if(!child) next(req, twiml)
 
