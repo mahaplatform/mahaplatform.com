@@ -1,3 +1,4 @@
+import { announce } from './utils'
 import User from '@apps/maha/models/user'
 
 const getUser = async(req, { user_id }) => {
@@ -13,15 +14,21 @@ const getUser = async(req, { user_id }) => {
 }
 
 const dial = async (req, { steps, step }) => {
-  const recipients = await Promise.reduce(step.config.recipients, async(recipients, recipient) => {
-    const { strategy, user_id, number } = recipient
-    return [
+  const { config } = step
+  return {
+    verb: 'dial',
+    ...await announce(req, {
+      strategy: config.strategy,
+      voice: config.voice,
+      text: config.text,
+      recording_id: step.recording_id
+    }),
+    recipients: await Promise.reduce(config.recipients, async(recipients, recipient) => [
       ...recipients,
-      ...strategy === 'user' ? await getUser(req, { user_id }) : [],
-      ...strategy === 'number' ? [{ number }] : []
-    ]
-  }, [])
-  return { verb: 'dial', recipients }
+      ...recipient.strategy === 'user' ? await getUser(req, { user_id: recipient.user_id }) : [],
+      ...recipient.strategy === 'number' ? [{ number: recipient.number }] : []
+    ], [])
+  }
 }
 
 export default dial

@@ -1,7 +1,13 @@
+const play = require('./play')
+const say = require('./say')
+
 const dial = (req, twiml) => {
 
   const { body, step } = req
   const { recipients } = step
+
+  if(step.say) say({ step: step.say }, twiml, true)
+  if(step.play) play({ step: step.play }, twiml, true)
 
   const dial = twiml.dial({
     callerId: body.To
