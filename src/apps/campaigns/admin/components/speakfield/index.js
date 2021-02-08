@@ -73,13 +73,11 @@ class SpeakField extends React.PureComponent {
       { name: 'Amy', nationality: 'GB' },
       { name: 'Brian', nationality: 'GB' },
       { name: 'Emma', nationality: 'GB' },
-      { name: 'Ivy', nationality: 'US' },
       { name: 'Joanna', nationality: 'US' },
       { name: 'Kendra', nationality: 'US' },
       { name: 'Kimberly', nationality: 'US' },
       { name: 'Salli', nationality: 'US' },
       { name: 'Joey', nationality: 'US' },
-      { name: 'Justin', nationality: 'US' },
       { name: 'Matthew', nationality: 'US' }
     ]
     const { voice } = this.state
