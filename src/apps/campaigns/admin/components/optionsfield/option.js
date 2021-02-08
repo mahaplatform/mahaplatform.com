@@ -1,4 +1,5 @@
 import RecordingField from '../recordingfield'
+import SpeakField from '../speakfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
@@ -71,11 +72,7 @@ class Optionsfield extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'say') {
       return [
-        { name: 'voice', type: 'dropdown', options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.text }
+        { name: 'say', type: SpeakField, placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.say }
       ]
     } else if(config.strategy === 'play') {
       return [

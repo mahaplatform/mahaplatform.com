@@ -1,4 +1,3 @@
-import RecordingField from '../recordingfield'
 import TimesField from '../timesfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -68,23 +67,6 @@ class TimeBlock extends React.PureComponent {
             { label: 'Times', name: 'times', type: TimesField, required: true }
           ]
         }
-      ]
-    }
-  }
-
-  _getStrategy() {
-    const { config } = this.state
-    if(config.strategy === 'say') {
-      return [
-        { name: 'voice', type: 'dropdown', options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'message', type: 'textarea', placeholder: 'For {username}, dial {extension}', required: true, defaultValue: config.message }
-      ]
-    } else if(config.strategy === 'play') {
-      return [
-        { name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
       ]
     }
   }

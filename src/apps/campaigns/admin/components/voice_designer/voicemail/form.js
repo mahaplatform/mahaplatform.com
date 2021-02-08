@@ -1,6 +1,7 @@
 import RecordingField from '../../recordingfield'
-import { Form } from '@admin'
+import SpeakField from '../../speakfield'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -43,8 +44,10 @@ class Voicemail extends React.PureComponent {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman',
-      text: 'Please leave a message after the tone'
+      say: {
+        voice: 'Salli',
+        text: 'Please leave a message after the tone'
+      }
     }
   }
 
@@ -86,16 +89,12 @@ class Voicemail extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'say') {
       return [
-        { name: 'voice', type: 'dropdown', deselectable: false, options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'Enter a text', required: true, defaultValue: config.text }
+        { name: 'say', type: SpeakField, placeholder: 'Enter a greeting', required: true, defaultValue: config.say }
       ]
     }
     if(config.strategy === 'play') {
       return [
-        {name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
+        { name: 'recording_id', required: true, type: RecordingField, defaultValue: config.recording_id }
       ]
     }
     return []

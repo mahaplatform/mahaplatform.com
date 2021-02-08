@@ -1,4 +1,5 @@
 import RecordingField from '../../recordingfield'
+import SpeakField from '../../speakfield'
 import { Container, Form } from '@admin'
 import UserField from '../../userfield'
 import PropTypes from 'prop-types'
@@ -44,8 +45,10 @@ class DialByName extends React.PureComponent {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman',
-      text: 'Dial the first three letters of your party\'s last name',
+      say: {
+        voice: 'Salli',
+        text: 'Dial the first three letters of your party\'s last name'
+      },
       recipients: [],
       specials: []
     }
@@ -98,11 +101,7 @@ class DialByName extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'say') {
       return [
-        { name: 'voice', type: 'dropdown', options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
+        { name: 'say', type: SpeakField, placeholder: 'Enter a greeting', required: true, defaultValue: config.say }
       ]
     }
     if(config.strategy === 'play') {

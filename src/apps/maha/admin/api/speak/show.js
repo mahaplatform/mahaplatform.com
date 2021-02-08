@@ -1,15 +1,15 @@
 import polly from '@core/vendor/aws/polly'
 
-const createRoute = async (req, res) => {
+const showRoute = async (req, res) => {
 
   const result = await polly.synthesizeSpeech({
     OutputFormat: 'mp3',
-    Text: req.body.text,
+    Text: req.query.text,
     TextType: 'text',
-    VoiceId: req.body.voice
+    VoiceId: req.query.voice
   }).promise()
 
   res.status(200).type('audio/mp3').send(result.AudioStream)
 
 }
-export default createRoute
+export default showRoute

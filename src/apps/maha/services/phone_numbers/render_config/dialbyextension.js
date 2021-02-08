@@ -18,20 +18,10 @@ const dialbyextension = async (req, { steps, step }) => {
   const { config } = step
   return {
     verb: 'dialbyextension',
-    ...await announce(req, {
-      strategy: config.strategy,
-      voice: config.voice,
-      text: config.text,
-      recording_id: config.recording_id
-    }),
+    ...await announce(req, config),
     extensions: await Promise.mapSeries(config.extensions, async(extension) => ({
       extension: extension.extension,
-      ...await announce(req, {
-        strategy: extension.strategy,
-        voice: extension.voice,
-        text: extension.text,
-        recording_id: extension.recording_id
-      }),
+      ...await announce(req, extension),
       recipients: await Promise.reduce(extension.recipients, async(recipients, recipient) => [
         ...recipients,
         ...recipient.strategy === 'user' ? await getUser(req, recipient.user_id) : [{ number: recipient.number }]

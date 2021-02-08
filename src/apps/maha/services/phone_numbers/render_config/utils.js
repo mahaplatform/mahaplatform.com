@@ -23,10 +23,7 @@ const announcePlay = async (req, config) => {
 }
 
 const announceSay = async(req, config) => ({
-  say: {
-    voice: config.voice,
-    text: config.text
-  }
+  say: config.say
 })
 
 const getAnnounceVerb = (strategy) => {

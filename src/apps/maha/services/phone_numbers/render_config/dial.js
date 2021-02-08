@@ -17,12 +17,7 @@ const dial = async (req, { steps, step }) => {
   const { config } = step
   return {
     verb: 'dial',
-    ...await announce(req, {
-      strategy: config.strategy,
-      voice: config.voice,
-      text: config.text,
-      recording_id: step.recording_id
-    }),
+    ...await announce(req, config),
     recipients: await Promise.reduce(config.recipients, async(recipients, recipient) => [
       ...recipients,
       ...recipient.strategy === 'user' ? await getUser(req, { user_id: recipient.user_id }) : [],

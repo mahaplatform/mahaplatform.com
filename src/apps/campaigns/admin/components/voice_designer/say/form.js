@@ -1,5 +1,6 @@
-import { Form } from '@admin'
+import SpeakField from '../../speakfield'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 
 class Say extends React.PureComponent {
@@ -38,7 +39,10 @@ class Say extends React.PureComponent {
 
   _getDefaults() {
     return {
-      voice: 'woman'
+      say: {
+        voice: 'Salli',
+        text: ''
+      }
     }
   }
 
@@ -59,9 +63,8 @@ class Say extends React.PureComponent {
         {
           fields: [
             { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Message', type: 'segment', required: true, fields: [
-              { name: 'voice', type: 'dropdown', options: [{ value: 'woman', text: 'Female Voice' },{ value: 'man', text: 'Male Voice' }], required: true, defaultValue: config.voice },
-              { name: 'text', type: 'textarea', placeholder: 'Enter a message', required: true, defaultValue: config.text }
+            { label: 'Message', type: 'segment', fields: [
+              { name: 'say', type: SpeakField, placeholder: 'Enter a message', required: true, defaultValue: config.say }
             ] }
           ]
         }

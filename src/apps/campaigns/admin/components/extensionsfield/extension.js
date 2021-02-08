@@ -1,6 +1,7 @@
 import RecipientsField from '../recipientsfield'
 import RecordingField from '../recordingfield'
 import { Container, Form } from '@admin'
+import SpeakField from '../speakfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -49,7 +50,10 @@ class Extension extends React.PureComponent {
     return {
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       strategy: 'say',
-      voice: 'woman',
+      say: {
+        voice: 'Salli',
+        text: ''
+      },
       recipients: []
     }
   }
@@ -95,11 +99,7 @@ class Extension extends React.PureComponent {
     const { config } = this.state
     if(config.strategy === 'say') {
       return [
-        { name: 'voice', type: 'dropdown', options: [
-          { value: 'woman', text: 'Female Voice' },
-          { value: 'man', text: 'Male Voice' }
-        ], required: true, defaultValue: config.voice },
-        { name: 'text', type: 'textarea', placeholder: 'Connecting you to...', required: true, defaultValue: config.text }
+        { name: 'say', type: SpeakField, placeholder: 'Connecting you to...', required: true, defaultValue: config.say }
       ]
     }
     if(config.strategy === 'play') {
