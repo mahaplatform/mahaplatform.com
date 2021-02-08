@@ -145,7 +145,7 @@ class PhoneRoot extends React.Component {
       answered: true
     }, () => {
       this._handleRingtone(false)
-      callback()
+      if(callback) callback()
     })
   }
 

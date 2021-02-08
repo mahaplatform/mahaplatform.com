@@ -1,3 +1,4 @@
+require('./env')
 const fetchConfig = require('./config')
 const Response = require('./response')
 const Request = require('./request')
@@ -44,6 +45,12 @@ const handle = async (req, res) => {
 
 exports.handler = async (event, context) => {
 
+  if(!process.env.TWILIO_HOST_TWIML) {
+    await new Promise(resolve => {
+      setTimeout(resolve, 500)
+    })
+  }
+  
   const req = new Request(event)
 
   const res = new Response()
