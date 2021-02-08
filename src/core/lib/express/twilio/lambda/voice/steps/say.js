@@ -2,13 +2,13 @@ const { next } = require('./utils')
 
 const say = (req, twiml, child = false) => {
 
-  const voice = req.step.voice || 'alice'
+  const voice = req.step.voice === 'man' ? 'Joey' : 'Salli'
   const loop = req.step.loop || 1
   const text = req.step.text
 
   text.split('\n').map(segment => {
     twiml.say({
-      voice,
+      voice: `Polly.${voice}-Neural`,
       loop
     }, segment)
     twiml.pause(1)

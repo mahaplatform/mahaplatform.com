@@ -65,7 +65,7 @@ const ask = (req, twiml) => {
   })
   if(req.step.say) say({ step: req.step.say }, gather, true)
   if(req.step.play) play({ step: req.step.play }, gather, true)
-  twiml.redirect(voiceurl(req, '/voice', { state: `${state}.noanswer.steps.0` }))
+  twiml.redirect(voiceurl(req, '/voice', { state: `${state}.noinput.steps.0` }))
   return {
     verb: 'dialbyextension',
     action: 'ask'

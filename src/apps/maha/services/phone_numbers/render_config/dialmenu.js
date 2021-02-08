@@ -42,7 +42,14 @@ const dialmenu = async (req, { steps, step }) => {
           answer: 'star'
         })
       }
-    } : {}
+    } : {},
+    noinput: {
+      steps: await getSegment(req, {
+        steps,
+        parent: step.code,
+        answer: 'noinput'
+      })
+    }
   }
 }
 

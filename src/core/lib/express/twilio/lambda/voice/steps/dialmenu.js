@@ -2,18 +2,6 @@ const { voiceurl } = require('./utils')
 const play = require('./play')
 const say = require('./say')
 
-const dial = (req, twiml) => {
-  const { query, step } = req
-  const { index } = query
-  const user = step.users[index]
-  twiml.say(`Connecting you to ${user.first_name} ${user.last_name}`)
-  const dial = twiml.dial({
-    timeout: 15
-  })
-  if(user.client) dial.client(user.client)
-  if(user.number) dial.number(user.number)
-}
-
 const processAnswer = (req, twiml) => {
   const { body, query, step } = req
   const { star, hash, options } = step
@@ -33,7 +21,7 @@ const processAnswer = (req, twiml) => {
     twiml.redirect(voiceurl(req, '/voice', { state: `${state}.options.${index}.steps.0` }))
     return 'found'
   } else {
-    twiml.say('I couldnt find anyone with that extension')
+    twiml.say('That is not a valid selection')
     twiml.redirect(voiceurl(req, '/voice', { action: 'ask' }))
     return 'not found'
   }
@@ -50,41 +38,25 @@ const answer = (req, twiml) => {
 
 const ask = (req, twiml) => {
   const { state } = req.query
-  const attempt = req.query.attempt ? parseInt(req.query.attempt) : 1
   const gather = twiml.gather({
     action: voiceurl(req, '/voice', { state, action: 'answer' }),
     finishOnKey: '',
     numDigits: req.step.options.reduce((digits, option) => {
       return Math.max(digits, option.number.length)
     }, 0),
-    timeout: 5
+    timeout: 3
   })
-  if(attempt === 1) {
-    if(req.step.say) say({ step: req.step.say }, gather, true)
-    if(req.step.play) play({ step: req.step.play }, gather, true)
-    if(req.step.say || req.step.play) gather.pause({ length: 1 })
-  }
-  req.step.options.map(option => {
-    if(option.say) say({ step: option.say }, gather, true)
-    if(option.play) play({ step: option.play }, gather, true)
-    if(option.say || option.play) gather.pause({ length: 1 })
-  })
-  if(attempt < 3) {
-    twiml.say('I didnt receive any input')
-    twiml.redirect(voiceurl(req, '/voice', { action: 'ask', attempt: attempt + 1 }))
-  } else {
-    twiml.hangup()
-  }
+  if(req.step.say) say({ step: req.step.say }, gather, true)
+  if(req.step.play) play({ step: req.step.play }, gather, true)
+  twiml.redirect(voiceurl(req, '/voice', { state: `${state}.noinput.steps.0` }))
   return {
     verb: 'dialmenu',
-    action: 'ask',
-    attempt
+    action: 'ask'
   }
 }
 
 const getAction = (action) => {
   if(action === 'answer') return answer
-  if(action === 'dial') return dial
   return ask
 }
 
