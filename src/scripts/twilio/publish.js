@@ -20,7 +20,7 @@ const listFiles = (basedir, localdir = '.') => {
 
 const publish = async (keys) => {
 
-  const functions = keys ? _.castArray(keys) : ['call','sms','sms_status','voice','voice_status']
+  const functions = keys ? _.castArray(keys) : ['call','recording','sms','sms_status','voice','voice_status']
 
   await Promise.mapSeries(functions, async (name) => {
 

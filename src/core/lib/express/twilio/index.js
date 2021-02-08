@@ -15,6 +15,8 @@ router.post('/voice/status', voice_status)
 
 router.post('/sms/status', sms_status)
 
+router.get('/:type', lambda)
+
 router.post('/:type', lambda)
 
 export default router
