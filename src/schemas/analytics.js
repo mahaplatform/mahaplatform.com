@@ -51,35 +51,35 @@ const schema = {
     })
 
     await knex.schema.createTable('domains', (table) => {
-      table.name('domain_catalog')
-      table.name('domain_schema')
-      table.name('domain_name')
-      table.string('data_type', null)
+      table.increments('id').primary()
       table.integer('character_maximum_length')
       table.integer('character_octet_length')
-      table.name('character_set_catalog')
-      table.name('character_set_schema')
-      table.name('character_set_name')
-      table.name('collation_catalog')
-      table.name('collation_schema')
-      table.name('collation_name')
       table.integer('numeric_precision')
       table.integer('numeric_precision_radix')
       table.integer('numeric_scale')
       table.integer('datetime_precision')
-      table.string('interval_type', null)
       table.integer('interval_precision')
-      table.string('domain_default', null)
-      table.name('udt_catalog')
-      table.name('udt_schema')
+      table.integer('maximum_cardinality')
+      table.string('text', 255)
+      table.name('character_set_name')
+      table.name('collation_catalog')
+      table.name('collation_schema')
+      table.name('collation_name')
       table.name('udt_name')
       table.name('scope_catalog')
       table.name('scope_schema')
       table.name('scope_name')
-      table.integer('maximum_cardinality')
+      table.string('interval_type', null)
       table.name('dtd_identifier')
-      table.increments('id').primary()
-      table.string('text', 255)
+      table.string('domain_default', null)
+      table.name('domain_catalog')
+      table.name('domain_schema')
+      table.name('domain_name')
+      table.string('data_type', null)
+      table.name('udt_catalog')
+      table.name('udt_schema')
+      table.name('character_set_schema')
+      table.name('character_set_catalog')
     })
 
     await knex.schema.createTable('event_types', (table) => {
@@ -242,52 +242,52 @@ const schema = {
     })
 
 
-    await knex.schema.table('events', table => {
-      table.foreign('context_id').references('contexts.id')
-      table.foreign('event_type_id').references('event_types.id')
-      table.foreign('page_id').references('pages.id')
-      table.foreign('session_id').references('sessions.id')
+    await knex.schema.table('referers', table => {
+      table.foreign('protocol_id').references('protocols.id')
+      table.foreign('domain_id').references('domains.id')
     })
 
     await knex.schema.table('ipaddresses', table => {
       table.foreign('city_id').references('cities.id')
-      table.foreign('country_id').references('countries.id')
-      table.foreign('metro_code_id').references('metro_codes.id')
-      table.foreign('postal_code_id').references('postal_codes.id')
       table.foreign('region_id').references('regions.id')
-    })
-
-    await knex.schema.table('pages', table => {
-      table.foreign('domain_id').references('domains.id')
-      table.foreign('protocol_id').references('protocols.id')
-    })
-
-    await knex.schema.table('referers', table => {
-      table.foreign('domain_id').references('domains.id')
-      table.foreign('protocol_id').references('protocols.id')
+      table.foreign('country_id').references('countries.id')
+      table.foreign('postal_code_id').references('postal_codes.id')
+      table.foreign('metro_code_id').references('metro_codes.id')
     })
 
     await knex.schema.table('sessions', table => {
-      table.foreign('app_id').references('apps.id')
-      table.foreign('campaign_id').references('campaigns.id')
-      table.foreign('content_id').references('contents.id')
       table.foreign('domain_user_id').references('domain_users.id')
-      table.foreign('ipaddress_id').references('ipaddresses.id')
-      table.foreign('medium_id').references('mediums.id')
-      table.foreign('network_id').references('networks.id')
+      table.foreign('app_id').references('apps.id')
       table.foreign('referer_id').references('referers.id')
+      table.foreign('ipaddress_id').references('ipaddresses.id')
       table.foreign('source_id').references('sources.id')
+      table.foreign('medium_id').references('mediums.id')
+      table.foreign('campaign_id').references('campaigns.id')
       table.foreign('term_id').references('terms.id')
+      table.foreign('content_id').references('contents.id')
+      table.foreign('network_id').references('networks.id')
       table.foreign('useragent_id').references('useragents.id')
     })
 
+    await knex.schema.table('pages', table => {
+      table.foreign('protocol_id').references('protocols.id')
+      table.foreign('domain_id').references('domains.id')
+    })
+
+    await knex.schema.table('events', table => {
+      table.foreign('session_id').references('sessions.id')
+      table.foreign('event_type_id').references('event_types.id')
+      table.foreign('page_id').references('pages.id')
+      table.foreign('context_id').references('contexts.id')
+    })
+
     await knex.schema.table('useragents', table => {
-      table.foreign('browser_id').references('browsers.id')
-      table.foreign('browser_version_id').references('versions.id')
       table.foreign('device_id').references('devices.id')
       table.foreign('manufacturer_id').references('manufacturers.id')
       table.foreign('os_id').references('oses.id')
       table.foreign('os_version_id').references('versions.id')
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
     })
 
     await knex.schema.table('apps', table => {

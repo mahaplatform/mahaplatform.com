@@ -143,7 +143,7 @@ class Call extends React.Component {
     this.context.tasks.open({
       items: [
         { label: 'Call with cell phone', handler: this._handleCall.bind(this, 'cell') },
-        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') },
+        { label: 'Call with Maha phone', handler: this._handleCall.bind(this, 'maha') }
       ]
     })
   }

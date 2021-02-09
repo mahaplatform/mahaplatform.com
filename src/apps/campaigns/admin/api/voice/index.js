@@ -1,10 +1,9 @@
 import recordings from './recordings'
 import voicemails from './voicemails'
 import unschedule from './unschedule'
-import outbound from './outbound'
 import activate from './activate'
+import workflow from './workflow'
 import { Router } from 'express'
-import inbound from './inbound'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -14,12 +13,11 @@ import calls from './calls'
 import edit from './edit'
 import show from './show'
 import send from './send'
+import list from './list'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/outbound', outbound)
-
-router.get('/inbound', inbound)
+router.get('/', list)
 
 router.post('/', create)
 
@@ -36,6 +34,8 @@ router.patch('/:id/activate', activate)
 router.patch('/:id/send', send)
 
 router.patch('/:id/unschedule', unschedule)
+
+router.patch('/:id/workflow', workflow)
 
 router.patch('/:id', update)
 

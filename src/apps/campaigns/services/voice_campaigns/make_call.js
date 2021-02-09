@@ -48,7 +48,7 @@ const makeCall = async (req, params) => {
   await contactActivity(req, {
     contact: enrollment.related('contact'),
     type: 'voice_campaign',
-    story: 'received an outbound voice campaign',
+    story: 'received a voice campaign',
     program_id: enrollment.related('voice_campaign').get('program_id'),
     data: {
       enrollment_id: enrollment.get('id'),
@@ -58,7 +58,7 @@ const makeCall = async (req, params) => {
 
   const call = await createCall(req, {
     method: 'POST',
-    url: `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}`,
+    url: `${process.env.TWILIO_HOST_TWIML}/voice?workflow=${campaign.get('code')}`,
     from: campaign.related('program').related('phone_number').get('number'),
     to: phone_number.get('number')
   })

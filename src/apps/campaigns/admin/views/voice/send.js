@@ -38,13 +38,14 @@ class Send extends React.Component {
       method: 'patch',
       endpoint: `/api/admin/campaigns/voice/${campaign.id}/edit`,
       action: `/api/admin/campaigns/voice/${campaign.id}/send`,
+      saveText: 'Send',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'voice', required: true, purpose: campaign.purpose },
+            { label: 'To', name: 'to', type: ToField, program_id: campaign.program.id, channel: 'voice', required: true, purpose: campaign.purpose, defaultValue: campaign.to },
             { label: 'Send At', name: 'strategy', type: 'radiogroup', options: strategies, required: true, defaultValue: strategy },
             ...strategy === 'schedule' ? [
               { label: 'Send At', type: 'segment', fields: [

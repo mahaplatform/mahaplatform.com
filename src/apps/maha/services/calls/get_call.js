@@ -1,4 +1,5 @@
 import { getPhoneNumber } from '@apps/crm/services/phone_numbers'
+import { contactActivity } from '@apps/crm/services/activities'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import Number from '@apps/maha/models/number'
 import Call from '@apps/maha/models/call'
@@ -58,7 +59,7 @@ const getCall = async(req, params) => {
     number: twcall.direction === 'inbound' ? twcall.from : twcall.to
   })
 
-  return await Call.forge({
+  const newcall = await Call.forge({
     team_id: req.team.get('id'),
     from_number_id: from_number.get('id'),
     to_number_id: to_number.get('id'),
@@ -72,6 +73,25 @@ const getCall = async(req, params) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(twcall.direction === 'inbound') {
+
+    await newcall.load(['phone_number.contact'], {
+      transacting: req.trx
+    })
+
+    await contactActivity(req, {
+      contact: newcall.related('phone_number').related('contact'),
+      type: 'call',
+      story: 'called program',
+      program_id: newcall.get('program_id'),
+      data: {
+        call_id: newcall.get('id')
+      }
+    })
+  }
+
+  return newcall
 
 }
 

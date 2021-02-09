@@ -14,7 +14,8 @@ class Response {
     return {
       statusCode: this.statusCode,
       body: this.body,
-      headers: this.headers
+      headers: this.headers,
+      isBase64Encoded: true
     }
   }
 

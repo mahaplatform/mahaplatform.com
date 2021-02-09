@@ -3,7 +3,7 @@ import { updateVersion } from '@apps/maha/services/versions'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import { upload } from '@core/services/aws/s3'
 
-const updateRoute = async (req, res) => {
+const workflowRoute = async (req, res) => {
 
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -26,11 +26,8 @@ const updateRoute = async (req, res) => {
   })
 
   const rendered = await renderConfig(req, {
-    phone_number,
     config: version.get('value')
   })
-
-  console.log(rendered)
 
   await upload(null, {
     acl: 'private',
@@ -45,4 +42,4 @@ const updateRoute = async (req, res) => {
 
 }
 
-export default updateRoute
+export default workflowRoute

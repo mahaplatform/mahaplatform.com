@@ -6,7 +6,9 @@ import React from 'react'
 class Designer extends React.Component {
 
   static propTypes = {
-    campaign: PropTypes.object
+    campaign: PropTypes.object,
+    current: PropTypes.object,
+    versions: PropTypes.array
   }
 
   render() {
@@ -14,10 +16,13 @@ class Designer extends React.Component {
   }
 
   _getVoiceDesigner() {
-    const { campaign } = this.props
+    const { campaign, current } = this.props
     return {
-      campaign,
-      endpoint: `/api/admin/campaigns/voice/${campaign.id}`,
+      campaign: {
+        ...campaign,
+        steps: current.value.steps
+      },
+      endpoint: `/api/admin/campaigns/voice/${campaign.id}/workflow`,
       program: campaign.program
     }
   }
@@ -25,7 +30,9 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/campaigns/voice/${props.params.id}`
+  campaign: `/api/admin/campaigns/voice/${props.params.id}`,
+  versions: `/api/admin/crm_voice_campaigns/${props.params.id}/config/versions`,
+  current: `/api/admin/crm_voice_campaigns/${props.params.id}/config/versions/current`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

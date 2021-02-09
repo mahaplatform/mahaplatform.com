@@ -32,7 +32,7 @@ class Voice extends React.PureComponent {
     const { program_id } = this.props
     const { config } = this.state
     return {
-      title: 'New Outbound Voice Campaign',
+      title: 'New Voice Campaign',
       method: 'post',
       action: '/api/admin/campaigns/voice',
       cancelIcon: 'chevron-left',

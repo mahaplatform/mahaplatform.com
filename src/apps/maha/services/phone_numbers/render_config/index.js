@@ -1,9 +1,9 @@
 import { getSegment } from './utils'
 
-const renderConfig = async (req, { phone_number, config }) => {
+const renderConfig = async (req, { code, config }) => {
   return {
     workflow: {
-      code: 'abcdef'
+      code
     },
     steps: await getSegment(req, {
       steps: config.steps,

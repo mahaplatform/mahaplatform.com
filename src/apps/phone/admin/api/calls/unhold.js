@@ -10,7 +10,7 @@ const unholdRoute = async (req, res) => {
   const dial = twiml.dial()
 
   const client = dial.client({
-    statusCallback: `${process.env.TWILIO_HOST_STATUS}/twilio/voice_status`,
+    statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`,
     statusCallbackEvent: ['initiated','ringing','answered','completed']
   }, req.user.get('id'))
 

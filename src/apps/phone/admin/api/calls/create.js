@@ -1,5 +1,6 @@
 import CallSerializer from '@apps/maha/serializers/call_serializer'
 import { getPhoneNumber } from '@apps/crm/services/phone_numbers'
+import { contactActivity } from '@apps/crm/services/activities'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import Number from '@apps/maha/models/number'
 import Call from '@apps/maha/models/call'
@@ -76,6 +77,17 @@ const createRoute = async (req, res) => {
 
   await call.load(['from_number','to_number','program.logo','program.phone_number','phone_number.contact.photo'], {
     transacting: req.trx
+  })
+
+  await contactActivity(req, {
+    contact: call.related('phone_number').related('contact'),
+    type: 'call',
+    story: 'called contact',
+    user: req.user,
+    program_id: call.get('program_id'),
+    data: {
+      call_id: call.get('id')
+    }
   })
 
   res.status(200).respond(call, CallSerializer)

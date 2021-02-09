@@ -14,8 +14,8 @@ const createCall = async (req, { from, to, method, url }) => {
 
   const call = await Call.forge({
     team_id: req.team.get('id'),
-    from_id: from_number.get('id'),
-    to_id: to_number.get('id'),
+    from_number_id: from_number.get('id'),
+    to_number_id: to_number.get('id'),
     direction: 'outbound'
   }).save(null, {
     transacting: req.trx

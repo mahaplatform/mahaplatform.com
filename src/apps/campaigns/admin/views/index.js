@@ -10,8 +10,7 @@ import SmsShow from './sms/show'
 import SmsDesign from './sms/design'
 import SmsSessionsList from './sms/sessions/list'
 import SmsSessionsShow from './sms/sessions/show'
-import VoiceInbound from './voice/inbound'
-import VoiceOutbound from './voice/outbound'
+import VoiceList from './voice/list'
 import VoiceShow from './voice/show'
 import VoiceDesign from './voice/design'
 import VoiceRecordings from './voice/recordings'
@@ -33,8 +32,7 @@ const routes = [
   { path: '/sms/:id/design', component: SmsDesign },
   { path: '/sms/:campaign_id/sessions', component: SmsSessionsList },
   { path: '/sms/:campaign_id/sessions/:id', component: SmsSessionsShow },
-  { path: '/voice/outbound', component: VoiceOutbound },
-  { path: '/voice/inbound', component: VoiceInbound },
+  { path: '/voice', component: VoiceList },
   { path: '/voice/:id', component: VoiceShow },
   { path: '/voice/:id/design', component: VoiceDesign },
   { path: '/voice/:campaign_id/recordings', component: VoiceRecordings },

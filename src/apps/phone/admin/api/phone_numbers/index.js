@@ -21,6 +21,6 @@ router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
-router.use('/:phone_number_id/workflow', workflow)
+router.patch('/:phone_number_id/workflow', workflow)
 
 export default router

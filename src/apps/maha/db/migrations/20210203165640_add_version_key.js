@@ -17,7 +17,6 @@ const AddVersionKey = {
     const voice_campaigns = await VoiceCampaign.query(qb => {
       qb.select('crm_voice_campaigns.*','crm_voice_campaign_results.*')
       qb.innerJoin('crm_voice_campaign_results','crm_voice_campaign_results.voice_campaign_id','crm_voice_campaigns.id')
-      qb.where('direction', 'inbound')
     }).fetchAll({
       withRelated: ['phone_number','program','steps','team'],
       transacting: req.trx
@@ -29,12 +28,21 @@ const AddVersionKey = {
 
       const campaign = await VoiceCampaignSerializer(req, voice_campaign)
 
-      await createVersion(req, {
-        versionable_type: 'maha_phone_numbers',
-        versionable_id: campaign.phone_number.id,
-        key: 'config',
-        value: { steps: campaign.steps }
-      })
+      if(voice_campaign.get('direction') === 'inbound') {
+        await createVersion(req, {
+          versionable_type: 'maha_phone_numbers',
+          versionable_id: campaign.phone_number.id,
+          key: 'config',
+          value: { steps: [] }
+        })
+      } else {
+        await createVersion(req, {
+          versionable_type: 'crm_voice_campaigns',
+          versionable_id: campaign.id,
+          key: 'config',
+          value: { steps: [] }
+        })
+      }
 
     })
 

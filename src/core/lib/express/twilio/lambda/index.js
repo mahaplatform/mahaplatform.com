@@ -7,7 +7,7 @@ import sms from './sms'
 import Url from 'url'
 
 const getHandler = (type) => {
-  if(type === 'voice_status') return voice_status
+  if(type === 'voice-status') return voice-status
   if(type === 'sms_status') return sms_status
   if(type === 'recording') return recording
   if(type === 'voice') return voice

@@ -10,7 +10,7 @@ exports.handler = async (event, context) => {
       setTimeout(resolve, 500)
     })
   }
-  
+
   const req = new Request(event)
 
   const res = new Response()
@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
 
   res.addHeader('Cache-Control', 'immutable,max-age=100000000,public')
 
-  res.status(200).type(recording.ContentType).send(recording.Body)
+  res.status(200).type(recording.ContentType).send(recording.Body.toString('base64'))
 
   return res.render()
 

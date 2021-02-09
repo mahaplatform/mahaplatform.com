@@ -25,11 +25,15 @@ const CreateCallTotals = {
       group by call_id
       )
       select maha_calls.id as call_id,
-      ceil(extract(epoch from (ended.ended_at- started.started_at))) as duration,
+      case
+      when started.started_at is not null and ended.ended_at is not null then ceil(extract(epoch from (ended.ended_at- started.started_at)))
+      else null
+      end as duration
+       as duration,
       coalesce(prices.price, 0.000) as price
       from maha_calls
-      inner join started on started.call_id=maha_calls.id
-      inner join ended on ended.call_id=maha_calls.id
+      left join started on started.call_id=maha_calls.id
+      left join ended on ended.call_id=maha_calls.id
       left join prices on prices.call_id=maha_calls.id
     `)
   },

@@ -2,14 +2,14 @@ import ProgramForm from '@apps/crm/admin/components/programform'
 import CompactCampaignToken from '../../tokens/campaign/compact'
 import StatusToken from '../../tokens/status'
 import { Logo, Page } from '@admin'
-import New from './new_inbound'
 import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Inbound Voice Campaigns',
+  title: 'Voice Campaigns',
   rights: ['campaigns:manage_voice_campaigns'],
   collection: {
-    endpoint: '/api/admin/campaigns/voice/inbound',
+    endpoint: '/api/admin/campaigns/voice',
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Title', key: 'title', primary: true, format: CompactCampaignToken },
@@ -38,8 +38,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'phone',
-      title: 'No Inbound Voice Campaigns',
-      text: 'You have not yet created any inbound voice campaigns',
+      title: 'No Voice Campaigns',
+      text: 'You have not yet created any voice campaigns',
       buttons: resources.programs.length > 0 ? [
         { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } /> }
       ] : null

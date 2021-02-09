@@ -169,6 +169,7 @@ import campaignsActivityCards from '../../apps/campaigns/admin/activities/index.
 import crmActivityCards from '../../apps/crm/admin/activities/index.js'
 import eventsActivityCards from '../../apps/events/admin/activities/index.js'
 import formsActivityCards from '../../apps/forms/admin/activities/index.js'
+import phoneActivityCards from '../../apps/phone/admin/activities/index.js'
 import campaignsAdminDashboardEmailsIndexJs from '../../apps/campaigns/admin/dashboard/emails/index.js'
 import eventsAdminDashboardEventDetailIndexJs from '../../apps/events/admin/dashboard/event_detail/index.js'
 import financeAdminDashboardAdminOverviewIndexJs from '../../apps/finance/admin/dashboard/admin_overview/index.js'
@@ -222,6 +223,7 @@ class App extends React.Component {
       ...crmActivityCards,
       ...eventsActivityCards,
       ...formsActivityCards,
+      ...phoneActivityCards,
     }
   }
 
