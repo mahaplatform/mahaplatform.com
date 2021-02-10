@@ -1,4 +1,4 @@
-import { renderConfig } from '@apps/maha/services/phone_numbers'
+import { renderCampaign } from '@apps/campaigns/services/voice_campaigns'
 import { updateVersion } from '@apps/maha/services/versions'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import { upload } from '@core/services/aws/s3'
@@ -25,7 +25,7 @@ const workflowRoute = async (req, res) => {
     value: req.body
   })
 
-  const rendered = await renderConfig(req, {
+  const rendered = await renderCampaign(req, {
     config: version.get('value')
   })
 

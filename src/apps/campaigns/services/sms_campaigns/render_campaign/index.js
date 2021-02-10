@@ -1,6 +1,6 @@
 import { getSegment } from './utils'
 
-const renderConfig = async (req, { code, config }) => {
+const renderCampaign = async (req, { code, config }) => {
   return {
     workflow: {
       code
@@ -13,4 +13,4 @@ const renderConfig = async (req, { code, config }) => {
   }
 }
 
-export default renderConfig
+export default renderCampaign

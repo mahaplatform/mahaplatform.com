@@ -1,11 +1,11 @@
 import { renderCampaign } from '@apps/maha/services/phone_numbers'
-import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
+import SMSCampaign from '@apps/campaigns/models/sms_campaign'
 import { updateVersion } from '@apps/maha/services/versions'
 import { upload } from '@core/services/aws/s3'
 
 const updateRoute = async (req, res) => {
 
-  const campaign = await VoiceCampaign.query(qb => {
+  const campaign = await SMSCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
@@ -18,7 +18,7 @@ const updateRoute = async (req, res) => {
   })
 
   const version = await updateVersion(req, {
-    versionable_type: 'crm_voice_campaigns',
+    versionable_type: 'crm_sms_campaigns',
     versionable_id: campaign.get('id'),
     key: 'config',
     value: req.body
@@ -29,12 +29,10 @@ const updateRoute = async (req, res) => {
     config: version.get('value')
   })
 
-  console.log(rendered)
-
   await upload(null, {
     acl: 'private',
     bucket: process.env.AWS_BUCKET,
-    key: `twiml/voice/outbound/${campaign.get('code')}`,
+    key: `twiml/sms/outbound/${campaign.get('code')}`,
     cache_control: 'max-age=0,no-cache',
     content_type: 'application/json',
     file_data: JSON.stringify(rendered)
