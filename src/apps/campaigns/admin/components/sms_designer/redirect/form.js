@@ -1,21 +1,21 @@
-import { Button, Form } from '@admin'
+import { Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Message extends React.PureComponent {
+class Redirect extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    steps: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func,
-    onTokens: PropTypes.func
+    onDone: PropTypes.func
   }
 
   form = null
 
   state = {
-    config: {}
+    config: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -23,24 +23,32 @@ class Message extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
+  render() {
+    if(!this.state.config) return null
+    return <Form { ...this._getForm() } />
+  }
+
   componentDidMount() {
     this.setState({
-      config: this.props.config || {}
+      config: {
+        ...this._getDefaults(),
+        ...this.props.config || {}
+      }
     })
   }
 
-  render() {
-    return <Form { ...this._getForm() } />
+  _getDefaults() {
+    return {}
   }
 
   _getForm() {
     const { config } = this.state
     return {
       reference: node => this.form = node,
-      title: 'Send Message',
+      title: 'Redirect',
       onCancel: this._handleCancel,
       onChange: this._handleChange,
-      onSubmit: this._handleDone,
+      onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
@@ -49,24 +57,21 @@ class Message extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
-            { label: 'Message', type: 'segment', fields: [
-              { name: 'message', type: 'smsfield', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true },
-              { name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
-            ], after: <Button { ...this._getTokens() } /> }
+            { label: 'Destination', name: 'destination', type: 'dropdown', placeholder: 'Choose a step', deselectable: false, options: this._getSteps(), required: true, defaultValue: config.destination }
           ]
         }
       ]
     }
   }
 
-  _getTokens() {
-    const { onTokens } = this.props
-    return {
-      label: 'You can use the these tokens',
-      className: 'link',
-      handler: onTokens
-    }
+  _getSteps() {
+    const { steps } = this.props
+    return steps.filter(step => {
+      return step.verb !== 'control'
+    }).map(step => ({
+      value: step.code,
+      text: step.config.name
+    }))
   }
 
   _handleCancel() {
@@ -77,7 +82,8 @@ class Message extends React.PureComponent {
     this.setState({ config })
   }
 
-  _handleDone(config) {
+  _handleDone() {
+    const { config } = this.state
     this.props.onDone(config)
   }
 
@@ -87,4 +93,4 @@ class Message extends React.PureComponent {
 
 }
 
-export default Message
+export default Redirect

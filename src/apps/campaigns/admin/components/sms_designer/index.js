@@ -1,6 +1,7 @@
 import FlowchartDesigner from '@apps/automation/admin/components/flowchart_designer'
 import { Container } from '@admin'
 import PropTypes from 'prop-types'
+import redirect from './redirect'
 import question from './question'
 import message from './message'
 import React from 'react'
@@ -38,6 +39,7 @@ class SMSDesigner extends React.PureComponent {
         this._getTrigger(),
         message,
         question,
+        redirect,
         { action: 'timeofday' },
         {
           icon: 'phone',

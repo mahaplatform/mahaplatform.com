@@ -42,6 +42,8 @@ const answer = (req, res, twiml) => {
 
   twiml.redirect('/sms')
 
+  req.session.action = null
+
   return {
     verb: 'question',
     action: 'answer'
@@ -53,7 +55,9 @@ const ask = (req, res, twiml) => {
 
   const { assets, message } = req.step
 
-  const msg = twiml.message()
+  const msg = twiml.message({
+    action: `${process.env.TWILIO_HOST_STATUS}/sms-status`
+  })
 
   msg.body(message)
 

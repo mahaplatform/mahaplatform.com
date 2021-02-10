@@ -1,11 +1,13 @@
 const timeofday = require('./timeofday')
 const question = require('./question')
+const redirect = require('./redirect')
 const message = require('./message')
 const Twilio = require('twilio')
 
 const getExecutor = (verb) => {
   if(verb === 'timeofday') return timeofday
   if(verb === 'question') return question
+  if(verb === 'redirect') return redirect
   if(verb === 'message') return message
 }
 

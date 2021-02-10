@@ -57,7 +57,7 @@ exports.handler = async (event, context) => {
 
   await handle(req, res)
 
-  console.log(res.render())
+  console.log(res.body, req.session)
 
   return res.render()
 

@@ -4,7 +4,9 @@ const message = (req, res, twiml) => {
 
   const { assets, message } = req.step
 
-  const msg = twiml.message()
+  const msg = twiml.message({
+    action: `${process.env.TWILIO_HOST_STATUS}/sms-status`
+  })
 
   msg.body(message)
 

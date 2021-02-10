@@ -1,10 +1,12 @@
 import timeofday from './timeofday'
 import question from './question'
+import redirect from './redirect'
 import message from './message'
 
 const getCreator = (action) => {
   if(action === 'timeofday') return timeofday
   if(action === 'question') return question
+  if(action === 'redirect') return redirect
   if(action === 'message') return message
 }
 
