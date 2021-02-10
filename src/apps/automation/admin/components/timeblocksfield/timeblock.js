@@ -11,7 +11,13 @@ class TimeBlock extends React.PureComponent {
   }
 
   static propTypes = {
+    mode: PropTypes.string,
+    timeblock: PropTypes.object,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    timeblock: {}
   }
 
   state = {
@@ -28,28 +34,31 @@ class TimeBlock extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { timeblock } = this.props
     this.setState({
-      config: this._getDefault()
+      config: {
+        ...this._getDefault(),
+        ...timeblock
+      }
     })
   }
 
   _getDefault() {
     return {
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      strategy: 'say',
-      voice: 'woman'
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     }
   }
 
   _getForm() {
     const { config } = this.state
+    const { mode } = this.props
     return {
       title: 'Time Block',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
-      saveText: 'Add',
+      saveText: mode === 'new' ? 'Add' : 'Update',
       sections: [
         {
           fields: [
@@ -64,7 +73,7 @@ class TimeBlock extends React.PureComponent {
               { value: 5, text: 'Friday' },
               { value: 6, text: 'Saturday' }
             ], defaultValue: config.days },
-            { label: 'Times', name: 'times', type: TimesField, required: true }
+            { label: 'Times', name: 'times', type: TimesField, required: true, defaultValue: config.times }
           ]
         }
       ]

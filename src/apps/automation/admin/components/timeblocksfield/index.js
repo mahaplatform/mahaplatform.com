@@ -13,12 +13,13 @@ class TimeBlocksField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    required: PropTypes.bool,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    defaultValue: PropTypes.array,
     onChange: () => {},
     onReady: () => {}
   }
@@ -29,6 +30,7 @@ class TimeBlocksField extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { timeblocks } = this.state
@@ -43,7 +45,7 @@ class TimeBlocksField extends React.PureComponent {
                   <span>{ this._getDescription(timeblock) }</span>
                 </div>
               </div>
-              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
+              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleEdit.bind(this, index)}>
                 <i className="fa fa-pencil" />
               </div>
               <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
@@ -64,7 +66,7 @@ class TimeBlocksField extends React.PureComponent {
     if(defaultValue) this.setState({
       timeblocks: defaultValue
     })
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -97,14 +99,23 @@ class TimeBlocksField extends React.PureComponent {
     }
   }
 
-  _getTimeBlock() {
+  _getEdit(index) {
     return {
+      timeblock: this.state.timeblocks[index],
+      mode: 'edit',
+      onDone: this._handleUpdate.bind(this, index)
+    }
+  }
+
+  _getNew() {
+    return {
+      mode: 'new',
       onDone: this._handleCreate
     }
   }
 
   _handleAdd() {
-    this.context.form.push(TimeBlock, this._getTimeBlock())
+    this.context.form.push(TimeBlock, this._getNew())
   }
 
   _handleCreate(timeblock) {
@@ -117,6 +128,10 @@ class TimeBlocksField extends React.PureComponent {
     })
   }
 
+  _handleEdit(index) {
+    this.context.form.push(TimeBlock, this._getEdit(index))
+  }
+
   _handleRemove(remove) {
     const { timeblocks } = this.state
     this.setState({
@@ -124,6 +139,24 @@ class TimeBlocksField extends React.PureComponent {
         return index !== remove
       })
     })
+  }
+
+  _handleUpdate(i, updated) {
+    const { timeblocks } = this.state
+    this.setState({
+      timeblocks: timeblocks.map((timeblock, index) => {
+        return index === i ? updated : timeblock
+      })
+    })
+  }
+
+  _handleValidate() {
+    const { timeblocks } = this.state
+    const { required, onValid } = this.props
+    if(required && (!timeblocks || timeblocks.length === 0)) {
+      return onValid(null, ['You must add at least 1 time blocks'])
+    }
+    onValid(timeblocks)
   }
 
 }

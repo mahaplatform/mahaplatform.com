@@ -1,6 +1,6 @@
 import VoiceCampaignSerializer from '@apps/campaigns/serializers/voice_campaign_serializer'
+import { renderCampaign } from '@apps/campaigns/services/voice_campaigns'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
-import { renderConfig } from '@apps/maha/services/phone_numbers'
 import { createVersion } from '@apps/maha/services/versions'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
@@ -49,7 +49,7 @@ const createRoute = async (req, res) => {
     value: { steps: [] }
   })
 
-  const rendered = await renderConfig(req, {
+  const rendered = await renderCampaign(req, {
     config: version.get('value')
   })
 

@@ -91,9 +91,8 @@ class TimesField extends React.PureComponent {
   }
 
   _getEdit(index) {
-    const time = this.state.times[index]
     return {
-      time,
+      time: this.state.times[index],
       mode: 'edit',
       onDone: this._handleUpdate.bind(this, index)
     }
@@ -143,12 +142,12 @@ class TimesField extends React.PureComponent {
   }
 
   _handleValidate() {
-    const { answers } = this.state
+    const { times } = this.state
     const { required, onValid } = this.props
-    if(required && (!answers || answers.length === 0)) {
+    if(required && (!times || times.length === 0)) {
       return onValid(null, ['You must add at least 1 time'])
     }
-    onValid(answers)
+    onValid(times)
   }
 
 }

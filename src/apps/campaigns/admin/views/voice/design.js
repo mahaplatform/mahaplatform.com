@@ -1,9 +1,9 @@
-import VoiceDesigner from '../../components/voice_designer'
+import VoiceDesigner from '@apps/campaigns/admin/components/voice_designer'
 import PropTypes from 'prop-types'
 import { Page } from '@admin'
 import React from 'react'
 
-class Designer extends React.Component {
+class Design extends React.Component {
 
   static propTypes = {
     campaign: PropTypes.object,
@@ -37,7 +37,7 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Voice Campaign',
-  component: Designer
+  component: Design
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

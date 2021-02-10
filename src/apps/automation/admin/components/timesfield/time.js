@@ -10,8 +10,8 @@ class Time extends React.PureComponent {
   }
 
   static propTypes = {
-    time: PropTypes.object,
     mode: PropTypes.string,
+    time: PropTypes.object,
     onDone: PropTypes.func
   }
 
@@ -27,7 +27,6 @@ class Time extends React.PureComponent {
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
-
   render() {
     if(!this.state.config) return null
     return <Form { ...this._getForm() } />
@@ -42,13 +41,14 @@ class Time extends React.PureComponent {
 
   _getForm() {
     const { config } = this.state
+    const { mode } = this.props
     return {
-      title: 'Time Block',
+      title: 'Time',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,
       onSuccess: this._handleDone,
-      saveText: 'Add',
+      saveText: mode === 'new' ? 'Add' : 'Update',
       sections: [
         {
           fields: [

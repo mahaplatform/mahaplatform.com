@@ -2,6 +2,7 @@ import unschedule from './unschedule'
 import sessions from './sessions'
 import outbound from './outbound'
 import activate from './activate'
+import workflow from './workflow'
 import { Router } from 'express'
 import inbound from './inbound'
 import destroy from './destroy'
@@ -34,6 +35,8 @@ router.patch('/:id/resend', resend)
 router.patch('/:id/send', send)
 
 router.patch('/:id/unschedule', unschedule)
+
+router.patch('/:id/workflow', workflow)
 
 router.patch('/:id', update)
 

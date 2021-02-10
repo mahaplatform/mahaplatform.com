@@ -1,12 +1,14 @@
-import SMSDesigner from '../../components/sms_designer'
+import SMSDesigner from '@apps/campaigns/admin/components/sms_designer'
 import PropTypes from 'prop-types'
 import { Page } from '@admin'
 import React from 'react'
 
-class Designer extends React.Component {
+class Design extends React.Component {
 
   static propTypes = {
-    campaign: PropTypes.object
+    campaign: PropTypes.object,
+    current: PropTypes.object,
+    versions: PropTypes.array
   }
 
   render() {
@@ -14,10 +16,13 @@ class Designer extends React.Component {
   }
 
   _getSMSDesigner() {
-    const { campaign } = this.props
+    const { campaign, current } = this.props
     return {
-      campaign,
-      endpoint: `/api/admin/campaigns/sms/${campaign.id}`,
+      campaign: {
+        ...campaign,
+        steps: current.value.steps
+      },
+      endpoint: `/api/admin/campaigns/sms/${campaign.id}/workflow`,
       program: campaign.program
     }
   }
@@ -25,12 +30,14 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/campaigns/sms/${props.params.id}`
+  campaign: `/api/admin/campaigns/sms/${props.params.id}`,
+  versions: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions`,
+  current: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions/current`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'SMS Campaign',
-  component: Designer
+  component: Design
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)
