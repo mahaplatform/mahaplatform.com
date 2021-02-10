@@ -50,12 +50,14 @@ exports.handler = async (event, context) => {
       setTimeout(resolve, 500)
     })
   }
-  
+
   const req = new Request(event)
 
   const res = new Response()
 
   await handle(req, res)
+
+  console.log(res.render())
 
   return res.render()
 

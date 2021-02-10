@@ -3,8 +3,8 @@ const aws = require('aws-sdk')
 const getConfigPath = (req) => {
   const { body } = req
   const to = body.To
-  const term = req.session.term || body.Body
-  return `${to.substr(1)}/${term.toLowerCase()}`
+  const term = req.session.term.trim().toLowerCase()
+  return `inbound/${to.substr(1)}/${term}`
 }
 
 const fetchConfig = async (req) => {

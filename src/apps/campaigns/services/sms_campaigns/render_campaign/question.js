@@ -1,9 +1,10 @@
 import { getSegment } from './utils'
 
 const question = async (req, { steps, step }) => {
-  const { answers } = step.config
+  const { answers, message } = step.config
   return {
     verb: 'question',
+    message,
     answers: await Promise.mapSeries(answers, async(answer) => ({
       operation: answer.operation,
       text: answer.text,

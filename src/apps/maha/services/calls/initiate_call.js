@@ -1,5 +1,5 @@
-import twilio from '@core/vendor/twilio'
 import Call from '@apps/maha/models/call'
+import twilio from '@core/vendor/twilio'
 import moment from 'moment'
 
 const initiateCall = async (req, { call_id, method, url }) => {

@@ -1,4 +1,4 @@
-import { sendCampaign } from '../services/email_campaigns'
+import { sendCampaign } from '@apps/campaigns/services/email_campaigns'
 import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {

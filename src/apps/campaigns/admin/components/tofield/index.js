@@ -79,6 +79,7 @@ class ToField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
+    console.log(defaultValue)
     if(defaultValue) this.setState(defaultValue)
     this.props.onReady(this._handleValidate)
   }

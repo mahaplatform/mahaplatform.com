@@ -5,7 +5,7 @@ const status = async (req) => {
     await axios({
       url: `${process.env.TWILIO_HOST_STATUS}/sms/receive`,
       method: 'post',
-      data: req.body,
+      data: req.body
     })
   } catch(err) {
     console.log(err)

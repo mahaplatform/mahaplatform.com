@@ -19,7 +19,7 @@ const message = async (req, { steps, step }) => {
   }) : null
 
   return {
-    verb: 'messages',
+    verb: 'message',
     message,
     assets
   }

@@ -70,7 +70,9 @@ class Answer extends React.PureComponent {
             `, fields: [
               { name: 'operation', type: 'radiogroup', deselectable: false, options: [
                 { value: '$eq', text: 'equals' },
-                { value: '$ct', text: 'contains' }
+                { value: '$neq', text: 'does not equal' },
+                { value: '$ct', text: 'contains' },
+                { value: '$nct', text: 'does not contain' }
               ], defaultValue: config.operation },
               { name: 'text', type: 'textfield', placeholder: 'Enter word or phrase', defaultValue: config.text }
             ] }

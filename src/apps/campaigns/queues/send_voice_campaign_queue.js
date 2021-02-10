@@ -1,4 +1,4 @@
-import { scheduleCalls } from '../services/voice_campaigns'
+import { scheduleCalls } from '@apps/campaigns/services/voice_campaigns'
 import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {

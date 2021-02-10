@@ -1,7 +1,11 @@
+const timeofday = require('./timeofday')
+const question = require('./question')
 const message = require('./message')
 const Twilio = require('twilio')
 
 const getExecutor = (verb) => {
+  if(verb === 'timeofday') return timeofday
+  if(verb === 'question') return question
   if(verb === 'message') return message
 }
 

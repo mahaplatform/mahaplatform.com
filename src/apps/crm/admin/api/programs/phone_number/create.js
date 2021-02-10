@@ -42,12 +42,12 @@ const createRoute = async (req, res) => {
     phoneNumber: req.body.number.phoneNumber,
     friendlyName: `${req.team.get('subdomain')} - ${program.get('title')} voice/sms`,
     smsMethod: 'POST',
-    smsUrl: `${process.env.TWIML_HOST}/sms`,
+    smsUrl: `${process.env.TWILIO_HOST_TWIML}/sms`,
     voiceMethod: 'POST',
-    voiceUrl: `${process.env.TWIML_HOST}/voice`,
+    voiceUrl: `${process.env.TWILIO_HOST_TWIML}/voice`,
     voiceReceiveMode: req.body.type,
     statusMethod: 'POST',
-    statusCallback: `${process.env.TWIML_HOST}/voice/status`
+    statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`
   })
 
   const phone_number = await PhoneNumber.forge({
