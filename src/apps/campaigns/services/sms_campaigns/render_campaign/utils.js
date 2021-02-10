@@ -1,8 +1,11 @@
-import Asset from '@apps/maha/models/asset'
 import timeofday from './timeofday'
+import question from './question'
+import message from './message'
 
 const getCreator = (action) => {
   if(action === 'timeofday') return timeofday
+  if(action === 'question') return question
+  if(action === 'message') return message
 }
 
 const getStep = async (req, { steps, step }) => {

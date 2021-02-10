@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import moment from 'moment'
 import _ from 'lodash'
 
 const inputFields = (state, props) => props.fields
@@ -16,6 +17,21 @@ const dynamicSteps = createSelector(
     return _.includes(['set','record'], step.action)
   })
 )
+
+const getTimeblock = (timeblock) => {
+  const days = ['Su','M','T','W','Th','F','Sa']
+  return [
+    days.filter((day, index) => {
+      return _.includes(timeblock.days, index)
+    }).join('/'),
+    ...timeblock.times.map(time => {
+      return [
+        moment(`2020-01-01 ${time.start_time}`).format('h:mmA'),
+        moment(`2020-01-01 ${time.end_time}`).format('h:mmA')
+      ].join('-')
+    })
+  ].join(', ')
+}
 
 const getBranches = (steps, step) => {
   if(!step.config) return null
@@ -37,11 +53,13 @@ const getBranches = (steps, step) => {
       ...step.config.timeblocks.map(timeblock => ({
         code: timeblock.code,
         label: timeblock.name,
+        tooltip: getTimeblock(timeblock),
         then: segment(steps, step.code, timeblock.code)
       })),
       {
         code: 'else',
         label: 'else',
+        tooltip: 'Time doesn\'t match criteria',
         then: segment(steps, step.code, 'else')
       }
     ]
