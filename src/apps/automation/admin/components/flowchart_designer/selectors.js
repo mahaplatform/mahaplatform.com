@@ -13,7 +13,7 @@ const steps = (state, props) => [
 const dynamicSteps = createSelector(
   steps,
   (steps) => steps.filter((step) => {
-    return _.includes(['set','question','record','dial','voicemail'], step.action)
+    return _.includes(['set','record'], step.action)
   })
 )
 
@@ -72,6 +72,21 @@ const getBranches = (steps, step) => {
         then: segment(steps, step.code, 'noinput')
       }
     ]
+  } else if(step.action === 'question') {
+    return  [
+      ...step.config.answers.map(answer => ({
+        code: answer.code,
+        label: answer.text,
+        tooltip: `Answer ${answer.operation === '$eq' ? 'equals' : 'contains'} "${answer.text}"`,
+        then: segment(steps, step.code,  answer.code)
+      })),
+      {
+        code: 'else',
+        tooltip: 'Answer doesn\'t match criteria',
+        label: 'else',
+        then: segment(steps, step.code, 'else')
+      }
+    ]
   } else if(_.includes(['dialbyname','dialbyextension'], step.action)) {
     return  [
       ..._.includes(step.config.specials, 'hash') ? [{
@@ -127,7 +142,7 @@ export const fields = createSelector(
     ...steps.length > 0 ? [
       { label: 'Workflow', fields: steps.reduce((fields, step) => [
         ...fields,
-        ..._.includes(['set','question'], step.action) ? [{
+        ..._.includes(['set'], step.action) ? [{
           name: step.config.name.value,
           key: `workflow.${step.config.code}`,
           type: 'select',
@@ -157,7 +172,7 @@ export const tokens = createSelector(
     ...inputTokens,
     ...steps.length > 0 ? [{
       title: 'Workflow', tokens: steps.map(step => ({
-        ..._.includes(['set','question'], step.action) ? {
+        ..._.includes(['set'], step.action) ? {
           name: step.config.name.value,
           token: `workflow.${step.config.name.token}`
         } : {},

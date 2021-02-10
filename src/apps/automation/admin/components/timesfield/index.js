@@ -12,12 +12,14 @@ class TimesField extends React.PureComponent {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.array,
+    required: PropTypes.bool,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    defaultValue: PropTypes.array,
     onChange: () => {},
     onReady: () => {}
   }
@@ -28,6 +30,7 @@ class TimesField extends React.PureComponent {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCreate = this._handleCreate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { times } = this.state
@@ -41,7 +44,7 @@ class TimesField extends React.PureComponent {
                   <span>{ this._getDescription(time) }</span>
                 </div>
               </div>
-              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
+              <div className="crm-recipientsfield-recipient-action" onClick={ this._handleEdit.bind(this, index)}>
                 <i className="fa fa-pencil" />
               </div>
               <div className="crm-recipientsfield-recipient-action" onClick={ this._handleRemove.bind(this, index)}>
@@ -58,11 +61,11 @@ class TimesField extends React.PureComponent {
   }
 
   componentDidMount() {
-    // const { defaultValue } = this.props
-    // if(defaultValue) this.setState({
-    //   timeblocks: defaultValue
-    // })
-    this.props.onReady()
+    const { defaultValue } = this.props
+    if(defaultValue) this.setState({
+      times: defaultValue
+    })
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -70,13 +73,6 @@ class TimesField extends React.PureComponent {
     if(!_.isEqual(times, prevState.times)) {
       this.props.onChange(times)
     }
-  }
-
-  _getDescription(time) {
-    return [
-      moment(`2020-01-01 ${time.start_time}`).format('h:mmA'),
-      moment(`2020-01-01 ${time.end_time}`).format('h:mmA')
-    ].join('-')
   }
 
   _getAdd() {
@@ -87,14 +83,31 @@ class TimesField extends React.PureComponent {
     }
   }
 
-  _getTimeBlock() {
+  _getDescription(time) {
+    return [
+      moment(`2020-01-01 ${time.start_time}`).format('h:mmA'),
+      moment(`2020-01-01 ${time.end_time}`).format('h:mmA')
+    ].join('-')
+  }
+
+  _getEdit(index) {
+    const time = this.state.times[index]
     return {
+      time,
+      mode: 'edit',
+      onDone: this._handleUpdate.bind(this, index)
+    }
+  }
+
+  _getNew() {
+    return {
+      mode: 'new',
       onDone: this._handleCreate
     }
   }
 
   _handleAdd() {
-    this.context.form.push(Time, this._getTimeBlock())
+    this.context.form.push(Time, this._getNew())
   }
 
   _handleCreate(time) {
@@ -107,6 +120,10 @@ class TimesField extends React.PureComponent {
     })
   }
 
+  _handleEdit(index) {
+    this.context.form.push(Time, this._getEdit(index))
+  }
+
   _handleRemove(remove) {
     const { times } = this.state
     this.setState({
@@ -114,6 +131,24 @@ class TimesField extends React.PureComponent {
         return index !== remove
       })
     })
+  }
+
+  _handleUpdate(i, updated) {
+    const { times } = this.state
+    this.setState({
+      times: times.map((time, index) => {
+        return index === i ? updated : time
+      })
+    })
+  }
+
+  _handleValidate() {
+    const { answers } = this.state
+    const { required, onValid } = this.props
+    if(required && (!answers || answers.length === 0)) {
+      return onValid(null, ['You must add at least 1 time'])
+    }
+    onValid(answers)
   }
 
 }

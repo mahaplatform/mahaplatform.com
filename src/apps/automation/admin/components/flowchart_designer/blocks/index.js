@@ -1,5 +1,6 @@
 import internal_email from './internal_email'
 import internal_sms from './internal_sms'
+import timeofday from './timeofday'
 import workflow from './workflow'
 import property from './property'
 import consent from './consent'
@@ -25,7 +26,8 @@ const blocks = {
   internal_email,
   internal_sms,
   set,
-  goal
+  goal,
+  timeofday
 }
 
 export default blocks

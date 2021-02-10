@@ -42,7 +42,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Inbound SMS Campaigns',
       text: 'You have not yet created any inbound SMS campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } type="sms" form={ New } /> }
+        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } requires={['phone_number']} type="sms" form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -50,7 +50,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } />
+    modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } requires={['phone_number']} form={ New } />
   } : null
 })
 

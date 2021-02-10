@@ -28,8 +28,7 @@ const CreateCallTotals = {
       case
       when started.started_at is not null and ended.ended_at is not null then ceil(extract(epoch from (ended.ended_at- started.started_at)))
       else null
-      end as duration
-       as duration,
+      end as duration,
       coalesce(prices.price, 0.000) as price
       from maha_calls
       left join started on started.call_id=maha_calls.id

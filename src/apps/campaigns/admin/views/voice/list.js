@@ -41,7 +41,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Voice Campaigns',
       text: 'You have not yet created any voice campaigns',
       buttons: resources.programs.length > 0 ? [
-        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } /> }
+        { label: 'Create Campaign', modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } requires={['phone_number']} form={ New } /> }
       ] : null
     },
     entity: 'campaign',
@@ -49,7 +49,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   task: resources.programs.length > 0 ? {
     icon: 'plus',
-    modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } form={ New } />
+    modal: <ProgramForm programs={ resources.programs } fields={ resources.fields } requires={['phone_number']}  form={ New } />
   } : null
 })
 

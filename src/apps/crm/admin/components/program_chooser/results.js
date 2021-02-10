@@ -24,7 +24,12 @@ class Results extends React.PureComponent {
                 </div>
                 <div className="program-token-label">
                   { program.title }
-                  { _.includes(requires, 'bank') && !program.bank ? ' (no bank account)' : ''}
+                  { _.includes(requires, 'bank') &&
+                    <span> { !program.bank ? '(no bank account)' : program.bank.title }</span>
+                  }
+                  { _.includes(requires, 'phone_number') &&
+                    <span> { !program.phone_number ? '(no phone number)' : program.phone_number.formatted }</span>
+                  }
                 </div>
               </div>
             </div>
@@ -43,12 +48,14 @@ class Results extends React.PureComponent {
     const { requires } = this.props
     const classes = ['program-chooser-list-item']
     if(_.includes(requires, 'bank') && !program.bank) classes.push('disabled')
+    if(_.includes(requires, 'phone_number') && !program.phone_number) classes.push('disabled')
     return classes.join(' ')
   }
 
   _handleChoose(program) {
     const { requires } = this.props
     if(_.includes(requires, 'bank') && !program.bank) return
+    if(_.includes(requires, 'phone_number') && !program.phone_number) return
     this.props.onChoose(program)
   }
 

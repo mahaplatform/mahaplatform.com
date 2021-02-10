@@ -77,7 +77,9 @@ class TimeBlocksField extends React.PureComponent {
   _getDescription(timeblock) {
     const days = ['Su','M','T','W','Th','F','Sa']
     return [
-      timeblock.days.map(day => days[day]).join('/'),
+      days.filter((day, index) => {
+        return _.includes(timeblock.days, index)
+      }).join('/'),
       ...timeblock.times.map(time => {
         return [
           moment(`2020-01-01 ${time.start_time}`).format('h:mmA'),

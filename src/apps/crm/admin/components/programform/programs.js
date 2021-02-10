@@ -7,6 +7,7 @@ class Programs extends React.PureComponent {
 
   static propTypes = {
     programs: PropTypes.array,
+    requires: PropTypes.array,
     onCancel: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -32,7 +33,9 @@ class Programs extends React.PureComponent {
   }
 
   _getProgramChooser() {
+    const { requires } = this.props
     return {
+      requires,
       onChoose: this._handleChoose
     }
   }

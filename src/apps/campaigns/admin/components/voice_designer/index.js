@@ -1,12 +1,11 @@
 import FlowchartDesigner from '@apps/automation/admin/components/flowchart_designer'
 import dialbyextension from './dialbyextension'
 import dialbyname from './dialbyname'
-import dialmenu from './dialmenu'
-import timeofday from './timeofday'
-import { Container } from '@admin'
 import voicemail from './voicemail'
+import { Container } from '@admin'
 import PropTypes from 'prop-types'
 import redirect from './redirect'
+import dialmenu from './dialmenu'
 import React from 'react'
 import play from './play'
 import dial from './dial'
@@ -51,7 +50,7 @@ class VoiceDesigner extends React.PureComponent {
         dialmenu,
         dial,
         voicemail,
-        timeofday,
+        { action: 'timeofday' },
         {
           icon: 'phone',
           label: 'Hangup',

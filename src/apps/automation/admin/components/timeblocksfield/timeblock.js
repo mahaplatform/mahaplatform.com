@@ -44,7 +44,7 @@ class TimeBlock extends React.PureComponent {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Recipient',
+      title: 'Time Block',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChange: this._handleChange,

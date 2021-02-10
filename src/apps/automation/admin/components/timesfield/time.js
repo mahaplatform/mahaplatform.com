@@ -1,4 +1,4 @@
-import TimesField from '../timesfield'
+import TimeField from '../timefield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
@@ -10,7 +10,13 @@ class Time extends React.PureComponent {
   }
 
   static propTypes = {
+    time: PropTypes.object,
+    mode: PropTypes.string,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    time: {}
   }
 
   state = {
@@ -21,20 +27,17 @@ class Time extends React.PureComponent {
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
+
   render() {
     if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
+    const { time } = this.props
     this.setState({
-      config: this._getDefault()
+      config: time
     })
-  }
-
-  _getDefault() {
-    return {
-    }
   }
 
   _getForm() {
@@ -50,8 +53,8 @@ class Time extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', value: config.code },
-            { label: 'Start Time', name: 'start_time', type: 'textfield', required: true, placeholder: 'Enter Start Time', defaultValue: config.start_time },
-            { label: 'End Time', name: 'end_time', type: 'textfield', required: true, placeholder: 'Enter End Time', defaultValue: config.end_time }
+            { label: 'Start Time', name: 'start_time', type: TimeField, required: true, placeholder: 'Enter Start Time', defaultValue: config.start_time },
+            { label: 'End Time', name: 'end_time', type: TimeField, required: true, placeholder: 'Enter End Time', defaultValue: config.end_time }
           ]
         }
       ]

@@ -7,8 +7,6 @@ import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import Contact from '@apps/crm/models/contact'
 import Sender from '@apps/crm/models/sender'
 import Email from '@apps/maha/models/email'
-import Field from '@apps/maha/models/field'
-import _ from 'lodash'
 
 const sendEmail = async (req, params) => {
 

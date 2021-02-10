@@ -1,3 +1,4 @@
+import AnswersField from '../../answersfield'
 import { Button, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -53,22 +54,14 @@ class Listen extends React.PureComponent {
       onSuccess: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
-      instructions: (
-        <span>
-          You can ask a question and receive user input. Once the user replies,
-          the value will be saved as a variable which you can be referenced
-          later in an <strong>If/Then</strong> step
-        </span>
-      ),
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true, defaultValue: config.name },
             { label: 'Question', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
-            { label: 'Answers', name: 'answers', headers: false, placeholder: 'Enter Answer', instructions: 'Answers are not case sensitive', type: 'tablefield', reorderable: false, columns: [
+            { label: 'Answers', name: 'answers', headers: false, placeholder: 'Enter Answer', type: AnswersField, reorderable: false, columns: [
               { label: 'Answer', key: 'answer' }
             ], defaultValue: config.answers }
           ]

@@ -1,4 +1,4 @@
-import TimeBlocksField from '../../timeblocksfield'
+import TimeBlocksField from '../../../timeblocksfield'
 import { Button, Form } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
