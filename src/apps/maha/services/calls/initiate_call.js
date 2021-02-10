@@ -14,10 +14,12 @@ const initiateCall = async (req, { call_id, method, url }) => {
   try {
 
     const result = await twilio.calls.create({
-      // statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`,
-      // statusCallbackEvent: ['initiated','ringing','answered','completed'],
-      // statusCallbackMethod: 'POST',
+      statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`,
+      statusCallbackEvent: ['initiated','ringing','answered','completed'],
+      statusCallbackMethod: 'POST',
       machineDetection: 'DetectMessageEnd',
+      asyncAmd: true,
+      asyncAmdStatusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`,
       from: call.related('from_number').get('number'),
       to: call.related('to_number').get('number'),
       method: method || 'POST',
