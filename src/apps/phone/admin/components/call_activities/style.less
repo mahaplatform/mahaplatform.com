@@ -1,0 +1,44 @@
+.phone-call-activities {
+  position: relative;
+  &:before {
+    position: absolute;
+    bottom: 0.8em;
+    width: 1px;
+    background-color: lighten(@black, 80);
+    content: ' ';
+    top: 0.8em;
+    left: 7px;
+  }
+}
+.phone-call-activities-activity {
+  overflow: hidden;
+  padding: 0 0.4em;
+  font-size: 0.8em;
+  .fa {
+    color: lighten(@black, 80);
+    display: inline-block;
+    font-size: 7px;
+  }
+  span {
+    color: fadeout(@black, 80);
+    display: inline-block;
+    margin: 0 0.5em;
+  }
+  &.active {
+    .fa {
+      transition: color 2s;
+      animation: pulse 2s infinite;
+    }
+  }
+}
+@keyframes pulse {
+	0% {
+    color: lighten(@black, 80);
+	}
+	50% {
+    color: @green;
+	}
+	100% {
+    color: lighten(@black, 80);
+	}
+}

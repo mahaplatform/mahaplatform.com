@@ -25,8 +25,6 @@ class PhoneRoot extends React.Component {
     token: PropTypes.string
   }
 
-  ringtone = null
-
   state = {
     calls: [],
     error: null,
@@ -144,7 +142,6 @@ class PhoneRoot extends React.Component {
       status: 'in-progress-contact',
       answered: true
     }, () => {
-      this._handleRingtone(false)
       if(callback) callback()
     })
   }
@@ -235,9 +232,6 @@ class PhoneRoot extends React.Component {
 
   }
 
-  // incoming && answered - local
-  // outgoing && !answered - remote
-
   _handleHangup(call) {
     this.context.network.request({
       endpoint: '/api/admin/phone/calls/hangup',
@@ -264,7 +258,8 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: () => {
         this._handleUpdate(call.call.sid, {
-          held: true
+          held: true,
+          local_sid: null
         })
         if(callback) callback()
       }
@@ -288,7 +283,6 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         const { parent_sid, call } = result.data
-        this._handleRingtone(true)
         this._handleAdd({
           client: 'maha',
           action: 'new',
@@ -313,7 +307,6 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         connection.accept()
-        this._handleRingtone(true)
         this._handleUpdate(result.data.call.sid, {
           connection,
           action: 'forward',
@@ -335,7 +328,6 @@ class PhoneRoot extends React.Component {
       },
       onSuccess: (result) => {
         const { call } = result.data
-        this._handleRingtone(true)
         this._handleAdd({
           client: 'maha',
           action: 'transfer',
@@ -353,8 +345,13 @@ class PhoneRoot extends React.Component {
 
   _handleIncomingUnhold(connection, params) {
     connection.accept()
-    this._handleUpdate(params.sid, {
+    const call = this.state.calls.find(call => {
+      console.log(params.sid, call.call.sid, call.remote_sid)
+      return call.call.sid === params.sid || call.remote_sid === params.sid
+    })
+    this._handleUpdate(call.call.sid, {
       connection,
+      local_sid: connection.parameters.CallSid,
       held: false
     })
   }
@@ -427,7 +424,6 @@ class PhoneRoot extends React.Component {
   }
 
   _handleReject(call) {
-    this._handleRingtone(false)
     call.connection.reject()
     this._handleRemove({
       sid: call.call.sid
@@ -452,16 +448,6 @@ class PhoneRoot extends React.Component {
         this._handleUnhold(calls[0])
       })
     })
-  }
-
-  _handleRingtone(start) {
-    if(start) {
-      this.ringtone = new Audio('/audio/ring.mp3')
-      this.ringtone.play()
-    } else  {
-      this.ringtone.pause()
-      this.ringtone = null
-    }
   }
 
   _getSignal(call, data) {
@@ -516,6 +502,10 @@ class PhoneRoot extends React.Component {
     } else if(data.sid === call.remote_sid && data.status === 'completed') {
       this._handleRemove({
         remote_sid: data.sid
+      })
+    } else if(data.sid === call.local_sid && data.status === 'completed') {
+      this._handleRemove({
+        local_sid: data.sid
       })
     } else {
       const status = this._getSignal(call, data)
@@ -580,10 +570,7 @@ class PhoneRoot extends React.Component {
       body: {
         sid: call.remote_sid
       },
-      onSuccess: () => {
-        this._handleUpdate(call.call.sid, {
-          held: false
-        })
+      onSuccess: (result) => {
         if(callback) callback()
       }
     })

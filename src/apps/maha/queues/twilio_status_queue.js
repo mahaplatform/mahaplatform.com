@@ -13,7 +13,7 @@ const processor = async (req, job) => {
 
 const TwilioStatusQueue = new Queue({
   queue: 'twilio',
-  name: 'status',
+  name: 'twilio_status',
   processor
 })
 

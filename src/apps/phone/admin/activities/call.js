@@ -1,3 +1,4 @@
+import CallActivities from '@apps/phone/admin/components/call_activities'
 import { Container } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -23,6 +24,7 @@ class Call extends React.PureComponent {
             </tr>
           </tbody>
         </table>
+        <CallActivities call={ call } />
       </div>
     )
   }

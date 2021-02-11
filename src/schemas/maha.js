@@ -6162,11 +6162,16 @@ union
       group by maha_call_connections.call_id
       )
       select maha_calls.id as call_id,
-      ceil(date_part('epoch'::text, (ended.ended_at - started.started_at))) as duration,
+      started.started_at,
+      ended.ended_at,
+      case
+      when ((started.started_at is not null) and (ended.ended_at is not null)) then ceil(date_part('epoch'::text, (ended.ended_at - started.started_at)))
+      else null::double precision
+      end as duration,
       coalesce(prices.price, 0.000) as price
       from (((maha_calls
-      join started on ((started.call_id = maha_calls.id)))
-      join ended on ((ended.call_id = maha_calls.id)))
+      left join started on ((started.call_id = maha_calls.id)))
+      left join ended on ((ended.call_id = maha_calls.id)))
       left join prices on ((prices.call_id = maha_calls.id)));
     `)
 
@@ -6406,9 +6411,9 @@ union
     await knex.raw(`
       create view stores_category_totals AS
       select stores_categories.id as category_id,
-      count(stores_products_categories.*) as products_count
+      coalesce(count(stores_products_categories.*), (0)::bigint) as products_count
       from (stores_categories
-      join stores_products_categories on ((stores_products_categories.category_id = stores_categories.id)))
+      left join stores_products_categories on ((stores_products_categories.category_id = stores_categories.id)))
       group by stores_categories.id;
     `)
 

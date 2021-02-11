@@ -25,6 +25,8 @@ const CreateCallTotals = {
       group by call_id
       )
       select maha_calls.id as call_id,
+      started.started_at ,
+      ended.ended_at ,
       case
       when started.started_at is not null and ended.ended_at is not null then ceil(extract(epoch from (ended.ended_at- started.started_at)))
       else null

@@ -70,7 +70,7 @@ class Categories extends React.Component {
               this.context.flash.set('success', 'The category was successfully deleted')
             }
           }
-        },
+        }
       ]
     }
   }

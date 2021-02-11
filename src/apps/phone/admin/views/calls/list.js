@@ -20,7 +20,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet sent or received any calls'
     },
     entity: 'call',
-    onClick: (record) => context.router.history.push(`/team/calls/${record.id}`)
+    onClick: (record) => context.router.history.push(`/phone/calls/${record.id}`)
   }
 })
 

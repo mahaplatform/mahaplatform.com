@@ -1,6 +1,3 @@
-import ProgramToken from '@apps/crm/admin/tokens/program'
-import ContactToken from '@apps/crm/admin/tokens/contact'
-import  { UserToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -43,7 +40,9 @@ class Details extends React.Component {
                   { connection.from_contact &&
                     <div>{ connection.from_contact.display_name }</div>
                   }
-                  { connection.from_number.formatted }
+                  { connection.from_number &&
+                    <div>{ connection.from_number.formatted }</div>
+                  }
                 </td>
                 <td>
                   { connection.to_user &&
@@ -55,7 +54,9 @@ class Details extends React.Component {
                   { connection.to_contact &&
                     <div>{ connection.to_contact.display_name }</div>
                   }
-                  { connection.to_number.formatted }
+                  { connection.to_number &&
+                    <div>{ connection.to_number.formatted }</div>
+                  }
                 </td>
                 <td>{ connection.duration }</td>
                 <td>{ connection.price }</td>

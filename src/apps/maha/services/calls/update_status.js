@@ -5,6 +5,7 @@ import { getCall } from '@apps/maha/services/calls'
 // import socket from '@core/services/routes/emitter'
 import Story from '@apps/maha/models/story'
 import twilio from '@core/vendor/twilio'
+import moment from 'moment'
 
 const updateStatus = async (req, { body, parent_sid, sid }) => {
 
@@ -67,7 +68,7 @@ const updateStatus = async (req, { body, parent_sid, sid }) => {
     call_connection_id: connection.get('id'),
     story_id: story.get('id'),
     data: {},
-    tstamp: body.Timestamp
+    tstamp: moment(body.Timestamp, 'ddd, DD MMM YYYY HH:mm:ss 000')
   }).save(null, {
     transacting: req.trx
   })

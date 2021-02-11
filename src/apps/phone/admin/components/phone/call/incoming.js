@@ -15,6 +15,8 @@ class Incoming extends React.Component {
     call: PropTypes.object
   }
 
+  ringtone = null
+
   _handleAccept = this._handleAccept.bind(this)
   _handleReject = this._handleReject.bind(this)
 
@@ -44,6 +46,16 @@ class Incoming extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.ringtone = new Audio('/audio/ring.mp3')
+    this.ringtone.play()
+  }
+
+  componentWillUnmount() {
+    this.ringtone.pause()
+    this.ringtone = null
   }
 
   _getButtons() {
