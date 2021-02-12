@@ -9,15 +9,13 @@ const getVoice = (voice) => {
 const say = (req, twiml, child = false) => {
 
   const voice = getVoice(req.step.voice)
-  const loop = req.step.loop
   const text = req.step.text
 
   const phrases = text.split('\n')
 
   phrases.map((phrase,index) => {
     twiml.say({
-      voice: `Polly.${voice}`,
-      ...loop ? { loop } : {}
+      voice: `Polly.${voice}`
     }, phrase)
     if(index < phrases.length - 1) {
       twiml.pause({
@@ -30,8 +28,7 @@ const say = (req, twiml, child = false) => {
 
   return {
     verb: 'say',
-    voice,
-    loop,
+    voice: req.step.voice,
     text
   }
 

@@ -4,6 +4,7 @@ const callActivitySerializer = (req, result) => ({
   type: result.get('type'),
   to_user: user(result.related('to_user')),
   client: result.get('client'),
+  data: result.get('data'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

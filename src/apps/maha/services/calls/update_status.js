@@ -1,8 +1,7 @@
+import { getConnection, createCallActivity } from '@apps/maha/services/calls'
 import { createVoicemail } from '@apps/maha/services/voicemails'
-import { getConnection } from '@apps/maha/services/calls'
 import CallStatus from '@apps/maha/models/call_status'
 import { getCall } from '@apps/maha/services/calls'
-// import socket from '@core/services/routes/emitter'
 import twilio from '@core/vendor/twilio'
 import moment from 'moment'
 
@@ -46,14 +45,21 @@ const updateStatus = async (req, { body, parent_sid, sid }) => {
 
   if(body.Result) {
     const { verb, action } = body.Result
-    if(verb === 'voicemail' && action === 'complete') {
+    const voicemail = (verb === 'voicemail' && action === 'complete') ?
       await createVoicemail(req, {
         call,
         url:  body.RecordingUrl,
         duration: body.RecordingDuration
-      })
-    }
+      }) : null
+    await createCallActivity(req, {
+      sid: call.get('sid'),
+      type: 'step',
+      data: {
+        ...body.Result || {},
+        ...voicemail ? { key: voicemail.related('asset').get('key') } : {}
+      }
 
+    })
   }
 
   await CallStatus.forge({

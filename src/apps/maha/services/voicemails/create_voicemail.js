@@ -13,7 +13,7 @@ const createVoicemail = async(req, { call, url, duration }) => {
     table: 'maha_voicemails'
   })
 
-  await Voicemail.forge({
+  const voicemail = await Voicemail.forge({
     team_id: req.team.get('id'),
     call_id: call.get('id'),
     asset_id: asset.get('id'),
@@ -28,6 +28,12 @@ const createVoicemail = async(req, { call, url, duration }) => {
   await socket.refresh(req, [
     `/admin/phone/programs/${call.get('program_id')}/voicemails`
   ])
+
+  await voicemail.load(['asset'], {
+    transacting: req.trx
+  })
+
+  return voicemail
 
 }
 

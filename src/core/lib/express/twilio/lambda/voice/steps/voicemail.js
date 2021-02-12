@@ -17,7 +17,7 @@ const ask = (req, twiml) => {
     finishOnKey: '#'
   })
   return {
-    verb: 'record',
+    verb: 'voicemail',
     action: 'ask',
     ask
   }

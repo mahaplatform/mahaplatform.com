@@ -12,10 +12,11 @@ const CreateCallActivity = {
       table.foreign('user_id').references('maha_users.id')
       table.integer('call_id').unsigned()
       table.foreign('call_id').references('maha_calls.id')
-      table.enum('type', ['answered','hold','unhold','hangup','transfer','forward','machine'], { useNative: true, enumName: 'maha_call_activity_types' })
+      table.enum('type', ['answered','hold','unhold','hangup','transfer','forward','machine','step'], { useNative: true, enumName: 'maha_call_activity_types' })
       table.integer('to_user_id').unsigned()
       table.foreign('to_user_id').references('maha_users.id')
       table.enum('client', ['cell','maha'], { useNative: true, enumName: 'maha_call_activity_clients' })
+      table.jsonb('data')
       table.timestamps()
     })
 
