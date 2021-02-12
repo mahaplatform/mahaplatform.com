@@ -1,12 +1,12 @@
 const WorkflowActionSerializer = (req, result) => ({
   id: result.get('id'),
+  step: result.get('step'),
   asset: asset(result.related('asset')),
   email: email(result.related('email')),
   sms: sms(result.related('sms')),
   list: list(result.related('list')),
   program: program(result.related('program')),
   recording: asset(result.related('recording')),
-  step: step(result.related('step')),
   topic: topic(result.related('topic')),
   user: user(result.related('user')),
   data: result.get('data'),
@@ -65,16 +65,6 @@ const sms = (sms) => {
   return {
     id: sms.get('id'),
     body: sms.get('body')
-  }
-}
-
-const step = (step) => {
-  if(!step.id) return null
-  return {
-    id: step.get('id'),
-    type: step.get('type'),
-    action: step.get('action'),
-    config: step.get('config')
   }
 }
 

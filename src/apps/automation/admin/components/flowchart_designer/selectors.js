@@ -92,12 +92,12 @@ const getBranches = (steps, step) => {
     ]
   } else if(step.action === 'question') {
     return  [
-      ...step.config.answers.map(answer => ({
+      ...step.config.answers ? step.config.answers.map(answer => ({
         code: answer.code,
         label: answer.text,
         tooltip: `Answer ${answer.operation === '$eq' ? 'equals' : 'contains'} "${answer.text}"`,
         then: segment(steps, step.code,  answer.code)
-      })),
+      })) : [],
       {
         code: 'else',
         tooltip: 'Answer doesn\'t match criteria',

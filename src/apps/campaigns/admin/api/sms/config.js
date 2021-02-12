@@ -11,7 +11,7 @@ const getKey = (campaign) => {
   }
 }
 
-const updateRoute = async (req, res) => {
+const configRoute = async (req, res) => {
 
   const campaign = await SMSCampaign.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -51,4 +51,4 @@ const updateRoute = async (req, res) => {
 
 }
 
-export default updateRoute
+export default configRoute

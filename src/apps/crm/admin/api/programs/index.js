@@ -1,6 +1,5 @@
 import phone_number from './phone_number'
 import recipients from './recipients'
-import voicemails from './voicemails'
 import templates from './templates'
 import channels from './channels'
 import receipts from './receipts'
@@ -50,7 +49,5 @@ router.use('/:program_id/senders', senders)
 router.use('/:program_id/templates', templates)
 
 router.use('/:program_id/topics', topics)
-
-router.use('/:program_id/voicemails', voicemails)
 
 export default router

@@ -36,7 +36,7 @@ const listRoute = async (req, res) => {
     qb.where('enrollment_id', req.params.id)
     qb.orderBy('created_at', 'asc')
   }).fetchAll({
-    withRelated: ['asset','email','field','list','program','recording','topic','step','user','workflow','sms'],
+    withRelated: ['asset','email','field','list','program','recording','topic','user','workflow','sms'],
     transacting: req.trx
   })
 

@@ -27,8 +27,10 @@ class Designer extends React.Component {
   }
 
   static propTypes = {
+    current: PropTypes.object,
     page: PropTypes.object,
     template: PropTypes.object,
+    versions: PropTypes.array,
     workflow: PropTypes.object
   }
 
@@ -39,9 +41,9 @@ class Designer extends React.Component {
   }
 
   _getWorkflowDesigner() {
-    const { workflow } = this.props
+    const { current, versions, workflow } = this.props
     return {
-      endpoint: `/api/admin/automation/workflows/${workflow.id}`,
+      endpoint: `/api/admin/automation/workflows/${workflow.id}/config`,
       fields: [
         ...this._getEmailFields(),
         ...this._getFields()
@@ -49,7 +51,11 @@ class Designer extends React.Component {
       program: workflow.program,
       trigger: this._getTrigger(),
       tokens: this._getTokens(),
-      workflow,
+      versions,
+      workflow: {
+        ...workflow,
+        ...current.value
+      },
       onSave: this._handleSave
     }
   }
@@ -235,7 +241,9 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  workflow: `/api/admin/automation/workflows/${props.params.id}`
+  workflow: `/api/admin/automation/workflows/${props.params.id}`,
+  versions: `/api/admin/crm_workflows/${props.params.id}/config/versions`,
+  current: `/api/admin/crm_workflows/${props.params.id}/config/versions/current`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

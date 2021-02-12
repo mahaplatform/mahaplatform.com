@@ -1,15 +1,17 @@
 import Version from '@apps/maha/models/version'
+import moment from 'moment'
 
 const createVersion = async (req, params) => {
 
-  const { versionable_type, versionable_id, key, value } = params
+  const { versionable_type, versionable_id, key, value, publish } = params
 
   const version = await Version.forge({
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
     key,
-    value
+    value,
+    ...publish ? { published_at: moment() } : {}
   }).save(null, {
     transacting: req.trx
   })

@@ -16,7 +16,7 @@ class Designer extends React.Component {
   }
 
   _getVoiceDesigner() {
-    const { phone_number, current } = this.props
+    const { current, phone_number, versions } = this.props
     return {
       campaign: {
         phone_number,
@@ -25,7 +25,8 @@ class Designer extends React.Component {
         steps: current.value.steps
       },
       endpoint: `/api/admin/phone/phone_numbers/${phone_number.id}/workflow`,
-      program: phone_number.program
+      program: phone_number.program,
+      versions
     }
   }
 

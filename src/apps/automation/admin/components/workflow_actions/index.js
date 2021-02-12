@@ -20,7 +20,10 @@ const triggers = {
   sms_sent: { icon: 'envelope', text: 'Contact sent SMS' },
   sms_received: { icon: 'envelope', text: 'Contact received SMS' },
   subscription_created: { icon: 'th-list', text: 'Contact was added to list' },
-  subscription_deleted: { icon: 'th-list', text: 'Contact was removed from list' }
+  subscription_deleted: { icon: 'th-list', text: 'Contact was removed from list' },
+  outbound_sms: { icon: 'envelope', text: 'Contact enrolled in outbound SMS campaign' },
+  inbound_sms: { icon: 'envelope', text: 'Contact enrolled in inbound SMS campaign' },
+  outbound_voice: { icon: 'phone', text: 'Contact enrolled in outbound voice campaign' }
 }
 
 class WorkflowActions extends React.PureComponent {
@@ -34,6 +37,7 @@ class WorkflowActions extends React.PureComponent {
 
   render() {
     const { actions, enrollment, trigger_type } = this.props
+    console.log(this.props)
     return (
       <div className="crm-workflow-actions">
         <div className="crm-workflow-action">

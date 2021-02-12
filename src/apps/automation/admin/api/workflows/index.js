@@ -8,6 +8,7 @@ import enroll from './enroll'
 import create from './create'
 import update from './update'
 import emails from './emails'
+import config from './config'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -29,6 +30,8 @@ router.get('/:id/emails', emails)
 router.get('/:id/performance', performance)
 
 router.patch('/:id/activate', activate)
+
+router.patch('/:id/config', config)
 
 router.patch('/:id/enroll', enroll)
 

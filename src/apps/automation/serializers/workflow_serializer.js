@@ -12,7 +12,6 @@ const WorkflowSerializer = (req, result) => ({
   list: list(result.related('list')),
   topic: topic(result.related('topic')),
   status: result.get('status'),
-  steps: result.related('steps').map(step),
   store: store(result.related('store')),
   trigger_type: result.get('trigger_type'),
   enrolled_count: result.get('enrolled_count'),
@@ -102,20 +101,6 @@ const phone_number = (phone_number) => {
     formatted: phone_number.get('formatted'),
     locality: phone_number.get('locality'),
     region: phone_number.get('region')
-  }
-}
-
-const step = (step) => {
-  if(!step.id) return
-  return {
-    id: step.get('id'),
-    type: step.get('type'),
-    action: step.get('action'),
-    code: step.get('code'),
-    delta: step.get('delta'),
-    parent: step.get('parent'),
-    answer: step.get('answer'),
-    config: step.get('config')
   }
 }
 

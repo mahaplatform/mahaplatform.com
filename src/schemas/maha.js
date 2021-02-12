@@ -586,7 +586,6 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('enrollment_id').unsigned()
-      table.integer('step_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('data')
@@ -596,11 +595,11 @@ const schema = {
       table.integer('program_id').unsigned()
       table.integer('workflow_id').unsigned()
       table.integer('email_id').unsigned()
-      table.integer('recording_id').unsigned()
       table.integer('asset_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('sms_id').unsigned()
       table.timestamp('waited_until')
+      table.jsonb('step')
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
@@ -628,37 +627,6 @@ const schema = {
       table.boolean('was_opted_out')
       table.integer('order_id').unsigned()
       table.text('error')
-    })
-
-    await knex.schema.createTable('crm_workflow_recordings', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('action_id').unsigned()
-      table.integer('asset_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.string('code', 255)
-      table.integer('duration')
-      table.boolean('was_heard')
-      table.boolean('was_handled')
-    })
-
-    await knex.schema.createTable('crm_workflow_steps', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('workflow_id').unsigned()
-      table.string('code', 255)
-      table.string('parent', 255)
-      table.string('answer', 255)
-      table.integer('delta')
-      table.jsonb('config')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.USER-DEFINED('type')
-      table.USER-DEFINED('action')
-      table.integer('voice_campaign_id').unsigned()
-      table.integer('sms_campaign_id').unsigned()
-      table.boolean('is_active')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {
@@ -1466,7 +1434,6 @@ const schema = {
       table.integer('user_id').unsigned()
       table.integer('call_id').unsigned()
       table.USER-DEFINED('type')
-      table.USER-DEFINED('verb')
       table.integer('to_user_id').unsigned()
       table.USER-DEFINED('client')
       table.jsonb('data')
@@ -2897,9 +2864,7 @@ const schema = {
       table.foreign('field_id').references('maha_fields.id')
       table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
-      table.foreign('recording_id').references('crm_workflow_recordings.id')
       table.foreign('sms_id').references('maha_smses.id')
-      table.foreign('step_id').references('crm_workflow_steps.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('user_id').references('maha_users.id')
@@ -2914,19 +2879,6 @@ const schema = {
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('registration_id').references('events_registrations.id')
       table.foreign('response_id').references('crm_responses.id')
-      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-    })
-
-    await knex.schema.table('crm_workflow_recordings', table => {
-      table.foreign('action_id').references('crm_workflow_actions.id')
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_workflow_steps', table => {
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
@@ -4576,14 +4528,10 @@ union
       left join messages on ((messages.program_id = crm_programs_1.id)))
       group by crm_programs_1.id
       ), voicemails as (
-      select crm_voice_campaigns.program_id,
-      crm_workflow_recordings.id
-      from ((((crm_workflow_recordings
-      join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
-      join crm_workflow_steps on ((crm_workflow_steps.id = crm_workflow_actions.step_id)))
-      join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
-      join crm_voice_campaigns on ((crm_voice_campaigns.id = crm_workflow_enrollments.voice_campaign_id)))
-      where ((crm_workflow_steps.action = 'voicemail'::crm_workflow_step_actions) and (crm_workflow_recordings.was_heard = false))
+      select maha_calls.program_id,
+      maha_voicemails.id
+      from (maha_voicemails
+      join maha_calls on (((maha_calls.id = maha_voicemails.call_id) and (maha_voicemails.was_heard = false))))
       ), unheard as (
       select crm_programs_1.id as program_id,
       (count(voicemails.*))::integer as unheard_voicemails
@@ -4994,24 +4942,6 @@ union
       from crm_workflow_enrollments
       where ((crm_workflow_enrollments.voice_campaign_id is not null) and (crm_workflow_enrollments.status = 'completed'::crm_workflow_enrollment_status))
       group by crm_workflow_enrollments.voice_campaign_id
-      ), recordings as (
-      select crm_workflow_enrollments.voice_campaign_id,
-      count(*) as count
-      from (((crm_workflow_recordings
-      join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
-      join crm_workflow_steps on ((crm_workflow_steps.id = crm_workflow_actions.step_id)))
-      join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
-      where (crm_workflow_steps.action = 'record'::crm_workflow_step_actions)
-      group by crm_workflow_enrollments.voice_campaign_id
-      ), voicemails as (
-      select crm_workflow_enrollments.voice_campaign_id,
-      count(*) as count
-      from (((crm_workflow_recordings
-      join crm_workflow_actions on ((crm_workflow_actions.id = crm_workflow_recordings.action_id)))
-      join crm_workflow_steps on ((crm_workflow_steps.id = crm_workflow_actions.step_id)))
-      join crm_workflow_enrollments on ((crm_workflow_enrollments.id = crm_workflow_actions.enrollment_id)))
-      where (crm_workflow_steps.action = 'voicemail'::crm_workflow_step_actions)
-      group by crm_workflow_enrollments.voice_campaign_id
       )
       select crm_voice_campaigns.id as voice_campaign_id,
       coalesce(calls.count, (0)::bigint) as calls_count,
@@ -5020,19 +4950,15 @@ union
       coalesce(hangups.count, (0)::bigint) as hangups_count,
       coalesce(answering_machines.count, (0)::bigint) as answering_machines_count,
       coalesce(converted.count, (0)::bigint) as converted_count,
-      coalesce(completed.count, (0)::bigint) as completed_count,
-      coalesce(recordings.count, (0)::bigint) as recordings_count,
-      coalesce(voicemails.count, (0)::bigint) as voicemails_count
-      from (((((((((crm_voice_campaigns
+      coalesce(completed.count, (0)::bigint) as completed_count
+      from (((((((crm_voice_campaigns
       left join calls on ((calls.voice_campaign_id = crm_voice_campaigns.id)))
       left join active on ((active.voice_campaign_id = crm_voice_campaigns.id)))
       left join lost on ((lost.voice_campaign_id = crm_voice_campaigns.id)))
       left join hangups on ((hangups.voice_campaign_id = crm_voice_campaigns.id)))
       left join answering_machines on ((answering_machines.voice_campaign_id = crm_voice_campaigns.id)))
       left join converted on ((converted.voice_campaign_id = crm_voice_campaigns.id)))
-      left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)))
-      left join recordings on ((recordings.voice_campaign_id = crm_voice_campaigns.id)))
-      left join voicemails on ((voicemails.voice_campaign_id = crm_voice_campaigns.id)));
+      left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)));
     `)
 
     await knex.raw(`

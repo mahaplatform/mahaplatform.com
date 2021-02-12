@@ -2,7 +2,7 @@ const EnrollmentSerializer = (req, result) => ({
   id: result.get('id'),
   call: call(result.related('call')),
   contact: contact(result.related('contact')),
-  actions: result.related('actions').map(action),
+  actions: result.get('result').actions,
   was_converted: result.get('was_converted'),
   status: result.get('status'),
   unenrolled_at: result.get('unenrolled_at'),
@@ -26,25 +26,6 @@ const contact = (contact) => {
     initials: contact.get('initials'),
     email: contact.get('email'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
-  }
-}
-
-const action = (action) => {
-  if(!action.id) return null
-  return {
-    id: action.get('id'),
-    step: step(action.related('step')),
-    created_at: action.get('created_at')
-  }
-}
-
-const step = (step) => {
-  if(!step.id) return null
-  return {
-    id: step.get('id'),
-    type: step.get('type'),
-    action: step.get('action'),
-    config: step.get('config')
   }
 }
 

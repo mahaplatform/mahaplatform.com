@@ -16,14 +16,15 @@ class Design extends React.Component {
   }
 
   _getVoiceDesigner() {
-    const { campaign, current } = this.props
+    const { campaign, current, versions } = this.props
     return {
       campaign: {
         ...campaign,
         steps: current.value.steps
       },
-      endpoint: `/api/admin/campaigns/voice/${campaign.id}/workflow`,
-      program: campaign.program
+      endpoint: `/api/admin/campaigns/voice/${campaign.id}/config`,
+      program: campaign.program,
+      versions
     }
   }
 

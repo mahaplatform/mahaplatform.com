@@ -22,7 +22,7 @@ const actionsRoute = async (req, res) => {
     qb.where('sms_campaign_id', sms_campaign.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['contact.photo','actions.step'],
+    withRelated: ['contact.photo','actions'],
     transacting: req.trx
   })
 
@@ -36,7 +36,7 @@ const actionsRoute = async (req, res) => {
     qb.where('enrollment_id', req.params.id)
     qb.orderBy('created_at', 'asc')
   }).fetchAll({
-    withRelated: ['asset','email','field','list','program','recording','topic','step','user','workflow','sms'],
+    withRelated: ['asset','email','field','list','program','recording','topic','user','workflow','sms'],
     transacting: req.trx
   })
 
