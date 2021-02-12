@@ -16,13 +16,10 @@ class Design extends React.Component {
   }
 
   _getSMSDesigner() {
-    const { campaign, current } = this.props
+    const { campaign } = this.props
     return {
-      campaign: {
-        ...campaign,
-        steps: current.value.steps
-      },
-      endpoint: `/api/admin/campaigns/sms/${campaign.id}/workflow`,
+      campaign,
+      endpoint: `/api/admin/campaigns/sms/${campaign.id}`,
       program: campaign.program
     }
   }
@@ -30,9 +27,7 @@ class Design extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/campaigns/sms/${props.params.id}`,
-  versions: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions`,
-  current: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions/current`
+  campaign: `/api/admin/campaigns/sms/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

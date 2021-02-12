@@ -26,21 +26,13 @@ const queueSMS = async (req, { sms_id }) => {
   const from = sms.related('from')
 
   const to = sms.related('to')
-
-  const total = await getTotal(req, {
-    from_id: from.get('id'),
-    to_id: to.get('id'),
-    sms_id: sms.get('id')
-  })
-
-  const body = sms.get('body') + (total === 0 ? ' Reply STOP to unsubscribe.' : '')
-
+  
   try {
 
     const result = await twilio.messages.create({
       from: from.get('number'),
       to: to.get('number'),
-      body,
+      body: sms.get('body'),
       mediaUrl: sms.related('attachments').map(attachment => {
         return attachment.related('asset').get('signed_url')
       }),

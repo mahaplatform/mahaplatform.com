@@ -3,7 +3,7 @@ const axios = require('axios')
 const status = async (req) => {
   try {
     await axios({
-      url: `${process.env.TWILIO_HOST_STATUS}/sms/receive`,
+      url: `${process.env.TWILIO_HOST_STATUS}/sms`,
       method: 'post',
       data: req.body
     })
