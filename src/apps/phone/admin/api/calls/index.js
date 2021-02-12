@@ -1,3 +1,4 @@
+import activities from './activities'
 import transfer from './transfer'
 import { Router } from 'express'
 import forward from './forward'
@@ -31,5 +32,7 @@ router.post('/transfer', transfer)
 router.get('/token', token)
 
 router.get('/:id', show)
+
+router.get('/:id/activities', activities)
 
 export default router

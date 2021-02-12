@@ -1,3 +1,5 @@
+import { createCallActivity } from '@apps/maha/services/calls'
+
 import User from '@apps/maha/models/user'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
@@ -51,32 +53,34 @@ const transferRoute = async (req, res) => {
     })
   }
 
-  if(req.body.user_id) {
+  const user = await User.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.body.user_id)
+  }).fetch({
+    transacting: req.trx
+  })
 
-    const user = await User.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('id', req.body.user_id)
-    }).fetch({
-      transacting: req.trx
-    })
+  client(twiml, {
+    client: `${user.get('id')}`
+  }, {
+    action: 'transfer',
+    sid: req.body.sid,
+    transfered_from: req.user.get('full_name')
+  })
 
-    client(twiml, {
-      client: `${user.get('id')}`
-    }, {
-      action: 'transfer',
-      sid: req.body.sid,
-      transfered_from: req.user.get('full_name')
-    })
+  client(twiml, {
+    client: `${req.user.get('id')}`
+  }, {
+    action: 'transfer',
+    sid: req.body.sid,
+    transfered_back_from: user.get('full_name')
+  })
 
-    client(twiml, {
-      client: `${req.user.get('id')}`
-    }, {
-      action: 'transfer',
-      sid: req.body.sid,
-      transfered_back_from: user.get('full_name')
-    })
-
-  }
+  await createCallActivity(req, {
+    sid: req.body.call_sid,
+    type: 'transfer',
+    to_user_id: user.get('id')
+  })
 
   await twilio.calls(req.body.sid).update({
     twiml: twiml.toString()

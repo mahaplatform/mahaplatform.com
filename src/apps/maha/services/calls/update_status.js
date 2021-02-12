@@ -1,9 +1,8 @@
 import { createVoicemail } from '@apps/maha/services/voicemails'
-import CallActivity from '@apps/maha/models/call_activity'
 import { getConnection } from '@apps/maha/services/calls'
+import CallStatus from '@apps/maha/models/call_status'
 import { getCall } from '@apps/maha/services/calls'
 // import socket from '@core/services/routes/emitter'
-import Story from '@apps/maha/models/story'
 import twilio from '@core/vendor/twilio'
 import moment from 'moment'
 
@@ -57,18 +56,11 @@ const updateStatus = async (req, { body, parent_sid, sid }) => {
 
   }
 
-  const story = await Story.fetchOrCreate({
-    text: body.CallStatus
-  }, {
-    transacting: req.trx
-  })
-
-  await CallActivity.forge({
+  await CallStatus.forge({
     team_id: call.get('team_id'),
     call_connection_id: connection.get('id'),
-    story_id: story.get('id'),
-    data: {},
-    tstamp: moment(body.Timestamp, 'ddd, DD MMM YYYY HH:mm:ss 000')
+    status: body.CallStatus,
+    tstamp: moment(body.Timestamp, 'ddd, DD MMM YYYY HH:mm:ss.SSSZ')
   }).save(null, {
     transacting: req.trx
   })

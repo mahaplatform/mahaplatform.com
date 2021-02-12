@@ -1,9 +1,8 @@
+import { createCallActivity } from '@apps/maha/services/calls'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
 const holdRoute = async (req, res) => {
-
-  const { sid } = req.body
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
@@ -11,7 +10,12 @@ const holdRoute = async (req, res) => {
     loop: 0
   },'http://com.twilio.sounds.music.s3.amazonaws.com/ClockworkWaltz.mp3')
 
-  const twcall = await twilio.calls(sid).update({
+  await createCallActivity(req, {
+    sid: req.body.call_sid,
+    type: 'hold'
+  })
+
+  const twcall = await twilio.calls(req.body.sid).update({
     twiml: twiml.toString()
   })
 

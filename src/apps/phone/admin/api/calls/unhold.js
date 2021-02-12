@@ -1,9 +1,8 @@
+import { createCallActivity } from '@apps/maha/services/calls'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
 const unholdRoute = async (req, res) => {
-
-  const { sid } = req.body
 
   const twiml = new Twilio.twiml.VoiceResponse()
 
@@ -21,10 +20,15 @@ const unholdRoute = async (req, res) => {
 
   client.parameter({
     name: 'sid',
-    value: sid
+    value: req.body.sid
   })
 
-  const twcall = await twilio.calls(sid).update({
+  await createCallActivity(req, {
+    sid: req.body.call_sid,
+    type: 'unhold'
+  })
+
+  const twcall = await twilio.calls(req.body.sid).update({
     twiml: twiml.toString()
   })
 

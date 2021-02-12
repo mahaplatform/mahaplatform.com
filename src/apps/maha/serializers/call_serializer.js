@@ -11,6 +11,8 @@ const CallSerializer = (req, result) => ({
   status: result.get('status'),
   price: result.get('price'),
   connections: result.related('connections').map(connection),
+  started_at: result.get('started_at'),
+  ended_at: result.get('ended_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

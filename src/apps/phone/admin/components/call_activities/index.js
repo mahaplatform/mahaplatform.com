@@ -10,38 +10,47 @@ class CallActivities extends React.PureComponent {
     call: PropTypes.object
   }
 
-  static defaultProps = {
-    activities: [
-      { tstamp: '2021-01-02 11:05:00', description: 'foo' },
-      { tstamp: '2021-01-02 11:05:10', description: 'bar' },
-      { tstamp: '2021-01-02 11:05:15', description: 'baz' },
-      { tstamp: '2021-01-02 11:05:20', description: 'boom' }
-    ]
-  }
-
   render() {
-    const { activities } = this.props
-    const started_at = moment('2021-01-02 11:05:00')
+    const { activities, call } = this.props
+    const started_at = moment(call.started_at)
     return (
       <div className="phone-call-activities">
         { activities.map((activity, index) => (
-          <div className={ this._getClass(index) } key={`activity_${index}`}>
+          <div className="phone-call-activities-activity" key={`activity_${index}`}>
             <i className="fa fa-circle" />
             <span>
-              <Format value={ moment(activity.tstamp).diff(started_at, 'second') } format="duration" />
+              <Format value={ moment(activity.created_at).diff(started_at, 'second') } format="duration" />
             </span>
-            { activity.description }
+            { this._getDescription(activity) }
           </div>
         )) }
+        { call.status === 'in-progress' &&
+        <div className="phone-call-activities-activity active">
+          <i className="fa fa-circle" />
+          <span>
+            <Format value={ moment().diff(started_at, 'second') } format="duration" />
+          </span>
+          Call is active
+        </div>
+        }
       </div>
     )
   }
 
-  _getClass(index) {
-    const { activities } = this.props
-    const classes = ['phone-call-activities-activity']
-    if(index === activities.length - 1) classes.push('active')
-    return classes.join(' ')
+  _getDescription(activity) {
+    const parts = []
+    if(activity.user) parts.push(activity.user.full_name)
+    parts.push(this._getType(activity))
+    return parts.join(' ')
+  }
+
+  _getType(activity) {
+    const { client, to_user, type } = activity
+    if(type === 'hold') return 'placed the call on hold'
+    if(type === 'unhold') return 'took the call off hold'
+    if(type === 'hangup') return 'hungup the call'
+    if(type === 'transfer') return `transfered the call to ${to_user.full_name}`
+    if(type === 'forward') return `forwarded the call to ${client} phone`
   }
 
 }

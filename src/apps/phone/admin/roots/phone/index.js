@@ -218,6 +218,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/forward',
       method: 'post',
       body: {
+        call_sid: call.call.sid,
         from: call.call.program.phone_number.number,
         sid: call.remote_sid,
         client
@@ -225,7 +226,7 @@ class PhoneRoot extends React.Component {
       onSuccess: (result) => {
         this._handleUpdate(call.call.sid, {
           client,
-          local_sid: result.sid
+          local_sid: result.data.sid
         }, callback)
       }
     })
@@ -237,6 +238,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/hangup',
       method: 'post',
       body: {
+        call_sid: call.call.sid,
         sid: call.remote_sid
       },
       onSuccess: () => {
@@ -254,6 +256,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/hold',
       method: 'post',
       body: {
+        call_sid: call.call.sid,
         sid: remote_sid
       },
       onSuccess: () => {
@@ -346,7 +349,6 @@ class PhoneRoot extends React.Component {
   _handleIncomingUnhold(connection, params) {
     connection.accept()
     const call = this.state.calls.find(call => {
-      console.log(params.sid, call.call.sid, call.remote_sid)
       return call.call.sid === params.sid || call.remote_sid === params.sid
     })
     this._handleUpdate(call.call.sid, {
@@ -412,8 +414,8 @@ class PhoneRoot extends React.Component {
           client: body.client,
           call: result.data,
           direction: 'outbound',
-          local_sid: body.client === 'maha' ? result.data.sid : null,
-          remote_sid: body.client === 'cell' ? result.data.sid : null
+          local_sid: result.data.sid,
+          remote_sid: null
         })
       }
     })
@@ -470,40 +472,28 @@ class PhoneRoot extends React.Component {
     })
     if(!call) return
     if(data.sid === call.transfering_sid && _.includes(['in-progress','busy','no-answer'], data.status)) {
+      console.log('transfer is complete')
       this._handleRemove({
         transfering_sid: call.transfering_sid
       })
-    } else if(call.action === 'call' && call.client === 'maha' && data.parent_sid === call.local_sid && data.status === 'in-progress') {
-      if(!call.remote_sid) {
-        this._handleUpdate(call.call.sid, {
-          remote_sid: data.sid,
-          status: data.status
-        })
-      } else  {
-        this._handleUpdate(call.call.sid, {
-          local_sid: data.sid
-        })
-      }
-    } else if(call.action === 'call' && call.client === 'cell' && data.parent_sid === call.remote_sid && data.status === 'in-progress') {
-      if(!call.local_sid) {
-        this._handleUpdate(call.call.sid, {
-          local_sid: data.sid,
-          status: data.status
-        })
-      } else  {
-        this._handleUpdate(call.call.sid, {
-          remote_sid: data.sid
-        })
-      }
+    } else if(call.action === 'call' && data.parent_sid === call.local_sid && data.status === 'in-progress') {
+      console.log('connected outbound call')
+      this._handleUpdate(call.call.sid, {
+        remote_sid: data.sid,
+        status: data.status
+      })
     } else if(call.action === 'transfer' && data.sid === call.local_sid && _.includes(['no-answer','busy'], data.status)) {
+      console.log('transfer didnt pick up')
       this._handleRemove({
         local_sid: data.sid
       })
     } else if(data.sid === call.remote_sid && data.status === 'completed') {
+      console.log('remote hung up')
       this._handleRemove({
         remote_sid: data.sid
       })
-    } else if(data.sid === call.local_sid && data.status === 'completed') {
+    } else if(!call.transfering && data.sid === call.local_sid && data.status === 'completed') {
+      console.log('local hung up')
       this._handleRemove({
         local_sid: data.sid
       })
@@ -546,6 +536,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/transfer',
       method: 'post',
       body: {
+        call_sid: call.call.sid,
         from: call.call.program.phone_number.number,
         user_id: data.user_id,
         number: data.number,
@@ -568,6 +559,7 @@ class PhoneRoot extends React.Component {
       endpoint: '/api/admin/phone/calls/unhold',
       method: 'post',
       body: {
+        call_sid: call.call.sid,
         sid: call.remote_sid
       },
       onSuccess: (result) => {

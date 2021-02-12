@@ -1,3 +1,4 @@
+import { createCallActivity } from '@apps/maha/services/calls'
 import twilio from '@core/vendor/twilio'
 import Twilio from 'twilio'
 
@@ -53,6 +54,12 @@ const forwardRoute = async (req, res) => {
       number: `${req.user.get('cell_phone')}`
     })
   }
+
+  await createCallActivity(req, {
+    sid: req.body.call_sid,
+    type: 'forward',
+    client: req.body.client
+  })
 
   await twilio.calls(req.body.sid).update({
     twiml: twiml.toString()

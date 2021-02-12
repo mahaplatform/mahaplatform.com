@@ -1,5 +1,6 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import CallConnection from '@apps/maha/models/call_connection'
+import CallActivity from '@apps/maha/models/call_activity'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Program from '@apps/crm/models/program'
 import Number from '@apps/maha/models/number'
@@ -14,6 +15,10 @@ const Call = new Model({
   rules: {},
 
   virtuals: {},
+
+  activities() {
+    return this.hasMany(CallActivity, 'call_id')
+  },
 
   connections() {
     return this.hasMany(CallConnection, 'call_id')

@@ -9,11 +9,12 @@ class Call extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    activities: PropTypes.array,
     call: PropTypes.object
   }
 
   render() {
-    const { call } = this.props
+    const { activities, call } = this.props
     return (
       <div className="crm-workflow-card">
         <table className="ui celled compact unstackable table">
@@ -24,7 +25,7 @@ class Call extends React.PureComponent {
             </tr>
           </tbody>
         </table>
-        <CallActivities call={ call } />
+        <CallActivities activities={ activities } call={ call } />
       </div>
     )
   }
@@ -40,6 +41,7 @@ class Call extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
+  activities: `/api/admin/phone/calls/${props.activity.data.call_id}/activities`,
   call: `/api/admin/phone/calls/${props.activity.data.call_id}`
 })
 

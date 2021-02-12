@@ -1,5 +1,6 @@
-import CallConnection from '@apps/maha/models/call_connection'
 import Story from '@apps/maha/models/story'
+import User from '@apps/maha/models/user'
+import Call from '@apps/maha/models/call'
 import Model from '@core/objects/model'
 
 const CallActivity = new Model({
@@ -8,18 +9,24 @@ const CallActivity = new Model({
 
   tableName: 'maha_call_activities',
 
-  hasTimestamps: false,
-
   rules: {},
 
   virtuals: {},
 
-  connection() {
-    return this.belongsTo(CallConnection, 'call_connection_id')
+  call() {
+    return this.belongsTo(Call, 'call_id')
   },
 
   story() {
     return this.belongsTo(Story, 'story_id')
+  },
+
+  to_user() {
+    return this.belongsTo(User, 'to_user_id')
+  },
+
+  user() {
+    return this.belongsTo(User, 'user_id')
   }
 
 })

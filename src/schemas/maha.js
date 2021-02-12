@@ -1463,10 +1463,13 @@ const schema = {
     await knex.schema.createTable('maha_call_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('call_connection_id').unsigned()
-      table.integer('story_id').unsigned()
-      table.jsonb('data')
-      table.timestamp('tstamp')
+      table.integer('user_id').unsigned()
+      table.integer('call_id').unsigned()
+      table.USER-DEFINED('type')
+      table.integer('to_user_id').unsigned()
+      table.USER-DEFINED('client')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('maha_call_connections', (table) => {
@@ -1488,6 +1491,14 @@ const schema = {
       table.decimal('price', 4, 3)
       table.timestamp('started_at')
       table.timestamp('ended_at')
+    })
+
+    await knex.schema.createTable('maha_call_statuses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id')
+      table.integer('call_connection_id').unsigned()
+      table.USER-DEFINED('status')
+      table.timestamp('tstamp')
     })
 
     await knex.schema.createTable('maha_calls', (table) => {
@@ -3766,10 +3777,15 @@ const schema = {
       table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
     })
 
+    await knex.schema.table('maha_call_statuses', table => {
+      table.foreign('call_connection_id').references('maha_call_connections.id')
+    })
+
     await knex.schema.table('maha_call_activities', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('call_connection_id').references('maha_call_connections.id')
-      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('to_user_id').references('maha_users.id')
     })
 
 
@@ -6152,13 +6168,15 @@ union
       group by maha_call_connections.call_id
       ), started as (
       select maha_call_connections.call_id,
-      min(maha_call_connections.started_at) as started_at
-      from maha_call_connections
+      min(maha_call_statuses.tstamp) as started_at
+      from (maha_call_statuses
+      join maha_call_connections on ((maha_call_connections.id = maha_call_statuses.call_connection_id)))
       group by maha_call_connections.call_id
       ), ended as (
       select maha_call_connections.call_id,
-      min(maha_call_connections.ended_at) as ended_at
-      from maha_call_connections
+      max(maha_call_statuses.tstamp) as ended_at
+      from (maha_call_statuses
+      join maha_call_connections on ((maha_call_connections.id = maha_call_statuses.call_connection_id)))
       group by maha_call_connections.call_id
       )
       select maha_calls.id as call_id,
@@ -6166,7 +6184,7 @@ union
       ended.ended_at,
       case
       when ((started.started_at is not null) and (ended.ended_at is not null)) then ceil(date_part('epoch'::text, (ended.ended_at - started.started_at)))
-      else null::double precision
+      else (0)::double precision
       end as duration,
       coalesce(prices.price, 0.000) as price
       from (((maha_calls

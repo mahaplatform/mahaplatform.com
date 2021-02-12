@@ -7,8 +7,8 @@ const status = async (req, result) => {
     await sns.publish({
       TopicArn: process.env.TWILIO_SNS_VOICE,
       Message: JSON.stringify({
-        Timestamp: moment().format('ddd, DD MMM YYYY HH:mm:ss 000'),
         ...req.body,
+        Timestamp: moment().format('ddd, DD MMM YYYY HH:mm:ss.SSSZ'),
         Result: result
       })
     }).promise()

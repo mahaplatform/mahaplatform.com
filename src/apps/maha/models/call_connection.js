@@ -1,5 +1,6 @@
 import CallActivity from '@apps/maha/models/call_activity'
 import PhoneNumber from '@apps/crm/models/phone_number'
+import CallStatus from '@apps/maha/models/call_status'
 import Program from '@apps/crm/models/program'
 import Number from '@apps/maha/models/number'
 import User from '@apps/maha/models/user'
@@ -17,10 +18,6 @@ const CallConnection = new Model({
   rules: {},
 
   virtuals: {},
-
-  activities() {
-    return this.hasMany(CallActivity, 'call_connection_id')
-  },
 
   call() {
     return this.belongsTo(Call, 'call_id')
@@ -56,6 +53,10 @@ const CallConnection = new Model({
 
   to_user() {
     return this.belongsTo(User, 'to_user_id')
+  },
+
+  statuses() {
+    return this.hasMasny(CallStatus, 'call_connection_id')
   }
 
 })
