@@ -6,10 +6,25 @@ const inputFields = (state, props) => props.fields
 
 const inputTokens = (state, props) => props.tokens
 
-const steps = (state, props) => [
-  { parent: null, answer: null, type: 'trigger', action: null, delta: -1 },
-  ...state.steps || []
-]
+const versions = (state, props) => state.versions
+
+const selected = (state, props) => state.selected
+
+export const version = createSelector(
+  versions,
+  selected,
+  (versions, selected) => versions.find(version => {
+    return version.id === selected
+  })
+)
+
+export const steps = createSelector(
+  version,
+  (version) => [
+    { parent: null, answer: null, type: 'trigger', action: null, delta: -1 },
+    ...version ? version.value.steps : []
+  ]
+)
 
 const dynamicSteps = createSelector(
   steps,

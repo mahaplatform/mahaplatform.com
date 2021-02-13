@@ -1,4 +1,3 @@
-import { ModalPanel } from '@admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Types from './types'
@@ -12,32 +11,11 @@ class Content extends React.Component {
     cid: PropTypes.string,
     config: PropTypes.object,
     status: PropTypes.string,
-    onSave: PropTypes.func
+    versions: PropTypes.array
   }
-
-  _handleSave = this._handleSave.bind(this)
-
+  
   render() {
-    return (
-      <ModalPanel { ...this._getPanel()}>
-        <Types { ...this._getTypes() } />
-      </ModalPanel>
-    )
-  }
-
-  _getPanel() {
-    const { changes, status } = this.props
-    return {
-      title: 'Steps',
-      buttons: [
-        {
-          label: status === 'ready' ? 'Save' : <i className="fa fa-circle-o-notch fa-spin" />,
-          color: 'red',
-          disabled: changes === 0,
-          handler: this._handleSave
-        }
-      ]
-    }
+    return <Types { ...this._getTypes() } />
   }
 
   _getTypes() {
@@ -47,10 +25,6 @@ class Content extends React.Component {
       onCancel: () => {},
       onChoose: () => {}
     }
-  }
-
-  _handleSave() {
-    this.props.onSave()
   }
 
 }

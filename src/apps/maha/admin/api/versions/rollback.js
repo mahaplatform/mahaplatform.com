@@ -14,7 +14,7 @@ const rollbackRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/${versionable_type}/${versionable_id}/versions`
+    `/admin/${versionable_type}/${versionable_id}/${key}/versions`
   ])
 
   res.status(200).respond(version, VersionSerializer)

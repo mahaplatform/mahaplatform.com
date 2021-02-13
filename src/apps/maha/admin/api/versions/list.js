@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
     qb.where('versionable_id', req.params.versionable_id)
     qb.where('key', req.params.key)
     qb.where('team_id', req.team.get('id'))
-    qb.orderBy('created_at', 'asc')
+    qb.orderBy('created_at', 'desc')
   }).fetchAll({
     transacting: req.trx
   })

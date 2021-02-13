@@ -26,6 +26,7 @@ class WorkflowDesigner extends React.PureComponent {
     return {
       editable: workflow.editable,
       endpoint,
+      entity: `crm_workflows/${workflow.id}`,
       fields: this._getFields(),
       program,
       properties: this._getProperties(),

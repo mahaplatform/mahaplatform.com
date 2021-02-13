@@ -1,11 +1,11 @@
 import { Tokens, Stack } from '@admin'
 import PropTypes from 'prop-types'
-import Content from './content'
+import Sidebar from './sidebar'
 import React from 'react'
 import New from './new'
 import _ from 'lodash'
 
-class Sidebar extends React.PureComponent {
+class SidebarContainer extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.string,
@@ -13,6 +13,7 @@ class Sidebar extends React.PureComponent {
     campaign: PropTypes.object,
     changes: PropTypes.number,
     cid: PropTypes.string,
+    entity: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
     properties: PropTypes.array,
@@ -20,11 +21,13 @@ class Sidebar extends React.PureComponent {
     steps: PropTypes.array,
     step: PropTypes.object,
     tokens: PropTypes.array,
+    version: PropTypes.object,
+    versions: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onNew: PropTypes.func,
-    onSave: PropTypes.func,
+    onSetVersion: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -45,7 +48,7 @@ class Sidebar extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Content, this._getContent())
+    this._handlePush(Sidebar, this._getSidebar.bind(this))
   }
 
   componentDidUpdate(prevProps) {
@@ -65,14 +68,17 @@ class Sidebar extends React.PureComponent {
     }
   }
 
-  _getContent() {
-    const { blocks, changes, cid, status, onSave } = this.props
+  _getSidebar() {
+    const { blocks, changes, cid, entity,  status, version, versions, onSetVersion } = this.props
     return {
       blocks,
       changes,
       cid,
+      entity,
       status,
-      onSave
+      version,
+      versions,
+      onSetVersion
     }
   }
 
@@ -179,4 +185,4 @@ class Sidebar extends React.PureComponent {
 
 }
 
-export default Sidebar
+export default SidebarContainer

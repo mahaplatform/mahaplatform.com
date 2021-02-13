@@ -9,6 +9,10 @@ import _ from 'lodash'
 
 class FlowchartDesigner extends React.PureComponent {
 
+  static contextTypes = {
+    network: PropTypes.object
+  }
+
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
@@ -19,6 +23,7 @@ class FlowchartDesigner extends React.PureComponent {
     defaultValue: PropTypes.array,
     editable: PropTypes.bool,
     endpoint: PropTypes.string,
+    entity: PropTypes.string,
     expanded: PropTypes.array,
     fields: PropTypes.array,
     hovering: PropTypes.object,
@@ -29,15 +34,19 @@ class FlowchartDesigner extends React.PureComponent {
     step: PropTypes.object,
     stepTokens: PropTypes.array,
     tokens: PropTypes.array,
+    version: PropTypes.object,
+    versions: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onExpand: PropTypes.func,
+    onFetch: PropTypes.func,
     onHover: PropTypes.func,
     onNewStep: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
+    onSetVersion: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -47,12 +56,14 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
   _handleHover = _.throttle(this._handleHover.bind(this), 100)
   _handleNew = this._handleNew.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
-    const { editable } = this.props
+    const { editable, version } = this.props
+    if(!version) return null
     return (
       <div className="flowchart-designer">
         <div className="flowchart-designer-main">
@@ -69,9 +80,20 @@ class FlowchartDesigner extends React.PureComponent {
     )
   }
 
-
   componentDidMount() {
-    this.props.onSet(this.props.defaultValue)
+    this._handleFetch()
+    this._handleJoin()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { changes } = this.props
+    if(changes > prevProps.changes) {
+      this._handleSave()
+    }
+  }
+
+  componentWillUnmount() {
+    this._handleLeave()
   }
 
   _getBlocks() {
@@ -86,15 +108,17 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, editable, expanded, fields, hovering, onEdit, onExpand, onRemove } = this.props
+    const { active, config, editable, entity, expanded, fields, hovering, version, onEdit, onExpand, onRemove } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       boxes: config,
       editable,
+      entity,
       expanded,
       fields,
       hovering,
+      version,
       onAdd: this._handleAdd,
       onEdit,
       onExpand,
@@ -183,14 +207,15 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, campaign, changes, cid, program } = this.props
-    const { status, steps, step, workflow, onEdit, onUpdate } = this.props
+    const { active, campaign, changes, cid, entity, program } = this.props
+    const { status, steps, step, versions, version, workflow, onEdit, onSetVersion, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       campaign,
       changes,
       cid,
+      entity,
       fields: this._getFields(),
       program,
       properties: this._getProperties(),
@@ -198,11 +223,13 @@ class FlowchartDesigner extends React.PureComponent {
       steps,
       step,
       tokens: this._getTokens(),
+      version,
+      versions,
       workflow,
       onAdd: this._handleAdd,
       onEdit,
       onNew: this._handleNew,
-      onSave: this._handleSave,
+      onSetVersion,
       onUpdate
     }
   }
@@ -266,13 +293,37 @@ class FlowchartDesigner extends React.PureComponent {
     })
   }
 
+  _handleFetch() {
+    const { entity } = this.props
+    this.props.onFetch(entity)
+  }
+
   _handleHover(hovering) {
     this.props.onHover(hovering)
   }
 
+  _handleJoin() {
+    const { network } = this.context
+    const { entity } = this.props
+    const target = `/admin/${entity}/config/versions`
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const { entity } = this.props
+    const target = `/admin/${entity}/config/versions`
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
   _handleSave() {
-    const { endpoint, steps, onSave } = this.props
-    onSave(endpoint, steps)
+    const { entity, version } = this.props
+    this.props.onSave(entity, version.value.steps)
   }
 
 }

@@ -17,6 +17,7 @@ const rollbackVersion = async (req, params) => {
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
+    key,
     value: rollback.get('value'),
     published_at: null,
     unpublished_at: null

@@ -67,3 +67,61 @@
     font-size: 1.2em;
   }
 }
+.flowchart-designer-versions {
+  .scrollable();
+  flex: 1;
+}
+.flowchart-designer-versions-new {
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+}
+.flowchart-designer-versions-version {
+  border-bottom: 1px solid fadeout(@black, 90);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 5.6em;
+  &.active {
+    background-color: fadeout(@blue, 95) !important;
+  }
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.flowchart-designer-versions-version-active {
+  padding: 0.8em;
+  display: flex;
+  &:hover {
+    .fa-circle-o {
+      color: @blue;
+    }
+  }
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.flowchart-designer-versions-version-details {
+  padding: 0.8em;
+  flex: 1;
+}
+.flowchart-designer-versions-version-title {
+  font-weight: bold;
+}
+.flowchart-designer-versions-version-timestamp {
+  font-size: 0.8em;
+  color: fadeout(@black, 40);
+}
+.flowchart-designer-versions-version-published {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: @green;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}

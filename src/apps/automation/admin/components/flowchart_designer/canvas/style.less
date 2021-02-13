@@ -28,13 +28,20 @@
 }
 .flowchart-canvas-footer {
   border-top: 1px solid fadeout(@black, 90);
-  padding: 0 0.8em;
+  background-color: @white;
   display: flex;
-  height: 30px;
-  input {
+  flex: 0 0 3.5em;
+}
+.flowchart-canvas-footer-status {
+  color: fadeout(@black, 40);
+  padding: 0.8em;
+  flex: 1;
+}
+.flowchart-canvas-footer-save {
+  padding: 0.6em;
+  display: flex;
+  div {
     margin: auto;
-    width: 100%;
-    display: block
   }
 }
 .flowchart {

@@ -5,9 +5,10 @@ const INITIAL_STATE = {
   changes: 0,
   expanded: [],
   hovering: null,
+  selected: null,
   status: 'ready',
-  steps: [],
-  step: null
+  step: null,
+  versions: []
 }
 
 const getChildren = (steps, code) => {
@@ -26,6 +27,13 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'FETCH_SUCCESS':
+    return {
+      ...state,
+      versions: action.result.data,
+      selected: action.result.data[0].id
+    }
+
   case 'NEW_STEP':
     return {
       ...state,
@@ -37,12 +45,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       changes: state.changes + 1,
       hovering: null,
-      steps: [
-        ...state.steps.map(step => ({
-          ...step,
-          delta: step.delta + (step.parent === action.step.parent && step.answer === action.step.answer && step.delta >= action.step.delta ? 1 : 0)
-        })),
-        action.step
+      versions: [
+        ...state.versions.map(version => ({
+          ...version,
+          value: {
+            steps: (version.id === state.selected) ? [
+              ...version.value.steps.map(step => ({
+                ...step,
+                delta: step.delta + (step.parent === action.step.parent && step.answer === action.step.answer && step.delta >= action.step.delta ? 1 : 0)
+              })),
+              action.step
+            ] : version.value.steps
+          }
+        }))
       ],
       expanded: [
         ...state.expanded,
@@ -76,12 +91,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       active: null,
       changes: state.changes + 1,
-      steps: [
-        ...state.steps.filter(step => {
-          return getChildren(state.steps, action.step.code).find(child => {
-            return child.code === step.code
-          }) === undefined
-        })
+      versions: [
+        ...state.versions.map(version => ({
+          ...version,
+          value: {
+            steps: (version.id === state.selected) ? [
+              ...version.value.steps.filter(step => {
+                return getChildren(version.value.steps, action.step.code).find(child => {
+                  return child.code === step.code
+                }) === undefined
+              })
+            ] : version.value.steps
+          }
+        }))
       ]
     }
 
@@ -109,15 +131,28 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       active: null,
       changes: state.changes + 1,
-      steps: [
-        ...state.steps.map(step => {
-          if(step.code !== action.code) return step
-          return {
-            ...step,
-            config: action.config
+      versions: [
+        ...state.versions.map(version => ({
+          ...version,
+          value: {
+            steps: (version.id === state.selected) ? [
+              ...version.value.steps.map(step => {
+                if(step.code !== action.code) return step
+                return {
+                  ...step,
+                  config: action.config
+                }
+              })
+            ] : version.value.steps
           }
-        })
+        }))
       ]
+    }
+
+  case 'SET_VERSION':
+    return {
+      ...state,
+      selected: action.index
     }
 
   default:

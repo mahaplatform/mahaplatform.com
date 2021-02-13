@@ -41,7 +41,7 @@ class Designer extends React.Component {
   }
 
   _getWorkflowDesigner() {
-    const { current, versions, workflow } = this.props
+    const { workflow } = this.props
     return {
       endpoint: `/api/admin/automation/workflows/${workflow.id}/config`,
       fields: [
@@ -51,11 +51,7 @@ class Designer extends React.Component {
       program: workflow.program,
       trigger: this._getTrigger(),
       tokens: this._getTokens(),
-      versions,
-      workflow: {
-        ...workflow,
-        ...current.value
-      },
+      workflow,
       onSave: this._handleSave
     }
   }
@@ -241,9 +237,7 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  workflow: `/api/admin/automation/workflows/${props.params.id}`,
-  versions: `/api/admin/crm_workflows/${props.params.id}/config/versions`,
-  current: `/api/admin/crm_workflows/${props.params.id}/config/versions/current`
+  workflow: `/api/admin/automation/workflows/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

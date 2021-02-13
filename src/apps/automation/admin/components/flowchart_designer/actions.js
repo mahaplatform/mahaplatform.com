@@ -1,8 +1,19 @@
-export const save = (endpoint, steps) => ({
+export const fetch = (entity) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: `/api/admin/${entity}/config/versions`,
+  request: 'FETCH_REQUEST',
+  success: 'FETCH_SUCCESS',
+  failure: 'FETCH_FAILURE'
+})
+
+export const save = (entity, steps) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
-  endpoint,
-  body: { steps },
+  endpoint: `/api/admin/${entity}/config/versions`,
+  body: {
+    value: { steps }
+  },
   request: 'SAVE_REQUEST',
   success: 'SAVE_SUCCESS',
   failure: 'SAVE_FAILURE'
@@ -47,4 +58,9 @@ export const update = (code, config) => ({
 export const expand = (code) => ({
   type: 'EXPAND',
   code
+})
+
+export const setVersion = (index) => ({
+  type: 'SET_VERSION',
+  index
 })
