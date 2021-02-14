@@ -17,6 +17,7 @@ class VoiceDesigner extends React.PureComponent {
   static propTypes = {
     campaign: PropTypes.object,
     endpoint: PropTypes.string,
+    entity: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
     programfields: PropTypes.array,
@@ -30,12 +31,13 @@ class VoiceDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { campaign, endpoint, program, onSave } = this.props
+    const { campaign, endpoint, entity, program, onSave } = this.props
     const { steps, status } = campaign
     return {
       campaign,
       editable: _.includes(['active','draft','inactive'], campaign.status),
       endpoint,
+      entity,
       fields: this._getFields(),
       program,
       properties: this._getProperties(),

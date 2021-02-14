@@ -15,12 +15,14 @@ const publishVersion = async (req, params) => {
     transacting: req.trx
   })
 
-  await published.save({
-    unpublished_at: moment()
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+  if(published) {
+    await published.save({
+      unpublished_at: moment()
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
 
   const publish = await Version.query(qb => {
     qb.where('versionable_type', versionable_type)

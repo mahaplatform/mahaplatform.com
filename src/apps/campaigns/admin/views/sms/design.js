@@ -6,9 +6,7 @@ import React from 'react'
 class Design extends React.Component {
 
   static propTypes = {
-    campaign: PropTypes.object,
-    current: PropTypes.object,
-    versions: PropTypes.array
+    campaign: PropTypes.object
   }
 
   render() {
@@ -16,24 +14,18 @@ class Design extends React.Component {
   }
 
   _getSMSDesigner() {
-    const { campaign, current, versions } = this.props
+    const { campaign} = this.props
     return {
-      campaign: {
-        ...campaign,
-        steps: current.value.steps
-      },
-      endpoint: `/api/admin/campaigns/sms/${campaign.id}/config`,
-      program: campaign.program,
-      versions
+      campaign,
+      entity: `crm_sms_campaigns/${campaign.id}`,
+      program: campaign.program
     }
   }
 
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/campaigns/sms/${props.params.id}`,
-  versions: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions`,
-  current: `/api/admin/crm_sms_campaigns/${props.params.id}/config/versions/current`
+  campaign: `/api/admin/campaigns/sms/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
