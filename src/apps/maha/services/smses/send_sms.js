@@ -1,10 +1,18 @@
+import { interpolateTemplate } from '@apps/maha/services/templates'
 import SMSAttachment from '@apps/maha/models/sms_attachment'
 import SendSMSQueue from '@apps/maha/queues/send_sms_queue'
 import SMSBlacklist from '@apps/maha/models/sms_blacklist'
 import { findOrCreateNumber } from '../numbers'
 import SMS from '@apps/maha/models/sms'
 import queueSMS from './queue_sms'
-import ejs from 'ejs'
+
+const getBody = (req, { body, data }) => {
+  if(!data) return body
+  return interpolateTemplate(req, {
+    template: body,
+    data
+  })
+}
 
 const sendSMS = async (req, params) => {
 
@@ -33,7 +41,10 @@ const sendSMS = async (req, params) => {
     from_id: from_number.get('id'),
     to_id: to_number.get('id'),
     direction: 'outbound',
-    body: data ? ejs.render(body, data) : body,
+    body: getBody(req, {
+      body,
+      data
+    }),
     num_media: asset_ids ? asset_ids.length : 0,
     status: 'queued',
     sid

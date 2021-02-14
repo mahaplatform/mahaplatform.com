@@ -11,6 +11,7 @@ const triggers = {
   enrollment_created: { icon: 'plus', text: 'Contact is enrolled in workflow' },
   interest_created: { icon: 'th-list', text: 'Contact is added to topic' },
   interest_deleted: { icon: 'th-list', text: 'Contact is removed from topic' },
+  manual: { icon: 'plus', text: 'Contact is manually enrolled' },
   order_created: { icon: 'shopping-bag', text: 'Contact places and order' },
   order_shipped: { icon: 'shopping-bag', text: 'Contact order is shipped' },
   property_updated: { icon: 'id-card', text: 'Contact property is updated' },

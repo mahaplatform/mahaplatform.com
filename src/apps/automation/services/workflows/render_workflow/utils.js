@@ -1,18 +1,9 @@
-import topic from './topic'
-import list from './list'
-
-const getCreator = (action) => {
-  if(action === 'topic') return topic
-  if(action === 'list') return list
-}
-
 const getStep = async (req, { steps, step }) => {
-  const creator = getCreator(step.action)
-  if(!creator) return {}
-  return await creator(req, {
-    steps,
-    step
-  })
+  return {
+    type: step.type,
+    action: step.action,
+    config: step.config
+  }
 }
 
 export const getSegment = async (req, { steps, parent, answer }) => {

@@ -1,34 +1,39 @@
-import numeral from 'numeral'
-import moment from 'moment'
-import _ from 'lodash'
-import ejs from 'ejs'
+import { interpolateTemplate } from '@apps/maha/services/templates'
 
-const sanitizeTemplate = (content) => {
-  content = content.replace(/&nbsp;/g, ' ')
-  content = content.replace(/\u2028/g,'')
-  const tags = content.match(/<%- ([\w]*)\.([\w]*) %>/g)
-  if(tags) {
-    tags.map(tag => {
-      const [fulltag, object, prop] = tag.match(/<%- ([\w]*)\.([\w]*) %>/)
-      content = content.replace(fulltag, `<%- (typeof(${object}) !== "undefined" && ${object}['${prop}']) ? ${object}['${prop}'] : '' %>`)
-    })
+const getData = (req, { code, data, email_address }) => ({
+  ...data || {},
+  email: {
+    ...data.email || {},
+    ...code ? {
+      code,
+      facebook_link: `${process.env.WEB_HOST}/so/fb/${code}`,
+      twitter_link: `${process.env.WEB_HOST}/so/tw/${code}`,
+      forward_link: `${process.env.WEB_HOST}/fo/${code}`,
+      linkedin_link: `${process.env.WEB_HOST}/so/li/${code}`,
+      pinterest_link: `${process.env.WEB_HOST}/so/pi/${code}`,
+      web_link: `${process.env.WEB_HOST}/wv/${code}`,
+      ...email_address ? {
+        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
+      } : {}
+    } : {}
   }
-  return content
-}
+})
 
 const personalizeEmail = (req, params) => {
-  const subject = sanitizeTemplate(params.subject)
-  const html = sanitizeTemplate(params.html)
-  const { data } = params
-  const variables = {
-    ...data,
-    moment,
-    numeral,
-    _
-  }
+  const data = getData(req, {
+    code: params.code,
+    data: params.data,
+    email_address: params.email_address
+  })
   return {
-    subject: ejs.render(subject, variables),
-    html: ejs.render(html, variables)
+    subject: interpolateTemplate(req, {
+      template: params.subject,
+      data
+    }),
+    html: interpolateTemplate(req, {
+      template: params.html,
+      data
+    })
   }
 }
 

@@ -8,8 +8,8 @@ const getPublished = async (req, params) => {
     qb.where('versionable_type', versionable_type)
     qb.where('versionable_id', versionable_id)
     qb.where('key', key)
-    qb.whereNotNull('pubished_at')
-    qb.whereNull('unpubished_at')
+    qb.whereNotNull('published_at')
+    qb.whereNull('unpublished_at')
     qb.orderBy('created_at', 'desc')
   }).fetch({
     transacting: req.trx

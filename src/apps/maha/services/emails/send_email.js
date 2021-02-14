@@ -3,11 +3,19 @@ import generateCode from '@core/utils/generate_code'
 import renderTemplate from './render_template'
 import Email from '../../models/email'
 
+const getParts = async (req, options) => {
+  if(options.template) return await renderTemplate(req, options)
+  return {
+    subject: options.subject,
+    html: options.html
+  }
+}
+
 const sendEmail = async(req, options) => {
 
-  const { subject, html } = await renderTemplate(req, options)
+  const { subject, html } = await getParts(req, options)
 
-  const code = await generateCode(req, {
+  const code = options.code || await generateCode(req, {
     table: 'maha_emails'
   })
 
@@ -34,6 +42,8 @@ const sendEmail = async(req, options) => {
   await SendEmailQueue.enqueue(req, {
     id: email.get('id')
   })
+
+  return email
 
 }
 

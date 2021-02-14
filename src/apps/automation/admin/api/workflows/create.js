@@ -1,11 +1,12 @@
+import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
+import { createVersion } from '@apps/maha/services/versions'
 import { activity } from '@core/services/routes/activities'
 import { whitelist } from '@core/services/routes/params'
-import WorkflowSerializer from '@apps/automation/serializers/workflow_serializer'
+import Workflow from '@apps/automation/models/workflow'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import Program from '@apps/crm/models/program'
-import Workflow from '@apps/automation/models/workflow'
 
 const createRoute = async (req, res) => {
 
@@ -36,6 +37,15 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['trigger_type','title','action','form_id','email_id','email_campaign_id','event_id','store_id','list_id','topic_id','purpose','is_unique','status'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await createVersion(req, {
+    versionable_type: 'crm_workflows',
+    versionable_id: workflow.get('id'),
+    key: 'config',
+    value: {
+      steps: []
+    }
   })
 
   await audit(req, {

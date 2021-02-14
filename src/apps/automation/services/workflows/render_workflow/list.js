@@ -1,6 +1,7 @@
 const list = async (req, { steps, step }) => ({
-  verb: 'list',
-  list_id: step.config.list_id
+  type: 'contact',
+  action: 'list',
+  config: step.config
 })
 
 export default list

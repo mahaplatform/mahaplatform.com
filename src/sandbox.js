@@ -2,21 +2,22 @@
 
 import './core/vendor/sourcemaps'
 import './core/services/environment'
-// import knex from './core/vendor/knex'
+import knex from './core/vendor/knex'
 // import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 // import moment from 'moment'
 // import _ from 'lodash'
 // import twilio from '@core/vendor/twilio'
 
-import { renderConfig } from '@apps/maha/services/phone_numbers'
-import { getCurrent } from '@apps/maha/services/versions'
-import PhoneNumber from '@apps/maha/models/phone_number'
-import { upload } from '@core/services/aws/s3'
+// import { renderConfig } from '@apps/maha/services/phone_numbers'
+// import { getCurrent } from '@apps/maha/services/versions'
+// import PhoneNumber from '@apps/maha/models/phone_number'
+// import { upload } from '@core/services/aws/s3'
+
+import { executeEnrollment } from '@apps/automation/services/workflows'
+import Enrollment from '@apps/automation/models/workflow_enrollment'
+import Team from '@apps/maha/models/team'
 
 const processor = async () => {
-  // await knex.transaction(async(trx) => {
-  // })
-  const req = {}
 
   // const config = await cloudfront.getDistributionConfig({
   //   Id: 'E3OCSGHWCPV74A'
@@ -65,34 +66,62 @@ const processor = async () => {
   //   to: '+16072775647',
   //   from: '+16072462347'
   // })
+  //
+  // const phone_number = await PhoneNumber.query(qb => {
+  //   qb.where('id', 1)
+  // }).fetch({
+  //   transacting: req.trx
+  // })
+  //
+  // const config = await getCurrent(req, {
+  //   versionable_type: 'maha_phone_numbers',
+  //   versionable_id: 1,
+  //   key: 'config'
+  // })
+  //
+  // const rendered = await renderConfig(req, {
+  //   phone_number,
+  //   config: config.get('value')
+  // })
+  //
+  // const result = await upload(null, {
+  //   acl: 'private',
+  //   bucket: process.env.AWS_BUCKET,
+  //   key: `twiml/voice/inbound/${phone_number.get('number').substr(1)}`,
+  //   cache_control: 'max-age=0,no-cache',
+  //   content_type: 'application/json',
+  //   file_data: JSON.stringify(rendered)
+  // })
 
-  const phone_number = await PhoneNumber.query(qb => {
-    qb.where('id', 1)
-  }).fetch({
-    transacting: req.trx
+  await knex.transaction(async(trx) => {
+
+    const req = { trx }
+
+    req.team = await Team.query(qb => {
+      qb.where('id', 1)
+    }).fetch({
+      transacting: req.trx
+    })
+
+    const enrollment = await Enrollment.forge({
+      team_id: 1,
+      workflow_id: 540,
+      contact_id: 405,
+      code: 'abcdef',
+      data: {}
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    const result = await executeEnrollment(req, {
+      enrollment_id: enrollment.get('id'),
+      state: 'steps.0'
+    })
+
+    console.log(result)
+
   })
 
-  const config = await getCurrent(req, {
-    versionable_type: 'maha_phone_numbers',
-    versionable_id: 1,
-    key: 'config'
-  })
-
-  const rendered = await renderConfig(req, {
-    phone_number,
-    config: config.get('value')
-  })
-
-  const result = await upload(null, {
-    acl: 'private',
-    bucket: process.env.AWS_BUCKET,
-    key: `twiml/voice/inbound/${phone_number.get('number').substr(1)}`,
-    cache_control: 'max-age=0,no-cache',
-    content_type: 'application/json',
-    file_data: JSON.stringify(rendered)
-  })
-
-  console.log(result)
 
 }
 

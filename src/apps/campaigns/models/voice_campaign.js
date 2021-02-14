@@ -2,8 +2,8 @@ import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import WorkflowStep from '@apps/automation/models/workflow_step'
 import VoiceCampaignResult from './voice_campaign_result'
 import PhoneNumber from '@apps/maha/models/phone_number'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
+import Model from '@core/objects/model'
 
 const VoiceCampaign = new Model({
 
