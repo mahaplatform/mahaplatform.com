@@ -2,6 +2,7 @@ import unschedule from './unschedule'
 import activate from './activate'
 import { Router } from 'express'
 import destroy from './destroy'
+import publish from './publish'
 import config from './config'
 import create from './create'
 import update from './update'
@@ -28,6 +29,8 @@ router.get('/:id/emails', emails)
 router.patch('/:id/activate', activate)
 
 router.patch('/:id/config', config)
+
+router.patch('/:id/publish', publish)
 
 router.patch('/:id/resend', resend)
 

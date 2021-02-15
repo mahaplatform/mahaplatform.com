@@ -1,5 +1,5 @@
-import workflow from './workflow'
 import { Router } from 'express'
+import publish from './publish'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -17,10 +17,10 @@ router.get('/:id', show)
 
 router.get('/:id/edit', edit)
 
+router.patch('/:id/publish', publish)
+
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
-
-router.patch('/:phone_number_id/workflow', workflow)
 
 export default router

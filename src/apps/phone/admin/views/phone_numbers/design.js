@@ -21,6 +21,7 @@ class Designer extends React.Component {
         direction: 'inbound',
         status: 'active'
       },
+      endpoint: `/api/admin/phone/phone_numbers/${phone_number.id}/publish`,
       entity: `maha_phone_numbers/${phone_number.id}`,
       program: phone_number.program
     }

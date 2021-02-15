@@ -108,12 +108,13 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, editable, entity, expanded, fields, hovering, version, onEdit, onExpand, onRemove } = this.props
+    const { active, config, editable, endpoint, entity, expanded, fields, hovering, version, onEdit, onExpand, onRemove } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       boxes: config,
       editable,
+      endpoint,
       entity,
       expanded,
       fields,
@@ -207,7 +208,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, campaign, changes, cid, entity, program } = this.props
+    const { active, campaign, changes, cid, endpoint, entity, program } = this.props
     const { status, steps, step, versions, version, workflow, onEdit, onSetVersion, onUpdate } = this.props
     return {
       active,
@@ -215,6 +216,7 @@ class FlowchartDesigner extends React.PureComponent {
       campaign,
       changes,
       cid,
+      endpoint,
       entity,
       fields: this._getFields(),
       program,

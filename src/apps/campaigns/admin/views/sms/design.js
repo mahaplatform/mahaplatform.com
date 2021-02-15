@@ -14,9 +14,10 @@ class Design extends React.Component {
   }
 
   _getSMSDesigner() {
-    const { campaign} = this.props
+    const { campaign } = this.props
     return {
       campaign,
+      endpoint: `/api/admin/campaigns/sms/${campaign.id}/publish`,
       entity: `crm_sms_campaigns/${campaign.id}`,
       program: campaign.program
     }

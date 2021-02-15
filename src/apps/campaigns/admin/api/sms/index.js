@@ -3,6 +3,7 @@ import sessions from './sessions'
 import outbound from './outbound'
 import activate from './activate'
 import { Router } from 'express'
+import publish from './publish'
 import inbound from './inbound'
 import destroy from './destroy'
 import create from './create'
@@ -31,6 +32,8 @@ router.patch('/:id/config', config)
 router.get('/:id/edit', edit)
 
 router.get('/:id/emails', emails)
+
+router.patch('/:id/publish', publish)
 
 router.patch('/:id/resend', resend)
 

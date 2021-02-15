@@ -3,6 +3,7 @@ import enrollments from './enrollments'
 import contacts from './contacts'
 import activate from './activate'
 import { Router } from 'express'
+import publish from './publish'
 import destroy from './destroy'
 import enroll from './enroll'
 import create from './create'
@@ -34,6 +35,8 @@ router.patch('/:id/activate', activate)
 router.patch('/:id/config', config)
 
 router.patch('/:id/enroll', enroll)
+
+router.patch('/:id/publish', publish)
 
 router.patch('/:id', update)
 

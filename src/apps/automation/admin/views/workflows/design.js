@@ -44,7 +44,7 @@ class Designer extends React.Component {
   _getWorkflowDesigner() {
     const { workflow } = this.props
     return {
-      endpoint: `/api/admin/automation/workflows/${workflow.id}/config`,
+      endpoint: `/api/admin/automation/workflows/${workflow.id}/publish`,
       fields: [
         ...this._getEmailFields(),
         ...this._getFields()

@@ -651,6 +651,7 @@ const schema = {
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
       table.integer('store_id').unsigned()
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -1877,6 +1878,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('released_at')
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('maha_profiles', (table) => {

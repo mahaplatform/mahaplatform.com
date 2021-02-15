@@ -13,6 +13,7 @@ class SidebarContainer extends React.PureComponent {
     campaign: PropTypes.object,
     changes: PropTypes.number,
     cid: PropTypes.string,
+    endpoint: PropTypes.string,
     entity: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
@@ -69,11 +70,12 @@ class SidebarContainer extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { blocks, changes, cid, entity,  status, version, versions, onSetVersion } = this.props
+    const { blocks, changes, cid, endpoint, entity, status, version, versions, onSetVersion } = this.props
     return {
       blocks,
       changes,
       cid,
+      endpoint,
       entity,
       status,
       version,

@@ -1,4 +1,4 @@
-import { getEnrollmentConfig, getEnrollmentParent, getEnrollmentTokens } from '@apps/automation/services/enrollments'
+import { getEnrollmentParent, getEnrollmentTokens } from '@apps/automation/services/enrollments'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import WorkflowAction from '@apps/automation/models/workflow_action'
 import executeStep from './execute_step'
@@ -16,10 +16,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     enrollment
   })
 
-  const config = await getEnrollmentConfig(req, {
-    parent
-  })
-
   const tokens = await getEnrollmentTokens(req, {
     contact: enrollment.related('contact'),
     enrollment,
@@ -29,7 +25,7 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
   try {
 
     const result = await executeStep(req, {
-      config,
+      config: parent.get('config'),
       contact: enrollment.related('contact'),
       program: parent.related('program'),
       state,
