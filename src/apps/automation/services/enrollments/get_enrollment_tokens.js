@@ -1,3 +1,8 @@
+import { getPaymentTokens } from '@apps/finance/services/payments'
+import Registration from '@apps/events/models/registration'
+import Response from '@apps/forms/models/response'
+import Order from '@apps/stores/models/order'
+
 const getContactTokens = async(req, { contact }) => {
   const tokens = await req.trx('crm_contact_tokens').where(qb => {
     qb.where('contact_id', contact.get('id'))
@@ -18,33 +23,63 @@ const getProgramTokens = async(req, { contact, program }) => {
 }
 
 const getRegistrationTokens = async (req, { enrollment }) => {
-  const tokens = await req.trx('events_registration_tokens').where(qb => {
-    qb.where('registration_id', enrollment.get('registration_id'))
-  }).then(results => results[0])
+  const registration = await Registration.query(qb => {
+    qb.select('events_registrations.*','events_registration_tokens.tokens')
+    qb.innerJoin('events_registration_tokens','events_registration_tokens.registration_id','events_registrations.id')
+    qb.where('id', enrollment.get('registration_id'))
+  }).fetch({
+    transacting: req.trx
+  })
+  const payment_tokens = await getPaymentTokens(req, {
+    invoice_id: registration.get('invoice_id')
+  })
   return {
-    registration: tokens.tokens
+    registration: {
+      ...registration.get('tokens'),
+      ...payment_tokens
+    }
   }
 }
 
 const getResponseTokens = async (req, { enrollment }) => {
-  const tokens = await req.trx('crm_response_tokens').where(qb => {
-    qb.where('reponse_id', enrollment.get('reponse_id'))
-  }).then(results => results[0])
+  const response = await Response.query(qb => {
+    qb.select('crm_responses.*','crm_response_tokens.tokens')
+    qb.innerJoin('crm_response_tokens','crm_response_tokens.response_id','crm_responses.id')
+    qb.where('id', enrollment.get('response_id'))
+  }).fetch({
+    transacting: req.trx
+  })
+  const payment_tokens = await getPaymentTokens(req, {
+    invoice_id: response.get('invoice_id')
+  })
   return {
-    response: tokens.tokens
+    response: {
+      ...response.get('tokens'),
+      ...payment_tokens
+    }
   }
 }
 
 const getOrderTokens = async (req, { enrollment }) => {
-  const tokens = await req.trx('stores_order_tokens').where(qb => {
-    qb.where('order_id', enrollment.get('order_id'))
-  }).then(results => results[0])
+  const order = await Order.query(qb => {
+    qb.select('stores_orders.*','stores_order_tokens.tokens')
+    qb.innerJoin('stores_order_tokens','stores_order_tokens.order_id','stores_orders.id')
+    qb.where('id', enrollment.get('order_id'))
+  }).fetch({
+    transacting: req.trx
+  })
+  const payment_tokens = await getPaymentTokens(req, {
+    invoice_id: order.get('invoice_id')
+  })
   return {
-    order: tokens.tokens
+    order: {
+      ...order.get('tokens'),
+      ...payment_tokens
+    }
   }
 }
 
-const getRelatedTokens = async (req, { enrollment}) => {
+const getRelatedTokens = async (req, { enrollment }) => {
   if(enrollment.get('response_id')) {
     return await getResponseTokens(req, {
       enrollment

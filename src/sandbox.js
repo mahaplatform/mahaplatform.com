@@ -103,13 +103,9 @@ const processor = async () => {
       transacting: req.trx
     })
 
-    const enrollment = await Enrollment.forge({
-      team_id: 1,
-      workflow_id: 540,
-      contact_id: 405,
-      code: 'abcdef',
-      data: {}
-    }).save(null, {
+    const enrollment = await Enrollment.query(qb => {
+      qb.where('id', 133904)
+    }).fetch({
       transacting: req.trx
     })
 

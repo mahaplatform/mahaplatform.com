@@ -22,6 +22,8 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     program: parent.related('program')
   })
 
+  console.log(tokens)
+
   try {
 
     const result = await executeStep(req, {

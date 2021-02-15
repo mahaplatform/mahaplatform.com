@@ -1,12 +1,12 @@
 import GenerateScreenshotQueue from '@apps/maha/queues/generate_screenshot_queue'
+import { getDefaultConfig } from '@apps/automation/services/email'
+import { createVersion } from '@apps/maha/services/versions'
+import Workflow from '@apps/automation/models/workflow'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
-import { getDefaultConfig } from '@apps/automation/services/email'
-import WorkflowStep from '@apps/automation/models/workflow_step'
-import Template from '@apps/crm/models/template'
-import Workflow from '@apps/automation/models/workflow'
 import Email from '@apps/automation/models/email'
-
+import Template from '@apps/crm/models/template'
+import _ from 'lodash'
 
 const createConfirmationWorkflow = async(req, params) => {
 
@@ -74,25 +74,27 @@ const createConfirmationWorkflow = async(req, params) => {
     auditable: email
   })
 
-  const stepCode = await generateCode(req, {
-    table: 'crm_workflow_steps'
-  })
+  const code = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
 
-  await WorkflowStep.forge({
-    team_id: req.team.get('id'),
-    workflow_id: workflow.get('id'),
-    type: 'communication',
-    action: 'email',
-    code: stepCode,
-    delta: 0,
-    parent: null,
-    answer: null,
-    is_active: true,
-    config: {
-      email_id: email.get('id')
+  await createVersion(req, {
+    versionable_type: 'crm_workflows',
+    versionable_id: workflow.get('id'),
+    key: 'config',
+    value: {
+      steps: [
+        {
+          type: 'communication',
+          action: 'email',
+          code,
+          delta: 0,
+          parent: null,
+          answer: null,
+          config: {
+            email_id: email.get('id')
+          }
+        }
+      ]
     }
-  }).save(null, {
-    transacting: req.trx
   })
 
   const model = form || event || store

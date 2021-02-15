@@ -1,0 +1,77 @@
+<table class="payment-summary">
+  <thead>
+    <tr>
+      <th width="55%">Item</th>
+      <th width="15%">Qty</th>
+      <th width="15%">Price</th>
+      <th width="15%">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% invoice.line_items.map((line_item) => { %>
+      <tr class="row">
+        <td>
+          <%= line_item.description %>
+          <% if(line_item.is_tax_deductible) { %>
+            <span class="payment-summary-asterix">*</span>
+          <% } %>
+        </td>
+        <td><%= line_item.quantity %></td>
+        <td><%= numeral(line_item.price).format('0.00') %></td>
+        <td><%= numeral(line_item.total).format('0.00') %></td>
+      </tr>
+    <% }) %>
+    <% if(invoice.tax > 0 || invoice.discount > 0) { %>
+      <tr class="total">
+        <td colspan="3">SUBTOTAL</td>
+        <td><%= numeral(invoice.subtotal).format('0.00') %></td>
+      </tr>
+    <% } %>
+    <% if(invoice.tax > 0) { %>
+      <tr>
+        <td colspan="3">Tax</td>
+        <td><%= numeral(invoice.tax).format('0.00') %></td>
+      </tr>
+    <% } %>
+    <% if(invoice.discount > 0) { %>
+      <tr>
+        <td colspan="3">Discount</td>
+        <td>-<%= numeral(invoice.discount).format('0.00') %></td>
+      </tr>
+    <% } %>
+    <% if(invoice.paid > 0) { %>
+      <tr class="total">
+        <td colspan="3">TOTAL</td>
+        <td><%= numeral(invoice.total).format('0.00') %></td>
+      </tr>
+    <% } %>
+    <% invoice.payments.map((payment) => { %>
+      <tr>
+        <td colspan="3">
+          <%= payment.activity %> on
+          <%= moment(payment.date).format('MM/DD/YYYY') %>
+          <% if(payment.voided_date) { %>
+            (voided on <%= moment(payment.voided_date).format('MM/DD/YYYY') %>)
+          <% } %>
+        </td>
+        <td>-<%= numeral(payment.amount).format('0.00')%></td>
+      </tr>
+    <% }) %>
+    <tr class="total">
+      <td colspan="3">BALANCE DUE</td>
+      <td><%= numeral(invoice.balance).format('0.00') %></td>
+    </tr>
+  </tbody>
+</table>
+<% if(invoice.tax_deductible > 0) { %>
+  <div class="payment-summary-footnote">
+    <span class="payment-summary-asterix">*</span> No substantial goods or services were provided in return for this gift
+  </div>
+  <div class="payment-summary-tax-deductible">
+    <strong>Charitable Contribution</strong><br/>
+    Eligible amount of contribution for tax purposes: <%- numeral(invoice.tax_deductible).format('0.00') %>
+  </div>
+<% } %>
+<div class="payment-link">
+  <a href="<%- invoice.url %>" target="_blank">View Online</a>
+</div>
