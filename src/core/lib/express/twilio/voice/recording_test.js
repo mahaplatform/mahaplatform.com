@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import edit from './edit'
+import recording from './recording'
 
-describe('src/apps/phone/admin/api/phone_numbers/edit.js', () => {
+describe('src/core/lib/express/voice/recording.js', () => {
 
 })

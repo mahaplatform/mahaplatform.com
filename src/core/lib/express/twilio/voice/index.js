@@ -1,4 +1,5 @@
-import collectObjects from '../../../utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
+import recording from './recording'
 import { Router } from 'express'
 import receive from './receive'
 import status from './status'
@@ -14,6 +15,8 @@ voiceFiles.map(middleware => {
 router.post('/status', status)
 
 router.post('/:id/status', status)
+
+router.get('/recordings/:key(*)', recording)
 
 router.post('/', receive)
 

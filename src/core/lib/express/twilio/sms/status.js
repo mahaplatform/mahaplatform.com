@@ -1,8 +1,8 @@
 import { updateSMS } from '@apps/maha/services/smses'
-import collectObjects from '../../../utils/collect_objects'
-import socket from '../../../services/routes/emitter'
+import collectObjects from '@core/utils/collect_objects'
+import socket from '@core/services/routes/emitter'
+import twilio from '@core/vendor/twilio'
 import Sms from '@apps/maha/models/sms'
-import twilio from '../../../vendor/twilio'
 
 const hooks = collectObjects('hooks/sms/status.js')
 

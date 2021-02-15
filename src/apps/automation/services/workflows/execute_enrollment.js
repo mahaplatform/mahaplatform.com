@@ -1,7 +1,7 @@
 import { getEnrollmentParent, getEnrollmentTokens } from '@apps/automation/services/enrollments'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import executeStep from '@apps/automation/services/workflows/execute_step'
 import WorkflowAction from '@apps/automation/models/workflow_action'
-import executeStep from './execute_step'
 
 const executeEnrollment = async (req, { enrollment_id, state }) => {
 
@@ -21,8 +21,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     enrollment,
     program: parent.related('program')
   })
-
-  console.log(tokens)
 
   try {
 

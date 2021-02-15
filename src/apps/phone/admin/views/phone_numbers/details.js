@@ -7,7 +7,7 @@ const Details = ({ audits, phone_number }) => {
   const workflow = {
     label: 'Manage Workflow',
     className: 'link',
-    route: `/admin/phone/phone_numbers/${phone_number.id}/design`
+    route: `/admin/campaigns/voice/${phone_number.voice_campaign.id}/design`
   }
 
   const list = {

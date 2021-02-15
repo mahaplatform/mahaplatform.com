@@ -2,17 +2,19 @@ import executors from './steps'
 import _ from 'lodash'
 
 const executeStep = async (req, params) => {
-  const state = params.state || 'steps.0'
+  const state = req.query.state || 'steps.0'
   const step = _.get(params.config, state)
+  console.log(params.config, state, step)
   const { type, action } = step
   const executor = executors[type][action]
   return await executor(req, {
     config: params.config,
     contact: params.contact,
     program: params.program,
-    state: params.state,
+    state,
     step,
-    tokens: params.tokens
+    tokens: params.tokens,
+    twiml: params.twiml
   })
 }
 

@@ -1,6 +1,6 @@
 import Program from '@apps/crm/models/program'
 
-export const checkProgramAccess = async (req, { program_id, types }) => {
+const checkProgramAccess = async (req, { program_id, types }) => {
 
   const program = await Program.query(qb => {
     qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
@@ -14,3 +14,5 @@ export const checkProgramAccess = async (req, { program_id, types }) => {
   return program !== null
 
 }
+
+export  default checkProgramAccess

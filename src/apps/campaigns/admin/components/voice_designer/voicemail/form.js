@@ -68,7 +68,6 @@ class Voicemail extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Greeting', instructions: `
               Play this greeting before the caller leaves a voicemail. They
               will be prompted by a tone

@@ -11,15 +11,13 @@ import mediaMiddleware from './media'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import apiMiddleware from './api'
+import twilio from './twilio'
 import logger from './logger'
 import express from 'express'
-import twilio from './twilio'
 import arena from './arena'
-import voice from './voice'
 import error from './error'
 import ping from './ping'
 import dav from './dav'
-import sms from './sms'
 import qs from 'qs'
 
 const server = express()
@@ -48,13 +46,9 @@ server.use(logger)
 
 server.use(dav)
 
+server.use(twilio)
+
 server.use(shortlinkMiddleware)
-
-server.use('/twilio', twilio)
-
-server.use('/voice', voice)
-
-server.use('/sms', sms)
 
 server.use('/.well-known', deeplinkMiddleware)
 

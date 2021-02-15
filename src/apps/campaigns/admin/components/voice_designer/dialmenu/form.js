@@ -71,7 +71,7 @@ class Menu extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
+            { label: 'Menu Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Greeting', instructions: `
               Play this greeting to inform the caller of their available
               options. The greeting will stop when the caller begins to dial.

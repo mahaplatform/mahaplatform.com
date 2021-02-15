@@ -52,7 +52,6 @@ class Play extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Recording', name: 'recording_id', type: RecordingField, required: true, defaultValue: config.recording_id }
           ]
         }

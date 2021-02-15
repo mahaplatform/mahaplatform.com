@@ -103,7 +103,8 @@ class SpeakField extends React.PureComponent {
   }
 
   _handleChange() {
-    this.props.onChange(this.state)
+    const { text, voice } = this.state
+    this.props.onChange({ text, voice })
   }
 
   _handlePlay() {

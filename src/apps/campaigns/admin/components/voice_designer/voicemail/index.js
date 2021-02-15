@@ -5,6 +5,5 @@ export default {
   label: 'Voicemail',
   type: 'voice',
   action: 'voicemail',
-  form: Form,
-  token: step => step.name
+  form: Form
 }

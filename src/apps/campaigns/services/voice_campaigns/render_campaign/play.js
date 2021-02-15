@@ -1,6 +1,7 @@
 import Asset from '@apps/maha/models/asset'
 
 const play = async (req, { steps, step }) => {
+
   const { recording_id } = step.config
 
   const recording = await Asset.query(qb => {
@@ -10,10 +11,9 @@ const play = async (req, { steps, step }) => {
   })
 
   return {
-    verb: 'play',
     key: recording.get('key')
   }
-}
 
+}
 
 export default play

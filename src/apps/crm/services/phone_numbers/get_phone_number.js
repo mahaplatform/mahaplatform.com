@@ -9,6 +9,7 @@ const getPhoneNumber = async (req, { number }) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('number', number)
   }).fetch({
+    withRelated: ['contact'],
     transacting: req.trx
   })
 
@@ -31,7 +32,7 @@ const getPhoneNumber = async (req, { number }) => {
     transacting: req.trx
   })
 
-  return await PhoneNumber.forge({
+  const new_phone_number = await PhoneNumber.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
     number,
@@ -41,6 +42,12 @@ const getPhoneNumber = async (req, { number }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  await new_phone_number.load(['contact'], {
+    transacting: req.trx
+  })
+
+  return new_phone_number
 
 }
 

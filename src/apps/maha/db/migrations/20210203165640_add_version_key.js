@@ -28,21 +28,12 @@ const AddVersionKey = {
 
       const campaign = await VoiceCampaignSerializer(req, voice_campaign)
 
-      if(voice_campaign.get('direction') === 'inbound') {
-        await createVersion(req, {
-          versionable_type: 'maha_phone_numbers',
-          versionable_id: campaign.phone_number.id,
-          key: 'config',
-          value: { steps: [] }
-        })
-      } else {
-        await createVersion(req, {
-          versionable_type: 'crm_voice_campaigns',
-          versionable_id: campaign.id,
-          key: 'config',
-          value: { steps: [] }
-        })
-      }
+      await createVersion(req, {
+        versionable_type: 'crm_voice_campaigns',
+        versionable_id: campaign.id,
+        key: 'config',
+        value: { steps: [] }
+      })
 
     })
 

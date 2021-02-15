@@ -22,7 +22,7 @@ class Designer extends React.Component {
         status: 'active'
       },
       endpoint: `/api/admin/phone/phone_numbers/${phone_number.id}/publish`,
-      entity: `maha_phone_numbers/${phone_number.id}`,
+      entity: `crm_voice_campaigns/${phone_number.id}`,
       program: phone_number.program
     }
   }

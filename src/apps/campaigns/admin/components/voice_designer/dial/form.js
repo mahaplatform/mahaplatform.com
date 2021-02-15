@@ -68,7 +68,6 @@ class Dial extends React.PureComponent {
         {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: config.code },
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Announcement', type: 'segment', instructions: 'Play this announcement before dialing out to recipient(s)', fields: [
               { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
                 { value: 'say', text: 'Speak text' },

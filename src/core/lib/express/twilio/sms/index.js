@@ -1,4 +1,4 @@
-import collectObjects from '../../../utils/collect_objects'
+import collectObjects from '@core/utils/collect_objects'
 import { Router } from 'express'
 import receive from './receive'
 import status from './status'

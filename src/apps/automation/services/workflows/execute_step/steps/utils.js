@@ -1,4 +1,9 @@
 import _ from 'lodash'
+import qs from 'qs'
+
+export const getUrl = (req, path, params) => {
+  return `${process.env.TWILIO_HOST_TWIML}${path}?${qs.stringify(params)}`
+}
 
 export const getNext = (req, { config, state }) => {
   const parts = state.split('.')

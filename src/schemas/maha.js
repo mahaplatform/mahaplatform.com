@@ -1878,7 +1878,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('released_at')
-      table.jsonb('config')
     })
 
     await knex.schema.createTable('maha_profiles', (table) => {

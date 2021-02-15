@@ -1,69 +1,17 @@
-import { executeWorkflow } from '@apps/automation/services/workflows'
-import { lookupNumber } from '@apps/maha/services/phone_numbers'
+import { getEnrollmentTokens } from '@apps/automation/services/enrollments'
 import { enrollInCampaign } from '@apps/campaigns/services/voice_campaigns'
-import generateCode from '@core/utils/generate_code'
-import socket from '@core/services/routes/emitter'
-import PhoneNumber from '@apps/crm/models/phone_number'
+import executeStep from '@apps/automation/services/workflows/execute_step'
+import { getPhoneNumber } from '@apps/crm/services/phone_numbers'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
-import Contact from '@apps/crm/models/contact'
-import { twiml } from 'twilio'
+import socket from '@core/services/routes/emitter'
+import Twilio from 'twilio'
 
-const getPhoneNumber = async (req, { number }) => {
+const receiveHook = async (req, { call, phone_number }) => {
 
-  const phone_number = await PhoneNumber.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('number', number)
-  }).fetch({
-    withRelated: ['contact'],
-    transacting: req.trx
-  })
-
-  if(phone_number) return phone_number
-
-  const caller = await lookupNumber(req, {
-    number
-  })
-
-  const code = await generateCode(req, {
-    table: 'crm_contacts'
-  })
-
-  const contact = await Contact.forge({
-    team_id: req.team.get('id'),
-    code,
-    first_name: caller.first_name,
-    last_name: caller.last_name
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  const new_phone_number = await PhoneNumber.forge({
-    team_id: req.team.get('id'),
-    contact_id: contact.get('id'),
-    number,
-    is_primary: true,
-    undelivered_count: 0,
-    can_text: true
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await new_phone_number.load(['contact'], {
-    transacting: req.trx
-  })
-
-  return new_phone_number
-
-}
-
-const receive = async (req, { call, phone_number }) => {
+  const twiml = new Twilio.twiml.VoiceResponse()
 
   const from = await getPhoneNumber(req, {
-    number: call.related('from').get('number')
-  })
-
-  await phone_number.load(['program'], {
-    transacting: req.trx
+    number: call.related('from_number').get('number')
   })
 
   await call.save({
@@ -89,9 +37,8 @@ const receive = async (req, { call, phone_number }) => {
   })
 
   if(!voice_campaign) {
-    const response = new twiml.VoiceResponse()
-    response.say(`You have reached ${phone_number.related('program').get('title')}. I'm sorry, no one is able to take your call`)
-    return response.toString()
+    twiml.say(`You have reached ${phone_number.related('program').get('title')}. I'm sorry, no one is able to take your call`)
+    return twiml.toString()
   }
 
   const enrollment = await enrollInCampaign(req, {
@@ -108,14 +55,28 @@ const receive = async (req, { call, phone_number }) => {
     patch: true
   })
 
-  const result = await executeWorkflow(req, {
-    enrollment_id: enrollment.get('id'),
-    call_status: 'in-progress',
-    execute: true
+  const tokens = await getEnrollmentTokens(req, {
+    contact: from.related('contact'),
+    enrollment,
+    program: phone_number.related('program')
   })
 
-  return result.twiml
+  const result = await executeStep(req, {
+    config: voice_campaign.get('config'),
+    contact: from.related('contact'),
+    program: phone_number.related('program'),
+    tokens,
+    twiml
+  })
+
+  if(result.next) {
+    result.twiml.redirect(`${process.env.TWILIO_HOST_TWIML}/voice?state=${result.next}`)
+  } else {
+    result.twiml.hangup()
+  }
+
+  return twiml.toString()
 
 }
 
-export default receive
+export default receiveHook

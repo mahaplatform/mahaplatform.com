@@ -62,7 +62,6 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Message', type: 'segment', fields: [
               { name: 'say', type: SpeakField, placeholder: 'Enter a message', required: true, defaultValue: config.say }
             ] }

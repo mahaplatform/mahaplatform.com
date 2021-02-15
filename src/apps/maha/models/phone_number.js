@@ -47,8 +47,10 @@ const PhoneNumber = new Model({
     return this.hasOne(Program, 'phone_number_id')
   },
 
-  voice_campaigns() {
-    return this.hasMany(VoiceCampaign, 'phone_number_id')
+  voice_campaign() {
+    return this.hasOne(VoiceCampaign, 'phone_number_id').query(qb => {
+      qb.where('direction', 'inbound')
+    })
   }
 
 })
