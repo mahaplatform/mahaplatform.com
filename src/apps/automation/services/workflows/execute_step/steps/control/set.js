@@ -1,5 +1,18 @@
-const setStep = async (req, { contact, config, enrollment }) => {
-  console.log('set')
+const setStep = async (req, { step }) => {
+
+  const { code, value } = step.config
+
+  return {
+    action: {
+      data: {
+        [code]: value
+      }
+    },
+    data: {
+      [code]: value
+    }
+  }
+
 }
 
 export default setStep

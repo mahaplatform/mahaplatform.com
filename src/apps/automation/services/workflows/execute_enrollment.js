@@ -32,6 +32,8 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       tokens
     })
 
+    console.log(result)
+
     if(result.action) {
       await WorkflowAction.forge({
         team_id: req.team.get('id'),
@@ -39,6 +41,15 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
         ...result.action
       }).save(null, {
         transacting: req.trx
+      })
+    }
+
+    if(result.converted) {
+      await enrollment.save({
+        was_converted: true
+      }, {
+        transacting: req.trx,
+        patch: true
       })
     }
 

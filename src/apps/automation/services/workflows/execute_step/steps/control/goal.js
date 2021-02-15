@@ -1,5 +1,5 @@
-const goalStep = async (req, { contact, config, enrollment }) => {
-  console.log('goal')
-}
+const goalStep = async (req, { contact, config, enrollment }) => ({
+  converted: true
+})
 
 export default goalStep
