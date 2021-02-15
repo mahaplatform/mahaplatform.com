@@ -1,4 +1,4 @@
-import Program from '../models/program'
+import Program from '@apps/crm/models/program'
 
 export const checkProgramAccess = async (req, { program_id, types }) => {
 
