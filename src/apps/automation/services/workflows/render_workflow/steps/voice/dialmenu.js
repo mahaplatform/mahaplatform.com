@@ -4,11 +4,15 @@ import _ from 'lodash'
 const dialmenu = async (req, { steps, step }) => {
   const { config } = step
   return {
-    verb: 'dialmenu',
+    strategy: config.strategy,
+    say: config.say,
+    recording_id: config.recording_id,
     ...await announce(req, config),
     options: await Promise.mapSeries(config.options, async(option) => ({
       number: option.number,
-      ...await announce(req, option),
+      strategy: config.strategy,
+      say: config.say,
+      recording_id: config.recording_id,
       steps: await getSegment(req, {
         steps,
         parent: step.code,

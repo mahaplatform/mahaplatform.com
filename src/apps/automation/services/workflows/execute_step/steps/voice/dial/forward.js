@@ -21,7 +21,7 @@ const forward = async (req, { step, twiml }) => {
     callerId: req.body.To
   })
 
-  const recipients = await Promise.reduce(step.config.recipients, async(recipients, recipient) => [
+  const recipients = await Promise.reduce(step.recipients, async(recipients, recipient) => [
     ...recipients,
     ...recipient.strategy === 'user' ? await getUser(req, { user_id: recipient.user_id }) : [],
     ...recipient.strategy === 'number' ? [{ number: recipient.number }] : []

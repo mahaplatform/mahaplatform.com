@@ -38,7 +38,7 @@ const emailStep = async (req, { config, contact, state, step, tokens }) => {
   })
 
   const automation_email = await AutomationEmail.query(qb => {
-    qb.where('id', step.config.email_id)
+    qb.where('id', step.email_id)
   }).fetch({
     transacting: req.trx
   })
@@ -70,7 +70,7 @@ const emailStep = async (req, { config, contact, state, step, tokens }) => {
   const email = await sendEmail(req, {
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
-    email_id: config.email_id,
+    email_id: step.email_id,
     email_address_id: email_address.get('id'),
     from: sender.get('rfc822'),
     reply_to: settings.reply_to,

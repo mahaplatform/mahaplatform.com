@@ -48,7 +48,7 @@ export const getSegment = async (req, { steps, parent, answer }) => {
   return await Promise.mapSeries(filtered, async(step) => ({
     type: step.type,
     action: step.action,
-    config: await getStep(req, {
+    ...await getStep(req, {
       steps,
       step
     })

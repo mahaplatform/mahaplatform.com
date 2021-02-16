@@ -40,6 +40,7 @@ const showRoute = async (req, res) => {
     contact: enrollment.related('contact'),
     enrollment,
     program: voice_campaign.related('program'),
+    state: req.query.state,
     tokens,
     twiml
   })

@@ -3,7 +3,7 @@ import { getNext } from '../utils'
 
 const listStep = async (req, { config, contact, state, step }) => {
 
-  const { action, list_id } = step.config
+  const { action, list_id } = step
 
   console.log(step)
 

@@ -1,6 +1,6 @@
 const setStep = async (req, { step }) => {
 
-  const { code, value } = step.config
+  const { code, value } = step
 
   return {
     action: {

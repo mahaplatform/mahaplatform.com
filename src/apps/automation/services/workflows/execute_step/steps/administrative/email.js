@@ -6,14 +6,14 @@ import { getNext } from '../utils'
 const emailStep = async (req, { config, state, step, tokens }) => {
 
   const user = await User.query(qb => {
-    qb.where('id', step.config.user_id)
+    qb.where('id', step.user_id)
   }).fetch({
     transacting: req.trx
   })
 
   const rendered = personalizeEmail(req, {
-    subject: step.config.subject,
-    html: step.config.body,
+    subject: step.subject,
+    html: step.body,
     data: tokens
   })
 
@@ -21,7 +21,7 @@ const emailStep = async (req, { config, state, step, tokens }) => {
     team_id: req.team.get('id'),
     user,
     from: req.team.get('rfc822'),
-    to: user ? user.get('rfc822') : step.config.email,
+    to: user ? user.get('rfc822') : step.email,
     subject: rendered.subject,
     html: rendered.html.replace('\n', '<br />')
   })

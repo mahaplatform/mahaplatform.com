@@ -3,7 +3,7 @@ import Workflow from '@apps/automation/models/workflow'
 
 const workflowStep = async (req, { contact, config, step }) => {
 
-  const { workflow_id } = step.config
+  const { workflow_id } = step
 
   const workflow = await Workflow.query(qb => {
     qb.where('id', workflow_id)

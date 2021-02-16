@@ -4,7 +4,7 @@ import _ from 'lodash'
 import qs from 'qs'
 
 export const getUrl = (req, params) => {
-  return `${process.env.TWILIO_HOST_TWIML}${req.originalUrl}?${qs.stringify(params)}`
+  return `${process.env.TWILIO_HOST_TWIML}${req.baseUrl}${req.path}?${qs.stringify(params)}`
 }
 
 export const getNext = (req, { config, state }) => {
@@ -22,6 +22,6 @@ export const getNext = (req, { config, state }) => {
 }
 
 export const performAsk = (req, { config, state, step, twiml }) => {
-  if(step.config.strategy === 'say') return say(req, { config, state, step, twiml }, true)
-  if(step.config.strategy === 'play') return play(req, { config, state, step, twiml }, true)
+  if(step.strategy === 'say') return say(req, { config, state, step, twiml }, true)
+  if(step.strategy === 'play') return play(req, { config, state, step, twiml }, true)
 }
