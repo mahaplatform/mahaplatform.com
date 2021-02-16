@@ -94,7 +94,8 @@ const createConfirmationWorkflow = async(req, params) => {
           }
         }
       ]
-    }
+    },
+    publish: true
   })
 
   const model = form || event || store

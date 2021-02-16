@@ -15,7 +15,7 @@ const PhoneNumber = new Model({
 
     formatted() {
       const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      return phoneNumber.formatNational()
+      return phoneNumber.formatNational().replace(/\s/,'-').replace(/[()]/g, '')
     },
 
     spoken() {

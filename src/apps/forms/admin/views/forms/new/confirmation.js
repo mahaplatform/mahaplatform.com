@@ -43,9 +43,16 @@ class Confirmation extends React.Component {
         {
           fields: [
             { label: 'Template', name: 'template_id', type: TemplateField, program_id: formdata.program.id },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
-            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your response' }
+            { type: 'segment', fields: [
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
+              { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your response' },
+              { label: 'Body', name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: `
+                <p><%- contact.first_name %>,</p>
+                <p>&nbsp;</p>
+                <p>Thank your for your response!</p>
+              ` }
+            ] }
           ]
         }
       ]

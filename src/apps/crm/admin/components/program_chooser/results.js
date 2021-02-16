@@ -25,10 +25,10 @@ class Results extends React.PureComponent {
                 <div className="program-token-label">
                   { program.title }
                   { _.includes(requires, 'bank') &&
-                    <span> { !program.bank ? '(no bank account)' : program.bank.title }</span>
+                    <span> ({ !program.bank ? '(no bank account)' : program.bank.title })</span>
                   }
                   { _.includes(requires, 'phone_number') &&
-                    <span> { !program.phone_number ? '(no phone number)' : program.phone_number.formatted }</span>
+                    <span> ({ !program.phone_number ? 'no phone number' : program.phone_number.formatted })</span>
                   }
                 </div>
               </div>

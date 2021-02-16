@@ -25,7 +25,7 @@ class Confirmation extends React.PureComponent {
   _getForm() {
     const { event, user } = this.props
     const { program_id } = event
-    const confirmaton = event.confirmaton || {}
+    const confirmation = event.confirmation || {}
     return {
       title: 'Confirmation Email',
       cancelIcon: 'chevron-left',
@@ -37,9 +37,16 @@ class Confirmation extends React.PureComponent {
         {
           fields: [
             { label: 'Template', name: 'template_id', type: TemplateField, program_id },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: confirmaton.sender_id },
-            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: confirmaton.reply_to || user.email},
-            { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: confirmaton.subject || 'Thank you for registering' }
+            { type: 'segment', fields: [
+              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: confirmation.sender_id },
+              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: confirmation.reply_to || user.email},
+              { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: confirmation.subject || 'Thank you for registering' },
+              { label: 'Body', name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: confirmation.body || `
+                <p><%- contact.first_name %>,</p>
+                <p>&nbsp;</p>
+                <p>Thank your for registering!</p>
+              ` }
+            ] }
           ]
         }
       ]
