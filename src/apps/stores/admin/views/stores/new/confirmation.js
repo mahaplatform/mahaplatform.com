@@ -73,7 +73,13 @@ class Confirmation extends React.Component {
       ]
     }
     return [
-      { label: 'Body', name: 'body', type: 'htmlfield', rows: 5, required: true, defaultValue: '<p><%- contact.first_name %>,</p><p>&nbsp;</p><p>Thank you for your order. Here is a summary:</p><p>&nbsp;</p><p><%- order.payment_summary %></p>' }
+      { name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: `
+        <p><%- contact.first_name %>,</p>
+        <p>&nbsp;</p>
+        <p>Thank you for your order. Here is a summary:</p>
+        <p>&nbsp;</p>
+        <p><%- order.payment_summary %></p>
+      ` }
     ]
   }
 

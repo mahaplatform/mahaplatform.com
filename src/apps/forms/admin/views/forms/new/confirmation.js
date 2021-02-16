@@ -20,7 +20,12 @@ class Confirmation extends React.Component {
 
   form = null
 
+  state = {
+    data: {}
+  }
+
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -38,20 +43,20 @@ class Confirmation extends React.Component {
         { label: 'Prev', color: 'red', disabled: true, handler: this._handleCancel },
         { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
+      onChange: this._handleChange,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Template', name: 'template_id', type: TemplateField, program_id: formdata.program.id },
-            { type: 'segment', fields: [
-              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
-              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${formdata.program.id}/senders`, value: 'id', text: 'rfc822', required: true },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: admin.user.email },
+            { label: 'Email', type: 'segment', fields: [
               { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for your response' },
-              { label: 'Body', name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: `
-                <p><%- contact.first_name %>,</p>
-                <p>&nbsp;</p>
-                <p>Thank your for your response!</p>
-              ` }
+              { label: 'Template', name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'template', text: 'Create email from an existing email template' },
+                { value: 'new', text: 'Create email from a blank template' }
+              ], required: true, defaultValue: 'template' },
+              ...this._getTemplates()
             ] }
           ]
         }
@@ -59,8 +64,29 @@ class Confirmation extends React.Component {
     }
   }
 
+  _getTemplates() {
+    const { data } = this.state
+    const { formdata } = this.props
+    if(data.strategy === 'template' ) {
+      return [
+        { name: 'template_id', type: TemplateField, program_id: formdata.program.id }
+      ]
+    }
+    return [
+      { name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: `
+        <p><%- contact.first_name %>,</p>
+        <p>&nbsp;</p>
+        <p>Thank your for your response!</p>
+      ` }
+    ]
+  }
+
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(data) {
+    this.setState({ data })
   }
 
   _handleSubmit() {

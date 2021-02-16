@@ -14,6 +14,10 @@ class Confirmation extends React.PureComponent {
     onDone: PropTypes.func
   }
 
+  state = {
+    data: {}
+  }
+
   _handleBack = this._handleBack.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -36,16 +40,15 @@ class Confirmation extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Template', name: 'template_id', type: TemplateField, program_id },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: confirmation.sender_id },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: confirmation.reply_to || user.email},
             { type: 'segment', fields: [
-              { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: confirmation.sender_id },
-              { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: confirmation.reply_to || user.email},
               { label: 'Subject', name: 'subject', type: 'textfield', emojis: true, placeholder: 'Enter a subject', required: true, defaultValue: confirmation.subject || 'Thank you for registering' },
-              { label: 'Body', name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: confirmation.body || `
-                <p><%- contact.first_name %>,</p>
-                <p>&nbsp;</p>
-                <p>Thank your for registering!</p>
-              ` }
+              { label: 'Template', name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'template', text: 'Create email from an existing email template' },
+                { value: 'new', text: 'Create email from a blank template' }
+              ], required: true, defaultValue: 'template' },
+              ...this._getTemplates()
             ] }
           ]
         }
@@ -53,11 +56,30 @@ class Confirmation extends React.PureComponent {
     }
   }
 
+  _getTemplates() {
+    const { event } = this.props
+    const { data } = this.state
+    const { program_id } = event
+    if(data.strategy === 'template' ) {
+      return [
+        { name: 'template_id', type: TemplateField, program_id }
+      ]
+    }
+    return [
+      { name: 'body', type: 'htmlfield', placeholder: 'Enter a body', required: true, defaultValue: `
+        <p><%- contact.first_name %>,</p>
+        <p>&nbsp;</p>
+        <p>Thank your for registering!</p>
+      ` }
+    ]
+  }
+
   _handleBack() {
     this.props.onBack()
   }
 
   _handleChange(confirmation) {
+    this.setState({ data: confirmation })
     this.props.onChange({ confirmation })
   }
 
