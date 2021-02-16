@@ -1,4 +1,4 @@
-import ExecuteEnrollmentQueue from '@apps/automation/queues/execute_enrollment_queue'
+import { executeEnrollment } from '@apps/automation/services/workflows'
 import { getEnrollment } from '@apps/campaigns/services/sms_campaigns'
 import socket from '@core/services/routes/emitter'
 import moment from 'moment'
@@ -37,10 +37,9 @@ const receiveHook = async (req, { from, sms, phone_number, twiml }) => {
     })
   }
 
-  await ExecuteEnrollmentQueue.enqueue(req, {
+  await executeEnrollment(req, {
     enrollment_id: enrollment.get('id'),
-    state: enrollment.get('next') || 'steps.0',
-    body: req.body
+    state: enrollment.get('next') || 'steps.0'
   })
 
 }

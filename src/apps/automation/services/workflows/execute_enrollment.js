@@ -6,9 +6,7 @@ import WorkflowAction from '@apps/automation/models/workflow_action'
 import { renderWorkflow } from '@apps/automation/services/workflows'
 import moment from 'moment'
 
-const executeEnrollment = async (req, { body, enrollment_id, state }) => {
-
-  if(body) req.body = body
+const executeEnrollment = async (req, { enrollment_id, state }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -36,7 +34,6 @@ const executeEnrollment = async (req, { body, enrollment_id, state }) => {
   try {
 
     const result = await executeStep(req, {
-      body,
       config,
       contact: enrollment.related('contact'),
       enrollment,

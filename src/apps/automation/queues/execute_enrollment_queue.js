@@ -1,4 +1,4 @@
-import { executeEnrollment } from '../services/workflows'
+import { executeEnrollment } from '@apps/automation/services/workflows'
 import Queue from '@core/objects/queue'
 
 const processor = async (req, job) => {
