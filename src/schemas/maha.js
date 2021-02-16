@@ -627,6 +627,8 @@ const schema = {
       table.integer('order_id').unsigned()
       table.text('error')
       table.integer('version_id').unsigned()
+      table.string('next', 255)
+      table.jsonb('session')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {

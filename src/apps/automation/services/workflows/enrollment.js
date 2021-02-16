@@ -63,6 +63,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     order_id: order ? order.get('id') : null,
     code,
     data: {},
+    session: {},
     status: 'active',
     was_converted: false
   }).save(null, {

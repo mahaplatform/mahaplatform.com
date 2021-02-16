@@ -6,7 +6,9 @@ import WorkflowAction from '@apps/automation/models/workflow_action'
 import { renderWorkflow } from '@apps/automation/services/workflows'
 import moment from 'moment'
 
-const executeEnrollment = async (req, { enrollment_id, state }) => {
+const executeEnrollment = async (req, { body, enrollment_id, state }) => {
+
+  if(body) req.body = body
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
@@ -14,6 +16,8 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     withRelated: ['contact','version'],
     transacting: req.trx
   })
+
+  req.session = enrollment.get('session') || {}
 
   const parent = await getEnrollmentParent(req, {
     enrollment
@@ -32,6 +36,7 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
   try {
 
     const result = await executeStep(req, {
+      body,
       config,
       contact: enrollment.related('contact'),
       enrollment,
@@ -39,8 +44,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       state,
       tokens
     })
-
-    console.log(result)
 
     if(result.action) {
       await WorkflowAction.forge({
@@ -51,6 +54,24 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
         transacting: req.trx
       })
     }
+
+    await enrollment.save({
+      next: result.next || state
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+
+    if(result.session) {
+      await enrollment.save({
+        session: result.session
+      }, {
+        transacting: req.trx,
+        patch: true
+      })
+    }
+
+    if(result.wait) return
 
     if(result.converted) {
       await enrollment.save({
@@ -75,7 +96,7 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
 
     await ExecuteEnrollmentQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
-      state: result.next
+      state: enrollment.get('next')
     }, options)
 
   } catch(err) {

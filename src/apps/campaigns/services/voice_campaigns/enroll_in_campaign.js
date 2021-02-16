@@ -26,6 +26,7 @@ export const enrollInCampaign = async (req, params) => {
     version_id: version.get('id'),
     code,
     data: {},
+    session: {},
     was_hungup: false,
     was_answering_machine: false,
     status: 'active',

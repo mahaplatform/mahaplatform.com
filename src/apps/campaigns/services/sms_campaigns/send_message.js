@@ -18,6 +18,7 @@ const sendMessage = async (req, params) => {
     contact_id,
     code,
     data: {},
+    session: {},
     status: 'active',
     was_converted: false,
     was_opted_out: false

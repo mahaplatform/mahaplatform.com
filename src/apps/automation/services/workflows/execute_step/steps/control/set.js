@@ -1,4 +1,6 @@
-const setStep = async (req, { step }) => {
+import { getNext } from '../utils'
+
+const setStep = async (req, { config, state, step }) => {
 
   const { code, value } = step
 
@@ -10,7 +12,8 @@ const setStep = async (req, { step }) => {
     },
     data: {
       [code]: value
-    }
+    },
+    next: getNext(req, { config, state })
   }
 
 }

@@ -39,7 +39,8 @@ const receiveHook = async (req, { from, sms, phone_number, twiml }) => {
 
   await ExecuteEnrollmentQueue.enqueue(req, {
     enrollment_id: enrollment.get('id'),
-    state: 'steps.0'
+    state: enrollment.get('next') || 'steps.0',
+    body: req.body
   })
 
 }

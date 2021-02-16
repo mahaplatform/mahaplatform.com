@@ -41,6 +41,7 @@ const makeCall = async (req, params) => {
     version_id: version.get('id'),
     code,
     data: {},
+    session: {},
     was_answering_machine: false,
     was_hungup: false,
     status: 'active',

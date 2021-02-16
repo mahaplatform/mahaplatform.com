@@ -1,7 +1,8 @@
 import { enrollInWorkflow } from '@apps/automation/services/enrollments'
 import Workflow from '@apps/automation/models/workflow'
+import { getNext } from '../utils'
 
-const workflowStep = async (req, { contact, config, step }) => {
+const workflowStep = async (req, { contact, config, state, step }) => {
 
   const { workflow_id } = step
 
@@ -19,7 +20,8 @@ const workflowStep = async (req, { contact, config, step }) => {
   return {
     action: {
       workflow_id: config.workflow_id
-    }
+    },
+    next: getNext(req, { config, state })
   }
 
 }

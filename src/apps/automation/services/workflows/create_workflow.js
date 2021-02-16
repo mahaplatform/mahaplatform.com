@@ -1,6 +1,7 @@
+import { createVersion } from '@apps/maha/services/versions'
+import Workflow from '@apps/automation/models/workflow'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
-import Workflow from '@apps/automation/models/workflow'
 
 const getTriggerType = ({ list, topic, email_campaign }) => {
   if(list) return 'list'
@@ -30,6 +31,15 @@ const createWorkflow = async(req, params) => {
     is_unique: false
   }).save(null, {
     transacting: req.trx
+  })
+
+  await createVersion(req, {
+    versionable_type: 'crm_workflows',
+    versionable_id: workflow.get('id'),
+    key: 'config',
+    value: {
+      steps: []
+    }
   })
 
   await audit(req, {
