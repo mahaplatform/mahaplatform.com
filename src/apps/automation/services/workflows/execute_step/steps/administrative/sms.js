@@ -20,7 +20,8 @@ const smsStep = async (req, { config, contact, state, step, tokens }) => {
     to: await getToNumber(req, step.config),
     body: step.config.message,
     asset_ids: step.config.asset_ids,
-    data: tokens
+    data: tokens,
+    queue: false
   })
 
   return {

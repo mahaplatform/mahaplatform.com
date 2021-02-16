@@ -17,7 +17,6 @@ class Design extends React.Component {
     const { campaign } = this.props
     return {
       campaign,
-      endpoint: `/api/admin/campaigns/voice/${campaign.id}/publish`,
       entity: `crm_voice_campaigns/${campaign.id}`,
       program: campaign.program
     }

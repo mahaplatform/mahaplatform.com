@@ -10,7 +10,6 @@ class Versions extends React.Component {
   }
 
   static propTypes = {
-    endpoint: PropTypes.string,
     entity: PropTypes.string,
     version: PropTypes.object,
     versions: PropTypes.array,
@@ -75,9 +74,9 @@ class Versions extends React.Component {
 
   _handlePublish(version, e) {
     e.stopPropagation()
-    const { endpoint } = this.props
+    const { entity } = this.props
     this.context.network.request({
-      endpoint,
+      endpoint: `/api/admin/${entity}/config/versions/publish`,
       method: 'PATCH',
       body: {
         publish_id: version.id

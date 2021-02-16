@@ -1,9 +1,6 @@
 import { getSegment } from './utils'
 
-const renderWorkflow = async (req, { code, config }) => ({
-  workflow: {
-    code
-  },
+const renderCampaign = async (req, { config }) => ({
   steps: await getSegment(req, {
     steps: config.steps,
     parent: null,
@@ -11,4 +8,4 @@ const renderWorkflow = async (req, { code, config }) => ({
   })
 })
 
-export default renderWorkflow
+export default renderCampaign

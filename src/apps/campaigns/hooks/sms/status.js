@@ -5,12 +5,12 @@ import socket from '@core/services/routes/emitter'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import moment from 'moment'
 
-const status = async (req, { sms, status, error_code }) => {
+const statusHook = async (req, { sms, status, error_code }) => {
 
   const maha_phone_number = await MahaPhoneNumber.query(qb => {
     qb.whereRaw('number =? or number=?', [
-      sms.related('to').get('number'),
-      sms.related('from').get('number')
+      sms.related('to_number').get('number'),
+      sms.related('from_number').get('number')
     ])
   }).fetch({
     transacting: req.trx
@@ -18,8 +18,8 @@ const status = async (req, { sms, status, error_code }) => {
 
   const phone_number = await PhoneNumber.query(qb => {
     qb.whereRaw('number =? or number=?', [
-      sms.related('to').get('number'),
-      sms.related('from').get('number')
+      sms.related('to_number').get('number'),
+      sms.related('from_number').get('number')
     ])
   }).fetch({
     transacting: req.trx
@@ -60,4 +60,4 @@ const status = async (req, { sms, status, error_code }) => {
 
 }
 
-export default status
+export default statusHook

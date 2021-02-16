@@ -1,7 +1,6 @@
 import FlowchartDesigner from '@apps/automation/admin/components/flowchart_designer'
 import { Container } from '@admin'
 import PropTypes from 'prop-types'
-import redirect from './redirect'
 import question from './question'
 import message from './message'
 import React from 'react'
@@ -11,7 +10,6 @@ class SMSDesigner extends React.PureComponent {
 
   static propTypes = {
     campaign: PropTypes.object,
-    endpoint: PropTypes.string,
     entity: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
@@ -26,12 +24,11 @@ class SMSDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { campaign, endpoint, entity, program, onSave } = this.props
+    const { campaign, entity, program, onSave } = this.props
     const { steps, status } = campaign
     return {
       campaign,
       editable: _.includes(['active','draft','inactive'], campaign.status),
-      endpoint,
       entity,
       fields: this._getFields(),
       program,
@@ -41,7 +38,6 @@ class SMSDesigner extends React.PureComponent {
         this._getTrigger(),
         message,
         question,
-        redirect,
         { action: 'ifthen' },
         { action: 'wait' },
         { action: 'goal' },

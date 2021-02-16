@@ -1,17 +1,21 @@
 import SMSAttachment from '@apps/maha/models/sms_attachment'
-import { findOrCreateNumber } from '../numbers'
 import { createAssetFromUrl } from '../assets'
+import Number from '@apps/maha/models/number'
 import SMS from '@apps/maha/models/sms'
 import moment from 'moment'
 
 const receiveSMS = async (req, params) => {
 
-  const from = await findOrCreateNumber(req, {
-    number: params.from
+  const from_number = await Number.fetchOrCreate({
+    number: params.from_number
+  }, {
+    transacting: req.trx
   })
 
-  const to = await findOrCreateNumber(req, {
-    number: params.to
+  const to_number = await Number.fetchOrCreate({
+    number: params.to_number
+  }, {
+    transacting: req.trx
   })
 
   const { body, sid, incoming } = params
@@ -20,8 +24,8 @@ const receiveSMS = async (req, params) => {
 
   const sms = await SMS.forge({
     team_id: params.team_id || req.team.get('id'),
-    from_id: from.get('id'),
-    to_id: to.get('id'),
+    from_number_id: from_number.get('id'),
+    to_number_id: to_number.get('id'),
     direction: 'inbound',
     num_media,
     body,

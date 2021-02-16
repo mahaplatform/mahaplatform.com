@@ -11,7 +11,7 @@ const getEnrollmentParent = async (req, { enrollment }) => {
     await enrollment.load(['sms_campaign.program'], {
       transacting: req.trx
     })
-    return enrollment.related('voice_campaign')
+    return enrollment.related('sms_campaign')
   }
 
   if(enrollment.get('voice_campaign_id')) {

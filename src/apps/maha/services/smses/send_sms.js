@@ -38,8 +38,8 @@ const sendSMS = async (req, params) => {
   const sms = await SMS.forge({
     team_id: team_id || req.team.get('id'),
     user_id,
-    from_id: from_number.get('id'),
-    to_id: to_number.get('id'),
+    from_number_id: from_number.get('id'),
+    to_number_id: to_number.get('id'),
     direction: 'outbound',
     body: getBody(req, {
       body,

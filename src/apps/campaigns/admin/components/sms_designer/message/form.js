@@ -49,7 +49,6 @@ class Message extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Message', type: 'segment', fields: [
               { name: 'message', type: 'smsfield', placeholder: 'Enter a message', defaultValue: config.message, rows: 4, required: true },
               { name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }

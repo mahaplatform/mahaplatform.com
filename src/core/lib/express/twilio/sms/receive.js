@@ -1,21 +1,16 @@
-import SMSBlacklist from '@apps/maha/models/sms_blacklist'
+import { getPhoneNumber } from '@apps/crm/services/phone_numbers'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import { receiveSMS } from '@apps/maha/services/smses'
-import collectObjects from '@core/utils/collect_objects'
+import { executeHooks } from '@core/services/hooks'
 import socket from '@core/services/routes/emitter'
-import twilio from '@core/vendor/twilio'
+import Twilio from 'twilio'
 import _ from 'lodash'
-
-const smsFiles = collectObjects('hooks/sms/receive.js')
 
 const receiveRoute = async (req, res) => {
 
-  const incoming = req.body
-
-  const { body, from, sid, to } = await twilio.messages(incoming.MessageSid).fetch()
-
-  const phone_number = await PhoneNumber.where({
-    number: to
+  const phone_number = await PhoneNumber.query(qb => {
+    qb.where('number', req.body.To)
+    qb.orderBy('id', 'asc')
   }).fetch({
     withRelated: ['team'],
     transacting: req.trx
@@ -24,55 +19,55 @@ const receiveRoute = async (req, res) => {
   req.team = phone_number.related('team')
 
   const sms = await receiveSMS(req, {
-    from,
-    to,
-    body: body.trim(),
-    incoming,
-    sid
+    from_number: req.body.From,
+    to_number: req.body.To,
+    body: req.body.Body.trim(),
+    incoming: req.body,
+    sid: req.body.CallSid
   })
 
-  await sms.load(['from','to'], {
+  await sms.load(['from_number','to_number'], {
     transacting: req.trx
   })
 
-  if(_.includes(['start','unstop'], sms.get('body').toLowerCase())) {
-    const blacklist = await SMSBlacklist.query(qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('from_number_id', sms.related('to').get('id'))
-      qb.where('to_number_id',  sms.related('from').get('id'))
-    }).fetch({
-      transacting: req.trx
-    })
-    if(!blacklist) return
-    await blacklist.destroy({
-      transacting: req.trx
-    })
-  }
+  const from = await getPhoneNumber(req, {
+    number: sms.related('from_number').get('number')
+  })
 
-  if(_.includes(['stop','stopall','unsubscribe','cancel','end','quit'], sms.get('body').toLowerCase())) {
-    await SMSBlacklist.forge({
-      team_id: req.team.get('id'),
-      from_number_id: sms.related('to').get('id'),
-      to_number_id: sms.related('from').get('id')
-    }).save(null, {
-      transacting: req.trx
-    })
-  }
+  const term = sms.get('body').toLowerCase()
 
-  const response = await Promise.reduce(smsFiles, async (response, hook) => {
-    return await hook.default(req, {
+  if(_.includes(['start','unstop'], term)) {
+    await executeHooks(req, 'sms-optin', {
+      from,
+      phone_number,
       sms,
-      phone_number
+      twiml
     })
-  }, null)
+  }
+
+  if(_.includes(['stop','stopall','unsubscribe','cancel','end','quit'], term)) {
+    await executeHooks(req, 'sms-outout', {
+      from,
+      phone_number,
+      sms,
+      twiml
+    })
+  }
+
+  const twiml = new Twilio.twiml.MessagingResponse()
+
+  await executeHooks(req, 'sms-receive', {
+    from,
+    phone_number,
+    sms,
+    twiml
+  })
 
   await socket.refresh(req, [
     '/admin/team/sms'
   ])
 
-  if(response) return res.status(200).type('text/xml').send(response)
-
-  res.status(200).send(null)
+  return res.status(200).type('text/xml').send(twiml.toString())
 
 }
 

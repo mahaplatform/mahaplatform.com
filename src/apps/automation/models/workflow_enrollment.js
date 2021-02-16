@@ -3,6 +3,7 @@ import SmsCampaign from '@apps/campaigns/models/sms_campaign'
 import Registration from '@apps/events/models/registration'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Response from '@apps/forms/models/response'
+import Version from '@apps/maha/models/version'
 import Contact from '@apps/crm/models/contact'
 import WorkflowAction from './workflow_action'
 import Order from '@apps/stores/models/order'
@@ -59,6 +60,10 @@ const WorkflowEnrollment = new Model({
 
   sms_campaign() {
     return this.belongsTo(SmsCampaign, 'sms_campaign_id')
+  },
+
+  version() {
+    return this.belongsTo(Version, 'version_id')
   },
 
   voice_campaign() {

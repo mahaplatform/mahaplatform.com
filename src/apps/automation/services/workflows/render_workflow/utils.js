@@ -1,9 +1,42 @@
-const getStep = async (req, { steps, step }) => {
+import Asset from '@apps/maha/models/asset'
+import executors from './steps'
+import _ from 'lodash'
+
+const announcePlay = async (req, config) => {
+  const recording = await Asset.query(qb => {
+    qb.where('id', config.recording_id)
+  }).fetch({
+    transacting: req.trx
+  })
   return {
-    type: step.type,
-    action: step.action,
-    config: step.config
+    play: {
+      key: recording.get('key')
+    }
   }
+}
+
+const announceSay = async(req, config) => ({
+  say: config.say
+})
+
+const getAnnounceVerb = (strategy) => {
+  if(strategy === 'play') return announcePlay
+  if(strategy === 'say') return announceSay
+  return null
+}
+
+export const announce = async(req, config) => {
+  const verb = getAnnounceVerb(config.strategy)
+  return verb ? await verb(req, config) : {}
+}
+
+const getStep = async (req, { steps, step }) => {
+  const defaultExecutor = () => step.config
+  const executor = _.get(executors, `${step.type}.${step.action}`) || defaultExecutor
+  return await executor(req, {
+    steps,
+    step
+  })
 }
 
 export const getSegment = async (req, { steps, parent, answer }) => {
@@ -12,10 +45,12 @@ export const getSegment = async (req, { steps, parent, answer }) => {
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   })
-  return await Promise.mapSeries(filtered, async(step) => {
-    return await getStep(req, {
+  return await Promise.mapSeries(filtered, async(step) => ({
+    type: step.type,
+    action: step.action,
+    config: await getStep(req, {
       steps,
       step
     })
-  })
+  }))
 }

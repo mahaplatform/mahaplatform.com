@@ -1,42 +1,31 @@
 import { updateSMS } from '@apps/maha/services/smses'
-import collectObjects from '@core/utils/collect_objects'
+import { executeHooks } from '@core/services/hooks'
 import socket from '@core/services/routes/emitter'
-import twilio from '@core/vendor/twilio'
 import Sms from '@apps/maha/models/sms'
-
-const hooks = collectObjects('hooks/sms/status.js')
 
 const statusRoute = async (req, res) => {
 
-  const message = await twilio.messages(req.body.MessageSid).fetch()
-
-  const error_code = req.body.ErrorCode
-
-  const { price, sid, status } = message
-
   const sms = await Sms.query(qb => {
-    qb.where('sid', sid)
+    qb.where('sid', req.body.MessageSid)
   }).fetch({
-    withRelated: ['to','from','team'],
+    withRelated: ['to_number','from_number','team'],
     transacting: req.trx
   })
 
   req.team = sms.related('team')
 
   await updateSMS(req, {
-    price: Math.abs(price),
-    sid,
-    status,
-    error_code
+    sid: req.body.MessageSid,
+    status: req.body.MessageStatus,
+    error_code: req.body.ErrorCode
   })
 
-  await Promise.reduce(hooks, async (response, hook) => {
-    return await hook.default(req, {
-      sms,
-      status,
-      error_code
-    })
-  }, null)
+  await executeHooks(req, 'sms-status', {
+    sms,
+    sid: req.body.MessageSid,
+    status: req.body.MessageStatus,
+    error_code: req.body.ErrorCode
+  })
 
   await socket.refresh(req, [
     '/admin/team/smses'

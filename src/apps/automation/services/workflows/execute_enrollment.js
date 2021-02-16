@@ -1,14 +1,17 @@
 import { getEnrollmentParent, getEnrollmentTokens } from '@apps/automation/services/enrollments'
+import ExecuteEnrollmentQueue from '@apps/automation/queues/execute_enrollment_queue'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import executeStep from '@apps/automation/services/workflows/execute_step'
 import WorkflowAction from '@apps/automation/models/workflow_action'
+import { renderWorkflow } from '@apps/automation/services/workflows'
+import moment from 'moment'
 
 const executeEnrollment = async (req, { enrollment_id, state }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('id', enrollment_id)
   }).fetch({
-    withRelated: ['contact'],
+    withRelated: ['contact','version'],
     transacting: req.trx
   })
 
@@ -22,17 +25,20 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     program: parent.related('program')
   })
 
+  const config = await renderWorkflow(req, {
+    config: enrollment.related('version').get('value')
+  })
+
   try {
 
     const result = await executeStep(req, {
-      config: parent.get('config'),
+      config,
       contact: enrollment.related('contact'),
+      enrollment,
       program: parent.related('program'),
       state,
       tokens
     })
-
-    console.log(result)
 
     if(result.action) {
       await WorkflowAction.forge({
@@ -53,14 +59,23 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       })
     }
 
-    if(result.next) {
-      await executeEnrollment(req, {
-        enrollment_id: enrollment.get('id'),
-        state: result.next
+    if(!result.next) {
+      return await enrollment.save({
+        completed_at: moment(),
+        status: 'completed'
+      }, {
+        transacting: req.trx,
+        patch: true
       })
     }
 
+    await ExecuteEnrollmentQueue.enqueue(req, {
+      enrollment_id: enrollment.get('id'),
+      state: result.next
+    })
+
   } catch(err) {
+
     await enrollment.save({
       status: 'failed',
       error: err.stack
@@ -68,6 +83,7 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       transacting: req.trx,
       patch: true
     })
+
   }
 
 }

@@ -1,8 +1,10 @@
+import play from './voice/play'
+import say from './voice/say'
 import _ from 'lodash'
 import qs from 'qs'
 
-export const getUrl = (req, path, params) => {
-  return `${process.env.TWILIO_HOST_TWIML}${path}?${qs.stringify(params)}`
+export const getUrl = (req, params) => {
+  return `${process.env.TWILIO_HOST_TWIML}${req.originalUrl}?${qs.stringify(params)}`
 }
 
 export const getNext = (req, { config, state }) => {
@@ -17,4 +19,9 @@ export const getNext = (req, { config, state }) => {
     return _.get(config, candidate) !== undefined ? candidate : null
   }, null)
   return nextstate
+}
+
+export const performAsk = (req, { config, state, step, twiml }) => {
+  if(step.config.strategy === 'say') return say(req, { config, state, step, twiml }, true)
+  if(step.config.strategy === 'play') return play(req, { config, state, step, twiml }, true)
 }

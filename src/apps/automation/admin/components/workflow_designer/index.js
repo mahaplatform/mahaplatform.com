@@ -6,7 +6,6 @@ import React from 'react'
 class WorkflowDesigner extends React.PureComponent {
 
   static propTypes = {
-    endpoint: PropTypes.string,
     fields: PropTypes.array,
     program: PropTypes.object,
     programfields: PropTypes.array,
@@ -21,11 +20,10 @@ class WorkflowDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { endpoint, program, trigger, workflow, onSave } = this.props
+    const { program, trigger, workflow, onSave } = this.props
     const { steps, status } = workflow
     return {
       editable: workflow.editable,
-      endpoint,
       entity: `crm_workflows/${workflow.id}`,
       fields: this._getFields(),
       program,

@@ -5,8 +5,8 @@ import moment from 'moment'
 const getTotal = async (req, { from_id, to_id, sms_id }) => {
 
   const results = await req.trx('maha_smses').where(qb => {
-    qb.where('from_id', from_id)
-    qb.where('to_id', to_id)
+    qb.where('from_number_id', from_id)
+    qb.where('to_number_id', to_id)
     qb.whereNot('id', sms_id)
   }).count('*')
 
@@ -19,19 +19,19 @@ const queueSMS = async (req, { sms_id }) => {
   const sms = await SMS.query(qb => {
     qb.where('id', sms_id)
   }).fetch({
-    withRelated: ['to','from','attachments.asset'],
+    withRelated: ['to_number','from_number','attachments.asset'],
     transacting: req.trx
   })
 
-  const from = sms.related('from')
+  const from_number = sms.related('from_number')
 
-  const to = sms.related('to')
-  
+  const to_number = sms.related('to_number')
+
   try {
 
     const result = await twilio.messages.create({
-      from: from.get('number'),
-      to: to.get('number'),
+      from: from_number.get('number'),
+      to: to_number.get('number'),
       body: sms.get('body'),
       mediaUrl: sms.related('attachments').map(attachment => {
         return attachment.related('asset').get('signed_url')

@@ -1,7 +1,7 @@
 import { enrollInWorkflows } from '@apps/automation/services/workflows'
 import { contactActivity } from '@apps/crm/services/activities'
 
-const delivery = async (req, { email }) => {
+const deliveryHook = async (req, { email }) => {
 
   if(!email.get('email_campaign_id')) return
 
@@ -29,4 +29,4 @@ const delivery = async (req, { email }) => {
 
 }
 
-export default delivery
+export default deliveryHook

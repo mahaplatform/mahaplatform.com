@@ -2,14 +2,14 @@ import executors from './steps'
 import _ from 'lodash'
 
 const executeStep = async (req, params) => {
-  const state = req.query.state || 'steps.0'
+  const state = params.state || 'steps.0'
   const step = _.get(params.config, state)
-  console.log(params.config, state, step)
-  const { type, action } = step
-  const executor = executors[type][action]
+  const executor = _.get(executors, `${step.type}.${step.action}`)
+  if(!executor) throw new Error('no executor')
   return await executor(req, {
     config: params.config,
     contact: params.contact,
+    enrollment: params.enrollment,
     program: params.program,
     state,
     step,

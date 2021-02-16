@@ -1,5 +1,4 @@
 import VoiceCampaignSerializer from '@apps/campaigns/serializers/voice_campaign_serializer'
-import { renderCampaign } from '@apps/campaigns/services/voice_campaigns'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import { createVersion } from '@apps/maha/services/versions'
 import { activity } from '@core/services/routes/activities'
@@ -8,7 +7,6 @@ import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
 import Program from '@apps/crm/models/program'
-import { upload } from '@core/services/aws/s3'
 
 const createRoute = async (req, res) => {
 
@@ -42,24 +40,11 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const version = await createVersion(req, {
+  await createVersion(req, {
     versionable_type: 'crm_voice_campaigns',
     versionable_id: voice_campaign.id,
     key: 'config',
     value: { steps: [] }
-  })
-
-  const rendered = await renderCampaign(req, {
-    config: version.get('value')
-  })
-
-  await upload(null, {
-    acl: 'private',
-    bucket: process.env.AWS_BUCKET,
-    key: `twiml/voice/outbound/${voice_campaign.get('code')}`,
-    cache_control: 'max-age=0,no-cache',
-    content_type: 'application/json',
-    file_data: JSON.stringify(rendered)
   })
 
   await audit(req, {

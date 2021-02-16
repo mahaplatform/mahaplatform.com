@@ -14,7 +14,6 @@ class Canvas extends React.PureComponent {
     blocks: PropTypes.array,
     boxes: PropTypes.array,
     editable: PropTypes.bool,
-    endpoint: PropTypes.string,
     entity: PropTypes.string,
     expanded: PropTypes.array,
     fields: PropTypes.array,
@@ -161,9 +160,9 @@ class Canvas extends React.PureComponent {
   }
 
   _handlePublish() {
-    const { endpoint, version } = this.props
+    const { entity, version } = this.props
     this.context.network.request({
-      endpoint,
+      endpoint: `/api/admin/${entity}/config/versions/publish`,
       method: 'PATCH',
       body: {
         publish_id: version.id

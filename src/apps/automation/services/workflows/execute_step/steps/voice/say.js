@@ -2,8 +2,8 @@ import { getNext } from '../utils'
 import _ from 'lodash'
 
 const getVoice = (voice) => {
-  if(_.includes(['Nicole','Russell'], voice)) return voice
-  return `${voice}-Neural`
+  if(_.includes(['Nicole','Russell'], voice)) return `Polly.${voice}`
+  return `Polly.${voice}-Neural`
 }
 
 const sayStep = (req, { config, state, step, twiml }, child = false) => {
@@ -17,7 +17,7 @@ const sayStep = (req, { config, state, step, twiml }, child = false) => {
   phrases.map((phrase,index) => {
 
     twiml.say({
-      voice: `Polly.${voice}`
+      voice
     }, phrase)
 
     if(index < phrases.length - 1) {
@@ -30,8 +30,10 @@ const sayStep = (req, { config, state, step, twiml }, child = false) => {
 
   return {
     action: {
-      voice,
-      text
+      data: {
+        voice: step.config.say.voice,
+        text
+      }
     },
     next: !child ? getNext(req, { config, state }) : null,
     twiml

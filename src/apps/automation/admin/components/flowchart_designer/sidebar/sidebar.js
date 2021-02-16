@@ -11,7 +11,6 @@ class Sidebar extends React.Component {
     changes: PropTypes.number,
     cid: PropTypes.string,
     config: PropTypes.object,
-    endpoint: PropTypes.string,
     entity: PropTypes.string,
     status: PropTypes.string,
     version: PropTypes.object,
@@ -53,9 +52,8 @@ class Sidebar extends React.Component {
   }
 
   _getVersions() {
-    const { endpoint, entity, version, versions, onSetVersion } = this.props
+    const { entity, version, versions, onSetVersion } = this.props
     return {
-      endpoint,
       entity,
       version,
       versions,

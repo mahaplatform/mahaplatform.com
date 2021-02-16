@@ -60,7 +60,6 @@ class Listen extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Question', name: 'message', type: 'textarea', required: true, placeholder: 'Enter a question', defaultValue: config.message, rows: 6, after: <Button { ...this._getTokens() } /> },
             { label: 'Answers', name: 'answers', headers: false, placeholder: 'Enter Answer', type: AnswersField, reorderable: false, columns: [
               { label: 'Answer', key: 'answer' }

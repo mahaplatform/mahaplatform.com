@@ -9,7 +9,7 @@ const updateConfig = async (req, { items, table }) => {
 
     req.team = item.related('team')
 
-    await createVersion(req, {
+    const version = await createVersion(req, {
       versionable_type: table,
       versionable_id: item.id,
       key: 'config',
@@ -39,7 +39,12 @@ const updateConfig = async (req, { items, table }) => {
           transacting: req.trx,
           patch: true
         })
-        enrollment.save()
+      })
+      await enrollment.save({
+        version_id: version.get('id')
+      }, {
+        transacting: req.trx,
+        patch: true
       })
     })
 
@@ -53,6 +58,19 @@ const updateConfigs = {
   up: async (knex) => {
 
     const req = { trx: knex }
+
+    await knex.schema.table('crm_voice_campaigns', (table) => {
+      table.dropColumn('config')
+    })
+
+    await knex.schema.table('crm_sms_campaigns', (table) => {
+      table.dropColumn('config')
+    })
+
+    await knex.schema.table('crm_workflow_enrollments', (table) => {
+      table.integer('version_id').unsigned()
+      table.foreign('version_id').references('maha_versions.id')
+    })
 
     await knex.schema.table('crm_workflow_actions', (table) => {
       table.jsonb('step')
@@ -103,6 +121,11 @@ const updateConfigs = {
     })
 
     await knex.raw('drop table crm_workflow_steps')
+
+    await knex.schema.table('crm_workflow_actions', (table) => {
+      table.integer('recording_id').unsigned()
+      table.foreign('recording_id').references('maha_assets.id')
+    })
 
   },
 

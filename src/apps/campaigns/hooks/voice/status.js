@@ -1,7 +1,7 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import socket from '@core/services/routes/emitter'
 
-const status = async (req, { call, status }) => {
+const statusHook = async (req, { call, status }) => {
 
   const enrollment = await WorkflowEnrollment.query(qb => {
     qb.where('call_id', call.get('id'))
@@ -27,4 +27,4 @@ const status = async (req, { call, status }) => {
 
 }
 
-export default status
+export default statusHook

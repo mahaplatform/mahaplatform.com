@@ -27,7 +27,10 @@ const speakNumber = (number) => {
   }).join(' ')
 }
 
-const voiceurl = (path, params) => {
+const voiceurl = (req, path, params) => {
+  const { enrollment, workflow } = req.query
+  params.enrollment = enrollment
+  if(workflow) params.workflow = workflow
   return `${process.env.TWILIO_HOST_TWIML}${path}?${qs.stringify(params)}`
 }
 

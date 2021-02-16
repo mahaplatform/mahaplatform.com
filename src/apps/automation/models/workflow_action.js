@@ -1,5 +1,4 @@
 import WorkflowEnrollment from './workflow_enrollment'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import Field from '@apps/maha/models/field'
 import Email from '@apps/maha/models/email'
@@ -9,6 +8,7 @@ import Topic from '@apps/crm/models/topic'
 import User from '@apps/maha/models/user'
 import List from '@apps/crm/models/list'
 import Sms from '@apps/maha/models/sms'
+import Model from '@core/objects/model'
 import Workflow from './workflow'
 
 const WorkflowAction = new Model({

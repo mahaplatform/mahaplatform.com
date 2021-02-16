@@ -1,9 +1,7 @@
-import collectObjects from '@core/utils/collect_objects'
 import { updateCall } from '@apps/maha/services/calls'
+import { executeHooks } from '@core/services/hooks'
 import socket from '@core/services/routes/emitter'
 import Call from '@apps/maha/models/call'
-
-const hooks = collectObjects('hooks/voice/status.js')
 
 const statusRoute = async (req, res) => {
 
@@ -14,7 +12,7 @@ const statusRoute = async (req, res) => {
       qb.where('sid', req.body.ParentCallSid || req.body.CallSid)
     }
   }).fetch({
-    withRelated: ['to','from','team'],
+    withRelated: ['to_number','from_number','team'],
     transacting: req.trx
   })
 
@@ -22,38 +20,38 @@ const statusRoute = async (req, res) => {
 
   req.team = call.related('team')
 
-  if(!req.body.ParentCallSid) {
+  // if(!req.body.ParentCallSid) {
+  //
+  //   if(req.body.CallStatus === 'completed') {
+  //     await updateCall(req, {
+  //       call,
+  //       status: req.body.CallStatus
+  //     })
+  //   }
+  //
+  // } else {
+  //
+  //   if(req.body.CallStatus === 'ringing' && call.get('status') !== 'transferring') {
+  //     await updateCall(req, {
+  //       call,
+  //       status: 'dialing'
+  //     })
+  //   }
+  //
+  //   if(req.body.CallStatus === 'in-progress') {
+  //     await updateCall(req, {
+  //       call,
+  //       status: 'in-progress'
+  //     })
+  //   }
+  // }
 
-    if(req.body.CallStatus === 'completed') {
-      await updateCall(req, {
-        call,
-        status: req.body.CallStatus
-      })
-    }
-
-  } else {
-
-    if(req.body.CallStatus === 'ringing' && call.get('status') !== 'transferring') {
-      await updateCall(req, {
-        call,
-        status: 'dialing'
-      })
-    }
-
-    if(req.body.CallStatus === 'in-progress') {
-      await updateCall(req, {
-        call,
-        status: 'in-progress'
-      })
-    }
-  }
-
-  await Promise.reduce(hooks, async (response, hook) => {
-    return await hook.default(req, {
-      call,
-      status: req.body.CallStatus
-    })
-  }, null)
+  await executeHooks(req, 'voice-status', {
+    call,
+    sid: req.body.CallSid,
+    status: req.body.CallStatus,
+    error_code: req.body.ErrorCode
+  })
 
   await socket.refresh(req, [
     '/admin/team/calls',

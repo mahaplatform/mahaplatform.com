@@ -2,13 +2,13 @@ import { getNext } from '../utils'
 
 const playStep = (req, { config, state, step, twiml }, child = false) => {
 
-  const { key } = step.config
+  const { recording_id } = step.config
 
-  twiml.play(`${process.env.TWILIO_HOST_TWIML}/voice/recordings/${key}`)
+  twiml.play(`${process.env.TWILIO_HOST_TWIML}/voice/campaigns/recordings/${recording_id}`)
 
   return {
     action: {
-      key
+      recording_id
     },
     next: !child ? getNext(req, { config, state }) : null,
     twiml

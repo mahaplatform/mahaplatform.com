@@ -18,12 +18,12 @@ const Sms = new Model({
     return this.hasMany(SMSAttachment, 'sms_id')
   },
 
-  from() {
-    return this.belongsTo(Number, 'from_id')
+  from_number() {
+    return this.belongsTo(Number, 'from_number_id')
   },
 
-  to() {
-    return this.belongsTo(Number, 'to_id')
+  to_number() {
+    return this.belongsTo(Number, 'to_number_id')
   },
 
   phone_number() {
