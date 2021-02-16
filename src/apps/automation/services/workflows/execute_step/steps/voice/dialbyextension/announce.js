@@ -7,7 +7,7 @@ const announce = (req, { config, state, step, twiml }) => {
 
   const announce = performAsk(req, { config, state, step: extension, twiml })
 
-  if(!announce) return forward(req, { step, twiml })
+  if(!announce) return forward(req, { config, state, step, twiml })
 
   twiml.redirect(getUrl(req, { state, action: 'forward', index: req.query.index }))
 

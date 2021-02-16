@@ -1,4 +1,5 @@
 import User from '@apps/maha/models/user'
+import { getUrl } from '../../utils'
 
 const getUser = async(req, { user_id }) => {
 
@@ -15,12 +16,13 @@ const getUser = async(req, { user_id }) => {
 
 }
 
-const forward = async (req, { step, twiml }) => {
+const forward = async (req, { config, state, step, twiml }) => {
 
   const extension = step.extensions[req.query.index]
 
   const dial = twiml.dial({
-    callerId: req.body.To
+    callerId: req.body.To,
+    timeout: 15
   })
 
   const recipients = await Promise.reduce(extension.recipients, async(recipients, recipient) => [
@@ -55,6 +57,8 @@ const forward = async (req, { step, twiml }) => {
     }
 
   })
+
+  twiml.redirect(getUrl(req, { state: `${state}.noanswer.steps.0` }))
 
   return {
     action: {

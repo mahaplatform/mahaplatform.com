@@ -18,7 +18,8 @@ const getUser = async(req, { user_id }) => {
 const forward = async (req, { step, twiml }) => {
 
   const dial = twiml.dial({
-    callerId: req.body.To
+    callerId: req.body.To,
+    timeout: 15
   })
 
   const recipients = await Promise.reduce(step.recipients, async(recipients, recipient) => [
