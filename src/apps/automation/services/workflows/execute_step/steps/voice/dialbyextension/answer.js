@@ -1,8 +1,8 @@
 import { getUrl } from '../../utils'
 
-const processAnswer = (req, { state, step, twiml }) => {
+const processAnswer = (req, { config, enrollment, state, step, twiml }) => {
 
-  const { star, hash, options } = step
+  const { star, hash, extensions } = step
 
   if(star && req.body.Digits === '*') {
     twiml.redirect(getUrl(req, { state: `${state}.star.steps.0` }))
@@ -14,16 +14,16 @@ const processAnswer = (req, { state, step, twiml }) => {
     return 'pressed hash'
   }
 
-  const index = options.findIndex(option => {
-    return option.number === req.body.Digits
+  const index = extensions.findIndex(extensions => {
+    return extensions.extension === req.body.Digits
   })
 
   if(index >= 0) {
-    twiml.redirect(getUrl(req, { state: `${state}.options.${index}.steps.0` }))
+    twiml.redirect(getUrl(req, { state, action: 'announce', index }))
     return `pressed ${req.body.Digits}`
   }
 
-  twiml.say('That is not a valid selection')
+  twiml.say('I couldnt find anyone with that extension')
 
   twiml.redirect(getUrl(req, { action: 'ask' }))
 

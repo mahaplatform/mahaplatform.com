@@ -2,13 +2,13 @@ import { getUrl, performAsk } from '../../utils'
 
 const ask = (req, { config, enrollment, state, step, twiml }) => {
 
-  const { options } = step
+  const { extensions } = step
 
   const gather = twiml.gather({
     action: getUrl(req, { state, action: 'answer' }),
     finishOnKey: '',
-    numDigits: options.reduce((digits, option) => {
-      return Math.max(digits, option.number.length)
+    numDigits: extensions.reduce((digits, extension) => {
+      return Math.max(digits, extension.extension.length)
     }, 0),
     timeout: 3
   })

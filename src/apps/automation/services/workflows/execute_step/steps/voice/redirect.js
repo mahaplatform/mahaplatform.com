@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-const keys = ['recipients','options','extensions','timeblocks','steps','hash.steps','star.steps','noinput.steps']
+const keys = ['recipients','options','extensions','timeblocks','steps','hash.steps','star.steps','noinput.steps','noanswer.steps']
 
 const getNext = (config, destination, path = 'steps') => {
   return _.get(config, path).reduce((newpath, segment, index) => {
