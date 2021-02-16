@@ -7,7 +7,7 @@ const dialbyextension = async (req, { steps, step }) => {
     strategy: config.strategy,
     say: config.say,
     recording_id: config.recording_id,
-    extensions:config.extensions.map(extension => ({
+    extensions: config.extensions.map(extension => ({
       extension: extension.extension,
       strategy: extension.strategy,
       say: extension.say,

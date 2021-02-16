@@ -4,8 +4,8 @@ import _ from 'lodash'
 const executeStep = async (req, params) => {
   const state = params.state || 'steps.0'
   const step = _.get(params.config, state)
+  if(!step) return { twiml: params.twiml }
   const executor = _.get(executors, `${step.type}.${step.action}`)
-  if(!executor) throw new Error('no executor')
   return await executor(req, {
     config: params.config,
     contact: params.contact,

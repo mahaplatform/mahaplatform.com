@@ -8,9 +8,9 @@ const dialbyname = async (req, { steps, step }) => {
     say: config.say,
     recording_id: config.recording_id,
     recipients: config.recipients.map(recipient => ({
-      strategy: config.strategy,
-      say: config.say,
-      recording_id: config.recording_id,
+      strategy: recipient.strategy,
+      say: recipient.say,
+      recording_id: recipient.recording_id,
       user_id: recipient.user_id
     })),
     ..._.includes(config.specials, 'hash') ? {
