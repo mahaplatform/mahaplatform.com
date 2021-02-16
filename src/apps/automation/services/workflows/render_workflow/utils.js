@@ -46,6 +46,7 @@ export const getSegment = async (req, { steps, parent, answer }) => {
     return a.delta < b.delta ? -1 : 1
   })
   return await Promise.mapSeries(filtered, async(step) => ({
+    code: step.code,
     type: step.type,
     action: step.action,
     ...await getStep(req, {

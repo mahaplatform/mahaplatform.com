@@ -1,4 +1,4 @@
-import { announce, getSegment } from '../../utils'
+import { getSegment } from '../../utils'
 import _ from 'lodash'
 
 const dialmenu = async (req, { steps, step }) => {
@@ -7,7 +7,6 @@ const dialmenu = async (req, { steps, step }) => {
     strategy: config.strategy,
     say: config.say,
     recording_id: config.recording_id,
-    ...await announce(req, config),
     options: await Promise.mapSeries(config.options, async(option) => ({
       number: option.number,
       strategy: config.strategy,

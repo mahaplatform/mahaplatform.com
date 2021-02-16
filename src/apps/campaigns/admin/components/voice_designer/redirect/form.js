@@ -67,7 +67,7 @@ class Redirect extends React.PureComponent {
   _getSteps() {
     const { steps } = this.props
     return steps.filter(step => {
-      return step.verb !== 'control'
+      return step.action === 'dialmenu'
     }).map(step => ({
       value: step.code,
       text: step.config.name
