@@ -4,12 +4,12 @@ const propertyStep = async (req, { config, contact, state, step }) => {
 
   const { name, value, overwrite } = step
 
-  await contact.save({
-    values: {}
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+  // await contact.save({
+  //   values: {}
+  // }, {
+  //   transacting: req.trx,
+  //   patch: true
+  // })
 
   return {
     action: {

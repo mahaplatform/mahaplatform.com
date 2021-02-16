@@ -71,10 +71,12 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       })
     }
 
+    const options = result.until ? { until: result.until } : {}
+
     await ExecuteEnrollmentQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       state: result.next
-    })
+    }, options)
 
   } catch(err) {
 

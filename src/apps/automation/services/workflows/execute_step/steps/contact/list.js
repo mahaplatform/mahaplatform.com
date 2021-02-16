@@ -5,8 +5,6 @@ const listStep = async (req, { config, contact, state, step }) => {
 
   const { action, list_id } = step
 
-  console.log(step)
-
   if(!list_id) return {}
 
   const executor = action === 'add' ? addToLists : removeFromLists
