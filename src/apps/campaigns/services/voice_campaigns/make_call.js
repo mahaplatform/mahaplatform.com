@@ -1,15 +1,16 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
+import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import { contactActivity } from '@apps/crm/services/activities'
-import generateCode from '@core/utils/generate_code'
+import { getPublished } from '@apps/maha/services/versions'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import { createCall } from '@apps/maha/services/calls'
-import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
+import generateCode from '@core/utils/generate_code'
 
 const makeCall = async (req, params) => {
 
   const { voice_campaign_id, phone_number_id, contact_id } = params
 
-  const campaign = await VoiceCampaign.query(qb => {
+  const voice_campaign = await VoiceCampaign.query(qb => {
     qb.where('id', voice_campaign_id)
   }).fetch({
     withRelated: ['program.phone_number'],
@@ -22,6 +23,12 @@ const makeCall = async (req, params) => {
     transacting: req.trx
   })
 
+  const version = await getPublished(req, {
+    versionable_type: 'crm_voice_campaigns',
+    versionable_id: voice_campaign.get('id'),
+    key: 'config'
+  })
+
   const code = await generateCode(req, {
     table: 'crm_workflow_enrollments'
   })
@@ -31,6 +38,7 @@ const makeCall = async (req, params) => {
     voice_campaign_id,
     phone_number_id,
     contact_id,
+    version_id: version.get('id'),
     code,
     data: {},
     was_answering_machine: false,
@@ -58,8 +66,8 @@ const makeCall = async (req, params) => {
 
   const call = await createCall(req, {
     method: 'POST',
-    url: `${process.env.TWILIO_HOST_TWIML}/voice?workflow=${campaign.get('code')}`,
-    from: campaign.related('program').related('phone_number').get('number'),
+    url: `${process.env.TWILIO_HOST_TWIML}/voice/campaigns/enrollments/${enrollment.get('code')}`,
+    from: voice_campaign.related('program').related('phone_number').get('number'),
     to: phone_number.get('number')
   })
 

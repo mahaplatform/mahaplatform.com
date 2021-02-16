@@ -40,6 +40,8 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       tokens
     })
 
+    console.log(result)
+
     if(result.action) {
       await WorkflowAction.forge({
         team_id: req.team.get('id'),

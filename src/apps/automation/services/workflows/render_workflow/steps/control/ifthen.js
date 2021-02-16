@@ -1,15 +1,14 @@
 import { getSegment } from '../../utils'
 
-const timeofday = async (req, { steps, step }) => {
-  const { timeblocks } = step.config
+const ifthen = async (req, { steps, step }) => {
+  const { branches } = step.config
   return {
-    timeblocks: await Promise.mapSeries(timeblocks, async(timeblock) => ({
-      days: timeblock.days,
-      times: timeblock.times,
+    branches: await Promise.mapSeries(branches, async(branch) => ({
+      criteria: branch.criteria,
       steps: await getSegment(req, {
         steps,
         parent: step.code,
-        answer: timeblock.code
+        answer: branch.code
       })
     })),
     else: {
@@ -22,4 +21,4 @@ const timeofday = async (req, { steps, step }) => {
   }
 }
 
-export default timeofday
+export default ifthen

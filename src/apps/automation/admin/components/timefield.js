@@ -64,13 +64,18 @@ class TimeField extends React.Component {
 
   _getFormatted() {
     const value = this.state.value.trim()
-    const parsed = moment(value, ['HH:MM','H:MM','h:mmA','h:mm A','h:m'])
+    const parsed = moment(value, ['HH:mm','H:mm','h:mmA','h:mm A','h:m'])
     if(!parsed.isValid()) return value
     return parsed.format('h:mm A')
   }
 
   _getParsed(value) {
     return moment(`2020-01-01 ${value}`).format('h:mm A')
+  }
+
+  _getRaw() {
+    const { value } = this.state
+    return moment(`2020-01-01 ${value}`, 'YYYY-MM-DD h:mm A').format('HH:mm')
   }
 
   _getInput() {
@@ -91,8 +96,7 @@ class TimeField extends React.Component {
   }
 
   _handleChange() {
-    const { value } = this.state
-    const raw =  moment(value).format('HH:MM')
+    const raw = this._getRaw()
     this.props.onChange(raw)
   }
 
@@ -117,7 +121,8 @@ class TimeField extends React.Component {
     if(!parsed.isValid()) {
       return this.props.onValid(null, ['invlaid time'])
     }
-    this.props.onValid(value)
+    const raw = this._getRaw()
+    this.props.onValid(raw)
   }
 
 }

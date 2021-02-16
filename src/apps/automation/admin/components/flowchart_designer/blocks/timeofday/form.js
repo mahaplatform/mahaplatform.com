@@ -1,6 +1,6 @@
 import TimeBlocksField from '../../../timeblocksfield'
-import { Button, Form } from '@admin'
 import PropTypes from 'prop-types'
+import { Form } from '@admin'
 import React from 'react'
 
 class TimeOfDay extends React.PureComponent {
@@ -59,7 +59,6 @@ class TimeOfDay extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Step Name', name: 'name', type: 'textfield', placeholder: 'Enter a name for this step', required: true, defaultValue: config.name },
             { label: 'Time Blocks', name: 'timeblocks', type: TimeBlocksField, required: true, defaultValue: config.timeblocks }
           ]
         }
