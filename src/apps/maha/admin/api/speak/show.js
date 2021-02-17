@@ -5,7 +5,7 @@ const showRoute = async (req, res) => {
   const result = await polly.synthesizeSpeech({
     OutputFormat: 'mp3',
     Text: req.query.text,
-    TextType: 'text',
+    TextType: 'ssml',
     VoiceId: req.query.voice
   }).promise()
 

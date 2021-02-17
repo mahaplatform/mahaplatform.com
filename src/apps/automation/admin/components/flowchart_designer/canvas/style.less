@@ -90,23 +90,35 @@
 }
 .flowchart-box-item {
   position: relative;
-  border-radius: 0.3em;
+  border-radius: 0.5em;
   border: 2px solid lighten(@black, 80);
-  background-color: @white;
-  padding: 1.2em 0.8em 0.8em;
   margin: 0 auto;
-  width: 150px;
   cursor: pointer;
-  &.active .flowchart-box-highlight,
-  &:hover .flowchart-box-highlight {
-    display: block;
+  background-color: @white;
+  transition: all .25s ease-in-out;
+  display: flex;
+  &.active, &:hover {
+    border-color: @teal;
   }
   &:hover .flowchart-box-actions {
     display: flex;
   }
   .unselectable();
+  &.expanded {
+    width: 300px;
+    height: 200px;
+  }
+  &:not(.expanded) {
+    width: 150px;
+    height: 45px;
+  }
+}
+.flowchart-box-body {
+  flex: 1;
+  overflow: hidden;
 }
 .flowchart-box-label {
+  padding: 1.2em 0.8em 0.8em;
   text-align: center;
   font-size: 0.8em;
   line-height: 1.6em;
@@ -115,13 +127,10 @@
 }
 .flowchart-box-details {
   color: fadeout(@black, 60);
-  min-height: 1.6em;
   line-height: 1.6em;
   text-align: center;
   font-size: 0.8em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  padding: 0.8em;
 }
 .flowchart-box-trigger,
 .flowchart-box-ending {

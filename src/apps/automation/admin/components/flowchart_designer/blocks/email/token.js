@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Image } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -22,11 +23,13 @@ class Token extends React.Component {
 
   render() {
     const { email } = this.state
+    if(!email) return null
     return (
       <div>
-        { email &&
-          <span>{ email.display_name  }</span>
-        }
+        <span>{ email.display_name  }</span>
+        <div style={{ width: 80, height: 120, margin: '10px auto' }}>
+          <Image src={ `/${email.preview}` } transforms={{ cover: 'fit', w: 200, h: 300 }} />
+        </div>
       </div>
     )
 

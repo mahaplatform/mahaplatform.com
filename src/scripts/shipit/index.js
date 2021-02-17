@@ -113,8 +113,8 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'sync', [
-    // 'sync:backup',
-    // 'sync:download',
+    'sync:backup',
+    'sync:download',
     'sync:restore',
     'sync:remove',
     'sync:teams',

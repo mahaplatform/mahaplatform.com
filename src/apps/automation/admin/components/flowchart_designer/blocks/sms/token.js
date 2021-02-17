@@ -14,6 +14,10 @@ class Token extends React.Component {
     message: PropTypes.string
   }
 
+  static defaultProps = {
+    asset_ids: []
+  }
+
   state = {
     assets: null
   }
@@ -26,19 +30,18 @@ class Token extends React.Component {
     const { assets } = this.state
     return (
       <div>
+      &quot;{ message }&quot;
         { assets && assets.map((asset, index) => (
           <div className="crm-sms-message-token-image" key={ `asset_${asset.id}` }>
             <Image src={ asset.path } transforms={{ fit: 'cover', w: 150, h: 150 }} />
           </div>
         )) }
-        &quot;{ message }&quot;
       </div>
     )
   }
 
   componentDidMount() {
-    const { asset_ids } = this.props
-    if(asset_ids) this._handleFetch()
+    this._handleFetch()
   }
 
   componentDidUpdate(prevProps) {
@@ -50,6 +53,11 @@ class Token extends React.Component {
 
   _handleFetch() {
     const { asset_ids } = this.props
+    if(asset_ids.length === 0) {
+      return this.setState({
+        assets: null
+      })
+    }
     this.context.network.request({
       endpoint: '/api/admin/assets',
       query: {

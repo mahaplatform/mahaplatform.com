@@ -17,12 +17,14 @@ class Box extends React.PureComponent {
     box: PropTypes.object,
     blocks: PropTypes.array,
     delta: PropTypes.number,
+    details: PropTypes.string,
     editable: PropTypes.bool,
     expanded: PropTypes.array,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     parent: PropTypes.string,
     onAdd: PropTypes.func,
+    onDetails: PropTypes.func,
     onEdit: PropTypes.func,
     onExpand: PropTypes.func,
     onHover: PropTypes.func,
@@ -30,25 +32,24 @@ class Box extends React.PureComponent {
     onRemove: PropTypes.func
   }
 
+  _handleDetails = this._handleDetails.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleExpand = this._handleExpand.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { active, box, editable, expanded } = this.props
+    const { box, editable, expanded } = this.props
     const block = this._getBlock()
     const { icon, label } = block
     const { code, config, branches, type } = box
+    const isExpanded = _.includes(expanded, code)
     return (
       <div className={ this._getClass(box) }>
         { block.type !== 'trigger' &&
           <Add { ...this._getAdd() } />
         }
         <div className="flowchart-box-padding">
-          <div className={ this._getBoxClass() }>
-            { editable && (code === active || !_.includes(['trigger','ending'], type)) &&
-              <div className="flowchart-box-highlight" />
-            }
+          <div className={ this._getBoxClass() } onClick={ this._handleDetails }>
             { editable && !_.includes(['trigger','ending'], type) &&
               <div className="flowchart-box-actions">
                 <div className="flowchart-box-spacer"></div>
@@ -63,22 +64,24 @@ class Box extends React.PureComponent {
             <div className={`flowchart-box-icon ${type}`}>
               <i className={`fa fa-${icon}`} />
             </div>
-            <div className="flowchart-box-label">
-              { label }
-            </div>
-            { block.token &&
-              <div className="flowchart-box-details">
-                <block.token { ...this._getToken(config) } />
+            <div className="flowchart-box-body">
+              <div className="flowchart-box-label">
+                { label }
               </div>
-            }
+              { block.token &&
+                <div className="flowchart-box-details">
+                  <block.token { ...this._getToken(config) } />
+                </div>
+              }
+            </div>
           </div>
           { branches && branches.length > 0 &&
             <div className="flowchart-branches-container" >
               <Connector type="vertical" />
-              <div className="flowchart-branches-expander" onClick={ this._handleExpand } data-tooltip="Expand options" data-position="top center" data-inverted="true">
+              <div className="flowchart-branches-expander" onClick={ this._handleExpand } data-tooltip={ isExpanded ? 'Collapse options' : 'Expand options' } data-position="top center" data-inverted="true">
                 <i className="fa fa-ellipsis-h" />
               </div>
-              { _.includes(expanded, code) &&
+              { isExpanded &&
                 <>
                   <Connector type="vertical" />
                   <div className="flowchart-branches">
@@ -139,10 +142,11 @@ class Box extends React.PureComponent {
   }
 
   _getBoxClass() {
-    const { active, box } = this.props
+    const { active, box, details } = this.props
     const { code, type } = box
     const classes = ['flowchart-box-item', `flowchart-box-${type}`]
     if(active === code) classes.push('active')
+    if(details === code) classes.push('expanded')
     return classes.join(' ')
   }
 
@@ -181,18 +185,20 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, box, editable, expanded, fields, hovering, onAdd, onEdit, onExpand, onHover, onNew, onRemove } = this.props
+    const { active, blocks, box, details, editable, expanded, fields, hovering, onAdd, onDetails, onEdit, onExpand, onHover, onNew, onRemove } = this.props
     return {
       active,
       answer: option.code,
       boxes: option.then,
       blocks,
+      details,
       editable,
       expanded,
       fields,
       parent: box.code,
       hovering,
       onAdd,
+      onDetails,
       onEdit,
       onExpand,
       onHover,
@@ -201,9 +207,18 @@ class Box extends React.PureComponent {
     }
   }
 
-  _handleEdit() {
-    const { box } = this.props
-    this.props.onEdit(box.code)
+  _handleDetails() {
+    const { action, code, type } = this.props.box
+    if(_.includes(['trigger','ending'], type)) return
+    if(_.includes(['ifthen','goal'], action)) return
+    this.props.onDetails(code)
+  }
+
+  _handleEdit(e) {
+    e.stopPropagation()
+    const { active, box } = this.props
+    const code = box.code !== active ? box.code : null
+    this.props.onEdit(code)
   }
 
   _handleExpand() {
@@ -211,7 +226,8 @@ class Box extends React.PureComponent {
     this.props.onExpand(box.code)
   }
 
-  _handleRemove() {
+  _handleRemove(e) {
+    e.stopPropagation()
     const { box } = this.props
     const message = 'Are you sure you want to delete this step?'
     this.context.confirm.open(message, () => {

@@ -21,6 +21,7 @@ class FlowchartDesigner extends React.PureComponent {
     cid: PropTypes.string,
     config: PropTypes.array,
     defaultValue: PropTypes.array,
+    details: PropTypes.string,
     editable: PropTypes.bool,
     entity: PropTypes.string,
     expanded: PropTypes.array,
@@ -37,6 +38,7 @@ class FlowchartDesigner extends React.PureComponent {
     versions: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
+    onDetails: PropTypes.func,
     onEdit: PropTypes.func,
     onExpand: PropTypes.func,
     onFetch: PropTypes.func,
@@ -107,11 +109,12 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, editable, entity, expanded, fields, hovering, version, onEdit, onExpand, onRemove } = this.props
+    const { active, config, details, editable, entity, expanded, fields, hovering, version, onDetails, onEdit, onExpand, onRemove } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       boxes: config,
+      details,
       editable,
       entity,
       expanded,
@@ -119,6 +122,7 @@ class FlowchartDesigner extends React.PureComponent {
       hovering,
       version,
       onAdd: this._handleAdd,
+      onDetails,
       onEdit,
       onExpand,
       onHover: this._handleHover,

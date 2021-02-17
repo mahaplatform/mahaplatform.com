@@ -109,7 +109,8 @@ class SpeakField extends React.PureComponent {
 
   _handlePlay() {
     const { team } = this.context.admin
-    const { voice, text } = this.state
+    const { voice } = this.state
+    const text = `<speak>${this.state.text.replace('\n', '<break time="1s" />')}</speak>`
     const audio = new Audio(`/api/admin/speak?text=${encodeURIComponent(text)}&voice=${voice}&token=${team.token}`)
     audio.play()
   }

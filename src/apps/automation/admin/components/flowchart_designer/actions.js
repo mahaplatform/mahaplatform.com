@@ -60,6 +60,11 @@ export const expand = (code) => ({
   code
 })
 
+export const details = (code) => ({
+  type: 'DETAILS',
+  code
+})
+
 export const setVersion = (index) => ({
   type: 'SET_VERSION',
   index

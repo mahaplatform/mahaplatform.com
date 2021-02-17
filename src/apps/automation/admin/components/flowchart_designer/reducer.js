@@ -3,6 +3,7 @@ import _ from 'lodash'
 const INITIAL_STATE = {
   active: null,
   changes: 0,
+  details: null,
   expanded: [],
   hovering: null,
   selected: null,
@@ -153,6 +154,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       selected: action.index
+    }
+
+  case 'DETAILS':
+    return {
+      ...state,
+      details: action.code !== state.details ? action.code : null
     }
 
   default:

@@ -1,4 +1,7 @@
+import PlayToken from '../play/token'
+import SayToken from '../say/token'
 import Form from './form'
+import React from 'react'
 
 export default {
   icon: 'bars',
@@ -6,5 +9,11 @@ export default {
   type: 'voice',
   action: 'dialmenu',
   form: Form,
-  token: (step) => step.name
+  token: (step) => (
+    <div>
+      <div>{ step.name }</div>
+      { step.strategy === 'say' && <SayToken { ...step } text="Play Greeting" /> }
+      { step.strategy === 'play' && <PlayToken { ...step } text="Play Greeting" /> }
+    </div>
+  )
 }
