@@ -19,7 +19,7 @@ const listRoute = async (req, res) => {
   const products = await Product.filterFetch({
     scope: qb => {
       qb.select(req.trx.raw('distinct on (stores_products.id,stores_products.title) stores_products.*'))
-      qb.innerJoin('stores_products_categories', 'stores_products_categories.product_id', 'stores_products.id')
+      qb.leftJoin('stores_products_categories', 'stores_products_categories.product_id', 'stores_products.id')
       qb.where('stores_products.store_id', store.get('id'))
       qb.where('stores_products.is_active', true)
       qb.whereNull('stores_products.deleted_at')

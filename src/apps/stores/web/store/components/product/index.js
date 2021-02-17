@@ -56,9 +56,11 @@ class Product extends React.Component {
               <div className="store-product-title">
                 { product.title }
               </div>
-              <div className="store-product-categories">
-                CATEGORIES: { product.categories.map(category => category.title).join(', ') }
-              </div>
+              { product.categories.length > 0 &&
+                <div className="store-product-categories">
+                  CATEGORIES: { product.categories.map(category => category.title).join(', ') }
+                </div>
+              }
               <div className="store-product-description" dangerouslySetInnerHTML={{ __html: product.description }} />
               { product.variants.length > 1 &&
                 <div className="store-product-variants">

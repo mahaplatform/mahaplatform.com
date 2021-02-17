@@ -30,6 +30,19 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load category'
   })
 
+  await activity(req, {
+    story: 'deleted {object}',
+    object: category
+  })
+
+  await req.trx('stores_products_categories').where('category_id', category.get('id')).del()
+
+  await req.trx('stores_categories').where('id', category.get('id')).del()
+
+  await socket.refresh(req, [
+    `/admin/stores/stores/${store.get('id')}`
+  ])
+
   res.status(200).respond(true)
 
 }

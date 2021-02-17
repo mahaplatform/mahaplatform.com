@@ -1,7 +1,5 @@
-import ProductSerializer from '@apps/stores/serializers/product_serializer'
-import { encode } from '@core/services/jwt'
-import Product from '@apps/stores/models/product'
 import Store from '@apps/stores/models/store'
+import { encode } from '@core/services/jwt'
 import { readFile } from '../utils'
 import path from 'path'
 import ejs from 'ejs'

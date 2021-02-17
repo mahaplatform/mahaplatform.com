@@ -22,12 +22,15 @@ class Catalog extends React.Component {
   _handleCategory = this._handleCategory.bind(this)
 
   render() {
+    const { store } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="store-catalog">
-          <div className="store-catalog-header">
-            <Categories { ...this._getCategories() } />
-          </div>
+          { store.categories.length > 0 &&
+            <div className="store-catalog-header">
+              <Categories { ...this._getCategories() } />
+            </div>
+          }
           <div className="store-catalog-body">
             <Infinite { ...this._getInfinite() } />
           </div>
