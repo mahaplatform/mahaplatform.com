@@ -15,9 +15,12 @@ const getRegistrationTokens = async (req, { registration_id }) => {
     invoice_id: registration.get('invoice_id')
   })
 
+  const tokens = registration.get('tokens')
+
   return {
-    ...registration.get('tokens'),
-    ...payment_tokens
+    ...tokens,
+    ...payment_tokens,
+    maha_url: `${process.env.WEB_HOST}${tokens.path}`
   }
 
 }

@@ -88,6 +88,7 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
+    const { form } = this.props
     this.context.analytics.trackPageView()
     this.context.analytics.trackMaha('form_id', form.id)
   }
@@ -149,7 +150,7 @@ class Form extends React.Component {
   }
 
   _handleSuccess() {
-    const { config, embedded, result } = this.props
+    const { config, embedded } = this.props
     const { strategy, redirect } = config.confirmation
     this._handleTrack()
     if(strategy !== 'redirect') return
@@ -159,7 +160,7 @@ class Form extends React.Component {
 
   _handleTrack() {
     const { analytics } = this.context
-    const { form, result } = this.props
+    const { result } = this.props
     const { response_id, contact_id } = result
     analytics.setUserId(contact_id)
     analytics.trackMaha('response_id', response_id)

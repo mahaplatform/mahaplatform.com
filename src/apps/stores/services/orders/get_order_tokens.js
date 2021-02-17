@@ -15,9 +15,12 @@ const getOrderTokens = async (req, { order_id }) => {
     invoice_id: order.get('invoice_id')
   })
 
+  const tokens = order.get('tokens')
+
   return {
-    ...order.get('tokens'),
-    ...payment_tokens
+    ...tokens,
+    ...payment_tokens,
+    maha_url: `${process.env.WEB_HOST}${tokens.path}`
   }
 
 }

@@ -1,4 +1,4 @@
-import ExecuteWorkflowQueue from '@apps/automation/queues/execute_workflow_queue'
+import ExecuteEnrollmentQueue from '@apps/automation/queues/execute_enrollment_queue'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import Workflow from '@apps/automation/models/workflow'
 import socket from '@core/services/routes/emitter'
@@ -38,7 +38,7 @@ const cancelRoute = async (req, res) => {
     patch: true
   })
 
-  await ExecuteWorkflowQueue.enqueue(req, {
+  await ExecuteEnrollmentQueue.enqueue(req, {
     enrollment_id: enrollment.get('id')
   })
 

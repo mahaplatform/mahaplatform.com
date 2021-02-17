@@ -83,9 +83,9 @@ class Fields extends React.Component {
   }
 
   _getField(field, index) {
-    const { code, errors, status, token } = this.props
+    const { form, errors, status, token } = this.props
     return {
-      code,
+      code: form.code,
       defaultValue: this._getDefaultValue(field),
       field,
       index,

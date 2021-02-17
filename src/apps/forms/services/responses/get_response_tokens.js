@@ -15,9 +15,12 @@ const getResponseTokens = async (req, { response_id }) => {
     invoice_id: response.get('invoice_id')
   })
 
+  const tokens = response.get('tokens')
+
   return {
-    ...response.get('tokens'),
-    ...payment_tokens
+    ...tokens,
+    ...payment_tokens,
+    maha_url: `${process.env.WEB_HOST}${tokens.path}`
   }
 
 }

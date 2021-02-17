@@ -1,8 +1,9 @@
-import ExecuteWorkflowQueue from '@apps/automation/queues/execute_workflow_queue'
-import { contactActivity } from '@apps/crm/services/activities'
+import ExecuteEnrollmentQueue from '@apps/automation/queues/execute_enrollment_queue'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
-import generateCode from '@core/utils/generate_code'
+import { contactActivity } from '@apps/crm/services/activities'
+import { getPublished } from '@apps/maha/services/versions'
 import Workflow from '@apps/automation/models/workflow'
+import generateCode from '@core/utils/generate_code'
 
 export const enrollInWorkflows = async (req, params) => {
 
@@ -49,6 +50,12 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
 
   if(existing && workflow.get('is_unique')) return false
 
+  const version = await getPublished(req, {
+    versionable_type: 'crm_workflows',
+    versionable_id: workflow.get('id'),
+    key: 'config'
+  })
+
   const code = await generateCode(req, {
     table: 'crm_workflow_enrollments'
   })
@@ -57,6 +64,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     team_id: req.team.get('id'),
     workflow_id: workflow.get('id'),
     contact_id: contact.get('id'),
+    version_id: version.get('id'),
     response_id: response ? response.get('id') : null,
     registration_id: registration ? registration.get('id') : null,
     email_id: email ? email.get('id') : null,
@@ -70,7 +78,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     transacting: req.trx
   })
 
-  if(!response && !registration && !email) {
+  if(!response && !registration && !order && !email) {
     await contactActivity(req, {
       contact,
       type: 'workflow',
@@ -84,7 +92,7 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
     })
   }
 
-  await ExecuteWorkflowQueue.enqueue(req, {
+  await ExecuteEnrollmentQueue.enqueue(req, {
     enrollment_id: enrollment.get('id')
   })
 

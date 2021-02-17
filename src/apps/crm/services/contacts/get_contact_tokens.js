@@ -4,7 +4,11 @@ const getContactTokens = async(req, { contact_id }) => {
     qb.where('contact_id', contact_id)
   }).then(results => results[0])
 
-  return tokens.tokens
+  return {
+    ...tokens.tokens,
+    maha_url: `${process.env.WEB_HOST}${tokens.tokens.path}`,
+    url: `${process.env.WEB_HOST}${tokens.tokens.path}`
+  }
 
 }
 

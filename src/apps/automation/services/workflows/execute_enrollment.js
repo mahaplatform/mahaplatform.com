@@ -27,6 +27,8 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     program: parent.related('program')
   })
 
+  console.log(tokens)
+
   const config = await renderWorkflow(req, {
     config: enrollment.related('version').get('value')
   })
