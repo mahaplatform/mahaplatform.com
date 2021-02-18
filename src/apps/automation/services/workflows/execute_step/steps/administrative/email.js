@@ -7,11 +7,11 @@ const emailStep = async (req, { config, state, step, tokens }) => {
 
   const { user_id, subject, body, email } = step.config
 
-  const user = await User.query(qb => {
+  const user = user_id ? await User.query(qb => {
     qb.where('id', user_id)
   }).fetch({
     transacting: req.trx
-  })
+  }) : null
 
   const rendered = personalizeEmail(req, {
     subject,
