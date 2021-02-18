@@ -39,25 +39,17 @@ const executeStep = async (req, params) => {
     })
   }
 
-  if(result.data || result.until) {
-    await enrollment.save({
-      ...enrollment.get('data') || {},
-      ...result.until ? { until: result.until } : {},
-      data: result.data
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
-
-  if(result.converted) {
-    await enrollment.save({
-      was_converted: true
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
+  await enrollment.save({
+    ...enrollment.get('data') || {},
+    ...result.until ? { until: result.until } : {},
+    ...result.data ? { data: result.data } : {},
+    ...result.converted ? { was_converted: result.true } : {},
+    ...result.session ? { session: result.session } : {},
+    next: result.next || state
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
   return result
 

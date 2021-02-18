@@ -41,22 +41,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       tokens
     })
 
-    await enrollment.save({
-      next: result.next || state
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-
-    if(result.session) {
-      await enrollment.save({
-        session: result.session
-      }, {
-        transacting: req.trx,
-        patch: true
-      })
-    }
-
     if(result.wait) return
 
     if(!result.next) {
