@@ -5,7 +5,7 @@ const announce = async (req, { config, state, step, twiml }) => {
 
   const recipient = step.recipients[req.query.index]
 
-  const announce = performAsk(req, { config, state, step: recipient, twiml })
+  const announce = performAsk(req, { config, state, step: { config: recipient }, twiml })
 
   if(!announce) return forward(req, { config, state, step, twiml })
 

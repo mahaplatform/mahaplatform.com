@@ -3,7 +3,7 @@ import forward from './forward'
 
 const announce = (req, { config, state, step, twiml }) => {
 
-  const announce = performAsk(req, { config, state, step: step.config, twiml })
+  const announce = performAsk(req, { config, state, step, twiml })
 
   if(!announce) return forward(req, { step, twiml })
 
