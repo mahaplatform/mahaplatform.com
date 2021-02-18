@@ -27,7 +27,8 @@ const getPhoneNumber = async (req, { number }) => {
     team_id: req.team.get('id'),
     code,
     first_name: caller.first_name,
-    last_name: caller.last_name
+    last_name: caller.last_name,
+    values: {}
   }).save(null, {
     transacting: req.trx
   })
