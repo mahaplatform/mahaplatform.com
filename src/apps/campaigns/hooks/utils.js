@@ -24,7 +24,8 @@ export const getContact = async (req, params) => {
 
   const contact = await Contact.forge({
     team_id,
-    code
+    code,
+    values: {}
   }).save(null, {
     transacting: req.trx
   })
