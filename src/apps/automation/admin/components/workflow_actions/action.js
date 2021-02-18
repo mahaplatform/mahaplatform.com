@@ -89,9 +89,7 @@ class Action extends React.PureComponent {
                 <span>Waited until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
               }
               { step.type === 'sms' && step.action === 'question' && !data &&
-                <span>
-                  Q: { action.sms ? action.sms.body : step.config.message }
-                </span>
+                <span>Q: { action.sms.body }</span>
               }
               { step.type === 'sms' && step.action === 'question' && data &&
                 <span>
@@ -99,7 +97,7 @@ class Action extends React.PureComponent {
                 </span>
               }
               { step.type === 'sms' && step.action === 'message' &&
-                <span>{ action.sms ? action.sms.body : step.config.message }</span>
+                <span>{ action.sms.body }</span>
               }
               { step.type === 'voice' && step.action === 'say' &&
                 <span>Said <Button { ...this._getSayButton(data) }/></span>

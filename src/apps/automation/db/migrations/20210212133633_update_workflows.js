@@ -32,7 +32,6 @@ const updateConfig = async (req, { items, table }) => {
         await action.save({
           step: {
             action: action.related('step').get('action'),
-            config: action.related('step').get('config'),
             type: action.related('step').get('type')
           }
         }, {
@@ -119,8 +118,6 @@ const updateConfigs = {
     await knex.schema.table('crm_workflow_actions', (table) => {
       table.dropColumn('step_id')
     })
-
-    await knex.raw('drop table crm_workflow_steps')
 
     await knex.schema.table('crm_workflow_actions', (table) => {
       table.integer('recording_id').unsigned()

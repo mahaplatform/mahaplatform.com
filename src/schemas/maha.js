@@ -632,6 +632,24 @@ const schema = {
       table.jsonb('session')
     })
 
+    await knex.schema.createTable('crm_workflow_steps', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.string('code', 255)
+      table.string('parent', 255)
+      table.string('answer', 255)
+      table.integer('delta')
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+      table.USER-DEFINED('type')
+      table.USER-DEFINED('action')
+      table.integer('voice_campaign_id').unsigned()
+      table.integer('sms_campaign_id').unsigned()
+      table.boolean('is_active')
+    })
+
     await knex.schema.createTable('crm_workflows', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2889,6 +2907,13 @@ const schema = {
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
       table.foreign('version_id').references('maha_versions.id')
+    })
+
+    await knex.schema.table('crm_workflow_steps', table => {
+      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflows', table => {

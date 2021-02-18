@@ -157,16 +157,16 @@ class FlowchartDesigner extends React.PureComponent {
         ] }
       ] },
       { label: 'Activities', fields: [
-        { name: 'Email Campaigns', key: 'contact.email_campaigns', type: 'select', endpoint: '/api/admin/campaigns/email', filter:  { program_id: { $eq: program.id } }, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-          { text: 'was sent the email', value: '$se' },
-          { text: 'was not sent the email', value: '$nse' },
-          { text: 'received the email', value: '$de' },
-          { text: 'did not received the email', value: '$nde' },
-          { text: 'opened the email', value: '$op' },
-          { text: 'did not open the email', value: '$nop' },
-          { text: 'clicked the email', value: '$ck' },
-          { text: 'did not click the email', value: '$nck' }
-        ] },
+        // { name: 'Email Campaigns', key: 'contact.email_campaigns', type: 'select', endpoint: '/api/admin/campaigns/email', filter:  { program_id: { $eq: program.id } }, text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        //   { text: 'was sent the email', value: '$se' },
+        //   { text: 'was not sent the email', value: '$nse' },
+        //   { text: 'received the email', value: '$de' },
+        //   { text: 'did not received the email', value: '$nde' },
+        //   { text: 'opened the email', value: '$op' },
+        //   { text: 'did not open the email', value: '$nop' },
+        //   { text: 'clicked the email', value: '$ck' },
+        //   { text: 'did not click the email', value: '$nck' }
+        // ] },
         { name: 'Event', key: 'contact.event_ids', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
           { value: '$ct', text: 'registered for' },
           { value: '$nct', text: 'did not registered for' }
@@ -175,20 +175,24 @@ class FlowchartDesigner extends React.PureComponent {
           { value: '$ct', text: 'filled out' },
           { value: '$nct', text: 'did not fill out' }
         ] },
+        { name: 'Order', key: 'contact.store_ids', type: ListCriteria, endpoint: '/api/admin/stores/stores', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+          { value: '$ct', text: 'ordered from' },
+          { value: '$nct', text: 'did not order from' }
+        ] },
         { name: 'Import', key: 'contact.import_ids', type: 'select', endpoint: '/api/admin/crm/imports', filter:  { stage: { $eq: 'complete' } }, text: 'description', value: 'id', multiple: false, subject: false, format: ImportToken, comparisons: [
           { value: '$ct', text: 'was included in import' },
           { value: '$nct', text: 'was not included in import' }
         ] },
-        { name: 'Workflow Emails', key: 'contact.workflow_emails', type: 'select', endpoint: this._getWorkflowEmailsEndpoint(), text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
-          { text: 'was sent the email', value: '$se' },
-          { text: 'was not sent the email', value: '$nse' },
-          { text: 'received the email', value: '$de' },
-          { text: 'did not received the email', value: '$nde' },
-          { text: 'opened the email', value: '$op' },
-          { text: 'did not open the email', value: '$nop' },
-          { text: 'clicked the email', value: '$ck' },
-          { text: 'did not click the email', value: '$nck' }
-        ] }
+        // { name: 'Workflow Emails', key: 'contact.workflow_emails', type: 'select', endpoint: this._getWorkflowEmailsEndpoint(), text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+        //   { text: 'was sent the email', value: '$se' },
+        //   { text: 'was not sent the email', value: '$nse' },
+        //   { text: 'received the email', value: '$de' },
+        //   { text: 'did not received the email', value: '$nde' },
+        //   { text: 'opened the email', value: '$op' },
+        //   { text: 'did not open the email', value: '$nop' },
+        //   { text: 'clicked the email', value: '$ck' },
+        //   { text: 'did not click the email', value: '$nck' }
+        // ] }
       ] }
     ]
   }

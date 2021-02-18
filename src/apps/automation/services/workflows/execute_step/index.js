@@ -31,8 +31,7 @@ const executeStep = async (req, params) => {
       enrollment_id: enrollment.get('id'),
       step: {
         type: step.type,
-        action: step.action,
-        config: step.config
+        action: step.action
       },
       ...result.action
     }).save(null, {
