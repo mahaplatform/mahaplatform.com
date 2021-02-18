@@ -38,8 +38,8 @@ const smsStep = async (req, { config, contact, program, state, step, tokens }) =
   const sms = await sendSMS(req, {
     from: program.related('phone_number').get('number'),
     to: phone_number.get('number'),
-    body: step.message,
-    asset_ids: step.asset_ids,
+    body: step.config.message,
+    asset_ids: step.config.asset_ids,
     data: tokens,
     queue: false
   })

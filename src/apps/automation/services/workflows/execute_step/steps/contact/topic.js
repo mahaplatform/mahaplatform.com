@@ -3,7 +3,7 @@ import { getNext } from '../utils'
 
 const topicStep = async (req, { config, contact, state, step }) => {
 
-  const { action, topic_id } = step
+  const { action, topic_id } = step.config
 
   if(!topic_id) return {}
 

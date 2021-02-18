@@ -26,7 +26,8 @@ const getEnrollmentTokens = async (req, { contact, enrollment, program }) => ({
     order: await getOrderTokens(req, {
       order_id: enrollment.get('order_id')
     })
-  } : {}
+  } : {},
+  workflow: enrollment.get('data')
 })
 
 export default getEnrollmentTokens

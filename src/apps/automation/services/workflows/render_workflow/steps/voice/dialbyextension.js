@@ -4,9 +4,11 @@ import _ from 'lodash'
 const dialbyextension = async (req, { steps, step }) => {
   const { config } = step
   return {
-    strategy: config.strategy,
-    say: config.say,
-    recording_id: config.recording_id,
+    config: {
+      strategy: config.strategy,
+      say: config.say,
+      recording_id: config.recording_id
+    },
     extensions: config.extensions.map(extension => ({
       extension: extension.extension,
       strategy: extension.strategy,

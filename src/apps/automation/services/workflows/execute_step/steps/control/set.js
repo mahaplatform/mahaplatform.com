@@ -2,16 +2,16 @@ import { getNext } from '../utils'
 
 const setStep = async (req, { config, state, step }) => {
 
-  const { code, value } = step
+  const { name, value } = step.config
 
   return {
     action: {
       data: {
-        [code]: value
+        [name.token]: value
       }
     },
     data: {
-      [code]: value
+      [name.token]: value
     },
     next: getNext(req, { config, state })
   }

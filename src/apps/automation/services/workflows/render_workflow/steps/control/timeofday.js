@@ -4,6 +4,7 @@ const timeofday = async (req, { steps, step }) => {
   const { timeblocks } = step.config
   return {
     timeblocks: await Promise.mapSeries(timeblocks, async(timeblock) => ({
+      name: timeblock.name,
       days: timeblock.days,
       times: timeblock.times,
       steps: await getSegment(req, {

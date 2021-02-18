@@ -6,7 +6,7 @@ const addToTopics = async (req, { contact, topic_ids }) => {
 
     const interest = await req.trx('crm_interests').where(qb => {
       qb.where('contact_id', contact.get('id'))
-      qb.where('list_id', topic_id)
+      qb.where('topic_id', topic_id)
     }).then(results => results[0])
 
     if(interest) return

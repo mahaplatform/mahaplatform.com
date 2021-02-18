@@ -115,7 +115,7 @@ const updateInterests = async (req, { contact, program, topic_ids }) => {
 
 }
 
-export const updateConsent = async (req, { program, channel_type, channel_id, channel_code, optout, optin_reason, optout_reason, optout_reason_other, topic_ids }) => {
+const updateConsent = async (req, { program, channel_type, channel_id, channel_code, optout, optin_reason, optout_reason, optout_reason_other, topic_ids }) => {
 
   const channel = await _getChannel(req, {
     type: channel_type,
@@ -180,3 +180,5 @@ export const updateConsent = async (req, { program, channel_type, channel_id, ch
   }
 
 }
+
+export default updateConsent

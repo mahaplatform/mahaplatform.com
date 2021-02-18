@@ -9,7 +9,7 @@ const ask = (req, { config, enrollment, state, step, twiml }) => {
     timeout: 3
   })
 
-  const ask = performAsk(req, { config, state, step, twiml: gather })
+  const ask = performAsk(req, { config, state, step: step.config, twiml: gather })
 
   twiml.redirect(getUrl(req, { state: `${state}.noinput.steps.0` }))
 

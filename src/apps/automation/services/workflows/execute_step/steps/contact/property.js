@@ -2,7 +2,7 @@ import { getNext } from '../utils'
 
 const propertyStep = async (req, { config, contact, state, step }) => {
 
-  const { name, value, overwrite } = step
+  const { name, value, overwrite } = step.config
 
   // await contact.save({
   //   values: {}

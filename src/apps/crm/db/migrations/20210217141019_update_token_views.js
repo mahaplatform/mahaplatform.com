@@ -102,6 +102,7 @@ const UpdateTokenViews = {
       case
       when fields.type = 'addressfield' then responses.value->'description'
       when fields.type = 'paymentfield' then responses.value->'line_items'->0->'total'
+      when fields.type = 'optionsfield' then responses.value->'line_items'->0->'total'
       else responses.value
       end as value
       from responses

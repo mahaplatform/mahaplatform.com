@@ -4,9 +4,11 @@ import _ from 'lodash'
 const dialmenu = async (req, { steps, step }) => {
   const { config } = step
   return {
-    strategy: config.strategy,
-    say: config.say,
-    recording_id: config.recording_id,
+    config: {
+      strategy: config.strategy,
+      say: config.say,
+      recording_id: config.recording_id      
+    },
     options: await Promise.mapSeries(config.options, async(option) => ({
       number: option.number,
       strategy: config.strategy,

@@ -2,7 +2,6 @@ import { getEnrollmentParent, getEnrollmentTokens } from '@apps/automation/servi
 import ExecuteEnrollmentQueue from '@apps/automation/queues/execute_enrollment_queue'
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import executeStep from '@apps/automation/services/workflows/execute_step'
-import WorkflowAction from '@apps/automation/models/workflow_action'
 import { renderWorkflow } from '@apps/automation/services/workflows'
 import moment from 'moment'
 
@@ -27,8 +26,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     program: parent.related('program')
   })
 
-  console.log(tokens)
-
   const config = await renderWorkflow(req, {
     config: enrollment.related('version').get('value')
   })
@@ -43,16 +40,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       state,
       tokens
     })
-
-    if(result.action) {
-      await WorkflowAction.forge({
-        team_id: req.team.get('id'),
-        enrollment_id: enrollment.get('id'),
-        ...result.action
-      }).save(null, {
-        transacting: req.trx
-      })
-    }
 
     await enrollment.save({
       next: result.next || state
@@ -72,15 +59,6 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
 
     if(result.wait) return
 
-    if(result.converted) {
-      await enrollment.save({
-        was_converted: true
-      }, {
-        transacting: req.trx,
-        patch: true
-      })
-    }
-
     if(!result.next) {
       return await enrollment.save({
         completed_at: moment(),
@@ -91,12 +69,12 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
       })
     }
 
-    const options = result.until ? { until: result.until } : {}
-
     await ExecuteEnrollmentQueue.enqueue(req, {
       enrollment_id: enrollment.get('id'),
       state: enrollment.get('next')
-    }, options)
+    }, {
+      until: result.until
+    })
 
   } catch(err) {
 

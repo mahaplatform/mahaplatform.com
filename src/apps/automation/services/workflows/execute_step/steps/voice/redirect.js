@@ -20,7 +20,7 @@ const getNext = (config, destination, path = 'steps') => {
 
 const redirectStep = (req, { config, state, step, twiml }) => {
 
-  const { destination } = step
+  const { destination } = step.config
 
   return {
     action: {},

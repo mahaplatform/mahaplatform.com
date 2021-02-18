@@ -14,6 +14,7 @@ const blocks = {
   message: { icon: 'comment' },
   sms: { icon: 'comment' },
   set: { icon: 'times' },
+  timeofday: { icon: 'clock-o' },
   internal_sms: { icon: 'comment' },
   record: { icon: 'microphone' },
   topic: { icon: 'lightbulb-o' },
@@ -36,8 +37,8 @@ class Action extends React.PureComponent {
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { action, enrollment } = this.props
-    const { asset, data, email, list, program, recording, step, topic, user } = action
+    const { action } = this.props
+    const { asset, data, email, list, program, recording, sms, step, topic, user } = action
     const { config } = step
     const { expanded } = this.state
     return (
@@ -73,16 +74,23 @@ class Action extends React.PureComponent {
               { step.type === 'control' && step.action === 'ifthen' &&
                 <span>BRANCH: { data.branch }</span>
               }
+              { step.type === 'control' && step.action === 'timeofday' &&
+                <span>TIMEBLOCK: { data.timeblock }</span>
+              }
               { step.type === 'control' && step.action === 'set' &&
-                <span>{ config.name.value } = { data[config.code] }</span>
+                <span>{ config.name.value } = { data[config.name.value] }</span>
               }
               { step.type === 'control' && step.action === 'wait' &&
                 <span>Waited until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
               }
-              { step.type === 'sms' && step.action === 'question' &&
+              { step.type === 'sms' && step.action === 'question' && !data &&
                 <span>
-                  Q: { action.sms ? action.sms.body : step.config.message }<br />
-                  A: { data[step.config.code] }
+                  Q: { action.sms ? action.sms.body : step.config.message }
+                </span>
+              }
+              { step.type === 'sms' && step.action === 'question' && data &&
+                <span>
+                  A: { data.answer }
                 </span>
               }
               { step.type === 'sms' && step.action === 'message' &&
@@ -124,14 +132,20 @@ class Action extends React.PureComponent {
                   } for { data.duration } seconds
                 </span>
               }
-              { step.type === 'administrative' && step.action === 'email' && config.user &&
-                <span>Sent internal email to { config.user.full_name }</span>
+              { step.type === 'administrative' && step.action === 'email' &&
+                <span>Sent internal email <Button { ...this._getEmailButton(email) } /> to { user ? user.full_name : data.email }</span>
               }
-              { step.type === 'administrative' && step.action === 'sms' && config.user &&
-                <span>Sent internal sms to { config.user.full_name }</span>
+              { step.type === 'administrative' && step.action === 'sms' &&
+                <span>
+                  Sent internal sms to { user ? user.full_name : data.email }<br />
+                  { sms.body }
+                </span>
               }
               { step.type === 'communication' && step.action === 'email' && email &&
-                <span>Sent <Button { ...this._getEmailButton(enrollment.contact, email) }/></span>
+                <span>Sent <Button { ...this._getEmailButton(email) }/></span>
+              }
+              { step.type === 'communication' && step.action === 'sms' && sms &&
+                <span>{ sms.body }</span>
               }
             </div>
           }
@@ -148,7 +162,7 @@ class Action extends React.PureComponent {
     return expanded ? 'caret-down' : 'caret-right'
   }
 
-  _getEmailButton(contact, email) {
+  _getEmailButton(email) {
     return {
       label: email.subject,
       className: 'link',

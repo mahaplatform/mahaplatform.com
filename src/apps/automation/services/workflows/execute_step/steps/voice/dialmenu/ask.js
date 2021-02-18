@@ -2,18 +2,16 @@ import { getUrl, performAsk } from '../../utils'
 
 const ask = (req, { config, enrollment, state, step, twiml }) => {
 
-  const { options } = step
-
   const gather = twiml.gather({
     action: getUrl(req, { state, action: 'answer' }),
     finishOnKey: '',
-    numDigits: options.reduce((digits, option) => {
+    numDigits: step.options.reduce((digits, option) => {
       return Math.max(digits, option.number.length)
     }, 0),
     timeout: 3
   })
 
-  const ask = performAsk(req, { config, state, step, twiml: gather })
+  const ask = performAsk(req, { config, state, step: step.config, twiml: gather })
 
   twiml.redirect(getUrl(req, { state: `${state}.noinput.steps.0` }))
 

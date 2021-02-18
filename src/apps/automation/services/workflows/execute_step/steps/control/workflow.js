@@ -4,7 +4,7 @@ import { getNext } from '../utils'
 
 const workflowStep = async (req, { contact, config, state, step }) => {
 
-  const { workflow_id } = step
+  const { workflow_id } = step.config
 
   const workflow = await Workflow.query(qb => {
     qb.where('id', workflow_id)

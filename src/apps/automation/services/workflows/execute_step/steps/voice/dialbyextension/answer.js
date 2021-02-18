@@ -2,7 +2,7 @@ import { getUrl } from '../../utils'
 
 const processAnswer = (req, { config, enrollment, state, step, twiml }) => {
 
-  const { star, hash, extensions } = step
+  const { star, hash, extensions } = step.config
 
   if(star && req.body.Digits === '*') {
     twiml.redirect(getUrl(req, { state: `${state}.star.steps.0` }))

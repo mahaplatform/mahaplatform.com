@@ -5,30 +5,36 @@ import { getNext } from '../utils'
 
 const emailStep = async (req, { config, state, step, tokens }) => {
 
+  const { user_id, subject, body, email } = step.config
+
   const user = await User.query(qb => {
-    qb.where('id', step.user_id)
+    qb.where('id', user_id)
   }).fetch({
     transacting: req.trx
   })
 
   const rendered = personalizeEmail(req, {
-    subject: step.subject,
-    html: step.body,
+    subject,
+    html: body,
     data: tokens
   })
 
-  const email = await sendEmail(req, {
+  const sent = await sendEmail(req, {
     team_id: req.team.get('id'),
     user,
     from: req.team.get('rfc822'),
-    to: user ? user.get('rfc822') : step.email,
+    to: user ? user.get('rfc822') : email,
     subject: rendered.subject,
     html: rendered.html.replace('\n', '<br />')
   })
 
   return {
     action: {
-      email_id: email.get('id')
+      email_id: sent.get('id'),
+      user_id
+    },
+    data: {
+      email
     },
     next: getNext(req, { config, state })
   }

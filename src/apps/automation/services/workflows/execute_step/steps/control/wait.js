@@ -14,7 +14,7 @@ const getDatetime = ({ until_date, until_time }) => {
 
 const waitStep = async (req, { config, state, step }) => {
 
-  const until = step.strategy === 'duration' ? getDuration(step) : getDatetime(step)
+  const until = step.config.strategy === 'duration' ? getDuration(step) : getDatetime(step)
 
   return {
     action: {

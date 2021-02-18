@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const consentStep = async (req, { config, contact, program, state, step, tokens }) => {
 
-  const { action, channel_type, token } = step
+  const { action, channel_type, token } = step.config
 
   const value = _.get(tokens, token)
 

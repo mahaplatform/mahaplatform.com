@@ -14,8 +14,8 @@ const messageStep = async (req, { config, enrollment, program, state, step, toke
   const sms = await sendSMS(req, {
     from: program.related('phone_number').get('number'),
     to: enrollment.related('phone_number').get('number'),
-    body: step.message,
-    asset_ids: step.asset_ids,
+    body: step.config.message,
+    asset_ids: step.config.asset_ids,
     data: tokens,
     queue: false
   })

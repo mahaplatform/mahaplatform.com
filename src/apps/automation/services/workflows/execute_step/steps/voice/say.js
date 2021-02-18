@@ -8,9 +8,9 @@ const getVoice = (voice) => {
 
 const sayStep = (req, { config, state, step, twiml }, child = false) => {
 
-  const { text } = step.say
+  const { text } = step.config.say
 
-  const voice = getVoice(step.say.voice)
+  const voice = getVoice(step.config.say.voice)
 
   const phrases = text.split('\n')
 
@@ -31,7 +31,7 @@ const sayStep = (req, { config, state, step, twiml }, child = false) => {
   return {
     action: {
       data: {
-        voice: step.say.voice,
+        voice: step.config.say.voice,
         text
       }
     },

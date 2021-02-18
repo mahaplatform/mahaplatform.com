@@ -45,25 +45,6 @@ const showRoute = async (req, res) => {
     twiml
   })
 
-  if(result.action) {
-    await WorkflowAction.forge({
-      team_id: req.team.get('id'),
-      enrollment_id: enrollment.get('id'),
-      ...result.action
-    }).save(null, {
-      transacting: req.trx
-    })
-  }
-
-  if(result.converted) {
-    await enrollment.save({
-      was_converted: true
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
-
   if(result.next) {
     result.twiml.redirect(`${process.env.TWILIO_HOST_TWIML}/voice/campaigns/enrollments/${enrollment.get('code')}?state=${result.next}`)
   } else {

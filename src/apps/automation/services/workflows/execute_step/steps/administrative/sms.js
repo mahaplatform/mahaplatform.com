@@ -15,18 +15,24 @@ const getToNumber = async (req, { number, user_id }) => {
 
 const smsStep = async (req, { config, contact, state, step, tokens }) => {
 
+  const { user_id, number } = step.config
+
   const sms = await sendSMS(req, {
     from: process.env.TWILIO_NUMBER,
-    to: await getToNumber(req, step),
-    body: step.message,
-    asset_ids: step.asset_ids,
+    to: await getToNumber(req, { user_id, number }),
+    body: step.config.message,
+    asset_ids: step.config.asset_ids,
     data: tokens,
     queue: false
   })
 
   return {
     action: {
-      sms_id: sms.get('id')
+      sms_id: sms.get('id'),
+      user_id
+    },
+    data: {
+      number
     },
     next: getNext(req, { config, state })
   }

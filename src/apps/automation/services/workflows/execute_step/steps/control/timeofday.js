@@ -21,7 +21,7 @@ const timeOfDayStep = async (req, { state, config, step }) => {
   return {
     action: {
       data: {
-        timeblock: index >= 0 ? step.timeblocks[index] : 'else'
+        timeblock: index >= 0 ? step.timeblocks[index].name : 'else'
       }
     },
     next: index >= 0 ? `${state}.timeblocks.${index}.steps.0` : `${state}.else.steps.0`

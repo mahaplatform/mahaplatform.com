@@ -31,7 +31,7 @@ export const announce = async(req, config) => {
 }
 
 const getStep = async (req, { steps, step }) => {
-  const defaultExecutor = () => step.config
+  const defaultExecutor = () => ({ config: step.config })
   const executor = _.get(executors, `${step.type}.${step.action}`) || defaultExecutor
   return await executor(req, {
     steps,
