@@ -7,6 +7,7 @@ const WorkflowActionSerializer = (req, result) => ({
   list: list(result.related('list')),
   program: program(result.related('program')),
   recording: asset(result.related('recording')),
+  voicemail: asset(result.related('voicemail').related('asset')),
   topic: topic(result.related('topic')),
   user: user(result.related('user')),
   data: result.get('data'),

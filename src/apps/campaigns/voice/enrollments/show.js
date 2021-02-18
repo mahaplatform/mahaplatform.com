@@ -1,7 +1,6 @@
 import { getEnrollmentTokens } from '@apps/automation/services/enrollments'
 import executeStep from '@apps/automation/services/workflows/execute_step'
 import Enrollment from '@apps/automation/models/workflow_enrollment'
-import WorkflowAction from '@apps/automation/models/workflow_action'
 import { renderWorkflow } from '@apps/automation/services/workflows'
 import Twilio from 'twilio'
 

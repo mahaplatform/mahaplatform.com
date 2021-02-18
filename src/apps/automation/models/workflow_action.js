@@ -1,4 +1,5 @@
 import WorkflowEnrollment from './workflow_enrollment'
+import Voicemail from '@apps/maha/models/voicemail'
 import Program from '@apps/crm/models/program'
 import Field from '@apps/maha/models/field'
 import Email from '@apps/maha/models/email'
@@ -63,6 +64,10 @@ const WorkflowAction = new Model({
 
   user() {
     return this.belongsTo(User, 'user_id')
+  },
+
+  voicemail() {
+    return this.belongsTo(Voicemail, 'voicemail_id')
   },
 
   workflow() {

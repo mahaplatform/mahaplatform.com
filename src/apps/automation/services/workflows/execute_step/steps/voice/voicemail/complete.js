@@ -11,9 +11,9 @@ const complete = async (req, { config, enrollment, state, step, twiml }) => {
 
   return {
     action: {
+      voicemail_id: voicemail.get('id'),
       data: {
-        action: 'complete',
-        voicemail_id: voicemail.get('id')
+        action: 'complete'
       }
     },
     next: getNext(req, { config, state }),

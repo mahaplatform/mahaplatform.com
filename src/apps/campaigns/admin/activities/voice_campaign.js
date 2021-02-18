@@ -1,3 +1,4 @@
+import WorkflowActions from '@apps/automation/admin/components/workflow_actions'
 import { Button, Container } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,7 +16,7 @@ class VoiceCampaign extends React.PureComponent {
   static defaultProps = {}
 
   render() {
-    const { voice_campaign } = this.props
+    const { actions, enrollment, voice_campaign } = this.props
     return (
       <div className="crm-workflow-card">
         <table className="ui celled compact unstackable table">
@@ -30,6 +31,7 @@ class VoiceCampaign extends React.PureComponent {
             </tr>
           </tbody>
         </table>
+        <WorkflowActions workflow={ voice_campaign } enrollment={ enrollment } actions={ actions } trigger_type={`${voice_campaign.direction}_${voice_campaign.type}`} />
       </div>
     )
   }
@@ -46,7 +48,9 @@ class VoiceCampaign extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  voice_campaign: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}`
+  actions: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}/actions`,
+  voice_campaign: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}`,
+  enrollment: `/api/admin/campaigns/voice/${props.activity.data.voice_campaign_id}/calls/${props.activity.data.enrollment_id}`
 })
 
 export default Container(mapResources)(VoiceCampaign)

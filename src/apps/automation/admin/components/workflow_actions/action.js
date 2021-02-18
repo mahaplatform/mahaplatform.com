@@ -12,6 +12,7 @@ const blocks = {
   play: { icon: 'play' },
   say: { icon: 'volume-control-phone' },
   message: { icon: 'comment' },
+  voicemail: { icon: 'voicemail' },
   sms: { icon: 'comment' },
   set: { icon: 'times' },
   timeofday: { icon: 'clock-o' },
@@ -24,6 +25,10 @@ const blocks = {
 }
 
 class Action extends React.PureComponent {
+
+  static contextTypes = {
+    admin: PropTypes.object
+  }
 
   static propTypes = {
     action: PropTypes.object,
@@ -38,9 +43,9 @@ class Action extends React.PureComponent {
 
   render() {
     const { action } = this.props
-    const { asset, data, email, list, program, recording, sms, step, topic, user } = action
-    const { config } = step
+    const { asset, data, email, list, program, recording, sms, step, topic, user, voicemail } = action
     const { expanded } = this.state
+    const { config } = step
     return (
       <div className="crm-workflow-action">
         <div className="crm-workflow-action-icon">
@@ -97,13 +102,16 @@ class Action extends React.PureComponent {
                 <span>{ action.sms ? action.sms.body : step.config.message }</span>
               }
               { step.type === 'voice' && step.action === 'say' &&
-                <span>Said { `"${data.message}"` }</span>
+                <span>Said <Button { ...this._getSayButton(data) }/></span>
               }
-              { step.type === 'voice' && step.action === 'play' && asset &&
-                <span>Played <Button { ...this._getPlayButton(asset) }/></span>
+              { step.type === 'voice' && step.action === 'play' && recording &&
+                <span>Played <Button { ...this._getPlayButton(recording, 'recording') }/></span>
               }
               { step.type === 'voice' && step.action === 'question' && asset &&
                 <span>Asked <Button { ...this._getPlayButton(asset) }/>, answered { data[config.code] }</span>
+              }
+              { step.type === 'voice' && step.action === 'voicemail' && voicemail &&
+                <span>Recorded <Button { ...this._getPlayButton(voicemail, 'voicemail') }/></span>
               }
               { step.type === 'voice' && step.action === 'question' && data.question &&
                 <span>
@@ -170,9 +178,9 @@ class Action extends React.PureComponent {
     }
   }
 
-  _getPlayButton(asset) {
+  _getPlayButton(asset, label) {
     return {
-      label: 'recording',
+      label,
       className: 'link',
       handler: this._handlePlay.bind(this, asset)
     }
@@ -180,6 +188,21 @@ class Action extends React.PureComponent {
 
   _handlePlay(asset) {
     const audio = new Audio(asset.signed_url)
+    audio.play()
+  }
+
+  _getSayButton(data) {
+    return {
+      label: data.text,
+      className: 'link',
+      handler: this._handleSay.bind(this, data)
+    }
+  }
+
+  _handleSay(data) {
+    const { team } = this.context.admin
+    const text = `<speak>${data.text.replace('\n', '<break time="1s" />')}</speak>`
+    const audio = new Audio(`/api/admin/speak?text=${encodeURIComponent(text)}&voice=${data.voice}&token=${team.token}`)
     audio.play()
   }
 

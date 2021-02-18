@@ -38,7 +38,7 @@ export const enrollInCampaign = async (req, params) => {
   await contactActivity(req, {
     contact,
     type: 'voice_campaign',
-    story: 'enrolled in inbound voice workflow',
+    story: 'called the program',
     program_id: voice_campaign.get('program_id'),
     data: {
       enrollment_id: enrollment.get('id'),

@@ -39,7 +39,7 @@ const forward = async (req, { step, twiml }) => {
 
     }
 
-    if(recipient.user) {
+    if(recipient.client) {
 
       const client = dial.client({
         statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice/status`,

@@ -47,7 +47,7 @@ const createRoute = async (req, res) => {
     voiceUrl: `${process.env.TWILIO_HOST_TWIML}/voice`,
     voiceReceiveMode: req.body.type,
     statusMethod: 'POST',
-    statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice-status`
+    statusCallback: `${process.env.TWILIO_HOST_STATUS}/voice/status`
   })
 
   const phone_number = await PhoneNumber.forge({

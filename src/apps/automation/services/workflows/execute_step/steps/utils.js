@@ -22,6 +22,6 @@ export const getNext = (req, { config, state }) => {
 }
 
 export const performAsk = (req, { config, state, step, twiml }) => {
-  if(step.strategy === 'say') return say(req, { config, state, step, twiml }, true)
-  if(step.strategy === 'play') return play(req, { config, state, step, twiml }, true)
+  if(step.config.strategy === 'say') return say(req, { config, state, step, twiml }, true)
+  if(step.config.strategy === 'play') return play(req, { config, state, step, twiml }, true)
 }

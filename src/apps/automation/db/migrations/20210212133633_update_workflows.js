@@ -125,6 +125,8 @@ const updateConfigs = {
     await knex.schema.table('crm_workflow_actions', (table) => {
       table.integer('recording_id').unsigned()
       table.foreign('recording_id').references('maha_assets.id')
+      table.integer('voicemail_id').unsigned()
+      table.foreign('voicemail_id').references('maha_voicemails.id')
     })
 
   },

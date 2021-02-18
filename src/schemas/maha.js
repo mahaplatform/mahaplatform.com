@@ -599,6 +599,7 @@ const schema = {
       table.timestamp('waited_until')
       table.jsonb('step')
       table.integer('recording_id').unsigned()
+      table.integer('voicemail_id').unsigned()
     })
 
     await knex.schema.createTable('crm_workflow_enrollments', (table) => {
@@ -2872,6 +2873,7 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('workflow_id').references('crm_workflows.id')
       table.foreign('recording_id').references('maha_assets.id')
+      table.foreign('voicemail_id').references('maha_voicemails.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
@@ -4807,6 +4809,7 @@ union
       case
       when (fields.type = 'addressfield'::text) then (responses.value -> 'description'::text)
       when (fields.type = 'paymentfield'::text) then (((responses.value -> 'line_items'::text) -> 0) -> 'total'::text)
+      when (fields.type = 'optionsfield'::text) then (((responses.value -> 'line_items'::text) -> 0) -> 'total'::text)
       else responses.value
       end as value
       from (responses

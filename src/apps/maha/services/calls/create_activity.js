@@ -14,7 +14,6 @@ const createCallActivity = async (req, params) => {
     user_id: req.user ? req.user.get('id') : null,
     call_id: call.get('id'),
     type: params.type,
-    verb: params.verb,
     to_user_id: params.to_user_id,
     client: params.client,
     data: params.data

@@ -1,7 +1,14 @@
-import { updateCall } from '@apps/maha/services/calls'
+import TwilioStatusQueue from '@apps/maha/queues/twilio_status_queue'
 import { executeHooks } from '@core/services/hooks'
 import socket from '@core/services/routes/emitter'
 import Call from '@apps/maha/models/call'
+import twilio from '@core/vendor/twilio'
+
+const getParent = async (sid) => {
+  const twcall = await twilio.calls(sid).fetch()
+  if(!twcall.parentCallSid) return twcall
+  return await getParent(twcall.parentCallSid)
+}
 
 const statusRoute = async (req, res) => {
 
@@ -20,31 +27,15 @@ const statusRoute = async (req, res) => {
 
   req.team = call.related('team')
 
-  // if(!req.body.ParentCallSid) {
-  //
-  //   if(req.body.CallStatus === 'completed') {
-  //     await updateCall(req, {
-  //       call,
-  //       status: req.body.CallStatus
-  //     })
-  //   }
-  //
-  // } else {
-  //
-  //   if(req.body.CallStatus === 'ringing' && call.get('status') !== 'transferring') {
-  //     await updateCall(req, {
-  //       call,
-  //       status: 'dialing'
-  //     })
-  //   }
-  //
-  //   if(req.body.CallStatus === 'in-progress') {
-  //     await updateCall(req, {
-  //       call,
-  //       status: 'in-progress'
-  //     })
-  //   }
-  // }
+  const parent = await getParent(req.body.CallSid)
+
+  await TwilioStatusQueue.enqueue(req, {
+    parent_sid: parent.sid,
+    sid: req.body.CallSid,
+    body: req.body
+  }, {
+    delay: 5000
+  })
 
   await executeHooks(req, 'voice-status', {
     call,
@@ -53,12 +44,25 @@ const statusRoute = async (req, res) => {
     error_code: req.body.ErrorCode
   })
 
+  await socket.message(req, {
+    channel: '/calls',
+    action: 'callstatus',
+    data: {
+      parent_sid: parent.sid,
+      sid: req.body.CallSid,
+      direction:req.body.Direction,
+      from: req.body.From,
+      to: req.body.To,
+      status: req.body.CallStatus
+    }
+  })
+
   await socket.refresh(req, [
     '/admin/team/calls',
     `/admin/calls/${call.get('id')}`
   ])
 
-  res.status(200).send(null)
+  res.status(200).send(true)
 
 }
 
