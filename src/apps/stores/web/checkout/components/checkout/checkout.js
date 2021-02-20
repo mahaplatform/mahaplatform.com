@@ -137,10 +137,7 @@ class Checkout extends React.Component {
     const { data, Store, items, token, total } = this.props
     return {
       data,
-      items: items.map(item => ({
-        ...item,
-        name: `${Store.program.title} - ${Store.title} - ${item.title}`
-      })),
+      items,
       Store,
       token,
       total,

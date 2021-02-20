@@ -94,7 +94,6 @@ class PayPal extends React.Component {
           intent: 'capture',
           displayName: program.title,
           lineItems: lineItems ? lineItems.map(line_item => ({
-            description: line_item.name,
             quantity: line_item.quantity,
             unitAmount: line_item.price,
             name: line_item.name

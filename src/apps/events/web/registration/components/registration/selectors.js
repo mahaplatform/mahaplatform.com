@@ -21,7 +21,7 @@ export const items = createSelector(
       ticket_type_id: ticket_type.id,
       name: ticket_type.name,
       quantity,
-      price,
+      price: Number(price),
       total: quantity * Number(price)
     }
   })

@@ -38,6 +38,12 @@ class PaymentStep extends React.Component {
       amount: total,
       data,
       endpoint: `/api/stores/stores/${code}/orders`,
+      lineItems: items.map(item => ({
+        name: `${Store.program.title} - ${Store.title} - ${item.title}`,
+        quantity: item.quantity,
+        price: Number(item.price),
+        total: item.quantity * Number(item.price)
+      })),
       items,
       program,
       settings,

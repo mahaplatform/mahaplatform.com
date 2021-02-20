@@ -116,10 +116,15 @@ const submitRoute = async (req, res) => {
 
   req.team = store.related('team')
 
-  const variants = store.related('products').reduce((variants, product) => [
-    ...variants,
-    ...product.related('variants')
-  ], [])
+  const variants = store.related('products').reduce((variants, product) => {
+    return [
+      ...variants,
+      ...product.related('variants').map(variant => {
+        variant.set('name', product.get('title'))
+        return variant
+      })
+    ]
+  }, [])
 
   const fields = [
     { code: 'first_name', type: 'contactfield', contactfield: { name: 'first_name' }, overwrite: true },
