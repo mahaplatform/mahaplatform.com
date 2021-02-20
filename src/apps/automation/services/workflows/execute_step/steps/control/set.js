@@ -7,7 +7,8 @@ const setStep = async (req, { config, state, step }) => {
   return {
     action: {
       data: {
-        [name.token]: value
+        token: name.token,
+        value
       }
     },
     data: {

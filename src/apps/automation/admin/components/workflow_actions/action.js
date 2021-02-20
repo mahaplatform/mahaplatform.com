@@ -43,9 +43,8 @@ class Action extends React.PureComponent {
 
   render() {
     const { action } = this.props
-    const { asset, data, email, list, program, recording, sms, step, topic, user, voicemail } = action
+    const { data, email, list, program, recording, sms, step, topic, user, voicemail } = action
     const { expanded } = this.state
-    const { config } = step
     return (
       <div className="crm-workflow-action">
         <div className="crm-workflow-action-icon">
@@ -63,17 +62,17 @@ class Action extends React.PureComponent {
             <div className="crm-workflow-action-details">
               { step.type === 'contact' && step.action === 'consent' && program &&
                 <span>
-                  { config.action === 'add' ? 'Opted in to' : 'Oped out of' } { config.channel_type } channel
+                  { data.action === 'add' ? 'Opted in to' : 'Oped out of' } { data.channel_type } channel
                 </span>
               }
               { step.type === 'contact' && step.action === 'list' && list &&
                 <span>
-                  { config.action === 'add' ? 'Added to' : 'Removed from' } { list.title }
+                  { data.action === 'add' ? 'Added to' : 'Removed from' } { list.title }
                 </span>
               }
               { step.type === 'contact' && step.action === 'topic' && topic &&
                 <span>
-                  { config.action === 'add' ? 'Added to' : 'Removed from' } { topic.title }
+                  { data.action === 'add' ? 'Added to' : 'Removed from' } { topic.title }
                 </span>
               }
               { step.type === 'control' && step.action === 'ifthen' &&
@@ -83,7 +82,7 @@ class Action extends React.PureComponent {
                 <span>TIMEBLOCK: { data.timeblock }</span>
               }
               { step.type === 'control' && step.action === 'set' &&
-                <span>{ config.name.value } = { data[config.name.value] }</span>
+                <span>{ data.token } = { data.value }</span>
               }
               { step.type === 'control' && step.action === 'wait' &&
                 <span>Waited until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
@@ -104,9 +103,6 @@ class Action extends React.PureComponent {
               }
               { step.type === 'voice' && step.action === 'play' && recording &&
                 <span>Played <Button { ...this._getPlayButton(recording, 'recording') }/></span>
-              }
-              { step.type === 'voice' && step.action === 'question' && asset &&
-                <span>Asked <Button { ...this._getPlayButton(asset) }/>, answered { data[config.code] }</span>
               }
               { step.type === 'voice' && step.action === 'voicemail' && voicemail &&
                 <span>Recorded <Button { ...this._getPlayButton(voicemail, 'voicemail') }/></span>

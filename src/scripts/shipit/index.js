@@ -130,6 +130,13 @@ const processor = async () => {
     })
   })
 
+  utils.registerTask(shipit, 'rollback', async () => {
+    const revision = args[1]
+    await shipit.remote(`rm -rf ${currentDir} && ln -s ${releasesDir}/${revision} ${currentDir}`, {
+      roles: ['appserver','cron','twilio','worker']
+    })
+  })
+
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
     await shipit.copyToRemote('src/servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', {
       roles: ['appserver']
