@@ -20,8 +20,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Name', key: 'display_name', sort: 'last_name', primary: true, format: ContactToken },
-      { label: 'Email', key: 'email' },
-      { label: 'Phone', key: 'phone', format: 'phone' },
+      { label: 'Email', key: 'email', sort: 'primary_email' },
+      { label: 'Phone', key: 'phone', sort: 'primary_phone', format: 'phone' },
       { label: 'Organization', key: 'organization', visible: false },
       { label: 'Birthday', key: 'birthday', visible: false, format: 'date' },
       { label: 'Spouse', key: 'spouse', visible: false }

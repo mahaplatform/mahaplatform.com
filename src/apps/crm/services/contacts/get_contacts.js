@@ -5,6 +5,9 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
     scope: (qb) => {
       qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contacts.organization,crm_contacts.birthday,crm_contacts.spouse,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
       qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+      qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
+      qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
+      qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
       qb.where('crm_contacts.team_id', req.team.get('id'))
       if(scope) scope(qb)
       if(empty === true && (!filter || filter.$and.length === 0)) qb.whereRaw('false')
@@ -16,8 +19,10 @@ const getContacts = async (req, { empty, filter, fields, page, scope, sort, with
           column: `crm_contacts.values->'${field.get('code')}'`
         }
       }), {}) : {},
-      email: 'crm_contact_primaries.email',
-      phone: 'crm_contact_primaries.phone',
+      primary_email: 'crm_contact_primaries.email',
+      primary_phone: 'crm_contact_primaries.phone',
+      email: 'crm_email_addresses.address',
+      phone: 'crm_phone_numbers.number',
       duplicate_id: {
         column: 'crm_duplicates.duplicate_id',
         leftJoin: [['contact_id', 'crm_contacts.id']]
