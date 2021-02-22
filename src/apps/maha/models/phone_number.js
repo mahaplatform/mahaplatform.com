@@ -1,7 +1,7 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import { formatPhoneNumber, spokenPhoneNumber } from '@core/services/phone_numbers'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
+import Model from '@core/objects/model'
 
 const PhoneNumber = new Model({
 
@@ -26,19 +26,11 @@ const PhoneNumber = new Model({
     },
 
     formatted() {
-      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      return phoneNumber.formatNational().replace(/\s/,'-').replace(/[()]/g, '')
+      return formatPhoneNumber(this.get('number'))
     },
 
     spoken() {
-      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      const parts = []
-      parts.push('area code')
-      parts.push(phoneNumber.nationalNumber.split('').join(' '))
-      if(!phoneNumber.ext) return parts.join(' ')
-      parts.push('extension')
-      parts.push(phoneNumber.ext.split('').join(' '))
-      return parts.join(' ')
+      return spokenPhoneNumber(this.get('number'))
     }
 
   },

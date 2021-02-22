@@ -1,4 +1,4 @@
-import parsePhoneNumber, { AsYouType } from 'libphonenumber-js'
+import parsePhoneNumber from 'libphonenumber-js'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,9 +7,11 @@ class PhoneField extends React.Component {
   static propTypes = {
     defaultCountry: PropTypes.string,
     defaultValue: PropTypes.string,
+    required: PropTypes.bool,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -18,14 +20,16 @@ class PhoneField extends React.Component {
     onReady: () => {}
   }
 
-  phone = null
+  input = null
 
   state = {
     value: ''
   }
 
+  _handleBlur = this._handleBlur.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { value } = this.state
@@ -44,9 +48,11 @@ class PhoneField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({ value: defaultValue })
-    onReady()
+    const { defaultValue } = this.props
+    if(defaultValue) this.setState({
+      value: this._getParsed(defaultValue)
+    })
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -55,39 +61,78 @@ class PhoneField extends React.Component {
     }
   }
 
-  _handleChange() {
-    const { value } = this.state
-    const parsed = parsePhoneNumber(value, 'US')
-    if(!(parsed && parsed.isValid())) return
-    this.props.onChange(parsed.number)
+  _getFormatted() {
+    const { defaultCountry } = this.props
+    const value = this.state.value.trim()
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) return value
+    const formatted = parsed.number.match(/^\+1(\d{3})(\d{3})(\d{4})/).slice(1,4).join('-')
+    return parsed.ext ? `${formatted} ext. ${parsed.ext}` : formatted
   }
 
   _getInput() {
     const { tabIndex } = this.props
     const { value } = this.state
     return {
+      ref: node => this.phone = node,
       className: 'ui input',
       type: 'tel',
       placeholder: 'Enter phone number',
       tabIndex,
       value,
-      ref: node => this.phone = node,
+      onBlur: this._handleBlur,
       onChange: this._handleUpdate
     }
   }
 
-  _handleUpdate() {
-    const asyoutype = new AsYouType(this.props.defaultCountry)
-    const parsed = asyoutype.input(this.phone.value)
-    this.setState({
-      value: parsed
-    })
+  _getParsed(value) {
+    const { defaultCountry } = this.props
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    const formatted = parsed.number.match(/^\+1(\d{3})(\d{3})(\d{4})/).slice(1,4).join('-')
+    return parsed.ext ? `${formatted} ext. ${parsed.ext}` : formatted
+  }
+
+  _getRaw() {
+    const { defaultCountry } = this.props
+    const { value } = this.state
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) return value
+    return parsed.format('RFC3966').substr(4)
+  }
+
+  _handleBlur(e) {
+    const value = this._getFormatted()
+    this.setState({ value })
+  }
+
+  _handleChange() {
+    const raw = this._getRaw()
+    this.props.onChange(raw)
   }
 
   _handleClear() {
     this.setState({
       value: ''
     })
+  }
+
+  _handleUpdate(e) {
+    const value = e.target.value
+    this.setState({ value })
+  }
+
+  _handleValidate() {
+    const { value } = this.state
+    const { defaultCountry, required } = this.props
+    if(required && (!value || value.length === 0)) {
+      return this.props.onValid(null, ['field is required'])
+    }
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) {
+      return this.props.onValid(null, ['invlaid phone format'])
+    }
+    const raw = this._getRaw()
+    this.props.onValid(raw)
   }
 
 }

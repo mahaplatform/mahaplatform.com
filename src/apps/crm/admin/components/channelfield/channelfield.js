@@ -4,7 +4,7 @@ import Item from './item'
 import React from 'react'
 import _ from 'lodash'
 
-const ChannelField = ({ entity, field, text }) => {
+const ChannelField = ({ entity, field, format }) => {
 
   class Component extends React.PureComponent {
 
@@ -48,7 +48,7 @@ const ChannelField = ({ entity, field, text }) => {
                   }
                 </div>
                 <div className="channelfield-item-field">
-                  { _.get(item, text) } { item.is_primary &&
+                  { format(item) } { item.is_primary &&
                     <span className="alert">PRIMARY</span>
                   }
                 </div>

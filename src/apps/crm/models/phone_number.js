@@ -1,6 +1,6 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import Model from '@core/objects/model'
+import { formatPhoneNumber, spokenPhoneNumber } from '@core/services/phone_numbers'
 import Subscription from './subscription'
+import Model from '@core/objects/model'
 import Contact from './contact'
 
 const PhoneNumber = new Model({
@@ -14,19 +14,11 @@ const PhoneNumber = new Model({
   virtuals: {
 
     formatted() {
-      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      return phoneNumber.formatNational().replace(/\s/,'-').replace(/[()]/g, '')
+      return formatPhoneNumber(this.get('number'))
     },
 
     spoken() {
-      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      const parts = []
-      parts.push('area code')
-      parts.push(phoneNumber.nationalNumber.split('').join(' '))
-      if(!phoneNumber.ext) return parts.join(' ')
-      parts.push('extension')
-      parts.push(phoneNumber.ext.split('').join(' '))
-      return parts.join(' ')
+      return spokenPhoneNumber(this.get('number'))
     }
 
   },

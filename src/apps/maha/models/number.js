@@ -1,4 +1,4 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import { formatPhoneNumber } from '@core/services/phone_numbers'
 import Model from '@core/objects/model'
 
 const Number = new Model({
@@ -16,8 +16,7 @@ const Number = new Model({
   virtuals: {
 
     formatted() {
-      const phoneNumber = parsePhoneNumberFromString(this.get('number'), 'US')
-      return phoneNumber.formatNational().replace(/\s/,'-').replace(/[()]/g, '')
+      return formatPhoneNumber(this.get('number'))
     }
 
   }
