@@ -1,4 +1,4 @@
-import { AsYouType } from 'libphonenumber-js'
+import parsePhoneNumber from 'libphonenumber-js'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -6,7 +6,9 @@ class PhoneField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    defaultCountry: PropTypes.string,
     defaultValue: PropTypes.string,
+    disabled: PropTypes.string,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
@@ -19,6 +21,7 @@ class PhoneField extends React.Component {
   }
 
   static defaultProps = {
+    defaultCountry: 'US',
     onChange: () => {},
     onReady: () => {}
   }
@@ -38,17 +41,15 @@ class PhoneField extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="maha-phonefield">
-        <div className="maha-input">
-          <div className="maha-input-field">
-            <input { ...this._getInput() }/>
-          </div>
-          { value && value.length > 0 &&
-            <div className="maha-input-clear" onClick={ this._handleClear }>
-              <i className="fa fa-times" />
-            </div>
-          }
+      <div className={ this._getClass() }>
+        <div className="maha-input-field">
+          <input { ...this._getInput() }/>
         </div>
+        { value && value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -56,7 +57,7 @@ class PhoneField extends React.Component {
   componentDidMount() {
     const { defaultValue, onReady } = this.props
     if(defaultValue) this.setState({
-      value: defaultValue
+      value: this._getParsed(defaultValue)
     })
     onReady()
   }
@@ -70,6 +71,39 @@ class PhoneField extends React.Component {
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
     }
+  }
+
+  _getClass() {
+    const { focused } = this.state
+    const { disabled } = this.props
+    const classes = ['maha-phonefield','maha-input']
+    if(disabled) classes.push('disabled')
+    if(focused) classes.push('focused')
+    return classes.join(' ')
+  }
+
+  _getFormatted() {
+    const { defaultCountry } = this.props
+    const value = this.state.value.trim()
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) return value
+    const formatted = parsed.number.match(/^\+1(\d{3})(\d{3})(\d{4})/).slice(1,4).join('-')
+    return parsed.ext ? `${formatted} ext. ${parsed.ext}` : formatted
+  }
+
+  _getParsed(value) {
+    const { defaultCountry } = this.props
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    const formatted = parsed.number.match(/^\+1(\d{3})(\d{3})(\d{4})/).slice(1,4).join('-')
+    return parsed.ext ? `${formatted} ext. ${parsed.ext}` : formatted
+  }
+
+  _getRaw() {
+    const { defaultCountry } = this.props
+    const { value } = this.state
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) return value
+    return parsed.format('RFC3966').substr(4)
   }
 
   _getInput() {
@@ -91,12 +125,14 @@ class PhoneField extends React.Component {
 
   _handleBlur() {
     this.setState({
-      focused: false
+      focused: false,
+      value: this._getFormatted()
     })
   }
 
   _handleChange() {
-    this.props.onChange(this.state.value)
+    const raw = this._getRaw()
+    this.props.onChange(raw)
   }
 
   _handleClear() {
@@ -112,19 +148,22 @@ class PhoneField extends React.Component {
   }
 
   _handleUpdate(e) {
-    const asyoutype = new AsYouType('US')
-    const value = asyoutype.input(e.target.value)
+    const value = e.target.value
     this.setState({ value })
   }
 
   _handleValidate() {
-    const { required } = this.props
     const { value } = this.state
-    if(required && value.length === 0) {
-      this.props.onValidate(value, 'You must enter a value')
-    } else {
-      this.props.onValidate(value)
+    const { defaultCountry, required } = this.props
+    if(required && (!value || value.length === 0)) {
+      return this.props.onValidate(null, ['You must enter a value'])
     }
+    const parsed = parsePhoneNumber(value, defaultCountry)
+    if(!parsed || !parsed.isValid()) {
+      return this.props.onValidate(null, ['You must enter a valid phone format'])
+    }
+    const raw = this._getRaw()
+    this.props.onValidate(raw)
   }
 
 }

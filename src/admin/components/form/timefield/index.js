@@ -1,94 +1,131 @@
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
-import Lookup from '../lookup'
 import moment from 'moment'
 import React from 'react'
-
-const TimeFieldToken = ({ text, duration, withDuration }) => (
-  <div className="maha-timefield-token">
-    { text }
-    { withDuration && duration > 0 &&
-      <span className="maha-timefield-token-duration">
-        ({ duration >= 1 ? pluralize('hour', duration, true) : pluralize('mins', duration * 60, true) })
-      </span>
-    }
-  </div>
-)
-
-TimeFieldToken.propTypes = {
-  text: PropTypes.string,
-  duration: PropTypes.number,
-  withDuration: PropTypes.bool
-}
 
 class TimeField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
-    disabled: PropTypes.bool,
-    duration: PropTypes.bool,
-    increment: PropTypes.number,
-    prompt: PropTypes.string,
-    start: PropTypes.string,
+    placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
-    onBusy: PropTypes.func,
+    required: PropTypes.bool,
     onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
     onReady: PropTypes.func,
-    onKeyPress: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    onKeyDown: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    prompt: 'Choose a time',
-    duration: false,
-    increment: 15,
-    start: '00:00',
-    tabIndex: 0
+    placeholder: 'Enter Time',
+    onChange: () => {},
+    onReady: () => {}
   }
+
+  input = null
+
+  state = {
+    value: ''
+  }
+
+  _handleBlur = this._handleBlur.bind(this)
+  _handleClear = this._handleClear.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    return <Lookup { ...this._getLookup() } />
+    const { value } = this.state
+    return (
+      <div className="maha-input">
+        <div className="maha-input-field">
+          <input { ...this._getInput() } />
+        </div>
+        { value && value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
+      </div>
+    )
   }
 
-  _getLookup() {
-    const { duration } = this.props
-    return {
-      ...this.props,
-      defaultValue: this._getStandardized(this.props.defaultValue),
-      label: 'time',
-      value: 'value',
-      text: 'text',
-      options: this._getOptions(),
-      format: (props) => <TimeFieldToken { ...props } withDuration={ duration } />
+  componentDidMount() {
+    const { defaultValue } = this.props
+    if(defaultValue) {
+      this.setState({
+        value: this._getParsed(defaultValue)
+      })
+    }
+    this.props.onReady(this._handleValidate)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this._handleChange()
     }
   }
 
-  _getStandardized(value) {
-    return value ? moment(`2018-01-01 ${value.replace(/\s?(am|pm)/i, ' $1')}`).format('HH:mm:ss') : null
+  _getFormatted() {
+    const value = this.state.value.trim()
+    const parsed = moment(value, ['HH:mm','H:mm','h:mmA','h:mm A','h:m'])
+    if(!parsed.isValid()) return value
+    return parsed.format('h:mm A')
   }
 
-  _getOptions() {
-    const { increment, start } = this.props
-    const today = moment().format('YYYY-MM-DD')
-    const startTime = moment(`${today} ${start}`, 'YYYY-MM-DD HH:mm')
-    const endTime = moment(`${today} 24:00`, 'YYYY-MM-DD HH:mm')
-    const steps = (endTime.diff(startTime) / 1000 / 60 / 60)  * (60 / increment)
-    const currTime = moment(`${today} ${start}`, 'YYYY-MM-DD HH:mm')
-    return Array.apply(null, { length: steps }).reduce((times, i) => {
-      const value = {
-        value: currTime.format('HH:mm:ss'),
-        text: currTime.format('hh:mm A'),
-        duration: currTime.diff(startTime) / 1000 / 60 / 60
-      }
-      currTime.add(increment, 'minutes')
-      return [
-        ...times,
-        value
-      ]
-    }, [])
+  _getInput() {
+    const { placeholder, tabIndex } = this.props
+    const { value } = this.state
+    return {
+      ref: node => this.input = node,
+      placeholder,
+      tabIndex,
+      value,
+      onBlur: this._handleBlur,
+      onChange: this._handleUpdate
+    }
+  }
+
+  _getParsed(value) {
+    return moment(`2020-01-01 ${value}`).format('h:mm A')
+  }
+
+  _getRaw() {
+    const { value } = this.state
+    return moment(`2020-01-01 ${value}`, 'YYYY-MM-DD h:mm A').format('HH:mm')
+  }
+
+  _handleBlur(e) {
+    const value = this._getFormatted()
+    this.setState({ value })
+  }
+
+  _handleChange() {
+    const raw = this._getRaw()
+    this.props.onChange(raw)
+  }
+
+  _handleClear() {
+    this.setState({
+      value: ''
+    })
+  }
+
+  _handleUpdate(e) {
+    const value = e.target.value
+    this.setState({ value })
+  }
+
+  _handleValidate() {
+    const { value } = this.state
+    const { required } = this.props
+    if(required && (!value || value.length === 0)) {
+      return this.props.onValid(null, ['field is required'])
+    }
+    const parsed = moment(value, ['HH:MM','H:MM','h:mmA','h:mm A','h:m'])
+    if(!parsed.isValid()) {
+      return this.props.onValid(null, ['invalid time'])
+    }
+    const raw = this._getRaw()
+    this.props.onValid(raw)
   }
 
 }

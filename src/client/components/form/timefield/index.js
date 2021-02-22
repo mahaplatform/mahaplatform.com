@@ -8,7 +8,6 @@ class TimeField extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
-    format: PropTypes.string,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
@@ -21,7 +20,6 @@ class TimeField extends React.Component {
   }
 
   static defaultProps = {
-    format: 'h:mm A',
     placeholder: 'Enter a time',
     onChange: () => {},
     onReady: () => {}
@@ -39,6 +37,7 @@ class TimeField extends React.Component {
   _handleFocus = this._handleFocus.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleUpdate =this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { value } = this.state
@@ -60,7 +59,7 @@ class TimeField extends React.Component {
     const { defaultValue } = this.props
     if(defaultValue) {
       this.setState({
-        value: defaultValue
+        value: this._getParsed(defaultValue)
       })
     }
     this.props.onReady()
@@ -68,6 +67,10 @@ class TimeField extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { status } = this.props
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this._handleChange()
+    }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
     }
@@ -80,6 +83,13 @@ class TimeField extends React.Component {
     if(disabled) classes.push('disabled')
     if(focused) classes.push('focused')
     return classes.join(' ')
+  }
+
+  _getFormatted() {
+    const value = this.state.value.trim()
+    const parsed = moment(value, ['HH:mm','H:mm','h:mmA','h:mm A','h:m'])
+    if(!parsed.isValid()) return value
+    return parsed.format('h:mm A')
   }
 
   _getInput() {
@@ -97,16 +107,24 @@ class TimeField extends React.Component {
     }
   }
 
-  _handleBlur() {
-    const { format } = this.props
-    this.setState({ focused: false })
-    if(this.state.value.length === 0) return
-    const raw = moment(`010120 ${this.state.value}`, ['H:mm','h:mma','h:mmA','h:mm a','h:mm A'].map(time => {
-      return `MMDDYY ${time}`
-    }), true)
-    if(!raw.isValid()) return this.setState({ value: '' })
-    const value = raw.format(format)
-    this.setState({ value })
+  _getParsed(value) {
+    return moment(`2020-01-01 ${value}`).format('h:mm A')
+  }
+
+  _getRaw() {
+    const { value } = this.state
+    return moment(`2020-01-01 ${value}`, 'YYYY-MM-DD h:mm A').format('HH:mm')
+  }
+
+  _handleBlur(e) {
+    this.setState({
+      focused: false,
+      value: this._getFormatted()
+    })
+  }
+
+  _handleChange() {
+    const raw = this._getRaw()
     this.props.onChange(raw)
   }
 
@@ -128,18 +146,21 @@ class TimeField extends React.Component {
 
   _handleUpdate(e) {
     const value = e.target.value
-    if(!value.match(/^[\d\s:APM]*$/)) return
     this.setState({ value })
   }
 
   _handleValidate() {
-    const { required } = this.props
     const { value } = this.state
-    if(required && value === null) {
-      this.props.onValidate(value, 'You must choose a date')
-    } else {
-      this.props.onValidate(value)
+    const { required } = this.props
+    if(required && (!value || value.length === 0)) {
+      return this.props.onValidate(null, ['You must enter a value'])
     }
+    const parsed = moment(value, ['HH:MM','H:MM','h:mmA','h:mm A','h:m'])
+    if(!parsed.isValid()) {
+      return this.props.onValidate(null, ['You must enter a valid time format'])
+    }
+    const raw = this._getRaw()
+    this.props.onValidate(raw)
   }
 
 }
