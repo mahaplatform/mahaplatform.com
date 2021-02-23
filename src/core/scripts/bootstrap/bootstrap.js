@@ -43,6 +43,26 @@ const bootstrapApps = async () => {
 
     await knex('maha_installations').where('app_id', item.id).del()
 
+    await knex('maha_activities').where('app_id', item.id).del()
+
+    const notification_types = await knex('maha_notification_types').where('app_id', item.id)
+
+    await Promise.mapSeries(notification_types, async (notification_type) => {
+      await knex('maha_users_notification_types').where('notification_type_id', notification_type.id).del()
+    })
+
+    await knex('maha_notifications').where('app_id', item.id).del()
+
+    await knex('maha_notification_types').where('app_id', item.id).del()
+
+    const rights = await knex('maha_rights').where('app_id', item.id)
+
+    await Promise.mapSeries(rights, async (right) => {
+      await knex('maha_roles_rights').where('right_id', right.id).del()
+    })
+
+    await knex('maha_rights').where('app_id', item.id).del()
+
     await knex('maha_apps').where('id', item.id).del()
 
     return item.id
