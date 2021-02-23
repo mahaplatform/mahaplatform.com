@@ -26,7 +26,7 @@ const sendEmail = async(req, options) => {
     reply_to: options.reply_to,
     to: options.to || options.user.get('rfc822'),
     contact_id: options.contact_id,
-    annoucnement_id: options.annoucnement_id,
+    announcement_id: options.announcement_id,
     email_campaign_id: options.email_campaign_id,
     email_address_id: options.email_address_id,
     email_id: options.email_id,
