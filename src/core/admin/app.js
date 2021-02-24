@@ -63,7 +63,6 @@ import adminsearchbox from '../../admin/components/searchbox'
 import adminsortableList from '../../admin/components/sortable_list'
 import admintasks from '../../admin/components/tasks'
 import adminuploader from '../../admin/components/uploader'
-import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
 import automationflowchartDesigner from '../../apps/automation/admin/components/flowchart_designer'
 import automationfollowsfield from '../../apps/automation/admin/components/followsfield'
 import automationimagesfield from '../../apps/automation/admin/components/imagesfield'
@@ -93,9 +92,6 @@ import financetripsImportFinalize from '../../apps/finance/admin/components/trip
 import formsformDesigner from '../../apps/forms/admin/components/form_designer'
 import formsproductfield from '../../apps/forms/admin/components/productfield'
 import formsrulesfield from '../../apps/forms/admin/components/rulesfield'
-import competenciescommitments from '../../apps/learning/admin/components/commitments'
-import competenciesgoals from '../../apps/learning/admin/components/goals'
-import competenciesresources from '../../apps/learning/admin/components/resources'
 import mahaprofiles from '../../apps/maha/admin/components/account/account/profiles'
 import mahanotificationTypes from '../../apps/maha/admin/components/account/notifications/notification_types'
 import mahaappitems from '../../apps/maha/admin/components/account/security/appitems'
@@ -126,24 +122,16 @@ import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_im
 import storesmediafield from '../../apps/stores/admin/components/mediafield'
 import teamaccess from '../../apps/team/admin/components/access'
 import teamroles from '../../apps/team/admin/components/roles'
-import trainingoptions from '../../apps/training/admin/components/options'
-import traininganswers from '../../apps/training/admin/components/questions/answers'
-import trainingquestions from '../../apps/training/admin/components/questions'
-import trainingquiz from '../../apps/training/admin/components/quiz'
-import trainingreview from '../../apps/training/admin/components/review'
 import analyticsRoutes from '../../apps/analytics/admin/views/index.js'
-import appraisalsRoutes from '../../apps/appraisals/admin/views/index.js'
 import automationRoutes from '../../apps/automation/admin/views/index.js'
 import campaignsRoutes from '../../apps/campaigns/admin/views/index.js'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
 import crmRoutes from '../../apps/crm/admin/views/index.js'
 import datasetsRoutes from '../../apps/datasets/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
-import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
 import eventsRoutes from '../../apps/events/admin/views/index.js'
 import financeRoutes from '../../apps/finance/admin/views/index.js'
 import formsRoutes from '../../apps/forms/admin/views/index.js'
-import competenciesRoutes from '../../apps/learning/admin/views/index.js'
 import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import newsRoutes from '../../apps/news/admin/views/index.js'
 import phoneRoutes from '../../apps/phone/admin/views/index.js'
@@ -152,7 +140,6 @@ import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import storesRoutes from '../../apps/stores/admin/views/index.js'
 import surveysRoutes from '../../apps/surveys/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
-import trainingRoutes from '../../apps/training/admin/views/index.js'
 import websitesRoutes from '../../apps/websites/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
@@ -384,7 +371,6 @@ class App extends React.Component {
       adminsortableList,
       admintasks,
       adminuploader,
-      appraisalsresponsibilities,
       automationflowchartDesigner,
       automationfollowsfield,
       automationimagesfield,
@@ -414,9 +400,6 @@ class App extends React.Component {
       formsformDesigner,
       formsproductfield,
       formsrulesfield,
-      competenciescommitments,
-      competenciesgoals,
-      competenciesresources,
       mahaprofiles,
       mahanotificationTypes,
       mahaappitems,
@@ -447,11 +430,6 @@ class App extends React.Component {
       storesmediafield,
       teamaccess,
       teamroles,
-      trainingoptions,
-      traininganswers,
-      trainingquestions,
-      trainingquiz,
-      trainingreview,
     ]
   }
 
@@ -479,19 +457,16 @@ class App extends React.Component {
   _getRoutes() {
     return [
       { path: '/:team/analytics', children: analyticsRoutes },
-      { path: '/:team/appraisals', children: appraisalsRoutes },
       { path: '/:team/automation', children: automationRoutes },
       { path: '/:team/campaigns', children: campaignsRoutes },
       { path: '/:team/chat', children: chatRoutes },
       { path: '/:team/crm', children: crmRoutes },
       { path: '/:team/datasets', children: datasetsRoutes },
       { path: '/:team/drive', children: driveRoutes },
-      { path: '/:team/eatfresh', children: eatfreshRoutes },
       { path: '/:team/events', children: eventsRoutes },
       { path: '/:team/finance', children: financeRoutes },
       { path: '/:team/expenses', children: financeRoutes },
       { path: '/:team/forms', children: formsRoutes },
-      { path: '/:team/learning', children: competenciesRoutes },
       { path: '/:team', children: mahaRoutes },
       { path: '/:team/news', children: newsRoutes },
       { path: '/:team/phone', children: phoneRoutes },
@@ -500,7 +475,6 @@ class App extends React.Component {
       { path: '/:team/stores', children: storesRoutes },
       { path: '/:team/surveys', children: surveysRoutes },
       { path: '/:team/team', children: teamRoutes },
-      { path: '/:team/training', children: trainingRoutes },
       { path: '/:team/websites', children: websitesRoutes },
       { path: '/forbidden', component: Forbidden },
       { path: '/*', component: NotFound }

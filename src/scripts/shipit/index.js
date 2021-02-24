@@ -93,7 +93,6 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'deploy', [
-    'deploy:preclean',
     'deploy:env',
     'deploy:build',
     'deploy:zip',
@@ -126,20 +125,14 @@ const processor = async () => {
   utils.registerTask(shipit, 'cleanup', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
-      roles: ['appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'rollback', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releasesDir}/${revision} ${currentDir}`, {
-      roles: ['appserver','cron','twilio','worker']
-    })
-  })
-
-  utils.registerTask(shipit, 'servers:appserver:configure', async () => {
-    await shipit.copyToRemote('src/servers/roles/passenger/files/nginx.conf', '/opt/nginx/conf/nginx.conf', {
-      roles: ['appserver']
+      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 
@@ -233,13 +226,12 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:reload_nginx', () => {
     return shipit.remote('service nginx reload', {
-      roles: ['appserver']
+      roles: ['analyticsserver','appserver']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', [
     'deploy:restart_analytics',
-    'deploy:restart_collector',
     'deploy:restart_cron',
     'deploy:restart_twilio',
     'deploy:restart_worker'
@@ -247,13 +239,6 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:restart_analytics', () => {
     return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only analytics_production', {
-      cwd: deployDir,
-      roles: ['analyticsserver']
-    })
-  })
-
-  utils.registerTask(shipit, 'deploy:restart_collector', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only collector_production', {
       cwd: deployDir,
       roles: ['analyticsserver']
     })
@@ -280,23 +265,9 @@ const processor = async () => {
     })
   })
 
-  utils.registerTask(shipit, 'deploy:delete_all', () => {
-    return shipit.remote('NODE_ENV=production pm2 delete all', {
-      cwd: deployDir,
-      roles: ['worker']
-    })
-  })
-
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
       roles: 'appserver'
-    })
-  })
-
-  utils.registerTask(shipit, 'deploy:preclean', () => {
-    if(environment === 'production') return
-    return shipit.remote(`rm -rf ${currentDir} && rm -rf ${releasesDir}/*`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
     })
   })
 

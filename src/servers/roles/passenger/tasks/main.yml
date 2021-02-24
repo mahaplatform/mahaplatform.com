@@ -19,10 +19,9 @@
     mode: 0755
 
 - name: copy nginx.conf
-  copy:
+  template:
     src: ../files/nginx.conf
     dest: /opt/nginx/conf/nginx.conf
-    mode:
     backup: yes
 
 - name: copy nginx.logrotate

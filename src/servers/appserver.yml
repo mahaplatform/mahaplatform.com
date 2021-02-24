@@ -16,6 +16,7 @@
 - hosts: appservers
   become: yes
   vars:
+    nginx_startup_file: server.js
     node_major: 14
     node_minor: 15
     node_patch: 1

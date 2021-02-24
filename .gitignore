@@ -9,8 +9,9 @@ node_modules
 !/web/.gitkeep
 /src/apps/websites/template/.next/*
 !/src/apps/websites/template/.next/.gitkeep
-/servers/lb/mahaplatform.*
-/servers/node/deploy
+/src/servers/lb/mahaplatform.*
+/src/servers/roles/app/files/deploy
+/src/servers/group_vars/all/*.yml
 /repo
 /root
 /logs
@@ -28,7 +29,6 @@ npm-debug.log
 ngrok
 metadata.csv
 ./REVISION
-/src/servers/group_vars/all/*.yml
 /maxmind
 !/*/maxmind
 nodejs
