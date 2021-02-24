@@ -674,6 +674,39 @@ const schema = {
       table.integer('store_id').unsigned()
     })
 
+    await knex.schema.createTable('datasets_datasets', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('code', 255)
+      table.string('title', 255)
+      table.jsonb('config')
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('datasets_items', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('type_id').unsigned()
+      table.string('code', 255)
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('datasets_types', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('dataset_id').unsigned()
+      table.string('code', 255)
+      table.string('title', 255)
+      table.jsonb('config')
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('drive_access', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2885,13 +2918,13 @@ const schema = {
       table.foreign('field_id').references('maha_fields.id')
       table.foreign('list_id').references('crm_lists.id')
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('recording_id').references('maha_assets.id')
       table.foreign('sms_id').references('maha_smses.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('recording_id').references('maha_assets.id')
       table.foreign('voicemail_id').references('maha_voicemails.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
     })
 
     await knex.schema.table('crm_workflow_enrollments', table => {
@@ -2904,9 +2937,9 @@ const schema = {
       table.foreign('response_id').references('crm_responses.id')
       table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('version_id').references('maha_versions.id')
       table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('version_id').references('maha_versions.id')
     })
 
     await knex.schema.table('crm_workflow_steps', table => {
@@ -3247,6 +3280,30 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_call_activities', table => {
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('to_user_id').references('maha_users.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_call_connections', table => {
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('from_number_id').references('maha_numbers.id')
+      table.foreign('from_phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('from_program_id').references('crm_programs.id')
+      table.foreign('from_user_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('to_number_id').references('maha_numbers.id')
+      table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('to_program_id').references('crm_programs.id')
+      table.foreign('to_user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_call_statuses', table => {
+      table.foreign('call_connection_id').references('maha_call_connections.id')
+    })
+
     await knex.schema.table('maha_calls', table => {
       table.foreign('from_number_id').references('maha_numbers.id')
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
@@ -3525,6 +3582,12 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_voicemails', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3743,34 +3806,18 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_voicemails', table => {
+    await knex.schema.table('datasets_datasets', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('call_id').references('maha_calls.id')
-      table.foreign('asset_id').references('maha_assets.id')
     })
 
-    await knex.schema.table('maha_call_connections', table => {
+    await knex.schema.table('datasets_types', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('call_id').references('maha_calls.id')
-      table.foreign('from_number_id').references('maha_numbers.id')
-      table.foreign('to_number_id').references('maha_numbers.id')
-      table.foreign('from_program_id').references('crm_programs.id')
-      table.foreign('to_program_id').references('crm_programs.id')
-      table.foreign('from_user_id').references('maha_users.id')
-      table.foreign('to_user_id').references('maha_users.id')
-      table.foreign('from_phone_number_id').references('crm_phone_numbers.id')
-      table.foreign('to_phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('dataset_id').references('datasets_datasets.id')
     })
 
-    await knex.schema.table('maha_call_statuses', table => {
-      table.foreign('call_connection_id').references('maha_call_connections.id')
-    })
-
-    await knex.schema.table('maha_call_activities', table => {
+    await knex.schema.table('datasets_items', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('call_id').references('maha_calls.id')
-      table.foreign('to_user_id').references('maha_users.id')
+      table.foreign('type_id').references('datasets_types.id')
     })
 
 
@@ -3968,35 +4015,6 @@ union
 
     await knex.raw(`
       create view crm_contact_primaries AS
-      with email_addresses as (
-      select crm_email_addresses.id,
-      crm_email_addresses.contact_id,
-      crm_email_addresses.address
-      from crm_email_addresses
-      where (crm_email_addresses.deleted_at is null)
-      order by crm_email_addresses.is_primary desc, crm_email_addresses.created_at
-      ), phone_numbers as (
-      select crm_phone_numbers.id,
-      crm_phone_numbers.contact_id,
-      crm_phone_numbers.number
-      from crm_phone_numbers
-      where (crm_phone_numbers.deleted_at is null)
-      order by crm_phone_numbers.is_primary desc, crm_phone_numbers.created_at
-      ), cell_phone_numbers as (
-      select crm_phone_numbers.id,
-      crm_phone_numbers.contact_id,
-      crm_phone_numbers.number
-      from crm_phone_numbers
-      where ((crm_phone_numbers.deleted_at is null) and (crm_phone_numbers.can_text = true))
-      order by crm_phone_numbers.is_primary desc, crm_phone_numbers.created_at
-      ), mailing_addresses as (
-      select crm_mailing_addresses.id,
-      crm_mailing_addresses.contact_id,
-      crm_mailing_addresses.address
-      from crm_mailing_addresses
-      where (crm_mailing_addresses.deleted_at is null)
-      order by crm_mailing_addresses.is_primary desc, crm_mailing_addresses.created_at
-      )
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
       email_addresses.id as email_id,
       email_addresses.address as email,
@@ -4007,10 +4025,10 @@ union
       mailing_addresses.id as address_id,
       mailing_addresses.address
       from ((((crm_contacts
-      left join email_addresses on ((email_addresses.contact_id = crm_contacts.id)))
-      left join phone_numbers on ((phone_numbers.contact_id = crm_contacts.id)))
-      left join cell_phone_numbers on ((cell_phone_numbers.contact_id = crm_contacts.id)))
-      left join mailing_addresses on ((mailing_addresses.contact_id = crm_contacts.id)));
+      left join crm_email_addresses email_addresses on (((email_addresses.contact_id = crm_contacts.id) and (email_addresses.is_primary = true) and (email_addresses.deleted_at is null))))
+      left join crm_phone_numbers phone_numbers on (((phone_numbers.contact_id = crm_contacts.id) and (phone_numbers.is_primary = true) and (phone_numbers.deleted_at is null))))
+      left join crm_phone_numbers cell_phone_numbers on (((cell_phone_numbers.contact_id = crm_contacts.id) and (cell_phone_numbers.is_primary = true) and (cell_phone_numbers.deleted_at is null) and (cell_phone_numbers.can_text = true))))
+      left join crm_mailing_addresses mailing_addresses on (((mailing_addresses.contact_id = crm_contacts.id) and (mailing_addresses.is_primary = true) and (mailing_addresses.deleted_at is null))));
     `)
 
     await knex.raw(`

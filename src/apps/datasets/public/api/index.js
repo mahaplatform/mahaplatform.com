@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import datasets from './datasets'
+import items from './items'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/datasets', datasets)
+router.use('/:dataset_code/types/:type_code/items', items)
 
 export default router
