@@ -7,7 +7,7 @@ const referrerEnrichment = async(req, event) => {
 
   const url = URL.parse(event.page_referrer)
 
-  const args = qs.parse(url.search.substr(1))
+  const args = url.search ? qs.parse(url.search.substr(1)) : {}
 
   return {
     ...event,
