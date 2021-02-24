@@ -5,6 +5,7 @@ const archiveRawsCron = new Queue({
   queue: 'analytics',
   name: 'archive_raws',
   cron: '0 1 0 * * *',
+  log: false,
   processor: archiveRaws
 })
 
