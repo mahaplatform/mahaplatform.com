@@ -33,9 +33,6 @@ class Type extends React.PureComponent {
           <div className="datasets-explorer-item-toggle">
             <i className={`fa fa-${this._getIcon() }`} />
           </div>
-          <div className="datasets-explorer-item-icon" >
-            <i className="fa fa-file-text" />
-          </div>
           <div className="datasets-explorer-item-details" >
             { type.title}
           </div>
@@ -89,8 +86,15 @@ class Type extends React.PureComponent {
     return classes.join(' ')
   }
 
-  _handleSelect(code) {
-    const { dataset, type } = this.props
+  _handleSelect(code, e) {
+    e.stopPropagation()
+    const { dataset, type, selected } = this.props
+    const { dataset_id, type_id } = selected
+    if(dataset_id === dataset.id && type_id === type.id && !code) {
+      return this.props.onSelect({
+        dataset_id: dataset.id
+      })
+    }
     this.props.onSelect({
       dataset_id: dataset.id,
       type_id: type.id,
@@ -98,10 +102,24 @@ class Type extends React.PureComponent {
     })
   }
 
-  _handleTasks() {
+  _handleTasks(e) {
+    const { dataset, type } = this.props
+    e.stopPropagation()
     this.context.tasks.open({
       items: [
-        { label: 'Delete Type' }
+        {
+          label: 'Delete Type',
+          confirm: `
+            Are you sure you want to delete this type? It will also delete
+            all related data.
+          `,
+          request: {
+            endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}`,
+            method: 'delete',
+            onFailure: () => {},
+            onSuccess: () => {}
+          }
+        }
       ]
     })
   }

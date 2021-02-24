@@ -14,9 +14,7 @@ class Explorer extends React.PureComponent {
   }
 
   state = {
-    dataset_id: null,
-    type_id: null,
-    view: null
+    selected: {}
   }
 
   _handleSelect = this._handleSelect.bind(this)
@@ -35,9 +33,10 @@ class Explorer extends React.PureComponent {
   }
 
   _getDataset(dataset) {
+    const { selected } = this.state
     return {
       dataset,
-      selected: this.state,
+      selected,
       onSelect: this._handleSelect
     }
   }
@@ -46,8 +45,8 @@ class Explorer extends React.PureComponent {
     return {}
   }
 
-  _handleSelect(selected) {
-    this.setState(selected)
+  _handleSelect(selected ) {
+    this.setState({ selected  })
   }
 
 }

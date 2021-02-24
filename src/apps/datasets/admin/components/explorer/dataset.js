@@ -1,3 +1,4 @@
+import NewType from '../../views/types/new'
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Type from './type'
@@ -80,19 +81,25 @@ class Dataset extends React.PureComponent {
     }
   }
 
-  _handleSelect() {
-    const { dataset } = this.props
+  _handleSelect(e) {
+    console.log('here')
+    e.stopPropagation()
+    const { dataset, selected } = this.props
+    const { dataset_id, type_id, view } = selected
+    if(dataset_id === dataset.id && !type_id && !view) {
+      return this.props.onSelect({})
+    }
     this.props.onSelect({
-      dataset_id: dataset.id,
-      type_id: null,
-      view: null
+      dataset_id: dataset.id
     })
   }
 
-  _handleTasks() {
+  _handleTasks(e) {
+    e.stopPropagation()
+    const { dataset } = this.props
     this.context.tasks.open({
       items: [
-        { label: 'Add Type' },
+        { label: 'Add Type', modal: <NewType dataset={ dataset } /> },
         { label: 'Manage Access' },
         { label: 'Delete Dataset' }
       ]
