@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import logger from './logger'
 import express from 'express'
 import ping from '../ping'
+import cors from './cors'
 import qs from 'qs'
 
 const server = express()
@@ -14,6 +15,8 @@ server.set('query parser', str => qs.parse(str, { arrayLimit: 100, depth: 10 }))
 server.use(bodyParser.json({ limit: '5mb' }))
 
 server.use('/ping', ping)
+
+server.use(cors)
 
 server.use(transaction)
 
