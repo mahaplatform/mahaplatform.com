@@ -1,4 +1,4 @@
-import Logger from '../../services/logger'
+import Logger from '@core/services/logger'
 import onFinished from 'on-finished'
 
 const logger = (req, res, next) => {
