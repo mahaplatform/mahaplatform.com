@@ -1,3 +1,4 @@
+import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Dataset from './dataset'
 import React  from 'react'
@@ -6,6 +7,10 @@ class Explorer extends React.PureComponent {
 
   static propTypes = {
     datasets: PropTypes.array
+  }
+
+  static defaultProps = {
+    datasets: []
   }
 
   state = {
@@ -19,11 +24,13 @@ class Explorer extends React.PureComponent {
   render() {
     const { datasets } = this.props
     return (
-      <div className="datasets-explorer">
-        { datasets.map((dataset, dindex) => (
-          <Dataset { ...this._getDataset(dataset) } key={`dataset_${dindex}`} />
-        )) }
-      </div>
+      <ModalPanel { ...this._getPanel() }>
+        <div className="datasets-explorer">
+          { datasets.map((dataset, dindex) => (
+            <Dataset { ...this._getDataset(dataset) } key={`dataset_${dindex}`} />
+          )) }
+        </div>
+      </ModalPanel>
     )
   }
 
@@ -33,6 +40,10 @@ class Explorer extends React.PureComponent {
       selected: this.state,
       onSelect: this._handleSelect
     }
+  }
+
+  _getPanel() {
+    return {}
   }
 
   _handleSelect(selected) {

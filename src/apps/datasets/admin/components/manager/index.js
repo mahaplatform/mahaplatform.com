@@ -4,23 +4,13 @@ import React from 'react'
 
 class Manager extends React.PureComponent {
 
-  static propTypes = {
-    datasets: PropTypes.array
+  static contextTypes = {
+    network: PropTypes.object
   }
 
-  static defaultProps = {
-    datasets: [
-      { id: 1, title: 'Dataset 1', types: [
-        { id: 1, title: 'Type 1a' },
-        { id: 2, title: 'Type 1b' }
-      ] },
-      { id: 2, title: 'Dataset 2', types: [
-        { id: 3, title: 'Type 2a' },
-        { id: 4, title: 'Type 2b' }
-      ] }
-    ]
+  state = {
+    datasets: []
   }
-
 
   render() {
     return (
@@ -35,11 +25,27 @@ class Manager extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    this._handleFetch()
+  }
+
   _getExplorer() {
-    const { datasets } = this.props
+    const { datasets } = this.state
     return {
       datasets
     }
+  }
+
+  _handleFetch() {
+    this.context.network.request({
+      endpoint: '/api/admin/datasets/datasets',
+      method: 'get',
+      onSuccess: (result) => {
+        this.setState({
+          datasets: result.data
+        })
+      }
+    })
   }
 
 }
