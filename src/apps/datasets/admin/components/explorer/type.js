@@ -20,22 +20,17 @@ class Type extends React.PureComponent {
     onSelect: PropTypes.func
   }
 
-  state = {
-    expanded: false
-  }
-
   _handleSelect = this._handleSelect.bind(this)
   _handleTasks = this._handleTasks.bind(this)
-  _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { expanded } = this.state
+    const expanded = this._getExpanded()
     const { type } = this.props
     return (
       <Fragment>
         <div className={ this._getClass() } onClick={ this._handleSelect.bind(this, null) }>
           <div className="datasets-explorer-item-padding" />
-          <div className="datasets-explorer-item-toggle" onClick={ this._handleToggle }>
+          <div className="datasets-explorer-item-toggle">
             <i className={`fa fa-${this._getIcon() }`} />
           </div>
           <div className="datasets-explorer-item-icon" >
@@ -76,8 +71,13 @@ class Type extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getExpanded() {
+    const { dataset, type, selected } = this.props
+    return dataset.id === selected.dataset_id && type.id === selected.type_id
+  }
+
   _getIcon() {
-    const { expanded } = this.state
+    const expanded = this._getExpanded()
     return expanded ? 'chevron-down' : 'chevron-right'
   }
 
@@ -103,13 +103,6 @@ class Type extends React.PureComponent {
       items: [
         { label: 'Delete Type' }
       ]
-    })
-  }
-
-  _handleToggle() {
-    const { expanded } = this.state
-    this.setState({
-      expanded: !expanded
     })
   }
 

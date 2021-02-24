@@ -14,21 +14,16 @@ class Dataset extends React.PureComponent {
     onSelect: PropTypes.func
   }
 
-  state = {
-    expanded: false
-  }
-
   _handleSelect = this._handleSelect.bind(this)
   _handleTasks = this._handleTasks.bind(this)
-  _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { expanded } = this.state
     const { dataset } = this.props
+    const expanded = this._getExpanded()
     return (
       <Fragment>
         <div className={ this._getClass() } onClick={ this._handleSelect }>
-          <div className="datasets-explorer-item-toggle" onClick={ this._handleToggle }>
+          <div className="datasets-explorer-item-toggle">
             <i className={`fa fa-${this._getIcon() }`} />
           </div>
           <div className="datasets-explorer-item-icon">
@@ -65,8 +60,13 @@ class Dataset extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getExpanded() {
+    const { dataset, selected } = this.props
+    return dataset.id === selected.dataset_id
+  }
+
   _getIcon() {
-    const { expanded } = this.state
+    const expanded = this._getExpanded()
     return expanded ? 'chevron-down' : 'chevron-right'
   }
 
@@ -96,13 +96,6 @@ class Dataset extends React.PureComponent {
         { label: 'Manage Access' },
         { label: 'Delete Dataset' }
       ]
-    })
-  }
-
-  _handleToggle() {
-    const { expanded } = this.state
-    this.setState({
-      expanded: !expanded
     })
   }
 
