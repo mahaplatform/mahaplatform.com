@@ -5,7 +5,6 @@
 }
 .datasets-manager-sidebar {
   border-right: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 97);
   position: relative;
   flex: 0 0 300px;
   display: flex;
@@ -15,5 +14,15 @@
 }
 .datasets-manager-main {
   display: flex;
-  flex: 1
+  flex: 1;
+  .maha-collection-header {
+    background-color: @grey !important;
+    padding: 0.6em;
+  }
+  .maha-collection-header-bar > div {
+    border-right-color: @grey;
+  }
+  .maha-collection-table-header {
+    background-color: fadeout(@black, 97);
+  }
 }

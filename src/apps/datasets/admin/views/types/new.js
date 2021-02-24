@@ -5,10 +5,13 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    dataset: PropTypes.object
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -18,10 +21,11 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { dataset } = this.props
     return {
-      title: 'New Dataset',
+      title: 'New Type',
       method: 'post',
-      action: '/api/admin/datasets/datasets',
+      action: `/api/admin/datasets/datasets/${dataset.id}/types`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

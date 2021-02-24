@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Explorer from '../explorer'
 import React from 'react'
+import Data from './data'
 
 class Manager extends React.PureComponent {
 
@@ -12,6 +13,8 @@ class Manager extends React.PureComponent {
     datasets: []
   }
 
+  _handleFetch = this._handleFetch.bind(this)
+
   render() {
     return (
       <div className="datasets-manager">
@@ -19,14 +22,19 @@ class Manager extends React.PureComponent {
           <Explorer {...this._getExplorer() } />
         </div>
         <div className="datasets-manager-main">
-          main
+          <Data />
         </div>
       </div>
     )
   }
 
   componentDidMount() {
+    this._handleJoin()
     this._handleFetch()
+  }
+
+  componentWillUnmount() {
+    this._handleLeave()
   }
 
   _getExplorer() {
@@ -46,6 +54,24 @@ class Manager extends React.PureComponent {
         })
       }
     })
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const target = '/admin/datasets/datasets'
+    network.join(target)
+    network.subscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const target = '/admin/datasets/datasets'
+    network.leave(target)
+    network.unsubscribe([
+      { target, action: 'refresh', handler: this._handleFetch }
+    ])
   }
 
 }

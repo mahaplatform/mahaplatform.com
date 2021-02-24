@@ -12,7 +12,10 @@ const Dataset = new Model({
   virtuals: {},
 
   types() {
-    return this.hasMany(Type, 'dataset_id')
+    return this.hasMany(Type, 'dataset_id').query(qb => {
+      qb.whereNull('deleted_at')
+      qb.orderBy('title', 'asc')
+    })
   }
 
 })
