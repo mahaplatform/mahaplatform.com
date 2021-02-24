@@ -4,6 +4,10 @@ import Type from './type'
 
 class Dataset extends React.PureComponent {
 
+  static contextTypes = {
+    tasks: PropTypes.object
+  }
+
   static propTypes = {
     dataset: PropTypes.object,
     selected: PropTypes.object,
@@ -15,6 +19,7 @@ class Dataset extends React.PureComponent {
   }
 
   _handleSelect = this._handleSelect.bind(this)
+  _handleTasks = this._handleTasks.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -32,12 +37,17 @@ class Dataset extends React.PureComponent {
           <div className="datasets-explorer-item-details">
             { dataset.title}
           </div>
-          <div className="datasets-explorer-item-action">
+          <div className="datasets-explorer-item-action" onClick={ this._handleTasks }>
             <i className="fa fa-ellipsis-v" />
           </div>
         </div>
         { expanded &&
           <Fragment>
+            { dataset.types.length === 0 &&
+              <div className="datasets-explorer-empty">
+                no types
+              </div>
+            }
             { dataset.types.map((type, tindex) => (
               <Type { ...this._getType(type) } key={`type_${tindex}`} />
             )) }
@@ -76,6 +86,16 @@ class Dataset extends React.PureComponent {
       dataset_id: dataset.id,
       type_id: null,
       view: null
+    })
+  }
+
+  _handleTasks() {
+    this.context.tasks.open({
+      items: [
+        { label: 'Add Type' },
+        { label: 'Manage Access' },
+        { label: 'Delete Dataset' }
+      ]
     })
   }
 
