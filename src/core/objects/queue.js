@@ -16,9 +16,14 @@ const getQueue = (name) => {
   return queues[name]
 }
 
+const getDefaultConcurrency = (name) => {
+  if(name === 'analytics') return 10
+  if(name === 'twilio') return 1
+  return 5
+}
+
 const getConcurrency = (name) => {
-  const defaultConcurrency = name === 'worker' ? 5 : 1
-  return queues[name] === undefined ? defaultConcurrency : 0
+  return queues[name] === undefined ? getDefaultConcurrency(name) : 0
 }
 
 class Queue {
