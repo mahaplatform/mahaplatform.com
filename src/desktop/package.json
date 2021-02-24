@@ -33,7 +33,7 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pasteur": "^1.0.7"
   },
   "build": {
