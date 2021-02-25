@@ -1,8 +1,8 @@
-.datasets-explorer {
+.maha-finder {
   .scrollable();
   flex: 1;
 }
-.datasets-explorer-item {
+.maha-finder-item {
   display: flex;
   flex: 1;
   cursor: pointer;
@@ -11,15 +11,15 @@
   }
   &:hover {
     background-color: fadeout(@black, 97);
-    .datasets-explorer-item-action {
+    .maha-finder-item-action {
       visibility: visible;
     }
   }
 }
-.datasets-explorer-item-padding {
+.maha-finder-item-padding {
   flex: 0 0 1.4em;
 }
-.datasets-explorer-item-toggle {
+.maha-finder-item-toggle {
   flex: 0 0 1.4em;
   display: flex;
   .fa {
@@ -28,36 +28,14 @@
     font-size: 0.6em;
   }
 }
-.datasets-explorer-item-icon {
+.maha-finder-item-icon {
   flex: 0 0 1.4em;
   display: flex;
-  .fa-database {
-    color: @yellow;
-  }
-  .fa-shield {
-    color: @red;
-  }
-  .fa-copy {
-    color: @teal;
-  }
-  .fa-file-o {
-    font-size: 0.8em;
-    color: @teal;
-  }
-  .fa-check-square {
-    color: @blue;
-  }
-  .fa-filter {
-    color: @violet;
-  }
-  .fa-table {
-    color: @green;
-  }
   .fa {
     margin: auto;
   }
 }
-.datasets-explorer-item-action {
+.maha-finder-item-action {
   flex: 0 0 1.6em;
   visibility: hidden;
   display: flex;
@@ -71,11 +49,11 @@
     margin: auto;
   }
 }
-.datasets-explorer-item-details {
+.maha-finder-item-details {
   padding: 0.5em 0.2em;
   flex: 1;
 }
-.datasets-explorer-empty {
+.maha-finder-empty {
   padding: 0.6em 0.2em 0.6em 4.2em;
   color: fadeout(@black, 60);
   font-style: italic;

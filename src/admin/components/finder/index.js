@@ -1,41 +1,48 @@
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
-import Dataset from './dataset'
+import Item from './item'
 import React  from 'react'
 
-class Explorer extends React.PureComponent {
+class Finder extends React.PureComponent {
 
   static propTypes = {
-    datasets: PropTypes.array
+    items: PropTypes.array,
+    selected: PropTypes.string
   }
 
   static defaultProps = {
-    datasets: []
+    items: []
   }
 
   state = {
-    selected: {}
+    selected: ''
   }
 
   _handleSelect = this._handleSelect.bind(this)
 
   render() {
-    const { datasets } = this.props
+    const { items } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="datasets-explorer">
-          { datasets.map((dataset, dindex) => (
-            <Dataset { ...this._getDataset(dataset) } key={`dataset_${dindex}`} />
+        <div className="maha-finder">
+          { items.map((item, index) => (
+            <Item { ...this._getItem(item, index)} key={`item_${index}`} />
           )) }
         </div>
       </ModalPanel>
     )
   }
 
-  _getDataset(dataset) {
+  componentDidMount() {
+    const { selected } = this.props
+    if(selected) this.setState({ selected })
+  }
+
+  _getItem(item, index) {
     const { selected } = this.state
     return {
-      dataset,
+      ...item,
+      index: `${index}`,
       selected,
       onSelect: this._handleSelect
     }
@@ -51,4 +58,4 @@ class Explorer extends React.PureComponent {
 
 }
 
-export default Explorer
+export default Finder
