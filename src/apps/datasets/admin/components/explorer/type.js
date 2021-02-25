@@ -20,7 +20,6 @@ class Type extends React.PureComponent {
     onSelect: PropTypes.func
   }
 
-  _handleSelect = this._handleSelect.bind(this)
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
@@ -28,10 +27,14 @@ class Type extends React.PureComponent {
     const { type } = this.props
     return (
       <Fragment>
-        <div className={ this._getClass() } onClick={ this._handleSelect.bind(this, null) }>
+        <div className="datasets-explorer-item" onClick={ this._handleSelect.bind(this, null) }>
+          <div className="datasets-explorer-item-padding" />
           <div className="datasets-explorer-item-padding" />
           <div className="datasets-explorer-item-toggle">
             <i className={`fa fa-${this._getIcon() }`} />
+          </div>
+          <div className="datasets-explorer-item-icon" >
+            <i className="fa fa-file-o" />
           </div>
           <div className="datasets-explorer-item-details" >
             { type.title}
@@ -44,6 +47,8 @@ class Type extends React.PureComponent {
           <Fragment>
             { views.map((view, index) => (
               <div className={ this._getViewClass(view.code) } key={`view_${index}`} onClick={ this._handleSelect.bind(this, view.code) }>
+                <div className="datasets-explorer-item-padding" />
+                <div className="datasets-explorer-item-padding" />
                 <div className="datasets-explorer-item-padding" />
                 <div className="datasets-explorer-item-padding" />
                 <div className="datasets-explorer-item-icon" >
@@ -60,14 +65,6 @@ class Type extends React.PureComponent {
     )
   }
 
-  _getClass() {
-    const { dataset, selected, type } = this.props
-    const { dataset_id, type_id, view } = selected
-    const classes = ['datasets-explorer-item']
-    if(dataset_id === dataset.id && type_id === type.id && !view) classes.push('selected')
-    return classes.join(' ')
-  }
-
   _getExpanded() {
     const { dataset, type, selected } = this.props
     return dataset.id === selected.dataset_id && type.id === selected.type_id
@@ -79,26 +76,27 @@ class Type extends React.PureComponent {
   }
 
   _getViewClass(code) {
-    const { dataset, selected, type } = this.props
-    const { dataset_id, type_id, view } = selected
+    const { tview } = this.props.selected
     const classes = ['datasets-explorer-item']
-    if(dataset_id === dataset.id && type_id === type.id && view === code) classes.push('selected')
+    if(code === tview  ) classes.push('selected')
     return classes.join(' ')
   }
 
   _handleSelect(code, e) {
     e.stopPropagation()
     const { dataset, type, selected } = this.props
-    const { dataset_id, type_id } = selected
+    const { dataset_id, dview, type_id } = selected
     if(dataset_id === dataset.id && type_id === type.id && !code) {
       return this.props.onSelect({
-        dataset_id: dataset.id
+        dataset_id,
+        dview
       })
     }
     this.props.onSelect({
       dataset_id: dataset.id,
+      dview: 'types',
       type_id: type.id,
-      view: code
+      tview: code
     })
   }
 

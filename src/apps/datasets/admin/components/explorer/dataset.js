@@ -3,6 +3,10 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Type from './type'
 
+const views = [
+  { icon: 'shield', label: 'Access', code: 'access', children: false },
+  { icon: 'copy', label: 'Types', code: 'types', children: true }
+]
 class Dataset extends React.PureComponent {
 
   static contextTypes = {
@@ -15,15 +19,15 @@ class Dataset extends React.PureComponent {
     onSelect: PropTypes.func
   }
 
-  _handleSelect = this._handleSelect.bind(this)
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { dataset } = this.props
+    const { dataset, selected } = this.props
+    const { dview } = selected
     const expanded = this._getExpanded()
     return (
       <Fragment>
-        <div className={ this._getClass() } onClick={ this._handleSelect }>
+        <div className={ this._getClass() } onClick={ this._handleSelect.bind(this, null) }>
           <div className="datasets-explorer-item-toggle">
             <i className={`fa fa-${this._getIcon() }`} />
           </div>
@@ -39,14 +43,38 @@ class Dataset extends React.PureComponent {
         </div>
         { expanded &&
           <Fragment>
-            { dataset.types.length === 0 &&
-              <div className="datasets-explorer-empty">
-                no types
+            { views.map((view, index) => (
+              <div className={ this._getViewClass(view.code) } key={`view_${index}`} onClick={ this._handleSelect.bind(this, view.code) }>
+                <div className="datasets-explorer-item-padding" />
+                { view.children ?
+                  <div className="datasets-explorer-item-toggle">
+                    <i className={`fa fa-${this._getViewIcon(view.code) }`} />
+                  </div> :
+                  <div className="datasets-explorer-item-padding" />
+                }
+                <div className="datasets-explorer-item-icon" >
+                  <i className={`fa fa-${view.icon}`} />
+                </div>
+                <div className="datasets-explorer-item-details" >
+                  { view.label}
+                </div>
+                <div className="datasets-explorer-item-action" onClick={ this._handleTasks }>
+                  <i className="fa fa-ellipsis-v" />
+                </div>
               </div>
-            }
-            { dataset.types.map((type, tindex) => (
-              <Type { ...this._getType(type) } key={`type_${tindex}`} />
             )) }
+            { dview === 'types' &&
+              <Fragment>
+                { dataset.types.length === 0 &&
+                  <div className="datasets-explorer-empty">
+                    no types
+                  </div>
+                }
+                { dataset.types.map((type, tindex) => (
+                  <Type { ...this._getType(type) } key={`type_${tindex}`} />
+                )) }
+              </Fragment>
+            }
           </Fragment>
         }
       </Fragment>
@@ -55,9 +83,9 @@ class Dataset extends React.PureComponent {
 
   _getClass() {
     const { dataset, selected } = this.props
-    const { dataset_id, type_id, view } = selected
+    const { dataset_id, dview, type_id, tview } = selected
     const classes = ['datasets-explorer-item']
-    if(dataset_id === dataset.id && !type_id && !view) classes.push('selected')
+    // if(dataset_id === dataset.id && !dview && !type_id && !tview) classes.push('selected')
     return classes.join(' ')
   }
 
@@ -81,16 +109,31 @@ class Dataset extends React.PureComponent {
     }
   }
 
-  _handleSelect(e) {
-    console.log('here')
+  _getViewClass(code) {
+    const { dataset, selected } = this.props
+    const { dataset_id, dview, type_id, tview } = selected
+    const classes = ['datasets-explorer-item']
+    // if(dataset_id === dataset.id && dview === code && !type_id && !tview) classes.push('selected')
+    return classes.join(' ')
+  }
+
+  _getViewIcon(code) {
+    const { dview } = this.props.selected
+    const expanded = code === dview && code === 'types'
+    return expanded ? 'chevron-down' : 'chevron-right'
+
+  }
+
+  _handleSelect(code, e) {
     e.stopPropagation()
     const { dataset, selected } = this.props
-    const { dataset_id, type_id, view } = selected
-    if(dataset_id === dataset.id && !type_id && !view) {
+    const { dataset_id, dview } = selected
+    if(dataset_id === dataset.id && !code) {
       return this.props.onSelect({})
     }
     this.props.onSelect({
-      dataset_id: dataset.id
+      dataset_id: dataset.id,
+      dview: code !== dview ? code : null
     })
   }
 
