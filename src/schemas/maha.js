@@ -717,6 +717,16 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('datasets_records', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('type_id').unsigned()
+      table.string('code', 255)
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('datasets_types', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -3848,6 +3858,11 @@ const schema = {
     })
 
     await knex.schema.table('datasets_items', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('type_id').references('datasets_types.id')
+    })
+
+    await knex.schema.table('datasets_records', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('type_id').references('datasets_types.id')
     })

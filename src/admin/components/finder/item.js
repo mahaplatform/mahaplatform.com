@@ -9,7 +9,7 @@ class Item extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.array,
-    count: PropTypes.array,
+    count: PropTypes.number,
     handler: PropTypes.func,
     icon: PropTypes.string,
     index: PropTypes.string,

@@ -1,7 +1,7 @@
-import ItemSerializer from '@apps/datasets/serializers/item_serializer'
+import ItemSerializer from '@apps/datasets/serializers/record_serializer'
 import Dataset from '@apps/datasets/models/dataset'
 import Type from '@apps/datasets/models/type'
-import Item from '@apps/datasets/models/item'
+import Item from '@apps/datasets/models/record'
 
 const listRoute = async (req, res) => {
 
@@ -28,7 +28,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
-  const items = await Item.filterFetch({
+  const records = await Item.filterFetch({
     scope: (qb) => {
       qb.where('type_id', type.get('id'))
     },
@@ -42,7 +42,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(items, ItemSerializer)
+  res.status(200).respond(records, ItemSerializer)
 
 }
 

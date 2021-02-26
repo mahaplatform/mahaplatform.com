@@ -1,11 +1,11 @@
 import Model from '@core/objects/model'
 import Type from './type'
 
-const Item = new Model({
+const Record = new Model({
 
   databaseName: 'maha',
 
-  tableName: 'datasets_items',
+  tableName: 'datasets_records',
 
   rules: {},
 
@@ -17,4 +17,4 @@ const Item = new Model({
 
 })
 
-export default Item
+export default Record

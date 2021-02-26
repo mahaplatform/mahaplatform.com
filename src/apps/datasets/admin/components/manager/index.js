@@ -116,14 +116,6 @@ class Manager extends React.PureComponent {
                       handler: this._handleTypeView.bind(this, API, dataset, type)
                     },
                     {
-                      icon: 'check-square',
-                      label: 'Form',
-                      children: [
-                        { icon: 'info-circle', label: 'Details' },
-                        { icon: 'envelope', label: 'Responses' }
-                      ]
-                    },
-                    {
                       icon: 'info-circle',
                       label: 'Details',
                       handler: this._handleTypeView.bind(this, Type, dataset, type)
@@ -132,6 +124,14 @@ class Manager extends React.PureComponent {
                       icon: 'table',
                       label: 'Data',
                       handler: this._handleTypeView.bind(this, Data, dataset, type)
+                    },
+                    {
+                      icon: 'check-square',
+                      label: 'Forms',
+                      children: [
+                        { icon: 'info-circle', label: 'Details' },
+                        { icon: 'envelope', label: 'Responses' }
+                      ]
                     },
                     {
                       icon: 'copy',

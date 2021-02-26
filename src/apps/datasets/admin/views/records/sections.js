@@ -9,15 +9,15 @@ const sections = (fields) => fields.reduce((fields, field, index) => [
   ...sections,
   ...field.type === 'section' ? {
     current: sections.current + 1,
-    items: [
-      ...sections.items,
+    records: [
+      ...sections.records,
       {
         label: field.label,
         instructions: field.instructions
       }
     ]
   } : {
-    items: sections.items.map((section, index) => {
+    records: sections.records.map((section, index) => {
       if(index !== sections.current) return section
       return {
         ...section,
@@ -28,7 +28,7 @@ const sections = (fields) => fields.reduce((fields, field, index) => [
       }
     })
   }
-}), { items: [], current: -1 }).items
+}), { records: [], current: -1 }).records
 
 const _getControl = (field) => ({
   ...field.config,

@@ -1,8 +1,7 @@
-const itemSerializer = (req, result) => ({
+const recordSerializer = (req, result) => ({
   id: result.get('id'),
-  title: 'Foo',
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
 
-export default itemSerializer
+export default recordSerializer
