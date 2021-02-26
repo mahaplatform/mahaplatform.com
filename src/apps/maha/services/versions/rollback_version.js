@@ -17,11 +17,16 @@ const rollbackVersion = async (req, params) => {
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
+    user_id: req.user.get('id'),
     key,
     value: rollback.get('value'),
     published_at: null,
     unpublished_at: null
   }).save(null, {
+    transacting: req.trx
+  })
+
+  await version.load(['user'], {
     transacting: req.trx
   })
 

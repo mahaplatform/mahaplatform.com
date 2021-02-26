@@ -34,11 +34,16 @@ const publishVersion = async (req, params) => {
   })
 
   await publish.save({
+    user_id: req.user.get('id'),
     published_at: moment(),
     unpublished_at: null
   }, {
     transacting: req.trx,
     patch: true
+  })
+
+  await publish.load(['user'], {
+    transacting: req.trx
   })
 
   return publish

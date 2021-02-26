@@ -18,6 +18,7 @@ const getVersion = async (req, { versionable_type, versionable_id, key }) => {
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
+    user_id: req.user.get('id'),
     key,
     published_at: null,
     unpublished_at: null
@@ -70,16 +71,21 @@ const updateVersion = async (req, params) => {
   })
 
   await version.save({
+    user_id: req.user.get('id'),
     value
   }, {
     transacting: req.trx,
     patch: true
   })
 
-  if(!publish) return version
+  if(publish) {
+    await publishVersion(req, {
+      version
+    })
+  }
 
-  await publishVersion(req, {
-    version
+  await version.load(['user'], {
+    transacting: req.trx
   })
 
   return version

@@ -11,6 +11,7 @@ const currentRoute = async (req, res) => {
     qb.where('key', key)
     qb.orderBy('created_at', 'desc')
   }).fetch({
+    withRelated: ['user'],
     transacting: req.trx
   })
 

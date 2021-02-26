@@ -119,6 +119,7 @@ export Timestamp from './components/timestamp'
 export Tokens from './components/tokens'
 export Tooltip from './components/tooltip'
 export emojify from './components/emojis/emojify'
+export Versions from './components/versions'
 
 // core/tokens
 export Token from './tokens/token'

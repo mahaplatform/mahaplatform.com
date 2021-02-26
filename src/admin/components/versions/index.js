@@ -21,21 +21,21 @@ class Versions extends React.Component {
   render() {
     const { versions } = this.props
     return (
-      <div className="flowchart-designer-versions">
+      <div className="maha-versions">
         { versions.map((version, index) => (
           <div className={ this._getClass(version.id) } key={`version_${index}`} onClick={ this._handleClick.bind(this, version) }>
-            <div className="flowchart-designer-versions-version-active">
+            <div className="maha-versions-version-active">
               <i className={`fa fa-${this._getIcon(version.id) }`} />
             </div>
-            <div className="flowchart-designer-versions-version-details">
-              <div className="flowchart-designer-versions-version-title">
+            <div className="maha-versions-version-details">
+              <div className="maha-versions-version-title">
                 { index === 0 ? 'Current Version ' : `Version ${versions.length - index} ` }
               </div>
-              <div className="flowchart-designer-versions-version-timestamp">
-                UPDATED: { moment(version.updated_at).format('MMM DD, YYYY [@] h:mm A') } by Gregory Kops
+              <div className="maha-versions-version-timestamp">
+                UPDATED: { moment(version.updated_at).format('MMM DD, YYYY [@] h:mm A') } by { version.user.full_name }
               </div>
               { version.is_published &&
-                <span className="flowchart-designer-versions-version-published">Published</span>
+                <span className="maha-versions-version-published">Published</span>
               }
               { (!version.is_published || index > 0) &&
                 <Button { ...this._getPublish(version, index) } />
@@ -49,7 +49,7 @@ class Versions extends React.Component {
 
   _getClass(id) {
     const { version } = this.props
-    const classes = ['flowchart-designer-versions-version']
+    const classes = ['maha-versions-version']
     if(id === version.id) classes.push('active')
     return classes.join(' ')
   }
@@ -76,7 +76,7 @@ class Versions extends React.Component {
     e.stopPropagation()
     const { entity } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/${entity}/config/versions/publish`,
+      endpoint: `/api/admin/${entity}/versions/publish`,
       method: 'PATCH',
       body: {
         publish_id: version.id
@@ -90,7 +90,7 @@ class Versions extends React.Component {
     e.stopPropagation()
     const { entity } = this.props
     this.context.network.request({
-      endpoint: `/api/admin/${entity}/config/versions/rollback`,
+      endpoint: `/api/admin/${entity}/versions/rollback`,
       method: 'PATCH',
       body: {
         rollback_id: version.id

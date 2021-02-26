@@ -1,6 +1,5 @@
-import { Menu, ModalPanel } from '@admin'
+import { Menu, ModalPanel, Versions } from '@admin'
 import PropTypes from 'prop-types'
-import Versions from './versions'
 import Content from './content'
 import React from 'react'
 
@@ -54,7 +53,7 @@ class Sidebar extends React.Component {
   _getVersions() {
     const { entity, version, versions, onSetVersion } = this.props
     return {
-      entity,
+      entity: `${entity}/config`,
       version,
       versions,
       onSetVersion

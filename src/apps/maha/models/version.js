@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import User from './user'
 
 const Version = new Model({
 
@@ -13,6 +14,10 @@ const Version = new Model({
     is_published() {
       return this.get('published_at') !== null && this.get('unpublished_at') === null
     }
+  },
+
+  user() {
+    return this.belongsTo(User, 'user_id')
   }
 
 })

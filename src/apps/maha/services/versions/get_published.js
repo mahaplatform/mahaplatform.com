@@ -12,6 +12,7 @@ const getPublished = async (req, params) => {
     qb.whereNull('unpublished_at')
     qb.orderBy('created_at', 'desc')
   }).fetch({
+    withRelated: ['user'],
     transacting: req.trx
   })
 

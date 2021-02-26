@@ -10,6 +10,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.orderBy('created_at', 'desc')
   }).fetchAll({
+    withRelated: ['user'],
     transacting: req.trx
   })
 

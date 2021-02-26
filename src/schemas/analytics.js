@@ -18,6 +18,11 @@ const schema = {
       table.string('text', 255)
     })
 
+    await knex.schema.createTable('categories', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('cities', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
@@ -88,12 +93,12 @@ const schema = {
     })
 
     await knex.schema.createTable('events', (table) => {
-      table.integer('context_id').unsigned()
+      table.timestamp('tstamp')
       table.integer('session_id').unsigned()
       table.integer('event_type_id').unsigned()
       table.integer('page_id').unsigned()
+      table.integer('context_id')
       table.increments('id').primary()
-      table.timestamp('tstamp')
       table.integer('doc_width')
       table.integer('doc_height')
       table.integer('view_width')
@@ -112,6 +117,11 @@ const schema = {
       table.decimal('latitude', 10, 6)
       table.decimal('longitude', 10, 6)
       table.string('address', 255)
+    })
+
+    await knex.schema.createTable('labels', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('manufacturers', (table) => {
@@ -144,7 +154,7 @@ const schema = {
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
       table.string('title', 255)
-      table.text('path')
+      table.string('path', 255)
     })
 
     await knex.schema.createTable('platforms', (table) => {
@@ -157,18 +167,28 @@ const schema = {
       table.string('text', 255)
     })
 
+    await knex.schema.createTable('properties', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('protocols', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
     })
 
     await knex.schema.createTable('raws', (table) => {
+      table.increments('id').primary()
+      table.jsonb('data')
+      table.jsonb('enriched')
+      table.USER-DEFINED('validation_status')
+      table.USER-DEFINED('enrichment_status')
+      table.USER-DEFINED('modeling_status')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('attempts')
-      table.USER-DEFINED('status')
-      table.increments('id').primary()
-      table.text('data')
+      table.text('validation_error')
+      table.text('modeling_error')
+      table.text('enrichment_error')
       table.text('error')
     })
 
@@ -176,7 +196,7 @@ const schema = {
       table.increments('id').primary()
       table.integer('protocol_id').unsigned()
       table.integer('domain_id').unsigned()
-      table.text('path')
+      table.string('path', 255)
     })
 
     await knex.schema.createTable('regions', (table) => {
@@ -201,15 +221,15 @@ const schema = {
       table.integer('term_id').unsigned()
       table.integer('content_id').unsigned()
       table.integer('network_id').unsigned()
+      table.integer('useragent_id').unsigned()
       table.integer('email_campaign_id')
       table.integer('email_id')
-      table.integer('useragent_id').unsigned()
-      table.integer('response_id')
-      table.integer('registration_id')
-      table.integer('order_id')
       table.integer('form_id')
+      table.integer('response_id')
       table.integer('event_id')
+      table.integer('registration_id')
       table.integer('store_id')
+      table.integer('order_id')
       table.integer('website_id')
       table.string('clickid', 255)
       table.string('domain_sessionid', 255)
@@ -242,6 +262,10 @@ const schema = {
     })
 
 
+    await knex.schema.table('apps', table => {
+      table.foreign('platform_id').references('platforms.id')
+    })
+
     await knex.schema.table('referers', table => {
       table.foreign('protocol_id').references('protocols.id')
       table.foreign('domain_id').references('domains.id')
@@ -253,6 +277,15 @@ const schema = {
       table.foreign('country_id').references('countries.id')
       table.foreign('postal_code_id').references('postal_codes.id')
       table.foreign('metro_code_id').references('metro_codes.id')
+    })
+
+    await knex.schema.table('useragents', table => {
+      table.foreign('device_id').references('devices.id')
+      table.foreign('manufacturer_id').references('manufacturers.id')
+      table.foreign('os_id').references('oses.id')
+      table.foreign('os_version_id').references('versions.id')
+      table.foreign('browser_id').references('browsers.id')
+      table.foreign('browser_version_id').references('versions.id')
     })
 
     await knex.schema.table('sessions', table => {
@@ -278,20 +311,6 @@ const schema = {
       table.foreign('session_id').references('sessions.id')
       table.foreign('event_type_id').references('event_types.id')
       table.foreign('page_id').references('pages.id')
-      table.foreign('context_id').references('contexts.id')
-    })
-
-    await knex.schema.table('useragents', table => {
-      table.foreign('device_id').references('devices.id')
-      table.foreign('manufacturer_id').references('manufacturers.id')
-      table.foreign('os_id').references('oses.id')
-      table.foreign('os_version_id').references('versions.id')
-      table.foreign('browser_id').references('browsers.id')
-      table.foreign('browser_version_id').references('versions.id')
-    })
-
-    await knex.schema.table('apps', table => {
-      table.foreign('platform_id').references('platforms.id')
     })
 
 
@@ -350,14 +369,14 @@ const schema = {
       events.session_id,
       events.event_type_id,
       events.page_id,
+      events.context_id,
       events.event_id,
-      events.tstamp,
       events.doc_width,
       events.doc_height,
       events.view_width,
       events.view_height,
       events.data,
-      events.context_id
+      events.tstamp
       from (events
       join event_types on ((event_types.id = events.event_type_id)))
       where ((event_types.type)::text = 'page_view'::text)

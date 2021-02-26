@@ -9,10 +9,15 @@ const createVersion = async (req, params) => {
     team_id: req.team.get('id'),
     versionable_type,
     versionable_id,
+    user_id: req.user.get('id'),
     key,
     value,
     ...publish ? { published_at: moment() } : {}
   }).save(null, {
+    transacting: req.trx
+  })
+
+  await version.load(['user'], {
     transacting: req.trx
   })
 
