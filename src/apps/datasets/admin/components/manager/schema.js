@@ -31,7 +31,7 @@ class Schema extends React.PureComponent {
       datasources: []
       // resources.types.map(type => ({
       //   label: type.title,
-      //   endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${type.id}/items`,
+      //   endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${type.id}/record`,
       //   value: 'id',
       //   text: 'title',
       //   type_id: type.id

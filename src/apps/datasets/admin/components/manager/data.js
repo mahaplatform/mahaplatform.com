@@ -1,5 +1,5 @@
+import NewRecord from '../../views/records/new'
 import { Collection, Container } from '@admin'
-import NewItem from '../../views/items/new'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -25,7 +25,7 @@ class Data extends React.PureComponent {
   _getCollection() {
     const { dataset, fields, type } = this.props
     return {
-      endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/items`,
+      endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
       table: [
         { label: 'ID', key: 'id', collapsing: true, visible: false },
         ...fields.map(field => ({
@@ -36,10 +36,10 @@ class Data extends React.PureComponent {
       ],
       empty: {
         icon: 'file-text',
-        title: 'No Items',
-        text: 'You have not yet created any items',
+        title: 'No Records',
+        text: 'You have not yet created any records',
         buttons: [
-          { label: `Create ${_.startCase(type.title)}`, modal: <NewItem type={ type } fields={ fields } dataset={ dataset } /> }
+          { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> }
         ]
       },
       criteria: {
@@ -54,7 +54,7 @@ class Data extends React.PureComponent {
           }
         ]
       },
-      entity: 'item',
+      entity: 'record',
       defaultSort: { key: 'title', order: 'asc' },
       selectable: true,
       buttons: (selected, onSuccess) => [
@@ -65,11 +65,11 @@ class Data extends React.PureComponent {
       tasks: {
         icon: 'plus',
         items: [
-          { label: `Create ${_.startCase(type.title)}`, modal: <NewItem type={ type } fields={ fields } dataset={ dataset } /> },
-          { label: 'Import Items'}
+          { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> },
+          { label: 'Import Records'}
         ]
       },
-      onClick: (record) => this.context.router.history.push(`/datasets/datasets/${dataset.id}/types/${type.id}/items/${record.id}`)
+      onClick: (record) => this.context.router.history.push(`/datasets/datasets/${dataset.id}/types/${type.id}/records/${record.id}`)
     }
   }
 

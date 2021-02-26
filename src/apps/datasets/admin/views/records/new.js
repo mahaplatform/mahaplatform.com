@@ -28,7 +28,7 @@ class New extends React.Component {
     return {
       title: `New ${_.startCase(type.title)}`,
       method: 'post',
-      action: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/items`,
+      action: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: sections(fields)

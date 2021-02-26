@@ -2,7 +2,7 @@ import Editor from '../../components/editor'
 import { Page } from '@admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Item',
+  title: 'Record',
   component: Editor
 })
 

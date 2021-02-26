@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import destroy from './destroy'
+import records from './records'
 import create from './create'
 import update from './update'
-import items from './items'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -21,6 +21,6 @@ router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
-router.use('/:type_id/items', items)
+router.use('/:type_id/records', records)
 
 export default router

@@ -1,9 +1,9 @@
-const CreateItem = {
+const CreateRecord = {
 
   databaseName: 'maha',
 
   up: async (knex) => {
-    await knex.schema.createTable('datasets_items', (table) => {
+    await knex.schema.createTable('datasets_records', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -16,9 +16,9 @@ const CreateItem = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('datasets_items')
+    await knex.schema.dropTable('datasets_records')
   }
 
 }
 
-export default CreateItem
+export default CreateRecord

@@ -1,7 +1,7 @@
-import ItemSerializer from '@apps/datasets/serializers/item_serializer'
+import RecordSerializer from '@apps/datasets/serializers/record_serializer'
 import Dataset from '@apps/datasets/models/dataset'
 import Type from '@apps/datasets/models/type'
-import Item from '@apps/datasets/models/item'
+import Record from '@apps/datasets/models/record'
 
 const showRoute = async (req, res) => {
 
@@ -28,19 +28,19 @@ const showRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
-  const item = await Item.query(qb => {
+  const record = await Record.query(qb => {
     qb.where('type_id', type.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })
 
-  if(!item) return res.status(404).respond({
+  if(!record) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load item'
+    message: 'Unable to load record'
   })
 
-  res.status(200).respond(item, ItemSerializer)
+  res.status(200).respond(record, RecordSerializer)
 
 }
 export default showRoute

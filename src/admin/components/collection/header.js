@@ -21,7 +21,7 @@ class Header extends React.Component {
     filters: PropTypes.array,
     search: PropTypes.bool,
     sort: PropTypes.object,
-    tasks: PropTypes.tasks,
+    tasks: PropTypes.object,
     onRefresh: PropTypes.func,
     onSetQuery: PropTypes.func,
     onToggleFilter: PropTypes.func

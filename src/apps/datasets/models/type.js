@@ -1,6 +1,6 @@
 import Model from '@core/objects/model'
 import Dataset from './dataset'
-import Item from './item'
+import Record from './record'
 
 const Type = new Model({
 
@@ -16,8 +16,8 @@ const Type = new Model({
     return this.belongsTo(Dataset, 'dataset_id')
   },
 
-  items() {
-    return this.hasMany(Item, 'type_id')
+  records() {
+    return this.hasMany(Record, 'type_id')
   }
 
 })
