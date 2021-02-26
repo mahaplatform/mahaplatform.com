@@ -62,6 +62,13 @@ class Data extends React.PureComponent {
         { label: 'Bar' },
         { label: 'Baz' }
       ],
+      tasks: {
+        icon: 'plus',
+        items: [
+          { label: `Create ${_.startCase(type.title)}`, modal: <NewItem type={ type } fields={ fields } dataset={ dataset } /> },
+          { label: 'Import Items'}
+        ]
+      },
       onClick: (record) => this.context.router.history.push(`/datasets/datasets/${dataset.id}/types/${type.id}/items/${record.id}`)
     }
   }

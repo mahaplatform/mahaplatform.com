@@ -9,6 +9,7 @@ class Item extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.array,
+    count: PropTypes.array,
     handler: PropTypes.func,
     icon: PropTypes.string,
     index: PropTypes.string,
@@ -21,6 +22,7 @@ class Item extends React.PureComponent {
   }
 
   static defaultProps = {
+    count: 0,
     padding: 0,
     selectable: true
   }
@@ -29,7 +31,7 @@ class Item extends React.PureComponent {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { children, icon, label, padding, tasks } = this.props
+    const { children, count, icon, label, padding, tasks } = this.props
     const expanded = this._getExpanded()
     return (
       <Fragment>
@@ -50,6 +52,9 @@ class Item extends React.PureComponent {
           { icon &&
             <div className="maha-finder-item-icon">
               <i className={`fa fa-${icon}`} />
+              { count > 0 &&
+                <i className="fa fa-circle" />
+              }
             </div>
           }
           <div className="maha-finder-item-details">

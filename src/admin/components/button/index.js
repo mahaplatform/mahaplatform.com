@@ -40,6 +40,7 @@ class Button extends React.Component {
     }),
     route: PropTypes.string,
     size: PropTypes.string,
+    tasks: PropTypes.array,
     text: PropTypes.string,
     tooltip: PropTypes.any,
     url: PropTypes.string,

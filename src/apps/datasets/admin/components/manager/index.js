@@ -116,6 +116,14 @@ class Manager extends React.PureComponent {
                       handler: this._handleTypeView.bind(this, API, dataset, type)
                     },
                     {
+                      icon: 'check-square',
+                      label: 'Form',
+                      children: [
+                        { icon: 'info-circle', label: 'Details' },
+                        { icon: 'envelope', label: 'Responses' }
+                      ]
+                    },
+                    {
                       icon: 'info-circle',
                       label: 'Details',
                       handler: this._handleTypeView.bind(this, Type, dataset, type)
@@ -133,6 +141,12 @@ class Manager extends React.PureComponent {
                   ],
                   tasks: [
                     { label: 'Edit Type', modal: <EditType dataset={ dataset } type={ type } /> },
+                    {
+                      label: 'Backup Type',
+                      handler: () => {
+                        window.location.href = `/api/admin/datasets/datasets/${dataset.id}/backup?token=${team.token}`
+                      }
+                    },
                     {
                       label: 'Delete Type',
                       confirm: `
