@@ -7,16 +7,28 @@
 .maha-collection-header {
   background-color: @red;
   padding: 0 0.8em 0.8em;
+  display: flex;
 }
 .maha-collection-header-bar {
   background-color: fadeout(@white, 50);
   border-radius: 0.5em;
   display: flex;
+  flex: 1;
   & > div {
     border-right: 1px solid @red;
   }
   .maha-searchbox {
     padding: 0;
+  }
+}
+.maha-collection-header-button {
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  &:hover .fa {
+    color: @white;
+  }
+  .fa {
+    color: fadeout(@white, 20);
   }
 }
 .maha-collection-header-action {

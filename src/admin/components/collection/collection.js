@@ -49,7 +49,7 @@ class Collection extends React.Component {
     selectValue: PropTypes.string,
     sort: PropTypes.object,
     table: PropTypes.array,
-    tasks: PropTypes.array,
+    tasks: PropTypes.object,
     token: PropTypes.string,
     onAddPanel: PropTypes.func,
     onClearPanel: PropTypes.func,

@@ -7,7 +7,8 @@ import React from 'react'
 class Header extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -20,7 +21,7 @@ class Header extends React.Component {
     filters: PropTypes.array,
     search: PropTypes.bool,
     sort: PropTypes.object,
-    tasks: PropTypes.array,
+    tasks: PropTypes.tasks,
     onRefresh: PropTypes.func,
     onSetQuery: PropTypes.func,
     onToggleFilter: PropTypes.func
@@ -44,6 +45,9 @@ class Header extends React.Component {
           <Export { ...this._getExport() } />
           <Button { ...this._getRefresh() } />
         </div>
+        { tasks &&
+          <Button { ...this._getTasks() } />
+        }
       </div>
     )
   }
@@ -88,6 +92,15 @@ class Header extends React.Component {
     const { onSetQuery } = this.props
     return {
       onChange: onSetQuery
+    }
+  }
+
+  _getTasks() {
+    const { tasks } = this.props
+    return {
+      icon: tasks.icon,
+      className: 'maha-collection-header-button',
+      tasks: tasks.items
     }
   }
 
