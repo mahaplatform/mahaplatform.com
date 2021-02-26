@@ -2,13 +2,15 @@ import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    dataset: PropTypes.object
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -18,10 +20,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { dataset } = this.props
     return {
-      title: 'New Dataset',
-      method: 'post',
-      action: '/api/admin/datasets/datasets',
+      title: 'Edit Dataset',
+      method: 'patch',
+      endpoint: `/api/admin/datasets/datasets/${dataset.id}/edit`,
+      action: `/api/admin/datasets/datasets/${dataset.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -44,4 +48,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit

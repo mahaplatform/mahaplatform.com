@@ -9,6 +9,12 @@
   &.selected {
     background-color: fadeout(@blue, 90) !important;
   }
+  &.active {
+    .maha-finder-item-details {
+      color: @black;
+      font-weight: bold;
+    }
+  }
   &:hover {
     background-color: fadeout(@black, 97);
     .maha-finder-item-action {
@@ -24,7 +30,7 @@
   display: flex;
   .fa {
     margin: auto;
-    color: fadeout(@black, 80);
+    color: fadeout(@black, 60);
     font-size: 0.6em;
   }
 }
@@ -51,6 +57,7 @@
 }
 .maha-finder-item-details {
   padding: 0.5em 0.2em;
+  color: fadeout(@black, 20);
   flex: 1;
 }
 .maha-finder-empty {

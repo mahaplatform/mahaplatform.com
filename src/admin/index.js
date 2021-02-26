@@ -1,3 +1,4 @@
+export Access from './components/access'
 export Button from './components/button'
 export Buttons from './components/buttons'
 export Carousel from './components/carousel'

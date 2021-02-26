@@ -9,6 +9,7 @@ class Item extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.array,
+    handler: PropTypes.func,
     icon: PropTypes.string,
     index: PropTypes.string,
     label: PropTypes.string,
@@ -32,7 +33,7 @@ class Item extends React.PureComponent {
     const expanded = this._getExpanded()
     return (
       <Fragment>
-        <div className={ this._getClass() } onClick={ this._handleSelect }>
+        <div className={ this._getClass(expanded) } onClick={ this._handleSelect }>
           { padding > 0 &&
             <Fragment>
               { Array(padding).fill(0).map((i, index) => (
@@ -46,9 +47,11 @@ class Item extends React.PureComponent {
             </div> :
             <div className="maha-finder-item-padding" />
           }
-          <div className="maha-finder-item-icon">
-            <i className={`fa fa-${icon}`} />
-          </div>
+          { icon &&
+            <div className="maha-finder-item-icon">
+              <i className={`fa fa-${icon}`} />
+            </div>
+          }
           <div className="maha-finder-item-details">
             { label }
           </div>
@@ -69,9 +72,10 @@ class Item extends React.PureComponent {
     )
   }
 
-  _getClass() {
+  _getClass(expanded) {
     const { children, index, selected } = this.props
     const classes = ['maha-finder-item']
+    if(expanded) classes.push('active')
     if(index === selected && !children) classes.push('selected')
     return classes.join(' ')
   }
@@ -98,8 +102,9 @@ class Item extends React.PureComponent {
 
   _handleSelect(e) {
     e.stopPropagation()
-    const { children, index, selectable } = this.props
+    const { children, handler, index, selectable } = this.props
     if(!selectable) return
+    if(handler) handler()
     const expanded = this._getExpanded()
     const selected = children && expanded ? index.substr(0, index.length-2) : index
     this.props.onSelect(selected)
