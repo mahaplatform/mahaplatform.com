@@ -6,7 +6,8 @@
 .datasets-manager-sidebar {
   border-right: 1px solid fadeout(@black, 90);
   position: relative;
-  flex: 0 0 300px;
+  flex: ~"0 0 calc(100vh / 3)";
+  max-width: 300px;
   display: flex;
   .maha-modal-panel-header {
     background-color: @grey !important;
@@ -18,7 +19,7 @@
   }
 }
 .datasets-manager-main {
-  background-color: fadeout(@black, 97);
+  background-color: lighten(@black, 90);
   display: flex;
   flex: 1;
   .maha-collection-header {
@@ -31,4 +32,14 @@
   .maha-collection-table-header {
     background-color: fadeout(@black, 97);
   }
+}
+.datasets-manager-container {
+  .scrollable();
+  flex: 1;
+}
+.datasets-manager-panel {
+  max-width: 800px;
+  padding: 0.8em;
+  margin: 0 auto;
+  width: 100%;
 }

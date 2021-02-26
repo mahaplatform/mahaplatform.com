@@ -2,17 +2,21 @@ import Grouping from '@apps/maha/models/grouping'
 import Group from '@apps/maha/models/group'
 import User from '@apps/maha/models/user'
 import Model from '@core/objects/model'
-import Program from './program'
+import Dataset from './dataset'
 
-const ProgramAccess = new Model({
+const DatasetAccess = new Model({
 
   databaseName: 'maha',
 
-  tableName: 'crm_program_accesses',
+  tableName: 'datasets_dataset_accesses',
 
   rules: {},
 
   virtuals: {},
+
+  dataset() {
+    return this.belongsTo(Dataset, 'dataset_id')
+  },
 
   grouping() {
     return this.belongsTo(Grouping, 'grouping_id')
@@ -22,14 +26,10 @@ const ProgramAccess = new Model({
     return this.belongsTo(Group, 'group_id')
   },
 
-  program() {
-    return this.belongsTo(Program, 'program_id')
-  },
-
   user() {
     return this.belongsTo(User, 'user_id')
   }
 
 })
 
-export default ProgramAccess
+export default DatasetAccess

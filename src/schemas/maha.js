@@ -674,6 +674,18 @@ const schema = {
       table.integer('store_id').unsigned()
     })
 
+    await knex.schema.createTable('datasets_dataset_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('dataset_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.USER-DEFINED('type')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('datasets_datasets', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -3808,6 +3820,14 @@ const schema = {
 
     await knex.schema.table('datasets_datasets', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('datasets_dataset_accesses', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('dataset_id').references('datasets_datasets.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('datasets_types', table => {

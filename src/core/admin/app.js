@@ -1,3 +1,4 @@
+import adminaccess from '../../admin/components/access'
 import adminassignment from '../../admin/components/assignment'
 import adminattachmentsDrive from '../../admin/components/attachments/drive'
 import adminattachmentsFiles from '../../admin/components/attachments/files'
@@ -306,6 +307,7 @@ class App extends React.Component {
 
   _getReducers() {
     return [
+      adminaccess,
       adminassignment,
       adminattachmentsDrive,
       adminattachmentsFiles,
