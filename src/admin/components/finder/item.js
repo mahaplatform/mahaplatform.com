@@ -78,10 +78,10 @@ class Item extends React.PureComponent {
   }
 
   _getClass(expanded) {
-    const { children, index, selected } = this.props
+    const { handler, index, selected } = this.props
     const classes = ['maha-finder-item']
     if(expanded) classes.push('active')
-    if(index === selected && !children) classes.push('selected')
+    if(index === selected && handler) classes.push('selected')
     return classes.join(' ')
   }
 
@@ -107,12 +107,10 @@ class Item extends React.PureComponent {
 
   _handleSelect(e) {
     e.stopPropagation()
-    const { children, handler, index, selectable } = this.props
+    const { handler, index, selectable } = this.props
     if(!selectable) return
+    this.props.onSelect(index)
     if(handler) handler()
-    const expanded = this._getExpanded()
-    const selected = children && expanded ? index.substr(0, index.length-2) : index
-    this.props.onSelect(selected)
   }
 
   _handleTasks(e) {
