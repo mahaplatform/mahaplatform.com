@@ -1,7 +1,8 @@
 import { ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
-import Item from './item'
 import React  from 'react'
+import Item from './item'
+import _  from 'lodash'
 
 class Finder extends React.PureComponent {
 
@@ -15,9 +16,11 @@ class Finder extends React.PureComponent {
   }
 
   state = {
+    expanded: [],
     selected: ''
   }
 
+  _handleExpand = this._handleExpand.bind(this)
   _handleSelect = this._handleSelect.bind(this)
 
   render() {
@@ -39,17 +42,26 @@ class Finder extends React.PureComponent {
   }
 
   _getItem(item, index) {
-    const { selected } = this.state
+    const { expanded, selected } = this.state
     return {
       ...item,
+      expanded,
       index: `${index}`,
       selected,
+      onExpand: this._handleExpand,
       onSelect: this._handleSelect
     }
   }
 
   _getPanel() {
     return {}
+  }
+
+  _handleExpand(index) {
+    const { expanded } = this.state
+    this.setState({
+      expanded: _.xor(expanded, [index])
+    })
   }
 
   _handleSelect(selected ) {

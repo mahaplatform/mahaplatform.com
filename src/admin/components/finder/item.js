@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 class Item extends React.PureComponent {
 
@@ -10,6 +11,7 @@ class Item extends React.PureComponent {
   static propTypes = {
     children: PropTypes.array,
     count: PropTypes.number,
+    expanded: PropTypes.array,
     handler: PropTypes.func,
     icon: PropTypes.string,
     index: PropTypes.string,
@@ -18,6 +20,7 @@ class Item extends React.PureComponent {
     selectable: PropTypes.bool,
     selected: PropTypes.string,
     tasks: PropTypes.array,
+    onExpand: PropTypes.func,
     onSelect: PropTypes.func
   }
 
@@ -32,10 +35,10 @@ class Item extends React.PureComponent {
 
   render() {
     const { children, count, icon, label, padding, tasks } = this.props
-    const expanded = this._getExpanded()
+    const is_expanded = this._getIsExpanded()
     return (
       <Fragment>
-        <div className={ this._getClass(expanded) } onClick={ this._handleSelect }>
+        <div className={ this._getClass(is_expanded) } onClick={ this._handleSelect }>
           { padding > 0 &&
             <Fragment>
               { Array(padding).fill(0).map((i, index) => (
@@ -45,7 +48,7 @@ class Item extends React.PureComponent {
           }
           { children ?
             <div className="maha-finder-item-toggle">
-              <i className={`fa fa-${this._getExpander(expanded) }`} />
+              <i className={`fa fa-${this._getExpander(is_expanded) }`} />
             </div> :
             <div className="maha-finder-item-padding" />
           }
@@ -66,7 +69,7 @@ class Item extends React.PureComponent {
             </div>
           }
         </div>
-        { expanded && children &&
+        { is_expanded && children &&
           <Fragment>
             { children.map((child, index) => (
               <Item { ...this._getChild(child, index) } key={`item_${index}`} />
@@ -77,40 +80,44 @@ class Item extends React.PureComponent {
     )
   }
 
-  _getClass(expanded) {
+  _getClass(is_expanded) {
     const { handler, index, selected } = this.props
     const classes = ['maha-finder-item']
-    if(expanded) classes.push('active')
+    if(is_expanded) classes.push('active')
     if(index === selected && handler) classes.push('selected')
     return classes.join(' ')
   }
 
   _getChild(child, cindex) {
-    const { index, padding, selected, onSelect } = this.props
+    const { expanded, index, padding, selected, onExpand, onSelect } = this.props
     return {
       ...child,
+      expanded,
       index: `${index}.${cindex}`,
       padding: padding + 1,
       selected,
+      onExpand,
       onSelect
     }
   }
 
-  _getExpanded() {
-    const { index, selected } = this.props
-    return index === selected.substr(0, index.length)
+  _getIsExpanded() {
+    const { index, expanded } = this.props
+    return _.includes(expanded, index)
   }
 
-  _getExpander(expanded) {
-    return expanded ? 'chevron-down' : 'chevron-right'
+  _getExpander(is_expanded) {
+    return is_expanded ? 'chevron-down' : 'chevron-right'
   }
 
   _handleSelect(e) {
     e.stopPropagation()
-    const { handler, index, selectable } = this.props
+    const { children, handler, index, selectable, selected } = this.props
     if(!selectable) return
+    if(children) this.props.onExpand(index)
+    if(!handler || index === selected) return
     this.props.onSelect(index)
-    if(handler) handler()
+    handler()
   }
 
   _handleTasks(e) {
