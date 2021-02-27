@@ -3602,6 +3602,12 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_voicemails', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('call_id').references('maha_calls.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3841,7 +3847,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('type_id').references('datasets_types.id')
     })
-
 
     await knex.raw(`
       create view chat_results AS
