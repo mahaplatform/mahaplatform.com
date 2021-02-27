@@ -697,26 +697,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('datasets_items', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('type_id').unsigned()
-      table.string('code', 255)
-      table.timestamp('deleted_at')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('datasets_records', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('type_id').unsigned()
-      table.string('code', 255)
-      table.timestamp('deleted_at')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('datasets_records', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -3857,16 +3837,6 @@ const schema = {
       table.foreign('dataset_id').references('datasets_datasets.id')
     })
 
-    await knex.schema.table('datasets_items', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('type_id').references('datasets_types.id')
-    })
-
-    await knex.schema.table('datasets_records', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('type_id').references('datasets_types.id')
-    })
-
     await knex.schema.table('datasets_records', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('type_id').references('datasets_types.id')
@@ -6458,6 +6428,84 @@ union
       left join smses on ((smses.team_id = maha_teams.id)))
       left join calls on ((calls.team_id = maha_teams.id)))
       left join emails on ((emails.team_id = maha_teams.id)));
+    `)
+
+    await knex.raw(`
+      create view maha_version_versions AS
+      with versions as (
+      select maha_versions.id,
+      maha_versions.team_id,
+      maha_versions.versionable_type,
+      maha_versions.versionable_id,
+      maha_versions.value,
+      maha_versions.published_at,
+      maha_versions.unpublished_at,
+      maha_versions.created_at,
+      maha_versions.updated_at,
+      maha_versions.key,
+      maha_versions.user_id
+      from maha_versions
+      order by maha_versions.created_at desc
+      ), active as (
+      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
+      versions.team_id,
+      versions.versionable_type,
+      versions.versionable_id,
+      versions.value,
+      versions.published_at,
+      versions.unpublished_at,
+      versions.created_at,
+      versions.updated_at,
+      versions.key,
+      versions.user_id
+      from versions
+      ), last_published as (
+      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
+      versions.team_id,
+      versions.versionable_type,
+      versions.versionable_id,
+      versions.value,
+      versions.published_at,
+      versions.unpublished_at,
+      versions.created_at,
+      versions.updated_at,
+      versions.key,
+      versions.user_id
+      from versions
+      where ((versions.published_at is not null) and (versions.unpublished_at is null))
+      ), published as (
+      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
+      versions.team_id,
+      versions.versionable_type,
+      versions.versionable_id,
+      versions.value,
+      versions.published_at,
+      versions.unpublished_at,
+      versions.created_at,
+      versions.updated_at,
+      versions.key,
+      versions.user_id
+      from versions
+      where ((versions.published_at is not null) and (versions.unpublished_at is null))
+      )
+      select active.versionable_type,
+      active.versionable_id,
+      active.key,
+      active.id as active_id,
+      active.value as active_value,
+      published.id as published_id,
+      published.value as published_value,
+      published.id as last_published_id,
+      published.value as last_published_value,
+      case
+      when (last_published.id is null) then 'draft'::text
+      when ((last_published.id is not null) and (published.id is null)) then 'archived'::text
+      when (published.id = active.id) then 'published'::text
+      else 'changed'::text
+      end as status
+      from ((active
+      left join last_published on ((((last_published.versionable_type)::text = (active.versionable_type)::text) and (last_published.versionable_id = active.versionable_id) and ((last_published.key)::text = (active.key)::text))))
+      left join published on ((((published.versionable_type)::text = (active.versionable_type)::text) and (published.versionable_id = active.versionable_id) and ((published.key)::text = (active.key)::text))));
     `)
 
     await knex.raw(`

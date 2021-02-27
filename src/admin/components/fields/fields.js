@@ -41,12 +41,14 @@ class Fields extends React.Component {
     const { fields, label } = this.props
     return (
       <div className="maha-fields">
-        { fields.map((field, index) => (
-          <Field { ...this._getField(field, index) } key={`field_${field.id}`} />
-        ))}
-        { fields.length === 0 &&
-          <div className="maha-fields-empty">No { pluralize(label, 2) }</div>
-        }
+        <div className="maha-fields-body">
+          { fields.map((field, index) => (
+            <Field { ...this._getField(field, index) } key={`field_${field.id}`} />
+          ))}
+          { fields.length === 0 &&
+            <div className="maha-fields-empty">No { pluralize(label, 2) }</div>
+          }
+        </div>
         <div className="maha-fields-footer">
           <div className="ui blue fluid button" onClick={ this._handleNew }>
             Add { _.capitalize(label) }

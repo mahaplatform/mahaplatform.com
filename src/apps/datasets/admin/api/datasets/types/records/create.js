@@ -6,6 +6,7 @@ import Dataset from '@apps/datasets/models/dataset'
 import socket from '@core/services/routes/emitter'
 import Record from '@apps/datasets/models/record'
 import Type from '@apps/datasets/models/type'
+import Field from '@apps/maha/models/field'
 
 const createRoute = async (req, res) => {
 
@@ -31,6 +32,15 @@ const createRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load type'
   })
+
+  req.fields = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('parent_type', 'datasets_types')
+    qb.where('parent_id', type.get('id'))
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   const code = await generateCode(req, {
     table: 'datasets_records'

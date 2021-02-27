@@ -45,37 +45,11 @@ class Edit extends React.Component {
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
-            { label: 'Input Type', name: 'type', type: 'dropdown', options: this._getTypes(), value: 'value', text: 'text', defualtValue: 'textfield', required: true },
             ...this._getTypeFields()
           ]
         }
       ]
     }
-  }
-
-  _getTypes() {
-    return [
-      { value: 'addressfield', text: 'Address Field' },
-      { value: 'checkbox', text: 'Checkbox' },
-      { value: 'checkboxgroup', text: 'Checkbox Group' },
-      { value: 'colorfield', text: 'Color Picker' },
-      { value: 'datefield', text: 'Date Field' },
-      { value: 'dropdown', text: 'Drop Down' },
-      { value: 'emailfield', text: 'Email Field' },
-      { value: 'filefield', text: 'File Field' },
-      { value: 'htmlfield', text: 'HTML Field' },
-      { value: 'imagefield', text: 'Image Field' },
-      { value: 'lookup', text: 'Lookup' },
-      { value: 'moneyfield', text: 'Money Field' },
-      { value: 'numberfield', text: 'Number Field' },
-      { value: 'phonefield', text: 'Phone Field' },
-      { value: 'radiogroup', text: 'Radio Group' },
-      { value: 'textfield', text: 'Text Field' },
-      { value: 'textarea', text: 'Text Area' },
-      { value: 'timefield', text: 'Time Field' },
-      { value: 'urlfield', text: 'URL Field' },
-      { value: 'videofield', text: 'Video Field' }
-    ]
   }
 
   _getTypeFields() {
@@ -120,7 +94,7 @@ class Edit extends React.Component {
         ] })
       }
       if(data_type === 'dynamic') {
-        fields.push({ label: 'Datasource', name: 'config.datasource', type: 'lookup', options: datasources.map(datasource => {
+        fields.push({ label: 'Datasource', name: 'config.datasource', type: 'dropdown', options: datasources.map(datasource => {
           return {
             value: {
               endpoint: datasource.endpoint,

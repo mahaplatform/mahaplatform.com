@@ -1,8 +1,7 @@
-import NewRecord from '../../views/records/new'
-import { Collection, Container } from '@admin'
+import NewRecord from '@apps/datasets/admin/views/records/new'
+import { Collection, Container, StatusToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Data extends React.PureComponent {
 
@@ -28,11 +27,12 @@ class Data extends React.PureComponent {
       endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
       table: [
         { label: 'ID', key: 'id', collapsing: true, visible: false },
-        ...fields.map(field => ({
+        ...fields.map((field, index) => ({
           label: field.name.value,
-          key: field.code,
-          primary: true
-        }))
+          key: `values.${field.code}`,
+          primary: index === 0
+        })),
+        { label: 'Status', key: 'status', collapsing: true, visible: true, format: StatusToken }
       ],
       empty: {
         icon: 'file-text',
@@ -58,9 +58,8 @@ class Data extends React.PureComponent {
       defaultSort: { key: 'title', order: 'asc' },
       selectable: true,
       buttons: (selected, onSuccess) => [
-        { label: 'Foo' },
-        { label: 'Bar' },
-        { label: 'Baz' }
+        { label: 'Publish Records' },
+        { label: 'Archive Records' }
       ],
       tasks: {
         icon: 'plus',

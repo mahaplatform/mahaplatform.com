@@ -1,11 +1,17 @@
+import { Form, Versions } from '@admin'
 import PropTypes from 'prop-types'
-import { Form } from '@admin'
 import React from 'react'
 
 class Editor extends React.PureComponent {
 
   static contextTypes = {
     network: PropTypes.object
+  }
+
+  static propTypes = {
+    dataset: PropTypes.object,
+    fields: PropTypes.array,
+    record: PropTypes.object
   }
 
   render() {
@@ -15,12 +21,14 @@ class Editor extends React.PureComponent {
           <Form { ...this._getForm() } />
         </div>
         <div className="datasets-editor-sidebar">
+          <Versions { ...this._getVersions() } />
         </div>
       </div>
     )
   }
 
   _getForm() {
+    const { fields } = this.props
     return {
       title: null,
       showHeader: false,
@@ -30,19 +38,22 @@ class Editor extends React.PureComponent {
       ],
       sections: [
         {
-          fields: [
-            { label: 'Field1', name: 'field1', type: 'textfield' },
-            { label: 'Field2', name: 'field2', type: 'textfield' },
-            { label: 'Field3', name: 'field3', type: 'textfield' },
-            { label: 'Field4', name: 'field4', type: 'textfield' },
-            { label: 'Field5', name: 'field5', type: 'textfield' },
-            { label: 'Field6', name: 'field6', type: 'textfield' },
-            { label: 'Field7', name: 'field7', type: 'textfield' },
-            { label: 'Field8', name: 'field8', type: 'textfield' },
-            { label: 'Field9', name: 'field9', type: 'textfield' }
-          ]
+          fields: fields.map(field => ({
+            label: field.label,
+            name: `values.${field.code}`,
+            type: 'textfield'
+          }))
         }
       ]
+    }
+  }
+
+  _getVersions() {
+    const { record } = this.props
+    return {
+      entity: `datasets_records/${record.id}/values`,
+      versions: [],
+      version: {}
     }
   }
 

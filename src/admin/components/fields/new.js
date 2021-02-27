@@ -127,7 +127,7 @@ class New extends React.Component {
         ] })
       }
       if(data_type === 'dynamic') {
-        fields.push({ label: 'Datasource', name: 'config.datasource', type: 'lookup', options: datasources.map(datasource => {
+        fields.push({ label: 'Datasource', name: 'config.datasource', type: 'dropdown', options: datasources.map(datasource => {
           return {
             value: {
               endpoint: datasource.endpoint,

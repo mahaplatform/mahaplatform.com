@@ -1,7 +1,8 @@
 import RecordSerializer from '@apps/datasets/serializers/record_serializer'
 import Dataset from '@apps/datasets/models/dataset'
-import Type from '@apps/datasets/models/type'
 import Record from '@apps/datasets/models/record'
+import Type from '@apps/datasets/models/type'
+import Field from '@apps/maha/models/field'
 
 const listRoute = async (req, res) => {
 
@@ -28,10 +29,21 @@ const listRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
+  req.fields = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('parent_type', 'datasets_types')
+    qb.where('parent_id', type.get('id'))
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
+
   const records = await Record.filterFetch({
     scope: (qb) => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('type_id', type.get('id'))
+      qb.select('datasets_records.*','maha_version_versions.active_value as values','maha_version_versions.status')
+      qb.joinRaw('inner join maha_version_versions on maha_version_versions.versionable_type=\'datasets_records\' and maha_version_versions.versionable_id=datasets_records.id and maha_version_versions.key=\'values\'')
+      qb.where('datasets_records.team_id', req.team.get('id'))
+      qb.where('datasets_records.type_id', type.get('id'))
     },
     filter: {
       params: req.params.$filter

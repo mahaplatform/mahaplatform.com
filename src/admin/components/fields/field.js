@@ -29,7 +29,15 @@ class Field extends React.Component {
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
         <div className="maha-field-handle">
-          <i className="fa fa-fw fa-bars" />
+          <svg width="1em" height="1em" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0V0z" />
+            <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+          </svg>
+        </div>
+        <div className="maha-field-icon">
+          <div className="maha-field-badge">
+            <i className={`fa fa-${this._getIcon(field.type)}`} />
+          </div>
         </div>
         <div className="maha-field-label">
           <strong>{ field.name.value }</strong> <span>({ field.type })</span>
@@ -49,6 +57,21 @@ class Field extends React.Component {
     if(field.type === 'section') classes.push('section')
     if(isDragging) classes.push('dragging')
     return classes.join(' ')
+  }
+
+  _getIcon(type) {
+    if(type === 'textfield') return 'font'
+    if(type === 'textarea') return 'bars'
+    if(type === 'checkboxgroup') return 'check-square-o'
+    if(type === 'checkbox') return 'check-square'
+    if(type === 'imagefield') return 'camera'
+    if(type === 'emailfield') return 'envelope'
+    if(type === 'addressfield') return 'map-marker'
+    if(type === 'phonefield') return 'phone'
+    if(type === 'datefield') return 'calendar'
+    if(type === 'timefield') return 'clock-o'
+    if(type === 'moneyfield') return 'dollar'
+    if(type === 'radiogroup') return 'circle-o'
   }
 
   _handleTasks(id) {
