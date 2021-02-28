@@ -2,10 +2,12 @@ import { DragSource, DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
+import _ from 'lodash'
 
 class Field extends React.Component {
 
   static contextTypes = {
+    flash: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object,
     tasks: PropTypes.object
@@ -17,7 +19,9 @@ class Field extends React.Component {
     connectDragSource: PropTypes.func,
     endpoint: PropTypes.string,
     field: PropTypes.object,
+    index: PropTypes.number,
     isDragging: PropTypes.bool,
+    label: PropTypes.string,
     onMove: PropTypes.func,
     onReorder: PropTypes.func
   }
@@ -26,13 +30,28 @@ class Field extends React.Component {
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, field } = this.props
-    return connectDragSource(connectDropTarget(connectDragPreview(
+    return field.is_active ? (
+      connectDragSource(
+        connectDropTarget(
+          connectDragPreview(
+            this._getField()
+          )
+        )
+      )
+    ) : this._getField()
+  }
+
+  _getField() {
+    const { field, index } = this.props
+    return (
       <div className={ this._getClass() }>
         <div className="maha-field-handle">
-          <svg width="1em" height="1em" viewBox="0 0 24 24">
-            <path fill="none" d="M0 0h24v24H0V0z" />
-            <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-          </svg>
+          { field.is_active &&
+            <svg width="1em" height="1em" viewBox="0 0 24 24">
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+            </svg>
+          }
         </div>
         <div className="maha-field-icon">
           <div className="maha-field-badge">
@@ -48,13 +67,14 @@ class Field extends React.Component {
           </div>
         }
       </div>
-    )))
+    )
   }
 
   _getClass() {
     const { isDragging, field } = this.props
     const classes = ['maha-field']
     if(field.type === 'section') classes.push('section')
+    if(!field.is_active) classes.push('disabled')
     if(isDragging) classes.push('dragging')
     return classes.join(' ')
   }
@@ -75,19 +95,38 @@ class Field extends React.Component {
   }
 
   _handleTasks(id) {
-    const { endpoint, field } = this.props
+    const { endpoint, field, label } = this.props
     this.context.tasks.open({
       items: [
         {
-          label: 'Edit Field',
+          label: `Edit ${ _.capitalize(label) }`,
+          show: field.is_active,
           modal: () => <Edit endpoint={ endpoint } id={ field.id } />
-        }, {
-          label: 'Remove Field',
-          confirm: 'Are you sure you want to delete this field?',
+        },
+        {
+          label: `${field.is_active ? 'Disable' : 'Enable'} ${ _.capitalize(label) }`,
+          confirm: field.is_active ? `Are you sure you want to ${field.is_active ? 'disable' : 'enable'} this ${label}?` : null,
+          request: {
+            endpoint: `${endpoint}/${field.id}/activate`,
+            method: 'PATCH',
+            body: {
+              is_active: !field.is_active
+            },
+            onFailure: (result) => this.context.flash.set('error', `Unable to ${field.is_active ? 'disable' : 'enable'} this ${label}`)
+          }
+        },
+        {
+          label: `Delete ${ _.capitalize(label) }`,
+          show: field.is_active,
+          confirm: `
+            Are you sure you want to delete this ${label}? All associated data
+            will be deleted as well. (You can disable this ${label} instead to
+            maintain access to the existing data)
+          `,
           request: {
             method: 'DELETE',
             endpoint: `${endpoint}/${field.id}`,
-            onFailure: (result) => this.context.flash.set('error', 'Unable to remove this field')
+            onFailure: (result) => this.context.flash.set('error', `Unable to delete this ${label}`)
           }
         }
       ]

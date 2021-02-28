@@ -10,8 +10,7 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    dataset: PropTypes.object,
-    type: PropTypes.object
+    dataset: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -22,12 +21,11 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { dataset, type } = this.props
+    const { dataset } = this.props
     return {
-      title: 'Edit Type',
-      method: 'patch',
-      endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/edit`,
-      action: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}`,
+      title: 'New API Key',
+      method: 'post',
+      action: `/api/admin/datasets/datasets/${dataset.id}/apikeys`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

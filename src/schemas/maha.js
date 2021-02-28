@@ -2,6 +2,17 @@ const schema = {
 
   load: async (knex) => {
 
+    await knex.schema.createTable('apikeys', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('dataset_id').unsigned()
+      table.string('title', 255)
+      table.text('description')
+      table.string('access_token', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('appraisals_appraisals', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -672,6 +683,17 @@ const schema = {
       table.timestamp('deleted_at')
       table.integer('event_id').unsigned()
       table.integer('store_id').unsigned()
+    })
+
+    await knex.schema.createTable('datasets_apikeys', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('dataset_id').unsigned()
+      table.string('title', 255)
+      table.text('description')
+      table.string('access_token', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('datasets_dataset_accesses', (table) => {
@@ -1758,6 +1780,9 @@ const schema = {
       table.timestamp('updated_at')
       table.USER-DEFINED('type')
       table.jsonb('name')
+      table.boolean('is_active')
+      table.boolean('is_primary')
+      table.timestamp('deleted_at')
     })
 
     await knex.schema.createTable('maha_filter_accesses', (table) => {
@@ -3602,12 +3627,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_voicemails', table => {
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('call_id').references('maha_calls.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('news_groups', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -3847,6 +3866,17 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('type_id').references('datasets_types.id')
     })
+
+    await knex.schema.table('apikeys', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('dataset_id').references('datasets_datasets.id')
+    })
+
+    await knex.schema.table('datasets_apikeys', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('dataset_id').references('datasets_datasets.id')
+    })
+
 
     await knex.raw(`
       create view chat_results AS
@@ -6437,7 +6467,7 @@ union
 
     await knex.raw(`
       create view maha_version_versions AS
-      with versions as (
+      with ordered as (
       select maha_versions.id,
       maha_versions.team_id,
       maha_versions.versionable_type,
@@ -6451,66 +6481,81 @@ union
       maha_versions.user_id
       from maha_versions
       order by maha_versions.created_at desc
-      ), active as (
-      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
-      versions.team_id,
-      versions.versionable_type,
-      versions.versionable_id,
-      versions.value,
-      versions.published_at,
-      versions.unpublished_at,
-      versions.created_at,
-      versions.updated_at,
-      versions.key,
-      versions.user_id
-      from versions
+      ), versions as (
+      select distinct on (ordered.versionable_type, ordered.versionable_id, ordered.key) ordered.id,
+      ordered.team_id,
+      ordered.versionable_type,
+      ordered.versionable_id,
+      ordered.value,
+      ordered.published_at,
+      ordered.unpublished_at,
+      ordered.created_at,
+      ordered.updated_at,
+      ordered.key,
+      ordered.user_id
+      from ordered
+      ), draft as (
+      select distinct on (ordered.versionable_type, ordered.versionable_id, ordered.key) ordered.id,
+      ordered.team_id,
+      ordered.versionable_type,
+      ordered.versionable_id,
+      ordered.value,
+      ordered.published_at,
+      ordered.unpublished_at,
+      ordered.created_at,
+      ordered.updated_at,
+      ordered.key,
+      ordered.user_id
+      from ordered
+      where (ordered.unpublished_at is null)
       ), last_published as (
-      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
-      versions.team_id,
-      versions.versionable_type,
-      versions.versionable_id,
-      versions.value,
-      versions.published_at,
-      versions.unpublished_at,
-      versions.created_at,
-      versions.updated_at,
-      versions.key,
-      versions.user_id
-      from versions
-      where ((versions.published_at is not null) and (versions.unpublished_at is null))
+      select distinct on (ordered.versionable_type, ordered.versionable_id, ordered.key) ordered.id,
+      ordered.team_id,
+      ordered.versionable_type,
+      ordered.versionable_id,
+      ordered.value,
+      ordered.published_at,
+      ordered.unpublished_at,
+      ordered.created_at,
+      ordered.updated_at,
+      ordered.key,
+      ordered.user_id
+      from ordered
+      where (ordered.published_at is not null)
       ), published as (
-      select distinct on (versions.versionable_type, versions.versionable_id, versions.key) versions.id,
-      versions.team_id,
-      versions.versionable_type,
-      versions.versionable_id,
-      versions.value,
-      versions.published_at,
-      versions.unpublished_at,
-      versions.created_at,
-      versions.updated_at,
-      versions.key,
-      versions.user_id
-      from versions
-      where ((versions.published_at is not null) and (versions.unpublished_at is null))
+      select distinct on (ordered.versionable_type, ordered.versionable_id, ordered.key) ordered.id,
+      ordered.team_id,
+      ordered.versionable_type,
+      ordered.versionable_id,
+      ordered.value,
+      ordered.published_at,
+      ordered.unpublished_at,
+      ordered.created_at,
+      ordered.updated_at,
+      ordered.key,
+      ordered.user_id
+      from ordered
+      where ((ordered.published_at is not null) and (ordered.unpublished_at is null))
       )
-      select active.versionable_type,
-      active.versionable_id,
-      active.key,
-      active.id as active_id,
-      active.value as active_value,
+      select versions.versionable_type,
+      versions.versionable_id,
+      versions.key,
+      versions.id as active_id,
+      versions.value as active_value,
+      draft.id as draft_id,
+      draft.value as draft_value,
       published.id as published_id,
       published.value as published_value,
-      published.id as last_published_id,
-      published.value as last_published_value,
       case
-      when (last_published.id is null) then 'draft'::text
-      when ((last_published.id is not null) and (published.id is null)) then 'archived'::text
-      when (published.id = active.id) then 'published'::text
-      else 'changed'::text
+      when (draft.id is null) then 'archived'::text
+      when (published.id <> draft.id) then 'changed'::text
+      when (published.id = draft.id) then 'published'::text
+      else 'draft'::text
       end as status
-      from ((active
-      left join last_published on ((((last_published.versionable_type)::text = (active.versionable_type)::text) and (last_published.versionable_id = active.versionable_id) and ((last_published.key)::text = (active.key)::text))))
-      left join published on ((((published.versionable_type)::text = (active.versionable_type)::text) and (published.versionable_id = active.versionable_id) and ((published.key)::text = (active.key)::text))));
+      from (((versions
+      left join draft on ((((draft.versionable_type)::text = (versions.versionable_type)::text) and (draft.versionable_id = versions.versionable_id) and ((versions.key)::text = (draft.key)::text))))
+      left join last_published on ((((last_published.versionable_type)::text = (versions.versionable_type)::text) and (last_published.versionable_id = versions.versionable_id) and ((last_published.key)::text = (versions.key)::text))))
+      left join published on ((((published.versionable_type)::text = (versions.versionable_type)::text) and (published.versionable_id = versions.versionable_id) and ((published.key)::text = (versions.key)::text))));
     `)
 
     await knex.raw(`

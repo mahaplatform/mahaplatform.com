@@ -1,5 +1,6 @@
 import TypeSerializer from '@apps/datasets/serializers/type_serializer'
 import { activity } from '@core/services/routes/activities'
+import { createField } from '@apps/maha/services/fields'
 import generateCode from '@core/utils/generate_code'
 import { audit } from '@core/services/routes/audit'
 import socket from '@core/services/routes/emitter'
@@ -30,6 +31,18 @@ const createRoute = async (req, res) => {
     title: req.body.title
   }).save(null, {
     transacting: req.trx
+  })
+
+  await createField(req, {
+    parent_type: 'datasets_types',
+    parent_id: type.get('id'),
+    name: { value: 'Title', token: 'title' },
+    label: 'Title',
+    instructions: '',
+    type: 'textfield',
+    config: {},
+    is_primary: true,
+    is_mutable: true
   })
 
   await audit(req, {

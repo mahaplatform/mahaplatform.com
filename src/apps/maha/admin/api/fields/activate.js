@@ -1,8 +1,8 @@
+import FieldSerializer from '@apps/maha/serializers/field_serializer'
 import socket from '@core/services/routes/emitter'
 import Field from '@apps/maha/models/field'
-import moment from 'moment'
 
-const destroyRoute = async (req, res) => {
+const activateRoute = async (req, res) => {
 
   const field = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -16,12 +16,6 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to find field'
   })
 
-  await field.save({
-    deleted_at: moment()
-  }, {
-    transacting: req.trx
-  })
-
   const actives = await Field.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('parent_type', field.get('parent_type'))
@@ -29,6 +23,14 @@ const destroyRoute = async (req, res) => {
     qb.whereNot('id', field.get('parent_id'))
     qb.orderBy('delta', 'asc')
   }).fetchAll({
+    transacting: req.trx
+  })
+
+  await field.save({
+    is_active: req.body.is_active,
+    delta: actives.length + 1
+  }, {
+    patch: true,
     transacting: req.trx
   })
 
@@ -42,13 +44,11 @@ const destroyRoute = async (req, res) => {
   })
 
   await socket.refresh(req, {
-    channel: req.params.parent_id ?
-      `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` :
-      `/admin/${req.params.parent_type}/fields`
+    channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
   })
 
-  res.status(200).respond(true)
+  res.status(200).respond(field, FieldSerializer)
 
 }
 
-export default destroyRoute
+export default activateRoute

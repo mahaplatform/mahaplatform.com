@@ -9,6 +9,7 @@ const showRoute = async (req, res) => {
       qb.where('parent_id', req.params.parent_id)
     }
     qb.where('team_id', req.team.get('id'))
+    qb.whereNull('deleted_at')
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

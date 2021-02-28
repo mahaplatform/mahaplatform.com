@@ -11,8 +11,7 @@ class Acess extends React.PureComponent {
 
   static propTypes = {
     accesses: PropTypes.array,
-    dataset: PropTypes.object,
-    type: PropTypes.object
+    dataset: PropTypes.object
   }
 
   render() {

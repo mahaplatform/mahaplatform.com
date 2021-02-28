@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import apikeys from './apikeys'
 import destroy from './destroy'
 import backup from './backup'
 import create from './create'
@@ -26,6 +27,8 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.use('/:dataset_id/access', access)
+
+router.use('/:dataset_id/apikeys', apikeys)
 
 router.use('/:dataset_id/types', types)
 

@@ -61,7 +61,6 @@ const createRoute = async (req, res) => {
     value: req.body.values
   })
 
-
   // await addIndex(req, {
   //   record,
   //   map

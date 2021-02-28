@@ -1,7 +1,7 @@
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Field from './field'
-import React from 'react'
 import New from './new'
 import _ from 'lodash'
 
@@ -31,22 +31,49 @@ class Fields extends React.Component {
     label: 'field'
   }
 
+  state = {
+    expanded: false
+  }
+
   _handleFetch = this._handleFetch.bind(this)
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handleReorder = this._handleReorder.bind(this)
+  _handleToggleDisabled = this._handleToggleDisabled.bind(this)
 
   render() {
-    const { fields, label } = this.props
+    const { expanded } = this.state
+    const { label } = this.props
+    const active = this._getFields(true)
+    const disabled = this._getFields(false)
     return (
       <div className="maha-fields">
         <div className="maha-fields-body">
-          { fields.map((field, index) => (
+          { active.map((field, index) => (
             <Field { ...this._getField(field, index) } key={`field_${field.id}`} />
           ))}
-          { fields.length === 0 &&
+          { active.length === 0 &&
             <div className="maha-fields-empty">No { pluralize(label, 2) }</div>
+          }
+          { disabled.length > 0 &&
+            <Fragment>
+              <div className="maha-fields-disabled" onClick={ this._handleToggleDisabled }>
+                <div className="maha-fields-disabled-icon">
+                  <i className={`fa fa-chevron-${expanded ? 'down' : 'right'}`} />
+                </div>
+                <div className="maha-fields-disabled-label">
+                  Disabled { pluralize(label, 2) }
+                </div>
+              </div>
+              { expanded &&
+                <Fragment>
+                  { disabled.map((field, index) => (
+                    <Field { ...this._getField(field, index) } key={`field_${field.id}`} />
+                  ))}
+                </Fragment>
+              }
+            </Fragment>
           }
         </div>
         <div className="maha-fields-footer">
@@ -80,12 +107,20 @@ class Fields extends React.Component {
     }
   }
 
+  _getFields(is_active) {
+    const { fields } = this.props
+    return fields.filter(field => {
+      return field.is_active === is_active
+    })
+  }
+
   _getField(field, index) {
-    const { endpoint, onMove } = this.props
+    const { endpoint, label, onMove } = this.props
     return {
+      endpoint,
       field,
       index,
-      endpoint,
+      label,
       onMove,
       onReorder: this._handleReorder
     }
@@ -124,6 +159,13 @@ class Fields extends React.Component {
   _handleReorder(from, to) {
     const { endpoint, onReorder } = this.props
     onReorder(endpoint, from, to)
+  }
+
+  _handleToggleDisabled() {
+    const { expanded } = this.state
+    this.setState({
+      expanded: !expanded
+    })
   }
 
 }

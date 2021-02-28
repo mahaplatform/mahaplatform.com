@@ -186,7 +186,7 @@ class Button extends React.Component {
           error: result.error ? result.error.message : '',
           status: 'failure'
         })
-        if(onFailure) onSuccess(result)
+        if(onFailure) onFailure(result)
       },
       onSuccess: (result) => {
         this.setState({

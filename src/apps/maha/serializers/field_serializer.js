@@ -9,7 +9,10 @@ const fieldSerializer = (req, result) => ({
   instructions: result.get('instructions'),
   type: result.get('type'),
   config: config(req, result),
+  is_active: result.get('is_active'),
   is_mutable: result.get('is_mutable'),
+  is_primary: result.get('is_primary'),
+  deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

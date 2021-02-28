@@ -4,8 +4,8 @@ const CreateVersionVersions = {
 
   up: async (knex) => {
 
-    knex.schema.alterTable('maha_versions', function(t) {
-      t.index(['versionable_type','versionable_id','key'])
+    knex.schema.alterTable('maha_versions', function(table) {
+      table.index(['versionable_type','versionable_id','key'])
     })
 
     await knex.raw(`

@@ -3,11 +3,30 @@
   display: flex;
   flex-direction: column;
 }
-.maha-fields-body {
-}
 .maha-fields-empty {
   padding: 0.4em;
   text-align: center;
+}
+.maha-fields-disabled {
+  border-bottom: 1px solid fadeout(@black, 90);
+  font-size: 0.8em;
+  cursor: pointer;
+  display: flex;
+}
+.maha-fields-disabled-icon {
+  color: fadeout(@black, 80);
+  flex: 0 0 3.2em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+}
+.maha-fields-disabled-label {
+  padding: 0.4em 0;
+  color: fadeout(@black, 70);
+  font-weight: bold;
+  text-transform: uppercase;
+  flex: 1;
 }
 .maha-fields-footer {
   padding: 0.8em;
@@ -18,6 +37,16 @@
   background-color: @white;
   border-bottom: 1px solid fadeout(@black, 90);
   overflow: hidden;
+  &.disabled {
+    .maha-field-badge {
+      background-color: fadeout(@blue, 90);
+    }
+    .maha-field-label {
+      strong, span {
+        color: fadeout(@black, 90);
+      }
+    }
+  }
   &.dragging .maha-field-handle {
     cursor: grabbing !important;
   }
@@ -30,6 +59,7 @@
   }
 }
 .maha-field-handle {
+  flex: 0 0 2.5em;
   padding: 0.6em;
   cursor: grab;
   display: flex;
@@ -63,6 +93,12 @@
     color: fadeout(@black, 60);
     font-size: 0.9em;
   }
+}
+.maha-field-primary {
+  line-height: 2.2em;
+  font-size: 0.8em;
+  padding: 0.8em;
+  color: @green;
 }
 .maha-field-extra {
   padding: 0.8em 0.8em 0.8em 0;

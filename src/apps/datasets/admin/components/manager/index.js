@@ -1,13 +1,15 @@
 import EditDataset from '../../views/datasets/edit'
 import NewDataset from '../../views/datasets/new'
 import EditType from '../../views/types/edit'
+import DatasetAccess from './dataset_access'
 import NewType from '../../views/types/new'
+import TypeAccess from './type_access'
 import Responses from './responses'
 import PropTypes from 'prop-types'
 import { Finder } from '@admin'
 import Dataset from './dataset'
+import APIKeys from './apikeys'
 import Schema from './schema'
-import Access from './access'
 import Forms from './forms'
 import Type from './type'
 import Data from './data'
@@ -94,7 +96,19 @@ class Manager extends React.PureComponent {
               {
                 icon: 'shield',
                 label: 'Access',
-                handler: this._handleDatasetView.bind(this, Access, dataset)
+                handler: this._handleDatasetView.bind(this, DatasetAccess, dataset)
+              },
+              {
+                icon: 'gears',
+                label: 'API',
+                handler: this._handleTypeView.bind(this, API, dataset),
+                children: [
+                  {
+                    icon: 'key',
+                    label: 'Keys',
+                    handler: this._handleTypeView.bind(this, APIKeys, dataset)
+                  }
+                ]
               },
               {
                 icon: 'database',
@@ -107,19 +121,7 @@ class Manager extends React.PureComponent {
                     {
                       icon: 'shield',
                       label: 'Access',
-                      handler: this._handleDatasetView.bind(this, Access, dataset)
-                    },
-                    {
-                      icon: 'gears',
-                      label: 'API',
-                      handler: this._handleTypeView.bind(this, API, dataset, type),
-                      children: [
-                        {
-                          icon: 'key',
-                          label: 'Keys',
-                          handler: this._handleTypeView.bind(this, API, dataset, type)
-                        }
-                      ]
+                      handler: this._handleDatasetView.bind(this, TypeAccess, dataset, type)
                     },
                     {
                       icon: 'table',

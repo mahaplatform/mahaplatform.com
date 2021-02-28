@@ -1,4 +1,6 @@
-const sections = (fields) => fields.reduce((fields, field, index) => [
+const sections = (fields) => fields.filter(field => {
+  return field.is_active
+}).reduce((fields, field, index) => [
   ...fields,
   ...index === 0 && field.type !== 'section' ? [{
     type: 'section',
