@@ -127,6 +127,7 @@ class PhoneField extends React.Component {
     if(required && (!value || value.length === 0)) {
       return this.props.onValid(null, ['field is required'])
     }
+    if(!required && !value) return this.props.onValid(raw)
     const parsed = parsePhoneNumber(value, defaultCountry)
     if(!parsed || !parsed.isValid()) {
       return this.props.onValid(null, ['invalid phone format'])

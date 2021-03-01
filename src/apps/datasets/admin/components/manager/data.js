@@ -43,6 +43,7 @@ class Data extends React.PureComponent {
     const { cacheKey } = this.state
     const { dataset, fields, type } = this.props
     return {
+      code: `dataset-${dataset.id}`,
       cacheKey,
       endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
       table: [
@@ -53,9 +54,10 @@ class Data extends React.PureComponent {
           label: field.name.value,
           key: `values.${field.code}`,
           sort: field.code,
-          primary: index === 0
+          primary: index === 0,
+          visible: index !== 0
         })),
-        { label: 'Status', key: 'status', collapsing: true, visible: true, format: StatusToken }
+        { label: 'Status', key: 'status', collapsing: true, primary: true, format: StatusToken }
       ],
       empty: {
         icon: 'file-text',
@@ -89,6 +91,17 @@ class Data extends React.PureComponent {
           key: `values.${field.code}`
         })),
         { label: 'Status', key: 'status' }
+      ],
+      recordTasks: (record) => [
+        {
+          label: 'Publish Record'
+        },
+        {
+          label: 'Archive Record'
+        },
+        {
+          label: 'Delete Record'
+        }
       ],
       entity: 'record',
       defaultSort: { key: fields[0].code, order: 'asc' },

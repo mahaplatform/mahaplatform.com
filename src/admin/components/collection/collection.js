@@ -22,6 +22,7 @@ class Collection extends React.Component {
   static propTypes = {
     buttons: PropTypes.any,
     cacheKey: PropTypes.string,
+    code: PropTypes.string,
     criteria: PropTypes.object,
     data: PropTypes.array,
     defaultSort: PropTypes.object,
@@ -68,6 +69,7 @@ class Collection extends React.Component {
   }
 
   static defaultProps = {
+    code: window.location.pathname.substr(1).replace(/\//g,'-'),
     cacheKey: null,
     entity: 'record',
     footer: true,
@@ -78,8 +80,6 @@ class Collection extends React.Component {
   }
 
   infinite = null
-
-  code = window.location.pathname.substr(1).replace(/\//g,'-')
 
   state = {
     cacheKey: _.random(100000, 999999).toString(36)
@@ -163,9 +163,9 @@ class Collection extends React.Component {
   }
 
   _getFilter() {
-    const { criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
+    const { code, criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
     return {
-      code: this.code,
+      code,
       entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
       fields: criteria.fields,
@@ -195,7 +195,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
+    const { code, empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
     const { cacheKey } = this.state
     return {
       reference: node => this.infinite = node,
@@ -213,7 +213,7 @@ class Collection extends React.Component {
       scrollpane: table === undefined,
       selectValue,
       props: {
-        code: this.code,
+        code,
         layout,
         recordTasks,
         selectable,
