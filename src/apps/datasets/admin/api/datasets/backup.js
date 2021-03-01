@@ -1,5 +1,6 @@
 import { backupDataset } from '@apps/datasets/services/datasets'
 import Dataset from '@apps/datasets/models/dataset'
+import { sendMail } from '@core/services/email'
 import moment from 'moment'
 
 const getExtension = (format) => {
@@ -19,6 +20,10 @@ const getMimeType = (format) => {
   return 'application/zip'
 }
 
+const getParams = (req) => {
+  return req.method === 'POST' ? req.body : req.query
+}
+
 const backupRoute = async (req, res) => {
 
   const dataset = await Dataset.query(qb => {
@@ -27,18 +32,45 @@ const backupRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = await backupDataset(req, {
-    dataset_id: dataset.get('id'),
-    format: req.query.format
+  if(!dataset) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load dataset'
   })
 
-  const filename = getFilename(dataset, req.query.format)
+  const params = getParams(req)
 
-  const type = getMimeType(req.query.format)
+  console.log({
+    dataset_id: dataset.get('id'),
+    type_ids: params.type_ids,
+    format: params.format
+  })
 
-  res.setHeader('Content-disposition', `attachment; filename=${filename}`)
+  const content = await backupDataset(req, {
+    dataset_id: dataset.get('id'),
+    type_ids: params.type_ids,
+    format: params.format
+  })
 
-  res.type(type).send(data)
+  const filename = getFilename(dataset, params.format)
+
+  if(params.strategy === 'download') {
+    const type = getMimeType(params.format)
+    res.setHeader('Content-disposition', `attachment; filename=${filename}`)
+    return res.type(type).send(content)
+  }
+
+  await sendMail({
+    from: req.team.get('rfc822'),
+    to: params.to,
+    subject: params.subject,
+    html: params.message,
+    attachments: [{
+      filename,
+      content
+    }]
+  })
+
+  res.status(200).respond(true)
 
 }
 

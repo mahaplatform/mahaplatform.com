@@ -144,10 +144,11 @@ const getFiles = async (req, { map, types }) => {
 
 }
 
-const backupDataset = async (req, { dataset_id, format }) => {
+const backupDataset = async (req, { dataset_id, type_ids, format }) => {
 
   const types = await Type.query(qb => {
     qb.where('dataset_id', dataset_id)
+    qb.whereIn('id', type_ids)
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())

@@ -13,11 +13,11 @@ const listRoute = async (req, res) => {
       qb.whereNull('deleted_at')
     },
     filter: {
-      params: req.params.$filter,
+      params: req.query.$filter,
       allowed: ['program_id']
     },
     sort: {
-      params: req.params.$sort,
+      params: req.query.$sort,
       defaults: ['title']
     },
     page: req.query.$page,

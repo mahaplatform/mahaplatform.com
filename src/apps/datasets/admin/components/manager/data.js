@@ -52,6 +52,7 @@ class Data extends React.PureComponent {
         }).map((field, index) => ({
           label: field.name.value,
           key: `values.${field.code}`,
+          sort: field.code,
           primary: index === 0
         })),
         { label: 'Status', key: 'status', collapsing: true, visible: true, format: StatusToken }
@@ -68,13 +69,16 @@ class Data extends React.PureComponent {
         fields: [
           {
             label: type.title,
-            fields: fields.filter(field => {
-              return field.is_active
-            }).map(field => ({
-              name: field.name.value,
-              key: field.code,
-              type: 'text'
-            }))
+            fields: [
+              ...fields.filter(field => {
+                return field.is_active
+              }).map(field => ({
+                name: field.name.value,
+                key: field.code,
+                type: 'text'
+              })),
+              { name: 'Status', key: 'status', type: 'select', multiple: true, options: ['draft','published','changed','archived'], format: StatusToken }
+            ]
           }
         ]
       },
@@ -87,7 +91,7 @@ class Data extends React.PureComponent {
         { label: 'Status', key: 'status' }
       ],
       entity: 'record',
-      defaultSort: { key: 'title', order: 'asc' },
+      defaultSort: { key: fields[0].code, order: 'asc' },
       selectable: true,
       buttons: (selected, onSuccess) => [{
         color: 'red',
@@ -132,7 +136,7 @@ class Data extends React.PureComponent {
       }],
       tasks: {
         icon: 'plus',
-        records: [
+        items: [
           { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> },
           { label: 'Import Records'}
         ]

@@ -1,8 +1,6 @@
 import { Form, UserToken } from '@admin'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
-import React from 'react'
-import _ from 'lodash'
 import qs from 'qs'
 
 class Backup extends React.Component {
@@ -15,11 +13,7 @@ class Backup extends React.Component {
   }
 
   static propTypes = {
-    dataset: PropTypes.object,
-    endpoint: PropTypes.string,
-    entity: PropTypes.string,
-    filter: PropTypes.object,
-    sort: PropTypes.string
+    dataset: PropTypes.object
   }
 
   state = {
@@ -46,7 +40,7 @@ class Backup extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Types', name: 'columns', type: 'checkboxes', required: true, options: this._getTypes(), defaultValue: this._getDefaults(), height: 200 },
+            { label: 'Types', name: 'type_ids', type: 'checkboxes', required: true, options: this._getTypes(), defaultValue: this._getDefaults(), height: 200 },
             { label: 'Format', name: 'format', type: 'radiogroup', deselectable: false, required: true, options: [
               { value: 'excel', text: 'Single Excel file' },
               { value: 'excelzip', text: 'Multiple Excel files (zipped)' },
@@ -79,7 +73,6 @@ class Backup extends React.Component {
   }
 
   _getTarget() {
-    const { entity } = this.props
     const { data } = this.state
     if(data.strategy === 'download') return []
     const fields = []
@@ -89,7 +82,7 @@ class Backup extends React.Component {
       fields.push({ name: 'user', type: 'lookup', required: true, prompt: 'Choose a User', endpoint: '/api/admin/users', filter: { is_active: { $eq: true } }, text: 'full_name', format: UserToken })
     }
     if(data.strategy !== 'download') {
-      fields.push({ name: 'subject', type: 'textfield', required: true, defaultValue: `${_.capitalize(entity)} Export` })
+      fields.push({ name: 'subject', type: 'textfield', required: true, defaultValue: 'Dataset Export' })
       fields.push({ name: 'message', type: 'textarea', rows: 5, required: true, defaultValue: 'Here is an export' })
     }
     return [{ label: 'Email', type: 'segment', required: true, fields }]
@@ -104,24 +97,15 @@ class Backup extends React.Component {
   }
 
   _getUrl(data) {
-    const { endpoint, entity, filter, sort } = this.props
-    const { columns, format } = data
+    const { admin } = this.context
+    const { dataset } = this.props
     const query = qs.stringify({
-      filename: pluralize(entity),
-      download: true,
-      $filter: filter,
-      $sort: sort,
-      $page: {
-        limit: 0
-      },
-      $select: this._getTypes().filter(column => {
-        return _.includes(columns, column.value)
-      }).reduce((select, item) => ({
-        ...select,
-        [item.text]: item.value
-      }), {})
+      type_ids: data.type_ids,
+      format: data.format,
+      strategy: data.strategy,
+      token: admin.team.token
     })
-    return `${endpoint}.${format}?${query}`
+    return `/api/admin/datasets/datasets/${dataset.id}/backup?${query}`
   }
 
   _handleCancel() {
@@ -142,33 +126,32 @@ class Backup extends React.Component {
   }
 
   _handleDownload(data) {
-    const { admin } = this.context
-    window.location.href = `${this._getUrl(data)}&token=${admin.team.token}`
+    window.location.href = this._getUrl(data)
     this.context.modal.close()
   }
 
   _handleSend(data) {
-    const { admin, flash, modal } = this.context
-    const { dataset, format, message, subject } = data
-    const { entity } = this.props
+    const { dataset } = this.props
     const email = this._getEmail(data)
     this.context.network.request({
-      endpoint: `/api/admin/datasets/datasets/${dataset.id}/backup?format=zip&token=${admin.team.token}`,
+      endpoint: `/api/admin/datasets/datasets/${dataset.id}/backup`,
       method: 'post',
       body: {
+        type_ids: data.type_ids,
+        format: data.format,
+        strategy: data.strategy,
         to: email.value,
-        filename: pluralize(entity),
-        url: this._getUrl(data),
-        format,
-        subject,
-        message
+        subject: data.subject,
+        message: data.message
       },
-      onFailure: () => {
-        flash.set('error', 'Unable to export data')
-      },
+      onFailure: () => this.context.flash.set('error', 'Unable to export data'),
       onSuccess: () => {
-        flash.set('success', <span>Export file successfully sent to <strong>{ email.text }</strong></span>)
-        modal.close()
+        this.context.flash.set('success', (
+          <Fragment>
+            Export file successfully sent to <strong>{ email.text }</strong>
+          </Fragment>
+        ))
+        this.context.modal.close()
       }
     })
   }

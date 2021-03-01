@@ -22,10 +22,10 @@ const listRoute = async (req, res) => {
       qb.where('dataset_id', dataset.get('id'))
     },
     filter: {
-      params: req.params.$filter
+      params: req.query.$filter
     },
     sort: {
-      params: req.params.$sort
+      params: req.query.$sort
     },
     page: req.query.$page,
     transacting: req.trx

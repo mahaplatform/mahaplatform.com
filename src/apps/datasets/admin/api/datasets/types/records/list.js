@@ -38,6 +38,14 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
+  console.log({
+    ...req.fields.reduce((aliases, field) => ({
+      ...aliases,
+      [field.get('code')]: `maha_version_versions.active_value->'${field.get('code')}'`
+    }), {}),
+    status: 'maha_version_versions.status'
+  })
+
   const records = await Record.filterFetch({
     scope: (qb) => {
       qb.select('datasets_records.*','maha_version_versions.active_value as values','maha_version_versions.status')
@@ -46,11 +54,18 @@ const listRoute = async (req, res) => {
       qb.where('datasets_records.type_id', type.get('id'))
       qb.whereNull('deleted_at')
     },
+    aliases: {
+      ...req.fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.get('code')]: `maha_version_versions.active_value->'${field.get('code')}'`
+      }), {}),
+      status: 'maha_version_versions.status'
+    },
     filter: {
-      params: req.params.$filter
+      params: req.query.$filter
     },
     sort: {
-      params: req.params.$sort
+      params: req.query.$sort
     },
     page: req.query.$page,
     transacting: req.trx

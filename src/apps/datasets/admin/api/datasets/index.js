@@ -20,6 +20,8 @@ router.get('/:id', show)
 
 router.get('/:id/backup', backup)
 
+router.post('/:id/backup', backup)
+
 router.get('/:id/edit', edit)
 
 router.patch('/:id', update)
