@@ -8,9 +8,8 @@ const createRoute = async (req, res) => {
   const field = await createField(req, {
     parent_type: req.params.parent_type,
     parent_id: req.params.parent_id,
-    config: {},
     is_mutable: true,
-    ...whitelist(req.body, ['label','name','instructions','type','config'])
+    ...whitelist(req.body, ['name','type','config'])
   })
 
   await socket.refresh(req, {

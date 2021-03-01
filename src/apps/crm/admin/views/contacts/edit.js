@@ -87,7 +87,11 @@ class Edit extends React.Component {
       label: `${ program.title } Properties`,
       collapsing: true,
       collapsed: true,
-      fields: program.fields.map(field => field.config)
+      fields: program.fields.map(field => ({
+        type: field.type,
+        name: `values.${field.code}`,
+        ...field.config
+      }))
     }))
   }
 

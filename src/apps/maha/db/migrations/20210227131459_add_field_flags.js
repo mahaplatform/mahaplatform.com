@@ -9,9 +9,23 @@ const AddFieldFlags = {
       table.timestamp('deleted_at')
     })
 
-    await knex('maha_fields').update({
-      is_active: true,
-      is_primary: false
+    const fields = await knex('maha_fields')
+
+    await Promise.mapSeries(fields, async (field) => {
+      await knex('maha_fields').where('id', field.id).update({
+        config: {
+          ...field.config,
+          label: field.label,
+          instructions: field.instructions,
+          required: field.config.required || false
+        },
+        is_active: true
+      })
+    })
+
+    await knex.schema.alterTable('maha_fields', function(table) {
+      table.dropColumn('label')
+      table.dropColumn('instructions')
     })
 
   },

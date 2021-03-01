@@ -42,9 +42,9 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'tokenfield', placeholder: 'Enter a name', required: true },
-            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', required: true },
-            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
-            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required' },
+            { label: 'Label', name: 'config.label', type: 'textfield', placeholder: 'Enter a label', required: true },
+            { label: 'Instructions', name: 'config.instructions', type: 'htmlfield', placeholder: 'Enter instructions' },
+            { label: 'Required', name: 'config.required', type: 'checkbox', prompt: 'This field is required' },
             ...this._getTypeFields()
           ]
         }
@@ -58,16 +58,14 @@ class Edit extends React.Component {
     if(!type) return []
     const fields = []
     if(type === 'textfield' || type === 'textarea') {
-      fields.push({ type: 'fields', fields: [
-        { label: 'Min Length', name: 'config.min_length', type: 'textfield' },
-        { label: 'Max Length', name: 'config.max_length', type: 'textfield' }
-      ] })
+      fields.push({ label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text' })
+      fields.push({ label: 'Min Length', name: 'config.min_length', type: 'numberfield' })
+      fields.push({ label: 'Max Length', name: 'config.max_length', type: 'numberfield' })
     }
     if(type === 'numberfield') {
-      fields.push({ type: 'fields', fields: [
-        { label: 'Min', name: 'config.min', type: 'textfield' },
-        { label: 'Max', name: 'config.max', type: 'textfield' }
-      ] })
+      fields.push({ label: 'Placeholder', name: 'config.placeholder', type: 'textfield', placeholder: 'Enter placeholder text' })
+      fields.push({ label: 'Min', name: 'config.min', type: 'numberfield' })
+      fields.push({ label: 'Max', name: 'config.max', type: 'numberfield' })
     }
     if(type === 'lookup') {
       fields.push({ label: 'Multiple Values', name: 'config.multiple', type: 'radiogroup', options: [

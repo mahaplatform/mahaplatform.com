@@ -4,17 +4,15 @@ import Field from '@apps/maha/models/field'
 const createField = async (req, params) => {
 
   const delta = await Field.query(qb => {
-    qb.where('maha_fields.parent_type', params.parent_type)
-    if(req.params.parent_id) {
-      qb.where('maha_fields.parent_id', params.parent_id)
-    }
+    qb.where('parent_type', params.parent_type)
+    if(params.parent_id) qb.where('parent_id', params.parent_id)
     qb.where('team_id', req.team.get('id'))
   }).count('*', {
     transacting: req.trx
   })
 
   const code = await generateCode(req, {
-    table: 'datasets_types'
+    table: 'maha_fields'
   })
 
   const field = await Field.forge({
@@ -24,13 +22,13 @@ const createField = async (req, params) => {
     code,
     delta,
     name: params.name,
-    label: params.label,
     type: params.type,
-    config: {},
-    instructions: params.instructions,
+    config: {
+      required: false,
+      ...params.config
+    },
     is_mutable: params.is_mutable,
-    is_active: true,
-    is_primary: params.is_primary
+    is_active: true
   }).save(null, {
     transacting: req.trx
   })

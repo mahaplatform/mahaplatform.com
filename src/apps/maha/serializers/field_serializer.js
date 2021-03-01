@@ -3,15 +3,12 @@ import _ from 'lodash'
 const fieldSerializer = (req, result) => ({
   id: result.get('id'),
   delta: result.get('delta'),
-  label: result.get('label'),
   code: result.get('code'),
   name: result.get('name'),
-  instructions: result.get('instructions'),
   type: result.get('type'),
   config: config(req, result),
   is_active: result.get('is_active'),
   is_mutable: result.get('is_mutable'),
-  is_primary: result.get('is_primary'),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -22,6 +19,12 @@ const config = (req, result) => {
   const config = result.get('config')
 
   const type = result.get('type')
+
+  const defaultConfig = {
+    label: config.label,
+    instructions: config.instructions,
+    required: config.required
+  }
 
   const lookupConfig = (type === 'lookup') ? {
     multiple: config.multiple === true ? true : false
@@ -37,11 +40,13 @@ const config = (req, result) => {
   } : {}
 
   const textConfig = (_.includes(['textfield','textarea'], type)) ? {
+    placeholder: config.placeholder,
     min_length: config.min_length,
     max_length: config.max_length
   } : {}
 
   const numberConfig = (type === 'numberfield') ? {
+    placeholder: config.placeholder,
     min: config.min,
     max: config.max
   } : {}
@@ -51,9 +56,7 @@ const config = (req, result) => {
   } : {}
 
   return {
-    label: result.get('label'),
-    name: `values.${result.get('code')}`,
-    type: result.get('type'),
+    ...defaultConfig,
     ...checkboxConfig,
     ...lookupConfig,
     ...dataConfig,

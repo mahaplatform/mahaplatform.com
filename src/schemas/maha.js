@@ -2,17 +2,6 @@ const schema = {
 
   load: async (knex) => {
 
-    await knex.schema.createTable('apikeys', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('dataset_id').unsigned()
-      table.string('title', 255)
-      table.text('description')
-      table.string('access_token', 255)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('appraisals_appraisals', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -690,7 +679,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('dataset_id').unsigned()
       table.string('title', 255)
-      table.text('description')
       table.string('access_token', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -725,6 +713,18 @@ const schema = {
       table.integer('type_id').unsigned()
       table.string('code', 255)
       table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('datasets_responses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('type_id').unsigned()
+      table.integer('record_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.jsonb('values')
+      table.USER-DEFINED('status')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1772,8 +1772,6 @@ const schema = {
       table.integer('parent_id')
       table.string('code', 255)
       table.integer('delta')
-      table.string('label', 255)
-      table.text('instructions')
       table.jsonb('config')
       table.boolean('is_mutable')
       table.timestamp('created_at')
@@ -1781,7 +1779,6 @@ const schema = {
       table.USER-DEFINED('type')
       table.jsonb('name')
       table.boolean('is_active')
-      table.boolean('is_primary')
       table.timestamp('deleted_at')
     })
 
@@ -3867,14 +3864,16 @@ const schema = {
       table.foreign('type_id').references('datasets_types.id')
     })
 
-    await knex.schema.table('apikeys', table => {
+    await knex.schema.table('datasets_apikeys', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('dataset_id').references('datasets_datasets.id')
     })
 
-    await knex.schema.table('datasets_apikeys', table => {
+    await knex.schema.table('datasets_responses', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('dataset_id').references('datasets_datasets.id')
+      table.foreign('type_id').references('datasets_types.id')
+      table.foreign('record_id').references('datasets_records.id')
+      table.foreign('contact_id').references('crm_contacts.id')
     })
 
 

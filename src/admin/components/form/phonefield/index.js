@@ -7,6 +7,7 @@ class PhoneField extends React.Component {
   static propTypes = {
     defaultCountry: PropTypes.string,
     defaultValue: PropTypes.string,
+    placeholder: PropTypes.string,
     required: PropTypes.bool,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
@@ -16,6 +17,7 @@ class PhoneField extends React.Component {
 
   static defaultProps = {
     defaultCountry: 'US',
+    placeholder: 'Enter Phone Number',
     onChange: () => {},
     onReady: () => {}
   }
@@ -71,13 +73,13 @@ class PhoneField extends React.Component {
   }
 
   _getInput() {
-    const { tabIndex } = this.props
+    const { placeholder, tabIndex } = this.props
     const { value } = this.state
     return {
       ref: node => this.phone = node,
       className: 'ui input',
       type: 'tel',
-      placeholder: 'Enter phone number',
+      placeholder,
       tabIndex,
       value,
       onBlur: this._handleBlur,

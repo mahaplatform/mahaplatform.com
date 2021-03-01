@@ -42,7 +42,7 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { field, index } = this.props
+    const { field } = this.props
     return (
       <div className={ this._getClass() }>
         <div className="maha-field-handle">

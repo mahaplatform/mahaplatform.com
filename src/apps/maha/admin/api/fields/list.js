@@ -6,9 +6,7 @@ const listRoute = async (req, res) => {
   const fields = await Field.filterFetch({
     scope: (qb) => {
       qb.where('parent_type', req.params.parent_type)
-      if(req.params.parent_id) {
-        qb.where('parent_id', req.params.parent_id)
-      }
+      if(req.params.parent_id) qb.where('parent_id', req.params.parent_id)
       qb.where('team_id', req.team.get('id'))
       qb.whereNull('deleted_at')
       qb.orderBy('delta', 'asc')

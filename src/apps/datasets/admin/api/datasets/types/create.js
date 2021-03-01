@@ -36,12 +36,16 @@ const createRoute = async (req, res) => {
   await createField(req, {
     parent_type: 'datasets_types',
     parent_id: type.get('id'),
-    name: { value: 'Title', token: 'title' },
-    label: 'Title',
-    instructions: '',
+    name: {
+      value: 'Title',
+      token: 'title'
+    },
     type: 'textfield',
-    config: {},
-    is_primary: true,
+    config: {
+      label: 'Title',
+      instructions: '',
+      required: true
+    },
     is_mutable: true
   })
 

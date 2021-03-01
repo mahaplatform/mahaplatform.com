@@ -1,4 +1,3 @@
-import NewRecord from '@apps/datasets/admin/views/records/new'
 import { Collection, Container, StatusToken } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -24,23 +23,17 @@ class Responses extends React.PureComponent {
   _getCollection() {
     const { dataset, fields, type } = this.props
     return {
-      endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
+      endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/responses`,
       table: [
         { label: 'ID', key: 'id', collapsing: true, visible: false },
-        ...fields.map((field, index) => ({
-          label: field.name.value,
-          key: `values.${field.code}`,
-          primary: index === 0
-        })),
+        { label: 'Contact', key: 'contact.display_name' },
+        { label: 'Record', key: 'record.title' },
         { label: 'Status', key: 'status', collapsing: true, visible: true, format: StatusToken }
       ],
       empty: {
-        icon: 'file-text',
-        title: 'No Records',
-        text: 'You have not yet created any records',
-        buttons: [
-          { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> }
-        ]
+        icon: 'envelope',
+        title: 'No Responses',
+        text: 'You have not yet received any responses'
       },
       criteria: {
         fields: [
@@ -57,18 +50,7 @@ class Responses extends React.PureComponent {
       entity: 'record',
       defaultSort: { key: 'title', order: 'asc' },
       selectable: true,
-      buttons: (selected, onSuccess) => [
-        { label: 'Publish Records' },
-        { label: 'Archive Records' }
-      ],
-      tasks: {
-        icon: 'plus',
-        items: [
-          { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> },
-          { label: 'Import Records'}
-        ]
-      },
-      onClick: (record) => this.context.router.history.push(`/datasets/datasets/${dataset.id}/types/${type.id}/records/${record.id}`)
+      onClick: (record) => this.context.router.history.push(`/datasets/datasets/${dataset.id}/types/${type.id}/responses/${record.id}`)
     }
   }
 

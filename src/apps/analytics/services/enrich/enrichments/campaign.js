@@ -32,7 +32,7 @@ const campaignEnrichment = async(req, event) => {
 
   const url = URL.parse(event.page_url)
 
-  const args = qs.parse(url.search.substr(1))
+  const args = url.search ? qs.parse(url.search.substr(1)) : {}
 
   return {
     ...event,

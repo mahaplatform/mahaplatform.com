@@ -17,7 +17,7 @@ const update = async (req, res) => {
     message: 'Unable to find field'
   })
 
-  await field.save(whitelist(req.body, ['label','name','instructions','type','config']), {
+  await field.save(whitelist(req.body, ['name','type','config']), {
     patch: true,
     transacting: req.trx
   })

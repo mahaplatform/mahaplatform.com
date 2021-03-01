@@ -5,12 +5,10 @@ const showRoute = async (req, res) => {
 
   const field = await Field.query(qb => {
     qb.where('parent_type', req.params.parent_type)
-    if(req.params.parent_id) {
-      qb.where('parent_id', req.params.parent_id)
-    }
+    if(req.params.parent_id) qb.where('parent_id', req.params.parent_id)
     qb.where('team_id', req.team.get('id'))
-    qb.whereNull('deleted_at')
     qb.where('id', req.params.id)
+    qb.whereNull('deleted_at')
   }).fetch({
     transacting: req.trx
   })
