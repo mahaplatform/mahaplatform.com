@@ -9,18 +9,18 @@ import PropTypes from 'prop-types'
 import { Finder } from '@admin'
 import Dataset from './dataset'
 import APIKeys from './apikeys'
+import Backup from '../backup'
 import Schema from './schema'
 import Forms from './forms'
 import Type from './type'
 import Data from './data'
 import React from 'react'
-import _ from 'lodash'
 import API from './api'
+import _ from 'lodash'
 
 class Manager extends React.PureComponent {
 
   static contextTypes = {
-    admin: PropTypes.object,
     network: PropTypes.object
   }
 
@@ -56,7 +56,6 @@ class Manager extends React.PureComponent {
   }
 
   _getFinder() {
-    const { team } = this.context.admin
     const { datasets } = this.state
     return {
       items: [
@@ -73,9 +72,7 @@ class Manager extends React.PureComponent {
               { label: 'Edit Dataset', modal: <EditDataset dataset={ dataset } /> },
               {
                 label: 'Backup Dataset',
-                handler: () => {
-                  window.location.href = `/api/admin/datasets/datasets/${dataset.id}/backup?token=${team.token}`
-                }
+                modal: <Backup dataset={ dataset } />
               },
               {
                 label: 'Delete Dataset',
@@ -148,12 +145,6 @@ class Manager extends React.PureComponent {
                   ],
                   tasks: [
                     { label: 'Edit Type', modal: <EditType dataset={ dataset } type={ type } /> },
-                    {
-                      label: 'Backup Type',
-                      handler: () => {
-                        window.location.href = `/api/admin/datasets/datasets/${dataset.id}/backup?token=${team.token}`
-                      }
-                    },
                     {
                       label: 'Delete Type',
                       confirm: `

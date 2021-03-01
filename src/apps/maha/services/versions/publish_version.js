@@ -3,7 +3,7 @@ import moment from 'moment'
 
 const publishVersion = async (req, params) => {
 
-  const { versionable_type, versionable_id, key, publish_id } = params
+  const { versionable_type, versionable_id, key, id } = params
 
   const published = await Version.query(qb => {
     qb.where('versionable_type', versionable_type)
@@ -28,7 +28,8 @@ const publishVersion = async (req, params) => {
     qb.where('versionable_type', versionable_type)
     qb.where('versionable_id', versionable_id)
     qb.where('key', key)
-    qb.where('id', publish_id)
+    if(id) qb.where('id', id)
+    qb.orderBy('created_at', 'desc')
   }).fetch({
     transacting: req.trx
   })

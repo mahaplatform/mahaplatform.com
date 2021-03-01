@@ -44,6 +44,7 @@ const listRoute = async (req, res) => {
       qb.joinRaw('inner join maha_version_versions on maha_version_versions.versionable_type=\'datasets_records\' and maha_version_versions.versionable_id=datasets_records.id and maha_version_versions.key=\'values\'')
       qb.where('datasets_records.team_id', req.team.get('id'))
       qb.where('datasets_records.type_id', type.get('id'))
+      qb.whereNull('deleted_at')
     },
     filter: {
       params: req.params.$filter

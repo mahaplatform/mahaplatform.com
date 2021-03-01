@@ -1,5 +1,6 @@
 export rollbackVersion from './rollback_version'
 export publishVersion from './publish_version'
+export archiveVersion from './archive_version'
 export updateVersion from './update_version'
 export createVersion from './create_version'
 export getPublished from './get_published'

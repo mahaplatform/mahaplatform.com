@@ -1,12 +1,14 @@
 import NewRecord from '@apps/datasets/admin/views/records/new'
 import { Collection, Container, StatusToken } from '@admin'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import React from 'react'
 import _ from 'lodash'
 
 class Data extends React.PureComponent {
 
   static contextTypes = {
+    flash: PropTypes.object,
     network: PropTypes.object,
     router: PropTypes.object
   }
@@ -87,14 +89,50 @@ class Data extends React.PureComponent {
       entity: 'record',
       defaultSort: { key: 'title', order: 'asc' },
       selectable: true,
-      buttons: (selected, onSuccess) => [
-        { label: 'Publish Records' },
-        { label: 'Archive Records' },
-        { label: 'Delete Records' }
-      ],
+      buttons: (selected, onSuccess) => [{
+        color: 'red',
+        text: 'Delete Selected',
+        confirm: `Are you sure you want to delete these ${pluralize('records', selected.total, true)}?`,
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
+          body: {
+            operation: 'delete',
+            filter: selected.filter
+          },
+          onFailure: (result) => this.context.flash.set('error', `Unable to delete these ${pluralize('records', selected.total, true)}`),
+          onSuccess: (result) => this.context.flash.set('success', `You successfully deleted ${pluralize('records', selected.total, true)}`)
+        }
+      },{
+        color: 'red',
+        text: 'Publish Selected',
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
+          body: {
+            operation: 'publish',
+            filter: selected.filter
+          },
+          onFailure: (result) => this.context.flash.set('error', `Unable to publish these ${pluralize('records', selected.total, true)}`),
+          onSuccess: (result) => this.context.flash.set('success', `You successfully published ${pluralize('records', selected.total, true)}`)
+        }
+      },{
+        color: 'red',
+        text: 'Archive Selected',
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/datasets/datasets/${dataset.id}/types/${type.id}/records`,
+          body: {
+            operation: 'archive',
+            filter: selected.filter
+          },
+          onFailure: (result) => this.context.flash.set('error', `Unable to archive these ${pluralize('record', selected.total, true)}`),
+          onSuccess: (result) => this.context.flash.set('success', `You successfully archive ${pluralize('record', selected.total, true)}`)
+        }
+      }],
       tasks: {
         icon: 'plus',
-        items: [
+        records: [
           { label: 'Create Record', modal: <NewRecord type={ type } fields={ fields } dataset={ dataset } /> },
           { label: 'Import Records'}
         ]

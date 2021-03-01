@@ -10,7 +10,7 @@ const publishRoute = async (req, res) => {
     versionable_type,
     versionable_id,
     key,
-    publish_id: req.body.publish_id
+    id: req.body.publish_id
   })
 
   await socket.refresh(req, [

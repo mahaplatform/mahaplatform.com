@@ -4,9 +4,9 @@ import Field from '@apps/maha/models/field'
 const createField = async (req, params) => {
 
   const delta = await Field.query(qb => {
-    qb.where('maha_fields.parent_type', req.params.parent_type)
+    qb.where('maha_fields.parent_type', params.parent_type)
     if(req.params.parent_id) {
-      qb.where('maha_fields.parent_id', req.params.parent_id)
+      qb.where('maha_fields.parent_id', params.parent_id)
     }
     qb.where('team_id', req.team.get('id'))
   }).count('*', {

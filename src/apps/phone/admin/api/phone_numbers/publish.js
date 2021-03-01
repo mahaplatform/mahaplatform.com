@@ -22,7 +22,7 @@ const publishRoute = async (req, res) => {
     versionable_type: 'maha_phone_numbers',
     versionable_id: phone_number.get('id'),
     key: 'config',
-    publish_id: req.body.publish_id
+    id: req.body.publish_id
   })
 
   await socket.refresh(req, [

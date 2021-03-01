@@ -9,7 +9,7 @@ class Type extends React.PureComponent {
   }
 
   static propTypes = {
-    audits: PropTypes.object,
+    audits: PropTypes.array,
     dataset: PropTypes.object,
     type: PropTypes.object
   }
