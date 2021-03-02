@@ -4,7 +4,7 @@ import Queue from '@core/analytics/objects/queue'
 const ValidateQueue = new Queue({
   queue: 'analytics',
   name: 'validate',
-  log: false,
+  log: process.env.NODE_ENV !== 'production',
   processor: validate
 })
 
