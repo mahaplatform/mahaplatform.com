@@ -6,6 +6,7 @@ import React from 'react'
 const blocks = {
   dial: { icon: 'phone' },
   consent: { icon: 'thumbs-up' },
+  property: { icon: 'id-card' },
   email: { icon: 'envelope-open' },
   question: { icon: 'question' },
   ifthen: { icon: 'sitemap' },
