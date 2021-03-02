@@ -2,7 +2,6 @@ import formatObjectForTransport from '@core/utils/format_object_for_transport'
 import { sendNotificationEmail } from '@apps/maha/services/notification_email'
 import { messaging } from '@core/vendor/firebase'
 import socket from '@core/vendor/emitter'
-import knex from '@core/vendor/knex'
 
 const deliver = async (req, { user, instructions, notification }) => {
 
@@ -94,7 +93,7 @@ const sendViaEmail = async (req, { user, notification }) => {
 }
 
 const markNotificationAsDelivered = async (req, { user, notification }) => {
-  await knex('maha_notifications').transacting(req.trx).where({
+  await req.trx('maha_notifications').where({
     id: notification.id
   }).update({
     is_delivered: true

@@ -1,7 +1,6 @@
 import Installation from '@apps/maha/models/installation'
 import Right from '@apps/maha/models/right'
 import App from '@apps/maha/models/app'
-import knex from '../vendor/knex'
 
 export default async (req, user) => {
 
@@ -10,7 +9,7 @@ export default async (req, user) => {
   })
 
   const installations = await Installation.query(qb => {
-    qb.select(knex.raw('distinct on (maha_installations.app_id) maha_installations.*'))
+    qb.select(req.trx.raw('distinct on (maha_installations.app_id) maha_installations.*'))
     qb.innerJoin('maha_roles_apps', 'maha_roles_apps.app_id', 'maha_installations.app_id')
     qb.innerJoin('maha_users_roles', 'maha_users_roles.role_id', 'maha_roles_apps.role_id')
     qb.where('maha_installations.team_id', user.get('team_id'))
@@ -20,7 +19,7 @@ export default async (req, user) => {
   })
 
   const rights = await Right.query(qb => {
-    qb.select(knex.raw('distinct on (maha_rights.id) maha_rights.*'))
+    qb.select(req.trx.raw('distinct on (maha_rights.id) maha_rights.*'))
     qb.innerJoin('maha_roles_rights', 'maha_roles_rights.right_id', 'maha_rights.id')
     qb.innerJoin('maha_users_roles', 'maha_users_roles.role_id', 'maha_roles_rights.role_id')
     qb.where('maha_users_roles.user_id', user.get('id'))

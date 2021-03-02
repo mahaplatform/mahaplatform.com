@@ -2,7 +2,6 @@ import ImportSerializer from '../serializers/import_serializer'
 import { isValid } from '@core/utils/validation'
 import socket from '@core/vendor/emitter'
 import Queue from '@core/objects/queue'
-import knex from '@core/vendor/knex'
 import ImportItem from '../models/import_item'
 import parse from '@core/utils/parse'
 import Import from '../models/import'
@@ -36,7 +35,7 @@ const processor = async (req, job) => {
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(job.data.table).transacting(req.trx).where({
+    const duplicate = (primary_key) ? await req.trx(job.data.table).where({
       [primary_key]: values[primary_key]
     }) : 0
 

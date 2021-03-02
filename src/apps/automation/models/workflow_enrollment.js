@@ -10,7 +10,6 @@ import Order from '@apps/stores/models/order'
 import Email from '@apps/maha/models/email'
 import Call from '@apps/maha/models/call'
 import Model from '@core/objects/model'
-import knex from '@core/vendor/knex'
 import Workflow from './workflow'
 
 const WorkflowEnrollment = new Model({
@@ -33,7 +32,7 @@ const WorkflowEnrollment = new Model({
 
   contact() {
     return this.belongsTo(Contact, 'contact_id').query(qb => {
-      qb.select(knex.raw('crm_contacts.*,crm_contact_primaries.*'))
+      qb.select('crm_contacts.*','crm_contact_primaries.*')
       qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     })
   },

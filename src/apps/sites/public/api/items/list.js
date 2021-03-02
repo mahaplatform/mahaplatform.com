@@ -1,6 +1,5 @@
 import { expandValues } from '@apps/maha/services/values'
 import geocode from '@apps/maha/services/geocode'
-import knex from '@core/vendor/knex'
 import Field from '@apps/maha/models/field'
 import { applyFilters } from './filters'
 import Item from '@apps/sites/models/item'
@@ -53,7 +52,7 @@ const listRoute = async (req, res) => {
           const lon2 = `cast(values->'${column}'->0->>'longitude' as float)`
           const lat2 = `cast(values->'${column}'->0->>'latitude' as float)`
           const distance = `(acos(sin(radians(${lat2})) * sin(radians(${lat1})) + cos(radians(${lat2})) * cos(radians(${lat1})) * cos(radians(${lon2} - ${lon1}))) * 6371 * 1000) / 1609.344`
-          qb.select(knex.raw(`sites_items.*,${distance} as distance`))
+          qb.select(req.trx.raw(`sites_items.*,${distance} as distance`))
           qb.orderBy('distance','asc')
         })
         applyFilters(qb, fields, req.query.$filters)

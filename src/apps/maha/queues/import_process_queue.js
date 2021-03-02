@@ -4,7 +4,6 @@ import ImportItem from '../models/import_item'
 import socket from '@core/vendor/emitter'
 import { flatten, unflatten } from 'flat'
 import Queue from '@core/objects/queue'
-import knex from '@core/vendor/knex'
 import Import from '../models/import'
 import Asset from '../models/asset'
 import moment from 'moment'
@@ -46,7 +45,7 @@ const castColumn = (tablename, column, code) => {
 }
 
 const getKey = async (trx, parent_id, name) => {
-  const row = await knex('maha_fields').transacting(trx).select('code').where({ parent_id, name })
+  const row = await trx('maha_fields').select('code').where({ parent_id, name })
   return row.length > 0 ? row[0].code : null
 }
 
@@ -58,7 +57,7 @@ const findRelatedIds = async (trx, field, values, imp ) => {
   const items = values.split(',')
   const related_ids = await Promise.mapSeries(items, async (item, index) => {
     const value = item.toString().toLowerCase().trim()
-    const related = await knex(field.relation).transacting(trx).where({
+    const related = await trx(field.relation).where({
       team_id: imp.get('team_id')
     }).whereRaw(`lower(${castCode}) = ?`, value)
     return related.length > 0 ? related[0].id : null
@@ -116,7 +115,7 @@ const processor = async (req, job) => {
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(table).transacting(req.trx).where({
+    const duplicate = (primary_key) ? await req.trx(table).where({
       [primary_key]: values[primary_key]
     }) : []
 
@@ -128,7 +127,7 @@ const processor = async (req, job) => {
 
     if(duplicate.length === 0 || strategy == 'create') {
 
-      object_id = await knex(table).transacting(req.trx).insert({
+      object_id = await req.trx(table).insert({
         team_id: imp.get('team_id'),
         created_at: moment(),
         updated_at: moment(),
@@ -146,7 +145,7 @@ const processor = async (req, job) => {
 
       const merged = mergeRecords(item_fields, duplicate_fields, strategy)
 
-      object_id = await knex(table).where({
+      object_id = await req.trx(table).where({
         id: duplicate[0].id
       }).update({
         ...unflatten(_.merge(flatten(duplicate[0]), merged) )

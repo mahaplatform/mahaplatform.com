@@ -6,7 +6,7 @@ import fetchOrCreate from './fetch_or_create'
 import './validations/unique_validation'
 import filterFetch from './filter_fetch'
 import './validations/time_validation'
-import * as knex from '../../vendor/knex'
+import * as knex from '@core/vendor/knex'
 import Bookshelf from 'bookshelf'
 
 const creator = (knex) => {

@@ -1,4 +1,4 @@
-import knex from '../../vendor/knex'
+import knex from '@core/vendor/knex'
 import _ from 'lodash'
 
 export const updateRelated = async (req, options) => {
