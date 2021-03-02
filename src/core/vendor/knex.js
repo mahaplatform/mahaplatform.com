@@ -1,8 +1,8 @@
 import Knex from 'knex'
 
-const knex = (connection) => new Knex({
+const knex = new Knex({
   client: 'postgresql',
-  connection,
+  connection: process.env.DATABASE_URL,
   useNullAsDefault: true,
   pool: {
     min: 5,
@@ -10,8 +10,4 @@ const knex = (connection) => new Knex({
   }
 })
 
-export const maha = knex(process.env.DATABASE_URL)
-
-export const analytics = knex(process.env.ANALYTICS_URL)
-
-export default maha
+export default knex

@@ -1,5 +1,5 @@
-import registry from '../utils/registry'
-import * as bookshelf from '../lib/bookshelf'
+import registry from '@core/utils/registry'
+import bookshelf from '@core/lib/bookshelf'
 import Checkit from  'checkit'
 import _ from 'lodash'
 
@@ -7,7 +7,7 @@ class Model {
 
   constructor(options) {
 
-    const model = bookshelf[options.databaseName].Model.extend({
+    const model = bookshelf.Model.extend({
 
       hasTimestamps: options.hasTimestamps !== false,
 
@@ -24,11 +24,11 @@ class Model {
       },
 
       fetch: function(fetchOptions = {}) {
-        return bookshelf[options.databaseName].Model.prototype.fetch.call(this, mergeOptions(fetchOptions, options))
+        return bookshelf.Model.prototype.fetch.call(this, mergeOptions(fetchOptions, options))
       },
 
       fetchAll: function(fetchOptions = {}) {
-        return bookshelf[options.databaseName].Model.prototype.fetchAll.call(this, mergeOptions(fetchOptions, options))
+        return bookshelf.Model.prototype.fetchAll.call(this, mergeOptions(fetchOptions, options))
       },
 
       validateSave: function(model, attrs, saveOptions) {

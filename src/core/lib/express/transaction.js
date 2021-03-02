@@ -1,28 +1,22 @@
 import onFinished from 'on-finished'
-import * as knex from '@core/vendor/knex'
+import knex from '@core/vendor/knex'
 
 const withTransaction = (req, res, next) => {
 
-  knex.maha.transaction(maha => {
-    knex.analytics.transaction(analytics => {
+  knex.transaction(maha => {
 
-      req.analytics = analytics
-      req.maha = maha
-      req.trx = maha
+    req.trx = maha
 
-      onFinished(res, function (err, res) {
-        if (err || (res.statusCode && res.statusCode >= 400)) {
-          analytics.rollback()
-          maha.rollback()
-        } else {
-          analytics.commit()
-          maha.commit()
-        }
-      })
+    onFinished(res, function (err, res) {
+      if (err || (res.statusCode && res.statusCode >= 400)) {
+        maha.rollback()
+      } else {
+        maha.commit()
+      }
+    })
 
-      next()
+    next()
 
-    }).catch(err => {})
   }).catch(err => {})
 
 }

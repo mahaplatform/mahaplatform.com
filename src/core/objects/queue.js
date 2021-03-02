@@ -1,8 +1,8 @@
 import createRedisClient from '@core/utils/create_redis_client'
 import socket from '@core/services/routes/emitter'
 import Logger from '@core/services/logger'
-import * as knex from '@core/vendor/knex'
 import Team from '@apps/maha/models/team'
+import knex from '@core/vendor/knex'
 import moment from 'moment'
 import Bull from 'bull'
 
@@ -133,18 +133,14 @@ class Queue {
 
   _withTransaction(processor) {
     return async (job) => {
-      return knex.analytics.transaction(async analytics => {
-        return await knex.maha.transaction(async maha => {
-          const req = {}
-          req.analytics = analytics
-          req.maha = maha
-          req.trx = maha
-          const result = await processor(req, job)
-          if(this.refresh) {
-            const channels = await this.refresh(req, job, result)
-            await socket.refresh(req, channels)
-          }
-        })
+      return await knex.transaction(async maha => {
+        const req = {}
+        req.trx = maha
+        const result = await processor(req, job)
+        if(this.refresh) {
+          const channels = await this.refresh(req, job, result)
+          await socket.refresh(req, channels)
+        }
       })
     }
   }
@@ -154,7 +150,7 @@ class Queue {
       req.team = job.data.team_id ? await Team.query(qb => {
         qb.where('id', job.data.team_id)
       }).fetch({
-        transacting: req.maha
+        transacting: req.trx
       }) : null
       await processor(req, job)
     }

@@ -18,9 +18,9 @@ class Logger {
       req.analytics.on('query', this.query.bind(this, 'analytics'))
       req.analytics.on('query-response', this.response)
     }
-    if(req.maha) {
-      req.maha.on('query', this.query.bind(this, 'maha'))
-      req.maha.on('query-response', this.response)
+    if(req.trx) {
+      req.trx.on('query', this.query.bind(this, 'maha'))
+      req.trx.on('query-response', this.response)
     }
   }
 

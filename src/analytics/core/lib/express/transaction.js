@@ -1,9 +1,9 @@
-import * as knex from '@core/vendor/knex'
+import knex from '@core/vendor/knex'
 import onFinished from 'on-finished'
 
 const withTransaction = (req, res, next) => {
 
-  knex.analytics.transaction(analytics => {
+  knex.transaction(analytics => {
 
     req.analytics = analytics
 
