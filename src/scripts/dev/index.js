@@ -45,24 +45,19 @@ const sdkport = parseInt(process.env.DEVSERVER_PORT) + subapps.length + 2
 const serverWatch = async () => {
 
   const nodemon = [
-    path.join('src','scripts','entities.js'),
-    '--inspect',
-    '--color',
-    '--quiet',
-    '--exec',
-    'babel-node',
-    '--config-file=./src/core/utils/babel.config.js'
+    'src/scripts/entities.js','--inspect','--color','--quiet',
+    '--exec','babel-node','--config-file=./src/core/utils/babel.config.js',
+    '--watch','src/analytics',
+    '--watch','src/apps',
+    '--watch','src/core',
+    '--ignore','src/apps/*/+(db|web)/**/*',
+    '--ignore','src/apps/*/admin/+(activities|badges|components|roots|tokens|views)/**/*',
+    '--ignore','src/core/admin/app.js',
+    '--ignore','src/core/admin/index.less',
+    '--ignore','*_test.js',
+    '--ext','js,less,ejs,json',
+    '--verbose'
   ]
-  nodemon.push('--watch')
-  nodemon.push(path.join('src','analytics'))
-  nodemon.push('--watch')
-  nodemon.push(path.join('src','apps'))
-  nodemon.push('--watch')
-  nodemon.push(path.join('src','core'))
-  nodemon.push('--ignore')
-  nodemon.push(path.join('src','core','admin','app.js'))
-  nodemon.push('--ignore')
-  nodemon.push(path.join('src','core','admin','index.less'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
