@@ -152,11 +152,12 @@ const buildSdk = async () => {
 const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
-  const coreDirs = ['lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
+  const coreDirs = ['analytics','lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
+  const analyticsDirs = ['analytics']
   const entries = fs.readdirSync(srcDir).filter(item => {
     return !fs.lstatSync(path.join(srcDir,item)).isDirectory()
   })
-  await Promise.map([...appDirs, ...coreDirs], buildDir(babelrc))
+  await Promise.map([...analyticsDirs, ...appDirs, ...coreDirs], buildDir(babelrc))
   await Promise.map(entries, buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })

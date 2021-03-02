@@ -1,7 +1,11 @@
-import '../core/services/environment'
+import '@core/services/environment'
 import path from 'path'
 
 require(path.join('..','server'))
+
+require(path.join('..','collector'))
+
+require(path.join('..','analytics'))
 
 require(path.join('..','worker'))
 

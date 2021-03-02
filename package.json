@@ -17,6 +17,7 @@
     "collector": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/collector.js",
     "cron": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/cron.js",
     "dev": "NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 npx babel-node --trace-warnings --config-file=./src/core/utils/babel.config.js ./src/scripts/dev/index.js",
+    "entities": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/entities.js",
     "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",
     "g": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/generate/index.js",
     "knex": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/knex.js",

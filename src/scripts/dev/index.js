@@ -182,6 +182,10 @@ const adminWatch = async () => {
         ws: true,
         onError: proxyError
       },
+      '/mt': {
+        target: `http://${process.env.DOMAIN}:${process.env.ANALYTICS_PORT}`,
+        secure: false
+      },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
         [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
