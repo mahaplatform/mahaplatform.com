@@ -1,4 +1,4 @@
-import Event from '@apps/analytics/models/event'
+import Event from '@analytics/models/event'
 
 const eventValidation = async(req, data) => {
 

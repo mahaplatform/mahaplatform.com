@@ -1,6 +1,6 @@
-import ModelQueue from '@apps/analytics/queues/model_queue'
+import ModelQueue from '@analytics/queues/model_queue'
 import enrichments from './enrichments'
-import Raw from '@apps/analytics/models/raw'
+import Raw from '@analytics/models/raw'
 import parseEvent from './event'
 
 const enrich = async (req, job) => {

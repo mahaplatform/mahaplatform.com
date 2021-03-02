@@ -1,6 +1,6 @@
-import Protocol from '@apps/analytics/models/protocol'
-import Referer from '@apps/analytics/models/referer'
-import Domain from '@apps/analytics/models/domain'
+import Protocol from '@analytics/models/protocol'
+import Referer from '@analytics/models/referer'
+import Domain from '@analytics/models/domain'
 
 export const getReferer = async(req, { enriched }) => {
 

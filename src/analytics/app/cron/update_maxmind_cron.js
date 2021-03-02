@@ -1,4 +1,4 @@
-import { updateDatabase } from '@apps/analytics/services/maxmind'
+import { updateDatabase } from '@analytics/services/maxmind'
 import Queue from '@core/objects/queue'
 
 const updateMaxmindCron = new Queue({

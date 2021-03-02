@@ -1,6 +1,6 @@
-import EnrichQueue from '@apps/analytics/queues/enrich_queue'
+import EnrichQueue from '@analytics/queues/enrich_queue'
 import validations from './validations'
-import Raw from '@apps/analytics/models/raw'
+import Raw from '@analytics/models/raw'
 
 const validate = async (req, job) => {
 

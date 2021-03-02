@@ -1,5 +1,5 @@
 import 'express-async-errors'
-import mtMiddleware from '@apps/analytics/public/mt'
+import mtMiddleware from '@analytics/public/mt'
 import transaction from './transaction'
 import bodyParser from 'body-parser'
 import logger from './logger'

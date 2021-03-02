@@ -1,9 +1,9 @@
-import PostalCode from '@apps/analytics/models/postal_code'
-import MetroCode from '@apps/analytics/models/metro_code'
-import IPAddress from '@apps/analytics/models/ipaddress'
-import Country from '@apps/analytics/models/country'
-import Region from '@apps/analytics/models/region'
-import City from '@apps/analytics/models/city'
+import PostalCode from '@analytics/models/postal_code'
+import MetroCode from '@analytics/models/metro_code'
+import IPAddress from '@analytics/models/ipaddress'
+import Country from '@analytics/models/country'
+import Region from '@analytics/models/region'
+import City from '@analytics/models/city'
 
 export const getIPAddress = async(req, { enriched }) => {
 

@@ -1,4 +1,4 @@
-import DomainUser from '@apps/analytics/models/domain_user'
+import DomainUser from '@analytics/models/domain_user'
 
 export const getDomainUser = async(req, { enriched }) => {
 

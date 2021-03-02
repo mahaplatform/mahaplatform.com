@@ -13,6 +13,7 @@ module.exports = {
     ['module-resolver', {
       alias: {
         '@admin': './src/admin',
+        '@analytics': './src/analytics',
         '@apps': './src/apps',
         '@core': './src/core',
         '@client': './src/client',

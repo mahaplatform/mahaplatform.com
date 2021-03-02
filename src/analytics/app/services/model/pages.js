@@ -1,6 +1,6 @@
-import Protocol from '@apps/analytics/models/protocol'
-import Domain from '@apps/analytics/models/domain'
-import Page from '@apps/analytics/models/page'
+import Protocol from '@analytics/models/protocol'
+import Domain from '@analytics/models/domain'
+import Page from '@analytics/models/page'
 
 export const getPage = async(req, { enriched }) => {
 

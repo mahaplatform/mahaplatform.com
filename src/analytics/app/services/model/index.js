@@ -2,7 +2,7 @@ import { getDomainUser } from './domain_users'
 import { getEventType } from './event_types'
 import { getSession } from './sessions'
 import { createEvent } from './events'
-import Raw from '@apps/analytics/models/raw'
+import Raw from '@analytics/models/raw'
 
 export const model = async(req, job) => {
 

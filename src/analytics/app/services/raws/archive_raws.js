@@ -1,5 +1,5 @@
 import { upload } from '@core/services/aws/s3'
-import Raw from '@apps/analytics/models/raw'
+import Raw from '@analytics/models/raw'
 import { gzip } from '@core/services/gzip'
 import moment from 'moment'
 

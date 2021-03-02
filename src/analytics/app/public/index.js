@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import mt from './mt'
+import collect from './collect'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/mt', mt)
+router.post('/collect', collect)
 
 export default router

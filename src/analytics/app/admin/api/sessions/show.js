@@ -1,6 +1,6 @@
-import SessionSerializer from '@apps/analytics/serializers/session_serializer'
-import Session from '@apps/analytics/models/session'
-import Event from '@apps/analytics/models/event'
+import SessionSerializer from '@analytics/serializers/session_serializer'
+import Session from '@analytics/models/session'
+import Event from '@analytics/models/event'
 
 const showRoute = async (req, res) => {
 

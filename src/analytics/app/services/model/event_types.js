@@ -1,4 +1,4 @@
-import EventType from '@apps/analytics/models/event_type'
+import EventType from '@analytics/models/event_type'
 
 const getType = (enriched) => {
   if(enriched.event !== 'unstruct') return enriched.event

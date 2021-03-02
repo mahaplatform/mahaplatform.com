@@ -1,4 +1,4 @@
-import model from '@apps/analytics/services/model'
+import model from '@analytics/services/model'
 import Queue from '@core/objects/queue'
 
 const ModelQueue = new Queue({

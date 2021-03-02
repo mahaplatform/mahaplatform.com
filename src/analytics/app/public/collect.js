@@ -1,5 +1,5 @@
-import ValidateQueue from '@apps/analytics/queues/validate_queue'
-import Raw from '@apps/analytics/models/raw'
+import ValidateQueue from '@analytics/queues/validate_queue'
+import Raw from '@analytics/models/raw'
 import path from 'path'
 import fs from 'fs'
 

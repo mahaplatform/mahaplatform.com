@@ -1,4 +1,4 @@
-import { lookupIPAddress } from '@apps/analytics/services/maxmind'
+import { lookupIPAddress } from '@analytics/services/maxmind'
 
 const ipaddressEnrichment = async(req, event) => {
 

@@ -1,5 +1,5 @@
-import Context from '@apps/analytics/models/context'
-import Event from '@apps/analytics/models/event'
+import Context from '@analytics/models/context'
+import Event from '@analytics/models/event'
 import { getPage } from './pages'
 import { getData } from './data'
 

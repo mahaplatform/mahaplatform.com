@@ -1,4 +1,4 @@
-import { archiveRaws } from '@apps/analytics/services/raws'
+import { archiveRaws } from '@analytics/services/raws'
 import Queue from '@core/objects/queue'
 
 const archiveRawsCron = new Queue({

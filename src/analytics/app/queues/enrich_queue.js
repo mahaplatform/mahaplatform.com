@@ -1,4 +1,4 @@
-import enrich from '@apps/analytics/services/enrich'
+import enrich from '@analytics/services/enrich'
 import Queue from '@core/objects/queue'
 
 const EnrichQueue = new Queue({
