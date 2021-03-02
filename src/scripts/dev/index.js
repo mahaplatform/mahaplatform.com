@@ -55,8 +55,7 @@ const serverWatch = async () => {
     '--ignore','src/core/admin/app.js',
     '--ignore','src/core/admin/index.less',
     '--ignore','*_test.js',
-    '--ext','js,less,ejs,json',
-    '--verbose'
+    '--ext','js,less,ejs,json'
   ]
 
   const proc = spawn('nodemon', nodemon, {
